@@ -312,7 +312,7 @@
                             <div class="mb-3 row">
                                 <label for="lock_it" class="col-md-4 col-form-label">{tr}Lock this page{/tr}</label>
                                 <div class="col-md-8">
-                                    <input type="checkbox" id="lock_it" name="lock_it" {if $lock_it eq 'y'}checked="checked"{/if}>
+                                    <input type="checkbox" class="form-check-input" id="lock_it" name="lock_it" {if $lock_it eq 'y'}checked="checked"{/if}>
                                 </div>
                             </div>
                         {/if}
@@ -320,7 +320,7 @@
                             <div class="mb-3 row">
                                 <label for="comments_enabled" class="col-md-4 col-form-label">{tr}Allow comments on this page{/tr}</label>
                                 <div class="col-md-8">
-                                    <input type="checkbox" id="comments_enabled" name="comments_enabled" {if $comments_enabled eq 'y'}checked="checked"{/if}>
+                                    <input type="checkbox" class="form-check-input" id="comments_enabled" name="comments_enabled" {if $comments_enabled eq 'y'}checked="checked"{/if}>
                                 </div>
                             </div>
                         {/if}
@@ -328,7 +328,7 @@
                             <div class="mb-3 row">
                                 <label class="col-md-4 col-form-label" for="allowhtml">{tr}Allow HTML{/tr}</label>
                                 <div class="col-md-8">
-                                    <input type="checkbox" name="allowhtml" {if $allowhtml eq 'y'}checked="checked"{/if}>
+                                    <input type="checkbox" class="form-check-input" name="allowhtml" id="allowhtml" {if $allowhtml eq 'y'}checked="checked"{/if}>
                                     <span class="form-text">
                                         {tr}HTML tags are used to create elements of the wiki page, instead of being displayed as code.{/tr}
                                     </span>
@@ -350,7 +350,7 @@
                                 <div class="col-md-8 d-flex flex-row flex-wrap align-items-center">
                                     <input class="form-control wikiedit me-2" type="text" id="suck_url" name="suck_url" value="{$suck_url|escape}">
                                     <input type="submit" class="wikiaction btn btn-primary me-2" name="do_suck" value="{tr}Import{/tr}" onclick="needToConfirm=false;">
-                                    <label><input type="checkbox" name="parsehtml" {if $parsehtml eq 'y'}checked="checked"{/if}>&nbsp;
+                                    <label><input type="checkbox" class="form-check-input" name="parsehtml" {if $parsehtml eq 'y'}checked="checked"{/if}>&nbsp;
                                     {tr}Try to convert HTML to wiki{/tr}</label>
                                 </div>
                             </div>
@@ -610,11 +610,11 @@
                                 {if $trads|@count > 1 and $urgent_allowed}
                                     <div class="mb-3 row">
                                         <label for="" class="col-md-4 col-form-label">{tr}Translation{/tr}</label>
-                                        <div class="col-md-8">
+                                        <div class="col-md-8">fb
                                             <fieldset {if $prefs.feature_urgent_translation neq 'y' or $diff_style} style="display:none;"{/if}>
                                                 <legend>{tr}Translation request:{/tr}</legend>
                                                 <input type="hidden" name="lang" value="{$lang|escape}">
-                                                <input type="checkbox" id="translation_critical" name="translation_critical" id="translation_critical"{if $translation_critical} checked="checked"{/if}>
+                                                <input type="checkbox" class="form-check-input" name="translation_critical" id="translation_critical"{if $translation_critical} checked="checked"{/if}>
                                                 <label for="translation_critical">{tr}Send urgent translation request.{/tr}</label>
                                                 {if $diff_style}
                                                     <input type="hidden" name="oldver" value="{$diff_oldver|escape}">

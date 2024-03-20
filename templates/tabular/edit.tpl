@@ -286,9 +286,9 @@
                                         </td>
                                     {/if}
                                     <td><input class="primary" type="radio" name="pk"></td>
-                                    <td><input class="unique-key" type="checkbox"></td>
-                                    <td><input class="read-only" type="checkbox"></td>
-                                    <td><input class="export-only" type="checkbox"></td>
+                                    <td><input class="unique-key form-check-input" type="checkbox"></td>
+                                    <td><input class="read-only form-check-input" type="checkbox"></td>
+                                    <td><input class="export-only form-check-input" type="checkbox"></td>
                                     <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                 </tr>
                                 {foreach $schema->getColumns() as $column}
@@ -328,9 +328,9 @@
                                             </td>
                                         {/if}
                                         <td><input class="primary" type="radio" name="pk" {if $column->isPrimaryKey()} checked {/if}></td>
-                                        <td><input class="unique-key" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
-                                        <td><input class="read-only" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>
-                                        <td><input class="export-only" type="checkbox" {if $column->isExportOnly()} checked {/if}></td>
+                                        <td><input class="unique-key form-check-input" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
+                                        <td><input class="read-only form-check-input" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>
+                                        <td><input class="export-only form-check-input" type="checkbox" {if $column->isExportOnly()} checked {/if}></td>
                                         <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                     </tr>
                                 {/foreach}

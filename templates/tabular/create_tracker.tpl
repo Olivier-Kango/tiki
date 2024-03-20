@@ -92,9 +92,9 @@
 
                             </td>
                             <td><input class="primary" type="radio" name="pk" required /></td>
-                            <td><input class="unique-key" type="checkbox" /></td>
-                            <td><input class="read-only" type="checkbox" /></td>
-                            <td><input class="export-only" type="checkbox" /></td>
+                            <td><input class="unique-key form-check-input" type="checkbox" /></td>
+                            <td><input class="read-only form-check-input" type="checkbox" /></td>
+                            <td><input class="export-only form-check-input" type="checkbox" /></td>
                             <td class="text-end"><button class="remove">{icon name=remove}</button></td>
                         </tr>
                         </tbody>

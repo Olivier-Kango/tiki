@@ -14,7 +14,7 @@
                         <label class="label label-warning">{tr}This field is required{/tr}</label>
                     </p>
                     <p class="mb-3">
-                        <input id="tc-remember-example" type="checkbox"> {tr}Remember me{/tr}
+                        <input id="tc-remember-example" type="checkbox" class="form-check-input"> {tr}Remember me{/tr}
                     </p>
                     <p class="mb-3">
                         <button class="btn btn-primary">{tr}Login{/tr}</button>
@@ -40,7 +40,7 @@
                     </p>
                     <p class="mb-3">
                         <label for="tc-checkbox-example">{tr}Checkbox{/tr}</label>
-                        <input id="tc-checkbox-example" type="checkbox">
+                        <input id="tc-checkbox-example" type="checkbox" class="form-check-input">
                         {tr}This is a checkbox{/tr}
                     </p>
                     <p class="mb-3">
