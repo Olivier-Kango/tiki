@@ -6572,6 +6572,7 @@ $lang_current = array(
 "After a certain number of consecutive unsuccessful log-in attempts, the user will receive an email with instruction to validate his or her account. However, the user can still log in with the old password" => "Baada ya idadi fulani ya majaribio ya kuingia mfululizo bila mafanikio, mtumiaji atapokea barua pepe yenye maelekezo ya kuthibitisha akaunti yake. Hata hivyo, mtumiaji bado anaweza kuingia na nenosiri la zamani",
 // "brute force, brute-force, login failure, login-failure, failed logins" => "brute force, brute-force, login failure, login-failure, failed logins",
 "Suspend account after" => "Susisha akaunti baada",
+"Suspend/lockout account after" => "Sitisha/kufungia akaunti baada",
 "After a certain number of consecutive unsuccessful login attempts, the account is suspended. An admin must revalidate the account before the user can use it again" => "Baada ya idadi fulani ya majaribio ya kuingia mfululizo bila mafanikio, akaunti imesimamishwa. Ni lazima msimamizi athibitishe akaunti upya kabla ya mtumiaji kuitumia tena",
 "URL the user is redirected to after account validation" => "URL mtumiaji anaelekezwa baada ya kuthibitishwa kwa akaunti",
 "The default page a Registered user sees after account validation is \"tiki-information.php?msg=Account validated successfully\"" => "Ukurasa chaguomsingi ambao mtumiaji Aliyejiandikisha anaona baada ya uthibitishaji wa akaunti ni \"tiki-information.php?msg=Akaunti imethibitishwa kwa mafanikio\"",
