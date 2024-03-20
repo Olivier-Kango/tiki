@@ -2914,6 +2914,11 @@ class FileGalLib extends TikiLib
     public function get_file_additional($fileId)
     {
         $file = $this->get_file_info($fileId);
+
+        if (! is_array($file)) {//when fileId is empty
+            throw new Exception('File not found');
+        }
+
         $files = $this->get_files(-1, -1, false, null, $file['galleryId'])['data'];
         $files = array_filter($files, function ($file) use ($fileId) {
             return $file['fileId'] == $fileId;
