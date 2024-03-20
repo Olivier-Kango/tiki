@@ -134,6 +134,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\Percent(), 'handle'];
             case 'preg_match':
                 return [$this, 'smartyModifierPregMatch'];
+            case 'preg_match_all':
+                return [$this, 'smartyModifierPregMatchAll'];
             case 'quoted':
                 return [new \SmartyTiki\Modifier\Quoted(), 'handle'];
             case 'replacei':
@@ -833,6 +835,23 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierPregMatch($pattern, $subject, $matches = null, $flags = 0, $offset = 0)
     {
         return preg_match($pattern, $subject, $matches, $flags, $offset);
+    }
+
+    /**
+    * Smarty modifier preg_match_all
+    * ------------------------------
+    * Purpose: Perform a global regular expression match
+    * @param string $pattern     The pattern to search for, as a string.
+    * @param string $subject     The input string.
+    * @param array  $matches
+    * @param int    $flags
+    * @param int    $offset
+    * @return int|flase
+    * @see https://php.net/manual/en/function.preg-match.php for details about the params description
+    */
+    public function smartyModifierPregMatchAll($pattern, $subject, $matches = null, $flags = 0, $offset = 0)
+    {
+        return preg_match_all($pattern, $subject, $matches, $flags, $offset);
     }
 
     /**
