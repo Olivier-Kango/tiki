@@ -2226,14 +2226,18 @@ class TrackerLib extends TikiLib
                     }
                 } elseif ($array['options_array'][0] == 'avatar') {
                     $filekey = 'ins_' . $array['fieldId'];
-                    if (isset($_FILES[$filekey]) && is_uploaded_file($_FILES[$filekey]['tmp_name'])) {
-                        $filegallib = TikiLib::lib('filegal');
-                        try {
-                            $filegallib->assertUploadedFileIsSafe($_FILES[$filekey]['tmp_name'], $_FILES[$filekey]['name']);
-                            $avatarlib = TikiLib::lib('avatar');
-                            $avatarlib->set_avatar_from_url($_FILES[$filekey]['tmp_name'], $trackersync_user, $_FILES[$filekey]['name']);
-                        } catch (Exception $e) {
-                            Feedback::error($e->getMessage());
+                    if (isset($_FILES[$filekey])) {
+                        if (is_uploaded_file($_FILES[$filekey]['tmp_name'])) {
+                            $filegallib = TikiLib::lib('filegal');
+                            try {
+                                $filegallib->assertUploadedFileIsSafe($_FILES[$filekey]['tmp_name'], $_FILES[$filekey]['name']);
+                                $avatarlib = TikiLib::lib('avatar');
+                                $avatarlib->set_avatar_from_url($_FILES[$filekey]['tmp_name'], $trackersync_user, $_FILES[$filekey]['name']);
+                            } catch (Exception $e) {
+                                Feedback::error($e->getMessage());
+                            }
+                        } else {
+                            Feedback::error($tikilib->uploaded_file_error($_FILES['userfile1']['error']));
                         }
                     }
                 } else {
