@@ -2116,10 +2116,12 @@ class Services_Tracker_Controller
             throw new Services_Exception_Denied(tr('Reserved for tracker administrators'));
         }
 
-        $definition = Tracker_Definition::get($trackerId);
+        if ($trackerId) {
+            $definition = Tracker_Definition::get($trackerId);
 
-        if (! $definition) {
-            throw new Services_Exception_NotFound();
+            if (! $definition) {
+                throw new Services_Exception_NotFound();
+            }
         }
 
         $cat_type = 'tracker';
@@ -2176,15 +2178,15 @@ class Services_Tracker_Controller
         return [
             'title' => $trackerId ? tr('Edit') . " " . tr('%0', $definition->getConfiguration('name')) : tr('Create Tracker'),
             'trackerId' => $trackerId,
-            'info' => $definition->getInformation(),
+            'info' => $trackerId ? $definition->getInformation() : [],
             'statusTypes' => TikiLib::lib('trk')->status_types(),
-            'statusList' => preg_split('//', $definition->getConfiguration('defaultStatus', 'o'), -1, PREG_SPLIT_NO_EMPTY),
-            'sortFields' => $this->getSortFields($definition),
-            'attachmentAttributes' => $this->getAttachmentAttributes($definition->getConfiguration('orderAttachments', 'created,filesize,hits')),
-            'startDate' => $this->format($definition->getConfiguration('start'), '%Y-%m-%d'),
-            'startTime' => $this->format($definition->getConfiguration('start'), '%H:%M'),
-            'endDate' => $this->format($definition->getConfiguration('end'), '%Y-%m-%d'),
-            'endTime' => $this->format($definition->getConfiguration('end'), '%H:%M'),
+            'statusList' => $trackerId ? preg_split('//', $definition->getConfiguration('defaultStatus', 'o'), -1, PREG_SPLIT_NO_EMPTY) : null,
+            'sortFields' => $this->getSortFields($definition ?? null),
+            'attachmentAttributes' => $trackerId ? $this->getAttachmentAttributes($definition->getConfiguration('orderAttachments', 'created,filesize,hits')) : [],
+            'startDate' => $trackerId ? $this->format($definition->getConfiguration('start'), '%Y-%m-%d') : '',
+            'startTime' => $trackerId ? $this->format($definition->getConfiguration('start'), '%H:%M') : '',
+            'endDate' => $trackerId ? $this->format($definition->getConfiguration('end'), '%Y-%m-%d') : '',
+            'endTime' => $trackerId ? $this->format($definition->getConfiguration('end'), '%H:%M') : '',
             'groupList' => $this->getGroupList(),
             'groupforAlert' => $groupforAlert,
             'showeachuser' => $groupalertlib->GetShowEachUser('tracker', 'trackerId', $groupforAlert),
@@ -2650,8 +2652,10 @@ class Services_Tracker_Controller
     {
         $sorts = [];
 
-        foreach ($definition->getFields() as $field) {
-            $sorts[$field['fieldId']] = $field['name'];
+        if ($definition) {
+            foreach ($definition->getFields() as $field) {
+                $sorts[$field['fieldId']] = $field['name'];
+            }
         }
 
         $sorts[-1] = tr('Last Modification');
