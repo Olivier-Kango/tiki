@@ -84,7 +84,7 @@ function _shown() {
 
         }
     }
-    // click the align buttons to set the input alignments
+    // click the aligned buttons to set the input alignments
     setTimeout(function () {
         $(".text-primary", tableBuilderTable.value).trigger("click")
     }, 10)

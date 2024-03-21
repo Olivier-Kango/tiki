@@ -30,24 +30,7 @@ class ToolbarDialog extends ToolbarItem
                 $wysiwyg = '';  // cke link dialog now adapted for wiki links
                 $markdown = 'tikilink';
                 $markdown_wysiwyg = 'tikilink';
-                $list = [
-                    tra("Wiki Link"),
-                    '<label for="tbWLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" id="tbWLinkDesc" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    '<label for="tbWLinkPage">' . tra("Link to this page") . '</label>',
-                    '<input type="text" id="tbWLinkPage" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    $prefs['wikiplugin_alink'] == 'y' ? '<label for="tbWLinkAnchor">' . tra(
-                        "Anchor"
-                    ) . ':</label>' : '',
-                    $prefs['wikiplugin_alink'] == 'y' ? '<input type="text" id="tbWLinkAnchor" class="form-control form-control-sm  mb-2 ui-widget-content ui-corner-all" style="width: 98%" />' : '',
-                    $prefs['feature_semantic'] == 'y' ? '<label for="tbWLinkRel">' . tra(
-                        "Semantic relation"
-                    ) . ':</label>' : '',
-                    $prefs['feature_semantic'] == 'y' ? '<input type="text" id="tbWLinkRel" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />' : '',
-                    '{"open": function () { dialogInternalLinkOpen(area_id, clickedElement); },
-                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Insert") . '": function() { dialogInternalLinkInsert(area_id,this); }}}',
-                ];
+                $list = [];
 
                 break;
             case 'objectlink':
@@ -64,13 +47,13 @@ class ToolbarDialog extends ToolbarItem
                 $smarty = TikiLib::lib('smarty');
                 $object_selector = smarty_function_object_selector(
                     [
-                                                                       '_id'        => 'tbOLinkObjectSelector',
-                                                                       '_class'     => 'ui-widget-content ui-corner-all',
-                                                                       //              '_format' => '{title}',
-                                                                       '_filter'    => ['type' => ''],
-                                                                       '_parent'    => 'tbOLinkObjectType',
-                                                                       '_parentkey' => 'type',
-                                                                   ],
+                       '_id'        => 'tbOLinkObjectSelector',
+                       '_class'     => 'ui-widget-content ui-corner-all',
+                       //              '_format' => '{title}',
+                       '_filter'    => ['type' => ''],
+                       '_parent'    => 'tbOLinkObjectType',
+                       '_parentkey' => 'type',
+                        ],
                     $smarty->getEmptyInternalTemplate()
                 );
 
@@ -100,21 +83,7 @@ class ToolbarDialog extends ToolbarItem
                 $icon = tra('img/icons/world_link.png');
                 $markdown = 'link';
                 $markdown_wysiwyg = 'link';
-                $list = [
-                    tra('External Link'),
-                    '<label for="tbLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" id="tbLinkDesc" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    '<label for="tbLinkURL">' . tra("link to this URL") . '</label>',
-                    '<input type="text" id="tbLinkURL" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    '<label for="tbLinkRel">' . tra("Relation") . ':</label>',
-                    '<input type="text" id="tbLinkRel" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    $prefs['cachepages'] == 'y' ? '<div class="form-check mt-2"><input type="checkbox" id="tbLinkNoCache" class="form-check-input ui-widget-content ui-corner-all" />' . '<label for="tbLinkNoCache" class="form-check-label">' . tra(
-                        "No cache"
-                    ) . ':</label>' : '',
-                    '{"width": 300, "open": function () { dialogExternalLinkOpen( area_id ) },
-                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Insert") . '": function() { dialogExternalLinkInsert(area_id,this) }}}',
-                ];
+                $list = [];
                 break;
 
             case 'table':

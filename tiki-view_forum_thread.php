@@ -187,7 +187,7 @@ if (count($threads) > 0) {
         if (isset($threads[1])) {
             $smarty->assign('next_topic', $threads[1]['threadId']);
         }
-    } else if ($threads[1]['threadId'] == $_REQUEST['comments_parentId']) {
+    } elseif ($threads[1]['threadId'] == $_REQUEST['comments_parentId']) {
         $smarty->assign('prev_topic', $threads[0]['threadId']);
         if (isset($threads[2])) {
             $smarty->assign('next_topic', $threads[2]['threadId']);

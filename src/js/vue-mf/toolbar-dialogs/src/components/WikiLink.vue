@@ -15,6 +15,7 @@ const props = defineProps({
 
 const tdgLabel = ref();
 const toolbarObject = ref(props.toolbarObject);
+const syntax = ref(props.syntax);
 
 const labelInput = ref("");
 const pageInput = ref("");
@@ -30,14 +31,17 @@ onMounted(() => {
 });
 
 function _shown() {
-    const $textArea = $("#" + toolbarObject.value.domElementId),
-            syntax = getTASelection($textArea.get(0));
+    if (!syntax.value) {
+        const $textArea = $("#" + toolbarObject.value.domElementId);
+        syntax.value = getTASelection($textArea.get(0));
+    }
+
 
     const editor = toolbarObject.value.editor;
 
-    let parts = syntax.match(/\((.*?)\((.*?)\|(.*?)\)\)/);
+    let parts = syntax.value.match(/\((.*?)\((.*?)\|(.*?)\)\)/);
     if (!parts) {
-        parts = syntax.match(/\((.*?)\((.*?)\)\)/);
+        parts = syntax.value.match(/\((.*?)\((.*?)\)\)/);
     }
 
     if (parts) {
@@ -45,7 +49,7 @@ function _shown() {
         pageInput.value = parts[2] ?? "";
         relationInput.value = parts[1];
     } else {
-        labelInput.value = syntax;
+        labelInput.value = syntax.value;
         pageInput.value = "";
         relationInput.value = "";
     }

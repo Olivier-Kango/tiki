@@ -50,20 +50,23 @@ function save() {
     }
     bootstrapModalRef.value.close();
 
-    // return not used yet
+    // return isn't used yet
     return syntax;
 }
 </script>
 
 <template>
-    <a class="toolbar btn btn-sm px-2 tips bottom qt-inline" :title="toolbarObject.label" @click="showModal()">
-        <span :class="'icon icon' + toolbarObject.iconname + ' fas fa-' + toolbarObject.iconname"></span>
-    </a>
+    <template v-if="toolbarObject.hasOwnProperty('iconname')">
+        <a class="toolbar btn btn-sm px-2 tips bottom qt-inline" :title="toolbarObject.label" @click="showModal()">
+            <span :class="'icon icon' + toolbarObject.iconname + ' fas fa-' + toolbarObject.iconname"></span>
+        </a>
+    </template>
+    <span v-else @click="showModal()">{{ toolbarObject.labelText }}</span>
     <BootstrapModal ref="bootstrapModalRef" :title="toolbarObject.label" :size="toolbarObject.name === 'table' ? ' modal-lg' : ''">
         <template #body>
-            <ExternalLink v-if="toolbarObject.name === 'link'" ref="link" :toolbar-object="toolbarObject" />
-            <WikiLink v-if="toolbarObject.name === 'tikilink'" ref="tikilink" :toolbar-object="toolbarObject" />
-            <TableBuilder v-if="toolbarObject.name === 'table'" ref="table" :toolbar-object="toolbarObject" />
+            <ExternalLink v-if="toolbarObject.name === 'link'" ref="link" :toolbar-object="toolbarObject" :syntax="syntax" />
+            <WikiLink v-if="toolbarObject.name === 'tikilink'" ref="tikilink" :toolbar-object="toolbarObject" :syntax="syntax" />
+            <TableBuilder v-if="toolbarObject.name === 'table'" ref="table" :toolbar-object="toolbarObject" :syntax="syntax" />
         </template>
         <template #footer>
             <button class="btn btn-primary btn-sm" @click="save()">Apply</button>

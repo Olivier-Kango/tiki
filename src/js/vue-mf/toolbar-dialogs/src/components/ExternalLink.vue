@@ -15,6 +15,7 @@ const props = defineProps({
 
 const tdgLabel = ref();
 const toolbarObject = ref(props.toolbarObject);
+const syntax = ref(props.syntax);
 
 const labelInput = ref("");
 const urlInput = ref("");
@@ -30,22 +31,23 @@ onMounted(() => {
 });
 
 function _shown() {
-    const $textArea = $("#" + toolbarObject.value.domElementId),
-            syntax = getTASelection($textArea.get(0));
-
+    if (!syntax.value) {
+        const $textArea = $("#" + toolbarObject.value.domElementId);
+        syntax.value = getTASelection($textArea.get(0));
+    }
 
     let parts;
 
     if (! toolbarObject.value.editor.isMarkdown) {
-        parts = syntax.match(/\[(.*?)\|(.*?)\|(.*?)]/);
+        parts = syntax.value.match(/\[(.*?)\|(.*?)\|(.*?)]/);
         if (!parts) {
-            parts = syntax.match(/\[(.*?)\|(.*?)]/);
+            parts = syntax.value.match(/\[(.*?)\|(.*?)]/);
         }
         if (!parts) {
-            parts = syntax.match(/\[(.*?)]/);
+            parts = syntax.value.match(/\[(.*?)]/);
         }
     } else {
-        parts = syntax.match(/\[(.*?)]\((.*?)\)/);
+        parts = syntax.value.match(/\[(.*?)]\((.*?)\)/);
         if (parts) {
             const label = parts[1];
             parts[1] = parts[2];
@@ -58,8 +60,8 @@ function _shown() {
         labelInput.value = parts[2] ?? "";
         relationInput.value = parts[3] ?? "";
     } else {
-        urlInput.value = "";
-        labelInput.value = syntax;
+        labelInput.value = toolbarObject.value.labelText;
+        urlInput.value = toolbarObject.value.labelPage != null ? toolbarObject.value.labelPage : syntax.value;
         relationInput.value = "";
     }
 }
