@@ -1371,7 +1371,7 @@ class Services_Tracker_Controller
                     ];
                 }
                 //return to page
-                if (! $redirect) {
+                if ($skipRedirect === 1 || ! $redirect) {
                     $referer = Services_Utilities::noJsPath();
 
                     // Return item data and refresh info
@@ -1391,7 +1391,7 @@ class Services_Tracker_Controller
                     return $return;
                 } elseif ($access->is_xml_http_request()) {
                     return Services_Utilities::redirect($redirect);
-                } elseif ($skipRedirect !== 1) {
+                } else {
                     $access->redirect($redirect);
                 }
             }
