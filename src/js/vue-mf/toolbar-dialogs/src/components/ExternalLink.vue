@@ -97,14 +97,12 @@ defineExpose({ save: _save, shown: _shown });
 </script>
 
 <template>
-    <DialogInput ref="tdgLabel" v-model="labelInput" label="Label" />
-    <DialogInput ref="tdgUrl" v-model="urlInput" label="URL" />
+    <DialogInput ref="tdgLabel" v-model="labelInput" label="Label" class="mb-2" />
+    <DialogInput ref="tdgUrl" v-model="urlInput" label="URL" class="mb-2" />
     <div class="input-group mr-sm-2" v-if="! toolbarObject.editor.isMarkdown">
         <DialogInput ref="tdgRelation" v-model="relationInput" label="Relation" />
-        <div class="input-group-append" data-bs-toggle="tooltip" title="Going beyond Backlinks functionality, this allows some semantic relationships to be defined between wiki pages.">
-            <div class="input-group-text">
-                <span class="fa fa-circle-info"></span>
-            </div>
+        <div class="input-group-text" data-bs-toggle="tooltip" title="Going beyond Backlinks functionality, this allows some semantic relationships to be defined between wiki pages.">
+            <span class="fa fa-circle-info"></span>
         </div>
     </div>
 </template>
