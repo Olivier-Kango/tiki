@@ -24,6 +24,9 @@ class WikiParser_PluginMatcher implements Iterator, Countable
      */
     public static function match($text)
     {
+        if ($text === null) {
+            $text = '';
+        }
         $matcher = new self();
         $matcher->text = $text;
         $matcher->findMatches(0, strlen($text));
