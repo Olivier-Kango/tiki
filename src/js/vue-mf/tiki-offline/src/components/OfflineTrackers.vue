@@ -10,17 +10,24 @@
             :tracker="tracker"
             :index="index"
         >
-            <table>
-                <thead>Items</thead>
-                <tbody>
-                    <tr v-for="item in trackerItems[0]">
-                        <template v-if="item.trackerId == tracker.trackerId">
-                            <!-- Todo: Show one of the mains fields-->
-                            <td>{{ item }}</td>
-                        </template>
-                    </tr> 
-                </tbody>
-            </table>
+            <!--Todo: Add table style in @vue-mf/styleguide-->
+            <div class="table-responsive large-table-no-wrap">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th v-for="field in tracker.fields">{{ field.name }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in trackerItems[0]">
+                            <template v-if="item.trackerId == tracker.trackerId">
+                                <!-- Todo: Show link on one of the main fields-->
+                                <td v-for="field in tracker.fields">{{ item[field.ins_id] }}</td>
+                            </template>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
         </OfflineTracker>
     </div>
 </template>
