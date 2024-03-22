@@ -467,13 +467,13 @@ class CalRecurrence extends TikiLib
         global $user;
         $calendarlib = TikiLib::lib('calendar');
 
-        $dstTimezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
-        $vcalendar = $this->constructVCalendar($dstTimezone->getName());
+        $vcalendar = $this->constructVCalendar($this->getRecurenceDstTimezone());
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
         $end = $this->getEndPeriod();
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
+        $dstTimezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
         $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $dstTimezone);
         $tx = TikiDb::get()->begin();
         foreach ($expanded->VEVENT as $vevent) {
@@ -553,22 +553,22 @@ class CalRecurrence extends TikiLib
             return;
         }
 
-        $dstTimezone = $oldRec->getRecurenceDstTimezone() ? new DateTimeZone($oldRec->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
-        $vcalendar = $oldRec->constructVCalendar($dstTimezone->getName());
+        $vcalendar = $oldRec->constructVCalendar($oldRec->getRecurenceDstTimezone());
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
         $end = $oldRec->getEndPeriod();
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
+        $dstTimezone = $oldRec->getRecurenceDstTimezone() ? new DateTimeZone($oldRec->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
         $old_expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $dstTimezone);
 
-        $dstTimezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
-        $vcalendar = $this->constructVCalendar($dstTimezone->getName());
+        $vcalendar = $this->constructVCalendar($this->getRecurenceDstTimezone());
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
         $end = $oldRec->getEndPeriod();
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
+        $dstTimezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
         $new_expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $dstTimezone);
 
         $tx = TikiDb::get()->begin();
