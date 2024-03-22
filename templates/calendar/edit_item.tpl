@@ -473,7 +473,7 @@
                         <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_item" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete this event?{/tr}">{tr}This event only{/tr}</button></li>
                         <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete recurring event series for all future events?{/tr}">{tr}Future recurring events{/tr}</button></li>
                         <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" data-alt_param="all" data-alt_param_value="1" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete all recurring events in this series?{/tr}">{tr}All recurring events{/tr}</button></li>
-                    </div>
+                    </ul>
                 </div>
             {/if}
             {if $prefs.calendar_export_item == 'y' and not empty($calitemId)}
