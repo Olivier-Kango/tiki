@@ -440,6 +440,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             $recurrence->setDateOfYear(
                 $dateNow->date->format('m') . $dateNow->date->format('d')
             );
+            $recurrence->setStartPeriod(TikiDate::getStartDay($calitem['start'], 'UTC'));
 
             $recurrence = $recurrence->toArray();
             $recurranceNumChangedEvents = 0;
@@ -676,7 +677,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         if ($calitemId && $input->recurrenceId->int()) {
             $calRec = new CalRecurrence($input->recurrenceId->int());
             $client = new \Tiki\SabreDav\CaldavClient();
-            $client->deleteCalendarObject($calRec);
+            $client->deleteCalendarObject($calRec, $input->all->int() ? true : false);
             if ($this->logsLib) {
                 $this->logsLib->add_action(
                     'Removed',
@@ -818,8 +819,13 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $calitem = $input->asArray('calitem');
         $recurrence = parent::createRecurrenceFromInput($input);
         $recurrence->setCalendarId($calitem['calendarId']);
+        // Start/End times adjusted from browser's timezone to UTC
         $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
+        $server_offset = TikiDate::tzServerOffset($displayTimezone, $calitem['start']);
+        $calitem['start'] -= $server_offset;
         $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
+        $server_offset = TikiDate::tzServerOffset($displayTimezone, $calitem['end']);
+        $calitem['end'] -= $server_offset;
         $tz = date_default_timezone_get();
         date_default_timezone_set('UTC');
         $tikidateStart = new TikiDate();

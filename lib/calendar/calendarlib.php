@@ -875,8 +875,6 @@ class CalendarLib extends TikiLib
                 $z[] = '?';
                 if ($k == 'priority') {
                     $v = (string)$v;
-                } elseif ($k == 'allday') {
-                    $v = ($v == 'true') ? 1 : 0;
                 }
                 $r[] = $v;
             }

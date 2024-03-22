@@ -142,6 +142,7 @@ class Utilities
         // The object tree needs in turn to be passed to the server class
         $server = new DAV\Server($tree);
         $server->setBaseUri($tikiroot . 'tiki-caldav.php');
+        $calendarBackend->server = $server;
 
         // Authentication plugin
         $authPlugin = new DAV\Auth\Plugin($authBackend);

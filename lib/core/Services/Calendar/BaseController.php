@@ -105,9 +105,10 @@ class Services_Calendar_BaseController
                 }
                 break;
         }
-        // startPeriod does not exist when using the old non-jscalendar time selector with 3 dropdowns
+        // Start/End periods adjusted from browser's timezone to UTC
         $startPeriod = $input->startPeriod->int();
         if (empty($startPeriod)) {
+            // startPeriod does not exist when using the old non-jscalendar time selector with 3 dropdowns - n.b. this might not be the case anymore with the new UI
             $startPeriod = mktime(
                 0,
                 0,
@@ -116,22 +117,24 @@ class Services_Calendar_BaseController
                 $input->startPeriod_Day->int(),
                 $input->startPeriod_Year->int()
             );
-        }
-        $calitem = $input->asArray('calitem');
-        if ($recurrence->getId() > 0 && ! empty($calitem['calitemId']) && $calitem['calitemId'] == $recurrence->getFirstItemId()) {
-            // modify start period when the first event is updated
-            $recurrence->setStartPeriod(TikiDate::getStartDay($calitem['start'], $displayTimezone));
         } else {
-            $recurrence->setStartPeriod($startPeriod);
+            $startPeriod = TikiDate::convertWithTimezone($input->asArray(), $startPeriod);
         }
+        $recurrence->setStartPeriod(TikiDate::getStartDay($startPeriod, 'UTC'));
         if ($input->endType->word() === "dt") {
-            $recurrence->setEndPeriod($input->endPeriod->word());
+            $endPeriod = $input->endPeriod->int();
+            $endPeriod = TikiDate::convertWithTimezone($input->asArray(), $endPeriod);
+            $server_offset = TikiDate::tzServerOffset($displayTimezone, $endPeriod);
+            $endPeriod -= $server_offset;
+            $recurrence->setEndPeriod($endPeriod);
+            $recurrence->setNbRecurrences(0);
         } else {
             $nbRecurrences = $input->nbRecurrences->int() ?? 1;
             if ($input->recurrenceType->word() === 'weekly') {
                 $nbRecurrences = $nbRecurrences * count($input->asArray('weekdays'));
             }
             $recurrence->setNbRecurrences($nbRecurrences);
+            $recurrence->setEndPeriod(0);
         }
         return $recurrence;
     }

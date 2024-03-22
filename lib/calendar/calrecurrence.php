@@ -467,14 +467,14 @@ class CalRecurrence extends TikiLib
         global $user;
         $calendarlib = TikiLib::lib('calendar');
 
-        $vcalendar = $this->constructVCalendar();
+        $dstTimezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
+        $vcalendar = $this->constructVCalendar($dstTimezone->getName());
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
         $end = $this->getEndPeriod();
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
-        $timezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
-        $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $timezone);
+        $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $dstTimezone);
         $tx = TikiDb::get()->begin();
         foreach ($expanded->VEVENT as $vevent) {
             $data = [
@@ -553,21 +553,23 @@ class CalRecurrence extends TikiLib
             return;
         }
 
-        $vcalendar = $oldRec->constructVCalendar();
+        $dstTimezone = $oldRec->getRecurenceDstTimezone() ? new DateTimeZone($oldRec->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
+        $vcalendar = $oldRec->constructVCalendar($dstTimezone->getName());
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
         $end = $oldRec->getEndPeriod();
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
-        $old_expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end));
+        $old_expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $dstTimezone);
 
-        $vcalendar = $this->constructVCalendar();
+        $dstTimezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
+        $vcalendar = $this->constructVCalendar($dstTimezone->getName());
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
         $end = $oldRec->getEndPeriod();
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
-        $new_expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end));
+        $new_expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $dstTimezone);
 
         $tx = TikiDb::get()->begin();
         foreach ($new_expanded->VEVENT as $key => $vevent) {
@@ -581,6 +583,7 @@ class CalRecurrence extends TikiLib
                     }
                 }
             }
+
             if (! $found) {
                 // create it
                 $data = [
@@ -874,15 +877,17 @@ class CalRecurrence extends TikiLib
         return null;
     }
 
-    public function constructVCalendar()
+    public function constructVCalendar($timezone = null)
     {
-        static $calendar_timezones = [];
-        if (isset($calendar_timezones[$this->getCalendarId()])) {
-            $timezone = $calendar_timezones[$this->getCalendarId()];
-        } else {
-            $calendar = TikiLib::lib('calendar')->get_calendar($this->getCalendarId());
-            $timezone = TikiLib::lib('tiki')->get_display_timezone($calendar['user']);
-            $calendar_timezones[$this->getCalendarId()] = $timezone;
+        if (! $timezone) {
+            static $calendar_timezones = [];
+            if (isset($calendar_timezones[$this->getCalendarId()])) {
+                $timezone = $calendar_timezones[$this->getCalendarId()];
+            } else {
+                $calendar = TikiLib::lib('calendar')->get_calendar($this->getCalendarId());
+                $timezone = TikiLib::lib('tiki')->get_display_timezone($calendar['user']);
+                $calendar_timezones[$this->getCalendarId()] = $timezone;
+            }
         }
         if ($this->isAllday()) {
             $startOffset = 0;
@@ -893,12 +898,12 @@ class CalRecurrence extends TikiLib
             $endOffset = str_pad($this->getEnd(), 4, '0', STR_PAD_LEFT);
             $endOffset = substr($endOffset, 0, 2) * 60 * 60 + substr($endOffset, -2) * 60;
         }
-        // peculiarity here is that start/end period are in user's timezone (dtzone) but start/end offsets are in UTC hours
+        // start/end period and start/end offsets are in UTC hours
         $dtzone = new DateTimeZone($timezone);
-        $dtstart = DateTime::createFromFormat('U', TikiDate::getStartDay($this->getStartPeriod(), $timezone) + $startOffset);
+        $dtstart = DateTime::createFromFormat('U', TikiDate::getStartDay($this->getStartPeriod(), 'UTC') + $startOffset);
         $dtstart->setTimezone($dtzone);
         $dtstart->setTimestamp($dtstart->getTimestamp());
-        $dtend = DateTime::createFromFormat('U', TikiDate::getStartDay($this->getStartPeriod(), $timezone) + $endOffset);
+        $dtend = DateTime::createFromFormat('U', TikiDate::getStartDay($this->getStartPeriod(), 'UTC') + $endOffset);
         $dtend->setTimezone($dtzone);
         $dtend->setTimestamp($dtend->getTimestamp());
 

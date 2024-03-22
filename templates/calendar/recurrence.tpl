@@ -209,7 +209,7 @@
                             {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" {if $recurrence.yearlyType eq 'date'}checked="checked"{/if} name="recurrenceTypeYearly" value="date"></span>{/if}
                             <span class="input-group-text">{tr}Each{/tr}</span>
                             <select name="yearlyDay" class="form-control" onChange="checkDateOfYear(this.options[this.selectedIndex].value,document.forms['f'].elements['yearlyMonth'].options[document.forms['f'].elements['yearlyMonth'].selectedIndex].value);">
-                                {section name=k start=1 loop=31}
+                                {section name=k start=1 loop=32}
                                     <option value="{$smarty.section.k.index}" {if $recurrence.yearlyDay eq $smarty.section.k.index} selected="selected" {/if} >
                                         {if $smarty.section.k.index lt 10}
                                             0
@@ -352,42 +352,29 @@
                 <div id="errorDateOfYear" class="text-danger offset-sm-1"></div>
                 <hr>
             {/if}
-            {if $recurrence.id gt 0}
-                <input type="hidden" name="startPeriod" value="{$recurrence.startPeriod}">
-                <input type="hidden" name="nbRecurrences" value="{$recurrence.nbRecurrences}">
-                <input type="hidden" name="endPeriod" value="{$recurrence.endPeriod}">
-                {tr}Starting on{/tr} {$recurrence.startPeriod|tiki_long_date},&nbsp;
-                {if $recurrence.endPeriod gt 0}
-                    {tr}ending by{/tr} {$recurrence.endPeriod|tiki_long_date}
-                {else}
-                    {tr}ending after{/tr} {$recurrence.nbRecurrences} {tr}events{/tr}
-                {/if}.
-            {else}
-                {tr}Start date{/tr}
-                <div class="offset-sm-1 col-sm-6 input-group">
-                    {if empty($recurrence.startPeriod)}{$startPeriod = $calitem.start}{else}{$startPeriod = $recurrence.startPeriod}{/if}
-                    {jscalendar id="startPeriod" date=$startPeriod fieldname="startPeriod" align="Bc" showtime='n'}
+            {tr}Start date{/tr}
+            <div class="offset-sm-1 col-sm-6 input-group">
+                {if empty($recurrence.startPeriod)}{$startPeriod = $calitem.start}{else}{$startPeriod = $recurrence.startPeriod}{/if}
+                {jscalendar id="startPeriod" date=$startPeriod fieldname="startPeriod" align="Bc" showtime='n'}
+            </div>
+            <hr/>
+            <input type="radio" id="id_endTypeNb" name="endType" value="nb" {if $recurrence.nbRecurrences or $calitem.calitemId eq 0 or empty($recurrence.id)} checked="checked" {/if}>
+            <label for="id_endTypeNb"> &nbsp;{tr}End after{/tr}</label>
+            <div class="offset-sm-1 col-sm-6">
+                <div class="input-group">
+                    <input type="number" min="1" name="nbRecurrences" class="form-control" value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
+                    <span class="input-group-text">
+                        {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
+                    </span>
                 </div>
-                <hr/>
-                <input type="radio" id="id_endTypeNb" name="endType" value="nb" {if $recurrence.nbRecurrences or $calitem.calitemId eq 0 or empty($recurrence.id)} checked="checked" {/if}>
-                <label for="id_endTypeNb"> &nbsp;{tr}End after{/tr}
-                </label>
-                <div class="offset-sm-1 col-sm-6">
-                    <div class="input-group">
-                        <input type="number" min="1" name="nbRecurrences" class="form-control" value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
-                        <span class="input-group-text">
-                            {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
-                        </span>
-                    </div>
-                </div>
-                <br>
-                <input type="radio" id="id_endTypeDt" name="endType" value="dt" {if $recurrence.endPeriod gt 0} checked="checked" {/if}>
-                <label for="id_endTypeDt"> &nbsp;{tr}End before{/tr}
-                </label>
-                <div class="offset-sm-1 col-sm-6 input-group">
-                    {jscalendar id="endPeriod" date=$recurrence.endPeriod fieldname="endPeriod" align="Bc" showtime='n'}
-                </div>
-            {/if}
+            </div>
+            <br>
+            <input type="radio" id="id_endTypeDt" name="endType" value="dt" {if $recurrence.endPeriod gt 0} checked="checked" {/if}>
+            <label for="id_endTypeDt"> &nbsp;{tr}End before{/tr}
+            </label>
+            <div class="offset-sm-1 col-sm-6 input-group">
+                {jscalendar id="endPeriod" date=$recurrence.endPeriod fieldname="endPeriod" align="Bc" showtime='n'}
+            </div>
         </div>
     </div>
 </div>
