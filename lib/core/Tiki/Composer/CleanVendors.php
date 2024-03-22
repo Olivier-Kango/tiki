@@ -124,13 +124,6 @@ class CleanVendors
         }
 
         self::remove(
-            $vendors . 'afarkas/html5shiv',
-            [
-                'src',
-                'dist/html5shiv-printshiv.js',
-            ]
-        );
-        self::remove(
             $vendors . 'codemirror/codemirror',
             [
                 'mode/tiki',
@@ -440,8 +433,6 @@ class CleanVendors
         $fs->remove($vendors . 'components/tablesorter');
         // duplicate with rmm5t/jquery-timeago
         $fs->remove($vendors . 'components/jquery-timeago');
-        // duplicate with afarkas/html5shiv
-        $fs->remove($vendors . 'components/html5shiv');
         // duplicate with moment/moment
         $fs->remove($vendors . 'components/moment');
         // duplicate with drmonty/smartmenus
