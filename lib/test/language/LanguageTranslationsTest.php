@@ -255,7 +255,7 @@ class LanguageTranslationsTest extends TikiTestCase
         $this->assertEquals($expectedResult, $this->obj->getFileUntranslated());
     }
 
-    public function getAllTranslationsDataProvider(): array
+    public static function getAllTranslationsDataProvider(): array
     {
         $fileTranslations = [
                 "categorize" => ["source" => "categorize", "tran" => "categorizar"],
@@ -479,7 +479,7 @@ class LanguageTranslationsTest extends TikiTestCase
         $this->assertEquals($expectedResult, $this->obj->getDbUntranslated(-1, 0, 'string 3'));
     }
 
-    public function getAllUntranslatedDataProvider(): array
+    public static function getAllUntranslatedDataProvider(): array
     {
         $dbUntranslated = [
                 'Untranslated string 1' => ['source' => 'Untranslated string 1', 'tran' => null],

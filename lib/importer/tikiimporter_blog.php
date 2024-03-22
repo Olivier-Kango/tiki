@@ -54,6 +54,11 @@ class TikiImporter_Blog extends TikiImporter
     public $parsedData = [];
 
     /**
+     * @var array
+     */
+    public $permalinks = [];
+
+    /**
      * @see lib/importer/TikiImporter#importOptions()
      */
     public static function importOptions()

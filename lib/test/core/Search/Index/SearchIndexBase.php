@@ -7,7 +7,7 @@
 /**
  * @group unit
  */
-abstract class Search_Index_BaseTest extends PHPUnit\Framework\TestCase
+abstract class SearchIndexBase extends TikiTestCase
 {
     public const DOCUMENT_DATE = 1234567890;
     protected $index;

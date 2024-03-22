@@ -4448,7 +4448,7 @@ lib/test/core/Search/Elastic/NumericTest.php -text
 lib/test/core/Search/Elastic/PaginationTest.php -text
 lib/test/core/Search/Elastic/ProtocolTest.php -text
 lib/test/core/Search/Elastic/QueryBuilderTest.php -text
-lib/test/core/Search/Elastic/QueryRepositoryTest.php -text
+lib/test/core/Search/Elastic/QueryRepository.php -text
 lib/test/core/Search/Elastic/RescoreQueryBuilderTest.php -text
 lib/test/core/Search/Elastic/SortTest.php -text
 lib/test/core/Search/Elastic/StemmingTest.php -text

@@ -17,6 +17,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 {
     public $revisionsNumber;
     public $softwareName = 'Mediawiki';
+    public $importAttachments;
 
     /**
      * The DOM representation of the Mediawiki XML dump
@@ -41,7 +42,6 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
      * syntax parsing
      */
     public $parser = '';
-
     /**
      * @see lib/importer/TikiImporter#importOptions()
      */

@@ -8,7 +8,7 @@ namespace Search\Index;
 
 use Search_Query;
 
-abstract class QueryRepositoryTest extends \PHPUnit\Framework\TestCase
+abstract class QueryRepository extends \PHPUnit\Framework\TestCase
 {
     protected $index;
 

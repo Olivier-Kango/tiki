@@ -13,9 +13,9 @@ class allTikiPhpFilesTest extends TestCase
 {
     private $phpFiles;
 
-    public function __construct()
+    public function __construct($name = null)
     {
-        parent::__construct();
+        parent::__construct($name);
         $this->phpFiles = (new GlobRecursiveHelper('*.php'))->process();
     }
 

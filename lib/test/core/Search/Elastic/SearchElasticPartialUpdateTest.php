@@ -4,9 +4,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class Search_Elastic_QueryRepositoryTest extends \Search\Index\QueryRepositoryTest
+class SearchElasticPartialUpdateTest extends SearchIndexPartialUpdate
 {
+    protected $index;
+
     protected function setUp(): void
+    {
+        $this->index = $this->getIndex();
+        $this->index->destroy();
+    }
+
+    protected function getIndex()
     {
         $elasticSearchHost = empty(getenv('ELASTICSEARCH_HOST')) ? 'localhost' : getenv('ELASTICSEARCH_HOST');
         $connection = Search_Elastic_Connection::build('http://' . $elasticSearchHost . ':9200');
@@ -16,14 +24,7 @@ class Search_Elastic_QueryRepositoryTest extends \Search\Index\QueryRepositoryTe
             $this->markTestSkipped('Elasticsearch needs to be available on ' . $elasticSearchHost . ':9200 for the test to run.');
         }
 
-        if (version_compare($status->version->number, '1.1.0') < 0) {
-            $this->markTestSkipped('Elasticsearch 1.1+ required');
-        }
-
-        $this->index = new Search_Elastic_Index($connection, 'test_index');
-        $this->index->destroy();
-
-        $this->populate($this->index);
+        return new Search_Elastic_Index($connection, 'test_index');
     }
 
     protected function tearDown(): void

@@ -387,6 +387,18 @@
         "lib\/tikisession-pdo.php": {
             "class:Session": true
         },
+        "lib\/test\/core\/Search\/Index\/SearchIndexTypeAnalyzer.php": {
+            "class:SearchIndexTypeAnalyzer": true
+        },
+        "lib\/test\/core\/Search\/Index\/SearchIndexIncrementalUpdate.php": {
+            "class:SearchIndexIncrementalUpdate": true
+        },
+        "lib\/test\/core\/Search\/Index\/SearchIndexStemming.php": {
+            "class:SearchIndexStemming": true
+        },
+        "lib\/test\/core\/Search\/Index\/SearchIndexNumeric.php": {
+            "class:SearchIndexNumeric": true
+        },
         "lib\/core\/Search\/Elastic\/Connection.php": {
             "class:Search_Elastic_Connection": true
         },
@@ -440,6 +452,21 @@
         },
         "lib\/webmail\/contactlib.php": {
             "class:ContactLib": true
+        },
+        "lib\/test\/core\/Search\/MySql\/SearchMySqlPartialUpdateTest.php": {
+            "class:SearchMySqlPartialUpdateTest": true
+        },
+        "lib\/test\/language\/LanguageFileTest.php": {
+            "class:LanguageFileTest": true
+        },
+        "lib\/test\/core\/Search\/Elastic\/SearchElasticQueryRepository.php": {
+            "class:SearchElasticQueryRepository": true
+        },
+        "lib\/test\/core\/Search\/Elastic\/SearchElasticPartialUpdateTest.php": {
+            "class:SearchElasticPartialUpdateTest": true
+        },
+        "lib\/test\/importer\/TikiImporterBlogWordpressTest.php": {
+            "class:TikiImporterBlogWordpressTest": true
         },
         "lib\/test\/core\/Multilingual\/Aligner\/SentenceAlignmentsTest.php": {
             "class:Multilingual_Aligner_SentenceAlignmentsTest": true
@@ -955,8 +982,8 @@
         "lib\/core\/Search\/Action\/Action.php": {
             "interface:Search_Action_Action": true
         },
-        "lib\/test\/core\/Search\/Elastic\/QueryRepositoryTest.php": {
-            "class:Search_Elastic_QueryRepositoryTest": true
+        "lib\/test\/core\/Search\/Elastic\/QueryRepository.php": {
+            "class:Search_Elastic_QueryRepository": true
         },
         "lib\/core\/Search\/Action\/UnknownStep.php": {
             "class:Search_Action_UnknownStep": true
@@ -1037,7 +1064,7 @@
             "class:Search_Action_FileGalleryChangeFilename": true
         },
         "lib\/test\/core\/Search\/Index\/NumericTest.php": {
-            "class:Search_Index_NumericTest": true
+            "class:SearchIndexNumeric": true
         },
         "lib\/smarty_tiki\/resource.tplwiki.php": {
             "class:Smarty_Resource_Tplwiki": true
@@ -1045,8 +1072,8 @@
         "lib\/core\/Perms\/ResolverFactory\/ObjectFactory.php": {
             "class:Perms_ResolverFactory_ObjectFactory": true
         },
-        "lib\/test\/core\/Search\/Index\/PartialUpdateTest.php": {
-            "class:Search_Index_PartialUpdateTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexPartialUpdate.php": {
+            "class:SearchIndexPartialUpdate": true
         },
         "lib\/core\/Search\/Action\/EmailAction.php": {
             "class:Search_Action_EmailAction": true
@@ -1054,8 +1081,8 @@
         "lib\/core\/Perms\/ResolverFactory\/TestFactory.php": {
             "class:Perms_ResolverFactory_TestFactory": true
         },
-        "lib\/test\/core\/Search\/Index\/BaseTest.php": {
-            "class:Search_Index_BaseTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexBase.php": {
+            "class:SearchIndexBase": true
         },
         "lib\/core\/Search\/Action\/FileGalleryImageOverlay.php": {
             "class:Search_Action_FileGalleryImageOverlay": true
@@ -1063,8 +1090,8 @@
         "lib\/core\/Category\/Manipulator.php": {
             "class:Category_Manipulator": true
         },
-        "lib\/test\/core\/Search\/Index\/SortTest.php": {
-            "class:Search_Index_SortTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexSort.php": {
+            "class:SearchIndexSort": true
         },
         "lib\/core\/Search\/Action\/Exception.php": {
             "class:Search_Action_Exception": true
@@ -1072,26 +1099,26 @@
         "lib\/core\/DeclFilter\/FilterRule.php": {
             "class:DeclFilter_FilterRule": true
         },
-        "lib\/test\/core\/Search\/Index\/IncrementalUpdateTest.php": {
-            "class:Search_Index_IncrementalUpdateTest": true
+        "lib\/test\/core\/Search\/Index\/Search_Index_IncrementalUpdate.php": {
+            "class:Search_Index_IncrementalUpdate": true
         },
         "lib\/core\/Search\/Action\/Snapshot.php": {
             "class:Search_Action_Snapshot": true
         },
         "lib\/test\/core\/Search\/Index\/StemmingTest.php": {
-            "class:Search_Index_StemmingTest": true
+            "class:Search_Index_Stemming": true
         },
         "lib\/core\/Search\/Action\/ReportingTransform.php": {
             "class:Search_Action_ReportingTransform": true
         },
         "lib\/test\/core\/Search\/Index\/TypeAnalyzerTest.php": {
-            "class:Search_Index_TypeAnalyzerTest": true
+            "class:Search_Index_TypeAnalyzer": true
         },
         "lib\/core\/Search\/Action\/UserGroupModify.php": {
             "class:Search_Action_UserGroupModify": true
         },
-        "lib\/test\/core\/Search\/Index\/PaginationTest.php": {
-            "class:Search_Index_PaginationTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexPagination.php": {
+            "class:SearchIndexPagination": true
         },
         "lib\/core\/Search\/Action\/WikiApprovalAction.php": {
             "class:Search_Action_WikiApprovalAction": true
@@ -2366,10 +2393,10 @@
             "class:TikiImporter_TestCase": true
         },
         "lib\/test\/importer\/TikiImporterWikiMediawikiTest.php": {
-            "class:TikiImporter_Wiki_Mediawiki_Test": true
+            "class:TikiImporterWikiMediawikiTest": true
         },
         "lib\/test\/importer\/TikiImporterTest.php": {
-            "class:TikiImporter_Test": true,
+            "class:TikiImporterTest": true,
             "class:TikiImporterFirstChild": true,
             "class:TikiImporterSecondChild": true,
             "class:TikiImporterGranSon": true
@@ -2443,11 +2470,8 @@
         "lib\/core\/Services\/Search\/ManifoldController.php": {
             "class:Services_Search_ManifoldController": true
         },
-        "lib\/test\/importer\/TikiImporterBlogWordpressTest.php": {
-            "class:TikiImporter_Blog_Wordpress_Test": true
-        },
         "lib\/test\/importer\/TikiImporterBlogTest.php": {
-            "class:TikiImporter_Blog_Test": true
+            "class:TikiImporterBlogTest": true
         },
         "doc\/devtools\/composer_packages_in_use.php": {
             "class:ComposerGetPackages": true
@@ -2459,7 +2483,7 @@
             "class:Tiki_Log": true
         },
         "lib\/test\/importer\/TikiImporterWikiTest.php": {
-            "class:TikiImporter_Wiki_Test": true,
+            "class:TikiImporterWikiTest": true,
             "class:TikiImporter_Wiki_InsertPage_Test": true
         },
         "lib\/core\/Services\/Search\/CustomSearchController.php": {
@@ -4750,8 +4774,8 @@
         "lib\/core\/Search\/Action\/Action.php": {
             "Search_Action_Action": true
         },
-        "lib\/test\/core\/Search\/Elastic\/QueryRepositoryTest.php": {
-            "Search_Elastic_QueryRepositoryTest": true
+        "lib\/test\/core\/Search\/Elastic\/SearchElasticQueryRepository.php": {
+            "SearchElasticQueryRepository": true
         },
         "lib\/core\/Search\/Action\/UnknownStep.php": {
             "Search_Action_UnknownStep": true
@@ -4831,8 +4855,8 @@
         "lib\/core\/Search\/Action\/FileGalleryChangeFilename.php": {
             "Search_Action_FileGalleryChangeFilename": true
         },
-        "lib\/test\/core\/Search\/Index\/NumericTest.php": {
-            "Search_Index_NumericTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexNumeric.php": {
+            "SearchIndexNumeric": true
         },
         "lib\/smarty_tiki\/resource.tplwiki.php": {
             "Smarty_Resource_Tplwiki": true
@@ -4840,8 +4864,8 @@
         "lib\/core\/Perms\/ResolverFactory\/ObjectFactory.php": {
             "Perms_ResolverFactory_ObjectFactory": true
         },
-        "lib\/test\/core\/Search\/Index\/PartialUpdateTest.php": {
-            "Search_Index_PartialUpdateTest": true
+        "lib\/test\/core\/Search\/Index\/Search_Index_PartialUpdate.php": {
+            "Search_Index_PartialUpdate": true
         },
         "lib\/core\/Search\/Action\/EmailAction.php": {
             "Search_Action_EmailAction": true
@@ -4858,8 +4882,8 @@
         "lib\/core\/Category\/Manipulator.php": {
             "Category_Manipulator": true
         },
-        "lib\/test\/core\/Search\/Index\/SortTest.php": {
-            "Search_Index_SortTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexSort.php": {
+            "SearchIndexSort": true
         },
         "lib\/core\/Search\/Action\/Exception.php": {
             "Search_Action_Exception": true
@@ -4867,26 +4891,26 @@
         "lib\/core\/DeclFilter\/FilterRule.php": {
             "DeclFilter_FilterRule": true
         },
-        "lib\/test\/core\/Search\/Index\/IncrementalUpdateTest.php": {
-            "Search_Index_IncrementalUpdateTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexIncrementalUpdate.php": {
+            "SearchIndexIncrementalUpdate": true
         },
         "lib\/core\/Search\/Action\/Snapshot.php": {
             "Search_Action_Snapshot": true
         },
-        "lib\/test\/core\/Search\/Index\/StemmingTest.php": {
-            "Search_Index_StemmingTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexStemming.php": {
+            "SearchIndexStemming": true
         },
         "lib\/core\/Search\/Action\/ReportingTransform.php": {
             "Search_Action_ReportingTransform": true
         },
-        "lib\/test\/core\/Search\/Index\/TypeAnalyzerTest.php": {
-            "Search_Index_TypeAnalyzerTest": true
+        "lib\/test\/core\/Search\/Index\/SearchIndexTypeAnalyzer.php": {
+            "SearchIndexTypeAnalyzer": true
         },
         "lib\/core\/Search\/Action\/UserGroupModify.php": {
             "Search_Action_UserGroupModify": true
         },
         "lib\/test\/core\/Search\/Index\/PaginationTest.php": {
-            "Search_Index_PaginationTest": true
+            "SearchIndexPagination": true
         },
         "lib\/core\/Search\/Action\/WikiApprovalAction.php": {
             "Search_Action_WikiApprovalAction": true
@@ -5725,7 +5749,7 @@
         "lib\/test\/language\/WriteFileTest.php": {
             "Language_WriteFileTest": true
         },
-        "lib\/test\/language\/ParseFileTest.php": {
+        "lib\/test\/language\/Language_FileTest.php": {
             "Language_FileTest": true
         },
         "lib\/test\/language\/MergeFilesTest.php": {
@@ -5744,10 +5768,10 @@
             "TikiImporter_TestCase": true
         },
         "lib\/test\/importer\/TikiImporterWikiMediawikiTest.php": {
-            "TikiImporter_Wiki_Mediawiki_Test": true
+            "TikiImporterWikiMediawikiTest": true
         },
         "lib\/test\/importer\/TikiImporterTest.php": {
-            "TikiImporter_Test": true
+            "TikiImporterTest": true
         },
         "lib\/mail\/mimelib.php": {
             "mime": true
@@ -5786,10 +5810,10 @@
             "Services_Search_ManifoldController": true
         },
         "lib\/test\/importer\/TikiImporterBlogWordpressTest.php": {
-            "TikiImporter_Blog_Wordpress_Test": true
+            "TikiImporterBlogWordpressTest": true
         },
         "lib\/test\/importer\/TikiImporterBlogTest.php": {
-            "TikiImporter_Blog_Test": true
+            "TikiImporterBlogTest": true
         },
         "lib\/core\/Tiki\/PageCache.php": {
             "Tiki_PageCache": true
@@ -5798,7 +5822,7 @@
             "Tiki_Log": true
         },
         "lib\/test\/importer\/TikiImporterWikiTest.php": {
-            "TikiImporter_Wiki_Test": true,
+            "TikiImporterWikiTest": true,
             "TikiImporter_Wiki_InsertPage_Test": true
         },
         "lib\/core\/Services\/Search\/CustomSearchController.php": {

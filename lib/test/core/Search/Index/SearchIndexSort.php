@@ -7,7 +7,7 @@
 /**
  * @group unit
  */
-abstract class Search_Index_SortTest extends PHPUnit\Framework\TestCase
+abstract class SearchIndexSort extends PHPUnit\Framework\TestCase
 {
     protected $index;
 
@@ -18,7 +18,7 @@ abstract class Search_Index_SortTest extends PHPUnit\Framework\TestCase
         $this->add($index, 'C', '2', 'Baz', 'Baz');
     }
 
-    public function sortCases()
+    public static function sortCases()
     {
         return [
             ['numeric_field_nasc', 'ACB'],
@@ -68,7 +68,7 @@ abstract class Search_Index_SortTest extends PHPUnit\Framework\TestCase
         $this->assertOrderIs('BA', $results);
     }
 
-    public function returnOnlyCases()
+    public static function returnOnlyCases()
     {
         return [
             [[1, 2, 3, 4, 5, 6], 'ACB'],

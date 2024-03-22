@@ -7,7 +7,7 @@
 /**
  * @group unit
  */
-abstract class Search_Index_IncrementalUpdateTest extends PHPUnit\Framework\TestCase
+abstract class SearchIndexIncrementalUpdate extends PHPUnit\Framework\TestCase
 {
     abstract protected function getIndex();
 

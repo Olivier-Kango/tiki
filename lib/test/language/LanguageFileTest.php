@@ -9,7 +9,7 @@ require_once(__DIR__ . '/../../language/File.php');
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamFile;
 
-class Language_FileTest extends TikiTestCase
+class LanguageFileTest extends TikiTestCase
 {
     protected $obj;
 
@@ -21,7 +21,7 @@ class Language_FileTest extends TikiTestCase
         $this->obj = new Language_File($this->filePath);
     }
 
-    public function provider(): array
+    public static function provider(): array
     {
         return [[[
             'Bytecode Cache' => ['key' => 'Bytecode Cache', 'translated' => false],

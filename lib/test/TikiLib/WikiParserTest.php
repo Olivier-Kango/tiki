@@ -29,7 +29,7 @@ class TikiLib_WikiParserTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($output, TikiLib::lib('parser')->parse_data($input, $options));
     }
 
-    public function provider(): array
+    public static function provider(): array
     {
         return [
             ['', ''],

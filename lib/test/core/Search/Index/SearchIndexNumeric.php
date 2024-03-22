@@ -1,6 +1,6 @@
 <?php
 
-abstract class Search_Index_NumericTest extends PHPUnit\Framework\TestCase
+abstract class SearchIndexNumeric extends TikiTestCase
 {
     protected $index;
 

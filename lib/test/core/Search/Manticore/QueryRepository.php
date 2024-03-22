@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Search\Manticore;
 
-class QueryRepositoryTest extends \Search\Index\QueryRepositoryTest
+class QueryRepository extends \Search\Index\QueryRepository
 {
     use IndexBuilder;
 
