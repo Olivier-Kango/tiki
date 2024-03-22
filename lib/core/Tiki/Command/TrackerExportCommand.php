@@ -73,7 +73,7 @@ class TrackerExportCommand extends Command
         }
 
         if ($filter = $input->getOption('filter')) {
-            $qs = implode('&', $filter);;
+            $qs = implode('&', $filter);
             parse_str($qs, $data);
             $inp = new \JitFilter($data);
             $collection = $schema->getFilterCollection();
