@@ -329,7 +329,7 @@
                                         {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" checked="checked" name="recurrenceTypeYearly" value="date"></span>{/if}
                                         <span class="input-group-text">{tr}Each{/tr}</span>
                                         <select name="yearlyDay" class="form-control" onChange="checkDateOfYear(this.options[this.selectedIndex].value,document.forms['f'].elements['yearlyMonth'].options[document.forms['f'].elements['yearlyMonth'].selectedIndex].value);">
-                                            {section name=k start=1 loop=31}
+                                            {section name=k start=1 loop=32}
                                                 <option value="{$smarty.section.k.index}" {if $recurrence.yearlyDay eq $smarty.section.k.index} selected="selected" {/if} >
                                                     {if $smarty.section.k.index lt 10}
                                                         0
@@ -472,57 +472,47 @@
                             <div id="errorDateOfYear" class="text-danger offset-sm-1"></div>
                             <hr>
                         {/if}
-                        {if $recurrence.id gt 0}
-                            <input type="hidden" name="startPeriod" value="{$recurrence.startPeriod}">
-                            <input type="hidden" name="nbRecurrences" value="{$recurrence.nbRecurrences}">
-                            <input type="hidden" name="endPeriod" value="{$recurrence.endPeriod}">
-                            {tr}Starting on{/tr} {$recurrence.startPeriod|tiki_long_date},&nbsp;
-                            {if $recurrence.endPeriod gt 0}
-                                {tr}ending by{/tr} {$recurrence.endPeriod|tiki_long_date}
-                            {else}
-                                {tr}ending after{/tr} {$recurrence.nbRecurrences} {tr}events{/tr}
-                            {/if}.
-                        {else}
-                            {tr}Start date{/tr}
-                            <div class="offset-sm-1 col-sm-6 input-group">
-                                {if empty($recurrence.startPeriod)}{$startPeriod = $calitem.start}{else}{$startPeriod = $recurrence.startPeriod}{/if}
-                                {jscalendar id="startPeriod" date=$startPeriod fieldname="startPeriod" align="Bc" showtime='n'}
+                        {tr}Start date{/tr}
+                        <div class="offset-sm-1 col-sm-6 input-group">
+                            {if empty($recurrence.startPeriod)}{$startPeriod = $calitem.start}{else}{$startPeriod = $recurrence.startPeriod}{/if}
+                            {jscalendar id="startPeriod" date=$startPeriod fieldname="startPeriod" align="Bc" showtime='n'}
+                        </div>
+                        <hr/>
+                        <input type="radio" id="id_endTypeNb" name="endType" value="nb" {if $recurrence.nbRecurrences or $calitem.calitemId eq 0 or empty($recurrence.id)} checked="checked" {/if}>
+                        <label for="id_endTypeNb"> &nbsp;{tr}End after{/tr}</label>
+                        <div class="offset-sm-1 col-sm-6">
+                            <div class="input-group">
+                                <input type="number" min="1" name="nbRecurrences" class="form-control" value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
+                                <span class="input-group-text">
+                                    {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
+                                </span>
                             </div>
-                            <hr/>
-                            <input type="radio" id="id_endTypeNb" name="endType" value="nb" {if $recurrence.nbRecurrences or $calitem.calitemId eq 0 or empty($recurrence.id)} checked="checked" {/if}>
-                            <label for="id_endTypeNb"> &nbsp;{tr}End after{/tr}
-                            </label>
-                            <div class="offset-sm-1 col-sm-6">
-                                <div class="input-group">
-                                    <input type="number" min="1" name="nbRecurrences" class="form-control" value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
-                                    <span class="input-group-text">
-                                        {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
-                                    </span>
-                                </div>
-                            </div>
-                            <br>
-                            <input type="radio" id="id_endTypeDt" name="endType" value="dt" {if $recurrence.endPeriod gt 0} checked="checked" {/if}>
-                            <label for="id_endTypeDt"> &nbsp;{tr}End before{/tr}
-                            </label>
-                            <div class="offset-sm-1 col-sm-6 input-group">
-                                {jscalendar id="endPeriod" date=$recurrence.endPeriod fieldname="endPeriod" align="Bc" showtime='n'}
-                            </div>
-                        {/if}
+                        </div>
+                        <br>
+                        <input type="radio" id="id_endTypeDt" name="endType" value="dt" {if $recurrence.endPeriod gt 0} checked="checked" {/if}>
+                        <label for="id_endTypeDt"> &nbsp;{tr}End before{/tr}
+                        </label>
+                        <div class="offset-sm-1 col-sm-6 input-group">
+                            {jscalendar id="endPeriod" date=$recurrence.endPeriod fieldname="endPeriod" align="Bc" showtime='n'}
+                        </div>
                     </div>
                 </div>
             </div>
             {* / .row *}
             <div id="timezonePicker" class="row mt-md-3 mb-3 date" style=" {if ( !($calitem.recurrenceId gt 0) and $recurrent neq 1 )} display:none; {/if}">
-                <label class="col-form-label col-sm-3">{tr}Time zone{/tr}</label>
+                <label class="col-form-label col-sm-3">{tr}Recurrence time zone{/tr}</label>
                 {if $edit}
-                    <div class="col-sm-5">
-                        <select name="recurrenceDstTimezone" class="form-control" onChange="changeItemTimezone(this.options[this.selectedIndex].value);">
+                    <div class="col-sm-9">
+                        <select name="recurrenceDstTimezone" class="form-control">
                             {foreach from=$timezones key=k item=tz}
                                 <option value="{$tz}" {if $recurrence.recurrenceDstTimezone && $recurrence.recurrenceDstTimezone eq $tz} selected="selected" {else}{if $displayTimezone eq $tz} selected="selected" {/if}{/if}>
                                     {$tz}
                                 </option>
                             {/foreach}
                         </select>
+                        <div class="form-text">
+                            {tr}This timezone is used only for recurring events to determine the actual DST settings when creating future events.{/tr}
+                        </div>
                     </div>
                 {else}
                     <div class="col-sm-9">
@@ -539,7 +529,7 @@
                 <div class="col-sm-2">
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="calitem[allday]" id="allday" value="true" {if $calitem.allday} checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="calitem[allday]" id="allday" value="1" {if $calitem.allday} checked="checked"{/if}>
                             {tr}All day{/tr}
                         </label>
                     </div>
@@ -824,13 +814,21 @@
                 <input type="submit" class="btn btn-secondary" name="saveas" data-alt_controller="calendar" data-alt_action="copy_item"
                        onclick="needToConfirm=false" value="{tr}Copy to a new event{/tr}">
             {/if}
-            {if $calitemId}
+            {if $calitemId && ! $recurrence.id}
                 <input type="submit" name="delete" data-alt_controller="calendar" data-alt_action="delete_item"
                        class="btn btn-danger" onclick="needToConfirm=false;" value="{tr}Delete event{/tr}">
             {/if}
             {if $recurrence.id}
-                <input type="submit" name="delete-recurrent" data-alt_controller="calendar" data-alt_action="delete_recurrent_items"
-                       class="btn btn-danger" onclick="needToConfirm=false;" value="{tr}Delete recurrent events{/tr}">
+                <div class="dropdown">
+                    <button class="btn btn-danger dropdown-toggle" type="button" id="deleteMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        {tr}Delete event(s){/tr}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_item" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete this event?{/tr}">{tr}This event only{/tr}</button></li>
+                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete recurring event series for all future events?{/tr}">{tr}Future recurring events{/tr}</button></li>
+                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" data-alt_param="all" data-alt_param_value="1" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete all recurring events in this series?{/tr}">{tr}All recurring events{/tr}</button></li>
+                    </div>
+                </div>
             {/if}
             {if $prefs.calendar_export_item == 'y' and not empty($calitemId)}
                 {button href='tiki-calendar_export_ical.php? export=y&calendarItem='|cat:$calitemId _text="{tr}Export Event as iCal{/tr}"}

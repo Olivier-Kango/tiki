@@ -437,6 +437,7 @@ class Services_Calendar_Controller
             $recurrence->setDateOfYear(
                 $dateNow->date->format('m') . $dateNow->date->format('d')
             );
+            $recurrence->setStartPeriod(TikiDate::getStartDay($calitem['start'], 'UTC'));
 
             $recurrence = $recurrence->toArray();
             $recurranceNumChangedEvents = 0;
@@ -668,7 +669,7 @@ class Services_Calendar_Controller
 
         if ($calitemId && $input->recurrenceId->int()) {
             $calRec = new CalRecurrence($input->recurrenceId->int());
-            $calRec->delete();
+            $calRec->delete($input->all->int() ? 0 : null);
             if ($this->logsLib) {
                 $this->logsLib->add_action(
                     'Removed',
@@ -805,8 +806,13 @@ class Services_Calendar_Controller
             ! empty($input->recurrenceId->int()) ? $input->recurrenceId->int() : -1
         );
         $recurrence->setCalendarId($calitem['calendarId']);
+        // Start/End times adjusted from browser's timezone to UTC
         $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
+        $server_offset = TikiDate::tzServerOffset($displayTimezone, $calitem['start']);
+        $calitem['start'] -= $server_offset;
         $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
+        $server_offset = TikiDate::tzServerOffset($displayTimezone, $calitem['end']);
+        $calitem['end'] -= $server_offset;
         $tz = date_default_timezone_get();
         date_default_timezone_set('UTC');
         $tikidateStart = new TikiDate();
@@ -876,9 +882,10 @@ class Services_Calendar_Controller
                 }
                 break;
         }
-        // startPeriod does not exist when using the old non-jscalendar time selector with 3 dropdowns
+        // Start/End periods adjusted from browser's timezone to UTC
         $startPeriod = $input->startPeriod->int();
         if (empty($startPeriod)) {
+            // startPeriod does not exist when using the old non-jscalendar time selector with 3 dropdowns - n.b. this might not be the case anymore with the new UI
             $startPeriod = mktime(
                 0,
                 0,
@@ -887,21 +894,24 @@ class Services_Calendar_Controller
                 $input->startPeriod_Day->int(),
                 $input->startPeriod_Year->int()
             );
-        }
-        if ($recurrence->getId() > 0 && $calitem['calitemId'] == $recurrence->getFirstItemId()) {
-            // modify start period when the first event is updated
-            $recurrence->setStartPeriod(TikiDate::getStartDay($calitem['start'], $displayTimezone));
         } else {
-            $recurrence->setStartPeriod($startPeriod);
+            $startPeriod = TikiDate::convertWithTimezone($input->asArray(), $startPeriod);
         }
+        $recurrence->setStartPeriod(TikiDate::getStartDay($startPeriod, 'UTC'));
         if ($input->endType->word() === "dt") {
-            $recurrence->setEndPeriod($input->endPeriod->word());
+            $endPeriod = $input->endPeriod->int();
+            $endPeriod = TikiDate::convertWithTimezone($input->asArray(), $endPeriod);
+            $server_offset = TikiDate::tzServerOffset($displayTimezone, $endPeriod);
+            $endPeriod -= $server_offset;
+            $recurrence->setEndPeriod($endPeriod);
+            $recurrence->setNbRecurrences(0);
         } else {
             $nbRecurrences = $input->nbRecurrences->int() ?? 1;
             if ($input->recurrenceType->word() === 'weekly') {
                 $nbRecurrences = $nbRecurrences * count($input->asArray('weekdays'));
             }
             $recurrence->setNbRecurrences($nbRecurrences);
+            $recurrence->setEndPeriod(0);
         }
         $recurrence->setUser($calitem['user']);
         if (! empty($calitem['calitemId'])) {
