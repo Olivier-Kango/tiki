@@ -887,11 +887,15 @@ what to answer, just press enter to each question (to use default value)"
 
     printf "Fix special dirs ..."
     if [ "$USER" = 'root' ] || [ "$USERINAGROUP" = "yes" ]; then
-        ${CHMOD} -R g+w "$DIRS"
+        for dir in $DIRS; do
+            ${CHMOD} -R g+w "$dir"
+        done
         ${CHMOD} g+w composer.json
         ${CHMOD} g+w composer.lock
     else
-        ${CHMOD} -fR go+w "$DIRS"
+        for dir in $DIRS; do
+            ${CHMOD} -fR go+w "$dir"
+        done
         ${CHMOD} go+w composer.json
         ${CHMOD} go+w composer.lock
     fi
