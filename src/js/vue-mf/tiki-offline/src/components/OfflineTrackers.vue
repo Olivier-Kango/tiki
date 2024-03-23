@@ -1,10 +1,7 @@
 <template>
     <div class="offline-trackers">
         <h2>Offline tracker items</h2>
-        <Button variant="primary" sm @click="createTrackerItem">
-            <i class="fas fa-plus"></i> 
-            <span class="ml-2">Create item</span>
-        </Button>        
+        <FormAddTrackerItem :formFields="[]" :initialValues="{}" />        
         <OfflineTracker
             v-for="(tracker, index) in trackerData"
             :tracker="tracker"
@@ -34,15 +31,16 @@
 
 <script setup>
     import { inject } from 'vue';
-    import { Button } from '@vue-mf/styleguide';
     import OfflineTracker from "./OfflineTracker.vue";
+    import FormAddTrackerItem from "./Forms/FormAddTrackerItem.vue";
 </script>
 
 <script>
     export default {
         name: "OfflineTrackers",
         components: {
-            OfflineTracker: OfflineTracker
+            OfflineTracker: OfflineTracker,
+            FormAddTrackerItem: FormAddTrackerItem
         },
         props: {
             trackerData: {
