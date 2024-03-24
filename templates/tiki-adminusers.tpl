@@ -45,7 +45,7 @@
                     </div>
                     <div class="mb-3 row">
                         <div class="col-sm-7 offset-sm-5">
-                            <a href="javascript:toggleBlock('search')" class="link">
+                            <a href="#" onclick="$('#search').toggle()" class="link">
                                 {icon name='add' alt="{tr}more{/tr}"}&nbsp;{tr}More Criteria{/tr}
                             </a>
                         </div>

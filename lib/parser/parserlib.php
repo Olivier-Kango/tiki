@@ -2989,7 +2989,7 @@ class ParserLib extends TikiDb_Bridge
                         $maketoc_title = "<div id='toctitle'><h3>" . tra($maketoc_args['title'], $this->option['language']) . '</h3>';
 
                         if (isset($maketoc_args['showhide']) && $maketoc_args['showhide'] == 'y') {
-                            $maketoc_title .= '<a class="link"  href="javascript:toggleToc()">' . '[' . tra('Show/Hide') . ']' . '</a>';
+                            $maketoc_title .= '<a class="link"  href="javascript:$(\'#toc ul\').toggle();">' . '[' . tra('Show/Hide') . ']' . '</a>';
                         }
                         $maketoc_title .= '</div>';
                     } else {
