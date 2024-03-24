@@ -478,4 +478,27 @@ class Tracker_Definition
 
         return true;
     }
+
+    /**
+     * Get the status types using the alternate status labels if they are set.
+     * @param string $lg The language key to translate the status labels, if different than preferences.
+     * @return array
+     */
+    public function getStatusTypes($lg = '')
+    {
+        $status = TikiLib::lib('trk')->status_types($lg);
+        $trackerInfo = $this->trackerInfo;
+
+        if (isset($trackerInfo['altOpenStatus']) && ! empty($trackerInfo['altOpenStatus'])) {
+            $status['o']['label'] = $trackerInfo['altOpenStatus'];
+        }
+        if (isset($trackerInfo['altPendingStatus']) && ! empty($trackerInfo['altPendingStatus'])) {
+            $status['p']['label'] = $trackerInfo['altPendingStatus'];
+        }
+        if (isset($trackerInfo['altClosedStatus']) && ! empty($trackerInfo['altClosedStatus'])) {
+            $status['c']['label'] = $trackerInfo['altClosedStatus'];
+        }
+
+        return $status;
+    }
 }

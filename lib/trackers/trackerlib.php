@@ -3128,7 +3128,8 @@ class TrackerLib extends TikiLib
         // ---- save image list before sql query ---------------------------------
         $fieldList = $this->list_tracker_fields($trackerId, 0, -1, 'name_asc', '');
 
-        $statusTypes = $this->status_types();
+        $definition = Tracker_Definition::get($trackerId);
+        $statusTypes = $definition->getStatusTypes();
         $statusString = isset($statusTypes[$status]['label']) ? $statusTypes[$status]['label'] : '';
 
         $imgList = [];
@@ -4099,8 +4100,10 @@ class TrackerLib extends TikiLib
     }
 
     /**
+     * Get tracker status types [open, pending, closed] with their permissions and icons.
+     *
      * @param string $lg The language key to translate the status labels, if different than preferences.
-     * @return mixed
+     * @return array An array containing the status types.
      */
     public function status_types($lg = '')
     {
@@ -5898,7 +5901,7 @@ class TrackerLib extends TikiLib
                  $this->log($version, $itemId, -1, $oldStatus);
             }
             $the_data .= '-[Status]-: ';
-            $statusTypes = $this->status_types('en'); // Fetch in english to translate to watcher language
+            $statusTypes = $tracker_definition->getStatusTypes('en'); // Fetch in english to translate to watcher language
             if (isset($oldStatus) && $oldStatus != $newStatus) {
                 $the_data .= isset($statusTypes[$oldStatus]['label']) ? '-[' . $statusTypes[$oldStatus]['label'] . ']- -> ' : '';
                 $changed = true;
@@ -6946,6 +6949,11 @@ class TrackerLib extends TikiLib
         $wikilib->update_wikicontent_relations($value, $objectType, $itemId);
     }
 
+    // Victor 2024-03-22:  That's right - you define new options in the form and then they get stored in the table. I think I added the trackerOptionsFromInput entry as a single source of truth for the available options as this list was scattered through Tiki code before. We can move the definition list into a more obvious place and document better.
+
+    // There are also a couple more places where the new fields need to be added:
+    // * templates/api/docs/schemas/Tracker.yaml - the API schema definition for a tracker
+    // * lib/core/Tiki/Profile/InstallHandler/Tracker.php - profile export/import functionality when we need to keep the correct values for the field
     /**
      * Parses input array and returns tracker options with default
      * values initialized for everything not set in the user input.
@@ -6971,6 +6979,9 @@ class TrackerLib extends TikiLib
             'showPopup' => $input->showPopup->text(),
             'defaultStatus' => implode('', (array) $input->defaultStatus->word()),
             'newItemStatus' => $input->newItemStatus->word() ? $input->newItemStatus->word() : 'o',
+            'altOpenStatus' => $input->altOpenStatus->text(),
+            'altPendingStatus' => $input->altPendingStatus->text(),
+            'altClosedStatus' => $input->altClosedStatus->text(),
             'modItemStatus' => $input->modItemStatus->word(),
             'outboundEmail' => $input->outboundEmail->email(),
             'simpleEmail' => $input->simpleEmail->int() ? 'y' : 'n',

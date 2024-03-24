@@ -144,7 +144,7 @@ if ($prefs['feature_groupalert'] == 'y') {
     $smarty->assign_by_ref('showeachuser', $showeachuser);
 }
 $status_types = [];
-$status_raw = $trklib->status_types();
+$status_raw = $trackerDefinition->getStatusTypes();
 if (isset($_REQUEST['status'])) {
     $sts = preg_split('//', $_REQUEST['status'], -1, PREG_SPLIT_NO_EMPTY);
 } elseif (isset($tracker_info["defaultStatus"])) {

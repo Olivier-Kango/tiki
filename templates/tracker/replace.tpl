@@ -277,6 +277,20 @@
                 </select>
             </div>
             <div class="mb-3 row mx-0">
+                <div class="mb-3">
+                    <label for="altOpenStatus">{tr}Open alternative label{/tr}</label>
+                    <input class="form-control" type="text" name="altOpenStatus" id="altOpenStatus" value="{$info.altOpenStatus|escape}">
+                </div>
+                <div class="mb-3">
+                    <label for="altPendingStatus">{tr}Pending alternative label{/tr}</label>
+                    <input class="form-control" type="text" name="altPendingStatus" id="altPendingStatus" value="{$info.altPendingStatus|escape}">
+                </div>
+                <div>
+                    <label for="altClosedStatus">{tr}Closed alternative label{/tr}</label>
+                    <input class="form-control" type="text" name="altClosedStatus" id="altClosedStatus" value="{$info.altClosedStatus|escape}">
+                </div>
+            </div>
+            <div class="mb-3 row mx-0">
                 <label for="modItemStatus">{tr}Modified item status{/tr}</label>
                 <select name="modItemStatus" id="modItemStatus" class="form-control">
                     <option value="">{tr}No change{/tr}</option>

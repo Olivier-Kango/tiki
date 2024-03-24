@@ -2049,7 +2049,7 @@ function wikiplugin_tracker($data, $params)
             }
         }
         if (! empty($showstatus) && $showstatus == 'y') {
-            $status_types = $trklib->status_types();
+            $status_types = $definition->getStatusTypes();
             $smarty->assign_by_ref('status_types', $status_types);
             $smarty->assign('form_status', 'status');
             $smarty->assign_by_ref('tracker', $tracker);

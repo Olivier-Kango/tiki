@@ -1563,8 +1563,7 @@ class Services_Tracker_Controller
 
         include_once('tiki-sefurl.php');
 
-        $statusTypes = $trklib->status_types();
-        $smarty->assign('status_types', $statusTypes);
+        $smarty->assign('status_types', $definition->getStatusTypes());
         $fields = [];
         $ins_fields = [];
         $itemUsers = $trklib->get_item_creators($trackerId, $itemId);
@@ -2179,7 +2178,7 @@ class Services_Tracker_Controller
             'title' => $trackerId ? tr('Edit') . " " . tr('%0', $definition->getConfiguration('name')) : tr('Create Tracker'),
             'trackerId' => $trackerId,
             'info' => $trackerId ? $definition->getInformation() : [],
-            'statusTypes' => TikiLib::lib('trk')->status_types(),
+            'statusTypes' => $definition->getStatusTypes(),
             'statusList' => $trackerId ? preg_split('//', $definition->getConfiguration('defaultStatus', 'o'), -1, PREG_SPLIT_NO_EMPTY) : null,
             'sortFields' => $this->getSortFields($definition ?? null),
             'attachmentAttributes' => $trackerId ? $this->getAttachmentAttributes($definition->getConfiguration('orderAttachments', 'created,filesize,hits')) : [],

@@ -273,10 +273,11 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
             Search_Query_Facet_Term::fromField('tracker_status')
                 ->setLabel(tr('Tracker Status'))
                 ->setRenderCallback(function ($status) {
+                    $status_types = TikiLib::lib('trk')->status_types();
                     $statuses = [
-                        'o' => 'Open',
-                        'p' => 'Pending',
-                        'c' => 'Closed'
+                        'o' => $status_types['o']['label'],
+                        'p' => $status_types['p']['label'],
+                        'c' => $status_types['c']['label']
                     ];
                     return $statuses[$status];
                 })

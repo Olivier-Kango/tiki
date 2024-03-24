@@ -340,9 +340,11 @@
                                     </option>
                                     <option value="delete">{tr}Delete Selected{/tr}</option>
                                     {if $tracker_info.showStatus eq 'y' or ($tracker_info.showStatusAdminOnly eq 'y' and $tiki_p_admin_trackers eq 'y')}
-                                        <option value="c">{tr}Close{/tr}</option>
-                                        <option value="o">{tr}Open{/tr}</option>
-                                        <option value="p">{tr}Pending{/tr}</option>
+                                        {foreach $status_types as $key => $status}
+                                            <option value="{$key}">
+                                                {tr}{$status.label}{/tr}
+                                            </option>
+                                        {/foreach}
                                     {/if}
                                 </select>
                                 {ticket}
