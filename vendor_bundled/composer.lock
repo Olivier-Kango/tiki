@@ -1437,17 +1437,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "4.0.6",
+            "version": "4.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "56aa7d45769e35b4046d3adbb1e6e39fb8f188bc"
+                "reference": "72420d95a861d11ca98cacb8a126191f0716cb8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-56aa7d45769e35b4046d3adbb1e6e39fb8f188bc-zip-b8cf10.zip",
-                "reference": "56aa7d45769e35b4046d3adbb1e6e39fb8f188bc",
-                "shasum": "0869174f40971683cca322ad15eb8eb0adf909da"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-72420d95a861d11ca98cacb8a126191f0716cb8f-zip-cec0ee.zip",
+                "reference": "72420d95a861d11ca98cacb8a126191f0716cb8f",
+                "shasum": "b67e6558e6360aa66dd2c0540b885f225478a33a"
             },
             "require": {
                 "php": "^8.1"
@@ -1477,7 +1477,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2024-03-22T07:33:14+00:00"
+            "time": "2024-03-23T07:34:00+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -2267,13 +2267,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "1e9786b89e2a959a28cb418f6b111cad71635cc9"
+                "reference": "ecf6e2400d43d520ba08e5dfc64b6c5621ddc9a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1e9786b89e2a959a28cb418f6b111cad71635cc9-zip-07dd46.zip",
-                "reference": "1e9786b89e2a959a28cb418f6b111cad71635cc9",
-                "shasum": "723ac2738f848de4167b3bd4c8bb8e7d3fefb8e5"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-ecf6e2400d43d520ba08e5dfc64b6c5621ddc9a5-zip-8c34e4.zip",
+                "reference": "ecf6e2400d43d520ba08e5dfc64b6c5621ddc9a5",
+                "shasum": "c4f3f919cb624dc2fe23e79b4a19156462fbc68b"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2292,6 +2292,7 @@
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=7.4",
                 "symfony/dotenv": "^4.3 || 5.4",
+                "thomaspark/bootswatch": "^5.3",
                 "twbs/bootstrap": "^5.3",
                 "twbs/bootstrap-icons": "^1.11",
                 "webklex/composer-info": "^0.0.1",
@@ -2336,7 +2337,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-03-22T13:25:34+00:00"
+            "time": "2024-03-23T21:23:30+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4714,17 +4715,17 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.25.1",
+            "version": "3.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "abbd664eb4381102c559d358420989f835208f18"
+                "reference": "072735c56cc0da00e10716dd90d5a7f7b40b36be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-abbd664eb4381102c559d358420989f835208f18-zip-ad7ff9.zip",
-                "reference": "abbd664eb4381102c559d358420989f835208f18",
-                "shasum": "e3adb5d8d40efed8c57d041c99cb5a941652bc54"
+                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-072735c56cc0da00e10716dd90d5a7f7b40b36be-zip-acd63d.zip",
+                "reference": "072735c56cc0da00e10716dd90d5a7f7b40b36be",
+                "shasum": "bdb417885a189c68aaf7c6393fbffa135dfe01c5"
             },
             "require": {
                 "league/flysystem-local": "^3.0.0",
@@ -4796,7 +4797,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-16T12:53:19+00:00"
+            "time": "2024-03-25T11:49:53+00:00"
         },
         {
             "name": "league/flysystem-local",
@@ -5143,17 +5144,17 @@
         },
         {
             "name": "league/uri",
-            "version": "7.4.0",
+            "version": "7.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri.git",
-                "reference": "bf414ba956d902f5d98bf9385fcf63954f09dce5"
+                "reference": "bedb6e55eff0c933668addaa7efa1e1f2c417cc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/uri/league-uri-bf414ba956d902f5d98bf9385fcf63954f09dce5-zip-ae13a7.zip",
-                "reference": "bf414ba956d902f5d98bf9385fcf63954f09dce5",
-                "shasum": "d9db847311f86a29ee0e0cf4f56042dee0bd207b"
+                "url": "https://composer.tiki.org/dist/league/uri/league-uri-bedb6e55eff0c933668addaa7efa1e1f2c417cc4-zip-ccbe76.zip",
+                "reference": "bedb6e55eff0c933668addaa7efa1e1f2c417cc4",
+                "shasum": "a0b5f07ed9aedd3805cc06437454f3d9eabfd761"
             },
             "require": {
                 "league/uri-interfaces": "^7.3",
@@ -5223,21 +5224,21 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-01T06:24:25+00:00"
+            "time": "2024-03-23T07:42:40+00:00"
         },
         {
             "name": "league/uri-interfaces",
-            "version": "7.4.0",
+            "version": "7.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-interfaces.git",
-                "reference": "bd8c487ec236930f7bbc42b8d374fa882fbba0f3"
+                "reference": "8d43ef5c841032c87e2de015972c06f3865ef718"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/uri-interfaces/league-uri-interfaces-bd8c487ec236930f7bbc42b8d374fa882fbba0f3-zip-7473cf.zip",
-                "reference": "bd8c487ec236930f7bbc42b8d374fa882fbba0f3",
-                "shasum": "3e55100c9a14393734b1c07a97784752dcafe307"
+                "url": "https://composer.tiki.org/dist/league/uri-interfaces/league-uri-interfaces-8d43ef5c841032c87e2de015972c06f3865ef718-zip-58432a.zip",
+                "reference": "8d43ef5c841032c87e2de015972c06f3865ef718",
+                "shasum": "105edbb44af5a12617482249a86b6665a009ff5f"
             },
             "require": {
                 "ext-filter": "*",
@@ -5301,7 +5302,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-24T15:40:42+00:00"
+            "time": "2024-03-23T07:42:40+00:00"
         },
         {
             "name": "manticoresoftware/manticoresearch-php",
@@ -6130,11 +6131,11 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.24.0",
+            "version": "7.24.1",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.24.0.zip",
-                "shasum": "94492de2006de04d2db3cba427bd845e66d7d7c3"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.24.1.zip",
+                "shasum": "62914140de2a522822fa75047199c872c8958085"
             },
             "type": "npm-asset",
             "license": [
@@ -10580,17 +10581,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v5.0.0-rc3",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "7b5ec8a065a8297584430adebf9fc53b0bf1aeba"
+                "reference": "e161babbd49840de2ae7a5e358e59f52d66c1f0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-7b5ec8a065a8297584430adebf9fc53b0bf1aeba-zip-594970.zip",
-                "reference": "7b5ec8a065a8297584430adebf9fc53b0bf1aeba",
-                "shasum": "06f033ad93a213b97933b453f7fb08a409a90914"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-e161babbd49840de2ae7a5e358e59f52d66c1f0a-zip-01e3fe.zip",
+                "reference": "e161babbd49840de2ae7a5e358e59f52d66c1f0a",
+                "shasum": "595a766147936f81daf499f595783315fcca4f0e"
             },
             "require": {
                 "php": "^7.2 || ^8.0",
@@ -10641,7 +10642,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2024-02-26T13:36:56+00:00"
+            "time": "2024-03-25T11:28:59+00:00"
         },
         {
             "name": "stella-maris/clock",
@@ -15279,17 +15280,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.64",
+            "version": "1.10.65",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "fb9f270daffedcb5ff46275dcafe92538b1bc4bb"
+                "reference": "3c657d057a0b7ecae19cb12db446bbc99d8839c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-fb9f270daffedcb5ff46275dcafe92538b1bc4bb-zip-3c24f3.zip",
-                "reference": "fb9f270daffedcb5ff46275dcafe92538b1bc4bb",
-                "shasum": "6e1f08c7adc6d0a368c5970dcd20fd265700182a"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-3c657d057a0b7ecae19cb12db446bbc99d8839c6-zip-75530e.zip",
+                "reference": "3c657d057a0b7ecae19cb12db446bbc99d8839c6",
+                "shasum": "7d3241eff43221c85703cbc39beabab4e13b99f2"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15330,7 +15331,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-21T09:57:47+00:00"
+            "time": "2024-03-23T10:30:26+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -16212,17 +16213,17 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "6.0.1",
+            "version": "6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "43c751b41d74f96cbbd4e07b7aec9675651e2951"
+                "reference": "8074dbcd93529b357029f5cc5058fd3e43666984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sebastian/environment/sebastian-environment-43c751b41d74f96cbbd4e07b7aec9675651e2951-zip-418ca4.zip",
-                "reference": "43c751b41d74f96cbbd4e07b7aec9675651e2951",
-                "shasum": "c6872b714ee95c4d612386b15635d8d273a2584d"
+                "url": "https://composer.tiki.org/dist/sebastian/environment/sebastian-environment-8074dbcd93529b357029f5cc5058fd3e43666984-zip-5b3490.zip",
+                "reference": "8074dbcd93529b357029f5cc5058fd3e43666984",
+                "shasum": "9441f18c26ebb16cb7aec2fbfa33105ce03ffab9"
             },
             "require": {
                 "php": ">=8.1"
@@ -16236,7 +16237,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "6.0-dev"
+                    "dev-main": "6.1-dev"
                 }
             },
             "autoload": {
@@ -16267,7 +16268,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-11T05:39:26+00:00"
+            "time": "2024-03-23T08:47:14+00:00"
         },
         {
             "name": "sebastian/exporter",
