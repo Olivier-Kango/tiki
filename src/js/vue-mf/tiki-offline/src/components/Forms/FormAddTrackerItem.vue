@@ -1,14 +1,12 @@
 <template>
     <!-- Modal -->
-    <div class="modal fade" id="formAddTrackerItem" tabindex="-1" role="dialog" aria-labelledby="dynamicFormModalLabel"
+    <div class="modal fade" id="formAddTrackerItemModal" tabindex="-1" role="dialog" aria-labelledby="formAddTrackerItemLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="dynamicFormModalLabel">Create tracker item</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="formAddTrackerItemLabel">Create tracker item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Render the form here -->
@@ -18,13 +16,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="submitForm">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="submitForm">Create Item</button>
                 </div>
             </div>
         </div>
     </div>
-    <Button variant="primary" sm @click="createTrackerItem" data-toggle="modal" data-target="#formAddTrackerItemModal">
+    <Button variant="primary" sm @click="createTrackerItem" data-bs-toggle="modal" data-bs-target="#formAddTrackerItemModal">
             <i class="fas fa-plus"></i> 
             <span class="ml-2">Create item</span>
     </Button>

@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in trackerItems[0]">
+                        <tr v-for="item in trackerItems">
                             <template v-if="item.trackerId == tracker.trackerId">
                                 <!-- Todo: Show link on one of the main fields-->
                                 <td v-for="field in tracker.fields">{{ item[field.ins_id] }}</td>
