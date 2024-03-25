@@ -31,12 +31,12 @@
                     {/if}
                     <div class="file-actions d-inline-block">
                         <div class="d-inline-block">
-                            <a href="#" class="file-move-to-tracker-icon text-danger" data-action="copy">
+                            <a href="#" class="file-move-to-tracker-icon text-danger" data-action="copy" title="{tr}Copy to another tracker{/tr}">
                                 {icon name='copy'}
                             </a>
                         </div>
                         <div class="d-inline-block">
-                            <a href="#" class="file-move-to-tracker-icon text-danger" data-action="move">
+                            <a href="#" class="file-move-to-tracker-icon text-danger" data-action="move" title="{tr}Move to another tracker{/tr}">
                                 {icon name='move'}
                             </a>
                         </div>
@@ -129,7 +129,7 @@
                 $field.input_csv('add', ',', fileId);
 
                 li.prepend($.fileTypeIcon(fileId, { type: type, name: name }));
-                li.append($('<div class="file-actions d-inline-block"><div class="d-inline-block"><a href="#" class="file-move-to-tracker-icon text-danger" data-action="copy">{{icon name='copy'}}</a></div><a class="file-hard-delete-icon text-danger">{{icon name='trash'}}</a><a class="file-delete-icon text-danger">{{icon name='delete'}}</a></div>'));
+                li.append($('<div class="file-actions d-inline-block"><div class="d-inline-block"><a href="#" class="file-move-to-tracker-icon text-danger" data-action="copy" title="{tr}Copy to another tracker{/tr}">{{icon name='copy'}}</a></div><a class="file-hard-delete-icon text-danger">{{icon name='trash'}}</a><a class="file-delete-icon text-danger">{{icon name='delete'}}</a></div>'));
 
                 if (replaceFile && $self.data('firstfile') > 0) {
                     li.prev('li').remove();
