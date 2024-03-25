@@ -334,7 +334,7 @@ class Services_Tracker_Utilities
             $info = $trklib->get_field_info($fieldId);
             $handler = $trklib->get_field_handler($info, $item);
             $data = $handler->getFieldData();
-            $out[$name] = $data['value'] ?? '';
+            $out[$name] = $data['value'] ?? null; // some handlers like Header don't return values
         }
 
         return $out;
