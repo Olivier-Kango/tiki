@@ -851,8 +851,12 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
             $itemValues = [];
             if ($displayFields) {
                 foreach ($displayFields as $fieldId) {
-                    $field = $definition->getField($fieldId);
-                    if (empty($field)) {
+                    try {
+                        $field = $definition->getField($fieldId);
+                        if (empty($field)) {
+                            throw new Exception(tr('Field not found: %0', $fieldId));
+                        }
+                    } catch (Exception $e) {
                         continue;
                     }
                     if ($field['type'] == 'l') {

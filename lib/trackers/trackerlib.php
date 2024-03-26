@@ -4141,7 +4141,12 @@ class TrackerLib extends TikiLib
             $trackerId = (int) $this->table('tiki_tracker_items')->fetchOne('trackerId', ['itemId' => $itemId]);
         }
 
-        $definition = Tracker_Definition::get($trackerId);
+        try {
+            $definition = Tracker_Definition::get($trackerId);
+        } catch (InvalidArgumentException $e) {
+            Feedback::error(tr('Requested main tracker item field value of item %0 but tracker %1 not found.', $itemId, $trackerId));
+            return '';
+        }
         $mainFieldId = $definition->getMainFieldId();
         if ($mainFieldId) {
             $field = $definition->getFieldInfoFromFieldId($mainFieldId);
