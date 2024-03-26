@@ -51,6 +51,8 @@ class Tracker_Item
         $obj->info = $info;
         if (isset($info['trackerId'])) {
             $obj->definition = Tracker_Definition::get($info['trackerId']);
+        } else {
+            throw new InvalidArgumentException("Cannot initialize tracker item without a trackerId and its definition.")
         }
         $obj->initialize();
 

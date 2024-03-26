@@ -40,20 +40,19 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
             return false;
         }
 
-        $itemObject = Tracker_Item::fromInfo($item);
-
-        if (empty($itemObject) || ! $itemObject->getDefinition()) { // ignore corrupted items, e.g. where trackerId == 0
+        try {
+            $itemObject = Tracker_Item::fromInfo($item);
+            $definition = $itemObject->getDefinition();
+            if (! $definition) {
+                throw new InvalidArgumentException();
+            }
+        } catch (InvalidArgumentException $e) {
+            // ignore corrupted items, e.g. where trackerId == 0
             return false;
         }
 
         $permNeeded = $itemObject->getViewPermission();
         $specialUsers = $itemObject->getSpecialPermissionUsers($objectId, 'View');
-
-        $definition = Tracker_Definition::get($item['trackerId']);
-
-        if (! $definition) {
-            return $data;
-        }
 
         $fieldPermissions = [];
 
