@@ -1,9 +1,8 @@
 <template>
     <div class="offline-trackers">
         <h2>Offline tracker items</h2>
-        <FormAddTrackerItem :formFields="[]" :initialValues="{}" />        
         <OfflineTracker
-            v-for="(tracker, index) in trackerData"
+            v-for="(tracker, index) in trackers"
             :tracker="tracker"
             :index="index"
         >
@@ -12,15 +11,13 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th v-for="field in tracker.fields">{{ field.name }}</th>
+                            <th v-for="field in visibleFields(tracker.fields)">{{ field.name }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in trackerItems">
-                            <template v-if="item.trackerId == tracker.trackerId">
-                                <!-- Todo: Show link on one of the main fields-->
-                                <td v-for="field in tracker.fields">{{ item[field.ins_id] }}</td>
-                            </template>
+                        <tr v-for="item in tracker.items">
+                            <!-- Todo: Show link on one of the main fields-->
+                            <td v-for="field in tracker.fields">{{ item[field.ins_id] }}</td>
                         </tr> 
                     </tbody>
                 </table>
@@ -30,9 +27,8 @@
 </template>
 
 <script setup>
-    import { inject } from 'vue';
+    import store from '../store'
     import OfflineTracker from "./OfflineTracker.vue";
-    import FormAddTrackerItem from "./Forms/FormAddTrackerItem.vue";
 </script>
 
 <script>
@@ -40,19 +36,18 @@
         name: "OfflineTrackers",
         components: {
             OfflineTracker: OfflineTracker,
-            FormAddTrackerItem: FormAddTrackerItem
         },
-        props: {
-            trackerData: {
-                type: Object
+        computed: {
+            trackers () {
+                return store.state.trackers
             },
-            trackerItems: {
-                type: Object
-            }
+            items () {
+                return store.state.items
+            },
         },
-        data: function () {
-            return {
-                store: inject('store')
+        methods: {
+            visibleFields (fields) {
+                return fields.filter(field => field.isTblVisible == 'y')
             }
         },
     };

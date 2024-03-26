@@ -4,9 +4,9 @@ export default {
 }
 </script>
 <script setup>
-import { provide } from 'vue'
+import { onBeforeMount } from 'vue'
 import OfflineTrackers from './components/OfflineTrackers.vue'
-//import createStore from './store';
+import store from './store'
 
 const props = defineProps({
     trackerData: {
@@ -14,9 +14,11 @@ const props = defineProps({
     }
 })
 
-//provide('store', createStore());
+onBeforeMount(() => {
+    store.commit('initState', {trackerData: props.trackerData})
+})
 </script>
 
 <template>
-    <OfflineTrackers :trackerData="trackerData" />
+    <OfflineTrackers />
 </template>
