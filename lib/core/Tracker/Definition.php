@@ -178,7 +178,7 @@ class Tracker_Definition
                 return $f;
             }
         }
-        throw new Error("Field with fieldId: {$id} not found in definition of {$this->trackerInfo['trackerId']}");
+        throw new RuntimeException("Field with fieldId: {$id} not found in definition of {$this->trackerInfo['trackerId']}");
     }
 
     public function getFieldFromName($name): ?array

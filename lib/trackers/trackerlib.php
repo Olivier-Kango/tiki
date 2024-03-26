@@ -935,7 +935,12 @@ class TrackerLib extends TikiLib
         $definition = Tracker_Definition::get($trackerId);
         if ($definition) {
             foreach ($fieldsId as $k => $field) {
-                $myfield = $definition->getField($field);
+                try {
+                    $myfield = $definition->getField($field);
+                } catch (Exception $e) {
+                    Feedback::error($e->getMessage());
+                    continue;
+                }
 
                 $myfield['value'] = $this->get_item_value(
                     $trackerId,
