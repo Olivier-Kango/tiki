@@ -16,12 +16,12 @@
 <table class="table table-striped table-hover">
     <tr>
         {if $comments}
-            <th>
-                {select_all checkbox_names='checked[]'}
+            <td>
+                {select_all checkbox_names='checked[]' aria-label='{tr}Select all{/tr}'}
                 {assign var=numbercol value=$numbercol+1}
-            </th>
+            </td>
         {/if}
-        <th></th>
+        <td></td>
 
         {foreach key=headerKey item=headerName from=$headers}
             <th>
@@ -36,14 +36,12 @@
                 {self_link _sort_arg="sort_mode" _sort_field='approved'}{tr}Approval{/tr}{/self_link}
             </th>
         {/if}
-        <th></th>
+        <td></td>
     </tr>
 
     {section name=ix loop=$comments}{assign var=id value=$comments[ix].threadId}
         <tr class="{cycle}{if $prefs.feature_comments_moderation eq 'y'} post-approved-{$comments[ix].approved}{/if}">
-            <td class="checkbox-cell">
-                <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="checked[]" value="{$id}" {if isset($rejected[$id]) }checked="checked"{/if}>
-            </td>
+            <td class="checkbox-cell"><div class="form-check"><input type="checkbox" class="form-check-input" name="checked[]" value="{$id}" {if isset($rejected[$id]) }checked="checked"{/if}></div></td>
             <td class="action">
                 {actions}
                     {strip}

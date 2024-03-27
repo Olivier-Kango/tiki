@@ -246,8 +246,9 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
                 <input type="hidden" name="rme" id="login-remember-module-input_{$module_logo_instance}" value="on" />
             {else}
                 <div class="form-check">
-                    <div class="checkbox rme">
-                        <label for="login-remember-module_{$module_logo_instance}"><input type="checkbox" class="form-check-input" name="rme" id="login-remember-module_{$module_logo_instance}" value="on" />
+                {*    <div class="checkbox rme"> *}
+                        <input type="checkbox" class="form-check-input" name="rme" id="login-remember-module_{$module_logo_instance}" value="on" />
+                        <label for="login-remember-module_{$module_logo_instance}">
                             {tr}Remember me{/tr}
                             ({tr}for{/tr}
                             {if $prefs.remembertime eq 300}
@@ -274,7 +275,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
                                 1 {tr}year{/tr})
                             {/if}
                         </label>
-                    </div>
+                 {*   </div> *}
                 </div>
             {/if}
         {/if}
