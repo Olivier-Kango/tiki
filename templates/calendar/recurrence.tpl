@@ -148,25 +148,25 @@
                                     </option>
                                 </select>
                                 <select name="monthlyWeekday" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
-                                    <option value="SU" {if strpos($recurrence.monthlyWeekdayValue, 'SU') eq true} selected="selected" {/if}>
+                                    <option value="SU" {if strpos($recurrence.monthlyWeekdayValue, 'SU') neq false} selected="selected" {/if}>
                                         {tr}Sunday{/tr}
                                     </option>
-                                    <option value="MO" {if strpos($recurrence.monthlyWeekdayValue, 'MO') eq true} selected="selected" {/if}>
+                                    <option value="MO" {if strpos($recurrence.monthlyWeekdayValue, 'MO') neq false} selected="selected" {/if}>
                                         {tr}Monday{/tr}
                                     </option>
-                                    <option value="TU" {if strpos($recurrence.monthlyWeekdayValue, 'TU') eq true} selected="selected" {/if}>
+                                    <option value="TU" {if strpos($recurrence.monthlyWeekdayValue, 'TU') neq false} selected="selected" {/if}>
                                         {tr}Tuesday{/tr}
                                     </option>
-                                    <option value="WE" {if strpos($recurrence.monthlyWeekdayValue, 'WE') eq true} selected="selected" {/if}>
+                                    <option value="WE" {if strpos($recurrence.monthlyWeekdayValue, 'WE') neq false} selected="selected" {/if}>
                                         {tr}Wednesday{/tr}
                                     </option>
-                                    <option value="TH" {if strpos($recurrence.monthlyWeekdayValue, 'TH') eq true} selected="selected" {/if}>
+                                    <option value="TH" {if strpos($recurrence.monthlyWeekdayValue, 'TH') neq false} selected="selected" {/if}>
                                         {tr}Thursday{/tr}
                                     </option>
-                                    <option value="FR" {if strpos($recurrence.monthlyWeekdayValue, 'FR') eq true} selected="selected" {/if}>
+                                    <option value="FR" {if strpos($recurrence.monthlyWeekdayValue, 'FR') neq false} selected="selected" {/if}>
                                         {tr}Friday{/tr}
                                     </option>
-                                    <option value="SA" {if strpos($recurrence.monthlyWeekdayValue, 'SA') eq true} selected="selected" {/if}>
+                                    <option value="SA" {if strpos($recurrence.monthlyWeekdayValue, 'SA') neq false} selected="selected" {/if}>
                                         {tr}Saturday{/tr}
                                     </option>
                                 </select>
@@ -279,30 +279,30 @@
                                     <option value="5" {if $recurrence.yearlyWeekdayValue[0] eq '5'} selected="selected" {/if}>
                                         {tr}Fifth{/tr}
                                     </option>
-                                    <option value="-1" {if strpos($recurrence.yearlyWeekdayValue, '-1') eq true} selected="selected" {/if}>
+                                    <option value="-1" {if strpos($recurrence.yearlyWeekdayValue, '-1') === 0} selected="selected" {/if}>
                                         {tr}Last{/tr}
                                     </option>
                                 </select>
                                 <select name="yearlyWeekday" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
-                                    <option value="SU" {if strpos($recurrence.yearlyWeekdayValue, 'SU') eq true} selected="selected" {/if}>
+                                    <option value="SU" {if strpos($recurrence.yearlyWeekdayValue, 'SU') neq false} selected="selected" {/if}>
                                         {tr}Sunday{/tr}
                                     </option>
-                                    <option value="MO" {if strpos($recurrence.yearlyWeekdayValue, 'MO') eq true} selected="selected" {/if}>
+                                    <option value="MO" {if strpos($recurrence.yearlyWeekdayValue, 'MO') neq false} selected="selected" {/if}>
                                         {tr}Monday{/tr}
                                     </option>
-                                    <option value="TU" {if strpos($recurrence.yearlyWeekdayValue, 'TU') eq true} selected="selected" {/if}>
+                                    <option value="TU" {if strpos($recurrence.yearlyWeekdayValue, 'TU') neq false} selected="selected" {/if}>
                                         {tr}Tuesday{/tr}
                                     </option>
-                                    <option value="WE" {if strpos($recurrence.yearlyWeekdayValue, 'WE') eq true} selected="selected" {/if}>
+                                    <option value="WE" {if strpos($recurrence.yearlyWeekdayValue, 'WE') neq false} selected="selected" {/if}>
                                         {tr}Wednesday{/tr}
                                     </option>
-                                    <option value="TH" {if strpos($recurrence.yearlyWeekdayValue, 'TH') eq true} selected="selected" {/if}>
+                                    <option value="TH" {if strpos($recurrence.yearlyWeekdayValue, 'TH') neq false} selected="selected" {/if}>
                                         {tr}Thursday{/tr}
                                     </option>
-                                    <option value="FR" {if strpos($recurrence.yearlyWeekdayValue, 'FR') eq true} selected="selected" {/if}>
+                                    <option value="FR" {if strpos($recurrence.yearlyWeekdayValue, 'FR') neq false} selected="selected" {/if}>
                                         {tr}Friday{/tr}
                                     </option>
-                                    <option value="SA" {if strpos($recurrence.yearlyWeekdayValue, 'SA') eq true} selected="selected" {/if}>
+                                    <option value="SA" {if strpos($recurrence.yearlyWeekdayValue, 'SA') neq false} selected="selected" {/if}>
                                         {tr}Saturday{/tr}
                                     </option>
                                 </select>
