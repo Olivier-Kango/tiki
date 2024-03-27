@@ -2178,7 +2178,7 @@ class Services_Tracker_Controller
             'title' => $trackerId ? tr('Edit') . " " . tr('%0', $definition->getConfiguration('name')) : tr('Create Tracker'),
             'trackerId' => $trackerId,
             'info' => $trackerId ? $definition->getInformation() : [],
-            'statusTypes' => $definition->getStatusTypes(),
+            'statusTypes' => $trackerId ? $definition->getStatusTypes() : $trklib->status_types(),
             'statusList' => $trackerId ? preg_split('//', $definition->getConfiguration('defaultStatus', 'o'), -1, PREG_SPLIT_NO_EMPTY) : null,
             'sortFields' => $this->getSortFields($definition ?? null),
             'attachmentAttributes' => $trackerId ? $this->getAttachmentAttributes($definition->getConfiguration('orderAttachments', 'created,filesize,hits')) : [],
