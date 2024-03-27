@@ -324,15 +324,18 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
         if (empty($itemId)) {
             return false;
         }
-        $itemObject = \Tracker_Item::fromInfo($this->itemData);
 
-        $status = $this->getData('status');
-
-        if (
-            $this->getConfiguration('isMain', 'n') == 'y'
-            && ($itemObject->canView()  || $itemObject->getPerm('comment_tracker_items'))
-        ) {
-            return (bool) $this->getItemId();
+        try {
+            $itemObject = \Tracker_Item::fromInfo($this->itemData);
+            if (
+                $this->getConfiguration('isMain', 'n') == 'y'
+                && ($itemObject->canView()  || $itemObject->getPerm('comment_tracker_items'))
+            ) {
+                return (bool) $this->getItemId();
+            }
+        } catch (\Exception $e) {
+            trigger_error($e->getMessage());
+            return false;
         }
 
         return false;
