@@ -215,6 +215,8 @@ class Services_Calendar_Controller
                 $start->setTimezone($timezone);
                 $end->setTimezone($timezone);
             } else {
+                $start->setTimezone(new DateTimeZone('UTC'));
+                $end->setTimezone(new DateTimeZone('UTC'));
                 $start->setTime(0, 0);
                 $end->setTime(0, 0);
             }
@@ -287,6 +289,7 @@ class Services_Calendar_Controller
         if ($access->requestIsPost() && $access->checkCsrf(false, true)) {
             if ($input->offsetExists('calitem')) {
                 $calitem = $input->asArray('calitem');
+                $calitem = $this->convertCalitemTimes($calitem, $input);
                 $calendarId = $calitem['calendarId'];
                 $calitem['calitemId'] = $calitemId;
                 $calitem['allday'] = empty($calitem['allday']) ? 0 : 1;
@@ -312,8 +315,6 @@ class Services_Calendar_Controller
                         } else {
                             Feedback::error(tr('Calendar edit error')); // TODO more
                         }
-                    } else {
-                        Feedback::error(tr('Calendar edit error')); // TODO more
                     }
                 } else {
                     $title = $calitem['title'];
@@ -333,6 +334,25 @@ class Services_Calendar_Controller
                         $calitem['parsedName'] = $parserLib->parse_data($calitem['name']);
                     }
                 }
+
+                $start = new TikiDate();
+                $start->setDate($calitem['start']);
+                $start->setTZbyID($displayTimezone);
+                $end = new TikiDate();
+                $end->setDate($calitem['end']);
+                $end->setTZbyID($displayTimezone);
+
+                $allDay = $calitem['allday'] != 0;
+                if (! $allDay) {
+                    $start->convertTimeToUTC();
+                    $end->convertTimeToUTC();
+                } else {
+                    $start->convertTimeToUTC(0, 0, 0);
+                    $end->convertTimeToUTC(0, 0, 0);
+                }
+
+                $calitem['start'] = $start->getTime();
+                $calitem['end']   = $end->getTime();
             } else {
                 Feedback::error(tr('No event data?'));
                 return [];
@@ -565,6 +585,7 @@ class Services_Calendar_Controller
             $preview = true;
 
             $calitem = $input->asArray('calitem');
+            $calitem = $this->convertCalitemTimes($calitem, $input);
             $calendar = $this->calendarLib->get_calendar($calitem['calendarId']);
             $calitem['allday'] = empty($calitem['allday']) ? 0 : 1;
 
@@ -729,14 +750,6 @@ class Services_Calendar_Controller
 
                 global $user;
 
-                // if local browser offset or timezone identifier is submitted, convert timestamp to server-based timezone
-                $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
-                $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
-                $calitem['start'] -= $server_offset;
-                $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
-                $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
-                $calitem['end'] -= $server_offset;
-
                 $calitemId = $this->calendarLib->set_item($user, $calitem['calitemId'] ?? 0, $calitem);
                 // Save the ip at the log for the addition of new calendar items
                 if ($this->logsLib) {
@@ -800,19 +813,13 @@ class Services_Calendar_Controller
     private function createRecurrenceFromInput(JitFilter $input): CalRecurrence
     {
         $calitem = $input->asArray('calitem');
+        $calitem = $this->convertCalitemTimes($calitem, $input);
         $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
 
         $recurrence = new CalRecurrence(
             ! empty($input->recurrenceId->int()) ? $input->recurrenceId->int() : -1
         );
         $recurrence->setCalendarId($calitem['calendarId']);
-        // Start/End times adjusted from browser's timezone to UTC
-        $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
-        $server_offset = TikiDate::tzServerOffset($displayTimezone, $calitem['start']);
-        $calitem['start'] -= $server_offset;
-        $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
-        $server_offset = TikiDate::tzServerOffset($displayTimezone, $calitem['end']);
-        $calitem['end'] -= $server_offset;
         $tz = date_default_timezone_get();
         date_default_timezone_set('UTC');
         $tikidateStart = new TikiDate();
@@ -951,6 +958,34 @@ class Services_Calendar_Controller
             $calitem['participants'] = [];
         }
 
+        return $calitem;
+    }
+
+    /**
+     * Convert submitted start/end times to UTC
+     */
+    private function convertCalitemTimes(array $calitem, JitFilter $input): array
+    {
+        // if local browser offset or timezone identifier is submitted, convert timestamp to server-based timezone
+        $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
+        $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
+        $calitem['start'] -= $server_offset;
+        $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
+        $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
+        $calitem['end'] -= $server_offset;
+        if ($calitem['allday']) {
+            // convert to UTC @12:00am, so we don't depend on user's timezone when displaying later
+            $start = new TikiDate();
+            $start->setDate($calitem['start']);
+            $start->setTZbyID(TikiLib::lib('tiki')->get_display_timezone());
+            $start->convertTimeToUTC(0, 0, 0);
+            $calitem['start'] = $start->getTime();
+            $end = new TikiDate();
+            $end->setDate($calitem['end']);
+            $end->setTZbyID(TikiLib::lib('tiki')->get_display_timezone());
+            $end->convertTimeToUTC(0, 0, 0);
+            $calitem['end'] = $end->getTime();
+        }
         return $calitem;
     }
 }
