@@ -857,7 +857,7 @@ class Services_Calendar_Controller
                 $recurrence->setMonths($input->months->int());
                 $recurrence->setMonthlyType($input->recurrenceTypeMonthy->word());
                 if ($input->recurrenceTypeMonthy->word() === 'weekday') {
-                    $monthlyWeekdayValue = $input->monthlyWeekNumber->word() . $input->monthlyWeekday->word();
+                    $monthlyWeekdayValue = $input->monthlyWeekNumber->raw() . $input->monthlyWeekday->word();
                     $recurrence->setMonthlyWeekdayValue($monthlyWeekdayValue);
                 } else {
                     $recurrence->setDayOfMonth(implode(',', $input->asArray('dayOfMonth')));
@@ -871,7 +871,7 @@ class Services_Calendar_Controller
                 $recurrence->setYears($input->years->int());
                 $recurrence->setYearlyType($input->recurrenceTypeYearly->word());
                 if ($input->recurrenceTypeYearly->word() === 'weekday') {
-                    $yearlyWeekdayValue = $input->yearlyWeekNumber->word() . $input->yearlyWeekday->word();
+                    $yearlyWeekdayValue = $input->yearlyWeekNumber->raw() . $input->yearlyWeekday->word();
                     $recurrence->setYearlyWeekdayValue($yearlyWeekdayValue);
                     $recurrence->setYearlyWeekMonth($input->yearlyWeekMonth->int());
                 } else {
