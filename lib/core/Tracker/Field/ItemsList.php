@@ -854,9 +854,10 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                     try {
                         $field = $definition->getField($fieldId);
                         if (empty($field)) {
-                            throw new Exception(tr('Field not found: %0', $fieldId));
+                            throw new Exception(tr('ItemsList::getItemValues display field not found: %0', $fieldId));
                         }
                     } catch (Exception $e) {
+                        trigger_error($e->getMessage());
                         continue;
                     }
                     if ($field['type'] == 'l') {

@@ -44,10 +44,11 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
             $itemObject = Tracker_Item::fromInfo($item);
             $definition = $itemObject->getDefinition();
             if (! $definition) {
-                throw new InvalidArgumentException();
+                throw new InvalidArgumentException("Tracker definition not found for item $objectId");
             }
         } catch (InvalidArgumentException $e) {
             // ignore corrupted items, e.g. where trackerId == 0
+            trigger_error($e->getMessage());
             return false;
         }
 
