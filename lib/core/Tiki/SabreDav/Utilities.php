@@ -583,6 +583,8 @@ class Utilities
         }
         if (! empty($row['allday'])) {
             $data['X-Tiki-Allday'] = $row['allday'];
+        } else {
+            $data['X-Tiki-Allday'] = 0;
         }
         if (! empty($row['description'])) {
             $data['DESCRIPTION'] = $row['description'];
