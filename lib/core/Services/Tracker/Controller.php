@@ -338,7 +338,7 @@ class Services_Tracker_Controller
         $encryption_keys = TikiLib::lib('encryption')->get_keys();
 
         $permName = $input->permName->word();
-        if ($permName & $field['permName'] != $permName) {
+        if ($permName && $field['permName'] != $permName) {
             if ($definition->getFieldFromPermName($permName)) {
                 throw new Services_Exception_DuplicateValue('permName', tr('This permanent name %0 is already used', $permName));
             }
