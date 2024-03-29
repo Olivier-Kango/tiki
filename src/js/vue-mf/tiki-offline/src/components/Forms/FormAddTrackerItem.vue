@@ -59,7 +59,7 @@ export default {
     name: 'FormAddTrackerItem',
     // Props received from parent component
     props: {
-        trackerId: int,
+        trackerId: Number,
         formFields: Array, // Configuration object defining form fields
         initialValues: Object // Initial values if editing
     },
@@ -75,6 +75,11 @@ export default {
         Text,
         UserSelector,
     },
+    data() {
+        return {
+            fieldValues: {},
+        }
+    },
     methods: {
         // form field value in parent component's data
         updateValue(fieldName, value) {
@@ -83,11 +88,18 @@ export default {
         // handle form submission
         submitForm() {
             // TODO: prepare field values as an object ins_ID => value
-            // store.commit('createItem', trackerId, fieldValues);
+            initFieldValues();
+            store.commit('createItem', trackerId, fieldValues);
         },
         fieldId(fieldId) {
             return "trackerinput_" + fieldId;
-        }
+        },
+        initFieldValues() {
+            this.formFields.forEach(field => {
+                // add ins_ID => empty value
+                fieldValues[field.ins_id] = '';
+            });
+        },
     }
 };
 </script>
