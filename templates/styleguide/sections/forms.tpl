@@ -4,6 +4,7 @@
         <div class="col-sm-8 col-md-9">
             <form class="tc-form" method="post" action="#">
                 <fieldset>
+                    <legend class="visually-hidden">{tr}Forms{/tr}</legend>
                     <p class="mb-3">
                         <label for="tc-username-example">{tr}Username{/tr}</label>
                         <input id="tc-username-example" class="nocolor form-control" type="text" value="Username">

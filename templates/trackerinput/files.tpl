@@ -74,6 +74,7 @@
         {/if}
         {if $prefs.fgal_upload_from_source eq 'y' and $field.canUpload}
             <fieldset>
+                <legend class="visually-hidden">{tr}Upload File(s){/tr}</legend>
                 {if $prefs.vimeo_upload eq 'y' and $field.options_map.displayMode eq 'vimeo'}
                     <label for="vimeourl_{$field.ins_id|escape}" class="small">
                         {tr}Link to existing Vimeo URL{/tr}
