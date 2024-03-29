@@ -838,6 +838,7 @@ class PdfGenerator
     public function _getImages(&$html, &$tempImgArr)
     {
         $html = cleanHtml($html, null, 'utf8');
+        $html = str_replace('&amp;#x', '&#x', $html);
         $doc = loadHTMLContent($html);
 
         $tags = $doc->getElementsByTagName('img');
@@ -1325,6 +1326,7 @@ function cleanHtml($html, $config = null, $encoding = 'utf8')
             'coerce-endtags' => true,
             'quote-ampersand' => true,
             'quote-marks' => false,
+            'drop-empty-elements' => false,
         ];
         $config = (is_array($config) == true) ? array_merge($default, $config) : $default;
         $html_ = tidy_parse_string($html, $config, $encoding);
