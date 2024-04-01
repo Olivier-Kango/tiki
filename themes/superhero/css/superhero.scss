@@ -10,7 +10,7 @@
 */
 
 @import "../../base_files/scss/_tiki-bootstrap_functions";
-
+@import "../../../node_modules/bootswatch/dist/superhero/variables";
 @import "../scss/variables";
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
@@ -28,10 +28,10 @@
 body.fullscreen { background: $body-bg; }
 
 //Theme variables aren't overriding default values for these.
-body {
-    color: #EBEBEB;
-    background: #2B3E50;
-}
+//body {
+//    color: #EBEBEB;
+//    background: #2B3E50;
+//}
 
 // override for some cypht background colors
 .tiki {

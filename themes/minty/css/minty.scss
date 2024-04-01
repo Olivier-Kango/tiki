@@ -1,6 +1,6 @@
 /* Bootswatch theme adapted by the Tiki Community for Tiki Wiki CMS Groupware */
 /* Original Bootswatch information:
- * bootswatch v5.2.0
+ * bootswatch v5.3.3
  * Homepage: http://bootswatch.com
  * Copyright 2012-2022 Thomas Park
  * Licensed under MIT
@@ -10,7 +10,7 @@
 */
 
 @import "../../base_files/scss/_tiki-bootstrap_functions";
-
+@import "../../../node_modules/bootswatch/dist/minty/variables";
 @import "../scss/variables";
 @import "../scss/variables-dark";
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
@@ -35,20 +35,9 @@
     margin-bottom: .5rem;
 }
 
-//.navbar-dark.bg-dark {
-//    background: #78c2ad !important;
-//}
-//
 .navbar-light.bg-light {
   background: #f3969a !important;
 }
-
-//.btn:not(.btn-link) {
-//    color: #000 !important;
-//}
-//.navbar {
-//    --bs-navbar-color: #3A826E; //$link-color;
-//}
 
 // Make links visible in dark mode
 #col2 .navbar {
@@ -59,4 +48,14 @@
             color: var(--tiki-vert-nav-link-hover-color);
         }
     }
+}
+
+.tiki .btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger,
+.btn:not(.btn-link){
+    color: #212529 !important;
 }
