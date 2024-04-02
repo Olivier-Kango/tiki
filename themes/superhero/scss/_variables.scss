@@ -30,6 +30,9 @@ $green:   #5cb85c !default;
 $teal:    #20c997 !default;
 $cyan:    #5bc0de !default;
 
+$red-300: tint-color($red, 40%) !default;
+$green-300: tint-color($green, 40%) !default;
+
 $primary:       #BC5815; // $orange;
 $secondary:     $gray-200 !default;
 $success:       #3A833A; // $green !default;
@@ -48,8 +51,12 @@ $prefix: bs-;
 
 // Body
 
+$body-bg:                   #0f2537 !default;
+$body-color:                $gray-100 !default;
+
 // Links
 $link-color: #6FADEC; // Lightened for Tiki to comply with WCAG standards
+$link-shade-percentage:                   20% !default;
 
 // Components
 
@@ -117,7 +124,7 @@ $breadcrumb-bg:                     $gray-200 !default;
 // Close
 
 // Code
-
+$code-color:                        $body-color;
 $pre-color:                         inherit !default;
 
 //--------------------------- Tiki SCSS variables

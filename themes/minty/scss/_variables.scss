@@ -32,12 +32,14 @@ $red-300: tint-color($red, 40%) !default;
 
 $primary:       #ABD9CD; // #78c2ad !default;
 $secondary:     #f3969a !default;
-$success:       $green !default;
-$info:          $cyan !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
+$success:       #56cc9d; // $green !default;
+$info:          #6cc3d5; //$cyan !default;
+$warning:       #ffce67; // $yellow !default;
+$danger:        #ff7851; //$red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
+
+$min-contrast-ratio:   2.5;
 
 // Options
 // Prefix for :root CSS variables

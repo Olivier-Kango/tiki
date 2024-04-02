@@ -42,6 +42,8 @@ $theme-colors: (
     "dark":              #ad1d28, // $black,
 );
 
+
+
 // Options
 // Prefix for :root CSS variables
 
@@ -50,8 +52,10 @@ $prefix:                      $variable-prefix !default;
 // Gradient
 // Spacing
 // Body
-$body-bg: #0c6369; // #108a93; WAI
+$body-bg: #0b646b; // #108a93; WAI
 $body-color: #fff;
+$body-tertiary-bg: #16838c;
+$body-secondary-color:      rgba($body-color, .75);
 
 // Utility maps
 // Links
@@ -78,14 +82,18 @@ $blockquote-footer-color: #E6E8EA;
 $text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0
 
 // Tables
+$table-color:                 var(--#{$prefix}body-color);
+$table-striped-color:         $table-color;
 $table-bg: transparent;
 $table-head-bg: #108a93;
 $table-head-color: #fff;
 
 // Forms
-$input-bg: var(--#{$prefix}body-bg) !default; // $gray-100;
-$input-color: var(--#{$prefix}body-color) !default; // $gray-800;
-$input-placeholder-color: var(--#{$prefix}secondary-color) !default; // #585E65;
+$form-text-color:                       var(--#{$prefix}body-color);
+$input-bg: var(--#{$prefix}body-bg); // $gray-100;
+$input-color: var(--#{$prefix}body-color); // $gray-800;
+$input-placeholder-color: var(--#{$prefix}secondary-color); // #585E65;
+$input-group-addon-bg: var(--#{$prefix}tertiary-bg);
 
 // Form validation
 // Z-index master list

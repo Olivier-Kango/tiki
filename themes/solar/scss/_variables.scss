@@ -47,8 +47,13 @@ $prefix:                      $variable-prefix !default;
 
 // Body
 
+$body-bg:                   $gray-900 !default;
+$body-color:                $gray-600 !default;
+
 // Links
 
+$link-color:                #289F97; //$success !default;
+$link-hover-color:          $link-color !default;
 $link-shade-percentage:                   20% !default;
 
 // Components
@@ -58,7 +63,7 @@ $link-shade-percentage:                   20% !default;
 $font-family-sans-serif:      Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;  // "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $font-size-base:              1.1rem;
 // Tables
-$table-color:                 var(--#{$prefix}emphasis-color) !default;
+$table-color:                 var(--#{$prefix}body-color) !default;
 $table-dark-color:            var(--#{$prefix}body-bg);
 
 // Forms

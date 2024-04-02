@@ -4,8 +4,9 @@
 @use "sass:color";
 $imagePathToImgDir: "../../../img/";
 @import "../../../node_modules/bootstrap/scss/_mixins.scss"; //
+@import "external-scripts"; // Moved from each theme's top file.
 //@import "../../../node_modules/bootstrap/scss/_variables.scss";
-@import "../../default/scss/variables";
+// @import "../../default/scss/variables"; -- This file (tiki-selectors) is imported by themes after they import tiki-variables, which imports default/scss/variables, so no need to import it here.
 
 // .topbar { margin-bottom: $tiki-topbar-row-margin-bottom; } - topbar is inside a wrapper so shouldn't have its own bottom margin - gary
 
@@ -1059,9 +1060,10 @@ span.plugin-mouseover {
 // To correct login dropdown color
 //.dropdown-menu { color: $dropdown-link-color; }
 
-.tiki .col1 .table-responsive .table { // border should be on the table itself, not the containing div - g_c-l
-    border: 1px solid $table-border-color; // Changed from $card-border-color; why not use closest class?
-}
+// Could be reinstated but in 2024 this looks retro to me. -g_c-l
+//.tiki .col1 .table-responsive .table { // border should be on the table itself, not the containing div - g_c-l
+//    border: 1px solid $table-border-color; // Changed from $card-border-color; why not use closest class?
+//}
 
 //
 

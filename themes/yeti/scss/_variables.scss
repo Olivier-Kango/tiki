@@ -7,6 +7,30 @@ $theme: "yeti" !default;
 // Color system
 //
 
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #eee !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ccc !default;
+$gray-500: #adb5bd !default;
+$gray-600: #888 !default;
+$gray-700: #495057 !default;
+$gray-800: #333 !default;
+$gray-900: #222 !default;
+$black:    #000 !default;
+
+$blue:    #008cba !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #f04124 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #e99002 !default;
+$green:   #43ac6a !default;
+$teal:    #20c997 !default;
+$cyan:    #5bc0de !default;
+
+
 $green-300: tint-color($green, 40%) !default;
 $red-300: tint-color($red, 40%) !default;
 
@@ -69,12 +93,9 @@ $navbar-dark-active-color:          $white !default;
 $navbar-dark-disabled-color:        rgba($white, .25) !default;
 
 // Dropdowns
-//$dropdown-link-color:               var(--#{$prefix}body-color) !default;
-//$dropdown-link-hover-color:         $dropdown-link-color !default;
-//$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
 
-//$dropdown-link-active-color:        $component-active-color !default;
-//$dropdown-link-active-bg:           $component-active-bg !default;
+$dropdown-border-color:             rgba($black, .1) !default;
+$dropdown-divider-bg:               rgba($black, .1) !default;
 
 // Navs
 

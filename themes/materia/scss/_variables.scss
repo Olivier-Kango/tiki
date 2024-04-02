@@ -4,18 +4,45 @@
 //
 // Color system
 //
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #eee !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #bbb !default;
+$gray-600: #666 !default;
+$gray-700: #444 !default;
+$gray-800: #222 !default;
+$gray-900: #212121 !default;
+$black:    #000 !default;
+
+$blue:    #2196f3 !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
 $red:     #e51c23 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ff9800 !default;
 $green:   #4caf50 !default;
+$teal:    #20c997 !default;
+$cyan:    #9c27b0 !default;
+
 $green-300: tint-color($green, 40%) !default;
 $red-300: tint-color($red, 40%) !default;
 
 $primary:       #0B78D0; // $blue !default;
 $secondary: #567476;
+$success: #4caf50;
+$info: #9c27b0;
+$warning: #ff9800;
+$danger: #e51c23;
+
 // Options
 // Prefix
 $prefix: bs-;
 
 // Body
+$body-color:    $gray-700 !default;
 
 // Typography
 $link-shade-percentage:                   20% !default; // Bootstrap 5.3
