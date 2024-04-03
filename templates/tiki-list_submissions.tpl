@@ -1,5 +1,5 @@
 {title admpage="articles" help="Articles"}{tr}Submissions{/tr}{/title}
-{ticket mode=get}
+
 <div class="t_navbar mb-4">
     {button href="tiki-edit_submission.php" class="btn btn-primary" _icon_name="create" _text="{tr}New Submission{/tr}"}
     <button form="deleteexpired_form" type="submit" class="btn btn-danger" title="{tr}Deletes expired submissions 1000 at a time to avoid timeouts{/tr}" onclick="confirmPopup('{tr}Are you sure you want to permanently remove all expired submitted articles?{/tr}')">
@@ -102,10 +102,10 @@
                         <td class="text">{$listpages[changes].topicName|escape}</td>
                     {/if}
                     {if $prefs.art_list_date eq 'y'}
-                        <td class="date" title="{$listpages[changes].publishDate|tiki_short_datetime}">{$listpages[changes].publishDate|tiki_short_date}</td>
+                        <td class="date">{$listpages[changes].publishDate|tiki_short_date}</td>
                     {/if}
                     {if $prefs.art_list_expire eq 'y'}
-                        <td class="date" title="{$listpages[changes].expireDate|tiki_short_datetime}">{$listpages[changes].expireDate|tiki_short_date}</td>
+                        <td class="date">{$listpages[changes].expireDate|tiki_short_date}</td>
                     {/if}
                     {if $prefs.art_list_size eq 'y'}
                         <td class="integer">{$listpages[changes].size|kbsize}</td>
@@ -164,7 +164,7 @@
                         {if $listpages}
                             <p align="left"> {*on the left to have it close to the checkboxes*}
                                 {if $tiki_p_remove_submission eq 'y'}
-                                    {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this,'td:not(:eq(2))'); return false;"}
+                                    {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this); return false;"}
                                 {/if}
                                 <label>{tr}Perform action with checked:{/tr}
                                     <select id="submit_mult_action" name="submit_mult">
