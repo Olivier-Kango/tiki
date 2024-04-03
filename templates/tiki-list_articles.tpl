@@ -152,10 +152,10 @@
                         <td class="text">{$listpages[changes].topicName|escape}</td>
                     {/if}
                     {if $prefs.art_list_date eq 'y'}
-                        <td class="date" title="{$listpages[changes].publishDate|tiki_short_datetime:'':'n'}">{$listpages[changes].publishDate|tiki_short_date}</td>
+                        <td class="date">{$listpages[changes].publishDate|tiki_short_date}</td>
                     {/if}
                     {if $prefs.art_list_expire eq 'y'}
-                        <td class="date" title="{$listpages[changes].expireDate|tiki_short_datetime:'':'n'}">{$listpages[changes].expireDate|tiki_short_date}</td>
+                        <td class="date">{$listpages[changes].expireDate|tiki_short_date}</td>
                     {/if}
                     {if $prefs.art_list_visible eq 'y'}
                         <td class="text">{tr}{$listpages[changes].disp_article}{/tr}</td>
@@ -231,7 +231,7 @@
     </div>
     {if $listpages and $tiki_p_remove_article eq 'y'}
         <div>
-            {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this,'td:not(:eq(2))'); return false;"}
+            {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this, 'td:not(.integer)'); return false;"}
             <br><br>
             <div class="col-lg-9 input-group">
                 <select name="submit_mult" class="form-select">
