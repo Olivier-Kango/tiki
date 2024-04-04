@@ -189,7 +189,6 @@
                             {foreach from=$modified_list key="name" item="data"}
                                 <li class="form-check">
                                     {if is_array($data.current.expanded)}
-                                        {assign var=current value=$data.current.expanded|join:', '}
                                         {assign var=current value="[$current]"}
                                     {else}
                                         {assign var=current value=$data.current.expanded}
