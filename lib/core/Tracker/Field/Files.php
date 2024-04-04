@@ -439,7 +439,17 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
                 }
                 $params['fromFieldId'] = $this->getConfiguration('fieldId');
                 $params['fromItemId'] = $this->getItemId();
-                $item = Tracker_Item::fromInfo($this->getItemData());
+                $itemData = $this->getItemData() ?? [];
+
+                if (! isset($itemData['trackerId'], $itemData['itemId'])) {
+                    $definition = $this->getFieldDefinition();
+
+                    if (isset($definition['trackerId'])) {
+                        $itemData['trackerId'] = $definition['trackerId'];
+                    }
+                }
+
+                $item = Tracker_Item::fromInfo($itemData);
                 $params['checkItemPerms'] = $item->canModify() ? 'n' : 'y';
 
                 if ($this->getOption('displayMode') == 'img') { // img
