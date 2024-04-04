@@ -2199,6 +2199,9 @@
         "lib\/core\/TikiFilter\/PregFilter.php": {
             "class:TikiFilter_PregFilter": true
         },
+        "lib\/core\/TikiFilter\/Raw.php": {
+            "class:TikiFilter_Raw": true
+        },
         "lib\/core\/TikiFilter\/PrepareInput.php": {
             "class:TikiFilter_PrepareInput": true
         },
@@ -10024,6 +10027,9 @@
         },
         "lib\/core\/TikiFilter\/PregFilter.php": {
             "TikiFilter_PregFilter": true
+        },
+        "lib\/core\/TikiFilter\/Raw.php": {
+            "TikiFilter_Raw": true
         },
         "lib\/core\/TikiFilter\/PrepareInput.php": {
             "TikiFilter_PrepareInput": true
