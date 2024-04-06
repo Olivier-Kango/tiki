@@ -58,7 +58,7 @@
                             <th><abbr title="{tr}Unique Key{/tr}">{tr}UK{/tr}</abbr></th>
                             <th><abbr title="{tr}Read-Only{/tr}">{tr}RO{/tr}</abbr></th>
                             <th><abbr title="{tr}Export-Only{/tr}">{tr}EO{/tr}</abbr></th>
-                            <th></th>
+                            <td></td>
                         </tr>
                         </thead>
                         <tbody>
@@ -91,17 +91,17 @@
                                 {*</ul>*}
 
                             </td>
-                            <td><input class="primary" type="radio" name="pk" required /></td>
-                            <td><input class="unique-key form-check-input" type="checkbox" /></td>
-                            <td><input class="read-only form-check-input" type="checkbox" /></td>
-                            <td><input class="export-only form-check-input" type="checkbox" /></td>
-                            <td class="text-end"><button class="remove">{icon name=remove}</button></td>
+                            <td><input class="primary" type="radio" name="pk" required aria-label="{tr}Primary Key:{/tr}" /></td>
+                            <td><input class="unique-key form-check-input" type="checkbox" aria-label="{tr}Unique Key:{/tr}" /></td>
+                            <td><input class="read-only form-check-input" type="checkbox" aria-label="{tr}Read-only:{/tr}" /></td>
+                            <td><input class="export-only form-check-input" type="checkbox" aria-label="{tr}Export-Only{/tr}" /></td>
+                            <td class="text-end"><button class="remove" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                         </tr>
                         </tbody>
                         <tfoot>
                         <tr>
                             <td colspan="5">
-                                <textarea name="fields" class="d-none"></textarea>
+                                <textarea name="fields" class="d-none" aria-label="{tr}Fields{/tr}"></textarea>
                             </td>
                         </tr>
                         </tfoot>

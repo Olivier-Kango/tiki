@@ -66,7 +66,7 @@
                     </div>
                     {/if}
                     <div class="mb-3 row">
-                        <label class="col-form-label col-sm-3"></label>
+                        <div class="col-form-label col-sm-3"></div>
                         <div class="col-sm-9">
                             <input class="btn btn-primary" type="submit" name="quickedit" value="{tr}Create Page{/tr}">
                         </div>

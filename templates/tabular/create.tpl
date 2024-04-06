@@ -15,9 +15,9 @@
 {block name="content"}
     <form method="post" action="{service controller=tabular action=create}">
         <div class="mb-3 row">
-            <label class="col-form-label col-sm-3">{tr}Name{/tr}</label>
+            <label class="col-form-label col-sm-3" for="name">{tr}Name{/tr}</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" name="name" required>
+                <input class="form-control" type="text" name="name" id="name" required>
             </div>
         </div>
         <div class="mb-3 row">

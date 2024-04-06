@@ -39,9 +39,9 @@
         <thead>
             <tr>
                 {if isset($checkboxes_on) and $checkboxes_on eq 'y'}
-                    <th id="checkbox">
+                    <dh id="checkbox">
                         {select_all checkbox_names='checked[]' tablesorter="{$ts.enabled}"}
-                    </th>
+                    </dh>
                     {assign var='cntcol' value='1'}
                 {else}
                     {assign var='cntcol' value='0'}
@@ -171,7 +171,7 @@
 
                 {if $show_actions eq 'y'}
                     {assign var='cntcol' value=$cntcol+1}
-                    <th id="actions"></th>
+                    <td id="actions"></td>
                 {/if}
             </tr>
         </thead>

@@ -20,7 +20,7 @@
             <tr>
                 <th>{tr}Name{/tr}</th>
                 <th>{tr}Tracker{/tr}</th>
-                <th></th>
+                <td></td>
             </tr>
             {foreach $list as $row}
                 <tr>
