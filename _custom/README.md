@@ -6,7 +6,7 @@ i.e. Custom themes, JavaScript, plugins and configuration files.
 
 custom.php
 ----------
-Currently any custom PHP code required for your site can now be added to _custom/lib/setup/custom.php.  It will be included ath the end of tiki-setup.php
+Currently any custom PHP code required for your site can now be added to _custom/lib/setup/custom.php.  It will be included at the end of tiki-setup.php
 
 For instance, you can add new bindings to events here, e.g. a custom function to run when a tracker item is saved
 
