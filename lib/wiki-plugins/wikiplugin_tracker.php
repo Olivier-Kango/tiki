@@ -716,6 +716,11 @@ function wikiplugin_tracker_info()
                 'default' => 'n',
                 'advanced' => true,
                 'filter' => 'alpha',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n']
+                ]
             ],
             'rulesparent' => [
                 'required' => false,
