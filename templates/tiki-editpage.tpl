@@ -193,6 +193,29 @@
             {/if}
             {tabset name='tabs_editpage' cookietab=1}
                 {tab name="{tr}Edit page{/tr}"}
+            {*    Moved from properties tab start, for better visibility *}
+                {if $page|lower neq 'sandbox'}
+                {if $prefs.feature_wiki_description eq 'y' or $prefs.metatag_pagedesc eq 'y'}
+                    <div class="mb-3 row">
+                        {if $prefs.metatag_pagedesc eq 'y'}
+                            <label for="description" class="col col-auto col-form-label">{tr}Description (used for metatags){/tr}</label>
+                        {else}
+                            <label for="description" class="col col-auto col-form-label">{tr}Description{/tr}</label>
+                        {/if}
+                        <div class="col flex-grow-1">
+                            <input class="form-control" type="text" id="description" name="description" maxlength="200" value="{$description|escape}">
+                            {jq}
+                                $("#description").on("keyup", function () {
+                                var length = $(this).val().length;
+                                if(length == 200) {
+                                alert("You have reached the number of characters allowed (200 max) for the description field");
+                                }
+                                });
+                            {/jq}
+                        </div>
+                    </div>
+                {/if}
+                    {/if} {* Moved from properties tab end *}
                     {if $translation_mode == 'y'}
                         <div class="translation_message">
                             <h2>{tr}Translate to:{/tr} {$target_page|escape}</h2>
@@ -491,7 +514,7 @@
                                 </div>
                             {/if}
                         {/if}{*end if sandbox *}
-                        {if $prefs.feature_wiki_description eq 'y' or $prefs.metatag_pagedesc eq 'y'}
+                {*        {if $prefs.feature_wiki_description eq 'y' or $prefs.metatag_pagedesc eq 'y'}
                             <div class="mb-3 row">
                                 {if $prefs.metatag_pagedesc eq 'y'}
                                     <label for="" class="col-md-4 col-form-label">{tr}Description (used for metatags){/tr}</label>
@@ -510,7 +533,7 @@
                                     {/jq}
                                 </div>
                             </div>
-                        {/if}
+                        {/if} *}
                         {if $prefs.metatag_robotscustom eq 'y'}
                             <div class="mb-3 row">
                                 <label for="metatag_robotscustom" class="col-md-4 col-form-label">{tr}Custom Meta robots. The values should be comma separated eg. noimageindex, nocache.{/tr}</label>
