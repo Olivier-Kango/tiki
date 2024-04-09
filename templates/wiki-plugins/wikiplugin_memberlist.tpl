@@ -18,7 +18,10 @@
                                 {/if}
                             </div>
                         {/if}
-                        <h2>{$groupName|escape}</h2>
+                        {if $showgroupname eq true}
+                            <h2>{$groupName|escape}</h2>
+                        {else}
+                        {/if}
                         {if isset($groupData.info) and !empty($groupData.info.groupDesc)}
                             <p class="description">{$groupData.info.groupDesc}</p>
                         {/if}
