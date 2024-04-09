@@ -1,5 +1,4 @@
 {title admpage="articles" help="Articles"}{tr}Submissions{/tr}{/title}
-
 <div class="t_navbar mb-4">
     {button href="tiki-edit_submission.php" class="btn btn-primary" _icon_name="create" _text="{tr}New Submission{/tr}"}
     <button form="deleteexpired_form" type="submit" class="btn btn-danger" title="{tr}Deletes expired submissions 1000 at a time to avoid timeouts{/tr}" onclick="confirmPopup('{tr}Are you sure you want to permanently remove all expired submitted articles?{/tr}')">
@@ -162,25 +161,28 @@
                 <tr>
                     <td colspan="{$numbercol+1}">
                         {if $listpages}
-                            <p align="left"> {*on the left to have it close to the checkboxes*}
-                                {if $tiki_p_remove_submission eq 'y'}
-                                    {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this); return false;"}
-                                {/if}
-                                <label>{tr}Perform action with checked:{/tr}
-                                    <select id="submit_mult_action" name="submit_mult">
-                                        {if $tiki_p_remove_submission eq 'y'}<option id="remove" value="remove_subs" >{tr}Remove{/tr}</option>{/if}
-                                        {if $tiki_p_approve_submission eq 'y'}<option id="approve" value="approve_subs" >{tr}Approve{/tr}</option>{/if}
-                                    </select>
-                                </label>
-                                <input id="submit_mult" type="submit" class="btn btn-primary btn-sm" value="{tr}Ok{/tr}">
-
-                            </p>
+                            {if $tiki_p_remove_submission eq 'y'}
+                                {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this); return false;"}
+                            {/if}
                         {/if}
                     </td>
                 </tr>
             {/if}
         </table>
     </div>
+    {if $tiki_p_remove_submission eq 'y' or $tiki_p_approve_submission eq 'y'}
+        <div>
+            <div class="col-lg-9 input-group">
+                <select id="submit_mult_action" name="submit_mult">
+                    <option value="">{tr}Select action to perform with checked...{/tr}</option>
+                    {if $tiki_p_remove_submission eq 'y'}<option id="remove" value="remove_subs" >{tr}Remove{/tr}</option>{/if}
+                    {if $tiki_p_approve_submission eq 'y'}<option id="approve" value="approve_subs" >{tr}Approve{/tr}</option>{/if}
+                </select>
+                <input id="submit_mult" type="submit" class="btn btn-warning" value="{tr}OK{/tr}">
+            </div>
+        </div>
+    {/if}
+
     {pagination_links cant=$cant_pages step=$maxRecords offset=$offset}{/pagination_links}
 </form>
 {jq}

@@ -227,12 +227,17 @@
             {sectionelse}
                 {norecords _colspan=$numbercol}
             {/section}
+            {if $listpages and $tiki_p_remove_article eq 'y'}
+                <tr>
+                    <td colspan="{$numbercol+1}">
+                        {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this, [2, 7]); return false;"}
+                    </td>
+                </tr>
+            {/if}
         </table>
     </div>
     {if $listpages and $tiki_p_remove_article eq 'y'}
         <div>
-            {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this, 'td:not(.integer)'); return false;"}
-            <br><br>
             <div class="col-lg-9 input-group">
                 <select name="submit_mult" class="form-select">
                     <option value="">{tr}Select action to perform with checked...{/tr}</option>
