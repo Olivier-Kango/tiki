@@ -2256,7 +2256,7 @@ class ParserLib extends TikiDb_Bridge
                     }
 
                     $needles[] = $arg[0];
-                    $replacements[] = $value;
+                    $replacements[] = $value ?? '';
                 }
                 $data = str_replace($needles, $replacements, $data);
             }
