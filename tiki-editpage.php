@@ -590,7 +590,7 @@ if (($prefs['feature_wiki_pictures'] === 'y') && (isset($tiki_p_upload_picture))
     $i = 1;
     while (isset($_FILES['picfile' . $i])) {
         if (is_uploaded_file($_FILES['picfile' . $i]['tmp_name'])) {
-            $picname = $_FILES['picfile' . $i]['name'];
+            $picname = str_replace(' ', '', $_FILES['picfile' . $i]['name']);
             if (preg_match('/\.(gif|png|jpe?g)$/i', $picname)) {
                 if (@getimagesize($_FILES['picfile' . $i]['tmp_name'])) {
                     $filegallib = TikiLib::lib('filegal');
