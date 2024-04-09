@@ -247,6 +247,19 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/anime/dist",
                     },
                     {
+                        src: "node_modules/chart.js/dist/chart.js*",
+                        dest: "vendor_dist/chart.js/dist",
+                    },
+                    {
+                        src: "node_modules/chart.js/dist/chunks/helpers.segment.js*",
+                        dest: "vendor_dist/chart.js/dist/chunks",
+                    },
+                    {
+                        // This is an indirect runtime dependency of chart.js
+                        src: "node_modules/@kurkle/color/dist/color.esm.js",
+                        dest: "vendor_dist/@kurkle/color/dist",
+                    },
+                    {
                         src: "node_modules/clipboard/dist/*",
                         dest: "vendor_dist/clipboard/dist",
                     },
