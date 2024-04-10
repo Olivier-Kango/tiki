@@ -527,11 +527,11 @@ form.simple label .warning {
 // tiki-toolbars.less
 .helptool-admin {
     // /* right justified section of toolbars */
-    border-left: medium double $gray-200;
+    border-left: medium double var(--bs-border-color);
 }
 
 .toolbar-list {
-    border-left: medium double $gray-200;
+    border-left: medium double var(--bs-border-color); //$gray-200;
 }
 
 .toolbars-picker {
@@ -556,11 +556,12 @@ form.simple label .warning {
 .textarea-toolbar > div,
 .textarea-toolbar > ul {
     background-color: var(--bs-secondary-bg); //$body-secondary-bg; //$gray-200;
-    border: outset 1px var(--bs-secondary-color); // $gray-200;
+    border: outset 1px var(--bs-border-color); // $gray-200;
 }
 
 a.toolbar,
-li.toolbar {
+li.toolbar,
+.textarea-toolbar a.toolbar {
     /* each tool button */
     border: none;
     background: transparent;

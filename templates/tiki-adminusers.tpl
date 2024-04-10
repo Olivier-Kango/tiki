@@ -55,7 +55,7 @@
                         <div class="mb-3 row">
                             <label class="col-form-label col-sm-5" for="filterGroup">{tr}Group (direct){/tr}</label>
                             <div class="col-sm-7">
-                                <select class="form-select form-control-sm" name="filterGroup" id="filterGroup">
+                                <select class="form-select form-select-sm" name="filterGroup" id="filterGroup">
                                     <option value=""></option>
                                     {section name=ix loop=$all_groups}
                                         {if $all_groups[ix] != 'Registered' && $all_groups[ix] != 'Anonymous'}

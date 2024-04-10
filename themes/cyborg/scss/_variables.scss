@@ -26,13 +26,15 @@ $green:   #77b300 !default;
 $teal:    #20c997 !default;
 $cyan:    #93c !default;
 
+$yellow-800: shade-color($yellow, 60%) !default;
+
 $primary:       #207CA7; // $blue !default;
 $secondary:     $gray-600 !default;
 $success:       #558000; // $green !default;
 $info:          $cyan !default;
 $warning:       #B35F00; // $yellow !default;
 $danger:        $red !default;
-$light:         $gray-800 !default;
+$light:         #3D3D3D; //  $gray-800 !default; Darkened for increased contrast with link color
 $dark:          $gray-400 !default;
 
 $min-contrast-ratio:   2.25 !default;
@@ -57,12 +59,13 @@ $border-color:                 $gray-700 !default;
 
 // Links
 
-$link-color:                              #2799CE; //#2389B8; // $primary !default;
+$link-color:                              #56B5E1; // #2799CE; //#2389B8; // $primary !default;
 
 // Typography
 
 $font-family-sans-serif:        Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
 $font-size-base:                1.1rem;
+$mark-bg:                     $yellow-800;
 
 // Tables
 

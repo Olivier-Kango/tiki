@@ -37,3 +37,9 @@
 // Added for Tiki (not sure why the variable isn't working)
 .accordion-button:not(.collapsed) { background: #222; }
 
+// Navbar (overriding Bootswatch)
+.navbar {
+    &.bg-light {
+        background-color: #3D3D3D !important;
+    }
+}

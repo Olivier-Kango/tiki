@@ -222,7 +222,7 @@
                             {tr}Reproduce the changes highlighted on the left using the editor below{/tr}.
                         </div>
                     {/if}
-                    {textarea codemirror='true'}{$pagedata}{/textarea}
+                    {textarea codemirror='true' aria-label="{tr}Edit page{/tr}"}{$pagedata}{/textarea}
                         {if $prefs.wiki_freetags_edit_position eq 'edit'}
                             {if $prefs.feature_freetags eq 'y' and $tiki_p_freetags_tag eq 'y'}
                                 <fieldset>

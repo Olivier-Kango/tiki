@@ -28,13 +28,15 @@ $green:   #00bc8c !default;
 $teal:    #20c997 !default;
 $cyan:    #3498db !default;
 
+$yellow-800: shade-color($yellow, 60%) !default;
+
 $primary:       $blue !default;
 $secondary:     $gray-700 !default;
 $success:       #008563; // $green !default;
 $info:          #207AB6; // $cyan !default;
 $warning:       #A66908; // $yellow !default;
 $danger:        #DE2F1B; // $red !default;
-$light:         $gray-500 !default;
+$light:         #545963; // $gray-500 !default; Darkened (a lot) for contrast when background for link
 $dark:          $gray-800 !default;
 
 // Copied from variables-dark and renamed.
@@ -85,13 +87,14 @@ $border-color:                 $gray-700 !default;
 
 // Links
 
-$link-color:                #00C795; // $success !default;
+$link-color: #0FEBB4; // $success !default; #00C795
 
 // Fonts
 
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      system-ui, sans-serif; // Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- $gray-600 !default;
+$mark-bg:                     $yellow-800;
 
 // Tables
 

@@ -959,7 +959,7 @@
                             <input type="hidden" name="thread_sort_mode" value="{$thread_sort_mode|escape}">
                             <input type="hidden" name="forumId" value="{$forumId|escape}">
                             <div class="mb-3 row mx-0">
-                                <label class="col-md-4 col-form-label form-control-sm" for="filter_time">{tr}Last post date{/tr}</label>
+                                <label class="col-md-4 col-form-label col-form-label-sm" for="filter_time">{tr}Last post date{/tr}</label>
                                 <div class="col-md-8">
                                     <select id="filter_time" name="time_control" class="form-control form-control-sm">
                                         <option value="" {if $smarty.request.time_control eq ''}selected="selected"{/if}>{tr}All posts{/tr}</option>
@@ -971,7 +971,7 @@
                             </div>
                             {if $prefs.feature_forum_topics_archiving eq 'y'}
                                 <div class="mb-3 row mx-0">
-                                    <label class="col-md-4 col-form-label form-control-sm" for="show_archived">{tr}Show archived posts{/tr}</label>
+                                    <label class="col-md-4 col-form-label col-form-label-sm" for="show_archived">{tr}Show archived posts{/tr}</label>
                                     <div class="col-md-8">
                                         <input type="checkbox" class="form-check-input" id="show_archived" name="show_archived" {if $show_archived eq 'y'}checked="checked"{/if}>
                                     </div>
@@ -979,7 +979,7 @@
                             {/if}
                             {if $user}
                                 <div class="mb-3 row mx-0">
-                                    <label class="col-md-4 col-form-label form-control-sm" for="filter_poster">{tr}Containing posts by{/tr}</label>
+                                    <label class="col-md-4  col-form-label col-form-label-sm" for="filter_poster">{tr}Containing posts by{/tr}</label>
                                     <div class="col-md-8">
                                         <select id="filter_poster" class="form-control form-control-sm" name="poster">
                                             <option value=""{if empty($smarty.request.poster)} selected="selected"{/if}>
@@ -993,7 +993,7 @@
                                 </div>
                             {/if}
                             <div class="mb-3 row mx-0">
-                                <label class="col-md-4 col-form-label form-control-sm" for="filter_type">{tr}Type{/tr}</label>
+                                <label class="col-md-4  col-form-label col-form-label-sm" for="filter_type">{tr}Type{/tr}</label>
                                 <div class="col-md-8">
                                     <select id="filter_type" name="filter_type" class="form-control form-control-sm">
                                         <option value=""{if empty($smarty.request.filter_type)}selected="selected"{/if}>
@@ -1015,7 +1015,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 row mx-0">
-                                <label class="col-md-4 col-form-label form-control-sm" for="filter_replies">{tr}Replies{/tr}</label>
+                                <label class="col-md-4 col-form-label col-form-label-sm" for="filter_replies">{tr}Replies{/tr}</label>
                                 <div class="col-md-8">
                                     <select id="filter_replies" name="reply_state" class="form-control form-control-sm">
                                         <option value=""{if empty($smarty.request.reply_state)} selected="selected"{/if}>

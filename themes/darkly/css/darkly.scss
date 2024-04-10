@@ -26,7 +26,7 @@
 @import "../scss/_tiki-selectors.scss"; // 11. Tiki CSS selectors, including those of external scripts, to be styled by the theme's variables.
 
 
-.textarea-toolbar a.toolbar { color: #222; }
+//.textarea-toolbar a.toolbar { color: #222; }
 .dropdown-menu.mega-menu a { color: $link-color !important; }
 
 // Increase navbar height to reinstate Bootswatch style

@@ -28,13 +28,15 @@ $green:   #3cf281 !default;
 $teal:    #3f81a2 !default;
 $cyan:    #32fbe2 !default;
 
+$yellow-800: shade-color($yellow, 60%) !default;
+
 $primary:       $purple !default;
 $secondary:     #D917A2; // $pink !default;
 $success:       #068938; // $green !default;
 $info:         #0879BF; // $blue !default;
 $warning:       #946F00; // $yellow !default;
 $danger:        #E02E3A; // $red !default;
-$light:         #11828D; // #44d9e8 !default;
+$light:         #0F6D75; // #11828D; // #44d9e8 !default; Darkened for acceptable contrast behind link color
 $dark:          $gray-900 !default;
 
 $min-contrast-ratio:   1.2 !default;
@@ -52,7 +54,7 @@ $prefix:                      $variable-prefix !default;
 // Links
 
 // Components
-$component-active-bg:         $primary !default;
+$component-active-bg:         $pink; // Repeating vapor default $primary !default;
 $component-active-color: $white;
 
 // Fonts
@@ -60,6 +62,8 @@ $component-active-color: $white;
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:     system-ui, sans-serif; // Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
+//$mark-color:                  $body-color !default;
+$mark-bg:                     $yellow-800;
 // Tables
 
 // Forms
@@ -68,12 +72,6 @@ $input-bg: #30115e;  // Copied from Bootswatch demo page.
 // Navs
 
 // Dropdowns
-$dropdown-link-color:               var(--#{$prefix}body-color) !default;
-$dropdown-link-hover-color:         $dropdown-link-color !default;
-$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
-
-$dropdown-link-active-color:        $component-active-color !default;
-$dropdown-link-active-bg:           $component-active-bg !default;
 
 // Pagination
 
@@ -103,8 +101,3 @@ $code-color:                        $pink;
 // Bootswatch overrides
 
 $web-font-path: none; // Override value in vendor file
-
-//:root {
-//    --tiki-code-color: EA39B8FF; // #{$code-color};
-//    --tiki-code-bg: transparent;
-//}
