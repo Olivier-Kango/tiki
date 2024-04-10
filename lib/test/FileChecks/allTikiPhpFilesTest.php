@@ -22,7 +22,7 @@ class allTikiPhpFilesTest extends TestCase
     public function testOutputBeforePhpTags(): void
     {
         foreach ($this->phpFiles as $fileName) {
-            if (strpos($fileName, '_custom') === 0) {
+            if (strpos($fileName, TIKI_CUSTOMIZATIONS_SRC_PATH) === 0) {
                 // not a tiki file
                 continue;
             }

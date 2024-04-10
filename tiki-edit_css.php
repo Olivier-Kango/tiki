@@ -28,7 +28,7 @@ if (! empty($_SESSION['try_theme']) && ! isset($_REQUEST['theme'])) {
 } else {
     $theme = $_REQUEST['theme'];
 }
-$themeOptionName = $themelib->extract_theme_and_option($theme);
+$themeOptionName = ThemeLib::extractThemeAndOptionFromString($theme);
 $theme_name = $themeOptionName[0];
 $theme_option_name = $themeOptionName[1];
 $file = $themelib->get_theme_css($theme_name, $theme_option_name);
@@ -99,7 +99,7 @@ if (! empty($_REQUEST['try'])) {
 if (! empty($_SESSION['try_theme'])) {
     $try_active = true;
     $smarty->assign('try_active', $try_active);
-    list($try_theme, $try_theme_option) = $themelib->extract_theme_and_option($_SESSION['try_theme']);
+    list($try_theme, $try_theme_option) = ThemeLib::extractThemeAndOptionFromString($_SESSION['try_theme']);
     $smarty->assign('try_theme', $try_theme);
     $smarty->assign('try_theme_option', $try_theme_option);
 }

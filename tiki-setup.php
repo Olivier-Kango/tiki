@@ -951,8 +951,8 @@ if ($prefs['print_pdf_from_url'] != 'none') {
     $headerlib->add_jsfile('vendor_bundled/vendor/mrrio/jspdf/jspdf.min.js', true);
 }
 
-if (file_exists(USER_CUSTOM_SETUP_PHP_FILE)) {
-    include_once(USER_CUSTOM_SETUP_PHP_FILE);
+if (file_exists(TIKI_CUSTOMIZATIONS_SETUP_PHP_FILE)) {
+    require_once(TIKI_CUSTOMIZATIONS_SETUP_PHP_FILE);
 }
 
 // any furher $headerlib->add_js() call not using rank = 'external' will be put into rank 'late'

@@ -475,14 +475,7 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function plugin_exists($name, $include = false)
     {
-        $php_name = 'lib/wiki-plugins/wikiplugin_';
-        $php_name .= TikiLib::strtolower($name) . '.php';
-
-        $exists = file_exists($php_name);
-
-        if ($include && $exists) {
-            include_once $php_name;
-        }
+        $exists = WikiPlugin_Negotiator_Wiki::loadPluginFromName($name, ! $include);
 
         if ($exists) {
             return true;

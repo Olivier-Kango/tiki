@@ -83,6 +83,7 @@ class ConsoleApplicationBuilder
                 new VCSUpdateCommand(),
                 new FixBOMandUnixCommand(),
                 new GetStringsCommand(),
+                new BuildIconsListCommand(),
                 ],
             ],[
             'condition' => 'checkIsDevMode',
@@ -200,7 +201,6 @@ class ConsoleApplicationBuilder
                 new SieveFiltersCommand(),
                 new CalendarSyncCommand(),
                 new SchedulerRunCommand(),
-                new BuildIconsListCommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',

@@ -10,10 +10,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
     exit;
 }
 
-if (! defined('PLUGINS_DIR')) {
-    define('PLUGINS_DIR', 'lib/wiki-plugins');
-}
-
 class WikiLib extends TikiLib
 {
     public function max_pagename_length()
@@ -1604,20 +1600,8 @@ class WikiLib extends TikiLib
             return $plugins;
         } else {
             // Only used by WikiPluginPluginManager
-            $files = [];
-
-            if (is_dir(PLUGINS_DIR)) {
-                if ($dh = opendir(PLUGINS_DIR)) {
-                    while (($file = readdir($dh)) !== false) {
-                        if (preg_match("/^wikiplugin_.*\.php$/", $file)) {
-                            array_push($files, $file);
-                        }
-                    }
-                    closedir($dh);
-                }
-            }
+            $files = WikiPlugin_Negotiator_Wiki::getWikipluginFromFiles();
             sort($files);
-
             return $files;
         }
     }

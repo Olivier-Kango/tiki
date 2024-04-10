@@ -242,96 +242,13 @@ JS
      */
     public function get_thumbnail_file($stl, $opt = '') // find thumbnail if there is one
     {
-        $tikilib = TikiLib::lib('tiki');
+        $themelib = TikiLib::lib('theme');
         if (! empty($opt) && $opt != tr('None')) {
             $filename = preg_replace('/\.css$/i', '.png', $opt); // change .css to .png
         } else {
             $filename = preg_replace('/\.css$/i', '.png', $stl); // change .css to .png
             $opt = '';
         }
-        return $tikilib->get_style_path($stl, $opt, $filename);
-    }
-
-    public function setupThumbnailScript($styles)
-    {
-        global  $prefs;
-        $headerlib = TikiLib::lib('header');
-        $tikilib = TikiLib::lib('tiki');
-
-        if ($prefs['feature_jquery'] == 'y') {
-            // hash of themes and their options and their thumbnail images
-            $js = 'var style_options = {';
-            foreach ($styles as $s) {
-                $js .= "\n'$s':['" . $this->get_thumbnail_file($s, '') . '\',{';
-                $options = $tikilib->list_style_options($s);
-                if ($options) {
-                    foreach ($options as $o) {
-                        $js .= "'$o':'" . $this->get_thumbnail_file($s, $o) . '\',';
-                    }
-                    $js = substr($js, 0, strlen($js) - 1) . '}';
-                } else {
-                    $js .= '}';
-                }
-                $js .= '],';
-            }
-
-            $js = substr($js, 0, strlen($js) - 1);
-            $js .= '};';
-            // JS to handle theme/option changes client-side
-            // the var (style_options) has to be declared in the same block for AJAX call scope
-            $none = json_encode(tr('None'));
-
-            $headerlib->add_js(
-                <<<JS
-$js
-
-\$( function() {
-    var setupStyleSelects = function (styleDropDown, optionDropDown, showPreview) {
-        // pick up theme drop-down change
-        styleDropDown.on("change", function() {
-            var ops = style_options[styleDropDown.val()];
-            var none = true;
-            var current = optionDropDown.val();
-            optionDropDown.empty().attr('disabled',false)
-                    .append(\$('<option/>').attr('value',$none).text($none));
-            if (styleDropDown.val()) {
-                \$.each(ops[1], function(i, val) {
-                    optionDropDown.append(\$('<option/>').attr('value',i).text(i.replace(/\.css\$/, '')));
-                    none = false;
-                });
-            }
-            optionDropDown.val(current);
-            if (none) {
-                optionDropDown.attr('disabled',true);
-            }
-            optionDropDown.trigger("change");
-            if (jqueryTiki.select2) {
-                optionDropDown.trigger("change.select2");
-            }
-        }).trigger("change");
-        optionDropDown.on("change", function() {
-            if (showPreview !== undefined) {
-                var t = styleDropDown.val();
-                var o = optionDropDown.val();
-                var f = style_options[t][1][o];
-
-                if ( ! f ) {
-                    f = style_options[t][0];
-                }
-
-                if (f) {
-                    \$('#style_thumb').fadeOut('fast').attr('src', f).fadeIn('fast').animate({'opacity': 1}, 'fast');
-                } else {
-                    \$('#style_thumb').animate({'opacity': 0.3}, 'fast');
-                }
-            }
-        });
-    };
-    setupStyleSelects(\$('select[name=style]'), \$('select[name=style_option]'), true);
-    setupStyleSelects(\$('select[name=style_admin]'), \$('select[name=style_admin_option]'));
-});
-JS
-            );
-        }
+        return $themelib->get_theme_path($stl, $opt, $filename);
     }
 }

@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import copy from "@guanghechen/rollup-plugin-copy";
 import glob from "glob";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,7 +13,7 @@ Overarching principles:
 
 -  Don't break npm run watch from root.  It doesn't mean that HMR style no-reload works everywhere, but no code should ever have to be rebuild manually when changing a source file in an IDE.  An most reloading the page is sufficient.
 
--  Don't tie ourselves to tooling or a stack too deeply.  A lot of this is in flux.  npm workspaces are new.  Vite is maturing very quickly, but watching multiple codebases has no internal support.  So while we strive to have all dependencies synchronised, it must remain possible to run completely independent js codebases with single-spa (https://single-spa.js.org/docs/getting-started-overview) to orchestrate individual independent frontends. 
+-  Don't tie ourselves to tooling or a stack too deeply.  A lot of this is in flux.  npm workspaces are new.  Vite is maturing very quickly, but watching multiple codebases has no internal support.  So while we strive to have all dependencies synchronised, it must remain possible to run completely independent js codebases with single-spa (https://single-spa.js.org/docs/getting-started-overview) to orchestrate individual independent frontends.
 
 - It's not workable to have entirely independent modules all with their own vite.config.  Aside from the fact some developers would run out of RAM locally, I did a prototype and while possible, it's EXTREMELY painful to share common configs, and real global HMR would never be a reality - benoitg - 2023-09-19
 
@@ -197,17 +198,26 @@ export default defineConfig(({ command, mode }) => {
             viteStaticCopy({
                 //TODO: This object should really be imported from a file in common-externals
                 //TODO: In development, this should be served directly from node_modules once we have vite dev server working
-                //TODO IMPORTANT:  This does not check if the path exits (nor output what was done to the console).  This will INEVITABLY cause silent errors when package accidentally get duplicated or moved among node_modules in workspaces, or if there is any typo.  So we need something better than viteStaticCopy
+                //TODO IMPORTANT:  This does not check if the path exits (nor output what was done to the console).  This will INEVITABLY cause silent errors when package accidentally get duplicated or moved among node_modules in workspaces, or if there is any typo.  So we need something better than viteStaticCopy (https://www.npmjs.com/package/vite-plugin-static-copy)
+                //Alternatives
+                //https://www.npmjs.com/package/vite-plugin-watch-and-run (just a part of a solution)
+                //https://github.com/knjshimi/vite-plugin-assets-watcher (quick library from someone hitting the same problem we do, but not very feature-rich).  May be worth forking.
+                //rollup-plugin-copy (on which vite-plugin-static-copy was based) has had a pull request for years:                  https://github.com/vladshcherbin/rollup-plugin-copy/pull/30.  Fortunately, the fork is from after flatten=false was supported.
+                //It's this fork:  https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy
+                //https://www.npmjs.com/package/rollup-plugin-copy-watch A different fork, exactly what we need, but unmaintained
+                //https://stackoverflow.com/questions/63373804/rollup-watch-include-directory/63548394#63548394, brute force solution, but doesn't work for new files.
+                //Interesting discussion: https://github.com/vitejs/vite/discussions/8364
+
                 targets: [
                     /* Things to remember when adding to this list:
-                    - The reason we copy these is that tiki must run without internet access, so we can't rely on CDNs.  But do try to keep the structure these packages have on CDNs.  Typically, that means copying the dist folder under dist.
+                    - The reason we copy these is that tiki must run without internet access, so we can't rely on CDNs.  But do try to keep the structure these packages have on CDNs.  Typically, that means copying the dist folder under dist.  To check quickly, look up the package on https://unpkg.com/ , you can then browse what is distributed for each version.
                     - We want to save space, so if there is multiple formats distributed, only pick one (typically ESM)
                     - For many modules that just means:
                         {
                             src: "node_modules/module-name/dist/*",",
                             dest: "vendor_dist/module-name/dist",
                         },
-                    But make sure to look into the dist folder, so we don't add a bunch of useless stiff, but don't miss requires support files (such as language files)
+                    But make sure to look into the dist folder, so we don't add a bunch of useless stiff, but don't miss required support files (such as language files)
                     */
 
                     /* jquery_tiki */
@@ -265,7 +275,7 @@ export default defineConfig(({ command, mode }) => {
                     },
                     {
                         src: "node_modules/dompurify/dist/purify.(es|min)*",
-                        dest: "vendor_dist/dompurify/dist"
+                        dest: "vendor_dist/dompurify/dist",
                     },
                     {
                         src: "node_modules/driver.js/dist/driver.js.mjs",
@@ -328,6 +338,27 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/converse.js/dist",
                     },
                 ],
+            }),
+            copy({
+                targets: [
+                    {
+                        //Theme assets
+                        src: "_custom/**/themes/**/*.{woff,woff2,ttf,otf,svg,png,gif,jpg}",
+                        dest: "public/generated/_custom",
+                        flatten: false,
+                        verbose: true,
+                    },
+                        //lang/ and js/ javascripts
+                    {
+                        src: "_custom/**/{lang,js}/**/*.{js,mjs}",
+                        dest: "public/generated/_custom",
+                        flatten: false,
+                        verbose: true,
+                    },
+                ],
+                //baseDir: "../../",
+                silent: false,
+                onWatch: true,
             }),
             /* Uncomment this in development to see which dependencies contribute to bundle size */
             //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
