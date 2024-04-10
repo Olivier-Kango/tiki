@@ -2186,7 +2186,7 @@ class ParserLib extends TikiDb_Bridge
                                 }
                             }
 
-                            if ($approval['lastModif'] != null) {
+                            if (isset($approval['lastModif']) && $approval['lastModif'] != null) {
                                 $value = $tikilib->get_short_datetime($approval['lastModif']);
                                 break;
                             } else {
