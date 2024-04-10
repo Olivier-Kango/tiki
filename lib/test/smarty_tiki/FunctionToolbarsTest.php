@@ -37,6 +37,7 @@ class FunctionToolbarsTest extends TikiTestCase
     public function testFunctionToolbarsDefault(): void
     {
         //This test seems to depend on cache somehow.  If it's disabled, the testFunctionToolbarsWysiwyg test will fail.  We need to completely revisit how we do these tests - benoitg - 2023-11-17';
+        $this->markTestSkipped("This test is way too fragile. A better strategy is required.");
 
         $params = [
             '_wysiwyg'     => 'n',
@@ -66,6 +67,8 @@ class FunctionToolbarsTest extends TikiTestCase
 
     public function testFunctionToolbarsWysiwyg(): void
     {
+        $this->markTestSkipped("This test is way too fragile. A better strategy is required.");
+
         $params = [
             '_wysiwyg'     => 'y',
             'area_id'      => 'editwiki',

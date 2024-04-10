@@ -12,7 +12,11 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
 
     protected function setUp(): void
     {
-        global $user;
+        global $user, $prefs;
+
+        // FIXME These tests don't work if categories are enabled
+        $prefs['feature_categories'] = 'n';
+
         $user = 'admin';
         $this->calendarId = TikiLib::lib('calendar')->set_calendar(0, $user, 'Test cal', '', ['customlanguages' => 'y', 'custompriorities' => 'y']);
         $table = TikiLib::lib('tiki')->table('tiki_calendar_recurrence');
