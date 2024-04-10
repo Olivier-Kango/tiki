@@ -2267,13 +2267,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "638ea46d0f2d3e612870c364e80bddc8725627fe"
+                "reference": "d7e7a3eea5821a83b9e70358bcf56ad09cf935e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-638ea46d0f2d3e612870c364e80bddc8725627fe-zip-df8f43.zip",
-                "reference": "638ea46d0f2d3e612870c364e80bddc8725627fe",
-                "shasum": "8bbe6abd264fd13358c0b043a86bb7da5fc9abfa"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-d7e7a3eea5821a83b9e70358bcf56ad09cf935e5-zip-d2635f.zip",
+                "reference": "d7e7a3eea5821a83b9e70358bcf56ad09cf935e5",
+                "shasum": "04f02679a7a47fec8e5d35dd0ae840ddbf696e03"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2337,7 +2337,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-03-26T22:46:03+00:00"
+            "time": "2024-04-08T17:35:45+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4715,17 +4715,17 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.26.0",
+            "version": "3.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "072735c56cc0da00e10716dd90d5a7f7b40b36be"
+                "reference": "4729745b1ab737908c7d055148c9a6b3e959832f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-072735c56cc0da00e10716dd90d5a7f7b40b36be-zip-acd63d.zip",
-                "reference": "072735c56cc0da00e10716dd90d5a7f7b40b36be",
-                "shasum": "bdb417885a189c68aaf7c6393fbffa135dfe01c5"
+                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-4729745b1ab737908c7d055148c9a6b3e959832f-zip-2a56d4.zip",
+                "reference": "4729745b1ab737908c7d055148c9a6b3e959832f",
+                "shasum": "676667425dfacd043c1c8f00dca1aecdac5acce5"
             },
             "require": {
                 "league/flysystem-local": "^3.0.0",
@@ -4797,7 +4797,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-25T11:49:53+00:00"
+            "time": "2024-04-07T19:17:50+00:00"
         },
         {
             "name": "league/flysystem-local",
@@ -6131,11 +6131,11 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.24.1",
+            "version": "7.24.4",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.24.1.zip",
-                "shasum": "62914140de2a522822fa75047199c872c8958085"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.24.4.zip",
+                "shasum": "c7e7ff96575718396a6c2ac10d869bc4a3cf72b9"
             },
             "type": "npm-asset",
             "license": [
@@ -15093,13 +15093,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "7cd518e4c67cac6299689e48f90f5b9cbe5ba770"
+                "reference": "a988e5b959ef71b59038af725ce44516c4b587db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-7cd518e4c67cac6299689e48f90f5b9cbe5ba770-zip-5f2ea8.zip",
-                "reference": "7cd518e4c67cac6299689e48f90f5b9cbe5ba770",
-                "shasum": "a2ce63e92ba3afeb5f49cda93eda3e9ee1210b41"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-a988e5b959ef71b59038af725ce44516c4b587db-zip-c85c2d.zip",
+                "reference": "a988e5b959ef71b59038af725ce44516c4b587db",
+                "shasum": "38d062de75776f21af931b0975ecb28ad5b62cbb"
             },
             "require": {
                 "php": ">=5.4",
@@ -15169,7 +15169,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-04-07T00:09:28+00:00"
+            "time": "2024-04-08T09:51:59+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -17344,5 +17344,5 @@
         "ext-ldap": "0",
         "ext-soap": "0"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.6.0"
 }
