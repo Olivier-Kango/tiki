@@ -33,11 +33,11 @@ abstract class TikiDb
      *
      * There is still a lot of magic in tiki-db.php
      * The instance is actually set from the outside.
-     * This returns a proper TikiDb instance, or null (during Tiki install)
+     * But you can trust this to return a valid instance, or error out.
      *
-     * @return TikiDb | null
+     * @return TikiDb
      */
-    public static function get(): ?TikiDb
+    public static function get(): TikiDb
     {
         if (empty(self::$instance) && (! defined('DB_TIKI_SETUP') || DB_TIKI_SETUP) && ! defined('TIKI_IN_INSTALLER')) {
             // if we are in the console and database setup has completed then this error needs to be ignored.
