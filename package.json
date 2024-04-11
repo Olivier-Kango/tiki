@@ -54,6 +54,7 @@
   "depencenciesCommentSingleLibs": {},
   "devDependencies": {
     "@guanghechen/rollup-plugin-copy": "^6.0.0-alpha.8",
+    "@stylistic/eslint-plugin-js": "^1.7.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "check-engines": "^1.6.0",
     "concurrently": "^8.2.2",

@@ -43,7 +43,7 @@ POSTPONED:
 
 - Use https://vitejs.dev/config/shared-options.html#resolve-dedupe once it's fixed for ESM
 
-- Figure out how to manage CSS with multiple entry points in a single vite project.  Awaiting movement on https://github.com/vitejs/vite/issues/12072#issuecomment-1793736497 Update:  A lot of this has now been implemented in https://github.com/vitejs/vite/pull/14945 
+- Figure out how to manage CSS with multiple entry points in a single vite project.  Awaiting movement on https://github.com/vitejs/vite/issues/12072#issuecomment-1793736497 Update:  A lot of this has now been implemented in https://github.com/vitejs/vite/pull/14945
 
 Maybe obsolete: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7  Use the Vite config option optimizeDeps.exclude when working with linked local dependencies.
 
@@ -71,7 +71,7 @@ TODO:
 - Manage versions https://www.npmjs.com/package/check-dependency-version-consistency, this is not optional, having varying versions increase bundle sizes AND can cause serious problems.
 
 - GET HMR and vite dev working.  vite dev is more important that HMR, as many developpers have slow machines and recompiline everything with vite build --watch is likely to take more than 10 seconds.   That will require (among other thing) generating import maps in to be able to use vite dev
- * There are Here is a drupal example https://www.drupal.org/project/vite.  Might be simpler to just rewrite base for vite dev server:  https://single-spa.js.org/docs/ecosystem-vite/, but that doesn't touch html and the like. 
+ * There are Here is a drupal example https://www.drupal.org/project/vite.  Might be simpler to just rewrite base for vite dev server:  https://single-spa.js.org/docs/ecosystem-vite/, but that doesn't touch html and the like.
  * Other solution:  proxy:  https://vitejs.dev/config/server-options.html#server-proxy
  * Other solution:  see how vite-plugin-single-spa did it https://github.com/WJSoftware/vite-plugin-single-spa/commit/ed31833a7a9b7368c3227e6becbd02ac9585aab2
 
