@@ -27,7 +27,17 @@ function wikiplugin_mediaplayer_info()
                 'since' => '6.0',
                 'accepted' => 'asx, asf, avi, mov, mpg, mpeg, mp4, qt, ra, smil, wmv, 3g2, 3gp, aif, aac, au, gsm,
                     mid, midi, mov, m4a, snd, ra, ram, rm, wav, wma, bmp, html, pdf, psd, qif, qtif, qti, tif, tiff,
-                    xaml',
+                    xaml, mp3, aif, snd',
+                'filter' => 'url',
+                'default' => '',
+            ],
+
+            'mp3' => [
+                'required' => false,
+                'name' => tra('URL'),
+                'description' => tra("Complete URL to the media to include, which has the appropriate extension."),
+                'since' => '27.0',
+                'accepted' => 'mp3, aif, aac, au, gsm, mid, midi, m4a, snd, wav, wma',
                 'filter' => 'url',
                 'default' => '',
             ],
@@ -58,17 +68,6 @@ function wikiplugin_mediaplayer_info()
                 'since' => '10.0',
                 'default' => '',
                 ],
-            'style' => [
-                'required' => false,
-                'name' => tra('Style'),
-                'description' => tra('Set the style'),
-                'since' => '3.0',
-                'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Native Video (HTML5)'), 'value' => 'native'],
-                ],
-            ],
             'mediatype' => [
                 'required' => false,
                 'name' => tra('Media Type'),
@@ -98,8 +97,10 @@ function wikiplugin_mediaplayer($data, $params)
     $id = 'mediaplayer' . ++$iMEDIAPLAYER;
     $params['type'] = strtolower(isset($params['type']) ? $params['type'] : '');
 
-    if (empty($params['src'])) {
-        return '';
+    if ((empty($params['src']) && empty($params['mp3']))) {
+        Feedback::errorPage(['mes' => "Both src and mp3 params should not be empty"]);
+    } else if (empty($params['src']) && ! empty($params['mp3'])) {
+        $params['src'] = $params['mp3'];
     }
     //checking if pdf generation request
     if (in_array($params['type'], ['pdf']) && isset($_GET['display']) && strstr($_GET['display'], 'pdf') != '') {
@@ -115,9 +116,6 @@ function wikiplugin_mediaplayer($data, $params)
     ];
     if (preg_match('/webm/', $params['type']) > 0 && $params['type'] != 'video/webm') {
         $params['type'] = 'video/webm';
-    }
-    if ($params['type'] == 'video/webm') {
-        $params['style'] = 'native';
     }
 
     if (empty($params['type'])) {
@@ -141,127 +139,103 @@ function wikiplugin_mediaplayer($data, $params)
     } else {
         $params = array_merge($defaults, $params);
     }
-    if (! empty($params['src']) && (empty($params['style']) || $params['style'] != 'native')) {
+
+    if (in_array($params['type'], ['pdf', 'odt', 'ods', 'odp'])) {
         $headerlib = TikiLib::lib('header');
-        $js = "\n var media_$id = $('#$id').media( {";
-        foreach ($params as $param => $value) {
-            if ($param == 'src') {
-                continue;
-            }
-
-            if (
-                is_numeric($value) == false &&
-                strtolower($value) != 'true' &&
-                strtolower($value) != 'false'
-            ) {
-                $value = "\"" . $value . "\"";
-            }
-
-            $js .= "$param: $value,";
+        if ($prefs['fgal_pdfjs_feature'] === 'n') {
+            return "<p>" . tr('PDF.js feature is disabled. If you do not have permission to enable, ask the site administrator.') . "</p>";
         }
-        // Force scaling (keeping the aspect ratio) of the QuickTime player
-        //  Tried with .mp4. Not sure how this will work with other formats, not using QuickTime.
-        // See: http://jquery.malsup.com/media/#players for default players for different formats. arildb
-        $js .= " params: { 
-                scale: 'aspect'
-                } 
-            } );";
+        if ($prefs['fgal_pdfjs_feature'] === 'y') {
+            $smarty = TikiLib::lib('smarty');
 
-        if (in_array($params['type'], ['pdf', 'odt', 'ods', 'odp'])) {
-            if ($prefs['fgal_pdfjs_feature'] === 'n') {
-                return "<p>" . tr('PDF.js feature is disabled. If you do not have permission to enable, ask the site administrator.') . "</p>";
-            }
-            if ($prefs['fgal_pdfjs_feature'] === 'y') {
-                $smarty = TikiLib::lib('smarty');
+            $url = TikiLib::lib('access')->absoluteUrl($params['src']);
+            $smarty->assign('url', $url);
+            $smarty->assign('mediaplayerId', $iMEDIAPLAYER);
+            $oldPdfJsFile = VendorHelper::getAvailableVendorPath('pdfjs', '/npm-asset/pdfjs-dist/build/pdf.js');
+            $oldPdfJsFileAvailable = file_exists($oldPdfJsFile);
+            $smarty->assign('oldPdfJsFileAvailable', $oldPdfJsFileAvailable);
 
-                $url = TikiLib::lib('access')->absoluteUrl($params['src']);
-                $smarty->assign('url', $url);
-                $smarty->assign('mediaplayerId', $iMEDIAPLAYER);
-                $oldPdfJsFile = VendorHelper::getAvailableVendorPath('pdfjs', '/npm-asset/pdfjs-dist/build/pdf.js');
-                $oldPdfJsFileAvailable = file_exists($oldPdfJsFile);
-                $smarty->assign('oldPdfJsFileAvailable', $oldPdfJsFileAvailable);
+            $pdfJsfile = VendorHelper::getAvailableVendorPath('pdfjsviewer', '/npm-asset/pdfjs-dist-viewer-min/build/minified/build/pdf.js');
+            $pdfJsAvailable = file_exists($pdfJsfile);
+            $smarty->assign('pdfJsAvailable', $pdfJsAvailable);
 
-                $pdfJsfile = VendorHelper::getAvailableVendorPath('pdfjsviewer', '/npm-asset/pdfjs-dist-viewer-min/build/minified/build/pdf.js');
-                $pdfJsAvailable = file_exists($pdfJsfile);
-                $smarty->assign('pdfJsAvailable', $pdfJsAvailable);
-
-                $headerlib = TikiLib::lib('header');
-                $headerlib->add_css("
+            $headerlib = TikiLib::lib('header');
+            $headerlib->add_css("
+                .iframe-container {
+                    overflow: hidden;
+                    padding-top: 56.25%;
+                    position: relative;
+                    height: 900px;
+                }
+                
+                .iframe-container iframe {
+                    border: 0;
+                    height: 100%;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                }
+                
+                @media (max-width: 767px) {
                     .iframe-container {
-                        overflow: hidden;
-                        padding-top: 56.25%;
-                        position: relative;
-                        height: 900px;
-                    }
-                    
-                    .iframe-container iframe {
-                        border: 0;
-                        height: 100%;
-                        left: 0;
-                        position: absolute;
-                        top: 0;
-                        width: 100%;
-                    }
-                    
-                    @media (max-width: 767px) {
-                        .iframe-container {
-                            height: 500px;
-                        } 
-                    }
-                    
-                    @media (min-width: 768px) AND (max-width: 991px) {
-                        .iframe-container {
-                            height: 600px;
-                        }
-                    }
-                    
-                    @media (min-width: 992px) AND (max-width: 1209px){
-                        .iframe-container {
-                            height: 700px;
-                        }
-                    }
-                ");
-
-                $fileId = '';
-                $sourceLink = '';
-
-                $parts = parse_url($params['src'], PHP_URL_QUERY);
-                if ($parts) {
-                    parse_str($parts, $query);
-                    if (! empty($query['fileId'])) {
-                        $fileId = $query['fileId'];
-                    }
-                } else {
-                    preg_match('/(display|dl)(.*)$/', $params['src'], $matches);
-                    if (! empty($matches[2])) {
-                        $fileId = $matches[2];
+                        height: 500px;
+                    } 
+                }
+                
+                @media (min-width: 768px) AND (max-width: 991px) {
+                    .iframe-container {
+                        height: 600px;
                     }
                 }
-
-                if (! empty($fileId)) {
-                    $sourceLink = smarty_modifier_sefurl($fileId, 'display');
-                } else {
-                    global $base_url;
-                    $sourceLink = TikiLib::lib('access')->absoluteUrl($params['src']);
-
-                    // Not an internal link, lets set a security token.
-                    if (strrpos($sourceLink, $base_url) === false) {
-                        $data = Tiki_Security::get()->encode(['url' => $params['src']]);
-                        $sourceLink = TikiLib::tikiUrl('tiki-download_file.php', [
-                            'data'   => $data,
-                        ]);
+                
+                @media (min-width: 992px) AND (max-width: 1209px){
+                    .iframe-container {
+                        height: 700px;
                     }
                 }
+            ");
 
-                if (! empty($sourceLink)) {
-                    $htmlViewFile = VendorHelper::getAvailableVendorPath('pdfjsviewer', '/npm-asset/pdfjs-dist-viewer-min/build/minified/web/viewer.html') . '?file=';
-                    $sourceLink = $htmlViewFile . urlencode(TikiLib::lib('access')->absoluteUrl($sourceLink));
+            $fileId = '';
+            $sourceLink = '';
+
+            $parts = parse_url($params['src'], PHP_URL_QUERY);
+            if ($parts) {
+                parse_str($parts, $query);
+                if (! empty($query['fileId'])) {
+                    $fileId = $query['fileId'];
                 }
+            } else {
+                preg_match('/(display|dl)(.*)$/', $params['src'], $matches);
+                if (! empty($matches[2])) {
+                    $fileId = $matches[2];
+                }
+            }
 
-                $smarty->assign('source_link', $sourceLink);
-                return '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_mediaplayer_pdfjs.tpl') . '~/np~';
-            } elseif ($params['type'] === 'pdf') {
-                $js = '
+            if (! empty($fileId)) {
+                $sourceLink = smarty_modifier_sefurl($fileId, 'display');
+            } else {
+                global $base_url;
+                $sourceLink = TikiLib::lib('access')->absoluteUrl($params['src']);
+
+                // Not an internal link, lets set a security token.
+                if (strrpos($sourceLink, $base_url) === false) {
+                    $data = Tiki_Security::get()->encode(['url' => $params['src']]);
+                    $sourceLink = TikiLib::tikiUrl('tiki-download_file.php', [
+                        'data'   => $data,
+                    ]);
+                }
+            }
+
+            if (! empty($sourceLink)) {
+                $htmlViewFile = VendorHelper::getAvailableVendorPath('pdfjsviewer', '/npm-asset/pdfjs-dist-viewer-min/build/minified/web/viewer.html') . '?file=';
+                $sourceLink = $htmlViewFile . urlencode(TikiLib::lib('access')->absoluteUrl($sourceLink));
+            }
+
+            $smarty->assign('source_link', $sourceLink);
+            return '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_mediaplayer_pdfjs.tpl') . '~/np~';
+        } elseif ($params['type'] === 'pdf') {
+            $js = '
 var found = false;
 $.each(navigator.plugins, function(i, plugins) { // navigator.plugins is unspecified according to https://developer.mozilla.org/fr/docs/Web/API/NavigatorPlugins/plugins . Something other in NavigatorPlugins may be standard. 
     $.each(plugins, function(i, plugin) {
@@ -287,40 +261,27 @@ if (found) {
     // no pdf plugin
     $("#' . $id . '").text(tr("Download file:") + " " + "' . $params['src'] . '");
 }';
-            }
         }
-
         $headerlib->add_jq_onready($js);
 
         return "<a href=\"" . $params['src'] . "\" id=\"$id\"></a>";
     }
 
-    // Check the style of the player
-    if (empty($params['style'])) {
-        $player = $params['player'];
-    } elseif ($params['style'] == 'native') {
-        $player = '';
+    if ((! empty($params['mediatype']) && ($params['mediatype'] == 'audio')) || ! empty($params['mp3'])) {
+        $mediatype = 'audio';
+    } else {
+        $mediatype = 'video';
     }
-
-    // check if native native HTML5 video object is requested
-
-    if ($params['style'] == 'native') {
-        if (! empty($params['mediatype']) && $params['mediatype'] == 'audio') {
-            $mediatype = 'audio';
-        } else {
-            $mediatype = 'video';
-        }
-        $code = '<' . $mediatype;
-        if (! empty($params['height'])) {
-            $code .= ' height="' . $params['height'] . '"';
-        }
-        if (! empty($params['width'])) {
-            $code .= ' width="' . $params['width'] . '"';
-        }
-        $code .= ' style="max-width: 100%" controls>';
-        $code .= '    <source src="' . $params['src'] . '" type=\'' . $params['type'] . '\'>'; // type can be e.g. 'video/webm; codecs="vp8, vorbis"'
-        $code .= '</' . $mediatype . '>';
+    $code = '<' . $mediatype;
+    if (! empty($params['height'])) {
+        $code .= ' height="' . $params['height'] . '"';
     }
+    if (! empty($params['width'])) {
+        $code .= ' width="' . $params['width'] . '"';
+    }
+    $code .= ' style="max-width: 100%" controls>';
+    $code .= '    <source src="' . $params['src'] . '" type=\'' . $params['type'] . '\'>'; // type can be e.g. 'video/webm; codecs="vp8, vorbis"'
+    $code .= '</' . $mediatype . '>';
 
     return "~np~$code~/np~";
 }
