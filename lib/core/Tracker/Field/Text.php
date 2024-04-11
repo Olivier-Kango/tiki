@@ -160,7 +160,11 @@ class Tracker_Field_Text extends \Tracker\Field\AbstractField implements \Tracke
         if (! isset($requestData[$id_string])) {
             $value = $this->getValue();
             if ($multilingual) {
-                $newValue = @json_decode($value, true);
+                if (! is_array($value)) {
+                    $newValue = json_decode($value, true);
+                } else {
+                    $newValue = false;
+                }
 
                 if ($newValue !== false && ! is_null($newValue)) {
                     $value = $newValue;
