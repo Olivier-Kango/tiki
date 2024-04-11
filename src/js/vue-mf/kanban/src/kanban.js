@@ -28,10 +28,10 @@ const vueLifecycles = singleSpaVue({
                     // name: this.name,
                     // mountParcel: this.mountParcel,
                     // singleSpa: this.singleSpa,
-                    kanbanData: this.kanbanData
-                }
+                    kanbanData: this.kanbanData,
+                },
             });
-        }
+        },
     },
     handleInstance: (app) => {
         // Register a global custom directive called `v-focus`
@@ -40,14 +40,14 @@ const vueLifecycles = singleSpaVue({
             mounted(el) {
                 // Focus the element
                 el.focus();
-            }
+            },
         });
         app.directive("autosize", {
             // When the bound element is mounted into the DOM...
             mounted(el) {
                 // Focus the element
                 if (el.tagName === "TEXTAREAsdfsdfsd") autosize(el);
-            }
+            },
         });
         app.use(store);
         app.use(PerfectScrollbar);
@@ -56,13 +56,13 @@ const vueLifecycles = singleSpaVue({
             timeout: 4000,
             hideProgressBar: true,
             showCloseButtonOnHover: true,
-            icon: false
+            icon: false,
         });
         //app.use(Vue3ColorPicker);
         if (import.meta.env.MODE === "development") {
             console.log(import.meta.env);
         }
-    }
+    },
 });
 
 defineRule("minLength", (value, [limit]) => {
@@ -75,9 +75,9 @@ defineRule("minLength", (value, [limit]) => {
 const cssLifecycle = singleSpaCss({
     cssUrls: [
         {
-            href: "public/generated/js/kanban.css"
-        }
-    ]
+            href: "public/generated/js/kanban.css",
+        },
+    ],
 });
 
 export const bootstrap = [cssLifecycle.bootstrap, vueLifecycles.bootstrap];
