@@ -26,8 +26,6 @@ $green:   #77b300 !default;
 $teal:    #20c997 !default;
 $cyan:    #93c !default;
 
-$yellow-800: shade-color($yellow, 60%) !default;
-
 $primary:       #207CA7; // $blue !default;
 $secondary:     $gray-600 !default;
 $success:       #558000; // $green !default;
@@ -65,7 +63,7 @@ $link-color:                              #56B5E1; // #2799CE; //#2389B8; // $pr
 
 $font-family-sans-serif:        Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
 $font-size-base:                1.1rem;
-$mark-bg:                     $yellow-800;
+$mark-bg:                     #4D2900;
 
 // Tables
 
