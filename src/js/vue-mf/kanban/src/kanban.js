@@ -3,7 +3,7 @@ import singleSpaVue from "single-spa-vue";
 import singleSpaCss from "single-spa-css";
 
 import { createApp, h } from "vue";
-import PerfectScrollbar from "vue3-perfect-scrollbar";
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
 //import { SetupCalendar, DatePicker } from "v-calendar";
 import Toast from "vue-toastification";
 import { defineRule } from "vee-validate";
@@ -11,7 +11,7 @@ import App from "./App.vue";
 import store from "./store";
 import autosize from "autosize";
 //import Vue3ColorPicker from "vue3-colorpicker";
-import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
+import "vue3-perfect-scrollbar/style.css";
 import "vue-toastification/dist/index.css";
 //import "vue3-colorpicker/style.css";
 

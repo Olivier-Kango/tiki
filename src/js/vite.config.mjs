@@ -4,7 +4,7 @@ import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import copy from "@guanghechen/rollup-plugin-copy";
-import glob from "glob";
+import {glob} from "glob";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 /*
