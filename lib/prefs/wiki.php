@@ -853,5 +853,14 @@ function prefs_wiki_list($partial = false)
                 'feature_search',
             ],
         ],
+        'wiki_description_edit_tab_input' => [
+            'name' => tr('Display input at top of Edit tab'),
+            'description' => tr('More prominent location than on Properties tab'),
+            'type' => 'flag',
+            'default' => 'n',
+            'dependencies' => [
+                'feature_wiki_description'
+            ]
+        ]
     ];
 }

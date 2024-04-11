@@ -193,7 +193,7 @@
             {/if}
             {tabset name='tabs_editpage' cookietab=1}
                 {tab name="{tr}Edit page{/tr}"}
-            {*    Moved from properties tab start, for better visibility *}
+                {if $prefs.wiki_description_edit_tab_input eq 'y'}
                 {if $page|lower neq 'sandbox'}
                 {if $prefs.feature_wiki_description eq 'y' or $prefs.metatag_pagedesc eq 'y'}
                     <div class="mb-3 row">
@@ -215,7 +215,8 @@
                         </div>
                     </div>
                 {/if}
-                    {/if} {* Moved from properties tab end *}
+                    {/if}
+                    {/if}
                     {if $translation_mode == 'y'}
                         <div class="translation_message">
                             <h2>{tr}Translate to:{/tr} {$target_page|escape}</h2>
@@ -513,7 +514,8 @@
                                 </div>
                             {/if}
                         {/if}{*end if sandbox *}
-                {*        {if $prefs.feature_wiki_description eq 'y' or $prefs.metatag_pagedesc eq 'y'}
+                        {if $prefs.feature_wiki_description eq 'y' or $prefs.metatag_pagedesc eq 'y'}
+                            {if $prefs.wiki_description_edit_tab_input neq 'y'}
                             <div class="mb-3 row">
                                 {if $prefs.metatag_pagedesc eq 'y'}
                                     <label for="" class="col-md-4 col-form-label">{tr}Description (used for metatags){/tr}</label>
@@ -532,7 +534,8 @@
                                     {/jq}
                                 </div>
                             </div>
-                        {/if} *}
+                            {/if}
+                        {/if}
                         {if $prefs.metatag_robotscustom eq 'y'}
                             <div class="mb-3 row">
                                 <label for="metatag_robotscustom" class="col-md-4 col-form-label">{tr}Custom Meta robots. The values should be comma separated eg. noimageindex, nocache.{/tr}</label>

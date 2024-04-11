@@ -40,6 +40,9 @@
                     {preference name=wiki_page_hide_title}
                     {preference name=wiki_heading_links}
                     {preference name=feature_wiki_description}
+                    <div class="adminoptionboxchild" id="wiki_description_childcontainer">
+                        {preference name=wiki_description_edit_tab_input}
+                    </div>
                     {preference name=feature_wiki_pageid}
                     {preference name=wiki_show_version}
                     {preference name=wiki_authors_style}
