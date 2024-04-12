@@ -1170,6 +1170,9 @@
         "lib\/core\/Multilingual\/Aligner\/UpdatePages.php": {
             "class:Multilingual_Aligner_UpdatePages": true
         },
+        "lib\/core\/Search\/Formatter\/ValueFormatter\/Count.php": {
+            "class:Search_Formatter_ValueFormatter_Count": true
+        },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Templaterender.php": {
             "class:Search_Formatter_ValueFormatter_Templaterender": true
         },
@@ -4951,6 +4954,9 @@
         },
         "lib\/core\/Multilingual\/Aligner\/UpdatePages.php": {
             "Multilingual_Aligner_UpdatePages": true
+        },
+        "lib\/core\/Search\/Formatter\/ValueFormatter\/Count.php": {
+            "Search_Formatter_ValueFormatter_Count": true
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Templaterender.php": {
             "Search_Formatter_ValueFormatter_Templaterender": true
