@@ -1494,15 +1494,20 @@ class Services_Tracker_Controller
     {
         global $prefs;
 
-        $input = $input->fields;
-        $trackerId = $input->trackerId->int();
+        if (! empty($input->fields->getValue())) {
+            $input_bis = $input->fields;
+        } else {
+            $input_bis = $input;
+        }
+
+        $trackerId = $input_bis->trackerId->int();
         $definition = Tracker_Definition::get($trackerId);
 
         if (! $definition) {
             throw new Services_Exception_NotFound();
         }
 
-        $itemId = $input->itemId->int();
+        $itemId = $input_bis->itemId->int();
 
         if ($itemId) {
             $itemInfo = TikiLib::lib('trk')->get_tracker_item($itemId);
@@ -1517,7 +1522,7 @@ class Services_Tracker_Controller
         $smarty = TikiLib::lib('smarty');
 
         $itemObject = Tracker_Item::fromInfo($itemInfo);
-        $processedFields = $itemObject->prepareInput($input);
+        $processedFields = $itemObject->prepareInput($input_bis);
         $fieldsProcessed = [];
         foreach ($processedFields as $k => $f) {
             $permName = $f['permName'];
@@ -1660,32 +1665,6 @@ class Services_Tracker_Controller
             $comCount = $trklib->get_item_nb_comments($itemId);
             $smarty->assign("comCount", $comCount);
             $smarty->assign("canViewCommentsAsItemOwner", $itemObject->canViewComments());
-        }
-
-        if ($trackerInfo["useAttachments"] == 'y') {
-            if ($input->removeattach->int()) {
-                $_REQUEST["show"] = "att";
-            }
-            if ($input->editattach->int()) {
-                $att = $trklib->get_item_attachment($input->editattach->int());
-                $smarty->assign("attach_comment", $att['comment']);
-                $smarty->assign("attach_version", $att['version']);
-                $smarty->assign("attach_longdesc", $att['longdesc']);
-                $smarty->assign("attach_file", $att["filename"]);
-                $smarty->assign("attId", $att["attId"]);
-                $_REQUEST["show"] = "att";
-            }
-            // If anything below here is changed, please change lib/wiki-plugins/wikiplugin_attach.php as well.
-            $attextra = 'n';
-            if (isset($trackerInfo['orderAttachments']) && strstr($trackerInfo["orderAttachments"], '|')) {
-                $attextra = 'y';
-            }
-            $attfields = explode(',', strtok($trackerInfo["orderAttachments"] ?? '', '|'));
-            $atts = $trklib->list_item_attachments($itemId, 0, -1, 'comment_asc', '');
-            $smarty->assign('atts', $atts["data"]);
-            $smarty->assign('attCount', $atts["cant"]);
-            $smarty->assign('attfields', $attfields);
-            $smarty->assign('attextra', $attextra);
         }
 
         $smarty->assign('canView', $itemObject->canView());
