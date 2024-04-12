@@ -453,6 +453,7 @@ function wikiplugin_pivottable($data, $params)
     $splittedAttributes = [];
     $attributesOrder = [];
     $heatmapParams = [];
+    $displayFormattedFields = [];
 
     if ($dataType === "tracker") {
         $trackerIds = preg_split('/\s*,\s*/', $params['data'][1]);
@@ -587,6 +588,11 @@ function wikiplugin_pivottable($data, $params)
         foreach ($matches as $match) {
             if ($match->getName() == 'display' || $match->getName() == 'column') {
                 $columnsListed = true;
+                $parser = new WikiParser_PluginArgumentParser();
+                $arguments = $parser->parse($match->getArguments());
+                if (isset($arguments['name'])) {
+                    $displayFormattedFields[] = str_replace('tracker_field_', '', $arguments['name']);
+                }
             } elseif ($match->getName() == 'derivedattribute') {
                 if (
                     preg_match('/name="([^"]+)"/', $match->getArguments(), $match_name)
@@ -895,7 +901,10 @@ function wikiplugin_pivottable($data, $params)
         $field = wikiplugin_pivottable_field_from_definitions($field['permName'], $definitions, $field);
         $fieldsArr[$field['name']] = $field['permName'];
         if ($field['type'] == 'f' || $field['type'] == 'j') {
-            $dateFields[] = $field['name'];
+            // formatted date fields might not be parsable to datetime anymore, so exclude them from special date sorting
+            if (! in_array($field['permName'], $displayFormattedFields)) {
+                $dateFields[] = $field['name'];
+            }
         }
     }
 
