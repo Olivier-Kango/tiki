@@ -30,9 +30,9 @@
                 $("#il{{$field.ins_id}}").find('.insert-tracker-item').on('click', function() {
                     var itemId = $('#il{{$field.ins_id}} select[name=addaction]').val();
                     if( itemId ) {
-                        $(this).attr('href', "tiki-ajax_services.php?controller=tracker&action=clone_item&trackerId={{$field.options_map.trackerId}}&next={{$data.next|escape}}&itemId="+itemId+'&ins_{{$field.options_map.preSelectFieldThere}}='+tiki_encodeURIComponent(preselectedValue()));
+                        $(this).attr('href', "tiki-ajax_services.php?controller=tracker&action=clone_item&trackerId={{$field.options_map.trackerId}}&next={{$data.next|escape}}&itemId="+itemId+'&ins_{{$field.options_map.preSelectFieldThere}}='+encodeURIComponent(preselectedValue()));
                     } else {
-                        $(this).attr('href', "tiki-ajax_services.php?controller=tracker&action=insert_item&trackerId={{$field.options_map.trackerId}}&next={{$data.next|escape}}&ins_{{$field.options_map.preSelectFieldThere}}="+tiki_encodeURIComponent(preselectedValue()));
+                        $(this).attr('href', "tiki-ajax_services.php?controller=tracker&action=insert_item&trackerId={{$field.options_map.trackerId}}&next={{$data.next|escape}}&ins_{{$field.options_map.preSelectFieldThere}}="+encodeURIComponent(preselectedValue()));
                     }
                 });
                 $("#il{{$field.ins_id}}").find('.update-tracker-links').on('click', function(e) {
