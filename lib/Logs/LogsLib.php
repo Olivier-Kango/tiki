@@ -688,7 +688,9 @@ class LogsLib extends TikiLib
             }
         }
 
-        sort($stats, SORT_STRING); // will sort on the first field
+        usort($stats, function ($a, $b) {
+            return $a[0] <=> $b[0];  // will sort on the first field
+        });
 
         return $stats;
     }
