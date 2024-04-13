@@ -445,7 +445,7 @@ function sendEmailNotification($watches, $dummy, $subjectTpl, $subjectParam, $tx
             $mail->setHeader($headerName, $headerValue);
         }
 
-        $smarty->assign('watchId', $watch['watchId']);
+        $smarty->assign('watchId', $watch['watchId'] ?? null);
         if ($watch['user']) {
             $mail->setUser($watch['user']);
         }
