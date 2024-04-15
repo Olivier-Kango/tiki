@@ -664,6 +664,16 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         $trklib = TikiLib::lib('trk');
         $trackerId = (int) $this->getOption('trackerId');
 
+        if (! $trackerId) {
+            Feedback::error(
+                tr(
+                    'No tracker "%0" found for ItemsList fieldId %1',
+                    $this->getOption('trackerId'),
+                    $this->getFieldId()
+                )
+            );
+            return [];
+        }
         $filterFieldIdHere = (int) $this->getOption('fieldIdHere');
         $filterFieldIdThere = (int) $this->getOption('fieldIdThere');
 
@@ -793,6 +803,16 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
     {
         $displayFields = $this->getOption('displayFieldIdThere');
         $trackerId = (int) $this->getOption('trackerId');
+        if (! $trackerId) {
+            Feedback::error(
+                tr(
+                    'No tracker "%0" found for ItemsList fieldId %1',
+                    $this->getOption('trackerId'),
+                    $this->getFieldId()
+                )
+            );
+            return [];
+        }
         $status = $this->getOption('status', 'opc');
 
         $definition = Tracker_Definition::get($trackerId);
@@ -838,6 +858,9 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         $displayFields = $this->getOption('displayFieldIdThere');
         $trackerId = (int) $this->getOption('trackerId');
 
+        if (! $trackerId) {
+            return [];
+        }
         $definition = Tracker_Definition::get($trackerId);
         if (! $definition) {
             return [];
