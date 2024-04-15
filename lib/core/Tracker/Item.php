@@ -33,12 +33,14 @@ class Tracker_Item
      * @param $itemId int
      * @throws Exception
      */
-    public static function fromId($itemId): Tracker_Item
+    public static function fromId($itemId): ?Tracker_Item
     {
         $info = TikiLib::lib('trk')->get_tracker_item($itemId);
 
         if ($info) {
             return self::fromInfo($info);
+        } else {
+            return null;
         }
     }
 

@@ -4144,7 +4144,14 @@ class TrackerLib extends TikiLib
         try {
             $definition = Tracker_Definition::get($trackerId);
         } catch (InvalidArgumentException $e) {
-            trigger_error('Requested main tracker item field value of item $itemId but tracker $trackerId not found.');
+            trigger_error(
+                tr(
+                    'Requested main tracker item field value of item %0 but tracker %1 not found.',
+                    $itemId,
+                    $trackerId
+                ),
+                E_USER_WARNING
+            );
             return '';
         }
         $mainFieldId = $definition->getMainFieldId();
