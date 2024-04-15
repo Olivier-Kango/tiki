@@ -52,7 +52,6 @@ if (count($filter) || count($postfilter)) {
     if ($access->is_serializable_request(true)) {
         $jitRequest->replaceFilter('fields', 'word');
         $fetchFields = array_merge(['title', 'modification_date', 'url'], $jitRequest->asArray('fields', ','));
-        ;
 
         $results = tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords);
         foreach ($results as &$res) {
@@ -69,12 +68,6 @@ if (count($filter) || count($postfilter)) {
                 ],
                 $smarty->getEmptyInternalTemplate()
             );
-            $res = array_filter(
-                $res,
-                function ($v) {
-                    return ! is_null($v);
-                }
-            );  // strip out null values
         }
         // add facet/aggregations to the serialised outout
         if ($prefs['search_use_facets'] == 'y') {
@@ -194,7 +187,7 @@ if ($prefs['search_use_facets'] == 'y' && ($prefs['unified_engine'] === 'elastic
  * @return Search_ResultSet
  * @throws Exception
  */
-function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords)
+function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords): Search_ResultSet
 {
     global $prefs;
 
@@ -286,11 +279,11 @@ function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords
         return $resultset;
     } catch (Search_Elastic_TransportException $e) {
         Feedback::error(tr('Search functionality currently unavailable.'));
+        return new Search_ResultSet([], 0, 0, -1);
     } catch (Exception $e) {
         Feedback::error($e->getMessage());
+        return new Search_ResultSet([], 0, 0, -1);
     }
-
-    return new Search_ResultSet([], 0, 0, -1);
 }
 
 /**
