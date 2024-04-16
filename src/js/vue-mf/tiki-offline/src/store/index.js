@@ -12,12 +12,12 @@ export default createStore({
     mutations: {
         initState(state, data) {
             state.trackers = data.trackerData;
-            state.trackers.each(tracker => tracker.items = []);
+            state.trackers.forEach(tracker => tracker.items = []);
         },
-        createItem(state, trackerId, fieldValues) {
-            state.trackers.each(tracker => {
-                if (tracker.trackerId == trackerId) {
-                    tracker.items.push(fieldValues);
+        createItem(state, data) {
+            state.trackers.forEach(tracker => {
+                if (tracker.trackerId == data.trackerId) {
+                    tracker.items.push(data.fieldValues);
                 }
             });
         }

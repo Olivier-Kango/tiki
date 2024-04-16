@@ -11,22 +11,19 @@
                 <div class="modal-body">
                     <!-- Render the form here -->
                     <form>
-                        <child-component v-for="(field, index) in formFields" :key="index" :field="field"
-                            :initialValue="initialValues[field.name]" @input="updateValue(field.name, $event)">
-                            <div class="tracker-field-group mb-3">
-                                <label :for="field.ins_id">
-                                    {{field.name}}
-                                </label>
-                                <div :id="fieldId(field.fieldId)">
-                                    <Text v-if="field.type == 't'" :id=field.ins_id :name=field.ins_id />
-                                </div>
+                        <div class="tracker-field-group mb-3" v-for="(field, index) in formFields">
+                            <label :for="field.ins_id">
+                                {{field.name}}
+                            </label>
+                            <div :id="fieldId(field.fieldId)">
+                                <Text v-if="field.type == 't'" :ins_id="field.ins_id" v-model="fieldValues[field.ins_id]" />
                             </div>
-                        </child-component>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="submitForm">Create Item</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="submitForm">Create Item</button>
                 </div>
             </div>
         </div>
@@ -77,28 +74,16 @@ export default {
     },
     data() {
         return {
-            fieldValues: {},
+            fieldValues: this.initialValues,
         }
     },
     methods: {
-        // form field value in parent component's data
-        updateValue(fieldName, value) {
-            this.$emit('input', { [fieldName]: value });
-        },
         // handle form submission
         submitForm() {
-            // TODO: prepare field values as an object ins_ID => value
-            initFieldValues();
-            store.commit('createItem', trackerId, fieldValues);
+            store.commit('createItem', {trackerId: this.trackerId, fieldValues: this.fieldValues});
         },
         fieldId(fieldId) {
             return "trackerinput_" + fieldId;
-        },
-        initFieldValues() {
-            this.formFields.forEach(field => {
-                // add ins_ID => empty value
-                fieldValues[field.ins_id] = '';
-            });
         },
     }
 };

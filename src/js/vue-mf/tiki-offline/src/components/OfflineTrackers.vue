@@ -17,7 +17,7 @@
                     <tbody>
                         <tr v-for="item in tracker.items">
                             <!-- Todo: Show link on one of the main fields-->
-                            <td v-for="field in tracker.fields">{{ item[field.ins_id] }}</td>
+                            <td v-for="field in visibleFields(tracker.fields)">{{ item[field.ins_id] }}</td>
                         </tr> 
                     </tbody>
                 </table>
@@ -41,9 +41,6 @@
             trackers () {
                 return store.state.trackers
             },
-            items () {
-                return store.state.items
-            },
         },
         methods: {
             visibleFields (fields) {
@@ -51,8 +48,4 @@
             }
         },
     };
-    function createTrackerItem () {
-        // Load tracker fields and 
-        // craft a form accordingly
-    }
 </script>
