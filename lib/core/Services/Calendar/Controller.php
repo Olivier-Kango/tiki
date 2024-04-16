@@ -935,10 +935,10 @@ class Services_Calendar_Controller
      */
     private function processParticipants(array $calitem): array
     {
-        if (is_string($calitem['organizers'])) {
+        if (isset($calitem['organizers'])  && is_string($calitem['organizers'])) {
             $calitem['organizers'] = preg_split('/\s*,\s*/', $calitem['organizers']);
         }
-        if ($calitem['organizers']) {
+        if (isset($calitem['organizers']) && array_key_exists('organizers', $calitem)) {
             $calitem['organizers'] = array_filter($calitem['organizers']);
         }
 
@@ -973,7 +973,7 @@ class Services_Calendar_Controller
         $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
         $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
         $calitem['end'] -= $server_offset;
-        if ($calitem['allday']) {
+        if (isset($calitem['allday'])) {
             // convert to UTC @12:00am, so we don't depend on user's timezone when displaying later
             $start = new TikiDate();
             $start->setDate($calitem['start']);
