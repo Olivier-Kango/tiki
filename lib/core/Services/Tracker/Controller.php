@@ -923,7 +923,9 @@ class Services_Tracker_Controller
                 $permName = $f['permName'];
                 $fieldValue = $f['value'] ?? '';
                 if ($f['type'] === 'a') {
-                    $fieldValue = TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($fieldValue);
+                    foreach ((array) $fieldValue as & $value) {
+                        $value = TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($value);
+                    }
                 }
                 $fields[$permName] = $fieldValue;
 
@@ -1275,7 +1277,9 @@ class Services_Tracker_Controller
                 $permName = $f['permName'];
                 $fieldValue = $f['value'] ?? '';
                 if ($f['type'] === 'a') {
-                    $fieldValue = TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($fieldValue);
+                    foreach ((array) $fieldValue as & $value) {
+                        $value = TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($value);
+                    }
                 }
                 $fields[$permName] = $fieldValue;
             }

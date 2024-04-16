@@ -176,7 +176,7 @@ class Tracker_Field_Text extends \Tracker\Field\AbstractField implements \Tracke
         }
 
         if (is_array($value)) {
-            $thisVal = $value[$language];
+            $thisVal = $value[$language] ?? '';
         } else {
             $thisVal = $value;
         }

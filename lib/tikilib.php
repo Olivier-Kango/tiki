@@ -2646,7 +2646,7 @@ class TikiLib extends TikiDb_Bridge
      * @param string $data
      * @return string
      */
-    public function convertAbsoluteLinksToRelative($data)
+    public function convertAbsoluteLinksToRelative(string $data): string
     {
         global $prefs, $tikilib;
 
