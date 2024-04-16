@@ -146,10 +146,10 @@ class Services_Calendar_BaseController
      */
     protected function processParticipants(array $calitem): array
     {
-        if (is_string($calitem['organizers'])) {
+        if (isset($calitem['organizers'])  && is_string($calitem['organizers'])) {
             $calitem['organizers'] = preg_split('/\s*,\s*/', $calitem['organizers']);
         }
-        if ($calitem['organizers']) {
+        if (isset($calitem['organizers']) && array_key_exists('organizers', $calitem)) {
             $calitem['organizers'] = array_filter($calitem['organizers']);
         }
 

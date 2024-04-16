@@ -897,7 +897,9 @@ class CalendarLib extends TikiLib
         }
 
         if ($prefs['feature_categories'] == 'y') {
-            $this->update_item_categories($calitemId, $_REQUEST['cat_managed'], $_REQUEST['cat_categories'], $data['name'], $data['description']);
+            $catCategories = isset($_REQUEST['cat_categories']) ? $_REQUEST['cat_categories'] : [];
+            $catCatManaged = isset($_REQUEST['cat_managed']) ? $_REQUEST['cat_managed'] : [];
+            $this->update_item_categories($calitemId, $catCatManaged, $catCategories, $data['name'], $data['description']);
         }
 
         if ($roles !== null) {

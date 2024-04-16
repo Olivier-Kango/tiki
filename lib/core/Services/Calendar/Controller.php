@@ -871,7 +871,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
         $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
         $calitem['end'] -= $server_offset;
-        if ($calitem['allday']) {
+        if (isset($calitem['allday'])) {
             // convert to UTC @12:00am, so we don't depend on user's timezone when displaying later
             $start = new TikiDate();
             $start->setDate($calitem['start']);
