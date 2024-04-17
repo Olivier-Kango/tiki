@@ -1,6 +1,6 @@
 <template>
     <!-- Modal -->
-    <div class="modal fade" id="formAddTrackerItemModal" tabindex="-1" role="dialog" aria-labelledby="formAddTrackerItemLabel"
+    <div class="modal fade" :id="`formAddTrackerItemModal${trackerId}`" tabindex="-1" role="dialog" aria-labelledby="formAddTrackerItemLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -16,19 +16,22 @@
                                 {{field.name}}
                             </label>
                             <div :id="fieldId(field.fieldId)">
-                                <Text v-if="field.type == 't'" :ins_id="field.ins_id" v-model="fieldValues[field.ins_id]" />
+                                <Text v-if="field.type == 't'" :ins_id="field.ins_id" v-model="editedItem.values[field.ins_id]" />
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="submitForm">Create Item</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="submitForm">
+                        <span v-if="editedItem.itemId !== null">Update Item</span>
+                        <span v-if="editedItem.itemId === null">Create Item</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <Button variant="primary" sm data-bs-toggle="modal" data-bs-target="#formAddTrackerItemModal">
+    <Button variant="primary" sm data-bs-toggle="modal" :data-bs-target="`#formAddTrackerItemModal${trackerId}`" @click="handleNewItem">
         <i class="fas fa-plus"></i>
         <span class="ml-2">Create item</span>
     </Button>
@@ -63,7 +66,6 @@ export default {
     props: {
         trackerId: Number,
         formFields: Array, // Configuration object defining form fields
-        initialValues: Object // Initial values if editing
     },
     // Registering child components
     components: {
@@ -79,13 +81,16 @@ export default {
     },
     data() {
         return {
-            fieldValues: Object.assign({}, this.initialValues),
+            editedItem: store.state.editedItem,
         }
     },
     methods: {
         submitForm() {
-            store.commit('createItem', {trackerId: this.trackerId, fieldValues: this.fieldValues})
-            this.fieldValues = Object.assign({}, this.initialValues)
+            store.commit('storeEditedItem')
+            store.commit('changeEditedItem', {trackerId: this.trackerId, itemId: null})
+        },
+        handleNewItem() {
+            store.commit('changeEditedItem', {trackerId: this.trackerId, itemId: null})
         }
     }
 };
