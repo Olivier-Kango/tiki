@@ -49,10 +49,12 @@ class LanguageTranslator
 
     private function __construct(string $lang, array $options)
     {
+        global $prefs;
+
         $this->lang = $lang;
         $this->initLanguageFromFiles($lang);
         $this->loadThemeOverrides();
-        if (! empty($options['skipDb']) && isset($prefs['lang_use_db']) && $prefs['lang_use_db'] == 'y') {
+        if (empty($options['skipDb']) && isset($prefs['lang_use_db']) && $prefs['lang_use_db'] == 'y') {
             $this->initLanguageFromDb();
         }
     }
