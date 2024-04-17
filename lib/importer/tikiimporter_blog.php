@@ -388,7 +388,7 @@ class TikiImporter_Blog extends TikiImporter
         $postId = $bloglib->blog_post(
             $this->blogId,
             $post['content'],
-            $post['excerpt'],
+            $post['excerpt'] ?? '',
             $post['author'],
             $post['name'],
             '',

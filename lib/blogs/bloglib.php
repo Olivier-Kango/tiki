@@ -824,7 +824,7 @@ class BlogLib extends TikiDb_Bridge
      * @access public
      * @return int postId
      */
-    public function blog_post($blogId, $data, $excerpt, $user, $title = '', $contributions = '', $priv = 'n', $created = 0, $is_wysiwyg = false)
+    public function blog_post(int $blogId, string $data, string $excerpt, string $user, string $title = '', string $contributions = '', string $priv = 'n', $created = 0, bool $is_wysiwyg = false)
     {
         // update tiki_blogs and call activity functions
         global $prefs;
