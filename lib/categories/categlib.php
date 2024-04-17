@@ -613,8 +613,13 @@ class CategLib extends ObjectLib
         } elseif (is_array($categId)) {
             $bindWhere = $categId;
             if ($deep) {
-                foreach ($categId as $c) {
-                    $bindWhere = array_merge($bindWhere, $this->get_category_descendants($c));
+                foreach ($categoryIds as $c) {
+                    $descendants = $this->get_category_descendants($c);
+                    if (is_array($descendants)) {
+                        $bindWhere = array_merge($bindWhere, $descendants);
+                    } else {
+                        Feedback::error(['mes' => "Unable to retrieve category and its descendants for category id: " . $c]);
+                    }
                 }
             }
 
