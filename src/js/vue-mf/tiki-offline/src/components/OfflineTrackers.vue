@@ -12,12 +12,14 @@
                     <thead>
                         <tr>
                             <th v-for="field in visibleFields(tracker.fields)">{{ field.name }}</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in tracker.items">
                             <!-- Todo: Show link on one of the main fields-->
                             <td v-for="field in visibleFields(tracker.fields)">{{ item[field.ins_id] }}</td>
+                            <td><a href="#"><div class="iconmenu"><span class="icon icon-edit fa-fw fas fa-edit "></span><span class="iconmenutext"> Edit</span></div></a></td>
                         </tr> 
                     </tbody>
                 </table>

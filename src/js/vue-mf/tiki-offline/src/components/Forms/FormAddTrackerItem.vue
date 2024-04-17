@@ -35,6 +35,9 @@
 </template>
 
 <script setup>
+import { Button } from '@vue-mf/styleguide';
+import store from '../../store';
+
 // Import form field components
 // Todo: Import only if needed
 import Checkbox from '../Fields/CheckBox.vue';
@@ -46,8 +49,10 @@ import MultipleSelection from '../Fields/MultipleSelection.vue';
 import Numeric from '../Fields/Numeric.vue';
 import Text from '../Fields/Text.vue';
 import UserSelector from '../Fields/UserSelector.vue';
-import { Button } from '@vue-mf/styleguide';
-import store from '../../store';
+
+const fieldId = (fieldId) => {
+    return "trackerinput_" + fieldId
+}
 
 </script>
 
@@ -74,17 +79,14 @@ export default {
     },
     data() {
         return {
-            fieldValues: this.initialValues,
+            fieldValues: Object.assign({}, this.initialValues),
         }
     },
     methods: {
-        // handle form submission
         submitForm() {
-            store.commit('createItem', {trackerId: this.trackerId, fieldValues: this.fieldValues});
-        },
-        fieldId(fieldId) {
-            return "trackerinput_" + fieldId;
-        },
+            store.commit('createItem', {trackerId: this.trackerId, fieldValues: this.fieldValues})
+            this.fieldValues = Object.assign({}, this.initialValues)
+        }
     }
 };
 </script>
