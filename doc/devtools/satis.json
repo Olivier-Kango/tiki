@@ -2113,7 +2113,7 @@
         "nlgen/nlgen": ">=0.18",
         "nolimits4web/swiper": ">=4.2",
         "npm-asset/animejs": "~3.2.1",
-        "npm-asset/blueimp-file-upload": "^9.28",
+        "npm-asset/blueimp-file-upload": ">=9.28",
         "npm-asset/boomerangjs": "^1.687",
         "npm-asset/chart.js": "^2.7.0||^4.4.0",
         "npm-asset/chartjs-color-string": ">=0.5.0",
