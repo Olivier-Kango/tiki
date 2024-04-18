@@ -3097,7 +3097,7 @@ class TrackerLib extends TikiLib
                     }
 
                     $handler = $this->get_field_handler($f, $this->get_item_info($itemId));
-                    if (method_exists($handler, 'isValid')) {
+                    if (method_exists($handler, 'isValid') && empty($f['readonly'])) {
                         $validationResponse = $handler->isValid($fields);
                         if ($validationResponse !== true) {
                             if (! empty($f['validationMessage'])) {

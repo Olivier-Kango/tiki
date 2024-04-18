@@ -1812,14 +1812,14 @@ function wikiplugin_tracker($data, $params)
             if (count($field_errors['err_mandatory']) > 0) {
                 $msg = tra('The following mandatory fields are missing');
                 foreach ($field_errors['err_mandatory'] as $err) {
-                    $msg .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;' . $err['name'];
+                    $msg .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;' . (empty($err['name']) ? $err['fieldId'] : $err['name']);
                 }
                 Feedback::error($msg);
             }
             if (count($field_errors['err_value']) > 0) {
                 $msg = tra('Following fields are incorrect');
                 foreach ($field_errors['err_value'] as $err) {
-                    $msg .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;' . $err['name'];
+                    $msg .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;' . (empty($err['name']) ? $err['fieldId'] : $err['name']);
                     if (! empty($err['errorMsg'])) {
                         $msg .= ' (' . $err['errorMsg'] . ')';
                     }
