@@ -65,5 +65,5 @@ function upgrade_20240311_various_pref_default_tiki27_tiki($installer)
     $installer->preservePreferenceDefault('wiki_cache', 0);
     $installer->preservePreferenceDefault('wiki_date_field', 'created');
     $installer->preservePreferenceDefault('wikiplugin_list_gui', 'n');
-    $installer->preservePreferenceDefault('unified_included_plugins', []);
+    $installer->preservePreferenceDefault('unified_included_plugins', serialize([]));
 }
