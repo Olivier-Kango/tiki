@@ -181,7 +181,7 @@ class ThemeLib extends TikiLib
     {
         $theme_options = [];
         if (isset($theme) and $theme != 'custom_url') { //don't consider custom URL themes to have options
-            $themeOptionBasePath = self::getThemePath($theme);
+            $themeOptionBasePath = self::getThemePath($theme, '');
             $list_css = glob("{$themeOptionBasePath}/options/*/css/*.css");
             if ($list_css == false) {
                 return [];
