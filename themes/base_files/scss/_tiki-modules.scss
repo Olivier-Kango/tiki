@@ -76,6 +76,10 @@ li.archivedate {
 
 // /***** Boxes *****/
 // ** Modules **/
+// When the module title is a link, make it the card-title color.
+.card.module .card-title a {
+    color: var(--bs-card-title-color);
+}
 
 .minichatdiv {
     font-size: .9em;
