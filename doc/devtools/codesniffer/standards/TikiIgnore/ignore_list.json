@@ -9764,6 +9764,7 @@
             "LogsLib::old_list_logs": true,
             "LogsLib::clean_logs": true,
             "LogsLib::add_action": true,
+            "LogsLib::api_add_action": true,
             "LogsLib::action_must_be_logged": true,
             "LogsLib::action_is_viewed": true,
             "LogsLib::set_actionlog_conf": true,

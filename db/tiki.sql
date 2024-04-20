@@ -3223,6 +3223,7 @@ INSERT IGNORE INTO tiki_actionlog_conf(`action`, `objectType`, `status`) VALUES 
 INSERT IGNORE INTO tiki_actionlog_conf(`action`, `objectType`, `status`) VALUES ('Removed', 'calendar event', 'n');
 INSERT IGNORE INTO tiki_actionlog_conf(`action`, `objectType`, `status`) VALUES ('Sync', 'file gallery', 'y');
 INSERT IGNORE INTO tiki_actionlog_conf(`action`, `objectType`, `status`) VALUES ('CRSF Error', 'system', 'y');
+INSERT IGNORE INTO tiki_actionlog_conf(`action`, `objectType`, `status`) VALUES ('api', 'system', 'y');
 
 DROP TABLE IF EXISTS `tiki_freetags`;
 CREATE TABLE `tiki_freetags` (

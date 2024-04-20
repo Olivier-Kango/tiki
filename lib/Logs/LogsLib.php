@@ -262,6 +262,70 @@ class LogsLib extends TikiLib
         return isset($actions[0]) ? $actions[0] : 0;
     }
 
+    /**
+     * Logs API actions for monitoring and debugging purposes.
+     *
+     * @param string $errortitle The title of the error (optional).
+     * @param string $errortype The type of the error eg. 403, 404 (optional).
+     * @return void
+     */
+    public function api_add_action($errortitle = '', $errortype = ''): void
+    {
+        $authorization = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+
+        if (! empty($authorization) & preg_match('/Bearer\s+(.*)/i', $authorization, $matches)) {
+            $token = TikiLib::lib('api_token')->validToken($matches[1]);
+
+            if ($token && ! empty($token['user'])) {
+                $user = $token['user'];
+            } else {
+                $user = null;
+            }
+        } else {
+            $user = 'anonymous';
+        }
+
+        $payload = json_decode(file_get_contents('php://input'), true);
+        $queryString = $_SERVER['QUERY_STRING'] ?? tr('empty');
+        $log = [
+            'authorization' => $authorization,
+            'requestMethod' => $_SERVER['REQUEST_METHOD'],
+            'contentType' => $_SERVER['CONTENT_TYPE'] ?? '',
+            'queryString' => $queryString,
+            'requestUri' => $_SERVER['REQUEST_URI'],
+            'scriptName' => $_SERVER['SCRIPT_NAME'],
+            'clientIp' => $_SERVER['REMOTE_ADDR'],
+            'userAgent' => $_SERVER['HTTP_USER_AGENT'],
+            'httpStatusCode' => $_SERVER['REDIRECT_STATUS'],
+            'user' => $user
+        ];
+
+        $full_url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $message = strtolower($log['requestMethod']) . ': ' . $full_url . ', status: ' . $log['httpStatusCode'];
+
+        if (! empty($payload)) {
+            $log['payload'] = $payload;
+        }
+
+        if (! empty($_GET)) {
+            $log['get'] = $_GET;
+        }
+
+        if (! empty($_POST)) {
+            $log['post'] = $_POST;
+        }
+
+        if (! empty($errortitle) || ! empty($errortype)) {
+            $detail = [
+                'code' => $errortype,
+                'errortitle' => $errortitle,
+                'message' => $errortitle,
+            ];
+            $log['response'] = $detail;
+        }
+        $this->add_action('api', 'system', 'system', $message, '', $log['clientIp'], $log['userAgent'], '', '', '', $log);
+    }
+
     public function action_must_be_logged($action, $objectType)
     {
         global $prefs;
