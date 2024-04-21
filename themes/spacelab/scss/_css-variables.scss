@@ -116,7 +116,16 @@
     .tiki .tiki-admin-aside-nav-light {               // light top selectors
         @include admin-nav-dark;                      // dark values
     }
+    .bg-light,
+    .navbar.navbar.bg-light {
+        background-image: none !important;
+        background: var(--bs-tertiary-bg) !important;
+        .nav-link {
+            color: $link-color-dark;
+        }
+    }
 }
+
 // Color mode preference trumps L&F admin dark navbar option
 [data-bs-theme=light] {                              // light color mode
     .tiki .tiki-admin-top-nav-dark,

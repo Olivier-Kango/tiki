@@ -107,6 +107,13 @@
 
 [data-bs-theme="dark"] {
     --tiki-quartz-body-bg-image: linear-gradient(90deg, #293538, #171825, #34061a);
+    .bg-light,
+    .navbar.bg-light {
+        background: var(--bs-tertiary-bg) !important;
+         .nav-link {
+             color: $link-color-dark;
+        }
+    }
 }
 
 //

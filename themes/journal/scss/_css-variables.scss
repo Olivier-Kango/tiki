@@ -137,3 +137,15 @@
     --bs-accordion-btn-bg: #FDF0F0;
     --bs-accordion-btn-color: #D45E5A;
 }
+
+[data-bs-theme="dark"] {
+    --tiki-vert-nav-link-color: rgba(var(--bs-link-color-rgb));
+    --tiki-vert-nav-link-hover-color: rgba(var(--bs-link-hover-color-rgb));
+    .bg-light,
+    .navbar.bg-light {
+        background: var(--bs-tertiary-bg) !important;
+        .nav-link {
+            color: $link-color-dark;
+        }
+    }
+}

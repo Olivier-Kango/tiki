@@ -146,4 +146,11 @@
     --tiki-card-border-color: #{$light-border-subtle-dark};
     --tiki-card-header-bg: #{$dark-bg-subtle-dark};
     --tiki-card-title-color: #{$body-color-dark};
+    .bg-light,
+    .navbar.bg-light {
+        background: var(--bs-tertiary-bg) !important;
+        .nav-link {
+            color: $link-color-dark;
+        }
+    }
 }

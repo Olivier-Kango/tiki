@@ -144,4 +144,11 @@
     --tiki-card-header-bg: #{$body-secondary-bg-dark};
     --tiki-vert-nav-link-color: rgba(var(--bs-link-color-rgb));
     --tiki-vert-nav-link-hover-color: rgba(var(--bs-link-hover-color-rgb));
+    .bg-light,
+    .navbar.bg-light {
+//        background: var(--bs-tertiary-bg) !important;
+        .nav-link {
+            color: $link-color-dark;
+        }
+    }
 }

@@ -144,3 +144,9 @@ header.navbar.fixed-top {
     --tiki-code-color: var(--bs-body-color);
     --tiki-code-bg: var(--bs-secondary-bg);
 }
+
+[data-bs-theme=dark] {
+    .bg-light {
+        background-color: var(--bs-tertiary-bg);
+    }
+}

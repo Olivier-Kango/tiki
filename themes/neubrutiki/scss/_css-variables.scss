@@ -177,7 +177,11 @@
     --tiki-card-bg: #{$body-secondary-bg-dark};
 //    .popover-body { background: #{$body-secondary-bg-dark}; }
     --tiki-card-color: var(--bs-body-color);
-//    .btn-link { color: #83b5fd !important; }
-//    .btn-link:hover {color: #83B5FDFF !important; }
-//    .dropdown-item:hover, .dropdown-item.active {background: #52525e};
+    .bg-light,
+    .navbar.bg-light {
+        background: var(--bs-tertiary-bg) !important;
+        .nav-link {
+            color: $link-color-dark;
+        }
+    }
 }
