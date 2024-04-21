@@ -281,7 +281,10 @@ body.fullscreen {
     font-size: .9em;
 }
 
-/* Icons */
+// /* Icons */
+div #metadata fieldset.tabcontent, div #metadata div.tabs {
+    background-color: transparent;
+}
 a.icon,
 img.icon {
     border: none;
@@ -594,6 +597,7 @@ blockquote {
 .breadcrumb-item { padding-right: 0.5rem;}
 .breadcrumb .tips { padding-right: 0.5rem;}
 
+
 // Vertical Smartmenus hack, until a proper solution is committed
 // For a vertical menu, assign a bootstrap menu, type "horiz", and add "smartmenu_vert" as containing class.
 .smartmenu_vert .navbar-nav { flex-direction: column; }
@@ -634,4 +638,155 @@ blockquote {
     .skipnav {
         transition-duration: 0.001ms !important;
     }
+}
+
+// edit menu contextual icons -- Moved from tiki-selectors April 21 2024
+.edit-menu {
+    position: absolute;
+    top: 6px;
+    right: 2px;
+}
+
+@include media-breakpoint-up(md) {
+    .edit-menu { display: none; }
+    .navbar-default:hover .edit-menu { display: block; }
+}
+
+@include media-breakpoint-down(xs) {
+    .navbar-default .edit-menu { top: 48px; }
+}
+
+.codelisting_container {
+    max-width: 990px;
+    z-index: 1;
+    position: relative;
+}
+.code {
+    margin-top: 20px;
+    padding-left: 20px;
+}
+.icon_copy_code {
+    position: relative;
+    display: inline-block;
+    color: #87898a;
+    float: right;
+    right: 20px;
+    top: 10px;
+    font-size: 80%;
+}
+.icon_copy_code:hover {
+    color: black;
+    cursor: pointer;
+}
+.icon_copy_code .copy_code_tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+    font-family : none;
+}
+.copy_code_tooltiptext {
+    font-size: 14px;
+}
+.icon_copy_code .copy_code_tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.icon_copy_code:hover .copy_code_tooltiptext {
+    visibility: visible;
+}
+
+// Following 78 lines moved from tiki-selectors as they contain no variables
+.permission_table {
+    .form-row {
+        margin-left: 0; margin-right: 0;
+        > .col { padding-left: 15px; padding-right: 15px; }
+    }
+}
+
+.tiki-admin_modules {
+    .t_navbar .btn {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: breakpoint-max(sm)) {
+    .navbar-nav {
+        padding: 0 15px;
+        margin: 15px 0;
+    }
+
+    .tiki-view_tracker, .tiki-admin_tracker_fields, .tiki-lastchanges,
+    .tiki-admin_survey_questions, .tiki-assignuser, .tiki_user_messages,
+    .tiki-view_banner {
+        .t_navbar {
+            .btn-group > .btn:not(.dropdown-toggle),
+            &.btn-group > .btn:not(.dropdown-toggle) {
+                margin-right: 5px;
+                margin-bottom: 5px;
+                border-radius: 0.25rem;
+            }
+        }
+    }
+
+    #pagehistory .multi {
+        .input-group-append {
+            display: block;
+            margin: 0 !important;
+            .btn {
+                width: 100%;
+                margin-top: 5px;
+                border-radius: 0.25rem;
+            }
+        }
+    }
+
+    .t_navbar {
+        .btn-group { display: inline-block; }
+    }
+
+    .tiki-admin_menu_options {
+        #preview_code { white-space: normal; }
+    }
+
+    .tiki-wizard_admin {
+        #wizardBody {
+            margin-top: 2em;
+            .media { display: block; margin-top: 1.5rem; }
+        }
+    }
+
+    .tiki-page_contribution {
+        .wikitext { word-break: break-word; }
+    }
+
+    .nav-breadcrumb {
+        display: block;
+        .breadcrumb {
+            width: 100%;
+            & + form { display: block !important; }
+        }
+    }
+
+    .tiki-edit_translation, .tiki-edit_structure {
+        .ui-dialog { width: 100% !important; }
+    }
+
+    #page-data.col-sm-9 { padding-left: 0; padding-right: 0; }
+    .syslog-table textarea { min-height: 5.5em; }
+    .tiki .ui-dialog { width: 80vw !important; }
 }
