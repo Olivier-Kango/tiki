@@ -1142,3 +1142,29 @@ blockquote {
     padding: 4px;
     background-color: var(--bs-backdrop-bg);
 }
+
+.side-col-toggle { z-index: 2; }
+.tiki .side-col-toggle + #col1 {
+    margin-top: $tiki-top-margin-compensation-for-side-col-toggle;
+    padding-top: $line-height-base;
+}
+
+// Tiki new profiles
+.profile-left-bar .profile-avatar img {
+    margin-bottom: $padding-y;
+    max-width: 100%;
+}
+.profile-left-bar .profile-username {
+    font-size: $font-size-lg;
+}
+.profile-right-bar .profile-buttons .btn {
+    width: 100%;
+    margin-bottom: ceil($line-height-base * 2);
+}
+.profile-right-bar button.add-friend {
+    width: 100%;
+    margin-top: ceil($line-height-base * 2);
+}
+.profile-tab-content h2{
+    margin-top:0;
+}

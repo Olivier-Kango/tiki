@@ -478,7 +478,7 @@ div[style*="text-align: center"] .img-fluid {margin: auto}
     width: 250px;
 }
 .btn.btn-social {
-    margin-bottom: $padding-y;
+//    margin-bottom: $padding-y;
     display: block;
 }
 
@@ -549,11 +549,7 @@ textarea.wikiedit {
     font-size: 80%; margin-left: 0.2rem;
 }
 
-.side-col-toggle { z-index: 2; }
-.tiki .side-col-toggle + #col1 {
-    margin-top: $tiki-top-margin-compensation-for-side-col-toggle;
-    padding-top: $line-height-base;
-}
+
 
 div.categbar {
     text-align: right;
@@ -647,14 +643,14 @@ blockquote {
     right: 2px;
 }
 
-@include media-breakpoint-up(md) {
-    .edit-menu { display: none; }
-    .navbar-default:hover .edit-menu { display: block; }
-}
+//@include media-breakpoint-up(md) {
+//    .edit-menu { display: none; }
+//    .navbar-default:hover .edit-menu { display: block; }
+//}
 
-@include media-breakpoint-down(xs) {
-    .navbar-default .edit-menu { top: 48px; }
-}
+//@include media-breakpoint-down(xs) {
+//    .navbar-default .edit-menu { top: 48px; }
+//}
 
 .codelisting_container {
     max-width: 990px;

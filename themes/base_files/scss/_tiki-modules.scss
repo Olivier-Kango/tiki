@@ -467,29 +467,29 @@ header.fixed-top {
     padding-right: 0;
 }
 
-@include media-breakpoint-up(sm) {
-    .layout_social_modules .navbar-header {
-        margin-top: -34px;
-    }
-}
+//@include media-breakpoint-up(sm) {
+//   .layout_social_modules .navbar-header {
+//        margin-top: -34px;
+//    }
+//}
 
-@include media-breakpoint-down(xs) {
-    .box-search {
-        .form-inline .input-group {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-            .form-control { width: auto; }
-            .input-group-append { float: left; width: auto; }
-        }
-
-        .panel-body .form-inline .input-group {
-            width: 100%;
-            .input-group-addon, .input-group-append, .form-control {
-                width: 100%;
-            }
-        }
-    }
-}
+//@include media-breakpoint-down(xs) {
+//    .box-search {
+//        .form-inline .input-group {
+//            margin-left: 0 !important;
+//            margin-right: 0 !important;
+//            .form-control { width: auto; }
+//            .input-group-append { float: left; width: auto; }
+//        }
+//
+//        .panel-body .form-inline .input-group {
+//            width: 100%;
+//            .input-group-addon, .input-group-append, .form-control {
+//                width: 100%;
+//            }
+//        }
+//    }
+//}
 
 @media (max-width: breakpoint-max(sm)) {
     .tiki-admin_modules {
