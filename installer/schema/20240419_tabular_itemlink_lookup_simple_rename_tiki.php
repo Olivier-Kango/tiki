@@ -26,8 +26,12 @@ function upgrade_20240419_tabular_itemlink_lookup_simple_rename_tiki($installer)
             if (empty($field_descriptor->mode) || $field_descriptor->mode != 'lookup-simple') {
                 continue;
             }
-            $fields = $installer->fetchAll("SELECT fieldId, type FROM tiki_tracker_fields WHERE trackerId = ? AND permName = ?", [$tabular['trackerId'], $field_descriptor->field]);
+            $fields = $installer->fetchAll("SELECT fieldId, type, options FROM tiki_tracker_fields WHERE trackerId = ? AND permName = ?", [$tabular['trackerId'], $field_descriptor->field]);
             if (empty($fields) || $fields[0]['type'] !== 'r') {
+                continue;
+            }
+            $opts = @json_decode($fields[0]['options'], true);
+            if (empty($opts['selectMultipleValues'])) {
                 continue;
             }
             $descriptor[$i]->mode = 'lookup-simple new line separated';
