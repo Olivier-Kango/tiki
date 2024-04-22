@@ -28,7 +28,7 @@ class Services_Tracker_TabularController
 
         return [
             'title' => tr('Import-Export Formats'),
-            'list' => $lib->getList(),
+            'formatList' => $lib->getList(),
         ];
     }
 
