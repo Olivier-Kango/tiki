@@ -390,6 +390,8 @@ class ToolbarDialog extends ToolbarItem
         if (! $this->isWysiwyg) {   // not working in toast yet TODO
             $supported[] = 'table';
             $supported[] = 'emoji';
+            $supported[] = 'find';
+            $supported[] = 'replace';
         }
 
         return $prefs['vuejs_enable'] === 'y' &&

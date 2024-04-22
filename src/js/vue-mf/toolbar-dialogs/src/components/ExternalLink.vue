@@ -7,15 +7,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    syntax: {
-        type: String,
-        default: "",
-    },
 });
 
 const tdgLabel = ref();
 const toolbarObject = ref(props.toolbarObject);
-const syntax = ref(props.syntax);
 
 const labelInput = ref("");
 const urlInput = ref("");
@@ -31,23 +26,21 @@ onMounted(() => {
 });
 
 function _shown() {
-    if (!syntax.value) {
-        const $textArea = $("#" + toolbarObject.value.domElementId);
-        syntax.value = getTASelection($textArea.get(0));
-    }
+    const textArea = document.getElementById(toolbarObject.value.domElementId);
+    const selection = getTASelection(textArea);
 
     let parts;
 
     if (! toolbarObject.value.editor.isMarkdown) {
-        parts = syntax.value.match(/\[(.*?)\|(.*?)\|(.*?)]/);
+        parts = selection.match(/\[(.*?)\|(.*?)\|(.*?)]/);
         if (!parts) {
-            parts = syntax.value.match(/\[(.*?)\|(.*?)]/);
+            parts = selection.match(/\[(.*?)\|(.*?)]/);
         }
         if (!parts) {
-            parts = syntax.value.match(/\[(.*?)]/);
+            parts = selection.match(/\[(.*?)]/);
         }
     } else {
-        parts = syntax.value.match(/\[(.*?)]\((.*?)\)/);
+        parts = selection.match(/\[(.*?)]\((.*?)\)/);
         if (parts) {
             const label = parts[1];
             parts[1] = parts[2];
@@ -60,13 +53,13 @@ function _shown() {
         labelInput.value = parts[2] ?? "";
         relationInput.value = parts[3] ?? "";
     } else {
-        labelInput.value = toolbarObject.value.labelText;
-        urlInput.value = toolbarObject.value.labelPage != null ? toolbarObject.value.labelPage : syntax.value;
+        labelInput.value = toolbarObject.value.labelText != null ? toolbarObject.value.labelPage : selection;
+        urlInput.value = toolbarObject.value.labelPage != null ? toolbarObject.value.labelPage : "";
         relationInput.value = "";
     }
 }
 
-function _save() {
+function _insert() {
     let output = "";
     if (! toolbarObject.value.editor.isMarkdown) {
         if (urlInput.value) {
@@ -95,7 +88,7 @@ function _save() {
     return output;
 }
 
-defineExpose({ save: _save, shown: _shown });
+defineExpose({ execute: _insert, shown: _shown });
 </script>
 
 <template>

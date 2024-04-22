@@ -4,15 +4,12 @@ import BootstrapModal from "./BootstrapModal.vue";
 import ExternalLink from "./ExternalLink.vue";
 import WikiLink from "./WikiLink.vue";
 import TableBuilder from "./table/Table.vue";
+import Find from "./FindAndReplace.vue";
 
 const props = defineProps({
     toolbarObject: {
         type: Object,
         required: true,
-    },
-    syntax: {
-        type: String,
-        default: "",
     },
 });
 
@@ -23,6 +20,9 @@ const bootstrapModalRef = ref(null);
 const link = ref(null);
 const tikilink = ref(null);
 const table = ref(null);
+const find = ref(null);
+
+toolbarObject.value.bootstrapModalRef = bootstrapModalRef;
 
 function showModal() {
     // cheat with jQuery - get the DOM element from the "ref" object
@@ -34,24 +34,33 @@ function showModal() {
     bootstrapModalRef.value.show();
 }
 
-function save() {
-    let syntax = "";
+function execute() {
 
     switch (toolbarObject.value.name) {
         case "link":
-            syntax = link.value.save();
+            link.value.execute();
             break;
         case "tikilink":
-            syntax = tikilink.value.save();
+            tikilink.value.execute();
             break;
         case "table":
-            syntax = table.value.save();
+            table.value.execute();
+            break;
+        case "find":
+        case "replace":
+            find.value.execute();
             break;
     }
-    bootstrapModalRef.value.close();
-
-    // return isn't used yet
-    return syntax;
+    switch (toolbarObject.value.name) {
+        case "find":
+        case "replace":
+            setTimeout(function () {
+                document.getElementById(toolbarObject.value.domElementId).focus();
+            }, 1000);
+            return;
+        default:
+            bootstrapModalRef.value.close();
+    }
 }
 </script>
 
@@ -64,12 +73,13 @@ function save() {
     <span v-else @click="showModal()">{{ toolbarObject.labelText }}</span>
     <BootstrapModal ref="bootstrapModalRef" :title="toolbarObject.label" :size="toolbarObject.name === 'table' ? ' modal-lg' : ''">
         <template #body>
-            <ExternalLink v-if="toolbarObject.name === 'link'" ref="link" :toolbar-object="toolbarObject" :syntax="syntax" />
-            <WikiLink v-if="toolbarObject.name === 'tikilink'" ref="tikilink" :toolbar-object="toolbarObject" :syntax="syntax" />
-            <TableBuilder v-if="toolbarObject.name === 'table'" ref="table" :toolbar-object="toolbarObject" :syntax="syntax" />
+            <ExternalLink v-if="toolbarObject.name === 'link'" ref="link" :toolbar-object="toolbarObject" />
+            <WikiLink v-if="toolbarObject.name === 'tikilink'" ref="tikilink" :toolbar-object="toolbarObject" />
+            <TableBuilder v-if="toolbarObject.name === 'table'" ref="table" :toolbar-object="toolbarObject" />
+            <Find v-if="toolbarObject.name === 'find' || toolbarObject.name === 'replace'" ref="find" :toolbar-object="toolbarObject" />
         </template>
         <template #footer>
-            <button class="btn btn-primary btn-sm" @click="save()">Apply</button>
+            <button class="btn btn-primary btn-sm" @click="execute()">Apply</button>
         </template>
     </BootstrapModal>
 </template>

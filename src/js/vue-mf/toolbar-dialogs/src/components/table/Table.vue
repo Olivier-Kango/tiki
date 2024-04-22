@@ -11,10 +11,6 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    syntax: {
-        type: String,
-        default: "",
-    },
 });
 
 const tableBuilderTable = ref();
@@ -52,14 +48,14 @@ onMounted(() => {
 });
 
 function _shown() {
-    let syntax = getTASelection($("#" + toolbarObject.value.domElementId).get(0));
+    let selection = getTASelection($("#" + toolbarObject.value.domElementId).get(0));
 
     let lines = []
     cells.value = []
 
     if (toolbarObject.value.editor.isMarkdown) {
         // thanks to a clever comment on https://stackoverflow.com/a/29616512/2459703
-        lines = syntax.match(/((?:\|[^|\r\n]*)+\|(?:\r?\n|\r)?)/gs)
+        lines = selection.match(/((?:\|[^|\r\n]*)+\|(?:\r?\n|\r)?)/gs)
         if (lines) {
             lines.forEach(function (line) {
                 let parts = line.split("|").map(part => part.trim()).filter(cell => cell.length)
@@ -67,7 +63,7 @@ function _shown() {
             })
         }
     } else {
-        lines = syntax.match(/\|\|(.*?)\|\|/sm)
+        lines = selection.match(/\|\|(.*?)\|\|/sm)
         if (lines) {
             lines = lines[1].split(/[\r\n]+/)
             lines.forEach(function (line) {
@@ -90,7 +86,7 @@ function _shown() {
     }, 10)
 }
 
-function _save() {
+function _insert() {
     let output = "";
     if (toolbarObject.value.editor.isMarkdown) {
         cells.value.forEach(function (row) {
@@ -112,7 +108,7 @@ function _save() {
     return output
 }
 
-defineExpose({ save: _save, shown: _shown });
+defineExpose({ execute: _insert, shown: _shown });
 </script>
 
 <template>

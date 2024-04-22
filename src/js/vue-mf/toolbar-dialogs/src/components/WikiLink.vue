@@ -7,22 +7,18 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    syntax: {
-        type: String,
-        default: "",
-    },
 });
 
-const tdgLabel = ref();
+const labelInputElement = ref();
+const pageInputElement = ref();
 const toolbarObject = ref(props.toolbarObject);
-const syntax = ref(props.syntax);
 
 const labelInput = ref("");
 const pageInput = ref("");
 const relationInput = ref("");
 
 onMounted(() => {
-    $(tdgLabel.value.$el)
+    $(labelInputElement.value.$el)
         .parents(".modal").first()
         .on("show.bs.modal", (event) => {
             _shown(event);
@@ -31,17 +27,15 @@ onMounted(() => {
 });
 
 function _shown() {
-    if (!syntax.value) {
-        const $textArea = $("#" + toolbarObject.value.domElementId);
-        syntax.value = getTASelection($textArea.get(0));
-    }
 
+    const textArea = document.getElementById(toolbarObject.value.domElementId);
+    const selection = getTASelection(textArea);
 
-    const editor = toolbarObject.value.editor;
+    $(pageInputElement.value.$el).tiki("autocomplete", "pagename");
 
-    let parts = syntax.value.match(/\((.*?)\((.*?)\|(.*?)\)\)/);
-    if (!parts) {
-        parts = syntax.value.match(/\((.*?)\((.*?)\)\)/);
+    let parts = selection.match(/\((.*?)\((.*?)\|(.*?)\)\)/);
+    if (! parts) {
+        parts = selection.match(/\((.*?)\((.*?)\)\)/);
     }
 
     if (parts) {
@@ -49,25 +43,26 @@ function _shown() {
         pageInput.value = parts[2] ?? "";
         relationInput.value = parts[1];
     } else {
-        labelInput.value = syntax.value;
+        labelInput.value = "";
         pageInput.value = "";
         relationInput.value = "";
     }
 }
 
-function _save() {
+function _insert() {
     let output = "";
-    if (pageInput.value) {
+
+    // pageInput.value doesn't get updated by tiki=>autocomplete yet
+    if (pageInputElement.value.$el.value) {
         output += "(";
         if (relationInput.value) {
             output += relationInput.value;
         }
-        output += `(${pageInput.value}`;
+        output += `(${pageInputElement.value.$el.value}`;
         if (labelInput.value) {
             output += `|${labelInput.value}`;
         }
         output += "))";
-        console.log("wiki link:" + output);
     }
 
     insertAt(toolbarObject.value.domElementId, output, false, false, true);
@@ -75,12 +70,12 @@ function _save() {
     return output;
 }
 
-defineExpose({ save: _save, shown: _shown });
+defineExpose({ execute: _insert, shown: _shown });
 </script>
 
 <template>
-    <DialogInput ref="tdgLabel" v-model="labelInput" label="Label" class="mb-2" />
-    <DialogInput ref="tdgPage" v-model="pageInput" label="Page" class="mb-2" />
+    <DialogInput ref="labelInputElement" v-model="labelInput" label="Label" class="mb-2" />
+    <DialogInput ref="pageInputElement" v-model="pageInput" label="Page" class="mb-2" />
     <div class="input-group input-group-sm">
         <DialogInput ref="tdgRelation" v-model="relationInput" label="Semantic Relation" />
         <span class="input-group-text" data-bs-toggle="tooltip" title="Going beyond Backlinks functionality, this allows some semantic relationships to be defined between wiki pages.">
