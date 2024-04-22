@@ -593,6 +593,13 @@ blockquote {
 .breadcrumb-item { padding-right: 0.5rem;}
 .breadcrumb .tips { padding-right: 0.5rem;}
 
+// Enable Smartmenus dropdown-menu to display above fixed-top header
+ul.sm-vertical,
+ul.sm-horizontal {
+    .dropdown-menu {
+        z-index: 1040;
+    }
+}
 
 // Vertical Smartmenus hack, until a proper solution is committed
 // For a vertical menu, assign a bootstrap menu, type "horiz", and add "smartmenu_vert" as containing class.
