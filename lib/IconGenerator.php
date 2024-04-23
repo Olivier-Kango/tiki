@@ -114,10 +114,10 @@ class IconGenerator
     public function reportFailure(): void
     {
         if ($this->state['bs'] == -1) {
-            $this->output->writeln("<comment>Failed to open the bootstrap css vendor file, bootstrap icons won't be synched. Maybe npm is not available at this stage.</comment>");
+            throw new Exception("Failed to open the bootstrap css vendor file, bootstrap icons won't be synched. Maybe npm is not available at this stage.");
         }
         if ($this->state['fa'] == -1) {
-            $this->output->writeln("<comment>Failed to open the fontawesome css vendor file, fontawesome icons won't be synched. Maybe composer is not available at this stage.</comment>");
+            throw new Exception("Failed to open the fontawesome css vendor file, fontawesome icons won't be synched. Maybe composer is not available at this stage.");
         }
     }
 
