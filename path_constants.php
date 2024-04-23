@@ -97,7 +97,7 @@ const UNIFIED_INDEX_TEMP_PATH = 'temp/unified-index';
 const TEMPLATES_ADMIN_PATH = 'templates/admin';
 const TEMPLATES_MODULES_PATH = 'templates/modules';
 
-/** This it for the old tiki_tests system which may not be functionnal - benoitg - 2023-11-16 */
+/** This it for the old tiki_tests system which may not be functional - benoitg - 2023-11-16 */
 const TIKI_TESTS_PATH = 'tiki_tests/tests';
 const TESTS_PATH = 'tests';
 

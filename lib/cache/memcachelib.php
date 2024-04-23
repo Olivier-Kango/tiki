@@ -128,12 +128,12 @@ class Memcachelib
      *
      * @return boolean
      */
-    public function isFunctionnal(): bool
+    public function isFunctional(): bool
     {
         return $this->functional;
     }
 
-    /** Return if this cache is enabled in preferences (doesn't mean it's functionnal) */
+    /** Return if this cache is enabled in preferences (doesn't mean it's functional) */
     public static function isEnabled(): bool
     {
         global $prefs;
