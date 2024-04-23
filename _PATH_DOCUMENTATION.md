@@ -252,7 +252,7 @@ There are currently many generated files (or trivially generatable files) in git
 * Vue3 javascript files currently in /lib/vue_mf
 * A limited number of other js files.
 * scss files
-  * In themes, they need to be dynamically recompiled.  Currently this is done in php and is extremely slow.  Node can do it much faster, with more actively maintained processor.  Since we will require functionnal node for git install, this would only be a problem for tarball installs.  But since people using tarball installs usually have to have a local tiki to work on their themes, and they then upload it anyway, noting is lost, as long as themes are distributed with their css pre-compiled.
+  * In themes, they need to be dynamically recompiled.  Currently this is done in php and is extremely slow.  Node can do it much faster, with more actively maintained processor.  Since we will require functional node for git install, this would only be a problem for tarball installs.  But since people using tarball installs usually have to have a local tiki to work on their themes, and they then upload it anyway, noting is lost, as long as themes are distributed with their css pre-compiled.
   * In the rest of the codebase this will just improve the developer experience and allow a watch process with no downside.
 
 In any event, tarball installs over ftp with no build process at all should still be supported.
