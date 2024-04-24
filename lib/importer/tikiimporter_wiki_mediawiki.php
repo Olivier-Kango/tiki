@@ -122,7 +122,8 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
      */
     public function configureParser()
     {
-        $this->parser = Text_Wiki::factory('Mediawiki');
+        $textWiki = new Text_Wiki();
+        $this->parser = $textWiki->factory('Mediawiki');
 
         // do not replace space by underscore in wikilinks
         $this->parser->setParseConf('Wikilink', 'spaceUnderscore', false);
