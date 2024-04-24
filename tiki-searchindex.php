@@ -38,8 +38,8 @@ foreach (['find', 'highlight', 'where'] as $possibleKey) {
         $_REQUEST['filter']['content'] = $_REQUEST[$possibleKey];
     }
 }
-$filter = isset($_REQUEST['filter']) ? $_REQUEST['filter'] : [];
-$postfilter = isset($_REQUEST['postfilter']) ? $_REQUEST['postfilter'] : [];
+$filter = ! empty($_REQUEST['filter']) ? $_REQUEST['filter'] : [];
+$postfilter = ! empty($_REQUEST['postfilter']) ? $_REQUEST['postfilter'] : [];
 $facets = [];
 
 if (count($filter) || count($postfilter)) {
