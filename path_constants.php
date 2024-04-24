@@ -77,6 +77,7 @@ const DEPRECATED_STORAGE_PUBLIC_H5P_PATH = 'storage/public/h5p';
 const SMARTY_COMPILED_TEMPLATES_PATH = 'temp/templates_c';
 /** Currently this is both the top level template path and the relative template path in themes and packages.  Needs to be separated if moved */
 const SMARTY_TEMPLATES_PATH = 'templates';
+const SMARTY_BASE_LAYOUTS_PATH = 'templates/layouts';
 /** Where are templates are looked for in multitiki sites, etc. */
 const SMARTY_TEMPLATES_PATH_FRAGMENT = 'templates';
 
@@ -131,6 +132,7 @@ const TIKI_CUSTOMIZATIONS_MULTITIKI_DEFAULT_SITE_PUBLIC_PATH = 'public/generated
 
 /** Where are themes looked for in multitiki sites, etc. */
 const THEMES_PATH_FRAGMENT = 'themes';
+const THEMES_LAYOUTS_PATH_FRAGMENT = 'templates/layouts';
 const THEMES_LEGACY_ALL_SITES_SHARED_TEMPLATES_PATH = 'themes/templates';
 const THEMES_BASE_FILES_FEATURE_CSS_PATH = 'themes/base_files/feature_css';
 /** Base themes source directory relative to project root */

@@ -1147,7 +1147,7 @@ if ($prefs['site_layout_per_object'] == 'y') {
 
     $attributes = $attributelib->get_attributes('wiki page', $page);
     $smarty->assign('object_layout', [
-        'available' => TikiLib::lib('css')->list_user_selectable_layouts(),
+        'available' => TikiLib::lib('theme')::listUserSelectableLayouts(),
         'current' => isset($attributes['tiki.object.layout']) ? $attributes['tiki.object.layout'] : null,
     ]);
 }

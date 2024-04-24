@@ -26,7 +26,6 @@ class AdminWizardLookAndFeel extends Wizard
         $smarty = TikiLib::lib('smarty');
         $tikilib = TikiLib::lib('tiki');
         $themelib = TikiLib::lib('theme');
-        $csslib = TikiLib::lib('css');
         $headerlib = TikiLib::lib('header');
         // Run the parent first
         parent::onSetupPage($homepageUrl);
@@ -52,7 +51,7 @@ class AdminWizardLookAndFeel extends Wizard
         $theme_options = $themelib->list_theme_options($a_theme);
         $smarty->assign('theme_options', $theme_options);
 
-        $theme_layouts = TikiLib::lib('css')->list_layouts();
+        $theme_layouts = TikiLib::lib('theme')::listUserSelectableLayouts();
         $smarty->assign('theme_layouts', $theme_layouts);
 
 // get thumbnail if there is one
@@ -86,11 +85,11 @@ class AdminWizardLookAndFeel extends Wizard
 
             $js .= 'var theme_layouts = ';
             foreach ($themes as $theme => $value) {
-                $theme_layouts[$theme] = $csslib->list_user_selectable_layouts($theme);
+                $theme_layouts[$theme] = ThemeLib::listUserSelectableLayouts($theme);
                 $options = $themelib->list_theme_options($theme);
                 if ($options) {
                     foreach ($options as $option) {
-                        $theme_layouts[$theme . ':' . $option] = $csslib->list_user_selectable_layouts($theme, $option);
+                        $theme_layouts[$theme . ':' . $option] = ThemeLib::listUserSelectableLayouts($theme, $option);
                     }
                 }
             }
