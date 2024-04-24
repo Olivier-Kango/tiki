@@ -31,7 +31,7 @@ if (! empty($_SESSION['try_theme']) && ! isset($_REQUEST['theme'])) {
 $themeOptionName = ThemeLib::extractThemeAndOptionFromString($theme);
 $theme_name = $themeOptionName[0];
 $theme_option_name = $themeOptionName[1];
-$file = $themelib->get_theme_css($theme_name, $theme_option_name);
+$file = ThemeLib::getThemeCssFilePath($theme_name, $theme_option_name);
 $smarty->assign('file', $file);
 
 if (! empty($_REQUEST['edit'])) {
@@ -80,7 +80,7 @@ $smarty->assign('action', $action);
 $smarty->assign('data', $data);
 
 if (! empty($theme)) {
-    $cssfile = $themelib->get_theme_css($theme_name, $theme_option_name);
+    $cssfile = ThemeLib::getThemeCssFilePath($theme_name, $theme_option_name);
     $smarty->assign('writable', file_exists($cssfile) ? is_writable($cssfile) : is_writable(dirname($cssfile)));
     $cssdata = $csslib->browse_css($cssfile);
     if ((! $cssdata["error"]) and is_array($cssdata["content"])) {

@@ -353,7 +353,8 @@ class ThemeLib extends TikiLib
             throw new InvalidParameterException("optionParam whithout a base theme specified in themeParam does not make sense");
         }
         $theme = is_null($themeParam) ? $activeTheme : $themeParam;
-        $option = is_null($optionParam) ? $activeThemeOption : $optionParam;
+        //We only autodetect the current theme option if themeParam wasn't explicitely specified
+        $option = is_null($optionParam) && is_null($themeParam) ? $activeThemeOption : $optionParam;
 
         $themePathFragment = '';
         if (! empty($theme)) {
@@ -361,7 +362,7 @@ class ThemeLib extends TikiLib
         }
 
         if (! empty($option)) {
-            $themeOptionPathFragment = 'options/' . $option;
+            $themeOptionPathFragment = '/options/' . $option;
         } else {
             $themeOptionPathFragment = '';
         }
@@ -370,19 +371,23 @@ class ThemeLib extends TikiLib
 
         foreach (self::getThemeLookupPaths() as $lookupPath) {
             $realLookupPath = $returnPrivatePath ? self::convertPublicToPrivatePath($lookupPath) : $lookupPath;
-            $path = $realLookupPath .
+            if ($option) {
+                $path = $realLookupPath .
                 $themePathFragment . $themeOptionPathFragment . $suffixFragment;
-            if (file_exists($path)) {
-                break;
+                //var_dump("Looking for: $path");
+                if (file_exists($path)) {
+                    break;
+                }
             }
             // try "parent" theme dir if no option one
             $path = $realLookupPath . $themePathFragment . $suffixFragment;
+            //var_dump("Looking for (fallback): $path");
             if (file_exists($path)) {
                 break;
             }
             $path = null;
         }
-        //var_dump("getThemePath($theme, $option, $pathFragment)", $path);
+        //var_dump("getThemePath($theme, $option, $pathFragment, $returnPrivatePath)", $path);
         return $path;
     }
 
@@ -442,12 +447,12 @@ class ThemeLib extends TikiLib
         return $path;
     }
 
-    public function get_theme_css($theme = '', $option = ''): string
+    public static function getThemeCssFilePath(?string $theme = null, ?string $option = null): ?string
     {
         if ($option) {
-            $path = $this->get_theme_path($theme, $option, $option . '.css');
+            $path = self::getThemePath($theme, $option, "css/$option.css");
         } else {
-            $path = $this->get_theme_path($theme, $option, $theme . '.css');
+            $path = self::getThemePath($theme, '', "css/$theme.css");
         }
         return $path;
     }
