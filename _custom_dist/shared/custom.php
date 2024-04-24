@@ -1,6 +1,6 @@
 <?php
 
-var_dump("_custom/shared/custom.php hello world");
+Feedback::success("_custom/shared/custom.php hello world");
 
 /* Currently any custom PHP code required for your site can be added to _custom/shared/custom.php.
  * (prior to tiki 27 this was _custom/lib/setup/custom.php)

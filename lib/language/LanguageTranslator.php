@@ -145,7 +145,7 @@ class LanguageTranslator
     {
         //This is just because the class isn't fully migrated, we need to load it as as side effect - benoitg - 2024-04-10
         \TikiLib::lib('theme');
-        $themePath = \ThemeLib::convertPublicToPrivatePath(\ThemeLib::getThemePath());
+        $themePath = \ThemeLib::getThemePath(null, null, null, true);
         $themeLangFragment = "lang/$this->lang/language.php";
         $themeLangPath = $themePath . '/' . $themeLangFragment;
         if (file_exists($themeLangPath)) {

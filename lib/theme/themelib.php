@@ -96,11 +96,12 @@ class ThemeLib extends TikiLib
      * @param string $path public path
      * @return string private path corresponding to public path.
      */
-    public static function convertPublicToPrivatePath(string $path): string
+    private static function convertPublicToPrivatePath(string $path): string
     {
         $convertedPath = str_replace(TIKI_CUSTOMIZATIONS_PUBLIC_PATH, TIKI_CUSTOMIZATIONS_SRC_PATH, $path);
         return $convertedPath;
     }
+
 
     /**
      * Get the physical paths to look for themes, considering multitiki, etc.
@@ -156,6 +157,84 @@ class ThemeLib extends TikiLib
         //var_dump($themes);
         //die;
         return $themes;
+    }
+
+/**
+ * Lists the layouts available for the specified theme and theme option.
+ * Includes the layouts distributed with tiki, and the parent theme's layouts.
+ *
+ * @param string|null $theme
+ * @param string|null $theme_option
+ * @return array
+ */
+    private static function listLayouts(?string $theme = null, ?string $theme_option = null): array
+    {
+        $available_layouts = [];
+        //Look in base template dir
+        foreach (scandir(TIKI_PATH . '/' . SMARTY_BASE_LAYOUTS_PATH) as $layoutName) {
+            if ($layoutName[0] != '.' && $layoutName != 'index.php' && $layoutName != 'README.md') {
+                $available_layouts[$layoutName] = ucfirst($layoutName);
+            }
+        }
+        //Look in extensions
+        foreach (\Tiki\Package\ExtensionManager::getPaths() as $path) {
+            if (file_exists($path . '/templates/layouts/')) {
+                foreach (scandir($path . '/templates/layouts/') as $layoutName) {
+                    if ($layoutName[0] != '.' && $layoutName != 'index.php') {
+                         $available_layouts[$layoutName] = ucfirst($layoutName);
+                    }
+                }
+            }
+        }
+
+        //Look in the specified theme
+        $layoutsPath = self::getThemePath($theme, '', THEMES_LAYOUTS_PATH_FRAGMENT, true);
+        if ($layoutsPath) {
+            foreach (scandir(TIKI_PATH . "/" . $layoutsPath) as $layoutName) {
+                if ($layoutName[0] != '.' && $layoutName != 'index.php') {
+                    $available_layouts[$layoutName] = ucfirst($layoutName);
+                }
+            }
+        }
+
+        //Look in the specified theme option
+        if ($theme_option) {
+            $layoutsPath = self::getThemePath($theme, $theme_option, THEMES_LAYOUTS_PATH_FRAGMENT, true);
+
+            if ($layoutsPath) {
+                foreach (scandir(TIKI_PATH . "/" . $layoutsPath) as $layoutName) {
+                    if ($layoutName[0] != '.' && $layoutName != 'index.php') {
+                        $available_layouts[$layoutName] = ucfirst($layoutName);
+                    }
+                }
+            }
+        }
+        return $available_layouts;
+    }
+
+    public static function listUserSelectableLayouts(?string $theme = null, ?string $theme_option = null): array
+    {
+        $selectable_layouts = [];
+        $available_layouts = self::listLayouts($theme, $theme_option);
+        foreach ($available_layouts as $layoutName => $layoutLabel) {
+            if (
+                $layoutName == 'mobile'
+                || $layoutName == 'layout_plain.tpl'
+                || $layoutName == 'internal'
+            ) {
+                // hide layouts that are for internal use only
+                continue;
+            } elseif ($layoutName == 'basic') {
+                $selectable_layouts[$layoutName] = tra('Single Container');
+            } elseif ($layoutName == 'classic') {
+                $selectable_layouts[$layoutName] = tra('Classic Tiki (3 containers - header, middle, footer)');
+            } elseif ($layoutName == 'social') {
+                $selectable_layouts[$layoutName] = tra('Classic Bootstrap (fixed top navbar)');
+            } else {
+                $selectable_layouts[$layoutName] = $layoutLabel;
+            }
+        }
+        return $selectable_layouts;
     }
 
     /*
@@ -257,9 +336,10 @@ class ThemeLib extends TikiLib
      * @param string|null $optionParam - optional theme option file name (e.g. "akebi").  To get the current base theme path without the current option, pass the empty string explicitely to this parameter
      * @param string|null $pathFragment  subdirectory or relative file path to look for.  For theme options, will fall back to parent theme.  If not found, returns null
      *
+     *
      * @return string|null - path to dir or file if found or null if not found
      */
-    public static function getThemePath(?string $themeParam = null, ?string $optionParam = null, ?string $pathFragment = null): ?string
+    public static function getThemePath(?string $themeParam = null, ?string $optionParam = null, ?string $pathFragment = null, bool $returnPrivatePath = false): ?string
     {
         global $tikidomain;
         list($activeTheme, $activeThemeOption) = self::getActiveThemeAndOption();
@@ -277,11 +357,11 @@ class ThemeLib extends TikiLib
 
         $themePathFragment = '';
         if (! empty($theme)) {
-            $themePathFragment = $theme . '/';
+            $themePathFragment = '/' . $theme;
         }
 
         if (! empty($option)) {
-            $themeOptionPathFragment = 'options/' . $option . '/';
+            $themeOptionPathFragment = 'options/' . $option;
         } else {
             $themeOptionPathFragment = '';
         }
@@ -289,13 +369,14 @@ class ThemeLib extends TikiLib
         $suffixFragment = $pathFragment ? '/' . $pathFragment : '';
 
         foreach (self::getThemeLookupPaths() as $lookupPath) {
-            $path = $lookupPath . '/' .
+            $realLookupPath = $returnPrivatePath ? self::convertPublicToPrivatePath($lookupPath) : $lookupPath;
+            $path = $realLookupPath .
                 $themePathFragment . $themeOptionPathFragment . $suffixFragment;
             if (file_exists($path)) {
                 break;
             }
             // try "parent" theme dir if no option one
-            $path = $lookupPath . '/' . $themePathFragment . $suffixFragment;
+            $path = $realLookupPath . $themePathFragment . $suffixFragment;
             if (file_exists($path)) {
                 break;
             }

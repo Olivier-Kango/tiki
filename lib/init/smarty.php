@@ -701,18 +701,20 @@ class Smarty_Tiki extends \Smarty\Smarty
             if (! in_array($theme, ['custom_url'])) {
                 //Templates from theme_options of currently active theme
                 if ($themeOption) {
-                    $currentThemeOptionPath = $themelib->get_theme_path($theme, $themeOption, '', 'templates'); // path to the theme options
-                    $currentThemeOptionTemplatesPath = ThemeLib::convertPublicToPrivatePath($currentThemeOptionPath) . '/' . SMARTY_TEMPLATES_PATH_FRAGMENT;
-                    $this->addTemplateDir(TIKI_PATH . "/$currentThemeOptionTemplatesPath/");
-                    $this->addLayoutTemplatesFromTemplatePath($currentThemeOptionTemplatesPath);
+                    $currentThemeOptionTemplatesPath = $themelib->getThemePath($theme, $themeOption, SMARTY_TEMPLATES_PATH_FRAGMENT, true); // path to the theme options
+                    if ($currentThemeOptionTemplatesPath) {
+                        $this->addTemplateDir(TIKI_PATH . "/$currentThemeOptionTemplatesPath/");
+                        $this->addLayoutTemplatesFromTemplatePath($currentThemeOptionTemplatesPath);
+                    }
                 }
 
                 //Templates from currently active theme
                 //This will fallback to 'default' theme if $theme is empty
-                $currentThemePath = $themelib->get_theme_path($theme); // path to the currently active theme
-                 $currentThemeTemplatesPath = ThemeLib::convertPublicToPrivatePath($currentThemePath) . '/' . SMARTY_TEMPLATES_PATH_FRAGMENT;
-                $this->addTemplateDir(TIKI_PATH . "/$currentThemeTemplatesPath/");
-                $this->addLayoutTemplatesFromTemplatePath($currentThemeTemplatesPath);
+                $currentThemeTemplatesPath = $themelib->getThemePath($theme, '', SMARTY_TEMPLATES_PATH_FRAGMENT, true); // path to the currently active main theme templates
+                if ($currentThemeTemplatesPath) {
+                    $this->addTemplateDir(TIKI_PATH . "/$currentThemeTemplatesPath/");
+                    $this->addLayoutTemplatesFromTemplatePath($currentThemeTemplatesPath);
+                }
             }
 
 
