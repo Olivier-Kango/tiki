@@ -18,5 +18,5 @@ require_once 'tiki-setup.php';
 TikiLib::setExternalContext(true);
 $access->check_feature('feature_calendar');
 $authBackend = new BasicAuth();
-$server = Utilities::buildCaldavCardDavServer($authBackend);
+$server = Utilities::buildSabreDavServer($authBackend, 'both');
 $server->start();

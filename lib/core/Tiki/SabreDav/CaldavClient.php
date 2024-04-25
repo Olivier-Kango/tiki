@@ -25,7 +25,7 @@ class CaldavClient
     public function __construct()
     {
         $this->authBackend = new InternalAuth();
-        $this->server = Utilities::buildCaldavServer($this->authBackend);
+        $this->server = Utilities::buildSabreDavServer($this->authBackend);
     }
 
     public function saveCalendarObject($calitem)

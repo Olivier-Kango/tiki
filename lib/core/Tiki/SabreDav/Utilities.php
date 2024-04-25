@@ -113,7 +113,7 @@ class Utilities
     public static function invokeBackendServer()
     {
         $authBackend = new InternalAuth();
-        $server = self::buildCaldavServer($authBackend);
+        $server = self::buildSabreDavServer($authBackend);
         $server->httpResponse->setHTTPVersion($server->httpRequest->getHTTPVersion());
         $server->httpRequest->setBaseUrl($server->getBaseUri());
         $server->invokeMethod($server->httpRequest, $server->httpResponse, false);
@@ -124,114 +124,62 @@ class Utilities
      * but doesn't execute the request.
      *
      * @param object $authBackend - can be called with different auth backends
+     * @param string $type - can be 'caldav', 'carddav' or 'both'
      * @return Sabre\DAV\Server server
      */
-    public static function buildCaldavServer($authBackend)
+    public static function buildSabreDavServer($authBackend, $type = 'caldav')
     {
         global $tikiroot;
-
-        // Backends
-        $principalBackend = new PrincipalBackend();
-        $calendarBackend = new CalDAVBackend();
-
-        // Directory tree
-        $tree = [
-            new DAVACL\PrincipalCollection($principalBackend),
-            new CalDAV\CalendarRoot($principalBackend, $calendarBackend)
-        ];
-
-        // The object tree needs in turn to be passed to the server class
-        $server = new DAV\Server($tree);
-        $server->setBaseUri($tikiroot . 'tiki-caldav.php');
-        $calendarBackend->server = $server;
-
-        // Authentication plugin
-        $authPlugin = new DAV\Auth\Plugin($authBackend);
-        $server->addPlugin($authPlugin);
-
-        // CalDAV plugin
-        $caldavPlugin = new CaldavPlugin();
-        $server->addPlugin($caldavPlugin);
-
-        // CalDAV addons
-        $server->addPlugin(new CalDAV\Schedule\Plugin());
-        $server->addPlugin(new DAV\Sharing\Plugin());
-        $server->addPlugin(new CalDAV\SharingPlugin());
-        $server->addPlugin(new CalDAV\ICSExportPlugin());
-        $server->addPlugin(new CalDAV\Subscriptions\Plugin());
-
-        // Property storage
-        $storageBackend = new DAV\PropertyStorage\Backend\PDO(\TikiDb::get()->getHandler());
-        $storageBackend->tableName = 'tiki_calendar_propertystorage';
-        $propertyStorage = new DAV\PropertyStorage\Plugin($storageBackend);
-        $server->addPlugin($propertyStorage);
-
-        // ACL plugin
-        $aclPlugin = new AclPlugin();
-        $aclPlugin->allowUnauthenticatedAccess = false;
-        $server->addPlugin($aclPlugin);
-
-        // Support for html frontend
-        $browser = new DAV\Browser\Plugin();
-        $server->addPlugin($browser);
-
-        return $server;
-    }
-
-    /**
-     * Combine caldav and carddav server
-     *
-     * Prepares the Sabre\DAV\Server with all necessary plugins and backends
-     * but doesn't execute the request.
-     *
-     * @param object $authBackend - can be called with different auth backends
-     * @return Sabre\DAV\Server server
-     */
-    public static function buildCaldavCardDavServer($authBackend)
-    {
-        global $tikiroot;
-
         // Backends
         $principalBackend = new PrincipalBackend();
         $calendarBackend = new CalDAVBackend();
         $carddavBackend = new CardDAVBackend();
 
-        // Directory tree
         $tree = [
             new DAVACL\PrincipalCollection($principalBackend),
-            new CalDAV\CalendarRoot($principalBackend, $calendarBackend),
-            new CardDAV\AddressBookRoot($principalBackend, $carddavBackend)
         ];
+        if ($type === 'carddav' or $type === 'both') {
+            $baseUrl = $type === 'carddav' ? 'tiki-carddav.php' : 'tiki-dav.php';
+            $tree[] = new CardDAV\AddressBookRoot($principalBackend, $carddavBackend);
 
-        // The object tree needs in turn to be passed to the server class
-        $server = new DAV\Server($tree);
-        $server->setBaseUri($tikiroot . 'tiki-caldav-carddav.php');
-        $calendarBackend->server = $server;
+            // The object tree needs in turn to be passed to the server class
+            $server = new DAV\Server($tree);
+            $server->setBaseUri($tikiroot . $baseUrl);
+            // CardDAV plugin
+            $carddavPlugin = new CardDAV\Plugin();
+            $server->addPlugin($carddavPlugin);
+        }
+
+        if ($type === 'caldav' or $type === 'both') {
+            $baseUrl = $type === 'caldav' ? 'tiki-caldav.php' : 'tiki-dav.php';
+            $tree[] = new CalDAV\CalendarRoot($principalBackend, $calendarBackend);
+
+            // The object tree needs in turn to be passed to the server class
+            $server = new DAV\Server($tree);
+            $server->setBaseUri($tikiroot . $baseUrl);
+            $calendarBackend->server = $server;
+
+            // CalDAV plugin
+            $caldavPlugin = new CaldavPlugin();
+            $server->addPlugin($caldavPlugin);
+
+            // CalDAV addons
+            $server->addPlugin(new CalDAV\Schedule\Plugin());
+            $server->addPlugin(new DAV\Sharing\Plugin());
+            $server->addPlugin(new CalDAV\SharingPlugin());
+            $server->addPlugin(new CalDAV\ICSExportPlugin());
+            $server->addPlugin(new CalDAV\Subscriptions\Plugin());
+
+            // Property storage
+            $storageBackend = new DAV\PropertyStorage\Backend\PDO(\TikiDb::get()->getHandler());
+            $storageBackend->tableName = 'tiki_calendar_propertystorage';
+            $propertyStorage = new DAV\PropertyStorage\Plugin($storageBackend);
+            $server->addPlugin($propertyStorage);
+        }
 
         // Authentication plugin
         $authPlugin = new DAV\Auth\Plugin($authBackend);
         $server->addPlugin($authPlugin);
-
-        // CalDAV plugin
-        $caldavPlugin = new CaldavPlugin();
-        $server->addPlugin($caldavPlugin);
-
-        // CalDAV addons
-        $server->addPlugin(new CalDAV\Schedule\Plugin());
-        $server->addPlugin(new DAV\Sharing\Plugin());
-        $server->addPlugin(new CalDAV\SharingPlugin());
-        $server->addPlugin(new CalDAV\ICSExportPlugin());
-        $server->addPlugin(new CalDAV\Subscriptions\Plugin());
-
-        // Property storage
-        $storageBackend = new DAV\PropertyStorage\Backend\PDO(\TikiDb::get()->getHandler());
-        $storageBackend->tableName = 'tiki_calendar_propertystorage';
-        $propertyStorage = new DAV\PropertyStorage\Plugin($storageBackend);
-        $server->addPlugin($propertyStorage);
-
-        // CardDAV plugin
-        $carddavPlugin = new CardDAV\Plugin();
-        $server->addPlugin($carddavPlugin);
 
         // ACL plugin
         $aclPlugin = new AclPlugin();
