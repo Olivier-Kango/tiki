@@ -451,8 +451,13 @@ class Utilities
                     $rec->setDayOfMonth($days);
                     $rec->setMonthlyType('date');
                 } elseif (! empty($parts['BYDAY'])) {
-                    $rec->setMonthlyWeekdayValue($parts['BYDAY']);
-                    $rec->setMonthlyType('weekday');
+                    if (is_array($parts['BYDAY'])) {
+                        $rec->setMonthlyFirstlastWeekdayValue($parts['BYSETPOS']);
+                        $rec->setMonthlyType('firstlastweekday');
+                    } else {
+                        $rec->setMonthlyWeekdayValue($parts['BYDAY']);
+                        $rec->setMonthlyType('weekday');
+                    }
                 } else {
                     $rec->setDayOfMonth($component->DTSTART->getDateTime()->format('j'));
                     $rec->setMonthlyType('date');
@@ -474,9 +479,14 @@ class Utilities
                     $rec->setDateOfYear(str_pad($month, 2, '0', STR_PAD_LEFT) . str_pad($parts['BYMONTHDAY'], 2, '0', STR_PAD_LEFT));
                     $rec->setYearlyType('date');
                 } elseif (! empty($parts['BYDAY'])) {
-                    $rec->setYearlyWeekdayValue($parts['BYDAY']);
                     $rec->setYearlyWeekMonth($month);
-                    $rec->setYearlyType('weekday');
+                    if (is_array($parts['BYDAY'])) {
+                        $rec->setYearlyFirstlastWeekdayValue($parts['BYSETPOS']);
+                        $rec->setYearlyType('firstlastweekday');
+                    } else {
+                        $rec->setYearlyWeekdayValue($parts['BYDAY']);
+                        $rec->setYearlyType('weekday');
+                    }
                 } else {
                     $rec->setDateOfYear(str_pad($month, 2, '0', STR_PAD_LEFT) . str_pad($component->DTSTART->getDateTime()->format('j'), 2, '0', STR_PAD_LEFT));
                     $rec->setYearlyType('date');

@@ -173,6 +173,24 @@
                                 <span class="input-group-text">{tr}of the month{/tr}</span>
                             </div>
                         {/if}
+                        {if $recurrence.id eq 0}
+                            <div class="text-center py-2"><span>{tr}OR{/tr}</span></div>
+                        {/if}
+                        {if $recurrence.id eq 0 or $recurrence.monthlyType eq 'firstlastweekday'}
+                            <div class="input-group">
+                                {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" {if $recurrence.monthlyType eq 'firstlastweekday'}checked="checked"{/if} name="recurrenceTypeMonthy" value="firstlastweekday"></span>{/if}
+                                <span class="input-group-text">{tr}Every{/tr}</span>
+                                <select name="monthlyFirstLastWeekNumber" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
+                                    <option value="1" {if $recurrence.monthlyFirstlastWeekdayValue[0] eq '1'} selected="selected" {/if}>
+                                        {tr}First weekday{/tr}
+                                    </option>
+                                    <option value="-1" {if strpos($recurrence.monthlyFirstlastWeekdayValue, '-1') === 0} selected="selected" {/if}>
+                                        {tr}Last weekday{/tr}
+                                    </option>
+                                </select>
+                                <span class="input-group-text">{tr}of the month{/tr}</span>
+                            </div>
+                        {/if}
                     </div>
                     <hr>
                 </div>
@@ -304,6 +322,61 @@
                                     </option>
                                     <option value="SA" {if strpos($recurrence.yearlyWeekdayValue, 'SA') neq false} selected="selected" {/if}>
                                         {tr}Saturday{/tr}
+                                    </option>
+                                </select>
+                                <span class="input-group-text">{tr}of{/tr}</span>
+                                <select name="yearlyWeekMonth" class="form-control">
+                                    <option value="1" {if $recurrence.yearlyWeekMonth eq '1'} selected="selected" {/if}>
+                                        {tr}January{/tr}
+                                    </option>
+                                    <option value="2" {if $recurrence.yearlyWeekMonth eq '2'} selected="selected" {/if}>
+                                        {tr}February{/tr}
+                                    </option>
+                                    <option value="3" {if $recurrence.yearlyWeekMonth eq '3'} selected="selected" {/if}>
+                                        {tr}March{/tr}
+                                    </option>
+                                    <option value="4" {if $recurrence.yearlyWeekMonth eq '4'} selected="selected" {/if}>
+                                        {tr}April{/tr}
+                                    </option>
+                                    <option value="5" {if $recurrence.yearlyWeekMonth eq '5'} selected="selected" {/if}>
+                                        {tr}May{/tr}
+                                    </option>
+                                    <option value="6" {if $recurrence.yearlyWeekMonth eq '6'} selected="selected" {/if}>
+                                        {tr}June{/tr}
+                                    </option>
+                                    <option value="7" {if $recurrence.yearlyWeekMonth eq '7'} selected="selected" {/if}>
+                                        {tr}July{/tr}
+                                    </option>
+                                    <option value="8" {if $recurrence.yearlyWeekMonth eq '8'} selected="selected" {/if}>
+                                        {tr}August{/tr}
+                                    </option>
+                                    <option value="9" {if $recurrence.yearlyWeekMonth eq '9'} selected="selected" {/if}>
+                                        {tr}September{/tr}
+                                    </option>
+                                    <option value="10" {if $recurrence.yearlyWeekMonth eq '10'} selected="selected" {/if}>
+                                        {tr}October{/tr}</option>
+                                    <option value="11" {if $recurrence.yearlyWeekMonth eq '11'} selected="selected" {/if}>
+                                        {tr}November{/tr}
+                                    </option>
+                                    <option value="12" {if $recurrence.yearlyWeekMonth eq '12'} selected="selected" {/if}>
+                                        {tr}December{/tr}
+                                    </option>
+                                </select>
+                            </div>
+                        {/if}
+                        {if $recurrence.id eq 0}
+                            <div class="text-center py-2"><span>{tr}OR{/tr}</span></div>
+                        {/if}
+                        {if $recurrence.id eq 0 or $recurrence.yearlyType eq 'firstlastweekday'}
+                            <div class="input-group">
+                                {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" {if $recurrence.yearlyType eq 'firstlastweekday'}checked="checked"{/if} name="recurrenceTypeYearly" value="firstlastweekday"></span>{/if}
+                                <span class="input-group-text">{tr}Every{/tr}</span>
+                                <select name="yearlyFirstLastWeekNumber" class="form-control" {if $recurrence.id neq 0}readonly{/if}>
+                                    <option value="1" {if $recurrence.yearlyFirstlastWeekdayValue[0] eq '1'} selected="selected" {/if}>
+                                        {tr}First weekday{/tr}
+                                    </option>
+                                    <option value="-1" {if strpos($recurrence.yearlyFirstlastWeekdayValue, '-1') === 0} selected="selected" {/if}>
+                                        {tr}Last weekday{/tr}
                                     </option>
                                 </select>
                                 <span class="input-group-text">{tr}of{/tr}</span>
