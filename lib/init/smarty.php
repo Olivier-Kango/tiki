@@ -303,11 +303,13 @@ class Smarty_Tiki extends \Smarty\Smarty
      * This is used to assign() values to the templates by reference instead of making a copy.
      * @param $var string
      * @param $value mixed
-     * @return SmartyTiki\ReferenceVariable
+     * @return Smarty\Variable
      */
     public function assign_by_ref($var, &$value)
     {
-        return $this->tpl_vars[$var] = new SmartyTiki\ReferenceVariable($value);
+        $variable = new Smarty\Variable(null);
+        $variable->value = &$value;
+        return $this->tpl_vars[$var] = $variable;
     }
 
     /**
