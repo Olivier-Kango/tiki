@@ -2732,7 +2732,7 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./lib/init/SmartyTikiErrorHandler.php', '9cea92a37c887a4ddbc4516630195f55', '27.0alpha'),
 ('./lib/init/index.php', '058be43ba5b1e80619ec7ec15c7d0cad', '27.0alpha'),
 ('./lib/init/initlib.php', 'b6ef072b8a6f6b0ec148e7dcc45337b2', '27.0alpha'),
-('./lib/init/smarty.php', 'cdda8279c721eb6333c9c52849b85347', '27.0alpha'),
+('./lib/init/smarty.php', '2954f7e9aa50db4d7e3a9df806063ae8', '27.0alpha'),
 ('./lib/init/tra.php', '21ed6b3681921a187fa2153a82981ece', '27.0alpha'),
 ('./lib/init/typography.php', 'b42e64c46df1bd2e5863c3db6bd48e62', '27.0alpha'),
 ('./lib/integrator/index.php', '058be43ba5b1e80619ec7ec15c7d0cad', '27.0alpha'),
@@ -3497,7 +3497,6 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./lib/smarty_tiki/Modifier/VirtualPath.php', '33f15129c82cd34f6866320e1380f505', '27.0alpha'),
 ('./lib/smarty_tiki/Modifier/YesNo.php', 'beb06346753ca3de07ff641168d71622', '27.0alpha'),
 ('./lib/smarty_tiki/Modifier/index.php', 'b94766c4a347613e2cf323ca1303b436', '27.0alpha'),
-('./lib/smarty_tiki/ReferenceVariable.php', 'b889711caaf64c3e7f1b979720bca0ca', '27.0alpha'),
 ('./lib/smarty_tiki/block.accordion.php', 'bf8e0a4d718b6cfad580a843c0eb18f2', '27.0alpha'),
 ('./lib/smarty_tiki/block.accordion_group.php', '4ff326eb08ae1d1e0675a946f32025a1', '27.0alpha'),
 ('./lib/smarty_tiki/block.actions.php', '49e6271569217a677d0a781a10c77cff', '27.0alpha'),
@@ -10139,9 +10138,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./node_modules/date-fns/getISOWeek/index.js', 'dbe367519c439c7bc07b0048e1142f1f', '27.0alpha'),
 ('./node_modules/date-fns/getISOWeekYear/index.js', '02161c451628f89a5209c27e789cc7ff', '27.0alpha'),
 ('./node_modules/date-fns/getISOWeeksInYear/index.js', 'a3cf3a8e3804cb42af99906f5fa617bc', '27.0alpha'),
-('./node_modules/date-fns/getMilliseconds/index.js', 'a9d26db0cdbc522c75e4b11b121fdaa3', '27.0alpha');
+('./node_modules/date-fns/getMilliseconds/index.js', 'a9d26db0cdbc522c75e4b11b121fdaa3', '27.0alpha'),
+('./node_modules/date-fns/getMinutes/index.js', '199334f817dfb0a7a7622501d3479ec1', '27.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
-('./node_modules/date-fns/getMinutes/index.js', '199334f817dfb0a7a7622501d3479ec1', '27.0alpha'),
 ('./node_modules/date-fns/getMonth/index.js', '0885234f0c0578938a78fbaf658fcf8e', '27.0alpha'),
 ('./node_modules/date-fns/getOverlappingDaysInIntervals/index.js', '2d981456d4989bda867344acb976f203', '27.0alpha'),
 ('./node_modules/date-fns/getQuarter/index.js', 'a0d8966353bc8b69117b7e8a45723726', '27.0alpha'),
@@ -19222,9 +19221,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./node_modules/popper.js/src/modifiers/offset.js', '978d41911c7c39861293bdc12fc53f60', '27.0alpha'),
 ('./node_modules/popper.js/src/modifiers/preventOverflow.js', '89521081d7ec6e37f176aa8e0b5969c0', '27.0alpha'),
 ('./node_modules/popper.js/src/modifiers/shift.js', '4ca9082db1d49e32f404f21da77b9f95', '27.0alpha'),
-('./node_modules/popper.js/src/utils/clockwise.js', 'e1d4942bc1b6df53ba79c937ae62efd7', '27.0alpha');
+('./node_modules/popper.js/src/utils/clockwise.js', 'e1d4942bc1b6df53ba79c937ae62efd7', '27.0alpha'),
+('./node_modules/popper.js/src/utils/computeAutoPlacement.js', '23b2531ac93360ce561b5ed6d69eb3f4', '27.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
-('./node_modules/popper.js/src/utils/computeAutoPlacement.js', '23b2531ac93360ce561b5ed6d69eb3f4', '27.0alpha'),
 ('./node_modules/popper.js/src/utils/debounce.js', '46d589ebe4ec9ddc90632546a77adc26', '27.0alpha'),
 ('./node_modules/popper.js/src/utils/find.js', '834c62fb22e0f29e23275f2a599a6740', '27.0alpha'),
 ('./node_modules/popper.js/src/utils/findCommonOffsetParent.js', 'f8de11224383ccda3d89f44138fe9f20', '27.0alpha'),
@@ -28438,9 +28437,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/he.js', '43f0f60ac1adf42b37ab1f023c1c13e6', '27.0alpha'),
 ('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/hi.js', '85cb5b8707f7ec622cb867993c3d6101', '27.0alpha'),
 ('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/hr.js', '6777c2fa892c70db62e5bdf5e84886d5', '27.0alpha'),
-('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/hu.js', '7533da2227537ac336e439b12a9b0154', '27.0alpha');
+('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/hu.js', '7533da2227537ac336e439b12a9b0154', '27.0alpha'),
+('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/id.js', '36335b05f53b2b61fc3af459e26b45f0', '27.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
-('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/id.js', '36335b05f53b2b61fc3af459e26b45f0', '27.0alpha'),
 ('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.0alpha'),
 ('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/is.js', '1ebd9b878b824007e01499bea3e9c4ab', '27.0alpha'),
 ('./vendor_bundled/vendor/h5p/h5p-editor/ckeditor/lang/it.js', 'cd6cd0bbc2c6a05aa1d0d380e4da4791', '27.0alpha'),
@@ -35634,9 +35633,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/league/uri-interfaces/IPv4/ConverterTest.php', 'ec1155be0398363274e8663674f0e3ca', '27.0alpha'),
 ('./vendor_bundled/vendor/league/uri-interfaces/IPv4/GMPCalculator.php', '851d7f2575635da18d41a157f3f297da', '27.0alpha'),
 ('./vendor_bundled/vendor/league/uri-interfaces/IPv4/NativeCalculator.php', 'd28161718c9b132ae3ce4ff675770034', '27.0alpha'),
-('./vendor_bundled/vendor/league/uri-interfaces/IPv4/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.0alpha');
+('./vendor_bundled/vendor/league/uri-interfaces/IPv4/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.0alpha'),
+('./vendor_bundled/vendor/league/uri-interfaces/Idna/Converter.php', 'f5e72bfeb1d949e9444a0f3bd767b098', '27.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
-('./vendor_bundled/vendor/league/uri-interfaces/Idna/Converter.php', 'f5e72bfeb1d949e9444a0f3bd767b098', '27.0alpha'),
 ('./vendor_bundled/vendor/league/uri-interfaces/Idna/ConverterTest.php', '052b58dc17ff2c577406ceb4d1749849', '27.0alpha'),
 ('./vendor_bundled/vendor/league/uri-interfaces/Idna/Error.php', '86ee507a5949223091ecad0cc124b085', '27.0alpha'),
 ('./vendor_bundled/vendor/league/uri-interfaces/Idna/Option.php', '385cdbbc2e12a5903aed70d758e3f8b7', '27.0alpha'),
@@ -43837,9 +43836,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/smarty/smarty/src/CompilerException.php', '6378cc8d7462016c67441a386051b5cc', '27.0alpha'),
 ('./vendor_bundled/vendor/smarty/smarty/src/Data.php', '6eb078da1448cda3451727e73926c062', '27.0alpha'),
 ('./vendor_bundled/vendor/smarty/smarty/src/Debug.php', '445cbd7a0dcedca72fef8bc8ff5e56f8', '27.0alpha'),
-('./vendor_bundled/vendor/smarty/smarty/src/ErrorHandler.php', '342ecf08c1b8d07c5fb88b90ac44f815', '27.0alpha');
+('./vendor_bundled/vendor/smarty/smarty/src/ErrorHandler.php', '342ecf08c1b8d07c5fb88b90ac44f815', '27.0alpha'),
+('./vendor_bundled/vendor/smarty/smarty/src/Exception.php', 'd7f1fc1c1268e752623077693fb9fef5', '27.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
-('./vendor_bundled/vendor/smarty/smarty/src/Exception.php', 'd7f1fc1c1268e752623077693fb9fef5', '27.0alpha'),
 ('./vendor_bundled/vendor/smarty/smarty/src/Extension/BCPluginsAdapter.php', '57f045bb114201ef1d5171d8d7248d70', '27.0alpha'),
 ('./vendor_bundled/vendor/smarty/smarty/src/Extension/Base.php', '4382b135fdb186c826d75ddf8413e767', '27.0alpha'),
 ('./vendor_bundled/vendor/smarty/smarty/src/Extension/CallbackWrapper.php', '387a2605dbce80e779573971e962b363', '27.0alpha'),
