@@ -3372,37 +3372,37 @@ class TikiLib extends TikiDb_Bridge
     }
     /* cachetime = 0 => no cache, otherwise duration cache is valid */
     /**
-     * @param $url
-     * @param $isFresh
-     * @param int $cachetime
-     * @return mixed
+     * @param string $url The URL to retrieve
+     * @param bool $isFresh Set to true if the data is fresh, false otherwise.
+     * @param int $cachetime is the time in seconds for which the data should be cached. If 0, the data will always be refreshed.
+     * @return array The cached data or updated data.
      */
-    public function get_cached_url($url, &$isFresh, $cachetime = 0)
+    public function get_cached_url(string $url, bool &$isFresh, int $cachetime = 0): array
     {
         $linkCache = $this->table('tiki_link_cache');
-
-        $res = $linkCache->fetchFullRow(['url' => $url]);
+        $retrievedRow = $linkCache->fetchFullRow(['url' => $url]);
         $now = $this->now;
 
-        // Check if $res is not false and if there's no cache or need to refresh
-        if ($res !== false && ($now - $res['refresh']) > $cachetime) {
-            $res['data'] = $this->httprequest($url);
+        if ($retrievedRow !== false && ($now - $retrievedRow['refresh']) > $cachetime) {
+            // Cache exists but is stale, refresh it
+            $futureRow['data'] = $this->httprequest($url);
             $isFresh = true;
-            //echo '<br />Not cached:'.$url.'/'.strlen($res['data']);
-            $res['refresh'] = $now;
-            if ($cachetime > 0) {
-                if (empty($res['cacheId'])) {
-                    $linkCache->insert(['url' => $url, 'data' => $res['data'], 'refresh' => $res['refresh']]);
-                    $res = $linkCache->fetchFullRow(['url' => $url]);
-                } else {
-                    $linkCache->update(['data' => $res['data'], 'refresh' => $res['refresh']], ['cacheId' => $res['cacheId']]);
-                }
-            }
+            $futureRow['refresh'] = $now;
+            $linkCache->update(['data' => $futureRow['data'], 'refresh' => $futureRow['refresh']], ['cacheId' => $retrievedRow['cacheId']]);
+            $returnValue = $futureRow;
+        } elseif ($retrievedRow === false) {
+            // Cache miss, create a new entry
+            $futureRow['data'] = $this->httprequest($url);
+            $isFresh = true;
+            $futureRow['refresh'] = $now;
+            $linkCache->insert(['url' => $url, 'data' => $futureRow['data'], 'refresh' => $futureRow['refresh']]);
+            $returnValue = $futureRow;
         } else {
-            //echo '<br />Cached:'.$url;
+            // Cache hit and HTTP data is not fresh
             $isFresh = false;
+            $returnValue = $retrievedRow;
         }
-        return $res;
+        return $returnValue;
     }
 
     // This funcion return the $limit most accessed pages
