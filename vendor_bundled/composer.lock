@@ -2498,17 +2498,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e"
+                "reference": "ce2816c935943e28cc3b8ddf72f791be3f7f4e5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-29a9b4396322cc3403b5d64578917ea025c5164e-zip-bc122f.zip",
-                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e",
-                "shasum": "d67af82acefb4f96f14c4e016c3a584f341f6c4d"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-ce2816c935943e28cc3b8ddf72f791be3f7f4e5e-zip-e46e31.zip",
+                "reference": "ce2816c935943e28cc3b8ddf72f791be3f7f4e5e",
+                "shasum": "ef398344de3a6f5db92e0592401c9d9cc7c863c3"
             },
             "require": {
                 "php": ">=5.4"
@@ -2529,16 +2529,19 @@
                     "email": "henrique.borba.dev@gmail.com"
                 }
             ],
-            "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol",
+            "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol (RFC5228)",
             "keywords": [
+                "RFC5228",
                 "cypht",
                 "email",
+                "filters",
                 "imap",
+                "mail",
                 "managesieve",
                 "php",
                 "sieve"
             ],
-            "time": "2023-10-19T14:43:05+00:00"
+            "time": "2023-12-21T18:28:46+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -12835,17 +12838,17 @@
         },
         {
             "name": "symfony/polyfill-iconv",
-            "version": "v1.28.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-iconv.git",
-                "reference": "6de50471469b8c9afc38164452ab2b6170ee71c1"
+                "reference": "cd4226d140ecd3d0f13d32ed0a4a095ffe871d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/polyfill-iconv/symfony-polyfill-iconv-6de50471469b8c9afc38164452ab2b6170ee71c1-zip-cc3219.zip",
-                "reference": "6de50471469b8c9afc38164452ab2b6170ee71c1",
-                "shasum": "041e30be8ddff4c64630acdf13a23555966b3a2b"
+                "url": "https://composer.tiki.org/dist/symfony/polyfill-iconv/symfony-polyfill-iconv-cd4226d140ecd3d0f13d32ed0a4a095ffe871d2f-zip-1bf137.zip",
+                "reference": "cd4226d140ecd3d0f13d32ed0a4a095ffe871d2f",
+                "shasum": "b7cd40d8ee76cf514dc29a641aa1e82355489f7a"
             },
             "require": {
                 "php": ">=7.1"
@@ -12858,9 +12861,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -12911,7 +12911,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-26T09:26:14+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -13242,17 +13242,17 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.28.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "42292d99c55abe617799667f454222c54c60e229"
+                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/polyfill-mbstring/symfony-polyfill-mbstring-42292d99c55abe617799667f454222c54c60e229-zip-cf824d.zip",
-                "reference": "42292d99c55abe617799667f454222c54c60e229",
-                "shasum": "47c7c74897b9fa38d54fd0a407bee58fa10328f1"
+                "url": "https://composer.tiki.org/dist/symfony/polyfill-mbstring/symfony-polyfill-mbstring-9773676c8a1bb1f8d4340a62efe641cf76eda7ec-zip-e39360.zip",
+                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
+                "shasum": "edf1be91fcef5edb703e90471b2ff963e02e87e0"
             },
             "require": {
                 "php": ">=7.1"
@@ -13265,9 +13265,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -13318,7 +13315,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-28T09:04:16+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-php56",
@@ -14986,17 +14983,17 @@
         },
         {
             "name": "zbateson/mail-mime-parser",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/mail-mime-parser.git",
-                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a"
+                "reference": "ff49e02f6489b38f7cc3d1bd3971adc0f872569c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-20b3e48eb799537683780bc8782fbbe9bc25934a-zip-5f1b06.zip",
-                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a",
-                "shasum": "7b4429cfecf8414dff71bbb0030a7017d4de1720"
+                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-ff49e02f6489b38f7cc3d1bd3971adc0f872569c-zip-62c7d7.zip",
+                "reference": "ff49e02f6489b38f7cc3d1bd3971adc0f872569c",
+                "shasum": "9d2c92884b0d5506c2ba583169a06078151ceb8d"
             },
             "require": {
                 "guzzlehttp/psr7": "^1.7.0|^2.0",
@@ -15052,21 +15049,21 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-14T22:58:03+00:00"
+            "time": "2024-04-28T00:58:54+00:00"
         },
         {
             "name": "zbateson/mb-wrapper",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/mb-wrapper.git",
-                "reference": "faf35dddfacfc5d4d5f9210143eafd7a7fe74334"
+                "reference": "09a8b77eb94af3823a9a6623dcc94f8d988da67f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/zbateson/mb-wrapper/zbateson-mb-wrapper-faf35dddfacfc5d4d5f9210143eafd7a7fe74334-zip-05c849.zip",
-                "reference": "faf35dddfacfc5d4d5f9210143eafd7a7fe74334",
-                "shasum": "f507f37b99ad9b367f5824b5ce1185abd6eecfa8"
+                "url": "https://composer.tiki.org/dist/zbateson/mb-wrapper/zbateson-mb-wrapper-09a8b77eb94af3823a9a6623dcc94f8d988da67f-zip-7e4a51.zip",
+                "reference": "09a8b77eb94af3823a9a6623dcc94f8d988da67f",
+                "shasum": "fbf631b38ceabe9afc5a12a5765c2ca155445fea"
             },
             "require": {
                 "php": ">=7.1",
@@ -15076,7 +15073,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "*",
                 "phpstan/phpstan": "*",
-                "phpunit/phpunit": "<=9.0"
+                "phpunit/phpunit": "<10.0"
             },
             "suggest": {
                 "ext-iconv": "For best support/performance",
@@ -15117,7 +15114,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-11T23:05:44+00:00"
+            "time": "2024-03-18T04:31:04+00:00"
         },
         {
             "name": "zbateson/stream-decorators",
