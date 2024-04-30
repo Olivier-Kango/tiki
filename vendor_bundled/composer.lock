@@ -2008,17 +2008,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e"
+                "reference": "ce2816c935943e28cc3b8ddf72f791be3f7f4e5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-29a9b4396322cc3403b5d64578917ea025c5164e-zip-bc122f.zip",
-                "reference": "29a9b4396322cc3403b5d64578917ea025c5164e",
-                "shasum": "d67af82acefb4f96f14c4e016c3a584f341f6c4d"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-ce2816c935943e28cc3b8ddf72f791be3f7f4e5e-zip-e46e31.zip",
+                "reference": "ce2816c935943e28cc3b8ddf72f791be3f7f4e5e",
+                "shasum": "ef398344de3a6f5db92e0592401c9d9cc7c863c3"
             },
             "require": {
                 "php": ">=5.4"
@@ -2039,16 +2039,19 @@
                     "email": "henrique.borba.dev@gmail.com"
                 }
             ],
-            "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol",
+            "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol (RFC5228)",
             "keywords": [
+                "RFC5228",
                 "cypht",
                 "email",
+                "filters",
                 "imap",
+                "mail",
                 "managesieve",
                 "php",
                 "sieve"
             ],
-            "time": "2023-10-19T14:43:05+00:00"
+            "time": "2023-12-21T18:28:46+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -2267,13 +2270,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "f198621d8a0fb9dd8b01a872c694f65b1169057f"
+                "reference": "0a1e5be21a86d87029e05ad4605baacc0ba1da62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-f198621d8a0fb9dd8b01a872c694f65b1169057f-zip-5db504.zip",
-                "reference": "f198621d8a0fb9dd8b01a872c694f65b1169057f",
-                "shasum": "e1960ad6af87e3b13f2e4e20bfb875394e661c4f"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-0a1e5be21a86d87029e05ad4605baacc0ba1da62-zip-8664b2.zip",
+                "reference": "0a1e5be21a86d87029e05ad4605baacc0ba1da62",
+                "shasum": "f59f8cdb4b711a86c88e3629b00903d54d11de7f"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2287,7 +2290,7 @@
                 "ext-openssl": "*",
                 "ext-session": "*",
                 "ezyang/htmlpurifier": "^4.17",
-                "henrique-borba/php-sieve-manager": "^1.0.0",
+                "henrique-borba/php-sieve-manager": "^1.0.2",
                 "league/commonmark": "^2.4",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=7.4",
@@ -2337,7 +2340,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-04-27T07:14:45+00:00"
+            "time": "2024-04-30T11:28:36+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -13825,17 +13828,17 @@
         },
         {
             "name": "zbateson/mail-mime-parser",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/mail-mime-parser.git",
-                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a"
+                "reference": "ff49e02f6489b38f7cc3d1bd3971adc0f872569c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-20b3e48eb799537683780bc8782fbbe9bc25934a-zip-5f1b06.zip",
-                "reference": "20b3e48eb799537683780bc8782fbbe9bc25934a",
-                "shasum": "7b4429cfecf8414dff71bbb0030a7017d4de1720"
+                "url": "https://composer.tiki.org/dist/zbateson/mail-mime-parser/zbateson-mail-mime-parser-ff49e02f6489b38f7cc3d1bd3971adc0f872569c-zip-62c7d7.zip",
+                "reference": "ff49e02f6489b38f7cc3d1bd3971adc0f872569c",
+                "shasum": "9d2c92884b0d5506c2ba583169a06078151ceb8d"
             },
             "require": {
                 "guzzlehttp/psr7": "^1.7.0|^2.0",
@@ -13891,7 +13894,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-14T22:58:03+00:00"
+            "time": "2024-04-28T00:58:54+00:00"
         },
         {
             "name": "zbateson/mb-wrapper",
