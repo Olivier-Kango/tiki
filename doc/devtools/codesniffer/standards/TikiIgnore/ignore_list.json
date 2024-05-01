@@ -6973,8 +6973,6 @@
             "ObjectSelectorTest::get_title": true
         },
         "lib\/articles\/artlib.php": {
-            "ArtLib::get_number_of_pages": true,
-            "ArtLib::get_page": true,
             "ArtLib::approve_submission": true,
             "ArtLib::add_article_hit": true,
             "ArtLib::remove_article": true,
@@ -8067,8 +8065,6 @@
         },
         "lib\/wiki\/wikilib.php": {
             "WikiLib::max_pagename_length": true,
-            "WikiLib::get_number_of_pages": true,
-            "WikiLib::get_page": true,
             "WikiLib::get_page_by_slug": true,
             "WikiLib::get_slug_by_page": true,
             "WikiLib::get_creator": true,
@@ -9313,8 +9309,6 @@
             "BlogLib::list_user_blogs": true,
             "BlogLib::list_blogs_user_can_post": true,
             "BlogLib::list_posts": true,
-            "BlogLib::get_number_of_pages": true,
-            "BlogLib::get_page": true,
             "BlogLib::add_blog_hit": true,
             "BlogLib::add_blog_post_hit": true,
             "BlogLib::get_post_image": true,

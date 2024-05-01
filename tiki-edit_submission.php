@@ -636,6 +636,7 @@ if ($prefs['feature_freetags'] == 'y') {
 $smarty->assign('publishDate', $publishDate);
 $smarty->assign('expireDate', $expireDate);
 $smarty->assign('siteTimeZone', $prefs['display_timezone']);
+$smarty->assign('wikiPageSeparator', $prefs['wiki_page_separator']);
 
 $wikilib = TikiLib::lib('wiki');
 $plugins = $wikilib->list_plugins(true, 'body');
