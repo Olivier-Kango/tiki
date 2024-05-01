@@ -764,7 +764,7 @@ class WikiLib extends TikiLib
 
         $path = $this->getOne("select `path` from `tiki_wiki_attachments` where `attId`=?", [$attId]);
 
-        /* carefull a same file can be attached in different page */
+        /* careful a same file can be attached in different page */
         if ($path && $this->getOne("select count(*) from `tiki_wiki_attachments` where `path`=?", [$path]) <= 1) {
             @unlink($prefs['w_use_dir'] . $path);
         }

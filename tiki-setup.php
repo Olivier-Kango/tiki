@@ -13,7 +13,7 @@
 // die if called directly.
 use Tiki\Package\VendorHelper;
 
-//Be carefull, composer autoloading isn't available until tiki-setup_base.php is required further down
+//Be careful, composer autoloading isn't available until tiki-setup_base.php is required further down
 
 /**
  * @global array $prefs
