@@ -2233,6 +2233,7 @@
         "slm/mail": "^4.2",
         "slevomat/coding-standard": "^7.0.9",
         "smarty/smarty": ">=3.1.14",
+        "stevegrunwell/phpunit-markup-assertions": "^1.4.0",
         "sorich87/bootstrap-tour": ">0.10.2",
         "squizlabs/php_codesniffer": "^3.1",
         "steverhoades/oauth2-openid-connect-client": "^0.3.0||^2.0.0",
