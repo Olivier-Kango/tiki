@@ -186,7 +186,9 @@ function sendForumEmailNotification(
         $smarty->assign('forumId', $forum_info["forumId"]);
         if ($event == "forum_post_topic") {
             $smarty->assign('new_topic', 'y');
+            $smarty->assign('threadId', $threadId);
         } else {
+            $smarty->assign('new_topic', 'n');
             $smarty->assign('threadId', $threadId);
         }
         if ($parentId) {
