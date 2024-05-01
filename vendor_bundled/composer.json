@@ -305,6 +305,7 @@
         "rector/rector": "~1.0.1",
         "sebastian/diff": "^5.1.1",
         "squizlabs/php_codesniffer": "^3.1",
+        "stevegrunwell/phpunit-markup-assertions": "^1.4.0",
         "symfony/browser-kit": "~6.4.3",
         "symfony/http-client": "~6.4.3",
         "thibautselingue/local-php-security-checker-installer": "^1.0.4",

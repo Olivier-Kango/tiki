@@ -2797,9 +2797,9 @@ class ParserLib extends TikiDb_Bridge
                         }
 
                         if ($prefs['feature_wiki_show_hide_before'] == 'y') {
-                            $line = $button . '<h' . ($hdrlevel) . $style . ' class="showhide_heading" id="' . $thisid . '">' . $aclose . ' ' . $title_text . $headingLink . '</h' . ($hdrlevel) . '>' . $aclose2;
+                            $line = $button . '<h' . ($hdrlevel) . $style . ' class="showhide_heading d-flex justify-content-start" id="' . $thisid . '">' . $aclose . ' ' . $title_text . $headingLink . '</h' . ($hdrlevel) . '>' . $aclose2;
                         } else {
-                            $line = $button . '<h' . ($hdrlevel) . $style . ' class="showhide_heading" id="' . $thisid . '">' . $title_text . $headingLink . '</h' . ($hdrlevel) . '>' . $aclose . $aclose2;
+                            $line = $button . '<h' . ($hdrlevel) . $style . ' class="showhide_heading d-flex justify-content-start" id="' . $thisid . '">' . $title_text . $headingLink . '</h' . ($hdrlevel) . '>' . $aclose . $aclose2;
                         }
                     } elseif (! strcmp($line, $prefs['wiki_page_separator'])) {
                         // Close open paragraph, lists, and div's
