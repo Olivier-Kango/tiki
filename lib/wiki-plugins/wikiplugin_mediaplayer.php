@@ -6,6 +6,12 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Package\VendorHelper;
 
+const AUDIO_ACCEPTED_FORMATS = ['mp3', 'ogg', 'wav', 'aac', 'flac', 'opus'];
+const VIDEO_ACCEPTED_FORMATS = ['mp4', 'ogv', 'webm', '3gp', '3g2', 'mov', 'avi', 'mpg', 'mpeg', 'wmv', 'flv'];
+const DOCUMENT_ACCEPTED_FORMATS = ['pdf', 'odt', 'ods', 'odp'];
+$ALL_ACCEPTED_FORMATS = array_merge(AUDIO_ACCEPTED_FORMATS, VIDEO_ACCEPTED_FORMATS, DOCUMENT_ACCEPTED_FORMATS);
+define('ALL_ACCEPTED_FORMATS', $ALL_ACCEPTED_FORMATS);
+
 function wikiplugin_mediaplayer_info()
 {
     return [
@@ -25,9 +31,7 @@ function wikiplugin_mediaplayer_info()
                 'description' => tra("Complete URL to the media to include, which has the appropriate extension.
                     If your URL doesn't have an extension, use the File type parameter below."),
                 'since' => '6.0',
-                'accepted' => 'asx, asf, avi, mov, mpg, mpeg, mp4, qt, ra, smil, wmv, 3g2, 3gp, aif, aac, au, gsm,
-                    mid, midi, mov, m4a, snd, ra, ram, rm, wav, wma, bmp, html, pdf, psd, qif, qtif, qti, tif, tiff,
-                    xaml, mp3, aif, snd',
+                'accepted' => array_merge(AUDIO_ACCEPTED_FORMATS, VIDEO_ACCEPTED_FORMATS, DOCUMENT_ACCEPTED_FORMATS),
                 'filter' => 'url',
                 'default' => '',
             ],
@@ -37,7 +41,7 @@ function wikiplugin_mediaplayer_info()
                 'name' => tra('URL'),
                 'description' => tra("Complete URL to the media to include, which has the appropriate extension."),
                 'since' => '27.0',
-                'accepted' => 'mp3, aif, aac, au, gsm, mid, midi, m4a, snd, wav, wma',
+                'accepted' => AUDIO_ACCEPTED_FORMATS,
                 'filter' => 'url',
                 'default' => '',
             ],
@@ -96,12 +100,35 @@ function wikiplugin_mediaplayer($data, $params)
     static $iMEDIAPLAYER = 0;
     $id = 'mediaplayer' . ++$iMEDIAPLAYER;
     $params['type'] = strtolower(isset($params['type']) ? $params['type'] : '');
-
+    $extension = '';
     if ((empty($params['src']) && empty($params['mp3']))) {
-        Feedback::errorPage(['mes' => "Both src and mp3 params should not be empty"]);
-    } else if (empty($params['src']) && ! empty($params['mp3'])) {
+        Feedback::error(['mes' => "PluginMediaPlayer : src and mp3 cannot both be empty"]);
+        return '';
+    } elseif (! empty($params['src'])) {
+        $extension = pathinfo($params['src'], PATHINFO_EXTENSION);
+        if (! in_array($extension, ALL_ACCEPTED_FORMATS)) {
+            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the supported formats : " . ALL_ACCEPTED_FORMATS);
+            return '';
+        }
+    } elseif (empty($params['src']) && ! empty($params['mp3'])) {
+        $extension = pathinfo($params['mp3'], PATHINFO_EXTENSION);
+        if (! in_array($extension, AUDIO_ACCEPTED_FORMATS)) {
+            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the audio supported formats : " . AUDIO_ACCEPTED_FORMATS);
+            return '';
+        }
         $params['src'] = $params['mp3'];
     }
+
+    if (empty($params['mediatype'])) {
+        if (in_array($extension, AUDIO_ACCEPTED_FORMATS)) {
+            $params['mediatype'] = 'audio';
+        } elseif (in_array($extension, VIDEO_ACCEPTED_FORMATS)) {
+            $params['mediatype'] = 'audio';
+        } elseif (in_array($extension, DOCUMENT_ACCEPTED_FORMATS)) {
+            $params['type'] = $extension;
+        }
+    }
+
     //checking if pdf generation request
     if (in_array($params['type'], ['pdf']) && isset($_GET['display']) && strstr($_GET['display'], 'pdf') != '') {
         return "<pdfpage>.<pdfinclude src='" . TikiLib::lib('access')->absoluteUrl($params['src']) . "' /></pdfpage>";
@@ -114,9 +141,6 @@ function wikiplugin_mediaplayer($data, $params)
         'width' => 320,
         'height' => 240,
     ];
-    if (preg_match('/webm/', $params['type']) > 0 && $params['type'] != 'video/webm') {
-        $params['type'] = 'video/webm';
-    }
 
     if (empty($params['type'])) {
         preg_match('/(?:dl|display|fileId=)(\d*)/', $params['src'], $matches);
@@ -127,20 +151,15 @@ function wikiplugin_mediaplayer($data, $params)
             if (! empty($file['filetype']) && $file['fileId'] == $fileId) {
                 $fileExtension = pathinfo($file['filename'], PATHINFO_EXTENSION);
                 $params['type'] = $fileExtension;
-                if (! in_array($fileExtension, ['pdf', 'odt', 'ods', 'odp'])) {
+                if (! in_array($fileExtension, DOCUMENT_ACCEPTED_FORMATS)) {
                     $params['style'] = ! empty($params['style']) ? $params['style'] : 'native';
                     $params['type'] = $file['filetype'];
                 }
             }
         }
     }
-    if (! empty($params['style']) && $params['style'] == 'native') {
-        $params = array_merge($defaults_html5, $params);
-    } else {
-        $params = array_merge($defaults, $params);
-    }
 
-    if (in_array($params['type'], ['pdf', 'odt', 'ods', 'odp'])) {
+    if (in_array($params['type'], DOCUMENT_ACCEPTED_FORMATS)) {
         $headerlib = TikiLib::lib('header');
         if ($prefs['fgal_pdfjs_feature'] === 'n') {
             return "<p>" . tr('PDF.js feature is disabled. If you do not have permission to enable, ask the site administrator.') . "</p>";
@@ -267,21 +286,18 @@ if (found) {
         return "<a href=\"" . $params['src'] . "\" id=\"$id\"></a>";
     }
 
-    if ((! empty($params['mediatype']) && ($params['mediatype'] == 'audio')) || ! empty($params['mp3'])) {
-        $mediatype = 'audio';
-    } else {
-        $mediatype = 'video';
-    }
-    $code = '<' . $mediatype;
-    if (! empty($params['height'])) {
-        $code .= ' height="' . $params['height'] . '"';
-    }
-    if (! empty($params['width'])) {
-        $code .= ' width="' . $params['width'] . '"';
-    }
-    $code .= ' style="max-width: 100%" controls>';
-    $code .= '    <source src="' . $params['src'] . '" type=\'' . $params['type'] . '\'>'; // type can be e.g. 'video/webm; codecs="vp8, vorbis"'
-    $code .= '</' . $mediatype . '>';
+    if ((! empty($params['mediatype']) && ($params['mediatype'] == 'audio' || $params['mediatype'] == 'video'))) {
+        $code = '<' . $params['mediatype'];
+        if (! empty($params['height'])) {
+            $code .= ' height="' . $params['height'] . '"';
+        }
+        if (! empty($params['width'])) {
+            $code .= ' width="' . $params['width'] . '"';
+        }
+        $code .= ' style="max-width: 100%" controls>';
+        $code .= '    <source src="' . $params['src'] . '" type=\'' . $params['type'] . '\'>'; // type can be e.g. 'video/webm; codecs="vp8, vorbis"'
+        $code .= '</' . $params['mediatype'] . '>';
 
-    return "~np~$code~/np~";
+        return "~np~$code~/np~";
+    }
 }
