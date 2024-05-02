@@ -180,11 +180,11 @@ class ParserLib extends TikiDb_Bridge
             || $this->option['wysiwyg']
         ) {
             foreach ($this->specialChars as $key => $specialChar) {
-                $data = str_replace($key, $specialChar['html'], $data);
+                $data = str_replace($key, $specialChar['html'], $data ?? '');
             }
         } else {
             foreach ($this->specialChars as $key => $specialChar) {
-                $data = str_replace($key, $specialChar['nonHtml'], $data);
+                $data = str_replace($key, $specialChar['nonHtml'], $data ?? '');
             }
         }
 
