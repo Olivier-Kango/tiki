@@ -2756,17 +2756,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "v1.4.1",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "028c0db3e926ee312b9b47d7c230415edee76619"
+                "reference": "9c383855b4680c099fb7950cdd9fabb1449458ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-028c0db3e926ee312b9b47d7c230415edee76619-zip-68a1cb.zip",
-                "reference": "028c0db3e926ee312b9b47d7c230415edee76619",
-                "shasum": "5645bcd312fa8960fb51653fdedea95b8098e5ef"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-9c383855b4680c099fb7950cdd9fabb1449458ff-zip-ba27b4.zip",
+                "reference": "9c383855b4680c099fb7950cdd9fabb1449458ff",
+                "shasum": "658b1748ad1c62406b10db5e5233e0eafef26b14"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2779,8 +2779,8 @@
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
                 "ext-session": "*",
-                "ezyang/htmlpurifier": "^4.13",
-                "henrique-borba/php-sieve-manager": "^1.0.0",
+                "ezyang/htmlpurifier": "^4.17",
+                "henrique-borba/php-sieve-manager": "^1.0.2",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=5.6",
                 "webklex/composer-info": "^0.0.1",
@@ -2825,7 +2825,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2023-10-31T13:59:55+00:00"
+            "time": "2024-04-30T13:34:58+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
