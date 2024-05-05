@@ -3594,9 +3594,9 @@ class TrackerLib extends TikiLib
             'rules' => $rules,
             'encryptionKeyId' => $encryptionKeyId,
             'excludeFromNotification' => $excludeFromNotification,
-            'visibleInViewMode' => $visibleInViewMode,
-            'visibleInEditMode' => $visibleInEditMode,
-            'visibleInHistoryMode' => $visibleInHistoryMode
+            'visibleInViewMode' => $visibleInViewMode ?? 'y',
+            'visibleInEditMode' => $visibleInEditMode ?? 'y',
+            'visibleInHistoryMode' => $visibleInHistoryMode ?? 'y'
         ];
 
         $logOption = null;

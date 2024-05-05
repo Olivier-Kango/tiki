@@ -44,6 +44,12 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
             'validation' => '',
             'validation_param' => '',
             'validation_message' => '',
+            'rules' => '',
+            'encryptionKeyId' => null,
+            'excludeFromNotification' => false,
+            'visibleInViewMode' => 'y',
+            'visibleInEditMode' => 'y',
+            'visibleInHistoryMode' => 'y',
         ];
     }
 
@@ -134,6 +140,11 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
             'validation_param' => 'validationParam',
             'validation_message' => 'validationMessage',
             'rules' => 'rules',
+            'encryptionKeyId' => 'encryptionKeyId',
+            'excludeFromNotification' => 'excludeFromNotification',
+            'visibleInViewMode' => 'visibleInViewMode',
+            'visibleInEditMode' => 'visibleInEditMode',
+            'visibleInHistoryMode' => 'visibleInHistoryMode',
         ];
     }
 
@@ -214,7 +225,13 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
             $data['validation'],
             $data['validation_param'],
             $data['validation_message'],
-            $data['permname']
+            $data['permname'],
+            $data['rules'],
+            $data['encryptionKeyId'],
+            $data['excludeFromNotification'],
+            $data['visibleInViewMode'],
+            $data['visibleInEditMode'],
+            $data['visibleInHistoryMode']
         );
     }
 
