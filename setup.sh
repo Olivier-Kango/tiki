@@ -337,7 +337,7 @@ DIRS=${DIR_LIST_WRITABLE}
 # --------------------------
 
 # part 4.1 - several functions as permission settings for different usecases
-
+# shellcheck disable=SC2329
 dec2oct() {
     #DEC_IN=85
     #
@@ -366,6 +366,7 @@ dec2oct() {
     OCT_OUT=${O3}${O2}${O1}
 }
 
+# shellcheck disable=SC2329
 dec2oct_test() {
     DEC_IN=$(( 0500 | 0220 ))
     dec2oct
@@ -375,6 +376,7 @@ dec2oct_test() {
 }
 #dec2oct_test
 
+# shellcheck disable=SC2329
 debug_breakpoint() {
     echo
     echo "debug breakpoint"
@@ -383,6 +385,7 @@ debug_breakpoint() {
 }
 
 # debug exit
+# shellcheck disable=SC2329
 debug_exit() {
 if [ "${DEBUG}" = '1' ] ; then
     echo
@@ -435,6 +438,7 @@ get_permission_data() {
     fi
 }
 
+# shellcheck disable=SC2329
 set_permission_dirs_special_write() {
     # function must be defined before set_permission_data
     for WRITABLE in $DIRS ; do
@@ -534,10 +538,12 @@ set_permission_data_workaround_suphp() {
     COMMAND="suphpworkaround"
 }
 
+# shellcheck disable=SC2329
 yet_unused_permission_default() {
     ${CHMOD} -fR u=rwX,go=rX .
 }
 
+# shellcheck disable=SC2329
 yet_unused_permission_exceptions() {
     ${CHMOD} o-rwx db/local.php
     ${CHMOD} o-rwx db/preconfiguration.php
