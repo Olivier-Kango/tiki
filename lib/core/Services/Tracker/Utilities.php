@@ -197,7 +197,8 @@ class Services_Tracker_Utilities
     {
         $definition = Tracker_Definition::get($trackerId);
 
-        $field = $definition->getField($fieldId);
+        //$fieldId = 0 when is a new field, e.g. when importing tracker structure
+        $field = ($fieldId === 0) ? [] : $definition->getField($fieldId);
         $trklib = TikiLib::lib('trk');
         $trklib->replace_tracker_field(
             $trackerId,
