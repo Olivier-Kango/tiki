@@ -441,7 +441,11 @@ class Services_Tracker_Utilities
                 'errorMsg' => $field->errorMsg->text(),
 
                 'rules' => $field->rules->text(),
-                ];
+
+                'visibleInViewMode' => $field->visibleInViewMode->alpha(),
+                'visibleInEditMode' => $field->visibleInEditMode->alpha(),
+                'visibleInHistoryMode' => $field->visibleInHistoryMode->alpha(),
+        ];
 
         // enable prefs for imported fields if required
         $factory = new Tracker_Field_Factory(false);
@@ -475,6 +479,11 @@ isMandatory = {$field['isMandatory']}
 description = {$field['description']}
 descriptionIsParsed = {$field['descriptionIsParsed']}
 rules = {$field['rules']}
+encryptionKeyId = {$field['encryptionKeyId']}
+excludeFromNotification = {$field['excludeFromNotification']}
+visibleInViewMode = {$field['visibleInViewMode']}
+visibleInEditMode = {$field['visibleInEditMode']}
+visibleInHistoryMode = {$field['visibleInHistoryMode']}
 
 EXPORT;
     }
