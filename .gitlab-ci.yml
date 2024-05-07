@@ -84,7 +84,7 @@ node_modules:
   cache:
     policy: pull-push
   artifacts:
-    expire_in: 30 mins
+    expire_in: 2 days
     paths:
       - node_modules
       - src/**/node_modules
@@ -100,7 +100,7 @@ node_build:
   script:
     - npm run build
   artifacts:
-    expire_in: 30 mins
+    expire_in: 2 days
     paths:
       - public/generated/
       - themes/**/*.css # this includes not only the generated files, but all css files. Still should be ok.
@@ -165,7 +165,7 @@ composer-dbdiff:
   artifacts:
     paths:
       - doc/devtools/dbdiff/vendor/
-    expire_in: 30 mins
+    expire_in: 2 days
     when: always
 
 
@@ -244,8 +244,6 @@ eslint:
     #entrypoint: ["/bin/sh", "-c"]
   script:
     - npx eslint .
-  tags:
-    - docker
       
 shlint:
   stage: lint
@@ -646,7 +644,7 @@ tiki-package:
   artifacts:
     paths:
       - tiki-${CI_COMMIT_SHORT_SHA}-${CI_COMMIT_REF_SLUG}.tar.gz
-    expire_in: 30 mins
+    expire_in: 2 days
   allow_failure: true
 
 check-directories:
