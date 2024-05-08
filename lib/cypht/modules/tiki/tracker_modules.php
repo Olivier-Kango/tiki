@@ -944,8 +944,9 @@ class Hm_Handler_tiki_load_smtp_is_imap_forward extends Hm_Handler_Module
         if (! $this->module_is_supported('imap')) {
             return;
         }
-        $list_path = $this->request->get['list_path'];
+
         if (array_key_exists('forward', $this->request->get)) {
+            $list_path = $this->request->get['list_path'];
             if (! preg_match("/tracker_folder_(\d+)_(\d+)/", $list_path, $m)) {
                 return;
             }
