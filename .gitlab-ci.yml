@@ -141,7 +141,7 @@ composer:
   artifacts:
     paths:
       - vendor_bundled/vendor/
-    expire_in: 30 min
+    expire_in: 2 days
 
 composer-dbdiff:
   stage: build
