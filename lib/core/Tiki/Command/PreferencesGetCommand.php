@@ -45,8 +45,17 @@ class PreferencesGetCommand extends Command
 
         $value = $tikilib->get_preference($preference);
 
-        if (! empty($preferenceInfo['separator']) && is_array($value)) {
-            $value = implode($preferenceInfo['separator'], $value);
+        if (empty($value)) {
+            $output->writeln(sprintf('Preference %s has no value', $preference));
+            return Command::SUCCESS;
+        }
+
+        if (is_array($value)) {
+            if (! empty($preferenceInfo['separator'])) {
+                $value = implode($preferenceInfo['separator'], $value);
+            } else {
+                $value = implode(',', $value);
+            }
         }
 
         $output->writeln(sprintf('Preference %s has value %s', $preference, $value));
