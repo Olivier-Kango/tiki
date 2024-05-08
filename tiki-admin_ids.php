@@ -9,6 +9,7 @@ require_once('tiki-setup.php');
 if ($prefs['ids_enabled'] == 'n') {
     $access->display_error('', tra("Tiki IDS is not enabled"), '403', false);
 }
+$ruleinfo = [];
 
 $access->check_permission('tiki_p_admin');
 
