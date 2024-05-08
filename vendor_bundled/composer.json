@@ -266,7 +266,6 @@
         "smarty/smarty": "^5.0",
         "steverhoades/oauth2-openid-connect-client": "^2.0.0",
         "studio-42/elfinder": "~2.1",
-        "svg-edit/svg-edit": "2.8.1",
         "swagger-api/swagger-ui": "^4.1",
         "symfony/config": "~6.4.3",
         "symfony/console": "~6.4.3",

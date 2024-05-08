@@ -9,9 +9,12 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "svgedit": "^7.3.3"
+  },
   "devDependenciesComment": {
-    "@fullcalendar/*": "Changelog: https://github.com/fullcalendar/fullcalendar/blob/main/CHANGELOG.md"
+    "@fullcalendar/*": "Changelog: https://github.com/fullcalendar/fullcalendar/blob/main/CHANGELOG.md",
+    "@svgedit/svgcanvas": "https://github.com/SVG-Edit/svgedit/blob/master/packages/svgcanvas/CHANGES.md"
   },
   "devDependencies": {
     "@fullcalendar/core": "^6.1.11",
@@ -19,6 +22,7 @@
     "@fullcalendar/interaction": "^6.1.11",
     "@fullcalendar/resource-timeline": "^6.1.11",
     "@fullcalendar/resource-timegrid": "^6.1.11",
-    "@fullcalendar/timegrid": "^6.1.11"
+    "@fullcalendar/timegrid": "^6.1.11",
+    "@svgedit/svgcanvas": "^7.2.1"
   }
 }

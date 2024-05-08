@@ -1116,6 +1116,7 @@ function prefs_feature_list($partial = false)
             'default' => 'n',
             'dependencies' => [
                 'feature_file_galleries',
+                'fgal_allow_svg'
             ],
         ],
         'feature_draw_hide_buttons' => [

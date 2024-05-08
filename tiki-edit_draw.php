@@ -33,8 +33,9 @@ include_once('lib/mime/mimetypes.php');
 global $mimetypes;
 
 if ((! isset($_REQUEST['fileId']) || $_REQUEST['fileId'] < 1) && ! isset($_REQUEST['galleryId'])) {
-    $access->display_error('', tra('Incorrect param'), 400);
+    $access->display_error('', tr('Missing parameter %0', 'fileId or galleryId'), 400);
 }
+
 
 $_REQUEST['fileId'] = (int)$_REQUEST['fileId'];
 

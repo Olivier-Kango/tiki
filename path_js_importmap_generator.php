@@ -31,6 +31,7 @@ function generateJsImportmapScripts()
                 // We can't add jquery-validation because it's not available as ESM
                 /* jquery_tiki */
                 "@jquery-tiki/tiki-calendar" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-calendar.js",
+                "@jquery-tiki/tiki-svgedit_draw" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-svgedit_draw.js",
                 "@jquery-tiki/tiki-admin_menu_options" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-admin_menu_options.js",
                 "@jquery-tiki/tiki-edit_structure" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-edit_structure.js",
                 "@jquery-tiki/wikiplugin-trackercalendar" => $tikiroot . JS_ASSETS_PATH . "/wikiplugin-trackercalendar.js",

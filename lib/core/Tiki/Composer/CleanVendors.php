@@ -351,14 +351,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'svg-edit/svg-edit/',
-            [
-                'embedapi.html',
-                'browser-not-supported.html',
-                'config-sample.js'
-            ]
-        );
-        self::remove(
             $vendors . 'npm-asset/zxing--library/',
             [
                 'esm',
