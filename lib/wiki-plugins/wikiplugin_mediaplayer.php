@@ -105,15 +105,27 @@ function wikiplugin_mediaplayer($data, $params)
         Feedback::error(['mes' => "PluginMediaPlayer : src and mp3 cannot both be empty"]);
         return '';
     } elseif (! empty($params['src'])) {
-        $extension = pathinfo($params['src'], PATHINFO_EXTENSION);
+        preg_match('/(?:dl|display|fileId=)(\d*)/', $params['src'], $matches);
+        if (! empty($matches[1])) { // fileId 0 is also invalid
+            $fileId = $matches[1];
+            $filegallib = TikiLib::lib('filegal');
+            $file = $filegallib->get_file_info($fileId);
+            if (! empty($file['filetype']) && $file['fileId'] == $fileId) {
+                $extension = pathinfo($file['filename'], PATHINFO_EXTENSION);
+                $params['type'] = $file['filetype'];
+            }
+        } else {
+            $extension = pathinfo($params['src'], PATHINFO_EXTENSION);
+        }
+
         if (! in_array($extension, ALL_ACCEPTED_FORMATS)) {
-            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the supported formats : " . ALL_ACCEPTED_FORMATS);
+            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the supported formats : " . implode(", ", ALL_ACCEPTED_FORMATS));
             return '';
         }
     } elseif (empty($params['src']) && ! empty($params['mp3'])) {
         $extension = pathinfo($params['mp3'], PATHINFO_EXTENSION);
         if (! in_array($extension, AUDIO_ACCEPTED_FORMATS)) {
-            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the audio supported formats : " . AUDIO_ACCEPTED_FORMATS);
+            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the audio supported formats : " . implode(", ", AUDIO_ACCEPTED_FORMATS));
             return '';
         }
         $params['src'] = $params['mp3'];
@@ -123,7 +135,7 @@ function wikiplugin_mediaplayer($data, $params)
         if (in_array($extension, AUDIO_ACCEPTED_FORMATS)) {
             $params['mediatype'] = 'audio';
         } elseif (in_array($extension, VIDEO_ACCEPTED_FORMATS)) {
-            $params['mediatype'] = 'audio';
+            $params['mediatype'] = 'video';
         } elseif (in_array($extension, DOCUMENT_ACCEPTED_FORMATS)) {
             $params['type'] = $extension;
         }
@@ -141,23 +153,6 @@ function wikiplugin_mediaplayer($data, $params)
         'width' => 320,
         'height' => 240,
     ];
-
-    if (empty($params['type'])) {
-        preg_match('/(?:dl|display|fileId=)(\d*)/', $params['src'], $matches);
-        if (! empty($matches[1])) { // fileId 0 is also invalid
-            $fileId = $matches[1];
-            $filegallib = TikiLib::lib('filegal');
-            $file = $filegallib->get_file_info($fileId);
-            if (! empty($file['filetype']) && $file['fileId'] == $fileId) {
-                $fileExtension = pathinfo($file['filename'], PATHINFO_EXTENSION);
-                $params['type'] = $fileExtension;
-                if (! in_array($fileExtension, DOCUMENT_ACCEPTED_FORMATS)) {
-                    $params['style'] = ! empty($params['style']) ? $params['style'] : 'native';
-                    $params['type'] = $file['filetype'];
-                }
-            }
-        }
-    }
 
     if (in_array($params['type'], DOCUMENT_ACCEPTED_FORMATS)) {
         $headerlib = TikiLib::lib('header');
