@@ -15,6 +15,12 @@ $cookietab = 1;
 
 $routeLib = TikiLib::lib('custom_route');
 $controller = new Tiki\CustomRoute\Controller();
+
+// Makig sure the user comes with $_REQUEST['route'] as it is used so much in here.
+if (! isset($_REQUEST['route'])) {
+    $access->display_error(null, tr('Missing parameter "%s"', 'route'));
+}
+
 if (
     (isset($_POST['new_route']) || (isset($_POST['editroute']) && isset($_POST['route'])) && empty($_POST['load_options']))
     && $access->checkCsrf()
