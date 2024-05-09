@@ -72,11 +72,11 @@ class Executor
                     $placeholder = $m[0];
                     $type = $m[1];
                     $field = $m[2];
-                    $modifier = $m[3];
+                    $modifier = $m[3] ?? null;
                     $values = [];
-                    $valueExtractor = function($val) use ($placeholder, $value, $modifier, &$values) {
+                    $valueExtractor = function ($val) use ($placeholder, $value, $modifier, &$values) {
                         if ($modifier == 'object_ids') {
-                            $val = array_map(function($id) {
+                            $val = array_map(function ($id) {
                                 list($type, $id) = explode(':', $id);
                                 return trim($id);
                             }, explode("\n", $val));

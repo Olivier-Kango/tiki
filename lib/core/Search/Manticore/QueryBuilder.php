@@ -128,7 +128,11 @@ class QueryBuilder
                 $this->match[] = '(' . implode(') | (', $matches) . ')';
                 return '';
             } elseif ($non_fulltext) {
-                return '(' . implode(' OR ', $non_fulltext) . ')';
+                $result = '(' . implode(' OR ', $non_fulltext) . ')';
+                while (preg_match('/\(\(([^)]* OR [^)]*)\) OR ([^)]*)\)/', $result, $m)) {
+                    $result = '(' . $m[1] . ' OR ' . $m[2] . ')';
+                }
+                return $result;
             } else {
                 return '';
             }
@@ -145,7 +149,11 @@ class QueryBuilder
                 $this->match[] = '(' . implode(') (', $matches) . ')';
             }
             if ($non_fulltext) {
-                return '(' . implode(' AND ', $non_fulltext) . ')';
+                $result = '(' . implode(' AND ', $non_fulltext) . ')';
+                while (preg_match('/\(\(([^)]* AND [^)]*)\) AND ([^)]*)\)/', $result, $m)) {
+                    $result = '(' . $m[1] . ' AND ' . $m[2] . ')';
+                }
+                return $result;
             } else {
                 return '';
             }
