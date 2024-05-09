@@ -5,12 +5,12 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 /**
- * Handler class for Header
+ * Handler class for Heading
  *
  * Letter key: ~h~
  *
  */
-class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
+class Tracker_Field_Heading extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
 {
     public static function getManagedTypesInfo(): array
     {
@@ -19,8 +19,8 @@ class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Trac
                 'name' => tr('Heading'),
                 'description' => tr('Display a heading between fields to delimit a section and allow visual folding of the fields.'),
                 'readonly' => true,
-                'help' => 'Header-Tracker-Field',
-                'prefs' => ['trackerfield_header'],
+                'help' => 'Heading-Tracker-Field',
+                'prefs' => ['trackerfield_heading'],
                 'tags' => ['basic'],
                 'default' => 'y',
                 'params' => [

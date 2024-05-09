@@ -235,8 +235,8 @@
         "lib\/core\/Search\/Type\/Nested.php": {
             "class:Search_Type_Nested": true
         },
-        "lib\/core\/Tracker\/Field\/Header.php": {
-            "class:Tracker_Field_Header": true
+        "lib\/core\/Tracker\/Field\/Heading.php": {
+            "class:Tracker_Field_Heading": true
         },
         "lib\/core\/Search\/Type\/PlainMediumText.php": {
             "class:Search_Type_PlainMediumText": true
@@ -4159,8 +4159,8 @@
         "lib\/core\/Search\/Type\/Nested.php": {
             "Search_Type_Nested": true
         },
-        "lib\/core\/Tracker\/Field\/Header.php": {
-            "Tracker_Field_Header": true
+        "lib\/core\/Tracker\/Field\/Heading.php": {
+            "Tracker_Field_Heading": true
         },
         "lib\/core\/Search\/Type\/PlainMediumText.php": {
             "Search_Type_PlainMediumText": true
