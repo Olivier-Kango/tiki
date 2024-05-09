@@ -68,31 +68,42 @@ class Executor
                 throw new Exception(tr('Filter blocks inside sublist sections in PluginList need field reference.'));
             }
             foreach ($arguments as $name => $value) {
-                if (preg_match('/\$(parent|root)\.(.*)\$/', $value, $m)) {
+                if (preg_match('/\$(parent|root)\.(.*?)\|?(object_ids)?\$/', $value, $m)) {
                     $placeholder = $m[0];
                     $type = $m[1];
                     $field = $m[2];
+                    $modifier = $m[3];
                     $values = [];
+                    $valueExtractor = function($val) use ($placeholder, $value, $modifier, &$values) {
+                        if ($modifier == 'object_ids') {
+                            $val = array_map(function($id) {
+                                list($type, $id) = explode(':', $id);
+                                return trim($id);
+                            }, explode("\n", $val));
+                            $values = array_merge($values, $val);
+                            return $val;
+                        } else {
+                            $val = str_replace($placeholder, $val, $value);
+                            $values[] = $val;
+                            return $val;
+                        }
+                    };
                     if ($type == 'parent') {
                         foreach ($this->data as $i => $row) {
                             if ($this->record->getParent() && $this->record->getParent()->isMultiple()) {
                                 // parent sublists might have entries with multiple records per key
                                 foreach ($row as $j => $subrow) {
                                     if (! empty($subrow[$field])) {
-                                        $actual_value = str_replace($placeholder, $subrow[$field], $value);
-                                        $values[] = $actual_value;
                                         $this->reverseMapping[$i][$j][] = [
-                                            'value' => $actual_value,
+                                            'value' => $valueExtractor($subrow[$field]),
                                             'target_field' => $arguments['field'],
                                         ];
                                     }
                                 }
                             }
                             if (! empty($row[$field])) {
-                                $actual_value = str_replace($placeholder, $row[$field], $value);
-                                $values[] = $actual_value;
                                 $this->reverseMapping[$i][0][] = [
-                                    'value' => $actual_value,
+                                    'value' => $valueExtractor($row[$field]),
                                     'target_field' => $arguments['field'],
                                 ];
                             }
@@ -100,10 +111,8 @@ class Executor
                     } else {
                         foreach ($this->root_data as $i => $row) {
                             if (! empty($row[$field])) {
-                                $actual_value = str_replace($placeholder, $row[$field], $value);
-                                $values[] = $actual_value;
                                 $this->reverseMapping[$i][0][] = [
-                                    'value' => $actual_value,
+                                    'value' => $valueExtractor($row[$field]),
                                     'target_field' => $arguments['field'],
                                 ];
                             }
@@ -174,10 +183,20 @@ class Executor
                     foreach ($mapping as $map) {
                         // TODO: use separate class to handle mapping, checks which records they relate to and distinction between one-to-one and one-to-many relations
                         if (isset($entry[$map['target_field']])) {
-                            if (is_array($entry[$map['target_field']]) && in_array($map['value'], $entry[$map['target_field']])) {
-                                $count++;
-                            } elseif (! is_array($entry[$map['target_field']]) && $entry[$map['target_field']] == $map['value']) {
-                                $count++;
+                            if (is_array($entry[$map['target_field']])) {
+                                if (is_array($map['value']) && array_intersect($map['value'], $entry[$map['target_field']])) {
+                                    $count++;
+                                }
+                                if (! is_array($map['value']) && in_array($map['value'], $entry[$map['target_field']])) {
+                                    $count++;
+                                }
+                            } else {
+                                if (is_array($map['value']) && in_array($entry[$map['target_field']], $map['value'])) {
+                                    $count++;
+                                }
+                                if (! is_array($map['value']) && $entry[$map['target_field']] == $map['value']) {
+                                    $count++;
+                                }
                             }
                         }
                     }
