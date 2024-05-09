@@ -19,13 +19,14 @@
 
 $inputConfiguration = [[
     'staticKeyFilters' => [
-        'action' => 'word',
-        'controller' => 'text',
-        'sort_mode' => 'string',
-        'watch' => 'alpha',         // templates/comment/post.tpl:58
+        'action' => 'word',         //get
+        'controller' => 'text',     //get
+        'sort_mode' => 'string',    //get
+        'watch' => 'alpha',         //post  templates/comment/post.tpl:58
         'confirmForm' => 'alpha',   // \Services_Utilities::isConfirmPost
         'itemId' => 'int',          // often used in \ParserLib::parse_wiki_argvariable
     ],
+    'catchAllUnset' => null
 ]];
 
 if (isset($_REQUEST['controller'], $_REQUEST['action']) || isset($_GET['controller'], $_GET['action'])) {

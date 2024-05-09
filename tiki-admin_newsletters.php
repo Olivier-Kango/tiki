@@ -8,6 +8,33 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'            => [
+             'nlId'                   => 'int',            //post
+             'remove'                 => 'bool',           //get
+             'save'                   => 'bool',           //post
+             'allowUserSub'           => 'bool',           //get
+             'allowAnySub'            => 'bool',           //post
+             'unsubMsg'               => 'bool',           //post
+             'validateAddr'           => 'bool',           //post
+             'allowTxt'               => 'bool',           //post
+             'allowArticle'           => 'bool',           //post
+             'autoArticleClip'        => 'bool',           //post
+             'emptyClipBlocksSend'    => 'bool',           //post
+             'articleClipRangeDays'   => 'int',            //post
+             'articleClipTypes'       => 'string',         //post
+             'frequency'              => 'int',            //post
+             'author'                 => 'string',         //post
+             'allowArticleClip'       => 'bool',           //post
+             'emptyClipBlocksSend'    => 'bool',           //post
+             'sort_mode_g'            => 'string',         //get
+             'offset'                 => 'string',         //get
+             'find'                   => 'string',         //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'newsletters';
 require_once('tiki-setup.php');
 $access->check_feature('feature_newsletters');

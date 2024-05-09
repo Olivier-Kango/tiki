@@ -4,6 +4,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'               => [
+            'scheduler_name'             => 'word',           //post
+            'scheduler_description'      => 'word',           //post
+            'scheduler_task'             => 'string',         //post
+            'scheduler_status'           => 'string',         //post
+            'scheduler_rerun'            => 'int',            //post
+            'scheduler_run_only_once'    => 'int',            //post
+            'new_scheduler'              => 'bool',           //post
+            'scheduler_time'             => 'string',         //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
+require_once('tiki-setup.php');
 function saveScheduler()
 {
     $schedLib = TikiLib::lib('scheduler');
@@ -108,9 +124,6 @@ function saveScheduler()
 
     return $schedulerinfo;
 }
-
-require_once('tiki-setup.php');
-
 $access = TikiLib::lib('access');
 $access->check_feature('feature_scheduler');
 $access->check_permission(['tiki_p_admin_schedulers']);

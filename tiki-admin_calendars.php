@@ -8,6 +8,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters' => [
+            'calendarId' => 'int',               //post
+            'offset' => 'striptags',             //get
+            'sort_mode' => 'striptags',          //get
+            'description' => 'xss',              //post
+            'subscriptionId' => 'int',           //get
+            'ip2' => 'int',                      //post
+            'ip3' => 'int',                      //post
+            'ip4' => 'int',                      //post
+            'use_dates' => 'bool',               //post
+            'message' => 'xss',                  //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'calendar';
 require_once('tiki-setup.php');
 $categlib = TikiLib::lib('categ');

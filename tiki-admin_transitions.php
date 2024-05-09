@@ -8,6 +8,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+            'from'              => 'bool',           //post
+            'to'                  => 'bool',         //post
+            'label'                => 'string',      //post
+            'preserve'             => 'bool',        //post
+            'remove'              => 'bool',         //get
+            'transition_mode'            => 'bool'  //post
+          ],
+        'staticKeyFiltersForArrays' => [
+            'cat_categories'        => 'word',       //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once 'tiki-setup.php';
 $categlib = TikiLib::lib('categ');
 require_once 'lib/transitionlib.php';

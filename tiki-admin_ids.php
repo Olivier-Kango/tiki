@@ -4,6 +4,19 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+             'rule_id'             => 'int',          //post
+             'rule_regex'          => 'alpha',        //post
+             'rule_description'    => 'text',         //post
+             'rule_tags'           => 'text',         //post
+             'rule_impact'         => 'text',         //post
+             'add'                 => 'bool',         //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 
 if ($prefs['ids_enabled'] == 'n') {

@@ -9,6 +9,17 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'directory';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'maxRecords'                  => 'int',           //get
+            'sort_mode'                   => 'string',        //get
+            'offset'                      => 'int',           //get
+            'find'                        => 'string',        //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/directory/dirlib.php');
 $access->check_feature('feature_directory');

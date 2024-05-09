@@ -13,12 +13,13 @@ use Tiki\Lib\core\Toolbar\ToolbarItem;
 $inputConfiguration = [
                 [
                     'staticKeyFilters' => [
-                            'save' => 'alpha',
-                            'load' => 'alpha',
-                            'pref' => 'striptags',
-                            'section' => 'striptags',
+                            'save' => 'alpha',          //post
+                            'load' => 'alpha',          //post
+                            'pref' => 'striptags',      //post
+                            'section' => 'striptags',   //post
                     ],
-                ]
+                    'catchAllUnset' => null
+                ],
 ];
 
 $auto_query_args = ['section', 'comments', 'autoreload', 'view_mode'];

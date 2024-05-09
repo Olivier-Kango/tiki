@@ -9,6 +9,26 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'freetags';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'del'                         => 'int',      //get
+            'itemit'                      => 'int',      //post
+            'typeit'                      => 'word',     //post
+            'tag'                         => 'word',     //post
+            'sort_mode'                   => 'int',      //post
+            'find'                        => 'word',     //post
+            'type'                        => 'word',     //post
+            'old_type'                    => 'word',     //post
+            'user_only'                   => 'bool',     //post
+            'broaden'                     => 'bool',     //post
+            'maxPopular'                  => 'int',     //get
+            'tsort_mode'                  => 'word',     //get
+            'objectId'                    => 'bool',     //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $freetaglib = TikiLib::lib('freetag');
 $access->check_feature('feature_freetags');

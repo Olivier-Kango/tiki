@@ -10,6 +10,24 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // This script is used to assign groups to a particular user
 // ASSIGN USER TO GROUPS
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'assign_user'                 => 'bool',    //post
+            'action'                      => 'string',  //post
+            'group'                       => 'word',    //post
+            'set_default'                 => 'bool',    //post
+            'login'                       => 'word',    //post
+            'defaultgroup'                => 'word',    //post
+            'save'                        => 'bool',    //post
+            'sort_mode'                   => 'word',    //post
+            'offset'                      => 'int',     //get
+            'find'                        => 'word',    //post
+            'maxRecords'                  => 'int',     //post
+        ],
+        'catchAllUnset' => null
+    ]
+];
 require_once('tiki-setup.php');
 
 $auto_query_args = ['sort_mode', 'offset', 'find', 'assign_user', 'group', 'maxRecords'];

@@ -10,7 +10,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
 $section_class = "tiki_wiki_page manage";   // This will be body class instead of $section
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'page'                         => 'pagename',          //get
+            'version'                      => 'string',            //get
+            'copy'                         => 'bool',              //post
+            'confirm'                      => 'bool',              //post
+            'badname'                      => 'pagename',          //post
+            'newpage'                      => 'pagename',          //post
+            'dupCateg'                     => 'bool',              //post
+            'dupTags'                      => 'bool',              //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $histlib = TikiLib::lib('hist');
 $wikilib = TikiLib::lib('wiki');

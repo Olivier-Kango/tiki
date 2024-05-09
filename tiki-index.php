@@ -33,7 +33,8 @@ $inputConfiguration = [
                         //'watch_object' => 'word', TODO
                         'approve' => 'text',
                         'revision' => 'digits',
-                    ]
+                    ],
+                    'catchAllUnset' => null
                 ],
 ];
 

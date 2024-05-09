@@ -8,6 +8,31 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'    => [
+            'forumId'                => 'int',        //post
+            'name'                   => 'striptags',  //post
+            'description'            => 'xss',        //post
+            'sort_mode'              => 'striptags',  //get
+            'dup_mode'               => 'bool',       //get
+            'new_section'            => 'text',       //post
+            'moderator '             => 'text',       //post
+            'moderator_group'        => 'text',       //post
+            'forum_password'         => 'password',   //post
+            'outbound_address'       => 'text',       //post
+            'outbound_from'          => 'text',       //post
+            'inbound_pop_server'     => 'text',       //post
+            'inbound_pop_user'       => 'text',       //post
+            'inbound_pop_password'   => 'password',   //post
+            'topicsPerPage'          => 'text',       //post
+            'att_store_dir'          => 'alpha',      //post
+            'att_max_size'           => 'int',        //post
+            'save'                   => 'bool',       //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'forums';
 require_once('tiki-setup.php');
 if (! isset($_REQUEST['forumId'])) {

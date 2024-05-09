@@ -4,6 +4,20 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'save'                        => 'bool',             //post
+            'code'                        => 'digits',           //post
+            'value'                       => 'digits',           //post
+            'percent'                     => 'digits',           //post
+            'id'                          => 'digits',           //post
+            'del'                         => 'bool',             //get
+            'offset'                      => 'digits',           //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 include_once('tiki-setup.php');
 global $discountlib;
 include_once('lib/payment/discountlib.php');

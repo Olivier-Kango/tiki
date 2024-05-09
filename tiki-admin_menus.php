@@ -8,6 +8,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+             'menuId'               => 'int',            //post
+             'name'                 => 'alpha',          //post
+             'find'                 => 'alpha',          //post
+             'offset'               => 'int',            //get
+             'sort_mode'            => 'alpha',          //get
+             'remove'               => 'bool',           //post
+             'use_items_icons'      => 'bool',           //post
+             'parse'                => 'bool',           //get
+             'description'          => 'xss',            //get
+             'type'                 => 'string',         //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $menulib = TikiLib::lib('menu');
 $auto_query_args = [

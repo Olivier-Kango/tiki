@@ -20,7 +20,19 @@
  * Define the current section
  * @var string $section
  */
+$inputConfiguration = [
+    [
+        'staticKeyFilters' => [
+            'bookId' => 'int',         //get
+            'what' => 'striptags',     //get
+            'action' => 'striptags',   //get
+            'separator' => 'striptags',//post
+            'quote' => 'striptags',    //post
 
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'accounting';
 require_once('tiki-setup.php');
 

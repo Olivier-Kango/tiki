@@ -10,9 +10,51 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'cms';
 $inputConfiguration = [
-        [ 'staticKeyFilters' => ['translationOf' => 'digits'] ]
+    [
+        'staticKeyFilters'                => [
+            'allowhtml'                   => 'bool',          //post
+            'articleId'                   => 'int',           //post
+            'cancel_edit'                 => 'bool',          //post
+            'topicId'                     => 'int',           //post
+            'previewId'                   => 'int',           //post
+            'imageIsChanged'              => 'bool',          //get
+            'templateId'                  => 'int',           //post
+            'translationOf'               => 'int',           //post
+            'ispublished'                 => 'bool',          //post
+            'list_image_x'                => 'digits',        //get
+            'list_image_y'                => 'digits',        //get
+            'emails'                      => 'email',         //get
+            'preview'                     => 'bool',          //post
+            'publishDate'                 => 'string',        //post
+            'expireDate'                  => 'string',        //get
+            'title'                       => 'string',        //get
+            'authorName'                  => 'string',        //post
+            'topicId'                     => 'int',           //post
+            'useImage'                    => 'bool',          //post
+            'isfloat'                     => 'bool',          //post
+            'image_data'                  => 'digits',        //post
+            'type'                        => 'string',        //post
+            'topline'                     => 'string',        //post
+            'subtitle'                    => 'string',        //post
+            'linkto'                      => 'url',           //post
+            'image_caption'               => 'string',        //post
+            'lang'                        => 'string',        //post
+            'image_name'                  => 'string',        //get
+            'from'                        => 'string',        //get
+            'image_type'                  => 'string',        //get
+            'image_x'                     => 'string',        //get
+            'image_y'                     => 'string',        //get
+            'rating'                      => 'digits',        //post
+            'heading'                     => 'xss',           //post
+            'body'                        => 'xss',           //get
+            'save'                        => 'string',        //get
+            'author'                      => 'string',        //post
+            'geolocation'                 => 'string',        //get
+            'freetag_string'              => 'string',        //post
+        ],
+        'catchAllUnset' => null
+    ],
 ];
-
 require_once('tiki-setup.php');
 $categlib = TikiLib::lib('categ');
 $artlib = TikiLib::lib('art');

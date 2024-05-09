@@ -8,6 +8,41 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'               => [
+             'pollId'                    => 'int',            //post
+             'closeall'                  => 'bool',           //get
+             'activeall'                 => 'bool',           //get
+             'active'                    => 'bool',           //get
+             'save'                      => 'bool',           //post
+             'add'                       => 'bool',           //post
+             'addPoll'                   => 'bool',           //post
+             'remove'                    => 'bool',           //get
+             'locked'                    => 'bool',           //get
+             'position'                  => 'word',           //get
+             'poll_template'             => 'word',           //get
+             'pollPublishDate'           => 'datetime',       //post
+             'voteConsiderationSpan'     => 'digits',         //post
+             'title'                     => 'word',           //post
+             'sort_mode'                 => 'word',           //get
+             'find'                      => 'word',           //post
+             'offset'                    => 'digits',         //get
+             'Time_Meridian'             => 'digits',         //get
+             'Time_Hour'                 => 'digits',         //get
+             'Time_Minute'               => 'digits',         //get
+             'Date_Month'                => 'digits',         //get
+             'Date_Day'                  => 'digits',         //get
+             'Date_Year'                 => 'digits',         //get
+             'optionsId'                 => 'int',            //get
+        ],
+             'staticKeyFiltersForArrays' => [
+                'options'                => 'word',           //post
+                'pages'                  => 'pagename',       //get
+        ],
+        'catchAllUnset'                  => null
+    ],
+];
 require_once('tiki-setup.php');
 $access->check_feature('feature_polls');
 $access->check_permission('tiki_p_admin_polls');

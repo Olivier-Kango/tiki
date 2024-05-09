@@ -11,7 +11,7 @@
 $inputConfiguration = [
     [
         'staticKeyFilters' => [
-            'editionId' => 'int',
+            'editionId' => 'int',   //get
         ],
     ],
     [

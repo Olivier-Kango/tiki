@@ -11,6 +11,18 @@
 // Admin to the filtering of bad shoutbox words
 // First commit on cvs by damosoft aka damian
 // Initialization
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+            'word'                  => 'word',             //post
+            'add'                   => 'bool',             //post
+            'remove'                => 'bool',             //get
+            'sort_mode'             => 'word',             //get
+            'offset'                => 'int',              //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/shoutbox/shoutboxlib.php');
 $access->check_feature('feature_shoutbox');

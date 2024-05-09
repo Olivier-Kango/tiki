@@ -3251,7 +3251,7 @@ if ($standalone && ! $nagios) {
     if (! $locked) {
         if (! $connection) {
             $render .= '<p>Unable to check the server compatibility and the recommended Tiki version.<br>';
-            $render .= 'Use the form bellow to select the Database engine and version, to detect the recommended version.</p>';
+            $render .= 'Use the form below to select the Database engine and version, to detect the recommended version.</p>';
             $render .= '<form method="post" action="' . $_SERVER['SCRIPT_NAME'] . '">';
             $render .= '<div class="tiki-form-group mt-3"><label for="db-engine">Database Engine</label>:';
             $render .= '<select name="db-engine" class="form-control">';

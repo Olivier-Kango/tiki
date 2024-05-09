@@ -22,7 +22,22 @@
  */
 
 
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters' => [
+            'bookId' => 'int',          //get
+            'action' => 'alpha',        //post
+            'newAccountId' => 'int',    //post
+            'accountId' => 'digits',      //post
+            'accountName' => 'text',    //post
+            'accountNotes' => 'text',   //post
+            'accountBudget' => 'float', //post
+            'accountLocked' => 'bool',  //post
+            'accountTax' => 'float',    //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'accounting';
 require_once('tiki-setup.php');
 

@@ -9,6 +9,15 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'cms';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'which '                      => 'text',     //post
+            'limit'                       => 'text',     //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/rankings/ranklib.php');
 $access->check_feature(['feature_articles', 'feature_cms_rankings']);

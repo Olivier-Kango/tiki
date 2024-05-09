@@ -8,6 +8,27 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+            'name'                  => 'word',            //post
+            'delete'                => 'bool',            //get
+            'url'                   => 'url',             //post
+            'wstype'                => 'word',            //post
+            'postbody'              => 'xss',             //post
+            'edit'                  => 'bool',            //get
+            'parse'                 => 'bool',            //post
+            'nocache'               => 'bool',            //post
+            'test'                  => 'bool',            //post
+            'nocache'               => 'bool',            //post
+            'test'                  => 'bool',            //post
+         ],
+        'staticKeyFiltersForArrays' => [
+            'params'                => 'word',            //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_webservices');

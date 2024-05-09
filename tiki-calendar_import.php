@@ -9,6 +9,15 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'calendar';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'import'                         => 'word',      //post
+            'calendarId'                      => 'int',      //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $calendarlib = TikiLib::lib('calendar');
 

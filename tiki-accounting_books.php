@@ -20,10 +20,27 @@
  * Define the current section
  * @var string $section
  */
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters' => [
+            'action' => 'alpha',               //post
+            'book_start_Year' => 'digits',    //post
+            'book_start_Month' => 'digits',   //post
+            'book_start_Day' => 'digits',     //post
+            'book_end_Year' => 'digits',      //post
+            'book_end_Month' => 'digits',     //post
+            'book_end_Day' => 'digits',       //post
+            'bookName' => 'striptags',        //post
+            'bookCurrency' => 'striptags',    //post
+            'exportSeparator' => 'striptags', //post
+            'exportQuote' => 'striptags',     //post
+            'bookAutoTax' => 'bool',          //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'accounting';
 require_once('tiki-setup.php');
-
 // Feature available?
 if ($prefs['feature_accounting'] != 'y') {
     $smarty->assign('msg', tra("This feature is disabled") . ": feature_accounting");

@@ -16,7 +16,17 @@
  * @var \TikiLib    $tikilib
  * @var array   $tc_infos
  */
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters' => [
+            'refresh' => 'striptags',    //get
+            'viewmode' => 'striptags',   //get
+            'viewlist' => 'striptags',   //get
+            'gbi' => 'striptags'         //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 include 'tiki-setup.php';
 $tikicalendarlib = TikiLib::lib('tikicalendar');
 $access->check_feature('feature_action_calendar');

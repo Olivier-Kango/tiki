@@ -9,6 +9,40 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'blogs';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'blogId'                      => 'bool',          //post
+            'heading'                     => 'int',           //post
+            'post_heading'                => 'bool',          //post
+            'save'                        => 'bool',          //post
+            'preview'                     => 'int',           //post
+            'public'                      => 'bool',          //post
+            'allow_comments'              => 'bool',          //post
+            'show_avatar'                 => 'bool',          //post
+            'show_related'                => 'bool',          //post
+            'related_max'                 => 'digits',        //post
+            'use_find'                    => 'bool',          //post
+            'use_title'                   => 'bool',          //post
+            'use_title_in_post'           => 'bool',          //post
+            'use_description'             => 'bool',          //post
+            'use_breadcrumbs'             => 'bool',          //post
+            'use_author'                  => 'bool',          //post
+            'add_date'                    => 'bool',          //post
+            'alwaysOwner'                 => 'bool',          //post
+            'title'                       => 'striptags',     //post
+            'description'                 => 'xss',           //post
+            'creator'                     => 'string',        //post
+            'maxPosts'                    => 'digits',        //post
+            'use_excerpt'                 => 'bool',          //post
+            'allow_post_categorization'   => 'bool',          //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'cat_categories'        => 'striptags',           //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $bloglib = TikiLib::lib('blog');
 

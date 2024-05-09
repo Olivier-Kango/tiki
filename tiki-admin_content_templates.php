@@ -8,6 +8,19 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'            => [
+            'templateId'              => 'int',          //post
+            'name'                    => 'alpha',        //post
+            'section_wiki'            => 'bool',         //post
+            'section_file_galleries'  => 'bool',         //post
+            'section_html'            => 'bool',         //post
+            'content'                 => 'xss',          //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'admin';
 require_once('tiki-setup.php');
 $access->check_feature(['feature_wiki_templates','feature_cms_templates','feature_file_galleries_templates'], '', 'features', true);

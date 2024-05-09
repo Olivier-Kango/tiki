@@ -34,7 +34,8 @@ $inputConfiguration = [
             'initial'                   => 'alpha',
             'find'                      => 'groupname',
             'group'                     => 'groupname',
-        ]
+        ],
+        'catchAllUnset' => null
     ]
 ];
 

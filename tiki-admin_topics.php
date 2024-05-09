@@ -8,6 +8,19 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+            'addtopic'              => 'bool',      //post
+            'name'                  => 'word',      //post
+            'remove'                => 'bool',      //get
+            'removeall'             => 'bool',      //post
+            'activate'              => 'bool',      //post
+            'deactivate'            => 'bool',      //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'cms';
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');

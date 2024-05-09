@@ -8,6 +8,25 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+            'surveyId'              => 'int',              //get
+            'questionId'            => 'int',              //post
+            'mandatory'             => 'bool',             //post
+            'remove'                => 'bool',             //post
+            'position'              => 'int',              //post
+            'type'                  => 'word',             //post
+            'options'               => 'word',             //post
+            'sort_mode'             => 'word',             //get
+            'offset'                => 'int',              //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'questionIds'           => 'int',              //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/surveys/surveylib.php');
 $auto_query_args = [

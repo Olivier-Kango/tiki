@@ -8,6 +8,38 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'            => [
+             'nlId'                   => 'int',            //post
+             'remove'                 => 'bool',           //get
+             'email'                  => 'email',          //post
+             'subuser'                => 'username',       //post
+             'group'                  => 'groupname',      //post
+             'addemail'               => 'bool',           //post
+             'addall'                 => 'bool',           //post
+             'confirmEmail'           => 'bool',           //post
+             'add'                    => 'bool',           //post
+             'addbatch'               => 'bool',           //post
+             'wikiPageName'           => 'pagename',       //post
+             'importPage'             => 'bool',           //post
+             'tracker'                => 'string',         //post
+             'addTracker'             => 'bool',           //post
+             'include_groups'         => 'bool',           //post
+             'page'                   => 'pagename',       //post
+             'sort_mode'              => 'string',         //get
+             'sort_mode_g'            => 'string',         //get
+             'offset'                 => 'string',         //get
+             'find'                   => 'string',         //get
+             'find_g'                 => 'string',         //get
+             'noConfirmEmail'         => 'bool',           //post
+             'noSubscribeEmail'       => 'bool',           //post
+             'addPage'                => 'bool',           //post
+             'export'                => 'bool',           //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'newsletters';
 require_once('tiki-setup.php');
 include_once('lib/newsletters/nllib.php');

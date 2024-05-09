@@ -9,6 +9,23 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'categories';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'parentId'                    => 'int',      //get
+            'maxRecords'                  => 'int',      //get
+            'sort_mode'                   => 'word',     //get
+            'type'                        => 'word',     //get
+            'offset'                      => 'int',      //get
+            'find'                        => 'word',     //get
+            'watch_event'                 => 'word',     //get
+            'watch_action'                => 'word',     //get
+            'watch_object'                => 'bool',     //get
+            'and'                         => 'bool',     //get
+        ],
+        'catchAllUnset' => null
+    ]
+];
 require_once('tiki-setup.php');
 $categlib = TikiLib::lib('categ');
 include_once('lib/tree/BrowseTreeMaker.php');

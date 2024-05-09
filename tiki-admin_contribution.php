@@ -8,6 +8,16 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'            => [
+            'contributionId'          => 'int',          //get
+            'add'                     => 'bool',         //post
+            'save        '            => 'bool',         //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $access->check_feature('feature_contribution');
 

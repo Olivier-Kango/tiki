@@ -8,6 +8,53 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'bannerId'                    => 'bool',          //post
+            'removeZone'                  => 'int',           //post
+            'save'                        => 'bool',          //post
+            'create_zone'                 => 'bool',          //post
+            'fromTimeMeridian'            => 'int',           //post
+            'fromTimeHour'                => 'digits',        //post
+            'toTimeMeridian'              => 'int',           //post
+            'toTimeHour'                  => 'digits',        //post
+            'fromDate_Month'              => 'string',        //post
+            'fromDate_Day'                => 'digits',        //post
+            'fromDate_Year'               => 'digits',        //post
+            'toDate_Month'                => 'string',        //post
+            'toDate_Day'                  => 'digits',        //post
+            'toDate_Year'                 => 'digits',        //post
+            'fromTimeMinute'              => 'digits',        //post
+            'toTimeMinute'                => 'digits',        //post
+            'client'                      => 'string',        //post
+            'maxImpressions'              => 'int',           //post
+            'maxUserImpressions'          => 'int',           //post
+            'maxClicks'                   => 'int',           //post
+            'HTMLData'                    => 'html',          //post
+            'fixedURLData'                => 'url',           //post
+            'textData'                    => 'xss',           //post
+            'zone'                        => 'string',        //post
+            'onlyInURIs'                  => 'string',        //post
+            'exceptInURIs'                => 'string',        //post
+            'url'                         => 'url',           //post
+            'use'                         => 'bool',          //post
+            'useDates'                    => 'bool',          //post
+            'Dmon'                        => 'bool',          //post
+            'Dtue'                        => 'bool',          //post
+            'Dwed'                        => 'bool',          //post
+            'Dthu'                        => 'bool',          //post
+            'Dfri'                        => 'bool',          //post
+            'Dsat'                        => 'bool',          //post
+            'Dsun'                        => 'bool',          //post
+            'zoneName'                    => 'string',        //post
+            'imageName'                   => 'string',        //post
+            'imageType'                   => 'string',        //post
+            'imageData'                   => 'string',        //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 
 $tikilib = TikiLib::lib('tiki');

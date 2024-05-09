@@ -8,6 +8,26 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+            'rssId'            => 'digits',      //post
+            'name'             => 'word',        //post
+            'url'              => 'url',         //post
+            'description'      => 'xss',         //post
+            'refreshMinutes'   => 'digits',      //post
+            'showTitle'        => 'bool',        //post
+            'showPubDate'      => 'bool',        //post
+            'save'             => 'bool',        //post
+            'remove'           => 'bool',        //get
+            'offset'           => 'bool',        //get
+            'sort_mode'        => 'word',        //get
+            'article'          => 'digits',      //get
+            'view'             => 'digits',      //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 /** @var RSSLib $rsslib */
 $rsslib = TikiLib::lib('rss');

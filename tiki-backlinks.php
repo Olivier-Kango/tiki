@@ -8,6 +8,14 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'page'                        => 'pagename',     //get
+        ],
+        'catchAllUnset' => null
+    ]
+];
 require_once('tiki-setup.php');
 $wikilib = TikiLib::lib('wiki');
 $access->check_feature(['feature_wiki', 'feature_backlinks']);

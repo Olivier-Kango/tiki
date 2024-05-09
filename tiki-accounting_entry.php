@@ -20,7 +20,23 @@
  * Define the current section
  * @var string $section
  */
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters' => [
+            'bookId' => 'int',                  //get
+            'book' => 'bool',                   //post
+            'journal_Year' => 'digits',         //post
+            'journal_Month' => 'digits',        //post
+            'journal_Day' => 'digits',          //post
+            'journalDescription' => 'striptags',//post
+            'debitAmount' => 'float',           //post
+            'creditAmount' => 'float',          //post
+            'debitText' => 'striptags',         //post
+            'creditText' => 'striptags',        //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 $section = 'accounting';
 require_once('tiki-setup.php');
 

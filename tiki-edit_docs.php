@@ -11,7 +11,19 @@
 use Tiki\Package\VendorHelper;
 
 $section = 'docs';
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'fileId'                      => 'int',           //post
+            'galleryId'                   => 'int',           //post
+            'name'                        => 'string',        //post
+            'data'                        => 'none',          //post
+            'description'                 => 'xss',           //post
+            'edit'                        => 'bool',          //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $filegallib = TikiLib::lib('filegal');
 include_once('lib/mime/mimetypes.php');

@@ -8,6 +8,40 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'add_type'                    => 'bool',                //post
+            'new_type'                    => 'string',              //post
+            'remove_type'                 => 'bool',                //get
+            'update_type'                 => 'bool',                //post
+            'use_ratings'                 => 'bool',                //post
+            'show_pre_publ'               => 'bool',                //post
+            'show_post_expire'            => 'bool',                //post
+            'heading_only'                => 'bool',                //post
+            'allow_comments'              => 'bool',                //post
+            'comment_can_rate_article'    => 'bool',                //post
+            'show_image'                  => 'bool',                //post
+            'show_avatar'                 => 'bool',                //post
+            'show_author'                 => 'bool',                //post
+            'show_pubdate'                => 'bool',                //post
+            'show_expdate'                => 'bool',                //post
+            'show_reads'                  => 'bool',                //post
+            'show_size'                   => 'bool',                //post
+            'show_topline'                => 'bool',                //post
+            'show_subtitle'               => 'bool',                //post
+            'show_image_caption'          => 'bool',                //post
+            'show_linkto'                 => 'bool',                //post
+            'creator_edit'                => 'bool',                //post
+            'new_attribute'               => 'string',              //post
+            'att_remove'                  => 'int',                 //post
+        ],
+        'staticKeyFiltersForArrays'       => [
+            'type_array'                  => 'string',              //post
+        ],
+        'catchAllUnset' => null
+    ]
+];
 $section = 'cms';
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');

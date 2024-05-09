@@ -12,19 +12,24 @@ $errors = [];
 
 $inputConfiguration = [
     [
-        'staticKeyFilters' => [
-            'offset' => 'int',
-            'numrows' => 'int',
-            'find' => 'text',
-            'filterEmail' => 'xss',
-            'sort_mode' => 'alnumdash',
-            'initial' => 'alpha',
-            'filterGroup' => 'text',
-        ]
+        'staticKeyFilters'                => [
+            'offset'                      => 'int',          //get
+            'numrows'                     => 'int',          //post
+            'login'                       => 'username',     //post
+            'pass'                        => 'password',     //post
+            'passAgain'                   => 'password',     //post
+            'pass_first_login'            => 'bool',         //post
+            'find'                        => 'text',         //post
+             'email'                      => 'email',        //post
+             'need_email_validation'      => 'bool',         //post
+            'filterEmail'                 => 'xss',          //get
+            'sort_mode'                   => 'alnumdash',    //get
+            'initial'                     => 'alpha',        //get
+            'filterGroup'                 => 'groupname',    //get
+        ],
+        'catchAllUnset' => null
     ]
 ];
-
-
 require_once('tiki-setup.php');
 // temporary patch: tiki_p_admin includes tiki_p_admin_users but if you don't
 // clean the temp/cache each time you sqlupgrade the perms setting is not

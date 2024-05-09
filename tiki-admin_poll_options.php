@@ -8,6 +8,19 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'               => [
+             'pollId'                    => 'int',            //post
+             'optionId'                  => 'int',            //post
+             'remove'                    => 'bool',           //post
+             'save'                      => 'bool',           //post
+             'title'                     => 'words',          //post
+             'position'                  => 'words',          //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $polllib = TikiLib::lib('poll');
 $access->check_feature('feature_polls');

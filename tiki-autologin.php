@@ -1,5 +1,18 @@
 <?php
 
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'uname'                       => 'word',         //post
+            'email'                       => 'email',        //post
+            'realName'                    => 'word',         //post
+            'page'                        => 'pagename',     //post
+            'groups'                      => 'groupname',    //post
+            'base_url'                    => 'url',          //post
+        ],
+        'catchAllUnset' => null
+    ]
+];
 require_once('tiki-setup.php');
 
 $access->check_feature('login_autologin');

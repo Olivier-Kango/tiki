@@ -8,6 +8,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'    => [
+            'name'            => 'striptags',  //post
+            'dsn'             => 'striptags',  //post
+            'dsnId'           => 'int',        //post
+            'save'            => 'bool',       //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $adminlib = TikiLib::lib('admin');
 

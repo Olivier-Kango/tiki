@@ -20,7 +20,8 @@ $inputConfiguration = [
             'how' => 'word',
             'words' => 'striptags',
             'sort_mode' => 'word',
-        ]
+        ],
+        'catchAllUnset' => null
     ]
 ];
 require_once('tiki-setup.php');

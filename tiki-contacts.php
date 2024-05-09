@@ -9,6 +9,26 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'contactId'                   => 'int',          //post
+            'remove'                      => 'bool',         //post
+            'save'                        => 'bool',         //post
+            'firstName'                   => 'string',       //post
+            'lastName'                    => 'string',       //post
+            'email'                       => 'email',        //post
+            'groups'                      => 'groupname',    //post
+            'sort_mode'                   => 'word',         //get
+            'offset'                      => 'int',          //get
+            'find'                        => 'word',         //post
+            'maxRecords'                  => 'int',          //get
+            'initial'                     => 'string',       //get
+            'view'                        => 'string',       //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_contacts');

@@ -15,7 +15,9 @@ $inputConfiguration = [
         'pass' => 'none',
         'passAgain' => 'none',
         'oldpass' => 'none',
-    ] ]
+    ],
+    'catchAllUnset' => null
+    ]
 ];
 require_once('tiki-setup.php');
 

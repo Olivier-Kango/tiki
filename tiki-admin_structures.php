@@ -8,6 +8,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+            'name'                  => 'word',             //post
+            'lang'                  => 'lang',             //post
+            'rremove'               => 'bool',             //post
+            'find'                  => 'word',             //post
+            'page'                  => 'pagename',         //post
+            'tree'                  => 'xss',              //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'cat_categories'        => 'word',           //post
+        ],
+        'catchAllUnset' => null
+    ],
+];
 require_once('tiki-setup.php');
 $structlib = TikiLib::lib('struct');
 $categlib = TikiLib::lib('categ');
@@ -188,7 +204,7 @@ if ($tiki_p_edit_structures == 'y') {
                         if (isset($_REQUEST["cat_categorize"]) && $_REQUEST["cat_categorize"] == 'on' && isset($_REQUEST["cat_categories"])) {
                             $catObjectId = $categlib->add_categorized_object($cat_type, $cat_objid, $cat_desc, $cat_name, $cat_href);
                             $alert_categorized[] = $cat_name;
-                            foreach ($_REQUEST["cat_categories"] as $cat_acat) {
+                            foreach ($_REQUEST["cat_categories[]"] as $cat_acat) {
                                 $categlib->categorize($catObjectId, $cat_acat);
                             }
                         }
