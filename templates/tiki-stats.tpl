@@ -40,6 +40,9 @@
             {if $best_objects_stats}
                 {button href="#best_objects_stats_lastweek" _type="link" class="btn btn-link" _icon_name="sort-numeric-asc" _text="{tr}Most viewed objects in the last 7 days{/tr}"}
             {/if}
+            {if $tracker_stats}
+                {button href="#tracker_stats" _type="link" class="btn btn-link" _icon_name="sort-numeric-asc" _text="{tr}Trackers{/tr}"}
+            {/if}
         </div>
 
         <h2 id="site_stats">{tr}Site Stats{/tr}</h2>
@@ -345,6 +348,33 @@
                         <td>{tr}Average time per quiz{/tr}</td>
                         <td style="text-align:right;">{$quiz_stats.avgtime|string_format:"%.2f"} {tr}secs{/tr}</td>
                     </tr>
+                </table>
+            </div>
+        {/if}
+
+        {if $tracker_stats}
+            <h2 id="tracker_stats">{tr}Tracker Stats{/tr}</h2>
+            {cycle values="odd,even" print=false advance=false}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    {foreach $tracker_stats as $key => $data}
+                        <tr>
+                            <td>
+                            {if $key == "trackers"}{tr}Trackers{/tr}
+                            {elseif $key == "tracker_fields"}{tr}Tracker Fields{/tr}
+                            {elseif $key == "tiki_tracker_items"}{tr}Tiki Tracker Items{/tr}
+                            {elseif $key == "tiki_tracker_item_attachments"}{tr}Tiki Tracker Item Attachments{/tr}
+                            {elseif $key == "tiki_tracker_options"}{tr}Tiki Tracker Options{/tr}
+                            {/if}
+                            </td>
+                            <td>
+                            {$data.dataLengthMb} Mb
+                            </td>
+                            <td>
+                            {$data.rowCount}
+                            </td>
+                        </tr>
+                    {/foreach}
                 </table>
             </div>
         {/if}

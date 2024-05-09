@@ -584,4 +584,18 @@ class StatsLib extends TikiLib
         $ret['ydata'] = $ydata;
         return $ret;
     }
+
+    /**
+     * @return array
+     */
+    public function trackerStats()
+    {
+        $stats = [];
+        $stats["trackers"] = $this->query("show table status WHERE `Name` = 'tiki_trackers'", []);
+        $stats["tracker_fields"] = $this->query("show table status WHERE `Name` = 'tiki_tracker_fields'", []);
+        $stats["tiki_tracker_items"] = $this->query("show table status WHERE `Name` = 'tiki_tracker_items'", []);
+        $stats["tiki_tracker_item_attachments"] = $this->query("show table status WHERE `Name` = 'tiki_tracker_item_attachments'", []);
+        $stats["tiki_tracker_options"] = $this->query("show table status WHERE `Name` = 'tiki_tracker_options'", []);
+        return $stats;
+    }
 }
