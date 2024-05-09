@@ -49,6 +49,9 @@
         </div>
     </div>
 </div>
+{if $prefs.feature_inline_comments eq 'y' && $tiki_p_post_comments eq 'y'}
+    <a id="note-editor-comment" class="alert alert-info" style="display:none;" href="#">{tr}Add Comment{/tr}</a>
+{/if}
 {if isset($force_fill_action)}
     {include file="tiki-tracker_force_fill.tpl"}
 {/if}

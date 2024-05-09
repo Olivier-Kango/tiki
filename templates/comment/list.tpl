@@ -49,10 +49,6 @@
         <div id="add-comment-zone-{$objectId|replace:' ':''|replace:',':''|escape:'attr'}" class="add-comment-zone"></div>
     {/if}
 
-    {if $prefs.feature_inline_comments eq 'y'}
-        <a id="note-editor-comment" class="alert alert-info" style="display:none;" href="#">{tr}Add Comment{/tr}</a>
-    {/if}
-
     <script type="text/javascript">
         var ajax_url = '{$base_url}';
         var objectId = '{$objectId|escape:'javascript'}';
