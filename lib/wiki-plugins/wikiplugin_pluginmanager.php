@@ -64,7 +64,7 @@ class WikiPluginPluginManager extends PluginsLib
         } else {
             $aPrincipalField = ['field' => 'plugin', 'name' => 'Plugin'];
             $helppath = $helpurl . $aPrincipalField['name'];
-            $filepath = 'wikiplugin_';
+            $filepath = WIKIPLUGINS_SRC_PATH . '/wikiplugin_';
             $aPlugins = $wikilib->list_plugins();
             $mod = false;
             $type = ' plugin';
