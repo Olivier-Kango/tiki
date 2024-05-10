@@ -28,10 +28,17 @@ class Search_Type_WikiText implements Search_Type_Interface
                     'include_plugins' => $prefs['unified_included_plugins'],
                 ]
             );
+        } catch (Exception $e) {
+            TikiLib::lib('errortracking')->captureException($e);
+            trigger_error($e->getMessage());
+            $out = $e->getMessage();
+        } catch (Error $e) {
+            TikiLib::lib('errortracking')->captureException($e);
+            trigger_error($e->getMessage());
+            $out = $e->getMessage();
         } catch (Throwable $e) {
             TikiLib::lib('errortracking')->captureException($e);
-            $msg = "{$e->getMessage()} (Initially thrown in {$e->getFile()}:{$e->getLine()})";
-            trigger_error($msg);
+            trigger_error($e->getMessage());
             $out = $e->getMessage();
         }
 
