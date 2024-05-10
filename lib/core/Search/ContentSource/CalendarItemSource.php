@@ -34,6 +34,8 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
 
     public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory): array|false
     {
+        global $prefs;
+
         $lib = TikiLib::lib('calendar');
 
         $item = $lib->get_item($objectId);
@@ -54,6 +56,21 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
 
         $trackerItems = $lib->getAttachedTrackerItems($objectId);
 
+        $alertEmails = [];
+        if (! empty($item['participants'])) {
+            $alertEmails = array_merge($alertEmails, array_column($item['participants'], 'email'));
+        }
+
+        if ($prefs['feature_groupalert'] == 'y') {
+            $groupalertlib = TikiLib::lib('groupalert');
+            $groupforAlert = $groupalertlib->GetGroup('calendar', $item['calendarId']);
+            if (! empty($groupforAlert)) {
+                $users = TikiLib::lib('user')->get_group_users($groupforAlert, 0, -1, '*');
+                $alertEmails = array_merge($alertEmails, array_column($users, 'email'));
+            }
+        }
+        $alertEmails = array_unique(array_filter($alertEmails));
+
         $data = [
             'title' => $typeFactory->sortable($item['name']),
             'language' => $typeFactory->identifier(empty($item['lang']) ? 'unknown' : $item['lang']),
@@ -61,9 +78,10 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
             'modification_date' => $typeFactory->timestamp($item['lastModif']),
             'contributors' => $typeFactory->multivalue([$item['user']]),
             // Index object of all Participants including username, email, role, partstat. This is array of associative arrays, we keep that for the future.
-            'participants' => $typeFactory->multivalue([$item['participants']]),
+            'participants' => $typeFactory->nested([$item['participants']]),
             // Index just participant emails. The value can be a username and not an email if 'login_is_email' pref is enabled.
             'participant_emails' => $typeFactory->multivalue(array_column($item['participants'], 'email')),
+            'alert_emails' => $typeFactory->multivalue($alertEmails),
             'description' => $typeFactory->plaintext($item['description']),
             'date' => $typeFactory->timestamp($item['start'], $allday),
 
