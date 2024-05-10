@@ -121,8 +121,8 @@ $tagsArr = [["div", "icon_edit_section", "class"], ["a", "editplugin", "class"],
             ["a", "show-errors-button", "id"], ["a", "heading-link", "class"]];
 
 
-$pages = $wikilib->get_number_of_pages($pdata);
-$pdata = $wikilib->get_page($pdata, $_REQUEST['pagenum']);
+$pages = \Tiki\Lib\Wiki\WikiPaginationUtils::getNumberOfPages($pdata);
+$pdata = \Tiki\Lib\Wiki\WikiPaginationUtils::getPage($pdata, $_REQUEST['pagenum']);
 // Put ~pp~, ~np~ and <pre> back. --rlpowell, 24 May 2004
 $parserlib->replace_preparse($info["data"], $preparsed, $noparsed);
 $parserlib->replace_preparse($pdata, $preparsed, $noparsed);
@@ -205,11 +205,11 @@ if (isset($_REQUEST['pdf'])) {
                     $class = $section->getAttribute('class');
                     $section->setAttribute("class", 'section_bg_image_' . $key . ' ' . $class);
 
-                    $imgBackgroundCSS .= ' .section_bg_image_' . $key . '{ 
-                        background-image: url("' . $imgBackground . '"); 
+                    $imgBackgroundCSS .= ' .section_bg_image_' . $key . '{
+                        background-image: url("' . $imgBackground . '");
                         background-position: top left;
                         background-repeat: no-repeat;
-                        background-image-resize: 4; 
+                        background-image-resize: 4;
                         background-image-resolution: from-image;
                     }';
                 }
