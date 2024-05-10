@@ -186,7 +186,34 @@ function wikiplugin_code($data, $params)
         . (TikiLib::lib('parser')->option['ck_editor'] || $ishtml ? $out : htmlentities($out, ENT_QUOTES, 'UTF-8'))
         . '</div>'
         . '</pre>'
-        .'</div>';
+        . '</div>';
+
+        $headerlib = TikiLib::lib('header');
+        $headerlib->add_jq_onready('
+            if (ClipboardJS.isSupported()) {
+                var clipboard = new ClipboardJS(document.getElementsByClassName("icon_copy_code"));
+                clipboard.on("success", function(element) {
+                    setTimeout(function()
+                    {
+                        $("#" + element.trigger.getAttribute("id")).tooltip("hide").attr("data-original-title", "Copy to clipboard");
+                    }, 2000);
+                    element.clearSelection();
+                    $("#" + element.trigger.getAttribute("id")).tooltip("hide").attr("data-original-title", "Copied!").tooltip("show");
+                });
+                clipboard.on("error", function(element) {
+                    setTimeout(function()
+                    {
+                        $("#" + element.trigger.getAttribute("id")).tooltip("hide").attr("data-original-title", "Copy to clipboard");
+                    }, 2000);
+                    element.clearSelection();
+                    $("#" + element.trigger.getAttribute("id")).tooltip("hide").attr("data-original-title", "Copied!").tooltip("show");
+                });
+            } else {
+                for (icon_copy_code of document.getElementsByClassName("icon_copy_code")) {
+                    icon_copy_code.style.display = "none";
+                }
+            }
+        ');
 
     return $out;
 }
