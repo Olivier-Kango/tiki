@@ -154,8 +154,6 @@ eslint:
   allow_failure: true
   dependencies: []
   needs: []
-  tags:
-    - docker
 
 #
 # Check Tikiwiki development specific check (related also with release)
