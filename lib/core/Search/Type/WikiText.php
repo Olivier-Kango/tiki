@@ -18,16 +18,23 @@ class Search_Type_WikiText implements Search_Type_Interface
     public function getValue()
     {
         global $prefs;
-        $out = TikiLib::lib('parser')->parse_data(
-            $this->value,
-            [
-                'parsetoc' => false,
-                'indexing' => true,
-                'exclude_plugins' => $prefs['unified_excluded_plugins'],
-                'exclude_all_plugins' => $prefs['unified_exclude_all_plugins'] == 'y',
-                'include_plugins' => $prefs['unified_included_plugins'],
-            ]
-        );
+        try {
+            $out = TikiLib::lib('parser')->parse_data(
+                $this->value,
+                [
+                    'parsetoc' => false,
+                    'indexing' => true,
+                    'exclude_plugins' => $prefs['unified_excluded_plugins'],
+                    'exclude_all_plugins' => $prefs['unified_exclude_all_plugins'] == 'y',
+                    'include_plugins' => $prefs['unified_included_plugins'],
+                ]
+            );
+        } catch (Throwable $e) {
+            ErrorTracking::captureException($e);
+            $msg = "{$e->getMessage()} (Initially thrown in {$e->getFile()}:{$e->getLine()})";
+            trigger_error($msg);
+            $out = $e->getMessage();
+        }
 
         return strip_tags($out);
     }
