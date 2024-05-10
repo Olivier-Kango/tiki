@@ -13856,7 +13856,7 @@ $lang_current = array(
 // "Issues with composer environment" => "Issues with composer environment",
 // "Run %0 from a shell to try to fix this, see %1 for more info" => "Run %0 from a shell to try to fix this, see %1 for more info",
 // "Packages check could not be performed at the moment due to missing" => "Packages check could not be performed at the moment due to missing",
-// "You can try to install composer from the <a href=\"javascript:void(0)\" class=\"install-composer alert-link\">Diagnose</a> tab or look at the manual instructions bellow" => "You can try to install composer from the <a href=\"javascript:void(0)\" class=\"install-composer alert-link\">Diagnose</a> tab or look at the manual instructions bellow",
+// "You can try to install composer from the <a href=\"javascript:void(0)\" class=\"install-composer alert-link\">Diagnose</a> tab or look at the manual instructions below" => "You can try to install composer from the <a href=\"javascript:void(0)\" class=\"install-composer alert-link\">Diagnose</a> tab or look at the manual instructions below",
 // "Installed Packages" => "Installed Packages",
 // "Status of the packages registered in the composer.json file" => "Status of the packages registered in the composer.json file",
 // "Version Required" => "Version Required",

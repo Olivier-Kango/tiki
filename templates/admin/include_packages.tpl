@@ -54,7 +54,7 @@
             <div class="clearfix"></div>
             {remarksbox type="note" title="{tr}Note{/tr}"}
             {tr}Packages check could not be performed at the moment due to missing{/tr} <code>temp/composer.phar</code><br />
-            {tr}You can try to install composer from the <a href="javascript:void(0)" class="install-composer alert-link">Diagnose</a> tab or look at the manual instructions bellow.{/tr}
+            {tr}You can try to install composer from the <a href="javascript:void(0)" class="install-composer alert-link">Diagnose</a> tab or look at the manual instructions below.{/tr}
             {/remarksbox}
         {/if}
         {if count($composer_packages_installed)}
@@ -326,7 +326,7 @@
             {if ! $composer_phar_exists}
                 {remarksbox type="info" title="{tr}Note{/tr}"}
                 {tr}Packages check could not be performed at the moment due to missing{/tr} <code>temp/composer.phar</code><br />
-                {tr}You can try to install composer from the <a href="javascript:void(0)" class="install-composer alert-link">Diagnose</a> tab or look at the manual instructions bellow.{/tr}
+                {tr}You can try to install composer from the <a href="javascript:void(0)" class="install-composer alert-link">Diagnose</a> tab or look at the manual instructions below.{/tr}
                 {/remarksbox}
             {/if}
             <br>
@@ -391,7 +391,7 @@
         {if ! $composer_phar_exists}
             {remarksbox type="info" title="{tr}Note{/tr}"}
             {tr}Packages check could not be performed at the moment due to missing{/tr} <code>temp/composer.phar</code><br />
-            {tr}You can try to install composer from the <a href="javascript:void(0)" class="install-composer alert-link">Diagnose</a> tab or look at the manual instructions bellow.{/tr}
+            {tr}You can try to install composer from the <a href="javascript:void(0)" class="install-composer alert-link">Diagnose</a> tab or look at the manual instructions below.{/tr}
             {/remarksbox}
         {/if}
         <br>
