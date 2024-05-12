@@ -7091,7 +7091,7 @@ class TikiLib extends TikiDb_Bridge
 
         for ($i = 0; $i < count($arr); $i++) {
             $chr = $arr[$i];
-            $ord = IntlChar::ord($chr);
+            $ord = mb_ord($chr);
             $no_characters = '0x' . dechex($ord);
 
             if (

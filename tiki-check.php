@@ -1339,7 +1339,7 @@ if ($s) {
     $php_properties['intl'] = array(
         'fitness' => tra('unsure'),
         'setting' => 'Not available',
-        'message' => tra("intl extension is preferred for Tiki 15 and newer. Because is not available, the filters for text will not be able to detect the language and will use a generic range of characters as letters.")
+        'message' => tra("The intl extension is preferred for Tiki 15 and newer. While a polyfill is used to emulate some of the features, for better performance and broader language support. It’s recommended that you install the intl extension for PHP, more information on https://www.php.net/intl.")
     );
 }
 
