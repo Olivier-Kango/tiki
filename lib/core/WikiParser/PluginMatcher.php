@@ -22,7 +22,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
      * @param $text
      * @return WikiParser_PluginMatcher
      */
-    public static function match($text)
+    public static function match(?string $text)
     {
         $matcher = new self();
         $matcher->text = $text;
@@ -255,7 +255,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
         return end($ends);
     }
 
-    public function findText($string, $from, $to)
+    public function findText(string $string, int $from, int $to): int|bool
     {
         if ($from >= strlen($this->text ?? '')) {
             return false;
