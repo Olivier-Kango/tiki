@@ -117,6 +117,7 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
             'contributors',
             'participants',
             'participant_emails',
+            'alert_emails',
             'description',
 
             'calendar_id',
@@ -145,8 +146,9 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
             'modification_date' => 'timestamp',
             'date' => 'timestamp',
             'contributors' => 'multivalue',
-            'participants' => 'multivalue',
+            'participants' => 'nested',
             'participant_emails' => 'multivalue',
+            'alert_emails' => 'multivalue',
             'description' => 'plaintext',
 
             'calendar_id' => 'identifier',
