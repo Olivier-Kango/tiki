@@ -150,6 +150,7 @@ $smarty->assign('urlprefix', $base_url); // Obsolete, use base_url instead. This
 $smarty->assign('global_extend_layout', 'layouts/internal/layout_empty.tpl');
 $smarty->assign('mid', 'extends:layouts/internal/layout_view.tpl|tiki-show_page.tpl');
 $smarty->assign('display', isset($_REQUEST['display']) ? $_REQUEST['display'] : '');
+$smarty->assign('phpErrors', []);
 
 // Allow PDF export by installing a Mod that define an appropriate function
 if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
