@@ -84,11 +84,11 @@ function get_all_keywords($limit = 0, $offset = 0, $page = "")
 
 //Init variables for limit and offset
 $limit = $prefs['maxRecords'];
-$offset = 0;
 
 //Check for offset, see if it's a multiple of the limit
 //This is done to stop arbitrary offsets being entered
-$offset = (int)$_REQUEST['offset'];
+
+$offset = isset($_REQUEST['offset']) ? (int)$_REQUEST['offset'] : 0;
 
 if (
     (isset($_REQUEST['save_keywords']) && isset($_REQUEST['new_keywords']) && isset($_REQUEST['page']) && $access->checkCsrf())
@@ -111,7 +111,7 @@ if (
     }
 }
 
-if (isset($_REQUEST['page']) && ! $_REQUEST['remove_keywords']) {
+if (isset($_REQUEST['page'], $_REQUEST['remove_keywords']) && ! $_REQUEST['remove_keywords']) {
     $page_keywords = get_keywords($_REQUEST['page']);
 
     $smarty->assign('edit_keywords', $page_keywords['keywords']);
@@ -119,7 +119,7 @@ if (isset($_REQUEST['page']) && ! $_REQUEST['remove_keywords']) {
     $smarty->assign('edit_on', 'y');
 }
 
-if (isset($_REQUEST['q']) && ! $_REQUEST['remove_keywords'] && ! $_REQUEST['save_keywords']) {
+if (isset($_REQUEST['q'], $_REQUEST['remove_keywords'], $_REQUEST['save_keywords']) && ! $_REQUEST['remove_keywords'] && ! $_REQUEST['save_keywords']) {
     $existing_keywords = get_all_keywords($limit, $offset, $_REQUEST['q']);
     $smarty->assign('search_on', 'y');
     $smarty->assign('search_cant', $existing_keywords['cant']);
