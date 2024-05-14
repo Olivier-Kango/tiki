@@ -1634,6 +1634,12 @@ class WikiLib extends TikiLib
         if (TikiLib::lib('tiki')->page_exists($page)) {
             $page = $pages->fetchOne('pageSlug', ['pageName' => $page]) ?: $page;
             $href = "$script_name?page=" . $page;
+        } else if ($this->get_pages_by_alias($page)) {
+            $result = $this->get_pages_by_alias($page);
+            if (isset($result[0])) {
+                $page = $result[0];
+                $href = "$script_name?page=" . $page;
+            }
         } else {
             $href = "$script_name2?page=" . $page;
         }
