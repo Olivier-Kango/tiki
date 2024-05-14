@@ -80,7 +80,7 @@ if (
         $response = $webservice->performRequest(
             $_REQUEST['params'],
             false,
-            (! empty($_REQUEST['nocache'] && isset($_REQUEST['test'])))
+            (! empty(isset($_REQUEST['nocache']) && isset($_REQUEST['test'])))
         )
 ) {
     $data = $response->data;
