@@ -685,6 +685,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         if ($filterFieldIdThere) {
             $filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
         } else {
+            $filterFieldThere = null;
             Feedback::error(tr('No linked field set for ItemsList fieldId %0', $this->getFieldId()));
         }
 
