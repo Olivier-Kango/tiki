@@ -76,9 +76,9 @@ if (isset($_REQUEST['import'])) {
 
     $questions = TextToQuestions($_REQUEST['input_data']);
 
-    foreach ($questions as $question) {
+    foreach ($questions as $index => $question) {
         $question_text = $question->getQuestion();
-        $id = $quizlib->replace_quiz_question(0, $question_text, 'o', $_REQUEST['quizId'], 0);
+        $id = $quizlib->replace_quiz_question(0, $question_text, 'o', $_REQUEST['quizId'], $index);
         $temp_max = $question->getChoiceCount();
         for ($i = 0; $i < $temp_max; $i++) {
             $a = $question->GetChoice($i);

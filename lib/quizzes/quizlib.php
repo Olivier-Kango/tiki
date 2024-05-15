@@ -1120,13 +1120,6 @@ function TextToQuestions($text)
 
     for ($i = 0, $icount_text = count($text); $i < $icount_text; $i++) {
         $text[$i] = trim($text[$i]);
-        if ($text[$i] and ! ctype_print($text[$i])) {
-            quizlib_error_exit(
-                "lib/quizzes/quizlib.php line "
-                . __LINE__
-                . ": Your text has invalid character(s) near line $i where it says:\n  $text[$i]"
-            );
-        }
     }
 
     $questions = [];

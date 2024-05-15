@@ -4,7 +4,7 @@
     <input type="hidden" name="quizId" value="{$quizId|escape}">
     <input id='timeleft' name="timeleft" type="hidden" value={$quiz_info.timeLimitsec}><br>
     {if $quiz_info.timeLimited eq 'y'}
-        {tr}Time Left:{/tr}<input id='minleft' name="minleft" type="text" size="3" value=0 />:<input size="3" id='secleft' name="secleft" type="text" value=0>
+        {tr}Time Left:{/tr}<input id='minleft' name="minleft" type="text" size="3" value=0 disabled />:<input size="3" id='secleft' name="secleft" type="text" value=0 disabled>
     {/if}
 
     {if $ans eq 'n'}
@@ -20,8 +20,8 @@
                     document.getElementById('minleft').value = Math.floor(document.getElementById('timeleft').value/60);
                     document.getElementById('secleft').value = document.getElementById('timeleft').value%60;
                 }
-                itid = window.setInterval('settimeleft();',1000);
-                settimeleft(itid);
+                itid = window.setInterval(settimeleft,1000);
+                settimeleft();
             {/jq}
         {/if}
     {/if}
