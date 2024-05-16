@@ -112,10 +112,17 @@ class Services_Broker
                 $handler = $this->container->get("tiki.controller.$controller");
             }
 
-            $method = 'action_' . $action; // old format action_someAction
+            $actionParts = explode('_', $action);
+            $method = 'action';
+
+            foreach ($actionParts as $part) {
+                $method .= ucfirst(strtolower($part));
+            }
+
             $actionExists = method_exists($handler, $method);
-            if (! $actionExists) { // using the new PSR12 format actionCamelCase
-                $method = 'action' . ucfirst($action);
+
+            if (! $actionExists) {
+                $method = 'action_' . $action;
                 $actionExists = method_exists($handler, $method);
             }
 
