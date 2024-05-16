@@ -366,23 +366,33 @@ class PdfGenerator
             $cssStyles = str_replace(["background-color: #fff;","background:#fff;"], "background:none", $cssStyles);
         }
         //cover page checking
-        if ($pdfSettings['coverpage_text_settings'] != '' || ($pdfSettings['coverpage_image_settings'] != '' && $pdfSettings['coverpage_image_settings'] != 'off')) {
+        if ($pdfSettings['coverpage_text_settings'] != '' || ! empty($pdfSettings['coverpage_settings']) || ($pdfSettings['coverpage_image_settings'] != '' && $pdfSettings['coverpage_image_settings'] != 'off')) {
             $coverPage = explode("|", $pdfSettings['coverpage_text_settings']);
             $coverImage = $pdfSettings['coverpage_image_settings'] != 'off' ? $pdfSettings['coverpage_image_settings'] : '';
             $mpdf->SetHTMLHeader();     //resetting header footer for cover page
             $mpdf->SetHTMLFooter();
             $mpdf->AddPage($pdfSettings['orientation'], '', '', '', '', 0, 0, 0, 0, 0, 0); //adding new page with 0 margins
-            $coverPage[2] = $coverPage[2] == '' ? 'center' : $coverPage[2];
-            //getting border settings
-            if (count($coverPage) > 5) {
-                $borderWidth = $coverPage[5] == '' ? 1 : $coverPage[5];
-                $coverPageTextStyles = 'border:' . $borderWidth . ' solid ' . $coverPage[6] . ';';
+            $textColor = '';
+            $textAlign = 'center';
+            $textBgColor = '';
+            $coverPageTextBorder = '';
+            $subHeading = $coverPage[1] ?? '';
+            if (count($coverPage) === 1 && ! empty($pdfSettings['coverpage_settings'])) {
+                list($bgColorValue, $borderWidthValue, $borderColorValue) = explode('|', $pdfSettings['coverpage_settings'] . '||');
+                $coverPageBgColor = ! empty($bgColorValue) ? "background-color:{$bgColorValue};" : '';
+                $coverPageBorder = ! empty($borderWidthValue) ? "border:{$borderWidthValue}px solid " . ("{$borderColorValue};" ?: 'black;') : '';
             } else {
-                $coverPageTextStyles = '';
+                //getting border settings
+                if (count($coverPage) > 5) {
+                    $borderWidth = empty($coverPage[5]) ? 1 : $coverPage[5];
+                    $coverPageTextBorder = "border:{$borderWidth}px solid {$coverPage[6]};";
+                }
+                $textAlign = empty($coverPage[2]) ? 'center' : $coverPage[2];
+                $textBgColor = ! empty($coverPage[3]) ? "background-color:{$coverPage[3]};" : '';
+                $textColor = ! empty($coverPage[4]) ? "color:{$coverPage[4]};" : '';
             }
-            $bgColor = $coverPage[3] == '' ? 'background-color:' . $coverPage[3] : '';
-            $mpdf->WriteHTML('<body style="' . $bgColor . ';margin:0px;padding:0px"><div style="height:100%;background-image:url(' . $coverImage . ');padding:20px;background-repeat: no-repeat;background-position: center; "><div style="' . $coverPageTextStyles . 'height:95%;">
-<div style="text-align:' . $coverPage[2] . ';margin-top:30%;color:' . $coverPage[4] . '"><div style=margin-bottom:10px;font-size:50px>' . $coverPage[0] . '</div>' . $coverPage[1] . '</div></div></body>');
+            $mpdf->WriteHTML('<body style="' . $coverPageBgColor . 'margin:0px;padding:0px"><div style="height:100%;background-image:url(' . $coverImage . ');padding:20px;background-repeat: no-repeat;background-position: center; "><div style="' . $coverPageBorder . 'height:95%;">
+            <div style="text-align:' . $textAlign . ';margin-top:30%;' . $textColor . '"><div style="' . $textBgColor . $coverPageTextBorder . 'margin-bottom:10px;font-size:50px;">' . $coverPage[0] . '</div>' . $subHeading . '</div></div></body>');
         }
         //Checking bookmark
         if (is_array($pdfSettings['autobookmarks'])) {
@@ -735,7 +745,9 @@ class PdfGenerator
             $pdfSettings['pagetitle'] = $prefs['print_pdf_mpdf_pagetitle'];
             $pdfSettings['watermark'] = $prefs['print_pdf_mpdf_watermark'];
             $pdfSettings['watermark_image'] = $prefs['print_pdf_mpdf_watermark_image'];
-            $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_coverpage_text_settings']);
+            $coverPageContentKey = ! empty($prefs['print_pdf_mpdf_coverpage_wiki']) ? 'coverpage_wiki' : 'coverpage_text_settings';
+            $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs["print_pdf_mpdf_{$coverPageContentKey}"]);
+            $pdfSettings['coverpage_settings'] = $prefs['print_pdf_mpdf_coverpage_settings'];
             $pdfSettings['coverpage_image_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_coverpage_image_settings']);
             $pdfSettings['hyperlinks'] = $prefs['print_pdf_mpdf_hyperlinks'];
             $pdfSettings['columns'] = $prefs['print_pdf_mpdf_columns'];
