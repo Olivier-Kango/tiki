@@ -5942,7 +5942,7 @@ class TikiLib extends TikiDb_Bridge
             $r = $s = '';
             if (substr($line, 0, 1) != "#") {
                 if (preg_match("/^\[([A-Z0-9]+)\]/", $line, $r)) {
-                    if ($preserve) {
+                    if ($preserve || ($r[1] === "TRACKER")) {
                         $var = strtolower($r[1]);
                     } else {
                         $i++;
