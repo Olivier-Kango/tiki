@@ -216,12 +216,21 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             $filter['object_id'] = 'NOT ' . $this->getItemId(); // exclude this item if we are related to the same tracker_id
         }
 
+        $format = $this->getOption('format');
+        $sort = 'title_asc';
+        if (! empty($format)) {
+            if (preg_match('/\{(.*?)\}/', $format, $m)) {
+                $sort = $m[1] . '_asc';
+            }
+        }
+
         $params = [
             'existing' => $data['value'],
             'relations' => $data['relations'],
             'meta' => json_encode($data['meta']),
             'filter' => $filter,
-            'format' => $this->getOption('format'),
+            'sort' => $sort,
+            'format' => $format,
             'parent' => $this->getOption('parentFilter'),
             'parentkey' => $this->getOption('parentFilterKey'),
         ];
