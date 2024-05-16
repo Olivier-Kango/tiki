@@ -425,6 +425,7 @@ class UsersLib extends TikiLib
         // these will help us keep tabs of what is going on
         $userTiki = false;
         $userTikiPresent = false;
+        $userTikiDisabled = false;
         $userLdap = false;
         $userLdapPresent = false;
 
@@ -495,6 +496,11 @@ class UsersLib extends TikiLib
 
             case PASSWORD_INCORRECT:
                 $userTikiPresent = true;
+                break;
+
+            case ACCOUNT_WAITING_USER:
+            case ACCOUNT_DISABLED:
+                $userTikiDisabled = $result;
                 break;
         }
 
@@ -930,20 +936,27 @@ class UsersLib extends TikiLib
                 }
             } elseif ($userLdap && ! $userTikiPresent) {
                 // if the user was logged into Auth but not found in Tiki
-                // see if we are allowed to create a new account
-                if ($ldap_create_tiki) {
+                // honor disabled state for Tiki user (note this $userTikiPresent is a bit misleading here - user is present but not allowed to login
+                if ($userTikiDisabled) {
+                    return [false, $user, $userTikiDisabled];
+                } elseif ($ldap_create_tiki) {
+                    // see if we are allowed to create a new account
                     $ldap_user_attr = $this->ldap->get_user_attributes();
                     // Get user attributes such as the real name, email and country from the data received by the ldap auth
                     $this->ldap_sync_user_data($user, $ldap_user_attr);
                     // Use what was configured in ldap admin config, otherwise assume the attribute name is "mail" as is usual
                     $email = $ldap_user_attr[empty($prefs['auth_ldap_emailattr']) ? 'mail' : $prefs['auth_ldap_emailattr']];
-                    $result = $this->add_user($user, $pass, $email);
+                    $result = $this->add_user($user, $pass, $email, '', false, null, $prefs['ldap_create_user_tiki_validation'] === 'y' ? 'a' : null);
                     $this->disable_tiki_auth($user); //disable that user's password in tiki - since we use ldap
 
                     // if it worked ok, just log in
                     if ($result == $user) {
-                        // before we log in, update the login counter
-                        return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                        if ($prefs['ldap_create_user_tiki_validation'] === 'y') {
+                            return [false, $user, ACCOUNT_DISABLED];
+                        } else {
+                            // before we log in, update the login counter
+                            return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                        }
                     } elseif ($result == SERVER_ERROR) {
                     // if the server didn't work, do something!
                         // check the notification status for this type of error

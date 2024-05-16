@@ -27,6 +27,14 @@ function prefs_ldap_list()
             'warning' => tra('As of this writing, this is not yet implemented, and this option will probably not be offered in future.'),
             'tags' => ['experimental'],
         ],
+        'ldap_create_user_tiki_validation' => [
+            'name' => tra('Require admin validation for LDAP users'),
+            'description' => tr('When externally authenticated user is created in Tiki database either allow immediate login or create in disabled state that requires an administrator to approve the account before user can login to Tiki.'),
+            'type' => 'flag',
+            'perspective' => false,
+            'default' => 'n',
+            'dependencies' => ['ldap_create_user_tiki'],
+        ],
         'ldap_skip_admin' => [
             'name' => tra('Use Tiki authentication for Admin log-in'),
             'description' => tra('If this option is set, the user “admin” will be authenticated by only using Tiki’s user database and not via LDAP. This option has no effect on users other than “admin”.'),
