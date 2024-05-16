@@ -80,7 +80,9 @@ trait Services_Manager_Trait
         $_ENV['TRIM_LOGS'] = $storage_path . '/logs';
         $_ENV['TRIM_DATA'] = $storage_path . '/data';
         $_ENV['TRIM_SRC_FOLDER'] = $storage_path . '/data/tiki_src';
-
+        if (! isset($_ENV['HOOKS_FOLDER'])) {
+            $_ENV['HOOKS_FOLDER'] = $storage_path . '/hooks';
+        }
         $composerManager = new ComposerManager($tikipath);
         $composerPath = $composerManager->composerPath();
 
