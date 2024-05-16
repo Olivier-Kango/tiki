@@ -229,7 +229,7 @@ class TikiLdapLib
 
         $this->add_log(
             'ldap',
-            'Connect Host: ' . $this->options['host'] . '. Binddn: ' . $this->options['binddn'] . ' at line ' . __LINE__ . ' in ' . __FILE__
+            'Connect Host: ' . (is_array($this->options['host']) ? implode($this->options['host']) : $this->options['host']) . '. Binddn: ' . $this->options['binddn'] . ' at line ' . __LINE__ . ' in ' . __FILE__
         );
 
         $permittedOptions = [

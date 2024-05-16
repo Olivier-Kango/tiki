@@ -276,6 +276,7 @@
                     {/if}
                 {/if}
                 {preference name=ldap_create_user_tiki}
+                {preference name=ldap_create_user_tiki_validation}
                 {preference name=ldap_create_user_ldap}
                 {preference name=ldap_skip_admin}
                 {preference name=auth_ldap_permit_tiki_users}
