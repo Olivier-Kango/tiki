@@ -376,10 +376,6 @@ class PdfGenerator
             $textAlign = 'center';
             $textBgColor = '';
             $coverPageTextBorder = '';
-            for ($i = 0; $i <= 1; $i++) {
-                $coverPage[$i] = str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($coverPage[$i] ?? ''), ['is_html' => true, 'parse_wiki' => true]));
-                $coverPage[$i] = preg_replace_callback('/\{DATE\s+(.*?)\}/', function($matches) { return date($matches[1]); }, $coverPage[$i]);
-            }
             if (count($coverPage) === 1 && ! empty($pdfSettings['coverpage_settings'])) {
                 list($bgColorValue, $borderWidthValue, $borderColorValue) = explode('|', $pdfSettings['coverpage_settings'] . '||');
                 $coverPageBgColor = ! empty($bgColorValue) ? "background-color:{$bgColorValue};" : '';
@@ -393,6 +389,10 @@ class PdfGenerator
                 $textAlign = empty($coverPage[2]) ? 'center' : $coverPage[2];
                 $textBgColor = ! empty($coverPage[3]) ? "background-color:{$coverPage[3]};" : '';
                 $textColor = ! empty($coverPage[4]) ? "color:{$coverPage[4]};" : '';
+            }
+            for ($i = 0; $i <= 1; $i++) {
+                $coverPage[$i] = str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($coverPage[$i] ?? ''), ['is_html' => true, 'parse_wiki' => true]));
+                $coverPage[$i] = preg_replace_callback('/\{DATE\s+(.*?)\}/', function($matches) { return date($matches[1]); }, $coverPage[$i]);
             }
             $mpdf->WriteHTML('<body style="' . $coverPageBgColor . 'margin:0px;padding:0px"><div style="height:100%;background-image:url(' . $coverImage . ');padding:20px;background-repeat: no-repeat;background-position: center; "><div style="' . $coverPageBorder . 'height:95%;">
             <div style="text-align:' . $textAlign . ';margin-top:30%;' . $textColor . '"><div style="' . $textBgColor . $coverPageTextBorder . 'margin-bottom:10px;font-size:50px;">' . $coverPage[0] . '</div>' . $coverPage[1] . '</div></div></body>');
