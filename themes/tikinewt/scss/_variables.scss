@@ -88,7 +88,8 @@ $btn-primary-bg: #c7d0d9;
 $btn-primary-border: #999999;
 
 // Forms
-//$input-bg: #999;
+$input-border-color:                      var(--#{$prefix}border-color); // #8cacbb;
+
 // Dropdowns
 // Navs
 // Navbar
