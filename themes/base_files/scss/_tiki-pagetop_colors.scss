@@ -115,7 +115,7 @@
 
 // Apply background: transparent to children of uppermost parent to prevent nested gradients
 
-.tiki.layout_basic:not(.uab) {
+.tiki.layout_basic:not(.uab.tiki_admin) {
     .page-header .top_modules,
     .page-header .top_modules .navbar,
     .topbar_modules .navbar {
@@ -126,7 +126,7 @@
     }
 }
 
-.tiki.layout_classic:not(.uab) {
+.tiki.layout_classic:not(.uab.tiki_admin) {
     .top_modules .navbar,
     .topbar,
     .topbar_modules,
@@ -138,7 +138,7 @@
     }
 }
 
-.layout_social:not(.uab) {
+.layout_social:not(.uab.tiki_admin) {
     header .top_modules,
     header .top_modules .navbar,
     .topbar,
