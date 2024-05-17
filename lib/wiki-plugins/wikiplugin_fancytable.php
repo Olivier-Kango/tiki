@@ -271,39 +271,85 @@ function preprocess_section(&$data, &$tagremove, &$pluginremove)
     // Then replace tags or other enclosing characters that could enclose a pipe (| or ~|~) character with a hash string
     $tikilib = TikiLib::lib('tiki');
     $tags = [
-        '\(\(', '\)\)',       // (( ))
-        '\[', '\]',           // [ ]
-        '~np~', '~\/np~',     // ~np~ ~/np~
-        '~tc~', '~\/tc~',     // ~tc~ ~/tc~
-        '~hc~', '~\/hc~',     // ~hc~ ~/hc~
-        '\^', '\^',           // ^ ^
-        '__', '__',           // __ __
-        '\:\:', '\:\:',       // :: ::
-        '\:\:\:', '\:\:\:',   // ::: :::
-        '\'\'', '\'\'',       // '' ''
-        '-\+', '\+-',         // -+ +-
-        '-=', '=-',           // -= =-
-        '===', '===',         // === ===
-        '--', '--',           // -- --
-        '\(', '\)',           // ( )
-        '\"', '\"',           // " "
+        [
+            'start' => '\(\(',      // (( ))
+            'end'   => '\)\)',
+        ],
+        [
+            'start' => '\[',        // [ ]
+            'end'   => '\]',
+        ],
+        [
+            'start' => '~np~',      // ~np~ ~/np~
+            'end'   => '~\/np~',
+        ],
+        [
+            'start' => '~tc~',      // ~tc~ ~/tc~
+            'end'   => '~\/tc~',
+        ],
+        [
+            'start' => '~hc~',      // ~hc~ ~/hc~
+            'end'   => '~\/hc~',
+        ],
+        [
+            'start' => '\^',        // ^ ^
+            'end'   => '\^',
+        ],
+        [
+            'start' => '__',        // __ __
+            'end'   => '__',
+        ],
+        [
+            'start' => '\:\:',      // :: ::
+            'end'   => '\:\:',
+        ],
+        [
+            'start' => '\:\:\:',    // ::: :::
+            'end'   => '\:\:\:',
+        ],
+        [
+            'start' => '\'\'',      // '' ''
+            'end'   => '\'\'',
+        ],
+        [
+            'start' => '-\+',       // -+ +-
+            'end'   => '\+-',
+        ],
+        [
+            'start' => '-=',        // -= =-
+            'end'   => '=-',
+        ],
+        [
+            'start' => '===',       // === ===
+            'end'   => '===',
+        ],
+        [
+            'start' => '--',        // -- --
+            'end'   => '--',
+        ],
+        [
+            'start' => '\(',        // ( )
+            'end'   => '\)',
+        ],
+        [
+            'start' => '\"',        // " "
+            'end'   => '\"',
+        ],
     ];
-    //Creates a string `pattern` containing all the tags patterns joined by `|`
-    //And wrapped the output of the implode with forward slashes / to form a regular expression pattern with delimiters
-    $pattern = '/' . implode('|', $tags) . '/';
-    preg_match_all($pattern, $data, $matches);
-    if (! empty($matches[0])) {
-        //if there are any matches found
-        //iterate over each match in $matches[0] and generate a replacement key for each match
-        $tagremove['key'] = array_map(function () use ($tikilib) {
-            return '§' . md5($tikilib->genPass()) . '§';
-        }, $matches[0]);
-        // stores the matches found
-        $tagremove['data'] = $matches[0];
-        // check if datas are not null before proceeding with replacement operation
-        if ($data !== null && $tagremove['data'] !== null && $tagremove['key'] !== null) {
-            $data = str_replace($tagremove['data'], $tagremove['key'], $data);
+    $count = count($tags) - 1;
+    $pattern = '/(';
+    foreach ($tags as $key => $tag) {
+        $pattern .= $tag['start'] . '(?:(?!' . $tag['end'] . ').)*' . $tag['end'];
+        if ($key < $count) {
+            $pattern .= '|';
         }
+    }
+    $pattern .= ')/';
+    preg_match_all($pattern, $data, $matches);
+    foreach ($matches[0] as $match) {
+        $tagremove['key'][] = '§' . md5($tikilib->genPass()) . '§';
+        $tagremove['data'][] = $match;
+        $data = isset($tagremove['data']) ? str_replace($tagremove['data'], $tagremove['key'], $data) : $data;
     }
 }
 
