@@ -177,9 +177,9 @@
     </div>
     {* show jscalendar if set *}
     {if $prefs.feature_jscalendar eq 'y'}
-        <div class="jscalrow" style="display: inline-block">
+        <div class=" mb-2" style="display: inline-block">
             <form action="{$myurl}" method="post" name="f">
-                {jscalendar date="$focusdate" id="trig" goto="$jscal_url" align="Bc"}
+                {jscalendar date="$focusdate" goto="$jscal_url" showtime="n"}
             </form>
         </div>
     {/if}

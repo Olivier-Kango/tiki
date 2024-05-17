@@ -189,7 +189,12 @@ class Services_Tracker_Utilities
             '',
             '',
             '',
-            $data['permName']
+            $data['permName'],
+            null,
+            null,
+            false,
+            isset($data['visibleInViewMode']) ? $data['visibleInViewMode'] : 'y',
+            isset($data['visibleInEditMode']) ? $data['visibleInEditMode'] : 'y',
         );
     }
 

@@ -13,15 +13,9 @@
         </div>
     </div>
     <div class="mb-3 row">
-        <label class="col-form-label col-sm-3">{tr}Period Start{/tr}</label>
+        <label class="col-form-label col-sm-3">{tr}Period Start - End{/tr}</label>
         <div class="col-sm-9">
-            {jscalendar id="dtstart" date=$definition.dtstart fieldname="dtstart" align="Bc" showtime='y' isutc="y"}
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label class="col-form-label col-sm-3">{tr}Period End{/tr}</label>
-        <div class="col-sm-9">
-            {jscalendar id="dtend" date=$definition.dtend fieldname="dtend" align="Bc" showtime='y' isutc="y"}
+            {jscalendar date=$definition.dtstart fieldname="dtstart" showtime='y' endfieldname="dtend" enddate=$definition.dtend timezone="UTC"}
         </div>
     </div>
     <div class="mb-3 row">
@@ -67,15 +61,9 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-form-label col-sm-3">{tr}Period Start{/tr}</label>
+                        <label class="col-form-label col-sm-3">{tr}Period Start - End{/tr}</label>
                         <div class="col-sm-9">
-                            {jscalendar date=$available.dtstart fieldname="available[dtstart][{$available.uid}]" align="Bc" showtime='y' isutc="y"}
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-form-label col-sm-3">{tr}Period End{/tr}</label>
-                        <div class="col-sm-9">
-                            {jscalendar date=$available.dtend fieldname="available[dtend][{$available.uid}]" align="Bc" showtime='y' isutc="y"}
+                            {jscalendar date=$available.dtstart fieldname="available[dtstart][{$available.uid}]" showtime='y' endfieldname="available[dtend][{$available.uid}]" enddate=$available.dtend timezone="UTC"}
                         </div>
                     </div>
                     <div class="mb-3 row">

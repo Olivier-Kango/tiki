@@ -592,7 +592,7 @@
                     </label>
                     <div style="width: 100%">
                         {if empty($info.tabularSyncLastImport)}{assign var="tabularSyncLastImport" value="0"}{else}{assign var="tabularSyncLastImport" value=$info.tabularSyncLastImport}{/if}
-                        {jscalendar id="tabularSyncLastImport" date=$tabularSyncLastImport fieldname="tabularSyncLastImport" showtime='y' isutc=0}
+                        {jscalendar date=$tabularSyncLastImport fieldname="tabularSyncLastImport" showtime='y'}
                     </div>
                 </div>
             {/accordion_group}

@@ -163,9 +163,9 @@
             </div>
 
             <div class="row mt-md-3 mb-3 date">
-                <label class="col-form-label col-sm-3">{tr}Start{/tr}</label>
-                <div class="col-sm-5 start">
-                    {jscalendar id="start" date=$calitem.start fieldname="calitem[start]" showtime='y' isutc=1}
+                <label class="col-form-label col-sm-3">{tr}Start - End{/tr}</label>
+                <div class="col-sm-7 start">
+                    {jscalendar id="start" date=$calitem.start enddate=$calitem.end fieldname="calitem[start]" showtime='y' endfieldname="calitem[end]" showtimezone="n" timezone="UTC"}
                 </div>
                 <div class="col-sm-2">
                     <div class="form-check">
@@ -177,26 +177,13 @@
                 </div>
             </div> {* / .mb-3 *}
             <div class="row mt-md-3 mb-3 date">
-                <label class="col-form-label col-sm-3">{tr}End{/tr}</label>
-                <input type="hidden" name="calitem[end_or_duration]" value="end" id="end_or_duration">
-                <div class="col-sm-5 end ">
-                    {jscalendar id="end" date=$calitem.end fieldname="calitem[end]" showtime='y' isutc=1}
-                </div>
-                <div class="col-sm-5 duration time" style="display:none;">
-                    {html_select_time prefix="duration_" display_seconds=false time=$calitem.duration|default:'01:00' minute_interval=$prefs.calendar_minute_interval class='form-control date noselect2'}
-                </div>
-                <div class="col-sm-2 time">
-                    <a href="#" id="durationBtn" class="btn btn-sm btn-secondary">
-                        {tr}Show duration{/tr}
-                    </a>
-                </div>
                 {if $impossibleDates}
                     <br>
                     <span style="color:#900;">
                         {tr}Events cannot end before they start{/tr}
                     </span>
                 {/if}
-            </div> {* / .mb-3 *}
+            </div>
             {/if}
             <div class="mb-3 row">
                 <label class="col-form-label col-sm-3">{tr}Description{/tr}</label>

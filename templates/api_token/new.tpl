@@ -26,7 +26,7 @@
                 </a>
             </label>
             <div class="col-sm-10">
-                {jscalendar id="api_token_expire_after" date="" fieldname="expireAfter" showtime='y' isutc=0}
+                {jscalendar date="" fieldname="expireAfter" showtime='y'}
             </div>
         </div>
         <div class="submit">

@@ -1090,19 +1090,16 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
         $_gap = $default['gap'];
     }
 
-    $params_from = [];
-    $params_to = [];
+    $params = [];
     if (! empty($_showtime) && $_showtime == 'y') {
-        $params_from['showtime'] = 'y';
-        $params_to['showtime'] = 'y';
+        $params['showtime'] = 'y';
     } else {
-        $params_from['showtime'] = 'n';
-        $params_to['showtime'] = 'n';
+        $params['showtime'] = 'n';
     }
-    $params_from['fieldname'] = $fieldname . '_from';
-    $params_to['fieldname'] = $fieldname . '_to';
-    $params_from['id'] = $fieldid_from = $fieldid . '_from';
-    $params_to['id'] = $fieldid_to = $fieldid . '_to';
+    $from_fieldname = $fieldname . '_from';
+    $to_fieldname = $fieldname . '_to';
+    $params['fieldname'] = $from_fieldname;
+    $params['endfieldname'] = $to_fieldname;
 
     if (isset($_from) && ! is_numeric($_from)) {
         $_from = strtotime($_from);
@@ -1129,47 +1126,45 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 
     if (! empty($_from)) {
         if ($_from == 'now') {
-            $params_from['date'] = TikiLib::lib('tiki')->now;
+            $params['date'] = TikiLib::lib('tiki')->now;
         } else {
-            $params_from['date'] = $_from;
+            $params['date'] = $_from;
         }
         if (empty($_to)) {
             if (empty($_gap)) {
                 $_gap = 365 * 24 * 3600;
             }
-            $params_to['date'] = $params_from['date'] + $_gap;
+            $params['enddate'] = $params['date'] + $_gap;
         }
     } else {
-        $params_from['date'] = $startEmpty ? '' : TikiLib::lib('tiki')->now;
+        $params['date'] = $startEmpty ? '' : TikiLib::lib('tiki')->now;
     }
     if (! empty($_to)) {
         if ($_to == 'now') {
-            $params_to['date'] = TikiLib::lib('tiki')->now;
+            $params['enddate'] = TikiLib::lib('tiki')->now;
         } else {
-            $params_to['date'] = $_to;
+            $params['enddate'] = $_to;
         }
         if (empty($_from)) {
             if (empty($_gap)) {
                 $_gap = 365 * 24 * 3600;
             }
-            $params_from['date'] = $params_to['date'] - $_gap;
+            $params['date'] = $params['enddate'] - $gap;
         }
-    } elseif (empty($params_to['date'])) {
-        $params_to['date'] = $startEmpty ? '' : TikiLib::lib('tiki')->now + 365 * 24 * 3600;
+    } elseif (empty($params['enddate'])) {
+        $params['enddate'] = $startEmpty ? '' : TikiLib::lib('tiki')->now + 365 * 24 * 3600;
     }
 
-    $picker = '';
-    $picker .= '<div class="col-sm-6">' . smarty_function_jscalendar($params_from, $smarty->getEmptyInternalTemplate()) . '</div>';
-    $picker .= '<div class="col-sm-6">' . smarty_function_jscalendar($params_to, $smarty->getEmptyInternalTemplate()) . '</div>';
+    $picker = '<div class="row col-sm-6">' . smarty_function_jscalendar($params, $smarty->getEmptyInternalTemplate()) . '</div>';
 
     $script .= "
-$('#{$fieldid_from},#{$fieldid_to}').on('change', function() {
+$('input[name=\"$from_fieldname\"],input[name=\"$to_fieldname\"]').on('change', function() {
     updateDateRange_$fieldid();
 });
 function updateDateRange_$fieldid() {
-    var from = $('#$fieldid_from').val();
-    var to = $('#$fieldid_to').val();
-    var val = (from && to) ? from + ',' + to : '';
+    const from = $('input[name=\"$from_fieldname\"]').val();
+    const to = $('input[name=\"$to_fieldname\"]').val();
+    const val = (from && to) ? from + ',' + to : '';
     customsearch$id.add('$fieldid', {
         config: " . json_encode($arguments) . ",
         name: 'daterange',
@@ -1178,8 +1173,7 @@ function updateDateRange_$fieldid() {
 }
 updateDateRange_$fieldid();
 ";
-
-    return '<div class="daterange row">' . $picker . '</div>';
+    return $picker;
 }
 
 function cs_design_distance($id, $fieldname, $fieldid, $arguments, $default, &$script)

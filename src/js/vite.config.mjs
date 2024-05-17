@@ -114,6 +114,7 @@ export default defineConfig(({ command, mode }) => {
     );
     Object.assign(rollupInput, {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
+        "datetime-picker": resolve(__dirname, "vue-mf/datetime-picker/src/datetime-picker.js"),
         "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
         "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),

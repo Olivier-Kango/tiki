@@ -34,6 +34,34 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tr
                         ],
                         'legacy_index' => 0,
                     ],
+                    'customTimezone' => [
+                        'name' => tr('Show timezone picker'),
+                        'description' => tr('Allow to use a custom timezone for this field'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'datetime',
+                            'value' => 'dt',
+                        ],
+                        'default' => '0',
+                    ],
+                    'outputTimezone' => [
+                        'name' => tr('Output timezone'),
+                        'description' => tr('Timezone to use when displaying the date and time'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('Configured timezone preference'),
+                            1 => tr('This field\'s timezone'),
+                            2 => tr('Both'),
+                        ],
+                        'depends' => [
+                            'field' => 'customTimezone',
+                            'value' => '1',
+                        ]
+                    ],
                     'startyear' => [
                         'name' => tr('Start year'),
                         'description' => tr('Year to allow selecting from'),
@@ -153,7 +181,11 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tr
         global $prefs;
 
         $tikilib = TikiLib::lib('tiki');
-        $value = $this->getConfiguration('value');
+        if (isset($context['value'])) {
+            $value = $context['value'];
+        } else {
+            $value = $this->getConfiguration('value');
+        }
 
         if ($value) {
             if ($this->getOption('datetime') === 'd') {
