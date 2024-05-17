@@ -1821,7 +1821,7 @@ class EditLib
 
     public function convertSmileysToUnicode($data)
     {
-        $conversion = [
+        $named = [
             'biggrin' => '😀',
             'confused' => '😕',
             'cool' => '😎',
@@ -1848,16 +1848,54 @@ class EditLib
             'santa' => '🎅',
         ];
 
-        $shorts = [':-D', ':D', ':-/', '8-)', '8)', ':-)', ':)', ':-(', ':(', ':-|', ':|', ':-p', ':p', ':-o', ':o', ';-)', ';)'];
-        $emojis = ['😀', '😀', '😕', '😎', '😎', '😊', '😊', '😑', '😑', '😐', '😐', '😛', '😛', '😯', '😯', '😉', '😉'];
+        $patterns = [
+            // :) :-)
+            '/(\s|^):-?\)/' => '😊',
+            // :( :-(
+            '/(\s|^):-?\(/' => '😑',
+            // :D :-D
+            '/(\s|^):-?D/' => '😀',
+            // ;) ;-)
+            '/(\s|^);-?\)/' => '😉',
+            // :S :-S :s :-s
+            '/(\s|^):-?S/i' => '😕',
+            // :-/
+            '/(\s|^):-\//' => '😕',
+            // :-| :|
+            '/(\s|^):-?\|/' => '😐',
+            // B) B-) 8-)
+            '/(\s|^)(B-?|8-)\)/' => '😎',
+            // :'( :_(
+            '/(\s|^):[\'|_]\(/' => '😢',
+            // 8-o 8-O =-o =-O
+            '/(\s|^)[8=]-O/i' => '😬',
+            // :-o :o
+            '/(\s|^):-?o/' => '😯',
+            // :-p :p
+            '/(\s|^):-?p/' => '😛',
+            // }:( }:-(
+            '/(\s|^)\}:-?\(/' => '👻',
+            // !-) !)
+            '/(\s|^)\!-?\)/' => '❗',
+            // >:( >:-(
+            '/(\s|^)\>:-?\(/' => '🙁',
+            // i-)
+            '/(\s|^)i-\)/' => '💡',
+            // LOL
+            '/(\s|^)LOL(\s|$)/' => '😂',
+            // >X( >X[ >:[ >X-( >X-[ >:-[
+            '/(\s|^)\>[:X]-?\(/' => '😧',
+            // =D =-D
+            '/(\s|^)[=]-?D/' => '😁',
+        ];
 
-        $data = str_replace($shorts, $emojis, $data);
+        $data = preg_replace(array_keys($patterns), array_values($patterns), $data);
 
-        $data = preg_replace_callback('/\(:(\w+):\)/i', function ($matches) use ($conversion) {
-            if (! isset($conversion[$matches[1]])) {
+        $data = preg_replace_callback('/\(:(\w+):\)/i', function ($matches) use ($named) {
+            if (! isset($named[$matches[1]])) {
                 return $matches[0];
             }
-            return $conversion[$matches[1]];
+            return $named[$matches[1]];
         }, $data);
 
         return $data;
