@@ -1,4 +1,4 @@
-<div class="userWizardIconleft"><img src="img/icons/large/wizard_user48x48.png" alt="{tr}User Wizard{/tr}" /></div>
+<div class="userWizardIconleft">{icon name='user-edit' alt="{tr}User Wizard{/tr}"}</div>
 {tr}Use this form to fill in some extra information about you.{/tr}<br/>
 <br/><br/>
 
@@ -9,7 +9,7 @@
 <div class="adminWizardContent">
     <fieldset>
         <legend>{tr}Extra information about you{/tr}</legend>
-        <div class="userWizardIconright"><img src="img/icons/large/user_tracker48x48.png" alt="{tr}User Tracker{/tr}" /></div>
+        <div class="userWizardIconright">{icon name='database' alt="{tr}User Tracker{/tr}"}</div>
         {if $userTrackerData}
             {$userTrackerData}
         {/if}

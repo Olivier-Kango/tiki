@@ -16,7 +16,7 @@
                         {tr}Pie Chart{/tr}
                     </label>
                 </div>
-                <img src="img/graph.pie.png" alt="Pie Chart">
+                {icon name='pie-chart' alt="Pie Chart"}
             </div>
 
             <div class="col-sm-3 mb-3">
@@ -26,7 +26,7 @@
                         {tr}Multiline{/tr}
                     </label>
                 </div>
-                <img src="img/graph.multiline.png" alt="Multiline">
+                {icon name='line-chart' alt="Multiline"}
             </div>
 
             <div class="col-sm-3 mb-3">
@@ -36,7 +36,7 @@
                         {tr}Multibar{/tr}
                     </label>
                 </div>
-                <img src="img/graph.multibar.png" alt="Multibar">
+                {icon name='bar-chart' alt="Multibar"}
             </div>
 
             <div class="col-sm-3 mb-3">
@@ -46,7 +46,7 @@
                         {tr}Bar Stack{/tr}
                     </label>
                 </div>
-                <img src="img/graph.barstack.png" alt="Bar Stack">
+                {icon name='bar-chart' alt="Bar Stack"}<i class="fad fa-chart-bar" ></i>
             </div>
         </div>
 

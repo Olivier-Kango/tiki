@@ -59,7 +59,7 @@
         </td>
         <td style="text-align:right;">
         {if $tiki_p_live_support_admin eq 'y'}
-            <a href='tiki-live_support_admin.php?removeuser={$online_operators[ix].user|escape}'><img src='img/icons/trash.gif' alt="{tr}Del{/tr}" title="{tr}Del{/tr}"></a>
+            <a href='tiki-live_support_admin.php?removeuser={$online_operators[ix].user|escape}'>{icon name='trash' alt="{tr}Del{/tr}" title="{tr}Del{/tr}"}</a>
             <form action="tiki-live_support_admin.php" method="post" >
                 {ticket}
                 <button type="submit" name="offline" value={$online_operators[ix].user|escape} class="tips btn btn-link btn-sm px-0 pt-0 pb-0">

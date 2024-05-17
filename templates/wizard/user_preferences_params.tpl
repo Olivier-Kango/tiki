@@ -1,10 +1,10 @@
-<div class="userWizardIconleft"><img src="img/icons/large/wizard_user48x48.png" alt="{tr}User Wizard{/tr}" /></div>
+<div class="userWizardIconleft">{icon name='user-edit' alt="{tr}User Wizard{/tr}"}</div>
 {tr}Set up the general settings for your account{/tr}.<br/><br/><br/>
 <div class="userWizardContent">
     {if $prefs.feature_userPreferences eq 'y'}
         <fieldset>
             <legend>{tr}General settings{/tr}</legend>
-                <div class="userWizardIconright"><img src="img/icons/large/user.png" alt="{tr}User Params{/tr}" /></div>
+            <div class="userWizardIconright">{icon name='user' alt="{tr}User Params{/tr}"}</div>
                 <table class="formcolor">
                 <tr>
                     <td>{tr}Is email public? (uses scrambling to prevent spam){/tr}</td>
@@ -135,7 +135,7 @@
         {if $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y'}
             <fieldset>
                 <legend>{tr}User Messages{/tr}</legend>
-                <div class="userWizardIconright"><img src="img/icons/mail.gif" alt="{tr}User Messages{/tr}" /></div>
+                <div class="userWizardIconright">{icon name='mailbox' alt="{tr}User Messages{/tr}"}</div>
                 <table class="formcolor">
 
                     {if $prefs.allowmsg_is_optional eq 'y'}
@@ -165,7 +165,7 @@
         {if $prefs.feature_tasks eq 'y' and $tiki_p_tasks eq 'y'}
             <fieldset>
                 <legend>{tr}User Tasks{/tr}</legend>
-                <div class="userWizardIconright"><img src="img/icons/tasks.gif" alt="{tr}User Tasks{/tr}" /></div>
+                <div class="userWizardIconright">{icon name='tasks' alt="{tr}User Tasks{/tr}"}</div>
                 <table class="formcolor">
 
                     <tr>
@@ -188,7 +188,7 @@
         {if $prefs.feature_mytiki eq 'y'}
             <fieldset>
                 <legend>{tr}My Account{/tr}</legend>
-                <div class="userWizardIconright"><img src="img/icons/project.gif" alt="{tr}My Account{/tr}" /></div>
+                <div class="userWizardIconright">{icon name='clipboard-check' alt="{tr}My Account{/tr}"}</div>
 
                 <table class="formcolor">
 

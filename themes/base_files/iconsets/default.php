@@ -300,6 +300,10 @@ function iconset_default()
             'arrows-h' => [
                 'id' => 'arrows-alt-h'
             ],
+            'arrow-right' => [
+                'id' => 'arrow-right',
+                'prepend' => 'fas fa-'
+            ],
             'arrows-v' => [
                 'id' => 'arrows-alt-v'
             ],
@@ -2033,6 +2037,9 @@ function iconset_default()
                 'id' => 'heart-circle-xmark',
                 'prepend' => 'fas fa-',
             ],
+            'heartbeat-fill' => [
+                'id' => 'heartbeat',
+            ],
             'helicopter-symbol' => [
                 'id' => 'helicopter-symbol',
                 'prepend' => 'fas fa-',
@@ -2589,6 +2596,14 @@ function iconset_default()
                 'id' => 'section',
                 'prepend' => 'fas fa-',
             ],
+            'server-rack' => [
+                'id' => 'server',
+                'prepend' => 'fas fa-'
+            ],
+            'server-rack-fill' => [
+                'id' => 'hdd-stack-fill',
+                'prepend' => 'fas fa-'
+            ],
             'sheet-plastic' => [
                 'id' => 'sheet-plastic',
                 'prepend' => 'fas fa-',
@@ -2623,6 +2638,10 @@ function iconset_default()
             ],
             'square-virus' => [
                 'id' => 'square-virus',
+                'prepend' => 'fas fa-',
+            ],
+            'sliders' => [
+                'id' => 'sliders-h',
                 'prepend' => 'fas fa-',
             ],
             'staff-snake' => [

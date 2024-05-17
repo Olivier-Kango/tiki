@@ -4,8 +4,8 @@
 <div class="pollnav">
 {if $show_toggle ne 'n'}
 <a onclick="javascript:$('#pollzone{$tracker.trackerId}').toggle();$('#polledit{$tracker.trackerId}').toggle();$('#pollicon{$tracker.trackerId}').toggle();$('#pollicon{$tracker.trackerId}o').toggle()" class="link" title="{tr}Toggle display{/tr}">
-<span id="pollicon{$tracker.trackerId}" style="display:inline;float:left;"><i class="fa-solid fa-square-plus"></i></span>
-<span id="pollicon{$tracker.trackerId}o" style="display:none;float:left;"><i class="fa-regular fa-square-minus"></i></span>
+<span id="pollicon{$tracker.trackerId}" style="display:inline;float:left;">{icon name='plus-square' alt="{tr}Toggle{/tr}"}</span>
+<span id="pollicon{$tracker.trackerId}o" style="display:none;float:left;">{icon name='minus-square' alt="{tr}Toggle{/tr}"}</span>
 </a>
 {/if}
 {if $has_already_voted ne 'y'}<span class="highlight">{/if}{$tracker.name|escape}{if $has_already_voted ne 'y'}</span>{/if}

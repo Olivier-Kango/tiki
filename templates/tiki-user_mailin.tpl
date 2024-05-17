@@ -55,7 +55,7 @@
                             <td>
                                 <input type="checkbox" name="mailinAct{$smarty.foreach.mstruct.iteration}" {if $ustruct.is_active eq 'y'}checked="checked"{/if} onchange="structSelChanged({$smarty.foreach.mstruct.iteration});" />
                                 &nbsp;
-                                <a href="?delete=y&mailin_struct_id={$ustruct.mailin_struct_id}" onclick="return confirm_delete();"><img src="img/icons/delete.gif" /></a>
+                                <a href="?delete=y&mailin_struct_id={$ustruct.mailin_struct_id}" onclick="return confirm_delete();">{icon name='minus-circle' iclass='text-danger'}</a>
 
                                 {* Hidden field to track changes *}
                                 <input type="hidden" id="changed_{$smarty.foreach.mstruct.iteration}" name="changed_{$smarty.foreach.mstruct.iteration}" />

@@ -74,7 +74,7 @@ function iconset_bootstrap_icon_font()
                 'id' => 'c-circle',
             ],
             'admin_directory' => [
-                'id' => 'card-list',
+                'id' => 'folder',
             ],
             'admin_faqs' => [
                 'id' => 'question-square',
@@ -137,7 +137,7 @@ function iconset_bootstrap_icon_font()
                 'id' => 'layout-wtf',
             ],
             'admin_rating' => [
-                'id' => 'card-list',
+                'id' => 'check-square-fill',
             ],
             'admin_rss' => [
                 'id' => 'rss',
@@ -205,8 +205,17 @@ function iconset_bootstrap_icon_font()
             'attach' => [
                 'id' => 'paperclip',
             ],
+            'arrow-circle-up' => [
+                'id' => 'arrow-up-circle-fill',
+            ],
             'bold' => [
                 'id' => 'type-bold',
+            ],
+            'minus-circle' => [
+                'id' => 'dash-circle-fill',
+            ],
+            'clipboard-list' => [
+                'id' => 'card-checklist',
             ],
             'cog' => [
                 'id' => 'gear-wide-connected',
@@ -226,11 +235,14 @@ function iconset_bootstrap_icon_font()
             'create' => [
                 'id' => 'plus-square-dotted',
             ],
+            'cubes' => [
+                'id' => 'boxes',
+            ],
             'delete' => [
                 'id' => 'x',
             ],
             'database' => [
-                'id' => 'device-hdd',
+                'id' => 'database-fill',
             ],
             'directory' => [
                 'id' => 'list-ul',
@@ -265,6 +277,9 @@ function iconset_bootstrap_icon_font()
             'heartbeat' => [
                 'id' => 'heart-pulse',
             ],
+            'heartbeat-fill' => [
+                'id' => 'heart-pulse-fill',
+            ],
             'home' => [
                 'id' => 'house-door',
             ],
@@ -279,6 +294,9 @@ function iconset_bootstrap_icon_font()
             ],
             'italic' => [
                 'id' => 'type-italic',
+            ],
+            'link-external' => [
+                'id' => 'box-arrow-up-right',
             ],
             'list-numbered' => [
                 'id' => 'list-ol',
@@ -325,6 +343,12 @@ function iconset_bootstrap_icon_font()
             'settings' => [
                 'id' => 'wrench-adjustable',
             ],
+            'server-rack' => [
+                'id' => 'hdd-stack',
+            ],
+            'server-rack-fill' => [
+                'id' => 'hdd-stack-fill',
+            ],
             'smile' => [
                 'id' => 'emoji-smile',
             ],
@@ -340,8 +364,14 @@ function iconset_bootstrap_icon_font()
             'survey' => [
                 'id' => 'person-raised-hand',
             ],
+            'sync' => [
+                'id' => 'arrow-repeat',
+            ],
             'system' => [
                 'id' => 'bezier2',
+            ],
+            'refresh' => [
+                'id' => 'arrow-repeat',
             ],
             'tasks' => [
                 'id' => 'list-check',
@@ -363,6 +393,12 @@ function iconset_bootstrap_icon_font()
             ],
             'user' => [
                 'id' => 'person',
+            ],
+            'user-circle' => [
+                'id' => 'person-circle',
+            ],
+            'address-card' => [
+                'id' => 'person-vcard',
             ],
             'view' => [
                 'id' => 'eyeglasses',
@@ -584,6 +620,7 @@ function iconset_bootstrap_icon_font()
             'bezier',
             'bezier2',
             'bicycle',
+            'box-arrow-up-right',
             'binoculars',
             'binoculars-fill',
             'blockquote-left',
@@ -1013,6 +1050,7 @@ function iconset_bootstrap_icon_font()
             'dash-square',
             'dash-square-dotted',
             'dash-square-fill',
+            'database-fill',
             'device-hdd',
             'device-hdd-fill',
             'device-ssd',
@@ -1688,6 +1726,7 @@ function iconset_bootstrap_icon_font()
             'person-rolodex',
             'person-square',
             'person-video',
+            'person-vcard',
             'person-video2',
             'person-video3',
             'person-workspace',

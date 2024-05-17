@@ -20210,7 +20210,7 @@ $lang_current = array(
 // "Editing and plugins admin panel" => "Editing and plugins admin panel",
 // "Set up the Wiki environment" => "Set up the Wiki environment",
 // "Wiki environment" => "Wiki environment",
-// "Look for the <img src=\"img/icons/camera.png\" /> icon in the editor toolbar" => "Look for the <img src=\"img/icons/camera.png\" /> icon in the editor toolbar",
+ "Look for the %0 icon in the editor toolbar" => "Recherchez l’icône %0 dans la barre d’outils de l’éditrice.",
 "Requires Java" => "Nécessite Java",
 // "Verify your Java installation" => "Verify your Java installation",
 // "Once you have the feature '<strong>Categories</strong>' enabled, you will need to define some content categories, and indicate which ones require revision approval for their wiki pages" => "Once you have the feature '<strong>Categories</strong>' enabled, you will need to define some content categories, and indicate which ones require revision approval for their wiki pages",

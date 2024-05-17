@@ -17,7 +17,7 @@
                         {include file='tiki-list_kaltura_entries_actions.tpl'}
 
                         <td class="text"><a href="#" title="{tr}Thumbnail{/tr}" {popup fullhtml="1" text=$smarty.capture.actions}><img class="athumb" src="{$item->thumbnailUrl}" alt="{$item->description}" height="80" width="120"></a></td>
-                        <td class="text"><a href="tiki-kaltura_video.php?{$entryType}Id={$item->id}"><img src="img/icons/application_form_magnify.png" class="icon"> {$item->name}</a></td>
+                        <td class="text"><a href="tiki-kaltura_video.php?{$entryType}Id={$item->id}">{icon name='clipboard-list'}{$item->name}</a></td>
                         <td class="text">{$item->createdAt}</td>
                         <td class="text">{$item->tags}</td>
                         <td class="text">{$modifiedAt[$key]}

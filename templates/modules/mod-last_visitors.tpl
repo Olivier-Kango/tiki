@@ -6,7 +6,7 @@
                     <table class="table">
                         <tr class="odd">
                             <td width="50">
-                                <img src="img/icons/gradient.gif" width="48" height="48" alt="{tr}No profile picture{/tr}">
+                                {icon name='user-circle' alt="{tr}No profile picture{/tr}"}
                             </td>
                             <td>
                 {/if}
@@ -22,7 +22,7 @@
             </li>
         {/if}
 
-        {capture assign='noAvatar'}<img src="img/icons/gradient.gif" width="48" height="48" alt="{tr}No profile picture{/tr}">{/capture}
+{capture assign='noAvatar'}{icon name='user-circle' alt="{tr}No profile picture{/tr}"}{/capture}
         {foreach from=$modLastVisitors key=key item=item}
             <li>
                 {if $showavatars eq 'y'}

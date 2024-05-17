@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div class="me-4">
         <span class="fa-stack fa-lg" style="width: 100px;" title="Configuration Wizard">
-            <i class="fas fa-cog fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+            {icon name='admin_general' iclass='fa-stack-2x'}
+            {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
         </span>
     </div>
         <div class="flex-grow-1 ms-3">

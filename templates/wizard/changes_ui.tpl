@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div class="me-4">
     <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
-        <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+        {icon name='arrow-circle-up' iclass='fa-stack-2x'}
+        {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
     </span>
     </div>
     </br></br>
@@ -47,8 +47,8 @@
             <legend> {tr}jQuery plugins and add-ons{/tr} </legend>
             {preference name=feature_jquery_reflection}
             {preference name=feature_jquery_zoom}
-            {preference name=feature_jquery_carousel} <img src="img/icons/bug_error.png" alt="{tr}Experimental{/tr}" title="{tr}Experimental{/tr}">
-            {preference name=feature_jquery_tablesorter} <img src="img/icons/bug_error.png" alt="{tr}Experimental{/tr}" title="{tr}Experimental{/tr}">
+            {preference name=feature_jquery_carousel} {icon name='warning' alt="{tr}Experimental{/tr}" ititle="{tr}Experimental{/tr}"}
+            {preference name=feature_jquery_tablesorter} {icon name='warning' alt="{tr}Experimental{/tr}" ititle="{tr}Experimental{/tr}"}
             {preference name=jquery_select2}
             {preference name=jquery_fitvidjs}
         </fieldset>

@@ -11,6 +11,7 @@ var use_references = '{$use_references}';
 </script>
 
 {jq}
+{literal}
 jQuery(function(){
 
     jQuery('#e_submit').on("click", function(e){
@@ -58,10 +59,10 @@ jQuery(function(){
                     jQuery('#ref_list').find('li#'+ref_id).remove();
                     var htm = '<li id="'+ref_id+'" style="border-bottom: 1px dotted #161C17;font-weight:bold;">';
                     htm += ref_biblio_code + '&nbsp;&nbsp;';
-                    htm += '<a class="edit_ref" onclick="edit_ref('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Edit" alt="Edit">' + '<img width="16" height="16" class="icon" title="Edit" alt="Edit" src="img/icons/pencil.png"></a>';
-                    htm += '<a onclick="delete_ref('+ref_id+')" title="Delete"><img width="16" height="16" class="icon" title="Remove" alt="Remove" src="img/icons/cross.png"></a>';
+    htm += '<a class="edit_ref" onclick="edit_ref('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Edit" alt="Edit">{/literal}{icon name='pencil' ititle='Edit' alt='Edit'}{literal}</a>';
+    htm += '<a onclick="delete_ref('+ref_id+')" title="Delete">{/literal}{icon name='close' iclass='text-danger' ititle='Remove' alt='Remove'}{literal}</a>';
                     if(data['is_library'] < 1 && use_references == '1' && edit_references == '1'){
-                        htm += '<a class="add_lib_btn" onclick="add_lib('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Add to library" alt="Add to library">' + '<img width="16" height="16" class="icon" title="Add to library" alt="Add to library" src="img/icons/world_add.png"></a>';
+                        htm += '<a class="add_lib_btn" onclick="add_lib('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Add to library" alt="Add to library">{/literal}{icon name='plus' ititle='Add to library' alt='Add to library'}{literal}</a>';
                     }
                     htm += '</li>';
                     jQuery('#e_status').html(data['message']);
@@ -131,10 +132,10 @@ jQuery(function(){
                     var ref_id = data["id"];
                     var htm = '<li id="'+ref_id+'" style="border-bottom: 1px dotted #161C17;">';
                     htm += ref_biblio_code + '&nbsp;&nbsp;';
-                    htm += '<a class="edit_ref" onclick="edit_ref('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Edit" alt="Edit">' + '<img width="16" height="16" class="icon" title="Edit" alt="Edit" src="img/icons/pencil.png"></a>';
-                    htm += '<a onclick="delete_ref('+ref_id+')" title="Delete"><img width="16" height="16" class="icon" title="Remove" alt="Remove" src="img/icons/cross.png"></a>';
+    htm += '<a class="edit_ref" onclick="edit_ref('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Edit" alt="Edit">{/literal}{icon name='pencil' ititle='Edit' alt='Edit'}{literal}</a>';
+    htm += '<a onclick="delete_ref('+ref_id+')" title="Delete">{/literal}{icon name='close' iclass='text-danger' ititle='Remove' alt='Remove'}{literal}</a>';
                     if(data['is_library'] < 1 && use_references == '1' && edit_references == '1'){
-                        htm += '<a class="add_lib_btn" onclick="add_lib('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Add to library" alt="Add to library">' + '<img width="16" height="16" class="icon" title="Add to library" alt="Add to library" src="img/icons/world_add.png"></a>';
+                        htm += '<a class="add_lib_btn" onclick="add_lib('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Add to library" alt="Add to library">{/literal}{icon name='plus' ititle='Add to library' alt='Add to library'}{literal}</a>';
                     }
                     htm += '</li>';
                     jQuery('#ref_list').find('ul').append(htm);
@@ -192,8 +193,8 @@ jQuery(function(){
 
                     var htm = '<li id="'+ref_id+'" style="border-bottom: 1px dotted #161C17;">';
                     htm += ref_biblio_code + '&nbsp;&nbsp;';
-                    htm += '<a class="edit_ref" onclick="edit_ref('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Edit" alt="Edit">' + '<img width="16" height="16" class="icon" title="Edit" alt="Edit" src="img/icons/pencil.png"></a>';
-                    htm += '<a onclick="delete_ref('+ref_id+')" title="Delete"><img width="16" height="16" class="icon" title="Remove" alt="Remove" src="img/icons/cross.png"></a>';
+    htm += '<a class="edit_ref" onclick="edit_ref('+ref_id+',\''+ref_biblio_code+'\', \''+ref_author+'\', \''+ref_title+'\', \''+ref_year+'\', \''+ref_part+'\', \''+ref_uri+'\', \''+ref_code+'\', \''+ref_style+'\', \''+ref_template+'\', \''+ref_publisher+'\', \''+ref_location+'\')" href="javascript:;" title="Edit" alt="Edit">{/literal}{icon name='pencil' ititle='Edit' alt='Edit'}{literal}</a>';
+    htm += '<a onclick="delete_ref('+ref_id+')" title="Delete">{/literal}{icon name='close' iclass='text-danger' ititle='Remove' alt='Remove'}{literal}</a>';
                     htm += '</li>';
                     jQuery('#ref_list').find('ul').append(htm);
                 }else if('failure'==data['result']){
@@ -205,6 +206,7 @@ jQuery(function(){
         });
     });
 });
+{/literal}
 {/jq}
 
 <script type="text/javascript">
@@ -345,7 +347,7 @@ function delete_ref(ref_id){
                     {if $prefs.feature_library_references neq 'y'}
                         <a class="edit_ref" title="{tr}Edit{/tr}" href="javascript:;" onclick="edit_ref('{$references[i].ref_id|escape}','{$references[i].biblio_code|escape}','{$references[i].author|escape}','{$references[i].title|escape}','{$references[i].year|escape}','{$references[i].part|escape}','{$references[i].uri|escape}','{$references[i].code|escape}','{$references[i].style|escape}','{$references[i].template|escape}','{$references[i].publisher|escape}','{$references[i].location|escape}')">{icon name='edit' alt="{tr}Edit{/tr}"}</a>
                     {/if}
-                    <a title="{tr}Delete{/tr}" onclick="delete_ref('{$references[i].ref_id|escape}')" >{icon name='remove' alt="{tr}Remove{/tr}"}</a>
+                    <a title="{tr}Delete{/tr}" onclick="delete_ref('{$references[i].ref_id|escape}')" >{icon name='remove' iclass='text-danger' alt="{tr}Remove{/tr}"}</a>
                     {if $references[i].is_library lt 1 && $use_references eq 1 && $edit_references eq 1}
                         <a class="add_lib_btn" title="{tr}Add to library{/tr}" onclick="add_lib('{$references[i].ref_id|escape}','{$references[i].biblio_code|escape}','{$references[i].author|escape}','{$references[i].title|escape}','{$references[i].year|escape}','{$references[i].part|escape}','{$references[i].uri|escape}','{$references[i].code|escape}','{$references[i].style|escape}','{$references[i].template|escape}','{$references[i].publisher|escape}','{$references[i].location|escape}')" >{icon name='add' alt="{tr}Add to library{/tr}"}</a>
                     {/if}

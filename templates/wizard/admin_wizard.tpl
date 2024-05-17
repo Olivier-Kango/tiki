@@ -21,9 +21,9 @@
         {/remarksbox}
 
         <div class="d-flex mb-5">
-            <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Configuration Profiles Wizard{/tr}" title="{tr}Configuration Profiles Wizard{/tr}" >
-                <i class="fas fa-cubes fa-stack-2x text-warning"></i>
-                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+            <span class="flex-shrink-0 fa-stack fa-lg me-1 " alt="{tr}Configuration Profiles Wizard{/tr}" title="{tr}Configuration Profiles Wizard{/tr}" >
+                {icon name='cubes' iclass='fa-stack-2x text-warning'}
+                {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
             </span>
             <div class="flex-grow-1 ms-3">
                 <legend>{tr}Configuration Profiles Wizard{/tr}</legend>
@@ -45,8 +45,8 @@
         </div>
         <div class="d-flex mb-5">
             <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Configuration Walkthrough{/tr}" title="Configuration Walkthrough">
-                <i class="fas fa-cog fa-stack-2x text-info"></i>
-                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+                {icon name='admin_general' iclass='fa-stack-2x text-info'}
+                {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
             </span>
             <div class="flex-grow ms-3">
                 <legend>{tr}Configuration Wizard{/tr}</legend>
@@ -65,8 +65,8 @@
         </div>
         <div class="d-flex mb-5">
             <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
-                <i class="fas fa-arrow-circle-up fa-stack-2x text-success"></i>
-                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+                {icon name='arrow-circle-up' iclass='fa-stack-2x text-success'}
+                {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
             </span>
             <div class="flex-grow-1 ms-3">
                 <legend>{tr}Changes Wizard{/tr}</legend>
@@ -89,8 +89,8 @@
         <hr>
         <div class="d-flex mb-5">
             <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Control Panels{/tr}" title="Control Panels">
-                <i class="fas fa-sliders-h fa-stack-2x text-primary"></i>
-                <i class="fas fa-cogs fa-stack-1x ms-4 mt-4" style="margin-left: 20px"></i>
+                {icon name='sliders' iclass='fa-stack-2x text-primary'}
+                {icon name='cogs' iclass='fa-stack-1x ms-4 mt-4' istyle='margin-left: 20px'}
             </span>
             <div class="flex-grow-1 ms-3">
                 <legend>{tr}Control Panels{/tr}</legend>
@@ -106,8 +106,8 @@
         </div>
         <div class="d-flex mb-5">
             <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Control Panels{/tr}" title="Control Panels">
-                <i class="fas fa-heartbeat fa-stack-2x text-danger"></i>
-                <i class="fas fa-server fa-stack-1x ms-4 mt-4"></i>
+                {icon name="heartbeat-fill" iclass="fa-stack-2x text-danger"}
+                {icon name='server-rack-fill' iclass='fa-stack-1x ms-4 mt-4'}
             </span>
             <div class="flex-grow-1 ms-3">
         <legend>{tr}Server Fitness{/tr}</legend>

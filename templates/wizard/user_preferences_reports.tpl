@@ -1,4 +1,4 @@
-<div class="userWizardIconleft"><img src="img/icons/large/wizard_user48x48.png" alt="{tr}User Wizard{/tr}" /></div>
+<div class="userWizardIconleft">{icon name='user-edit' alt="{tr}User Wizard{/tr}"}</div>
 {tr}Use "watches" to monitor wiki pages or other objects.{/tr} {tr}Watch new items by clicking the {icon name='watch'} button on specific pages.{/tr}<br/>
 {tr}Use reports to summarise notifications about objects you are watching{/tr}.<br/><br/>
 
@@ -6,7 +6,7 @@
     <fieldset>
         {if $prefs.feature_daily_report_watches eq 'y'}
             <legend>{tr}Report Preferences{/tr}</legend>
-            <div class="userWizardIconright"><img src="img/icons/large/stock_mail48x48.png" alt="{tr}Report Preferences{/tr}" /></div>
+            <div class="userWizardIconright">{icon name='envelope' alt="{tr}Report Preferences{/tr}"}</div>
             <div class="formcolor">
 
                 {if isset($remove_user_watch_error) && $remove_user_watch_error}

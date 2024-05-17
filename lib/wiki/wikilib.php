@@ -1532,7 +1532,9 @@ class WikiLib extends TikiLib
                         $info = $parserlib->plugin_info($name);
                         $pinfo['title'] = $info['name'];
                         unset($info['name']);
-                        $pinfo = array_merge($pinfo, $info);
+                        if (is_array($info)) {
+                            $pinfo = array_merge($pinfo, $info);
+                        }
 
                         $plugins[] = $pinfo;
                     }

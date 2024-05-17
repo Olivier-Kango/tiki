@@ -17,6 +17,7 @@
 </div>
 
 {jq}
+    {literal}
     $('.icon-selector-container').removeClass('icon-selector-container').each(function () {
         var icon = $('.icon', this).button();
         var field = $(':input', this);
@@ -32,8 +33,8 @@
             .each(function () {
                 var contents = $('.contents', this);
                 $('.buttons', this).buttonset();
-                $('.sections a', this).css('display', 'block').on("click", function () {
-                    contents.empty().append($('<img/>').attr('src', 'img/spinner.gif'));
+                $('.sections a', this).css('display', 'block').on("click",function () {
+                    contents.empty().append($('{/literal}{icon name='spinner' iclass='fa-spin'}{literal}');
                     if (jqxhr) {
                         jqxhr.abort();
                     }
@@ -62,4 +63,5 @@
             selector.dialog('open');
         });
     });
+    {/literal}
 {/jq}
