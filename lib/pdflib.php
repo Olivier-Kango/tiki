@@ -381,6 +381,10 @@ class PdfGenerator
                 $coverPageTextStyles = '';
             }
             $bgColor = $coverPage[3] == '' ? 'background-color:' . $coverPage[3] : '';
+            for ($i = 0; $i <= 1; $i++) {
+                $coverPage[$i] = str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($coverPage[$i] ?? ''), ['is_html' => true, 'parse_wiki' => true]));
+                $coverPage[$i] = preg_replace_callback('/\{DATE\s+(.*?)\}/', function($matches) { return date($matches[1]); }, $coverPage[$i]);
+            }
             $mpdf->WriteHTML('<body style="' . $bgColor . ';margin:0px;padding:0px"><div style="height:100%;background-image:url(' . $coverImage . ');padding:20px;background-repeat: no-repeat;background-position: center; "><div style="' . $coverPageTextStyles . 'height:95%;">
 <div style="text-align:' . $coverPage[2] . ';margin-top:30%;color:' . $coverPage[4] . '"><div style=margin-bottom:10px;font-size:50px>' . $coverPage[0] . '</div>' . $coverPage[1] . '</div></div></body>');
         }
