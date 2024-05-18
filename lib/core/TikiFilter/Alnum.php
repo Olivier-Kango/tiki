@@ -23,16 +23,25 @@ class TikiFilter_Alnum extends AbstractLocale
     public function __construct(string $extraChar = '')
     {
         parent::__construct();
+
         if (! StringUtils::hasPcreUnicodeSupport()) {
             // POSIX named classes are not supported, use alternative a-zA-Z0-9 match
             $this->pattern = '/[^a-zA-Z0-9' . $extraChar . ']/';
-        } elseif (in_array(Locale::getPrimaryLanguage($this->getLocale()), ['ja', 'ko', 'zh'], true)) {
-            // Use english alphabet
-            $this->pattern = '/[^a-zA-Z0-9' . $extraChar . ']/u';
-        } else {
-            // Use native language alphabet
-            $this->pattern = '/[^\p{L}\p{N}' . $extraChar . ']/u';
+            return;
         }
+
+        try {
+            if (in_array(Locale::getPrimaryLanguage($this->getLocale()), ['ja', 'ko', 'zh'], true)) {
+                // Use english alphabet
+                $this->pattern = '/[^a-zA-Z0-9' . $extraChar . ']/u';
+                return;
+            }
+        } catch (\Exception $e) {
+            // Ignore exception e.g. when using the polyfill, and use default pattern below.
+        }
+
+        // Use native language alphabet
+        $this->pattern = '/[^\p{L}\p{N}' . $extraChar . ']/u';
     }
 
     /**
