@@ -16,13 +16,13 @@
 @import "../../../node_modules/bootswatch/dist/zephyr/variables"; // 4. Default Bootswatch theme variables.
 @import "../../default/scss/variables"; // 5. Adds default variables for any not declared by the theme variables file.
 @import "../../default/scss/variables-dark"; // 6. Adds default dark variables for any not declared by the theme dark variables file.
-@import "../scss/css-variables"; // 7. Imported after default CSS variables to override them.
-@import "../../base_files/scss/_tiki-variables.scss"; // 8. Default value declarations for Tiki variables (in addition to Bootstrap variables) such as in _tiki-selectors.scss.
+@import "../../base_files/scss/_tiki-variables.scss"; // 7. Default value declarations for Tiki variables (in addition to Bootstrap variables) such as in _tiki-selectors.scss.
 
-@import "../../base_files/scss/_tiki-bootstrap_layout_and_components"; // 9. Remainder of required Bootstrap parts.
-@import "../../../node_modules/bootswatch/dist/zephyr/bootswatch"; // 10. Bootswatch theme selectors
-@import "../../base_files/scss/_tiki-selectors.scss"; // 11. Tiki CSS selectors used globally.
-@import "../../base_files/scss/_tiki-pagetop_colors.scss"; // 12. Optionally imported to group (separately) the top and topbar zone components for styling.
-//@import "../scss/_tiki-selectors.scss"; // 11. Tiki CSS selectors, including those of external scripts, to be styled by the theme's variables.
+@import "../../base_files/scss/_tiki-bootstrap_layout_and_components"; // 8. Remainder of required Bootstrap parts.
+@import "../../../node_modules/bootswatch/dist/zephyr/bootswatch"; // 9. Bootswatch theme selectors
+@import "../../base_files/scss/_tiki-selectors.scss"; // 10. Tiki CSS selectors used globally.
+@import "../../base_files/scss/_tiki-pagetop_colors.scss"; // 11. Optionally imported to group (separately) the top and topbar zone components for styling.
+//@import "../scss/_tiki-selectors.scss"; // 12. Tiki CSS selectors, including those of external scripts, to be styled by the theme's variables.
 
+@import "../scss/css-variables"; // 13. Imported after default CSS variables to override them.
 
