@@ -186,6 +186,14 @@ if (! TIKI_API) {
     require_once('lib/setup/javascript.php');
 }
 
+// load svgedit CSS file before themes to prevent svgedit CSS from breaking themes CSS
+if ($prefs['feature_draw'] == 'y') {
+    //This should really not be here.  It's gigantic (3MB of javascript, which will be included in every request if the feature is enabled)  Unfortunately, until we have a headerlib.js to generically add javascript to the original page from ajax code, this can't be solved cleanly.  - benoitg - 2024-05-07
+    $headerlib->add_js_module('import "@jquery-tiki/tiki-svgedit_draw";');
+    $headerlib->add_cssfile("public/generated/js/tiki-svgedit_draw.css");
+    $headerlib->add_cssfile("themes/base_files/feature_css/svg-edit-draw.css");
+}
+
 require_once('lib/setup/theme.php');
 
 /* Cookie consent setup, has to be after the JS decision and wiki setup */
@@ -717,13 +725,6 @@ if ($prefs['feature_trackers'] == 'y') {
         }
         TikiLib::lib('smarty')->assign('rsslist_trackers', $rss_trackers);
     }
-}
-
-if ($prefs['feature_draw'] == 'y') {
-    //This should really not be here.  It's gigantic (3MB of javascript, which will be included in every request if the feature is enabled)  Unfortunately, until we have a headerlib.js to generically add javascript to the original page from ajax code, this can't be solved cleanly.  - benoitg - 2024-05-07
-    $headerlib->add_js_module('import "@jquery-tiki/tiki-svgedit_draw";');
-    $headerlib->add_cssfile("public/generated/js/tiki-svgedit_draw.css");
-    $headerlib->add_cssfile("themes/base_files/feature_css/svg-edit-draw.css");
 }
 
 if ($prefs['geo_enabled'] === 'y') {
