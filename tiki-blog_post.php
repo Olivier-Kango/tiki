@@ -178,7 +178,7 @@ if (isset($_POST["preview"])) {
     $post_info['parsed_data'] = $parsed_data;
 
     $post_info['title'] = $_POST['title'];
-    $post_info['excerpt'] = $_POST['excerpt'];
+    $post_info['excerpt'] = isset($_POST['excerpt']) ? $_POST['excerpt'] : '';
     $post_info['user'] = isset($data) ? $data['user'] : $user;
     $post_info['created'] = $publishDate;
     $post_info['avatar'] = isset($data) ? $data['avatar'] : '';
