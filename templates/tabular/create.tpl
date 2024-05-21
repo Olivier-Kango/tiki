@@ -21,9 +21,9 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label class="col-form-label col-sm-3">{tr}Tracker{/tr}</label>
+            <label class="col-form-label col-sm-3" for="trackerId">{tr}Tracker{/tr}</label>
             <div class="col-sm-9">
-                {object_selector _class="form-control" type="tracker" _simplename="trackerId"}
+                {object_selector _class="form-control" type="tracker" _simplename="trackerId" _simpleid="trackerId"}
             </div>
         </div>
         <div class="row mb-4">

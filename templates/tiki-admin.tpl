@@ -213,7 +213,7 @@
                             <div class="col-auto form-check">
                                 {ticket}
                                 <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if !empty($pref_filters.advanced.selected)} checked="checked"{/if}>
-                                <label for="preffilter-toggle-1" class="form-check-label"></label>
+                                <label for="preffilter-toggle-1" class="form-check-label" aria-label="{tr}Advanced features activation button{/tr}"></label>
                             </div>
                         </div>
                     {/remarksbox}
