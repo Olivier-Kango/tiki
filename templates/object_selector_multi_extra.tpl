@@ -11,7 +11,7 @@
     data-filters="{$object_selector_multi.filter|escape}"
     data-threshold="{$object_selector_multi.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-extratype='{$object_selector_multi.extra_type|json_encode}'
->{$object_selector_multi.current_selection|join:'\n'}</textarea>
+>{$object_selector_multi.current_selection|join:"\n"}</textarea>
     <div class="basic-selector d-none">
         <select
             id="{$object_selector_multi.simpleid|escape}"
