@@ -667,22 +667,8 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         $filterFieldIdHere = (int) $this->getOption('fieldIdHere');
         $filterFieldIdThere = (int) $this->getOption('fieldIdThere');
 
-<<<<<<< HEAD
         $filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
         $filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
-=======
-        if ($filterFieldIdHere) {
-            $filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
-        } else {
-            $filterFieldHere = null;
-        }
-        if ($filterFieldIdThere) {
-            $filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
-        } else {
-            // this is legit case when here field is ItemLink or Relation
-            $filterFieldThere = null;
-        }
->>>>>>> 90e4f2dccb ([FIX] ItemsList based on Relation field like ItemLink works + fix for relation lookup when mysql index tries to do a fulltext on a date field)
 
         $sortFieldIds = $this->getOption('sortField');
         if (is_array($sortFieldIds)) {
