@@ -19,7 +19,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import moment from 'moment-timezone';
+import moment from 'moment-timezone/builds/moment-timezone-with-data-10-year-range.js';
 import { format } from 'date-fns';
 import * as locale from 'date-fns/locale';
 

@@ -4,7 +4,7 @@ import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import copy from "@guanghechen/rollup-plugin-copy";
-import {glob} from "glob";
+import { glob } from "glob";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 /*
@@ -109,8 +109,8 @@ export default defineConfig(({ command, mode }) => {
                     // This expands the relative paths to absolute paths, so e.g.
                     resolve(__dirname, path.relative(__dirname, file)),
                 ];
-            }),
-        ),
+            })
+        )
     );
     Object.assign(rollupInput, {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
@@ -349,7 +349,7 @@ export default defineConfig(({ command, mode }) => {
                         flatten: false,
                         verbose: true,
                     },
-                        //lang/ and js/ javascripts
+                    //lang/ and js/ javascripts
                     {
                         src: "_custom/**/{lang,js}/**/*.{js,mjs}",
                         dest: "public/generated/_custom",
