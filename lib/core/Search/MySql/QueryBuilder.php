@@ -16,13 +16,13 @@ use Search_Expr_ImplicitPhrase as ImplicitPhrase;
 class Search_MySql_QueryBuilder
 {
     private $db;
-    private Search_MySql_Table $table;
+    private $table;
     private $factory;
     private $fieldBuilder;
     private $tfTranslator;
     private $indexes = [];
 
-    public function __construct($db, ?Search_MySql_Table $table = null)
+    public function __construct($db, Search_MySql_Table|null $table = null)
     {
         $this->db = $db;
         $this->table = $table;
