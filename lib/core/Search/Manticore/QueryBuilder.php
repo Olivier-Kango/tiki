@@ -221,7 +221,18 @@ class QueryBuilder
             return "{$field} = $value";
         } else {
             $value = $this->getQuoted($node);
-            return "REGEX({$field}, $value)";
+            if (is_array($value)) {
+                return '(' . implode(' OR ', array_filter(array_map(function ($v) use ($field) {
+                    if (is_scalar($v)) {
+                        $v = $this->pdo_client->quote(strval($v));
+                    } else {
+                        return null;
+                    }
+                    return "REGEX({$field}, $v)";
+                }, $value))) . ')';
+            } else {
+                return "REGEX({$field}, $value)";
+            }
         }
     }
 
