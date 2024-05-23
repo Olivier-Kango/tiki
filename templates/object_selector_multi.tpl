@@ -26,7 +26,7 @@
     data-threshold="{$object_selector_multi.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector_multi.searchfield|escape}"
     data-relationshiptrackerid="{$object_selector_multi.relationshipTrackerId}"
->{$object_selector_multi.current_selection|join:'\n'}</textarea>
+>{$object_selector_multi.current_selection|join:"\n"}</textarea>
     <div class="basic-selector d-none">
         <select class="form-select" style="width: 100%;" multiple>
             {foreach $object_selector_multi.current_selection as $object}
