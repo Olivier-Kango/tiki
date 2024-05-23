@@ -16,14 +16,16 @@ use Search_Expr_ImplicitPhrase as ImplicitPhrase;
 class Search_MySql_QueryBuilder
 {
     private $db;
+    private Search_MySql_Table $table;
     private $factory;
     private $fieldBuilder;
     private $tfTranslator;
     private $indexes = [];
 
-    public function __construct($db)
+    public function __construct($db, ?Search_MySql_Table $table)
     {
         $this->db = $db;
+        $this->table = $table;
         $this->factory = new Search_MySql_TypeFactory();
         $this->fieldBuilder = new Search_MySql_FieldQueryBuilder();
         $this->tfTranslator = new Search_MySql_TrackerFieldTranslator();
@@ -55,6 +57,13 @@ class Search_MySql_QueryBuilder
         if ($node instanceof Token && count($fields) == 1 && $this->getQuoted($node) === $this->db->qstr('')) {
             $value = $this->getQuoted($node);
             $this->requireIndex($node->getField(), 'index', $node->getWeight());
+            if ($this->table) {
+                // comparison of date with empty string errors in mysql 8+
+                $type = $this->table->getFieldType($node->getField());
+                if ($type && strstr($type, 'date')) {
+                    return "`{$this->tfTranslator->shortenize($node->getField())}` IS NULL";
+                }
+            }
             return "(`{$this->tfTranslator->shortenize($node->getField())}` = $value OR `{$this->tfTranslator->shortenize($node->getField())}` IS NULL)";
         }
 
