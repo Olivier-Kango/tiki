@@ -258,4 +258,13 @@ class Search_MySql_Index implements Search_Index_Interface
             }
         }
     }
+
+    public function isTextField($field)
+    {
+        $type = $this->table->getFieldType($field);
+        if ($type == 'date' || $type == 'datetime') {
+            return false;
+        }
+        return true;
+    }
 }
