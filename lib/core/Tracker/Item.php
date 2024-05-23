@@ -51,8 +51,12 @@ class Tracker_Item
             $info['trackerId'] = TikiLib::lib('trk')->get_tracker_for_item($info['itemId']);
         }
         $obj->info = $info;
+        $definition = null;
         if (isset($info['trackerId'])) {
-            $obj->definition = Tracker_Definition::get($info['trackerId']);
+            $definition = Tracker_Definition::get($info['trackerId']);
+        }
+        if ($definition) {
+            $obj->definition = $definition;
         } else {
             throw new InvalidArgumentException("Cannot initialize tracker item without a trackerId and its definition.");
         }
