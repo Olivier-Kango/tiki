@@ -22,7 +22,7 @@ class Search_MySql_QueryBuilder
     private $tfTranslator;
     private $indexes = [];
 
-    public function __construct($db, ?Search_MySql_Table $table)
+    public function __construct($db, ?Search_MySql_Table $table = null)
     {
         $this->db = $db;
         $this->table = $table;
