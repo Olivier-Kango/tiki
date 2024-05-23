@@ -2311,7 +2311,12 @@ class TrackerLib extends TikiLib
         // get permnames
         $permNames = [];
         foreach ($fil as $fieldId => $value) {
-            $field = $tracker_definition->getField($fieldId);
+            try {
+                $field = $tracker_definition->getField($fieldId);
+            } catch (RuntimeException | InvalidArgumentException $e) {
+                // ignore missing fields that might be deleted but their data still stored in itemfields table
+                $field = null;
+            }
             if (! empty($field)) {
                 if ($field['type'] !== 'W') {    // not for webservices
                     $permNames[$fieldId] = $field['permName'];

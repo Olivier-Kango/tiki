@@ -45,7 +45,7 @@ class Tracker_Field_ItemsList extends \Tracker\Field\AbstractField implements \T
                     ],
                     'fieldIdHere' => [
                         'name' => tr('Value Field ID'),
-                        'description' => tr('Field ID from this tracker matching the value in the link field ID from the other tracker if the field above is not an item link. If the field chosen here is an ItemLink, Link Field ID above can be left empty.'),
+                        'description' => tr('Field ID from this tracker matching the value in the link field ID from the other tracker if the field above is not an ItemLink or Relations. If the field chosen here is an ItemLink or Relations, Link Field ID above can be left empty.'),
                         'filter' => 'int',
                         'legacy_index' => 2,
                         'profile_reference' => 'tracker_field',
@@ -685,8 +685,8 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         if ($filterFieldIdThere) {
             $filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
         } else {
+            // this is legit case when here field is ItemLink or Relation
             $filterFieldThere = null;
-            Feedback::error(tr('No linked field set for ItemsList fieldId %0', $this->getFieldId()));
         }
 
         $sortFieldIds = $this->getOption('sortField');
@@ -781,6 +781,27 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                     );
                 }
 
+                return $items;
+            }
+            // REL = relation field can contain items from the target tracker which we can use to feed our ItemsList field
+            if (isset($filterFieldHere['type']) && $filterFieldHere['type'] == 'REL' && $localValue) {
+                $items = [];
+                $handler = $this->getTrackerDefinition()->getFieldFactory()->getHandler($filterFieldHere, $this->getItemData());
+                $data = $handler->getFieldData();
+                foreach ($data['relations'] as $relation) {
+                    $remote = null;
+                    if ($relation->source->type == 'trackeritem' && $relation->source->itemId == $this->getItemId()) {
+                        $remote = $relation->target;
+                    } elseif ($relation->target->type == 'trackeritem' && $relation->target->itemId == $this->getItemId()) {
+                        $remote = $relation->source;
+                    }
+                    if ($remote && $remote->type == 'trackeritem') {
+                        $remoteItem = $trklib->get_item_info($remote->itemId);
+                        if ($remoteItem['trackerId'] == $trackerId) {
+                            $items[] = $remote->itemId;
+                        }
+                    }
+                }
                 return $items;
             }
             // Skip nulls

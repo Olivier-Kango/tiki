@@ -127,6 +127,15 @@ class Search_MySql_Table extends TikiDb_Table
         }
     }
 
+    public function getFieldType($fieldName)
+    {
+        $this->loadDefinition();
+        if (isset($this->definition[$fieldName])) {
+            return $this->definition[$fieldName];
+        }
+        return null;
+    }
+
     private function loadDefinition()
     {
         if (! empty($this->definition)) {
