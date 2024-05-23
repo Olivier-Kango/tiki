@@ -13,8 +13,9 @@ class LogTpl implements \Smarty\Filter\FilterInterface
     {
         global $prefs;
 
-        $log_tpl = $template->tpl_vars['log_tpl'];
-        if ($prefs['log_tpl'] != 'y' || $log_tpl->value === false) {
+        $disableTplLogging = isset($template->tpl_vars['disableTplLogging']) ? $template->tpl_vars['disableTplLogging']->value : false;
+
+        if ($prefs['log_tpl'] != 'y' || $disableTplLogging === true) {
             return $source;
         }
 
