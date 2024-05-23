@@ -256,7 +256,7 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
             FROM
                 users_groups
                 INNER JOIN tiki_tracker_item_fields ON usersFieldId = fieldId
-            WHERE value = ? AND usersTrackerId IS NOT NULL
+            WHERE value = ? AND usersTrackerId IS NOT NULL AND usersTrackerId != 0
             ",
             [$user]
         );
@@ -270,6 +270,10 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
             }
 
             $item = $this->trk->get_tracker_item($row['itemId']);
+            if (! $item) {
+                continue;
+            }
+
             $data = array_merge($data, [
                 'tracker_item_id' => $typeFactory->identifier($row['itemId']),
                 'tracker_item_status' => $typeFactory->identifier($item['status'] ?? false),
