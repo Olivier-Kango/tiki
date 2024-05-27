@@ -298,7 +298,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["create_zone"])) {
     $imgname = $_REQUEST["imageName"];
     $imgtype = $_REQUEST["imageType"];
 
-    if (isset($_FILES['userfile1'])) {
+    if (isset($_FILES['userfile1']) && $_FILES['userfile1']['error'] === UPLOAD_ERR_OK) {
         if (is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
             $filegallib = TikiLib::lib('filegal');
             try {
@@ -323,7 +323,32 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["create_zone"])) {
             $_REQUEST["imageName"] = $imgname;
             $_REQUEST["imageType"] = $imgtype;
         } else {
-            Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
+            switch ($_FILES['userfile1']['error']) {
+                case UPLOAD_ERR_INI_SIZE:
+                    Feedback::error(tra("The uploaded file exceeds the upload_max_filesize directive in php.ini."));
+                    break;
+                case UPLOAD_ERR_FORM_SIZE:
+                    Feedback::error(tra("The uploaded file exceeds the MAX_FILE_SIZE directive specified in the HTML form."));
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    Feedback::error(tra("The uploaded file was only partially uploaded."));
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    Feedback::error(tra("Missing a temporary folder."));
+                    break;
+                case UPLOAD_ERR_CANT_WRITE:
+                    Feedback::error(tra("Failed to write file to disk."));
+                    break;
+                case UPLOAD_ERR_EXTENSION:
+                    Feedback::error(tra("A PHP extension stopped the file upload."));
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    Feedback::error(tra("No file was uploaded."));
+                    break;
+                default:
+                    Feedback::error(tra("Unknown error."));
+                    break;
+            }
         }
     }
 
