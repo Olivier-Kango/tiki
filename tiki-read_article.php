@@ -9,6 +9,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Lib\Image\Image;
+use Tiki\Wiki\WikiPaginationUtils;
 
 $section = 'cms';
 require_once('tiki-setup.php');
@@ -132,8 +133,8 @@ if ($prefs['article_paginate'] == 'y') {
 
     $parserlib->plugins_remove($article_data["body"], $noparsed);
     $parserlib->parse_first($article_data["body"], $preparsed, $noparsed);
-    $pages = \Tiki\Lib\Wiki\WikiPaginationUtils::getNumberOfPages($article_data["body"]);
-    $article_data["body"] = \Tiki\Lib\Wiki\WikiPaginationUtils::getPage($article_data["body"], $_REQUEST['page']);
+    $pages = WikiPaginationUtils::getNumberOfPages($article_data["body"]);
+    $article_data["body"] = WikiPaginationUtils::getPage($article_data["body"], $_REQUEST['page']);
     $smarty->assign('pages', $pages);
     if ($pages > $_REQUEST['page']) {
         $smarty->assign('next_page', $_REQUEST['page'] + 1);
