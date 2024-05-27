@@ -796,7 +796,7 @@ class WikiLib extends TikiLib
 
         $path = $this->getOne("select `path` from `tiki_wiki_attachments` where `attId`=?", [$attId]);
 
-        /* carefull a same file can be attached in different page */
+        /* careful a same file can be attached in different page */
         if ($path && $this->getOne("select count(*) from `tiki_wiki_attachments` where `path`=?", [$path]) <= 1) {
             @unlink($prefs['w_use_dir'] . $path);
         }
@@ -1532,7 +1532,9 @@ class WikiLib extends TikiLib
                         $info = $parserlib->plugin_info($name);
                         $pinfo['title'] = $info['name'];
                         unset($info['name']);
-                        $pinfo = array_merge($pinfo, $info);
+                        if (is_array($info)) {
+                            $pinfo = array_merge($pinfo, $info);
+                        }
 
                         $plugins[] = $pinfo;
                     }
@@ -1634,6 +1636,12 @@ class WikiLib extends TikiLib
         if (TikiLib::lib('tiki')->page_exists($page)) {
             $page = $pages->fetchOne('pageSlug', ['pageName' => $page]) ?: $page;
             $href = "$script_name?page=" . $page;
+        } elseif ($this->get_pages_by_alias($page)) {
+            $result = $this->get_pages_by_alias($page);
+            if (isset($result[0])) {
+                $page = $result[0];
+                $href = "$script_name?page=" . $page;
+            }
         } else {
             $href = "$script_name2?page=" . $page;
         }

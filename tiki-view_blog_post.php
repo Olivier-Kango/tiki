@@ -12,6 +12,8 @@ $section = 'blogs';
 require_once('tiki-setup.php');
 $bloglib = TikiLib::lib('blog');
 
+use Tiki\Wiki\WikiPaginationUtils;
+
 $auto_query_args = [
     'postId',
     'blogId',
@@ -180,8 +182,8 @@ if ($post_info['wysiwyg'] == "y") {
 if (! isset($_REQUEST['page'])) {
     $_REQUEST['page'] = 1;
 }
-$pages = \Tiki\Lib\Wiki\WikiPaginationUtils::getNumberOfPages($parsed_data);
-$post_info['parsed_data'] = \Tiki\Lib\Wiki\WikiPaginationUtils::getPage($parsed_data, $_REQUEST['page']);
+$pages = WikiPaginationUtils::getNumberOfPages($parsed_data);
+$post_info['parsed_data'] = WikiPaginationUtils::getPage($parsed_data, $_REQUEST['page']);
 $post_info['pages'] = $pages;
 if ($pages > $_REQUEST['page']) {
     $post_info['next_page'] = $_REQUEST['page'] + 1;
