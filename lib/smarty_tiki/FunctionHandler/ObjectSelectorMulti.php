@@ -53,7 +53,7 @@ class ObjectSelectorMulti extends Base
             'format' => null,
             'placeholder' => tr('Title'),
             'sort' => null,
-            'wildcard' => 'n',
+            'wildcard' => $prefs['tiki_object_selector_wildcardsearch'],
             'extra_type' => null,
             'selector_type_reference' => null,
             'relations' => [],

@@ -22,6 +22,7 @@
     {if !empty($object_selector.format)}data-format="{$object_selector.format|escape}"{/if}
     {if !empty($object_selector.format)}data-format="{$object_selector.format|escape}"{/if}
     {if !empty($object_selector.sort)}data-sort="{$object_selector.sort|escape}"{/if}
+    data-wildcard="{$object_selector.wildcard|escape}"
     data-filters="{$object_selector.filter|escape}"
     data-threshold="{$object_selector.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector.searchfield|escape}"
