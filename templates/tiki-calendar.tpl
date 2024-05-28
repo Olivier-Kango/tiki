@@ -257,6 +257,7 @@
             }
         }
     </style>
+    <div id='currentcalitemId' class='d-none'>{$currentcalitemId}</div>
     <div id='calendar'></div>
 </div>
 {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
