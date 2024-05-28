@@ -188,6 +188,13 @@ function prefs_tiki_list()
             'default' => 'title',
             'filter' => 'text',
         ],
+        'tiki_object_selector_wildcardsearch' => [
+            'name' => tr('Object selector wildcard search'),
+            'description' => tr(''),
+            'type' => 'flag',
+            'default' => 'y',
+            'filter' => 'alpha',
+        ],
         'tiki_key' => [
             'name' => tr('Client key for this site'),
             'type' => 'text',
