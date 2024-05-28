@@ -130,6 +130,13 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     if (textColor === "#") {
                         textColor = defaultTextColor;
                     }
+
+                    var currentcalitemId = $("#currentcalitemId").text();
+                    if (currentcalitemId !== "" && currentcalitemId == event.id) {
+                        backgroundColor = "#FFEA00";
+                        textColor = "#000";
+                    }
+
                     $(element).attr("style", "background-color: " + backgroundColor);
                     if (categoryBackgroundColor !== "") {
                         $(element).attr("style", "background-color: " + categoryBackgroundColor);
