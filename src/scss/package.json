@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "node scripts/check_custom.js",
     "prewatch": "node scripts/check_custom.js",
-    "build": "sass --update --load-path=../../templates ../../themes ../../_custom:../../public/generated/_custom",
-    "watch": "sass --watch --load-path=../../templates ../../themes ../../_custom:../../public/generated/_custom",
+    "build": "sass --update --load-path=../../templates --load-path=../../themes ../../themes ../../_custom:../../public/generated/_custom",
+    "watch": "sass --watch --load-path=../../templates --load-path=../../themes ../../themes ../../_custom:../../public/generated/_custom",
     "clean": "git clean -f -x \"../../themes/**/*.css\" \"../../themes/**/*.css.map\" \"../../public/generated/_custom/**/*.css\" \"../../public/generated/_custom/**/*.css.map\""
 
   },
