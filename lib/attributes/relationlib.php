@@ -51,13 +51,15 @@ class RelationLib extends TikiDb_Bridge
 
     /**
      * Obtains a list of relations in from source or target side.
-     * @param string $type of source item
-     * @param string $object id of source item
+     *
+     * @param string $type     of source item
+     * @param string $object   id of source item
      * @param string $relation qualifier of the relation
-     * @param bool $invert - which side of the relation to search
+     * @param bool   $invert   - which side of the relation to search
+     *
      * @return array of ObjectRelation objects filled with all relation data
      */
-    public function getObjectRelations($type, $object, $relation, bool $invert = false)
+    public function getObjectRelations(string $type, string $object, string $relation, bool $invert = false): array
     {
         $straight = true;
         if (substr($relation, -7) === '.invert') {
@@ -85,10 +87,11 @@ class RelationLib extends TikiDb_Bridge
             if (empty($row['source_itemId'])) {
                 Feedback::error(
                     tr(
-                        'Relation #%0 to %1:%2 missing %3 source_itemId',
+                        'Relation "%0" (#%1) to %2:%3 missing %4 source_itemId',
+                        $relation,
                         $row['relationId'],
                         $type,
-                        $object,
+                        $object ?: ($row['target_itemId'] ?: ''),
                         $row['source_type']
                     )
                 );
@@ -97,9 +100,10 @@ class RelationLib extends TikiDb_Bridge
             if (empty($row['target_itemId'])) {
                 Feedback::error(
                     tr(
-                        'Relation to %0:%1 missing %2 target_itemId',
+                        'Relation "%0" (#%1) to %2:%3 missing %4 target_itemId',
+                        $relation,
                         $type,
-                        $object,
+                        $object ?: $row['source_itemId'],
                         $row['target_type']
                     )
                 );
