@@ -144,6 +144,13 @@ if (is_array($_SESSION['CalendarViewGroups'])) {
 }
 $smarty->assign_by_ref('checkedCalIds', $checkedCalIds);
 
+if (! empty($_REQUEST["calitemId"])) {
+    $calitemId = $_REQUEST["calitemId"];
+} else {
+    $calitemId = '';
+}
+$smarty->assign('currentcalitemId', $calitemId);
+
 if (isset($_REQUEST["find"])) {
     $find = $_REQUEST["find"];
 } else {
