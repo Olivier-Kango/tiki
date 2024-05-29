@@ -10144,7 +10144,6 @@
             "PerspectiveLib::replace_perspective": true,
             "PerspectiveLib::remove_perspective": true,
             "PerspectiveLib::replace_preferences": true,
-            "PerspectiveLib::replace_preference_values": true,
             "PerspectiveLib::replace_preference": true,
             "PerspectiveLib::set_preference": true,
             "PerspectiveLib::perspective_exists": true,
