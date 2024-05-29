@@ -329,12 +329,12 @@ class PerspectiveLib
     }
 
     /**
-     * Replaces a specific preference
+     * Replaces a specific preference in one or more perspectives
      *
      */
     public function replace_preference($preference, $value, $newValue)
     {
-        $this->perspectivePreferences->update(
+        $this->perspectivePreferences->updateMultiple(
             ['value' => serialize($newValue),],
             [
                 'pref' => $preference,
