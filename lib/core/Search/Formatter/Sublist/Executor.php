@@ -68,7 +68,7 @@ class Executor
                 throw new Exception(tr('Filter blocks inside sublist sections in PluginList need field reference.'));
             }
             foreach ($arguments as $name => $value) {
-                if (preg_match('/\$(parent|root)\.(.*?)\|?(object_ids)?\$/', $value, $m)) {
+                if (preg_match('/\$(parent|root)\.(.*?)\|?(object_ids|multivalue)?\$/', $value, $m)) {
                     $placeholder = $m[0];
                     $type = $m[1];
                     $field = $m[2];
@@ -82,6 +82,11 @@ class Executor
                             }, explode("\n", $val));
                             $values = array_merge($values, $val);
                             return $val;
+                        } elseif ($modifier == 'multivalue') {
+                            $val = str_replace($placeholder, $val, $value);
+                            $values[] = $val;
+                            $converter = TikiLib::lib('unifiedsearch')->getIndex()->getTypeFactory()->multivalue($val);
+                            return $converter->getValue();
                         } else {
                             $val = str_replace($placeholder, $val, $value);
                             $values[] = $val;
