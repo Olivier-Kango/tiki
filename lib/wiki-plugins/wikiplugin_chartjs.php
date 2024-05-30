@@ -172,11 +172,19 @@ function wikiplugin_chartjs($data, $params)
     $canvas = '<canvas id="' . $params['id'] . '" width="' . $params['width'] . '" height="' . $params['height'] . '"></canvas>';
 
     if (! $to_PDF) {
-        TikiLib::lib('header')->add_js_module('
-            import { Chart, registerables } from "chartjs";
-            Chart.register(...registerables);
-            setTimeout(function () {' . $script . '}, 500);
-         ');
+        if ($instance === 1) {
+            TikiLib::lib('header')->add_js_module(
+                '
+                import { Chart, registerables } from "chartjs";
+                Chart.register(...registerables);
+                setTimeout(function () {' . $script . '}, 500);
+             '
+            );
+        } else {
+            TikiLib::lib('header')->add_js_module('
+                setTimeout(function () {' . $script . '}, 500);
+             ');
+        }
 
         return '<div class="tiki-chartjs">' . $canvas . '</div>';
     }

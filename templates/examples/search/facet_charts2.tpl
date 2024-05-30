@@ -62,7 +62,7 @@ Debugging:
                 {foreach $chart[$i] as $param => $value}
                     {if $param[0] neq '_'}
                         {if strpos($value, ':') neq false}
-                            {$value = $values|split:':'}
+                            {$value = $value|split:':'}
                         {/if}
                         {$thisDataset[$param] = $value}
                     {/if}
@@ -70,14 +70,17 @@ Debugging:
 
                 {$values = []}
                 {$labels = []}
-                {$matches = []}
-                {foreach from=$facet.options key=value item=label}
-                    {if isset($label) && strpos($label, 'trackeritem:0 ') !== false}
-                        {continue}
-                    {/if}
-                    {if isset($label, $matches) && preg_match('/(.*?)\s+\((\d+)\)/', $label|escape, $matches)}
-                        {$labels[] = $matches[1]}
-                        {$values[] = $matches[2]}
+                {foreach $facet.options as $value => $label}
+                    {if isset($label)}
+                        {if strpos($label, 'trackeritem:0') !== false}
+                            {continue}
+                        {/if}
+                        {$replaced = $label|escape|regex_replace:'/(.*?)\s+\((\d+)\)/':'$1~$2'}
+                        {if $replaced}
+                            {$matches = $replaced|split:'~'}
+                            {$labels[] = $matches[0]}
+                            {$values[] = $matches[1]}
+                        {/if}
                     {/if}
                 {/foreach}
 
