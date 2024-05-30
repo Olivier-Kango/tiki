@@ -415,6 +415,9 @@ class TextArea extends Base
             // wiki link widgets markers
             val = val.replace(/\$\$widget0 (.*?)\$\$/mg, "$1");
         }
+        // remove previously added {syntax} plugins
+        val = val.replace(/^\{syntax [^}]+\}\r?\n/gm, "");
+        // add the new one
         $textarea.val("{syntax type=\"" + syntax + "\" editor=\"" + editor + "\"}\r\n" + val);
     }
             ');
