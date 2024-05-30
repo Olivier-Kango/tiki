@@ -1,7 +1,6 @@
 import { reactive } from "vue";
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
-import * as $ from "jquery";
 
 momentDurationFormatSetup(moment);
 
