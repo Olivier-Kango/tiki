@@ -13,7 +13,6 @@ function wikiplugin_customsearch_info()
         'prefs' => ['wikiplugin_customsearch', 'wikiplugin_list', 'feature_search'],
         'body' => tra('LIST plugin configuration information'),
         'filter' => 'wikicontent',
-        'format' => 'html',
         'profile_reference' => 'search_plugin_content',
         'iconname' => 'search',
         'introduced' => 8,
