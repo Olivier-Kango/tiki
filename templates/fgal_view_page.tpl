@@ -1,6 +1,6 @@
 {* build link *}
 {capture assign=link}
-    {include 'fgal_file_link_attributes.tpl' log_tpl=false}
+    {include 'fgal_file_link_attributes.tpl' disableTplLogging=true}
 {/capture}
 
 {math equation="x + 6" x=$thumbnail_size assign=thumbnailcontener_size}
