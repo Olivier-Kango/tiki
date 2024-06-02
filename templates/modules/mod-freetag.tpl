@@ -7,7 +7,7 @@
             {if !empty($freetag_error)}{$freetag_error}{/if}
             <div class="col-sm-12">
                 <form name="addTags" method="post">
-                    <div class="mb-3 row mx-0">
+                    <div class="mb-3">
                         <input type="text" name="addtags" class="form-control"{if !empty($freetag_msg)} value="{$freetag_msg}"{/if} />
                         {if $prefs.feature_antibot eq 'y' && $user eq ''}
                             <table>{include file="antibot.tpl"}</table>

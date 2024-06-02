@@ -9,7 +9,7 @@
     <form method="get" action="tiki-switch_theme.php">
         <fieldset>
             <legend class="visually-hidden">{tr}Switch Theme{/tr}</legend>
-            <div class="mb-3 row mx-0">
+            <div class="mb-3">
                 <select name="theme" onchange="this.form.submit();" class="form-select" {if not $switchtheme_enabled}disabled{/if}>
                     <option value="" class="text-muted bg-info">{tr}Site theme{/tr} ({$prefs.site_theme}{if !empty($prefs.site_theme_option)}/{$prefs.site_theme_option}{/if})</option>
                     {foreach from=$available_themes key=value item=label}
@@ -18,7 +18,7 @@
                 </select>
             </div>
             {if count($available_options)}
-                <div class="mb-3 row mx-0">
+                <div class="mb-3">
                     <select name="theme_option" onchange="this.form.submit();" class="form-select" {if not $switchtheme_enabled}disabled{/if}>
                         <option value="" class="text-muted bg-info">{tr}None{/tr}</option>
                         {foreach from=$available_options key=value item=label}
