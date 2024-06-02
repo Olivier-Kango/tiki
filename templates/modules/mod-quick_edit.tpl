@@ -16,7 +16,7 @@
             {if $mod_quickedit_heading}
                 <div class="card-body">{$mod_quickedit_heading|escape}</div>
             {/if}
-            <div class="mb-3 row mx-0">
+            <div class="mb-3">
                 <input id="{$qefield}" class="form-control" type="text" name="page" />
                 {if $addcategId}
                     <input type="hidden" name="cat_categories[]" value="{$addcategId|escape}" />
