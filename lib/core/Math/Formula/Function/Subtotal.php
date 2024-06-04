@@ -58,10 +58,11 @@ class Math_Formula_Function_Subtotal extends Math_Formula_Function
         // group values by field
         if (is_array($list)) {
             foreach ($list as $values) {
-                if (! isset($values[$group])) {
+                try {
+                    $group_value = trim($this->evaluateChild($group, $values));
+                } catch (Math_Formula_Exception $e) {
                     continue;
                 }
-                $group_value = trim($values[$group]);
                 if (! isset($out[$group_value])) {
                     $out[$group_value] = ['group' => $group_value];
                     foreach ($aggregate as $position => $field) {
