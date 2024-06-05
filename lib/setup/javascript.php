@@ -313,87 +313,93 @@ var jqueryTiki = ' . json_encode($jqueryTiki, JSON_UNESCAPED_SLASHES) . "\n";
 
 if ($prefs['feature_syntax_highlighter'] !== 'y') {
     // add a dummy syntaxHighlighter object as it seems to be used all over the place without checking for the feature
-    $js .= '
+    $js .= <<< 'EOT'
 var syntaxHighlighter = {
-    ready: function (textarea, settings) {
+    ready: function(textarea, settings) {
         return null;
     },
-    sync: function (textarea) {
+    sync: function(textarea) {
         return null;
     },
-    add: function (editor , $input, none, skipResize) {
+    add: function(editor, $input, none, skipResize) {
         return null;
     },
-    remove: function ($input) {
+    remove: function($input) {
         return null;
     },
-    get: function ($input) {
+    get: function($input) {
         return null;
     },
-    fullscreen: function (textarea) {
+    fullscreen: function(textarea) {
         return null;
     },
-    find: function (textareaEditor, val) {
+    find: function(textareaEditor, val) {
         return null;
     },
     searchCursor: [],
-    replace: function (textareaEditor, val, replaceVal) {
+    replace: function(textareaEditor, val, replaceVal) {
         return null;
     },
-    insertAt: function (textareaEditor, replaceString, perLine, blockLevel) {
+    insertAt: function(textareaEditor, replaceString, perLine, blockLevel) {
         return null;
     }
 };
-';
+EOT;
 }
 
 if ($prefs['jquery_ui_modals_draggable'] === 'y') {
-    $js .= '
-$(document) . on("shown.bs.modal", function (event) {
-    $(event . target) . find(".modal-dialog")
-        . css({left: "", top: ""})
-        . draggable({
-             handle: ".modal-header",
-             cursor: "grabbing"
+    $js .= <<< 'EOT'
+$(document).on("shown.bs.modal", function(event) {
+    $(event.target).find(".modal-dialog")
+        .css({
+            left: "",
+            top: ""
+        })
+        .draggable({
+            handle: ".modal-header",
+            cursor: "grabbing"
         });
 });
-';
-    $headerlib->add_css(' . modal - header {cursor: grab}');
+EOT;
+    $headerlib->add_css('.modal-header {cursor: grab}');
 }
 
 if ($prefs['jquery_ui_modals_resizable'] === 'y') {
-    $js .= '
-$(document) . on("tiki.modal.redraw", function (event) {
-    var $modalContent = $(event . target);
-    if (! $modalContent . is(".modal-content")) {
-        $modalContent = $modalContent . find(".modal-content")
+    $js .= <<< 'EOT'
+$(document).on("tiki.modal.redraw", function(event) {
+    var $modalContent = $(event.target);
+    if (!$modalContent.is(".modal-content")) {
+        $modalContent = $modalContent.find(".modal-content")
     }
-    if ($modalContent . is(".ui-resizable") && $modalContent . resizable("instance") . started) {
-        $modalContent . resizable("destroy");
+    if ($modalContent.is(".ui-resizable") && $modalContent.resizable("instance").started) {
+        $modalContent.resizable("destroy");
     }
     $modalContent
-        . css({width: "", height: ""})
-        . resizable({
+        .css({
+            width: "",
+            height: ""
+        })
+        .resizable({
             minHeight: 100,
             minWidth: 200
         })
-        . find(".modal-body") . css({
+        .find(".modal-body").css({
             "overflow": "auto"
         });
 });
-';
+EOT;
 }
 
 if ($prefs['feature_realtime'] === 'y') {
-    $js .= '
+    $js .= <<< 'EOT'
 var tikiOpenWS = function (endpoint) {
     return new WebSocket(' . json_encode(preg_replace('#http://#', 'ws://', preg_replace('#https://#', 'wss://', $base_url)) . 'ws/') . ' + endpoint + "?token=' . session_id() . '");
 }
-';
+EOT;
     // TODO: use a preference for automatic start of WS session on each page - seems resource intensive...
-    $js .= '
+    $js .= <<< 'EOT'
 initTikiGlobalWS();
-';
+EOT;
 }
 
 $headerlib->add_js($js);
