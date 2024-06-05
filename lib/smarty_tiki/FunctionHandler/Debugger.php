@@ -85,7 +85,7 @@ class Debugger extends Base
             $js = '';
             $prepend_jq = "";
             $headerlib = \TikiLib::lib('header');
-            $headerlib->add_jsfile('./vendor_bundled/vendor/npm-asset/interactjs/dist/interact.js');
+            $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/interactjs/dist/interact.min.js');
             if (isset($_REQUEST['command']) && $_REQUEST['command'] != "help") {
                 $prepend_jq .= "$('.selectable').css('cursor','text');";
                 $headerlib->add_jq_onready($prepend_jq);

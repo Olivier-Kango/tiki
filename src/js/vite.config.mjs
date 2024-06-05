@@ -338,6 +338,10 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/converse.js/dist/emojis.js",
                         dest: "vendor_dist/converse.js/dist",
                     },
+                    {
+                        src : "node_modules/interactjs/dist/*",
+                        dest : "vendor_dist/interactjs/dist"
+                    },
                 ],
             }),
             copy({
