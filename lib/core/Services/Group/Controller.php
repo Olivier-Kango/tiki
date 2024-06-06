@@ -88,7 +88,7 @@ class Services_Group_Controller
                     return ! empty($groups);
                 });
                 if (! empty($warnings)) {
-                    $extras["warning"] = tr('Some categories are managed by this group. Remove it will be irreversible.');
+                    $extras["warning"] = tr('Some categories are managed by this group. Removal it will be irreversible.');
                 }
 
                 if (count($util->items) === 1) {
@@ -96,7 +96,7 @@ class Services_Group_Controller
                 } else {
                     $msg = tra('Delete the following groups?');
                 }
-                return $util->confirm($msg, tra('Delete'), ["warning" => $extras]);
+                return $util->confirm($msg, tra('Delete'), $extras);
             } else {
                 Services_Utilities::modalException(tra('No groups were selected. Please select one or more groups.'));
             }
