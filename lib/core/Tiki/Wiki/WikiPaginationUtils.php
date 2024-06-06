@@ -7,6 +7,7 @@
 //this script may only be included - so its better to die if called directly.
 namespace Tiki\Wiki;
 
+use Feedback;
 use TikiLib;
 
 /**
