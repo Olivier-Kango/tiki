@@ -171,8 +171,11 @@ function wikiplugin_datachannel($data, $params)
     $headerlib = TikiLib::lib('header');
     $executionId = 'datachannel-exec-' . ++$execution;
 
+    $channels = [];
     if (empty($params['channel'])) {
         return WikiParser_PluginOutput::error(tr('Error'), tr('The %0 parameter is missing', 'channel'));
+    } else {
+        $channels = array_filter(array_map('trim', explode(',', $params['channel'])));
     }
 
     $datachannelWithTemplate = empty($params['template']) ? false : true;
@@ -241,12 +244,13 @@ function wikiplugin_datachannel($data, $params)
     $groups = Perms::get()->getGroups();
 
     $config = Tiki_Profile_ChannelList::fromConfiguration($prefs['profile_channels']);
-    if ($config->canExecuteChannels([ $params['channel'] ], $groups, true)) {
+
+    if ($config->canExecuteChannels($channels, $groups, true)) {
         $smarty->assign('datachannel_execution', $executionId);
         if (
             isset($_POST['datachannel_execution'])
             && $_POST['datachannel_execution'] == $executionId
-            && $config->canExecuteChannels([ $params['channel'] ], $groups)
+            && $config->canExecuteChannels($channels, $groups)
         ) {
             $input = array_intersect_key($_POST, $inputfields);
 
@@ -254,7 +258,7 @@ function wikiplugin_datachannel($data, $params)
                 if (! is_array($element)) {
                     return trim($element);
                 }
-                $element = array_map(trim, $element);
+                $element = array_map('trim', $element);
                 return implode(',', $element);
             };
 
@@ -318,7 +322,8 @@ function wikiplugin_datachannel($data, $params)
 
             if (! empty($params['price'])) {
                 $paymentlib = TikiLib::lib('payment');
-                $desc = empty($params['paymentlabel']) ? tr('Data channel:', $prefs['site_language']) . ' ' . $params['channel'] : $params['paymentlabel'];
+                $desc = empty($params['paymentlabel']) ?
+                    tr('Data channel:', $prefs['site_language']) . ' ' . $channels : $params['paymentlabel'];
                 $posts = [];
                 foreach ($input as $key => $post) {
                     $posts[$key] = $post;
@@ -332,34 +337,37 @@ function wikiplugin_datachannel($data, $params)
             }
 
             $success = true;
-            $arguments = [];
-            foreach ($inputs as $input) {
-                $userInput = array_merge($input, $static);
 
-                Tiki_Profile::useUnicityPrefix(uniqid());
-                $profiles = $config->getProfiles([ $params['channel'] ]);
-                $profile = reset($profiles);
+            Tiki_Profile::useUnicityPrefix(uniqid());
+            $profiles = $config->getProfiles($channels);
+
+            foreach ($profiles as $profile) {
                 $profile->removeSymbols();
+                $arguments = [];
 
-                Tiki_Profile::useUnicityPrefix(uniqid());
-                $installer = new Tiki_Profile_Installer();
-                //TODO: What is the following line for? Future feature to limit capabilities of data channels?
-                //$installer->limitGlobalPreferences( array() );
-                // jb tiki6: looks like if set to an empty array it would prevent any prefs being set
-                // i guess the idea is to be able to restrict the settable prefs to only harmless ones for security
+                foreach ($inputs as $input) {
+                    $userInput = array_merge($input, $static);
 
-                $installer->setUserData($userInput);
-                if (! empty($params['debug']) && $params['debug'] === 'y') {
-                    $installer->setDebug();
-                }
+                    Tiki_Profile::useUnicityPrefix(uniqid());
+                    $installer = new Tiki_Profile_Installer();
+                    //TODO: What is the following line for? Future feature to limit capabilities of data channels?
+                    //$installer->limitGlobalPreferences( array() );
+                    // jb tiki6: looks like if set to an empty array it would prevent any prefs being set
+                    // i guess the idea is to be able to restrict the settable prefs to only harmless ones for security
 
-                $installer->disablePrefixDependencies();
+                    $installer->setUserData($userInput);
+                    if (! empty($params['debug']) && $params['debug'] === 'y') {
+                        $installer->setDebug();
+                    }
 
-                $params['emptyCache'] = isset($params['emptyCache']) ? $params['emptyCache'] : 'all';
-                $success = $installer->install($profile, $params['emptyCache']) && $success;
-                foreach ($profile->getLoadedObjects() as $object) {
-                    $arguments["%{$object->getRef()}%"] = $object->getValue();
-                    $arguments["%{$object->getRef()}:urlencode%"] = rawurlencode($object->getValue());
+                    $installer->disablePrefixDependencies();
+
+                    $params['emptyCache'] = isset($params['emptyCache']) ? $params['emptyCache'] : 'all';
+                    $success = $installer->install($profile, $params['emptyCache']) && $success;
+                    foreach ($profile->getLoadedObjects() as $object) {
+                        $arguments["%{$object->getRef()}%"] = $object->getValue();
+                        $arguments["%{$object->getRef()}:urlencode%"] = rawurlencode($object->getValue());
+                    }
                 }
             }
 
