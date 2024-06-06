@@ -39,13 +39,12 @@ class Tab extends Base
         global $prefs, $smarty_tabset, $cookietab, $smarty_tabset_i_tab, $tabset_index;
         $smarty = \TikiLib::lib('smarty');
         if ($repeat) {
-            return;
+            return '';
         } else {
             $print_page = $smarty->getTemplateVars('print_page');
 
             $name = $smarty_tabset[$tabset_index]['name'];
-            $id = null;
-            $active = null;
+            $id = '';
             if ($print_page != 'y') {
                 $smarty_tabset_i_tab = count($smarty_tabset[$tabset_index]['tabs']) + 1;
 
@@ -62,7 +61,7 @@ class Tab extends Base
                 }
 
                 $id = $id = "content$name-{$params['key']}";
-                $active = ($smarty_tabset_i_tab == $cookietab) ? 'active show' : '';
+                $active = ($smarty_tabset_i_tab == $cookietab) ? 'active' : '';
                 $def = [
                     'label' => $params['name'],
                     'id' => $id,
