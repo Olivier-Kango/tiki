@@ -6505,7 +6505,7 @@ class TrackerLib extends TikiLib
                 $linkedField = $handler->getFieldData($requestData);
                 $field = array_merge($field, $linkedField);
                 $field['ins_id'] = 'ins_' . $field['fieldId'];
-                if (isset($field['value'])) {
+                if (isset($field['value']) && $field['type'] == 'S') {
                     $item[$field['fieldId']] = $field['value'];
                 }
                 $handler = $this->get_field_handler($field, $item);
