@@ -14,7 +14,7 @@ use Tiki\Installer\Installer;
 function upgrade_20240531_tiki_file_attach_relation_to_emails_tiki($installer)
 {
     $relationlib = TikiLib::lib('relation');
-    $rows = $installer->fetchAll("SELECT ttif.itemId, ttif.value FROM `tiki_tracker_item_fields` ttif left join tiki_tracker_fields ttf on ttif.fieldId = ttf.fieldId WHERE ttf.type = 'EF'");
+    $rows = $installer->fetchAll("SELECT ttif.itemId, ttif.fieldId, ttif.value FROM `tiki_tracker_item_fields` ttif left join tiki_tracker_fields ttf on ttif.fieldId = ttf.fieldId WHERE ttf.type = 'EF'");
     foreach ($rows as $row) {
         $data = @json_decode($row['value'], true);
         if (empty($data)) {
@@ -29,7 +29,7 @@ function upgrade_20240531_tiki_file_attach_relation_to_emails_tiki($installer)
             }
             foreach ($fileIds as $fileId) {
                 if (! empty($fileId)) {
-                    $relationlib->add_relation('tiki.file.attach', 'trackeritem', $row['itemId'], 'file', $fileId, true);
+                    $relationlib->add_relation('tiki.file.attach', 'trackeritem', $row['itemId'], 'file', $fileId, true, $row['fieldId']);
                 }
             }
         }

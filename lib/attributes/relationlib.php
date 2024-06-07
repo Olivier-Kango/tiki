@@ -42,6 +42,7 @@ class RelationLib extends TikiDb_Bridge
             'relation',
             'type' => 'target_type',
             'itemId' => 'target_itemId',
+            'fieldId' => 'source_fieldId',
             'metaItemId' => 'metadata_itemId',
         ];
 
@@ -189,6 +190,7 @@ class RelationLib extends TikiDb_Bridge
             'relation',
             'type' => 'source_type',
             'itemId' => 'source_itemId',
+            'fieldId' => 'source_fieldId',
             'metaItemId' => 'metadata_itemId',
         ];
 

@@ -33,7 +33,7 @@ class RelationTest extends TikiTestCase
         $lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 
         $this->assertEquals(
-            [['relation' => 'tiki.test.link', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'metaItemId' => null]],
+            [['relation' => 'tiki.test.link', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'fieldId' => null, 'metaItemId' => null]],
             $this->removeId($lib->get_relations_from('test wiki page', 'HomePage'))
         );
     }
@@ -45,7 +45,7 @@ class RelationTest extends TikiTestCase
         $lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 
         $this->assertEquals(
-            [['relation' => 'tiki.test.link', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'metaItemId' => null]],
+            [['relation' => 'tiki.test.link', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'fieldId' => null, 'metaItemId' => null]],
             $this->removeId($lib->get_relations_from('test wiki page', 'HomePage'))
         );
     }
@@ -60,9 +60,9 @@ class RelationTest extends TikiTestCase
 
         $result = $this->removeId($lib->get_relations_from('test wiki page', 'HomePage'));
 
-        $this->assertContains(['relation' => 'tiki.test.link', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'metaItemId' => null], $result);
-        $this->assertContains(['relation' => 'tiki.test.link', 'type' => 'test tracker item', 'itemId' => '23', 'metaItemId' => null], $result);
-        $this->assertContains(['relation' => 'tiki.test.something', 'type' => 'test tracker item', 'itemId' => '23', 'metaItemId' => null], $result);
+        $this->assertContains(['relation' => 'tiki.test.link', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'fieldId' => null, 'metaItemId' => null], $result);
+        $this->assertContains(['relation' => 'tiki.test.link', 'type' => 'test tracker item', 'itemId' => '23', 'fieldId' => null, 'metaItemId' => null], $result);
+        $this->assertContains(['relation' => 'tiki.test.something', 'type' => 'test tracker item', 'itemId' => '23', 'fieldId' => null, 'metaItemId' => null], $result);
     }
 
     public function testFilterByType(): void
@@ -74,7 +74,7 @@ class RelationTest extends TikiTestCase
         $lib->add_relation('tiki.test.link', 'test tracker item', '23', 'test wiki page', 'SomePage');
 
         $this->assertEquals(
-            [['relation' => 'tiki.test.something', 'type' => 'test tracker item', 'itemId' => '23', 'metaItemId' => null],],
+            [['relation' => 'tiki.test.something', 'type' => 'test tracker item', 'itemId' => '23', 'fieldId' => null, 'metaItemId' => null],],
             $this->removeId($lib->get_relations_from('test wiki page', 'HomePage', 'tiki.test.something'))
         );
     }
@@ -86,7 +86,7 @@ class RelationTest extends TikiTestCase
         $lib->add_relation('TIKI . test  . link  ', 'test wiki page', 'HomePage', 'test tracker item', '23');
 
         $this->assertEquals(
-            [['relation' => 'tiki.test.link', 'type' => 'test tracker item', 'itemId' => '23', 'metaItemId' => null],],
+            [['relation' => 'tiki.test.link', 'type' => 'test tracker item', 'itemId' => '23', 'fieldId' => null, 'metaItemId' => null],],
             $this->removeId($lib->get_relations_from('test wiki page', 'HomePage'))
         );
     }
@@ -100,9 +100,9 @@ class RelationTest extends TikiTestCase
 
         $result = $this->removeId($lib->get_relations_from('test wiki page', 'HomePage', 'tiki.test.sem.'));
 
-        $this->assertContains(['relation' => 'tiki.test.sem.related', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'metaItemId' => null], $result);
-        $this->assertContains(['relation' => 'tiki.test.sem.source', 'type' => 'test external', 'itemId' => 'http://wikipedia.org', 'metaItemId' => null], $result);
-        $this->assertNotContains(['relation' => 'tiki.test.link', 'type' => 'test external', 'itemId' => 'http://wikipedia.org', 'metaItemId' => null], $result);
+        $this->assertContains(['relation' => 'tiki.test.sem.related', 'type' => 'test wiki page', 'itemId' => 'SomePage', 'fieldId' => null, 'metaItemId' => null], $result);
+        $this->assertContains(['relation' => 'tiki.test.sem.source', 'type' => 'test external', 'itemId' => 'http://wikipedia.org', 'fieldId' => null, 'metaItemId' => null], $result);
+        $this->assertNotContains(['relation' => 'tiki.test.link', 'type' => 'test external', 'itemId' => 'http://wikipedia.org', 'fieldId' => null, 'metaItemId' => null], $result);
     }
 
     public function testRevert(): void
@@ -115,7 +115,7 @@ class RelationTest extends TikiTestCase
         $result = $this->removeId($lib->get_relations_to('test external', 'http://wikipedia.org', 'tiki.test.sem.'));
 
         $this->assertEquals(
-            [['relation' => 'tiki.test.sem.source', 'type' => 'test wiki page', 'itemId' => 'HomePage', 'metaItemId' => null]],
+            [['relation' => 'tiki.test.sem.source', 'type' => 'test wiki page', 'itemId' => 'HomePage', 'fieldId' => null, 'metaItemId' => null]],
             $result
         );
     }
