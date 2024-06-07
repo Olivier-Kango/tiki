@@ -85,9 +85,7 @@
                             </form>
                         {/if}
                         {if $tiki_p_admin_cms eq 'y' or $tiki_p_assign_perm_cms eq 'y'}
-                            <span class="dropdown-item">
-                                {permission_link mode=text type=article permType=articles id=$articleId parentId=$topicId}
-                            </span>
+                            {permission_link addclass='dropdown-item' mode=text type=article permType=articles id=$articleId parentId=$topicId}
                         {/if}
                     </div>
                     {if ! $js}</li></ul>{/if}
