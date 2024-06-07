@@ -6857,7 +6857,7 @@ class TrackerLib extends TikiLib
      * @param $value csv-formatted string
      * @return array of resulting usernames
      */
-    public function parse_user_field($value)
+    public function parse_user_field($value): array
     {
         return array_filter(
             array_map(function ($user) {
