@@ -54,7 +54,7 @@
                 </a>
             {/if}
             {if $tiki_p_admin eq 'y' || $tiki_p_assign_perm_blog eq 'y'}
-                <span class="dropdown-item">{permission_link mode=text type="blog" permType="blogs" id=$post_info.blogId}</span>
+                {permission_link addclass='dropdown-item' mode=text type="blog" permType="blogs" id=$post_info.blogId}
             {/if}
         </div>
         {if ! $js}</li></ul>{/if}
