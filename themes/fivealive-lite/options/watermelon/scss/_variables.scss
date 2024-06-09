@@ -4,17 +4,17 @@
 // Color system
 
 // scss-docs-start gray-color-variables
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$white:    #fff;  // default
+$gray-100: #f8f9fa;  // default
+$gray-200: #e9ecef;  // default
+$gray-300: #dee2e6;  // default
+$gray-400: #ced4da;  // default
+$gray-500: #adb5bd;  // default
+$gray-600: #6c757d;  // default
+$gray-700: #495057;  // default
+$gray-800: #343a40;  // default
+$gray-900: #212529;  // default
+$black:    #000;  // default
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -29,21 +29,21 @@ $grays: (
     "700": $gray-700,
     "800": $gray-800,
     "900": $gray-900
-) !default;
+);  // default
 // scss-docs-end gray-colors-map
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue:    #0d6efd !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #d63384 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #198754 !default;
-$teal:    #20c997 !default;
-$cyan:    #0dcaf0 !default;
+$blue:    #0d6efd;  // default
+$indigo:  #6610f2;  // default
+$purple:  #6f42c1;  // default
+$pink:    #d63384;  // default
+$red:     #dc3545;  // default
+$orange:  #fd7e14;  // default
+$yellow:  #ffc107;  // default
+$green:   #198754;  // default
+$teal:    #20c997;  // default
+$cyan:    #0dcaf0;  // default
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -62,7 +62,7 @@ $colors: (
     "white":      $white,
     "gray":       $gray-600,
     "gray-dark":  $gray-800
-) !default;
+);  // default
 // scss-docs-end colors-map
 
 
@@ -112,8 +112,8 @@ $light: #b51360;
 $bg-light: $light;
 $bg-dark: #a51e37;
 
-$red-300: tint-color($red, 40%) !default;
-$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%);  // default
+$green-300: tint-color($green, 40%);  // default
 
 // Options
 
@@ -121,16 +121,16 @@ $green-300: tint-color($green, 40%) !default;
 $prefix: bs-;
 
 
-$body-bg:                   $white !default;
+$body-bg:                   $white;  // default
 $body-color: #212529;
 
 // Links
 $link-color: #E11436;
 $link-hover-color:               darken($link-color, 15%);
 $link-hover-decoration:       none;
-$link-shade-percentage:                   20% !default;
+$link-shade-percentage:                   20%;  // default
 
-$btn-link-disabled-color:     $gray-600 !default;
+$btn-link-disabled-color:     $gray-600;  // default
 
 // Navs
 $nav-tabs-link-color: #000;
@@ -154,7 +154,7 @@ $page-header-link-color: #000;
 
 // Typography
 $hr-color: #faada1;
-$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 -- #6B737B;
 
 // Cards
 $card-border-color: #49006c;
@@ -165,9 +165,9 @@ $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
 // Forms
-$input-color: var(--#{$prefix}body-color) !default; // #555555;
-$input-bg: var(--#{$prefix}body-bg) !default; // #ffdace;
-$input-border-color: var(--#{$prefix}border-color) !default; // #faada1;
+$input-color: var(--#{$prefix}body-color);  // default // #555555;
+$input-bg: var(--#{$prefix}body-bg);  // default // #ffdace;
+$input-border-color: var(--#{$prefix}border-color);  // default // #faada1;
 $input-border-top-color: #faada1;
 $input-border-right-color: #fcf6f9;
 $input-border-bottom-color: #fcf6f9;
@@ -205,7 +205,7 @@ $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
 
 // Code
-$code-color:                       $body-color; //  $pink !default;
+$code-color:                       $body-color; //  $pink;  // default
 
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
@@ -238,7 +238,7 @@ $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 // Aug 18 2022 revamp end
 
 // Dropdowns
-$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
+$dropdown-dark-link-hover-bg:       rgba($white, .15);  // default
 
 $side-column-heading-color: #6c0c02;
 
@@ -264,14 +264,14 @@ $footer_liner-border-color: $footer-accent-color;
 // at the bottom of the file but by default they use the child theme's theme-colors. There appears to be redundancy in defining colors but each line is necessary.
 // There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
 
-$box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
-$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
-$box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
-$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .075);  // default
+$box-shadow:                  0 .5rem 1rem rgba($black, .15);  // default
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175);  // default
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075);  // default
 $enable-gradients:               false;
 $enable-shadows:              false;
-$input-btn-focus-width:       .2rem !default;
-$btn-focus-width:             $input-btn-focus-width !default;
+$input-btn-focus-width:       .2rem;  // default
+$btn-focus-width:             $input-btn-focus-width;  // default
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.

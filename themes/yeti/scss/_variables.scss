@@ -1,35 +1,11 @@
 // Yeti 5.2.0 -- This is a copy of node_modules/bootswatch/dist/yeti/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
-
+@import "../../../node_modules/bootswatch/dist/yeti/_variables.scss";
 $theme: "yeti" !default;
 
 //
 // Color system
 //
-
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #eee !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ccc !default;
-$gray-500: #adb5bd !default;
-$gray-600: #888 !default;
-$gray-700: #495057 !default;
-$gray-800: #333 !default;
-$gray-900: #222 !default;
-$black:    #000 !default;
-
-$blue:    #008cba !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #f04124 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #e99002 !default;
-$green:   #43ac6a !default;
-$teal:    #20c997 !default;
-$cyan:    #5bc0de !default;
-
 
 $green-300: tint-color($green, 40%) !default;
 $red-300: tint-color($red, 40%) !default;
@@ -46,7 +22,7 @@ $dark:          $gray-900 !default;
 // Prefix for :root CSS variables
 $prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
 
-$min-contrast-ratio:   1.9 !default;
+//$min-contrast-ratio:   1.9 !default;
 
 // Body
 $body-color: $gray-900; // $gray-800 !default;
@@ -56,8 +32,8 @@ $link-color: #007EA8; // Darkened for WCAG compliance
 $link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
 // Components
-$component-active-color:      $white !default;
-$component-active-bg:         $primary !default;
+//$component-active-color:      $white !default;
+//$component-active-bg:         $primary !default;
 
 $border-color: $gray-400;
 
@@ -75,40 +51,40 @@ $input-border-color:                 $border-color; //    var(--#{$prefix}border
 // Form validation
 // Z-index master list
 // Navs (four below added for Bootstrap 53)
-$nav-link-color:                    var(--#{$prefix}link-color) !default;
-$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
-$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default;
-$nav-link-font-size:                null !default;
+//$nav-link-color:                    var(--#{$prefix}link-color) !default;
+//$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+//$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+//$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default;
+//$nav-link-font-size:                null !default;
 
 // Navbar (four below added for Bootstrap 53)
-$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
-$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
-$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
-$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
+//$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+//$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+//$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
+//$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
 
-$navbar-dark-color:                 rgba($white, .55) !default;
-$navbar-dark-hover-color:           rgba($white, .75) !default;
-$navbar-dark-active-color:          $white !default;
-$navbar-dark-disabled-color:        rgba($white, .25) !default;
+//$navbar-dark-color:                 rgba($white, .55) !default;
+//$navbar-dark-hover-color:           rgba($white, .75) !default;
+//$navbar-dark-active-color:          $white !default;
+//$navbar-dark-disabled-color:        rgba($white, .25) !default;
 
 // Dropdowns
 
-$dropdown-border-color:             rgba($black, .1) !default;
-$dropdown-divider-bg:               rgba($black, .1) !default;
+//$dropdown-border-color:             rgba($black, .1) !default;
+//$dropdown-divider-bg:               rgba($black, .1) !default;
 
 // Navs
 
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-400 !default;
-$nav-tabs-border-color:             $dropdown-border-color !default;
-$nav-tabs-link-hover-border-color:  $nav-tabs-border-color !default;
-$nav-tabs-link-active-border-color: $nav-tabs-border-color !default;
+//$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-400 !default;
+//$nav-tabs-border-color:             $dropdown-border-color !default;
+//$nav-tabs-link-hover-border-color:  $nav-tabs-border-color !default;
+//$nav-tabs-link-active-border-color: $nav-tabs-border-color !default;
 
 // Navbar
 
 // Pagination
-$pagination-border-color:           $nav-tabs-border-color !default;
-$pagination-disabled-color:         $gray-200 !default;
+//$pagination-border-color:           $nav-tabs-border-color !default;
+//$pagination-disabled-color:         $gray-200 !default;
 
 // Cards
 
@@ -117,12 +93,12 @@ $pagination-disabled-color:         $gray-200 !default;
 // Alerts
 
 // Progress bars
-$progress-bg:                       $gray-400 !default;
-$progress-bar-color:                $white !default;
+//$progress-bg:                       $gray-400 !default;
+//$progress-bar-color:                $white !default;
 
 // List group
 
-$list-group-disabled-bg:            $gray-200 !default;
+//$list-group-disabled-bg:            $gray-200 !default;
 
 // Breadcrumbs
 

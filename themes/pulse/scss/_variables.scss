@@ -1,127 +1,98 @@
 // Pulse 5.3.3 -- This file contains variables to override or supplement those in node_modules/bootswatch/dist/morph/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
+@import "../../../node_modules/bootswatch/dist/pulse/_variables.scss";
 
 //
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #fafafa !default;
-$gray-200: #f9f8fc !default;
-$gray-300: #ededed !default;
-$gray-400: #cbc8d0 !default;
-$gray-500: #adb5bd !default;
-$gray-600: #868e96 !default;
-$gray-700: #444 !default;
-$gray-800: #343a40 !default;
-$gray-900: #17141f !default;
-$black:    #000 !default;
+//$primary:       $purple;  // default
+$secondary:     #8563BF; // #a991d4;  // default
+$success:       #0D873E; // $green;  // default
+$info:          #007CAD; // $cyan;  // default
+$warning:       #A26B0B; // $yellow;  // default
+$danger:        #EC0404; //$red;  // default
+//$light:         $gray-200;  // default
+//$dark:          $gray-900;  // default
 
-$blue:    #007bff !default;
-$indigo:  #6610f2 !default;
-$purple:  #593196 !default;
-$pink:    #e83e8c !default;
-$red:     #fc3939 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #efa31d !default;
-$green:   #13b955 !default;
-$teal:    #20c997 !default;
-$cyan:    #009cdc !default;
-
-$primary:       $purple !default;
-$secondary:     #8563BF; // #a991d4 !default;
-$success:       #0D873E; // $green !default;
-$info:          #007CAD; // $cyan !default;
-$warning:       #A26B0B; // $yellow !default;
-$danger:        #EC0404; //$red !default;
-$light:         $gray-200 !default;
-$dark:          $gray-900 !default;
-
-$green-300: tint-color($green, 40%) !default;
-$red-300: tint-color($red, 40%) !default;
+$green-300: tint-color($green, 40%);  // default
+$red-300: tint-color($red, 40%);  // default
 
 
 // Options
 $prefix: bs-;
-$enable-rounded: false !default;
+$enable-rounded: false;  // default
 
 // Body
+$body-secondary-color:      rgba($body-color, .75);  // default
+$body-secondary-bg:         $gray-200;  // default
 
-$body-color:                $gray-700 !default;
-$body-secondary-color:      rgba($body-color, .75) !default;
-$body-secondary-bg:         $gray-200 !default;
+$body-tertiary-color:       rgba($body-color, .5);  // default
+$body-tertiary-bg:          $gray-100;  // default
 
-$body-tertiary-color:       rgba($body-color, .5) !default;
-$body-tertiary-bg:          $gray-100 !default;
-
-$body-emphasis-color:       $black !default;
+$body-emphasis-color:       $black;  // default
 
 // Components
-$component-active-color:      $white !default;
-$component-active-bg:         $primary !default;
+$component-active-color:      $white;  // default
+$component-active-bg:         $primary;  // default
 $border-color: #c9c9c9; // darkened for visibility in Tiki
 
 // Typography
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Tables
-
 // Forms
-$input-border-color:                    var(--#{$prefix}border-color) !default;
+$input-border-color:                    var(--#{$prefix}border-color);  // default
 
 // Dropdowns
 
-$dropdown-color:                    var(--#{$prefix}body-color) !default;
-$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
-$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
-$dropdown-divider-bg:               $dropdown-border-color !default;
-$dropdown-link-color:               var(--#{$prefix}body-color) !default;
-$dropdown-link-hover-color:         $dropdown-link-color !default;
-$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
+$dropdown-color:                    var(--#{$prefix}body-color);  // default
+$dropdown-bg:                       var(--#{$prefix}body-bg);  // default
+$dropdown-border-color:             var(--#{$prefix}border-color-translucent);  // default
+$dropdown-divider-bg:               $dropdown-border-color;  // default
+$dropdown-link-color:               var(--#{$prefix}body-color);  // default
+$dropdown-link-hover-color:         $dropdown-link-color;  // default
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg);  // default
 
-$dropdown-link-active-color:        $component-active-color !default;
-$dropdown-link-active-bg:           $component-active-bg !default;
+$dropdown-link-active-color:        $component-active-color;  // default
+$dropdown-link-active-bg:           $component-active-bg;  // default
 
-$dropdown-link-disabled-color:      var(--#{$prefix}tertiary-color) !default;
+$dropdown-link-disabled-color:      var(--#{$prefix}tertiary-color);  // default
 
-$dropdown-header-color:             $gray-600 !default;
+$dropdown-header-color:             $gray-600;  // default
 
-$dropdown-dark-color:               $gray-300 !default;
-$dropdown-dark-bg:                  $gray-800 !default;
-$dropdown-dark-border-color:        $dropdown-border-color !default;
-$dropdown-dark-divider-bg:          $dropdown-divider-bg !default;
-$dropdown-dark-box-shadow:          null !default;
-$dropdown-dark-link-color:          $dropdown-dark-color !default;
-$dropdown-dark-link-hover-color:    $white !default;
-$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
-$dropdown-dark-link-active-color:   $dropdown-link-active-color !default;
-$dropdown-dark-link-active-bg:      $dropdown-link-active-bg !default;
-$dropdown-dark-link-disabled-color: $gray-500 !default;
-$dropdown-dark-header-color:        $gray-500 !default;
+$dropdown-dark-color:               $gray-300;  // default
+$dropdown-dark-bg:                  $gray-800;  // default
+$dropdown-dark-border-color:        $dropdown-border-color;  // default
+$dropdown-dark-divider-bg:          $dropdown-divider-bg;  // default
+$dropdown-dark-box-shadow:          null;  // default
+$dropdown-dark-link-color:          $dropdown-dark-color;  // default
+$dropdown-dark-link-hover-color:    $white;  // default
+$dropdown-dark-link-hover-bg:       rgba($white, .15);  // default
+$dropdown-dark-link-active-color:   $dropdown-link-active-color;  // default
+$dropdown-dark-link-active-bg:      $dropdown-link-active-bg;  // default
+$dropdown-dark-link-disabled-color: $gray-500;  // default
+$dropdown-dark-header-color:        $gray-500;  // default
 
 // Navs
-
-$nav-link-color:                    var(--#{$prefix}link-color) !default;
-$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
-
+$nav-link-color:                    var(--#{$prefix}link-color);  // default
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color);  // default
 
 // Navbar
-
-$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
-$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
-$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
-$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
-$navbar-light-icon-color:           rgba($body-color, .75) !default;
-$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-icon-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
-$navbar-light-toggler-border-color: rgba(var(--#{$prefix}emphasis-color-rgb), .15) !default;
-$navbar-light-brand-color:          $navbar-light-active-color !default;
-$navbar-light-brand-hover-color:    $navbar-light-active-color !default;
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65);  // default
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8);  // default
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1);  // default
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3);  // default
+$navbar-light-icon-color:           rgba($body-color, .75);  // default
+$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-icon-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");  // default
+$navbar-light-toggler-border-color: rgba(var(--#{$prefix}emphasis-color-rgb), .15);  // default
+$navbar-light-brand-color:          $navbar-light-active-color;  // default
+$navbar-light-brand-hover-color:    $navbar-light-active-color;  // default
 
 // Progress bars
-
 // List group
-
 // Code
-$code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
+$code-color:                      $body-color; //   $pink;  // default // Bootstrap 5.3
+
 //--------------------------- Tiki SCSS variables

@@ -31,16 +31,16 @@ $grays: (
 // scss-docs-end gray-colors-map
 
 // scss-docs-start color-variables
-$blue:    #0d6efd !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #d63384 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #198754 !default; // Bootstrap 5.3
-$teal:    #20c997 !default;
-$cyan:    #0dcaf0 !default;
+$blue:    #0d6efd;  // default
+$indigo:  #6610f2;  // default
+$purple:  #6f42c1;  // default
+$pink:    #d63384;  // default
+$red:     #dc3545;  // default
+$orange:  #fd7e14;  // default
+$yellow:  #ffc107;  // default
+$green:   #198754;  // default // Bootstrap 5.3
+$teal:    #20c997;  // default
+$cyan:    #0dcaf0;  // default
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -59,11 +59,11 @@ $colors: (
     "white":      $white,
     "gray":       $gray-600,
     "gray-dark":  $gray-800
-) !default;
+);  // default
 // scss-docs-end colors-map
 
-$red-300: tint-color($red, 40%) !default;
-$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%);  // default
+$green-300: tint-color($green, 40%);  // default
 
 // scss-docs-start theme-color-variables
 $primary:       #0001a6;
@@ -94,19 +94,19 @@ $theme-colors: (
 
 // Options
 //Prefix for :root CSS variables
-$prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:             bs-;  // default // Deprecated in v5.2.0 for the shorter `$prefix`
 $enable-gradients: true;
 
 // Spacing
 
 // Body
 $body-color: #222;
-$body-bg:                   $white !default;
+$body-bg:                   $white;  // default
 
 // Links
-$link-color:                              $primary !default;
+$link-color:                              $primary;  // default
 $link-hover-decoration: none;
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Components
 $component-active-bg: #aaaaaa;
@@ -130,37 +130,37 @@ $headings-font-weight: 700;
 // Buttons
 // Forms
 // Dropdowns
-$dropdown-color:                    var(--#{$prefix}body-color) !default;
-$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
-$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
+$dropdown-color:                    var(--#{$prefix}body-color);  // default
+$dropdown-bg:                       var(--#{$prefix}body-bg);  // default
+$dropdown-border-color:             var(--#{$prefix}border-color-translucent);  // default
 
-$dropdown-link-color:               var(--#{$prefix}body-color) !default; // $gray-900 !default;
+$dropdown-link-color:               var(--#{$prefix}body-color);  // default // $gray-900 !default;
 $dropdown-link-hover-color:         var(--#{$prefix}body-color); // shade-color($dropdown-link-color, 10%) !default;
-$dropdown-link-hover-bg:            $gray-200 !default;
+$dropdown-link-hover-bg:            $gray-200;  // default
 
-$dropdown-dark-color:               $gray-300 !default;
-$dropdown-dark-bg:                  $gray-800 !default;
+$dropdown-dark-color:               $gray-300;  // default
+$dropdown-dark-bg:                  $gray-800;  // default
 
-$dropdown-dark-link-color:          $dropdown-dark-color !default;
-$dropdown-dark-link-hover-color:    $white !default;
-$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
+$dropdown-dark-link-color:          $dropdown-dark-color;  // default
+$dropdown-dark-link-hover-color:    $white;  // default
+$dropdown-dark-link-hover-bg:       rgba($white, .15);  // default
 // Navs
 // Navs (four below added for Bootstrap 53)
-$nav-link-color:                    var(--#{$prefix}link-color) !default;
-$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
-$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default;
+$nav-link-color:                    var(--#{$prefix}link-color);  // default
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color);  // default
+$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;  // default
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color);  // default
 
 // Navbar// Navbar (8 below added for Bootstrap 53)
-$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
-$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
-$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
-$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65);  // default
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8);  // default
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1);  // default
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3);  // default
 
-$navbar-dark-color:                 rgba($white, .55) !default;
-$navbar-dark-hover-color:           rgba($white, .75) !default;
-$navbar-dark-active-color:          $white !default;
-$navbar-dark-disabled-color:        rgba($white, .25) !default;
+$navbar-dark-color:                 rgba($white, .55);  // default
+$navbar-dark-hover-color:           rgba($white, .75);  // default
+$navbar-dark-active-color:          $white;  // default
+$navbar-dark-disabled-color:        rgba($white, .25);  // default
 $navbar-light-border: #aaaaaa;
 
 // Navbarlinks ??

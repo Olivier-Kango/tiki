@@ -1,62 +1,41 @@
 // Cyborg 5.3.3 -- This overrides and supplements node_modules/bootswatch/dist/cyborg/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
+@import "../../../node_modules/bootswatch/dist/cyborg/_variables.scss";
 // Color system
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #adafae !default;
-$gray-500: #888 !default;
-$gray-600: #555 !default;
-$gray-700: #282828 !default;
-$gray-800: #222 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$red:     #F00000; //#c00;  default
 
-$blue:    #2a9fd6 !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #c00 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #f80 !default;
-$green:   #77b300 !default;
-$teal:    #20c997 !default;
-$cyan:    #93c !default;
-
-$primary:       #207CA7; // $blue !default;
-$secondary:     $gray-600 !default;
-$success:       #558000; // $green !default;
-$info:          $cyan !default;
+$primary:       #207CA7; // $blue;  // default
+//$secondary:     $gray-600;  // default
+$success:       #639400; // #558000; // $green !default;
+//$info:          $cyan;  // default
 $warning:       #B35F00; // $yellow !default;
-$danger:        $red !default;
+//$danger:        $red;  // default
 $light:         #3D3D3D; //  $gray-800 !default; Darkened for increased contrast with link color
-$dark:          $gray-400 !default;
+//$dark:          $gray-400;  // default
 
-$min-contrast-ratio:   2.25 !default;
+//$min-contrast-ratio:   2.25;  // default
 // Options
 // Prefix for :root CSS variables
 
-$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
-$prefix:                      $variable-prefix !default;
+$variable-prefix:             bs-;  // default // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix;  // default
 
 // Body
 
-$body-bg:       #060606 !default;
+$body-bg:       #060606;  // default
 $body-color:    #999999; // $gray-400 !default; Lightened to meet WCAG minimum
 
 // Copied from variables-dark and renamed
-$body-secondary-color:         rgba($body-color, .75) !default;
-$body-secondary-bg:            $gray-800 !default;
-$body-tertiary-color:          rgba($body-color, .5) !default;
-$body-tertiary-bg:             mix($gray-800, $gray-900, 50%) !default;
-$body-emphasis-color:          $white !default;
-$border-color:                 $gray-700 !default;
+$body-secondary-color:         rgba($body-color, .75);  // default
+$body-secondary-bg:            $gray-800;  // default
+$body-tertiary-color:          rgba($body-color, .5);  // default
+$body-tertiary-bg:             mix($gray-800, $gray-900, 50%);  // default
+$body-emphasis-color:          $white;  // default
+$border-color:                 $gray-700;  // default
 
 // Links
-
 $link-color:                              #56B5E1; // #2799CE; //#2389B8; // $primary !default;
 
 // Typography
@@ -66,73 +45,60 @@ $font-size-base:                1.1rem;
 $mark-bg:                     #4D2900;
 
 // Tables
-
-$table-color:                   var(--#{$prefix}body-color) !default; // $white !default;
+$table-color:                   var(--#{$prefix}body-color);  // default // $white !default;
 
 // Buttons
-
 // Forms
-
 $input-bg:                          var(--#{$prefix}tertiary-bg); // Changed from body-bg for visibility
-$input-disabled-bg:                 var(--#{$prefix}secondary-bg) !default; // $gray-400 !default;
-
+$input-disabled-bg:                 var(--#{$prefix}secondary-bg);  // default // $gray-400 !default;
 $input-color:                       var(--#{$prefix}body-color);
 $input-border-color:                var(--#{$prefix}body-color);
-
-$form-file-button-color:          $white !default;
+$form-file-button-color:          $white;  // default
 
 $form-text-color: var(--#{$prefix}body-color);
+$form-feedback-valid-color:         $success; // !default;
+$form-feedback-invalid-color:       $danger; // !default;
+
+// scss-docs-start form-validation-colors
+$form-valid-color:                  $form-feedback-valid-color; // !default;
+$form-valid-border-color:           $form-feedback-valid-color; // !default;
+$form-invalid-color:                $form-feedback-invalid-color; // !default;
+$form-invalid-border-color:         $form-feedback-invalid-color; // !default;
 
 // Dropdowns
-
 // Navs
-
 // Navbar
-
-$navbar-dark-hover-color:           $white !default;
+$navbar-dark-hover-color:           $white;  // default
 
 $navbar-light-color:                $link-color;
-$navbar-light-hover-color:          rgba($black, .7) !default;
-$navbar-light-active-color:         rgba($black, .9) !default;
-$navbar-light-disabled-color:       rgba($black, .3) !default;
-$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
-$navbar-light-toggler-border-color: rgba($black, .1) !default;
-$navbar-light-brand-color:          $navbar-light-active-color !default;
-$navbar-light-brand-hover-color:    $navbar-light-active-color !default;
+$navbar-light-hover-color:          rgba($black, .7);  // default
+$navbar-light-active-color:         rgba($black, .9);  // default
+$navbar-light-disabled-color:       rgba($black, .3);  // default
+$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");  // default
+$navbar-light-toggler-border-color: rgba($black, .1);  // default
+$navbar-light-brand-color:          $navbar-light-active-color;  // default
+$navbar-light-brand-hover-color:    $navbar-light-active-color;  // default
 
 // Pagination
-
 // Cards
-
-$card-bg:                           $gray-700 !default;
-
 // Accordion (added for Tiki)
 $accordion-button-active-bg: #222 !important;
 $accordion-button-active-color:           #fff; // var(--#{$prefix}primary-text-emphasis) !default;
 
 // Tooltips
-
-$tooltip-bg:                        $gray-700 !default;
+$tooltip-bg:                        $gray-700;  // default
 
 // Popovers
-
-
 // Toasts
-
 $toast-header-color:                var(--#{$prefix}body-color);
 
 // Modals
-
 // Progress bars
-
-$progress-bg:                       var(--#{$prefix}secondary-bg) !default;;
+$progress-bg:                       var(--#{$prefix}secondary-bg);  // default;
 
 // List group
-
 // Breadcrumbs
-
 // Close
-
 // Code
 
 //--------------------------- Tiki SCSS variables

@@ -1,53 +1,31 @@
 // Quartz 5.3.3 -- This file contains variables that override or supplement those in node_modules/bootswatch/dist/quartz/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
+@import "../../../node_modules/bootswatch/dist/quartz/_variables.scss";
+
 $theme: "quartz";
 
 //
 // Color system
 //
 
-$white:    #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9e9e8;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-$black:    #000;
-
-$blue:    #3a8fd9;
-$indigo:  #6610f2;
-$purple:  #686dc3;
-$pink:    #e83283;
-$red:     #fc346f;
-$orange:  #fd7e14;
-$yellow:  #ffc107;
-$green:   #41d7a7;
-$teal:    #528fb3;
-$cyan:    #39cbfb;
-
 $primary:       #E11973; // $pink;
-$secondary:     rgba($white, .4);
+//$secondary:     rgba($white, .4);
 $success:       #1C8262; // $green;
 $info:          #037DA6; // $cyan;
 $warning:       #946F00; // $yellow;
 $danger:        #C05702; // $orange;
-$light:         $gray-200;
-$dark:          $gray-900;
+//$light:         $gray-200;
+//$dark:          $gray-900;
 
-$green-300: tint-color($green, 40%) !default;
-$red-300: tint-color($red, 40%) !default;
+$green-300: tint-color($green, 40%);  // default
+$red-300: tint-color($red, 40%);  // default
 
-$min-contrast-ratio:   1.5 !default;
+//$min-contrast-ratio:   1.5;  // default
 
 // Prefix for :root CSS variables
-
-$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
-$prefix:                      $variable-prefix !default;
+$variable-prefix:             bs-;  // default // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix;  // default
 
 // Spacing
 // scss-docs-start spacer-variables-maps
@@ -63,46 +41,33 @@ $spacers: (
 // scss-docs-end spacer-variables-maps
 
 // Body
-
-$body-bg:                   $purple !default;
-$body-color:                $white !default;
-
 // Links
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Components
-
 // Fonts
-
-$headings-font-weight:        700;
-$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- rgba($white, .7);
-$blockquote-footer-color:     $text-muted;
+$text-muted:                  var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 -- rgba($white, .7);
 
 // Tables
 $table-color:                 var(--#{$prefix}body-color);
 $table-hover-color:           $table-color;
 
 // Buttons + Forms
-
-$input-btn-padding-y:         .375rem !default;
-$input-btn-padding-x:         .75rem !default;
+$input-btn-padding-y:         .375rem;  // default
+$input-btn-padding-x:         .75rem;  // default
 
 // Buttons
-
 // Forms
-
-$input-bg:                           var(--#{$prefix}body-bg) !default; // transparent;
-$input-color:                           var(--#{$prefix}body-color) !default;
-$input-disabled-bg:                     var(--#{$prefix}secondary-bg) !default; // rgba($white, .1);
-$input-placeholder-color:               var(--#{$prefix}secondary-color) !default; // $text-muted;
-$form-range-thumb-disabled-bg:             var(--#{$prefix}secondary-color) !default; // $gray-500;
+$input-bg:                           var(--#{$prefix}body-bg);  // default // transparent;
+$input-color:                        var(--#{$prefix}body-color);  // default
+$input-disabled-bg:                  var(--#{$prefix}secondary-bg);  // default // rgba($white, .1);
+$input-placeholder-color:            var(--#{$prefix}secondary-color);  // default // $text-muted;
+$form-range-thumb-disabled-bg:       var(--#{$prefix}secondary-color);  // default // $gray-500;
 
 // Navs
-
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $text-muted;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color);  // default // $text-muted;
 
 // Navbars
-
 $navbar-dark-color:                 rgba($white, .8);
 $navbar-dark-hover-color:           $white;
 
@@ -112,36 +77,23 @@ $navbar-light-active-color:         $gray-800;
 $navbar-light-disabled-color:       rgba($gray-800, .3);
 
 // Dropdowns
-
 // Pagination
-
 // Cards
-
 $card-spacer-y:                     $spacer; // 1.75rem;
 $card-spacer-x:                     $spacer; // 2rem;
 
 // Accordion
-
 // Tooltips
-
-$tooltip-opacity:                   .7;
 $tooltip-color: $white;
 
 // Popovers
-
-
 // Toasts
-
 // Progress bars
-
 // List group
-
 // Breadcrumbs
-
 // Close
-
 // Code
-$code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
+$code-color:                      $body-color; //   $pink;  // default // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables
 

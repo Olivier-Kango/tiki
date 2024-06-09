@@ -1,31 +1,11 @@
-// Journal 5.2.0
+// Journal 5.3.0
 // Bootswatch
+
+@import "../../../node_modules/bootswatch/dist/journal/_variables.scss";
 
 //
 // Color system
 //
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
-
-$blue:    #eb6864 !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #f57a00 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #f5e625 !default;
-$green:   #22b24c !default;
-$teal:    #20c997 !default;
-$cyan:    #369 !default;
 
 $primary:       #D24141; // $blue !default;
 $secondary:     #757575; // $gray-500 !default;
@@ -33,48 +13,42 @@ $success:       #198639; // $green !default;
 $info:          #60759A; //$cyan !default;
 $warning:       #7F7706; // $yellow !default;
 $danger:        #B85C00; // $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-900 !default;
+//$light:         $gray-100;  // default
+//$dark:          $gray-900;  // default
 
 
-$green-300: tint-color($green, 40%) !default;
-$red-300: tint-color($red, 40%) !default;
+$green-300: tint-color($green, 40%);  // default
+$red-300: tint-color($red, 40%);  // default
 
 // Body
-$body-color: $gray-800 !default;
+$body-color: $gray-800;  // default
 
 // Links
 $link-color:                #E22822;
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Components
 $border-color: $gray-400;
 
 // Typography
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Fonts
-
-$headings-font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;  // "News Cycle", "Arial Narrow Bold", sans-serif !default;
+$headings-font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;  // "News Cycle", "Arial Narrow Bold", sans-serif;  // default
 
 // Buttons
-
 // Form validation
 $form-valid-color: #198639;
 $form-invalid-color: #B85C00;
 
-
 // Navbar
-
-// 53 $navbar-light-color:                rgba($black, .7) !default;
-$navbar-light-hover-color:          $black !default;
-$navbar-light-active-color:         $black !default;
+// 53 $navbar-light-color:                rgba($black, .7);  // default
+$navbar-light-hover-color:          $black;  // default
+$navbar-light-active-color:         $black;  // default
 
 // Pagination
-
 // Code
-$code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
+$code-color:                      $body-color; //   $pink;  // default // Bootstrap 5.3
 
 // Bootswatch overrides
-
 $web-font-path: none; // Override value in vendor file
