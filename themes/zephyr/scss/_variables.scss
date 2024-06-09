@@ -1,54 +1,29 @@
 // Zephyr 5.3.3 -- This file is for overrides of and additions to node_modules/bootswatch/dist/yeti/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
-
-$blue:    #3459e6 !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #d63384 !default;
-$red:     #da292e !default;
-$orange:  #f8765f !default;
-$yellow:  #f4bd61 !default;
-$green:   #2fb380 !default;
-$teal:    #20c997 !default;
-$cyan:    #287bb5 !default;
-
+@import "../../../node_modules/bootswatch/dist/zephyr/_variables.scss";
 
 $green-300: tint-color($green, 40%) !default; // Form validation color updated below
 $red-300: tint-color($red, 40%) !default;
 
-$primary:       $blue !default;
-$secondary:     $white !default;
+//$primary:       $blue !default;
+//$secondary:     $white !default;
 $success: #238560; // Darkened for WCAG2.2 commpliance
-$info:          $cyan !default;
+//$info:          $cyan !default;
 $warning: #94610A; // Darkened for WCAG2.2 commpliance
-$danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-900 !default;
+//$danger:        $red !default;
+//$light:         $gray-100 !default;
+//$dark:          $gray-900 !default;
 
 // Options
-$enable-dark-mode:            true !default;
-$color-mode-type:             data !default; // `data` or `media-query`
+//$enable-dark-mode:            true !default;
+//$color-mode-type:             data !default; // `data` or `media-query`
 $enable-negative-margins:       true;
 
 // Prefix for :root CSS variables
 $prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
 
 // Body
-
-$body-color:                $gray-700 !default;
-
 // Links
 $link-shade-percentage:                   20% !default; // Bootstrap 5.3
 
@@ -56,9 +31,6 @@ $link-shade-percentage:                   20% !default; // Bootstrap 5.3
 $font-family-sans-serif:      Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif; // Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
 // Components
-$box-shadow:                  0 1px 2px rgba($black, .05) !default;
-$box-shadow-lg:               0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !default;
-
 // Tables
 // Buttons + Forms
 // Buttons
@@ -67,47 +39,13 @@ $input-border-color: $gray-400; // Added for Tiki
 $input-group-addon-bg:                  var(--#{$prefix}tertiary-bg) !default; // $gray-100 !default;
 $form-feedback-valid-color:         #238560; // $success !default;
 
-// Navs (two below added for Bootstrap 53)
-//$nav-link-color:                    var(--#{$prefix}link-color) !default;
-//$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
-
-// Navbar (four below added for Bootstrap 53)
-$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
-$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
-$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
-$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
-
-$navbar-dark-color:                 $white !default;
-$navbar-dark-hover-color:           $white !default;
-$navbar-dark-active-color:          $white !default;
-
-$navbar-light-color:                $black !default;
-$navbar-light-hover-color:          $black !default;
-$navbar-light-active-color:         $black !default;
 
 // Dropdowns
-$dropdown-dark-color:               $gray-300 !default;
-$dropdown-dark-bg:                  $gray-800 !default;
-$dropdown-dark-link-hover-color:    $white !default;
-$dropdown-dark-link-hover-bg:       rgba($white, .15) !default;
-
 // Pagination
-$pagination-color:                  $gray-700 !default;
-$pagination-hover-bg:               $gray-100 !default;
-
 // Cards
 // Toasts
-
 // Popovers
-$popover-bg:                        var(--#{$prefix}body-bg) !default;
-$popover-border-color:              var(--#{$prefix}border-color-translucent) !default;
-$popover-header-bg:                 var(--#{$prefix}secondary-bg) !default;
-$popover-header-color:              var(--#{$prefix}body-color); //$headings-color !default;
-$popover-body-color:                var(--#{$prefix}body-color) !default;
-
 // Modals
-$modal-content-border-color:        $gray-300 !default;
-
 // List group
 // Breadcrumbs
 

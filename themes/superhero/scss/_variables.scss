@@ -1,131 +1,89 @@
 // Superhero 5.3.3 -- This file contains overrides of and additions to variables in node_modules/bootswatch/dist/superhero/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
-
-$theme: "superhero" !default;
+@import "../../../node_modules/bootswatch/dist/superhero/_variables.scss";
 
 //
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #ebebeb !default;
-$gray-200: #4e5d6c !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #868e96 !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
-
-$blue:    #4c9be8 !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #d9534f !default;
-$orange:  #f0ad4e !default;
-$yellow:  #ffc107 !default;
-$green:   #5cb85c !default;
-$teal:    #20c997 !default;
-$cyan:    #5bc0de !default;
 
 $red-300: tint-color($red, 40%) !default;
 $green-300: tint-color($green, 40%) !default;
 
 $primary:       #BC5815; // $orange;
-$secondary:     $gray-200 !default;
+//$secondary:     $gray-200 !default;
 $success:       #3A833A; // $green !default;
 $info:          #20809D; // $cyan !default;
 $warning:       #946F00; // $yellow !default;
 $danger:        #D33B36; // $red !default;
 //$light:         lighten($gray-200, 35%) !default;
-$dark:          #20374c !default;
+//$dark:          #20374c !default;
 
 $min-contrast-ratio:   1.6 !default;
 
 // Options
 //Prefix
-$prefix: bs-;
-
+//$prefix: bs-;
 
 // Body
-
-$body-bg:                   #0f2537 !default;
-$body-color:                $gray-100 !default;
+//$body-bg:                   #0f2537 !default;
+//$body-color:                $gray-100 !default;
 
 // Links
 $link-color: #6FADEC; // Lightened for Tiki to comply with WCAG standards
 $link-shade-percentage:                   20% !default;
 
 // Components
-
 // Fonts
-
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif; // Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$font-size-base:              1.1rem;
-$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- rgba(255, 255, 255, .4) !default;
+//$font-size-base:              1.1rem;
+//$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- rgba(255, 255, 255, .4) !default;
 
 // Tables
-
-$table-dark-border-color:     $gray-200 !default;
-
-$table-bg-scale:              0% !default;
+//$table-dark-border-color:     $gray-200 !default;
+//$table-bg-scale:              0% !default;
 
 // Forms
-
-$input-border-width:                0 !default;
-$input-placeholder-color:               $gray-600 !default;
-$form-file-button-color:          $body-color !default;
+//$input-border-width:                0 !default;
+//$input-placeholder-color:               $gray-600 !default;
+//$form-file-button-color:          $body-color !default;
 
 // Dropdowns
-
-$dropdown-bg:                       $gray-200 !default;
+//$dropdown-bg:                       $gray-200 !default;
 
 // Navs
-
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // rgba(255, 255, 255, .4) !default;
-$nav-tabs-border-color:             $gray-200 !default;
-$nav-tabs-link-active-border-color: $gray-200 !default;
+//$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // rgba(255, 255, 255, .4) !default;
+//$nav-tabs-border-color:             $gray-200 !default;
+//$nav-tabs-link-active-border-color: $gray-200 !default;
 
 // Navbar
-
 // Pagination
-
-$pagination-bg:                     $gray-200 !default;
+//$pagination-bg:                     $gray-200 !default;
 
 // Cards
-
-$card-bg:                           $gray-200 !default;
+//$card-bg:                           $gray-200 !default;
 
 // Popovers
-
-$popover-bg:                        $gray-200 !default;
+//$popover-bg:                        $gray-200 !default;
 
 // Toasts
-
-$toast-background-color:            $gray-200 !default;
+//$toast-background-color:            $gray-200 !default;
 
 // Modals
-
-$modal-content-bg:                  $gray-200 !default;
-$modal-header-border-color:         rgba(0, 0, 0, .2) !default;
+//$modal-content-bg:                  $gray-200 !default;
+//$modal-header-border-color:         rgba(0, 0, 0, .2) !default;
 
 // List group
-
-$list-group-bg:                     $gray-200 !default;
+//$list-group-bg:                     $gray-200 !default;
 
 // Breadcrumbs
-
-$breadcrumb-bg:                     $gray-200 !default;
-
+//$breadcrumb-bg:                     $gray-200 !default;
 
 // Close
-
 // Code
 $code-color:                        $body-color;
-$pre-color:                         inherit !default;
+//$pre-color:                         inherit !default;
 
 //--------------------------- Tiki SCSS variables
 

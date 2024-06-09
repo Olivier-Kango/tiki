@@ -4,17 +4,17 @@
 
 // Colors
 // scss-docs-start gray-color-variables
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$white:    #fff;  // default
+$gray-100: #f8f9fa;  // default
+$gray-200: #e9ecef;  // default
+$gray-300: #dee2e6;  // default
+$gray-400: #ced4da;  // default
+$gray-500: #adb5bd;  // default
+$gray-600: #6c757d;  // default
+$gray-700: #495057;  // default
+$gray-800: #343a40;  // default
+$gray-900: #212529;  // default
+$black:    #000;  // default
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -29,23 +29,23 @@ $grays: (
     "700": $gray-700,
     "800": $gray-800,
     "900": $gray-900
-) !default;
+);  // default
 // scss-docs-end gray-colors-map
 
 
 $blue:    #124987; // #2780e3 !default;
-$indigo:  #6610f2 !default;
-$purple:  #613d7c !default;
-$pink:    #e83e8c !default;
+$indigo:  #6610f2;  // default
+$purple:  #613d7c;  // default
+$pink:    #e83e8c;  // default
 $red:     #E60032; // #ff0039 Updated for Tiki to meet WCAG color contrast guidelines
-$orange:  #f0ad4e !default;
+$orange:  #f0ad4e;  // default
 $yellow:  #C75000; // #ff7518 Updated for Tiki to meet WCAG color contrast guidelines
 $green:   #2F8712; // #3fb618 Updated for Tiki to meet WCAG color contrast guidelines
-$teal:    #20c997 !default;
-$cyan:    #9954bb !default;
+$teal:    #20c997;  // default
+$cyan:    #9954bb;  // default
 
-$green-300: tint-color($green, 40%) !default; // Bootstrap 53
-$red-300: tint-color($red, 40%) !default; // Bootstrap 53
+$green-300: tint-color($green, 40%);  // default // Bootstrap 53
+$red-300: tint-color($red, 40%);  // default // Bootstrap 53
 
 $primary: #3071a9;
 $secondary: #ddd;
@@ -79,18 +79,18 @@ $enable-negative-margins:     true;
 $body-bg: #e6f3f6;
 $body-color: $gray-700;
 
-$body-secondary-color:      rgba($body-color, .75) !default;
-$body-secondary-bg:         $gray-200 !default;
+$body-secondary-color:      rgba($body-color, .75);  // default
+$body-secondary-bg:         $gray-200;  // default
 
-$body-tertiary-color:       rgba($body-color, .5) !default;
-$body-tertiary-bg:          $gray-100 !default;
+$body-tertiary-color:       rgba($body-color, .5);  // default
+$body-tertiary-bg:          $gray-100;  // default
 
-$body-emphasis-color:       $black !default;
+$body-emphasis-color:       $black;  // default
 
 // Links
 $link-color: $primary;
 $link-hover-decoration: none;
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Components
 $component-active-bg: #5bacd7;
@@ -123,8 +123,8 @@ $dropdown-dark-color: $dropdown-color;
 $dropdown-dark-bg: $dropdown-bg;
 
 // Navs
-$nav-link-color:                    var(--#{$prefix}link-color) !default; // Changing this seems to have no effect in top,topbar, or system menu.
-$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+$nav-link-color:                    var(--#{$prefix}link-color);  // default // Changing this seems to have no effect in top,topbar, or system menu.
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color);  // default
 
 // Navbar
 ///$navbar-dark-color: #ffffff;
@@ -144,10 +144,10 @@ $navbar-dark-active-color: $navbar-dark-hover-color;
 $navbar-dark-active-bg: transparent;
 
 // Navbar light
-$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
-$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
-$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
-$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65);  // default
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8);  // default
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1);  // default
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3);  // default
 $navbar-bg-light: #3e7ca1;
 
 // Inverted navbar links

@@ -1,33 +1,11 @@
 // Cerulean 5.2.0 -- This is a copy of node_modules/bootswatch/dist/cerulean/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
-$theme: "cerulean";
+@import "../../../node_modules/bootswatch/dist/cerulean/_variables.scss";
 
 //
 // Color system
 //
-
-$white:    #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #868e96;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-$black:    #000;
-
-$blue:    #033c73;
-$indigo:  #6610f2;
-$purple:  #6f42c1;
-$pink:    #e83e8c;
-$red:     #c71c22;
-$orange:  #fd7e14;
-$yellow:  #dd5600;
-$green:   #73a839;
-$teal:    #20c997;
 $cyan:    #157BB7; //#2fa4e7; Updated for Tiki
 
 $primary:       $cyan;
@@ -39,46 +17,32 @@ $danger:        $red;
 $light:         $gray-100;
 $dark:          $gray-800;
 
-$green-300: tint-color($green, 40%) !default; // Bootstrap 53
-$red-300: tint-color($red, 40%) !default; // Bootstrap 53
-
-$min-contrast-ratio:   2.75 !default;
+$green-300: tint-color($green, 40%);  // default // Bootstrap 53
+$red-300: tint-color($red, 40%);  // default // Bootstrap 53
 
 // Options
-$prefix:                      bs- !default;
+$prefix:                      bs-;  // default
 $prefixTiki:                  tiki-;
 
 // Body
-
-$body-color:    $gray-700;
-
 // Links
-$link-color:                              $primary !default;
-$link-shade-percentage:                   20% !default;
-$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
+//$link-color:                              $primary;  // default
+$link-shade-percentage:                   20%;  // default
+//$link-hover-color:                        shift-color($link-color, $link-shade-percentage);  // default
 
 // Typography
 $font-family-sans-serif:        Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
 $font-size-base:                1.1rem;
 
-$headings-color:         $cyan;
+$headings-color: #1F9CE5; // Darkened for WCAG2.2
 
 // Components
-$component-active-color:      $white !default;
-$component-active-bg:         $primary !default;
 $border-color:                $gray-400;
 
 // Form validation
 $form-valid-color: #58812C;
 
 // Dropdowns
-$dropdown-link-color:               var(--#{$prefix}body-color) !default;
-$dropdown-link-hover-color:         $dropdown-link-color !default;
-$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
-
-$dropdown-link-active-color:        $component-active-color !default;
-$dropdown-link-active-bg:           $component-active-bg !default;
-
 // Navs
 $nav-link-color:                    var(--#{$prefix}link-color) !important; // !important seems to be necessary to override the Bootstrap default caused by importing vendor bootstrap.scss.
 $nav-link-hover-color:              var(--#{$prefix}link-hover-color) !important;
@@ -91,7 +55,7 @@ $accordion-button-active-bg: #2fa4e7;
 $accordion-button-active-color: #fff;
 
 // Code
-$code-color:                        $body-color; // $pink !default; // Bootstrap 5.3
+$code-color:                        $body-color; // $pink;  // default // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables
 $navbar-dark-bg: #343a40;

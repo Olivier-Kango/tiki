@@ -1,89 +1,66 @@
 // Darkly 5.3.3 -- This overrides and supplements node_modules/bootswatch/dist/darkly/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
+@import "../../../node_modules/bootswatch/dist/darkly/_variables.scss";
 //
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #ebebeb !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #888 !default;
-$gray-700: #444 !default;
-$gray-800: #303030 !default;
-$gray-900: #222 !default;
-$black:    #000 !default;
+$yellow-800: shade-color($yellow, 60%);  // default
 
-$blue:    #375a7f !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #e74c3c !default;
-$orange:  #fd7e14 !default;
-$yellow:  #f39c12 !default;
-$green:   #00bc8c !default;
-$teal:    #20c997 !default;
-$cyan:    #3498db !default;
-
-$yellow-800: shade-color($yellow, 60%) !default;
-
-$primary:       $blue !default;
-$secondary:     $gray-700 !default;
+//$primary:       $blue;  // default
+//$secondary:     $gray-700;  // default
 $success:       #008563; // $green !default;
 $info:          #207AB6; // $cyan !default;
 $warning:       #A66908; // $yellow !default;
 $danger:        #DE2F1B; // $red !default;
 $light:         #545963; // $gray-500 !default; Darkened (a lot) for contrast when background for link
-$dark:          $gray-800 !default;
+//$dark:          $gray-800;  // default
 
 // Copied from variables-dark and renamed.
-$primary-text-emphasis:        tint-color($primary, 40%) !default;
-$secondary-text-emphasis:      tint-color($secondary, 40%) !default;
-$success-text-emphasis:        tint-color($success, 40%) !default;
-$info-text-emphasis:           tint-color($info, 40%) !default;
-$warning-text-emphasis:        tint-color($warning, 40%) !default;
-$danger-text-emphasis:         tint-color($danger, 40%) !default;
-$light-text-emphasis:          $gray-100 !default;
-$dark-text-emphasis:           $gray-300 !default;
+$primary-text-emphasis:        tint-color($primary, 40%);  // default
+$secondary-text-emphasis:      tint-color($secondary, 40%);  // default
+$success-text-emphasis:        tint-color($success, 40%);  // default
+$info-text-emphasis:           tint-color($info, 40%);  // default
+$warning-text-emphasis:        tint-color($warning, 40%);  // default
+$danger-text-emphasis:         tint-color($danger, 40%);  // default
+$light-text-emphasis:          $gray-100;  // default
+$dark-text-emphasis:           $gray-300;  // default
 // scss-docs-end theme-text-variables
 
 // scss-docs-start theme-bg-subtle-variables
-$primary-bg-subtle:            shade-color($primary, 80%) !default;
-$secondary-bg-subtle:          shade-color($secondary, 80%) !default;
-$success-bg-subtle:            shade-color($success, 80%) !default;
-$info-bg-subtle:               shade-color($info, 80%) !default;
-$warning-bg-subtle:            shade-color($warning, 80%) !default;
-$danger-bg-subtle:             shade-color($danger, 80%) !default;
-$light-bg-subtle:              $gray-800 !default;
-$dark-bg-subtle:               mix($gray-800, $black) !default;
+$primary-bg-subtle:            shade-color($primary, 80%);  // default
+$secondary-bg-subtle:          shade-color($secondary, 80%);  // default
+$success-bg-subtle:            shade-color($success, 80%);  // default
+$info-bg-subtle:               shade-color($info, 80%);  // default
+$warning-bg-subtle:            shade-color($warning, 80%);  // default
+$danger-bg-subtle:             shade-color($danger, 80%);  // default
+$light-bg-subtle:              $gray-800;  // default
+$dark-bg-subtle:               mix($gray-800, $black);  // default
 // scss-docs-end theme-bg-subtle-variables
 
 // scss-docs-start theme-border-subtle-variables
-$primary-border-subtle:        shade-color($primary, 40%) !default;
-$secondary-border-subtle:      shade-color($secondary, 40%) !default;
-$success-border-subtle:        shade-color($success, 40%) !default;
-$info-border-subtle:           shade-color($info, 40%) !default;
-$warning-border-subtle:        shade-color($warning, 40%) !default;
-$danger-border-subtle:         shade-color($danger, 40%) !default;
-$light-border-subtle:          $gray-700 !default;
-$dark-border-subtle:           $gray-800 !default;
+$primary-border-subtle:        shade-color($primary, 40%);  // default
+$secondary-border-subtle:      shade-color($secondary, 40%);  // default
+$success-border-subtle:        shade-color($success, 40%);  // default
+$info-border-subtle:           shade-color($info, 40%);  // default
+$warning-border-subtle:        shade-color($warning, 40%);  // default
+$danger-border-subtle:         shade-color($danger, 40%);  // default
+$light-border-subtle:          $gray-700;  // default
+$dark-border-subtle:           $gray-800;  // default
 
 // Prefix for :root CSS variables
-$prefix:                      bs- !default;
+$prefix:                      bs-;  // default
 
 // Body
-$body-color:                $white !default;
 
 // Copied from variables-dark and renamed
-$body-secondary-color:         rgba($body-color, .75) !default;
-$body-secondary-bg:            $gray-800 !default;
-$body-tertiary-color:          rgba($body-color, .5) !default;
-$body-tertiary-bg:             mix($gray-800, $gray-900, 50%) !default;
-$body-emphasis-color:          $white !default;
-$border-color:                 $gray-700 !default;
+$body-secondary-color:         rgba($body-color, .75);  // default
+$body-secondary-bg:            $gray-800;  // default
+$body-tertiary-color:          rgba($body-color, .5);  // default
+$body-tertiary-bg:             mix($gray-800, $gray-900, 50%);  // default
+$body-emphasis-color:          $white;  // default
+$border-color:                 $gray-700;  // default
 
 // Links
 
@@ -93,7 +70,7 @@ $link-color: #0FEBB4; // $success !default; #00C795
 
 // stylelint-disable-next-line value-keyword-case
 $font-family-sans-serif:      system-ui, sans-serif; // Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- $gray-600 !default;
+$text-muted:                  var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 -- $gray-600 !default;
 $mark-bg:                     $yellow-800;
 
 // Tables
@@ -101,46 +78,45 @@ $mark-bg:                     $yellow-800;
 // Forms
 
 $input-bg:                          var(--#{$prefix}tertiary-bg); // Changed from body-bg for visibility
-$input-color:                                                 $body-color; // $gray-800 !default;
+$input-color:                       $body-color; // $gray-800 !default;
 $input-border-color:                var(--#{$prefix}body-bg);
 
 // Form validation
+$form-feedback-valid-color:         $success; // !default;
+$form-feedback-invalid-color:       $danger; // !default;
+// scss-docs-end form-feedback-variables
 
-$form-valid-color: #00A37A;
-$form-invalid-color: #E95D4E;
+// scss-docs-start form-validation-colors
+$form-valid-color:                  $form-feedback-valid-color; // !default;
+$form-valid-border-color:           $form-feedback-valid-color; // !default;
+$form-invalid-color:                $form-feedback-invalid-color; // !default;
+$form-invalid-border-color:         $form-feedback-invalid-color; // !default;
+
+
+//$form-valid-color: #00A37A;
+//$form-invalid-color: #E95D4E;
 
 // Dropdowns
-
 // Navs
-$nav-link-color:                    var(--#{$prefix}link-color) !default;
-$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+$nav-link-color:                    var(--#{$prefix}link-color);  // default
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color);  // default
 
 // Navbar
-
-$navbar-light-color:                $link-color; //rgba($gray-900, .7) !default;
+$navbar-light-color:                $link-color; //rgba($gray-900, .7);  // default
 
 // Pagination
-
 // Cards
-
 // Accordion (added for Tiki)
 $accordion-button-active-bg: #444 !important;
 $accordion-button-active-color: #fff;
 
 // Popovers
-
 // Toasts
-
 // Modals
-
 // Progress bars
-
 // List group
-
 // Breadcrumbs
-
 // Close
-
 // Code
 
 //--------------------------- Tiki SCSS variables

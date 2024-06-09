@@ -1,45 +1,22 @@
 // Vapor 5.3.3 -- This file is to override and add top variables in  node_modules/bootswatch/dist/vapor/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
-
+@import "../../../node_modules/bootswatch/dist/vapor/_variables.scss";
 //
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #170229 !default;
-$black:    #000 !default;
-
-$blue:    #1ba2f6 !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #ea39b8 !default;
-$red:     #e44c55 !default;
-$orange:  #f1b633 !default;
-$yellow:  #ffc107 !default;
-$green:   #3cf281 !default;
-$teal:    #3f81a2 !default;
-$cyan:    #32fbe2 !default;
-
 $yellow-800: shade-color($yellow, 60%) !default;
 
-$primary:       $purple !default;
+//$primary:       $purple !default;
 $secondary:     #D917A2; // $pink !default;
 $success:       #068938; // $green !default;
 $info:         #0879BF; // $blue !default;
 $warning:       #946F00; // $yellow !default;
 $danger:        #E02E3A; // $red !default;
 $light:         #0F6D75; // #11828D; // #44d9e8 !default; Darkened for acceptable contrast behind link color
-$dark:          $gray-900 !default;
+//$dark:          $gray-900 !default;
 
-$min-contrast-ratio:   1.2 !default;
+//$min-contrast-ratio:   1.2 !default;
 
 // Options
 // Prefix for :root CSS variables

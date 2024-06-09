@@ -1,96 +1,74 @@
 // Lux 5.3.3 -- This overrides and adds to node_modules/bootswatch/dist/lumen/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
-$theme: "lux" !default;
+@import "../../../node_modules/bootswatch/dist/lux/_variables.scss";
 
 //
 // Color system
 //
 
-$white: #e5e5e5 !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #f7f7f9 !default;
-$gray-300: #eceeef !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #919aa1 !default;
-$gray-700: #55595c !default;
-$gray-800: #343a40 !default;
-$gray-900: #1a1a1a !default;
-$black:    #000 !default;
+//$blue:    #007bff;  // default
+//$indigo:  #6610f2;  // default
+//$purple:  #6f42c1;  // default
+//$pink:    #e83e8c;  // default
+//$red:     #d9534f;  // default
+//$orange:  #fd7e14;  // default
+//$yellow:  #f0ad4e;  // default
+$green: #56c07b;
+//$teal:    #20c997;  // default
+$cyan: #39a0cb;
 
-$blue:    #007bff !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #d9534f !default;
-$orange:  #fd7e14 !default;
-$yellow:  #f0ad4e !default;
-$green: #56c07b !default;
-$teal:    #20c997 !default;
-$cyan: #39a0cb !default;
+//$primary:       $gray-900;  // default
+$secondary:     #E5E5E5FF; // $white;  // default =- Darkened slightly so btn-secondary is recognizable as a button.
+$success:       #2E844C; //$green;  // default
+$info:          #1A7DA8; // $cyan;  // default
+$warning:       #A5660D; // $yellow;  // default
+$danger:        #D4403A; // $red;  // default
+$light:         $white;  // default
+$dark:          $gray-800;  // default
 
-$primary:       $gray-900 !default;
-$secondary:     #E5E5E5FF; // $white !default; =- Darkened slightly so btn-secondary is recognizable as a button.
-$success:       #2E844C; //$green !default;
-$info:          #1A7DA8; // $cyan !default;
-$warning:       #A5660D; // $yellow !default;
-$danger:        #D4403A; // $red !default;
-$light:         $white !default;
-$dark:          $gray-800 !default;
-
-$green-300: tint-color($green, 40%) !default;
-$red-300: tint-color($red, 40%) !default;
+$green-300: tint-color($green, 40%);  // default
+$red-300: tint-color($red, 40%);  // default
 
 // Options
-
 // Prefix for :root CSS variables
 $prefix:                      bs-;
 
-
 // Body
 $body-bg: #fff;
-$body-color:                $gray-700 !default;
-$body-emphasis-color:       $black !default;
+$body-emphasis-color:       $black;  // default
 
 // Links
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 $link-color: rgb(26, 26, 26);
-$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
+$link-hover-color:                        shift-color($link-color, $link-shade-percentage);  // default
 
 
 // stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif:      system-ui, sans-serif; // "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-family-sans-serif:      system-ui, sans-serif; // "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";  // default
 
 // Tables
-
 // Buttons + Forms
-
 // Buttons
-
 // Forms
-
-$input-line-height:                     1.5 !default;
 $input-bg:                              var(--#{$prefix}secondary-bg); // var(--#{$prefix}body-bg);
 $input-disabled-bg:                     var(--#{$prefix}secondary-bg);
-$input-group-addon-bg:                  var(--#{$prefix}tertiary-bg) !default; // $gray-300 !default;
+$input-group-addon-bg:                  var(--#{$prefix}tertiary-bg);  // default // $gray-300;  // default
 
 // Form validation
 $form-valid-color: #2E844C;
 $form-invalid-color: #D4403A;
 
 // Navs
-$nav-link-color:                    var(--#{$prefix}link-color) !default;
-$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
+$nav-link-color:                    var(--#{$prefix}link-color);  // default
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color);  // default
 
 // Navbar
-
-$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default; // rgb(26, 26, 26); //rgba($black, .3) !default;
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65);  // default // rgb(26, 26, 26); //rgba($black, .3);  // default
 
 // Pagination
-
 // Code
-$code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
+$code-color:                      $body-color; //   $pink;  // default // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables
 

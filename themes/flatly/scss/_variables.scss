@@ -1,147 +1,123 @@
 // Flatly 5.3.3 -- This overrides and suppplements node_modules/bootswatch/dist/flatly/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
+@import "../../../node_modules/bootswatch/dist/flatly/_variables.scss";
 
 //
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #ecf0f1 !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #b4bcc2 !default;
-$gray-600: #95a5a6 !default;
-$gray-700: #7b8a8b !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
-
-$blue:    #2c3e50 !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
+//$blue:    #2c3e50;  // default
+//$indigo:  #6610f2;  // default
+//$purple:  #6f42c1;  // default
+//$pink:    #e83e8c;  // default
 $red:     #DE2F1B; // #e74c3c !default; WCAG
-$orange:  #fd7e14 !default;
+//$orange:  #fd7e14;  // default
 $yellow:  #A56909; // #f39c12 !default; WCAG
 $green:   #12826C; // #18bc9c !default; WCAG
-$teal:    #20c997 !default;
+//$teal:    #20c997;  // default
 $cyan:    #207AB6; // #3498db !default; WCAG
 
-$red-300: tint-color($red, 40%) !default;
-$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%);  // default
+$green-300: tint-color($green, 40%);  // default
 
-// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
-// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
-$min-contrast-ratio:   4.5 !default;
-
-
-$primary:       $blue !default;
+$primary:       $blue;  // default
 $secondary:     #66797A; // $gray-600 !default; WCAG
 $success:       #15846E; // $green !default;
 $info:          #207AB6; // $cyan !default;
 $warning:       #A56909; // $yellow !default;
 $danger:        #DE2F1B; // $red !default;
-$light:         $gray-200 !default;
+$light:         $gray-200;  // default
 $dark:          #6C797A; // $gray-700 !default; WCAG
 
-$min-contrast-ratio:   2.05 !default;
+$min-contrast-ratio:   2.05;  // default
 
 // scss-docs-start theme-text-variables
-$primary-text-emphasis:   shade-color($primary, 60%) !default;
-$secondary-text-emphasis: shade-color($secondary, 60%) !default;
-$success-text-emphasis:   shade-color($success, 60%) !default;
-$info-text-emphasis:      shade-color($info, 60%) !default;
-$warning-text-emphasis:   shade-color($warning, 60%) !default;
-$danger-text-emphasis:    shade-color($danger, 60%) !default;
-$light-text-emphasis:     $gray-700 !default;
-$dark-text-emphasis:      $gray-700 !default;
+$primary-text-emphasis:   shade-color($primary, 60%);  // default
+$secondary-text-emphasis: shade-color($secondary, 60%);  // default
+$success-text-emphasis:   shade-color($success, 60%);  // default
+$info-text-emphasis:      shade-color($info, 60%);  // default
+$warning-text-emphasis:   shade-color($warning, 60%);  // default
+$danger-text-emphasis:    shade-color($danger, 60%);  // default
+$light-text-emphasis:     $gray-700;  // default
+$dark-text-emphasis:      $gray-700;  // default
 // scss-docs-end theme-text-variables
 
 // scss-docs-start theme-bg-subtle-variables
-$primary-bg-subtle:       tint-color($primary, 80%) !default;
-$secondary-bg-subtle:     tint-color($secondary, 80%) !default;
-$success-bg-subtle:       tint-color($success, 80%) !default;
-$info-bg-subtle:          tint-color($info, 80%) !default;
-$warning-bg-subtle:       tint-color($warning, 80%) !default;
-$danger-bg-subtle:        tint-color($danger, 80%) !default;
-$light-bg-subtle:         mix($gray-100, $white) !default;
-$dark-bg-subtle:          $gray-400 !default;
+$primary-bg-subtle:       tint-color($primary, 80%);  // default
+$secondary-bg-subtle:     tint-color($secondary, 80%);  // default
+$success-bg-subtle:       tint-color($success, 80%);  // default
+$info-bg-subtle:          tint-color($info, 80%);  // default
+$warning-bg-subtle:       tint-color($warning, 80%);  // default
+$danger-bg-subtle:        tint-color($danger, 80%);  // default
+$light-bg-subtle:         mix($gray-100, $white);  // default
+$dark-bg-subtle:          $gray-400;  // default
 // scss-docs-end theme-bg-subtle-variables
 
 // scss-docs-start theme-border-subtle-variables
-$primary-border-subtle:   tint-color($primary, 60%) !default;
-$secondary-border-subtle: tint-color($secondary, 60%) !default;
-$success-border-subtle:   tint-color($success, 60%) !default;
-$info-border-subtle:      tint-color($info, 60%) !default;
-$warning-border-subtle:   tint-color($warning, 60%) !default;
-$danger-border-subtle:    tint-color($danger, 60%) !default;
-$light-border-subtle:     $gray-200 !default;
-$dark-border-subtle:      $gray-500 !default;
+$primary-border-subtle:   tint-color($primary, 60%);  // default
+$secondary-border-subtle: tint-color($secondary, 60%);  // default
+$success-border-subtle:   tint-color($success, 60%);  // default
+$info-border-subtle:      tint-color($info, 60%);  // default
+$warning-border-subtle:   tint-color($warning, 60%);  // default
+$danger-border-subtle:    tint-color($danger, 60%);  // default
+$light-border-subtle:     $gray-200;  // default
+$dark-border-subtle:      $gray-500;  // default
 // scss-docs-end theme-border-subtle-variable
 $body-color: $gray-900;
-$body-secondary-color:      rgba($body-color, .75) !default;
-$body-secondary-bg:         $gray-200 !default;
+$body-secondary-color:      rgba($body-color, .75);  // default
+$body-secondary-bg:         $gray-200;  // default
 
-$body-tertiary-color:       rgba($body-color, .5) !default;
-$body-tertiary-bg:          $gray-100 !default;
+$body-tertiary-color:       rgba($body-color, .5);  // default
+$body-tertiary-bg:          $gray-100;  // default
 
-$body-emphasis-color:       $black !default;
+$body-emphasis-color:       $black;  // default
 
 // Options
 // Prefix
 $prefix: bs-;
 
 // Components
-$component-active-color:      $white !default;
-$component-active-bg:         $primary !default;
+$component-active-color:      $white;  // default
+$component-active-bg:         $primary;  // default
 $border-color: $gray-400 !important;
 
 // Links
 $link-color: #16836D;
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Fonts
-
-$text-muted:                  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #707070 !important; // added for Tiki
-$blockquote-footer-color:     var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #707070 !important; // added for Tiki
+$text-muted:                  var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 -- #707070 !important; // added for Tiki
+$blockquote-footer-color:     var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 -- #707070 !important; // added for Tiki
 
 // Tables
-
 // Dropdowns
+$dropdown-color:                    var(--#{$prefix}body-color);  // default
+$dropdown-bg:                       var(--#{$prefix}body-bg);  // default
+$dropdown-border-color:             var(--#{$prefix}border-color-translucent);  // default
 
-$dropdown-color:                    var(--#{$prefix}body-color) !default;
-$dropdown-bg:                       var(--#{$prefix}body-bg) !default;
-$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
+$dropdown-link-color:               var(--#{$prefix}body-color);  // default
+$dropdown-link-hover-color:         $dropdown-link-color;  // default
+$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg);  // default
 
-$dropdown-link-color:               var(--#{$prefix}body-color) !default;
-$dropdown-link-hover-color:         $dropdown-link-color !default;
-$dropdown-link-hover-bg:            var(--#{$prefix}tertiary-bg) !default;
-
-$dropdown-link-active-color:        $component-active-color !default;
-$dropdown-link-active-bg:           $component-active-bg !default;
+$dropdown-link-active-color:        $component-active-color;  // default
+$dropdown-link-active-bg:           $component-active-bg;  // default
 
 // Navs
-
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-600 !default;
-$nav-tabs-border-color:             $gray-200 !default;
-$nav-link-disabled-color: var(--#{$prefix}secondary-color) !default; //  #696969; // Changed for Tiki (WCAG)
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color);  // default // $gray-600 !default;
+$nav-tabs-border-color:             $gray-200;  // default
+$nav-link-disabled-color: var(--#{$prefix}secondary-color);  // default //  #696969; // Changed for Tiki (WCAG)
 
 // Navbar
-
 // Pagination
-
 // List group
-
 // Figures (added for Tiki)
 $figure-caption-color:              #707070 !important;
-// Breadcrumbs
 
+// Breadcrumbs
 $breadcrumb-active-color: #696969; // Added for Tiki (WCAG)
 
 // Close
-
 // Code
 $code-color:                       $body-color; //  $pink !default; // Bootstrap 5.3
 

@@ -6,17 +6,17 @@ $tiki-top-bg: linear-gradient(to right, #bebc24 0%, #ded319 53%, #e7d915 100%);
 // Color system
 
 // scss-docs-start gray-color-variables
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$white:    #fff;  // default
+$gray-100: #f8f9fa;  // default
+$gray-200: #e9ecef;  // default
+$gray-300: #dee2e6;  // default
+$gray-400: #ced4da;  // default
+$gray-500: #adb5bd;  // default
+$gray-600: #6c757d;  // default
+$gray-700: #495057;  // default
+$gray-800: #343a40;  // default
+$gray-900: #212529;  // default
+$black:    #000;  // default
 // scss-docs-end gray-color-variables
 
 // scss-docs-start gray-colors-map
@@ -30,20 +30,20 @@ $grays: (
     "700": $gray-700,
     "800": $gray-800,
     "900": $gray-900
-) !default;
+);  // default
 // scss-docs-end gray-colors-map
 
 // scss-docs-start color-variables
-$blue:    #0d6efd !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #d63384 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #198754 !default;
-$teal:    #20c997 !default;
-$cyan:    #0dcaf0 !default;
+$blue:    #0d6efd;  // default
+$indigo:  #6610f2;  // default
+$purple:  #6f42c1;  // default
+$pink:    #d63384;  // default
+$red:     #dc3545;  // default
+$orange:  #fd7e14;  // default
+$yellow:  #ffc107;  // default
+$green:   #198754;  // default
+$teal:    #20c997;  // default
+$cyan:    #0dcaf0;  // default
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -62,11 +62,11 @@ $colors: (
     "white":      $white,
     "gray":       $gray-600,
     "gray-dark":  $gray-800
-) !default;
+);  // default
 // scss-docs-end colors-map
 
-$red-300: tint-color($red, 40%) !default;
-$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%);  // default
+$green-300: tint-color($green, 40%);  // default
 
 $primary:       #ebdc14;
 $secondary:     #5E7F34; //#648737;
@@ -109,7 +109,7 @@ $link-color: #52702E; // #638637;
 $link-hover-color: #a59705;
 $link-hover-color:               darken($link-color, 15%);
 $link-hover-decoration:       none;
-$link-shade-percentage:                   20% !default;
+$link-shade-percentage:                   20%;  // default
 
 $btn-link-disabled-color:     $gray-600;
 
@@ -129,7 +129,7 @@ $bg-dark-link-hover-color: #f2f2f2;
 $hr-color: #a59705;
 $text-success: #288040 !important;
 $text-danger: #d63d00 !important;
-$text-muted: var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 -- #5b6269;
+$text-muted: var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 -- #5b6269;
 $headings-font-weight: 700;
 
 $card-border-color: #332f02;
@@ -141,9 +141,9 @@ $table-accent-bg: #f9f9f9;
 $table-hover-bg: #dbd11a; // Maybe can be improved.
 
 // Forms
-$input-color: var(--#{$prefix}body-color) !default; // #343a40;
-$input-bg: var(--#{$prefix}body-bg) !default; // #f8f9d4;
-$input-border-color: var(--#{$prefix}border-color) !default; // #f8f9d4;
+$input-color: var(--#{$prefix}body-color);  // default // #343a40;
+$input-bg: var(--#{$prefix}body-bg);  // default // #f8f9d4;
+$input-border-color: var(--#{$prefix}border-color);  // default // #f8f9d4;
 $input-border-top-color: #f5fb86;
 $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;
@@ -185,7 +185,7 @@ $enable-shadows: true;
 
 // Code
 
-$code-color:                     $body-color; //    $pink !default;
+$code-color:                     $body-color; //    $pink;  default
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 //$bg-light-alt: #117485 !important;
 
@@ -239,14 +239,14 @@ $postbody-title-card-title-color: #fff;
 // There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
 
 
-$box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
-$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
-$box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
-$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .075);  // default
+$box-shadow:                  0 .5rem 1rem rgba($black, .15);  // default
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175);  // default
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075);  // default
 $enable-gradients:               false;
 $enable-shadows:              false;
-$input-btn-focus-width:       .2rem !default;
-$btn-focus-width:             $input-btn-focus-width !default;
+$input-btn-focus-width:       .2rem;  // default
+$btn-focus-width:             $input-btn-focus-width;  // default
 
 
 $bg-dark-info: #00DAE6;

@@ -4,17 +4,17 @@ $tiki-top-bg: linear-gradient(90deg, rgba(190, 133, 20, 1) 2%, rgba(199, 159, 29
 // Color system
 
 // scss-docs-start gray-color-variables
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$white:    #fff;  // default
+$gray-100: #f8f9fa;  // default
+$gray-200: #e9ecef;  // default
+$gray-300: #dee2e6;  // default
+$gray-400: #ced4da;  // default
+$gray-500: #adb5bd;  // default
+$gray-600: #6c757d;  // default
+$gray-700: #495057;  // default
+$gray-800: #343a40;  // default
+$gray-900: #212529;  // default
+$black:    #000;  // default
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -29,21 +29,21 @@ $grays: (
     "700": $gray-700,
     "800": $gray-800,
     "900": $gray-900
-) !default;
+);  // default
 // scss-docs-end gray-colors-map
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue:    #0d6efd !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #d63384 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #198754 !default;
-$teal:    #20c997 !default;
-$cyan:    #0dcaf0 !default;
+$blue:    #0d6efd;  // default
+$indigo:  #6610f2;  // default
+$purple:  #6f42c1;  // default
+$pink:    #d63384;  // default
+$red:     #dc3545;  // default
+$orange:  #fd7e14;  // default
+$yellow:  #ffc107;  // default
+$green:   #198754;  // default
+$teal:    #20c997;  // default
+$cyan:    #0dcaf0;  // default
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -62,15 +62,15 @@ $colors: (
     "white":      $white,
     "gray":       $gray-600,
     "gray-dark":  $gray-800
-) !default;
+);  // default
 // scss-docs-end colors-map
 
 $white:    #fff;
 $black:    #000;
 $light: #e77d4f;
 
-$red-300: tint-color($red, 40%) !default;
-$green-300: tint-color($green, 40%) !default;
+$red-300: tint-color($red, 40%);  // default
+$green-300: tint-color($green, 40%);  // default
 
 $primary:       #f06423;
 $secondary:     #952f20;
@@ -96,11 +96,11 @@ $theme-colors: (
 $prefix: bs-;
 
 // Body
-$body-color: $gray-800 !default;
+$body-color: $gray-800;  // default
 
 $link-color: #c74b23;
 $link-hover-color:               darken($link-color, 15%);
-$link-shade-percentage:                   20% !default;
+$link-shade-percentage:                   20%;  // default
 
 // Navs
 $nav-tabs-link-color: #000;
@@ -112,7 +112,7 @@ $nav-tabs-link-active-bg: #e36732; // Same as $dropdown-link-hover-bg;
 
 // Typography
 $hr-color: #e77d4f;
-$text-muted:  var(--#{$prefix}secondary-color) !default; // Deprecated in 5.3.0 - #6B737B;
+$text-muted:  var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 - #6B737B;
 $headings-font-weight: 700;
 
 // Cards
@@ -125,9 +125,9 @@ $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
 // Forms
-$input-color: var(--#{$prefix}body-color) !default; // #555555;
-$input-bg: var(--#{$prefix}body-bg) !default; // #f8e4dd;
-$input-border-color: var(--#{$prefix}border-color) !default; // #fac5b1;
+$input-color: var(--#{$prefix}body-color);  // default // #555555;
+$input-bg: var(--#{$prefix}body-bg);  // default // #f8e4dd;
+$input-border-color: var(--#{$prefix}border-color);  // default // #fac5b1;
 $input-border-top-color: #fac5b1;
 $input-border-right-color: #fbf1ed;
 $input-border-bottom-color: #fbf1ed;
@@ -166,7 +166,7 @@ $pagination-disabled-border-color: #dddddd;
 
 // Code
 
-$code-color:                       $body-color; //  $pink !default;
+$code-color:                       $body-color; //  $pink;  default
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 //$bg-light-alt: #117485 !important;
 $bg-dark: #000;

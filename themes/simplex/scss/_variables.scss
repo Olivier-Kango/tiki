@@ -1,48 +1,23 @@
 // Simplex 5.3.3 -- This file contains variables to override or add to those in node_modules/bootswatch/dist/simplex/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
-$theme: "simplex" !default;
+@import "../../../node_modules/bootswatch/dist/simplex/_variables.scss";
 
 //
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #ddd !default;
-$gray-300: #ccc !default;
-$gray-400: #bbb !default;
-$gray-500: #adb5bd !default;
-$gray-600: #777 !default;
-$gray-700: #444 !default;
-$gray-800: #373a3c !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+//$primary:       $red;  // default
+//$secondary:     $white;  // default
+$success:       #3F8406; // $green;  // default
+$info:          #027EAC; // $cyan;  // default
+$warning:       #AA6618; // $orange;  // default
+//$danger:        $purple;  // default
+//$light:         $white;  // default
+//$dark:          $gray-800;  // default
 
-$blue:    #007bff !default;
-$indigo:  #6610f2 !default;
-$purple:  #9b479f !default;
-$pink:    #e83e8c !default;
-$red:     #d9230f !default;
-$orange:  #d9831f !default;
-$yellow:  #ffc107 !default;
-$green:   #469408 !default;
-$teal:    #20c997 !default;
-$cyan:    #029acf !default;
-
-$primary:       $red !default;
-$secondary:     $white !default;
-$success:       #3F8406; // $green !default;
-$info:          #027EAC; // $cyan !default;
-$warning:       #AA6618; // $orange !default;
-$danger:        $purple !default;
-$light:         $white !default;
-$dark:          $gray-800 !default;
-
-$green-300: tint-color($green, 40%) !default;
-$red-300: tint-color($red, 40%) !default;
-
-$min-contrast-ratio:   2.8 !default;
+$green-300: tint-color($green, 40%);  // default
+$red-300: tint-color($red, 40%);  // default
 
 // Options
 //Prefix
@@ -52,45 +27,32 @@ $prefix: bs-;
 $form-valid-color: #3F8406;
 
 // Body
-$body-color: $gray-800 !default;
-
-$body-bg:                   #fcfcfc !default;
+$body-color: $gray-800;  // default
 
 // Links
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Fonts
-
 // stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif:      system-ui, sans-serif; // "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-family-sans-serif:      system-ui, sans-serif; // "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";  // default
 
 // Dropdowns
-
 // Navs
-
-$nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default; // $gray-400 !default;
+$nav-link-disabled-color:           var(--#{$prefix}secondary-color);  // default // $gray-400;  // default
 
 // Navbar
-
-$navbar-dark-color:                 rgba($white, .75) !default;
-$navbar-dark-hover-color:           $white !default;
+$navbar-dark-color:                 rgba($white, .75);  // default
+$navbar-dark-hover-color:           $white;  // default
 
 // Pagination
-
 // Cards
-
 // Popovers
-
 // Modals
-
 // Progress bars
-
 // List group
-
 // Breadcrumbs
-
 // Code
-$code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
+$code-color:                      $body-color; //   $pink;  // default // Bootstrap 5.3
 
 //--------------------------- Tiki SCSS variables
 

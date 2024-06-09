@@ -1,59 +1,35 @@
 // Minty 5.3.3 -- This file overrides and supplements node_modules/bootswatch/dist/minty/_variables.scss
 
+@import "../../../node_modules/bootswatch/dist/minty/_variables.scss";
 //
 // Color system
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
 
-$blue:    #0d6efd !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #d63384 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #198754 !default;
-$teal:    #20c997 !default;
-$cyan:    #0dcaf0 !default;
+$green-300: tint-color($green, 40%);  // default
+$red-300: tint-color($red, 40%);  // default
 
-
-
-$green-300: tint-color($green, 40%) !default;
-$red-300: tint-color($red, 40%) !default;
-
-$primary:       #ABD9CD; // #78c2ad !default;
-$secondary:     #f3969a !default;
-$success:       #56cc9d; // $green !default;
-$info:          #6cc3d5; //$cyan !default;
-$warning:       #ffce67; // $yellow !default;
-$danger:        #ff7851; //$red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-800 !default;
+$primary:       #ABD9CD; // #78c2ad;  // default
+$secondary:     #f3969a;  // default
+$success:       #56cc9d; // $green;  // default
+$info:          #6cc3d5; //$cyan;  // default
+$warning:       #ffce67; // $yellow;  // default
+$danger:        #ff7851; //$red;  // default
+//$light:         $gray-100;  // default
+//$dark:          $gray-800;  // default
 
 $min-contrast-ratio:   2.5;
 
 // Options
 // Prefix for :root CSS variables
 
-$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
-$prefix:                      $variable-prefix !default;
+$variable-prefix:             bs-;  // default // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix;  // default
 
 
 // Body
-
-$body-color:                #595959; // $gray-600 !default; Modified for Tiki, for WCAG compliance
+$body-color:                #595959; // $gray-600;  // default Modified for Tiki, for WCAG compliance
 
 // Typography
-$link-shade-percentage:                   20% !default; // Bootstrap 5.3
+$link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 $link-color: #3A826E; // Modified for Tiki, for WCAG compliance
 
 
@@ -61,51 +37,45 @@ $link-color: #3A826E; // Modified for Tiki, for WCAG compliance
 $border-color: #c9c9c9; // darkened for visibility in Tiki
 
 // Fonts
-$font-family-sans-serif:      ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif; // system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-//$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-sans-serif:      ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif; // system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";  // default
+//$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;  // default
 // stylelint-enable value-keyword-case
-//$font-family-base:            var(--#{$prefix}font-sans-serif) !default;
+//$font-family-base:            var(--#{$prefix}font-sans-serif);  // default
 
 
 // stylelint-disable-next-line value-keyword-case
-$headings-font-family:        Montserrat, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+//$headings-font-family:        Montserrat, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;  // default
 $headings-color:              inherit;
 
 // Tables
-
 // Buttons
-
-$btn-color:                   #212529; // var(--#{$prefix}body-color) !default;
+$btn-color:                   #212529; // var(--#{$prefix}body-color);  // default
 
 // Dropdowns
-
 // Navbar
 
-$navbar-dark-color:                 rgba($white, .6) !default;
-$navbar-dark-hover-color:           $white !default;
-$navbar-light-color:                rgba($black, .3) !default;
-$navbar-light-hover-color:          $gray-700 !default;
-$navbar-light-active-color:         $gray-700 !default;
-$navbar-light-disabled-color:       rgba($black, .1) !default;
+$navbar-dark-color:                 rgba($white, .6);  // default
+$navbar-dark-hover-color:           $white;  // default
+$navbar-light-color:                rgba($black, .3);  // default
+$navbar-light-hover-color:          $gray-700;  // default
+$navbar-light-active-color:         $gray-700;  // default
+$navbar-light-disabled-color:       rgba($black, .1);  // default
 
 // Pagination
-
 // Popovers
-$popover-bg:                        var(--#{$prefix}body-bg) !default;
-$popover-border-color:              var(--#{$prefix}border-color-translucent) !default;
-$popover-header-bg:                 var(--#{$prefix}secondary-bg) !default;
-$popover-header-color:              $headings-color !default;
-$popover-body-color:                var(--#{$prefix}body-color) !default;
+$popover-bg:                        var(--#{$prefix}body-bg);  // default
+$popover-border-color:              var(--#{$prefix}border-color-translucent);  // default
+$popover-header-bg:                 var(--#{$prefix}secondary-bg);  // default
+$popover-header-color:              $headings-color;  // default
+$popover-body-color:                var(--#{$prefix}body-color);  // default
 
 // Badge
 $badge-color: #212529;
 
 // Alerts
-
 // Breadcrumbs
-
 // Code
-$code-color:                      $body-color; //   $pink !default; // Bootstrap 5.3
+$code-color:                      $body-color; //   $pink;  // default // Bootstrap 5.3
 //--------------------------- Tiki SCSS variables
 
 // Bootswatch overrides
