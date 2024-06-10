@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use ThemeLib;
 
 /**
  * @param $params
@@ -35,8 +36,17 @@ class JsCalendar extends Base
         $tikilib = \TikiLib::lib('tiki');
         $headerlib = \TikiLib::lib('header');
 
-        $uniqueId = uniqid();
+        $headerlib->add_js_module("import '@vue-widgets/datetime-picker';");
+        list($theme_active, $theme_option_active) = ThemeLib::getActiveThemeAndOption();
+        $theme_css = ThemeLib::getThemeCssFilePath($theme_active, $theme_option_active);
+        // If a non-existent theme option is set, the css file path will be null
+        if (! $theme_css) {
+            $theme_css = ThemeLib::getThemeCssFilePath($theme_active);
+        }
+
         $fieldName = $params['fieldname'];
+        $enableTimezonePicker = $params['showtimezone'] === 'y' ? 1 : 0;
+        $enableTimePicker = $params['showtime'] === 'y' ? 1 : 0;
 
         if (! isset($params['showtime'])) {
             $params['showtime'] = 'y';
@@ -46,34 +56,8 @@ class JsCalendar extends Base
             $params['timezone'] = $tikilib->get_display_timezone();
         }
 
-        /*
-        NOTE: we don't unregister the application when the component is unmounted because this action results in the component's
-        resources being removed from the DOM which causes other components of the same kind to lose their resources as well.
-        FIXME: Find a more efficient way to handle this for other components as well. - Merci Jacob 08/05/2024
-        */
-        $headerlib->add_jq_onready('
-window.registerApplication({
-    name: "@vue-mf/datetime-picker-" + ' . json_encode($uniqueId) . ',
-    app: () => importShim("@vue-mf/datetime-picker"),
-    activeWhen: () => true,
-    customProps: {
-        inputName: ' . json_encode($fieldName) . ',
-        toInputName: ' . json_encode($params['endfieldname']) . ',
-        timestamp: ' . json_encode($params['date']) . ',
-        toTimestamp: ' . json_encode($params['enddate']) . ',
-        timezone: ' . json_encode($params['timezone']) . ',
-        timezoneFieldName: ' . json_encode($params['timezoneFieldname']) . ',
-        enableTimezonePicker: ' . json_encode($params['showtimezone'] === 'y') . ',
-        enableTimePicker: ' . json_encode($params['showtime'] === 'y') . ',
-        goToURLOnChange: ' . json_encode($params['goto']) . ',
-        language: ' . json_encode($tikilib->get_language()) . ',
-        cancelText: ' . json_encode(tr('Cancel')) . ',
-        selectText: ' . json_encode(tr('Select')) . ',
-    },
-});
-');
-        $appHtml = '<div id="single-spa-application:@vue-mf/datetime-picker-' . $uniqueId . '" class="wp-datetime-picker"></div>';
-
-        return $appHtml;
+        return "
+        <datetime-picker input-name=\"{$fieldName}\" theme-css=\"{$theme_css}\" to-input-name=\"{$params['endfieldname']}\" timestamp=\"{$params['date']}\" to-timestamp=\"{$params['enddate']}\" timezone=\"{$params['timezone']}\" timezone-field-name=\"{$params['timezoneFieldname']}\" enable-timezone-picker=\"{$enableTimezonePicker}\" enable-time-picker=\"{$enableTimePicker}\" go-to-url-on-change=\"{$params['goto']}\" language=\"{$tikilib->get_language()}\" cancel-text=\"Cancel\" select-text=\"Select\"></datetime-picker>
+        ";
     }
 }

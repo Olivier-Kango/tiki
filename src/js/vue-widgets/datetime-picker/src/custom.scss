@@ -1,9 +1,7 @@
-@import 'bootstrap/scss/bootstrap';
-@import '@vuepic/vue-datepicker/dist/main.css';
+@use '@vuepic/vue-datepicker/dist/main.css';
 
 .tiki-form-control {
-    @extend .form-control;
-    padding: 6px 12px 6px 36px;
+    padding: 6px 12px 6px 36px !important;
 }
 
 .dp__theme_light {
@@ -14,7 +12,7 @@
     --dp-menu-border-color: var(--bs-border-color);
 }
 
-:root {
+:host {
     --dp-font-family: var(--bs-body-font-family);
     --dp-font-size: var(--bs-body-font-size);
 }

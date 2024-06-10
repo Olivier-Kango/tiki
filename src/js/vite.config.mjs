@@ -6,7 +6,7 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import copy from "@guanghechen/rollup-plugin-copy";
 import { glob } from "glob";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import postcssRootToHost from "./postcssRootToHost";
 /*
 
 Overarching principles:
@@ -114,7 +114,7 @@ export default defineConfig(({ command, mode }) => {
     );
     Object.assign(rollupInput, {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
-        "datetime-picker": resolve(__dirname, "vue-mf/datetime-picker/src/datetime-picker.js"),
+        "datetime-picker": resolve(__dirname, "vue-widgets/datetime-picker/src/datetime-picker.ce.js"),
         "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
         "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
@@ -184,6 +184,11 @@ export default defineConfig(({ command, mode }) => {
                 },
                 preserveEntrySignatures: "allow-extension",
             },
+        },
+        css: {
+            postcss: {
+                plugins: [postcssRootToHost()],
+            }
         },
         plugins: [
             vue({

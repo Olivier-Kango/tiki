@@ -37,13 +37,13 @@ function generateJsImportmapScripts()
                 "@jquery-tiki/wikiplugin-trackercalendar" => $tikiroot . JS_ASSETS_PATH . "/wikiplugin-trackercalendar.js",
                 "@jquery-tiki/fullcalendar_to_pdf" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/fullcalendar_to_pdf.js",
                 /* single-spa microfrontends and common files (root and styleguide) */
-                "@vue-mf/datetime-picker" => $tikiroot . JS_ASSETS_PATH . "/datetime-picker.js",
                 "@vue-mf/duration-picker" => $tikiroot . JS_ASSETS_PATH . "/duration-picker.js",
                 "@vue-mf/emoji-picker" => $tikiroot . JS_ASSETS_PATH . "/emoji-picker.js",
                 "@vue-mf/kanban" => $tikiroot . JS_ASSETS_PATH . "/kanban.js",
                 "@vue-mf/root-config" => $tikiroot . JS_ASSETS_PATH . "/root-config.js",
                 "@vue-mf/styleguide" => $tikiroot . JS_ASSETS_PATH . "/styleguide.js",
                 "@vue-mf/toolbar-dialogs" => $tikiroot . JS_ASSETS_PATH . "/toolbar-dialogs.js",
+                "@vue-widgets/datetime-picker" => $tikiroot . JS_ASSETS_PATH . "/datetime-picker.js",
             ]
             ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);

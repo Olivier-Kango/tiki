@@ -1,6 +1,6 @@
 <template>
     <div>
-        <VueDatePicker v-model="date" :timezone="tz" :locale="language" input-class-name="tiki-form-control"
+        <VueDatePicker v-model="date" :timezone="tz" :locale="language" input-class-name="form-control tiki-form-control"
             :enable-time-picker="enableTimePicker" :range="Boolean(toInputName)" @update:model-value="goToURLWithData"
             :cancelText="cancelText" :selectText="selectText" :format="formatDate"/>
         <input type="hidden" :name="inputName" :value="unixTimestamp">
@@ -8,7 +8,7 @@
         <input type="hidden" name="useDisplayTz" value="1" v-if="!enableTimezonePicker">
         <div class="mt-3" v-if="enableTimezonePicker">
             <label for="timezone" class="form-label">Timezone</label>
-            <select class="form-select" aria-label="Select a timezone" v-model="selectedTz" :name="timezoneFieldName">
+            <select class="form-select" aria-label="Select a timezone" id="timezone" v-model="selectedTz" :name="timezoneFieldName">
                 <option v-for="(timezone, index) in timezones" :key="index" :value="timezone">{{ timezone }} ({{
                     getTimezoneOffset(timezone) }})</option>
             </select>
@@ -45,12 +45,12 @@ const props = defineProps({
         default: '',
     },
     enableTimePicker: {
-        type: Boolean,
-        default: true,
+        type: Number,
+        default: 0,
     },
     enableTimezonePicker: {
-        type: Boolean,
-        default: false,
+        type: Number,
+        default: 0,
     },
     toInputName: {
         type: String,
@@ -72,6 +72,12 @@ const props = defineProps({
         default: 'Select'
     },
 });
+
+// Convert props that should be booleans from string to number
+// Boolean props will be : "0" => false, "1" => true
+// We can't directly use true/false because html attributes are always strings. A non-zero length string is always true
+const enableTimePicker = Number(props.enableTimePicker);
+const enableTimezonePicker = Number(props.enableTimezonePicker);
 
 const date = ref(getDefaultDate(props.timestamp, props.toTimestamp));
 const selectedTz = ref(props.timezone);
@@ -113,11 +119,6 @@ const goToURLWithData = (data) => {
     }
 };
 
-$('body').applySelect2();
-$('body').on('change', `select[name="${props.timezoneFieldName}"]`, function (e) {
-    selectedTz.value = e.target.value;
-});
-
 /*
 ====================
 Utility functions
@@ -138,7 +139,7 @@ function getDefaultDate(fromTimestamp, toTimestamp) {
 };
 
 function getUnixTimestamp(date) {
-    if (!props.enableTimezonePicker && !props.timezone) {
+    if (enableTimezonePicker && !props.timezone) {
         return moment(date).unix();
     }
 
@@ -162,7 +163,7 @@ function getTimezoneOffset(timezone) {
 }
 
 const formatDate = (value) => {
-    const formatValue = (date) => format(date, props.enableTimePicker ? 'Pp': 'P', { locale: locale[props.language] });
+    const formatValue = (date) => format(date, enableTimePicker ? 'Pp': 'P', { locale: locale[props.language] });
     return Array.isArray(value) ? value.map(formatValue).join(' - ') : formatValue(value);
 }
 </script>

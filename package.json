@@ -86,6 +86,7 @@
     "src/js/common-externals",
     "src/js/jquery-tiki",
     "src/js/vue-mf/*",
+    "src/js/vue-widgets/*",
     "src/scss"
   ]
 }
