@@ -37,11 +37,11 @@
     border-radius: $form-select-border-radius;
 }
 
-.tiki .select2-results__options .select2-results__option
-//    ,.select2-results__option
-    {
-        color: $input-color;
-        background: $input-bg;
+.tiki .select2-results__options .select2-results__option {
+    color: $input-color;
+    background: $input-bg;
+    font-weight: $input-font-weight;
+    line-height: $input-line-height;
 }
 
     ///*.select2-container--bootstrap-5 .select2-dropdown*/ .select2-results__options .select2-results__option.select2-results__option--highlighted {
@@ -81,7 +81,6 @@
 .tiki .select2-container--default .select2-selection--multiple {
     border-color: var(--bs-border-color);
     background-color: var(--bs-body-bg);
-    border-radius: var(--bs-border-radius);
     border-width: var(--bs-border-width);
 }
 
@@ -89,6 +88,8 @@
     background-color: var(--bs-primary-bg-subtle);
     color: var(--bs-primary-text-emphasis);
     border: 1px solid var(--bs-border-color);
+    font-weight: $input-font-weight;
+    line-height: $input-line-height;
 }
 
 .tiki .select2-container--bootstrap-5.select2-container--disabled .select2-selection,
@@ -96,4 +97,9 @@
     color: var(--bs-secondary-color-rgb);
     background-color: var(--bs-secondary-bg);
     border-color: var(--bs-border-color);
+}
+
+.tiki .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: var(--bs-primary);
+    color: var(--bs-primary-text-emphasis);
 }

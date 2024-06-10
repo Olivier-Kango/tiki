@@ -125,4 +125,6 @@ themes/js/custom.js
 #These cannot go in public/generated as it would break the current theme system.
 themes/**/*.css
 themes/**/*.css.map
+# Handwritten CSS files.
+!themes/base_files/feature_css/*.css
 

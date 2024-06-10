@@ -9,6 +9,10 @@
     width: 0.5rem;
 }
 
+.tiki .select2-container--bootstrap-5 .select2-selection--single, .tiki .select2-container--default .select2-selection--multiple {
+    @extend .form-control;
+}
+
 // Direct child of col or col- classes should be the width of the col (Ex: Available themes selector on tiki-admin.php?page=look
 div[class^='col'] > .select2-container, div[class*=' col'] > .select2-container {
     display: block;
