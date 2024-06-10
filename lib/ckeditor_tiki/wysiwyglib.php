@@ -117,6 +117,8 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
         global $tikiroot, $prefs;
         $headerlib = TikiLib::lib('header');
 
+
+        $params['_toolbars'] = isset($params['_toolbars']) ? $params['_toolbars'] : 'y';
         if (empty($params['_wysiwyg'])) {
             // needed for toolbars setup
             $params['_wysiwyg'] = 'y';
@@ -172,7 +174,7 @@ ajaxLoadingShow("' . $dom_id . '");
 
         $params['area_id'] = empty($params['area_id']) ? $dom_id : $params['area_id'];
 
-        $cktools = smarty_function_toolbars($params, $smarty->getEmptyInternalTemplate());
+        $cktools = ($params['_toolbars'] === 'n') ? '[]' : smarty_function_toolbars($params, $smarty->getEmptyInternalTemplate());
         $cktools = json_encode($cktools);
         $cktools = substr($cktools, 1, strlen($cktools) - 2); // remove surrouding [ & ]
         $cktools = str_replace(']],[[', '],"/",[', $cktools); // add new row chars - done here so as not to break existing f/ck
