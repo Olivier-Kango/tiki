@@ -8,16 +8,16 @@
                {/if}
            </div>
            <div class="accordion accordion-flush w-100 border-end" id="admin-menu-accordion"> *}
-    <div class="navbar-wrapper fixed-top" style="height: 100vh; max-width: var(--tiki-admin-offcanvas-width); overflow-y: auto; margin-top: 50px">
+    <div class="navbar-wrapper fixed-top" style="height: 100vh; max-width: var(--tiki-admin-offcanvas-width); overflow-y: auto; margin-top: var(--tiki-admin-top-modules-height)">
     <nav class="navbar {*fixed-top *}navbar-expand-lg py-0" {* align-items-startbg-body-tertiary  fixed-top navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}*} role="navigation">
 
-        <div class="tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}" style="height: 50px">
+        <div class="tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}" style="height: var(--tiki-admin-top-modules-height)">
             {*<a class="navbar-brand" href="#">{tr}Admin menu{/tr}</a>*}
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-        <div class="offcanvas offcanvas-start tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="{*width: 268px;*} top: 50px; height: calc(100vh - 50px) !important;">
+        <div class="offcanvas offcanvas-start tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="{*width: 268px;*} top: var(--tiki-admin-top-modules-height); height: calc(100vh - var(--tiki-admin-top-modules-height)) !important;">
             <div class="offcanvas-header"{* style="width: 268px"*}>
                 <h5 class="offcanvas-title nav-link" id="offcanvasNavbarLabel">{tr}Admin menu{/tr}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: lightgray;"></button>
