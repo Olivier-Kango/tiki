@@ -88,7 +88,7 @@ function wikiplugin_preference($data, $params)
         }
     }
 
-    $url = $wikilib->sefurl($_GET['page']);
+    $url = $wikilib->sefurl($currentpage);
 
     $smarty = TikiLib::lib('smarty');
     $smarty->assign('names', $names);
