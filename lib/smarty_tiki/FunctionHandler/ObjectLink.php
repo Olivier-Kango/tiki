@@ -92,6 +92,9 @@ class ObjectLink extends Base
             case 'comment':
                 $function = 'smartyFunctionObjectLinkComment';
                 break;
+            case 'email':
+                $function = 'smartyFunctionObjectLinkEmail';
+                break;
             default:
                 $function = 'smartyFunctionObjectLinkDefault';
                 break;
@@ -364,5 +367,18 @@ class ObjectLink extends Base
         }
         // Check if 'threadId' key exists in $comment array before accessing it
         return array_key_exists('threadId', $comment) && isset($comment['threadId']) ? "<a href='tiki-view_forum_thread.php?threadId=" . $comment['threadId'] . "'>" . $comment['title'] . "</a>" : "<span>" . $comment['title'] . "</span>";
+    }
+
+    public function smartyFunctionObjectLinkEmail($template, $object)
+    {
+        $data = json_decode($object, true);
+        $pageParams = '';
+        if (isset($data['page_id'])) {
+            $pageParams = "/tiki-index.php?page_id={$data['page_id']}";
+        } else {
+            $pageParams = "/tiki-webmail.php?page_id={$data['page_id']}";
+        }
+
+        return '<a href="' . $pageParams . '&page=message&uid=' . $data['uid'] . '&list_path=' . $data['list_path'] . '&list_parent=' . $data['list_parent'] . '">' . $data['title'] . '</a>';
     }
 }
