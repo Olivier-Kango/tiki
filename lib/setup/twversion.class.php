@@ -125,6 +125,7 @@ class TWVersion
                 35 => 'Wolf 359',        // 24.x
                 36 => 'Sagittarius A*',  // 25.x
                 37 => 'Alnilam',         // 26.x
+                38 => 'Miaplacidus',     // 27.x
         ];
     }
 
