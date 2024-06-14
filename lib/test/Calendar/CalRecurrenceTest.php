@@ -236,7 +236,7 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
         $events = $this->getEventsByRecurrence($rec->getId());
         $last = array_pop($events);
         $target = strtotime('next Tuesday', strtotime(date('Y-m-01', $last['start'])));
-        if (date('N', $last['start']) != '2') {
+        if (date('N', strtotime(date('Y-m-01', $last['start']))) != '2') {
             $target = strtotime('next Tuesday', $target);
         }
         $this->assertEquals(date('Y-m-d', $target), date('Y-m-d', $last['start']));
