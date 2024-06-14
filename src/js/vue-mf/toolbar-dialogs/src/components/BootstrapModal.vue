@@ -24,9 +24,10 @@ defineProps({
 let modalElement = ref(null);
 
 onMounted(() => {
-    // initialise the bootstrap modal with focus disabled otherwise
-    // the modal close button gets the focus after each dialog's "exec"
-    state.theModal = new Modal(modalElement.value, { focus: false })
+    // initialise the bootstrap modal with focus _enabled_
+    // prior to boostrap 5.3.3 the modal close button got the focus after each dialog's "exec"
+    // so we needed focus: false - this seems to be fixed elsewhere now?
+    state.theModal = new Modal(modalElement.value, { focus: true })
 });
 
 function _shown(e) {

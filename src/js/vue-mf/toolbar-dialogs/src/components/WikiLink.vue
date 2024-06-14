@@ -43,7 +43,7 @@ function _shown() {
         pageInput.value = parts[2] ?? "";
         relationInput.value = parts[1];
     } else {
-        labelInput.value = "";
+        labelInput.value = selection;
         pageInput.value = "";
         relationInput.value = "";
     }
