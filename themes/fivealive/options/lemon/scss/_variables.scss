@@ -237,7 +237,7 @@ $postbody-title-card-title-color: #fff;
 
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
-.tiki-top-nav-light {
+@mixin top-nav-light {
     --tiki-top-bg: #{$tiki-top-bg}; // linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
     --tiki-top-color: #151414;
     --tiki-top-hover-color: #333131;
@@ -245,14 +245,14 @@ $postbody-title-card-title-color: #fff;
     --tiki-top-border: solid #000;
 }
 
-.tiki-topbar-nav-light {
+@mixin topbar-nav-light {
     --tiki-topbar-bg: #f0e04f;
     --tiki-topbar-color: #151414;
     --tiki-topbar-hover-color: #333131;
     --tiki-topbar-text-color: #333131;
 }
 
-.tiki-top-nav-dark {
+@mixin top-nav-dark {
     --tiki-top-bg: #{$tiki-top-bg}; //linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%);
     --tiki-top-color: #151414;
     --tiki-top-hover-color: #333131;
@@ -260,11 +260,27 @@ $postbody-title-card-title-color: #fff;
     --tiki-top-border: solid #000;
 }
 
-.tiki-topbar-nav-dark {
+@mixin topbar-nav-dark {
     --tiki-topbar-bg: #f0e04f;
     --tiki-topbar-color: #151414;
     --tiki-topbar-hover-color: #333131;
     --tiki-topbar-text-color: #333131;
+}
+
+.tiki-top-nav-light {
+    @include top-nav-light;
+}
+
+.tiki-topbar-nav-light {
+    @include topbar-nav-light;
+}
+
+.tiki-top-nav-dark {
+    @include top-nav-dark;
+}
+
+.tiki-topbar-nav-dark {
+    @include topbar-nav-dark;
 }
 
 .tiki-top-nav-light, .tiki-top-nav-dark {
@@ -280,11 +296,30 @@ header.navbar.fixed-top {
     --tiki-topbar-light-border-color: #000;
 }
 
+// Color mode preference trumps L&F admin light navbar option
+[data-bs-theme=dark] {                              // color mode
+    .tiki-top-nav-light {                           // light top selector
+        @include top-nav-dark;                      // dark values
+    }
+    .tiki-topbar-nav-light {
+        @include topbar-nav-dark;
+    }
+}
+
+// Color mode preference trumps L&F admin dark navbar option
+[data-bs-theme=light] {                              // color mode
+    .tiki-top-nav-dark {                           // dark top selector
+        @include top-nav-dark;                      // light values
+    }
+    .tiki-topbar-nav-dark {
+        @include topbar-nav-light;
+    }
+}
+
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
 
 // Light navbar minus top nav
-.tiki .tiki-admin-top-nav-light,
-.tiki .tiki-admin-aside-nav-light {
+@mixin admin-nav-light {
 //    --tiki-admin-navbar-bg: ; //
     --tiki-admin-top-nav-color: #151414;
     --tiki-admin-top-nav-hover-color: lighten(#151414, 8%);
@@ -303,8 +338,7 @@ header.navbar.fixed-top {
 }
 
 // Dark navbar minus top nav
-.tiki .tiki-admin-top-nav-dark,
-.tiki .tiki-admin-aside-nav-dark {
+@mixin admin-nav-dark {
     --tiki-admin-top-nav-color: #{$link-color};
     --tiki-admin-top-nav-hover-color: #{$link-color};
 //    --tiki-admin-top-nav-hover-bg: #{$navbar-dark-hover-color};
@@ -321,7 +355,35 @@ header.navbar.fixed-top {
     --tiki-admin-top-nav-bg: linear-gradient(90deg, rgba(240, 219, 64, 1) 0%, rgba(211, 205, 85, 1) 97%) !important;
 }
 
+// When color mode switch isn't active
+:root {
+    .tiki .tiki-admin-top-nav-light,
+    .tiki .tiki-admin-aside-nav-light {
+        @include admin-nav-light;
+    }
+    .tiki .tiki-admin-top-nav-dark,
+    .tiki .tiki-admin-aside-nav-dark {
+        @include admin-nav-dark;
+    }
+}
+
+// Color mode preference trumps L&F admin light navbar option
+[data-bs-theme=dark] {                              // dark color mode
+    .tiki .tiki-admin-top-nav-light,
+    .tiki .tiki-admin-aside-nav-light {               // light top selectors
+        @include admin-nav-dark;                      // dark values
+    }
+}
+// Color mode preference trumps L&F admin dark navbar option
+[data-bs-theme=light] {                              // light color mode
+    .tiki .tiki-admin-top-nav-dark,
+    .tiki .tiki-admin-aside-nav-dark {                // dark top selectors
+        @include admin-nav-dark;                      // light values
+    }
+}
+
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
+
 .accordion {
     --bs-accordion-active-bg: #f1e682;
     --bs-accordion-active-color: #000;
