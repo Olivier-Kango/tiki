@@ -16,7 +16,7 @@
     --tiki-topbar-text-color: #{$navbar-dark-link-hover-color};
 }
 
-.tiki-top-nav-light {
+@mixin top-nav-light {
     --tiki-top-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb); // BLUE OPTION: linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);
     --tiki-top-color: #000; //#{$navbar-light-link-color};
     --tiki-top-hover-color: #000; //#{$navbar-light-link-hover-color};
@@ -25,7 +25,7 @@
     --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
 }
 
-.tiki-topbar-nav-light {
+@mixin topbar-nav-light {
     --tiki-topbar-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb); // BLUE OPTION: linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);
     --tiki-topbar-color: #000; // #{$navbar-light-link-color};
     --tiki-topbar-hover-color: #000; // #{$navbar-light-link-hover-color};
@@ -54,10 +54,9 @@
 
 // Light navbar minus top nav
 @mixin admin-nav-light {
-    --tiki-admin-navbar-bg: ; //
-    --tiki-admin-top-nav-color: ; // --wastiki-top-color
-    --tiki-admin-top-nav-color: ; // --tiki-top-color
-    --tiki-admin-top-nav-hover-color: ; // --tiki-topbar-hover-color
+    --tiki-admin-navbar-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb); //
+    --tiki-admin-top-nav-color: #000; // --tiki-top-color
+    --tiki-admin-top-nav-hover-color: #000; // --tiki-topbar-hover-color
     --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb);
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
@@ -67,9 +66,11 @@
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
     --tiki-admin-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
 }
+
 // Light top nav
 .tiki.tiki-admin .top_modules.navbar-light-parent {
     --tiki-admin-top-nav-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb);
+    --tiki-top-bg: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb);
 }
 
 // Dark navbar minus top nav
@@ -90,6 +91,18 @@
     }
     .accordion-button::after {
         background-image:  url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2366bad6'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+}
+
+// When color mode switch isn't active
+:root {
+    .tiki .tiki-admin-top-nav-light,
+    .tiki .tiki-admin-aside-nav-light {
+        @include admin-nav-light;
+    }
+    .tiki .tiki-admin-top-nav-dark,
+    .tiki .tiki-admin-aside-nav-dark {
+        @include admin-nav-dark;
     }
 }
 

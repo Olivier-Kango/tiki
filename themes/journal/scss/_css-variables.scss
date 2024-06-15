@@ -38,12 +38,15 @@
 .tiki-top-nav-light {
     @include top-nav-dark; // Top and topbar are always dark
 }
+
 .tiki-topbar-nav-light {
     @include topbar-nav-dark; // "
 }
+
 .tiki-top-nav-dark {
     @include top-nav-dark;
 }
+
 .tiki-topbar-nav-dark {
     @include topbar-nav-dark;
 }
@@ -57,6 +60,7 @@
         @include topbar-nav-dark;
     }
 }
+
 // Color mode preference trumps L&F admin dark navbar option
 [data-bs-theme=light] {                              // color mode
     .tiki-top-nav-dark {                           // dark top selector
@@ -113,6 +117,18 @@
 // Dark top nav
 .tiki.tiki-admin .top_modules.navbar-dark-parent {
     --tiki-admin-top-nav-bg: rgba(42, 62, 80, 1);
+}
+
+// When color mode switch isn't active
+:root {
+    .tiki .tiki-admin-top-nav-light,
+    .tiki .tiki-admin-aside-nav-light {
+        @include admin-nav-light;
+    }
+    .tiki .tiki-admin-top-nav-dark,
+    .tiki .tiki-admin-aside-nav-dark {
+        @include admin-nav-dark;
+    }
 }
 
 // Color mode preference trumps L&F admin light navbar option
