@@ -131,6 +131,20 @@ if ($use_default_calendars) {
     }
 }
 
+if (! empty($_REQUEST["calitemId"])) {
+    $calitemId = $_REQUEST["calitemId"];
+    $currentItemCalendarId = $calendarlib->get_calendarid($calitemId);
+    if (! empty($currentItemCalendarId) && ! in_array($currentItemCalendarId, $_SESSION['CalendarViewGroups']) && isset($calendars[$currentItemCalendarId])) {
+        $_SESSION['CalendarViewGroups'][] = $currentItemCalendarId;
+        if (! empty($user)) {
+            $tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
+        }
+    }
+} else {
+    $calitemId = '';
+}
+$smarty->assign('currentcalitemId', $calitemId);
+
 $smarty->assign('displayedcals', $_SESSION['CalendarViewGroups']);
 $thiscal = [];
 $checkedCalIds = [];
@@ -143,13 +157,6 @@ if (is_array($_SESSION['CalendarViewGroups'])) {
     }
 }
 $smarty->assign_by_ref('checkedCalIds', $checkedCalIds);
-
-if (! empty($_REQUEST["calitemId"])) {
-    $calitemId = $_REQUEST["calitemId"];
-} else {
-    $calitemId = '';
-}
-$smarty->assign('currentcalitemId', $calitemId);
 
 if (isset($_REQUEST["find"])) {
     $find = $_REQUEST["find"];
