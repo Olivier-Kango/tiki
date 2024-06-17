@@ -315,7 +315,6 @@ class TikiMail
         } else {
             try {
                 tiki_send_email($this->mail);
-
                 $title = 'mail';
                 $error = '';
             } catch (ZendMailException | SlmMailException $e) {
