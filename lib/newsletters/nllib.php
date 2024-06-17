@@ -517,12 +517,19 @@ class NlLib extends TikiLib
             //                                      //
             //////////////////////////////////////////////////////////////////////////////////
             $zmail->addTo($email);
-            try {
-                tiki_send_email($zmail);
 
+            if ($prefs['zend_mail_queue'] == 'y') {
+                $query = "INSERT INTO `tiki_mail_queue` (message) VALUES (?)";
+                $bindvars = [serialize($zmail)];
+                TikiLib::lib('tiki')->query($query, $bindvars, -1, 0);
                 return true;
-            } catch (ZendMailException | SlmMailException $e) {
-                return false;
+            } else {
+                try {
+                    tiki_send_email($zmail);
+                    return true;
+                } catch (ZendMailException | SlmMailException $e) {
+                    return false;
+                }
             }
         } else {
             if (! empty($res) && $res["valid"] == 'n') {
@@ -624,13 +631,18 @@ class NlLib extends TikiLib
         //////////////////////////////////////////////////////////////////////////////////
         $zmail->addTo($email);
 
-        try {
-            tiki_send_email($zmail);
-
-            return $this->get_newsletter($res["nlId"]);
-        } catch (ZendMailException | SlmMailException $e) {
-            return false;
+        if ($prefs['zend_mail_queue'] == 'y') {
+            $query = "INSERT INTO `tiki_mail_queue` (message) VALUES (?)";
+            $bindvars = [serialize($zmail)];
+            TikiLib::lib('tiki')->query($query, $bindvars, -1, 0);
+        } else {
+            try {
+                tiki_send_email($zmail);
+            } catch (ZendMailException | SlmMailException $e) {
+                return false;
+            }
         }
+        return $this->get_newsletter($res["nlId"]);
     }
 
     public function unsubscribe($code, $mailit = false)
@@ -717,9 +729,15 @@ class NlLib extends TikiLib
             //////////////////////////////////////////////////////////////////////////////////
             $zmail->addTo($email);
 
-            try {
-                tiki_send_email($zmail);
-            } catch (ZendMailException | SlmMailException $e) {
+            if ($prefs['zend_mail_queue'] == 'y') {
+                $query = "INSERT INTO `tiki_mail_queue` (message) VALUES (?)";
+                $bindvars = [serialize($zmail)];
+                TikiLib::lib('tiki')->query($query, $bindvars, -1, 0);
+            } else {
+                try {
+                    tiki_send_email($zmail);
+                } catch (ZendMailException | SlmMailException $e) {
+                }
             }
         }
         /*$this->update_users($res["nlId"]);*/
@@ -1667,7 +1685,13 @@ class NlLib extends TikiLib
                     if (! $zmail) {
                         continue;
                     }
-                    tiki_send_email($zmail);
+                    if ($prefs['zend_mail_queue'] == 'y') {
+                        $query = "INSERT INTO `tiki_mail_queue` (message) VALUES (?)";
+                        $bindvars = [serialize($zmail)];
+                        TikiLib::lib('tiki')->query($query, $bindvars, -1, 0);
+                    } else {
+                        tiki_send_email($zmail);
+                    }
                     $sent[] = $email;
                     if ($browser) {
                         print '<div class="confirmation">' . ' Total emails sent: ' . count($sent)
