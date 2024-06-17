@@ -177,7 +177,13 @@ class Search_Action_EmailAction implements Search_Action_Action
             $bodyPart->setParts($messageParts);
             $mail->setBody($bodyPart);
 
-            tiki_send_email($mail);
+            if ($prefs['zend_mail_queue'] == 'y') {
+                $query = "INSERT INTO `tiki_mail_queue` (message) VALUES (?)";
+                $bindvars = [serialize($mail)];
+                TikiLib::lib('tiki')->query($query, $bindvars, -1, 0);
+            } else {
+                tiki_send_email($mail);
+            }
 
             if ($prefs['log_mail'] == 'y') {
                 $logslib = TikiLib::lib('logs');
