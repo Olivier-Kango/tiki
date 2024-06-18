@@ -71,7 +71,6 @@ function _insert() {
                     output += `|${relationInput.value}`;
                 }
                 output += "]";
-                console.log("external link:" + output);
             }
         }
     } else {    // markdown

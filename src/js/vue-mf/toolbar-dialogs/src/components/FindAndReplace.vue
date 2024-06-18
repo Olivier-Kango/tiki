@@ -43,7 +43,6 @@ function _shown(event) {
 
 function _find() {
     if (findInput.value) {
-        console.log("find: " + findInput.value);
         // do the finding
 
         const $textArea = $("#" + toolbarObject.value.domElementId);

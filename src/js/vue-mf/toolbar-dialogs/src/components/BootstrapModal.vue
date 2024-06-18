@@ -31,7 +31,7 @@ onMounted(() => {
 });
 
 function _shown(e) {
-    console.log("Can't seem to get this to work in here: " + e);
+    //console.log("Can't seem to get this to work in here: " + e);
 }
 
 function _show() {
