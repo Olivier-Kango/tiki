@@ -1,50 +1,28 @@
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
-
+@import "../../default/scss/variables";
 // Colors
-$white:    #fff;  // default
-$gray-100: #f8f9fa;  // default
-$gray-200: #e9ecef;  // default
-$gray-300: #dee2e6;  // default
-$gray-400: #ced4da;  // default
-$gray-500: #adb5bd;  // default
-$gray-600: #868e96;  // default
-$gray-700: #495057;  // default
-$gray-800: #343a40;  // default
-$gray-900: #212529;  // default
-$black:    #000;
 $light:                #c7d0d9;
 $dark: $gray-900;
 
-$blue:    #446e9b;  // default
-$indigo:  #6610f2;  // default
-$purple:  #6f42c1;  // default
-$pink:    #e83e8c;  // default
-$red:     #cd0200;  // default
-$orange:  #fd7e14;  // default
-$yellow:  #d47500;  // default
-$green:   #3cb521;  // default
-$teal:    #20c997;  // default
-$cyan:    #3399f3;  // default
+//$green-300: tint-color($green, 40%);  // default
+//$red-300: tint-color($red, 40%);  // default
 
-$green-300: tint-color($green, 40%);  // default
-$red-300: tint-color($red, 40%);  // default
-
-$primary:         #61778F; // #6c839b;
-$secondary: $primary;
-$success: $primary;
-$info: $primary;
-$warning: $primary;
-$danger: $primary;
+$primary: #005faa;
+$secondary: #003d99; // #52269c;
+$success: #48ca3b;
+$info: #1373c0;
+$warning: #f0ad4e;
+$danger: #df6e1e;
 
 $theme-colors: (
-     "primary":            #6c839b,
-     "secondary":          #6c839b,
-     "success":              #6c839b,
-     "info":                #6c839b,
-     "warning":              #6c839b,
-     "danger":               #6c839b,
-    "light":             #6c839b,
-     "dark":                 #6c839b
+    "primary":             #005faa, //#0099cc,
+    "secondary":           #003d99, // #52269c,
+    "success":             #48ca3b, //#5cb85c,
+    "info":                #1373c0,
+    "warning":             #f0ad4e,
+    "danger":              #df6e1e,
+    "light":               #ffffff,
+    "dark":                #212529
 );
 
 // Options
@@ -157,5 +135,37 @@ $card-cap-bg: #f3f6f9;
 $code-color:                        $body-color; // $pink;  // default // Bootstrap 5.3
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
+
+
+.btn {
+//    color: #6c839b;
+
+    &:focus {
+        color: $gray-700;
+    }
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:active:focus {
+        color: $gray-700;
+    }
+
+    @each $color, $value in $theme-colors {
+        &-#{$color} {
+
+            &:active,
+            &:active:focus {
+                @if ($color == secondary or $color == light) {
+                    color: $gray-700;
+                    background-color: $gray-200;
+                } @else {
+                    color: $white;
+                    background-color: $value;
+                }
+            }
+        }
+    }
+}
 
 // - - - - - - - - - - - - - - - - - CSS variables, if any - - - - -
