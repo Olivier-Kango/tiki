@@ -98,7 +98,7 @@
 
                     </div>{* End of comment-footer *}
                 </div>{* End of comment-item *}
-                {if ! $level || $level lt 5}
+                {if ! $level || $prefs.comments_threshold_indent eq '0' || $level lt $prefs.comments_threshold_indent}
                     {if $comment.replies_info.numReplies gt 0}
                         {include file='comment/list_inner.tpl' comments=$comment.replies_info.replies cant=$comment.replies_info.numReplies parentId=$comment.threadId level=(level) ? $level+1 : 0 repliedTo=$comment}
                     {/if}
