@@ -62,9 +62,10 @@ if (isset($_REQUEST['controller'])) {
     }
 }
 
-if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {
+if ($access->is_serializable_request() && $jitRequest->offsetExists('listonly')) {
     $access->check_feature('feature_jquery_autocomplete');
 
+    $listonly = $jitRequest->listonly->word();
     $query = $jitRequest->q->text();
 
     $sep = '|';
@@ -80,7 +81,7 @@ if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {
         $access->output_serialized([]);
         return;
     }
-    if ($_REQUEST['listonly'] == 'groups') {
+    if ($listonly == 'groups') {
         $listgroups = $userlib->get_groups(0, -1, 'groupName_asc', '', '', 'n');
 
         // TODO proper perms checking - this looks right but returns nothing for reg, and everything for admin
@@ -93,14 +94,14 @@ if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {
             }
         }
         $access->output_serialized($grs);
-    } elseif ($_REQUEST['listonly'] == 'users') {
+    } elseif ($listonly == 'users') {
         $names_array = explode(',', str_replace(';', ',', $query));
         $last_name = trim(end(array_filter($names_array)));
 
         $listusers = $userlib->get_users_names(0, 100, 'login_asc', $last_name);
 
         $access->output_serialized($listusers);
-    } elseif ($_REQUEST['listonly'] == 'usersandcontacts') {
+    } elseif ($listonly == 'usersandcontacts') {
         $email_array = explode(',', str_replace(';', ',', $query));
         $last_email = trim(end($email_array));
 
@@ -128,7 +129,7 @@ if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {
         $contacts = array_unique($contacts);
         sort($contacts);
         $access->output_serialized($contacts);
-    } elseif ($_REQUEST['listonly'] == 'userrealnames') {
+    } elseif ($listonly == 'userrealnames') {
         $names_array = explode(',', str_replace(';', ',', $query));
         $last_name = trim(end($names_array));
         $groups = '';
@@ -159,12 +160,12 @@ if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {
         }
 
         $access->output_serialized($finalusers);
-    } elseif ($_REQUEST['listonly'] == 'tags') {
+    } elseif ($listonly == 'tags') {
         $freetaglib = TikiLib::lib('freetag');
 
         $tags = $freetaglib->get_tags_containing($query);
         $access->output_serialized($tags);
-    } elseif ($_REQUEST['listonly'] == 'icons') {
+    } elseif ($listonly == 'icons') {
         $dir = 'img/icons';
         $max = isset($_REQUEST['max']) ? $_REQUEST['max'] : 10;
         $icons = [];
@@ -174,18 +175,18 @@ if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {
         }
         read_icon_dir($dir, $icons, $max, $query);
         $access->output_serialized($icons);
-    } elseif ($_REQUEST['listonly'] == 'shipping' && $prefs['shipping_service'] == 'y') {
+    } elseif ($listonly == 'shipping' && $prefs['shipping_service'] == 'y') {
         global $shippinglib;
         require_once 'lib/shipping/shippinglib.php';
 
         $access->output_serialized($shippinglib->getRates($_REQUEST['from'], $_REQUEST['to'], $_REQUEST['packages']));
-    } elseif ($_REQUEST['listonly'] == 'trackername') {
+    } elseif ($listonly == 'trackername') {
         $trackers = TikiLib::lib('trk')->get_trackers_containing($query);
         $access->output_serialized($trackers);
-    } elseif ($_REQUEST['listonly'] == 'references') {
+    } elseif ($listonly == 'references') {
         $references = TikiLib::lib('references')->getLibContaining($query);
         $access->output_serialized($references);
-    } elseif ($_REQUEST['listonly'] == 'calendarname') {
+    } elseif ($listonly == 'calendarname') {
         $calendars = TikiLib::lib('calendar')->getCalendarsContaining($query);
         $access->output_serialized($calendars);
     }
@@ -203,7 +204,7 @@ if ($access->is_serializable_request() && isset($_REQUEST['listonly'])) {
 } elseif (isset($_REQUEST['geocode']) && $access->is_serializable_request()) {
     $access->output_serialized(TikiLib::lib('geo')->geocode($_REQUEST['geocode']));
 } else {
-    $access->display_error(null, 'No AJAX service matches request parameters', 404);
+    $access->display_error(null, tr("No AJAX service matches request parameters (%0)", var_export($_REQUEST, true)), 404);
 }
 
 /**
