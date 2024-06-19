@@ -136,16 +136,7 @@ Note: The show content block must be defined at root level to use the include. A
                 {$parsed}
             {/if}
         </div>
-        <div id="page-source" style="display: none;">
-            {$info.data|escape}
-        </div>
-        {jq}
-            $("#copy_source").on("click", function(e){
-                navigator.clipboard.writeText(document.getElementById('page-source').innerHTML);
-                return false;
-            });
-        {/jq}
-
+        
         {if $structure eq 'y' and (($prefs.wiki_structure_bar_position eq 'bottom') or ($prefs.wiki_structure_bar_position eq 'both'))}
             {include file='tiki-wiki_structure_bar.tpl'}
         {/if}

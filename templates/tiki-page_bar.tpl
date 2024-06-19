@@ -180,11 +180,7 @@
                     </div>
                 </div>
             {/if}
-            {if ((isset($editable) and $editable))}
-                <a id="copy_source" class="mb-2 btn btn-light border" href="#">
-                    {tr}Copy source{/tr}
-                </a>
-            {/if}
+            
            
         {/if}
     {/capture}

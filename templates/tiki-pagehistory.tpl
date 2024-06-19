@@ -94,8 +94,16 @@
             {/if}
         {/if}
     </div>
-    <textarea data-codemirror="true" data-syntax='tiki' class="wikiedit readonly form-control" style="width:100%;height:400px" readonly="readonly" id="page_source">{$sourced|escape}</textarea>
-    {if $prefs.feature_jquery_ui eq "y" && $prefs.feature_syntax_highlighter neq "y"}{jq}$("#page_source").resizable();{/jq}{/if}
+    
+    <div>
+        <div class="icon_copy_code far fa-clipboard" tabindex="0" data-clipboard-target="#page-source"><span class="copy_code_tooltiptext copy-html" id='copy_source'>Copy to clipboard</span></div>
+        <pre class="codelisting preview-html" data-theme="default" data-wrap="1" dir="ltr" style="white-space:pre-wrap; overflow-wrap: break-word; word-wrap: break-word;" id="page-source">
+            {$sourced|escape}
+        </pre>
+    </div>   
+    
+    
+{if $prefs.feature_jquery_ui eq "y" && $prefs.feature_syntax_highlighter neq "y"}{jq}$("#page_source").resizable();{/jq}{/if}
 {/if}
 
 {if (isset($flaggedrev_approval) and $flaggedrev_approval) and $tiki_p_wiki_approve eq 'y' and $flaggedrev_compare_approve}
