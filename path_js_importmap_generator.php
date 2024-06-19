@@ -34,7 +34,7 @@ function generateJsImportmapScripts()
                 "@jquery-tiki/tiki-svgedit_draw" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-svgedit_draw.js",
                 "@jquery-tiki/tiki-admin_menu_options" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-admin_menu_options.js",
                 "@jquery-tiki/tiki-edit_structure" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/tiki-edit_structure.js",
-                "@jquery-tiki/wikiplugin-trackercalendar" => $tikiroot . JS_ASSETS_PATH . "/wikiplugin-trackercalendar.js",
+                "@jquery-tiki/wikiplugin-trackercalendar" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/wikiplugin-trackercalendar.js",
                 "@jquery-tiki/fullcalendar_to_pdf" => $tikiroot . JS_ASSETS_PATH . "/jquery-tiki/fullcalendar_to_pdf.js",
                 /* single-spa microfrontends and common files (root and styleguide) */
                 "@vue-mf/duration-picker" => $tikiroot . JS_ASSETS_PATH . "/duration-picker.js",
