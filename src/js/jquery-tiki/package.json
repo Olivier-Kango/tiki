@@ -23,6 +23,7 @@
     "@fullcalendar/resource-timeline": "^6.1.11",
     "@fullcalendar/resource-timegrid": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
+    "@fullcalendar/list": "^6.1.11",
     "@svgedit/svgcanvas": "^7.2.1"
   }
 }
