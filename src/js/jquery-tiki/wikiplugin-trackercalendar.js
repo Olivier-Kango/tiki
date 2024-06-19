@@ -3,6 +3,7 @@
  */
 
 import { Calendar } from "@fullcalendar/core";
+import listPlugin from "@fullcalendar/list";
 import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import moment from "moment";
@@ -45,7 +46,7 @@ $.fn.setupFullCalendar = function (tcPluginParams) {
             hour12: tcPluginParams.timeFormat,
         };
         var calendar = new Calendar(cal, {
-            plugins: [resourceTimelinePlugin, resourceTimeGridPlugin],
+            plugins: [listPlugin, resourceTimelinePlugin, resourceTimeGridPlugin],
             themeSystem: "bootstrap",
             schedulerLicenseKey: tcPluginParams.premiumLicense,
             initialDate: tcPluginParams.initialDate,
