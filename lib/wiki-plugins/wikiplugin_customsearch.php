@@ -299,6 +299,10 @@ function wikiplugin_customsearch($data, $params)
         $wikitpl = $params['tpl'];
     }
     $wikicontent = TikiLib::lib('smarty')->fetch($wikitpl);
+    //remove line breaks to prevent the inclusion of <p> and <br> in HTML rendering
+    if ($params['trimlinefeeds']) {
+        $wikicontent = str_replace(["\r", "\n"], '', $wikicontent);
+    }
     TikiLib::lib('parser')->parse_wiki_argvariable($wikicontent);
 
     $matches = WikiParser_PluginMatcher::match($wikicontent);
