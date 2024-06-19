@@ -415,7 +415,6 @@ function wikiplugin_trackercalendar($data, $params)
     // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.fc-day-grid-event > .fc-content, .fc-timeline-event > .fc-content { white-space: normal; }');
 
-    $headerlib->add_cssfile(JS_ASSETS_PATH . '/wikiplugin-trackercalendar.css');
     $headerlib->add_cssfile($vendorPath . '/npm-asset/fullcalendar-scheduler/main.css');
     // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
