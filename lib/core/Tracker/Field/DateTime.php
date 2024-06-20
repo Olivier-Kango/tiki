@@ -118,6 +118,14 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tr
             'value' => empty($value) ? ($this->getOption('blankdate') == 'blank' ? '' : TikiLib::lib('tiki')->now) : $value,
         ];
 
+        // Vue component stores as JSON array
+        foreach (['Month', 'Day', 'Year', 'Hour', 'Minute'] as $field) {
+            if (isset($requestData[$ins_id][strtolower($field)])) {
+                $requestData[$ins_id . $field] = $requestData[$ins_id][strtolower($field)];
+                unset($requestData[$ins_id][$field]);
+            }
+        }
+
         if (isset($requestData[$ins_id . 'Month']) || isset($requestData[$ins_id . 'Day']) || isset($requestData[$ins_id . 'Year']) || isset($requestData[$ins_id . 'Hour']) || isset($requestData[$ins_id . 'Minute'])) {
             $data['value'] = TikiLib::lib('trk')->build_date($requestData, $this->getOption('datetime'), $ins_id);
             if (empty($data['value']) && (! empty($requestData[$ins_id . 'Month']) || ! empty($requestData[$ins_id . 'Day']) || ! empty($requestData[$ins_id . 'Year']) || ! empty($requestData[$ins_id . 'Hour']) || ! empty($requestData[$ins_id . 'Minute']))) {

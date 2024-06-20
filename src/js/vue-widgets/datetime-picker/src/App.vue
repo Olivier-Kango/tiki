@@ -71,6 +71,9 @@ const props = defineProps({
         type: String,
         default: 'Select'
     },
+    globalCallback: {
+        type: String,
+    },
 });
 
 // Convert props that should be booleans from string to number
@@ -116,6 +119,13 @@ const goToURLWithData = (data) => {
             url.searchParams.delete('tzoffset');
         }
         window.location.href = url
+    } else if (props.globalCallback && window[props.globalCallback]) {
+        window[props.globalCallback]({
+            date: unixTimestamp.value,
+            enddate: toUnixTimestamp.value,
+            tzname: selectedTz.value,
+            tzoffset: moment.tz(selectedTz.offset).utcOffset(),
+        })
     }
 };
 

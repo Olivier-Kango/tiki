@@ -121,6 +121,7 @@ export default defineConfig(({ command, mode }) => {
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
         "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
+        "tiki-offline": resolve(__dirname, "vue-mf/tiki-offline/src/tiki-offline.js"),
     });
     //console.log(rollupInput);
     return {

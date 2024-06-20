@@ -1,0 +1,1 @@
+INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Offline mode','tiki-offline.php',807,'feature_trackers','tiki_p_view_trackers','',0);

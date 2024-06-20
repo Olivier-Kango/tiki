@@ -440,7 +440,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
      *
      * @return string
      */
-    protected function getInsertId()
+    public function getInsertId()
     {
         return 'ins_' . $this->definition['fieldId'];
     }

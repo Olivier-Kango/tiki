@@ -42,6 +42,7 @@ function generateJsImportmapScripts()
                 "@vue-mf/kanban" => $tikiroot . JS_ASSETS_PATH . "/kanban.js",
                 "@vue-mf/root-config" => $tikiroot . JS_ASSETS_PATH . "/root-config.js",
                 "@vue-mf/styleguide" => $tikiroot . JS_ASSETS_PATH . "/styleguide.js",
+                "@vue-mf/tiki-offline" => $tikiroot . JS_ASSETS_PATH . "/tiki-offline.js",
                 "@vue-mf/toolbar-dialogs" => $tikiroot . JS_ASSETS_PATH . "/toolbar-dialogs.js",
                 "@vue-widgets/datetime-picker" => $tikiroot . JS_ASSETS_PATH . "/datetime-picker.js",
             ]

@@ -3,7 +3,6 @@ importScripts("vendor/npm-asset/dexie/dist/dexie.min.js");
 const staticAssets = [
     '.',
     'themes/base_files/css/tiki_base.css',
-    'vendor_bundled/vendor/bower-asset/fontawesome/css/all.css',
     'themes/default/css/default.css',
     'img/tiki/Tiki_WCG.png',
     'tiki-index.php',
@@ -13,16 +12,20 @@ const staticAssets = [
     'tiki-listpages.php',
     'vendor/npm-asset/dexie/dist/dexie.min.js',
     'lib/jquery_tiki/tiki-trackers.js',
+    'tiki-offline.php',
 
     OFFLINE_URL,
 ];
 const cacheName = 'pages-cache-v1';
 
 var db = new Dexie("post_cache");
-db.version(1).stores({
-    messages: 'name,value',
+db.version(3).stores({
+    messages: 'name,value', //table work like a flag. SW change the message to flag the ui that a warning need to be shown
     post_cache: 'key,request,timestamp',
+    trackers: 'trackerId,name',
+    user_prefs: 'key'
 });
+db.open();
 
 self.addEventListener('install', event => {
     event.waitUntil(

@@ -278,6 +278,13 @@ $jqueryTiki['bingMapsAPIKey'] = $prefs['geo_bingmaps_key'];
 $jqueryTiki['nextzenAPIKey'] = $prefs['geo_nextzen_key'];
 $jqueryTiki['numericFieldScroll'] = $prefs['unified_numeric_field_scroll'];
 $jqueryTiki['themeIconset'] = $prefs['theme_iconset'];
+$jqueryTiki['display_start_year'] = $prefs['display_start_year'];
+$jqueryTiki['display_end_year'] = $prefs['display_end_year'];
+$jqueryTiki['display_field_order'] = $prefs['display_field_order'];
+$jqueryTiki['tiki_same_day_time_only'] = $prefs['tiki_same_day_time_only'];
+$jqueryTiki['jquery_timeago'] = $prefs['jquery_timeago'] === 'y' ? true : false;
+$jqueryTiki['short_date_format'] = $prefs['short_date_format'];
+$jqueryTiki['short_time_format'] = $prefs['short_time_format'];
 //set at 4 hours if empty
 $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
     : TikiLib::lib('access')->getDefaultTimeout();

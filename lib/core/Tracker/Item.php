@@ -520,10 +520,10 @@ class Tracker_Item
         $fid = $field['fieldId'];
 
         if ($this->canModifyField($fid)) {
-            $field['ins_id'] = "ins_$fid";
-
             $factory = $this->definition->getFieldFactory();
             $handler = $factory->getHandler($field, $this->info);
+
+            $field['ins_id'] = $handler->getInsertId();
 
             if (! isset($input[$field['ins_id']]) && isset($input['fields'][$field['permName']])) {
                 // getFieldData expects the value to be in $input['ins_xx']
@@ -538,12 +538,21 @@ class Tracker_Item
         $fid = $field['fieldId'];
 
         if ($this->canViewField($fid)) {
-            $field['ins_id'] = "ins_$fid";
+            return array_merge($field, $this->getFieldOutput($field));
+        }
+    }
 
+    public function getFieldOutput($field)
+    {
+        $output = [];
+        if ($this->canViewField($field['fieldId'])) {
             $factory = $this->definition->getFieldFactory();
             $handler = $factory->getHandler($field, $this->info);
-            return array_merge($field, $handler->getFieldData([]));
+
+            $output = $handler->getFieldData([]);
+            $output['ins_id'] = $handler->getInsertId();
         }
+        return $output;
     }
 
     private function prepareFieldId($fieldId)

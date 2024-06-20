@@ -622,7 +622,7 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
     public function getPossibleItemValues()
     {
         static $localCache = [];
-        $CACHE_KEY = 'possibleUsers';
+        $CACHE_KEY = 'possibleUsers' . $this->getConfiguration('fieldId');
         if (! isset($localCache[$CACHE_KEY])) {
             $userlib = TikiLib::lib('user');
             $tikilib = TikiLib::lib('tiki');

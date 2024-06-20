@@ -817,7 +817,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                     $displayFieldsList,
                     $this->getOption('status', 'opc'),
                     ' ',
-                    true
+                    'csv',
+                    true,
+                    $this->getOption('displayFieldsListFormat')
                 );
                 $list = $this->handleDuplicates($list);
             }
@@ -826,7 +828,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                 $this->getOption('trackerId'),
                 $this->getOption('fieldId'),
                 $this->getOption('status', 'opc'),
-                $this->getValue()
+                $this->getValue(),
+                'csv'
             );
             $list = $this->handleDuplicates($list);
         }
@@ -1044,7 +1047,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     /**
      * @return mixed
      */
-    private function getDisplayFieldsListArray()
+    public function getDisplayFieldsListArray()
     {
         global $user, $tiki_p_admin_trackers;
 

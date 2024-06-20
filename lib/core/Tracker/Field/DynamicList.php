@@ -13,7 +13,7 @@ use Tracker\Tabular\Schema;
  *
  */
 // TODO: validate parameters (several required)
-class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface
+class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\EnumerableInterface
 {
     public static function getManagedTypesInfo(): array
     {
@@ -440,18 +440,25 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
         return ["{$baseKey}_text" => true];
     }
 
-    public function getItemList()
+    public function getItemList($list_mode = null)
     {
         return TikiLib::lib('trk')->get_all_items(
             $this->getOption('trackerId'),
             $this->getOption('listFieldIdThere'),
-            $this->getOption('statusThere', 'opc')
+            $this->getOption('statusThere', 'opc'),
+            [],
+            $list_mode
         );
+    }
+
+    public function canHaveMultipleValues()
+    {
+        return (bool) $this->getOption("selectMultipleValues");
     }
 
     public function getPossibleItemValues()
     {
-        return $this->getItemList();
+        return $this->getItemList('csv');
     }
 
     /**

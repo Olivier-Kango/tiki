@@ -234,7 +234,11 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
 
             // Get the list of selected file IDs from the text field
             $value = $requestData[$ins_id];
-            $fileIds = explode(',', $value);
+            if (! is_array($value)) {
+                $fileIds = explode(',', $value);
+            } else {
+                $fileIds = $value;
+            }
 
             // Remove missed uploads
             $fileIds = array_filter($fileIds);

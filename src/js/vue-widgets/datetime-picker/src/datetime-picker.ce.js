@@ -43,6 +43,9 @@ new MutationObserver((mutations) => {
         datetimePickers.forEach((datetimePicker) => {
             if (!datetimePicker.shadowRoot.querySelector("#theme-css")) {
                 const themeCssPath = datetimePicker.getAttribute("theme-css");
+                if (!themeCssPath) {
+                    return;
+                }
                 const linkWithTheme = document.querySelector(`link[href="${themeCssPath}"]`);
                 const linkClone = linkWithTheme.cloneNode(true);
                 linkClone.setAttribute("id", "theme-css");

@@ -1364,6 +1364,9 @@
         "lib\/core\/Services\/Tracker\/CalendarController.php": {
             "class:Services_Tracker_CalendarController": true
         },
+        "lib\/core\/Services\/Tracker\/OfflineController.php": {
+            "class:Services_Tracker_OfflineController": true
+        },
         "lib\/core\/DeclFilter\/StaticKeyUnsetRule.php": {
             "class:DeclFilter_StaticKeyUnsetRule": true
         },
@@ -5135,6 +5138,9 @@
         "lib\/core\/Services\/Tracker\/CalendarController.php": {
             "Services_Tracker_CalendarController": true
         },
+        "lib\/core\/Services\/Tracker\/OfflineController.php": {
+            "Services_Tracker_OfflineController": true
+        },
         "lib\/core\/DeclFilter\/StaticKeyUnsetRule.php": {
             "DeclFilter_StaticKeyUnsetRule": true
         },
@@ -7393,6 +7399,10 @@
         },
         "lib\/core\/Services\/Tracker\/CalendarController.php": {
             "Services_Tracker_CalendarController::action_list": true
+        },
+        "lib\/core\/Services\/Tracker\/OfflineController.php": {
+            "Services_Tracker_OfflineController::action_cache": true,
+            "Services_Tracker_OfflineController::action_sync": true
         },
         "lib\/core\/Services\/Tracker\/TodoController.php": {
             "Services_Tracker_TodoController::action_view": true,

@@ -89,6 +89,14 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 
         $ins_id = $this->getInsertId();
 
+        // Vue component stores as JSON array
+        if (isset($requestData[$ins_id]['timezone'])) {
+            $requestData[$ins_id . '_timezone'] = $requestData[$ins_id]['timezone'];
+        }
+        if (isset($requestData[$ins_id]['date'])) {
+            $requestData[$ins_id] = $requestData[$ins_id]['date'];
+        }
+
         $value = (isset($requestData[$ins_id]))
             ? $requestData[$ins_id]
             : $this->getValue();
