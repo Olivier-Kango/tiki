@@ -17,7 +17,7 @@
  * @param string $content English string to be translated.  Can contain parameter (%0, %1, etc.) for which the other arguments of tr will be substituted.
  * @return string
  */
-function tr($content): string
+function tr(?string $content): string
 {
     $args = func_get_args();
     return tra($content, '', false, array_slice($args, 1));
@@ -33,7 +33,7 @@ function tr($content): string
  *
  * @return string
  */
-function tra($content, ?string $lg = null, $unused = false, array $args = []): string
+function tra(?string $content, ?string $lg = null, $unused = false, array $args = []): string
 {
     global $prefs;
 
@@ -49,8 +49,12 @@ function tra($content, ?string $lg = null, $unused = false, array $args = []): s
         $lang = $lg;
     }
 
-    $translator = \I18n\LanguageTranslator::getInstance($lang);
-    $out = $translator->translate($content, $args);
+    if ($content) {
+        $translator = \I18n\LanguageTranslator::getInstance($lang);
+        $out = $translator->translate($content, $args);
+    } else {
+        $out = '';
+    }
 
     return $out;
 }
