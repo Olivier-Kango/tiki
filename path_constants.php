@@ -179,7 +179,7 @@ const PLOTLYJS_DIST_PATH = 'vendor_bundled/vendor/plotly/plotly.js/dist';
 const REVEALJS_ASSETS_PATH = 'vendor_bundled/vendor/npm-asset/reveal.js';
 const SUBTOTAL_DIST_PATH = 'vendor_bundled/vendor/nagarajanchinnasamy/subtotal/dist';
 const SIGNATURE_PAD_DIST_PATH = 'vendor_bundled/vendor/npm-asset/signature_pad/dist';
-const SWIPER_DIST_PATH = 'vendor_bundled/vendor/nolimits4web/swiper/dist/js';
+const SWIPER_DIST_PATH = 'vendor_bundled/vendor/nolimits4web/swiper/dist';
 const ZXING_DIST_PATH = 'vendor_bundled/vendor/npm-asset/zxing--library';
 
 /* END - VENDOR ASSETS SECTION */
