@@ -119,6 +119,11 @@ class Math_Formula_Currency implements Math_Formula_Applicator
         return new self(floor($this->amount), $this->currency, $this->rates);
     }
 
+    public function abs()
+    {
+        return new self(abs($this->amount), $this->currency, $this->rates);
+    }
+
     public function ceil()
     {
         return new self(ceil($this->amount), $this->currency, $this->rates);

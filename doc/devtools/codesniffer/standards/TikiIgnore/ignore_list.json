@@ -3584,6 +3584,9 @@
         "lib\/core\/Math\/Formula\/Function\/Floor.php": {
             "class:Math_Formula_Function_Floor": true
         },
+        "lib\/core\/Math\/Formula\/Function\/Abs.php": {
+            "class:Math_Formula_Function_Abs": true
+        },
         "lib\/core\/Math\/Formula\/Function\/If.php": {
             "class:Math_Formula_Function_If": true
         },
@@ -6553,6 +6556,9 @@
         },
         "lib\/core\/Math\/Formula\/Function\/Floor.php": {
             "Math_Formula_Function_Floor": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/Abs.php": {
+            "Math_Formula_Function_Abs": true
         },
         "lib\/core\/Math\/Formula\/Function\/If.php": {
             "Math_Formula_Function_If": true

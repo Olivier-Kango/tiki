@@ -18,4 +18,5 @@ interface Math_Formula_Applicator
     public function clone($number);
     public function isEmpty();
     public function equals($another);
+    public function abs();
 }
