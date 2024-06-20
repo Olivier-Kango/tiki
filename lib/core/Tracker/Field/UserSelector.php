@@ -286,10 +286,11 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
             } else {
                 $out = implode(', ', $value);
             }
-            if ($this->getOption('multiple')) {
+            if (count($value) > 1) {
                 return $out . '<input type="hidden" name="' . $this->getInsertId() . '" value="' . htmlspecialchars(TikiLib::lib('tiki')->str_putcsv($value)) . '">';
             } else {
-                return $out . '<input type="hidden" name="' . $this->getInsertId() . '" value="' . $value . '">';
+                // single user input field, so we can just return the implode($value), since the array value has only one element
+                return $out . '<input type="hidden" name="' . $this->getInsertId() . '" value="' . htmlspecialchars(implode($value)) . '">';
             }
         }
     }
