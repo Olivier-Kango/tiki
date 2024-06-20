@@ -90,7 +90,7 @@
                 </div>
                 {* Preference filters moved from admin navbar.tpl end *}
 
-                <div class="accordion-item pb-2 search-preferences" {* style="background: transparent;"*}>
+                <div class="accordion-item pb-2 search-preferences" style="background: transparent;">
                     <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
                         <div class="my-1 mx-4">
                             <input type="hidden" name="filters">

@@ -4,7 +4,7 @@ $imagePath: "../images/";
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 @mixin top-nav-dark {
-    --tiki-top-bg: url('#{$imagePath}header_background_ltr.jpg') 0/100% auto no-repeat;
+    --tiki-top-bg: url('#{$imagePath}header_background_ltr.jpg'); // Same with both dark and light options
     --tiki-top-color: #{$navbar-light-color};
     --tiki-top-hover-color: #{$navbar-light-hover-color};
     --tiki-top-text-color: #{$navbar-light-hover-color};
@@ -13,14 +13,14 @@ $imagePath: "../images/";
 }
 
 @mixin topbar-nav-dark {
-    --tiki-topbar-bg: white; // #473119 url('#{$imagePath}menubar-wood.jpg') 0/100% auto no-repeat;
+    --tiki-topbar-bg: #473119 url('#{$imagePath}menubar-wood.jpg');
     --tiki-topbar-color: #{$navbar-light-color};
     --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
     --tiki-topbar-text-color: #{$navbar-dark-hover-color};
 }
 
 @mixin top-nav-light {
-    --tiki-top-bg:  url('#{$imagePath}header_background_ltr.jpg') 0/100% auto no-repeat;
+    --tiki-top-bg: url('../images/header_background_ltr.jpg'); //  cover no-repeat;
     --tiki-top-color: #{$navbar-dark-color};
     --tiki-top-hover-color: #{$navbar-dark-hover-color};
     --tiki-top-text-color: #{$navbar-dark-hover-color};
@@ -29,13 +29,13 @@ $imagePath: "../images/";
 }
 
 @mixin topbar-nav-light {
-    --tiki-topbar-bg: #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat; //var(--tiki-topbar-light-bg);
+    --tiki-topbar-bg: #473119 url('#{$imagePath}menubar-wood.jpg'); //var(--tiki-topbar-light-bg);
     --tiki-topbar-color: #{$navbar-dark-color};
     --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
     --tiki-topbar-text-color: #{$navbar-dark-hover-color};
 }
 
-.tiki-top-nav-light {
+.tiki:not(.tiki-admin.uab) .tiki-top-nav-light {
     @include top-nav-light;
 }
 
@@ -43,12 +43,21 @@ $imagePath: "../images/";
     @include topbar-nav-light;
 }
 
-.tiki-top-nav-dark {
+.tiki:not(.tiki-admin.uab) .tiki-top-nav-dark {
     @include top-nav-dark;
 }
 
 .tiki-topbar-nav-dark {
     @include topbar-nav-dark;
+}
+
+// Top and topbar image background properties (used with background image CSS variables above)
+.tiki:not(.tiki-admin.uab) .tiki-top-nav-light,
+.tiki:not(.tiki-admin.uab) .tiki-top-nav-dark,
+.tiki:not(.tiki-admin.uab) .tiki-topbar-nav-light,
+.tiki:not(.tiki-admin.uab) .tiki-topbar-nav-dark {
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 // Color mode preference trumps L&F admin light navbar option
@@ -71,16 +80,17 @@ $imagePath: "../images/";
     }
 }
 
+
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
 
 // Light navbar minus top nav
 @mixin admin-nav-light {
-    --tiki-admin-top-nav-bg: white;
-    --tiki-admin-navbar-bg: white !important;
+//    --tiki-admin-top-nav-bg: url('../images/header_background_ltr.jpg') no-repeat cover; // Currently can't get an image to work here. Use the standard CSS below.
+//    --tiki-admin-top-nav-bg: #A1D72C;
     --tiki-admin-top-nav-color: #{$navbar-light-color};
     --tiki-admin-top-nav-hover-color: #{$navbar-light-hover-color};
     --tiki-admin-top-nav-hover-bg: none ;
-    --tiki-admin-aside-nav-bg: white;
+    --tiki-admin-aside-nav-bg: #A1D72C; // url(#{$imagePath}header_background_ltr.jpg) cover no-repeat;
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
@@ -91,11 +101,12 @@ $imagePath: "../images/";
 
 // Dark navbar minus top nav
 @mixin admin-nav-dark {
-    --tiki-admin-top-nav-bg: #473119 url('#{$imagePath}menubar-wood.jpg') cover !important;
+//   --tiki-admin-top-nav-bg: url('../images/menubar-wood.jpg');// Currently can't get an image to work here. Use the standard CSS below.
+//    --tiki-admin-top-nav-bg: url('#{$imagePath}menubar-wood.jpg') 100% auto no-repeat;
     --tiki-admin-top-nav-color: #{$navbar-dark-color};
     --tiki-admin-top-nav-hover-color: #{$navbar-dark-hover-color};
-//    --tiki-admin-top-nav-hover-bg:  #{$navbar-dark-hover-color};
-    --tiki-admin-aside-nav-bg: #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat !important;
+    --tiki-admin-top-nav-hover-bg:  #{$navbar-dark-hover-color};
+    --tiki-admin-aside-nav-bg: #473119; // #473119 url('#{$imagePath}menubar-wood.jpg') 50% 50% no-repeat !important;
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-link-color: #{$navbar-dark-color};
@@ -105,18 +116,18 @@ $imagePath: "../images/";
 }
 
 // When color mode switch isn't active
-:root {
-    .tiki .tiki-admin-top-nav-light, // Legacy
-    .tiki.tiki-admin .navbar-light-parent.tiki-top-nav-light, // UAB - Specificity increased to override
+//:root {
+    .tiki:not(.uab) .tiki-admin-top-nav-light, // Legacy
+    .tiki.tiki-admin.uab #page-header.navbar-light-parent .tiki-top-nav-light, // UAB - Specificity increased to override
     .tiki .tiki-admin-aside-nav-light {
         @include admin-nav-light;
     }
-    .tiki .tiki-admin-top-nav-dark,
-    .tiki.tiki-admin .navbar-dark-parent.tiki-top-nav-dark, // UAB - Specificity increased to override
+    .tiki:not(.uab) .tiki-admin-top-nav-dark, // Legacy
+    .tiki.tiki-admin.uab #page-header.navbar-dark-parent .tiki-top-nav-dark, // UAB - Specificity increased to override
     .tiki .tiki-admin-aside-nav-dark {
         @include admin-nav-dark;
     }
-}
+//}
 
 // Color mode preference trumps L&F admin light navbar option
 [data-bs-theme=dark] {                              // dark color mode
@@ -135,6 +146,19 @@ $imagePath: "../images/";
     }
 }
 
+// Image backgrounds in UAB top navbar
+.tiki.tiki-admin.uab .tiki-top-nav-light {
+    background: url('../images/header_background_ltr.jpg'); // Currently can't get SCSS $imagePath or CSS shorthand to work for these properties in this situation.
+    background-repeat: no-repeat; // Currently can't get CSS shorthand to work for these properties in this situation.
+    background-size: cover;
+}
+
+.tiki.tiki-admin.uab .tiki-top-nav-dark {
+    background: url('../images/menubar-wood.jpg'); // Currently can't get SCSS $imagePath to work here.
+    background-repeat: no-repeat; // Currently can't get CSS shorthand to work for these properties in this situation.
+    background-size: cover;
+}
+
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
 
 //.accordion {
@@ -145,7 +169,7 @@ $imagePath: "../images/";
 //}
 
 
-$imagePath: "../images/";
+$imagePath: "/images/";
 
 
 [data-bs-theme="light"] {
@@ -161,3 +185,6 @@ $imagePath: "../images/";
     --tiki-greenvalley-row-middle-bg-img-opacity: 0.075;
     --tiki-card-bg: transparent;
 }
+
+
+
