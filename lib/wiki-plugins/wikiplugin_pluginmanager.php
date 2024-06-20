@@ -291,7 +291,11 @@ class WikiPluginPluginManager extends PluginsLib
                             $sep = '| ';
                         }
                         if (isset($paraminfo['accepted'])) {
-                            $rows .= $paraminfo['accepted'];
+                            if (is_array($paraminfo['accepted'])) {
+                                $rows .= implode(', ', $paraminfo['accepted']);
+                            } else {
+                                $rows .= $paraminfo['accepted'];
+                            }
                             if (isset($septext)) {
                                 $rows .= '<br />' . $septext;
                             }
