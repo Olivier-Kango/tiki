@@ -87,6 +87,10 @@
     box-shadow: var(--tiki-top-box-shadow);
 }
 
+.tiki:not(.tiki-admin.uab) .tiki-top-nav-dark {
+    background: var(--tiki-top-bg);
+}
+
 // Topbar module zone and parent divs - dark color
 //.layout_basic .topbar_modules.bg-dark,                               // Single Container layout -- Topbar, which probably includes another nav menu
 //.layout_classic .topbar-wrapper.bg-dark-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
