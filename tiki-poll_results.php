@@ -161,7 +161,7 @@ $smarty->assign_by_ref('vote_from_date', $vote_from_date);
 $smarty->assign_by_ref('vote_to_date', $vote_to_date);
 // the following 4 lines preserved to preserve environment for old templates
 $smarty->assign_by_ref('poll_info', $poll_info);
-$smarty->assign('title', $poll_info['title']);
+$smarty->assign('title', $poll_info['title'] ?? null);
 $smarty->assign_by_ref('options', $options);
 // Display the template
 $smarty->assign('mid', 'tiki-poll_results.tpl');
