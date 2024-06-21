@@ -25,7 +25,7 @@
         <div class="dropdown-menu" role="menu">
             {if $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y'}
                 {if $unread}
-                    <a class="dropdown-item" href="messu-mailbox.php"> {icon name="admin_messages"} {tr}Messages{/tr} ($unread)</a>
+                    <a class="dropdown-item" href="messu-mailbox.php"> {icon name="admin_messages"} {tr}Messages{/tr} ({$unread})</a>
                 {else}
                     <a class="dropdown-item" href="messu-mailbox.php"> {icon name="admin_messages"} {tr}Messages{/tr}</a>
                 {/if}
