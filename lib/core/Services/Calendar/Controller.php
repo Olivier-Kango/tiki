@@ -663,7 +663,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         return [
             'title'                => $calitem['parsedName'],
             'calitem'              => $calitem,
-            'recurrent'            => $calitem['recurrenceId'] ?: $input->recurrent->int(),
+            'recurrent'            => $calitem['recurrenceId'] ?? $input->recurrent->int(),
             'recurrence'           => $recurrence,
             'calendar'             => $calendar,
             'daynames'             => $this->daynamesPlural,
@@ -683,7 +683,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             $client = new \Tiki\SabreDav\CaldavClient();
             $client->deleteCalendarObject($calitem);
             if ($this->logsLib) {
-                $this->logsLib->add_action('Removed', 'event ' . $_REQUEST['calitemId'], 'calendar event');
+                $this->logsLib->add_action('Removed', 'event ' . $calitemId, 'calendar event');
             }
             Feedback::success(tr('Event deleted successfully.'));
         }
