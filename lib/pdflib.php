@@ -482,7 +482,11 @@ class PdfGenerator
                                 $mpdf->SetHTMLHeader();
                                 $mpdf->AddPage($orientation);
                                 $mpdf->SetHTMLFooter();
-                                $mpdf->UseTemplate($tplId);
+                                if (isset($size['width'])) {
+                                    $mpdf->UseTemplate($tplId, 0, 0, $size['width'], $size['height'], true);
+                                } else {
+                                    $mpdf->UseTemplate($tplId);
+                                }
                             }
                         } catch (Exception $e) {
                             $mpdf->WriteHTML("PDF not supported");
