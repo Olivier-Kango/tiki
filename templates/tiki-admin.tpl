@@ -46,7 +46,7 @@
         {/if}
         <div class="admin-page-header"> {* Class name changed to differentiate from page-header at top of all pages. *}
             {title help="$helpUrl"}{$admintitle}{/title}
-            <span class="form-text">{$description}</span>
+            <span class="description">{$description}</span>
         </div>
 
         <div id="pageheader">
