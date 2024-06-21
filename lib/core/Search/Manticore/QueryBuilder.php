@@ -32,6 +32,7 @@ class QueryBuilder
         $this->factory = new TypeFactory();
         $this->fieldBuilder = new \Search_MySql_FieldQueryBuilder();
         $this->fieldBuilder->setBooleanOrOperator(' | ');
+        $this->fieldBuilder->setEscapeCallback([$this, 'escapeQueryString']);
         $this->match = [];
         $this->select = [];
     }
@@ -46,7 +47,7 @@ class QueryBuilder
                 $query .= ' and ' . $subq;
             }
         } elseif (! empty($subq['match'])) {
-            $query = "match('" . addcslashes($subq['match'], "'") . "')";
+            $query = "match('" . $subq['match'] . "')";
         } else {
             $query = $subq;
         }
@@ -116,7 +117,7 @@ class QueryBuilder
             $matches = [];
             $non_fulltext = array_filter($childNodes, function ($elem) use (&$matches) {
                 if (! empty($elem['match'])) {
-                    $matches[] = addcslashes($elem['match'], "'");
+                    $matches[] = $elem['match'];
                     return false;
                 }
                 return ! empty($elem);
@@ -140,7 +141,7 @@ class QueryBuilder
             $matches = [];
             $non_fulltext = array_filter($childNodes, function ($elem) use (&$matches) {
                 if (! empty($elem['match'])) {
-                    $matches[] = addcslashes($elem['match'], "'");
+                    $matches[] = $elem['match'];
                     return false;
                 }
                 return ! empty($elem);
@@ -297,5 +298,19 @@ class QueryBuilder
             $value = $this->factory->$forceType($value->getValue());
         }
         return $value->getValue();
+    }
+
+    public function escapeQueryString($qs)
+    {
+        // these special chars need double slash escape
+        foreach (['!', '$', '(', ')', '-', '/', '<', '@', '\\', '^', '|', '~'] as $special) {
+            $qs = str_replace($special, '\\' . $special, $qs);
+        }
+        // minus at the beginning means exclude term search - leave it unescaped
+        if (substr($qs, 0, 3) === '\\\\-') {
+            $qs = '-' . substr($qs, 3);
+        }
+        // single quotes require only one slash escape
+        return addcslashes($qs, "'");
     }
 }
