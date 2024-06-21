@@ -220,7 +220,7 @@ function get_default_prefs()
             'error_tracking_dsn' => '',
 
             // Use Tiki-based temp dir by default
-            'tmpDir' => $tikipath . '/temp'
+            'tmpDir' => rtrim($tikipath, '/') . '/temp'
         ]
     );
 
