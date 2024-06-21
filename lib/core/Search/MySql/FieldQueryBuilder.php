@@ -14,6 +14,7 @@ class Search_MySql_FieldQueryBuilder
 {
     private $invert = false;
     private $boolean_or = ' ';
+    private $escapeCallback;
 
     public function build(Search_Expr_Interface $expr, Search_Type_Factory_Interface $factory)
     {
@@ -24,6 +25,9 @@ class Search_MySql_FieldQueryBuilder
                     $string = $node->getValue($factory)->getValue();
                     if (is_array($string)) {
                         $string = implode(' ', $string);
+                    }
+                    if ($this->escapeCallback) {
+                        $string = call_user_func($this->escapeCallback, $string);
                     }
                     if (false === strpos($string, ' ')) {
                         return $string;
@@ -87,5 +91,10 @@ class Search_MySql_FieldQueryBuilder
     public function setBooleanOrOperator($op = ' ')
     {
         $this->boolean_or = $op;
+    }
+
+    public function setEscapeCallback($cb)
+    {
+        $this->escapeCallback = $cb;
     }
 }
