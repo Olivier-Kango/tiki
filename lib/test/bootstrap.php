@@ -117,7 +117,7 @@ $systemConfiguration = new Config(
 global $user_overrider_prefs, $prefs, $tikipath;
 $user_overrider_prefs = [];
 $prefs['language'] = 'en';
-$tikipath = dirname(__DIR__, 2) . '/';
+$tikipath = dirname(__DIR__, 2);
 require_once 'lib/setup/prefs.php';
 $prefs['site_language'] = 'en';
 $prefs['zend_mail_handler'] = 'file';
