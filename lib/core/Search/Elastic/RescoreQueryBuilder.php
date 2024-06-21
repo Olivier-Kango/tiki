@@ -131,6 +131,11 @@ class Search_Elastic_RescoreQueryBuilder
     private function getTerm($node)
     {
         $value = $node->getValue($this->factory);
-        return mb_strtolower($value->getValue());
+        $value = $value->getValue();
+        if (is_array($value)) {
+            return mb_strtolower(implode(' ', $value));
+        } else {
+            return mb_strtolower($value);
+        }
     }
 }
