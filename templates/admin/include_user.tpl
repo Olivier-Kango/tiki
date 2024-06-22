@@ -36,7 +36,9 @@
                 <div class="adminoptionbox">
                     {preference name=feature_userPreferences}
                     {preference name=feature_mytiki}
+                    {preference name=users_prefs_xmpp_jid}
                     {preference name=users_prefs_xmpp_password}
+                    {preference name=users_prefs_xmpp_custom_server_http_bind}
                     <div class="adminoptionboxchild" id="feature_mytiki_childcontainer">
                         <legend class="h4">{tr}My Account Items{/tr}</legend>
                         {preference name=users_prefs_mytiki_pages}
