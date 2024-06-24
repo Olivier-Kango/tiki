@@ -10,6 +10,9 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
     exit;
 }
 
+$kplayerlist = "";
+$kcwText = "";
+
 if ($prefs['feature_kaltura'] === 'y') {
     $kalturaadminlib = TikiLib::lib('kalturaadmin');
 
