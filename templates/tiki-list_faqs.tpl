@@ -44,7 +44,7 @@
                                 {actions}
                                     {strip}
                                         <action>
-                                            <a href="tiki-list_faqs.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;faqId={$channels[user].faqId}">
+                                            <a href="tiki-list_faqs.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;faqId={$channels[user].faqId}#contenttabs_list_faqs-2">
                                                 {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                                             </a>
                                         </action>
