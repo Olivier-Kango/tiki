@@ -145,6 +145,8 @@
                 {$tracker_info.pagetitle|escape}
             {elseif !empty($tracker_info.name)}
                 {$tracker_info.name|escape}
+            {elseif !empty($page) && $prefs.site_title_breadcrumb eq "pagetitle"}
+                {$page|escape}
             {elseif !empty($description)}
                 {$description|escape}{* use description if nothing else is found but this is likely to contain tiki markup *}
                 {* add $description|escape if you want to put the description + update breadcrumb_build replace return $crumbs->title; with return empty($crumbs->description)? $crumbs->title: $crumbs->description; *}
