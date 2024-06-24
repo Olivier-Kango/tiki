@@ -14,10 +14,17 @@ function wikiplugin_trackercalendar_info()
         'name' => tr('Tracker Calendar'),
         'description' => tr('Create and display a calendar using tracker data'),
         'prefs' => ['wikiplugin_trackercalendar'],
-        'packages_required' => ['npm-asset/fullcalendar-scheduler' => VendorHelper::getAvailableVendorPath('fullcalendarscheduler', 'npm-asset/fullcalendar-scheduler/main.min.js')],
+        'packages_required' => [
+            'npm-asset/fullcalendar-scheduler' =>
+                VendorHelper::getAvailableVendorPath(
+                    'fullcalendarscheduler',
+                    'npm-asset/fullcalendar-scheduler/main.min.js'
+                )
+        ],
         'format' => 'html',
         'iconname' => 'calendar',
         'introduced' => 10,
+        'body' => tra('Add list plugin style {filter} and {format} blocks'),
         'params' => [
             'trackerId' => [
                 'name' => tr('Tracker ID'),
