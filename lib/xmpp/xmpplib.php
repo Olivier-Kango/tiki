@@ -62,13 +62,13 @@ class XMPPLib extends TikiLib
         $login = $query->fetchRow();
 
         if (empty($login['jid']) && $user) {
-            $login['jid'] = sprintf('%s@%s', $user, $prefs['xmpp_server_host']);
+            $login['jid'] = $user;
         }
 
         $info = [
             'domain'    => $this->server_host,
             'http_bind' => $this->server_http_bind,
-            'jid'       => JID::buildJid($login['jid'], $prefs['xmpp_server_host']),
+            'jid'       => $prefs['xmpp_server_host'] ? JID::buildJid($login['jid'], $prefs['xmpp_server_host']) : '',
             'password'  => $login['password'] ?: '',
             'username'  => $login['jid'],
             'nickname'  => $login['nickname'] ?: $user,
