@@ -171,7 +171,7 @@ function wikiplugin_slideshowslide($data, $params)
     foreach ($plugininfo['params'] as $key => $param) {
         $defaults["$key"] = $param['default'];
         //separating digits filter parameters
-        if ($param['filter'] == "digits") {
+        if (isset($param['filter']) && ($param['filter'] == "digits")) {
             $slideshowslideDigitsParams[] = $key;
         }
     }
