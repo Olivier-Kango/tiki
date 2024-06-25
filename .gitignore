@@ -128,3 +128,6 @@ themes/**/*.css.map
 # Handwritten CSS files.
 !themes/base_files/feature_css/*.css
 
+# Test coverage reports
+/coverage
+

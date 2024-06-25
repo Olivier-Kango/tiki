@@ -43,6 +43,7 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tr
                             'radio' => tr('Radio buttons'),
                             'm' => tr('List box'),
                             'checkbox' => tr('Multiple-selection checkboxes'),
+                            'transfer' => tr('Transfer'),
                         ],
                         'legacy_index' => 1,
                     ],
@@ -55,6 +56,63 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tr
                             1 => tr('Include controls'),
                         ],
                         'legacy_index' => 2,
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 'checkbox',
+                        ]
+                    ],
+                    'filterable' => [
+                        'name' => tr('Filterable'),
+                        'description' => tr('Allow the user to filter items within the transfer list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 'transfer'
+                        ],
+                    ],
+                    'filterPlaceholder' => [
+                        'name' => tr('Filter Placeholder'),
+                        'description' => tr('Placeholder text for the filter input'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'filterable',
+                            'value' => '1'
+                        ],
+                    ],
+                    'sourceListTitle' => [
+                        'name' => tr('Source List Title'),
+                        'description' => tr('Title for the source list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 'transfer'
+                        ],
+                    ],
+                    'targetListTitle' => [
+                        'name' => tr('Target List Title'),
+                        'description' => tr('Title for the target list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 'transfer'
+                        ],
+                    ],
+                    'ordering' => [
+                        'name' => tr('Ordering'),
+                        'description' => tr('Allow re-ordering of items in the list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 'transfer'
+                        ],
                     ],
                     'descendants' => [
                         'name' => tr('All descendants'),
@@ -117,15 +175,7 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tr
         $key = 'ins_' . $this->getConfiguration('fieldId');
         $parentId = $this->getOption('parentId');
 
-        if (isset($requestData[$key])) {
-            if (! is_array($requestData[$key])) {
-                $selected = [$requestData[$key]];
-            } else {
-                $selected = $requestData[$key];
-            }
-        } elseif (isset($requestData["cat_managed_$key"])) {
-            $selected = [];
-        } elseif ($this->getItemId() && ! isset($requestData[$key])) {
+        if ($this->getItemId() && ! isset($requestData[$key])) {
             // only show existing category of not receiving request, otherwise might be uncategorization in progress
             $selected = $this->getCategories($this->getItemId());
         } else {
@@ -144,9 +194,24 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tr
         $categories = $this->getApplicableCategories();
         $selected = array_intersect($selected, $this->getIds($categories));
 
+        if (isset($requestData[$key])) {
+            $value = $requestData[$key];
+            if (is_array($value)) {
+                $value = implode(',', $value);
+            }
+        } elseif (isset($requestData["cat_managed_$key"])) {
+            $value = '';
+        } elseif ($this->getValue()) {
+            $value = $this->getValue();
+        } else {
+            $value = implode(',', $selected);
+        }
+
+        $selected_categories = array_filter(explode(',', $value), fn ($c) => in_array($c, $selected));
+
         $data = [
-            'value' => implode(',', $selected),
-            'selected_categories' => $selected,
+            'value' => $value,
+            'selected_categories' => $selected_categories,
             'tracker_categories' => $tracker_categories,
             'list' => $categories,
         ];
@@ -207,6 +272,15 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tr
             $cat_tree = str_replace('name="cat_managed[]"', 'name="cat_managed_' . $this->getInsertId() . '[]"', $cat_tree);
             $smarty->assign('cat_tree', $cat_tree);
         }
+
+        if ($this->getOption('inputtype') === 'transfer') {
+            $transfer_data = [];
+            foreach ($this->getConfiguration('list') as $cat) {
+                $transfer_data[$cat['categId']] = $cat['relativePathString'];
+            }
+            $smarty->assign('transfer_data', $transfer_data);
+        }
+
         return $this->renderTemplate('trackerinput/category.tpl', $context);
     }
 

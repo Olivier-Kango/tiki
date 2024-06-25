@@ -44,9 +44,11 @@ function generateJsImportmapScripts()
                 "@vue-mf/styleguide" => $tikiroot . JS_ASSETS_PATH . "/styleguide.js",
                 "@vue-mf/tiki-offline" => $tikiroot . JS_ASSETS_PATH . "/tiki-offline.js",
                 "@vue-mf/toolbar-dialogs" => $tikiroot . JS_ASSETS_PATH . "/toolbar-dialogs.js",
+                /* vue widgets */
                 "@vue-widgets/datetime-picker" => $tikiroot . JS_ASSETS_PATH . "/datetime-picker.js",
+                "@vue-widgets/element-plus-ui" => $tikiroot . JS_ASSETS_PATH . "/element-plus-ui.js",
             ]
-            ];
+        ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
     $esModuleShimsSrc = $tikiroot . NODE_PUBLIC_DIST_PATH . "/es-module-shims/dist/es-module-shims.js";
     $html = <<<HTML

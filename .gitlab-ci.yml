@@ -603,6 +603,15 @@ unit-tests-phpmax-mariadbmax:
     IMAGE: rjsmelo/ubuntu-php:8.3-qa
   allow_failure: false
 
+unit-tests-node:
+  stage: unit-tests
+  needs:
+    - node_modules
+  image:
+    name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
+  script:
+    - npm run test
+
 #
 # Package this Tiki build
 #

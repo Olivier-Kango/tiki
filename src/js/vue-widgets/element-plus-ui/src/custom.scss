@@ -1,0 +1,38 @@
+@use 'element-plus/dist/index.css';
+
+:host {
+    --el-color-primary: var(--bs-primary);
+    --el-border-radius-base: var(--bs-border-radius);
+}
+
+.el-button {
+    --el-button-font-weight: var(--bs-btn-font-weight);
+}
+
+.el-button--primary {
+    --el-button-text-color: var(--bs-emphasis-color);
+    --el-button-disabled-bg-color: var(--bs-primary);
+    --el-button-disabled-border-color: var(--bs-primary);
+    --el-button-hover-border-color: var(--bs-primary);
+    --el-button-hover-bg-color: var(--bs-primary);
+    --el-button-hover-text-color: var(--bs-emphasis-color);
+    --el-button-disabled-text-color: var(--bs-emphasis-color);
+}
+
+.el-button.is-disabled {
+    opacity: 0.5;
+}
+
+.el-button:hover {
+    opacity: 0.8;
+}
+
+.el-transfer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.el-transfer-panel {
+    width: calc(45% - 25px * 2); // Make it take up all the space
+}

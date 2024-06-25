@@ -25,6 +25,11 @@
                     <option value="{$value|escape}" {if in_array("$value", $field.selected)}selected="selected"{/if}>{$label|escape}</option>
                 {/foreach}
             </select>
+        {elseif $field.options_map.inputtype eq 't'}
+            {jstransfer_list fieldName="{$field.ins_id|escape}[]" defaultSelected=$field.selected
+            data=$field.possibilities sourceListTitle=$field.options_map.sourceListTitle
+            targetListTitle=$field.options_map.targetListTitle filterable=$field.options_map.filterable
+            filterPlaceholder=$field.options_map.filterPlaceholder ordering=$field.options_map.ordering}
         {/if}
         <input type="hidden" name="{$field.ins_id}_old" value="{$field.value|escape}">
     {else}

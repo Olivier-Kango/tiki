@@ -84,6 +84,16 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
                         ],
                         'legacy_index' => 5,
                     ],
+                    'linkToItems' => [
+                        'name' => tr('Display'),
+                        'description' => tr('How the link to the items should be rendered'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('Value'),
+                            1 => tr('Link'),
+                        ],
+                        'legacy_index' => 7,
+                    ],
                     'selectMultipleValues' => [
                         'name' => tr('Select multiple values'),
                         'description' => tr('Allow the user to select multiple values'),
@@ -94,16 +104,73 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
                         ],
                         'legacy_index' => 6,
                     ],
-                    'linkToItems' => [
-                        'name' => tr('Display'),
-                        'description' => tr('How the link to the items should be rendered'),
+                    'inputtype' => [
+                        'name' => tr('Select Type'),
+                        'description' => tr('User interface control to be used.'),
+                        'default' => 'm',
+                        'filter' => 'alpha',
+                        'options' => [
+                            'm' => tr('List box'),
+                            't' => tr('Transfer')
+                        ],
+                        'depends' => [
+                            'field' => 'selectMultipleValues',
+                            'value' => '1'
+                        ],
+                    ],
+                    'filterable' => [
+                        'name' => tr('Filterable'),
+                        'description' => tr('Allow the user to filter items within the transfer list'),
                         'filter' => 'int',
                         'options' => [
-                            0 => tr('Value'),
-                            1 => tr('Link'),
+                            0 => tr('No'),
+                            1 => tr('Yes'),
                         ],
-                        'legacy_index' => 7,
-                    ]
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'filterPlaceholder' => [
+                        'name' => tr('Filter Placeholder'),
+                        'description' => tr('Placeholder text for the filter input'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'filterable',
+                            'value' => '1'
+                        ],
+                    ],
+                    'sourceListTitle' => [
+                        'name' => tr('Source List Title'),
+                        'description' => tr('Title for the source list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'targetListTitle' => [
+                        'name' => tr('Target List Title'),
+                        'description' => tr('Title for the target list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'ordering' => [
+                        'name' => tr('Ordering'),
+                        'description' => tr('Allow re-ordering of items in the list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
                 ],
             ],
         ];
@@ -222,10 +289,12 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
                 
                 var v, l;
                 response = data.response;
+                const transferData = {};
                 $.each( response, function (i,data) {
                     if (data && data.length > 1) {
                         v = data[0];
                         l = data[1];
+                        if (v) transferData[v] = l;
                     } else {
                         v = ""
                         l = "";
@@ -236,6 +305,13 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
                             .text(l)
                     );
                 }); // each
+
+                const elementPlusTransfer = document.querySelector("element-plus-ui[field-name=\'" + data.request.insertId + "\']");
+                if (elementPlusTransfer) {
+                    const elementPlusTransferCopy = elementPlusTransfer.cloneNode(true);
+                    elementPlusTransferCopy.setAttribute("data", JSON.stringify(transferData));
+                    elementPlusTransfer.replaceWith(elementPlusTransferCopy);
+                }
                     
                 if (data.request.originalValue) {
                     $.each(data.request.originalValue.split(","), function(i,e){
@@ -262,6 +338,21 @@ if( $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFi
         TikiLib::lib('header')->add_jq_onready('
 $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']").trigger("change", "initial");
 ', 1);
+
+        if ($this->getOption('inputtype') === 't') {
+            $smarty = TikiLib::lib('smarty');
+
+            return smarty_function_jstransfer_list([
+                'fieldName' => $insertId,
+                'data' => [],
+                'defaultSelected' => $this->getValue(),
+                'sourceListTitle' => $this->getOption('sourceListTitle'),
+                'targetListTitle' => $this->getOption('targetListTitle'),
+                'filterable' => $this->getOption('filterable'),
+                'filterPlaceholder' => $this->getOption('filterPlaceholder'),
+                'ordering' => $this->getOption('ordering'),
+            ], $smarty->getEmptyInternalTemplate());
+        }
 
         return '<select class="form-control"' . $multiple . ' name="' . $insertId . '"></select>';
     }

@@ -56,17 +56,6 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                         ],
                         'legacy_index' => 2,
                     ],
-                    'displayFieldsList' => [
-                        'name' => tr('Multiple Fields'),
-                        'description' => tr('Display the values from multiple fields instead of a single one.'),
-                        'separator' => '|',
-                        'filter' => 'int',
-                        'legacy_index' => 3,
-                        'profile_reference' => 'tracker_field',
-                        'parent' => 'trackerId',
-                        'parentkey' => 'tracker_id',
-                        'sort_order' => 'position_nasc',
-                    ],
                     'displayFieldsListFormat' => [
                         'name' => tr('Format for Customising Multiple Fields'),
                         'description' => tr('Uses the translate function to replace %0 etc with the field values. E.g. "%0 any text %1"'),
@@ -76,17 +65,83 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                         ],
                     ],
                     'displayFieldsListType' => [
-                        'name' => tr('Multiple Fields display type'),
-                        'description' => tr('Display multiple fields as concatenated list in a dropdown or as a table.'),
+                        'name' => tr('Display type'),
+                        'description' => tr('Display options in a dropdown, a transfer list or use table to display multiple fields'),
                         'filter' => 'alpha',
                         'options' => [
                             'dropdown' => tr('Dropdown'),
                             'table' => tr('Table'),
-                        ],
-                        'depends' => [
-                            'field' => 'displayFieldsList'
+                            'transfer' => tr('Transfer'),
                         ],
                         'legacy_index' => 14,
+                    ],
+                    'displayFieldsList' => [
+                        'name' => tr('Multiple Fields'),
+                        'description' => tr('Fields to be displayed in the table'),
+                        'separator' => '|',
+                        'filter' => 'int',
+                        'legacy_index' => 3,
+                        'profile_reference' => 'tracker_field',
+                        'parent' => 'trackerId',
+                        'parentkey' => 'tracker_id',
+                        'sort_order' => 'position_nasc',
+                        'depends' => [
+                            'field' => 'displayFieldsListType',
+                            'value' => 'table'
+                        ],
+                    ],
+                    'filterable' => [
+                        'name' => tr('Filterable'),
+                        'description' => tr('Allow the user to filter items within the transfer list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'displayFieldsListType',
+                            'value' => 'transfer'
+                        ],
+                    ],
+                    'filterPlaceholder' => [
+                        'name' => tr('Filter Placeholder'),
+                        'description' => tr('Placeholder text for the filter input'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'filterable',
+                            'value' => '1'
+                        ],
+                    ],
+                    'sourceListTitle' => [
+                        'name' => tr('Source List Title'),
+                        'description' => tr('Title for the source list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'displayFieldsListType',
+                            'value' => 'transfer'
+                        ],
+                    ],
+                    'targetListTitle' => [
+                        'name' => tr('Target List Title'),
+                        'description' => tr('Title for the target list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'displayFieldsListType',
+                            'value' => 'transfer'
+                        ],
+                    ],
+                    'ordering' => [
+                        'name' => tr('Ordering'),
+                        'description' => tr('Allow re-ordering of items in the list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'displayFieldsListType',
+                            'value' => 'transfer'
+                        ],
                     ],
                     'trackerListOptions' => [
                         'name' => tr('Plugin TrackerList options'),
@@ -260,7 +315,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             'value' => $value,
         ];
 
-        if ($this->getOption('selectMultipleValues') && ! is_array($data['value'])) {
+        if ($this->canHaveMultipleValues() && ! is_array($data['value'])) {
             $data['value'] = explode(',', $data['value']);
         }
 
@@ -293,7 +348,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             return false;
         }
 
-        if ($this->getOption('selectMultipleValues')) {
+        if ($this->canHaveMultipleValues()) {
             return false;
         }
 
@@ -305,10 +360,6 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             return false;
         }
 
-        if ($this->getOption('displayFieldsListType') === 'table') {
-            return false;
-        }
-
         return true;
     }
 
@@ -316,6 +367,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     {
         $trackerId = $this->getOption('trackerId');
         $trackerPerms = Perms::get('tracker', $trackerId);
+
 
         if ($this->useSelector()) {
             $value = $this->getValue();
@@ -460,6 +512,25 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             $definition = Tracker_Definition::get($trackerId);
             $fieldArray = $definition->getField($this->getOption('fieldId'));
             $data['otherFieldPermName'] = $this->getFieldReference($fieldArray);
+        }
+
+        if ($this->getOption('displayFieldsListType') === 'transfer') {
+            $filterPlaceholder = $this->getOption('filterPlaceholder') ?: 'Enter keyword';
+            $sourceListTitle = $this->getOption('sourceListTitle') ?: 'List';
+            $targetListTitle = $this->getOption('targetListTitle') ?: 'Selected';
+
+            $smarty = TikiLib::lib('smarty');
+
+            return smarty_function_jstransfer_list([
+                'fieldName' => $this->getInsertId() . '[]',
+                'data' => $data['list'],
+                'defaultSelected' => $this->getValue(),
+                'sourceListTitle' => $sourceListTitle,
+                'targetListTitle' => $targetListTitle,
+                'filterable' => $this->getOption('filterable'),
+                'filterPlaceholder' => $filterPlaceholder,
+                'ordering' => $this->getOption('ordering'),
+            ], $smarty->getEmptyInternalTemplate());
         }
 
         return $this->renderTemplate('trackerinput/itemlink.tpl', $context, $data);
@@ -800,7 +871,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     public function canHaveMultipleValues()
     {
-        return (bool) $this->getOption("selectMultipleValues");
+        return (bool) ($this->getOption('displayFieldsListType') === 'transfer' || $this->getOption('displayFieldsListType') === 'table' || $this->getOption("selectMultipleValues"));
     }
 
     public function getPossibleItemValues()
@@ -971,9 +1042,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     public function handleSave($value, $oldValue)
     {
-        // if selectMultipleValues is enabled, convert the array
-        // of options to string before saving the field value in the db
-        if ($this->getOption('selectMultipleValues') || $this->getOption('displayFieldsListType') === 'table') {
+        if ($this->canHaveMultipleValues()) {
             if (is_array($value)) {
                 $value = implode(',', $value);
             }
@@ -1027,7 +1096,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     public function watchCompare($old, $new)
     {
-        if ($this->getOption('selectMultipleValues')) {
+        if ($this->canHaveMultipleValues()) {
             if (! is_array($old)) {
                 $old = explode(',', $old);
             }
@@ -1091,7 +1160,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
      */
     public function getFacets()
     {
-        if ($this->getOption('selectMultipleValues')) {
+        if ($this->canHaveMultipleValues()) {
             return [];
         }
 
@@ -1110,7 +1179,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         $permName = $this->getConfiguration('permName');
         $name = $this->getConfiguration('name');
 
-        if ($this->getOption('selectMultipleValues')) {
+        if ($this->canHaveMultipleValues()) {
             $itemIdLookup = function ($itemId) {
                 return TikiLib::lib('trk')->get_item_value($this->getConfiguration('trackerId'), $itemId, $this->getConfiguration('fieldId'));
             };
@@ -1328,7 +1397,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         $permName = $this->getConfiguration('permName');
         $name = $this->getConfiguration('name');
         $baseKey = $this->getBaseKey();
-        $multivalue = $this->getOption('selectMultipleValues');
+        $multivalue = $this->canHaveMultipleValues();
 
         $collection->addNew($permName, 'selector')
             ->setLabel($name)
