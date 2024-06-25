@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div class="flex-shrink-0">
         <span class="fa-stack fa-lg" style="width: 100px;" title="Configuration Wizard">
-            <i class="fas fa-cog fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+            {icon name='admin_general' iclass='fa-stack-2x'}
+            {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
         </span>
     </div>
     <div class="flex-grow-1 ms-3">
@@ -26,7 +26,7 @@
             </div>
             <br>
             <em>{tr}Tiki has many more features{/tr}.
-            {tr}See also{/tr} <a href="http://doc.tiki.org/Global+Features" target="_blank">{tr}Global Features{/tr} @ doc.tiki.org</a></em>
+            {tr}See also{/tr} <a href="http://doc.tiki.org/Global+Features" target="_blank">{tr}Global Features{/tr} @doc.tiki.org</a></em>
         </fieldset>
         <fieldset>
             <legend>{tr}Watches{/tr}</legend>

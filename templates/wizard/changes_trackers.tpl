@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div class="me-4">
     <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
-        <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+        {icon name='arrow-circle-up' iclass='fa-stack-2x'}
+        {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
     </span>
     </div>
     </br>

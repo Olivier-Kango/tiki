@@ -1,4 +1,4 @@
-<div class="userWizardIconleft"><img src="img/icons/large/wizard_user48x48.png" alt="{tr}User Wizard{/tr}" /></div>
+<div class="userWizardIconleft">{icon name='user-edit' alt="{tr}User Wizard{/tr}"}</div>
 {tr}Use 'watches' to monitor wiki pages or other objects.{/tr} {tr}Watch new items by clicking the {icon name='watch'} button on specific pages.{/tr}<br/>
 {tr}Set up below preferences related to receiving notifications by email about changes in the site{/tr}.<br/><br/><br/>
 
@@ -13,7 +13,7 @@
     <fieldset>
         {if $prefs.feature_user_watches eq 'y'}
             <legend>{tr}Notification Preferences{/tr}</legend>
-            <div class="userWizardIconright"><img src="img/icons/large/evolution48x48.png" alt="{tr}Notification Preferences{/tr}" /></div>
+            <div class="userWizardIconright">{icon name='envelope-open' alt="{tr}Notification Preferences{/tr}"}</div>
             <table class="formcolor" style="width:80%">
                 {tr}Send notification when I am the editor:{/tr}
                 <tr>

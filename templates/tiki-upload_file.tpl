@@ -480,6 +480,7 @@
         {jq}$('.datePicker').datepicker({minDate: 0, maxDate: '+1m', dateFormat: 'dd/mm/yy'});{/jq}
     {/if}
     {jq notonready=true}
+    {literal}
         $('#file_0').ajaxForm({target: '#progress_0', forceSync: true});
         var nb_upload = 1;
         function add_upload_file() {
@@ -494,7 +495,7 @@
             $("#form form").append($('<input />', {type: 'hidden', name: 'totalSubmissions', value: totalSubmissions}));
             $("#form form").each(function(n) {
                 if ($(this).find('input[name="userfile\\[\\]"]').val() != '') {
-                    var $progress = $('#progress_'+n).html("<img src='img/spinner.gif'>{tr}Uploading file...{/tr}");
+        var $progress = $('#progress_'+n).html("{/literal}{icon name='spinner' iclass='fa-spin' _menu_text='y' _menu_icon='y' ititle="{tr}Uploading file...{/tr}"}{literal}");
                     $( document ).on('ajaxError', function(event, jqxhr, ajaxSettings, thrownError ) {
                         $progress.hide();
                         show('form');
@@ -508,6 +509,7 @@
             });
             hide('form');
         }
+    {/literal}
     {/jq}
 {/if}
 {if not $editFileId and $prefs.fgal_upload_from_source eq 'y' and $tiki_p_upload_files eq 'y'}
@@ -564,15 +566,17 @@
             </div>
         </fieldset>
         {jq}
+        {literal}
             var handleVimeoFile = function (link, data) {
                 if (data != undefined) {
                 $("#form").hide();
                 $("#progress").append(
                     $("<p> {tr}Video file uploaded:{/tr} " + data.file + "</p>")
-                        .prepend($("<img src='img/icons/vimeo.png' width='16' height='16'>"))
+                        .prepend($("{/literal}{icon name='vimeo'}{literal}"))
                     );
                 }
             }
+        {/literal}
         {/jq}
     {/if}
 {/if}

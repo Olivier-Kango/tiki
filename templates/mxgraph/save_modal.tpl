@@ -1,7 +1,7 @@
 <div style="text-align:center; padding: 20px">
     <div class="diagram-saving">
         <p>{tr}Saving{/tr}</p>
-        <img src="img/spinner.gif">
+        {icon name='spinner' iclass='fa-spin'}
     </div>
     <div class="diagram-saved" style="display:none">
         <p>{tr}Saved{/tr}</p>

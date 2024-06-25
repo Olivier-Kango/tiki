@@ -7,7 +7,7 @@
         <h2>{tr}Accounts{/tr}</h2>
 
         <form action="tiki-socialnetworks.php" method="post">
-            <h2><img src="img/icons/twitter_t_logo_32.png" alt="Twitter" width="32" height="32"> Twitter</h2>
+            <h2>{icon name='twitter' alt='Twitter'} Twitter</h2>
             {if $twitterRegistered==0}
                 {remarksbox type="note" title="{tr}Note{/tr}"}
                     {tr}To use Twitter integration, the site admin must register this site as an application at <a href="http://twitter.com/oauth_clients/" class="alert-link" target="_blank">http://twitter.com/oauth_clients/</a> and allow write access for the application.{/tr}
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             {/if}
-            <h2><img src="img/icons/facebook-logo_32.png" alt="Facebook" width="32" height="32"> Facebook</h2>
+            <h2>{icon name='facebook' alt='Facebook'} Facebook</h2>
             {if $facebookRegistered==0}
                 {remarksbox type="note" title="{tr}Note{/tr}"}
                     {tr}To use Facebook integration, the site admin must register this site as an application at <a href="https://developers.facebook.com/" class="alert-link" target="_blank">https://developers.facebook.com/</a> first.{/tr}

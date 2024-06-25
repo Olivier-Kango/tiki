@@ -64,6 +64,7 @@ function wikiplugin_pagetabs($data, $params)
 
 
     if ($pageTabs == true) {
+        $spinner_icon = addcslashes(smarty_function_icon(['name' => 'spinner', 'iclass' => 'fa-spin'], $smarty->getEmptyInternalTemplate()), "\"");
         $headerlib
             ->add_jq_onready(
                 '
@@ -101,7 +102,7 @@ function wikiplugin_pagetabs($data, $params)
 
                         });
                 }
-                $("<img id=\'tabSpinner\' src=\'img/spinner.gif\' style=\'position: absolute;z-index: 999999999\' />")
+                $("<span id=\'tabSpinner\'  style=\'position: absolute;z-index: 999999999\'>' . $spinner_icon . '</span>")
                     .insertBefore(tabParent)
                     .hide();
 

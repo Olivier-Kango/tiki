@@ -492,6 +492,7 @@
 {/tabset}
 
 {jq}
+{literal}
     $(function(){
         $(".install-composer").on("click", function(){
             $('.nav-tabs a[href="#contenttabs_admin_packages-4"]').tab('show');
@@ -509,7 +510,7 @@
             });
 
             collapsible.addEventListener('shown.bs.collapse', function () {
-                $('.detail-package[data-package-name="'+packageName+'"]').html('<img width="20" height="20" src="img/spinner.gif" title="'+tr("Looking for package details...")+'" alt="'+tr("Looking for package details...")+'"/>');
+                $('.detail-package[data-package-name="'+packageName+'"]').html('{/literal}{icon name='spinner' iclass='fa-spin' _menu_text='y' _menu_icon='y' ititle="{tr}Looking for package details...{/tr}" alt="{tr}Looking for package details...{/tr}"}{literal}');
                 $.getJSON("tiki-admin.php?page=packages&package_name="+packageName, function(json) {
                     var data = json['packages'];
                     var html = '<p>'+data[packageName][0]['description']+'</p>';
@@ -546,4 +547,5 @@
             })
         })
     });
+{/literal}
 {/jq}

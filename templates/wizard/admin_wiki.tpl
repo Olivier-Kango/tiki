@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div class="me-4">
         <span class="fa-stack fa-lg" style="width: 100px;" title="Configuration Wizard">
-            <i class="fas fa-cog fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+            {icon name='admin_general' iclass='fa-stack-2x'}
+            {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
         </span>
     </div>
     <div class="flex-grow-1 ms-3">
@@ -18,7 +18,7 @@
                 </div>
                 {preference name=feature_wiki_structure}
                 <div class="adminoptionboxchild">
-                    {tr}Look for the <img src="img/icons/camera.png" /> icon in the editor toolbar{/tr}. {tr}Requires Java{/tr}.<br/><a href="https://www.java.com/verify/" target="_blank">{tr}Verify your Java installation{/tr}</a>.<br>
+                    {tr _0={icon name='camera'}}Look for the %0 icon in the editor toolbar{/tr}. {tr}Requires Java{/tr}.<br/><a href="https://www.java.com/verify/" target="_blank">{tr}Verify your Java installation{/tr}</a>.<br>
                 </div>
                 {preference name=flaggedrev_approval}
                 <div id="flaggedrev_approval_childcontainer">

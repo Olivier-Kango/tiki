@@ -1,9 +1,9 @@
 <div class="d-flex">
     <div class="me-4">
-            <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
-            <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
-            </span>
+        <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+            {icon name='arrow-circle-up' iclass='fa-stack-2x'}
+            {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
+        </span>
     </div>
     <br/><br/><br/>
     <div class="flex-grow-1 ms-3">
@@ -19,7 +19,7 @@
         </a>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}New Features{/tr}</legend>
-            {preference name=feature_url_fragment_guesser}
+            {preference name=url_fragment_format}
             <fieldset class="mb-3 w-100 clearfix featurelist">
                 <legend>{tr}New Wiki Plugins{/tr}</legend>
                 {* preference name=wikiplugin_foo *}

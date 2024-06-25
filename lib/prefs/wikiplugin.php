@@ -124,20 +124,25 @@ function prefs_wikiplugin_list($partial = false)
 
     foreach ($parserlib->plugin_get_list() as $plugin) {
         $info = $parserlib->plugin_info($plugin);
-        if (empty($info['prefs'])) {
-            $info['prefs'] = [];
+        if (! isset($info['prefs']) || empty($info['prefs'])) {
+            if (is_array($info)) {
+                $info['prefs'] = [];
+            } else {
+                $info = ['prefs' => []];
+            }
         }
         $dependencies = array_diff($info['prefs'], [ 'wikiplugin_' . $plugin ]);
-
-        $prefs['wikiplugin_' . $plugin] = [
-            'name' => tr('Plugin %0', $info['name']),
-            'description' => isset($info['description']) ? $info['description'] : '',
-            'type' => 'flag',
-            'help' => 'Plugin' . $plugin,
-            'dependencies' => $dependencies,
-            'packages_required' => (isset($info['packages_required']) && ! empty($info['packages_required'])) ? $info['packages_required'] : [],
-            'default' => in_array($plugin, $defaultPlugins) ? 'y' : 'n',
-        ];
+        if (isset($info['name'])) {
+            $prefs['wikiplugin_' . $plugin] = [
+                'name' => tr('Plugin %0', $info['name']),
+                'description' => isset($info['description']) ? $info['description'] : '',
+                'type' => 'flag',
+                'help' => 'Plugin' . $plugin,
+                'dependencies' => $dependencies,
+                'packages_required' => (isset($info['packages_required']) && ! empty($info['packages_required'])) ? $info['packages_required'] : [],
+                'default' => in_array($plugin, $defaultPlugins) ? 'y' : 'n',
+            ];
+        }
 
         if (isset($info['tags'])) {
             $prefs['wikiplugin_' . $plugin]['tags'] = (array) $info['tags'];

@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div class="me-4">
         <span class="fa-stack fa-lg" style="width: 100px;" title="{tr}Configuration Profiles Wizard{/tr}" >
-            <i class="fas fa-cubes fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+            {icon name='cubes' iclass='fa-stack-2x'}
+            {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
         </span>
     </div>
     <div class="flex-grow-1 ms-3">
@@ -83,7 +83,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                            <h4>{tr}Profile Conditional_Display_in_Forms{/tr}</h4>
+                            <h4>{tr}Profile Conditional Display in Forms{/tr}</h4>
                             (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Conditional_Display_in_Forms_14&show_details_for=Conditional_Display_in_Forms_14&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                             <br>
                             {tr}This profile demonstrates the setup to conditionally hide or display some fields in a form{/tr}.
@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h4>{tr}Profile Execute_on_list{/tr}</h4>
+                    <h4>{tr}Profile Execute on list{/tr}</h4>
                     (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Execute+on+list&show_details_for=Execute+on+list&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                     <br>
                     {tr}This profile demonstrates how to perform actions on several items from a list using Plugin ListExecute{/tr}.

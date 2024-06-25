@@ -1,10 +1,10 @@
 <div class="d-flex">
-        <div class="me-4">
-            <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
-            <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
-            </span>
-        </div>
+    <div class="me-4">
+        <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+            {icon name='arrow-circle-up' iclass='fa-stack-2x'}
+            {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
+        </span>
+    </div>
     <br/><br/><br/>
     <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 20.{/tr}

@@ -1,9 +1,9 @@
-<div class="userWizardIconleft"><img src="img/icons/large/wizard_user48x48.png" alt="{tr}User Wizard{/tr}" /></div>
+<div class="userWizardIconleft">{icon name='user-edit' alt="{tr}User Wizard{/tr}"}</div>
 {tr}Set up basic information as a user on this site{/tr}.
 <div class="userWizardContent">
     <fieldset>
         <legend>{tr}Personal Information{/tr}</legend>
-        <div class="userWizardIconright"><img src="img/icons/large/vcard48x48.png" alt="{tr}User Preferences{/tr}" /></div>
+        <div class="userWizardIconright">{icon name='address-card' alt="{tr}User Preferences{/tr}"}</div>
         {if $prefs.feature_userPreferences eq 'y'}
             <table class="formcolor">
                 <tr>

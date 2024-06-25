@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div class="flex-shrink-0">
         <span class="fa-stack fa-lg" style="width: 100px;" title="{tr}Configuration Profiles Wizard{/tr}" >
-            <i class="fas fa-cubes fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
+            {icon name='cubes' iclass='fa-stack-2x'}
+            {icon name='magic' iclass='fa-flip-horizontal fa-stack-1x ms-4 mt-4'}
         </span>
     </div>
     <div class="flex-grow-1 ms-3">
@@ -66,13 +66,6 @@
                             <li>{tr}Advanced usage to create full GUI for an R application{/tr}</li>
                             <li>{tr}Many other examples of nice charts and reports that you can produce with this system{/tr}</li>
                         </ul>
-                        {tr}Click to read more{/tr}"
-                    >
-                        {icon name="help"}
-                    </a>
-                    <a href="http://r.tiki.org" target="tikihelp" class="tikihelp" title="{tr}r.tiki.org site:{/tr}
-                        <em>{tr}See also{/tr} {tr}r.tiki.org live site{/tr}</em>
-                        <br/><br/>
                         {tr}Click to read more{/tr}"
                     >
                         {icon name="help"}
