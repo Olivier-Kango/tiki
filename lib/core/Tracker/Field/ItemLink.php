@@ -1284,6 +1284,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
                 'tracker_status' => implode(' OR ', str_split($this->getOption('status', 'opc'), 1)),
                 'tracker_id' => $this->getOption('trackerId'),
                 '_placeholder' => tr(TikiLib::lib('object')->get_title('tracker', $this->getOption('trackerId'))),
+                '_format' => $this->formatForObjectSelector(),
             ]))
             ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey, $multivalue) {
                 $value = $control->getValue();
@@ -1303,10 +1304,11 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
             ->setControl(new Tracker\Filter\Control\ObjectSelector(
                 "tf_{$permName}_ms",
                 [
-                'type' => 'trackeritem',
-                'tracker_status' => implode(' OR ', str_split($this->getOption('status', 'opc'), 1)),
-                'tracker_id' => $this->getOption('trackerId'),
-                '_placeholder' => tr(TikiLib::lib('object')->get_title('tracker', $this->getOption('trackerId'))),
+                    'type' => 'trackeritem',
+                    'tracker_status' => implode(' OR ', str_split($this->getOption('status', 'opc'), 1)),
+                    'tracker_id' => $this->getOption('trackerId'),
+                    '_placeholder' => tr(TikiLib::lib('object')->get_title('tracker', $this->getOption('trackerId'))),
+                    '_format' => $this->formatForObjectSelector(),
                 ],
                 true
             ))  // for multi
