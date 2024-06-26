@@ -2261,6 +2261,129 @@ class Services_Tracker_Controller
         ];
     }
 
+    public function action_item_history($input)
+    {
+        global $prefs;
+        $trklib = TikiLib::lib('trk');
+
+        $itemId = $input->itemId->int();
+        $fieldId = $input->fieldId->int();
+        $filter = [];
+        if ($input->version->text()) {
+            $filter['version'] = $input->version->text();
+        }
+        $offset = $input->offset->int();
+        $diff_style = $input->diff_style->text() ?: $prefs['tracker_history_diff_style'];
+
+        if ($itemId) {
+            $item_info = $trklib->get_tracker_item($itemId);
+            $item = Tracker_Item::fromInfo($item_info);
+            if (! $item->canViewHistory()) {
+                throw new Services_Exception(tra('You do not have permission to view this page.'), 401);
+            }
+
+            if (! empty($item_info)) {
+                $history = $trklib->get_item_history($item_info, $fieldId, $filter, $offset, $prefs['maxRecords']);
+                $has_initial_version = false;
+                foreach ($history['data'] as $i => &$hist) {
+                    if ($hist['version'] == 0) {
+                        $has_initial_version = true;
+                    }
+                    if (empty($field_option[$hist['fieldId']])) {
+                        if ($hist['fieldId'] > 0) {
+                            $field_option[$hist['fieldId']] = $trklib->get_tracker_field($hist['fieldId']);
+                        } else {
+                            $field_option[$hist['fieldId']] = [ // fake field to do the diff on
+                                'type' => 't',
+                                'name' => tr('Status'),
+                                'trackerId' => $item_info['trackerId'],
+                            ];
+                        }
+                    }
+                    if (TIKI_API) {
+                        $field_value = $field_option[$hist['fieldId']];
+                        if (empty($diff_style)) {
+                            if (! empty($field_value['fieldId'])) {
+                                $field_value['value'] = $hist['value'];
+                                $hist['value'] = smarty_function_trackeroutput([
+                                    'field' => $field_value,
+                                    'list_mode' => 'csv',
+                                    'history' => 'y',
+                                    'item' => $item_info,
+                                    'process' => 'y',
+                                ], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                                $field_value['value'] = $hist['new'];
+                                $hist['new'] = smarty_function_trackeroutput([
+                                    'field' => $field_value,
+                                    'list_mode' => 'csv',
+                                    'history' => 'y',
+                                    'item' => $item_info,
+                                    'process' => 'y',
+                                ], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                            }
+                        } else {
+                            $field_value['value'] = $hist['new'];
+                            $hist['diff'] = smarty_function_trackeroutput([
+                                'field' => $field_value,
+                                'list_mode' => 'y',
+                                'history' => 'y',
+                                'item' => $item_info,
+                                'process' => 'y',
+                                'oldValue' => $hist['value'],
+                                'diff_style' => $diff_style,
+                            ], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                        }
+                        if (! empty($field_value['fieldId'])) {
+                            $field_value['value'] = $hist['value'];
+                            $hist['rendered_value'] = smarty_function_trackeroutput([
+                                'field' => $field_value,
+                                'list_mode' => 'y',
+                                'history' => 'y',
+                                'item' => $item_info,
+                                'process' => 'y',
+                            ], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                            $field_value['value'] = $hist['new'];
+                            $hist['rendered_new'] = smarty_function_trackeroutput([
+                                'field' => $field_value,
+                                'list_mode' => 'y',
+                                'history' => 'y',
+                                'item' => $item_info,
+                                'process' => 'y',
+                            ], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                        }
+                    }
+                }
+                if (! $has_initial_version) {
+                    array_push($history['data'], ["version" => 0, "fieldId" => null, "value" => "", "user" => $item_info['createdBy'], "lastModif" => $item_info['created'], "new" => ""]);
+                }
+            } else {
+                throw new Services_Exception(tra('This tracker item either has been deleted or is not found.'), 404);
+            }
+        }
+
+        $tiki_actionlog_conf = TikiDb::get()->table('tiki_actionlog_conf');
+        $logging = $tiki_actionlog_conf->fetchCount(
+            [
+                'objectType' => 'trackeritem',
+                'action' => $tiki_actionlog_conf->in(['Created','Updated']),
+                'status' => $tiki_actionlog_conf->in(['y','v']),
+            ]
+        );
+
+        return [
+            'fieldId' => $fieldId,
+            'filter' => $filter,
+            'diff_style' => $diff_style,
+            'offset' => $offset,
+            'history' => $history['data'],
+            'cant' => $history['cant'],
+            'item_info' => $item_info,
+            'field_option' => $field_option,
+            'metatag_robots' => 'NOINDEX, NOFOLLOW',
+            'logging' => $logging,
+        ];
+    }
+
     public function action_export_items($input)
     {
         @ini_set('max_execution_time', 0);
