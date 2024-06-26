@@ -878,13 +878,17 @@ if (ws) {
             <th>{tr}Locale{/tr}</th>
         </tr></thead>
         <tbody>
-
-        {foreach from=$locales item=item}
-            <tr>
-                <td class="text">{$item|escape}</td>
-            </tr>
-        {foreachelse}
-            {norecords}
-        {/foreach}</tbody>
+        {if is_array($locales)}
+            {foreach from=$locales item=item}
+                <tr>
+                    <td class="text">{$item|escape}</td>
+                </tr>
+            {foreachelse}
+                {norecords}
+            {/foreach}
+        {else}
+            <td class="text">{$locales}</td>
+        {/if}
+        </tbody>
     </table>
 </div>

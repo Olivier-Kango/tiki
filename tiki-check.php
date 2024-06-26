@@ -3612,9 +3612,30 @@ if ($standalone && ! $nagios) {
     $smarty->assign('realtime', $realtime);
     $smarty->assign('realtime_url', preg_replace('#http://#', 'ws://', preg_replace('#https://#', 'wss://', $base_url)) . 'ws/');
 
-    $locales = `locale -a`;
-    $locales = array_filter(preg_split("/\r?\n/", $locales));
-    sort($locales, SORT_STRING | SORT_FLAG_CASE);
+    $output = array();
+    $locales = null;
+    exec("locale -a 2>&1", $output, $returnCode);
+    // Verification of the return code.
+    if ($returnCode === 0) {
+        // The command was successfully executed, we filter it from the array.
+        if (is_array($output)) {
+            $locales = array_filter($output);
+            sort($locales, SORT_STRING | SORT_FLAG_CASE);
+        } else {
+            if ($locales = preg_split("/\r ?\n/", $output)) {
+                $locales = array_filter($locales);
+                sort($locales, SORT_STRING | SORT_FLAG_CASE);
+            } else {
+                $locales = "Unexpected result";
+            }
+        }
+    } else {
+        // The command failed, we take the error array, and convert it to a string to display to the user
+        foreach ($output as $errorLine) {
+            $locales .= "$errorLine\n";
+        }
+    }
+
     $smarty->assign('locales', $locales);
 
     $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
