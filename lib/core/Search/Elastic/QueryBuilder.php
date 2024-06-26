@@ -87,7 +87,7 @@ class Search_Elastic_QueryBuilder
 
 			$inner = array_filter(
 				$inner,
-				function ($part) use (& $not) {
+				function ($part) use (&$not) {
 					// Only merge in the single-part NOT
 					if (isset($part['bool']['must_not']) && count($part['bool']) == 1) {
 						$not = array_merge($not, $part['bool']['must_not']);
@@ -212,7 +212,7 @@ class Search_Elastic_QueryBuilder
 		$value = $value->getValue();
 		if ($node->getType() === 'timestamp') {
 			return $value;
-		}else {
+		} else {
 			return mb_strtolower($value);
 		}
 	}
@@ -307,7 +307,7 @@ class Search_Elastic_QueryBuilder
 			if (preg_match('/^tracker_field_/', $field)) {
 				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', TikiFilter::get('xss')->filter($field));
 				if ($prefs['unified_exclude_nonsearchable_fields'] === 'y') {
-					$msg .= ' '.tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
+					$msg .= ' ' . tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
 				}
 			} else {
 				$msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', TikiFilter::get('xss')->filter($field), TikiFilter::get('xss')->filter($field));
