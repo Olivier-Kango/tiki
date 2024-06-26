@@ -3135,6 +3135,9 @@
         "lib\/wiki-plugins\/wikiplugin_pluginmanager.php": {
             "class:WikiPluginPluginManager": true
         },
+        "lib\/wiki-plugins\/wikiplugin_tikidocfromcode.php": {
+            "class:WikiPluginTikiDocFromCode": true
+        },
         "lib\/core\/Tiki\/Profile\/ChannelList.php": {
             "class:Tiki_Profile_ChannelList": true
         },
@@ -10575,6 +10578,185 @@
             "_filterStrings": true,
             "_convertTranslationsArray": true,
             "_getCacheLib": true
+        }
+    },
+    "PSR1.Classes.ClassDeclaration.MultipleClasses": {
+        "lib\/diff\/Diff.php": {
+            "class:Text_MappedDiff": true,
+            "class:Text_Diff_Engine_xdiff": true,
+            "class:Text_Diff_Engine_native": true,
+            "class:Text_Diff_Op": true,
+            "class:Text_Diff_Op_copy": true,
+            "class:Text_Diff_Op_delete": true,
+            "class:Text_Diff_Op_add": true,
+            "class:Text_Diff_Op_change": true
+        },
+        "lib\/sharelib.php": {
+            "class:Tiki_ShareObject": true
+        },
+        "lib\/ointegratelib.php": {
+            "interface:OIntegrate_Engine": true,
+            "class:OIntegrate": true,
+            "class:OIntegrate_Response": true,
+            "class:OIntegrate_Engine_JavaScript": true,
+            "class:OIntegrate_Engine_Smarty": true,
+            "class:OIntegrate_Engine_Index": true,
+            "class:OIntegrate_Converter_Direct": true,
+            "class:OIntegrate_Converter_EncodeHtml": true,
+            "class:OIntegrate_Converter_HtmlToTiki": true,
+            "class:OIntegrate_Converter_TikiToHtml": true,
+            "class:OIntegrate_Converter_Indexer": true
+        },
+        "lib\/cache\/cachelib.php": {
+            "class:CacheLibFileSystem": true,
+            "class:CacheLibMemcache": true,
+            "class:CacheLibNoCache": true
+        },
+        "lib\/test\/core\/Search\/FormatterTest.php": {
+            "class:Search_FormatterTest_HighlightHelper": true
+        },
+        "lib\/registration\/registrationlib.php": {
+            "class:RegistrationError": true
+        },
+        "lib\/wiki\/xmllib.php": {
+            "class:page_Parser": true
+        },
+        "lib\/core\/TikiDb\/Pdo.php": {
+            "class:TikiDb_Pdo": true
+        },
+        "lib\/core\/TikiDb\/Adodb.php": {
+            "class:TikiDb_Adodb": true
+        },
+        "lib\/filegals\/filegallib.php": {
+            "class:FileIsNotSafeException": true
+        },
+        "lib\/wiki\/wikilib.php": {
+            "class:convertToTiki9": true,
+            "class:WikiLibOutput": true
+        },
+        "lib\/wiki\/pluginslib.php": {
+            "class:PluginsLibUtil": true
+        },
+        "lib\/quizzes\/quizlib.php": {
+            "class:HW_QuizQuestion": true,
+            "class:HW_QuizQuestionMultipleChoice": true,
+            "class:HW_QuizQuestionYesNo": true,
+            "class:Quiz": true
+        },
+        "lib\/wiki\/histlib.php": {
+            "class:Document": true
+        },
+        "lib\/init\/smarty.php": {
+            "class:Smarty_Tiki": true
+        },
+        "lib\/diff.php": {
+            "class:WikiDiff": true,
+            "class:WikiDiffFormatter": true,
+            "class:WikiUnifiedDiffFormatter": true
+        },
+        "lib\/smarty_tiki\/Modifier\/D.php": {
+            "class:SmartyKint": true
+        },
+        "lib\/smarty_tiki\/Modifier\/NumStyle.php": {
+            "class:StyleType": true
+        },
+        "lib\/sheet\/grid.php": {
+            "class:TikiSheet": true,
+            "class:TikiSheetDataHandler": true,
+            "class:TikiSheetCSVHandler": true,
+            "class:TikiSheetTrackerHandler": true,
+            "class:TikiSheetSimpleArrayHandler": true,
+            "class:TikiSheetCSVExcelHandler": true,
+            "class:TikiSheetDatabaseHandler": true,
+            "class:TikiSheetOpenOfficeHandler": true,
+            "class:TikiSheetWikiTableHandler": true,
+            "class:TikiSheetOutputHandler": true,
+            "class:TikiSheetLabeledOutputHandler": true,
+            "class:TikiSheetHTMLTableHandler": true
+        },
+        "lib\/test\/importer\/TikiImporterTest.php": {
+            "class:TikiImporterFirstChild": true,
+            "class:TikiImporterSecondChild": true,
+            "class:TikiImporterGranSon": true
+        },
+        "lib\/ziplib.php": {
+            "class:ZipReader": true
+        },
+        "lib\/test\/importer\/TikiImporterWikiTest.php": {
+            "class:TikiImporter_Wiki_InsertPage_Test": true
+        },
+        "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
+            "class:Tiki_Profile_SymbolLoader_Store": true
+        },
+        "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
+            "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
+            "class:TikiAcceptanceTestDBRestorerBinaryDumps": true
+        },
+        "lib\/graph-engine\/graph.bar.php": {
+            "class:BarStackGraphic": true,
+            "class:MultibarGraphic": true
+        },
+        "lib\/graph-engine\/abstract.gridbased.php": {
+            "class:GridScale": true,
+            "class:LinearGridScale": true,
+            "class:StaticGridScale": true
+        },
+        "lib\/core\/WikiParser\/PluginMatcher.php": {
+            "class:WikiParser_PluginMatcher_Match": true
+        },
+        "lib\/graph-engine\/core.php": {
+            "class:Fake_GRenderer": true,
+            "class:DataHandler": true,
+            "class:Graphic": true
+        },
+        "lib\/core\/Search\/Formatter\/Transform\/DynamicLoader.php": {
+            "class:Search_Formatter_Transform_DynamicLoaderWrapper": true
+        },
+        "tiki-print_indexed.php": {
+            "class:ObjectRenderer": true,
+            "class:ObjectRenderer_TrackerItem": true,
+            "class:ObjectRenderer_Wiki": true,
+            "class:ObjectRenderer_MultilingualWiki": true
+        },
+        "tiki-webservices.php": {
+            "class:Tiki_WebServices": true
+        },
+        "lib\/theme\/iconsetlib.php": {
+            "class:Iconset": true
+        },
+        "lib\/auth\/api_token.php": {
+            "class:ApiTokenException": true
+        },
+        "lib\/webservicelib.php": {
+            "class:Tiki_Webservice_Template": true
+        },
+        "lib\/wiki-plugins\/wikiplugin_fitnesse.php": {
+            "class:FixtureMockTrackerField": true
+        },
+        "lib\/wiki-plugins\/wikiplugin_dbreport.php": {
+            "class:WikipluginDBReportField": true,
+            "class:WikipluginDBReportString": true,
+            "class:WikipluginDBReportContent": true,
+            "class:WikipluginDBReportText": true,
+            "class:WikipluginDBReportStyle": true,
+            "class:WikipluginDBReportLink": true,
+            "class:WikipluginDBReportCell": true,
+            "class:WikipluginDBReportLine": true,
+            "class:WikipluginDBReportTable": true,
+            "class:WikipluginDBReportGroup": true,
+            "class:WikipluginDBReportParameter": true,
+            "class:WikipluginDBReportFail": true,
+            "class:WikipluginDBReport": true
+        },
+        "lib\/tikidate.php": {
+            "class:Date_Calc": true
+        },
+        "lib\/importer\/tikiimporter.php": {
+            "class:ImporterParserException": true
+        },
+        "lib\/shipping\/shippinglib.php": {
+            "class:CustomShippingProvider": true,
+            "class:ShippingLib": true
         }
     }
 }

@@ -5,16 +5,19 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 require_once 'lib/wiki/pluginslib.php';
-
+require_once 'lib/wiki-plugins/wikiplugin_tikidocfromcode.php';
 class WikiPluginPluginManager extends PluginsLib
 {
-    public $expanded_params = ['info'];
     public function getDefaultArguments()
     {
         return [
                     'info' => 'description|parameters|paraminfo',
+                    'type' => '',
                     'plugin' => '',
                     'module' => '',
+                    'preference' => '',
+                    'trackerfield' => '',
+                    'prefsexport' => '',
                     'singletitle' => 'none',
                     'titletag' => 'h3',
                     'start' => '',
@@ -446,6 +449,40 @@ function wikiplugin_pluginmanager_info()
                 'default' => '',
                 'since' => '6.1',
             ],
+            'preference' => [
+                'required' => false,
+                'name' => tra('Preference'),
+                'description' => tr('Name of a preference (e.g., bigbluebutton_dynamic_configuration), or list separated by %0|%1, or range separated
+                    by %0-%1. Single preference can be used with %0limit%1 parameter.', '<code>', '</code>'),
+                'filter' => 'text',
+                'default' => '',
+                'since' => '27',
+            ],
+            'trackerfield' => [
+                'required' => false,
+                'name' => tra('Tracker field'),
+                'description' => tr('Name of a tracker field, or list separated by %0|%1, or range separated
+                    by %0-%1. Single preference can be used with %0limit%1 parameter.', '<code>', '</code>'),
+                'filter' => 'text',
+                'default' => '',
+                'since' => '27',
+            ],
+            'prefsexport' => [
+                'required' => false,
+                'name' => tra('Preferences export'),
+                'description' => tr('Default preferences export with columns name, description, location or list more separated by %0|%1.', '<code>', '</code>'),
+                'filter' => 'text',
+                'default' => 'name | description | locations',
+                'since' => '27',
+            ],
+            'type' => [
+                'required' => false,
+                'name' => tra('Type'),
+                'description' => tr('Type of the object to get tiki doc from (e.g: plugin, module,  preference, ...)'),
+                'filter' => 'text',
+                'default' => '',
+                'since' => '27',
+            ],
             'singletitle' => [
                 'required' => false,
                 'name' => tra('Single Title'),
@@ -528,39 +565,8 @@ function wikiplugin_pluginmanager_info()
     ];
 }
 
-function get_plugin_info($sPluginFile)
-{
-    preg_match("/wikiplugin_(.*)\.php/i", $sPluginFile, $match);
-    global $sPlugin, $numparams;
-    $sPlugin = $match[1];
-    WikiPlugin_Negotiator_Wiki::loadPluginFromName($sPlugin);
-    global $tikilib;
-    $parserlib = TikiLib::lib('parser');
-
-    $infoPlugin = $parserlib->plugin_info($sPlugin);
-    $numparams = isset($infoPlugin['params']) ? count($infoPlugin['params']) : 0;
-    return $infoPlugin;
-}
-
-function get_module_params($sPluginFile)
-{
-    preg_match("/mod-func-(.*)\.php/i", $sPluginFile, $match);
-    global $sPlugin, $numparams;
-    $sPlugin = $match[1];
-    include_once('modules/' . $sPluginFile);
-    $info_func = "module_{$sPlugin}_info";
-    $infoPlugin = $info_func();
-    $infoPluginParams = $infoPlugin['params'] ?? [];
-    foreach ($infoPluginParams as &$param) {
-        $param['required'] = ! empty($param['required']);
-    }
-    $numparams = isset($infoPluginParams) ? count($infoPluginParams) : 0;
-    $infoPlugin['params'] = $infoPluginParams;
-    return $infoPlugin;
-}
-
 function wikiplugin_pluginmanager($data, $params)
 {
-    $plugin = new WikiPluginPluginManager();
+    $plugin = new WikiPluginTikiDocFromCode();
     return $plugin->run($data, $params);
 }

@@ -4070,6 +4070,20 @@ class TrackerLib extends TikiLib
         return $types;
     }
 
+    /**
+     * function used to get tracker field option/type
+     * details
+     */
+    public function getFieldTypeByLabel($array, $label)
+    {
+        foreach ($array as $key => $value) {
+            if (isset($value['label']) && $value['label'] === $label) {
+                return $value;
+            }
+        }
+        return null;
+    }
+
     private function build_help_for_type($info)
     {
         $function = tr('Function');
