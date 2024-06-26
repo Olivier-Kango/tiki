@@ -130,6 +130,8 @@ paths:
     $ref: paths-trackers-items-entity.yaml
   /trackers/{trackerId}/items/{itemId}/clone:
     $ref: paths-trackers-items-clone.yaml
+  /trackers/{trackerId}/items/{itemId}/history:
+    $ref: paths-trackers-items-history.yaml
   /trackers/{trackerId}/items/{itemId}/status:
     $ref: paths-trackers-items-status.yaml
   /translations/{type}/{source}:

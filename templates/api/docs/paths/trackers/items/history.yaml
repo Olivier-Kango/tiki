@@ -1,0 +1,70 @@
+---
+get:
+  description: Retrieve tracker item change log (history)
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: itemId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: fieldId
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: version
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: diff_style
+      in: query
+      required: false
+      schema:
+        type: string
+  responses:
+    '200':
+      description: tracker item history response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              fieldId:
+                type: integer
+              filter:
+                type: object
+              diff_style:
+                type: string
+              offset:
+                type: integer
+              history:
+                type: object
+              cant:
+                type: integer
+              item_info:
+                $ref: schemas-TrackerItem.yaml
+              field_option:
+                type: object
+    '401':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

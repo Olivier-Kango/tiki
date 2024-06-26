@@ -151,6 +151,7 @@ class Services_ApiBridge
         $routes->add('trackeritems-update', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'update_item', 'skipRedirect' => 1]))->setMethods(['POST']));
         $routes->add('trackeritems-delete', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'remove_item']))->setMethods(['DELETE']));
         $routes->add('trackeritems-status', (new Route('trackers/{trackerId}/items/{itemId}/status', ['controller' => 'tracker', 'action' => 'update_item_status', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('trackeritems-history', (new Route('trackers/{trackerId}/items/{itemId}/history', ['controller' => 'tracker', 'action' => 'item_history']))->setMethods(['GET']));
         $routes->add('translations', (new Route('translations/{type}/{source}', ['controller' => 'translation', 'action' => 'manage']))->setMethods(['GET']));
         $routes->add('translations-attach', (new Route('translations/{type}/{source}/attach', ['controller' => 'translation', 'action' => 'attach']))->setMethods(['POST']));
         $routes->add('translations-detach', (new Route('translations/{type}/{source}/detach', ['controller' => 'translation', 'action' => 'detach', 'confirm' => 1]))->setMethods(['POST']));
