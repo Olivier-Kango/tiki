@@ -34,9 +34,10 @@ function prefs_server_list($partial = false)
         'server_domain' => [
             'name' => tra('Server domain name'),
             'description' => tra('The value that will be used by default as the server domain name of your Tiki site.'),
+            'warning' => tra('Leave this blank if you are not entirely sure what you are doing. ' .
+                'If this value is incorrect or your DNS is not set up properly it will lock you out of your Tiki and requite database or shell access to recover it.'),
             'type' => 'text',
             'default' => '',
-            'tags' => ['basic'],
             'public' => true,
         ],
     ];
