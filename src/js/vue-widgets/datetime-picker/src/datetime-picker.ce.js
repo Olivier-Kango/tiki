@@ -36,21 +36,5 @@ new MutationObserver((mutations) => {
                 form.submit();
             };
         });
-
-        /*
-            Make sure the component recognizes the site theme.
-        */
-        datetimePickers.forEach((datetimePicker) => {
-            if (!datetimePicker.shadowRoot.querySelector("#theme-css")) {
-                const themeCssPath = datetimePicker.getAttribute("theme-css");
-                if (!themeCssPath) {
-                    return;
-                }
-                const linkWithTheme = document.querySelector(`link[href="${themeCssPath}"]`);
-                const linkClone = linkWithTheme.cloneNode(true);
-                linkClone.setAttribute("id", "theme-css");
-                datetimePicker.shadowRoot.appendChild(linkClone);
-            }
-        });
     }
 }).observe(document.body, { childList: true, subtree: true });

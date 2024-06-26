@@ -1,4 +1,5 @@
 <template>
+    <link rel="stylesheet" :href="themeCss">
     <div>
         <VueDatePicker v-model="date" :timezone="tz" :locale="language" input-class-name="form-control tiki-form-control"
             :enable-time-picker="enableTimePicker" :range="Boolean(toInputName)" @update:model-value="goToURLWithData"
@@ -74,6 +75,9 @@ const props = defineProps({
     globalCallback: {
         type: String,
     },
+    themeCss: {
+        type: String
+    }
 });
 
 // Convert props that should be booleans from string to number
