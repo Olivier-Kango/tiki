@@ -8,7 +8,7 @@
             {if !empty($data.predefined)}
                 <div class="mb-3 row">
                     <div class="input-group col-sm-6">
-                        <select name="addaction" class="form-select">
+                        <select name="addaction" class="form-select" {if $field.isMandatory eq 'y'} required{/if}>
                             <option value="">{$field.options_map.addItems|escape}</option>
                             {foreach key=itemId item=label from=$data.predefined}
                                 <option value="{$itemId}">{$label|escape}</option>
@@ -80,7 +80,7 @@
             {/jq}
         {/if}
     {else}
-        <select name="{$field.ins_id}{if !empty($data.selectMultipleValues)}[]{/if}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-select">
+        <select name="{$field.ins_id}{if !empty($data.selectMultipleValues)}[]{/if}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-select" {if $field.isMandatory eq 'y'} required{/if}>
             {if $field.isMandatory ne 'y' || empty($field.value)}
                 <option value=""></option>
             {/if}
