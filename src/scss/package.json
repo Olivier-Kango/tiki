@@ -10,15 +10,14 @@
     "build": "sass --update --load-path=../../templates --load-path=../../themes ../../themes ../../_custom:../../public/generated/_custom",
     "watch": "sass --watch --load-path=../../templates --load-path=../../themes ../../themes ../../_custom:../../public/generated/_custom",
     "clean": "git clean -f -x \"../../themes/**/*.css\" \"../../themes/**/*.css.map\" \"../../public/generated/_custom/**/*.css\" \"../../public/generated/_custom/**/*.css.map\""
-
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependenciesComments": {
     "sass": "Changelog: https://github.com/sass/dart-sass/blob/main/CHANGELOG.md"
   },
   "devDependencies": {
+    "boosted": "~5.2",
     "bootswatch": "^5.3.3",
     "sass": "^1.77.5"
   }
