@@ -2259,6 +2259,7 @@
         "symfony/polyfill-php81": "^1.26",
         "symfony/polyfill-php82": "^1.28",
         "symfony/polyfill-php83": "^1.28",
+        "symfony/polyfill-php84": "^1.30",
         "symfony/process": ">=3.2.6",
         "symfony/routing": ">=3.2.6",
         "symfony/yaml": ">=3.1.3",
