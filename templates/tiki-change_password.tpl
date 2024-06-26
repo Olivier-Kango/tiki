@@ -97,9 +97,18 @@
                 {/if}
             </div>
             <div class="card-footer text-center">
-                <input type="submit" class="btn btn-primary" name="change" onclick="return checkPasswordsMatch('#pass2', '#pass1', '#mypassword2_text');" value="{tr}Apply{/tr}"><span id="validate"></span>
+                <input type='hidden' name='checkSubmit' id='check-submit'>
+                <input type="submit" id='sub' class="btn btn-primary" name="change" onclick="return checkPasswordsMatch('#pass2', '#pass1', '#mypassword2_text');" value="{tr}Apply{/tr}"><span id="validate"></span>
             </div>
         </div>
     </form>
 </div>
 </div>
+
+{jq}
+$('#sub').click(function(event){
+    event.preventDefault();
+    $('#check-submit').val('Submitted');
+    $('form').submit();
+})
+{/jq}

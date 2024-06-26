@@ -15,6 +15,7 @@ $inputConfiguration = [
         'pass' => 'none',
         'passAgain' => 'none',
         'oldpass' => 'none',
+        'checkSubmit' => 'none',
     ],
     'catchAllUnset' => null
     ]
@@ -41,7 +42,7 @@ if (isset($_REQUEST["newuser"]) && $_REQUEST["newuser"] == 'y') {
 $smarty->assign('userlogin', $_REQUEST["user"]);
 $smarty->assign('oldpass', $_REQUEST["oldpass"]);
 
-if (isset($_REQUEST["change"])) {
+if ($_REQUEST["checkSubmit"] == 'Submitted') {
     $access->checkCsrf();
     // Check that pass and passAgain match, otherwise display error and exit
     if ($_REQUEST["pass"] != $_REQUEST["passAgain"]) {
