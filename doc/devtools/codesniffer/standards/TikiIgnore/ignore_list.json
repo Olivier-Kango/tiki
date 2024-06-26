@@ -7472,6 +7472,7 @@
             "Services_Tracker_Controller::action_import_profile": true,
             "Services_Tracker_Controller::action_select_tracker": true,
             "Services_Tracker_Controller::action_search_help": true,
+            "Services_Tracker_Controller::action_item_history": true,
             "Services_Tracker_Controller::get_validation_options": true,
             "Services_Tracker_Controller::action_itemslist_output": true
         },
