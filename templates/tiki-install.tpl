@@ -639,7 +639,12 @@
                                     </label>
                                     <input class="form-control" type="text" name="server_domain" id="server_domain" value="{if !empty($prefs.server_domain)}{$prefs.server_domain|escape}{else}{tr}{$default_server_domain_name}{/tr}{/if}">
                                     <span class="form-text">
-                                        {tr}The value that will be used by default as the server domain name of your Tiki site.{/tr}
+                                        {tr}The value that will be used by default as the server domain name of your Tiki site.{/tr}<br>
+                                    </span>
+                                    <span class="form-text text-danger">
+                                        <strong>{tr}Warning!{/tr}</strong><br>
+                                        {tr}Leave this blank if you are not entirely sure what you are doing. {/tr}
+                                        {tr}If this value is incorrect or your DNS is not set up properly it will lock you out of your Tiki and requite database or shell access to recover it.{/tr}
                                     </span>
                                 </div>
                                 <div class="mb-3 row mx-0">
