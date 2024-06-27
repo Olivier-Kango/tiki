@@ -22,6 +22,9 @@ $inputConfiguration = [
             'sort_mode' => 'alnumdash',
             'initial' => 'alpha',
             'filterGroup' => 'text',
+            'filterEmailNotConfirmed' => 'alpha',
+            'filterNeverLoggedIn' => 'alpha',
+            'filterNotValidated' => 'alpha',
         ]
     ]
 ];
