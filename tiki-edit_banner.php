@@ -52,7 +52,6 @@ $inputConfiguration = [
             'imageType'                   => 'string',        //post
             'imageData'                   => 'string',        //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

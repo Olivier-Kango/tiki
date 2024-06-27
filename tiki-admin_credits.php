@@ -19,7 +19,6 @@ $inputConfiguration = [
             'save' => 'bool',                        //post
             'purge_credits'   => 'bool'              //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once 'tiki-setup.php';

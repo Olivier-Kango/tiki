@@ -12,7 +12,7 @@ $inputConfiguration = [
     [
         'staticKeyFilters'            => [
              'nlId'                   => 'int',            //post
-             'remove'                 => 'bool',           //get
+             'remove'                 => 'int',            //get
              'save'                   => 'bool',           //post
              'allowUserSub'           => 'bool',           //get
              'allowAnySub'            => 'bool',           //post
@@ -32,7 +32,6 @@ $inputConfiguration = [
              'offset'                 => 'string',         //get
              'find'                   => 'string',         //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'newsletters';

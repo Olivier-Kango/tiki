@@ -36,7 +36,6 @@ $inputConfiguration = [
             'exportQuote' => 'striptags',     //post
             'bookAutoTax' => 'bool',          //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'accounting';

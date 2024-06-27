@@ -30,7 +30,6 @@ $inputConfiguration = [
             'att_max_size'           => 'int',        //post
             'save'                   => 'bool',       //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'forums';

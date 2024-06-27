@@ -16,11 +16,10 @@ $inputConfiguration = [
         'staticKeyFilters'          => [
             'word'                  => 'word',             //post
             'add'                   => 'bool',             //post
-            'remove'                => 'bool',             //get
+            'remove'                => 'int',              //get
             'sort_mode'             => 'word',             //get
             'offset'                => 'int',              //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

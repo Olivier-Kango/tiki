@@ -23,8 +23,7 @@ $inputConfiguration = [
             'viewmode' => 'striptags',   //get
             'viewlist' => 'striptags',   //get
             'gbi' => 'striptags'         //get
-        ],
-        'catchAllUnset' => null
+        ]
     ],
 ];
 include 'tiki-setup.php';

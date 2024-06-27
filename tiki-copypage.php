@@ -22,7 +22,6 @@ $inputConfiguration = [
             'dupCateg'                     => 'bool',              //post
             'dupTags'                      => 'bool',              //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

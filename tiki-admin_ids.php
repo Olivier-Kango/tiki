@@ -14,7 +14,6 @@ $inputConfiguration = [
              'rule_impact'         => 'text',         //post
              'add'                 => 'bool',         //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

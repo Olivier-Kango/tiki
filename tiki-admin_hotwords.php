@@ -14,11 +14,10 @@ $inputConfiguration = [
              'word'        => 'word',         //post
              'url'         => 'bool',         //post
              'add'         => 'bool',         //post
-             'remove'      => 'bool',         //post
+             'remove'      => 'word',         //post
              'sort_mode'   => 'text',         //get
              'offset'      => 'int',          //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

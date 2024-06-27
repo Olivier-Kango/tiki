@@ -18,7 +18,6 @@ $inputConfiguration = [
             'name'         => 'striptags',           //post
             'description'  => 'xss',                 //post
         ],
-        'catchAllUnset'    => null
     ],
 ];
 require_once('tiki-setup.php');

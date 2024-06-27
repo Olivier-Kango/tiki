@@ -13,7 +13,6 @@ $inputConfiguration = [
         'staticKeyFilters'          => [
             'trackerId'              => 'int',       //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

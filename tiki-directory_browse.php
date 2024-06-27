@@ -18,7 +18,6 @@ $inputConfiguration = [
             'find'                        => 'string',        //get
             'print'                       => 'bool',          //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

@@ -13,7 +13,7 @@ $inputConfiguration = [
     [
         'staticKeyFilters'                => [
             'contactId'                   => 'int',          //post
-            'remove'                      => 'bool',         //post
+            'remove'                      => 'int',          //post
             'save'                        => 'bool',         //post
             'firstName'                   => 'string',       //post
             'lastName'                    => 'string',       //post
@@ -26,7 +26,6 @@ $inputConfiguration = [
             'initial'                     => 'string',       //get
             'view'                        => 'string',       //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

@@ -19,7 +19,6 @@ $inputConfiguration = [
             'description'                    => 'xss',               //post
             'country'                        => 'string',            //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

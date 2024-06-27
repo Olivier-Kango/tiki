@@ -16,13 +16,12 @@ $inputConfiguration = [
              'find'                 => 'alpha',          //post
              'offset'               => 'int',            //get
              'sort_mode'            => 'alpha',          //get
-             'remove'               => 'bool',           //post
+             'remove'               => 'int',            //post
              'use_items_icons'      => 'bool',           //post
              'parse'                => 'bool',           //get
              'description'          => 'xss',            //get
              'type'                 => 'string',         //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

@@ -14,7 +14,6 @@ $inputConfiguration = [
             'url'                   => 'url',      //post
             'submit'                => 'bool',      //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

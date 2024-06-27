@@ -17,7 +17,6 @@ $inputConfiguration = [
         'oldpass' => 'none',
         'checkSubmit' => 'none',
     ],
-    'catchAllUnset' => null
     ]
 ];
 require_once('tiki-setup.php');

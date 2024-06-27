@@ -26,7 +26,6 @@ $inputConfiguration = [
             'bookId' => 'int',        //get
             'journalId' => 'int',     //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'accounting';

@@ -10,7 +10,6 @@ $inputConfiguration = [
             'groups'                      => 'groupname',    //post
             'base_url'                    => 'url',          //post
         ],
-        'catchAllUnset' => null
     ]
 ];
 require_once('tiki-setup.php');

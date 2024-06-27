@@ -18,7 +18,6 @@ $inputConfiguration = [
                             'pref' => 'striptags',      //post
                             'section' => 'striptags',   //post
                     ],
-                    'catchAllUnset' => null
                 ],
 ];
 

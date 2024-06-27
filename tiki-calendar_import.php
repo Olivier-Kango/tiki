@@ -15,7 +15,6 @@ $inputConfiguration = [
             'import'                         => 'word',      //post
             'calendarId'                      => 'int',      //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

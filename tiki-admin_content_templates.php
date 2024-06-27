@@ -18,7 +18,6 @@ $inputConfiguration = [
             'section_html'            => 'bool',         //post
             'content'                 => 'xss',          //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'admin';

@@ -26,7 +26,6 @@ $inputConfiguration = [
             'tsort_mode'                  => 'word',     //get
             'objectId'                    => 'bool',     //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

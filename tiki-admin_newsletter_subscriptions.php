@@ -12,7 +12,7 @@ $inputConfiguration = [
     [
         'staticKeyFilters'            => [
              'nlId'                   => 'int',            //post
-             'remove'                 => 'bool',           //get
+             'remove'                 => 'int',            //get
              'email'                  => 'email',          //post
              'subuser'                => 'username',       //post
              'group'                  => 'groupname',      //post
@@ -37,7 +37,6 @@ $inputConfiguration = [
              'addPage'                => 'bool',           //post
              'export'                => 'bool',           //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'newsletters';

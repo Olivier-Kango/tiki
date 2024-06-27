@@ -26,7 +26,6 @@ $inputConfiguration = [
         'staticKeyFiltersForArrays' => [
             'params'                => 'word',            //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

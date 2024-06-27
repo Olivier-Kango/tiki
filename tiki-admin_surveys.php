@@ -19,7 +19,6 @@ $inputConfiguration = [
             'offset'               => 'int',                 //get
             'description'            => 'xss',               //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'surveys';

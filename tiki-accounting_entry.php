@@ -34,7 +34,6 @@ $inputConfiguration = [
             'debitText' => 'striptags',         //post
             'creditText' => 'striptags',        //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'accounting';

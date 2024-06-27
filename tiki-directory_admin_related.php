@@ -17,7 +17,6 @@ $inputConfiguration = [
             'find'                        => 'string',            //get
             'sort_mode'                   => 'string',            //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

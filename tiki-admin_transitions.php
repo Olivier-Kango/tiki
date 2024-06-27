@@ -15,13 +15,11 @@ $inputConfiguration = [
             'to'                  => 'bool',         //post
             'label'                => 'string',      //post
             'preserve'             => 'bool',        //post
-            'remove'              => 'bool',         //get
             'transition_mode'            => 'bool'  //post
           ],
         'staticKeyFiltersForArrays' => [
             'cat_categories'        => 'word',       //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once 'tiki-setup.php';

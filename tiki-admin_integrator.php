@@ -22,7 +22,6 @@ $inputConfiguration = [
              'action'              => 'striptags',    //post
              'save'                => 'striptags',    //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

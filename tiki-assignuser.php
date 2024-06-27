@@ -25,7 +25,6 @@ $inputConfiguration = [
             'find'                        => 'word',    //post
             'maxRecords'                  => 'int',     //post
         ],
-        'catchAllUnset' => null
     ]
 ];
 require_once('tiki-setup.php');

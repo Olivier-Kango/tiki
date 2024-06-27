@@ -13,13 +13,12 @@ $inputConfiguration = [
         'staticKeyFilters'                => [
             'sites'                       => 'string',        //get
             'validate'                    => 'bool',          //get
-            'remove'                      => 'bool',          //get
+            'remove'                      => 'int',           //get
             'del'                         => 'bool',          //get
             'sort_mode'                   => 'string',        //get
             'offset'                      => 'int',           //get
             'find'                        => 'string',        //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

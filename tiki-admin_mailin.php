@@ -14,7 +14,6 @@ $inputConfiguration = [
             'mailin_autocheckFreq'    => 'striptags',  //post
             'mailin_autocheck'        => 'bool',       //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

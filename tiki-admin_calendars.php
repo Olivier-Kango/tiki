@@ -22,7 +22,6 @@ $inputConfiguration = [
             'use_dates' => 'bool',               //post
             'message' => 'xss',                  //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'calendar';

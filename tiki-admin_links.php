@@ -17,7 +17,6 @@ $inputConfiguration = [
             'type'            => 'string',     //post
             'add'             => 'bool',       //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

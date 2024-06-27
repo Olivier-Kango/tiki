@@ -26,7 +26,6 @@ $inputConfiguration = [[
         'confirmForm' => 'alpha',   // \Services_Utilities::isConfirmPost
         'itemId' => 'int',          // often used in \ParserLib::parse_wiki_argvariable
     ],
-    'catchAllUnset' => null
 ]];
 
 if (isset($_REQUEST['controller'], $_REQUEST['action']) || isset($_GET['controller'], $_GET['action'])) {

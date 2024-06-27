@@ -27,7 +27,6 @@ $inputConfiguration = [
             'journalLimit' => 'int',  //post
             'action' => 'striptags',  //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'accounting';

@@ -23,7 +23,6 @@ $inputConfiguration = [
             'watch_object'                => 'bool',     //get
             'and'                         => 'bool',     //get
         ],
-        'catchAllUnset' => null
     ]
 ];
 require_once('tiki-setup.php');

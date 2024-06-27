@@ -16,7 +16,6 @@ $inputConfiguration = [
             'dsnId'           => 'int',        //post
             'save'            => 'bool',       //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

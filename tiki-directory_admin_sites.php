@@ -9,7 +9,7 @@ $inputConfiguration = [
         'staticKeyFilters'                => [
             'parent'                      => 'int',           //post
             'siteId'                      => 'int',           //post
-            'remove'                      => 'bool',          //get
+            'remove'                      => 'int',           //get
             'name'                        => 'string',        //post
             'url'                         => 'url',           //post
             'siteCats'                    => 'string',        //post
@@ -19,7 +19,6 @@ $inputConfiguration = [
             'offset'                      => 'int',           //get
             'find'                        => 'string',        //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

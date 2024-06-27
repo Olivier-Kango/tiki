@@ -15,7 +15,6 @@ $inputConfiguration = [
             'which '                      => 'text',     //post
             'limit'                       => 'text',     //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

@@ -21,7 +21,6 @@ $inputConfiguration = [
             'description'                 => 'xss',           //post
             'edit'                        => 'bool',          //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

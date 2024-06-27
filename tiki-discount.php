@@ -12,10 +12,9 @@ $inputConfiguration = [
             'value'                       => 'digits',           //post
             'percent'                     => 'digits',           //post
             'id'                          => 'digits',           //post
-            'del'                         => 'bool',             //get
+            'del'                         => 'digits',             //get
             'offset'                      => 'digits',           //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 include_once('tiki-setup.php');

@@ -13,7 +13,7 @@ $inputConfiguration = [
         'staticKeyFilters'                => [
             'add_type'                    => 'bool',                //post
             'new_type'                    => 'string',              //post
-            'remove_type'                 => 'bool',                //get
+            'remove_type'                 => 'word',                //get
             'update_type'                 => 'bool',                //post
             'use_ratings'                 => 'bool',                //post
             'show_pre_publ'               => 'bool',                //post
@@ -39,7 +39,6 @@ $inputConfiguration = [
         'staticKeyFiltersForArrays'       => [
             'type_array'                  => 'string',              //post
         ],
-        'catchAllUnset' => null
     ]
 ];
 $section = 'cms';

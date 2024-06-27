@@ -13,7 +13,7 @@ $inputConfiguration = [
         'staticKeyFilters'                => [
             'parent'                      => 'int',               //post
             'categId'                     => 'int',               //get
-            'remove'                      => 'bool',               //post
+            'remove'                      => 'int',               //post
             'save'                        => 'bool',              //post
             'allowSites'                  => 'bool',              //post
             'showCount'                   => 'bool',              //post
@@ -26,7 +26,6 @@ $inputConfiguration = [
             'find'                        => 'string',            //get
             'sort_mode'                   => 'string',            //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

@@ -26,7 +26,6 @@ $inputConfiguration = [
             'offset'                         => 'int',               //get
             'find'                           => 'bool',              //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

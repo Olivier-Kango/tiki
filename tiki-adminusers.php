@@ -30,7 +30,6 @@ $inputConfiguration = [
             'filterNeverLoggedIn'         => 'alpha',
             'filterNotValidated'          => 'alpha',
         ],
-        'catchAllUnset' => null
     ]
 ];
 require_once('tiki-setup.php');

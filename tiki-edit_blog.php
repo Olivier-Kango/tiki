@@ -40,7 +40,6 @@ $inputConfiguration = [
         'staticKeyFiltersForArrays' => [
             'cat_categories'        => 'striptags',           //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

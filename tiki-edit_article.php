@@ -52,7 +52,6 @@ $inputConfiguration = [
             'geolocation'                 => 'string',        //get
             'freetag_string'              => 'string',        //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

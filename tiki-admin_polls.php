@@ -18,7 +18,7 @@ $inputConfiguration = [
              'save'                      => 'bool',           //post
              'add'                       => 'bool',           //post
              'addPoll'                   => 'bool',           //post
-             'remove'                    => 'bool',           //get
+             'remove'                    => 'int',            //get
              'locked'                    => 'bool',           //get
              'position'                  => 'word',           //get
              'poll_template'             => 'word',           //get
@@ -40,7 +40,6 @@ $inputConfiguration = [
                 'options'                => 'word',           //post
                 'pages'                  => 'pagename',       //get
         ],
-        'catchAllUnset'                  => null
     ],
 ];
 require_once('tiki-setup.php');

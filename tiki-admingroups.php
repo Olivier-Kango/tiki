@@ -35,7 +35,6 @@ $inputConfiguration = [
             'find'                      => 'groupname',
             'group'                     => 'groupname',
         ],
-        'catchAllUnset' => null
     ]
 ];
 

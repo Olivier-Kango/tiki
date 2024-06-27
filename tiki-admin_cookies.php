@@ -16,7 +16,6 @@ $inputConfiguration = [
             'save'                    => 'bool',         //post
             'upload'                  => 'bool',         //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

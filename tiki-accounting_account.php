@@ -35,7 +35,6 @@ $inputConfiguration = [
             'accountLocked' => 'bool',  //post
             'accountTax' => 'float',    //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'accounting';

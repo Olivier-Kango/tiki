@@ -30,7 +30,6 @@ $inputConfiguration = [
             'quote' => 'striptags',    //post
 
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'accounting';

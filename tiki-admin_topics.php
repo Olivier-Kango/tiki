@@ -13,12 +13,11 @@ $inputConfiguration = [
         'staticKeyFilters'          => [
             'addtopic'              => 'bool',      //post
             'name'                  => 'word',      //post
-            'remove'                => 'bool',      //get
-            'removeall'             => 'bool',      //post
-            'activate'              => 'bool',      //post
-            'deactivate'            => 'bool',      //post
+            'remove'                => 'int',       //get
+            'removeall'             => 'int',       //post
+            'activate'              => 'int',       //post
+            'deactivate'            => 'int',       //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 $section = 'cms';
