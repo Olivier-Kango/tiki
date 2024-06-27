@@ -7,7 +7,7 @@
 {block name="content"}
     <form method="post" action="{service controller=tabular action=select trackerId=$trackerId permName=$permName}">
         {if $columnIndex}<input type="hidden" name="columnIndex" value="{$columnIndex}">{/if}
-        <div class="mb-3 row">
+        <div class="mb-3 col">
             <label class="col-form-label">{tr}Modes{/tr}</label>
             <select name="mode" class="form-select">
                 {foreach $schema->getColumns() as $column}
@@ -18,7 +18,7 @@
             </select>
         </div>
         <div class="submit">
-            <input class="btn btn-primary" type="submit" value="{if $columnIndex}{tr}Edit{/tr}{else}{tr}Add{/tr}{/if}">
+            <input class="btn btn-primary" type="submit" value="{if $columnIndex}{tr}Save{/tr}{else}{tr}Add{/tr}{/if}">
         </div>
     </form>
 {/block}
