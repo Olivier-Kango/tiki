@@ -312,7 +312,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{service controller=tabular action=select trackerId=$trackerId permName=$column->getField()
+                                            <a href="{service controller=tabular action=select trackerId=$trackerId modal=true permName=$column->getField()
                                                     columnIndex=$column@index mode=$column->getMode()}"
                                                     class="btn btn-sm btn-secondary add-field tips"
                                                     title="{tr}Field{/tr} {$column->getField()|escape}|{tr}Mode:{/tr} {$column->getMode()|escape}">
@@ -346,7 +346,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <a href="{service controller=tabular action=select trackerId=$trackerId}" class="btn btn-secondary add-field">{tr}Select Mode{/tr}</a>
+                                        <a href="{service controller=tabular action=select trackerId=$trackerId modal=true}" class="btn btn-secondary add-field from-select">{tr}Select Mode{/tr}</a>
                                         <textarea name="fields" class="d-none">{$schema->getFormatDescriptor()|json_encode}</textarea>
                                     </td>
                                     <td colspan="6">
