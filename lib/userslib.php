@@ -946,12 +946,20 @@ class UsersLib extends TikiLib
                     $this->ldap_sync_user_data($user, $ldap_user_attr);
                     // Use what was configured in ldap admin config, otherwise assume the attribute name is "mail" as is usual
                     $email = $ldap_user_attr[empty($prefs['auth_ldap_emailattr']) ? 'mail' : $prefs['auth_ldap_emailattr']];
-                    $result = $this->add_user($user, $pass, $email, '', false, null, $prefs['ldap_create_user_tiki_validation'] === 'y' ? 'a' : null);
+                    if ($prefs['ldap_create_user_tiki_validation'] === 'y') {
+                        $apass = md5(TikiLib::lib('tiki')->genPass());
+                        $result = $this->add_user($user, $pass, $email, '', false, $apass, 'a');
+                    } else {
+                        $apass = '';
+                        $result = $this->add_user($user, $pass, $email);
+                    }
                     $this->disable_tiki_auth($user); //disable that user's password in tiki - since we use ldap
 
                     // if it worked ok, just log in
                     if ($result == $user) {
                         if ($prefs['ldap_create_user_tiki_validation'] === 'y') {
+                            // send validation email to admin
+                            $this->send_validation_email($user, $apass, $email);
                             return [false, $user, ACCOUNT_DISABLED];
                         } else {
                             // before we log in, update the login counter
