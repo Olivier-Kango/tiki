@@ -52,7 +52,7 @@ class ObjectSelector extends Base
             'sort' => null,
             'relations' => [],
             'relationshipTrackerId' => null,
-            'wildcard' => $prefs['tiki_object_selector_wildcardsearch'],
+            'wildcard' => isset($prefs['tiki_object_selector_wildcardsearch']) ? $prefs['tiki_object_selector_wildcardsearch'] : "",
         ];
 
         // Handle reserved parameters

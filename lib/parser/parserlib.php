@@ -584,8 +584,10 @@ class ParserLib extends TikiDb_Bridge
 
         if (isset($meta['prefs'])) {
             foreach ($meta['prefs'] as $pref) {
-                if ($prefs[$pref] != 'y') {
-                    $missing[] = $pref;
+                if (isset($prefs[$pref])) {
+                    if ($prefs[$pref] != 'y') {
+                        $missing[] = $pref;
+                    }
                 }
             }
         }
