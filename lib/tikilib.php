@@ -5307,10 +5307,12 @@ class TikiLib extends TikiDb_Bridge
             }
         }
         if ($prefs['wiki_comments_allow_per_page'] != 'n') {
-            if (! empty($hash['comments_enabled']) && $hash['comments_enabled'] == 'y') {
-                $queryData['comments_enabled'] = 'y';
-            } elseif (empty($hash['comments_enabled']) || $hash['comments_enabled'] == 'n') {
-                $queryData['comments_enabled'] = 'n';
+            if ($hash !== null) {
+                if (! empty($hash['comments_enabled']) && $hash['comments_enabled'] == 'y') {
+                    $queryData['comments_enabled'] = 'y';
+                } elseif (empty($hash['comments_enabled']) || $hash['comments_enabled'] == 'n') {
+                    $queryData['comments_enabled'] = 'n';
+                }
             }
         }
         if (empty($hash['contributions'])) {
