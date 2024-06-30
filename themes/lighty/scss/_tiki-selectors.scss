@@ -23,6 +23,7 @@
     }
 }
 .navbar-dark {
+    background-color: $tiki-navbar-dark-bg;
     .navbar-collapse {
         border-color: #d4bfbf;
     }
@@ -194,7 +195,7 @@ ul.dropdown-menu {
 .btn {
   text-transform: uppercase;
 }
-.btn:not(.btn-outline-* ,btn-link) {
+.btn:not(.btn-outline-* .btn-link) {
     border:  3px solid transparent;
 }
 .btn[class*="outline"] {

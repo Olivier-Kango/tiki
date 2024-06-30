@@ -63,17 +63,17 @@
         border: none !important;
     }
 }
-.navbar {
-    --bs-navbar-color: #{$link-color};
-}
+//.navbar {
+//    --bs-navbar-color: #{$link-color};
+//}
 
-.navbar:not(.bg-dark,.bg-light) {
-    .nav-link {
-        color: var(--bs-link-color);
-        &:hover,
-        &:active,
-        & .highlighted {
-            color: var(--bs-link-hover-color);
-        }
-    }
-}
+//.navbar:not(.bg-dark,.bg-light) {
+//    .nav-link {
+//        color: var(--bs-link-color);
+//        &:hover,
+//        &:active,
+//        & .highlighted {
+//            color: var(--bs-link-hover-color);
+//        }
+//    }
+//}

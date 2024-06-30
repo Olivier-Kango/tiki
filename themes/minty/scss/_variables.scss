@@ -30,7 +30,7 @@ $body-color:                #595959; // $gray-600;  // default Modified for Tiki
 
 // Typography
 $link-shade-percentage:                   20%;  // default // Bootstrap 5.3
-$link-color: #3A826E; // Modified for Tiki, for WCAG compliance
+$link-color: rgb(28 72 60); //#3A826E; // Modified for Tiki, for WCAG compliance
 
 
 // Components
@@ -51,17 +51,31 @@ $headings-color:              inherit;
 // Buttons
 $btn-color:                   #212529; // var(--#{$prefix}body-color);  // default
 
+// Form validation
+$form-feedback-valid-color:        #267E59; // $success !default;
+$form-feedback-invalid-color:      #E03100' // ' $danger !default;
+
+$form-feedback-icon-valid-color:    $form-feedback-valid-color; // !default;
+$form-feedback-icon-invalid-color:  $form-feedback-invalid-color; // !default;
+
+// scss-docs-start form-validation-colors
+$form-valid-color:                  $form-feedback-valid-color !default;
+$form-valid-border-color:           $form-feedback-valid-color !default;
+$form-invalid-color:                $form-feedback-invalid-color !default;
+
 // Dropdowns
 // Navbar
 
 $navbar-dark-color:                 rgba($white, .6);  // default
 $navbar-dark-hover-color:           $white;  // default
-$navbar-light-color:                rgba($black, .3);  // default
+$navbar-light-color:                #303030; // rgba($black, .3);  // default
 $navbar-light-hover-color:          $gray-700;  // default
 $navbar-light-active-color:         $gray-700;  // default
 $navbar-light-disabled-color:       rgba($black, .1);  // default
 
 // Pagination
+$pagination-color:                  #3A8370; // var(--#{$prefix}link-color); // !default;
+
 // Popovers
 $popover-bg:                        var(--#{$prefix}body-bg);  // default
 $popover-border-color:              var(--#{$prefix}border-color-translucent);  // default
@@ -73,6 +87,9 @@ $popover-body-color:                var(--#{$prefix}body-color);  // default
 $badge-color: #212529;
 
 // Alerts
+$alert-bg-scale:                -80%; // !default; // Deprecated in v5.2.0, to be removed in v6
+$alert-color-scale:             40%; // !default; // Deprecated in v5.2.0, to be removed in v6
+
 // Breadcrumbs
 // Code
 $code-color:                      $body-color; //   $pink;  // default // Bootstrap 5.3
@@ -81,3 +98,12 @@ $code-color:                      $body-color; //   $pink;  // default // Bootst
 // Bootswatch overrides
 
 $web-font-path: none; // Override value in vendor file
+
+.tiki .alert a,
+.tiki .alert .alert-link {
+    color: inherit;
+}
+
+.tiki .btn-link {
+    color: #3A8370;
+}
