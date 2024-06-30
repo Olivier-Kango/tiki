@@ -163,12 +163,6 @@ $navbar-dark-active-color:          $white;  // default
 $navbar-dark-disabled-color:        rgba($white, .25);  // default
 $navbar-light-border: #aaaaaa;
 
-// Navbarlinks ??
-$navbar-light-color: $primary;
-$navbar-light-hover-color: lighten($primary, 8%);
-$navbar-dark-color: $primary;
-$navbar-dark-hover-color: lighten($primary, 8%);
-
 // Pagination
 $pagination-active-bg: #aaaaaa;
 $pagination-active-border: darken(#aaa, 10%);

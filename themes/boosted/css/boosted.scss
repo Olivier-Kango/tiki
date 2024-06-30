@@ -72,10 +72,9 @@
 }
 
 .form-switch .form-check-input:checked:not(:disabled) {
-
     --o-switch-gradient: linear-gradient(to right, #fff 1.625rem, transparent);
-
 }
+
 .form-switch .form-check-input:checked {
     background-color: #ff7900;
     filter: none;
@@ -84,4 +83,11 @@
     background-position: .375rem 50%,100% 0;
     background-size: .9375rem,1.625rem;
 
+}
+
+.navbar-dark .nav-link {
+    --bs-nav-link-color: #fff;
+    & .active {
+        color: #ff7900;
+    }
 }

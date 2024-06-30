@@ -164,7 +164,7 @@ $dropdown-link-active-bg:           $component-active-bg;  // default
 // Navbar
 $navbar-height:                    35px;
 $navbar-light-color:             $gray-500;
-$navbar-light-bg:                #ffffff;
+$tiki-navbar-light-bg:                #ffffff;
 $navbar-light-border:            transparent;
 
 // Navbarlinks - Variable names updated for Bootstrap 5 ("-link" removed)
@@ -175,12 +175,12 @@ $navbar-light-toggle-icon-bar-bg:        #cccccc;
 $navbar-light-brand-color:          $navbar-light-active-color;  // default
 $navbar-light-brand-hover-color:    $navbar-light-active-color;  // default
 
-$navbar-dark-bg: #222;
+$tiki-navbar-dark-bg:                    #222;
 $navbar-dark-color:                 #ffffff;
 $navbar-dark-hover-color:           $gray-300;
-$navbar-dark-hover-bg:              darken($navbar-dark-bg, 6.5%);
+$navbar-dark-hover-bg:              darken($tiki-navbar-dark-bg, 6.5%);
 $navbar-dark-active-color:          #ffffff;
-$navbar-dark-active-bg:            darken($navbar-dark-bg, 6.5%);
+$navbar-dark-active-bg:            darken($tiki-navbar-dark-bg, 6.5%);
 $navbar-dark-brand-color:           $navbar-dark-active-color;  // default
 $navbar-dark-brand-hover-color:     $navbar-dark-active-color;  // default
 
