@@ -37,6 +37,9 @@ $("#switchbox-{{$module_logo_instance}} .submit").on("click", function () {
         return false;
     }
 });
+$('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', function(event) {
+    event.stopPropagation();
+});
 {/jq}
 {if !isset($tpl_module_title)}{* Left for performance, since tiki-login_scr.php includes this template directly. *}
     {assign var=tpl_module_title value="{tr}Log in{/tr}"}
