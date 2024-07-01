@@ -1483,8 +1483,6 @@ class Services_Tracker_Controller
             'save_return' => $input->save_return->alpha() ?? 'n',
             'can_remove' => $itemObject->canRemove(),
             'skipRefresh' => $input->skipRefresh->bool(),
-            'save_return' => $input->save_return->alpha() ?? 'n',
-            'can_remove' => $itemObject->canRemove(),
         ];
     }
 
