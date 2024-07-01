@@ -1615,12 +1615,12 @@ class WikiLib extends TikiLib
         return $prefs['wikiHomePage'];
     }
 
-    public function sefurl($page, $with_next = '', $all_langs = '')
+    public function sefurl($requestedPageName, $with_next = '', $all_langs = '')
     {
         global $prefs, $info;
         $smarty = TikiLib::lib('smarty');
-        $script_name = 'tiki-index.php';
-        $script_name2 = 'tiki-editpage.php';
+        $view_script = 'tiki-index.php';
+        $edit_script = 'tiki-editpage.php';
 
         if ($prefs['feature_multilingual_one_page'] == 'y') {
             //  if ( basename($_SERVER['PHP_SELF']) == 'tiki-all_languages.php' ) {
@@ -1628,22 +1628,21 @@ class WikiLib extends TikiLib
             //  }
 
             if ($all_langs == 'y') {
-                $script_name = 'tiki-all_languages.php';
+                $view_script = 'tiki-all_languages.php';
             }
         }
 
-        $pages = TikiDb::get()->table('tiki_pages');
-        if (TikiLib::lib('tiki')->page_exists($page)) {
-            $page = $pages->fetchOne('pageSlug', ['pageName' => $page]) ?: $page;
-            $href = "$script_name?page=" . $page;
-        } elseif ($this->get_pages_by_alias($page)) {
-            $result = $this->get_pages_by_alias($page);
-            if (isset($result[0])) {
-                $page = $result[0];
-                $href = "$script_name?page=" . $page;
+        $tiki_pages = TikiDb::get()->table('tiki_pages');
+        if (! TikiLib::lib('tiki')->page_exists($requestedPageName)) {
+            $canonical_page = $this->get_pages_by_alias($requestedPageName)[0];
+            if ($canonical_page) {
+                $finalPageName = $tiki_pages->fetchOne('pageSlug', ['pageName' => $canonical_page]);
+                $href = "$view_script?page=" . $finalPageName;
+            } else {
+                $href = "$edit_script?page=" . $requestedPageName;
             }
         } else {
-            $href = "$script_name2?page=" . $page;
+            $href = "$view_script?page=" . $requestedPageName;
         }
 
         if (isset($prefs['feature_wiki_use_date_links']) && $prefs['feature_wiki_use_date_links'] == 'y') {
