@@ -306,35 +306,5 @@ label a:hover { text-decoration: none; }
   margin-right: 1px;
 }
 
-#footer {
-  background: #000000;
-  color: $footer-color; // #696969;
-  padding: 1px 0 2px 0;
-}
 
-.footer {
-  border-top: 1px solid $footer-border-color; //#ebdc14;
-  border-bottom: 1px solid $footer-border-color; // #ebdc14;
-}
-
-.footer_liner {
-    .card,
-    .card-header {
-        border: none;
-    }
-
-    h3.card-header {
-        color: #ffffff;
-        border-bottom: 1px dotted $footer-border-color;
-    }
-
-    //#ebdc14;
-    legend,
-    a,
-    a:visited {
-        color: $footer-link-color;
-    }
-
-    // #a9a9a9;
-}
 

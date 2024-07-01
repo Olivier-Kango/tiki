@@ -146,6 +146,12 @@ $bg-dark-link-hover-bg: #003c4a;
 
 $topbar-link-color: #000;
 
+ // Navbar
+ $navbar-dark-color:                 rgba($white, .85); // !default;
+ $navbar-dark-hover-color:           rgba($white, .75) !default;
+ $navbar-dark-active-color:          $white !default;
+ $navbar-dark-disabled-color:        rgba($white, .25) !default;
+
 // Typography
 $hr-color: #e77d4f;
 $text-muted:  var(--#{$prefix}secondary-color);  // default // Deprecated in 5.3.0 -- #6B737B;
@@ -168,6 +174,8 @@ $input-border-bottom-color: #fbf1ed;
 $input-border-left-color: #fac5b1;
 
 // Form validation
+
+
 
 // Dropdowns
 $dropdown-bg: #c44a23;
@@ -204,10 +212,10 @@ $pagination-disabled-border-color: #dddddd;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
-$top-bg: #F09C00; // #a53723;
-$top-color: #3C3106;
-$top-link-color: #3C3106;
-$top-link-hover-color: lighten(#3C3106,10%);
+$tiki-top-bg: #F09C00; // #a53723;
+$tiki-top-color: #3C3106;
+$tiki-top-link-color: #3C3106;
+$tiki-top-link-hover-color: lighten(#3C3106,10%);
 
 $topbar-bg: #FFA500; // #CA4C12;
 
@@ -215,21 +223,21 @@ $topbar-link-color: #fff;
 $topbar-link-hover-color: #f9f9f9;
 //$topbar-bg: #063035;
 
-$top-dark-bg: #f7b512; //#f09c00;
-$top-dark-color: #3C3106;
-$topbar-dark-bg: #ea8a0b; //#ffa500; // $topbar-light-bg;
-$topbar-dark-color: #1f1f1f;
+$tiki-top-dark-bg: #f7b512; //#f09c00;
+$tiki-top-dark-color: #3C3106;
+$tiki-topbar-dark-bg: #ea8a0b; //#ffa500; // $tiki-topbar-light-bg;
+$tiki-topbar-dark-color: #1f1f1f;
 
-$top-light-bg: $top-dark-bg; // #a52874;
-$top-light-color: $top-dark-color; // #fff;
-$topbar-light-bg: $topbar-dark-bg;  // #551e3d;
-$topbar-light-color: $topbar-dark-color; //#fff;
+$tiki-top-light-bg: $tiki-top-dark-bg; // #a52874;
+$tiki-top-light-color: $tiki-top-dark-color; // #fff;
+$tiki-topbar-light-bg: $tiki-topbar-dark-bg;  // #551e3d;
+$tiki-topbar-light-color: $tiki-topbar-dark-color; //#fff;
 
-$navbar-light-link-color: $top-light-color;
+$tiki-navbar-light-link-color: $tiki-top-light-color;
 $navbar-light-link-hover-color: #f2f2f2;
 $navbar-light-link-hover-bg: #003c4a;
 
-$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-color: $tiki-top-light-color;
 $navbar-dark-link-hover-color: #f2f2f2;
 $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 //$navbar-light-link-hover-bg: #003c4a;
@@ -247,7 +255,8 @@ $footer_liner-card-inner-border: #ebdc14;
 
 $footer-accent-color: #ebdc14;
 $footer-btn-secondary-color: #f4f4f4;
-$footer_liner-border-color: $footer-accent-color;
+$footer-border-color: $footer-accent-color;
+$footer-link-color: #fff;
 
 //$autotoc-nav-bg: #e77d4f;
 //$autotoc-color: #ffffff;
