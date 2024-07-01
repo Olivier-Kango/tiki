@@ -45,9 +45,6 @@
                 {if $save_return eq 'y'}
                     <input type="submit" class="btn btn-primary" name="save_return" value="{tr}Save Returning to Item List{/tr}" onclick="$('input[name=redirect]').val('{$trackerId|sefurl:'tracker'}'); needToConfirm=false">
                 {/if}
-                {if $save_return eq 'y'}
-                    <input type="submit" class="btn btn-primary" name="save_return" value="{tr}Save Returning to Item List{/tr}" onclick="needToConfirm=false">
-                {/if}
                 <input type="hidden" name="itemId" value="{$itemId|escape}">
                 <input type="hidden" name="trackerId" value="{$trackerId|escape}">
                 {foreach from=$forced key=permName item=value}
@@ -57,9 +54,9 @@
                 <input type="hidden" name="conflictoverride" value="{$conflictoverride|escape}">
                 <input type="hidden" name="skipRefresh" value="{$skipRefresh|escape}">
                 <input type="submit" class="btn btn-primary" value="{$button_label}" onclick="needToConfirm=false;">
-                {if $can_remove}
+                {if $can_remove and $prefs.tracker_legacy_insert eq 'y'}
                     <a class="btn btn-danger" href="tiki-view_tracker.php?trackerId={$trackerId|escape}&amp;remove={$itemId|escape}" title="Delete">
-                        {icon name='delete'}
+                        {tr}Delete{/tr}
                     </a>
                 {/if}
             </div>
