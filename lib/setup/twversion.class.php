@@ -398,6 +398,7 @@ class TWVersion
                 '27.0alpha',
                 '27.0beta',
                 '27.0RC1',
+                '27.0',
             ];
     }
 
