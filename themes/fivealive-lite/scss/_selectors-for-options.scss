@@ -5,8 +5,8 @@ $imagePath: "../images/";
 // body {
 //    background-image: url('#{$imagePath}bg.jpg');
 
-$blog-post-title-color: $top-color;
-$post-card-header-bg: $top-bg;
+$blog-post-title-color: $tiki-top-color;
+$post-card-header-bg: $tiki-top-bg;
 
 // This is reduced from the amount in tiki_base.css - maybe that needs to be changed, too.
 body.layout_social.tiki.navbar-padding {
@@ -20,7 +20,7 @@ body.layout_social.tiki.navbar-padding {
     h3 a,
     a,
     a:hover {
-        color: $top-link-color; // #f8f8f8; //#101010;
+        color: $tiki-top-link-color; // #f8f8f8; //#101010;
         font-weight: bold;
         text-decoration: none;
         text-transform: uppercase;
@@ -34,9 +34,9 @@ body.layout_social.tiki.navbar-padding {
 }
 
 //.middle_outer {
-//    -webkit-box-shadow: inset 0 28px 0 0 $topbar-dark-bg;
-//    -moz-box-shadow: inset 0 28px 0 0 $topbar-dark-bg;
-//    box-shadow: inset 0 28px 0 0 $topbar-dark-bg;
+//    -webkit-box-shadow: inset 0 28px 0 0 $tiki-topbar-dark-bg;
+//    -moz-box-shadow: inset 0 28px 0 0 $tiki-topbar-dark-bg;
+//    box-shadow: inset 0 28px 0 0 $tiki-topbar-dark-bg;
 //}
 //
 //.fullscreen .middle_outer {
@@ -66,10 +66,10 @@ body.layout_social.tiki.navbar-padding {
 //}
 
 .postbody-title {
-    background: $top-bg !important;
-    color: $top-color;
-    a { color: $top-link-color; }
-    a:hover { color: $top-link-hover-color; }
+    background: $tiki-top-bg !important;
+    color: $tiki-top-color;
+    a { color: $tiki-top-link-color; }
+    a:hover { color: $tiki-top-link-hover-color; }
 }
 
 .btn-outline-dark {
@@ -245,32 +245,32 @@ textarea,
 //}
 
 
-#footer {
-    background: black;
-    color: #f4f4f4;
-    padding: 1px 0 2px 0;
-}
+//#footer {
+//    background: black;
+//    color: #f4f4f4;
+//    padding: 1px 0 2px 0;
+//}
 
-.footer {
-    border-top: 1px solid $footer-accent-color; //#19a5be;
-    border-bottom: 1px solid $footer-accent-color; //#19a5be;
-}
+//.footer {
+//    border-top: 1px solid $footer-accent-color; //#19a5be;
+//    border-bottom: 1px solid $footer-accent-color; //#19a5be;
+//}
 
-.footer_liner {
-    .card {
-        background-color: transparent;
-        border: none;
-    }
-    .card-header {
-        color: #ffffff;
-        border-bottom: 1px dotted $footer-accent-color; //#19a5be;
-    }
-    legend,
-    a:not(.btn),
-    a:not(.btn):visited {
-        color: #a9a9a9; //$footer-accent-color; //#19a5be;
-    }
-}
+//.footer_liner {
+//    .card {
+//        background-color: transparent;
+//        border: none;
+//    }
+//    .card-header {
+//        color: #ffffff;
+//        border-bottom: 1px dotted $footer-accent-color; //#19a5be;
+//    }
+//    legend,
+//    a:not(.btn),
+//    a:not(.btn):visited {
+//        color: #a9a9a9; //$footer-accent-color; //#19a5be;
+//    }
+//}
 
 
 .nav-tabs .nav-link {
@@ -354,8 +354,8 @@ a.flipmoduletitle,
 
 footer#footer {
     .footer_liner {
-        border-top: 1px solid $footer_liner-border-color;
-        border-bottom: 1px solid $footer_liner-border-color;
+        border-top: 1px solid $footer-border-color;
+        border-bottom: 1px solid $footer-border-color;
         .card-header {
             border-bottom: 1px dotted $footer_liner-card-inner-border;
         }
@@ -371,4 +371,50 @@ footer#footer {
 .page-item.disabled,
 .list-group-item.disabled {
     color: $text-muted !important;
+}
+
+@scope (.tiki .main-footer) to (.navbar-dark,.navbar-light) {
+    .footer_liner {
+        background: #000000;
+        color: #fff; // $footer-color; // #696969;
+    }
+    a,
+    a:visited,
+    .dropdown-item {
+        color: $footer-link-color !important;
+    }
+    .btn-link {
+        color: $footer-link-color;
+    }
+}
+
+.tiki .main-footer {
+    padding: 1px 0 2px 0;
+    border-top: 1px solid $footer-border-color; //#ebdc14;
+    border-bottom: 1px solid $footer-border-color; // #ebdc14;
+    .card-title {
+        color: #fff;
+    }
+    legend {
+        color: $footer-link-color;
+    }
+    .card {
+        background-color: transparent;
+        border: none;
+        --bs-card-title-color: #fff;
+        --bs-card-color: #fff;
+    }
+}
+
+
+.footer_liner {
+    .card,
+    .card-header {
+        border: none;
+    }
+
+    h3.card-header {
+        color: #ffffff;
+        border-bottom: 1px dotted $footer-border-color;
+    }
 }

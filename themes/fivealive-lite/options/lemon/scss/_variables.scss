@@ -136,10 +136,20 @@ $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #b25025; // same as $dropdown-link-hover-bg;
 
 // Navbars
-$top-bg: #e4af00;
-$top-color: #000;
-$top-link-color: #000;
-$top-link-hover-color: #5c5c5c;
+$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+$navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
+$navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
+
+$navbar-dark-color:                 rgba($white, .85);
+$navbar-dark-hover-color:           rgba($white, .75) !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-disabled-color:        rgba($white, .25) !default;
+
+$tiki-top-bg: #e4af00;
+$tiki-top-color: #000;
+$tiki-top-link-color: #000;
+$tiki-top-link-hover-color: #5c5c5c;
 
 $topbar-bg: #cb9e10;
 $bg-dark-info: #fff;
@@ -215,27 +225,27 @@ $code-color:                        $body-color; // $pink; default
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
 // Aug 18 2022 start
-$top-bg: #cb9e10; // Used for $post-card-header-bg and .postbody-title
-$top-color: #413B06;
-$top-link-color: #413B06;
-$top-link-hover-color: lighten($top-link-color,10%);
+$tiki-top-bg: #cb9e10; // Used for $post-card-header-bg and .postbody-title
+$tiki-top-color: #413B06;
+$tiki-top-link-color: #413B06;
+$tiki-top-link-hover-color: lighten($tiki-top-link-color,10%);
 //$topbar-bg: #063035;
 
-$top-dark-bg: #e4af00;
-$top-dark-color: #413B06;
-$topbar-dark-bg: #cb9e10; // $topbar-light-bg;
-$topbar-dark-color: #000;
+$tiki-top-dark-bg: #e4af00;
+$tiki-top-dark-color: #413B06;
+$tiki-topbar-dark-bg: #cb9e10; // $tiki-topbar-light-bg;
+$tiki-topbar-dark-color: #000;
 
-$top-light-bg: $top-dark-bg;
-$top-light-color: $top-dark-color;
-$topbar-light-bg: $topbar-dark-bg;
-$topbar-light-color: $topbar-dark-color;
+$tiki-top-light-bg: $tiki-top-dark-bg;
+$tiki-top-light-color: $tiki-top-dark-color;
+$tiki-topbar-light-bg: $tiki-topbar-dark-bg;
+$tiki-topbar-light-color: $tiki-topbar-dark-color;
 
-$navbar-light-link-color: $top-light-color;
+$tiki-navbar-light-link-color: $tiki-top-light-color;
 $navbar-light-link-hover-color: #f2f2f2;
 $navbar-light-link-hover-bg: #003c4a;
 
-$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-color: $tiki-top-light-color;
 $navbar-dark-link-hover-color: #f2f2f2;
 $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 //$navbar-light-link-hover-bg: #003c4a;
@@ -250,7 +260,8 @@ $footer_liner-card-inner-border: #ffc506;
 
 $footer-accent-color: #ffc506;
 $footer-btn-secondary-color: #f4f4f4;
-$footer_liner-border-color: $footer-accent-color;
+$footer-border-color: $footer-accent-color;
+$footer-link-color: #fff;
 
 //$autotoc-nav-bg: #c75a29;
 //$autotoc-color: #ffffff;
@@ -281,32 +292,32 @@ $btn-link-disabled-color:     $gray-600;  // default
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 @mixin top-nav-light {
     --tiki-top-bg: #E7E6AD;
-    --tiki-top-color: #{$top-link-color};
-    --tiki-top-hover-color: #{$top-link-hover-color};
-    --tiki-top-text-color: #{$top-link-hover-color};
+    --tiki-top-color: #{$tiki-top-link-color};
+    --tiki-top-hover-color: #{$tiki-top-link-hover-color};
+    --tiki-top-text-color: #{$tiki-top-link-hover-color};
     --tiki-top-border: solid #000;
 }
 
 @mixin topbar-nav-light {
     --tiki-topbar-bg: #f0e04f;
-    --tiki-topbar-color: #{$top-light-color}; // #{$topbar-light-color};
-    --tiki-topbar-hover-color: #{$top-link-hover-color};
-    --tiki-topbar-text-color: #{$top-link-hover-color};
+    --tiki-topbar-color: #{$tiki-top-light-color}; // #{$tiki-topbar-light-color};
+    --tiki-topbar-hover-color: #{$tiki-top-link-hover-color};
+    --tiki-topbar-text-color: #{$tiki-top-link-hover-color};
 }
 
 @mixin top-nav-dark {
     --tiki-top-bg: #E7E6AD;
     --tiki-top-color: #000; // {$navbar-dark-link-color};
-    --tiki-top-hover-color: #{$top-link-hover-color};
-    --tiki-top-text-color: #{$top-link-hover-color};
+    --tiki-top-hover-color: #{$tiki-top-link-hover-color};
+    --tiki-top-text-color: #{$tiki-top-link-hover-color};
     --tiki-top-border: solid #000;
 }
 
 @mixin topbar-nav-dark {
     --tiki-topbar-bg:  #f0e04f;
     --tiki-topbar-color: #000; //#{$navbar-dark-link-color};
-    --tiki-topbar-hover-color: #{$top-link-hover-color};
-    --tiki-topbar-text-color: #{$top-link-hover-color};
+    --tiki-topbar-hover-color: #{$tiki-top-link-hover-color};
+    --tiki-topbar-text-color: #{$tiki-top-link-hover-color};
 }
 
 .tiki-top-nav-light {
@@ -354,8 +365,8 @@ $btn-link-disabled-color:     $gray-600;  // default
 // Light navbar minus top nav
 @mixin admin-nav-light {
     --tiki-admin-top-nav-bg: #E7E6AD;
-    --tiki-admin-top-nav-color: #{$top-link-color};
-    --tiki-admin-top-nav-hover-color: #{$top-link-hover-color};
+    --tiki-admin-top-nav-color: #{$tiki-top-link-color};
+    --tiki-admin-top-nav-hover-color: #{$tiki-top-link-hover-color};
     --tiki-admin-top-nav-hover-bg: none ;
     --tiki-admin-aside-nav-bg: #E7E6AD;
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
@@ -370,7 +381,7 @@ $btn-link-disabled-color:     $gray-600;  // default
 @mixin admin-nav-dark {
     --tiki-admin-top-nav-bg: #E7E6AD;
     --tiki-admin-top-nav-color: #000;
-    --tiki-admin-top-nav-hover-color: #{$top-link-hover-color};
+    --tiki-admin-top-nav-hover-color: #{$tiki-top-link-hover-color};
     --tiki-admin-top-nav-hover-bg: none;
     --tiki-admin-aside-nav-bg: #E7E6AD;
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);

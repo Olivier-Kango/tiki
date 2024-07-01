@@ -139,14 +139,18 @@ $nav-tabs-link-active-color: #fff;
 $nav-tabs-link-active-bg: #a61a32; // Same as $dropdown-link-hover-bg;
 
 // Navbar
+$navbar-dark-color:                 rgba($white, .85); // !default;
+$navbar-dark-hover-color:           rgba($white, .75) !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-disabled-color:        rgba($white, .25) !default;
 
 $bg-dark-link-hover-color: #f2f2f2;
 $bg-dark-link-hover-bg: #003c4a;
 
-$top-bg: #C63A4F; // #a51e37;
-$top-color: #fff;
-$top-link-color: #fff;
-$top-link-hover-color: #f9f9f9;
+$tiki-top-bg: #C63A4F; // #a51e37;
+$tiki-top-color: #fff;
+$tiki-top-link-color: #fff;
+$tiki-top-link-hover-color: #f9f9f9;
 $topbar-bg: #7a3030; // #527A30; // #13850b;
 $topbar-link-color: #fff;
 $bg-dark-info: #f2f2f2;
@@ -211,31 +215,34 @@ $code-color:                       $body-color; //  $pink;  // default
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
 // Aug 18 2022 start
-$top-bg: #49006c; // Used for $post-card-header-bg and .postbody-title
-$top-color: #fff;
-$top-link-color: #fff;
-$top-link-hover-color: #f9f9f9;
+$tiki-top-bg: #49006c; // Used for $post-card-header-bg and .postbody-title
+$tiki-top-color: #fff;
+$tiki-top-link-color: #fff;
+$tiki-top-link-hover-color: #f9f9f9;
 //$topbar-bg: #063035;
 
-$top-dark-bg: #E72326; // #c63a45;
-$top-dark-color: #fff;
-$topbar-dark-bg: #3c4822; //#7a3030; // $topbar-light-bg;
-$topbar-dark-color: #fff;
+$tiki-top-dark-bg: #E72326; // #c63a45;
+$tiki-top-dark-color: #fff;
+$tiki-topbar-dark-bg: #3c4822; //#7a3030; // $tiki-topbar-light-bg;
+$tiki-topbar-dark-color: #fff;
 
-$top-light-bg: $top-dark-bg; // #a52874;
-$top-light-color: $top-dark-color; // #fff;
-$topbar-light-bg: $topbar-dark-bg;  // #551e3d;
-$topbar-light-color: $topbar-dark-color; //#fff;
+$tiki-top-light-bg: $tiki-top-dark-bg; // #a52874;
+$tiki-top-light-color: $tiki-top-dark-color; // #fff;
+$tiki-topbar-light-bg: $tiki-topbar-dark-bg;  // #551e3d;
+$tiki-topbar-light-color: $tiki-topbar-dark-color; //#fff;
 
-$navbar-light-link-color: $top-light-color;
+$tiki-navbar-light-link-color: $tiki-top-light-color;
 $navbar-light-link-hover-color: #f2f2f2;
 $navbar-light-link-hover-bg: #003c4a;
 
-$navbar-dark-link-color: $top-light-color;
+$navbar-dark-link-color: $tiki-top-light-color;
 $navbar-dark-link-hover-color: #f2f2f2;
 $navbar-dark-link-hover-color: $navbar-light-link-hover-color;
 //$navbar-light-link-hover-bg: #003c4a;
 // Aug 18 2022 revamp end
+
+$navbar-light-color:               $tiki-navbar-light-link-color; // rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-dark-color:                 rgba($white, .85); // !default;
 
 // Dropdowns
 $dropdown-dark-link-hover-bg:       rgba($white, .15);  // default
@@ -247,7 +254,8 @@ $footer_liner-card-inner-border: #b51360;
 
 $footer-accent-color: #b51360;
 $footer-btn-secondary-color: #f4f4f4;
-$footer_liner-border-color: $footer-accent-color;
+$footer-border-color: $footer-accent-color;
+$footer-link-color: #fff;
 
 //$autotoc-nav-bg: #771437;
 //$autotoc-color: #ffffff;
@@ -276,22 +284,22 @@ $btn-focus-width:             $input-btn-focus-width;  // default
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 @mixin top-nav-light {
-    --tiki-top-bg: #{$top-light-bg} !important;
-    --tiki-top-color: #{$top-link-color};
-    --tiki-top-hover-color: #{$top-link-hover-color};
-    --tiki-top-text-color: #{$top-link-hover-color};
+    --tiki-top-bg: #{$tiki-top-light-bg} !important;
+    --tiki-top-color: #{$tiki-top-link-color};
+    --tiki-top-hover-color: #{$tiki-top-link-hover-color};
+    --tiki-top-text-color: #{$tiki-top-link-hover-color};
     --tiki-top-border: solid #000;
 }
 
 @mixin topbar-nav-light {
-    --tiki-topbar-bg: #{$topbar-light-bg};
-    --tiki-topbar-color: #{$top-light-color};
+    --tiki-topbar-bg: #{$tiki-topbar-light-bg};
+    --tiki-topbar-color: #{$tiki-top-light-color};
     --tiki-topbar-hover-color: #{$navbar-light-link-hover-color};
     --tiki-topbar-text-color: #{$navbar-light-link-hover-color};
 }
 
 @mixin top-nav-dark {
-    --tiki-top-bg: #{$top-dark-bg} !important;
+    --tiki-top-bg: #{$tiki-top-dark-bg} !important;
     --tiki-top-color: #{$navbar-dark-link-color};
     --tiki-top-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-top-text-color: #{$navbar-dark-link-hover-color};
@@ -299,7 +307,7 @@ $btn-focus-width:             $input-btn-focus-width;  // default
 }
 
 @mixin topbar-nav-dark {
-    --tiki-topbar-bg: #{$topbar-dark-bg};
+    --tiki-topbar-bg: #{$tiki-topbar-dark-bg};
     --tiki-topbar-color: #{$navbar-dark-link-color};
     --tiki-topbar-hover-color: #{$navbar-dark-link-hover-color};
     --tiki-topbar-text-color: #{$navbar-dark-link-hover-color};
@@ -349,15 +357,15 @@ $btn-focus-width:             $input-btn-focus-width;  // default
 
 // Light navbar minus top nav
 @mixin admin-nav-light {
-    --tiki-admin-top-nav-bg: #{$top-light-bg};
-    --tiki-admin-top-nav-color: #{$top-link-color};
-    --tiki-admin-top-nav-hover-color: #{$top-link-hover-color};
+    --tiki-admin-top-nav-bg: #{$tiki-top-light-bg};
+    --tiki-admin-top-nav-color: #{$tiki-top-link-color};
+    --tiki-admin-top-nav-hover-color: #{$tiki-top-link-hover-color};
     --tiki-admin-top-nav-hover-bg: none ;
-    --tiki-admin-aside-nav-bg: #{$top-light-bg};
+    --tiki-admin-aside-nav-bg: #{$tiki-top-light-bg};
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-bg: #{$dropdown-bg};
-    --tiki-admin-dropdown-link-color: #{$top-link-color};
+    --tiki-admin-dropdown-link-color: #{$tiki-top-link-color};
     --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
     --tiki-admin-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
     .accordion-button::after {
@@ -367,11 +375,11 @@ $btn-focus-width:             $input-btn-focus-width;  // default
 
 // Dark navbar minus top nav
 @mixin admin-nav-dark {
-    --tiki-admin-top-nav-bg: #{$top-dark-bg};
+    --tiki-admin-top-nav-bg: #{$tiki-top-dark-bg};
    --tiki-admin-top-nav-color: #{$navbar-dark-link-color};
     --tiki-admin-top-nav-hover-color: #{$navbar-dark-link-hover-color};
 //    --tiki-admin-top-nav-hover-bg: #{$navbar-dark-hover-color};
-    --tiki-admin-aside-nav-bg: #{$top-dark-bg};
+    --tiki-admin-aside-nav-bg: #{$tiki-top-dark-bg};
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-link-color: #{$navbar-dark-link-color};
@@ -417,8 +425,8 @@ $btn-focus-width:             $input-btn-focus-width;  // default
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
 
 .accordion {
-    --bs-accordion-active-bg: #{$topbar-light-bg};
+    --bs-accordion-active-bg: #{$tiki-topbar-light-bg};
     --bs-accordion-active-color: #fff;
-    --bs-accordion-btn-bg: #{$top-light-bg};
+    --bs-accordion-btn-bg: #{$tiki-top-light-bg};
     --bs-accordion-btn-color: #fff;
 }

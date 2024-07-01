@@ -205,13 +205,18 @@ $bg-dark: #28aae1 !default;
 
 //$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
 
-// Navbarlinks ??
-$navbar-dark-color: #ffffff !default;
-$navbar-dark-hover-color: #f9f9f9 !default;
-$navbar-dark-hover-bg: darken($primary, 6.5%) !default;
-$navbar-dark-active-color: #ffffff !default;
-$navbar-dark-active-bg: darken($primary, 6.5%) !default;
-$navbar-dark-disabled-color: #cccccc !default;
+// Navbar
+$navbar-dark-color:                 rgba($white, .85); // !default;
+$navbar-dark-hover-color:           rgba($white, .75) !default;
+$navbar-dark-active-color:          $white !default;
+$navbar-dark-disabled-color:        rgba($white, .25) !default;
+
+//$navbar-dark-color: #ffffff !default;
+//$navbar-dark-hover-color: #f9f9f9 !default;
+//$navbar-dark-hover-bg: darken($primary, 6.5%) !default;
+//$navbar-dark-active-color: #ffffff !default;
+//$navbar-dark-active-bg: darken($primary, 6.5%) !default;
+//$navbar-dark-disabled-color: #cccccc !default;
 
 // Dropdowns
 $dropdown-color:                    var(--#{$prefix}body-color) !default;
