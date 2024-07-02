@@ -8,7 +8,7 @@ Example wiki syntax
   {filter type="trackeritem"}
   {filter field="tracker_id" exact="1"}
   {OUTPUT(template="templates/examples/search/rss.tpl")}
-    {settings title="test rss" description="from plugin list" link="http://example.com" pubDate="{{lastModif}}"}
+    {settings title="test rss" description="from plugin list" link="https://example.com" pubDate="{{lastModif}}"}
     {item label="title" field="title"}
     {item label="description" field="productsDescription"}
     {item label="pubDate" field="pubDate"}
@@ -16,11 +16,16 @@ Example wiki syntax
     {item label="link" field="guid"}
 {OUTPUT}
   {FORMAT(name="pubDate")}{display name="date" format="datetime" dateFormat="%c"}{FORMAT}
-  {FORMAT(name="guid")}http://example.com/product-{display  name="object_id"}{FORMAT}
+  {FORMAT(name="guid")}https://example.com/product-{display  name="object_id"}{FORMAT}
   {FORMAT(name="productsDescription")}{display name="tracker_field_productsDescription" format="trackerrender"}
 {display name="wikiplugin_img" format="wikiplugin" fileId="tracker_field_productsImages" max="200" lazyLoad="n" responsive="n" default="fileId=42"}
 {FORMAT}
 {LIST}
+
+Use like this (assuming your site is example.com and the page name is rss-test)
+
+    https://example.com/tiki-index_raw.php?textonly&clean&xml&page=rss-test
+
 *}{strip}
     {if not empty($column.field)}
         {$column = [$column]}{* if there is only one column then it will not be in an array *}
@@ -50,27 +55,12 @@ Example wiki syntax
 {/foreach}
 {foreach $results as $row}
     {$tab}{$lt}item{$gt}{$br}
-    {$socials = ''}
     {foreach $item as $it}
         {if !empty($row[$it.field])}{strip}
             {$value = $row[$it.field]|nonp}
-            {if $it.label eq 'socials'}
-                {$socs = ','|explode:$value}
-                {foreach $socs as $soc}
-                    {if strpos($soc, '@none') === false}
-                        {if strpos($soc, '://') !== false}
-                            {$soc = $soc|replace:'@':''}
-                        {/if}
-                        {if $socials}{$socials = $socials|cat:', '}{/if}
-                        {$socials = $socials|cat:$soc}
-                    {/if}
-                {/foreach}
-                {if $socials}{$socials = "<br>\n"|cat:$socials|cat:"<br>\n"}{/if}
-                {continue}
-            {elseif $it.label eq 'description'}
+            {if $it.label eq 'description'}
                 {$value = "<![CDATA[`$value`]]>"}
                 {$value = $value|replace:"\n":''|replace:"\r":''}
-                {$value = $value|replace:"%socials%":$socials}
             {/if}
             {$tab}{$tab}{$lt}{$it.label|escape}{$gt}{$value|escape}{$lt}/{$it.label|escape}{$gt}
         {/strip}{$br}
