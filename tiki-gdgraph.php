@@ -14,6 +14,12 @@ require_once('lib/graph-engine/graph.bar.php');
 
 $access->check_feature('wikiplugin_gdgraph');
 
+if (! isset($_REQUEST['type'])) {
+    $smarty->assign('msg', tra("No type indicated"));
+    $smarty->display("error.tpl");
+    die;
+}
+
 //Decode the passed array
 $strencxy2 = $_GET['usexydata'];
 $dataxy = json_decode(urldecode($strencxy2));
