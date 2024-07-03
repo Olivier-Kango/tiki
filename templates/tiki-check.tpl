@@ -294,23 +294,25 @@
 </thead>
         <tbody>
             {foreach from=$dirs item=d key=k}
-                <tr>
-                    <th class="text">Directory: {$d|escape}</th>
-                    <td data-th="{tr}Fitness:{/tr}" class="text">&nbsp;
-                        {if $dirsWritable[$k]}
-                            {icon name='ok' iclass='text-success'}
-                        {else}
-                            {icon name='remove' iclass='text-danger'}
-                        {/if}
-                    </td>
-                    <td data-th="{tr}Explanation:{/tr} " >
-                        {if $dirsWritable[$k]}
-                            {tr}Directory is writeable{/tr}.
-                        {else}
-                            {tr}Directory is not writeable!{/tr}
-                        {/if}
-                    </td>
-                </tr>
+                {if $useDatabase[$k] !== 'y'}
+                    <tr>
+                        <th class="text">Directory: {$d|escape}</th>
+                        <td data-th="{tr}Fitness:{/tr}" class="text">&nbsp;
+                            {if $dirsWritable[$k]}
+                                {icon name='ok' iclass='text-success'}
+                            {else}
+                                {icon name='remove' iclass='text-danger'}
+                            {/if}
+                        </td>
+                        <td data-th="{tr}Explanation:{/tr} " >
+                            {if $dirsWritable[$k]}
+                                {tr}Directory is writeable{/tr}.
+                            {else}
+                                {tr}Directory is not writeable!{/tr}
+                            {/if}
+                        </td>
+                    </tr>
+                {/if}
             {/foreach}
              </tbody>
         </table>

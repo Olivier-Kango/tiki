@@ -2791,6 +2791,7 @@ if ($standalone || (! empty($prefs) && $prefs['fgal_enable_auto_indexing'] === '
 
 if (! $standalone) {
     // The following is borrowed from tiki-admin_system.php
+    $useDadabase = array();
     if ($prefs['feature_forums'] == 'y') {
         $dirs = TikiLib::lib('comments')->list_directories_to_save();
     } else {
@@ -2798,22 +2799,29 @@ if (! $standalone) {
     }
     if ($prefs['feature_file_galleries'] == 'y' && ! empty($prefs['fgal_use_dir'])) {
         $dirs[] = $prefs['fgal_use_dir'];
+        $useDatabase[] = $prefs['fgal_use_db'];
     }
     if ($prefs['feature_trackers'] == 'y') {
         if (! empty($prefs['t_use_dir'])) {
             $dirs[] = $prefs['t_use_dir'];
+            $useDatabase[] = $prefs['t_use_db'];
         }
         $dirs[] = TRACKER_FIELD_IMAGE_STORAGE_PATH;
+        $useDatabase[] = ''; //add this to make the array dirs and useDatabase to have the same lenght
     }
     if ($prefs['feature_wiki'] == 'y') {
         if (! empty($prefs['w_use_dir'])) {
             $dirs[] = $prefs['w_use_dir'];
+            $useDatabase[] = $prefs['w_use_db'];
         }
         if ($prefs['feature_create_webhelp'] == 'y') {
             $dirs[] = WHELP_PATH;
+            $useDatabase[] = '';
         }
         $dirs[] = DEPRECATED_IMG_WIKI_PATH;
         $dirs[] = DEPRECATED_IMG_WIKI_UP_PATH;
+        $useDatabase[] = ''; //add this to make the array dirs and useDatabase to have the same lenght
+        $useDatabase[] = ''; //add this to make the array dirs and useDatabase to have the same lenght
     }
     $dirs = array_unique($dirs);
     $dirsExist = array();
@@ -2822,7 +2830,7 @@ if (! $standalone) {
     }
     $smarty->assign_by_ref('dirs', $dirs);
     $smarty->assign_by_ref('dirsWritable', $dirsWritable);
-
+    $smarty->assign_by_ref('useDatabase', $useDatabase);
     // Prepare Monitoring acks
     $query = "SELECT `value` FROM tiki_preferences WHERE `name`='tiki_check_status'";
     $result = $tikilib->getOne($query);
