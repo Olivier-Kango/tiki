@@ -8,7 +8,7 @@ class LsAdminlib extends TikiLib
 {
     public function add_operator($user)
     {
-        $this->getOne('delete from `tiki_live_support_operators` where `user`=?', [$user], false);
+        $this->getOne('delete from `tiki_live_support_operators` where `user`=?', [$user], false, -1);
         $query = 'insert into `tiki_live_support_operators`' .
                             ' (`user`,`accepted_requests`,`status`,`longest_chat`,`shortest_chat`' .
                             ',`average_chat`,`last_chat`,`time_online`,`votes`,`points`,`status_since`)' .
