@@ -625,7 +625,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             } else {
                 return parent::renderOutput($context);
             }
-        } elseif ($context['list_mode'] == 'csv' && $item) {
+        } elseif (isset($context['list_mode']) && $context['list_mode'] == 'csv' && $item) {
             if ($label) {
                 return $label;
             } else {
@@ -800,8 +800,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         $fulllabel = '';
 
         foreach ($items as $itemId) {
-            if (! empty($fulllabel)) {
-                $fulllabel .= ', ';
+            if (empty($itemId)) {
+                continue;
             }
 
             $item = $trklib->get_tracker_item($itemId);
@@ -862,6 +862,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             }
 
             if ($label) {
+                if (! empty($fulllabel)) {
+                    $fulllabel .= ', ';
+                }
                 $fulllabel .= $label;
             }
         }

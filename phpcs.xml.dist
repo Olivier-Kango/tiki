@@ -40,6 +40,7 @@
     <exclude-pattern>*/lang/*/language.php</exclude-pattern>
     <exclude-pattern>*/lang/*/language.js</exclude-pattern>
     <exclude-pattern>*/lib/test/language/fixtures/language_*</exclude-pattern>
+    <exclude-pattern>*/public/generated/*</exclude-pattern>
 
     
     <!-- local config files -->
