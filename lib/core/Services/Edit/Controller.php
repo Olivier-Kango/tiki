@@ -303,6 +303,14 @@ $(window).on("load", function(){
         ];
     }
 
+    public function action_editor_settings($input)
+    {
+        return [
+            'title' => tr('Editor Settings'),
+            'domId' => $input->domId->word(),
+        ];
+    }
+
     public function action_inline_dialog($input)
     {
         $smarty = TikiLib::lib('smarty');

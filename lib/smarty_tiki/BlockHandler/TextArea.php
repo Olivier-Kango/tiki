@@ -373,8 +373,6 @@ class TextArea extends Base
         }
         form.trigger("submit");
     }';
-                } elseif ($params['syntax'] === 'tiki' || $params['syntax'] === 'markdown') {
-                    $html .= $smarty->fetch('edit/editor_settings.tpl');
                 }
             }
             if ($tiki_p_admin) {

@@ -13,8 +13,7 @@
                 <div class="modal-body">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{tr}Close{/tr}</button>
-                    <button type="button" class="btn btn-primary">{tr}Save{/tr}</button>
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal">{tr}Close{/tr}</button>
                 </div>
             </div>
         </div>
