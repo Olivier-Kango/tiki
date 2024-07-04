@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tracker\Field\AbstractField;
+
 class Tracker_Item
 {
     public const PERM_NAME_MAX_ALLOWED_SIZE = 50;
@@ -544,6 +547,19 @@ class Tracker_Item
             $handler = $factory->getHandler($field, $this->info);
             return array_merge($field, $handler->getFieldData([]));
         }
+    }
+
+    /**
+     * Get concrete object to manipulate a field of this item
+     */
+    public function getFieldFromPermName($permName): AbstractField
+    {
+        $handler = null;
+        if ($fieldInfo = $this->definition->getFieldFromPermName($permName)) {
+            $factory = $this->definition->getFieldFactory();
+            $handler = $factory->getHandler($fieldInfo, $this->info);
+        }
+        return $handler;
     }
 
     private function prepareFieldId($fieldId)
