@@ -166,6 +166,7 @@ foreach ($remoteItemIds as $remoteItemId) {
 
         case 'e': // category tested
         case 'd': // dropdown
+        case 'D': // dropdown with other
             // array selected_categories etc.
             $valueField = $handler->getFieldData();
             // for some reason, need to apply the values back, oterwise renderOutput does not return a value - bug?
