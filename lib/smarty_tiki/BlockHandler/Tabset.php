@@ -30,7 +30,7 @@ class Tabset extends Base
 {
     public function handle($params, $content, Template $template, &$repeat)
     {
-        global $prefs, $smarty_tabset_name, $smarty_tabset, $smarty_tabset_i_tab, $cookietab, $tabset_index;
+        global $prefs, $smarty_tabset_name, $smarty_tabset, $smarty_tabset_i_tab, $cookietab;
         $smarty = \TikiLib::lib('smarty');
         if ($smarty->getTemplateVars('print_page') == 'y' || $prefs['layout_tabs_optional'] === 'n') {
             $params['toggle'] = 'n';
@@ -40,18 +40,14 @@ class Tabset extends Base
             if (! is_array($smarty_tabset)) {
                 $smarty_tabset = [];
             }
-            $tabset_index = count($smarty_tabset) + 1;
-            $smarty_tabset_name = getTabsetName($params, $tabset_index);
-            $smarty_tabset[$tabset_index] = ['name' => $smarty_tabset_name, 'tabs' => []];
-            if (! isset($smarty_tabset_i_tab)) {
-                $smarty_tabset_i_tab = 1;
-            }
+            $smarty_tabset_name = getTabsetName($params);
+            $smarty_tabset[$smarty_tabset_name] = ['name' => $smarty_tabset_name, 'tabs' => []];
 
-            if (! isset($cookietab) || $tabset_index > 1) {
+            if (! isset($cookietab)) {
                 $cookietab = getCookie($smarty_tabset_name, 'tabs', 1);
             }
             // work out cookie value if there
-            if (isset($_REQUEST['cookietab']) && $tabset_index) {   // overrides cookie if added to request as in tiki-admin.php?page=look&cookietab=6
+            if (isset($_REQUEST['cookietab'])) {   // overrides cookie if added to request as in tiki-admin.php?page=look&cookietab=6
                 $cookietab = empty($_REQUEST['cookietab']) ? 1 : $_REQUEST['cookietab'];
                 setCookieSection($smarty_tabset_name, $cookietab, 'tabs');  // too late to set it here as output has started
             }
@@ -73,7 +69,7 @@ class Tabset extends Base
                 return '';
             }
 
-            if (! empty($params['skipsingle']) && count($smarty_tabset[$tabset_index]['tabs']) == 1) {
+            if (! empty($params['skipsingle']) && count($smarty_tabset[$smarty_tabset_name]['tabs']) == 1) {
                 return $content;
             }
 
@@ -104,17 +100,15 @@ class Tabset extends Base
                 return $ret . $notabs . $content;
             }
 
-            $smarty_tabset_name = getTabsetName($params, $tabset_index);
             if (isset($params['params']['direction']) && $params['params']['direction'] == 'vertical') {
                 $count = 1;
                 $ret .= '<div class="d-flex align-items-start">
                         <div class="nav flex-column nav-pills me-3" id="nav-' . $smarty_tabset_name . '" role="tablist" aria-orientation="vertical">' . $notabs . '<span style="height:5px;">&nbsp;</span>';
-                foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
+                foreach ($smarty_tabset[$smarty_tabset_name]['tabs'] as $value) {
                     $ret .= '<a class="nav-link" id="v-pills-' . $value['id'] . '-tab" data-bs-toggle="tab" href="#v-pills-' . $value['id'] . '" role="tab" aria-controls="v-pills-' . $value['id'] . '" >' . $value['label'] . '</a>';
                     ++$count;
                 }
                 $ret .= "</div>";
-                $tabset_index--;
                 $ret .= '<div class="tab-content" id="v-pills-' . $smarty_tabset_name . '">' . $content . '</div>
                     </div>';
             } else {
@@ -123,16 +117,17 @@ class Tabset extends Base
                 $count = 1;
 
                 $ret .= '<ul class="nav nav-tabs" id="nav-' . $smarty_tabset_name . '">';
-                foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
+                foreach ($smarty_tabset[$smarty_tabset_name]['tabs'] as $value) {
                     $ret .= '<li class="nav-item"><a class="nav-link ' . $value['active'] . '" href="#' . $value['id'] . '" data-bs-toggle="tab">' . $value['label'] . '</a></li>';
                     ++$count;
                 }
                 $ret .= '</ul>';
 
                 $ret .= "</div>";
-                $tabset_index--;
 
                 $ret .= '<div class="tab-content" id="v-pills-' . $smarty_tabset_name . '">' . $content . '</div>';
+                unset($smarty_tabset[$smarty_tabset_name]);
+                $smarty_tabset_name = array_key_last($smarty_tabset);
             }
             return $ret;
         }
@@ -141,19 +136,21 @@ class Tabset extends Base
 
 /**
  * @param $params
- * @param $tabset_index
- * @return array
+ * @return string
  */
-function getTabsetName($params, $tabset_index)
+function getTabsetName($params)
 {
+    global $smarty_tabset, $smarty_tabset_name;
+
     $tikilib = \TikiLib::lib('tiki');
     if (! empty($params['name'])) {
         $smarty_tabset_name = $params['name'];    // names have to be unique
     } else {
         $short_name = str_replace(['tiki-', '.php'], '', basename($_SERVER['SCRIPT_NAME']));
-        $smarty_tabset_name = '-' . $short_name . $tabset_index;
+        $smarty_tabset_name = $short_name . (count($smarty_tabset) + 1);
     }
     $smarty_tabset_name = $tikilib->urlFragmentString($smarty_tabset_name);
+
     return $smarty_tabset_name;
 }
 

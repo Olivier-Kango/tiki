@@ -36,17 +36,17 @@ class Tab extends Base
 {
     public function handle($params, $content, Template $template, &$repeat)
     {
-        global $prefs, $smarty_tabset, $cookietab, $smarty_tabset_i_tab, $tabset_index;
+        global $prefs, $smarty_tabset, $cookietab, $smarty_tabset_i_tab, $smarty_tabset_name;
         $smarty = \TikiLib::lib('smarty');
         if ($repeat) {
             return '';
         } else {
             $print_page = $smarty->getTemplateVars('print_page');
 
-            $name = $smarty_tabset[$tabset_index]['name'];
+            $name = $smarty_tabset[$smarty_tabset_name]['name'];
             $id = '';
             if ($print_page != 'y') {
-                $smarty_tabset_i_tab = count($smarty_tabset[$tabset_index]['tabs']) + 1;
+                $smarty_tabset_i_tab = count($smarty_tabset[$smarty_tabset_name]['tabs']) + 1;
 
                 if (empty($params['name'])) {
                     $params['name'] = "tab" . $smarty_tabset_i_tab;
@@ -56,10 +56,6 @@ class Tab extends Base
                     $params['key'] = $smarty_tabset_i_tab;
                 }
 
-                if (empty($name)) {
-                    $name = $tabset_index;
-                }
-
                 $id = $id = "content$name-{$params['key']}";
                 $active = ($smarty_tabset_i_tab == $cookietab) ? 'active' : '';
                 $def = [
@@ -67,7 +63,7 @@ class Tab extends Base
                     'id' => $id,
                     'active' => $active,
                 ];
-                $smarty_tabset[$tabset_index]['tabs'][] = $def;
+                $smarty_tabset[$smarty_tabset_name]['tabs'][] = $def;
             } else {
                 // if we print a page then then all tabs would be "not active" so hidden and we would print nothing.
                 // we cannot click something so no js handler involed. thats we use the defaultActive
