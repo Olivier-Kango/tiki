@@ -3560,7 +3560,12 @@ class TrackerLib extends TikiLib
                     'itemId' => $fieldId,
                 ]
             );
+            if ($type === 'S' && empty($options)) {
+                $options = "{\"wikiparse\":1,\"max\":0}";
+            }
             $description = "{syntax type={$prefs['markdown_default']}}\r\n$description";
+        } elseif ($descriptionIsParsed == 'n' && $type == 'S') {
+            $options = '';
         }
 
         $fields = $this->fields();
