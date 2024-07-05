@@ -414,6 +414,7 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
                 // d = dropdown
                 case 'e':
                 case 'd':
+                case 'D':
                     //$listFieldThere = array_merge($listFieldThere, array('value' => $remoteItemId));
                     $handler = $trklib->get_field_handler($listFieldThere, $itemInfo);
                     // array selected_categories etc.
