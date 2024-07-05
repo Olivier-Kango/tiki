@@ -29,7 +29,7 @@ class TrackerConvertAttachmentsCommand extends Command
     protected function configure()
     {
         $this
-            ->setHelp('Convert from tracker attachments (the ones that are global for the tracker) to attachments as a tracker file field type')
+            ->setHelp('Convert from tracker attachments (the ones that are global for the tracker) to attachments as a tracker file field type and then remove the tracker attachments')
             ->addArgument(
                 'trackerId',
                 InputArgument::REQUIRED,
@@ -58,10 +58,10 @@ class TrackerConvertAttachmentsCommand extends Command
                 'Preview the result of the command'
             )
             ->addOption(
-                'remove',
+                'not-remove',
                 null,
                 InputOption::VALUE_NONE,
-                'Delete tracker attachments'
+                'Do not delete tracker attachments'
             );
     }
 
@@ -73,10 +73,16 @@ class TrackerConvertAttachmentsCommand extends Command
         $trackerId = $input->getArgument('trackerId');
         $fieldId = $input->getArgument('fieldId');
         $galleryId = $input->getArgument('galleryId');
-        $remove = $input->getOption('remove');
+        $notremove = $input->getOption('not-remove');
         $preview = $input->getOption('preview');
         $if_exist = $input->getOption('if-exist');
         $savedAnswer = "";
+
+        if ($notremove) {
+            $remove = false;
+        } else {
+            $remove = true;
+        }
 
         if ($preview) {
             $remove = false;
