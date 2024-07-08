@@ -2791,7 +2791,7 @@ if ($standalone || (! empty($prefs) && $prefs['fgal_enable_auto_indexing'] === '
 
 if (! $standalone) {
     // The following is borrowed from tiki-admin_system.php
-    $useDadabase = array();
+    $useDatabase = array();
     if ($prefs['feature_forums'] == 'y') {
         $dirs = TikiLib::lib('comments')->list_directories_to_save();
     } else {
