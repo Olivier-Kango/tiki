@@ -563,7 +563,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" name="insert_user_tracker_item"
-                                               {if not empty($smarty.request.insert_user_tracker_item)}checked="checked"{/if}>
+                                               {if not empty($smarty.request.insert_user_tracker_item or $prefs.user_add_tracker_item_set_default_on eq 'y')}checked="checked"{/if}>
                                         {tr}Add a user tracker item for this user{/tr}
                                     </label>
                                 </div>
