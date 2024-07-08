@@ -176,6 +176,18 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 			})
 			;
 
+        $filters->addNew($permName, 'full')
+            ->setLabel($name)
+            ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}_full"))
+            ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
+                $value = $control->getValue();
+
+                if ($value) {
+                    $query->filterIdentifier($value, $baseKey . '_text');
+                }
+            })
+            ;
+
 		return $filters;
 	}
 
