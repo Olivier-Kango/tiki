@@ -1050,7 +1050,7 @@ class UnifiedSearchLib
 
         foreach ($indexResult as $index) {
             $indexName = $index['tbl_name'] ?: '';
-            if (preg_match('/index_([a-z1-9]+$)/', $indexName)) {
+            if (preg_match('/index_([a-z0-9_]+$)/', $indexName)) {
                 $info[tr('MySQL Index %0', $indexName)] = tr(
                     '%0 documents, using %1 of %2 indexes',
                     $totalDocuments,
