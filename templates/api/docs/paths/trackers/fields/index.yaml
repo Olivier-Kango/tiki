@@ -61,16 +61,67 @@ post:
           properties:
             name:
               type: string
+              description: The name of the field
             permName:
               type: string
+              description: The permanent name of the field
             description:
               type: string
+              description: The description of the field
             description_parse:
               type: integer
+              description: |
+                Whether to parse the description. Possible values are:
+                - `0`: Do not parse the description
+                - `1`: Parse the description
             type:
               type: string
+              description: |
+                The type of the field. Possible values are:
+                - `articles`: Articles
+                - `articles`: Articles
+                - `q`: Auto-Increment
+                - `e`: Categorize tracker item
+                - `c`: Checkbox
+                - `C`: Computed
+                - `y`: Country Selector
+                - `b`: Currency
+                - `f`: Date and Time
+                - `j`: Date and Time (Date Picker)
+                - `d`: Dropdown
+                - `D`: Dropdown selector with "Other" field
+                - `DUR`: Duration
+                - `w`: Dynamic Items List
+                - `m`: Email
+                - `EF`: Email Folder
+                - `FG`: Files
+                - `g`: Group Selector
+                - `h`: Heading
+                - `icon`: Icon
+                - `r`: Item Link
+                - `l`: Items List
+                - `kaltura`: Kaltura Video
+                - `LANG`: Language
+                - `G`: Location
+                - `M`: Multiselect
+                - `n`: Numeric
+                - `k`: Page Selector
+                - `R`: Radio Buttons
+                - `STARS`: Rating
+                - `REL`: Relations
+                - `S`: Static Text
+                - `F`: Tags
+                - `a`: Text Area
+                - `t`: Text Field
+                - `L`: URL
+                - `u`: User Selector
+                - `wiki`: Wiki Page
             adminOnly:
               type: boolean
+              description: |
+                Whether the field is only visible to administrators. Possible values are:
+                - `true`: The field is only visible to administrators
+                - `false`: The field is visible to all users
   responses:
     '200':
       description: tracker field response
@@ -122,6 +173,7 @@ delete:
       required: true
       schema:
         type: array
+        description: The array of field IDs to delete. The field IDs must be integers. eg. `fields[]=1&fields[]=2`
         items:
           type: integer
   responses:

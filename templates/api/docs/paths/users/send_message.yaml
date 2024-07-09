@@ -9,9 +9,16 @@ post:
           properties:
             to:
               type: string
-              description: Username
+              description: The recipient's username
             priority:
               type: string
+              description: |
+                The message priority. Possible values are:
+                - `1`: Lowest
+                - `2`: Low
+                - `3`: Normal
+                - `4`: High
+                - `5`: Very High
               enum:
                 - 1
                 - 2
@@ -20,8 +27,10 @@ post:
                 - 5
             subject:
               type: string
+              description: The message subject
             body:
               type: string
+              description: The message body
             replytome:
               type: boolean
               description: Reply to my email

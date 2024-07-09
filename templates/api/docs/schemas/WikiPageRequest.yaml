@@ -9,10 +9,19 @@ properties:
     description: raw content
   description:
     type: string
+    description: The description of the page
   comment:
     type: string
+    description: The comment to be posted with the page.
   lang:
     type: string
+    description: |
+      The language of the page. Possible values are:
+      - `en`: English
+      - `es`: Spanish
+      - `fr`: French
+      - `de`: German
+      - etc.
   is_html:
     type: integer
     description: raw data is html formatted
@@ -22,6 +31,14 @@ properties:
     $ref: schemas-TikiBoolean.yaml
   wiki_authors_style:
     type: string
+    description: |
+      The style of the author. Possible values are:
+      - `classic`: Classic style (as Creator & Last Editor). The created by and last modified by are shown at the bottom of the page.
+      - `business`: Business style. The edited by and last modified on are shown at the bottom of the page.
+      - `collaborative`: Collaborative style. The contributors and last modified on / by are shown at the bottom of the page.
+      - `lastmodif`: Page last modified on. The last modified on is shown at the bottom of the page.
+      - `none`: No (disabled). No author information is shown.
+      - Empty value: Site default. Use the default setting.
   is_minor:
     $ref: schemas-TikiBoolean.yaml
   translationOf:
@@ -33,8 +50,17 @@ properties:
     type: string
     description: Lat/Lng/Zoom coordinates to associate with this wiki page
   page_auto_toc:
-    $ref: schemas-TikiBoolean.yaml
+    type: string
+    description: |
+      Automatically generate a table of contents. Possible values are:
+      - `y`: Yes
+      - `n`: No
+    enum:
+      - y
+      - n
   page_hide_title:
     $ref: schemas-TikiBoolean.yaml
   explicit_namespace:
     type: string
+    description: |
+      The namespace for a page is guessed automatically from the page name. However, some exceptions may arise. This option allows to override the namespace

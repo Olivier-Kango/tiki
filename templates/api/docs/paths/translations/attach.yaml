@@ -5,16 +5,23 @@ post:
     - name: type
       in: path
       required: true
+      description: |
+        The Tiki object type. Possible values are:
+        - `wiki page`, `forum`, `tracker`, `file gallery`, etc
       schema:
         type: string
     - name: source
       in: path
       required: true
+      description: |
+        The source object name. For example, if the type is `wiki page`, the source is the wiki page name.
       schema:
         type: string
     - name: target
       in: query
       required: true
+      description: |
+        The target object name. For example, if the type is `wiki page`, the target is the wiki page name.
       schema:
         type: string
   responses:

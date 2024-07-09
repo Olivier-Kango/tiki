@@ -5,7 +5,11 @@ post:
     - name: loggit
       in: query
       required: false
-      description: "0=no logging, 1=log to Search_Indexer.log, 2=log to Search_Indexer_console.log"
+      description: |
+        Log index rebuild process to file
+        - `0`: no logging
+        - `1`: log to Search_Indexer.log
+        - `2`: log to Search_Indexer_console.log
       schema:
         type: integer
   responses:

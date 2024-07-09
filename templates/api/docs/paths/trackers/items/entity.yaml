@@ -12,6 +12,7 @@ get:
       required: true
       schema:
         type: integer
+        decritpion: The ID of the tracker item to retrieve
   responses:
     '200':
       description: tracker item response
@@ -62,11 +63,28 @@ post:
         type: integer
   requestBody:
     required: true
+    description: Should contain an object of the field values with either field permanent names as keys or ins_FID keys.
     content:
       application/x-www-form-urlencoded:
         schema:
           type: object
-          description: Should contain an object of the field values with either field permanent names as keys or ins_FID keys.
+          properties:
+            fields[fieldPermanentName1]:
+              type: string
+              description: The new value of the field 1
+              default: "value1"
+            fields[fieldPermanentName2]:
+              type: string
+              description: The new value of the field 2
+              default: "value2"
+            fields[fieldPermanentName3]:
+              type: integer
+              description: The new value of the field 3
+              default: 123
+          required:
+            - fields[fieldPermanentName1]
+            - fields[fieldPermanentName2]
+            - fields[fieldPermanentName3]
   responses:
     '200':
       description: tracker item response

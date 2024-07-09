@@ -12,8 +12,10 @@ post:
           properties:
             group:
               type: string
-            items:
+              description: The group name
+            items[]:
               type: array
+              description: The users to add to the group
               items:
                 type: string
   responses:

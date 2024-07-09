@@ -24,38 +24,121 @@ post:
           properties:
             name:
               type: string
+              description: The name of the field
             permName:
               type: string
+              description: The permanent name of the field
             description:
               type: string
+              description: The description of the field
             description_parse:
               type: integer
+              description: |
+                Whether to parse the description. Possible values are:
+                - `0`: Do not parse the description
+                - `1`: Parse the description
             option[]:
               type: array
               items:
                 type: string
             type:
               type: string
+              description: |
+                The type of the field. Possible values are:
+                - `articles`: Articles
+                - `articles`: Articles
+                - `q`: Auto-Increment
+                - `e`: Categorize tracker item
+                - `c`: Checkbox
+                - `C`: Computed
+                - `y`: Country Selector
+                - `b`: Currency
+                - `f`: Date and Time
+                - `j`: Date and Time (Date Picker)
+                - `d`: Dropdown
+                - `D`: Dropdown selector with "Other" field
+                - `DUR`: Duration
+                - `w`: Dynamic Items List
+                - `m`: Email
+                - `EF`: Email Folder
+                - `FG`: Files
+                - `g`: Group Selector
+                - `h`: Heading
+                - `icon`: Icon
+                - `r`: Item Link
+                - `l`: Items List
+                - `kaltura`: Kaltura Video
+                - `LANG`: Language
+                - `G`: Location
+                - `M`: Multiselect
+                - `n`: Numeric
+                - `k`: Page Selector
+                - `R`: Radio Buttons
+                - `STARS`: Rating
+                - `REL`: Relations
+                - `S`: Static Text
+                - `F`: Tags
+                - `a`: Text Area
+                - `t`: Text Field
+                - `L`: URL
+                - `u`: User Selector
+                - `wiki`: Wiki Page
             position:
               type: integer
+              description: The position of the field. The position starts from 0.
             isTblVisible:
               type: integer
+              description: |
+                Whether to show the field in the table list. Possible values are:
+                - `0`: Do not show the field
+                - `1`: Show the field
             isMain:
               type: integer
+              description: |
+                Whether the field is a main field. Possible values are:
+                - `0`: The field is not a main field
+                - `1`: The field is a main field
             isSearchable:
               type: integer
+              description: |
+                Whether the field is searchable. Possible values are:
+                - `0`: The field is not searchable
+                - `1`: The field is searchable
             isPublic:
               type: integer
+              description: |
+                Whether the field is public. Possible values are:
+                - `0`: The field is not public
+                - `1`: The field is public
             isMandatory:
               type: integer
+              description: |
+                Whether the field is mandatory. Possible values are:
+                - `0`: The field is not mandatory
+                - `1`: The field is mandatory
             validation_type:
               type: string
+              description: |
+                The validation type of the field. Possible values are:
+                - empty string for no validation
+                - `captcha`: CAPTCHA
+                - `distinct`: Distinct
+                - `pagename`: Page Name
+                - `password`: Password
+                - `regex`: Regular Expression (Pattern)
+                - `username`: Username
             validation_parameter:
               type: string
+              description: The validation parameter of the field
             validation_message:
               type: string
+              description: The validation message of the field
             multilingual:
               type: integer
+              description: |
+                Whether the field is multilingual. Possible values are:
+                - `0`: The field is not multilingual
+                - `1`: The field is multilingual
             visible_by:
               type: string
               description: Comma-separated list of groups with permission to see this field
@@ -64,16 +147,30 @@ post:
               description: Comma-separated list of groups with permission to see this field
             visibility:
               type: string
+              description: |
+                The visibility of the field. Possible values are:
+                - `n`: Visible by all
+                - `r`: Visible by all but not in RSS feeds
+                - `y`: Visible after creation by administrators only
+                - `p`: Editable by administrators only
+                - `a`: Editable after creation by administrators only
+                - `c`: Editable by administrators and creator only
+                - `i`: Immutable after creation
             error_message:
               type: string
+              description: The error message of the field
             conditions:
               type: string
+              description: The conditions of the field
             actions:
               type: string
+              description: The actions of the field
             else:
               type: string
+              description: The else of the field
             encryption_key_id:
               type: integer
+              description: The encryption key ID of the field
   responses:
     '200':
       description: tracker field response

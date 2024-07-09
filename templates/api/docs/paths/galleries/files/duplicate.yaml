@@ -4,6 +4,7 @@ post:
   parameters:
     - name: fileId
       in: path
+      description: The file ID to duplicate
       required: true
       schema:
         type: integer
@@ -19,8 +20,10 @@ post:
               description: the destination gallery of the file copy
             newName:
               type: string
+              description: the new name of the file copy
             description:
               type: string
+              description: the new description of the file copy
   responses:
     '200':
       description: duplicate file response

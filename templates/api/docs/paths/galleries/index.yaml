@@ -4,31 +4,39 @@ get:
   parameters:
     - name: galleryId
       in: query
+      decription: The ID of the gallery
       required: false
       schema:
         type: integer
     - name: offset
       in: query
+      description: The offset to start from
       required: false
       schema:
         type: integer
     - name: maxRecords
       in: query
+      description: The maximum number of records to return
       required: false
       schema:
         type: integer
     - name: sort_mode
       in: query
+      description: |
+        The sort mode. Possible values are:
+        - `created_desc`, `created_asc`, `name_desc`, `name_asc`
       required: false
       schema:
         type: string
     - name: user
       in: query
+      description: The user (username) who created the gallery
       required: false
       schema:
         type: string
     - name: find
       in: query
+      description: The search string to find galleries
       required: false
       schema:
         type: string
@@ -150,8 +158,15 @@ post:
           properties:
             name:
               type: string
+              description: The name of the gallery
             type:
               type: string
+              description: |
+                The type of the gallery. Possible values are:
+                - `default`
+                - `podcast`
+                - `vidcast`
+                - `direct`
               enum:
                 - default
                 - podcast
@@ -159,8 +174,10 @@ post:
                 - direct
             description:
               type: string
+              description: The description of the gallery
             parentId:
               type: integer
+              description: The parent ID of the gallery
   responses:
     '200':
       description: create gallery response

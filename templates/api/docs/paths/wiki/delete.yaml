@@ -8,8 +8,9 @@ post:
         schema:
           type: object
           properties:
-            items:
+            items[]:
               type: array
+              description: Array of page names to remove. e.g. `items[]=page1&items[]=page2`
               items:
                 type: string
             last:

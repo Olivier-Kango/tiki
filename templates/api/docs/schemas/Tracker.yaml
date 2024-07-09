@@ -5,133 +5,373 @@ required:
 properties:
   name:
     type: string
+    description: The name of the tracker
   description:
     type: string
+    description: The description of the tracker
   descriptionIsParsed:
     type: integer
+    description: |
+      Whether the description is parsed. Possible values are:
+      - `0`: The description is not parsed.
+      - `1`: The description is parsed.
   fieldPrefix:
     type: string
+    description: Short string prepended by default to all fields in the tracker.
   permName:
     type: string
+    description: The permanent name of the tracker
   showStatus:
     type: integer
+    description: |
+      Whether to show the status of the tracker. Possible values are:
+      - `0`: Do not show the status.
+      - `1`: Show the status.
   showStatusAdminOnly:
     type: integer
+    description: |
+      Whether to show the status only to the admin. Possible values are:
+      - `0`: Show the status to all users.
+      - `1`: Show the status only to the admin.
   showCreated:
     type: integer
+    description: |
+      Whether to show the created date when listing items. Possible values are:
+      - `0`: Do not show the created date.
+      - `1`: Show the created date.
   showCreatedView:
     type: integer
+    description: |
+      Whether to show the created date when viewing items. Possible values are:
+      - `0`: Do not show the created date.
+      - `1`: Show the created date.
   showCreatedBy:
     type: integer
+    description: |
+      Whether to show the creator when listing items. Possible values are:
+      - `0`: Do not show the creator.
+      - `1`: Show the creator.
   showCreatedFormat:
     type: string
+    description: |
+      The format of the created date. For more info about Tiki date and time format please check: https://doc.tiki.org/Date-and-Time-Features
   showLastModif:
     type: integer
+    description: |
+      Whether to show the last modification date when listing items. Possible values are:
+      - `0`: Do not show the last modification date.
+      - `1`: Show the last modification date.
   showLastModifView:
     type: integer
+    description: |
+      Whether to show the last modification date when viewing items. Possible values are:
+      - `0`: Do not show the last modification date.
+      - `1`: Show the last modification date.
   showLastModifBy:
     type: integer
+    description: |
+      Whether to show the last modifier when listing items. Possible values are:
+      - `0`: Do not show the last modifier.
+      - `1`: Show the last modifier.
   showLastModifFormat:
     type: string
+    description: |
+      The format of the last modification date. For more info about Tiki date and time format please check: https://doc.tiki.org/Date-and-Time-Features
   defaultOrderKey:
     type: integer
+    description: |
+      The default sort order when listing items. Possible values are:
+      - `-1`: Last Modification
+      - `-2`: Creation Date
+      - `-3`: Item ID
   defaultOrderDir:
     type: string
+    description: |
+      The default sort direction when listing items. Possible values are:
+      - `asc`: Ascending
+      - `desc`: Descending
   doNotShowEmptyField:
     type: integer
+    description: |
+      Whether to show empty fields when listing items. Possible values are:
+      - `0`: Show empty fields.
+      - `1`: Do not show empty fields.
   showPopup:
     type: string
+    description: |
+      Whether to show a popup when listing details. Possible values are:
+      - `0`: Do not show a popup.
+      - `1`: Show a popup.
   defaultStatus:
     type: array
+    description: |
+      The default status of the tracker. Possible values are:
+      - `o`: Open
+      - `p`: Pending
+      - `c`: Closed
   newItemStatus:
     type: string
+    description: |
+      The status of a new item. Possible values are:
+      - `o`: Open
+      - `p`: Pending
+      - `c`: Closed
   altOpenStatus:
     type: string
+    description: |
+      The alternative open status of the tracker. Possible values are:
+      - `o`: Open
+      - `p`: Pending
+      - `c`: Closed
   altPendingStatus:
     type: string
+    description: |
+      The alternative pending status of the tracker. Possible values are:
+      - `o`: Open
+      - `p`: Pending
+      - `c`: Closed
   altClosedStatus:
     type: string
+    description: |
+      The alternative closed status of the tracker. Possible values are:
+      - `o`: Open
+      - `p`: Pending
+      - `c`: Closed
   modItemStatus:
     type: string
+    description: |
+      The status of a modified item. Possible values are:
+      - `o`: Open
+      - `p`: Pending
+      - `c`: Closed
   outboundEmail:
     type: string
+    description: |
+      The email address to send notifications. You can add several email addresses by separating them with commas.
   simpleEmail:
     type: integer
+    description: |
+      Whether to send simple email notifications. Possible values are:
+      - `0`: Do not send simple email notifications.
+      - `1`: Send simple email notifications.
   userCanSeeOwn:
     type: integer
+    description: |
+      Whether a user can see their own items. Possible values are:
+      - `0`: A user cannot see their own items.
+      - `1`: A user can see their own items.
   groupCanSeeOwn:
     type: integer
+    description: |
+      Whether a group can see their own items. Possible values are:
+      - `0`: A group cannot see their own items.
+      - `1`: A group can see their own items.
   writerCanModify:
     type: integer
+    description: |
+      Whether a writer can modify items. Possible values are:
+      - `0`: A writer cannot modify items.
+      - `1`: A writer can modify items.
   writerCanRemove:
     type: integer
+    description: |
+      Whether a writer can remove items. Possible values are:
+      - `0`: A writer cannot remove items.
+      - `1`: A writer can remove items.
   userCanTakeOwnership:
     type: integer
+    description: |
+      Whether a user can take ownership of an item created by anonymous. Possible values are:
+      - `0`: A user cannot take ownership of an item created by anonymous.
+      - `1`: A user can take ownership of an item created by anonymous.
   oneUserItem:
     type: integer
+    description: |
+      Whether a user can only have one item. Possible values are:
+      - `0`: A user can have multiple items.
+      - `1`: A user can only have one item.
   writerGroupCanModify:
     type: integer
+    description: |
+      Whether a writer group can modify items. Possible values are:
+      - `0`: A writer group cannot modify items.
+      - `1`: A writer group can modify items.
   writerGroupCanRemove:
     type: integer
+    description: |
+      Whether a writer group can remove items. Possible values are:
+      - `0`: A writer group cannot remove items.
+      - `1`: A writer group can remove items.
   allowOffline:
     type: integer
+    description: |
+      Whether to allow offline usage. Possible values are:
+      - `0`: Do not allow offline usage.
+      - `1`: Allow offline usage.
   useRatings:
     type: integer
+    description: |
+      Whether to allow ratings. Possible values are:
+      - `0`: Do not use ratings.
+      - `1`: Use ratings.
   showRatings:
     type: integer
+    description: |
+      Whether to show ratings. Possible values are:
+      - `0`: Do not show ratings.
+      - `1`: Show ratings.
   ratingOptions:
     type: string
+    description: |
+      The rating options. Possible values are:
+      - `0`: 0 score
+      - `1`: 1 score
+      - `2`: 2 scores
+      - `3`: 3 scores
+      - `4`: 4 scores
+      - `5`: 5 scores
   useComments:
     type: integer
+    description: |
+      Whether to allow comments. Possible values are:
+      - `0`: Do not use comments.
+      - `1`: Use comments.
   showComments:
     type: integer
+    description: |
+      Whether to show comments. Possible values are:
+      - `0`: Do not show comments.
+      - `1`: Show comments.
   showLastComment:
     type: integer
+    description: |
+      Whether to show the last comment. Possible values are:
+      - `0`: Do not show the last comment.
+      - `1`: Show the last comment.
   saveAndComment:
     type: integer
+    description: |
+      Whether to save and comment. Possible values are:
+      - `0`: Do not save and comment.
+      - `1`: Save and comment.
   useAttachments:
     type: integer
+    description: |
+      Whether to allow attachments. Possible values are:
+      - `0`: Do not use attachments.
+      - `1`: Use attachments.
   showAttachments:
     type: integer
+    description: |
+      Whether to show attachments. Possible values are:
+      - `0`: Do not show attachments.
+      - `1`: Show attachments.
   orderAttachments:
     type: array
+    description: |
+      The order of attachments. Possible values are:
+      - `filename`: Filename
+      - `created`: Created date
+      - `filesize`: File size
+      - `hits`: Hits
+      - `desc`: Description
   start:
     type: integer
+    description: The start date of the tracker
   end:
     type: integer
+    description: The end date of the tracker
   autoCreateGroup:
     type: integer
+    description: |
+      Whether to automatically create a group. Possible values are:
+      - `0`: Do not automatically create a group.
+      - `1`: Automatically create a group.
   autoCreateGroupInc:
     type: string
+    description: |
+      The groups to include when automatically creating a group.
   autoAssignCreatorGroup:
     type: integer
+    description: |
+      Whether to automatically assign the creator to a group. Possible values are:
+      - `0`: Do not automatically assign the creator to a group.
+      - `1`: Automatically assign the creator to a group.
   autoAssignCreatorGroupDefault:
     type: integer
+    description: |
+      Whether to automatically assign the creator to the default group. Possible values are:
+      - `0`: Do not automatically assign the creator to the default group.
+      - `1`: Automatically assign the creator to the default group.
   autoAssignGroupItem:
     type: integer
+    description: |
+      Whether to automatically assign a group to an item. Possible values are:
+      - `0`: Do not automatically assign a group to an item.
+      - `1`: Automatically assign a group to an item.
   autoCopyGroup:
     type: integer
+    description: |
+      Whether to automatically copy a group. Possible values are:
+      - `0`: Do not automatically copy a group.
+      - `1`: Automatically copy a group.
   viewItemPretty:
     type: string
+    description: The view item pretty
   editItemPretty:
     type: string
+    description: The edit item pretty
   autoCreateCategories:
     type: integer
+    description: |
+      Whether to automatically create categories. Possible values are:
+      - `0`: Do not automatically create categories.
+      - `1`: Automatically create categories.
   publishRSS:
     type: integer
+    description: |
+      Whether to publish RSS. Possible values are:
+      - `0`: Do not publish RSS.
+      - `1`: Publish RSS.
   sectionFormat:
     type: string
+    description: |
+      The section format. Possible values are:
+      - `flat`: Flat
+      - `tab`: Tab
   adminOnlyViewEditItem:
     type: integer
+    description: |
+      Whether to allow only the admin to view and edit items. Possible values are:
+      - `0`: Do not allow only the admin to view and edit items.
+      - `1`: Allow only the admin to view and edit items.
   logo:
     type: string
+    description: The logo of the tracker
   useFormClasses:
     type: integer
+    description: |
+      Whether to use form classes. Possible values are:
+      - `0`: Do not use form classes.
+      - `1`: Use form classes.
   formClasses:
     type: string
+    description: Sets classes for form to be used in Tracker Plugin (e.g., col-md-9).
   tabularSync:
     type: integer
+    description: |
+      Whether to synchronize tabular data. Possible values are:
+      - `0`: Do not synchronize tabular data.
+      - `1`: Synchronize tabular data.
   tabularSyncModifiedField:
     type: integer
+    description: |
+      Whether to synchronize the modified field of tabular data. Possible values are:
+      - `0`: Do not synchronize the modified field of tabular data.
+      - `1`: Synchronize the modified field of tabular data.
   tabularSyncLastImport:
     type: integer
+    description: |
+      Whether to synchronize the last import of tabular data. Possible values are:
+      - `0`: Do not synchronize the last import of tabular data.
+      - `1`: Synchronize the last import of tabular data.

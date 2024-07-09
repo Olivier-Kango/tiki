@@ -1,5 +1,9 @@
 ---
 type: array
+description: |
+    Tiki object use format Type:ID where type is trackeritem, page, etc. and ID is the object identifier based on type.
+    eg. `trackeritem:1`, `wiki page:homePage`, `file:3`, `blog:4`, `forum:5`, `file gallery:6`, 
+    `quiz:7`, `poll:8`, `calendar:9`, `tracker:10`
 items:
   type: string
-  description: "Tiki object use format Type:ID where type is trackeritem, page, etc. and ID is the object identifier based on type."
+  default: 'tracker:10'

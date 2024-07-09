@@ -5,9 +5,11 @@ get:
     - name: filter
       in: query
       required: true
-      description: Filter index fields and content
+      description: |
+        Filter index fields and content. 
+        - e.g. filter[title]=foo. This will search for 'foo' in the search index field 'title'
       schema:
-        type: object
+        type: array
     - name: format
       in: query
       required: false
@@ -17,16 +19,22 @@ get:
     - name: sort_order
       in: query
       required: false
+      description: |
+        Sort order of the results, 
+        - `title_asc`: for ascending order
+        - `title_desc`: for descending order
       schema:
         type: string
     - name: offset
       in: query
       required: false
+      description: The offset to start from
       schema:
         type: integer
     - name: maxRecords
       in: query
       required: false
+      description: The maximum number of records to return
       schema:
         type: integer
   responses:

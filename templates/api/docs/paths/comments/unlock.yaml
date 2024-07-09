@@ -9,8 +9,12 @@ post:
           properties:
             type:
               type: string
+              description: |
+                The type of the object on which the comment is posted. Possible values are:
+                - `wiki page`, `file gallery`, `poll`, `faq`, `blog post`, `trackeritem`, `article`, `activity`
             objectId:
               type: string
+              description: The object ID (thread ID) of the comment
   responses:
     '200':
       description: unlock response

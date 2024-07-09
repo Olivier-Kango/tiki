@@ -2,9 +2,10 @@
 get:
   description: Get all users
   parameters:
-    - name: groupIds
+    - name: groupIds[]
       in: query
       required: false
+      description: The group IDs to filter users by
       schema:
         type: array
         items:
@@ -12,11 +13,13 @@ get:
     - name: offset
       in: query
       required: false
+      description: The offset to start from
       schema:
         type: integer
     - name: maxRecords
       in: query
       required: false
+      description: The maximum number of records to return
       schema:
         type: integer
   responses:
@@ -45,12 +48,16 @@ post:
           properties:
             name:
               type: string
+              description: The user's name
             pass:
               type: string
+              description: The user's password
             passAgain:
               type: string
+              description: The user's password again. Must match the pass field. 
             email:
               type: string
+              description: The user's email address
   responses:
     '200':
       description: user registration response

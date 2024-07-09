@@ -7,19 +7,29 @@ post:
         schema:
           type: object
           properties:
-            items:
+            items[]:
               type: array
+              description: The users to remove
               items:
                 type: string
             remove_pages:
               type: boolean
-              description: Remove user's wiki page
+              description: |
+                Remove user's pages. Possible values are:
+                - `true` to remove user's pages
+                - `false` to keep user's pages
             remove_items:
               type: boolean
-              description: Remove user's tracker items
+              description: |
+                Remove user's tracker items. Possible values are:
+                - `true` to remove user's tracker items
+                - `false` to keep user's tracker items
             remove_files:
               type: boolean
-              description: Remove user's uploaded files
+              description: |
+                Remove user's uploaded files. Possible values are:
+                - `true` to remove user's uploaded files
+                - `false` to keep user's uploaded files
   responses:
     '200':
       description: remove users response

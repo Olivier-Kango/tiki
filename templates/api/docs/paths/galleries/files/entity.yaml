@@ -4,6 +4,7 @@ get:
   parameters:
     - name: fileId
       in: path
+      description: The file ID to retrieve
       required: true
       schema:
         type: integer

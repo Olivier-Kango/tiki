@@ -15,8 +15,9 @@ post:
         schema:
           type: object
           properties:
-            items:
+            items[]:
               type: array
+              description: Array of version numbers to remove. e.g. `items[]=1&items[]=2`
               items:
                 type: string
   responses:

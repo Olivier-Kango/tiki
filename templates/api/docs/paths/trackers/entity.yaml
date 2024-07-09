@@ -25,7 +25,11 @@ get:
         type: integer
     - name: status
       in: query
-      description: Return only records with specific status.
+      description: |
+        Return only records with specific status. Possible values are:
+        - `o`: Open - The item is currently active and open.
+        - `p`: Pending - The item is pending and awaiting further action.
+        - `c`: Closed - The item is closed and no longer active
       schema:
         type: string
     - name: format

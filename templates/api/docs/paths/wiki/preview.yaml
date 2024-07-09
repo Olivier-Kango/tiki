@@ -10,6 +10,8 @@ post:
           properties:
             content:
               type: string
+              description: |
+                The content to parse. This can be a wiki or markdown content.
             parser_options:
               type: array
               items:
