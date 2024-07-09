@@ -33,7 +33,7 @@ class Search_MySql_QueryBuffer
             return;
         }
 
-        $this->realFlush();
+        return $this->realFlush();
     }
 
     public function setPrefix($prefix)
@@ -48,13 +48,15 @@ class Search_MySql_QueryBuffer
     private function realFlush()
     {
         $query = $this->prefix . implode(', ', $this->buffer);
-        $this->db->queryError($query, $error);
+        $result = $this->db->queryError($query, $error);
 
         if ($error) {
             throw new Search_MySql_LimitReachedException(tr("Could not perform index modification: %0", TikiFilter::get('xss')->filter($error)));
         }
 
         $this->clear();
+
+        return $result;
     }
 
     public function clear()

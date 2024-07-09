@@ -272,8 +272,9 @@ class TikiDb_Table
      * @param int   $numrows
      * @param int   $offset
      * @param null  $orderClause
+     * @param null  $joinClause
      */
-    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null): array|false
+    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null): array|false
     {
         $bindvars = [];
 
@@ -297,6 +298,9 @@ class TikiDb_Table
         $query = 'SELECT ';
         $query .= (! empty($fieldDescription)) ? rtrim($fieldDescription, ', ') : '*';
         $query .= ' FROM ' . $this->escapeIdentifier($this->tableName);
+        if (! empty($joinClause)) {
+            $query .= ' ' . $joinClause;
+        }
         $query .= $this->buildConditions($conditions, $bindvars);
         $query .= $this->buildOrderClause($orderClause);
 
@@ -495,7 +499,7 @@ class TikiDb_Table
         return $this->expr($this->db->convertSortMode($sortMode));
     }
 
-    private function buildDelete(array $conditions, &$bindvars)
+    protected function buildDelete(array $conditions, &$bindvars)
     {
         $query = "DELETE FROM {$this->escapeIdentifier($this->tableName)}";
         $query .= $this->buildConditions($conditions, $bindvars);
@@ -503,7 +507,7 @@ class TikiDb_Table
         return $query;
     }
 
-    private function buildConditions(array $conditions, &$bindvars)
+    protected function buildConditions(array $conditions, &$bindvars)
     {
         $query = " WHERE 1=1";
 
@@ -524,7 +528,7 @@ class TikiDb_Table
         return $query;
     }
 
-    private function buildOrderClause($orderClause)
+    protected function buildOrderClause($orderClause)
     {
         if ($orderClause instanceof TikiDb_Expr) {
             return ' ORDER BY ' . $orderClause->getQueryPart(null);
@@ -539,7 +543,7 @@ class TikiDb_Table
         }
     }
 
-    private function buildUpdate(array $values, array $conditions, &$bindvars)
+    protected function buildUpdate(array $values, array $conditions, &$bindvars)
     {
         $query = "UPDATE {$this->escapeIdentifier($this->tableName)} SET ";
 
@@ -549,7 +553,7 @@ class TikiDb_Table
         return $query;
     }
 
-    private function buildUpdateList($values, &$bindvars)
+    protected function buildUpdateList($values, &$bindvars)
     {
         $query = '';
 
@@ -567,7 +571,7 @@ class TikiDb_Table
         return rtrim($query, ' ,');
     }
 
-    private function buildInsert($values, $ignore, &$bindvars)
+    protected function buildInsert($values, $ignore, &$bindvars)
     {
         $fieldDefinition = implode(', ', array_map([$this, 'escapeIdentifier'], array_keys($values)));
         $fieldPlaceholders = rtrim(str_repeat('?, ', count($values)), ' ,');

@@ -28,7 +28,6 @@ class Search_MySql_LargeDatasetTest extends PHPUnit\Framework\TestCase
 
     public function testManyColumns()
     {
-        $this->expectException('Search_MySql_LimitReachedException');
         $typeFactory = $this->index->getTypeFactory();
         $document = [
             'object_type' => $typeFactory->identifier('test'),
@@ -42,5 +41,12 @@ class Search_MySql_LargeDatasetTest extends PHPUnit\Framework\TestCase
         }
 
         $this->index->addDocument($document);
+
+        $query = new Search_Query();
+        $query->filterType('test');
+
+        $results = $query->search($this->index);
+
+        $this->assertEquals('test', $results[0]['object_id']);
     }
 }

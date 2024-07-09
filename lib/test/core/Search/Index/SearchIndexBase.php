@@ -215,10 +215,6 @@ abstract class SearchIndexBase extends TikiTestCase
         $arguments = array_slice($arguments, 2);
 
         $query = new Search_Query();
-        // add something positive  to search as Lucene negative only search returns no results
-        if ($filterMethod === 'filterNotInitial') {
-            $query->filterContent('description');
-        }
         call_user_func_array([$query, $filterMethod], $arguments);
 
         $this->assertCount($count, $query->search($this->index));

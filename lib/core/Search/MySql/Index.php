@@ -104,7 +104,7 @@ class Search_MySql_Index implements Search_Index_Interface
     public function invalidateMultiple(array $objectList)
     {
         foreach ($objectList as $object) {
-            $this->table->deleteMultiple($object);
+            $this->table->deleteMultipleIndex($object);
         }
     }
 
@@ -143,8 +143,8 @@ class Search_MySql_Index implements Search_Index_Interface
                 }
                 $selectFields['score'] = $this->table->expr($scoreCalc);
             }
-            $count = $this->table->fetchCount($conditions);
-            $entries = $this->table->fetchAll($selectFields, $conditions, $resultCount, $resultStart, $order);
+            $count = $this->table->fetchCountIndex($conditions);
+            $entries = $this->table->fetchAllIndex($selectFields, $conditions, $resultCount, $resultStart, $order);
 
             foreach ($entries as &$entry) {
                 foreach ($entry as $key => $val) {
@@ -241,7 +241,7 @@ class Search_MySql_Index implements Search_Index_Interface
 
     public function getFieldsCount()
     {
-        return count($this->db->fetchAll("show columns from `{$this->index_name}`"));
+        return $this->table->getFieldsCount();
     }
 
     /**
@@ -252,7 +252,10 @@ class Search_MySql_Index implements Search_Index_Interface
      */
     public function restoreOldIndexes($indexesToRestore, $currentIndexTableName)
     {
-        $columns = array_column(TikiDb::get()->fetchAll("SHOW COLUMNS FROM $currentIndexTableName"), 'Field');
+        $columns = [];
+        foreach ($this->table->indexTables($currentIndexTableName) as $table) {
+            $columns = array_merge($columns, array_column(TikiDb::get()->fetchAll("SHOW COLUMNS FROM $table"), 'Field'));
+        }
 
         foreach ($indexesToRestore as $indexToRestore) {
             if (! in_array($indexToRestore['Column_name'], $columns)) {
