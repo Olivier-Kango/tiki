@@ -16,8 +16,10 @@ post:
           properties:
             title:
               type: string
+              description: comment title
             data:
               type: string
+              description: comment wiki content
   responses:
     '200':
       description: comment update response
@@ -39,6 +41,7 @@ delete:
   parameters:
     - name: threadId
       in: path
+      description: Comment thread ID
       required: true
       schema:
         type: integer

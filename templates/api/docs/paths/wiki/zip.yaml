@@ -8,8 +8,9 @@ post:
         schema:
           type: object
           properties:
-            items:
+            items[]:
               type: array
+              description: The array of page names to zip
               items:
                 type: string
   responses:

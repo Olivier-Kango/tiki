@@ -1,15 +1,21 @@
 ---
 get:
-  description: List translations for an object
+  description: |
+    List translations relation of an instance of an object type (eg: translations of a wiki page)
   parameters:
     - name: type
       in: path
       required: true
+      description: |
+        The Tiki object type. Possible values are:
+        - `wiki page`, `forum`, `tracker`, `file gallery`, etc
       schema:
         type: string
     - name: source
       in: path
       required: true
+      description: |
+        The source object name. For example, if the type is `wiki page`, the source is the wiki page name.
       schema:
         type: string
   responses:

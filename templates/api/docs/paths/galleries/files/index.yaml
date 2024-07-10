@@ -4,7 +4,7 @@ get:
   parameters:
     - name: galleryId
       in: path
-      description: Gallery ID
+      description: Gallery ID to retrieve files from
       required: true
       schema:
         type: integer
@@ -20,7 +20,9 @@ get:
         type: integer
     - name: sort_mode
       in: query
-      description: Sort mode.
+      description: |
+        The sort mode. Possible values are:
+        - `created_desc`, `created_asc`, `name_desc`, `name_asc`
       schema:
         type: string
     - name: user
@@ -30,7 +32,7 @@ get:
         type: string
     - name: find
       in: query
-      description: find.
+      description: The search string to find files.
       schema:
         type: string
   responses:

@@ -7,7 +7,7 @@ post:
         schema:
           type: object
           properties:
-            items:
+            items[]:
               type: array
               items:
                 type: string
@@ -17,6 +17,7 @@ post:
               description: Page name/slug/identifier
             bcc:
               type: string
+              description: BCC email address
   responses:
     '200':
       description: email wiki page response

@@ -16,9 +16,13 @@ delete:
           properties:
             galleryId:
               type: integer
-              description: The parent gallery of the gallery to be removed
+              description: The parent gallery ID of the gallery to be removed
             recurse:
-              type: boolean  
+              type: boolean
+              description: |
+                Whether to remove all sub-galleries and files. Possible values are:
+                - `true`: remove all sub-galleries and files
+                - `false`: remove only the gallery
   responses:
     '200':
       description: remove gallery response

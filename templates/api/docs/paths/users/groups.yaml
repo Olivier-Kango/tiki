@@ -7,22 +7,30 @@ post:
         schema:
           type: object
           properties:
-            items:
+            items[]:
               type: array
+              description: The users to add or remove
               items:
                 type: string
                 description: username
             add_remove:
               type: string
+              description: |
+                The operation to perform. Possible values are:
+                - `add`: Add users to groups
+                - `remove`: Remove users from groups
               enum:
                 - add
                 - remove
-            checked_groups:
+            checked_groups[]:
               type: array
+              description: The groups to add or remove users from
               items:
                 type: string
             default_group:
               type: string
+              description: |
+                The default group to assign users to. If a user is not a member of any group, the user will be assigned to this group.
   responses:
     '200':
       description: manage user groups response

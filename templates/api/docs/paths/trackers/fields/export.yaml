@@ -7,11 +7,12 @@ get:
       required: true
       schema:
         type: integer
-    - name: fields
+    - name: fields[]
       in: query
+      description: The array of field IDs to export. The field IDs must be integers. eg. fields[]=1&fields[]=2
       required: false
       schema:
-        type: array
+        type: array  
         items:
           type: integer
   responses:

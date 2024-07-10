@@ -17,38 +17,99 @@ post:
           properties:
             name:
               type: string
+              description: The name of the group
             desc:
               type: string
+              description: The description of the group
             home:
               type: string
+              description: The home page of the group
             userstracker:
               type: integer
+              description: |
+                The tracker ID for the users. Choose a user tracker to provide fields for a new user to complete upon registration.
             groupstracker:
               type: integer
+              description: |
+                The tracker ID for the group.
             registrationUsersFieldIds:
               type: string
+              description: |
+                If either a group information tracker or user registration tracker has been selected above, 
+                enter colon-separated field ID numbers for the tracker fields in the above tracker to include on the registration form for a new user to complete.
             userChoice:
-              $ref: schemas-TikiBoolean.yaml
+              type: string
+              description: |
+                User can assign himself or herself to the group. Possible values are:
+                - `y`: Yes. User can assign himself or herself to the group.
+                - `n`: No. User cannot assign himself or herself to the group.
+              enum:
+                - y
+                - n
             defcat:
               type: integer
+              description: |
+                The Default category assigned to uncategorized objects edited by a user with this default group.
             theme:
               type: string
+              description: |
+                The theme of the group. Possible values are:
+                - `default`: Default theme.
+                - `custom_url`: Custom theme by specifying URL
+                - `amelia`: Amelia theme.
+                - `cerulean`: Cerulean theme.
+                - `cosmo`: Cosmo theme.
+                - `cyborg`: Cyborg theme.
+                - `darkly`: Darkly theme.
+                - `flatly`: Flatly theme.
+                - etc. (see https://bootswatch.com/ for more themes)
             expireAfter:
               type: integer
+              description: |
+                Number of days after which all users will be unassigned from the group.
             emailPattern:
               type: string
+              description: |
+                Users are automatically assigned at registration in the group if their emails match the pattern.
+                - Example: /@(tw.org$)|(tw\.com$)/
             anniversary:
               type: string
+              description: |
+                Use `MMDD` to specify an annual date as of which all users will be unassigned from the group, or `DD` to specify a monthly date.
             prorateInterval:
               type: string
+              description: |
+                The Payment for membership extension is prorated at a minimum interval. Possible values are:
+                - `day`: Daily prorate interval.
+                - `month`: Monthly prorate interval.
+                - `year`: Yearly prorate interval.
             color:
               type: string
+              description: |
+                The Default color to use when plotting values for this group in charts. Use HEX notation, e.g. `#FF0000` for red color.
             isRole:
-              $ref: schemas-TikiBoolean.yaml
+              type: string
+              description: |
+                The group is a role. Possible values are:
+                - `y`: Yes. The group is a role.
+                - `n`: No. The group is not a role. |
+                - Note: If the group is a role, it will be used to assign permissions to users. Role groups can't have users.
+              enum:
+                - y
+                - n
             isTplGroup:
-              $ref: schemas-TikiBoolean.yaml
-            include_groups:
+              type: string
+              description: |
+                The group is a template group. Possible values are:
+                - `y`: Yes. The group is a template group.
+                - `n`: No. The group is not a template group.
+              enum:
+                - y
+                - n
+            include_groups[]:
               type: array
+              description: |
+                The groups to include in this group. Consider it as a parent group, the group from which this group inherits permissions.
               items:
                 type: string
   responses:

@@ -4,18 +4,26 @@ get:
   parameters:
     - name: parentId
       in: query
+      description: The ID of the parent category to return children or descendants of
       required: false
       schema:
         type: integer
     - name: descends
       in: query
+      description: |
+        Return descendants of a category. Possible values are:
+        - `0`: Return children of a category
+        - `1`: Return descendants of a category
       required: false
       schema:
         type: integer
     - name: type
       in: query
       required: false
-      description: "'roots' return root level categories, 'all' return all categories, everything else return descendants of a category"
+      description: |
+        - `roots`: return root level categories
+        - `all`: return all categories
+        - everything else return descendants of a category
       schema:
         type: string
   responses:
@@ -43,17 +51,25 @@ post:
           properties:
             parentId:
               type: integer
+              description: The ID of the parent category
             name:
               type: string
+              description: The name of the category
             description:
               type: string
+              description: The description of the category
             tplGroupContainerId:
-              type: integer,
+              type: integer
+              description: The ID of the template group container
             tplGroupPattern:
               type: string
+              description: The template group pattern
             parentPerms:
               type: boolean
-              description: Copy parent category permissions to the newly created category
+              description: |
+                Copy parent category permissions to the newly created category. Possible values are:
+                - `false`: Do not copy parent category permissions
+                - `true`: Copy parent category permissions
   responses:
     '200':
       description: create category response

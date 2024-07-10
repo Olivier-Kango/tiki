@@ -18,8 +18,10 @@ post:
           properties:
             name:
               type: string
+              decription: The name of the new duplicated gallery
             description:
               type: string
+              description: The description of the new duplicated gallery
   responses:
     '200':
       description: duplicate gallery response

@@ -9,7 +9,8 @@ post:
           properties:
             categId:
               type: integer
-            objects:
+              description: The ID of the category to categorize the objects under
+            objects[]:
               $ref: schemas-TikiObjects.yaml
   responses:
     '200':

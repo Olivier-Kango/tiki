@@ -5,40 +5,66 @@ get:
     - name: offset
       in: query
       required: false
+      description: The offset to start from
       schema:
         type: integer
     - name: maxRecords
       in: query
       required: false
+      description: The maximum number of records to return
       schema:
         type: integer
     - name: find
       in: query
       required: false
+      description: The search string to find wiki pages
       schema:
         type: string
     - name: initial
       in: query
       required: false
+      description: The initial string to find wiki pages
       schema:
         type: string
     - name: exactMatch
       in: query
       required: false
+      description: The exact match string to find wiki pages
       schema:
         type: string
     - name: onlyOrphans
       in: query
       required: false
+      description: |
+        Only return orphaned wiki pages (pages not linked to from another page). Possible values are:
+        - `true`: Only return orphaned wiki pages
+        - `false`: Return all wiki pages
       schema:
         $ref: schemas-TikiBoolean.yaml
     - name: filter
       in: query
       required: false
+      description: |
+        Filter wiki pages by category, language, structure, orphan status, or translation status. Possible values are:
+        - `andCategId`: Filter by an array of category IDs. Returns pages that are in all categories. e.g: `filter[andCategId][]=1&filter[andCategId][]=2`
+        - `categId`: Filter by category ID.
+        - `noCateg`: Filter by pages not in a category
+        - `notCategId`: Filter by pages not in an array of category IDs. e.g: `filter[notCategId][]=1&filter[notCategId][]=2`
+        - `lang`: Filter by language
+        - `structHead`: Include the structures in the response
+        - `langOrphan`: Filter by orphaned translated pages
+        - `structure_orphans`: Filter by structure orphans
+        - `translationOrphan`: Filter by translation orphan
+        - e.g: `filter[categId]=1&filter[lang]=en`
       schema:
-        type: object
+        type: array
     - name: onlyCant
       in: query
+      description: |
+        Only return number of wiki pages without the actual pages. Possible values are:
+        - `true`: Only return the number of wiki pages
+        - `false`: Return all wiki pages and the number of wiki pages
+        - The default value is `false`
       required: false
       schema:
         $ref: schemas-TikiBoolean.yaml

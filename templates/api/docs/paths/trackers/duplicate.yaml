@@ -18,10 +18,13 @@ post:
           properties:
             name:
               type: string
+              description: The name of the new duplicated tracker
             dupCateg:
               type: integer
+              description: The category of the new duplicated tracker
             dupPerms:
               type: integer
+              description: The permanent name of the new duplicated tracker
   responses:
     '200':
       description: tracker duplicate response

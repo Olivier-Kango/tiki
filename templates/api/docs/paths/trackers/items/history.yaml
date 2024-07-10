@@ -14,21 +14,38 @@ get:
         type: integer
     - name: fieldId
       in: query
+      decription: The ID of the field to filter the history by. If not provided, all fields will be included.
       required: false
       schema:
         type: integer
     - name: version
       in: query
+      description: The version of the item to retrieve the history for. If not provided, all versions will be included.
       required: false
       schema:
         type: string
     - name: offset
       in: query
+      description: Start offset for the number of records to return.
       required: false
       schema:
         type: integer
     - name: diff_style
       in: query
+      description: |
+          One of the options for default_wiki_diff_style pref. Possible values are:
+          - `old`: Only with last version
+          - `htmldiff`: HTML diff
+          - `sidediff`: Side-by-side diff
+          - `sidediff-char`: Side-by-side diff by characters
+          - `inlinediff`: Inline diff
+          - `inlinediff-char`: Inline diff by characters
+          - `sidediff-full`: Full side-by-side diff
+          - `sidediff-full-char`: Full side-by-side diff by characters
+          - `inlinediff-full`: Full inline diff
+          - `inlinediff-full-char`: Full inline diff by characters
+          - `unidiff`: Unified diff
+          - `sideview`: Side-by-side view
       required: false
       schema:
         type: string

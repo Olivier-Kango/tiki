@@ -8,8 +8,9 @@ post:
         schema:
           type: object
           properties:
-            items:
+            items[]:
               type: array
+              description: The array of page names to add as headers
               items:
                 type: string
   responses:

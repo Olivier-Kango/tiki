@@ -4,6 +4,7 @@ get:
   parameters:
     - name: galleryId
       in: path
+      description: The ID of the gallery to retrieve
       required: true
       schema:
         type: integer

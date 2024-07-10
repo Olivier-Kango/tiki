@@ -5,21 +5,26 @@ get:
     - name: type
       in: query
       required: true
-      description: Object type to get comments from
+      description: |
+        Object type to get comments from. Possible values are:
+        - `wiki page`, `file gallery`, `poll`, `faq`, `blog post`, `trackeritem`, `article`, `activity`
       schema:
         type: string
     - name: objectId
       in: query
+      description: Object ID to get comments from
       required: true
       schema:
         type: string
     - name: offset
       in: query
+      description: Offset to start from
       required: false
       schema:
         type: integer
     - name: maxRecords
       in: query
+      description: Maximum number of records to return
       required: false
       schema:
         type: integer
@@ -83,24 +88,35 @@ post:
           properties:
             type:
               type: string
+              description: |
+                Object type on which to create the comment. Possible values are:
+                - `wiki page`, `file gallery`, `poll`, `faq`, `blog post`, `trackeritem`, `article`, `activity`
             objectId:
               type: integer
+              description: Object ID on which to create the comment
             parentId:
               type: integer
+              description: Parent comment ID
             version:
               type: integer
+              description: Comment version. By default, it is 0
             title:
               type: string
+              description: Comment title
             data:
               type: string
+              description: Comment wiki content
             watch:
               $ref: schemas-TikiBoolean.yaml
             anonymous_name:
               type: string
+              description: Anonymous user name
             anonymous_email:
               type: string
+              decrption: Anonymous user email
             anonymous_website:
               type: string
+              description: Anonymous user website
   responses:
     '200':
       description: create comment response

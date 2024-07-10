@@ -1,6 +1,7 @@
 ---
 post:
-  description: Machine translation of an object
+  description: |
+    Machine translation of an object. Uses machine translation to translate the content of the site to other languages. Note that this feature relies on external services thay may not be free. Google Translate is a paid service.
   requestBody:
     required: true
     content:
@@ -12,8 +13,16 @@ post:
           properties:
             content:
               type: string
+              description: The content to translate
             lang:
               type: string
+              description: |
+                The target language. If not set, the default language of the site is used. Possible values are:
+                - `en`: English
+                - `es`: Spanish
+                - `fr`: French
+                - `de`: German
+                - etc
   responses:
     '200':
       description: translate response

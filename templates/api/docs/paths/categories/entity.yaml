@@ -16,17 +16,25 @@ post:
           properties:
             parentId:
               type: integer
+              description: The ID of the parent category
             name:
               type: string
+              description: The name of the category
             description:
               type: string
+              description: The description of the category
             tplGroupContainerId:
-              type: integer,
+              type: integer
+              description: The ID of the template group container
             tplGroupPattern:
               type: string
+              description: The template group pattern
             parentPerms:
               type: boolean
-              description: Copy parent category permissions to the category (useful when moving a category to another parent)
+              description: |
+                Copy parent category permissions to the category (useful when moving a category to another parent). Possible values are:
+                - `false`: Do not copy parent category permissions
+                - `true`: Copy parent category permissions
   responses:
     '200':
       description: update category response
