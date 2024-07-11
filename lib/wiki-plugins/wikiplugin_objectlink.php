@@ -33,6 +33,14 @@ function wikiplugin_objectlink_info()
                 'filter' => 'text',
                 'profile_reference' => 'type_in_param',
             ],
+            'title' => [
+                'required' => false,
+                'name' => tr('Title'),
+                'description' => tr('The link title if not using the default object one'),
+                'since' => '24.7',
+                'filter' => 'text',
+                'type' => 'text',
+            ],
         ],
     ];
 }
@@ -53,6 +61,7 @@ function wikiplugin_objectlink($data, $params)
         [
             'type' => $params['type'],
             'id' => $params['id'],
+            'title' => $params['title'] ?? null,
         ],
         $smarty->getEmptyInternalTemplate()
     );
