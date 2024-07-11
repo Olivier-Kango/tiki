@@ -4199,7 +4199,7 @@ class TrackerLib extends TikiLib
             }
         }
 
-        return $result;
+        return (string) $result;
     }
 
     /**
