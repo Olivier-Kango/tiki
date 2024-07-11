@@ -36,6 +36,15 @@ function prefs_user_list($partial = false)
                 'user_unique_email',
             ],
         ],
+        'user_add_tracker_item_set_default_on' => [
+            'name' => tra('Add a user tracker item for new user set default on'),
+            'description' => tra('Set default value for the "add a user tracker item for this user" checkbox in the registration form when adding new user by the admin. This is to avoid to have to check the said checkbox everytime on next users creation if your policy is that you want to add a tracker item in the user tracker when creating a new user.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'dependencies' => [
+                'userTracker',
+            ],
+        ],
         'user_tracker_infos' => [
             'name' => tra('Display user tracker information on the user information page'),
             'description' => tra('Display user tracker information on the user information page'),
