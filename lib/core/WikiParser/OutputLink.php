@@ -154,8 +154,10 @@ class WikiParser_OutputLink
 
         $string = '<a';
         foreach ($attributes as $attr => $val) {
+            // not sure this (from 2012) makes any sense any more? jb
             $val = TikiLib::lib("parser")->protectSpecialChars($val);
-            $string .= " $attr=\"" . TikiLib::lib("parser")->unprotectSpecialChars($val) . '"'; //val CANNOT be html, so force it to non-html
+            $val = TikiLib::lib("parser")->unprotectSpecialChars($val); //val CANNOT be html, so force it to non-html
+            $string .= " $attr=\"" . str_replace('"', '&quot;', $val) . '"';
         }
 
         $string .= '>' . $text . '</a>'; //text can return html, so let parser take care of that

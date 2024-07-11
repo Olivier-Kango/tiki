@@ -495,7 +495,7 @@ class WikiLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');
         if ($prefs['feature_use_fgal_for_wiki_attachments'] == 'y') {
-            $query = 'update `tiki_file_galleries` set `name`=? where `name`=? and type = "attachments"';
+            $query = "update `tiki_file_galleries` set `name`=? where `name`=? and `type` = 'attachments'";
             $this->query($query, [$newName, $oldName]);
         }
 
@@ -1632,24 +1632,35 @@ class WikiLib extends TikiLib
             }
         }
 
-        $tiki_pages = TikiDb::get()->table('tiki_pages');
-        if (! TikiLib::lib('tiki')->page_exists($requestedPageName)) {
-            $canonical_page = $this->get_pages_by_alias($requestedPageName)[0];
-            if ($canonical_page) {
-                $finalPageName = $tiki_pages->fetchOne('pageSlug', ['pageName' => $canonical_page]);
-                $href = "$view_script?page=" . $finalPageName;
-            } else {
-                $href = "$edit_script?page=" . $requestedPageName;
-            }
+        $pageExists = TikiLib::lib('tiki')->page_exists($requestedPageName);
+        $finalPageName = '';
+
+        if ($pageExists) {
+            $finalPageName = $requestedPageName;
         } else {
-            $href = "$view_script?page=" . $requestedPageName;
+            $pagesByAlias = $this->get_pages_by_alias($requestedPageName);
+            if ($pagesByAlias) {
+                $finalPageName = $pagesByAlias[0];
+            }
         }
 
-        if (isset($prefs['feature_wiki_use_date_links']) && $prefs['feature_wiki_use_date_links'] == 'y') {
+        if ($finalPageName) {
+            if ($prefs['feature_sefurl'] === 'y') {
+                $tiki_pages = TikiDb::get()->table('tiki_pages');
+                $href = urlencode($tiki_pages->fetchOne('pageSlug', ['pageName' => $finalPageName]));
+            } else {
+                $href = "$view_script?page=" . urlencode($finalPageName);
+            }
+        } else {
+            $href = "$edit_script?page=" . urlencode($requestedPageName);
+        }
+
+        if ($prefs['feature_wiki_use_date_links'] == 'y') {
+            $separator = $prefs['feature_sefurl'] === 'y' ? '?' : '&';
             if (isset($_REQUEST['date'])) {
-                $href .= '&date=' . urlencode($_REQUEST['date']);
+                $href .= $separator . 'date=' . urlencode($_REQUEST['date']);
             } elseif (isset($_REQUEST['version'])) {
-                $href .= '&date=' . urlencode($info['lastModif']);
+                $href .= $separator . 'date=' . urlencode($info['lastModif']);
             }
         }
 
