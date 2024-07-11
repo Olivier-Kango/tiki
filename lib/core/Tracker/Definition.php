@@ -184,7 +184,7 @@ class Tracker_Definition
                 return $f;
             }
         }
-        throw new RuntimeException("Field with fieldId: {$id} not found in definition of {$this->trackerInfo['trackerId']}");
+        throw new RuntimeException("Field with fieldId: {$id} not found in definition of tracker {$this->trackerInfo['trackerId']}");
     }
 
     public function getFieldFromName($name): ?array
@@ -197,7 +197,7 @@ class Tracker_Definition
                 return $f;
             }
         }
-        return null;
+        throw new RuntimeException("Field with permName: {$name} not found in definition of tracker {$this->trackerInfo['trackerId']}");
     }
 
     public function getFieldFromPermName($permName): ?array

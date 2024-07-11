@@ -678,7 +678,18 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         $filterFieldIdThere = (int) $this->getOption('fieldIdThere');
 
         if ($filterFieldIdHere) {
-            $filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
+            try {
+                $filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
+            } catch (Exception $e) {
+                Feedback::error(
+                    tr(
+                        'Tracker %0 field %1 config error: ',
+                        $this->getConfiguration('trackerId'),
+                        $this->getConfiguration('fieldId')
+                    ) .
+                    $e->getMessage()
+                );
+            }
         } else {
             $filterFieldHere = null;
         }
