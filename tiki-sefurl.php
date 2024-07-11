@@ -165,7 +165,7 @@ function filter_out_sefurl($tpl_output, $type = null, $title = '', $with_next = 
         $tpl_output .= TITLE_SEPARATOR . $title;
     }
     if (is_array($prefs['feature_sefurl_paths'])) {
-        foreach ($prefs['feature_sefurl_paths'] as $path) {
+        foreach (array_filter($prefs['feature_sefurl_paths']) as $path) {
             if (isset($_REQUEST[$path])) {
                 $tpl_output = urlencode($_REQUEST[$path]) . "/$tpl_output";
             }
