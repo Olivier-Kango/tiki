@@ -2132,7 +2132,7 @@ class Services_Tracker_Controller
 
             $cat_desc = $data['description'];
             if ($data['descriptionIsParsed'] == 'y') {
-                $field['description'] = TikiLib::lib('edit')->removeSyntaxPlugin($cat_desc);
+                $cat_desc = TikiLib::lib('edit')->removeSyntaxPlugin($cat_desc);
             }
 
             $cat_name = $data['name'];
@@ -2155,10 +2155,16 @@ class Services_Tracker_Controller
         $trklib = TikiLib::lib('trk');
         $groupalertlib = TikiLib::lib('groupalert');
         $groupforAlert = $groupalertlib->GetGroup('tracker', 'trackerId');
+
+        $info = $trackerId ? $definition->getInformation() : [];
+        if (! empty($info['descriptionIsParsed']) && $info['descriptionIsParsed'] == 'y') {
+            $info['description'] = TikiLib::lib('edit')->removeSyntaxPlugin($info['description']);
+        }
+
         return [
             'title' => $trackerId ? tr('Edit') . " " . tr('%0', $definition->getConfiguration('name')) : tr('Create Tracker'),
             'trackerId' => $trackerId,
-            'info' => $trackerId ? $definition->getInformation() : [],
+            'info' => $info,
             'statusTypes' => $trackerId ? $definition->getStatusTypes() : $trklib->status_types(),
             'statusList' => $trackerId ? preg_split('//', $definition->getConfiguration('defaultStatus', 'o'), -1, PREG_SPLIT_NO_EMPTY) : null,
             'sortFields' => $this->getSortFields($definition ?? null),
