@@ -123,8 +123,8 @@ $tagsArr = [["div", "icon_edit_section", "class"], ["a", "editplugin", "class"],
 
 
 
-$pages = \Tiki\Lib\Wiki\WikiPaginationUtils::getNumberOfPages($pdata);
-$pdata = \Tiki\Lib\Wiki\WikiPaginationUtils::getPage($pdata, $_REQUEST['pagenum']);
+$pages = WikiPaginationUtils::getNumberOfPages($pdata);
+$pdata = WikiPaginationUtils::getPage($pdata, $_REQUEST['pagenum']);
 // Put ~pp~, ~np~ and <pre> back. --rlpowell, 24 May 2004
 $parserlib->replace_preparse($info["data"], $preparsed, $noparsed);
 $parserlib->replace_preparse($pdata, $preparsed, $noparsed);
