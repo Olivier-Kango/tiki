@@ -1,5 +1,6 @@
 //--------------------------- Tiki CSS variables
 @import "variables";
+$imagePath: "../images/";
 // CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
 // Background images (actual images or CSS gradients, etc.), if assigned, override background colors.
 
@@ -156,5 +157,16 @@ $imagePath: "../images/";
     body:not(.layout_classic) #middle.container-std.middle,
     .layout_basic .row-middle {  // Moved from #col1 for Bootstrap 5
         background: #fbfbfb url('#{$imagePath}image2.jpg') 100% 0 no-repeat;
+    }
+    #footer .container,
+    footer.main-footer .container {
+        min-height: 60px;
+        background: url('#{$imagePath}footer.gif') repeat-x;
+    }
+}
+
+[data-bs-theme="dark"] {
+    .nav-link {
+        --bs-nav-link-color: var(--bs-link-color);
     }
 }

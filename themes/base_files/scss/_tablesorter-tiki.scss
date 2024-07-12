@@ -1,5 +1,5 @@
-//Less file for the jQuery tablesorter plugin
-//base formatting that apply to all Tiki themes and included in tiki.less
+//SCSS file for the jQuery tablesorter plugin
+//base formatting that apply to all Tiki themes
 
 $filterTransitionTime : 0.1s;
 $filterRowHiddenHeight : 4px;
@@ -100,7 +100,7 @@ table.tablesorter {
                     font-size: 0.8em;
                 }
                 span.currange {
-                    font-size: smaller;
+//                    font-size: smaller;
                     font-weight: normal;
                 }
                 // Add tooltips to slider handles
@@ -192,15 +192,17 @@ div.ts-wrapperdiv {
     select {
         width: auto;
         display: inline;
-        option {
-            font-size: smaller;
-        }
+ //       option {
+ //           font-size: smaller;
+ //       }
     }
     select, input {
         font-size: smaller;
         border: var(--bs-border-width) solid var(--bs-border-color);
     }
     div.ts-pager {
+        display:flex;
+        align-items: center;
         margin-top: 3px;
         margin-bottom: 3px;
         font-size: smaller;
@@ -212,6 +214,9 @@ div.ts-wrapperdiv {
         .right-margin {
             vertical-align: bottom;
             margin-right: 4px;
+        }
+        .btn-group {
+            align-items:center;
         }
     }
 }
