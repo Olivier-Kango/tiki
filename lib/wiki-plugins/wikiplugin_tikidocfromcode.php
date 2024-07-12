@@ -88,7 +88,7 @@ class WikiPluginTikiDocFromCode extends PluginsLib
             $helppath = $helpurl . $aPrincipalField['name'];
             $filepath = WIKIPLUGINS_SRC_PATH . '/wikiplugin_';
             $aPlugins = $wikilib->list_plugins();
-            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/lib/wiki-plugins/';
+            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/';
             $type = "plugin";
         }
 
