@@ -11,31 +11,45 @@
 require_once('check_composer_exists.php');
 
 $inputConfiguration = [
-                [
-                    'staticKeyFilters' => [
-                        'action' => 'word',
-                        //'attach_comment' => '', TODO
-                        // 'atts_show' => '', TODO
-                        'best_lang' => 'alpha',
-                        'bl' => 'alpha',
-                        //'copyrightpage' => '', TODO
-                        'page' => 'pagename',
-                        'page_id' => 'digits',
-                        'pagenum' => 'digits',
-                        'page_ref_id' => 'digits',
-                        'mode' => 'word',
-                        'removeattach' => 'digits',
-                        'sort_mode' => 'string',
-                        //'structure' => '', TODO
-                        'version' => 'digits',
-                        'watch_action' => 'word',
-                        'watch_event' => 'word',
-                        //'watch_object' => 'word', TODO
-                        'approve' => 'text',
-                        'revision' => 'digits',
-                    ],
-                    'catchAllUnset' => null
-                ],
+    [
+        'staticKeyFilters'                 => [
+            'action'                       => 'word',
+            'attach_comment'               => 'word',
+            'atts_show'                    => 'word',
+            'best_lang'                    => 'alpha',
+            'bl'                           => 'alpha',
+            'copyrightpage'                => 'string',
+            'page'                         => 'pagename',
+            'page_id'                      => 'digits',
+            'pagenum'                      => 'digits',
+            'page_ref_id'                  => 'digits',
+            'mode'                         => 'word',
+            'removeattach'                 => 'digits',
+            'sort_mode'                    => 'string',
+            'structure'                    => 'string',
+            'version'                      => 'digits',
+            'watch_action'                 => 'word',
+            'watch_event'                  => 'word',
+            'watch_group'                  => 'word',
+            'watch_object'                 => 'word',
+            'approve'                      => 'text',
+            'revision'                     => 'digits',
+            'machine_translate_to_lang'    => 'lang',
+            'admin'                        => 'word',
+            'fullscreen'                   => 'bool',
+            'date'                         => 'date',
+            'itemId'                       => 'digits',
+            'switchlang'                   => 'word',
+            'delete_revision'              => 'bool',
+            'reject'                       => 'bool',
+            'reason'                       => 'word',
+            'latest'                       => 'word',
+            'convertstructure'             => 'string',
+            'savenotepad'                  => 'bool',
+            'undo'                         => 'bool',
+            'refresh'                      => 'bool',
+        ],
+    ],
 ];
 
 // Initialization

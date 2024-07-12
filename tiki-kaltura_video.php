@@ -8,6 +8,21 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'mixId'                           => 'int',               //post
+        'mediaId'                         => 'int',               //post
+        'action'                          => 'word',              //post
+        'name'                            => 'word',              //post
+        'description'                     => 'xss',               //post
+        'update'                          => 'bool',              //post
+        'editor'                          => 'int',               //post
+        'tags'                            => 'word',              //post
+        'adminTags'                       => 'word',              //post
+        ],
+    ],
+];
 require_once 'tiki-setup.php';
 
 $access->check_feature('feature_kaltura');

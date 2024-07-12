@@ -10,17 +10,44 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
     [
-        'staticKeyFilters' => [
-            'calendarId' => 'int',               //post
-            'offset' => 'striptags',             //get
-            'sort_mode' => 'striptags',          //get
-            'description' => 'xss',              //post
-            'subscriptionId' => 'int',           //get
-            'ip2' => 'int',                      //post
-            'ip3' => 'int',                      //post
-            'ip4' => 'int',                      //post
-            'use_dates' => 'bool',               //post
-            'message' => 'xss',                  //post
+        'staticKeyFilters'                => [
+            'calendarId'                  => 'int',               //post
+            'offset'                      => 'striptags',         //get
+            'sort_mode'                   => 'striptags',         //get
+            'description'                 => 'xss',               //post
+            'drop'                        => 'int',               //get
+            'remove_subscription'         => 'int',               //get
+            'save'                        => 'bool',              //post
+            'customlanguages'             => 'lang',              //post
+            'customlocations'             => 'bool',              //post
+            'customparticipants'          => 'bool',              //post
+            'customcategories'            => 'bool',              //post
+            'custompriorities'            => 'bool',              //post
+            'customsubscription'          => 'bool',              //post
+            'personal'                    => 'bool',              //post
+            'private'                     => 'bool',              //post
+            'customstatus'                => 'bool',              //post
+            'startday_Meridian'           => 'digits',            //post
+            'startday_Hour'               => 'digits',            //post
+            'endday_Meridian'             => 'digits',            //post
+            'endday_Hour'                 => 'digits',            //post
+            'allday'                      => 'bool',              //post
+            'nameoneachday'               => 'bool',              //post
+            'name'                        => 'text',              //post
+            'groupforAlert'               => 'groupname',         //post
+            'showeachuser'                => 'bool',              //post
+            'clean'                       => 'bool',              //post
+            'days'                        => 'int',               //post
+            'find'                        => 'text',              //post
+            'savesub'                     => 'bool',              //post
+            'subscriptionId'              => 'int',               //post
+            'sync_subscription'           => 'int',               //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'options'               => 'text',    //post
+            'viewdays'              => 'bool',    //post
+            'show'                  => 'bool',    //post
+            'subscription'          => 'none',    //post
         ],
     ],
 ];

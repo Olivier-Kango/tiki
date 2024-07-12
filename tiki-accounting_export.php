@@ -23,12 +23,13 @@
 $inputConfiguration = [
     [
         'staticKeyFilters' => [
-            'bookId' => 'int',         //get
-            'what' => 'striptags',     //get
-            'action' => 'striptags',   //get
-            'separator' => 'striptags',//post
-            'quote' => 'striptags',    //post
-
+            'bookId'       => 'int',          //post
+            'what'         => 'striptags',    //post
+            'action'       => 'striptags',    //post
+            'separator'    => 'striptags',    //post
+            'quote'        => 'striptags',    //post
+            'eol'          => 'striptags',    //post
+            'accountId'    => 'int',          //post
         ],
     ],
 ];

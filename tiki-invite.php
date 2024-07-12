@@ -4,6 +4,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'loadprevious'                    => 'word',              //post
+        'emailslist'                      => 'word',              //post
+        'emailslist_format'               => 'word',              //post
+        'emailsubject'                    => 'word',              //post
+        'emailcontent'                    => 'xss',               //post
+        'wikicontent'                     => 'xss',               //post
+        'wikipageafter'                   => 'pagename',          //post
+        'send'                            => 'bool',              //post
+        'confirm'                         => 'bool',              //post
+        ],'staticKeyFiltersForArrays' => [
+        'invitegroups'                    => 'string',              //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $access->check_feature('feature_invite');
 $access->check_permission('tiki_p_invite');

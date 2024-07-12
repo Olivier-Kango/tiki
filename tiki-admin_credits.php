@@ -10,14 +10,33 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
     [
-        'staticKeyFilters'    => [
-            'userfilter'      => 'striptags',        //post
-            'new_credit_type' => 'striptags',        //post
-            'display_text'    => 'striptags',        //post
-            'unit_text'       => 'striptags',        //post
-            'scaling_divisor' => 'striptags',        //post
-            'save' => 'bool',                        //post
-            'purge_credits'   => 'bool'              //post
+        'staticKeyFilters'          => [
+            'userfilter'            => 'striptags',   //post
+            'use_credit'            => 'bool',        //post
+            'restore_credit'        => 'bool',        //post
+            'update_types'          => 'bool',        //post
+            'action_type'           => 'striptags',   //post
+            'use_credit_type'       => 'striptags',   //post
+            'use_credit_amount'     => 'float',       //post
+            'restore_credit_type'   => 'striptags',   //post
+            'restore_credit_amount' => 'float',       //post
+            'credit_types'          => 'striptags',   //post
+            'display_text'          => 'striptags',   //post
+            'is_static_level'       => 'bool',        //post
+            'save'                  => 'bool',        //post
+            'credit_type'           => 'striptags',   //post
+            'new_credit_type'       => 'striptags',   //post
+            'unit_text'             => 'striptags',   //post
+            'scaling_divisor'       => 'int',         //post
+            'total_amount'          => 'float',       //post
+            'expiration_date'       => 'striptags',   //post
+            'creation_date'         => 'striptags',   //post
+            'confirm'               => 'bool',        //post
+            'purge_credits'         => 'bool'         //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'credits'               => 'striptags',   //post
+            'delete'                => 'int',        //post
         ],
     ],
 ];

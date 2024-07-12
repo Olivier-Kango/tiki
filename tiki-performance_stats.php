@@ -4,6 +4,18 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'clear'                    => 'digits',            //get
+        'find'                     => 'text',              //post
+        'average_stat_offset'      => 'digits',            //get
+        'average_stat_order'       => 'text',              //get
+        'maximum_stat_offset'      => 'digits',            //get
+        'maximum_stat_order'       => 'text',              //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $performanceLib = TikiLib::lib('performancestats');
 

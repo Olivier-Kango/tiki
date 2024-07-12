@@ -8,6 +8,35 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'page'                     => 'pagename',          //get
+        'action'                   => 'bool',               //get
+        'referenceId'              => 'int',               //post
+        'ref_auto_biblio_code'     => 'bool',              //post
+        'ref_biblio_code'          => 'string',            //post
+        'ref_author'               => 'word',              //post
+        'ref_title'                => 'string',            //post
+        'ref_part'                 => 'alpha',             //post
+        'ref_uri'                  => 'alpha',             //post
+        'ref_code'                 => 'aplha',             //post
+        'ref_publisher'            => 'aplha',             //post
+        'ref_location'             => 'aplha',             //post
+        'ref_year'                 => 'digits',            //post
+        'ref_style'                => 'word',              //post
+        'ref_template'             => 'digits',            //post
+        'find'                     => 'alpha',             //post
+        'maxRecords'               => 'int',               //post
+        'offset'                   => 'digits',            //get
+        'addreference'             => 'bool',              //post
+        'response'                 => 'alpha',             //post
+        'editreference'            => 'bool',              //post
+        'details'                  => 'digits',            //get
+        'usage'                    => 'digits',            //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $access->check_feature('feature_references');
 $access->check_permission(['tiki_p_edit_references'], tra('Edit Library References'));

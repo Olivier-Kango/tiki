@@ -8,6 +8,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'clear'                    => 'bool',              //post
+        'sort_mode'                => 'word',              //get
+        'offset'                   => 'digits',            //post
+        'find'                     => 'word',              //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 include_once('lib/refererstats/refererlib.php');
 $access->check_feature('feature_referer_stats');

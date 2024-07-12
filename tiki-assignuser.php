@@ -13,17 +13,17 @@
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
-            'assign_user'                 => 'bool',    //post
-            'action'                      => 'string',  //post
-            'group'                       => 'word',    //post
-            'set_default'                 => 'bool',    //post
-            'login'                       => 'word',    //post
-            'defaultgroup'                => 'word',    //post
-            'save'                        => 'bool',    //post
-            'sort_mode'                   => 'word',    //post
-            'offset'                      => 'int',     //get
-            'find'                        => 'word',    //post
-            'maxRecords'                  => 'int',     //post
+            'assign_user'                 => 'username',  //post
+            'action'                      => 'string',    //post
+            'group'                       => 'word',      //post
+            'set_default'                 => 'bool',      //post
+            'login'                       => 'word',      //post
+            'defaultgroup'                => 'word',      //post
+            'save'                        => 'bool',      //post
+            'sort_mode'                   => 'word',      //post
+            'offset'                      => 'int',       //get
+            'find'                        => 'word',      //post
+            'maxRecords'                  => 'int',       //post
         ],
     ]
 ];

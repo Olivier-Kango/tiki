@@ -9,6 +9,37 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $auto_query_args = ['page_ref_id', 'offset', 'find_objects'];
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'structure_id'                => 'int',            //post
+            'remove'                      => 'int',            //get
+            'move_to'                     => 'bool',           //get
+            'begin'                       => 'bool',           //post
+            'rremove'                     => 'int',            //get
+            'page'                        => 'pagename',       //post
+            'page_ref_id'                 => 'digits',         //post
+            'sremove'                     => 'int',            //get
+            'watch_action'                => 'string',         //post
+            'watch_object'                => 'digits',         //post
+            'create'                      => 'bool',           //post
+            'pageAlias'                   => 'string',         //post
+            'after_ref_id'                => 'int',            //post
+            'name'                        => 'string',         //post
+            'move_node'                   => 'string',         //post
+            'find_objects'                => 'string',         //post
+            'recategorize'                => 'bool',           //post
+            'cat_categorize'              => 'bool',           //post
+            'cat_override'                => 'bool',           //post
+            'categId'                     => 'int',            //post
+            'offset'                      => 'int',            //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'name2'                 => 'string',        //post
+            'cat_categories'        => 'string',        //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $structlib = TikiLib::lib('struct');
@@ -297,6 +328,7 @@ if (isset($_REQUEST["recategorize"]) && $prefs['feature_wiki_categorize_structur
             $cat_objid = $othobjs["pageName"];
             $cat_name = $cat_objid;
             $cat_href = "tiki-index.php?page=" . urlencode($cat_objid);
+
 
             $catObjectId = $categlib->is_categorized($cat_type, $cat_objid);
             if (! $catObjectId) {

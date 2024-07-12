@@ -9,6 +9,27 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'page_ref_id'              => 'int',                 //get
+        'page'                     => 'pagename',            //get
+        'printpages'               => 'string',              //get
+        'printstructures'          => 'string',              //get
+        'find'                     => 'word',                //post
+        'addpage'                  => 'bool',                //post
+        'removepage'               => 'bool',                //post
+        'clearpages'               => 'bool',                //post
+        'clearstructures'          => 'bool',                //post
+        'addstructurepages'        => 'bool',                //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'structureId'           => 'digits',       //post
+            'pageName'              => 'pagename',     //post
+            'selectedpages'         => 'pagename',     //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $structlib = TikiLib::lib('struct');
 $auto_query_args = ['page_ref_id', 'page', 'find', 'pageName', 'structureId', 'offset', 'printpages', 'printstructures'];

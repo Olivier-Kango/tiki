@@ -8,6 +8,26 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'sheetId'                         => 'int',               //get
+        'graphic'                         => 'word',              //get
+        'renderer'                        => 'word',              //get
+        'title'                           => 'word',              //get
+        'width'                           => 'word',              //get
+        'height'                          => 'word',              //get
+        'format'                          => 'word',              //get
+        'orientation'                     => 'word',              //get
+        'independant'                     => 'bool',              //get
+        'vertical'                        => 'bool',              //get
+        'horizontal'                      => 'bool',              //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'series'                => 'striptag',
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $sheetlib = TikiLib::lib('sheet');

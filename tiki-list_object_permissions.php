@@ -4,6 +4,20 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'delete'                   => 'word',                //post
+        'duplicate'                => 'bool',                //post
+        'toGroup'                  => 'word',                //post
+        'objectPerm'               => 'word',                //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'filterGroup'           => 'groupname',          //post
+            'groupPerm'             => 'bool',               //post
+        ],
+    ],
+];
 include_once('tiki-setup.php');
 $access->check_permission('tiki_p_admin');
 $all_perms = $userlib->get_permissions();

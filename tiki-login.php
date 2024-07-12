@@ -9,11 +9,23 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
-    [ 'staticKeyFilters' => [
-        'user' => 'text',
-        'username' => 'text',
-        'pass' => 'none',
-    ] ]
+    [
+        'staticKeyFilters'     => [
+        'code'                 => 'string',         //get
+        'user'                 => 'username',       //post
+        'pass'                 => 'password',       //post
+        'cas'                  => 'bool',           //post
+        'username'             => 'username',       //post
+        'su'                   => 'word',           //post
+        'intertiki'            => 'string',         //post
+        'twoFactorForm'        => 'string',         //post
+        'twoFactorAuthCode'    => 'string',         //post
+        'page'                 => 'pagename',       //post
+        'url'                  => 'url',            //post
+        'rme'                  => 'bool',           //post
+        'ticket'               => 'string',         //post
+        ],
+    ],
 ];
 
 $bypass_siteclose_check = 'y';

@@ -8,6 +8,21 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'       => [
+        'remove'                 => 'int',                 //get
+        'contentId'              => 'int',                 //post
+        'save'                   => 'bool',                //post
+        'edit'                   => 'bool',                //post
+        'description'            => 'xss',                 //post
+        'contentLabel'           => 'word',                //post
+        'sort_mode'              => 'word',                //get
+        'offset'                 => 'int',                 //get
+        'find'                   => 'word',                //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $auto_query_args = ['sort_mode', 'offset', 'find'];
 //get_strings tra('Dynamic content')

@@ -8,6 +8,38 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'       => [
+        'objectId'               => 'int',        //get
+        'objectType'             => 'word',       //post
+        'objectName'             => 'word',       //post
+        'referer'                => 'word',       //post
+        'parentId'               => 'int',        //post
+        'permType'               => 'word',       //post
+        'assignstructure'        => 'bool',       //post
+        'propagate_category'     => 'bool',       //post
+        'feature_select'         => 'bool',       //post
+        'group_select'           => 'bool',       //post
+        'group'                  => 'grouname',   //post
+        'assign'                 => 'bool',       //post
+        'quick_perms'            => 'bool',       //post
+        'remove'                 => 'bool',       //post
+        'copy'                   => 'bool',       //post
+        'paste'                  => 'bool',       //post
+        'used_groups'            => 'bool',       //post
+        'show_disabled_features' => 'bool',       //post
+        'filegals_manager'       => 'word',       //post
+        ],
+        'staticKeyFiltersForArrays' => [
+        'feature_filter'            => 'bool',       //post
+        'group_filter'              => 'bool',       //post
+        'perm'                      => 'bool',       //post
+        'old_perm'                  => 'bool',       //post
+        ],
+    ],
+];
+
 include_once('tiki-setup.php');
 if (! empty($_REQUEST['objectType']) && $_REQUEST['objectType'] != 'global') {
     if (! isset($_REQUEST['objectName']) || empty($_REQUEST['objectId'])) {

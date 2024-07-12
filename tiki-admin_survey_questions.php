@@ -24,7 +24,6 @@ $inputConfiguration = [
         'staticKeyFiltersForArrays' => [
             'questionIds'           => 'int',              //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

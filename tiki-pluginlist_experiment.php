@@ -12,6 +12,13 @@ global $prefs;
 
 $section = "wiki page";
 $section_class = "tiki_wiki_page manage";   // This will be body class instead of $section
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'editwiki'                  => 'text',            //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 if ($tiki_p_edit !== 'y') {

@@ -8,6 +8,26 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'quizId'                      => 'int',            //post
+            'questionId'                  => 'int',            //post
+            'question'                    => 'text',           //post
+            'remove'                      => 'int',            //post
+            'save'                        => 'bool',           //post
+            'questionType'                => 'string',         //post
+            'position'                    => 'string',         //post
+            'import'                      => 'bool',           //post
+            'input_data'                  => 'text',           //post
+            'useQuestion'                 => 'bool',           //post
+            'usequestionid'               => 'int',            //post
+            'sort_mode'                   => 'alpha',          //get
+            'offset'                      => 'int',            //get
+            'find'                        => 'alpha',          //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $quizlib = TikiLib::lib('quiz');
 

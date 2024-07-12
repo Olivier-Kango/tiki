@@ -12,6 +12,38 @@
 //<a href="tiki-share.php?url={$smarty.server.REQUEST_URI|escape:'url'}">{tr}Share this page{/tr}</a>
 
 $section = 'share';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+            'report'                               => 'string',              //post
+            'do_email'                             => 'bool',                //post
+            'do_tweet'                             => 'bool',                //post
+            'do_fb'                                => 'bool',                //post
+            'fblike'                               => 'digits',              //post
+            'priority'                             => 'digits',              //post
+            'do_message'                           => 'bool',                //post
+            'forumId'                              => 'digits',              //post
+            'url'                                  => 'url',                 //post
+            'shorturl'                             => 'bool',                //post
+            'subject'                              => 'string',              //post
+            'send'                                 => 'bool',                //post
+            'comment'                              => 'text',                //post
+            'share_token_notification'             => 'string',              //post
+            'share_access_rights'                  => 'bool',                //post
+            'share_access'                         => 'bool',                //post
+            'how_much_time_access'                 => 'int',                 //post
+            'addresses'                            => 'email',               //post
+            'name'                                 => 'string',              //post
+            'email'                                => 'email',               //post
+            'fblinktitle'                          => 'striptags',           //post
+            'messageto'                            => 'email',               //post
+            'do_forum'                             => 'bool',                //post
+            'replyto_hash'                         => 'string',              //post
+            'body'                                 => 'xss',                 //post
+            'forum_password'                       => 'password',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 if (empty($_REQUEST['report'])) {
     $access->check_feature('feature_share');

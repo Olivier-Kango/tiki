@@ -10,6 +10,34 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
 $section_class = 'tiki_wiki_page manage';   // This will be body class instead of $section
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                      => [
+        'mapview'                               => 'bool',               //post
+        'searchmap'                             => 'none',               //post
+        'searchlist'                            => 'none',               //post
+        'lang'                                  => 'lang',               //post
+        'term_srch'                             => 'string',             //post
+        'create_new_pages_using_template_name'  => 'string',             //post
+        'hits_link_to_all_languages'            => 'bool',               //post
+        'categId'                               => 'int',                //post
+        'maxRecords'                            => 'int',                //post
+        'q'                                     => 'string',             //post
+        'langOrphan'                            => 'lang',               //post
+        'category'                              => 'word',               //post
+        'page_orphans'                          => 'pagename',           //post
+        'findfilter_orphan'                     => 'string',             //post
+        'structure_orphans'                     => 'bool',               //post
+        'initial'                               => 'string',             //post
+        'exact_match'                           => 'bool',               //post
+        'listonly'                              => 'bool',               //post
+        'exclude_page'                          => 'string',             //post
+        'find'                                  => 'word',               //post
+        'offset'                                => 'digits',             //get
+        'sort_mode'                            => 'word',                //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $auto_query_args = [

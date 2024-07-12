@@ -9,6 +9,14 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'livesupport';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'   => [
+        'reqId'              => 'bool',               //post
+        'role'               => 'string',             //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/live_support/lslib.php');
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past

@@ -47,19 +47,20 @@
 // Initialization
 
 $inputConfiguration = [
-    [ 'staticKeyFilters' =>
-        [
-            'step1' => 'word',
-            'step2' => 'word',
-            'step3' => 'word',
-            'import' => 'word',
-            'fForumid' => 'digits',
-            'tForumid' => 'digits',
-            'ftype' => 'word',
-            'prefix' => 'word',
-            'server' => 'striptags',
-        ]
-    ]
+    [
+        'staticKeyFilters'                => [
+        'step1'                           => 'int',               //post
+        'step2'                           => 'bool',              //post
+        'step3'                           => 'word',              //post
+        'step4'                           => 'word',              //post
+        'import'                          => 'word',              //post
+        'fForumid'                        => 'int',               //post
+        'tForumid'                        => 'int',               //post
+        'ftype'                           => 'word',              //post
+        'prefix'                          => 'word',              //post
+        'server'                          => 'striptags ',        //post
+        ],
+    ],
 ];
 
 require_once('tiki-setup.php');

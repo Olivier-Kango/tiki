@@ -8,6 +8,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'blogId'                   => 'int',             //post
+        'action'                   => 'word',            //get
+        'checked'                  => 'bool',            //post
+        'findfilter_approved'      => 'word',            //post
+        'sort_mode'                => 'word',            //get
+        'offset'                   => 'int',             //get
+        'find'                     => 'word',            //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'types'                    => 'word',        //post
+            'types_section'            => 'word',        //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $auto_query_args = ['types_section', 'types', 'show_types', 'sort_mode', 'offset', 'find', 'findfilter_approved'];

@@ -9,6 +9,21 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'newsletters';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'unsubscribe'          => 'bool',        //post
+        'confirm_subscription' => 'bool',        //post
+        'nlId'                 => 'int',         //post
+        'subscribe'            => 'bool',        //post
+        'email'                => 'email',       //post
+        'sort_mode'            => 'string',      //get
+        'offset'               => 'int',         //get
+        'noshowlist'           => 'bool',        //post
+        'find'                 => 'string',      //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 global $nllib;
 include_once('lib/newsletters/nllib.php');

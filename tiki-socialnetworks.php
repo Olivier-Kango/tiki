@@ -9,6 +9,23 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+            'request_twitter'             => 'bool',                //post
+            'oauth_verifier'              => 'striptags',           //post
+            'remove_twitter'              => 'bool',                //post
+            'request_facebook'            => 'bool',                //post
+            'code'                        => 'striptags',           //post
+            'remove_facebook'             => 'bool',                //post
+            'accounts'                    => 'bool',                //post
+            'bitly_login'                 => 'striptags',           //post
+            'bitly_key'                   => 'striptags',           //post
+        ],
+    ],
+];
+
+
 require_once('tiki-setup.php');
 require_once('lib/socialnetworkslib.php');
 $access->check_feature('feature_socialnetworks');

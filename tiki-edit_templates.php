@@ -9,11 +9,17 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
-    [ 'staticKeyFilters' => [
-    'data' => 'none',
-    ]],
+    [
+        'staticKeyFilters'     => [
+            'save'             => 'bool',            //post
+            'saveTheme'        => 'bool',            //post
+            'delete'           => 'bool',            //post
+            'mode'             => 'string',          //post
+            'data'             => 'string',          //post
+            'template'         => 'string',          //post
+        ],
+    ],
 ];
-
 
 require_once('tiki-setup.php');
 

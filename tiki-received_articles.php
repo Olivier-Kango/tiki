@@ -8,6 +8,46 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'receivedArticleId'        => 'int',               //get
+        'view'                     => 'word',              //get
+        'accept'                   => 'bool',              //post
+        'Time_Meridian'            => 'digits',            //post
+        'Time_Hour'                => 'digits',            //post
+        'expire_Meridian'          => 'digits',            //post
+        'expire_Hour'              => 'digits',            //post
+        'Time_Minute'              => 'digits',            //post
+        'Date_Month'               => 'digits',            //post
+        'Date_Day'                 => 'digits',            //post
+        'Date_Year'                => 'digits',            //post
+        'expire_Minute'            => 'digits',            //post
+        'expire_Month'             => 'digits',            //post
+        'expire_Day'               => 'digits',            //post
+        'expire_Year'              => 'digits',            //post
+        'title'                    => 'word',              //post
+        'authorName'               => 'word',              //post
+        'useImage'                 => 'bool',              //post
+        'heading'                  => 'xss',               //post
+        'image_y'                  => 'digits',            //post
+        'image_x'                  => 'digits',            //post
+        'body'                     => 'xss',               //post
+        'type'                     => 'word',              //post
+        'rating'                   => 'digits',            //post
+        'topic'                    => 'word',              //post
+        'preview'                  => 'bool',              //post
+        'image_name'               => 'alpha',             //post
+        'image_size'               => 'digits',            //post
+        'created'                  => 'bool',              //post
+        'remove'                   => 'int',               //get
+        'save'                     => 'bool',              //post
+        'sort_mode'                => 'word',              //get
+        'offset'                   => 'digits',            //get
+        'find'                     => 'word',              //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/commcenter/commlib.php');
 $access->check_feature('feature_comm');

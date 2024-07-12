@@ -18,7 +18,7 @@ $inputConfiguration = [
             'find' => 'striptags',
             'sort_mode' => 'striptags',
         ]
-    ]
+    ],
 ];
 
 include_once('tiki-setup.php');

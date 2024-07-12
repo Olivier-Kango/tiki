@@ -22,9 +22,9 @@ $inputConfiguration = [
             'old_type'                    => 'word',     //post
             'user_only'                   => 'bool',     //post
             'broaden'                     => 'bool',     //post
-            'maxPopular'                  => 'int',     //get
+            'maxPopular'                  => 'int',      //get
             'tsort_mode'                  => 'word',     //get
-            'objectId'                    => 'bool',     //get
+            'objectId'                    => 'int',      //get
         ],
     ],
 ];

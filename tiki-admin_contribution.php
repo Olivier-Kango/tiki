@@ -10,10 +10,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
     [
-        'staticKeyFilters'            => [
-            'contributionId'          => 'int',          //get
-            'add'                     => 'bool',         //post
-            'save        '            => 'bool',         //post
+        'staticKeyFilters'                                   => [
+            'contributionId'                                 => 'int',          //post
+            'add'                                            => 'bool',         //post
+            'setting'                                        => 'bool',         //post
+            'feature_contribution_mandatory'                 => 'bool',         //post
+            'feature_contribution_mandatory_forum'           => 'bool',         //post
+            'feature_contribution_mandatory_comment'         => 'bool',         //post
+            'feature_contribution_mandatory_blog'            => 'bool',         //post
+            'feature_contributor_wiki'                       => 'bool',         //post
+            'new_contribution_name'                          => 'alpha',        //post
+            'description'                                    => 'alpha',        //post
+            'replace'                                        => 'bool',         //post
+            'name'                                           => 'alpha',        //post
+            'remove'                                         => 'int',          //post
+            'save'                                           => 'bool',         //post
         ],
     ],
 ];

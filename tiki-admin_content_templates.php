@@ -12,14 +12,32 @@ $inputConfiguration = [
     [
         'staticKeyFilters'            => [
             'templateId'              => 'int',          //post
+            'remove'                  => 'int',          //post
+            'removesection'           => 'string',       //post
+            'rtemplateId'             => 'int',          //post
+            'preview'                 => 'bool',         //post
+            'section_html'            => 'bool',         //post
             'name'                    => 'alpha',        //post
             'section_wiki'            => 'bool',         //post
             'section_file_galleries'  => 'bool',         //post
-            'section_html'            => 'bool',         //post
+            'section_newsletters'     => 'bool',         //post
+            'section_events'          => 'bool',         //post
+            'section_cms'             => 'bool',         //post
+            'page_name'               => 'pagename',     //post
+            'template_type'           => 'string',       //post
+            'save'                    => 'bool',         //post
+            'section_wiki_html'       => 'bool',         //post
+            'locked'                  => 'string',       //post
+            'sort_mode'               => 'string',       //get
+            'offset'                  => 'digits',       //get
+            'find'                    => 'string',       //post
+            'mode_normal'             => 'bool',         //post
+            'mode_wysiwyg'            => 'bool',         //post
             'content'                 => 'xss',          //post
         ],
     ],
 ];
+
 $section = 'admin';
 require_once('tiki-setup.php');
 $access->check_feature(['feature_wiki_templates','feature_cms_templates','feature_file_galleries_templates'], '', 'features', true);

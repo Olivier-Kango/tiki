@@ -23,7 +23,7 @@ $inputConfiguration = [
             'viewableChildren'            => 'string',            //post
             'editorGroup'                 => 'string',            //post
             'offset'                      => 'int',               //get
-            'find'                        => 'string',            //get
+            'find'                        => 'string',            //post
             'sort_mode'                   => 'string',            //get
         ],
     ],

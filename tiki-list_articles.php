@@ -9,6 +9,36 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'cms';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'mapview'                         => 'bool',              //post
+        'searchmap'                       => 'word',              //post
+        'searchlist'                      => 'word',              //post
+        'remove'                          => 'int',               //get
+        'submit_mult'                     => 'word',              //post
+        'sort_mode'                       => 'word',              //get
+        'offset'                          => 'int',               //get
+        'maxRecords'                      => 'int',               //post
+        'find_from_Month'                 => 'int',               //post
+        'find_from_Day'                   => 'int',               //post
+        'find_from_Year'                  => 'int',               //post
+        'find_to_Month'                   => 'int',               //post
+        'find_to_Day'                     => 'int',               //post
+        'find_to_Year'                    => 'int',               //post
+        'find'                            => 'word',              //post
+        'type'                            => 'word',              //post
+        'topic'                           => 'word',              //post
+        'find_show_categories_multi'      => 'bool',              //post
+        'categId'                         => 'int',               //get
+        'lang'                            => 'lang',              //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'cat_categories' => 'digits',            //post
+            'checked'        => 'bool',              //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
 $access->check_feature('feature_articles');

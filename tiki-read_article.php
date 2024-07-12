@@ -12,6 +12,20 @@ use Tiki\Lib\Image\Image;
 use Tiki\Wiki\WikiPaginationUtils;
 
 $section = 'cms';
+
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'articleId'                => 'int',             //get
+        'switchlang'               => 'bool',            //post
+        'page'                     => 'int',             //post
+        ],
+         'staticKeyFiltersForArrays' => [
+            $here['itemkey']       => 'digits',       //post
+            $here['key']           => 'digits',       //post
+         ],
+    ],
+];
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
 

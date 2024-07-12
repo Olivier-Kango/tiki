@@ -12,16 +12,19 @@ $section = 'categories';
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
-            'parentId'                    => 'int',      //get
-            'maxRecords'                  => 'int',      //get
-            'sort_mode'                   => 'word',     //get
-            'type'                        => 'word',     //get
-            'offset'                      => 'int',      //get
-            'find'                        => 'word',     //get
-            'watch_event'                 => 'word',     //get
-            'watch_action'                => 'word',     //get
-            'watch_object'                => 'bool',     //get
-            'and'                         => 'bool',     //get
+            'parentId'                    => 'int',           //get
+            'maxRecords'                  => 'int',           //get
+            'sort_mode'                   => 'word',          //get
+            'type'                        => 'word',          //get
+            'offset'                      => 'int',           //get
+            'find'                        => 'word',          //post
+            'deep'                        => 'bool',          //get
+            'watch_event'                 => 'word',          //get
+            'watch_action'                => 'word',          //get
+            'watch_object'                => 'int',           //get
+            'and'                         => 'bool',          //get
+            'plain'                       => 'striptags',     //get
+            'links'                       => 'striptags',     //get
         ],
     ]
 ];

@@ -10,6 +10,13 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
 $section_class = "tiki_wiki_page manage";   // This will be body class instead of $section
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'page'                            => 'word',               //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $wikilib = TikiLib::lib('wiki');
 $access->check_feature('feature_wiki');

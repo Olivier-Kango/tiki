@@ -25,6 +25,24 @@ It is supposed to use 10 questions for this quiz from the tiki_quiz_questions ta
 If you leave the data field blank, the default is to use all the questions from the table.
 You can also set the same option under the Generl Options section.
 */
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'quizId'                   => 'int',             //get
+        'preview'                  => 'bool',            //post
+        'xmlview'                  => 'bool',            //post
+        'textview'                 => 'bool',            //post
+        'publish_Meridian'         => 'digits',          //post
+        'publish_Hour'             => 'digits',          //post
+        'expire_Meridian'          => 'digits',          //post
+        'expire_Hour'              => 'digits',          //post
+        'save'                     => 'bool',            //post
+        'name'                     => 'word',            //post
+        'description'              => 'xss',             //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_quizzes');

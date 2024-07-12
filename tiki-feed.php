@@ -9,7 +9,13 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $_SERVER['HTTP_USER_AGENT'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'type'                        => 'word',              //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $_REQUEST['type'] = (! empty($_REQUEST['type']) ? $_REQUEST['type'] : 'html');

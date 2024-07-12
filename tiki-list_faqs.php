@@ -9,6 +9,21 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'faqs';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'faqId'                    => 'int',                //post
+        'remove'                   => 'int',                //get
+        'save'                     => 'bool',               //post
+        'title'                    => 'word',               //post
+        'canSuggest'               => 'bool',               //post
+        'description'              => 'xss',                //post
+        'sort_mode'                => 'word',               //get
+        'offset'                   => 'int',                //get
+        'find'                     => 'word',               //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $faqlib = TikiLib::lib('faq');
 $auto_query_args = ['offset', 'find', 'sort_mode', 'faqId'];

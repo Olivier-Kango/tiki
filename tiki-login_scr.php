@@ -9,6 +9,15 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section_class = 'tiki_login';  // This will be body class instead of $section
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'twoFactorForm'        => 'string',         //post
+        'clearmenucache'       => 'bool',           //post
+        'user'                 => 'username',       //post
+        ],
+    ],
+];
 include_once("tiki-setup.php");
 
 

@@ -8,6 +8,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'type'                            => 'bool',              //get
+        'width'                           => 'word',              //get
+        'height'                          => 'word',              //get
+        'title'                           => 'word',              //get
+        'axestext'                        => 'word',              //get
+        ],
+    ],
+];
 require_once('tiki-setup.php'); // this seems to be needed ?
 require_once('lib/graph-engine/gd.php');
 require_once('lib/graph-engine/graph.bar.php');

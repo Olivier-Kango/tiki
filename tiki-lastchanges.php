@@ -10,6 +10,16 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
 $section_class = "tiki_wiki_page manage";   // This will be body class instead of $section
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'find'                          => 'word',               //post
+        'days'                          => 'digits',             //get
+        'sort_mode'                     => 'word',               //get
+        'offset'                        => 'int',                //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $histlib = TikiLib::lib('hist');
 $auto_query_args = ['sort_mode', 'offset', 'find', 'days'];

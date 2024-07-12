@@ -12,11 +12,25 @@ use Tiki\Lib\core\Toolbar\ToolbarItem;
 
 $inputConfiguration = [
                 [
-                    'staticKeyFilters' => [
-                            'save' => 'alpha',          //post
-                            'load' => 'alpha',          //post
-                            'pref' => 'striptags',      //post
-                            'section' => 'striptags',   //post
+        'staticKeyFilters'                    => [
+                'save'                        => 'alpha',          //post
+                'load'                        => 'alpha',          //post
+                'pref'                        => 'striptags',      //post
+                'section'                     => 'striptags',      //post
+                'comments'                    => 'bool',           //post
+                'view_mode'                   => 'striptags',      //post
+                'reset_all_custom_tools'      => 'bool',           //post
+                'reset'                       => 'bool',           //post
+                'reset_global'                => 'bool',           //post
+                'save_tool'                   => 'bool',           //post
+                'tool_name'                   => 'striptags',      //post
+                'tool_label'                  => 'striptags',      //post
+                'tool_icon'                   => 'none',           //post
+                'tool_token'                  => 'text',           //post
+                'tool_syntax'                 => 'text',           //post
+                'tool_type'                   => 'striptags',      //post
+                'tool_plugin'                 => 'striptags',      //post
+                'delete_tool'                 => 'bool',           //post
                     ],
                 ],
 ];

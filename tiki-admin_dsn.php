@@ -14,10 +14,15 @@ $inputConfiguration = [
             'name'            => 'striptags',  //post
             'dsn'             => 'striptags',  //post
             'dsnId'           => 'int',        //post
+            'remove'          => 'int',        //post
+            'sort_mode'       => 'striptags',  //get
+            'offset'          => 'int',        //get
+            'find'            => 'striptags',  //post
             'save'            => 'bool',       //post
         ],
     ],
 ];
+
 require_once('tiki-setup.php');
 $adminlib = TikiLib::lib('admin');
 

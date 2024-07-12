@@ -4,6 +4,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'type'                            => 'word',              //post
+        'objId'                           => 'word',              //post
+        'save'                            => 'bool',              //post
+        'newtag'                          => 'string',            //post
+        'rootlang'                        => 'lang',              //get
+        'offset'                          => 'int',               //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'additional_languages'  => 'word',              //post
+            'setlang'               => 'bool',              //post
+            'clear'                 => 'bool',              //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $access->check_feature(['feature_freetags','freetags_multilingual','feature_multilingual']);
 $access->check_permission('tiki_p_freetags_tag');

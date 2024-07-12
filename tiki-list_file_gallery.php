@@ -12,15 +12,111 @@ use Tiki\Package\VendorHelper;
 
 $inputConfiguration = [
     [
-        'staticKeyFilters' => [
-            'wiki_syntax' => 'wikicontent',
-            'fgal_list_ocr_state' => 'alpha',
+        'staticKeyFilters'             => [
+        'find_other'                   => 'word',              //post
+        'galleryId'                    => 'int',               //get
+        'parentId'                     => 'int',               //post
+        'view'                         => 'word',              //get
+        'fileId'                       => 'int',               //post
+        'movesel'                      => 'bool',              //post
+        'moveto'                       => 'bool',              //post
+        'file'                         => 'string',            //post
+        'subgal'                       => 'int',               //get
+        'fgal_actions'                 => 'string',            //get
+        'groups'                       => 'groupname',         //post
+        'lock'                         => 'bool',              //post
+        'validate'                     => 'bool',              //post
+        'remove'                       => 'int',               //get
+        'draft'                        => 'none',              //get
+        'action'                       => 'string',            //get
+        'sync'                         => 'bool',              //get
+        'edit_mode'                    => 'bool',              //get
+        'groupforAlert'                => 'groupname',         //post
+        'dup_mode'                     => 'int',               //get
+        'edit'                         => 'bool',              //post
+        'archives'                     => 'int',               //post
+        'user'                         => 'username',          //post
+        'sortorder'                    => 'word',              //post
+        'sortdirection'                => 'word',              //post
+        'fname'                        => 'word',              //post
+        'fdescription'                 => 'xss',               //post
+        'data'                         => 'none',              //get
+        'quota'                        => 'int',               //post
+        'name'                         => 'word',              //post
+        'description'                  => 'xss',               //post
+        'maxRows'                      => 'int',               //post
+        'fgal_show_explorer'           => 'bool',              //post
+        'fgal_default_view'            => 'word',              //post
+        'fgal_list_id'                 => 'string',            //post
+        'fgal_list_type'               => 'string',            //post
+        'fgal_list_name'               => 'string',            //post
+        'fgal_list_size'               => 'string',            //post
+        'fgal_list_description'        => 'string',            //post
+        'fgal_list_created'            => 'string',            //post
+        'fgal_list_lastDownload'       => 'string',            //post
+        'fgal_list_creator'            => 'string',            //post
+        'max_desc'                     => 'int',               //post
+        'fgal_type'                    => 'word',              //post
+        'fgal_list_lastModif'          => 'string',            //post
+        'fgal_list_deleteAfter'        => 'string',            //post
+        'fgal_show_checked'            => 'bool',              //get
+        'fgal_list_share'              => 'string',            //post
+        'fgal_list_author'             => 'string',            //post
+        'fgal_list_lockedby'           => 'string',            //post
+        'subgal_conf'                  => 'string',            //post
+        'fgal_list_last_user'          => 'string',            //post
+        'fgal_list_comment'            => 'string',            //post
+        'fgal_list_files'              => 'string',            //post
+        'fgal_show_path'               => 'bool',              //post
+        'fgal_list_ocr_state'          => 'string',            //get
+        'fgal_show_slideshow'          => 'bool',              //post
+        'image_max_size_x'             => 'int',               //post
+        'image_max_size_y'             => 'int',               //post
+        'viewitem'                     => 'bool',              //post
+        'backlinkPerms'                => 'bool',              //post
+        'fgal_list_backlinks'          => 'string',            //post
+        'wiki_syntax'                  => 'wikicontent',       //post
+        'fgal_list_source'             => 'string',            //post
+        'fgal_icon_fileId'             => 'int',               //post
+        'filegals_manager'             => 'string',            //post
+        'insertion_syntax'             => 'string',            //post
+        'dupCateg'                     => 'bool',              //get
+        'dupPerms'                     => 'bool',              //get
+        'removegal'                    => 'bool',              //get
+        'comment'                      => 'word',              //post
+        'maxRecords'                   => 'int',               //get
+        'offset'                       => 'int',               //get
+        'sort_mode'                    => 'word',              //get
+        'find_creator'                 => 'word',              //post
+        'find_lastModif'               => 'word',              //post
+        'find_lastModif_unit'          => 'word',              //post
+        'find_lastModif'               => 'word',              //post
+        'find_lastDownload'            => 'word',              //post
+        'find_lastDownload_unit'       => 'word',              //post
+        'find_fileType'                => 'word',              //post
+        'allowedMimeTypes'             => 'bool',              //get
+        'find'                         => 'word',              //post
+        'categId'                      => 'int',               //get
+        'find_orphans'                 => 'word',              //get
+        'slideshow_noclose'            => 'bool',              //get
+        'caption'                      => 'word',              //post
+        'windowtitle'                  => 'word',              //post
+        'sswindowtitle'                => 'word',              //post
+        'maxWidth'                     => 'int',               //post
+        'show_details'                 => 'bool',              //get
+        'watch_event'                  => 'word',              //get
+        'watch_object'                 => 'word',              //get
+        'galleryName'                  => 'word',              //get
+        'fgal_actions'                 => 'word',              //get
         ],
         'staticKeyFiltersForArrays' => [
-            'ocr_lang' => 'text',
-        ]
+            'cat_categories' => 'digits',
+            'direct'         => 'digits',
+            'ocr_lang'       => 'text',
+        ],
     ],
 ];
+
 
 
 

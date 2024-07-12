@@ -8,6 +8,24 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'edit_language'               => 'string',          //post
+            'action'                      => 'string',            //post
+            'only_db_translations'        => 'bool',            //post
+            'only_db_untranslated'        => 'bool',            //post
+            'add_tran'                    => 'int',             //post
+            'add_tran_source'             => 'text',            //post
+            'add_tran_tran'               => 'text',            //post
+            'delete_all'                  => 'bool',            //post
+            'offset'                      => 'int',             //post
+            'maxRecords'                  => 'int',             //post
+            'translate_all'               => 'bool',            //post
+            'find'                        => 'string',          //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 require_once('lib/language/Language.php');
 require_once('lib/language/LanguageTranslations.php');

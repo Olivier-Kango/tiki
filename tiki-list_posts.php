@@ -8,6 +8,21 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'remove'                   => 'int',              //get
+        'remove_x'                 => 'int',              //get
+        'sort_mode'                => 'word',             //get
+        'offset'                   => 'int',              //get
+        'find'                     => 'word',             //post
+        'blogId'                   => 'int',              //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'checked'               => 'bool',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $bloglib = TikiLib::lib('blog');
 $access->check_feature('feature_blogs');

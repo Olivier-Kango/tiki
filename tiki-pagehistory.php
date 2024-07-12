@@ -6,6 +6,39 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
 $section_class = "tiki_wiki_page manage";   // This will be body class instead of $section
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'source'                   => 'digits',            //get
+        'page'                     => 'pagename',          //get
+        'preview'                  => 'digits',            //get
+        'flaggedrev'               => 'bool',              //post
+        'approve'                  => 'digits',            //post
+        'unapprove'                => 'digits`',           //post
+        'paginate'                 => 'bool',              //post
+        'diff_style'               => 'string',            //post
+        'history_offset'           => 'digits',            //post
+        'history_pagesize'         => 'digits',            //post
+        'show_all_versions'        => 'bool',              //post
+        'clear_versions'           => 'digits',            //post
+        'newver'                   => 'digits',            //post
+        'newver_idx'               => 'digits',            //get
+        'oldver'                   => 'digits',            //post
+        'oldver_idx'               => 'digits',            //get
+        'compare'                  => 'bool',              //get
+        'bothver_idx'              => 'digits',            //get
+        'source_idx'               => 'digits',            //get
+        'preview_idx'              => 'digits',            //get
+        'preview_date'             => 'digits',            //get
+        'version'                  => 'digits',            //get
+        'show_translation_history' => 'digits',            //get
+        'diff2'                    => 'digits',            //get
+        'update_translation'       => 'bool',              //post
+        'tra_lang'                 => 'lang',              //get
+        'nohistory'                => 'bool',              //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $histlib = TikiLib::lib('hist');
 require_once('lib/wiki/renderlib.php');

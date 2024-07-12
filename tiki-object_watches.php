@@ -8,6 +8,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'objectId'             => 'int',        //post
+        'watch_event'          => 'bool',       //post
+        'objectType'           => 'string',     //post
+        'referer'              => 'word',       //post
+        'assign'               => 'bool',       //post
+        'objectName'           => 'string',     //post
+        'objectHref'           => 'string',     //post
+        'checked'              => 'bool',       //post
+        ],
+        'staticKeyFiltersForArrays' => [
+        $g                    => 'string',     //post
+        ],
+    ],
+];
 include_once('tiki-setup.php');
 $categlib = TikiLib::lib('categ');
 $access->check_feature('feature_group_watches');

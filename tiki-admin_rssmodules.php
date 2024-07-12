@@ -25,7 +25,6 @@ $inputConfiguration = [
             'article'          => 'digits',      //get
             'view'             => 'digits',      //get
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

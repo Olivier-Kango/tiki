@@ -9,6 +9,26 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'cms';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'remove'                   => 'bool',                //post
+        'approve'                  => 'int',                 //post
+        'submit_mult'              => 'bool',                //post
+        'deleteexpired'            => 'bool',                //post
+        'maxRecords'               => 'int',                 //post
+        'sort_mode'                => 'word',                //get
+        'offset'                   => 'int',                 //get
+        'find'                     => 'word',                //post
+        'topic'                    => 'word',                //post
+        'lang'                     => 'lang',                //post
+        'type'                     => 'word',                //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'checked'               => 'bool',             //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
 $access->check_feature('feature_submissions');

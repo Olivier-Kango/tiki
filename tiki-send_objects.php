@@ -4,6 +4,32 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+            'username'             => 'digits',            //post
+            'path'                 => 'bool',              //post
+            'site'                 => 'digits',            //post
+            'password'             => 'password',          //post
+            'sendpages'            => 'digits',            //post
+            'sendstructures'       => 'bool',              //post
+            'sendarticles'         => 'bool',              //post
+            'dbg'                  => 'bool',              //post
+            'find'                 => 'word',              //post
+            'addpage'              => 'bool',              //post
+            'pageName'             => 'pagname',           //post
+            'clearpages'           => 'bool',              //post
+            'addstructure'         => 'bool',              //post
+            'structure'            => 'string',            //post
+            'clearstructures'      => 'bool',              //post
+            'addarticle'           => 'bool',              //post
+            'articleId'            => 'int',               //post
+            'send'                 => 'bool',              //post
+        ],
+    ],
+];
+
+
 require_once('tiki-setup.php');
 use PhpXmlRpc\Value as XML_RPC_Value;
 use PhpXmlRpc\Request as XML_RPC_Message;

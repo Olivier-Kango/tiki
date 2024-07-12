@@ -9,6 +9,14 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'forums';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'which'                     => 'word',              //post
+            'limit'                     => 'digits',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 include_once('lib/rankings/ranklib.php');

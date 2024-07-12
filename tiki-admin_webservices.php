@@ -15,19 +15,30 @@ $inputConfiguration = [
             'delete'                => 'bool',            //get
             'url'                   => 'url',             //post
             'wstype'                => 'word',            //post
+            'operation'             => 'word',            //post
             'postbody'              => 'xss',             //post
-            'edit'                  => 'bool',            //get
+            'edit'                  => 'bool',            //post
             'parse'                 => 'bool',            //post
             'nocache'               => 'bool',            //post
             'test'                  => 'bool',            //post
-            'nocache'               => 'bool',            //post
-            'test'                  => 'bool',            //post
+            'deletetemplate'        => 'word',            //post
+            'loadtemplate'          => 'word',            //post
+            'add'                   => 'bool',            //post
+            'register'              => 'bool',            //post
+            'new_name'              => 'word',            //post
+            'old_name'              => 'word',            //post
+            'nt_name'               => 'word',            //post
+            'preview'               => 'bool',            //post
+            'nt_engine'             => 'word',            //post
+            'nt_output'             => 'word',            //post
+            'nt_content'            => 'xss',             //post
          ],
         'staticKeyFiltersForArrays' => [
             'params'                => 'word',            //post
         ],
     ],
 ];
+
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_webservices');

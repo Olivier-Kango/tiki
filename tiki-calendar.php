@@ -9,6 +9,26 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'calendar';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'allCals'               => 'text',              //post
+            'refresh'               => 'bool',              //post
+            'find'                  => 'word',              //post
+            'day'                   => 'digits',            //post
+            'year'                  => 'digits',            //post
+            'mon'                   => 'digits',            //post
+            'generate_availability' => 'digits',            //post
+            'sort_mode'             => 'string',            //get
+            'watch_event'           => 'string',            //post
+            'watch_action'          => 'string',            //post
+            'todate'                => 'string',            //post
+
+        ],'staticKeyFiltersForArrays' => [
+            'calIds'                    => 'int',          //post
+        ],
+    ]
+];
 require_once('tiki-setup.php');
 
 $calendarlib = TikiLib::lib('calendar');

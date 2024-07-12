@@ -9,6 +9,22 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'file_galleries';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'fileId'                          => 'int',               //get
+        'remove'                          => 'int',               //get
+        'fgal_actions'                    => 'word',              //get
+        'file'                            => 'word',              //get
+        'subgal'                          => 'word',              //get
+        'maxRecords'                      => 'int',               //get
+        'offset'                          => 'int',               //get
+        'sort_mode'                       => 'word',              //get
+        'find'                            => 'word',              //post
+        'galleryId'                       => 'int ',              //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $filegallib = TikiLib::lib('filegal');
 

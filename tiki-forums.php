@@ -9,6 +9,17 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'forums';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'sort_mode'                   => 'string',             //get
+            'offset'                      => 'int',               //get
+            'find'                        => 'string',            //post
+            'numrows'                     => 'int',               //post
+            'find'                        => 'string',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 //get_strings tra('List Forums')
 $auto_query_args = ['sort_mode', 'offset', 'find', 'mode'];

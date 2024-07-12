@@ -15,9 +15,13 @@ $inputConfiguration = [
             'questionId'            => 'int',                //post
             'restriction'           => 'bool',               //post
             'name'                  => 'string',             //post
-            'sort_mode'            => 'word',                //get
-            'offset'               => 'int',                 //get
-            'description'            => 'xss',               //post
+            'sort_mode'             => 'word',               //get
+            'offset'                => 'int',                //get
+            'description'           => 'xss',                //post
+            'save'                  => 'bool',               //post
+            'status'                => 'striptags',          //post
+            'remove'                => 'int',                //post
+            'find'                  => 'word',               //post
         ],
     ],
 ];

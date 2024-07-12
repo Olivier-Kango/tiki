@@ -10,6 +10,18 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
 $section_class = "tiki_wiki_page manage";   // This will be body class instead of $section
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'page'                     => 'username',         //get
+        'rename'                   => 'bool',             //post
+        'confirm'                  => 'bool',             //post
+        'badname'                  => 'pagename',             //post
+        'newpage'                  => 'pagename',         //post
+        'semantic_alias'           => 'bool',             //post
+        ],
+    ],
+];
 
 require_once('tiki-setup.php');
 

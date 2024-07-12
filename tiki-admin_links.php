@@ -12,8 +12,11 @@ $inputConfiguration = [
     [
         'staticKeyFilters'    => [
             'url'             => 'striptags',  //post
+            'generate'        => 'int',        //get
+            'remove'          => 'int',        //post
+            'editurl'         => 'bool',       //post
             'title'           => 'striptags',  //post
-            'postion'         => 'bool',       //post
+            'postion'         => 'int',        //post
             'type'            => 'string',     //post
             'add'             => 'bool',       //post
         ],

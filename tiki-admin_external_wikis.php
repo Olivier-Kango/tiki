@@ -13,10 +13,13 @@ $inputConfiguration = [
         'staticKeyFilters'    => [
             'extwikiId'       => 'int',        //post
             'name'            => 'striptags',  //post
-            'offset'          => 'int',        //get
-            'sort_mode'       => 'striptags',  //get
             'save'            => 'bool',       //post
-            'remove'          => 'bool',       //get
+            'remove'          => 'int',       //post
+            'extwiki'         => 'text',       //post
+            'save'            => 'bool',       //post
+            'find'            => 'text',       //post
+            'sort_mode'       => 'text',       //get
+            'offset'          => 'digits',     //get
         ],
     ],
 ];

@@ -9,6 +9,49 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'newsletters';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+            'nlId'                 => 'digits',            //post
+            'cancel'               => 'bool',              //post
+            'editionId'            => 'digits',            //post
+            'sendingUniqId'        => 'bool',              //post
+            'cookietab'            => 'digits',            //post
+            'resend'               => 'bool',              //post
+            'remove'               => 'int',               //get
+            'mode_normal'          => 'text',              //post
+            'wikiparse'            => 'bool',              //post
+            'data'                 => 'none',              //post
+            'is_html'              => 'bool',              //post
+            'preview'              => 'bool',              //post
+            'mode_wysiwyg'         => 'bool',              //post
+            'templateId'           => 'digits',            //post
+            'save_only'            => 'bool',              //post
+            'wysiwyg'              => 'string',            //post
+            'subject'              => 'string',            //post
+            'send'                 => 'bool',              //post
+            'datatxt'              => 'text',              //post
+            'replyto'              => 'email',             //post
+            'sendfrom'             => 'email',             //post
+            'usedTpl'              => 'bool',              //post
+            'save'                 => 'bool',              //post
+            'resendEditionId'      => 'bool',              //post
+            'begin'                => 'bool',              //post
+            'resume'               => 'int',               //post
+            'ticket'               => 'string',               //post
+            'clipArticles'         => 'bool',              //post
+            'articleClip'          => 'text',              //post
+            'ed_sort_mode'         => 'word',              //get
+            'dr_sort_mode'         => 'word',              //get
+            'ed_offset'            => 'int',               //get
+            'dr_offset'            => 'int',               //get
+            'ed_find'              => 'word',              //post
+            'dr_find'              => 'word',              //post
+        ],
+    ],
+];
+
+
 require_once('tiki-setup.php');
 @ini_set('max_execution_time', 0);
 $prefs['feature_wiki_protect_email'] = 'n'; //not to alter the email

@@ -8,6 +8,28 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+             'repID'               => 'int',          //post
+             'srcrep'              => 'int',          //get
+             'srch'                => 'alpha',        //post
+             'repl'                => 'alpha',        //post
+             'description'         => 'alpha',         //post
+             'type'                => 'bool',         //post
+             'file'                => 'text',         //post
+             'casesense'           => 'bool',         //post
+             'html'                => 'bool',         //post
+             'all'                 => 'bool',         //post
+             'enabled'             => 'bool',         //post
+             'copy'                => 'bool',         //post
+             'save'                => 'bool',         //post
+             'preview'             => 'bool',         //post
+             'action'              => 'text',         //post
+             'code'                => 'bool',         //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 require_once('lib/integrator/integrator.php');
 // If Integrator is ON, check permissions...

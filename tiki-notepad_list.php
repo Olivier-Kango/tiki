@@ -5,6 +5,21 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'merge'                => 'bool',        //get
+        'delete'               => 'bool',        //post
+        'merge_name'           => 'string',      //post
+        'sort_mode'            => 'string',      //post
+        'offset'               => 'int',         //post
+        'find'                 => 'string',      //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'note' => 'int',
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/notepad/notepadlib.php');
 include_once('lib/userfiles/userfileslib.php');

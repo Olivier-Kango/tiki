@@ -9,6 +9,37 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'blogs';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'blogId'                   => 'digits',            //post
+        'postId'                   => 'digits',            //post
+        'remove_image'             => 'int',               //get
+        'wysiwyg'                  => 'bool',              //post
+        'publish_Meridian'         => 'text',              //post
+        'publish_Hour'             => 'digits',            //post
+        'publish_Minute'           => 'digits',            //post
+        'publish_Month'            => 'digits',            //post
+        'publish_Day'              => 'digits',            //post
+        'publish_Year'             => 'digits',            //post
+        'cancel'                   => 'bool',              //post
+        'referer'                  => 'word',              //post
+        'lang'                     => 'lang',              //post
+        'data'                     => 'none',              //post
+        'mode_normal'              => 'bool',              //post
+        'mode_wysiwyg'             => 'bool',              //post
+        'blogpriv'                 => 'bool',              //post
+        'preview'                  => 'bool',              //post
+        'excerpt'                  => 'text',              //post
+        'freetag_string'           => 'text',              //post
+        'save'                     => 'bool',              //post
+        'contributions'            => 'text',              //post
+        'title'                    => 'word',              //post
+        'geolocation'              => 'word',              //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 $categlib = TikiLib::lib('categ');
 $bloglib = TikiLib::lib('blog');

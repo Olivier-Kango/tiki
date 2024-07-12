@@ -8,6 +8,13 @@
 
 
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'provider'          => 'word',               //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 //require_once('lib/prefs/socnets.php');
 

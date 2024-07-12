@@ -20,7 +20,6 @@ $inputConfiguration = [ [
     'staticKeyFiltersForArrays' => [
         'lm_preference' => 'word',
     ],
-    'catchAllUnset' => null,
 ] ];
 
 $auto_query_args = [ 'offset', 'id', 'cookietab' ];

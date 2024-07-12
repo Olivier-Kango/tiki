@@ -9,6 +9,21 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'noteId'               => 'bool',        //get
+        'remove'               => 'bool',        //post
+        'wikify'               => 'bool',        //post
+        'over'                 => 'bool',        //post
+        'wiki_name'            => 'pagename',    //post
+        'parse_mode'           => 'string',      //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'note' => 'int',
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/notepad/notepadlib.php');
 $access->check_feature('feature_notepad');

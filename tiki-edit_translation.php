@@ -8,6 +8,18 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'id'                     => 'int',              //post
+            'page'                   => 'pagename',         //post
+            'type'                   => 'string',           //post
+            'langpage'               => 'lang',             //post
+            'target_lang'            => 'lang',             //post
+            'translation_name'       => 'string',           //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $multilinguallib = TikiLib::lib('multilingual');

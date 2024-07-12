@@ -8,6 +8,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'adduser'              => 'bool',               //post
+        'user'                 => 'username',           //post
+        'offline'              => 'bool',               //post
+        'removeuser'           => 'int',                //post
+        'find_users'           => 'string',             //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/live_support/lsadminlib.php');
 include_once('lib/live_support/lslib.php');

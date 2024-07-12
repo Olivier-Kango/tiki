@@ -7,16 +7,21 @@
 $inputConfiguration = [
     [
         'staticKeyFilters'               => [
+            'scheduler'                  => 'word',           //post
             'scheduler_name'             => 'word',           //post
             'scheduler_description'      => 'word',           //post
             'scheduler_task'             => 'string',         //post
             'scheduler_status'           => 'string',         //post
-            'scheduler_rerun'            => 'int',            //post
-            'scheduler_run_only_once'    => 'int',            //post
+            'scheduler_rerun'            => 'bool',           //post
+            'scheduler_run_only_once'    => 'bool',           //post
             'new_scheduler'              => 'bool',           //post
+            'editscheduler'              => 'digits',         //post
             'scheduler_time'             => 'string',         //post
+            'offset'                     => 'digits',         //get
+            'numrows'                    => 'digits',         //post
+            'logs'                       => 'string',         //post
+            'add'                        => 'bool',           //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

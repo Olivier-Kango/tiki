@@ -8,6 +8,29 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'contentId'                   => 'int',            //post
+            'remove'                      => 'int',            //post
+            'save'                        => 'bool',           //post
+            'content_type'                => 'string',         //post
+            'page_name'                   => 'pagemame',       //post
+            'data'                        => 'none',           //post
+            'Time_Meridian'               => 'int',            //post
+            'Time_Hour'                   => 'int',            //post
+            'Time_Minute'                 => 'int',            //post
+            'Date_Month'                  => 'int',            //post
+            'Date_Day'                    => 'int',            //post
+            'Date_Year'                   => 'int',            //post
+            'pId'                         => 'int',            //post
+            'edit'                        => 'int',            //post
+            'sort_mode'                   => 'alpha',          //get
+            'offset'                      => 'int',            //get
+            'find'                        => 'alpha',          //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $auto_query_args = ['contentId','sort_mode','offset','find'];
 

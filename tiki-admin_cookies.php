@@ -12,6 +12,12 @@ $inputConfiguration = [
     [
         'staticKeyFilters'            => [
             'cookieId'                => 'int',          //post
+            'remove'                  => 'int',         //post
+            'removeall'               => 'bool',         //post
+            'cookie'                  => 'striptags',    //post
+            'sort_mode'               => 'striptags',    //post
+            'offset'                  => 'digits',       //post
+            'find'                    => 'striptags',    //post
             'add'                     => 'bool',         //post
             'save'                    => 'bool',         //post
             'upload'                  => 'bool',         //post

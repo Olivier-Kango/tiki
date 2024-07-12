@@ -4,6 +4,27 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'receivedPageId'           => 'int',               //get
+        'accept'                   => 'bool',              //get
+        'view'                     => 'word',              //get
+        'preview'                  => 'bool',              //post
+        'pageName'                 => 'pagename',          //post
+        'data'                     => 'none',              //post
+        'comment'                  => 'text',              //post
+        'remove'                   => 'int',               //get
+        'save'                     => 'bool',              //post
+        'checked'                  => 'bool',              //post
+        'prefix'                   => 'word',              //post
+        'postfix'                  => 'word',              //post
+        'sort_mode'                => 'word',              //get
+        'offset'                   => 'digits',            //get
+        'find'                     => 'alpha',             //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/commcenter/commlib.php');
 $wikilib = TikiLib::lib('wiki');

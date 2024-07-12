@@ -5,6 +5,33 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'forums';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'forumId'                         => 'int',               //post
+        'ahash'                           => 'word',              //post
+        'qId'                             => 'int',               //post
+        'remove_attachment'               => 'int',               //get
+        'save'                            => 'bool',              //post
+        'saveapp'                         => 'bool',              //post
+        'summary'                         => 'xss',               //post
+        'topic_smiley'                    => 'text ',             //post
+        'type'                            => 'text',              //post
+        'topic_title'                     => 'string',            //post
+        'in_reply_to'                     => 'string',            //post
+        'parentId'                        => 'int',               //post
+        'data'                            => 'xss',               //post
+        'remove'                          => 'bool',              //post
+        'topicize'                        => 'int',               //post
+        'rej'                             => 'string',            //post
+        'msg'                             => 'string',            //post
+        'app'                             => 'string',            //post
+        'sort_mode'                       => 'string',            //get
+        'offset'                          => 'int',               //get
+        'find'                            => 'string',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $access->check_feature('feature_forums');
 

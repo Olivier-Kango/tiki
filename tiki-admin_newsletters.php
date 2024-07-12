@@ -31,6 +31,8 @@ $inputConfiguration = [
              'sort_mode_g'            => 'string',         //get
              'offset'                 => 'string',         //get
              'find'                   => 'string',         //get
+             'name'                   => 'string',         //post
+             'description'            => 'xss',            //post
         ],
     ],
 ];

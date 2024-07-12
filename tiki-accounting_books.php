@@ -22,22 +22,29 @@
  */
 $inputConfiguration = [
     [
-        'staticKeyFilters' => [
-            'action' => 'alpha',               //post
-            'book_start_Year' => 'digits',    //post
-            'book_start_Month' => 'digits',   //post
-            'book_start_Day' => 'digits',     //post
-            'book_end_Year' => 'digits',      //post
-            'book_end_Month' => 'digits',     //post
-            'book_end_Day' => 'digits',       //post
-            'bookName' => 'striptags',        //post
-            'bookCurrency' => 'striptags',    //post
-            'exportSeparator' => 'striptags', //post
-            'exportQuote' => 'striptags',     //post
-            'bookAutoTax' => 'bool',          //post
+        'staticKeyFilters'               => [
+            'action'                     => 'alpha',     //post
+            'bookId'                     => 'alpha',     //post
+            'book_start_Year'            => 'digits',    //post
+            'book_start_Month'           => 'digits',    //post
+            'book_start_Day'             => 'digits',    //post
+            'book_end_Year'              => 'digits',    //post
+            'book_end_Month'             => 'digits',    //post
+            'book_end_Day'               => 'digits',    //post
+            'bookName'                   => 'striptags', //post
+            'bookCurrency'               => 'striptags', //post
+            'bookCurrencyPos'            => 'int',       //post
+            'bookDecimals'               => 'striptags', //post
+            'bookDecPoint'               => 'striptags', //post
+            'bookThousand'               => 'striptags', //pos
+            'exportSeparator'            => 'striptags', //pos
+            'exportEOL'                  => 'striptags', //pos
+            'exportQuote'                => 'striptags', //pos
+            'bookAutoTax'                => 'bool',      //post
         ],
     ],
 ];
+
 $section = 'accounting';
 require_once('tiki-setup.php');
 // Feature available?

@@ -9,6 +9,14 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'wiki page';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'import'                          => 'bool',              //post
+        'local'                           => 'string',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_wiki');

@@ -2,6 +2,18 @@
 
 use Tiki\Package\VendorHelper;
 
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'galleryId'                   => 'int',          //post
+            'newDiagram'                  => 'bool',         //post
+            'fileName'                    => 'int',          //post
+            'fileId'                      => 'int',          //post
+            'template'                    => 'int',          //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 
 $exportImageCache = (int)($prefs['fgal_export_diagram_on_image_save'] == 'y');

@@ -16,6 +16,11 @@ $inputConfiguration = [
              'email'                  => 'email',          //post
              'subuser'                => 'username',       //post
              'group'                  => 'groupname',      //post
+             'included'               => 'int',            //post
+             'action'                 => 'alpha',          //post
+             'valid'                  => 'int',            //post
+             'addgroup'               => 'bool',           //post
+             'addincluded'            => 'bool',           //post
              'addemail'               => 'bool',           //post
              'addall'                 => 'bool',           //post
              'confirmEmail'           => 'bool',           //post
@@ -30,12 +35,16 @@ $inputConfiguration = [
              'sort_mode'              => 'string',         //get
              'sort_mode_g'            => 'string',         //get
              'offset'                 => 'string',         //get
+             'offset_g'               => 'string',         //get
              'find'                   => 'string',         //get
              'find_g'                 => 'string',         //get
              'noConfirmEmail'         => 'bool',           //post
              'noSubscribeEmail'       => 'bool',           //post
              'addPage'                => 'bool',           //post
-             'export'                => 'bool',           //post
+             'export'                => 'bool',            //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'checked'                => 'bool',            //post
         ],
     ],
 ];

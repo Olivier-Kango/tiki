@@ -4,6 +4,41 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'quizId'                      => 'int',            //post
+            'questionsPerPage'            => 'int',            //post
+            'save'                        => 'bool',           //post
+            'publish_Meridian'            => 'digits',         //post
+            'publish_Hour'                => 'digits',         //post
+            'expire_Meridian'             => 'digits',         //post
+            'expire_Hour'                 => 'digits',         //post
+            'publish_Minute'              => 'digits',         //post
+            'publish_Month'               => 'digits',         //post
+            'publish_Day'                 => 'digits',         //post
+            'publish_Year'                => 'digits',         //post
+            'expire_Minute'               => 'digits',         //post
+            'expire_Month'                => 'digits',         //post
+            'expire_Day'                  => 'digtits',        //post
+            'expire_Year'                 => 'digits',         //post
+            'canRepeat'                   => 'bool',           //get
+            'storeResults'                => 'bool',           //post
+            'immediateFeedback'           => 'bool',           //post
+            'showAnswers'                 => 'alpha',          //get
+            'shuffleQuestions'            => 'bool',           //post
+            'timeLimited'                 => 'bool',           //post
+            'name'                        => 'string',         //post
+            'description'                 => 'xss',            //get
+            'timeLimit'                   => 'digits',         //post
+            'passingperct'                => 'string',         //post
+            'remove'                      => 'int',            //post
+            'sort_mode'                   => 'alpha',          //get
+            'offset'                      => 'int',            //get
+            'find'                        => 'alpha',          //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_quizzes');

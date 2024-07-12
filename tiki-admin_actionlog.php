@@ -8,6 +8,57 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                   => [
+            'save'                           => 'bool',        //post
+            'saveAction'                     => 'bool',        //post
+            'action_log_type'                => 'striptags',   //post
+            'action_log_ip'                  => 'striptags',   //post
+            'action_log_action'              => 'striptags',   //post
+            'find'                           => 'striptags',   //post
+            'offset'                         => 'digits',      //post
+            'export'                         => 'bool',        //post
+            'max'                            => 'digits',      //post
+            'v_' . $conf['code']             => 'striptags',   //post
+            'actionId'                       => 'digits',      //post
+            'contributions'                  => 'striptags',   //post
+            'startDate'                      => 'digits',      //post
+            'endDate'                        => 'digits',      //post
+            'list'                           => 'bool',        //post
+            'graph'                          => 'bool',        //post
+            'categId'                        => 'int',         //post
+            'startDate_Month'                => 'digits',      //post
+            'Time_Hour'                      => 'digits',      //post
+            'Time_Minute'                    => 'digits',      //post
+            'Time_Second'                    => 'digits',      //post
+            'startDate_Day'                  => 'digits',      //post
+            'endDate_Month'                  => 'digits',      //post
+            'end_Hour'                       => 'digits',      //post
+            'end_Minute'                     => 'digits',      //post
+            'end_Second'                     => 'digits',      //post
+            'endDate_Day'                    => 'digits',      //post
+            'endDate_Year'                   => 'digits',      //post
+            'export_bbb'                     => 'bool',        //post
+            'unit'                           => 'striptags',   //post
+            'sort_mode'                      => 'striptags',   //get
+            'contribTime'                    => 'striptags',   //post
+            'barPlot'                        => 'striptags',   //post
+            'bgcolor'                        => 'striptags',   //post
+            'legendBgcolor'                  => 'striptags',   //post
+            'galleryId'                      => 'int',         //post
+            'time'                           => 'digits',      //post
+            'action'                         => 'striptags'    //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            $conf['code']           => 'bool',                //post
+            'cat_categories'        => 'striptags',           //post
+            'selectedUsers'         => 'username',            //post
+            'selectedGroups'        => 'groupname',           //post
+            'contributors'          => 'striptags',          //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 if (empty($prefs['feature_jpgraph'])) {

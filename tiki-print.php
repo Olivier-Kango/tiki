@@ -9,6 +9,19 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section_class = "tiki_wiki_page print";
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+            'page'                  => 'pagename',         //post
+            'display'               => 'word',             //post
+            'pdf_token'             => 'word',             //post
+            'copyrightpage'         => 'pagename',         //post
+            'page_ref_id'           => 'digits',           //post
+            'filename'              => 'word',             //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 $wikilib = TikiLib::lib('wiki');
 $userlib = UsersLib::lib('user');

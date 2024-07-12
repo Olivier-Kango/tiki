@@ -6,6 +6,17 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\CustomRoute\CustomRoute;
 
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+            'exturl'                               => 'url',                //get
+            'url'                                  => 'url',                //get
+            'module'                               => 'bool',               //get
+            'title'                                => 'String',             //get
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 
 // Check if feature is enabled

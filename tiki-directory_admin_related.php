@@ -13,12 +13,18 @@ $inputConfiguration = [
         'staticKeyFilters'                => [
             'parent'                      => 'int',               //post
             'categId'                     => 'int',               //get
+            'remove'                      => 'int',               //get
+            'update'                      => 'bool',              //get
+            'mutual'                      => 'bool',              //get
+            'add'                         => 'bool',              //get
+            'oldcategId'                  => 'int',               //post
             'offset'                      => 'int',               //get
-            'find'                        => 'string',            //get
+            'find'                        => 'string',            //post
             'sort_mode'                   => 'string',            //get
         ],
     ],
 ];
+
 require_once('tiki-setup.php');
 include_once('lib/directory/dirlib.php');
 $access->check_feature('feature_directory');

@@ -8,14 +8,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
 $inputConfiguration = [
-    [ 'staticKeyFilters' => [
-                'searchtext' => 'xss',
-                'replacetext' => 'xss',
-                'maxRecords' => 'digits',
-                'offset' => 'digits',
-                'paddingLength' => 'digits',
-        ]
+    [ 'staticKeyFilters'          => [
+                'searchtext'      => 'xss',             //post
+                'replacetext'     => 'xss',             //post
+                'maxRecords'      => 'digits',          //post
+                'offset'          => 'digits',          //post
+                'paddingLength'   => 'digits',          //post
+                'categId'         => 'digits',          //post
+                'casesensitive'   => 'bool',            //post
+                'replace'         => 'bool',            //post
+                'search'          => 'bool',            //post
+    ],
+    'staticKeyFiltersForArrays'   => [
+        'checked'                 => 'digits',          //post
+    ],
     ]
 ];
 

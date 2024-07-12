@@ -5,6 +5,15 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $tiki_sheet_div_style = '';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'sheetId'                         => 'int',              //get
+        'idx_0'                           => 'int',              //get
+        'idx_1'                           => 'int',              //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $sheetlib = TikiLib::lib("sheet");

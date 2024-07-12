@@ -8,6 +8,15 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'    => [
+            'menuId'          => 'int',        //get
+            'preview_css'     => 'bool',       //post
+            'preview_type'    => 'striptags',  //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $menulib = TikiLib::lib('menu');
 $access->check_permission(['tiki_p_edit_menu_option']);

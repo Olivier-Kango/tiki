@@ -13,9 +13,15 @@ $inputConfiguration = [
         'staticKeyFilters' => [
              'find'        => 'striptags',    //post
              'offset'      => 'int',          //get
+             'remove'      => 'int',          //get
+             'templateId'  => 'int',          //post
+             'content'     => 'text',         //post
+             'preview'     => 'bool',         //post
+             'refresh'     => 'int',          //post
+             'type'        => 'striptags',    //post
+             'save'        => 'bool',         //post
              'pageName'    => 'pagename',     //post
              'sort_mode'   => 'text',         //get
-             'offset'      => 'int',          //get
         ],
     ],
 ];

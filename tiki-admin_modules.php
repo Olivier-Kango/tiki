@@ -9,11 +9,40 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
-        [
-            'staticKeyFilters' => [
-                'um_data' => 'none',
-            ],
-        ]
+    [
+        'staticKeyFilters'         => [
+            'wysiwyg'              => 'bool',        //post
+            'clear_cache'          => 'bool',        //post
+            'edit_assign'          => 'int',         //get
+            'preview'              => 'bool',        //post
+            'unassign'             => 'bool',        //post
+            'modup'                => 'bool',        //post
+            'moddown'              => 'bool',        //post
+            'module-order'         => 'string',      //post
+            'um_update'            => 'bool',        //bool
+            'um_name'              => 'string',      //post
+            'um_data'              => 'none',        //post
+            'um_title'             => 'string',      //post
+            'um_parse'             => 'string',      //post
+            'um_tgt_module'        => 'string',      //post
+            'assign'               => 'bool',        //post
+            'assign_name'          => 'string',      //post
+            'assign_rows'          => 'int',         //post
+            'assign_position'      => 'string',      //post
+            'assign_order'         => 'string',      //post
+            'assign_cache'         => 'string',      //post
+            'assign_type'          => 'string',      //post
+            'um_remove'            => 'string',      //post
+            'um_edit'              => 'string',      //get
+            'module_list_show_all' => 'bool',        //post
+            'offset'               => 'int',         //get
+            'edit_module'          => 'bool',        //post
+            'moduleId'             => 'int',         //post
+        ],'staticKeyFiltersForArrays' => [
+            'assign_params'        => 'striptags',   //post
+            'groups'               => 'groupname',   //post
+        ],
+    ],
 ];
 
 $section = 'admin';

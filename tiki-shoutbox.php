@@ -8,6 +8,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+            'msgId'                        => 'int',                 //post
+            'remove'                       => 'int',                 //get
+            'shoutbox_admin'               => 'bool',                //post
+            'shoutbox_autolink'            => 'bool',                //post
+            'save'                         => 'bool',                //post
+            'message'                      => 'text',                //post
+            'tweet'                        => 'bool',                //post
+            'sort_mode'                    => 'word',                //get
+            'offset'                       => 'digits',              //get
+            'find'                         => 'text',                //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 include_once('lib/shoutbox/shoutboxlib.php');
 

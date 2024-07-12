@@ -9,21 +9,22 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
-    ['staticKeyFilters' => [
-        'faqId' => 'int',
-        'sort_mode' => 'text',
-        'find' => 'text',
-        'questionId' => 'int',
-        'remove' => 'int',
-        'filter' => 'text',
-        'useq' => 'word',
-        'usequestionId' => 'int',
-        'offset' => 'int',
-        'remove_suggested' => 'int',
-        'approve_suggested' => 'int',
-        'save' => 'word',
-        'question' => 'text',
-        'answer' => 'purifier']
+    ['staticKeyFilters'        => [
+        'faqId'                => 'int',         //post
+        'sort_mode'            => 'text',        //get
+        'find'                 => 'text',        //get
+        'questionId'           => 'int',         //post
+        'remove'               => 'int',         //get
+        'filter'               => 'text',        //post
+        'useq'                 => 'word',        //post
+        'usequestionId'        => 'int',         //post
+        'offset'               => 'int',         //get
+        'remove_suggested'     => 'int',         //get
+        'approve_suggested'    => 'int',         //get
+        'save'                 => 'bool',        //post
+        'question'             => 'text',        //post
+        'answer'               => 'purifier'     //post
+        ]
     ],
     [ 'catchAllUnset' => null ],
 ];

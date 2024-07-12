@@ -9,6 +9,19 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'sheet';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+            'sheetId'              => 'int',                 //post
+            'edit_mode'            => 'bool',                //post
+            'title'                => 'striptags',           //post
+            'find'                 => 'striptags',           //post
+            'edit'                 => 'bool',                //post
+            'description'          => 'xss',                 //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 
 $sheetlib = TikiLib::lib("sheet");

@@ -9,6 +9,57 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'cms';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'allowhtml'                     => 'bool',            //post
+            'subId'                         => 'int',             //post
+            'topicId'                       => 'int',             //post
+            'type'                          => 'string',          //post
+            'previewId'                     => 'int',             //post
+            'imageIsChanged'                => 'bool',            //post
+            'templateId'                    => 'int',             //post
+            'preview'                       => 'int',             //post
+            'body'                          => 'xss',             //post
+            'translationOf'                 => 'digits',          //post
+            'save'                          => 'bool',            //post
+            'submitarticle'                 => 'bool',            //post
+            'publish_Hour'                  => 'digtits',         //post
+            'publish_Minute'                => 'digtits',         //post
+            'publish_Month'                 => 'digtits',         //post
+            'publish_Day'                   => 'digtits',         //post
+            'publish_Year'                  => 'digtits',         //post
+            'expire_Hour'                   => 'digtits',         //post
+            'expire_Minute'                 => 'digtits',         //post
+            'expire_Month'                  => 'digtits',         //post
+            'expire_Day'                    => 'digtits',         //post
+            'expire_Year'                   => 'digtits',         //post
+            'publish_Meridian'              => 'string',          //post
+            'expire_Meridian'               => 'string',          //post
+            'title'                         => 'string',          //post
+            'authorName'                    => 'string',          //post
+            'topicId'                       => 'int',             //post
+            'useImage'                      => 'bool',            //post
+            'isfloat'                       => 'bool',            //post
+            'image_data'                    => 'striptags',       //post
+            'type'                          => 'string',          //post
+            'topline'                       => 'string',          //post
+            'subtitle'                      => 'string',          //post
+            'linkto'                        => 'string',          //post
+            'image_caption'                 => 'string',          //post
+            'image_name'                    => 'string',          //post
+            'image_type'                    => 'string',          //post
+            'image_size'                    => 'digits',          //post
+            'image_x'                       => 'digits',          //post
+            'image_y'                       => 'digits',          //post
+            'rating'                        => 'digits',          //post
+            'heading'                       => 'xss',             //post
+            'freetag_string'                => 'string',          //post
+            $toMatch                        => 'bool',            //post
+            'recategorize'                  => 'bool',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
 

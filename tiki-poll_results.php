@@ -9,6 +9,35 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'poll';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'maxRecords'               => 'digits',            //post
+        'find'                     => 'word',              //post
+        'which_date'               => 'word',              //post
+        'vote_from_date'           => 'digits',            //post
+        'from_Month'               => 'digits',            //post
+        'from_Day'                 => 'digits',            //post
+        'from_Year'                => 'digits',            //post
+        'vote_to_date'             => 'digits',            //post
+        'to_Month'                 => 'digits',            //post
+        'to_Day'                   => 'digits',            //post
+        'to_Year'                  => 'digits',            //post
+        'deletevote'               => 'bool',              //get
+        'optionId'                 => 'digits',            //get
+        'pollId'                   => 'digits',            //get
+        'user'                     => 'usename',           //get
+        'ip'                       => 'text',              //post
+        'scoresort_asc'            => 'text',              //get
+        'scoresort_desc'           => 'text',              //get
+        'list'                     => 'text',              //get
+        'scoresort'                => 'text',              //get
+        'sort_mode'                => 'text',              //get
+        'offset'                   => 'digit',             //get
+        'find'                     => 'text',              //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $access->check_feature('feature_polls');
 $access->check_permission('tiki_p_view_poll_results');

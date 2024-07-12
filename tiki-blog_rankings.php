@@ -9,6 +9,14 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'blogs';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'which'                    => 'bool',                //post
+            'limit'                    => 'string',              //post
+        ],
+    ]
+];
 require_once('tiki-setup.php');
 include_once('lib/rankings/ranklib.php');
 $access->check_feature(['feature_blogs', 'feature_blog_rankings']);

@@ -4,6 +4,20 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'nlId'                 => 'int',        //post
+        'remove'               => 'int',        //get
+        'error'                => 'string',     //post
+        'deleteError'          => 'bool',       //post
+        'ed_sort_mode'         => 'string',     //get
+        'ed_offset'            => 'digits',     //get
+        'ed_find'              => 'string',     //post
+        'editionId'            => 'int',        //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/newsletters/nllib.php');
 $access->check_feature('feature_newsletters');

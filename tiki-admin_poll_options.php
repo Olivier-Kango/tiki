@@ -18,7 +18,6 @@ $inputConfiguration = [
              'title'                     => 'words',          //post
              'position'                  => 'words',          //post
         ],
-        'catchAllUnset' => null
     ],
 ];
 require_once('tiki-setup.php');

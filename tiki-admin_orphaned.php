@@ -8,6 +8,14 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'            => [
+             'submit'                   => 'bool',          //post
+             'search'                   => 'bool',          //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_permission('tiki_p_admin');

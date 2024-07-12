@@ -11,8 +11,8 @@
 $inputConfiguration = [
     [
         'staticKeyFilters'            => [
-            'mailin_autocheckFreq'    => 'striptags',  //post
-            'mailin_autocheck'        => 'bool',       //post
+            'mailin_autocheckFreq'    => 'int',  //post
+            'mailin_autocheck'        => 'bool', //post
         ],
     ],
 ];

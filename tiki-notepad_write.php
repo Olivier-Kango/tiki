@@ -10,6 +10,18 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
 $note_id = 0;
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'noteId'               => 'int',        //get
+        'remove'               => 'int',        //get
+        'save'                 => 'bool',       //post
+        'name'                 => 'word',       //post
+        'data'                 => 'none',       //post
+        'parse_mode'           => 'string',     //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/notepad/notepadlib.php');
 $access->check_feature('feature_notepad');

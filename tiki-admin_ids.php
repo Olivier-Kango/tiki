@@ -8,7 +8,10 @@ $inputConfiguration = [
     [
         'staticKeyFilters'         => [
              'rule_id'             => 'int',          //post
+             'rule'                => 'int',          //get
+             'new_rule'            => 'bool',         //post
              'rule_regex'          => 'alpha',        //post
+             'editrule'            => 'bool',         //post
              'rule_description'    => 'text',         //post
              'rule_tags'           => 'text',         //post
              'rule_impact'         => 'text',         //post

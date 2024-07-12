@@ -9,12 +9,17 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
-    [ 'staticKeyFilters' =>
-        [
-            'userlogin' => 'striptags',
-            'userpass' => 'striptags',
-        ]
-    ]
+    [
+        'staticKeyFilters'         => [
+            'localinfosubmit'             => 'bool',                //post
+            'name'                        => 'striptags',           //post
+            'email'                       => 'email',               //post
+            'chosenGroup'                 => 'bool',                //post
+            'linkaccount'                 => 'bool',                //post
+            'userlogin'                   => 'username',            //post
+            'userpass'                    => 'password',            //post
+        ],
+    ],
 ];
 
 require_once('tiki-setup.php');

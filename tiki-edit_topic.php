@@ -6,6 +6,16 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 define('DB_ERROR', -1);
 $section = 'cms';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'topicid'                     => 'int',              //post
+            'edittopic'                   => 'bool',             //post
+            'name'                        => 'string',           //post
+            'email'                       => 'email',            //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
 $smarty = TikiLib::lib('smarty');

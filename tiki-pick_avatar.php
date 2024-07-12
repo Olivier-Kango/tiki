@@ -10,6 +10,17 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
 require_once('tiki-setup.php');
+$inputConfiguration = [
+    [
+        'staticKeyFilters'         => [
+        'showall'                  => 'bool',            //get
+        'view_user'                => 'usename',         //post
+        'uselib'                   => 'bool',            //post
+        'avatar'                   => 'none',            //get
+        'reset'                    => 'bool',            //post
+        ],
+    ],
+];
 $userprefslib = TikiLib::lib('userprefs');
 $access->check_feature('feature_userPreferences');
 $access->check_user($user);
