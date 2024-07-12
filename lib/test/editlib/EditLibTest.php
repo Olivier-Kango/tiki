@@ -331,4 +331,163 @@ class EditLibTest extends TikiTestCase
             "\n{DIV(class=titlebar)}the titlebar content{DIV}\n" . "\nline after the title bar"
         );
     }
+
+    public function testConvertWikiSyntaxHeadings()
+    {
+        global $prefs;
+        $prefs['feature_wiki_paragraph_formatting'] = 'n';
+
+        $inData = "!+ Introduction\nThis is the content for the introduction section.";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "#+ Introduction\nThis is the content for the introduction section.",
+        );
+
+        $inData = "!!- More Details\nThis is the content for the more details subsection.";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "##- More Details\nThis is the content for the more details subsection.",
+        );
+    }
+
+    public function testConvertWikiSyntaxColoredText()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "~~blue:Colored text~~",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "{HTML()}<span style=\"color:blue\">Colored text</span>{HTML}"
+        );
+    }
+
+    public function testConvertWikiSyntaxMonospacedText()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "-+Monospaced text+-",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "`Monospaced text`"
+        );
+    }
+
+    public function testConvertWikiSyntaxStrikeThroughText()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "--This is strikethrough text--",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "~~This is strikethrough text~~"
+        );
+    }
+
+    public function testConvertWikiSyntaxSmileys()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "(:cool:) :-/ :) :-D",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "😎 😕 😊 😀"
+        );
+    }
+
+    public function testConvertWikiSyntaxIndent()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            ";Intro Text: First example of indented text",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "Intro Text\n: First example of indented text"
+        );
+
+        $converted = $this->el->convertWikiSyntax(
+            ";:2nd example of indented text",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "2nd example of indented text"
+        );
+    }
+
+    public function testConvertWikiSyntaxPreformatted()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "~pp~ data ~/pp~",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "~pp~ data ~/pp~"
+        );
+    }
+
+    public function testConvertWikiSyntaxDynamicVariables()
+    {
+        global $prefs;
+        $dynVarPref = $prefs['wiki_dynvar_style'];
+
+        $prefs['wiki_dynvar_style'] = 'single';
+        $converted = $this->el->convertWikiSyntax(
+            "Test name is %Name%",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "Test name is %Name%"
+        );
+
+        $prefs['wiki_dynvar_style'] = 'double';
+        $converted = $this->el->convertWikiSyntax(
+            "Test name is %%Name%%",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "Test name is %%Name%%"
+        );
+
+        $prefs['wiki_dynvar_style'] = $dynVarPref;
+    }
+
+    public function testConvertWikiSyntaxNewLine()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "Linebreak %%% (useful especially in tables)",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "Linebreak <br /> (useful especially in tables)"
+        );
+    }
 }
