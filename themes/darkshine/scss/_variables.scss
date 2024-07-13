@@ -32,7 +32,7 @@ $theme-colors: (
      "info":           #0071C7, // #0089f0,
      "warning":        #717113, // #d0d024,
      "danger":         #CD322D, // #D4403A, // #d9534f,
-    "light":           #ffffff,
+    "light":           #f3f3f3, // body bg
      "dark":           #000000
 );
 
@@ -98,15 +98,15 @@ $form-feedback-invalid-color: #C9312C;
 
 // Z-index master list
 // Navs
-$nav-link-color:                    #fff;
+$nav-link-color:                    #600000; // var(--#{$prefix}link-color); //#fff;
 $nav-link-hover-color:              var(--#{$prefix}link-hover-color);  // default
 $nav-link-disabled-color: #666E75;
 
 // Navbar
-$navbar-light-color:                rgba($black, .5);  // default
-$navbar-light-hover-color:          rgba($black, .7);  // default
-$navbar-light-active-color:         rgba($black, .9);  // default
-$navbar-light-disabled-color:       rgba($black, .3);  // default
+$navbar-light-color:                $nav-link-color; // rgba($black, .5);  // default
+$navbar-light-hover-color:          rgba($nav-link-color, .7);  // default
+$navbar-light-active-color:         rgba($nav-link-color, .9);  // default
+$navbar-light-disabled-color:       rgba($nav-link-color, .3);  // default
 
 $navbar-dark-color:                 rgba($white, .55);  // default
 $navbar-dark-hover-color:           rgba($white, .75);  // default

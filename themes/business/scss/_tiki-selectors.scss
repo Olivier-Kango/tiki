@@ -58,12 +58,6 @@ h2.sitesubtitle {
   padding-top: 1em;
 }
 
-#footer .container,
-footer.main-footer .container {
-  min-height: 60px;
-  background: url('#{$imagePath}footer.gif') repeat-x;
-}
-
 .card-header,
 .modal-header {
   //  background: #3475c6 url('#{$imagePath}title_bg.png') no-repeat 0 0;
@@ -159,4 +153,8 @@ h3.card-title {
 // Spinners
 .spinner-border.text-light {
     color: $text-muted;
+}
+
+.col2 .navbar {
+    background: none;
 }

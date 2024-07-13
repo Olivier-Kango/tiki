@@ -19,7 +19,7 @@ body.fullscreen,
 .layout_basic .row-middle,
 .layout_social .middle.container,
 .tiki-admin .row-middle {
-    background: #f3f3f3;
+//    background: #f3f3f3;
     border: solid 15px #600;
     border-top: none;
 }
@@ -29,9 +29,26 @@ body.fullscreen,
 }
 
 #bottom_modules {
-    background: #000000;
+//    background: #000000;
     border: solid #600;
     border-width: 0 15px;
+}
+
+//.col1,
+//#autosave_preview,
+//#autotoc > ul,
+//.col2 .module,
+//.col3 .module,
+//.bottom_modules .module,
+.row-middle,
+.bottom_modules {
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color); // $content-color;
+}
+
+.col2,
+.col3 {
+    padding-top: 15px;
 }
 
 // Utilities maps
@@ -43,15 +60,15 @@ body.fullscreen,
 // Container padding
 // Components
 // Typography
-blockquote,
-.blockquote {
-    color: #525252;
-}
+//blockquote,
+//.blockquote {
+//    color: #525252;
+//}
 
 // Tables
-.table .table {
-    background: #f3f3f3;
-}
+//.table .table {
+//    background: #f3f3f3;
+//}
 
 //.tablesorter-header {
 //    color: #e5e5e5;
@@ -317,7 +334,7 @@ blockquote,
 }
 
 //orange_gradient_background
-#pagetop_modules,
+#pagetop_modules:has(*),
 .orange_gradient_background {
     background: #fec782;
     background: linear-gradient(to bottom, #fec782 0%, #fe9e27 0%, #fe9226 31%, #fe7723 75%, #fe6e22 100%, #783c1c 100%);
@@ -480,3 +497,6 @@ blockquote,
     }
 }
 
+.col2 .navbar {
+    background: none;
+}

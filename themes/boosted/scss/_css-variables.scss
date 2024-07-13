@@ -179,3 +179,41 @@
     --bs-popover-bg: var(--bs-body-bg);
     --bs-popover-border-color: var(--bs-border-color-translucent);
 }
+
+// Added for color mode support (dark)
+[data-bs-theme="dark"] {
+    .table {
+        --bs-table-bg: var(--bs-body-bg);
+    }
+    .card {
+        --bs-card-bg: var(--bs-body-bg);
+    }
+    .form-control,
+    .form-select,
+    .select2-container--bootstrap-5 .select2-dropdown {
+        background-color: var(--bs-body-bg);
+//        --tiki-input-bg: purple; Test value: this works.
+    }
+    // File gallery tree menu
+    .odd {
+        background-color: var(--bs-tertiary-bg);
+    }
+    .pagination {
+        --bs-pagination-bg: var(--bs-body-bg);
+    }
+    .page-link.disabled, .disabled > .page-link {
+        background-color: var(--bs-tertiary-bg);
+    }
+    .dropdown-menu {
+        --bs-dropdown-bg: var(--bs-tertiary-bg);
+    }
+    .dropdown-header {
+        --bs-dropdown-header-color: var(--bs-body-color);
+    }
+    .dropdown-item {
+        --bs-dropdown-link-color: var(--bs-link-color)
+    }
+    .modal-content {
+        --bs-modal-bg: var(--bs-body-bg);
+    }
+}

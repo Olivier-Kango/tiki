@@ -146,6 +146,10 @@ header.navbar.fixed-top {
     --tiki-tooltip-link-hover-color: #{$tooltip-color};
     --tiki-code-color: var(--bs-body-color);
     --tiki-code-bg: var(--bs-secondary-bg);
+    --tiki-input-color: var(--bs-body-color);
+    --tiki-input-bg: var(--bs-body-bg);
+    --tiki-input-select-color: var(--bs-primary-text-emphasis); // $form-select-color;
+    --tiki-input-select-bg: var(--bs-primary-text-bg);
 }
 
 [data-bs-theme=dark] {
