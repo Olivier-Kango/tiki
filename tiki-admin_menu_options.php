@@ -32,6 +32,12 @@ $auto_query_args = [
     'preview_bootstrap',
 ];
 
+if (! empty($_REQUEST["deletemenu"])) {
+    $content = $_REQUEST["deletemenu"];
+    $content = explode("=", $content)[1];
+    $menulib->remove_menu_option($content);
+}
+
 $smarty->assign('menuId', $_REQUEST["menuId"]);
 $editable_menu_info = $menulib->get_menu($_REQUEST["menuId"]);
 $smarty->assign('editable_menu_info', $editable_menu_info);

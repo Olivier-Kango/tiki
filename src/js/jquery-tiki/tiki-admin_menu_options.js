@@ -209,6 +209,9 @@ $(function () {
 
         $options.on("click", ".option-remove", function () {
             if (confirm(tr("Are you sure you want to remove this option?"))) {
+                var tab = $(this).siblings("a.option-edit").attr("href");
+                $("#deletemenu").val(tab.split("&")[3]);
+                $("form").submit();
                 $(this).parents("li").first().remove();
                 setDirty();
             }

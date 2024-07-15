@@ -166,10 +166,9 @@
                     {autocomplete element='.field-url' type='pagename' options=$smarty.capture.options}
                 </ol>
             </div>
-
+            <input type="hidden" id="deletemenu" name="deletemenu">
         </form>
-
-        {button _text='{tr}Save Options{/tr}' _class='save_menu  btn btn-sm disabled' _type='primary' _ajax='n' _auto_args='save_menu,page_ref_id'}
+        {button _text='{tr}Save Options{/tr}' _class='save_menu btn btn-sm disabled' _type='primary' _ajax='n' _auto_args='save_menu,page_ref_id'}
 
     </div>
 {/tab}
