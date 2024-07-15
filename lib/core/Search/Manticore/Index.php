@@ -181,8 +181,14 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             $this->updatePercolateIndex($this->index, $pq_mapping);
         }
 
-        TikiLib::lib('tiki')->set_preference('unified_field_mapping', json_encode($fieldMapping));
-        TikiLib::lib('tiki')->set_preference('unified_date_fields', json_encode($dateFields));
+        $fieldMapping = json_encode($fieldMapping);
+        if (empty($prefs['unified_field_mapping']) || $prefs['unified_field_mapping'] != $fieldMapping) {
+            TikiLib::lib('tiki')->set_preference('unified_field_mapping', $fieldMapping);
+        }
+        $dateFields = json_encode($dateFields);
+        if (empty($prefs['unified_date_fields']) || $prefs['unified_date_fields'] != $dateFields) {
+            TikiLib::lib('tiki')->set_preference('unified_date_fields', $dateFields);
+        }
     }
 
     private function updatePercolateIndex($index, $mapping)
