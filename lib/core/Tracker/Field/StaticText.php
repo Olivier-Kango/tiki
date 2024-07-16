@@ -49,7 +49,7 @@ class Tracker_Field_StaticText extends \Tracker\Field\AbstractField implements \
 
     public function getFieldData(array $requestData = [])
     {
-        global $tikilib;
+        global $prefs;
 
         $value = $this->getConfiguration('description');
 
@@ -76,6 +76,10 @@ class Tracker_Field_StaticText extends \Tracker\Field\AbstractField implements \
             }
 
             $value = str_replace('{$itemId}', $this->getItemId(), $value);
+            if ($prefs['feature_wiki_argvariable'] === 'y') {
+                // TODO add user, page etc
+                $value = str_replace('{{itemId}}', $this->getItemId(), $value);
+            }
 
             if ($this->getOption('wikiparse') == 2) {
                 $value = TikiLib::lib('parser')->parse_data($value);
