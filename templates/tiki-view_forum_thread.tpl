@@ -179,10 +179,10 @@
     </form>
 
 
-<div class="mb-3 float-sm-end">
+<div class="mb-3">
     {if $prefs.feature_forum_quickjump eq 'y' && $all_forums|@count > 1}
-        <form role="form" id='quick' method="get" action="tiki-view_forum.php">
-            <label class="col-sm-6 col-form-label" for="forumId">{tr}Jump to forum:{/tr}</label>
+        <form role="form" id='quick' class="row" method="get" action="tiki-view_forum.php">
+            <label class="col-sm-6 col-form-label text-end" for="forumId">{tr}Jump to forum:{/tr}</label>
             <div class="col-sm-6">
                 <select id="forumId" class="form-control" name="forumId" onchange="javascript:document.getElementById('quick').trigger("submit");">
                     {section name=ix loop=$all_forums}
