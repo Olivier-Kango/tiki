@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <div class="modal-content-storage">
     {if ! isset($noheader) || $noheader !== 'y'}
-        <div class="title">{$title|escape}</div>
+        <div class="modal-header title">
+            <h4 class="modal-title" id="myModalLabel">{$title|escape}{block name=subtitle}{/block}</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true" aria-label="{tr}Close{/tr}"></button>
+        </div>
     {/if}
-    <div class="body">
+    <div class="body modal-body">
         {block name=content}{/block}
         {if $headerlib}
             {$headerlib->output_js_config()}
@@ -14,4 +17,9 @@
             {debug}
         {/if}
     </div>
+</div>
+<div class="modal-footer">
+    {block name=buttons}
+        <button type="button" class="btn btn-link" data-bs-dismiss="modal">{tr}Close{/tr}</button>
+    {/block}
 </div>
