@@ -11,6 +11,13 @@ function prefs_user_list($partial = false)
 
     $fieldFormat = '{title} ({tracker_name})';
     return [
+        'user_must_change_password_set_default_on' => [
+            'name' => tra('User must change password set default on'),
+            'description' => tra("Set default value for the 'user must change password at next login' checkbox in the registration form when adding new user by the admin. This is to avoid to have to check the said checkbox everytime on next user's creation if your policy is that the new user must change the password given by the admin at next login."),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['basic'],
+        ],
         'user_show_realnames' => [
             'name' => tra('Show user\'s real name'),
             'description' => tra('Show the user\'s real name instead of username (log-in name), when possible.'),

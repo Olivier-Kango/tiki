@@ -519,7 +519,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="checkbox" name="pass_first_login"
-                                                {if isset($userinfo.pass_confirm) && $userinfo.pass_confirm eq '0' or not empty($smarty.request.pass_first_login)}
+                                                {if isset($userinfo.pass_confirm) && $userinfo.pass_confirm eq '0' or not empty($smarty.request.pass_first_login) or $prefs.user_must_change_password_set_default_on eq 'y'}
                                                     checked="checked"
                                                 {/if}>
                                             {tr}User must change password at next login{/tr}
@@ -725,7 +725,7 @@
                         <div class="col-md-9 offset-md-3">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="forcePasswordChange">
+                                    <input class="form-check-input" type="checkbox" name="forcePasswordChange"{if $prefs.user_must_change_password_set_default_on eq 'y'} checked="checked"{/if}>
                                     {tr}The user must change his or her password the first time they log in{/tr}{help url="Users" desc="{tr}Select this if you want to force the user to change their passwords the first time that they log in to Tiki site{/tr}"}
                                 </label>
                             </div>

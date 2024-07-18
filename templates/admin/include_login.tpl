@@ -37,6 +37,7 @@
             {preference name=feature_intertiki}
             <fieldset>
                 <legend class="h3">{tr}Registration{/tr} &amp; {tr}Log in{/tr}</legend>
+                {preference name=user_must_change_password_set_default_on}
                 {preference name=allowRegister}
                 <div class="adminoptionboxchild" id="allowRegister_childcontainer">
                     {preference name=validateUsers}
