@@ -382,7 +382,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
             ->setLabel($name)
             ->setReadOnly(true)
             ->setRenderTransform(function ($value) {
-                return implode(';', $value);
+                return is_array($value) ? implode(';', $value) : $value;
             })
             ->setParseIntoTransform(function (&$info, $value) use ($permName) {
                 $info['fields'][$permName] = $value;
