@@ -194,8 +194,11 @@ class Manager
             return;
         }
 
-        $definition = \Tracker_Definition::get($args['parentobject']);
-        $tabularId = $definition->getConfiguration('tabularSync');
+        if (! empty((int) $args['parentobject'])) {
+            $definition = \Tracker_Definition::get($args['parentobject']);
+            $tabularId = $definition->getConfiguration('tabularSync');
+        }
+
         if (empty($tabularId)) {
             return;
         }
@@ -225,8 +228,10 @@ class Manager
             return;
         }
 
-        $definition = \Tracker_Definition::get($args['parentobject']);
-        $tabularId = $definition->getConfiguration('tabularSync');
+        if (! empty((int) $args['parentobject'])) {
+            $definition = \Tracker_Definition::get($args['parentobject']);
+            $tabularId = $definition->getConfiguration('tabularSync');
+        }
         if (empty($tabularId)) {
             return;
         }
