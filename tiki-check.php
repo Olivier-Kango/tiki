@@ -2554,6 +2554,28 @@ if (! $standalone) {
         );
     }
 
+    // Check if PCRE (Perl Compatible Regular Expressions) backtrack_limit
+    // is enough higher to allow sufficient attempts
+    // when trying to understand a complicated pattern written in a regular expression
+    $backtrack_limit = ini_get('pcre.backtrack_limit');
+    $url = '<a href="https://doc.tiki.org/Server-Check#OCR_Status_section">doc.tiki.org/Server-Check#OCR_Status_section</a>';
+    if ($backtrack_limit !== false) {
+        $moreInformation = tr('For more detailed information please check %0', $url);
+        if ($backtrack_limit < 1000000) {
+            $status = tr('unsure');
+            $message = tr('pcre.backtrack_limit is lower that the PHP default of 1000000 in php.ini');
+        } else {
+            $status = tr('good');
+            $message = tr('pcre.backtrack_limit is good.');
+        }
+        $message .= ' ' . $moreInformation;
+        $ocrToDisplay[] = array(
+            'name' => tr('PCRE backtrack_limit'),
+            'status' => $status,
+            'message' => $message
+        );
+    }
+
     $smarty->assign('ocr', $ocrToDisplay);
 }
 // Security Checks
