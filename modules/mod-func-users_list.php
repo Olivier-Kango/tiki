@@ -107,7 +107,7 @@ function module_users_list_info()
 /**
  * @param $module_params
  */
-function module_users_list($module_params)
+function module_users_list($mod_reference, $module_params)
 {
     global $prefs;
     $userlib = TikiLib::lib('user');
@@ -129,7 +129,7 @@ function module_users_list($module_params)
         $sort_mode = $module_params['params']['sort_mode'];
     }
 
-    $users = $userlib->get_users(0, -1, $sort_mode, '', ! empty($module_params['initial']) ? $module_params['initial'] : '', isset($module_params['groups']) ? true : false, $group);
+    $users = $userlib->get_users(0, $mod_reference['rows'], $sort_mode, '', ! empty($module_params['initial']) ? $module_params['initial'] : '', isset($module_params['groups']) ? true : false, $group);
     if (isset($_REQUEST["realName"]) && ($prefs['auth_ldap_nameattr'] == '' || $prefs['auth_method'] != 'ldap')) {
         $tikilib->set_user_preference($userwatch, 'realName', $_REQUEST["realName"]);
         if ($prefs['user_show_realnames'] == 'y') {
