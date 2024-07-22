@@ -141,9 +141,9 @@
                 </label>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="showCreated" value="1"
+                <input type="checkbox" class="form-check-input" name="showCreated" id="showCreated" value="1"
                         {if $info.showCreated eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="showCreated">
                     {tr}Show creation date when listing items{/tr}
                 </label>
             </div>
@@ -155,30 +155,30 @@
                 </div>
             </div>
             <div class="form-check depends" data-on="showCreated">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="showCreatedBy" value="1"
+                <input type="checkbox" class="form-check-input" name="showCreatedBy" id="showCreatedBy" value="1"
                         {if $info.showCreatedBy eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="showCreatedBy">
                     {tr}Show item creator{/tr}
                 </label>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="showCreatedView" value="1"
+                <input type="checkbox" class="form-check-input" name="showCreatedView" id="showCreatedView" value="1"
                         {if $info.showCreatedView eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="showCreatedView">
                     {tr}Show creation date when viewing items{/tr}
                 </label>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="showLastModif" value="1"
+                <input type="checkbox" class="form-check-input" name="showLastModif" id="showLastModif" value="1"
                         {if $info.showLastModif eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="showLastModif">
                     {tr}Show last modification date when listing items{/tr}
                 </label>
             </div>
             <div class="form-check depends" data-on="showLastModif">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="showLastModifBy" value="1"
+                <input type="checkbox" class="form-check-input" name="showLastModifBy" id="showLastModifBy" value="1"
                         {if $info.showLastModifBy eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="showLastModifBy">
                     {tr}Show item last modifier{/tr}
                 </label>
             </div>
@@ -190,9 +190,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="showLastModifView" value="1"
+                <input type="checkbox" class="form-check-input" name="showLastModifView" id="showLastModifView" value="1"
                         {if $info.showLastModifView eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="showLastModifView">
                     {tr}Show last modification date when viewing items{/tr}
                 </label>
             </div>
@@ -212,9 +212,9 @@
                 </select>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="doNotShowEmptyField" value="1"
+                <input type="checkbox" class="form-check-input" name="doNotShowEmptyField" id="doNotShowEmptyField" value="1"
                         {if $info.doNotShowEmptyField eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="doNotShowEmptyField">
                     {tr}Hide empty fields from item view{/tr}
                 </label>
             </div>
@@ -237,8 +237,8 @@
                     </div>
                 </div>
                 <div class="form-check">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="useFormClasses" value="1" {if $info.useFormClasses eq 'y'} checked="checked"{/if}>
+                    <input type="checkbox" class="form-check-input" name="useFormClasses" id="useFormClasses" value="1" {if $info.useFormClasses eq 'y'} checked="checked"{/if}>
+                    <label class="form-check-label" for="useFormClasses">
                         {tr}Use Form Classes{/tr}
                     </label>
                 </div>
@@ -325,9 +325,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="simpleEmail" value="1"
+                <input type="checkbox" class="form-check-input" name="simpleEmail" id="simpleEmail" value="1"
                         {if $info.simpleEmail eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="simpleEmail">
                     {tr}Use simplified email format{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -343,10 +343,10 @@
                 </select>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="publishRSS" value="1"
-                        {if $prefs.feed_tracker neq 'y'}disabled="disabled"{/if}
+                <input type="checkbox" class="form-check-input" name="publishRSS" id="publishRSS" value="1"
+                                           {if $prefs.feed_tracker neq 'y'}disabled="disabled"{/if}
                         {if $info.publishRSS eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="publishRSS">
                     {tr}Publish RSS feed for this tracker{/tr}
                 </label>
                 <div class="description form-text">
@@ -400,9 +400,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="writerCanModify" value="1"
-                        {if $info.writerCanModify eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="writerCanModify" id="writerCanModify" value="1"
+                                           {if $info.writerCanModify eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="writerCanModify">
                     {tr}Item creator can modify his items{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -410,9 +410,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="writerCanRemove" value="1"
-                        {if $info.writerCanRemove eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="writerCanRemove" id="writerCanRemove" value="1"
+                                           {if $info.writerCanRemove eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="writerCanRemove">
                     {tr}Item creator can remove his items{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -420,16 +420,16 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="userCanTakeOwnership" value="1"
-                        {if $info.userCanTakeOwnership eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="userCanTakeOwnership" id="userCanTakeOwnership" value="1"
+                                           {if $info.userCanTakeOwnership eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="userCanTakeOwnership">
                     {tr}User can take ownership of item created by anonymous{/tr}
                 </label>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="oneUserItem" value="1"
-                        {if $info.oneUserItem eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="oneUserItem" id="oneUserItem" value="1"
+                                           {if $info.oneUserItem eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="oneUserItem">
                     {tr}Only one item per user or IP{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -437,9 +437,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="writerGroupCanModify" value="1"
-                        {if $info.writerGroupCanModify eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="writerGroupCanModify" id="writerGroupCanModify" value="1"
+                                           {if $info.writerGroupCanModify eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="writerGroupCanModify">
                     {tr}Members of the creator group can modify items{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -447,9 +447,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="writerGroupCanRemove" value="1"
-                        {if $info.writerGroupCanRemove eq 'y'}checked="checked"{/if}>
+                <input type="checkbox" class="form-check-input" name="writerGroupCanRemove" id="writerGroupCanRemove" value="1"
+                                           {if $info.writerGroupCanRemove eq 'y'}checked="checked"{/if}>
+                <label class="form-check-label" for="writerGroupCanRemove">
                     {tr}Members of the creator group can remove items{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -457,9 +457,9 @@
                 </div>
             </div>
             <div class="form-check">
-                <label>
-                    <input type="checkbox" class="form-check-input" name="adminOnlyViewEditItem" value="1"
+                <input type="checkbox" class="form-check-input" name="adminOnlyViewEditItem" id="adminOnlyViewEditItem" value="1"
                         {if $info.adminOnlyViewEditItem eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="adminOnlyViewEditItem">
                     {tr}Restrict non admins to wiki page access only{/tr}
                 </label>
                 <div class="description form-text mb-4">
@@ -480,9 +480,9 @@
                     <input type="time" name="startTime" id="startTime" value="{$startTime|default:'00:00'|escape}" class="form-control">
                 </div>
                 <div class="form-check">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="end" value="1"
-                            {if !empty($info.end)}checked="checked"{/if}>
+                    <input type="checkbox" class="form-check-input" name="end" id="end" value="1"
+                                               {if !empty($info.end)}checked="checked"{/if}>
+                    <label class="form-check-label" for="end">
                         {tr}Before{/tr}
                     </label>
                 </div>
@@ -502,9 +502,9 @@
                     {include file='categorize.tpl' notable=y auto=y}
                 </div>
                 <div class="form-check">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="autoCreateCategories" value="1"
-                            {if $info.autoCreateCategories eq 'y'}checked="checked"{/if}>
+                    <input type="checkbox" class="form-check-input" name="autoCreateCategories" id="autoCreateCategories" value="1"
+                                               {if $info.autoCreateCategories eq 'y'}checked="checked"{/if}>
+                    <label class="form-check-label" for="autoCreateCategories">
                         {tr}Auto-create corresponding categories{/tr}
                     </label>
                 </div>
@@ -513,9 +513,9 @@
         {if $prefs.groupTracker eq 'y'}
             {accordion_group title="{tr}Groups{/tr}"}
                 <div class="form-check">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="autoCreateGroup" value="1"
+                    <input type="checkbox" class="form-check-input" name="autoCreateGroup" id="autoCreateGroup" value="1"
                             {if $info.autoCreateGroup eq 'y'} checked="checked"{/if}>
+                    <label class="form-check-label" for="autoCreateGroup">
                         {tr}Create a group for each item{/tr}
                     </label>
                 </div>
@@ -529,30 +529,30 @@
                     </select>
                 </div>
                 <div class="form-check depends" data-on="autoCreateGroup">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="autoAssignCreatorGroup" value="1"
+                    <input type="checkbox" class="form-check-input" name="autoAssignCreatorGroup" id="autoAssignCreatorGroup" value="1"
                             {if $info.autoAssignCreatorGroup eq 'y'} checked="checked"{/if}>
+                    <label class="form-check-label" for="autoAssignCreatorGroup">
                         {tr}Creator is assigned to the group{/tr}
                     </label>
                 </div>
                 <div class="form-check depends" data-on="autoCreateGroup">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="autoAssignCreatorGroupDefault" value="1"
+                    <input type="checkbox" class="form-check-input" name="autoAssignCreatorGroupDefault" id="autoAssignCreatorGroupDefault" value="1"
                             {if $info.autoAssignCreatorGroupDefault eq 'y'} checked="checked"{/if}>
+                    <label class="form-check-label" for="autoAssignCreatorGroupDefault">
                         {tr}Will become the creator's default group{/tr}
                     </label>
                 </div>
                 <div class="form-check depends" data-on="autoCreateGroup">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="autoAssignGroupItem" value="1"
+                    <input type="checkbox" class="form-check-input" name="autoAssignGroupItem" id="autoAssignGroupItem" value="1"
                             {if $info.autoAssignGroupItem eq 'y'} checked="checked"{/if}>
+                    <label class="form-check-label" for="autoAssignGroupItem">
                         {tr}Will become the new item's group creator{/tr}
                     </label>
                 </div>
                 <div class="form-check depends" data-on="autoCreateGroup">
-                    <label>
-                        <input type="checkbox" class="form-check-input" name="autoCopyGroup" value="1"
+                    <input type="checkbox" class="form-check-input" name="autoCopyGroup" id="autoCopyGroup" value="1"
                             {if $info.autoCopyGroup eq 'y'} checked="checked"{/if}>
+                    <label class="form-check-label" for="autoCopyGroup">
                         {tr}Copy the default group in the field ID before updating the group{/tr}
                     </label>
                 </div>

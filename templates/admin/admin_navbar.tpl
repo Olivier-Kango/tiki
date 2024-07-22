@@ -34,8 +34,9 @@
                         {foreach from=$pref_filters key=name item=info}
                             <li class="dropdown-item">
                                 <div class="form-check justify-content-start form-switch">
-                                    <label>
-                                        <input type="checkbox" class="form-check-input preffilter {$info.type|escape} input-pref_filters" name="pref_filters[]" value="{$name|escape}"{if !empty($info.selected)} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>{$info.label|escape}
+                                    <input type="checkbox" class="form-check-input preffilter {$info.type|escape} input-pref_filters" id="pref_filters" name="pref_filters[]" value="{$name|escape}"{if !empty($info.selected)} checked="checked"{/if}{if $name eq basic} disabled="disabled"{/if}>
+                                    <label class="form-check-label" for="pref_filters">
+                                        {$info.label|escape}
                                     </label>
                                 </div>
                             </li>
