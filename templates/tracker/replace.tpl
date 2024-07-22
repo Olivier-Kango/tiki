@@ -314,8 +314,8 @@
 
                     {foreach key=st item=stdata from=$statusTypes}
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" class="form-check-input" name="defaultStatus[]" id="defaultStatus" value="{$st|escape}"{if in_array($st, $statusList)} checked="checked"{/if}>
-                        <label class="form-check-label" for="defaultStatus">
+                    <input type="checkbox" class="form-check-input" name="defaultStatus[]" id="defaultStatus-{$stdata.label|escape}" value="{$st|escape}"{if in_array($st, $statusList)} checked="checked"{/if}>
+                        <label class="form-check-label" for="defaultStatus-{$stdata.label|escape}">
                             {$stdata.label|escape}
                         </label>
                 </div>
