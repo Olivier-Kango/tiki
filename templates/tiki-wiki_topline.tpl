@@ -78,6 +78,11 @@
                                 {capture name=backlink_title}{object_title id=$backlinks[back].objectId type=$backlinks[back].type}{/capture}
                                 {*<li role="presentation">*}
                                     <span class="dropdown-item" role="menuitem" tabindex="-1">
+                                        {if $backlinks[back].type eq 'wiki page'}
+                                            {icon name="notepad"} 
+                                        {elseif $backlinks[back].type eq 'trackeritemfield'}
+                                            {icon name="database"}
+                                        {/if}
                                         {if $prefs.wiki_backlinks_name_len ge '1'}
                                             {object_link id=$backlinks[back].objectId type=$backlinks[back].type title=$smarty.capture.backlink_title|truncate:$prefs.wiki_backlinks_name_len:"...":true}
                                         {else}
