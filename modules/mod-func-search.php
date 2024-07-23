@@ -199,7 +199,6 @@ function module_search($mod_reference, $smod_params)    // modifies $smod_params
             $smod_params['advanced_search'] = 'y';
             $smod_params['search_submit'] = tra('Go');
             $smod_params['default_button'] = 'search';
-            $smod_params['show_object_filter'] = $prefs['feature_search_show_object_filter'];
             break;
 
         case 'page':        // params from old search_wiki_page module
