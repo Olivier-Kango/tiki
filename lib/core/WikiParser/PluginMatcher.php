@@ -507,6 +507,12 @@ class WikiParser_PluginMatcher_Match
 
     public function replaceWithPlugin($name, $params, $content)
     {
+        $replacement = $this->buildPluginString($name, $params, $content);
+        $this->replaceWith($replacement);
+    }
+
+    public function buildPluginString($name, $params, $content)
+    {
         $hasBody = ! empty($content) && ! ctype_space($content);
 
         if (is_array($params)) {
@@ -523,13 +529,13 @@ class WikiParser_PluginMatcher_Match
         // Replace the content
         if ($hasBody) {
             $type = strtoupper($name);
-            $replacement = "{{$type}($params)}$content{{$type}}";
+            $result = "{{$type}($params)}$content{{$type}}";
         } else {
             $plugin = strtolower($name);
-            $replacement = "{{$plugin} $params}";
+            $result = "{{$plugin} $params}";
         }
 
-        $this->replaceWith($replacement);
+        return $result;
     }
 
     public function getName()

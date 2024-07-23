@@ -6,14 +6,18 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Search\Formatter\Sublist\Parser as SublistParser;
+
 class Search_Formatter_Builder
 {
     private $parser;
+    private $sublistParser;
     private $paginationArguments;
 
     private $formatterPlugin;
     private $subFormatters = [];
     private $customFilters = [];
+    private $subLists = [];
     private $alternateOutput;
     private $id;
     private $count;
@@ -26,6 +30,7 @@ class Search_Formatter_Builder
     public function __construct()
     {
         $this->parser = new WikiParser_PluginArgumentParser();
+        $this->sublistParser = new SublistParser();
         $this->paginationArguments = [
             'offset_arg' => 'offset',
             'max' => 50,
@@ -78,6 +83,10 @@ class Search_Formatter_Builder
             if ($name == 'filter') {
                 $this->handleFilter($match);
             }
+
+            if ($name == 'sublist') {
+                $this->subLists[] = $this->sublistParser->parse($match);
+            }
         }
     }
 
@@ -106,6 +115,10 @@ class Search_Formatter_Builder
 
         foreach ($this->customFilters as $filter) {
             $formatter->addCustomFilter($filter);
+        }
+
+        foreach ($this->subLists as $sublist) {
+            $formatter->addSubList($sublist);
         }
 
         return $formatter;
