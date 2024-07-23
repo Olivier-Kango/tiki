@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $access->checkCsrf()) {
     $handler = $_REQUEST['handler'];
     $encoding = $_REQUEST['encoding'];
 
-    // Instanciate the handler
+    // Instantiate the handler
     switch ($handler) {
         case 'TikiSheetWikiTableHandler': // Well known, special handlers
             $handler = new $handler($_POST['page']);

@@ -41,7 +41,7 @@ function wikiplugin_semanticsearch_info()
             'indexer' => [
                 'required' => false,
                 'name' => tra('Textualization indexer'),
-                'description' => tra('The textualization index class to instanciate.'),
+                'description' => tra('The textualization index class to instantiate.'),
                 'filter' => 'string',
                 'since' => '27',
                 'default' => '\\Textualization\\SemanticSearch\\VectorIndex',
@@ -49,7 +49,7 @@ function wikiplugin_semanticsearch_info()
             'embedder' => [
                 'required' => false,
                 'name' => tra('Textualization embedder'),
-                'description' => tra('The textualization embedder class to instanciate.  It must match the one used during server indexing'),
+                'description' => tra('The textualization embedder class to instantiate. It must match the one used during server indexing.'),
                 'filter' => 'string',
                 'since' => '27',
                 'default' => '\\Textualization\\SemanticSearch\\SentenceTransphormerXLMEmbedder',

@@ -32,20 +32,20 @@ APIClass::import("org.apicnet.xml.Xml");
 * Ce code est tirer du projet jphp lib qui est malheureusement clos.
 *
 * Cette class ne s'instancie pas elle s'utilise de maniere static de cette facon :
-* 
+*
 *    1.    require_once("conf/config.inc.php");
 *    2.    $secure = APIC::loadClass(chemin de la class);
 *    3.    $secure->methode();
 *     ou
 *     1.    require_once("conf/config.inc.php");
 *    2.    APIC::import(chemin de la class);
-* 
+*
 *
 * @update $Date: 2005-05-18 11:01:22 $
 * @version 1.0
 * @author diogène MOULRON <logiciel@apicnet.net>
 * @package core
-*/ 
+*/
 class APIC extends APICObject {
 
     /**
@@ -167,7 +167,7 @@ class APIC extends APICObject {
                     $path = new File(APIClassRegistry::convertToPath($class, $module).'.php');
         //            echo($path->getFilePath()."<br>");
                     if ($path->exists()){
-        //                echo($class." instanciate ...");
+        //                echo($class." instantiate ...");
                         APIC::import($class, $module);
                         return APIC::loadClass($class, $parameters, TRUE, $module);
                     } else {
