@@ -9,6 +9,38 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'forums';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'      => [
+            'comments_parentId'       => 'int',     //post
+            'threadId'                => 'int',     //get
+            'topics_offset'           => 'int',     //get
+            'topics_sort_mode'        => 'word',    //get
+            'thread_sort_mode'        => 'word',    //get
+            'topics_find'             => 'word',    //get
+            'topics_threshold'        => 'int',     //get
+            'quote'                   => 'int',     //get
+            'time_control'            => 'int',     //get
+            'comments_offset'         => 'int',     //get
+            'openpost'                => 'bool',    //get
+            'comments_grandParentId'  => 'int',     //get
+            'comments_reply_threadId' => 'int',     //get
+            'lock'                    => 'bool',    //get
+            'display'                 => 'word',    //get
+            'topics_offset'           => 'int',     //get
+            'archive'                 => 'url',     //post
+            'report'                  => 'int',     //get
+            'post_reported'           => 'word',    //get
+            'comments_per_page'       => 'int',     //get
+            'savenotepad'             => 'bool',    //get
+            'watch_event'             => 'word',    //get
+            'watch_object'            => 'word',    //get
+            'view_atts'               => 'bool',    //get
+            'fa_offset'               => 'int',     //get
+            'fa_maxRecords'           => 'int',     //get
+        ]
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_forums');

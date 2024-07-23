@@ -9,6 +9,21 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'   => [
+        'parentId'           => 'int',               //post
+        'editfolder'         => 'int',               //get
+        'editurl'            => 'int',               //get
+        'addfolder'          => 'bool',              //post
+        'foldername'         => 'word',              //post
+        'removefolder'       => 'int',               //get
+        'addurl'             => 'bool',              //post
+        'urlname'            => 'word',              //post
+        'removeurl'          => 'int',               //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/bookmarks/bookmarklib.php');
 

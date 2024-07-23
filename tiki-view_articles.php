@@ -10,6 +10,25 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'cms';
 //get_strings tra('Articles Home');
+
+$inputConfiguration = [
+    [
+        'staticKeyFilters'      => [
+            'remove'            => 'int',           //post
+            'sort_mode'         => 'word',          //get
+            'offset'            => 'digits',        //get
+            'date_min'          => 'digits',        //post
+            'date_max'          => 'digits',        //post
+            'min_rating'        => 'string',        //post
+            'max_rating'        => 'string',        //post
+            'type'              => 'string',        //post
+            'topic'             => 'string',        //post
+            'topicName'         => 'string',        //post
+            'categId'           => 'int',           //post
+            'lang'              => 'lang',          //post
+        ]
+    ],
+];
 require_once('tiki-setup.php');
 $artlib = TikiLib::lib('art');
 

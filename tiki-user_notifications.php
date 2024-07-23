@@ -9,6 +9,20 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'  => [
+        'user_calendar_watch_editor'        => 'bool',              //post
+        'user_article_watch_editor'         => 'bool',              //post
+        'user_wiki_watch_editor'            => 'bool',              //post
+        'user_blog_watch_editor'            => 'bool',              //post
+        'user_tracker_watch_editor'         => 'bool',              //post
+        'user_comment_watch_editor'         => 'bool',              //post
+        'user_category_watch_editor'        => 'bool',              //post
+        'user_plugin_approval_watch_editor' => 'bool',              //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $auto_query_args = ['userId', 'view_user'];

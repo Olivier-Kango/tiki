@@ -9,6 +9,67 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+        'userId'                          => 'int',          //post
+        'view_user'                       => 'int',          //post
+        'generate'                        => 'bool',         //post
+        'tfagenerate'                     => 'bool',         //post
+        'new_info'                        => 'bool',         //post
+        'realName'                        => 'striptags',    //post
+        'gender'                          => 'striptags',    //post
+        'country'                         => 'striptags',    //post
+        'location'                        => 'striptags',    //post
+        'homePage'                        => 'pagename',     //post
+        'user_information'                => 'striptags',    //post
+        'new_prefs'                       => 'bool',         //post
+        'mytheme'                         => 'striptags',    //post
+        'userbreadCrumb'                  => 'digits',       //post
+        'language'                        => 'lang',         //post
+        'languageAdmin'                   => 'lang',         //post
+        'read_language'                   => 'lang',         //post
+        'display_timezone'                => 'striptags',    //post
+        'display_12hr_clock'              => 'bool',         //post
+        'diff_versions'                   => 'bool',         //post
+        'show_mouseover_user_info'        => 'bool',         //post
+        'remember_closed_rboxes'          => 'bool',         //post
+        'email_isPublic'                  => 'bool',         //post
+        'mailCharset'                     => 'striptags',    //post
+        'prefName'                        => 'striptags',    //post
+        'mess_maxRecords'                 => 'digits',       //post
+        'mess_archiveAfter'               => 'digits',       //post
+        'mess_sendReadStatus'             => 'bool',         //post
+        'minPrio'                         => 'digits',       //post
+        'allowMsgs'                       => 'bool',         //post
+        'mytiki_pages'                    => 'bool',         //post
+        'mytiki_blogs'                    => 'bool',         //post
+        'mytiki_msgs'                     => 'bool',         //post
+        'mytiki_tasks'                    => 'bool',         //post
+        'mytiki_forum_topics'             => 'bool',         //post
+        'mytiki_forum_replies'            => 'bool',         //post
+        'mytiki_items'                    => 'bool',         //post
+        'tasks_maxRecords'                => 'digits',       //post
+        'xmpp_jid'                        => 'striptags',    //post
+        'xmpp_password'                   => 'striptags',    //post
+        'xmpp_custom_server_http_bind'    => 'striptags',    //post
+        'perspective_preferred'           => 'striptags',    //post
+        'webmonetization_payment_pointer' => 'striptags',    //post
+        'webmonetization_paywall_text'    => 'striptags',    //post
+        'chgadmin'                        => 'bool',         //post
+        'pass'                            => 'password',     //post
+        'email'                           => 'email',        //post
+        'pass1'                           => 'password',     //post
+        'pass2'                           => 'password',     //post
+        'twofactor'                       => 'bool',         //post
+        'tfaSecret'                       => 'striptags',    //post
+        'tfaPin'                          => 'digits',       //post
+        'removetwofactor'                 => 'bool',         //post
+        'deleteaccount'                   => 'bool',         //post
+        ],
+    ],
+];
+
 require_once('tiki-setup.php');
 $modlib = TikiLib::lib('mod');
 $userprefslib = TikiLib::lib('userprefs');

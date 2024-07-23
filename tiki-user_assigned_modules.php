@@ -9,6 +9,22 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'recreate'             => 'bool',         //post
+        'unassign'             => 'bool',         //post
+        'assign'               => 'bool',         //post
+        'module'               => 'digits',       //post
+        'position'             => 'striptags',    //post
+        'order'                => 'striptags',    //post
+        'up'                   => 'digits',       //post
+        'down'                 => 'digits',       //post
+        'left'                 => 'digits',       //post
+        'right'                => 'digits',       //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_feature(['user_assigned_modules']);

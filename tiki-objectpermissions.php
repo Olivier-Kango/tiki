@@ -34,8 +34,8 @@ $inputConfiguration = [
         'staticKeyFiltersForArrays' => [
         'feature_filter'            => 'bool',       //post
         'group_filter'              => 'bool',       //post
-        'perm'                      => 'bool',       //post
-        'old_perm'                  => 'bool',       //post
+        'perm'                      => 'word',       //post
+        'old_perm'                  => 'word',       //post
         ],
     ],
 ];

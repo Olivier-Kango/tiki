@@ -10,6 +10,24 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'sheet';
 $tiki_sheet_div_style = '';
+$inputConfiguration = [
+    [
+        'staticKeyFilters' => [
+            'sheetId'      => 'int',     //get
+            'file'         => 'word',    //get
+            'fileId'       => 'word',    //get
+            'page'         => 'page',    //get
+            'height'       => 'int',     //get
+            'parse'        => 'bool',    //get
+            's'            => 'word',    //get
+            'readdate'     => 'int',     //get
+            'relate'       => 'int',     //get
+            'trackerId'    => 'int',     //get
+            'childSheetId' => 'int',     //get
+            'sheetonly'    => 'bool',    //get
+        ]
+    ],
+];
 require_once('tiki-setup.php');
 
 $sheetlib = TikiLib::lib('sheet');

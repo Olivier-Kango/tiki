@@ -18,10 +18,10 @@ $inputConfiguration = [
         'assign'               => 'bool',       //post
         'objectName'           => 'string',     //post
         'objectHref'           => 'string',     //post
-        'checked'              => 'bool',       //post
         ],
         'staticKeyFiltersForArrays' => [
-        $g                    => 'string',     //post
+            'checked'              => 'bool',   //post
+        $g                         => 'string', //post
         ],
     ],
 ];

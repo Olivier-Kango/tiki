@@ -9,6 +9,41 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'forums';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'               => [
+            'forumId'                    => 'int',     //post
+            'comments_threadId'          => 'int',     //post
+            'comments_title'             => 'int',     //post
+            'openpost'                   => 'int',     //post
+            'sort_mode'                  => 'word',    //get
+            'report'                     => 'int',     //get
+            'remove_attachment'          => 'int',     //get
+            'lock'                       => 'bool',    //get
+            'comments_threshold'         => 'int',     //post
+            'comments_postComment'       => 'bool',    //post
+            'comments_vote'              => 'word',    //get
+            'comments_remove'            => 'none',    //get
+            'comments_data'              => 'xss',     //post
+            'comment_topictype'          => 'word',    //post
+            'comment_topicsummary'       => 'word',    //post
+            'comments_previewComment'    => 'bool',    //post
+            'comments_per_page'          => 'int',     //get
+            'thread_sort_mode'           => 'word',    //get
+            'comments_commentFind'       => 'word',    //post
+            'comments_offset'            => 'int',     //get
+            'comments_parentId'          => 'int',     //get
+            'time_control'               => 'word',    //post
+            'show_archived'              => 'int',     //post
+            'poster'                     => 'word',    //post
+            'filter_type'                => 'word',    //post
+            'watch_event'                => 'word',    //post
+            'watch_action'               => 'word',    //post
+            'watch_object'               => 'int',     //post
+            'freetag_string'             => 'string',  //get
+        ]
+    ],
+];
 require_once('tiki-setup.php');
 if ($prefs['feature_categories'] == 'y') {
     $categlib = TikiLib::lib('categ');

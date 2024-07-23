@@ -5,11 +5,79 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
-$inputConfiguration = [[
-    'staticKeyFilters'  => [
-        'show_history'  => 'digits',
+/*This inputconfiguration array is here to support legacy code and it will never be exhaustive
+   it is recommended to add the input when added to te code especially if it is a new $_REQUEST variable
+*/
+$inputConfiguration = [
+    [
+        'staticKeyFilters'          => [
+        'taskId'                    => 'int',          //post
+        'move_task_into_trash'      => 'striptags',    //post
+        'update_tasks'              => 'bool',         //post
+        'remove_task_from_trash'    => 'striptags',    //post
+        'update_percentage'         => 'striptags',    //post
+        'action'                    => 'striptags',    //post
+        'reload'                    => 'bool',         //post
+        'show_trash'                => 'bool',         //post
+        'show_completed'            => 'bool',         //post
+        'show_private'              => 'bool',         //post
+        'show_received'             => 'bool',         //post
+        'show_submitted'            => 'bool',         //post
+        'show_shared'               => 'bool',         //post
+        'show_admin'                => 'bool',         //post
+        'tasks_maxRecords'          => 'int',          //post
+        'admin_mode'                => 'bool',         //get
+        'admin_mode_off'            => 'bool',         //get
+        'emty_trash'                => 'striptags',    //get
+        'show_form'                 => 'striptags',    //get
+        'show_history'              => 'striptags',    //get
+        'preview'                   => 'striptags',    //post
+        'tiki_view_mode'            => 'striptags',    //post
+        'save'                      => 'bool',         //post
+        'title'                     => 'striptags',    //post
+        'description'               => 'xss',          //post
+        'start_Meridian'            => 'digits',       //post
+        'start_Hour'                => 'digits',       //post
+        'end_Meridian'              => 'digits',       //post
+        'use_start_date'            => 'bool',         //post
+        'start_Minute'              => 'digits',       //post
+        'start_Month'               => 'digits',       //post
+        'start_Day'                 => 'digits',       //post
+        'start_Year'                => 'digits',       //post
+        'use_end_date'              => 'bool',         //post
+        'end_Hour'                  => 'digits',       //post
+        'end_Minute'                => 'digits',       //post
+        'end_Month'                 => 'digits',       //post
+        'end_Day'                   => 'digits',       //post
+        'end_Year'                  => 'digits',       //post
+        'public_for_group'          => 'striptags',    //post
+        'task_user'                 => 'striptags',    //post
+        'rights_by_creator'         => 'bool',         //post
+        'priority'                  => 'int',          //post
+        'status'                    => 'striptags',    //post
+        'percentage'                => 'striptags',    //post
+        'task_accept'               => 'striptags',    //post
+        'task_not_accept'           => 'striptags',    //post
+        'remove_from_trash'         => 'bool',         //post
+        'move_into_trash'           => 'bool',         //post
+        'task_send_changes_message' => 'bool',         //post
+        'task_version'              => 'digits',       //post
+        'creator'                   => 'striptags',    //post
+        'created'                   => 'striptags',    //post
+        'task_info_message'         => 'striptags',    //post
+        'send_email_newtask'        => 'bool',         //post
+        'HTTP_HOST'                 => 'striptags',    //post
+        'REQUEST_URI'               => 'striptags',    //post
+        'sort_mode'                 => 'striptags',    //post
+        'offset'                    => 'int',          //get
+        'find'                      => 'striptags',    //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'task'                  => 'string',            //post
+            'task_perc'             => 'string',            //post
+        ],
     ],
-]];
+];
 require_once('tiki-setup.php');
 include_once('lib/tasks/tasklib.php');
 $messulib = TikiLib::lib('message');

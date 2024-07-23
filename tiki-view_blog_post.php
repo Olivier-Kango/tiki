@@ -9,6 +9,20 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'blogs';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'      => [
+            'postId'            => 'int',      //get
+            'watch_event'       => 'word',     //get
+            'watch_action'      => 'word',     //get
+            'offset'            => 'int',      //get
+            'sort_mode'         => 'word',     //get
+            'find'              => 'word',     //get
+            'page'              => 'int',      //get
+            'savenotepad'       => 'none',     //get
+        ]
+    ],
+];
 require_once('tiki-setup.php');
 $bloglib = TikiLib::lib('blog');
 

@@ -9,6 +9,20 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'      => [
+            'categwatch'        => 'int',          //post
+            'id'                => 'int',          //post
+            'add'               => 'bool',         //post
+            'event'             => 'string',       //post
+            'delete'            => 'bool',         //post
+        ],'staticKeyFiltersForArrays' => [
+            'cat_categories'          => 'string',    //post
+            'checked'                 => 'bool',      //post
+        ],
+    ],
+];
 include_once('tiki-setup.php');
 
 $access->check_user($user);

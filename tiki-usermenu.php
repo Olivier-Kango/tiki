@@ -5,6 +5,27 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+
+$inputConfiguration = [
+    [
+        'staticKeyFilters'      => [
+            'menuId'            => 'int',           //post
+            'delete'            => 'bool',          //post
+            'addbk'             => 'bool',          //post
+            'url'               => 'url',           //post
+            'save'              => 'bool',          //post
+            'name'              => 'string',        //post
+            'position'          => 'int',           //post
+            'mode'              => 'string',        //post
+            'sort_mode'         => 'string',        //post
+            'offset'            => 'int',           //post
+            'find'              => 'string',        //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'menu'          => 'string',    //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 include_once('lib/usermenu/usermenulib.php');
 

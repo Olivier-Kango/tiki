@@ -9,6 +9,22 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'           => [
+        'prefs'                      => 'bool',              //post
+        'user_contacts_default_view' => 'bool',              //post
+        'ext_remove'                 => 'int',               //get
+        'ext_add'                    => 'word',              //post
+        'ext_show'                   => 'int',               //get
+        'ext_hide'                   => 'int',               //get
+        'ext_public'                 => 'int',               //get
+        'ext_private'                => 'int',               //get
+        'ext_up'                     => 'int',               //get
+        'ext_down'                   => 'int',               //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $contactlib = TikiLib::lib('contact');
 

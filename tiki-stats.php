@@ -8,6 +8,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+        'days'                 => 'digits',       //get
+        'pv_chart'             => 'striptags',    //get
+        'chart'                => 'striptags',    //get
+        'startDate_Year'       => 'digits',       //get
+        'startDate_Month'      => 'digits',       //get
+        'startDate_Day'        => 'digits',       //get
+        'endDate_Year'         => 'digits',       //get
+        'endDate_Month'        => 'digits',       //get
+        'endDate_Day'          => 'digits',       //get
+        ],
+        'catchAllUnset' => null
+    ],
+];
+
 require_once('tiki-setup.php');
 $statslib = TikiLib::lib('stats');
 

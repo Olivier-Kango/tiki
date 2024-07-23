@@ -9,9 +9,18 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'mytiki';
-
 require_once('tiki-setup.php');
 
+$inputConfiguration = [
+    [
+        'staticKeyFilters'      => [
+            'delete'            => 'bool',          //post
+            'userfile'          => 'string',        //post
+            'sort_mode'         => 'string',          //post
+            'find'              => 'string',        //post
+        ],
+    ],
+];
 if ($user != '' && $prefs['feature_use_fgal_for_user_files'] == 'y') {
     $filegallib = TikiLib::lib('filegal');
     $idGallery = $filegallib->get_user_file_gallery();

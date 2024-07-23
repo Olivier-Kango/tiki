@@ -9,7 +9,53 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'trackers';
-
+$inputConfiguration = [
+    [
+        'staticKeyFilters'     => [
+            'trackerId'        => 'int',           //post
+            'itemId'           => 'int',           //post
+            'user'             => 'word',          //get
+            'view'             => 'word',          //get
+            'usertracker'      => 'bool',          //get
+            'grouptracker'     => 'bool',          //get
+            'group'            => 'groupname',     //get
+            'offset'           => 'int',           //get
+            'sort_mode'        => 'word',          //get
+            'find'             => 'word',          //post
+            'filterfield'      => 'word',          //get
+            'filtervalue'      => 'word',          //get
+            'exactvalue'       => 'word',          //get
+            'reloff'           => 'word',          //get
+            'move'             => 'word',          //get
+            'cant'             => 'int',           //get
+            'remove'           => 'int',           //post
+            'moveto'           => 'int',           //get
+            'removeattach'     => 'int',           //get
+            'print'            => 'bool',          //get
+            'pdf'              => 'bool',          //get
+            'save'             => 'bool',          //post
+            'save_return'      => 'bool',          //post
+            'save_and_comment' => 'bool',          //post
+            'listtoalert'      => 'word',          //get
+            'edstatus'         => 'word',          //get
+            'show'             => 'word',          //get
+            'from'             => 'bool',          //get
+            'removeImage'      => 'int',           //get
+            'fieldId'          => 'int',           //post
+            'fieldName'        => 'word',          //post
+            'returntracker'    => 'bool',          //post
+            'watch'            => 'word',          //post
+            'attach'           => 'word',          //get
+            'attId'            => 'int',           //get
+            'attach_comment'   => 'word',          //get
+            'attach_version'   => 'int',           //get
+            'attach_longdesc'  => 'word',          //get
+            'attId'            => 'int',           //get
+            'status'           => 'word',          //get
+            'conflictoverride' => 'bool',          //get
+        ]
+    ],
+];
 if (isset($_REQUEST['trackerId']) && ! filter_var($_REQUEST['trackerId'], FILTER_VALIDATE_INT)) {
     http_response_code(400);
     die;

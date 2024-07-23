@@ -20,7 +20,6 @@ $inputConfiguration = [[
         'priority'      => 'digits',
         'replytome'     => 'bool',
     ],
-    'catchAllUnset'     => null
 ]];
 
 require_once('tiki-setup.php');

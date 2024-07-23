@@ -9,6 +9,38 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $section = 'trackers';
+$inputConfiguration = [
+    [
+        'staticKeyFilters'       => [
+            'trackerId'          => 'int',           //post
+            'itemId'             => 'int',           //post
+            'show'               => 'word',          //get
+            'cookietab'          => 'word',          //get
+            'new'                => 'word',          //get
+            'my'                 => 'word',          //get
+            'ours'               => 'word',          //get
+            'status'             => 'word',          //get
+            'sort_mode'          => 'word',          //get
+            'remove'             => 'int',           //get
+            'force'              => 'bool',          //get
+            'batchaction'        => 'word',          //get
+            'watch'              => 'word',          //get
+            'save'               => 'bool',          //get
+            'listtoalert'        => 'word',          //get
+            'viewitem'           => 'word',          //get
+            'offset'             => 'int',           //get
+            'maxRecords'         => 'int',           //get
+            'filterfield'        => 'word',          //get
+            'filtervalue'        => 'word',          //get
+            'filtervalue_other'  => 'word',          //get
+            'displayedFields'    => 'word',          //get
+        ],
+        'staticKeyFiltersForArrays' => [
+            'action'                => 'string',    //get
+            'vals'                  => 'none',      //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_trackers');
