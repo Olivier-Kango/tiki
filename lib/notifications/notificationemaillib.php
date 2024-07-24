@@ -452,7 +452,11 @@ function sendEmailNotification($watches, $dummy, $subjectTpl, $subjectParam, $tx
             $mail->setUser($watch['user']);
         }
         if ($subjectTpl) {
-            $mail_data = $smarty->fetchLang($watch['language'], "mail/" . $subjectTpl);
+            $mail_data = getMailDataFromWikiPage($subjectTpl);
+
+            if (! $mail_data) {
+                $mail_data = $smarty->fetchLang($watch['language'], "mail/" . $subjectTpl);
+            }
             if ($subjectParam) {
                 $mail_data = sprintf($mail_data, $subjectParam);
             }
@@ -461,12 +465,29 @@ function sendEmailNotification($watches, $dummy, $subjectTpl, $subjectParam, $tx
         } else {
             $mail->setSubject($subjectParam);
         }
-        $mail->setText($smarty->fetchLang($watch['language'], "mail/" . $txtTpl));
+        $text = getMailDataFromWikiPage($txtTpl);
+        if (! $text) {
+            $text = $smarty->fetchLang($watch['language'], "mail/" . $txtTpl);
+        }
+        $mail->setText($text);
         if ($mail->send([$watch['email']])) {
             $sent++;
         }
     }
     return $sent;
+}
+
+function getMailDataFromWikiPage($txtTpl)
+{
+    $tikilib = TikiLib::lib('tiki');
+
+    $tplWikipageName = ucwords(preg_replace('/_/', ' ', $txtTpl));
+    $tplWikipageName = preg_replace('/\.tpl$/', ' TPL', $tplWikipageName);
+
+    if ($tikilib->page_exists($tplWikipageName)) {
+        return TikiLib::lib('smarty')->fetch('tplwiki:' . $tplWikipageName);
+    }
+    return false;
 }
 
 function activeErrorEmailNotivation()
