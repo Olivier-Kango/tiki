@@ -495,7 +495,7 @@
             $("#form form").append($('<input />', {type: 'hidden', name: 'totalSubmissions', value: totalSubmissions}));
             $("#form form").each(function(n) {
                 if ($(this).find('input[name="userfile\\[\\]"]').val() != '') {
-        var $progress = $('#progress_'+n).html("{/literal}{icon name='spinner' iclass='fa-spin' _menu_text='y' _menu_icon='y' ititle="{tr}Uploading file...{/tr}"}{literal}");
+        var $progress = $('#progress_'+n).html(`{/literal}{icon name='spinner' iclass='fa-spin' _menu_text='y' _menu_icon='y' ititle="{tr}Uploading file...{/tr}"}{literal}`);
                     $( document ).on('ajaxError', function(event, jqxhr, ajaxSettings, thrownError ) {
                         $progress.hide();
                         show('form');

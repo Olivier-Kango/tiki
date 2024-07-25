@@ -314,7 +314,7 @@ $smarty->assign('category_jail', TikiLib::lib('tiki')->get_jail(false));
 // Display the template
 if ($prefs['javascript_enabled'] != 'y' or ! $isUpload || ! empty($_REQUEST['fileId'])) {
     if ($prefs['file_galleries_use_jquery_upload'] !== 'y') {
-        $headerlib->add_jsfile('vendor_bundled/vendor/jquery-form/form/jquery.form.js');
+        $headerlib->add_jsfile(JS_ASSETS_PATH . '/vendor_dist/jquery-form/dist/jquery.form.min.js');
     }
     $smarty->assign('mid', 'tiki-upload_file.tpl');
     if (! empty($_REQUEST['filegals_manager'])) {

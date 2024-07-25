@@ -310,6 +310,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jquery/dist",
                     },
                     {
+                        src: "node_modules/jquery-form/dist/*",
+                        dest: "vendor_dist/jquery-form/dist",
+                    },
+                    {
                         src: "node_modules/jquery-ui/dist/*",
                         dest: "vendor_dist/jquery-ui/dist",
                     },
