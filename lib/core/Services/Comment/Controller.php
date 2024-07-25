@@ -356,6 +356,8 @@ return false;";
             'comment' => $comment,
             'diffInfo' => $diffInfo,
             'errors' => $errors,
+            'type' => $comment['objectType'],
+            'objectId' => $comment['object'],
         ];
     }
 

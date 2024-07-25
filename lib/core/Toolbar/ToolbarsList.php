@@ -67,13 +67,14 @@ class ToolbarsList
         $list->syntax = $params['syntax'] ?? 'tiki';
 
         $string = preg_replace('/\s+/', '', $string);
+        $objectId = $params['objectId'] ?? '';
 
         foreach (explode('/', $string) as $line) {
             $bits = explode('|', $line);
             if (count($bits) > 1) {
-                $list->addLine(explode(',', $bits[0]), explode(',', $bits[1]));
+                $list->addLine(explode(',', $bits[0]), explode(',', $bits[1]), $objectId);
             } else {
-                $list->addLine(explode(',', $bits[0]));
+                $list->addLine(explode(',', $bits[0]), [], $objectId);
             }
         }
 
@@ -98,7 +99,7 @@ class ToolbarsList
         return true;
     }
 
-    private function addLine(array $tags, array $rtags = []): void
+    private function addLine(array $tags, array $rtags = [], $objectId = ''): void
     {
         $elements = [];
         $j = count($rtags) > 0 ? 2 : 1;
@@ -124,7 +125,8 @@ class ToolbarsList
                         $this->wysiwyg,
                         $this->is_html,
                         $this->syntax === 'markdown',
-                        $this->domElementId
+                        $this->domElementId,
+                        $objectId
                     ))
                     && $tag->isAccessible()
                 ) {

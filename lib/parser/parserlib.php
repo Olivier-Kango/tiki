@@ -81,6 +81,7 @@ class ParserLib extends TikiDb_Bridge
                 'stripplugins' => false,
                 'noheaderinc' => false,
                 'noparseargvariables' => false,
+                'noparsefilereferences' => false,
                 'page' => $page,
                 'print' => false,
                 'parseimgonly' => false,
@@ -1492,6 +1493,7 @@ class ParserLib extends TikiDb_Bridge
      */
     public function parse_data_simple($data)
     {
+        $data = $this->parseDataFileReferences($data);
         $data = $this->parse_data_wikilinks($data, true);
         $data = $this->parse_data_externallinks($data, true);
         $data = $this->parse_data_inline_syntax($data);
@@ -1499,6 +1501,26 @@ class ParserLib extends TikiDb_Bridge
             $data = typography($data, $this->option['language']);
         }
 
+        return $data;
+    }
+
+    protected function parseDataFileReferences($data)
+    {
+        global $prefs;
+        if ($prefs['feature_file_galleries'] == 'y') {
+            $data = preg_replace_callback('/\(\(([0-9]+)\|file\)\)/', function ($matches) {
+                $fileId = $matches[1];
+                $filelib = TikiLib::lib('filegal');
+                $file = $filelib->get_file_info($fileId);
+                if ($file) {
+                    $fileId = $file['fileId'];
+                    $filename = $file['name'];
+                    $icon = smarty_function_icon(['name' => 'paperclip'], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                    return "<span class='badge rounded-pill bg-secondary' role='button' data-file-ref-id='$fileId'>$icon $filename</span>";
+                }
+                return $matches[0];
+            }, $data);
+        }
         return $data;
     }
 

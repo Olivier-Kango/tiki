@@ -95,4 +95,9 @@
         width: 100% !important;
     }
 }
+
+li.highlight {
+    background-color: var(--bs-secondary-bg-subtle);
+    transition: all 0.3s ease;
+}
 /* End of file */

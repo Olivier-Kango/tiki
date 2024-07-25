@@ -57,7 +57,7 @@ abstract class ToolbarItem
     }
 
 
-    public static function getTag(string $tagName, bool $wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
+    public static function getTag(string $tagName, bool $wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = '', string|null $objectId = ''): ?ToolbarItem
     {
         global $section;
 
@@ -98,6 +98,8 @@ abstract class ToolbarItem
             return new ToolbarSpacer();
         } elseif ($tagName == 'autosave') {
             return new ToolbarAutosave();
+        } elseif ($tagName == 'linkfile') {
+            return new ToolbarLinkFile($objectId);
         }
         return null;
     }
@@ -207,6 +209,7 @@ abstract class ToolbarItem
                     'tikitable',
                     'task',
                     'codeblock',
+                    'linkfile'
                 ],
                 $plugins
             )
@@ -357,6 +360,9 @@ abstract class ToolbarItem
                 break;
             case 'FileGallery':
                 $tag = new ToolbarFileGallery();
+                break;
+            case 'LinkFile':
+                $tag = new ToolbarLinkFile();
                 break;
             case 'Wikiplugin':
                 if (! isset($data['plugin'])) {

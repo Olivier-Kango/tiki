@@ -437,6 +437,11 @@ class Tracker_Definition
         }
     }
 
+    public function getFileFields(): array
+    {
+        return array_filter($this->getFields(), fn($field) => $field['type'] == 'FG');
+    }
+
     /**
      * Get the names of the item user(s) if any.
      * An item user is defined if a 'user selector' field

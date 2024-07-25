@@ -3034,4 +3034,34 @@ class Services_Tracker_Controller
             'success' => true
         ];
     }
+
+    public function actionItemFiles($input)
+    {
+        $trklib = TikiLib::lib('trk');
+
+        $itemId = $input->itemId->int();
+        $item = Tracker_Item::fromId($itemId);
+
+        if (! $item) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $definition = $item->getDefinition();
+        $fileFields = $definition->getFileFields();
+
+        $files = [];
+
+        foreach ($fileFields as $field) {
+            $handler = $trklib->get_field_handler($field, $item->getInfo());
+            $fieldFiles = $handler->getFieldData()['files'];
+            array_push($files, ...$fieldFiles);
+        }
+
+        return [
+            'title' => tr('Link a file'),
+            'files' => $files,
+            'areaId' => $input->domId->string(),
+            'wysiwyg' => $input->wysiwyg->int(),
+        ];
+    }
 }

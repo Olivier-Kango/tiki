@@ -400,6 +400,10 @@ if ( \$('#$id') ) {
             $this->parse_wiki_argvariable($data);
         }
 
+        if (! $this->option['noparsefilereferences']) {
+            $data = $this->parseDataFileReferences($data);
+        }
+
         $data = $this->wikiParse($data, $noparsed);
 
         $data = $this->parse_smileys($data);

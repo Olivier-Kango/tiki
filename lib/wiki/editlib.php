@@ -926,8 +926,15 @@ class EditLib
 
         for ($i = 0; $i <= $c['contentpos']; $i++) {
             $node = $c[$i];
-            // If content type 'text' output it to destination...
 
+            // file reference content
+            if ($node['pars']['data-file-ref-id']) {
+                // skip the following text node as we only need the id
+                $i++;
+                $src .= '((' . $node['pars']['data-file-ref-id']['value'] . '|file))';
+            }
+
+            // If content type 'text' output it to destination...
             if ($node['type'] == 'text') {
                 if (! ctype_space($node['data'])) {
                     $add = $node['data'];
@@ -1600,6 +1607,7 @@ class EditLib
         $html = $wikiParserParsable->parse([
             'noparseplugins' => true,
             'noparseargvariables' => true,
+            'noparsefilereferences' => true,
             'suppress_icons' => true,
             'markdown_conversion' => true,
         ]);
