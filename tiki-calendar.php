@@ -101,8 +101,15 @@ foreach ($rawcals['data'] as $calendar) {
     $calendars[$calendar['calendarId']] = $calendar;
 
     // for week and day views
-    $minHourOfDay = min($minHourOfDay, (int)(($calendar['startday'] ?? 0) / 3600));
-    $maxHourOfDay = max($maxHourOfDay, (int)((($calendar['endday'] ?? 0) + 1) / 3600));
+    $startOfDayUnix = (int)($calendar['startday'] ?? $prefs['calendar_startday'] ?? 0);
+    $startOfDayHour = $startOfDayUnix / 3600;
+    $startOfDayMinute = ($startOfDayUnix % 3600) / 60;
+    $minHourOfDay = date('H:i:s', mktime($startOfDayHour, $startOfDayMinute, 0));
+
+    $endOfDayUnix = (int)($calendar['endday'] ?? 0);
+    $endOfDayHour = $endOfDayUnix / 3600;
+    $endOfDayMinute = ($endOfDayUnix % 3600) / 60;
+    $maxHourOfDay = date('H:i:s', mktime($endOfDayHour, $endOfDayMinute, 0));
 
     $canEditAnything = $calendar['perms']->add_events || $calendar['perms']->add_events;
 }
