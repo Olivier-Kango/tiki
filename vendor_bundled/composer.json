@@ -14,7 +14,7 @@
         "    doc/devtools/statis.json,  as that's what makes the ",
         "    package available on composer.tiki.org",
         "  check composer.json: ",
-        "    composer update -d vendor_bundled --dry-run",
+        "    composer -d vendor_bundled update --dry-run",
         "  update composer.lock: ",
         "    composer -d vendor_bundled update",
         "  Useful to look at: ",
@@ -129,7 +129,12 @@
         "",
         "  sebastian/diff: ",
         "    provides SebastianBergmann\\Diff\\Differ",
-        "    Used by phpunit and console.php index:compare-engines"
+        "    Used by phpunit and console.php index:compare-engines",
+        "",
+        "  phpunit/phpunit: ",
+        "    Temporarily pinned to 10.5.26, because .27 and .28 cause Message:  Schema for PHPUnit index.php is not available errors",
+        ""
+
     ],
     "require": {
         "adodb/adodb-php": "^5.22.4",
@@ -298,7 +303,7 @@
         "phpcsstandards/phpcsutils": "^1.0.0-alpha3",
         "phpstan/phpstan": "^1.10.57",
         "phpstan/phpstan-deprecation-rules": "^1.1.3",
-        "phpunit/phpunit": "^10.5.13",
+        "phpunit/phpunit": "10.5.26",
         "php-webdriver/webdriver": "^1.15.1",
         "rector/rector": "~1.0.1",
         "sebastian/diff": "^5.1.1",
