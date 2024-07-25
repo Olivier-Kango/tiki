@@ -4,6 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
 /**
  * @group unit
  *
@@ -328,7 +329,7 @@ class EditLibTest extends TikiTestCase
 
         $this->assertSame(
             $converted,
-            "\n{DIV(class=titlebar)}the titlebar content{DIV}\n" . "\nline after the title bar"
+            "\n{DIV(class=titlebar)}the titlebar content{DIV}\n" . "\n line after the title bar"
         );
     }
 
@@ -488,6 +489,222 @@ class EditLibTest extends TikiTestCase
         $this->assertSame(
             $converted,
             "Linebreak <br /> (useful especially in tables)"
+        );
+    }
+
+    public function testConvertWikiSyntaxNp()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "~np~This text won't be parsed~/np~",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "~np~This text won't be parsed~/np~",
+        );
+    }
+
+    public function testConvertPluginMarkdown()
+    {
+        $inData = "{MARKDOWN()}\n";
+        $inData .= "# This is an h1 tag\n";
+        $inData .= "_This will also be italic_";
+        $inData .= "{MARKDOWN}";
+
+        $output = "# This is an h1 tag\n";
+        $output .= "_This will also be italic_";
+        $this->assertSame(
+            $this->el->convertWikiSyntax($inData, "markdown"),
+            "\n$output"
+        );
+    }
+
+    public function testConvertPluginDiv()
+    {
+        $inData = "{DIV()}Test plugin div{DIV}";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "\n$inData\n",
+        );
+
+        $inData = "|| row1-col1 | row1-col2 | row1-col3\n";
+        $inData .= "row2-col1 | -=Title=-row2-col2 | row2-col3 ||";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $output = "| row1-col1 | row1-col2 | row1-col3 |\n";
+        $output .= "|---|---|---|\n";
+        $output .= "| row2-col1 | {DIV(class=titlebar)}Title{DIV}row2-col2 | row2-col3 |";
+        $this->assertSame(
+            $converted,
+            $output,
+        );
+    }
+
+    public function testConvertPluginFancyTable()
+    {
+        global $prefs;
+        $prefs['feature_wiki_paragraph_formatting'] = 'n';
+
+        // Using long separator as normally they are
+        // Interpreted as ~ surrounding a text is
+        // considered as deleted text
+        $inData = <<<PLUGIN
+{FANCYTABLE(head=" Fruit ~|~ Number ~|~ Vegetables ~|~ Date ~|~ Amount")}
+apples~|~10 ~|~ onions ~|~ 2/1/2010 ~|~ 40
+lemons~|~200 ~|~ cucumbers ~|~ 3/3/2011 ~|~ 50
+{FANCYTABLE}
+PLUGIN;
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            str_replace('~', '\~', $inData)
+        );
+    }
+
+    public function testConvertGreaterThanSymbol()
+    {
+        $inData = "1 is > 0";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            $inData
+        );
+    }
+
+    public function testConvertPluginVersions()
+    {
+        global $prefs;
+        $prefs['feature_wiki_paragraph_formatting'] = 'n';
+
+        $inData = <<<PLUGIN
+{VERSIONS(nav="y" title="y")}
+---(version 2)-----------------------------
+This is version 2 info
+---(version 1)-----------------------------
+This is version 1 info
+{VERSIONS}
+PLUGIN;
+
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            $inData
+        );
+    }
+
+    public function testConvertPluginSplit()
+    {
+        global $prefs;
+        $prefs['feature_wiki_paragraph_formatting'] = 'n';
+
+        $inData = "{SPLIT()} -=hey=- one two three --- -=hoy=- foo bar test {SPLIT}";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $output = <<<PLUGIN
+{SPLIT()} 
+{DIV(class=titlebar)}hey{DIV}
+
+ one two three --- 
+{DIV(class=titlebar)}hoy{DIV}
+
+ foo bar test {SPLIT}
+PLUGIN;
+
+        $this->assertSame(
+            $converted,
+            $output
+        );
+    }
+
+    public function testConvertSyntaxHtmlComment()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "~hc~This is an HTML comment~/hc~",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "<!-- This is an HTML comment -->"
+        );
+    }
+
+    public function testConvertPluginRemarkBox()
+    {
+        $inData = '{REMARKSBOX(type="comment" title="Comment")}remarks text{REMARKSBOX}';
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            $inData . "\n"
+        );
+    }
+
+    public function testConvertPreserveTilde()
+    {
+        $converted = $this->el->convertWikiSyntax(
+            "The boxes were stacked ~10 feet high",
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            "The boxes were stacked \~10 feet high"
+        );
+    }
+
+    public function testConvertPreserveInvalidTags()
+    {
+        $inData = "This <invalid> tag must not be converted";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            $inData
+        );
+    }
+
+    public function testConvertWikiSyntaxRelativeLinks()
+    {
+        $inData = "[#Unit_tests|unit tests]";
+        $converted = $this->el->convertWikiSyntax(
+            $inData,
+            "markdown"
+        );
+
+        $this->assertSame(
+            $converted,
+            $inData
         );
     }
 }

@@ -1550,8 +1550,8 @@ class EditLib
 
         if ($target_syntax == 'markdown') {
             // handle some Tiki syntax to Wiki plugins that are not supported in Markdown
-            $data = preg_replace('/\s*-=(.+)=-\s*/m', "{DIV(class=titlebar)}$1{DIV}", $data);
-            $data = preg_replace('/\{DIV\(class=titlebar\)\}.*?\{DIV\}(?![\n\r])/m', "$0\n", $data);
+            $data = preg_replace('/-=(.+?)=-/', "{DIV(class=titlebar)}$1{DIV}", $data);
+            $data = $this->addNewLineToDivsOutsideTables($data);
             $data = preg_replace_callback('/^(!+)([+\-#]+)(.*)$/m', function ($matches) {
                 $level = strlen($matches[1]);
                 if ($level < 1 || $level > 6) {
@@ -1754,6 +1754,25 @@ class EditLib
         }
 
         return $converted;
+    }
+
+    private function addNewLineToDivsOutsideTables($text)
+    {
+        // Split the text by the || markers
+        $segments = preg_split('/(\|\|.*?\|\|)/s', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        $result = '';
+        foreach ($segments as $segment) {
+            // If the segment is enclosed by ||...||, keep it as is
+            if (preg_match('/^\|\|.*\|\|$/s', $segment)) {
+                $result .= $segment;
+            } else {
+                // If the segment is not enclosed, perform the replacement
+                $result .= preg_replace('/(\{DIV\(class=titlebar\)\}.*?\{DIV\})/s', "$1\n", $segment);
+            }
+        }
+
+        return $result;
     }
 
     private function preserveInvalidTags(&$data)
