@@ -2,7 +2,6 @@
  * included by tiki-show_help.tpl via smarty_block_add_help()
  * TODO: Add links to add samples to edit form *}
 
-<h5>{tr}Wiki Syntax{/tr}</h5>
 {if $prefs.feature_help eq 'y'}
     {remarksbox type="info"}
     {tr}More information:{/tr} <a href="{$prefs.helpurl}Wiki-Page-Editor" target="tikihelp" class="tikihelp alert-link" title="{tr}Wiki Page Editor:{/tr} {tr}More help on editing wiki pages{/tr}">
@@ -15,9 +14,6 @@
     {/remarksbox}
 {/if}
 <table class="table table-condensed table-hover">
-    <th>
-        {tr}Wiki Syntax{/tr}
-    </th>
     {if (!isset($wysiwyg) or $wysiwyg ne 'y') or (isset($wysiwyg) and $wysiwyg eq 'y' and $prefs.wysiwyg_wiki_parsed eq 'y')}
         <tr>
             <td>

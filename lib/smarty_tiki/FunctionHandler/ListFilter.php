@@ -49,7 +49,7 @@ class ListFilter extends Base
             $input = ' <div class="form-horizontal my-2"><div class="tiki-form-group form-row"><div class="col"><div class="input-group"><div class="input-group-text" id="filter_label">';
 
             if (! isset($prefix)) {
-                $input .= tra("Filter:");
+                $input .= smarty_function_icon(['name' => 'search'], $template);
             } else {
                 $input .= tra($prefix);
             }
@@ -96,7 +96,7 @@ class ListFilter extends Base
                         var parentTabId = '" . $parentTabId . "';
                         if (parentTabId) {
                             $('#help_sections a[href=#$parentTabId]').trigger('click');
-                            var pluginTr = $('#plugins_help_table tr').not(':hidden');
+                            var pluginTr = $('.card.plugin').not(':hidden');
 
                             if (pluginTr.length == 1) {
                                 pluginTr.find('a').first().trigger('click');
@@ -109,10 +109,8 @@ class ListFilter extends Base
             }
 
             $input .= ">";
-//            $smartylib = \TikiLib::lib('smarty'); Changed to Bootstrap close button
-//            $icon = smarty_function_icon(['name' => 'times-circle'], $smartylib->getEmptyInternalTemplate());
-            $input .= "<button class='btn btn-close p-3 border' href='#' area-label='Clear filter' onclick=\"\$('#$id').val('').trigger('focus').trigger('keyup');return false;\" title=':"
-                . tr('Clear filter') . "'>";
+            $input .= "<span class='input-group-text' role='button' area-label='Clear filter' onclick=\"\$('#$id').val('').trigger('focus').trigger('keyup');return false;\" title=':"
+            . tr('Clear filter') . "' >" . smarty_function_icon(['name' => 'close'], $template) . "</span>";
             $input .= '</div></div></div></div>';
 
             if (! isset($selectors)) {

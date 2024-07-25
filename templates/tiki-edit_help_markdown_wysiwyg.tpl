@@ -1,4 +1,3 @@
-<h3>{tr}WYSIWYG Mardown Syntax{/tr}</h3>
 {if $prefs.feature_help eq 'y'}
     {remarksbox type="info"}
     {tr}More information:{/tr} <a href="{$prefs.helpurl}Markdown-WYSIWYG-Page-Editor" target="tikihelp" class="tikihelp alert-link" title="{tr}Wiki Page Editor:{/tr} {tr}More help on editing wiki pages{/tr}">
@@ -11,11 +10,6 @@
     {/remarksbox}
 {/if}
 <table class="table table-condensed table-hover">
-    <tr>
-        <th>
-            {tr}Markdown Syntax{/tr}
-        </th>
-    </tr>
     <tr>
         <td>
             {icon name='bold'} <strong>{tr}Bold text{/tr}</strong> &nbsp;&nbsp;&nbsp; __{tr}text{/tr}__

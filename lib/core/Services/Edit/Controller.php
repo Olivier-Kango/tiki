@@ -241,7 +241,7 @@ $(window).on("load", function(){
         if ($input->wiki->int()) {
             $help_sections[] = [
                 'id' => 'wiki-help',
-                'title' => tr('Syntax Help'),
+                'title' => tr('Wiki Syntax Help'),
                 'content' => $smarty->fetch('tiki-edit_help.tpl'),
             ];
         }
@@ -249,7 +249,7 @@ $(window).on("load", function(){
         if ($input->markdown->int()) {
             $help_sections[] = [
                 'id' => 'wiki-help',
-                'title' => tr('Syntax Help'),
+                'title' => tr('Mardown Syntax Help'),
                 'content' => $smarty->fetch('tiki-edit_help_markdown.tpl'),
             ];
         }
@@ -257,7 +257,7 @@ $(window).on("load", function(){
         if ($input->markdown_wysiwyg->int()) {
             $help_sections[] = [
                 'id' => 'wiki-help',
-                'title' => tr('Syntax Help'),
+                'title' => tr('Mardown Syntax Help'),
                 'content' => $smarty->fetch('tiki-edit_help_markdown_wysiwyg.tpl'),
             ];
         }
@@ -278,7 +278,7 @@ $(window).on("load", function(){
             $smarty->assign('plugins', $plugins);
             $help_sections[] = [
                 'id' => 'plugin-help',
-                'title' => tr('Plugin Help'),
+                'title' => tr('Plugins'),
                 'content' => $smarty->fetch('tiki-edit_help_plugins.tpl'),
             ];
 
@@ -297,8 +297,13 @@ $(window).on("load", function(){
             ];
         }
 
+        $title = tr('Edit Help');
+        if (count($help_sections) === 1) {
+            $title = $help_sections[0]['title'];
+        }
+
         return [
-            'title' => tr('Edit Help'),
+            'title' => $title,
             'help_sections' => $help_sections,
         ];
     }

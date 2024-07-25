@@ -4,20 +4,20 @@ namespace Tiki\Lib\core\Toolbar;
 
 use TikiLib;
 
-class ToolbarHelptool extends ToolbarUtilityItem
+class ToolbarLaunchPlugins extends ToolbarUtilityItem
 {
     private string $onClick = '';
 
     public function __construct()
     {
-        $this->setLabel(tra('Wiki Help'))
-            ->setIcon('img/icons/help.png')
-            ->setIconName('help')
-            ->setType('Helptool')
-            ->setWysiwygToken('tikihelp')
-            ->setMarkdownSyntax('tikihelp')
-            ->setMarkdownWysiwyg('tikihelp')
-            ->setClass('qt-help');
+        $this->setLabel(tra('Launch Plugins'))
+            ->setIcon('img/icons/plugin.png')
+            ->setIconName('puzzle-piece')
+            ->setType('LaunchPlugins')
+            ->setWysiwygToken('tiki_launchplugins')
+            ->setMarkdownSyntax('tiki_launchplugins')
+            ->setMarkdownWysiwyg('tiki_launchplugins')
+            ->setClass('qt-launchplugins');
     }
 
     public function getWikiHtml(): string
@@ -34,28 +34,19 @@ class ToolbarHelptool extends ToolbarUtilityItem
      * @return string
      * @throws \Exception
      */
-    private function getPlainHtml(bool $isMarkdown = false): string
+    private function getPlainHtml(): string
     {
-        $smarty = TikiLib::lib('smarty');
         $servicelib = TikiLib::lib('service');
 
         $params = ['controller' => 'edit', 'action' => 'help', 'modal' => 1];
-        if ($isMarkdown) {
-            $params['markdown'] = 1;
-        } else {
-            $params['wiki'] = 1;
-        }
+        $params['plugins'] = 1;
         $params['areaId'] = $this->domElementId;
 
-        if ($GLOBALS['section'] == 'sheet') {
-            $params['sheet'] = 1;
-        }
-
-        $icon = smarty_function_icon(['name' => 'help'], $smarty->getEmptyInternalTemplate());
+        $icon = $this->getIconHtml();
         $url = $servicelib->getUrl($params);
-        $help = tra('Help');
+        $label = $this->getLabel();
 
-        return "<a title=\":$help\" class=\"toolbar btn btn-sm px-2 qt-help tips bottom click-modal\" href=\"$url\" data-modal-size=\"modal-md\">$icon</a>";
+        return "<a title=\":$label\" class=\"toolbar btn btn-sm px-2 qt-help tips bottom click-modal\" href=\"$url\" data-modal-size=\"modal-md\">$icon</a>";
     }
 
     public function getWysiwygToken(): string
@@ -63,7 +54,7 @@ class ToolbarHelptool extends ToolbarUtilityItem
 
         $this->setupCKEditorTool($this->getWysiwygJs());
 
-        return 'tikihelp';
+        return 'tiki_launchplugins';
     }
 
     public function getMarkdownWysiwyg(): string
@@ -74,27 +65,17 @@ class ToolbarHelptool extends ToolbarUtilityItem
         return parent::getMarkdownWysiwyg();
     }
 
-    private function getWysiwygJs(bool $isMarkdown = false): string
+    private function getWysiwygJs(): string
     {
         global $section;
 
         $servicelib = TikiLib::lib('service');
 
         $params = ['controller' => 'edit', 'action' => 'help', 'modal' => 1];
-        if ($isMarkdown) {
-            $params['markdown_wysiwyg'] = 1;
-        } else {
-            $params['wysiwyg'] = 1;
-        }
-
-        if ($section == 'sheet') {
-            $params['sheet'] = 1;
-        }
+        $params['plugins'] = 1;
 
         // multiple ckeditors share the same toolbar commands, so area_id (editor.name) must be added when clicked
         $params['areaId'] = $this->domElementId;
-
-        $this->setLabel(tra('WYSIWYG Help'));
 
         return '$.openModal({show: true, remote: "' . $servicelib->getUrl($params) . '"});';
     }

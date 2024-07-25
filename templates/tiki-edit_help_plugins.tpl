@@ -3,7 +3,6 @@
 
 {if count($plugins) ne 0}
 
-    <h5>{tr}Plugins{/tr}</h5>
     <div class="help_section">
         {remarksbox type="info"}
         {tr}Note: plugin arguments can be enclosed with double quotes (<code>&quot;</code>). This allows them to contain <code>,</code> or <code>=</code> or <code>&gt;</code>.{/tr} {if $prefs.feature_help eq 'y'}{tr}More information:{/tr} <a href="{$prefs.helpurl}Plugins" target="tikihelp" class="tikihelp alert-link" title="{tr}Plugins:{/tr}{tr}Wiki plugins extend the function of wiki syntax with more specialized commands.{/tr}">
@@ -17,22 +16,22 @@
         {/if}
 
         {if isset($editorId)}
-            {listfilter selectors='#plugins_help_table tr' editorId=$editorId parentTabId="plugin_help"}
+            {listfilter editorId=$editorId parentTabId="plugin_help" selectors=".card.plugin"}
         {else}
-            {listfilter selectors='#plugins_help_table tr' parentTabId="plugin_help"}
+            {listfilter parentTabId="plugin_help" selectors=".card.plugin"}
         {/if}
-        <table id="plugins_help_table"  class="table table-condensed table-hover">
-            <tr><th>{tr}Description{/tr}</th></tr>
-
+        <div class="d-flex gap-2 flex-wrap">
             {section name=i loop=$plugins}
                 {if !empty($plugins[i])}
-                    <tr>
-                        <td>{* $plugins[i].help is generated using the tiki-plugin_help.tpl template *}
-                            {$plugins[i].help}
-                        </td>
-                    </tr>
+                    {$plugins[i].help} {* $plugins[i].help is generated from the tiki-plugin_help.tpl template *}
                 {/if}
             {/section}
-        </table>
+        </div>
+    </div>
+{else}
+    <div class="help_section">
+        {remarksbox type="info"}
+        {tr}No plugins available.{/tr}
+        {/remarksbox}
     </div>
 {/if}

@@ -100,6 +100,8 @@ abstract class ToolbarItem
             return new ToolbarAutosave();
         } elseif ($tagName == 'linkfile') {
             return new ToolbarLinkFile($objectId);
+        } elseif ($tagName == 'launchplugins') {
+            return new ToolbarLaunchPlugins();
         }
         return null;
     }
@@ -190,6 +192,7 @@ abstract class ToolbarItem
                     'bidirtl',
                     'screencapture',
                     'image',
+                    'launchplugins',
 
                     'sheetsave',    // spreadsheet ones
                     'addrow',
