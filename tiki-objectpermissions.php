@@ -11,7 +11,7 @@
 $inputConfiguration = [
     [
         'staticKeyFilters'       => [
-        'objectId'               => 'int',        //get
+        'objectId'               => 'word',        //get
         'objectType'             => 'word',       //post
         'objectName'             => 'word',       //post
         'referer'                => 'word',       //post
