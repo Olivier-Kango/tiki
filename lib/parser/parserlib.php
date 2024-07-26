@@ -1334,11 +1334,12 @@ class ParserLib extends TikiDb_Bridge
 
             // protocol://suffix
             if ($this->option['is_markdown']) {
-                // ignore [markdown](http://links)
-                $patterns[] = "#(?<!\])([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)#i";
+                // ignore [markdown](http://links) and remove the dot at the end of the link
+                $patterns[] = "#(?<!\])([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)(?<!\.|,)#i";
             } else {
-                $patterns[] = "#([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)#i";
+                $patterns[] = "#([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)(?<!\.|,)#i";
             }
+
             $replacements[] = "\\1<a $attrib href=\"\\2://\\3\">\\2://\\3$ext_icon</a>";
 
             // www.domain.ext/optionalpath
