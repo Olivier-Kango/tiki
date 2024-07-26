@@ -452,7 +452,7 @@ function sendEmailNotification($watches, $dummy, $subjectTpl, $subjectParam, $tx
             $mail->setUser($watch['user']);
         }
         if ($subjectTpl) {
-            $mail_data = getMailDataFromWikiPage($subjectTpl);
+            $mail_data = getMailDataFromWikiPage($subjectTpl, $watch['language']);
 
             if (! $mail_data) {
                 $mail_data = $smarty->fetchLang($watch['language'], "mail/" . $subjectTpl);
@@ -477,7 +477,7 @@ function sendEmailNotification($watches, $dummy, $subjectTpl, $subjectParam, $tx
     return $sent;
 }
 
-function getMailDataFromWikiPage($txtTpl)
+function getMailDataFromWikiPage($txtTpl, $language = '')
 {
     $tikilib = TikiLib::lib('tiki');
 
@@ -485,7 +485,7 @@ function getMailDataFromWikiPage($txtTpl)
     $tplWikipageName = preg_replace('/\.tpl$/', ' TPL', $tplWikipageName);
 
     if ($tikilib->page_exists($tplWikipageName)) {
-        return TikiLib::lib('smarty')->fetch('tplwiki:' . $tplWikipageName);
+        return TikiLib::lib('smarty')->fetchLang($language, 'tplwiki:' . $tplWikipageName);
     }
     return false;
 }
