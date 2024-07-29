@@ -994,5 +994,7 @@ if ($prefs['tiki_monitor_performance'] == 'y') {
     $headerlib->add_jsfile_dependency('vendor_bundled/vendor/npm-asset/boomerangjs/plugins/rt.js');
 }
 
+$headerlib->add_js_module('import Sortable from "sortablejs"; window.Sortable = Sortable;');
+
 // use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not
 define('TIKI_SETUP_FINISHED', true);

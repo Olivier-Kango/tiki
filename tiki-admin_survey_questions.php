@@ -22,7 +22,7 @@ $inputConfiguration = [
             'offset'                => 'int',              //get
         ],
         'staticKeyFiltersForArrays' => [
-            'questionIds'           => 'int',              //get
+            'questionIds'           => 'string',              //get
         ],
     ],
 ];

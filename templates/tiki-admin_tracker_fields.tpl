@@ -52,19 +52,6 @@
         </div>
     </form>
 
-    <script type="module">
-        import Sortable from "sortablejs";
-        
-        new Sortable(document.querySelector('#fields > tbody'), {
-            onUpdate: function (event) {
-                const rows = event.to.querySelectorAll('tr');
-                rows.forEach((row, index) => {
-                    row.querySelector('td.id > input').value = index;
-                });
-            }
-        });
-    </script>
-
     {jq}
         var trackerId = {{$trackerId|escape}};
         $('.save-fields').on("submit", function () {
@@ -103,7 +90,16 @@
             }
             return false;
         });
-        var $container = $('.save-fields tbody');
+        const $container = $('.save-fields tbody');
+
+        Sortable.create($container.get(0), {
+            onUpdate: function (event) {
+                const rows = event.to.querySelectorAll('tr');
+                rows.forEach((row, index) => {
+                    row.querySelector('td.id > input').value = index;
+                });
+            }
+        });
 
         $container.tracker_load_fields(trackerId);
 
