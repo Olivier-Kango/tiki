@@ -6039,7 +6039,7 @@ class UsersLib extends TikiLib
             ],
             [
                 'name' => 'tiki_p_use_as_template',
-                'description' => tra('Can use the page as a template for a tracker or unified search'),
+                'description' => tra('Can use the page as a template for mails, a tracker, or for unified search'),
                 'level' => 'basic',
                 'type' => 'wiki',
                 'admin' => false,
