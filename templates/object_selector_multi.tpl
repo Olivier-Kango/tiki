@@ -47,6 +47,10 @@
         </div>
         <div class="card-body">
             <p class="too-many">{tr}Search and select what you are looking for from the options that appear.{/tr}</p>
+            <p class="too-many">
+                <b class="text-warning">{tr}Please note:{/tr}</b>
+                {tr}Depending on your current Tiki configuration you might not see all the options available. Adjust the 'Object selector threshold' in the 'Pagination' settings to show them all.{/tr}
+            </p>
             <div class="results">
                 {foreach from=$object_selector_multi.current_selection item=object name=ix}
                     <div class="form-check">
