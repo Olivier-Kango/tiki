@@ -93,7 +93,8 @@ function prefs_wysiwyg_list()
             'dependencies' => [
                 'feature_wysiwyg',
             ],
-            'tags' => ['experimental'],
+            'tags' => ['deprecated'],
+            'warning' => tra('CKEditor is Deprecated: This feature will be removed after Tiki27 LTS'),
         ],
         'wysiwyg_extra_plugins' => [
             'name' => tra('Extra plugins'),
@@ -102,6 +103,8 @@ function prefs_wysiwyg_list()
             'type' => 'textarea',
             'size' => '1',
             'default' => 'bidi,colorbutton,divarea,find,font,justify,pagebreak,showblocks,emoji',
+            'tags' => ['deprecated'],
+            'warning' => tra('CKEditor is Deprecated: This feature will be removed after Tiki27 LTS'),
         ],
     ];
 }
