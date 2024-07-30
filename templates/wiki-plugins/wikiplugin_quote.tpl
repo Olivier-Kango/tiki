@@ -7,7 +7,7 @@
         {/if}
     </div>
     <div class='quotebody'>
-        {$data}
+        {$wpQuoteContent}
         {if $source_url}
             <div class='quoteurl'>
                 {tr}Source:{/tr} <a target="_blank" class="wiki external" href="{$source_url}"><cite>{$source_url}</cite></a>{icon name='link-external'}
