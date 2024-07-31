@@ -780,6 +780,7 @@ function sendCommentNotification($type, $id, $title, $content, $commentId, $anon
     global $user, $prefs;
     $smarty = TikiLib::lib('smarty');
     $tikilib = TikiLib::lib('tiki');
+    $userlib = TikiLib::lib('user');
 
     if ($type === 'wiki page') {
         $type = 'wiki';
@@ -834,6 +835,15 @@ function sendCommentNotification($type, $id, $title, $content, $commentId, $anon
                 break;
             }
         }
+    }
+
+    if ($prefs['notify_oneself'] == 'y' && ! in_array($user, array_column($watches, 'user'))) {
+        $watches[] = [
+            'email' => $userlib->get_user_email($user),
+            'user' => $user,
+            'language' => $userlib->get_user_preference($user, 'language', $prefs['site_language']),
+            'watchId' => $userlib->get_user_id($user)
+        ];
     }
 
     if (count($watches)) {

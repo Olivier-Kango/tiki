@@ -4687,7 +4687,7 @@ class TrackerLib extends TikiLib
                 if (isset($f['options_map']['notify']) && $f['options_map']['notify'] != 0 && ! empty($f['value'])) {
                     $fieldUsers = $this->parse_user_field($f['value']);
                     foreach ($fieldUsers as $fieldUser) {
-                        if ($f['options_map']['notify'] == 2 && $user == $fieldUser) {
+                        if ($f['options_map']['notify'] == 2 && $user == $fieldUser && $prefs['notify_oneself'] == 'n') {
                             // Don't send email to oneself
                             continue;
                         }

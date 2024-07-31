@@ -333,6 +333,21 @@
                         </select>
                     </div>
                 </div>
+                <div class="tiki-form-group row">
+                    <label class="col-form-label col-md-4" for="notify_oneself">
+                        {tr}Notify me about my own comments{/tr}
+                    </label>
+                    <div class="col-md-8">
+                        <select id="notify_oneself" name="notify_oneself" class="form-control" >
+                            <option value="n" {if $user_prefs.notify_oneself eq "n"}selected="selected"{/if}>
+                                {tr}no{/tr}
+                            </option>
+                            <option value="y" {if $user_prefs.notify_oneself eq "y"}selected="selected"{/if}>
+                                {tr}yes{/tr}
+                            </option>
+                        </select>
+                    </div>
+                </div>
                 <div class="tiki-form-group row clearfix">
                     <label class="col-form-label col-md-4" for="display_timezone">
                         {tr}Displayed timezone{/tr}

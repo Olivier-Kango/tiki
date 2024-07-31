@@ -252,6 +252,12 @@ function prefs_users_list()
             'type' => 'flag',
             'default' => 'y',
         ],
+        'users_prefs_notify_oneself' => [
+            'name' => tra('Notify oneself'),
+            'description' => tra('Send a notification to oneself when editing a page.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
         'users_prefs_xmpp_jid' => [
             'name' => tra('XMPP account JID or username'),
             'description' => tra('XMPP account JID or username'),

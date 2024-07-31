@@ -196,6 +196,10 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
     if (isset($_POST["userbreadCrumb"])) {
         $tikilib->set_user_preference($userwatch, 'userbreadCrumb', $_POST["userbreadCrumb"]);
     }
+    if (isset($_POST["notify_oneself"])) {
+        $tikilib->set_user_preference($userwatch, 'notify_oneself', $_POST["notify_oneself"]);
+    }
+
     $langLib = TikiLib::lib('language');
     if (isset($_POST["language"]) && $langLib->is_valid_language($_POST['language'])) {
         if ($tiki_p_admin || $prefs['change_language'] == 'y') {
