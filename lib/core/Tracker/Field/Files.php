@@ -600,11 +600,19 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
                         if ($file['filetype'] === 'text/plain') {
                             $dataAttributes[] = 'data-is-text="1"';
                         }
-
-                        $src = smarty_modifier_sefurl($file['fileId'], 'display');
-                        $ret .= " <a href='" . $src . "' target='_blank' class='tips' title='Preview: " . $file['filename'] . "' data-box='box-" . $this->getConfiguration('fieldId') . "' " . implode(' ', $dataAttributes) . ">
-                            $viewicon
-                        </a>";
+                        $smarty->assign('menu_icon', $prefs['use_context_menu_icon']);
+                        $smarty->assign('menu_text', $prefs['use_context_menu_text']);
+                        $smarty->assign('file', $file);
+                        $perms = Perms::get('file', $fileId);
+                        $smarty->assign('canAssignPerms', $perms->assign_perm_file_gallery);
+                        $text = $smarty->fetch('tracker/fileTrackerContextMenu.tpl');
+                        $popup = smarty_function_popup([
+                            'fullhtml' => '1',
+                            'text' => $text,
+                            'trigger' => 'click'
+                        ], $smarty->getEmptyInternalTemplate());
+                        $icon = smarty_function_icon(['name' => 'wrench'], $smarty->getEmptyInternalTemplate());
+                        $ret .= " <a class='fgalname tips' title='" . tr('Actions') . "'href='#' $popup>$icon</a>";
                     }
 
                     $ret .= '</li>';
