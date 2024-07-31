@@ -154,7 +154,7 @@ class ToolbarPicker extends ToolbarDialog
         if ($section == 'sheet') {
             return 'displayPicker( this, \'' . $this->name . '\', \'' .
                 $this->domElementId . '\', true, \'' . $this->styleType . '\' )';
-        } elseif ($this->name == 'emoji' && $this->isVueTool()) {
+        } elseif ($this->name == 'emoji' && $this->isDialogSupported()) {
             return 'displayEmojiPicker(\'emoji-picker-' . $this->index . '\', \'' .
                 $this->domElementId . '\')';
         } else {
@@ -167,7 +167,7 @@ class ToolbarPicker extends ToolbarDialog
     {
         static $pickerAdded = false;
 
-        if ($this->name == 'emoji' && $this->isVueTool()) {
+        if ($this->name == 'emoji' && $this->isDialogSupported()) {
             TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
 
             // TODO refactor with \Tiki\Lib\core\Toolbar\ToolbarDialog::setupJs
@@ -216,7 +216,7 @@ class ToolbarPicker extends ToolbarDialog
             $this->getClass()
         );
 
-        if ($this->name === 'emoji' && $this->isVueTool()) {
+        if ($this->name === 'emoji' && $this->isDialogSupported()) {
             $html .= $this->getEmojiPicker();
         }
         return $html;

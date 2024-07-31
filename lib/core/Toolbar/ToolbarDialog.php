@@ -96,7 +96,7 @@ class ToolbarDialog extends ToolbarItem
                 $wysiwyg = 'Link';
                 $label = tra('External Link');
                 $iconname = 'link-external';
-                $iconname = 'external-link-alt';    // for isVueTool but will work if not too
+                $iconname = 'external-link-alt';    // for isDialogSupported but will work if not too
                 $icon = tra('img/icons/world_link.png');
                 $markdown = 'link';
                 $markdown_wysiwyg = 'link';
@@ -224,22 +224,17 @@ class ToolbarDialog extends ToolbarItem
 
     public function getOnClick(): string
     {
-        if ($this->isVueTool()) {
-            return 'toolbarDialog(\'' . $this->name . '\',\'' . $this->domElementId . '\')';
-        } else {
-            return 'displayDialog( this, ' . $this->index . ', \'' . $this->domElementId . '\')';
-        }
+        return '';
     }
 
     public function setupJs(): void
     {
-        global $toolbarDialogIndex;
         $data = get_object_vars($this);
         unset($data['list']);
         $data['editor']['isMarkdown'] = $this->isMarkdown;
         $data['editor']['isWysiwyg'] = $this->isWysiwyg;
 
-        if ($this->isVueTool()) {
+        if ($this->isDialogSupported()) {
             TikiLib::lib('header')->add_js_module('
                 import "@vue-mf/root-config";
                 import "@vue-mf/toolbar-dialogs";
@@ -263,8 +258,6 @@ class ToolbarDialog extends ToolbarItem
         window.unregisterApplication("' . $this->singleSpaAppName . '");
     });
     ');
-        } else {
-            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
         }
     }
 
@@ -277,15 +270,7 @@ class ToolbarDialog extends ToolbarItem
             1 + $this->index
         );
 
-        if ($this->isVueTool()) {
-            return '<span id="' . $this->singleSpaDomId . '" class="toolbar-dialogs"></span>';
-        } else {
-            return $this->getSelfLink(
-                $this->getOnClick(),
-                htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
-                $this->getClass()
-            );
-        }
+        return '<span id="' . $this->singleSpaDomId . '" class="toolbar-dialogs"></span>';
     }
 
     public function getMarkdownHtml(): string
@@ -334,29 +319,12 @@ class ToolbarDialog extends ToolbarItem
 
     public function getMarkdownWysiwyg(): string
     {
-        if ($this->isVueTool()) {
+        if ($this->isDialogSupported()) {
             $html = $this->getWikiHtml();
 
             \TikiLib::lib('header')->add_jq_onready(
                 "tuiToolbarItem$this->markdown_wysiwyg = $('$html').get(0);"
             );
-            $item = [
-                'name'    => $this->markdown_wysiwyg,
-                'tooltip' => $this->label,
-                'el'      => "%~tuiToolbarItem{$this->markdown_wysiwyg}~%",
-            ];
-            return json_encode($item);
-        } elseif (in_array($this->name, ['tikilink'])) {
-            \TikiLib::lib('header')->add_jq_onready(
-                "tuiToolbarItem$this->markdown_wysiwyg = $.fn.getIcon('$this->iconname').on('click', function () {
-                        {$this->getOnClick()}
-                    }).get(0);"
-            );
-            TikiLib::lib('header')->add_js(
-                "window.dialogData[$this->index] = " . json_encode($this->list) . ";",
-                1 + $this->index
-            );
-
             $item = [
                 'name'    => $this->markdown_wysiwyg,
                 'tooltip' => $this->label,
@@ -376,10 +344,8 @@ class ToolbarDialog extends ToolbarItem
      *
      * @return bool
      */
-    protected function isVueTool(): bool
+    protected function isDialogSupported(): bool
     {
-        global $prefs;
-
         // not for ckeditor (yet)
         if (! $this->isMarkdown && $this->isWysiwyg) {
             return false;
@@ -394,8 +360,6 @@ class ToolbarDialog extends ToolbarItem
             $supported[] = 'replace';
         }
 
-        return $prefs['vuejs_enable'] === 'y' &&
-            $prefs['vuejs_toolbar_dialogs'] === 'y' &&
-            in_array($this->name, $supported);
+        return in_array($this->name, $supported);
     }
 }

@@ -223,7 +223,6 @@
                             {preference name=vuejs_always_load}
                             {preference name=vuejs_build_mode}
                             {preference name=tracker_field_rules}
-                            {preference name=vuejs_toolbar_dialogs}
                         </div>
                     </fieldset>
                 </div>
