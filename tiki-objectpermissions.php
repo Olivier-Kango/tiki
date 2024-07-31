@@ -263,6 +263,7 @@ if (isset($_REQUEST['assign']) && ! isset($_REQUEST['quick_perms']) && $access->
         }
     }
 
+    $changed['added'] = ! empty($changed['added']) ? $changed['added'] : [];
     foreach ($changed['added'] as $groupName => $addPerms) { // group messages about permissions added by parent group
         if (count($addPerms) == 0) {
             continue;
@@ -283,6 +284,7 @@ if (isset($_REQUEST['assign']) && ! isset($_REQUEST['quick_perms']) && $access->
         }
     }
 
+    $changed['deleted'] = ! empty($changed['deleted']) ? $changed['deleted'] : [];
     foreach ($changed['deleted'] as $groupName => $delPerms) {  // group messages about permissions removed by parent group
         if (count($delPerms) == 0) {
             continue;
@@ -658,7 +660,7 @@ const removeUnchangedCheckboxes = function () {
         const $this = $(this),
             $oldPermInput = $this.parent()
                 .find("input[name=\'old_" + $this.attr("name") + "\'][value=\'" + $this.val() + "\']");
-        
+
         // old_perm[blah] is there when a perm is checked, so the back end can tell its been unchecked
         // so if theyre both there then its still checked
         if ($oldPermInput.length) {
