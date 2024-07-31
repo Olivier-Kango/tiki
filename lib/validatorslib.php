@@ -129,22 +129,9 @@ class Validators
                         $validationjs .= 'parameter: "' . addslashes($field_value['validationParam']) . '", ';
                     }
                     $validationjs .= 'message: "' . tra($field_value['validationMessage']) . '", ';
-                    $validationjs .= 'input: function() { ';
-                    if ($prefix == 'ins_' && $field_value['type'] == 'a') {
-                        $validationjs .= 'return $("textarea[name=\'' . $prefix . $field_value['fieldId'] . '\']").val(); ';
-                    } elseif ($prefix == 'ins_' && $field_value['type'] == 'k') {
-                        $validationjs .= 'return $("#page_selector_' . $field_value['fieldId'] . '").val(); ';
-                    } elseif ($prefix == 'ins_' && $field_value['type'] == 'u') {
-                        $validationjs .= 'return $("#user_selector_' . $field_value['fieldId'] . '").val(); ';
-                    } else {
-                        if ($field_value['type'] == 'g' or $field_value['type'] == 'e' or $field_value['type'] == 'y' or $field_value['type'] == 'd' or $field_value['type'] == 'D') {
-                            // Let's handle drop-down style fields
-                            $validationjs .= 'return $(\'select[name="' . $prefix . $field_value['fieldId'] . '"] option:selected\').text(); ';
-                        } else {    // Let's handle text style fields
-                            $validationjs .= 'return $("#' . $prefix . $field_value['fieldId'] . '").val(); ';
-                        }
-                    }
-                    $validationjs .= '} } } ';
+                    $validationjs .= 'input: function() { return $("[name=' . $prefix . $field_value['fieldId'] . ']").val(); }';
+                    $validationjs .= '';
+                    $validationjs .= '} } ';
                 } else {
                     // remove last comma (not supported in IE7)
                     $validationjs = rtrim($validationjs, ' ,');
