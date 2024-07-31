@@ -83,7 +83,7 @@ function wikiplugin_quote($data, $params)
     $smarty->assign('date', $date);
     $smarty->assign('comment_info', $comment_info);
     $smarty->assign('replyto', $replyto);
-    $smarty->assign('data', TikiLib::lib('parser')->parse_data_plugin($data));
+    $smarty->assign('wpQuoteContent', TikiLib::lib('parser')->parse_data_plugin($data));
     $smarty->assign('source_url', trim($source_url));
 
     return $smarty->fetch("wiki-plugins/wikiplugin_quote.tpl");
