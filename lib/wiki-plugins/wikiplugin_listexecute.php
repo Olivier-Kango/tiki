@@ -82,9 +82,11 @@ function wikiplugin_listexecute($data, $params)
         } else {
             // select only the items to apply the action to
             foreach ($selectedObjects as $identifier) {
-                list($type, $id) = explode(':', $identifier);
-                if ($type && $type != 'aggregate' && $id) {
-                    $query->addObject($type, $id);
+                if (! empty($identifier)) {
+                    list($type, $id) = explode(':', $identifier);
+                    if ($type && $type != 'aggregate' && $id) {
+                        $query->addObject($type, $id);
+                    }
                 }
             }
         }
