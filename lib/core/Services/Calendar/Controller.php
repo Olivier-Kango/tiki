@@ -98,7 +98,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
      */
     public function action_list_items($input): array
     {
-        global $user, $prefs;
+        global $user, $base_url, $prefs;
 
         $rawcals = $this->calendarLib->list_calendars();
         $rawcals['data'] = Perms::filter(
@@ -215,6 +215,9 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 'editable'    => $event['perms']->change_events,
                 'color'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
                 'textColor'   => '#' . $calendars[$event['calendarId']]['customfgcolor'],
+                'showCopyButton' => $calendars[$event['calendarId']]['copybuttononeachevent'],
+                'eventCreation' => $event['created'],
+                'baseUrl'   => $base_url
             ];
         }
         return $events;
