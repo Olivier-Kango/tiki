@@ -176,13 +176,6 @@ class CleanVendors
             ]
         );
         self::remove($vendors . 'jquery-plugins/infinitecarousel', 'jquery.infinitecarousel3.min.js');
-        self::remove(
-            $vendors . 'jquery-plugins/jquery-json',
-            [
-                'dist',
-                'libs',
-            ]
-        );
         self::remove($vendors . 'jquery-plugins/reflection-jquery', 'src');
         self::remove(
             $vendors . 'mottie/tablesorter',

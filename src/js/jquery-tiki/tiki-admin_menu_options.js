@@ -351,7 +351,7 @@ $(function () {
         $.post(
             $.service("menu", "save"),
             {
-                data: $.toJSON(dataArr),
+                data: JSON.stringify(dataArr),
                 menuId: $("input[name=menuId]").val(),
                 ticket: $("input[name=ticket]").val(),
             },

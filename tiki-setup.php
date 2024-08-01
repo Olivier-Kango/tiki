@@ -507,7 +507,6 @@ if ($prefs['geo_enabled'] === 'y') {
         $headerlib->add_cssfile('lib/openlayers/theme/default/style.css');
     }
 }
-$headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/jquery-json/src/jquery.json.js');
 
 if ($prefs['feature_jquery_zoom'] === 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/zoom/jquery.zoom.js')

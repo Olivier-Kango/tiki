@@ -169,7 +169,7 @@ $(function () {
 
         $.post(
             $.service("wiki_structure", "save_structure"),
-            { data: $.toJSON(arr), params: $.toJSON($sortable.data("params")) },
+            { data: JSON.stringify(arr), params: JSON.stringify($sortable.data("params")) },
             function (data) {
                 $sortable.tikiModal();
                 if (data) {

@@ -553,7 +553,7 @@ window.customsearch_$id = customsearch$id;
 customsearch$id._load = function (receive, params) {
     var datamap = {
         definition: this.definition,
-        adddata: $.toJSON(this.searchdata),
+        adddata: JSON.stringify(this.searchdata),
         searchid: this.id,
         offset: customsearch$id.offset,
         maxRecords: this.maxRecords,

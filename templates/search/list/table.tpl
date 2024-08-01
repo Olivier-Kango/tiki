@@ -27,7 +27,7 @@
             $form.attr('action', $.service('search_customsearch', 'customsearch'));
             var datamap = {
                 definition: cs.definition,
-                adddata: $.toJSON(cs.searchdata),
+                adddata: JSON.stringify(cs.searchdata),
                 searchid: cs.id,
                 offset: cs.offset,
                 maxRecords: cs.maxRecords,
@@ -378,7 +378,7 @@
             $form.attr('action', $.service('search_customsearch', 'customsearch'));
             var datamap = {
                 definition: cs.definition,
-                adddata: $.toJSON(cs.searchdata),
+                adddata: JSON.stringify(cs.searchdata),
                 searchid: cs.id,
                 offset: cs.offset,
                 maxRecords: cs.maxRecords,
