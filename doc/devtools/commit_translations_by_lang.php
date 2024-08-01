@@ -22,7 +22,7 @@ require_once('gittools.php');
 
 
 $langlib = new LanguageTranslations();
-$langguage = new Language();
+$language = new Language();
 $retour = $langlib->getAllDbTranslations();
 $user_translations = [];
 
@@ -39,6 +39,17 @@ function rangeByLang($changes, $lang)
     return $specific_tring;
 }
 
+/**
+ * Generate a unique branch name based on the language
+ * @param $branch string
+ * @return string The branch name
+ */
+function generateBranchName($lang)
+{
+    $uniqueID = substr(md5(uniqid()), 0, 10);
+    return "tra-{$lang}-{$uniqueID}";
+}
+
 $final_commit_list = [];
 
 foreach ($retour['translations'] as $current_lang) {
@@ -49,33 +60,70 @@ $final_commit_list = array_unique($final_commit_list, SORT_REGULAR);
 
 foreach ($final_commit_list as $langToWrite) {
     try {
-        $language = new LanguageTranslations($langToWrite['lang']);
-        $stats = $language->writeLanguageFile(false, true);
+        $language_transl = new LanguageTranslations($langToWrite['lang']);
+        $stats = $language_transl->writeLanguageFile(false, true);
     } catch (Exception $e) {
         die("{$e->getMessage()}\n");
     }
 }
 
+$langmap = $language::get_language_map();
 foreach ($final_commit_list as $trans) {
-    $langmap = $langguage::get_language_map();
     $lang_found = $langmap[$trans['lang']];
     array_push($user_translations, ["user" => $trans['usernames'], "lang" => $lang_found, "langdir" => $trans['lang']]);
 }
 if (has_uncommited_changes("./lang")) {
-    echo "there is uncommitted changes \n";
-    $description_merge = [];
-    $title_merge = "[TRA] Automatic Merge request of translations contributed to http://i18n.tiki.org";
-    foreach ($user_translations as $all_translations) {
-        if (empty($all_translations['user'])) {
-            $all_translations['user'] = 'Anonymous';
+    echo "There are uncommitted changes pending \n";
+    $user_transl_size = count($user_translations);
+
+    // Group translations by language
+    $translations_by_lang = [];
+
+    if ($user_transl_size) {
+        foreach ($user_translations as $translation) {
+            $lang = $translation['langdir'];
+            if (empty($translation['user'])) {
+                $translation['user'] = 'Anonymous';
+            }
+            $translations_by_lang[$lang][] = $translation;
         }
-        $commit_description = "Automatic commit of $all_translations[lang] translation contributed by $all_translations[user] to http://i18n.tiki.org";
-        $description_merge[] = $commit_description;
-        $return_value = commit_specific_lang($all_translations['langdir'], $commit_description);
-        echo "commit :  " . $return_value;
+    } else {
+        $languages = getUncommittedChangesParentFolder("./lang");
+
+        foreach ($languages as $lang) {
+            $lang = ltrim($lang, '/');
+            $lang_found = $langmap[$lang];
+
+            $translations_by_lang[$lang][] = [
+                'lang' => $lang_found,
+                'langdir' => $lang,
+                'user' => 'Anonymous'
+            ];
+        }
     }
-    $description_merge = implode(" , ", $description_merge);
-    push_create_merge_request($title_merge, $description_merge, "master");
+
+    // Process each language group
+    foreach ($translations_by_lang as $lang => $translations) {
+        $description_merge = [];
+        $branch_name = generateBranchName($lang);
+        $output = checkoutBranch($branch_name, true);
+
+        if ($output) {
+            foreach ($translations as $translation) {
+                $commit_description = "Automatic commit of {$translation['lang']} translation contributed by {$translation['user']} to https://i18n.tiki.org";
+                $description_merge[] = $commit_description;
+                $return_value = commit_specific_lang($translation['langdir'], $commit_description);
+                echo "Commit: " . $return_value . "\n";
+            }
+
+            // Push the branch and create the merge request
+            $title_merge = "[TRA] {$lang} - Automatic Merge request of translations contributed to https://i18n.tiki.org";
+            push_create_merge_request($title_merge, implode(" , ", $description_merge), "master", getCurrentBranch());
+            checkoutBranch("master");
+        } else {
+            continue;
+        }
+    }
 } else {
     echo "There is no translation to commit";
 }

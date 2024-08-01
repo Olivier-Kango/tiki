@@ -38,8 +38,38 @@ function check_bin_version()
 function has_uncommited_changes($localPath)
 {
     $localPath = escapeshellarg($localPath);
-    $count = trim(`git -C $localPath status -s | wc -l`);
+    $count = trim(`git status -s $localPath | wc -l`);
     return $count > 0;
+}
+
+/**
+ * Retrieves the parent folders of uncommitted changes in a given local path.
+ *
+ * @param string $localPath The local path to check for uncommitted changes.
+ * @return array An array of parent folders containing uncommitted changes.
+ */
+function getUncommittedChangesParentFolder($localPath)
+{
+    $localPath = escapeshellarg($localPath);
+    $output = trim(`git status -s $localPath | awk '{print $2}' | xargs -I{} dirname {} | sort | uniq`);
+
+    $parentFolders = array_filter(explode("\n", trim($output)));
+    $processedFolders = array_map(function ($folder) {
+        $parts = explode('/', $folder);
+        // Iterate backwards and find the first non-empty directory
+        for ($i = count($parts) - 1; $i >= 0; $i--) {
+            if (! empty($parts[$i])) {
+                return '/' . $parts[$i];
+            }
+        }
+        // If no non-empty directory found, return the root
+        return '/';
+    }, $parentFolders);
+
+     // Remove duplicates and empty entries
+     $uniqueFolders = array_unique(array_filter($processedFolders));
+
+    return $uniqueFolders;
 }
 
 function add($file)
@@ -95,6 +125,15 @@ function get_revision($path)
 }
 
 /**
+ * Get the current branch
+ * @return string
+ */
+function getCurrentBranch()
+{
+    return trim(`git rev-parse --abbrev-ref HEAD`);
+}
+
+/**
  * Find the revision number for a particular tag
  *
  * @param $releaseNumber
@@ -141,13 +180,36 @@ function commit_specific_lang($lang, $msg, $displaySuccess = true, $dieOnRemaini
     `git add ./lang/$lang`;
     `git commit -m $msg ./lang/$lang`;
 
-    if (! has_uncommited_changes("./lang/$lang")) {
+    if (has_uncommited_changes("./lang/$lang")) {
         error("Commit seems to have failed. Uncommitted changes exist in the working folder.\n");
     }
 
     return get_revision("./lang/$lang");
 }
 
+/**
+ * Checkout a branch in Git.
+ *
+ * @param string $branch The name of the branch to checkout.
+ * @param bool $newBranch Optional. Whether to create a new branch. Default is false.
+ * @return bool Returns true if the branch was successfully checked out, false otherwise.
+ */
+function checkoutBranch($branch, $newBranch = false)
+{
+    $branch = escapeshellarg($branch);
+    if ($newBranch) {
+        $output = `git checkout -b $branch 2>&1`;
+    } else {
+        $output = `git checkout $branch 2>&1`;
+    }
+
+    if (strpos($output, 'fatal') !== false || strpos($output, 'error') !== false) {
+        error("Failed to " . ($newBranch ? "create and " : "") . "checkout branch $branch: $output\n");
+        return false;
+    }
+
+    return true;
+}
 
 function push()
 {
