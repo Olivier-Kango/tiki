@@ -714,12 +714,16 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         // note: if itemlink or dynamic item list is used, than the final value to compare with must be calculated based on the current itemid
 
         $technique = 'value';
+        $multiple = false;
 
         // r = ItemLink
         // w = DynamicList
         if ($tracker && $filterFieldThere && (! $filterFieldIdHere || $filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w')) {
             if (($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') && (! $filterFieldHere || $filterFieldHere['type'] !== 'r')) {
                 $technique = 'id';
+                if (! empty($filterFieldThere['options_map']['selectMultipleValues'])) {
+                    $multiple = true;
+                }
             }
         }
 
@@ -733,7 +737,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
             if (! $itemId) {
                 $items = [];
             } else {
-                $items = $trklib->get_items_list($trackerId, $filterFieldIdThere, $itemId, $status, false, $sortFieldIds);
+                $items = $trklib->get_items_list($trackerId, $filterFieldIdThere, $itemId, $status, $multiple, $sortFieldIds);
             }
         } else {
             // when this is an item link or dynamic item list field, localvalue contains the target itemId
@@ -749,8 +753,20 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                 return [$localValue];
             }
             // r = item link - not sure this is working
-            if (isset($filterFieldHere['type']) && $filterFieldHere['type'] == 'r' && isset($filterFieldHere['options_array'][0]) && isset($filterFieldHere['options_array'][1])) {
-                $localValue = $trklib->get_item_value($filterFieldHere['options_array'][0], $localValue, $filterFieldHere['options_array'][1]);
+            if (
+                isset($filterFieldHere['type']) &&
+                $filterFieldHere['type'] == 'r' &&              // an ItemLink
+                isset($filterFieldHere['options_array'][0]) &&  // trackerId
+                isset($filterFieldHere['options_array'][1]) &&  // fieldId
+                // check for filterFieldThere not being another ItemLink because then we need the itemId
+                $filterFieldThere['type'] !== 'r' &&
+                $filterFieldThere['type'] !== 'w'
+            ) {
+                $localValue = $trklib->get_item_value(
+                    $filterFieldHere['options_array'][0],
+                    $localValue,
+                    $filterFieldHere['options_array'][1]
+                );
             }
 
             // w = dynamic item list - localvalue is the itemid of the target item. so rewrite.

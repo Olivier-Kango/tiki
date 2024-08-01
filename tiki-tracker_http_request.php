@@ -83,7 +83,20 @@ switch ($filterFieldHere['type']) {
             return;
         }
         break;
-
+    case 'l': // l = itemslist
+        switch ($filterFieldThere['type']) {
+            case 'r': // r = itemlink tested
+                $handler = $trklib->get_field_handler($filterFieldThere);
+                $optTrackerId = $handler->getOption('trackerId');
+                $optFieldId = $handler->getOption('fieldId');
+                $finalFilterValueHere = $trklib->get_item_id(
+                    $optTrackerId,
+                    $optFieldId,
+                    $filterFieldValueHere
+                );
+                break;
+        }
+        break;
     case 'r': // r = itemlink - disallow itemlink/category, allow itemlink/itemlink, itemlink/simplefield types like text
         switch ($filterFieldThere['type']) {
             case 'r': // r = itemlink tested
