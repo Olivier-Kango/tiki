@@ -261,8 +261,10 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
 
         TikiLib::lib('header')->add_jq_onready(
             '
-$("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']", function(e) {
+$("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . '], div[name=ins_' . $filterFieldIdHere . ']", function(e, source) {
     $( "select[name=\'' . $insertId . '\']").parent().tikiModal(tr("Loading..."));
+	// We need the field value for the fieldId filterfield for the item $(this).val or text
+	const value = $.trim($(this).is("input, select") ? $(this).val() : $(this).text());
     $.getJSON(
         "tiki-tracker_http_request.php",
         {
@@ -276,7 +278,7 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
             originalValue:  "' . $originalValue . '",
             hideBlank: ' . (int)$hideBlank . ',
             selectMultipleValues: ' . $selectMultipleValues . ',
-            filterFieldValueHere: $(this).val(), // We need the field value for the fieldId filterfield for the item $(this).val,
+            filterFieldValueHere: value,
             linkToItems: ' . $linkToItems . '
         },
         
