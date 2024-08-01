@@ -249,9 +249,12 @@
         {if $prefs.feature_webdav eq 'y'}
             {assign var=virtual_path value=$file.fileId|virtual_path}
 
-            {assign var=link_label value=($prefs.feature_file_galleries_save_draft eq 'y') ? "Open your draft in WebDAV" : "Open in WebDAV"}
             {self_link _icon_name="file-archive-open" _menu_text=$menu_text _menu_icon=$menu_icon _onclick="javascript:open_webdav('$virtual_path')" _noauto="y" _ajax="n"}
-                {tr}{$link_label}{/tr}
+                {if $prefs.feature_file_galleries_save_draft eq 'y'}
+                    {tr}Open your draft in WebDAV{/tr}
+                {else}
+                    {tr}Open in WebDAV{/tr}
+                {/if}
             {/self_link}
         {/if}
 
