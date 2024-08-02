@@ -216,7 +216,6 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 'color'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
                 'textColor'   => '#' . $calendars[$event['calendarId']]['customfgcolor'],
                 'showCopyButton' => $calendars[$event['calendarId']]['copybuttononeachevent'],
-                'eventCreation' => $event['created'],
                 'baseUrl'   => $base_url
             ];
         }
