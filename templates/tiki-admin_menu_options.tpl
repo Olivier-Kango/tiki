@@ -74,7 +74,7 @@
                 <ol id="options" class="p-2">
                     {$prevpos = 0}
                     {foreach $options as $option}
-                        <li class="p-2" id="node_{$option.optionId}" data-id="{$option.optionId}" data-position="{$option.position}" data-parent="{$option.parent}" data-type="{$option.type}">
+                        <li class="p-2 {if in_array($option.url, $no_editable_page)} opacity-25 {/if}" style="{if in_array($option.url, $no_editable_page)} pointer-events: none; {/if}" id="node_{$option.optionId}" data-id="{$option.optionId}" data-position="{$option.position}" data-parent="{$option.parent}" data-type="{$option.type}">
                             <div class="options--group-container">
                                 {if !empty($option.name)}
                                     {capture assign='tooltip'}{strip}
@@ -168,7 +168,9 @@
             </div>
             <input type="hidden" id="deletemenu" name="deletemenu">
         </form>
-        {button _text='{tr}Save Options{/tr}' _class='save_menu btn btn-sm disabled' _type='primary' _ajax='n' _auto_args='save_menu,page_ref_id'}
+
+        {button _text='{tr}Save Options{/tr}' _class='save_menu  btn btn-sm disabled' _type='primary' _ajax='n' _auto_args='save_menu,page_ref_id'}
+
 
     </div>
 {/tab}

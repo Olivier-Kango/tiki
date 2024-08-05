@@ -55,7 +55,8 @@ foreach ($prefs as $k => $v) {  // attempt to filter out non-feature prefs (stil
 }
 $headerlib->add_js('var prefNames = ' . json_encode($feature_prefs) . ';');
 
-$options = $menulib->list_menu_options($_REQUEST["menuId"], 0, -1, 'position_asc', '', true, 0, true);
+$options = $menulib->list_menu_options($_REQUEST["menuId"], 0, -1, 'position_asc', '', true, 0, true, true);
+$smarty->assign_by_ref('no_editable_page', $options["no_editable_page"]);
 $options = $menulib->prepare_options_for_editing($options);
 $smarty->assign_by_ref('cant_pages', $options["cant"]);
 $smarty->assign_by_ref('options', $options["data"]);

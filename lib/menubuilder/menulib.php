@@ -640,13 +640,14 @@ class MenuLib extends TikiLib
         return $res;
     }
 
-    public function list_menu_options($menuId, $offset = 0, $maxRecords = -1, $sort_mode = 'position_asc', $find = '', $full = false, $level = 0, $do_not_parse = false)
+    public function list_menu_options($menuId, $offset = 0, $maxRecords = -1, $sort_mode = 'position_asc', $find = '', $full = false, $level = 0, $do_not_parse = false, $list_all = false)
     {
         global $user, $tiki_p_admin, $prefs;
         $wikilib = TikiLib::lib('wiki');
         include_once('tiki-sefurl.php');
 
         $options = $this->table('tiki_menu_options');
+        $no_editable_page = [];
         $conditions = [
                 'menuId' => $menuId,
                 ];
@@ -682,8 +683,14 @@ class MenuLib extends TikiLib
                 $res['url'] = 'tiki-index.php?page=' . rawurlencode($matches[1]);
                 $res['sefurl'] = $wikilib->sefurl($matches[1]);
                 $perms = Perms::get(['type' => 'wiki page', 'object' => $matches[1]]);
-                if (! $perms->view && ! $perms->wiki_view_ref) {
-                    continue;
+                if ($list_all) {
+                    if (! $perms->view && ! $perms->wiki_view_ref) {
+                        $no_editable_page[] = $res['url'];
+                    }
+                } else {
+                    if (! $perms->view && ! $perms->wiki_view_ref) {
+                        continue;
+                    }
                 }
             } else {
                 $res['sefurl'] = filter_out_sefurl($res['url']);
@@ -755,9 +762,10 @@ class MenuLib extends TikiLib
         }
 
         return [
-                'data' => array_values($ret),
-                'cant' => $cant,
-                ];
+            'data' => array_values($ret),
+            'cant' => $cant,
+            'no_editable_page' => $no_editable_page,
+            ];
     }
     /*
      *gets result from list_menu_options and sorts "sorted section" sections.
