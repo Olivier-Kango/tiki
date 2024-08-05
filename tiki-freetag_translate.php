@@ -44,12 +44,18 @@ if ($cat_type != 'wiki page' && $cat_type != 'article') {
 $freetaglib = TikiLib::lib('freetag');
 $multilinguallib = TikiLib::lib('multilingual');
 
-if ($cat_objId) {
+if (! empty($cat_objId)) {
     $info = $tikilib->get_page_info($cat_objId);
-} elseif (false && $tiki_p_admin_freetags != 'y') {
+} elseif ($tiki_p_admin_freetags != 'y') {
     // Global tag edit only available to admins
     $smarty->assign('errortype', 401);
     $smarty->assign('msg', tra("You do not have the permission that is needed to use this feature"));
+    $smarty->display("error.tpl");
+    die;
+} else {
+    // Handle error for missing or invalid objId
+    $smarty->assign('errortype', 401);
+    $smarty->assign('msg', tra("Invalid or missing objId"));
     $smarty->display("error.tpl");
     die;
 }
