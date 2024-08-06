@@ -1,15 +1,15 @@
 <template>
-    <link rel="stylesheet" :href="themeCss">
-    <div>
+    <link rel="stylesheet" :href="themeCss" :data-testid="DATA_TEST_ID.CSS_THEME">
+    <div :data-testid="DATA_TEST_ID.CONTAINER">
         <VueDatePicker v-model="date" :timezone="tz" :locale="language" input-class-name="form-control tiki-form-control"
-            :enable-time-picker="enableTimePicker" :range="Boolean(toInputName)" @update:model-value="goToURLWithData"
-            :cancelText="cancelText" :selectText="selectText" :format="formatDate"/>
-        <input type="hidden" :name="inputName" :value="unixTimestamp">
-        <input type="hidden" :name="toInputName" :value="toUnixTimestamp">
-        <input type="hidden" name="useDisplayTz" value="1" v-if="!enableTimezonePicker">
-        <div class="mt-3" v-if="enableTimezonePicker">
-            <label for="timezone" class="form-label">Timezone</label>
-            <select class="form-select" aria-label="Select a timezone" id="timezone" v-model="selectedTz" :name="timezoneFieldName">
+            :enable-time-picker="enableTimePicker" :range="Boolean(toInputName)" @update:model-value="handleDatetimeChange"
+            :cancelText="cancelText" :selectText="selectText" :format="formatFn" :data-testid="DATA_TEST_ID.DATE_PICKER"/>
+        <input type="hidden" :name="inputName" :value="unixTimestamp" :data-testid="DATA_TEST_ID.HIDDEN_TIMESTAMP_INPUT">
+        <input type="hidden" :name="toInputName" :value="toUnixTimestamp" :data-testid="DATA_TEST_ID.HIDDEN_TO_TIMESTAMP_INPUT">
+        <input type="hidden" :name="TEXT.USE_DISPLAY_TZ_INPUT_NAME" value="1" v-if="!enableTimezonePicker" :data-testid="DATA_TEST_ID.HIDDEN_USE_DISPLAY_TZ">
+        <div class="mt-3" v-if="enableTimezonePicker" :data-testid="DATA_TEST_ID.TIMEZONE_CONTAINER">
+            <label for="timezone" class="form-label" :data-testid="DATA_TEST_ID.LABEL_TIMEZONE_CONTAINER">{{ TEXT.LABEL_TIMEZONE_CONTAINER }}</label>
+            <select class="form-select" aria-label="Select a timezone" id="timezone" v-model="selectedTz" :name="timezoneFieldName" :data-testid="DATA_TEST_ID.TIMEZONE_SELECT">
                 <option v-for="(timezone, index) in timezones" :key="index" :value="timezone">{{ timezone }} ({{
                     getTimezoneOffset(timezone) }})</option>
             </select>
@@ -17,12 +17,34 @@
     </div>
 </template>
 
+<script>
+const uniqueId = '1720000034990'; // ensure this is unique across all components so that in any way we don't end up with duplicate data-test-id resulting in false positive tests
+export const DATA_TEST_ID = {
+    CSS_THEME: `css-theme-${uniqueId}`,
+    CONTAINER: `container-${uniqueId}`,
+    DATE_PICKER: `date-picker-${uniqueId}`,
+    HIDDEN_TIMESTAMP_INPUT: `hidden-timestamp-input-${uniqueId}`,
+    HIDDEN_TO_TIMESTAMP_INPUT: `hidden-to-timestamp-input-${uniqueId}`,
+    HIDDEN_USE_DISPLAY_TZ: `hidden-use-display-tz-${uniqueId}`,
+    TIMEZONE_CONTAINER: `timezone-container-${uniqueId}`,
+    LABEL_TIMEZONE_CONTAINER: `timezone-container-label-${uniqueId}`,
+    TIMEZONE_SELECT: `timezone-select-${uniqueId}`,
+}
+
+export const TEXT = {
+    USE_DISPLAY_TZ_INPUT_NAME: 'useDisplayTz',
+    LABEL_TIMEZONE_CONTAINER: 'Timezone',
+    LABEL_DEFAULT_CANCEL_BUTTON: 'Cancel',
+    LABEL_DEFAULT_SELECT_BUTTON: 'Select',
+}
+</script>
+
 <script setup>
 import { ref, computed } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import moment from 'moment-timezone/builds/moment-timezone-with-data-10-year-range.js';
-import { format } from 'date-fns';
+import moment from 'moment-timezone';
 import * as locale from 'date-fns/locale';
+import { convertToUnixTimestamp, formatDate, goToURLWithData } from './helpers/helpers';
 
 const timezones = moment.tz.names();
 
@@ -107,29 +129,10 @@ Handlers
 ====================
  */
 
-const goToURLWithData = (data) => {
-    date.value = data;
-    if (props.goToURLOnChange) {
-        const url = new URL(props.goToURLOnChange, window.location.origin);
-        if(data) {
-            url.searchParams.set('todate', unixTimestamp.value);
-            url.searchParams.set('enddate', toUnixTimestamp.value);
-            url.searchParams.set('tzname', selectedTz.value);
-            url.searchParams.set('tzoffset', moment.tz(selectedTz.value).utcOffset());
-        } else {
-            url.searchParams.delete('todate');
-            url.searchParams.delete('enddate');
-            url.searchParams.delete('tzname');
-            url.searchParams.delete('tzoffset');
-        }
-        window.location.href = url
-    } else if (props.globalCallback && window[props.globalCallback]) {
-        window[props.globalCallback]({
-            date: unixTimestamp.value,
-            enddate: toUnixTimestamp.value,
-            tzname: selectedTz.value,
-            tzoffset: moment.tz(selectedTz.offset).utcOffset(),
-        })
+const handleDatetimeChange = (value) => {
+    date.value = value;
+    if (props.goToURLOnChange || props.globalCallback) {
+        goToURLWithData(value, props.goToURLOnChange, unixTimestamp.value, toUnixTimestamp.value, selectedTz.value, props.globalCallback);
     }
 };
 
@@ -152,15 +155,7 @@ function getDefaultDate(fromTimestamp, toTimestamp) {
     return [fromTimestamp * 1000, toTimestamp * 1000];
 };
 
-function getUnixTimestamp(date) {
-    if (enableTimezonePicker && !props.timezone) {
-        return moment(date).unix();
-    }
-
-    const browserOffset = new Date().getTimezoneOffset() * 60;
-    const selectedTzOffset = moment.tz(selectedTz.value).utcOffset() * 60;
-    return moment(date).unix() + browserOffset + selectedTzOffset;
-};
+const getUnixTimestamp = (date) => convertToUnixTimestamp(date, Boolean(enableTimezonePicker && !props.timezone), selectedTz.value);
 
 function getTimezoneOffset(timezone) {
     const currentTime = moment.tz(timezone);
@@ -176,8 +171,5 @@ function getTimezoneOffset(timezone) {
     return offsetString;
 }
 
-const formatDate = (value) => {
-    const formatValue = (date) => format(date, enableTimePicker ? 'Pp': 'P', { locale: locale[props.language] });
-    return Array.isArray(value) ? value.map(formatValue).join(' - ') : formatValue(value);
-}
+const formatFn = (value) => formatDate(value, Boolean(props.enableTimePicker), locale[props.language]);
 </script>
