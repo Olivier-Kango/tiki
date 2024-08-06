@@ -113,7 +113,7 @@ class HtmlSelectTime extends Base
                 $selected = $time == '--' ? $hour_empty : \TikiLib::date_format($hour_fmt, $time);
             }
 
-            $html_result .= '<div class="col-auto"><select class="' . $class . '" name=';
+            $html_result .= '<div class="flex-fill"><select class="' . $class . '" name=';
 
             if (null !== $field_array) {
                 $html_result .= '"' . $field_array . '[' . $prefix . 'Hour]"';
@@ -197,7 +197,7 @@ class HtmlSelectTime extends Base
                 $selected = '0' . $selected;
             }
 
-            $html_result .= '<div class="col-auto"><select class="' . $class . '" name=';
+            $html_result .= '<div class="flex-fill"><select class="' . $class . '" name=';
             if (null !== $field_array) {
                 $html_result .= '"' . $field_array . '[' . $prefix . 'Minute]"';
             } else {
@@ -306,7 +306,7 @@ class HtmlSelectTime extends Base
             );
             $html_result .= "</select></div>\n";
         }
-        $html_result = "<div class='row gy-2 gx-3 align-items-center mb-3 html-select-time'>$html_result</div>";
+        $html_result = "<div class='d-flex gap-4 gy-2 gx-3 align-items-center'>$html_result</div>";
 
         $html_result = '<span dir="ltr">' . $html_result . '</span>';
         return $html_result;

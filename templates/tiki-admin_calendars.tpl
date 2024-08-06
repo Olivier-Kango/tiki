@@ -418,7 +418,7 @@
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}Start of day{/tr}
                 </label>
-                <div class="col">
+                <div class="col-sm-2">
                     {html_select_time prefix="startday_" time=$info.startday display_minutes=false display_seconds=false use_24_hours=$use_24hr_clock}
                 </div>
             </div>
@@ -426,7 +426,7 @@
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}End of day{/tr}
                 </label>
-                <div class="col">
+                <div class="col-sm-2">
                     {html_select_time prefix="endday_" time=$info.endday display_minutes=false display_seconds=false use_24_hours=$use_24hr_clock}
                 </div>
             </div>
