@@ -23,7 +23,7 @@ class Hm_Output_tiki_filters_cron extends Hm_Output_Module
     protected function output()
     {
         $factory = get_sieve_client_factory($this->get('site_config'));
-        $has_tiki_storage = array_filter($this->get('user_config')->get('imap_servers'), function ($mailbox) use ($factory) {
+        $has_tiki_storage = array_filter($this->get('user_config')->get('imap_servers', []), function ($mailbox) use ($factory) {
             $client = $factory->init($this->get('user_config'), $mailbox);
             if (method_exists($client, 'isTikiStorage') && $client->isTikiStorage()) {
                 return true;
@@ -73,7 +73,7 @@ class Hm_Handler_tiki_sieve_get_mailboxes_script extends Hm_Handler_Module
         }
         $mailboxes = [];
 
-        $servers = $this->user_config->get('imap_servers');
+        $servers = $this->user_config->get('imap_servers', []);
 
         $names = array_column($servers, 'name');
         $server_id = array_search($this->request->post['imap_account'], $names);
