@@ -1243,7 +1243,7 @@ class FileGalLib extends TikiLib
         }
         $info['filename'] = "$zipName.zip";
         $zip = $temp . $info['filename'];
-        define(PCZLIB_SEPARATOR, '\001');
+        define('PCZLIB_SEPARATOR', '\001');
         if (! $archive = new PclZip($zip)) {
             $error = $archive->errorInfo(true);
             return false;
