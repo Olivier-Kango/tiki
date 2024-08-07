@@ -2277,6 +2277,7 @@
         "umakantp/smartylint": ">=0.1.4",
         "undojs/undojs": "1",
         "vimeo/froogaloop": "1.0",
+        "web-auth/webauthn-lib": "^4.8.7",
         "webmozart/assert": ">=1.0.2",
         "webimpress/coding-standard": "^1.2.2",
         "webuni/commonmark-attributes-extension": "1.0.0",
