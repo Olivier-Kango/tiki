@@ -548,23 +548,6 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
 
                     $globalperms = Perms::get([ 'type' => 'file gallery', 'object' => $galleryId ]);
 
-                    if (
-                        $prefs['feature_draw'] == 'y' &&
-                        $globalperms->upload_files == 'y' &&
-                        ($file['filetype'] == $mimetypes["svg"] ||
-                        $file['filetype'] == $mimetypes["gif"] ||
-                        $file['filetype'] == $mimetypes["jpg"] ||
-                        $file['filetype'] == $mimetypes["png"] ||
-                        $file['filetype'] == $mimetypes["tiff"])
-                    ) {
-                        $editicon = smarty_function_icon(['name' => 'edit'], $smarty->getEmptyInternalTemplate());
-                        $ret .= " <a href='tiki-edit_draw.php?fileId=" . $file['fileId']
-                            . "' onclick='return $(this).ajaxEditDraw();' class='tips' title='Edit: " . $file['name']
-                            . "' data-fileid='" . $file['fileId'] . "' data-galleryid='" . $galleryId . "'>
-                            $editicon
-                        </a>";
-                    }
-
                     $viewicon = smarty_function_icon(['name' => 'view'], $smarty->getEmptyInternalTemplate());
 
                     if ($file['filetype'] == $mimetypes["pdf"] || (PDFHelper::canConvertToPDF($file['filetype']) && $prefs['fgal_convert_documents_pdf'] == 'y')) {
@@ -603,6 +586,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
                         $smarty->assign('menu_icon', $prefs['use_context_menu_icon']);
                         $smarty->assign('menu_text', $prefs['use_context_menu_text']);
                         $smarty->assign('file', $file);
+                        $smarty->assign('canUpload', $globalperms->upload_files);
                         $perms = Perms::get('file', $fileId);
                         $smarty->assign('canAssignPerms', $perms->assign_perm_file_gallery);
                         $text = $smarty->fetch('tracker/fileTrackerContextMenu.tpl');

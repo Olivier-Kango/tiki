@@ -85,7 +85,7 @@ function wikiplugin_draw($data, $params)
             return;
         }
 
-        $label = tra('Draw New SVG Image');
+        $label = tra('Draw New SVG Image in Gallery');
         $page = htmlentities($page, ENT_COMPAT);
         $content = htmlentities($data, ENT_COMPAT);
         $formId = "form$drawIndex";
@@ -101,51 +101,21 @@ function wikiplugin_draw($data, $params)
         usort($gals['data'], 'wp_draw_cmp');
         foreach ($gals['data'] as $gal) {
             if ($gal['name'] != "Wiki Attachments" && $gal['name'] != "Users File Galleries") {
-                $galHtml .= "<option value='" . $gal['id'] . "'>" . $gal['name'] . "</option>";
+                // While smarty_function_bootstrap_modal is available for such use cases, it doesn't fit in cases where the final html is generated as strings because there happens to be quotes not properly escaped.
+                $galHtml .= "<li><a class='dropdown-item' href='tiki-ajax_services.php?controller=draw&action=edit&galleryId=" . $gal['id'] . "&modal=1' data-tiki-bs-toggle=\"modal\" data-bs-backdrop=\"static\" data-bs-target=\".footer-modal.fade:not(.show):first\" data-size='modal-fullscreen'>" . $gal['name'] . "</a></li>";
             }
         }
 
-        $in = tr(" in ");
-
-        $headerlib->add_jq_onready(
-            <<<JQ
-            $('#newDraw$drawIndex').on("submit", function() {
-                var form = $(this);
-                var fields = form.serializeArray();
-                $.wikiTrackingDraw = {
-                    fileId: 0,
-                    page: '$page',
-                    index: '$drawIndex',
-                    label: '$label',
-                    type: 'draw',
-                    content: '',
-                    params: {
-                        width: '',
-                        height: '',
-                        id: 0 //this will be updated
-                    }
-                };
-                $.each(fields, function(i, field){
-                    form.data(field.name.toLowerCase(), field.value);
-                });
-
-                return form.ajaxEditDraw();
-            });
-JQ
-        );
         return <<<EOF
         ~np~
-        <form id="newDraw$drawIndex" method="get" action="tiki-edit_draw.php">
-            <p>
-                <input type="submit" class="btn btn-primary btn-sm" name="label" value="$label" class="newSvgButton" />$in
-                <select name="galleryId">
-                    $galHtml
-                </select>
-                <input type="hidden" name="index" value="$drawIndex"/>
-                <input type="hidden" name="page" value="$page"/>
-                <input type="hidden" name="archive" value="$archive"/>
-            </p>
-        </form>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                $label
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                $galHtml
+            </ul>
+        </div>
         ~/np~
 EOF;
     }
@@ -177,10 +147,9 @@ EOF;
 
         if ($globalperms->upload_files == 'y') {
             $editicon = smarty_function_icon(['name' => 'edit'], $smarty->getEmptyInternalTemplate());
-            $ret .= "<a href='tiki-edit_draw.php?fileId=$id&page=$page&index=$drawIndex&label=$label" .
+            $ret .= "<a title='$label' href='tiki-ajax_services.php?controller=draw&action=edit&modal=1&fileId=$id&page=$page&index=$drawIndex" .
                 (isset($width) ? "&width=$width" : "") . (isset($height) ? "&height=$height" : "") .
-                "' onclick='return $(this).ajaxEditDraw();'  title='Edit: " . $fileInfo['filename'] .
-                "' data-fileid='" . $fileInfo['fileId'] . "' data-galleryid='" . $fileInfo['galleryId'] . "'>" .
+                "' data-tiki-bs-toggle=\"modal\" data-bs-backdrop=\"static\" data-bs-target=\".footer-modal.fade:not(.show):first\" data-size='modal-fullscreen'  title='Edit: " . $fileInfo['filename'] . "'>" .
                 $editicon . "</a>";
         }
 

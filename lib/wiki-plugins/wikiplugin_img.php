@@ -1698,7 +1698,8 @@ function wikiplugin_img($data, $params)
                 $iconDisplayStyle = '';
             }
             $jsonParams = json_encode(array_filter($imgdata));
-            $repl .= "<a href=\"tiki-edit_draw.php?fileId={$imgdata['fileId']}\" onclick=\"return $(this).ajaxEditDraw();\" title=\""
+            // While smarty_function_bootstrap_modal is available for such use cases, it doesn't fit in cases where the final html is generated as strings because there happens to be quotes not properly escaped.
+            $repl .= "<a href='tiki-ajax_services.php?controller=draw&action=edit&fileId{$imgdata['fileId']}=&modal=1' data-tiki-bs-toggle='modal' data-bs-backdrop='static' data-bs-target='.footer-modal.fade:not(.show):first' data-size='modal-fullscreen' title=\""
                 . tr("Draw on the Image") . "\"" .
                 " class=\"editplugin pluginImgEdit{$imgdata['fileId']}\" data-fileid=\"{$imgdata['fileId']}\" " .
                 "data-galleryid=\"{$dbinfo['galleryId']}\"{$iconDisplayStyle} data-imgparams='$jsonParams'>" .

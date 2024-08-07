@@ -64,7 +64,7 @@
                     $file.type eq 'image/png'         or
                     $file.type eq 'image/tiff'
                 }
-                    <a class="draw dialog" data-name="{$file.filename}" title="{tr}Edit: {/tr}{$file.filename}" href="tiki-edit_draw.php?fileId={$file.id}&galleryId={$file.galleryId}" data-fileid='{$file.id}' data-galleryid='{$file.galleryId}' onclick='$(document).trigger("hideCluetip"); return $(this).ajaxEditDraw();'>
+                    <a class="draw dialog" data-name="{$file.filename}" title="{tr}Edit: {/tr}{$file.filename}" href="{bootstrap_modal controller=draw action=edit fileId=$file.id raw=true size='modal-fullscreen'}" data-fileid='{$file.id}' data-galleryid='{$file.galleryId}' onclick='$(document).trigger("hideCluetip");'>
                         {icon name='edit' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Edit{/tr}"}
                     </a>
                 {/if}

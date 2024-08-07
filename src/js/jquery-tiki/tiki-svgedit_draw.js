@@ -41,7 +41,7 @@ $.fn.replaceDraw = function (o) {
     } else {
         $.tikiModal(tr("Saving..."));
         $.post(
-            "tiki-edit_draw.php",
+            $.service("draw", "replace"),
             {
                 galleryId: o.galleryId,
                 fileId: o.fileId,
@@ -135,74 +135,72 @@ $.fn.loadDraw = function (o) {
 
     var drawFrame = $('<div id="svgedit" style="width:100%;height:100vh"></div>').appendTo(me);
 
-    $(document).ready(function () {
-        me.data("drawInstance", $.drawInstance)
-            .data("fileId", o.fileId ? o.fileId : 0)
-            .data("galleryId", o.galleryId ? o.galleryId : 0)
-            .data("imgParams", o.imgParams ? o.imgParams : {})
-            .data("name", o.name ? o.name : "");
+    me.data("drawInstance", $.drawInstance)
+        .data("fileId", o.fileId ? o.fileId : 0)
+        .data("galleryId", o.galleryId ? o.galleryId : 0)
+        .data("imgParams", o.imgParams ? o.imgParams : {})
+        .data("name", o.name ? o.name : "");
 
-        var svgEditor = new Editor(document.getElementById("svgedit"));
-        svgEditor.setConfig({
-            allowInitialUserOverride: true,
-            extensions: [],
-            noDefaultExtensions: true,
-            userExtensions: [],
-            canvas_expansion: 2,
-            lang: $.lang ? $.lang : "en",
-            imgPath: "node_modules/svgedit/dist/editor/images/",
-            extPath: "node_modules/svgedit/dist/editor/extensions/",
-        });
-        svgEditor.init();
+    var svgEditor = new Editor(document.getElementById("svgedit"));
+    svgEditor.setConfig({
+        allowInitialUserOverride: true,
+        extensions: [],
+        noDefaultExtensions: true,
+        userExtensions: [],
+        canvas_expansion: 2,
+        lang: $.lang ? $.lang : "en",
+        imgPath: "node_modules/svgedit/dist/editor/images/",
+        extPath: "node_modules/svgedit/dist/editor/extensions/",
+    });
+    svgEditor.init();
 
-        // Wait for the initialization and assignment of the svgCanvas within the svgEditor object.
-        var checkSvgCanvas = setInterval(function () {
-            if (svgEditor.svgCanvas) {
-                clearInterval(checkSvgCanvas);
-                me.data("editor", svgEditor);
+    // Wait for the initialization and assignment of the svgCanvas within the svgEditor object.
+    var checkSvgCanvas = setInterval(function () {
+        if (svgEditor.svgCanvas) {
+            clearInterval(checkSvgCanvas);
+            me.data("editor", svgEditor);
 
-                o.data = o.data.trim();
-                if (o.data && o.fileId.toString() !== "0") {
-                    me.data("editor").svgCanvas.setSvgString(o.data);
-                }
+            o.data = o.data.trim();
+            if (o.data && o.fileId.toString() !== "0") {
+                me.data("editor").svgCanvas.setSvgString(o.data);
+            }
 
-                me.data("editor").onbeforeunload = function () {};
+            me.data("editor").onbeforeunload = function () {};
 
-                $(window).on("beforeunload", function () {
-                    try {
-                        if (me.data("editor") && me.data("editor").svgCanvas.undoMgr.getUndoStackSize() > 1) {
-                            return tr("There are unsaved changes, leave page?");
-                        }
-                    } catch (e) {}
-                });
+            $(window).on("beforeunload", function () {
+                try {
+                    if (me.data("editor") && me.data("editor").svgCanvas.undoMgr.getUndoStackSize() > 1) {
+                        return tr("There are unsaved changes, leave page?");
+                    }
+                } catch (e) {}
+            });
 
-                drawFrame.height($(window).height() * 0.9);
-                $.drawInstance++;
+            drawFrame.height($(window).height() * 0.9);
+            $.drawInstance++;
 
-                me.trigger("loadedDraw");
+            me.trigger("loadedDraw");
 
-                $.getJSON(
-                    "tiki-ajax_services.php",
-                    {
-                        controller: "draw",
-                        action: "removeButtons",
-                    },
-                    function (data) {
-                        if (data.removeButtons) {
-                            if (!$.isArray(data.removeButtons)) data.removeButtons = data.removeButtons.split(",");
-                            for (let id in data.removeButtons) {
-                                me.data("doc")
-                                    .find("#" + data.removeButtons[id].trim())
-                                    .wrap('<div style="display:none;"/>');
-                            }
+            $.getJSON(
+                "tiki-ajax_services.php",
+                {
+                    controller: "draw",
+                    action: "removeButtons",
+                },
+                function (data) {
+                    if (data.removeButtons) {
+                        if (!$.isArray(data.removeButtons)) data.removeButtons = data.removeButtons.split(",");
+                        for (let id in data.removeButtons) {
+                            me.data("doc")
+                                .find("#" + data.removeButtons[id].trim())
+                                .wrap('<div style="display:none;"/>');
                         }
                     }
-                );
+                }
+            );
 
-                me.data("editor").updateCanvas();
-            }
-        }, 100);
-    });
+            me.data("editor").updateCanvas();
+        }
+    }, 100);
 
     return me;
 };

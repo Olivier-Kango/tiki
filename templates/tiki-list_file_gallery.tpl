@@ -157,7 +157,9 @@
                 {button _keepall='y' _icon_name="upload" _type="link" _text="{tr}Upload{/tr}" href="tiki-upload_file.php" galleryId=$galleryId}
             {/if}
             {if $tiki_p_upload_files eq 'y' and $prefs.feature_draw eq 'y'}
-                {button _keepall='y' _icon_name="post" _type="link" _text="{tr}Draw{/tr}" href="tiki-edit_draw.php" galleryId=$galleryId}
+                <a class="draw dialog"title="{tr}Draw{/tr}" href="{bootstrap_modal controller=draw action=edit galleryId=$galleryId size='modal-fullscreen'}">
+                    {icon name='post' alt="{tr}Post{/tr}"} {tr}Draw{/tr}
+                </a>
             {/if}
             {if $tiki_p_upload_files eq 'y' and $prefs.wikiplugin_diagram eq 'y'}
                 {button _keepall='y' _icon_name="chart" _type="link" _text="{tr}Create Diagram{/tr}" href="tiki-editdiagram.php" galleryId=$galleryId newDiagram='1'}

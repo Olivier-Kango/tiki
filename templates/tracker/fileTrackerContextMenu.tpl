@@ -3,6 +3,11 @@
         <a href="{$file.fileId|sefurl:display}" data-box="box-{$file.fileId}">
             {icon name='view' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Display{/tr}"}
         </a>
+        {if $canUpload eq 'y' and $prefs.feature_draw eq 'y'}
+            <a class="draw dialog" data-name="{$file.filename}" title="{tr}Edit: {/tr}{$file.filename}" href="{bootstrap_modal controller=draw action=edit fileId=$file.fileId raw=true size='modal-fullscreen'}" data-fileid='{$file.id}' data-galleryid='{$file.galleryId}' onclick='$(document).trigger("hideCluetip");'>
+                {icon name='edit' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Edit{/tr}"}
+            </a>
+        {/if}
     {/if}
     <a href="{$file.fileId|sefurl:display}">
         {icon name='eye' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Browser display{/tr} ({tr}Raw{/tr} / {tr}Download{/tr})"}
