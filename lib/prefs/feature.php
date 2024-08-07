@@ -698,7 +698,7 @@ function prefs_feature_list($partial = false)
                 'feature_wiki_paragraph_formatting_add_br',
             ],
             'tags' => ['deprecated'],
-            'warning' => tra('CKEditor is Deprecated: This feature will be removed after Tiki27 LTS'),
+            'warning' => tra('CKEditor4 is no longer supported.'),
         ],
 
         'feature_kaltura' => [
