@@ -8,11 +8,11 @@
 <form method="post" action="{service controller=tracker action=edit_field}">
     {accordion}
         {accordion_group title="{tr}General{/tr}"}
-        <div class="mb-3 row mx-0">
+        <div class="mb-3 mx-0">
             <label for="name" class="col-form-label">{tr}Name{/tr}</label>
             <input type="text" name="name" value="{$field.name|escape}" required="required" class="form-control">
         </div>
-        <div class="mb-3 row mx-0">
+        <div class="mb-3 mx-0">
             <label name="description" class="col-form-label">{tr}Description{/tr}</label>
             <textarea name="description" class="form-control">{$field.description|escape}</textarea>
         </div>
@@ -42,7 +42,7 @@
             {/if}
 
             {foreach from=$info.params key=param item=def}
-                <div class="mb-3 row mx-0">
+                <div class="mb-3 mx-0">
                     <label for="option~{$param|escape}" class="col-form-label">{$def.name|escape}</label>
                     {if $def.separator && $def.options}
                         <select multiple name="option~{$param|escape}[]" class="form-select">
@@ -118,7 +118,7 @@
         {/accordion_group}
 
         {accordion_group title="{tr}Validation{/tr}"}
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="validation_type" class="col-form-label">{tr}Type{/tr}</label>
                 <select name="validation_type" class="form-select">
                     {foreach from=$validation_types key=type item=label}
@@ -130,12 +130,12 @@
                 </select>
             </div>
 
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="validation_parameter" class="col-form-label">{tr}Parameters{/tr}</label>
                 <input type="text" name="validation_parameter" value="{$field.validationParam|escape}" class="form-control">
             </div>
 
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="validation_message" class="col-form-label">{tr}Error Message{/tr}</label>
                 <input type="text" name="validation_message" value="{$field.validationMessage|escape}" class="form-control">
             </div>
@@ -164,7 +164,7 @@
                 </div>
             </div>
 
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="visible_by" class="groupselector col-form-label">{tr}Visible by{/tr}</label>
                 <select multiple name="visible_by[]" id="visible_by" class="form-select">
                     {foreach from=$field.all_groups item=group}<option value="{$group|escape}" {if in_array($group, $field.visibleBy)}selected="selected"{/if}>{$group|escape}</option> {/foreach}
@@ -174,7 +174,7 @@
                 </div>
             </div>
 
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="editable_by" class="groupselector col-form-label">{tr}Editable by{/tr}</label>
                 <select multiple name="editable_by[]" id="editable_by" class="form-select">
                     {foreach from=$field.all_groups item=group}<option value="{$group|escape}" {if in_array($group, $field.editableBy)}selected="selected"{/if}>{$group|escape}</option> {/foreach}
@@ -184,14 +184,14 @@
                 </div>
             </div>
 
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="error_message" class="col-form-label">{tr}Error Message{/tr}</label>
                 <input type="text" name="error_message" value="{$field.errorMsg|escape}" class="form-control">
             </div>
         {/accordion_group}
 
         {accordion_group title="{tr}Advanced{/tr}"}
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="permName" class="col-form-label">{tr}Permanent name{/tr}</label>
                 <input type="text" name="permName" value="{$field.permName|escape}" pattern="[a-zA-Z0-9_]+" maxlength="{$permNameMaxAllowedSize}" class="form-control">
                 <div class="form-text">
@@ -199,7 +199,7 @@
                 </div>
             </div>
             {if $types}
-                <div class="mb-3 row mx-0">
+                <div class="mb-3 mx-0">
                     <label for="type" class="col-form-label">{tr}Field Type{/tr}</label>
                     <select name="type" data-original="{$field.type}" class="confirm-prompt form-select">
                         {foreach from=$types key=k item=info}
@@ -244,7 +244,7 @@ $('select[name=type]').on("change", function () {
                 </div>
             {/if}
             {if $prefs.feature_user_encryption eq 'y'}
-                <div class="mb-3 row mx-0">
+                <div class="mb-3 mx-0">
                     <label for="encryption_key_id" class="col-form-label">{tr}Encryption key{/tr}</label>
                     {help url="Encryption"}
                     <select name="encryption_key_id" data-original="{$field.encryptionKeyId}" class="confirm-prompt form-select">
@@ -264,7 +264,7 @@ $('select[name=type]').on("change", function () {
                     </div>
                 </div>
             {/if}
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="type" class="col-form-label">{tr}Exclude data and changes from email notifications{/tr}</label>
                 <select name="exclude_from_notification" class="form-select"  data-original="{$field.excludeFromNotification}">
                     <option value="0" {if $field.excludeFromNotification eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
@@ -274,21 +274,21 @@ $('select[name=type]').on("change", function () {
                     {tr}Data and changes to this field are not included in email notifications.{/tr}
                 </div>
             </div>
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="type" class="col-form-label">{tr}Visible in view mode{/tr}</label>
                 <select name="visible_in_view_mode" class="form-select"  data-original="{$field.visibleInViewMode}">
                     <option value="0" {if $field.visibleInViewMode eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     <option value="1" {if $field.visibleInViewMode eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                 </select>
             </div>
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="type" class="col-form-label">{tr}Visible in edit mode{/tr}</label>
                 <select name="visible_in_edit_mode" class="form-select"  data-original="{$field.visibleInEditMode}">
                     <option value="0" {if $field.visibleInEditMode eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     <option value="1" {if $field.visibleInEditMode eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                 </select>
             </div>
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
                 <label for="type" class="col-form-label">{tr}Visible in history mode{/tr}</label>
                 <select name="visible_in_history_mode" class="form-select"  data-original="{$field.visibleInHistoryMode}">
                     <option value="0" {if $field.visibleInHistoryMode eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
