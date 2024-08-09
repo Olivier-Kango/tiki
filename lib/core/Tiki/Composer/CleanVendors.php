@@ -160,8 +160,6 @@ class CleanVendors
                 'css3.html',
             ]
         );
-        // note, example files are required
-        self::remove($vendors . 'jquery-plugins/colorbox', 'content');
         self::remove(
             $vendors . 'jquery-plugins/galleriffic',
             [

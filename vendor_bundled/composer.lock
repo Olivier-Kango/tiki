@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a5a16ed77104b5049e30ff28aeb83e2",
+    "content-hash": "3675665c9c259de03ecfd7d6c4dce4a9",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2431,16 +2431,6 @@
             "type": "library"
         },
         {
-            "name": "jquery-plugins/colorbox",
-            "version": "1.6.4",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery-plugins/colorbox/jquery-plugins-colorbox-1.6.4.zip",
-                "shasum": "a566767e8994fbf4cd9df993a4db18530fb92ed0"
-            },
-            "type": "library"
-        },
-        {
             "name": "jquery-plugins/fitvidjs",
             "version": "1.2.0",
             "dist": {
@@ -4286,17 +4276,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.63.0",
+            "version": "2.64.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "ae4727c87825940be3f154101bffb80d8e0fa99a"
+                "reference": "9db115056b666b7540c951b6d4477b8e0b52b9ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-ae4727c87825940be3f154101bffb80d8e0fa99a-zip-01ac04.zip",
-                "reference": "ae4727c87825940be3f154101bffb80d8e0fa99a",
-                "shasum": "883b7cf303b93dac85f6d28b982fe2959b5b062d"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-9db115056b666b7540c951b6d4477b8e0b52b9ad-zip-61c80b.zip",
+                "reference": "9db115056b666b7540c951b6d4477b8e0b52b9ad",
+                "shasum": "b347f449cba37036f522a207074d2df471d3ff0a"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.21.0",
@@ -4358,7 +4348,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-07-31T08:16:38+00:00"
+            "time": "2024-08-01T09:32:54+00:00"
         },
         {
             "name": "lcobucci/clock",

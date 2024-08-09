@@ -326,6 +326,14 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jquery/dist",
                     },
                     {
+                        src: "node_modules/jquery-colorbox/jquery.colorbox-min.js",
+                        dest: "vendor_dist/jquery-colorbox",
+                    },
+                    {
+                        src: "node_modules/jquery-colorbox/example*", // Examples are used as themes in Tiki instead of the default Design of Colorbox.
+                        dest: "vendor_dist/jquery-colorbox",
+                    },
+                    {
                         src: "node_modules/sortablejs/modular/*",
                         dest: "vendor_dist/sortablejs/modular",
                     },

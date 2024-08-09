@@ -633,8 +633,8 @@ if ($prefs['feature_jquery_tagcanvas'] == 'y') {
 }
 
 if ($prefs['feature_shadowbox'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/colorbox/jquery.colorbox.js');
-    $headerlib->add_cssfile('vendor_bundled/vendor/jquery-plugins/colorbox/' . $prefs['jquery_colorbox_theme'] . '/colorbox.css');
+    $headerlib->add_jsfile(JS_ASSETS_PATH . '/vendor_dist/jquery-colorbox/jquery.colorbox-min.js');
+    $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/jquery-colorbox/' . $prefs['jquery_colorbox_theme'] . '/colorbox.css');
 }
 
 if ($prefs['jquery_timeago'] === 'y') {
