@@ -55,7 +55,7 @@ class Search_GlobalSource_CommentSource implements Search_GlobalSource_Interface
             // this gets appended to the global contents source, so we need memory at least double the length of the string
             $available = TikiLib::lib('tiki')->get_memory_avail();
             if ($available > 0 && strlen($data) > $available) {
-                $data = substr($data, 0, floor((strlen($data) + $available - 10 * 1024 * 1024) / 2);
+                $data = substr($data, 0, floor(strlen($data) + $available - 10 * 1024 * 1024) / 2);
             }
         }
         return [
