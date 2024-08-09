@@ -2807,8 +2807,11 @@ class TikiLib extends TikiDb_Bridge
             }
         }
 
-        foreach ($replace as $key => $body) {
-            $data = str_replace($key, $body, $data);
+        // Run twice to restore markers inside wiki plugins
+        for ($i = 0; $i < 2; $i++) {
+            foreach ($replace as $key => $body) {
+                $data = str_replace($key, $body, $data);
+            }
         }
 
         if ($notification) {
