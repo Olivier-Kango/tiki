@@ -40,19 +40,36 @@
                     </div>
                 {/if}
             {/if}
-
+            {assign var="groupInputCounter" value=0} {*  use to set different id to group's select multiple input *}
             {foreach from=$info.params key=param item=def}
                 <div class="mb-3 mx-0">
                     <label for="option~{$param|escape}" class="col-form-label">{$def.name|escape}</label>
-                    {if $def.separator && $def.options}
-                        <select multiple name="option~{$param|escape}[]" class="form-select">
-                            {foreach from=$def.options key=val item=label}
-                                <option value="{$label|escape}"
-                                    {if is_array($options[$param])}{if in_array($label, $options[$param])} selected="selected"{/if}{/if}>
-                                    {$label|escape}
-                                </option>
+                    {if $def.separator && $def.options && $def.profile_reference == 'group'}
+                        {assign var="groupInputCounter" value=$groupInputCounter+1}
+                        <select id="user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}" size="{$def.countgrps}" multiple name="option~{$param|escape}[]" class="form-select" style="width: 100%">
+                            {foreach from=$def.options["groupName"] key=val item=label}
+                                {if $label != 'Anonymous' && $label != 'Registered'}
+                                    <option value="{$def.options["groupId"][$val]|escape}"
+                                        {if is_array($options[$param]) && in_array($def.options.groupId[$val], $options[$param])}
+                                            selected="selected"
+                                        {/if}
+                                    >
+                                        {$label|escape}                    
+                                    </option>
+                                {/if}
                             {/foreach}
-                        </select>
+                    </select>
+                    {elseif $def.separator && $def.options}
+                        <select multiple name="option~{$param|escape}[]" class="form-select">
+                        {foreach from=$def.options key=val item=label}
+                            <option value="{$label|escape}" {if is_array($options[$param])}
+                                {if in_array($label, $options[$param])}
+                                    selected="selected" {/if}
+                                {/if}>
+                                {$label|escape}
+                            </option>
+                        {/foreach}
+                    </select>
                     {elseif $def.options}
                         <select name="option~{$param|escape}" class="form-select">
                             {foreach from=$def.options key=val item=label}
@@ -113,8 +130,16 @@
                     {/jq}
                     {/if}
                 </div>
+                {jq}
+                    var users{{$field.fieldId}} = {{$data.users|json_encode}};
+                    $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}").select2(); // Ensure Select2 is initialized
+                    $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}").on("change", function() {
+                        var $group_selector = $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}");
+                        var group_selected = $group_selector.val();
+                        $group_selector.val(group_selected).trigger("change.select2");
+                    }).trigger("change");
+                {/jq}
             {/foreach}
-
         {/accordion_group}
 
         {accordion_group title="{tr}Validation{/tr}"}
@@ -220,19 +245,19 @@
                             {/if}
                         </div>
                     {/foreach}
-{jq}
-$('select[name=type]').on("change", function () {
-    var descriptions = $(this).closest('.mb-3').
-            find('.form-text.field').
-            hide();
+                    {jq}
+                    $('select[name=type]').on("change", function () {
+                        var descriptions = $(this).closest('.mb-3').
+                                find('.form-text.field').
+                                hide();
 
-    if ($(this).val()) {
-        descriptions
-            .filter('.' + $(this).val())
-            .show();
-    }
-}).trigger("change");
-{/jq}
+                        if ($(this).val()) {
+                            descriptions
+                                .filter('.' + $(this).val())
+                                .show();
+                        }
+                    }).trigger("change");
+                    {/jq}
                     {if $prefs.tracker_change_field_type eq 'y'}
                         <div class="alert alert-danger">
                             {icon name="warning"} {tr}Changing the field type may cause irretrievable data loss - use with caution!{/tr}

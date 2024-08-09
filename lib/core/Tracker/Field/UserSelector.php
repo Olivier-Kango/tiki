@@ -14,6 +14,14 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
 {
     public static function getManagedTypesInfo(): array
     {
+        $all_groups = TikiLib::lib('user')->list_regular_groups();
+        $countgrps = count($all_groups) < 21 ? count($all_groups) : 20;
+        $groupsNameId = ["groupName" => [], "groupId" => []];
+        foreach ($all_groups as $group) {
+            $groupsNameId["groupName"][] = $group["groupName"];
+            $groupsNameId["groupId"][] = $group["id"];
+        }
+
         return [
             'u' => [
                 'name' => tr('User Selector'),
@@ -166,12 +174,22 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
                         'separator' => '|',
                         'filter' => 'int',
                         'legacy_index' => 2,
+                        'type' => 'list',
+                        'options' => $groupsNameId,
+                        'default' => '-1',
+                        'countgrps' => $countgrps,
+                        'profile_reference' => 'group',
                     ],
                     'canChangeGroupIds' => [
                         'name' => tr('Groups that can modify autoassigned values'),
                         'description' => tr('List of group IDs who can change this field, even without tracker_admin permission.'),
                         'separator' => '|',
                         'filter' => 'int',
+                        'type' => 'list',
+                        'options' => $groupsNameId,
+                        'default' => '-1',
+                        'countgrps' => $countgrps,
+                        'profile_reference' => 'group',
                     ],
                     'showRealname' => [
                         'name' => tr('Show real name if possible'),
