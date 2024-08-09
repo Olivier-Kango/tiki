@@ -1291,17 +1291,13 @@ window.onload = loadScript;');
         }
         */
 
-        if ($prefs['geo_openlayers_version'] === 'ol3') {
-            $this->add_jsfile_external('vendor_bundled/vendor/openlayers/openlayers/ol.js', true)
-                ->add_cssfile('vendor_bundled/vendor/openlayers/openlayers/ol.css')
-                ->add_jsfile_external('vendor_bundled/vendor/walkermatt/ol-layerswitcher/dist/ol-layerswitcher.js')
-                ->add_cssfile('vendor_bundled/vendor/walkermatt/ol-layerswitcher/src/ol-layerswitcher.css')
-                ->add_js(
-                    ''
-                );
-        } else {
-            $this->add_jsfile_external('lib/openlayers/OpenLayers.js', true);
-        }
+        $this->add_jsfile_external('vendor_bundled/vendor/openlayers/openlayers/ol.js', true)
+            ->add_cssfile('vendor_bundled/vendor/openlayers/openlayers/ol.css')
+            ->add_jsfile_external('vendor_bundled/vendor/walkermatt/ol-layerswitcher/dist/ol-layerswitcher.js')
+            ->add_cssfile('vendor_bundled/vendor/walkermatt/ol-layerswitcher/src/ol-layerswitcher.css')
+            ->add_js(
+                ''
+            );
 
         $this->add_js(
             '$(".map-container:not(.done)")

@@ -61,41 +61,6 @@
                 var format = new OpenLayers.Format.GeoJSON;
                 form.find('.feature-content').val(format.write(activeFeature));
             }
-            {{if $prefs.geo_openlayers_version eq 'ol2'}}
-                vlayer.events.on({
-                    featureadded: function (event) {
-                        var format = new OpenLayers.Format.GeoJSON;
-
-                        if (! event.feature.attributes.itemId && event.feature.attributes.intent !== 'marker') {
-                            if (activeFeature) {
-                                vlayer.removeFeatures([activeFeature]);
-                                activeFeature = null;
-                            }
-
-                            activeFeature = event.feature;
-                            saveFeature();
-                            form.trigger("submit");
-                        }
-                    },
-                    featuremodified: function (event) {
-                        if (event.feature === activeFeature) {
-                            saveFeature();
-                        }
-                    }
-                });
-                {{if !empty($edit_features.standardControls)}}
-                    modify = new OpenLayers.Control.ModifyFeature(vlayer, {
-                        mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
-                    });
-                    toolbar = new OpenLayers.Control.EditingToolbar(vlayer);
-                    toolbar.addControls([modify]);
-
-                    map.modeManager.addMode({
-                        name: 'Draw',
-                        controls: [ toolbar ]
-                    });
-                {{/if}}
-            {{/if}}
 
             form.on('insert', function (e, data) {
                 var form = this;

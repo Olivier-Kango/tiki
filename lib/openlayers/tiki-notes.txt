@@ -2,3 +2,7 @@ OpenLayers 2.12 distribution, stripped from development folders and debug versio
 (v2.13.1 wasn't compatible with the tiki implementation)
 
 theme/dark added
+
+=================================================================================
+
+As of August 7th, 2024, this folder is kept only for the use of its assets, and its JavaScript files are no longer used, having been removed in favor of OpenLayers 3.

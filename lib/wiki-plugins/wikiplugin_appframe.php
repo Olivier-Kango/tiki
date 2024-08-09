@@ -412,11 +412,6 @@ function wikiplugin_appframe_template($data, $params, $start)
 
 function wikiplugin_appframe_mapcontrol($data, $params, $start)
 {
-    global $prefs;
-
-    $ol2 = $prefs['geo_openlayers_version'] === 'ol2';
-
-
     static $counter = 0;
     $function = null;
     $control = null;
@@ -437,26 +432,24 @@ function wikiplugin_appframe_mapcontrol($data, $params, $start)
             }
             break;
         case 'select_feature':
-            $control = $ol2 ? 'new OpenLayers.Control.SelectFeature(vlayer)' : '';
+            $control = 'new OpenLayers.Control.SelectFeature(vlayer)';
             $label = tr('Select');
             break;
         case 'modify_feature':
-            $control = $ol2 ? 'new OpenLayers.Control.ModifyFeature(vlayer, {
+            $control = 'new OpenLayers.Control.ModifyFeature(vlayer, {
             mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
             standalone: true,
             virtualStyle: drawStyle,
             vertexRenderIntent: "vertex"
-        }), new OpenLayers.Control.SelectFeature(vlayer)' : '';
+        }), new OpenLayers.Control.SelectFeature(vlayer)';
             $label = tr('Select/Modify');
             break;
         case 'draw_polygon':
-            $control = $ol2 ?
-                'new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Polygon, {handlerOptions:{style:drawStyle}})' : '';
+            $control = 'new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Polygon, {handlerOptions:{style:drawStyle}})';
             $label = tr('Draw Polygon');
             break;
         case 'draw_path':
-            $control = $ol2 ?
-                'new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Path, {handlerOptions:{style:drawStyle}})' : '';
+            $control = 'new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Path, {handlerOptions:{style:drawStyle}})';
             $label = tr('Draw Path');
             break;
         case 'reset_zoom':

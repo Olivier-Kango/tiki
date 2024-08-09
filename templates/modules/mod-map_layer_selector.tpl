@@ -62,15 +62,6 @@
                 };
 
                 refreshLayers();
-                {{if $prefs.geo_openlayers_version eq 'ol2'}}
-                    map.map.events.register('addlayer', {}, refreshLayers);
-                    map.map.events.register('removelayer', {}, refreshLayers);
-                    map.map.events.register('changelayer', {}, refreshLayers);
-                    map.map.events.register('changebaselayer', {}, refreshLayers);
-                    $.each(map.map.getControlsByClass('OpenLayers.Control.LayerSwitcher'), function (k, c) {
-                        map.map.removeControl(c);
-                    });
-                {{/if}}
             });
         });
     });

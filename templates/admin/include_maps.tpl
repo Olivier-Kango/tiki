@@ -15,8 +15,6 @@
 
         {if $prefs.geo_enabled eq 'y'}
 
-            {preference name=geo_openlayers_version}
-
             {preference name=geo_tilesets}
             {preference name=geo_google_streetview}
             <div class="adminoptionboxchild" id="geo_google_streetview_childcontainer">

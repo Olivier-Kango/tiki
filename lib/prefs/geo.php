@@ -105,16 +105,6 @@ function prefs_geo_list()
                 ],
             'default' => 'street',
         ],
-        'geo_openlayers_version' => [
-            'name' => tr('OpenLayers version'),
-            'type' => 'list',
-            'dependencies' => ['geo_enabled'],
-            'options' => [
-                    'ol2' => tra('OpenLayers 2.x (for use up to at least 15.x)'),
-                    'ol3' => tra('OpenLayers 3+ (experimental)'),
-                ],
-            'default' => 'ol2',
-        ],
         'geo_bingmaps_key' => [
             'name' => tra('Bing Maps API Key'),
             'description' => tra('Needed for Bing Map Layers'),

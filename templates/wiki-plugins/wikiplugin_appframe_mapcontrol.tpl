@@ -29,10 +29,6 @@ $('#appframe .map-container').on('initialized', function () {
             controls.push({{$mapcontrol.control}});
         {{/if}}
 
-        {{if $mapcontrol.navigation and $prefs.geo_openlayers_version eq 'ol2'}}
-            controls.push(new OpenLayers.Control.NavToolbar());
-        {{/if}}
-
         mode = {{$mapcontrol.label|json_encode}};
         container.modeManager.addMode({
             name: {{$mapcontrol.label|json_encode}},
