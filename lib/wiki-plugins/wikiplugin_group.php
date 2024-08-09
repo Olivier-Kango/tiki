@@ -29,6 +29,16 @@ function wikiplugin_group_info()
                 'separator' => '|',
                 'profile_reference' => 'group',
             ],
+            'users' => [
+                'required' => false,
+                'name' => tra('Allowed Users'),
+                'description' => tra('Pipe separated list of users allowed to view the block.
+                    Example:') . ' <code>admin|johndoe|foo</code>',
+                'since' => '27',
+                'filter' => 'username',
+                'default' => '',
+                'separator' => '|',
+            ],
             'notgroups' => [
                 'required' => false,
                 'name' => tra('Denied Groups'),
@@ -95,6 +105,9 @@ function wikiplugin_group($data, $params)
     if (! empty($params['notgroups'])) {
         $notgroups = $params['notgroups'];
     }
+    if (! empty($params['users'])) {
+        $allowedUsers = $params['users'];
+    }
     $userPending = [];
     if (! empty($params['pending']) || ! empty($params['notpending'])) {
         $attributelib = TikiLib::lib('attribute');
@@ -122,7 +135,7 @@ function wikiplugin_group($data, $params)
         }
     }
 
-    if (empty($groups) && empty($notgroups) && empty($pending) && empty($notpending)) {
+    if (empty($groups) && empty($notgroups) && empty($pending) && empty($notpending) && empty($allowedUsers)) {
         return '';
     }
 
@@ -178,6 +191,20 @@ function wikiplugin_group($data, $params)
             return $dataelse;
         }
     }
-
+    if (! empty($allowedUsers)) {
+        $ok = false;
+        if (! empty($user)) {
+            if (in_array($user, $allowedUsers)) {
+                $ok = true;
+                $smarty->assign('userValid', 'y');
+            }
+        } else {
+            $ok = false;
+        }
+        $smarty->assign('userValid', 'n');
+        if (! $ok) {
+            return $dataelse;
+        }
+    }
     return $data;
 }
