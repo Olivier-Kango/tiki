@@ -928,7 +928,7 @@ class EditLib
             $node = $c[$i];
 
             // file reference content
-            if ($node['pars']['data-file-ref-id']) {
+            if (! empty($node['pars']['data-file-ref-id'])) {
                 // skip the following text node as we only need the id
                 $i++;
                 $src .= '((' . $node['pars']['data-file-ref-id']['value'] . '|file))';
