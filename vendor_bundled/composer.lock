@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3675665c9c259de03ecfd7d6c4dce4a9",
+    "content-hash": "25f2790b70652cb2cf10d631fc3052bb",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1149,23 +1149,23 @@
         },
         {
             "name": "dasprid/enum",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DASPRiD/Enum.git",
-                "reference": "6faf451159fb8ba4126b925ed2d78acfce0dc016"
+                "reference": "8dfd07c6d2cf31c8da90c53b83c026c7696dda90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/dasprid/enum/dasprid-enum-6faf451159fb8ba4126b925ed2d78acfce0dc016-zip-fe6c77.zip",
-                "reference": "6faf451159fb8ba4126b925ed2d78acfce0dc016",
-                "shasum": "e7f6e818b21ce6664f30ec75a9c871e504b72abc"
+                "url": "https://composer.tiki.org/dist/dasprid/enum/dasprid-enum-8dfd07c6d2cf31c8da90c53b83c026c7696dda90-zip-21110a.zip",
+                "reference": "8dfd07c6d2cf31c8da90c53b83c026c7696dda90",
+                "shasum": "735a20922eaa7a1958fd93bb4cc4810c1c13ad4f"
             },
             "require": {
                 "php": ">=7.1 <9.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7 | ^8 | ^9",
+                "phpunit/phpunit": "^7 || ^8 || ^9 || ^10 || ^11",
                 "squizlabs/php_codesniffer": "*"
             },
             "type": "library",
@@ -1191,7 +1191,7 @@
                 "enum",
                 "map"
             ],
-            "time": "2023-08-25T16:18:39+00:00"
+            "time": "2024-08-09T14:30:48+00:00"
         },
         {
             "name": "defuse/php-encryption",
@@ -2281,13 +2281,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "038a0da7a9ca5e775a2b0d41cfc13920f873df71"
+                "reference": "04e2b827020149231fdc54b8a2b8d8bb63692e02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-038a0da7a9ca5e775a2b0d41cfc13920f873df71-zip-fd77d7.zip",
-                "reference": "038a0da7a9ca5e775a2b0d41cfc13920f873df71",
-                "shasum": "cd8efb772de1d7a62e909219dd3b2495591b63d0"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-04e2b827020149231fdc54b8a2b8d8bb63692e02-zip-4c1c3f.zip",
+                "reference": "04e2b827020149231fdc54b8a2b8d8bb63692e02",
+                "shasum": "b1c9145ec9b072c42fbce88577a27e602c767579"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2353,7 +2353,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-07-31T12:24:14+00:00"
+            "time": "2024-08-09T10:14:48+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4226,29 +4226,29 @@
         },
         {
             "name": "laminas/laminas-uri",
-            "version": "2.11.0",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-uri.git",
-                "reference": "e662c685125061d3115906e5eb30f966842cc226"
+                "reference": "95a41a7592bacf4c648648a88b7c94b0c5c22b9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-e662c685125061d3115906e5eb30f966842cc226-zip-f60844.zip",
-                "reference": "e662c685125061d3115906e5eb30f966842cc226",
-                "shasum": "9a4c523131201c181526a53b477ca5c9032f24e9"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-95a41a7592bacf4c648648a88b7c94b0c5c22b9e-zip-8a1509.zip",
+                "reference": "95a41a7592bacf4c648648a88b7c94b0c5c22b9e",
+                "shasum": "e716871dd567be76e28edc3a5ed30454ca9abd85"
             },
             "require": {
                 "laminas/laminas-escaper": "^2.9",
                 "laminas/laminas-validator": "^2.39",
-                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "conflict": {
                 "zendframework/zend-uri": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.4.0",
-                "phpunit/phpunit": "^9.5.25"
+                "phpunit/phpunit": "^9.6.20"
             },
             "type": "library",
             "autoload": {
@@ -4272,7 +4272,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-10-18T09:56:55+00:00"
+            "time": "2024-08-03T21:22:51+00:00"
         },
         {
             "name": "laminas/laminas-validator",
@@ -5870,20 +5870,20 @@
         },
         {
             "name": "nette/utils",
-            "version": "v4.0.4",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "d3ad0aa3b9f934602cb3e3902ebccf10be34d218"
+                "reference": "736c567e257dbe0fcf6ce81b4d6dbe05c6899f96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/nette/utils/nette-utils-d3ad0aa3b9f934602cb3e3902ebccf10be34d218-zip-e0e33e.zip",
-                "reference": "d3ad0aa3b9f934602cb3e3902ebccf10be34d218",
-                "shasum": "964cfd1e8b9453724671b46cbc77d9de8bb59233"
+                "url": "https://composer.tiki.org/dist/nette/utils/nette-utils-736c567e257dbe0fcf6ce81b4d6dbe05c6899f96-zip-d41742.zip",
+                "reference": "736c567e257dbe0fcf6ce81b4d6dbe05c6899f96",
+                "shasum": "229730420d1c261c8c9c4eb6c58a56119bfa90c8"
             },
             "require": {
-                "php": ">=8.0 <8.4"
+                "php": "8.0 - 8.4"
             },
             "conflict": {
                 "nette/finder": "<3",
@@ -5948,7 +5948,7 @@
                 "utility",
                 "validation"
             ],
-            "time": "2024-01-17T16:50:36+00:00"
+            "time": "2024-08-07T15:39:19+00:00"
         },
         {
             "name": "nicolaskruchten/pivottable",
@@ -6105,12 +6105,59 @@
             "time": "2019-10-16T11:51:47+00:00"
         },
         {
-            "name": "npm-asset/babel--parser",
+            "name": "npm-asset/babel--helper-string-parser",
             "version": "7.24.8",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.24.8.zip",
-                "shasum": "646f3de7ffbabf58a6e50ead238970a923cd8fd8"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-string-parser/npm-asset-babel--helper-string-parser-7.24.8.zip",
+                "shasum": "8eda5d7f29ebfcbe7f0f898073f02b100ac0df81"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/babel--helper-validator-identifier",
+            "version": "7.24.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-validator-identifier/npm-asset-babel--helper-validator-identifier-7.24.7.zip",
+                "shasum": "8d1f4ca97471c96e4b03e1a8ad2e0362f534ff6f"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/babel--parser",
+            "version": "7.25.3",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.3.zip",
+                "shasum": "57ef76e7fdb5369d3c042de128d3d3f4ba1d49f7"
+            },
+            "require": {
+                "npm-asset/babel--types": ">=7.25.2,<8.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/babel--types",
+            "version": "7.25.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.25.2.zip",
+                "shasum": "b1b850e34534d9810f85c3cceb9ff871a229aa9f"
+            },
+            "require": {
+                "npm-asset/babel--helper-string-parser": ">=7.24.8,<8.0.0",
+                "npm-asset/babel--helper-validator-identifier": ">=7.24.7,<8.0.0",
+                "npm-asset/to-fast-properties": ">=2.0.0,<3.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -6357,19 +6404,6 @@
             "type": "npm-asset",
             "license": [
                 "ISC"
-            ]
-        },
-        {
-            "name": "npm-asset/popper.js",
-            "version": "1.16.1-patch1",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/popper-js/npm-asset-popper-js-1.16.1-patch1.zip",
-                "shasum": "f833083984ba48fa1c1cf9899c0585cd9c95bda1"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
             ]
         },
         {
@@ -6791,6 +6825,19 @@
             },
             "require": {
                 "npm-asset/utrie": ">=1.0.2,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/to-fast-properties",
+            "version": "2.0.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/to-fast-properties/npm-asset-to-fast-properties-2.0.0.zip",
+                "shasum": "bc8ee381b3c89ddf6d0ad4532767f21f5047c99b"
             },
             "type": "npm-asset",
             "license": [
@@ -15258,17 +15305,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.8",
+            "version": "1.11.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "6adbd118e6c0515dd2f36b06cde1d6da40f1b8ec"
+                "reference": "640410b32995914bde3eed26fa89552f9c2c082f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-6adbd118e6c0515dd2f36b06cde1d6da40f1b8ec-zip-51a7c7.zip",
-                "reference": "6adbd118e6c0515dd2f36b06cde1d6da40f1b8ec",
-                "shasum": "54662db7b51699e0d94f4bfce88c13e0bac159ba"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-640410b32995914bde3eed26fa89552f9c2c082f-zip-2d09f8.zip",
+                "reference": "640410b32995914bde3eed26fa89552f9c2c082f",
+                "shasum": "8d89133416014f3caeac371466221e521217cbe1"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15305,7 +15352,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-07-24T07:01:22+00:00"
+            "time": "2024-08-08T09:02:50+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
