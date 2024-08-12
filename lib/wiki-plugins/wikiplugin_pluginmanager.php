@@ -71,7 +71,7 @@ class WikiPluginPluginManager extends PluginsLib
             $aPlugins = $wikilib->list_plugins();
             $mod = false;
             $type = ' plugin';
-            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/lib/wiki-plugins/';
+            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/';
         }
         $all = $aPlugins;
         //if the user set $module, that setting has now been moved to $plugin so that one code set is used
