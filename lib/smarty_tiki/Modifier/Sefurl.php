@@ -115,13 +115,7 @@ class Sefurl
                         $title = $trklib->get_title_sefurl($source);
                     }
                 } else {
-                    if ($prefs['pwa_feature'] == 'y') {
-                        $trklib = \TikiLib::lib('trk');
-                        $item = $trklib->get_item_info($source);
-                        $href = 'tiki-ajax_services.php?controller=tracker&action=update_item&trackerId=' . $item['trackerId'] . '&itemId=' . $source;
-                    } else {
-                        $href = 'tiki-view_tracker_item.php?itemId=' . $source;
-                    }
+                    $href = 'tiki-view_tracker_item.php?itemId=' . $source;
                 }
                 break;
 
