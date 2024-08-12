@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25f2790b70652cb2cf10d631fc3052bb",
+    "content-hash": "5724d70795135ff01bde867c6fd815c5",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -6868,19 +6868,6 @@
             ]
         },
         {
-            "name": "npm-asset/ts-custom-error",
-            "version": "3.3.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/ts-custom-error/npm-asset-ts-custom-error-3.3.1.zip",
-                "shasum": "2d82684c14987b83f4f7db5d8f0465a7617aec4b"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/usertiming-compression",
             "version": "0.1.9",
             "dist": {
@@ -6949,22 +6936,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/npm-asset/w3c-keyname/npm-asset-w3c-keyname-2.2.4.zip",
                 "shasum": "3bf61da3fe418498809728cca115bfb05fb7e41e"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/zxing--library",
-            "version": "0.21.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/zxing--library/npm-asset-zxing--library-0.21.2.zip",
-                "shasum": "2322d8ba92ffc6dd2c8c1e96f1b836e8a38069f5"
-            },
-            "require": {
-                "npm-asset/ts-custom-error": ">=3.2.1,<4.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -8172,17 +8143,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.39",
+            "version": "3.0.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "211ebc399c6e73c225a018435fe5ae209d1d1485"
+                "reference": "621c73f7dcb310b61de34d1da4c4204e8ace6ceb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-211ebc399c6e73c225a018435fe5ae209d1d1485-zip-48c545.zip",
-                "reference": "211ebc399c6e73c225a018435fe5ae209d1d1485",
-                "shasum": "33de5e5754649b378083f3da387de45c820b2e92"
+                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-621c73f7dcb310b61de34d1da4c4204e8ace6ceb-zip-3ebed5.zip",
+                "reference": "621c73f7dcb310b61de34d1da4c4204e8ace6ceb",
+                "shasum": "d3e0f8ee1f10d0b69975c2f0cbd09da705922e7b"
             },
             "require": {
                 "paragonie/constant_time_encoding": "^1|^2|^3",
@@ -8274,7 +8245,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-24T06:27:33+00:00"
+            "time": "2024-08-12T00:13:54+00:00"
         },
         {
             "name": "phpxmlrpc/phpxmlrpc",
@@ -15143,13 +15114,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "b35316c5e05a70e694266278adbc02c37ed7f5e6"
+                "reference": "2b7b6e8f5d0ccae3bd41c25bcf1298884a5e1f62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-b35316c5e05a70e694266278adbc02c37ed7f5e6-zip-b2278e.zip",
-                "reference": "b35316c5e05a70e694266278adbc02c37ed7f5e6",
-                "shasum": "fe1e887f8e763c6d7946e226b7bc31ceb87c846b"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-2b7b6e8f5d0ccae3bd41c25bcf1298884a5e1f62-zip-8d7647.zip",
+                "reference": "2b7b6e8f5d0ccae3bd41c25bcf1298884a5e1f62",
+                "shasum": "e36e787750743befad42c4aa9e2809293b06dbd9"
             },
             "require": {
                 "php": ">=5.4",
@@ -15219,7 +15190,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-13T00:58:17+00:00"
+            "time": "2024-08-11T17:31:58+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -16049,17 +16020,17 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "5.0.1",
+            "version": "5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "2db5010a484d53ebf536087a70b4a5423c102372"
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sebastian/comparator/sebastian-comparator-2db5010a484d53ebf536087a70b4a5423c102372-zip-841976.zip",
-                "reference": "2db5010a484d53ebf536087a70b4a5423c102372",
-                "shasum": "4e43e8a01e759cb7231e5f63d10125f5504d5089"
+                "url": "https://composer.tiki.org/dist/sebastian/comparator/sebastian-comparator-2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53-zip-8fb960.zip",
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
+                "shasum": "eb385ea107c041bab57d941ce24748af12490e76"
             },
             "require": {
                 "ext-dom": "*",
@@ -16069,7 +16040,7 @@
                 "sebastian/exporter": "^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.3"
+                "phpunit/phpunit": "^10.4"
             },
             "type": "library",
             "extra": {
@@ -16117,7 +16088,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-14T13:18:12+00:00"
+            "time": "2024-08-12T06:03:08+00:00"
         },
         {
             "name": "sebastian/complexity",

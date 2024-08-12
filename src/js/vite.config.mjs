@@ -262,6 +262,10 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
                         dest: "vendor_dist/@fortawesome/webfonts",
                     },
+                    {
+                        src: "node_modules/@zxing/library/umd/index.min.js",
+                        dest: "vendor_dist/@zxing/library/umd/index.min.js",
+                    },
                     /* vue_widgets */
                     {
                         src: "node_modules/element-plus/dist/locale/*.min.mjs",

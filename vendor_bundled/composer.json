@@ -235,7 +235,6 @@
         "npm-asset/signature_pad": "^2.3.2",
         "npm-asset/toast-ui--editor": "^3.2.0",
         "npm-asset/vue": "^2.6",
-        "npm-asset/zxing--library": ">=0.17.0",
         "onelogin/php-saml": "^4.0.0",
         "openannotation/annotator": ">=1.2.10",
         "openlayers/openlayers": "^6.9",
