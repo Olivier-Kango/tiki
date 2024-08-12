@@ -57,21 +57,23 @@ function wikiplugin_preference($data, $params)
         return trim($prefName);
     }, $names);
 
-    $values = array_filter(array_combine(
-        array_values($names),
-        array_map(function ($name) use ($prefslib) {
-            $prefDetail = $prefslib->getPreference($name);
-            if (empty($_POST[$name]) && $prefDetail['type'] == 'flag') {
-                return 'n';
-            }
-            return $_POST[$name];
-        }, $names)
-    ), function ($val) {
-        return isset($val)  ;
-    }); // prevent un matched preferences
-    $lm_preference = array_filter($_POST['lm_preference'], function ($v) use ($values) {
-        return array_key_exists($v, $values) || in_array($v, $_POST['lm_reset']);
-    });
+    if (! empty($_POST[$name]) && ! empty($_POST['lm_preference'])) {
+        $values = array_filter(array_combine(
+            array_values($names),
+            array_map(function ($name) use ($prefslib) {
+                $prefDetail = $prefslib->getPreference($name);
+                if (empty($_POST[$name]) && $prefDetail['type'] == 'flag') {
+                    return 'n';
+                }
+                return $_POST[$name];
+            }, $names)
+        ), function ($val) {
+            return isset($val)  ;
+        }); // prevent un matched preferences
+        $lm_preference = array_filter($_POST['lm_preference'], function ($v) use ($values) {
+            return array_key_exists($v, $values) || in_array($v, $_POST['lm_reset']);
+        });
+    }
 
     if (isset($lm_preference)) { //edit
         $changes = $prefslib->applyChanges($lm_preference, array_merge($values, ['lm_reset' => $_POST['lm_reset']]));
