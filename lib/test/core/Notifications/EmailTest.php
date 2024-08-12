@@ -52,7 +52,7 @@ class EmailTest extends TestCase
 
         /** @var Comments $commentsLib */
         $commentsLib = TikiLib::lib('comments');
-        $forumId = $commentsLib->replace_forum(0, 'Test Forum');
+        $forumId = $commentsLib->replace_forum(['forumId' => 0, 'name' => 'Test Forum']);
 
         self::$objects['forums'][] = $forumId;
 
@@ -150,7 +150,7 @@ class EmailTest extends TestCase
      */
     public function testGetEmailThreadHeadersForBlogPosts()
     {
-        global $user;
+        $user = 'user';
 
         // make sure the threads pref is set
         $tikilib = TikiLib::lib('tiki');

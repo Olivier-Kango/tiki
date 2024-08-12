@@ -1147,223 +1147,198 @@ class Comments extends TikiLib
     }
 
     /**
-     * @param int $forumId
-     * @param int $parentId
-     * @param string $name
-     * @param string $description
-     * @param string $controlFlood
-     * @param int $floodInterval
-     * @param string $moderator
-     * @param string $mail
-     * @param string $useMail
-     * @param string $usePruneUnreplied
-     * @param int $pruneUnrepliedAge
-     * @param string $usePruneOld
-     * @param int $pruneMaxAge
-     * @param int $topicsPerPage
-     * @param string $topicOrdering
-     * @param string $threadOrdering
-     * @param string $section
-     * @param string $topics_list_reads
-     * @param string $topics_list_replies
-     * @param string $topics_list_pts
-     * @param string $topics_list_lastpost
-     * @param string $topics_list_author
-     * @param string $vote_threads
-     * @param string $show_description
-     * @param string $inbound_pop_server
-     * @param int $inbound_pop_port
-     * @param string $inbound_pop_user
-     * @param string $inbound_pop_password
-     * @param string $outbound_address
-     * @param string $outbound_mails_for_inbound_mails
-     * @param string $outbound_mails_reply_link
-     * @param string $outbound_from
-     * @param string $topic_smileys
-     * @param string $topic_summary
-     * @param string $ui_avatar
-     * @param string $ui_rating_choice_topic
-     * @param string $ui_flag
-     * @param string $ui_posts
-     * @param string $ui_level
-     * @param string $ui_email
-     * @param string $ui_online
-     * @param string $approval_type
-     * @param string $moderator_group
-     * @param string $forum_password
-     * @param string $forum_use_password
-     * @param string $att
-     * @param string $att_store
-     * @param string $att_store_dir
-     * @param int $att_max_size
-     * @param int $forum_last_n
-     * @param string $commentsPerPage
-     * @param string $threadStyle
-     * @param string $is_flat
-     * @param string $att_list_nb
-     * @param string $topics_list_lastpost_title
-     * @param string $topics_list_lastpost_avatar
-     * @param string $topics_list_author_avatar
-     * @param string $forumLanguage
-     * @return int
-     */
-    public function replace_forum(
-        $forumId = 0,
-        $name = '',
-        $description = '',
-        $controlFlood = 'n',
-        $floodInterval = 120,
-        $moderator = 'admin',
-        $mail = '',
-        $useMail = 'n',
-        $usePruneUnreplied = 'n',
-        $pruneUnrepliedAge = 2592000,
-        $usePruneOld = 'n',
-        $pruneMaxAge = 259200,
-        $topicsPerPage = 10,
-        $topicOrdering = 'lastPost_desc',
-        $threadOrdering = '',
-        $section = '',
-        $topics_list_reads = 'y',
-        $topics_list_replies = 'y',
-        $topics_list_pts = 'n',
-        $topics_list_lastpost = 'y',
-        $topics_list_author = 'y',
-        $vote_threads = 'n',
-        $show_description = 'n',
-        $inbound_pop_server = '',
-        $inbound_pop_port = 110,
-        $inbound_pop_user = '',
-        $inbound_pop_password = '',
-        $outbound_address = '',
-        $outbound_mails_for_inbound_mails = 'n',
-        $outbound_mails_reply_link = 'n',
-        $outbound_from = '',
-        $topic_smileys = 'n',
-        $topic_summary = 'n',
-        $ui_avatar = 'y',
-        $ui_rating_choice_topic = 'y',
-        $ui_flag = 'y',
-        $ui_posts = 'n',
-        $ui_level = 'n',
-        $ui_email = 'n',
-        $ui_online = 'n',
-        $approval_type = 'all_posted',
-        $moderator_group = '',
-        $forum_password = '',
-        $forum_use_password = 'n',
-        $att = 'att_no',
-        $att_store = 'db',
-        $att_store_dir = '',
-        $att_max_size = 1000000,
-        $forum_last_n = 0,
-        $commentsPerPage = '',
-        $threadStyle = '',
-        $is_flat = 'n',
-        $att_list_nb = 'n',
-        $topics_list_lastpost_title = 'y',
-        $topics_list_lastpost_avatar = 'n',
-        $topics_list_author_avatar = 'n',
-        $forumLanguage = '',
-        $parentId = 0
-    ) {
+     * Replaces or creates a forum with the given parameters.
+     *
+     * @param array $params {
+     *     An array of parameters for the forum.
+     *
+     *     @type int    $forumId                    The ID of the forum.
+     *     @type int    $parentId                   The ID of the parent forum.
+     *     @type string $name                       The name of the forum.
+     *     @type string $description                The description of the forum.
+     *     @type string $controlFlood               Indicates if flood control is enabled.
+     *     @type int    $floodInterval              The interval for flood control in seconds.
+     *     @type string $moderator                  The username of the moderator.
+     *     @type string $mail                       The email associated with the forum.
+     *     @type string $useMail                    Indicates if mail usage is enabled.
+     *     @type string $usePruneUnreplied          Indicates if pruning of unreplied topics is enabled.
+     *     @type int    $pruneUnrepliedAge          The age in seconds after which unreplied topics are pruned.
+     *     @type string $usePruneOld                Indicates if pruning of old topics is enabled.
+     *     @type int    $pruneMaxAge                The maximum age in seconds for topics before they are pruned.
+     *     @type int    $topicsPerPage              The number of topics per page.
+     *     @type string $topicOrdering              The ordering of topics.
+     *     @type string $threadOrdering             The ordering of threads.
+     *     @type string $section                    The section of the forum.
+     *     @type string $topics_list_reads          Indicates if read counts are displayed in topic list.
+     *     @type string $topics_list_replies        Indicates if reply counts are displayed in topic list.
+     *     @type string $topics_list_pts            Indicates if points are displayed in topic list.
+     *     @type string $topics_list_lastpost       Indicates if the last post is displayed in topic list.
+     *     @type string $topics_list_author         Indicates if the author is displayed in topic list.
+     *     @type string $vote_threads               Indicates if thread voting is enabled.
+     *     @type string $show_description           Indicates if the description is shown.
+     *     @type string $inbound_pop_server         The POP server for inbound mail.
+     *     @type int    $inbound_pop_port           The port for the inbound POP server.
+     *     @type string $inbound_pop_user           The user for the inbound POP server.
+     *     @type string $inbound_pop_password       The password for the inbound POP server.
+     *     @type string $outbound_address           The address for outbound mail.
+     *     @type string $outbound_mails_for_inbound_mails Indicates if outbound mails for inbound mails is enabled.
+     *     @type string $outbound_mails_reply_link  Indicates if outbound mails include a reply link.
+     *     @type string $outbound_from              The "from" address for outbound mails.
+     *     @type string $topic_smileys              Indicates if smileys are enabled in topics.
+     *     @type string $topic_summary              Indicates if topic summaries are enabled.
+     *     @type string $ui_avatar                  Indicates if avatars are displayed in the UI.
+     *     @type string $ui_rating_choice_topic     Indicates if rating choice is enabled for topics.
+     *     @type string $ui_flag                    Indicates if flagging is enabled in the UI.
+     *     @type string $ui_posts                   Indicates if post counts are displayed in the UI.
+     *     @type string $ui_level                   Indicates if levels are displayed in the UI.
+     *     @type string $ui_email                   Indicates if emails are displayed in the UI.
+     *     @type string $ui_online                  Indicates if online status is displayed in the UI.
+     *     @type string $approval_type              The type of approval for posts.
+     *     @type string $moderator_group            The group of moderators.
+     *     @type string $forum_password             The password for the forum.
+     *     @type string $forum_use_password         Indicates if a password is required for the forum.
+     *     @type string $att                        The attachment settings.
+     *     @type string $att_store                  The storage method for attachments.
+     *     @type string $att_store_dir              The directory for storing attachments.
+     *     @type int    $att_max_size               The maximum size for attachments.
+     *     @type int    $forum_last_n               The number of last topics to display.
+     *     @type string $commentsPerPage            The number of comments per page.
+     *     @type string $threadStyle                The style of the thread.
+     *     @type string $is_flat                    Indicates if the thread is flat.
+     *     @type string $att_list_nb                Indicates if the attachment list is numbered.
+     *     @type string $topics_list_lastpost_title Indicates if the title of the last post is displayed in the topic list.
+     *     @type string $topics_list_lastpost_avatar Indicates if the avatar of the last post is displayed in the topic list.
+     *     @type string $topics_list_author_avatar  Indicates if the avatar of the author is displayed in the topic list.
+     *     @type string $forumLanguage              The language of the forum.
+     *     @type int    $parentId                   The ID of the parent forum.
+     * }
+     * @return int The ID of the created or updated forum.
+    */
+
+    public function replace_forum(array $params)
+    {
 
         global $prefs;
 
-        if (! $forumId && empty($att_store_dir)) {
+        $defaults = [
+           'forumId' => 0,
+           'name' => '',
+           'description' => '',
+           'controlFlood' => 'n',
+           'floodInterval' => 120,
+           'moderator' => 'admin',
+           'mail' => '',
+           'useMail' => 'n',
+           'usePruneUnreplied' => 'n',
+           'pruneUnrepliedAge' => 2592000,
+           'usePruneOld' => 'n',
+           'pruneMaxAge' => 259200,
+           'topicsPerPage' => 10,
+           'topicOrdering' => 'lastPost_desc',
+           'threadOrdering' => '',
+           'section' => '',
+           'topics_list_reads' => 'y',
+           'topics_list_replies' => 'y',
+           'topics_list_pts' => 'n',
+           'topics_list_lastpost' => 'y',
+           'topics_list_author' => 'y',
+           'vote_threads' => 'n',
+           'show_description' => 'n',
+           'inbound_pop_server' => '',
+           'inbound_pop_port' => 110,
+           'inbound_pop_user' => '',
+           'inbound_pop_password' => '',
+           'outbound_address' => '',
+           'outbound_mails_for_inbound_mails' => 'n',
+           'outbound_mails_reply_link' => 'n',
+           'outbound_from' => '',
+           'topic_smileys' => 'n',
+           'topic_summary' => 'n',
+           'ui_avatar' => 'y',
+           'ui_rating_choice_topic' => 'y',
+           'ui_flag' => 'y',
+           'ui_posts' => 'n',
+           'ui_level' => 'n',
+           'ui_email' => 'n',
+           'ui_online' => 'n',
+           'approval_type' => 'all_posted',
+           'moderator_group' => '',
+           'forum_password' => '',
+           'forum_use_password' => 'n',
+           'att' => 'att_no',
+           'att_store' => 'db',
+           'att_store_dir' => '',
+           'att_max_size' => 1000000,
+           'forum_last_n' => 0,
+           'commentsPerPage' => '',
+           'threadStyle' => '',
+           'is_flat' => 'n',
+           'att_list_nb' => 'n',
+           'topics_list_lastpost_title' => 'y',
+           'topics_list_lastpost_avatar' => 'n',
+           'topics_list_author_avatar' => 'n',
+           'forumLanguage' => '',
+           'parentId' => 0
+        ];
+
+        if (! $params['forumId'] && empty($params['att_store_dir'])) {
             // Set new default location for forum attachments (only affect new forums for backward compatibility))
-            $att_store_dir = 'files/forums/';
+            $params['att_store_dir'] = 'files/forums/';
         }
 
-        $data = [
-            'name' => $name,
-            'parentId' => $parentId,
-            'description' => $description,
-            'controlFlood' => $controlFlood,
-            'floodInterval' => (int) $floodInterval,
-            'moderator' => $moderator,
-            'hits' => 0,
-            'mail' => $mail,
-            'useMail' => $useMail,
-            'section' => $section,
-            'usePruneUnreplied' => $usePruneUnreplied,
-            'pruneUnrepliedAge' => (int) $pruneUnrepliedAge,
-            'usePruneOld' => $usePruneOld,
-            'vote_threads' => $vote_threads,
-            'topics_list_reads' => $topics_list_reads,
-            'topics_list_replies' => $topics_list_replies,
-            'show_description' => $show_description,
-            'inbound_pop_server' => $inbound_pop_server,
-            'inbound_pop_port' => $inbound_pop_port,
-            'inbound_pop_user' => $inbound_pop_user,
-            'inbound_pop_password' => $inbound_pop_password,
-            'outbound_address' => $outbound_address,
-            'outbound_mails_for_inbound_mails' => $outbound_mails_for_inbound_mails,
-            'outbound_mails_reply_link' => $outbound_mails_reply_link,
-            'outbound_from' => $outbound_from,
-            'topic_smileys' => $topic_smileys,
-            'topic_summary' => $topic_summary,
-            'ui_avatar' => $ui_avatar,
-            'ui_rating_choice_topic' => $ui_rating_choice_topic,
-            'ui_flag' => $ui_flag,
-            'ui_posts' => $ui_posts,
-            'ui_level' => $ui_level,
-            'ui_email' => $ui_email,
-            'ui_online' => $ui_online,
-            'approval_type' => $approval_type,
-            'moderator_group' => $moderator_group,
-            'forum_password' => $forum_password,
-            'forum_use_password' => $forum_use_password,
-            'att' => $att,
-            'att_store' => $att_store,
-            'att_store_dir' => $att_store_dir,
-            'att_max_size' => (int) $att_max_size,
-            'topics_list_pts' => $topics_list_pts,
-            'topics_list_lastpost' => $topics_list_lastpost,
-            'topics_list_lastpost_title' => $topics_list_lastpost_title,
-            'topics_list_lastpost_avatar' => $topics_list_lastpost_avatar,
-            'topics_list_author' => $topics_list_author,
-            'topics_list_author_avatar' => $topics_list_author_avatar,
-            'topicsPerPage' => (int) $topicsPerPage,
-            'topicOrdering' => $topicOrdering,
-            'threadOrdering' => $threadOrdering,
-            'pruneMaxAge' => (int) $pruneMaxAge,
-            'forum_last_n' => (int) $forum_last_n,
-            'commentsPerPage' => $commentsPerPage,
-            'threadStyle' => $threadStyle,
-            'is_flat' => $is_flat,
-            'att_list_nb' => $att_list_nb,
-            'forumLanguage' => $forumLanguage,
+        $data = array_merge($defaults, $params);
+
+         // Ensure type casting for specific elements
+        $castIntKeys = [
+            'floodInterval',
+            'pruneUnrepliedAge',
+            'pruneMaxAge',
+            'topicsPerPage',
+            'forum_last_n',
+            'inbound_pop_port',
+            'att_max_size'
         ];
+
+        foreach ($castIntKeys as $key) {
+            if (isset($params[$key])) {
+                $data[$key] = (int)$data[$key];
+            }
+        }
 
         $forums = $this->table('tiki_forums');
 
-        if ($forumId) {
-            $oldData = $forums->fetchRow([], ['forumId' => (int) $forumId]);
-            $forums->update($data, ['forumId' => (int) $forumId]);
+        if (empty($params['name'])) {
+            // Set dynamic name
+            $numberOfRows = count($forums->fetchAll());
+            $data['name'] = 'Forum ' . ($numberOfRows + 1);
+        }
+
+        if ($params['forumId']) {
+            $oldData = $forums->fetchRow([], ['forumId' => (int) $params['forumId']]);
+            $forums->update($data, ['forumId' => (int) $params['forumId']]);
             $event = 'tiki.forum.update';
         } else {
             $oldData = null;
             $data['created'] = $this->now;
-            $forumId = $forums->insert($data);
+            $data['forumId'] = $forums->insert($data);
             $event = 'tiki.forum.create';
         }
 
         TikiLib::events()->trigger($event, [
             'type' => 'forum',
-            'object' => $forumId,
+            'object' => $data['forumId'],
             'user' => $GLOBALS['user'],
-            'title' => $name,
-            'description' => $description,
-            'forum_section' => $section,
+            'title' => $data['name'],
+            'description' => $data['description'],
+            'forum_section' => $data['section'],
         ]);
 
         //if the section changes, re-index forum posts to change section there as well
-        if ($prefs['feature_forum_post_index'] == 'y' && $oldData && $oldData['section'] != $section) {
-            $this->index_posts_by_forum($forumId);
+        if ($prefs['feature_forum_post_index'] == 'y' && $oldData && $oldData['section'] != $data['section']) {
+            $this->index_posts_by_forum($data['forumId']);
         }
 
-        return $forumId;
+        return $data['forumId'];
     }
 
     /**
@@ -3735,62 +3710,64 @@ class Comments extends TikiLib
     {
         $forum_info = $this->get_forum($forumId);
         $newForumId = $this->replace_forum(
-            0,
-            $name,
-            $description,
-            $forum_info['controlFlood'],
-            $forum_info['floodInterval'],
-            $forum_info['moderator'],
-            $forum_info['mail'],
-            $forum_info['useMail'],
-            $forum_info['usePruneUnreplied'],
-            $forum_info['pruneUnrepliedAge'],
-            $forum_info['usePruneOld'],
-            $forum_info['pruneMaxAge'],
-            $forum_info['topicsPerPage'],
-            $forum_info['topicOrdering'],
-            $forum_info['threadOrdering'],
-            $forum_info['section'],
-            $forum_info['topics_list_reads'],
-            $forum_info['topics_list_replies'],
-            $forum_info['topics_list_pts'],
-            $forum_info['topics_list_lastpost'],
-            $forum_info['topics_list_author'],
-            $forum_info['vote_threads'],
-            $forum_info['show_description'],
-            $forum_info['inbound_pop_server'],
-            $forum_info['inbound_pop_port'],
-            $forum_info['inbound_pop_user'],
-            $forum_info['inbound_pop_password'],
-            $forum_info['outbound_address'],
-            $forum_info['outbound_mails_for_inbound_mails'],
-            $forum_info['outbound_mails_reply_link'],
-            $forum_info['outbound_from'],
-            $forum_info['topic_smileys'],
-            $forum_info['topic_summary'],
-            $forum_info['ui_avatar'],
-            $forum_info['ui_rating_choice_topic'],
-            $forum_info['ui_flag'],
-            $forum_info['ui_posts'],
-            $forum_info['ui_level'],
-            $forum_info['ui_email'],
-            $forum_info['ui_online'],
-            $forum_info['approval_type'],
-            $forum_info['moderator_group'],
-            $forum_info['forum_password'],
-            $forum_info['forum_use_password'],
-            $forum_info['att'],
-            $forum_info['att_store'],
-            $forum_info['att_store_dir'],
-            $forum_info['att_max_size'],
-            $forum_info['forum_last_n'],
-            $forum_info['commentsPerPage'],
-            $forum_info['threadStyle'],
-            $forum_info['is_flat'],
-            $forum_info['att_list_nb'],
-            $forum_info['topics_list_lastpost_title'],
-            $forum_info['topics_list_lastpost_avatar'],
-            $forum_info['topics_list_author_avatar']
+            [
+                0,
+                $name,
+                $description,
+                $forum_info['controlFlood'],
+                $forum_info['floodInterval'],
+                $forum_info['moderator'],
+                $forum_info['mail'],
+                $forum_info['useMail'],
+                $forum_info['usePruneUnreplied'],
+                $forum_info['pruneUnrepliedAge'],
+                $forum_info['usePruneOld'],
+                $forum_info['pruneMaxAge'],
+                $forum_info['topicsPerPage'],
+                $forum_info['topicOrdering'],
+                $forum_info['threadOrdering'],
+                $forum_info['section'],
+                $forum_info['topics_list_reads'],
+                $forum_info['topics_list_replies'],
+                $forum_info['topics_list_pts'],
+                $forum_info['topics_list_lastpost'],
+                $forum_info['topics_list_author'],
+                $forum_info['vote_threads'],
+                $forum_info['show_description'],
+                $forum_info['inbound_pop_server'],
+                $forum_info['inbound_pop_port'],
+                $forum_info['inbound_pop_user'],
+                $forum_info['inbound_pop_password'],
+                $forum_info['outbound_address'],
+                $forum_info['outbound_mails_for_inbound_mails'],
+                $forum_info['outbound_mails_reply_link'],
+                $forum_info['outbound_from'],
+                $forum_info['topic_smileys'],
+                $forum_info['topic_summary'],
+                $forum_info['ui_avatar'],
+                $forum_info['ui_rating_choice_topic'],
+                $forum_info['ui_flag'],
+                $forum_info['ui_posts'],
+                $forum_info['ui_level'],
+                $forum_info['ui_email'],
+                $forum_info['ui_online'],
+                $forum_info['approval_type'],
+                $forum_info['moderator_group'],
+                $forum_info['forum_password'],
+                $forum_info['forum_use_password'],
+                $forum_info['att'],
+                $forum_info['att_store'],
+                $forum_info['att_store_dir'],
+                $forum_info['att_max_size'],
+                $forum_info['forum_last_n'],
+                $forum_info['commentsPerPage'],
+                $forum_info['threadStyle'],
+                $forum_info['is_flat'],
+                $forum_info['att_list_nb'],
+                $forum_info['topics_list_lastpost_title'],
+                $forum_info['topics_list_lastpost_avatar'],
+                $forum_info['topics_list_author_avatar']
+            ]
         );
 
         return $newForumId;
