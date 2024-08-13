@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm">
         {tr}Filter by group:{/tr}
         <select id="user_group_selector_{$field.fieldId}" multiple="multiple" class="form-select">
             {section name=ix loop=$data.groups}
@@ -7,16 +7,21 @@
             {/section}
         </select>
     </div>
-    <div class="col-sm-6">
-        {tr}Select user(s):{/tr}
-        <select name="{$field.ins_id}[]" id="user_selector_{$field.fieldId}" multiple="multiple" class="form-select">
-            {section name=ix loop=$data.selected_users}
-                <option value="{$data.selected_users[ix]}" selected>{if ($field.showRealname == 'y')}{$data.selected_users[ix]|username}{else}{$data.selected_users[ix]}{/if}</option>
-            {/section}
-        </select>
-        <input type="hidden" name="{$field.ins_id}[]" value="">
-        <p id="info" class="italic" style="font-style: italic; font-size: 0.8em; color: red"></p>
-    </div>
+    {if $field.options_map.inputtype === 't'}
+        <div class="mt-2" />
+        {jstransfer_list data=[] defaultSelected=$data.selected_users fieldName="{$field.ins_id}[]" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering}
+    {else}
+        <div class="col-sm-6">
+            {tr}Select user(s):{/tr}
+            <select name="{$field.ins_id}[]" id="user_selector_{$field.fieldId}" multiple="multiple" class="form-select">
+                {section name=ix loop=$data.selected_users}
+                    <option value="{$data.selected_users[ix]}" selected>{if ($field.showRealname == 'y')}{$data.selected_users[ix]|username}{else}{$data.selected_users[ix]}{/if}</option>
+                {/section}
+            </select>
+            <input type="hidden" name="{$field.ins_id}[]" value="">
+            <p id="info" class="italic" style="font-style: italic; font-size: 0.8em; color: red"></p>
+        </div>
+    {/if}
 </div>
 {jq}
     var users{{$field.fieldId}} = {{$data.users|json_encode}};
@@ -64,5 +69,16 @@
                 .appendTo($('#user_selector_{{$field.fieldId}}'));
         });
         $selector.val(selected).trigger("change.select2");
+        const fieldName = "{{$field.ins_id}}[]";
+        const elementPlusTransfer = document.querySelector("element-plus-ui[field-name=\'" + fieldName + "\']");
+        if (elementPlusTransfer?.shadowRoot) {
+            const selectedOptions = elementPlusTransfer.shadowRoot.querySelector("select[name=\'" + fieldName + "\']").selectedOptions;
+            const elementPlusTransferCopy = elementPlusTransfer.cloneNode(true);
+            elementPlusTransferCopy.setAttribute("data", JSON.stringify(group_users));
+            elementPlusTransferCopy.setAttribute("default-value", JSON.stringify([...selectedOptions].map(option => option.value).filter(value => group_users[value])));
+            elementPlusTransfer.replaceWith(elementPlusTransferCopy);
+        } else if (elementPlusTransfer) { // when the inner content hasn't been rendered yet by the scipt
+            elementPlusTransfer.setAttribute("data", JSON.stringify(group_users));
+        }
     }).trigger('change');
 {/jq}

@@ -6,7 +6,8 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import copy from "@guanghechen/rollup-plugin-copy";
 import {glob} from "glob";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
 /*
 
 Overarching principles:
@@ -116,6 +117,7 @@ export default defineConfig(({ command, mode }) => {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
         "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
         "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
+        "element-plus-ui": resolve(__dirname, "vue-widgets/element-plus-ui/src/element-plus-ui.ce.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
@@ -148,6 +150,7 @@ export default defineConfig(({ command, mode }) => {
                 // NOTE: Keep the list alphabetically sorted.
                 external: [
                     /^@vue-mf\/.+/,
+                    /^@vue-widgets\/.+/,
                     "@popperjs/core",
                     "bootstrap",
                     "clipboard",
@@ -189,7 +192,7 @@ export default defineConfig(({ command, mode }) => {
                 template: {
                     transformAssetUrls: {
                         base: "/public/generated/js/",
-                    },
+                    }
                 },
             }),
 
@@ -250,6 +253,11 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
                         dest: "vendor_dist/@fortawesome/webfonts",
+                    },
+                    /* vue_widgets */
+                    {
+                        src: "node_modules/element-plus/dist/locale/*.min.mjs",
+                        dest: "vendor_dist/element-plus/dist/locale",
                     },
                     /* common_externals */
                     {
@@ -362,6 +370,40 @@ export default defineConfig(({ command, mode }) => {
             }),
             /* Uncomment this in development to see which dependencies contribute to bundle size */
             //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
+            AutoImport({
+                // We don't use https://github.com/unplugin/unplugin-vue-components/resolvers because of https://github.com/vitest-dev/vitest/issues/1402 raised during the execution of the tests
+                resolvers: [
+                    (componentName) => {
+                        if(componentName.startsWith("El")) {
+                            return {
+                                name: componentName,
+                                from: `element-plus/dist/index.full.js`,
+                            };
+                        }
+                    }
+                ],
+            }),
+            Components({
+                resolvers: [
+                    (componentName) => {
+                        if(componentName.startsWith("El")) {
+                            return {
+                                name: componentName,
+                                from: `element-plus/dist/index.full.mjs`,
+                            };
+                        }
+                    }
+                ],
+            }),
         ],
+        test: {
+            include: ["src/js/vue-widgets/**/*.test.js"],
+            globals: true,
+            environment: "happy-dom",
+            coverage: {
+                include: ["src/js/{vue-widgets,vue-mf}/**/*.{vue,js}"],
+                exclude: ["**/*.ce.js"]
+            },
+        },
     };
 });

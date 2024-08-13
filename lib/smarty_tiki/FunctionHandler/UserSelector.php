@@ -169,6 +169,19 @@ class UserSelector extends Base
 
             asort($users, SORT_NATURAL | SORT_FLAG_CASE);
 
+            if ($params['inputtype'] === 't') {
+                return smarty_function_jstransfer_list([
+                    'fieldName' => $params['name'] . '[]',
+                    'data' => $users,
+                    'defaultSelected' => $params['select'],
+                    'sourceListTitle' => $params['sourceListTitle'],
+                    'targetListTitle' => $params['targetListTitle'],
+                    'filterable' => $params['filterable'],
+                    'filterPlaceholder' => $params['filterPlaceholder'],
+                    'ordering' => $params['ordering'],
+                ], $template);
+            }
+
             $ret .= '<select name="' . $params['name'] . ($params['multiple'] === 'true' ? '[]' : '') . '" id="' . $params['id'] . '"' . $sz . $ed . $mt . ' style="' . $params['style'] . '" class="form-control">';
             if ($params['allowNone'] === 'y') {
                 $ret .= '<option value=""' . (empty($params['user']) ? ' selected="selected"' : '') . ' >' . tra($params['noneLabel']) . '</option>';

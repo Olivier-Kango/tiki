@@ -1,14 +1,18 @@
-<select name="{$field.ins_id}" class="form-select">
-    {if $field.isMandatory ne 'y' || empty($field.value)}
-        <option value=""{if $field.value eq '' or $field.value eq 'None'} selected="selected"{/if}>&nbsp;</option>
-    {/if}
-    {if empty($field.itemChoices)}
-        <option value="Other"{if $field.value eq 'None'} selected="selected"{/if}{if $field.options_array[0] ne '1'} style="background: url('img/flags/Other.png') no-repeat;padding-left:25px;padding-bottom:3px;"{/if}>{tr}Other{/tr}</option>
-    {/if}
-
-    {foreach key=flagicon item=flag from=$field.flags}
-        {if $flagicon ne 'None' and $flagicon ne 'Other' and ( ! isset($field.itemChoices) || $field.itemChoices|@count eq 0 || in_array($flagicon, $field.itemChoices) )}
-            <option value="{$flagicon|escape}" {if $field.value eq $flagicon}selected="selected"{elseif $flagicon eq $field.defaultvalue}selected="selected"{/if}{if $field.options_array[0] ne '1'} style="background: url('img/flags/{$flagicon}.png') no-repeat;padding-left:25px;padding-bottom:3px;"{/if}>{$flag|escape}</option>
+{if $field.options_map.inputtype eq 't'}
+    {jstransfer_list data=$field.flags defaultSelected=$field.value fieldName="{$field.ins_id}[]" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering}
+{else}
+    <select class="form-select" {{if $field.options_map.multiple }}multiple="multiple" name="{$field.ins_id}[]" {else} name="{$field.ins_id}" {{/if}}>
+        {if $field.isMandatory ne 'y' || empty($field.value)}
+            <option value=""{if $field.value eq '' or $field.value eq 'None'} selected="selected"{/if}>&nbsp;</option>
         {/if}
-    {/foreach}
-</select>
+        {if empty($field.itemChoices)}
+            <option value="Other"{if $field.value eq 'None'} selected="selected"{/if}{if $field.options_array[0] ne '1'} style="background: url('img/flags/Other.png') no-repeat;padding-left:25px;padding-bottom:3px;"{/if}>{tr}Other{/tr}</option>
+        {/if}
+
+        {foreach key=flagicon item=flag from=$field.flags}
+            {if $flagicon ne 'None' and $flagicon ne 'Other' and ( ! isset($field.itemChoices) || $field.itemChoices|@count eq 0 || in_array($flagicon, $field.itemChoices) )}
+                <option value="{$flagicon|escape}" {if $field.value eq $flagicon or in_array($flagicon, $field.value)}selected="selected"{elseif $flagicon eq $field.defaultvalue}selected="selected"{/if}{if $field.options_array[0] ne '1'} style="background: url('img/flags/{$flagicon}.png') no-repeat;padding-left:25px;padding-bottom:3px;"{/if}>{$flag|escape}</option>
+            {/if}
+        {/foreach}
+    </select>
+{/if}

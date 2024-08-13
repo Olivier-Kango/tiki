@@ -93,8 +93,62 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tr
                         'options' => [
                             '' => tr('Multiple-selection checkboxes'),
                             'm' => tr('List box'),
+                            't' => tr('Transfer')
                         ],
                     ],
+                    'filterable' => [
+                        'name' => tr('Filterable'),
+                        'description' => tr('Allow the user to filter items within the transfer list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'filterPlaceholder' => [
+                        'name' => tr('Filter Placeholder'),
+                        'description' => tr('Placeholder text for the filter input'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'filterable',
+                            'value' => '1'
+                        ],
+                    ],
+                    'sourceListTitle' => [
+                        'name' => tr('Source List Title'),
+                        'description' => tr('Title for the source list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'targetListTitle' => [
+                        'name' => tr('Target List Title'),
+                        'description' => tr('Title for the target list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'ordering' => [
+                        'name' => tr('Ordering'),
+                        'description' => tr('Allow re-ordering of items in the list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ]
                 ],
             ],
         ];

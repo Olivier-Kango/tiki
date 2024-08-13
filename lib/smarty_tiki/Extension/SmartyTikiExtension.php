@@ -454,6 +454,9 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'jscalendar':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\JsCalendar();
                 break;
+            case 'jstransfer_list':
+                $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\JsTransferList();
+                break;
             case 'jspopup':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\JsPopup();
                 break;

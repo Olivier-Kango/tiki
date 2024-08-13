@@ -92,6 +92,74 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
                         ],
                         'default' => 0,
                     ],
+                    'inputtype' => [
+                        'name' => tr('Select Type'),
+                        'description' => tr('User interface control to be used.'),
+                        'default' => 'm',
+                        'filter' => 'alpha',
+                        'options' => [
+                            'm' => tr('List box'),
+                            't' => tr('Transfer')
+                        ],
+                        'depends' => [
+                            'field' => 'multiple',
+                            'value' => '0',
+                            'op' => '!=='
+                        ],
+                    ],
+                    'filterable' => [
+                        'name' => tr('Filterable'),
+                        'description' => tr('Allow the user to filter items within the transfer list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'filterPlaceholder' => [
+                        'name' => tr('Filter Placeholder'),
+                        'description' => tr('Placeholder text for the filter input'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'filterable',
+                            'value' => '1'
+                        ],
+                    ],
+                    'sourceListTitle' => [
+                        'name' => tr('Source List Title'),
+                        'description' => tr('Title for the source list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'targetListTitle' => [
+                        'name' => tr('Target List Title'),
+                        'description' => tr('Title for the target list'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
+                    'ordering' => [
+                        'name' => tr('Ordering'),
+                        'description' => tr('Allow re-ordering of items in the list'),
+                        'filter' => 'int',
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'depends' => [
+                            'field' => 'inputtype',
+                            'value' => 't'
+                        ],
+                    ],
                     'groupIds' => [
                         'name' => tr('Group IDs'),
                         'description' => tr('Limit the list of users to members of specific groups.'),
@@ -276,6 +344,12 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
                         'noneLabel' => ( empty($context['filter']) ? 'None' : '' ),
                         'groupIds' => $groupIds,
                         'realnames' => $realnames,
+                        'inputtype' => $this->getOption('inputtype'),
+                        'filterable' => $this->getOption('filterable'),
+                        'filterPlaceholder' => $this->getOption('filterPlaceholder'),
+                        'sourceListTitle' => $this->getOption('sourceListTitle'),
+                        'targetListTitle' => $this->getOption('targetListTitle'),
+                        'ordering' => $this->getOption('ordering'),
                     ],
                     $smarty->getEmptyInternalTemplate()
                 );

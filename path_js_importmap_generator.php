@@ -41,9 +41,12 @@ function generateJsImportmapScripts()
                 "@vue-mf/kanban" => $tikiroot . JS_ASSETS_PATH . "/kanban.js",
                 "@vue-mf/duration-picker" => $tikiroot . JS_ASSETS_PATH . "/duration-picker.js",
                 "@vue-mf/toolbar-dialogs" => $tikiroot . JS_ASSETS_PATH . "/toolbar-dialogs.js",
-                "@vue-mf/emoji-picker" => $tikiroot . JS_ASSETS_PATH . "/emoji-picker.js"
+                "@vue-mf/emoji-picker" => $tikiroot . JS_ASSETS_PATH . "/emoji-picker.js",
+                /* vue widgets */
+                "@vue-widgets/datetime-picker" => $tikiroot . JS_ASSETS_PATH . "/datetime-picker.js",
+                "@vue-widgets/element-plus-ui" => $tikiroot . JS_ASSETS_PATH . "/element-plus-ui.js",
             ]
-            ];
+        ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
     $esModuleShimsSrc = $tikiroot . NODE_PUBLIC_DIST_PATH . "/es-module-shims/dist/es-module-shims.js";
     $html = <<<HTML
