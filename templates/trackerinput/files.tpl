@@ -370,8 +370,7 @@
                     error: function (jqxhr) {
                     },
                     complete: function () {
-                        $(window).data("elFinderDialog").dialog("close");
-                        $($(window).data("elFinderDialog")).remove();
+                        bootstrap.Modal.getInstance($(window).data("elFinderDialog")).hide();
                         $(window).data("elFinderDialog", null);
                         return false;
                     }

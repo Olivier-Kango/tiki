@@ -30,24 +30,7 @@ class ToolbarDialog extends ToolbarItem
                 $wysiwyg = '';  // cke link dialog now adapted for wiki links
                 $markdown = 'tikilink';
                 $markdown_wysiwyg = 'tikilink';
-                $list = [
-                    tra("Wiki Link"),
-                    '<label for="tbWLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" id="tbWLinkDesc" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    '<label for="tbWLinkPage">' . tra("Link to this page") . '</label>',
-                    '<input type="text" id="tbWLinkPage" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    $prefs['wikiplugin_alink'] == 'y' ? '<label for="tbWLinkAnchor">' . tra(
-                        "Anchor"
-                    ) . ':</label>' : '',
-                    $prefs['wikiplugin_alink'] == 'y' ? '<input type="text" id="tbWLinkAnchor" class="form-control form-control-sm  mb-2 ui-widget-content ui-corner-all" style="width: 98%" />' : '',
-                    $prefs['feature_semantic'] == 'y' ? '<label for="tbWLinkRel">' . tra(
-                        "Semantic relation"
-                    ) . ':</label>' : '',
-                    $prefs['feature_semantic'] == 'y' ? '<input type="text" id="tbWLinkRel" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />' : '',
-                    '{"open": function () { dialogInternalLinkOpen(area_id, clickedElement); },
-                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Insert") . '": function() { dialogInternalLinkInsert(area_id,this); }}}',
-                ];
+                ;
 
                 break;
             case 'objectlink':
@@ -62,34 +45,6 @@ class ToolbarDialog extends ToolbarItem
                 $wysiwyg = '';
 
                 $smarty = TikiLib::lib('smarty');
-                $object_selector = smarty_function_object_selector(
-                    [
-                       '_id'        => 'tbOLinkObjectSelector',
-                       '_class'     => 'ui-widget-content ui-corner-all',
-                       //              '_format' => '{title}',
-                       '_filter'    => ['type' => ''],
-                       '_parent'    => 'tbOLinkObjectType',
-                       '_parentkey' => 'type',
-                        ],
-                    $smarty->getEmptyInternalTemplate()
-                );
-
-                $list = [
-                    tra('Object Link'),
-                    '<label for="tbOLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" class="form-control form-control-sm ui-widget-content ui-corner-all" id="tbOLinkDesc" />',
-                    '<label for="tbOLinkObjectType">' . tra("Types of object") . '</label>',
-                    '<select id="tbOLinkObjectType" class="form-control form-control-sm mb-2  ui-widget-content ui-corner-all" style="width: 98%">' .
-                    '<option value="*">' . tra('All') . '</option>' .
-                    $options .
-                    '</select>',
-                    '<label for="tbOLinkObjectSelector">' . tra("Link to this object") . '</label>',
-                    $object_selector,
-                    //                      '<input type="text" id="tbOLinkObjectSelector" class="ui-widget-content ui-corner-all" style="width: 98%" />',
-                    '{"open": function () { dialogObjectLinkOpen(area_id); },
-                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Insert") . '": function() { dialogObjectLinkInsert(area_id,this); }}}',
-                ];
 
                 break;
             case 'link':
@@ -100,21 +55,6 @@ class ToolbarDialog extends ToolbarItem
                 $icon = tra('img/icons/world_link.png');
                 $markdown = 'link';
                 $markdown_wysiwyg = 'link';
-                $list = [
-                    tra('External Link'),
-                    '<label for="tbLinkDesc">' . tra("Show this text") . '</label>',
-                    '<input type="text" id="tbLinkDesc" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    '<label for="tbLinkURL">' . tra("link to this URL") . '</label>',
-                    '<input type="text" id="tbLinkURL" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    '<label for="tbLinkRel">' . tra("Relation") . ':</label>',
-                    '<input type="text" id="tbLinkRel" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" style="width: 98%" />',
-                    $prefs['cachepages'] == 'y' ? '<div class="form-check mt-2"><input type="checkbox" id="tbLinkNoCache" class="form-check-input ui-widget-content ui-corner-all" />' . '<label for="tbLinkNoCache" class="form-check-label">' . tra(
-                        "No cache"
-                    ) . ':</label>' : '',
-                    '{"width": 300, "open": function () { dialogExternalLinkOpen( area_id ) },
-                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Insert") . '": function() { dialogExternalLinkInsert(area_id,this) }}}',
-                ];
                 break;
 
             case 'table':
@@ -125,34 +65,6 @@ class ToolbarDialog extends ToolbarItem
                 $markdown = 'table';
                 $markdown_wysiwyg = 'table';
                 $label = tra('Table Builder');
-                $list = [
-                    tra('Table Builder'),
-                    '{"open": function () { dialogTableOpen(area_id,this); },
-                        "width": 320, "buttons": { "' . tra(
-                        "Cancel"
-                    ) . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Insert") . '": function() { dialogTableInsert(area_id,this); }}}',
-                ];
-                break;
-
-            case 'find':
-                $icon = tra('img/icons/find.png');
-                $iconname = 'search';
-                $wysiwyg = 'Find';
-                $markdown = ''; // TODO
-                $label = tra('Find Text');
-                $list = [
-                    tra('Find Text'),
-                    '<label>' . tra("Search") . ':</label>',
-                    '<input type="text" id="tbFindSearch" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" />',
-                    '<div class="form-check mt-2"><input type="checkbox" id="tbFindCase" checked="checked" class="form-check-input" />' . '<label for="tbFindCase" class="form-check-label">' . tra("Case Insensitivity") . '</label></div>',
-                    '<p class="description">' . tra("Note: Uses regular expressions") . '</p>',
-                    // TODO add option to not
-                    '{"open": function() { dialogFindOpen(area_id); },' .
-                    '"buttons": { "' . tra("Close") . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Find") . '": function() { dialogFindFind(area_id); }}}',
-                ];
-
                 break;
 
             case 'replace':
@@ -162,21 +74,6 @@ class ToolbarDialog extends ToolbarItem
                 $markdown = ''; // TODO
                 $label = tra('Text Replace');
                 $tool_prefs[] = 'feature_wiki_replace';
-
-                $list = [
-                    tra('Text Replace'),
-                    '<label for="tbReplaceSearch">' . tra("Search") . ':</label>',
-                    '<input type="text" id="tbReplaceSearch" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all" />',
-                    '<label for="tbReplaceReplace">' . tra("Replace") . ':</label>',
-                    '<input type="text" id="tbReplaceReplace" class="form-control form-control-sm mb-2 ui-widget-content ui-corner-all clearfix" />',
-                    '<div class="form-check mb-2"><input type="checkbox" id="tbReplaceCase" checked="checked" class="form-check-input" />' . '<label for="tbReplaceCase" class="form-check-label">' . tra("Case Insensitivity") . '</label></div>',
-                    '<div class="form-check mb-2"><input type="checkbox" id="tbReplaceAll" checked="checked" class="form-check-input" />' . '<label for="tbReplaceAll" class="form-check-label">' . tra("Replace All") . '</label></div>',
-                    '<p class="description">' . tra("Note: Uses regular expressions") . '</p>',
-                    // TODO add option to not
-                    '{"open": function() { dialogReplaceOpen(area_id); },' .
-                    '"buttons": { "' . tra("Close") . '": function() { dialogSharedClose(area_id,this); },' .
-                    '"' . tra("Replace") . '": function() { dialogReplaceReplace(area_id); }}}',
-                ];
 
                 break;
 
@@ -196,7 +93,6 @@ class ToolbarDialog extends ToolbarItem
             ->setLabel($label)
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setIcon(! empty($icon) ? $icon : 'img/icons/shading.png')
-            ->setList($list)
             ->setType('Dialog')
             ->setClass('qt-picker')
             ->setDomElementId($domElementId);
@@ -263,13 +159,6 @@ class ToolbarDialog extends ToolbarItem
 
     public function getWikiHtml(): string
     {
-        $headerlib = TikiLib::lib('header');
-        $headerlib->add_js(
-            "if (! window.dialogData) { window.dialogData = {}; } window.dialogData[$this->index] = "
-            . json_encode($this->list) . ";",
-            1 + $this->index
-        );
-
         return '<span id="' . $this->singleSpaDomId . '" class="toolbar-dialogs"></span>';
     }
 
@@ -285,10 +174,6 @@ class ToolbarDialog extends ToolbarItem
     public function getWysiwygToken(): string
     {
         if (! empty($this->wysiwyg)) {
-            TikiLib::lib('header')->add_js(
-                "window.dialogData[$this->index] = " . json_encode($this->list) . ";",
-                1 + $this->index
-            );
             $onClick = str_replace('\'' . $this->domElementId . '\'', 'editor.name', $this->getOnClick());
             $this->setupCKEditorTool($onClick);
         }
