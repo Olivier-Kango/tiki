@@ -83,10 +83,23 @@ class PdfGenerator
     }
 
     /**
-     * @param $file
-     * @param array $params
-     * @return mixed
+     * Generates a PDF from the specified file and parameters.
+     *
+     * @param $file *The template file to be rendered into PDF.
+     * @param array $params *The parameters to be passed to the template.
+     * @param  $pdata *The pre-rendered content to be converted to PDF.
+     *                      The original implementation requires rendering a
+     *                      template, retrieving its contents, and passing it to
+     *                      this method as `$pdata`—the only way to do so at the
+     *                      moment. The `getPdf` method works fine for wiki pages,
+     *                      but for other content types, you must pass the rendered
+     *                      content as `$pdata`.
+     *                      A refactor could allow the underlying rendering method
+     *                      to choose how to render the content, but that's a larger
+     *                      project.
+     * @return mixed *The generated PDF content.
      */
+
     public function getPdf($file, array $params, $pdata = '')
     {
         return TikiLib::lib('tiki')->allocate_extra(

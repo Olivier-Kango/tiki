@@ -422,24 +422,27 @@ if (! empty($_REQUEST['view_atts']) && $_REQUEST['view_atts'] == 'y') {
 if (isset($_REQUEST['display'])) {
     // Remove icons and actions that should not be printed
     $prefs['forum_thread_user_settings'] = 'n';
+    $forum_settings = array_fill_keys([
+        'thread_show_comment_footers',
+        'thread_show_pagination',
+        'tiki_p_forum_post',
+        'tiki_p_admin_forum',
+        'tiki_p_forum_edit_own_posts',
+        'tiki_p_notepad'
+    ], 'n');
     $smarty->assign('display', $_REQUEST['display']);
-    $smarty->assign('thread_show_comment_footers', 'n');
-    $smarty->assign('thread_show_pagination', 'n');
-    $smarty->assign('tiki_p_forum_post', 'n');
-    $smarty->assign('tiki_p_admin_forum', 'n');
-    $smarty->assign('tiki_p_forum_edit_own_posts', 'n');
-    $smarty->assign('tiki_p_notepad', 'n');
+    $smarty->assign($forum_settings);
     // Display the forum messages
     $smarty->assign('mid', 'tiki-print_forum_thread.tpl');
     // Allow PDF export by installing a Mod that define an appropriate function
     if ($_REQUEST['display'] == 'pdf') {
-        require_once 'lib/pdflib.php';
+        $pdata = $smarty->fetch("tiki-print_forum_thread.tpl");
         $generator = new PdfGenerator();
         if (! empty($generator->error)) {
             Feedback::error($generator->error);
             $access->redirect($_SERVER['HTTP_REFERER']);
         } else {
-            $pdf = $generator->getPdf('tiki-view_forum_thread.php', ['display' => 'print', 'comments_parentId' => $_REQUEST['comments_parentId'], 'forumId' => $forumId]);
+            $pdf = $generator->getPdf('tiki-view_forum_thread.php', ['display' => 'print', 'comments_parentId' => $_REQUEST['comments_parentId'], 'forumId' => $forumId], $pdata);
             header('Cache-Control: private, must-revalidate');
             header('Pragma: private');
             header("Content-Description: File Transfer");
