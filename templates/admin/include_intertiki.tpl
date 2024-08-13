@@ -163,7 +163,7 @@
                                                     <input type="text" class="form-control" id="known_hosts_contact" name="known_hosts[{$k}][contact]" value="{$i.contact}">
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" class="form-control" id="known_hosts_can_register" name="known_hosts[{$k}][allowusersregister]" {if isset($i.allowusersregister) && $i.allowusersregister eq 'y'}checked="checked"{/if} />
+                                                    <input type="checkbox" class="form-check-input" id="known_hosts_can_register" name="known_hosts[{$k}][allowusersregister]" {if isset($i.allowusersregister) && $i.allowusersregister eq 'y'}checked="checked"{/if} />
                                                 </td>
                                             </tr>
                                         {/foreach}
