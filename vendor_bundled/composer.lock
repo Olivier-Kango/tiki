@@ -2003,17 +2003,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "d013d044059ea7141ad69b874eba5fb577f3da11"
+                "reference": "3590d0fdb708b8daaf6056347dbc7644a8b4b335"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-d013d044059ea7141ad69b874eba5fb577f3da11-zip-c2d8ff.zip",
-                "reference": "d013d044059ea7141ad69b874eba5fb577f3da11",
-                "shasum": "c4a6a08f6a8c70c585d51b72675e09feea6b5e49"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-3590d0fdb708b8daaf6056347dbc7644a8b4b335-zip-c7b635.zip",
+                "reference": "3590d0fdb708b8daaf6056347dbc7644a8b4b335",
+                "shasum": "c9f0178329e0c1cffd34cf20f5bed52138dc367e"
             },
             "require": {
                 "php": ">=5.4"
@@ -2062,7 +2062,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2024-06-17T21:00:27+00:00"
+            "time": "2024-08-03T14:54:15+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
