@@ -171,5 +171,5 @@ function getTimezoneOffset(timezone) {
     return offsetString;
 }
 
-const formatFn = (value) => formatDate(value, Boolean(props.enableTimePicker), locale[props.language]);
+const formatFn = (value) => formatDate(value, Boolean(enableTimePicker), locale[props.language]);
 </script>
