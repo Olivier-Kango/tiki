@@ -15,7 +15,7 @@ $inputConfiguration = [
             'clear_cache'          => 'bool',        //post
             'edit_assign'          => 'int',         //get
             'preview'              => 'bool',        //post
-            'unassign'             => 'bool',        //post
+            'unassign_module_id'   => 'int',        //post
             'modup'                => 'bool',        //post
             'moddown'              => 'bool',        //post
             'module-order'         => 'string',      //post
@@ -150,9 +150,9 @@ if (isset($_REQUEST['edit_assign']) || isset($_REQUEST['preview'])) {   // will 
     $cookietab = 2;
 }
 
-if (! empty($_REQUEST['unassign']) && $access->checkCsrf()) {
-    $info = $modlib->get_assigned_module($_REQUEST['unassign']);
-    $result = $modlib->unassign_module($_REQUEST['unassign']);
+if (! empty($_REQUEST['unassign_module_id']) && $access->checkCsrf()) {
+    $info = $modlib->get_assigned_module($_REQUEST['unassign_module_id']);
+    $result = $modlib->unassign_module($_REQUEST['unassign_module_id']);
     if ($result) {
         Feedback::success(tr('Module unassigned'));
         $logslib->add_log('adminmodules', 'unassigned module ' . $info['name']);

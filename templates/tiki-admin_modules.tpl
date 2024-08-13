@@ -130,7 +130,7 @@
                                                                 {ticket}
                                                                 <button
                                                                     type="submit"
-                                                                    name="unassign"
+                                                                    name="unassign_module_id"
                                                                     value="{$module.moduleId}"
                                                                     class="btn btn-link link-list"
                                                                 >
