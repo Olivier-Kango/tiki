@@ -281,14 +281,6 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
     {/if}
     {if $export eq 'y' && ($perms.tiki_p_admin_trackers eq 'y' || $perms.tiki_p_export_tracker eq 'y')}
         {button href=$exportUrl _text="{tr}Export{/tr}" _class='exportButton'}
-        {jq}
-            $('.exportButton a').on("click", function() {
-                $(this).serviceDialog({
-                    title: '{tr}Export Tracker{/tr}'
-                });
-                return false;
-            });
-        {/jq}
     {/if}
 
 {/capture}

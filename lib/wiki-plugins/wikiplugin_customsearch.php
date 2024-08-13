@@ -1244,17 +1244,14 @@ function cs_design_store($id, $fieldname, $fieldid, $arguments, $default, &$scri
 
     $script .= "
 
-$('#$fieldid').on('click', function() {
-    $(this).serviceDialog({
+$('#$fieldid').on('click', function(e) {
+    $.clickModal({
         title: $(this).val(),
-        controller: 'search_stored',
-        action: 'select',
-        success: function (data) {
+        success: (data) => {
             customsearch$id.store_query = data.queryId;
             customsearch$id.load();
         }
-    });
-    return false;
+    }, $.service('search_stored', 'select'))(e);
 });
 ";
 

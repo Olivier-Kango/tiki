@@ -7,7 +7,7 @@
     {else}
         {button href="tiki-read_article.php?articleId=$id" _text="{tr}View Article{/tr}" _icon_name="view" _class="btn btn-link"}
     {/if}
-    <a href="{service controller=translation action=manage type='wiki page' source=$page}" class="attach_detach_translation btn btn-link tips" data-object_type="wiki page" data-object_id="{$page|escape:'quotes'}" title=":{tr}Attach or detach existing translations of this page{/tr}">{tr}Manage Translations{/tr}</a>
+    <a href="{bootstrap_modal controller=translation action=manage type='wiki page' source= $name}" class="attach_detach_translation btn btn-link tips" data-object_type="wiki page" data-object_id="{ $name|escape:'quotes'}" title=":{tr}Attach or detach existing translations of this page{/tr}">{tr}Manage Translations{/tr}</a>
 </div>
 
 {if $error}
@@ -174,20 +174,3 @@
         </div>
     </form>
 {/if}
-
-{jq}
-    $('a.attach_detach_translation').on("click", function() {
-        var object_type = $(this).data('object_type');
-        var object_to_translate = $(this).data('object_id');
-        $(this).serviceDialog({
-            title: '{tr}Manage translations{/tr}',
-            data: {
-            controller: 'translation',
-            action: 'manage',
-            type: object_type,
-            source: object_to_translate
-            }
-        });
-        return false;
-    });
-{/jq}

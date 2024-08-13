@@ -4,23 +4,8 @@
 
 {if $tracker_is_multilingual}
     <div class="translations">
-        <a href="{service controller=translation action=manage type=trackeritem source=$itemId}">{tr}Translations{/tr}</a>
+        <a href="{bootstrap_modal controller=translation action=manage type=trackeritem source=$itemId}">{tr}Translations{/tr}</a>
     </div>
-    {jq}
-        $('.translations a').on("click", function () {
-            var link = this;
-            $(this).serviceDialog({
-                title: $(link).text(),
-                data: {
-                    controller: 'translation',
-                    action: 'manage',
-                    type: 'trackeritem',
-                    source: "{{$itemId|escape}}"
-                }
-            });
-            return false;
-        });
-    {/jq}
 {/if}
 
 {* show item *}

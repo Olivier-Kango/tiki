@@ -25,20 +25,14 @@
                     <br>{icon name='file' title='{tr}Pick a file{/tr}' onclick=$onclick class='btn btn-sm btn-primary'}
                 {elseif $param.type eq 'kaltura'}
                     {jq}
-$("#picker_{{$paramName|escape}}").parent().on("click", function () {
-    $(this).serviceDialog({
-        title: tr("Upload or record media"),
-        width: 710,
-        height: 450,
-        hideButtons: true,
-        success: function (data) {
-            if (data.entries) {
-                input.value = data.entries[0];
-            }
-        }
-    });
-    return false;
-});
+                    $("#picker_{{$paramName|escape}}").parent().clickModal({
+                        title: tr("Upload or record media"),
+                        success: function (data) {
+                            if (data.entries) {
+                                input.value = data.entries[0];
+                            }
+                        }
+                    });
                     {/jq}
                     <br>{icon name='video' title='{tr}Upload or record media{/tr}' href={service controller='kaltura' action='upload'} id='picker_'|cat:$paramName|escape class='btn btn-sm btn-primary'}
                 {/if}

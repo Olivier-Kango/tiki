@@ -29,17 +29,17 @@
                 {preference name=workspace_root_category}
             </fieldset>
             {jq}
-                $('#tiki-center').on('click', '.service-dialog', function () {
-                    $(this).serviceDialog({
+                $('#tiki-center').on('click', '.service-dialog', function (e) {
+                    e.preventDefault();
+                    $.openModal({
                         title: $(this).text(),
-                        success: function () {
+                        remote: $(this).attr('href'),
+                        open: function () {
                             if ($(this).is('.reload')) {
                                 $('#template-list').load($.service('workspace', 'list_templates'));
                             }
                         }
-                    });
-
-                    return false;
+                    })
                 });
                 $('#template-list').load($.service('workspace', 'list_templates'));
             {/jq}

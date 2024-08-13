@@ -1,6 +1,6 @@
 {if !empty($tracker_input.trackerId)}
 {tikimodule error=$module_params.error title=$tpl_module_title name="tracker_input" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
-    <form class="mod-tracker-input simple" method="get" action="{service controller=tracker action=insert_item}" data-location="{$tracker_input.location|escape}" data-location-mode="{$tracker_input.locationMode|escape}" data-streetview="{$tracker_input.streetview|escape}" data-success="{$tracker_input.success|json_encode|escape}">
+    <form class="mod-tracker-input simple" method="get" action="{service controller=tracker action=insert_item}" data-location="{$tracker_input.location|escape}" data-location-mode="{$tracker_input.locationMode|escape}" data-streetview="{$tracker_input.streetview|escape}" data-success="{$tracker_input.success|json_encode|escape}" data-modal-size="modal-lg">
         {foreach from=$tracker_input.textInput key=token item=label}
             <label class="form-label">
                 {$label|escape}
@@ -30,30 +30,30 @@
 
         return hasEmpty;
     }
-    $('.mod-tracker-input').removeClass('mod-tracker-input').on("submit", function () {
-        var form = this;
+    $('.mod-tracker-input').removeClass('mod-tracker-input').on("submit", function (e) {
+        e.preventDefault();
+        const form = this;
         if (hasEmptyField(form, ':input:not(:submit)')) {
             $(':submit', form).showError("{tr}Missing values{/tr}");
             return false;
         }
 
-        $(this).serviceDialog({
+        $.clickModal({
             title: $(':submit', form).val(),
-            data: $(form).serialize(),
             success: function (data) {
                 $(form).trigger('insert', [ data ]);
                 {{if !empty($tracker_input.insertMode)}}
                     $(form).closest('.tab, #appframe, body').find('.map-container')[0].modeManager.switchTo("{{$tracker_input.insertMode|escape}}");
                 {{/if}}
-            },
-            close: function () {
-                $(form).trigger('cancel');
-                {{if !empty($tracker_input.insertMode)}}
-                    $(form).closest('.tab, #appframe, body').find('.map-container')[0].modeManager.switchTo("{{$tracker_input.insertMode|escape}}");
-                {{/if}}
+
+                $('.modal').on('hidden.bs.modal', function () {
+                    $(form).trigger('cancel');
+                    {{if !empty($tracker_input.insertMode)}}
+                        $(form).closest('.tab, #appframe, body').find('.map-container')[0].modeManager.switchTo("{{$tracker_input.insertMode|escape}}");
+                    {{/if}}
+                });
             }
-        });
-        return false;
+        }, $(form).attr('action') + '&' + $(form).serialize()).call(this, e);
     }).each(function () {
         var form = this
             , location = $(this).data('location')

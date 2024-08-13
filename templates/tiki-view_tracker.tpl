@@ -77,47 +77,17 @@
                         {/if}
                         {if $tiki_p_admin_trackers eq "y"}
                             <li class="dropdown-item">
-                                <a class="import dialog" href="{service controller=tracker action=import_items trackerId=$trackerId}">
+                                <a class="import dialog" href="{bootstrap_modal controller=tracker action=import_items trackerId=$trackerId}">
                                     {icon name="import"} {tr}Import{/tr}
                                 </a>
                             </li>
-                            {jq}
-                                $('.import.dialog').on("click", function () {
-                                    var link = this;
-                                    $(this).serviceDialog({
-                                        title: '{tr}Import{/tr}',
-                                        data: {
-                                            controller: 'tracker',
-                                            action: 'import_items',
-                                            trackerId: {{$trackerId}}
-                                        }
-                                    });
-                                    return false;
-                                });
-                            {/jq}
                         {/if}
                         {if $tiki_p_export_tracker eq "y"}
                             <li class="dropdown-item">
-                                <a class="export dialog" href="{service controller=tracker action=export trackerId=$trackerId filterfield=$filterfield filtervalue=$filtervalue}">
+                                <a class="export dialog" href="{bootstrap_modal controller=tracker action=export trackerId=$trackerId filterfield=$filterfield filtervalue=$filtervalue}">
                                     {icon name="export"} {tr}Export{/tr}
                                 </a>
                             </li>
-                            {jq}
-                                $('.export.dialog').on("click", function () {
-                                    var link = this;
-                                    $(this).serviceDialog({
-                                        title: '{tr}Export{/tr}',
-                                        data: {
-                                            controller: 'tracker',
-                                            action: 'export',
-                                            trackerId: {{$trackerId}},
-                                            filterfield: '{{$filterfield}}',
-                                            filtervalue: {{$filtervalue|json_encode}}
-                                        }
-                                    });
-                                    return false;
-                                });
-                            {/jq}
                         {/if}
                         {if $tiki_p_admin_trackers eq "y"}
                             <li class="dropdown-item">

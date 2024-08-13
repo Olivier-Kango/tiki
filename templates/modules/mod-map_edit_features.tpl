@@ -29,16 +29,15 @@
                         $(form).trigger('insert', [data]);
                     })
                     .on("error", function () {
-                        $(this).serviceDialog({
+                        $.openModal({
                             title: $(':submit', form).val(),
-                            data: $(form).serialize(),
-                            success: function () {
+                            open: () => {
                                 $(form).trigger('insert', [{}]);
-                            },
-                            close: function () {
-                                $(form).trigger('cancel');
+                                $('.modal.fade').on('hidden.bs.modal', function () {
+                                    $(form).trigger('cancel');
+                                });
                             }
-                        });
+                        })
                     })
                     ;
 
@@ -71,16 +70,10 @@
 
                 {{if !empty($edit_features.editDetails)}}
                 if (data.itemId) {
-                    $('<a>').attr('href', $.service('tracker', 'update_item'))
-                        .serviceDialog({
-                            data: {
-                                trackerId: $(form.trackerId).val(),
-                                itemId: data.itemId
-                            },
-                            success: function () {
-                                $(map).trigger('changed');
-                            }
-                        });
+                    $.openModal({
+                        remote: $.service('tracker', 'update_item', {trackerId: $(form.trackerId).val(), itemId: data.itemId}),
+                        open: () => $(map).trigger('changed');
+                    });
                 }
                 {{/if}}
 
