@@ -49,7 +49,7 @@ Expose:
 FullCalendarSchedulerDeprecated:
   actions:
     - remove
-  licence: GPLv3
+  licence: See website
   licenceUrl: "https://fullcalendar.io/scheduler/license/"
   name: fullcalendar/fullcalendar-scheduler
   requiredBy:
@@ -59,7 +59,7 @@ FullCalendarSchedulerDeprecated:
   replacedBy:
     - npm-asset/fullcalendar-scheduler
 FullCalendarScheduler:
-  licence: GPLv3
+  licence: See website
   licenceUrl: "https://fullcalendar.io/scheduler/license/"
   name: npm-asset/fullcalendar-scheduler
   requiredBy:
