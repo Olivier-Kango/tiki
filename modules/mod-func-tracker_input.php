@@ -75,27 +75,30 @@ function module_tracker_input($mod_reference, $module_params)
     global $prefs;
     $smarty = TikiLib::lib('smarty');
     $trackerId = $module_params['trackerId'];
-    $itemObject = Tracker_Item::newItem($trackerId);
-    $definition = Tracker_Definition::get($trackerId);
 
-    if (! $itemObject->canModify()) {
-        $smarty->assign(
-            'tracker_input',
-            [
-                'trackerId' => 0,
-                'textInput' => [],
-                'hiddenInput' => [],
-                'location' => null,
-            ]
-        );
-        return;
+    if (! empty($trackerId)) {
+        $itemObject = Tracker_Item::newItem($trackerId);
+        $definition = Tracker_Definition::get($trackerId);
+
+        if (! $itemObject->canModify()) {
+            $smarty->assign(
+                'tracker_input',
+                [
+                    'trackerId' => 0,
+                    'textInput' => [],
+                    'hiddenInput' => [],
+                    'location' => null,
+                ]
+            );
+            return;
+        }
     }
 
     $textinput = isset($module_params['textinput']) ? $module_params['textinput'] : '';
     $hiddeninput = isset($module_params['hiddeninput']) ? $module_params['hiddeninput'] : '';
     $streetview = isset($module_params['streetview']) ? $module_params['streetview'] : '';
     $streetViewField = null ;
-    if (! empty($streetview)) {
+    if (! empty($streetview) && ! empty($definition)) {
         $streetViewField = $definition->getFieldFromPermName($streetview);
     }
     $success = isset($module_params['success']) ? $module_params['success'] : '';
