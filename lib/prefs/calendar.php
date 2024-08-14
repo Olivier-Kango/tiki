@@ -164,7 +164,7 @@ function prefs_calendar_list()
                 'edit_item' => tr('Edit'),
                 'view_item' => tr('View'),
             ],
-            'default' => 'edit_item',
+            'default' => 'view_item',
         ],
         'calendar_start_day' => [
             'name' => tra('Calendar start of day'),
