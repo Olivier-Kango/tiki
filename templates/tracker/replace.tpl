@@ -103,7 +103,7 @@
                 <input type="checkbox" class="form-check-input" name="useAttachments" id="useAttachments" value="1"
                         {if $info.useAttachments eq 'y'} checked="checked"{/if}>
                 <label class="form-check-label" for="useAttachments">
-                    {tr}Allow attachments (deprecated, use files field){/tr}
+                    {tr}Allow attachments (Deprecated. Will be removed after Tiki 29.x. Use files field instead.){/tr}
                 </label>
             </div>
             <div class="form-check depends" data-on="useAttachments">
