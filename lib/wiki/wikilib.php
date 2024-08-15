@@ -349,9 +349,11 @@ class WikiLib extends TikiLib
             $linksToNew[] = $res['fromPage'];
         }
 
-        if ($extra = array_intersect($linksToOld, $linksToNew)) {
-            $query = 'delete from `tiki_links` where `fromPage` in (' . implode(',', array_fill(0, count($extra), '?')) . ') and `toPage`=?';
-            $this->query($query, array_merge($extra, [$oldName]));
+        if (strtoupper($newName) != strtoupper($oldName)) {
+            if ($extra = array_intersect($linksToOld, $linksToNew)) {
+                $query = 'delete from `tiki_links` where `fromPage` in (' . implode(',', array_fill(0, count($extra), '?')) . ') and `toPage`=?';
+                $this->query($query, array_merge($extra, [$oldName]));
+            }
         }
 
         $query = 'update `tiki_links` set `fromPage`=? where `fromPage`=?';

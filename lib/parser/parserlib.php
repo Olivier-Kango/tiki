@@ -1263,6 +1263,9 @@ class ParserLib extends TikiDb_Bridge
         $htmlWantedSearch = '/(' . $quotedOldName . ')?<a class="wiki wikinew" href="tiki-editpage\.php\?page=' . $quotedOldHtmlName . '"[^<]+<\/a>/i';
         $data = preg_replace($htmlWantedSearch, '((' . $newName . '))', $data);
 
+        $pageAttrSearch = '/\{backlinks[^}]*page="' . $quotedOldName . '"[^}]*\}/i';
+        $data = preg_replace_callback($pageAttrSearch, fn($matches) => str_replace($quotedOldName, $newName, $matches[0]), $data);
+
         return $data;
     }
 
