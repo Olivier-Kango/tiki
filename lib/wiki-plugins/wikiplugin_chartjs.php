@@ -190,16 +190,15 @@ function wikiplugin_chartjs($data, $params)
     }
 
     // PDF export related logic
-    $html_content = <<<HTML
-<script type="module">
-    import { Chart, registerables } from "chartjs";
-    Chart.register(...registerables);
-</script>
+    $html_content = generateJsImportmapScripts(true); // generate imports with full URL since we load the html file as file://
+    $html_content .= <<<HTML
 <div>
     $canvas
 </div>
 
-<script>
+<script type="module">
+    import { Chart, registerables } from "chartjs";
+    Chart.register(...registerables);
     $script
 </script>
 HTML;
