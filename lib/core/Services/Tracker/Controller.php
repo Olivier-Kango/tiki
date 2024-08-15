@@ -344,9 +344,13 @@ class Services_Tracker_Controller
             }
         }
         $name = $input->name->word();
-        if (isset($name) && $field['name'] != $name) {
-            if ($definition->getFieldFromNameMaj($name)) {
-                throw new Services_Exception_DuplicateValue('name', tr('This field name %0 is already used in this tracker', $name));
+        if (isset($name)) {
+            $fields = $definition->getFields();
+            foreach ($fields as $currentField) {
+                $nameExists = ($currentField['name'] === $name || strtoupper($currentField['name']) === strtoupper($name));
+                if ($nameExists && $currentField['fieldId'] != $fieldId) {
+                    throw new Services_Exception_DuplicateValue('name', tr('This field name %0 is already used in this tracker', $name));
+                }
             }
         }
         if (! empty($permName)) {
