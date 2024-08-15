@@ -116,6 +116,41 @@ function wikiplugin_rss_info()
                 'since' => '10.1',
                 'default' => 0,
             ],
+            'sortBy' => [
+                'required' => false,
+                'name' => tra('Sort By'),
+                'filter' => 'text',
+                'description' => tra('Sort by field'),
+                'options' => [
+                    ['text' => tra('Title'), 'value' => 'title'],
+                    ['text' => tra('Date'), 'value' => 'publication_date'],
+                    ['text' => tra('Author'), 'value' => 'author'],
+                ],
+                'default' => 'publication_date',
+                'since' => '28.0',
+                'advanced' => true,
+            ],
+            'sortOrder' => [
+                'required' => false,
+                'name' => tra('Sort Order'),
+                'filter' => 'text',
+                'description' => tra('Sort order'),
+                'options' => [
+                    ['text' => tra('Ascending'), 'value' => 'ASC'],
+                    ['text' => tra('Descending'), 'value' => 'DESC'],
+                ],
+                'default' => 'DESC',
+                'since' => '28.0',
+                'advanced' => true,
+            ],
+            'tplWiki' => [
+                'required' => false,
+                'name' => tra('Template Wiki Page'),
+                'description' => tra('Custom wiki page with smarty content to use for displaying feed items instead of the default template'),
+                'filter' => 'text',
+                'since' => '28.0',
+                'advanced' => true,
+            ]
         ],
     ];
 }
@@ -138,13 +173,20 @@ function wikiplugin_rss($data, $params)
         $params
     );
 
+    $pluginInfo = wikiplugin_rss_info();
+    foreach ($pluginInfo['params'] as $key => $param) {
+        if (! isset($params[$key])) {
+            $params[$key] = $param['default'];
+        }
+    }
+
     if (! isset($params['id'])) {
         return WikiParser_PluginOutput::argumentError([ 'id' ]);
     }
 
     $params['id'] = (array) $params['id'];
 
-    $items = $rsslib->get_feed_items($params['id'], $params['max']);
+    $items = $rsslib->get_feed_items($params['id'], $params['max'], $params['sortBy'], $params['sortOrder']);
 
     $title = null;
     if (count($params['id']) == 1) {
@@ -173,7 +215,9 @@ function wikiplugin_rss($data, $params)
     $smarty->assign('showauthor', $params['author'] > 0);
     $smarty->assign('icon', $params['icon']);
     $smarty->assign('ticker', $params['ticker']);
-    return $smarty->fetch('wiki-plugins/wikiplugin_rss.tpl');
+
+    $template = isset($params['tplWiki']) ? ('tplwiki:' . $params['tplWiki']) : 'wiki-plugins/wikiplugin_rss.tpl';
+    return $smarty->fetch($template);
 }
 
 function limit_text($text, $limit)

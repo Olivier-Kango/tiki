@@ -484,7 +484,7 @@ class RSSLib extends TikiDb_Bridge
         return $this->modules->fetchOne('showPubDate', ['rssId' => $rssId]);
     }
 
-    public function get_feed_items($feeds, $count = 10)
+    public function get_feed_items($feeds, $count = 10, $sortBy = 'publication_date', $sortOrder = 'DESC')
     {
         $feeds = (array) $feeds;
 
@@ -495,7 +495,7 @@ class RSSLib extends TikiDb_Bridge
             ['rssId' => $this->items->in($feeds),],
             $count,
             0,
-            ['publication_date' => 'DESC']
+            [$sortBy => $sortOrder]
         );
     }
 
