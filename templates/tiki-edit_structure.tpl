@@ -211,7 +211,7 @@
         </form>
     {/if}
     <div id="move_dialog" style="display: none;">
-        <form action="tiki-edit_structure.php" method="post">
+        <form action="tiki-edit_structure.php" method="post" class="no-ajax">
             {ticket}
             <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
             <div class="clearfix" style="margin-bottom: 1em;">
@@ -232,23 +232,23 @@
             <label class="float-start" for="begin2">{tr}at the end{/tr}</label>
             <div class="float-start"><input type="radio" id="begin2" name="begin" value="0" {if $structures|@count eq '1'}disabled="disabled"{/if}></div>
             <hr>
-            <div class="float-start input_submit_container">
+            <div class="float-start input_submit_container submit">
                 <input type="submit" class="btn btn-primary" name="move_to" value="{tr}Move{/tr}" {if $structures|@count eq '1'} disabled="disabled"{/if}>
             </div>
         </form>
     </div>
     <div id="newpage_dialog" style="display: none;">
-        <form action="tiki-edit_structure.php" method="post">
+        <form action="tiki-edit_structure.php" method="post" class="no-ajax">
             {ticket}
             <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
-            <div class="tiki-form-group row">
-                <label class="col-sm-3 col-form-label">{tr}Create Page{/tr}</label>
-                <div class="col-sm-7">
+            <div class="tiki-form-group">
+                <label>{tr}Create Page{/tr}</label>
+                <div>
                     <input type="text" name="name" id="name" class="form-control">
                     {autocomplete element='#name' type='pagename'}
                 </div>
             </div>
-            <div class="tiki-form-group row">
+            <div class="tiki-form-group row submit">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-7">
                     <input type="submit" class="btn btn-primary" name="create" value="{tr}Update{/tr}">

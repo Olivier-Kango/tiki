@@ -2,7 +2,7 @@
 {if ! empty($assign_name)}
     {ticket}
 {/if}
-<div class="module_selector mb-3 row">
+<div class="module_selector mb-3">
     <label for="assign_name">{tr}Module Name{/tr}</label>
     <select id="assign_name" name="assign_name" class="form-control">
         <option value=""></option>
@@ -24,7 +24,7 @@
         {else}
         {/if}
         <fieldset id="param_section_basic">
-            <div class="clearfix mb-3 row">
+            <div class="clearfix mb-3">
                 <label for="assign_position">{tr}Position{/tr}</label>
                 <select id="assign_position" name="assign_position" class="form-control">
                     {foreach from=$module_zone_list key=code item=zone}
@@ -33,7 +33,7 @@
                 </select>
             </div>
 
-            <div class="clearfix mb-3 row">
+            <div class="clearfix mb-3">
                 <label for="assign_order">{tr}Order{/tr}</label>
                 <select id="assign_order" name="assign_order" class="form-control">
                     {section name=ix loop=$orders}
@@ -42,12 +42,12 @@
                 </select>
             </div>
 
-            <div class="clearfix mb-3 row">
+            <div class="clearfix mb-3">
                 <label for="assign_cache">{tr}Cache Time{/tr} ({tr}secs{/tr})</label>
                 <input type="text" id="assign_cache" name="assign_cache" class="form-control" value="{$assign_cache|escape}">
             </div>
             {if !isset($assign_info.type) or $assign_info.type neq 'function'}
-                <div class="clearfix mb-3 row">
+                <div class="clearfix mb-3">
                     <label for="assign_rows">{tr}Rows{/tr}</label>
                     <input type="text" id="assign_rows" name="assign_rows" value="{$assign_rows|escape}" class="form-control">
                 </div>
@@ -131,12 +131,12 @@
                     <a title="{tr}Parameters{/tr}" {popup text="{tr}Params: specific params to the module and/or general params ('lang', 'flip', 'title', 'decorations', 'section', 'overflow', 'page', 'nobox', 'bgcolor', 'color', 'theme', 'notitle', 'nopage'). Separator between params:'&amp;'. E.g. maxlen=15&amp;nonums=y.{/tr}" width=200 center=true}>
                         <label for="assign_params">{tr}Parameters{/tr}</label>
                     </a>
-                    <textarea id="assign_params" name="assign_params" rows="1" cols="60" class="form-control">{$assign_params|escape}</textarea>
+                    <textarea id="assign_params" name="assign_params"s="1" cols="60" class="form-control">{$assign_params|escape}</textarea>
                     {help url="Module+Parameters" desc="{tr}Enter the parameters in URL format, e.g. 'nobox=y&class=rbox-data'{/tr}"}
                     {self_link um_edit=$assign_name cookietab="2" _anchor="editcreate"}{tr}Edit custom module{/tr} {icon name="next"}{/self_link}
                 </div>
             {/if}
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center submit-container">
             <input type="submit" class="btn btn-secondary me-2" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
             <input type="submit" class="btn btn-primary" name="assign" value="{tr}Assign{/tr}" onclick="needToConfirm=false;">
         </div>

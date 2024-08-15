@@ -191,8 +191,9 @@ $(function () {
         }
         $("input[name=page_ref_id]", "#newpage_dialog").val(id);
 
-        $("#newpage_dialog").dialog({
+        $.openModal({
             title: tr("Add page"),
+            content: $("#newpage_dialog").html(),
         });
         return false;
     });
@@ -203,8 +204,9 @@ $(function () {
             id = id[0];
         }
         $("input[name=page_ref_id]", "#move_dialog").val(id);
-        $("#move_dialog").dialog({
+        $.openModal({
             title: tr("Move page"),
+            content: $("#move_dialog").html(),
         });
         return false;
     });
