@@ -20,7 +20,7 @@ function wikiplugin_now_info()
                 'name' => tra('Format'),
                 'description' => tr(
                     'Time format using the PHP format described here: %0',
-                    'http://https://doc.tiki.org/Date-and-Time-Features'
+                    'https://doc.tiki.org/Date-and-Time-Features'
                 ),
                 'since' => '9.0',
                 'default' => tr('Based site long date and time setting'),
