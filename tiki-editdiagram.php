@@ -122,6 +122,7 @@ $headerlib->add_jsfile('lib/jquery_tiki/tiki-editdiagram.js', true);
 $headerlib->unsafeClearAllCss();
 $headerlib->add_css(".geMenubar a.geStatus { display: none;}");
 $headerlib->add_cssfile($vendorPath . '/tikiwiki/diagram/styles/grapheditor.css');
+$headerlib->add_cssfile($vendorPath . '/tikiwiki/diagram/mxgraph/css/common.css');
 $headerlib->add_jsfile($vendorPath . '/tikiwiki/diagram/js/app.min.js', true);
 
 $js = sprintf(

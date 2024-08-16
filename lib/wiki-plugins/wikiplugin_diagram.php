@@ -165,6 +165,7 @@ function wikiplugin_diagram($data, $params)
     $headerlib->add_js_config("var diagramVendorPath = '{$vendorPath}';");
     $headerlib->add_jsfile('lib/jquery_tiki/tiki-mxgraph.js', true);
     $headerlib->add_jsfile($vendorPath . '/tikiwiki/diagram/js/app.min.js');
+    $headerlib->add_cssfile($vendorPath . '/tikiwiki/diagram/mxgraph/css/common.css');
 
     $headerlib->add_css('.diagram hr {margin-top:0.5em;margin-bottom:0.5em}');
 

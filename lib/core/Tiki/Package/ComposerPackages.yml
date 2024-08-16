@@ -114,7 +114,7 @@ diagram:
   name: tikiwiki/diagram
   requiredBy:
     - "wikiplugin_diagram"
-  requiredVersion: ^12.5.1
+  requiredVersion: ^24.0
 PHPSaml:
   state: deprecated
   actions:
