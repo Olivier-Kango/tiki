@@ -393,7 +393,7 @@ class ThemeLib extends TikiLib
 
     /** replaces legacy get_style_path function
      *
-     * @deprecated version
+     * @deprecated new code should use ThemeLib::getThemePath() directly
      * Retrieves the real file paths for a specific theme or theme option, taking into account multitiki, customizations, etc.
      *
      * @param string $theme - main theme (e.g. "fivealive" - can be empty to return main themes dir for legacy support)
