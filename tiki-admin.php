@@ -287,6 +287,9 @@ if (isset($_REQUEST['prefrebuild'])) {
 }
 
 global $admin_icons;
+if (isset($_REQUEST['admin_dashboard_icons'])) {
+    $prefs['theme_unified_admin_backend'] = 'n';
+}
 include_once 'admin/define_admin_icons.php';
 $smarty->assign('template_not_found', 'n');
 
