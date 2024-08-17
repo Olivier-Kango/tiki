@@ -12,7 +12,7 @@ $section = 'livesupport';
 $inputConfiguration = [
     [
         'staticKeyFilters'   => [
-        'reqId'              => 'bool',               //post
+        'reqId'              => 'int',                //post
         'role'               => 'string',             //post
         ],
     ],

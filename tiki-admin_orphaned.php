@@ -12,7 +12,7 @@ $inputConfiguration = [
     [
         'staticKeyFilters'            => [
              'submit'                   => 'bool',          //post
-             'search'                   => 'bool',          //post
+             'search'                   => 'array',         //post
         ],
     ],
 ];

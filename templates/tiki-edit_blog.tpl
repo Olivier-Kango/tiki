@@ -95,7 +95,13 @@
                     </div>
                 </div>
             </div>
+            {if $prefs.feature_blog_heading eq 'y' and $tiki_p_edit_templates eq 'y'}
+                <input type="submit" class="wikiaction btn btn-primary" name="preview" value="{tr}Heading preview{/tr}">
+            {/if}
             {include file='categorize.tpl' labelcol='3' inputcol='9'}
+            <div class="mb-3 text-center">
+                <input type="submit" class="wikiaction btn btn-primary" name="save" value="{tr}Save{/tr}">
+            </div>
         {/tab}
         {tab name="{tr}Display Options{/tr}"}
             <h2>{tr}Display Options{/tr}</h2>
@@ -190,10 +196,4 @@
             {/if}
         {/tab}
     {/tabset}
-    {if $prefs.feature_blog_heading eq 'y' and $tiki_p_edit_templates eq 'y'}
-        <input type="submit" class="wikiaction btn btn-primary" name="preview" value="{tr}Heading preview{/tr}">
-    {/if}
-    <div class="mb-3 text-center">
-        <input type="submit" class="wikiaction btn btn-primary" name="save" value="{tr}Save{/tr}">
-    </div>
 </form>

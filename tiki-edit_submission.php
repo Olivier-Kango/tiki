@@ -24,16 +24,16 @@ $inputConfiguration = [
             'translationOf'                 => 'digits',          //post
             'save'                          => 'bool',            //post
             'submitarticle'                 => 'bool',            //post
-            'publish_Hour'                  => 'digtits',         //post
-            'publish_Minute'                => 'digtits',         //post
-            'publish_Month'                 => 'digtits',         //post
-            'publish_Day'                   => 'digtits',         //post
-            'publish_Year'                  => 'digtits',         //post
-            'expire_Hour'                   => 'digtits',         //post
-            'expire_Minute'                 => 'digtits',         //post
-            'expire_Month'                  => 'digtits',         //post
-            'expire_Day'                    => 'digtits',         //post
-            'expire_Year'                   => 'digtits',         //post
+            'publish_Hour'                  => 'digits',          //post
+            'publish_Minute'                => 'digits',          //post
+            'publish_Month'                 => 'digits',          //post
+            'publish_Day'                   => 'digits',          //post
+            'publish_Year'                  => 'digits',          //post
+            'expire_Hour'                   => 'digits',          //post
+            'expire_Minute'                 => 'digits',          //post
+            'expire_Month'                  => 'digits',          //post
+            'expire_Day'                    => 'digits',          //post
+            'expire_Year'                   => 'digits',          //post
             'publish_Meridian'              => 'string',          //post
             'expire_Meridian'               => 'string',          //post
             'title'                         => 'string',          //post
@@ -55,7 +55,6 @@ $inputConfiguration = [
             'rating'                        => 'digits',          //post
             'heading'                       => 'xss',             //post
             'freetag_string'                => 'string',          //post
-            $toMatch                        => 'bool',            //post
             'recategorize'                  => 'bool',            //post
         ],
     ],
@@ -413,7 +412,7 @@ if (isset($_REQUEST['preview']) || ! empty($errors)) {
                 }
             }
         } else {
-            Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
+            Feedback::warning($artlib->uploaded_file_error($_FILES['userfile1']['error']));
         }
     }
 

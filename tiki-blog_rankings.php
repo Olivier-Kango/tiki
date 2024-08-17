@@ -12,7 +12,7 @@ $section = 'blogs';
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
-            'which'                    => 'bool',                //post
+            'which'                    => 'string',              //post
             'limit'                    => 'string',              //post
         ],
     ]

@@ -11,7 +11,7 @@
 $inputConfiguration = [
     [
         'staticKeyFilters'     => [
-            'rssId'            => 'digits',      //post
+            'rssId'            => 'int',      //post
             'name'             => 'word',        //post
             'url'              => 'url',         //post
             'description'      => 'xss',         //post
@@ -63,7 +63,7 @@ if (isset($_REQUEST["view"])) {
     $smarty->assign('items', $rsslib->get_feed_items($_REQUEST['view']));
 }
 if (isset($_REQUEST["rssId"])) {
-    $info = $rsslib->get_rss_module($_REQUEST["rssId"]);
+    $info = $_REQUEST["rssId"] ? $rsslib->get_rss_module($_REQUEST["rssId"]) : [];
 } else {
     $info = [];
     // default for new rss feed:
@@ -74,6 +74,7 @@ if (isset($_REQUEST["rssId"])) {
     $info["showTitle"] = 'n';
     $info["showPubDate"] = 'n';
 }
+
 if (! isset($_REQUEST["save"])) {
     $smarty->assign('name', $info["name"]);
     $smarty->assign('description', $info["description"]);

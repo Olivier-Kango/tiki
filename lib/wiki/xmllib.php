@@ -126,7 +126,7 @@ class XmlLib extends TikiLib
 
         // Add the wiki.xml file and finish the Zip file.
         if (! $this->zip->addFromString(WIKI_XML, $this->xml)) {
-            $this->errors[] = 'Can not add the xml';
+            $this->errors[] = 'Cannot add the xml';
             $this->errorsArgs[] = WIKI_XML;
             return false;
         }
@@ -167,7 +167,7 @@ class XmlLib extends TikiLib
 
         // Add the page itself to the Zip file.
         if (! $this->zip->addFromString($info['zip'], $info['data'])) {
-            $this->errors[] = 'Can not add the page';
+            $this->errors[] = 'Cannot add the page';
             $this->errorsArgs[] = $info['zip'];
             return false;
         }
@@ -220,7 +220,7 @@ class XmlLib extends TikiLib
                               'zip' => "$dir/images/wiki/" . $m[1],
                               'wiki' => $args['src']];
                     if (! $this->zip->addFile($file, $image['zip'])) {
-                        $this->errors[] = 'Can not add the image ';
+                        $this->errors[] = 'Cannot add the image ';
                         $this->errorsArgs[] = $file;
                         return false;
                     }
@@ -247,7 +247,7 @@ class XmlLib extends TikiLib
                               'wiki' => $args['src']];
 
                     if (! $this->zip->addFromString($image['zip'], $img)) {
-                        $this->errors[] = 'Can not add the image';
+                        $this->errors[] = 'Cannot add the image';
                         $this->errorsArgs[] = $m[1];
                         return false;
                     }
@@ -271,13 +271,13 @@ class XmlLib extends TikiLib
                     $attachments['data'][$key]['zip'] = "$dir/attachments/" . $att['attId'];
                     if ($prefs['w_use_dir']) {
                         if (! $this->zip->addFile($prefs['w_use_dir'] . $att_info['path'], $attachments['data'][$key]['zip'])) {
-                            $this->errors[] = 'Can not add the attachment';
+                            $this->errors[] = 'Cannot add the attachment';
                             $this->errorsArgs[] = $att_info['attId'];
                             return false;
                         }
                     } else {
                         if (! $this->zip->addFromString($attachments['data'][$key]['zip'], $att_info['data'])) {
-                            $this->errors[] = 'Can not add the attachment';
+                            $this->errors[] = 'Cannot add the attachment';
                             $this->errorsArgs[] = $att_info['attId'];
                             return false;
                         }
@@ -298,7 +298,7 @@ class XmlLib extends TikiLib
                 //$history[$key]['data'] = $all['data'];
                 $history[$key]['zip'] = "$dir/history/" . $all['version'] . '.txt';
                 if (! $this->zip->addFromString($history[$key]['zip'], $all['data'])) {
-                    $this->errors[] = 'Can not add the history';
+                    $this->errors[] = 'Cannot add the history';
                     $this->errorsArgs[] = $all['version'];
                     return false;
                 }
@@ -324,38 +324,32 @@ class XmlLib extends TikiLib
             $this->config = array_merge($this->config, $config);
         }
 
-        // Open the Zip file
-
-        if (! ($this->zip = new ZipArchive())) {
-            $this->errors[] = 'Problem zip initialisation';
-            $this->errorsArgs[] = '';
-            return false;
-        }
-
-        if (! $this->zip->open($zipFile)) {
+        // Initialize and open the Zip file
+        $this->zip = new ZipArchive();
+        $res = $this->zip->open($zipFile);
+        if ($res !== true) {
             $this->errors[] = 'The file cannot be opened';
             $this->errorsArgs[] = $zipFile;
             return false;
         }
 
-
         // Open the wiki.xml
 
         if (($this->xml = $this->zip->getFromName(WIKI_XML)) === false) {
-            $this->errors[] = 'Can not unzip';
+            $this->errors[] = 'Cannot unzip or find the XML file';
             $this->errorsArgs[] = WIKI_XML;
+            $this->zip->close();  // Close the ZIP file before returning
             return false;
         }
 
-
         // Parse the wiki.xml
-
         $parser = new page_Parser();
         $parser->setInput($this->xml);
         $ok = $parser->parse();
         if (PEAR::isError($ok)) {
             $this->errors[] = $ok->getMessage();
             $this->errorsArgs[] = '';
+            $this->zip->close();  // Close the ZIP file before returning
             return false;
         }
         $infos = $parser->getPages();
@@ -366,11 +360,10 @@ class XmlLib extends TikiLib
             echo '</pre>';
         }
 
-
         // Create the pages from the Zip file contents and the wiki.xml parse result.
-
         foreach ($infos as $info) {
             if (! $this->create_page($info)) {
+                $this->zip->close();  // Close the ZIP file before returning
                 return false;
             }
         }
@@ -391,7 +384,7 @@ class XmlLib extends TikiLib
         // Get the page content from the Zip file.
 
         if (($info['data'] = $this->zip->getFromName($info['zip'])) === false) {
-            $this->errors[] = 'Can not unzip';
+            $this->errors[] = 'Cannot unzip';
             $this->errorsArgs[] = $info['zip'];
             return false;
         }
@@ -482,7 +475,7 @@ class XmlLib extends TikiLib
             foreach ($info['attachments'] as $attachment) {
                 // Unzip the attachment, save its data in $attachment['data'].
                 if (($attachment['data'] = $this->zip->getFromName($attachment['zip'])) === false) {
-                    $this->errors[] = 'Can not unzip attachment';
+                    $this->errors[] = 'Cannot unzip attachment';
                     $this->errorsArgs[] = $attachment['zip'];
                     return false;
                 }
@@ -534,7 +527,7 @@ class XmlLib extends TikiLib
                     continue;
                 }
                 if (($image['data'] = $this->zip->getFromName($image['zip'])) === false) {
-                    $this->errors[] = 'Can not unzip image';
+                    $this->errors[] = 'Cannot unzip image';
                     $this->errorsArgs[] = $image['zip'];
                     return false;
                 }
@@ -564,7 +557,7 @@ class XmlLib extends TikiLib
 
             foreach ($info['history'] as $version) {
                 if (($version['data'] = $this->zip->getFromName($version['zip'])) === false) {
-                    $this->errors[] = 'Can not unzip history';
+                    $this->errors[] = 'Cannot unzip history';
                     $this->errorsArgs[] = $version['version'];
                     return false;
                 }

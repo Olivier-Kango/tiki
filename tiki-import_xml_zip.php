@@ -12,7 +12,7 @@ $section = 'wiki page';
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
-        'import'                          => 'bool',              //post
+        'import'                          => 'string',            //post
         'local'                           => 'string',            //post
         ],
     ],
@@ -22,7 +22,6 @@ require_once('tiki-setup.php');
 $access->check_feature('feature_wiki');
 $access->check_permission('tiki_p_admin');
 @ini_set('max_execution_time', 0);
-
 if (isset($_REQUEST['import'])) {
     $access->checkCsrf();
     if (! empty($_REQUEST['local'])) {

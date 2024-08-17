@@ -20,9 +20,9 @@ $inputConfiguration = [
         'ref_title'                => 'string',            //post
         'ref_part'                 => 'alpha',             //post
         'ref_uri'                  => 'alpha',             //post
-        'ref_code'                 => 'aplha',             //post
-        'ref_publisher'            => 'aplha',             //post
-        'ref_location'             => 'aplha',             //post
+        'ref_code'                 => 'alpha',             //post
+        'ref_publisher'            => 'alpha',             //post
+        'ref_location'             => 'alpha',             //post
         'ref_year'                 => 'digits',            //post
         'ref_style'                => 'word',              //post
         'ref_template'             => 'digits',            //post
@@ -30,7 +30,7 @@ $inputConfiguration = [
         'maxRecords'               => 'int',               //post
         'offset'                   => 'digits',            //get
         'addreference'             => 'bool',              //post
-        'response'                 => 'alpha',             //post
+        'response'                 => 'string',            //post
         'editreference'            => 'bool',              //post
         'details'                  => 'digits',            //get
         'usage'                    => 'digits',            //get
@@ -51,6 +51,7 @@ $getInput = function ($request, $key, $default = '') {
 $page = $getInput($_REQUEST, 'page');
 $smarty->assign('page', $page);
 
+$msg = "";
 
 $page_id = TikiLib::lib('tiki')->get_page_id_from_name($page);
 $action = $getInput($_REQUEST, 'action');

@@ -13,7 +13,7 @@ $inputConfiguration = [
         'staticKeyFilters' => [
              'find'        => 'striptags',    //post
              'offset'      => 'int',          //get
-             'remove'      => 'int',          //get
+             'remove'      => 'pagename',     //get
              'templateId'  => 'int',          //post
              'content'     => 'text',         //post
              'preview'     => 'bool',         //post
@@ -33,8 +33,7 @@ if (! isset($_REQUEST["pageName"])) {
     $_REQUEST["pageName"] = '';
 }
 $smarty->assign('pageName', $_REQUEST["pageName"]);
-if ($_REQUEST["pageName"]) {
-    $info = $htmlpageslib->get_html_page($_REQUEST["pageName"]);
+if ($info = $htmlpageslib->get_html_page($_REQUEST["pageName"])) {
 } else {
     $info = [];
     $info["pageName"] = '';

@@ -30,6 +30,8 @@ $smarty->assign('alldone', false);
 
 $smarty->assign('userinfo', $userlib->get_user_info($user));
 
+$registrationlib = TikiLib::lib('registration');
+
 //groups choice
 if (count($registrationlib->merged_prefs['choosable_groups'])) {
     $smarty->assign('listgroups', $registrationlib->merged_prefs['choosable_groups']);

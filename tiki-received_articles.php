@@ -77,7 +77,7 @@ if ($_REQUEST["receivedArticleId"]) {
     $info["image_y"] = 0;
     $info["image_data"] = '';
     $info["publishDate"] = $tikilib->now;
-    $cur_time = explode(',', $tikilib->date_format('%Y,%m,%d,%H,%M,%S', $publishDate));
+    $cur_time = explode(',', $tikilib->date_format('%Y,%m,%d,%H,%M,%S', $info["publishDate"]));
     $info["expireDate"] = $tikilib->make_time($cur_time[3], $cur_time[4], $cur_time[5], $cur_time[1], $cur_time[2], $cur_time[0] + 1);
     $info["created"] = $tikilib->now;
     $info["heading"] = '';

@@ -14,7 +14,7 @@ $inputConfiguration = [
         'adduser'              => 'bool',               //post
         'user'                 => 'username',           //post
         'offline'              => 'bool',               //post
-        'removeuser'           => 'int',                //post
+        'removeuser'           => 'username',           //post
         'find_users'           => 'string',             //post
         ],
     ],

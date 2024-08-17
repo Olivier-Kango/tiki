@@ -17,7 +17,7 @@ $inputConfiguration = [
         'send'                            => 'bool',              //post
         'confirm'                         => 'bool',              //post
         ],'staticKeyFiltersForArrays' => [
-        'invitegroups'                    => 'string',              //post
+        'invitegroups'                    => 'string',            //post
         ],
     ],
 ];
@@ -138,9 +138,9 @@ if (isset($_REQUEST['send'])) {
             $emails = [];
     }
 
-    $igroups = $_REQUEST['invitegroups'];
+    $igroups = $_REQUEST['invitegroups'] ?? [];
 
-    if (! empty($_REQUEST['confirm'])) {
+    if (! empty($_REQUEST['confirm']) && isset($_REQUEST['invitegroups'])) {
         $tikilib->query(
             "INSERT INTO `tiki_invite` (inviter, `groups`, ts, emailsubject,emailcontent,wikicontent,wikipageafter) VALUES (?,?,?,?,?,?,?)",
             [
@@ -184,6 +184,11 @@ if (isset($_REQUEST['send'])) {
         }
 
         $smarty->assign('sentresult', true);
+    } elseif (! isset($_REQUEST['invitegroups'])) {
+        Feedback::error(tr("You must select an invite group"));
+        $smarty->assign('mid', 'tiki-invite.tpl');
+        $smarty->display("tiki.tpl");
+         die();
     }
     $smarty->assign('emails', $emails);
 }

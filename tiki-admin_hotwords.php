@@ -12,7 +12,7 @@ $inputConfiguration = [
     [
         'staticKeyFilters' => [
              'word'        => 'word',         //post
-             'url'         => 'bool',         //post
+             'url'         => 'url',          //post
              'add'         => 'bool',         //post
              'remove'      => 'word',         //post
              'sort_mode'   => 'text',         //get
