@@ -120,6 +120,7 @@ export default defineConfig(({ command, mode }) => {
         "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
         "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
         "element-plus-ui": resolve(__dirname, "vue-widgets/element-plus-ui/src/element-plus-ui.ce.js"),
+        "color-picker": resolve("node_modules/@shoelace-style/shoelace/dist/components/color-picker/color-picker.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
@@ -272,6 +273,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/element-plus/dist/locale",
                     },
                     /* common_externals */
+                    {
+                        src: "node_modules/@shoelace-style/shoelace/dist/themes/*.css",
+                        dest: "vendor_dist/@shoelace-style/shoelace/dist/themes",
+                    },
                     {
                         src: "node_modules/animejs/lib/anime.es.js",
                         dest: "vendor_dist/anime/dist",

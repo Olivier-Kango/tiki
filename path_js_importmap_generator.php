@@ -56,8 +56,9 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "@vue-mf/tiki-offline" => $tikiUrl . JS_ASSETS_PATH . "/tiki-offline.js",
                 "@vue-mf/toolbar-dialogs" => $tikiUrl . JS_ASSETS_PATH . "/toolbar-dialogs.js",
                 /* vue widgets */
-                "@vue-widgets/datetime-picker" => $tikiUrl . JS_ASSETS_PATH . "/datetime-picker.js",
-                "@vue-widgets/element-plus-ui" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui.js",
+                "@vue-widgets/datetime-picker" => $tikiroot . JS_ASSETS_PATH . "/datetime-picker.js",
+                "@vue-widgets/element-plus-ui" => $tikiroot . JS_ASSETS_PATH . "/element-plus-ui.js",
+                "@shoelace/color-picker" => $tikiroot . JS_ASSETS_PATH . "/color-picker.js",
             ]
         ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);

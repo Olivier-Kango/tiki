@@ -53,3 +53,14 @@
         <a href="#">egestas massa</a>, nunc etiam ac scelerisque auctor sed sed facilisis!
     </p>
 </div>
+
+{jq}
+$('.colors').find('.picker').each(function() {
+        $(this).find('sl-color-picker').each(function() {
+            this.trigger.style.cssText = 'visibility: hidden; position: absolute; margin-left: -150px; margin-top: -30px;';
+        });
+        $(this).find('.input-group-addon').on('click', () => {
+            this.querySelector('sl-color-picker').trigger.click();
+        });
+    });
+{/jq}

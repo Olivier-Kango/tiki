@@ -20,7 +20,10 @@
         {if in_array('icons', $sections)}{include file='templates/styleguide/sections/icons.tpl'}{/if}
     </div>
 
-    {preference name="header_custom_css" syntax="css"}
+    <div class="col">
+        <label for="header_custom_css">{tr}Custom CSS{/tr}</label>
+        <textarea name="header_custom_css" class="form-control" rows="10"></textarea>
+    </div>
 
     <div class="tc-footer">
         <div class="container">

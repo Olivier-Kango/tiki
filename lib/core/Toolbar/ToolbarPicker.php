@@ -10,9 +10,6 @@ class ToolbarPicker extends ToolbarDialog
 
     public static function fromName($tagName, bool $is_wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
-        global $section;
-        $headerlib = TikiLib::lib('header');
-
         $tool_prefs = [];
         $styleType = '';
 
@@ -42,31 +39,8 @@ class ToolbarPicker extends ToolbarDialog
                 $wysiwyg = 'TextColor';
                 $label = tra('Foreground color');
                 $iconname = 'font-color';
-                $rawList = [];
                 $styleType = 'color';
-
-                $hex = ['0', '3', '6', '8', '9', 'C', 'F'];
-                $count_hex = count($hex);
-
-                for ($r = 0; $r < $count_hex; $r += 2) { // red
-                    for ($g = 0; $g < $count_hex; $g += 2) { // green
-                        for ($b = 0; $b < $count_hex; $b += 2) { // blue
-                            $color = $hex[$r] . $hex[$g] . $hex[$b];
-                            $rawList[] = $color;
-                        }
-                    }
-                }
-
                 $list = [];
-                foreach ($rawList as $color) {
-                    $list["~~#$color:text~~"] = "<span style='background-color: #$color' title='#$color' />&nbsp;</span>";
-                }
-
-                if ($section == 'sheet') {
-                    $list['reset'] = "<span title=':" . tra(
-                        "Reset Colors"
-                    ) . "' class='toolbars-picker-reset' reset='true'>" . tra("Reset") . "</span>";
-                }
 
                 break;
 
@@ -75,29 +49,7 @@ class ToolbarPicker extends ToolbarDialog
                 $iconname = 'background-color';
                 $wysiwyg = 'BGColor';
                 $styleType = 'background-color';
-                $rawList = [];
-
-                $hex = ['0', '3', '6', '8', '9', 'C', 'F'];
-                $count_hex = count($hex);
-
-                for ($r = 0; $r < $count_hex; $r += 2) { // red
-                    for ($g = 0; $g < $count_hex; $g += 2) { // green
-                        for ($b = 0; $b < $count_hex; $b += 2) { // blue
-                            $color = $hex[$r] . $hex[$g] . $hex[$b];
-                            $rawList[] = $color;
-                        }
-                    }
-                }
-
                 $list = [];
-                foreach ($rawList as $color) {
-                    $list["~~black,#$color:text~~"] = "<span style='background-color: #$color' title='#$color' />&nbsp;</span>";
-                }
-                if ($section == 'sheet') {
-                    $list['reset'] = "<span title='" . tra(
-                        "Reset Colors"
-                    ) . "' class='toolbars-picker-reset' reset='true'>" . tra("Reset") . "</span>";
-                }
 
                 break;
 
@@ -117,7 +69,7 @@ class ToolbarPicker extends ToolbarDialog
             ->setIconName(! empty($iconname) ? $iconname : 'help')
             ->setList($list)
             ->setType('Picker')
-            ->setClass('qt-picker')
+            ->setClass('qt-picker ' . $tagName)
             ->setMarkdownSyntax($tagName)
             ->setMarkdownWysiwyg($tagName)
             ->setStyleType($styleType)
@@ -149,14 +101,16 @@ class ToolbarPicker extends ToolbarDialog
     }
     public function getOnClick(): string
     {
-        global $section;
         // N.B. output is enclosed in double quotes later
-        if ($section == 'sheet') {
-            return 'displayPicker( this, \'' . $this->name . '\', \'' .
-                $this->domElementId . '\', true, \'' . $this->styleType . '\' )';
-        } elseif ($this->name == 'emoji' && $this->isDialogSupported()) {
+        if ($this->name == 'emoji' && $this->isDialogSupported()) {
             return 'displayEmojiPicker(\'emoji-picker-' . $this->index . '\', \'' .
                 $this->domElementId . '\')';
+        } elseif ($this->name === 'color' || $this->name === 'bgcolor') {
+            $id = $this->name;
+            return "
+                const colorPicker = document.querySelector('sl-color-picker#$id');
+                colorPicker.trigger.click();
+            ";
         } else {
             return 'displayPicker( this, \'' . $this->name . '\', \'' .
                 $this->domElementId . '\' )';
@@ -200,15 +154,21 @@ class ToolbarPicker extends ToolbarDialog
     onDOMElementRemoved("single-spa-application:@vue-mf/emoji-picker", function () {
         window.unregisterApplication("@vue-mf/emoji-picker");
     });');
-        } elseif (! $pickerAdded) {
+        } elseif (! $pickerAdded && $this->name === 'specialchar') {
             TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
             $pickerAdded = true;
+        } else {
+            TikiLib::lib('header')->add_js_module("import '@shoelace/color-picker';");
         }
     }
 
     public function getWikiHtml(): string
     {
-        $this->setupPickerJS();
+        global $section;
+
+        if ($this->name === 'specialchar') {
+            $this->setupPickerJS();
+        }
 
         $html = $this->getSelfLink(
             $this->getOnClick(),
@@ -219,6 +179,34 @@ class ToolbarPicker extends ToolbarDialog
         if ($this->name === 'emoji' && $this->isDialogSupported()) {
             $html .= $this->getEmojiPicker();
         }
+
+        if ($this->name === 'color' || $this->name === 'bgcolor') {
+            $id = $this->name;
+            $colorPickerVar = "colorPicker$id";
+            $areaId = $this->domElementId;
+            $insertScriptValue = $this->name === 'color' ? "'~~' + this.value + ':text~~'" : "'~~text-color-goes-here,' + this.value + ':text~~'";
+            "$.sheet.instance[I].cellChangeStyle(styleType, '');";
+            TikiLib::lib('header')->add_jq_onready("
+                const $colorPickerVar = document.querySelector('#$id');
+                $colorPickerVar.trigger.style.cssText = 'visibility: hidden; position: absolute; margin-left: -50px; margin-top: -30px;'; // The spacings used are not totally accurate, but they are good enough visually for now.
+                $colorPickerVar.addEventListener('sl-blur', function () {
+                    if ('$section' === 'sheet') {
+                        $.sheet.instance[$.sheet.I()].cellChangeStyle('$this->styleType', this.value);
+                    } else {
+                        insertAt('$areaId', $insertScriptValue);
+                    }
+                });
+            ");
+            $html .= "<sl-color-picker 
+                id='$id'
+                value='black'
+                swatches='
+                    #d0021b; #f5a623; #f8e71c; #8b572a; #7ed321; #417505; #bd10e0; #9013fe;
+                    #4a90e2; #50e3c2; #b8e986; #000; #444; #888; #ccc; #fff;
+                '
+            ></sl-color-picker>";
+        }
+
         return $html;
     }
 

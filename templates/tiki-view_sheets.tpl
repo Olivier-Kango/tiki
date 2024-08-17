@@ -95,3 +95,9 @@
     <input class="addTracker" type="button" value="{tr}Tracker as a spreadsheet{/tr}" style="width: 100%;"><br>
     <input class="addFile" type="button" value="{tr}Spreadsheet from file gallery{/tr}" style="width: 100%;">
 </div>
+
+{jq}
+    const jSHeader = $('.jSHeader');
+    const toolbar = $('#sheetTools > div')[0];
+    jSHeader.find('tr').get(0).insertAdjacentElement('beforeend', toolbar);
+{/jq}

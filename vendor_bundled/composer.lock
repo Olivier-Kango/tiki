@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5724d70795135ff01bde867c6fd815c5",
+    "content-hash": "52cfc83d489b1570554a5ce182be2167",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2176,38 +2176,6 @@
             "time": "2024-01-02T23:09:56+00:00"
         },
         {
-            "name": "itsjavi/bootstrap-colorpicker",
-            "version": "2.5.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/farbelous/bootstrap-colorpicker.git",
-                "reference": "525cd6a0aa26ae95803bbf34d231c4163136a314"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/itsjavi/bootstrap-colorpicker/itsjavi-bootstrap-colorpicker-525cd6a0aa26ae95803bbf34d231c4163136a314-zip-5943c5.zip",
-                "reference": "525cd6a0aa26ae95803bbf34d231c4163136a314",
-                "shasum": "5be1f472056661d544c2a970500dabb31575a0c5"
-            },
-            "require": {
-                "components/jquery": ">=1.10"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache License Version 2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Javier Aguilar",
-                    "homepage": "https://itsjavi.com"
-                }
-            ],
-            "description": "Fancy and customizable colorpicker plugin for Twitter Bootstrap",
-            "abandoned": true,
-            "time": "2018-07-21T17:06:22+00:00"
-        },
-        {
             "name": "jasig/phpcas",
             "version": "1.6.1",
             "source": {
@@ -2281,13 +2249,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "04e2b827020149231fdc54b8a2b8d8bb63692e02"
+                "reference": "652e144fd646b9b41728d6209debab65375441be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-04e2b827020149231fdc54b8a2b8d8bb63692e02-zip-4c1c3f.zip",
-                "reference": "04e2b827020149231fdc54b8a2b8d8bb63692e02",
-                "shasum": "b1c9145ec9b072c42fbce88577a27e602c767579"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-652e144fd646b9b41728d6209debab65375441be-zip-3ee14d.zip",
+                "reference": "652e144fd646b9b41728d6209debab65375441be",
+                "shasum": "8e9a71283029acee7b5f5b5670237168710cfaf0"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2353,7 +2321,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-08-09T10:14:48+00:00"
+            "time": "2024-08-16T11:05:15+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3012,17 +2980,17 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.36.0",
+            "version": "2.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "307afc21ada0648e84cdcf9e14cd84bd43ee9d13"
+                "reference": "27dda1e60547bc000b876e24808f47932df2f4ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-307afc21ada0648e84cdcf9e14cd84bd43ee9d13-zip-335879.zip",
-                "reference": "307afc21ada0648e84cdcf9e14cd84bd43ee9d13",
-                "shasum": "0891dd5a93e5862ba50338dd3696d4b25369ac16"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-filter/laminas-laminas-filter-27dda1e60547bc000b876e24808f47932df2f4ac-zip-4f9aad.zip",
+                "reference": "27dda1e60547bc000b876e24808f47932df2f4ac",
+                "shasum": "4932a6fb8b425046662fbd467c88f13afe35a026"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -3079,7 +3047,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-06-13T10:31:36+00:00"
+            "time": "2024-08-12T09:23:23+00:00"
         },
         {
             "name": "laminas/laminas-http",
@@ -4482,17 +4450,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.5.1",
+            "version": "2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "ac815920de0eff6de947eac0a6a94e5ed0fb147c"
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-ac815920de0eff6de947eac0a6a94e5ed0fb147c-zip-d96500.zip",
-                "reference": "ac815920de0eff6de947eac0a6a94e5ed0fb147c",
-                "shasum": "c410af58bd6399cc22da7a3c48af63ccdb838e45"
+                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-b650144166dfa7703e62a22e493b853b58d874b0-zip-18c2b2.zip",
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0",
+                "shasum": "9809843791782976d5d86e8b4a74087325acdcb2"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -4504,8 +4472,8 @@
             },
             "require-dev": {
                 "cebe/markdown": "^1.0",
-                "commonmark/cmark": "0.31.0",
-                "commonmark/commonmark.js": "0.31.0",
+                "commonmark/cmark": "0.31.1",
+                "commonmark/commonmark.js": "0.31.1",
                 "composer/package-versions-deprecated": "^1.8",
                 "embed/embed": "^4.4",
                 "erusev/parsedown": "^1.0",
@@ -4577,7 +4545,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-24T12:52:09+00:00"
+            "time": "2024-08-16T11:46:16+00:00"
         },
         {
             "name": "league/config",
@@ -10519,17 +10487,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v5.3.1",
+            "version": "v5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "3cb35854326a94120cd415b81db28c53d95d0d5d"
+                "reference": "fd90f7eac969d998736edbf12dadf04c64471b0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-3cb35854326a94120cd415b81db28c53d95d0d5d-zip-92e5ce.zip",
-                "reference": "3cb35854326a94120cd415b81db28c53d95d0d5d",
-                "shasum": "e419f014ed12a7ecdf315b62f60cde2bacdb5542"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-fd90f7eac969d998736edbf12dadf04c64471b0a-zip-6bda09.zip",
+                "reference": "fd90f7eac969d998736edbf12dadf04c64471b0a",
+                "shasum": "a2a3b592b58ade806511d478dbf34a0f7e721acc"
             },
             "require": {
                 "php": "^7.2 || ^8.0",
@@ -10580,7 +10548,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2024-06-16T19:51:13+00:00"
+            "time": "2024-08-14T20:00:44+00:00"
         },
         {
             "name": "stella-maris/clock",
