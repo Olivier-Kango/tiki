@@ -168,77 +168,65 @@
     $('.filter:not(.init)').addClass('init').each(function () {
 
 {{if $prefs.feature_categories eq 'y'}}
-        var categoryInput = $('.category-wizard', this).fancy_filter('init', {
+        const categoryInput = $('.category-wizard', this).fancy_filter('init', {
             map: {{$filter_categmap|json_encode}}
         });
 
-        var categoryPicker = $('.category-picker', this).dialog({
-            maxHeight: $(window).height()-50,
-            width: 'auto',
-            autoOpen: false,
-            modal: true,
-            buttons: {
-                "{tr}Add to filter{/tr}": function () {
-                    $(':checked', this).each(function () {
-                        categoryInput.fancy_filter('add', {
-                            token: $(this).val(),
-                            label: $(this).parent().text(),
-                            join: ' or '
-                        });
-                    });
-                    $(this).dialog('close');
-                },
-                "{tr}Cancel{/tr}": function () {
-                    $(this).dialog('close');
-                }
-            },
-            close: function () {
-                $(':checked', this).prop('checked', false);
-            }
-        });
-
-        $('.category-lookup', this).on("click", function () {
-            categoryPicker.dialog('open');
+        $('.category-lookup', this).on("click", () => {
+            $.openModal({
+                title: "{tr}Select Categories{/tr}",
+                content: $('.category-picker', this).html(),
+                buttons: [
+                    {
+                        text: "{tr}Add to filter{/tr}",
+                        onClick: function () {
+                            $(':checked', this).each(function () {
+                                categoryInput.fancy_filter('add', {
+                                    token: $(this).val(),
+                                    label: $(this).parent().text(),
+                                    join: ' or '
+                                });
+                            });
+                            $.closeModal();
+                        }
+                    }
+                ]
+            });
             return false;
         });
 {{/if}}
 
 {{if $prefs.feature_freetags eq 'y' and $prefs.search_show_tag_filter eq 'y'}}
-        var tagInput = $('.tag-wizard', this).fancy_filter('init', {
+        const tagInput = $('.tag-wizard', this).fancy_filter('init', {
             map: {{$filter_tagmap}}
         });
 
-        $('.tag-picker a', this).on("click", function () {
-            $(this).toggleClass('highlight');
-
-            return false;
-        });
-        var tagPicker = $('.tag-picker', this).dialog({
-            autoOpen: false,
-            modal: true,
-            maxHeight: $window.height() - 50,
-            buttons: {
-                "{tr}Add to filter{/tr}": function () {
-                    $('.highlight', this).each(function () {
-                        tagInput.fancy_filter('add', {
-                            token: $(this).attr('href'),
-                            label: $(this).text(),
-                            join: ' and '
-                        });
+        $('.tag-lookup', this).on("click", () => {
+            $.openModal({
+                title: "{tr}Select Tags{/tr}",
+                content: $('.tag-picker', this).html(),
+                buttons: [
+                    {
+                        text: "{tr}Add to filter{/tr}",
+                        onClick: function () {
+                            $('.highlight', this).each(function () {
+                                tagInput.fancy_filter('add', {
+                                    token: $(this).attr('href'),
+                                    label: $(this).text(),
+                                    join: ' and '
+                                });
+                            });
+                            $.closeModal();
+                        }
+                    }
+                ],
+                open: function () {
+                    $('li a', this).on("click", function () {
+                        $(this).toggleClass('highlight');
+                        return false;
                     });
-                    $(this).dialog('close');
-                },
-                "{tr}Cancel{/tr}": function () {
-                    $(this).dialog('close');
                 }
-            },
-            close: function () {
-                $(':checked', this).prop('checked', false);
-            }
-        });
-
-        $('.tag-lookup', this).on("click", function () {
-            tagPicker.dialog('open');
+            })
             return false;
         });
 {{/if}}

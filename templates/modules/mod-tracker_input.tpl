@@ -127,7 +127,7 @@
 
                 if (streetview) {
                     map.streetview.addButton('{tr}Add Marker{/tr}', function (canvas) {
-                        var url = canvas.getImageUrl(), position = canvas.getPosition();
+                        const url = canvas.getImageUrl(), position = canvas.getPosition();
                         $.ajax({
                             type: 'POST',
                             url: $.service('file', 'remote'),
@@ -138,7 +138,7 @@
                                 reference: 1
                             },
                             success: function (data) {
-                                var input = $('<input type="hidden" name="forced~' + streetview + '"/>')
+                                const input = $('<input type="hidden" name="forced~' + streetview + '"/>')
                                     .val(data.fileId)
                                     .appendTo(form);
                                 $('#' + location).val(position);
@@ -147,7 +147,7 @@
                                 input.remove();
                             },
                             complete: function () {
-                                $(canvas).dialog('close');
+                                $.closeModal();
                             }
                         });
                     });

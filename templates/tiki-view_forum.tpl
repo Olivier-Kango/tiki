@@ -273,7 +273,7 @@
 
                         function configureDeliberationItemRatings(me) {
                             me = $(me);
-                            var btn = me.find('.deliberationConfigureItemRatings'),
+                            const btn = me.find('.deliberationConfigureItemRatings'),
                                 input = btn.next('input.deliberatioRatingOverrideSelector'),
                                 dialog = btn.prev('div.deliberationItemRatings').clone(),
                                 ratings = dialog.find('.deliberationConfigureItemRating');
@@ -296,22 +296,20 @@
 
                                 ratings.filter('[data-val="' + input.val() + '"]').addClass('ui-state-highlight');
 
-                                var btns = {};
-                                btns[tr('Ok')] = function() {
-                                    input.val(dialog.find('div.deliberationConfigureItemRating.ui-state-highlight').data('val'));
-                                    showDeliberationItemRating(me, btn, input, ratings);
-                                    dialog.dialog('close');
-                                };
-
-                                btns[tr('Cancel')] = function() {
-                                    dialog.dialog('close');
-                                };
-
-                                dialog.dialog({
-                                    modal: true,
+                                $.openModal({
                                     title: tr('Configure Deliberation Item Ratings'),
-                                    buttons: btns
-                                });
+                                    content: dialog,
+                                    buttons: [
+                                        {
+                                            text: tr('Ok'),
+                                            onClick: function() {
+                                                input.val(dialog.find('div.deliberationConfigureItemRating.ui-state-highlight').data('val'));
+                                                showDeliberationItemRating(me, btn, input, ratings);
+                                                $.closeModal();
+                                            }
+                                        }
+                                    ]
+                                })
 
                                 return false;
                             });

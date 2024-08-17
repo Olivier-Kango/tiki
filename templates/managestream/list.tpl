@@ -30,19 +30,26 @@
             <div id="graph-canvas" class="graph-canvas" data-graph-nodes="{$event_graph.nodes|@json_encode|escape}" data-graph-edges="{$event_graph.edges|@json_encode|escape}"></div>
     {jq}
         $('#graph-draw').on("click", function(e) {
-            var width = $window.width() - 50;
-            var height = $window.height() - 130;
-            if (screen.width < 768) width = 1400;
+            const width = $window.width() - 50;
+            const height = $window.height() - 130;
+            
             $('#graph-canvas')
-                .empty()
                 .css('width', width)
                 .css('height', height)
-                .dialog({
-                    title: "Events",
-                    width: width + 30,
-                    height: height + 30
-                })
                 .drawGraph();
+
+            $.openModal({
+                title: "{tr}Events{/tr}",
+                size: 'modal-fullscreen',
+                dialogVariants: ["scrollable", "center"],
+                content: $('#graph-canvas'),
+                open: function() {
+                    $(this).on('hidden.bs.modal', function() {
+                        // Keep the canvas in the DOM so that the graph can be redrawn on next click.
+                        $('body').append($('#graph-canvas').empty());
+                    });
+                }
+            })
             return false;
         });
     {/jq}

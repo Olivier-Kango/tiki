@@ -65,16 +65,18 @@
 </div>
 
 {jq}
-    $("#{{$id}}").css('z-index', '1005').dialog({
-        autoOpen: false,
-        width: 675,
-        zIndex: 1005
-    });
     $("#{{$id_link}}").on("click", function() {
-        $("#{{$id}}").tabs({
-            heightStyle: "content",
-            collapsible: true
-        }).dialog('open');
+        $.openModal({
+            title: $("#{{$id}}").attr("title"),
+            content: $("#{{$id}}").html(),
+            dialogVariants: ["scrollable", "center"],
+            open: function() {
+                $('.modal-body', this).tabs({
+                    heightStyle: "content",
+                    collapsible: true
+                });
+            }
+        });
         return false;
     });
 {/jq}
