@@ -25,7 +25,7 @@ function wikiplugin_contributionsdashboard_info()
                 'name' => tra('Start Date'),
                 'description' => tra('Default Beginning Date'),
                 'since' => '9.0',
-                'filter' => 'text',
+                'filter' => 'date',
                 'default' => 'Today - 7 days',
             ],
             'end' => [
@@ -33,7 +33,7 @@ function wikiplugin_contributionsdashboard_info()
                 'name' => tra('End Date'),
                 'description' => tra('Default Ending Date'),
                 'since' => '9.0',
-                'filter' => 'text',
+                'filter' => 'date',
                 'default' => 'Today',
             ],
             'types' => [
@@ -73,14 +73,13 @@ function wikiplugin_contributionsdashboard($data, $params)
 
     extract($params, EXTR_SKIP);
 
-    $start = (! empty($_REQUEST["raphaelStart$i"]) ? strtotime($_REQUEST["raphaelStart$i"]) : $start);
-    $end = (! empty($_REQUEST["raphaelEnd$i"]) ? strtotime($_REQUEST["raphaelEnd$i"]) : $end);
+    $start = (! empty($_REQUEST["raphaelStart$i"]) ? ($_REQUEST["raphaelStart$i"]) : $start);
+    $end = (! empty($_REQUEST["raphaelEnd$i"]) ? ($_REQUEST["raphaelEnd$i"]) : $end);
 
     $types = explode(',', $types);
 
     $headerlib->add_jsfile("vendor_bundled/vendor/jquery/jquery-sheet/plugins/raphael-min.js", true);
     $headerlib->add_jsfile("vendor_bundled/vendor/jquery/jquery-sheet/plugins/g.raphael-min.js", true);
-    $headerlib->add_jq_onready("$('.cDashDate').datepicker();");
 
     $usersTrackerItems = [];
     foreach ($tikilib->fetchAll("SELECT itemId FROM tiki_tracker_items WHERE createdBy = ?", ["simon"]) as $item) {
@@ -187,28 +186,50 @@ function wikiplugin_contributionsdashboard($data, $params)
     $tikidateStart->setDate($start);
     $tikidateEnd = new TikiDate();
     $tikidateEnd->setDate($end);
+    $timezone = $tikilib->get_display_timezone();
 
+    $fields = [
+        "fieldname" => "raphaelStart{$i}",
+        "endfieldname" => "raphaelEnd{$i}",
+        "date" => $start,
+        "enddate" => $end,
+        "timezone" => $timezone,
+    ];
     return "
             <style>
                 .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
                     font-size: 16px;
+                    padding: 1px 10px;
+                    margin: 0;
                 }
                 .headerHelper {
+                    display: flex;
+                    align-items: center;
+                    column-gap: 3px;
                     font-size: 12px;
-                    float: right;
-                    padding: 0px;
-                    margin-top: -7px;
+                    flex-basis: 40%;
+                }
+                .headerAction {
+                    align-self: normal;
+                }
+                .headerHelper > :nth-child(1) {
+                    flex-basis: 20%;
+                }
+                .headerHelper > :nth-child(2) {
+                    flex-basis: 75%;
                 }
             </style>
             <div class='ui-widget ui-widget-content ui-corner-all'>
-                <h3 class='header ui-state-default ui-corner-tl ui-corner-tr' style='margin: 0; padding: 5px;'>
+                <h3 class='header ui-state-default ui-corner-tl ui-corner-tr'>
                     " . tr("Contributions Dashboard") . "
                     <form class='headerHelper'>
-                        " . tr("Date Range") . "
-                        <input type='text' name='raphaelStart$i' id='raphaelStart$i' class='cDashDate' value='" . $tikidateStart->format("%m/%d/%Y", true) . "' />
-                        <input type='text' name='raphaelEnd$i' id='raphaelEnd$i' class='cDashDate' value='" . $tikidateEnd->format("%m/%d/%Y", true) . "' />
+                        <span>" . tr("Date Range") . "</span>
+                        <span>" . smarty_function_jscalendar($fields, $smarty->getEmptyInternalTemplate()) . "</span>
                         <input type='hidden' name='refresh' value='1' />
-                        <input type='submit' id='raphaelUpdate$i' value='" . tr("Update") . "' />
+                        <input type='submit' id='raphaelUpdate$i' class='headerAction' value='" . tr("Update") . "' />
                     </form>
                 </h3>
                 $result
