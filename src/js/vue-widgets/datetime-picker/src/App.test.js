@@ -170,25 +170,39 @@ describe("DatetimePicker", () => {
         test.each([
             ["the range picker is enabled", [new Date("2021-01-01"), new Date("2021-01-02")]],
             ["the range picker is disabled", [new Date("2021-01-01")]],
-        ])("should update the hidden timestamp inputs when the date picker value changes and %s", async (_, givenUpdatedDates) => {
-            VueDatePicker = {
-                emits: ["update:modelValue"],
-                setup(props, { emit }) {
-                    const handleClick = () => emit("update:modelValue", givenUpdatedDates);
-                    return () => h("div", {}, h("button", { onClick: handleClick }, "Select date"));
-                },
-            };
-            render(DatetimePicker);
+        ])(
+            "should update the hidden timestamp inputs when the date picker value changes and %s and call the emitValueChange prop",
+            async (_, givenUpdatedDates) => {
+                VueDatePicker = {
+                    emits: ["update:modelValue"],
+                    setup(props, { emit }) {
+                        const handleClick = () => emit("update:modelValue", givenUpdatedDates);
+                        return () => h("div", {}, h("button", { onClick: handleClick }, "Select date"));
+                    },
+                };
+                const givenProps = {
+                    emitValueChange: vi.fn(),
+                };
+                render(DatetimePicker, {
+                    props: givenProps,
+                });
 
-            const pickDateButton = screen.getByText("Select date");
-            await fireEvent.click(pickDateButton);
+                const pickDateButton = screen.getByText("Select date");
+                await fireEvent.click(pickDateButton);
 
-            givenUpdatedDates.forEach((date, index) => {
-                expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(date, expect.anything(), expect.anything());
-            });
-        });
+                givenUpdatedDates.forEach((date, index) => {
+                    expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(date, expect.anything(), expect.anything());
+                    expect(givenProps.emitValueChange).toHaveBeenCalledWith({
+                        value: expect.anything(),
+                        unixTimestamp: Helpers.convertToUnixTimestamp.mock.results[index].value,
+                        toUnixTimestamp: Helpers.convertToUnixTimestamp.mock.results[index].value,
+                        timezone: expect.anything(),
+                    });
+                });
+            }
+        );
 
-        test.each([["goToURLOnChange"], ["globalCallback"]])(
+        test.each([["goToUrlOnChange"], ["globalCallback"]])(
             "should call the goToURLWithData helper function when the date picker value changes and the prop %s is set",
             async (prop) => {
                 const givenUpdatedDate = new Date("2021-01-01");
@@ -214,7 +228,7 @@ describe("DatetimePicker", () => {
 
                 expect(Helpers.goToURLWithData).toHaveBeenCalledWith(
                     [givenUpdatedDate],
-                    givenProps.goToURLOnChange,
+                    givenProps.goToUrlOnChange,
                     expect.anything(),
                     expect.anything(),
                     expect.anything(),
@@ -223,12 +237,13 @@ describe("DatetimePicker", () => {
             }
         );
 
-        test("should render the updated date when the timezone select value changes", async () => {
+        test("should render the updated date when the timezone select value changes and call the emitValueChange prop", async () => {
             VueDatePicker = vi.fn();
             const givenProps = {
                 enableTimezonePicker: 1,
                 timezone: "foo",
                 timezoneFieldName: "timezone",
+                emitValueChange: vi.fn(),
             };
 
             render(DatetimePicker, {
@@ -243,6 +258,12 @@ describe("DatetimePicker", () => {
 
             expect(VueDatePicker).toHaveBeenCalledWith(expect.objectContaining({ timezone: { timezone: selectedTimezone } }), null);
             expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(expect.anything(), expect.anything(), selectedTimezone);
+            expect(givenProps.emitValueChange).toHaveBeenCalledWith({
+                value: expect.anything(),
+                unixTimestamp: expect.anything(),
+                toUnixTimestamp: expect.anything(),
+                timezone: selectedTimezone,
+            });
         });
     });
 });

@@ -4,12 +4,17 @@ import styles from "./custom.scss?inline";
 
 customElements.define(
     "datetime-picker",
-    defineCustomElement({
-        render: (props, { slots }) => {
-            return h(App, props, slots);
+    defineCustomElement(
+        (props, ctx) => {
+            const emitValueChange = (detail) => {
+                ctx.emit("change", detail);
+            };
+            return () => h(App, { ...props, emitValueChange }, ctx.slots);
         },
-        styles: [styles],
-    })
+        {
+            styles: [styles],
+        }
+    )
 );
 
 new MutationObserver((mutations) => {
@@ -17,24 +22,35 @@ new MutationObserver((mutations) => {
         const datetimePickers = document.querySelectorAll("datetime-picker");
 
         /*
-            Sync the hidden inputs and the timezone picker with the form element. Essential for data submission.
+            Sync the datetime picker value with the parent form. Essential for data submission.
         */
         datetimePickers.forEach((datetimePicker) => {
             const form = datetimePicker.closest("form");
-            form.onsubmit = (e) => {
-                e.preventDefault();
-                const elements = form.querySelectorAll("datetime-picker");
-                elements.forEach((el) => {
-                    el.shadowRoot.querySelectorAll("input[type='hidden']").forEach((input) => {
-                        form.appendChild(input);
-                    });
-                    const timezone = el.shadowRoot.querySelector("select[id='timezone']");
-                    if (timezone) {
-                        form.appendChild(timezone);
-                    }
+            datetimePicker.shadowRoot.querySelectorAll("input[type='hidden']").forEach((input) => {
+                if (!form.querySelector(`input[name="${input.name}"]`)) {
+                    form.appendChild(input);
+                }
+            });
+            const timezone = datetimePicker.shadowRoot.querySelector("select[id='timezone']");
+            if (timezone) {
+                if (!form.querySelector(`input[name="${timezone.name}"]`)) {
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = timezone.name;
+                    input.value = timezone.value;
+                    form.appendChild(input);
+                }
+            }
+            datetimePicker.addEventListener("change", function (event) {
+                this.shadowRoot.querySelectorAll("input[type='hidden']").forEach((input) => {
+                    form.querySelector(`input[name="${input.name}"]`).value = input.value;
                 });
-                form.submit();
-            };
+
+                const timezone = this.shadowRoot.querySelector("select[id='timezone']");
+                if (timezone) {
+                    form.querySelector(`input[name="${timezone.name}"]`).value = timezone.value;
+                }
+            });
         });
     }
 }).observe(document.body, { childList: true, subtree: true });

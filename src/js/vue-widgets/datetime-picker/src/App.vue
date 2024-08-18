@@ -9,7 +9,7 @@
         <input type="hidden" :name="TEXT.USE_DISPLAY_TZ_INPUT_NAME" value="1" v-if="!enableTimezonePicker" :data-testid="DATA_TEST_ID.HIDDEN_USE_DISPLAY_TZ">
         <div class="mt-3" v-if="enableTimezonePicker" :data-testid="DATA_TEST_ID.TIMEZONE_CONTAINER">
             <label for="timezone" class="form-label" :data-testid="DATA_TEST_ID.LABEL_TIMEZONE_CONTAINER">{{ TEXT.LABEL_TIMEZONE_CONTAINER }}</label>
-            <select class="form-select" aria-label="Select a timezone" id="timezone" v-model="selectedTz" :name="timezoneFieldName" :data-testid="DATA_TEST_ID.TIMEZONE_SELECT">
+            <select class="form-select" aria-label="Select a timezone" id="timezone" v-model="selectedTz" :name="timezoneFieldName" :data-testid="DATA_TEST_ID.TIMEZONE_SELECT" @change="handleTzChange">
                 <option v-for="(timezone, index) in timezones" :key="index" :value="timezone">{{ timezone }} ({{
                     getTimezoneOffset(timezone) }})</option>
             </select>
@@ -79,7 +79,7 @@ const props = defineProps({
         type: String,
         default: null,
     },
-    goToURLOnChange: {
+    goToUrlOnChange: {
         type: String
     },
     language: {
@@ -99,6 +99,9 @@ const props = defineProps({
     },
     themeCss: {
         type: String
+    },
+    emitValueChange: {
+        type: Function
     }
 });
 
@@ -131,8 +134,29 @@ Handlers
 
 const handleDatetimeChange = (value) => {
     date.value = value;
-    if (props.goToURLOnChange || props.globalCallback) {
-        goToURLWithData(value, props.goToURLOnChange, unixTimestamp.value, toUnixTimestamp.value, selectedTz.value, props.globalCallback);
+
+    if (props.emitValueChange) {
+        props.emitValueChange({
+            value: value,
+            unixTimestamp: unixTimestamp.value,
+            toUnixTimestamp: toUnixTimestamp.value,
+            timezone: selectedTz.value,
+        });
+    }
+
+    if (props.goToUrlOnChange || props.globalCallback) {
+        goToURLWithData(value, props.goToUrlOnChange, unixTimestamp.value, toUnixTimestamp.value, selectedTz.value, props.globalCallback);
+    }
+};
+
+const handleTzChange = () => {
+    if (props.emitValueChange) {
+        props.emitValueChange({
+            value: date.value,
+            unixTimestamp: unixTimestamp.value,
+            toUnixTimestamp: toUnixTimestamp.value,
+            timezone: selectedTz.value,
+        });
     }
 };
 
