@@ -6,34 +6,28 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
     [
-        'staticKeyFilters'                => [
-        'type'                            => 'word',              //post
-        'objId'                           => 'word',              //post
-        'save'                            => 'bool',              //post
-        'newtag'                          => 'string',            //post
-        'rootlang'                        => 'lang',              //get
-        'offset'                          => 'int',               //get
+        'staticKeyFilters'          => [
+            'type'     => 'word',              //post
+            'objId'    => 'word',              //post
+            'save'     => 'bool',              //post
+            'newtag'   => 'string',            //post
+            'rootlang' => 'lang',              //get
+            'offset'   => 'int',               //get
         ],
         'staticKeyFiltersForArrays' => [
-            'additional_languages'  => 'word',              //post
-            'setlang'               => 'bool',              //post
-            'clear'                 => 'bool',              //post
+            'additional_languages' => 'word',              //post
+            'setlang'              => 'bool',              //post
+            'clear'                => 'bool',              //post
         ],
     ],
 ];
 require_once('tiki-setup.php');
-$access->check_feature(['feature_freetags','freetags_multilingual','feature_multilingual']);
+$access->check_feature(['feature_freetags', 'freetags_multilingual', 'feature_multilingual']);
 $access->check_permission('tiki_p_freetags_tag');
 
-if (! isset($_REQUEST['type'])) {
-    $_REQUEST['type'] = 'wiki page';
-}
-if (! isset($_REQUEST['objId'])) {
-    $_REQUEST['objId'] = '';
-}
-
-$cat_type = $_REQUEST['type'];
-$cat_objId = $_REQUEST['objId'];
+// Set Default Request Values
+$cat_type = $_REQUEST['type'] ?? 'wiki page';
+$cat_objId = $_REQUEST['objId'] ?? '';
 
 if ($cat_type != 'wiki page' && $cat_type != 'article') {
     $smarty->assign('msg', tra("Not supported yet."));
@@ -44,26 +38,36 @@ if ($cat_type != 'wiki page' && $cat_type != 'article') {
 $freetaglib = TikiLib::lib('freetag');
 $multilinguallib = TikiLib::lib('multilingual');
 
-if (! empty($cat_objId)) {
-    $info = $tikilib->get_page_info($cat_objId);
-} elseif ($tiki_p_admin_freetags != 'y') {
-    // Global tag edit only available to admins
+// Check for invalid or missing objId and non-admin user permissions
+function handleError($message, $smarty)
+{
     $smarty->assign('errortype', 401);
-    $smarty->assign('msg', tra("You do not have the permission that is needed to use this feature"));
-    $smarty->display("error.tpl");
-    die;
-} else {
-    // Handle error for missing or invalid objId
-    $smarty->assign('errortype', 401);
-    $smarty->assign('msg', tra("Invalid or missing objId"));
+    $smarty->assign('msg', $message);
     $smarty->display("error.tpl");
     die;
 }
 
-$smarty->assign('type', $cat_type);
-$smarty->assign('objId', $cat_objId);
+if (! empty($cat_objId)) {
+    $name = $tikilib->get_page_name_from_id($cat_objId);
+    if (! $name) {
+        $error_message = tra("Invalid or missing objId");
+        handleError($error_message, $smarty);
+    }
+    $info = $tikilib->get_page_info($name);
+} else {
+    $error_message = $tiki_p_admin_freetags != 'y'
+        ? tra("You do not have the permission that is needed to use this feature")
+        : tra("Invalid or missing objId");
+    handleError($error_message, $smarty);
+}
 
-$smarty->assign('data', $info);
+// Assign Values to Smarty
+$smarty->assign([
+    'type'      => $cat_type,
+    'objId'     => $cat_objId,
+    'page_name' => $name,
+    'data'      => $info,
+]);
 
 if (isset($_REQUEST['save'])) {
     // Process save
@@ -156,7 +160,6 @@ $tagList = $freetaglib->get_object_tags_multilingual($cat_type, $cat_objId, $use
 $rootlangs = [];
 foreach ($tagList as $tagGroup) {
     foreach ($tagGroup as $k => $tag) {
-        array_merge($used_languages, [$k]);
         if (isset($tag['tagset'])) {
             if ($tag['tagset'] == $tag['tagId']) {
                 $rootlangs[$tag['tagset']] = $tag['lang'];
@@ -166,13 +169,13 @@ foreach ($tagList as $tagGroup) {
 }
 
 $baseArgs = [
-    'type' => $cat_type,
-    'objId' => $cat_objId,
+    'type'                 => $cat_type,
+    'objId'                => $cat_objId,
     'additional_languages' => $used_languages,
 ];
 
-$prev = http_build_query(array_merge($baseArgs, [ 'offset' => $offset - $freetags_per_page ]), '', '&');
-$next = http_build_query(array_merge($baseArgs, [ 'offset' => $offset + $freetags_per_page ]), '', '&');
+$prev = http_build_query(array_merge($baseArgs, ['offset' => $offset - $freetags_per_page]), '', '&');
+$next = http_build_query(array_merge($baseArgs, ['offset' => $offset + $freetags_per_page]), '', '&');
 
 $smarty->assign('next', 'tiki-freetag_translate.php?' . $next);
 if ($offset) {
@@ -181,11 +184,13 @@ if ($offset) {
     $smarty->assign('previous', '');
 }
 
-$smarty->assign('tagList', $tagList);
-$smarty->assign('languageList', $used_languages);
-$smarty->assign('fullLanguageList', $allLanguages);
-$smarty->assign('rootlang', $rootlangs);
-$smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
+$smarty->assign([
+    'tagList'          => $tagList,
+    'languageList'     => $used_languages,
+    'fullLanguageList' => $allLanguages,
+    'rootlang'         => $rootlangs,
+    'metatag_robots'   => 'NOINDEX, NOFOLLOW',
+]);
 
 // Display the template
 $smarty->assign('mid', 'tiki-freetag-translate.tpl');

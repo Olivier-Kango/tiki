@@ -2269,7 +2269,7 @@ class FileGalLib extends TikiLib
             if (! empty($fileinfo['filetype'])) {
                 if (preg_match('/video\/*/', $fileinfo['filetype'])) {
                     $syntax = '{mediaplayer src="display%fileId%"}';
-                } else if (! preg_match('/image\/*/', $fileinfo['filetype'])) {
+                } elseif (! preg_match('/image\/*/', $fileinfo['filetype'])) {
                     $syntax = '{file type="gallery" fileId="%fileId%" showicon="y"}';
                 }
             }
