@@ -21943,6 +21943,9 @@ $lang_current = array(
 "Address book" => "주소록",
 "Top pages" => "상위 페이지",
 "Last pages" => "최근 페이지",
+"Create item" => "Create item",
+"Select Tracker" => "Select Tracker",
+"Move to trackers..." => 'Move to trackers...'
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
 // "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
 );

@@ -21903,6 +21903,9 @@ $lang_current = array(
 // "Address book" => "Address book",
 // "Top pages" => "Top pages",
 // "Last pages" => "Last pages",
+// "Create item" => "Create item",
+// "Select Tracker" => "Select Tracker",
+// "Move to trackers..." => 'Move to trackers...'
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
 );
 $lang = array_replace($lang, $lang_current);

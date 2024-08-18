@@ -365,7 +365,7 @@ if (! hm_exists('tiki_send_email_through_cypht')) {
  * @return string trackers with email folder fields dropdown
  */
 if (! hm_exists('tiki_move_to_tracker_dropdown')) {
-    function tiki_move_to_tracker_dropdown($mod)
+    function tiki_move_to_tracker_dropdown($mod, $title = "Trackers", $dropdown_title = 'Move to trackers...', $class = 'move_to_trackers')
     {
         $trk = TikiLib::lib('trk');
         $fields = $trk->get_fields_by_type('EF');
@@ -387,8 +387,8 @@ if (! hm_exists('tiki_move_to_tracker_dropdown')) {
                 $field_list[] = "<a href='#' class='object_selector_trigger' data-tracker='{$field['trackerId']}' data-field='{$field['fieldId']}' data-folder='inbox'>{$tracker['name']} - {$field['name']}</a>";
             }
         }
-        $res = "<a class=\"hlink\" id=\"move_to_trackers\" href=\"#\">" . $mod->trans('Trackers') . "</a>";
-        $res .= "<div class='move_to_trackers'><div class='move_to_title'>Move to trackers...<span><a class='close_move_to_trackers' href='#'>X</a></span></div>" . implode("<br>\n", $field_list) . "</div>";
+        $res = "<a class=\"hlink\" id=\"{$class}\" href=\"#\">" . $mod->trans($title) . "</a>";
+        $res .= "<div class='" . $class . "' style=\"display: none;\"><div class='move_to_title'>" . $mod->trans($dropdown_title) . "<span><a class=\"close_{$class}\" href='#'>X</a></span></div>" . implode("<br>\n", $field_list) . "</div>";
 
         return $res;
     }
