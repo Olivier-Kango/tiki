@@ -74,7 +74,7 @@ if (empty($info)) {
     TikiLib::lib('wiki')->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
 
     // If after cleaning the url, the page does not exist then display an error
-    $smarty->assign('msg', tra('No page indicated'));
+    $smarty->assign('msg', tra('Page not found'));
     $smarty->display('error.tpl');
     die;
 }
