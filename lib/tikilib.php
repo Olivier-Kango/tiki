@@ -4719,6 +4719,9 @@ class TikiLib extends TikiDb_Bridge
     {
         global $prefs, $tracer;
         $parserlib = TikiLib::lib('parser');
+        if ($hash === null) {
+            $hash = [];
+        }
 
         $tracer->trace('tikilib.create_page', "** invoked");
 

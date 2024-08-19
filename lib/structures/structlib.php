@@ -292,7 +292,7 @@ class StructLib extends TikiLib
         $description = isset($options['description']) ? $options['description'] : '';
         $lang = isset($options['lang']) ? $options['lang'] : '';
         $is_html = isset($options['is_html']) ? $options['is_html'] : false;
-        $hash = isset($options['hash']) ? $options['hash'] : false;
+        $hash = isset($options['hash']) ? $options['hash'] : null;
         $wysiwyg = isset($options['wysiwyg']) ? $options['wysiwyg'] : null;
         $wiki_authors_style = isset($options['wiki_authors_style']) ? $options['wiki_authors_style'] : '';
 
