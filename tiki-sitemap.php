@@ -12,10 +12,9 @@ if ($prefs['sitemap_enable'] == 'y') {
     $siteMapFile = ! empty($_REQUEST['file']) ? (string)$_REQUEST['file'] : Generator::BASE_FILE_NAME . '-index.xml';
 
     $path = Generator::getRelativePath();
-
     // filter valid file names
     if (
-        preg_match('/^.*\.(xml)$/', $siteMapFile, $matches)
+        ! preg_match('/^.*\.(xml)$/', $siteMapFile, $matches)
         || ! file_exists($path . $siteMapFile)
     ) {
         die(tra('Sitemap file not available'));

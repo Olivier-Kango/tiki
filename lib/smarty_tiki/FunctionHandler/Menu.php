@@ -155,7 +155,7 @@ class Menu extends Base
                     //Why is this not handled by IconsetLib?  - benoitg -2024-08-16
                     break;
                 default:
-                $iconSet = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "");
+                    $iconSet = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "");
             }
             foreach ($menu_icons as $key => $value) {
                 $default_icon = "";
