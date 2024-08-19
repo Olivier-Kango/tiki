@@ -150,6 +150,13 @@ class Menu extends Base
             $menu_icons = $tikilib->fetchAll('SELECT optionId, url, icon FROM tiki_menu_options');
             $iconset_pref = $prefs['theme_iconset'];
             $menu_icons_searchable = [];
+            switch ($iconset_pref) {
+                case "bootstrap_icon_font":
+                    //Why is this not handled by IconsetLib?  - benoitg -2024-08-16
+                    break;
+                default:
+                    $iconSet = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "");
+            }
             foreach ($menu_icons as $key => $value) {
                 $default_icon = "";
                 switch ($iconset_pref) {
@@ -167,7 +174,7 @@ class Menu extends Base
                         break;
                     case "legacy":
                         $default_icon = "<img class='menu-icon' src='img/icons/pencil.png'/>"; #get prepend from any icon within the set
-                        $icon = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon'], true);
+                        $icon = $iconSet->getIcon($value['icon'], true);
                         if ($icon) {
                             if (count($icon) == 4) { //legacy icons has 4 meta datas
                                 $icon_html = "<img class='menu-icon' src='" . $icon["prepend"] . $icon["id"] . $icon["append"] . "'/>";
@@ -178,7 +185,7 @@ class Menu extends Base
                         break;
                     case "theme_specific_iconset":
                         $default_icon = "<i class='menu-icon fas fa-pencil'></i>";
-                        $icon = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon'], true);
+                        $icon = $iconSet->getIcon($value['icon'], true);
                         if ($icon) {
                             if (count($icon) == 2) {
                                 $icon_html = "<i class='menu-icon " . $icon["prepend"] . $icon["id"] . "'></i>";
@@ -189,7 +196,7 @@ class Menu extends Base
                         break;
                     case "default": //default is fontwasemome
                         $default_icon = "<i class='menu-icon fas fa-pencil'></i>";
-                        $icon = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->getIcon($value['icon'], true);
+                        $icon = $iconSet->getIcon($value['icon'], true);
                         if ($icon) {
                             if (count($icon) == 2) {
                                 $icon_html = "<i class='menu-icon " . $icon["prepend"] . $icon["id"] . "'></i>";
@@ -214,7 +221,7 @@ class Menu extends Base
                     $icons_html_json = json_encode($icons_html);
                     break;
                 case "legacy":
-                    $icons = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->icons();
+                    $icons = $iconSet->icons();
                     $icons_html = [];
                     foreach ($icons as $iconName => $meta) {
                         if ($meta['prepend'] and  $meta['append']) {
@@ -224,7 +231,7 @@ class Menu extends Base
                     $icons_html_json = json_encode($icons_html);
                     break;
                 case "theme_specific_iconset":
-                    $icons = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->icons();
+                    $icons = $iconSet->icons();
                     $icons_html = [];
                     foreach ($icons as $iconName => $meta) {
                         $prepend = $meta['prepend'] ?? "";
@@ -235,7 +242,7 @@ class Menu extends Base
                     $icons_html_json = json_encode($icons_html);
                     break;
                 case "default": //default is fontwasemome
-                    $icons = \TikiLib::lib('iconset')->getIconsetForTheme($prefs['theme_iconset'], "")->icons();
+                    $icons = $iconSet->icons();
                     $icons_html = [];
                     foreach ($icons as $iconName => $meta) {
                         $prepend = $meta['prepend'] ?? "";

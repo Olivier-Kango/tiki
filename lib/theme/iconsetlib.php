@@ -12,7 +12,7 @@ class IconsetLib
      * @return Iconset
      * @throws Exception
      */
-    public function getIconsetForTheme($theme, $theme_option)
+    public function getIconsetForTheme($theme, $theme_option): Iconset
     {
         global $prefs;
         $themelib = TikiLib::lib('theme');
