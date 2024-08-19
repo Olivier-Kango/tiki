@@ -134,7 +134,7 @@
                     {if $prefs.feature_multilingual eq 'y' and $tiki_p_edit eq 'y'}
 
                     <div class="input-group">
-                        <div class="input-group-text bg-info">
+                        <div class="input-group-text">
                             {icon name='admin_i18n' class='tips' title=":{tr}Translation{/tr}"}
                         </div>
                         <select name="tra_lang" class="form-select">
@@ -146,9 +146,9 @@
                             <input type="submit" class="btn btn-primary" name="update_translation" value="{tr}Update Translation{/tr}"/>
                             {if $show_translation_history}
                                 <input type="hidden" name="show_translation_history" value="1">
-                                {button show_translation_history=0 _text="{tr}Hide translation history{/tr}" _auto_args="*" _class="btn btn-info"}
+                                {button show_translation_history=0 _text="{tr}Hide translation history{/tr}" _auto_args="*" _class="btn btn-info ms-1"}
                             {else}
-                                {button show_translation_history=1 _text="{tr}Show translation history{/tr}" _auto_args="*" _class="btn btn-info"}
+                                {button show_translation_history=1 _text="{tr}Show translation history{/tr}" _auto_args="*" _class="btn btn-info ms-1"}
                             {/if}
                         </div>
                     </div>
