@@ -4,7 +4,7 @@
         {button href="tiki-browse_freetags.php" _class="btn btn-link" _icon_name="list" _text="{tr}Browse Tags{/tr}"}
     {/if}
     {if isset($data)}
-        {button href="tiki-index.php?page=$objId" class="btn btn-primary" _text="{tr}View page{/tr}"}
+        {button href="tiki-index.php?page=$page_name" class="btn btn-primary" _text="{tr}View page{/tr}"}
     {/if}
 </div>
 {remarksbox type="tip" title="{tr}Note{/tr}"}
