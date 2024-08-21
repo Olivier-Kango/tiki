@@ -218,7 +218,7 @@ class Column implements \JsonSerializable
                     throw new \Exception(tr(
                         'Column "%0" cannot co-exist with "%1".',
                         $column->getEncodedHeader($schema),
-                        $this->getEncodedHeader($this)
+                        $this->getEncodedHeader($schema)
                     ));
                 }
             }
