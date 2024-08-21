@@ -43,6 +43,7 @@ $inputConfiguration = [
             'savesub'                     => 'bool',              //post
             'subscriptionId'              => 'int',               //post
             'sync_subscription'           => 'int',               //get
+            'newstatus'                   => 'text',              //post
         ],
         'staticKeyFiltersForArrays' => [
             'options'               => 'text',    //post
@@ -60,6 +61,7 @@ if ($prefs['feature_groupalert'] == 'y') {
     $groupalertlib = TikiLib::lib('groupalert');
 }
 $auto_query_args = ['calendarId', 'sort_mode', 'find', 'offset'];
+$defaultstatus = ["Tentative", "Confirmed", "Cancelled"];
 if (empty($_REQUEST["calendarId"])) {
     $access->check_permission_either(['tiki_p_admin_calendar', 'tiki_p_admin_private_calendar']);
     $_REQUEST['calendarId'] = 0;
@@ -173,6 +175,31 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     if (isset($_REQUEST['viewdays'])) {
         $options['viewdays'] = $_REQUEST['viewdays'];
     }
+
+    if (! empty($_REQUEST['newstatus'])) {
+        if (trim($_REQUEST["newstatus"])) {
+            $newstatus = trim($_REQUEST["newstatus"]);
+            // the new custom status name must be different from default
+            if (! in_array($newstatus, array_map('strtolower', $defaultstatus))) {
+                // if it is an update
+                if (isset($info)) {
+                    $info["eventstatus"][] = $newstatus;
+                    $options["eventstatus"] = $info["eventstatus"];
+                } else {
+                    $defaultstatus[] = $newstatus;
+                    $options["eventstatus"] = $defaultstatus;
+                }
+            }
+        }
+    } else {
+        // if it is an update
+        if (isset($info)) {
+            $options["eventstatus"] = $info["eventstatus"];
+        } else {
+            $options["eventstatus"] = $defaultstatus;
+        }
+    }
+
     $options['allday'] = isset($_REQUEST['allday']) ? 'y' : 'n';
     $options['nameoneachday'] = isset($_REQUEST['nameoneachday']) ? 'y' : 'n';
     $options['copybuttononeachevent'] = isset($_REQUEST['copybuttononeachevent']) ? 'y' : 'n';
@@ -294,8 +321,9 @@ if ($_REQUEST['calendarId'] != 0) {
     $info["allday"] = '';
     $info["nameoneachday"] = '';
     $info["copybuttononeachevent"] = '';
-    $info["defaulteventstatus"] = 1;
+    $info["defaulteventstatus"] = "Tentative";
     $info['viedays'] = $prefs['calendar_view_days'];
+    $info["eventstatus"] = $defaultstatus;
     if (! empty($_REQUEST['show']) && $_REQUEST['show'] == 'mod') {
         $cookietab = 2;
     } else {
@@ -356,14 +384,15 @@ $userprefslib = TikiLib::lib('userprefs');
 $smarty->assign('use_24hr_clock', $userprefslib->get_user_clock_pref($user));
 
 $smarty->assign('defaulteventstatus', $info['defaulteventstatus']);
-$smarty->assign(
-    'eventstatus',
-    [
-        0 => tra('Tentative') ,
-        1 => tra('Confirmed') ,
-        2 => tra('Cancelled')
-    ]
+$smarty->assign("eventstatus", $info["eventstatus"]);
+//add translation tag to statuses for display
+$info["eventstatusoutput"] = array_map(
+    function ($status) {
+        return tra($status);
+    },
+    $info["eventstatus"]
 );
+$smarty->assign("eventstatusoutput", $info["eventstatusoutput"]);
 $smarty->assign_by_ref('info', $info);
 if (! isset($_REQUEST["sort_mode"])) {
     $sort_mode = 'name_asc';
