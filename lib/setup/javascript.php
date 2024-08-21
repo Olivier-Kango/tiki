@@ -398,14 +398,27 @@ EOT;
 }
 
 if ($prefs['feature_realtime'] === 'y') {
-    $js .= <<< 'EOT'
+    $ws_url = json_encode(preg_replace('#http://#', 'ws://', preg_replace('#https://#', 'wss://', $base_url)) . 'ws/');
+    $session_token = session_id();
+
+    $js .= <<<EOT
 var tikiOpenWS = function (endpoint) {
-    return new WebSocket(' . json_encode(preg_replace('#http://#', 'ws://', preg_replace('#https://#', 'wss://', $base_url)) . 'ws/') . ' + endpoint + "?token=' . session_id() . '");
-}
+    const queryString = endpoint.split('?')[1];
+    const searchParams = new URLSearchParams(queryString);
+    if (searchParams.toString()){ //some query params already exist
+        if(searchParams.has("token")){
+            return new WebSocket($ws_url + endpoint);
+        }
+        else{ //other query params exist but not the token
+            return new WebSocket($ws_url + endpoint + "&token=$session_token");
+        }
+    }
+    return new WebSocket($ws_url + endpoint + "?token=$session_token");
+}\n
 EOT;
     // TODO: use a preference for automatic start of WS session on each page - seems resource intensive...
     $js .= <<< 'EOT'
-initTikiGlobalWS();
+    initTikiGlobalWS();
 EOT;
 }
 
