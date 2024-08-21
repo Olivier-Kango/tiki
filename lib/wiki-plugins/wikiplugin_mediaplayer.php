@@ -227,7 +227,6 @@ function wikiplugin_mediaplayer($data, $params)
             }
 
             if (! empty($fileId)) {
-                $smarty->registerPlugin('modifier', 'sefurl', 'smarty_modifier_sefurl');
                 $sourceLink = smarty_modifier_sefurl($fileId, 'display');
             } else {
                 global $base_url;
