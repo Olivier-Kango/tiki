@@ -179,6 +179,8 @@ class UserSelector extends Base
                     'filterable' => $params['filterable'],
                     'filterPlaceholder' => $params['filterPlaceholder'],
                     'ordering' => $params['ordering'],
+                    'cardinalityParam' => $params['validationParam'],
+                    'validationMessage' => $params['validationMessage']
                 ], $template);
             }
 

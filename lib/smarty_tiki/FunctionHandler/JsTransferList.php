@@ -21,6 +21,8 @@ use TikiLib;
  *               - filterable: boolean. Whether or not to enable filtering
  *               - filterPlaceholder: placeholder text for the filter input
  *               - ordering: boolean. Whether or not to enable ordering of items via drag and drop
+ *               - cardinalityParam: string representation of the validation parameter applicable to the cardinality of the selectable items
+ *               - validationMessage: the validation message to display
  *
  * @param $smarty
  *
@@ -41,10 +43,19 @@ class JsTransferList extends Base
         $params['defaultSelected'] = array_map('strval', $params['defaultSelected']);
         $language = TikiLib::lib('tiki')->get_language();
 
+        $minItems = '';
+        $maxItems = '';
+
+        if ($params['cardinalityParam']) {
+            parse_str($params['cardinalityParam'], $cardinality);
+            $minItems = $cardinality['minimum'] ?? '';
+            $maxItems = $cardinality['maximum'] ?? '';
+        }
+
         TikiLib::lib('header')->add_js_module("import '@vue-widgets/element-plus-ui';");
 
         return "
-        <element-plus-ui component='Transfer' language=" . json_encode($language) . " data='" . json_encode($params["data"]) . "' field-name=" . json_encode($params["fieldName"]) . " filterable=" . json_encode((bool) $params["filterable"]) . " default-value='" . json_encode($params["defaultSelected"]) . "' source-list-title=" . json_encode(tr($params["sourceListTitle"])) . " target-list-title=" . json_encode(tr($params["targetListTitle"])) . " filter-placeholder=" . json_encode(tr($params["filterPlaceholder"])) . " ordering=" . json_encode((bool) $params["ordering"]) . " >
+        <element-plus-ui component='Transfer' language=" . json_encode($language) . " data='" . json_encode($params["data"]) . "' field-name=" . json_encode($params["fieldName"]) . " filterable=" . json_encode((bool) $params["filterable"]) . " default-value='" . json_encode($params["defaultSelected"]) . "' source-list-title=" . json_encode(tr($params["sourceListTitle"])) . " target-list-title=" . json_encode(tr($params["targetListTitle"])) . " filter-placeholder=" . json_encode(tr($params["filterPlaceholder"])) . " ordering=" . json_encode((bool) $params["ordering"]) . " min-items='$minItems' max-items='$maxItems' helper-text='{$params['validationMessage']}' >
         </element-plus-ui>";
     }
 }

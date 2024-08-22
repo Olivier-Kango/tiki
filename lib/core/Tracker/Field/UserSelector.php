@@ -368,6 +368,8 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements
                         'sourceListTitle' => $this->getOption('sourceListTitle'),
                         'targetListTitle' => $this->getOption('targetListTitle'),
                         'ordering' => $this->getOption('ordering'),
+                        'cardinalityParam' => $this->getConfiguration('validationParam'),
+                        'validationMessage' => $this->getConfiguration('validationMessage')
                     ],
                     $smarty->getEmptyInternalTemplate()
                 );

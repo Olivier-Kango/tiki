@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from "@testing-library/vue";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import Transfer, { DATA_TEST_ID, DRAG_HANDLER_CLASS } from "./Transfer.vue";
-import { ElTransfer } from "element-plus/dist/index.full.mjs";
+import { ElAlert, ElTransfer } from "element-plus/dist/index.full.mjs";
 import { h } from "vue";
 import Sortable from "sortablejs";
 
@@ -10,6 +10,7 @@ vi.mock("element-plus/dist/index.full.mjs", async (importOriginal) => {
     return {
         ...actual,
         ElTransfer: vi.fn(),
+        ElAlert: vi.fn(),
     };
 });
 
@@ -79,6 +80,51 @@ describe("Transfer", () => {
         assertSelectElementToHaveOptions(selectElement, []);
         assertElTransferToBeCalledWith(props);
     });
+
+    test("renders correctly given the prop isInvalid is true", () => {
+        render(Transfer, { props: { ...props, isInvalid: "true" } });
+
+        const tranferContainer = screen.getByTestId(DATA_TEST_ID.TRANSFER_CONTAINER);
+        expect(tranferContainer.getAttribute("class")).to.include("invalid");
+    });
+
+    test.each([
+        ["true", "error"],
+        ["false", "info"],
+    ])("renders the alert element with the correct status given the helperText is set and the prop isInvalid is %s", (isInvalid, type) => {
+        render(Transfer, { props: { ...props, isInvalid: isInvalid, helperText: "foo" } });
+        expect(ElAlert).toHaveBeenCalledWith(
+            expect.objectContaining({
+                type: type,
+            }),
+            null
+        );
+    });
+
+    test.each([
+        [{ minItems: 2 }, "A minimum of 2 items is allowed"],
+        [{ maxItems: 2 }, "A maximum of 2 items is allowed"],
+        [{ minItems: 2, maxItems: 4 }, "A minimum of 2 items and a maximum of 4 items are allowed"],
+        [{ helperText: "foo" }, "foo"],
+        [{ minItems: 2, helperText: "foo" }, "foo"],
+        [{ maxItems: 2, helperText: "foo" }, "foo"],
+        [{ minItems: 2, maxItems: 4, helperText: "foo" }, "foo"],
+    ])(
+        "renders the alert element with the correct message in all variations of the props: minItems, maxItems, and helperText",
+        (givenProps, expectedMessage) => {
+            ElAlert = {
+                setup(props, { slots }) {
+                    return () => h("div", props, slots.default());
+                },
+            };
+
+            render(Transfer, { props: { ...props, ...givenProps } });
+
+            const helperText = screen.getByTestId(DATA_TEST_ID.HELPER_TEXT);
+            expect(helperText).to.exist;
+            expect(helperText.textContent).to.equal(expectedMessage);
+        }
+    );
 
     test("should correctly initialize SortableJS when ordering prop is true", async () => {
         ElTransfer = {

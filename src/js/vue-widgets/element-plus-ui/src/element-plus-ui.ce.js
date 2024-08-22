@@ -1,25 +1,65 @@
-import { defineCustomElement, h } from "vue";
+import { defineCustomElement, h, watch, reactive } from "vue";
 import App from "./App.vue";
 import styles from "./custom.scss?inline";
 
 customElements.define(
     "element-plus-ui",
-    defineCustomElement({
-        render: (props, { slots }) => {
-            return h(App, props, slots);
+    defineCustomElement(
+        (props, ctx) => {
+            const internalState = reactive({ ...props });
+
+            const emitValueChange = (detail) => {
+                ctx.emit("change", detail);
+            };
+
+            // Allow to update the comoponent state by changing HTML element attributes
+            watch(
+                () => props,
+                (newProps) => {
+                    Object.keys(newProps).forEach((key) => {
+                        internalState[key] = newProps[key];
+                    });
+                },
+                { immediate: true, deep: true }
+            );
+            return () => h(App, { ...internalState, emitValueChange }, ctx.slots);
         },
-        styles: [styles],
-    })
+        {
+            styles: [styles],
+        }
+    )
 );
 
 /*
     Sync the Transfer hidden select with the form
 */
-const form = document.querySelector("element-plus-ui").closest("form");
-form.addEventListener("submit", () => {
-    const elements = form.querySelectorAll("element-plus-ui");
-    elements.forEach((el) => {
-        const select = el.shadowRoot.querySelector("select[aria-hidden='true']");
-        form.appendChild(select);
-    });
-});
+new MutationObserver((mutations) => {
+    if (mutations.some((m) => m.target.querySelector("element-plus-ui"))) {
+        const elements = document.querySelectorAll("element-plus-ui");
+        elements.forEach((el) => {
+            const fieldName = el.getAttribute("field-name");
+            let select = el.closest("form").querySelector(`select[name="${fieldName}"]`);
+            if (!select) {
+                select = document.createElement("select");
+                select.name = fieldName;
+                select.multiple = true;
+                select.setAttribute("aria-hidden", "true");
+                // Enclose it in a hidden div so its related error messages are hidden too
+                const div = document.createElement("div");
+                div.style.display = "none";
+                div.appendChild(select);
+                el.parentNode.insertAdjacentElement("afterend", div);
+            }
+            el.addEventListener("change", function (event) {
+                const value = event.detail[0].value;
+                select.innerHTML = "";
+                value.forEach((v) => {
+                    const option = document.createElement("option");
+                    option.value = v;
+                    option.selected = true;
+                    select.appendChild(option);
+                });
+            });
+        });
+    }
+}).observe(document.body, { childList: true, subtree: true });

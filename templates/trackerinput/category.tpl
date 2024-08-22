@@ -9,7 +9,7 @@
         {jstransfer_list fieldName="{$field.ins_id|escape}[]" defaultSelected=$field.selected_categories
                 data=$transfer_data sourceListTitle=$field.options_map.sourceListTitle
                 targetListTitle=$field.options_map.targetListTitle filterable=$field.options_map.filterable
-                filterPlaceholder=$field.options_map.filterPlaceholder ordering=$field.options_map.ordering}
+                filterPlaceholder=$field.options_map.filterPlaceholder ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}
     {else}
         {if $field.options_array[1] eq 'm' and $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
         <select name="{$field.ins_id}[]"{if $field.options_array[1] eq 'm'} multiple="multiple"{/if} class="form-select">

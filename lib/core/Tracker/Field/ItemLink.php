@@ -530,6 +530,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                 'filterable' => $this->getOption('filterable'),
                 'filterPlaceholder' => $filterPlaceholder,
                 'ordering' => $this->getOption('ordering'),
+                'cardinalityParam' => $this->getConfiguration('validationParam'),
+                'validationMessage' => $this->getConfiguration('validationMessage')
             ], $smarty->getEmptyInternalTemplate());
         }
 

@@ -129,7 +129,7 @@ class Validators
                         $validationjs .= 'parameter: "' . addslashes($field_value['validationParam']) . '", ';
                     }
                     $validationjs .= 'message: "' . tra($field_value['validationMessage']) . '", ';
-                    $validationjs .= 'input: function() { return $("[name=' . $prefix . $field_value['fieldId'] . ']").val(); }';
+                    $validationjs .= 'input: function() { return ($("[name=' . $prefix . $field_value['fieldId'] . ']").val() ?? $("[name=\'' . $prefix . $field_value['fieldId'] . '[]' . '\']").val()); }';
                     $validationjs .= '';
                     $validationjs .= '} } ';
                 } else {

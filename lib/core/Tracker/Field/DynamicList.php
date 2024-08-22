@@ -353,6 +353,8 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
                 'filterable' => $this->getOption('filterable'),
                 'filterPlaceholder' => $this->getOption('filterPlaceholder'),
                 'ordering' => $this->getOption('ordering'),
+                'cardinalityParam' => $this->getConfiguration('validationParam'),
+                'validationMessage' => $this->getConfiguration('validationMessage')
             ], $smarty->getEmptyInternalTemplate());
         }
 

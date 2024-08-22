@@ -9,7 +9,7 @@
     </div>
     {if $field.options_map.inputtype === 't'}
         <div class="mt-2" />
-        {jstransfer_list data=[] defaultSelected=$data.selected_users fieldName="{$field.ins_id}[]" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering}
+        {jstransfer_list data=[] defaultSelected=$data.selected_users fieldName="{$field.ins_id}[]" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}
     {else}
         <div class="col-sm-6">
             {tr}Select user(s):{/tr}

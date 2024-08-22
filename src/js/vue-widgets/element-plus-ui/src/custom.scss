@@ -36,3 +36,16 @@
 .el-transfer-panel {
     width: calc(45% - 25px * 2); // Make it take up all the space
 }
+
+.transfer-container {
+    margin-top: 1rem;
+}
+
+.transfer-container.invalid .el-transfer-panel:last-child {
+    & > .el-transfer-panel__body {
+        border-color: var(--bs-danger);
+    }
+    & > .el-transfer-panel__header {
+        border-color: var(--bs-danger) var(--bs-danger) var(--el-border-color) var(--bs-danger);
+    }
+}

@@ -510,6 +510,7 @@ class Services_Tracker_Controller
         $validation_types = [
             '' => tr('None'),
             'captcha' => tr('CAPTCHA'),
+            'cardinality' => tr('Cardinality'),
             'distinct' => tr('Distinct'),
             'pagename' => tr('Page Name'),
             'password' => tr('Password'),
@@ -2905,12 +2906,18 @@ class Services_Tracker_Controller
 
             // Highlight chosen element if exists
             $("#" + element.getAttribute("id") + "_chosen").addClass("is-invalid");
+
+            // Highlight elements representing the field
+            $(`[field-name="${element.getAttribute("name")}"]`).attr("is-invalid", true);
         },
         unhighlight: function(element) {
             $(element).removeClass("is-invalid");
 
             // Unhighlight chosen element if exists
             $("#" + element.getAttribute("id") + "_chosen").removeClass("is-invalid");
+
+            // Unhighlight elements representing the field
+            $(`[field-name="${element.getAttribute("name")}"]`).attr("is-invalid", false);
         },
         ignore: ".ignore"
         });';
