@@ -44,6 +44,16 @@ new MutationObserver((mutations) => {
                 select.name = fieldName;
                 select.multiple = true;
                 select.setAttribute("aria-hidden", "true");
+                const defaultValues = el.getAttribute("default-value");
+                if (defaultValues) {
+                    const values = JSON.parse(defaultValues);
+                    values.forEach((v) => {
+                        const option = document.createElement("option");
+                        option.value = v;
+                        option.selected = true;
+                        select.appendChild(option);
+                    });
+                }
                 // Enclose it in a hidden div so its related error messages are hidden too
                 const div = document.createElement("div");
                 div.style.display = "none";

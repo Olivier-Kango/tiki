@@ -44,6 +44,9 @@ onMounted(() => {
                     sorted.push(value);
                 });
                 selected.value = sorted;
+                props.emitValueChange({
+                    value: sorted
+                })
             },
         });
     
