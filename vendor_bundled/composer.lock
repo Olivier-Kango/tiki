@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52cfc83d489b1570554a5ce182be2167",
+    "content-hash": "e4b6dd2f1a2fe15d304f5bab8333ca5e",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -5671,17 +5671,17 @@
         },
         {
             "name": "mottie/tablesorter",
-            "version": "v2.31.3",
+            "version": "v2.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mottie/tablesorter.git",
-                "reference": "7202d5faf8105a5ecd1a2b7a653777618713ffe5"
+                "reference": "1423f5408982f58d5baa97648d2e5ee0b55fd3b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/mottie/tablesorter/mottie-tablesorter-7202d5faf8105a5ecd1a2b7a653777618713ffe5-zip-a978d2.zip",
-                "reference": "7202d5faf8105a5ecd1a2b7a653777618713ffe5",
-                "shasum": "b63008585a1508cd0eb5497c2199a26c8802273d"
+                "url": "https://composer.tiki.org/dist/mottie/tablesorter/mottie-tablesorter-1423f5408982f58d5baa97648d2e5ee0b55fd3b6-zip-6b9a3c.zip",
+                "reference": "1423f5408982f58d5baa97648d2e5ee0b55fd3b6",
+                "shasum": "0f55d20e525e54345edc4e9803a01e71ee26e745"
             },
             "require": {
                 "components/jquery": ">=1.2.6"
@@ -5705,7 +5705,8 @@
                 },
                 {
                     "name": "Rob Garrison",
-                    "email": "wowmotty@gmail.com"
+                    "email": "wowmotty@gmail.com",
+                    "homepage": "https://github.com/Mottie"
                 }
             ],
             "description": "tablesorter (FORK) is a jQuery plugin for turning a standard HTML table with THEAD and TBODY tags into a sortable table without page refreshes. tablesorter can successfully parse and sort many types of data including linked data in a cell.",
@@ -5718,7 +5719,7 @@
                 "sorting",
                 "table"
             ],
-            "time": "2020-03-03T13:46:03+00:00"
+            "time": "2024-08-14T01:23:57+00:00"
         },
         {
             "name": "mrrio/jspdf",
@@ -6595,19 +6596,6 @@
             "type": "npm-asset",
             "license": [
                 "ISC"
-            ]
-        },
-        {
-            "name": "npm-asset/select2",
-            "version": "4.1.0-RC.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/select2/npm-asset-select2-4.1.0-RC.0.zip",
-                "shasum": "336a5ca561afc048c422d96f87653edbcd29be80"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
             ]
         },
         {
@@ -17354,7 +17342,6 @@
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
-        "npm-asset/select2": 5,
         "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
         "phpcsstandards/phpcsutils": 15

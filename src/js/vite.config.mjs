@@ -165,6 +165,7 @@ export default defineConfig(({ command, mode }) => {
                     "jquery-ui",
                     "jquery-validation",
                     "moment",
+                    "select2",
                     "sortablejs",
                     "vue",
                 ],
@@ -273,6 +274,14 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/element-plus/dist/locale",
                     },
                     /* common_externals */
+                    {
+                        src: "node_modules/select2/dist/js/select2.min.js",
+                        dest: "vendor_dist/select2/dist",
+                    },
+                    {
+                        src: "node_modules/select2/dist/css/select2.min.css",
+                        dest: "vendor_dist/select2/dist",
+                    },
                     {
                         src: "node_modules/@shoelace-style/shoelace/dist/themes/*.css",
                         dest: "vendor_dist/@shoelace-style/shoelace/dist/themes",

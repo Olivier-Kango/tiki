@@ -591,8 +591,8 @@ if (typeof $.fn.button.noConflict === "function") {
     $headerlib->add_cssfile('vendor_bundled/vendor/jquery/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.css');
 }
 if ($prefs['jquery_select2'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/select2/dist/js/select2.full.min.js');
-    $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2/dist/css/select2.min.css');
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.js");
+    $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.css");
     if (Language::isRTL()) {
         $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.rtl.css');
     } else {

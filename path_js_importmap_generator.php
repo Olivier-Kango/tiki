@@ -36,6 +36,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "driver.js" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/driver.js/dist/driver.js.mjs",
                 "jquery" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/jquery/dist/jquery.js",
                 "moment" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/moment/dist/moment.js",
+                "select2" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.js",
                 "sortablejs" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/sortablejs/modular/sortable.esm.js",
                 "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.prod.js",
                 // We can't add jquery-validation because it's not available as ESM
