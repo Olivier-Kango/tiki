@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-6">
                     <h4>{tr}Timesheet{/tr}</h4>
-                    (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Time_Sheet&show_details_for=Time_Sheet&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
+                    (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Timesheets&show_details_for=Timesheets&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                     <br>
                     {tr}This profile allows recording time spent on projects. It creates two trackers: one to hold the time spent, and the other with the project names{/tr}.
                     <br/>
@@ -80,7 +80,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>{tr}Tracker as Calendar{/tr}</h4>
-                (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Tracker_as_Calendar_19&show_details_for=Tracker_as_Calendar_19&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
+                (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Tracker_as_Calendar_09&show_details_for=Tracker_as_Calendar_09&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                 <br>
                 {tr}This profile creates a tracker with some demo data and wiki interface that will be used to display and manage a Calendar of events in a fancy visual way.{/tr}
                 <br/>
