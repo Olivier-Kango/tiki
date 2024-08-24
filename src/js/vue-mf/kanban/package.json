@@ -18,7 +18,7 @@
   "dependencies": {
     "@casl/ability": "^6.7.1",
     "autosize": "^6.0.1",
-    "axios": "^1.7.2",
+    "axios": "^1.7.5",
     "qs": "^6.12.1",
     "vee-validate": "^4.13.1",
     "vue-final-modal": "^4.5.4",
