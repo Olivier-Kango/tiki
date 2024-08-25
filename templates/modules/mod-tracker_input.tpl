@@ -98,7 +98,6 @@
 
                 button = $('<input type="submit" class="btn btn-primary btn-sm" />')
                     .val($(':submit', form).val())
-                    .button()
                     .on("click", function () {
                         if (newMode) {
                             modeManager.switchTo(newMode);
@@ -110,7 +109,11 @@
                     .appendTo(form);
 
                 $(':text', form).on("keyup", function (e) {
-                    button.button(hasEmptyField(form, ':text') ? 'disable' : 'enable');
+                    if (hasEmptyField(form, ':text')){
+                        button.attr('disabled', 'disabled');
+                    }else {
+                        button.removeAttr('disabled');
+                    }
 
                     if (e.which === 13) {
                         button.trigger("click");
