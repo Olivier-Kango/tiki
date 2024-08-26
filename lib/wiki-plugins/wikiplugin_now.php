@@ -6,6 +6,13 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 function wikiplugin_now_info()
 {
+    $timezone_options = [ ['text' => '', 'value' => ''] ];
+    #$timezone_options = array_merge([''], $tikidate->getTimezoneIdentifiers());
+    $timezone_list_options = TikiDate::getTimezoneIdentifiers();
+    foreach ($timezone_list_options as $timezone_list_option) {
+        $timezone_options[] = ['text' => $timezone_list_option, 'value' => $timezone_list_option];
+    }
+
     return [
         'name' => tra('Now'),
         'documentation' => 'PluginNow',
@@ -34,7 +41,7 @@ function wikiplugin_now_info()
                     'https://doc.tiki.org/Date-and-Time-Features'
                 ),
                 'since' => '18.2',
-                'default' => tr(''),
+                'default' => '',
                 'filter' => 'text',
             ],
             'allowinvalid' => [
@@ -50,6 +57,18 @@ function wikiplugin_now_info()
                     ['text' => tra('Yes'), 'value' => 'y'],
                 ],
             ],
+            'timezone' => [
+                'required' => false,
+                'name' => tra('Time zone'),
+                'description' => tr(
+                    'Select a Time zone. If left empty, Tiki will guess the most appropriate one.'
+                ),
+                'since' => '27.1',
+                'default' => '',
+                'filter' => 'text',
+                'options' => $timezone_options,
+            ],
+
         ],
     ];
 }
@@ -61,6 +80,13 @@ function wikiplugin_now($data, $params)
 
     $tz = TikiLib::lib('tiki')->get_display_timezone();
     $tikidate = new TikiDate();
+
+    if (! empty($params['timezone'])) {
+        if (! $tikidate->TimezoneIsValidId($params['timezone'])) {
+            return tr('Invalid time zone');
+        }
+        $tz = $params['timezone'];
+    }
 
     try {
         $tikidate->setDate($when);
