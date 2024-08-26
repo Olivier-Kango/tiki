@@ -408,8 +408,8 @@ class TextArea extends Base
 
         if (syntax === "markdown") {
             // remove plugin markers
-            val = val.replace(/^\$\$tiki$/mg, "");
-            val = val.replace(/^\$\$$/mg, "");
+            val = val.replace(/(^|\n)\$\$tiki\n/g, "$1");
+            val = val.replace(/(^|\n)\$\$\n/g, "$1");
             
             // wiki link widgets markers
             val = val.replace(/\$\$widget0 (.*?)\$\$/mg, "$1");
