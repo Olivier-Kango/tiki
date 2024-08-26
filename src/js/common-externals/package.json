@@ -30,6 +30,7 @@
     "moment": "^2.30.1",
     "select2": "^4.1.0-RC.0",
     "sortablejs": "=1.14.0",
+    "subtotal": "^1.11.0-alpha.0",
     "vue": "^3.4.24"
   },
     "devDependenciesComment": {

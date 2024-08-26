@@ -167,6 +167,7 @@ export default defineConfig(({ command, mode }) => {
                     "moment",
                     "select2",
                     "sortablejs",
+                    "subtotal",
                     "vue",
                 ],
                 //external: [/^@vue-mf\/.+/],
@@ -386,6 +387,10 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src : "node_modules/interactjs/dist/*",
                         dest : "vendor_dist/interactjs/dist"
+                    },
+                    {
+                        src : "node_modules/subtotal/dist/subtotal.min.js",
+                        dest : "vendor_dist/subtotal/dist"
                     },
                 ],
             }),

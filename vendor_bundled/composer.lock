@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4b6dd2f1a2fe15d304f5bab8333ca5e",
+    "content-hash": "de16aa7b3948a7c66ab25f2867bba610",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2249,13 +2249,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "652e144fd646b9b41728d6209debab65375441be"
+                "reference": "25707d68d654408c1efe1a9bd21fd9c0b3113f4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-652e144fd646b9b41728d6209debab65375441be-zip-3ee14d.zip",
-                "reference": "652e144fd646b9b41728d6209debab65375441be",
-                "shasum": "8e9a71283029acee7b5f5b5670237168710cfaf0"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-25707d68d654408c1efe1a9bd21fd9c0b3113f4f-zip-b755e6.zip",
+                "reference": "25707d68d654408c1efe1a9bd21fd9c0b3113f4f",
+                "shasum": "b3e7c12bb977cdd5da0d2dd41209de10bb5491d7"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2321,7 +2321,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-08-16T11:05:15+00:00"
+            "time": "2024-08-22T21:37:39+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5732,54 +5732,6 @@
             "type": "library"
         },
         {
-            "name": "nagarajanchinnasamy/subtotal",
-            "version": "v1.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nagarajanchinnasamy/subtotal.git",
-                "reference": "cfc44d39bae0934e2512a46ee3e71a234a3ec6a5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/nagarajanchinnasamy/subtotal/nagarajanchinnasamy-subtotal-cfc44d39bae0934e2512a46ee3e71a234a3ec6a5-zip-43d078.zip",
-                "reference": "cfc44d39bae0934e2512a46ee3e71a234a3ec6a5",
-                "shasum": "b86acacebb06e1e8d4e46903aaf7c5de7eadec4d"
-            },
-            "require": {
-                "nicolaskruchten/pivottable": "^2.7.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nagarajan Chinnasamy",
-                    "email": "nagarajanchinnasamy@gmail.com",
-                    "homepage": "https://github.com/nagarajanchinnasamy"
-                }
-            ],
-            "description": "Subtotal.js is a JavaScript plugin for PivotTable.js. It renders subtotals of rows and columns with the ability to expand and collapse rows.",
-            "homepage": "http://nagarajanchinnasamy.com/subtotal",
-            "keywords": [
-                "collapse",
-                "crosstab",
-                "expand",
-                "grid",
-                "jquery",
-                "jquery-plugin",
-                "pivot",
-                "pivotchart",
-                "pivotgrid",
-                "pivottable",
-                "subtotal",
-                "summary",
-                "table"
-            ],
-            "time": "2017-08-09T08:42:14+00:00"
-        },
-        {
             "name": "nette/schema",
             "version": "v1.3.0",
             "source": {
@@ -6074,32 +6026,6 @@
             "time": "2019-10-16T11:51:47+00:00"
         },
         {
-            "name": "npm-asset/babel--helper-string-parser",
-            "version": "7.24.8",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-string-parser/npm-asset-babel--helper-string-parser-7.24.8.zip",
-                "shasum": "8eda5d7f29ebfcbe7f0f898073f02b100ac0df81"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/babel--helper-validator-identifier",
-            "version": "7.24.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-validator-identifier/npm-asset-babel--helper-validator-identifier-7.24.7.zip",
-                "shasum": "8d1f4ca97471c96e4b03e1a8ad2e0362f534ff6f"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/babel--parser",
             "version": "7.25.3",
             "dist": {
@@ -6117,21 +6043,19 @@
         },
         {
             "name": "npm-asset/babel--types",
-            "version": "7.25.2",
+            "version": "v7.25.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/babel/babel.git",
+                "reference": "787c7cd6baa7f2bf691f52ea65a0f69105e9f27c"
+            },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.25.2.zip",
-                "shasum": "b1b850e34534d9810f85c3cceb9ff871a229aa9f"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-787c7cd6baa7f2bf691f52ea65a0f69105e9f27c-zip-2c0b51.zip",
+                "reference": "787c7cd6baa7f2bf691f52ea65a0f69105e9f27c",
+                "shasum": "4d6fb6e499c8f436861198189c67af6a9e388add"
             },
-            "require": {
-                "npm-asset/babel--helper-string-parser": ">=7.24.8,<8.0.0",
-                "npm-asset/babel--helper-validator-identifier": ">=7.24.7,<8.0.0",
-                "npm-asset/to-fast-properties": ">=2.0.0,<3.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
+            "type": "npm-asset"
         },
         {
             "name": "npm-asset/base64-arraybuffer",
@@ -6377,11 +6301,11 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.40",
+            "version": "8.4.41",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.40.zip",
-                "shasum": "24741540a25d1d14a6091af6c42fff691846c114"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.41.zip",
+                "shasum": "d58fc91e94ddd1a5d577c18f4a2d54b8851d4306"
             },
             "require": {
                 "npm-asset/nanoid": ">=3.3.7,<4.0.0",
@@ -6781,19 +6705,6 @@
             },
             "require": {
                 "npm-asset/utrie": ">=1.0.2,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/to-fast-properties",
-            "version": "2.0.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/to-fast-properties/npm-asset-to-fast-properties-2.0.0.zip",
-                "shasum": "bc8ee381b3c89ddf6d0ad4532767f21f5047c99b"
             },
             "type": "npm-asset",
             "license": [
@@ -15232,17 +15143,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.10",
+            "version": "1.11.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "640410b32995914bde3eed26fa89552f9c2c082f"
+                "reference": "707c2aed5d8d0075666e673a5e71440c1d01a5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-640410b32995914bde3eed26fa89552f9c2c082f-zip-2d09f8.zip",
-                "reference": "640410b32995914bde3eed26fa89552f9c2c082f",
-                "shasum": "8d89133416014f3caeac371466221e521217cbe1"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-707c2aed5d8d0075666e673a5e71440c1d01a5a3-zip-2f15d5.zip",
+                "reference": "707c2aed5d8d0075666e673a5e71440c1d01a5a3",
+                "shasum": "e16e5780db0121218fbfbf8a0e7ce4ab85117e43"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15279,7 +15190,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-08T09:02:50+00:00"
+            "time": "2024-08-19T14:37:29+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -15326,32 +15237,32 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "10.1.15",
+            "version": "10.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "5da8b1728acd1e6ffdf2ff32ffbdfd04307f26ae"
+                "reference": "7e308268858ed6baedc8704a304727d20bc07c77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpunit/php-code-coverage/phpunit-php-code-coverage-5da8b1728acd1e6ffdf2ff32ffbdfd04307f26ae-zip-22391f.zip",
-                "reference": "5da8b1728acd1e6ffdf2ff32ffbdfd04307f26ae",
-                "shasum": "e264e703df8e3d5531e07121bbb08f0807557f34"
+                "url": "https://composer.tiki.org/dist/phpunit/php-code-coverage/phpunit-php-code-coverage-7e308268858ed6baedc8704a304727d20bc07c77-zip-385d17.zip",
+                "reference": "7e308268858ed6baedc8704a304727d20bc07c77",
+                "shasum": "f055d122758f3b26904bd5b7b78edfcb3d796eeb"
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "ext-xmlwriter": "*",
-                "nikic/php-parser": "^4.18 || ^5.0",
+                "nikic/php-parser": "^4.19.1 || ^5.1.0",
                 "php": ">=8.1",
-                "phpunit/php-file-iterator": "^4.0",
-                "phpunit/php-text-template": "^3.0",
-                "sebastian/code-unit-reverse-lookup": "^3.0",
-                "sebastian/complexity": "^3.0",
-                "sebastian/environment": "^6.0",
-                "sebastian/lines-of-code": "^2.0",
-                "sebastian/version": "^4.0",
-                "theseer/tokenizer": "^1.2.0"
+                "phpunit/php-file-iterator": "^4.1.0",
+                "phpunit/php-text-template": "^3.0.1",
+                "sebastian/code-unit-reverse-lookup": "^3.0.0",
+                "sebastian/complexity": "^3.2.0",
+                "sebastian/environment": "^6.1.0",
+                "sebastian/lines-of-code": "^2.0.2",
+                "sebastian/version": "^4.0.1",
+                "theseer/tokenizer": "^1.2.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^10.1"
@@ -15363,7 +15274,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.1-dev"
+                    "dev-main": "10.1.x-dev"
                 }
             },
             "autoload": {
@@ -15395,7 +15306,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-29T08:25:15+00:00"
+            "time": "2024-08-22T04:31:57+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
