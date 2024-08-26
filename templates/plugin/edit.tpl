@@ -123,22 +123,15 @@
                     {/foreach}
                 {/if}
 
-                <div class="mb-3 row"{if empty($info.body)} style="display:none"{/if}>
-                    <label for="content" class="col-sm-3">{tr}Body{/tr}</label>
-                    <div class="col-sm-9">
-                        <textarea name="content" id="content" class="form-control" rows="12">{$bodyContent|escape}</textarea>
-                        <div class="description">{$info.body}</div>
-                    </div>
-                </div>
-            {else}
-                <div class="mb-3 row"{if empty($info.body)} style="display:none"{/if}>
-                    <label for="content" class="col-sm-3">{tr}Body{/tr}</label>
-                    <div class="col-sm-9">
-                        <textarea name="content" id="content" class="form-control" rows="12">{$bodyContent|escape}</textarea>
-                        <div class="description">{$info.body}</div>
-                    </div>
-                </div>
             {/if}
+
+            <div class="mb-3 row"{if empty($info.body)} style="display:none"{/if}>
+                <label for="content" class="col-sm-3">{tr}Body{/tr}</label>
+                <div class="col-sm-9">
+                    <textarea name="content" id="content" class="form-control" rows="12">{$bodyContent|escape}</textarea>
+                    <div class="description">{$info.body}</div>
+                </div>
+            </div>
 
             <div class="submit">
                 <input type="hidden" name="page" value="{$pageName|escape}">
