@@ -26,7 +26,16 @@ $smarty->assign_by_ref('user', $user);
 $user_preferences = []; // Used for cache
 
 // Defaults that are not in global prefs
-initDefaultPrefsNotInGlobal();
+
+global $prefs;
+$prefs['user_article_watch_editor'] = 'n';
+$prefs['user_blog_watch_editor'] = 'n';
+$prefs['user_calendar_watch_editor'] = 'n';
+$prefs['user_wiki_watch_editor'] = 'n';
+$prefs['user_tracker_watch_editor'] = 'n';
+$prefs['user_comment_watch_editor'] = 'n';
+$prefs['user_category_watch_editor'] = 'n';
+$prefs['user_plugin_approval_watch_editor'] = 'n';
 
 if ($user) {
     $default_group = $group = $_SESSION['u_info']['group'];
@@ -82,17 +91,4 @@ if ($prefs['language'] != $prefs['site_language']) {
             $prefs[$preference . '_translated'] = $prefs[$preference . '_' . $prefs['language']];
         }
     }
-}
-
-function initDefaultPrefsNotInGlobal()
-{
-    global $prefs;
-    $prefs['user_article_watch_editor'] = 'n';
-    $prefs['user_blog_watch_editor'] = 'n';
-    $prefs['user_calendar_watch_editor'] = 'n';
-    $prefs['user_wiki_watch_editor'] = 'n';
-    $prefs['user_tracker_watch_editor'] = 'n';
-    $prefs['user_comment_watch_editor'] = 'n';
-    $prefs['user_category_watch_editor'] = 'n';
-    $prefs['user_plugin_approval_watch_editor'] = 'n';
 }
