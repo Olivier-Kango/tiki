@@ -20,7 +20,7 @@
 {
     background: var(--tiki-top-bg);
     color: var(--tiki-top-text-color); // Turns out it's necessary to provide a variable for this. Previously written: The idea for this was text, etc. that isn't a link, but probably anything in these nav zones that isn't a link will have its own CSS rules already.
-    a:not(.navbar-brand,.dropdown-item),
+    a:not(.navbar-brand,.dropdown-item,.btn),
     .dropdown-toggle,                  // Moved from tiki-selectors (this and next line)
     .nav-link.dropdown-toggle,
     .btn.btn-link {
@@ -45,7 +45,7 @@
 {
     background: var(--tiki-topbar-bg) !important;
     color: var(--tiki-topbar-text-color);
-    a:not(.navbar-brand,.dropdown-item),
+    a:not(.navbar-brand,.dropdown-item,.btn),
     .dropdown-toggle,                  // Moved from tiki-selectors (this and next line)
     .nav-link.dropdown-toggle,
     .btn.btn-link,
