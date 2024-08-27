@@ -733,7 +733,7 @@ class Exif
                                         . $opt[substr($str, 12, 2)] . ', ' . $opt[substr($str, 14, 2)] . ']';
                                 $exif[$group][$name]['newval'] = $disp;
                             } else {
-                                $exif[$group][$name]['newval'] = $specname['options'][$exif[$group][$name]['newval']];
+                                $exif[$group][$name]['newval'] = $specname['options'][$exif[$group][$name]['newval']] ?? $exif[$group][$name]['newval'];
                             }
                         }
 
@@ -815,7 +815,11 @@ class Exif
         } else {
             foreach ($fractionString as $fs) {
                 $fraction = explode('/', $fs);
-                $ret[] = $fraction[0] / $fraction[1];
+                if ($fraction[1] != 0) {
+                    $ret[] = $fraction[0] / $fraction[1];
+                } else {
+                    $ret[] = 1;
+                }
             }
         }
         return $ret;

@@ -219,6 +219,7 @@ class Xmp
      */
     public function xmpDomToArray($xmpObj)
     {
+        $xmparray = [];
         if ($xmpObj !== false) {
             //This section is for the first pass
             if (get_class($xmpObj) == 'DOMDocument') {
