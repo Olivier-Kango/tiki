@@ -273,9 +273,11 @@ class Hm_Handler_tiki_mark_as_answered extends Hm_Handler_Module
             return;
         }
 
-        $uid = $this->request->post['compose_msg_uid'];
-        Hm_Msgs::add('Uid - ' . $uid);
-        tiki_flag_message($uid, 'add', 'answered');
+        if (! empty($this->request->post['compose_msg_uid'])) {
+            $uid = $this->request->post['compose_msg_uid'];
+            Hm_Msgs::add('Uid - ' . $uid);
+            tiki_flag_message($uid, 'add', 'answered');
+        }
     }
 }
 
