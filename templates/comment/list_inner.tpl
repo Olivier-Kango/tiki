@@ -86,12 +86,14 @@
                                     {icon name='history'}
                                 </h4>
                                 <div class="collapse table-responsive version{$comment.diffInfo[0].version}">
-                                    <table class="table">
-                                        {foreach $comment.diffInfo as $info}
+                                    {foreach $comment.diffInfo as $info}
+                                        {if $info.fieldId eq -1}
+                                            <label>{tr}Status{/tr}</label>: {$info.value} -> {$info.new}
+                                        {else}
                                             <label>{$info.fieldName}</label>
                                             {trackeroutput fieldId=$info.fieldId list_mode='y' history=y process=y oldValue=$info.value value=$info.new diff_style='sidediff'}
-                                        {/foreach}
-                                    </table>
+                                        {/if}
+                                    {/foreach}
                                 </div>
                             </div>
                         {/if}
