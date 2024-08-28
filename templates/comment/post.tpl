@@ -78,8 +78,12 @@
                             <div class="card bg-body-tertiary">
                                 <div class="card-body">
                                     {foreach $diffInfo as $info}
-                                        <label>{$info.fieldName}</label> {*{$info.value} => {$info.new}<br>*}
-                                        {trackeroutput fieldId=$info.fieldId list_mode='y' history=y process=y oldValue=$info.value value=$info.new diff_style='sidediff'}
+                                        {if $info.fieldId eq -1}
+                                            <label>{tr}Status{/tr}</label>: {$info.value} -> {$info.new}
+                                        {else}
+                                            <label>{$info.fieldName}</label>
+                                            {trackeroutput fieldId=$info.fieldId list_mode='y' history=y process=y oldValue=$info.value value=$info.new diff_style='sidediff'}
+                                        {/if}
                                     {/foreach}
                                 </div>
                             </div>

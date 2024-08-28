@@ -5329,7 +5329,7 @@ class TrackerLib extends TikiLib
         $itemsBindvars = [$item_info['itemId']];
         $itemsWhere = '`itemId`=?';
         if (! empty($filter['version'])) {
-            $itemsWhere .= ' AND `version` = ?';
+            $itemsWhere .= ' AND `version` <= ?';
             $itemsBindvars[] = $filter['version'];
         }
 
@@ -5356,6 +5356,9 @@ class TrackerLib extends TikiLib
                     'WHERE ' . implode(' AND ', $mid) . ' ORDER BY ttifl.`itemId` ASC, ttifl.`version` DESC, ttifl.`fieldId` ASC';
 
         $all = $this->fetchAll($query, $bindvars);
+        if (! empty($filter['version'])) {
+            $all = array_reverse($all);
+        }
         $history['data'] = [];
         foreach ($all as $hist) {
             $hist['new'] = isset($last[$hist['fieldId']]) ? $last[$hist['fieldId']] : '';
