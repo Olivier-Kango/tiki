@@ -63,6 +63,7 @@ index.php
 /lib/vue-mf/*/package-lock.json
 /lib/cypht/site.js
 /lib/cypht/site.css
+/lib/cypht/modules/themes
 /lib/test/clover.xml
 /lib/test/junit.xml
 /lib/test/core/Search/Index/test_index
