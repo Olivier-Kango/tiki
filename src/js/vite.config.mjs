@@ -309,6 +309,26 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/clipboard/dist",
                     },
                     {
+                        src: "node_modules/codemirror/lib/*",
+                        dest: "vendor_dist/codemirror/lib",
+                    },
+                    {
+                        src: "node_modules/codemirror/addon/search/searchcursor.js",
+                        dest: "vendor_dist/codemirror/addon/search",
+                    },
+                    {
+                        src: "node_modules/codemirror/addon/mode/*",
+                        dest: "vendor_dist/codemirror/addon/mode",
+                    },
+                    {
+                        src: "node_modules/codemirror/theme/*",
+                        dest: "vendor_dist/codemirror/theme",
+                    },
+                    {
+                        src: "node_modules/codemirror/mode/*",
+                        dest: "vendor_dist/codemirror/mode",
+                    },
+                    {
                         src: "node_modules/dompurify/dist/purify.(es|min)*",
                         dest: "vendor_dist/dompurify/dist",
                     },

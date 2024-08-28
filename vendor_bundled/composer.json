@@ -138,7 +138,6 @@
         "cboden/ratchet": "^0.4",
         "christian-vigh-phpclasses/pdftotext": "^1.6.0",
         "ckeditor/ckeditor": "<=4.22.1",
-        "codemirror/codemirror": "5.19.0",
         "codercat/jwk-to-pem": "^1.1",
         "composer/semver": "^3.2",
         "css-tricks/anythingslider-themes": "^1.4.1",

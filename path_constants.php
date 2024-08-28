@@ -168,6 +168,7 @@ const GENERATED_ICONSET_PATH = 'public/generated/iconsets';
 /* BEGIN - VENDOR ASSETS SECTION */
 const BOOTSTRAP_ICONS_FONT_PATH = 'public/generated/js/vendor_dist/bootstrap-icons/font';
 const BOOTSTRAP_TOUR_DIST_PATH = 'vendor_bundled/vendor/sorich87/bootstrap-tour/build';
+const CODEMIRROR_DIST_PATH = 'public/generated/js/vendor_dist/codemirror';
 const CONVERSEJS_DIST_PATH = 'public/generated/js/vendor_dist/converse.js/dist';
 const FONTAWESOME_CSS_PATH = 'public/generated/js/vendor_dist/@fortawesome/fontawesome';
 const FONTAWESOME_WEBFONTS_PATH = 'public/generated/js/vendor_dist/@fortawesome/webfonts';

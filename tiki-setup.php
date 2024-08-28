@@ -527,10 +527,10 @@ if ($prefs['feature_jquery_zoom'] === 'y') {
 if ($prefs['feature_syntax_highlighter'] == 'y') {
     //add codemirror stuff
     $headerlib
-        ->add_cssfile('vendor_bundled/vendor/codemirror/codemirror/lib/codemirror.css')
-        ->add_jsfile_dependency('vendor_bundled/vendor/codemirror/codemirror/lib/codemirror.js')
-        ->add_jsfile('vendor_bundled/vendor/codemirror/codemirror/addon/search/searchcursor.js')
-        ->add_jsfile('vendor_bundled/vendor/codemirror/codemirror/addon/mode/overlay.js')
+        ->add_cssfile(CODEMIRROR_DIST_PATH . '/lib/codemirror.css')
+        ->add_jsfile_dependency(CODEMIRROR_DIST_PATH . '/lib/codemirror.js')
+        ->add_jsfile(CODEMIRROR_DIST_PATH . '/addon/search/searchcursor.js')
+        ->add_jsfile(CODEMIRROR_DIST_PATH . '/addon/mode/overlay.js')
     //add tiki stuff
         ->add_cssfile('themes/base_files/feature_css/codemirror_tiki.css')
         ->add_jsfile('lib/codemirror_tiki/codemirror_tiki.js');

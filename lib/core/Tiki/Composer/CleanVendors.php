@@ -124,13 +124,6 @@ class CleanVendors
         }
 
         self::remove(
-            $vendors . 'codemirror/codemirror',
-            [
-                'mode/tiki',
-                'bin'
-            ]
-        );
-        self::remove(
             $vendors . 'jquery/jquery-sheet',
             [
                 'jquery-1.10.2.min.js',
