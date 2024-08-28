@@ -56,9 +56,22 @@ class VueJsLib
         $script = $dom->getElementsByTagName('script');
         $template = $dom->getElementsByTagName('template');
         $style = $dom->getElementsByTagName('style');
+        $scopedStyleIdentifier = false;
 
         if (! $name && $app) {
             $name = 'App';
+        }
+
+        if ($style->length) {
+            $styleElement = $style[0];
+            $styleValue = $styleElement->nodeValue;
+
+            if ($styleElement->hasAttribute('scoped')) {
+                $scopedStyleIdentifier = \Tiki\Utilities\Identifiers::generateRandomVueIdentifier();
+                $styleValue = "[$scopedStyleIdentifier] $styleValue";
+            }
+
+            TikiLib::lib('header')->add_css($styleValue);
         }
 
         if ($script->length) {    // required
@@ -99,6 +112,8 @@ var vm = new Vue({
       data: function () { return $data; },
     }).\$mount(`#$name`);
 observeVueApp(vm);
+addScopedStyleIdentifier(vm, \"$scopedStyleIdentifier\");
+
 "
                 );
                 return "<div id=\"$name\"></div>";
