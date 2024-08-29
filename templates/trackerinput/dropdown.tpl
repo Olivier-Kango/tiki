@@ -12,7 +12,7 @@
         {if empty($field.options_map.inputtype)}
             {foreach $field.possibilities as $value => $label}
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="{$field.ins_id|escape}[]" id="{$field.ins_id|escape}-{$label@iteration}" value="{$value|escape}" {if in_array("$value", $field.selected)}checked="checked"{/if}>
+                    <input class="form-check-input" type="checkbox" name="{$field.ins_id|escape}" id="{$field.ins_id|escape}-{$label@iteration}" value="{$value|escape}" {if in_array("$value", $field.selected)}checked="checked"{/if}>
                     <label class="form-check-label" for="{$field.ins_id|escape}-{$label@iteration}">
                         {$label|tr_if|escape}
                     </label>
@@ -20,13 +20,13 @@
                 {/foreach}
         {elseif $field.options_map.inputtype eq 'm'}
             {if $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
-            <select name="{$field.ins_id}[]" multiple="multiple" class="form-select">
+            <select name="{$field.ins_id}" multiple="multiple" class="form-select">
                 {foreach $field.possibilities as $value => $label}
                     <option value="{$value|escape}" {if in_array("$value", $field.selected)}selected="selected"{/if}>{$label|escape}</option>
                 {/foreach}
             </select>
         {elseif $field.options_map.inputtype eq 't'}
-            {jstransfer_list fieldName="{$field.ins_id|escape}[]" defaultSelected=$field.selected
+            {jstransfer_list fieldName="{$field.ins_id|escape}" defaultSelected=$field.selected
             data=$field.possibilities sourceListTitle=$field.options_map.sourceListTitle
             targetListTitle=$field.options_map.targetListTitle filterable=$field.options_map.filterable
             filterPlaceholder=$field.options_map.filterPlaceholder ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}

@@ -1,16 +1,16 @@
 <ol>
     {foreach from=$data.movies item=movie}
         <li>
-            <input type="checkbox" class="form-check-input" name="{$field.ins_id|escape}[]" id="{$field.ins_id|escape}[]" value="{$movie.id|escape}" checked="checked">
+            <input type="checkbox" class="form-check-input" name="{$field.ins_id|escape}" id="{$field.ins_id|escape}" value="{$movie.id|escape}" checked="checked">
             <input type="hidden" name="old_{$field.ins_id|escape}[]" value="{$movie.id|escape}">
-            <label for="{$field.ins_id|escape}[]" class="form-check-label">
+            <label for="{$field.ins_id|escape}" class="form-check-label">
                 {$movie.name|escape}
             </label>
         </li>
     {/foreach}
 </ol>
-<a class="add-kaltura-media btn btn-primary btn-sm" href="{service controller=kaltura action=upload targetName="{$field.ins_id}[]"}">{tr}Add Media{/tr}</a>
-<a class="list-kaltura-media btn btn-primary btn-sm" href="{bootstrap_modal controller=kaltura action=list targetName="{$field.ins_id}[]"}">{tr}List Media{/tr}</a>
+<a class="add-kaltura-media btn btn-primary btn-sm" href="{service controller=kaltura action=upload targetName="{$field.ins_id}"}">{tr}Add Media{/tr}</a>
+<a class="list-kaltura-media btn btn-primary btn-sm" href="{bootstrap_modal controller=kaltura action=list targetName="{$field.ins_id}"}">{tr}List Media{/tr}</a>
 {foreach from=$data.extras item=entryId}
     <input type="hidden" name="{$field.ins_id|escape}[]" value="{$entryId|escape}">
 {/foreach}

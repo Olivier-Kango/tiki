@@ -22,15 +22,15 @@ function validator_cardinality($input, $parameter = '', $message = '')
             return tra($message);
         }
 
-        if (isset($minimum) && isset($maximum)) {
+        if ($minimum && $arr['maximum']) {
             return tra("Number of values must be between {$minimum} and {$maximum}");
         }
 
-        if (isset($minimum)) {
+        if ($minimum) {
             return tra("Number of values must be at least {$minimum}");
         }
 
-        if (isset($maximum)) {
+        if ($arr['maximum']) {
             return tra("Number of values must be at most {$maximum}");
         }
     }

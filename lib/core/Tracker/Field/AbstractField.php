@@ -442,7 +442,20 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
      */
     public function getInsertId()
     {
-        return 'ins_' . $this->definition['fieldId'];
+        $insertId = 'ins_' . $this->definition['fieldId'];
+
+        /**
+         * Postfix with [] for multivalued fields
+         * Applicable for:
+         * Category, CountrySelector, DynamicList, ItemLink, Kaltura, MultiSelect, UserSelector
+         *
+         * NOTE: While the Relation field allows multiple values as well, we don't explicitly set the [] postfix for it,
+         * because it needs specific keys, notably 'meta' and 'objects' in its value.
+         */
+        if (in_array($this->getConfiguration('type'), ['e', 'y', 'w', 'r', 'kaltura', 'M', 'u'])) {
+            $insertId .= '[]';
+        }
+        return $insertId;
     }
 
     protected function getFilterId()

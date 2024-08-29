@@ -254,7 +254,6 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
             }
             $filterFieldValueHere = explode(',', $originalValue);
             $multiple = ' multiple="multiple"';
-            $insertId .= '[]';
         } else {
             $multiple = '';
         }

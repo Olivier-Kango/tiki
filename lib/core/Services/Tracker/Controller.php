@@ -836,8 +836,7 @@ class Services_Tracker_Controller
         if ($prefs['feature_jquery_validation'] === 'y') {
             $_REQUEST['itemId'] = 0;    // let the validation code know this will be a new item
             $validationjs = TikiLib::lib('validators')->generateTrackerValidateJS(
-                $definition->getFields(),
-                'ins_',
+                $definition,
                 '',
                 '',
                 // not custom submit handler that is only needed when called by this service
@@ -1009,8 +1008,7 @@ class Services_Tracker_Controller
 
         if ($prefs['feature_jquery_validation'] === 'y') {
             $validationjs = TikiLib::lib('validators')->generateTrackerValidateJS(
-                $definition->getFields(),
-                'ins_',
+                $definition,
                 '',
                 '',
                 // not custom submit handler that is only needed when called by this service
@@ -1269,8 +1267,7 @@ class Services_Tracker_Controller
 
         if ($prefs['feature_jquery_validation'] === 'y') {
             $validationjs = TikiLib::lib('validators')->generateTrackerValidateJS(
-                $definition->getFields(),
-                'ins_',
+                $definition,
                 '',
                 '',
                 // not custom submit handler that is only needed when called by this service

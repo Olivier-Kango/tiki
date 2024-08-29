@@ -522,7 +522,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             $smarty = TikiLib::lib('smarty');
 
             return smarty_function_jstransfer_list([
-                'fieldName' => $this->getInsertId() . '[]',
+                'fieldName' => $this->getInsertId(),
                 'data' => $data['list'],
                 'defaultSelected' => $this->getValue(),
                 'sourceListTitle' => $sourceListTitle,

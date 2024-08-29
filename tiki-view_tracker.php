@@ -619,7 +619,7 @@ if (isset($tracker_info['useRatings']) && $tracker_info['useRatings'] == 'y' && 
 // Generate validation js
 if ($prefs['feature_jquery'] == 'y' && $prefs['feature_jquery_validation'] == 'y') {
     $validatorslib = TikiLib::lib('validators');
-    $validationjs = $validatorslib->generateTrackerValidateJS($fields['data']);
+    $validationjs = $validatorslib->generateTrackerValidateJS($trackerDefinition);
     $smarty->assign('validationjs', $validationjs);
 }
 //Use 12- or 24-hour clock for $publishDate time selector based on admin and user preferences

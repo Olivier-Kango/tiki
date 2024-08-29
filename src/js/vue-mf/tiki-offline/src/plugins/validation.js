@@ -10,14 +10,10 @@ const addFormValidation = (formId, tracker) => {
         }
         if (field.validation || field.isMandatory == "y") {
             let key = "";
-            if (field.type == "e" || field.type == "M") {
-                key = `${field.ins_id}[]`;
+            if (field.isMultilingual == "y") {
+                // TODO: handle multilingual
             } else {
-                if (field.isMultilingual == "y") {
-                    // TODO: handle multilingual
-                } else {
-                    key = field.ins_id;
-                }
+                key = field.ins_id;
             }
             rules[key] = {};
             if (field.isMandatory == "y") {
@@ -58,15 +54,9 @@ const addFormValidation = (formId, tracker) => {
             }
         }
         if (field.validationMessage && field.isMandatory == "y") {
-            if (field.type == "e" || field.type == "M") {
-                messages[`${field.ins_id}[]`] = {
-                    required: tr(field.validationMessage),
-                };
-            } else {
-                messages[`${field.ins_id}`] = {
-                    required: tr(field.validationMessage),
-                };
-            }
+            messages[field.ins_id] = {
+                required: tr(field.validationMessage),
+            };
         } else if (field.isMandatory == "y") {
             if (field.isMultilingual == "y") {
                 // TODO: handle multilingual

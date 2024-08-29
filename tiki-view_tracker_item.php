@@ -873,7 +873,7 @@ if ($prefs['feature_actionlog'] == 'y') {
 // Generate validation js
 if ($prefs['feature_jquery'] == 'y' && $prefs['feature_jquery_validation'] == 'y') {
     $validatorslib = TikiLib::lib('validators');
-    $validationjs = $validatorslib->generateTrackerValidateJS($fields['data']);
+    $validationjs = $validatorslib->generateTrackerValidateJS($definition);
     $smarty->assign('validationjs', $validationjs);
 }
 

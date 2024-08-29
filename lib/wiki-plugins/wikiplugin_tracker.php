@@ -1959,7 +1959,7 @@ function wikiplugin_tracker($data, $params)
                     $customvalidation_m .= 'passcode: { required: "' . tra("This field is required") . '"}, ';
                 }
             }
-            $validationjs = $validatorslib->generateTrackerValidateJS($flds['data'], $fields_prefix, $customvalidation, $customvalidation_m);
+            $validationjs = $validatorslib->generateTrackerValidateJS($definition, $customvalidation, $customvalidation_m);
 
             if (! empty($params['_ajax_form_ins_id']) && $params['_ajax_form_ins_id'] === 'group') {
                 $headerlib->add_jq_onready("var ajaxTrackerValidation_group={validation:{" . $validationjs . '}};');        // return clean rules and messages object for ajax

@@ -52,44 +52,47 @@ class Validators
         return $validators;
     }
 
-    public function generateTrackerValidateJS($fields_data, $prefix = 'ins_', $custom_rules = '', $custom_messages = '', $custom_handlers = '')
+    public function generateTrackerValidateJS($tracker_definition, $custom_rules = '', $custom_messages = '', $custom_handlers = '')
     {
         global $prefs;
+
+        $fields_data = $tracker_definition->getFields();
+        $factory = new Tracker_Field_Factory($tracker_definition);
+
         $validationjs = 'rules: { ';
         foreach ($fields_data as $field_value) {
+            $handler = $factory->getHandler($field_value);
+            $field_name = $handler->getInsertId();
+
             if ($field_value['type'] == 'b') {
-                $validationjs .= $prefix . $field_value['fieldId'] . '_currency: {required:
+                $validationjs .= $field_name . '_currency: {required:
                     function(element){
-                        return $("#' . $prefix . $field_value['fieldId'] . '").val()!="";
+                        return $("#' . $field_name . '").val()!="";
                     },},';
             }
             if ($field_value['validation'] || $field_value['isMandatory'] == 'y') {
-                if ($field_value['type'] == 'e' || $field_value['type'] == 'M') {
-                    $validationjs .= '"' . $prefix . $field_value['fieldId'] . '[]": { ';
+                if ($field_value['isMultilingual'] == 'y') {
+                    $validationjs .= '"' . $field_name . "[" . end($prefs["available_languages"]) . "]\"" . " : { ";
                 } else {
-                    if ($field_value['isMultilingual'] == 'y') {
-                        $validationjs .= "\"ins_" . $field_value['fieldId'] . "[" . end($prefs["available_languages"]) . "]\"" . " : { ";
-                    } else {
-                        $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
-                    }
+                    $validationjs .= '"' . $field_name . '"' . ': { ';
                 }
                 if ($field_value['isMandatory'] == 'y') {
                     if ($field_value['type'] == 'D') {
-                        $validationjs .= 'required_in_group: [1, ".group_' . $prefix . $field_value['fieldId'] . '", "other"], ';
+                        $validationjs .= 'required_in_group: [1, ".group_' . $field_name . '", "other"], ';
                     } elseif ($field_value['type'] == 'A') {
-                        $validationjs .= 'required_tracker_file: [1, ".file_' . $prefix . $field_value['fieldId'] . '"], ';
+                        $validationjs .= 'required_tracker_file: [1, ".file_' . $field_name . '"], ';
                     } elseif ($field_value['type'] == 'f') {    // old style date picker - jq validator rules have to apply to an element name or id
                                                                 // so we have to add a required_in_group for each of the date selects in turn
                         $validationjs .= 'required: false },';  // dummy for the "group"
                         $date_ins_num = $field_value['options_array'][0] === 'dt' ? 5 : 3;
-                        $validationjs .= $prefix . $field_value['fieldId'] . 'Month: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"]}, ' .
-                            $prefix . $field_value['fieldId'] . 'Day: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"]}, ' .
-                            $prefix . $field_value['fieldId'] . 'Year: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"], ';
+                        $validationjs .= $field_name . 'Month: {required_in_group: [' . $date_ins_num . ', "select[name^=\'' . $field_name . '\']"]}, ' .
+                            $field_name . 'Day: {required_in_group: [' . $date_ins_num . ', "select[name^=\'' . $field_name . '\']"]}, ' .
+                            $field_name . 'Year: {required_in_group: [' . $date_ins_num . ', "select[name^=\'' . $field_name . '\']"], ';
                         if ($field_value['options_array'][0] === 'dt') {
                             $validationjs = rtrim($validationjs, ', ');
                             $validationjs .= '},';
-                            $validationjs .= $prefix . $field_value['fieldId'] . 'Hour: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"]}, ' .
-                                $prefix . $field_value['fieldId'] . 'Minute: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"], ';
+                            $validationjs .= $field_name . 'Hour: {required_in_group: [' . $date_ins_num . ', "select[name^=\'' . $field_name . '\']"]}, ' .
+                                $field_name . 'Minute: {required_in_group: [' . $date_ins_num . ', "select[name^=\'' . $field_name . '\']"], ';
                         }
                     } else {
                         if ($field_value['isMultilingual'] == 'y') {
@@ -97,9 +100,9 @@ class Validators
                             $condition = "";
                             foreach ($prefs["available_languages"] as $index => $lang) {
                                 if ($index == 0) {
-                                    $condition .= "\"\" == $(\"[name=" . "'ins_" . $field_value['fieldId'] . "[" . $lang . "]'" . "]\").val()";
+                                    $condition .= "\"\" == $(\"[name='" . $field_name . "[" . $lang . "]'" . "]\").val()";
                                 } else {
-                                    $condition .= " && \"\" == $(\"[name=" . "'ins_" . $field_value['fieldId'] . "[" . $lang . "]'" . "]\").val()";
+                                    $condition .= " && \"\" == $(\"[name='" . $field_name . "[" . $lang . "]'" . "]\").val()";
                                 }
                             }
                             $required_script .= "return " . $condition . " }";
@@ -129,7 +132,13 @@ class Validators
                         $validationjs .= 'parameter: "' . addslashes($field_value['validationParam']) . '", ';
                     }
                     $validationjs .= 'message: "' . tra($field_value['validationMessage']) . '", ';
-                    $validationjs .= 'input: function() { return ($("[name=' . $prefix . $field_value['fieldId'] . ']").val() ?? $("[name=\'' . $prefix . $field_value['fieldId'] . '[]' . '\']").val()); }';
+                    $validationjs .= 'input: function() {
+                        const input = $("[name=\'' . $field_name . '\']");
+                        if(input.is(":checkbox")) {
+                            return $("[name=\'' . $field_name . '\']:checked").map(function() { return this.value; }).get().join(",");
+                        } 
+                        return $("[name=\'' . $field_name . '\']").val(); 
+                    }';
                     $validationjs .= '';
                     $validationjs .= '} } ';
                 } else {
@@ -147,25 +156,21 @@ class Validators
         foreach ($fields_data as $field_value) {
             if ($field_value['type'] == 'b') {
                 if ($field_value['validationMessage']) {
-                    $validationjs .= $prefix . $field_value['fieldId'] . '_currency: "' . tra($field_value['validationMessage']) . '",';
+                    $validationjs .= $field_name . '_currency: "' . tra($field_value['validationMessage']) . '",';
                 } else {
-                    $validationjs .= $prefix . $field_value['fieldId'] . '_currency: "' . tra('This field is required') . '",';
+                    $validationjs .= $field_name . '_currency: "' . tra('This field is required') . '",';
                 }
             }
             if ($field_value['validationMessage'] && $field_value['isMandatory'] == 'y') {
-                if ($field_value['type'] == 'e' || $field_value['type'] == 'M') {
-                    $validationjs .= '"' . $prefix . $field_value['fieldId'] . '[]": { ';
-                } else {
-                    $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
-                }
+                $validationjs .= '"' . $field_name . '" : { ';
                 $validationjs .= 'required: "' . tra($field_value['validationMessage']) . '" ';
                 $validationjs .= '}, ';
             } elseif ($field_value['isMandatory'] == 'y') {
                 if ($field_value['isMultilingual'] == 'y') {
-                    $validationjs .= "\"ins_" . $field_value['fieldId'] . "[" . end($prefs["available_languages"]) . "]\"" . " : { ";
+                    $validationjs .= '"' . $field_name . "[" . end($prefs["available_languages"]) . "]\"" . " : { ";
                     $validationjs .= 'required: "' . tra('The mandatory field ' . $field_value['name'] . ' must contain at least one language value') . '" ';
                 } else {
-                    $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
+                    $validationjs .= '"' . $field_name . '" : { ';
                     $validationjs .= 'required: "' . tra('This field is required') . '" ';
                 }
                 $validationjs .= '}, ';
