@@ -1,6 +1,6 @@
 {strip}
     {if $file.filetype|truncate:6:'':true eq 'image/'}
-        <a href="{$file.fileId|sefurl:display}" data-box="box-{$file.fileId}">
+        <a href="{$file.fileId|sefurl:display}" data-box="box-{$fieldId}">
             {icon name='view' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Display{/tr}"}
         </a>
         {if $canUpload eq 'y' and $prefs.feature_draw eq 'y'}

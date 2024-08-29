@@ -53,7 +53,7 @@
         {/if}
 
         {if $file.type|truncate:6:'':true eq 'image/' and $file.perms.tiki_p_download_files eq 'y'}
-            <a href="{$file.id|sefurl:display}">
+            <a href="{$file.id|sefurl:display}" data-box="box-{$file.id}">
                 {icon name='view' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Display{/tr}"}
             </a>
             {if $file.perms.tiki_p_upload_files eq 'y' and $prefs.feature_draw eq 'y'}

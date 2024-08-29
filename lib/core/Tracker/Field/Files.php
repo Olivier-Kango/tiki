@@ -578,11 +578,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractField implements \Track
                         </div>
                         <a class='cboxInlineMedia' $style title='{$tag} preview' href='#inline-file-$fileId'>$viewicon</a>";
                     } else {
-                        $dataAttributes = [];
-
-                        if ($file['filetype'] === 'text/plain') {
-                            $dataAttributes[] = 'data-is-text="1"';
-                        }
+                        $smarty->assign('fieldId', $this->getConfiguration('fieldId'));
                         $smarty->assign('menu_icon', $prefs['use_context_menu_icon']);
                         $smarty->assign('menu_text', $prefs['use_context_menu_text']);
                         $smarty->assign('file', $file);
