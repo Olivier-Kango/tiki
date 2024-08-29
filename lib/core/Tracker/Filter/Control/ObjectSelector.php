@@ -31,7 +31,7 @@ class ObjectSelector implements Control
             }
             $this->value = $value;
         } else {
-            $this->value = (string)$input->{$this->fieldName}->int();
+            $this->value = $input->{$this->fieldName}->text();
         }
     }
 
@@ -50,11 +50,13 @@ class ObjectSelector implements Control
             if ($this->multi && is_array($this->value)) {
                 $desc = '';
                 foreach ($this->value as $value) {
-                    $desc .= ' ' . \TikiLib::lib('object')->get_title($this->filters['type'], $value);
+                    list ($type, $value) = explode(':', $value);
+                    $desc .= ' ' . \TikiLib::lib('object')->get_title($type, $value);
                 }
                 return $desc;
             } else {
-                return \TikiLib::lib('object')->get_title($this->filters['type'], $this->value);
+                list ($type, $value) = explode(':', $this->value);
+                return \TikiLib::lib('object')->get_title($type, $value);
             }
         }
     }
@@ -82,23 +84,18 @@ class ObjectSelector implements Control
     public function __toString()
     {
         $params = $this->filters;
-        $params['_simpleid'] = $this->fieldName;
-        $params['_simplename'] = $this->fieldName;
+        $params['_id'] = $this->fieldName;
+        $params['_name'] = $this->fieldName;
 
         $smarty = \TikiLib::lib('smarty');
 
         if ($this->multi) {
-            $params['_name'] = $this->fieldName;
-            $type = $this->filters['type'];
-            $value = array_map(function ($v) use ($type) {
-                return str_replace($type . ':', '', $v);
-            }, $this->value);
-            $params['_simplevalue'] = implode(',', $value);
+            $params['_value'] = implode(',', $this->value);
             $params['_separator'] = ',';
 
             $result = smarty_function_object_selector_multi($params, $smarty->getEmptyInternalTemplate());
         } else {
-            $params['_simplevalue'] = $this->value;
+            $params['_value'] = $this->value;
 
             $result = smarty_function_object_selector($params, $smarty->getEmptyInternalTemplate());
         }
