@@ -2715,7 +2715,7 @@ DROP TABLE IF EXISTS `tiki_user_preferences`;
 CREATE TABLE `tiki_user_preferences` (
   `user` varchar(200) NOT NULL default '',
   `prefName` varchar(40) NOT NULL default '',
-  `value` TEXT,
+  `value` mediumtext,
   PRIMARY KEY (`user`(151),`prefName`)
 ) ENGINE=MyISAM;
 
