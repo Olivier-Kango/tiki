@@ -34,20 +34,35 @@ class Collection
             } catch (Exception\ModeNotSupported $e) {
                 return $collection->addFilter($field['permName']);
             }
-        } else {
+        } elseif ($fieldName == 'tracker_status') {
             $types = TikiLib::lib('trk')->status_types();
             $possibilities = array_map(function ($item) {
                 return $item['label'];
             }, $types);
 
-            // non-tracker field in the index
             $filter = new Filter($fieldName, 'default');
-            $filter->setLabel($fieldName)
-                ->setControl(new Control\DropDown("tf_tracker_status_dd", $possibilities))
+            $filter->setLabel(tr('Status'))
+                ->setControl(new Control\DropDown("tracker_status_dd", $possibilities))
                 ->setApplyCondition(function ($control, Search_Query $query) use ($fieldName) {
                     $value = $control->getValue();
                     if ($value) {
                         $query->filterContent($value, $fieldName);
+                    }
+                });
+            return $filter;
+        } else {
+            // non-tracker field in the index
+            $filter = new Filter($fieldName, 'default');
+            $filter->setLabel($fieldName)
+                ->setControl(new Control\TextField("tf_" . $fieldName))
+                ->setApplyCondition(function ($control, Search_Query $query) use ($fieldName, $mode) {
+                    $value = $control->getValue();
+                    if ($value) {
+                        if ($mode == 'multi') {
+                            $query->filterMultivalue($value, $fieldName);
+                        } else {
+                            $query->filterContent($value, $fieldName);
+                        }
                     }
                 });
             return $filter;
