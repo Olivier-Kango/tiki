@@ -1993,17 +1993,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.7",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "3590d0fdb708b8daaf6056347dbc7644a8b4b335"
+                "reference": "1b2819ca294bfa943fd90c7d922c5cef5f8cd8e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-3590d0fdb708b8daaf6056347dbc7644a8b4b335-zip-c7b635.zip",
-                "reference": "3590d0fdb708b8daaf6056347dbc7644a8b4b335",
-                "shasum": "c9f0178329e0c1cffd34cf20f5bed52138dc367e"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-1b2819ca294bfa943fd90c7d922c5cef5f8cd8e4-zip-e4708a.zip",
+                "reference": "1b2819ca294bfa943fd90c7d922c5cef5f8cd8e4",
+                "shasum": "acc113ce6f4751c598a1f176f69362a9bb44d3c3"
             },
             "require": {
                 "php": ">=5.4"
@@ -2052,7 +2052,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2024-08-03T14:54:15+00:00"
+            "time": "2024-08-29T06:33:14+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -2239,13 +2239,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "6644dd4a98d27b1250010cfb82aa7fd3c3752789"
+                "reference": "43cfe9cacbbb3b0ccbe49137237c686b19e775a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6644dd4a98d27b1250010cfb82aa7fd3c3752789-zip-113a3f.zip",
-                "reference": "6644dd4a98d27b1250010cfb82aa7fd3c3752789",
-                "shasum": "1ef3cc5ae2548a94ed048d59af93a1cd17e3a0a4"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-43cfe9cacbbb3b0ccbe49137237c686b19e775a4-zip-2914d7.zip",
+                "reference": "43cfe9cacbbb3b0ccbe49137237c686b19e775a4",
+                "shasum": "0acad55441560396965ac37c53ae30c48c7fed39"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2311,7 +2311,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-08-27T13:43:30+00:00"
+            "time": "2024-08-29T06:40:10+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
