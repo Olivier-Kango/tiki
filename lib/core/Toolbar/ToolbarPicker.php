@@ -157,8 +157,6 @@ class ToolbarPicker extends ToolbarDialog
         } elseif (! $pickerAdded && $this->name === 'specialchar') {
             TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
             $pickerAdded = true;
-        } else {
-            TikiLib::lib('header')->add_js_module("import '@shoelace/color-picker';");
         }
     }
 

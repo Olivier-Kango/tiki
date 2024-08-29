@@ -44,7 +44,6 @@ class Services_StyleGuide_Controller
         }
 
         TikiLib::lib('header')
-            ->add_js_module('import "@shoelace/color-picker";')
             ->add_cssfile('themes/base_files/css/theme-customizer.css')
             ->add_jsfile('lib/jquery_tiki/theme-customizer.js')
         ;
