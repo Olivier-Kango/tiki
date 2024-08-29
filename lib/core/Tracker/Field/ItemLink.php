@@ -77,7 +77,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                     ],
                     'displayFieldsList' => [
                         'name' => tr('Multiple Fields'),
-                        'description' => tr('Fields to be displayed in the table'),
+                        'description' => tr('Display the values from multiple fields instead of a single one.'),
                         'separator' => '|',
                         'filter' => 'int',
                         'legacy_index' => 3,
@@ -85,10 +85,6 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                         'parent' => 'trackerId',
                         'parentkey' => 'tracker_id',
                         'sort_order' => 'position_nasc',
-                        'depends' => [
-                            'field' => 'displayFieldsListType',
-                            'value' => 'table'
-                        ],
                     ],
                     'filterable' => [
                         'name' => tr('Filterable'),
