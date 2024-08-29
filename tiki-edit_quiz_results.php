@@ -18,7 +18,7 @@ $inputConfiguration = [
             'fromPoints'                  => 'digits',         //post
             'toPoints'                    => 'digits',         //post
             'answer'                      => 'xss',            //post
-            'sort_mode'                   => 'alpha',          //get
+            'sort_mode'                   => 'string',         //get
             'offset'                      => 'int',            //get
             'find'                        => 'alpha',          //post
         ],
