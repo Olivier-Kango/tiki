@@ -2003,17 +2003,17 @@
         },
         {
             "name": "henrique-borba/php-sieve-manager",
-            "version": "v1.0.7",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/php-sieve-manager.git",
-                "reference": "3590d0fdb708b8daaf6056347dbc7644a8b4b335"
+                "reference": "1b2819ca294bfa943fd90c7d922c5cef5f8cd8e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-3590d0fdb708b8daaf6056347dbc7644a8b4b335-zip-c7b635.zip",
-                "reference": "3590d0fdb708b8daaf6056347dbc7644a8b4b335",
-                "shasum": "c9f0178329e0c1cffd34cf20f5bed52138dc367e"
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-1b2819ca294bfa943fd90c7d922c5cef5f8cd8e4-zip-e4708a.zip",
+                "reference": "1b2819ca294bfa943fd90c7d922c5cef5f8cd8e4",
+                "shasum": "acc113ce6f4751c598a1f176f69362a9bb44d3c3"
             },
             "require": {
                 "php": ">=5.4"
@@ -2062,7 +2062,7 @@
                 "php",
                 "sieve"
             ],
-            "time": "2024-08-03T14:54:15+00:00"
+            "time": "2024-08-29T06:33:14+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -2277,17 +2277,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "8b0ed3ac43571a9313ebc998aa8c558a500450c3"
+                "reference": "94aabe935eefd574e16940661dd2ca09bb78116c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-8b0ed3ac43571a9313ebc998aa8c558a500450c3-zip-b8c9ac.zip",
-                "reference": "8b0ed3ac43571a9313ebc998aa8c558a500450c3",
-                "shasum": "7b836e6bd986a51a835d4663b0f3743005d194f2"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-94aabe935eefd574e16940661dd2ca09bb78116c-zip-8217ff.zip",
+                "reference": "94aabe935eefd574e16940661dd2ca09bb78116c",
+                "shasum": "9085d48c2aae85b5274f6d5c28399c497ab21b6d"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2353,7 +2353,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-08-14T22:30:53+00:00"
+            "time": "2024-08-29T22:13:33+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4506,17 +4506,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.5.2",
+            "version": "2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "df09d5b6a4188f8f3c3ab2e43a109076a5eeb767"
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-df09d5b6a4188f8f3c3ab2e43a109076a5eeb767-zip-396cb0.zip",
-                "reference": "df09d5b6a4188f8f3c3ab2e43a109076a5eeb767",
-                "shasum": "6265d8bae5698148fa6666c5fcdfa86462d4e2a6"
+                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-b650144166dfa7703e62a22e493b853b58d874b0-zip-18c2b2.zip",
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0",
+                "shasum": "9809843791782976d5d86e8b4a74087325acdcb2"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -4528,8 +4528,8 @@
             },
             "require-dev": {
                 "cebe/markdown": "^1.0",
-                "commonmark/cmark": "0.31.0",
-                "commonmark/commonmark.js": "0.31.0",
+                "commonmark/cmark": "0.31.1",
+                "commonmark/commonmark.js": "0.31.1",
                 "composer/package-versions-deprecated": "^1.8",
                 "embed/embed": "^4.4",
                 "erusev/parsedown": "^1.0",
@@ -4601,7 +4601,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-14T10:56:57+00:00"
+            "time": "2024-08-16T11:46:16+00:00"
         },
         {
             "name": "league/config",

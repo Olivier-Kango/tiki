@@ -62,6 +62,7 @@ index.php
 /lib/core/Tracker/Filter/Control/DateRange[!!-~](1).php
 /lib/vue-mf/*/package-lock.json
 /lib/cypht/site.js
+/lib/cypht/modules/themes/
 /lib/cypht/site.css
 /lib/test/clover.xml
 /lib/test/junit.xml
