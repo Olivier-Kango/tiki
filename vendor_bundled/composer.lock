@@ -2239,13 +2239,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "43cfe9cacbbb3b0ccbe49137237c686b19e775a4"
+                "reference": "1fdbfffc8512064f5a75378052749b89e9bd1f15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-43cfe9cacbbb3b0ccbe49137237c686b19e775a4-zip-2914d7.zip",
-                "reference": "43cfe9cacbbb3b0ccbe49137237c686b19e775a4",
-                "shasum": "0acad55441560396965ac37c53ae30c48c7fed39"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1fdbfffc8512064f5a75378052749b89e9bd1f15-zip-58e48c.zip",
+                "reference": "1fdbfffc8512064f5a75378052749b89e9bd1f15",
+                "shasum": "d2e026f7c4095b7507a9d8a2eb2fcce75e25c12f"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2311,7 +2311,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-08-29T06:40:10+00:00"
+            "time": "2024-08-30T00:07:44+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -6016,15 +6016,41 @@
             "time": "2019-10-16T11:51:47+00:00"
         },
         {
-            "name": "npm-asset/babel--parser",
-            "version": "7.25.3",
+            "name": "npm-asset/babel--helper-string-parser",
+            "version": "7.24.8",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.3.zip",
-                "shasum": "57ef76e7fdb5369d3c042de128d3d3f4ba1d49f7"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-string-parser/npm-asset-babel--helper-string-parser-7.24.8.zip",
+                "shasum": "8eda5d7f29ebfcbe7f0f898073f02b100ac0df81"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/babel--helper-validator-identifier",
+            "version": "7.24.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-validator-identifier/npm-asset-babel--helper-validator-identifier-7.24.7.zip",
+                "shasum": "8d1f4ca97471c96e4b03e1a8ad2e0362f534ff6f"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/babel--parser",
+            "version": "7.25.4",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.4.zip",
+                "shasum": "253d060e1accb2b49753c72caf8b6e11e4f67390"
             },
             "require": {
-                "npm-asset/babel--types": ">=7.25.2,<8.0.0"
+                "npm-asset/babel--types": ">=7.25.4,<8.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -6033,19 +6059,21 @@
         },
         {
             "name": "npm-asset/babel--types",
-            "version": "v7.25.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/babel/babel.git",
-                "reference": "787c7cd6baa7f2bf691f52ea65a0f69105e9f27c"
-            },
+            "version": "7.25.4",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-787c7cd6baa7f2bf691f52ea65a0f69105e9f27c-zip-2c0b51.zip",
-                "reference": "787c7cd6baa7f2bf691f52ea65a0f69105e9f27c",
-                "shasum": "4d6fb6e499c8f436861198189c67af6a9e388add"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.25.4.zip",
+                "shasum": "82f3db74b94dc244c06aa568d7abf01a9c17907a"
             },
-            "type": "npm-asset"
+            "require": {
+                "npm-asset/babel--helper-string-parser": ">=7.24.8,<8.0.0",
+                "npm-asset/babel--helper-validator-identifier": ">=7.24.7,<8.0.0",
+                "npm-asset/to-fast-properties": ">=2.0.0,<3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "npm-asset/base64-arraybuffer",
@@ -6695,6 +6723,19 @@
             },
             "require": {
                 "npm-asset/utrie": ">=1.0.2,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/to-fast-properties",
+            "version": "2.0.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/npm-asset/to-fast-properties/npm-asset-to-fast-properties-2.0.0.zip",
+                "shasum": "bc8ee381b3c89ddf6d0ad4532767f21f5047c99b"
             },
             "type": "npm-asset",
             "license": [
@@ -10376,17 +10417,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v5.4.0",
+            "version": "v5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "fd90f7eac969d998736edbf12dadf04c64471b0a"
+                "reference": "cd58df7a2603b7d925e5db5c9d50f10987695fd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-fd90f7eac969d998736edbf12dadf04c64471b0a-zip-6bda09.zip",
-                "reference": "fd90f7eac969d998736edbf12dadf04c64471b0a",
-                "shasum": "a2a3b592b58ade806511d478dbf34a0f7e721acc"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-cd58df7a2603b7d925e5db5c9d50f10987695fd3-zip-06ab62.zip",
+                "reference": "cd58df7a2603b7d925e5db5c9d50f10987695fd3",
+                "shasum": "c560321e0f3983a7f04f97a1332b2b5bb5278f65"
             },
             "require": {
                 "php": "^7.2 || ^8.0",
@@ -10437,7 +10478,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2024-08-14T20:00:44+00:00"
+            "time": "2024-08-29T23:10:45+00:00"
         },
         {
             "name": "stella-maris/clock",
@@ -14548,23 +14589,24 @@
         },
         {
             "name": "mikey179/vfsstream",
-            "version": "v1.6.11",
+            "version": "v1.6.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bovigo/vfsStream.git",
-                "reference": "17d16a85e6c26ce1f3e2fa9ceeacdc2855db1e9f"
+                "reference": "fe695ec993e0a55c3abdda10a9364eb31c6f1bf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/mikey179/vfsstream/mikey179-vfsstream-17d16a85e6c26ce1f3e2fa9ceeacdc2855db1e9f-zip-cd89e3.zip",
-                "reference": "17d16a85e6c26ce1f3e2fa9ceeacdc2855db1e9f",
-                "shasum": "2770f161e9fd79bf69474bb94e76b884c8074676"
+                "url": "https://composer.tiki.org/dist/mikey179/vfsstream/mikey179-vfsstream-fe695ec993e0a55c3abdda10a9364eb31c6f1bf0-zip-e88407.zip",
+                "reference": "fe695ec993e0a55c3abdda10a9364eb31c6f1bf0",
+                "shasum": "271e3d59232c37e97602b0d0076eece568025a31"
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.5|^5.0"
+                "phpunit/phpunit": "^7.5||^8.5||^9.6",
+                "yoast/phpunit-polyfills": "^2.0"
             },
             "type": "library",
             "extra": {
@@ -14590,7 +14632,7 @@
             ],
             "description": "Virtual file system to mock the real file system in unit tests.",
             "homepage": "http://vfs.bovigo.org/",
-            "time": "2022-02-23T02:02:42+00:00"
+            "time": "2024-08-29T18:43:31+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -17268,5 +17310,5 @@
         "ext-ldap": "0",
         "ext-soap": "0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
