@@ -138,6 +138,8 @@ function wikiplugin_split($data, $params, $pos)
     $joincols  = (! isset($joincols)  || $joincols == 'y' || $joincols == 1 ? true : false);
     // Split data by rows and cells
 
+    $smarty = TikiLib::lib('smarty');
+
     $sections = preg_split("/@@@+/", $data2);
     $rows = [];
     $maxcols = 0;
@@ -213,7 +215,7 @@ function wikiplugin_split($data, $params, $pos)
                     // Insert "\n" at data begin (so start-of-line-sensitive syntaxes will be parsed OK)
                     . "\n"
                     // now prepend any carriage return and newline char with br
-                    . (TikiLib::lib('parser')->option['is_markdown'] ? $i : preg_replace("/\r?\n/", "<br />\r\n", $i))
+                    . (TikiLib::lib('parser')->option['is_markdown'] ? TikiLib::lib('parser')->parse_data($i, ['is_markdown' => true]) : preg_replace("/\r?\n/", "<br />\r\n", $i))
                     . '</td>';
             }
 
@@ -257,7 +259,7 @@ function wikiplugin_split($data, $params, $pos)
                 } else {
                     $result .= '<div>';
                 }
-                $result .= "\n" . (TikiLib::lib('parser')->option['is_markdown'] ? $i : preg_replace("/\r?\n/", "<br />\r\n", $i)) . '</div>';
+                $result .= "\n" . (TikiLib::lib('parser')->option['is_markdown'] ? TikiLib::lib('parser')->parse_data($i, ['is_markdown' => true]) : preg_replace("/\r?\n/", "<br />\r\n", $i)) . '</div>';
                 ++$icell;
             }
             ++$idx;
