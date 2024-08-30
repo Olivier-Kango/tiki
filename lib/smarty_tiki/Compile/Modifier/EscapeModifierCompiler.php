@@ -14,10 +14,11 @@ use Smarty\Compile\Modifier\Base;
  * @author Rodney Rehm
  */
 
-class EscapeModifierCompiler extends Base {
-
-	public function compile($params, \Smarty\Compiler\Template $compiler) {
-		// pass through to regular plugin fallback
-		return '$_smarty_tpl->getSmarty()->getModifierCallback(\'escape\')(' . join(', ', $params) . ')';
-	}
+class EscapeModifierCompiler extends Base
+{
+    public function compile($params, \Smarty\Compiler\Template $compiler)
+    {
+        // pass through to regular plugin fallback
+        return '$_smarty_tpl->getSmarty()->getModifierCallback(\'escape\')(' . join(', ', $params) . ')';
+    }
 }
