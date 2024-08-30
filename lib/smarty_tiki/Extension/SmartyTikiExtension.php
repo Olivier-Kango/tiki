@@ -35,6 +35,16 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
         return $this->tags[$tag] ?? null;
     }
 
+    public function getModifierCompiler(string $modifier): ?\Smarty\Compile\Modifier\ModifierCompilerInterface
+    {
+        if ($modifier === 'escape') {
+            return new \SmartyTiki\Compile\Modifier\EscapeModifierCompiler();
+        } else {
+            // let DefaultExtension handle the rest
+            return null;
+        }
+    }
+
     public function getModifierCallback(string $modifierName)
     {
         switch ($modifierName) {
