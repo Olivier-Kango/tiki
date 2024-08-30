@@ -24,11 +24,16 @@ class Hm_Output_tiki_filters_cron extends Hm_Output_Module
     {
         $factory = get_sieve_client_factory($this->get('site_config'));
         $has_tiki_storage = array_filter($this->get('user_config')->get('imap_servers', []), function ($mailbox) use ($factory) {
-            $client = $factory->init($this->get('user_config'), $mailbox);
-            if (method_exists($client, 'isTikiStorage') && $client->isTikiStorage()) {
-                return true;
+            try {
+                $client = $factory->init($this->get('user_config'), $mailbox);
+                if (method_exists($client, 'isTikiStorage') && $client->isTikiStorage()) {
+                    return true;
+                }
+                return false;
+            } catch (Exception $e) {
+                Hm_Msgs::add("ERRSieve: {$e->getMessage()}");
+                return false;
             }
-            return false;
         });
         if (! $has_tiki_storage) {
             return '';
