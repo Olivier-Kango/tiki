@@ -1681,7 +1681,7 @@ class Services_Tracker_Controller
                     $field['selected_categories'] = $fieldsProcessed[$permName]['selected_categories'];
                 }
                 if (isset($field['freetags'])) {
-                    $freetags = trim($fieldsProcessed[$permName]);
+                    $freetags = trim($field[$permName]);
                     $freetags = explode(' ', $freetags);
                     $field['freetags'] = $freetags;
                 }
