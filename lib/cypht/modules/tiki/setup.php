@@ -51,6 +51,8 @@ add_output('ajax_put_back_groupmail', 'put_back_groupmail_response', true);
 add_handler('contacts', 'load_tiki_contacts', true, 'tiki', 'load_contacts', 'after');
 add_handler('ajax_autocomplete_contact', 'load_tiki_contacts', true, 'tiki', 'load_contacts', 'after');
 add_handler('ajax_imap_message_content', 'load_tiki_contacts', true, 'tiki', 'load_contacts', 'after');
+add_handler('ajax_tiki_message_content', 'load_contacts', true, 'contacts', 'load_user_data', 'after');
+add_handler('ajax_tiki_message_content', 'load_tiki_contacts', true, 'tiki', 'load_contacts', 'after');
 add_handler('compose', 'load_tiki_contacts', true, 'tiki', 'load_contacts', 'after');
 add_handler('ajax_delete_contact', 'load_tiki_contacts', true, 'tiki', 'load_contacts', 'after');
 add_handler('ajax_add_contact', 'load_tiki_contacts', true, 'tiki', 'load_contacts', 'after');
