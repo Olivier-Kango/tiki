@@ -64,6 +64,7 @@ index.php
 /lib/cypht/site.js
 /lib/cypht/modules/themes/
 /lib/cypht/site.css
+/lib/cypht/modules/themes
 /lib/test/clover.xml
 /lib/test/junit.xml
 /lib/test/core/Search/Index/test_index
