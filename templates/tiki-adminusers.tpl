@@ -297,6 +297,19 @@
                                                                     {icon name="remove" _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
                                                                 </a>
                                                             </action>
+                                                            {if $users[user].waiting eq 'l'}
+                                                                <action>
+                                                                    <a href="{bootstrap_modal controller=user action=set_user_lock_status checked=$username offset=$offset sort_mode=$sort_mode numrows=$numrows lock=unlock}">
+                                                                        {icon name="unlock" _menu_text='y' _menu_icon='y' alt="{tr}Unlock account{/tr}"}
+                                                                    </a>
+                                                                </action>
+                                                            {else}
+                                                                <action>
+                                                                    <a href="{bootstrap_modal controller=user action=set_user_lock_status checked=$username offset=$offset sort_mode=$sort_mode numrows=$numrows lock=lock}">
+                                                                        {icon name="lock" _menu_text='y' _menu_icon='y' alt="{tr}Lock account{/tr}"}
+                                                                    </a>
+                                                                </action>
+                                                            {/if}
                                                         {/if}
                                                         {* Use a confirm here since action cannot easily be undone *}
                                                         {if !empty($users[user].openid_url)}

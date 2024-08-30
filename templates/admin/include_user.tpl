@@ -1,5 +1,24 @@
 {* $Id$ *}
-<form action="tiki-admin.php?page=user" class="admin" method="post">
+{jq}
+    var frm = $('form[id="UsrForm"]'),
+        days_before_lock = $('input[name="users_admin_auto_lock_user_days_before_lock"]'),
+        users_admin_auto_lock_user = $('input[name="users_admin_auto_lock_user"]'),
+        warning_empty_period = $('#warning_empty_period');
+        warning_empty_period.hide();
+    
+    // allow to type in only digits
+    days_before_lock.keypress(function(e){
+        return /^\d*$/i.test(e.key);
+    });
+    frm.submit(function(){
+        if (users_admin_auto_lock_user.is(':checked') && days_before_lock.val() === "") {
+            warning_empty_period.show();
+            days_before_lock.focus();
+            return false;    
+        }
+    });
+{/jq}
+<form action="tiki-admin.php?page=user" class="admin" id="UsrForm" method="post">
     {ticket}
     <div class="t_navbar mb-4 clearfix">
         {button href="tiki-admingroups.php" _type="text" _class="btn btn-link tips" _icon_name="group" _text="{tr}Groups{/tr}" _title=":{tr}Group Administration{/tr}"}
@@ -44,6 +63,17 @@
                 </legend>
                 <div class="adminoptionbox">
                     {preference name=users_admin_actions_require_validation}
+                </div>
+                <div class="adminoptionbox">
+                    {preference name=users_admin_auto_lock_user}
+                    <div class="adminoptionboxchild" id="users_admin_auto_lock_user_childcontainer">
+                    <div id="warning_empty_period" style="display:none;">
+                        {remarksbox type="warning" title="{tr}Empty period of inactivity{/tr}" close="n"}
+                        {tr}Please set a period of inactivity before account lock.{/tr}
+                        {/remarksbox}
+                    </div>
+                        {preference name=users_admin_auto_lock_user_days_before_lock}
+                    </div>
                 </div>
                 </fieldset>
         {/tab}

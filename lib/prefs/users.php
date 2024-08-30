@@ -285,6 +285,23 @@ function prefs_users_list()
             tr('User password will be required for critical operations that can compromise the system security or stability, like adding users to the admin group'),
             'type' => 'flag',
             'default' => 'y',
+        ],
+        'users_admin_auto_lock_user' => [
+            'name' => tr('Lock user account after a period of inactivity'),
+            'description' =>
+            tr('User account will be locked automatically after a defined period of not logging in or inactivity'),
+            'type' => 'flag',
+            'tags' => ['advanced'],
+            'default' => 'n',
+        ],
+        'users_admin_auto_lock_user_days_before_lock' => [
+            'name' => tr('Period of inactivity before account get locked'),
+            'description' =>
+            tr('User account will be locked automatically after this period (in days)'),
+            'type' => 'text',
+            'size' => '40',
+            'tags' => ['advanced'],
+            'default' => 30,
         ]
     ];
 }
