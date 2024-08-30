@@ -3003,7 +3003,7 @@ class UsersLib extends TikiLib
 
     public function remove_group($group)
     {
-        if ($group == 'Anonymous' || $group == 'Registered') {
+        if ($group == 'Anonymous' || $group == 'Registered' || ! $this->group_exists($group)) {
             return false;
         }
         $info = $this->get_group_info($group);

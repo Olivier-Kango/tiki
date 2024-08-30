@@ -107,12 +107,12 @@ class Services_ApiBridge
         $routes->add('comments-create', (new Route('comments', ['controller' => 'comment', 'action' => 'post', 'post' => 1]))->setMethods(['POST']));
         $routes->add('comments-update', (new Route('comments/{threadId}', ['controller' => 'comment', 'action' => 'edit', 'edit' => 1]))->setMethods(['POST']));
         $routes->add('comments-delete', (new Route('comments/{threadId}', ['controller' => 'comment', 'action' => 'remove', 'confirm' => 1]))->setMethods(['DELETE']));
-        $routes->add('comments-lock', (new Route('comments/lock', ['controller' => 'comment', 'action' => 'lock', 'confirm' => 1]))->setMethods(['POST']));
-        $routes->add('comments-unlock', (new Route('comments/unlock', ['controller' => 'comment', 'action' => 'unlock', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('comments-lock', (new Route('comments/{threadId}/lock', ['controller' => 'comment', 'action' => 'lock', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('comments-unlock', (new Route('comments/{threadId}/unlock', ['controller' => 'comment', 'action' => 'unlock', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('comments-approve', (new Route('comments/{threadId}/approve', ['controller' => 'comment', 'action' => 'moderate', 'do' => 'approve', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('comments-reject', (new Route('comments/{threadId}/reject', ['controller' => 'comment', 'action' => 'moderate', 'do' => 'reject', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('comments-archive', (new Route('comments/{threadId}/archive', ['controller' => 'comment', 'action' => 'archive', 'do' => 'archive', 'confirm' => 1]))->setMethods(['POST']));
-        $routes->add('comments-unarchive', (new Route('comments/{threadId}/unacrhive', ['controller' => 'comment', 'action' => 'archive', 'do' => 'unarchive', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('comments-unarchive', (new Route('comments/{threadId}/unarchive', ['controller' => 'comment', 'action' => 'archive', 'do' => 'unarchive', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('connect-new', (new Route('connect/new', ['controller' => 'connect_server', 'action' => 'new']))->setMethods(['POST']));
         $routes->add('connect-confirm', (new Route('connect/confirm', ['controller' => 'connect_server', 'action' => 'confirm']))->setMethods(['POST']));
         $routes->add('connect-receive', (new Route('connect/receive', ['controller' => 'connect_server', 'action' => 'receive']))->setMethods(['POST']));
@@ -173,9 +173,8 @@ class Services_ApiBridge
         $routes->add('wiki-title', (new Route('wiki/title', ['controller' => 'wiki', 'action' => 'title', 'confirmForm' => 'y']))->setMethods(['POST']));
         $routes->add('wiki-lock', (new Route('wiki/lock', ['controller' => 'wiki', 'action' => 'lock_pages', 'confirmForm' => 'y']))->setMethods(['POST']));
         $routes->add('wiki-unlock', (new Route('wiki/unlock', ['controller' => 'wiki', 'action' => 'unlock_pages', 'confirmForm' => 'y']))->setMethods(['POST']));
-        $routes->add('wiki-preview', (new Route('wiki/preview', ['controller' => 'wiki', 'action' => 'preview']))->setMethods(['POST']));
         $routes->add('wiki-zip', (new Route('wiki/zip', ['controller' => 'wiki', 'action' => 'zip', 'confirmForm' => 'y']))->setMethods(['POST']));
-        $routes->add('wiki-versions-delete', (new Route('wiki/{page}/delete', ['controller' => 'wiki', 'action' => 'remove_page_versions', 'confirmForm' => 'y']))->setMethods(['POST']));
+        $routes->add('wiki-versions-delete', (new Route('wiki/page/{page}/delete', ['controller' => 'wiki', 'action' => 'remove_page_versions', 'confirmForm' => 'y']))->setMethods(['POST']));
         $routes->add('galleries', (new Route('galleries', ['controller' => 'file', 'action' => 'list_galleries', 'offset' => 0, 'maxRecords' => -1]))->setMethods(['GET']));
         $routes->add('galleries-create', (new Route('galleries', ['controller' => 'file', 'action' => 'create_update_gallery', 'create' => 1]))->setMethods(['POST']));
         $routes->add('galleries-update', (new Route('galleries/{galleryId}/update', ['controller' => 'file', 'action' => 'create_update_gallery', 'update' => 1]))->setMethods(['POST']));

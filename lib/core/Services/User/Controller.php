@@ -89,6 +89,10 @@ class Services_User_Controller
             throw new Services_Exception($errormsg);
         }
 
+        if ($pass !== $passAgain) {
+            throw new Services_Exception(tr('Passwords do not match.'));
+        }
+
         $regResult = TikiLib::lib('registration')->register_new_user(
             [
                 'name' => $name,
@@ -121,6 +125,11 @@ class Services_User_Controller
 
         $tikilib = TikiLib::lib('tiki');
         $sociallib = TikiLib::lib('social');
+        $other_user = $input->username->email();
+
+        if (! $this->lib->user_exists($other_user)) {
+            throw new Services_Exception_NotFound(tr('User does not exist.'));
+        }
 
         $result = [
             'fullname' => '',
@@ -140,9 +149,7 @@ class Services_User_Controller
             $this->lib->get_user_preference($user, 'show_mouseover_user_info', 'y') == 'y' ||
             $prefs['feature_friends'] == 'y'
         ) {
-            $other_user = $input->username->email();
             $result['other_user'] = $other_user;
-
             if (
                 $this->lib->user_exists($other_user) &&
                 ($tikilib->get_user_preference($other_user, 'user_information', 'public') === 'public' ||

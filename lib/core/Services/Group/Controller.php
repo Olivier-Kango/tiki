@@ -247,10 +247,17 @@ class Services_Group_Controller
                 ];
                 Feedback::success($feedback1);
             } else {
-                $feedback2 = [
-                    'tpl' => 'action',
-                    'mes' => tr('Group %0 not created', $util->extra['name']),
-                ];
+                if ($userlib->group_exists($params['name'])) {
+                    $feedback2 = [
+                        'tpl' => 'action',
+                        'mes' => tr('Group %0 already exists', $util->extra['name']),
+                    ];
+                } else {
+                    $feedback2 = [
+                        'tpl' => 'action',
+                        'mes' => tr('Group %0 not created', $util->extra['name']),
+                    ];
+                }
                 Feedback::error($feedback2);
             }
             //return to page - take off query and anchor to ensure return to the first tab

@@ -30,7 +30,8 @@ class Services_Comment_Controller
             $objectId = $input->objectId->digits();
         }
 
-        if ($objectId !== $input->objectId->none() || ! $this->isValidObject($type, $objectId)) {
+        $objectlib = TikiLib::lib('object');
+        if ($objectId !== $input->objectId->none() || ! $objectlib->isValidObject($type, $objectId)) {
             $objectId = $input->objectId->xss();
             throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $objectId), 403);
         }
@@ -53,25 +54,7 @@ class Services_Comment_Controller
         $comments = $commentslib->get_comments("$type:$objectId", null, $offset, $maxRecords, $sortMode);
 
         $this->markEditable($comments['data']);
-
-        $paginationOnClick = "
-var \$commentContainer = $(this).parents('.comment-container');
-\$commentContainer
-    .tikiModal(tr('Loading...'))
-    .load(
-        \$.service('comment', 'list'),
-        {type:'$type', objectId:'$objectId', offset: comment_offset},
-        function () {
-            \$('html, body').animate({
-                    scrollTop: \$commentContainer.offset().top
-                }, 2000, function () {
-                    \$commentContainer.tikiModal();
-                });
-        }
-    );
-return false;";
-
-        return [
+        $response = [
             'title'             => tr('Comments'),
             'comments'          => $comments['data'],
             'type'              => $type,
@@ -81,7 +64,6 @@ return false;";
             'offset'            => $offset,
             'maxRecords'        => $maxRecords,
             'sortMode'          => $sortMode,
-            'paginationOnClick' => str_replace(["\n", "\t"], '', $paginationOnClick),
             'allow_post'        => $this->canPost($type, $objectId) && ! $input->hidepost->int(),
             'allow_remove'      => $this->canRemove($type, $objectId),
             'allow_lock'        => $this->canLock($type, $objectId),
@@ -90,6 +72,29 @@ return false;";
             'allow_moderate'    => $this->canModerate($type, $objectId),
             'allow_vote'        => $this->canVote($type, $objectId),
         ];
+
+        $paginationOnClick = "
+                var \$commentContainer = $(this).parents('.comment-container');
+                \$commentContainer
+                    .tikiModal(tr('Loading...'))
+                    .load(
+                        \$.service('comment', 'list'),
+                        {type:'$type', objectId:'$objectId', offset: comment_offset},
+                        function () {
+                            \$('html, body').animate({
+                                    scrollTop: \$commentContainer.offset().top
+                                }, 2000, function () {
+                                    \$commentContainer.tikiModal();
+                                });
+                        }
+                    );
+                return false;";
+
+        if (! TIKI_API) {
+            $response['paginationOnClick'] = str_replace(["\n", "\t"], '', $paginationOnClick);
+        }
+
+        return $response;
     }
 
     public function action_post($input)
@@ -112,7 +117,8 @@ return false;";
             throw new Services_Exception(tr('Permission denied.'), 403);
         }
 
-        if (! $this->isValidObject($type, $objectId)) {
+        $objectlib = TikiLib::lib('object');
+        if (! $objectlib->isValidObject($type, $objectId)) {
             $objectId = $input->objectId->xss();
             throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $objectId), 403);
         }
@@ -417,18 +423,47 @@ return false;";
 
     private function executeActionLock($input, $mode)
     {
+        global $prefs;
         $type = $input->type->text();
         $objectId = $input->objectId->pagename();
         $confirmation = $input->confirm->int();
         $status = '';
 
+        if (empty($type)) {
+            throw new Services_Exception_MissingValue('type');
+        }
+
+        if (empty($objectId)) {
+            throw new Services_Exception_MissingValue('objectId');
+        }
+
+        $objectlib = TikiLib::lib('object');
+        if (! $objectlib->isValidObject($type, $objectId)) {
+            throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $objectId), 403);
+        }
+
         if (! $this->isEnabled($type, $objectId)) {
             throw new Services_Exception(tr('Comments not allowed on this page.'), 403);
         }
 
-        $method = 'can' . ucfirst($mode);
-        if (! $this->$method($type, $objectId)) {
+        if ($prefs['feature_comments_locking'] != 'y') {
+            throw new Services_Exception(tr('Comments locking feature is not enabled.'), 403);
+        }
+
+        $perms = $this->getApplicablePermissions($type, $objectId);
+        if (! $perms->lock_comments) {
             throw new Services_Exception(tr('Permissions denied.'), 403);
+        }
+
+        $commentslib = TikiLib::lib('comments');
+        $isLocked = $commentslib->is_object_locked("$type:$objectId");
+
+        if ($mode === 'lock' && $isLocked) {
+            throw new Services_Exception(tr('Comments already locked.'), 403);
+        }
+
+        if ($mode === 'unlock' && ! $isLocked) {
+            throw new Services_Exception(tr('Comments already unlocked.'), 403);
         }
 
         if ($confirmation) {
@@ -823,57 +858,6 @@ return false;";
         }
 
         $_SESSION['created_comments'][] = $threadId;
-    }
-
-    private function isValidObject($type, $objectId)
-    {
-        if ($type === 'wiki page') {
-            $page_id = TikiLib::lib('tiki')->get_page_id_from_name($objectId);
-            if ($page_id) {
-                return true;
-            }
-        } elseif ($type === 'blog post') {
-            $post_info = TikiLib::lib('blog')->get_post($objectId);
-            if ($post_info) {
-                return true;
-            }
-        } elseif ($type === 'article') {
-            $article_info = TikiLib::lib('art')->get_article($objectId, false);
-            if ($article_info !== '') {
-                return true;
-            }
-        } elseif ($type === 'trackeritem') {
-            $item = Tracker_Item::fromId($objectId);
-            if ($item != null) {
-                return true;
-            }
-        } elseif ($type === 'poll') {
-            $poll = TikiLib::lib('poll')->get_poll($objectId);
-            if ($poll != null) {
-                return true;
-            }
-        } elseif ($type === 'faq') {
-            $fac = TikiLib::lib('faq')->get_faq($objectId);
-            if ($fac != null) {
-                return true;
-            }
-        } elseif ($type === 'file gallery') {
-            $file = TikiLib::lib('filegal')->get_file_gallery_info($objectId);
-            if ($file != false) {
-                return true;
-            }
-        } elseif ($type === 'forum') {
-            $forum_info = TikiLib::lib('comments')->get_forum($objectId);
-            if ($forum_info != false) {
-                return true;
-            }
-        } elseif ($type === 'activity') {
-            $activity = TikiLib::lib('activity')->getActivity($objectId);
-            if ($activity != null) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

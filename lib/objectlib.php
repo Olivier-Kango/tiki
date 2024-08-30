@@ -528,6 +528,64 @@ class ObjectLib extends TikiLib
         return (['error' => 'true']);
     }
 
+    /**
+     * Checks if an object of a given type and ID is valid/exists.
+     *
+     * @param string $type The type of the object. For example, 'wiki page', 'blog post', etc.
+     * @param int $objectId The ID of the object.
+     * @return bool Returns true if the object is valid, false otherwise.
+     */
+    public function isValidObject($type, $objectId)
+    {
+        if ($type === 'wiki page') {
+            $page_id = TikiLib::lib('tiki')->get_page_id_from_name($objectId);
+            if ($page_id) {
+                return true;
+            }
+        } elseif ($type === 'blog post') {
+            $post_info = TikiLib::lib('blog')->get_post($objectId);
+            if ($post_info) {
+                return true;
+            }
+        } elseif ($type === 'article') {
+            $article_info = TikiLib::lib('art')->get_article($objectId, false);
+            if ($article_info !== '') {
+                return true;
+            }
+        } elseif ($type === 'trackeritem') {
+            $item = Tracker_Item::fromId($objectId);
+            if ($item != null) {
+                return true;
+            }
+        } elseif ($type === 'poll') {
+            $poll = TikiLib::lib('poll')->get_poll($objectId);
+            if ($poll != null) {
+                return true;
+            }
+        } elseif ($type === 'faq') {
+            $fac = TikiLib::lib('faq')->get_faq($objectId);
+            if ($fac != null) {
+                return true;
+            }
+        } elseif ($type === 'file gallery') {
+            $file = TikiLib::lib('filegal')->get_file_gallery_info($objectId);
+            if ($file != false) {
+                return true;
+            }
+        } elseif ($type === 'forum') {
+            $forum_info = TikiLib::lib('comments')->get_forum($objectId);
+            if ($forum_info != false) {
+                return true;
+            }
+        } elseif ($type === 'activity') {
+            $activity = TikiLib::lib('activity')->getActivity($objectId);
+            if ($activity != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** This is a first attempt at a generic object write abstraction.  It will set the object to a new raw data value, calling the permission checking code and data validation code on the object
      *
      * @param $objectType the raw object type, such as 'trackerfield'

@@ -103,18 +103,34 @@ class Services_Tracker_Controller
             throw new Services_Exception(tr('Type does not exist'), 400);
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input->type->word()) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $type) {
             if (empty($name)) {
                 throw new Services_Exception_MissingValue('name');
             }
 
             if ($definition->getFieldFromNameMaj($name)) {
-                Feedback::error(tr('This field name %0 is already used in this tracker', $name));
+                $msg = tr('This field name %0 is already used in this tracker', $name);
+                if (TIKI_API) {
+                    return [
+                        'title' => tr('Create a tracker field'),
+                        'message' => $msg,
+                    ];
+                }
+                Feedback::error($msg);
+
                 return Services_Utilities::closeModal();
             }
 
             if ($definition->getFieldFromPermName($permName)) {
-                Feedback::error(tr('This permanent name %0 is already used', $permName));
+                $msg = tr('This permanent name %0 is already used', $permName);
+                if (TIKI_API) {
+                    return [
+                        'title' => tr('Create a tracker field'),
+                        'message' => $msg,
+                    ];
+                }
+                Feedback::error($msg);
+
                 return Services_Utilities::closeModal();
             }
 
@@ -307,6 +323,7 @@ class Services_Tracker_Controller
         global $prefs;
 
         $trackerId = $input->trackerId->int();
+        $option = $input->option->array() ?: [];
 
         $perms = Perms::get('tracker', $trackerId);
         if (! $perms->admin_trackers) {
@@ -343,7 +360,12 @@ class Services_Tracker_Controller
                 throw new Services_Exception_DuplicateValue('permName', tr('This permanent name %0 is already used', $permName));
             }
         }
+
         $name = $input->name->word();
+        if (empty($name)) {
+            throw new Services_Exception_MissingValue('name');
+        }
+
         if (isset($name)) {
             $fields = $definition->getFields();
             foreach ($fields as $currentField) {
@@ -369,7 +391,7 @@ class Services_Tracker_Controller
             $visibleBy = $input->asArray('visible_by', false);
             $editableBy = $input->asArray('editable_by', false);
 
-            $options = $this->utilities->buildOptions(new JitFilter($input->option), $typeInfo);
+            $options = $this->utilities->buildOptions($option, $typeInfo);
 
             $trklib = TikiLib::lib('trk');
             $handler = $trklib->get_field_handler($field);
@@ -386,7 +408,7 @@ class Services_Tracker_Controller
             }
 
             if (! empty($types)) {
-                $type = $input->type->text();
+                $type = $input->type->text() ?: $field['type'];
                 if ($field['type'] !== $type) {
                     if (! isset($types[$type])) {
                         throw new Services_Exception(tr('Type does not exist'), 400);
@@ -395,7 +417,7 @@ class Services_Tracker_Controller
                     $typeInfo = $types[$type];
                     if (! empty($oldTypeInfo['supported_changes']) && in_array($type, $oldTypeInfo['supported_changes'])) {
                         // changing supported types should not clear all options but only the ones that are not available in the new type
-                        $options = Tracker_Options::fromInput(new JitFilter($input->option), $oldTypeInfo);
+                        $options = Tracker_Options::fromInput(new JitFilter($option), $oldTypeInfo);
                         $params = $options->getAllParameters();
                         foreach (array_keys($params) as $param) {
                             if (empty($typeInfo['params'][$param])) {
@@ -1961,7 +1983,9 @@ class Services_Tracker_Controller
             $this->utilities->removeTracker($trackerId);
 
             return [
-                'trackerId' => 0,
+                'trackerId' => $trackerId,
+                'name' => $definition->getConfiguration('name'),
+                'message' => tr('Tracker %0 has been successfully deleted.', $trackerId),
             ];
         }
 
@@ -2087,7 +2111,9 @@ class Services_Tracker_Controller
                     }
 
                     return [
-                        'trackerId' => 0,
+                        'trackerId' => $trackerId,
+                        'name' => $definition->getConfiguration('name'),
+                        'message' => tr('Tracker %0 has been successfully cleared.', $trackerId),
                     ];
                 }
 
@@ -2217,6 +2243,7 @@ class Services_Tracker_Controller
             return [
                 'trackerId' => $newId,
                 'name' => $name,
+                'message' => tr('Tracker %0 has been successfully duplicated.', $trackerId),
             ];
         } else {
             $trackers = $this->action_list_trackers($input);

@@ -519,38 +519,63 @@ class Services_Wiki_Controller
             //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
             $util->setVars($input, $this->filters, 'items');
+            $pageinfo = TikiLib::lib('tiki')->get_page_info($util->extra['page']);
+
+            if (! $pageinfo) {
+                throw new Services_Exception(tr('Page not found.'));
+            }
+
+            if (empty($util->items)) {
+                throw new Services_Exception(tr('No versions were selected. Please select one or more versions.'));
+            }
+
             Services_Exception_Denied::checkObject('remove', 'wiki page', $util->extra['page']);
             //delete page
             $histlib = TikiLib::lib('hist');
             $pageinfo = TikiLib::lib('tiki')->get_page_info($util->extra['page']);
-            $error = false;
+            $deletedVersions = [];
+            $errors = [];
+
             if ($pageinfo['flag'] != 'L') {
                 $result = false;
                 foreach ($util->items as $version) {
-                    $result = $histlib->remove_version($util->extra['page'], $version);
+                    if ($histlib->version_exists($util->extra['page'], $version)) {
+                        $result = $histlib->remove_version($util->extra['page'], $version);
+                        if ($result) {
+                            $deletedVersions[] = $version;
+                        } else {
+                            $errors[] = $version;
+                        }
+                    } else {
+                        $errors[] = $version;
+                    }
                 }
-                if (! $result) {
-                    $error = true;
-                    $feedback = [
-                        'tpl' => 'action',
-                        'mes' => tr('An error occurred. Version %0 could not be deleted.', $version),
-                    ];
-                    Feedback::error($feedback);
-                }
+            } else {
+                $feedback = [
+                    'tpl' => 'action',
+                    'mes' => tr('An error occurred. The page is locked and cannot be modified.'),
+                ];
+                Feedback::error($feedback);
             }
-            if (! $error) {
-                //prepare feedback
-                if ($util->itemsCount === 1) {
-                    $msg = tr('The following version of %0 has been deleted:', $util->extra['page']);
-                } else {
-                    $msg = tr('The following versions of %0 have been deleted:', $util->extra['page']);
-                }
+
+            if (count($deletedVersions) > 0) {
+                $msg = tr('The following versions of %0 have been deleted:', $util->extra['page']);
                 $feedback = [
                     'tpl' => 'action',
                     'mes' => $msg,
-                    'items' => $util->items,
+                    'items' => $deletedVersions,
                 ];
                 Feedback::success($feedback);
+            }
+
+            if (count($errors) > 0) {
+                $msg = tr('The following versions of %0 could not be deleted:', $util->extra['page']);
+                $feedback = [
+                    'tpl' => 'action',
+                    'mes' => $msg,
+                    'items' => $errors,
+                ];
+                Feedback::error($feedback);
             }
             //return to page
             return Services_Utilities::refresh($util->extra['referer']);

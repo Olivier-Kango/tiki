@@ -167,6 +167,16 @@ class Services_Category_Controller
         }
 
         $filteredObjects = $originalObjects = $this->convertObjects($objects);
+        //check if objects exist
+        $objectlib = TikiLib::lib('object');
+        foreach ($filteredObjects as $object) {
+            $type = $object['type'];
+            $id = $object['id'];
+            if (! $objectlib->isValidObject($type, $id)) {
+                throw new Services_Exception(tr('Invalid %0 ID: %1', $type, $id), 403);
+            }
+        }
+
         $util = new Services_Utilities();
         if (count($originalObjects) && $util->isActionPost()) {
             //first determine if objects are already in the category

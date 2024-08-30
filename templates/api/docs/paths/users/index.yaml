@@ -45,6 +45,10 @@ post:
       application/x-www-form-urlencoded:
         schema:
           type: object
+          required:
+            - name
+            - pass
+            - passAgain
           properties:
             name:
               type: string

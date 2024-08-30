@@ -8,6 +8,9 @@ class Services_Exception_FieldError extends Services_Exception
 {
     public function __construct($field, $message)
     {
-        parent::__construct("<!--field[$field]-->" . $message, 409);
+        if (TIKI_API) {
+            $message = "<!--field[$field]-->$message";
+        }
+        parent::__construct($message, 409);
     }
 }

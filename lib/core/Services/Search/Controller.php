@@ -176,7 +176,8 @@ class Services_Search_Controller
         $smarty = TikiLib::lib('smarty');
 
         try {
-            $filter = $input->filter->none() ?: [];
+            $filterData = $input->filter->none();
+            $filter = (! empty($filterData) && is_array($filterData)) ? $filterData : [];
             $format = $input->format->text() ?: '{title}';
             $use_permname = $input->use_permname->text();
             $titleFilter = null;

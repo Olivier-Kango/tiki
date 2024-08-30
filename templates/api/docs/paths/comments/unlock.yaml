@@ -1,11 +1,20 @@
 post:
   description: Unlock comment thread
+  parameters:
+    - name: threadId
+      in: path
+      required: true
+      schema:
+        type: integer
   requestBody:
     required: true
     content:
       application/x-www-form-urlencoded:
         schema:
           type: object
+          required:
+            - type
+            - objectId
           properties:
             type:
               type: string

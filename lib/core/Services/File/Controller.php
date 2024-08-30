@@ -530,7 +530,7 @@ class Services_File_Controller
 
         if ($input->create->int()) {
             if (empty($name)) {
-                throw new Services_Exception(tr('Gallery name is required.'));
+                throw new Services_Exception_MissingValue('name');
             }
 
             $perms = Perms::get('file gallery', $parentId);
@@ -548,7 +548,7 @@ class Services_File_Controller
         } else {
             $galleryId = $input->galleryId->int();
             if (empty($galleryId)) {
-                throw new Services_Exception(tr('Gallery id is required.'));
+                throw new Services_Exception_MissingValue('galleryId');
             }
 
             $info = $fileGallery->get_file_gallery_info($galleryId);
@@ -772,11 +772,11 @@ class Services_File_Controller
         $new_parent_id = $input->newParentId->int();
 
         if (empty($galleryId)) {
-            throw new Services_Exception(tr('galleryId is required.'));
+            throw new Services_Exception_MissingValue('galleryId');
         }
 
-        if (empty($newParentId)) {
-            throw new Services_Exception(tr('newParentId is required.'));
+        if (empty($new_parent_id)) {
+            throw new Services_Exception_MissingValue('newParentId');
         }
 
         $perms = Perms::get('file gallery', $galleryId);
@@ -838,11 +838,11 @@ class Services_File_Controller
         $description = $input->description->text() ?: '';
 
         if (empty($galleryId)) {
-            throw new Services_Exception(tr('galleryId is required.'));
+            throw new Services_Exception_MissingValue('galleryId');
         }
 
         if (empty($name)) {
-            throw new Services_Exception(tr('name is required.'));
+            throw new Services_Exception_MissingValue('name');
         }
 
         $perms = Perms::get('file gallery', $galleryId);
@@ -889,7 +889,7 @@ class Services_File_Controller
 
     public function action_unlock_files($input)
     {
-        $fileIDs = $input->asArray('fileId');
+        $fileIDs = $input->asArray('items');
 
         $fileGallery = TikiLib::lib('filegal');
         $result = [];

@@ -40,9 +40,9 @@ paths:
     $ref: paths-comments-index.yaml
   /comments/{threadId}:
     $ref: paths-comments-entity.yaml
-  /comments/lock:
+  /comments/{threadId}/lock:
     $ref: paths-comments-lock.yaml
-  /comments/unlock:
+  /comments/{threadId}/unlock:
     $ref: paths-comments-unlock.yaml
   /comments/{threadId}/approve:
     $ref: paths-comments-approve.yaml
@@ -166,8 +166,6 @@ paths:
     $ref: paths-wiki-version_delete.yaml
   /wiki/delete:
     $ref: paths-wiki-delete.yaml
-  /wiki/preview:
-    $ref: paths-wiki-preview.yaml
   /wiki/title:
     $ref: paths-wiki-title.yaml
   /wiki/lock:
