@@ -1,4 +1,4 @@
-.tiki-webmail, .tiki-cypht, .mobile.tiki-cypht, .inline-cypht {
+.inline-cypht {
     background: var(--bs-body-bg) !important;
     font-family: $font-family-base;
     color: var(--bs-body-color) !important;
@@ -29,7 +29,7 @@
     .card-header { border-color: $card-border-color !important; }
     .card-body {
         .nav-link {
-            &, small { color: var(--bs-link-color) !important; }
+            &, small { color: inherit !important; }
         }
     }
     .dropdown-menu {
@@ -41,13 +41,13 @@
     .moduletitle { color: var(--bs-body-color) !important; }
     a:not(.dropdown-item) .icon, .btn-link {
         border-color: transparent !important;
-        color: var(--bs-link-color) !important;
+        color: inherit !important;
         &:hover { color: var(--bs-link-hover-color) !important; }
     }
     .nav-tabs {
         border: none !important;
         border-bottom: 1px solid $nav-tabs-border-color !important;
-        .nav-link { color: var(--bs-link-color) !important; }
+        .nav-link { color: inherit !important; }
         .nav-link.active, .nav-item.show .nav-link { color: var(--bs-link-hover-color) !important; }
         .nav-link:not(.active) { border: none !important; }
     }
@@ -55,11 +55,15 @@
 
 
     a:not(.btn), a.btn-link {
-        color: var(--bs-link-color) !important;
+        color: inherit !important;
         &:hover {
             color: var(--bs-link-hover-color) !important;
             text-decoration: inherit;
         }
+    }
+
+    .folders li, .inner_list li {
+        color: inherit;
     }
 
     .flipmodtitle.close, .close {
@@ -100,7 +104,7 @@
     .folders a, .subject a, .selected_menu a,
     .unread_link, .selected_menu, .manage_folder_link {
         &:not(.btn) {
-            color: var(--bs-link-color) !important;
+            color: inherit !important;
             &:hover {
                 color: var(--bs-link-hover-color) !important;
                 text-decoration: $link-hover-decoration;
