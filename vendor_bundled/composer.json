@@ -8,6 +8,8 @@
         "Yes, that's the only way to do comments",
         "  https://github.com/composer/composer/issues/5364",
         "",
+        "In case of a manual update of the dependencies list, please ensure the list stays alphabetically sorted.",
+        "",
         "How to update dependencies",
         "  satis and composer.tiki.org",
         "    First, make sure the version you want is covered by ",

@@ -116,18 +116,17 @@ export default defineConfig(({ command, mode }) => {
     );
     Object.assign(rollupInput, {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
+        "color-picker": resolve("node_modules/@shoelace-style/shoelace/dist/components/color-picker/color-picker.js"),
         "datetime-picker": resolve(__dirname, "vue-widgets/datetime-picker/src/datetime-picker.ce.js"),
         "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
         "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
         "element-plus-ui": resolve(__dirname, "vue-widgets/element-plus-ui/src/element-plus-ui.ce.js"),
-        "color-picker": resolve("node_modules/@shoelace-style/shoelace/dist/components/color-picker/color-picker.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
+        "tiki-offline": resolve(__dirname, "vue-mf/tiki-offline/src/tiki-offline.js"),
         "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
-        "tiki-offline": resolve(__dirname, "vue-mf/tiki-offline/src/tiki-offline.js")
     });
-    //console.log(rollupInput);
     return {
         base: "/public/generated/js", //This must NOT have a trailing slash
         publicDir: false, //tiki already uses public for other purposes.  If we want to use this feature we can create a src/public folder for it.
@@ -170,7 +169,6 @@ export default defineConfig(({ command, mode }) => {
                     "subtotal",
                     "vue",
                 ],
-                //external: [/^@vue-mf\/.+/],
                 input: rollupInput,
                 output: {
                     //dir: "./public/generated/js",

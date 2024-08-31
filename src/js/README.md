@@ -47,6 +47,8 @@ Javascript dependencies are still being moved from composer.  For examples of ho
 * Is it a dependency that is compiled into a specific module under src/js (i.e tiki-jquery)? In this case, the appropriate package.json should be located in a folder like [jquery-tiki](./jquery-tiki/), [vue-mf](./vue-mf/), 
    ...
 
+> **Note:** Ensure the content stays alphabetically sorted in your chosen package.json.
+
 Once the dependency is listed among installable packages, execute:
 
 ```sh
@@ -68,13 +70,14 @@ In [vite.config.mjs](vite.config.mjs):
 * Make the package available or importable as an ES Module if it's mainly distributed as one.
   * Edit the file [path_js_importmap_generator.php](/path_js_importmap_generator.php).
     * We are interested in the `imports` entry of the object `$importmap`.
-    * Register the package:
+    * Register the package where it alphabetically fits:
 
         ```php
         ...
         "imports" => [
             ...
-            "my-package" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/path/to/the/target/file"
+            "my-package" => $tikiroot . NODE_PUBLIC_DIST_PATH . "/path/to/the/target/file",
+            ...
         ]
         ```
 
