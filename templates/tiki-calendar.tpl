@@ -1,6 +1,6 @@
 {title admpage="calendar"}
     {if $displayedcals|@count eq 1}
-    {tr}Calendar:{/tr}{$calendars[$displayedcals[0]].displayName|escape}
+    {tr}Calendar:{/tr} {$calendars[$displayedcals[0]].displayName|escape}
     {else}
         {tr}Calendar{/tr}
     {/if}
