@@ -142,14 +142,14 @@ header.navbar.fixed-top {
 }
 
 :root {
-    --tiki-tooltip-link-color: #88b6fc; // Default link color lightened for readability on #000 background; more elaborate method coming for Bootstrap 5.3. - g_c-l
+    --tiki-tooltip-link-color: var(--bs-tertiary-bg); // #88b6fc; // Default link color lightened for readability on #000 background; more elaborate method coming for Bootstrap 5.3. - g_c-l
     --tiki-tooltip-link-hover-color: #{$tooltip-color};
     --tiki-code-color: var(--bs-body-color);
     --tiki-code-bg: var(--bs-secondary-bg);
     --tiki-input-color: var(--bs-body-color);
     --tiki-input-bg: var(--bs-body-bg);
-    --tiki-input-select-color: var(--bs-primary-text-emphasis); // $form-select-color;
-    --tiki-input-select-bg: var(--bs-primary-text-bg);
+    --tiki-input-select-color: var(--bs-emphasis-color); // $form-select-color;
+    --tiki-input-select-bg: var(--bs-tertiary-bg);
 }
 
 [data-bs-theme=dark] {
