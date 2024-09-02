@@ -150,6 +150,7 @@ class Services_Tracker_Controller
                 return [
                     'FORWARD' => [
                         'action' => 'edit_field',
+                        'name' => $name,
                         'fieldId' => $fieldId,
                         'trackerId' => $trackerId,
                         'modal' => $modal,
