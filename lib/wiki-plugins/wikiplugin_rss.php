@@ -175,7 +175,7 @@ function wikiplugin_rss($data, $params)
 
     $pluginInfo = wikiplugin_rss_info();
     foreach ($pluginInfo['params'] as $key => $param) {
-        if (! isset($params[$key])) {
+        if (isset($param['default']) && ! isset($params[$key])) {
             $params[$key] = $param['default'];
         }
     }
