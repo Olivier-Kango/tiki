@@ -30,7 +30,8 @@ class Hm_Handler_load_tiki_contacts extends Hm_Handler_Module
             $contacts->add_contact([
                 'source' => 'tiki',
                 'email_address' => $contact['email'],
-                'display_name' => $contact['firstName'] . ($contact['lastName'] ? ' ' . $contact['lastName'] : '')
+                'display_name' => $contact['firstName'] . ($contact['lastName'] ? ' ' . $contact['lastName'] : ''),
+                'external' => true,
             ]);
         }
         $this->append('contact_sources', 'tiki');
