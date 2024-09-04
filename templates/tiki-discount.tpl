@@ -63,7 +63,7 @@
         <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}Value{/tr}</label>
             <div class="col-sm-7">
-                <input type="text" id="code" name="code" {if !empty($info.code)}value="{$info.code|escape}"{/if} class="form-control">
+                <input type="text" id="value" name="value" {if !empty($info.value)}value="{$info.value|escape}"{/if} class="form-control">
                 <div class="form-text">
                     {tr}{$prefs.payment_currency|escape}{/tr} {tr} or {/tr}
                 </div>

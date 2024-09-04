@@ -7,13 +7,14 @@
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
-            'save'                        => 'bool',             //post
-            'code'                        => 'digits',           //post
-            'value'                       => 'digits',           //post
-            'percent'                     => 'digits',           //post
-            'id'                          => 'digits',           //post
-            'del'                         => 'digits',             //get
-            'offset'                      => 'digits',           //get
+            'save'                        => 'bool',           //post
+            'code'                        => 'word',           //post
+            'value'                       => 'digits',         //post
+            'percent'                     => 'word',           //post
+            'id'                          => 'digits',         //post
+            'del'                         => 'digits',         //get
+            'offset'                      => 'digits',         //get
+            'max'                         => 'digits',         //post
         ],
     ],
 ];
@@ -24,7 +25,6 @@ $access->check_permission(['tiki_p_admin']);
 
 $auto_query_args = [];
 $tab = 1;
-
 if (! empty($_REQUEST['save']) && ! empty($_REQUEST['code'])) {
     $access->checkCsrf();
     if (empty($_REQUEST['value']) && ! empty($_REQUEST['percent'])) {
@@ -44,6 +44,10 @@ if (! empty($_REQUEST['save']) && ! empty($_REQUEST['code'])) {
             unset($_REQUEST['id']);
             $tab = 1;
         }
+    } else {
+        Feedback::error(tra('Please provide a discount value'));
+        $smarty->assign_by_ref('info', $_REQUEST);
+        $tab = 2;
     }
 }
 if (! empty($_REQUEST['del'])) {
