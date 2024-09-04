@@ -274,14 +274,6 @@ export default defineConfig(({ command, mode }) => {
                     },
                     /* common_externals */
                     {
-                        src: "node_modules/select2/dist/js/select2.min.js",
-                        dest: "vendor_dist/select2/dist",
-                    },
-                    {
-                        src: "node_modules/select2/dist/css/select2.min.css",
-                        dest: "vendor_dist/select2/dist",
-                    },
-                    {
                         src: "node_modules/@shoelace-style/shoelace/dist/themes/*.css",
                         dest: "vendor_dist/@shoelace-style/shoelace/dist/themes",
                     },
@@ -369,6 +361,18 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/jquery-colorbox/example*", // Examples are used as themes in Tiki instead of the default Design of Colorbox.
                         dest: "vendor_dist/jquery-colorbox",
+                    },
+                    {
+                        src: "node_modules/select2/dist/js/select2.min.js",
+                        dest: "vendor_dist/select2/dist",
+                    },
+                    {
+                        src: "node_modules/select2/dist/css/select2.min.css",
+                        dest: "vendor_dist/select2/dist",
+                    },
+                    {
+                        src: "node_modules/select2-bootstrap-5-theme/dist/*.min.css",
+                        dest: "vendor_dist/select2-bootstrap-theme/dist",
                     },
                     {
                         src: "node_modules/sortablejs/modular/*",

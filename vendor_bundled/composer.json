@@ -222,7 +222,6 @@
         "npm-asset/prefixfree": ">=1.0.10",
         "npm-asset/reveal.js": "^3.9.2",
         "npm-asset/sass-svg-uri": "^1.0",
-        "npm-asset/select2-bootstrap-5-theme": "^1.2",
         "npm-asset/sentry--browser": "^6.0",
         "npm-asset/signature_pad": "^2.3.2",
         "npm-asset/toast-ui--editor": "^3.2.0",

@@ -594,9 +594,9 @@ if ($prefs['jquery_select2'] == 'y') {
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.js");
     $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.css");
     if (Language::isRTL()) {
-        $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.rtl.css');
+        $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/select2-bootstrap-theme/dist/select2-bootstrap-5-theme.rtl.min.css');
     } else {
-        $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css');
+        $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/select2-bootstrap-theme/dist/select2-bootstrap-5-theme.min.css');
     }
 }
 if ($prefs['jquery_fitvidjs'] == 'y') {
