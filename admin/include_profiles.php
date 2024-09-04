@@ -349,13 +349,16 @@ if (isset($_REQUEST['export']) && isset($_REQUEST['export_type'])) {
             }
             break;
         case 'prefs':
-            $toExport['YAML'] = Yaml::dump(['preferences' => $_REQUEST['prefs_to_export']], 20, 1, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
+            if (isset($_REQUEST['prefs_to_export'])) {
+                $toExport['YAML'] = Yaml::dump(['preferences' => $_REQUEST['prefs_to_export']], 20, 1, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
+            }
             break;
         case 'modules':
             $modules_to_export = [];
-
-            foreach ($_REQUEST['modules_to_export'] as $k => $v) {
-                $modules_to_export[] = $assigned_modules_for_export[$k];
+            if (isset($_REQUEST['modules_to_export'])) {
+                foreach ($_REQUEST['modules_to_export'] as $k => $v) {
+                    $modules_to_export[] = $assigned_modules_for_export[$k];
+                }
             }
 
             $toExport['YAML'] = Yaml::dump(['objects' => $modules_to_export], 20, 1, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
@@ -374,8 +377,8 @@ if (isset($_REQUEST['export']) && isset($_REQUEST['export_type'])) {
     }
 
     $smarty->assign('exported_content', $exportedContent);
-    $smarty->assign('prefs_to_export', $_REQUEST['prefs_to_export']);
-    $smarty->assign('modules_to_export', $_REQUEST['modules_to_export']);
-    $smarty->assign('pages_to_export', $_REQUEST['pages_to_export']);
-    $smarty->assign('trackers_to_export', $_REQUEST['trackers_to_export']);
+    $smarty->assign('prefs_to_export', $_REQUEST['prefs_to_export'] ?? []);
+    $smarty->assign('modules_to_export', $_REQUEST['modules_to_export'] ?? []);
+    $smarty->assign('pages_to_export', $_REQUEST['pages_to_export'] ?? []);
+    $smarty->assign('trackers_to_export', $_REQUEST['trackers_to_export'] ?? []);
 }
