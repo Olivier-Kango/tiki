@@ -59,7 +59,6 @@ $smarty->assign('page_id', $info['page_id']);
 // Now check permissions to access this page
 $tikilib->get_perm_object($page, 'wiki page', $info);
 $access->check_permission('tiki_p_view', '', 'wiki page', $page);
-
 // check if the user can export to pdf (including sub request to print system)
 if (($_REQUEST['display'] ?? '') == 'pdf') {
     $access->check_permission('tiki_p_export_pdf', '', 'wiki page', $page);
@@ -74,9 +73,10 @@ if (($_REQUEST['pdf_token'] ?? '') != '') {
     }
 }
 
-// check if user can print
+// check if user can print and disable the jQuery TableSorter feature if it is enabled.
 if (! $pdfExportSubRequest && ($_REQUEST['display'] ?? '') != 'pdf') {
     $access->check_permission('tiki_p_print', '', 'wiki page', $page);
+    $prefs['feature_jquery_tablesorter'] = 'n';
 }
 
 // Now increment page hits since we are visiting this page
