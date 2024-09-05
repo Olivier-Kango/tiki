@@ -279,6 +279,11 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/@shoelace-style/shoelace/dist/themes",
                     },
                     {
+                        // This is an indirect runtime dependency of chart.js
+                        src: "node_modules/@kurkle/color/dist/color.esm.js",
+                        dest: "vendor_dist/@kurkle/color/dist",
+                    },
+                    {
                         src: "node_modules/animejs/lib/anime.es.js",
                         dest: "vendor_dist/anime/dist",
                     },
@@ -289,11 +294,6 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/chart.js/dist/chunks/helpers.segment.js*",
                         dest: "vendor_dist/chart.js/dist/chunks",
-                    },
-                    {
-                        // This is an indirect runtime dependency of chart.js
-                        src: "node_modules/@kurkle/color/dist/color.esm.js",
-                        dest: "vendor_dist/@kurkle/color/dist",
                     },
                     {
                         src: "node_modules/clipboard/dist/*",
@@ -320,74 +320,6 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/codemirror/mode",
                     },
                     {
-                        src: "node_modules/dompurify/dist/purify.(es|min)*",
-                        dest: "vendor_dist/dompurify/dist",
-                    },
-                    {
-                        src: "node_modules/driver.js/dist/driver.js.mjs",
-                        dest: "vendor_dist/driver.js/dist",
-                    },
-                    {
-                        src: "node_modules/driver.js/dist/driver.css",
-                        dest: "vendor_dist/driver.js/dist",
-                    },
-                    {
-                        src: "node_modules/moment/dist/*",
-                        dest: "vendor_dist/moment/dist",
-                    },
-                    {
-                        src: "node_modules/jquery/dist/*",
-                        dest: "vendor_dist/jquery/dist",
-                    },
-                    {
-                        src: "node_modules/jquery-form/dist/*",
-                        dest: "vendor_dist/jquery-form/dist",
-                    },
-                    {
-                        src: "node_modules/jquery-ui/dist/*",
-                        dest: "vendor_dist/jquery-ui/dist",
-                    },
-                    {
-                        src: "node_modules/jquery-migrate/dist/*",
-                        dest: "vendor_dist/jquery-migrate/dist",
-                    },
-                    {
-                        src: "node_modules/jquery/dist/*",
-                        dest: "vendor_dist/jquery/dist",
-                    },
-                    {
-                        src: "node_modules/jquery-colorbox/jquery.colorbox-min.js",
-                        dest: "vendor_dist/jquery-colorbox",
-                    },
-                    {
-                        src: "node_modules/jquery-colorbox/example*", // Examples are used as themes in Tiki instead of the default Design of Colorbox.
-                        dest: "vendor_dist/jquery-colorbox",
-                    },
-                    {
-                        src: "node_modules/select2/dist/js/select2.min.js",
-                        dest: "vendor_dist/select2/dist",
-                    },
-                    {
-                        src: "node_modules/select2/dist/css/select2.min.css",
-                        dest: "vendor_dist/select2/dist",
-                    },
-                    {
-                        src: "node_modules/select2-bootstrap-5-theme/dist/*.min.css",
-                        dest: "vendor_dist/select2-bootstrap-theme/dist",
-                    },
-                    {
-                        src: "node_modules/sortablejs/modular/*",
-                        dest: "vendor_dist/sortablejs/modular",
-                    },
-                    {
-                        src: "node_modules/vue/dist/vue.esm-browser.prod.js",
-                        dest: "vendor_dist/vue/dist",
-                    },
-                    {
-                        src: "node_modules/jquery-validation/dist/*",
-                        dest: "vendor_dist/jquery-validation/dist",
-                    },
-                    {
                         src: "node_modules/converse.js/dist/*.min.*",
                         dest: "vendor_dist/converse.js/dist",
                     },
@@ -408,8 +340,52 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/converse.js/dist",
                     },
                     {
+                        src: "node_modules/dompurify/dist/purify.(es|min)*",
+                        dest: "vendor_dist/dompurify/dist",
+                    },
+                    {
+                        src: "node_modules/driver.js/dist/driver.js.mjs",
+                        dest: "vendor_dist/driver.js/dist",
+                    },
+                    {
+                        src: "node_modules/driver.js/dist/driver.css",
+                        dest: "vendor_dist/driver.js/dist",
+                    },
+                    {
                         src : "node_modules/interactjs/dist/*",
                         dest : "vendor_dist/interactjs/dist"
+                    },
+                    {
+                        src: "node_modules/jquery/dist/*",
+                        dest: "vendor_dist/jquery/dist",
+                    },
+                    {
+                        src: "node_modules/jquery-colorbox/jquery.colorbox-min.js",
+                        dest: "vendor_dist/jquery-colorbox",
+                    },
+                    {
+                        src: "node_modules/jquery-colorbox/example*", // Examples are used as themes in Tiki instead of the default Design of Colorbox.
+                        dest: "vendor_dist/jquery-colorbox",
+                    },
+                    {
+                        src: "node_modules/jquery-form/dist/*",
+                        dest: "vendor_dist/jquery-form/dist",
+                    },
+                    {
+                        src: "node_modules/jquery-migrate/dist/*",
+                        dest: "vendor_dist/jquery-migrate/dist",
+                    },
+                    {
+                        src: "node_modules/jquery-ui/dist/*",
+                        dest: "vendor_dist/jquery-ui/dist",
+                    },
+                    {
+                        src: "node_modules/jquery-validation/dist/*",
+                        dest: "vendor_dist/jquery-validation/dist",
+                    },
+                    {
+                        src: "node_modules/moment/dist/*",
+                        dest: "vendor_dist/moment/dist",
                     },
                     {
                         src: [
@@ -417,6 +393,26 @@ export default defineConfig(({ command, mode }) => {
                             "node_modules/pivottable/dist/*.min.js"
                         ],
                         dest : "vendor_dist/pivottable/dist"
+                    },
+                    {
+                        src: "node_modules/select2/dist/js/select2.min.js",
+                        dest: "vendor_dist/select2/dist",
+                    },
+                    {
+                        src: "node_modules/select2/dist/css/select2.min.css",
+                        dest: "vendor_dist/select2/dist",
+                    },
+                    {
+                        src: "node_modules/select2-bootstrap-5-theme/dist/*.min.css",
+                        dest: "vendor_dist/select2-bootstrap-theme/dist",
+                    },
+                    {
+                        src: "node_modules/sortablejs/modular/*",
+                        dest: "vendor_dist/sortablejs/modular",
+                    },
+                    {
+                        src: "node_modules/vue/dist/vue.esm-browser.prod.js",
+                        dest: "vendor_dist/vue/dist",
                     },
                 ],
             }),
