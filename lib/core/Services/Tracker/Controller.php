@@ -323,7 +323,7 @@ class Services_Tracker_Controller
         global $prefs;
 
         $trackerId = $input->trackerId->int();
-        $option = $input->option->array() ?: [];
+        $option = $input->option ?: new JitFilter([]);
 
         $perms = Perms::get('tracker', $trackerId);
         if (! $perms->admin_trackers) {
@@ -416,7 +416,7 @@ class Services_Tracker_Controller
                     $typeInfo = $types[$type];
                     if (! empty($oldTypeInfo['supported_changes']) && in_array($type, $oldTypeInfo['supported_changes'])) {
                         // changing supported types should not clear all options but only the ones that are not available in the new type
-                        $options = Tracker_Options::fromInput(new JitFilter($option), $oldTypeInfo);
+                        $options = Tracker_Options::fromInput($option, $oldTypeInfo);
                         $params = $options->getAllParameters();
                         foreach (array_keys($params) as $param) {
                             if (empty($typeInfo['params'][$param])) {
