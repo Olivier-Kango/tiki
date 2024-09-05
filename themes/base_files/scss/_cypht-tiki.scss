@@ -3,7 +3,6 @@
     font-family: $font-family-base;
     color: var(--bs-body-color) !important;
 
-
     // override colors when not using cypht default theme
     img { opacity: 1 !important; max-width: 100%; }
     ul, li:not(.select2-results__option) { background-color: transparent !important; }
@@ -89,6 +88,11 @@
     }
 }
 
+.mailbox_list_title {
+    display: flex !important;
+    width: fit-content !important;
+}
+
 .inline-cypht {
     background: transparent;
     position: relative;
@@ -121,10 +125,19 @@
     }
 
     .folder_list, .content_cell { border: 1px solid $input-border-color; }
-    .content_cell { max-width: 500px !important; }
+    .content_cell {
+        .position-relative {
+        width: 80vw;
+        min-width: 100% !important;
+        }
+    }
+
+    .content_cell { 
+        max-width: 700px !important;
+        overflow-x: scroll !important;}
 
     .src_name, .content_title, .list_controls {
-        background: $popover-header-bg;
+        background: inherit;
         color: $popover-header-color;
     }
     .src_name { border-left-color: transparent; max-height: 100px; }
@@ -192,19 +205,33 @@
         .flags { width: 170px; }
     }
 
-    .select2-container { margin-bottom: 0px; }
+    .select2-container { 
+        margin-bottom: 0 !important;
+        position: inherit !important;
+        width: 100% !important;
+        height: 100% !important;
+     };
+
+     .select2-selection { 
+        margin-bottom: 0 !important;
+        position: inherit !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 4px 0 0 !important;
+        padding: 4px 8px !important;
+     };
 }
 
 .mobile.tiki-cypht, .mobile.tiki-webmail {
     .content_cell .content_title {
         &, .list_controls {
-            background: $popover-header-bg;
+            background: inherit;
             color: $popover-header-color;
         }
     }
 
     .msg_controls {
-        background: $popover-header-bg !important;
+        background: inherit !important;
     }
 
     .folder_list {
@@ -213,7 +240,7 @@
         border: 1px solid $input-border-color;
 
         .src_name {
-            background: $popover-header-bg;
+            background: inherit;
             color: $popover-header-color;
             border-left-color: transparent;
         }
