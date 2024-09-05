@@ -361,7 +361,8 @@ class Services_Tracker_Controller
             }
         }
 
-        if (isset($name)) {
+        $name = $input->name->word();
+        if (! empty($name)) {
             $fields = $definition->getFields();
             foreach ($fields as $currentField) {
                 $nameExists = ($currentField['name'] === $name || strtoupper($currentField['name']) === strtoupper($name));
@@ -377,7 +378,6 @@ class Services_Tracker_Controller
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $input->name->word();
             if (empty($name)) {
                 throw new Services_Exception_MissingValue('name');
             }
