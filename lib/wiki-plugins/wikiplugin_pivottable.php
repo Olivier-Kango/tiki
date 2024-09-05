@@ -384,7 +384,7 @@ function wikiplugin_pivottable($data, $params)
 
     //checking if vendor files are present
     if (! file_exists(PIVOTTABLE_DIST_PATH . '/')) {
-        return WikiParser_PluginOutput::internalError(tr('Missing required files, please make sure plugin files are installed at vendor_bundled/vendor/nicolaskruchten/pivottable. <br/><br /> To install, please run composer or download from following url:<a href="https://github.com/nicolaskruchten/pivottable/archive/master.zip" target="_blank">https://github.com/nicolaskruchten/pivottable/archive/master.zip</a>'));
+        return WikiParser_PluginOutput::internalError(tr('Missing required files, please make sure plugin files are installed at node_modules/pivottable. <br/><br /> To install, please run composer or download from following url:<a href="https://github.com/nicolaskruchten/pivottable/archive/master.zip" target="_blank">https://github.com/nicolaskruchten/pivottable/archive/master.zip</a>'));
     }
 
     static $id = 0;
@@ -392,7 +392,7 @@ function wikiplugin_pivottable($data, $params)
 
     $headerlib = TikiLib::lib('header');
     $headerlib->add_cssfile(PIVOTTABLE_DIST_PATH . '/pivot.css');
-    $headerlib->add_jsfile(PIVOTTABLE_DIST_PATH . '/pivot.js', true);
+    $headerlib->add_jsfile(PIVOTTABLE_DIST_PATH . '/pivot.min.js', true);
     $headerlib->add_jsfile(PLOTLYJS_DIST_PATH . '/plotly-cartesian.min.js', true);
     $headerlib->add_jsfile(SUBTOTAL_DIST_PATH . '/subtotal.min.js', true);
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-pivottable.js', true);

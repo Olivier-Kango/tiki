@@ -165,6 +165,7 @@ export default defineConfig(({ command, mode }) => {
                     "jquery-validation",
                     "moment",
                     "select2",
+                    "pivottablejs",
                     "sortablejs",
                     "subtotal",
                     "vue",
@@ -411,8 +412,11 @@ export default defineConfig(({ command, mode }) => {
                         dest : "vendor_dist/interactjs/dist"
                     },
                     {
-                        src : "node_modules/subtotal/dist/subtotal.min.js",
-                        dest : "vendor_dist/subtotal/dist"
+                        src: [
+                            "node_modules/pivottable/dist/pivot.css",
+                            "node_modules/pivottable/dist/*.min.js"
+                        ],
+                        dest : "vendor_dist/pivottable/dist"
                     },
                 ],
             }),

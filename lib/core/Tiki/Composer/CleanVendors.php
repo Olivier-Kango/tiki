@@ -277,7 +277,7 @@ class CleanVendors
                 'elfinder.html',
             ]
         );
-        self::remove($vendors . 'nicolaskruchten/pivottable', 'images/animation.gif');
+
         self::remove(
             $vendors . 'adodb/adodb-php',
             [

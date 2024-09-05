@@ -2239,13 +2239,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "d17efb3acbc9773113e1d970420feeaaeb56b0fd"
+                "reference": "6fdae1f39f95494ca7da39e414c05fee5ece6abf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-d17efb3acbc9773113e1d970420feeaaeb56b0fd-zip-297057.zip",
-                "reference": "d17efb3acbc9773113e1d970420feeaaeb56b0fd",
-                "shasum": "6eb35a3cbdea221ddef4e5dffdd847f89722beda"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6fdae1f39f95494ca7da39e414c05fee5ece6abf-zip-9a1200.zip",
+                "reference": "6fdae1f39f95494ca7da39e414c05fee5ece6abf",
+                "shasum": "ec293f243caf22d38043708665bedc08d75ded80"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2311,7 +2311,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-09-02T10:44:25+00:00"
+            "time": "2024-09-04T12:30:59+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3425,6 +3425,7 @@
                     "type": "community_bridge"
                 }
             ],
+            "abandoned": "symfony/mailer",
             "time": "2023-11-02T10:32:34+00:00"
         },
         {
@@ -6043,14 +6044,14 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.25.4",
+            "version": "7.25.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.4.zip",
-                "shasum": "253d060e1accb2b49753c72caf8b6e11e4f67390"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.3.zip",
+                "shasum": "57ef76e7fdb5369d3c042de128d3d3f4ba1d49f7"
             },
             "require": {
-                "npm-asset/babel--types": ">=7.25.4,<8.0.0"
+                "npm-asset/babel--types": ">=7.25.2,<8.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -15146,17 +15147,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.0",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "384af967d35b2162f69526c7276acadce534d0e1"
+                "reference": "d8ed7fffa66de1db0d2972267d8ed1d8fa0fe5a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-384af967d35b2162f69526c7276acadce534d0e1-zip-05deac.zip",
-                "reference": "384af967d35b2162f69526c7276acadce534d0e1",
-                "shasum": "d4f7600506d84196ee4a5058a74bfa2364fcbc4d"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-d8ed7fffa66de1db0d2972267d8ed1d8fa0fe5a2-zip-235a77.zip",
+                "reference": "d8ed7fffa66de1db0d2972267d8ed1d8fa0fe5a2",
+                "shasum": "5efcc4d60e120bf88a33b12ce0bd0a66317e2988"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15193,7 +15194,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-27T09:18:05+00:00"
+            "time": "2024-09-03T19:55:22+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",

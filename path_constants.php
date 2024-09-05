@@ -175,7 +175,7 @@ const FONTAWESOME_WEBFONTS_PATH = 'public/generated/js/vendor_dist/@fortawesome/
 
 const MINICART_DIST_PATH = 'vendor_bundled/vendor/jquery/minicart/dist';
 const NESTEDSORTABLE_ASSETS_PATH = 'vendor_bundled/vendor/jquery-plugins/nestedsortable';
-const PIVOTTABLE_DIST_PATH = 'vendor_bundled/vendor/nicolaskruchten/pivottable/dist';
+const PIVOTTABLE_DIST_PATH = 'public/generated/js/vendor_dist/pivottable/dist';
 const PLOTLYJS_DIST_PATH = 'vendor_bundled/vendor/plotly/plotly.js/dist';
 const REVEALJS_ASSETS_PATH = 'vendor_bundled/vendor/npm-asset/reveal.js';
 const SUBTOTAL_DIST_PATH = 'public/generated/js/vendor_dist/subtotal/dist';
