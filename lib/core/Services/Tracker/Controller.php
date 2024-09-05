@@ -361,11 +361,6 @@ class Services_Tracker_Controller
             }
         }
 
-        $name = $input->name->word();
-        if (empty($name)) {
-            throw new Services_Exception_MissingValue('name');
-        }
-
         if (isset($name)) {
             $fields = $definition->getFields();
             foreach ($fields as $currentField) {
@@ -381,7 +376,11 @@ class Services_Tracker_Controller
             }
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input->name->text()) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $input->name->word();
+            if (empty($name)) {
+                throw new Services_Exception_MissingValue('name');
+            }
             $input->replaceFilters(
                 [
                     'visible_by' => 'groupname',
