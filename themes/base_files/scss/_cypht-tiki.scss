@@ -1,5 +1,5 @@
 .inline-cypht {
-    background: var(--bs-body-bg) !important;
+    background-color: var(--bs-body-bg) !important;
     font-family: $font-family-base;
     color: var(--bs-body-color) !important;
 
@@ -63,6 +63,7 @@
 
     .folders li, .inner_list li {
         color: inherit;
+        padding: 0;
     }
 
     .flipmodtitle.close, .close {
@@ -88,13 +89,8 @@
     }
 }
 
-.mailbox_list_title {
-    display: flex !important;
-    width: fit-content !important;
-}
-
 .inline-cypht {
-    background: transparent;
+    background-color: transparent !important;
     position: relative;
     a:not(.btn):hover {
         text-decoration: $link-hover-decoration !important;
@@ -125,20 +121,45 @@
     }
 
     .folder_list, .content_cell { border: 1px solid $input-border-color; }
-    .content_cell {
-        .position-relative {
-        width: 80vw;
-        min-width: 100% !important;
-        }
+    .content_cell { width: 70% !important; }
+
+    .message_list .content_title, .message_list .content_title div:first-child {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .content_cell { 
-        max-width: 700px !important;
-        overflow-x: scroll !important;}
+    .msg_controls .core_msg_control,
+    .msg_controls .btn {
+        padding: 1px 3px;
+        border-radius: 5px;
+    }
+
+    .msg_text_inner {
+        width: 100%;
+    }
+
+    .msg_text .content {
+        overflow: auto;
+    }
+
+    .imap_envelope th,
+    .msg_headers th {
+        white-space: normal;
+    }
+
+    .msg_headers [class^="header_"] td {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .msg_text table { width: 100% !important; }
+    .msg_text .content table { table-layout: fixed; }
+    .msg_text #contact_info { white-space: unset; }
 
     .src_name, .content_title, .list_controls {
-        background: inherit;
+        background-color: $popover-header-bg;
         color: $popover-header-color;
+        background-image: inherit !important;
     }
     .src_name { border-left-color: transparent; max-height: 100px; }
 
@@ -205,31 +226,17 @@
         .flags { width: 170px; }
     }
 
-    .select2-container { 
-        margin-bottom: 0 !important;
-        position: inherit !important;
-        width: 100% !important;
-        height: 100% !important;
-     };
+    .select2-container { margin-bottom: 0px; }
 
-     .select2-selection { 
-        margin-bottom: 0 !important;
-        position: inherit !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin: 4px 0 0 !important;
-        padding: 4px 8px !important;
-     };
+    .folder_cell { max-width: 27%; width: 27%; }
+    .folders li, .inner_list li {
+        word-break: break-all;
+        white-space: unset;
+    }
+    .folder_list { min-width: unset; }
 }
 
 .mobile.tiki-cypht, .mobile.tiki-webmail {
-    .content_cell .content_title {
-        &, .list_controls {
-            background: inherit;
-            color: $popover-header-color;
-        }
-    }
-
     .msg_controls {
         background: inherit !important;
     }
@@ -240,8 +247,6 @@
         border: 1px solid $input-border-color;
 
         .src_name {
-            background: inherit;
-            color: $popover-header-color;
             border-left-color: transparent;
         }
     }
