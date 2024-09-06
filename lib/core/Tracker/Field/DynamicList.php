@@ -258,9 +258,14 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
             $multiple = '';
         }
 
+        $filterFieldHere = TikiLib::lib('trk')->get_tracker_field($filterFieldIdHere);
+        $filterFieldHereTrackerDefinition = Tracker_Definition::get($filterFieldHere['trackerId']);
+        $filterFieldHereHandler = (new Tracker_Field_Factory($filterFieldHereTrackerDefinition))->getHandler($filterFieldHere);
+        $filterFieldHereName = $filterFieldHereHandler->getHTMLFieldName();
+
         TikiLib::lib('header')->add_jq_onready(
             '
-$("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . '], div[name=ins_' . $filterFieldIdHere . ']", function(e, source) {
+$("body").on("change", "input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldHereName . '\'], div[name=\'' . $filterFieldHereName . '\']", function(e, source) {
     $( "select[name=\'' . $insertId . '\']").parent().tikiModal(tr("Loading..."));
 	// We need the field value for the fieldId filterfield for the item $(this).val or text
 	const value = $.trim($(this).is("input, select") ? $(this).val() : $(this).text());
@@ -330,14 +335,14 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
     );  // getJSON
 });
 
-if( $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']").length == 0 ) {
+if( $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldHereName . '\']").length == 0 ) {
     // inline edit fix
-    $("<input type=\"hidden\" name=\"ins_' . $filterFieldIdHere . '\">").val(' . json_encode($filterFieldValueHere) . ').insertBefore("select[name=\'' . $insertId . '\']").trigger("change");
+    $("<input type=\"hidden\" name=\"' . $filterFieldHereName . '\">").val(' . json_encode($filterFieldValueHere) . ').insertBefore("select[name=\'' . $insertId . '\']").trigger("change");
 }
         '
         ); // add_jq_onready
         TikiLib::lib('header')->add_jq_onready('
-$("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']").trigger("change", "initial");
+$("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldHereName . '\']").trigger("change", "initial");
 ', 1);
 
         if ($this->getOption('inputtype') === 't') {

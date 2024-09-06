@@ -60,6 +60,8 @@ new MutationObserver((mutations) => {
                 div.appendChild(select);
                 el.parentNode.insertAdjacentElement("afterend", div);
             }
+            // TODO: Take this out of the mutation observer so the event handler is not attached multiple times,
+            // which cause the select to also trigger the cahnge event serveral times
             el.addEventListener("change", function (event) {
                 const value = event.detail[0].value;
                 select.innerHTML = "";
@@ -69,6 +71,7 @@ new MutationObserver((mutations) => {
                     option.selected = true;
                     select.appendChild(option);
                 });
+                $(select).trigger("change");
             });
         });
     }
