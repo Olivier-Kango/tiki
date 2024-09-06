@@ -268,8 +268,8 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tr
             $selected_categories = $this->getConfiguration('selected_categories');
             $smarty->assign_by_ref('categories', $categories);
             $cat_tree = TikiLib::lib('categ')->generate_cat_tree($categories, $changeall, $selected_categories);
-            $cat_tree = str_replace('name="cat_categories[]"', 'name="' . $this->getInsertId() . '"', $cat_tree);
-            $cat_tree = str_replace('name="cat_managed[]"', 'name="cat_managed_' . $this->getInsertId() . '"', $cat_tree);
+            $cat_tree = str_replace('name="cat_categories[]"', 'name="' . $this->getHTMLFieldName() . '"', $cat_tree);
+            $cat_tree = str_replace('name="cat_managed[]"', 'name="cat_managed_' . $this->getHTMLFieldName() . '"', $cat_tree);
             $smarty->assign('cat_tree', $cat_tree);
         }
 

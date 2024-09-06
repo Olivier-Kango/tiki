@@ -527,6 +527,7 @@ class Tracker_Item
             $handler = $factory->getHandler($field, $this->info);
 
             $field['ins_id'] = $handler->getInsertId();
+            $field['html_name'] = $handler->getHTMLFieldName();
 
             if (! isset($input[$field['ins_id']]) && isset($input['fields'][$field['permName']])) {
                 // getFieldData expects the value to be in $input['ins_xx']

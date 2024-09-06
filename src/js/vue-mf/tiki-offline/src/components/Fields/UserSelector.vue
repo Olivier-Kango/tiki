@@ -4,7 +4,7 @@ field type: u
 <template>
     <select v-model="model"
         :id="field.ins_id"
-        :name="field.ins_id"
+        :name="field.html_name"
         class="form-select"
         :multiple="field.canHaveMultipleValues ? 'multiple' : null"
         v-select2>

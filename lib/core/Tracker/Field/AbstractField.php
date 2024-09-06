@@ -435,14 +435,21 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
     }
 
     /**
-     * Return the HTML id/name of input tag for this
-     * field in the item form
-     *
-     * @return string
+     * Return the field name to be used for data retrieval during item form submission
      */
     public function getInsertId()
     {
-        $insertId = 'ins_' . $this->definition['fieldId'];
+        return 'ins_' . $this->definition['fieldId'];
+    }
+
+    /**
+     * Return the HTML input name to be rendered in the item form for this field
+     *
+     * @return string
+     */
+    public function getHTMLFieldName()
+    {
+        $insertId = $this->getInsertId();
 
         /**
          * Postfix with [] for multivalued fields

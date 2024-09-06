@@ -2,9 +2,9 @@ const addFormValidation = (formId, tracker) => {
     let rules = {};
     tracker.fields.forEach((field) => {
         if (field.type == "b") {
-            rules[`${field.ins_id}_currency`] = {
+            rules[`${field.html_name}_currency`] = {
                 required: function (element) {
-                    return $(`#${field.ins_id}`).val() != "";
+                    return $(`#${field.html_name}`).val() != "";
                 },
             };
         }
@@ -13,23 +13,23 @@ const addFormValidation = (formId, tracker) => {
             if (field.isMultilingual == "y") {
                 // TODO: handle multilingual
             } else {
-                key = field.ins_id;
+                key = field.html_name;
             }
             rules[key] = {};
             if (field.isMandatory == "y") {
                 if (field.type == "D") {
-                    rules[key]["required_in_group"] = [1, `group_${field.ins_id}`, "other"];
+                    rules[key]["required_in_group"] = [1, `group_${field.html_name}`, "other"];
                 } else if (field.type == "A") {
-                    $rules[key]["required_tracker_file"] = [1, `file_${field.ins_id}`];
+                    $rules[key]["required_tracker_file"] = [1, `file_${field.html_name}`];
                 } else if (field.type == "f") {
                     rules[key]["required"] = false;
                     let date_ins_num = field.options_array[0] === "dt" ? 5 : 3;
-                    rules[`${field.ins_id}Month`] = { required_in_group: [date_ins_num, `select[name^=${field.ins_id}]`] };
-                    rules[`${field.ins_id}Day`] = { required_in_group: [date_ins_num, `select[name^=${field.ins_id}]`] };
-                    rules[`${field.ins_id}Year`] = { required_in_group: [date_ins_num, `select[name^=${field.ins_id}]`] };
+                    rules[`${field.html_name}Month`] = { required_in_group: [date_ins_num, `select[name^=${field.html_name}]`] };
+                    rules[`${field.html_name}Day`] = { required_in_group: [date_ins_num, `select[name^=${field.html_name}]`] };
+                    rules[`${field.html_name}Year`] = { required_in_group: [date_ins_num, `select[name^=${field.html_name}]`] };
                     if (field.options_array[0] === "dt") {
-                        rules[`${field.ins_id}Hour`] = { required_in_group: [date_ins_num, `select[name^=${field.ins_id}]`] };
-                        rules[`${field.ins_id}Minute`] = { required_in_group: [date_ins_num, `select[name^=${field.ins_id}]`] };
+                        rules[`${field.html_name}Hour`] = { required_in_group: [date_ins_num, `select[name^=${field.html_name}]`] };
+                        rules[`${field.html_name}Minute`] = { required_in_group: [date_ins_num, `select[name^=${field.html_name}]`] };
                     }
                 } else {
                     if (field.isMultilingual == "y") {
@@ -48,20 +48,20 @@ const addFormValidation = (formId, tracker) => {
     tracker.fields.forEach((field) => {
         if (field.type == "b") {
             if (field.validationMessage) {
-                messages[`${field.ins_id}_currency`] = tr(field.validationMessage);
+                messages[`${field.html_name}_currency`] = tr(field.validationMessage);
             } else {
-                messages[`${field.ins_id}_currency`] = tr("This field is required");
+                messages[`${field.html_name}_currency`] = tr("This field is required");
             }
         }
         if (field.validationMessage && field.isMandatory == "y") {
-            messages[field.ins_id] = {
+            messages[field.html_name] = {
                 required: tr(field.validationMessage),
             };
         } else if (field.isMandatory == "y") {
             if (field.isMultilingual == "y") {
                 // TODO: handle multilingual
             } else {
-                messages[field.ins_id] = {
+                messages[field.html_name] = {
                     required: tr("This field is required"),
                 };
             }

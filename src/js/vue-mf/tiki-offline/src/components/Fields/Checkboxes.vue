@@ -6,7 +6,7 @@
         <input v-model="model"
             class="form-check-input"
             type="checkbox"
-            :name="field.ins_id"
+            :name="field.html_name"
             :id="`${field.ins_id}-${value}`"
             :value="value"
             :true-value="value"

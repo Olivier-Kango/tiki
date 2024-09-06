@@ -1,18 +1,18 @@
 {if !empty($field.options_array[2]) && ($field.options_array[2] eq '1' or $field.options_array[2] eq 'y')}
-    {select_all checkbox_names=$field.ins_id label="{tr}Select All{/tr}"}
+    {select_all checkbox_names=$field.html_name label="{tr}Select All{/tr}"}
 {/if}
 {if $field.options_array[1] eq 'd' || $field.options_array[1] eq 'm' || $field.options_array[1] eq 'transfer'}
     {foreach key=ku item=cat from=$field.list}
-        <input id="cat{$cat.categId|escape}_hidden" type="hidden" name="cat_managed_{$field.ins_id}" value="{$cat.categId|escape}">
+        <input id="cat{$cat.categId|escape}_hidden" type="hidden" name="cat_managed_{$field.html_name}" value="{$cat.categId|escape}">
     {/foreach}
     {if $field.options_array[1] eq 'transfer'}
-        {jstransfer_list fieldName="{$field.ins_id|escape}" defaultSelected=$field.selected_categories
+        {jstransfer_list fieldName="{$field.html_name|escape}" defaultSelected=$field.selected_categories
                 data=$transfer_data sourceListTitle=$field.options_map.sourceListTitle
                 targetListTitle=$field.options_map.targetListTitle filterable=$field.options_map.filterable
                 filterPlaceholder=$field.options_map.filterPlaceholder ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}
     {else}
         {if $field.options_array[1] eq 'm' and $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
-        <select name="{$field.ins_id}"{if $field.options_array[1] eq 'm'} multiple="multiple"{/if} class="form-select">
+        <select name="{$field.html_name}"{if $field.options_array[1] eq 'm'} multiple="multiple"{/if} class="form-select">
             {if $field.options_array[1] eq 'd' and (empty($field.value[0]) or $field.isMandatory ne 'y')}
                 <option value=""></option>
             {/if}
@@ -29,8 +29,8 @@
             {assign var=fcat value=$iu.categId}
             <div class="col-md-4">
                 <label for="cat{$iu.categId}" class="{if $field.options_array[1] eq "radio"}radio{else}checkbox{/if}">
-                    <input id="cat{$iu.categId|escape}_hidden" type="hidden" name="cat_managed_{$field.ins_id}" value="{$iu.categId|escape}">
-                    <input type={if $field.options_array[1] eq "radio"}"radio"{else}"checkbox"{/if} name="{$field.ins_id}" value="{$iu.categId}" id="cat{$iu.categId}" {if in_array($fcat, $field.selected_categories)} checked="checked"{/if}>
+                    <input id="cat{$iu.categId|escape}_hidden" type="hidden" name="cat_managed_{$field.html_name}" value="{$iu.categId|escape}">
+                    <input type={if $field.options_array[1] eq "radio"}"radio"{else}"checkbox"{/if} name="{$field.html_name}" value="{$iu.categId}" id="cat{$iu.categId}" {if in_array($fcat, $field.selected_categories)} checked="checked"{/if}>
                     {if $field.options_array[4] eq 1 && !empty($iu.description)}<a href="{$iu.description|escape}" target="tikihelp" class="tikihelp" title="{$iu.name|escape}:{$iu.description|escape}">{icon name='help'}</a>{/if}
                     {$iu.name|escape}
                 </label>

@@ -62,7 +62,7 @@ class Validators
         $validationjs = 'rules: { ';
         foreach ($fields_data as $field_value) {
             $handler = $factory->getHandler($field_value);
-            $field_name = $handler->getInsertId();
+            $field_name = $handler->getHTMLFieldName();
 
             if ($field_value['type'] == 'b') {
                 $validationjs .= $field_name . '_currency: {required:

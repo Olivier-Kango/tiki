@@ -1,7 +1,7 @@
 {if $field.options_map.inputtype eq 't'}
-    {jstransfer_list data=$field.flags defaultSelected=$field.value fieldName="{$field.ins_id}" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}
+    {jstransfer_list data=$field.flags defaultSelected=$field.value fieldName="{$field.html_name}" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}
 {else}
-    <select class="form-select" {{if $field.options_map.multiple }}multiple="multiple" name="{$field.ins_id}" {else} name="{$field.ins_id}" {{/if}}>
+    <select class="form-select" name="{$field.html_name}" {{if $field.options_map.multiple }}multiple="multiple"{{/if}}>
         {if $field.isMandatory ne 'y' || empty($field.value)}
             <option value=""{if $field.value eq '' or $field.value eq 'None'} selected="selected"{/if}>&nbsp;</option>
         {/if}

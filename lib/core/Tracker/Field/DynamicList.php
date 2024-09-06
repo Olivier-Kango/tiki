@@ -226,7 +226,7 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
         $filterFieldIdThere = $this->getOption('filterFieldIdThere');
         $statusThere = $this->getOption('statusThere');
         $isMandatory = $this->getConfiguration('isMandatory');
-        $insertId = $this->getInsertId();
+        $insertId = $this->getHTMLFieldName();
         $originalValue = $this->getConfiguration('value');
         $hideBlank = $this->getOption('hideBlank');
         $selectMultipleValues = $this->getOption('selectMultipleValues', 0);

@@ -9,16 +9,16 @@
     </div>
     {if $field.options_map.inputtype === 't'}
         <div class="mt-2" />
-        {jstransfer_list data=[] defaultSelected=$data.selected_users fieldName="{$field.ins_id}" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}
+        {jstransfer_list data=[] defaultSelected=$data.selected_users fieldName="{$field.html_name}" filterable=$field.options_map.filterable filterPlaceholder=$field.options_map.filterPlaceholder sourceListTitle=$field.options_map.sourceListTitle targetListTitle=$field.options_map.targetListTitle ordering=$field.options_map.ordering cardinalityParam=$field.validationParam validationMessage=$field.validationMessage}
     {else}
         <div class="col-sm-6">
             {tr}Select user(s):{/tr}
-            <select name="{$field.ins_id}" id="user_selector_{$field.fieldId}" multiple="multiple" class="form-select">
+            <select name="{$field.html_name}" id="user_selector_{$field.fieldId}" multiple="multiple" class="form-select">
                 {section name=ix loop=$data.selected_users}
                     <option value="{$data.selected_users[ix]}" selected>{if ($field.showRealname == 'y')}{$data.selected_users[ix]|username}{else}{$data.selected_users[ix]}{/if}</option>
                 {/section}
             </select>
-            <input type="hidden" name="{$field.ins_id}" value="">
+            <input type="hidden" name="{$field.html_name}" value="">
             <p id="info" class="italic" style="font-style: italic; font-size: 0.8em; color: red"></p>
         </div>
     {/if}
@@ -69,7 +69,7 @@
                 .appendTo($('#user_selector_{{$field.fieldId}}'));
         });
         $selector.val(selected).trigger("change.select2");
-        const fieldName = "{{$field.ins_id}}";
+        const fieldName = "{{$field.html_name}}";
         const elementPlusTransfer = document.querySelector("element-plus-ui[field-name=\'" + fieldName + "\']");
         if (elementPlusTransfer?.shadowRoot) {
             const selectedOptions = elementPlusTransfer.shadowRoot.querySelector("select[name=\'" + fieldName + "\']").selectedOptions;

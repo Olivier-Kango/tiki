@@ -4,7 +4,7 @@
 <template>
     <select v-model="model"
         :id="field.ins_id"
-        :name="field.ins_id"
+        :name="field.html_name"
         class="form-select"
         :class="[field.type == 'D' ? `group_${field.ins_id}` : '']"
         :multiple="field.type == 'M' ? 'multiple' : null"

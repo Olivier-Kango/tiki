@@ -40,7 +40,7 @@
                     $.ajax({
                         url: this.href,
                         data: {
-                            items: $('input[name="{{$field.ins_id}}"]:checked').map(function(i, el){ return $(el).val(); }).toArray(),
+                            items: $('input[name="{{$field.html_name}}"]:checked').map(function(i, el){ return $(el).val(); }).toArray(),
                             linkField: {{$field.options_map.preSelectFieldThere|json_encode}},
                             linkValue: preselectedValue(),
                             trackerlistParams: {{$data.trackerListOptions|json_encode}}
@@ -61,7 +61,7 @@
                             var displayed = {{$data.list|json_encode}};
                             var row = '<tr>';
                             if( {{$data.trackerListOptions.checkbox|json_encode}} ) {
-                                row += '<td><input type="checkbox" class="form-check-input {{$field.ins_id}}-checkbox" name="{{$field.ins_id}}" aria-label="{tr}Select{/tr}" value="'+( data.created ? data.created : data.itemId )+'" checked /></td>';
+                                row += '<td><input type="checkbox" class="form-check-input {{$field.ins_id}}-checkbox" name="{{$field.html_name}}" aria-label="{tr}Select{/tr}" value="'+( data.created ? data.created : data.itemId )+'" checked /></td>';
                             }
                             $.each(displayed, function(fieldId, permName) {
                                 if( $('#il{{$field.ins_id}} th').filter(function(i, el){ return $(el).hasClass('field'+fieldId); }).length > 0 ) {
@@ -80,7 +80,7 @@
             {/jq}
         {/if}
     {else}
-        <select name="{$field.ins_id}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-select" {if $field.isMandatory eq 'y'} required{/if}>
+        <select name="{$field.html_name}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-select" {if $field.isMandatory eq 'y'} required{/if}>
             {if $field.isMandatory ne 'y' || empty($field.value)}
                 <option value=""></option>
             {/if}
@@ -100,9 +100,9 @@
             {/jq}
             {/if}
             {jq}
-                $("select[name='{{$field.ins_id}}']").parent().find(".insert-tracker-item").clickModal({
+                $("select[name='{{$field.html_name}}']").parent().find(".insert-tracker-item").clickModal({
                     success: function (data) {
-                        const $select = $("select[name='{{$field.ins_id}}']");
+                        const $select = $("select[name='{{$field.html_name}}']");
                         $('<option>')
                             .attr('value', data.itemId)
                             .text(data.{{if not empty($data.otherFieldPermName)}fields.{$data.otherFieldPermName}{else}itemTitle{/if}})
