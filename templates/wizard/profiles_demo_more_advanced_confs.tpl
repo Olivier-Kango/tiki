@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-md-6">
                     <h4>{tr}Easy GeoBlog{/tr}</h4>
-                    (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Easy+GeoBlog&show_details_for=Easy+GeoBlog&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
+                    (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Easy_GeoBlog&show_details_for=Easy_GeoBlog&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                     <br>
                     {tr}This profile demonstrates the geolocation of Blog posts, in conjunction with other associated features{/tr}
                     <br/>
@@ -84,7 +84,7 @@
             <div class="row">
                 <div class="col-md-6">
                             <h4>{tr}Profile Conditional Display in Forms{/tr}</h4>
-                            (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Conditional_Display_in_Forms_14&show_details_for=Conditional_Display_in_Forms_14&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
+                            (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Conditional_Display_in_Forms&show_details_for=Conditional_Display_in_Forms&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)
                             <br>
                             {tr}This profile demonstrates the setup to conditionally hide or display some fields in a form{/tr}.
                     <br/>
