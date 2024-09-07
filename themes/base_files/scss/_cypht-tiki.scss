@@ -121,13 +121,18 @@
     }
 
     .folder_list, .content_cell { border: 1px solid $input-border-color; }
-    .content_cell { width: 70% !important; }
+    .content_cell { width: 70%; }
 
-    .message_list .content_title, .message_list .content_title div:first-child {
+    .message_list .content_title, .message_list .content_title > div:first-child {
         flex-direction: column;
         align-items: flex-start;
+        display: block;
+        margin-bottom: 10px;
     }
+    .mailbox_list_title { display: inline-block; }
 
+    .msg_controls .dropdown.on_mobile { display: none; }
+    // .msg_controls > a { display: none; }
     .msg_controls .core_msg_control,
     .msg_controls .btn {
         padding: 1px 3px;
@@ -136,6 +141,7 @@
 
     .msg_text_inner {
         width: 100%;
+        word-break: break-word;
     }
 
     .msg_text .content {
@@ -157,7 +163,7 @@
     .msg_text #contact_info { white-space: unset; }
 
     .src_name, .content_title, .list_controls {
-        background-color: $popover-header-bg;
+        background-color: inherit !important;
         color: $popover-header-color;
         background-image: inherit !important;
     }
@@ -226,14 +232,29 @@
         .flags { width: 170px; }
     }
 
-    .select2-container { margin-bottom: 0px; }
+    .select2-container { 
+        margin-bottom: 0 !important;
+        position: inherit !important;
+        width: 100% !important;
+        height: 100% !important;
+     };
+
+     .select2-selection { 
+        margin-bottom: 0 !important;
+        position: inherit !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 4px 0 0 !important;
+        padding: 4px 8px !important;
+     };
 
     .folder_cell { max-width: 27%; width: 27%; }
     .folders li, .inner_list li {
         word-break: break-all;
         white-space: unset;
     }
-    .folder_list { min-width: unset; }
+    .toggle_link { margin-right: 10px; }
+    .folder_list { min-width: 95%; }
 }
 
 .mobile.tiki-cypht, .mobile.tiki-webmail {
@@ -275,7 +296,12 @@
             min-height: 60px; max-height: 500px;
             line-height: normal;
             font-size: 115%; font-weight: 500;
-            .list_controls { border: none; background: #fff; }
+            .list_controls {
+                border: none;
+                background: #fff;
+                width: 100%;
+                padding: 5px 15px;
+            }
         }
 
         .sys_messages {
