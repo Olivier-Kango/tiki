@@ -456,6 +456,7 @@ class PreferencesLib
             'toolbar_wiki pagemodified',
             'toolbar_wiki page_comments',
             'toolbar_wiki page_commentsmodified',
+            'tiki_check_status',
         ];
 
         // there are default preferences that don't appear in the admin panel, So we get them too
