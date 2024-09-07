@@ -132,7 +132,6 @@
     .mailbox_list_title { display: inline-block; }
 
     .msg_controls .dropdown.on_mobile { display: none; }
-    // .msg_controls > a { display: none; }
     .msg_controls .core_msg_control,
     .msg_controls .btn {
         padding: 1px 3px;
@@ -147,6 +146,9 @@
     .msg_text .content {
         overflow: auto;
     }
+
+    .credentials-container > div { display: inline-table; width: 100%; }
+    .credentials-container > div:nth-child(2) { margin-top: 10px; margin-bottom: 10px; }
 
     .imap_envelope th,
     .msg_headers th {
@@ -232,21 +234,8 @@
         .flags { width: 170px; }
     }
 
-    .select2-container { 
-        margin-bottom: 0 !important;
-        position: inherit !important;
-        width: 100% !important;
-        height: 100% !important;
-     };
-
-     .select2-selection { 
-        margin-bottom: 0 !important;
-        position: inherit !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin: 4px 0 0 !important;
-        padding: 4px 8px !important;
-     };
+    .select2-container { min-width: 150px; margin-bottom: 0; }
+    .combined_sort { display: inline-block; margin-left: 10px; }
 
     .folder_cell { max-width: 27%; width: 27%; }
     .folders li, .inner_list li {
