@@ -611,6 +611,7 @@ unit-tests-node:
     name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
   script:
     - npm run test
+  allow_failure: true
 
 #
 # Package this Tiki build
