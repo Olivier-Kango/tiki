@@ -47,7 +47,7 @@ if (isset($_REQUEST["addtopic"])) {
             $imgsize = $_FILES['userfile1']['size'];
             $imgname = $_FILES['userfile1']['name'];
         } else {
-            Feedback::error($taglinelib->uploaded_file_error($_FILES['userfile1']['error']));
+            Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
         }
     }
     if (! isset($data)) {
