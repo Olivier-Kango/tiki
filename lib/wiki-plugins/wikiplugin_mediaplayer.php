@@ -7,7 +7,7 @@
 use Tiki\Package\VendorHelper;
 
 const AUDIO_ACCEPTED_FORMATS = ['mp3', 'ogg', 'wav', 'aac', 'flac', 'opus'];
-const VIDEO_ACCEPTED_FORMATS = ['mp4', 'ogv', 'webm', '3gp', '3g2', 'mov', 'avi', 'mpg', 'mpeg', 'wmv', 'flv'];
+const VIDEO_ACCEPTED_FORMATS = ['mp4', 'ogv', 'webm', '3gp', '3g2', 'mov', 'avi', 'mpg', 'mpeg', 'wmv'];
 const DOCUMENT_ACCEPTED_FORMATS = ['pdf', 'odt', 'ods', 'odp'];
 $ALL_ACCEPTED_FORMATS = array_merge(AUDIO_ACCEPTED_FORMATS, VIDEO_ACCEPTED_FORMATS, DOCUMENT_ACCEPTED_FORMATS);
 define('ALL_ACCEPTED_FORMATS', $ALL_ACCEPTED_FORMATS);
@@ -31,7 +31,7 @@ function wikiplugin_mediaplayer_info()
                 'description' => tra("Complete URL to the media to include, which has the appropriate extension.
                     If your URL doesn't have an extension, use the File type parameter below."),
                 'since' => '6.0',
-                'accepted' => array_merge(AUDIO_ACCEPTED_FORMATS, VIDEO_ACCEPTED_FORMATS, DOCUMENT_ACCEPTED_FORMATS),
+                'accepted' => ALL_ACCEPTED_FORMATS,
                 'filter' => 'url',
                 'default' => '',
             ],
@@ -105,14 +105,38 @@ function wikiplugin_mediaplayer($data, $params)
         Feedback::error(['mes' => "PluginMediaPlayer : src and mp3 cannot both be empty"]);
         return '';
     } elseif (! empty($params['src'])) {
-        preg_match('/(?:dl|display|fileId=)(\d*)/', $params['src'], $matches);
+        preg_match('/(?:dl|display|attId=|fileId=)(\d*)/', $params['src'], $matches);
         if (! empty($matches[1])) { // fileId 0 is also invalid
             $fileId = $matches[1];
             $filegallib = TikiLib::lib('filegal');
-            $file = $filegallib->get_file_info($fileId);
-            if (! empty($file['filetype']) && $file['fileId'] == $fileId) {
-                $extension = pathinfo($file['filename'], PATHINFO_EXTENSION);
-                $params['type'] = $file['filetype'];
+            global $base_url;
+            $sourceLink = TikiLib::lib('access')->absoluteUrl($params['src']);
+
+            // Internal link.
+            if (strrpos($sourceLink, $base_url) === true) {
+                $file = $filegallib->get_file_info($fileId);
+                if (! empty($file['filetype']) && $file['fileId'] == $fileId) {
+                    $extension = pathinfo($file['filename'], PATHINFO_EXTENSION);
+                    $params['type'] = $file['filetype'];
+                }
+            } else {
+                // External link.
+                $headers = get_headers($sourceLink, 1);
+                if (isset($headers['Content-Disposition'])) {
+                    $disposition = $headers['Content-Disposition'];
+                    if (preg_match('/filename="(.+)"/', $disposition, $matches)) {
+                        $filename = $matches[1];
+                        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+                    }
+                }
+
+                if (isset($headers['Content-Type'])) {
+                    $contentType = $headers['Content-Type'];
+                    if (is_array($contentType)) {
+                        $contentType = end($contentType);
+                    }
+                    $params['type'] = $contentType;
+                }
             }
         } else {
             $extension = pathinfo($params['src'], PATHINFO_EXTENSION);
