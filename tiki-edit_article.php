@@ -427,7 +427,13 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
                 die;
             }
             $fp = fopen($_FILES['userfile1']['tmp_name'], 'rb');
+            if (! $fp && isset($_FILES['userfile1']['error'])) {
+                Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
+            }
             $data = fread($fp, filesize($_FILES['userfile1']['tmp_name']));
+            if (! $data && isset($_FILES['userfile1']['error'])) {
+                Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
+            }
             fclose($fp);
 
             $imgtype = $_FILES['userfile1']['type'];
@@ -449,8 +455,6 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
             if (move_uploaded_file($_FILES['userfile1']['tmp_name'], $cachefile)) {
                 $smarty->assign('imageIsChanged', 'y');
             }
-        } else {
-            Feedback::error($taglinelib->uploaded_file_error($_FILES['userfile1']['error']));
         }
     }
 
@@ -586,7 +590,13 @@ if (isset($_REQUEST['save']) && empty($errors)) {
                 die();
             }
             $fp = fopen($tmp_dest, 'rb');
+            if (! $fp && $_FILES['userfile1']['error']) {
+                Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
+            }
             $imgdata = fread($fp, filesize($tmp_dest));
+            if (! $imgdata && isset($_FILES['userfile1']['error'])) {
+                Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
+            }
             fclose($fp);
             if (is_file($tmp_dest)) {
                 @unlink($tmp_dest);
@@ -594,8 +604,6 @@ if (isset($_REQUEST['save']) && empty($errors)) {
             $imgtype = $_FILES['userfile1']['type'];
             $imgsize = $_FILES['userfile1']['size'];
             $imgname = $_FILES['userfile1']['name'];
-        } else {
-            Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
         }
     }
 
