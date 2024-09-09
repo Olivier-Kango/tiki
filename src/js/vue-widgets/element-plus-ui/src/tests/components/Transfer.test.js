@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/vue";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import Transfer, { DATA_TEST_ID, DRAG_HANDLER_CLASS } from "./Transfer.vue";
+import Transfer, { DATA_TEST_ID, DRAG_HANDLER_CLASS } from "../../components/Transfer.vue";
 import { ElAlert, ElTransfer } from "element-plus/dist/index.full.mjs";
 import { h } from "vue";
 import Sortable from "sortablejs";

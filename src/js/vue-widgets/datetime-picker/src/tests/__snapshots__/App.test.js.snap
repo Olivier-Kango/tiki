@@ -1055,7 +1055,7 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="America/Santiago"
       >
-        America/Santiago (GMT-04:00)
+        America/Santiago (GMT-03:00)
       </option>
       <option
         value="America/Santo_Domingo"
@@ -1985,12 +1985,12 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="Chile/Continental"
       >
-        Chile/Continental (GMT-04:00)
+        Chile/Continental (GMT-03:00)
       </option>
       <option
         value="Chile/EasterIsland"
       >
-        Chile/EasterIsland (GMT-06:00)
+        Chile/EasterIsland (GMT-05:00)
       </option>
       <option
         value="Cuba"
@@ -2735,7 +2735,7 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="Pacific/Easter"
       >
-        Pacific/Easter (GMT-06:00)
+        Pacific/Easter (GMT-05:00)
       </option>
       <option
         value="Pacific/Efate"

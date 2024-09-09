@@ -1,4 +1,4 @@
-import { convertToUnixTimestamp, formatDate, goToURLWithData } from "./helpers";
+import { convertToUnixTimestamp, formatDate, goToURLWithData } from "../helpers/helpers";
 import * as dateFns from "date-fns";
 import moment from "moment-timezone";
 import { vi, expect } from "vitest";

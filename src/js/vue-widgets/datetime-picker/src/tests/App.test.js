@@ -3,8 +3,8 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import moment from "moment";
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 import { h } from "vue";
-import DatetimePicker, { DATA_TEST_ID, TEXT } from "./App.vue";
-import * as Helpers from "./helpers/helpers";
+import DatetimePicker, { DATA_TEST_ID, TEXT } from "../App.vue";
+import * as Helpers from "../helpers/helpers";
 
 vi.mock("@vuepic/vue-datepicker", async (importOriginal) => {
     const actual = await importOriginal();
@@ -14,7 +14,7 @@ vi.mock("@vuepic/vue-datepicker", async (importOriginal) => {
     };
 });
 
-vi.mock("./helpers/helpers", async (importOriginal) => {
+vi.mock("../helpers/helpers", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...actual,

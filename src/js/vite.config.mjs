@@ -466,7 +466,7 @@ export default defineConfig(({ command, mode }) => {
             }),
         ],
         test: {
-            include: ["src/js/vue-widgets/**/*.test.js"],
+            include: ["src/js/vue-widgets/**/tests/**/*.test.js"],
             globals: true,
             environment: "happy-dom",
             coverage: {
