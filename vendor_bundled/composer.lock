@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ba94c980ffee7bd2c39b87c230e46fa",
+    "content-hash": "8949759941b909c3228eab929f862b43",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -17198,46 +17198,6 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
-        },
-        {
-            "name": "thibautselingue/local-php-security-checker-installer",
-            "version": "v1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thislg/local-php-security-checker-installer.git",
-                "reference": "acb86af4f2de9d6dda22261ae150d3eaf5b07262"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/thibautselingue/local-php-security-checker-installer/thibautselingue-local-php-security-checker-installer-acb86af4f2de9d6dda22261ae150d3eaf5b07262-zip-314dce.zip",
-                "reference": "acb86af4f2de9d6dda22261ae150d3eaf5b07262",
-                "shasum": "d4eaeec54cff9ce7a8f5c75d925a1f35f3ffc6d0"
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "bin": [
-                "bin/local-php-security-checker-installer"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.0.x-dev"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Thibaut Selingue",
-                    "email": "thibaut.selingue@gmail.com"
-                }
-            ],
-            "description": "Composer integration for local PHP security check",
-            "abandoned": true,
-            "time": "2023-01-02T13:10:51+00:00"
         },
         {
             "name": "umakantp/smartylint",

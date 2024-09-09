@@ -297,7 +297,6 @@
         "stevegrunwell/phpunit-markup-assertions": "^1.4.0",
         "symfony/browser-kit": "~6.4.3",
         "symfony/http-client": "~6.4.3",
-        "thibautselingue/local-php-security-checker-installer": "^1.0.4",
         "umakantp/smartylint": "0.1.4-p1"
     },
     "extra": {
