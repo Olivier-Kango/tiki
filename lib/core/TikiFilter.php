@@ -170,7 +170,7 @@ class TikiFilter
             case 'time':
             case 'datetime':
             case 'striptags':
-            case 'string':
+            case 'String':
             case 'password':
                 // Test Return " :/g.,:|4h&#Δ δ_🍘コン onclick "
                 return new TikiFilter_StripTags();
