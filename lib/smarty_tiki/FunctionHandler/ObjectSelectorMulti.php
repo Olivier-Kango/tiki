@@ -46,6 +46,7 @@ class ObjectSelectorMulti extends Base
             'simpleid' => null,
             'simpleclass' => null,
             'simplevalue' => null,
+            'use_permname' => 'n',
             'separator' => null,
             'threshold' => null,
             'parent' => null,
