@@ -104,7 +104,7 @@
         </div>
             {if $prefs.art_header_text_pos eq 'below' && $list_image_x > 0}
         <div style="width: 100%; float: left;">
-            {elseif $isfloat eq 'n' and $topics[$topicId].image_size > 0}
+            {elseif $isfloat eq 'n' and isset($topics[$topicId].image_size) and $topics[$topicId].image_size > 0}
         <div class="flex-grow-1 ms-3">
             {else}
         <div class="articleheadingtext {if $isfloat eq 'n'}flex-grow-1 ms-3{/if}"{*{if $isfloat eq 'y'}style="display: inline;"{/if}*}>
