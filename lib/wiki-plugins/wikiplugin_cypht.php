@@ -365,6 +365,7 @@ function wikiplugin_cypht($data, $params)
 
     /* get configuration */
     $config = new Tiki_Hm_Site_Config_File([], $session_prefix, $settings_per_page);
+    $environment->define_default_constants($config);
 
     // merge existing configuration with plugin params for smtp/imap servers
     if (! empty($params['imap_server']) && ! empty($params['imap_username']) && ! empty($params['imap_password'])) {
@@ -434,9 +435,6 @@ function wikiplugin_cypht($data, $params)
             $logslib->add_log('cypht', $msg);
         }
     }
-
-    $js = "$('.draft_folder_select, .sent_folder_select, .trash_folder_select, .delete_folder_select, .rename_folder_select, .rename_parent_folder_select, .parent_folder_select, .archive_folder_select').attr('style', 'background-color: #fff !important; z-index: 1');";
-    $headerlib->add_js($js);
 
     return '<div class="inline-cypht">'
         . '<input type="hidden" id="hm_page_key" value="' . Hm_Request_Key::generate() . '" />'

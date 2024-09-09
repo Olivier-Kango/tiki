@@ -23,6 +23,7 @@ class Services_Cypht_Controller
 
         /* get configuration */
         $config = new Tiki_Hm_Site_Config_File([], $session_prefix, @$_SESSION[$session_prefix]['settings_per_page']);
+        $environment->define_default_constants($config);
 
         /* process the request */
         $dispatcher = new Hm_Dispatch($config);

@@ -61,6 +61,7 @@ $_SESSION['cypht']['username'] = $user;
 
 /* get configuration */
 $config = new Tiki_Hm_Site_Config_File();
+$environment->define_default_constants($config);
 
 /* process the request */
 $dispatcher = new Hm_Dispatch($config);
