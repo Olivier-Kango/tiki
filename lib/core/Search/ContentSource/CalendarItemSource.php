@@ -46,6 +46,8 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
 
         $allday = (bool) $item['allday'];
 
+        $status_text = '';
+
         if ($item['status'] == 0) {
             $status_text = tr('Tentative');
         } elseif ($item['status'] == 1) {
