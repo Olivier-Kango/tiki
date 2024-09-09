@@ -7,6 +7,6 @@
 
 function smarty_function_modulelist($params, \Smarty\Template $template)
 {
-    $smartyFunctionModulelistHandler = new \smartytiki\FunctionHandler\ModuleList();
+    $smartyFunctionModulelistHandler = new \SmartyTiki\FunctionHandler\ModuleList();
     return $smartyFunctionModulelistHandler->handle($params, $template);
 }
