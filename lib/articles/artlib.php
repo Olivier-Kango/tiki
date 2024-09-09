@@ -1631,7 +1631,7 @@ class ArtLib extends TikiLib
         }
         $currentAtt = $this->get_article_attributes($articleId);
         foreach ($attributeArray as $name => $value) {
-            if (! in_array($name, array_keys($currentAtt)) || $value != $currentAtt[$name]['value']) {
+            if (! in_array($name, array_keys($currentAtt)) || $value != $currentAtt[$name]) {
                 $attributelib->set_attribute($type, $articleId, $name, $value);
             }
         }
