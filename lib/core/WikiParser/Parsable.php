@@ -584,7 +584,7 @@ if ( \$('#$id') ) {
 
     public function stripNP()
     {
-        $this->markup = preg_replace_callback('/~np~.*?~\/np~/', function ($match) {
+        $this->markup = preg_replace_callback('/~np~.*?~\/np~/s', function ($match) {
             $key = md5($match[0]);
             $this->stripped[$key] = $match[0];
             return '??strippedplugin??' . $key . '??/skippedplugin??';
