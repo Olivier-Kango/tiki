@@ -24,8 +24,6 @@ class FunctionToolbarsTest extends TikiTestCase
         global $prefs, $iconset, $toolbarDialogIndex;
 
         TikiLib::lib('cache')->empty_cache();
-
-        $prefs['javascript_enabled'] = 'y';
         $prefs['wysiwyg_htmltowiki'] = 'y';
         // needed to mimic that the pipeline on gitlab does
         // i need to update my local testing environment to match that more closely

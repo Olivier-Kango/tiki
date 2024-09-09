@@ -4,7 +4,7 @@
         data-separator="{$object_selector_multi.separator|escape}"
         data-use_permname="{$object_selector_multi.use_permname|escape}"
         type="text"
-        {if $prefs.javascript_enabled eq 'y'}style="display: none"{/if}
+        style="display: none"
         id="{$object_selector_multi.simpleid|escape}"
         {if !empty($object_selector_multi.simpleclass)}class="{$object_selector_multi.simpleclass|escape}"{/if}
         {if !empty($object_selector_multi.simplename)}name="{$object_selector_multi.simplename|escape}"{/if}
@@ -13,7 +13,7 @@
 {/if}
 <textarea
     id="{$object_selector_multi.id|escape}"
-    {if $prefs.javascript_enabled eq 'y'}style="display: none"{/if}
+    style="display: none"
     {if !empty($object_selector_multi.name)}name="{$object_selector_multi.name|escape}"{/if}
     {if !empty($object_selector_multi.class)}class="{$object_selector_multi.class|escape}"{/if}
     {if !empty($object_selector_multi.title)}data-label="{$object_selector_multi.title|escape}"{/if}

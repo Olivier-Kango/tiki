@@ -97,7 +97,7 @@ class Menu extends Base
             $categGroups = [];
         }
 
-        if (isset($params['bootstrap']) && $params['bootstrap'] !== 'n' && $prefs['javascript_enabled'] === 'y') {
+        if (isset($params['bootstrap']) && $params['bootstrap'] !== 'n') {
             $structured = [];
 
             // Unification with structure menus - adds sectionLevel

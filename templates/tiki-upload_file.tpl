@@ -51,11 +51,9 @@
         {button href="#upload" _text="{tr}Retry{/tr}"}
     </div>
 {/if}
-{if $prefs.javascript_enabled eq 'y'}
-    <div id='progress'>
-        <div id='progress_0'></div>
-    </div>
-{/if}
+<div id='progress'>
+    <div id='progress_0'></div>
+</div>
 {if isset($uploads) and count($uploads) > 0}
     <div class="table-responsive">
         <table class="table">
@@ -65,15 +63,13 @@
                         <img src="{$uploads[ix].fileId|sefurl:thumbnail}">
                     </td>
                     <td>
-                        {if !empty($filegals_manager) && $prefs.javascript_enabled === 'y'}
+                        {if !empty($filegals_manager)}
                             <a href="#" onclick="window.opener.insertAt('{$filegals_manager}','{$files[changes].wiki_syntax|escape}');checkClose();return false;" title="{tr}Click here to use the file{/tr}">{$uploads[ix].name} ({$uploads[ix].size|kbsize})</a>
                         {else}
                             <b>{$uploads[ix].name} ({$uploads[ix].size|kbsize})</b>
                         {/if}
-                        {if $prefs.javascript_enabled === 'y'}
                             {button href="#" _flip_id="uploadinfos"|cat:$uploads[ix].fileId _text="{tr}Additional Info{/tr}"}
-                        {/if}
-                        <div style="{if $prefs.javascript_enabled eq 'y'}display:none;{/if}" id="uploadinfos{$uploads[ix].fileId}">
+                         <div style="display:none;" id="uploadinfos{$uploads[ix].fileId}">
                             <h5>
                                 {tr}Syntax Tips{/tr}
                             </h5>
@@ -111,7 +107,7 @@
                                     &lt;a href="{$uploads[ix].dllink}"&gt;{$uploads[ix].name}&lt;/a&gt;
                                 </code>
                             </div>
-                        </div>
+                    </div>
                     </td>
                 </tr>
             {/section}
@@ -151,7 +147,7 @@
     {capture name=upload_file assign=upload_str}
         <div class="fgal_file">
             <div class="fgal_file_c1">
-                {if $prefs.javascript_enabled !== 'y' || $prefs.file_galleries_use_jquery_upload neq 'y' or $editFileId}
+                {if $prefs.file_galleries_use_jquery_upload neq 'y' or $editFileId}
                     {if $simpleMode neq 'y'}
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label">{tr}File title{/tr}</label>
@@ -199,7 +195,7 @@
                             </div>
                         </div>
                     {/if}
-                    {if $prefs.javascript_enabled !== 'y' || $prefs.file_galleries_use_jquery_upload neq 'y' || $editFileId}
+                    {if $prefs.file_galleries_use_jquery_upload neq 'y' || $editFileId}
                         <div class="mb-3 row">
                             <label for="userfile" class="col-md-4 col-form-label">{if $editFileId}{tr}Re-upload from disk{/tr}{else}{tr}Upload from disk{/tr}{/if}</label>
                             <div class="col-md-8">
@@ -392,7 +388,7 @@
                         <input type="hidden" id="hit_limit" name="hit_limit[]" value="{$hit_limit|default:-1}">
                     {/if}
                     {* We want comments only on updated files *}
-                    {if $prefs.javascript_enabled neq 'y' && $editFileId}
+                    {if $editFileId}
                         <div class="mb-3 row">
                             <label for="comment" class="col-md-4 form-label">{tr}Comment{/tr}</label>
                             <div class="col-md-8">
@@ -401,16 +397,16 @@
                         </div>
                     {/if}
                 </div>
-                {if $prefs.javascript_enabled eq 'y' and !$editFileId}
+                {if !$editFileId}
                     {include file='categorize.tpl'}<br/>
                 {/if}
             {else}
-                {if $prefs.javascript_enabled eq 'y' and !$editFileId and $category_jail}
+                {if !$editFileId and $category_jail}
                     {include file='categorize.tpl'}<br/>
                 {/if}
                 <input type="hidden" name="galleryId[]" value="{$galleryId}">
             {/if}
-            {if $prefs.javascript_enabled eq 'y' and !$editFileId}
+            {if !$editFileId}
                 <input type="hidden" name="upload">
             {/if}
         </div>
@@ -442,17 +438,8 @@
                         <input name="upload" type="submit" class="btn btn-primary" value="{tr}Save{/tr}">
                     </div>
                 </div>
-            {elseif $prefs.javascript_enabled neq 'y'}
-                {$upload_str}
-                {$upload_str}
-                {include file='categorize.tpl'}<br>
-                <div id="page_bar" class="mb-3 row">
-                    <div class="col-md-8 offset-md-4">
-                        <input type="submit" class="btn btn-primary" name="upload" value="{tr}Upload{/tr}">
-                    </div>
-                </div>
             {/if}
-            {if !$editFileId && $prefs.file_galleries_use_jquery_upload neq 'y' && $prefs.javascript_enabled === 'y'}
+            {if !$editFileId && $prefs.file_galleries_use_jquery_upload neq 'y'}
                 <div id="page_bar" class="mb-3 row">
                     <div class="col-md-8 offset-md-4">
                         <input type="submit" class="btn btn-primary"

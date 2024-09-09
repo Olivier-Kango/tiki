@@ -236,12 +236,6 @@
                 {tr}Tiki plugin aliases allow you to define your own custom configurations of existing plugins.{/tr}<br>
                 {tr}Find out more here:{/tr}{help url="Plugin+Alias"}
             {/remarksbox}
-            {if $prefs.javascript_enabled neq 'y'}
-                {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                    {tr}This page is designed to work with JavaScript{/tr}
-                {/remarksbox}
-            {/if}
-
             {tabset name='plugin_alias'}
                 {tab name='{tr}Available alias{/tr}'}
                     <fieldset id="pluginalias_available">

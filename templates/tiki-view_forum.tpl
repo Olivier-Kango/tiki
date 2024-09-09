@@ -1035,7 +1035,7 @@
         </div>
     {/if}
 
-    {if empty($user) and $prefs.javascript_enabled eq "y"}
+    {if empty($user)}
         {jq}
             var js_anonymous_name = getCookie('anonymous_name');
             if (js_anonymous_name) document.getElementById('anonymous_name').value = js_anonymous_name;

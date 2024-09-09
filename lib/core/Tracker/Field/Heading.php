@@ -80,7 +80,7 @@ class Tracker_Field_Heading extends \Tracker\Field\AbstractField implements \Tra
         $desclass = isset($context['pluginTracker']) && $context['pluginTracker'] == 'y' ?
             'trackerplugindesc' : 'description';
         $data_toggle = '';
-        if ($prefs['javascript_enabled'] === 'y' && ($toggle === 'o' || $toggle === 'c')) {
+        if (($toggle === 'o' || $toggle === 'c')) {
             $class = ' ' . ($toggle === 'c' ? 'trackerHeaderClose' : 'trackerHeaderOpen');
             $data_toggle = 'data-bs-toggle="' . $toggle . '"';
         }

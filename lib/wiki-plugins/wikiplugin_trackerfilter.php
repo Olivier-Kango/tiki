@@ -417,7 +417,7 @@ function wikiplugin_trackerfilter($data, $params)
             $smarty->assign_by_ref('f_fields', $f_fields);
         }
     }
-    if ($displayList == 'n' || ! empty($_REQUEST['filter']) || $noflipflop !== 'n' || $prefs['javascript_enabled'] != 'y' || (isset($_SESSION['tiki_cookie_jar']["show_trackerFilter$iTrackerFilter"]) && $_SESSION['tiki_cookie_jar']["show_trackerFilter$iTrackerFilter"] == 'y')) {
+    if ($displayList == 'n' || ! empty($_REQUEST['filter']) || $noflipflop !== 'n' || (isset($_SESSION['tiki_cookie_jar']["show_trackerFilter$iTrackerFilter"]) && $_SESSION['tiki_cookie_jar']["show_trackerFilter$iTrackerFilter"] == 'y')) {
         $open = 'y';
         $_SESSION['tiki_cookie_jar']["show_trackerFilter$iTrackerFilter"] = 'y';
     } else {

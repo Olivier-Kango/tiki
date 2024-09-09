@@ -9,7 +9,7 @@
                     <div class="modal-body">
             {else}
         <div id="{$prefs.cookie_consent_dom_id}" class="alert alert-primary col-sm-8 mx-auto" role="alert"
-            {if $prefs.javascript_enabled eq 'y' and not empty($prefs.cookie_consent_mode)}
+            {if not empty($prefs.cookie_consent_mode)}
                 style="display:none;" class="{$prefs.cookie_consent_mode}"
             {/if}
         >

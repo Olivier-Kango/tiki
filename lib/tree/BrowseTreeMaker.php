@@ -85,7 +85,7 @@ class BrowseTreeMaker extends TreeMaker
     {
         global $prefs;
 
-        if ($this->node_cookie_state($nodeinfo['id']) != 'o' && $prefs['javascript_enabled'] === 'y') {
+        if ($this->node_cookie_state($nodeinfo['id']) != 'o') {
             $style = ' style="display:none;"';
         } else {
             $style = '';

@@ -130,12 +130,7 @@ class Remarksbox implements BlockHandlerInterface
             $icon = $params['icon'];
         };
 
-        if (isset($prefs['javascript_enabled']) && $prefs['javascript_enabled'] != 'y') {
-            $params['close'] = false;
-            $params['store_cookie'] = false;
-            $cookie_hash = '';
-            $hidden = false;
-        } elseif ($params['store_cookie'] === 'y' && function_exists('getCookie')) {
+        if ($params['store_cookie'] === 'y' && function_exists('getCookie')) {
             $params['close'] = $params['close'] !== 'n';
             $params['store_cookie'] = $params['store_cookie'] !== 'n';
             $cookie_hash = md5($params['title'] . $params['version'] . $content . $params['id']);

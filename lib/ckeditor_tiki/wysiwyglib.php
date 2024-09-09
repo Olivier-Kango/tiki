@@ -18,9 +18,6 @@ class WYSIWYGLib
     {
         global $tikiroot, $prefs, $user;
 
-        if ($prefs['javascript_enabled'] != 'y') {
-            return;
-        }
         // Validate user permissions
         $tikilib = TikiLib::lib('tiki');
         if (! $tikilib->user_has_perm_on_object($user, $pageName, 'wiki page', 'edit')) {

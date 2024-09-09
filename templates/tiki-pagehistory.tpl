@@ -168,7 +168,7 @@
             <div class="col-sm-6">
             {if ($prefs.default_wiki_diff_style ne "old") and $history}
                 <div class="input-group">
-                    <select class="form-select" name="diff_style" id="diff_style_all"{if $prefs.javascript_enabled eq "y"} style="display: none"{/if}>
+                    <select class="form-select" name="diff_style" id="diff_style_all" style="display: none">
                         <option value="htmldiff" {if $diff_style == "htmldiff"}selected="selected"{/if}>
                             {tr}HTML diff{/tr}
                         </option>
@@ -203,18 +203,15 @@
                             {tr}Side-by-side view{/tr}
                         </option>
                     </select>
-                    {if $prefs.javascript_enabled eq "y"}
-                        <select class="form-select" name="diff_style" id="diff_style_simple">
-                            <option value="htmldiff" {if $diff_style == "htmldiff"}selected="selected"{/if}>
+                    <select class="form-select" name="diff_style" id="diff_style_simple">
+                        <option value="htmldiff" {if $diff_style == "htmldiff"}selected="selected"{/if}>
                                 {tr}HTML diff{/tr}
-                            </option>
-                            <option value="sidediff" {if $diff_style == "sidediff"}selected="selected"{/if}>
+                        </option>
+                        <option value="sidediff" {if $diff_style == "sidediff"}selected="selected"{/if}>
                                 {tr}Side-by-side diff{/tr}
-                            </option>
-                        </select>
-                    {/if}
-                    {if $prefs.javascript_enabled eq "y"}
-                        {button _text="{tr}Advanced{/tr}" _id="toggle_diffs" _ajax="n" _class="btn btn-secondary"}
+                        </option>
+                    </select>
+                    {button _text="{tr}Advanced{/tr}" _id="toggle_diffs" _ajax="n" _class="btn btn-secondary"}
                         {jq}
     $("form#pagehistory")
         .each(function store_original_values(i, form){
@@ -276,10 +273,9 @@
     }
     {{if $diff_style neq "htmldiff" and $diff_style neq "sidediff"}$("#toggle_diffs a").trigger("click");{/if}}
                         {/jq}
-                    {/if}
                 </div>
                 <input type="hidden" name="show_all_versions" value="{$show_all_versions}">
-            {/if}
+                {/if}
             </div>
         </div>
             <div>

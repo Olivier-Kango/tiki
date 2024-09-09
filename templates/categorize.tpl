@@ -22,7 +22,7 @@
     {if !isset($notable) || $notable neq 'y'}
         <div class="mb-3 row">
     {/if}
-    {if $mandatory_category >= 0 or $prefs.javascript_enabled neq 'y' or (isset($auto) and $auto eq 'y')}
+    {if $mandatory_category >= 0 or (isset($auto) and $auto eq 'y')}
         <div id="categorizator">&nbsp;<div>
     {else}
         {if !isset($notable) || $notable neq 'y'}

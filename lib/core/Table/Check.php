@@ -51,7 +51,7 @@ class Table_Check
     public static function isEnabled($ajax = false)
     {
         global $prefs;
-        if ($prefs['javascript_enabled'] === 'y' && $prefs['feature_jquery_tablesorter'] === 'y') {
+        if ($prefs['feature_jquery_tablesorter'] === 'y') {
             if ($ajax === true) {
                 if ($prefs['feature_ajax'] === 'y') {
                     return true;

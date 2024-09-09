@@ -8,7 +8,7 @@
             {if $gal_info.type eq 'podcast' or $gal_info.type eq 'vidcast'}
                 href="{$prefs.fgal_podcast_dir}{$file.path}"
             {else}
-                href="{if $prefs.javascript_enabled eq 'y' && $file.type|truncate:5:'':true eq 'image'}
+                href="{if $file.type|truncate:5:'':true eq 'image'}
                                 {$file.id|sefurl:preview}
                             {elseif $file.type neq 'application/x-shockwave-flash'}
                                 {$file.id|sefurl:file}

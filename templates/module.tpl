@@ -11,12 +11,12 @@
     class="card box-{$module_name} module"{if !empty($tpl_module_style)} style="{$tpl_module_style}"{/if}>
     {if $module_decorations ne 'n'}
         <div class="card-header" {if !empty($module_params.bgcolor)} style="background-color:{$module_params.bgcolor};"{/if}>
-            {if ($module_notitle ne 'y' && !empty($module_title)) || ($module_flip eq 'y' and $prefs.javascript_enabled ne 'n') || $prefs.menus_items_icons eq 'y'}
+            {if ($module_notitle ne 'y' && !empty($module_title)) || ($module_flip eq 'y') || $prefs.menus_items_icons eq 'y'}
                 <h3 class="card-title">
                     {if $module_notitle ne 'y' && !empty($module_title)}
                         <span class="moduletitle">{$module_title}</span>
                     {/if}
-                    {if $module_flip eq 'y' and $prefs.javascript_enabled ne 'n'}
+                    {if $module_flip eq 'y'}
                         <div class="moduleflip" id="moduleflip-{$smarty.capture.name}">
                             {* Only show edit and delete options in module title if on tiki-admin_modules.php page *}
                             {if $smarty.server.SCRIPT_NAME == $url_path|cat:'tiki-admin_modules.php'}
@@ -41,14 +41,14 @@
             {/if}
         </div>
     {elseif $module_notitle ne 'y'}{* means when module decorations are set to 'n' don't render the card-header wrapper as above *}
-    {if $module_flip eq 'y' and $prefs.javascript_enabled ne 'n'}
+    {if $module_flip eq 'y'}
     <h3 class="card-title"
          ondblclick="javascript:icntoggle('mod-{$smarty.capture.name}','module.png');"{if !empty($module_params.color)} style="color:{$module_params.color};"{/if}>
         {else}
         <h3 class="card-title"{if !empty($module_params.color)} style="color:{$module_params.color};"{/if}>
             {/if}
             {$module_title}
-            {if $module_flip eq 'y' and $prefs.javascript_enabled ne 'n'}
+            {if $module_flip eq 'y'}
                 <div class="moduleflip" id="moduleflip-{$smarty.capture.name}">
                     {* Only show edit and delete options in module title if on tiki-admin_modules.php page *}
                     {if $smarty.server.SCRIPT_NAME == $url_path|cat:'tiki-admin_modules.php'}

@@ -172,7 +172,7 @@
                                 </option>
                             {/foreach}
                         </select>
-                        {if $prefs.javascript_enabled eq 'y' && $find_show_categories_multi eq 'y'}
+                        {if $find_show_categories_multi eq 'y'}
                             <a href="#category_select_find_type"
                                onclick="show('category_multiselect_find');hide('category_singleselect_find');javascript:document.getElementById('category_select_find_type').value='y';">
                                 {tr}Multiple select{/tr}

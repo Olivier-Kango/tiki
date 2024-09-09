@@ -260,6 +260,6 @@
     <div id='currentcalitemId' class='d-none'>{$currentcalitemId}</div>
     <div id='calendar'></div>
 </div>
-{if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
+{if $prefs.feature_jscalendar eq 'y'}
     {js_insert_icon type="jscalendar"}
 {/if}

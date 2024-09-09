@@ -48,7 +48,7 @@
         {if ($prefs.error_reporting_adminonly eq 'y' and $tiki_p_admin eq 'y') or $prefs.error_reporting_adminonly eq 'n'}
     <div class="container{if isset($smarty.session.fullscreen) && $smarty.session.fullscreen eq 'y'}-fluid{/if} my-3">
         {button _ajax="n" _id="show-errors-button" _onclick="flip('errors');return false;" _text="{tr}Show PHP error messages{/tr}"}
-        <div id="errors" class="alert alert-warning" style="display: {if (isset($smarty.session.tiki_cookie_jar.show_errors) and $smarty.session.tiki_cookie_jar.show_errors eq 'y') or $prefs.javascript_enabled ne 'y'}block{else}none{/if};">
+        <div id="errors" class="alert alert-warning" style="display: {if (isset($smarty.session.tiki_cookie_jar.show_errors) and $smarty.session.tiki_cookie_jar.show_errors eq 'y')}block{else}none{/if};">
             &nbsp;{listfilter selectors='#errors>div.rbox-data'}
             {foreach item=err from=$phpErrors}
                 {$err}
@@ -88,16 +88,7 @@
     {$headerlib->output_js_files()}
     {$headerlib->output_js()}
     {* some js to enabled falsely detected js disabled browsers to be rechecked * disabled when in the installer *}
-    {if empty($smarty.cookies.javascript_enabled_detect) and $prefs.javascript_enabled eq 'n' and $prefs.disableJavascript eq 'n' and $smarty.server.SCRIPT_NAME|strpos:'tiki-install.php' === false}
-<script type="text/javascript">
-<!--//--><![CDATA[//><!--
-if (confirm("A problem occurred while detecting JavaScript on this page, click ok to retry.")) {ldelim}
-    document.cookie = "javascript_enabled_detect=";
-    location = location.href;
-{rdelim}
-//--><!]]>
-</script>
-    {/if}
+
 {/if}
 {if !empty($prefs.site_piwik_code)}
     {wikiplugin _name=piwik code=$prefs.site_piwik_code group_option=$prefs.site_piwik_group_option groups={$prefs.site_piwik_groups|join:','}}{/wikiplugin}

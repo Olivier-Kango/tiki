@@ -573,7 +573,7 @@ abstract class ToolbarItem
         $content = $title;
         if ($this->iconname) {
             $params['_icon_name'] = $this->iconname;
-            $colon = $prefs['javascript_enabled'] === 'y' ? ':' : '';
+            $colon = ':';
             $params['_title'] = $colon . $title;
         } else {
             $params['_icon'] = $this->icon;

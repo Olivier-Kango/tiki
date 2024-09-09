@@ -3046,15 +3046,10 @@ class FileGalLib extends TikiLib
 
     private function print_msg($msg, $htmlEntities = false)
     {
-        global $prefs;
-
         if ($htmlEntities) {
             $msg = htmlentities($msg, ENT_QUOTES, 'UTF-8');
         }
-
-        if ($prefs['javascript_enabled'] == 'y') {
-            echo $msg;
-        }
+        echo $msg;
     }
 
     /*shared*/
@@ -3399,32 +3394,29 @@ class FileGalLib extends TikiLib
                             $aux['dllink'] = $podcast_url . $file->path . '&amp;thumbnail=y';
                         } else {
                             $aux['dllink'] = $url_browse . "?fileId=" . $fileId;
-                            if ($prefs['javascript_enabled'] == 'y') {
-                                if (! empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1) {
-                                    if ((int) $_POST['submission'] === (int) $_POST['totalSubmissions']) {
-                                        Feedback::success(tr('Files uploaded'), true);
-                                    }
-                                    $feedback_message = tr('File "%0" uploaded', $file_name);
-                                } else {
-                                    Feedback::success(tr('File "%0" uploaded', $file_name), true);
+                            if (! empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1) {
+                                if ((int) $_POST['submission'] === (int) $_POST['totalSubmissions']) {
+                                    Feedback::success(tr('Files uploaded'), true);
                                 }
+                                $feedback_message = tr('File "%0" uploaded', $file_name);
                             } else {
-                                Feedback::success(tr('File "%0" uploaded', $file_name));
+                                Feedback::success(tr('File "%0" uploaded', $file_name), true);
                             }
                         }
+                    }
                         $uploads[] = $aux;
                         $cat_type = 'file';
                         $cat_objid = $fileId;
                         $cat_desc = substr($params["description"][$key], 0, 200);
                         $cat_name = empty($params['name'][$key]) ? $name : $params['name'][$key];
                         $cat_href = $aux['dllink'];
-                        if ($prefs['feature_groupalert'] == 'y' && isset($params['listtoalert'])) {
-                            $groupalertlib = TikiLib::lib('groupalert');
-                            $groupalertlib->Notify($params['listtoalert'], "tiki-download_file.php?fileId=" . $fileId);
-                        }
+                    if ($prefs['feature_groupalert'] == 'y' && isset($params['listtoalert'])) {
+                        $groupalertlib = TikiLib::lib('groupalert');
+                        $groupalertlib->Notify($params['listtoalert'], "tiki-download_file.php?fileId=" . $fileId);
+                    }
                         include_once('categorize.php');
                         // Print progress
-                        if (empty($params['returnUrl']) && $prefs['javascript_enabled'] == 'y' && empty($params['fileId']) && empty($params['returnTransfer'])) {
+                    if (empty($params['returnUrl']) && empty($params['fileId']) && empty($params['returnTransfer'])) {
                             $smarty->assign("name", $aux['name']);
                             $smarty->assign("size", $aux['size']);
                             $smarty->assign("fileId", $aux['fileId']);
@@ -3433,16 +3425,14 @@ class FileGalLib extends TikiLib
                             $syntax = $this->getWikiSyntax($params["galleryId"][$key]);
                             $syntax = $this->process_fgal_syntax($syntax, $aux);
                             $smarty->assign('syntax', $syntax);
-                            if (! empty($_REQUEST['filegals_manager'])) {
+                        if (! empty($_REQUEST['filegals_manager'])) {
                                 $smarty->assign('filegals_manager', $_REQUEST['filegals_manager']);
-                            }
-                            $smarty->display("tiki-upload_file_progress.tpl");
                         }
+                            $smarty->display("tiki-upload_file_progress.tpl");
                     }
                 }
             }
         }
-
         if (empty($params['returnUrl'])) {
             if (count($errors)) {
                 $errors = implode('. ', $errors);

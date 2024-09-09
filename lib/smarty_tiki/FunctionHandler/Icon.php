@@ -218,9 +218,7 @@ class Icon extends \Smarty\FunctionHandler\Base
                         break;
 
                     case '_confirm':
-                        if ($prefs['javascript_enabled'] == 'y') {
                             $params['onclick'] = "return confirm('" . str_replace("'", "\'", $v) . "');";
-                        }
                         break;
                 }
 

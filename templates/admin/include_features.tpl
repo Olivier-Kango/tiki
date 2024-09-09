@@ -236,8 +236,6 @@
                 {preference name=feature_xmlrpc}
                 {preference name=feature_debug_console}
                 {preference name=feature_tikitests}
-                {preference name=disableJavascript}
-                {preference name=javascript_assume_enabled}
                 {preference name=smarty_compilation}
                 {preference name=feature_webservices}
                 {preference name=feature_dummy}

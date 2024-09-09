@@ -23,7 +23,7 @@
 {tabset name='tabs_admin-profiles'}
 
     {tab name="{tr}Apply{/tr}"}
-        {if $prefs.javascript_enabled eq 'y'}
+        
             {if $openSources == 'some'}
                 {remarksbox type="warning" title="{tr}Warning{/tr}"}
                     {tr}Some of your Profiles Repositories are not connecting. This may prevent you from applying certain profiles{/tr}
@@ -137,11 +137,6 @@
                     {/if}
                 </div>
             {/if}
-        {else}
-            {remarksbox type="warning" title="{tr}Warning{/tr}"}
-                {tr}JavaScript must be turned <strong>ON</strong> in order to apply Profiles. Please enable your JavaScript and try again.{/tr}
-            {/remarksbox}
-        {/if}
     {/tab}
 
     {tab name="{tr}Export{/tr}"}

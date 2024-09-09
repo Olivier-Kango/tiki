@@ -2,7 +2,7 @@
 <input
     type="text"
     id="{$object_selector.simpleid|escape}"
-    {if $prefs.javascript_enabled eq 'y'}style="display: none"{/if}
+    style="display: none"
     {if !empty($object_selector.simpleclass)}class="{$object_selector.simpleclass|escape}"{/if}
     {if !empty($object_selector.simplename)}name="{$object_selector.simplename|escape}"{/if}
     {if !empty($object_selector.simplevalue)}value="{$object_selector.current_selection.id|escape}"{/if}
@@ -10,7 +10,7 @@
 <input
     type="text"
     id="{$object_selector.id|escape}"
-    {if $prefs.javascript_enabled eq 'y'}style="display: none"{/if}
+    style="display: none"
     {if !empty($object_selector.name)}name="{$object_selector.name|escape}"{/if}
     {if !empty($object_selector.class)}class="{$object_selector.class|escape}"{/if}
     {if !empty($object_selector.current_selection)}

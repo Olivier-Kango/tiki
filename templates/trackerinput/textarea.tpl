@@ -2,10 +2,8 @@
     {capture assign='charCount'}
         {if $field.options_map.max}
             <div class="charCount form-text">
-                {if $prefs.javascript_enabled eq 'y'}
-                    {tr}Character Count:{/tr}
-                    <input class="d-inline-block form-control-plaintext mx-1 w-auto" type="text" id="ccpt_{$field.fieldId}" size="4" readonly{if !empty($field.value)} value="{$field.value|count_characters:true}"{/if}>
-                {/if}
+                {tr}Character Count:{/tr}
+                <input class="d-inline-block form-control-plaintext mx-1 w-auto" type="text" id="ccpt_{$field.fieldId}" size="4" readonly{if !empty($field.value)} value="{$field.value|count_characters:true}"{/if}>
                 {tr}Max:{/tr} {$field.options_map.max}
             </div>
         {/if}
@@ -13,11 +11,9 @@
     {capture assign='wordCount'}
         {if $field.options_map.wordmax}
             <div class="wordCount form-text">
-                {if $prefs.javascript_enabled eq 'y'}
-                    {tr}Word Count:{/tr}
-                    <input class="d-inline-block form-control-plaintext mx-1 w-auto" type="text" id="wcpt_{$field.fieldId}" size="4" readonly{if !empty($field.value)} value="{$field.value|count_words}"{/if}>
-                {/if}
-                {tr}Max:{/tr} {$field.options_map.wordmax}
+                {tr}Word Count:{/tr}
+                <input class="d-inline-block form-control-plaintext mx-1 w-auto" type="text" id="wcpt_{$field.fieldId}" size="4" readonly{if !empty($field.value)} value="{$field.value|count_words}"{/if}>
+               {tr}Max:{/tr} {$field.options_map.wordmax}
             </div>
         {/if}
     {/capture}

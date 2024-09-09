@@ -29,8 +29,6 @@
 // just in case
 require_once('tiki-setup.php');
 $access->check_permission('tiki_p_admin');
-$access->check_feature('javascript_enabled');
-
 $tpl = $_GET['tpl'];
 $count_r = 0;
 

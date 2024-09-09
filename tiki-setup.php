@@ -213,14 +213,11 @@ if (! TIKI_API) {
         }
         $cookie_consent = getCookie($prefs['cookie_consent_name']);
         if (empty($cookie_consent) || $jitRequest->offsetExists('cookie_consent')) {
+            $prefs['cookie_consent_mode'] = '';
             if (! $jitRequest->offsetExists('cookie_consent')) {
-                if ($prefs['javascript_enabled'] !== 'y') {
-                    $prefs['cookie_consent_mode'] = '';
-                } else {
-                    $headerlib->add_js('jqueryTiki.no_cookie = true; jqueryTiki.cookie_consent_alert = "' . addslashes($prefs['cookie_consent_alert']) . '";');
-                }
+                $headerlib->add_js('jqueryTiki.no_cookie = true; jqueryTiki.cookie_consent_alert = "' . addslashes($prefs['cookie_consent_alert']) . '";');
                 foreach ($_COOKIE as $k => $v) {
-                    if (strpos($k, session_name()) === false && strpos($k, 'javascript_enabled') === false) {
+                    if (strpos($k, session_name()) === false) {
                         setcookie($k, '', time() - 3600);        // unset any previously existing cookies except the session and js detect
                     }
                 }

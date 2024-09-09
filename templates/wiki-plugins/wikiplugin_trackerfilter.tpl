@@ -5,7 +5,7 @@
     {if isset($msgTrackerFilter) && $msgTrackerFilter}
         <div class="alert alert-danger">{$msgTrackerFilter|escape}</div>
     {/if}
-    {if (!isset($line) || $line ne 'y') and $prefs.javascript_enabled eq 'y' and $noflipflop ne 'y'}
+    {if (!isset($line) || $line ne 'y') and $noflipflop ne 'y'}
         {button _text="{tr}Filters{/tr}" _flip_id="trackerFilter$iTrackerFilter"}
     {/if}
     <div id="trackerFilter{$iTrackerFilter}" class="trackerfilter" style="display:{if isset($open) && $open eq 'y'}block{else}none{/if}">

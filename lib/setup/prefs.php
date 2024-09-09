@@ -203,8 +203,6 @@ function get_default_prefs()
             'feature_contributor_wiki' => '',
             'https_login_required' => '',
             'replimaster' => '',
-            'javascript_enabled' => 'n',
-
             // SefUrl
             'feature_sefurl_paths' => [''], //empty string needed to keep preference from setting unexpectedly
             'feature_sefurl_routes' => 'n',

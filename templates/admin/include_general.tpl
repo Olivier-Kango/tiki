@@ -110,7 +110,6 @@
                 <div class="adminoptionboxchild" id="error_generic_non_admins_childcontainer">
                     {preference name=error_generic_message}
                 </div>
-                {preference name=disableJavascript}
                 {preference name=log_mail}
                 {preference name=log_sql}
                 <div class="adminoptionboxchild" id="log_sql_childcontainer">

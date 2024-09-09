@@ -47,10 +47,6 @@ class TextArea extends Base
 
         // some defaults
         $params['_toolbars'] = isset($params['_toolbars']) ? $params['_toolbars'] : 'y';
-        if ($prefs['javascript_enabled'] != 'y') {
-            $params['_toolbars'] = 'n';
-        }
-
         $params['_simple'] = isset($params['_simple']) ? $params['_simple'] : 'n';
         $params['_preview'] = isset($params['_preview']) ? $params['_preview'] : 'n';
 
@@ -132,16 +128,12 @@ class TextArea extends Base
                 $template,
                 $remrepeat
             ) . "\n";
-            if ($prefs['javascript_enabled'] === 'y') {
                 $html = str_replace('class="alert alert-warning alert-dismissible"', 'class="alert alert-warning alert-dismissible" style="display:none;"', $html); // quickfix to stop this box appearing before doc.ready
-            }
         }
-
         $params['switcheditor'] = isset($params['switcheditor']) ? $params['switcheditor'] : 'y';
         $smarty->assign('comments', $params['comments']);   // 3 probably removable assigns
         $smarty->assign('switcheditor', $params['switcheditor']);
         $smarty->assign('toolbar_section', $params['section']);
-
         if ($prefs['feature_ajax'] == 'y' && $prefs['ajax_autosave'] == 'y' && $params['_simple'] == 'n' && $params['autosave'] == 'y') {
             // retrieve autosaved content
             $auto_save_referrer = TikiLib::lib('autosave')->ensureReferrer();
@@ -168,15 +160,12 @@ class TextArea extends Base
             $headerlib->add_jq_onready("register_id('$as_id','" . addcslashes($auto_save_referrer, "'") . "');");
             $headerlib->add_js("var autoSaveId = '" . addcslashes($auto_save_referrer, "'") . "';");
         }
-
         if ($prefs['feature_notify_users_mention'] === 'y' && $prefs['feature_tag_users'] === 'y') {
             $headerlib->add_jsfile('lib/jquery_tiki/user_mentions.js');
             $headerlib->add_jq_onready("$('#$as_id').userMentions();");
         }
-
         if ($params['_wysiwyg'] == 'y' && $params['_simple'] == 'n') {
             // TODO cope with wysiwyg and simple
-
             $wysiwyglib = TikiLib::lib('wysiwyg');
 
             if (! isset($params['name'])) {

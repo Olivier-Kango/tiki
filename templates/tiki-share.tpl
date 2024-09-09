@@ -107,11 +107,11 @@
                     {if $report !='y'}
                         <div class="col-sm-9">
                             <label class="col-form-label">
-                                <input class="share-email-show" type="radio" name="do_email" value="1" checked="checked" {if $prefs.disableJavascript!='y'}onclick="$('#emailtable').toggle()" {/if} class="share-email-toggle">
+                                <input class="share-email-show" type="radio" name="do_email" value="1" checked="checked" class="share-email-toggle">
                                 {tr}Yes{/tr}
                             </label>
                             <label class="col-form-label">
-                                <input class="share-email-hide" type="radio" name="do_email" value="0" {if $prefs.disableJavascript!='y'}onclick="$('#emailtable').toggle()" {/if}>
+                                <input class="share-email-hide" type="radio" name="do_email" value="0">
                                 {tr}No{/tr}
                             </label>
                         </div>
@@ -217,9 +217,9 @@
                     </td>
                     <td>
                         {if $twitter}
-                            <input type="radio" name="do_tweet" value="1" {if $prefs.disableJavascript!='y'}onclick="$('#twittertable').toggle()" {/if}>
+                            <input type="radio" name="do_tweet" value="1">
                             {tr}Yes{/tr}
-                            <input type="radio" name="do_tweet" value="0" checked="checked" {if $prefs.disableJavascript!='y'}onclick="$('#twittertable').toggle()" {/if}>
+                            <input type="radio" name="do_tweet" value="0" checked="checked">
                             {tr}No{/tr}
                         {else}
                             {remarksbox type="note" title="{tr}Note{/tr}"}
@@ -256,9 +256,9 @@
                     </td>
                     <td>
                         {if $facebook}
-                            <input type="radio" name="do_fb" value="1" {if $prefs.disableJavascript!='y'}onclick="$('#fbtable').toggle()" {/if}>
+                            <input type="radio" name="do_fb" value="1">
                             {tr}Yes{/tr}
-                            <input type="radio" name="do_fb" value="0" checked="checked" {if $prefs.disableJavascript!='y'}onclick="$('#fbtable').toggle()" {/if}>
+                            <input type="radio" name="do_fb" value="0" checked="checked">
                             {tr}No{/tr}
                         {else}
                             {remarksbox type="note" title="{tr}Note{/tr}"}
@@ -309,11 +309,11 @@
                             {icon name="admin_messages"} {tr}Send a message{/tr}
                         </label>
                         <label>
-                            <input class="share-message-show" type="radio" name="do_message" value="1" {if $prefs.disableJavascript!='y'}onclick="$('#messagetable').toggle()" {/if}>
+                            <input class="share-message-show" type="radio" name="do_message" value="1">
                             {tr}Yes{/tr}
                         </label>
                         <label>
-                            <input class="share-message-hide" type="radio" name="do_message" value="0" checked="checked" {if $prefs.disableJavascript!='y'}onclick="$('#messagetable').toggle()" {/if}>
+                            <input class="share-message-hide" type="radio" name="do_message" value="0" checked="checked">
                             {tr}No{/tr}
                         </label>
                     {else}
@@ -369,11 +369,11 @@
                             </label>
                             <div class="col-sm-9">
                                 <label class="col-form-label">
-                                    <input class="share-forum-show" type="radio" name="do_forum" value="1" {if $prefs.disableJavascript!='y'}onclick="$('#forumtable').toggle()" {/if}>
+                                    <input class="share-forum-show" type="radio" name="do_forum" value="1">
                                     {tr}Yes{/tr}
                                 </label>
                                 <label class="col-form-label">
-                                    <input class="share-forum-hide" type="radio" name="do_forum" value="0" checked="checked" {if $prefs.disableJavascript!='y'}onclick="$('#forumtable').toggle()" {/if}>
+                                    <input class="share-forum-hide" type="radio" name="do_forum" value="0" checked="checked">
                                     {tr}No{/tr}
                                 </label>
                             </div>

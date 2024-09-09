@@ -17,7 +17,7 @@ if (! isset($is_html)) {
         $is_html = false;
     }
 }
-if ($prefs['feature_wysiwyg'] == 'y' && $prefs['javascript_enabled'] == 'y') {
+if ($prefs['feature_wysiwyg'] == 'y') {
     if ($prefs['wysiwyg_optional'] == 'n') {
         $_SESSION['wysiwyg'] = 'y';
     } else {

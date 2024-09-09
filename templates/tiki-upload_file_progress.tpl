@@ -62,7 +62,7 @@
                     </span>
                 {/if}
         </div>
-        <div style="{if $prefs.javascript_enabled eq 'y'}display:none;{/if}" id="uploadinfos{$fileId}">
+        <div style="display:none;" id="uploadinfos{$fileId}">
             <div class="row">
                 <div class="col-sm-6 text-end">
                     {tr}Link to file from a Wiki page:{/tr}
@@ -97,7 +97,7 @@
         </div>
 
         {if isset($ocrdata)}
-            <div style="{if $prefs.javascript_enabled eq 'y'}display:none;{/if}" id="ocrdata{$fileId}">
+        <div style="display:none;" id="ocrdata{$fileId}">
 
                 {remarksbox type="tip" title="{tr}Extracted OCR Data{/tr}"}
                     <i>Using {$ocrlangs}</i>

@@ -50,8 +50,6 @@ class WikiLibTest extends TestCase
         // testing autotoc per page settings
         $prefs['wiki_auto_toc'] = 'y';
         $prefs['feature_page_title'] = 'n';
-        $prefs['javascript_enabled'] = 'y';
-
         $pageContent = '! Heading H1
 !! Heading H2
 Some text

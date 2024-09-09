@@ -743,7 +743,6 @@ try {
                 'confirmForm'                 => 'alpha',
                 //cookie
                 $prefs['cookie_consent_name'] => 'alnum',
-                'javascript_enabled'          => 'alnum',
                 'local_tz'                    => 'text',
                 'local_tzoffset'              => 'int',
                 'PHPSESSID'                   => 'alnum',

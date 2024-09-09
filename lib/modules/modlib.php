@@ -1156,7 +1156,7 @@ class ModLib extends TikiLib
                 }
 
                 $ck = getCookie('mod-' . $mod_reference['name'] . $mod_reference['position'] . $mod_reference['ord'], 'menu', 'o');
-                $smarty->assign('module_display', ($prefs['javascript_enabled'] == 'n' || $ck == 'o'));
+                $smarty->assign('module_display', ($ck == 'o'));
 
                 $smarty->assign_by_ref('module_rows', $mod_reference['rows']);
                 $smarty->assign_by_ref('module_params', $module_params); // module code can unassign this if it wants to hide params

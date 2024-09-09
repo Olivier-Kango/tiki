@@ -16,7 +16,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 $parserlib = TikiLib::lib('parser');
 
-if ($prefs['unified_search_textarea_admin'] === 'n' || $prefs['javascript_enabled'] === 'n') {
+if ($prefs['unified_search_textarea_admin'] === 'n') {
     $plugins = [];
     foreach ($parserlib->plugin_get_list() as $name) {
         $info = $parserlib->plugin_info($name);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $languages = TikiLib::lib('language')->list_languages();
 
     foreach ($languages as $tlang) {
-        $cachetag = 'plugindesc' . $tlang['value'] . '_js=' . $prefs['javascript_enabled'];
+        $cachetag = 'plugindesc' . $tlang['value'];
         $cachelib->invalidate($cachetag);
     }
     if (isset($_POST['enable']) && $access->checkCsrf()) {

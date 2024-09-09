@@ -44,14 +44,12 @@
             {/self_link}
         {/if}
     {else}
-        {if $prefs.javascript_enabled eq 'y'}
-            {if $menu_text neq 'y'}
-                {* This is needed for the 'Upload New Version' action to be correctly displayed
-                when there is only an icon menu (or actions in a column of the table) *}
-                <div style="float:left">
-            {/if}
-        {/if}
+        {if $menu_text neq 'y'}
 
+            {* This is needed for the 'Upload New Version' action to be correctly displayed
+            when there is only an icon menu (or actions in a column of the table) *}
+            <div style="float:left">
+        {/if}
         {if $file.type|truncate:6:'':true eq 'image/' and $file.perms.tiki_p_download_files eq 'y'}
             <a href="{$file.id|sefurl:display}" data-box="box-{$file.id}">
                 {icon name='view' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Display{/tr}"}
@@ -217,20 +215,12 @@
                                 </button>
                             </form>
                         {/if}
-                    {else}
+                        {else}
                         {if (isset($file.p_download_files) and $file.p_download_files eq 'y')
                             or (!isset($file.p_download_files) and $file.perms.tiki_p_download_files eq 'y')}
-                            {if $prefs.javascript_enabled eq 'y'}
-                                {* with javascript, the main page will be reloaded to lock the file and change its lockedby information *}
                                 {self_link _icon_name='download' _menu_text=$menu_text _menu_icon=$menu_icon lock='y' fileId=$file.fileId galleryId=$file.galleryId _onclick="confirmPopup('{tr}Download and lock file?{/tr}', '{ticket mode=get}');" _script=$file.fileId|sefurl:file:with_next}
                                     {tr}Download and lock{/tr}
                                 {/self_link}
-                            {else}
-                                {* without javascript, the lockedby information won't be refreshed until the user do it itself *}
-                                <a href="{$file.fileId|sefurl:file:with_next}lock=y">
-                                    {icon _menu_text=$menu_text _menu_icon=$menu_icon name='download' alt="{tr}Download and lock{/tr}"}
-                                </a>
-                            {/if}
                         {/if}
                         <form action="{$smarty.server.PHP_SELF}" method="post">
                             {ticket}

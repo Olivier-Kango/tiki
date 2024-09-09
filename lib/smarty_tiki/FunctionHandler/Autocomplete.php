@@ -30,7 +30,7 @@ class Autocomplete extends Base
         global $prefs;
         $headerlib = \TikiLib::lib('header');
 
-        if ($prefs['javascript_enabled'] !== 'y' or $prefs['feature_jquery_autocomplete'] !== 'y') {
+        if ($prefs['feature_jquery_autocomplete'] !== 'y') {
             return '';
         }
 

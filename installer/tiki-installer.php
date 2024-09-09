@@ -464,7 +464,6 @@ if ($dbconn) {
             require_once('lib/setup/prefs.php');
             // fix some prefs thwt get reset here
             $prefs['language'] = $language;
-            $prefs['javascript_enabled'] = null;    // seems the check is for $prefs['javascript_enabled'] == 'n'
         }
         update_preferences($prefs);
         $smarty->assign('admin_email', get_admin_email());

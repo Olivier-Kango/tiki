@@ -638,9 +638,7 @@ class HeaderLib
 
 
         global $prefs;
-        if ($prefs['javascript_enabled'] == 'n') {
-            return [];
-        }
+
 
         if (count($this->jsfiles) == 0) {
             return [];
@@ -895,10 +893,6 @@ class HeaderLib
         $this->outputStaticJSFooterWasStartedBy = $this->getOutputCallerInfo();
         global $prefs;
 
-        if ($prefs['javascript_enabled'] == 'n') {
-            return;
-        }
-
         $back = null;
         if (count($this->js_config)) {
             ksort($this->js_config);
@@ -937,9 +931,6 @@ class HeaderLib
         $this->outputStaticJSFooterWasStartedBy = $this->getOutputCallerInfo();
         global $prefs;
 
-        if ($prefs['javascript_enabled'] == 'n') {
-            return;
-        }
 
         ksort($this->js);
         ksort($this->jq_onready);

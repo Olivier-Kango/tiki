@@ -16,7 +16,7 @@
             {/if}
 
             {if ( $prefs.use_context_menu_icon eq 'y' or $prefs.use_context_menu_text eq 'y' )
-                and (!isset($gal_info.show_action) or $gal_info.show_action eq 'y') and $prefs.javascript_enabled eq 'y'}
+                and (!isset($gal_info.show_action) or $gal_info.show_action eq 'y')}
                 {if isset($nbCols)}
                     {assign var=nbCols value=$nbCols+1}
                 {else}
@@ -135,7 +135,7 @@
             {/if}
 
             {if ( $prefs.use_context_menu_icon neq 'y' and $prefs.use_context_menu_text neq 'y' )
-                or (isset($gal_info.show_action) && $gal_info.show_action eq 'y') or $prefs.javascript_enabled neq 'y'}
+                or (isset($gal_info.show_action) && $gal_info.show_action eq 'y')}
                 {if isset($nbCols)}
                     {assign var=nbCols value=$nbCols+1}
                 {else}
@@ -146,7 +146,7 @@
                 </th>
             {/if}
 
-            {if ( !empty($other_columns) or !empty($other_columns_selected)) and $prefs.javascript_enabled eq 'y'}
+            {if ( !empty($other_columns) or !empty($other_columns_selected))}
                 {if isset($nbCols)}
                     {assign var=nbCols value=$nbCols+1}
                 {else}
@@ -298,7 +298,7 @@
                 {/if}
 
                 {if ( $prefs.use_context_menu_icon eq 'y' or $prefs.use_context_menu_text eq 'y' )
-                    and (!isset($gal_info.show_action) or $gal_info.show_action neq 'n') and $prefs.javascript_enabled eq 'y'}
+                    and (!isset($gal_info.show_action) or $gal_info.show_action neq 'n')}
                     <td style="white-space: nowrap">
                         <a class="fgalname tips" title="{tr}Actions{/tr}" href="#" {popup fullhtml="1" center=true text=$smarty.capture.over_actions trigger="click"} style="padding:0; margin:0; border:0">
                             {icon name='wrench' alt="{tr}Actions{/tr}"}
@@ -507,12 +507,12 @@
                 {/if}
 
                 {if ( $prefs.use_context_menu_icon neq 'y' and $prefs.use_context_menu_text neq 'y' )
-                    or (isset($gal_info.show_action) and $gal_info.show_action eq 'y') or $prefs.javascript_enabled neq 'y'}
+                    or (isset($gal_info.show_action) and $gal_info.show_action eq 'y')}
                     {$file=$files[changes]}{* For fgal_context_menu.tpl. Cannot be an include parameter, because "file" is a reserved name. *}
                     <td>{include file='fgal_context_menu.tpl'}</td>
                 {/if}
 
-                {if isset($other_columns) and isset($other_columns_selected) and ( $other_columns neq '' or $other_columns_selected neq '' ) and $prefs.javascript_enabled eq 'y'}
+                {if isset($other_columns) and isset($other_columns_selected) and ( $other_columns neq '' or $other_columns_selected neq '' )}
                     <td>
                         {if $show_infos eq 'y'}
                             {if $over_infos eq ''}
@@ -530,7 +530,7 @@
         {sectionelse}
             {norecords _colspan=$nbCols}
         {/section}
-        {if !empty($files) and $gal_info.show_checked ne 'n' and $tiki_p_admin_file_galleries eq 'y' and $prefs.javascript_enabled eq 'y'
+        {if !empty($files) and $gal_info.show_checked ne 'n' and $tiki_p_admin_file_galleries eq 'y'
             and $view neq 'page'}
             <tr>
                 <td colspan="{$nbCols}">

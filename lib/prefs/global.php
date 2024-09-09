@@ -418,13 +418,6 @@ function prefs_global_list($partial = false)
             'default' => 'tiki-index.php',
             'tags' => ['basic'],
         ],
-        'disableJavascript' => [
-            'name' => tra('Disable JavaScript'),
-            'description' => tra('Disable JavaScript for the purpose of testing even if enabled in the browser.'),
-            'warning' => tra('Use only for testing or troubleshooting. When enabled, many Tiki features will not operate correctly.'),
-            'type' => 'flag',
-            'default' => 'n',
-        ],
         'maxRowsGalleries' => [
             'name' => tra('Maximum rows per page'),
             'type' => 'text',

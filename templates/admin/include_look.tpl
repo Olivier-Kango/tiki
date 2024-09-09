@@ -92,7 +92,7 @@
 
             <legend class="h3">{tr}Other{/tr}</legend>
             {preference name=theme_iconset}
-            {if $prefs.javascript_enabled eq 'n' or $prefs.feature_jquery eq 'n'}
+            {if $prefs.feature_jquery eq 'n'}
                 {* TODO I don't see where this is used in in admin/include_look.php *}
                 <input type="submit" class="btn btn-primary btn-sm" name="changestyle" value="{tr}Go{/tr}">
             {/if}

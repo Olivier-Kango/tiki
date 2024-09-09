@@ -46,15 +46,10 @@ function wikiplugin_jq($data, $params)
     extract($params, EXTR_SKIP);
 
     $nojquery = isset($nojquery) ? $nojquery : tr('<!-- jq plugin inactive: JavaScript off -->');
-    if ($prefs['javascript_enabled'] != 'y') {
-        return $nojquery;
-    }
     $notonready = isset($notonready) ? $notonready : false;
-
     if (! empty($lang) && $lang != $prefs['language']) {
         return;
     }
-
     // Need to manually decode greater than and less than (not sure if we want to decode all HTML entities
     $data = str_replace('&lt;', '<', $data);
     $data = str_replace('&gt;', '>', $data);

@@ -505,9 +505,7 @@ class MenuLib extends TikiLib
                     $params['id'] = $params['structureId'];
                 }
                 $ck = isset($option['position']) ? getCookie('menu' . $params['id'] . '__' . $option['position'], 'menu') : 'o';
-                if ($prefs['javascript_enabled'] === 'n') {
-                    $option['open'] = true;
-                } elseif ($ck === 'o') {
+                if ($ck === 'o') {
                     $option['open'] = true;
                 } elseif ($ck === 'c') {
                     $option['open'] = false;

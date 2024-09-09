@@ -62,8 +62,6 @@ if (is_array($ts->settings)) {
 $msg = "";
 if ($prefs['feature_jquery_tablesorter'] === 'n') {
     $msg = tra('The jQuery Sortable Tables feature must be activated for the sort feature to work.');
-} elseif ($prefs['javascript_enabled'] !== 'y') {
-    $msg = tra('JavaScript must be enabled for the sort feature to work.');
 }
 $smarty->assign('msg', $msg);
 $smarty->assign('orphanPrefs', $orphanPrefs);

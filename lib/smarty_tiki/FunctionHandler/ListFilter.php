@@ -39,7 +39,7 @@ class ListFilter extends Base
         global $prefs, $listfilter_id;
         $headerlib = \TikiLib::lib('header');
 
-        if ($prefs['feature_jquery'] != 'y' || $prefs['javascript_enabled'] != 'y') {
+        if ($prefs['feature_jquery'] != 'y') {
             return '';
         } else {
             extract($params);

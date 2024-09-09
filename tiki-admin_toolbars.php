@@ -40,7 +40,7 @@ $auto_query_args = ['section', 'comments', 'autoreload', 'view_mode'];
 require_once 'tiki-setup.php';
 
 $access->check_permission('tiki_p_admin');
-$access->check_feature(['javascript_enabled', 'feature_jquery_ui']);
+$access->check_feature('feature_jquery_ui');
 
 $sections = [ 'global' => tra('Global'), 'admin' => tra('Admin')];
 $sections2 = [];

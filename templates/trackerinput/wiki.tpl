@@ -10,17 +10,17 @@
     {/if}
     {if $field.options_map['max']}
         <div class="charCount">
-            {if $prefs.javascript_enabled eq 'y'}
-                {tr}Character Count:{/tr} <input type="text" id="cpt_{$field.fieldId}" size="4" readOnly="true"{if !empty($field.page_data)} value="{$field.page_data|count_characters:true}"{/if}>
-            {/if}
+            {tr}Character Count:{/tr}
+            <input type="text" id="cpt_{$field.fieldId}" size="4" readOnly="true"
+                   {if !empty($field.page_data)} value="{$field.page_data|count_characters:true}"{/if}>
             {if $field.options_map['max'] > 0} {tr}Max:{/tr} {$field.options_map['max']}{/if}
         </div>
     {/if}
     {if $field.options_map['wordmax']}
         <div class="wordCount">
-            {if $prefs.javascript_enabled eq 'y'}
-                {tr}Word Count:{/tr} <input type="text" id="cpt_{$field.fieldId}" size="4" readOnly="true"{if !empty($field.page_data)} value="{$field.page_data|count_words}"{/if}>
-            {/if}
+            {tr}Word Count:{/tr}
+            <input type="text" id="cpt_{$field.fieldId}" size="4" readOnly="true"
+                   {if !empty($field.page_data)} value="{$field.page_data|count_words}"{/if}>
             {if $field.options_map['wordmax'] > 0} {tr}Max:{/tr} {$field.options_map['wordmax']}{/if}
         </div>
     {/if}

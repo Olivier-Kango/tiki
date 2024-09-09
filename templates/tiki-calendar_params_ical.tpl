@@ -29,15 +29,17 @@
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td style="border:0;padding-top:2px;vertical-align:middle">
-                                {if $prefs.feature_jscalendar neq 'y' or $prefs.javascript_enabled neq 'y'}
+                                {if $prefs.feature_jscalendar neq 'y'}
                                     <a href="#" onclick="document.f.tstart.selectedIndex=(document.f.tstart.selectedIndex+1);">{icon name='add' align='left'}</a>
                                 {/if}
                             </td>
                             <td style="border:0;padding-top:2px;vertical-align:middle">
-                                {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
+
+                                {if $prefs.feature_jscalendar eq 'y'}
                                     {jscalendar date=$startTime fieldname="tstart" showtime='n'}
                                 {else}
                                     {html_select_date prefix="start_date_" time=$startTime field_order=$prefs.display_field_order start_year=$prefs.calendar_start_year end_year=$prefs.calendar_end_year}
+                                    {jscalendar date=$stopTime fieldname="tstop" showtime='n'}
                                 {/if}
                             </td>
                         </tr>
@@ -50,16 +52,16 @@
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td style="border:0;padding-top:2px;vertical-align:middle">
-                                {if $prefs.feature_jscalendar neq 'y' or $prefs.javascript_enabled neq 'y'}
+                            {if $prefs.feature_jscalendar neq 'y'}
                                     <a href="#" onclick="document.f.tstop.selectedIndex=(document.f.tstop.selectedIndex+1);">{icon name='add' align='left'}</a>
-                                {/if}
+                            {/if}
                             </td>
                             <td style="border:0;padding-top:2px;vertical-align:middle">
-                                {if $prefs.javascript_enabled eq 'y' and $prefs.javascript_enabled eq 'y'}
-                                    {jscalendar date=$stopTime fieldname="tstop" showtime='n'}
-                                {else}
-                                    {html_select_date prefix="stop_date_" time=$stopTime field_order=$prefs.display_field_order start_year=$prefs.calendar_start_year end_year=$prefs.calendar_end_year}
-                                {/if}
+                            {if $prefs.feature_jscalendar eq 'y'}
+                            {jscalendar date=$stopTime fieldname="tstop" showtime='n'}
+                            {else}
+                            {html_select_date prefix="stop_date_" time=$stopTime field_order=$prefs.display_field_order start_year=$prefs.calendar_start_year end_year=$prefs.calendar_end_year}
+                            {/if}
                             </td>
                         </tr>
                     </table>
@@ -74,6 +76,6 @@
 
 </div>
 {/strip}
-{if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
+{if $prefs.feature_jscalendar eq 'y'}
     {js_insert_icon type="jscalendar"}
 {/if}

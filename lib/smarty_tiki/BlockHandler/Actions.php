@@ -52,16 +52,9 @@ class Actions extends Base
             $content = str_ireplace('</action>', '', $content);
             return ($content);
         }
-
-        if ($prefs['javascript_enabled'] !== 'y') {
-            $js = 0;
-            $libeg = '<li>';
-            $liend = '</li>';
-        } else {
-            $js = 1;
-            $libeg = '';
-            $liend = '';
-        }
+        $js = 1;
+        $libeg = '';
+        $liend = '';
 
         if (! $js) {
             $return .= '<ul class="float-end"><li>';

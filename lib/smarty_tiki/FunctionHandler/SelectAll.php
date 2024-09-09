@@ -29,7 +29,7 @@ class SelectAll extends Base
         global $prefs;
         static $checkbox_count = -1;
 
-        if ($prefs['javascript_enabled'] == 'n' || ! is_array($params) || empty($params['checkbox_names'])) {
+        if (! is_array($params) || empty($params['checkbox_names'])) {
             return;
         }
 

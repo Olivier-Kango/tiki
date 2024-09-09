@@ -23,7 +23,6 @@ if (isset($_COOKIE['tikitest_record'])) {
     if (! isset($_SESSION['tiki_cookie_jar'])) {
         $_SESSION['tiki_cookie_jar'] = [];
     }
-    $_SESSION['tiki_cookie_jar']['javascript_enabled'] = 'n';
     if ($_COOKIE['tikitest_record'] != 3) {
         if ($_COOKIE['tikitest_record'] == '') {
             $_COOKIE['tikitest_record'] = 1;

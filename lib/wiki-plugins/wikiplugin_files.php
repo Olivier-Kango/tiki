@@ -563,9 +563,6 @@ function wikiplugin_files($data, $params)
             }
         }
         if (! empty($slideshow) && $slideshow == 'y') {
-            if ($prefs['javascript_enabled'] != 'y') {
-                return;
-            }
             if (empty($data)) {
                 $data = tra('Slideshow');
             }

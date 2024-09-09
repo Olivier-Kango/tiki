@@ -5,41 +5,25 @@
     or ( !empty($gallery_path) && $fgal_options.show_path.value eq 'y' && $tiki_p_view_fgal_path eq 'y' )
 }
     <div class="fgal_top_bar mb-3">
-        {if ! empty($tree) && $tiki_p_list_file_galleries != 'n'
-            && $fgal_options.show_explorer.value eq 'y' && $tiki_p_view_fgal_explorer eq 'y'}
-            {if $prefs.javascript_enabled eq 'y'}
-                <div id="fgalexplorer_close" style="float:left; vertical-align:middle; display:{if ! isset($smarty.session.tiki_cookie_jar.show_fgalexplorer) or $smarty.session.tiki_cookie_jar.show_fgalexplorer eq 'y'}none{else}inline{/if};">
-                    <a href="#"
-                        class="tips"
-                        title=":{tr}Show Tree{/tr}"
-                       aria-label="{tr}Show Tree{/tr}"
-                        onclick="flip('fgalexplorer','');hide('fgalexplorer_close',false);show('fgalexplorer_open',false);return false;">
-                        {icon name='file-archive'}
-                    </a>
-                </div>
-                <div id="fgalexplorer_open" style="float:left; vertical-align:middle; display:{if isset($smarty.session.tiki_cookie_jar.show_fgalexplorer) and $smarty.session.tiki_cookie_jar.show_fgalexplorer neq 'y'}none{else}inline{/if};">
-                    <a href="#"
-                        class="tips"
-                        title=":{tr}Hide Tree{/tr}"
-                       aria-label="{tr}Hide Tree{/tr}"
-                        onclick="flip('fgalexplorer','');hide('fgalexplorer_open',false);show('fgalexplorer_close',false);return false;">
-                        {icon name='file-archive-open'}
-                    </a>
-                </div>
-            {else}
-                <div style="float:left; vertical-align:middle">
-                    {if isset($smarty.request.show_fgalexplorer) and $smarty.request.show_fgalexplorer eq 'y'}
-                        {self_link _icon_name='file-archive-open' _class="tips" _title=":{tr}Hide Tree{/tr}" show_fgalexplorer='n'}
-                        {/self_link}
-                    {else}
-                        {self_link _icon_name='file-archive' show_fgalexplorer='y' _class="tips" _title=":{tr}Show Tree{/tr}"}
-                        {/self_link}
-                    {/if}
-                </div>
-            {/if}
-        {/if}
-        {if $gallery_path neq '' && $fgal_options.show_path.value eq 'y' && $tiki_p_view_fgal_path eq 'y'}
-            <div class="gallerypath" style="vertical-align:middle">&nbsp;&nbsp;{$gallery_path}</div>
+        {if !empty($tree) && $tiki_p_list_file_galleries != 'n' && $fgal_options.show_explorer.value eq 'y' && $tiki_p_view_fgal_explorer eq 'y'}
+            <div id="fgalexplorer_close" style="float:left; vertical-align:middle; display:{if !isset($smarty.session.tiki_cookie_jar.show_fgalexplorer) or $smarty.session.tiki_cookie_jar.show_fgalexplorer eq 'y'}none{else}inline{/if};">
+                <a href="#"
+                    class="tips"
+                    title=":{tr}Show Tree{/tr}"
+                    aria-label="{tr}Show Tree{/tr}"
+                    onclick="flip('fgalexplorer','');hide('fgalexplorer_close',false);show('fgalexplorer_open',false);return false;">
+                    {icon name='file-archive'}
+                </a>
+            </div>
+            <div id="fgalexplorer_open" style="float:left; vertical-align:middle; display:{if isset($smarty.session.tiki_cookie_jar.show_fgalexplorer) and $smarty.session.tiki_cookie_jar.show_fgalexplorer neq 'y'}none{else}inline{/if};">
+                <a href="#"
+                    class="tips"
+                    title=":{tr}Hide Tree{/tr}"
+                    aria-label="{tr}Hide Tree{/tr}"
+                    onclick="flip('fgalexplorer','');hide('fgalexplorer_open',false);show('fgalexplorer_close',false);return false;">
+                    {icon name='file-archive-open'}
+                </a>
+            </div>
         {/if}
     </div>
 {/if}

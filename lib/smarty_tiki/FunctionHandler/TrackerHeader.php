@@ -45,13 +45,13 @@ class TrackerHeader extends Base
             $id = "trackerHeader_$iTrackerHeader";
             $div_id = "block_$id";
             $output .= "<h$level id=\"$id\"";
-            if ($prefs['javascript_enabled'] == 'y' && ($toggle == 'o' || $toggle == 'c')) {
+            if (($toggle == 'o' || $toggle == 'c')) {
                 $output .= ' class="' . ($toggle == 'c' ? 'trackerHeaderClose' : 'trackerHeaderOpen') . '"';
             }
             $output .= '>';
             $output .= "$title";
             $output .= "</h$level>";
-            if ($prefs['javascript_enabled'] == 'y' && ($toggle == 'o' || $toggle == 'c')) {
+            if (($toggle == 'o' || $toggle == 'c')) {
                 $js = "\$('#$id').on('click', function(event){";
                 $js .= "\$('#$div_id').toggle();";
                 $js .= "\$('#$id').toggleClass('trackerHeaderClose');";

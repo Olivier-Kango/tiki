@@ -32,7 +32,7 @@
             <input type="submit" class="btn btn-primary btn-sm" name="qedit" value="{$submit|escape}" />
         </div>
     </form>
-    {if $prefs.javascript_enabled eq 'y' and $prefs.feature_jquery_autocomplete eq 'y'}
+    {if $prefs.feature_jquery_autocomplete eq 'y'}
         {jq}
             $("#{{$qefield}}").tiki("autocomplete", "pagename");
         {/jq}
