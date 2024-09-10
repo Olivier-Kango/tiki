@@ -24,9 +24,12 @@ class TikiDateTimezoneFromUtc
     {
         global $prefs;
 
+        $this->validateTimestamp($string);
+
         $timezone = $this->getValidTimezone($tz ?: $prefs['server_timezone']);
 
         $datetime = new \DateTime("@$string", new \DateTimeZone('UTC'));
+
         $datetime->setTimezone($timezone);
 
         return $datetime->format($format);
@@ -38,6 +41,25 @@ class TikiDateTimezoneFromUtc
             return new \DateTimeZone($tz);
         } catch (\Exception $e) {
             return new \DateTimeZone('UTC');
+        }
+    }
+
+    private function validateTimestamp($timestamp)
+    {
+        if (! is_numeric($timestamp)) {
+            throw new \Services_Exception(tr('Invalid UNIX timestamp "%0"', $timestamp), 400);
+        }
+
+        try {
+            $datetime = \DateTime::createFromFormat('U', $timestamp);
+
+            if (! $datetime || $datetime->format('U') !== (string) $timestamp) {
+                throw new \Services_Exception(tr('Invalid UNIX timestamp "%0"', $timestamp), 400);
+            }
+
+            return true;
+        } catch (\Exception $e) {
+            throw new \Services_Exception($e->getMessage(), 400);
         }
     }
 }
