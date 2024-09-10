@@ -27,6 +27,10 @@ class Hm_Handler_load_tiki_contacts extends Hm_Handler_Module
         $contacts = $this->get('contact_store');
         $tiki_contacts = $contactlib->list_contacts($user);
         foreach ($tiki_contacts as $contact) {
+            // skip adding if it already exists
+            if ($contacts->get(null, false, $contact['email'])) {
+                continue;
+            }
             $contacts->add_contact([
                 'source' => 'tiki',
                 'email_address' => $contact['email'],
