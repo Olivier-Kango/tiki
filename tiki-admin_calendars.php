@@ -182,7 +182,7 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
             // the new custom status name must be different from default
             if (! in_array($newstatus, array_map('strtolower', $defaultstatus))) {
                 // if it is an update
-                if (isset($info)) {
+                if (isset($info["eventstatus"])) {
                     $info["eventstatus"][] = $newstatus;
                     $options["eventstatus"] = $info["eventstatus"];
                 } else {
@@ -384,6 +384,9 @@ $userprefslib = TikiLib::lib('userprefs');
 $smarty->assign('use_24hr_clock', $userprefslib->get_user_clock_pref($user));
 
 $smarty->assign('defaulteventstatus', $info['defaulteventstatus']);
+if (! isset($info["eventstatus"])) {
+    $info["eventstatus"] = $defaultstatus;
+}
 $smarty->assign("eventstatus", $info["eventstatus"]);
 //add translation tag to statuses for display
 $info["eventstatusoutput"] = array_map(
