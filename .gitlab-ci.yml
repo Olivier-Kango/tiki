@@ -694,10 +694,6 @@ check-directories:
     - composer require npm-asset/pdfjs-dist ~2.0.487 --no-progress
     - composer require bower-asset/wodo.texteditor ^0.5.9 --no-progress
     - composer require j0k3r/php-readability ^1.1.10 --no-progress
-    - cd vendor_bundled
-    - php vendor/thibautselingue/local-php-security-checker-installer/bin/local-php-security-checker-installer
-    - cd ..
-    - bin/local-php-security-checker --path=composer.lock
   allow_failure: false
   only:
     refs:
@@ -713,20 +709,17 @@ vendor-bundled-security-check:
   script:
     - composer -V | grep "version 2" || composer self-update --2
     - cd vendor_bundled
-    - php vendor/thibautselingue/local-php-security-checker-installer/bin/local-php-security-checker-installer
-    - cd ..
-    - bin/local-php-security-checker --path=vendor_bundled/composer.lock
-  #We do want our pipeline to spontaneously warn us if a security advisory is released, but we don't want it to stop the development process
+    - composer audit --locked --no-dev
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
-        - 'vendor_bundled/composer.json'
-        - 'vendor_bundled/composer.lock'
+        - "vendor_bundled/composer.json"
+        - "vendor_bundled/composer.lock"
     - if: $CI_COMMIT_BRANCH == "master"
       changes:
-        - 'vendor_bundled/composer.json'
-        - 'vendor_bundled/composer.lock'
+        - "vendor_bundled/composer.json"
+        - "vendor_bundled/composer.lock"
     - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULER == "vendor_check"
 
 update_vendor_bundled_dependencies:
