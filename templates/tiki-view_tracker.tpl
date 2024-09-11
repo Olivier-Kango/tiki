@@ -17,6 +17,7 @@
                 {icon name="create"} {tr}Create Item{/tr}
             </a>
         {/if}
+        
     {/if}
     {include file="tracker_actions.tpl" showitems="n"}
     <div class="btn-group float-sm-end">
@@ -87,6 +88,14 @@
                                 <a class="export dialog" href="{bootstrap_modal controller=tracker action=export trackerId=$trackerId filterfield=$filterfield filtervalue=$filtervalue}">
                                     {icon name="export"} {tr}Export{/tr}
                                 </a>
+                                
+                            </li>
+                            
+                            <li class="dropdown-item">
+                                <a href="tiki-export_tracker_schema.php?trackerIds[]={$trackerId}">
+                                    {icon name="table"} {tr}Show in ER Diagram{/tr}
+                                </a>
+                                    
                             </li>
                         {/if}
                         {if $tiki_p_admin_trackers eq "y"}

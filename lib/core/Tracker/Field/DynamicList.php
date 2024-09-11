@@ -8,13 +8,19 @@ use Tracker\Tabular\Schema;
 
  /**
  * Handler class for DynamicList
+ * https://doc.tiki.org/Dynamic-items-list
  *
  * Letter key: ~w~
  *
+ * TODO: validate parameters (several required)
  */
-// TODO: validate parameters (several required)
-class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\EnumerableInterface
+class Tracker_Field_DynamicList extends \Tracker\Field\AbstractItemField implements \Tracker\Field\ExportableInterface, \Tracker\Field\EnumerableInterface
 {
+    public static function getTrackerFieldClass(): string
+    {
+        return \Tracker\Field\TrackerFieldDynamicList::class;
+    }
+
     public static function getManagedTypesInfo(): array
     {
         return [
@@ -185,7 +191,7 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
                 : $this->getValue(),
         ];
 
-        if ($this->getOption('selectMultipleValues') && ! is_array($data['value'])) {
+        if ($this->trackerField->getOption('selectMultipleValues') && ! is_array($data['value'])) {
             $data['value'] = explode(',', $data['value']);
         }
 
@@ -195,7 +201,7 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
     public function handleSave($value, $oldValue)
     {
         // if selectMultipleValues is enabled, convert the array of options to string before saving the field value in the db
-        if ($this->getOption('selectMultipleValues')) {
+        if ($this->trackerField->getOption('selectMultipleValues')) {
             if (is_array($value)) {
                 $value = implode(',', $value);
             }
@@ -220,17 +226,17 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
         // It fixes also the issue that, if more than one dynamic item list fields are set and use the same
         // $filterFieldIdHere, then the initial value was wrong due to multiple fires of the handler.
 
-        $filterFieldIdHere = trim($this->getOption('filterFieldIdHere'));
-        $trackerIdThere = $this->getOption('trackerId');
-        $listFieldIdThere = $this->getOption('listFieldIdThere');
-        $filterFieldIdThere = $this->getOption('filterFieldIdThere');
-        $statusThere = $this->getOption('statusThere');
+        $filterFieldIdHere = trim($this->trackerField->getOption('filterFieldIdHere'));
+        $trackerIdThere = $this->trackerField->getOption('trackerId');
+        $listFieldIdThere = $this->trackerField->getOption('listFieldIdThere');
+        $filterFieldIdThere = $this->trackerField->getOption('filterFieldIdThere');
+        $statusThere = $this->trackerField->getOption('statusThere');
         $isMandatory = $this->getConfiguration('isMandatory');
         $insertId = $this->getHTMLFieldName();
         $originalValue = $this->getConfiguration('value');
-        $hideBlank = $this->getOption('hideBlank');
-        $selectMultipleValues = $this->getOption('selectMultipleValues', 0);
-        $linkToItems = $this->getOption('linkToItems', 0);
+        $hideBlank = $this->trackerField->getOption('hideBlank');
+        $selectMultipleValues = $this->trackerField->getOption('selectMultipleValues', 0);
+        $linkToItems = $this->trackerField->getOption('linkToItems', 0);
 
         $filterFieldValueHere = $originalValue;
         if (! empty($context['itemId'])) {
@@ -248,7 +254,7 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractField implements 
             return tr('*** ERROR: Field %0 not found ***', $listFieldIdThere);
         }
 
-        if ($this->getOption('selectMultipleValues')) {
+        if ($this->trackerField->getOption('selectMultipleValues')) {
             if (is_array($originalValue)) {
                 $originalValue = implode(',', $originalValue);
             }
@@ -345,18 +351,18 @@ if( $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFi
 $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldHereName . '\']").trigger("change", "initial");
 ', 1);
 
-        if ($this->getOption('inputtype') === 't') {
+        if ($this->trackerField->getOption('inputtype') === 't') {
             $smarty = TikiLib::lib('smarty');
 
             return smarty_function_jstransfer_list([
                 'fieldName' => $insertId,
                 'data' => [],
                 'defaultSelected' => $this->getValue(),
-                'sourceListTitle' => $this->getOption('sourceListTitle'),
-                'targetListTitle' => $this->getOption('targetListTitle'),
-                'filterable' => $this->getOption('filterable'),
-                'filterPlaceholder' => $this->getOption('filterPlaceholder'),
-                'ordering' => $this->getOption('ordering'),
+                'sourceListTitle' => $this->trackerField->getOption('sourceListTitle'),
+                'targetListTitle' => $this->trackerField->getOption('targetListTitle'),
+                'filterable' => $this->trackerField->getOption('filterable'),
+                'filterPlaceholder' => $this->trackerField->getOption('filterPlaceholder'),
+                'ordering' => $this->trackerField->getOption('ordering'),
                 'cardinalityParam' => $this->getConfiguration('validationParam'),
                 'validationMessage' => $this->getConfiguration('validationMessage')
             ], $smarty->getEmptyInternalTemplate());
@@ -374,12 +380,12 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
     {
         $trklib = TikiLib::lib('trk');
         // remote tracker and remote field
-        $trackerIdThere = $this->getOption('trackerId');
+        $trackerIdThere = $this->trackerField->getOption('trackerId');
         $definition = Tracker_Definition::get($trackerIdThere);
         if (empty($definition)) {
             return tr('*** ERROR: No remote tracker selected for DynamicList Field %0 ***', $this->getConfiguration('fieldId'));
         }
-        $listFieldIdThere = $this->getOption('listFieldIdThere');
+        $listFieldIdThere = $this->trackerField->getOption('listFieldIdThere');
         $listFieldThere = $definition->getField($listFieldIdThere);
 
         // $listFieldThere above does not return any value for fieldtype category. Maybe a bug?
@@ -392,7 +398,7 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
         }
 
         $remoteItemIds = $this->getValue();
-        if ($this->getOption('selectMultipleValues') && ! is_array($remoteItemIds)) {
+        if ($this->trackerField->getOption('selectMultipleValues') && ! is_array($remoteItemIds)) {
             $remoteItemIds = explode(',', $remoteItemIds);
             $remoteItemIds = array_filter($remoteItemIds);
         }
@@ -403,7 +409,7 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
 
         // If the request method = GET i.e there is no request for a csv export
         if (! empty($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
-            if ($this->getOption('linkToItems')) {
+            if ($this->trackerField->getOption('linkToItems')) {
                 $context['linkToItems'] = 'y';
             }
         }
@@ -510,7 +516,7 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
         $out = [
             "{$baseKey}_text" => $typeFactory->sortable($this->renderInnerOutput(['list_mode' => 'csv'])),
         ];
-        if ($this->getOption('selectMultipleValues') && ! is_array($item)) {
+        if ($this->trackerField->getOption('selectMultipleValues') && ! is_array($item)) {
             $out[$baseKey] = $typeFactory->multivalue(explode(',', $item));
         } else {
             $out[$baseKey] = $typeFactory->identifier($item);
@@ -529,7 +535,7 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
     {
         $baseKey = $this->getBaseKey();
         return [
-            $baseKey => $this->getOption('selectMultipleValues') ? 'multivalue' : 'identifier',
+            $baseKey => $this->trackerField->getOption('selectMultipleValues') ? 'multivalue' : 'identifier',
             "{$baseKey}_text" => 'sortable'
         ];
     }
@@ -543,9 +549,9 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
     public function getItemList($list_mode = null)
     {
         return TikiLib::lib('trk')->get_all_items(
-            $this->getOption('trackerId'),
-            $this->getOption('listFieldIdThere'),
-            $this->getOption('statusThere', 'opc'),
+            $this->trackerField->getOption('trackerId'),
+            $this->trackerField->getOption('listFieldIdThere'),
+            $this->trackerField->getOption('statusThere', 'opc'),
             [],
             $list_mode
         );
@@ -553,7 +559,7 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
 
     public function canHaveMultipleValues()
     {
-        return (bool) $this->getOption("selectMultipleValues");
+        return (bool) $this->trackerField->getOption("selectMultipleValues");
     }
 
     public function getPossibleItemValues()
@@ -610,21 +616,21 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
     private function getItemIds()
     {
         $trklib = TikiLib::lib('trk');
-        $trackerId = (int) $this->getOption('trackerId');
+        $trackerId = (int) $this->trackerField->getOption('trackerId');
 
-        $filterFieldIdHere = (int) $this->getOption('fieldIdHere');
-        $filterFieldIdThere = (int) $this->getOption('fieldIdThere');
+        $filterFieldIdHere = (int) $this->trackerField->getOption('fieldIdHere');
+        $filterFieldIdThere = (int) $this->trackerField->getOption('fieldIdThere');
 
         $filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
         $filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
 
-        $sortFieldIds = $this->getOption('sortField');
+        $sortFieldIds = $this->trackerField->getOption('sortField');
         if (is_array($sortFieldIds)) {
             $sortFieldIds = array_filter($sortFieldIds);
         } else {
             $sortFieldIds = [];
         }
-        $status = $this->getOption('status', 'opc');
+        $status = $this->trackerField->getOption('status', 'opc');
         $tracker = Tracker_Definition::get($trackerId);
 
 
@@ -733,7 +739,7 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
      */
     private function getItemLabels($items, $context = ['list_mode' => ''])
     {
-        $trackerId = (int) $this->getOption('trackerId');
+        $trackerId = (int) $this->trackerField->getOption('trackerId');
 
         $definition = Tracker_Definition::get($trackerId);
         if (! $definition) {
@@ -749,7 +755,7 @@ $("input[name=\'' . $filterFieldHereName . '\'], select[name=\'' . $filterFieldH
 
         foreach ($items as $itemId) {
             $item = $trklib->get_tracker_item($itemId);
-            $list[$itemId] = $item[$this->getOption('listFieldIdThere')];
+            $list[$itemId] = $item[$this->trackerField->getOption('listFieldIdThere')];
         }
 
         return $list;

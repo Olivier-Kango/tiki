@@ -4,16 +4,21 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tracker\Field\AbstractItemField;
+
 /**
  * Handler to perform a calculation for the tracker entry.
  *
- * Letter key: ~GF~
+ * Letter key: ~math~
  *
  */
-class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\IndexableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
+class Tracker_Field_Math extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\IndexableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     private static $runner;
-
+    /**
+     * Store the original base key of the mirrof field so we can replace it in the output. */
+    private ?string $mirrorFieldBaseKey = null;
     public static function getManagedTypesInfo(): array
     {
         return [
@@ -86,14 +91,10 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
 
     public function renderOutput($context = [])
     {
-        $mirrorField = $this->getOption('mirrorField');
-        if ($mirrorField && $mirrorField != $this->getFieldId()) {
-            $field = TikiLib::lib('trk')->get_field_info($mirrorField);
-            $field['value'] = $this->getValue();
-            return TikiLib::lib('trk')->field_render_value([
-                'field' => $field,
-                'itemId' => $this->getItemId()
-            ]);
+        $mirroredFieldInstance = $this->getMirroredHandler();
+
+        if ($mirroredFieldInstance) {
+            return $mirroredFieldInstance->renderOutput($context);
         } else {
             return $this->getValue();
         }
@@ -127,6 +128,7 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
 
         if ($handler && $handler instanceof \Tracker\Field\IndexableInterface) {
             $out = $handler->getDocumentPart($typeFactory);
+            $out = $this->replaceBaseKeyInArrayKeys($out);
         } else {
             $baseKey = $this->getBaseKey();
             $out[$baseKey] = $typeFactory->sortable($value);
@@ -137,20 +139,22 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
 
     public function getProvidedFields(): array
     {
+        $providedFields = [];
         $handler = $this->getMirroredHandler();
         if ($handler && $handler instanceof \Tracker\Field\IndexableInterface) {
-            return $handler->getProvidedFields();
-        } else {
-            $baseKey = $this->getBaseKey();
-            return [$baseKey];
+            $mirrorProvidedFields = $handler->getProvidedFields();
+            $providedFields = $this->replaceBaseKeyInArrayValues($mirrorProvidedFields);
         }
+        $baseKey = $this->getBaseKey();
+        array_push($providedFields, $this->getBaseKey());
+        return $providedFields;
     }
 
     public function getProvidedFieldTypes(): array
     {
         $handler = $this->getMirroredHandler();
         if ($handler && $handler instanceof \Tracker\Field\IndexableInterface) {
-            return $handler->getProvidedFieldTypes();
+            return $this->replaceBaseKeyInArrayKeys($handler->getProvidedFieldTypes());
         } else {
             $baseKey = $this->getBaseKey();
             return [$baseKey => 'sortable'];
@@ -189,35 +193,35 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
 
         $permName = $this->getConfiguration('permName');
         $schema->addNew($permName, 'default')
-            ->setLabel($this->getConfiguration('name'))
-            ->setRenderTransform(function ($value) {
-                return $value;
-            })
-            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
-                $info['fields'][$permName] = $value;
-            })
-            ;
+        ->setLabel($this->getConfiguration('name'))
+        ->setRenderTransform(function ($value) {
+            return $value;
+        })
+        ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+            $info['fields'][$permName] = $value;
+        })
+        ;
         $schema->addNew($permName, 'default-recalc')
-            ->setLabel($this->getConfiguration('name'))
-            ->setRenderTransform(function ($value) {
-                return $value;
-            })
-            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
-                $info['fields'][$permName] = $value;
-                $data = $info['fields'];
-                if (! empty($info['itemId']) && ! isset($data['old_values_by_permname'])) {
-                    $data['old_values_by_permname'] = [];
-                    $currentItem = (new Services_Tracker_Utilities())->getItem($this->getTrackerDefinition()->getConfiguration('trackerId'), $info['itemId']);
-                    foreach ($currentItem['fields'] as $fieldId => $val) {
-                        $field = $this->getTrackerDefinition()->getField($fieldId);
-                        if ($field) {
-                            $data['old_values_by_permname'][$field['permName']] = $val;
-                        }
+        ->setLabel($this->getConfiguration('name'))
+        ->setRenderTransform(function ($value) {
+            return $value;
+        })
+        ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+            $info['fields'][$permName] = $value;
+            $data = $info['fields'];
+            if (! empty($info['itemId']) && ! isset($data['old_values_by_permname'])) {
+                $data['old_values_by_permname'] = [];
+                $currentItem = (new Services_Tracker_Utilities())->getItem($this->getTrackerDefinition()->getConfiguration('trackerId'), $info['itemId']);
+                foreach ($currentItem['fields'] as $fieldId => $val) {
+                    $field = $this->getTrackerDefinition()->getField($fieldId);
+                    if ($field) {
+                        $data['old_values_by_permname'][$field['permName']] = $val;
                     }
                 }
-                $info['fields'][$permName] = $this->handleFinalSave($data);
-            })
-            ;
+            }
+            $info['fields'][$permName] = $this->handleFinalSave($data);
+        })
+        ;
 
         return $schema;
     }
@@ -238,38 +242,38 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
             $collection->addCloned($permName, $sub);
         } else {
             $collection->addNew($permName, 'fulltext')
-                ->setLabel($name)
-                ->setHelp(tr('Full-text search of the content of the field.'))
-                ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}_ft"))
-                ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
-                    $value = $control->getValue();
+            ->setLabel($name)
+            ->setHelp(tr('Full-text search of the content of the field.'))
+            ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}_ft"))
+            ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
+                $value = $control->getValue();
 
-                    if ($value) {
-                        $query->filterContent($value, $baseKey);
-                    }
-                });
+                if ($value) {
+                    $query->filterContent($value, $baseKey);
+                }
+            });
             $collection->addNew($permName, 'initial')
-                ->setLabel($name)
-                ->setHelp(tr('Search for a value prefix.'))
-                ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}_init"))
-                ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
-                    $value = $control->getValue();
+            ->setLabel($name)
+            ->setHelp(tr('Search for a value prefix.'))
+            ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}_init"))
+            ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
+                $value = $control->getValue();
 
-                    if ($value) {
-                        $query->filterInitial($value, $baseKey);
-                    }
-                });
+                if ($value) {
+                    $query->filterInitial($value, $baseKey);
+                }
+            });
             $collection->addNew($permName, 'exact')
-                ->setLabel($name)
-                ->setHelp(tr('Search for a precise value.'))
-                ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}_em"))
-                ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
-                    $value = $control->getValue();
+            ->setLabel($name)
+            ->setHelp(tr('Search for a precise value.'))
+            ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}_em"))
+            ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
+                $value = $control->getValue();
 
-                    if ($value) {
-                        $query->filterIdentifier($value, $baseKey);
-                    }
-                });
+                if ($value) {
+                    $query->filterIdentifier($value, $baseKey);
+                }
+            });
         }
 
         return $collection;
@@ -313,8 +317,8 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
         if (! self::$runner) {
             self::$runner = new Math_Formula_Runner(
                 [
-                    'Math_Formula_Function_' => '',
-                    'Tiki_Formula_Function_' => '',
+                'Math_Formula_Function_' => '',
+                'Tiki_Formula_Function_' => '',
                 ]
             );
         }
@@ -327,27 +331,66 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
         self::$runner = null;
     }
 
-    public function getMirroredHandler()
+    public function getMirroredHandler(): AbstractItemField | false
     {
-        $mirrorField = $this->getOption('mirrorField');
+        $mirrorFieldId = $this->getOption('mirrorField');
         $handler = false;
 
-        if ($mirrorField && $mirrorField != $this->getFieldId()) {
-            $field = TikiLib::lib('trk')->get_field_info($mirrorField);
-            if ($field) {
+        if ($mirrorFieldId && $mirrorFieldId != $this->getFieldId()) {
+            $mirrorFieldInfo = TikiLib::lib('trk')->get_field_info($mirrorFieldId);
+            if ($mirrorFieldInfo) {
                 $item = TikiLib::lib('trk')->get_tracker_item($this->getItemId());
                 // use calculated value as the mirrored field value to allow handler produce results based on the math calculation
+                //Note that this is still VERY dependant on legacy internal implementation of how field data is cached, but for 27.x it will have to be sufficient - benoitg - 2024-09-04
                 if (isset($item[$this->getFieldId()])) {
-                    $item[$mirrorField] = $item[$this->getFieldId()];
+                    $item[$mirrorFieldId] = $item[$this->getFieldId()];
                 } elseif ($item) {
-                    $item[$mirrorField] = $this->getData($this->getConfiguration('permName'));
+                    $item[$mirrorFieldId] = $this->getData($this->getConfiguration('permName'));
                 }
-                $handler = TikiLib::lib('trk')->get_field_handler($field, $item);
-                $handler->replaceBaseKey($this->getConfiguration('permName'));
+                //var_dump($mirrorFieldInfo, $item);
+                $handler = TikiLib::lib('trk')->get_field_handler($mirrorFieldInfo, $item);
+                $this->mirrorFieldBaseKey = $handler->getBaseKey();
             }
         }
 
         return $handler;
+    }
+
+    private function replaceBaseKeyInArrayValues($array): array
+    {
+        $oldKey = $this->mirrorFieldBaseKey;
+        $newKey = $this->getBaseKey();
+
+        if (array_search($oldKey, $array) === false) {
+            var_dump($oldKey, $array);
+            throw new Error("Sanity-check:  Unable to find the expected mirrorField basekey");
+        }
+
+        $newValues = array_map(function ($value) use ($oldKey, $newKey) {
+            return str_replace($oldKey, $newKey, $value);
+        }, $array);
+
+        return $newValues;
+    }
+
+    private function replaceBaseKeyInArrayKeys($array): array
+    {
+        $oldKeys = array_keys($array);
+        $newKeys = $this->replaceBaseKeyInArrayValues($oldKeys);
+
+        return array_combine($newKeys, $array);
+    }
+
+    /** Be careful, this does NOT return an object */
+    private function getItemField($permName)
+    {
+        $field = $this->getTrackerDefinition()->getFieldFromPermName($permName);
+
+        if ($field) {
+            $id = $field['fieldId'];
+
+            return $this->getData($id);
+        }
     }
 
     public function recalculate()
@@ -389,14 +432,14 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractField implements \Tracke
         global $url_host, $base_url;
 
         return [
-            'itemId' => $this->getItemId(),
-            'trackerId' => $this->getTrackerDefinition()->getConfiguration('trackerId'),
-            'creation_date' => $this->getData('created'),
-            'created_by' => $this->getData('createdBy'),
-            'modification_date' => $this->getData('lastModif'),
-            'last_modified_by' => $this->getData('lastModifBy'),
-            'domain' => $url_host,
-            'base_url' => $base_url . (substr($base_url, -1) == '/' ? '' : '/'),
+        'itemId' => $this->getItemId(),
+        'trackerId' => $this->getTrackerDefinition()->getConfiguration('trackerId'),
+        'creation_date' => $this->getData('created'),
+        'created_by' => $this->getData('createdBy'),
+        'modification_date' => $this->getData('lastModif'),
+        'last_modified_by' => $this->getData('lastModifBy'),
+        'domain' => $url_host,
+        'base_url' => $base_url . (substr($base_url, -1) == '/' ? '' : '/'),
         ];
     }
 }

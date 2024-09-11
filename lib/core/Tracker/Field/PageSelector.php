@@ -11,7 +11,7 @@
  * Possibly doesn't need "non-simple" handling apart from defaultvalue?
  *
  */
-class Tracker_Field_PageSelector extends \Tracker\Field\AbstractField
+class Tracker_Field_PageSelector extends \Tracker\Field\AbstractItemField
 {
     public static function getManagedTypesInfo(): array
     {

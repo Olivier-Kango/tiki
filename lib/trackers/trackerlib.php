@@ -3384,9 +3384,8 @@ class TrackerLib extends TikiLib
         $result = $fieldsTable->fetchAll($fieldsTable->all(), $conditions, $maxRecords, $offset, $fieldsTable->sortMode($sort_mode));
         $cant = $fieldsTable->fetchCount($conditions);
 
-        $factory = new Tracker_Field_Factory();
         foreach ($result as & $res) {
-            $typeInfo = $factory->getFieldInfo($res['type']);
+            $typeInfo = Tracker_Field_Factory::getFieldInfo($res['type']);
             $options = Tracker_Options::fromSerialized($res['options'], $typeInfo);
             $res['options_array'] = $options->buildOptionsArray();
             $res['options_map'] = $options->getAllParameters();
@@ -3938,8 +3937,7 @@ class TrackerLib extends TikiLib
             $res = $this->fields()->fetchFullRow(['permName' => $fieldIdOrPermName]);
         }
         if ($res) {
-            $factory = new Tracker_Field_Factory();
-            $options = Tracker_Options::fromSerialized($res['options'], $factory->getFieldInfo($res['type']));
+            $options = Tracker_Options::fromSerialized($res['options'], Tracker_Field_Factory::getFieldInfo($res['type']));
             $res['options_array'] = $options->buildOptionsArray();
             $res['options_map'] = $options->getAllParameters();
             $res['itemChoices'] = ! empty($res['itemChoices']) ? unserialize($res['itemChoices']) : [];
@@ -4063,8 +4061,7 @@ class TrackerLib extends TikiLib
 
         $types = [];
 
-        $factory = new Tracker_Field_Factory(false);
-        foreach ($factory->getFieldTypes() as $key => $info) {
+        foreach (Tracker_Field_Factory::getFieldTypes() as $key => $info) {
             $types[$key] = [
                 'label' => $info['name'],
                 'opt' => count($info['params']) === 0,
@@ -4664,8 +4661,7 @@ class TrackerLib extends TikiLib
         $query = "select ttif.`value`, ttf.`options` from `tiki_tracker_fields` ttf, `tiki_tracker_item_fields` ttif";
         $query .= " where ttif.`itemId`=? and ttf.`type`=? and ttf.`fieldId`=ttif.`fieldId`";
         $ret = $this->fetchAll($query, [$itemId, $typeField]);
-        $factory = new Tracker_Field_Factory();
-        $typeInfo = $factory->getFieldInfo($typeField);
+        $typeInfo = Tracker_Field_Factory::getFieldInfo($typeField);
         foreach ($ret as &$res) {
             $options = Tracker_Options::fromSerialized($res['options'], $typeInfo);
             $res['options_map'] = $options->getAllParameters();
@@ -5438,9 +5434,9 @@ class TrackerLib extends TikiLib
         $query = 'select ttif.*, ttf.`type`, ttf.`options` from `tiki_tracker_item_fields` ttif left join `tiki_tracker_fields` ttf on (ttif.`fieldId` = ttf.`fieldId`) where `itemId`=?';
         $result = $this->fetchAll($query, [$from]);
         $clean = [];
-        $factory = new Tracker_Field_Factory();
+
         foreach ($result as $res) {
-            $typeInfo = $factory->getFieldInfo($res['type']);
+            $typeInfo = Tracker_Field_Factory::getFieldInfo($res['type']);
             $options = Tracker_Options::fromSerialized($res['options'], $typeInfo);
             $res['options_array'] = $options->buildOptionsArray();
 
@@ -5610,9 +5606,9 @@ class TrackerLib extends TikiLib
      * );
      * </pre
      * @param array $item - array('itemId1' => value1, 'itemid2' => value2)
-     * @return \Tracker\Field\AbstractField $tracker_field_handler - i.e. Tracker_Field_Text
+     * @return \Tracker\Field\AbstractItemField $tracker_field_handler - i.e. Tracker_Field_Text
      */
-    public function get_field_handler(array $field, $item = null): \Tracker\Field\AbstractField|false
+    public function get_field_handler(array $field, $item = null): \Tracker\Field\AbstractItemField|false
     {
         if (! isset($field['trackerId'])) {
             return false;
@@ -6431,8 +6427,8 @@ class TrackerLib extends TikiLib
      *        'item' => array('fieldId1' => fieldValue1, 'fieldId2' => fieldValue2) // optional
      *        'itemId' = 5                  // itemId
      *        'process' => 'y'              // renders the value using the correct field handler
-     *        'oldValue' => ''              // renders the new and old values using \Tracker\Field\AbstractField::renderDiff
-     *        'list_mode' => ''             // i.e. 'y', 'cvs' or 'text' will be used in \Tracker\Field\AbstractField::renderOutput
+     *        'oldValue' => ''              // renders the new and old values using \Tracker\Field\AbstractItemField::renderDiff
+     *        'list_mode' => ''             // i.e. 'y', 'cvs' or 'text' will be used in \Tracker\Field\AbstractItemField::renderOutput
      *        'smarty_assign' => 'y'        // set to n to not assign the value to the $f_fieldId smarty value for pretty trackers
      * )
      * </pre>

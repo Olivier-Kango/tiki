@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tracker\Field\TrackerFieldRelation;
+
 class Search_Query_Relation
 {
     private $qualifier;
@@ -49,15 +52,7 @@ class Search_Query_Relation
 
     public function getInvert()
     {
-        $qualifier = $this->qualifier;
-        $length = strlen('.invert');
-
-        if (substr($qualifier, -$length) === '.invert') {
-            $qualifier = substr($qualifier, 0, -$length);
-        } else {
-            $qualifier .= '.invert';
-        }
-
+        $qualifier = TrackerFieldRelation::getInvertQualifier($this->qualifier);
         return new self($qualifier, $this->type, $this->object);
     }
 }

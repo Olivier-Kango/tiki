@@ -9,7 +9,7 @@
  *
  * Letter key ~I~
  */
-class Tracker_Field_Ip extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
+class Tracker_Field_Ip extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface
 {
     public static function getManagedTypesInfo(): array
     {

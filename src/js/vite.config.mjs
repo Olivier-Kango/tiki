@@ -6,8 +6,8 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import copy from "@guanghechen/rollup-plugin-copy";
 import { glob } from "glob";
 import path from "node:path";
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
 import postcssRootToHost from "./postcssRootToHost";
 /*
 
@@ -195,14 +195,14 @@ export default defineConfig(({ command, mode }) => {
         css: {
             postcss: {
                 plugins: [postcssRootToHost()],
-            }
+            },
         },
         plugins: [
             vue({
                 template: {
                     transformAssetUrls: {
                         base: "/public/generated/js/",
-                    }
+                    },
                 },
             }),
 
@@ -352,8 +352,8 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/driver.js/dist",
                     },
                     {
-                        src : "node_modules/interactjs/dist/*",
-                        dest : "vendor_dist/interactjs/dist"
+                        src: "node_modules/interactjs/dist/*",
+                        dest: "vendor_dist/interactjs/dist",
                     },
                     {
                         src: "node_modules/jquery/dist/*",
@@ -384,39 +384,36 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jquery-validation/dist",
                     },
                     {
+                        src: "node_modules/mermaid/dist/!(mermaid.js|mermaid.min.js)*.(js|mjs)*",
+                        dest: "vendor_dist/mermaid/dist",
+                    },
+                    {
                         src: "node_modules/moment/dist/*",
                         dest: "vendor_dist/moment/dist",
                     },
                     {
-                        src: [
-                            "node_modules/pivottable/dist/pivot.css",
-                            "node_modules/pivottable/dist/*.min.js"
-                        ],
-                        dest : "vendor_dist/pivottable/dist"
+                        src: ["node_modules/pivottable/dist/pivot.css", "node_modules/pivottable/dist/*.min.js"],
+                        dest: "vendor_dist/pivottable/dist",
                     },
                     {
-                        src : "node_modules/plotly.js/dist/topojson*",
-                        dest : "vendor_dist/plotly.js/dist/topojson"
+                        src: "node_modules/plotly.js/dist/topojson*",
+                        dest: "vendor_dist/plotly.js/dist/topojson",
                     },
                     {
-                        src : "node_modules/plotly.js/dist/*.min.js",
-                        dest : "vendor_dist/plotly.js/dist"
+                        src: "node_modules/plotly.js/dist/*.min.js",
+                        dest: "vendor_dist/plotly.js/dist",
                     },
                     {
-                        src : "node_modules/plotly.js/dist/plotly-locale*",
-                        dest : "vendor_dist/plotly.js/dist"
+                        src: "node_modules/plotly.js/dist/plotly-locale*",
+                        dest: "vendor_dist/plotly.js/dist",
                     },
                     {
-                        src : "node_modules/plotly.js/dist/plot-schema.json",
-                        dest : "vendor_dist/plotly.js/dist"
+                        src: "node_modules/plotly.js/dist/plot-schema.json",
+                        dest: "vendor_dist/plotly.js/dist",
                     },
                     {
-                        src : "node_modules/plotly.js/dist/plotly-geo-assets.js",
-                        dest : "vendor_dist/plotly.js/dist"
-                    },
-                    {
-                        src : "node_modules/subtotal/dist/subtotal.min.js",
-                        dest : "vendor_dist/subtotal/dist"
+                        src: "node_modules/plotly.js/dist/plotly-geo-assets.js",
+                        dest: "vendor_dist/plotly.js/dist",
                     },
                     {
                         src: "node_modules/select2/dist/js/select2.min.js",
@@ -433,6 +430,14 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/sortablejs/modular/*",
                         dest: "vendor_dist/sortablejs/modular",
+                    },
+                    {
+                        src: "node_modules/subtotal/dist/subtotal.min.js",
+                        dest: "vendor_dist/subtotal/dist",
+                    },
+                    {
+                        src: "node_modules/svg-pan-zoom/dist/*.min.js",
+                        dest: "vendor_dist/svg-pan-zoom/dist",
                     },
                     {
                         src: "node_modules/vue/dist/vue.esm-browser.prod.js",
@@ -467,25 +472,25 @@ export default defineConfig(({ command, mode }) => {
                 // We don't use https://github.com/unplugin/unplugin-vue-components/resolvers because of https://github.com/vitest-dev/vitest/issues/1402 raised during the execution of the tests
                 resolvers: [
                     (componentName) => {
-                        if(componentName.startsWith("El")) {
+                        if (componentName.startsWith("El")) {
                             return {
                                 name: componentName,
                                 from: `element-plus/dist/index.full.js`,
                             };
                         }
-                    }
+                    },
                 ],
             }),
             Components({
                 resolvers: [
                     (componentName) => {
-                        if(componentName.startsWith("El")) {
+                        if (componentName.startsWith("El")) {
                             return {
                                 name: componentName,
                                 from: `element-plus/dist/index.full.mjs`,
                             };
                         }
-                    }
+                    },
                 ],
             }),
         ],
@@ -495,7 +500,7 @@ export default defineConfig(({ command, mode }) => {
             environment: "happy-dom",
             coverage: {
                 include: ["src/js/{vue-widgets,vue-mf}/**/*.{vue,js}"],
-                exclude: ["**/*.ce.js"]
+                exclude: ["**/*.ce.js"],
             },
         },
     };

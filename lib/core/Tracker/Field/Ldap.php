@@ -10,7 +10,7 @@
  * Letter key: ~P~
  *
  */
-class Tracker_Field_Ldap extends \Tracker\Field\AbstractField
+class Tracker_Field_Ldap extends \Tracker\Field\AbstractItemField
 {
     public static function getManagedTypesInfo(): array
     {

@@ -4,7 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class Tracker_Field_Language extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
+class Tracker_Field_Language extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface
 {
     public static function getManagedTypesInfo(): array
     {

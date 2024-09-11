@@ -7,7 +7,7 @@
 use phpseclib3\Crypt\RSA;
 use phpseclib3\Net\SSH2;
 
-class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractField
+class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractItemField
 {
     public static function getManagedTypesInfo(): array
     {

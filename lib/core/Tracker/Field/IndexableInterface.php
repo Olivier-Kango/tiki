@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tracker\Field;
 
-interface IndexableInterface extends \Tracker\Field\FieldInterface
+interface IndexableInterface extends \Tracker\Field\ItemFieldInterface
 {
     public function getDocumentPart(\Search_Type_Factory_Interface $typeFactory);
 

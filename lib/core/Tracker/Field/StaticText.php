@@ -10,7 +10,7 @@
  * Letter key: ~S~
  *
  */
-class Tracker_Field_StaticText extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
+class Tracker_Field_StaticText extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface
 {
     public static function getManagedTypesInfo(): array
     {

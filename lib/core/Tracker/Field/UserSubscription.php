@@ -10,7 +10,7 @@
  * Letter key: ~U~
  *
  */
-class Tracker_Field_UserSubscription extends \Tracker\Field\AbstractField
+class Tracker_Field_UserSubscription extends \Tracker\Field\AbstractItemField
 {
     public static function getManagedTypesInfo(): array
     {

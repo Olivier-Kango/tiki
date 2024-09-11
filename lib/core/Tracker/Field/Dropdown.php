@@ -10,7 +10,7 @@
  * Letter key: ~d~ ~D~ ~R~ ~M~
  *
  */
-class Tracker_Field_Dropdown extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, Search_FacetProvider_Interface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
+class Tracker_Field_Dropdown extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, Search_FacetProvider_Interface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
 {
     public static function getManagedTypesInfo(): array
     {

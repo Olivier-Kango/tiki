@@ -194,8 +194,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
             }
         }
 
-        $factory = new Tracker_Field_Factory();
-        $fieldInfo = $factory->getFieldInfo($data['type']);
+        $fieldInfo = Tracker_Field_Factory::getFieldInfo($data['type']);
         if (! is_array($data['options'])) {
             $options = Tracker_Options::fromString($data['options'], $fieldInfo);
         } else {
@@ -246,8 +245,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
             }
         }
 
-        $factory = new Tracker_Field_Factory();
-        $fieldInfo = $factory->getFieldInfo($field['type']);
+        $fieldInfo = Tracker_Field_Factory::getFieldInfo($field['type']);
 
         $options = Tracker_Options::fromSerialized($field['options'], $fieldInfo);
         $optionsData = array_filter($options->getAllParameters());

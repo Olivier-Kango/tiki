@@ -5,7 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-use Tracker\Field\AbstractField;
+use Tracker\Field\AbstractItemField;
 
 class Tracker_Item
 {
@@ -549,7 +549,7 @@ class Tracker_Item
     /**
      * Get concrete object to manipulate a field of this item
      */
-    public function getFieldFromPermName($permName): AbstractField
+    public function getFieldFromPermName($permName): AbstractItemField
     {
         $handler = null;
         if ($fieldInfo = $this->definition->getFieldFromPermName($permName)) {

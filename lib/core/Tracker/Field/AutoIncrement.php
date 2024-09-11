@@ -10,7 +10,7 @@
  * Letter key: ~q~
  *
  */
-class Tracker_Field_AutoIncrement extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
+class Tracker_Field_AutoIncrement extends \Tracker\Field\AbstractItemField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     public static function getManagedTypesInfo(): array
     {

@@ -4,13 +4,12 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-namespace Tracker\Field;
 
-interface SynchronizableInterface extends ItemFieldInterface
+namespace Tracker;
+
+class RelationInfoEntity
 {
-    public function importRemote($value);
-
-    public function exportRemote($value);
-
-    public function importRemoteField(array $info, array $syncInfo);
+    public object $instance;  //Typically an AbstractTrackerItem, but will be expanded in the future
+    public int $cardinalityMin;
+    public int $cardinalityMax;
 }

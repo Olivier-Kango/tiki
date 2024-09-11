@@ -10,7 +10,7 @@
  * Letter key: ~DUR~
  *
  */
-class Tracker_Field_Duration extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
+class Tracker_Field_Duration extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     public static function getManagedTypesInfo(): array
     {

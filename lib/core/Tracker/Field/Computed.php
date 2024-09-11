@@ -10,7 +10,7 @@
  * Letter key: ~C~
  *
  */
-class Tracker_Field_Computed extends \Tracker\Field\AbstractField
+class Tracker_Field_Computed extends \Tracker\Field\AbstractItemField
 {
     public static function getManagedTypesInfo(): array
     {

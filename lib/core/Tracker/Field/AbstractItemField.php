@@ -9,13 +9,17 @@ namespace Tracker\Field;
 use Tracker_Definition;
 
 /**
- * Foundation of all trackerfields.
+ * A concrete instance of this class represents a single tracker item instance stored in tiki_tracker_item_fields with keys
  *
- * A concrete instance of this class represents a specific tracker field
- * configured in a specific tracker instance.
- * It is stored as a row in tiki_tracker_fields.
+ * Unfortunately, for legacy reasons it can ALSO take a null value
+ * in the itemData parameter of it's constructor.  In which case it
+ * represents the entire tracker field stored in tiki_tracker_fields.
+ *
+ * This is currently being separated out in the AbstractTrackerField
+ * class hierarchy.  But some legacy methods remain, such as
+ * getOption and getConfiguration.
  */
-abstract class AbstractField implements FieldInterface, IndexableInterface
+abstract class AbstractItemField implements ItemFieldInterface, IndexableInterface
 {
     /**
      * @var string - ???
@@ -23,52 +27,83 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
     private $baseKeyPrefix = '';
 
     /**
-     * An internal structure, that is very close, but not the same as the raw row.  It augmented with a key options_array  (built with Tracker_Options:: buildOptionsArray())
+     * VERY badly named, this can sometimes contain the field data to be rendered!  - benoitg -2024-09-03
+    * @see AbstractTrackerField::getLegacyDefinition()
+    * @deprecated Use the row, or $this->trackerField->getOption()
      */
     private array $definition;
 
     /**
-     * @var handle ??? -
-     */
-    private $options;
-
-    /**
      * @var array - complex data about an item. including itemId, trackerId and values of fields by fieldId=>value pairs
-     *
+     * @deprecated, use itemFieldRow or trackerDefinition
      */
     private $itemData;
 
+    /** Raw row from tiki_tracker_item_fields with keys
+     * itemId
+     * fieldId
+     * value
+     *
+     */
+    private ?array $itemFieldRow = null;
+
+    /** This is just a convenience copy from the trackerField */
     private Tracker_Definition $trackerDefinition;
 
+    protected AbstractTrackerField $trackerField;
+
+    public static function getTrackerFieldClass(): string
+    {
+        return TrackerFieldGeneric::class;
+    }
 
     /**
      * Initialize the instance with field- and trackerdefinition and item value(s)
      * @param array $fieldInfo - the field definition
-     * @param ?array $itemData - itemId/value pair(s).  If empty you can only manipulate informations related to the field.  This seems to be legacy support, only used to getOption().  The problem is that we don't have a TrackerField class representing the tracker field associated to the tracker (not the Tracker item).  This is an easy refactoring, but I have to stop somewhere for now - benoitg - 2024-03-12.
+     * @param ?array $itemData - itemId/value pair(s).  If empty you can only manipulate informations related to the field.  This seems to be legacy support, only used to call getOption().
+     * One should now be able to directly create a AbstractTrackerField instead of an AbstractItemField to getOption(). so any calls to this with a null itemData should be refactored to use it - benoitg - 2024-08-05.
      * This is called with an empty $itemData from TrackerLib::get_field_handler() through Tracker_Field_Factory::getHandler())
      * In practice,
-     * @param array $trackerDefinition - the tracker definition.
+     * @param Tracker_Definition $trackerDefinition - the tracker definition.
      *
      */
-    public function __construct(array $fieldInfo, ?array $itemData, Tracker_Definition $trackerDefinition)
+    public function __construct(array $fieldInfo, ?array $trackerItemData, Tracker_Definition $trackerDefinition, ?AbstractTrackerField $trackerField = null)
     {
-        $this->options = \Tracker_Options::fromSerialized($fieldInfo['options'], $fieldInfo);
+        $this->itemData = $trackerItemData;
 
-        if (! isset($fieldInfo['options_array'])) {
-            $fieldInfo['options_array'] = $this->options->buildOptionsArray();
+        if ($trackerItemData) {
+            $allowedKeys = array_flip(['itemId',
+                'fieldId',
+                'value']);
+            //There is still legacy code that pollute the itemData parameter, so we only copy the known keys
+            //Yes, the values currently arrive in the fieldInfo array!
+            $this->itemFieldRow = array_intersect_key(
+                $fieldInfo,
+                $allowedKeys
+            );
         }
 
+        if (! $trackerField) {
+            $class = static::getTrackerFieldClass();
+            $trackerField = AbstractTrackerField::getInstanceFromTrackerAndRow($trackerDefinition, $fieldInfo);
+        }
+        $this->trackerField = $trackerField;
+        //This is quite problematic, outside code put keys code relies on in this instead of the raw row from the field definition. (mostly through getConfiguration())  This is incredibly hard to spot and debug - benoitg - 2024-09-10
+        //Even putting in trackerField->getLegacyDefinition(); here is not sufficient.   If we really do need tracker field but not tracker item field processing information, this or the tracker item field should get a $context argument, and an API on that context.
         $this->definition = $fieldInfo;
-        $this->itemData = $itemData;
-        $this->trackerDefinition = $trackerDefinition;
+        //$this->definition = $this->trackerField->getLegacyDefinition();
+        $this->trackerDefinition = $this->trackerField->getTrackerDefinition();
     }
 
-    /** @deprecated This is only used by the FieldController.php, and TrackerItemSource.php, and should be refactored.  The structure it exposes is very close, but not the same as the raw database row */
-    public function getFieldDefinition()
+    public static function filterMDArrayByColumns(array $originalArray, array $allowedKeys): array
     {
-        return $this->definition;
+        $retVal = [];
+        $keyFilter = array_flip($allowedKeys); // We need the values as keys for intersect
+        foreach ($originalArray as $key => $value) {
+            $retVal[$key] = array_intersect_key($value, $keyFilter);
+        }
+        return $retVal;
     }
-
 
     /**
      * Not implemented here. Its up to to the extending class.
@@ -95,6 +130,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
      *      'showpopup' => 'y', // wether to show that value in a mouseover popup
      *      'showlinks' => 'n' // NO check for 'y' but 'n'
      *      'list_mode' => 'csv' //
+     *      'value' //For some classes, if present, overrides the value of the field rendered
      * );
      * </pre>
      *
@@ -439,7 +475,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
      */
     public function getInsertId()
     {
-        return 'ins_' . $this->definition['fieldId'];
+        return 'ins_' . $this->trackerField->getId();
     }
 
     /**
@@ -467,26 +503,44 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
 
     protected function getFilterId()
     {
-        return 'filter_' . $this->definition['fieldId'];
+        return 'filter_' . $this->trackerField->getId();
     }
 
     protected function getFieldId()
     {
-        return $this->definition['fieldId'];
+        return $this->trackerField->getId();
+    }
+
+
+    /** @deprecated This is only used by the FieldController.php, and TrackerItemSource.php, and should be refactored.  The structure it exposes is very close, but not the same as the raw database row of the field definition
+     * @see AbstractTrackerField::getLegacyDefinition()
+     */
+    public function getFieldDefinition()
+    {
+        return $this->definition;
     }
 
     /**
-     * Gets data from the field's configuration
+     * Gets data from the tracker field's configuration OR from keys passed from outside the constructor
      *
-     * i.e. from the field definition in the database plus what is returned by the field's getFieldData() function
+     * i.e. from the field definition in the database plus what is returned by the field's row
      *
+     * @deprecated Badly named, and ambiguous (there could be key colisions between the configuration and the data).  Tormally you want to use trackerField->getOption() or trackerField->getLegacyDefinition()
      * @param string $key
      * @param mixed $default
      * @return mixed
      */
     public function getConfiguration($key, $default = false)
     {
-        return isset($this->definition[$key]) ? $this->definition[$key] : $default;
+        if (isset($this->definition[$key])) {
+            return $this->definition[$key];
+        } else {
+            //I didn't want to activate this in a stable branch, but trying to access an unknown key here probably indicates a bug - benoitg - 2024-09-10
+            //trigger_error("Deprecated getConfiguration tried to access an unknown key: $key", E_USER_WARNING);
+            //The following is to debug removing fieldInfo from the definition
+            //throw new \Error("Unknown key: $key");
+            return $default;
+        }
     }
 
     /**
@@ -520,38 +574,42 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
         return $this->getData('itemId');
     }
 
+    /**
+     * Get the item's data
+     *
+     * @deprecated, searches into another opaque structure.
+     * @see $itemData
+     * @return array
+     */
+    protected function getItemData()
+    {
+        return $this->itemData;
+    }
+
+    /**
+     *
+     * @deprecated, searches in $itemData, which may or may not return the same data as getFieldData() or getValue()
+     */
     protected function getData($key, $default = false)
     {
         return isset($this->itemData[$key]) ? $this->itemData[$key] : $default;
     }
 
-    protected function getItemField($permName)
-    {
-        $field = $this->trackerDefinition->getFieldFromPermName($permName);
-
-        if ($field) {
-            $id = $field['fieldId'];
-
-            return $this->getData($id);
-        }
-    }
-
     /**
-     * Return option from the options array.
-     * For the list of options for a particular field check its getManagedTypesInfo() method.
-     * Note: This function should be public, as long as certain low-level trackerlib functions need to be accessed directly.
-     * Otherwise one would be forced to get the options from fields like this: $myField['options_array'][0] ...
-     * @param int $number | string $key.  depending on type: based on the numeric array position, or by name.
-     * @param mixed $default - defaultValue to return if nothing found
-     * @return mixed
+     * Get the tracker field object corresponding to this tracker item field object
      */
-    public function getOption($key, $default = false)
+    protected function getTrackerFieldInstance(): AbstractTrackerField
     {
-        if (is_numeric($key)) {
-            return $this->options->getParamFromIndex($key, $default);
-        } else {
-            return $this->options->getParam($key, $default);
-        }
+        return $this->trackerField;
+    }
+    /**
+     * Backward compatibility return option from the options array.
+     * @see AbstractTrackerField::getOption
+     * @deprecated Use the trackerField->getOption() instead
+     */
+    public function getOption(int|string $key, $default = false)
+    {
+        return $this->trackerField->getOption($key, $default);
     }
 
     /**
@@ -562,21 +620,10 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
         return $this->trackerDefinition;
     }
 
-    /**
-     * Get the item's data
-     *
-     * @return array
-     */
-    protected function getItemData()
-    {
-        return $this->itemData;
-    }
-
     public function isMainField(): bool
     {
         //We use this instead of 'isMain' because there is no constraint enforced that there is only one field per tracker set 'isMain'.
-        $mainFieldId = $this->trackerDefinition->getMainFieldId();
-        return ($this->definition['fieldId'] == $mainFieldId) ? true : false;
+        return ($this->trackerField->getId() == $this->trackerDefinition->getMainFieldId()) ? true : false;
     }
 
     protected function renderTemplate($file, $context = [], $data = [])
@@ -622,6 +669,7 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
         return [$baseKey => true];
     }
 
+    /** These need to move to AbstractTrackerField - benoitg - 2024-09-04 */
     public function getBaseKey()
     {
         global $prefs;
@@ -632,11 +680,6 @@ abstract class AbstractField implements FieldInterface, IndexableInterface
     public function setBaseKeyPrefix($prefix)
     {
         $this->baseKeyPrefix = $prefix;
-    }
-
-    public function replaceBaseKey($permName)
-    {
-        $this->definition['permName'] = $permName;
     }
 
     /**

@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 {
-    private function getParsedValue(): array | string
+    private function getParsedValue(): array
     {
         $value = ['date' => '', 'timezone' => ''];
         $unparsedValue = $this->getValue() ?? $this->getConfiguration('value');

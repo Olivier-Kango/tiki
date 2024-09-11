@@ -4,7 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class Tracker_Field_TikiManager extends \Tracker\Field\AbstractField
+class Tracker_Field_TikiManager extends \Tracker\Field\AbstractItemField
 {
     public static function getManagedTypesInfo(): array
     {

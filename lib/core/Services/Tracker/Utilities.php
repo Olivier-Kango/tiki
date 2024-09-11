@@ -454,8 +454,7 @@ class Services_Tracker_Utilities
         ];
 
         // enable prefs for imported fields if required
-        $factory = new Tracker_Field_Factory(false);
-        $completeList = $factory->getFieldTypes();
+        $completeList = Tracker_Field_Factory::getFieldTypes();
 
         if (! $this->isEnabled($completeList[$data['type']])) {
             foreach ($completeList[$data['type']]['prefs'] as $pref) {
@@ -518,8 +517,7 @@ EXPORT;
 
     public function getFieldTypesDisabled()
     {
-        $factory = new Tracker_Field_Factory(false);
-        $completeList = $factory->getFieldTypes();
+        $completeList = Tracker_Field_Factory::getFieldTypes();
 
         $list = [];
 
@@ -534,8 +532,7 @@ EXPORT;
 
     public function getFieldTypes($filter = [])
     {
-        $factory = new Tracker_Field_Factory(false);
-        $completeList = $factory->getFieldTypes();
+        $completeList = Tracker_Field_Factory::getFieldTypes();
 
         if (! empty($filter)) {
             $completeList = array_intersect_key($completeList, array_flip($filter));
@@ -666,8 +663,7 @@ EXPORT;
 
         foreach (TikiLib::lib('trk')->get_child_items($itemId) as $info) {
             $field = TikiLib::lib('trk')->get_tracker_field($info['field']);
-            $factory = new Tracker_Field_Factory();
-            $options = Tracker_Options::fromSerialized($field['options'], $factory->getFieldInfo($field['type']));
+            $options = Tracker_Options::fromSerialized($field['options'], Tracker_Field_Factory::getFieldInfo($field['type']));
             if (! $options->getParam('duplicateCascade')) {
                 continue;
             }

@@ -7,6 +7,8 @@
 /**
  * AttributeLib
  *
+ * Manages the table tiki_object_attributes
+ *
  * @uses TikiDb_Bridge
  */
 class AttributeLib extends TikiDb_Bridge

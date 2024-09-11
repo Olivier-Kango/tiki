@@ -4,8 +4,12 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tracker\Field\AbstractTrackerField;
+use Tracker\Field\AbstractTrackerFieldRelational;
+
 /**
- * Represents a specific tracker; a row in tiki_trackers
+ * Represents a specific tracker; a row in tiki_trackers.  The class should have been called Tracker
  */
 class Tracker_Definition
 {
@@ -26,11 +30,25 @@ class Tracker_Definition
     private array $trackerInfo;
     private $factory;
     /**
-     * This is the direct return of the the 'data' key of the very messy legacy TrackerLib::list_tracker_fields, may as well read the code directly if you want to know what's in there...
+     * @deprecated, use fieldRows
      */
     private ?array $fields = null;
+    /**
+     * The raw database fields from tiki_tracker_fields for this tracker
+     *
+     * @var array|null
+     */
+    private ?array $fieldRows = null;
 
-    public static function get($trackerId, $useCache = true): Tracker_Definition|false
+    /**
+     * An array of AbstractTrackerFields
+     *
+     * @var array|null
+     */
+    private array $fieldObjectsCache = [];
+    private bool $fieldObjectsCacheComplete = false;
+
+    public static function get($trackerId, bool $useCache = true): Tracker_Definition|false
     {
         $trackerId = (int) $trackerId;
 
@@ -62,6 +80,19 @@ class Tracker_Definition
         return self::$definitions[$trackerId] = $definition;
     }
 
+    public static function getAll(): array
+    {
+        $trklib = TikiLib::lib('trk');
+        $trackerInfos = $trklib->list_trackers(0, -1, 'trackerId_asc');
+        $definitions = [];
+        //var_dump($trackerInfos['list']);
+        foreach ($trackerInfos['list'] as $id => $name) {
+            $definition = self::get($id);
+            $definitions[] = $definition;
+        }
+        return $definitions;
+    }
+
     public static function createFake(array $trackerInfo, array $fields)
     {
         $def = new self($trackerInfo);
@@ -89,6 +120,11 @@ class Tracker_Definition
     public function getId(): int
     {
         return $this->trackerInfo['trackerId'];
+    }
+
+    public function getName(): string
+    {
+        return $this->trackerInfo['name'];
     }
 
     public function getFieldFactory(): Tracker_Field_Factory
@@ -127,6 +163,113 @@ class Tracker_Definition
         return $fields;
     }
 
+    private function getFieldRows(): array
+    {
+        if ($this->fieldRows !== null) {
+            return $this->fieldRows;
+        }
+        global $tikilib;
+        $table = AbstractTrackerField::DB_TABLE_NAME;
+        $query = "SELECT * from `$table` ttf WHERE ttf.`trackerId`=?";
+        $bindVars = [$this->getId()];
+        $this->fieldRows = $tikilib->fetchAll($query, $bindVars);
+        return $this->fieldRows;
+    }
+
+    public function getFieldInstance(int $id): AbstractTrackerField
+    {
+        $fields = $this->getAllFieldInstances();
+        if (isset($fields[$id])) {
+            return $fields[$id];
+        } else {
+            $trackerId = $this->getId();
+            throw new Error("No field with id $id found on tracker $trackerId");
+        }
+    }
+
+    /**
+     * Get all fields of this tracker
+     *
+     * @return array of AbstractTrackerField instances keyef by fieldId
+     */
+    public function getAllFieldInstances(): array
+    {
+        if ($this->fieldObjectsCacheComplete === false) {
+            $fields = [];
+            foreach ($this->getFieldRows() as $fieldRow) {
+                //This will set the cache with setFieldInstanceInCache
+                $fields[$fieldRow['fieldId']] = AbstractTrackerField::getInstanceFromTrackerAndRow($this, $fieldRow);
+            }
+        }
+        return $this->fieldObjectsCache;
+    }
+
+    /** This is only public so AbstractTrackerField can use it. */
+    public function setFieldInstanceInCache(AbstractTrackerField $field): void
+    {
+        if ($field->getTrackerDefinition() !== $this) {
+            throw new Error("The field does not point to this tracker instance");
+        }
+        $this->fieldObjectsCache[$field->getId()] = $field;
+    }
+
+    /** This is only public so AbstractTrackerField can use it. */
+    public function getFieldInstanceFromCache(int $id): ?AbstractTrackerField
+    {
+        return $this->fieldObjectsCache[$id] ?? null;
+    }
+
+    /**
+     * Get all fields representing a relation (all Relation, ItemLink and DynamicList fields)
+     *
+     * @return array of AbstractTrackerFieldRelational instances
+     */
+    public function getDirectRelationalFieldObjects(): array
+    {
+        $retVal = [];
+        foreach ($this->getAllFieldInstances() as $field) {
+            if ($field instanceof AbstractTrackerFieldRelational) {
+                $retVal[$field->getId()] = $field;
+            }
+        }
+        return $retVal;
+    }
+
+        /** This is meant only to filter on field options, for relational trackers, which there is no good way to do in SQL.  This is relatively slow, but should be reasonnable for most applications for now - benoitg - 2024-08-27
+         *
+         * @deprecated, will be replace with proper SQL once the data structure is refactored
+        */
+    public static function getAllRelationalFields()
+    {
+        $relationalFields = [];
+        foreach (\Tracker_Definition::getAll() as $tracker) {
+            foreach ($tracker->getDirectRelationalFieldObjects() as $field) {
+                $relationalFields[$field->getId()] = $field;
+            }
+        }
+        return $relationalFields;
+    }
+
+    /**
+     * Return all relational fields for this tracker
+     *
+     * @return array of AbstractTrackerFieldRelational
+     */
+    public function getAllRelationalFieldInstances(): array
+    {
+        $relationalFieldsInvolvingTracker = [];
+        foreach (static::getAllRelationalFields() as $field) {
+            if ($field->getDistantTrackerId() == $this->getId() || $field->getTrackerDefinition()->getId() == $this->getId()) {
+                $relationalFieldsInvolvingTracker[$field->getId()] = $field;
+            }
+        }
+        return $relationalFieldsInvolvingTracker;
+    }
+
+    /**
+     * This is the direct return of the the 'data' key of the very messy legacy TrackerLib::list_tracker_fields, may as well read the code directly if you want to know what's in there...
+     * @deprecated, use getFieldRows or getAllFieldInstances
+     */
     public function getFields(): array
     {
         if ($this->fields !== null) {
@@ -147,7 +290,7 @@ class Tracker_Definition
     }
 
     /**
-     * Get the field info
+     * Get the field info.  Should be called getRawFields, it does NOT return AbstractItemField objects
      *
      * @param [type] $id The fieldId or permName.  Searches the fieldId if is_numeric, otherwise searches the permName.
      * @return array|null
@@ -166,7 +309,7 @@ class Tracker_Definition
         if (! $id) {
             throw new InvalidArgumentException("id parameter must be provided");
         }
-        foreach ($this->getFields() as $f) {
+        foreach ($this->getFieldRows() as $f) {
             if ($f['fieldId'] == $id) {
                 return true;
             }
@@ -216,14 +359,14 @@ class Tracker_Definition
 
     /**
      * Get the tracker's configured "Main" or "Title" field's id.
-     * There may not be one that is configured, in withc case it returns null
+     * There may not be one that is configured, in which case it returns null
      * There may be more than one configured (the interface doesn't currenty prevent it - benoitg- 2024-03-08), in which case it returns the first one.
      *
      * @return int|null
      */
     public function getMainFieldId(): int|null
     {
-        foreach ($this->getFields() as $field) {
+        foreach ($this->getFieldRows() as $field) {
             if ($field['isMain'] == 'y') {
                 return $field['fieldId'];
             }

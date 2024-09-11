@@ -10,7 +10,7 @@
  * Letter key: ~GF~
  *
  */
-class Tracker_Field_GeographicFeature extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\IndexableInterface, \Tracker\Field\ExportableInterface
+class Tracker_Field_GeographicFeature extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\IndexableInterface, \Tracker\Field\ExportableInterface
 {
     public static function getManagedTypesInfo(): array
     {

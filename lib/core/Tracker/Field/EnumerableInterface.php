@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tracker\Field;
 
-interface EnumerableInterface extends FieldInterface
+interface EnumerableInterface extends ItemFieldInterface
 {
     /**
      * For trackerfields having finite enumerable values (Dropdown, Users, etc.)

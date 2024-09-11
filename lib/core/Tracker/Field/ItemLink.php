@@ -10,12 +10,17 @@
  * Letter key: ~r~
  *
  */
-class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, Search_FacetProvider_Interface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
+class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, Search_FacetProvider_Interface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
 {
     private const CASCADE_NONE = 0;
     private const CASCADE_CATEG = 1;
     private const CASCADE_STATUS = 2;
     private const CASCADE_DELETE = 4;
+
+    public static function getTrackerFieldClass(): string
+    {
+        return \Tracker\Field\TrackerFieldItemLink::class;
+    }
 
     public static function getManagedTypesInfo(): array
     {
@@ -348,11 +353,11 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             return false;
         }
 
-        if ($this->getOption('displayOneItem') === 'one') {
+        if ($this->trackerField->getOption('displayOneItem') === 'one') {
             return false;
         }
 
-        if ($this->getOption('preSelectFieldMethod') === 'crossSelect' || $this->getOption('preSelectFieldMethod') === 'crossSelectWildcards') {
+        if ($this->trackerField->getOption('preSelectFieldMethod') === 'crossSelect' || $this->trackerField->getOption('preSelectFieldMethod') === 'crossSelectWildcards') {
             return false;
         }
 
@@ -361,14 +366,14 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     public function renderInput($context = [])
     {
-        $trackerId = $this->getOption('trackerId');
+        $trackerId = $this->trackerField->getOption('trackerId');
         $trackerPerms = Perms::get('tracker', $trackerId);
 
 
         if ($this->useSelector()) {
             $value = $this->getValue();
             $placeholder = tr(TikiLib::lib('object')->get_title('tracker', $trackerId));
-            $status = implode(' OR ', str_split($this->getOption('status', 'opc'), 1));
+            $status = implode(' OR ', str_split($this->trackerField->getOption('status', 'opc'), 1));
             $value = $value ? "trackeritem:$value" : null;
 
             $format = $this->formatForObjectSelector();
@@ -390,7 +395,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
         $data = [
             'list' => $this->getPossibleItemValues(),
-            'displayFieldsListType' => $this->getOption('displayFieldsListType'),
+            'displayFieldsListType' => $this->trackerField->getOption('displayFieldsListType'),
             'createTrackerItems' => $trackerPerms->create_tracker_items,
         ];
 
@@ -410,7 +415,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             ]);
         }
 
-        $data['selectMultipleValues'] = (bool) $this->getOption('selectMultipleValues');
+        $data['selectMultipleValues'] = (bool) $this->trackerField->getOption('selectMultipleValues');
 
         // 'crossSelect' overrides the preselection reference, which is enabled, when a cross reference Item Link <-> Item Link
         //  When selecting a value another item link can provide the relation, then the cross link can point to several records having the same linked value.
@@ -418,7 +423,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         //  When 'crossSelect' is enabled
         //      1) The dropdown list is no longer disabled (else disabled)
         //      2) All rows in the remote tracker matching the criterea are displayed in the dropdown list (else only 1 row is displayed)
-        $method = $this->getOption('preSelectFieldMethod');
+        $method = $this->trackerField->getOption('preSelectFieldMethod');
         if ($method == 'crossSelect' || $method == 'crossSelectWildcards') {
             $data['crossSelect'] = 'y';
         } else {
@@ -442,7 +447,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
         if ($preselection = $this->getPreselection($linkValue)) {
             $data['preselection'] = $preselection;
-            $data['preselection_value'] = TikiLib::lib('trk')->get_item_value($this->getConfiguration('trackerId'), $this->getItemId(), $this->getOption('preSelectFieldHere'));
+            $data['preselection_value'] = TikiLib::lib('trk')->get_item_value($this->getConfiguration('trackerId'), $this->getItemId(), $this->trackerField->getOption('preSelectFieldHere'));
         } else {
             $preselection = $data['preselection'] = [];
             $data['preselection_value'] = "";
@@ -451,14 +456,14 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         $data['filter'] = $this->buildFilter();
 
         if ($data['crossSelect'] === 'y' && ! empty($preselection) && is_array($preselection)) {
-            if ($this->getOption('displayFieldsListType') === 'table') {
+            if ($this->trackerField->getOption('displayFieldsListType') === 'table') {
                 // nothing to do, list is loaded dynamically via plugin trackerlist
             } else {
                 $data['list'] = array_intersect_key($data['list'], array_flip($preselection));
             }
         }
 
-        if ($this->getOption('preSelectFieldThere') && $this->getOption('preSelectFieldMethod') != 'crossSelectWildcards') {
+        if ($this->trackerField->getOption('preSelectFieldThere') && $this->trackerField->getOption('preSelectFieldMethod') != 'crossSelectWildcards') {
             $data['predefined'] = $this->getItemsToClone();
         } else {
             $data['predefined'] = [];
@@ -467,7 +472,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         if ($data['displayFieldsListType'] === 'table') {
             $data['trackerListOptions'] = [
                 'trackerId' => $trackerId,
-                'fields' => implode(':', $this->getOption('displayFieldsList')),
+                'fields' => implode(':', $this->trackerField->getOption('displayFieldsList')),
                 'editableall' => 'y',
                 'showlinks' => 'y',
                 'sortable' => 'type:reset',
@@ -484,16 +489,16 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                     'itemId' => '#itemId',
                 ])
             ];
-            if ($this->getOption('preSelectFieldThere')) {
-                $data['trackerListOptions']['filterfield'] = $this->getOption('preSelectFieldThere');
+            if ($this->trackerField->getOption('preSelectFieldThere')) {
+                $data['trackerListOptions']['filterfield'] = $this->trackerField->getOption('preSelectFieldThere');
                 $data['trackerListOptions']['exactvalue'] = $data['preselection_value'];
-                if ($this->getOption('preSelectFieldMethod') == 'crossSelectWildcards') {
+                if ($this->trackerField->getOption('preSelectFieldMethod') == 'crossSelectWildcards') {
                     $data['trackerListOptions']['exactvalue'] = 'or(*,' . $data['trackerListOptions']['exactvalue'] . ')';
                 }
             }
-            if ($this->getOption('trackerListOptions')) {
+            if ($this->trackerField->getOption('trackerListOptions')) {
                 $parser = new WikiParser_PluginArgumentParser();
-                $arguments = $parser->parse($this->getOption('trackerListOptions'));
+                $arguments = $parser->parse($this->trackerField->getOption('trackerListOptions'));
                 $data['trackerListOptions'] = array_merge($data['trackerListOptions'], $arguments);
                 if (! empty($arguments['editable']) && empty($arguments['editableall'])) {
                     $data['trackerListOptions']['editableall'] = 'n';
@@ -504,16 +509,16 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             }
         }
 
-        if ($this->getOption('fieldId') && $this->getOption('addItems')) {
+        if ($this->trackerField->getOption('fieldId') && $this->trackerField->getOption('addItems')) {
             $definition = Tracker_Definition::get($trackerId);
-            $fieldArray = $definition->getField($this->getOption('fieldId'));
+            $fieldArray = $definition->getField($this->trackerField->getOption('fieldId'));
             $data['otherFieldPermName'] = $this->getFieldReference($fieldArray);
         }
 
-        if ($this->getOption('displayFieldsListType') === 'transfer') {
-            $filterPlaceholder = $this->getOption('filterPlaceholder') ?: 'Enter keyword';
-            $sourceListTitle = $this->getOption('sourceListTitle') ?: 'List';
-            $targetListTitle = $this->getOption('targetListTitle') ?: 'Selected';
+        if ($this->trackerField->getOption('displayFieldsListType') === 'transfer') {
+            $filterPlaceholder = $this->trackerField->getOption('filterPlaceholder') ?: 'Enter keyword';
+            $sourceListTitle = $this->trackerField->getOption('sourceListTitle') ?: 'List';
+            $targetListTitle = $this->trackerField->getOption('targetListTitle') ?: 'Selected';
 
             $smarty = TikiLib::lib('smarty');
 
@@ -523,9 +528,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                 'defaultSelected' => $this->getValue(),
                 'sourceListTitle' => $sourceListTitle,
                 'targetListTitle' => $targetListTitle,
-                'filterable' => $this->getOption('filterable'),
+                'filterable' => $this->trackerField->getOption('filterable'),
                 'filterPlaceholder' => $filterPlaceholder,
-                'ordering' => $this->getOption('ordering'),
+                'ordering' => $this->trackerField->getOption('ordering'),
                 'cardinalityParam' => $this->getConfiguration('validationParam'),
                 'validationMessage' => $this->getConfiguration('validationMessage')
             ], $smarty->getEmptyInternalTemplate());
@@ -541,9 +546,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     private function formatForObjectSelector()
     {
         $displayFieldsListArray = $this->getDisplayFieldsListArray();
-        $definition = Tracker_Definition::get($this->getOption('trackerId'));
+        $definition = Tracker_Definition::get($this->trackerField->getOption('trackerId'));
         if (! $definition) {
-            Feedback::error(tr('ItemLink: Tracker %0 not found for field "%1"', $this->getOption('trackerId'), $this->getConfiguration('permName')));
+            Feedback::error(tr('ItemLink: Tracker %0 not found for field "%1"', $this->trackerField->getOption('trackerId'), $this->getConfiguration('permName')));
             return '';
         }
         if ($displayFieldsListArray) {
@@ -556,17 +561,17 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                     $field = '{tracker_field_' . $this->getFieldReference($fieldArray) . '}';
                 }
             });
-            if ($format = $this->getOption('displayFieldsListFormat')) {
+            if ($format = $this->trackerField->getOption('displayFieldsListFormat')) {
                 $format = tra($format, '', false, $displayFieldsListArray);
             } else {
                 $format = implode(' ', $displayFieldsListArray);
             }
         } else {
-            $fieldArray = $definition->getField($this->getOption('fieldId'));
+            $fieldArray = $definition->getField($this->trackerField->getOption('fieldId'));
             if (! $fieldArray) {
-                $message = tr('ItemLink: Field %0 not found for field "%1"', $this->getOption('fieldId'), $this->getConfiguration('permName'));
+                $message = tr('ItemLink: Field %0 not found for field "%1"', $this->trackerField->getOption('fieldId'), $this->getConfiguration('permName'));
                 $format = '<div class="alert alert-danger">' . $message . '</div>';
-            } elseif (! $format = $this->getOption('displayFieldsListFormat')) {
+            } elseif (! $format = $this->trackerField->getOption('displayFieldsListFormat')) {
                 $format = '{tracker_field_' . $this->getFieldReference($fieldArray) . '} (itemId:{object_id})';
             }
         }
@@ -597,7 +602,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     private function buildFilter()
     {
         return [
-            'tracker_id' => $this->getOption('trackerId'),
+            'tracker_id' => $this->trackerField->getOption('trackerId'),
         ];
     }
 
@@ -608,12 +613,12 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         $item = $this->getValue();
         $label = $this->renderInnerOutput($context);
 
-        if ($item && ! is_array($item) && (! isset($context['list_mode']) || $context['list_mode'] !== 'csv') && $this->getOption('fieldId')) {
-            if ($this->getOption('linkPage')) {
+        if ($item && ! is_array($item) && (! isset($context['list_mode']) || $context['list_mode'] !== 'csv') && $this->trackerField->getOption('fieldId')) {
+            if ($this->trackerField->getOption('linkPage')) {
                 $link = smarty_function_object_link(
                     [
                         'type' => 'wiki page',
-                        'id' => $this->getOption('linkPage') . '&itemId=' . $item,  // add itemId param TODO properly
+                        'id' => $this->trackerField->getOption('linkPage') . '&itemId=' . $item,  // add itemId param TODO properly
                         'title' => $label,
                     ],
                     $smarty->getEmptyInternalTemplate()
@@ -655,9 +660,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             $labels[] = $this->getItemLabel($i, $context);
         }
 
-        if ($this->getOption('displayFieldsListType') === 'table' && $context['list_mode'] !== 'csv') {
+        if ($this->trackerField->getOption('displayFieldsListType') === 'table' && $context['list_mode'] !== 'csv') {
             $headers = [];
-            $trackerId = (int) $this->getOption('trackerId');
+            $trackerId = (int) $this->trackerField->getOption('trackerId');
             $definition = Tracker_Definition::get($trackerId);
             if ($fields = $this->getDisplayFieldsListArray()) {
                 foreach ($fields as $fieldId) {
@@ -679,7 +684,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         $label = $this->getItemLabel($item, ['list_mode' => 'csv']);
         $baseKey = $this->getBaseKey();
 
-        if ($this->getOption('selectMultipleValues')) {
+        if ($this->trackerField->getOption('selectMultipleValues')) {
             $baseValue = $typeFactory->multivalue(is_array($item) ? $item : explode(',', $item));
         } else {
             $baseValue = $typeFactory->identifier($item);
@@ -690,11 +695,11 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             "{$baseKey}_text" => $typeFactory->sortable($label),
         ];
 
-        $indexRemote = array_filter($this->getOption('indexRemote', []));
+        $indexRemote = array_filter($this->trackerField->getOption('indexRemote', []));
 
         if (count($indexRemote) && is_numeric($item)) {
             $trklib = TikiLib::lib('trk');
-            $trackerId = $this->getOption('trackerId');
+            $trackerId = $this->trackerField->getOption('trackerId');
             $item = $trklib->get_tracker_item($item);
 
             $definition = Tracker_Definition::get($trackerId);
@@ -734,7 +739,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     {
         $baseKey = $this->getBaseKey();
         $fields = [
-            $baseKey => $this->getOption('selectMultipleValues') ? 'multivalue' : 'identifier',
+            $baseKey => $this->trackerField->getOption('selectMultipleValues') ? 'multivalue' : 'identifier',
             "{$baseKey}_text" => 'sortable'
         ];
 
@@ -767,8 +772,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     {
         $handlers = [];
 
-        $trackerId = $this->getOption('trackerId');
-        $indexRemote = array_filter($this->getOption('indexRemote') ?: []);
+        $trackerId = $this->trackerField->getOption('trackerId');
+        $indexRemote = array_filter($this->trackerField->getOption('indexRemote') ?: []);
 
         if (count($indexRemote)) {
             if ($definition = Tracker_Definition::get($trackerId)) {
@@ -808,8 +813,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                 trigger_error(sprintf("Data integrity error: Item %s on tracker %s has an ItemLink field that links to a non-existent item %s", $this->getItemId(), $this->getTrackerDefinition()->getId(), $itemId), E_USER_WARNING);
                 $label = tr("Link to deleted itemId %0", $itemId);
             } else {
-                $trackerId = (int) $this->getOption('trackerId');
-                $status = $this->getOption('status', 'opc');
+                $trackerId = (int) $this->trackerField->getOption('trackerId');
+                $status = $this->trackerField->getOption('status', 'opc');
 
                 $parts = [];
 
@@ -820,7 +825,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                         }
                     }
                 } else {
-                    $fieldId = $this->getOption('fieldId');
+                    $fieldId = $this->trackerField->getOption('fieldId');
 
                     if (isset($item[$fieldId])) {
                         $parts[] = $fieldId;
@@ -829,7 +834,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
 
                 if (count($parts)) {
-                    if ($this->getOption('displayFieldsListType') === 'table' && $context['list_mode'] !== 'csv') {
+                    if ($this->trackerField->getOption('displayFieldsListType') === 'table' && $context['list_mode'] !== 'csv') {
                         $label = "<tr><td>" . $trklib->concat_item_from_fieldslist(
                             $trackerId,
                             $itemId,
@@ -849,8 +854,8 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                             $status,
                             ' ',
                             $context['list_mode'] ?? '',
-                            ! $this->getOption('linkToItem'),
-                            $this->getOption('displayFieldsListFormat'),
+                            ! $this->trackerField->getOption('linkToItem'),
+                            $this->trackerField->getOption('displayFieldsListFormat'),
                             $item
                         );
                     }
@@ -872,34 +877,34 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     public function canHaveMultipleValues()
     {
-        return (bool) ($this->getOption('displayFieldsListType') === 'transfer' || $this->getOption('displayFieldsListType') === 'table' || $this->getOption("selectMultipleValues"));
+        return (bool) ($this->trackerField->getOption('displayFieldsListType') === 'transfer' || $this->trackerField->getOption('displayFieldsListType') === 'table' || $this->trackerField->getOption("selectMultipleValues"));
     }
 
     public function getPossibleItemValues()
     {
         if ($displayFieldsList = $this->getDisplayFieldsListArray()) {
-            if ($this->getOption('displayFieldsListType') === 'table') {
+            if ($this->trackerField->getOption('displayFieldsListType') === 'table') {
                 $list = TikiLib::lib('trk')->get_fields_from_fieldslist(
-                    $this->getOption('trackerId'),
+                    $this->trackerField->getOption('trackerId'),
                     $displayFieldsList
                 );
             } else {
                 $list = TikiLib::lib('trk')->concat_all_items_from_fieldslist(
-                    $this->getOption('trackerId'),
+                    $this->trackerField->getOption('trackerId'),
                     $displayFieldsList,
-                    $this->getOption('status', 'opc'),
+                    $this->trackerField->getOption('status', 'opc'),
                     ' ',
                     'csv',
                     true,
-                    $this->getOption('displayFieldsListFormat')
+                    $this->trackerField->getOption('displayFieldsListFormat')
                 );
                 $list = $this->handleDuplicates($list);
             }
         } else {
             $list = TikiLib::lib('trk')->get_all_items(
-                $this->getOption('trackerId'),
-                $this->getOption('fieldId'),
-                $this->getOption('status', 'opc'),
+                $this->trackerField->getOption('trackerId'),
+                $this->trackerField->getOption('fieldId'),
+                $this->trackerField->getOption('status', 'opc'),
                 $this->getValue(),
                 'csv'
             );
@@ -912,7 +917,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     private function handleDuplicates($list)
     {
         $uniqueList = array_unique($list);
-        if ($this->getOption('displayOneItem') != 'multi') {
+        if ($this->trackerField->getOption('displayOneItem') != 'multi') {
             $value = (int) $this->getValue();
             if ($value && isset($list[$value]) && ! isset($uniqueList[$value])) {
                 // if we already have a value set make sure we return the correct itemId one
@@ -945,7 +950,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     private function getTableDisplayFormat()
     {
-        $format = $this->getOption('displayFieldsListFormat');
+        $format = $this->trackerField->getOption('displayFieldsListFormat');
         if (! $format) {
             $cnt = count($this->getDisplayFieldsListArray());
             $format = '%' . implode(',%', range(0, $cnt - 1));
@@ -999,11 +1004,11 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
     {
         $trklib = TikiLib::lib('trk');
 
-        $localField = $this->getOption('preSelectFieldHere');
-        $remoteField = $this->getOption('preSelectFieldThere');
-        $method = $this->getOption('preSelectFieldMethod');
+        $localField = $this->trackerField->getOption('preSelectFieldHere');
+        $remoteField = $this->trackerField->getOption('preSelectFieldThere');
+        $method = $this->trackerField->getOption('preSelectFieldMethod');
         $localTrackerId = $this->getConfiguration('trackerId');
-        $remoteTrackerId = $this->getOption('trackerId');
+        $remoteTrackerId = $this->trackerField->getOption('trackerId');
 
         $localValue = $trklib->get_item_value($localTrackerId, $this->getItemId(), $localField);
 
@@ -1056,13 +1061,13 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     public function itemsRequireRefresh($trackerId, $modifiedFields)
     {
-        if ($this->getOption('trackerId') != $trackerId) {
+        if ($this->trackerField->getOption('trackerId') != $trackerId) {
             return false;
         }
 
         $usedFields = array_merge(
-            [$this->getOption('fieldId')],
-            $this->getOption('indexRemote', []),
+            [$this->trackerField->getOption('fieldId')],
+            $this->trackerField->getOption('indexRemote', []),
             $this->getDisplayFieldsListArray()
         );
 
@@ -1088,11 +1093,11 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
     private function cascade($trackerId, $flag)
     {
-        if ($this->getOption('trackerId') != $trackerId) {
+        if ($this->trackerField->getOption('trackerId') != $trackerId) {
             return false;
         }
 
-        return ($this->getOption('cascade') & $flag) > 0;
+        return ($this->trackerField->getOption('cascade') & $flag) > 0;
     }
 
     public function watchCompare($old, $new)
@@ -1122,19 +1127,19 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
         global $user, $tiki_p_admin_trackers;
 
         $fields = [];
-        $option = $this->getOption('displayFieldsList');
+        $option = $this->trackerField->getOption('displayFieldsList');
         if (! is_array($option)) {
             $option = [$option];
         }
         // filter by user-visible fields
-        $remoteTrackerId = (int) $this->getOption('trackerId');
+        $remoteTrackerId = (int) $this->trackerField->getOption('trackerId');
         $definition = Tracker_Definition::get($remoteTrackerId);
         if ($definition) {
             foreach (array_filter($option) as $fieldId) {
                 if (! $definition->hasFieldId($fieldId)) {
                     Feedback::error(tr('ItemLink field "%0": displayFieldsList field ID #%1 not found', $this->getConfiguration('permName'), $fieldId));
                     $trackerId = $this->getConfiguration('trackerId');
-                    $remoteTrackerId = $this->getOption('trackerId');
+                    $remoteTrackerId = $this->trackerField->getOption('trackerId');
                     $itemId = $this->getItemId();
                     trigger_error("ItemLink data integrity error: tracker item {$itemId} in tracker {$trackerId} has an ItemLink pointing to non-existent fieldId {$fieldId} in remote tracker {$remoteTrackerId}");
                     continue;
@@ -1216,12 +1221,12 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                     }
                 });
 
-            if ($fieldId = $this->getOption('fieldId')) {
+            if ($fieldId = $this->trackerField->getOption('fieldId')) {
                 $simpleField = Tracker\Tabular\Schema\CachedLookupHelper::fieldLookup($fieldId);
                 $invertField = Tracker\Tabular\Schema\CachedLookupHelper::fieldInvert($fieldId);
 
                 // if using displayFieldsList then only export the 'value' of the field, i.e. the title of the linked item
-                $useTextLabel = empty(array_filter($this->getOption('displayFieldsList')));
+                $useTextLabel = empty(array_filter($this->trackerField->getOption('displayFieldsList')));
 
                 $getRenderTransformFunction = function ($separator) use ($simpleField, $useTextLabel, $itemIdLookup) {
                     return function ($value, $extra) use ($separator, $simpleField, $useTextLabel, $itemIdLookup) {
@@ -1301,12 +1306,12 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                     }
                 });
 
-            if ($fieldId = $this->getOption('fieldId')) {
+            if ($fieldId = $this->trackerField->getOption('fieldId')) {
                 $simpleField = Tracker\Tabular\Schema\CachedLookupHelper::fieldLookup($fieldId);
                 $invertField = Tracker\Tabular\Schema\CachedLookupHelper::fieldInvert($fieldId);
 
                 // if using displayFieldsList then only export the 'value' of the field, i.e. the title of the linked item
-                $useTextLabel = empty(array_filter($this->getOption('displayFieldsList')));
+                $useTextLabel = empty(array_filter($this->trackerField->getOption('displayFieldsList')));
 
                 $schema->addNew($permName, 'lookup-simple')
                     ->setLabel($name)
@@ -1328,7 +1333,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
             // linked items have their own tabular sync, so use that to map fields
             $remoteSchema = null;
-            $definition = Tracker_Definition::get($this->getOption('trackerId'));
+            $definition = Tracker_Definition::get($this->trackerField->getOption('trackerId'));
             if ($definition) {
                 $tabular = null;
                 $tabularId = $definition->getConfiguration('tabularSync');
@@ -1346,7 +1351,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                     ->addIncompatibility($permName, 'id')
                     ->addQuerySource('text', "tracker_field_{$permName}_text")
                     ->setRenderTransform(function ($value, $extra) {
-                        $useTextLabel = empty(array_filter($this->getOption('displayFieldsList')));
+                        $useTextLabel = empty(array_filter($this->trackerField->getOption('displayFieldsList')));
                         if (isset($extra['text']) && $useTextLabel) {
                             return $extra['text'];
                         } else {
@@ -1404,9 +1409,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
             ->setLabel($name)
             ->setControl(new Tracker\Filter\Control\ObjectSelector("tf_{$permName}_os", [
                 'type' => 'trackeritem',
-                'tracker_status' => implode(' OR ', str_split($this->getOption('status', 'opc'), 1)),
-                'tracker_id' => $this->getOption('trackerId'),
-                '_placeholder' => tr(TikiLib::lib('object')->get_title('tracker', $this->getOption('trackerId'))),
+                'tracker_status' => implode(' OR ', str_split($this->trackerField->getOption('status', 'opc'), 1)),
+                'tracker_id' => $this->trackerField->getOption('trackerId'),
+                '_placeholder' => tr(TikiLib::lib('object')->get_title('tracker', $this->trackerField->getOption('trackerId'))),
                 '_format' => $this->formatForObjectSelector(),
             ]))
             ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey, $multivalue) {
@@ -1427,9 +1432,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                 "tf_{$permName}_ms",
                 [
                     'type' => 'trackeritem',
-                    'tracker_status' => implode(' OR ', str_split($this->getOption('status', 'opc'), 1)),
-                    'tracker_id' => $this->getOption('trackerId'),
-                    '_placeholder' => tr(TikiLib::lib('object')->get_title('tracker', $this->getOption('trackerId'))),
+                    'tracker_status' => implode(' OR ', str_split($this->trackerField->getOption('status', 'opc'), 1)),
+                    'tracker_id' => $this->trackerField->getOption('trackerId'),
+                    '_placeholder' => tr(TikiLib::lib('object')->get_title('tracker', $this->trackerField->getOption('trackerId'))),
                     '_format' => $this->formatForObjectSelector(),
                 ],
                 true
@@ -1454,10 +1459,10 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
                 }
             });
 
-        $indexRemote = array_filter($this->getOption('indexRemote') ?: []);
+        $indexRemote = array_filter($this->trackerField->getOption('indexRemote') ?: []);
         if (count($indexRemote)) {
             $trklib = TikiLib::lib('trk');
-            $trackerId = $this->getOption('trackerId');
+            $trackerId = $this->trackerField->getOption('trackerId');
             $item = $trklib->get_tracker_item($this->getItemId());
 
             $definition = Tracker_Definition::get($trackerId);
@@ -1500,7 +1505,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
         $trackerId = $this->getConfiguration('trackerId');
         $fieldId = $this->getConfiguration('fieldId');
-        $remoteTrackerId = $this->getOption('trackerId');
+        $remoteTrackerId = $this->trackerField->getOption('trackerId');
 
         $tracker = $trklib->get_tracker($trackerId);
 
@@ -1515,7 +1520,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
 
         $format = $this->formatForObjectSelector();
         $filter = 'tracker_id=' . $remoteTrackerId . '&object_type=trackeritem';
-        $status = $this->getOption('status');
+        $status = $this->trackerField->getOption('status');
         if ($status != 'opc') {
             $filter .= '&tracker_status=' . (implode(' OR ', str_split($status)));
         }
@@ -1558,12 +1563,12 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractField implements \Tr
      */
     private function getItemsToClone()
     {
-        $trackerId = $this->getOption('trackerId');
+        $trackerId = $this->trackerField->getOption('trackerId');
         $definition = Tracker_Definition::get($trackerId);
         $utilities = new Services_Tracker_Utilities();
         $result = [];
 
-        $predefined = TikiLib::lib('trk')->get_all_item_id($trackerId, $this->getOption('preSelectFieldThere'), '*');
+        $predefined = TikiLib::lib('trk')->get_all_item_id($trackerId, $this->trackerField->getOption('preSelectFieldThere'), '*');
         foreach ($predefined as $itemId) {
             $item = $utilities->getItem($trackerId, $itemId);
             $result[$itemId] = $utilities->getTitle($definition, $item);

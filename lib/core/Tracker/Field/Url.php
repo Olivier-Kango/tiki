@@ -9,7 +9,7 @@
  *
  * - url key ~L~
  */
-class Tracker_Field_Url extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface
+class Tracker_Field_Url extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface
 {
     public static function getManagedTypesInfo(): array
     {

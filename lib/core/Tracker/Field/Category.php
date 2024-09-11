@@ -11,7 +11,7 @@
  *
  * N.B. Implements \Tracker\Field\IndexableInterface so items can be recategorised when indexing
  */
-class Tracker_Field_Category extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, \Tracker\Field\IndexableInterface
+class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, \Tracker\Field\IndexableInterface
 {
     public static function getManagedTypesInfo(): array
     {

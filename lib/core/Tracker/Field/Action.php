@@ -4,9 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-//print_r(\Tracker\Field\AbstractField);
+//print_r(\Tracker\Field\AbstractItemField);
 
-class Tracker_Field_Action implements \Tracker\Field\FieldInterface
+class Tracker_Field_Action implements \Tracker\Field\ItemFieldInterface
 {
     public static function getManagedTypesInfo(): array
     {

@@ -10,7 +10,7 @@
  * Letter key: ~f~
  *
  */
-class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, Search_FacetProvider_Interface
+class Tracker_Field_DateTime extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, Search_FacetProvider_Interface
 {
     public static function getManagedTypesInfo(): array
     {
@@ -192,7 +192,7 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tr
         if (isset($context['value'])) {
             $value = $context['value'];
         } else {
-            $value = $this->getConfiguration('value');
+            $value = $this->getValue();
         }
 
         if ($value) {
@@ -228,6 +228,8 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractField implements \Tr
             } else {
                 return $tikilib->get_short_datetime($value);
             }
+        } else {
+            return '';
         }
     }
 

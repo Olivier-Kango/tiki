@@ -12,6 +12,10 @@
 
 use Tiki\Relation\ObjectRelation;
 
+/**
+ * Manages the table 'tiki_object_relations'
+ * @see Tracker_Field_Relation which also manages table 'tiki_object_relations'
+ */
 class RelationLib extends TikiDb_Bridge
 {
     private $table;
