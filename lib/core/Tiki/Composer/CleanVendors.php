@@ -335,17 +335,10 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'plotly/plotly.js/',
+            $vendors . 'npm-asset/zxing--library/',
             [
-                'test',
-                'devtools',
-                'src',
-                'dist/README.md',
-                'dist/extras',
-                'dist/topojson',
-                'CHANGELOG.md',
-                'CONTRIBUTING.md',
-                'README.md'
+                'esm',
+                'esm5',
             ]
         );
         self::remove(

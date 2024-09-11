@@ -395,6 +395,30 @@ export default defineConfig(({ command, mode }) => {
                         dest : "vendor_dist/pivottable/dist"
                     },
                     {
+                        src : "node_modules/plotly.js/dist/topojson*",
+                        dest : "vendor_dist/plotly.js/dist/topojson"
+                    },
+                    {
+                        src : "node_modules/plotly.js/dist/*.min.js",
+                        dest : "vendor_dist/plotly.js/dist"
+                    },
+                    {
+                        src : "node_modules/plotly.js/dist/plotly-locale*",
+                        dest : "vendor_dist/plotly.js/dist"
+                    },
+                    {
+                        src : "node_modules/plotly.js/dist/plot-schema.json",
+                        dest : "vendor_dist/plotly.js/dist"
+                    },
+                    {
+                        src : "node_modules/plotly.js/dist/plotly-geo-assets.js",
+                        dest : "vendor_dist/plotly.js/dist"
+                    },
+                    {
+                        src : "node_modules/subtotal/dist/subtotal.min.js",
+                        dest : "vendor_dist/subtotal/dist"
+                    },
+                    {
                         src: "node_modules/select2/dist/js/select2.min.js",
                         dest: "vendor_dist/select2/dist",
                     },
