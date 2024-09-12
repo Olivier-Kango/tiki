@@ -182,6 +182,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\TikiDateFormat(), 'handle'];
             case 'tiki_date_timezone_from_utc':
                 return [new \SmartyTiki\Modifier\TikiDateTimezoneFromUtc(), 'handle'];
+            case 'strtotime':
+                return [$this, 'smartyModifierStrtotime'];
             case 'tiki_long_date':
                 return [new \SmartyTiki\Modifier\TikiLongDate(), 'handle'];
             case 'tiki_long_datetime':
@@ -1057,5 +1059,19 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierZoneIsEmpty($zoneName)
     {
         return zone_is_empty($zoneName);
+    }
+
+    /**
+     * Smarty modifier strtotime
+     * -------------------------
+     * Purpose: Parse about any English textual datetime description into a Unix timestamp.
+     *
+     * @param string $datetime The date/time string to convert.
+     * @param int|null $baseTimestamp The base timestamp to use for relative calculations.
+     * @return int|false The Unix timestamp representing the given date/time string, or false on failure.
+     */
+    public function smartyModifierStrtotime($datetime, $baseTimestamp = null)
+    {
+        return strtotime($datetime, $baseTimestamp);
     }
 }
