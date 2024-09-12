@@ -2239,13 +2239,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "6723ab2186c7052a8a0dfad854ed087d50cfc622"
+                "reference": "315dd1a4cb62dc835c63a6ce3f0bc14dc97ab664"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-6723ab2186c7052a8a0dfad854ed087d50cfc622-zip-070207.zip",
-                "reference": "6723ab2186c7052a8a0dfad854ed087d50cfc622",
-                "shasum": "48305e93010767dc6f2b07ee6ac02d7c38a4a5fe"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-315dd1a4cb62dc835c63a6ce3f0bc14dc97ab664-zip-cbff92.zip",
+                "reference": "315dd1a4cb62dc835c63a6ce3f0bc14dc97ab664",
+                "shasum": "13c54bf7c146119041383b73de320e577895b320"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2264,6 +2264,7 @@
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=8.1",
                 "symfony/dotenv": "^4.3 || 5.4",
+                "symfony/yaml": "~6.4.3",
                 "thomaspark/bootswatch": "^5.3",
                 "twbs/bootstrap": "^5.3",
                 "twbs/bootstrap-icons": "^1.11",
@@ -2311,7 +2312,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-09-10T18:34:10+00:00"
+            "time": "2024-09-12T08:36:48+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
