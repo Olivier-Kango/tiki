@@ -4,8 +4,15 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-/*
+
+use Tiki\Relation\ObjectRelation;
+use Tracker\Field;
+use Tracker\Field\TrackerFieldRelation;
+
+/**
 The Relation field type create a Many-to-Many relationship through the table tiki_object_relations (also used by wiki pages and other objects) and the table tracker_item_fields
+
+@see Tracker_Field_Relation which also manages table 'tiki_object_relations'
 
 The data saved in tiki_object_relations by this code has the following structure:
 
@@ -30,16 +37,8 @@ No data is saved in tracker_item_fields value column. Canonical representation o
 
 Part of the documentation is at https://dev.tiki.org/Object+Attributes+and+Relations and https://doc.tiki.org/Relations-Tracker-Field
 */
-
-use Tiki\Relation\ObjectRelation;
-
-class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
+class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
-    private const OPT_RELATION = 'relation';
-    private const OPT_FILTER = 'filter';
-    private const OPT_READONLY = 'readonly';
-    private const OPT_INVERT = 'invert';
-
     public static $refreshedTargets = [];
 
     public static function getManagedTypesInfo(): array
@@ -88,6 +87,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                         ],
                         'legacy_index' => 2,
                     ],
+                    /* Having a hard time understanding the practical use of this one.  It seems to cause the values from BOTH side of the relation to be merged into one deduplicated list.  - benoitg - 2024-08-09 */
                     'invert' => [
                         'name' => tr('Include Invert'),
                         'description' => tr('Include invert relations in the list'),
@@ -133,6 +133,27 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         ];
     }
 
+    public static function getTrackerFieldClass(): string
+    {
+        return TrackerFieldRelation::class;
+    }
+
+    /**
+     * Get the ObjectRelation objects that touch this Relation field
+     *
+     * @return array of ObjectRelation objects
+     */
+    private function getObjectRelationInstances(): array
+    {
+        $relations = [];
+        $relation = $this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION);
+        $relations = TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation);
+        if ($this->trackerField->getOption(TrackerFieldRelation::OPT_INVERT)) {
+            $relations = array_merge($relations, TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation, true));
+        }
+        return $relations;
+    }
+
     public function getFieldData(array $requestData = [])
     {
         $insertId = $this->getInsertId();
@@ -140,7 +161,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $data = [];
         $relations = [];
         $meta = [];
-        if (! $this->getOption(self::OPT_READONLY) && isset($requestData[$insertId])) {
+        if (! $this->trackerField->getOption(TrackerFieldRelation::OPT_READONLY) && isset($requestData[$insertId])) {
             $selector = TikiLib::lib('objectselector');
             if (is_array($requestData[$insertId])) {
                 $entries = $selector->readMultiple($requestData[$insertId]['objects']);
@@ -150,11 +171,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             }
             $data = array_map('strval', $entries);
         } else {
-            $relation = $this->getOption(self::OPT_RELATION);
-            $relations = TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation);
-            if ($this->getOption(self::OPT_INVERT)) {
-                $relations = array_merge($relations, TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation, true));
-            }
+            $relations = $this->getObjectRelationInstances();
             foreach ($relations as $rel) {
                 $data[] = strval($rel->target);
                 if ($rel->metadata) {
@@ -200,13 +217,13 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
     public function renderInput($context = [])
     {
-        if ($this->getOption(self::OPT_READONLY)) {
+        if ($this->trackerField->getOption(TrackerFieldRelation::OPT_READONLY)) {
             return tra('Read-only');
         }
 
         $data = $this->getFieldData();
 
-        $filter = $this->buildFilter();
+        $filter = $this->trackerField->getParsedFilter();
 
         if (
             isset($filter['tracker_id']) &&
@@ -216,7 +233,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             $filter['object_id'] = 'NOT ' . $this->getItemId(); // exclude this item if we are related to the same tracker_id
         }
 
-        $format = $this->getOption('format');
+        $format = $this->trackerField->getOption('format');
         $sort = 'title_asc';
         if (! empty($format)) {
             if (preg_match('/\{(.*?)\}/', $format, $m)) {
@@ -231,15 +248,15 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             'filter' => $filter,
             'sort' => $sort,
             'format' => $format,
-            'parent' => $this->getOption('parentFilter'),
-            'parentkey' => $this->getOption('parentFilterKey'),
+            'parent' => $this->trackerField->getOption('parentFilter'),
+            'parentkey' => $this->trackerField->getOption('parentFilterKey'),
         ];
 
-        $relationshipTracker = $this->getRelationshipTracker();
+        $relationshipTracker = $this->trackerField->getRelationshipTracker();
         $params['relationshipTracker'] = $relationshipTracker;
         if ($relationshipTracker) {
             $params['relationshipTrackerId'] = $relationshipTracker->getConfiguration('trackerId');
-            $params['relationshipBehaviour'] = $relationshipTracker->getRelationshipBehaviour($this->getOption(self::OPT_RELATION));
+            $params['relationshipBehaviour'] = $relationshipTracker->getRelationshipBehaviour($this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION));
         }
 
         return $this->renderTemplate(
@@ -279,9 +296,9 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 "\n",
                 array_map(
                     function ($rel) {
-                        return $rel->target->getTitle($this->getOption('format'));
+                        return $rel->target->getTitle($this->trackerField->getOption('format'));
                     },
-                    $this->getConfiguration('relations')
+                    $this->getObjectRelationInstances()
                 )
             );
         } else {
@@ -290,9 +307,9 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 "<br/>",
                 array_map(
                     function ($rel) {
-                        return $rel->target->getTitle($this->getOption('format'));
+                        return $rel->target->getTitle($this->trackerField->getOption('format'));
                     },
-                    $this->getConfiguration('relations')
+                    $this->getObjectRelationInstances()
                 )
             );
         }
@@ -304,12 +321,11 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         if ($list_mode === 'csv' || $list_mode === 'text') {
             return $this->renderInnerOutput($context);
         } else {
-            $display = $this->getOption('display');
+            $display = $this->trackerField->getOption('display');
             if (! in_array($display, ['list', 'count', 'toggle'])) {
                 $display = 'list';
             }
-
-            $relations = $this->getConfiguration('relations');
+            $relations = $this->getObjectRelationInstances();
             foreach ($relations as $key => $rel) {
                 if ($rel->target->type != 'trackeritem') {
                     continue;
@@ -327,7 +343,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
                 [
                     'display' => $display,
                     'relations' => $relations,
-                    'format' => $this->getOption('format')
+                    'format' => $this->trackerField->getOption('format')
                 ]
             );
         }
@@ -347,8 +363,8 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         // saved items should not refresh themselves later => solves odd issues with relation disappearing
         self::$refreshedTargets[] = 'trackeritem:' . $this->getItemId();
 
-        if ($this->getOption(self::OPT_READONLY)) {
-            if ($this->getOption('refresh') == 'save') {
+        if ($this->trackerField->getOption(TrackerFieldRelation::OPT_READONLY)) {
+            if ($this->trackerField->getOption('refresh') == 'save') {
                 $this->prepareRefreshRelated($target);
             }
 
@@ -358,9 +374,9 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         }
 
         $relationlib = TikiLib::lib('relation');
-        $relation = $this->getOption(self::OPT_RELATION);
+        $relation = $this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION);
         $current = TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation);
-        if ($this->getOption(self::OPT_INVERT)) {
+        if ($this->trackerField->getOption(TrackerFieldRelation::OPT_INVERT)) {
             $current = array_merge($current, TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation, true));
         }
         $map = [];
@@ -386,7 +402,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
             $metadataItemId = $field['meta'][$key] ?? $field['meta'][$this->getInsertId() . '[objects]'] ?? null;
 
-            $relationlib->add_relation($this->getOption(self::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, false, $this->getFieldId(), $metadataItemId);
+            $relationlib->add_relation($this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, false, $this->getFieldId(), $metadataItemId);
         }
 
         if (! empty($field['meta'])) {
@@ -400,7 +416,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             }
         }
 
-        if ($this->getOption('refresh') == 'save') {
+        if ($this->trackerField->getOption('refresh') == 'save') {
             $this->prepareRefreshRelated(array_merge($target, $toRemove));
         }
 
@@ -413,7 +429,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
     {
         return parent::watchCompareList(explode("\n", $old), explode("\n", $new), function ($item) {
             list($type, $object) = explode(':', $item, 2);
-            return TikiLib::lib('object')->get_title($type, $object, $this->getOption('format'));
+            return TikiLib::lib('object')->get_title($type, $object, $this->trackerField->getOption('format'));
         });
     }
 
@@ -428,9 +444,9 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         if (empty($params['relation'])) {
             return;
         }
-        if ($params['relation'] != $this->getOption(self::OPT_RELATION)) {
+        if ($params['relation'] != $this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION)) {
             $relationlib = TikiLib::lib('relation');
-            $relationlib->update_relation($this->getOption(self::OPT_RELATION), $params['relation'], $this->getFieldId());
+            $relationlib->update_relation($this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION), $params['relation'], $this->getFieldId());
         }
     }
 
@@ -439,7 +455,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $trackerId = $this->getConfiguration('trackerId');
         $options = json_decode($data['options'], true);
 
-        if (preg_match("/tracker_id=[^&]*{$trackerId}/", $options['filter']) && $options['invert'] && $options['refresh']) {
+        if (preg_match("/tracker_id=[^&]*{$trackerId}/", $options['filter']) && $this->trackerField->getOption(TrackerFieldRelation::OPT_INVERT) && $options['refresh']) {
             Feedback::warning(tr('Self-related fields with Include Invert option set to Yes should not have Force Refresh option on save.'));
         }
     }
@@ -451,7 +467,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
     {
         $trackerId = $this->getTrackerDefinition()->getConfiguration('trackerId');
         $relationlib = TikiLib::lib('relation');
-        $relationlib->remove_relation_type($this->getOption(self::OPT_RELATION), $this->getFieldId());
+        $relationlib->remove_relation_type($this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION), $this->getFieldId());
     }
 
     private function prepareRefreshRelated($target)
@@ -500,7 +516,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         if (! empty($args['sourcefield'])) {
             $field = $trklib->get_field_info($args['sourcefield']);
             $handler = $trklib->get_field_handler($field);
-            $relation = $handler->getOption(self::OPT_RELATION);
+            $relation = $handler->getOption(TrackerFieldRelation::OPT_RELATION);
             if (substr($relation, -7) === '.invert') {
                 $straight = false;
             } else {
@@ -573,12 +589,6 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         }
     }
 
-    private function buildFilter()
-    {
-        parse_str($this->getOption(self::OPT_FILTER), $filter);
-        return $filter;
-    }
-
     public function getDocumentPart(Search_Type_Factory_Interface $typeFactory, $mode = '')
     {
         $baseKey = $this->getBaseKey();
@@ -588,7 +598,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
 
         // we don't have all the data in the field definition at this point, so just render the labels here
         $objectLib = TikiLib::lib('object');
-        $format = $this->getOption('format');
+        $format = $this->trackerField->getOption('format');
         $labels = [];
         static $cache = [];
         if ($mode !== 'formatting') {
@@ -708,7 +718,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             return compact('object_type', 'object_id');
         }, $data['relations']);
 
-        $format = $this->getOption('format');
+        $format = $this->trackerField->getOption('format');
         foreach ($objects as $object) {
             $query = $lib->buildQuery($object);
             $result = $query->search($lib->getIndex());
@@ -738,7 +748,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
         $permName = $this->getConfiguration('permName');
         $name = $this->getConfiguration('name');
-        $format = $this->getOption('format');
+        $format = $this->trackerField->getOption('format');
 
         $schema->addNew($permName, 'raw')
             ->setLabel($name)
@@ -821,8 +831,8 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
         $baseKey = $this->getBaseKey();
 
         $osParams = [
-            '_filter' => $this->buildFilter(),
-            '_format' => $this->getOption('format'),
+            '_filter' => $this->trackerField->getParsedFilter(),
+            '_format' => $this->trackerField->getOption('format'),
         ];
 
         $collection->addNew($permName, 'selector')
@@ -854,14 +864,5 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractField implements \Tr
             });
 
         return $collection;
-    }
-
-    protected function getRelationshipTracker(): Tracker_Definition|null
-    {
-        $relationshipTracker = null;
-        if ($trackerId = $this->getOption('relationshipTrackerId')) {
-            $relationshipTracker = Tracker_Definition::get($trackerId);
-        }
-        return $relationshipTracker;
     }
 }

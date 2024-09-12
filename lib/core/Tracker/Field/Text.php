@@ -10,7 +10,7 @@
  * Letter key: ~t~
  *
  */
-class Tracker_Field_Text extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
+class Tracker_Field_Text extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
 {
     public static function getManagedTypesInfo(): array
     {

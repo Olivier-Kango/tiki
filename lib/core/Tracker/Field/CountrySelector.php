@@ -10,7 +10,7 @@
  * Letter key: ~y~
  *
  */
-class Tracker_Field_CountrySelector extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
+class Tracker_Field_CountrySelector extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, \Tracker\Field\EnumerableInterface
 {
     private function getValueLabel($value)
     {

@@ -80,10 +80,9 @@ $smarty->assign_by_ref('cant_pages', $attachments['cant']);
 $headerlib->add_cssfile('themes/base_files/feature_css/admin.css');
 $smarty->assign_by_ref('attachments', $attachments['data']);
 
-$factory = new Tracker_Field_Factory(false);
 $fieldPreferences = [];
 
-foreach ($factory->getFieldTypes() as $type) {
+foreach (Tracker_Field_Factory::getFieldTypes() as $type) {
     $fieldPreferences[] = array_shift($type['prefs']);
 }
 

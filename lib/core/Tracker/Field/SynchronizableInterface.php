@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tracker\Field;
 
-interface SynchronizableInterface extends FieldInterface
+interface SynchronizableInterface extends ItemFieldInterface
 {
     public function importRemote($value);
 

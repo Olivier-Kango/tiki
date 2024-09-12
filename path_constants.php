@@ -171,7 +171,7 @@ const BOOTSTRAP_TOUR_DIST_PATH = 'vendor_bundled/vendor/sorich87/bootstrap-tour/
 const CONVERSEJS_DIST_PATH = 'public/generated/js/vendor_dist/converse.js/dist';
 const FONTAWESOME_CSS_PATH = 'public/generated/js/vendor_dist/@fortawesome/fontawesome';
 const FONTAWESOME_WEBFONTS_PATH = 'public/generated/js/vendor_dist/@fortawesome/webfonts';
-
+const MERMAID_DIST_PATH = 'public/generated/js/vendor_dist/mermaid/dist';
 const MINICART_DIST_PATH = 'vendor_bundled/vendor/jquery/minicart/dist';
 const NESTEDSORTABLE_ASSETS_PATH = 'vendor_bundled/vendor/jquery-plugins/nestedsortable';
 const PIVOTTABLE_DIST_PATH = 'vendor_bundled/vendor/nicolaskruchten/pivottable/dist';

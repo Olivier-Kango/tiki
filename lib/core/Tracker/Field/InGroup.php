@@ -10,7 +10,7 @@
  * Letter key: ~N~
  *
  */
-class Tracker_Field_InGroup extends \Tracker\Field\AbstractField
+class Tracker_Field_InGroup extends \Tracker\Field\AbstractItemField
 {
     public static function getManagedTypesInfo(): array
     {

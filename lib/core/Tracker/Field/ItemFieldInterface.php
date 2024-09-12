@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tracker\Field;
 
-interface FieldInterface
+interface ItemFieldInterface
 {
     /**
      * Return an array of types (ususally of just one element) that this

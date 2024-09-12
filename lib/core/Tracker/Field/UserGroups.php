@@ -10,7 +10,7 @@
  * Letter key: ~usergroups~
  *
  */
-class Tracker_Field_UserGroups extends \Tracker\Field\AbstractField implements \Tracker\Field\FilterableInterface
+class Tracker_Field_UserGroups extends \Tracker\Field\AbstractItemField implements \Tracker\Field\FilterableInterface
 {
     public static function getManagedTypesInfo(): array
     {

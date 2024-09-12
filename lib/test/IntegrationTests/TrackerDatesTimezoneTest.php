@@ -35,28 +35,28 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         self::$trackerId = self::$trklib->replace_tracker(null, 'Test Tracker', '', [], 'n');
         self::assertNotEmpty(self::$trackerId);
         $fields = [[
-            'name' => 'Date (legacy)',
+            'name' => 'Date (legacy DateTime field)',
             'type' => 'f',
             'isHidden' => 'n',
             'isMandatory' => 'n',
             'permName' => 'test_date_legacy',
             'options' => json_encode(['datetime' => 'd']),
         ], [
-            'name' => 'DateTime (legacy)',
+            'name' => 'DateTime (legacy DateTime field)',
             'type' => 'f',
             'isHidden' => 'n',
             'isMandatory' => 'n',
             'permName' => 'test_datetime_legacy',
             'options' => json_encode(['datetime' => 'dt']),
         ], [
-            'name' => 'Date',
+            'name' => 'Date (JsCalendar field)',
             'type' => 'j',
             'isHidden' => 'n',
             'isMandatory' => 'n',
             'permName' => 'test_date',
             'options' => json_encode(['datetime' => 'd']),
         ], [
-            'name' => 'DateTime',
+            'name' => 'DateTime (JsCalendar field)',
             'type' => 'j',
             'isHidden' => 'n',
             'isMandatory' => 'n',
@@ -618,14 +618,13 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         $definition = Tracker_Definition::get(self::$trackerId);
         foreach (['test_date_legacy', 'test_datetime_legacy', 'test_date', 'test_datetime'] as $permName) {
             $field = $definition->getFieldFromPermName($permName);
-            $result[$permName] = self::$trklib->field_render_value(
-                [
+            $context = [
                     'field' => $field,
                     'process' => 'y',
                     'list_mode' => 'csv',
                     'itemId' => $itemId,
-                ]
-            );
+            ];
+            $result[$permName] = self::$trklib->field_render_value($context);
         }
         return $result;
     }

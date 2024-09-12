@@ -71,7 +71,7 @@ class Math_Formula_Runner
             $field = TikiLib::lib('trk')->get_field_by_perm_name($data);
             if ($field && ($field['type'] === 'b' || $field['type'] === 'math')) {
                 $definition = Tracker_Definition::get($field['trackerId']);
-                // note: \Tracker\Field\AbstractField expects permName field values to be in fields subarray
+                // note: \Tracker\Field\AbstractItemField expects permName field values to be in fields subarray
                 // but variables can contain other valuable top level information like itemId
                 $handler = $definition->getFieldFactory()->getHandler($field, $this->variables + ['fields' => $this->variables]);
                 if ($field['type'] === 'math' && ($mirroredHandler = $handler->getMirroredHandler())) {

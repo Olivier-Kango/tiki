@@ -12,7 +12,7 @@ use Tracker_Definition,
 TikiLib, Tracker_Item;
 
 /**
- * This is a smke test for the ItemLink fields.  At least it shows how badly we need a better internal API... - benoitg - 2024-07-04
+ * This is a smoke test for the ItemLink fields.  At least it shows how badly we need a better internal API... - benoitg - 2024-07-04
  */
 class TrackerItemLinkTest extends \PHPUnit\Framework\TestCase
 {
@@ -129,6 +129,7 @@ class TrackerItemLinkTest extends \PHPUnit\Framework\TestCase
 
         parent::tearDownAfterClass();
         self::$trklib->remove_tracker(self::$trackerId);
+        self::$trklib->remove_tracker(self::$linkedTrackerId);
     }
 
     public function testBasicFunctionnality(): void

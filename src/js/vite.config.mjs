@@ -6,8 +6,9 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import copy from "@guanghechen/rollup-plugin-copy";
 import {glob} from "glob";
 import path from "node:path";
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+
 /*
 
 Overarching principles:
@@ -192,7 +193,7 @@ export default defineConfig(({ command, mode }) => {
                 template: {
                     transformAssetUrls: {
                         base: "/public/generated/js/",
-                    }
+                    },
                 },
             }),
 
@@ -345,6 +346,14 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/converse.js/dist/emojis.js",
                         dest: "vendor_dist/converse.js/dist",
                     },
+                    {
+                        src: "node_modules/mermaid/dist/!(mermaid.js|mermaid.min.js)*.(js|mjs)*",
+                        dest: "vendor_dist/mermaid/dist",
+                    },
+                    {
+                        src: "node_modules/svg-pan-zoom/dist/*.min.js",
+                        dest: "vendor_dist/svg-pan-zoom/dist",
+                    },
                 ],
             }),
             copy({
@@ -374,25 +383,25 @@ export default defineConfig(({ command, mode }) => {
                 // We don't use https://github.com/unplugin/unplugin-vue-components/resolvers because of https://github.com/vitest-dev/vitest/issues/1402 raised during the execution of the tests
                 resolvers: [
                     (componentName) => {
-                        if(componentName.startsWith("El")) {
+                        if (componentName.startsWith("El")) {
                             return {
                                 name: componentName,
                                 from: `element-plus/dist/index.full.js`,
                             };
                         }
-                    }
+                    },
                 ],
             }),
             Components({
                 resolvers: [
                     (componentName) => {
-                        if(componentName.startsWith("El")) {
+                        if (componentName.startsWith("El")) {
                             return {
                                 name: componentName,
                                 from: `element-plus/dist/index.full.mjs`,
                             };
                         }
-                    }
+                    },
                 ],
             }),
         ],
@@ -402,7 +411,7 @@ export default defineConfig(({ command, mode }) => {
             environment: "happy-dom",
             coverage: {
                 include: ["src/js/{vue-widgets,vue-mf}/**/*.{vue,js}"],
-                exclude: ["**/*.ce.js"]
+                exclude: ["**/*.ce.js"],
             },
         },
     };

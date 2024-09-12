@@ -26,8 +26,7 @@ class Math_Formula_Function_Currency extends Math_Formula_Function
             $this->error(tra('Missing currency field.'));
         }
 
-        $factory = new Tracker_Field_Factory();
-        $options = Tracker_Options::fromSerialized($field['options'], $factory->getFieldInfo($field['type']));
+        $options = Tracker_Options::fromSerialized($field['options'], Tracker_Field_Factory::getFieldInfo($field['type']));
 
         if (! empty($element[3])) {
             $date = $this->evaluateChild($element[3]);

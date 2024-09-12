@@ -15,7 +15,13 @@
                     {icon name="copy"} {tr}Duplicate{/tr}
                 </a>
             {/if}
+            {if $tiki_p_export_tracker eq 'y'}
+                <a href="tiki-export_tracker_schema.php" class="btn btn-link" >
+                    {icon name="table"} {tr}ER diagram{/tr}
+                </a>
+            {/if}
             <div class="btn-group">
+                
                 <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
                     {icon name="import"} {tr}Import{/tr}
                 </button>
@@ -139,6 +145,13 @@
                                             href="{service controller=tracker action=export trackerId=$tracker.trackerId modal=1}"
                                         >
                                             {icon name='export' _menu_text='y' _menu_icon='y' alt="{tr}Export{/tr}"}
+                                        </a>
+                                    </action>
+                                    <action>
+                                        <a 
+                                            href="tiki-export_tracker_schema.php?trackerIds[]={$tracker.trackerId}"
+                                        >
+                                            {icon name='export' _menu_text='y' _menu_icon='y' alt="{tr}Show in ER diagram{/tr}"}
                                         </a>
                                     </action>
                                 {/if}

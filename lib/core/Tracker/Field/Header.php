@@ -10,7 +10,7 @@
  * Letter key: ~h~
  *
  */
-class Tracker_Field_Header extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface
+class Tracker_Field_Header extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface
 {
     public static function getManagedTypesInfo(): array
     {

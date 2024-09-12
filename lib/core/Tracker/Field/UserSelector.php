@@ -10,7 +10,7 @@
  * Letter key: ~u~
  *
  */
-class Tracker_Field_UserSelector extends \Tracker\Field\AbstractField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, Search_FacetProvider_Interface, \Tracker\Field\EnumerableInterface
+class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface, Search_FacetProvider_Interface, \Tracker\Field\EnumerableInterface
 {
     public static function getManagedTypesInfo(): array
     {
