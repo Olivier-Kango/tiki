@@ -716,10 +716,6 @@ vendor-bundled-security-check:
       changes:
         - "vendor_bundled/composer.json"
         - "vendor_bundled/composer.lock"
-    - if: $CI_COMMIT_BRANCH == "master"
-      changes:
-        - "vendor_bundled/composer.json"
-        - "vendor_bundled/composer.lock"
     - if: $CI_PIPELINE_SOURCE == "schedule" && $SCHEDULER == "vendor_check"
 
 update_vendor_bundled_dependencies:
