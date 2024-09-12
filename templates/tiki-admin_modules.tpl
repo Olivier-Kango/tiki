@@ -184,8 +184,6 @@
                         <div class="input_submit_container">
                             <input type="submit" class="btn btn-primary btn-sm" name="preview" value="{tr}Module Options{/tr}">
                         </div>
-                    {else}
-                        {jq}$("#module_params").tabs();{/jq}
                     {/if}
                 </fieldset>
             </form>
