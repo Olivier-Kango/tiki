@@ -580,6 +580,11 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
         $userinfo['email'] = strip_tags((trim($_REQUEST['email'])));
     }
 
+    /**
+     * To address issues with older databases where some data might be missing:
+     * The code should handle these cases by displaying empty values instead of default values like "less than a minute ago" to avoid unexpected behavior.
+     */
+
     $userinfo['created'] = $tikilib->now;
     $userinfo['registrationDate'] = '';
     $userinfo['age'] = '';
