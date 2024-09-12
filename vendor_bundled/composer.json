@@ -209,6 +209,7 @@
         "mautic/api-library": "~3.0.0",
         "mediumjs/mediumjs": "1.0.1",
         "melbahja/seo": "^2.0",
+        "meyfa/php-svg": "^0.16",
         "michelf/php-smartypants": "^1.8.1",
         "montefuscolo/xmpp": "dev-php8.1",
         "mottie/tablesorter": "^2.28",

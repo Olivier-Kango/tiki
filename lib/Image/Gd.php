@@ -4,7 +4,11 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
 namespace Tiki\Lib\Image;
+
+use Feedback;
+use SVG\SVG;
 
 /**
  *
@@ -64,11 +68,34 @@ class Gd extends ImageAbstract
                 }
             } elseif (
                 ! empty($this->data) &&
-                $this->data != 'REFERENCE' &&
-                preg_match('/^[<]svg/', $this->data) == false //In some cases, an svg will be recognized as an alternate picture type, here we simply check the beginning for "<svg" and if it is found, it is an svg
+                $this->data != 'REFERENCE'
             ) {
-                $this->data = imagecreatefromstring($this->data);
-                $this->loaded = true;
+                if (stripos($this->data, '<svg') === false) {
+                    $this->data = imagecreatefromstring($this->data);
+                    $this->loaded = true;
+                } else {
+                    $start = stripos($this->data, '<svg');
+                    $end = stripos($this->data, '</svg>') + 6;
+                    $svgContent = substr($this->data, $start, $end - $start);
+                    $image = SVG::fromString($svgContent);
+                    if (! $image) {
+                        Feedback::error(tra('Invalid SVG content.'));
+                        return;
+                    }
+                    ob_start();
+                    $rasterImage = $image->toRasterImage(200, 200);
+                    if ($rasterImage instanceof \GdImage) {
+                        header('Content-Type: image/png');
+                        imagepng($rasterImage);
+                        $imageData = ob_get_clean();
+                        imagedestroy($rasterImage);
+                        $this->data = imagecreatefromstring($imageData);
+                        $this->loaded = true;
+                    } else {
+                        ob_end_clean();
+                        Feedback::error(tra('Error converting SVG to GD image.'));
+                    }
+                }
             } else {
                 parent::loadData();
             }
