@@ -26,6 +26,11 @@ class TikiDb_Bridge extends TikiDb
         return self::get()->query($query, $values, $numrows, $offset, $reporterrors);
     }
 
+    public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true)
+    {
+        return self::get()->scrollableQuery($query, $values, $numrows, $offset, $reporterrors);
+    }
+
     public function fetchAll($query = null, ?array $values = null, $numrows = -1, $offset = -1, $reporterrors = true): array|false
     {
         return self::get()->fetchAll($query, $values, $numrows, $offset, $reporterrors);

@@ -121,4 +121,10 @@ class TikiDb_Adodb extends TikiDb
 
         return new TikiDb_Adodb_Result($result, $this->rowCount);
     }
+
+    public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT)
+    {
+        // this is already scrollable
+        return $this->query($query, $values, $numrows, $offset, $reporterrors);
+    }
 }

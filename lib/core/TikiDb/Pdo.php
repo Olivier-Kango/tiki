@@ -7,30 +7,46 @@
 /**
  * Class TikiDb_Pdo_Result
  *
- * Returns result set along with affected rows
+ * Returns result set along with affected rows.
+ * Works on an already fetched result set as an array or a PDOStatement object.
+ * Original array mode is kept here as we have many places that use directly
+ * the global $result variable expecting it to be an array - that should be refactored! (2024-09-12 @victor)
  */
 class TikiDb_Pdo_Result
 {
     /** @var array */
-    public $result;
+    public $result = null;
     /** @var int */
-    public $numrows;
+    public $numrows = 0;
+
+    private ?PDOStatement $statement = null;
 
     /**
      * TikiDb_Pdo_Result constructor.
      * @param $result
      * @param $rowCount
      */
-    public function __construct($result, $rowCount)
+    public function __construct($result, $rowCount = 0)
     {
-        $this->result = &$result;
-        $this->numrows = is_numeric($rowCount) ? $rowCount : count($this->result);
+        if (is_array($result)) {
+            $this->result = &$result;
+            $this->numrows = is_numeric($rowCount) ? $rowCount : count($this->result);
+        } elseif ($result) {
+            $this->statement = $result;
+            $this->numrows = $result->rowCount();
+        }
     }
 
     /** @return array */
     public function fetchRow()
     {
-        return is_array($this->result) ? array_shift($this->result) : 0;
+        if (is_array($this->result)) {
+            return array_shift($this->result);
+        } elseif ($this->statement) {
+            return $this->statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
     }
 
     /** @return int */
@@ -74,7 +90,7 @@ class TikiDb_Pdo extends TikiDb
         return $this->db->quote($str);
     }
 
-    private function doQuery($query, $values = null, $numrows = -1, $offset = -1)
+    private function doQuery($query, $values = null, $numrows = -1, $offset = -1, $fetch = true)
     {
         global $num_queries;
         $num_queries++;
@@ -142,12 +158,20 @@ class TikiDb_Pdo extends TikiDb
         } else {
             $this->setErrorMessage("");
             $this->setErrorNo(0);
-            if (($values && ! $pq->columnCount()) || (! $values && ! $result->columnCount())) {
-                return []; // Return empty result set for statements of manipulation
-            } elseif (! $values) {
-                return $result->fetchAll(PDO::FETCH_ASSOC);
+            if ($fetch) {
+                if (($values && ! $pq->columnCount()) || (! $values && ! $result->columnCount())) {
+                    return []; // Return empty result set for statements of manipulation
+                } elseif (! $values) {
+                    return $result->fetchAll(PDO::FETCH_ASSOC);
+                } else {
+                    return $pq->fetchAll(PDO::FETCH_ASSOC);
+                }
             } else {
-                return $pq->fetchAll(PDO::FETCH_ASSOC);
+                if (! $values) {
+                    return $result;
+                } else {
+                    return $pq;
+                }
             }
         }
     }
@@ -169,6 +193,15 @@ class TikiDb_Pdo extends TikiDb
             $this->handleQueryError($query, $values, $result, $reporterrors);
         }
         return new TikiDb_Pdo_Result($result, $this->rowCount);
+    }
+
+    public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT)
+    {
+        $result = $this->doQuery($query, $values, $numrows, $offset, false);
+        if ($result === false) {
+            $this->handleQueryError($query, $values, $result, $reporterrors);
+        }
+        return new TikiDb_Pdo_Result($result);
     }
 
     public function lastInsertId()

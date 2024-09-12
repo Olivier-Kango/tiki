@@ -95,6 +95,11 @@ abstract class TikiDb
      * @return TikiDb_Pdo_Result
      */
     abstract public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT);
+    /**
+     * same as above but return the PDO statement or Adodb result, so it can be scrolled in a memory-efficient way
+     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     */
+    abstract public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT);
 
     public function lastInsertId()
     {

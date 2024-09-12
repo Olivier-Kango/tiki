@@ -47,6 +47,8 @@ abstract class SearchIndexPartialUpdate extends PHPUnit\Framework\TestCase
             ]
         );
 
+        TikiLib::lib('unifiedsearch')->setAvailableFields($indexer->getAvailableFields());
+
         $query = new Search_Query();
         $query->filterType('wiki page');
 

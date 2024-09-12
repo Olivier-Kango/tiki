@@ -136,6 +136,45 @@ class Search_MySql_Table extends TikiDb_Table
         return null;
     }
 
+    /**
+     * Fetch results from the index but leave the fields relevant for each document type
+     * to reduce memory footprint for big indices.
+     * @param array $fields
+     * @param array $conditions
+     * @param int $numrows
+     * @param int $offset
+     * @param string $orderClause
+     * @return array of associative arrays
+     */
+    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null)
+    {
+        $available_fields = TikiLib::lib('unifiedsearch')->getAvailableFields();
+        $resultset = $this->query($fields, $conditions, $numrows, $offset, $orderClause, $join);
+        $result = [];
+        while ($row = $resultset->fetchRow()) {
+            if ($row['object_type'] == 'trackeritem') {
+                $fields = $available_fields['object_types']['trackeritem' . $row['tracker_id']] ?? [];
+            } else {
+                $fields = $available_fields['object_types'][$row['object_type']] ?? [];
+            }
+            if ($fields) {
+                $real_row = [];
+                foreach ($fields as $field) {
+                    $field = $this->tfTranslator->shortenize($field);
+                    foreach ($row as $key => $value) {
+                        if (str_starts_with($key, $field)) {
+                            $real_row[$key] = $row[$key];
+                        }
+                    }
+                }
+                $result[] = $real_row;
+            } else {
+                $result[] = $row;
+            }
+        }
+        return $result;
+    }
+
     private function loadDefinition()
     {
         if (! empty($this->definition)) {

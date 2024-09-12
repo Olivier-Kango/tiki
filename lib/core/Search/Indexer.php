@@ -272,7 +272,11 @@ class Search_Indexer
          * @var  Search_ContentSource_Interface $contentSource
          */
         foreach ($this->contentSources as $objectType => $contentSource) {
-            $output['object_types'][$objectType] = $contentSource->getProvidedFields();
+            $output['object_types'][$objectType] = array_merge([
+                'object_type',
+                'object_id',
+                'contents',
+            ], $contentSource->getProvidedFields());
             $output['global'] = array_unique(
                 array_merge(
                     $output['global'],
@@ -281,6 +285,12 @@ class Search_Indexer
                     )
                 )
             );
+            foreach ($this->globalSources as $globalSource) {
+                $output['object_types'][$objectType] = array_merge($output['object_types'][$objectType], $globalSource->getProvidedFields());
+            }
+            foreach ($this->packageSources as $packageSource) {
+                $output['object_types'][$objectType] = array_merge($output['object_types'][$objectType], $packageSource->getProvidedFields());
+            }
         }
 
         return $output;
