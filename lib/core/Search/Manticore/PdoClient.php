@@ -337,11 +337,40 @@ class PdoClient
         return $stmt->fetchAll();
     }
 
+    /**
+     * Fetch results from the index but leave the fields relevant for each document type
+     * to reduce memory footprint for big indices.
+     * @param string $query
+     * @param boolean $retry
+     * @return array of associative arrays
+     */
     public function fetchAllRowsets($query, $retry = true)
     {
+        $available_fields = \TikiLib::lib('unifiedsearch')->getAvailableFields();
         try {
+            $result = [];
             $stmt = $this->query($query);
-            $result = [$stmt->fetchAll()];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                if ($row['object_type'] == 'trackeritem') {
+                    $fields = $available_fields['object_types']['trackeritem' . $row['tracker_id']] ?? [];
+                } else {
+                    $fields = $available_fields['object_types'][$row['object_type']] ?? [];
+                }
+                if ($fields) {
+                    $real_row = [];
+                    foreach ($fields as $field) {
+                        foreach ($row as $key => $value) {
+                            if (str_starts_with($key, $field)) {
+                                $real_row[$key] = $row[$key];
+                            }
+                        }
+                    }
+                    $result[] = $real_row;
+                } else {
+                    $result[] = $row;
+                }
+            }
+            $result = [$result];
             while ($stmt->nextRowset()) {
                 $result[] = $stmt->fetchAll();
             }

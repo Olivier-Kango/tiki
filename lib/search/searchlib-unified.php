@@ -20,6 +20,8 @@ class UnifiedSearchLib
     private $isRebuildingNow = false;
     private $indices;
 
+    private static $fields = [];
+
     /**
      * @return string
      */
@@ -707,10 +709,47 @@ class UnifiedSearchLib
         return $indexer->getDocuments($type, $object);
     }
 
+    /**
+     * Retrieve available fields in the search index by object type
+     * and split for each tracker. Value is cached in the static property.
+     */
     public function getAvailableFields()
     {
+        if (self::$fields) {
+            return self::$fields;
+        }
         $indexer = $this->buildIndexer($this->getIndex());
-        return $indexer->getAvailableFields();
+        $fields = $indexer->getAvailableFields();
+        // trackeritem object type needs to further split fields by tracker ID, so we know which are relevant to each tracker item object
+        if (isset($fields['object_types']['trackeritem'])) {
+            $types_by_tracker_id = [];
+            $all_fields = TikiLib::lib('trk')->table('tiki_tracker_fields')->fetchMap('permName', 'trackerId', []);
+            foreach ($all_fields as $permName => $trackerId) {
+                foreach ($fields['object_types']['trackeritem'] as $field) {
+                    if (str_starts_with($field, 'tracker_field_' . $permName)) {
+                        $types_by_tracker_id['trackeritem' . $trackerId][] = $field;
+                    }
+                }
+            }
+            foreach ($types_by_tracker_id as $type => $_) {
+                foreach ($fields['object_types']['trackeritem'] as $field) {
+                    if (! str_starts_with($field, 'tracker_field_')) {
+                        $types_by_tracker_id[$type][] = $field;
+                    }
+                }
+            }
+            $fields['object_types'] = array_merge($fields['object_types'], $types_by_tracker_id);
+        }
+        self::$fields = $fields;
+        return self::$fields;
+    }
+
+    /**
+     * Ability to set available fields in the search index, used by tests.
+     */
+    public function setAvailableFields($fields)
+    {
+        self::$fields = $fields;
     }
 
     /**

@@ -276,35 +276,23 @@ class TikiDb_Table
      */
     public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null): array|false
     {
-        $bindvars = [];
+        $result = $this->buildSelect($fields, $conditions, $orderClause, $joinClause);
+        return $this->db->fetchAll($result['query'], $result['bindvars'], $numrows, $offset, $this->errorMode);
+    }
 
-        $fieldDescription = '';
-
-        foreach ($fields as $k => $f) {
-            if ($f instanceof TikiDB_Expr) {
-                $fieldDescription .= $f->getQueryPart(null);
-                $bindvars = array_merge($bindvars, $f->getValues());
-            } else {
-                $fieldDescription .= $this->escapeIdentifier($f);
-            }
-
-            if (is_string($k)) {
-                $fieldDescription .= ' AS ' . $this->escapeIdentifier($k);
-            }
-
-            $fieldDescription .= ', ';
-        }
-
-        $query = 'SELECT ';
-        $query .= (! empty($fieldDescription)) ? rtrim($fieldDescription, ', ') : '*';
-        $query .= ' FROM ' . $this->escapeIdentifier($this->tableName);
-        if (! empty($joinClause)) {
-            $query .= ' ' . $joinClause;
-        }
-        $query .= $this->buildConditions($conditions, $bindvars);
-        $query .= $this->buildOrderClause($orderClause);
-
-        return $this->db->fetchAll($query, $bindvars, $numrows, $offset, $this->errorMode);
+    /**
+     * Execute query but don't fetch the results, let the calling code decide how to fetch
+     * @param array $fields
+     * @param array $conditions
+     * @param int   $numrows
+     * @param int   $offset
+     * @param null  $orderClause
+     * @param null  $joinClause
+     */
+    public function query(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null): TikiDb_Pdo_Result|TikiDb_Adodb_Result|false
+    {
+        $result = $this->buildSelect($fields, $conditions, $orderClause, $joinClause);
+        return $this->db->scrollableQuery($result['query'], $result['bindvars'], $numrows, $offset, $this->errorMode);
     }
 
     /**
@@ -497,6 +485,39 @@ class TikiDb_Table
     public function sortMode($sortMode)
     {
         return $this->expr($this->db->convertSortMode($sortMode));
+    }
+
+    protected function buildSelect($fields, $conditions, $orderClause, $joinClause)
+    {
+        $bindvars = [];
+
+        $fieldDescription = '';
+
+        foreach ($fields as $k => $f) {
+            if ($f instanceof TikiDB_Expr) {
+                $fieldDescription .= $f->getQueryPart(null);
+                $bindvars = array_merge($bindvars, $f->getValues());
+            } else {
+                $fieldDescription .= $this->escapeIdentifier($f);
+            }
+
+            if (is_string($k)) {
+                $fieldDescription .= ' AS ' . $this->escapeIdentifier($k);
+            }
+
+            $fieldDescription .= ', ';
+        }
+
+        $query = 'SELECT ';
+        $query .= (! empty($fieldDescription)) ? rtrim($fieldDescription, ', ') : '*';
+        $query .= ' FROM ' . $this->escapeIdentifier($this->tableName);
+        if (! empty($joinClause)) {
+            $query .= ' ' . $joinClause;
+        }
+        $query .= $this->buildConditions($conditions, $bindvars);
+        $query .= $this->buildOrderClause($orderClause);
+
+        return ['query' => $query, 'bindvars' => $bindvars];
     }
 
     protected function buildDelete(array $conditions, &$bindvars)
