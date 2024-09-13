@@ -55,7 +55,7 @@ class Tracker_Field_Factory
                 }
             }
 
-            uasort(self::$infoMap, 'self::compareName');
+            uasort(self::$infoMap, self::compareName(...));
 
             $data = [
             'typeMap' => self::$typeMap,
