@@ -129,8 +129,8 @@ function exportMermaidER(string $title, array $entities, array $relationships, b
 
 function mermaidEntityName(string $originalId): string
 {
-    //Replace all but allowed characters with hyphens
-    $mermaidEntityName = preg_replace('/[^A-Za-z0-9\-_]/', '-', $originalId);
+    //Replace all but allowed characters with underscores.  Not hyphens (mermain has a parsing but where if TO DELETE is converted to TO-DELETE, it will interpret is as the start of the "to" alias of relationships)
+    $mermaidEntityName = preg_replace('/[^A-Za-z0-9\-_]/', '_', $originalId);
     //Add underscore if there is a leading nonalphabetic character
     $mermaidEntityName = preg_replace('/^([^A-Za-z]+)/', '_$1', $mermaidEntityName);
     return $mermaidEntityName;
@@ -179,23 +179,33 @@ function renderMermaid(string $mermaidData): string
         maxTextSize: 200000
         });
     
-    const drawDiagram = async function () {
-    let element = document.querySelector('.mermaid');
-    const graphDefinition = element.innerHTML;
-    const { svg } = await mermaid.render('graphDiv', graphDefinition);
-    element.innerHTML = svg.replace(/[ ]*max-width:[ 0-9\.]*px;/i , '');
-    return element.querySelector("svg") ;
-    };
+    const drawDiagram = async function (element) {
 
-    let svgElement = await drawDiagram();
-    svgElement.style.height = "60vh";
-    svgElement.style.width = "100%";
-    const mermaidPanZoom = svgPanZoom(svgElement, {
+        const graphDefinition = element.innerHTML;
+    
+        const { svg } = await mermaid.render('graphDiv', graphDefinition);
+        element.innerHTML = svg.replace(/[ ]*max-width:[ 0-9\.]*px;/i , '');
+        return element.querySelector("svg") ;
+    };
+    let element = document.querySelector('.mermaid');
+    try {
+        let svgElement = await drawDiagram(element);
+        svgElement.style.height = "60vh";
+        svgElement.style.width = "100%";
+        const mermaidPanZoom = svgPanZoom(svgElement, {
           zoomEnabled: true,
           controlIconsEnabled: true,
           fit: true,
           center: true
         });
+    }
+    catch(e) {
+        let errorDiv = document.createElement("div");
+        errorDiv.className = "alert alert-danger";
+        errorDiv.role = "alert";
+        errorDiv.innerHTML = e;
+        element.prepend(errorDiv);
+    }
     END;
     $headerlib->add_js_module($jsModule);
     $output = '<pre class="mermaid border" style="overflow: auto; width: 100%; height: 100%" id="content">';
