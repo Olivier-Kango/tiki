@@ -172,14 +172,19 @@ $(window).on("resize", function () {
         ;
 });
 $('#appframe .tab').parent().each(function () {
-    var tabs = $(this).children('.tab').wrapAll('<div class="tabs" style="height: 100%;"/>');
-    var list = $('<ul/>');
+    const tabs = $(this).children('.tab').wrapAll('<div class="tabs" style="height: 100%;"/>');
+    const list = $('<ul/>');
+    list.addClass('nav nav-tabs');
     tabs.parent().prepend(list);
     tabs.each(function () {
-        var link = $('<a/>').attr('href', '#' + $(this).attr('id')).text($(this).data('label'));
-        list.append($('<li/>').append(link));
+        const link = $('<a/>')
+        .addClass('nav-link')
+        .attr('data-bs-toggle', 'tab')
+        .attr('data-bs-target', '#' + $(this).attr('id'))
+        .attr('href', '#')
+        .text($(this).data('label'));
+        list.append($("<li class='nav-item' role='presentation'/>").append(link));
     });
-    tabs.parent().tabs();
 });
 $('#appframe .accordion').parent().each(function () {
     $('.accordion', this).wrapAll('<div/>').parent().accordion({
@@ -231,7 +236,9 @@ JS
         }
     }
 
+
     $data = $matches->getText();
+
 
     return <<<HTML
 <div id="appframe">$data</div>
