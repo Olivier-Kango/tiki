@@ -2966,7 +2966,7 @@ class TikiLib extends TikiDb_Bridge
                 case substr($slug, 0, 4) === 'item':
                     $itemId = substr($slug, 4);
                     $trklib = TikiLib::lib('trk');
-                    $trackerItem = $trklib->get_tracker_item($itemId);
+                    $trackerItem = Tracker_Item::fromId($itemId);
                     $objectLink = ! empty($trackerItem) ? '[' . $uri . '|' . $slug . ']' : '';
                     break;
                 case substr($slug, 0, 3) === 'int':
@@ -6706,8 +6706,8 @@ class TikiLib extends TikiDb_Bridge
         }
 
         // Move custom permissions
-        $oldId = md5($type . TikiLib::strtolower($old));
-        $newId = md5($type . TikiLib::strtolower($new));
+        $oldId = md5($type . mb_strtolower($old));
+        $newId = md5($type . mb_strtolower($new));
         $this->table('users_objectpermissions')->updateMultiple(['objectId' => $newId], ['objectId' => $oldId, 'objectType' => $type]);
 
         // Logs
@@ -6823,28 +6823,6 @@ class TikiLib extends TikiDb_Bridge
     {
         require_once __DIR__ . '/search/refresh-functions.php';
         return refresh_index($type, $object, $process);
-    }
-
-    /**
-     * Possibly enhanced version of strtolower(), using multi-byte if mbstring is available
-     *
-     * Since Tiki 17, mb_strtolower() can be used directly instead since Tiki indirectly depends on the symfony/polyfill-mbstring compatibility library.
-     *
-     * @deprecated 17
-     * @param $string
-     * @return string
-     */
-    public static function strtolower($string): string
-    {
-        if ($string === null) {
-            return '';
-        }
-
-        if (function_exists('mb_strtolower')) {
-            return mb_strtolower($string, 'UTF-8');
-        } else {
-            return strtolower($string);
-        }
     }
 
     /**

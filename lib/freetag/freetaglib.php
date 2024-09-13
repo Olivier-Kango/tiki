@@ -699,7 +699,7 @@ class FreetagLib extends ObjectLib
             $tag = preg_replace("/[^$normalized_valid_chars]/", '', $tag);
         }
 
-        return $this->normalize_in_lowercase ? TikiLib::strtolower($tag, 'UTF-8') : $tag;
+        return $this->normalize_in_lowercase ? mb_strtolower($tag, 'UTF-8') : $tag;
     }
 
     /**

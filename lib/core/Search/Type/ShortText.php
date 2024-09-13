@@ -15,6 +15,6 @@ class Search_Type_ShortText implements Search_Type_Interface
 
     public function getValue()
     {
-        return TikiLib::strtolower($this->value);
+        return mb_strtolower($this->value);
     }
 }

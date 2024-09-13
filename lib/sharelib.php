@@ -161,7 +161,7 @@ class Tiki_ShareObject
     {
         global $Tiki_ShareObject__groups;
 
-        $this->objectHash = md5($objectType . TikiLib::strtolower($objectId));
+        $this->objectHash = md5($objectType . mb_strtolowers($objectId));
         $this->objectType = $objectType;
         $this->objectId = $objectId;
 

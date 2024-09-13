@@ -273,7 +273,7 @@ class ParserLib extends TikiDb_Bridge
         preg_match_all($matcher, $data, $tmp, PREG_SET_ORDER);
         foreach ($tmp as $p) {
             if (
-                in_array(TikiLib::strtolower($p[0]), $matcher_fake)
+                in_array(mb_strtolower($p[0]), $matcher_fake)
                 || ( isset($p[1]) && ( in_array($p[1], $matcher_fake) || $this->plugin_exists($p[1]) ) )
                 || ( isset($p[2]) && ( in_array($p[2], $matcher_fake) || $this->plugin_exists($p[2]) ) )
             ) {
@@ -384,7 +384,7 @@ class ParserLib extends TikiDb_Bridge
             if (empty($plugin)) {
                 break;
             }
-            if (empty($only) || in_array($plugin[1], $only) || in_array(TikiLib::strtoupper($plugin[1]), $only) || in_array(TikiLib::strtolower($plugin[1]), $only)) {
+            if (empty($only) || in_array($plugin[1], $only) || in_array(TikiLib::strtoupper($plugin[1]), $only) || in_array(mb_strtolower($plugin[1]), $only)) {
                 $plugins[] = $plugin;
             }
             $pos = strpos($data, $plugin[0]);
@@ -2514,7 +2514,7 @@ class ParserLib extends TikiDb_Bridge
 
             // check if we are inside a ~hc~ block and, if so, ignore
             // monospaced and do not insert <br />
-            $lineInLowerCase = TikiLib::strtolower($this->unprotectSpecialChars($line, true));
+            $lineInLowerCase = mb_strtolower($this->unprotectSpecialChars($line, true));
 
             $inComment += substr_count($lineInLowerCase, "<!--");
             $inComment -= substr_count($lineInLowerCase, "-->");
@@ -2972,7 +2972,7 @@ class ParserLib extends TikiDb_Bridge
                 $maketoc_string = substr($data, $maketoc_start, $maketoc_length);
 
                 // Handle old type definition for type "box" (and preserve environment for the title also)
-                if ($maketoc_length > 12 && TikiLib::strtolower(substr($maketoc_string, 8, 4)) == ':box') {
+                if ($maketoc_length > 12 && mb_strtolower(substr($maketoc_string, 8, 4)) == ':box') {
                     $maketoc_string = "{maketoc type=box showhide=y title='" . tra('index', $this->option['language'], true) . '"' . substr($maketoc_string, 12);
                 }
 
@@ -3000,7 +3000,7 @@ class ParserLib extends TikiDb_Bridge
                     if (isset($maketoc_regs[1])) {
                         $nb_args = count($maketoc_regs[1]);
                         for ($a = 0; $a < $nb_args; $a++) {
-                            $maketoc_args[TikiLib::strtolower($maketoc_regs[1][$a])] = trim($maketoc_regs[2][$a], '"');
+                            $maketoc_args[mb_strtolower($maketoc_regs[1][$a])] = trim($maketoc_regs[2][$a], '"');
                         }
                     }
 
@@ -3259,7 +3259,7 @@ class ParserLib extends TikiDb_Bridge
             $prefixes = explode(',', $prefs["wiki_prefixalias_tokens"]);
             foreach ($prefixes as $p) {
                 $p = trim($p);
-                if (strlen($p) > 0 && TikiLib::strtolower(substr($pageName, 0, strlen($p))) == TikiLib::strtolower($p)) {
+                if (strlen($p) > 0 && mb_strtolower(substr($pageName, 0, strlen($p))) == mb_strtolower($p)) {
                     $toPage = $p;
                     $tokens = 'prefixalias';
                 }

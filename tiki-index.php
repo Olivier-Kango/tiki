@@ -303,7 +303,7 @@ if (empty($info) && ! ($user && $prefs['feature_wiki_userpage'] == 'y' && strcas
     $prefixes = explode(',', $prefs['wiki_prefixalias_tokens']);
     foreach ($prefixes as $p) {
         $p = trim($p);
-        if (strlen($p) > 0 && TikiLib::strtolower(substr($page, 0, strlen($p))) == TikiLib::strtolower($p)) {
+        if (strlen($p) > 0 && mb_strtolower(substr($page, 0, strlen($p))) == mb_strtolower($p)) {
             $isprefixed = true;
         }
     }
@@ -353,7 +353,7 @@ if (empty($info) && ! ($user && $prefs['feature_wiki_userpage'] == 'y' && strcas
         $prefixes = explode(',', $prefs['wiki_prefixalias_tokens']);
         foreach ($prefixes as $p) {
             $p = trim($p);
-            if (strlen($p) > 0 && TikiLib::strtolower(substr($page, 0, strlen($p))) == TikiLib::strtolower($p)) {
+            if (strlen($p) > 0 && mb_strtolower(substr($page, 0, strlen($p))) == mb_strtolower($p)) {
                 $suffix = trim(substr($page, strlen($p)));
                 if (! ctype_digit($suffix) && $suffix) {
                     // allow escaped numerics as text

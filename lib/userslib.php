@@ -74,7 +74,7 @@ class UsersLib extends TikiLib
 
     public function assign_object_permission($groupName, $objectId, $objectType, $permName)
     {
-        $objectId = md5($objectType . TikiLib::strtolower($objectId));
+        $objectId = md5($objectType . mb_strtolower($objectId));
 
         $query = 'delete from `users_objectpermissions`    where `objectId` = ? and `objectType`=?';
         $bindvars = [$objectId, $objectType];
@@ -106,7 +106,7 @@ class UsersLib extends TikiLib
     public function object_has_permission($user, $objectId, $objectType, $permName)
     {
         $groups = $this->get_user_groups($user);
-        $objectId = md5($objectType . TikiLib::strtolower($objectId));
+        $objectId = md5($objectType . mb_strtolower($objectId));
         $mid = implode(',', array_fill(0, count($groups), '?'));
         $query = "select count(*) from `users_objectpermissions` where `groupName` in ($mid) and `objectId` = ? and `objectType` = ? and `permName` = ?";
         $bindvars = array_merge($groups, [$objectId, $objectType, $permName]);
@@ -120,7 +120,7 @@ class UsersLib extends TikiLib
 
     public function remove_object_permission($groupName, $objectId, $objectType, $permName)
     {
-        $objectId = md5($objectType . TikiLib::strtolower($objectId));
+        $objectId = md5($objectType . mb_strtolower($objectId));
 
         $query = 'delete from `users_objectpermissions`' .
             ' where`objectId` = ? and `objectType` = ?';
@@ -146,7 +146,7 @@ class UsersLib extends TikiLib
 
     public function copy_object_permissions($objectId, $destinationObjectId, $objectType)
     {
-        $objectId = md5($objectType . TikiLib::strtolower($objectId));
+        $objectId = md5($objectType . mb_strtolower($objectId));
 
         $query = "select `permName`, `groupName`
             from `users_objectpermissions`
@@ -162,7 +162,7 @@ class UsersLib extends TikiLib
 
     public function get_object_permissions($objectId, $objectType, $group = '', $perm = '')
     {
-        $objectId = md5($objectType . TikiLib::strtolower($objectId));
+        $objectId = md5($objectType . mb_strtolower($objectId));
 
         $query = "select `groupName`, `permName`
             from `users_objectpermissions`
@@ -187,7 +187,7 @@ class UsersLib extends TikiLib
         if (array_key_exists($params, $this->get_object_permissions_for_user_cache)) {
             return $this->get_object_permissions_for_user_cache[$params];
         }
-        $objectId = md5($objectType . TikiLib::strtolower($objectId));
+        $objectId = md5($objectType . mb_strtolower($objectId));
         $bindvars = [$objectId, $objectType];
         $groups = $this->get_user_groups($user);
         $bindvars = array_merge($bindvars, $groups);
@@ -211,7 +211,7 @@ class UsersLib extends TikiLib
 
     public function object_has_one_permission($objectId, $objectType)
     {
-        $objectId = md5($objectType . TikiLib::strtolower($objectId));
+        $objectId = md5($objectType . mb_strtolower($objectId));
 
         if (
             ! isset($this->userobjectperm_cache) || ! is_array($this->userobjectperm_cache)
@@ -2602,9 +2602,9 @@ class UsersLib extends TikiLib
 
     public function get_groups_for_permissions()
     {
-        $query = "SELECT * from users_groups 
-                    where isTplGroup <> 'y' and groupName not in (select groupName 
-                    from  tiki_group_inclusion where includeGroup in (SELECT groupName 
+        $query = "SELECT * from users_groups
+                    where isTplGroup <> 'y' and groupName not in (select groupName
+                    from  tiki_group_inclusion where includeGroup in (SELECT groupName
                     from users_groups where isTplGroup = 'y')) order by id asc;";
         $ret = $this->fetchAll($query);
         $retval = [];
@@ -2615,7 +2615,7 @@ class UsersLib extends TikiLib
 
     public function get_template_groups_containers()
     {
-        $query = "SELECT * from users_groups 
+        $query = "SELECT * from users_groups
                     where isTplGroup = 'y' order by id asc;";
         $ret = $this->fetchAll($query);
         $retval = [];
@@ -7911,7 +7911,7 @@ class UsersLib extends TikiLib
                 INNER JOIN `tiki_history` p2 ON ( p1.`pageName` = p2.`pageName` )
                 INNER JOIN `users_users` u2 ON ( u2.`login` = p2.`user` )
                 WHERE u2.`login` = ? AND u1.`login` <> ?
-                GROUP BY p1.`pageName`, u1.`login` 
+                GROUP BY p1.`pageName`, u1.`login`
                 ORDER BY quantity DESC
                 ';
         } else {

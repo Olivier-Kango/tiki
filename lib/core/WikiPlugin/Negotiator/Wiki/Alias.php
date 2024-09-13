@@ -14,7 +14,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
             return false;
         }
 
-        $name = TikiLib::strtolower($name);
+        $name = mb_strtolower($name);
 
         $prefName = "pluginalias_" . $name;
 
@@ -69,7 +69,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
             return;
         }
 
-        $name = TikiLib::strtolower($name);
+        $name = mb_strtolower($name);
         $data['plugin_name'] = $name;
 
         $prefName = "pluginalias_$name";
