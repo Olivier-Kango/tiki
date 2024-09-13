@@ -1,4 +1,4 @@
-{title help="Payments" admpage="payments"}{tr}Payments{/tr}{/title}
+{title help="Payments" admpage="payment"}{tr}Payments{/tr}{/title}
 
 {if isset($invoice)}
     <div class="mb-4">
