@@ -802,18 +802,22 @@ class TikiLib extends TikiDb_Bridge
             $this->remove_user_watch($user, $event, $object, $type, $email);
         }
 
-        $userWatches = $this->table('tiki_user_watches');
-        return $userWatches->insert(
-            [
-                'user' => $user,
-                'event' => $event,
-                'object' => $object,
-                'email' => $email,
-                'type' => $type,
-                'title' => $title,
-                'url' => $url,
-            ]
-        );
+        try {
+            $userWatches = $this->table('tiki_user_watches');
+            return $userWatches->insert(
+                [
+                    'user' => $user,
+                    'event' => $event,
+                    'object' => $object,
+                    'email' => $email,
+                    'type' => $type,
+                    'title' => $title,
+                    'url' => $url,
+                ]
+            );
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 
     /**

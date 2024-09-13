@@ -208,54 +208,76 @@ class Services_Comment_Controller
                     [],
                     $version
                 );
-                // Set watch if requested
-                if ($prefs['feature_user_watches'] == 'y' && $watch == 'y') {
-                    // ensure subcomments are not watched when parent comments are watched
-                    // so we don't fill the user_watches table unnecessary
-                    $comments_list = $commentslib->get_root_path($threadId);
-                    $watch_user = empty($anonymous_email) ? $user : $anonymous_name . ' ' . tra('(not registered)');
-                    if (! TikiLib::lib('tiki')->get_user_event_watches($watch_user, 'thread_comment_replied', $comments_list)) {
-                        if ($type == 'wiki page') {
+                if ($threadId) {
+                    switch ($type) {
+                        case 'wiki page':
+                            $watch_event = 'wiki_comment_changes';
+
                             $wikilib = TikiLib::lib('wiki');
                             $parent_name = $objectId;
                             $notification_url = $wikilib->sefurl($objectId);
-                        } elseif ($type == 'article') {
+                            break;
+                        case 'article':
+                            $watch_event = 'article_comment_changes';
+
                             $artlib = TikiLib::lib('art');
                             $parent_name = $artlib->get_title($objectId);
                             $notification_url = 'tiki-read_article.php?articleId=' . $objectId;
-                        } elseif ($type == 'trackeritem') {
+                            break;
+
+                        case 'trackeritem':
+                            $watch_event = 'tracker_item_modified';
+
                             $trk = TikiLib::lib('trk');
                             $trackerId = $trk->get_tracker_for_item($objectId);
                             $parent_name = $trk->get_isMain_value($trackerId, $objectId);
                             $notification_url = 'tiki-view_tracker_item.php?itemId=' . $objectId;
-                        } elseif ($type == 'blog post') {
+                            break;
+
+                        case 'blog post':
+                            $watch_event = 'blog_comment_changes';
+
                             $bloglib = TikiLib::lib('blog');
                             $blog_post = $bloglib->get_post($objectId);
                             $parent_name = $blog_post['title'];
                             $notification_url = 'tiki-view_blog_post.php?postId=' . $objectId;
-                        } else {
+                            break;
+
+                        default:
                             $parent_name = '';
                             $notification_url = '';
-                        }
-                        if (! empty($anonymous_email)) { // Add an anonymous watch, if email address supplied.
-                            TikiLib::lib('tiki')->add_user_watch(
-                                $anonymous_name . ' ' . tra('(not registered)'),
-                                'thread_comment_replied',
-                                $threadId,
-                                'comment',
-                                $parent_name . ':' . $title,
-                                $notification_url,
-                                $anonymous_email
-                            );
-                        } elseif ($user) {
-                            TikiLib::lib('tiki')->add_user_watch(
-                                $user,
-                                'thread_comment_replied',
-                                $threadId,
-                                'comment',
-                                $parent_name . ':' . $title,
-                                $notification_url
-                            );
+                            break;
+                    }
+                    Feedback::showWatchers($watch_event, $objectId, 'thread_comment_replied');
+                    Feedback::sendHeaders();
+
+                    // Set watch if requested
+                    if ($prefs['feature_user_watches'] == 'y' && $watch == 'y') {
+                        // ensure subcomments are not watched when parent comments are watched
+                        // so we don't fill the user_watches table unnecessary
+                        $comments_list = $commentslib->get_root_path($threadId);
+                        $watch_user = empty($anonymous_email) ? $user : $anonymous_name . ' ' . tra('(not registered)');
+                        if (! TikiLib::lib('tiki')->get_user_event_watches($watch_user, 'thread_comment_replied', $comments_list)) {
+                            if (! empty($anonymous_email)) { // Add an anonymous watch, if email address supplied.
+                                TikiLib::lib('tiki')->add_user_watch(
+                                    $anonymous_name . ' ' . tra('(not registered)'),
+                                    'thread_comment_replied',
+                                    $threadId,
+                                    'comment',
+                                    $parent_name . ':' . $title,
+                                    $notification_url,
+                                    $anonymous_email
+                                );
+                            } elseif ($user) {
+                                TikiLib::lib('tiki')->add_user_watch(
+                                    $user,
+                                    'thread_comment_replied',
+                                    $threadId,
+                                    'comment',
+                                    $parent_name . ':' . $title,
+                                    $notification_url
+                                );
+                            }
                         }
                     }
                 }

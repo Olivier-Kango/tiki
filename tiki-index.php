@@ -687,6 +687,11 @@ if ($prefs['feature_user_watches'] == 'y') {
                 $page,
                 "tiki-index.php?page=$page"
             );
+            if ($ret) {
+                Feedback::success(tra("You are now monitoring the page $page."));
+            } else {
+                Feedback::error(tra('An error occured!'));
+            }
         } elseif ($_REQUEST['watch_action'] == 'add_desc') {
             $ret = $tikilib->add_user_watch(
                 $user,

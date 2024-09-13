@@ -1541,6 +1541,8 @@ if (
 
         Feedback::success(tr('Page %0 saved (version %1).', $_REQUEST["page"], $info['version']) . $linktodiff);
 
+        Feedback::showWatchers('wiki_page_changed', $page);
+
         if (! empty($_REQUEST['hdr'])) {
             $tmp = $parserlib->parse_data($edit);           // fills $anch[] so page refreshes at the section being edited
             $url .= "#" . $anch[$_REQUEST['hdr'] - 1]['id'];

@@ -1366,6 +1366,7 @@ class Services_Tracker_Controller
             if (isset($input['edit']) && $input['edit'] === 'inline') {
                 if ($result && $suppressFeedback !== true) {
                     Feedback::success(tr('Tracker item %0 has been updated', $itemId), true);
+                    Feedback::showWatchers('tracker_item_modified', $itemId);
                 } else {
                     Feedback::sendHeaders();
                 }
@@ -1382,6 +1383,7 @@ class Services_Tracker_Controller
                     } else {
                         Feedback::success(tr('Tracker item %0 has been updated', $itemId));
                     }
+                    Feedback::showWatchers('tracker_item_modified', $itemId);
                 } else {
                     Feedback::sendHeaders();
                 }

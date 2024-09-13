@@ -392,4 +392,42 @@ class Feedback
             }
         }
     }
+
+    /**
+     * Show a note about users who have been notified about an event
+     * @param string $watch_event
+     * @param string $object
+     * @param string $extra_event
+     *
+     * @return void
+     */
+    public static function showWatchers($watch_event, $object, $extra_event = null)
+    {
+        global $prefs;
+        if ($prefs['feature_user_watches'] === 'y') {
+            $watches = TikiLib::lib('tiki')->get_event_watches($watch_event, $object);
+
+            if ($extra_event) {
+                $extra_watches = TikiLib::lib('tiki')->get_event_watches($extra_event, $object);
+                $extra_watches = array_filter($extra_watches, function ($watch) use ($watches) {
+                    $watches = array_column($watches, 'user');
+                    return ! in_array($watch['user'], $watches);
+                });
+                $watches = array_merge($watches, $extra_watches);
+            }
+
+            if (count($watches)) {
+                $message = "<ul>";
+                foreach ($watches as $watch) {
+                    $message .= "<li class='fw-bold'><a href='tiki-user_information.php?user=" . $watch['user'] . "'>" . $watch['user'] . "</a></li>";
+                }
+                $message .= "</ul>";
+                self::note([
+                    'title' => tr('Notification sent to:'),
+                    'mes' => $message,
+                    'icon' => 'bell'
+                ]);
+            }
+        }
+    }
 }
