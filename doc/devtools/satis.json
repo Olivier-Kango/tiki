@@ -2235,6 +2235,7 @@
         "simile_timeline/simile_timeline": ">=2.3.0",
         "slm/mail": "^4.2",
         "slevomat/coding-standard": "^7.0.9",
+        "smalot/pdfparser": ">=2.11",
         "smarty/smarty": ">=3.1.14",
         "stevegrunwell/phpunit-markup-assertions": "^1.4.0",
         "sorich87/bootstrap-tour": ">0.10.2",
