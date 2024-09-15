@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, within } from "@testing-library/vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import moment from "moment";
-import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, test, expect, vi, beforeEach } from "vitest";
 import { h } from "vue";
 import DatetimePicker, { DATA_TEST_ID, TEXT } from "../App.vue";
 import * as Helpers from "../helpers/helpers";
@@ -35,16 +35,17 @@ describe("DatetimePicker", () => {
                 themeCss: "themes/default/css/default.css",
                 inputName: "date",
                 timestamp: "10",
-                inputName: "date",
                 enableTimezonePicker: 1,
                 enableTimePicker: 1,
                 selectText: "Select",
                 cancelText: "Cancel",
                 timezone: "America/New_York",
                 language: "en",
-                toInputName: "to_date",
+                rangePicker: true,
                 toTimestamp: "20",
-                timezoneFieldName: "timezone",
+                timezoneInput: document.createElement("input"),
+                dateTimeInput: document.createElement("input"),
+                toDateTimeInput: document.createElement("input"),
             };
 
             // GIVEN that the call to convertToUnixTimestamp function will return some value
@@ -72,17 +73,12 @@ describe("DatetimePicker", () => {
                     cancelText: givenProps.cancelText,
                     selectText: givenProps.selectText,
                     timezone: { timezone: givenProps.timezone },
-                    range: Boolean(givenProps.toInputName),
+                    range: givenProps.rangePicker,
                     locale: givenProps.language,
                     "enable-time-picker": givenProps.enableTimezonePicker,
                 }),
                 null
             );
-
-            const hiddenTimestampInputElement = within(containerElement).getByTestId(DATA_TEST_ID.HIDDEN_TIMESTAMP_INPUT);
-            expect(hiddenTimestampInputElement).to.exist;
-            expect(hiddenTimestampInputElement.getAttribute("type")).toBe("hidden");
-            expect(hiddenTimestampInputElement.name).toBe(givenProps.inputName);
 
             expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(
                 givenProps.timestamp * 1000,
@@ -90,24 +86,16 @@ describe("DatetimePicker", () => {
                 givenProps.timezone
             );
             // expect the hidden input value to be whatever the convertToUnixTimestamp function returned
-            expect(hiddenTimestampInputElement.value).toBe(expectedConvertedTimestamp);
-
-            const hiddentToTimestampInputElement = within(containerElement).queryByTestId(DATA_TEST_ID.HIDDEN_TO_TIMESTAMP_INPUT);
-            expect(hiddentToTimestampInputElement).to.exist;
-            expect(hiddentToTimestampInputElement.getAttribute("type")).toBe("hidden");
-            expect(hiddentToTimestampInputElement.name).toBe(givenProps.toInputName);
+            expect(givenProps.dateTimeInput.value).toBe(expectedConvertedTimestamp);
 
             expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(
                 givenProps.toTimestamp * 1000,
                 Boolean(givenProps.enableTimezonePicker && !givenProps.timezone),
                 givenProps.timezone
             );
-            expect(hiddentToTimestampInputElement.value).toBe(expectedConvertedTimestamp);
+            expect(givenProps.toDateTimeInput.value).toBe(expectedConvertedTimestamp);
             // convertToUnixTimestamp should have been called twice by now
             expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledTimes(2);
-
-            const hiddenUseDisplayTzElement = within(containerElement).queryByTestId(DATA_TEST_ID.HIDDEN_USE_DISPLAY_TZ);
-            expect(hiddenUseDisplayTzElement).toBeNull();
 
             const timezoneContainerElement = within(containerElement).queryByTestId(DATA_TEST_ID.TIMEZONE_CONTAINER);
             expect(timezoneContainerElement).to.exist;
@@ -118,7 +106,6 @@ describe("DatetimePicker", () => {
 
             const timezoneSelectElement = within(timezoneContainerElement).getByTestId(DATA_TEST_ID.TIMEZONE_SELECT);
             expect(timezoneSelectElement).to.exist;
-            expect(timezoneSelectElement.name).toBe(givenProps.timezoneFieldName);
             const timezones = moment.tz.names();
             expect(timezoneSelectElement.children).toHaveLength(timezones.length);
             timezones.forEach((timezone, index) => {
@@ -132,7 +119,9 @@ describe("DatetimePicker", () => {
         });
 
         test("renders correctly when optional props are not provided", () => {
-            const givenProps = {};
+            const givenProps = {
+                dateTimeInput: document.createElement("input"),
+            };
 
             render(DatetimePicker, {
                 props: {
@@ -153,11 +142,6 @@ describe("DatetimePicker", () => {
             const containerElement = screen.getByTestId(DATA_TEST_ID.CONTAINER);
             expect(containerElement).to.exist;
 
-            const hiddenUseDisplayTzElement = within(containerElement).getByTestId(DATA_TEST_ID.HIDDEN_USE_DISPLAY_TZ);
-            expect(hiddenUseDisplayTzElement).to.exist;
-            expect(hiddenUseDisplayTzElement.getAttribute("type")).toBe("hidden");
-            expect(hiddenUseDisplayTzElement.name).toBe(TEXT.USE_DISPLAY_TZ_INPUT_NAME);
-
             const timezoneContainerElement = within(containerElement).queryByTestId(DATA_TEST_ID.TIMEZONE_CONTAINER);
             expect(timezoneContainerElement).toBeNull();
 
@@ -168,11 +152,11 @@ describe("DatetimePicker", () => {
 
     describe("Action tests", () => {
         test.each([
-            ["the range picker is enabled", [new Date("2021-01-01"), new Date("2021-01-02")]],
-            ["the range picker is disabled", [new Date("2021-01-01")]],
+            ["the range picker is enabled", [new Date("2021-01-01"), new Date("2021-01-02")], true],
+            ["the range picker is disabled", [new Date("2021-01-01")], false],
         ])(
             "should update the hidden timestamp inputs when the date picker value changes and %s and call the emitValueChange prop",
-            async (_, givenUpdatedDates) => {
+            async (_, givenUpdatedDates, rangePicker) => {
                 VueDatePicker = {
                     emits: ["update:modelValue"],
                     setup(props, { emit }) {
@@ -182,6 +166,9 @@ describe("DatetimePicker", () => {
                 };
                 const givenProps = {
                     emitValueChange: vi.fn(),
+                    dateTimeInput: document.createElement("input"),
+                    toDateTimeInput: document.createElement("input"),
+                    rangePicker,
                 };
                 render(DatetimePicker, {
                     props: givenProps,
@@ -199,6 +186,11 @@ describe("DatetimePicker", () => {
                         timezone: expect.anything(),
                     });
                 });
+
+                expect(givenProps.dateTimeInput.value).toBe(Helpers.convertToUnixTimestamp.mock.results[0].value);
+                if (rangePicker) {
+                    expect(givenProps.toDateTimeInput.value).toBe(Helpers.convertToUnixTimestamp.mock.results[1].value);
+                }
             }
         );
 
@@ -211,6 +203,7 @@ describe("DatetimePicker", () => {
                     timestamp: "10",
                     toTimestamp: "20",
                     timezone: "America/New_York",
+                    dateTimeInput: document.createElement("input"),
                 };
                 VueDatePicker = {
                     emits: ["update:modelValue"],
@@ -244,6 +237,8 @@ describe("DatetimePicker", () => {
                 timezone: "foo",
                 timezoneFieldName: "timezone",
                 emitValueChange: vi.fn(),
+                dateTimeInput: document.createElement("input"),
+                timezoneInput: document.createElement("input"),
             };
 
             render(DatetimePicker, {

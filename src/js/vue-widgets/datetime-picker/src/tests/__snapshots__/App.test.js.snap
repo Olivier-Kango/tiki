@@ -7,23 +7,6 @@ exports[`DatetimePicker > render tests > renders correctly when optional props a
   <div
     data-testid="date-picker-1720000034990"
   />
-  <input
-    data-testid="hidden-timestamp-input-1720000034990"
-    name="date"
-    type="hidden"
-    value="foo"
-  />
-  <input
-    data-testid="hidden-to-timestamp-input-1720000034990"
-    type="hidden"
-    value="0"
-  />
-  <input
-    data-testid="hidden-use-display-tz-1720000034990"
-    name="useDisplayTz"
-    type="hidden"
-    value="1"
-  />
   <!--v-if-->
 </div>
 `;
@@ -35,19 +18,6 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
   <div
     data-testid="date-picker-1720000034990"
   />
-  <input
-    data-testid="hidden-timestamp-input-1720000034990"
-    name="date"
-    type="hidden"
-    value="foo"
-  />
-  <input
-    data-testid="hidden-to-timestamp-input-1720000034990"
-    name="to_date"
-    type="hidden"
-    value="foo"
-  />
-  <!--v-if-->
   <div
     class="mt-3"
     data-testid="timezone-container-1720000034990"
@@ -64,7 +34,6 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       class="form-select"
       data-testid="timezone-select-1720000034990"
       id="timezone"
-      name="timezone"
     >
       
       <option

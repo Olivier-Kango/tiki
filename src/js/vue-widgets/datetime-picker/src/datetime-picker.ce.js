@@ -1,4 +1,4 @@
-import { defineCustomElement, h } from "vue";
+import { defineCustomElement, h, onMounted, watch, reactive, ref } from "vue";
 import App from "./App.vue";
 import styles from "./custom.scss?inline";
 
@@ -6,51 +6,66 @@ customElements.define(
     "datetime-picker",
     defineCustomElement(
         (props, ctx) => {
+            const internalProps = reactive({ ...props });
+
+            const createInput = (name, value) => {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = name;
+                input.value = value;
+                return input;
+            };
+            const dateTimeInputRef = ref(createInput(ctx.attrs.inputName, ctx.attrs.timestamp));
+            const timezoneInputRef = ref(createInput(ctx.attrs.timezoneFieldName, ctx.attrs.timezone));
+            const toDateTimeInputRef = ref(createInput(ctx.attrs.toInputName, ctx.attrs.toTimestamp));
+
             const emitValueChange = (detail) => {
                 ctx.emit("change", detail);
             };
-            return () => h(App, { ...props, emitValueChange }, ctx.slots);
+
+            const createInputDataHolders = () => {
+                const shadowRoot = document.querySelector(`datetime-picker[input-name="${ctx.attrs.inputName}"]`);
+                shadowRoot.appendChild(dateTimeInputRef.value);
+
+                if (ctx.attrs.toInputName) {
+                    shadowRoot.appendChild(toDateTimeInputRef.value);
+                }
+
+                if (ctx.attrs.enableTimezonePicker) {
+                    shadowRoot.appendChild(timezoneInputRef.value);
+                }
+            };
+
+            onMounted(() => {
+                createInputDataHolders();
+            });
+
+            watch(
+                () => props,
+                (newProps) => {
+                    Object.keys(newProps).forEach((key) => {
+                        internalProps[key] = newProps[key];
+                    });
+                },
+                { immediate: true, deep: true }
+            );
+
+            return () =>
+                h(
+                    App,
+                    {
+                        ...internalProps,
+                        emitValueChange,
+                        dateTimeInput: dateTimeInputRef.value,
+                        timezoneInput: timezoneInputRef.value,
+                        toDateTimeInput: toDateTimeInputRef.value,
+                        rangePicker: Boolean(ctx.attrs.toInputName),
+                    },
+                    ctx.slots
+                );
         },
         {
             styles: [styles],
         }
     )
 );
-
-new MutationObserver((mutations) => {
-    if (mutations.some((m) => m.target.querySelector("datetime-picker"))) {
-        const datetimePickers = document.querySelectorAll("datetime-picker");
-
-        /*
-            Sync the datetime picker value with the parent form. Essential for data submission.
-        */
-        datetimePickers.forEach((datetimePicker) => {
-            const form = datetimePicker.closest("form");
-            datetimePicker.shadowRoot.querySelectorAll("input[type='hidden']").forEach((input) => {
-                if (!form.querySelector(`input[name="${input.name}"]`)) {
-                    form.appendChild(input);
-                }
-            });
-            const timezone = datetimePicker.shadowRoot.querySelector("select[id='timezone']");
-            if (timezone) {
-                if (!form.querySelector(`input[name="${timezone.name}"]`)) {
-                    const input = document.createElement("input");
-                    input.type = "hidden";
-                    input.name = timezone.name;
-                    input.value = timezone.value;
-                    form.appendChild(input);
-                }
-            }
-            datetimePicker.addEventListener("change", function (event) {
-                this.shadowRoot.querySelectorAll("input[type='hidden']").forEach((input) => {
-                    form.querySelector(`input[name="${input.name}"]`).value = input.value;
-                });
-
-                const timezone = this.shadowRoot.querySelector("select[id='timezone']");
-                if (timezone) {
-                    form.querySelector(`input[name="${timezone.name}"]`).value = timezone.value;
-                }
-            });
-        });
-    }
-}).observe(document.body, { childList: true, subtree: true });
