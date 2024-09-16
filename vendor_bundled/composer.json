@@ -207,7 +207,6 @@
         "manticoresoftware/manticoresearch-php": "^3.0",
         "matthiasmullie/minify": "^1.3.58",
         "mautic/api-library": "~3.0.0",
-        "mediumjs/mediumjs": "1.0.1",
         "melbahja/seo": "^2.0",
         "meyfa/php-svg": "^0.16",
         "michelf/php-smartypants": "^1.8.1",
@@ -275,7 +274,6 @@
         "thomaspark/bootswatch": "~5.1",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",
         "tikiwiki/ilp-client": "^1.0",
-        "undojs/undojs": "1",
         "walkermatt/ol-layerswitcher": ">=3.3.0",
         "zbateson/mail-mime-parser": "^2.4",
         "zf1s/zend-service-akismet": "^1.15.2"
