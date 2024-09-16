@@ -121,6 +121,10 @@ class Tracker_Field_Factory
      */
     public function getHandler(array $fieldInfo, ?array $itemData = null): \Tracker\Field\AbstractItemField|null
     {
+        if (empty(self::$typeMap)) {
+            self::buildTypeMap();
+        }
+
         if (! isset($fieldInfo['type'])) {
             throw new InvalidArgumentException("fieldInfo parameter is missing 'type' key");
         }
