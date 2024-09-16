@@ -266,13 +266,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'mediumjs/mediumjs',
-            [
-                'src',
-                'medium.min.js'
-            ]
-        );
-        self::remove(
             $vendors . 'rangy/rangy',
             [
                 'uncompressed/rangy-highlighter.js',

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "553931f6fb7113568e5bd95b4705022b",
+    "content-hash": "8d8307a273f589aae9b261f14625802c",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1432,17 +1432,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "4.0.15",
+            "version": "4.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "afff94f48995b68a4331567358ed3c9ae18220fe"
+                "reference": "d24677626b60eb4986d3460b3d11a05f727d75e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-afff94f48995b68a4331567358ed3c9ae18220fe-zip-c0acc3.zip",
-                "reference": "afff94f48995b68a4331567358ed3c9ae18220fe",
-                "shasum": "cfd7ee4c05984dd1af6e5e6877df271caf4fe48f"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-d24677626b60eb4986d3460b3d11a05f727d75e3-zip-c1fc29.zip",
+                "reference": "d24677626b60eb4986d3460b3d11a05f727d75e3",
+                "shasum": "50cc0cb33dff8faff24d9938d8dba424e20702cc"
             },
             "require": {
                 "php": "^8.1"
@@ -1472,7 +1472,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2024-09-11T07:33:53+00:00"
+            "time": "2024-09-16T07:33:33+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -2281,13 +2281,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "315dd1a4cb62dc835c63a6ce3f0bc14dc97ab664"
+                "reference": "94aabe935eefd574e16940661dd2ca09bb78116c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-315dd1a4cb62dc835c63a6ce3f0bc14dc97ab664-zip-cbff92.zip",
-                "reference": "315dd1a4cb62dc835c63a6ce3f0bc14dc97ab664",
-                "shasum": "13c54bf7c146119041383b73de320e577895b320"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-94aabe935eefd574e16940661dd2ca09bb78116c-zip-8217ff.zip",
+                "reference": "94aabe935eefd574e16940661dd2ca09bb78116c",
+                "shasum": "9085d48c2aae85b5274f6d5c28399c497ab21b6d"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2306,7 +2306,6 @@
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=8.1",
                 "symfony/dotenv": "^4.3 || 5.4",
-                "symfony/yaml": "~6.4.3",
                 "thomaspark/bootswatch": "^5.3",
                 "twbs/bootstrap": "^5.3",
                 "twbs/bootstrap-icons": "^1.11",
@@ -2354,7 +2353,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-09-12T08:36:48+00:00"
+            "time": "2024-08-29T22:13:33+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5568,45 +5567,6 @@
             "time": "2020-10-17T14:04:17+00:00"
         },
         {
-            "name": "mediumjs/mediumjs",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jakiestfu/Medium.js.git",
-                "reference": "9144a17c135975491ac84ab15e398a1f3a895622"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/mediumjs/mediumjs/mediumjs-mediumjs-9144a17c135975491ac84ab15e398a1f3a895622-zip-291ef5.zip",
-                "reference": "9144a17c135975491ac84ab15e398a1f3a895622",
-                "shasum": "a0b70bd981ac82c38078e535f1b646e9226d3e47"
-            },
-            "require": {
-                "rangy/rangy": ">=1.3",
-                "undojs/undojs": ">=1"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Robert Plummer",
-                    "email": "rplummer@visop-dev.com",
-                    "homepage": "http://visop-dev.com",
-                    "role": "Assistant Developer"
-                },
-                {
-                    "name": "Jacob Kelley",
-                    "email": "jakie8@gmail.com",
-                    "homepage": "http://jakiestfu.com",
-                    "role": "Lead Developer"
-                }
-            ],
-            "time": "2014-12-15T16:35:34+00:00"
-        },
-        {
             "name": "melbahja/seo",
             "version": "v2.1.1",
             "source": {
@@ -8287,17 +8247,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.41",
+            "version": "3.0.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "621c73f7dcb310b61de34d1da4c4204e8ace6ceb"
+                "reference": "db92f1b1987b12b13f248fe76c3a52cadb67bb98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-621c73f7dcb310b61de34d1da4c4204e8ace6ceb-zip-3ebed5.zip",
-                "reference": "621c73f7dcb310b61de34d1da4c4204e8ace6ceb",
-                "shasum": "d3e0f8ee1f10d0b69975c2f0cbd09da705922e7b"
+                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-db92f1b1987b12b13f248fe76c3a52cadb67bb98-zip-9f59a1.zip",
+                "reference": "db92f1b1987b12b13f248fe76c3a52cadb67bb98",
+                "shasum": "3162b91ac6d6cae8cc9662f76ab8b27f038166ba"
             },
             "require": {
                 "paragonie/constant_time_encoding": "^1|^2|^3",
@@ -8389,7 +8349,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-12T00:13:54+00:00"
+            "time": "2024-09-16T03:06:04+00:00"
         },
         {
             "name": "phpxmlrpc/phpxmlrpc",
@@ -13580,16 +13540,6 @@
             "time": "2024-01-03T15:44:45+00:00"
         },
         {
-            "name": "undojs/undojs",
-            "version": "1",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/undojs/undojs/undojs-undojs-1.zip",
-                "shasum": "9e9593f6000809ce8ad9293a97ad5ab6abdbc55d"
-            },
-            "type": "library"
-        },
-        {
             "name": "voku/portable-ascii",
             "version": "2.0.1",
             "source": {
@@ -14872,17 +14822,17 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.1.0",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1"
+                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/nikic/php-parser/nikic-php-parser-683130c2ff8c2739f4822ff7ac5c873ec529abd1-zip-47dc15.zip",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1",
-                "shasum": "0ee570d9d74645a102a50b2bc73a526f20f32757"
+                "url": "https://composer.tiki.org/dist/nikic/php-parser/nikic-php-parser-23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb-zip-68c59a.zip",
+                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
+                "shasum": "72c40ad3c7c66abec2e55375a05b8b4df190fea8"
             },
             "require": {
                 "ext-ctype": "*",
@@ -14922,7 +14872,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2024-07-01T20:03:41+00:00"
+            "time": "2024-09-15T16:40:33+00:00"
         },
         {
             "name": "overtrue/phplint",
@@ -15193,13 +15143,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "c04052401b0f2b42696c1c6aebb0479b0452fac5"
+                "reference": "d1419106f4e78b9bbcb918604e47422cb36d44b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-c04052401b0f2b42696c1c6aebb0479b0452fac5-zip-3f8087.zip",
-                "reference": "c04052401b0f2b42696c1c6aebb0479b0452fac5",
-                "shasum": "6f34e0f6751ef4f6c9861d674251759a72c3fbe4"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-d1419106f4e78b9bbcb918604e47422cb36d44b1-zip-eba3ea.zip",
+                "reference": "d1419106f4e78b9bbcb918604e47422cb36d44b1",
+                "shasum": "f631cb16232559c97948167cd9847e66e7db0b01"
             },
             "require": {
                 "php": ">=5.4",
@@ -15269,7 +15219,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-09-08T00:51:59+00:00"
+            "time": "2024-09-15T16:22:56+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
