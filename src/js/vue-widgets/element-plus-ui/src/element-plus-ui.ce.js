@@ -9,7 +9,8 @@ customElements.define(
             const internalState = reactive({ ...props });
 
             const emitValueChange = (detail) => {
-                ctx.emit("change", detail);
+                const eventName = ctx.attrs.component.toLowerCase() + "-change";
+                ctx.emit(eventName, detail);
             };
 
             // Allow to update the comoponent state by changing HTML element attributes
@@ -37,6 +38,13 @@ new MutationObserver((mutations) => {
     if (mutations.some((m) => m.target.querySelector("element-plus-ui"))) {
         const elements = document.querySelectorAll("element-plus-ui");
         elements.forEach((el) => {
+            if (el.getAttribute("id")) {
+                return;
+            }
+
+            const elementUniqueId = Math.random().toString(36).substring(7);
+            el.setAttribute("id", elementUniqueId);
+
             const fieldName = el.getAttribute("field-name");
             let select = el.closest("form").querySelector(`select[name="${fieldName}"]`);
             if (!select) {
@@ -44,6 +52,9 @@ new MutationObserver((mutations) => {
                 select.name = fieldName;
                 select.multiple = true;
                 select.setAttribute("aria-hidden", "true");
+
+                select.setAttribute("element-plus-ref", elementUniqueId);
+
                 const defaultValues = el.getAttribute("default-value");
                 if (defaultValues) {
                     const values = JSON.parse(defaultValues);
@@ -60,9 +71,7 @@ new MutationObserver((mutations) => {
                 div.appendChild(select);
                 el.parentNode.insertAdjacentElement("afterend", div);
             }
-            // TODO: Take this out of the mutation observer so the event handler is not attached multiple times,
-            // which cause the select to also trigger the cahnge event serveral times
-            el.addEventListener("change", function (event) {
+            el.addEventListener("transfer-change", function (event) {
                 const value = event.detail[0].value;
                 select.innerHTML = "";
                 value.forEach((v) => {
@@ -76,3 +85,5 @@ new MutationObserver((mutations) => {
         });
     }
 }).observe(document.body, { childList: true, subtree: true });
+
+export { default as applySelect } from "./applySelect";

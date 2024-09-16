@@ -177,11 +177,18 @@
         {tab name="{tr}Interface{/tr}" key=interface}
             <br>
             <fieldset class="mb-3 w-100 clearfix featurelist">
-                <legend class="h3"><h4 class="showhide_heading" id="Ajax"> {tr}Ajax{/tr}  <a href="#Ajax" class="heading-link" aria-label="{tr}Ajax{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
-                {preference name=feature_ajax}
-                <div class="adminoptionboxchild" id="feature_ajax_childcontainer">
-                    {preference name=ajax_autosave}
+                <legend class="h3"><h4 class="showhide_heading" id="element-plus"> {tr}Element Plus{/tr}  <a href="#element-plus" class="heading-link" aria-label="{tr}Element Plus{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
+                {preference name=feature_elementplus}
+                <div class="adminoptionboxchild" id="feature_elementplus_childcontainer">
+                    {preference name=elementplus_select_clearable}
+                    {preference name=elementplus_select_collapse_tags}
+                    {preference name=elementplus_select_max_collapse_tags}
+                    {preference name=elementplus_select_filterable}
+                    {preference name=elementplus_select_allow_create}
                 </div>
+            </fieldset>
+            <fieldset class="mb-3 w-100 clearfix featurelist">
+                <legend class="h3"><h4 class="showhide_heading" id="Icons_and_Profile_Pictures">{tr}Icons and Profile Pictures{/tr} <a href="#Icons_and_Profile_Pictures" class="heading-link" aria-label="{tr}Icons and Profile Pictures{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
             </fieldset>
             <fieldset class="mb-3 w-100 clearfix featurelist">
                 <legend class="h3"><h4 class="showhide_heading" id="jQuery_plugins_and_add-ons"> {tr}jQuery plugins and add-ons{/tr}  <a href="#jQuery_plugins_and_add" class="heading-link" aria-label="{tr}jQuery {/tr}">{icon name="link"}</a></h4></legend>

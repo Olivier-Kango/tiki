@@ -49,3 +49,7 @@
         border-color: var(--bs-danger) var(--bs-danger) var(--el-border-color) var(--bs-danger);
     }
 }
+
+.invalid .el-select__wrapper {
+    --el-border-color: var(--bs-danger);
+}

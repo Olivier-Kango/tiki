@@ -1368,6 +1368,13 @@ function prefs_feature_list($partial = false)
             'dependencies' => ['feature_canonical_url'],
             'default' => '',
         ],
+        'feature_elementplus' => [
+            'name' => tra('Element Plus'),
+            'description' => tra('Use Element Plus Vue based UI elements'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['experimental'],
+        ],
         'feature_sefurl_routes' => [
             'name' => tra('Custom Routes'),
             'description' => tra('Custom routes allow the definition of URLs by the admin, that can be mapped to existing Tiki objects like pages and trackers.  "Add BASE tag in the page HEAD" is required when you have "/" as part of the URL.'),

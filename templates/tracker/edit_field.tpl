@@ -131,13 +131,15 @@
                     {/if}
                 </div>
                 {jq}
-                    var users{{$field.fieldId}} = {{$data.users|json_encode}};
-                    $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}").select2(); // Ensure Select2 is initialized
-                    $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}").on("change", function() {
-                        var $group_selector = $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}");
-                        var group_selected = $group_selector.val();
-                        $group_selector.val(group_selected).trigger("change.select2");
-                    }).trigger("change");
+                    if (jqueryTiki.select2) {
+                        var users{{$field.fieldId}} = {{$data.users|json_encode}};
+                        $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}").select2(); // Ensure Select2 is initialized
+                        $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}").on("change", function() {
+                            var $group_selector = $("#user_group_selector_{{$field.fieldId}}_{{$groupInputCounter}}");
+                            var group_selected = $group_selector.val();
+                            $group_selector.val(group_selected).trigger("change.select2");
+                        }).trigger("change");
+                    }
                 {/jq}
             {/foreach}
         {/accordion_group}
