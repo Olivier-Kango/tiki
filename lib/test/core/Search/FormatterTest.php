@@ -240,8 +240,17 @@ OUT;
     public function testFormatValueAsLink()
     {
         global $prefs;
+        // Test with sefurl enabled
         $prefs['feature_sefurl'] = 'y';
+        $this->runTestFormatValueAsLink(true);
 
+        // Test with sefurl disbaled
+        $prefs['feature_sefurl'] = 'n';
+        $this->runTestFormatValueAsLink(false);
+    }
+
+    public function runTestFormatValueAsLink($isSefUrlEnabled)
+    {
         $plugin = new Search_Formatter_Plugin_WikiTemplate("* {display name=title format=objectlink}\n");
 
         $formatter = new Search_Formatter($plugin);
@@ -262,13 +271,13 @@ OUT;
         );
 
         if (TikiLib::lib('tiki')->page_exists("HomePage")) {
-            $url1 = "tiki-index.php?page=HomePage";
+            $url1 = $isSefUrlEnabled ? "HomePage" : "tiki-index.php?page=HomePage";
         } else {
             $url1 = "tiki-editpage.php?page=HomePage";
         }
 
         if (TikiLib::lib('tiki')->page_exists("Some Page")) {
-            $url2 = "tiki-index.php?page=Some+Page";
+            $url2 = $isSefUrlEnabled ? "Some+Page" : "tiki-index.php?page=Some+Page";
         } else {
             $url2 = "tiki-editpage.php?page=Some+Page";
         }
@@ -284,8 +293,17 @@ OUT;
     public function testLinkInsideSmartyTemplate()
     {
         global $prefs;
+        // Test with sefurl enabled
         $prefs['feature_sefurl'] = 'y';
+        $this->runTestLinkInsideSmartyTemplate(true);
 
+        // Test with sefurl disbaled
+        $prefs['feature_sefurl'] = 'n';
+        $this->runTestLinkInsideSmartyTemplate(false);
+    }
+
+    public function runTestLinkInsideSmartyTemplate($isSefUrlEnabled)
+    {
         $plugin = new Search_Formatter_Plugin_SmartyTemplate(__DIR__ . '/basic.tpl');
 
         $formatter = new Search_Formatter($plugin);
@@ -301,7 +319,7 @@ OUT;
         );
 
         if (TikiLib::lib('tiki')->page_exists("HomePage")) {
-            $url = "tiki-index.php?page=HomePage";
+            $url = $isSefUrlEnabled ? "HomePage" : 'tiki-index.php?page=HomePage';
         } else {
             $url = "tiki-editpage.php?page=HomePage";
         }
