@@ -261,6 +261,7 @@ function tiki_setup_events()
 
     $events->bind('tiki.wiki.update', 'tiki.wiki.save');
     $events->bind('tiki.wiki.create', 'tiki.wiki.save');
+    $events->bind('tiki.wiki.rename', 'tiki.wiki.save');
     $events->bind('tiki.wiki.save', 'tiki.save');
     $events->bind('tiki.wiki.view', 'tiki.view');
     $events->bind('tiki.wiki.attachfile', 'tiki.save');

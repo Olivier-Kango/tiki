@@ -546,6 +546,26 @@ class WikiLib extends TikiLib
         $cachelib->invalidateAll('menu');
         $cachelib->invalidateAll('structure');
 
+        $edit_comment = tr('Page renamed from %0 to %1.', $oldName, $newName);
+        $tx = $this->begin();
+
+        TikiLib::events()->trigger(
+            'tiki.wiki.rename',
+            [
+                'type' => 'wiki page',
+                'object' => $newName,
+                'namespace' => $this->get_namespace($newName),
+                'reply_action' => 'comment',
+                'user' => $GLOBALS['user'],
+                'page_id' => $info['page_id'],
+                'data' => $newName,
+                'old_data' => $oldName,
+                'edit_comment' => $edit_comment,
+            ]
+        );
+
+        $tx->commit();
+
         return true;
     }
 
