@@ -58,8 +58,15 @@ $smarty = TikiLib::lib('smarty');
 require_once("export-tracker_schema.php");
 $mermaidText = exportMermaidER($title, $entities, $relationships, $skipAttributes, $includePermNames);
 $mermaidOutput = renderMermaid($mermaidText);
+if (isset($_REQUEST['export'])) {
+    $export = $_REQUEST['export'];
+} else {
+    $export = 'svgFormat';
+}
 
+$mermaidText = exportMermaidER($title, $entities, $relationships, $skipAttributes, $includePermNames, true);
+$smarty->assign('export', $export);
+$smarty->assign('textPlain', $mermaidText);
 $smarty->assign('contentmain', $mermaidOutput);
 $smarty->assign('mid', 'tiki-export_tracker_schema.tpl');
 $smarty->display('tiki.tpl');
-echo "<textarea style='display:none;' id='mermaidText'>$mermaidText</textarea>";

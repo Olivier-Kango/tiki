@@ -61,7 +61,7 @@ foreach ($trackerIds as $id) {
     }
 }
 
-function exportMermaidER(string $title, array $entities, array $relationships, bool $skipAttributes = false, bool $includePermNames = true): string
+function exportMermaidER(string $title, array $entities, array $relationships, bool $skipAttributes = false, bool $includePermNames = true, bool $textPlain = false): string
 {
     $output = <<<END
         ---

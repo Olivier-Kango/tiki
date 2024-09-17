@@ -26,27 +26,37 @@
     </div>
     <div class='col-md-5'>
         <div class='form-check'>
-            <input class='form-check-input' type='radio' name='export' id='svgFormat' value='svgFormat' checked>
+            <input class='form-check-input' type='radio' name='export' id='svgFormat' value='svgFormat'{if $export eq 'svgFormat'} checked{/if}>
             <label class='form-check-label' for='svgFormat'>
             {tr}ER Diagram Display{/tr}
             </label>
         </div>
         <div class='form-check'>
-            <input class='form-check-input' type='radio' name='export' id='textPlain' value='textPlain'>
+            <input class='form-check-input' type='radio' name='export' id='textPlain' value='textPlain'{if $export eq 'textPlain'} checked{/if}>
             <label class='form-check-label' for='textPlain'>
             {tr}Raw mermaid text{/tr}
             </label>
         </div>
         <div class='form-check'>
-            <input class='form-check-input' type='radio' name='export' id='imgSvg' value='imgSvg'>
+            <input class='form-check-input' type='radio' name='export' id='imgSvg' value='imgSvg'{if $export eq 'imgSvg'} checked{/if}>
             <label class='form-check-label' for='imgSvg'>
             {tr}SVG for export{/tr}
             </label>
         </div>
+        <input type='hidden' value='{$export}' id='export'>
         <button class='btn btn-primary mt-2 mb-2' id='button' type='submit'>{tr}View in this format{/tr}</button>
         <button class='btn btn-primary mt-2 mb-2' id='buttonExport'>{tr}Export{/tr}</button>
     </div>
 </div>
 </form>
-
+{if $export eq 'textPlain'}
+<div id='contentmain' class='border' style='height: 50vh; overflow: auto;'>{$textPlain}</div>
+<textarea id='mermaidText' style='display:none;'>{$textPlain}</textarea>
+{/if}
+{if $export eq 'svgFormat'}
 <div id='contentmain'>{$contentmain}</div>
+{/if}
+{if $export eq 'imgSvg'}
+<div id='contentmain'>{$contentmain}</div>
+<div id='content'></div>
+{/if}
