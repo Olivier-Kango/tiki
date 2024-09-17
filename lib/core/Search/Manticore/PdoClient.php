@@ -360,7 +360,7 @@ class PdoClient
                     $real_row = [];
                     foreach ($fields as $field) {
                         foreach ($row as $key => $value) {
-                            if (str_starts_with($key, $field)) {
+                            if (stripos($key, $field) === 0) {
                                 $real_row[$key] = $row[$key];
                             }
                         }
