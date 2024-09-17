@@ -165,10 +165,10 @@ if (isset($prefs['session_protected']) && $prefs['session_protected'] == 'y' && 
 }
 
 // set PHP Limits
-if (! empty($prefs['allocate_memory_php_execution'])) {
+if (! empty($prefs['allocate_memory_php_execution']) && ! defined('TIKI_CONSOLE')) {
     ini_set('memory_limit', $prefs['allocate_memory_php_execution']);
 }
-if (! empty($prefs['allocate_time_php_execution'])) {
+if (! empty($prefs['allocate_time_php_execution']) && ! defined('TIKI_CONSOLE')) {
     ini_set('max_execution_time', $prefs['allocate_time_php_execution']);
 }
 
