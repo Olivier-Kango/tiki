@@ -1,6 +1,6 @@
 import { convertToUnixTimestamp, formatDate, goToURLWithData } from "../helpers/helpers";
 import * as dateFns from "date-fns";
-import moment from "moment-timezone";
+import moment from "moment-timezone/builds/moment-timezone-with-data-10-year-range.js";
 import { vi, expect } from "vitest";
 
 vi.mock("date-fns", () => ({

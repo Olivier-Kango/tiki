@@ -35,7 +35,7 @@ export const TEXT = {
 <script setup>
 import { ref, computed, watchEffect } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import moment from 'moment-timezone';
+import moment from 'moment-timezone/builds/moment-timezone-with-data-10-year-range.js';
 import * as locale from 'date-fns/locale';
 import { convertToUnixTimestamp, formatDate, goToURLWithData } from './helpers/helpers';
 
