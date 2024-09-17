@@ -50,11 +50,11 @@ class Search_MySql_QueryBuffer
         $query = $this->prefix . implode(', ', $this->buffer);
         $result = $this->db->queryError($query, $error);
 
+        $this->clear();
+
         if ($error) {
             throw new Search_MySql_LimitReachedException(tr("Could not perform index modification: %0", TikiFilter::get('xss')->filter($error)));
         }
-
-        $this->clear();
 
         return $result;
     }

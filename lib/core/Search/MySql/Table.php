@@ -428,7 +428,7 @@ class Search_MySql_Table extends TikiDb_Table
     {
         $this->schemaBuffer->flush();
 
-        $this->dataBuffer->setPrefix("INSERT INTO {$this->escapeIdentifier($table)} ($keySet) VALUES ");
+        $this->dataBuffer->setPrefix("INSERT IGNORE INTO {$this->escapeIdentifier($table)} ($keySet) VALUES ");
         $this->dataBuffer->push($valueSet);
     }
 
