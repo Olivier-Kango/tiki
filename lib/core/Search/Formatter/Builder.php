@@ -324,7 +324,7 @@ class Search_Formatter_Builder
             }
         }
 
-        preg_match_all('/\$(result|row|res)\.([a-z0-9_]+)[\|\}\w]+/', $templateData, $matches);
+        preg_match_all('/\$(result|row|res)\.(\w+)/', $templateData, $matches);
         $fields = array_merge($fields, $matches[2]);
 
         $fields = array_fill_keys(array_unique($fields), null);
