@@ -79,7 +79,7 @@ if (isset($_REQUEST['purge_credits'])) {
     exit;
 }
 
-if (isset($_REQUEST['update_types'])) {
+if (isset($credit_types) && is_array($credit_types)) {
     foreach ($_POST['credit_types'] as $key => $values) {
         $creditslib->updateCreditType(
             $values['credit_type'],
