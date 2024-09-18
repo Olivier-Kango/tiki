@@ -26,7 +26,7 @@
 
 {jq}
 // Disable OK button because dialog auto closes when complete, and also causes problems if clicked
-$(".ui-dialog-buttonpane button:contains('OK')").attr("disabled", "disabled");
+$(".ui-dialog-buttonpane button:contains(tr('OK'))").prop("disabled", true);
 {/jq}
 
 {jq notonready=true}
