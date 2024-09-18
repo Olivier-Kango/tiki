@@ -3303,7 +3303,7 @@ class ParserLib extends TikiDb_Bridge
         }
     }
     //*
-    public function parse_tagged_users($data)
+    public function parse_tagged_users($data, $callback = null)
     {
         global $prefs;
 
@@ -3314,16 +3314,20 @@ class ParserLib extends TikiDb_Bridge
         $count = 1;
         return preg_replace_callback(
             '/@([\w\-\.]+)/i',
-            function ($matches) use (&$count) {
+            function ($matches) use (&$count, $callback) {
                 $myUser = substr($matches[0], strpos($matches[0], "@") + 1);
                 if ($myUser) {
                     $u = TikiLib::lib('user')->get_user_info($myUser);
                     if (is_array($u) && $u['userId'] > 0) {
-                        $v = TikiLib::lib('user')->build_userinfo_tag($myUser, '', 'userlink', 'y', 'mentioned-' . $myUser . '-section-' . $count, 'y');
-                        $count++;
-                        if ($v) {
-                            $prefix = ($matches[0][1] == '@') ? $matches[0][0] : '';
-                            return $prefix . $v;
+                        if ($callback) {
+                            return $callback($u, $matches);
+                        } else {
+                            $v = TikiLib::lib('user')->build_userinfo_tag($myUser, '', 'userlink', 'y', 'mentioned-' . $myUser . '-section-' . $count, 'y');
+                            $count++;
+                            if ($v) {
+                                $prefix = ($matches[0][1] == '@') ? $matches[0][0] : '';
+                                return $prefix . $v;
+                            }
                         }
                     }
 

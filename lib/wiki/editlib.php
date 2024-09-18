@@ -1539,6 +1539,7 @@ class EditLib
     public function convertWikiSyntax($data, $target_syntax, $page_name = null)
     {
         global $page_regex, $prefs, $page, $tikilib;
+        $parserlib = TikiLib::lib('parser');
 
         if ($target_syntax != 'markdown' && $target_syntax != 'tiki') {
             throw new Exception(tr('Failed converting content: unrecognized target syntax passed: %0', $target_syntax));
@@ -1577,10 +1578,16 @@ class EditLib
             }, $data);
             $data = preg_replace('/^;:/m', '', $data);
 
+            // Preserve user mentions
+            $data = $parserlib->parse_tagged_users($data, function ($u, $m) use (&$hashed) {
+                $hash = $this->pushToHashed($hashed, $m[0]);
+                return $hash;
+            });
+
             // Preserving dynamic variables
-            $enclose = TikiLib::lib('parser')->dynVarEnclose();
+            $enclose = $parserlib->dynVarEnclose();
             if ($enclose) {
-                $dVars = TikiLib::lib('parser')->getDynVariables($data, $enclose);
+                $dVars = $parserlib->getDynVariables($data, $enclose);
                 foreach ($dVars as $dVar) {
                     $dvar_preg = preg_quote($dVar);
                     $data = preg_replace_callback("+$enclose($dvar_preg)$enclose+", function ($m) use (&$hashed) {
@@ -1714,6 +1721,9 @@ class EditLib
 
             // Remarks box need \n as they return div tag
             $converted = preg_replace('/\{REMARKSBOX.*?\}(.*?)\{REMARKSBOX\}(?![\n\r])/s', "$0\n", $converted);
+
+            // Fixing the double quotes
+            $converted = preg_replace('/<tt>\s*“(.*?)”\s*<\/tt>/s', "“$1“", $converted);
         } else {
             // convert to tiki syntax
             if ($source_syntax == 'tiki') {
