@@ -320,13 +320,6 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 $end->setTZbyID($displayTimezone);
 
                 $allDay = $calitem['allday'] != 0;
-                if (! $allDay) {
-                    $start->convertTimeToUTC();
-                    $end->convertTimeToUTC();
-                } else {
-                    $start->convertTimeToUTC(0, 0, 0);
-                    $end->convertTimeToUTC(0, 0, 0);
-                }
 
                 $calitem['start'] = $start->getTime();
                 $calitem['end']   = $end->getTime();
@@ -350,13 +343,6 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             $end->setTZbyID($displayTimezone);
 
             $allDay = $calitem['allday'] != 0;
-            if (! $allDay) {
-                $start->convertTimeToUTC();
-                $end->convertTimeToUTC();
-            } else {
-                $start->convertTimeToUTC(0, 0, 0);
-                $end->convertTimeToUTC(0, 0, 0);
-            }
 
             $calitem['start'] = $start->getTime();
             $calitem['end']   = $end->getTime();
@@ -405,6 +391,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                     // set the correct day clicked on
                     $dateNow->setDate($input->todate->int());
                 }
+                $tz = date_default_timezone_get();
+                date_default_timezone_set($displayTimezone);
                 $start = mktime(
                     $hour,
                     0,
@@ -413,6 +401,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                     $dateNow->date->format('d'),
                     $dateNow->date->format('Y')
                 );
+                date_default_timezone_set($tz);
                 $duration = 60 * 60;
                 $end = $start + $duration;
             }
@@ -866,13 +855,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
      */
     private function convertCalitemTimes(array $calitem, JitFilter $input): array
     {
-        // if local browser offset or timezone identifier is submitted, convert timestamp to server-based timezone
-        $calitem['start'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['start']);
-        $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
-        $calitem['start'] -= $server_offset;
-        $calitem['end'] = TikiDate::convertWithTimezone($input->asArray(), $calitem['end']);
-        $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
-        $calitem['end'] -= $server_offset;
+        $calitem['start'] = $calitem['start'];
+        $calitem['end'] = $calitem['end'];
         if (isset($calitem['allday'])) {
             // convert to UTC @12:00am, so we don't depend on user's timezone when displaying later
             $start = new TikiDate();

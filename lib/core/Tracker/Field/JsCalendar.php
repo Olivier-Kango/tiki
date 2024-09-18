@@ -6,19 +6,23 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 {
-    private function getParsedValue(): array
+    /**
+     * Legacy code to deal with json-encoded date and timezone value of this field from 27.0 to 27.1
+     */
+    private function getParsedValue(): array | string
     {
-        $value = ['date' => '', 'timezone' => ''];
         $unparsedValue = $this->getValue() ?? $this->getConfiguration('value');
-        if ($unparsedValue) {
-            $parsed = json_decode($unparsedValue, true);
-            if (! is_array($parsed)) {
-                $value['date'] = $unparsedValue;
-            } else {
-                $value = array_merge($value, $parsed);
-            }
+        if (is_numeric($unparsedValue)) {
+            return $unparsedValue;
         }
-        return $value;
+        if (empty($unparsedValue)) {
+            return $unparsedValue;
+        }
+        $parsed = json_decode($unparsedValue, true);
+        if (is_array($parsed)) {
+            return $parsed['value'];
+        }
+        return $unparsedValue;
     }
 
     public static function getManagedTypesInfo(): array
@@ -106,26 +110,6 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
             Feedback::error(tr('Date Picker Field: "%0" is not a valid internal date value', $value));
         }
 
-          // if local browser offset or timezone identifier is submitted, convert timestamp to server-based timezone
-        if ($value && isset($requestData[$ins_id]) && ! $this->getOption('customTimezone')) {
-            if (isset($requestData['useDisplayTz']) && (bool) $requestData['useDisplayTz']) {
-                $requestData['tzname'] = TikiLib::lib('tiki')->get_display_timezone();
-            }
-            $value = TikiDate::convertWithTimezone($requestData, $value);
-        }
-        if ($value && isset($requestData[$ins_id]) && $this->getOption('datetime') !== 'd') {
-            $timezone = isset($requestData[$ins_id . '_timezone']) ? $requestData[$ins_id . '_timezone'] : TikiLib::lib('tiki')->get_display_timezone();
-            $server_offset = TikiDate::tzServerOffset($timezone, $value);
-            $value -= $server_offset;
-        }
-
-        if ($this->getOption(('customTimezone')) && isset($requestData[$ins_id . '_timezone'])) {
-            $value = json_encode([
-                'date' => $value,
-                'timezone' => $requestData[$ins_id . '_timezone'],
-            ]);
-        }
-
         return [
             'value' => $value,
         ];
@@ -142,21 +126,9 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 
         $params = [ 'fieldname' => $this->getConfiguration('ins_id') ? $this->getConfiguration('ins_id') : $this->getInsertId()];
         $params['showtime'] = $this->getOption('datetime') === 'd' ? 'n' : 'y';
-        $params['date'] = $this->getParsedValue()['date'];
+        $params['date'] = $this->getParsedValue();
         if (empty($params['date']) && $this->getOption('useNow')) {
             $params['date'] = TikiLib::lib('tiki')->now;
-        }
-
-        if ($params['date']) {
-            // convert to UTC to display it properly for browser based timezone
-            if ($this->getOption('datetime') !== 'd') {
-                // check if the date parameter contains any alphabetic characters, and # symbol help to delimit the regular expression pattern.
-                if (preg_match('#[a-zA-Z]#', $params['date'])) {
-                    $params['date'] = strtotime($params['date']);
-                }
-                $tiki_date = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $params['date']);
-                $params['date'] += $tiki_date;
-            }
         }
 
         $params['notBefore'] = $this->getOption('notBefore') ? '#trackerinput_' . $this->getOption('notBefore') : '';
@@ -164,10 +136,13 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
         if ($this->getOption('customTimezone')) {
             $params['showtimezone'] = 'y';
             $params['timezoneFieldname'] = $this->getInsertId() . '_timezone';
-            $params['timezone'] = $this->getParsedValue()['timezone'];
         } else {
             $params['showtimezone'] = 'n';
-            $params['timezone'] = 'UTC'; // Do not use the display timezone here, as the date is already converted to the display timezone
+        }
+        if ($this->getOption('datetime') === 'd') {
+            $params['timezone'] = 'UTC';
+        } else {
+            $params['timezone'] = TikiLib::lib('tiki')->get_display_timezone();
         }
 
         return smarty_function_jscalendar($params, $smarty->getEmptyInternalTemplate());
@@ -201,38 +176,7 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
     public function renderInnerOutput($context = [])
     {
         $value = $this->getParsedValue();
-
-        $configTzOffset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $value['date']);
-        $dateInConfigTz = (int) $value['date'] + (int) $configTzOffset;
-        $context['value'] = $value['date'];
-        if (! $this->getOption('customTimezone')) {
-            return parent::renderInnerOutput($context);
-        }
-
-        $tzOffset = TikiDate::tzServerOffset($value['timezone'], $value['date']);
-        $dateInCustomTz = (int) $value['date'] + (int) $tzOffset;
-
-        switch ($this->getOption('outputTimezone')) {
-            case '0':
-                $output = parent::renderInnerOutput($context);
-                break;
-
-            case '1':
-                $context['value'] = $dateInCustomTz;
-                $output = parent::renderInnerOutput($context) . ' (' . $value['timezone'] . ')';
-                break;
-
-            case '2':
-                $output = parent::renderInnerOutput($context) . ' (' . TikiLib::lib('tiki')->get_display_timezone() . ')';
-                $context['value'] = $dateInCustomTz;
-                $output .= ' | ' . parent::renderInnerOutput($context) . ' (' . $value['timezone'] . ')';
-                break;
-
-            default:
-                $output = parent::renderInnerOutput($context);
-                break;
-        }
-
-        return $output;
+        $context['value'] = $value;
+        return parent::renderInnerOutput($context);
     }
 }

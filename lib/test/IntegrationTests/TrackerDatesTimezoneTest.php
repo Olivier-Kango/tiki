@@ -187,11 +187,13 @@ class TrackerDatesTimezoneTest extends TikiTestCase
     {
         global $prefs;
 
+        // jscalendar now uses vue-datepicker which handles timezone selection, so timestamps should be in the correct timezone
+        // date fields use UTC while datetime fields use user's timezone
         date_default_timezone_set('UTC');
         $d = strtotime('2021-06-01');
-        $dt = strtotime('2021-06-01 10:00:00');
 
         date_default_timezone_set(self::$ist);
+        $dt = strtotime('2021-06-01 10:00:00');
         $prefs['display_timezone'] = self::$ist;
 
         $this->executeTest([
@@ -212,111 +214,23 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         ]);
     }
 
-    public function testTimeStorageServerTikiDiffNonUTC(): void
-    {
-        global $prefs;
-
-        date_default_timezone_set('UTC');
-        $d = strtotime('2021-06-01');
-        $dt = strtotime('2021-06-01 10:00:00');
-
-        date_default_timezone_set(self::$ist);
-        $prefs['display_timezone'] = self::$est;
-
-        $this->executeTest([
-            'test_date_legacy' => '2021-06-01',
-            'test_datetime_legacy' => '2021-06-01 10:00:00',
-            'test_date' => $d,
-            'test_datetime' => $dt,
-        ], [
-            'test_date_legacy' => '2021-06-01',
-            'test_datetime_legacy' => '2021-06-01 10:00',
-            'test_date' => '2021-06-01',
-            'test_datetime' => '2021-06-01 10:00',
-        ], [
-            'test_date_legacy' => '2021-06-01',
-            'test_datetime_legacy' => '2021-06-01 14:00:00', // index stores in GMT
-            'test_date' => '2021-06-01',
-            'test_datetime' => '2021-06-01 14:00:00', // index stores in GMT
-        ]);
-    }
-
-    public function testTimeStorageInUTCWithBrowserOffset(): void
-    {
-        global $prefs;
-
-        date_default_timezone_set('UTC');
-        $prefs['display_timezone'] = 'UTC';
-
-        $this->executeTest(
-            [
-                'test_date_legacy' => '2021-06-01',
-                'test_datetime_legacy' => '2021-06-01 10:00:00',
-                'test_date' => strtotime('2021-06-01') - 180 * 60,
-                'test_datetime' => strtotime('2021-06-01 10:00:00') - 180 * 60,
-            ],
-            [
-                'test_date_legacy' => '2021-06-01',
-                'test_datetime_legacy' => '2021-06-01 10:00',
-                'test_date' => '2021-06-01',
-                'test_datetime' => '2021-06-01 10:00',
-            ],
-            [
-                'test_date_legacy' => '2021-06-01',
-                'test_datetime_legacy' => '2021-06-01 10:00:00',
-                'test_date' => '2021-06-01',
-                'test_datetime' => '2021-06-01 10:00:00',
-            ],
-            -180
-        );
-    }
-
-    public function testTimeStorageServerTikiDiffNonUTCWithBrowserOffset(): void
-    {
-        global $prefs;
-
-        date_default_timezone_set('UTC');
-        $d = strtotime('2021-06-01');
-        $dt = strtotime('2021-06-01 10:00:00');
-
-        date_default_timezone_set(self::$ist);
-        $prefs['display_timezone'] = self::$est;
-
-        $this->executeTest([
-            'test_date_legacy' => '2021-06-01',
-            'test_datetime_legacy' => '2021-06-01 10:00:00',
-            'test_date' => $d - 180 * 60,
-            'test_datetime' => $dt - 180 * 60,
-        ], [
-            'test_date_legacy' => '2021-06-01',
-            'test_datetime_legacy' => '2021-06-01 10:00',
-            'test_date' => '2021-06-01',
-            'test_datetime' => '2021-06-01 10:00',
-        ], [
-            'test_date_legacy' => '2021-06-01',
-            'test_datetime_legacy' => '2021-06-01 14:00:00', // index stores in GMT
-            'test_date' => '2021-06-01',
-            'test_datetime' => '2021-06-01 14:00:00', // index stores in GMT
-        ], -180);
-    }
-
     public function testStoreRetrieveDiffTimezonesDB(): void
     {
         global $prefs;
 
         date_default_timezone_set('UTC');
         $d = strtotime('2021-06-01');
-        $dt = strtotime('2021-06-01 10:00:00');
 
-        date_default_timezone_set(self::$est);
+        date_default_timezone_set(self::$ist);
+        $dt = strtotime('2021-06-01 10:00:00');
         $prefs['display_timezone'] = self::$ist;
 
         $itemId = $this->createItem([
             'test_date_legacy' => '2021-06-01',
             'test_datetime_legacy' => '2021-06-01 10:00:00',
-            'test_date' => $d - 180 * 60,
-            'test_datetime' => $dt - 180 * 60,
-        ], -180);
+            'test_date' => $d,
+            'test_datetime' => $dt,
+        ]);
 
         date_default_timezone_set('UTC');
         $prefs['display_timezone'] = self::$est;
@@ -335,17 +249,17 @@ class TrackerDatesTimezoneTest extends TikiTestCase
 
         date_default_timezone_set('UTC');
         $d = strtotime('2021-06-01');
-        $dt = strtotime('2021-06-01 10:00:00');
 
         date_default_timezone_set(self::$ist);
+        $dt = strtotime('2021-06-01 10:00:00');
         $prefs['display_timezone'] = self::$ist;
 
         $itemId = $this->createItem([
             'test_date_legacy' => '2021-06-01',
             'test_datetime_legacy' => '2021-06-01 10:00:00',
-            'test_date' => $d - 180 * 60,
-            'test_datetime' => $dt - 180 * 60,
-        ], -180);
+            'test_date' => $d,
+            'test_datetime' => $dt,
+        ]);
 
         require_once('lib/search/refresh-functions.php');
         refresh_index('trackeritem', $itemId);
@@ -380,9 +294,9 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         $itemId = $this->createItem([
             'test_date_legacy' => '2021-06-01',
             'test_datetime_legacy' => '2021-06-01 10:00:00',
-            'test_date' => $d - 180 * 60,
-            'test_datetime' => $dt - 180 * 60,
-        ], -180);
+            'test_date' => $d,
+            'test_datetime' => $dt,
+        ]);
 
         $definition = Tracker_Definition::get(self::$trackerId);
         $fields = $definition->getFields();
@@ -425,9 +339,9 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         $itemId = $this->createItem([
             'test_date_legacy' => '2021-06-01',
             'test_datetime_legacy' => '2021-06-01 10:00:00',
-            'test_date' => $d - 180 * 60,
-            'test_datetime' => $dt - 180 * 60,
-        ], -180);
+            'test_date' => $d,
+            'test_datetime' => $dt,
+        ]);
 
         require_once('lib/search/refresh-functions.php');
         refresh_index('trackeritem', $itemId);
@@ -449,9 +363,8 @@ class TrackerDatesTimezoneTest extends TikiTestCase
 
             $filter = \Tracker\Filter\Collection::getFilter('test_date', 'range', true);
             $input = new JitFilter([
-                'tf_' . $field . '_range_from' => $d - 180 * 60,
-                'tf_' . $field . '_range_to' => $d - 180 * 60,
-                'tzoffset' => -180,
+                'tf_' . $field . '_range_from' => $d,
+                'tf_' . $field . '_range_to' => $d,
             ]);
             $filter->applyInput($input);
             $filter->applyCondition($subquery);
@@ -491,9 +404,9 @@ class TrackerDatesTimezoneTest extends TikiTestCase
 
         date_default_timezone_set('UTC');
         $d = strtotime('2021-06-01');
-        $dt = strtotime('2021-06-01 10:00:00');
 
         date_default_timezone_set(self::$ist);
+        $dt = strtotime('2021-06-01 10:00:00');
         $prefs['display_timezone'] = self::$ist;
 
         $utilities = new Services_Tracker_Utilities();
@@ -502,9 +415,9 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         $itemId = $this->createItem([
             'test_date_legacy' => '2021-06-01',
             'test_datetime_legacy' => '2021-06-01 10:00:00',
-            'test_date' => $d - 180 * 60,
-            'test_datetime' => $dt - 180 * 60,
-        ], -180);
+            'test_date' => $d,
+            'test_datetime' => $dt,
+        ]);
 
         $ins_id = "ins_123";
         $input = [
@@ -549,9 +462,9 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         }
     }
 
-    private function executeTest($input, $output, $index, $tzoffset = null)
+    private function executeTest($input, $output, $index)
     {
-        $itemId = $this->createItem($input, $tzoffset);
+        $itemId = $this->createItem($input);
         $values = $this->getItemValues($itemId);
         foreach (['test_date_legacy', 'test_datetime_legacy', 'test_date', 'test_datetime'] as $field) {
             if (is_array($output[$field])) {
@@ -580,7 +493,7 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         }
     }
 
-    private function createItem($fieldValues, $tzoffset = null)
+    private function createItem($fieldValues)
     {
         $definition = Tracker_Definition::get(self::$trackerId);
         $fields = $definition->getFields();
@@ -600,9 +513,6 @@ class TrackerDatesTimezoneTest extends TikiTestCase
             $input['ins_' . $fields[1]['fieldId'] . 'Day'] = intval($date[2]);
             $input['ins_' . $fields[1]['fieldId'] . 'Hour'] = intval($time[0]);
             $input['ins_' . $fields[1]['fieldId'] . 'Minute'] = $time[1];
-        }
-        if (! empty($tzoffset)) {
-            $input['tzoffset'] = $tzoffset;
         }
         $itemObject = Tracker_Item::newItem(self::$trackerId);
         $processedFields = $itemObject->prepareInput(new JitFilter($input));

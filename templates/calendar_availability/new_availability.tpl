@@ -23,7 +23,7 @@
         <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Period Start - End{/tr}</label>
             <div class="col-sm-9">
-                {jscalendar fieldname="available[dtstart][{$uid}]" showtime='y' endfieldname="available[dtend][{$uid}]" timezone="UTC"}
+                {jscalendar fieldname="available[dtstart][{$uid}]" showtime='y' endfieldname="available[dtend][{$uid}]" timezone=$displayTimezone}
             </div>
         </div>
         <div class="mb-3 row">

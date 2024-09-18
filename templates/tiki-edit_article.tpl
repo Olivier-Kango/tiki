@@ -174,13 +174,13 @@
             <div class="mb-3 row clearfix">
                 <label class="col-form-label col-md-4">{tr}Publish Date{/tr}</label>
                 <div class="col-md-8">
-                    {jscalendar date=$publishDate fieldname="publishDate" showtime='y'}
+                    {jscalendar date=$publishDate fieldname="publishDate" showtime='y' timezone=$displayTimezone}
                 </div>
             </div>
             <div class="mb-3 row clearfix">
                 <label class="col-form-label col-md-4">{tr}Expiration Date{/tr}</label>
                 <div class="col-md-8">
-                    {jscalendar date=$expireDate fieldname="expireDate" showtime='y'}
+                    {jscalendar date=$expireDate fieldname="expireDate" showtime='y' timezone=$displayTimezone}
                 </div>
             </div>
         {/tab}

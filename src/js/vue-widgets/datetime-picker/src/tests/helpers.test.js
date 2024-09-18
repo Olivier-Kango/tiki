@@ -8,25 +8,11 @@ vi.mock("date-fns", () => ({
 }));
 
 describe("convertToUnixTimestamp", () => {
-    test("returns the unix timestamp of the given date in the browser timezone when useBrowserTimezone is true", () => {
+    test("returns the unix timestamp of the given date", () => {
         const date = new Date("2021-01-01T00:00:00Z").getTime();
-        const useBrowserTimezone = true;
 
-        const result = convertToUnixTimestamp(date, useBrowserTimezone);
+        const result = convertToUnixTimestamp(date);
         const expected = moment(date).unix();
-
-        expect(result).toBe(expected);
-    });
-
-    test("returns the unix timestamp of the given date in the custom timezone", () => {
-        const date = new Date("2021-01-01T00:00:00Z").getTime();
-        const useBrowserTimezone = false;
-        const customTimezone = "America/New_York";
-
-        const result = convertToUnixTimestamp(date, useBrowserTimezone, customTimezone);
-        const browserOffset = new Date().getTimezoneOffset() * 60;
-        const selectedTzOffset = moment.tz(customTimezone).utcOffset() * 60;
-        const expected = moment(date).unix() + browserOffset + selectedTzOffset;
 
         expect(result).toBe(expected);
     });
@@ -88,8 +74,6 @@ describe("goToURLWithData", () => {
         const url = new URL(goToURLOnChange, window.location.origin);
         url.searchParams.set("todate", unixTimestamp);
         url.searchParams.set("enddate", toUnixTimestamp);
-        url.searchParams.set("tzname", selectedTz);
-        url.searchParams.set("tzoffset", moment.tz(selectedTz).utcOffset());
 
         const spy = vi.spyOn(window.location, "href", "set");
         goToURLWithData(updatedData, goToURLOnChange, unixTimestamp, toUnixTimestamp, selectedTz);

@@ -19,8 +19,7 @@
                 {/if}
             </div>
             <input type="hidden" name="calitem[user]" value="{$calitem.user|escape}">
-            <input type="hidden" name="tzoffset" value="">
-            <input type="hidden"  name="return_url" value="tiki-calendar.php">
+            <input type="hidden" name="return_url" value="tiki-calendar.php">
             {if $calitemId}
                 <input type="hidden" name="calitemId" value="{$calitemId|escape}">
             {/if}
@@ -165,7 +164,7 @@
             <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}Start - End{/tr}</label>
                 <div class="col-sm-7 start">
-                    {jscalendar id="start" date=$calitem.start enddate=$calitem.end fieldname="calitem[start]" showtime='y' endfieldname="calitem[end]" showtimezone="n" timezone="UTC"}
+                    {jscalendar id="start" date=$calitem.start enddate=$calitem.end fieldname="calitem[start]" showtime='y' endfieldname="calitem[end]" showtimezone="n" timezone=$displayTimezone}
                 </div>
                 <div class="col-sm-2">
                     <div class="form-check">

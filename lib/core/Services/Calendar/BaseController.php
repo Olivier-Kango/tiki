@@ -124,15 +124,10 @@ class Services_Calendar_BaseController
                 $input->startPeriod_Day->int(),
                 $input->startPeriod_Year->int()
             );
-        } else {
-            $startPeriod = TikiDate::convertWithTimezone($input->asArray(), $startPeriod);
         }
         $recurrence->setStartPeriod(TikiDate::getStartDay($startPeriod, 'UTC'));
         if ($input->endType->word() === "dt") {
             $endPeriod = $input->endPeriod->int();
-            $endPeriod = TikiDate::convertWithTimezone($input->asArray(), $endPeriod);
-            $server_offset = TikiDate::tzServerOffset($displayTimezone, $endPeriod);
-            $endPeriod -= $server_offset;
             $recurrence->setEndPeriod($endPeriod);
             $recurrence->setNbRecurrences(0);
         } else {

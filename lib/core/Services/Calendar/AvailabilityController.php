@@ -155,6 +155,7 @@ class Services_Calendar_AvailabilityController extends Services_Calendar_BaseCon
                 'dtend' => '',
             ],
             'calendars' => $this->prepareCalendarList(),
+            'displayTimezone' => TikiLib::lib('tiki')->get_display_timezone(),
         ];
     }
 
@@ -199,6 +200,7 @@ class Services_Calendar_AvailabilityController extends Services_Calendar_BaseCon
             'title' => 'Edit Availability Slot',
             'definition' => $definition,
             'calendars' => $this->prepareCalendarList(),
+            'displayTimezone' => TikiLib::lib('tiki')->get_display_timezone(),
         ];
     }
 
@@ -241,9 +243,8 @@ DTSTART:$dtstart
 RRULE:$rrule
 END:VAVAILABILITY
 END:VCALENDAR");
-        $timezone = TikiLib::lib('tiki')->get_display_timezone();
-        $rec = Tiki\SabreDav\Utilities::mapRRuleToRecurrence($calendar->VAVAILABILITY, $timezone);
-        $rec->setStartPeriod(\TikiDate::getStartDay($calendar->VAVAILABILITY->DTSTART->getDateTime()->getTimeStamp(), $timezone));
+        $rec = Tiki\SabreDav\Utilities::mapRRuleToRecurrence($calendar->VAVAILABILITY);
+        $rec->setStartPeriod(\TikiDate::getStartDay($calendar->VAVAILABILITY->DTSTART->getDateTime()->getTimeStamp()));
         return [
             'title' => 'Specify Recurrence Rule',
             'recurrence' => $rec->toArray(),
@@ -269,6 +270,7 @@ END:VCALENDAR");
         $uid = 'vavailability-' . Sabre\VObject\UUIDUtil::getUUID();
         return [
             'uid' => $uid,
+            'displayTimezone' => TikiLib::lib('tiki')->get_display_timezone(),
         ];
     }
 
@@ -335,15 +337,9 @@ END:VCALENDAR");
         }
         if (isset($vavailability->DTSTART)) {
             $definition['dtstart'] = $vavailability->DTSTART->getDateTime()->getTimestamp();
-            if ($edit_mode) {
-                $definition['dtstart'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $definition['dtstart']);
-            }
         }
         if (isset($vavailability->DTEND)) {
             $definition['dtend'] = $vavailability->DTEND->getDateTime()->getTimestamp();
-            if ($edit_mode) {
-                $definition['dtend'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $definition['dtend']);
-            }
         }
         $definition['available'] = [];
         if (isset($vavailability->AVAILABLE)) {
@@ -364,15 +360,9 @@ END:VCALENDAR");
                 }
                 if (isset($available->DTSTART)) {
                     $av['dtstart'] = $available->DTSTART->getDateTime()->getTimestamp();
-                    if ($edit_mode) {
-                        $av['dtstart'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $av['dtstart']);
-                    }
                 }
                 if (isset($available->DTEND)) {
                     $av['dtend'] = $available->DTEND->getDateTime()->getTimestamp();
-                    if ($edit_mode) {
-                        $av['dtend'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $av['dtend']);
-                    }
                 }
                 if (isset($available->{'X-Tiki-Slots'})) {
                     $av['slots'] = strval($available->{'X-Tiki-Slots'});
@@ -385,20 +375,13 @@ END:VCALENDAR");
 
     protected function createAvailabilityFromInput($input, $result)
     {
-        // if local browser offset or timezone identifier is submitted, convert timestamp to server-based timezone
         $start = $input->dtstart->int();
-        if ($start) {
-            $start = TikiDate::convertWithTimezone($input->asArray(), $start);
-            $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $start);
-            $start -= $server_offset;
-        } else {
+        if (! $start) {
             $start = time();
         }
 
         if ($input->dtend->int()) {
-            $end = TikiDate::convertWithTimezone($input->asArray(), $input->dtend->int());
-            $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $end);
-            $end -= $server_offset;
+            $end = $input->dtend->int();
         } else {
             $end = '';
         }
@@ -436,15 +419,11 @@ END:VCALENDAR");
                 'RRULE' => $rrule,
             ];
             if ($available['dtstart'][$uid]) {
-                $start = TikiDate::convertWithTimezone($input->asArray(), $available['dtstart'][$uid]);
-                $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $start);
-                $start -= $server_offset;
+                $start = $available['dtstart'][$uid];
                 $record['DTSTART'] = \DateTime::createFromFormat('U', $start);
             }
             if ($available['dtend'][$uid]) {
-                $end = TikiDate::convertWithTimezone($input->asArray(), $available['dtend'][$uid]);
-                $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $end);
-                $end -= $server_offset;
+                $end = $available['dtend'][$uid];
                 $record['DTEND'] = \DateTime::createFromFormat('U', $end);
             }
             if ($available['duration'][$uid]) {

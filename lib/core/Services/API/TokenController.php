@@ -34,6 +34,7 @@ class Services_API_TokenController
         return [
             'title' => tr('New API Token'),
             'modal' => $input->modal->int(),
+            'displayTimezone' => TikiLib::lib('tiki')->get_display_timezone(),
         ];
     }
 
@@ -65,6 +66,7 @@ class Services_API_TokenController
             'title' => tr('Edit API Token'),
             'token' => $token,
             'modal' => $input->modal->int(),
+            'displayTimezone' => TikiLib::lib('tiki')->get_display_timezone(),
         ];
     }
 

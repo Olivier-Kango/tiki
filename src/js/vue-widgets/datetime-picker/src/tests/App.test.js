@@ -80,19 +80,11 @@ describe("DatetimePicker", () => {
                 null
             );
 
-            expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(
-                givenProps.timestamp * 1000,
-                Boolean(givenProps.enableTimezonePicker && !givenProps.timezone),
-                givenProps.timezone
-            );
+            expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(givenProps.timestamp * 1000);
             // expect the hidden input value to be whatever the convertToUnixTimestamp function returned
             expect(givenProps.dateTimeInput.value).toBe(expectedConvertedTimestamp);
 
-            expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(
-                givenProps.toTimestamp * 1000,
-                Boolean(givenProps.enableTimezonePicker && !givenProps.timezone),
-                givenProps.timezone
-            );
+            expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(givenProps.toTimestamp * 1000);
             expect(givenProps.toDateTimeInput.value).toBe(expectedConvertedTimestamp);
             // convertToUnixTimestamp should have been called twice by now
             expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledTimes(2);
@@ -178,7 +170,7 @@ describe("DatetimePicker", () => {
                 await fireEvent.click(pickDateButton);
 
                 givenUpdatedDates.forEach((date, index) => {
-                    expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(date, expect.anything(), expect.anything());
+                    expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(date);
                     expect(givenProps.emitValueChange).toHaveBeenCalledWith({
                         value: expect.anything(),
                         unixTimestamp: Helpers.convertToUnixTimestamp.mock.results[index].value,
@@ -220,7 +212,7 @@ describe("DatetimePicker", () => {
                 await fireEvent.click(pickDateButton);
 
                 expect(Helpers.goToURLWithData).toHaveBeenCalledWith(
-                    [givenUpdatedDate],
+                    [moment(givenUpdatedDate).add(Helpers.daylightDiffAgainstBrowserTz(givenUpdatedDate, givenProps.timezone), "second").toDate()],
                     givenProps.goToUrlOnChange,
                     expect.anything(),
                     expect.anything(),
@@ -252,7 +244,7 @@ describe("DatetimePicker", () => {
             await fireEvent.update(timezoneSelectElement, selectedTimezone);
 
             expect(VueDatePicker).toHaveBeenCalledWith(expect.objectContaining({ timezone: { timezone: selectedTimezone } }), null);
-            expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(expect.anything(), expect.anything(), selectedTimezone);
+            expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(expect.anything());
             expect(givenProps.emitValueChange).toHaveBeenCalledWith({
                 value: expect.anything(),
                 unixTimestamp: expect.anything(),

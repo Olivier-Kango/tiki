@@ -600,7 +600,6 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         }
 
         $calendar = TikiLib::lib('calendar')->get_calendar($calendarId);
-        $timezone = TikiLib::lib('tiki')->get_display_timezone($calendar['user']);
 
         if ($calendar['private'] === 'y') {
             $userToSet = $calendar['user'];
@@ -608,7 +607,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
             $userToSet = $user;
         }
 
-        $data = Utilities::getDenormalizedData($calendarData, $timezone);
+        $data = Utilities::getDenormalizedData($calendarData);
         $data['calendarId'] = $calendarId;
         $data['uri'] = $objectUri;
 
@@ -675,7 +674,6 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         $this->ensureCalendarAccess($calendarId, $instanceId, $item['calitemId'], 'change_events', 'write');
 
         $calendar = TikiLib::lib('calendar')->get_calendar($calendarId);
-        $timezone = TikiLib::lib('tiki')->get_display_timezone($calendar['user']);
 
         if ($calendar['private'] === 'y') {
             $userToSet = $calendar['user'];
@@ -683,7 +681,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
             $userToSet = $user;
         }
 
-        $data = Utilities::getDenormalizedData($calendarData, $timezone);
+        $data = Utilities::getDenormalizedData($calendarData);
         $data['calendarId'] = $calendarId;
 
         if ($rec) {

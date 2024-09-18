@@ -48,20 +48,6 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractItemField implements
                         ],
                         'default' => '0',
                     ],
-                    'outputTimezone' => [
-                        'name' => tr('Output timezone'),
-                        'description' => tr('Timezone to use when displaying the date and time'),
-                        'filter' => 'int',
-                        'options' => [
-                            0 => tr('Configured timezone preference'),
-                            1 => tr('This field\'s timezone'),
-                            2 => tr('Both'),
-                        ],
-                        'depends' => [
-                            'field' => 'customTimezone',
-                            'value' => '1',
-                        ]
-                    ],
                     'startyear' => [
                         'name' => tr('Start year'),
                         'description' => tr('Year to allow selecting from'),

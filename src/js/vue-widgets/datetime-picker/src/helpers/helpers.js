@@ -3,20 +3,28 @@ import moment from "moment-timezone";
 
 /**
  * @param {Number} date timestamp
- * @param {boolean} useBrowserTimezone
- * @param {string} customTimezone
  * @returns {string}
  * @description
  * Returns the Unix timestamp of the given date.
  */
-export function convertToUnixTimestamp(date, useBrowserTimezone, customTimezone) {
-    if (useBrowserTimezone) {
-        return moment(date).unix();
-    }
+export function convertToUnixTimestamp(date) {
+    return moment(date).unix();
+}
 
-    const browserOffset = new Date().getTimezoneOffset() * 60;
-    const selectedTzOffset = moment.tz(customTimezone).utcOffset() * 60;
-    return moment(date).unix() + browserOffset + selectedTzOffset;
+/**
+ * @param {Number} date timestamp
+ * @param {string} tz
+ * @returns {string}
+ * @description
+ * Returns the daylight difference between current browser's timezone and custom timzeone
+ * between now and a specific timestamp. Used as a fix to vue-datepicker bug.
+ */
+export function daylightDiffAgainstBrowserTz(date, tz) {
+    if (tz) {
+        return (moment().tz(tz).utcOffset() - moment(date).tz(tz).utcOffset() + moment(date).utcOffset() - moment().utcOffset()) * 60;
+    } else {
+        return (moment(date).utcOffset() - moment().utcOffset()) * 60;
+    }
 }
 
 /**
@@ -49,13 +57,9 @@ export function goToURLWithData(updatedData, goToURLOnChange, unixTimestamp, toU
         if (updatedData) {
             url.searchParams.set("todate", unixTimestamp);
             url.searchParams.set("enddate", toUnixTimestamp);
-            url.searchParams.set("tzname", selectedTz);
-            url.searchParams.set("tzoffset", moment.tz(selectedTz).utcOffset());
         } else {
             url.searchParams.delete("todate");
             url.searchParams.delete("enddate");
-            url.searchParams.delete("tzname");
-            url.searchParams.delete("tzoffset");
         }
         window.location.href = url;
     } else if (globalCallback && window[globalCallback]) {

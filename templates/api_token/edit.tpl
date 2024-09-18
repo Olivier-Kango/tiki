@@ -35,7 +35,7 @@
                 </a>
             </label>
             <div class="col-sm-10">
-                {jscalendar date=$token.expireAfter fieldname="expireAfter" showtime='y'}
+                {jscalendar date=$token.expireAfter fieldname="expireAfter" showtime='y' timezone=$displayTimezone}
             </div>
         </div>
         <div class="submit">

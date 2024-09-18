@@ -11,6 +11,9 @@
                     getTimezoneOffset(timezone) }})</option>
             </select>
         </div>
+        <div class="mt-1" v-if="! enableTimezonePicker && enableTimePicker && selectedTz" :data-testid="DATA_TEST_ID.TIMEZONE_CONTAINER">
+            {{ selectedTz }} <span v-if="selectedTz != 'UTC'">({{ getTimezoneOffset(selectedTz) }})</span>
+        </div>
     </div>
 </template>
 
@@ -37,7 +40,7 @@ import { ref, computed, watchEffect } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import moment from 'moment-timezone/builds/moment-timezone-with-data-10-year-range.js';
 import * as locale from 'date-fns/locale';
-import { convertToUnixTimestamp, formatDate, goToURLWithData } from './helpers/helpers';
+import { convertToUnixTimestamp, daylightDiffAgainstBrowserTz, formatDate, goToURLWithData } from './helpers/helpers';
 
 const timezones = moment.tz.names();
 
@@ -127,6 +130,15 @@ Handlers
  */
 
 const handleDatetimeChange = (value) => {
+    // deal with vue-datepicker bug related to daylight saving - it doesn't reference the target date's DST pref
+    // but acts as if it is the current date DST pref
+    if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+            value[i] = moment(value[i]).add(daylightDiffAgainstBrowserTz(value[i], selectedTz.value), 'second').toDate();
+        }
+    } else {
+        value = moment(value).add(daylightDiffAgainstBrowserTz(value, selectedTz.value), 'second').toDate();
+    }
     date.value = value;
 
     if (props.emitValueChange) {
@@ -173,7 +185,7 @@ function getDefaultDate(fromTimestamp, toTimestamp) {
     return [fromTimestamp * 1000, toTimestamp * 1000];
 };
 
-const getUnixTimestamp = (date) => convertToUnixTimestamp(date, Boolean(enableTimezonePicker && !props.timezone), selectedTz.value);
+const getUnixTimestamp = (date) => convertToUnixTimestamp(date);
 
 function getTimezoneOffset(timezone) {
     const currentTime = moment.tz(timezone);

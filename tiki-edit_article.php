@@ -310,16 +310,14 @@ if (isset($_REQUEST['preview'])) {
 
 // If we are in preview mode then preview it!
 if (isset($_REQUEST['preview']) or ! empty($errors)) {
-    $tz_params = ['tzname' => TikiLib::lib('tiki')->get_display_timezone()];
-
     if (isset($_REQUEST['publishDate'])) {
-        $publishDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['publishDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['publishDate']);
+        $publishDate = $_REQUEST['publishDate'];
     } else {
         $publishDate = $tikilib->now;
     }
 
     if (isset($_REQUEST['expireDate'])) {
-        $expireDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['expireDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['expireDate']);
+        $expireDate = $_REQUEST['expireDate'];
     } else {
         $expireDate = $publishDate;
     }
@@ -506,16 +504,15 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
 
 if (isset($_REQUEST['save']) && empty($errors)) {
     $access->checkCsrf();
-    $tz_params = ['tzname' => TikiLib::lib('tiki')->get_display_timezone()];
 
     if (isset($_REQUEST['publishDate'])) {
-        $publishDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['publishDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['publishDate']);
+        $publishDate = $_REQUEST['publishDate'];
     } else {
         $publishDate = $tikilib->now;
     }
 
     if (isset($_REQUEST['expireDate'])) {
-        $expireDate = TikiDate::convertWithTimezone($tz_params, $_REQUEST['expireDate']) - TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $_REQUEST['expireDate']);
+        $expireDate = $_REQUEST['expireDate'];
     } else {
         $expireDate = $publishDate;
     }
@@ -847,6 +844,8 @@ $smarty->assign_by_ref('plugins', $plugins);
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
+
+$smarty->assign('displayTimezone', TikiLib::lib('tiki')->get_display_timezone());
 
 // Display the Index Template
 $smarty->assign('mid', 'tiki-edit_article.tpl');

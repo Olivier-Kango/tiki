@@ -21,33 +21,6 @@ class DateRange implements Control
     {
         $this->from = $input->{$this->fieldName . '_from'}->int() ?: '';
         $this->to = $input->{$this->fieldName . '_to'}->int() ?: '';
-
-        if ($tzname = $input->tzname->text()) {
-            try {
-                $dtz = new \DateTimeZone($tzname);
-            } catch (\Exception $e) {
-                \Feedback::error(tr('Error using local timezone %0: %1', $tzname, $e->getMessage()));
-                return;
-            }
-            if ($this->from) {
-                $dt = new \DateTime('@' . $this->from);
-                $dt->setTimeZone($dtz);
-                $this->from += $dt->getOffset();
-            }
-            if ($this->to) {
-                $dt = new \DateTime('@' . $this->to);
-                $dt->setTimeZone($dtz);
-                $this->to += $dt->getOffset();
-            }
-        } elseif ($tzoffset = $input->tzoffset->int()) {
-            $browser_offset = (int)$tzoffset * 60;
-            if ($this->from) {
-                $this->from -= $browser_offset;
-            }
-            if ($this->to) {
-                $this->to -= $browser_offset;
-            }
-        }
     }
 
     public function getQueryArguments()

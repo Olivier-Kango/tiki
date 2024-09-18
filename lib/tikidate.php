@@ -510,31 +510,6 @@ class TikiDate
 
         return $timestamp;
     }
-
-    /**
-     * Uses a timezone identifier (if present) or timezone offset
-     * coming from the browser to modify the timestamp to correct UTC
-     * @param array $opts - input data
-     * @param int $timestamp - the timestamp coming from jscalendar smarty function
-     * @return int modified timestamp
-     */
-    public static function convertWithTimezone($opts, $timestamp)
-    {
-        if (isset($opts['tzname'])) {
-            try {
-                $dtz = new DateTimeZone($opts['tzname']);
-                $dt = new DateTime('@' . $timestamp);
-                $dt->setTimeZone($dtz);
-                $timestamp += $dt->getOffset();
-            } catch (Exception $e) {
-                Feedback::error(tr('Error using local timezone %0: %1', $opts['tzname'], $e->getMessage()));
-            }
-        } elseif (isset($opts['tzoffset'])) {
-            $browser_offset = (int)$opts['tzoffset'] * 60;
-            $timestamp -= $browser_offset;
-        }
-        return $timestamp;
-    }
 }
 
 /**

@@ -2219,6 +2219,7 @@ class Services_Tracker_Controller
             'sectionFormats' => $trklib->getGlobalSectionFormats(),
             'remoteTabulars' => TikiLib::lib('tabular')->getList(['odbc_config' => new TikiDb_Expr('((odbc_config != ? AND odbc_config IS NOT NULL) OR (api_config != ? AND api_config IS NOT NULL))', ['[]', '[]'])]),
             'relationshipBehaviourList' => array_keys(Tiki\Relation\Semantics::BEHAVIOUR_LIST),
+            'displayTimezone' => TikiLib::lib('tiki')->get_display_timezone(),
         ];
     }
 

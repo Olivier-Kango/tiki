@@ -447,7 +447,7 @@ class CalendarLib extends TikiLib
                 $vcalendar = Sabre\VObject\Reader::read($sub['vcalendar']);
                 $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $tstart), DateTime::createFromFormat('U', $tstop), new DateTimeZone($timezone));
                 foreach ($expanded->VEVENT as $component) {
-                    $parsed = Tiki\SabreDav\Utilities::getDenormalizedDataFromComponent($component, $timezone);
+                    $parsed = Tiki\SabreDav\Utilities::getDenormalizedDataFromComponent($component);
                     $ret[] = [
                         'calitemId' => 0,
                         'calendarId' => $calendarId,

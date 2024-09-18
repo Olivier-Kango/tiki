@@ -8,6 +8,7 @@ exports[`DatetimePicker > render tests > renders correctly when optional props a
     data-testid="date-picker-1720000034990"
   />
   <!--v-if-->
+  <!--v-if-->
 </div>
 `;
 
@@ -3019,5 +3020,6 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       
     </select>
   </div>
+  <!--v-if-->
 </div>
 `;

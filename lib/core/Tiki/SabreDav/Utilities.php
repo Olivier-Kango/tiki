@@ -201,7 +201,7 @@ class Utilities
    * @param string $calendarData
    * @return array
    */
-    public static function getDenormalizedData($calendarData, $timezone)
+    public static function getDenormalizedData($calendarData)
     {
         $vObject = VObject\Reader::read($calendarData);
         $componentType = null;
@@ -226,7 +226,7 @@ class Utilities
         ];
         $result = array_merge(
             $result,
-            self::getDenormalizedDataFromComponent($component, $timezone)
+            self::getDenormalizedDataFromComponent($component)
         );
 
         // check for individual instances changed in recurring events
@@ -236,7 +236,7 @@ class Utilities
                 continue;
             }
             if ($component->{'RECURRENCE-ID'}) {
-                $result['overrides'][] = self::getDenormalizedDataFromComponent($component, $timezone);
+                $result['overrides'][] = self::getDenormalizedDataFromComponent($component);
             }
         }
 
@@ -246,7 +246,7 @@ class Utilities
         return $result;
     }
 
-    public static function getDenormalizedDataFromComponent($component, $timezone)
+    public static function getDenormalizedDataFromComponent($component)
     {
         $firstOccurence = null;
         $lastOccurence = null;
@@ -268,8 +268,8 @@ class Utilities
                 $lastOccurence = $firstOccurence;
             }
             if (isset($component->RRULE)) {
-                $rec = self::mapRRuleToRecurrence($component, $timezone);
-                $rec->setStartPeriod(\TikiDate::getStartDay($firstOccurence, $timezone));
+                $rec = self::mapRRuleToRecurrence($component);
+                $rec->setStartPeriod(\TikiDate::getStartDay($firstOccurence, 'UTC'));
             }
 
             // Ensure Occurence values are positive
@@ -412,7 +412,7 @@ class Utilities
         return $result;
     }
 
-    public static function mapRRuleToRecurrence($component, $timezone)
+    public static function mapRRuleToRecurrence($component)
     {
         $rec = new \CalRecurrence();
         $rec->setNlId(0);
@@ -502,9 +502,9 @@ class Utilities
         if (isset($parts['COUNT'])) {
             $rec->setNbRecurrences($parts['COUNT']);
         } elseif (isset($parts['UNTIL'])) {
-            $rec->setEndPeriod(\TikiDate::getStartDay(strtotime($parts['UNTIL']), $timezone));
+            $rec->setEndPeriod(\TikiDate::getStartDay(strtotime($parts['UNTIL']), 'UTC'));
         } else {
-            $rec->setEndPeriod(\TikiDate::getStartDay(strtotime(CalDAVBackend::MAX_DATE), $timezone));
+            $rec->setEndPeriod(\TikiDate::getStartDay(strtotime(CalDAVBackend::MAX_DATE), 'UTC'));
         }
         return $rec;
     }

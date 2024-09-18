@@ -15,7 +15,7 @@
     <div class="mb-3 row">
         <label class="col-form-label col-sm-3">{tr}Period Start - End{/tr}</label>
         <div class="col-sm-9">
-            {jscalendar date=$definition.dtstart fieldname="dtstart" showtime='y' endfieldname="dtend" enddate=$definition.dtend timezone="UTC"}
+            {jscalendar date=$definition.dtstart fieldname="dtstart" showtime='y' endfieldname="dtend" enddate=$definition.dtend timezone=$displayTimezone}
         </div>
     </div>
     <div class="mb-3 row">
@@ -63,7 +63,7 @@
                     <div class="mb-3 row">
                         <label class="col-form-label col-sm-3">{tr}Period Start - End{/tr}</label>
                         <div class="col-sm-9">
-                            {jscalendar date=$available.dtstart fieldname="available[dtstart][{$available.uid}]" showtime='y' endfieldname="available[dtend][{$available.uid}]" enddate=$available.dtend timezone="UTC"}
+                            {jscalendar date=$available.dtstart fieldname="available[dtstart][{$available.uid}]" showtime='y' endfieldname="available[dtend][{$available.uid}]" enddate=$available.dtend timezone=$displayTimezone}
                         </div>
                     </div>
                     <div class="mb-3 row">
