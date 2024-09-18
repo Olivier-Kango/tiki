@@ -133,6 +133,9 @@ function module_last_youtube_playlist_videos($mod_reference, $module_params)
         // and it is usually exceeded
         if (! empty($module_params['dev_key'])) {
             $client->setDeveloperKey($module_params['dev_key']);
+        } else {
+            Feedback::error(tr('No API key provided. Please provide a valid API key.'));
+            return;
         }
 
         // Define an object that will be used to make all API requests.
@@ -189,6 +192,16 @@ function module_last_youtube_playlist_videos($mod_reference, $module_params)
                 }
                 $count_videos++;
             }
+        } catch (Google_Service_Exception $e) {
+            $errorBody = json_decode($e->getMessage(), true);
+
+            // Handling specific errors
+            if ($errorBody['error']['code'] == 403 && strpos($errorBody['error']['message'], 'blocked') !== false) {
+                Feedback::error(tr('Your API Key is blocked or restricted. Please update your API Key settings in Google Cloud to allow requests from this domain.'));
+            } else {
+                Feedback::error(tr('Error fetching YouTube playlist: ') . $errorBody['error']['message']) ;
+            }
+            return;
         } catch (Exception $e) {
             $data[$id]['info']['title'] = tra('No Playlist found');
             $data[$id]['videos'][0]['title'] = $e->getMessage();
