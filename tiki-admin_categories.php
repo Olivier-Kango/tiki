@@ -68,7 +68,7 @@ if (! empty($_REQUEST['unassign']) && $access->checkCsrf(true)) {
     }
 }
 if (! empty($_REQUEST['move_to']) && ! empty($_REQUEST['toId']) && $access->checkCsrf()) {
-    if (! $categlib->get_category($_REQUEST['toId'])) {
+    if (! $categlib->get_category($_REQUEST['toId']) || empty($_REQUEST['toId'])) {
         Feedback::error(tr('Incorrect category ID %0 - objects not moved.', (int) $_REQUEST['toId']));
     } else {
         $access->check_permission('tiki_p_admin_categories', '', 'category', $_REQUEST['toId']);
@@ -83,7 +83,7 @@ if (! empty($_REQUEST['move_to']) && ! empty($_REQUEST['toId']) && $access->chec
     }
 }
 if (! empty($_REQUEST['copy_from']) && ! empty($_REQUEST['to']) && $access->checkCsrf()) {
-    if (! $categlib->get_category($_REQUEST['to'])) {
+    if (! $categlib->get_category($_REQUEST['to']) || empty($_REQUEST['toId'])) {
         Feedback::error(tr('Incorrect category ID %0 - objects not copied.', (int) $_REQUEST['to']));
     } else {
         $access->check_permission('tiki_p_admin_categories', '', 'category', $_REQUEST['to']);
@@ -265,8 +265,8 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
                     $_REQUEST["name"],
                     $_REQUEST["description"],
                     $_REQUEST["parentId"],
-                    $_REQUEST["tplGroupContainer"],
-                    $_REQUEST["tplGroupPattern"]
+                    $_REQUEST["tplGroupContainer"] ?? 0,
+                    $_REQUEST["tplGroupPattern"] ?? null
                 );
                 if ($tiki_p_admin_categories == 'y' && ! empty($_REQUEST['parentPerms'])) {
                     $userlib->remove_object_permission('', $_REQUEST['categId'], 'category', '');
