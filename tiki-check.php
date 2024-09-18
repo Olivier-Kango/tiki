@@ -665,26 +665,8 @@ DBC;
                         return($return);
                     }
                     break;
-                case 'MySQL':
-                    $connection = mysql_connect($_POST['dbhost'], $_POST['dbuser'], $_POST['dbpass']);
-                    if ($connection === false) {
-                        $render .= 'Cannot connect to MySQL. Wrong credentials?';
-                    }
-                    /**
-                     * @param $query
-                     * @param string $connection
-                     * @return array
-                     */
-                    function query($query, $connection = '')
-                    {
-                        $result = mysql_query($query);
-                        $return = array();
-                        while ($row = mysql_fetch_array($result)) {
-                            $return[] = $row;
-                        }
-                        return($return);
-                    }
-                    break;
+                default:
+                    throw new Exception('Unsupported database driver.');
             }
         } catch (Exception $e) {
             $render .= 'Cannot connect to MySQL. Error: ' . htmlspecialchars($e->getMessage());
