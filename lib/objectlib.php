@@ -228,6 +228,7 @@ class ObjectLib extends TikiLib
     public function getSelectorType($type)
     {
         $supported = [
+            'calendar' => 'calendar',
             'category' => 'category',
             'file_gallery' => 'file gallery',
             'forum' => 'forum',
