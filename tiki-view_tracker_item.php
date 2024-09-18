@@ -375,13 +375,16 @@ if (! isset($item_info)) {
     }
 }
 $item_info['logs'] = ['cant' => $trklib->item_has_history($item_info['itemId'])];   // only used to show history links, no need to load everything
+
+$itemObject = Tracker_Item::fromInfo($item_info);
+$item_info['canViewHistory'] = $itemObject->canViewHistory();
+
 $smarty->assign_by_ref('item_info', $item_info);
 $smarty->assign('item', ['itemId' => $itemId, 'trackerId' => $trackerId]);
 $cat_objid = $itemId;
 $cat_type = 'trackeritem';
 
 $tracker_info = $definition->getInformation();
-$itemObject = Tracker_Item::fromInfo($item_info);
 $tracker_info_value = fn($key) => array_key_exists($key, $tracker_info) ? $tracker_info[$key] : null;
 
 if (! isset($tracker_info["writerCanModify"]) or (isset($utid) and ($trackerId != $utid['usersTrackerId']))) {
