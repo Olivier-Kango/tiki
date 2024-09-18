@@ -1410,7 +1410,7 @@ class NlLib extends TikiLib
         return $emails;
     }
 
-    private function get_edition_mail($editionId, $target, $is_html = null, $replyTo = null, $sendFrom = null)
+    private function get_edition_mail($editionId, $target, $is_html = null, $replyTo = null, $sendFrom = null, $unsubscribeLink = null)
     {
         global $prefs, $base_url;
         static $mailcache = [];
@@ -1542,6 +1542,9 @@ class NlLib extends TikiLib
         $zmail->getHeaders()->removeHeader('bcc');
 
         $zmail->getHeaders()->get('content-type')->setType('multipart/alternative');
+        if ($unsubscribeLink) {
+            $zmail->getHeaders()->addHeaderLine('List-Unsubscribe', '<' . $unsubscribeLink . '>');
+        }
 
         $zmail->addTo($target['email']);
 
@@ -1558,7 +1561,8 @@ class NlLib extends TikiLib
         $userlib = TikiLib::lib('user');
         $smarty = TikiLib::lib('smarty');
         $users = $this->get_all_subscribers($nl_info['nlId'], $nl_info['unsubMsg'] == 'y');
-
+        $url_unsub = parse_url($_SERVER["REQUEST_URI"]);
+        $url_unsubscribe = $tikilib->httpPrefix(true) . $url_unsub["path"];
         if (empty($info['editionId'])) {
             $info['editionId'] = $this->replace_edition(
                 $nl_info['nlId'],
@@ -1662,6 +1666,8 @@ class NlLib extends TikiLib
         foreach ($users as $us) {
             $tikilib->clear_cache_user_preferences();
             $email = $us['email'];
+            $code = $us['code'];
+            $url_unsub = $url_unsubscribe . '?unsubscribe=' . $code;
             if ($browser) {
                 if (@ob_get_level() == 0) {
                     @ob_start();
@@ -1676,7 +1682,8 @@ class NlLib extends TikiLib
                         $us,
                         $info['is_html'],
                         $info['replyto'],
-                        $info['sendfrom']
+                        $info['sendfrom'],
+                        $url_unsub
                     );
                     if (! $zmail) {
                         continue;
