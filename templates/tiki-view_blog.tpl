@@ -22,10 +22,16 @@
     {assign "request_context" "view_blog"}
 {/if}
 
-{foreach from=$listpages item=post_info}
-    <article class="card blogpost clearfix d-block mb-5{if !empty($container_class)} {$container_class}{/if}">
-        {include file='blog_wrapper.tpl' blog_post_context=$request_context}
-    </article>
-{/foreach}
+{if $listpages|@count > 0}
+    {foreach from=$listpages item=post_info}
+        <article class="card blogpost clearfix d-block mb-5{if !empty($container_class)} {$container_class}{/if}">
+            {include file='blog_wrapper.tpl' blog_post_context=$request_context}
+        </article>
+    {/foreach}
+{else}
+    {remarksbox type="warning" close="y" id="warningMessage"}
+    {tr}The blog has no post yet{/tr}
+    {/remarksbox}
+{/if}
 
 {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
