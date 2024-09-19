@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import moment from "moment-timezone";
+import moment from "moment-timezone/builds/moment-timezone-with-data-10-year-range.js";
 
 /**
  * @param {Number} date timestamp
