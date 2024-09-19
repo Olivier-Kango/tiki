@@ -19,7 +19,7 @@ $inputConfiguration = [
         'blogId'                   => 'int',              //get
         ],
         'staticKeyFiltersForArrays' => [
-            'checked'               => 'bool',            //post
+            'checked'               => 'int',             //post
         ],
     ],
 ];

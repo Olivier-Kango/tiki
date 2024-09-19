@@ -19,7 +19,7 @@ $inputConfiguration = [
             'delete'            => 'bool',         //post
         ],'staticKeyFiltersForArrays' => [
             'cat_categories'          => 'string',    //post
-            'checked'                 => 'bool',      //post
+            'checked'                 => 'int',       //post
         ],
     ],
 ];

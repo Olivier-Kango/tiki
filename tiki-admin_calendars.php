@@ -47,7 +47,7 @@ $inputConfiguration = [
         ],
         'staticKeyFiltersForArrays' => [
             'options'               => 'text',    //post
-            'viewdays'              => 'bool',    //post
+            'viewdays'              => 'int',     //post
             'show'                  => 'bool',    //post
             'subscription'          => 'none',    //post
         ],

@@ -14,7 +14,7 @@ $inputConfiguration = [
         'staticKeyFilters'         => [
         'remove'                   => 'bool',                //post
         'approve'                  => 'int',                 //post
-        'submit_mult'              => 'bool',                //post
+        'submit_mult'              => 'string',              //post
         'deleteexpired'            => 'bool',                //post
         'maxRecords'               => 'int',                 //post
         'sort_mode'                => 'word',                //get
@@ -25,7 +25,7 @@ $inputConfiguration = [
         'type'                     => 'word',                //post
         ],
         'staticKeyFiltersForArrays' => [
-            'checked'               => 'bool',             //post
+            'checked'               => 'int',              //post
         ],
     ],
 ];

@@ -12,7 +12,7 @@ $inputConfiguration = [
             'exturl'                               => 'url',                //get
             'url'                                  => 'url',                //get
             'module'                               => 'bool',               //get
-            'title'                                => 'String',             //get
+            'title'                                => 'string',             //get
         ],
     ],
 ];

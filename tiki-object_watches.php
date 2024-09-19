@@ -20,7 +20,7 @@ $inputConfiguration = [
         'objectHref'           => 'string',     //post
         ],
         'staticKeyFiltersForArrays' => [
-            'checked'              => 'bool',   //post
+            'checked'              => 'string',   //post
         $g                         => 'string', //post
         ],
     ],

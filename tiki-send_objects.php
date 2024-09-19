@@ -11,13 +11,10 @@ $inputConfiguration = [
             'path'                 => 'bool',              //post
             'site'                 => 'digits',            //post
             'password'             => 'password',          //post
-            'sendpages'            => 'digits',            //post
-            'sendstructures'       => 'bool',              //post
-            'sendarticles'         => 'bool',              //post
             'dbg'                  => 'bool',              //post
             'find'                 => 'word',              //post
             'addpage'              => 'bool',              //post
-            'pageName'             => 'pagname',           //post
+            'pageName'             => 'pagename',          //post
             'clearpages'           => 'bool',              //post
             'addstructure'         => 'bool',              //post
             'structure'            => 'string',            //post
@@ -25,6 +22,11 @@ $inputConfiguration = [
             'addarticle'           => 'bool',              //post
             'articleId'            => 'int',               //post
             'send'                 => 'bool',              //post
+        ],
+        'staticKeyFiltersForArrays' => [
+            'sendpages'            => 'string',            //post
+            'sendstructures'       => 'string',            //post
+            'sendarticles'         => 'string',            //post
         ],
     ],
 ];

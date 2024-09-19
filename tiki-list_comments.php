@@ -13,7 +13,6 @@ $inputConfiguration = [
         'staticKeyFilters'         => [
         'blogId'                   => 'int',             //post
         'action'                   => 'word',            //get
-        'checked'                  => 'bool',            //post
         'findfilter_approved'      => 'word',            //post
         'sort_mode'                => 'word',            //get
         'offset'                   => 'int',             //get
@@ -22,6 +21,7 @@ $inputConfiguration = [
         'staticKeyFiltersForArrays' => [
             'types'                    => 'word',        //post
             'types_section'            => 'word',        //post
+            'checked'                  => 'int',         //post
         ],
     ],
 ];

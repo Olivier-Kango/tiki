@@ -35,7 +35,7 @@ $inputConfiguration = [
         ],
         'staticKeyFiltersForArrays' => [
             'cat_categories' => 'digits',            //post
-            'checked'        => 'bool',              //get
+            'checked'        => 'int',               //get
         ],
     ],
 ];
