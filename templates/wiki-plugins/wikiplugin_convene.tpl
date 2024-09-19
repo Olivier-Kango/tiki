@@ -12,7 +12,22 @@
                         <td class="align-middle">
                             {if not $locked}
                                 {if $canEdit}
-                                    <input type="button" class="conveneAddDate btn btn-primary btn-sm" value="Add Date">
+                                    <style>
+                                        .divAddDate > :first-child {
+                                            transition: all 0.5s ease;
+                                            position: relative;
+                                        }
+                                        .divAddDate > :first-child.absolute {
+                                            position: absolute;
+                                            transform: translate(2px, 0);
+                                            z-index: 99;
+                                        }
+                                    </style>
+                                    {assign var="defautDate" value=$smarty.now+86400}
+                                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" class="divAddDate">
+                                        <span class="inputAddDate">{jscalendar date=$defautDate fieldname="conveneAddDate" showtime='y' showtimezone="n"}</span> 
+                                        <button type="button" class="conveneAddDate btn btn-primary btn-sm" data-field="conveneAddDate">Add Date</button>
+                                    </div>          
                                 {/if}
                             {else}
                                 {icon name='lock'}
