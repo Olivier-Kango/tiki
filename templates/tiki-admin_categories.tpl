@@ -286,7 +286,7 @@ $("#remove_object_form").off("submit").on("submit", function (e) {
                         </label>
                         <div class="col-sm-6 input-group">
                             <select name="toId" id="toId" class="form-select">
-                                <option>{tr}Choose destination category{/tr}</option>
+                                <option value="">{tr}Choose destination category{/tr}</option>
                                 {foreach $categories as $category}
                                     {if $category.categId neq $parentId}
                                         <option value="{$category.categId}">
@@ -304,7 +304,7 @@ $("#remove_object_form").off("submit").on("submit", function (e) {
                         </label>
                         <div class="col-sm-6 input-group">
                             <select name="to" class="form-select">
-                                <option>{tr}Choose destination category{/tr}</option>
+                                <option value="">{tr}Choose destination category{/tr}</option>
                                 {foreach $categories as $category}
                                     {if $category.categId neq $parentId}
                                         <option value="{$category.categId}">
