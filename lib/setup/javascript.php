@@ -352,6 +352,6 @@ if ($prefs['feature_ajax'] != 'y') {
     $prefs['ajax_autosave'] = 'n';
 }
 
-if ($prefs['feature_elementplus'] == 'y') {
+if (isset($prefs['feature_elementplus']) && $prefs['feature_elementplus'] == 'y') {
     require_once('lib/setup/ui/elementplus.php');
 }

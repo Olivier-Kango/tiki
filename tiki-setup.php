@@ -993,7 +993,7 @@ $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/@shoelace-style/shoelace/
 
 // element-plus-ui select, transfer
 $headerlib->add_js_module("import * as elementPlus from '@vue-widgets/element-plus-ui';");
-if ($prefs['feature_elementplus'] == 'y') {
+if (isset($prefs['feature_elementplus']) && $prefs['feature_elementplus'] == 'y') {
     $headerlib->add_js_module("elementPlus.applySelect();");
 }
 
