@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78284c734044391505ccc62a47e029d7",
+    "content-hash": "ffb56ad004285a3abca4312d6df56882",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -812,16 +812,6 @@
             "time": "2021-02-26T10:19:33+00:00"
         },
         {
-            "name": "christian-vigh-phpclasses/PdfToText",
-            "version": "1.6.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/christian-vigh-phpclasses/pdftotext/christian-vigh-phpclasses-pdftotext-1.6.7.zip",
-                "shasum": "4fda0cbb9d044b0c4844587177629763c6afb229"
-            },
-            "type": "library"
-        },
-        {
             "name": "ckeditor/ckeditor",
             "version": "4.22.1",
             "source": {
@@ -1422,17 +1412,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "4.0.15",
+            "version": "4.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "afff94f48995b68a4331567358ed3c9ae18220fe"
+                "reference": "d24677626b60eb4986d3460b3d11a05f727d75e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-afff94f48995b68a4331567358ed3c9ae18220fe-zip-c0acc3.zip",
-                "reference": "afff94f48995b68a4331567358ed3c9ae18220fe",
-                "shasum": "cfd7ee4c05984dd1af6e5e6877df271caf4fe48f"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-d24677626b60eb4986d3460b3d11a05f727d75e3-zip-c1fc29.zip",
+                "reference": "d24677626b60eb4986d3460b3d11a05f727d75e3",
+                "shasum": "50cc0cb33dff8faff24d9938d8dba424e20702cc"
             },
             "require": {
                 "php": "^8.1"
@@ -1462,7 +1452,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2024-09-11T07:33:53+00:00"
+            "time": "2024-09-16T07:33:33+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -8031,17 +8021,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.41",
+            "version": "3.0.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "621c73f7dcb310b61de34d1da4c4204e8ace6ceb"
+                "reference": "db92f1b1987b12b13f248fe76c3a52cadb67bb98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-621c73f7dcb310b61de34d1da4c4204e8ace6ceb-zip-3ebed5.zip",
-                "reference": "621c73f7dcb310b61de34d1da4c4204e8ace6ceb",
-                "shasum": "d3e0f8ee1f10d0b69975c2f0cbd09da705922e7b"
+                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-db92f1b1987b12b13f248fe76c3a52cadb67bb98-zip-9f59a1.zip",
+                "reference": "db92f1b1987b12b13f248fe76c3a52cadb67bb98",
+                "shasum": "3162b91ac6d6cae8cc9662f76ab8b27f038166ba"
             },
             "require": {
                 "paragonie/constant_time_encoding": "^1|^2|^3",
@@ -8133,7 +8123,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-12T00:13:54+00:00"
+            "time": "2024-09-16T03:06:04+00:00"
         },
         {
             "name": "phpxmlrpc/phpxmlrpc",
@@ -10358,6 +10348,53 @@
                 "transactional email"
             ],
             "time": "2023-11-20T07:27:47+00:00"
+        },
+        {
+            "name": "smalot/pdfparser",
+            "version": "v2.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smalot/pdfparser.git",
+                "reference": "ac8e6678b0940e4b2ccd5caadd3fb18e68093be6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/smalot/pdfparser/smalot-pdfparser-ac8e6678b0940e4b2ccd5caadd3fb18e68093be6-zip-d79b68.zip",
+                "reference": "ac8e6678b0940e4b2ccd5caadd3fb18e68093be6",
+                "shasum": "abd2ef990dff70726c4ab4052b09d9361c079759"
+            },
+            "require": {
+                "ext-iconv": "*",
+                "ext-zlib": "*",
+                "php": ">=7.1",
+                "symfony/polyfill-mbstring": "^1.18"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Smalot\\PdfParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastien MALOT",
+                    "email": "sebastien@malot.fr"
+                }
+            ],
+            "description": "Pdf parser library. Can read and extract information from pdf file.",
+            "homepage": "https://www.pdfparser.org",
+            "keywords": [
+                "extract",
+                "parse",
+                "parser",
+                "pdf",
+                "text"
+            ],
+            "time": "2024-08-16T06:48:03+00:00"
         },
         {
             "name": "smarty/smarty",
@@ -16526,17 +16563,17 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.10.2",
+            "version": "3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-86e5f5dd9a840c46810ebe5ff1885581c42a3017-zip-c71194.zip",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
-                "shasum": "23add5e22cd8de64c91cc5cba2c8c07f4b7970eb"
+                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-62d32998e820bddc40f99f8251958aed187a5c9c-zip-101dd1.zip",
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c",
+                "shasum": "aa053fa2087ae8d5c3f21410d0b15981a26c5600"
             },
             "require": {
                 "ext-simplexml": "*",
@@ -16596,7 +16633,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-21T23:26:44+00:00"
+            "time": "2024-09-18T10:38:58+00:00"
         },
         {
             "name": "stevegrunwell/phpunit-markup-assertions",
