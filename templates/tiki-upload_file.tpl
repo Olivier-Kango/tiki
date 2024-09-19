@@ -213,26 +213,38 @@
             <div class="col-sm-12">
                 <div class="form-check">
                     <label for="imagesize" class="form-check-label">
-                        <input class="form-check-input" type="checkbox" id="imagesize" name="imagesize" checked="checked" value="yes" />{tr}Use Gallery default resize settings for images <span id="imageResizeInfo">{if $gal_info["image_max_size_x"]}({$gal_info["image_max_size_x"]}px X {$gal_info["image_max_size_y"]} px){else}(No resize){/if}</span>{/tr}
+                        <input class="form-check-input" type="checkbox" id="imagesize" name="imagesize" checked="checked" value="yes" />
+                        {tr}Use the gallery's default resize settings for images{/tr}
+                        <span id="imageResizeInfo">
+    {if isset($gal_info.image_max_size_x) && isset($gal_info.image_max_size_y)}
+        {tr _0=$gal_info.image_max_size_x _1=$gal_info.image_max_size_y}(%0px x %1px){/tr}
+    {else}
+        {tr}(No resize){/tr}
+    {/if}
+</span>
                     </label>
                 </div>
             </div>
+
             <div id="customsize" style="display:none">
                 <div class="mb-3 row">
                     <label for="image_max_size_x" class="col-sm-4 text-end">{tr}Maximum width of images{/tr}</label>
                     <div class="col-sm-8">
                         <div class="input-group col-sm-4">
-                            <input type="text" name="image_max_size_x" id="image_max_size_x" value="{$gal_info["image_max_size_x"]}" class="form-control text-end">
+                            <input type="text" name="image_max_size_x" id="image_max_size_x"
+                                   value="{if isset($gal_info["image_max_size_x"])}{$gal_info["image_max_size_x"]}{else}0{/if}"
+                                   class="form-control text-end">
                             <span class="input-group-text"> {tr}pixel{/tr}</span>
                         </div>
                         <span class="form-text">{tr}If an image is wider than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited){/tr}</span>
                     </div>
+
                 </div>
                 <div class="mb-3 row">
                     <label for="image_max_size_y" class="col-sm-4 text-end">{tr}Maximum height of images in gallery{/tr}</label>
                     <div class="col-sm-8">
                         <div class="input-group col-sm-4">
-                            <input type="text" name="image_max_size_y" id="image_max_size_y" value="{$gal_info["image_max_size_y"]}" class="form-control text-end">
+                            <input type="text" name="image_max_size_y" id="image_max_size_y"  value="{if isset($gal_info["image_max_size_y"])}{$gal_info["image_max_size_y"]}{else}0{/if}"  class="form-control text-end">
                             <span class="input-group-text"> {tr}pixel{/tr}</span>
                         </div>
                         <span class="form-text">{tr}If an image is higher than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited){/tr}</span>
@@ -275,7 +287,8 @@
                                 <input type="hidden" name="galleryId[]" value="{$treeRootId}">
                             {/if}
                         {elseif empty($groupforalert)}
-                            <input type="hidden" id="gallery_type" value="{$gal_info['type']}">
+                            <input type="hidden" id="gallery_type"
+                                   value="{if isset($gal_info['type'])}{$gal_info['type']}{else}default{/if}">
 
                             <div class="mb-3 row">
                                 <label for="galleryId" class="col-md-4 col-form-label">{tr}File gallery{/tr}</label>
