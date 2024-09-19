@@ -514,7 +514,7 @@ class Services_Menu_Controller
      */
     public function action_remove($input)
     {
-        $input->replaceFilters(['menuId' => 'digits', 'referer' => 'url']);
+        $input->replaceFilters(['menuId' => 'digits']);
         $util = new Services_Utilities();
         //get menu details
         $menuId = $input['menuId'];
@@ -538,7 +538,7 @@ class Services_Menu_Controller
             } else {
                 Feedback::error(tr('The %0 menu has not been removed', $menuDetails['info']['name']));
             }
-            return Services_Utilities::refresh($util->extra['referer'] ?? false);
+            return Services_Utilities::refresh();
         } else {
             return [
                 'FORWARD' => [
@@ -550,7 +550,7 @@ class Services_Menu_Controller
                     'confirmClass' => 'n',
                     'customMsg' => tr('Delete the %0 menu?', $menuDetails['info']['name']),
                     'confirmButton' => tra('Delete'),
-                    'extra' => ['referer' => Services_Utilities::noJsPath(), 'menuId' => $menuId],
+                    'extra' => ['menuId' => $menuId],
                 ]
             ];
         }

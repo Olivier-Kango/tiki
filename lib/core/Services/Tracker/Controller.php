@@ -1412,14 +1412,12 @@ class Services_Tracker_Controller
                 }
                 //return to page
                 if ($skipRedirect === 1 || ! $redirect) {
-                    $referer = Services_Utilities::noJsPath();
-
                     // Return item data and refresh info
                     if ($input->skipRefresh->bool()) {
-                        $return = Services_Utilities::closeModal($referer);
+                        $return = Services_Utilities::closeModal();
                         $return = array_merge($return, $item);
                     } else {
-                        $return = Services_Utilities::refresh($referer);
+                        $return = Services_Utilities::refresh();
                         $return = array_merge($return, $item);
                     }
 

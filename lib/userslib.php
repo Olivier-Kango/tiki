@@ -8823,14 +8823,12 @@ class UsersLib extends TikiLib
         global $user, $prefs;
         $smarty = TikiLib::lib('smarty');
         include_once('lib/webmail/tikimaillib.php');
-        $referer = Services_Utilities::noJsPath();
-
         $mail = new TikiMail();
         foreach ($emails as $email) {
             if (! validate_email($email)) {
                 $mes = empty($email) ? tr('Email address is required.') : tr('Invalid email address "%0"', $email);
                 Feedback::error($mes);
-                Services_Utilities::sendFeedback($referer);
+                Services_Utilities::sendFeedback();
             }
         }
         $smarty->assign('mail_sender', $user);
@@ -8856,7 +8854,7 @@ class UsersLib extends TikiLib
                     $errormsg .= $mailerrors;
                 }
                 Feedback::error($errormsg);
-                Services_Utilities::sendFeedback($referer);
+                Services_Utilities::sendFeedback();
             }
             $smarty->assign_by_ref('user', $user);
         }

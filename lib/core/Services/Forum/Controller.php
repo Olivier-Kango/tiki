@@ -122,7 +122,6 @@ class Services_Forum_Controller
                             'toMsg' => tra('With this topic:'),
                             'title' => $title,
                             'items' => $util->items,
-                            'extra' => ['referer' => Services_Utilities::noJsPath()],
                             'toList' => $diff,
                             'object' => $object,
                             'modal' => '1',
@@ -158,7 +157,7 @@ class Services_Forum_Controller
             ];
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -206,7 +205,6 @@ class Services_Forum_Controller
                         'items' => $items,
                         'extra' => [
                             'id' => $forumId,
-                            'referer' => Services_Utilities::noJsPath()
                         ],
                         'modal' => '1',
                     ]
@@ -241,7 +239,7 @@ class Services_Forum_Controller
             ];
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -297,7 +295,7 @@ class Services_Forum_Controller
             Feedback::success($feedback);
             //return to page
             if ($this->lib->count_comments('forum:' . $util->extra['forumId']) > 0) {
-                return Services_Utilities::refresh($util->extra['referer']);
+                return Services_Utilities::refresh();
             } else {
                 global $base_url;
                 return Services_Utilities::redirect($base_url . 'tiki-forums.php');
@@ -349,7 +347,7 @@ class Services_Forum_Controller
             ];
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -430,7 +428,7 @@ class Services_Forum_Controller
             ];
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer'], 'queryAndAnchor');
+            return Services_Utilities::refresh('queryAndAnchor');
         }
     }
 
@@ -484,7 +482,7 @@ class Services_Forum_Controller
             ];
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer'], 'queryAndAnchor');
+            return Services_Utilities::refresh('queryAndAnchor');
         }
     }
 
@@ -603,7 +601,7 @@ class Services_Forum_Controller
             ];
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -637,7 +635,6 @@ class Services_Forum_Controller
                         'items' => $util->items,
                         'extra' => [
                             'comments_parentId' => $topicId,
-                            'referer' => Services_Utilities::noJsPath()
                         ],
                         'modal' => '1',
                     ]
@@ -664,7 +661,7 @@ class Services_Forum_Controller
             ];
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 }

@@ -338,7 +338,7 @@ class Services_Wiki_Controller
                     'customMsg' => $msg,
                     'confirmButton' => tra('Delete'),
                     'items' => $util->items,
-                    'extra' => ['referer' => Services_Utilities::noJsPath(), 'version' => $v, 'one' => $one],
+                    'extra' => ['version' => $v, 'one' => $one],
                     'modal' => '1',
                     'included_by' => $included_by,
                 ];
@@ -489,7 +489,7 @@ class Services_Wiki_Controller
                 global $prefs, $base_url;
                 return Services_Utilities::redirect($base_url . $prefs['tikiIndex']);
             }
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -579,7 +579,7 @@ class Services_Wiki_Controller
                 Feedback::error($feedback);
             }
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -630,7 +630,7 @@ class Services_Wiki_Controller
                 return ['url' => 'tiki-print_multi_pages.php?print=y&printpages=' . urlencode(json_encode($util->items))];
             } else {
                 Feedback::error(tr('No page specified.'));
-                return Services_Utilities::refresh($util->extra['referer']);
+                return Services_Utilities::refresh();
             }
         }
     }
@@ -687,7 +687,7 @@ class Services_Wiki_Controller
             } else {
                 Feedback::error(tr('No page specified.'));
             }
-            return Services_Utilities::closeModal($util->extra['referer']);
+            return Services_Utilities::closeModal();
         }
     }
 
@@ -784,7 +784,7 @@ class Services_Wiki_Controller
                 Feedback::success($feedback2);
             }
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -886,7 +886,7 @@ class Services_Wiki_Controller
                 Feedback::success($feedback2);
             }
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -932,7 +932,7 @@ class Services_Wiki_Controller
                 Feedback::error(['mes' => $xmllib->get_error()]);
             }
             //return to page
-            return Services_Utilities::closeModal($util->extra['referer']);
+            return Services_Utilities::closeModal();
         }
     }
 
@@ -1004,7 +1004,7 @@ class Services_Wiki_Controller
                 Feedback::success($feedback2);
             }
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 }

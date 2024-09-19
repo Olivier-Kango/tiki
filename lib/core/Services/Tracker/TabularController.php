@@ -166,8 +166,7 @@ class Services_Tracker_TabularController
 
             $lib->update($tabularId, $input->name->text(), $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $info['config'], $info['odbc_config'], $info['api_config']);
 
-            $referer = Services_Utilities::noJsPath();
-            return Services_Utilities::refresh($referer);
+            return Services_Utilities::refresh();
         }
 
         return [

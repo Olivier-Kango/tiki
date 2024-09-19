@@ -387,7 +387,6 @@ class Services_User_Controller
                     'customMsg' => $msg,
                     'confirmButton' => tra('Delete'),
                     'items' => $util->items,
-                    'extra' => ['referer' => Services_Utilities::noJsPath()],
                     //'ticket' => $check['ticket'],
                     'confirm' => 'y',
                     'trackerIds' => $trackerIds,
@@ -409,7 +408,7 @@ class Services_User_Controller
             $remove_files = ! empty($input['remove_files']);
 
             // do the deleting...
-            $del = $this->removeUsers($util->items, $remove_pages, $remove_items, $remove_files, $util->extra['referer']);
+            $del = $this->removeUsers($util->items, $remove_pages, $remove_items, $remove_files);
 
             if ($del) {
                 //prepare feedback
@@ -438,7 +437,7 @@ class Services_User_Controller
                         return ['feedback' => $feedback];
                     } else {
                         Feedback::success($feedback);
-                        return Services_Utilities::refresh($util->extra['referer']);
+                        return Services_Utilities::refresh();
                     }
                 }
             }
@@ -505,12 +504,6 @@ class Services_User_Controller
             $util->setVars($input, $this->filters, 'checked');
             if ($util->itemsCount > 0) {
                 //provide redirect if js is not enabled
-                if (! empty($input['anchor'])) {
-                    $referer = $_SERVER['HTTP_REFERER'];
-                } else {
-                    $referer = Services_Utilities::noJsPath();
-                }
-
                 $extraFields = [];
 
                 if ($prefs['users_admin_actions_require_validation'] == 'y') {
@@ -538,7 +531,6 @@ class Services_User_Controller
                         [
                             'add_remove'    => 'remove',
                             'group'         => $group,
-                            'referer'       => $referer,
                             'anchor'        => $input->anchor->striptags(),
                             'fields'        => $extraFields
                         ]
@@ -587,7 +579,6 @@ class Services_User_Controller
                         'countgrps' => $countgrps,
                         'items' => $util->items,
                         'extra' => [
-                            'referer' => $referer,
                             'fields' => $extraFields
                         ],
                         'modal' => '1',
@@ -648,7 +639,7 @@ class Services_User_Controller
                                         throw new Services_Exception($msg);
                                     }
                                     Feedback::error(['mes' => $msg]);
-                                    return Services_Utilities::closeModal($util->extra['referer']);
+                                    return Services_Utilities::closeModal();
                                 }
                             } elseif ($add_remove === 'remove') {
                                 $this->lib->remove_user_from_group($assign_user, $group);
@@ -666,7 +657,7 @@ class Services_User_Controller
                                 throw new Services_Exception_Denied();
                             }
                             Feedback::error(['mes' => tra('Permission denied')]);
-                            return Services_Utilities::closeModal($util->extra['referer']);
+                            return Services_Utilities::closeModal();
                         }
                     }
 
@@ -703,9 +694,9 @@ class Services_User_Controller
                 Feedback::success($feedback);
                 //return to page
                 if (! empty($util->extra['anchor'])) {
-                    return Services_Utilities::redirect($util->extra['referer'] . $util->extra['anchor']);
+                    return Services_Utilities::redirect($util->extra['anchor']);
                 } else {
-                    return Services_Utilities::refresh($util->extra['referer']);
+                    return Services_Utilities::refresh();
                 }
             } else {
                 $msg = tra('No groups were selected. Please select one or more groups.');
@@ -713,7 +704,7 @@ class Services_User_Controller
                     throw new Services_Exception($msg);
                 }
                 Feedback::error(['mes' => $msg]);
-                return Services_Utilities::closeModal($util->extra['referer']);
+                return Services_Utilities::closeModal();
             }
         }
     }
@@ -749,7 +740,6 @@ class Services_User_Controller
                         'toList' => $all_groups,
                         'toMsg' => tra('Make this the default group:'),
                         'items' => $util->items,
-                        'extra' => ['referer' => Services_Utilities::noJsPath()],
                         'modal' => '1',
                     ]
                 ];
@@ -793,10 +783,10 @@ class Services_User_Controller
                 ];
                 Feedback::success($feedback);
                 //return to page
-                return Services_Utilities::refresh($util->extra['referer']);
+                return Services_Utilities::refresh();
             } else {
                 Feedback::error(['mes' => tra('No groups were selected. Please select one or more groups.')]);
-                return Services_Utilities::closeModal($util->extra['referer']);
+                return Services_Utilities::closeModal();
             }
         }
     }
@@ -826,7 +816,6 @@ class Services_User_Controller
                     'confirmController' => 'user',
                     'customMsg' => tra('For these selected users:'),
                     'items' => $util->items,
-                    'extra' => ['referer' => Services_Utilities::noJsPath()],
                     'modal' => '1',
                 ];
             } else {
@@ -843,7 +832,7 @@ class Services_User_Controller
                     throw new Services_Exception_NotFound();
                 }
                 Feedback::error(tra('Page not found'));
-                return Services_Utilities::closeModal($util->extra['referer']);
+                return Services_Utilities::closeModal();
             }
             if (empty($pageinfo['description'])) {
                 $msg = tra('The page does not have a description, which is mandatory to perform this action.');
@@ -851,7 +840,7 @@ class Services_User_Controller
                     throw new Services_Exception($msg);
                 }
                 Feedback::error($msg);
-                return Services_Utilities::closeModal($util->extra['referer']);
+                return Services_Utilities::closeModal();
             }
             $bcc = $input['bcc'];
             include_once('lib/webmail/tikimaillib.php');
@@ -859,7 +848,7 @@ class Services_User_Controller
             if (! empty($bcc)) {
                 if (! validate_email($bcc)) {
                     Feedback::error(tra('Invalid bcc email address'));
-                    return Services_Utilities::closeModal($util->extra['referer']);
+                    return Services_Utilities::closeModal();
                 }
                 $mail->setBcc($bcc);
                 $bccmsg = tr('and blind copied (bcc) to %0', $bcc);
@@ -879,7 +868,7 @@ class Services_User_Controller
                         throw new Services_Exception($msg);
                     }
                     Feedback::error($msg);
-                    return Services_Utilities::closeModal($util->extra['referer']);
+                    return Services_Utilities::closeModal();
                 }
                 $mail->setHtml($text);
                 if (! $mail->send($this->lib->get_user_email($mail_user))) {
@@ -892,7 +881,7 @@ class Services_User_Controller
                         throw new Services_Exception($errormsg);
                     }
                     Feedback::error($errormsg);
-                    return Services_Utilities::closeModal($util->extra['referer']);
+                    return Services_Utilities::closeModal();
                 } else {
                     if (! empty($bcc)) {
                         $logmsg = sprintf(tra('Mail sent to user %s'), $mail_user);
@@ -919,7 +908,7 @@ class Services_User_Controller
             }
             Feedback::success($feedback);
             //return to page
-            return Services_Utilities::refresh($util->extra['referer']);
+            return Services_Utilities::refresh();
         }
     }
 
@@ -927,7 +916,6 @@ class Services_User_Controller
     {
         global $user;
         $userlib = TikiLib::lib('user');
-        $referer = Services_Utilities::noJsPath();
         if (TIKI_API) {
             $userwatch = $input->to->text();
         } else {
@@ -939,7 +927,7 @@ class Services_User_Controller
                 throw new Services_Exception_NotFound();
             }
             Feedback::error(tra('No user was selected.'));
-            return Services_Utilities::closeModal($referer);
+            return Services_Utilities::closeModal();
         }
         //sets default priority for the message to 3 if no priority was given
         if (! empty($input->priority->text())) {
@@ -990,13 +978,12 @@ class Services_User_Controller
                     Feedback::error($msg);
                 }
             }
-            return Services_Utilities::closeModal($referer);
+            return Services_Utilities::closeModal();
         } else {
             return [
                 'title' => tra("Send Me a Message"),
                 'userwatch' => $userwatch,
                 'priority' => $priority,
-                'referer' => $referer
             ];
         }
     }
@@ -1030,8 +1017,6 @@ class Services_User_Controller
         $expiry = $input->tempuser_expiry->int();
         $prefix = $input->tempuser_prefix->text();
         $path = $input->tempuser_path->text();
-        $referer = Services_Utilities::noJsPath();
-
         if (empty($prefix)) {
             $prefix = 'guest';
         }
@@ -1047,20 +1032,20 @@ class Services_User_Controller
             $expiry = $expiry * 3600 * 24; //translate day input to seconds
         } elseif ($expiry != -1) {
             Feedback::error(tra('Please specify validity period'));
-            Services_Utilities::sendFeedback($referer);
+            Services_Utilities::sendFeedback();
         }
 
         foreach ($groups as $grp) {
             if (! TikiLib::lib('user')->group_exists($grp)) {
                 Feedback::error(tr('The group %0 does not exist', $grp));
-                Services_Utilities::sendFeedback($referer);
+                Services_Utilities::sendFeedback();
             }
         }
 
         TikiLib::lib('user')->invite_tempuser($emails, $groups, $expiry, $prefix, $path);
 
         Feedback::success(tra('Your invite has been sent.'));
-        Services_Utilities::sendFeedback($referer);
+        Services_Utilities::sendFeedback();
     }
 
     /**
@@ -1106,7 +1091,7 @@ class Services_User_Controller
         }
     }
 
-    private function removeUsers(array $users, $page = false, $trackerIds = [], $files = false, $referer = false)
+    private function removeUsers(array $users, $page = false, $trackerIds = [], $files = false)
     {
         global $user;
         foreach ($users as $deleteuser) {
@@ -1121,7 +1106,7 @@ class Services_User_Controller
                         $res = $tikilib->remove_all_versions($page);
                         if ($res !== true) {
                             Feedback::error(tr('An error occurred. User page for %0 could not be deleted', $deleteuser));
-                            Services_Utilities::closeModal($referer);
+                            Services_Utilities::closeModal();
                             return false;
                         }
                     }
@@ -1158,7 +1143,7 @@ class Services_User_Controller
                     $logslib->add_log('adminusers', sprintf(tra('Deleted account %s'), $deleteuser), $user);
                 } else {
                     Feedback::error(tr('An error occurred. User %0 could not be deleted', $deleteuser));
-                    Services_Utilities::closeModal($referer);
+                    Services_Utilities::closeModal();
                     return false;
                 }
             }
@@ -1219,14 +1204,14 @@ class Services_User_Controller
                         return ['feedback' => $feedback];
                     } else {
                         Feedback::success($feedback);
-                        return Services_Utilities::refresh($util->extra['referer']);
+                        return Services_Utilities::refresh();
                     }
                 }
             }
         }
     }
 
-    private function updateUserLockStatus($users, $newLockStatus, $referer = false)
+    private function updateUserLockStatus($users, $newLockStatus)
     {
         global $user;
         foreach ($users as $user_to_lock) {
@@ -1236,7 +1221,7 @@ class Services_User_Controller
                     Feedback::success(tr('User %0 lock status successfully updated', $user_to_lock));
                 } else {
                     Feedback::error(tr('An error occurred. User %0 lock status could not be updated', $user_to_lock));
-                    Services_Utilities::closeModal($referer);
+                    Services_Utilities::closeModal();
                     return false;
                 }
             }
