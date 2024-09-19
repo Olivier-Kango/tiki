@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d8307a273f589aae9b261f14625802c",
+    "content-hash": "3c8a62cbe28640697dac04fefba2c5df",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -812,16 +812,6 @@
             "time": "2021-02-26T10:19:33+00:00"
         },
         {
-            "name": "christian-vigh-phpclasses/PdfToText",
-            "version": "1.6.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/christian-vigh-phpclasses/pdftotext/christian-vigh-phpclasses-pdftotext-1.6.7.zip",
-                "shasum": "4fda0cbb9d044b0c4844587177629763c6afb229"
-            },
-            "type": "library"
-        },
-        {
             "name": "ckeditor/ckeditor",
             "version": "4.22.1",
             "source": {
@@ -1019,24 +1009,24 @@
         },
         {
             "name": "composer/semver",
-            "version": "3.4.2",
+            "version": "3.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6"
+                "reference": "4313d26ada5e0c4edfbd1dc481a92ff7bff91f12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/semver/composer-semver-c51258e759afdb17f1fd1fe83bc12baaef6309d6-zip-cb0ebb.zip",
-                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6",
-                "shasum": "b7c5d936bae9bf9f3f125488d9fb0245ee29778f"
+                "url": "https://composer.tiki.org/dist/composer/semver/composer-semver-4313d26ada5e0c4edfbd1dc481a92ff7bff91f12-zip-68dec6.zip",
+                "reference": "4313d26ada5e0c4edfbd1dc481a92ff7bff91f12",
+                "shasum": "11a49a7fb09446459669749f67e4d2e554d02a0f"
             },
             "require": {
                 "php": "^5.3.2 || ^7.0 || ^8.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.4",
-                "symfony/phpunit-bridge": "^4.2 || ^5"
+                "phpstan/phpstan": "^1.11",
+                "symfony/phpunit-bridge": "^3 || ^7"
             },
             "type": "library",
             "extra": {
@@ -1091,7 +1081,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-12T11:35:52+00:00"
+            "time": "2024-09-19T14:15:21+00:00"
         },
         {
             "name": "css-tricks/anythingslider-themes",
@@ -6458,11 +6448,11 @@
         },
         {
             "name": "npm-asset/picocolors",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/picocolors/npm-asset-picocolors-1.0.1.zip",
-                "shasum": "de67a73b8ecfced81f1d8f341493661ab1d21455"
+                "url": "https://composer.tiki.org/dist/npm-asset/picocolors/npm-asset-picocolors-1.1.0.zip",
+                "shasum": "7b099d0c90fba672f5c9f2b94f76a27565c8e4d7"
             },
             "type": "npm-asset",
             "license": [
@@ -6484,16 +6474,16 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.41",
+            "version": "8.4.47",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.41.zip",
-                "shasum": "d58fc91e94ddd1a5d577c18f4a2d54b8851d4306"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.47.zip",
+                "shasum": "107fa9280700b6d77c0a2355eb767c3e64e8d0ee"
             },
             "require": {
                 "npm-asset/nanoid": ">=3.3.7,<4.0.0",
-                "npm-asset/picocolors": ">=1.0.1,<2.0.0",
-                "npm-asset/source-map-js": ">=1.2.0,<2.0.0"
+                "npm-asset/picocolors": ">=1.1.0,<2.0.0",
+                "npm-asset/source-map-js": ">=1.2.1,<2.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -6867,11 +6857,11 @@
         },
         {
             "name": "npm-asset/source-map-js",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/source-map-js/npm-asset-source-map-js-1.2.0.zip",
-                "shasum": "2d2387780dd0c0a42d29a15eb298753c24107bf6"
+                "url": "https://composer.tiki.org/dist/npm-asset/source-map-js/npm-asset-source-map-js-1.2.1.zip",
+                "shasum": "32aaf559db0eda52433dee7710f09c49b590b16f"
             },
             "type": "npm-asset",
             "license": [
@@ -10621,6 +10611,53 @@
                 "transactional email"
             ],
             "time": "2023-11-20T07:27:47+00:00"
+        },
+        {
+            "name": "smalot/pdfparser",
+            "version": "v2.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smalot/pdfparser.git",
+                "reference": "ac8e6678b0940e4b2ccd5caadd3fb18e68093be6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/smalot/pdfparser/smalot-pdfparser-ac8e6678b0940e4b2ccd5caadd3fb18e68093be6-zip-d79b68.zip",
+                "reference": "ac8e6678b0940e4b2ccd5caadd3fb18e68093be6",
+                "shasum": "abd2ef990dff70726c4ab4052b09d9361c079759"
+            },
+            "require": {
+                "ext-iconv": "*",
+                "ext-zlib": "*",
+                "php": ">=7.1",
+                "symfony/polyfill-mbstring": "^1.18"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Smalot\\PdfParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastien MALOT",
+                    "email": "sebastien@malot.fr"
+                }
+            ],
+            "description": "Pdf parser library. Can read and extract information from pdf file.",
+            "homepage": "https://www.pdfparser.org",
+            "keywords": [
+                "extract",
+                "parse",
+                "parser",
+                "pdf",
+                "text"
+            ],
+            "time": "2024-08-16T06:48:03+00:00"
         },
         {
             "name": "smarty/smarty",
@@ -15144,13 +15181,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "d1419106f4e78b9bbcb918604e47422cb36d44b1"
+                "reference": "5320beafb871c9267c7d03442044eedea4ca1f52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-d1419106f4e78b9bbcb918604e47422cb36d44b1-zip-eba3ea.zip",
-                "reference": "d1419106f4e78b9bbcb918604e47422cb36d44b1",
-                "shasum": "f631cb16232559c97948167cd9847e66e7db0b01"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-5320beafb871c9267c7d03442044eedea4ca1f52-zip-67cf7a.zip",
+                "reference": "5320beafb871c9267c7d03442044eedea4ca1f52",
+                "shasum": "08d96f213a836ecb72e155cf483e03ae59868622"
             },
             "require": {
                 "php": ">=5.4",
@@ -15220,7 +15257,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-09-15T16:22:56+00:00"
+            "time": "2024-09-18T23:29:28+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -15306,17 +15343,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.3",
+            "version": "1.12.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0fcbf194ab63d8159bb70d9aa3e1350051632009"
+                "reference": "ffa517cb918591b93acc9b95c0bebdcd0e4538bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-0fcbf194ab63d8159bb70d9aa3e1350051632009-zip-2af357.zip",
-                "reference": "0fcbf194ab63d8159bb70d9aa3e1350051632009",
-                "shasum": "0b6a7d315dcc2a442657aa5065b18bbc2b7794b3"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-ffa517cb918591b93acc9b95c0bebdcd0e4538bd-zip-e40bb3.zip",
+                "reference": "ffa517cb918591b93acc9b95c0bebdcd0e4538bd",
+                "shasum": "f3ad18b5408466850d0b2cfab3098ee524e4129d"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15353,7 +15390,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-09T08:10:35+00:00"
+            "time": "2024-09-19T07:58:01+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -16743,17 +16780,17 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.10.2",
+            "version": "3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-86e5f5dd9a840c46810ebe5ff1885581c42a3017-zip-c71194.zip",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
-                "shasum": "23add5e22cd8de64c91cc5cba2c8c07f4b7970eb"
+                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-62d32998e820bddc40f99f8251958aed187a5c9c-zip-101dd1.zip",
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c",
+                "shasum": "aa053fa2087ae8d5c3f21410d0b15981a26c5600"
             },
             "require": {
                 "ext-simplexml": "*",
@@ -16813,7 +16850,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-21T23:26:44+00:00"
+            "time": "2024-09-18T10:38:58+00:00"
         },
         {
             "name": "symfony/browser-kit",

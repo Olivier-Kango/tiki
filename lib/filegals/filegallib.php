@@ -905,11 +905,11 @@ class FileGalLib extends TikiLib
             case 'application/pdf':
                 return function (FileWrapper $wrapper) {
                     $getTextFromPdf = function () use ($wrapper) {
-                        require_once TIKI_VENDOR_BUNDLED_PATH . "/christian-vigh-phpclasses/PdfToText/PdfToText.phpclass";
                         ob_start();
-                        $pdf = new \PdfToText($wrapper->getReadableFile());
+                        $parser = new \Smalot\PdfParser\Parser();
+                        $pdf = $parser->parseFile($wrapper->getReadableFile());
                         ob_end_clean();
-                        return $pdf->Text;
+                        return $pdf->getText();
                     };
 
                     // Call the closure to get text from PDF
