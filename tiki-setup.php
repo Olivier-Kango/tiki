@@ -53,7 +53,9 @@ $crumbs = [];
 require_once('lib/core/Tiki/TikiInit.php');
 require_once('lib/setup/tikisetup.class.php');
 require_once('lib/setup/timer.class.php');
-require_once('lib/setup/fullscreen.php');
+if (isset($prefs['feature_fullscreen']) && $prefs['feature_fullscreen'] == 'y') {
+    require_once('lib/setup/fullscreen.php');
+}
 $tiki_timer = new timer();
 $tiki_timer->start();
 require_once('tiki-setup_base.php'); //Starting here composer autoloading is available
