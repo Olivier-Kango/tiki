@@ -566,7 +566,7 @@ function iconset_default()
                 'prepend' => 'fab fa-'
             ],
             'export' => [
-                'id' => 'download',
+                'id' => 'file-export',
             ],
             'facebook' => [
                 'id' => 'facebook',
@@ -744,7 +744,7 @@ function iconset_default()
                 'prepend' => 'far fa-'
             ],
             'import' => [
-                'id' => 'upload',
+                'id' => 'file-import',
             ],
             //indent in defaults
             'index' => [
