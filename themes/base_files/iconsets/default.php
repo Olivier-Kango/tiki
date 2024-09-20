@@ -164,6 +164,9 @@ function iconset_default()
             'admin_module' => [
                 'id' => 'shapes',
             ],
+            'admin_orphanprefs' => [
+                'id' => 'exclamation-triangle',
+            ],
             'admin_payment' => [
                 'id' => 'credit-card',
                 'prepend' => 'far fa-'
