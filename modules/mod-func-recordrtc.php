@@ -54,7 +54,9 @@ function module_recordrtc($mod_reference, $smod_params)     // modifies $smod_pa
         return;
     }
 
-    $https = $_SERVER['REQUEST_SCHEME'] === 'https' ? true : false;
+    include_once('lib/setup/absolute_urls.php');
+    $https = $https_mode ? true : false;
+
     if (! $https) {
         $smarty->assign('module_error', tra('Record RTC requires https connection over SSL'));
         return;
