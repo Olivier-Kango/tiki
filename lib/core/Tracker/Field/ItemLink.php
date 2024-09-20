@@ -369,6 +369,18 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
         $trackerId = $this->trackerField->getOption('trackerId');
         $trackerPerms = Perms::get('tracker', $trackerId);
 
+        $trackerId = (int) $trackerId;
+
+        if (! $trackerId) {
+            Feedback::error(
+                tr(
+                    'ItemsLink field %0 on tracker %1 doesn\'t have a destination tracker set yet in its trackerId option.',
+                    $this->getTrackerFieldInstance()->getPermName(),
+                    $this->getTrackerDefinition()->getId()
+                )
+            );
+            return;
+        }
 
         if ($this->useSelector()) {
             $value = $this->getValue();
