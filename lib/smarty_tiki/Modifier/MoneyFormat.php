@@ -38,6 +38,9 @@ class MoneyFormat
                 \Feedback::error(tr('"%0" is not supported by this system.', $locale));
                 return $number;
             }
+        } else {
+            \Feedback::error(tr('No system locale for currency formatting set'));
+            return $number;
         }
 
         if (! extension_loaded('intl')) {

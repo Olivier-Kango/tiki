@@ -504,7 +504,7 @@ class Services_Tracker_Controller
         }
 
         array_walk($typeInfo['params'], function (&$param) use ($fieldId, $field, $prefs) {
-            if (isset($param['profile_reference'])) {
+            if (isset($param['profile_reference']) && ! is_array($param['profile_reference'])) {
                 $lib = TikiLib::lib('object');
                 $param['selector_type'] = $lib->getSelectorType($param['profile_reference']);
                 if (isset($param['parent'])) {

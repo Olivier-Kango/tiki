@@ -127,7 +127,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         return $options;
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $prefs;
         $filegallib = TikiLib::lib('filegal');

@@ -206,7 +206,7 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implem
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $user, $prefs;
 

@@ -108,7 +108,7 @@ class Tracker_Field_Currency extends \Tracker\Field\AbstractItemField implements
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
         if (isset($requestData[$ins_id])) {

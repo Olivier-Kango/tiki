@@ -84,7 +84,7 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
         return $definition;
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $prefs;
         if ($prefs['feature_jquery_ui'] !== 'y') {  // fall back to simple date field

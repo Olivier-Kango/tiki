@@ -48,7 +48,7 @@ class Tracker_Field_UserGroups extends \Tracker\Field\AbstractItemField implemen
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $itemId = $this->getItemId();
 

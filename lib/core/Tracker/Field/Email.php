@@ -137,7 +137,7 @@ class Tracker_Field_Email extends \Tracker\Field\AbstractItemField implements \T
         return [$baseKey => true, "{$baseKey}_text" => true];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
 

@@ -213,7 +213,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $data = parent::getFieldData($requestData);
 

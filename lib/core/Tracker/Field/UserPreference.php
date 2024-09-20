@@ -59,7 +59,7 @@ class Tracker_Field_UserPreference extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $tikilib;
 

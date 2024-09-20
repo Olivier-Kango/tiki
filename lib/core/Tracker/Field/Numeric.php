@@ -90,7 +90,7 @@ class Tracker_Field_Numeric extends \Tracker\Field\AbstractItemField implements 
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
 

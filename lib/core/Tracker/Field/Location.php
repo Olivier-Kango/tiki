@@ -107,7 +107,7 @@ class Tracker_Field_Location extends \Tracker\Field\AbstractItemField implements
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         if (isset($requestData[$this->getInsertId()])) {
             $value = $requestData[$this->getInsertId()];

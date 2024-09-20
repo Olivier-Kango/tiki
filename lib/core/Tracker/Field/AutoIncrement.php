@@ -68,7 +68,7 @@ class Tracker_Field_AutoIncrement extends \Tracker\Field\AbstractItemField imple
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
         $value = isset($requestData[$ins_id]) ? $requestData[$ins_id] : $this->getValue();

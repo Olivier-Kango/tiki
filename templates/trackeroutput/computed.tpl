@@ -27,7 +27,9 @@
                 {$field.value|number_format|escape}
             {/if}
         {else}
-            {$field.value|number_format:$field.options_array[1]:$field.options_array[2]:$field.options_array[3]|escape}
+            {if ! empty($field.value)}
+                {$field.value|number_format:$field.options_array[1]:$field.options_array[2]:$field.options_array[3]|escape}
+            {/if}
         {/if}
     {/if}
 {elseif $tiki_p_admin eq 'y'}

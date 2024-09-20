@@ -43,10 +43,10 @@ class Tracker_Field_File extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
-
+        $data = [];
         if (! empty($requestData) && isset($_FILES[$ins_id]) && is_uploaded_file($_FILES[$ins_id]['tmp_name'])) {
             $data['old_value'] = $this->getValue();
             $data['value'] = file_get_contents($_FILES[$ins_id]['tmp_name']);

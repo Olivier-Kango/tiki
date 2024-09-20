@@ -159,7 +159,7 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractItemField implements
         return new Tracker_Field_Dropdown($fieldInfo, $itemData, $trackerDefinition);
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
 
         $ins_id = $this->getInsertId();

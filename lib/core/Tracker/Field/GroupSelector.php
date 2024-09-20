@@ -97,7 +97,7 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         // $group is set to the default group in lib/setup/user_prefs.php
         global $group, $user;

@@ -170,7 +170,7 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $key = 'ins_' . $this->getConfiguration('fieldId');
         $parentId = $this->getOption('parentId');

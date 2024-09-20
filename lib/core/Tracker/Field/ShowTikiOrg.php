@@ -71,7 +71,7 @@ class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $user;
 

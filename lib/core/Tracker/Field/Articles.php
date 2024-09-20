@@ -44,7 +44,7 @@ class Tracker_Field_Articles extends \Tracker\Field\AbstractItemField
         return $options;
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $prefs;
         $ins_id = $this->getInsertId();

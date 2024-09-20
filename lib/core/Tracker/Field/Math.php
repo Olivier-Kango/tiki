@@ -69,7 +69,7 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractItemField implements \Tr
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $tiki_p_admin, $tiki_p_admin_trackers;
 
