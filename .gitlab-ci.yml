@@ -24,6 +24,7 @@ variables:
   MARIADB_IMAGE_OLDEST_SUPPORTED: mariadb:10.5.11
   MYSQL_IMAGE_NEWEST_SUPPORTED: mysql:8.0.36
   MYSQL_IMAGE_OLDEST_SUPPORTED: mysql:8.0.29
+  MANTICORE_NEWEST_SUPPORTED: 6.3.6
   #Only for older version upgrade tests these days
   MYSQL_5_IMAGE: mysql:5.7.44
   NODE_IMAGE: node:18
@@ -513,7 +514,7 @@ console-php-works:
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
+    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
       alias: manticore
   variables:
     EXTRA: 1
@@ -541,7 +542,7 @@ console-php-works:
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
+    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
       alias: manticore
 
 .template-unit-tests-mysql-newest-supported: &template-unit-tests-mysql-newest-supported
@@ -552,7 +553,7 @@ console-php-works:
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
+    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
       alias: manticore
 
 .template-unit-tests-mariadb-oldest-supported: &template-unit-tests-mariadb-oldest-supported
@@ -563,7 +564,7 @@ console-php-works:
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
+    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
       alias: manticore
 
 .template-unit-tests-mariadb-newest-supported: &template-unit-tests-mariadb-newest-supported
@@ -574,7 +575,7 @@ console-php-works:
       alias: mysql
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:dev
+    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
       alias: manticore
 
 # Run unit tests once, must cover at least min and max php version supported, and min and max myslq/mariadb version supported
