@@ -54,5 +54,14 @@ function prefs_elementplus_list()
                 'feature_elementplus'
             ],
         ],
+        'elementplus_select_sortable' => [
+            'name' => tra('Sortable'),
+            'description' => tra('whether selected items can be re-ordered via drag and drop'),
+            'type' => 'flag',
+            'default' => 'n',
+            'dependencies' => [
+                'feature_elementplus'
+            ]
+        ]
     ];
 }

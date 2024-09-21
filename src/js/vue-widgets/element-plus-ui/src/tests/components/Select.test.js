@@ -1,8 +1,10 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/vue";
+import { fireEvent, render, screen, within } from "@testing-library/vue";
 import { describe, expect, test, vi } from "vitest";
-import { h, nextTick } from "vue";
+import { h } from "vue";
 import Select, { DATA_TEST_ID } from "../../components/Select.vue";
 import { ElOption, ElSelect } from "element-plus/dist/index.full.mjs";
+import * as SortableHelper from "../../helpers/select/sortable";
+import Sortable from "sortablejs";
 
 vi.mock("element-plus/dist/index.full.mjs", async (importOriginal) => {
     const actual = await importOriginal();
@@ -10,6 +12,18 @@ vi.mock("element-plus/dist/index.full.mjs", async (importOriginal) => {
         ...actual,
         ElOption: vi.fn((props) => h("div", props)),
         ElSelect: vi.fn((props, { slots }) => h("div", props, slots.default ? slots.default() : null)),
+    };
+});
+
+vi.mock("sortablejs", async () => {
+    return {
+        default: vi.fn(),
+    };
+});
+
+vi.mock("../../helpers/select/sortable", async () => {
+    return {
+        sortOptions: vi.fn(),
     };
 });
 
@@ -101,6 +115,29 @@ describe("Select", () => {
 
             expect(ElSelect.mock.calls[1][0].modelValue).toBe("foo");
         });
+
+        test("initializes sortable for a multiple select when the ordering prop is true", async () => {
+            const givenProps = {
+                ...basicProps,
+                ordering: "true",
+                multiple: "true",
+            };
+
+            ElSelect = {
+                setup() {
+                    return () => h("div", { class: "el-select__selection" }, "Selection");
+                },
+            };
+
+            render(Select, { props: givenProps });
+
+            expect(Sortable).toHaveBeenCalledWith(
+                screen.getByText("Selection"),
+                expect.objectContaining({
+                    onSort: expect.any(Function),
+                })
+            );
+        });
     });
 
     describe("Actions", () => {
@@ -128,6 +165,19 @@ describe("Select", () => {
             await fireEvent.click(option);
 
             expect(givenProps.emitValueChange).toHaveBeenCalledWith({ value: expectedValueOnChange });
+        });
+
+        test("reorders the select options when the sort operation is triggered", async () => {
+            const givenProps = {
+                ...basicProps,
+                ordering: "true",
+                multiple: "true",
+            };
+            render(Select, { props: givenProps });
+
+            Sortable.mock.calls[0][1].onSort();
+
+            expect(SortableHelper.sortOptions).toHaveBeenCalledWith(screen.getByTestId(DATA_TEST_ID.SELECT_WRAPPER), JSON.parse(givenProps.options));
         });
     });
 });

@@ -15,6 +15,7 @@ $elementPlus = [
         'maxCollapseTags' => (int) $prefs['elementplus_select_max_collapse_tags'],
         'filterable' => $prefs['elementplus_select_filterable'] === 'y',
         'allowCreate' => $prefs['elementplus_select_allow_create'] === 'y',
+        'ordering' => $prefs['elementplus_select_sortable'] === 'y'
     ]
 ];
 

@@ -21,12 +21,13 @@ export default function applySelect() {
                     elementPlusUi.attr("max-collapse-tags", selectPreferences.maxCollapseTags);
                     elementPlusUi.attr("filterable", selectPreferences.filterable);
                     elementPlusUi.attr("allow-create", selectPreferences.allowCreate);
+                    elementPlusUi.attr("ordering", selectPreferences.ordering);
 
                     syncSelectOptions(elementPlusUi.get(0), this);
 
+                    $(this).attr("element-plus-ref", elementUniqueId);
                     $(this).after(elementPlusUi);
                     $(this).hide();
-                    $(this).attr("element-plus-ref", elementUniqueId);
 
                     attachChangeEventHandler(elementPlusUi.get(0), this);
 
