@@ -31,7 +31,7 @@
     </table>
 </div>
 <div>
-    <p>For more details, check the <a href="https://doc.tiki.org/Requirements" target="_blank">Tiki Requirements</a> documentation.</p>
+    <p>{tr}For more details, check the <a href="https://doc.tiki.org/Requirements" target="_blank">Tiki Requirements</a> documentation.{/tr}</p>
 </div>
 
 <h2  class="showhide_heading" id="MySQL_or_MariaDB_Database_Properties">{tr}MySQL or MariaDB Database Properties{/tr} <a href="#MySQL_or_MariaDB_Database_Properties" class="heading-link" aria-label="{tr}MySQL or MariaDB Database Properties{/tr}><span class="icon icon-link fas fa-link "></span></a></h2>
