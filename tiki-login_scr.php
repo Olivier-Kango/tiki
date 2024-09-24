@@ -44,7 +44,11 @@ if (isset($_REQUEST['user'])) {
     }
 }
 if (($prefs['useGroupHome'] != 'y' || $prefs['limitedGoGroupHome'] == 'y') && ! isset($_SESSION['loginfrom'])) {
-    $_SESSION['loginfrom'] = (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $prefs['tikiIndex']);
+    if (isset($_SERVER['HTTP_REFERER']) && str_starts_with($_SERVER['HTTP_REFERER'], $url_scheme . '://' . $url_host)) {
+        $_SESSION['loginfrom'] = $_SERVER['HTTP_REFERER'];
+    } else {
+        $_SESSION['loginfrom'] = $prefs['tikiIndex'];
+    }
 }
 
 $headerlib->add_js('$(function() {

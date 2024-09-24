@@ -88,6 +88,10 @@ if (! isset($_SESSION['loginfrom']) && isset($_SERVER['HTTP_REFERER']) && ! preg
             $_SESSION['loginfrom'] = $base_url . $_SESSION['loginfrom'];
         }
     }
+    // prevent redirects to external sites after login
+    if (! str_starts_with($_SESSION['loginfrom'], $url_scheme . '://' . $url_host)) {
+        unset($_SESSION['loginfrom']);
+    }
 }
 if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
     $loginlib = TikiLib::lib('login');
