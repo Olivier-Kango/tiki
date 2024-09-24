@@ -438,8 +438,20 @@ class Hm_Handler_tiki_compose_from_draft extends Hm_Handler_Module
             return;
         }
 
-        $file_object = Tiki\FileGallery\File::id($draftId);
-        $parsed_fields = (new Tiki\FileGallery\Manipulator\EmailParser($file_object))->run();
+        $path = str_replace('tracker_folder_', '', $path);
+        $fieldId = explode('_', $path)[1];
+
+        $trk = TikiLib::lib('trk');
+        $field = $trk->get_field_info($fieldId);
+
+        if (! $field) {
+            Hm_Msgs::add('ERRTracker field not found');
+            return;
+        }
+
+        $fieldHandler = $trk->get_field_handler($field);
+        $parsed_fields = $fieldHandler->getEmailFromFile($draftId);
+
         $draft = [];
         $draft['draft_to'] = $parsed_fields['recipient'];
         $draft['draft_subject'] = $parsed_fields['subject'];

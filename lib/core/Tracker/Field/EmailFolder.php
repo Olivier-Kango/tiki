@@ -189,7 +189,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         }
     }
 
-    private function getEmailFromFile($fileId)
+    public function getEmailFromFile($fileId)
     {
         $file_object = Tiki\FileGallery\File::id($fileId);
         if (! $file_object->exists()) {
