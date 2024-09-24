@@ -16,8 +16,11 @@ class Services_ActivityStream_Controller
 
     public function action_render(JitFilter $request)
     {
+        global $user;
+        $loginlib = TikiLib::lib('login');
         $encoded = $request->stream->none();
         $page = $request->page->int() ?: 1;
+        $userId = $loginlib->getUserId();
 
         if (! $baseQuery = Tiki_Security::get()->decode($encoded)) {
             throw new Services_Exception_Denied('Invalid request performed.');
@@ -37,6 +40,14 @@ class Services_ActivityStream_Controller
             $query->setPage($page);
         }
 
+        $group_ids = TikiLib::lib('tiki')->getUserGroupIds($user);
+        $or_groups = '';
+        foreach ($group_ids as $group_id) {
+            $or_groups .= " OR criticalgrp$group_id OR highgrp$group_id OR lowgrp$group_id ";
+        }
+
+        $query->filterMultivalue("critical$userId OR high$userId OR low$userId $or_groups", 'stream');
+        $query->filterMultivalue("NOT \"$user\"", 'clear_list');
         $query->setOrder('modification_date_desc');
 
         if (! $index = $this->lib->getIndex()) {

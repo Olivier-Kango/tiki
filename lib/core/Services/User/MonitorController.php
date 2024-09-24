@@ -168,14 +168,7 @@ class Services_User_MonitorController
 
         $userId = $loginlib->getUserId();
 
-        // get the groups this user is in
-        $user_groups = TikiLib::lib('tiki')->get_user_groups($user);
-
-        // get the id's from the users_groups table using the groupName
-        $where = " WHERE groupName IN (" . implode(',', array_fill(0, count($user_groups), '?')) . ')';
-        $query = "select id from users_groups" . $where;
-        $group_ids = TikiLib::lib('tiki')->fetchAll($query, $user_groups);
-        $group_ids = array_column($group_ids, 'id');
+        $group_ids = $tikilib->getUserGroupIds($user);
 
         // set up string to append to our query (pull group notifications)
         $or_groups = '';

@@ -7171,6 +7171,20 @@ class TikiLib extends TikiDb_Bridge
 
         return $listMarkers;
     }
+
+    public function getUserGroupIds($user)
+    {
+        // get the groups user is in
+        $user_groups = $this->get_user_groups($user);
+
+        // get the id's from the users_groups table using the groupName
+        $where = " WHERE groupName IN (" . implode(',', array_fill(0, count($user_groups), '?')) . ')';
+        $query = "select id from users_groups" . $where;
+        $group_ids = $this->fetchAll($query, $user_groups);
+        $group_ids = array_column($group_ids, 'id');
+
+        return $group_ids;
+    }
 }
 // end of class ------------------------------------------------------
 
