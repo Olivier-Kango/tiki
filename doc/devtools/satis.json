@@ -2246,7 +2246,6 @@
         "react/child-process": ">=0.6.4",
         "rector/rector": ">=0.16.0",
         "rmm5t/jquery-timeago": "^1.5",
-        "roave/security-advisories": "dev-latest",
         "robloach/component-installer": "^0.2",
         "robicch/jquery-gantt": "^6.3|dev-master",
         "rubix/extras": "dev-master|0.4.0-beta|>=1.0.0",
