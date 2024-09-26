@@ -101,36 +101,51 @@ class CaldavClient
     {
         global $url_path;
         $data['uri'] = 'autogen';
+
         $r = Sapi::createFromServerArray($_SERVER);
         $r->setMethod('MKCOL');
         $r->setUrl($url_path . 'tiki-caldav.php/calendars/' . $data['user'] . '/' . $data['uri']);
         $r->setHeader('Content-Type', 'application/xml');
+
+        // Building XML values
+        $displayName = htmlspecialchars($data['name'], ENT_XML1);
+        $source = htmlspecialchars($data['source'], ENT_XML1);
+        $refreshRate = isset($data['refresh_rate']) ? htmlspecialchars($data['refresh_rate'], ENT_XML1) : 'false';
+        $calendarOrder = isset($data['order']) ? htmlspecialchars($data['order'], ENT_XML1) : 'false';
+        $calendarColor = isset($data['color']) ? htmlspecialchars($data['color'], ENT_XML1) : 'false';
+        $stripTodos = isset($data['strip_todos']) ? htmlspecialchars($data['strip_todos'], ENT_XML1) : 'false';
+        $stripAlarms = isset($data['strip_alarms']) ? htmlspecialchars($data['strip_alarms'], ENT_XML1) : 'false';
+        $stripAttachments = isset($data['strip_attachments']) ? htmlspecialchars($data['strip_attachments'], ENT_XML1) : 'false';
+
+        // Building the XML body
         $r->setBody(<<<XML
-<?xml version='1.0' encoding='UTF-8' ?>
-<D:mkcol xmlns:D='DAV:' xmlns:C='http://calendarserver.org/ns/' xmlns:A='http://apple.com/ns/ical/'>
-   <D:set>
-      <D:prop>
-         <D:displayname>{$data['name']}</D:displayname>
-         <D:resourcetype>
-            <D:collection/>
-            <C:subscribed/>
-         </D:resourcetype>
-         <C:source>
-            <D:href>{$data['source']}</D:href>
-        </C:source>
-         <A:refreshrate>{$data['refresh_rate']}</A:refreshrate>
-         <A:calendar-order>{$data['order']}</A:calendar-order>
-         <A:calendar-color>{$data['color']}</A:calendar-color>
-         <C:subscribed-strip-todos>{$data['strip_todos']}</C:subscribed-strip-todos>
-         <C:subscribed-strip-alarms>{$data['strip_alarms']}</C:subscribed-strip-alarms>
-         <C:subscribed-strip-attachments>{$data['strip_attachments']}</C:subscribed-strip-attachments>
-      </D:prop>
-   </D:set>
-</D:mkcol>
-XML
+    <?xml version='1.0' encoding='UTF-8' ?>
+    <D:mkcol xmlns:D='DAV:' xmlns:C='http://calendarserver.org/ns/' xmlns:A='http://apple.com/ns/ical/'>
+    <D:set>
+        <D:prop>
+            <D:displayname>{$displayName}</D:displayname>
+            <D:resourcetype>
+                <D:collection/>
+                <C:subscribed/>
+            </D:resourcetype>
+            <C:source>
+                <D:href>{$source}</D:href>
+            </C:source>
+            <A:refreshrate>{$refreshRate}</A:refreshrate>
+            <A:calendar-order>{$calendarOrder}</A:calendar-order>
+            <A:calendar-color>{$calendarColor}</A:calendar-color>
+            <C:subscribed-strip-todos>{$stripTodos}</C:subscribed-strip-todos>
+            <C:subscribed-strip-alarms>{$stripAlarms}</C:subscribed-strip-alarms>
+            <C:subscribed-strip-attachments>{$stripAttachments}</C:subscribed-strip-attachments>
+        </D:prop>
+    </D:set>
+    </D:mkcol>
+    XML
         );
+
         $this->invokeBackendMethod($r);
     }
+
 
     public function updateSubscription($data)
     {
@@ -141,9 +156,9 @@ XML
             '{http://apple.com/ns/ical/}refreshrate' => $data['refresh_rate'],
             '{http://apple.com/ns/ical/}calendar-order' => $data['order'],
             '{http://apple.com/ns/ical/}calendar-color' => $data['color'],
-            '{http://calendarserver.org/ns/}subscribed-strip-todos' => $data['strip_todos'],
-            '{http://calendarserver.org/ns/}subscribed-strip-alarms' => $data['strip_alarms'],
-            '{http://calendarserver.org/ns/}subscribed-strip-attachments' => $data['strip_attachments'],
+            '{http://calendarserver.org/ns/}subscribed-strip-todos' => $data['strip_todos'] ?? false,
+            '{http://calendarserver.org/ns/}subscribed-strip-alarms' => $data['strip_alarms'] ?? false,
+            '{http://calendarserver.org/ns/}subscribed-strip-attachments' => $data['strip_attachments'] ?? false,
         ]);
         $caldavBackend->updateSubscription(
             $data['subscriptionId'],

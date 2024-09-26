@@ -82,12 +82,33 @@ if (empty($_REQUEST["calendarId"])) {
         die;
     }
 }
+
+$subscription_default = [
+    'user'              => '',
+    'subscriptionId'    => 0,
+    'name'              => '',
+    'source'            => '',
+    'refresh_rate'      => 0,
+    'order'             => 1,
+    'color'             => '',
+    'strip_todos'       => false,
+    'strip_alarms'      => false,
+    'strip_attachments' => false,
+];
+
 if (! empty($_REQUEST['subscriptionId'])) {
     $subscription = $calendarlib->get_subscription($_REQUEST['subscriptionId']);
     if ($subscription['user'] == $user) {
         $smarty->assign('subscription', $subscription);
+    } else {
+        $subscription = $subscription_default;
+        $smarty->assign('subscription', $subscription);
     }
+} else {
+    $subscription = $subscription_default;
+    $smarty->assign('subscription', $subscription);
 }
+
 if (isset($_REQUEST["drop"]) && $access->checkCsrf(true)) {
     $result = $calendarlib->drop_calendar($_REQUEST['calendarId']);
     if ($result->numRows()) {
