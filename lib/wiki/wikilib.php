@@ -1655,9 +1655,10 @@ class WikiLib extends TikiLib
         }
 
         $pageExists = TikiLib::lib('tiki')->page_exists($requestedPageName);
+        $slugExists = TikiLib::lib('tiki')->getPageBySlug($requestedPageName);
         $finalPageName = '';
 
-        if ($pageExists) {
+        if ($pageExists || $slugExists) {
             $finalPageName = $requestedPageName;
         } else {
             $pagesByAlias = $this->get_pages_by_alias($requestedPageName);
@@ -1668,8 +1669,12 @@ class WikiLib extends TikiLib
 
         if ($finalPageName) {
             if ($prefs['feature_sefurl'] === 'y') {
-                $tiki_pages = TikiDb::get()->table('tiki_pages');
-                $href = urlencode($tiki_pages->fetchOne('pageSlug', ['pageName' => $finalPageName]));
+                if ($slugExists) {
+                    $href = urlencode($finalPageName);
+                } else {
+                    $tiki_pages = TikiDb::get()->table('tiki_pages');
+                    $href = urlencode($tiki_pages->fetchOne('pageSlug', ['pageName' => $finalPageName]));
+                }
             } else {
                 $href = "$view_script?page=" . urlencode($finalPageName);
             }
