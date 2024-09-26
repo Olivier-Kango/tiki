@@ -68,14 +68,13 @@ class TrackerField extends Type
 
         $list = ['' => ''];
         $list['itemId'] = tr('Tracker Item Id');
-        if (isset($fields['data'])) {
-            foreach ($fields['data'] as $trkField) {
-                $fieldId = $trkField['fieldId'];
-                $fieldName = $trkField['name'];
+        foreach ($fields['data'] as $trkField) {
+            $fieldId = $trkField['fieldId'];
+            $fieldName = $trkField['name'];
 
-                $list[$fieldId] = $fieldName;
-            }
+            $list[$fieldId] = $fieldName;
         }
+
 
         return $list;
     }
