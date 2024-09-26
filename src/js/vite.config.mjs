@@ -356,6 +356,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/interactjs/dist",
                     },
                     {
+                        src: "node_modules/jqdoublescroll/jquery.doubleScroll.js",
+                        dest: "vendor_dist/jqdoublescroll",
+                    },
+                    {
                         src: "node_modules/jquery/dist/*",
                         dest: "vendor_dist/jquery/dist",
                     },

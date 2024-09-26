@@ -649,7 +649,7 @@ if ($prefs['jquery_timeago'] === 'y') {
 
 if ($prefs['jquery_jqdoublescroll'] == 'y') {
     $headerlib
-        ->add_jsfile('vendor_bundled/vendor/avianey/jqdoublescroll/jquery.doubleScroll.js')
+        ->add_jsfile(NODE_PUBLIC_DIST_PATH . "/jqdoublescroll/jquery.doubleScroll.js")
         ->add_jq_onready('$(".table-responsive").doubleScroll({resetOnWindowResize: true});');
 }
 
