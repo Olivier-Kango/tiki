@@ -10,6 +10,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
 
+global $tikiroot;
+
 /***
  * @var int $trunc
  * @var \Smarty_Tiki    $smarty
