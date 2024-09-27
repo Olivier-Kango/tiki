@@ -349,37 +349,6 @@ footer.footer .modules > .module:not(.card) {
     margin-right: auto;
 }
 
-// make all top zone modules "right justified" apart from the first one which usually is the logo
-.top_modules .module:nth-child(2) {
-    margin-left: auto;
-}
-
-//div.cvsup { -- x-small is too small to read, and what is the point anyway? Also no need to specify text-align. - g_c-l
-//    font-size: x-small;
-//    text-align: left;
-    //    color: $gray-light; (moved to _tiki-selectors.scss)
-//}
-
-
-
-//.topbar .mb-3 {
-//    margin-bottom: 0;
-//}
-
-//.topbar .form-control, Todo (after navbar update)
-//.topbar .btn,
-//.page-header .box-search .search_mod_magnifier,
-//.page-header .box-search input.form-control {
-//
-//    max-height: $navbar-height * .53;
-//    margin-top: $navbar-height * .12;
-//    margin-bottom: $navbar-height * .10;
-//    padding-top: $navbar-height * .06;
-//    padding-bottom: $navbar-height * .06;
-//    font-size: $navbar-height * .28;
-//
-//}
-
 // Font size and weight for static position logo module (fixed-top navbar is below)
 .sitetitle {
     font-size: var(--tiki-site-title-font-size);
