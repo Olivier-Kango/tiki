@@ -55,7 +55,14 @@ class IndexCompareEnginesCommand extends Command
                 null,
                 InputOption::VALUE_NONE,
                 'Reindex search engines before running this script'
-            );
+            )
+            ->addOption(
+                'log',
+                null,
+                InputOption::VALUE_NONE,
+                'Generate a log of the indexed documents, useful to track down failures or memory issues'
+            )
+            ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -81,6 +88,12 @@ class IndexCompareEnginesCommand extends Command
                 'Comparing all three engines works in text-mode only, you cannot specify the --html option.'
             );
             return Command::FAILURE;
+        }
+
+        if ($input->getOption('log')) {
+            $log = 2;
+        } else {
+            $log = 0;
         }
 
         $tikiLib = TikiLib::lib('tiki');
@@ -156,7 +169,7 @@ class IndexCompareEnginesCommand extends Command
                 // rebuild a new one
                 $unifiedSearchLib->invalidateIndicesCache();
                 $index = $unifiedSearchLib->getIndex('ondemand');
-                $indexer = $unifiedSearchLib->buildIndexer($index);
+                $indexer = $unifiedSearchLib->buildIndexer($index, $log);
                 $indexer->rebuild();
                 $index->endUpdate();
                 unset($indexer);
