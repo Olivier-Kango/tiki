@@ -171,6 +171,9 @@ class ThemeControlLib extends ThemeLib
     */
     public function tc_list_objects($type, $offset, $maxRecords, $sort_mode, $find)
     {
+        $mid = "";
+        $bindvars = [];
+
         if ($find) {
             $findesc = '%' . $find . '%';
             $mid = " where (`type` like ? and `name` like ?)";
