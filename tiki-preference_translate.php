@@ -25,20 +25,21 @@ $access->check_permission('tiki_p_admin');
 $multilingualLib = TikiLib::lib('multilingual');
 $languageLib     = TikiLib::lib('language');
 $prefsLib        = TikiLib::lib('prefs');
-$preference      = $_REQUEST['pref'];
 $usedLanguages   = [];
 $translatedVal   = [];
 $defaultLanguage = $prefs['site_language'] ? $prefs['site_language'] : 'en';
-$definition      = $prefsLib->getPreference($preference);
 
-if (empty($preference)) {
+if (empty($_REQUEST['pref'])) {
     $smarty->assign('msg', tra('No preference given.'));
     $smarty->assign('errortype', 0);
     $smarty->display("error.tpl");
     die;
 }
 
-if ($definition['translatable'] != 'y') {
+$preference      = $_REQUEST['pref'];
+$definition      = $prefsLib->getPreference($preference);
+
+if (! isset($definition['translatable']) || $definition['translatable'] != 'y') {
     $smarty->assign('msg', tra('This preference is not translatable.'));
     $smarty->assign('errortype', 0);
     $smarty->display("error.tpl");
