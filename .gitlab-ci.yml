@@ -190,43 +190,22 @@ phpcs:
         - phpcs.cache
       policy: pull-push
 
-phplint81:
+phplint:
   stage: lint
+  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:${PHP_VERSION}-qa
   needs:
     - composer
-  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.1-qa
   script:
     - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
   cache:
-    key: phplint81
+    key: phplint${PHP_VERSION}
     paths:
       - phplint.cache
-
-phplint82:
-  stage: lint
-  needs:
-    - composer
-  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.2-qa
-  script:
-    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
-  cache:
-    key: phplint82
-    paths:
-      - phplint.cache
-
-phplint83:
-  stage: lint
-  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:8.3-qa
-  script:
-    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
-  dependencies:
-    - composer
-  needs:
-    - composer
-  cache:
-    key: phplint83
-    paths:
-      - phplint.cache
+  parallel:
+    matrix:
+      - PHP_VERSION: "8.1"
+      - PHP_VERSION: "8.2"
+      - PHP_VERSION: "8.3"
 
 smarty-lint:
   stage: lint
@@ -409,6 +388,38 @@ composer-could-update-lock:
       command: [ "--default-authentication-plugin=mysql_native_password", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
       alias: mysql
 
+db-upgrade-27-mysql:
+  <<: *template-tiki-schema-upgrade-mysql8
+  variables:
+    DBFILE: ci_27.sql
+    DBVER: 27
+    IMAGE: ${MYSQL_IMAGE_NEWEST_SUPPORTED}
+    ENGINE: InnoDB
+
+db-upgrade-26-mysql:
+  <<: *template-tiki-schema-upgrade
+  variables:
+    DBFILE: ci_26.sql
+    DBVER: 26
+    IMAGE: ${MYSQL_5_IMAGE}
+    ENGINE: InnoDB
+
+db-upgrade-25-mysql:
+  <<: *template-tiki-schema-upgrade
+  variables:
+    DBFILE: ci_25.sql
+    DBVER: 25
+    IMAGE: ${MYSQL_5_IMAGE}
+    ENGINE: InnoDB
+
+db-upgrade-24-mysql:
+  <<: *template-tiki-schema-upgrade
+  variables:
+    DBFILE: ci_24.sql
+    DBVER: 24
+    IMAGE: ${MYSQL_5_IMAGE}
+    ENGINE: InnoDB
+
 db-upgrade-22-mariadb:
   <<: *template-tiki-schema-upgrade
   variables:
@@ -504,14 +515,15 @@ console-php-works:
 # Unit Tests
 #
 
-.template-unit-tests: &template-unit-tests
+.template-unit-tests:
   stage: unit-tests
   needs:
     - composer
-  image: ${DEPENDENCY_PROXY_PREFIX}${IMAGE}
+  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:${PHP_VERSION}-qa
   services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}${MARIADB_IMAGE_NEWEST_SUPPORTED}
+    - name: ${DEPENDENCY_PROXY_PREFIX}${DB_IMAGE}
       alias: mysql
+      command: ["--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off"]
     - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
       alias: elasticsearch
     - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
@@ -534,75 +546,19 @@ console-php-works:
       junit: report.xml
     expire_in: 2 days
 
-.template-unit-tests-mysql-oldest-supported: &template-unit-tests-mysql-oldest-supported
-  <<: *template-unit-tests
-  services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}${MYSQL_IMAGE_OLDEST_SUPPORTED}
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
-    - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
-      alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
-      alias: manticore
-
-.template-unit-tests-mysql-newest-supported: &template-unit-tests-mysql-newest-supported
-  <<: *template-unit-tests
-  services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}${MYSQL_IMAGE_NEWEST_SUPPORTED}
-      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
-    - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
-      alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
-      alias: manticore
-
-.template-unit-tests-mariadb-oldest-supported: &template-unit-tests-mariadb-oldest-supported
-  <<: *template-unit-tests
-  services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}${MARIADB_IMAGE_OLDEST_SUPPORTED}
-      #command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
-    - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
-      alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
-      alias: manticore
-
-.template-unit-tests-mariadb-newest-supported: &template-unit-tests-mariadb-newest-supported
-  <<: *template-unit-tests
-  services:
-    - name: ${DEPENDENCY_PROXY_PREFIX}${MARIADB_IMAGE_NEWEST_SUPPORTED}
-      #command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
-      alias: mysql
-    - name: ${DEPENDENCY_PROXY_PREFIX}elasticsearch:5
-      alias: elasticsearch
-    - name: ${DEPENDENCY_PROXY_PREFIX}manticoresearch/manticore:${MANTICORE_NEWEST_SUPPORTED}
-      alias: manticore
-
-# Run unit tests once, must cover at least min and max php version supported, and min and max myslq/mariadb version supported
-
-unit-tests-phpmin-mysqlmin:
-  <<: *template-unit-tests-mysql-oldest-supported
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:8.1-qa
+unit-tests:
+  extends: .template-unit-tests
   allow_failure: false
-
-unit-tests-php82-mysqlmax:
-  <<: *template-unit-tests-mysql-newest-supported
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:8.2-qa
-  allow_failure: false
-
-unit-tests-phpmin-mariadbmin:
-  <<: *template-unit-tests-mariadb-oldest-supported
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:8.1-qa
-  allow_failure: false
-
-unit-tests-phpmax-mariadbmax:
-  <<: *template-unit-tests-mariadb-newest-supported
-  variables:
-    IMAGE: rjsmelo/ubuntu-php:8.3-qa
-  allow_failure: false
+  parallel:
+    matrix:
+      - PHP_VERSION: "8.1"
+        DB_IMAGE: ${MYSQL_IMAGE_OLDEST_SUPPORTED}
+      - PHP_VERSION: "8.2"
+        DB_IMAGE: ${MYSQL_IMAGE_NEWEST_SUPPORTED}
+      - PHP_VERSION: "8.1"
+        DB_IMAGE: ${MARIADB_IMAGE_OLDEST_SUPPORTED}
+      - PHP_VERSION: "8.3"
+        DB_IMAGE: ${MARIADB_IMAGE_NEWEST_SUPPORTED}
 
 unit-tests-node:
   stage: unit-tests
