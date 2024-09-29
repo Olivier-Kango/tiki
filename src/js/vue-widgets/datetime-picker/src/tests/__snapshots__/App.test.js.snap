@@ -1175,7 +1175,7 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="Antarctica/McMurdo"
       >
-        Antarctica/McMurdo (GMT+12:00)
+        Antarctica/McMurdo (GMT+13:00)
       </option>
       <option
         value="Antarctica/Palmer"
@@ -1190,7 +1190,7 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="Antarctica/South_Pole"
       >
-        Antarctica/South_Pole (GMT+12:00)
+        Antarctica/South_Pole (GMT+13:00)
       </option>
       <option
         value="Antarctica/Syowa"
@@ -2655,12 +2655,12 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="NZ"
       >
-        NZ (GMT+12:00)
+        NZ (GMT+13:00)
       </option>
       <option
         value="NZ-CHAT"
       >
-        NZ-CHAT (GMT+12:45)
+        NZ-CHAT (GMT+13:45)
       </option>
       <option
         value="Navajo"
@@ -2685,7 +2685,7 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="Pacific/Auckland"
       >
-        Pacific/Auckland (GMT+12:00)
+        Pacific/Auckland (GMT+13:00)
       </option>
       <option
         value="Pacific/Bougainville"
@@ -2695,7 +2695,7 @@ exports[`DatetimePicker > render tests > renders correctly with the given props 
       <option
         value="Pacific/Chatham"
       >
-        Pacific/Chatham (GMT+12:45)
+        Pacific/Chatham (GMT+13:45)
       </option>
       <option
         value="Pacific/Chuuk"
