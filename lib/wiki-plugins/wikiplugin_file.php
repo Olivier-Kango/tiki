@@ -27,7 +27,7 @@ function wikiplugin_file_info()
                 'description' => tra('Indicate whether the file is in a file gallery or is a wiki page attachment'),
                 'since' => '6.1',
                 'filter' => 'alpha',
-                'default' => '',
+                'default' => 'gallery',
                 'options' => [
                     ['text' => '', 'value' => ''],
                 ], //rest filled in below
@@ -173,7 +173,7 @@ function wikiplugin_file($data, $params)
     global $tikilib, $prefs, $info, $page_view_date;
 
     if (empty($params['type'])) {
-        return WikiParser_PluginOutput::error(tr('Error'), tr('The %0 parameter is missing', 'type'));
+        $params['type'] = "gallery";
     } elseif ($params['type'] != "gallery" && $params['type'] != "attachment") {
         return WikiParser_PluginOutput::error(tr('Error'), tra('Incorrect parameter') . ' type');
     } elseif ($params['type'] == "gallery") {
