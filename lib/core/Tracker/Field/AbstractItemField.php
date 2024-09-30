@@ -495,7 +495,7 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
          * NOTE: While the Relation field allows multiple values as well, we don't explicitly set the [] postfix for it,
          * because it needs specific keys, notably 'meta' and 'objects' in its value.
          */
-        if (in_array($this->getConfiguration('type'), ['e', 'y', 'w', 'r', 'kaltura', 'M', 'u'])) {
+        if (in_array($this->trackerField->getOption('type'), ['e', 'y', 'kaltura', 'M', 'u']) || (in_array($this->trackerField->getOption('type'), ['r', 'w']) && $this->trackerField->getOption('selectMultipleValues') == '1')) {
             $insertId .= '[]';
         }
         return $insertId;

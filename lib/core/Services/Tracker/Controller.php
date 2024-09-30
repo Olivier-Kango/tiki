@@ -323,7 +323,7 @@ class Services_Tracker_Controller
         global $prefs;
 
         $trackerId = $input->trackerId->int();
-        $option = $input->option ?: new JitFilter([]);
+        $option = $input['option'] ?? new JitFilter([]);
 
         $perms = Perms::get('tracker', $trackerId);
         if (! $perms->admin_trackers) {
