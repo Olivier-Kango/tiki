@@ -16,11 +16,6 @@ $cookietab = 1;
 $routeLib = TikiLib::lib('custom_route');
 $controller = new Tiki\CustomRoute\Controller();
 
-// Makig sure the user comes with $_REQUEST['route'] as it is used so much in here.
-if (! isset($_REQUEST['route'])) {
-    $access->display_error(null, tr('Missing parameter "%s"', 'route'));
-}
-
 if (
     (isset($_POST['new_route']) || (isset($_POST['editroute']) && isset($_POST['route'])) && empty($_POST['load_options']))
     && $access->checkCsrf()
@@ -28,7 +23,7 @@ if (
     // If route saved, it redirects to the routes page, cleaning the add/edit route form.
     $route = $controller->saveRequest($_POST);
     $cookietab = 2;
-} elseif (isset($_REQUEST['route']) && $_REQUEST['route'] && empty($_POST['load_options'])) {
+} elseif (isset($_REQUEST['route']) && empty($_POST['load_options'])) {
     $item = Tiki\CustomRoute\Item::load($_REQUEST['route']);
     if (! empty($item)) {
         $route = $item->toArray();
@@ -54,15 +49,11 @@ if (isset($_REQUEST['add']) || ! empty($_REQUEST['router_type'])) {
 }
 
 $smarty->assign('route', $route);
-$smarty->assign('routeId', $_REQUEST['route']);
-$smarty->assign(
-    'routerTypes',
-    [
-        \Tiki\CustomRoute\Item::TYPE_DIRECT => 'Redirect to another URL',
-        \Tiki\CustomRoute\Item::TYPE_OBJECT => 'Redirect to tiki object',
-        \Tiki\CustomRoute\Item::TYPE_TRACKER_FIELD => 'To tracker item by field value',
-    ]
-);
+$smarty->assign('routerTypes', [
+    \Tiki\CustomRoute\Item::TYPE_DIRECT => 'Redirect to another URL',
+    \Tiki\CustomRoute\Item::TYPE_OBJECT => 'Redirect to tiki object',
+    \Tiki\CustomRoute\Item::TYPE_TRACKER_FIELD => 'To tracker item by field value',
+]);
 
 
 // disallow robots to index page:
