@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Tiki\Profiling\Timer;
 
 #[AsCommand(
     name: 'index:rebuild',
@@ -91,7 +92,7 @@ class IndexRebuildCommand extends Command
             }
         }
 
-        $timer = new \timer();
+        $timer = new Timer();
         $timer->start();
 
         $memory_peak_usage_before = memory_get_peak_usage();

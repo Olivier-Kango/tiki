@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Tiki\Profiling\Timer;
 
 class Services_Search_Controller
 {
@@ -22,7 +23,7 @@ class Services_Search_Controller
 
         Services_Exception_Denied::checkGlobal('admin');
 
-        $timer = new \timer();
+        $timer = new Timer();
         $timer->start();
 
         $memory_peak_usage_before = memory_get_peak_usage();

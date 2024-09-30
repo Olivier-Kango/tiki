@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Profiling\DatabaseQueryLog;
+
 /**
  * Class TikiDb_Pdo_Result
  *
@@ -125,7 +128,7 @@ class TikiDb_Pdo extends TikiDb
         }
 
         $starttime = $this->startTimer();
-
+        $logHandle = DatabaseQueryLog::logStart($query, $values);
         $result = false;
         if ($values) {
             if (@ $pq = $this->db->prepare($query)) {
@@ -142,7 +145,7 @@ class TikiDb_Pdo extends TikiDb
             $result = $this->db->query($query);
             $this->rowCount = is_object($result) && get_class($result) === 'PDOStatement' ? $result->rowCount() : 0;
         }
-
+        DatabaseQueryLog::logEnd($logHandle);
         $this->stopTimer($starttime);
 
         if ($result === false) {

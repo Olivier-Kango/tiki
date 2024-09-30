@@ -62,6 +62,7 @@
         {* Include debugging console.*}
         {debugger}
     {/if}
+    {show_database_query_log}
 
 {/if}
 

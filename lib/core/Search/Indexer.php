@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Package\Extension\Api\Search as PackageApiSearch;
+use Tiki\Profiling\Timer;
 
 class Search_Indexer
 {
@@ -141,7 +142,7 @@ class Search_Indexer
         $this->stats['counts'] = $contentTypes;
         $this->stats['times'] = $contentTypes;
 
-        $timer = new timer();
+        $timer = new Timer();
 
         foreach ($this->contentSources as $objectType => $contentSource) {
             if ($progress) {

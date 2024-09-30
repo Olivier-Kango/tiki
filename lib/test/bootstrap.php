@@ -94,7 +94,6 @@ $userlib = TikiLib::lib('user');
 $headerlib = TikiLib::lib('header');
 require_once 'lib/init/tra.php';
 $access = TikiLib::lib('access');
-require_once 'lib/setup/timer.class.php';
 
 $_SESSION = [
         'u_info' => [

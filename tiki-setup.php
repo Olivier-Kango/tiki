@@ -12,6 +12,7 @@
 
 // die if called directly.
 use Tiki\Package\VendorHelper;
+use Tiki\Profiling\Timer;
 
 //Be careful, composer autoloading isn't available until tiki-setup_base.php is required further down
 
@@ -45,19 +46,23 @@ require_once 'lib/setup/third_party.php';
 // Enable Versioning
 include_once('lib/setup/twversion.class.php');
 $TWV = new TWVersion();
+/** Database profiling, the number of queries executed */
 $num_queries = 0;
+/** Database profiling, wall clock time spend in database queries */
 $elapsed_in_db = 0.0;
 $server_load = '';
 $area = 'tiki';
 $crumbs = [];
 require_once('lib/core/Tiki/TikiInit.php');
 require_once('lib/setup/tikisetup.class.php');
-require_once('lib/setup/timer.class.php');
 if (isset($prefs['feature_fullscreen']) && $prefs['feature_fullscreen'] == 'y') {
     require_once('lib/setup/fullscreen.php');
 }
-$tiki_timer = new timer();
+
+require_once('lib/core/Tiki/Profiling/Timer.php');
+$tiki_timer = new Timer();
 $tiki_timer->start();
+
 require_once('tiki-setup_base.php'); //Starting here composer autoloading is available
 
 if (version_compare(PHP_VERSION, TIKI_MIN_PHP_VERSION, '<')) {
@@ -418,6 +423,7 @@ if (substr($base_url_canonical, -1) != '/') {
 
 $smarty->assign_by_ref('phpErrors', $phpErrors);
 $smarty->assign_by_ref('num_queries', $num_queries);
+// Assigned by ref because there is no place to assigne it where no additional queries would occur
 $smarty->assign_by_ref('elapsed_in_db', $elapsed_in_db);
 $smarty->assign_by_ref('crumbs', $crumbs);
 $smarty->assign('lock', false);

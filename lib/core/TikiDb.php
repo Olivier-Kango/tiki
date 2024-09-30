@@ -70,13 +70,13 @@ abstract class TikiDb
         return self::$instance !== null;
     }
 
-    public function startTimer()
+    protected function startTimer()
     {
         list($micro, $sec) = explode(' ', microtime());
         return $micro + $sec;
     }
 
-    public function stopTimer($starttime)
+    protected function stopTimer($starttime)
     {
         global $elapsed_in_db;
         list($micro, $sec) = explode(' ', microtime());

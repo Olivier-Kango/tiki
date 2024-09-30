@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tiki\Command\Utilities\DatabaseQueryLogConsoleFormatter;
 
 class Application extends SymfonyApplication
 {
@@ -42,6 +43,7 @@ class Application extends SymfonyApplication
         $exitCode = parent::doRunCommand($command, $input, $output);
 
         \Feedback::printToConsole($output);
+        DatabaseQueryLogConsoleFormatter::render($input, $output);
 
         return $exitCode;
     }

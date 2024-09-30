@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Profiling\Timer;
+
 /**
  *
  */
@@ -1126,8 +1129,7 @@ class ModLib extends TikiLib
 
             if (! $cachefile || $this->require_cache_build($mod_reference, $cachefile) || $this->is_admin_mode()) {
                 if ($this->is_admin_mode()) {
-                    require_once('lib/setup/timer.class.php');
-                    $timer = new timer('module');
+                    $timer = new Timer('module');
                     $timer->start('module');
                 }
                 if ($info['type'] == "function") { // Use the module name as default module title. This can be overriden later. A module can opt-out of this in favor of a dynamic default title set in the TPL using clear_assign in the main module function. It can also be overwritten in the main module function.

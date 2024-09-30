@@ -533,6 +533,9 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'payment':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\Payment();
                 break;
+            case 'show_database_query_log':
+                $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\DatabaseQueryLog();
+                break;
             case 'permission_link':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\PermissionLink();
                 break;

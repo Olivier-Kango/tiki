@@ -4,9 +4,12 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class timer
+namespace Tiki\Profiling;
+
+/** A generic timer class.  Can manage multiple timers with microsecond precision */
+class Timer
 {
-    public $timer;
+    private $timer;
 
     public function parseMicro($micro)
     {
