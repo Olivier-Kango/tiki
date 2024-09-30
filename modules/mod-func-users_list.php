@@ -114,19 +114,19 @@ function module_users_list($mod_reference, $module_params)
     $tikilib = TikiLib::lib('tiki');
     $smarty = TikiLib::lib('smarty');
 
-    if (isset($module_params['params']['group'])) {
-        $group = [$module_params['params']['group']];
-        if (isset($module_params['params']['includedGroups']) && $module_params['params']['includedGroups'] == 'y') {
+    if (isset($module_params['group'])) {
+        $group = [$module_params['group']];
+        if (isset($module_params['includedGroups']) && $module_params['includedGroups'] == 'y') {
             $group = array_merge($group, $userlib->get_including_groups($group[0]));
         }
     } else {
         $group = '';
     }
 
-    if (! isset($module_params['params']['sort_mode'])) {
+    if (! isset($module_params['sort_mode'])) {
         $sort_mode = 'login_asc';
     } else {
-        $sort_mode = $module_params['params']['sort_mode'];
+        $sort_mode = $module_params['sort_mode'];
     }
 
     $users = $userlib->get_users(0, $mod_reference['rows'], $sort_mode, '', ! empty($module_params['initial']) ? $module_params['initial'] : '', isset($module_params['groups']) ? true : false, $group);
@@ -140,19 +140,19 @@ function module_users_list($mod_reference, $module_params)
 
     for ($i = 0; $i < $users['cant']; ++$i) {
         $my_user = $users['data'][$i]['user'];
-        if (isset($module_params['params']['realName']) && $module_params['params']['realName'] == 'y') {
+        if (isset($module_params['realName']) && $module_params['realName'] == 'y') {
             $users['data'][$i]['realName'] = $tikilib->get_user_preference($my_user, 'realName', '');
         }
-        if (isset($module_params['params']['avatar']) && $module_params['params']['avatar'] == 'y') {
+        if (isset($module_params['avatar']) && $module_params['avatar'] == 'y') {
             $users['data'][$i]['avatar'] = $tikilib->get_user_avatar($my_user);
         }
         if (
-            (isset($module_params['params']['realName']) && $module_params['params']['realName'] == 'y')
-            || (isset($module_params['params']['login']) && $module_params['params']['login'] == 'y')
+            (isset($module_params['realName']) && $module_params['realName'] == 'y')
+            || (isset($module_params['login']) && $module_params['login'] == 'y')
         ) {
             $users['data'][$i]['info_public'] = $tikilib->get_user_preference($my_user, 'user_information', 'public') != 'private' ? 'y' : 'n';
         }
-        if (isset($module_params['params']['userPage']) && $module_params['params']['userPage'] == 'y') {
+        if (isset($module_params['userPage']) && $module_params['userPage'] == 'y') {
             global $feature_wiki_userpage;
             if ($prefs['feature_wiki_userpage'] == 'y' or $feature_wiki_userpage == 'y') {
                 if (! isset($prefs['feature_wiki_userpage_prefix'])) {//trick compat 1.9, 1.10
@@ -167,9 +167,9 @@ function module_users_list($mod_reference, $module_params)
             }
         }
     }
-    if (isset($module_params['params']['log']) && $module_params['params']['log'] == 'y' && $prefs['feature_actionlog'] != 'y') {
-        $module_params['params']['log'] = 'n';
+    if (isset($module_params['log']) && $module_params['log'] == 'y' && $prefs['feature_actionlog'] != 'y') {
+        $module_params['log'] = 'n';
     }
     $smarty->assign_by_ref('users', $users['data']);
-    $smarty->assign_by_ref('module_params_users_list', $module_params['params']);
+    $smarty->assign_by_ref('module_params_users_list', $module_params);
 }
