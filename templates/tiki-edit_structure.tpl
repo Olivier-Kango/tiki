@@ -79,6 +79,7 @@
         <div class="row">
             <div class="col-12 col-sm-6">
                 <form action="tiki-edit_structure.php?page_ref_id={$page_ref_id}" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form" style="display: inline-block;">
+                {ticket}
                 <div class="tiki-form-group row">
                     <label for="pageAlias" class="col-sm-4 col-form-label">{tr}Alias:{/tr}</label>
                     <div class="col-sm-8">
