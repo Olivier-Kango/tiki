@@ -563,8 +563,8 @@ class tar
         $activeFile            = &$this->files[];
         $activeFile["name"]        = $filename;
         $activeFile["mode"]        = octdec("666");
-        $activeFile["user_id"]        = "";
-        $activeFile["group_id"]        = "";
+        $activeFile["user_id"]        = 0;
+        $activeFile["group_id"]        = 0;
         $activeFile["size"]        = strlen($data);
         $activeFile["time"]        = $time;
         if(!isset($checksum)) $checksum=0;

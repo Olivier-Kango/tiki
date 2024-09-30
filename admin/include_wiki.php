@@ -10,7 +10,7 @@ if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
 require_once('tiki-setup.php');
 
 global $tikidomain;
-$path = $tikidomain ? "storage/$tikidomain/dump_wiki.tar" : 'storage/dump_wiki.tar';
+$path = $tikidomain ? EXPORT_DUMP_PATH . "/$tikidomain/dump_wiki.tar" : EXPORT_DUMP_PATH . '/dump_wiki.tar';
 
 //*** begin state-changing actions
 if (! empty($_POST['w_use_dir']) && $access->checkCsrf()) {
@@ -96,7 +96,7 @@ if (isset($_REQUEST['downloaddump'])) {
     if ($tikidomain) {
         $file = "storage/$tikidomain/dump_wiki.tar";
     } else {
-        $file = "storage/dump_wiki.tar";
+        $file = $path;
     }
 
     if (is_file($file)) {

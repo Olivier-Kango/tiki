@@ -389,6 +389,13 @@ class AdminLib extends TikiLib
         }
 
         $dumpPath = $dumpPath . '/dump_wiki.tar';
+
+        // this ensure the directory exists
+        $dumpDir = dirname($dumpPath);
+        if (! is_dir($dumpDir)) {
+            mkdir($dumpDir, 0777, true);
+        }
+
         @unlink($dumpPath);
         $tar = new tar();
 
