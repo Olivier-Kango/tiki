@@ -40,7 +40,7 @@
                         </li>
                     {/if}
 
-                    {if $item_info.logs.cant|default:null}
+                    {if $item_info.logs.cant|default:null and $item_info.canViewHistory}
                         <li class="dropdown-item">
                             <a href="tiki-tracker_view_history.php?itemId={$itemId}">
                                 {icon name="history"} {tr}History{/tr}
