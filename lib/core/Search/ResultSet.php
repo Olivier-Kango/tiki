@@ -17,6 +17,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
     private $tsOn;
     private $tsettings;
     public $errorInQuery = '';
+    public $didYouMean = '';
 
     public static function create($list)
     {
@@ -48,6 +49,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         $return->tsOn = $this->tsOn;
         $return->count = $this->count;
         $return->tsettings = $this->tsettings;
+        $return->didYouMean = $this->didYouMean;
 
         return $return;
     }
@@ -102,6 +104,10 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         return $this->tsettings;
     }
 
+    public function getDidYouMean()
+    {
+        return $this->didYouMean;
+    }
     public function getEstimate()
     {
         return $this->estimate;
@@ -110,6 +116,11 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
     public function getMaxRecords()
     {
         return $this->maxRecords;
+    }
+
+    public function setDidYouMean($didYouMean)
+    {
+        $this->didYouMean = $didYouMean;
     }
 
     public function setMaxResults($max)

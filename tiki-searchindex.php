@@ -193,7 +193,7 @@ function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords
 
     $unifiedsearchlib = TikiLib::lib('unifiedsearch');
 
-    $query = new Search_Query();
+    $query = new Search_Query(processDidYouMean: true);
     $unifiedsearchlib->initQueryBase($query);
     $query = $unifiedsearchlib->buildQuery($filter, $query);
     $query->filterContent('y', 'searchable');

@@ -433,6 +433,9 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
                 $totalCount = intval($row['Value']);
             }
         }
+        if ($query->processDidYouMean() && $totalCount === 0) {
+            list($result, $totalCount, $results, $didYouMean, $correctKeywords) = $this->callSuggestions($table, $meta);
+        }
 
         $fieldMapping = $this->getUnifiedFieldMapping();
         $dateFields = $this->getUnifiedDateFields();
@@ -504,7 +507,9 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         }
 
         $resultSet = new ResultSet($entries, $totalCount, $resultStart, $resultCount);
-
+        if (! empty($didYouMean)) {
+            $resultSet->setDidYouMean(implode(' ', $correctKeywords));
+        }
         $words = $this->getWords($query->getExpr());
         $resultSet->setHighlightHelper(new \Search_MySql_HighlightHelper($words));
 
@@ -514,8 +519,57 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
                 $resultSet->addFacetFilter($filter);
             }
         }
-
         return $resultSet;
+    }
+
+    public function callSuggestions($table, $meta)
+    {
+        $didYouMean = false;
+        $correctKeywords = [];
+        $totalCount = 0;
+        $results = [];
+        $result = null;
+        foreach ($meta as $m) {
+            if (preg_match('/keyword\[\d+]/', $m['Variable_name'])) {
+                preg_match('/\d+/', $m['Variable_name'], $key);
+                $key = $key[0];
+                $keywords[$key]['keyword'] = $m['Value'];
+            }
+            if (preg_match('/docs\[\d+]/', $m['Variable_name'])) {
+                preg_match('/\d+/', $m['Variable_name'], $key);
+                $key = $key[0];
+                $keywords[$key]['docs'] = $m['Value'];
+            }
+        }
+        $didYouMeanQuery = [];
+        foreach ($keywords as $i => $keyword) {
+            if ($keyword['docs'] == 0) {
+                $escapedKeyword = addslashes($keyword['keyword']);
+                $sql = "CALL SUGGEST('$escapedKeyword', '$table')";
+                $rows = $this->pdo_client->fetchAll($sql);
+                if (count($rows) > 0) {
+                    $keywords[$i]['keyword'] = $rows[0]['suggest'];
+                    $didYouMeanQuery[] = $rows[0]['suggest'];
+                    $didYouMean = true;
+                }
+            } else {
+                $didYouMeanQuery[] = $keyword['keyword'];
+            }
+            $correctKeywords[] = end($didYouMeanQuery);
+        }
+        if ($didYouMean == true) {
+            $sql = "SELECT * FROM " . $table . " WHERE MATCH('" . implode(" ", $didYouMeanQuery) . "')";
+            $results = $this->pdo_client->fetchAllRowsets($sql);
+            $result = $results[0];
+            $metaSql = "SHOW META";
+            $meta = $this->pdo_client->fetchAll($metaSql);
+            foreach ($meta as $m) {
+                $metaMap[$m['Variable_name']] = $m['Value'];
+            }
+            $totalCount = $metaMap['total_found'];
+        }
+
+        return [$result, $totalCount, $results, $didYouMean, $correctKeywords];
     }
 
     public function scroll(\Search_Query_Interface $query)

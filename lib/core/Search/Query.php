@@ -15,6 +15,7 @@ class Search_Query implements Search_Query_Interface
     private $identifierFields = null;
 
     private $postFilter;
+    private $processDidYouMean = false;
     private $subQueries = [];
     private $facets = [];
     private $foreignQueries = [];
@@ -23,7 +24,7 @@ class Search_Query implements Search_Query_Interface
 
     private $cyphtSearch = null;
 
-    public function __construct($query = null, $expr = 'and')
+    public function __construct($query = null, $expr = 'and', $processDidYouMean = false)
     {
         if ($expr === 'or') {
             $this->expr = new Search_Expr_Or([]);
@@ -34,6 +35,8 @@ class Search_Query implements Search_Query_Interface
         if ($query) {
             $this->filterContent($query);
         }
+
+        $this->processDidYouMean = $processDidYouMean;
     }
 
     public function __clone()
@@ -636,5 +639,10 @@ class Search_Query implements Search_Query_Interface
             $resultSet = Search_ResultSet::create($tmpResults);
         }
         return $resultSet;
+    }
+
+    public function processDidYouMean()
+    {
+        return $this->processDidYouMean;
     }
 }
