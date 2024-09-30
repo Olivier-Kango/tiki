@@ -506,7 +506,7 @@ class StructLib extends TikiLib
         global $prefs;
         $structure_path = [];
         $page_info = $this->s_get_page_info($page_ref_id);
-        if (isset($parent_info) && $parent_info["parent_id"]) {
+        if (isset($page_info) && $page_info["parent_id"]) {
             $structure_path = $this->get_structure_path($page_info['parent_id']);
         }
         $structure_path[] = $page_info;
