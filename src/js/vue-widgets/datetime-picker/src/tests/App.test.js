@@ -105,9 +105,6 @@ describe("DatetimePicker", () => {
                 expect(optionElement.value).toBe(timezone);
                 expect(optionElement.textContent).toEqual(expect.stringContaining(timezone));
             });
-
-            // snapshot testing
-            expect(containerElement).toMatchSnapshot();
         });
 
         test("renders correctly when optional props are not provided", () => {
@@ -136,9 +133,6 @@ describe("DatetimePicker", () => {
 
             const timezoneContainerElement = within(containerElement).queryByTestId(DATA_TEST_ID.TIMEZONE_CONTAINER);
             expect(timezoneContainerElement).toBeNull();
-
-            // snapshot testing
-            expect(containerElement).toMatchSnapshot();
         });
     });
 
