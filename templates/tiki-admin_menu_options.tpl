@@ -36,7 +36,11 @@
                                 <input type="text" class="field-label form-control" value="" placeholder="{tr}New option{/tr}" readonly="readonly">
                                     <span class="tips input-group-text option-edit" title="|{tr}Check this if the option is an alternative to the previous one.{/tr}">
                                         <input type="checkbox" class="samepos">
-                                        {$prevpos = $option.position}
+                                        {if isset($option.position)}
+                                            {$prevpos = $option.position}
+                                        {else}
+                                            {$prevpos = null}
+                                        {/if}
                                     </span>
                                     <a href="javascript:void(0)" class="tips input-group-text " title="{tr}New option{/tr}|{tr}Drag this on to the menu area below{/tr}">
                                         {icon name='info'}
