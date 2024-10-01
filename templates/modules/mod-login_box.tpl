@@ -47,7 +47,7 @@ $('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', fu
     {if isset($nobox)}{$module_params.nobox = $nobox}{/if}
     {if isset($style)}{$module_params.style = $style}{/if}
 {/if}
-{tikimodule error="{if isset($module_params.error)}{$module_params.error}{/if}" flip="{if isset($module_params.flip)}{$module_params.flip}{/if}" title=$tpl_module_title name="login_box" decorations=$module_params.decorations nobox="{if isset($module_params.nobox)}{$module_params.nobox}{/if}" notitle="{if isset($module_params.notitle)}{$module_params.notitle}{/if}"} style=$module_params.style}
+{tikimodule error="{if isset($module_params.error)}{$module_params.error}{/if}" flip="{if isset($module_params.flip)}{$module_params.flip}{/if}" title=$tpl_module_title name="login_box" decorations=$module_params.decorations nobox="{if isset($module_params.nobox)}{$module_params.nobox}{/if}" notitle="{if isset($module_params.notitle)}{$module_params.notitle}{/if}" style=$module_params.style}
     {if $mode eq "header"}<div class="siteloginbar{if $user} logged-in{/if}">{/if}
     {if $user}
         {if empty($mode) or $mode eq "module"}
