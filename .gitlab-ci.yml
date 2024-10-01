@@ -27,7 +27,7 @@ variables:
   MANTICORE_NEWEST_SUPPORTED: 6.3.6
   #Only for older version upgrade tests these days
   MYSQL_5_IMAGE: mysql:5.7.44
-  NODE_IMAGE: node:18
+  NODE_IMAGE: node:20
   MANTICORE_DSN: http://manticore
   # You can set USE_GITLAB_PROXY to "true" in your project configuration to use the gitlab dependency proxy. (default not using as it may cause issues for some accounts)
   USE_GITLAB_PROXY: ''
