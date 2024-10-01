@@ -261,6 +261,10 @@ class ComposerCli
                 $env['COMPOSER_HOME'] = $this->basePath . self::COMPOSER_HOME;
             }
 
+            if (! getenv('COMPOSER_ALLOW_SUPERUSER')) {
+                $env['COMPOSER_ALLOW_SUPERUSER'] = 1;
+            }
+
             if ($prefs['use_proxy'] == 'y') {
                 $env['HTTP_PROXY'] = $this->buildProxyUrl();
             }

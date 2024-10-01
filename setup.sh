@@ -12,6 +12,8 @@
 # part 0 - choose production mode or verbose debugging mode
 # ---------------------------------------------------------
 
+export COMPOSER_ALLOW_SUPERUSER=1
+
 # shellcheck disable=SC1091
 . ./path_constants.sh
 . ./php_version_constants.sh
