@@ -53,6 +53,18 @@ function wikiplugin_img_info()
                 'parentparam' => ['name' => 'type', 'value' => 'fileId'],
                 'profile_reference' => 'file',
             ],
+            'id' => [
+                'required' => false,
+                'name' => tra('Image ID'),
+                'description' => tr('Only available when file_galleries_redirect_from_image_gallery is active'),
+                'since' => '4.0',
+                'doctype' => 'id',
+                'filter' => 'text',
+                'advanced' => $prefs['feature_file_galleries'] == 'y',
+                'accepted' => tra('Valid image IDs separated by commas or |'),
+                'default' => '',
+                'parentparam' => ['name' => 'type', 'value' => 'id'],
+            ],
             'src' => [
                 'required' => true,
                 'name' => tra('Image Source'),
@@ -587,7 +599,7 @@ function wikiplugin_img_info()
 
 function wikiplugin_img($data, $params)
 {
-    global $tikidomain, $prefs, $user;
+    global $tikidomain, $prefs, $user, $tikilib;
     $userlib = TikiLib::lib('user');
     $smarty = TikiLib::lib('smarty');
 
@@ -667,6 +679,43 @@ function wikiplugin_img($data, $params)
                 $imgdata[$type['value']] = null;
             }
         }
+    }
+
+    if (isset($imgdata['id'])) {
+        if ($prefs['file_galleries_redirect_from_image_gallery'] !== 'y') {
+            return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('The "id" parameter is not allowed unless "file_galleries_redirect_from_image_gallery" preference is enabled.'));
+        }
+
+        $notFoundTikiImages = [];
+        $foundTikiImages = [];
+
+        $idsList = preg_split('/[|,]/', $imgdata['id']);
+
+        foreach ($idsList as $idList) {
+            $fileInfo = $tikilib->table('tiki_object_attributes')->fetchRow(
+                ['itemId'],
+                ['value' => $idList, 'attribute' => 'tiki.file.imageid']
+            );
+            if ($fileInfo) {
+                $foundTikiImages[] = $fileInfo['itemId'];
+            } else {
+                $notFoundTikiImages[] = $idList;
+            }
+        }
+
+        if (count($notFoundTikiImages)) {
+            $msg = sprintf(tr('Image(s) having Ids %s not found.'), implode("-", $notFoundTikiImages));
+            if (! count($foundTikiImages)) {
+                Feedback::error(['mes' => $msg]);
+                return;
+            } else {
+                Feedback::warning(['mes' => $msg]);
+            }
+        }
+
+        $imgdata['fileId'] = implode(",", $foundTikiImages);
+        unset($imgdata['id']);
+        unset($params['id']);
     }
 
     //////////////////////////////////////////////////// Error messages and clean javascript //////////////////////////////
