@@ -129,8 +129,12 @@ if (isset($_REQUEST['assign'])) {
 }
 if (isset($_REQUEST["delete"])) {
     $access->checkCsrf();
-    foreach (array_keys($_REQUEST["obj"]) as $obj) {
-        $themecontrollib->tc_remove_object($obj);
+    if (isset($_REQUEST["obj"]) && is_array($_REQUEST["obj"])) {
+        foreach (array_keys($_REQUEST["obj"]) as $obj) {
+            $themecontrollib->tc_remove_object($obj);
+        }
+    } else {
+        Feedback::error(tr('No object selected.'));
     }
 }
 if (! isset($_REQUEST["sort_mode"])) {
