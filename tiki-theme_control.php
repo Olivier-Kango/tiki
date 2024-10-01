@@ -63,8 +63,12 @@ if (isset($_REQUEST['assign'])) {
 }
 if (isset($_REQUEST['delete'])) {
     $access->checkCsrf();
-    foreach (array_keys($_REQUEST['categoryIds']) as $cat) {
-        $themecontrollib->tc_remove_cat($cat);
+    if (isset($_REQUEST['categoryIds']) && is_array($_REQUEST['categoryIds'])) {
+        foreach (array_keys($_REQUEST['categoryIds']) as $cat) {
+            $themecontrollib->tc_remove_cat($cat);
+        }
+    } else {
+        Feedback::error(tr('No category selected.'));
     }
 }
 

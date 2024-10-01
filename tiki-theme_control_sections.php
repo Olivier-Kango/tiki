@@ -40,8 +40,12 @@ if (isset($_REQUEST['assign'])) {
 }
 if (isset($_REQUEST['delete'])) {
     $access->checkCsrf();
-    foreach (array_keys($_REQUEST["sec"]) as $sec) {
-        $themecontrollib->tc_remove_section($sec);
+    if (isset($_REQUEST["sec"]) && is_array($_REQUEST["sec"])) {
+        foreach (array_keys($_REQUEST["sec"]) as $sec) {
+            $themecontrollib->tc_remove_section($sec);
+        }
+    } else {
+        Feedback::error(tr('No section selected.'));
     }
 }
 $channels = $themecontrollib->tc_list_sections(0, -1, 'section_asc', '');
