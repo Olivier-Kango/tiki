@@ -127,17 +127,21 @@ class TikiDb_Pdo extends TikiDb
             }
         }
 
+        if ($values) {
+            if (! is_array($values)) {
+                $values = [$values];
+            }
+            if (! array_filter(array_keys($values), 'is_string')) {
+                $values = array_values($values);
+            }
+        }
+
         $starttime = $this->startTimer();
         $logHandle = DatabaseQueryLog::logStart($query, $values);
+
         $result = false;
         if ($values) {
             if (@ $pq = $this->db->prepare($query)) {
-                if (! is_array($values)) {
-                    $values = [$values];
-                }
-                if (! array_filter(array_keys($values), 'is_string')) {
-                    $values = array_values($values);
-                }
                 $result = $pq->execute($values);
                 $this->rowCount = $pq->rowCount();
             }
@@ -145,6 +149,7 @@ class TikiDb_Pdo extends TikiDb
             $result = $this->db->query($query);
             $this->rowCount = is_object($result) && get_class($result) === 'PDOStatement' ? $result->rowCount() : 0;
         }
+
         DatabaseQueryLog::logEnd($logHandle);
         $this->stopTimer($starttime);
 
