@@ -32,7 +32,7 @@ $inputConfiguration = [
         'exact_match'                           => 'bool',               //post
         'listonly'                              => 'bool',               //post
         'exclude_page'                          => 'string',             //post
-        'find'                                  => 'word',               //post
+        'find'                                  => 'string',             //post
         'offset'                                => 'digits',             //get
         'sort_mode'                            => 'word',                //get
         ],
