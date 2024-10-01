@@ -110,19 +110,23 @@ class Services_Calendar_AvailabilityController extends Services_Calendar_BaseCon
 
         if ($result) {
             $allgood = true;
-            foreach ($result->VAVAILABILITY as $vavailability) {
-                try {
-                    $definitions[] = $this->convertAvailability($vavailability);
-                } catch (Exception $e) {
-                    $result->remove($vavailability);
-                    $allgood = false;
+            if (isset($result->VAVAILABILITY) && is_iterable($result->VAVAILABILITY)) {
+                foreach ($result->VAVAILABILITY as $vavailability) {
+                    try {
+                        $definitions[] = $this->convertAvailability($vavailability);
+                    } catch (Exception $e) {
+                        $result->remove($vavailability);
+                        $allgood = false;
+                    }
                 }
+            } else {
+                //Handle cases where VAVAILABILITY is null or non-iterable
+                $allgood = false;
             }
             if (! $allgood) {
                 $client->saveAvailability($user, $result);
             }
         }
-
         return [
             'title' => tr('Manage Personal Availability'),
             'definitions' => $definitions
@@ -450,7 +454,7 @@ END:VCALENDAR");
             ['type' => 'calendar'],
             'object',
             $rawcals['data'],
-            [ 'object' => 'calendarId' ],
+            ['object' => 'calendarId'],
             'view_calendar'
         );
         return $rawcals['data'];
