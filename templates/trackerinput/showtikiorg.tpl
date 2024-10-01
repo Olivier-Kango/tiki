@@ -87,13 +87,30 @@
             </p>
         {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('snapshot');" _text="{tr}Create new snapshot{/tr}"}
         {/remarksbox}
-        {if !empty($field.canDestroy)}
-            {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('destroy');" _text="{tr}Destroy this {$field.options_map.domain|escape} instance{/tr}"}
-            {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('reset');" _text="{tr}Reset password to 12345{/tr}"}
-        {/if}
-        <span class="buttonupdate{$myId}"{if not in_array($field.version, $field.versions)} style="display: none;"{/if}>
-            {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _onclick="showtikiorg_process{$myId}('update');" _text="{tr}SVN update{/tr}"}
-        </span>
+        <div class="hstack btn-group btn-group-sm" role="group" aria-label="Instance actions">
+            {if !empty($field.canDestroy)}
+                {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _icon_name="trash" _onclick="showtikiorg_process{$myId}('destroy');" _type="outline-danger" _text="{tr}Destroy the instance{/tr}"}
+                {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _icon_name="rotate_right" _onclick="showtikiorg_process{$myId}('reset');" _type="outline-primary" _text="{tr}Reset password to 12345{/tr}"}
+            {/if}
+            <button class="buttonupdate{$myId} btn btn-outline-primary"{if not in_array($field.version, $field.versions)} style="display: none;"{/if} onclick="showtikiorg_process{$myId}('update');">
+                {icon name="cloud-download"}
+                {tr}SVN update{/tr}
+            </button>
+            <button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" id="clone{$myId}" onclick="showtikiorg_process{$myId}('clone');" class="btn btn-outline-primary" {if $field.cloneExist} style="display: none;"{/if}>
+                {icon name="copy"}
+                {tr}Clone the instance{/tr}
+            </button>
+        </div>
+        <div id="clone-actions{$myId}" style="{if not $field.cloneExist}display: none;{/if}">
+            <hr>
+            <div class="hstack btn-group btn-group-sm mt-1" role="group" aria-label="Instance actions">
+                {if !empty($field.canDestroy)}
+                    {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _icon_name="trash" _onclick="showtikiorg_process{$myId}('destroyclone');" _type="outline-danger" _text="{tr}Destroy the clone{/tr}"}
+                {/if}
+                {button href="#showtikiorg{$myId}{if isset($context.list_mode)}_view{/if}" _icon_name="cloud-download" _onclick="showtikiorg_process{$myId}('updateclone');" _type="outline-primary" _text="{tr}Update the clone{/tr}"}
+                {button href="http://{$field.cloneUrl}" _id="clone{$myId}-link" _target="_blank" _icon_name="arrow_up_right_from_square" _type="outline-primary" _text="{tr}Access the clone{/tr}"}
+            </div>
+        </div>
     </div>
     {if !empty($field.options_map.debugMode)}
         {remarksbox type="info" title="{tr}Debug Mode Information{/tr}" close="n"}
@@ -113,6 +130,7 @@
             svntag: $("select[name='svntag']").val()
 
         };
+        $.tikiModal(tr('Please wait...'));
         $.ajax({
             url: $.service('showtikiorg', 'process'),
             data: request,
@@ -168,7 +186,7 @@
                     $('.showsnapshot{{$myId}}').hide();
                     $('.showdestroy{{$myId}}').hide();
                     setTimeout("showtikiorg_process{{$myId}}('info')",5000);
-                    $.tikiModal(tr('Instance is being created... Please wait... This might take a minute or two.'));
+                    $.tikiModal(tr('The instance is being built. This might take a minute or two, please wait...'));
                 } else if (data.status == 'NONE') {
                     $('.shownone{{$myId}}').show();
                     $('.showactive{{$myId}}').hide();
@@ -193,6 +211,7 @@
                     $('.showurl{{$myId}}').attr("href", "http://" + data.showurl).html("http://" + data.showurl);
                     $('.showlogurl{{$myId}}').attr("href", "http://" + data.showlogurl).html("http://" + data.showlogurl);
                     $('.snapshoturl{{$myId}}').attr("href", "http://" + data.snapshoturl).html("http://" + data.snapshoturl);
+                    $('#clone{{$myId}}-link').attr('href', 'http://' + data.cloneUrl);
                     $.tikiModal();
                 } else if (data.status == 'SNAPS') {
                     $('.showactive{{$myId}}').show();
@@ -226,6 +245,16 @@
                     $('.showdestroy{{$myId}}').show();
                     setTimeout("showtikiorg_process{{$myId}}('info')",5000);
                     $.tikiModal(tr('Instance is being destroyed... Please wait...'));
+                } else if (data.status == "CLONE") {
+                    showtikiorg_process{{$myId}}('info');
+                    $('#clone-actions{{$myId}}').show();
+                    $('#clone{{$myId}}').hide();
+                } else if (data.status == 'DESTROY_CLONE') {
+                    $('#clone-actions{{$myId}}').hide();
+                    $('#clone{{$myId}}').show();
+                    showtikiorg_process{{$myId}}('info');
+                } else if (data.status == 'UPDATE_CLONE') {
+                    $.tikiModal();
                 }
             }
         });

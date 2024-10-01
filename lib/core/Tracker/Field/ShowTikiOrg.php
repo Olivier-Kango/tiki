@@ -191,6 +191,13 @@ class Tracker_Field_ShowTikiOrg extends \Tracker\Field\AbstractItemField
             $ret['showurl'] = $site;
             $ret['showlogurl'] = $site . '/info.txt';
             $ret['snapshoturl'] = $site . '/snapshots/';
+            $cloneExist = strpos($infooutput, 'CLONED: YES') !== false;
+            $ret['cloneExist'] = $cloneExist;
+            if ($cloneExist) {
+                $clone = substr($infooutput, strpos($infooutput, 'CLONE: ') + 7);
+                $clone = substr($clone, 0, strpos($clone, " "));
+                $ret['cloneUrl'] = $clone;
+            }
             if ($site) {
                 $ret['value'] = 'active ' . substr($site, 0, strpos($site, '.')); // the 'active' is useful for filtering on
             }
