@@ -46,9 +46,13 @@ class PerformanceStatsLib extends TikiLib
      * @param string $order
      * @return TikiDb_Pdo_Result
      */
-    public function getRequestsBasedOnAverageRequestTime(int $amount = 25, int $offset = 0, string $find = '', string $order = 'DESC')
+    public function getRequestsBasedOnAverageRequestTime(int $amount = 25, int $offset = 0, string $find = '', string $order = 'DESC', string $orderType = '')
     {
-        return $this->query("SELECT url, round(AVG(time_taken)) AS average_time_taken FROM tiki_performance WHERE url LIKE ? GROUP BY url ORDER BY average_time_taken $order LIMIT $amount OFFSET $offset", ["%$find%"]);
+        if ($orderType == 'no_of_requests') {
+            return $this->query("SELECT url, round(AVG(time_taken)) AS average_time_taken, COUNT(url) AS number_of_requests FROM tiki_performance WHERE url LIKE ? GROUP BY url ORDER BY number_of_requests $order LIMIT $amount OFFSET $offset", ["%$find%"]);
+        } else {
+            return $this->query("SELECT url, round(AVG(time_taken)) AS average_time_taken, COUNT(url) AS number_of_requests FROM tiki_performance WHERE url LIKE ? GROUP BY url ORDER BY average_time_taken $order LIMIT $amount OFFSET $offset", ["%$find%"]);
+        }
     }
 
     /**
