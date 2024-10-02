@@ -353,8 +353,7 @@ class PdoClient
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 if ($hasCustomSelect) {
                     $fields = [];
-                }
-                elseif ($row['object_type'] == 'trackeritem') {
+                } elseif ($row['object_type'] == 'trackeritem') {
                     $fields = $available_fields['object_types']['trackeritem' . $row['tracker_id']] ?? [];
                 } else {
                     $fields = $available_fields['object_types'][$row['object_type']] ?? [];
