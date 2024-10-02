@@ -432,7 +432,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             $sql .= ' ' . $facets;
         }
 
-        $results = $this->pdo_client->fetchAllRowsets($sql);
+        $results = $this->pdo_client->fetchAllRowsets($sql, false, ! empty($selectionFields));
         $result = $results[0];
 
         $meta = $this->pdo_client->fetchAll('SHOW META');

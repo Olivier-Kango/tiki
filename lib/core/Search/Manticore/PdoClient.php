@@ -344,14 +344,17 @@ class PdoClient
      * @param boolean $retry
      * @return array of associative arrays
      */
-    public function fetchAllRowsets($query, $retry = true)
+    public function fetchAllRowsets($query, $retry = true, $hasCustomSelect = false)
     {
         $available_fields = \TikiLib::lib('unifiedsearch')->getAvailableFields();
         try {
             $result = [];
             $stmt = $this->query($query);
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                if ($row['object_type'] == 'trackeritem') {
+                if ($hasCustomSelect) {
+                    $fields = [];
+                }
+                elseif ($row['object_type'] == 'trackeritem') {
                     $fields = $available_fields['object_types']['trackeritem' . $row['tracker_id']] ?? [];
                 } else {
                     $fields = $available_fields['object_types'][$row['object_type']] ?? [];
