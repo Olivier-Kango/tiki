@@ -313,7 +313,7 @@
                     {if $tiki_p_admin_trackers eq 'y'}
                         <div class="mb-3 row">
                             <div class="input-group min-width-customized">
-                                <select name="batchaction" class="form-select">
+                                <select name="batchaction" class="form-select trackerbatchaction">
                                     <option value="" selected="selected">
                                         {tr}Select the action to be performed with checked{/tr}...
                                     </option>
@@ -328,7 +328,7 @@
                                 </select>
                                 {ticket}
                                 <input type="hidden" name="trackerId" value="{$trackerId}">
-                                <input type="submit" class="btn btn-primary" onclick="confirmPopup('{tr}Are you sure you want to delete the selected items?{/tr}')" name="act" value="{tr}OK{/tr}">
+                                <input type="submit" class="btn btn-primary" onclick="if($('select.trackerbatchaction').children('option:selected').val() == 'delete')confirmPopup('{tr}Are you sure you want to delete the selected items?{/tr}')" name="act" value="{tr}OK{/tr}">
                             </div>
                         </div>
                     {/if}
