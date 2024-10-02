@@ -19,6 +19,7 @@
             <h2>{tr}Personal Information{/tr}</h2>
             <form role="form" action="tiki-user_preferences.php" method="post">
                 {ticket}
+                <input type="hidden" name="userId" value="{$userinfo.userId|escape}">
                 <input type="hidden" name="view_user" value="{$userwatch|escape}">
                 <div class="tiki-form-group row">
                     <label class="col-form-label col-md-4" for="userIn">

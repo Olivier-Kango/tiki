@@ -532,7 +532,7 @@ if (isset($_POST['deleteaccount']) && $tiki_p_delete_account == 'y' && $access->
 
 if (! empty($_POST)) {
     // This avoids accident form ressubmission
-    header('Location:' . basename(__FILE__));
+    header('Location:' . basename(__FILE__) . '?userId=' . $_REQUEST['userId']);
     return;
 }
 
