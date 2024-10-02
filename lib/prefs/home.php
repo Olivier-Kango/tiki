@@ -25,42 +25,11 @@ function prefs_home_list($partial = false)
             'name' => tra('Home file gallery (main file gallery)'),
             'description' => tra('Select the default file gallery'),
             'type' => 'list',
-            'options' => $partial ? [] : listfgal_pref(),
+            'options' => $partial ? [] : TikiLib::lib('filegal')->getFileGalleryList(),
             'default' => 1,
             'profile_reference' => 'file_gallery',
         ],
     ];
-}
-
-/**
- * listfgal_pref: retrieve the list of file galleries for the home_file_gallery preference
- *
- * @access public
- * @return array: galleryId => name(truncated)
- */
-function listfgal_pref()
-{
-    $filegallib = TikiLib::lib('filegal');
-
-    global $prefs;
-    $allfgals = $filegallib->getSubGalleries($prefs['fgal_root_id']);
-    $rootgal = $filegallib->get_file_gallery($prefs['fgal_root_id']);
-    if ($rootgal) {
-        array_unshift($allfgals['data'], $rootgal);
-        $allfgals['data'][0]['id'] = $allfgals['data'][0]['galleryId']; // sometimes galleries have a galleryId, sometimes it's in id :(
-    }
-
-    $listfgals = [];
-
-    if ($allfgals['cant'] > 0) {
-        foreach ($allfgals['data'] as $onefgal) {
-            $listfgals[ $onefgal['id'] ] = substr($onefgal['name'], 0, 30);
-        }
-    } else {
-        $listfgals[''] = tra('No file gallery available (create one first)');
-    }
-
-    return $listfgals;
 }
 
 /**

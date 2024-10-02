@@ -22,6 +22,14 @@ function module_recordrtc_info()
         'description' => tra('Capture audio and video in real-time for seamless collaboration'),
         'prefs' => ['fgal_use_record_rtc_screen'],
         'packages_required' => ['npm-asset/recordrtc' => VendorHelper::getAvailableVendorPath('recordrtc', '/npm-asset/recordrtc/RecordRTC.js')],
+        'params' => [
+            'gallery_id' => [
+                'name' => tra('Gallery Id'),
+                'description' => tra('Id of the gallery to be used when saving recordings'),
+                'filter' => 'int',
+                'default' => '',
+            ],
+        ]
     ];
 }
 
@@ -39,10 +47,18 @@ function module_recordrtc_recording_types(): array
  * @param $mod_reference
  * @param $smod_params
  */
-function module_recordrtc($mod_reference, $smod_params)     // modifies $smod_params so uses & reference
+function module_recordrtc($mod_reference, &$module_params)    // modifies $smod_params so uses & reference
 {
     $smarty = TikiLib::lib('smarty');
     global $prefs, $user;
+
+    $info = module_recordrtc_info();
+    $defaults = [];
+    foreach ($info['params'] as $key => $param) {
+        $defaults[$key] = $param['default'];
+    }
+
+    $module_params = array_merge($defaults, array_filter($module_params));
 
     $smarty->assign('show_recordrtc_module', true);
     if (
@@ -74,9 +90,9 @@ function module_recordrtc($mod_reference, $smod_params)     // modifies $smod_pa
     $headerlib = TikiLib::lib('header');
     $headerlib->add_jsfile('vendor/npm-asset/recordrtc/RecordRTC.js', true);
     $headerlib->add_jsfile('lib/jquery_tiki/recordrtc.js', true);
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/moment/min/moment.min.js', true);
 
     $recordingTypes = module_recordrtc_recording_types();
     $smarty->assign('mod_recordrtc_recording_types', $recordingTypes);
     $smarty->assign('module_error', '');
-    $smarty->assign_by_ref('smod_params', $smod_params);
 }

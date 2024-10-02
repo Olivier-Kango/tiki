@@ -17,9 +17,12 @@ class Services_RecordRtc_Controller
     {
         require_once('tiki-setup.php');
 
+        global $prefs;
+
         $videoFilename = $input->videofilename->text();
         $audioFilename = $input->audiofilename->text();
         $ticket = $input->ticket->text();
+        $galleryId = $prefs['fgal_use_record_rtc_screen_gallery_id'] ?: $input->galleryId->text();
 
         if (empty($audioFilename) && empty($videoFilename)) {
             throw new Services_Exception_NotFound('Empty file name.');
@@ -61,6 +64,10 @@ class Services_RecordRtc_Controller
         }
         $_FILES['data']['name'] = $fileName;
         $_FILES['data']['type'] = ($extension == 'webm') ? 'video/webm' : $_FILES['data']['type'];
+
+        if ($galleryId) {
+            $_FILES['data']['galleryId'] = $galleryId;
+        }
 
         $files = new Services_File_Controller();
         $input = new JitFilter($_FILES['data']);

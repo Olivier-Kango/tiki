@@ -153,6 +153,9 @@
             <fieldset>
                 <legend class="h3"> {tr}Settings for RecordRTC{/tr}</legend>
                 {preference name='fgal_use_record_rtc_screen'}
+                <div class="adminoptionboxchild" id="fgal_use_record_rtc_screen_childcontainer">
+                    {preference name='fgal_use_record_rtc_screen_gallery_id'}
+                </div>
             </fieldset>
         {/tab}
 

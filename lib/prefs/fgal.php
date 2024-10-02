@@ -737,5 +737,14 @@ When the limit is reached, no more files can be uploaded. The user will see an e
             'tags' => ['experimental'],
             'packages_required' => ['npm-asset/recordrtc' => VendorHelper::getAvailableVendorPath('recordrtc', '/npm-asset/recordrtc/RecordRTC.js')]
         ],
+        'fgal_use_record_rtc_screen_gallery_id' => [
+            'name' => tra('Gallery default for RecordRTC recordings'),
+            'description' => tra('Select gallery to be used as the default target for RecordRTC recordings'),
+            'type' => 'list',
+            'options' => TikiLib::lib('filegal')->getFileGalleryList(),
+            'default' => '',
+            'tags' => ['experimental'],
+            'dependencies' => ['fgal_use_record_rtc_screen', 'feature_file_galleries']
+        ],
     ];
 }

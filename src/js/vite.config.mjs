@@ -360,6 +360,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jqdoublescroll",
                     },
                     {
+                        src: "node_modules/moment/min/*",
+                        dest: "vendor_dist/moment/min",
+                    },
+                    {
                         src: "node_modules/jquery/dist/*",
                         dest: "vendor_dist/jquery/dist",
                     },

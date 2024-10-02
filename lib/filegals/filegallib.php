@@ -4165,6 +4165,39 @@ class FileGalLib extends TikiLib
     {
         return $this->getOne("select count(*) from `tiki_files` tf left join `tiki_file_galleries` tfg on tf.galleryId = tfg.galleryId where tfg.type = 'attachments'");
     }
+
+    /**
+     * Retrieve available file galleries list
+     *
+     * @return array
+     */
+    public function getFileGalleryList()
+    {
+        global $prefs;
+
+        $listfgals = [];
+        $listfgals[''] = tra('No file gallery available (create one first)');
+        $fgalRootId = $prefs['fgal_root_id'] ?? 0;
+        if ($fgalRootId === 0) {
+            return $listfgals;
+        }
+
+        $allfgals = $this->getSubGalleries($fgalRootId);
+        $rootgal = $this->get_file_gallery($fgalRootId);
+        if ($rootgal) {
+            array_unshift($allfgals['data'], $rootgal);
+            $allfgals['data'][0]['id'] = $allfgals['data'][0]['galleryId'];
+        }
+
+        if ($allfgals['cant'] > 0) {
+            unset($listfgals['']);
+            foreach ($allfgals['data'] as $onefgal) {
+                $listfgals[ $onefgal['id'] ] = substr($onefgal['name'], 0, 30);
+            }
+        }
+
+        return $listfgals;
+    }
 }
 
 /**

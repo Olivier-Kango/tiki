@@ -21,6 +21,7 @@
                 <video style="display:none;" controls autoplay playsinline></video>
                 <input id="record-rtc-url" type="hidden" value="{service controller=recordrtc action=upload}">
                 <input id="record-rtc-ticket" type="hidden" value="{ticket mode=get}">
+                <input id="record-rtc-gallery-id" type="hidden" value="{$module_params.gallery_id}">
             </div>
             <div class="mb-3">
                 <input id="record-rtc-auto-upload" type="checkbox" class="form-check-input" aria-label="{tr}Auto-upload{/tr}" name="auto-upload"> {tr}Auto-upload{/tr}
