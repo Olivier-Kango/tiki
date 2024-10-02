@@ -4,6 +4,20 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tracker\Filter\Collection;
+use Tracker\Tabular\Source\ODBCSource;
+use Tracker\Tabular\Source\APISource;
+use Tracker\Tabular\Source\CsvSource;
+use Tracker\Tabular\Schema;
+use Tracker\Tabular\Source\PaginatedQuerySource;
+use Tracker\Tabular\Source\QuerySource;
+use Tracker\Tabular\Source\TrackerSource;
+use Tracker\Tabular\Writer\APIWriter;
+use Tracker\Tabular\Writer\HtmlWriter;
+use Tracker\Tabular\Writer\ODBCWriter;
+use Tracker\Tabular\Writer\TrackerWriter;
+
 class Services_Tracker_TabularController
 {
     public function setUp()
@@ -189,7 +203,7 @@ class Services_Tracker_TabularController
 
         Services_Exception_Denied::checkObject('tiki_p_view_trackers', 'tracker', $trackerId);
 
-        $schema = new \Tracker\Tabular\Schema($tracker);
+        $schema = new Schema($tracker);
         $local = $schema->getFieldSchema($permName);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -237,7 +251,7 @@ class Services_Tracker_TabularController
 
         Services_Exception_Denied::checkObject('tiki_p_view_trackers', 'tracker', $trackerId);
 
-        $schema = new \Tracker\Filter\Collection($tracker);
+        $schema = new Collection($tracker);
         $local = $schema->getFieldCollection($permName);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -267,10 +281,10 @@ class Services_Tracker_TabularController
         $schema = $this->getSchema($info);
         $schema->validate();
 
-        $source = new \Tracker\Tabular\Source\TrackerSource($schema);
+        $source = new TrackerSource($schema);
 
         if ($info['odbc_config']) {
-            $writer = new \Tracker\Tabular\Writer\ODBCWriter($info['odbc_config']);
+            $writer = new ODBCWriter($info['odbc_config']);
             $writer->write($source);
 
             Feedback::success(tr('Your export was completed successfully.'));
@@ -281,7 +295,7 @@ class Services_Tracker_TabularController
                 ],
             ];
         } elseif ($info['api_config']) {
-            $writer = new \Tracker\Tabular\Writer\APIWriter($info['api_config'], $info['config']);
+            $writer = new APIWriter($info['api_config'], $info['config']);
             $result = $writer->write($source);
 
             Feedback::success(tr('Your export was completed. %0 item(s) succeeded, %1 item(s) failed and %2 items skipped.', $result['succeeded'], $result['failed'], $result['skipped']));
@@ -332,10 +346,10 @@ class Services_Tracker_TabularController
             ]);
 
             $collection->applyConditions($query);
-            $source = new \Tracker\Tabular\Source\QuerySource($schema, $query);
+            $source = new QuerySource($schema, $query);
 
             if ($info['api_config']) {
-                $writer = new \Tracker\Tabular\Writer\APIWriter($info['api_config'], $info['config']);
+                $writer = new APIWriter($info['api_config'], $info['config']);
                 $result = $writer->write($source);
 
                 Feedback::success(tr('Your export was completed. %0 item(s) succeeded, %1 item(s) failed and %2 items skipped.', $result['succeeded'], $result['failed'], $result['skipped']));
@@ -401,7 +415,7 @@ class Services_Tracker_TabularController
             $query->filterType('trackeritem');
             $query->filterContent($trackerId, 'tracker_id');
 
-            $source = new \Tracker\Tabular\Source\QuerySource($schema, $query);
+            $source = new QuerySource($schema, $query);
             $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
             $writer = $schema->getWriter($name, 'search');
             $writer->sendHeaders($name);
@@ -434,7 +448,6 @@ class Services_Tracker_TabularController
     {
         $lib = TikiLib::lib('tabular');
         $info = $lib->getInfo($input->tabularId->int());
-        $trackerId = $info['trackerId'];
 
         Services_Exception_Denied::checkObject('tiki_p_tabular_import', 'tabular', $info['tabularId']);
 
@@ -442,25 +455,24 @@ class Services_Tracker_TabularController
         $schema->validate();
 
         $done = false;
+        $successImportMsg = tr('Your import was completed successfully.');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {
             $source = $schema->getSource($_FILES['file']['tmp_name']);
-            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $writer = new TrackerWriter();
 
             return TikiLib::lib('tiki')->allocate_extra(
                 'tracker_import_items',
-                function () use ($writer, $source, $info) {
+                function () use ($writer, $source, $info, $successImportMsg) {
                     $writer->write($source);
 
                     unlink($_FILES['file']['tmp_name']);
 
-                    $message = tr('Your import was completed successfully.');
-
                     if (TIKI_API) {
-                        return ['feedback' => $message];
+                        return ['feedback' => $successImportMsg];
                     }
 
-                    Feedback::success($message);
+                    Feedback::success($successImportMsg);
                     return [
                         'FORWARD' => [
                             'controller' => 'tabular',
@@ -473,17 +485,15 @@ class Services_Tracker_TabularController
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $info['odbc_config']) {
-            $source = new \Tracker\Tabular\Source\ODBCSource($schema, $info['odbc_config']);
-            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $source = new ODBCSource($schema, $info['odbc_config']);
+            $writer = new TrackerWriter();
             $done = $writer->write($source);
 
-            $message = tr('Your import was completed successfully.');
-
             if (TIKI_API) {
-                return ['feedback' => $message];
+                return ['feedback' => $successImportMsg];
             }
 
-            Feedback::success($message);
+            Feedback::success($successImportMsg);
             return [
                 'FORWARD' => [
                     'controller' => 'tabular',
@@ -492,17 +502,15 @@ class Services_Tracker_TabularController
                 ]
             ];
         } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $info['api_config']) {
-            $source = new \Tracker\Tabular\Source\APISource($schema, $info['api_config'], $input->placeholders->none() ?? []);
-            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $source = new APISource($schema, $info['api_config'], $input->placeholders->none() ?? []);
+            $writer = new TrackerWriter();
             $done = $writer->write($source);
 
-            $message = tr('Your import was completed successfully.');
-
             if (TIKI_API) {
-                return ['feedback' => $message];
+                return ['feedback' => $successImportMsg];
             }
 
-            Feedback::success($message);
+            Feedback::success($successImportMsg);
             return [
                 'FORWARD' => [
                     'controller' => 'tabular',
@@ -540,18 +548,15 @@ class Services_Tracker_TabularController
     {
         $lib = TikiLib::lib('tabular');
         $info = $lib->getInfo($input->tabularId->int());
-        $trackerId = $info['trackerId'];
 
         Services_Exception_Denied::checkObject('tiki_p_tabular_import', 'tabular', $info['tabularId']);
 
         $schema = $this->getSchema($info);
         $schema->validate();
 
-        $done = false;
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {
             $source = $schema->getSource($_FILES['file']['tmp_name']);
-            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $writer = new TrackerWriter();
 
             return TikiLib::lib('tiki')->allocate_extra(
                 'tracker_import_items',
@@ -666,8 +671,8 @@ class Services_Tracker_TabularController
 
         $collection->applyConditions($query);
 
-        $source = new \Tracker\Tabular\Source\PaginatedQuerySource($schema, $query);
-        $writer = new \Tracker\Tabular\Writer\HtmlWriter();
+        $source = new PaginatedQuerySource($schema, $query);
+        $writer = new HtmlWriter();
 
         $columns = array_values(array_filter($schema->getColumns(), function ($c) {
             return ! $c->isExportOnly();
@@ -800,8 +805,8 @@ class Services_Tracker_TabularController
             if (is_uploaded_file($_FILES['file']['tmp_name'])) {
                 try {
                     $delimiter = $input->delimiter->text() == 'comma' ? ',' : ';';
-                    $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], $delimiter);
-                    $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+                    $source = new CsvSource($schema, $_FILES['file']['tmp_name'], $delimiter);
+                    $writer = new TrackerWriter();
                     $done = $writer->write($source);
 
                     unlink($_FILES['file']['tmp_name']);
@@ -850,7 +855,7 @@ class Services_Tracker_TabularController
             throw new Services_Exception_NotFound();
         }
 
-        $schema = new \Tracker\Tabular\Schema($tracker);
+        $schema = new Schema($tracker);
 
         $descriptor = $info['format_descriptor'];
         if ($prefill) {
@@ -891,7 +896,7 @@ class Services_Tracker_TabularController
         }
         if ($prefill_odbc) {
             $columns = [];
-            $src = new \Tracker\Tabular\Source\ODBCSource($schema, $info['odbc_config']);
+            $src = new ODBCSource($schema, $info['odbc_config']);
             try {
                 $columns = $src->getRemoteSchema();
             } catch (Exception $e) {
@@ -972,7 +977,7 @@ class Services_Tracker_TabularController
             }
             // reload definition and schema in case new fields were created
             $tracker = \Tracker_Definition::get($info['trackerId'], false);
-            $schema = new \Tracker\Tabular\Schema($tracker);
+            $schema = new Schema($tracker);
         }
 
         $schema->loadFormatDescriptor($descriptor);
