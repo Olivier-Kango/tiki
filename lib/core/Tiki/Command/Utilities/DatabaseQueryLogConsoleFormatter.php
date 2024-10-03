@@ -11,6 +11,7 @@ use Symfony\Component\Console\Helper\FormatterHelper;
 
 class DatabaseQueryLogConsoleFormatter
 {
+    public const NUM_TOP_RESULTS = 100;
     private static function format(array $logEntries, InputInterface $input, OutputInterface $output): void
     {
 
@@ -61,10 +62,11 @@ class DatabaseQueryLogConsoleFormatter
             $queryLogData = DatabaseQueryLog::processLog();
 
             $io = new SymfonyStyle($input, $output);
+
             $io->section(tr('General query statistics'));
             self::format($queryLogData[3], $input, $output);
-            $io->section(tr('Per-query statistics'));
-            self::format($queryLogData[0], $input, $output);
+            $io->section(tr('Top %0 queries by aggregate time', self::NUM_TOP_RESULTS));
+            self::format(array_slice($queryLogData[0], 0, self::NUM_TOP_RESULTS), $input, $output);
         }
     }
 }
