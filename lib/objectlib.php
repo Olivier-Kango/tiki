@@ -767,6 +767,39 @@ class ObjectLib extends TikiLib
     }
 
     /**
+     * Optimized method to get multiple object titles using the same format (useful for Relation fields)
+     * @param array $objects
+     * @param string $format
+     * @return array
+     */
+    public function get_titles(array $objects, string $format)
+    {
+        $titles = [];
+        $formatted = [];
+        foreach ($objects as $object) {
+            if ($object['type'] == 'trackeritem') {
+                $object['defaultTitle'] = TikiLib::lib('trk')->get_isMain_value(null, $object['id']);
+                $formatted[] = $object;
+            } elseif ($object['type'] == 'calendar_event' || $object['type'] == 'calendaritem') {
+                $info = $info = TikiLib::lib('calendar')->get_item($object['id']);
+                $object['defaultTitle'] = $info['name'] ?? '';
+                $formatted[] = $object;
+            } else {
+                $titles[$object['type'] . ':' . $object['id']] = $this->get_title($object['type'], $object['id'], $format);
+            }
+        }
+        if ($formatted) {
+            $titles = array_merge($titles, $this->getFormattedTitles($formatted, $format));
+        }
+        $result = [];
+        foreach ($objects as $object) {
+            $key = $object['type'] . ':' . $object['id'];
+            $result[$key] = $titles[$key] ?? $object['defaultTitle'] ?? $key;
+        }
+        return $result;
+    }
+
+    /**
      * @param string      $type
      * @param string      $id
      * @param string|null $format - trackeritem format coming from ItemLink field or null by default
@@ -836,6 +869,85 @@ class ObjectLib extends TikiLib
         if (isset($info['name'])) {
             return $info['name'];
         }
+    }
+
+    /**
+     * Optimized way to get relation object values that are used in a format descriptor
+     * @param array $objects
+     * @param string $format
+     * @return array
+     */
+    public function getFormattedValues(array $objects, string $format)
+    {
+        $lib = TikiLib::lib('unifiedsearch');
+        $metaItemIds = [];
+        $query = $lib->buildQuery([]);
+        foreach ($objects as $object) {
+            $query->addObject($object['type'], $object['id']);
+            if (! empty($object['metaItemId'])) {
+                $metaItemIds[$object['type'] . ':' . $object['id']] = $object['metaItemId'];
+            }
+        }
+        $format_pattern = '/\{([\w\.]+)\}/';
+        if (preg_match_all($format_pattern, $format, $m)) {
+            $query->setSelectionFields($m[1]);
+        }
+        $result = $query->search($lib->getIndex());
+        $metadata = [];
+        if ($metaItemIds) {
+            $query = $lib->buildQuery([]);
+            foreach ($metaItemIds as $metaItemId) {
+                $query->addObject('trackeritem', $metaItemId);
+            }
+            $metaResult = $query->search($lib->getIndex());
+            foreach ($metaResult as $row) {
+                $key = array_search($row['object_id'], $metaItemIds);
+                if ($key !== false) {
+                    $metadata[$key] = $row;
+                }
+            }
+        }
+        $itemsValues = [];
+        foreach ($result as $item) {
+            $values = [
+                'object_type' => $item['object_type'],
+                'object_id' => $item['object_id'],
+            ];
+            $values['title'] = preg_replace_callback($format_pattern, function ($matches) use ($item, $format, $metadata, &$values) {
+                $key = $matches[1];
+                $value_key = str_replace('tracker_field_', '', $key);
+                if (isset($item[$key])) {
+                    $values[$value_key] = $item[$key];
+                    return $item[$key];
+                } elseif (substr($key, 0, 5) == 'meta.') {
+                    $values[$value_key] = $metadata[$item['object_type'] . ':' . $item['object_id']][substr($key, 5)] ?? '';
+                } elseif (! $format || $format == '{title}') {
+                    $values[$value_key] = '';
+                    return tr('empty');
+                } else {
+                    $values[$value_key] = '';
+                    return '';
+                }
+            }, $format);
+            $itemsValues[] = $values;
+        }
+        return $itemsValues;
+    }
+
+    /**
+     * Optimized way to get formatted titles with the same format for many objects from the index
+     * @param array $objects
+     * @param string $format
+     * @return array
+     */
+    public function getFormattedTitles(array $objects, string $format)
+    {
+        $labels = [];
+        $values = $this->getFormattedValues($objects, $format);
+        foreach ($values as $row) {
+            $labels[$row['object_type'] . ':' . $row['object_id']] = $row['title'];
+        }
+        return $labels;
     }
 
     /**

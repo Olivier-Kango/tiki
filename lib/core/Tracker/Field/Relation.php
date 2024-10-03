@@ -600,26 +600,17 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
         $objectLib = TikiLib::lib('object');
         $format = $this->trackerField->getOption('format');
         $labels = [];
-        static $cache = [];
         if ($mode !== 'formatting') {
+            $objects = [];
             foreach ($data['relations'] as $rel) {
-                $type = $rel->target->type;
-                $object = $rel->target->itemId;
-                if (isset($cache[$type . $object . $format])) {
-                    // prevent circular-reference calls to objectlib->get_title method as getDocumentPart is used to populate the
-                    // search results with field values which is called in get_title itself
-                    // only happens for bi-directional tracker item relation
-                    $labels[] = $cache[$type . $object . $format];
-                    continue;
-                }
-                $label = $objectLib->get_title($type, $object, $format);
-                $cache[$type . $object . $format] = $label;
-                $labels[] = $label;
+                $objects[] = [
+                    'type' => $rel->target->type,
+                    'id' => $rel->target->itemId,
+                    'metaItemId' => $rel->getMetadataItemId(),
+                ];
             }
-        }
-
-        if (TikiLib::lib('tiki')->isMemoryLow()) {
-            $cache = [];
+            $labels = $objectLib->get_titles($objects, $format);
+            $labels = array_values($labels);
         }
 
         $plain = implode(', ', $labels);
@@ -710,37 +701,17 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
     {
         $lib = TikiLib::lib('unifiedsearch');
 
-        $itemsValues = [];
-
         $data = $this->getFieldData();
-        $objects = array_map(function ($rel) {
-            list($object_type, $object_id) = [$rel->target->type, $rel->target->itemId];
-            return compact('object_type', 'object_id');
-        }, $data['relations']);
-
-        $format = $this->trackerField->getOption('format');
-        foreach ($objects as $object) {
-            $query = $lib->buildQuery($object);
-            $result = $query->search($lib->getIndex());
-            $result->applyTransform(function ($item) use ($format) {
-                $values = [];
-                preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($item, $format, &$values) {
-                    $key = $matches[1];
-                    $value_key = str_replace('tracker_field_', '', $key);
-                    if (isset($item[$key])) {
-                        $values[$value_key] = $item[$key];
-                    } else {
-                        $values[$value_key] = '';
-                    }
-                }, $format);
-                return $values;
-            });
-            // result might be empty if item is no longer in db or user does not have permission to see it
-            if ($result->count() > 0) {
-                $itemsValues[] = $result->getArrayCopy()[0];
-            }
+        $objects = [];
+        foreach ($data['relations'] as $rel) {
+            $objects[] = [
+                'type' => $rel->target->type,
+                'id' => $rel->target->itemId,
+                'metaItemId' => $rel->getMetadataItemId(),
+            ];
         }
-        return $itemsValues;
+        $format = $this->trackerField->getOption('format');
+        return TikiLib::lib('object')->getFormattedValues($objects, $format);
     }
 
     public function getTabularSchema()

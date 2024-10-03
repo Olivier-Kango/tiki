@@ -19,6 +19,7 @@ class PdoClient
     protected $pdo;
     protected $debug;
     protected $log;
+    protected $dataBuffer;
 
     public function __construct($dsn, $port = 9306)
     {
@@ -48,6 +49,15 @@ class PdoClient
         return $prefix . 'distributed';
     }
 
+    public function startBulk($size = 100)
+    {
+        $max_allowed_packet = $this->getServerVariable('max_allowed_packet');
+        if (! $max_allowed_packet) {
+            $max_allowed_packet = 8 * 1024 * 1024; // Manticore default
+        }
+        $this->dataBuffer = new QueryBuffer($this, $size, '-- ', $max_allowed_packet);
+    }
+
     public function getStatus()
     {
         $status = ['status' => 0];
@@ -71,6 +81,17 @@ class PdoClient
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             return [];
+        }
+    }
+
+    public function getServerVariable($name)
+    {
+        try {
+            $stmt = $this->query("SHOW VARIABLES LIKE '$name'");
+            $row = $stmt->fetch();
+            return $row['Value'] ?? null;
+        } catch (PDOException $e) {
+            return null;
         }
     }
 
@@ -290,11 +311,23 @@ class PdoClient
         if ($keys && $array_fields) {
             $keys .= ', ' . implode(', ', $array_fields);
         }
-        $values = implode(',', array_fill(0, count($data), '?'));
+        $values = implode(',', array_map([$this, 'quote'], array_values($data)));
         if ($values && $array_values) {
             $values .= ', ' . implode(', ', $array_values);
         }
-        $this->prepareAndExecuteWithRetry("INSERT INTO $index (" . $keys . ') VALUES (' . $values . ')', array_values($data));
+        if ($this->dataBuffer) {
+            $this->dataBuffer->setPrefix("INSERT INTO $index ($keys) VALUES ");
+            $this->dataBuffer->push('(' . $values . ')');
+        } else {
+            $this->prepareAndExecuteWithRetry("INSERT INTO $index ($keys) VALUES (" . $values . ")");
+        }
+    }
+
+    public function flush()
+    {
+        if ($this->dataBuffer) {
+            $this->dataBuffer->flush();
+        }
     }
 
     public function unindex($index, $type, $id)
@@ -478,7 +511,7 @@ class PdoClient
         return $stmt;
     }
 
-    protected function prepareAndExecuteWithRetry($sql, $params = [])
+    public function prepareAndExecuteWithRetry($sql, $params = [])
     {
         $this->debug($sql, $params);
         $stmt = $this->pdo->prepare($sql);

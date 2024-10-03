@@ -8645,6 +8645,7 @@
             "ObjectLib::get_object": true,
             "ObjectLib::get_object_via_objectid": true,
             "ObjectLib::get_title": true,
+            "ObjectLib::get_titles": true,
             "ObjectLib::get_wiki_content": true,
             "ObjectLib::get_verbose_type": true,
             "ObjectLib::map_object_type_to_permission": true,

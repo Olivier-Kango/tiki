@@ -220,14 +220,14 @@ class Search_MySql_Table extends TikiDb_Table
     /**
      * Fetch results from all the index tables but leave the fields relevant for each document type
      * to reduce memory footprint for big indices.
-     * @param array $fields
+     * @param array $selectFields
      * @param array $conditions
      * @param int $numrows
      * @param int $offset
      * @param string $orderClause
      * @return array of associative arrays
      */
-    public function fetchAllIndex(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null)
+    public function fetchAllIndex(array $selectFields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null)
     {
         $available_fields = TikiLib::lib('unifiedsearch')->getAvailableFields();
         $tables = $this->indexTables();
@@ -236,10 +236,13 @@ class Search_MySql_Table extends TikiDb_Table
         foreach ($tables as $table) {
             $join .= ' LEFT JOIN ' . $this->escapeIdentifier($table) . ' USING(id)';
         }
-        $resultset = $this->query($fields, $conditions, $numrows, $offset, $orderClause, $join);
+        $resultset = $this->query($selectFields, $conditions, $numrows, $offset, $orderClause, $join);
+        $hasCustomSelect = ! (isset($selectFields[0]) && ($selectFields[0] instanceof TikiDb_Expr) && $selectFields[0]->getQueryPart(null) === '*');
         $result = [];
         while ($row = $resultset->fetchRow()) {
-            if ($row['object_type'] == 'trackeritem') {
+            if ($hasCustomSelect) {
+                $fields = [];
+            } elseif ($row['object_type'] == 'trackeritem') {
                 $fields = $available_fields['object_types']['trackeritem' . $row['tracker_id']] ?? [];
             } else {
                 $fields = $available_fields['object_types'][$row['object_type']] ?? [];
