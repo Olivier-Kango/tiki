@@ -194,8 +194,8 @@
                 {/foreach}
             {/if}
 
-            {if $reportCategory}
-                &nbsp;&mdash;&nbsp;{tr}Category:{/tr} {$reportCateg}
+            {if $reportCategory and $reportCateg !== ''}
+                &nbsp;&mdash;&nbsp;{tr}Category:{/tr} {$reportCateg|escape}
             {/if}
             {if $maxRecords gt 0}
                 {if $cant gt $maxRecords}
@@ -236,7 +236,7 @@
                             <th>
                                 <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=object_{if $sort_mode eq 'object_desc'}asc{else}desc{/if}{$url}">{tr}Object{/tr}</a>
                             </th>
-                            {if !$reportCateg and $showCateg eq 'y'}
+                            {if $reportCateg eq '' and $showCateg eq 'y'}
                                 <th>
                                     <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=categName_{if $sort_mode eq 'categName_desc'}asc{else}desc{/if}{$url}">{tr}Category{/tr}</a>
                                 </th>
@@ -269,7 +269,11 @@
                                 <td class="username">{if !empty($actionlog.user)}{$actionlog.user|username}{else}{tr}Anonymous{/tr}{/if}</td>
                                 <td class="date">{$actionlog.lastModif|tiki_short_datetime}</td>
                                 <td class="text">
-                                    {tr}{$actionlog.action|escape}{/tr}
+                                    {if $actionlog.object === 'system'}
+                                        {tr}{$actionlog.comment|escape}{/tr}
+                                    {else}
+                                        {tr}{$actionlog.action}{/tr}
+                                    {/if}
                                     {if $actionlog.action eq 'Categorized' || $actionlog.action eq 'Uncategorized'}/{$actionlog.comment|replace:"categId=":""}{/if}
                                 </td>
                                 <td class="text">{tr}{$actionlog.objectType}{/tr}</td>
@@ -280,7 +284,7 @@
                                         {$actionlog.object|escape}
                                     {/if}
                                 </td>
-                                {if !$reportCateg and $showCateg eq 'y'}
+                                {if $reportCateg eq '' and $showCateg eq 'y'}
                                     <td>{assign var=ic value=$actionlog.categId}{$categNames[$ic]|escape}</td>
                                 {/if}
                                 <td class="text">{tr}{$actionlog.ip}{/tr}</td>
@@ -409,10 +413,10 @@
                         {/if}
                     {/foreach}
                 {/if}
-                {if $reportCategory}
+                {if $reportCategory  and $reportCateg !== ''}
                     &nbsp;&mdash;&nbsp;
                     {tr}Category:{/tr}
-                    {$reportCateg}
+                    {$reportCateg|escape}
                 {/if}
             </h2>
             <i>{tr}Volumes are equally distributed on each contributors/author{/tr}</i>

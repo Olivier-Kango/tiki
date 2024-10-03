@@ -2,7 +2,7 @@
 {modules_list list=$modLastActions nonums=$nonums}
     {section name=ix loop=$modLastActions}
         <li>
-            {capture name=label}{if $showuser eq 'y'}{$modLastActions[ix].user|username}: {/if}{$modLastActions[ix].action} {$modLastActions[ix].objectType} {$modLastActions[ix].object|escape}{if $showdate eq 'y'} {tr}at{/tr} {$modLastActions[ix].lastModif|tiki_short_datetime}{/if}{/capture}
+    {capture name=label}{if $showuser eq 'y'}{$modLastActions[ix].user|username}: {/if}{if $modLastActions[ix].object eq 'system'}{$modLastActions[ix].comment}{else}{$modLastActions[ix].action}{/if} {$modLastActions[ix].objectType} {$modLastActions[ix].object|escape}{if $showdate eq 'y'} {tr}at{/tr} {$modLastActions[ix].lastModif|tiki_short_datetime}{/if}{/capture}
             {if $modLastActions[ix].object ne ''}
                 <a class="linkmodule" href="tiki-index.php?page={$modLastActions[ix].object|escape:"url"}" title="
                 {if (strlen($smarty.capture.label) > $maxlen) && ($maxlen > 0)}

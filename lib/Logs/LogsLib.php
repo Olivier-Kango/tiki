@@ -591,12 +591,6 @@ class LogsLib extends TikiLib
                 }
             }
 
-            // For tiki logs
-            if ($res['objectType'] === 'system') {
-                $what = $res['object'] === 'system' ? '' : $res['object'] . ' : ';
-                $res['object'] = $res['action'];
-                $res['action'] = $what . $res['comment'];
-            }
             $ret[] = $res;
         }
 
@@ -619,7 +613,7 @@ class LogsLib extends TikiLib
 
         foreach ($logins as $login) {
             if (! array_key_exists($login['user'], $logTimes)) {
-                if ($login['action'] == 'timeout' || $login['action'] == 'logged out') {
+                if ($login['comment'] == 'timeout' || $login['comment'] == 'logged out') {
                     $logTimes[$login['user']]['last'] = $startDate;
                 } else {
                     $logTimes[$login['user']]['last'] = 0;
@@ -628,15 +622,15 @@ class LogsLib extends TikiLib
                 $logTimes[$login['user']]['nbLogins'] = 0;
             }
 
-            if (strstr($login['action'], 'logged from') || $login['action'] == 'back') {
-                if (strstr($login['action'], 'logged from')) {
+            if (strstr($login['comment'], 'logged from') || $login['comment'] == 'back') {
+                if (strstr($login['comment'], 'logged from')) {
                     ++$logTimes[$login['user']]['nbLogins'];
                 }
                 // can be already log in
                 if ($logTimes[$login['user']]['last'] == 0) {
                     $logTimes[$login['user']]['last'] = $login['lastModif'];
                 }
-            } elseif (($login['action'] == 'timeout' || $login['action'] == 'logged out') && $logTimes[$login['user']]['last'] > 0) {
+            } elseif (($login['comment'] == 'timeout' || $login['comment'] == 'logged out') && $logTimes[$login['user']]['last'] > 0) {
                 $logTimes[$login['user']]['time'] += $login['lastModif'] - $logTimes[$login['user']]['last'];
                 $logTimes[$login['user']]['last'] = 0;
             }
@@ -665,7 +659,6 @@ class LogsLib extends TikiLib
             $logTimes[$user]['hours'] = $nbHour - $nbDay * 24;
             $logTimes[$user]['days'] = $nbDay;
         }
-
         return $logTimes;
     }
 
@@ -688,7 +681,6 @@ class LogsLib extends TikiLib
                 $bytes['del'] = $matches[1];
             }
         }
-
         return $bytes;
     }
 
@@ -722,10 +714,10 @@ class LogsLib extends TikiLib
         $actionlogConf = $this->get_all_actionlog_conf();
 
         foreach ($actions as $action) {
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
             $name = $action['action'] . '/' . $action['objectType'];
@@ -753,7 +745,10 @@ class LogsLib extends TikiLib
         }
 
         usort($stats, function ($a, $b) {
-            return $a[0] <=> $b[0];  // will sort on the first field
+            $firstKeyA = array_key_first($a);
+            $firstKeyB = array_key_first($b);
+            // compare by the first key value
+            return $a[$firstKeyA] <=> $b[$firstKeyB];
         });
 
         return $stats;
@@ -773,11 +768,11 @@ class LogsLib extends TikiLib
                 continue;
             }
 
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
 
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
 
@@ -825,11 +820,11 @@ class LogsLib extends TikiLib
             //if ($action['categId'] == 0) print also stat for non categ object
             //  continue;
 
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
 
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
             $key = $action['categId'];
@@ -843,6 +838,7 @@ class LogsLib extends TikiLib
                     }
                 }
             }
+
             ++$stats[$key][$action['action'] . '/' . $action['objectType']];
         }
         sort($stats); //sort on the first field category
@@ -859,11 +855,11 @@ class LogsLib extends TikiLib
             //if ($action['categId'] == 0) print also stat for non categ object
             //  continue;
 
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
 
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
 
@@ -909,11 +905,11 @@ class LogsLib extends TikiLib
             //if ($action['categId'] == 0) print also stat for non categ object
             //  continue;
 
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
 
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
 
@@ -976,11 +972,11 @@ class LogsLib extends TikiLib
                 continue;
             }
 
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
 
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
 
@@ -1223,11 +1219,11 @@ class LogsLib extends TikiLib
         $tab = [];
 
         foreach ($actions as $action) {
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
 
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
 
@@ -1490,11 +1486,11 @@ class LogsLib extends TikiLib
         foreach ($actions as $action) {
             $bytes = $this->get_volume_action($action);
 
-            if (strpos($action['action'], 'logged from') === 0) {
+            if (strpos($action['comment'], 'logged from') === 0) {
                 $action['action'] = 'login';
             }
 
-            if (strpos($action['action'], 'logged out') === 0) {
+            if (strpos($action['comment'], 'logged out') === 0) {
                 $action['action'] = 'login';
             }
 

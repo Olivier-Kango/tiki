@@ -104,9 +104,15 @@ $auto_query_args = [
         'startDate_Day',
         'startDate_Month',
         'startDate_Year',
+        'Time_Hour',
+        'Time_Minute',
+        'Time_Second',
         'endDate_Day',
         'endDate_Month',
         'endDate_Year',
+        'end_Hour',
+        'end_Minute',
+        'end_Second',
         'selectedUsers',
         'selectedGroups',
         'list',
@@ -364,7 +370,11 @@ if (isset($_REQUEST['list']) || isset($_REQUEST['export']) || isset($_REQUEST['g
         $_REQUEST['categId'] = '';
     } else {
         $url .= '&amp;categId=' . $_REQUEST['categId'];
-        $smarty->assign('reportCateg', $categNames[$_REQUEST['categId']]);
+        $reportCateg = '';
+        if (isset($_REQUEST['categId']) && array_key_exists($_REQUEST['categId'], $categNames)) {
+            $reportCateg = $categNames[$_REQUEST['categId']];
+        }
+        $smarty->assign('reportCateg', $reportCateg);
     }
     $showCateg = $logslib->action_is_viewed('*', 'category');
     $smarty->assign('showCateg', $showCateg ? 'y' : 'n');

@@ -41,14 +41,14 @@
         {section name=ix loop=$list}
             <tr>
                 <td class="id">{$list[ix].actionId}</td>
-                <td class="text">{$list[ix].object|escape}</td>
+                <td class="text">{$list[ix].action|escape}</td>
                 <td class="date"><span title="{$list[ix].lastModif|tiki_long_datetime}">{$list[ix].lastModif|tiki_short_datetime}</span></td>
                 <td class="username">{$list[ix].user|userlink}</td>
-                <td class="text"><textarea class="form-control" readonly="readonly">{$list[ix].action|escape:'html'}</textarea></td>
+                <td class="text"><textarea class="form-control" readonly="readonly">{$list[ix].comment|escape:'html'}</textarea></td>
                 <td class="text">{$list[ix].ip|escape:"html"}</td>
                 <td class="text"><span title="{$list[ix].client|escape:'html'}">{$list[ix].client|truncate:30:"..."|escape:'html'}</span></td>
                 <td class="text">
-                    {if $list[ix].object == 'profile apply' && strpos($list[ix].log, 'reverted') === false}
+                    {if $list[ix].action == 'profile apply' && strpos($list[ix].log, 'reverted') === false}
                         <form method="post" action="tiki-syslog.php" onsubmit="return confirm('{tr}Are you sure you want to revert{/tr} &QUOT;{$list[ix].action|escape}&QUOT;?');">
                             {ticket}
                             <input type="hidden" name="page" value="profiles">
@@ -62,7 +62,7 @@
                     {/if}
                 </td>
                 <td>
-                    {if $list[ix].object == 'profile apply' && strpos($list[ix].log, 'reverted') === false}
+                    {if $list[ix].action == 'profile apply' && strpos($list[ix].log, 'reverted') === false}
                         <form method="post" action="tiki-syslog.php" onsubmit="return confirm('{tr}Are you sure you want to revert{/tr} &QUOT;{$list[ix].action|escape}&QUOT;?');">
                             {ticket}
                             <input type="hidden" name="page" value="profiles">
