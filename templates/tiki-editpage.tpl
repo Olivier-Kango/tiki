@@ -47,6 +47,52 @@
                 ajax_preview( 'editwiki', autoSaveId, true );
             }
             return false;
+        });
+        $(".pdfPreviewBtn").on("click", function(){
+            function autoSaveCallback() {
+                $.getJSON($.service("edit", "preview"), {
+                    editor_id: 'editwiki',
+                    autoSaveId: autoSaveId,
+                    inPage: 1,
+                    show_preview: 1
+                }, function(response) {
+                    if (response.pdf) {
+                        var pdfDataUri = 'data:application/pdf;base64,' + response.pdf;
+                        var embedHtml = "<embed width='100%' height='100%' src='" + pdfDataUri + "' type='application/pdf' />";
+                        var pdfWindow = window.open("", "_blank");
+                        pdfWindow.document.open();
+                        pdfWindow.document.write(embedHtml);
+                        pdfWindow.document.close();
+                        return false;
+                    } else if (response.error) {
+                        $("#tikifeedback").html(
+                            `<div class = "alert alert-danger alert-dismissible">
+                                ${response.error}
+                                <button type="button" class= "btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`
+                        );
+                        return false;
+                    } else {
+                        $("#tikifeedback").html(
+                            `<div class = "alert alert-danger alert-dismissible">
+                                Error generating PDF preview.
+                                <button type="button" class= "btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>`
+                        );
+                        return false;
+                    }
+                }).fail(function() {
+                    $("#tikifeedback").html(
+                        `<div class = "alert alert-danger alert-dismissible">
+                            Error generating PDF preview.
+                            <button type="button" class= "btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`
+                    );
+                    return false;
+                });
+            }
+            auto_save('editwiki', autoSaveCallback);
+            return false;
         });{/jq}
     {else}
         <input type="hidden" value="{$alert_content}" name="alert_content">

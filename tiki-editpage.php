@@ -1790,6 +1790,7 @@ if ($need_lang) {
 
         $smarty->assign('alert_content', $remarksbox);
     }
+    $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
     $smarty->display('tiki-editpage.tpl');
 }
 /**

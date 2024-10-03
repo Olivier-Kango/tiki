@@ -1,5 +1,8 @@
 <div class="actions d-flex justify-content-center">
     <input type="hidden" name="no_bl" value="y">
+    {if $pdf_export eq 'y' and $tiki_p_export_pdf eq 'y'}
+        <input type="submit" class="wikiaction btn btn-secondary me-2 pdfPreviewBtn" title="{tr}Preview your changes as PDF.{/tr}" name="pdfPreview" value="{tr}PDF Preview{/tr}">
+    {/if}
     <input type="submit" class="wikiaction btn btn-secondary me-2 previewBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
     {if $page|lower neq 'sandbox' or $tiki_p_admin eq 'y'}
         {if ! isset($page_badchars_display) or $prefs.wiki_badchar_prevent neq 'y'}

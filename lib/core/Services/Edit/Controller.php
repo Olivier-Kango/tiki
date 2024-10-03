@@ -226,6 +226,22 @@ $(window).on("load", function(){
                 $footnote = '';
             }
 
+            if ($input->show_preview->int()) {
+                try {
+                    require_once 'lib/pdflib.php';
+                    $generator = new PdfGenerator($prefs['print_pdf_from_url']);
+                    if (! empty($generator->error)) {
+                        return ['error' => $generator->error];
+                    }
+                    $pdfToken = md5($page . time() . uniqid('', true));
+                    $content = $parsed . $footnote;
+                    $pdf = $generator->getPdf('tiki-print.php', ['page' => $page, 'pdf_token' => $pdfToken], $content);
+                    return ['pdf' => base64_encode($pdf)];
+                } catch (Exception $e) {
+                    return ['error' => tr($e->getMessage())];
+                }
+            }
+
             return ['parsed' => $parsed, 'parsed_footnote' => $footnote];
         }
     }
