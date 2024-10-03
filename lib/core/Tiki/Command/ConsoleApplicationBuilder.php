@@ -191,6 +191,7 @@ class ConsoleApplicationBuilder
                 new UserUnlockCommand(),
                 new UsersListCommand(),
                 new UsersPasswordCommand(),
+                new UsersTemporaryCommand(),
                 new TokensClearCommand(),
                 new CookiesClearCommand(),
                 new StatsCommand(),
