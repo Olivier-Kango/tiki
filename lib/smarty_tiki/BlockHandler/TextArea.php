@@ -233,8 +233,7 @@ class TextArea extends Base
                 $smarty->assign('textarea_attributes', $textarea_attributes);
             }
             $smarty->assign('textarea_syntax', $params['syntax']);
-            $smarty->assign('objectId', $params['objectId']);
-
+            $smarty->assign('objectId', isset($params['objectId']) ? $params['objectId'] : null);
             $smarty->assign_by_ref('textareadata', $content);
             $html .= $smarty->fetch('wiki_edit.tpl');
 

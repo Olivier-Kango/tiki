@@ -80,7 +80,7 @@
                                         <th>{tr}Groups{/tr}</th>
                                         <td></td>
                                     </tr>
-
+                                    {if isset($assigned_modules[$zone_initial])}
                                     {foreach $assigned_modules[$zone_initial] as $module}
                                         <tr>
                                             <td>{$module.name|escape}</td>
@@ -145,6 +145,7 @@
                                     {foreachelse}
                                         {norecords _colspan=7}
                                     {/foreach}
+                                    {/if}
                                 </table>
                             </div>
                         </div>
