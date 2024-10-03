@@ -801,6 +801,7 @@ if ($prefs['feature_inline_comments'] === 'y' && $prefs['comments_inline_annotat
         $objectIdentifier = urlencode($object['type']) . ':' . urlencode($object['object']);
 
         $headerlib
+            ->add_js_module('import moment from "moment"; window.moment = moment;')
             ->add_jsfile('vendor_bundled/vendor/openannotation/annotator/annotator-full.min.js')
             ->add_cssfile('vendor_bundled/vendor/openannotation/annotator/annotator.min.css')
             // language=JavaScript
@@ -846,13 +847,9 @@ $(".annotator-outer.annotator-viewer").on("load", function (event, annotations) 
 });
 // update the annotaion object with the user name and date for newly created annotations
 $("#top").on("annotationCreated", function (e, annotation) {
-    const date = new Date();
-    annotation.commentDate = $.datepicker.formatDate(jqueryTiki.shortDateFormat, date) + " " +
-        $.datepicker.formatTime(jqueryTiki.shortTimeFormat, {
-            hour: date.getHours(),
-            minute: date.getMinutes(),
-            second: date.getSeconds()
-        });
+    const momentDate = moment();
+    annotation.commentDate = momentDate.format(jqueryTiki.shortDateFormat) + " " +
+        momentDate.format(jqueryTiki.shortTimeFormat);
     annotation.realName = jqueryTiki.userRealName || jqueryTiki.username;
 });'
             );
