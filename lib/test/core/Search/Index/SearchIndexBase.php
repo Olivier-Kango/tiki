@@ -44,6 +44,8 @@ abstract class SearchIndexBase extends TikiTestCase
         $positive = new Search_Query('Bonjour');
         $negative = new Search_Query('NotInDocument');
 
+        $res = $positive->search($this->index);
+
         $this->assertContains(['object_type' => 'wiki page', 'object_id' => 'HomePage'], $this->stripExtra($positive->search($this->index)));
         $this->assertNotContains(['object_type' => 'wiki page', 'object_id' => 'HomePage'], $this->stripExtra($negative->search($this->index)));
     }

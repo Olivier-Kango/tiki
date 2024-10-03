@@ -359,6 +359,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 
     public function endUpdate()
     {
+        $this->pdo_client->flush();
         $this->optimize();
     }
 

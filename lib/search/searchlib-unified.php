@@ -1124,6 +1124,7 @@ class UnifiedSearchLib
                 break;
             case "mysql":
                 $client = new \Search\Manticore\PdoClient($target, $prefs['unified_manticore_mysql_port']);
+                $client->startBulk();
                 break;
             default:
                 throw new Exception(tr('Invalid Manticore Search client type: %0', $type));
