@@ -287,6 +287,13 @@ class Tracker_Field_Text extends \Tracker\Field\AbstractItemField implements \Tr
             $data = [$baseKey => $typeFactory->$fieldType($value)];
             foreach ($decoded as $lang => $content) {
                 $data[$baseKey . '_' . $lang] = $typeFactory->$fieldType($content);
+                /*
+                I'm leaving this in for now because I don't have time to fix it.  This is from a hack in https://gitlab.com/tikiwiki/tiki/-/merge_requests/4877/diffs?commit_id=8c1bd7b40b2043c42a077276ba1265b1252ac900
+
+                It relies on assuming that without a base prefix this will be merged as a key matching title, but the raw value of title is handled handled directly in TrackerItemSource.php
+
+                So, either we expose multilingual values in an API on fields, or we handle the title field directly in EVERY field that can be used for title.  And from TrackerLib::get_isMain_value(), that is not just text fields... benoitg - 2024-10-04
+                */
                 if ($this->isMainField()) {
                     $data['title_' . $lang] = $typeFactory->$fieldType($content);
                 }
@@ -316,14 +323,14 @@ class Tracker_Field_Text extends \Tracker\Field\AbstractItemField implements \Tr
         if ($this->getConfiguration('isMultilingual') == 'y') {
             foreach ($prefs['available_languages'] as $lang) {
                 $data[] = $baseKey . '_' . $lang;
+                //See matching comment in getDocumentPart
                 if ($this->isMainField()) {
-                    $data[] = ['title_' . $lang];
+                    $data[] = 'title_' . $lang;
                 }
             }
         } elseif ($this->getOption('exact') == 'y') {
             $data[] = $baseKey . '_exact';
         }
-
         return $data;
     }
 
