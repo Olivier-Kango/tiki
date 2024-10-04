@@ -10,7 +10,7 @@
 {/if}
 
 {if $posts and $tiki_p_blog_admin eq 'y'}
-    <form name="checkboxes_on" method="post" action="tiki-list_posts.php" role="form" class="form">
+    <form name="checkboxes_on" method="post" action="tiki-list_posts.php"  class="form">
         {ticket}
     {query _type='form_input'}
 {/if}

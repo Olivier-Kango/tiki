@@ -185,7 +185,7 @@
         {else}
             <h2>{tr}Create New Forum{/tr}</h2>
         {/if}
-        <form action="tiki-admin_forums.php" method="post" role="form">
+        <form action="tiki-admin_forums.php" method="post">
             {ticket}
             <input type="hidden" name="forumId" value="{$forumId|escape}"> <input type="hidden" name="parentId" value="{$parentId|escape}">
             <fieldset>
@@ -631,7 +631,7 @@
         </form>
     {else}{*duplicate*}
         <h2>{tr}Duplicate Forum{/tr}</h2>
-        <form action="tiki-admin_forums.php" method="post" role="form">
+        <form action="tiki-admin_forums.php" method="post">
             {ticket}
             <div class="tiki-form-group row">
                 <label class="col-sm-4 col-form-label" for="duplicate_name">{tr}Name{/tr}</label>

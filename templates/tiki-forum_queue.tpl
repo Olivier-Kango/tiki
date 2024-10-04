@@ -6,7 +6,7 @@
 </h4>
 
 {if $smarty.request.qId and $form eq 'y'}
-    <form method="post" action="tiki-forum_queue.php" role="form">
+    <form method="post" action="tiki-forum_queue.php">
         {ticket}
         <div class="card">
             <div class="card-header">

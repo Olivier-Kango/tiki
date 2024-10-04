@@ -28,7 +28,7 @@
                 <h2 class="text-bg-secondary fs-4 py-2 px-3 mb-0">{icon name="sliders-h"} <span class="ms-1 narrow-hide">Configure</span></h2>
 
                     {* Preference filters moved from admin_navbar.tpl start *}
-                    <form method="post" class="form g-3 align-items-center" role="form"{* style="width: 15rem;"*}> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
+                    <form method="post" class="form g-3 align-items-center" {* style="width: 15rem;"*}> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
                         {* <div class="col-auto form-check">
                             {ticket}
                             <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if !empty($pref_filters.advanced.selected)} checked="checked"{/if}>
@@ -91,7 +91,7 @@
                 {* Preference filters moved from admin navbar.tpl end *}
 
                 <div class="accordion-item pb-2 search-preferences" style="background: transparent;">
-                    <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
+                    <form method="post" class="d-flex justify-content-center my-md-0 ms-auto">
                         <div class="my-1 mx-4">
                             <input type="hidden" name="filters">
                             <div class="input-group">

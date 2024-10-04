@@ -1,6 +1,6 @@
 {tikimodule error=$module_params.error title=$tpl_module_title name="google" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
 
-    <form method="get" action="http://www.google.com/search" target="Google" role="form">
+    <form method="get" action="http://www.google.com/search" target="Google">
         <div class="mb-3 pe-5 row gy-2 gx-3 align-items-center flex-nowrap">
             <div class="col-auto">
                 <input type="text" name="q" class="form-control" aria-labelledby="google" maxlength="100" />

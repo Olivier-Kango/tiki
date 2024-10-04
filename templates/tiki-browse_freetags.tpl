@@ -3,7 +3,7 @@
 {jq}
     $('#tagBox').tiki('autocomplete', 'tag', {multiple: true, multipleSeparator: " "} );
 {/jq}
-<form action="tiki-browse_freetags.php" method="get" name="my_form" class="freetagsearch" role="form">
+<form action="tiki-browse_freetags.php" method="get" name="my_form" class="freetagsearch">
     <div class="mb-3 row">
         <div class="col-sm-10">
             <div class="input-group">

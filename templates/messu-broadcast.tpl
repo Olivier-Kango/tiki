@@ -3,7 +3,7 @@
 {include file='tiki-mytiki_bar.tpl'}
 {include file='messu-nav.tpl'}
 
-<form role="form" action="messu-broadcast.php" method="post">
+<form action="messu-broadcast.php" method="post">
     {ticket}
     <div class="mb-3 row">
         <label class="col-sm-2 col-form-label" for="broadcast-group">{tr}Group{/tr}</label>

@@ -30,7 +30,7 @@
         {else}
             <h2>{tr}Add new category{/tr}</h2>
         {/if}
-        <form action="tiki-admin_categories.php" method="post" role="form">
+        <form action="tiki-admin_categories.php" method="post">
             {ticket}
             <input type="hidden" name="categId" value="{$categId|escape}">
             <div class="mb-3 row">
@@ -261,7 +261,7 @@ $("#remove_object_form").off("submit").on("submit", function (e) {
         {tab name="{tr}Moving objects{/tr}"}
             <h2>{tr}Moving objects between categories{/tr}</h2>
             <h4>{tr}Current category:{/tr} {$categ_name|escape}</h4><br>
-            <form method="post" action="tiki-admin_categories.php" name="move" role="form">
+            <form method="post" action="tiki-admin_categories.php" name="move">
                 {ticket}
                 <fieldset>
                     <legend>{tr}Perform an action on all objects in the current category:{/tr}</legend>
@@ -323,7 +323,7 @@ $("#remove_object_form").off("submit").on("submit", function (e) {
         {tab name="{tr}Add objects{/tr}"}
             <h2>{tr}Add objects to category:{/tr} <b>{$categ_name|escape}</b></h2>
             {if $prefs.feature_search eq 'y' and $prefs.unified_add_to_categ_search eq 'y'}
-                <form id="add_object_form" method="post" action="{service controller=category action=categorize}" role="form">
+                <form id="add_object_form" method="post" action="{service controller=category action=categorize}">
                     <div class="row">
                         <label class="col-sm-4">Types of object
                             <select class="form-select" id="add_object_type">
@@ -382,7 +382,7 @@ $("#add_object_type").on("change", function () {
                 {/jq}
             {else}{* feature_search=n (not unified search) *}
 
-                <form method="get" action="tiki-admin_categories.php" role="form">
+                <form method="get" action="tiki-admin_categories.php">
                     <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label" for="find_objects">
                             {tr}Find{/tr}
@@ -398,7 +398,7 @@ $("#add_object_type").on("change", function () {
                     <input type="hidden" name="find" value="{$find|escape}">
                 </form>
                 {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
-                <form action="tiki-admin_categories.php" method="post" role="form">
+                <form action="tiki-admin_categories.php" method="post">
                     {ticket}
                     <input type="hidden" name="parentId" value="{$parentId|escape}">
                     <fieldset>
@@ -639,7 +639,7 @@ $("#add_object_type").on("change", function () {
     {if empty($categId)}
         {tab name="{tr}Batch upload{/tr}"}
             <h2>{tr}Batch upload{/tr}</h2>
-            <form action="tiki-admin_categories.php" method="post" enctype="multipart/form-data" role="form">
+            <form action="tiki-admin_categories.php" method="post" enctype="multipart/form-data">
                 {ticket}
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}CSV File{/tr}</label>

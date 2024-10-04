@@ -14,7 +14,7 @@
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="admin-navbar-collapse-1">
         {* form copied to include anchors.tpl *}
-       <form method="post" class="form g-3 align-items-center" role="form"{* style="width: 15rem;"*}> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
+       <form method="post" class="form g-3 align-items-center" {* style="width: 15rem;"*}> {* Specified width in rem so larger fonts wouldn't cause wrapping -- This width was overridden in the stylesheet so removed (6/8/2023) *}
             {* <div class="col-auto form-check">
                 {ticket}
                 <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if !empty($pref_filters.advanced.selected)} checked="checked"{/if}>
@@ -78,7 +78,7 @@
         {if $prefs.theme_unified_admin_backend neq 'y'}
             <ul class="navbar-nav flex-row d-md-flex me-4">
                 <li class="nav-item">
-                    <form method="post" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form">
+                    <form method="post" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto">
                         <div class="mx-0">
                             <input type="hidden" name="filters">
                             <div class="input-group">
@@ -101,7 +101,7 @@
     <div class="alert alert-secondary alert-dismissible pe-3" id="pref_searchresults">
         <button type="button" class="btn-close mt-3" aria-hidden="true" data-bs-dismiss="alert"></button>
             <h3 class="alert-heading">{tr}Preference Search Results{/tr}</h3>
-        <form method="post" href="tiki-admin.php" class="px-4" role="form">
+        <form method="post" href="tiki-admin.php" class="px-4">
             <div class="pref_search_results">
                 {foreach from=$lm_searchresults item=prefName}
                     {preference name=$prefName get_pages='y' visible='always'}

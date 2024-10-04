@@ -5,7 +5,7 @@
         {button href="tiki-article_types.php" _type="link" _icon_name="structure" _text="{tr}Article Types{/tr}"}
     {/if}
 </div>
-<form enctype="multipart/form-data" action="tiki-admin_topics.php" method="post" role="form">
+<form enctype="multipart/form-data" action="tiki-admin_topics.php" method="post">
     {ticket}
     <h2>{tr}Add topic{/tr}</h2>
     <div class="mb-3 row">

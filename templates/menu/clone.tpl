@@ -5,7 +5,7 @@
 {/block}
 
 {block name="content"}
-    <form action="{service controller=menu action=clone}" method="post" role="form">
+    <form action="{service controller=menu action=clone}" method="post">
         <div class="mb-3 row mx-2">
             <label for="name" class="col-form-label">
                 {tr}Name{/tr}

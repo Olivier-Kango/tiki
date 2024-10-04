@@ -4,7 +4,7 @@
     {button href="tiki-theme_control_objects.php" class="btn btn-primary" _text="{tr}Control by Objects{/tr}"}
 </div>
 <h2 class="my-3">{tr}Assign themes to sections{/tr}</h2>
-<form action="tiki-theme_control_sections.php" method="post" class="row gy-2 gx-3 align-items-center mb-4" role="form">
+<form action="tiki-theme_control_sections.php" method="post" class="row gy-2 gx-3 align-items-center mb-4">
     {ticket}
     <div class="col-auto">
         <label for="section">{tr}Section{/tr}</label>
@@ -28,7 +28,7 @@
 </form>
 
 <h2>{tr}Assigned sections{/tr}</h2>
-<form action="tiki-theme_control_sections.php" method="post" role="form" class="form">
+<form action="tiki-theme_control_sections.php" method="post" class="form">
     {ticket}
     <div class="table-responsive">
         <table class="table">

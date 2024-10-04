@@ -16,7 +16,7 @@
 {/block}
 
 {block name="content"}
-    <form class="form save-fields" method="post" action="{service controller=tracker action=save_fields}" role="form">
+    <form class="form save-fields" method="post" action="{service controller=tracker action=save_fields}">
         <table id="fields" class="table table-responsive table-condensed table-hover">
             <thead>
                 <tr>

@@ -5,7 +5,7 @@
     {button href="tiki-index.php?page=$thispage" _icon_name="file" _class="btn navbar-btn" _text="{tr}View page{/tr}"}
 </div>
 
-<form action="tiki-rename_page.php" method="post" role="form" class="d-flex flex-row flex-wrap align-items-center mt-3">
+<form action="tiki-rename_page.php" method="post" class="d-flex flex-row flex-wrap align-items-center mt-3">
     {ticket}
     <input type="hidden" name="page" value="{$page|escape}">
     {if isset($page_badchars_display)}

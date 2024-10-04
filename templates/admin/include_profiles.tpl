@@ -140,7 +140,7 @@
     {/tab}
 
     {tab name="{tr}Export{/tr}"}
-        <form action="tiki-admin.php?page=profiles" method="post" role="form">
+        <form action="tiki-admin.php?page=profiles" method="post">
             <input type="hidden" name="redirect" value=0>
             <fieldset id="export_to_yaml">
                 <legend class="h3">{tr}Export YAML{/tr}</legend>

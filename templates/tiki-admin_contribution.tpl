@@ -2,7 +2,7 @@
 
 {if ! empty($contribution)}
     <h2>{tr}Edit the contribution:{/tr} {$contribution.name|escape}</h2>
-    <form enctype="multipart/form-data" action="tiki-admin_contribution.php" method="post" role="form">
+    <form enctype="multipart/form-data" action="tiki-admin_contribution.php" method="post">
         {ticket}
         <input type="hidden" name="contributionId" value="{$contribution.contributionId}">
         <div class="mb-3 row">
@@ -24,7 +24,7 @@
 {/if}
 
 <h2>{tr}Settings{/tr}</h2>
-<form action="tiki-admin_contribution.php?page=features" method="post" role="form">
+<form action="tiki-admin_contribution.php?page=features" method="post">
     {ticket}
     <div class="mb-3 row">
         <label class="col-sm-6 form-check-label" for=feature_contribution_mandatory">
@@ -94,7 +94,7 @@
 
 <h2>{tr}Create a new contribution{/tr}</h2>
 
-<form enctype="multipart/form-data" action="tiki-admin_contribution.php" method="post" role="form">
+<form enctype="multipart/form-data" action="tiki-admin_contribution.php" method="post">
     {ticket}
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label" for="new_contribution_name">{tr}Name{/tr}</label>

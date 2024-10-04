@@ -5,7 +5,7 @@
 {/block}
 
 {block name="content"}
-<form role="form" method="post" action="{service controller=search_stored action=select}">
+<form method="post" action="{service controller=search_stored action=select}">
     <div class="card">
         <div class="card-header">
             <input id="create_new" type="radio" name="queryId" value="" checked>

@@ -58,7 +58,7 @@
 
 {if !isset($sent) && empty($errors)}
     <div id="ajaxmsg"></div>
-    <form method="post" action="tiki-share.php?url={$url|escape:url}" id="share-form" role="form">
+    <form method="post" action="tiki-share.php?url={$url|escape:url}" id="share-form">
         {ticket}
         <div class="mb-3 row">
             <label class="col-form-label col-sm-3">

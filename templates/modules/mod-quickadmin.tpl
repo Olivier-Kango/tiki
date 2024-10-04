@@ -33,7 +33,7 @@
                         </h6>
                         <div class="dropdown-divider"></div>
                         <div class="dropdown-item mb-2 mt-2">
-                            <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form">
+                            <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto">
                                 <div class="input-group">
                                     <input type="text" name="lm_criteria" value="{if ! empty($smarty.request.lm_criteria)}{$smarty.request.lm_criteria|escape}{/if}" class="form-control form-control-sm" placeholder="Search preferences...">
                                     <button type="submit" class="btn btn-primary btn-sm">

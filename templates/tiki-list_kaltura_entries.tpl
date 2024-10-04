@@ -1,7 +1,7 @@
 {title help="Kaltura" admpage="video"}{if $entryType eq "mix"}{tr}Remix Entries{/tr}{else}{if $view ne "browse"}{tr}List Media{/tr}{else}{tr}Browse Media{/tr}{/if}{/if}{/title}
 
 <div class="row mb-3 row">
-    <form method="post" class="col-md-12 d-flex flex-row flex-wrap align-items-center" role="form">
+    <form method="post" class="col-md-12 d-flex flex-row flex-wrap align-items-center">
         <label class="col-form-label col-sm-2" for="find">{tr}Find{/tr}</label>
         <div class="input-group col-sm-8">
             <input type="text" name="find" class="form-control" id="find" value="{$find|escape}">

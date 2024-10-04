@@ -43,7 +43,7 @@
             {if $individual eq 'y'}
                 {permission_link mode=link type=sheet id=$sheetId title=$name label="{tr}There are individual permissions set for this sheet{/tr}"}
             {/if}
-            <form action="tiki-sheets.php" method="post" role="form">
+            <form action="tiki-sheets.php" method="post">
             {ticket}
                 <input type="hidden" name="sheetId" value="{$sheetId|escape}">
                 <div class="mb-3 row">

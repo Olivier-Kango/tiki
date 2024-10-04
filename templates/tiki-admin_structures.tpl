@@ -74,7 +74,7 @@
                 {include file='find.tpl' find_show_languages='y' find_show_categories='y' find_show_num_rows='y'}
             </div>
         {/if}
-        <form class="form" role="form">
+        <form class="form">
             {ticket}
             <div class="{if $js}table-responsive{/if}"> {* table-responsive class cuts off css drop-down menus *}
                 <table class="table table-striped table-hover">

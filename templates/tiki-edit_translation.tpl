@@ -35,7 +35,7 @@
             </div>
 
             <a id="new_translation"></a>
-            <form method="post" action="tiki-editpage.php" onsubmit="return validate_translation_request(this)" role="form">
+            <form method="post" action="tiki-editpage.php" onsubmit="return validate_translation_request(this)">
                 <div class="card mb-4">
                     <div class="card-header">
                         {tr}Translate this page to a new language{/tr}
@@ -86,7 +86,7 @@
             </form>
 
             <a id="change_language"></a>
-            <form method="post" action="tiki-edit_translation.php" role="form">
+            <form method="post" action="tiki-edit_translation.php">
                 <div class="card mb-4">
                     <div class="card-header">
                         {tr}Change language for this page{/tr}

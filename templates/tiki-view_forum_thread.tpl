@@ -145,7 +145,7 @@
 
 {include file='comments.tpl'}
 
-    <form role="form" id='time_control' method="get" action="tiki-view_forum_thread.php">
+    <form id='time_control' method="get" action="tiki-view_forum_thread.php">
         <div class="mb-3 row mx-0">
             <input type="hidden" name="comments_offset" value="0">{*Reset offset to 0 when applying a new filter *}
             <input type="hidden" name="comments_threadId" value="{$comments_threadId|escape}">
@@ -181,7 +181,7 @@
 
 <div class="mb-3">
     {if $prefs.feature_forum_quickjump eq 'y' && $all_forums|@count > 1}
-        <form role="form" id='quick' class="row" method="get" action="tiki-view_forum.php">
+        <form id='quick' class="row" method="get" action="tiki-view_forum.php">
             <label class="col-sm-6 col-form-label text-end" for="forumId">{tr}Jump to forum:{/tr}</label>
             <div class="col-sm-6">
                 <select id="forumId" class="form-control" name="forumId" onchange="javascript:document.getElementById('quick').trigger("submit");">

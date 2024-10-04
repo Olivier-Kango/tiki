@@ -244,7 +244,7 @@
     {tab name=$edtab}
         <h2>{$edtab}</h2>
 
-        <form action="tiki-admin_calendars.php" method="post" role="form">
+        <form action="tiki-admin_calendars.php" method="post">
             {ticket}
             <fieldset>
             <input type="hidden" name="calendarId" value="{$calendarId|escape}">
@@ -613,7 +613,7 @@
     {tab name=$subtab}
         <h2>{$subtab}</h2>
 
-        <form action="tiki-admin_calendars.php" method="post" role="form">
+        <form action="tiki-admin_calendars.php" method="post">
             {ticket}
             <fieldset>
             <input type="hidden" name="subscription[subscriptionId]" value="{$subscription.subscriptionId|escape}">

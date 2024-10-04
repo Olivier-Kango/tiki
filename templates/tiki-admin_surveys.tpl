@@ -105,7 +105,7 @@
             {permission_link mode=link type=survey permType=surveys id=$info.surveyId title=$info.name label="{tr}There are individual permissions set for this survey{/tr}"}
         {/if}
 
-        <form action="tiki-admin_surveys.php" method="post" role="form">
+        <form action="tiki-admin_surveys.php" method="post">
             {ticket}
             <div class="tiki-form-group row">
                 <input type="hidden" name="surveyId" value="{$info.surveyId|escape}">

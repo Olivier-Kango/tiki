@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-md-4 align-self-center col-left-sliding-panel mb-2 mb-md-0 ps-md-0">
                     <div class="col-md-12 col-search mb-2 px-0">
-                        <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-start w-100 justify-content-around my-2 my-md-0 ms-auto" role="form" target="_blank">
+                        <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-start w-100 justify-content-around my-2 my-md-0 ms-auto" target="_blank">
                             <div><label class="col-form-control me-md-3 text-start">Admin Features </label> </div>
                             <div class="d-flex">
                                 <input type="text" name="lm_criteria" value="{$smarty.request.lm_criteria|escape}" class="form-control form-control-sm me-2 col-md-auto" placeholder="Search preferences...">

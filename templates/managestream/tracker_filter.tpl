@@ -3,7 +3,7 @@
     {title}{assign var=title value="{tr}Tracker Rule{/tr}"}{$title|escape}{/title}
 {/block}
 {block name="content"}
-    <form role="form" method="post" action="{service controller=managestream action=tracker_filter}">
+    <form method="post" action="{service controller=managestream action=tracker_filter}">
         <div class="mb-3 row clearfix">
             <label for="sourceEvent" class="col-form-label col-md-3">
                 {tr}Source Event{/tr}

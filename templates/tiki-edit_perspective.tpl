@@ -111,7 +111,7 @@
                     <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
                 </div>
             </form>
-            <form method="post" id="searchform" action="tiki-edit_perspective.php" class="form offset-sm-2 clearfix" role="form">
+            <form method="post" id="searchform" action="tiki-edit_perspective.php" class="form offset-sm-2 clearfix">
                 {remarksbox type="info" title="{tr}Hint{/tr}"}
                     {tr}Search preferences below and drag them into the preference list above.{/tr}
                 {/remarksbox}

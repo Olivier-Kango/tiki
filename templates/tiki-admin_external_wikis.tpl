@@ -1,7 +1,7 @@
 {title help="External Wikis"}{tr}Admin External Wikis{/tr}{/title}
 
 <h2>{tr}Create/Edit External Wiki{/tr}</h2>
-<form action="tiki-admin_external_wikis.php" method="post" role="form">
+<form action="tiki-admin_external_wikis.php" method="post">
     {ticket}
     <input type="hidden" name="extwikiId" value="{$extwikiId|escape}">
     <div class="mb-3 row">

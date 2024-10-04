@@ -7,7 +7,7 @@
 {/if}
 
 <h2>{tr}Add notification{/tr}</h2>
-<form action="tiki-admin_notifications.php" method="post" role="form">
+<form action="tiki-admin_notifications.php" method="post">
     {ticket}
     <input type="hidden" name="find" value="{$find|escape}">
     <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">

@@ -5,7 +5,7 @@
 </div>
 
 <h2>{tr}Assign themes to objects{/tr}</h2>
-<form id='objform' action="tiki-theme_control_objects.php" method="post" {*class="d-flex flex-row flex-wrap align-items-center"*} role="form">
+<form id='objform' action="tiki-theme_control_objects.php" method="post" {*class="d-flex flex-row flex-wrap align-items-center"*}>
     {ticket}
     <div class="row mb-3">
         <label for="type" class="col-sm-2 col-form-label">{tr}Type{/tr}</label>
@@ -45,7 +45,7 @@
 
 {include file='find.tpl'}
 
-<form action="tiki-theme_control_objects.php" method="post" class="form" role="form">
+<form action="tiki-theme_control_objects.php" method="post" class="form">
     {ticket}
     <input type="hidden" name="type" value="{$type|escape}">
     <div class="table-responsive themeobj-table">

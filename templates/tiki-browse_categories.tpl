@@ -89,7 +89,7 @@
     </div>
 </div>
 
-<form method="post" action="tiki-browse_categories.php" class="d-flex flex-row flex-wrap align-items-center" role="form">
+<form method="post" action="tiki-browse_categories.php" class="d-flex flex-row flex-wrap align-items-center">
     <div class="mb-3 d-flex mx-0">
         <label class="col-form-label sr-only" for="find">{tr}Find{/tr}</label>
         <div class="input-group">

@@ -1,6 +1,6 @@
 {if $tiki_p_create_file_galleries eq 'y' and $gal_info.type neq 'user'}
     <h2>{tr}Duplicate File Gallery{/tr}</h2>
-    <form role="form" action="tiki-list_file_gallery.php{if isset($filegals_manager) and $filegals_manager neq ''}?filegals_manager={$filegals_manager}{/if}" method="post">
+    <form action="tiki-list_file_gallery.php{if isset($filegals_manager) and $filegals_manager neq ''}?filegals_manager={$filegals_manager}{/if}" method="post">
         {ticket}
         <div class="mb-3 row">
             <label for="name" class="col-sm-4 col-form-label">{tr}Name{/tr}</label>

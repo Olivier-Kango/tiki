@@ -3,7 +3,7 @@
     {title}{$title|escape}{/title}
 {/block}
 {block name="content"}
-    <form role="form" class="form" method="post" action="{service controller=managestream action=change_rule_type}">
+    <form class="form" method="post" action="{service controller=managestream action=change_rule_type}">
         <div class="mb-3 row">
             <label class="col-form-label">
                 {tr}Description{/tr}

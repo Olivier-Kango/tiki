@@ -52,7 +52,7 @@
 {/if}
 
 <h2>{tr}Add or edit rules{/tr}</h2>
-<form action="tiki-admin_banning.php" name="banningform" method="post" role="form">
+<form action="tiki-admin_banning.php" name="banningform" method="post">
     {ticket}
     <input type="hidden" name="banId" value="{$banId|escape}">
     <div class="mb-3 row">
@@ -170,7 +170,7 @@
 
 <h2 id="Import_rules_as_CSV">{tr}Import rules as CSV{/tr}</h2>
 
-<form method="post" action="tiki-admin_banning.php" enctype="multipart/form-data" role="form">
+<form method="post" action="tiki-admin_banning.php" enctype="multipart/form-data">
     {ticket}
     <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="csv">{tr}CSV File{/tr}

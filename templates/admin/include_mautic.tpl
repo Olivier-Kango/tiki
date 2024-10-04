@@ -1,4 +1,4 @@
-<form class="admin" method="post" action="tiki-admin.php?page=mautic" role="form" class="form">
+<form class="admin" method="post" action="tiki-admin.php?page=mautic" class="form">
     {ticket}
     <div class="t_navbar mb-4 clearfix">
         {include file='admin/include_apply_top.tpl'}

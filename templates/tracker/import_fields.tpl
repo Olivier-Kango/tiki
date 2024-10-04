@@ -3,7 +3,7 @@
 {block name="title"}{$title}{/block}
 
 {block name="content"}
-    <form class="form simple import-fields" action="{service controller=tracker action=import_fields}" method="post" role="form">
+    <form class="form simple import-fields" action="{service controller=tracker action=import_fields}" method="post">
         <div class="mb-3 row mx-0">
             <label class="col-form-label">
                 {tr}Raw Fields{/tr}

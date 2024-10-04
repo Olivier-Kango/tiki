@@ -5,7 +5,7 @@
 {/remarksbox}
 
 <h2>{tr}Create/edit DSN{/tr}</h2>
-<form action="tiki-admin_dsn.php" method="post" role="form">
+<form action="tiki-admin_dsn.php" method="post">
     {ticket}
     <input type="hidden" name="dsnId" value="{$dsnId|escape}">
     <div class="mb-3 row">
@@ -75,7 +75,7 @@
 {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
 
 <h2>{tr}Content Authentication{/tr}</h2>
-<form id="source-form" method="post" action="{service controller=auth_source}" role="form">
+<form id="source-form" method="post" action="{service controller=auth_source}">
     {ticket}
     <fieldset>
         <legend>{tr}Identification{/tr}</legend>

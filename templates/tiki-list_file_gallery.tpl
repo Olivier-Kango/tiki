@@ -261,7 +261,7 @@
                 {if ($prefs.fgal_search_in_content eq 'y' or $prefs.fgal_search eq 'y') and $galleryId > 0}
                     <div class="col-sm-6">
                         {if $prefs.fgal_search_in_content eq 'y'}
-                            <form id="search-form" class="form" role="form" method="get" action="tiki-search{if $prefs.feature_forum_local_tiki_search eq 'y'}index{else}results{/if}.php">
+                            <form id="search-form" class="form" method="get" action="tiki-search{if $prefs.feature_forum_local_tiki_search eq 'y'}index{else}results{/if}.php">
                                 <input type="hidden" name="where" value="files">
                                 <input type="hidden" name="galleryId" value="{$galleryId}">
                                 <label for="highlight" class="find_content sr-only">{tr}Search in content{/tr}</label>
@@ -272,7 +272,7 @@
                             </form>
                         {/if}
                         {if $prefs.fgal_search eq 'y'}
-                            <form id="search-by-id" class="form" role="form" method="get" action="tiki-list_file_gallery.php">
+                            <form id="search-by-id" class="form" method="get" action="tiki-list_file_gallery.php">
                                 <div class="input-group">
                                     <input class="form-control tips bottom" type="text" name="fileId" id="fileId" {if isset($fileId)} value="{$fileId}"{/if} placeholder="{tr}Search by identifier{/tr}..." title="|{tr}Search for the file with this number, in all galleries{/tr}">
                                     <button type="submit" class="btn btn-info">{tr}Go{/tr}</button>
@@ -286,7 +286,7 @@
         {/if}
     {else}
         <div class="pageview">
-            <form id="size-form" class="form d-flex flex-row flex-wrap align-items-center" role="form" action="tiki-list_file_gallery.php">
+            <form id="size-form" class="form d-flex flex-row flex-wrap align-items-center" action="tiki-list_file_gallery.php">
                 {ticket}
                 <input type="hidden" name="view" value="page">
                 <input type="hidden" name="galleryId" value="{$galleryId}">

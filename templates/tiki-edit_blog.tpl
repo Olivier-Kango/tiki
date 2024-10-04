@@ -22,7 +22,7 @@
     {permission_link mode=link type=blog permType=blogs id=$blogId title=$title label="{tr}Individual permissions are set for this blog{/tr}"}
 {/if}
 
-<form method="post" action="tiki-edit_blog.php" id="blog-edit-form" role="form">
+<form method="post" action="tiki-edit_blog.php" id="blog-edit-form">
     {ticket}
     <input type="hidden" name="blogId" value="{$blogId|escape}">
     {tabset name='tabs_editblog'}

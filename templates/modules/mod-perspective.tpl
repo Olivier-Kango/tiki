@@ -1,6 +1,6 @@
 {if $perspectives|@count gt 0}
     {tikimodule error=$module_params.error title=$tpl_module_title name="perspective" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
-        <form method="get" action="tiki-switch_perspective.php" role="form">
+        <form method="get" action="tiki-switch_perspective.php">
             <div class="mb-3">
                 <div class="form-check">
                     <input id="mod-switch-perspective-back" type="checkbox" class="form-check-input" name="back" value="1"/>

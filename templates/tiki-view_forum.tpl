@@ -412,7 +412,7 @@
     {if $prefs.feature_forum_content_search eq 'y' and $prefs.feature_search eq 'y'}
         <div class="row mb-4 mx-0">
         <div class="col-md-5 offset-md-7">
-            <form id="search-form" class="form" role="form" method="get" action="tiki-search{if $prefs.feature_forum_local_tiki_search eq 'y'}index{else}results{/if}.php">
+            <form id="search-form" class="form" method="get" action="tiki-search{if $prefs.feature_forum_local_tiki_search eq 'y'}index{else}results{/if}.php">
                 <div class="mb-3 row">
                     <div class="input-group">
                         <span class="input-group-text">

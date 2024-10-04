@@ -29,7 +29,7 @@
         and (empty($attach_box) or $attach_box ne 'n')}
         <div class="file-upload card bg-body-tertiary">
             <div class="card-body">
-                <form role="form" enctype="multipart/form-data" action="tiki-index.php?page={$page|escape:"url"}" method="post">
+                <form enctype="multipart/form-data" action="tiki-index.php?page={$page|escape:"url"}" method="post">
                     {ticket}
                     {if $page_ref_id}
                         <input type="hidden" name="page_ref_id" value="{$page_ref_id}">

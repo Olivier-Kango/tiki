@@ -1,4 +1,4 @@
-<form action="tiki-admin.php?page=maps" method="post" role="form" class="admin">
+<form action="tiki-admin.php?page=maps" method="post" class="admin">
     {ticket}
 
     <div class="row">

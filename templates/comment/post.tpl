@@ -15,7 +15,7 @@
             <p>{tr}Go back to:{/tr} {object_link type=$type objectId=$objectId}</p>
         </div>
     {else}
-        <form method="post" action="{service controller=comment action=post}" role="form">
+        <form method="post" action="{service controller=comment action=post}">
             <div class="card">
                 {if ! $user or $prefs.feature_comments_post_as_anonymous eq 'y'}
                     <div class="card-header">

@@ -60,7 +60,7 @@
             {/section}
         </ol>
         {if $struct_editable eq 'a'}
-            <form action="tiki-editpage.php" method="post" role="form" class="d-flex flex-row flex-wrap align-items-center"  style="display: inline-flex;">
+            <form action="tiki-editpage.php" method="post" class="d-flex flex-row flex-wrap align-items-center"  style="display: inline-flex;">
                     <div class="mb-3" style="flex-shrink: 1;">
                         <input type="hidden" name="current_page_id" value="{$page_info.page_ref_id}">
                         <div class="input-group">

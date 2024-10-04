@@ -1,6 +1,6 @@
 {tikimodule title=$tpl_module_title name="terminology" flip=$module_params.flip decorations=$module_params.decorations}
 
-    <form class="form" method="post" action="tiki-listpages.php" role="form">
+    <form class="form" method="post" action="tiki-listpages.php">
         <div class="mb-3 row mx-0">
             <label class="col-sm-2 col-form-label" for="name">{tr}Find term:{/tr}</label>
             {if $term_root_category_id != ''}

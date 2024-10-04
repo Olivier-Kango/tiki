@@ -29,7 +29,7 @@
 *}
 
 <div class="find mb-2">
-    <form method="post" role="form" class="form">
+    <form method="post" class="form">
         {if !isset($map_only) or $map_only ne 'y'}
             <div class="mb-3 mx-0">
             {if !empty($filegals_manager)}<input type="hidden" name="filegals_manager"

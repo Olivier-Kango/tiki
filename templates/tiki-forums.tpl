@@ -14,7 +14,7 @@
         {if $channels or ($find ne '')}
             {if $prefs.feature_forums_search eq 'y' or $prefs.feature_forums_name_search eq 'y'}
                 {if $prefs.feature_forums_name_search eq 'y'}
-                    <form method="get" class="form" role="form" action="tiki-forums.php">
+                    <form method="get" class="form" action="tiki-forums.php">
                         <div class="mb-3">
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -30,7 +30,7 @@
                 {if $prefs.feature_forums_search eq 'y' and $prefs.feature_search eq 'y'}
                     <div class="row mb-4 mx-0">
                         <div class="col-md-5 offset-md-7">
-                            <form class="form mb-3" method="get" role="form" action="tiki-searchindex.php">
+                            <form class="form mb-3" method="get" action="tiki-searchindex.php">
                                 <div class="input-group">
                                     <span class="input-group-text">
                                          {icon name="search"}
@@ -49,7 +49,7 @@
     {elseif $prefs.feature_forums_search eq 'y' and $prefs.feature_search eq 'y'}{* and $ts.enabled *}
         <div class="row mb-4 mx-0">
             <div class="col-12">
-                <form class="form" method="get" role="form" action="tiki-searchindex.php">
+                <form class="form" method="get" action="tiki-searchindex.php">
 
                         <div class="input-group">
                             <span class="input-group-text">

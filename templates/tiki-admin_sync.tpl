@@ -5,7 +5,7 @@
 {remarksbox type="note" title="{tr}Setup instructions:{/tr}"}
     {tr}Remote Tiki needs API turned on and an API token generated from Admin->Security. Local Tiki needs an Admin DSN configured with the Bearer API token authorization header.{/tr}
 {/remarksbox}
-<form action="tiki-admin_sync.php" method="post" role="form">
+<form action="tiki-admin_sync.php" method="post">
     {ticket}
     <div class="tiki-form-group row">
         <label for="url" class="col-sm-3 col-form-label">{tr}Remote Server Address{/tr}</label>

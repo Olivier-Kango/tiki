@@ -76,7 +76,7 @@ close();
                     {$msg}
                     {if !empty($required_preferences)}
                         {remarksbox type='note' title="{tr}Settings{/tr}" close="n"}
-                        <form method="post" action="tiki-admin.php" role="form" class="form">
+                        <form method="post" action="tiki-admin.php" class="form">
                             {ticket}
                             {foreach from=$required_preferences item=pref}
                                 {preference name=$pref visible="always"}

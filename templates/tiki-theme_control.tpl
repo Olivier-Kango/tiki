@@ -4,7 +4,7 @@
     {button href="tiki-theme_control_sections.php" class="btn btn-primary" _text="{tr}Control by Sections{/tr}"}
 </div>
 <h2>{tr}Assign themes to categories{/tr}</h2>
-<form action="tiki-theme_control.php" method="post" class="mb-2" role="form">
+<form action="tiki-theme_control.php" method="post" class="mb-2">
     {ticket}
     <div class="mb-3 row">
         <div class="col-sm-5">
@@ -32,7 +32,7 @@
 </form>
 <h2>{tr}Assigned categories{/tr}</h2>
 {include file='find.tpl'}
-<form action="tiki-theme_control.php" method="post" role="form" class="form">
+<form action="tiki-theme_control.php" method="post" class="form">
     {ticket}
     <div class="table-responsive themecat-table">
         <table class="table">

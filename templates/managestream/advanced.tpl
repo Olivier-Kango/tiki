@@ -8,7 +8,7 @@
             {tr}This action is currently of a basic type. Using the advanced editor will prevent the simple editor to be used.{/tr}
         {/remarksbox}
     {/if}
-    <form role="form" method="post" action="{service controller=managestream action=advanced}">
+    <form method="post" action="{service controller=managestream action=advanced}">
         <div class="mb-3 row clearfix">
             <label for="event" class="col-form-label col-md-3">
                 {tr}Event{/tr}

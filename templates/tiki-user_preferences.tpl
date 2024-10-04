@@ -17,7 +17,7 @@
     {if $prefs.feature_userPreferences eq 'y'}
         {tab name="{tr}Personal Information{/tr}"}
             <h2>{tr}Personal Information{/tr}</h2>
-            <form role="form" action="tiki-user_preferences.php" method="post">
+            <form action="tiki-user_preferences.php" method="post">
                 {ticket}
                 <input type="hidden" name="userId" value="{$userinfo.userId|escape}">
                 <input type="hidden" name="view_user" value="{$userwatch|escape}">
@@ -183,7 +183,7 @@
         {tab name="{tr}Preferences{/tr}"}
             <h2>{tr}Preferences{/tr}</h2>
             <legend>{tr}General settings{/tr}</legend>
-            <form role="form" action="tiki-user_preferences.php" method="post">
+            <form action="tiki-user_preferences.php" method="post">
                 {ticket}
                 <input type="hidden" name="view_user" value="{$userwatch|escape}">
                 <div class="tiki-form-group row">
@@ -759,7 +759,7 @@
         {tab name="{tr}Account Deletion{/tr}"}
             <div class="jumbotron text-center">
                 <h2>{tr}Account Deletion{/tr}</h2>
-                <form role="form" action="tiki-user_preferences.php" method="post">
+                <form action="tiki-user_preferences.php" method="post">
                     {ticket}
                     {if !empty($userwatch)}<input type="hidden" name="view_user" value="{$userwatch|escape}">{/if}
                     <p>

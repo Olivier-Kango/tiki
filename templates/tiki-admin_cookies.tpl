@@ -5,7 +5,7 @@
 {/remarksbox}
 
 <h2>{tr}Create/edit cookies{/tr}</h2>
-<form action="tiki-admin_cookies.php" method="post" role="form">
+<form action="tiki-admin_cookies.php" method="post">
     {ticket}
     <input type="hidden" name="cookieId" value="{$cookieId|escape}">
     <div class="mb-3 row">
@@ -20,7 +20,7 @@
 </form>
 
 <h2>{tr}Upload Cookies from textfile{/tr}</h2>
-<form enctype="multipart/form-data" action="tiki-admin_cookies.php" method="post" role="form">
+<form enctype="multipart/form-data" action="tiki-admin_cookies.php" method="post">
     {ticket}
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label" for="cookie">{tr}Upload from disk{/tr}</label>

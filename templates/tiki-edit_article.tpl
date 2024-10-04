@@ -15,7 +15,7 @@
     <h2>{tr}Preview{/tr}</h2>
     {include file='article.tpl'}
 {/if}
-<form enctype="multipart/form-data" method="post" action="tiki-edit_article.php" id='editpageform' role="form">
+<form enctype="multipart/form-data" method="post" action="tiki-edit_article.php" id='editpageform'>
     {ticket}
     <input type="hidden" name="articleId" value="{$articleId|escape}">
     <input type="hidden" name="previewId" value="{$previewId|escape}">

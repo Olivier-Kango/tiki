@@ -1,5 +1,5 @@
 {title}{tr}Rankings{/tr}{/title}
-    <form action="{$rpage}" method="post" class="d-flex flex-row flex-wrap align-items-center mb-3" role="form">
+    <form action="{$rpage}" method="post" class="d-flex flex-row flex-wrap align-items-center mb-3">
         <div class="mb-3">
             <select name="which" class="form-select me-3 mb-4">
                 {section name=ix loop=$allrankings}

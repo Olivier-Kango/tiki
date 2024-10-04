@@ -1,7 +1,7 @@
 <h2>{tr}Copyrights:{/tr} <a href="tiki-index.php?page={$page|escape:"url"}">{$page}</a></h2>
 
 {section name=i loop=$copyrights}
-    <form action="copyrights.php?page={$page}" method="post" role="form">
+    <form action="copyrights.php?page={$page}" method="post">
         <input type="hidden" name="page" value="{$page|escape}">
         <input type="hidden" name="copyrightId" value="{$copyrights[i].copyrightId|escape}">
 
@@ -54,7 +54,7 @@
     </form>
 {/section}
 
-<form action="copyrights.php?page={$page}" role="form">
+<form action="copyrights.php?page={$page}">
     <div class="tiki-form-group row">
         <label class="col-sm-3 col-form-label" for="copyleft-tit">{tr}Title{/tr}</label>
         <div class="col-sm-9">

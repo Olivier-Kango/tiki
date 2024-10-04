@@ -1,7 +1,7 @@
 {title help="Articles"}{tr}Admin Article Topics{/tr}{/title}
 <h2>{tr}Edit article topic{/tr}</h2>
 
-<form enctype="multipart/form-data" action="tiki-edit_topic.php" method="post" role="form">
+<form enctype="multipart/form-data" action="tiki-edit_topic.php" method="post">
     <table class="table">
         <tr>
             <td>

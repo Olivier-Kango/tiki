@@ -3,7 +3,7 @@
     {title}{$title|escape}{/title}
 {/block}
 {block name="content"}
-    <form role="form" class="form" method="post" action="{service controller=managestream action=change_rule_status}">
+    <form class="form" method="post" action="{service controller=managestream action=change_rule_status}">
         {if $status eq "enabled"}
             {remarksbox type="tip" title="{tr}Disable rule?{/tr}" close="n"}{/remarksbox}
         {elseif $status eq "disabled"}

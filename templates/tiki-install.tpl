@@ -129,7 +129,7 @@
                             <li>{tr}For complete documentation, please visit{/tr} <a href="https://doc.tiki.org" target="_blank">doc.tiki.org</a>.</li>
                             <li>{tr}For more information about Tiki, please visit{/tr} <a href="https://tiki.org" target="_blank">tiki.org</a>.</li>
                         </ul>
-                        <form action="tiki-install.php" method="post" role="form">
+                        <form action="tiki-install.php" method="post">
                             <div class="d-flex flex-row flex-wrap align-items-center mb-3">
                                 <label class="col-form-label" for="general-lang">{tr}Select your language{/tr}</label>
                                 <select name="lang" id="general-lang" onchange="$('.install-steps').tikiModal(tr('Loading...')); $('input[name=lang]:hidden').val($(this).val()); this.form.submit();" title="{tr}Select your language{/tr}" class="form-control mx-2">
@@ -145,7 +145,7 @@
                                 <input type="hidden" name="multi" value="{$multi}">
                             {/if}
                         </form>
-                        <form action="tiki-install.php" method="post" role="form">
+                        <form action="tiki-install.php" method="post">
                             <div class="mb-3 text-center">
                                 {if $multi}
                                     <input type="hidden" name="multi" value="{$multi}">
@@ -164,7 +164,7 @@
                         <div class="embed-responsive  embed-responsive-21by9 mb-3 card">
                             <iframe src="license.txt" class="embed-responsive-item"> </iframe>
                         </div>
-                        <form action="tiki-install.php" method="post" role="form">
+                        <form action="tiki-install.php" method="post">
                             <div class="mb-3 text-center">
                                 {if $multi}<input type="hidden" name="multi" value="{$multi}">{/if}
                                 {if $lang}<input type="hidden" name="lang" value="{$lang}">{/if}
@@ -213,7 +213,7 @@
                         <p>{tr}Tiki uses the PHP <strong>mail</strong> function to send email notifications and messages.{/tr}</p>
                         {if $mail_test_performed ne 'y'}
                             <p>{tr}To test your system configuration, Tiki will attempt to send a test message to you.{/tr}</p>
-                            <form action="tiki-install.php#mail" method="post" role="form">
+                            <form action="tiki-install.php#mail" method="post">
                                 <div class="mb-3 row mt-4">
                                     <label class="col-form-label" class="col-sm-2" for="email_test_to">{tr}Test email:{/tr}</label>
                                     <div class="col-sm-6">
@@ -269,7 +269,7 @@
                             {/remarksbox}
                         {/if}
                         <p>{tr}Tiki uses the GD library to process images for the Image Gallery and CAPTCHA support.{/tr}</p>
-                        <form action="tiki-install.php" method="post" role="form">
+                        <form action="tiki-install.php" method="post" >
                             <div class="mb-3 text-center">
                                 <input type="hidden" name="install_step" value="3">
                                 <input type="submit" class="btn btn-primary" value=" {tr}Continue{/tr} ">
@@ -298,7 +298,7 @@
                             {/if}
                             {/remarksbox}
                             <div class="mb-3 text-center">
-                                <form action="tiki-install.php" method="post" role="form">
+                                <form action="tiki-install.php" method="post">
                                     <input type="hidden" name="install_step" value="4">
                                     {if $multi}<input type="hidden" name="multi" value="{$multi}">{/if}
                                     {if $lang}<input type="hidden" name="lang" value="{$lang}">{/if}
@@ -310,7 +310,7 @@
                         {/if}
                         <div id="installer_3_new_db_form"{if $dbcon eq 'y'} style="display:none;"{/if}>
                             <p>{tr}Use this page to create a new database connection, or use the <a href="https://doc.tiki.org/Manual-Installation" target="_blank" title="manual installation">manual installation process</a>.{/tr} <a href="https://doc.tiki.org/Manual-Installation" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a></p>
-                            <form action="tiki-install.php" method="post" role="form">
+                            <form action="tiki-install.php" method="post">
                                 <input type="hidden" name="install_step" value="4">
                                 {if $multi}
                                     <input type="hidden" name="multi" value="{$multi}">
@@ -444,7 +444,7 @@
                                 {tr _0=$database_charset}<p>Your database encoding is <strong>not</strong> in UTF-8mb4.</p><p>Current encoding is <em>%0</em>. The languages that will be available for content on the site will be limited. If you plan on using languages not covered by the character set, you should re-create or alter the database so the default encoding is <em>utf8mb4</em>.</p>{/tr}
                             {/if}
                                 <p><a href="https://doc.tiki.org/Understanding-Encoding" class="alert-link">{tr}More information{/tr}</a></p>
-                                <form method="post" action="" role="form">
+                                <form method="post" action="">
                                     <fieldset>
                                         <legend>{tr}Character Set Conversion{/tr}</legend>
                                         <p>{tr}Use at your own risk. If the data in the database currently contains improperly converted data, this may make matters worse. Suitable for new installations. Requires ALTER privilege on the database.{/tr}</p>
@@ -465,7 +465,7 @@
                         {if $dbdone eq 'n'}
                             {if $logged eq 'y'}{* we are logged if no admin account is found or if the admin user is logged in*}
                                 <div class="install-upgrade">
-                                <form method="post" action="tiki-install.php" role="form" class="card-deck">
+                                <form method="post" action="tiki-install.php" class="card-deck">
                                     <input type="hidden" name="install_step" value="5">
                                     {if $multi}<input type="hidden" name="multi" value="{$multi}">{/if}
                                     {if $lang}<input type="hidden" name="lang" value="{$lang}">{/if}

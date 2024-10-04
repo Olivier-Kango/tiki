@@ -4,7 +4,7 @@
             {tr}There are individual permissions set for this file gallery{/tr}. {permission_link mode=icon type="file gallery" permType="file galleries" id=$galleryId title=$name label="{tr}Manage Permissions{/tr}"}
         {/remarksbox}
     {/if}
-    <form role="form" action="{$smarty.server.SCRIPT_NAME}?{query}" method="post">
+    <form action="{$smarty.server.SCRIPT_NAME}?{query}" method="post">
         <input type="hidden" name="galleryId" value="{$galleryId|escape}">
         <input type="hidden" name="filegals_manager" {if isset($filegals_manager)}value="{$filegals_manager}"{/if}>
         {ticket}

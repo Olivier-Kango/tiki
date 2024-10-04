@@ -110,7 +110,7 @@
             {if $templateId > 0 and $tiki_p_admin_content_templates eq 'y'}
                 {button href="tiki-admin_content_templates.php" cookietab="2" _icon_name="create" _text="{tr}Create{/tr}"}
             {/if}
-            <form action="tiki-admin_content_templates.php" method="post" role="form">
+            <form action="tiki-admin_content_templates.php" method="post">
                 {ticket}
                 <input type="hidden" name="templateId" value="{$templateId|escape}">
                 <div class="mb-3 row">
