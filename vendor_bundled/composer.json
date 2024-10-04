@@ -319,6 +319,11 @@
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore": {
+                "CVE-2024-24815": "Ignoring this vulnerability as work on this is in progress."
+            }
         }
     },
     "autoload": {

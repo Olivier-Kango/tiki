@@ -664,7 +664,7 @@ vendor-bundled-security-check:
     - composer
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
-    - composer -V | grep "version 2" || composer self-update --2
+    - composer -V | grep "version 2\.[6-9]" || composer self-update 2.6.3
     - cd vendor_bundled
     - composer audit --locked --no-dev
   allow_failure: true
