@@ -105,7 +105,7 @@ class ModuleList extends Base
         }
 
         return <<<OUT
-    <$tag class="$class" id="$id"$dir aria-labelledby="#$heading_id" role="$role">
+    <$tag class="$class" id="$id"$dir aria-labelledby="$heading_id" role="$role">
         <h2 class="visually-hidden-focusable" id="$heading_id">$heading_text</h2>
         $content
     </$tag>
