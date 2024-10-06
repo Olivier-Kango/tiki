@@ -19,7 +19,7 @@ $inputConfiguration = [
             'modup'                => 'bool',        //post
             'moddown'              => 'bool',        //post
             'module-order'         => 'string',      //post
-            'um_update'            => 'bool',        //bool
+            'um_update'            => 'string',        //post
             'um_name'              => 'string',      //post
             'um_data'              => 'none',        //post
             'um_title'             => 'string',      //post
@@ -215,22 +215,28 @@ if (isset($_REQUEST['um_update']) && $access->checkCsrf()) {
         Feedback::errorPage(tr('A module with that "name" already exists, please choose another'));
     }
     $_REQUEST['um_update'] = urldecode($_REQUEST['um_update']);
-    $smarty->assign_by_ref('um_title', $_REQUEST['um_title']);
-    $smarty->assign_by_ref('um_data', $_REQUEST['um_data']);
-    $smarty->assign_by_ref('um_parse', $_REQUEST['um_parse']);
+    $um_title = $_REQUEST['um_title'];
+    $um_data = $_REQUEST['um_data'];
+    $um_parse = $_REQUEST['um_parse'];
 
     $result = $modlib->replace_user_module($_REQUEST['um_name'], $_REQUEST['um_title'], $_REQUEST['um_data'], $_REQUEST['um_parse'], $_REQUEST['um_tgt_module']);
     if ($result && $result->numRows()) {
         $msg = $_REQUEST['um_update'] == tr('Create') ? tr('Custom module created') : tr('Custom module modified');
+        $um_title = '';
+        $um_data = '';
+        $um_parse = '';
+        $logslib->add_log('adminmodules', 'changed custom module ' . $_REQUEST['um_name']);
         Feedback::success($msg);
     } else {
         $smarty->assign_by_ref('um_tgt_module', $_REQUEST['um_tgt_module']);
         $smarty->assign_by_ref('um_name', $_REQUEST['um_name']);
 
-        $msg = $_REQUEST['um_update'] == tr('Create') ? tr('Custom not module created') : tr('Custom module not modified');
+        $msg = $_REQUEST['um_update'] == tr('Create') ? tr('Custom module not created') : tr('Custom module not modified');
         Feedback::error($msg);
     }
-    $logslib->add_log('adminmodules', 'changed custom module ' . $_REQUEST['um_name']);
+    $smarty->assign_by_ref('um_title', $um_title);
+    $smarty->assign_by_ref('um_data', $um_data);
+    $smarty->assign_by_ref('um_parse', $um_parse);
 }
 //post is used for preview because there is another submit item on the form requiring it
 //and using get for just the preview element would result in exposing the ticket
