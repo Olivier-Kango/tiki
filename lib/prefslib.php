@@ -1493,13 +1493,12 @@ class PreferencesLib
     public function filterHiddenPreferences($preferences)
     {
         $hiddenPreferences = [];
-
         if (! empty($preferences)) {
             foreach ($preferences as $preference) {
-                $preferenceDetails = $this->getPreference($preference['name']);
-
+                $prefName = $preference['name'] ?? $preference['prefName'];
+                $preferenceDetails = $this->getPreference($prefName);
                 if (! empty($preferenceDetails['hide']) && $preferenceDetails['hide'] === true) {
-                    $hiddenPreferences[] = $preference['name'];
+                    $hiddenPreferences[] = $prefName;
                 }
             }
         }

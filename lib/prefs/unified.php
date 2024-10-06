@@ -321,7 +321,7 @@ function prefs_unified_list()
             'description' => tra('Port number for the HTTP(S) interface.'),
             'type' => 'text',
             'default' => '9308',
-            'filter' => 'numeric',
+            'filter' => 'digits',
             'size' => 10,
         ],
         'unified_manticore_mysql_port' => [
@@ -329,7 +329,7 @@ function prefs_unified_list()
             'description' => tra('Port number for the MySQL interface.'),
             'type' => 'text',
             'default' => '9306',
-            'filter' => 'numeric',
+            'filter' => 'digits',
             'size' => 10,
         ],
         'unified_manticore_index_prefix' => [
