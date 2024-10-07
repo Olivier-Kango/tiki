@@ -320,3 +320,4 @@ ALTER TABLE `tiki_address_cards` ENGINE = InnoDB;
 ALTER TABLE `tiki_performance` ENGINE = InnoDB;
 ALTER TABLE `tiki_password_blacklist` ENGINE = InnoDB;
 ALTER TABLE `tiki_custom_color_modes` ENGINE = InnoDB;
+ALTER TABLE `tiki_sql_query_logs` ENGINE = InnoDB;

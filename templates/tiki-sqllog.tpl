@@ -13,19 +13,19 @@
 <div class="table-responsive">
 <table class="table">
     <tr>
-        <th>{self_link _sort_arg='sort_mode' _sort_field='created'}{tr}Created{/tr}{/self_link}</th>
-        <th>{self_link _sort_arg='sort_mode' _sort_field='sql1'}{tr}Query{/tr}{/self_link}</th>
-        <th>{self_link _sort_arg='sort_mode' _sort_field='params'}{tr}Params{/tr}{/self_link}</th>
+        <th>{self_link _sort_arg='sort_mode' _sort_field='executed_at'}{tr}Created{/tr}{/self_link}</th>
+        <th>{self_link _sort_arg='sort_mode' _sort_field='sql_query'}{tr}Query{/tr}{/self_link}</th>
+        <th>{self_link _sort_arg='sort_mode' _sort_field='query_params'}{tr}Params{/tr}{/self_link}</th>
         <th>{self_link _sort_arg='sort_mode' _sort_field='tracer'}{tr}From{/tr}{/self_link}</th>
-        <th>{self_link _sort_arg='sort_mode' _sort_field='timer'}{tr}Time{/tr}{/self_link}</th>
+        <th>{self_link _sort_arg='sort_mode' _sort_field='query_duration'}{tr}Time{/tr}{/self_link}</th>
     <tr>
     {foreach from=$logs item=log}
         <tr>
-            <td class="text">{$log.created|escape}</td>
-            <td class="text">{$log.sql1|escape}</td>
-            <td class="text">{$log.params|escape}</td>
+            <td class="text">{$log.executed_at|escape}</td>
+            <td class="text">{$log.sql_query|escape}</td>
+            <td class="text">{$log.query_params|escape}</td>
             <td class="text">{$log.tracer|escape}</td>
-            <td class="date">{$log.timer|escape}</td>
+            <td class="date">{$log.query_duration|escape}</td>
         </tr>
     {/foreach}
 </table>

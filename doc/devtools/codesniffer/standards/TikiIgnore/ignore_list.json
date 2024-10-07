@@ -10255,7 +10255,8 @@
             "LogsLib::get_bigblue_login_time": true,
             "LogsLib::export_bbb": true,
             "LogsLib::delete_action": true,
-            "LogsLib::revert_action": true
+            "LogsLib::revert_action": true,
+            "LogsLib::log_sql": true
         },
         "lib\/bookmarks\/bookmarklib.php": {
             "BookmarkLib::get_folder_path": true,

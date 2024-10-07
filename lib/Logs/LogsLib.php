@@ -1528,22 +1528,22 @@ class LogsLib extends TikiLib
         return $contributorActions;
     }
 
-    public function list_logsql($sort_mode = 'created_desc', $offset = 0, $maxRecords = -1, $find = '')
+    public function list_logsql($sort_mode = 'executed_at_desc', $offset = 0, $maxRecords = -1, $find = '')
     {
         global $prefs;
         $bindvars = [];
 
         if (! empty($find)) {
             $findesc = '%' . $find . '%';
-            $amid = '`sql1` like ? or `params` like ? or `tracer` like ?';
+            $amid = '`sql_query` like ? or `query_param` like ? or `tracer` like ? ';
             $bindvars[] = $findesc;
             $bindvars[] = $findesc;
             $bindvars[] = $findesc;
         }
 
-        $query = 'select * from `adodb_logsql`' . ($find ? " where $amid" : '') . ' order by ' . $this->convertSortMode($sort_mode);
+        $query = 'select * from `tiki_sql_query_logs`' . ($find ? " where $amid" : '') . ' order by ' . $this->convertSortMode($sort_mode);
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $query_cant = 'select count(*) from `adodb_logsql`' . ($find ? " where $amid" : '');
+        $query_cant = 'select count(*) from `tiki_sql_query_logs`' . ($find ? " where $amid" : '');
         $cant = $this->getOne($query_cant, $bindvars);
         $retval = [];
         $retval['data'] = $ret;
@@ -1554,7 +1554,7 @@ class LogsLib extends TikiLib
 
     public function clean_logsql()
     {
-        $query = 'delete from  `adodb_logsql`';
+        $query = 'delete from  `tiki_sql_query_logs`';
         $this->query($query, []);
     }
 

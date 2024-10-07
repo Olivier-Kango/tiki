@@ -46,13 +46,6 @@ if (php_sapi_name() != 'cli') { // This handler collects errors to display at th
 }
 error_reporting($errorReportingLevel);
 
-
-if ($prefs['log_sql'] == 'y' && $api_tiki == 'adodb') {
-    $dbTiki->LogSQL();
-    global $ADODB_PERF_MIN;
-    $ADODB_PERF_MIN = $prefs['log_sql_perf_min'];
-}
-
 // TODO: check this only once per session or only if a feature ask for it
 TikiSetup::check($tikidomain);
 

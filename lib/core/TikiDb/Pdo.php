@@ -95,7 +95,7 @@ class TikiDb_Pdo extends TikiDb
 
     private function doQuery($query, $values = null, $numrows = -1, $offset = -1, $fetch = true)
     {
-        global $num_queries;
+        global $num_queries, $elapsed_in_db, $base_url, $prefs;
         $num_queries++;
 
         $numrows = (int)$numrows;
@@ -127,6 +127,7 @@ class TikiDb_Pdo extends TikiDb
             }
         }
 
+        $tracer = $base_url;
         if ($values) {
             if (! is_array($values)) {
                 $values = [$values];
@@ -152,6 +153,12 @@ class TikiDb_Pdo extends TikiDb
 
         DatabaseQueryLog::logEnd($logHandle);
         $this->stopTimer($starttime);
+
+        $tracer .= htmlspecialchars($_SERVER['PHP_SELF']);
+
+        if (@$prefs['log_sql'] == 'y' && ($elapsed_in_db * 1000) > $prefs['log_sql_perf_min']) {
+            $this->pdoLogSQL($query, $elapsed_in_db, $tracer, $values);
+        }
 
         if ($result === false) {
             if (! $values || ! $pq) { // Query preparation or query failed
@@ -215,5 +222,23 @@ class TikiDb_Pdo extends TikiDb
     public function lastInsertId()
     {
         return $this->db->lastInsertId();
+    }
+
+    /**
+     * Logging SQL queries to database:
+     * @param $query The executed SQL query
+     * @param $duration The query execution time in ms
+     * @param $tracer The filename of the currently executing script
+     * @param $params The query params
+     */
+    public function pdoLogSQL($query, $duration, $tracer, $params = [])
+    {
+        if (! $query) {
+            return;
+        }
+        $logQuery = "INSERT INTO tiki_sql_query_logs (`sql_query`, `query_duration`, `query_params`, `tracer`) VALUES (?, ?, ?, ?)";
+        $logStmt = $this->db->prepare($logQuery);
+        $logStmt->execute([$query, $duration,  json_encode($params), $tracer]);
+        $logStmt->closeCursor();
     }
 }

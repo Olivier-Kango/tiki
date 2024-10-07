@@ -25,13 +25,7 @@ include_once('tiki-setup.php');
 
 $access->check_permission('tiki_p_admin');
 
-if ($api_tiki != 'adodb') {
-    $smarty->assign('msg', tra('This feature is disabled') . ': adodb');
-    $smarty->display('error.tpl');
-    die;
-}
-
-$query = "show tables like 'adodb_logsql'";
+$query = "show tables like 'tiki_sql_query_logs'";
 $result = $tikilib->query($query, []);
 if (! $result->numRows()) {
     $smarty->assign('msg', tra('This feature is disabled') . ': log_sql');
@@ -54,7 +48,7 @@ $smarty->assign_by_ref('numrows', $numrows);
 $smarty->assign_by_ref('maxRecords', $numrows);
 $offset = (isset($_REQUEST['offset'])) ? $_REQUEST['offset'] : 0;
 $smarty->assign_by_ref('offset', $offset);
-$sort_mode = (isset($_REQUEST['sort_mode'])) ? $_REQUEST['sort_mode'] : 'created_desc';
+$sort_mode = (isset($_REQUEST['sort_mode'])) ? $_REQUEST['sort_mode'] : 'executed_at_desc';
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $find = (isset($_REQUEST['find'])) ? $_REQUEST['find'] : '';
 $smarty->assign_by_ref('find', $find);

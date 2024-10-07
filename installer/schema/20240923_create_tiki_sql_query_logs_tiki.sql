@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS `tiki_sql_query_logs` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `sql_query` TEXT NOT NULL,
+  `query_duration` DECIMAL(10,3) NOT NULL,
+  `query_params` TEXT NOT NULL,
+  `tracer` VARCHAR(500) NULL,
+  `executed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM;

@@ -26,7 +26,7 @@ function prefs_log_list()
         ],
         'log_sql' => [
             'name' => tra('Log SQL'),
-            'description' => tra('All SQL queries will be registered in the database in the adodb_logsql table. '),
+            'description' => tra('All SQL queries will be registered in the database in the tiki_sql_query_logs table. '),
             'warning' => tra('Do not enable this feature all the time. It can be very resource intensive and will impact performance.'),
             'type' => 'flag',
             'default' => 'n',
