@@ -39,11 +39,6 @@
                 {tr _0='<a href="tiki-admin.php?page=general&highlight=sender_email" class="alert-link">' _1="</a>"}Your sender email is not set. You can set it %0in the general admin panel%1.{/tr}
             {/remarksbox}
         {/if}
-        {if $prefs.unified_trackerfield_keys eq 'fieldId'}
-            {remarksbox type=warning title="{tr}Warning{/tr}" close="y"}
-                {tr _0='<a href="tiki-admin.php?page=search&highlight=unified_trackerfield_keys" class="alert-link">' _1="</a>"}Plugin pivottable may not work properly because %0preference unified_trackerfield_keys%1 is set to Field ID.{/tr}
-            {/remarksbox}
-        {/if}
         <div class="admin-page-header"> {* Class name changed to differentiate from page-header at top of all pages. *}
             {title help="$helpUrl"}{$admintitle}{/title}
             <span class="description">{$description}</span>

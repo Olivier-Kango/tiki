@@ -106,16 +106,6 @@ function prefs_unified_list()
             'default' => [],
             'tags' => ['advanced'],
         ],
-        'unified_trackerfield_keys' => [
-            'name' => tra('Format to use for tracker field keys'),
-            'description' => tra('Choose between field IDs and permanent names for the tracker indexing'),
-            'type' => 'list',
-            'default' => 'permName',
-            'options' => [
-                'permName' => tr('Permanent name'),
-                'fieldId' => tr('Field ID (backward compatibility mode with Tiki 7 and 8)'),
-            ],
-        ],
         'unified_trackeritem_category_names' => [
             'name' => tra('Index Tracker Category names'),
             'description' => tra('Index the names and paths of category field values'),
