@@ -1674,7 +1674,7 @@ class TikiAccessLib extends TikiLib
             'siteSecurityTimeout' => tr('preference:') . ' ' . $prefs['site_security_timeout'] . tr('seconds') . ' (' . $prefs['site_security_timeout'] / 60 . ' minutes)',
             'scriptName' => $_SERVER['SCRIPT_NAME'],
             'requestURI' => $_SERVER['REQUEST_URI'],
-            'httpOrigin' => $_SERVER['HTTP_ORIGIN'],
+            'httpOrigin' => isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : null,
             'httpReferer' => $_SERVER['HTTP_REFERER'],
             'requestMethod' => $_SERVER['REQUEST_METHOD'],
             'queryString' => $_SERVER['QUERY_STRING'] ?? tr('empty'),

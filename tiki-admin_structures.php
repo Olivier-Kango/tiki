@@ -112,7 +112,7 @@ if ($tiki_p_edit_structures == 'y') {
         $access->checkCsrf(false, true);
         foreach ($_REQUEST['action'] as $batchid) {
             $structure_info = $structlib->s_get_structure_info($batchid);
-            if (! $tikilib->user_has_perm_on_object($user, $structure_info['pageName'], 'wiki page', 'tiki_p_edit')) {
+            if ($structure_info === null || ! $tikilib->user_has_perm_on_object($user, $structure_info['pageName'], 'wiki page', 'tiki_p_edit')) {
                 continue;
             }
             if ($_REQUEST['batchaction'] == 'delete') {
