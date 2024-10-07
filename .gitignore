@@ -40,7 +40,6 @@ index.php
 
 #TIKI SECTION; ROOT PATHS
 /.htaccess
-/_custom
 
 /bin
 /composer.json

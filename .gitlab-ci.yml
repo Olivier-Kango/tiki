@@ -39,6 +39,7 @@ variables:
   #If cache dir in an absolute path, it's used as is.
   #Since we use multiple vendor directories, and gitlab-ci has different rules for cache, and we want a global cache, we use ${CI_PROJECT_DIR} here so it's always at the root
   COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composercache
+  PROJECT_PATH: "tikiwiki/tiki"
 
 workflow:
   rules:
@@ -501,6 +502,18 @@ sql-engine-conversion:
       - tikinew.sql
     expire_in: 2 days
     when: always
+
+check-custom-folder:
+  stage: tiki-check
+  needs: []
+  script:
+    - echo "Changes in the _custom directory are not allowed to merge into mainstream."
+    - exit 1
+  rules:
+    - if: $CI_PROJECT_PATH == $PROJECT_PATH && $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "_custom/**/*"
+      when: always
 
 # This will mostly catch composer platform-check problems.
 console-php-works:
