@@ -4174,13 +4174,14 @@ class TrackerLib extends TikiLib
                 $item = $this->get_tracker_item($itemId);
                 $handler = $this->get_field_handler($field, $item);
                 // when called from \ObjectLib::get_title Category fields need to have getFieldData run before the category name can be rendered
-                $field = array_merge($field, $handler->getFieldData());
-                $handler = $this->get_field_handler($field, $item);
-
-                if ($main_field_type == 'a') {
-                    $result = $handler->renderOutput(['list_mode' => 'y', 'isMain_context' => true]);
-                } else {
-                    $result = $handler->renderOutput(['list_mode' => 'csv']);
+                if ($handler) {
+                    $field = array_merge($field, $handler->getFieldData());
+                    $handler = $this->get_field_handler($field, $item);
+                    if ($main_field_type == 'a') {
+                        $result = $handler->renderOutput(['list_mode' => 'y', 'isMain_context' => true]);
+                    } else {
+                        $result = $handler->renderOutput(['list_mode' => 'csv']);
+                    }
                 }
             }
         }

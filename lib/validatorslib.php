@@ -62,6 +62,12 @@ class Validators
         $validationjs = 'rules: { ';
         foreach ($fields_data as $field_value) {
             $handler = $factory->getHandler($field_value);
+            if ($handler === null) {
+                $name = $field_value['name'];
+                $permName = $field_value['permName'];
+                trigger_error('Handler for field named ' . $name . ' with permName ' . $permName . ' is null. To resolve this problem, please activate the required fields in this tracker: In the concerned tracker, click on the Fields button then Click to Enable', E_USER_WARNING);
+                continue;
+            }
             $field_name = $handler->getHTMLFieldName();
 
             if ($field_value['type'] == 'b') {
