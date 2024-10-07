@@ -15,11 +15,21 @@ if ($prefs['sitemap_enable'] == 'y') {
 
     // filter valid file names
     if (
-        preg_match('/^.*\.(xml)$/', $siteMapFile, $matches)
+        ! preg_match('/^.*\.(xml)$/', $siteMapFile, $matches)
         || ! file_exists($path . $siteMapFile)
     ) {
-        die(tra('Sitemap file not available'));
+        $smarty->assign(
+            'msg',
+            tra(
+                'The sitemap file is not available. Please check <a href="tiki-admin_sitemap.php" class="alert-link"> sitemap administration </a> to build it.'
+            )
+        );
+        header('HTTP/1.1 404 Not Found');
+        $smarty->display('error.tpl');
+        die();
     }
+
+    header('Content-Type: application/xml; charset=utf-8');
 
     if ($siteMapFile === Generator::BASE_FILE_NAME . '-index.xml') {
         $xml = new DOMDocument('1.0', 'UTF-8');
