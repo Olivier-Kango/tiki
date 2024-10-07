@@ -55,7 +55,6 @@
                 {preference name="tracker_refresh_itemlink_detail"}
                 {preference name=tracker_refresh_itemslist_detail}
                 {preference name=fgal_tracker_existing_search}
-                {preference name=unified_trackerfield_keys}
                 {preference name=unified_trackeritem_category_names}
                 {preference name=tracker_change_field_type}
                 {preference name=tracker_field_rules}

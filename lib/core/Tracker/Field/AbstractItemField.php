@@ -673,7 +673,7 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
     public function getBaseKey()
     {
         global $prefs;
-        $indexKey = $prefs['unified_trackerfield_keys'];
+        $indexKey = 'permName';
         return 'tracker_field_' . $this->baseKeyPrefix . $this->getConfiguration($indexKey);
     }
 

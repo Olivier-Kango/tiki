@@ -591,7 +591,6 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
     }
 
     /**
-     * gets the field permName or fieldId depending on unified_trackerfield_keys
      * DynamicList and ItemLink fields return the permName_text version to render the actual label
      *
      * @param $fieldArray
@@ -601,9 +600,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
     {
         global $prefs;
 
-        if ($prefs['unified_trackerfield_keys'] === 'fieldId') {
-            return $fieldArray['fieldId'];
-        } elseif ($fieldArray['type'] == 'r' || $fieldArray['type'] == 'w' || $fieldArray['type'] == 'l') {
+        if ($fieldArray['type'] == 'r' || $fieldArray['type'] == 'w' || $fieldArray['type'] == 'l') {
             // TODO categories etc
             return $fieldArray['permName'] . '_text';
         } else {
