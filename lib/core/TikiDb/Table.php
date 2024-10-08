@@ -272,8 +272,9 @@ class TikiDb_Table
      * @param int   $numrows
      * @param int   $offset
      * @param null  $orderClause
+     * @param null  $joinClause
      */
-    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null): array|false
+    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null): array|false
     {
         $result = $this->buildSelect($fields, $conditions, $orderClause, $joinClause);
         return $this->db->fetchAll($result['query'], $result['bindvars'], $numrows, $offset, $this->errorMode);

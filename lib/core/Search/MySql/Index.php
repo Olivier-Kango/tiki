@@ -150,7 +150,7 @@ class Search_MySql_Index implements Search_Index_Interface
                 $selectFields['score'] = $this->table->expr($scoreCalc);
             }
             $count = $this->table->fetchCount($conditions);
-            $entries = $this->table->fetchAll($selectFields, $conditions, $resultCount, $resultStart, $order);
+            $entries = $this->table->fetchAllIndex($selectFields, $conditions, $resultCount, $resultStart, $order);
 
             foreach ($entries as &$entry) {
                 foreach ($entry as $key => $val) {

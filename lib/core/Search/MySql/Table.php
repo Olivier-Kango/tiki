@@ -146,10 +146,10 @@ class Search_MySql_Table extends TikiDb_Table
      * @param string $orderClause
      * @return array of associative arrays
      */
-    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null)
+    public function fetchAllIndex(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null)
     {
         $available_fields = TikiLib::lib('unifiedsearch')->getAvailableFields();
-        $resultset = $this->query($fields, $conditions, $numrows, $offset, $orderClause, $join);
+        $resultset = $this->query($fields, $conditions, $numrows, $offset, $orderClause);
         $result = [];
         while ($row = $resultset->fetchRow()) {
             if ($row['object_type'] == 'trackeritem') {
