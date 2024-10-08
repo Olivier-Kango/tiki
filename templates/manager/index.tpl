@@ -75,6 +75,11 @@
                             </action>
                             {/if}
                             <action>
+                                <a href="{service controller=manager action=temporaryuser instanceId=$instance->id}">
+                                    {icon name=user _menu_text='y' _menu_icon='y' alt="{tr}Create Temporary User{/tr}"}
+                                </a>
+                            </action>
+                            <action>
                                 <a href="{service controller=manager action=delete instanceId=$instance->id}">
                                     {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
                                 </a>

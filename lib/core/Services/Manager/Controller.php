@@ -13,7 +13,31 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 use Symfony\Component\Console\Input\ArrayInput;
 use TikiManager\Application\Instance;
 use TikiManager\Application\Tiki\Versions\Fetcher\YamlFetcher;
-use TikiManager\Application\Tiki\Versions\TikiRequirementsHelper;
+use TikiManager\Command\AccessInstanceCommand;
+use TikiManager\Command\ApplyProfileCommand;
+use TikiManager\Command\BackupInstanceCommand;
+use TikiManager\Command\CheckInstanceCommand;
+use TikiManager\Command\CheckoutCommand;
+use TikiManager\Command\CheckRequirementsCommand;
+use TikiManager\Command\ClearCacheCommand;
+use TikiManager\Command\CloneInstanceCommand;
+use TikiManager\Command\ConsoleInstanceCommand;
+use TikiManager\Command\CreateInstanceCommand;
+use TikiManager\Command\CreateTemporaryUserInstanceCommand;
+use TikiManager\Command\DeleteInstanceCommand;
+use TikiManager\Command\DetectInstanceCommand;
+use TikiManager\Command\EditInstanceCommand;
+use TikiManager\Command\MaintenanceInstanceCommand;
+use TikiManager\Command\ManagerInfoCommand;
+use TikiManager\Command\ManagerTestSendEmailCommand;
+use TikiManager\Command\RevertInstanceCommand;
+use TikiManager\Command\SetupBackupManagerCommand;
+use TikiManager\Command\SetupCloneManagerCommand;
+use TikiManager\Command\SetupUpdateCommand;
+use TikiManager\Command\SetupWatchManagerCommand;
+use TikiManager\Command\TikiVersionCommand;
+use TikiManager\Command\UpgradeInstanceCommand;
+use TikiManager\Command\WatchInstanceCommand;
 
 /**
  * Class Services_Manager_Controller
@@ -26,7 +50,7 @@ class Services_Manager_Controller
     {
         return [
             'title' => tr('Tiki Manager'),
-            'instances' => TikiManager\Application\Instance::getInstances(false),
+            'instances' => Instance::getInstances(false),
         ];
     }
 
@@ -41,7 +65,7 @@ class Services_Manager_Controller
                 'title' => tr('Tiki Manager Info')
             ];
         } else {
-            $this->runCommand(new TikiManager\Command\ManagerInfoCommand());
+            $this->runCommand(new ManagerInfoCommand());
             return [
                 'title' => tr('Tiki Manager Info'),
                 'info' => $this->manager_output->fetch(),
@@ -53,7 +77,7 @@ class Services_Manager_Controller
     {
         global $prefs;
         $instanceId = $input->instanceId->int();
-        if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
+        if ($instance = Instance::getInstance($instanceId)) {
             if ($prefs['feature_realtime'] === 'y') {
                 $command = 'manager:instance:update -i ' . $instanceId . ' --ansi';
                 $this->addInteractiveJS($command);
@@ -84,7 +108,7 @@ class Services_Manager_Controller
         global $prefs;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $availbleInstances = TikiManager\Application\Instance::getInstances(true);
+            $availbleInstances = Instance::getInstances(true);
             $availbleInstancesIds = array_map(function ($element) {
                 return $element->id;
             }, $availbleInstances);
@@ -125,10 +149,10 @@ class Services_Manager_Controller
             }
         } else {
             $instanceId = $input->instanceId->int();
-            $instance = TikiManager\Application\Instance::getInstance($instanceId);
+            $instance = Instance::getInstance($instanceId);
 
             if ($instance) {
-                $cmd = new TikiManager\Command\UpgradeInstanceCommand();
+                $cmd = new UpgradeInstanceCommand();
                 $boolOptions = '<option value="" disabled selected hidden></option>'
                                . '<option value="1">True</option>'
                                . '<option value="0">False</option>';
@@ -140,7 +164,7 @@ class Services_Manager_Controller
                 return [
                     'title' => tr('Instances Upgrade'),
                     'info' => '',
-                    'instances' => TikiManager\Application\Instance::getInstances(true),
+                    'instances' => Instance::getInstances(true),
                     'selectedInstanceId' => $instanceId,
                     'branches' => $upperVersions,
                     'boolOptions' => $boolOptions,
@@ -161,7 +185,7 @@ class Services_Manager_Controller
     public function action_get_instances_upper_versions($input)
     {
         $instancesIds = $input->instancesIds->array();
-        $availableInstances = TikiManager\Application\Instance::getInstances(true);
+        $availableInstances = Instance::getInstances(true);
         $instances = array_filter($availableInstances, function ($i) use ($instancesIds) {
             return in_array($i->id, $instancesIds);
         });
@@ -208,7 +232,7 @@ class Services_Manager_Controller
     public function action_fix($input)
     {
         $instanceId = $input->instanceId->int();
-        if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
+        if ($instance = Instance::getInstance($instanceId)) {
             try {
                 $instance->getApplication()->fixPermissions();
                 Feedback::success(tr("Fixed permissions."));
@@ -240,9 +264,9 @@ class Services_Manager_Controller
 
     public function action_delete($input)
     {
-        $cmd = new TikiManager\Command\DeleteInstanceCommand();
+        $cmd = new DeleteInstanceCommand();
         $instanceId = $input->instanceId->int();
-        if (TikiManager\Application\Instance::getInstance($instanceId)) {
+        if (Instance::getInstance($instanceId)) {
             $input = new ArrayInput([
                 'command' => $cmd->getName(),
                 '-i' => $instanceId
@@ -266,9 +290,9 @@ class Services_Manager_Controller
 
     public function action_watch($input)
     {
-        $cmd = new TikiManager\Command\WatchInstanceCommand();
-        $instances = TikiManager\Application\Instance::getInstances(true);
-        $instance = TikiManager\Application\Instance::getInstance($input->instanceId->int());
+        $cmd = new WatchInstanceCommand();
+        $instances = Instance::getInstances(true);
+        $instance = Instance::getInstance($input->instanceId->int());
 
         $IDs = [];
 
@@ -310,7 +334,7 @@ class Services_Manager_Controller
 
     public function action_access($input)
     {
-        $cmd = new TikiManager\Command\AccessInstanceCommand();
+        $cmd = new AccessInstanceCommand();
         $input = new ArrayInput([
             'command' => $cmd->getName(),
             '-i' => $input->instanceId->int(),
@@ -327,7 +351,7 @@ class Services_Manager_Controller
 
     public function action_detect($input)
     {
-        $cmd = new TikiManager\Command\DetectInstanceCommand();
+        $cmd = new DetectInstanceCommand();
         $input = new ArrayInput([
             'command' => $cmd->getName(),
             '-i' => $input->instanceId->int(),
@@ -343,7 +367,7 @@ class Services_Manager_Controller
 
     public function action_create($input)
     {
-        $cmd = new TikiManager\Command\CreateInstanceCommand();
+        $cmd = new CreateInstanceCommand();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $input_array = [
@@ -388,7 +412,7 @@ class Services_Manager_Controller
                     if (str_contains($output, $info)) {
                         $instance = Instance::getLastInstance();
                         $command = "users:password admin " . $input->tikipassword->text();
-                        $cmd = new TikiManager\Command\ConsoleInstanceCommand();
+                        $cmd = new ConsoleInstanceCommand();
                         $inputCmd = new ArrayInput([
                             'command' => $cmd->getName(),
                             '-i' => $instance->getId(),
@@ -465,7 +489,7 @@ class Services_Manager_Controller
 
     public function action_edit($input)
     {
-        $cmd = new TikiManager\Command\EditInstanceCommand();
+        $cmd = new EditInstanceCommand();
 
         if ($input->edit->text()) {
             $inputCommand = new ArrayInput([
@@ -528,7 +552,7 @@ class Services_Manager_Controller
 
     public function action_test_send_email($input)
     {
-        $cmd = new TikiManager\Command\ManagerTestSendEmailCommand();
+        $cmd = new ManagerTestSendEmailCommand();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $inputCommand = new ArrayInput([
@@ -597,7 +621,7 @@ class Services_Manager_Controller
             }
         }
 
-        $cmd = new TikiManager\Command\CreateInstanceCommand();
+        $cmd = new CreateInstanceCommand();
         $sources_table = TikiDb::get()->table('tiki_source_auth', false);
 
         $sources = [];
@@ -666,7 +690,7 @@ class Services_Manager_Controller
     public function action_clone($input)
     {
         if ($input->clone->text()) {
-            $cmd = new TikiManager\Command\CloneInstanceCommand();
+            $cmd = new CloneInstanceCommand();
             $inputCommand = new ArrayInput(array_merge([
                 'command' => $cmd->getName(),
             ], $input->options->asArray()));
@@ -679,9 +703,9 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-            $instances = TikiManager\Application\Instance::getInstances(true);
+            $instances = Instance::getInstances(true);
 
-            $cmd = new TikiManager\Command\CloneInstanceCommand();
+            $cmd = new CloneInstanceCommand();
             $definition = $cmd->getDefinition();
 
             $options = [];
@@ -732,9 +756,9 @@ class Services_Manager_Controller
     public function action_console($input)
     {
         $instanceId = $input->instanceId->int();
-        if (TikiManager\Application\Instance::getInstance($instanceId)) {
+        if (Instance::getInstance($instanceId)) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $cmd = new TikiManager\Command\ConsoleInstanceCommand();
+                $cmd = new ConsoleInstanceCommand();
                 $inputCmd = new ArrayInput([
                     'command' => $cmd->getName(),
                     '-i' => $instanceId,
@@ -770,7 +794,7 @@ class Services_Manager_Controller
 
     public function action_check($input)
     {
-        $cmd = new TikiManager\Command\CheckInstanceCommand();
+        $cmd = new CheckInstanceCommand();
         $input = new ArrayInput([
             'command' => $cmd->getName(),
             '-i' => $input->instanceId->int()
@@ -786,7 +810,7 @@ class Services_Manager_Controller
 
     public function action_requirements($input)
     {
-        $this->runCommand(new TikiManager\Command\CheckRequirementsCommand());
+        $this->runCommand(new CheckRequirementsCommand());
         return [
             'override_action' => 'info',
             'title' => tr('Tiki Manager Check Requirements'),
@@ -796,7 +820,7 @@ class Services_Manager_Controller
 
     public function action_clear_cache($input)
     {
-        $this->runCommand(new TikiManager\Command\ClearCacheCommand());
+        $this->runCommand(new ClearCacheCommand());
         return [
             'override_action' => 'info',
             'title' => tr('Tiki Manager Clear Cache'),
@@ -812,7 +836,7 @@ class Services_Manager_Controller
         $this->setManagerOutput();
 
         // check current instance exist
-        $existing = TikiManager\Application\Instance::getInstances(true);
+        $existing = Instance::getInstances(true);
         $found = false;
         foreach ($existing as $instance) {
             if ($instance->weburl == $base_url && $instance->type == 'local') {
@@ -823,7 +847,7 @@ class Services_Manager_Controller
 
         // and import it if not
         if (! $found) {
-            $instance = new TikiManager\Application\Instance();
+            $instance = new Instance();
             $instance->type = 'local';
             $access = $instance->getBestAccess();
             $discovery = $instance->getDiscovery();
@@ -857,7 +881,7 @@ class Services_Manager_Controller
     public function action_apply($input)
     {
         $instanceId = $input->instanceId->int();
-        if (TikiManager\Application\Instance::getInstance($instanceId)) {
+        if (Instance::getInstance($instanceId)) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $profile = $input->profile->text();
                 $repository = $input->repository->text();
@@ -891,7 +915,7 @@ class Services_Manager_Controller
 
     public function action_maintenance($input)
     {
-        $cmd = new TikiManager\Command\MaintenanceInstanceCommand();
+        $cmd = new MaintenanceInstanceCommand();
         $instanceId = $input->instanceId->int();
         $mode = $input->mode->text();
 
@@ -913,7 +937,7 @@ class Services_Manager_Controller
 
     public function action_tiki_versions($input)
     {
-        $cmd = new TikiManager\Command\TikiVersionCommand();
+        $cmd = new TikiVersionCommand();
 
         if ($input->filter->text()) {
             $inputCommand = new ArrayInput([
@@ -947,7 +971,7 @@ class Services_Manager_Controller
 
     public function action_setup_watch($input)
     {
-        $cmd = new TikiManager\Command\SetupWatchManagerCommand();
+        $cmd = new SetupWatchManagerCommand();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $exclude = implode(',', $input->exclude->array());
@@ -966,7 +990,7 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-            $instances = TikiManager\Application\Instance::getInstances(true);
+            $instances = Instance::getInstances(true);
 
             return [
                 'title' => tr('Setup Watch'),
@@ -980,7 +1004,7 @@ class Services_Manager_Controller
 
     public function action_setup_clone($input)
     {
-        $cmd = new TikiManager\Command\SetupCloneManagerCommand();
+        $cmd = new SetupCloneManagerCommand();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $input_array = [
@@ -1032,7 +1056,7 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-            $instances = TikiManager\Application\Instance::getInstances();
+            $instances = Instance::getInstances();
 
             if (count($instances) > 0) {
                 /** For form initialization */
@@ -1059,14 +1083,14 @@ class Services_Manager_Controller
     }
     public function action_manager_backup($input)
     {
-        $cmd = new TikiManager\Command\SetupBackupManagerCommand();
+        $cmd = new SetupBackupManagerCommand();
 
         return $this->manager_setup($input, $cmd, "backup");
     }
 
     public function action_manager_update($input)
     {
-        $cmd = new TikiManager\Command\SetupUpdateCommand();
+        $cmd = new SetupUpdateCommand();
 
         return $this->manager_setup($input, $cmd, "update");
     }
@@ -1109,11 +1133,11 @@ class Services_Manager_Controller
         } else {
             switch ($event) {
                 case "update":
-                    $instance_list = TikiManager\Application\Instance::getUpdatableInstances();
+                    $instance_list = Instance::getUpdatableInstances();
                     break;
 
                 case "backup":
-                    $instance_list = TikiManager\Application\Instance::getInstances(true);
+                    $instance_list = Instance::getInstances(true);
                     break;
             }
 
@@ -1155,7 +1179,7 @@ class Services_Manager_Controller
 
     public function action_backup($input)
     {
-        $cmd = new TikiManager\Command\BackupInstanceCommand();
+        $cmd = new BackupInstanceCommand();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $arrayInput = [
                 'command' => $cmd->getName(),
@@ -1208,7 +1232,7 @@ class Services_Manager_Controller
 
     public function action_checkout($input)
     {
-        $cmd = new TikiManager\Command\CheckoutCommand();
+        $cmd = new CheckoutCommand();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $inputCommand = new ArrayInput([
@@ -1245,7 +1269,7 @@ class Services_Manager_Controller
 
     public function action_revert($input)
     {
-        $cmd = new TikiManager\Command\RevertInstanceCommand();
+        $cmd = new RevertInstanceCommand();
         $input = new ArrayInput([
             'command' => $cmd->getName(),
             '-i' => $input->instanceId->int()
@@ -1284,7 +1308,7 @@ class Services_Manager_Controller
 
     private function apply_profile($instanceId, $profile, $repository)
     {
-        $cmd = new TikiManager\Command\ApplyProfileCommand();
+        $cmd = new ApplyProfileCommand();
         $inputCmd = new ArrayInput([
             'command' => $cmd->getName(),
             '-i' => $instanceId,
@@ -1302,5 +1326,44 @@ class Services_Manager_Controller
     {
         $utilities = new Services_Manager_Utilities();
         $utilities->addInteractiveJS($consoleCommand);
+    }
+
+    public function actionTemporaryUser($input)
+    {
+        $instanceId = $input->instanceId->int();
+        if (Instance::getInstance($instanceId)) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $groups = $input->groups->text();
+                $cmd = new CreateTemporaryUserInstanceCommand();
+                $inputCmd = new ArrayInput([
+                    'command' => $cmd->getName(),
+                    '-i' => $instanceId,
+                    '-g' => $groups,
+                ]);
+                try {
+                    $this->runCommand($cmd, $inputCmd);
+                    return [
+                        'title' => tr('Tiki Manager Temporary User Created'),
+                        'info' => $this->manager_output->fetch(),
+                        'refresh' => true,
+                    ];
+                } catch (\Exception $e) {
+                    Feedback::error($e->getMessage());
+                }
+            } else {
+                return [
+                    'title' => tr('Create temporary user'),
+                    'info' => '',
+                    'instanceId' => $instanceId
+                ];
+            }
+        } else {
+            Feedback::error(tr('Unknown instance'));
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }
     }
 }
