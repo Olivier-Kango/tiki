@@ -230,7 +230,7 @@ export default defineConfig(({ command, mode }) => {
                             src: "node_modules/module-name/dist/*",",
                             dest: "vendor_dist/module-name/dist",
                         },
-                    But make sure to look into the dist folder, so we don't add a bunch of useless stiff, but don't miss required support files (such as language files)
+                    But make sure to look into the dist folder, so we don't add a bunch of useless stuff, but don't miss required support files (such as language files)
                     */
 
                     /* jquery_tiki */
@@ -277,6 +277,10 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/@shoelace-style/shoelace/dist/themes/*.css",
                         dest: "vendor_dist/@shoelace-style/shoelace/dist/themes",
+                    },
+                    {
+                        src: "node_modules/@toast-ui/editor/dist/*",
+                        dest: "vendor_dist/@toast-ui/editor/dist/",
                     },
                     {
                         // This is an indirect runtime dependency of chart.js

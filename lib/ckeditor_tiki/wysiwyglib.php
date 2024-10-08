@@ -280,9 +280,9 @@ ajaxLoadingShow("' . $dom_id . '");
         $languageCode = $this->languageMapISO($prefs['language']);
         if ($languageCode) {
             $options['language'] = $languageCode;
-            $headerlib->add_jsfile_external(
-                'https://uicdn.toast.com/editor/latest/i18n/' . strtolower($languageCode) . '.js'
-            );
+             $headerlib->add_jsfile_external(
+                 TOASTUI_DIST_PATH . 'i18n/' . strtolower($languageCode) . '.js'
+             );
         }
 
         if (! empty($params['_toolbars'])  && $params['_toolbars'] === 'y') {
