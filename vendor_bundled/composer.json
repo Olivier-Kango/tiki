@@ -403,6 +403,7 @@
     ],
     "scripts": {
         "pre-install-cmd": [
+            "Tiki\\Composer\\ValidateVersion::validate",
             "Tiki\\Composer\\RestoreVendors::restore",
             "Tiki\\Composer\\CleanVendorAfterVendorBundledMigration::cleanLinks"
         ],
@@ -415,6 +416,7 @@
             "Tiki\\Composer\\PatchCypht::setup"
         ],
         "pre-update-cmd": [
+            "Tiki\\Composer\\ValidateVersion::validate",
             "Tiki\\Composer\\RestoreVendors::restore",
             "Tiki\\Composer\\ThemeInstaller::setup",
             "Tiki\\Composer\\CleanVendorAfterVendorBundledMigration::cleanLinks"
