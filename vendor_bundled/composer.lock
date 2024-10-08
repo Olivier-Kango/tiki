@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b90e4afb9e7e65dd906f5d2c3511232a",
+    "content-hash": "54ea4cd5d73bec13b4526d03b48ab493",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -637,6 +637,62 @@
             "description": "BaconQrCode is a QR code generator for PHP.",
             "homepage": "https://github.com/Bacon/BaconQrCode",
             "time": "2022-12-07T17:46:57+00:00"
+        },
+        {
+            "name": "brick/math",
+            "version": "0.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brick/math.git",
+                "reference": "f510c0a40911935b77b86859eb5223d58d660df1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/brick/math/brick-math-f510c0a40911935b77b86859eb5223d58d660df1-zip-f8b5e0.zip",
+                "reference": "f510c0a40911935b77b86859eb5223d58d660df1",
+                "shasum": "a39a592782ae09343ee8445e96d5907167164eef"
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpunit/phpunit": "^10.1",
+                "vimeo/psalm": "5.16.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brick\\Math\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Arbitrary-precision arithmetic library",
+            "keywords": [
+                "Arbitrary-precision",
+                "BigInteger",
+                "BigRational",
+                "arithmetic",
+                "bigdecimal",
+                "bignum",
+                "bignumber",
+                "brick",
+                "decimal",
+                "integer",
+                "math",
+                "mathematics",
+                "rational"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/BenMorel",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-11-29T23:19:16+00:00"
         },
         {
             "name": "candy-chat/xmpp-prebind-php",
@@ -1402,17 +1458,17 @@
         },
         {
             "name": "elliotjreed/disposable-emails-filter",
-            "version": "4.0.16",
+            "version": "4.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elliotjreed/disposable-emails-filter-php.git",
-                "reference": "d24677626b60eb4986d3460b3d11a05f727d75e3"
+                "reference": "1ed4b3dcaefd8aeb53d67221e6cd0d23184d2ae9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-d24677626b60eb4986d3460b3d11a05f727d75e3-zip-c1fc29.zip",
-                "reference": "d24677626b60eb4986d3460b3d11a05f727d75e3",
-                "shasum": "50cc0cb33dff8faff24d9938d8dba424e20702cc"
+                "url": "https://composer.tiki.org/dist/elliotjreed/disposable-emails-filter/elliotjreed-disposable-emails-filter-1ed4b3dcaefd8aeb53d67221e6cd0d23184d2ae9-zip-298e88.zip",
+                "reference": "1ed4b3dcaefd8aeb53d67221e6cd0d23184d2ae9",
+                "shasum": "17bff73f07bc32d17fa00bcfc854ef10a175928a"
             },
             "require": {
                 "php": "^8.1"
@@ -1442,7 +1498,7 @@
                 }
             ],
             "description": "A PHP package for determining whether an email address is from a disposable / temporary email address provider.",
-            "time": "2024-09-16T07:33:33+00:00"
+            "time": "2024-10-05T07:33:32+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -4647,17 +4703,17 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.28.0",
+            "version": "3.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "e611adab2b1ae2e3072fa72d62c62f52c2bf1f0c"
+                "reference": "0adc0d9a51852e170e0028a60bd271726626d3f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-e611adab2b1ae2e3072fa72d62c62f52c2bf1f0c-zip-624e18.zip",
-                "reference": "e611adab2b1ae2e3072fa72d62c62f52c2bf1f0c",
-                "shasum": "be83a4ecec961568c68066bdff1e858c914f23e2"
+                "url": "https://composer.tiki.org/dist/league/flysystem/league-flysystem-0adc0d9a51852e170e0028a60bd271726626d3f0-zip-da20e0.zip",
+                "reference": "0adc0d9a51852e170e0028a60bd271726626d3f0",
+                "shasum": "6593af399165abcfb6528bed63d0067c63be760c"
             },
             "require": {
                 "league/flysystem-local": "^3.0.0",
@@ -4722,21 +4778,21 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2024-05-22T10:09:12+00:00"
+            "time": "2024-09-29T11:59:11+00:00"
         },
         {
             "name": "league/flysystem-local",
-            "version": "3.28.0",
+            "version": "3.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-local.git",
-                "reference": "13f22ea8be526ea58c2ddff9e158ef7c296e4f40"
+                "reference": "e0e8d52ce4b2ed154148453d321e97c8e931bd27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/flysystem-local/league-flysystem-local-13f22ea8be526ea58c2ddff9e158ef7c296e4f40-zip-3dc620.zip",
-                "reference": "13f22ea8be526ea58c2ddff9e158ef7c296e4f40",
-                "shasum": "c9073a20bea4e55ae21dbec54457df2ee59c3920"
+                "url": "https://composer.tiki.org/dist/league/flysystem-local/league-flysystem-local-e0e8d52ce4b2ed154148453d321e97c8e931bd27-zip-3e1c6d.zip",
+                "reference": "e0e8d52ce4b2ed154148453d321e97c8e931bd27",
+                "shasum": "66d67fc227ff3a3b7c5ebffc268c4660788eeb4f"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -4768,7 +4824,7 @@
                 "filesystem",
                 "local"
             ],
-            "time": "2024-05-06T20:05:52+00:00"
+            "time": "2024-08-09T21:24:39+00:00"
         },
         {
             "name": "league/html-to-markdown",
@@ -5722,24 +5778,24 @@
         },
         {
             "name": "nette/schema",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
-                "reference": "a6d3a6d1f545f01ef38e60f375d1cf1f4de98188"
+                "reference": "9522dad6211c4d995a01a9ac529da88d0b0ba7b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/nette/schema/nette-schema-a6d3a6d1f545f01ef38e60f375d1cf1f4de98188-zip-96a6dc.zip",
-                "reference": "a6d3a6d1f545f01ef38e60f375d1cf1f4de98188",
-                "shasum": "89f2a75294da850831d5e3490c8f27fa863c8f17"
+                "url": "https://composer.tiki.org/dist/nette/schema/nette-schema-9522dad6211c4d995a01a9ac529da88d0b0ba7b5-zip-c6694f.zip",
+                "reference": "9522dad6211c4d995a01a9ac529da88d0b0ba7b5",
+                "shasum": "d2e82b9f7ff3dd4985f7f19192423c713933f283"
             },
             "require": {
                 "nette/utils": "^4.0",
-                "php": "8.1 - 8.3"
+                "php": "8.1 - 8.4"
             },
             "require-dev": {
-                "nette/tester": "^2.4",
+                "nette/tester": "^2.5.2",
                 "phpstan/phpstan-nette": "^1.0",
                 "tracy/tracy": "^2.8"
             },
@@ -5776,7 +5832,7 @@
                 "config",
                 "nette"
             ],
-            "time": "2023-12-11T11:54:22+00:00"
+            "time": "2024-10-05T03:01:50+00:00"
         },
         {
             "name": "nette/utils",
@@ -6016,11 +6072,11 @@
         },
         {
             "name": "npm-asset/babel--helper-string-parser",
-            "version": "7.24.8",
+            "version": "7.25.7",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-string-parser/npm-asset-babel--helper-string-parser-7.24.8.zip",
-                "shasum": "8eda5d7f29ebfcbe7f0f898073f02b100ac0df81"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-string-parser/npm-asset-babel--helper-string-parser-7.25.7.zip",
+                "shasum": "8b2275a5f5f43a8d71b99fe8d234429046ff5d76"
             },
             "type": "npm-asset",
             "license": [
@@ -6042,14 +6098,14 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.25.6",
+            "version": "7.25.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.6.zip",
-                "shasum": "6e6c78cad979d2b0a8328f2e932d50caf08cc2e5"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.3.zip",
+                "shasum": "57ef76e7fdb5369d3c042de128d3d3f4ba1d49f7"
             },
             "require": {
-                "npm-asset/babel--types": ">=7.25.6,<8.0.0"
+                "npm-asset/babel--types": ">=7.25.2,<8.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -6058,11 +6114,11 @@
         },
         {
             "name": "npm-asset/babel--types",
-            "version": "7.25.6",
+            "version": "7.25.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.25.6.zip",
-                "shasum": "ee590974cd8e36528507977788dca3eb5cde3185"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.25.2.zip",
+                "shasum": "b1b850e34534d9810f85c3cceb9ff871a229aa9f"
             },
             "require": {
                 "npm-asset/babel--helper-string-parser": ">=7.24.8,<8.0.0",
@@ -6207,11 +6263,11 @@
         },
         {
             "name": "npm-asset/dompurify",
-            "version": "2.5.6",
+            "version": "2.5.7",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/dompurify/npm-asset-dompurify-2.5.6.zip",
-                "shasum": "819cc3065d2aa4e47c21afc8d55f6e801eff62e6"
+                "url": "https://composer.tiki.org/dist/npm-asset/dompurify/npm-asset-dompurify-2.5.7.zip",
+                "shasum": "5618d2ef334b307ce3c486be8508d97f34acd0ee"
             },
             "type": "npm-asset",
             "license": [
@@ -7719,17 +7775,17 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.19.4",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "0700efda8d7526335132360167315fdab3aeb599"
+                "reference": "82fe4c73ef3363caed49ff8dd1539ba06044910d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-0700efda8d7526335132360167315fdab3aeb599-zip-d30125.zip",
-                "reference": "0700efda8d7526335132360167315fdab3aeb599",
-                "shasum": "aaf9ab9903d392203172c8f795835ba92542b97d"
+                "url": "https://composer.tiki.org/dist/php-http/discovery/php-http-discovery-82fe4c73ef3363caed49ff8dd1539ba06044910d-zip-674853.zip",
+                "reference": "82fe4c73ef3363caed49ff8dd1539ba06044910d",
+                "shasum": "c7f4644bcafdbd40e2d922bba58b23b9ad01ea89"
             },
             "require": {
                 "composer-plugin-api": "^1.0|^2.0",
@@ -7790,7 +7846,7 @@
                 "psr17",
                 "psr7"
             ],
-            "time": "2024-03-29T13:00:05+00:00"
+            "time": "2024-10-02T11:20:13+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -7847,17 +7903,17 @@
         },
         {
             "name": "php-http/message",
-            "version": "1.16.1",
+            "version": "1.16.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "5997f3289332c699fa2545c427826272498a2088"
+                "reference": "06dd5e8562f84e641bf929bfe699ee0f5ce8080a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/php-http/message/php-http-message-5997f3289332c699fa2545c427826272498a2088-zip-1f79b8.zip",
-                "reference": "5997f3289332c699fa2545c427826272498a2088",
-                "shasum": "7ccc274ca97a58418bc599fd224d8b330596dd24"
+                "url": "https://composer.tiki.org/dist/php-http/message/php-http-message-06dd5e8562f84e641bf929bfe699ee0f5ce8080a-zip-d20994.zip",
+                "reference": "06dd5e8562f84e641bf929bfe699ee0f5ce8080a",
+                "shasum": "7538eb0951e689686ebe4b090e25519763fa7e02"
             },
             "require": {
                 "clue/stream-filter": "^1.5",
@@ -7908,7 +7964,7 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2024-03-07T13:22:09+00:00"
+            "time": "2024-10-02T11:34:13+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -8680,6 +8736,179 @@
                 "php"
             ],
             "time": "2018-02-11T21:04:04+00:00"
+        },
+        {
+            "name": "ramsey/collection",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/collection.git",
+                "reference": "a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/ramsey/collection/ramsey-collection-a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5-zip-00182d.zip",
+                "reference": "a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5",
+                "shasum": "b0cd07eb74d2b18fa37a29eeed6f2e6ba3bbe9d2"
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "captainhook/plugin-composer": "^5.3",
+                "ergebnis/composer-normalize": "^2.28.3",
+                "fakerphp/faker": "^1.21",
+                "hamcrest/hamcrest-php": "^2.0",
+                "jangregor/phpstan-prophecy": "^1.0",
+                "mockery/mockery": "^1.5",
+                "php-parallel-lint/php-console-highlighter": "^1.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpcsstandards/phpcsutils": "^1.0.0-rc1",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpstan/extension-installer": "^1.2",
+                "phpstan/phpstan": "^1.9",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-mockery": "^1.1",
+                "psalm/plugin-phpunit": "^0.18.4",
+                "ramsey/coding-standard": "^2.0.3",
+                "ramsey/conventional-commits": "^1.3",
+                "vimeo/psalm": "^5.4"
+            },
+            "type": "library",
+            "extra": {
+                "captainhook": {
+                    "force-install": true
+                },
+                "ramsey/conventional-commits": {
+                    "configFile": "conventional-commits.json"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ramsey\\Collection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Ramsey",
+                    "email": "ben@benramsey.com",
+                    "homepage": "https://benramsey.com"
+                }
+            ],
+            "description": "A PHP library for representing and manipulating collections.",
+            "keywords": [
+                "array",
+                "collection",
+                "hash",
+                "map",
+                "queue",
+                "set"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/ramsey",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ramsey/collection",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-12-31T21:50:55+00:00"
+        },
+        {
+            "name": "ramsey/uuid",
+            "version": "4.7.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/uuid.git",
+                "reference": "91039bc1faa45ba123c4328958e620d382ec7088"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/ramsey/uuid/ramsey-uuid-91039bc1faa45ba123c4328958e620d382ec7088-zip-ab3877.zip",
+                "reference": "91039bc1faa45ba123c4328958e620d382ec7088",
+                "shasum": "a870116066dd9de5d6b165a014a7ef5d55f2d92f"
+            },
+            "require": {
+                "brick/math": "^0.8.8 || ^0.9 || ^0.10 || ^0.11 || ^0.12",
+                "ext-json": "*",
+                "php": "^8.0",
+                "ramsey/collection": "^1.2 || ^2.0"
+            },
+            "replace": {
+                "rhumsaa/uuid": "self.version"
+            },
+            "require-dev": {
+                "captainhook/captainhook": "^5.10",
+                "captainhook/plugin-composer": "^5.3",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "doctrine/annotations": "^1.8",
+                "ergebnis/composer-normalize": "^2.15",
+                "mockery/mockery": "^1.3",
+                "paragonie/random-lib": "^2",
+                "php-mock/php-mock": "^2.2",
+                "php-mock/php-mock-mockery": "^1.3",
+                "php-parallel-lint/php-parallel-lint": "^1.1",
+                "phpbench/phpbench": "^1.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "phpunit/phpunit": "^8.5 || ^9",
+                "ramsey/composer-repl": "^1.4",
+                "slevomat/coding-standard": "^8.4",
+                "squizlabs/php_codesniffer": "^3.5",
+                "vimeo/psalm": "^4.9"
+            },
+            "suggest": {
+                "ext-bcmath": "Enables faster math with arbitrary-precision integers using BCMath.",
+                "ext-gmp": "Enables faster math with arbitrary-precision integers using GMP.",
+                "ext-uuid": "Enables the use of PeclUuidTimeGenerator and PeclUuidRandomGenerator.",
+                "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
+                "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
+            },
+            "type": "library",
+            "extra": {
+                "captainhook": {
+                    "force-install": true
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Ramsey\\Uuid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A PHP library for generating and working with universally unique identifiers (UUIDs).",
+            "keywords": [
+                "guid",
+                "identifier",
+                "uuid"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/ramsey",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ramsey/uuid",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-04-27T21:32:50+00:00"
         },
         {
             "name": "rangy/rangy",
@@ -14633,17 +14862,17 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.2.0",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb"
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/nikic/php-parser/nikic-php-parser-23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb-zip-68c59a.zip",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
-                "shasum": "72c40ad3c7c66abec2e55375a05b8b4df190fea8"
+                "url": "https://composer.tiki.org/dist/nikic/php-parser/nikic-php-parser-3abf7425cd284141dc5d8d14a9ee444de3345d1a-zip-d3a585.zip",
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "shasum": "284078931c8c68ad9de46638e5d99f94ad7bed30"
             },
             "require": {
                 "ext-ctype": "*",
@@ -14683,7 +14912,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2024-09-15T16:40:33+00:00"
+            "time": "2024-09-29T13:56:26+00:00"
         },
         {
             "name": "overtrue/phplint",
@@ -14954,13 +15183,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "5320beafb871c9267c7d03442044eedea4ca1f52"
+                "reference": "d00d98bc1fb06a752fc256751495f1cbe0a598cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-5320beafb871c9267c7d03442044eedea4ca1f52-zip-67cf7a.zip",
-                "reference": "5320beafb871c9267c7d03442044eedea4ca1f52",
-                "shasum": "08d96f213a836ecb72e155cf483e03ae59868622"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-d00d98bc1fb06a752fc256751495f1cbe0a598cd-zip-34940c.zip",
+                "reference": "d00d98bc1fb06a752fc256751495f1cbe0a598cd",
+                "shasum": "40bd42d82d246a9c435a8fe5a019a68ecc10dca6"
             },
             "require": {
                 "php": ">=5.4",
@@ -15030,7 +15259,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-09-18T23:29:28+00:00"
+            "time": "2024-10-04T22:23:58+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -15116,17 +15345,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.4",
+            "version": "1.12.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ffa517cb918591b93acc9b95c0bebdcd0e4538bd"
+                "reference": "7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-ffa517cb918591b93acc9b95c0bebdcd0e4538bd-zip-e40bb3.zip",
-                "reference": "ffa517cb918591b93acc9b95c0bebdcd0e4538bd",
-                "shasum": "f3ad18b5408466850d0b2cfab3098ee524e4129d"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17-zip-6ddc38.zip",
+                "reference": "7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17",
+                "shasum": "c230f4a4120ef111645226512d9b7cb2a0f0c501"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15163,7 +15392,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-19T07:58:01+00:00"
+            "time": "2024-09-26T12:45:22+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",

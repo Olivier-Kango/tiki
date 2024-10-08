@@ -121,6 +121,10 @@ function tiki_setup_events()
             $events->bind('tiki.trackeritem.save', ['Tracker_Field_Icon', 'updateIcon']);
         }
 
+        if ($prefs['feature_internet_of_things'] == 'y') {
+            $events->bind('tiki.trackeritem.save', $defer('iotevents', 'trackerItemCreate'));
+        }
+
         // Certain non-read only fields that can be edited outside of using the tracker field do store a value in the
         // tiki_tracker_item_fields database, and therefore need updates of the tracker field value to be in sync, when
         // edited elsewhere. Completely read-only fields don't have this problem as they don't save anything anyway.

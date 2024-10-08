@@ -20,6 +20,7 @@ use Ratchet\ConnectionInterface;
 use Tiki\Realtime\Chat;
 use Tiki\Realtime\Console;
 use Tiki\Realtime\Ping;
+use Tiki\Realtime\IotDashboardNotifier;
 
 /*
 Install/Deploy/Run:
@@ -59,4 +60,5 @@ $app = new Ratchet\App('localhost', $port);
 $app->route('/console', new Console(), ['*']);
 $app->route('/chat', new Chat(), ['*']);
 $app->route('ping', new Ping(), ['*']);
+$app->route('/iot-dashboard-notifier', new IotDashboardNotifier(), ['*']);
 $app->run();

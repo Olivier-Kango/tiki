@@ -2987,5 +2987,18 @@ function prefs_feature_list($partial = false)
             'default' => 'n',
             'tags' => ['advanced'],
         ],
+        'feature_internet_of_things' => [
+            'name' => tra('Internet of things'),
+            'description' => tra('Enable usage of Tiki Internet of Things apps'),
+            'help' => 'iot',
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+            'hint' => tra('You can use this feature to connect your physical objects with your Tiki instance and collect/monitor your data in real time'),
+            'dependencies' => [
+                'feature_trackers',
+                'feature_realtime',
+            ],
+        ]
     ];
 }

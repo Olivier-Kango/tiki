@@ -321,3 +321,5 @@ ALTER TABLE `tiki_performance` ENGINE = InnoDB;
 ALTER TABLE `tiki_password_blacklist` ENGINE = InnoDB;
 ALTER TABLE `tiki_custom_color_modes` ENGINE = InnoDB;
 ALTER TABLE `tiki_sql_query_logs` ENGINE = InnoDB;
+ALTER TABLE `tiki_iot_apps` ENGINE = InnoDB;
+ALTER TABLE `tiki_iot_apps_actions_logs` ENGINE=InnoDB;

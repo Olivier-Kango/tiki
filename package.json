@@ -94,6 +94,7 @@
     "src/js/jquery-tiki",
     "src/js/vue-mf/*",
     "src/js/vue-widgets/*",
+    "src/js/tiki-iot",
     "src/scss"
   ]
 }

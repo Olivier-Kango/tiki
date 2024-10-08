@@ -63,7 +63,11 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
 
                 /* vue widgets */
                 "@vue-widgets/datetime-picker" => $tikiUrl . JS_ASSETS_PATH . "/datetime-picker.js",
-                "@vue-widgets/element-plus-ui" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui.js"
+                "@vue-widgets/element-plus-ui" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui.js",
+
+                /* tiki-iot */
+                "@tiki-iot/tiki-iot-dashboard-all" => $tikiUrl . JS_ASSETS_PATH . "/tiki-iot/tiki-iot-dashboard-all.js",
+                "@tiki-iot/tiki-iot-dashboard" => $tikiUrl . JS_ASSETS_PATH . "/tiki-iot/tiki-iot-dashboard.js",
             ]
         ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);

@@ -126,6 +126,8 @@ export default defineConfig(({ command, mode }) => {
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
         "tiki-offline": resolve(__dirname, "vue-mf/tiki-offline/src/tiki-offline.js"),
         "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
+        "tiki-iot-dashboard": resolve(__dirname, "tiki-iot/dashboard.js"),
+        "tiki-iot-dashboard-all": resolve(__dirname, "tiki-iot/dashboard-all.js"),
     });
     return {
         base: "/public/generated/js", //This must NOT have a trailing slash
@@ -187,7 +189,13 @@ export default defineConfig(({ command, mode }) => {
                         //console.log(assetInfo);
                         return assetInfo.name;
                     },
-                    entryFileNames: "[name].js",
+                    entryFileNames: (chunkInfo) => {
+                        // Check if the chunk is from the tiki-iot workspace
+                        if (chunkInfo.name.startsWith('tiki-iot')) {
+                            return 'tiki-iot/[name].js';
+                        }
+                        return '[name].js';
+                    },
                 },
                 preserveEntrySignatures: "allow-extension",
             },
@@ -348,6 +356,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/dompurify/dist",
                     },
                     {
+                        src : ["node_modules/drawflow/dist/drawflow.min.css"],
+                        dest: "vendor_dist/drawflow/dist",
+                    },
+                    {
                         src: "node_modules/driver.js/dist/driver.js.mjs",
                         dest: "vendor_dist/driver.js/dist",
                     },
@@ -358,6 +370,10 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/interactjs/dist/*",
                         dest: "vendor_dist/interactjs/dist",
+                    },
+                    {
+                        src: ["node_modules/gridstack/dist/gridstack.min.css", "node_modules/gridstack/dist/gridstack-extra.min.css"],
+                        dest: "vendor_dist/gridstack/dist",
                     },
                     {
                         src: "node_modules/jqdoublescroll/jquery.doubleScroll.js",
@@ -454,7 +470,7 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/vue/dist/vue.esm-browser.prod.js",
                         dest: "vendor_dist/vue/dist",
-                    },
+                    }
                 ],
             }),
             copy({

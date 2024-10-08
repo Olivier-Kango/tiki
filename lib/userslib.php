@@ -6634,6 +6634,15 @@ class UsersLib extends TikiLib
                 'prefs' => ['goal_enabled'],
                 'scope' => 'object',
             ],
+            [
+                'name' => 'tiki_p_manage_iot_apps',
+                'description' => tr('Can view and manage IoT apps'),
+                'level' => 'admin',
+                'type' => 'iot',
+                'admin' => true,
+                'prefs' => ['feature_internet_of_things'],
+                'scope' => 'global',
+            ]
         ];
 
         $permissions = $this->getSortingPermissions($permissions);

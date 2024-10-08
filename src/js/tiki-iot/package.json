@@ -1,0 +1,21 @@
+{
+  "name": "tiki-iot",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --ext .js --ignore-path .gitignore --fix src",
+    "format": "prettier .  --write"
+  },
+  "engines": {
+    "npm": ">=7.0.0"
+  },
+  "dependencies": {
+    "drawflow": "^0.0.59",
+    "gaugeJS": "^1.3",
+    "gridstack": "^10.1.2",
+    "interactjs": "^1.10"
+  },
+  "devDependencies": {
+    "@types/drawflow": "^0.0.12"
+  }
+}
