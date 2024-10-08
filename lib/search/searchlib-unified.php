@@ -514,6 +514,14 @@ class UnifiedSearchLib
     }
 
     /**
+     * Replace index in the cache - used by tests.
+     */
+    public function replaceIndexCache($indexType, $index)
+    {
+        $this->indices[$indexType] = $index;
+    }
+
+    /**
      * @return array
      */
     public function getSupportedTypes()

@@ -19,10 +19,7 @@ class FacetReader
     {
         $entry = [];
 
-        foreach ($this->results as $i => $result) {
-            if ($i == 0) {
-                continue;
-            }
+        foreach ($this->results as $result) {
             if (empty($result)) {
                 continue;
             }

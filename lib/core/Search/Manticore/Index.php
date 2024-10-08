@@ -383,7 +383,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $built = $builder->build($query->getExpr());
 
         $condition = $built['query'];
-        $select = $built['select'];
+        $selectExpressions = $built['select'];
 
         if (empty($condition)) {
             // empty queries return no results
@@ -403,45 +403,18 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $builder->setPossibleFields($this->pdo_client->possibleFacetFields($table));
         $facets = $builder->build($query->getFacets());
 
-        if ($selectionFields = $query->getSelectionFields()) {
-            foreach ($selectionFields as $key => $field) {
-                $this->ensureHasField($field);
-                $selectionFields[$key] = strtolower($field);
-            }
-            $sql = "SELECT " . implode(',', $selectionFields);
+        if ($selectFields = $query->getSelectionFields()) {
+            $selectFields = array_map(function ($field) {
+                return strtolower($field);
+            }, $selectFields);
         } else {
-            $sql = "SELECT *";
+            $selectFields = [];
         }
 
-        foreach ($select as $key => $expr) {
-            $sql .= ", $expr as $key";
-        }
-
-        $sql .= " FROM $table WHERE $condition";
-
-        if ($order) {
-            $sql .= " ORDER BY $order";
-        }
-
-        $sql .= " LIMIT $resultStart, $resultCount option not_terms_only_allowed=1,cutoff=0";
-
-        if ($resultStart + $resultCount > 1000) {
-            $sql .= ',max_matches=' . ($resultStart + $resultCount);
-        }
-
-        if ($facets) {
-            $sql .= ' ' . $facets;
-        }
-
-        $results = $this->pdo_client->fetchAllRowsets($sql, false, ! empty($selectionFields));
-        $result = $results[0];
-
-        $meta = $this->pdo_client->fetchAll('SHOW META');
-        foreach ($meta as $row) {
-            if ($row['Variable_name'] == 'total_found') {
-                $totalCount = intval($row['Value']);
-            }
-        }
+        $result = $this->pdo_client->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, array_keys($this->providedMappings));
+        $totalCount = $result['total'];
+        $facets = $result['facets'];
+        $result = $result['rows'];
 
         $fieldMapping = $this->getUnifiedFieldMapping();
         $dateFields = $this->getUnifiedDateFields();
@@ -460,10 +433,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $entries = [];
         foreach ($result as $data) {
             foreach ($data as $key => $_) {
-                if (substr($key, -6) == '_nsort') {
-                    unset($data[$key]);
-                }
-                if (isset($select[$key])) {
+                if (isset($selectExpressions[$key])) {
                     unset($data[$key]);
                 }
             }
@@ -517,7 +487,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $words = $this->getWords($query->getExpr());
         $resultSet->setHighlightHelper(new \Search_MySql_HighlightHelper($words));
 
-        $reader = new FacetReader($results);
+        $reader = new FacetReader($facets);
         foreach ($query->getFacets() as $facet) {
             if ($filter = $reader->getFacetFilter($facet)) {
                 $resultSet->addFacetFilter($filter);

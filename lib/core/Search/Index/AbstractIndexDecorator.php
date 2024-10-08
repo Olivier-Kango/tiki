@@ -90,4 +90,11 @@ class Search_Index_AbstractIndexDecorator implements Search_Index_Interface
             return $this->parent->generateSearchedFieldIndexStats();
         }
     }
+
+    public function getFieldMappings()
+    {
+        if (method_exists($this->parent, 'getFieldMappings')) {
+            return $this->parent->getFieldMappings();
+        }
+    }
 }
