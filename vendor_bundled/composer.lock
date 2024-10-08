@@ -2271,13 +2271,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "a3efbf567d96ec61ab441a9a14e0bbfd76aedc65"
+                "reference": "4f9255e5af5fd9794367e1779113f7cc7b106538"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-a3efbf567d96ec61ab441a9a14e0bbfd76aedc65-zip-ad135a.zip",
-                "reference": "a3efbf567d96ec61ab441a9a14e0bbfd76aedc65",
-                "shasum": "0a280401afbaa50029d76b444fc2a920b532c3c2"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-4f9255e5af5fd9794367e1779113f7cc7b106538-zip-cc9d0b.zip",
+                "reference": "4f9255e5af5fd9794367e1779113f7cc7b106538",
+                "shasum": "abc9d28e23296c8bcf5e4346ade1666ed975c06e"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2344,7 +2344,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-09-14T11:38:38+00:00"
+            "time": "2024-10-04T14:30:27+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
