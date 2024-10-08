@@ -58,6 +58,13 @@
             </fieldset>
         {/tab}
 
+        {tab name="{tr}Monitor{/tr}"}
+            {preference name=monitor_restricted_ips}
+            {preference name=monitor_token}
+            {preference name=monitor_rules}
+            {preference name=monitor_probes}
+        {/tab}
+
         {tab name="{tr}Bytecode Cache{/tr}"}
             <br>
             {if $opcode_cache}

@@ -46,5 +46,33 @@ function prefs_monitor_list()
             'hint' => tr('noreply+PLACEHOLDER@example.com'),
             'dependencies' => ['feature_mailin'],
         ],
+        'monitor_restricted_ips' => [
+            'name' => tra('List of IPs that can connect for monitoring'),
+            'description' => tra('Allows tiki-monitor.php restricting access to a list of IPs ( comma separated)'),
+            'type' => 'textarea',
+            'size' => 3,
+            'default' => '',
+        ],
+        'monitor_token' => [
+            'name' => tra('Integration token to authenticate requests'),
+            'description' => tra('Token can be passed to the script as GET, POST or HTTP Header parameter'),
+            'type' => 'text',
+            'default' => '',
+        ],
+        'monitor_rules' => [
+            'name' => tra('Monitor permissions rules'),
+            'description' => tra('Accept a list of entries representing permissions'),
+            'type' => 'textarea',
+            'size' => 5,
+            'default' => '',
+        ],
+        'monitor_probes' => [
+            'name' => tra('Monitor probes'),
+            'description' => tra('Using Math expression to define monitors'),
+            'type' => 'textarea',
+            'size' => 5,
+            'default' => '',
+            'tags' => ['experimental'],
+        ],
     ];
 }
