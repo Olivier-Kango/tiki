@@ -383,7 +383,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $built = $builder->build($query->getExpr());
 
         $condition = $built['query'];
-        $select = $built['select'];
+        $selectExpressions = $built['select'];
 
         if (empty($condition)) {
             // empty queries return no results
@@ -403,48 +403,26 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $builder->setPossibleFields($this->pdo_client->possibleFacetFields($table));
         $facets = $builder->build($query->getFacets());
 
-        if ($selectionFields = $query->getSelectionFields()) {
-            foreach ($selectionFields as $key => $field) {
-                $this->ensureHasField($field);
-                $selectionFields[$key] = strtolower($field);
-            }
-            $sql = "SELECT " . implode(',', $selectionFields);
+        if ($selectFields = $query->getSelectionFields()) {
+            $selectFields = array_map(function ($field) {
+                return strtolower($field);
+            }, $selectFields);
         } else {
-            $sql = "SELECT *";
+            $selectFields = [];
         }
 
-        foreach ($select as $key => $expr) {
-            $sql .= ", $expr as $key";
-        }
-
-        $sql .= " FROM $table WHERE $condition";
-
-        if ($order) {
-            $sql .= " ORDER BY $order";
-        }
-
-        $sql .= " LIMIT $resultStart, $resultCount option not_terms_only_allowed=1,cutoff=0";
-
-        if ($resultStart + $resultCount > 1000) {
-            $sql .= ',max_matches=' . ($resultStart + $resultCount);
-        }
-
-        if ($facets) {
-            $sql .= ' ' . $facets;
-        }
-
-        $results = $this->pdo_client->fetchAllRowsets($sql, false, ! empty($selectionFields));
-        $result = $results[0];
-
-        $meta = $this->pdo_client->fetchAll('SHOW META');
-        foreach ($meta as $row) {
-            if ($row['Variable_name'] == 'total_found') {
-                $totalCount = intval($row['Value']);
+        $result = $this->pdo_client->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, array_keys($this->providedMappings));
+        if ($query->processDidYouMean() && $result['total'] === 0) {
+            list($suggestionResult, $didYouMean, $correctKeywords) = $this->callSuggestions($table, $meta, $resultStart, $resultCount);
+            if ($suggestionResult) {
+                $result = $suggestionResult;
             }
         }
-        if ($query->processDidYouMean() && $totalCount === 0) {
-            list($result, $totalCount, $results, $didYouMean, $correctKeywords) = $this->callSuggestions($table, $meta);
-        }
+
+        $totalCount = $result['total'];
+        $facets = $result['facets'];
+        $meta = $result['meta'];
+        $result = $result['rows'];
 
         $fieldMapping = $this->getUnifiedFieldMapping();
         $dateFields = $this->getUnifiedDateFields();
@@ -463,10 +441,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $entries = [];
         foreach ($result as $data) {
             foreach ($data as $key => $_) {
-                if (substr($key, -6) == '_nsort') {
-                    unset($data[$key]);
-                }
-                if (isset($select[$key])) {
+                if (isset($selectExpressions[$key])) {
                     unset($data[$key]);
                 }
             }
@@ -522,7 +497,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $words = $this->getWords($query->getExpr());
         $resultSet->setHighlightHelper(new \Search_MySql_HighlightHelper($words));
 
-        $reader = new FacetReader($results);
+        $reader = new FacetReader($facets);
         foreach ($query->getFacets() as $facet) {
             if ($filter = $reader->getFacetFilter($facet)) {
                 $resultSet->addFacetFilter($filter);
@@ -531,12 +506,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         return $resultSet;
     }
 
-    public function callSuggestions($table, $meta)
+    public function callSuggestions($table, $meta, $resultStart, $resultCount)
     {
         $didYouMean = false;
         $correctKeywords = [];
-        $totalCount = 0;
-        $results = [];
         $result = null;
         foreach ($meta as $m) {
             if (preg_match('/keyword\[\d+]/', $m['Variable_name'])) {
@@ -567,18 +540,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             $correctKeywords[] = end($didYouMeanQuery);
         }
         if ($didYouMean == true) {
-            $sql = "SELECT * FROM " . $table . " WHERE MATCH('" . implode(" ", $didYouMeanQuery) . "')";
-            $results = $this->pdo_client->fetchAllRowsets($sql);
-            $result = $results[0];
-            $metaSql = "SHOW META";
-            $meta = $this->pdo_client->fetchAll($metaSql);
-            foreach ($meta as $m) {
-                $metaMap[$m['Variable_name']] = $m['Value'];
-            }
-            $totalCount = $metaMap['total_found'];
+            $result = $this->pdo_client->fetchAllRowsets([], $table, "MATCH('" . implode(" ", $didYouMeanQuery) . "')", null, $resultStart, $resultCount, null, array_keys($this->providedMappings));
         }
 
-        return [$result, $totalCount, $results, $didYouMean, $correctKeywords];
+        return [$result, $didYouMean, $correctKeywords];
     }
 
     public function scroll(\Search_Query_Interface $query)

@@ -50,7 +50,7 @@ abstract class SearchIndexPagination extends PHPUnit\Framework\TestCase
             $index->addDocument(
                 [
                     'object_type' => $typeFactory->identifier('article'),
-                    'object_id' => $typeFactory->numeric($i + 1),
+                    'object_id' => $typeFactory->identifier($i + 1),
                 ]
             );
         }

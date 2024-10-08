@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Search\Manticore;
 
+use TikiLib;
 use Search_Index_Interface;
 
 trait IndexBuilder
@@ -40,6 +41,8 @@ trait IndexBuilder
         }
 
         $this->indexBuilderLastIndexCreated = new Index($http_client, $mysql_client, 'test_index' . $suffix);
+        TikiLib::lib('unifiedsearch')->replaceIndexCache('data', $this->indexBuilderLastIndexCreated);
+        TikiLib::lib('unifiedsearch')->setAvailableFields([]); // forces recalc for each index
 
         return $this->indexBuilderLastIndexCreated;
     }

@@ -371,64 +371,114 @@ class PdoClient
     }
 
     /**
-     * Fetch results from the index but leave the fields relevant for each document type
-     * to reduce memory footprint for big indices.
-     * @param string $query
+     * Fetches results from the index along with any facets data that come as subsequent row sets.
+     * Builds the query and fetches the results in 2 parts to reduce memory footprint and performance impact for big indices (say 1000+ fields):
+     * 1. Get all found object types and IDs + the sort order they are retrieved in.
+     * 2. For each distinct type, get only the fields relevant to that type and only for objects that should be retrieved. Put into the resulting
+     * array accoriding to the original order.
+     * @param array $selectFields - fields to select
+     * @param array $selectExpressions - additional select expressions used in the condition
+     * @param string $table - the index table name
+     * @param string $condition - pre-build where-clause conditions
+     * @param int $resultStart - offset
+     * @param int $resultCount - per-page results to retrieve
+     * @param string $facets - pre-build facet clause
+     * @param array $indexFields - fields actually available in the index
      * @param boolean $retry
-     * @return array of associative arrays
+     * @return array with result rows, facet rows and total matched records
      */
-    public function fetchAllRowsets($query, $retry = true, $hasCustomSelect = false)
+    public function fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, $indexFields, $retry = true)
     {
-        $available_fields = \TikiLib::lib('unifiedsearch')->getAvailableFields();
+        $result = [
+            'rows' => [],
+            'facets' => [],
+            'meta' => [],
+            'total' => 0,
+        ];
+        if ($selectFields) {
+            $sql = 'SELECT ' . implode(', ', $selectFields);
+        } else {
+            $sql = 'SELECT object_type, object_id' . (in_array('tracker_id', $indexFields) ? ', tracker_id' : '');
+        }
+        foreach ($selectExpressions as $key => $expr) {
+            $sql .= ", $expr as $key";
+        }
+        $sql .= " FROM $table WHERE $condition";
+        if ($order) {
+            $sql .= " ORDER BY $order";
+        }
+        $sql .= " LIMIT $resultStart, $resultCount option not_terms_only_allowed=1,cutoff=0";
+        if ($resultStart + $resultCount > 1000) {
+            $sql .= ',max_matches=' . ($resultStart + $resultCount);
+        }
+        if ($facets) {
+            $sql .= ' ' . $facets;
+        }
         try {
-            $result = [];
-            $stmt = $this->query($query);
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                if ($hasCustomSelect) {
-                    $fields = [];
-                } elseif ($row['object_type'] == 'trackeritem') {
-                    $fields = $available_fields['object_types']['trackeritem' . $row['tracker_id']] ?? [];
-                } else {
-                    $fields = $available_fields['object_types'][$row['object_type']] ?? [];
-                }
-                if ($fields) {
-                    $real_row = [];
-                    foreach ($fields as $field) {
-                        foreach ($row as $key => $value) {
-                            if (stripos($key, $field) === 0) {
-                                $real_row[$key] = $row[$key];
-                            }
-                        }
+            $subselects = [];
+            $original_order = [];
+            $i = 0;
+            $stmt = $this->query($sql);
+            if ($selectFields) {
+                $result['rows'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    if ($row['object_type'] == 'trackeritem') {
+                        $type = 'trackeritem' . $row['tracker_id'];
+                    } else {
+                        $type = $row['object_type'];
                     }
-                    $result[] = $real_row;
-                } else {
-                    $result[] = $row;
+                    $subselects[$type][] = $row['object_id'];
+                    $original_order[$row['object_type'] . $row['object_id']] = $i++;
                 }
             }
-            $result = [$result];
             while ($stmt->nextRowset()) {
-                $result[] = $stmt->fetchAll();
+                $result['facets'][] = $stmt->fetchAll();
             }
+            if ($retry) {
+                $stmt = $this->query('show warnings');
+                foreach ($stmt->fetchAll() as $row) {
+                    if (! empty($row['Message']) && preg_match('/unknown local table/', $row['Message'])) {
+                        // remote agent rebuild has invalidated this distributed index, need recreate the distributed index with fresh index table names
+                        \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
+                        return $this->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, false);
+                    }
+                }
+            }
+            $result['meta'] = $this->fetchAll('SHOW META');
+            foreach ($result['meta'] as $row) {
+                if ($row['Variable_name'] == 'total_found') {
+                    $result['total'] = intval($row['Value']);
+                }
+            }
+            if (! $selectFields) {
+                $available_fields = \TikiLib::lib('unifiedsearch')->getAvailableFields();
+                foreach ($subselects as $type => $object_ids) {
+                    $fields = $available_fields['object_types'][$type] ?? [];
+                    $fields = array_map(function ($f) {
+                        return strtolower($f);
+                    }, $fields);
+                    if (str_starts_with($type, 'trackeritem')) {
+                        $type = 'trackeritem';
+                    }
+                    $sql = "SELECT " . ($fields ? implode(',', $fields) : '*') . " FROM $table WHERE object_type = '$type' AND object_id IN (" . implode(',', array_fill(0, count($object_ids), '?')) . ")";
+                    $stmt = $this->prepareAndExecute($sql, $object_ids);
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $result['rows'][$original_order[$row['object_type'] . $row['object_id']]] = $row;
+                    }
+                }
+                ksort($result['rows']);
+            }
+            return $result;
         } catch (PDOException $e) {
             if ($retry && strstr($e->getMessage(), 'unknown local table')) {
                 // federated index tables might have been rebuilt and distributed one not updated properly -> refresh and retry
                 \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
-                return $this->fetchAllRowsets($query, false);
+                return $this->fetchAllRowsets($select, $table, $condition, $order, $resultStart, $resultCount, $facets, false);
             } else {
                 throw $e;
             }
         }
-        if ($retry) {
-            $stmt = $this->query('show warnings');
-            foreach ($stmt->fetchAll() as $row) {
-                if (! empty($row['Message']) && preg_match('/unknown local table/', $row['Message'])) {
-                    // remote agent rebuild has invalidated this distributed index, need recreate the distributed index with fresh index table names
-                    \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
-                    return $this->fetchAllRowsets($query, false);
-                }
-            }
-        }
-        return $result;
     }
 
     public function quote($string)

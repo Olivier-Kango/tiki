@@ -292,6 +292,14 @@ class Search_Indexer
             foreach ($this->packageSources as $packageSource) {
                 $output['object_types'][$objectType] = array_merge($output['object_types'][$objectType], $packageSource->getProvidedFields());
             }
+            if (method_exists($this->searchIndex, 'getFieldMappings')) {
+                $existing = array_keys($this->searchIndex->getFieldMappings());
+                $output['object_types'][$objectType] = array_intersect($output['object_types'][$objectType], $existing);
+            }
+        }
+        if (method_exists($this->searchIndex, 'getFieldMappings')) {
+            $existing = array_keys($this->searchIndex->getFieldMappings());
+            $output['global'] = array_intersect($output['global'], $existing);
         }
 
         return $output;
