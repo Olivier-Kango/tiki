@@ -12,7 +12,7 @@ $section = 'blogs';
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
-            'blogId'                      => 'bool',          //post
+            'blogId'                      => 'int',          //post
             'heading'                     => 'int',           //post
             'post_heading'                => 'bool',          //post
             'save'                        => 'bool',          //post
