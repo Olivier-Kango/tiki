@@ -142,7 +142,7 @@
                             {tr}Page actions{/tr}
                         </h6>
                         <div class="dropdown-divider"></div>
-                        {if $pdf_export eq 'y' and $pdf_export eq 'y' and $pdf_warning eq 'n'}
+                        {if $pdf_export eq 'y' and $pdf_warning eq 'n' and $prefs["feature_wiki_print"] eq 'y'}
                             <a class="dropdown-item generate-pdf" href="tiki-print.php?{query _keepall='y' display="pdf" page=$page}">
                                 {icon name="pdf"} {tr} PDF{/tr}
                                 {assign var="hasPageAction" value="1"}
