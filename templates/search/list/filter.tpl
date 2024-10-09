@@ -1,11 +1,10 @@
 <a name="list_filter{$filterCounter}"></a>
 <div class="list_filter" id="list_filter{$filterCounter}">
     <form action="{$filterUrl}#list_filter{$filterCounter}" method="post">
-        <div class="table-responsive">
-            <table class="table">
-                {foreach from=$filterFields item=field}
-                <tr>
-                    <td class="list_filter_label">
+        <div class="row">
+            {foreach from=$filterFields item=field}
+                <div class="col-lg-6 col-12 mb-3">
+                    <div class="list_filter_label">
                         <label for="{$filter.id|escape}">{$field.name|tr_if}</label>
                         {if !empty($field.textInput)}
                             {if $field.type == 'f'}
@@ -18,20 +17,18 @@
                                 </a>
                             {/if}
                         {/if}
-                    </td>
-                    <td class="list_filter_input">
+                    </div>
+                    <div class="list_filter_input">
                         {$field.renderedInput}
-                    </td>
-                </tr>
-                {/foreach}
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>
-                        <input class="button submit btn btn-primary" type="submit" name="filter" value="{tr}Filter{/tr}">
-                        <input class="button submit btn btn-primary" type="reset" name="reset_filter" value="{tr}Reset{/tr}">
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+            {/foreach}
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-auto">
+                <input class="button submit btn btn-primary" type="submit" name="filter" value="{tr}Filter{/tr}">
+                <input class="button submit btn btn-primary" type="reset" name="reset_filter" value="{tr}Reset{/tr}">
+            </div>
         </div>
     </form>
 </div>
