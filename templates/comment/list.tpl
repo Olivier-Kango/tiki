@@ -43,7 +43,7 @@
     {if $allow_post and $prefs.comments_sort_mode neq 'commentDate_desc'}
         <div class="submit">
             <div class="buttons comment-form {if $prefs.wiki_comments_form_displayed_default eq 'y'}autoshow{/if}">
-                <a class="btn btn-secondary custom-handling" href="{service controller=comment action=post type=$type objectId=$objectId}" data-bs-target="#add-comment-zone-{$objectId|replace:' ':''|replace:',':''|escape:'attr'}">{tr}Post new comment{/tr}</a>
+                <a class="btn btn-secondary" href="{bootstrap_modal controller=comment action=post type=$type objectId=$objectId modal=true}" data-bs-target="#add-comment-zone-{$objectId|replace:' ':''|replace:',':''|escape:'attr'}">{tr}Post new comment{/tr}</a>
             </div>
         </div>
         <div id="add-comment-zone-{$objectId|replace:' ':''|replace:',':''|escape:'attr'}" class="add-comment-zone"></div>
