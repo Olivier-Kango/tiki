@@ -368,6 +368,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/driver.js/dist",
                     },
                     {
+                        src: "node_modules/fitvids/dist/fitvids.js",
+                        dest: "vendor_dist/fitvids/dist",
+                    },
+                    {
                         src: "node_modules/interactjs/dist/*",
                         dest: "vendor_dist/interactjs/dist",
                     },

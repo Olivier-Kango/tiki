@@ -29,6 +29,6 @@ class FitVidJs
 
         $customSelectors = implode(', ', $customSelectors);
 
-        return '{customSelector: "' . $customSelectors . '"}';
+        return '{players: "' . $customSelectors . '"}';
     }
 }

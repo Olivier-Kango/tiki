@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54ea4cd5d73bec13b4526d03b48ab493",
+    "content-hash": "e48b3c3b0bdb36bd02ef248e1b50375b",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2422,16 +2422,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jquery-plugins/async/jquery-plugins-async-1.0.zip",
                 "shasum": "c52184f6c46894f70d957d26dc3979fde2674eef"
-            },
-            "type": "library"
-        },
-        {
-            "name": "jquery-plugins/fitvidjs",
-            "version": "1.2.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery-plugins/fitvidjs/jquery-plugins-fitvidjs-1.2.0.zip",
-                "shasum": "b52054c3948e015e3a844b06168d43c1228efe16"
             },
             "type": "library"
         },

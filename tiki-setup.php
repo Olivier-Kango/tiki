@@ -607,8 +607,8 @@ if ($prefs['jquery_select2'] == 'y') {
 }
 if ($prefs['jquery_fitvidjs'] == 'y') {
     $customSelectors = \Tiki\Lib\FitVidJs\FitVidJs::getCustomSelector();
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/fitvidjs/jquery.fitvids.js')
-                ->add_jq_onready('$("article").fitVids(' . $customSelectors . ');'); // apply fitvid to any video in the middle section
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/fitvids/dist/fitvids.js')
+        ->add_jq_onready("fitvids('article', $customSelectors);");
 }
 if ($prefs['jquery_smartmenus_enable'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/drmonty/smartmenus/js/jquery.smartmenus.js');
