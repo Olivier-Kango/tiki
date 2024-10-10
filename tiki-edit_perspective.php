@@ -52,7 +52,12 @@ if (isset($_REQUEST['name']) && $selectedId && $objectperms->perspective_edit) {
     $prefslib = TikiLib::lib('prefs');
     $perspectivelib->replace_perspective($selectedId, $_REQUEST['name']);
 
-    $preferences = $_REQUEST['lm_preference'];
+    if (isset($_REQUEST['lm_preference'])) {
+        $preferences = $_REQUEST['lm_preference'];
+    } else {
+        $preferences = [];
+    }
+
     $input = $prefslib->getInput($jitRequest, $preferences, 'perspective');
 
     $perspectivelib->replace_preferences($selectedId, $input);

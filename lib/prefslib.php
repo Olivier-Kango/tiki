@@ -679,28 +679,24 @@ class PreferencesLib
         }
     }
 
-    public function getInput(JitFilter $filter, $preferences = [], $environment = '')
+    public function getInput(JitFilter $filter, array $preferences = [], $environment = '')
     {
         $out = [];
 
         foreach ($preferences as $name) {
             $info = $this->getPreference($name);
-
             if ($environment == 'perspective' && isset($info['perspective']) && $info['perspective'] === false) {
                 continue;
             }
-
             if (isset($info['filter'])) {
                 $filter->replaceFilter($name, $info['filter']);
             }
-
             if (isset($info['separator'])) {
                 $out[ $name ] = $filter->asArray($name, $info['separator']);
             } else {
                 $out[ $name ] = $filter[$name];
             }
         }
-
         return $out;
     }
 
