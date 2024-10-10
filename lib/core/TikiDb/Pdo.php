@@ -156,7 +156,7 @@ class TikiDb_Pdo extends TikiDb
 
         $tracer .= htmlspecialchars($_SERVER['PHP_SELF']);
 
-        if (@$prefs['log_sql'] == 'y' && ($elapsed_in_db * 1000) > $prefs['log_sql_perf_min']) {
+        if (isset($prefs['log_sql']) && $prefs['log_sql'] == 'y' && ($elapsed_in_db * 1000) > $prefs['log_sql_perf_min']) {
             $this->pdoLogSQL($query, $elapsed_in_db, $tracer, $values);
         }
 
