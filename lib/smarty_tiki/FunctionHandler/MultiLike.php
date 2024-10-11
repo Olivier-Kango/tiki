@@ -147,17 +147,17 @@ class MultiLike extends Base
     private function getMultivaluesFromPref()
     {
         global $prefs;
-        $data = (explode("\n\n", trim($prefs['user_multilike_config'])));
+        $data = explode("\n\n", trim($prefs['user_multilike_config'] ?? ''));
         $configurations = [];
         foreach ($data as $config) {
             preg_match_all("/(\S*)\s*=\s*(.*)/", $config, $temp_arr);
             $config = array_combine($temp_arr[1], $temp_arr[2]);
-            if ($config['values']) {
-                $config['values'] = array_map('trim', explode(',', $config['values']));
+            if (isset($config['values'])) {
+                $config['values'] = array_map('trim', explode(',', $config['values'] ?? ''));
             }
-            $config['labels'] = array_map('trim', explode(',', $config['labels']));
-            $config['icon_unselected'] = array_map('trim', explode(',', $config['icon_unselected']));
-            $config['icon_selected'] = array_map('trim', explode(',', $config['icon_selected']));
+            $config['labels'] = array_map('trim', explode(',', $config['labels'] ?? ''));
+            $config['icon_unselected'] = array_map('trim', explode(',', $config['icon_unselected'] ?? ''));
+            $config['icon_selected'] = array_map('trim', explode(',', $config['icon_selected'] ?? ''));
             foreach ($config['labels'] as &$label) {
                 $label = tra($label);
             }
@@ -165,7 +165,7 @@ class MultiLike extends Base
             if (empty($config['ids'])) {
                 return;
             }
-            $config['ids'] = array_map('trim', explode(',', $config['ids']));
+            $config['ids'] = array_map('trim', explode(',', $config['ids'] ?? ''));
             $configurations[] = $config;
         }
         return $configurations;
