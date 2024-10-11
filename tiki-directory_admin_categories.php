@@ -73,26 +73,31 @@ if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
 }
 // Replace (add or edit) a category
 if (isset($_REQUEST["save"])) {
-    $access->checkCsrf();
-    if (isset($_REQUEST["allowSites"]) && $_REQUEST["allowSites"] == 'on') {
-        $_REQUEST["allowSites"] = 'y';
+    // Check if the name is provided
+    if (empty($_REQUEST["name"])) {
+        // Display an error message
+        Feedback::warning(tr('Must enter a name to add a Directory category.'));
     } else {
-        $_REQUEST["allowSites"] = 'n';
-    }
-    if (isset($_REQUEST["showCount"]) && $_REQUEST["showCount"] == 'on') {
-        $_REQUEST["showCount"] = 'y';
-    } else {
-        $_REQUEST["showCount"] = 'n';
-    }
-    $categId = $dirlib->dir_replace_category($_REQUEST["parent"], $_REQUEST["categId"], $_REQUEST["name"], $_REQUEST["description"], $_REQUEST["childrenType"], $_REQUEST["viewableChildren"], $_REQUEST["allowSites"], $_REQUEST["showCount"], $_REQUEST["editorGroup"]);
-    $cat_type = 'directory';
-    $cat_objid = $categId;
-    $cat_desc = substr($_REQUEST['description'], 0, 200);
-    $cat_name = $_REQUEST['name'];
-    $cat_href = 'tiki-directory_browse.php?parent=' . $cat_objid;
-    include_once("categorize.php");
-    if ($_REQUEST["categId"]) {
-        $info = $dirlib->dir_get_category($_REQUEST["categId"]);
+        if (isset($_REQUEST["allowSites"]) && $_REQUEST["allowSites"] == 'on') {
+            $_REQUEST["allowSites"] = 'y';
+        } else {
+            $_REQUEST["allowSites"] = 'n';
+        }
+        if (isset($_REQUEST["showCount"]) && $_REQUEST["showCount"] == 'on') {
+            $_REQUEST["showCount"] = 'y';
+        } else {
+            $_REQUEST["showCount"] = 'n';
+        }
+        $categId = $dirlib->dir_replace_category($_REQUEST["parent"], $_REQUEST["categId"], $_REQUEST["name"], $_REQUEST["description"], $_REQUEST["childrenType"], $_REQUEST["viewableChildren"], $_REQUEST["allowSites"], $_REQUEST["showCount"], $_REQUEST["editorGroup"]);
+        $cat_type = 'directory';
+        $cat_objid = $categId;
+        $cat_desc = substr($_REQUEST['description'], 0, 200);
+        $cat_name = $_REQUEST['name'];
+        $cat_href = 'tiki-directory_browse.php?parent=' . $cat_objid;
+        include_once("categorize.php");
+        if ($_REQUEST["categId"]) {
+            $info = $dirlib->dir_get_category($_REQUEST["categId"]);
+        }
     }
 }
 // Listing: categories in the parent category
