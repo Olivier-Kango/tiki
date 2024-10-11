@@ -684,7 +684,7 @@
                                         <div class="col-md-8">fb
                                             <fieldset {if $prefs.feature_urgent_translation neq 'y' or $diff_style} style="display:none;"{/if}>
                                                 <legend>{tr}Translation request:{/tr}</legend>
-                                                <input type="hidden" name="lang" value="{$lang|escape}">
+                                                <input type="hidden" name="lang" id="lang_request" value="{$lang|escape}">
                                                 <input type="checkbox" class="form-check-input" name="translation_critical" id="translation_critical"{if $translation_critical} checked="checked"{/if}>
                                                 <label for="translation_critical">{tr}Send urgent translation request.{/tr}</label>
                                                 {if $diff_style}
@@ -694,6 +694,11 @@
                                             </fieldset>
                                         </div>
                                     </div>
+                                    {jq}
+                                        $("#lang").change(function() {
+                                            $("#lang_request").val($(this).val());
+                                        });
+                                    {/jq}
                                 {/if}
                             {/if}
                         {/if}
