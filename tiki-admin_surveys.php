@@ -45,20 +45,28 @@ $tikilib->get_perm_object($_REQUEST['surveyId'], 'survey');
 $access->check_permission('tiki_p_admin_surveys');
 if (isset($_REQUEST["save"])) {
     $access->checkCsrf();
-    if (isset($_REQUEST["restriction"]) && $_REQUEST["restriction"] == 'on') {
-        $restriction = 'y';
+    if (empty($_REQUEST["name"]) || trim($_REQUEST["name"]) === '') {
+        Feedback::error(tr('Survey name is required, Please provide a name'));
     } else {
-        $restriction = 'n';
+        if (isset($_REQUEST["restriction"]) && $_REQUEST["restriction"] == 'on') {
+            $restriction = 'y';
+        } else {
+            $restriction = 'n';
+        }
+        $sid = $srvlib->replace_survey($_REQUEST["surveyId"], $_REQUEST["name"], $_REQUEST["description"], $restriction, $_REQUEST["status"]);
+        if ($sid) {
+            $cat_type = 'survey';
+            $cat_objid = is_int($sid) ? $sid : $_REQUEST["surveyId"];
+            $cat_desc = substr($_REQUEST["description"], 0, 200);
+            $cat_name = $_REQUEST["name"];
+            $cat_href = "tiki-take_survey.php?surveyId=" . $cat_objid;
+            include_once("categorize.php");
+            $cookietab = 1;
+            $_REQUEST["surveyId"] = 0;
+        } else {
+            Feedback::error(tr('Failed to save survey.'));
+        }
     }
-    $sid = $srvlib->replace_survey($_REQUEST["surveyId"], $_REQUEST["name"], $_REQUEST["description"], $restriction, $_REQUEST["status"]);
-    $cat_type = 'survey';
-    $cat_objid = is_int($sid) ? $sid : $_REQUEST["surveyId"];
-    $cat_desc = substr($_REQUEST["description"], 0, 200);
-    $cat_name = $_REQUEST["name"];
-    $cat_href = "tiki-take_survey.php?surveyId=" . $cat_objid;
-    include_once("categorize.php");
-    $cookietab = 1;
-    $_REQUEST["surveyId"] = 0;
 }
 if (! empty($_REQUEST["surveyId"])) {
     $info = $srvlib->get_survey($_REQUEST["surveyId"]);

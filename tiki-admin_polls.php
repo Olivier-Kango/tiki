@@ -105,67 +105,70 @@ if (isset($_REQUEST["remove"]) && $access->checkCsrf(true)) {
     }
 }
 if ((isset($_REQUEST["save"]) || isset($_REQUEST["add"])) && $access->checkCsrf()) {
-    if ($prefs['feature_jscalendar'] == 'y' && ! empty($_REQUEST['pollPublishDate'])) {
-        $publishDate = (int) $_REQUEST['pollPublishDate'];
+    if (empty($_REQUEST["title"]) || trim($_REQUEST["title"]) === '') {
+        Feedback::error(tr('Poll title is required. Please provide a title.'));
     } else {
-        //Convert 12-hour clock hours to 24-hour scale to compute time
-        if (! empty($_REQUEST['Time_Meridian'])) {
-            $_REQUEST['Time_Hour'] = date('H', strtotime($_REQUEST['Time_Hour'] . ':00 ' . $_REQUEST['Time_Meridian']));
+        if ($prefs['feature_jscalendar'] == 'y' && ! empty($_REQUEST['pollPublishDate'])) {
+            $publishDate = (int) $_REQUEST['pollPublishDate'];
+        } else {
+            //Convert 12-hour clock hours to 24-hour scale to compute time
+            if (! empty($_REQUEST['Time_Meridian'])) {
+                $_REQUEST['Time_Hour'] = date('H', strtotime($_REQUEST['Time_Hour'] . ':00 ' . $_REQUEST['Time_Meridian']));
+            }
+            $publishDate = $tikilib->make_time($_REQUEST["Time_Hour"], $_REQUEST["Time_Minute"], 0, $_REQUEST["Date_Month"], $_REQUEST["Date_Day"], $_REQUEST["Date_Year"]);
         }
-        $publishDate = $tikilib->make_time($_REQUEST["Time_Hour"], $_REQUEST["Time_Minute"], 0, $_REQUEST["Date_Month"], $_REQUEST["Date_Day"], $_REQUEST["Date_Year"]);
-    }
-    if (! isset($_REQUEST['voteConsiderationSpan'])) {
-        $_REQUEST['voteConsiderationSpan'] = 0;
-    }
-    $pid = $polllib->replace_poll($_REQUEST["pollId"], $_REQUEST["title"], $_REQUEST["active"], $publishDate, $_REQUEST['voteConsiderationSpan']);
-    $position = 0;
-    if (isset($_REQUEST['options']) && is_array($_REQUEST['options'])) {
-        //TODO insert options into poll
-        $optionSuccess = 0;
-        foreach ($_REQUEST['options'] as $i => $option) {
-            //continue;
-            if ($option == "") {
-                if (isset($_REQUEST['optionsId']) && isset($_REQUEST['optionsId'][$i])) {
-                    $result = $polllib->remove_poll_option($_REQUEST['optionsId'][$i]);
-                    if ($result && $result->numRows()) {
-                        $optionSuccess++;
-                        // unset $result to avoid false counts
-                        unset($result);
+        if (! isset($_REQUEST['voteConsiderationSpan'])) {
+            $_REQUEST['voteConsiderationSpan'] = 0;
+        }
+        $pid = $polllib->replace_poll($_REQUEST["pollId"], $_REQUEST["title"], $_REQUEST["active"], $publishDate, $_REQUEST['voteConsiderationSpan']);
+        if ($pid) {
+            $position = 0;
+            if (isset($_REQUEST['options']) && is_array($_REQUEST['options'])) {
+                //TODO insert options into poll
+                $optionSuccess = 0;
+                foreach ($_REQUEST['options'] as $i => $option) {
+                    //continue;
+                    if ($option == "") {
+                        if (isset($_REQUEST['optionsId']) && isset($_REQUEST['optionsId'][$i])) {
+                            $result = $polllib->remove_poll_option($_REQUEST['optionsId'][$i]);
+                            if ($result && $result->numRows()) {
+                                $optionSuccess++;
+                                // unset $result to avoid false counts
+                                unset($result);
+                            }
+                        }
+                    } else {
+                        $oid = isset($_REQUEST['optionsId']) && isset($_REQUEST['optionsId'][$i]) ? $_REQUEST['optionsId'][$i] : null;
+                        $result = $polllib->replace_poll_option($pid, $oid, $option, $position++);
+                        if ($result && $result->numRows()) {
+                            $optionSuccess++;
+                            // unset $result to avoid false counts
+                            unset($result);
+                        }
                     }
                 }
-            } else {
-                $oid = isset($_REQUEST['optionsId']) && isset($_REQUEST['optionsId'][$i]) ? $_REQUEST['optionsId'][$i] : null;
-                $result = $polllib->replace_poll_option($pid, $oid, $option, $position++);
-                if ($result && $result->numRows()) {
-                    $optionSuccess++;
-                    // unset $result to avoid false counts
-                    unset($result);
+                if ($optionSuccess) {
+                    $msg = $optionSuccess === 1
+                        ? tr('Poll saved with one option added or changed (including only changing the option position)')
+                        : tr(
+                            'Poll saved with %0 options added or changed (including only changing the option position)',
+                            $optionSuccess
+                        );
+                    Feedback::success($msg);
+                } else {
+                    Feedback::success(tr('Poll saved with no options added or changed'));
                 }
+                $cat_type = 'poll';
+                $cat_objid = $pid;
+                $cat_desc = substr($_REQUEST["title"], 0, 200);
+                $cat_name = $_REQUEST["title"];
+                $cat_href = "tiki-poll_results.php?pollId=" . $cat_objid;
+                include_once("categorize.php");
             }
-        }
-        if ($pid) {
-            if ($optionSuccess) {
-                $msg = $optionSuccess === 1
-                    ? tr('Poll saved with one option added or changed (including only changing the option position)')
-                    : tr(
-                        'Poll saved with %0 options added or changed (including only changing the option position)',
-                        $optionSuccess
-                    );
-                Feedback::success($msg);
-            } else {
-                $msg = tr('Poll saved with no options added or changed');
-            }
-            Feedback::success($msg);
         } else {
             Feedback::error(tr('Poll not saved'));
         }
     }
-    $cat_type = 'poll';
-    $cat_objid = $pid;
-    $cat_desc = substr($_REQUEST["title"], 0, 200);
-    $cat_name = $_REQUEST["title"] ? $_REQUEST["title"] : '';
-    $cat_href = "tiki-poll_results.php?pollId=" . $cat_objid;
-    include_once("categorize.php");
 }
 if (
     isset($_REQUEST['addPoll'])
@@ -173,27 +176,31 @@ if (
     && ! empty($_REQUEST['pages'])
     && $access->checkCsrf()
 ) {
-    $wikilib = TikiLib::lib('wiki');
-    $categlib = TikiLib::lib('categ');
-    $cat_type = 'wiki page';
-    foreach ($_REQUEST['pages'] as $cat_objid) {
-        if (! $catObjectId = $categlib->is_categorized($cat_type, $cat_objid)) {
-            $info = $tikilib->get_page_info($cat_objid);
-            $cat_desc = $info['description'];
-            $cat_href = 'tiki-index.php?page=' . urlencode($cat_objid);
-            $cat_name = ! empty($_REQUEST["title"]) ? $_REQUEST["title"] : '';
-        }
-        include('poll_categorize.php');
-        if (isset($_REQUEST['locked']) && $_REQUEST['locked'] == 'on' && $prefs['feature_wiki_usrlock'] == 'y') {
-            $result = $wikilib->lock_page($cat_objid);
-            if ($result) {
-                if ($result->numRows()) {
-                    Feedback::success(tr('Page %0 locked', $cat_objid));
+    if (empty($_REQUEST["title"])) {
+        Feedback::error(tr('Poll title is required when adding poll to pages.'));
+    } else {
+        $wikilib = TikiLib::lib('wiki');
+        $categlib = TikiLib::lib('categ');
+        $cat_type = 'wiki page';
+        foreach ($_REQUEST['pages'] as $cat_objid) {
+            if (! $catObjectId = $categlib->is_categorized($cat_type, $cat_objid)) {
+                $info = $tikilib->get_page_info($cat_objid);
+                $cat_desc = $info['description'];
+                $cat_href = 'tiki-index.php?page=' . urlencode($cat_objid);
+                $cat_name = $_REQUEST["title"];
+            }
+            include('poll_categorize.php');
+            if (isset($_REQUEST['locked']) && $_REQUEST['locked'] == 'on' && $prefs['feature_wiki_usrlock'] == 'y') {
+                $result = $wikilib->lock_page($cat_objid);
+                if ($result) {
+                    if ($result->numRows()) {
+                        Feedback::success(tr('Page %0 locked', $cat_objid));
+                    } else {
+                        Feedback::note(tr('Page %0 already locked', $cat_objid));
+                    }
                 } else {
-                    Feedback::note(tr('Page %0 already locked', $cat_objid));
+                    Feedback::error(tr('Page %0 not locked', $cat_objid));
                 }
-            } else {
-                Feedback::error(tr('Page %0 not locked', $cat_objid));
             }
         }
     }
