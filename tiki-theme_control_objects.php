@@ -124,8 +124,12 @@ switch ($_REQUEST['type']) {
 $smarty->assign_by_ref('objects', $objects);
 if (isset($_REQUEST['assign'])) {
     $access->checkCsrf();
-    list($id, $name) = explode('|', $_REQUEST['objdata']);
-    $themecontrollib->tc_assign_object($id, $_REQUEST['theme'], $_REQUEST['type'], $name);
+    list($id, $name) = explode('_', $_REQUEST['objdata']);
+    if (isset($name) && $name !== '') {
+        $themecontrollib->tc_assign_object($id, $_REQUEST['theme'], $_REQUEST['type'], $name);
+    } else {
+        Feedback::error(tr('The object name cannot be empty.'));
+    }
 }
 if (isset($_REQUEST["delete"])) {
     $access->checkCsrf();

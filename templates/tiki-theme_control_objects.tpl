@@ -23,7 +23,7 @@
         <div class="col-sm-10">
             <select name="objdata" class="form-select">
                 {section name=ix loop=$objects}
-                    <option value="{$objects[ix].objId|escape}|{$objects[ix].objName}" {if $a_object eq $objects[ix].objId|cat:'|'|cat:$objects[ix].objName}selected="selected"{/if}>{$objects[ix].objName}</option>
+                    <option value="{$objects[ix].objId|escape}_{$objects[ix].objName}"{if $a_object eq $objects[ix].objId|cat:'|'|cat:$objects[ix].objName} selected{/if}>{$objects[ix].objName}</option>
                 {/section}
             </select>
         </div>
