@@ -371,6 +371,9 @@ class PdfGenerator
         $pdfPages = $this->getPDFPages($html, $pdfSettings);
         $cssStyles = str_replace([".tiki","opacity: 0;","page-break-inside: avoid;"], ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"], '<style>' . $basecss . $themecss . $printcss . $extcss . $this->bootstrapReplace() . $prefs["header_custom_css"] . '</style>'); //adding css styles with first page content
         //PDF import templates will not work if background color is set, need to replace in css
+        $cssStyles = $this->replaceCssVariables($cssStyles);
+        $cssStyles = $this->evaluateCalcExpressions($cssStyles);
+
         if (
             array_filter(array_column($pdfPages, 'pageContent'), function ($var) {
                 return preg_match("/\bpdfinclude\b/i", $var);
@@ -1327,6 +1330,172 @@ TEXT;
         }
         //process and return value
         return str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($value ?? ''), ['is_html' => true, 'parse_wiki' => true]));
+    }
+
+    private function convertPaperFormatToPixels($format, $dpi = 96)
+    {
+        // Paper sizes in millimeters
+        $paperSizes = [
+            'A0' => [841, 1189],
+            'A1' => [594, 841],
+            'A2' => [420, 594],
+            'A3' => [297, 420],
+            'A4' => [210, 297],
+            'A5' => [148, 210],
+            'A6' => [105, 148],
+            'Letter' => [216, 279],
+            'Legal' => [216, 356],
+            'Tabloid' => [279, 432],
+        ];
+
+        if (! isset($paperSizes[$format])) {
+            throw new Exception(tr('Unsupported paper format: %0', $format));
+        }
+
+        // Get width and height in millimeters
+        list($widthMM, $heightMM) = $paperSizes[$format];
+
+        // Convert millimeters to pixels using DPI
+        $widthInPixels = $widthMM * ($dpi / 25.4);
+        $heightInPixels = $heightMM * ($dpi / 25.4);
+
+        return [
+            'width' => round($widthInPixels),
+            'height' => round($heightInPixels)
+        ];
+    }
+
+    private function convertUnits($expression)
+    {
+        global $prefs;
+
+        list('width' => $viewportWidth, 'height' => $viewportHeight) = $this->convertPaperFormatToPixels($prefs['print_pdf_mpdf_size']);
+        $rootFontSize = 16;
+
+        // Replace common units with their numeric equivalents
+        $expression = preg_replace_callback('/(\d+(\.\d+)?)rem/', function ($matches) use ($rootFontSize) {
+            return $matches[1] * $rootFontSize . 'px';
+        }, $expression);
+
+        $expression = preg_replace_callback('/(\d+(\.\d+)?)vw/', function ($matches) use ($viewportWidth) {
+            return $matches[1] * $viewportWidth / 100 . 'px';
+        }, $expression);
+
+        $expression = preg_replace_callback('/(\d+(\.\d+)?)vh/', function ($matches) use ($viewportHeight) {
+            return $matches[1] * $viewportHeight / 100 . 'px';
+        }, $expression);
+
+        // Replace common units with their numeric equivalents
+        $expression = preg_replace_callback('/(\d+(\.\d+)?)%/', function ($matches) use ($rootFontSize, $viewportWidth) {
+            return $matches[1] * ($viewportWidth / 100) . 'px';
+        }, $expression);
+
+        return $expression;
+    }
+
+    // Function to safely evaluate mathematical expressions (without eval)
+    private function evaluateMath($expression)
+    {
+        // Remove 'px' and spaces to ensure only numbers and operators are evaluated
+        $expression = str_replace(['px', ' '], '', $expression);
+
+        // Use a safe math evaluator using preg_replace_callback to handle each operator
+        // First, recursively evaluate expressions inside parentheses
+        while (preg_match('/\(([^\(\)]+)\)/', $expression, $match)) {
+            $expression = str_replace($match[0], $this->evaluateMath($match[1]), $expression);
+        }
+
+        // Handle multiplication, division, and modulus first (left to right)
+        while (preg_match('/(\d+(\.\d+)?)([\*\/%])(\d+(\.\d+)?)/', $expression, $match)) {
+            switch ($match[3]) {
+                case '*':
+                    $result = $match[1] * $match[4];
+                    break;
+                case '/':
+                    $result = $match[1] / $match[4];
+                    break;
+                case '%':
+                    $result = $match[1] % $match[4]; // Handle modulus
+                    break;
+            }
+            // Replace the operation with its result
+            $expression = str_replace($match[0], $result, $expression);
+        }
+
+        // Handle addition and subtraction next
+        while (preg_match('/(\d+(\.\d+)?)([\+\-])(\d+(\.\d+)?)/', $expression, $match)) {
+            $result = $match[3] === '+' ? $match[1] + $match[4] : $match[1] - $match[4];
+            // Replace the operation with its result
+            $expression = str_replace($match[0], $result, $expression);
+        }
+        return $expression;
+    }
+
+    private function evaluateCalcExpressions($css)
+    {
+        return preg_replace_callback('/calc\(([^)]+)\)/', function ($matches) {
+            // Convert units to numeric values
+            $expression = $this->convertUnits($matches[1]);
+
+            // Evaluate the mathematical expression safely
+            $value = $this->evaluateMath($expression);
+
+            // If css functions like var() is found, return the calc() expression as-is without evaluation
+            if (! is_numeric($value)) {
+                return $matches[0];
+            }
+
+            // Replace calc() with the evaluated result, rounded to 2 decimals
+            return round($value, 2) . 'px';
+        }, $css);
+    }
+
+    private function runReplaceVars($css, $variables)
+    {
+        return preg_replace_callback('/var\(--([a-zA-Z0-9-]+)(?:,\s*(.+?))?\)/', function ($matches) use ($variables) {
+            $var_name = $matches[1];
+            $fallback = isset($matches[2]) ? $matches[2] : null;  // Optional fallback value
+
+            // Check if the variable exists
+            if (isset($variables[$var_name])) {
+                $value = $variables[$var_name];
+
+                // If the variable contains another `var()`, recursively resolve it
+                if (preg_match('/var\(--([a-zA-Z0-9-]+)\)/', $value)) {
+                    $value = $this->runReplaceVars($value, $variables);
+                }
+                return $value;  // Return resolved value
+            }
+
+            // If variable not found, process fallback if present
+            if ($fallback) {
+                // Recursively resolve any `var()` inside the fallback
+                if (preg_match('/var\(--([a-zA-Z0-9-]+)\)/', $fallback)) {
+                    return $this->runReplaceVars($fallback, $variables);
+                }
+                return trim($fallback);  // Return fallback value
+            }
+
+            return $matches[0];  // Return original `var()` if no variable or fallback found
+        }, $css);
+    }
+
+    private function replaceCssVariables($css)
+    {
+        // Extract all CSS variables from the `:root` or similar sections
+        preg_match_all('/--([a-zA-Z0-9-]+)\s*:\s*([^;]+);/', $css, $matches);
+
+        // Reverse so the light variables are processed first
+        $matches[1] = array_reverse($matches[1]);
+        $matches[2] = array_reverse($matches[2]);
+
+        // Create an associative array of variable names to their values
+        $variables = array_combine($matches[1], $matches[2]);
+
+        // Replace all `var(--variable)` occurrences in the CSS
+        $css = $this->runReplaceVars($css, $variables);
+
+        return $css;
     }
 }
 
