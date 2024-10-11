@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e48b3c3b0bdb36bd02ef248e1b50375b",
+    "content-hash": "aa535c71a51e70cba352ceac054f27aa",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2482,16 +2482,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jquery-plugins/treetable/jquery-plugins-treetable-3.2.0.zip",
                 "shasum": "80714a0c20bc742519ef70b165c9e6024f680d3b"
-            },
-            "type": "library"
-        },
-        {
-            "name": "jquery-plugins/zoom",
-            "version": "1.7.18",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery-plugins/zoom/jquery-plugins-zoom-1.7.18.zip",
-                "shasum": "181531791deb3305d2c031523b16f73ed4894135"
             },
             "type": "library"
         },

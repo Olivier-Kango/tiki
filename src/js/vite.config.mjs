@@ -384,6 +384,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jqdoublescroll",
                     },
                     {
+                        src: "node_modules/jquery-zoom/(icon.png|jquery.zoom.js)",
+                        dest: "vendor_dist/jquery-zoom",
+                    },
+                    {
                         src: "node_modules/moment/min/*",
                         dest: "vendor_dist/moment/min",
                     },

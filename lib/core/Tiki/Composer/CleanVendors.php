@@ -241,15 +241,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'jquery-plugins/zoom',
-            [
-                'jquery.zoom.min.js',
-                'zoom.jquery.json',
-                'daisy.jpg',
-                'roxy.jpg'
-            ]
-        );
-        self::remove(
             $vendors . 'rangy/rangy',
             [
                 'uncompressed/rangy-highlighter.js',

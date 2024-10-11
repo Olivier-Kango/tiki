@@ -509,7 +509,7 @@ if ($prefs['geo_enabled'] === 'y') {
 }
 
 if ($prefs['feature_jquery_zoom'] === 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/zoom/jquery.zoom.js')
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/jquery-zoom/jquery.zoom.js')
         ->add_css('
 .img_zoom {
     display:inline-block;
@@ -522,7 +522,7 @@ if ($prefs['feature_jquery_zoom'] === 'y') {
     position:absolute;
     top:0;
     right:0;
-    background:url(vendor_bundled/vendor/jquery-plugins/zoom/icon.png);
+    background:url(' . NODE_PUBLIC_DIST_PATH . '/jquery-zoom/icon.png);
 }
 .img_zoom img {
     display:block;
