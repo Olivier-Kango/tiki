@@ -313,8 +313,13 @@ if (
             }
         }
     } elseif ($isvalid) {
+        $twoFactorAuthCode = "";
+        if (! empty($_REQUEST["twoFactorAuthCode"])) {
+            $twoFactorAuthCode = $_REQUEST["twoFactorAuthCode"];
+        }
+
         $twoFactorSecret = $userlib->get_2_factor_secret($requestedUser);
-        if ($prefs['twoFactorAuth'] == 'y' && ! empty($twoFactorSecret) && ! $userlib->validate_two_factor($twoFactorSecret, $_REQUEST["twoFactorAuthCode"], $requestedUser)) {
+        if ($prefs['twoFactorAuth'] == 'y' && ! empty($twoFactorSecret) && ! $userlib->validate_two_factor($twoFactorSecret, $twoFactorAuthCode, $requestedUser)) {
             $error = TWO_FA_INCORRECT;
             $isvalid = false;
             $smarty->assign('twoFactorForm', 'y');
