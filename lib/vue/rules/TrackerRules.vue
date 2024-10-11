@@ -5,7 +5,7 @@
                 Conditions
             </div>
             <div class="card-body conditions">
-                <ui-predicate v-model="conditionsData" :columns="conditionsColumns" @changed="onChangeConditions" @initialized="onChangeConditions"/>
+                <ui-predicate v-model="conditionsData" :columns="conditionsColumns" :ui="ui" @changed="onChangeConditions" @initialized="onChangeConditions"/>
             </div>
         </div>
         <div class="card mb-3">
@@ -13,7 +13,7 @@
                 Actions
             </div>
             <div class="card-body actions">
-                <ui-predicate v-model="actionsData" :columns="actionsColumns" @changed="onChangeActions" @initialized="onChangeActions"/>
+                <ui-predicate v-model="actionsData" :columns="actionsColumns" :ui="ui" @changed="onChangeActions" @initialized="onChangeActions"/>
             </div>
         </div>
         <div class="card mb-3">
@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="card-body else">
-                <ui-predicate v-if="renderElseComponent" v-model="elseData" :columns="actionsColumns" @changed="onChangeElse" @initialized="onChangeElse"/>
+                <ui-predicate v-if="renderElseComponent" v-model="elseData" :columns="actionsColumns" :ui="ui" @changed="onChangeElse" @initialized="onChangeElse"/>
             </div>
         </div>
 
@@ -70,6 +70,16 @@
 <script>
     Vue.use(UIPredicate);
 
+    /** UI PREDICATE DEFAULT COMPONENT OVERRIDES */
+    import PredicateAdd from "./vue_PredicateAdd.js";
+    import PredicateRemove from "./vue_PredicateRemove.js";
+    import PredicateTargets from "./vue_PredicateTargets.js";
+    import PredicateOperators from "./vue_PredicateOperators.js";
+    import PredicateLogicalTypes from "./vue_PredicateLogicalTypes.js";
+
+    /** END UI PREDICATE DEFAULT COMPONENT OVERRIDES */
+
+    import DefaultArgument from "./vue_DefaultArgument.js";
     import TextArgument from "./vue_TextArgument.js";
     import NumberArgument from "./vue_NumberArgument.js";
     import DateArgument from "./vue_DateArgument.js";
@@ -193,6 +203,18 @@
                     ],
                 },
                 elseData: null,
+                // UI Predicate overrides
+                ui:  {
+                    ['TARGETS']: PredicateTargets,
+                    ['LOGICAL_TYPES']: PredicateLogicalTypes,
+                    ['OPERATORS']: PredicateOperators,
+                    ['PREDICATE_ADD']: PredicateAdd,
+                    ['PREDICATE_REMOVE']: PredicateRemove,
+                    // If UIPredicate can't find a component related to your argumentType_id
+                    // This component will be used as a fallback.
+                    // By default it just an <input type="text">
+                    ['ARGUMENT_DEFAULT']: DefaultArgument
+                }
             };
         },
         methods: {

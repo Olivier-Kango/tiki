@@ -181,6 +181,16 @@ addScopedStyleIdentifier(vm, \"$scopedStyleIdentifier\");
         $appHtml .= $this->processVue('lib/vue/rules/NothingArgument.vue', 'NoArgument');
         $appHtml .= $this->processVue('lib/vue/rules/BoolArgument.vue', 'BoolArgument');
         $appHtml .= $this->processVue('lib/vue/rules/CollectionArgument.vue', 'CollectionArgument');
+        $appHtml .= $this->processVue('lib/vue/rules/DefaultArgument.vue', 'DefaultArgument');
+
+        /** UI PREDICATE DEFAULT COMPONENT OVERRIDES */
+        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateAdd.vue', 'PredicateAdd');
+        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateRemove.vue', 'PredicateRemove');
+        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateTargets.vue', 'PredicateTargets');
+        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateOperators.vue', 'PredicateOperators');
+        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateLogicalTypes.vue', 'PredicateLogicalTypes');
+
+        /** END UI PREDICATE DEFAULT COMPONENT OVERRIDES */
 
         $appHtml .= $this->processVue('lib/vue/rules/TrackerRules.vue', 'TrackerRules');
 

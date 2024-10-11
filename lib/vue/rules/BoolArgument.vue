@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select @change="_onChange" :value="value">
+        <select class="form-select" @change="_onChange" :value="value">
             <option value="1">true</option>
             <option value="0">false</option>
         </select>
