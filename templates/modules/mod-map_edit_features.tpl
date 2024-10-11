@@ -25,10 +25,10 @@
 
                 var form = this;
                 $.post($(form).attr('action'), $(form).serialize(), null, 'json')
-                    .success(function (data) {
+                    .done(function (data) {
                         $(form).trigger('insert', [data]);
                     })
-                    .on("error", function () {
+                    .fail(function () {
                         $.openModal({
                             title: $(':submit', form).val(),
                             open: () => {
