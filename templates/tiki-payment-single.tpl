@@ -256,7 +256,7 @@
         {/if}
 
         {if $payment_info.state eq 'outstanding' || $payment_info.state eq 'overdue'}
-            {permission type=payment object={$payment.paymentRequestId} name=payment_manual}
+            {permission type=payment object={$payment_info.paymentRequestId} name=payment_manual}
                 <form method="post" action="tiki-payment.php">
                     <fieldset>
                         <legend style="font-style: italic; padding-top: 20px; margin-bottom: 5px">{tr}Enter a Manual Payment{/tr}</legend>
