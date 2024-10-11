@@ -35,8 +35,8 @@
                    data-target_type="{$type}"
                    data-user="{$user}"
                    data-target_id="{$object}"
-                   data-icon_unselected="{$icon_unselected}"
-                   data-icon_selected="{$icon_selected}"
+                   data-icon_unselected="{$button.icon_unselected}"
+                   data-icon_selected="{$button.icon_selected}"
                     {if $uses_values}
                         title="Worth {$button.value} Points"
                     {/if}
