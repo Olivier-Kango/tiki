@@ -20,9 +20,9 @@ class Errors
         global $prefs;
 
         if ($prefs['error_reporting_level'] == 2047) {
-            $errorReportingLevel = E_ALL & ~E_STRICT;
+            $errorReportingLevel = E_ALL;
         } elseif ($prefs['error_reporting_level'] == 2039) {
-            $errorReportingLevel = E_ALL & ~E_STRICT & ~E_NOTICE & ~E_USER_NOTICE;
+            $errorReportingLevel = E_ALL & ~E_NOTICE & ~E_USER_NOTICE;
         } elseif ($prefs['error_reporting_level'] == -1) {
             $errorReportingLevel = E_ALL;
         } elseif ($prefs['error_reporting_level'] == 1) {

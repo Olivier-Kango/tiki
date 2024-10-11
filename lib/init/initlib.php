@@ -130,7 +130,6 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
     $err[E_USER_WARNING]    = 'E_USER_WARNING';
     $err[E_COMPILE_WARNING] = 'E_COMPILE_WARNING';
     $err[E_PARSE]           = 'E_PARSE';
-    $err[E_STRICT]          = 'E_STRICT';
     $err[E_NOTICE]          = 'E_NOTICE';
     $err[E_USER_NOTICE]     = 'E_USER_NOTICE';
     $err[E_DEPRECATED]      = 'E_DEPRECATED';
@@ -151,7 +150,6 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
         case E_RECOVERABLE_ERROR:
             $type = 'ERROR';
             break;
-        case E_STRICT:
         case E_NOTICE:
         case E_USER_NOTICE:
         case E_DEPRECATED:

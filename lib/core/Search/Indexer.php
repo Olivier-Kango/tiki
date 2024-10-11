@@ -58,9 +58,6 @@ class Search_Indexer
                     case E_USER_NOTICE:
                         $error = 'NOTICE';
                         break;
-                    case E_STRICT:
-                        $error = 'STRICT';
-                        break;
                     case E_DEPRECATED:
                     case E_USER_DEPRECATED:
                         $error = 'DEPRECATED';
