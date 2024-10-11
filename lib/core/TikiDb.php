@@ -12,6 +12,8 @@ use Tiki\Installer\Installer;
  */
 abstract class TikiDb
 {
+    /** For SQL performance analysis */
+    public const QUERY_OPTION_LOG_GROUP = "QUERY_OPTION_LOG_GROUP";
     public const ERR_DIRECT = true;
     public const ERR_NONE = false;
     public const ERR_EXCEPTION = 'exception';
@@ -92,37 +94,38 @@ abstract class TikiDb
      * @param int $numrows
      * @param int $offset
      * @param bool $reporterrors
+     * @param $options additional sql options
      * @return TikiDb_Pdo_Result
      */
-    abstract public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT);
+    abstract public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT, array $options = []);
     /**
      * same as above but return the PDO statement or Adodb result, so it can be scrolled in a memory-efficient way
      * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
      */
-    abstract public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT);
+    abstract public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT, array $options = []);
 
     public function lastInsertId()
     {
         return $this->getOne('SELECT LAST_INSERT_ID()');
     }
 
-    public function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1)
+    public function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1, array $options = [])
     {
         $this->errorMessage = '';
-        $result = $this->query($query, $values, $numrows, $offset, self::ERR_NONE);
+        $result = $this->query($query, $values, $numrows, $offset, self::ERR_NONE, options: $options);
         $error = $this->errorMessage;
 
         return $result;
     }
 
-    public function queryException($query, $values = null, $numrows = -1, $offset = -1)
+    public function queryException($query, $values = null, $numrows = -1, $offset = -1, array $options = [])
     {
-        return $this->query($query, $values, $numrows, $offset, self::ERR_EXCEPTION);
+        return $this->query($query, $values, $numrows, $offset, self::ERR_EXCEPTION, options: $options);
     }
 
-    public function getOne($query, $values = null, $reporterrors = self::ERR_DIRECT, $offset = 0)
+    public function getOne($query, $values = null, $reporterrors = self::ERR_DIRECT, $offset = 0, array $options = [])
     {
-        $result = $this->query($query, $values, 1, $offset, $reporterrors);
+        $result = $this->query($query, $values, 1, $offset, $reporterrors, options: $options);
 
         if ($result) {
             $res = $result->fetchRow();
@@ -147,9 +150,9 @@ abstract class TikiDb
      * @param [type] $reporterrors
      * @return array|false false denotes an error in the query, not an empty result
      */
-    public function fetchAll($query = null, ?array $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT): array|false
+    public function fetchAll($query = null, ?array $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT, array $options = []): array|false
     {
-        $result = $this->query($query, $values, $numrows, $offset, $reporterrors);
+        $result = $this->query($query, $values, $numrows, $offset, $reporterrors, options: $options);
 
         $rows = [];
 
@@ -161,9 +164,9 @@ abstract class TikiDb
         return $rows;
     }
 
-    public function fetchMap($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT)
+    public function fetchMap($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT, array $options = [])
     {
-        $result = $this->fetchAll($query, $values, $numrows, $offset, $reporterrors);
+        $result = $this->fetchAll($query, $values, $numrows, $offset, $reporterrors, options: $options);
 
         $map = [];
 

@@ -83,7 +83,7 @@ class TikiDb_Adodb extends TikiDb
         return $this->db->quote($str);
     }
 
-    public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT)
+    public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT, array $options = [])
     {
         global $num_queries;
         $num_queries++;
@@ -122,7 +122,7 @@ class TikiDb_Adodb extends TikiDb
         return new TikiDb_Adodb_Result($result, $this->rowCount);
     }
 
-    public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT)
+    public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT, array $options = [])
     {
         // this is already scrollable
         return $this->query($query, $values, $numrows, $offset, $reporterrors);

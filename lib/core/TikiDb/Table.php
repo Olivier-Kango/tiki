@@ -274,10 +274,10 @@ class TikiDb_Table
      * @param null  $orderClause
      * @param null  $joinClause
      */
-    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null): array|false
+    public function fetchAll(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null, array $options = []): array|false
     {
         $result = $this->buildSelect($fields, $conditions, $orderClause, $joinClause);
-        return $this->db->fetchAll($result['query'], $result['bindvars'], $numrows, $offset, $this->errorMode);
+        return $this->db->fetchAll($result['query'], $result['bindvars'], $numrows, $offset, $this->errorMode, options: $options);
     }
 
     /**
@@ -289,10 +289,10 @@ class TikiDb_Table
      * @param null  $orderClause
      * @param null  $joinClause
      */
-    public function query(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null): TikiDb_Pdo_Result|TikiDb_Adodb_Result|false
+    public function query(array $fields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null, $joinClause = null, array $options = []): TikiDb_Pdo_Result|TikiDb_Adodb_Result|false
     {
         $result = $this->buildSelect($fields, $conditions, $orderClause, $joinClause);
-        return $this->db->scrollableQuery($result['query'], $result['bindvars'], $numrows, $offset, $this->errorMode);
+        return $this->db->scrollableQuery($result['query'], $result['bindvars'], $numrows, $offset, $this->errorMode, options: $options);
     }
 
     /**

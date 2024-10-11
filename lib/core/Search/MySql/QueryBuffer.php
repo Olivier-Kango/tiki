@@ -48,7 +48,11 @@ class Search_MySql_QueryBuffer
     private function realFlush()
     {
         $query = $this->prefix . implode(', ', $this->buffer);
-        $result = $this->db->queryError($query, $error);
+        $result = $this->db->queryError(
+            $query,
+            $error,
+            options: [TikiDB::QUERY_OPTION_LOG_GROUP => Search_MySql_Table::UNIFIED_MYSQL_WRITE_LOG_GROUP]
+        );
 
         $this->clear();
 

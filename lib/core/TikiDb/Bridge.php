@@ -21,32 +21,32 @@ class TikiDb_Bridge extends TikiDb
         return self::get()->qstr($str);
     }
 
-    public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true)
+    public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, array $options = [])
     {
         return self::get()->query($query, $values, $numrows, $offset, $reporterrors);
     }
 
-    public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true)
+    public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, array $options = [])
     {
         return self::get()->scrollableQuery($query, $values, $numrows, $offset, $reporterrors);
     }
 
-    public function fetchAll($query = null, ?array $values = null, $numrows = -1, $offset = -1, $reporterrors = true): array|false
+    public function fetchAll($query = null, ?array $values = null, $numrows = -1, $offset = -1, $reporterrors = true, array $options = []): array|false
     {
         return self::get()->fetchAll($query, $values, $numrows, $offset, $reporterrors);
     }
 
-    public function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1)
+    public function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1, array $options = [])
     {
         return self::get()->queryError($query, $error, $values, $numrows, $offset);
     }
 
-    public function queryException($query, $values = null, $numrows = -1, $offset = -1)
+    public function queryException($query, $values = null, $numrows = -1, $offset = -1, array $options = [])
     {
         return self::get()->queryException($query, $values, $numrows, $offset);
     }
 
-    public function getOne($query, $values = null, $reporterrors = true, $offset = 0)
+    public function getOne($query, $values = null, $reporterrors = true, $offset = 0, array $options = [])
     {
         return self::get()->getOne($query, $values, $reporterrors, $offset);
     }

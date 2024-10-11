@@ -25,6 +25,7 @@ class DatabaseQueryLog
     private static $startTimesInProgress = [];
 
 
+
     public const TOTAL_TIME_MS = 'TOTAL_TIME_MS';
     public const TOTAL_COUNT = 'TOTAL_COUNT';
     public const DESCRIPTION_TEXT = 'DESCRIPTION_TEXT';
@@ -33,6 +34,9 @@ class DatabaseQueryLog
     public const PERCENT_OF_LEVEL_TIME = 'PERCENT_OF_LEVEL_TIME';
     public const PERCENT_OF_PARENT_GROUP_TIME = 'PERCENT_OF_PARENT_GROUP_TIME';
 
+    public const SORT_BY_TIME = 'SORT_BY_TIME';
+    public const SORT_BY_COUNT = 'SORT_BY_COUNT';
+    private static string $sortField = self::TOTAL_TIME_MS;
     /**
     * Is the logging system enabled.
     *
@@ -154,14 +158,17 @@ class DatabaseQueryLog
             return [];
         }
         $log = self::$queryLog;
+
+        //Sort by sortfield, default is most time consuming first
+        $sortFunction = function ($a, $b) {
+            if ($a[self::$sortField] == $b[self::$sortField]) {
+                return 0;
+            }
+                    return ($a[self::$sortField] > $b[self::$sortField]) ? -1 : 1;
+        };
+
         for ($level = 0; $level <= 3; $level++) {
-            //Sort most time consuming first
-            uasort($log[$level], function ($a, $b) {
-                if ($a[self::TOTAL_TIME_MS] == $b[self::TOTAL_TIME_MS]) {
-                    return 0;
-                }
-                return ($a[self::TOTAL_TIME_MS] > $b[self::TOTAL_TIME_MS]) ? -1 : 1;
-            });
+            uasort($log[$level], $sortFunction);
 
             $levelTotalTime = 0.0;
             foreach ($log[$level] as $entry) {

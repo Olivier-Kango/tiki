@@ -62,11 +62,11 @@ class DatabaseQueryLogConsoleFormatter
             $queryLogData = DatabaseQueryLog::processLog();
 
             $io = new SymfonyStyle($input, $output);
-
-            $io->section(tr('General query statistics'));
-            self::format($queryLogData[3], $input, $output);
             $io->section(tr('Top %0 queries by aggregate time', self::NUM_TOP_RESULTS));
             self::format(array_slice($queryLogData[0], 0, self::NUM_TOP_RESULTS), $input, $output);
+
+            $io->section(tr('General query statistics by query group'));
+            self::format($queryLogData[2], $input, $output);
         }
     }
 }
