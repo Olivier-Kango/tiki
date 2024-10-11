@@ -49,7 +49,7 @@ if ($objectType == 'Category') {
         $extendedTargets = $categlib->getCategories();
         $smarty->assign('isTop', 'y');
     }
-    if (count($extendedTargets) > 0) {
+    if (! empty($extendedTargets) && count($extendedTargets) > 0) {
         $smarty->assign('desc', 'y');
     }
 }
