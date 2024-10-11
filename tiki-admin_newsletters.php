@@ -96,81 +96,85 @@ if (isset($_REQUEST["remove"]) && $access->checkCsrf(true)) {
     }
 }
 if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
-    if (isset($_REQUEST["allowUserSub"]) && $_REQUEST["allowUserSub"] == 'on') {
-        $_REQUEST["allowUserSub"] = 'y';
+    if (empty($_REQUEST["name"])) {
+        Feedback::error(tr('Could not create a newsletter without any name.'));
     } else {
-        $_REQUEST["allowUserSub"] = 'n';
-    }
-    if (isset($_REQUEST["allowAnySub"]) && $_REQUEST["allowAnySub"] == 'on') {
-        $_REQUEST["allowAnySub"] = 'y';
-    } else {
-        $_REQUEST["allowAnySub"] = 'n';
-    }
-    if (isset($_REQUEST["unsubMsg"]) && $_REQUEST["unsubMsg"] == 'on') {
-        $_REQUEST["unsubMsg"] = 'y';
-    } else {
-        $_REQUEST["unsubMsg"] = 'n';
-    }
-    if (isset($_REQUEST["validateAddr"]) && $_REQUEST["validateAddr"] == 'on') {
-        $_REQUEST["validateAddr"] = 'y';
-    } else {
-        $_REQUEST["validateAddr"] = 'n';
-    }
-    if (isset($_REQUEST["allowTxt"]) && $_REQUEST["allowTxt"] == 'on') {
-        $_REQUEST["allowTxt"] = 'y';
-    } else {
-        $_REQUEST["allowTxt"] = 'n';
-    }
-    if (isset($_REQUEST["allowArticleClip"]) && $_REQUEST["allowArticleClip"] == 'on') {
-        $_REQUEST["allowArticleClip"] = 'y';
-    } else {
-        $_REQUEST["allowArticleClip"] = 'n';
-    }
-    if (isset($_REQUEST["autoArticleClip"]) && $_REQUEST["autoArticleClip"] == 'on') {
-        $_REQUEST["autoArticleClip"] = 'y';
-    } else {
-        $_REQUEST["autoArticleClip"] = 'n';
-    }
-    if (isset($_REQUEST["emptyClipBlocksSend"]) && $_REQUEST["emptyClipBlocksSend"] == 'on') {
-        $_REQUEST["emptyClipBlocksSend"] = 'y';
-    } else {
-        $_REQUEST["emptyClipBlocksSend"] = 'n';
-    }
-    if (isset($_REQUEST["articleClipRangeDays"])) {
-        $articleClipRange = 3600 * 24 * $_REQUEST["articleClipRangeDays"];
-    } else {
-        $articleClipRange = $defaultArticleClipRange; // default to 1 day
-    }
-    if (! empty($_REQUEST["articleClipTypes"])) {
-        $articleClipTypes = serialize($_REQUEST["articleClipTypes"]);
-    } else {
-        $articleClipTypes = '';
-    }
-    if (! isset($_REQUEST['frequency'])) {
-        $_REQUEST['frequency'] = 0;
-    }
-    $sid = $nllib->replace_newsletter(
-        $_REQUEST["nlId"],
-        $_REQUEST["name"],
-        $_REQUEST["description"],
-        $_REQUEST["allowUserSub"],
-        $_REQUEST["allowAnySub"],
-        $_REQUEST["unsubMsg"],
-        $_REQUEST["validateAddr"],
-        $_REQUEST["allowTxt"],
-        $_REQUEST["frequency"],
-        $_REQUEST["author"],
-        $_REQUEST["allowArticleClip"],
-        $_REQUEST["autoArticleClip"],
-        $articleClipRange,
-        $articleClipTypes,
-        $_REQUEST["emptyClipBlocksSend"]
-    );
+        if (isset($_REQUEST["allowUserSub"]) && $_REQUEST["allowUserSub"] == 'on') {
+            $_REQUEST["allowUserSub"] = 'y';
+        } else {
+            $_REQUEST["allowUserSub"] = 'n';
+        }
+        if (isset($_REQUEST["allowAnySub"]) && $_REQUEST["allowAnySub"] == 'on') {
+            $_REQUEST["allowAnySub"] = 'y';
+        } else {
+            $_REQUEST["allowAnySub"] = 'n';
+        }
+        if (isset($_REQUEST["unsubMsg"]) && $_REQUEST["unsubMsg"] == 'on') {
+            $_REQUEST["unsubMsg"] = 'y';
+        } else {
+            $_REQUEST["unsubMsg"] = 'n';
+        }
+        if (isset($_REQUEST["validateAddr"]) && $_REQUEST["validateAddr"] == 'on') {
+            $_REQUEST["validateAddr"] = 'y';
+        } else {
+            $_REQUEST["validateAddr"] = 'n';
+        }
+        if (isset($_REQUEST["allowTxt"]) && $_REQUEST["allowTxt"] == 'on') {
+            $_REQUEST["allowTxt"] = 'y';
+        } else {
+            $_REQUEST["allowTxt"] = 'n';
+        }
+        if (isset($_REQUEST["allowArticleClip"]) && $_REQUEST["allowArticleClip"] == 'on') {
+            $_REQUEST["allowArticleClip"] = 'y';
+        } else {
+            $_REQUEST["allowArticleClip"] = 'n';
+        }
+        if (isset($_REQUEST["autoArticleClip"]) && $_REQUEST["autoArticleClip"] == 'on') {
+            $_REQUEST["autoArticleClip"] = 'y';
+        } else {
+            $_REQUEST["autoArticleClip"] = 'n';
+        }
+        if (isset($_REQUEST["emptyClipBlocksSend"]) && $_REQUEST["emptyClipBlocksSend"] == 'on') {
+            $_REQUEST["emptyClipBlocksSend"] = 'y';
+        } else {
+            $_REQUEST["emptyClipBlocksSend"] = 'n';
+        }
+        if (isset($_REQUEST["articleClipRangeDays"])) {
+            $articleClipRange = 3600 * 24 * $_REQUEST["articleClipRangeDays"];
+        } else {
+            $articleClipRange = $defaultArticleClipRange; // default to 1 day
+        }
+        if (! empty($_REQUEST["articleClipTypes"])) {
+            $articleClipTypes = serialize($_REQUEST["articleClipTypes"]);
+        } else {
+            $articleClipTypes = '';
+        }
+        if (! isset($_REQUEST['frequency'])) {
+            $_REQUEST['frequency'] = 0;
+        }
+        $sid = $nllib->replace_newsletter(
+            $_REQUEST["nlId"],
+            $_REQUEST["name"],
+            $_REQUEST["description"],
+            $_REQUEST["allowUserSub"],
+            $_REQUEST["allowAnySub"],
+            $_REQUEST["unsubMsg"],
+            $_REQUEST["validateAddr"],
+            $_REQUEST["allowTxt"],
+            $_REQUEST["frequency"],
+            $_REQUEST["author"],
+            $_REQUEST["allowArticleClip"],
+            $_REQUEST["autoArticleClip"],
+            $articleClipRange,
+            $articleClipTypes,
+            $_REQUEST["emptyClipBlocksSend"]
+        );
 
-    if ($sid) {
-        Feedback::success(tr('Newsletter created or modified'));
-    } else {
-        Feedback::error(tr('Newsletter not created or modified'));
+        if ($sid) {
+            Feedback::success(tr('Newsletter created or modified'));
+        } else {
+            Feedback::error(tr('Newsletter not created or modified'));
+        }
     }
 
     $info = [
