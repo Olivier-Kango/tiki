@@ -41,10 +41,10 @@ $tikiItems = $tikicalendarlib->getTikiItems(true);
 $smarty->assign('tikiItems', $tikiItems);
 
 // Register selected tikiItems in session vars if a refresh is requested
-//   If no refresh is requested, either keep existing session values if they exists, either view all tikiItems by default
+//   If no refresh is requested, either keep existing session values if they exist, or view all tikiItems by default
 //   If a refresh has been requested without tikicals, view no tikiItem
 if (empty($_REQUEST['refresh'])) {
-    if (! array_key_exists('CalendarViewTikiCals', $_SESSION)) {
+    if (! isset($_SESSION['CalendarViewTikiCals'])) {
         $_SESSION['CalendarViewTikiCals'] = array_keys($tikiItems);
     }
 } elseif (! empty($_REQUEST['tikicals']) and is_array($_REQUEST['tikicals'])) {
@@ -52,9 +52,11 @@ if (empty($_REQUEST['refresh'])) {
 } else {
     unset($_SESSION['CalendarViewTikiCals']);
 }
-$smarty->assign('tikicals', $_SESSION['CalendarViewTikiCals']);
 
-$tc_infos = $tikicalendarlib->getCalendar($_SESSION['CalendarViewTikiCals'], $viewstart, $viewend);
+// Assigning tikicals to Smarty, with a fallback to an empty array if the session key is not set
+$smarty->assign('tikicals', $_SESSION['CalendarViewTikiCals'] ?? []);
+
+$tc_infos = $tikicalendarlib->getCalendar($_SESSION['CalendarViewTikiCals'] ?? [], $viewstart, $viewend);
 foreach ($tc_infos as $tc_key => $tc_val) {
     $smarty->assign($tc_key, $tc_val);
 }
@@ -71,6 +73,7 @@ if ($calendarViewMode['casedefault'] == 'day') {
 } else {
     $smarty->assign('currMonth', $focusdate);
 }
+
 $smarty->assign('daysnames', $daysnames);
 $smarty->assign('daysnames_abr', $daysnames_abr);
 $viewdays = [0,1,2,3,4,5,6];
