@@ -476,7 +476,7 @@ if (! empty($filepath) && is_file($filepath) && ! $content_changed) {
     }
 } else {
     if (strpos($info['filetype'], 'text/') !== false && ! $downloading) {
-        $content = htmlspecialchars($content);
+        $content = filter_var($content, FILTER_SANITIZE_SPECIAL_CHARS);
     }
     if (function_exists('mb_strlen')) {
         // use 8bit encoding which works for binary files as well (resized images end up here)
