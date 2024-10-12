@@ -480,6 +480,16 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
 // Get PHP properties and check them
 $php_properties = array();
 
+if (! file_exists('./db/local.php')) {
+    $errorMessage = tra('Mysql benchmark was skipped because no DB configuration was found.');
+
+    if ($standalone) {
+        $errorMessage = tra('Mysql benchmark was skipped because it was running as standalone and no DB configuration was found.');
+    }
+
+    $render .= '<div class="alert alert-danger"><div class="rboxcontent" style="display: inline">' . $errorMessage . '</div></div>';
+}
+
 // Check error reporting level
 $e = error_reporting();
 $d = ini_get('display_errors');
@@ -3809,14 +3819,15 @@ class BenchmarkPhp
     {
         set_time_limit(120); // 2 minutes
 
-        require 'db/local.php';
-
         $options = array();
 
-        $options['db.host'] = $host_tiki;
-        $options['db.user'] = $user_tiki;
-        $options['db.pw'] = $pass_tiki;
-        $options['db.name'] = $dbs_tiki;
+        if (file_exists('db/local.php')) {
+            require 'db/local.php';
+            $options['db.host'] = $host_tiki;
+            $options['db.user'] = $user_tiki;
+            $options['db.pw'] = $pass_tiki;
+            $options['db.name'] = $dbs_tiki;
+        }
 
         $benchmarkResult = self::test_benchmark($options);
 
