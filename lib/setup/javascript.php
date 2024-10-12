@@ -12,6 +12,11 @@ if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
 // we need to create upfront in case codemirror is used later on.
 require_once("lib/codemirror_tiki/tiki_codemirror.php");
 createCodemirrorModes();
+// LEGACY: assign short variable for use in templates
+$smarty->assign('js', 1);
+//for use in setting tags for css menus as fallback for action dropdowns
+$smarty->assign('libeg', '');
+$smarty->assign('liend', '');
     $plus_one_year = ($tikilib->now + 365 * 24 * 3600) * 1000;      // ms
 $prefs['feature_jquery'] = 'y'; // just in case
 
