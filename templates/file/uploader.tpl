@@ -35,12 +35,11 @@
             </div>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupText">{if $limit !== 1}{tr}Upload Files{/tr}{else}{tr}Upload File{/tr}{/if}</span>
-                <div class="custom-file">
-                    <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
-                           class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
-                            onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
-                    <label class="form-label custom-file-label btn btn-primary" for="inputFile">{tr}Choose file{/tr}</label>
-                </div>
+                <input type="text" class="form-control" id="fileName" aria-describedby="inputGroupText" placeholder="{tr}Choose file{/tr}" readonly onclick="document.getElementById('inputFile').click();" style="cursor: pointer;">
+                <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
+                        class="d-none" id="inputFile"
+                        onchange="updateFileName(this);">
+                <label class="input-group-text" for="inputFile" style="cursor: pointer;">{tr}Browse{/tr}</label>
             </div>
             <p class="drop-message text-center">
                 {if $limit !== 1}{tr}Or drop files here from your file manager.{/tr}{else}{tr}Or drop file here from your file manager.{/tr}{/if}
@@ -77,12 +76,11 @@
             </div>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupText">{if $limit !== 1}{tr}Upload Files{/tr}{else}{tr}Upload File{/tr}{/if}</span>
-                <div class="custom-file">
-                    <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
-                           class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
-                            onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
-                    <label class="form-label custom-file-label btn btn-primary" for="inputFile">{tr}Choose file{/tr}</label>
-                </div>
+                <input type="text" class="form-control" id="fileName-n" aria-describedby="inputGroupText" placeholder="{tr}Choose file{/tr}" readonly onclick="document.getElementById('inputFile-n').click();" style="cursor: pointer;">
+                <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
+                        class="d-none" id="inputFile-n"
+                        onchange="updateFileName(this);">
+                <label class="input-group-text" for="inputFile-n" style="cursor: pointer;">{tr}Browse{/tr}</label>
             </div>
 
             <p class="drop-message text-center">

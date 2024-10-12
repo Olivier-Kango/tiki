@@ -153,7 +153,7 @@
                     feedback(tr($self.data('namefilter-error') || 'The uploaded file name doesn\'t match desired pattern.'), 'error');
                     $(this).val("");
                     $("input[type=file]", $form).val("");
-                    $(".custom-file-label", $form).text(tr("Choose file"));
+                    $("#fileName", $form).val(tr("Choose file"));
                     return false;
                 } else {
                     return true;
