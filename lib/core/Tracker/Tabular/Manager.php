@@ -28,7 +28,7 @@ class Manager
         $info['filter_descriptor'] = json_decode($info['filter_descriptor'], true) ?: [];
         $info['config'] = json_decode($info['config'], true) ?: [];
         $info['odbc_config'] = json_decode($info['odbc_config'], true) ?: [];
-        $info['api_config'] = json_decode($info['api_config'], true) ?: [];
+        $info['api_config'] = json_decode($info['api_config'] ?? '', true) ?: [];
         return $info;
     }
 
