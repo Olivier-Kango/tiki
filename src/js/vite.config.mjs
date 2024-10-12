@@ -165,7 +165,7 @@ export default defineConfig(({ command, mode }) => {
                     "jquery",
                     "jquery-ui",
                     "jquery-validation",
-                    "moment",
+                    /^moment\/.+/,
                     "select2",
                     "pivottablejs",
                     "sortablejs",
@@ -191,10 +191,10 @@ export default defineConfig(({ command, mode }) => {
                     },
                     entryFileNames: (chunkInfo) => {
                         // Check if the chunk is from the tiki-iot workspace
-                        if (chunkInfo.name.startsWith('tiki-iot')) {
-                            return 'tiki-iot/[name].js';
+                        if (chunkInfo.name.startsWith("tiki-iot")) {
+                            return "tiki-iot/[name].js";
                         }
-                        return '[name].js';
+                        return "[name].js";
                     },
                 },
                 preserveEntrySignatures: "allow-extension",
@@ -356,7 +356,7 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/dompurify/dist",
                     },
                     {
-                        src : ["node_modules/drawflow/dist/drawflow.min.css"],
+                        src: ["node_modules/drawflow/dist/drawflow.min.css"],
                         dest: "vendor_dist/drawflow/dist",
                     },
                     {
@@ -478,7 +478,7 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/vue/dist/vue.esm-browser.prod.js",
                         dest: "vendor_dist/vue/dist",
-                    }
+                    },
                 ],
             }),
             copy({
@@ -502,8 +502,6 @@ export default defineConfig(({ command, mode }) => {
                 silent: false,
                 onWatch: true,
             }),
-            /* Uncomment this in development to see which dependencies contribute to bundle size */
-            //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
             AutoImport({
                 // We don't use https://github.com/unplugin/unplugin-vue-components/resolvers because of https://github.com/vitest-dev/vitest/issues/1402 raised during the execution of the tests
                 resolvers: [
@@ -529,7 +527,15 @@ export default defineConfig(({ command, mode }) => {
                     },
                 ],
             }),
+            /* Uncomment this in development to see which dependencies contribute to bundle size */
+            //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
         ],
+        server: {
+            watch: {
+                //This is also used by vitest to exclude files from watch
+                ignored: ["**/node_modules/**", "**/.git/**", "**/.gitlab-ci-local/**", "**/vendor_bundled/**"],
+            },
+        },
         test: {
             include: ["src/js/vue-widgets/**/tests/**/*.test.js"],
             globals: true,

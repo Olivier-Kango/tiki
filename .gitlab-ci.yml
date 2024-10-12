@@ -580,7 +580,8 @@ unit-tests-node:
   image:
     name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
   script:
-    - npm run test
+    - npm run testci
+  coverage: '/All files(?:[^|]*\|){4}\s*(\S+)/'
 
 #
 # Package this Tiki build
