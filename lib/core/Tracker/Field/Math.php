@@ -416,7 +416,7 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractItemField implements \Tr
             $value = (string)$runner->evaluate();
         } catch (Math_Formula_Exception $e) {
             $value = $e->getMessage();
-            trigger_error("Error in Math field calculation: " . $value, E_USER_ERROR);
+            trigger_error("Error in Math field calculation: " . $value, E_USER_WARNING);
         }
 
         if ($value !== $this->getValue()) {

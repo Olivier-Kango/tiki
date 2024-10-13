@@ -1015,6 +1015,6 @@ try {
     }
 } catch (\Smarty\Exception $e) {
     $message = tr('The requested element cannot be displayed. One of the view/edit templates is missing or has errors: %0', $e->getMessage());
-    trigger_error($e->getMessage(), E_USER_ERROR);
+    trigger_error($e->getMessage(), E_USER_WARNING);
     $access->redirect(smarty_modifier_sefurl($info['trackerId'], 'tracker'), $message, 302, 'error');
 }

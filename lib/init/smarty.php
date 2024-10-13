@@ -614,7 +614,7 @@ class Smarty_Tiki extends \Smarty\Smarty
     {
         $last_override_prefix = empty($this->url_overriding_prefix_stack) ? false : array_pop($this->url_overriding_prefix_stack);
         if (! is_array($last_override_prefix) || $url_arguments_prefix . '-' != $last_override_prefix[0]) {
-            trigger_error('URL Overriding prefix stack is in a bad state', E_USER_ERROR);
+            throw new Exception('URL Overriding prefix stack is in a bad state');
         }
         $this->url_overriding_prefix =& $this->url_overriding_prefix_stack[ count($this->url_overriding_prefix_stack) - 1 ];
         ;

@@ -1724,7 +1724,7 @@ class Services_Tracker_Controller
             $smarty->display('templates/tracker/preview_item.tpl');
         } catch (\Smarty\Exception $e) {
             $message = tr('The requested element cannot be displayed. One of the view/edit templates is missing or has errors: %0', $e->getMessage());
-            trigger_error($e->getMessage(), E_USER_ERROR);
+            trigger_error($e->getMessage(), E_USER_WARNING);
             $access = TikiLib::lib('access');
             $access->redirect(smarty_modifier_sefurl($trackerId, 'tracker'), $message, 302, 'error');
         }

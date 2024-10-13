@@ -179,7 +179,6 @@ class Search_MySql_Table extends TikiDb_Table
             ];
         } elseif ($indexesPerTable >= self::MAX_MYSQL_INDEXES_PER_TABLE) {
             $msg = tr('Maximum number of indexes per InnoDB table reached for MySQL index %0 when trying to add index %1.', $table, $indexName);
-            trigger_error($msg, E_USER_ERROR);
             throw new Search_MySql_QueryException($msg);
         }
     }
