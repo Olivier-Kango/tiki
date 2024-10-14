@@ -155,6 +155,9 @@
         "lib\/core\/Search\/Action\/TrackerItemModify.php": {
             "class:Search_Action_TrackerItemModify": true
         },
+        "lib\/core\/Search\/Action\/DataChannel.php": {
+            "class:Search_Action_DataChannel": true
+        },
         "lib\/core\/Search\/Action\/Exception.php": {
             "class:Search_Action_Exception": true
         },
@@ -4061,6 +4064,9 @@
         },
         "lib\/core\/Search\/Action\/TrackerItemModify.php": {
             "Search_Action_TrackerItemModify": true
+        },
+        "lib\/core\/Search\/Action\/DataChannel.php": {
+            "Search_Action_DataChannel": true
         },
         "lib\/core\/Search\/Action\/Exception.php": {
             "Search_Action_Exception": true
