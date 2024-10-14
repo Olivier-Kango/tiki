@@ -22137,6 +22137,7 @@ $lang_current = array(
 "CSV/JSON Encoding" => "Encodage CSV/JSON",
 "Data Format" => "Format des données",
 "Data type generated/expected from export/import functions." => "Type de données généré/attendu par les fonctions d'exportation/importation.",
-"Import-Export Tracker was updated successfully." => "Le formulaire d'import-export a été mis à jour avec succès."
+"Import-Export Tracker was updated successfully." => "Le formulaire d'import-export a été mis à jour avec succès.",
+"The possible value for the default parameter is 'y' or '1'. Not putting this parameter means that the action is not set as default. The value you provided for the default parameter is %0%1%2 on the action named %0%3%2" => "La valeur possible pour le paramètre par défaut est 'y' ou '1'. Ne pas mettre ce paramètre signifie que l'action n'est pas définie par défaut. La valeur que vous avez fournie pour le paramètre par défaut est %0%1%2 sur l'action nommée %0%3%2",
 );
 $lang = array_replace($lang, $lang_current);
