@@ -36,11 +36,6 @@
                                 <input type="text" class="field-label form-control" value="" placeholder="{tr}New option{/tr}" readonly="readonly">
                                     <span class="tips input-group-text option-edit" title="|{tr}Check this if the option is an alternative to the previous one.{/tr}">
                                         <input type="checkbox" class="samepos">
-                                        {if isset($option.position)}
-                                            {$prevpos = $option.position}
-                                        {else}
-                                            {$prevpos = null}
-                                        {/if}
                                     </span>
                                     <a href="javascript:void(0)" class="tips input-group-text " title="{tr}New option{/tr}|{tr}Drag this on to the menu area below{/tr}">
                                         {icon name='info'}
@@ -139,7 +134,7 @@
                                         <input type="text" class="field-label form-control" value="{$option.name|escape}" placeholder="{tr}Label{/tr}">
                                         <span class="tips input-group-text option-edit" title="|{tr}Check this if the option is an alternative to the previous one.{/tr}">
                                                 <input type="checkbox" class="samepos"{if $option.position eq $prevpos} checked="checked"{/if}>
-                                                {$prevpos = $option.position}
+                                            {$prevpos = $option.position}
                                             </span>
                                             <a href="{bootstrap_modal controller=menu action=edit_option menuId=$menuId optionId=$option.optionId}" class="tips input-group-text" title='{$tooltip|escape}'>
                                                 {icon name='info'}
@@ -163,8 +158,6 @@
                             </div>
                             <ol class="child-options"></ol>
                         </li>
-                    {foreachelse}
-
                     {/foreach}
                     {capture name='options'}select:function(event,ui){ldelim}ui.item.value='(('+ui.item.value+'))';{rdelim}{/capture}
                     {autocomplete element='.field-url' type='pagename' options=$smarty.capture.options}
@@ -199,14 +192,6 @@
                         </label>
                     </div>
                 </div>
-            {*    <div class="col-sm-2"> 
-                    <div class="form-check">
-                        <label for="preview_css" class="form-check-label">
-                            CSS
-                        </label>
-                        <input type="checkbox" id="preview_css" class="form-check-input ms-2" name="preview_css"{if $preview_css eq 'y'} checked="checked"{/if}>
-                    </div>
-                </div> *}
                 <div class="col-6 col-sm-3 pe-2">
                     <label for="preview_position" class="col-form-label">
                         {tr}Position:{/tr}
