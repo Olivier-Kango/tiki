@@ -13,6 +13,9 @@ class Search_Action_ActionStep implements Search_Action_Step
     {
         $this->action = $action;
         $this->definition = $definition;
+        if (method_exists($this->action, 'definitionAware')) {
+            $this->action->definitionAware($definition);
+        }
     }
 
     public function getFields()
@@ -68,7 +71,8 @@ class Search_Action_ActionStep implements Search_Action_Step
 
     public function requiresInput()
     {
-        return $this->action->requiresInput(new JitFilter($this->definition));
+        $params = array_merge($this->definition, ['field_variants' => $this->fieldVariants()]);
+        return $this->action->requiresInput(new JitFilter($params));
     }
 
     public function changeObject($data)
@@ -117,6 +121,12 @@ class Search_Action_ActionStep implements Search_Action_Step
         }
 
         return new JitFilter($out);
+    }
+
+    private function fieldVariants()
+    {
+        // keep in sync with prepare method that uses the fields for some special parameter logic
+        return ['', '_field', '_field_coalesce', '_field_multiple'];
     }
 
     private function readValues($entry, $readFrom)

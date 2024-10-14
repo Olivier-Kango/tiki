@@ -1139,6 +1139,9 @@
         "lib\/core\/TikiFilter.php": {
             "class:TikiFilter": true
         },
+        "lib\/core\/Search\/Action\/DataChannel.php": {
+            "class:Search_Action_DataChannel": true
+        },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Imagegrabber.php": {
             "class:Search_Formatter_ValueFormatter_Imagegrabber": true
         },
@@ -4936,6 +4939,9 @@
         },
         "lib\/core\/Search\/Action\/TrackerItemModify.php": {
             "Search_Action_TrackerItemModify": true
+        },
+        "lib\/core\/Search\/Action\/DataChannel.php": {
+            "Search_Action_DataChannel": true
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Imagegrabber.php": {
             "Search_Formatter_ValueFormatter_Imagegrabber": true
