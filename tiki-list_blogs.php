@@ -37,6 +37,7 @@ if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
         }
     }
     $bloglib->remove_blog($_REQUEST["remove"]);
+    Feedback::success(tr('Blog removed successfully!'));
 }
 // This script can receive the threshold
 // for the information as the number of

@@ -212,7 +212,7 @@ if (isset($_REQUEST["save"]) && $prefs['feature_categories'] == 'y' && $prefs['f
         $cat_name = $_REQUEST["title"];
         $cat_href = "tiki-view_blog.php?blogId=" . $cat_objid;
         include_once("categorize.php");
-
+        Feedback::success(tr('Blog updated successfully!'));
         header("location: tiki-list_blogs.php?blogId=$bid");
         die;
     }
