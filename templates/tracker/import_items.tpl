@@ -44,7 +44,7 @@
         </select>
     </div>
     <div class="mb-3 row mx-0">
-        <label for=encoding">{tr}Character encoding{/tr}</label>
+        <label for="encoding">{tr}Character encoding{/tr}</label>
         <select name="encoding" class="form-select">
             <option value="UTF-8" selected="selected">{tr}UTF-8{/tr}</option>
             <option value="ISO-8859-1">{tr}ISO-8859-1{/tr}</option>

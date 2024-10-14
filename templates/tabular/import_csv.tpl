@@ -32,35 +32,23 @@
                         </div>
                     </div>
                 {/foreach}
+            {function name=createFileInput format="" label="" fileInputId="" fileAccept=""}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroupText">{tr}{$label}{/tr}</span>
+                    <input type="text" class="form-control" id="{$fileInputId}Name" aria-describedby="inputGroupText" placeholder="{tr}Choose file{/tr}" readonly onclick="document.getElementById('{$fileInputId}').click();" style="cursor: pointer;">
+                    <input type="file" class="d-none" id="{$fileInputId}" name="file" accept="{$fileAccept}" onchange="updateFileName(this)">
+                    <label class="input-group-text" for="{$fileInputId}" style="cursor: pointer;">{tr}Browse{/tr}</label>
+                </div>
+            {/function}           
             {elseif $format eq 'json'}
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroupText">{tr}JSON File{/tr}</span>
-                <input type="text" class="form-control" id="jsonFileName" aria-describedby="inputGroupText" placeholder="{tr}Choose file{/tr}" readonly onclick="document.getElementById('jsonInputFile').click();" style="cursor: pointer;">
-                <input type="file" class="d-none" id="jsonInputFile" name="file" accept="application/json" onchange="updateFileName(this)">
-                <label class="input-group-text" for="jsonInputFile" style="cursor: pointer;">Browse</label>
-            </div>
+                {createFileInput format='json' label='JSON File' fileInputId='jsonInputFile' fileAccept='application/json'}
             {elseif $format eq 'ndjson'}
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroupText">{tr}NDJSON File{/tr}</span>
-                <input type="text" class="form-control" id="ndjsonFileName" aria-describedby="inputGroupText" placeholder="{tr}Choose file{/tr}" readonly onclick="document.getElementById('ndjsonInputFile').click();" style="cursor: pointer;">
-                <input type="file" class="d-none" id="ndjsonInputFile" name="file" accept="application/x-ndjson" onchange="updateFileName(this)">
-                <label class="input-group-text" for="ndjsonInputFile" style="cursor: pointer;">Browse</label>
-            </div>
+                {createFileInput format='ndjson' label='NDJSON File' fileInputId='ndjsonInputFile' fileAccept='application/x-ndjson'}
             {elseif $format eq 'ical'}
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroupText">{tr}iCal File{/tr}</span>
-                <input type="text" class="form-control" id="icalFileName" aria-describedby="inputGroupText" placeholder="{tr}Choose file{/tr}" readonly onclick="document.getElementById('icalInputFile').click();" style="cursor: pointer;">
-                <input type="file" class="d-none" id="icalInputFile" name="file" accept="text/calendar" onchange="updateFileName(this)">
-                <label class="input-group-text" for="icalInputFile" style="cursor: pointer;">Browse</label>
-            </div>
+                {createFileInput format='ical' label='iCal File' fileInputId='icalInputFile' fileAccept='text/calendar'}
             {else}
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroupText">{tr}CSV File{/tr}</span>
-                <input type="text" class="form-control" id="fileName" aria-describedby="inputGroupText" placeholder="{tr}Choose file{/tr}" readonly onclick="document.getElementById('inputFile').click();" style="cursor: pointer;">
-                <input type="file" class="d-none" id="inputFile" name="file" accept="text/csv" onchange="updateFileName(this)">
-                <label class="input-group-text" for="inputFile" style="cursor: pointer;">Browse</label>
-            </div>
-            {/if}
+                {createFileInput format='csv' label='CSV File' fileInputId='inputFile' fileAccept='text/csv'}
+            {/if}     
             <div class="submit">
                 <input class="btn btn-primary" type="submit" value="{tr}Import{/tr}">
             </div>
