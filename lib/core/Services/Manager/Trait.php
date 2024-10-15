@@ -83,6 +83,13 @@ trait Services_Manager_Trait
         if (! isset($_ENV['HOOKS_FOLDER'])) {
             $_ENV['HOOKS_FOLDER'] = $storage_path . '/hooks';
         }
+
+        // Unlike the other folders mentioned above, the hooks folder must be explicitly created if it's not present.
+        // Tiki Manager doesn't generate it because it stores custom scripts that don't have a direct impact on Tiki Manager's internal operations.
+        if (! is_dir($_ENV['HOOKS_FOLDER'])) {
+            mkdir($_ENV['HOOKS_FOLDER'], 0777, true);
+        }
+
         $composerManager = new ComposerManager($tikipath);
         $composerPath = $composerManager->composerPath();
 
