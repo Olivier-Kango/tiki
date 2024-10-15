@@ -52,8 +52,10 @@ class MultilingualLib extends TikiLib
         $objTrads = $this->getTrads($type, $objId);
 
         if (! $srcTrads && ! $objTrads) {
-            $query = "insert into `tiki_translated_objects` (`type`,`objId`,`lang`) values (?,?,?)";
-            $this->query($query, [$type, $srcId, $srcLang]);
+            $query = "select max(`traId`) from `tiki_translated_objects` where 1";
+            $lastTradId = $this->getOne($query);
+            $query = "insert into `tiki_translated_objects` (`type`,`objId`,`traId`, `lang`) values (?,?,?,?)";
+            $this->query($query, [$type, $srcId, ++$lastTradId, $srcLang]);
             $query = "select max(`traId`) from `tiki_translated_objects` where `type`=? and `objId`=?";
             $tmp_traId = $this->getOne($query, [ $type, $srcId ]);
             $query = "insert into `tiki_translated_objects` (`type`,`objId`,`traId`,`lang`) values (?,?,?,?)";
