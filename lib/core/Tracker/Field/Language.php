@@ -31,7 +31,7 @@ class Tracker_Field_Language extends \Tracker\Field\AbstractItemField implements
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $insertId = $this->getInsertId();
 

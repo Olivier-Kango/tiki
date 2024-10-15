@@ -57,7 +57,7 @@ class Tracker_Field_Computed extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
         $data = [];

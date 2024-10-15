@@ -84,7 +84,7 @@ class Tracker_Field_Rating extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
 

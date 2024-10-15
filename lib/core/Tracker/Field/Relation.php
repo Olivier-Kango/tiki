@@ -154,7 +154,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
         return $relations;
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $insertId = $this->getInsertId();
 

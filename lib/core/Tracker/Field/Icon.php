@@ -52,7 +52,7 @@ class Tracker_Field_Icon extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $insertId = $this->getInsertId();
 

@@ -47,7 +47,7 @@ class Tracker_Field_StaticText extends \Tracker\Field\AbstractItemField implemen
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $prefs;
 

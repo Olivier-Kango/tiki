@@ -96,7 +96,7 @@ class Tracker_Field_Text extends \Tracker\Field\AbstractItemField implements \Tr
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $data = $this->processMultilingual($requestData, $this->getInsertId());
 

@@ -91,7 +91,7 @@ class Tracker_Field_Image extends Tracker_Field_File
         $this->imgMaxSize = (1048576 * 4); // 4Mo
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $prefs;
         $smarty = TikiLib::lib('smarty');

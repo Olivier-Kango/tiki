@@ -32,7 +32,7 @@ interface ItemFieldInterface
      * @param array something like $_REQUEST
      * @return
      */
-    public function getFieldData(array $requestData = []);
+    public function getFieldData(array $requestData = []): array;
 
     /**
      * return the html of the input form for a field

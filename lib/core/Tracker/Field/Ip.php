@@ -39,7 +39,7 @@ class Tracker_Field_Ip extends \Tracker\Field\AbstractItemField implements \Trac
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $tiki_p_admin_trackers;
 

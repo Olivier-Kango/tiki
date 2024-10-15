@@ -28,7 +28,7 @@ class Tracker_Field_GeographicFeature extends \Tracker\Field\AbstractItemField i
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         if (isset($requestData[$this->getInsertId()])) {
             $value = $requestData[$this->getInsertId()];

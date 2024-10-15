@@ -59,7 +59,7 @@ class Tracker_Field_Url extends \Tracker\Field\AbstractItemField implements \Tra
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
 

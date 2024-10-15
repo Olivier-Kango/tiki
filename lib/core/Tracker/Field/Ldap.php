@@ -48,7 +48,7 @@ class Tracker_Field_Ldap extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         if ($this->getOption('dsn')) {
             $ldaplib = TikiLib::lib('ldap');
@@ -78,6 +78,7 @@ class Tracker_Field_Ldap extends \Tracker\Field\AbstractItemField
                 }
             }
         }
+        return [];
     }
 
     public function renderInput($context = [])

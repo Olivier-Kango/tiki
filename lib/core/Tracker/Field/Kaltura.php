@@ -38,7 +38,7 @@ class Tracker_Field_Kaltura extends \Tracker\Field\AbstractItemField implements 
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $insertId = $this->getInsertId();
 

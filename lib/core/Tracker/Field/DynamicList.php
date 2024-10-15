@@ -182,7 +182,7 @@ class Tracker_Field_DynamicList extends \Tracker\Field\AbstractItemField impleme
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
         $data = [

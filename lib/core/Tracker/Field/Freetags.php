@@ -56,7 +56,7 @@ class Tracker_Field_Freetags extends \Tracker\Field\AbstractItemField implements
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $data = [];
 

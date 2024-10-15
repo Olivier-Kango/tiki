@@ -210,7 +210,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
         return $options;
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $prefs;
         $filegallib = TikiLib::lib('filegal');

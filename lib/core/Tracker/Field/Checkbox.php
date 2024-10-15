@@ -28,7 +28,7 @@ class Tracker_Field_Checkbox extends \Tracker\Field\AbstractItemField implements
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
 

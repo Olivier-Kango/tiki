@@ -178,7 +178,7 @@ class Tracker_Field_ItemsList extends \Tracker\Field\AbstractItemField implement
      * @see \Tracker\Field\AbstractItemField::getFieldData()
      *
      */
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $items = $this->getItemIds();
         $list = $this->getItemLabels($items);

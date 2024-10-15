@@ -146,7 +146,7 @@ class Tracker_Field_CountrySelector extends \Tracker\Field\AbstractItemField imp
         return $this->getOption('multiple');
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         $ins_id = $this->getInsertId();
 

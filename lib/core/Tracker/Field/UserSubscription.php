@@ -28,7 +28,7 @@ class Tracker_Field_UserSubscription extends \Tracker\Field\AbstractItemField
         ];
     }
 
-    public function getFieldData(array $requestData = [])
+    public function getFieldData(array $requestData = []): array
     {
         global $user, $jitPost;
         $userlib = TikiLib::lib('user');

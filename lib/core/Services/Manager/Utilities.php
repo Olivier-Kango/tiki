@@ -36,7 +36,7 @@ class Services_Manager_Utilities
         $vcs = null;
 
         $output = `git --version`;
-        if (strstr($output, 'version')) {
+        if (strstr($output, 'version') && ($instance instanceof Instance)) {
             $vcs = new Git($instance);
         }
 
@@ -47,19 +47,20 @@ class Services_Manager_Utilities
             }
         }
 
-        if (! $vcs) {
+        if (! $vcs && ($instance instanceof Instance)) {
             $vcs = new Src($instance);
         }
 
-        $versions = $vcs->getAvailableBranches();
-        foreach ($versions as $key => $version) {
-            preg_match('/(\d+\.|trunk|master)/', $version->branch, $matches);
-            if (! array_key_exists(0, $matches)) {
-                continue;
+        if (! empty($vcs)) {
+            $versions = $vcs->getAvailableBranches();
+            foreach ($versions as $key => $version) {
+                preg_match('/(\d+\.|trunk|master)/', $version->branch, $matches);
+                if (! array_key_exists(0, $matches)) {
+                    continue;
+                }
+                $available[] = $version->branch;
             }
-            $available[] = $version->branch;
         }
-
         chdir($dir);
 
         return $available;
