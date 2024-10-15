@@ -95,6 +95,9 @@
                 {/if}
             {else}
                 <select class="form-select{$groupClass}" type="text" name="params[{$paramName|escape}]" id="{$inputId}"{$dataAttribute}>
+                   {if !isset($pluginArgs[$paramName])}
+                        <option value="" selected="selected">Please select an option</option>
+                    {/if}
                     {foreach $param.options as $option}
                         <option value="{$option.value|escape}" {if isset($pluginArgs[$paramName]) and $pluginArgs[$paramName] eq $option.value} selected="selected"{/if}>
                             {$option.text|escape}
