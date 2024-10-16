@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_sql_query_logs` MODIFY `sql_query` MEDIUMTEXT NOT NULL;
