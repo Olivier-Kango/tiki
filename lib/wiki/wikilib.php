@@ -1643,7 +1643,6 @@ class WikiLib extends TikiLib
         $smarty = TikiLib::lib('smarty');
         $view_script = 'tiki-index.php';
         $edit_script = 'tiki-editpage.php';
-
         if ($prefs['feature_multilingual_one_page'] == 'y') {
             //  if ( basename($_SERVER['PHP_SELF']) == 'tiki-all_languages.php' ) {
             //      return 'tiki-all_languages.php?page='.urlencode($page);
@@ -1679,7 +1678,7 @@ class WikiLib extends TikiLib
                 $href = "$view_script?page=" . urlencode($finalPageName);
             }
         } else {
-            $href = "$edit_script?page=" . urlencode($requestedPageName);
+            $href = "$edit_script?page=" . urlencode($requestedPageName ?? '');
         }
 
         if ($prefs['feature_wiki_use_date_links'] == 'y') {
