@@ -76,7 +76,13 @@ class Search_Action_DataChannel implements Search_Action_Action
             $installer = new Tiki_Profile_Installer();
             $installer->setUserData($input);
             $installer->disablePrefixDependencies();
-            $success = $installer->install($profile, $empty_cache) && $success;
+            $result = $installer->install($profile, $empty_cache);
+            if (! $result) {
+                foreach ($installer->getFeedback() as $feed) {
+                    Feedback::warning($feed);
+                }
+            }
+            $success = $result && $success;
         }
 
         return $success;
