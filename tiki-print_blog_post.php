@@ -54,4 +54,5 @@ $smarty->assign('mid', 'tiki-view_blog_post.tpl');
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 // Display the template
+$smarty->assign('print_page', 'y');
 $smarty->display("tiki-print_blog_post.tpl");
