@@ -275,7 +275,12 @@
             min-height: 60px; max-height: 500px;
             line-height: normal;
             font-size: 115%; font-weight: 500;
-            .list_controls { border: none; background: #fff; }
+            .list_controls {
+                border: none;
+                background: #fff;
+                width: 100%;
+                padding: 5px 15px;
+            }
         }
 
         .sys_messages {
