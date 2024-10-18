@@ -241,7 +241,10 @@
         word-break: break-all;
         white-space: unset;
     }
-    .folder_list { min-width: unset; }
+    .toggle_link { margin-right: 10px; }
+    .folder_list { min-width: 95%; }
+    .move_to_location .folders a:not(.btn), .move_to_location i { color: $dropdown-link-color !important; }
+    .shortcut_table { width: 100%; }
 }
 
 .mobile.tiki-cypht, .mobile.tiki-webmail {
