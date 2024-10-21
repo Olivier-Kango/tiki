@@ -1099,6 +1099,7 @@ function wikiplugin_pivottable($data, $params)
         'dataCallback' => $params['dataCallback'],
         'index' => $id,
         'allowStickyHeaders' => $params['allowStickyHeaders'],
+        'defaults' => $defaults,
     ]);
 
     $out .= $smarty->fetch('wiki-plugins/wikiplugin_pivottable.tpl');
