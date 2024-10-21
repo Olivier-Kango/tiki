@@ -57,7 +57,7 @@
         $('.save-fields').on("submit", function () {
             var form = this, confirmed = false
 
-            if ($(form.action).val() === 'remove_fields') {
+            if ($(form.action).val() === 'remove_fields' && validateForm()) {
                 confirmed = confirm(tr('Do you really want to delete the selected fields?'));
                 $(form.confirm).val(confirmed ? '1' : '0');
 
@@ -67,12 +67,14 @@
             }
 
             if ($(form.action).val() === 'export_fields') {
-                var url = $.serviceUrl({ controller: 'tracker', action: 'export_fields' });
-                var target = $('.modal.fade:not(.in)').first();
-                $.post(url, $(form).serialize() + '&modal=1', function (data) {
-                    $(".modal-content", target).html(data);
-                    target.modal('show');
-                });
+                if (validateForm()) {
+                    var url = $.serviceUrl({ controller: 'tracker', action: 'export_fields' });
+                    var target = $('.modal.fade:not(.in)').first();
+                    $.post(url, $(form).serialize() + '&modal=1', function (data) {
+                        $(".modal-content", target).html(data);
+                        target.modal('show');
+                    });
+                }
                 return false;
 
             } else {
@@ -186,5 +188,27 @@
                 }
             }
         };
+        function validateForm() {
+            // Get all checkbox elements with the name "fields[]"
+            const checkboxes = document.querySelectorAll('input[name="fields[]"]');
+
+            // Check if at least one checkbox is checked
+            let isChecked = false;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    isChecked = true;
+                    return;
+                }
+            });
+
+            // If no checkbox is checked, show an alert and prevent submission
+            if (!isChecked) {
+                alert(tr("Please select at least one element."));
+                return false;
+            }
+
+            // If at least one checkbox is checked, allow form submission
+            return true;
+        }
     {/jq}
 {/block}
