@@ -184,7 +184,9 @@
                                                 {/if}
                                             </td>
                                             <td class="text">
-                                                {$users[user].registrationDate|tiki_short_datetime}
+                                                {if $users[user].registrationDate}
+                                                    {$users[user].registrationDate|tiki_short_datetime}
+                                                {/if}
                                             </td>
 
                                             <td class="text">
