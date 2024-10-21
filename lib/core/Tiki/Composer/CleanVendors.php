@@ -233,14 +233,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'jquery-plugins/treetable',
-            [
-                'stylesheets/jquery.treetable.theme.default.css',
-                'stylesheets/screen.css',
-                'treetable.jquery.json'
-            ]
-        );
-        self::remove(
             $vendors . 'rangy/rangy',
             [
                 'uncompressed/rangy-highlighter.js',

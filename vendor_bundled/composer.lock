@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa535c71a51e70cba352ceac054f27aa",
+    "content-hash": "10a65a83c5f76808d6fbce44f7234297",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2472,16 +2472,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jquery-plugins/tagcanvas/jquery-plugins-tagcanvas-2.8.zip",
                 "shasum": "2054830430c5a6f3970551831dcf3a8ca002c4b0"
-            },
-            "type": "library"
-        },
-        {
-            "name": "jquery-plugins/treetable",
-            "version": "3.2.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery-plugins/treetable/jquery-plugins-treetable-3.2.0.zip",
-                "shasum": "80714a0c20bc742519ef70b165c9e6024f680d3b"
             },
             "type": "library"
         },

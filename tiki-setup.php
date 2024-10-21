@@ -669,11 +669,11 @@ if ($prefs['tiki_prefix_css'] == 'y') {
 }
 
 // note: jquery.async.js load a copy of jquery
-// Used by treetable and a few more places
+
 $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/async/jquery.async.js');
 
-$headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/treetable/jquery.treetable.js');
-$headerlib->add_cssfile('vendor_bundled/vendor/jquery-plugins/treetable/css/jquery.treetable.css');
+$headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/jquery-treetable/jquery.treetable.js');
+$headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/jquery-treetable/jquery.treetable.css');
 
 if ($prefs['feature_equal_height_rows_js'] == 'y') {
     $headerlib->add_jsfile("vendor_bundled/vendor/Sam152/Javascript-Equal-Height-Responsive-Rows/grids.min.js");

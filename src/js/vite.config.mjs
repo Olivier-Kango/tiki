@@ -380,6 +380,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jqdoublescroll",
                     },
                     {
+                        src: ["node_modules/jquery-treetable/css/jquery.treetable.css", "node_modules/jquery-treetable/jquery.treetable.js"],
+                        dest: "vendor_dist/jquery-treetable",
+                    },
+                    {
                         src: "node_modules/jquery-zoom/(icon.png|jquery.zoom.js)",
                         dest: "vendor_dist/jquery-zoom",
                     },
