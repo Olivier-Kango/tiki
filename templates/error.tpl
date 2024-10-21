@@ -40,11 +40,7 @@ close();
                     <p>{tr}Perhaps you are looking for:{/tr}</p>
                     <ul>
                         {section name=back loop=$likepages}
-                            {if ($prefs.feature_sefurl eq 'y') }
-                                <li><a href="{$likepages[back]|sefurl:"wiki page"}" class="wiki">{$likepages[back]|escape}</a></li>
-                            {else}
-                                <li><a href="tiki-index.php?page={$likepages[back]|escape:"url"}" class="wiki">{$likepages[back]|escape}</a></li>
-                            {/if}
+                            <li><a href="{$likepages[back]|sefurl:"wiki"}" class="wiki">{$likepages[back]|escape}</a></li>
                         {/section}
                     </ul>
                 {else}
