@@ -86,7 +86,7 @@ if (isset($_REQUEST['startDate_Year']) || isset($_REQUEST['endDate_Year'])) {
     $smarty->assign('startDate', $start_date);
     $smarty->assign('endDate', $end_date);
 } else {
-    $start_date = $site_stats['started'];
+    $start_date = (int)$site_stats['started'];
     $end_date = $tikilib->make_time(23, 59, 59, date("m"), date("d"), date("Y"));
     $smarty->assign('startDate', $start_date);
 }
