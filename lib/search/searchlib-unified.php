@@ -534,6 +534,7 @@ class UnifiedSearchLib
         }
 
         if ($prefs['feature_blogs'] == 'y') {
+            $types['blog'] = tra('blog');
             $types['blog post'] = tra('blog post');
         }
 
@@ -780,6 +781,10 @@ class UnifiedSearchLib
         if (isset($types['forum post'])) {
             $aggregator->addContentSource('forum post', new Search_ContentSource_ForumPostSource());
             $aggregator->addContentSource('forum', new Search_ContentSource_ForumSource());
+        }
+
+        if (isset($types['blog'])) {
+            $aggregator->addContentSource('blog', new Search_ContentSource_BlogSource());
         }
 
         if (isset($types['blog post'])) {
@@ -1403,7 +1408,6 @@ class UnifiedSearchLib
                 $query->filterContent($value, $key);
             }
         }
-
         return $query;
     }
 

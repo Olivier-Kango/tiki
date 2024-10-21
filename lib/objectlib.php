@@ -220,6 +220,7 @@ class ObjectLib extends TikiLib
             'quiz',
             'tracker',
             'trackeritem',
+            'user',
             'wiki page',
             'template',
         ];
@@ -228,6 +229,7 @@ class ObjectLib extends TikiLib
     public function getSelectorType($type)
     {
         $supported = [
+            'blog' => 'blog',
             'calendar' => 'calendar',
             'category' => 'category',
             'file_gallery' => 'file gallery',
@@ -236,6 +238,7 @@ class ObjectLib extends TikiLib
             'tracker' => 'tracker',
             'tracker_field' => 'trackerfield',
             'trackerfield' => 'trackerfield',
+            'user' => 'user',
             'wiki_page' => 'wiki page',
             'wiki page' => 'wiki page',
             'template' => 'template',

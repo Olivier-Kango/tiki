@@ -520,6 +520,9 @@
         "lib\/core\/Search\/ContentSource\/ActivityStreamSource.php": {
             "class:Search_ContentSource_ActivityStreamSource": true
         },
+        "lib\/core\/Search\/ContentSource\/BlogSource.php": {
+            "class:Search_ContentSource_BlogSource": true
+        },
         "lib\/core\/Search\/ContentSource\/BlogPostSource.php": {
             "class:Search_ContentSource_BlogPostSource": true
         },
@@ -4384,6 +4387,9 @@
         },
         "lib\/core\/Search\/ContentSource\/ActivityStreamSource.php": {
             "Search_ContentSource_ActivityStreamSource": true
+        },
+        "lib\/core\/Search\/ContentSource\/BlogSource.php": {
+            "Search_ContentSource_BlogSource": true
         },
         "lib\/core\/Search\/ContentSource\/BlogPostSource.php": {
             "Search_ContentSource_BlogPostSource": true
