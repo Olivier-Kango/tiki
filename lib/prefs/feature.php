@@ -1907,7 +1907,11 @@ function prefs_feature_list($partial = false)
             'dependencies' => [
                 'feature_jquery_ui',
             ],
+            'conflicts' => [
+                'elementplus_autocomplete',
+            ],
             'default' => 'y',   // autocomplete on pages in QuickEdit (more coming soon)
+            'tags' => ['deprecated'],
         ],
         'feature_jquery_reflection' => [
             'name' => tra('Reflection'),

@@ -1,4 +1,4 @@
-import { attachChangeEventHandler, observeSelectElementMutations, syncSelectOptions } from "./helpers/select/applySelect";
+import { attachChangeEventHandler, observeSelectElementMutations, syncSelectOptions } from "../helpers/select/applySelect";
 
 export default function applySelect() {
     new MutationObserver((mutations) => {

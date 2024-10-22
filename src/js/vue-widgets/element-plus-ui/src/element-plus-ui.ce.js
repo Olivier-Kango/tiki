@@ -13,6 +13,10 @@ customElements.define(
                 ctx.emit(eventName, detail);
             };
 
+            const emitCustomEvent = (eventName, detail) => {
+                ctx.emit(eventName, detail);
+            };
+
             // Allow to update the comoponent state by changing HTML element attributes
             watch(
                 () => props,
@@ -23,7 +27,7 @@ customElements.define(
                 },
                 { immediate: true, deep: true }
             );
-            return () => h(App, { ...internalState, emitValueChange }, ctx.slots);
+            return () => h(App, { ...internalState, emitValueChange, emitCustomEvent }, ctx.slots);
         },
         {
             styles: [styles],
@@ -86,4 +90,5 @@ new MutationObserver((mutations) => {
     }
 }).observe(document.body, { childList: true, subtree: true });
 
-export { default as applySelect } from "./applySelect";
+export { default as applySelect } from "./utils/applySelect";
+export { default as applyAutocomplete } from "./utils/applyAutocomplete";

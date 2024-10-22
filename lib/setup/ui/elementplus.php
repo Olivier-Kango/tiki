@@ -16,7 +16,8 @@ $elementPlus = [
         'filterable' => $prefs['elementplus_select_filterable'] === 'y',
         'allowCreate' => $prefs['elementplus_select_allow_create'] === 'y',
         'ordering' => $prefs['elementplus_select_sortable'] === 'y'
-    ]
+    ],
+    'autocomplete' => $prefs['elementplus_autocomplete'] === 'y',
 ];
 
 $headerlib->add_js_config('window.elementPlus = ' . json_encode($elementPlus) . ';');

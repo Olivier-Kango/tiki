@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { sortOptions } from "../../helpers/select/sortable";
+import { sortOptions } from "../../../helpers/select/sortable";
 
 describe("Select sortable helper functions", () => {
     test("sortOptions when called, re-orders the options in the select element", () => {

@@ -117,6 +117,7 @@ class PreferencesLib
             'help' => '',
             'adminurl' => 'tiki-admin.php?lm_criteria=' . urlencode($name) . '&amp;exact',
             'dependencies' => [],
+            'conflicts' => [],
             'packages_required' => [],
             'extensions' => [],
             'dbfeatures' => [],
@@ -189,12 +190,22 @@ class PreferencesLib
             }
         }
 
+        $info['available'] = true;
+
         /* FIXME: Dependencies are not enforced currently. TODO: Activate disabled code below to enforce dependencies
         // The value element is deprecated. Use either "configuredValue" or "effectiveValue"  instead.
         $info['configuredValue'] = $info['effectiveValue'] = $info['value'];
         */
-        if ($deps && isset($info['dependencies'])) {
-            $info['dependencies'] = $this->getDependencies($info['dependencies']);
+        if ($deps) {
+            if (isset($info['dependencies'])) {
+                $info['dependencies'] = $this->getDependencies($info['dependencies']);
+            }
+            if (isset($info['conflicts'])) {
+                $info['conflicts'] = $this->getConflicts($info['conflicts']);
+                if (count($info['conflicts']['active']) && $info['value'] != 'y') {
+                    $info['available'] = false;
+                }
+            }
             /* TODO: test
             if ($info['type'] == 'flag' &&
                 $info['effectiveValue'] = 'y' && // Optimization
@@ -209,8 +220,6 @@ class PreferencesLib
         if ($deps && isset($info['packages_required']) && ! empty($info['packages_required'])) {
             $info['packages_required'] = $this->getPackagesRequired($info['packages_required']);
         }
-
-        $info['available'] = true;
 
         if (! $this->checkExtensions($info['extensions'])) {
             $info['available'] = false;
@@ -810,6 +819,39 @@ class PreferencesLib
         }
 
         return $out;
+    }
+
+    private function getConflicts($conflicts)
+    {
+        $active = [];
+        $inactive = [];
+
+        foreach ((array) $conflicts as $pref) {
+            $info = $this->getPreference($pref, false);
+            if (! $info) {
+                continue;
+            }
+            $name = isset($info['name']) ? $info['name'] : '';
+            $link = isset($info['adminurl']) ? $info['adminurl'] : '';
+            if ($info['value'] == 'y') {
+                $active[] = [
+                    'name' => $pref,
+                    'label' => $name,
+                    'link' => $link,
+                ];
+            } else {
+                $inactive[] = [
+                    'name' => $pref,
+                    'label' => $name,
+                    'link' => $link,
+                ];
+            }
+        }
+
+        return [
+            'active' => $active,
+            'inactive' => $inactive,
+        ];
     }
 
     private function getPackagesRequired($packages)

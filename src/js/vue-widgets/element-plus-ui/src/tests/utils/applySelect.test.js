@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { Window } from "happy-dom";
 import $ from "jquery";
-import applySelect from "../applySelect";
-import * as applySelectHelpers from "../helpers/select/applySelect";
+import applySelect from "../../utils/applySelect";
+import * as applySelectHelpers from "../../helpers/select/applySelect";
 
 describe("applySelect", () => {
     beforeEach(() => {

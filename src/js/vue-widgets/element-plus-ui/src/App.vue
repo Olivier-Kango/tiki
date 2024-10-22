@@ -2,10 +2,12 @@
 import { onMounted, ref } from 'vue';
 import Transfer from './components/Transfer.vue';
 import Select from './components/Select.vue';
+import Autocomplete from './components/Autocomplete.vue';
 
 const components = {
     Transfer,
-    Select
+    Select,
+    Autocomplete,
 };
 
 const props = defineProps({

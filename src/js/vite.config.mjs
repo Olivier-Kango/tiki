@@ -281,6 +281,22 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/element-plus/dist/locale/*.min.mjs",
                         dest: "vendor_dist/element-plus/dist/locale",
                     },
+                    /*
+                    NOTE: The following two css files are necessary for the autocomplete popper to be themed,
+                    because it's teleported by default to the body, hindering it from inhering the styles of the custom element.
+                    Altough, element-plus provides an option to plug it into the custom element context,
+                    it shows a blocking bug that I'm still unable to fix after several hours of digging into the source code.
+                    The bug is that the option becomes unclickable when the popper is placed inside the custom element.
+                    Hopefully, we can fix this in the future and remove these two css files. - @mercihabam - 2024-10-18
+                    */
+                    {
+                        src: "node_modules/element-plus/theme-chalk/el-autocomplete.css",
+                        dest: "vendor_dist/element-plus/css",
+                    },
+                    {
+                        src: "node_modules/element-plus/theme-chalk/base.css",
+                        dest: "vendor_dist/element-plus/css",
+                    },
                     /* common_externals */
                     {
                         src: "node_modules/@shoelace-style/shoelace/dist/themes/*.css",
@@ -478,7 +494,7 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/vue/dist/vue.esm-browser.prod.js",
                         dest: "vendor_dist/vue/dist",
-                    },
+                    }
                 ],
             }),
             copy({
@@ -541,8 +557,9 @@ export default defineConfig(({ command, mode }) => {
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/{vue-widgets,vue-mf}/**/*.{vue,js}"],
-                exclude: ["**/*.ce.js"],
+                include: ["src/js/vue-widgets/**/*.{vue,js}"],
+                exclude: ["**/*.ce.js", "**/*.test.js"],
+                provider: 'istanbul'
             },
         },
     };

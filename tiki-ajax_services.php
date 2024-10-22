@@ -62,7 +62,7 @@ if (isset($_REQUEST['controller'])) {
 }
 
 if ($access->is_serializable_request() && $jitRequest->offsetExists('listonly')) {
-    $access->check_feature('feature_jquery_autocomplete');
+    $access->check_feature(['feature_jquery_autocomplete', 'elementplus_autocomplete'], '', 'features', true);
 
     $listonly = $jitRequest->listonly->word();
     $query = $jitRequest->q->text();

@@ -180,6 +180,7 @@
                 <legend class="h3"><h4 class="showhide_heading" id="element-plus"> {tr}Element Plus{/tr}  <a href="#element-plus" class="heading-link" aria-label="{tr}Element Plus{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
                 {preference name=feature_elementplus}
                 <div class="adminoptionboxchild" id="feature_elementplus_childcontainer">
+                    {preference name=elementplus_autocomplete}
                     {preference name=elementplus_select_clearable}
                     {preference name=elementplus_select_collapse_tags}
                     {preference name=elementplus_select_max_collapse_tags}

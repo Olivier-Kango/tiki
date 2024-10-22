@@ -84,13 +84,13 @@
                     {/if}
                     {if not empty($param.filter)}
                         {if $param.filter eq "pagename"}
-                            {jq}$({{$inputId}}).tiki("autocomplete", "pagename");{/jq}
+                            {autocomplete element="#{$inputId}" type="pagename"}
                         {elseif $param.filter eq "groupname"}
-                            {jq}$({{$inputId}}).tiki("autocomplete", "groupname", {multiple: true, multipleSeparator: "|"});{/jq}
+                            {autocomplete element="#{$inputId}" type="groupname" options="multiple: true, multipleSeparator: '|'"}
                         {elseif $param.filter eq "username"}
-                            {jq}$({{$inputId}}).tiki("autocomplete", "username", {multiple: true, multipleSeparator: "|"});{/jq}
+                            {autocomplete element="#{$inputId}" type="username" options="multiple: true, multipleSeparator: '|'"}
                         {elseif $paramName eq "biblio_code"}
-                            {jq}$({{$inputId}}).tiki("autocomplete", "reference", {multiple: true, multipleSeparator: ":"});{/jq}
+                            {autocomplete element="#{$inputId}" type="reference" options="multiple: true, multipleSeparator: ':'"}
                         {elseif $param.filter eq "date"}
                             {jq}
                                 $({{$inputId}}).tiki("datepicker");

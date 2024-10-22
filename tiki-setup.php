@@ -998,9 +998,13 @@ $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/@shoelace-style/shoelace/
 
 // element-plus-ui select, transfer
 $headerlib->add_js_module("import * as elementPlus from '@vue-widgets/element-plus-ui';");
-if (isset($prefs['feature_elementplus']) && $prefs['feature_elementplus'] == 'y') {
+if ($prefs['feature_elementplus'] == 'y') {
     $headerlib->add_js_module("elementPlus.applySelect();");
+    if ($prefs['elementplus_autocomplete'] == 'y') {
+        $headerlib->add_js_module("import { autocomplete } from '@jquery-tiki/ui-utils'; window.autocomplete = autocomplete;");
+        $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-autocomplete.css');
+        $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/base.css');
+    }
 }
-
 // use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not
 define('TIKI_SETUP_FINISHED', true);

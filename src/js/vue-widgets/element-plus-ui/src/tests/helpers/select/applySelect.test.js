@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import $ from "jquery";
-import { attachChangeEventHandler, observeSelectElementMutations } from "../../helpers/select/applySelect";
+import { attachChangeEventHandler, observeSelectElementMutations } from "../../../helpers/select/applySelect";
 
 describe("applySelect helper functions", () => {
     beforeEach(() => {

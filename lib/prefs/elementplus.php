@@ -7,6 +7,18 @@
 function prefs_elementplus_list()
 {
     return [
+        'elementplus_autocomplete' => [
+            'name' => tra('Autocomplete'),
+            'description' => tra('Provides various dropdown menus on many text input boxes for page names, user names, groups, tags, etc.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'dependencies' => [
+                'feature_elementplus'
+            ],
+            'conflicts' => [
+                'feature_jquery_autocomplete'
+            ]
+        ],
         'elementplus_select_clearable' => [
             'name' => tra('Clearable Select'),
             'description' => tra('whether select can be cleared'),
