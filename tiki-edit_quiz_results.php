@@ -43,7 +43,7 @@ $smarty->assign('individual', 'n');
 $access->check_permission('tiki_p_admin_quizzes');
 
 $smarty->assign('quizId', $_REQUEST["quizId"]);
-$quiz_info = $quizlib->get_quiz_result($_REQUEST["quizId"]);
+$quiz_info = $quizlib->get_quiz($_REQUEST["quizId"]);
 $smarty->assign('quiz_info', $quiz_info);
 
 if (! isset($_REQUEST["resultId"])) {
