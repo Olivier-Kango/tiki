@@ -164,7 +164,12 @@
             <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}Start - End{/tr}</label>
                 <div class="col-sm-7 start">
-                    {jscalendar id="start" date=$calitem.start enddate=$calitem.end fieldname="calitem[start]" showtime='y' endfieldname="calitem[end]" showtimezone="n" timezone=$displayTimezone}
+                    {if $calitem.allday}
+                        {assign var="showtime" value="n"}
+                    {else}
+                        {assign var="showtime" value="y"}
+                    {/if}
+                    {jscalendar id="event-datetime" date=$calitem.start enddate=$calitem.end fieldname="calitem[start]" showtime=$showtime endfieldname="calitem[end]" showtimezone="n" timezone=$displayTimezone}
                 </div>
                 <div class="col-sm-2">
                     <div class="form-check">
@@ -174,6 +179,15 @@
                         </label>
                     </div>
                 </div>
+                {jq}
+                $('#allday').on('change', function() {
+                    if ($(this).is(':checked')) {
+                        $('#event-datetime').attr('enable-time-picker', '0');
+                    } else {
+                        $('#event-datetime').attr('enable-time-picker', '1');
+                    }
+                });
+                {/jq}
             </div> {* / .mb-3 *}
             <div class="row mt-md-3 mb-3 date">
                 {if $impossibleDates}

@@ -105,7 +105,7 @@ const props = defineProps({
 // Convert props that should be booleans from string to number
 // Boolean props will be : "0" => false, "1" => true
 // We can't directly use true/false because html attributes are always strings. A non-zero length string is always true
-const enableTimePicker = Number(props.enableTimePicker);
+const enableTimePicker = computed(() => Number(props.enableTimePicker));
 const enableTimezonePicker = Number(props.enableTimezonePicker);
 
 const date = ref(getDefaultDate(props.timestamp, props.toTimestamp));
@@ -201,7 +201,10 @@ function getTimezoneOffset(timezone) {
     return offsetString;
 }
 
-const formatFn = (value) => formatDate(value, Boolean(enableTimePicker), locale[props.language]);
+const formatFn = computed(() => {
+    const timePicker = Boolean(enableTimePicker.value);
+    return (value) => formatDate(value, Boolean(timePicker), locale[props.language])
+});
 
 /*
 ====================
