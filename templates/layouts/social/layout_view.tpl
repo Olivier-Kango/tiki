@@ -36,13 +36,13 @@
             {/if}
         {/if}
         <div class="topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-topbar-nav-{$navbar_color_variant}">
-            <div class="topbar container{if $smarty.session.fullscreen??"" eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-topbar-nav-{$navbar_color_variant}" id="topbar">
+            <div class="topbar container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-topbar-nav-{$navbar_color_variant}" id="topbar">
                 {modulelist zone=topbar class='topbar_modules w-100' heading_text='{tr}Navigation and related functionality and content{/tr}'}
             </div>
         </div>
         <div class="middle-wrapper">
             <div class="page-content-top-margin"  style="height: var(--tiki-page-content-top-margin)"></div>
-        <div class="container{if $smarty.session.fullscreen??"" eq 'y'}-fluid{/if} container-std middle" id="middle">
+        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
             <div class="row row-middle" id="row-middle">
                 {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
                     <div class="col col1 col-md-12 pb-4" id="col1">
@@ -180,7 +180,7 @@
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
         <footer class="footer main-footer" id="footer">
             <div class="footer_liner">
-                <div class="container{if $smarty.session.fullscreen??"" eq 'y'}-fluid{/if} container-std">
+                <div class="container container-std">
                     {modulelist zone=bottom class='bottom_modules p-3 mx-n2point5' heading_text='{tr}Site information, links, etc.{/tr}' role=contentinfo} {* div.modules *}
                 </div>
             </div>

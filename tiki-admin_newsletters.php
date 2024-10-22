@@ -36,7 +36,7 @@ $inputConfiguration = [
         ],
     ],
 ];
-$section = 'newsletters';
+$section = 'admin';
 require_once('tiki-setup.php');
 $access->check_feature('feature_newsletters');
 

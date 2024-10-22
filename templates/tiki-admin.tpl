@@ -1,4 +1,4 @@
-<div class="admin-wrapper highlightable {* {if $prefs.theme_unified_admin_backend eq 'y'}overflow-auto{/if} *}">
+<div class="admin-wrapper highlightable{* {if $prefs.theme_unified_admin_backend eq 'y'} overflow-auto{/if} *}">
     {if $prefs.theme_unified_admin_backend eq 'y'}
         <aside class="admin-nav">
             {include file='admin/include_anchors.tpl'}

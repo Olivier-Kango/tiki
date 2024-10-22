@@ -53,7 +53,7 @@ $inputConfiguration = [
         ],
     ],
 ];
-$section = 'calendar';
+$section = 'admin';
 require_once('tiki-setup.php');
 $categlib = TikiLib::lib('categ');
 $calendarlib = TikiLib::lib('calendar');

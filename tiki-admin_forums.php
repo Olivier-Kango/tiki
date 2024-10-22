@@ -84,7 +84,7 @@ $inputConfiguration = [
         ],
     ],
 ];
-$section = 'forums';
+$section = 'admin';
 require_once('tiki-setup.php');
 if (! isset($_REQUEST['forumId'])) {
     $_REQUEST['forumId'] = 0;

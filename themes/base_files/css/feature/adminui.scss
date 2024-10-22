@@ -55,6 +55,7 @@ body.tiki-admin {
 
 .tiki-admin .admin-wrapper .navbar-toggler {
     position: absolute;
+    background-color: rgba(255, 255, 255, .5);
     border: inherit;
 //    left: 1rem;
 }
@@ -151,30 +152,31 @@ body.tiki-admin {
 }
 
 // Aside nav light -------------------------------------------------------
-.tiki .tiki-admin-aside-nav-light,
+.tiki-admin-aside-nav-light,
 .tiki-admin aside.admin-nav .bg-light {
     background: var(--tiki-admin-aside-nav-bg) !important;
 }
 
-.tiki .tiki-admin-aside-nav-light .nav-link {
+.tiki-admin-aside-nav-light .nav-link {
     color: var(--tiki-admin-aside-nav-color);
+    &:focus,
     &:hover {
         color: var(--tiki-admin-aside-nav-hover-color);
         background: var(--tiki-admin-aside-nav-hover-bg);
     }
 }
-.tiki .tiki-admin-aside-nav-light .admin-menu-collapser {
+.tiki-admin-aside-nav-light .admin-menu-collapser {
     background-color: var(--tiki-admin-dropdown-bg);
     color: var(--tiki-admin-dropdown-link-color);
 }
 
 // Aside nav dark ---------------------------------------------------------
-.tiki .tiki-admin-aside-nav-dark,
+.tiki-admin-aside-nav-dark,
 .tiki-admin aside.admin-nav .navbar-dark {
     background: var(--tiki-admin-aside-nav-bg) !important;
 }
 
-.tiki .tiki-admin-aside-nav-dark .nav-link {
+.tiki-admin-aside-nav-dark .nav-link {
     color: var(--tiki-admin-aside-nav-color);
     &:hover {
         color: var(--tiki-admin-aside-nav-hover-color);
@@ -689,6 +691,10 @@ body.tiki-admin {
         justify-content: space-between;
     }
 
+    aside.admin-nav .navbar-wrapper.fixed-top {
+         right: calc(100% - 60px);
+    }
+
 }
 
 @media (min-width: 768px) {
@@ -972,11 +978,11 @@ body.tiki-admin {
 }
 
 .tiki-admin .bg-dark-parent .module.box-login_box button {
-    background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2034%2034%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%2C.cls-2%7Bfill%3A%23fff%3B%7D.cls-2%7Bstroke%3A%232c2c2c%3B%7D.cls-3%7Bfill%3Anone%3Bstroke%3A%23fff%3Bstroke-width%3A2px%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M22.86%2C22A4.09%2C4.09%2C0%2C0%2C0%2C23%2C21V20a4%2C4%2C0%2C0%2C0-4-4H13a4%2C4%2C0%2C0%2C0-4%2C4v1a4.09%2C4.09%2C0%2C0%2C0%2C.14%2C1Z%22%20transform%3D%22translate(1%201)%22%2F%3E%3Ccircle%20class%3D%22cls-2%22%20cx%3D%2217%22%20cy%3D%2213%22%20r%3D%224.5%22%2F%3E%3Ccircle%20class%3D%22cls-3%22%20cx%3D%2217%22%20cy%3D%2217%22%20r%3D%2216%22%2F%3E%3C%2Fsvg%3E") !important;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 34 34'%3E%3Cdefs%3E%3Cstyle%3E .cls-1 %7B fill: %23fff; %7D .cls-2 %7B fill: none; stroke: %23fff; stroke-width: 2px; %7D %3C/style%3E%3C/defs%3E%3C!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142) --%3E%3Cg%3E%3Cg id='Ebene_1'%3E%3Cg id='Ebene_1-2' data-name='Ebene_1'%3E%3Cg%3E%3Cpath class='cls-1' d='M20,17h0c-.8.6-1.9,1-3,1s-2.1-.4-3-1h0c-2.2,0-4,1.8-4,4v1c0,.3,0,.7.1,1h13.7c0-.3.1-.7.1-1v-1c0-2.2-1.8-4-4-4h.1Z'/%3E%3Ccircle class='cls-1' cx='17' cy='13' r='4'/%3E%3C/g%3E%3Ccircle class='cls-2' cx='17' cy='17' r='16'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 .tiki-admin .bg-light-parent .module.box-login_box button {
-    background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2034%2034%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%2C.cls-2%7Bfill%3A%237c7c7d%3B%7D.cls-2%7Bstroke%3A%23f8f9fa%3B%7D.cls-3%7Bfill%3Anone%3Bstroke%3A%237c7c7d%3Bstroke-width%3A2px%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M22.86%2C22A4.09%2C4.09%2C0%2C0%2C0%2C23%2C21V20a4%2C4%2C0%2C0%2C0-4-4H13a4%2C4%2C0%2C0%2C0-4%2C4v1a4.09%2C4.09%2C0%2C0%2C0%2C.14%2C1Z%22%20transform%3D%22translate(1%201)%22%2F%3E%3Ccircle%20class%3D%22cls-2%22%20cx%3D%2217%22%20cy%3D%2213%22%20r%3D%224.5%22%2F%3E%3Ccircle%20class%3D%22cls-3%22%20cx%3D%2217%22%20cy%3D%2217%22%20r%3D%2216%22%2F%3E%3C%2Fsvg%3E") !important;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 34 34'%3E%3Cdefs%3E%3Cstyle%3E .cls-1 %7B fill: %237c7c7d; %7D .cls-2 %7B fill: none; stroke: %237c7c7d; stroke-width: 2px; %7D %3C/style%3E%3C/defs%3E%3C!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142) --%3E%3Cg%3E%3Cg id='Ebene_1'%3E%3Cg%3E%3Cpath class='cls-1' d='M20,17h0c-.8.6-1.9,1-3,1s-2.1-.4-3-1h0c-2.2,0-4,1.8-4,4v1c0,.3,0,.7.1,1h13.7c0-.3.1-.7.1-1v-1c0-2.2-1.8-4-4-4Z'/%3E%3Ccircle class='cls-1' cx='17' cy='13' r='4'/%3E%3C/g%3E%3Ccircle class='cls-2' cx='17' cy='17' r='16'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 //.tiki-admin .bg-dark-parent .module.box-login_box button,

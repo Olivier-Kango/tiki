@@ -518,6 +518,7 @@ class ModLib extends TikiLib
         global $section, $page, $prefs, $user;
         $tikilib = TikiLib::lib('tiki');
 
+        // TODO: Check this if it behaves well on other "Admin" pages when UAB is enabled
         $topLogin = $module['name'] === 'login_box' && $module['position'] === 'top';
         $topQA = $module['name'] === 'quickadmin' && $module['position'] === 'top';
         $footer = $module['position'] === 'bottom';

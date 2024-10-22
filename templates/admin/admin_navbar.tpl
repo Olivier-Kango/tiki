@@ -4,7 +4,7 @@
             {if $prefs.sitelogo_icon && $prefs.sitelogo_icon neq 'img/tiki/tikilogo_icon.png'}
                 <img src="{$prefs.sitelogo_icon}" alt="{if !empty($prefs.sitelogo_alt)}{$prefs.sitelogo_alt|escape}{else}{tr}Site logo{/tr}{/if}">
             {else}
-                <img src="img/tiki/tiki-icon-flat-{if $navbar_color_variant eq 'light'}black{else}white{/if}.png" alt="{if !empty($prefs.sitelogo_alt)}{$prefs.sitelogo_alt|escape}{else}{tr}Tiki icon{/tr}{/if}" height="24">
+                <img src="img/tiki/tiki-icon-flat-{if $navbar_color_variant eq 'light'}black{else}white{/if}.svg" alt="{if !empty($prefs.sitelogo_alt)}{$prefs.sitelogo_alt|escape}{else}{tr}Tiki icon{/tr}{/if}" height="24">
             {/if}
         </a>
     {/if}

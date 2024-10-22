@@ -269,6 +269,9 @@ function iconset_default()
             'admin_section_backend' => [
                 'id' => 'cogs',
             ],
+            'admin_seoprefs' => [
+                'id' => 'search-dollar',
+            ],
             'adn' => [
                 'id' => 'adn',
                 'prepend' => 'fab fa-'

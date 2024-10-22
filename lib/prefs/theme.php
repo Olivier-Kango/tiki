@@ -63,7 +63,7 @@ function prefs_theme_list($partial = false)
             'type' => 'flag',
             'help' => 'Themes',
             'description' => tra('Use modern layout for control panels.'),
-            'default' => 'n',
+            'default' => 'y',
             'tags' => ['basic'],
         ],
         'theme_admin' => [
