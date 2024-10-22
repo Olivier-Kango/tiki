@@ -200,6 +200,10 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
         $tikilib->set_user_preference($userwatch, 'notify_oneself', $_POST["notify_oneself"]);
     }
 
+    if (isset($_POST["switch_user_notification"])) {
+        $tikilib->set_user_preference($userwatch, 'switch_user_notification', $_POST["switch_user_notification"]);
+    }
+
     $langLib = TikiLib::lib('language');
     if (isset($_POST["language"]) && $langLib->is_valid_language($_POST['language'])) {
         if ($tiki_p_admin || $prefs['change_language'] == 'y') {

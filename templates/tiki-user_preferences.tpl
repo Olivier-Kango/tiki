@@ -349,6 +349,21 @@
                         </select>
                     </div>
                 </div>
+                <div class="tiki-form-group row">
+                    <label class="col-form-label col-md-4" for="switch_user_notification">
+                        {tr}Notify user when switched to their account{/tr}
+                    </label>
+                    <div class="col-md-8">
+                        <select id="switch_user_notification" name="switch_user_notification" class="form-control" >
+                            <option value="n" {if $user_prefs.switch_user_notification eq "n"}selected="selected"{/if}>
+                                {tr}no{/tr}
+                            </option>
+                            <option value="y" {if $user_prefs.switch_user_notification eq "y"}selected="selected"{/if}>
+                                {tr}yes{/tr}
+                            </option>
+                        </select>
+                    </div>
+                </div>
                 <div class="tiki-form-group row clearfix">
                     <label class="col-form-label col-md-4" for="display_timezone">
                         {tr}Displayed timezone{/tr}

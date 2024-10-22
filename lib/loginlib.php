@@ -35,7 +35,7 @@ class LoginLib
 
     public function switchUser($name)
     {
-        global $user, $user_cookie_site;
+        global $user, $user_cookie_site, $prefs;
         $perms = Perms::get();
 
         if (! $perms->admin) {
@@ -46,6 +46,11 @@ class LoginLib
         $username = $userlib->get_user_real_case($name);
         $this->activateSession($username);
         $_SESSION[$user_cookie_site . '_previous'] = $user;
+
+        if ($prefs['switch_user_notification'] == 'y') {
+            include_once('lib/notifications/notificationemaillib.php');
+            sendSwitchUserNotification($user, $username);
+        }
     }
 
     public function revertSwitch()
