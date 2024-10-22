@@ -258,68 +258,6 @@ $("#remove_object_form").off("submit").on("submit", function (e) {
             {pagination_links cant=$cant_objects step=$prefs.maxRecords offset=$offset}{/pagination_links}
         {/tab}
 
-        {tab name="{tr}Moving objects{/tr}"}
-            <h2>{tr}Moving objects between categories{/tr}</h2>
-            <h4>{tr}Current category:{/tr} {$categ_name|escape}</h4><br>
-            <form method="post" action="tiki-admin_categories.php" name="move">
-                {ticket}
-                <fieldset>
-                    <legend>{tr}Perform an action on all objects in the current category:{/tr}</legend>
-                    <input type="hidden" name="parentId" value="{$parentId|escape}">
-                    <div class="mb-3 row">
-                        <label class="col-sm-4 col-form-label" for="unassign">
-                            {tr}Unassign{/tr}
-                        </label>
-                        <div class="col-sm-6 input-group">
-                            <input
-                                type="submit"
-                                class="btn btn-primary btn-sm"
-                                name="unassign"
-                                value="{tr}OK{/tr}"
-                                onclick="confirmPopup('{tr}Unassign objects from category?{/tr}')"
-                            >
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-4 col-form-label" for="toId">
-                            {tr}Move to selected category{/tr}
-                        </label>
-                        <div class="col-sm-6 input-group">
-                            <select name="toId" id="toId" class="form-select">
-                                <option value="">{tr}Choose destination category{/tr}</option>
-                                {foreach $categories as $category}
-                                    {if $category.categId neq $parentId}
-                                        <option value="{$category.categId}">
-                                            {$category.categpath|escape}
-                                        </option>
-                                    {/if}
-                                {/foreach}
-                            </select>
-                            <input type="submit" class="btn btn-primary" name="move_to" value="{tr}OK{/tr}">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-4 col-form-label" for="to">
-                            {tr}Copy to selected category{/tr}
-                        </label>
-                        <div class="col-sm-6 input-group">
-                            <select name="to" class="form-select">
-                                <option value="">{tr}Choose destination category{/tr}</option>
-                                {foreach $categories as $category}
-                                    {if $category.categId neq $parentId}
-                                        <option value="{$category.categId}">
-                                            {$category.categpath|escape}
-                                        </option>
-                                    {/if}
-                                {/foreach}
-                            </select>
-                            <input type="submit" class="btn btn-primary" name="copy_from" value="{tr}OK{/tr}">
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        {/tab}
-
         {tab name="{tr}Add objects{/tr}"}
             <h2>{tr}Add objects to category:{/tr} <b>{$categ_name|escape}</b></h2>
             {if $prefs.feature_search eq 'y' and $prefs.unified_add_to_categ_search eq 'y'}

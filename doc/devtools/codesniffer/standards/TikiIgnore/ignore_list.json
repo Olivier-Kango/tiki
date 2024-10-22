@@ -8263,9 +8263,6 @@
             "CategLib::get_jailed": true,
             "CategLib::get_default_categories": true,
             "CategLib::filter_objects_categories": true,
-            "CategLib::unassign_all_objects": true,
-            "CategLib::move_all_objects": true,
-            "CategLib::assign_all_objects": true,
             "CategLib::generate_cat_tree": true,
             "CategLib::get_with_parents": true,
             "CategLib::get_parents": true

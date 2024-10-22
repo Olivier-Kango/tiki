@@ -2190,41 +2190,6 @@ class CategLib extends ObjectLib
         return $ret;
     }
 
-    // unassign all objects from a category
-    public function unassign_all_objects($categId)
-    {
-        $query = 'delete from  `tiki_category_objects` where `categId`=?';
-        return $this->query($query, [(int)$categId]);
-    }
-    //
-
-    /**
-     * Move all objects from one category to another
-     *
-     * @param $from
-     * @param $to
-     * @return TikiDb_Pdo_Result
-     */
-    public function move_all_objects($from, $to)
-    {
-        $query = 'update ignore `tiki_category_objects` set `categId`=? where `categId`=?';
-        return $this->query($query, [(int)$to, (int)$from]);
-    }
-
-
-    /**
-     * Assign all objects in a category to another category
-     *
-     * @param $from
-     * @param $to
-     * @return TikiDb_Pdo_Result
-     */
-    public function assign_all_objects($from, $to)
-    {
-        $query = 'insert ignore `tiki_category_objects` (`catObjectId`, `categId`) select `catObjectId`, ? from `tiki_category_objects` where `categId`=?';
-        return $this->query($query, [(int)$to, (int)$from]);
-    }
-
     // generate category tree for use in various places (like categorize_list.php)
     public function generate_cat_tree($categories, $canchangeall = false, $forceincat = null)
     {
