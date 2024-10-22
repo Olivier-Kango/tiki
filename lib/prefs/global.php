@@ -424,30 +424,6 @@ function prefs_global_list($partial = false)
             'units' => tra('rows'),
             'default' => '10',
         ],
-        'rowImagesGalleries' => [
-            'name' => tra('Images per row'),
-            'type' => 'text',
-            'units' => tra('images'),
-            'default' => '6',
-        ],
-        'thumbSizeXGalleries' => [
-            'name' => tra('Thumbnail width'),
-            'type' => 'text',
-            'units' => tra('pixels'),
-            'default' => '80',
-        ],
-        'thumbSizeYGalleries' => [
-            'name' => tra('Thumbnail height'),
-            'type' => 'text',
-            'units' => tra('pixels'),
-            'default' => '80',
-        ],
-        'scaleSizeGalleries' => [
-            'name' => tra('Default scale size'),
-            'type' => 'text',
-            'units' => tra('pixels'),
-            'default' => '',
-        ],
     ];
 }
 

@@ -192,6 +192,7 @@
             {preference name='fgal_browse_name_max_length'}
             {preference name='fgal_image_max_size_x'}
             {preference name='fgal_image_max_size_y'}
+            {preference name='maxRowsGalleries'}
             {preference name='fgal_list_ratio_hits'}
             {preference name='fgal_display_properties'}
             {preference name='fgal_display_replace'}
