@@ -50,7 +50,7 @@ if (empty($cron_interval)) {
 
 $start_time = time();
 
-if ($last_cron_run + $cron_interval >= $start_time) {
+if (strtotime($last_cron_run) + $cron_interval >= $start_time) {
     //too soon;
     return;
 }
