@@ -347,6 +347,7 @@ class SheetLib extends TikiLib
         if ($prefs['feature_actionlog'] == 'y') {
             $logslib = TikiLib::lib('logs');
             $logslib->add_action('Removed', $sheetId, 'sheet');
+            Feedback::success(tra('The sheet has been successfully deleted.'));
         }
     }
 
@@ -355,19 +356,29 @@ class SheetLib extends TikiLib
         global $prefs;
 
         if ($sheetId == 0) {
-            $this->query("INSERT INTO `tiki_sheets` ( `title`, `description`, `author` ) VALUES( ?, ?, ? )", [ $title, $description, $author ]);
+            $query = 'SELECT `sheetId` FROM `tiki_sheets` WHERE `title` = ? AND `description` = ? AND `author` = ?';
+            $existingSheetId = $this->getOne($query, [$title, $description, $author]);
 
-            $sheetId = $this->getOne("SELECT MAX(`sheetId`) FROM `tiki_sheets` WHERE `author` = ?", [ $author ]);
-            if ($prefs['feature_actionlog'] == 'y') {
-                $logslib = TikiLib::lib('logs');
-                $query = 'select `sheetId` from `tiki_sheets` where `title`=? and `description`= ? and `author`=?';
-                $id = $this->getOne($query, [$title, $description, $author ]);
-                $logslib->add_action('Created', $id, 'sheet');
+            if ($existingSheetId) {
+                Feedback::error(tra('A sheet with the same title and description already exists.'));
+            } else {
+                $this->query("INSERT INTO `tiki_sheets` ( `title`, `description`, `author` ) VALUES( ?, ?, ? )", [ $title, $description, $author ]);
+
+                $sheetId = $this->getOne("SELECT MAX(`sheetId`) FROM `tiki_sheets` WHERE `author` = ?", [ $author ]);
+                if ($prefs['feature_actionlog'] == 'y') {
+                    $logslib = TikiLib::lib('logs');
+                    $query = 'select `sheetId` from `tiki_sheets` where `title`=? and `description`= ? and `author`=?';
+                    $id = $this->getOne($query, [$title, $description, $author ]);
+                    $logslib->add_action('Created', $id, 'sheet');
+                    Feedback::success(tra('The sheet has been successfully created.'));
+                }
             }
         } else {
             $this->query("UPDATE `tiki_sheets` SET `title` = ?, `description` = ?, `author` = ? WHERE `sheetId` = ?", [ $title, $description, $author, (int) $sheetId ]);
 
             $this->query("UPDATE `tiki_sheet_layout` SET `end` = ? WHERE `sheetId` = ?", [time(), $sheetId]);
+
+            Feedback::success(tra('The sheet has been successfully configured.'));
         }
 
         $layoutDefault = [
