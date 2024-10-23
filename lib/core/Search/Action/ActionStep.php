@@ -146,4 +146,14 @@ class Search_Action_ActionStep implements Search_Action_Step
     {
         return array_filter(array_map('trim', explode(',', $string)));
     }
+
+    public function getAction(): Search_Action_Action
+    {
+        return $this->action;
+    }
+
+    public function getDefinition(): array
+    {
+        return $this->definition;
+    }
 }

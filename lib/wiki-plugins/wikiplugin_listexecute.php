@@ -29,6 +29,7 @@ function wikiplugin_listexecute_info()
 
 function wikiplugin_listexecute($data, $params)
 {
+    global $prefs, $tiki_p_modify_object_categories, $tiki_p_admin_categories;
     static $iListExecute = 0;
     $iListExecute++;
 
@@ -51,6 +52,7 @@ function wikiplugin_listexecute($data, $params)
             'tracker_item_modify' => 'Search_Action_TrackerItemModify',
             'user_group_modify' => 'Search_Action_UserGroupModify',
             'wiki_approval' => 'Search_Action_WikiApprovalAction',
+            'categorize_object' => 'Search_Action_CategorizeObjectAction'
         ]
     );
 
@@ -94,7 +96,7 @@ function wikiplugin_listexecute($data, $params)
     }
 
     $customOutput = false;
-
+    $categorize = false;
     foreach ($matches as $match) {
         $name = $match->getName();
 
@@ -103,6 +105,15 @@ function wikiplugin_listexecute($data, $params)
 
             if ($action && $action->isAllowed(Perms::get()->getGroups())) {
                 $actions[$action->getName()] = $action;
+                foreach ($action->getSteps() as $step) {
+                    if ($step->getAction() instanceof Search_Action_CategorizeObjectAction) {
+                        $stepDefinition = $step->getDefinition();
+                        if (array_key_exists('operation', $stepDefinition) && ($stepDefinition['operation'] == 'add' || $stepDefinition['operation'] == 'remove')) {
+                            $categorize = true;
+                            break;
+                        }
+                    }
+                }
             } else {
                 foreach ($action->getSteps() as $step) {
                     if ($step instanceof Search_Action_UnknownStep) {
@@ -134,7 +145,9 @@ function wikiplugin_listexecute($data, $params)
     $builder->setId('wplistexecute-' . $iListExecute);
     $builder->setCount($result->count());
     $builder->setTsOn($tsret['tsOn']);
-    $builder->apply($matches);
+    $params['categorize'] = $categorize;
+    // Add categorize value to template
+    $builder->apply($matches, $params);
 
     $result->setTsSettings($builder->getTsSettings());
     $result->setTsOn($tsret['tsOn']);
@@ -150,6 +163,22 @@ function wikiplugin_listexecute($data, $params)
             'actions' => $actions,
             'iListExecute' => $iListExecute
         ];
+
+        if ($prefs['feature_categories'] == 'y' && $categorize) {
+            $categlib = TikiLib::lib('categ');
+            $categories = $categlib->getCategories();
+
+            foreach ($categories as &$category) {
+                $category['canchange'] = 'y';
+            }
+            // Get the categories tree for display
+            $cat_tree = $categlib->generate_cat_tree($categories);
+            $pluginData['categories'] = $categories;
+            $pluginData['cat_tree'] = $cat_tree;
+            $pluginData['categorize'] = $categorize;
+            $pluginData['tiki_p_modify_object_categories'] = $tiki_p_modify_object_categories;
+            $pluginData['tiki_p_admin_categories'] = $tiki_p_admin_categories;
+        }
 
         $page = $_GET['page'] ?? null;
 
@@ -206,10 +235,15 @@ function wikiplugin_listexecute($data, $params)
             $list = $formatter->getPopulatedList($result);
 
             foreach ($list as $entry) {
+                $entry['object_type'] = str_replace(['~/np~', '~np~'], '', $entry['object_type']); // Remove ~/np~~np~ from object type
                 $identifier = "{$entry['object_type']}:{$entry['object_id']}";
                 if (in_array($identifier, $selectedObjects) || in_array('ALL', $selectedObjects)) {
                     if (isset($_POST['list_input'])) {
                         $entry['value'] = $_POST['list_input'];
+                    }
+                    // If it is a categorization action
+                    if (isset($_POST['cat_categories'])) {
+                        $entry['category'] = $_POST['cat_categories'];
                     }
 
                     try {
