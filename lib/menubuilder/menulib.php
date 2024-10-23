@@ -544,7 +544,7 @@ class MenuLib extends TikiLib
         }
     }
 
-    public function import_menu_options($menuId)
+    public function import_menu_options($menuId, $importAsNew = false)
     {
         $smarty = TikiLib::lib('smarty');
 
@@ -557,6 +557,7 @@ class MenuLib extends TikiLib
             $smarty->display("error.tpl");
             die;
         }
+        $mismatch_options = [];
         while (! feof($fhandle)) {
             $res = ['optionId' => '', 'type' => '', 'name' => '', 'url' => '', 'position' => 0, 'section' => '', 'perm' => '', 'groupname' => '', 'userlevel' => '', 'class' => '', 'icon' => '', 'remove' => ''];
             $data = fgetcsv($fhandle, 1000);
@@ -569,12 +570,29 @@ class MenuLib extends TikiLib
             if (empty($res['optionId']) || $this->check_menu_option($menuId, $res['optionId'])) {
                 $options[] = $res;
             } else {
-                $smarty->assign('msg', tra('You can only use optionId = 0 to create a new option; or, to update a menu, use an optionId that is the same as an optionId that is already used in the menu.'));
-                $smarty->display('error.tpl');
-                die;
+                if ($importAsNew) {
+                    $res['optionId'] = 0;
+                    $options[] = $res;
+                } else {
+                    $mismatch_options[] = $res;
+                }
             }
         }
         fclose($fhandle);
+
+        if (! empty($mismatch_options)) {
+            global $jitRequest;
+            $jitRequest['mismatch_options'] = $mismatch_options;
+            $jitRequest['menuId'] = $menuId;
+            $jitRequest['title'] = tr('Menu Import Conflict: Resolve Mismatched Options');
+            $controller = 'menu';
+            $action = 'mismatch_import';
+
+            $broker = TikiLib::lib('service')->getBroker();
+            $broker->process($controller, $action, $jitRequest);
+            exit;
+        }
+
         foreach ($options as $option) {
             if ($option['remove'] == 'y') {
                 $this->remove_menu_option($option['optionId']);
