@@ -414,6 +414,7 @@ class PdoClient
         if ($facets) {
             $sql .= ' ' . $facets;
         }
+        $stmt = null;
         try {
             $subselects = [];
             $original_order = [];
@@ -474,6 +475,9 @@ class PdoClient
             return $result;
         } catch (PDOException $e) {
             if ($retry && strstr($e->getMessage(), 'unknown local table')) {
+                if ($stmt) {
+                    $stmt->closeCursor();
+                }
                 // federated index tables might have been rebuilt and distributed one not updated properly -> refresh and retry
                 \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
                 return $this->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, $indexFields, false);
