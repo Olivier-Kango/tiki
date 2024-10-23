@@ -441,7 +441,7 @@ class PdoClient
                     if (! empty($row['Message']) && preg_match('/unknown local table/', $row['Message'])) {
                         // remote agent rebuild has invalidated this distributed index, need recreate the distributed index with fresh index table names
                         \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
-                        return $this->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, false);
+                        return $this->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, $indexFields, false);
                     }
                 }
             }
@@ -476,7 +476,7 @@ class PdoClient
             if ($retry && strstr($e->getMessage(), 'unknown local table')) {
                 // federated index tables might have been rebuilt and distributed one not updated properly -> refresh and retry
                 \TikiLib::lib('federatedsearch')->recreateDistributedIndex($this);
-                return $this->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, false);
+                return $this->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, $indexFields, false);
             } else {
                 throw $e;
             }
