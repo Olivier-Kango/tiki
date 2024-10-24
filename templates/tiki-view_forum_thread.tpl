@@ -1,4 +1,3 @@
-{$forum_info.name}
 {block name=title}
     {title help="forums" admpage="forums"}
         {$forum_info.name}
