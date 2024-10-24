@@ -159,6 +159,30 @@
                 </div>
                 {preference name=scheduler_keep_logs}
             </fieldset>
+            <fieldset>
+                <legend>{tr}Maintenance{/tr}</legend>
+                {preference name=maintenanceMessageReindex}
+                <div class="adminoptionboxchild" id="maintenanceMessageReindex_childcontainer">
+                    {preference name=maintenanceReindexMessage}
+                </div>
+                {preference name=maintenanceTimeBeforeDisplayMessage}
+                {preference name=maintenanceRecurrentEnable}
+                <div class="adminoptionboxchild" id="maintenanceRecurrentEnable_childcontainer">
+                    {preference name=maintenanceRecurrentPreMessage}
+                    {preference name=maintenanceRecurrentDuringMessage}
+                    {preference name=maintenanceRecurrentStartTime}
+                    {preference name=maintenanceRecurrentDuration}
+                    {preference name=maintenanceEnableWeekdays}
+                </div>
+                {preference name=maintenanceOnceOffEnable}
+                <div class="adminoptionboxchild" id="maintenanceOnceOffEnable_childcontainer">
+                    {preference name=maintenanceOnceOffPreMessage}
+                    {preference name=maintenanceOnceOffDuringMessage}
+                    {preference name=maintenanceOnceOffStartDate}
+                    {preference name=maintenanceOnceOffStartTime}
+                    {preference name=maintenanceOnceOffDuration}
+                </div>
+            </fieldset>
         {/tab}
         {tab name="{tr}General Settings{/tr}"}
             <br>

@@ -11,6 +11,8 @@
  */
 
 // die if called directly.
+
+use Tiki\Maintenance\Maintenance;
 use Tiki\Package\VendorHelper;
 use Tiki\Profiling\Timer;
 
@@ -450,8 +452,16 @@ $smarty->assign('tiki_version', $TWV->version);
 $smarty->assign('tiki_branch', $TWV->branch);
 $smarty->assign('tiki_star', $TWV->getStar());
 $smarty->assign('tiki_uses_svn', $TWV->svn);
-
 $smarty->assign('symbols', TikiLib::symbols());
+
+$maintenance = new Maintenance();
+if ($maintenance->isTime()) {
+    TikiLib::lib('access')->showSiteClosed('maintenance', $maintenance->getMessage());
+} elseif ($maintenance->isPreMaintenanceTime()) {
+    $smarty->assign('maintenanceNotification', $maintenance->getPreMaintenanceMessage());
+} elseif ($maintenance->isIndexing()) {
+    $smarty->assign('maintenanceNotification', $maintenance->getIndexingMessage());
+}
 
 // Used by TikiAccessLib::redirect()
 if (isset($_GET['msg'])) {

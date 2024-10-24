@@ -1563,7 +1563,7 @@ class TikiAccessLib extends TikiLib
      *
      * @return void
      */
-    public function showSiteClosed($mode)
+    public function showSiteClosed(string $mode, string $errorMessage = '')
     {
         global $prefs, $error_login;
 
@@ -1572,6 +1572,12 @@ class TikiAccessLib extends TikiLib
                 $title = $prefs['site_busy_title'];
                 $error = $prefs['site_busy_msg'];
                 $prefs['site_closed'] = 'y';    // tell the rest of tiki we're closed
+
+                break;
+            case 'maintenance':
+                $title = tra('Maintenance');
+                $error = $errorMessage;
+                $prefs['site_closed'] = 'y';
 
                 break;
             case 'closed':
