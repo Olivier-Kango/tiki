@@ -63,11 +63,27 @@ function getTikiRequirements()
 {
     return array(
         array(
-            'name'    => 'Tiki 27.x',
-            'version' => 27,
+            'name'    => 'Tiki 28.x',
+            'version' => 28,
             'php'     => array(
                 'min' => '8.1.0', // For the latest version, this should match TIKI_MIN_PHP_VERSION, but cannot use it since tiki-check is expected to run standalone
                 'max' => '8.4.99', // For the latest version, this should match TIKI_MAX_SUPPORTED_PHP_VERSION, but cannot use it since tiki-check is expected to run standalone
+            ),
+            'mariadb' => array(
+                'min' => '10.5',
+                'max' => null
+            ),
+            'mysql'   => array(
+                'min' => '8.0',
+                'max' => null
+            ),
+        ),
+        array(
+            'name'    => 'Tiki 27.x',
+            'version' => 27,
+            'php'     => array(
+                'min' => '8.1.0',
+                'max' => '8.4.99',
             ),
             'mariadb' => array(
                 'min' => '10.5',
