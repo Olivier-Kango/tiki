@@ -225,6 +225,12 @@ class Schema
         return $column;
     }
 
+    public function addActualColumn(Schema\Column $column)
+    {
+        $this->columns[] = $column;
+        return $column;
+    }
+
     public function setPrimaryKey($field)
     {
         if ($this->primaryKey) {
