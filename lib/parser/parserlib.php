@@ -1961,7 +1961,7 @@ class ParserLib extends TikiDb_Bridge
                                 }
                             }
 
-                            if ($approval['lastModif'] != null) {
+                            if (! empty($approval['lastModif'])) {
                                 $value = $tikilib->get_short_datetime($approval['lastModif']);
                                 break;
                             } else {
@@ -2081,7 +2081,7 @@ class ParserLib extends TikiDb_Bridge
                                 }
                             }
 
-                            if ($approval['lastModif'] != null) {
+                            if (! empty($approval['lastModif'])) {
                                 $value = $tikilib->get_short_datetime($approval['lastModif']);
                                 break;
                             } else {
