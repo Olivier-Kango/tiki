@@ -168,6 +168,7 @@ export default defineConfig(({ command, mode }) => {
                     /^moment\/.+/,
                     "select2",
                     "pivottablejs",
+                    "reveal.js",
                     "sortablejs",
                     "subtotal",
                     "vue",
@@ -466,6 +467,10 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/plotly.js/dist/plotly-geo-assets.js",
                         dest: "vendor_dist/plotly.js/dist",
+                    },
+                    {
+                        src: "node_modules/reveal.js/dist/*",
+                        dest: "vendor_dist/reveal.js/dist"
                     },
                     {
                         src: "node_modules/select2/dist/js/select2.min.js",

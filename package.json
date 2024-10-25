@@ -53,6 +53,9 @@
     "single-spa-css": "^2.0.0",
     "single-spa-vue": "^3.0.0"
   },
+  "common-externals": {
+    "reveal.js": "^5.1.0"
+  },
   "depencenciesCommentSingleLibs": {},
   "devDependencies": {
     "@guanghechen/rollup-plugin-copy": "^6.0.2",

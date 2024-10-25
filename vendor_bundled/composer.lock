@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10a65a83c5f76808d6fbce44f7234297",
+    "content-hash": "c14c160d22b3ae45530f88997eb67631",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -6507,19 +6507,6 @@
                 "npm-asset/prosemirror-model": ">=1.16.0,<2.0.0",
                 "npm-asset/prosemirror-state": ">=1.0.0,<2.0.0",
                 "npm-asset/prosemirror-transform": ">=1.1.0,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/reveal.js",
-            "version": "3.9.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/reveal-js/npm-asset-reveal-js-3.9.2.zip",
-                "shasum": "0de63206c3dcbbeddeab6c6aee0f25d3d3dfd2f0"
             },
             "type": "npm-asset",
             "license": [
@@ -17385,9 +17372,9 @@
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
-        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15
+        "phpcsstandards/phpcsutils": 15,
+        "rubix/extras": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17404,7 +17391,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",
