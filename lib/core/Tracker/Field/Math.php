@@ -170,12 +170,22 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
         $permName = $this->getConfiguration('permName');
-        $schema->addNew($permName, 'default')
+        $handler = $this->getMirroredHandler();
+
+        if ($handler && $handler instanceof \Tracker\Field\ExportableInterface) {
+            $sub = $handler->getTabularSchema();
+            foreach ($sub->getColumns() as $column) {
+                $column->setPermName($permName)
+                    ->setLabel($this->getConfiguration('name'));
+                $schema->addActualColumn($column);
+            }
+        } else {
+            $schema->addNew($permName, 'default')
             ->setLabel($this->getConfiguration('name'))
             ->setRenderTransform(function ($value) {
                 return $value;
-            })
-            ;
+            });
+        }
 
         return $schema;
     }
