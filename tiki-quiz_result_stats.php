@@ -31,8 +31,8 @@ $smarty->assign('individual', 'n');
 
 $tikilib->get_perm_object($_REQUEST["quizId"], 'quiz');
 $access->check_permission('tiki_p_view_user_results');
-$smarty->assign('quizId', $_REQUEST["quizId"]);
 $quiz_info = $quizlib->get_quiz($_REQUEST["quizId"]);
+$smarty->assign('quizId', $_REQUEST["quizId"]);
 $smarty->assign('quiz_info', $quiz_info);
 if (! isset($_REQUEST["resultId"])) {
     $smarty->assign('msg', tra("No result indicated"));
@@ -49,6 +49,7 @@ $smarty->assign('userResultId', $_REQUEST["userResultId"]);
 $ur_info = $quizlib->get_user_quiz_result($_REQUEST["userResultId"]);
 $smarty->assign('ur_info', $ur_info);
 $result = $quizlib->get_quiz_result($_REQUEST["resultId"]);
+
 $smarty->assign_by_ref('result', $result);
 $questions = $quizlib->get_user_quiz_questions($_REQUEST["userResultId"]);
 $smarty->assign('questions', $questions);

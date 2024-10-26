@@ -37,8 +37,14 @@ if (! isset($_REQUEST["quizId"])) {
     $smarty->display("error.tpl");
     die;
 }
-$smarty->assign('quizId', $_REQUEST["quizId"]);
+
 $quiz_info = $quizlib->get_quiz($_REQUEST["quizId"]);
+if (! $quiz_info) {
+    $smarty->assign('msg', tra("The requested quiz was not found. Please check the quiz ID and try again."));
+    $smarty->display("error.tpl");
+    die;
+}
+$smarty->assign('quizId', $_REQUEST["quizId"]);
 $smarty->assign('quiz_info', $quiz_info);
 if (isset($_REQUEST["remove"]) && $tiki_p_admin_quizzes == 'y' && $access->checkCsrf()) {
     $quizlib->remove_quiz_stat($_REQUEST["remove"]);

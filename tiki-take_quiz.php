@@ -85,7 +85,7 @@ if (isset($_REQUEST["timeleft"])) {
     }
     $result = $quizlib->calculate_quiz_result($_REQUEST["quizId"], $points);
     // register the result for quiz stats
-    $userResultId = $quizlib->register_quiz_stats($_REQUEST["quizId"], $user, $elapsed, $points, $max, $result["resultId"]);
+    $userResultId = $quizlib->register_quiz_stats($_REQUEST["quizId"], $user, $elapsed, $points, $max, $result["resultId"] ?? null);
     $smarty->assign_by_ref('result', $result);
     if ($quiz_info["storeResults"] == 'y') {
         $temp_max = count($questions["data"]);
