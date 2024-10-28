@@ -46,7 +46,10 @@ class Services_Manager_Controller
 {
     use Services_Manager_Trait;
 
-    public function action_index()
+    /**
+     * @return array
+     */
+    public function action_index(): array
     {
         return [
             'title' => tr('Tiki Manager'),
@@ -54,7 +57,10 @@ class Services_Manager_Controller
         ];
     }
 
-    public function action_info()
+    /**
+     * @return array
+     */
+    public function action_info(): array
     {
         global $prefs;
         if ($prefs['feature_realtime'] === 'y') {
@@ -181,8 +187,16 @@ class Services_Manager_Controller
         }
     }
 
-    // This function allows to get upgrade versions of selected instances for the instance:upgrade commande to prevent a downgrade(not suported by Tiki)
-    public function action_get_instances_upper_versions($input)
+    /**
+     * This function allows getting upgrade versions
+     * of selected instances for the instance:upgrade command
+     * to prevent a downgrade (not supported by Tiki)
+     *
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_get_instances_upper_versions($input): array
     {
         $instancesIds = $input->instancesIds->array();
         $availableInstances = Instance::getInstances(true);
@@ -332,7 +346,12 @@ class Services_Manager_Controller
         }
     }
 
-    public function action_access($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_access($input): array
     {
         $cmd = new AccessInstanceCommand();
         $input = new ArrayInput([
@@ -349,7 +368,12 @@ class Services_Manager_Controller
     }
 
 
-    public function action_detect($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_detect($input): array
     {
         $cmd = new DetectInstanceCommand();
         $input = new ArrayInput([
@@ -365,7 +389,13 @@ class Services_Manager_Controller
         ];
     }
 
-    public function action_create($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function action_create($input): array
     {
         $cmd = new CreateInstanceCommand();
 
@@ -487,7 +517,12 @@ class Services_Manager_Controller
         return preg_match('/^[a-zA-Z0-9*.!@#\$%^&()\[\]:;<>,?\/~_+-=|]{8,32}$/', $password);
     }
 
-    public function action_edit($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_edit($input): array
     {
         $cmd = new EditInstanceCommand();
 
@@ -550,7 +585,12 @@ class Services_Manager_Controller
     }
 
 
-    public function action_test_send_email($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_test_send_email($input): array
     {
         $cmd = new ManagerTestSendEmailCommand();
 
@@ -581,7 +621,13 @@ class Services_Manager_Controller
         }
     }
 
-    public function action_virtualmin_create($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function action_virtualmin_create($input): array
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $source = $input->source->text();
@@ -687,7 +733,12 @@ class Services_Manager_Controller
         return $result;
     }
 
-    public function action_clone($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_clone($input): array
     {
         if ($input->clone->text()) {
             $cmd = new CloneInstanceCommand();
@@ -792,7 +843,12 @@ class Services_Manager_Controller
         }
     }
 
-    public function action_check($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_check($input): array
     {
         $cmd = new CheckInstanceCommand();
         $input = new ArrayInput([
@@ -808,7 +864,12 @@ class Services_Manager_Controller
         ];
     }
 
-    public function action_requirements($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_requirements($input): array
     {
         $this->runCommand(new CheckRequirementsCommand());
         return [
@@ -818,7 +879,12 @@ class Services_Manager_Controller
         ];
     }
 
-    public function action_clear_cache($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_clear_cache($input): array
     {
         $this->runCommand(new ClearCacheCommand());
         return [
@@ -913,7 +979,12 @@ class Services_Manager_Controller
         }
     }
 
-    public function action_maintenance($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_maintenance($input): array
     {
         $cmd = new MaintenanceInstanceCommand();
         $instanceId = $input->instanceId->int();
@@ -935,7 +1006,12 @@ class Services_Manager_Controller
         ];
     }
 
-    public function action_tiki_versions($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_tiki_versions($input): array
     {
         $cmd = new TikiVersionCommand();
 
@@ -969,7 +1045,12 @@ class Services_Manager_Controller
         }
     }
 
-    public function action_setup_watch($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_setup_watch($input): array
     {
         $cmd = new SetupWatchManagerCommand();
 
@@ -1002,7 +1083,12 @@ class Services_Manager_Controller
         }
     }
 
-    public function action_setup_clone($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_setup_clone($input): array
     {
         $cmd = new SetupCloneManagerCommand();
 
@@ -1081,21 +1167,39 @@ class Services_Manager_Controller
             }
         }
     }
-    public function action_manager_backup($input)
+
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_manager_backup($input): array
     {
         $cmd = new SetupBackupManagerCommand();
 
         return $this->manager_setup($input, $cmd, "backup");
     }
 
-    public function action_manager_update($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_manager_update($input): array
     {
         $cmd = new SetupUpdateCommand();
 
         return $this->manager_setup($input, $cmd, "update");
     }
 
-    private function manager_setup($input, $cmd, $event)
+    /**
+     * @param $input
+     * @param $cmd
+     * @param $event
+     *
+     * @return array
+     */
+    private function manager_setup($input, $cmd, $event): array
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $input_array = [
@@ -1168,7 +1272,12 @@ class Services_Manager_Controller
         }
     }
 
-    private function manager_setup_error($event)
+    /**
+     * @param $event
+     *
+     * @return array
+     */
+    private function manager_setup_error($event): array
     {
         return [
             'title' => tr(ucfirst($event) . ' Cron Job (No Instance Found)'),
@@ -1177,7 +1286,12 @@ class Services_Manager_Controller
         ];
     }
 
-    public function action_backup($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_backup($input): array
     {
         $cmd = new BackupInstanceCommand();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -1230,7 +1344,12 @@ class Services_Manager_Controller
         }
     }
 
-    public function action_checkout($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_checkout($input): array
     {
         $cmd = new CheckoutCommand();
 
@@ -1267,6 +1386,11 @@ class Services_Manager_Controller
         }
     }
 
+    /**
+     * @param $input
+     *
+     * @return array
+     */
     public function action_revert($input)
     {
         $cmd = new RevertInstanceCommand();
@@ -1283,7 +1407,12 @@ class Services_Manager_Controller
         ];
     }
 
-    public function action_get_profiles($input)
+    /**
+     * @param $input
+     *
+     * @return array
+     */
+    public function action_get_profiles($input): array
     {
         $repository = $input->repository->text();
         $list = new Tiki_Profile_List();
