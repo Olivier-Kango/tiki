@@ -44,6 +44,7 @@ if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
     $access->checkCsrf();
     // Create XMLRPC object
     $pages = [];
+    $prefs['feature_jquery_tablesorter'] = 'n';
     foreach ($printpages as $page) {
         // If the page doesn't exist then display an error
         if (! $tikilib->page_exists($page)) {
