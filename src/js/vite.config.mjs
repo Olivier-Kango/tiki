@@ -485,6 +485,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/select2-bootstrap-theme/dist",
                     },
                     {
+                        src: "node_modules/signature_pad/dist/signature_pad.umd.min.js",
+                        dest: "vendor_dist/signature_pad/dist",
+                    },
+                    {
                         src: "node_modules/sortablejs/modular/*",
                         dest: "vendor_dist/sortablejs/modular",
                     },

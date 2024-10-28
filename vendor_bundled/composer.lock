@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c14c160d22b3ae45530f88997eb67631",
+    "content-hash": "de76cfb4070552e19adf58cc1ab727fe",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -6642,19 +6642,6 @@
             "type": "npm-asset",
             "license": [
                 "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/signature_pad",
-            "version": "2.3.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/signature_pad/npm-asset-signature_pad-2.3.2.zip",
-                "shasum": "8d9aacb1a969528a6fdbbeaaa953dedc318f5ce5"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
             ]
         },
         {
@@ -17372,9 +17359,9 @@
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
+        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15,
-        "rubix/extras": 10
+        "phpcsstandards/phpcsutils": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17391,7 +17378,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",

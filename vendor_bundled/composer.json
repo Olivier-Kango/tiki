@@ -217,7 +217,6 @@
         "npm-asset/prefixfree": ">=1.0.10",
         "npm-asset/sass-svg-uri": "^1.0",
         "npm-asset/sentry--browser": "^6.0",
-        "npm-asset/signature_pad": "^2.3.2",
         "npm-asset/toast-ui--editor": "^3.2.0",
         "npm-asset/vue": "^2.6",
         "onelogin/php-saml": "^4.0.0",
