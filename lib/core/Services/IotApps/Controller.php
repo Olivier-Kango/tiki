@@ -229,7 +229,7 @@ class Services_IotApps_Controller
             $access->display_error(null, tr('Could not access Tiki IoT APIs, invalid request body'), 400); // requesting device should consider success only when response code is 200
         }
         $api_action = $request_data['api_action']; //can be get_io_state or record_data
-        $headers = getallheaders();
+        $headers = array_change_key_case(getallheaders(), CASE_UPPER);
         $token = $headers["X-AUTH-TOKEN"];
         $app_uuid = $headers["X-APP-UUID"];
 
