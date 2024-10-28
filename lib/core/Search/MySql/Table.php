@@ -203,11 +203,7 @@ class Search_MySql_Table extends TikiDb_Table
     public function fetchCountIndex($conditions = [])
     {
         $tables = $this->indexTables();
-        array_shift($tables);
-        $join = '';
-        foreach ($tables as $table) {
-            $join .= ' LEFT JOIN ' . $this->escapeIdentifier($table) . ' USING(id)';
-        }
+        $join = $this->getIndexTablesSqlJoins();
         if ($result = $this->fetchAll([$this->count()], $conditions, 1, 0, null, $join, options: [TikiDB::QUERY_OPTION_LOG_GROUP => self::UNIFIED_MYSQL_READ_LOG_GROUP])) {
             $result = reset($result);
             if ($result) {
@@ -215,6 +211,17 @@ class Search_MySql_Table extends TikiDb_Table
             }
         }
         return false;
+    }
+
+    public function getIndexTablesSqlJoins()
+    {
+        $tables = $this->indexTables();
+        array_shift($tables);
+        $join = '';
+        foreach ($tables as $table) {
+            $join .= ' LEFT JOIN ' . $this->escapeIdentifier($table) . ' USING(id)';
+        }
+        return  $join;
     }
 
     /**
@@ -230,12 +237,7 @@ class Search_MySql_Table extends TikiDb_Table
     public function fetchAllIndex(array $selectFields = [], array $conditions = [], $numrows = -1, $offset = -1, $orderClause = null)
     {
         $available_fields = TikiLib::lib('unifiedsearch')->getAvailableFields();
-        $tables = $this->indexTables();
-        array_shift($tables);
-        $join = '';
-        foreach ($tables as $table) {
-            $join .= ' LEFT JOIN ' . $this->escapeIdentifier($table) . ' USING(id)';
-        }
+        $join = $this->getIndexTablesSqlJoins();
         $resultset = $this->query($selectFields, $conditions, $numrows, $offset, $orderClause, $join, options: [TikiDB::QUERY_OPTION_LOG_GROUP => self::UNIFIED_MYSQL_READ_LOG_GROUP]);
         $hasCustomSelect = ! (isset($selectFields[0]) && ($selectFields[0] instanceof TikiDb_Expr) && $selectFields[0]->getQueryPart(null) === '*');
         $result = [];

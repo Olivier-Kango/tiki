@@ -108,11 +108,57 @@ class Search_MySql_Index implements Search_Index_Interface
         }
     }
 
+    public function findClosestWord($word)
+    {
+        $tikilib = TikiLib::lib('tiki');
+
+        $sql = "
+            SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(contents, ' ', numbers.n), ' ', -1) AS word,
+            LEVENSHTEIN(SUBSTRING_INDEX(SUBSTRING_INDEX(contents, ' ', numbers.n), ' ', -1), ?) AS distance
+            FROM {$this->table->getTableName()}
+            {$this->table->getIndexTablesSqlJoins()}
+            JOIN (SELECT 1 n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7) numbers
+            ON CHAR_LENGTH(contents) - CHAR_LENGTH(REPLACE(contents, ' ', '')) >= numbers.n - 1
+            WHERE LENGTH(SUBSTRING_INDEX(SUBSTRING_INDEX(contents, ' ', numbers.n), ' ', -1)) >= 3
+            HAVING distance <= 2
+            ORDER BY distance ASC
+            LIMIT 1;
+        ";
+
+        $result = $tikilib->query($sql, [$word])->fetchRow();
+
+        return $result ? $result['word'] : $word;
+    }
+
+    public function callSuggestions($words, $condition, $conditions)
+    {
+        $didYouMean = false;
+        $correctedWords = [];
+
+        foreach ($words as $word) {
+            $correctWord = $this->findClosestWord($word);
+            if ($correctWord != $word) {
+                $didYouMean = true;
+                $correctedWords[] = $correctWord;
+                $condition = str_replace("$word", "$correctWord", $condition);
+            } else {
+                $correctedWords[] = $word;
+            }
+        }
+
+        $count = 0;
+        if ($didYouMean) {
+            $conditions = [$this->table->expr($condition)];
+            $count = $this->table->fetchCountIndex($conditions);
+        }
+
+        return [$didYouMean, $correctedWords, $count, $conditions];
+    }
+
     public function find(Search_Query_Interface $query, $resultStart, $resultCount)
     {
         try {
             $words = $this->getWords($query->getExpr());
-
             $condition = $this->builder->build($query->getExpr());
             $conditions = empty($condition) ? [] : [
                 $this->table->expr($condition),
@@ -149,7 +195,12 @@ class Search_MySql_Index implements Search_Index_Interface
                 }
                 $selectFields['score'] = $this->table->expr($scoreCalc);
             }
+
             $count = $this->table->fetchCountIndex($conditions);
+            if ($query->processDidYouMean() && $count === 0) {
+                list($didYouMean, $correctKeywords, $count, $conditions) = $this->callSuggestions($words, $condition, $conditions);
+                $scoreCalc = str_replace($words, $correctKeywords, $scoreCalc);
+            }
             $entries = $this->table->fetchAllIndex($selectFields, $conditions, $resultCount, $resultStart, $order);
 
             foreach ($entries as &$entry) {
@@ -164,6 +215,10 @@ class Search_MySql_Index implements Search_Index_Interface
 
             $resultSet = new Search_ResultSet($entries, $count, $resultStart, $resultCount);
             $resultSet->setHighlightHelper(new Search_MySql_HighlightHelper($words));
+
+            if ($didYouMean) {
+                $resultSet->setDidYouMean(implode(' ', $correctKeywords));
+            }
 
             return $resultSet;
         } catch (Search_MySql_QueryException $e) {

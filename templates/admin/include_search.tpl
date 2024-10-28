@@ -282,6 +282,7 @@
                 {preference name=feature_search_show_object_filter}
                 {preference name=search_show_sort_order}
                 {preference name=feature_search_show_search_box}
+                {preference name=search_did_you_mean}
             </fieldset>
             <fieldset>
                 <legend class="h3">{tr}Information to display for each result{/tr}</legend>
