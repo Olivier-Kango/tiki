@@ -12,7 +12,6 @@ use Tracker\Tabular\Source\CsvSource;
 use Tracker\Tabular\Schema;
 use Tracker\Tabular\Source\PaginatedQuerySource;
 use Tracker\Tabular\Source\QuerySource;
-use Tracker\Tabular\Source\TrackerSource;
 use Tracker\Tabular\Writer\APIWriter;
 use Tracker\Tabular\Writer\HtmlWriter;
 use Tracker\Tabular\Writer\ODBCWriter;
@@ -271,6 +270,36 @@ class Services_Tracker_TabularController
         ];
     }
 
+    public function action_choose_applied_value($input)
+    {
+        $tabularId = $input->tabularId->int();
+
+        $info = TikiLib::lib('tabular')->getInfo($tabularId);
+        $trackerId = $info['trackerId'];
+
+        Services_Exception_Denied::checkObject('tiki_p_view_trackers', 'tracker', $trackerId);
+
+        $schema = $this->getSchema($info);
+        $collection = $schema->getFilterCollection();
+        $filter = $collection->getFilters()[$input->filterIndex->int()] ?? null;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($filter) {
+                $filter->applyInput($input);
+                return $filter->jsonSerialize();
+            } else {
+                return [];
+            }
+        }
+
+        return [
+            'title' => tr('Choose applied value'),
+            'tabularId' => $tabularId,
+            'filterIndex' => $input->filterIndex->int(),
+            'filter' => $filter,
+        ];
+    }
+
     public function action_export_full_csv($input)
     {
         $lib = TikiLib::lib('tabular');
@@ -281,7 +310,7 @@ class Services_Tracker_TabularController
         $schema = $this->getSchema($info);
         $schema->validate();
 
-        $source = new TrackerSource($schema);
+        $source = $schema->getDefaultFilterSource();
 
         if ($info['odbc_config']) {
             $writer = new ODBCWriter($info['odbc_config']);
@@ -660,7 +689,7 @@ class Services_Tracker_TabularController
         $schema = $this->getSchema($info);
         $collection = $schema->getFilterCollection();
 
-        $collection->applyInput($input);
+        $collection->applyInput($input, true);
 
         $search = TikiLib::lib('unifiedsearch');
         $query = $search->buildQuery([
