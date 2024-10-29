@@ -41,7 +41,9 @@
 //.layout_social .topbar-wrapper.navbar-light-parent.bg-light-parent,   // Classic Bootstrap topbar wrapper
 //.admin-content .bg-light                                              // Admin navbar and icons when UAB is off
 .tiki .tiki-topbar-nav-light,
-.admin-content .tiki-nav-light // Legacy admin icons
+.admin-content .tiki-nav-light, // Legacy admin icons
+.tiki .tiki-topbar-nav-dark,
+.admin-content .tiki-nav-dark // Legacy admin icons
 {
     background: var(--tiki-topbar-bg) !important;
     color: var(--tiki-topbar-text-color);
@@ -99,26 +101,26 @@
 //.layout_classic .topbar-wrapper.bg-dark-parent,                              // Classic Tiki layout -- Parent of the topbar module zone
 //.layout_social .topbar-wrapper.navbar-dark-parent.bg-dark-parent,     // Classic Bootstrap topbar wrapper
 //.admin-content .bg-dark
-.tiki .tiki-topbar-nav-dark,
-.admin-content .tiki-nav-dark // Legacy admin icons
-{
-    background: var(--tiki-topbar-bg) !important;
-    color: var(--tiki-topbar-text-color);
-    a:not(.navbar-brand,.dropdown-item),
-    .dropdown-toggle,                  // Moved from tiki-selectors (this and next line)
-    .nav-link.dropdown-toggle,
-    .btn.btn-link,
-    .nav-link  {
-        color: var(--tiki-topbar-color);
-        &:hover {
-            color: var(--tiki-topbar-hover-color);
-            background: var(--tiki-topbar-hover-bg);
-        }
-    }
-    border: var(--tiki-topbar-border);
-    border-width: var(--tiki-topbar-border-width);
-    box-shadow: var(--tiki-topbar-box-shadow);
-}
+//.tiki .tiki-topbar-nav-dark,
+//.admin-content .tiki-nav-dark // Legacy admin icons
+//{
+//    background: var(--tiki-topbar-bg) !important;
+//    color: var(--tiki-topbar-text-color);
+//    a:not(.navbar-brand,.dropdown-item),
+//    .dropdown-toggle,                  // Moved from tiki-selectors (this and next line)
+//    .nav-link.dropdown-toggle,
+//    .btn.btn-link,
+//    .nav-link  {
+//        color: var(--tiki-topbar-color);
+//        &:hover {
+//            color: var(--tiki-topbar-hover-color);
+//            background: var(--tiki-topbar-hover-bg);
+//        }
+//    }
+//    border: var(--tiki-topbar-border);
+//    border-width: var(--tiki-topbar-border-width);
+//    box-shadow: var(--tiki-topbar-box-shadow);
+//}
 
 // Apply background: transparent to children of uppermost parent to prevent nested gradients
 
