@@ -12,7 +12,7 @@ $section = 'cms';
 $inputConfiguration = [
     [
         'staticKeyFilters'         => [
-        'remove'                   => 'bool',                //post
+        'remove'                   => 'int',                //post
         'approve'                  => 'int',                 //post
         'submit_mult'              => 'string',              //post
         'deleteexpired'            => 'bool',                //post
