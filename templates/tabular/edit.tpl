@@ -524,6 +524,7 @@
                                 <tr>
                                     <th>{tr}Field{/tr}</th>
                                     <th>{tr}Mode{/tr}</th>
+                                    <th>{tr}Applied Value{/tr}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -547,9 +548,10 @@
                                         </div>
                                     </td>
                                     <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
+                                    <td>{tr}save first{/tr}</td>
                                     <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                 </tr>
-                                {foreach $filterCollection->getFilters() as $filter}
+                                {foreach $filterCollection->getFilters() as $idx => $filter}
                                     <tr>
                                         <td>
                                             <div class="input-group input-group-sm">
@@ -569,6 +571,7 @@
                                             </div>
                                         </td>
                                         <td><span class="field">{$filter->getField()|escape}</span>:<span class="mode">{$filter->getMode()|escape}</td>
+                                        <td><a href="{service controller=tabular action=choose_applied_value tabularId=$tabularId filterIndex=$idx}" class="btn btn-secondary choose-applied-value">{tr}: choose{/tr}</a></td>
                                         <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                     </tr>
                                 {/foreach}
@@ -587,12 +590,13 @@
                                         <a href="{service controller=tabular action=select_filter trackerId=$trackerId}" class="btn btn-secondary add-filter">{tr}Select Mode{/tr}</a>
                                         <textarea name="filters" class="d-none">{$filterCollection->getFilterDescriptor()|json_encode}</textarea>
                                     </td>
+                                    <td colspan="2">&nbsp;</td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                     <div class="form-text">
-                        <p>{tr}Filters will be available in partial export menus.{/tr}</p>
+                        <p>{tr}Filters will be available in partial export menus, tracker:export command and main format list page. You can also specify default filter values to be applied in full export or list mode when you want a subset of the tracker items to be exportable.{/tr}</p>
                     </div>
                 </div>
             </div>
