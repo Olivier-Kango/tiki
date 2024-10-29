@@ -82,7 +82,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Votes older than x days are not considered{/tr}</label>
                 <div class="col-sm-7">
-                    <input type="text" id="voteConsiderationSpan" name="voteConsiderationSpan" size="5" value="{$info.voteConsiderationSpan|escape}" class="form-control">
+                    <input type="number" id="voteConsiderationSpan" name="voteConsiderationSpan" size="5" value="{$info.voteConsiderationSpan|escape}" class="form-control">
                     <div class="small-hint">
                         <span class="description text-muted">{tr}0 for no limit{/tr}</span>
                     </div>
