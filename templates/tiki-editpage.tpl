@@ -303,7 +303,7 @@
                                 <input type="hidden" name="MAX_FILE_SIZE" value="1000000000">
                                 <input type="hidden" name="hasAlreadyInserted" value="">
                                 <input type="hidden" name="prefix" value="img/wiki_up/{if $tikidomain}{$tikidomain}/{/if}">
-                                <input name="picfile1" type="file" class="form-control" onchange="insertImgFile('editwiki','picfile1','hasAlreadyInserted','img')">
+                                <input name="picfile1" type="file" accept="image/*" class="form-control" onchange="insertImgFile('editwiki','picfile1','hasAlreadyInserted','img')">
                                 <a href="#" onclick="needToConfirm = false; addImgForm(event)">{tr}Add another image{/tr}</a>
                             </fieldset>
                         {/if}

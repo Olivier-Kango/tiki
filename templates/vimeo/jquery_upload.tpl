@@ -12,7 +12,7 @@
             <div class="card-body">
                 <p class="text-center">{icon name="cloud-upload"} {tr}Browse for video file to upload{/tr}
                     {* The file input field used as target for the file upload widget *}
-                    <br /><br /><input id="fileupload" type="file" name="file_data">
+                    <br /><br /><input id="fileupload" type="file" accept="video/*" name="file_data">
                 </p>
             </div>
         </div>

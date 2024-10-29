@@ -675,7 +675,7 @@
                 <div class="mb-3 row">
                     <label for="csvlist" class="col-form-label col-md-3">{tr}CSV File{/tr}</label>
                     <div class="col-md-9">
-                        <input type="file" id="csvlist" name="csvlist" class="form-control">
+                        <input type="file" accept=".csv" id="csvlist" name="csvlist" class="form-control">
                         <small class="form-text">
                             {tr}Your file should contain in the first row (first entry) the following fields:{/tr}
                             <span class="font-weight-bold">login</span>, <span class="font-weight-bold">password</span>, <span class="font-weight-bold">email</span>, groups, default_group,realName.<br><br>

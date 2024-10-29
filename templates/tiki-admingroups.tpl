@@ -797,7 +797,7 @@
                         {tr}CSV File{/tr}
                         <a title="{tr}Help{/tr}" {popup text='user<br>user1<br>user2'}>{icon name='help'}</a> </label>
                     <div class="col-sm-7">
-                        <input name="csvlist" type="file" class="form-control">
+                        <input name="csvlist" type="file" accept=".csv" class="form-control">
                         <div class="form-text">
                             {tr}Imported users must already exist. To create users and assign them to groups, go to
                                 <a href="tiki-adminusers.php">admin->users</a>

@@ -324,7 +324,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label">{tr}File:{/tr}</label>
                     <div class="col-sm-9">
-                        <input type="file" name="batch_subscription" class="form-control">
+                        <input type="file" accept=".txt" name="batch_subscription" class="form-control">
                         <div class="small-hint">
                             {tr}.txt file, one email per line{/tr}
                         </div>

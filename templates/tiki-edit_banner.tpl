@@ -204,7 +204,7 @@
                     <input type="hidden" name="imageName" value="{$imageName|escape}">
                     <input type="hidden" name="imageType" value="{$imageType|escape}">
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
-                    <input name="userfile1" type="file" class="form-control" aria-label="Browse">
+                    <input name="userfile1" type="file" accept="image/*" class="form-control" aria-label="Browse">
                 </div>
             </div>
             <div class="mb-3 row">

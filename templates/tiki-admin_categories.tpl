@@ -582,7 +582,7 @@ $("#add_object_type").on("change", function () {
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}CSV File{/tr}</label>
                     <div class="col-sm-9">
-                        <input type="file" class="form-control" name="csvlist" required>
+                        <input type="file" accept=".csv" class="form-control" name="csvlist" required>
                         <div class="card mt-2">
                             <div class="card-header">
                                 {tr}Sample file content{/tr}
