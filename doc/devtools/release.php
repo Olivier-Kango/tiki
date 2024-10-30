@@ -34,8 +34,8 @@ define('PIPELINE_STATUS_PASSED', 'passed');
 define('PIPELINE_STATUS_FAILED', 'failed');
 define('PIPELINES_FETCH_AMOUNT', 25);
 
-// Display all errors and warnings, including strict level
-define('ERROR_REPORTING_LEVEL', E_ALL | E_STRICT);
+// Display all errors and warnings, strict level already included in E_ALL in php 8.4
+define('ERROR_REPORTING_LEVEL', E_ALL);
 error_reporting(ERROR_REPORTING_LEVEL);
 
 chdir(ROOT . '/');
