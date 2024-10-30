@@ -250,12 +250,15 @@ class PdfGenerator
 
     /**
      * @param $url string - address of the item to print as PDF
+     * @param $parsedData string - page contents to print as PDF
+     * @param $params array - parameters to pass to the PDF
+     *
      * @return string     - contents of the PDF
      */
-    private function mpdf($url, $parsedData = '', $params = [])
+    private function mpdf(string $url, string $parsedData = '', array $params = []): string
     {
         global $prefs;
-
+        $page = '';
         if ($parsedData != '') {
             $html = $parsedData;
         } else {
@@ -340,7 +343,7 @@ class PdfGenerator
         $mpdf->SetTitle($params['page'] ?? '');
 
         //toc levels
-        $mpdf->h2toc = isset($pdfSettings['toclevels']) ? $pdfSettings['toclevels'] : [];
+        $mpdf->h2toc = $pdfSettings['toclevels'] ?? [];
         //password protection
         if ($pdfSettings['print_pdf_mpdf_password']) {
             $mpdf->SetProtection([], 'UserPassword', $pdfSettings['print_pdf_mpdf_password']);
@@ -392,6 +395,8 @@ class PdfGenerator
             $textAlign = 'center';
             $textBgColor = '';
             $coverPageTextBorder = '';
+            $coverPageBgColor = '';
+            $coverPageBorder = '';
             if (count($coverPage) === 1 && ! empty($pdfSettings['coverpage_settings'])) {
                 list($bgColorValue, $borderWidthValue, $borderColorValue) = explode('|', $pdfSettings['coverpage_settings'] . '||');
                 $coverPageBgColor = ! empty($bgColorValue) ? "background-color:{$bgColorValue};" : '';
@@ -739,7 +744,7 @@ class PdfGenerator
                 }
             }
             //checking preferences
-            $pdfSettings['print_pdf_mpdf_printfriendly'] = $prefs['print_pdf_mpdf_printfriendly'] != '' ? $prefs['print_pdf_mpdf_printfriendly'] : '';
+            $pdfSettings['print_pdf_mpdf_printfriendly'] = $prefs['print_pdf_mpdf_printfriendly'] ?? '';
             $orientation = ! empty($params['orientation']) ? $params['orientation'] : $prefs['print_pdf_mpdf_orientation'];
             $pdfSettings['orientation'] = $orientation != '' ? $orientation : 'P';
             $pdfSettings['pagesize'] = $prefs['print_pdf_mpdf_pagesize'] != '' ? $prefs['print_pdf_mpdf_pagesize'] : 'Letter';
