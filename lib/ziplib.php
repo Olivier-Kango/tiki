@@ -48,27 +48,27 @@ function gzip_compress($data)
     $filename = gzip_tempnam();
 
     if (! ($fp = gzopen($filename, 'wb'))) {
-        trigger_error(sprintf('%s failed', 'gzopen'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'gzopen'));
     }
 
     gzwrite($fp, $data, strlen($data));
 
     if (! gzclose($fp)) {
-        trigger_error(sprintf('%s failed', 'gzclose'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'gzclose'));
     }
 
     $size = filesize($filename);
 
     if (! ($fp = fopen($filename, 'rb'))) {
-        trigger_error(sprintf('%s failed', 'fopen'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'fopen'));
     }
 
     if (! ($z = fread($fp, $size)) || strlen($z) != $size) {
-        trigger_error(sprintf('%s failed', 'fread'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'fread'));
     }
 
     if (! fclose($fp)) {
-        trigger_error(sprintf('%s failed', 'fclose'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'fclose'));
     }
 
     unlink($filename);
@@ -80,17 +80,17 @@ function gzip_uncompress($data)
     $filename = gzip_tempnam();
 
     if (! ($fp = fopen($filename, 'wb'))) {
-        trigger_error(sprintf('%s failed', 'fopen'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'fopen'));
     }
 
     fwrite($fp, $data, strlen($data));
 
     if (! fclose($fp)) {
-        trigger_error(sprintf('%s failed', 'fclose'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'fclose'));
     }
 
     if (! ($fp = gzopen($filename, 'rb'))) {
-        trigger_error(sprintf('%s failed', 'gzopen'), E_USER_ERROR);
+        throw new Exception(sprintf('%s failed', 'gzopen'));
     }
 
     $unz = '';
@@ -100,7 +100,7 @@ function gzip_uncompress($data)
     }
 
     if (! gzclose($fp)) {
-        trigger_error(sprintf("%s failed", 'gzclose'), E_USER_ERROR);
+        throw new Exception(sprintf("%s failed", 'gzclose'));
     }
 
     unlink($filename);
@@ -399,22 +399,22 @@ function zip_deflate($content)
     extract(unpack("a2magic/Ccomp_type/Cflags/@9/Cos_type", $z));
 
     if ($magic != GZIP_MAGIC) {
-        trigger_error(sprintf('Bad %s', 'gzip magic'), E_USER_ERROR);
+        throw new Exception(sprintf('Bad %s', 'gzip magic'));
     }
 
     if ($comp_type != GZIP_DEFLATE) {
-        trigger_error(sprintf('Bad %s', 'gzip comp type'), E_USER_ERROR);
+        throw new Exception(sprintf('Bad %s', 'gzip comp type'));
     }
 
     if (($flags & 0x3e) != 0) {
-        trigger_error(sprintf('Bad %s', sprintf('flags (0x%02x)', $flags)), E_USER_ERROR);
+        throw new Exception(sprintf('Bad %s', sprintf('flags (0x%02x)', $flags)));
     }
 
     $gz_header_len = 10;
     $gz_data_len = strlen($z) - $gz_header_len - 8;
 
     if ($gz_data_len < 0) {
-        trigger_error('not enough gzip output?', E_USER_ERROR);
+        throw new Exception('Gzip output is invalid, not enough data.');
     }
 
     extract(unpack('Vcrc32', substr($z, $gz_header_len + $gz_data_len)));
@@ -643,7 +643,7 @@ class ZipReader
         if (! is_string($zipfile)) {
             $this->fp = $zipfile; // File already open
         } elseif (! ($this->fp = fopen($zipfile, "rb"))) {
-            trigger_error(sprintf(_("Can't open zip file '%s' for reading"), $zipfile), E_USER_ERROR);
+            throw new Exception(sprintf(_("Can't open zip file '%s' for reading"), $zipfile));
         }
     }
 
@@ -652,7 +652,7 @@ class ZipReader
         $chunk = fread($this->fp, $nbytes);
 
         if (strlen($chunk) != $nbytes) {
-            trigger_error(_("Unexpected EOF in zip file"), E_USER_ERROR);
+            throw new Exception("Unexpected EOF in zip file");
         }
 
         return $chunk;

@@ -174,10 +174,9 @@ class OpenPGPLib
         // sanity check - see if we're working with gpg
         if (preg_match('/^gpg /', $gpg_version_output) == 0) {
             $error_msg = 'gpg executable is not GnuPG: "' . $this->gpg_path . '"';
-            trigger_error($error_msg, E_USER_ERROR);
+            throw new Exception($error_msg);
             // if an error message directs you to the line above please
             // double check that your path to gpg is really GnuPG
-            die();
         }
 
         /////////////////////////////////////////////////////////////
@@ -340,10 +339,9 @@ class OpenPGPLib
         // sanity check - make sure there are at least 2 arguments
         // any extra arguments are considered to be additional key IDs
         if (func_num_args() < 2) {
-            trigger_error("gpg_encrypt() requires at least 2 arguments", E_USER_ERROR);
+            throw new Exception("gpg_encrypt() requires at least 2 arguments");
             // if an error message directs you to the line above please
             // double check that you are providing at least 2 arguments
-            die();
         }
 
         ////////////////////////////////
@@ -437,10 +435,9 @@ class OpenPGPLib
         //////////////////////////////////////////////////////////
         // sanity check - make sure there is 1 argument
         if ($gpg_key_id == null) {
-            trigger_error("gpg_getFingerprint() requires 1 argument", E_USER_ERROR);
+            throw new Exception("gpg_getFingerprint() requires 1 argument");
             // if an error message directs you to the line above please
             // double check that you are providing 1 argument
-            die();
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -507,10 +504,9 @@ class OpenPGPLib
         //////////////////////////////////////////////////////////
         // sanity check - make sure there is 1 argument
         if ($gpg_key_id == null) {
-            trigger_error("gpg_getPublicKey() requires 1 argument", E_USER_ERROR);
+            throw new Exception("gpg_getPublicKey() requires 1 argument");
             // if an error message directs you to the line above please
             // double check that you are providing 1 argument
-            die();
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -616,7 +612,7 @@ class OpenPGPLib
             } else {
                 // if the gpg command returned non-zero
                 $error_msg = 'OpenPGPLib: _getPublickeyArmorBlock() returned error code: ' . $gpg[2];
-                trigger_error($error_msg, E_USER_ERROR);
+                throw new Exception($error_msg);
                 // if an error message directs you to the line above please
                 // double check that your gnupg-configuration, process-call commandline input, and other parameters are correct
             }
@@ -635,7 +631,7 @@ class OpenPGPLib
             } else {
                 // if the gpg command returned non-zero
                 $error_msg = 'OpenPGPLib: _getPublickeyArmorBlock() returned error code: ' . $gpg[2];
-                trigger_error($error_msg, E_USER_ERROR);
+                throw new Exception($error_msg);
                 // if an error message directs you to the line above please
                 // double check that your gnupg-configuration, process-call commandline input, and other parameters are correct
             }
@@ -1235,7 +1231,7 @@ class OpenPGPLib
         } else {
             // if the gpg command returned non-zero
             $error_msg = 'OpenPGPLib: _encryptSignGnuPG() returned error code: ' . $gpg[2];
-            trigger_error($error_msg, E_USER_ERROR);
+            throw new Exception($error_msg);
             // if an error message directs you to the line above please
             // double check that your gnupg-configuration, process-call commandline input, and other parameters are correct
         }

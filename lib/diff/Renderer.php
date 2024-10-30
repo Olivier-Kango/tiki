@@ -136,7 +136,7 @@ class Text_Diff_Renderer
                     break;
 
                 default:
-                    trigger_error("Unknown edit type", E_USER_ERROR);
+                    trigger_error("Unknown edit type", E_USER_WARNING);
             }
 
             $this->_endBlock();

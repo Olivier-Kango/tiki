@@ -814,7 +814,7 @@ class TikiSheetDataHandler
      */
     public function name()
     {
-        trigger_error(tr("Abstract method call. %0 not defined in %1", __FUNCTION__ . '()', get_class($this)), E_USER_ERROR);
+        throw new BadMethodCallException(tr("Abstract method call. %0 not defined in %1", __FUNCTION__ . '()', get_class($this)));
     }
     /** supports
      * Function to indicate the features that are supported
@@ -826,7 +826,7 @@ class TikiSheetDataHandler
      */
     public function supports($feature)
     {
-        trigger_error(tr("Abstract method call. %0 not defined in %1", __FUNCTION__ . '()', get_class($this)), E_USER_ERROR);
+        throw new BadMethodCallException(tr("Abstract method call. %0 not defined in %1", __FUNCTION__ . '()', get_class($this)));
     }
 
     /** version
@@ -835,7 +835,7 @@ class TikiSheetDataHandler
      */
     public function version()
     {
-        trigger_error(tr("Abstract method call. %0 not defined in %1", __FUNCTION__ . '()', get_class($this)), E_USER_ERROR);
+        throw new BadMethodCallException(tr("Abstract method call. %0 not defined in %1", __FUNCTION__ . '()', get_class($this)));
     }
 }
 
