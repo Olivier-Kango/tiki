@@ -5,9 +5,9 @@
         {foreach from=$results item=entry}
             <li>
                 <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="objects{$iListExecute}[]" value="{$entry.object_type|escape}:{$entry.object_id|escape}">
-                {if $entry.report_status eq 'success'}
+                {if isset($entry.report_status) && $entry.report_status eq 'success'}
                     {icon name='ok'}
-                {elseif $entry.report_status eq 'error'}
+                {elseif isset($entry.report_status) && $entry.report_status eq 'error'}
                     {icon name='error'}
                 {/if}
                 {object_link type=$entry.object_type id=$entry.object_id backuptitle=$entry.title}
