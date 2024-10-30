@@ -46,7 +46,6 @@ if (! isset($_REQUEST['bookId'])) {
     die;
 }
 $bookId = $_REQUEST['bookId'];
-$smarty->assign('bookId', $bookId);
 
 $globalperms = Perms::get();
 $objectperms = Perms::get([ 'type' => 'accounting book', 'object' => $bookId ]);
@@ -55,11 +54,16 @@ if (! ($globalperms->acct_view or $objectperms->acct_view)) {
     $smarty->display("error.tpl");
     die;
 }
-
 $accountinglib = TikiLib::lib('accounting');
-$book = $accountinglib->getBook($bookId);
+try {
+    $book = $accountinglib->getBook($bookId);
+} catch (Exception $e) {
+    $smarty->assign('msg', tra($e->getMessage()));
+    $smarty->display("error.tpl");
+    die;
+}
 $smarty->assign('book', $book);
-
+$smarty->assign('bookId', $bookId);
 $accounts = $accountinglib->getExtendedAccounts($bookId, true);
 $smarty->assign('accounts', $accounts);
 
