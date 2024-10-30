@@ -216,7 +216,7 @@ class Search_MySql_Index implements Search_Index_Interface
             $resultSet = new Search_ResultSet($entries, $count, $resultStart, $resultCount);
             $resultSet->setHighlightHelper(new Search_MySql_HighlightHelper($words));
 
-            if ($didYouMean) {
+            if (! empty($didYouMean)) {
                 $resultSet->setDidYouMean(implode(' ', $correctKeywords));
             }
 
