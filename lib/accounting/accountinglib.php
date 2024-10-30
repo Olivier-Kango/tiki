@@ -127,18 +127,26 @@ class AccountingLib extends LogsLib
     /**
      *
      * Returns the details for a book with a given bookId
-     * @param   int $bookId Id of the book to retrieve the data for
+     *
+     * @param int $bookId Id of the book to retrieve the data for
+     *
      * @return  array       Array with book details
+     * @throws Exception
      */
-    public function getBook($bookId)
+    public function getBook(int $bookId): array
     {
         if (! is_array($this->book) or $this->book['bookId'] != $bookId) {
             $query = "SELECT * FROM `tiki_acct_book` WHERE `bookId`=?";
             $res = $this->query($query, [$bookId]);
+            if ($res->numrows === 0) {
+                throw new Exception(tra('No book found for the given book ID.'));
+            }
+
             $this->book = $res->fetchRow();
         }
         return $this->book;
     }
+
 
     /**
      *
