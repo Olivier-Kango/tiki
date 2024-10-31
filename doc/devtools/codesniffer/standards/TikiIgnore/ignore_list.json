@@ -1117,6 +1117,9 @@
         "lib\/core\/Search\/Action\/UserGroupModify.php": {
             "class:Search_Action_UserGroupModify": true
         },
+        "lib\/core\/Search\/Action\/CategorizeObjectAction.php": {
+            "class:Search_Action_CategorizeObjectAction": true
+        },
         "lib\/test\/core\/Search\/Index\/SearchIndexPagination.php": {
             "class:SearchIndexPagination": true
         },
@@ -4920,6 +4923,9 @@
         },
         "lib\/core\/Search\/Action\/UserGroupModify.php": {
             "Search_Action_UserGroupModify": true
+        },
+        "lib\/core\/Search\/Action\/CategorizeObjectAction.php": {
+            "Search_Action_CategorizeObjectAction": true
         },
         "lib\/test\/core\/Search\/Index\/PaginationTest.php": {
             "SearchIndexPagination": true

@@ -27,7 +27,6 @@ class Search_Formatter_Builder
     private $actions;
     private $isDownload;
     private $downloadName;
-
     public function __construct()
     {
         $this->parser = new WikiParser_PluginArgumentParser();
@@ -64,7 +63,6 @@ class Search_Formatter_Builder
     {
         foreach ($matches as $match) {
             $name = $match->getName();
-
             if ($name == 'output') {
                 $this->handleOutput($match, $params);
             }
@@ -174,8 +172,24 @@ class Search_Formatter_Builder
      */
     private function handleOutput($output, $params)
     {
+        global $prefs, $tiki_p_modify_object_categories, $tiki_p_admin_categories;
         $smarty = TikiLib::lib('smarty');
         $tikilib = TikiLib::lib('tiki');
+        $data = [];
+        if ($prefs['feature_categories'] == 'y') {
+            $categlib = TikiLib::lib('categ');
+            $categories = $categlib->getCategories();
+
+            foreach ($categories as &$category) {
+                $category['canchange'] = 'y';
+            }
+            // Get the categories tree for display
+            $cat_tree = $categlib->generate_cat_tree($categories);
+            $data['categories'] = $categories;
+            $data['cat_tree'] = $cat_tree;
+            $data['tiki_p_modify_object_categories'] = $tiki_p_modify_object_categories;
+            $data['tiki_p_admin_categories'] = $tiki_p_admin_categories;
+        }
         $arguments = $this->parser->parse($output->getArguments());
 
         if (isset($arguments['template'])) {
@@ -230,6 +244,7 @@ class Search_Formatter_Builder
                 }
             }
 
+            $outputData = array_merge($outputData, $data);
             $templateData = file_get_contents($arguments['template']);
 
             $plugin = new Search_Formatter_Plugin_SmartyTemplate($arguments['template']);

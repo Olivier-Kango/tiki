@@ -88,6 +88,11 @@ class Search_Action_DataChannel implements Search_Action_Action
         return $success;
     }
 
+    public function inputType(): string
+    {
+        return "text";
+    }
+
     public function requiresInput(JitFilter $data)
     {
         $params = $data->params->text();
