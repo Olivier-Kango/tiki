@@ -42,10 +42,11 @@ class Search_Action_CategorizeObjectAction implements Search_Action_Action
         if (empty($add) && empty($remove) && ! empty($operation) && empty($category)) {
             throw new Search_Action_Exception(tr('Cannot apply categorize_object: category value not specified.'));
         }
-
-        foreach ($category as $catId) {
-            if (! empty($operation) && ! empty($catId) && ! $categlib->get_category($catId)) {
-                throw new Search_Action_Exception(tr('Cannot apply categorize_object: category does not exist: %0', $category));
+        if (! empty($category)) {
+            foreach ($category as $catId) {
+                if (! empty($operation) && ! empty($catId) && ! $categlib->get_category($catId)) {
+                    throw new Search_Action_Exception(tr('Cannot apply categorize_object: category does not exist: %0', $category));
+                }
             }
         }
         return true;
@@ -114,6 +115,11 @@ class Search_Action_CategorizeObjectAction implements Search_Action_Action
             }
         }
         return true;
+    }
+
+    public function inputType(): string
+    {
+        return "category_tree";
     }
 
     public function requiresInput(JitFilter $data): bool

@@ -96,7 +96,6 @@ function wikiplugin_listexecute($data, $params)
     }
 
     $customOutput = false;
-    $categorize = false;
     foreach ($matches as $match) {
         $name = $match->getName();
 
@@ -105,15 +104,6 @@ function wikiplugin_listexecute($data, $params)
 
             if ($action && $action->isAllowed(Perms::get()->getGroups())) {
                 $actions[$action->getName()] = $action;
-                foreach ($action->getSteps() as $step) {
-                    if ($step->getAction() instanceof Search_Action_CategorizeObjectAction) {
-                        $stepDefinition = $step->getDefinition();
-                        if (array_key_exists('operation', $stepDefinition) && ($stepDefinition['operation'] == 'add' || $stepDefinition['operation'] == 'remove')) {
-                            $categorize = true;
-                            break;
-                        }
-                    }
-                }
             } else {
                 foreach ($action->getSteps() as $step) {
                     if ($step instanceof Search_Action_UnknownStep) {
@@ -145,9 +135,7 @@ function wikiplugin_listexecute($data, $params)
     $builder->setId('wplistexecute-' . $iListExecute);
     $builder->setCount($result->count());
     $builder->setTsOn($tsret['tsOn']);
-    $params['categorize'] = $categorize;
-    // Add categorize value to template
-    $builder->apply($matches, $params);
+    $builder->apply($matches);
 
     $result->setTsSettings($builder->getTsSettings());
     $result->setTsOn($tsret['tsOn']);
@@ -164,7 +152,7 @@ function wikiplugin_listexecute($data, $params)
             'iListExecute' => $iListExecute
         ];
 
-        if ($prefs['feature_categories'] == 'y' && $categorize) {
+        if ($prefs['feature_categories'] == 'y') {
             $categlib = TikiLib::lib('categ');
             $categories = $categlib->getCategories();
 
@@ -175,7 +163,6 @@ function wikiplugin_listexecute($data, $params)
             $cat_tree = $categlib->generate_cat_tree($categories);
             $pluginData['categories'] = $categories;
             $pluginData['cat_tree'] = $cat_tree;
-            $pluginData['categorize'] = $categorize;
             $pluginData['tiki_p_modify_object_categories'] = $tiki_p_modify_object_categories;
             $pluginData['tiki_p_admin_categories'] = $tiki_p_admin_categories;
         }
