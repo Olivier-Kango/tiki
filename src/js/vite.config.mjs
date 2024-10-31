@@ -385,6 +385,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/fitvids/dist",
                     },
                     {
+                        src: "node_modules/html2canvas-pro/dist/html2canvas-pro.min.js",
+                        dest: "vendor_dist/html2canvas-pro/dist",
+                    },
+                    {
                         src: "node_modules/interactjs/dist/*",
                         dest: "vendor_dist/interactjs/dist",
                     },
