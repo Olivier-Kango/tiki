@@ -42,9 +42,9 @@
                 {block name=quicknav}{/block}
                 {block name=title}{/block}
                 {block name=navigation}{/block}
-                <main>
+                <aside>
                     {block name=content}{/block}
-                </main>
+                </aside>
                 {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
                     {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
                 {/if}
@@ -73,9 +73,9 @@
                 </div>
                 {block name=title}{/block}
                 {block name=navigation}{/block}
-                <main>
+                <aside>
                     {block name=content}{/block}
-                </main>
+                </aside>
                 {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
                     {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
                 {/if}
@@ -107,9 +107,9 @@
                 </div>
                 {block name=title}{/block}
                 {block name=navigation}{/block}
-                <main>
+                <aside>
                     {block name=content}{/block}
-                </main>
+                </aside>
                 {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
                     {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
                 {/if}
@@ -148,9 +148,9 @@
                 </div>
                 {block name=title}{/block}
                 {block name=navigation}{/block}
-                <main>
+                <aside>
                     {block name=content}{/block}
-                </main>
+                </aside>
                 {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
                     {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
                 {/if}

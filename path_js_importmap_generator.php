@@ -45,6 +45,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 /* jquery_tiki */
                 "@jquery-tiki/plugin-edit" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugin-edit/index.js",
                 "@jquery-tiki/plugin-edit/buttons" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugin-edit/buttons.js",
+                "@jquery-tiki/plugins/cypht" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugins/cypht.js",
                 "@jquery-tiki/plugins/dialog" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugins/dialog.js",
                 "@jquery-tiki/plugins/pagetabs" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugins/pagetabs.js",
                 "@jquery-tiki/tiki-calendar" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-calendar.js",
