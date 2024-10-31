@@ -46,6 +46,13 @@ if ($prefs['feature_accounting'] != 'y') {
     die;
 }
 
+if (! isset($_REQUEST['bookId'])) {
+    $smarty->assign('msg', tra('Missing book id'));
+    $smarty->display('error.tpl');
+    die;
+}
+$bookId = $_REQUEST['bookId'];
+
 $globalperms = Perms::get();
 $objectperms = Perms::get([ 'type' => 'accounting book', 'object' => $bookId ]);
 
@@ -55,12 +62,6 @@ if (! ($globalperms->acct_book or $objectperms->acct_book_stack)) {
     die;
 }
 
-if (! isset($_REQUEST['bookId'])) {
-    $smarty->assign('msg', tra('Missing book id'));
-    $smarty->display('error.tpl');
-    die;
-}
-$bookId = $_REQUEST['bookId'];
 $smarty->assign('bookId', $bookId);
 
 if (! isset($_REQUEST['stackId'])) {
@@ -76,13 +77,19 @@ if (isset($_REQUEST['hideform'])) {
 }
 
 $accountinglib = TikiLib::lib('accounting');
-$book = $accountinglib->getBook($bookId);
+try {
+    $book = $accountinglib->getBook($bookId);
+} catch (Exception $e) {
+    $smarty->assign('msg', tra($e->getMessage()));
+    $smarty->display("error.tpl");
+    die;
+}
 $smarty->assign('book', $book);
 
 $accounts = $accountinglib->getAccounts($bookId, $all = true);
 $smarty->assign('accounts', $accounts);
 
-if ($_POST['stack_Year']) {
+if (! empty($_POST['stack_Year'])) {
     $stackDate = new DateTime();
     $stackDate->setDate(
         $_POST['stack_Year'],
@@ -164,7 +171,7 @@ if (is_array($result)) {
     }
 } else {
     if ($stackId != 0) {
-        $stackEntry = $accountinglib->getStackTransaction($bookId, $_POST['stackId']);
+        $stackEntry = $accountinglib->getStackTransaction($bookId, $_REQUEST['stackId']);
         $smarty->assign('stackId', $stackId);
         $smarty->assign('stackDate', $stackEntry['stackDate']);
         $smarty->assign('stackDescription', $stackEntry['stackDescription']);

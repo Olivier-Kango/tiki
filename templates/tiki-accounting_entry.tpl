@@ -8,17 +8,17 @@ function setAmount() {
 
 function splitDebit() {
     document.getElementById('Row_SplitCredit').style.display = "none";
-    var tbl = document.getElementById('tbl_debit');
-    var lastRow = tbl.rows.length;
-    var row = tbl.insertRow(lastRow-1);
+    const tbl = document.getElementById('tbl_debit');
+    const lastRow = tbl.rows.length;
+    const row = tbl.insertRow(lastRow - 1);
     row.innerHTML=document.getElementById('Row_StartDebit').innerHTML;
 }
 
 function splitCredit() {
     document.getElementById('Row_SplitDebit').style.display = "none";
-    var tbl = document.getElementById('tbl_credit');
-    var lastRow = tbl.rows.length;
-    var row = tbl.insertRow(lastRow-1);
+    const tbl = document.getElementById("tbl_credit");
+    const lastRow = tbl.rows.length;
+    const row = tbl.insertRow(lastRow - 1);
     row.innerHTML=document.getElementById('Row_StartCredit').innerHTML;
 }
 
