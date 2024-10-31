@@ -45,7 +45,7 @@ if ($prefs['feature_accounting'] != 'y') {
     $smarty->display('error.tpl');
     die;
 }
-
+$bookId = $_REQUEST['bookId'];
 $globalperms = Perms::get();
 $objectperms = Perms::get([ 'type' => 'accounting book', 'object' => $bookId ]);
 
@@ -54,23 +54,26 @@ if (! ($globalperms->acct_book or $objectperms->acct_book)) {
     $smarty->display('error.tpl');
     die;
 }
-
 if (! isset($_REQUEST['bookId'])) {
     $smarty->assign('msg', tra('Missing book id'));
     $smarty->display('error.tpl');
     die;
 }
-$bookId = $_REQUEST['bookId'];
-$smarty->assign('bookId', $bookId);
-
 $accountinglib = TikiLib::lib('accounting');
-$book = $accountinglib->getBook($bookId);
+try {
+    $book = $accountinglib->getBook($bookId);
+} catch (Exception $e) {
+    $smarty->assign('msg', tra($e->getMessage()));
+    $smarty->display("error.tpl");
+    die;
+}
+$smarty->assign('bookId', $bookId);
 $smarty->assign('book', $book);
 
 $accounts = $accountinglib->getAccounts($bookId, $all = true);
 $smarty->assign('accounts', $accounts);
 
-if ($_POST['journal_Year']) {
+if (! empty($_POST['journal_Year'])) {
     $journalDate = new DateTime();
     $journalDate->setDate(
         $_POST['journal_Year'],
