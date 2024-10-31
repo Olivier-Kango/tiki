@@ -67,6 +67,9 @@
                         {preference name=wiki_edit_section_level}
                     </div>
                     {preference name=feature_wiki_allowhtml}
+                    <div class="adminoptionboxchild" id="feature_wiki_allowhtml_childcontainer">
+                        {preference name=wysiwyg_wiki_parsed}
+                    </div>
                     {preference name=wiki_mandatory_edit_summary}
                     {preference name=feature_wiki_footnotes}
                     {preference name=wiki_freetags_edit_position}
@@ -74,9 +77,6 @@
                     {preference name=feature_warn_on_edit}
                     {preference name=warn_on_edit_time}
                     {preference name=wiki_default_language}
-                    <div class="adminoptionboxchild" id="feature_wiki_allowhtml_childcontainer">
-                        {preference name=wysiwyg_wiki_parsed}
-                    </div>
                     {preference name=feature_wysiwyg}
                     {preference name=feature_wiki_mandatory_category}
                     {preference name=feature_actionlog_bytes}
