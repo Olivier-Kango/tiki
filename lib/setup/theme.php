@@ -123,7 +123,7 @@ if (
     || strpos($_SERVER['PHP_SELF'], 'tiki-sys'))
 ) { // TODO: refactor this check into an array of all admin and management pages we want to include and the related perms to access in UAB layout
     $headerlib->add_cssfile('themes/base_files/css/feature/adminui.css');
-    if (strpos($_SERVER['PHP_SELF'], 'tiki-admin.php') === false && strpos($_SERVER['PHP_SELF'], 'tiki-admin_modules.php') === false) { // Exclude tiki-admin.php and the modules admin here
+    if (strpos($_SERVER['PHP_SELF'], 'tiki-admin.php') === false && strpos($_SERVER['PHP_SELF'], 'tiki-admin_modules.php') === false && strpos($_SERVER['PHP_SELF'], 'tiki-admin_tracker_fields.php') === false) { // Exclude tiki-admin.php, tiki-admin_tracker_fields.php, and the modules admin here
         /* Force the admin layout on admin pages */
         $prefs['site_layout_admin'] = 'admin';
         /* Force the admin layout on setup/management pages too */
