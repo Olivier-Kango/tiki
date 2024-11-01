@@ -34,7 +34,11 @@ class QuerySourceEntry implements SourceEntryInterface
     {
         $key = 'tracker_field_' . $column->getField();
 
-        $value = $this->data[$key];
+        if (isset($this->data[$key])) {
+            $value = $this->data[$key];
+        } else {
+            $value = null;
+        }
 
         return $value;
     }
