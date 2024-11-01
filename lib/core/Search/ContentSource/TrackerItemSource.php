@@ -144,7 +144,9 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
             $data = array_merge($data, $handler->getProvidedFields());
         }
 
-        return array_unique($data);
+        $data = array_unique($data);
+
+        return $data;
     }
 
     public function getProvidedFieldTypes(): array

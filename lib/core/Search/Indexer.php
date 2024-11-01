@@ -291,12 +291,22 @@ class Search_Indexer
             }
             if (method_exists($this->searchIndex, 'getFieldMappings')) {
                 $existing = array_keys($this->searchIndex->getFieldMappings());
-                $output['object_types'][$objectType] = array_intersect($output['object_types'][$objectType], $existing);
+                foreach ($output['object_types'][$objectType] as $key => $field) {
+                    if (! in_array(strtolower($field), $existing)) {
+                        unset($output['object_types'][$objectType][$key]);
+                    }
+                }
+                $output['object_types'][$objectType] = array_values($output['object_types'][$objectType]);
             }
         }
         if (method_exists($this->searchIndex, 'getFieldMappings')) {
             $existing = array_keys($this->searchIndex->getFieldMappings());
-            $output['global'] = array_intersect($output['global'], $existing);
+            foreach ($output['global'] as $key => $field) {
+                if (! in_array(strtolower($field), $existing)) {
+                    unset($output['global'][$key]);
+                }
+            }
+            $output['global'] = array_values($output['global']);
         }
 
         return $output;
