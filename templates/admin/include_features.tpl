@@ -139,9 +139,6 @@
                     {preference name=pwa_cache_links}
                     <div class="adminoptionboxchild" id="pwa_feature_childcontainer">
                         {remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}
-                            {if $prefs.feature_sefurl eq 'y'}
-                                {tr}Search Engine Friendly URL feature needs to be disabled.{/tr}<br/>
-                            {/if}
                             {tr}PWA feature requires bypassing CSRF Tokens, this represents a security issue.{/tr}
                         {/remarksbox}
                     </div>
