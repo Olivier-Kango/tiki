@@ -76,6 +76,7 @@ class ConsoleApplicationBuilder
             'condition' => 'checkVendorsLoaded',
             'actions'   => [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,],
             'commands'  => [
+                new CacheClearCommand(),
                 new ConfigureCommand(),
                 new InstallerLockCommand(),
                 new InstallerUnlockCommand(),
@@ -107,7 +108,6 @@ class ConsoleApplicationBuilder
                     UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,
                 ],
             'commands'  => [
-                new CacheClearCommand(),
                 new CacheGenerateCommand(),
                 new BackupDBCommand(),
                 new BackupFilesCommand(),
