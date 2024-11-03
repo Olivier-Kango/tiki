@@ -433,10 +433,10 @@
                     <label class="col-form-label col-md-3">{tr}Membership expiry{/tr}</label>
                     <div class="col-md-9">
                         <label>{tr}Anniversary{/tr}</label>
-                        <input type="text" name="anniversary" class="form-control" value="{$group_info.anniversary|escape}">
+                        <input type="text" name="anniversary" class="form-control" value="{if is_array($group_info)}{$group_info.anniversary|escape}{else}{/if}">
                         <div class="form-text">{tr}Use MMDD to specify an annual date as of which all users will be unassigned from the group, or DD to specify a monthly date.{/tr}</div>
                         <label>{tr}Or{/tr}</label><br> <label>{tr}Number of Days{/tr}</label>
-                        <input type="text" class="form-control" name="expireAfter" value="{$group_info.expireAfter|escape}">
+                        <input type="text" class="form-control" name="expireAfter" value="{if is_array($group_info)}{$group_info.expireAfter|escape}{else}{/if}">
                         <div class="form-text">
                             {tr}Number of days after which all users will be unassigned from the group.{/tr}
                         </div>
@@ -446,9 +446,9 @@
                     <label for="prorateInterval" class="col-form-label col-md-3">{tr}Pro-rata Membership{/tr}</label>
                     <div class="col-md-9">
                         <select name="prorateInterval" class="form-select">
-                            <option value="day" {if $group_info.prorateInterval eq 'day'}selected="selected"{/if}>{tr}Day{/tr}</option>
-                            <option value="month" {if $group_info.prorateInterval eq 'month'}selected="selected"{/if}>{tr}Month{/tr}</option>
-                            <option value="year" {if $group_info.prorateInterval eq 'year'}selected="selected"{/if}>{tr}Year{/tr}</option>
+                            <option value="day" {if is_array($group_info) && $group_info.prorateInterval eq 'day'}selected="selected"{/if}>{tr}Day{/tr}</option>
+                            <option value="month" {if is_array($group_info) && $group_info.prorateInterval eq 'month'}selected="selected"{/if}>{tr}Month{/tr}</option>
+                            <option value="year" {if is_array($group_info) && $group_info.prorateInterval eq 'year'}selected="selected"{/if}>{tr}Year{/tr}</option>
                         </select>
                         <div class="form-text">
                             {tr}Payment for membership extension is prorated at a minimum interval.{/tr}
@@ -459,7 +459,7 @@
             <div class="mb-3 row">
                 <label class="col-form-label col-md-3">{tr}Email Pattern{/tr}</label>
                 <div class="col-md-9">
-                    <input class="form-control" type="text" size="40" name="emailPattern" value="{$group_info.emailPattern|escape}">
+                    <input class="form-control" type="text" size="40" name="emailPattern" value="{if is_array($group_info)}{$group_info.emailPattern|escape}{else}{/if}">
                     <div class="form-text">
                         <p>{tr}Users are automatically assigned at registration in the group if their emails match the pattern.{/tr}</p>
                         <p>{tr}Example:{/tr} /@(tw.org$)|(tw\.com$)/</p>
