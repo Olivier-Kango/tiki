@@ -87,15 +87,76 @@ try {
 
 require_once('tiki-filter-base.php');
 
-// Define and load Smarty components
 global $prefs;
-$prefs = [];
-$prefs['smarty_notice_reporting'] = 'n';
-$prefs['smarty_compilation'] = 'always';
-$prefs['smarty_security'] = 'y';
+// we can't call the normal code for loading preferences (always) as many depends on DB being setup,
+// so we need to define here a few preferences to make things work and/or to avoid warnings in templates, etc.
+// we will load the actual preferences from step 6 (after tiki DB install).
+$prefs = [
+    // Define and load Smarty components
+    'smarty_notice_reporting' => 'n',
+    'smarty_compilation' => 'always',
+    'smarty_security' => 'y',
+
+    // define error reporting related preferences
+    'error_reporting_level' => E_ALL & ~E_NOTICE & ~E_WARNING,
+    'error_reporting_adminonly'  => 'y',
+    'error_tracking_enabled_js' => 'n',
+    'error_tracking_enabled_php' => 'n',
+
+    // define other preferences expected by templates, etc. using the default value, avoids warnings
+    // tiki-setup.php
+    'switch_color_module_assigned' => 'n',
+    // lib/prefs/global.php
+    'browsertitle' => '',
+    // lib/prefs/restrict.php
+    'restrict_language' => 'n',
+    // lib/prefs/feature.php
+    'feature_canonical_url' => 'y',
+    'feature_breadcrumbs' => 'n',
+    'feature_wiki' => 'y',
+    'feature_blogs' => 'n',
+    'feature_articles' => 'n',
+    'feature_file_galleries' => 'y',
+    'feature_forums' => 'n',
+    'feature_directory' => 'n',
+    'feature_calendar' => 'n',
+    'feature_trackers' => 'y',
+    'feature_inline_comments' => 'n',
+    'feature_scheduler' => 'y',
+    'feature_wiki_sharethis' => 'n',
+    // lib/prefs/metatag.php
+    'metatag_keywords' => '',
+    'metatag_author' => '',
+    'metatag_threadtitle' => 'n',
+    'metatag_pagedesc' => 'n',
+    'metatag_geoposition' => '',
+    'metatag_georegion' => '',
+    'metatag_geoplacename' => '',
+    'metatag_robotscustom' => 'n',
+    'metatag_revisitafter' => '',
+    // lib/prefs/site.php
+    'site_nav_seper' => '|',
+    'site_title_location' => 'after',
+    'site_title_breadcrumb' => 'invertfull',
+    'site_mautic_enable' => 'n',
+    // lib/prefs/tiki.php
+    'tiki_cdn' => '',
+    'tiki_cdn_ssl' => '',
+    'tiki_minify_css' => 'n',
+    'tiki_monitor_performance' => 'n',
+    // lib/prefs/feed.php
+    'feed_wiki' => 'n',
+    'feed_file_galleries' => 'n',
+    'feed_tracker' => 'n',
+    // lib/prefs/webcron.php
+    'webcron_enabled' => 'n',
+    //tiki-user_preferences.php
+    'remember_closed_rboxes' => 'n',
+];
+
 require_once 'lib/init/initlib.php';
 require_once 'lib/tikilib.php';
-set_error_handler("tiki_error_handling", error_reporting());
+require_once('lib/setup/error_reporting.php');
 require_once('lib/init/smarty.php');
 require_once('installer/installlib.php');
 include_once('lib/setup/twversion.class.php');
@@ -343,7 +404,7 @@ if (file_exists($local)) {
     }
 }
 
-if ($dbconn) {
+if ($dbconn && has_tiki_db()) {
     $admin_acc = has_admin($api_tiki);
 }
 
@@ -462,6 +523,7 @@ if ($dbconn) {
             require_once('lib/setup/prefs.php');
             // fix some prefs thwt get reset here
             $prefs['language'] = $language;
+            $prefs['switch_color_module_assigned'] = 'n';
         }
         update_preferences($prefs);
         $smarty->assign('admin_email', get_admin_email());
@@ -664,6 +726,7 @@ if ($install_step == '2') {
     // copy of most of $tikilib->return_bytes() not available at this stage
     $memory_limit = trim(ini_get('memory_limit'));
     $last = strtolower($memory_limit[strlen($memory_limit) - 1]);
+    $memory_limit = (int)$memory_limit;
     switch ($last) {
         // The 'G' modifier is available since PHP 5.1.0
         case 'g':
@@ -835,12 +898,12 @@ if ($install_step == '4') {
     $smarty->assign('database_charset', $value);
 }
 
-if (((isset($value) && $value == 'utf8mb4') || $install_step == '7') && $db = TikiDb::get()) {
+if (((isset($value) && $value == 'utf8mb4') || $install_step == '7') && $db = TikiDb::get() && ! empty($dbs_tiki)) {
     $result = $db->fetchAll(
         'SELECT TABLE_COLLATION FROM INFORMATION_SCHEMA.TABLES '
         . ' WHERE TABLE_SCHEMA = ? AND TABLE_COLLATION NOT LIKE "utf8mb4%" '
         . ' AND NOT (TABLE_NAME LIKE "index_%" OR TABLE_NAME LIKE "zzz_unused_%")', // Ignore tables that are not converted - but are generated
-        $dbs_tiki
+        [$dbs_tiki]
     );
     if (! empty($result)) {
         $smarty->assign('legacy_collation', $result[0]['TABLE_COLLATION']);
