@@ -456,8 +456,6 @@ $smarty->assign('tikidb_is20', false);
 if ($dbconn) {
     $has_tiki_db = has_tiki_db();
     $smarty->assign('tikidb_created', $has_tiki_db);
-    $oldPerms = $installer->getOne('SELECT COUNT(*) FROM `users_permissions` WHERE `permDesc` = \'Can view categorized items\'');
-    $smarty->assign('tikidb_oldPerms', $oldPerms);
 
     if ($install_step == '6' && $has_tiki_db) {
         if (isset($_POST['install_type']) && $_POST['install_type'] === 'scratch') {
