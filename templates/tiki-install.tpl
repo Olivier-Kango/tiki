@@ -516,11 +516,6 @@
                                             <div class="db-upgrade card h-100">
                                                 <div class=" card-body">
                                                     <h3 class="card-title mb-3">{tr}Upgrade{/tr}</h3>
-                                                    {if $tikidb_oldPerms gt 0}
-                                                        {remarksbox type="warning" title="{tr}Warning: Category Permissions Will Not Be Upgraded{/tr}" close="n"}
-                                                        {tr}Category permissions have been revamped since version 3. If you have been using category permissions, note that they may not work properly after upgrading to version 4 onwards, and it will be necessary to reconfigure them.{/tr}
-                                                        {/remarksbox}
-                                                    {/if}
                                                     {remarksbox type="info" title="{tr}OK{/tr}" close="n"}{tr}Automatically upgrade your existing database to version{/tr}
                                                         <strong>{$tiki_version_name}</strong>.
                                                     {/remarksbox}

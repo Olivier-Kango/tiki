@@ -4242,6 +4242,7 @@ CREATE TABLE `tiki_iot_apps_actions_logs` (
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
+DROP FUNCTION IF EXISTS levenshtein;
 -- Copyright (c) 2015 Felix Zandanel <felix@zandanel.me>
 
 -- Permission is hereby granted, free of charge, to any person
