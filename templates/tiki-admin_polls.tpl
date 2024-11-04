@@ -206,7 +206,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Title{/tr}</label>
                 <div class="col-sm-7">
-                    <input type="text" name="poll_title" class="form-control">
+                    <input type="text" name="title" class="form-control">
                 </div>
             </div>
             <div class="mb-3 row">
