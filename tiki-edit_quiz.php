@@ -33,7 +33,7 @@ $inputConfiguration = [
             'timeLimit'                   => 'digits',         //post
             'passingperct'                => 'string',         //post
             'remove'                      => 'int',            //post
-            'sort_mode'                   => 'alpha',          //get
+            'sort_mode'                   => 'word',          //get
             'offset'                      => 'int',            //get
             'find'                        => 'alpha',          //get
         ],
