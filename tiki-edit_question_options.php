@@ -39,6 +39,11 @@ if (! isset($_REQUEST["questionId"])) {
 
 $smarty->assign('questionId', $_REQUEST["questionId"]);
 $quiz_info = $quizlib->get_quiz_question($_REQUEST["questionId"]);
+if (! $quiz_info) {
+    $smarty->assign('msg', tra("The requested question was not found. Please check the question ID and try again."));
+    $smarty->display("error.tpl");
+    die;
+}
 $smarty->assign('question_info', $quiz_info);
 $_REQUEST["quizId"] = $quiz_info["quizId"];
 $smarty->assign('quizId', $_REQUEST["quizId"]);

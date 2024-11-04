@@ -50,6 +50,11 @@ $smarty->assign('quizId', $_REQUEST['quizId']);
 $smarty->assign('individual', 'n');
 
 $quiz_info = $quizlib->get_quiz($_REQUEST['quizId']);
+if (! $quiz_info) {
+    $smarty->assign('msg', tra("The requested quiz was not found. Please check the quiz ID and try again."));
+    $smarty->display("error.tpl");
+    die;
+}
 $smarty->assign('quiz_info', $quiz_info);
 
 if (! isset($_REQUEST['questionId'])) {
@@ -58,15 +63,18 @@ if (! isset($_REQUEST['questionId'])) {
 
 $smarty->assign('questionId', $_REQUEST['questionId']);
 
-if ($_REQUEST['questionId']) {
-    $info = $quizlib->get_quiz_question($_REQUEST['questionId']);
-} else {
+$result = $quizlib->get_quiz_question($_REQUEST['questionId']);
+if (! $result) {
+    Feedback::error(tra("The question you are trying to edit was not found. Please verify the question ID or create a new one."));
     $info = [];
 
     $info['question'] = '';
     $info['type'] = '';
     $info['position'] = '';
+} else {
+    $info = $result;
 }
+
 
 $smarty->assign('question', $info['question']);
 $smarty->assign('type', $info['type']);
