@@ -898,7 +898,7 @@ if ($install_step == '4') {
     $smarty->assign('database_charset', $value);
 }
 
-if (((isset($value) && $value == 'utf8mb4') || $install_step == '7') && $db = TikiDb::get() && ! empty($dbs_tiki)) {
+if (((isset($value) && $value == 'utf8mb4') || $install_step == '7') && ($db = TikiDb::get()) && ! empty($dbs_tiki)) {
     $result = $db->fetchAll(
         'SELECT TABLE_COLLATION FROM INFORMATION_SCHEMA.TABLES '
         . ' WHERE TABLE_SCHEMA = ? AND TABLE_COLLATION NOT LIKE "utf8mb4%" '
