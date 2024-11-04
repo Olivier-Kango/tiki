@@ -152,6 +152,38 @@ class Services_Tracker_TabularController
         ];
     }
 
+    public function updateColumns($trackerId, $oldName, $newName, $oldPermName, $newPermName)
+    {
+        $lib = TikiLib::lib('tabular');
+        $formats = $lib->getList(['trackerId' => $trackerId]);
+
+        foreach ($formats as $format) {
+            $info = $lib->getInfo($format['tabularId']);
+            $formatDescriptor = $info['format_descriptor'];
+            $filterDescriptor = $info['filter_descriptor'];
+
+            foreach ($formatDescriptor as $key => $field) {
+                if ($field['label'] == $oldName) {
+                    $formatDescriptor[$key]['label'] = $newName;
+                }
+                if ($field['field'] == $oldPermName) {
+                    $formatDescriptor[$key]['field'] = $newPermName;
+                }
+            }
+
+            foreach ($filterDescriptor as $key => $field) {
+                if ($field['label'] == $oldName) {
+                    $filterDescriptor[$key]['label'] = $newName;
+                }
+                if ($field['field'] == $oldPermName) {
+                    $filterDescriptor[$key]['field'] = $newPermName;
+                }
+            }
+
+            $lib->update($format['tabularId'], $info['name'], $formatDescriptor, $filterDescriptor, $info['config'], $info['odbc_config'], $info['api_config']);
+        }
+    }
+
     /**
      * Copy one format to another new one
      *

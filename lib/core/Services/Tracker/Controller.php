@@ -490,6 +490,21 @@ class Services_Tracker_Controller
                 }
             }
 
+            // Detect name or permName changes and update tabular format descriptors
+            $nameChanged = $field['name'] !== $data['name'];
+            $permNameChanged = $field['permName'] !== $data['permName'];
+
+            if ($nameChanged || $permNameChanged) {
+                $tabularController = new Services_Tracker_TabularController();
+                $tabularController->updateColumns(
+                    $field['trackerId'],
+                    $field['name'],
+                    $data['name'],
+                    $field['permName'],
+                    $data['permName']
+                );
+            }
+
             $this->utilities->updateField(
                 $trackerId,
                 $fieldId,
