@@ -50,8 +50,8 @@ class TWVersion
         $this->branch   = 'stable';
 
         // Set everything else, including defaults.
-        $this->version  = '28.0vcs';
-        $this->star     = 'TBA';
+        $this->version  = '28.0alpha';
+        $this->star     = 'Castor';
         $this->releases = [];
 
         // Check for Subversion or not
@@ -126,6 +126,7 @@ class TWVersion
                 36 => 'Sagittarius A*',  // 25.x
                 37 => 'Alnilam',         // 26.x
                 38 => 'Miaplacidus',     // 27.x
+                39 => 'Castor',          // 28.x
         ];
     }
 
@@ -399,6 +400,7 @@ class TWVersion
                 '27.0beta',
                 '27.0RC1',
                 '27.0',
+                '28.0alpha',
             ];
     }
 
