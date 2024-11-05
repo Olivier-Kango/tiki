@@ -61,14 +61,6 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
                         ],
                         'legacy_index' => 2,
                     ],
-                    'displayFieldsListFormat' => [
-                        'name' => tr('Format for Customising Multiple Fields'),
-                        'description' => tr('Uses the translate function to replace %0 etc with the field values. E.g. "%0 any text %1"'),
-                        'filter' => 'text',
-                        'depends' => [
-                            'field' => 'displayFieldsList'
-                        ],
-                    ],
                     'displayFieldsListType' => [
                         'name' => tr('Display type'),
                         'description' => tr('Display options in a dropdown, a transfer list or use table to display multiple fields'),
@@ -90,6 +82,14 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
                         'parent' => 'trackerId',
                         'parentkey' => 'tracker_id',
                         'sort_order' => 'position_nasc',
+                    ],
+                    'displayFieldsListFormat' => [
+                        'name' => tr('Format for Customising Multiple Fields'),
+                        'description' => tr('Uses the translate function to replace %0 etc with the field values. E.g. "%0 any text %1"'),
+                        'filter' => 'text',
+                        'depends' => [
+                            'field' => 'displayFieldsList'
+                        ],
                     ],
                     'filterable' => [
                         'name' => tr('Filterable'),
