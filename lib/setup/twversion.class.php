@@ -126,6 +126,7 @@ class TWVersion
                 36 => 'Sagittarius A*',  // 25.x
                 37 => 'Alnilam',         // 26.x
                 38 => 'Miaplacidus',     // 27.x
+                39 => 'Castor',          // 28.x
         ];
     }
 
