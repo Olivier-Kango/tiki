@@ -71,7 +71,7 @@ if ($mode == "view" && ! empty($app_id)) {
     if ($iot_apps[0]['app_active'] != 'y') {
         Feedback::warning(tr("You can't view the dashboard UI if the app is not activated; please activate it from the main IoT dashboard"));
     }
-    $iot_apps[0]['hardware_io'] = json_decode($iot_app[0]['state_object'], true);
+    $iot_apps[0]['hardware_io'] = json_decode($iot_apps[0]['state_object'], true);
     $iot_apps[0]['session_id'] = session_id();
     $smarty->assign("app", $iot_apps[0]);
     $smarty->assign('mid', 'tiki-iot_ui_dashboard.tpl');
