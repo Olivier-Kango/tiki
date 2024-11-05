@@ -2243,6 +2243,7 @@
         "psr/log": ">=1.0",
         "rambomst/php-bounce-handler": ">=1.6",
         "ramsey/uuid": ">=4.7",
+        "ratchet/pawl": "^0.4.1",
         "rangy/rangy": ">=1.2.3",
         "react/child-process": ">=0.6.4",
         "rector/rector": ">=0.16.0",
