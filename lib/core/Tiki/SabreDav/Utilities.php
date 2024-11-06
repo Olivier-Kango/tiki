@@ -212,7 +212,7 @@ class Utilities
         'rec'            => $rec,
         ];
 
-        $convertToString = function($component_prop) {
+        $convertToString = function ($component_prop) {
             if (is_null($component_prop)) {
                 return $component_prop;
             } else {
