@@ -28,14 +28,43 @@ class Hm_Handler_check_calendar_invitations_imap extends Hm_Handler_Module
             get_calendar_part_imap($this->get('msg_struct'), $this);
         }
         if ($this->get('calendar_event_raw')) {
-            $data = Tiki\SabreDav\Utilities::getDenormalizedData($this->get('calendar_event_raw'));
-            $this->out('calendar_event', $data);
+            $event = Tiki\SabreDav\Utilities::getDenormalizedData($this->get('calendar_event_raw'));
+            $this->out('calendar_event', $event);
+        } else {
+            $event = null;
         }
+        // get recipient from TO header
         $recipient = null;
         $headers = $this->get('msg_headers', []);
         foreach ($headers as $name => $value) {
             if (strtolower($name) == 'to') {
                 $recipient = (string)$value;
+            }
+        }
+        if (! empty($event['participants'])) {
+            // try to find the recipient in the participants' list
+            $found = false;
+            foreach ($event['participants'] as $participant) {
+                if ($participant['email'] == $recipient) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (! $found) {
+                // might be an email sent to multiple people, try to match by imap mailbox email
+                list($success, $form) = $this->process_form(['imap_server_id']);
+                if ($success) {
+                    $imap_details = Hm_IMAP_List::dump($form['imap_server_id']);
+                    if (! empty($imap_details['user'])) {
+                        foreach ($event['participants'] as $participant) {
+                            if ($participant['email'] == $imap_details['user']) {
+                                $found = true;
+                                $recipient = $imap_details['user'];
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
         $this->out('recipient', $recipient);
@@ -247,6 +276,50 @@ class Hm_Handler_add_to_calendar extends Hm_Handler_Module
 }
 
 /**
+ * Update an event in Tiki calendar
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_update_in_calendar extends Hm_Handler_Module
+{
+    public function process()
+    {
+        global $prefs, $user;
+
+        if ($prefs['feature_calendar'] !== 'y') {
+            return;
+        }
+
+        $data = $this->get('calendar_event');
+        $existing = TikiLib::lib('calendar')->find_by_uid(null, $data['uid']);
+
+        if (! $existing) {
+            Hm_Msgs::add("ERRExisting event could not be found in your calendar");
+            return;
+        }
+
+        $perms = Perms::get('event', $existing['calitemId']);
+        if (! $perms->change_events) {
+            Hm_Msgs::add("ERRInsufficient permissions to update the event in the calendar");
+            return;
+        }
+
+        $client = new \Tiki\SabreDav\CaldavClient();
+        if ($data['rec']) {
+            $rec = $data['rec'];
+            $rec->setId($existing['recurrenceId']);
+            $rec->setCalendarId($existing['calendarId']);
+            $client->saveRecurringCalendarObject($rec);
+        } else {
+            $data['calitemId'] = $existing['calitemId'];
+            $data['calendarId'] = $existing['calendarId'];
+            $client->saveCalendarObject($data);
+        }
+
+        Hm_Msgs::add("Event updated");
+    }
+}
+
+/**
  * Update participant status for a Tiki calendar event
  * @subpackage tiki/handler
  */
@@ -339,6 +412,29 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                         tr('Add to calendar'),
                         implode('', $options)
                     );
+                } else {
+                    $existing = TikiLib::lib('calendar')->get_item($existing['calitemId']);
+                    foreach (['start', 'end', 'name', 'description', 'participants'] as $field) {
+                        $val1 = $existing[$field];
+                        $val2 = $event[$field];
+                        if ($field == 'participants') {
+                            $val1 = array_map(function($p) {
+                                return $p['email'];
+                            }, $val1);
+                            sort($val1);
+                            $val2 = array_map(function($p) {
+                                return $p['email'];
+                            }, $val2);
+                            sort($val2);
+                        }
+                        if ($val1 != $val2) {
+                            $res .= sprintf(
+                                '<tr class="header_event_addtocal"><th>&nbsp;</th><td class="header_links"><a href="#" class="event_calendar_update">%s</a></td></tr>',
+                                tr('Update in my calendar')
+                            );
+                            break;
+                        }
+                    }
                 }
             }
             if ($method == 'REQUEST') {

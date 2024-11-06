@@ -85,6 +85,13 @@ add_handler('ajax_add_to_calendar', 'load_imap_servers_from_config', true, 'imap
 add_handler('ajax_add_to_calendar', 'imap_message_content', true, 'imap', 'load_imap_servers_from_config', 'after');
 add_handler('ajax_add_to_calendar', 'add_to_calendar', true, 'tiki', 'imap_message_content', 'after');
 
+/* message page update in calendar function */
+setup_base_ajax_page('ajax_update_in_calendar', 'core');
+add_handler('ajax_update_in_calendar', 'check_calendar_invitations_imap', true, 'imap', 'imap_message_content', 'after');
+add_handler('ajax_update_in_calendar', 'load_imap_servers_from_config', true, 'imap');
+add_handler('ajax_update_in_calendar', 'imap_message_content', true, 'imap', 'load_imap_servers_from_config', 'after');
+add_handler('ajax_update_in_calendar', 'update_in_calendar', true, 'tiki', 'imap_message_content', 'after');
+
 /* message page update participant status function */
 setup_base_ajax_page('ajax_update_participant_status', 'core');
 add_handler('ajax_update_participant_status', 'check_calendar_invitations_imap', true, 'imap', 'imap_message_content', 'after');
@@ -220,6 +227,7 @@ return [
     'ajax_put_back_groupmail',
     'ajax_rsvp_action',
     'ajax_add_to_calendar',
+    'ajax_update_in_calendar',
     'ajax_update_participant_status',
     'ajax_remove_from_calendar',
     'ajax_move_to_tracker',
