@@ -221,7 +221,10 @@ function get_default_prefs()
             'error_tracking_dsn' => '',
 
             // Use Tiki-based temp dir by default
-            'tmpDir' => rtrim($tikipath, '/') . '/temp'
+            'tmpDir' => rtrim($tikipath, '/') . '/temp',
+
+            // Scheduler Task Default Version
+            'scheduler_default_task_version' => 0,
         ]
     );
 

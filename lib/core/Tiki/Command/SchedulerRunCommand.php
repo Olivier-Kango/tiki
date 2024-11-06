@@ -6,14 +6,15 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Psr\Log\LogLevel;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
-use Psr\Log\LogLevel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Tiki\TikiInit;
+use Tiki\Lib\core\Scheduler\DefaultSchedulers;
 
 #[AsCommand(
     name: 'scheduler:run',
@@ -40,6 +41,9 @@ class SchedulerRunCommand extends Command
             $output->writeln("<error>Scheduler feature is not enabled.</error>");
             exit(1);
         }
+
+        $defaultSchedulers = new DefaultSchedulers();
+        $defaultSchedulers->checkAndUpdate();
 
         $verbosityLevelMap = [
             LogLevel::ERROR => OutputInterface::OUTPUT_NORMAL,

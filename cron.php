@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Lib\core\Scheduler\DefaultSchedulers;
+
 @ignore_user_abort(true); // Allow execution to continue even if the request gets canceled.
 
 try {
@@ -32,6 +34,9 @@ $cron_token = $tikilib->get_preference('webcron_token');
 if (! isset($_REQUEST['token']) || $_REQUEST['token'] !== $cron_token) {
     return;
 }
+
+$defaultSchedulers = new DefaultSchedulers();
+$defaultSchedulers->checkAndUpdate();
 
 $asUser = 'admin';
 

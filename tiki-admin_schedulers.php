@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Lib\core\Scheduler\DefaultSchedulers;
+
 $inputConfiguration = [
     [
         'staticKeyFilters'               => [
@@ -25,6 +27,10 @@ $inputConfiguration = [
     ],
 ];
 require_once('tiki-setup.php');
+
+$defaultSchedulers = new DefaultSchedulers();
+$defaultSchedulers->checkAndUpdate();
+
 function saveScheduler()
 {
     $schedLib = TikiLib::lib('scheduler');
