@@ -99,6 +99,8 @@
     --tiki-admin-top-nav-color: #{$navbar-light-color};
     --tiki-admin-top-nav-hover-color: #{$navbar-light-hover-color};
     --tiki-admin-top-nav-link-hover-bg: none ;
+    --tiki-admin-top-border: solid #1a1a1a;
+    --tiki-admin-top-border-width: 0 0 0.75rem 0;
     --tiki-admin-aside-nav-bg: #{$body-bg};
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);

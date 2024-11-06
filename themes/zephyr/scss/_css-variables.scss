@@ -65,8 +65,8 @@
 
 // Color mode preference trumps L&F admin dark navbar option
 [data-bs-theme=light] {                              // color mode
-    .tiki-top-nav-dark {                           // dark top selector
-        @include top-nav-light;                      // light values
+    body:not(.tiki-admin) .tiki-top-nav-dark {                           // dark top selector
+        @include top-nav-dark;                      // dark values
     }
     .tiki-topbar-nav-dark {
         @include topbar-nav-light;
