@@ -180,8 +180,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\Ternary(), 'handle'];
             case 'tiki_date_format':
                 return [new \SmartyTiki\Modifier\TikiDateFormat(), 'handle'];
-            case 'tiki_date_timezone_from_utc':
-                return [new \SmartyTiki\Modifier\TikiDateTimezoneFromUtc(), 'handle'];
+            case 'tiki_date_timezone_from_unix':
+                return [new \SmartyTiki\Modifier\TikiDateTimezoneFromUnix(), 'handle'];
             case 'strtotime':
                 return [$this, 'smartyModifierStrtotime'];
             case 'tiki_long_date':

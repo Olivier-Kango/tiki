@@ -11,28 +11,30 @@ namespace SmartyTiki\Modifier;
  * Smarty plugin
  * -------------------------------------------------------------
  * Type:     modifier
- * Name:     tiki_date_timezone_from_utc
- * Purpose:  Format a UTC timestamp by applying a specific timezone.
- * Input:    string: UTC timestamp (seconds since Unix epoch)
+ * Name:     tiki_date_timezone_from_unix
+ * Purpose:  Format a UNIX timestamp by applying a specific timezone.
+ * Input:    timestamp: UNIX timestamp (seconds since Unix epoch)
  *           format: DateTime::format() string for output
  *           tz: optional timezone to apply. If not specified, uses server's default timezone.
  * -------------------------------------------------------------
  */
-class TikiDateTimezoneFromUtc
+class TikiDateTimezoneFromUnix
 {
-    public function handle($string, $format, $tz = null)
+    public function handle($timestamp, $format, $tz = null)
     {
         global $prefs;
 
-        $this->validateTimestamp($string);
+        $this->validateTimestamp($timestamp);
 
         $timezone = $this->getValidTimezone($tz ?: $prefs['server_timezone']);
 
-        $datetime = new \DateTime("@$string", new \DateTimeZone('UTC'));
+        $dateTime = new \DateTime();
 
-        $datetime->setTimezone($timezone);
+        $dateTime->setTimezone($timezone);
 
-        return $datetime->format($format);
+        $dateTime->setTimestamp($timestamp);
+
+        return $dateTime->format($format);
     }
 
     private function getValidTimezone($tz)
