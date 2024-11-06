@@ -418,11 +418,11 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                         $val1 = $existing[$field];
                         $val2 = $event[$field];
                         if ($field == 'participants') {
-                            $val1 = array_map(function($p) {
+                            $val1 = array_map(function ($p) {
                                 return $p['email'];
                             }, $val1);
                             sort($val1);
-                            $val2 = array_map(function($p) {
+                            $val2 = array_map(function ($p) {
                                 return $p['email'];
                             }, $val2);
                             sort($val2);
