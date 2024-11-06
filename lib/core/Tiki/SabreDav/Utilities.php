@@ -212,6 +212,14 @@ class Utilities
         'rec'            => $rec,
         ];
 
+        $convertToString = function($component_prop) {
+            if (is_null($component_prop)) {
+                return $component_prop;
+            } else {
+                return (string) $component_prop;
+            }
+        };
+
         if (isset($component->{'RECURRENCE-ID'})) {
             $result['recurrenceStart'] = $component->{'RECURRENCE-ID'}->getDateTime()->getTimeStamp();
         }
@@ -226,26 +234,26 @@ class Utilities
             $result['lastmodif'] = $component->{'LAST-MODIFIED'}->getDateTime()->getTimeStamp();
         }
         if (isset($component->SUMMARY)) {
-            $result['name'] = $component->SUMMARY;
+            $result['name'] = $convertToString($component->SUMMARY);
         }
         if (isset($component->DESCRIPTION)) {
-            $result['description'] = $component->DESCRIPTION;
+            $result['description'] = $convertToString($component->DESCRIPTION);
         }
         if (isset($component->LOCATION)) {
-            $result['newloc'] = $component->LOCATION;
+            $result['newloc'] = $convertToString($component->LOCATION);
         }
         if (isset($component->CATEGORIES)) {
-            $cats = explode(',', $component->CATEGORIES);
+            $cats = explode(',', $convertToString($component->CATEGORIES));
             $result['newcat'] = $cats[0];
         }
         if (isset($component->PRIORITY)) {
-            $result['priority'] = $component->PRIORITY;
+            $result['priority'] = $convertToString($component->PRIORITY);
         }
         if (isset($component->STATUS)) {
-            $result['status'] = self::reverseMapEventStatus($component->STATUS);
+            $result['status'] = self::reverseMapEventStatus($convertToString($component->STATUS));
         }
         if (isset($component->URL)) {
-            $result['url'] = $component->URL;
+            $result['url'] = $convertToString($component->URL);
         }
         if (isset($component->ORGANIZER)) {
             $result['organizers'] = [];
