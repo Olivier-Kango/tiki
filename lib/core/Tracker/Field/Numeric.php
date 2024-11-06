@@ -106,23 +106,32 @@ class Tracker_Field_Numeric extends \Tracker\Field\AbstractItemField implements 
         $decimals = $this->getOption('decimals');
         $dec_point = $this->getOption('dec_point');
         $thousands = $this->getOption('thousands');
+        $prepend = $this->getOption('prepend');
+        $append = $this->getOption('append');
         if (! is_numeric($this->getValue())) {
             return $this->getValue();
         }
+        $formattedValue = $this->getValue();
         if (empty($decimals) && empty($dec_point)) {
-            if (empty($thousands)) {
-                return $this->getValue();
-            } else {
-                return number_format($this->getValue());
+            if (! empty($thousands)) {
+                $formattedValue = number_format($this->getValue());
             }
         } else {
-            return number_format($this->getValue(), $decimals, $dec_point, $thousands);
+            $formattedValue = number_format($this->getValue(), $decimals, $dec_point, $thousands);
         }
+        if (! empty($prepend) || ! empty($append)) {
+            $formattedValue = $prepend . $formattedValue . $append;
+        }
+        return $formattedValue;
     }
 
     public function renderOutput($context = [])
     {
-        return $this->renderTemplate('trackeroutput/numeric.tpl', $context);
+        if (isset($context['history']) && $context['history'] == 'y' && is_array($this->getConfiguration('value'))) {
+            return $this->renderTemplate('trackeroutput/numeric.tpl', $context);
+        } else {
+            return parent::renderOutput($context);
+        }
     }
 
     public function renderInput($context = [])
