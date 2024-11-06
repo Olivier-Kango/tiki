@@ -630,7 +630,7 @@
                     {tr}Source URL{/tr}
                 </label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="subscription[source]" id="source" value="{$subscription.source|escape}" required>
+                    <input type="url" class="form-control" name="subscription[source]" id="source" value="{$subscription.source|escape}" required>
                     <span class="form-text">
                         {tr _0="<a href='tiki-admin_dsn.php'>" _1="</a>"}This can be an address of a CalDAV server or export of .ics calendar URL. If the URL needs authentication, specify it in %0Admin->Content Authentication%1.{/tr}
                     </span>
@@ -641,7 +641,7 @@
                     {tr}Refresh rate{/tr}
                 </label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="subscription[refresh_rate]" id="refreshRate" value="{$subscription.refresh_rate|escape}">
+                    <input type="text" class="form-control" maxlength="10" name="subscription[refresh_rate]" id="refreshRate" value="{$subscription.refresh_rate|escape}">
                     <span class="form-text">
                         {tr}How often will the calendar contents get refreshed. Example format: P1W once a week or P1H every hour{/tr}
                     </span>
@@ -652,7 +652,7 @@
                     {tr}Order{/tr}
                 </label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="subscription[order]" id="order" value="{$subscription.order|escape}">
+                    <input type="number" class="form-control" name="subscription[order]" id="order" value="{$subscription.order|escape}">
                 </div>
             </div>
             <div class="mb-3 row">
@@ -660,7 +660,10 @@
                     {tr}Color{/tr}
                 </label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="subscription[color]" id="color" value="{$subscription.color|escape}">
+                    <input type="text" class="form-control" maxlength="10" name="subscription[color]" id="color" value="{$subscription.color|escape}">
+                    <span class="form-text">
+                        {tr}Enter an hexadecimal color (Example: #99fa99, #008400){/tr}
+                    </span>
                 </div>
             </div>
             <div class="mb-3 row">
