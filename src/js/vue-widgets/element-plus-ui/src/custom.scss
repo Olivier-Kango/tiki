@@ -1,8 +1,11 @@
 @use 'element-plus/dist/index.css';
 
 :host {
+    --el-border-color: var(--bs-border-color); // added by g_c-l
     --el-color-primary: var(--bs-primary);
+//    --el-border-width: var(--bs-border-width); Not working
     --el-border-radius-base: var(--bs-border-radius);
+    --el-menu-border-color: var(--el-border-color);
 }
 
 .el-button {
@@ -52,4 +55,21 @@
 
 .invalid .el-select__wrapper {
     --el-border-color: var(--bs-danger);
+}
+
+.el-select__wrapper.is-filterable,
+.el-select-dropdown,
+.el-select {
+    font-size: 16px !important;
+    color: var(--bs-body-color) !important;
+    background-color: var(--bs-body-bg) !important;
+    border-color: var(--bs-body-color) !important;
+//    border-width: 4px; // var(--bs-border-width) !important; Not working
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.el-popper.is-pure.is-light { //.el-select__popper .el-select-dropdown {
+    font-size: 16px !important;
+    color: var(--bs-body-color) !important;
+    background-color: var(--bs-body-bg) !important;
 }
