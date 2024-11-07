@@ -2505,6 +2505,9 @@
         "lib\/core\/Services\/Exception\/Disabled.php": {
             "class:Services_Exception_Disabled": true
         },
+        "lib\/core\/Services\/Exception\/Enabled.php": {
+            "class:Services_Exception_Enabled": true
+        },
         "lib\/core\/Services\/Exception\/BadRequest.php": {
             "class:ServicesExceptionBadRequest": true
         },
@@ -5618,6 +5621,9 @@
         },
         "lib\/core\/Services\/Exception\/Disabled.php": {
             "Services_Exception_Disabled": true
+        },
+        "lib\/core\/Services\/Exception\/Enabled.php": {
+            "Services_Exception_Enabled": true
         },
         "lib\/core\/Services\/Exception\/NotAvailable.php": {
             "Services_Exception_NotAvailable": true
