@@ -77,7 +77,12 @@ describe("applySelect helper functions", () => {
 
             await window.happyDOM.waitUntilComplete();
 
-            expect($(givenSelect).val()).toEqual(value);
+            const actualValue = [];
+            for (let i = 0; i < givenSelect.selectedOptions.length; i++) {
+                actualValue.push(givenSelect.selectedOptions[i].value);
+            }
+
+            expect(isMultiple ? actualValue : givenSelect.value).toEqual(value);
         }
     );
 
@@ -104,7 +109,11 @@ describe("applySelect helper functions", () => {
 
         await window.happyDOM.waitUntilComplete();
 
-        expect($(givenSelect).val()).toEqual(["foo", "bar", "baz"]);
+        const actualValue = [];
+        for (let i = 0; i < givenSelect.selectedOptions.length; i++) {
+            actualValue.push(givenSelect.selectedOptions[i].value);
+        }
+        expect(actualValue).toEqual(["foo", "bar", "baz"]);
         expect($(givenSelect).find("option[value='baz']")).toHaveLength(1);
     });
 });

@@ -143,12 +143,13 @@ describe("Transfer", () => {
         );
     });
 
-    test("should keep hidden select in sync with el-transfer", async () => {
+    test("should keep hidden select in sync with el-transfer and call the given emitValueChange prop when the value changes", async () => {
+        props.emitValueChange = vi.fn();
         ElTransfer = {
             props: ["data", "filterable", "filter-placeholder", "titles"],
             emits: ["update:modelValue"],
             setup(props, { emit }) {
-                const handleClick = () => emit("update:modelValue", ["c"]);
+                const handleClick = () => emit("change", ["c"]);
                 return () => h("div", {}, h("button", { onClick: handleClick }, "Transfer Item"));
             },
         };
@@ -163,6 +164,7 @@ describe("Transfer", () => {
         // check hidden select's value
         expect(selectElement.options).toHaveLength(1);
         expect(selectElement.options[0].value).to.equal("c");
+        expect(props.emitValueChange).toHaveBeenCalledWith(expect.objectContaining({ value: ["c"] }));
     });
 });
 

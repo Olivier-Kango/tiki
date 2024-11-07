@@ -6,7 +6,7 @@ export default function applySelect() {
             if ($(mutation.target).find("select:not([element-plus-ref])").length) {
                 const selects = $(mutation.target).find("select:not([element-plus-ref])");
                 selects.each(function () {
-                    const elementUniqueId = Math.random().toString(36).substring(7);
+                    const elementUniqueId = "el-" + Math.random().toString(36).substring(7);
                     const elementPlusUi = $("<element-plus-ui></element-plus-ui>");
                     elementPlusUi.attr("component", "Select");
                     elementPlusUi.attr("placeholder", $(this).attr("placeholder"));

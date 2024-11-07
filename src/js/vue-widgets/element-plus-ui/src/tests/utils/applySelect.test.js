@@ -47,14 +47,13 @@ describe("applySelect", () => {
         await window.happyDOM.waitUntilComplete();
 
         givenSelects.forEach((select, index) => {
-            const elementPlusUi = select.nextElementSibling;
+            const elementPlusUi = document.querySelector(`#${select.getAttribute("element-plus-ref")}`);
             expect(elementPlusUi).toBeTruthy();
             expect(elementPlusUi.tagName).toBe("ELEMENT-PLUS-UI");
             expect(elementPlusUi.getAttribute("component")).toBe("Select");
             expect(elementPlusUi.getAttribute("placeholder")).toBe(select.getAttribute("placeholder"));
             expect(elementPlusUi.getAttribute("multiple")).toBe(select.multiple ? "multiple" : null);
             expect(elementPlusUi.getAttribute("max")).toBe(select.getAttribute("data-max"));
-            expect(select.getAttribute("element-plus-ref")).toBe(elementPlusUi.id);
 
             expect(select.style.display).toBe("none");
 
