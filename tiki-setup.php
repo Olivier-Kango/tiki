@@ -119,6 +119,23 @@ if (isset($_SERVER['REQUEST_URI'])) {
     $requestUri = "";
 }
 
+//The value returned allows to check if the user has already enabled 2FA
+$twoFactorSecret = $userlib->get_2_factor_secret($user);
+//Check if user is forced to enable 2FA
+$force2FA = $userlib->forceTwoFactorAuth($user);
+//Check if 2FA is required for a user and if it not yet enabled
+if ($prefs['twoFactorAuth'] == 'y' && empty($twoFactorSecret) && $force2FA && ! empty($user)) {
+    $accesslib = TikiLib::lib('access');
+    //URL to send user who has not yet enabled 2FA
+    $accessibleUrl = $base_url . 'tiki-user_preferences.php';
+    $pageUrl = $url_scheme . "://" . $host . $requestUri;
+    //Do not redirect the user if it is a logout action
+    if ($accessibleUrl !== $pageUrl && $pageUrl !== $base_url . 'tiki-logout.php') {
+        header('location: tiki-user_preferences.php');
+        exit();
+    }
+}
+
 if ($prefs['tiki_domain_prefix'] == 'strip' && substr($host, 0, 4) == 'www.') {
     $domain_map[$host] = substr($host, 4);
 } elseif ($prefs['tiki_domain_prefix'] == 'force' && substr($host, 0, 4) != 'www.') {

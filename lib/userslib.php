@@ -7511,6 +7511,62 @@ class UsersLib extends TikiLib
         return $result;
     }
 
+    public function forceTwoFactorAuth($user): bool
+    {
+        global $prefs;
+        $force = false;
+
+        //Do not force user (admin) to enable 2FA
+        if ($user == 'admin') {
+            return false;
+        }
+        //Force all users to enable 2FA
+        if ($prefs['twoFactorAuthAllUsers'] == 'y') {
+            $force = true;
+        }
+        //Force users in the specific groups to enable 2FA
+        if (! empty($prefs['twoFactorAuthIncludedGroup'])) {
+            //get list of group names
+            $groups = $prefs['twoFactorAuthIncludedGroup'];
+            foreach ($groups as $groupName) {
+                $userIsInGroup = $this->user_is_in_group($user, $groupName);
+                if ($userIsInGroup) {
+                    $force = true;
+                    break;
+                }
+            }
+        }
+        //Force specific users to enable 2FA
+        if (! empty($prefs['twoFactorAuthIncludedUsers'])) {
+            //get list of usernames
+            $users = $prefs['twoFactorAuthIncludedUsers'];
+            if (in_array($user, $users)) {
+                $force = true;
+            }
+        }
+        //Do not force users in the specific groups to enable 2FA
+        if (! empty($prefs['twoFactorAuthExcludedGroup'])) {
+            //get list of group names
+            $groups = $prefs['twoFactorAuthExcludedGroup'];
+            foreach ($groups as $groupName) {
+                $userIsInGroup = $this->user_is_in_group($user, $groupName);
+                if ($userIsInGroup) {
+                    $force = false;
+                    break;
+                }
+            }
+        }
+        //Do not force specific users to enable 2FA
+        if (! empty($prefs['twoFactorAuthExcludedUsers'])) {
+            //get list of usernames
+            $users = $prefs['twoFactorAuthExcludedUsers'];
+            if (in_array($user, $users)) {
+                $force = false;
+            }
+        }
+        return $force;
+    }
+
     public function change_user_password($user, $pass, $pass_first_login = false)
     {
 
