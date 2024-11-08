@@ -9,3 +9,8 @@ $("a:not(.inline-cypht a)").each(function () {
         }
     });
 });
+
+$(document).on("click", ".inline-cypht .menu_contacts a", function (e) {
+    e.preventDefault();
+    window.location.href = "tiki-contacts.php";
+});

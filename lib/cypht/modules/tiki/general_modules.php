@@ -96,9 +96,9 @@ class Hm_Output_tiki_contacts_page_link extends Hm_Output_Module
     public $format;
     protected function output()
     {
-        $res = '<li class="menu_contacts"><a class="unread_link" href="tiki-contacts.php">';
+        $res = '<li class="menu_contacts"><a class="unread_link" href="#">';
         if (! $this->get('hide_folder_icons')) {
-            $res .= '<i class="bi bi-people-fill fs-5 me-2"></i>';
+            $res .= '<i class="bi bi-people-fill menu-icon"></i>';
         }
         $res .= $this->trans('Contacts') . '</a></li>';
         if ($this->format == 'HTML5') {
