@@ -142,7 +142,6 @@ class CleanVendors
                 'jquery-ui-timepicker-addon.min.js'
             ]
         );
-        self::remove($vendors . 'jquery/minicart', 'src');
         self::remove(
             $vendors . 'jquery-plugins/anythingslider',
             [
