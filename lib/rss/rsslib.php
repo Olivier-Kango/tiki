@@ -672,7 +672,7 @@ class RSSLib extends TikiDb_Bridge
         foreach ($feeds as $feed) {
             if (isset($feed['categories'])) {
                 foreach (json_decode($feed['categories']) as $sourcecat) {
-                     $categories[$sourcecat] = [];
+                    $categories[$sourcecat] = [];
                 }
             }
         }
@@ -737,13 +737,20 @@ class RSSLib extends TikiDb_Bridge
             ]
         );
 
-        $actions = json_decode($actions, true);
+        if (is_string($actions) && ! empty($actions)) {
+            $actions = json_decode($actions, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new InvalidArgumentException('Invalid JSON string in actions: ' . json_last_error_msg());
+            }
+        } else {
+            $actions = [];
+        }
 
         //currently handles creation of articles through process_action_article()
+        $actionCount = 0;
         if (! empty($actions)) {
             $pagecontentlib = TikiLib::lib('pagecontent');
             $data = $pagecontentlib->augmentInformation($data);
-            $actionCount = 0;
             foreach ($actions as $action) {
                 $method = 'process_action_' . $action['type'];
                 unset($action['type']);
