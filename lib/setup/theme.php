@@ -100,8 +100,9 @@ if (! empty($prefs['header_custom_scss'])) {
 }
 
 //6) include UAB admin CSS and layout in case we are on an admin or management page (when script file name contains the string)
+$groups = $userlib->get_user_groups($user);
 if (
-    $prefs['theme_unified_admin_backend'] === 'y' && $group === 'Admins'
+    $prefs['theme_unified_admin_backend'] === 'y' && in_array('Admins', $groups)
     && (strpos($_SERVER['PHP_SELF'], 'admin')
     || strpos($_SERVER['PHP_SELF'], 'cache')
     || strpos($_SERVER['PHP_SELF'], 'import')
