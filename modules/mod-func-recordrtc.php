@@ -71,6 +71,7 @@ function module_recordrtc($mod_reference, &$module_params)    // modifies $smod_
     }
 
     include_once('lib/setup/absolute_urls.php');
+    global $https_mode;
     $https = $https_mode ? true : false;
 
     if (! $https) {
