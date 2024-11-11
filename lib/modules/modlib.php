@@ -265,10 +265,13 @@ class ModLib extends TikiLib
             $section_initial = $section_map[$zone];
             foreach ($contents as $index => $moduleId) {
                 if ($moduleId) {
+                    $module = $all_modules[$zone][$index] ?? null;
                     if (
-                        $all_modules[$zone][$index]['moduleId'] != $moduleId
-                        || ($all_modules[$zone][$index]['ord'] != $index + 1
-                        || $all_modules[$zone][$index]['position'] != $section_initial)
+                        $module && (
+                            $module['moduleId'] != $moduleId ||
+                            $module['ord'] != $index + 1 ||
+                            $module['position'] != $section_initial
+                        )
                     ) {
                         $bindvars = [
                             $index + 1,
