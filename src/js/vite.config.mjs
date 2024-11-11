@@ -365,6 +365,14 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/converse.js/dist",
                     },
                     {
+                        src: "node_modules/recordrtc/RecordRTC.js",
+                        dest: "vendor_dist/recordrtc",
+                    },
+                    {
+                        src : "node_modules/interactjs/dist/*",
+                        dest : "vendor_dist/interactjs/dist",
+                    },
+                    {
                         src: "node_modules/dompurify/dist/purify.(es|min)*",
                         dest: "vendor_dist/dompurify/dist",
                     },

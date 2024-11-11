@@ -182,6 +182,9 @@ PhpReadability:
     - "Fetch page content"
   requiredVersion: ^2.0.3
 RecordRTC:
+  state: deprecated
+  actions:
+    - remove
   licence: MIT
   licenceUrl: "https://github.com/muaz-khan/recordrtc/blob/master/LICENSE"
   name: npm-asset/recordrtc
