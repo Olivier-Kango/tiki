@@ -453,6 +453,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/moment/dist",
                     },
                     {
+                        src: "node_modules/nestedSortable/jquery.mjs.nestedSortable.js",
+                        dest: "vendor_dist/nestedSortable",
+                    },
+                    {
                         src: ["node_modules/pivottable/dist/pivot.css", "node_modules/pivottable/dist/*.min.js"],
                         dest: "vendor_dist/pivottable/dist",
                     },

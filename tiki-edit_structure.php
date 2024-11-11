@@ -399,7 +399,6 @@ include_once('tiki-section_options.php');
 
 if ($prefs['feature_jquery_ui'] === 'y') {
     $headerlib->add_js_module('import "@jquery-tiki/tiki-edit_structure";');
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/nestedsortable/jquery.ui.nestedSortable.js');
     $structlib = TikiLib::lib('struct');
 
     $structure_id = $structure_info['structure_id'];
