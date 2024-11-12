@@ -20,7 +20,6 @@ $inputConfiguration = [
             'offset'                         => 'digits',      //post
             'export'                         => 'bool',        //post
             'max'                            => 'digits',      //post
-            'v_' . $conf['code']             => 'striptags',   //post
             'actionId'                       => 'digits',      //post
             'contributions'                  => 'striptags',   //post
             'startDate'                      => 'digits',      //post
@@ -51,7 +50,6 @@ $inputConfiguration = [
             'action'                         => 'striptags'    //post
         ],
         'staticKeyFiltersForArrays' => [
-            $conf['code']           => 'bool',                //post
             'cat_categories'        => 'striptags',           //post
             'selectedUsers'         => 'username',            //post
             'selectedGroups'        => 'groupname',           //post
