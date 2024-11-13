@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b5cdab6962ee4fcafa5b7d306a1de95",
+    "content-hash": "acc00aea2ae86e9889f7f13cf3b115e1",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2279,13 +2279,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "1141475f56210595efacb01a6228e20bc141b005"
+                "reference": "495852ce2d2311bf62158e08d6943a1a7530344d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1141475f56210595efacb01a6228e20bc141b005-zip-8a3f09.zip",
-                "reference": "1141475f56210595efacb01a6228e20bc141b005",
-                "shasum": "a95bf9327231c0f59a57ff0414a0ff406a108cdc"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-495852ce2d2311bf62158e08d6943a1a7530344d-zip-014e6d.zip",
+                "reference": "495852ce2d2311bf62158e08d6943a1a7530344d",
+                "shasum": "e990ab7c102d07086d6ca2ee2ff1e3912685755a"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2352,7 +2352,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-11-12T13:01:16+00:00"
+            "time": "2024-11-13T09:12:25+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5670,58 +5670,6 @@
                 "xmpp"
             ],
             "time": "2023-11-14T21:43:57+00:00"
-        },
-        {
-            "name": "mottie/tablesorter",
-            "version": "v2.32.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Mottie/tablesorter.git",
-                "reference": "1423f5408982f58d5baa97648d2e5ee0b55fd3b6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/mottie/tablesorter/mottie-tablesorter-1423f5408982f58d5baa97648d2e5ee0b55fd3b6-zip-6b9a3c.zip",
-                "reference": "1423f5408982f58d5baa97648d2e5ee0b55fd3b6",
-                "shasum": "0f55d20e525e54345edc4e9803a01e71ee26e745"
-            },
-            "require": {
-                "components/jquery": ">=1.2.6"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "dist/js/jquery.tablesorter.combined.js"
-                    ],
-                    "files": "dist/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(MIT OR GPL-2.0)"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Bach"
-                },
-                {
-                    "name": "Rob Garrison",
-                    "email": "wowmotty@gmail.com",
-                    "homepage": "https://github.com/Mottie"
-                }
-            ],
-            "description": "tablesorter (FORK) is a jQuery plugin for turning a standard HTML table with THEAD and TBODY tags into a sortable table without page refreshes. tablesorter can successfully parse and sort many types of data including linked data in a cell.",
-            "homepage": "https://mottie.github.io/tablesorter/",
-            "keywords": [
-                "alphanumeric",
-                "jquery-plugin",
-                "natural",
-                "sort",
-                "sorting",
-                "table"
-            ],
-            "time": "2024-08-14T01:23:57+00:00"
         },
         {
             "name": "mrrio/jspdf",
@@ -15234,17 +15182,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.9",
+            "version": "1.12.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ceb937fb39a92deabc02d20709cf14b2c452502c"
+                "reference": "fc463b5d0fe906dcf19689be692c65c50406a071"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-ceb937fb39a92deabc02d20709cf14b2c452502c-zip-61cad4.zip",
-                "reference": "ceb937fb39a92deabc02d20709cf14b2c452502c",
-                "shasum": "e645cf772a285803685a9572476d664f547d8e21"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-fc463b5d0fe906dcf19689be692c65c50406a071-zip-fbdee0.zip",
+                "reference": "fc463b5d0fe906dcf19689be692c65c50406a071",
+                "shasum": "7870681d339b2691660f31151b6d7299be3c1365"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15281,7 +15229,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-10T17:10:04+00:00"
+            "time": "2024-11-11T15:37:09+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -16671,17 +16619,17 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.10.3",
+            "version": "3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c"
+                "reference": "70c08f8d20c0eb4fe56f26644dd94dae76a7f450"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-62d32998e820bddc40f99f8251958aed187a5c9c-zip-101dd1.zip",
-                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c",
-                "shasum": "aa053fa2087ae8d5c3f21410d0b15981a26c5600"
+                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-70c08f8d20c0eb4fe56f26644dd94dae76a7f450-zip-7de51f.zip",
+                "reference": "70c08f8d20c0eb4fe56f26644dd94dae76a7f450",
+                "shasum": "b486b1d4ad8d9502539b6a619ce416498f276569"
             },
             "require": {
                 "ext-simplexml": "*",
@@ -16741,7 +16689,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-09-18T10:38:58+00:00"
+            "time": "2024-11-12T09:53:29+00:00"
         },
         {
             "name": "stevegrunwell/phpunit-markup-assertions",
@@ -17303,9 +17251,9 @@
         "candy-chat/xmpp-prebind-php": 20,
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
+        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15,
-        "rubix/extras": 10
+        "phpcsstandards/phpcsutils": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17322,7 +17270,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",

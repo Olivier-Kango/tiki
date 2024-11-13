@@ -521,6 +521,18 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/svg-pan-zoom/dist",
                     },
                     {
+                        src: "node_modules/tablesorter/dist/js/jquery.tablesorter.combined.js",
+                        dest: "vendor_dist/tablesorter/dist/js",
+                    },
+                    {
+                        src: "node_modules/tablesorter/dist/js/parsers/parser-input-select.min.js",
+                        dest: "vendor_dist/tablesorter/dist/js/parsers",
+                    },
+                    {
+                        src: ["node_modules/tablesorter/dist/js/widgets/widget-columnSelector.min.js", "node_modules/tablesorter/dist/js/widgets/widget-filter-formatter-jui.min.js", "node_modules/tablesorter/dist/js/widgets/widget-grouping.min.js", "node_modules/tablesorter/dist/js/widgets/widget-math.min.js", "node_modules/tablesorter/dist/js/widgets/widget-pager.min.js", "node_modules/tablesorter/dist/js/widgets/widget-output.min.js", "node_modules/tablesorter/dist/js/widgets/widget-sort2Hash.min.js"],
+                        dest: "vendor_dist/tablesorter/dist/js/widgets",
+                    },
+                    {
                         src: "node_modules/vue/dist/vue.esm-browser.prod.js",
                         dest: "vendor_dist/vue/dist",
                     }
