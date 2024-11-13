@@ -160,7 +160,7 @@
         {$gname = ""}
     {/if}
 
-    {tab name="{$tabaddeditgroup_admgrp} {$gname}"}
+    {tab name="<span class='d-block'>{$tabaddeditgroup_admgrp}</span>{$gname}"}
     {* ----------------------- tab with form --------------------------------------- *}
         {if !$ts.ajax}
             {if !empty($user) and $prefs.feature_user_watches eq 'y' && !empty($groupname)}
@@ -561,7 +561,7 @@
     {assign var=tabgroup_memberstabgroup value="{tr}Members{/tr}"}
     {$gname = "{$groupname|escape}"}
 
-    {tab name="{$tabgroup_memberstabgroup} {$gname}"}
+    {tab name="<span class='d-block'><span class='badge bg-secondary'>{$membersCount}</span>{$tabgroup_memberstabgroup}</span>{$gname}"}
     {* ----------------------- tab with memberlist --------------------------------------- *}
         <div class="mb-3 row">
             {if $membersCount > 0}
@@ -656,8 +656,8 @@
                     <form id="addorban" method="post" action="tiki-admingroups.php">
                         <h2>{tr}{if $tiki_p_admin eq 'y'}Add or ban users{elseif $tiki_p_group_add_member eq 'y'}Add users{/if}{/tr}</h2>
                         {if $tiki_p_group_add_member eq 'y'}
-                            <div>
-                                <select name="user[]" multiple="multiple" size="10" class="{*custom-select*} form-select">
+                            <div class="form-group">
+                                <select name="user[]" multiple="multiple" size="10" class="{*custom-select*} form-select"  style="width: 100%; display: block;">
                                     {foreach from=$userslist item=iuser}
                                         <option>{$iuser|escape}</option>
                                     {/foreach}
@@ -670,7 +670,7 @@
                                     type="submit"
                                     class="btn btn-link tips"
                                     form="addorban"
-                                    formaction="{service controller=group action=add_user}"
+                                    formaction="{service controller=group action=add_user anchor='#contenttabs_admingroups-3'}"
                                     title=":{tr}Add to group{/tr}"
                                     onclick="confirmPopup(event, true)"
                                 >
@@ -682,7 +682,7 @@
                                     type="submit"
                                     class="btn btn-link tips"
                                     form="addorban"
-                                    formaction="{service controller=group action=ban_user}"
+                                    formaction="{service controller=group action=ban_user anchor='#contenttabs_admingroups-4'}"
                                     title=":{tr}Ban from group{/tr}"
                                     onclick="confirmPopup(event, true)"
                                 >
@@ -697,11 +697,15 @@
         {/tab}
 
     {if $tiki_p_admin eq 'y'}
-        {assign var=tabgroup_bannedtabgroup value="{tr}Users banned from{/tr}"}
-        {$gname = "{$groupname|escape}"}
+        {assign var="tabgroup_bannedtabgroup" value="{tr}Users banned from{/tr}"}
+        {assign var="gname" value="{$groupname|escape}"}
 
-        {tab name="{$tabgroup_bannedtabgroup} {$gname}"}
-                {* ----------------------- tab with users banned from group --------------------------------------- *}
+        {assign var="tabgroup_bannedtabgroup" value="{tr}Users banned from{/tr}"}
+        {assign var="gname" value="{$groupname|escape}"}
+
+        {tab name="<span class='d-block'><span class='badge bg-secondary'>{$bannedCount} </span>{$tabgroup_bannedtabgroup}</span>{$gname}"}
+
+            {* ----------------------- tab with users banned from group --------------------------------------- *}
                 <h2>{tr}Banned members{/tr} <span class="badge bg-secondary">{$bannedCount}</span></h2>
                 {if $bannedlist|count > 0}
                     <div class="{if $js}table-responsive {/if}ts-wrapperdiv"> {* table-responsive class cuts off css drop-down menus *}
@@ -744,7 +748,7 @@
                                 type="submit"
                                 class="btn btn-primary"
                                 form="checkform3"
-                                formaction="{service controller=group}"
+                                formaction="{service controller=group anchor='#contenttabs_admingroups-4'}"
                                 value="{tr}OK{/tr}"
                                 onclick="confirmPopup(event, true)"
                             >
@@ -767,8 +771,9 @@
         {assign var=tabgroup_importexporttabgroup value="{tr}Import/export{/tr}"}
         {$gname = "{$groupname|escape}"}
 
-        {tab name="{$tabgroup_importexporttabgroup} {$gname}"}
-        {* ----------------------- tab with import/export --------------------------------------- *}
+        {tab name="<span class='d-block'>{$tabgroup_importexporttabgroup}</span>{$gname}"}
+
+            {* ----------------------- tab with import/export --------------------------------------- *}
 
             {if !$ts.ajax}
                 <form method="post" action="tiki-admingroups.php" enctype="multipart/form-data">

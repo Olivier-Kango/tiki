@@ -147,7 +147,7 @@ class Services_Group_Controller
                 Feedback::success($feedback2);
             }
             //return to page
-            return Services_Utilities::refresh($util->extra['referer'], 'anchor');
+            return Services_Utilities::refresh('anchor');
         }
     }
 
@@ -261,7 +261,7 @@ class Services_Group_Controller
                 Feedback::error($feedback2);
             }
             //return to page - take off query and anchor to ensure return to the first tab
-            return Services_Utilities::refresh($util->extra['referer'], 'queryAndAnchor');
+            return Services_Utilities::refresh('queryAndAnchor');
         } else {
             //post CSRF error through js. can't just throw a services exception since the form started as a non-modal
             //but confirmation is modal and js takes over after the confirmation is submitted
@@ -395,7 +395,7 @@ class Services_Group_Controller
                 Feedback::error($feedback2);
             }
             //return to page - strip query and anchor so that we return to the group listing
-            return Services_Utilities::refresh($util->extra['referer'], 'queryAndAnchor');
+            return Services_Utilities::refresh('queryAndAnchor');
         } else {
             //post CSRF error through js. can't just throw a services exception since the form started as a non-modal
             //but confirmation is modal and js takes over after the confirmation is submitted
@@ -433,13 +433,13 @@ class Services_Group_Controller
                     $msg = tr('Add the following users to group %0?', $input['group']);
                 }
 
-                $extra = [];
+                $extraFields = [];
 
                 if ($prefs['users_admin_actions_require_validation'] == 'y') {
                     if ($userlib->isAutologin()) {
                         Services_Utilities::modalException($userlib->getAutologinAdminActionError());
                     }
-                    $extra['fields'] = [
+                    $extraFields = [
                         [
                             'label' => tr('Please confirm this operation by typing your password'),
                             'field' => 'input',
@@ -453,7 +453,10 @@ class Services_Group_Controller
                 return $util->confirm(
                     $msg,
                     tra('Add'),
-                    $extra
+                    [
+                        'anchor'        => $input->anchor->striptags(),
+                        'fields'        => $extraFields
+                    ]
                 );
             } else {
                 Services_Utilities::modalException(tra('One or more users must be selected'));
@@ -492,8 +495,11 @@ class Services_Group_Controller
                 ];
                 Feedback::success($feedback);
             }
-            //return to page
-            return Services_Utilities::refresh($util->extra['referer'], 'anchor');
+            if (! empty($util->extra['anchor'])) {
+                return Services_Utilities::redirect($util->extra['anchor']);
+            } else {
+                return Services_Utilities::refresh();
+            }
         }
     }
 
@@ -523,13 +529,12 @@ class Services_Group_Controller
                     $msg = tr('Ban the following users from group %0?', $input['group']);
                 }
 
-                $extra = [];
-
+                $extraFields = [];
                 if ($prefs['users_admin_actions_require_validation'] == 'y') {
                     if ($userlib->isAutologin()) {
                         Services_Utilities::modalException($userlib->getAutologinAdminActionError());
                     }
-                    $extra['fields'] = [
+                    $extraFields = [
                         [
                             'label' => tr('Please confirm this operation by typing your password'),
                             'field' => 'input',
@@ -543,7 +548,10 @@ class Services_Group_Controller
                 return $util->confirm(
                     $msg,
                     tra('Ban'),
-                    $extra
+                    [
+                        'anchor'        => $input->anchor->striptags(),
+                        'fields'        => $extraFields
+                    ]
                 );
             } else {
                 Services_Utilities::modalException(tra('One or more users must be selected'));
@@ -584,7 +592,11 @@ class Services_Group_Controller
                 Feedback::success($feedback);
             }
             //return to page
-            return Services_Utilities::refresh($util->extra['referer'], 'anchor');
+            if (! empty($util->extra['anchor'])) {
+                return Services_Utilities::redirect($util->extra['anchor']);
+            } else {
+                return Services_Utilities::refresh();
+            }
         }
     }
 
@@ -619,7 +631,7 @@ class Services_Group_Controller
                     if ($userlib->isAutologin()) {
                         Services_Utilities::modalException($userlib->getAutologinAdminActionError());
                     }
-                    $extra['fields'] = [
+                    $extra = [
                         [
                             'label' => tr('Please confirm this operation by typing your password'),
                             'field' => 'input',
@@ -630,7 +642,14 @@ class Services_Group_Controller
                     ];
                 }
 
-                return $util->confirm($msg, tra('Unban'), $extra);
+                return $util->confirm(
+                    $msg,
+                    tra('Unban'),
+                    [
+                        'anchor'        => $input->anchor->striptags(),
+                        'fields'        => $extra
+                    ]
+                );
             } else {
                 Services_Utilities::modalException(tra('One or more users must be selected'));
             }
@@ -670,8 +689,11 @@ class Services_Group_Controller
                 ];
                 Feedback::success($feedback);
             }
-            //return to page
-            return Services_Utilities::refresh($util->extra['referer'], 'anchor');
+            if (! empty($util->extra['anchor'])) {
+                return Services_Utilities::redirect($util->extra['anchor']);
+            } else {
+                return Services_Utilities::refresh();
+            }
         }
     }
 
