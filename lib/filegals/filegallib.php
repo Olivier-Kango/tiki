@@ -3070,6 +3070,8 @@ class FileGalLib extends TikiLib
      */
     private function actionHandlerRemoveFile($params)
     {
+        global $prefs;
+
         // mandatory params: int fileId
         // optional params: boolean draft, array gal_info
         if (! empty($params) && isset($params['fileId'])) {
@@ -3115,7 +3117,10 @@ class FileGalLib extends TikiLib
             if ($params['draft']) {
                 return $this->remove_draft($info['fileId'], $user);
             } else {
-                return $this->remove_file($info, $params['gal_info']);
+                if (empty($params['detach'])) {
+                    return $this->remove_file($info, $params['gal_info']);
+                }
+                return $this->update_file($params['fileId'], ['galleryId' => $prefs['fgal_user_trash_id']]);
             }
         }
     }

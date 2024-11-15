@@ -573,8 +573,12 @@ if (! empty($_REQUEST['remove']) && $access->checkCsrf(true)) {
         [
             'fileId' => $_REQUEST['remove'],
             'draft' => (! empty($_REQUEST['draft'])),
+            'detach' => ! empty($_REQUEST['detach'])
         ]
     );
+    if (! (empty($_SERVER['HTTP_REFERER']) && empty($_REQUEST['detach']))) {
+        $access->redirect($_SERVER['HTTP_REFERER']);
+    }
     if ($result && $result->numRows()) {
         Feedback::success(tr('File deleted'));
     } else {

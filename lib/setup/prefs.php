@@ -89,6 +89,9 @@ function get_default_prefs()
             //can probably be removed - doesn't seem to be set or used anywhere
             'fgal_show_checked' => 'y',
 
+            // Id for trash files
+            'fgal_user_trash_id' => 4,
+
             // articles
             'cms_bot_bar' => 'y',
             'cms_left_column' => 'y',
