@@ -3999,7 +3999,7 @@ class TrackerLib extends TikiLib
             $result = $handler->renderOutput(['list_mode' => 'csv']);
         }
 
-        if (strlen($result) && $result[0] === '{') {
+        if (is_string($result) && strlen($result) && $result[0] === '{') {
             $decoded = json_decode($result, true);
             if ($decoded !== null) {     // might start with a "{" but may not be a json_encoded value
                 if (isset($decoded[$prefs['language']])) {
