@@ -134,6 +134,9 @@ const handleDatetimeChange = (value) => {
     // but acts as if it is the current date DST pref
     if (Array.isArray(value)) {
         for (let i = 0; i < value.length; i++) {
+            if (value[i] === null) {
+                continue;
+            }
             value[i] = moment(value[i]).add(daylightDiffAgainstBrowserTz(value[i], selectedTz.value), 'second').toDate();
         }
     } else {
