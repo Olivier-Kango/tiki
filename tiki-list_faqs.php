@@ -54,6 +54,11 @@ if (isset($_REQUEST["remove"]) && $access->checkCsrf()) {
     $faqlib->remove_faq($_REQUEST["remove"]);
 }
 if (isset($_REQUEST["save"])) {
+    if (empty($_REQUEST["title"])) {
+        $smarty->assign('msg', tra("You can not create a FAQ without a title "));
+        $smarty->display("error.tpl");
+        die;
+    }
     $access->checkCsrf();
     $access->check_permission('tiki_p_admin_faqs');
     if (mb_strlen($_REQUEST["title"]) > 200) {

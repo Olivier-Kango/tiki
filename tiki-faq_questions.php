@@ -77,12 +77,17 @@ $smarty->assign('filter', $_REQUEST["filter"]);
 if (isset($_REQUEST["useq"])) {
     $access->checkCsrf();
     $quse = $faqlib->get_faq_question($_REQUEST["usequestionId"]);
-
     $faqlib->replace_faq_question($_REQUEST["faqId"], 0, $quse["question"], $quse["answer"]);
-    $info = $faqlib->get_faq_question($_REQUEST["questionId"]); // AWC added
+    $info = $faqlib->get_faq_question($_REQUEST["usequestionId"]); // AWC added
 }
 
 if (isset($_REQUEST["save"])) {
+    if (! $_REQUEST['question']) {
+        $smarty->assign('msg', tra("You can not create a FAQ question without a question "));
+        $smarty->display("error.tpl");
+        die;
+    }
+
     $access->checkCsrf();
     $faqlib->replace_faq_question($_REQUEST["faqId"], $_REQUEST["questionId"], $_REQUEST["question"], $_REQUEST["answer"]);
 
@@ -93,8 +98,8 @@ if (isset($_REQUEST["save"])) {
     $smarty->assign('questionId', 0);
 }
 
-$smarty->assign('question', $info["question"]); // moved from above
-$smarty->assign('answer', $info["answer"]);     // moved from above
+$smarty->assign('question', $info !== false ? $info["question"] : null);
+$smarty->assign('answer', $info !== false ? $info["answer"] : null);    // moved from above
 
 if (! isset($_REQUEST["sort_mode"])) {
     $sort_mode = 'position_asc,questionId_asc';
