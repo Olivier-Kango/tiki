@@ -2466,7 +2466,7 @@ class TrackerLib extends TikiLib
         $itemFields = $this->itemFields();
 
         $tracker_info = $this->get_tracker_options($trackerId);
-        if (($header = fgetcsv($csvHandle, 100000, $csvDelimiter)) === false) {
+        if (($header = fgetcsv($csvHandle, 100000, $csvDelimiter, escape: "")) === false) {
             return 'Illegal first line';
         }
         if ($encoding == 'UTF-8') {
@@ -2516,7 +2516,7 @@ class TrackerLib extends TikiLib
         $definition = Tracker_Definition::get($trackerId);
         $line = 0;
         $errors = [];
-        while (($data = fgetcsv($csvHandle, 100000, $csvDelimiter)) !== false) {
+        while (($data = fgetcsv($csvHandle, 100000, $csvDelimiter, escape: "")) !== false) {
             $line++;
             if ($encoding == 'ISO-8859-1') {
                 for ($i = 0; $i < $max; $i++) {
@@ -2555,9 +2555,9 @@ class TrackerLib extends TikiLib
 
         // back to first row excluding header
         fseek($csvHandle, 0);
-        fgetcsv($csvHandle, 100000, $csvDelimiter);
+        fgetcsv($csvHandle, 100000, $csvDelimiter, escape: "");
 
-        while (($data = fgetcsv($csvHandle, 100000, $csvDelimiter)) !== false) {
+        while (($data = fgetcsv($csvHandle, 100000, $csvDelimiter, escape: "")) !== false) {
             $status = 'o';
             $itemId = 0;
             $created = $tikilib->now;
@@ -6871,7 +6871,7 @@ class TrackerLib extends TikiLib
         return array_filter(
             array_map(function ($user) {
                 return trim($user ?? '');
-            }, is_array($value) ? $value : str_getcsv($value ?? ''))
+            }, is_array($value) ? $value : str_getcsv($value ?? '', escape: "")),
         );
     }
 

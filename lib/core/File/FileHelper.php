@@ -188,7 +188,7 @@ class FileHelper
         }
 
         if (! $fileExists) {
-            fputcsv($fileHandler, $headers);
+            fputcsv($fileHandler, $headers, escape: "");
         }
 
         foreach ($content as $row) {
@@ -196,7 +196,7 @@ class FileHelper
                 return is_array($col) ? json_encode($col) : $col;
             }, $row);
 
-            fputcsv($fileHandler, $row);
+            fputcsv($fileHandler, $row, escape: "");
         }
 
         fclose($fileHandler);

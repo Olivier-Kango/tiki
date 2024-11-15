@@ -868,7 +868,7 @@ class ArtLib extends TikiLib
     {
         global $user, $prefs, $tikilib;
         $fhandle = fopen($fileName, 'r');
-        if (($fds = fgetcsv($fhandle, 4096, $csvDelimiter)) === false || empty($fds[0])) {
+        if (($fds = fgetcsv($fhandle, 4096, $csvDelimiter, escape: "")) === false || empty($fds[0])) {
             $msgs[] = tra('The file has incorrect syntax or is not a CSV file');
             return false;
         }
@@ -948,7 +948,7 @@ class ArtLib extends TikiLib
             $fields['emails']               = $i++;
         }
         $line = 1;
-        while (($data = fgetcsv($fhandle, 4096, $csvDelimiter)) !== false) {
+        while (($data = fgetcsv($fhandle, 4096, $csvDelimiter, escape: "")) !== false) {
             ++$line;
             if (! isset($data[$fields['title']])) {
                 $data[$fields['title']]                 = '';

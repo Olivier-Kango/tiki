@@ -64,8 +64,8 @@ if (isset($_REQUEST['import'])) {
     if (isset($_FILES['userfile1'])) {
         if (is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
             $fp = fopen($_FILES['userfile1']['tmp_name'], "rb");
-            $heading = fgetcsv($fp, 1000, ",");
-            while ($data = fgetcsv($fp, 1000, ",")) {
+            $heading = fgetcsv($fp, 1000, ",", escape: "");
+            while ($data = fgetcsv($fp, 1000, ",", escape: "")) {
                 $subject = $data[array_search('Subject', $heading) ];
                 $description = $data[array_search('Description', $heading) ];
                 $start = strtotime($data[array_search('Start Date', $heading) ]);

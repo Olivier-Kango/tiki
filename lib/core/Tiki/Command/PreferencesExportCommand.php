@@ -131,7 +131,7 @@ class PreferencesExportCommand extends Command
         }
 
         if (! isset($wikiexport)) {
-            fputcsv($export_file, array_keys($fields), ";");
+            fputcsv($export_file, array_keys($fields), ";", escape: "");
         }
         foreach ($data as $datakey => $values) {
             //export only values of input fields
@@ -145,7 +145,7 @@ class PreferencesExportCommand extends Command
             }
 
             if (! isset($wikiexport)) {
-                fputcsv($export_file, array_values($values), ";");
+                fputcsv($export_file, array_values($values), ";", escape: "");
             }
         }
 
