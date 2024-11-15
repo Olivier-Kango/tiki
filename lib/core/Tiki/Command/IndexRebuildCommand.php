@@ -62,6 +62,7 @@ class IndexRebuildCommand extends Command
         $unifiedsearchlib = \TikiLib::lib('unifiedsearch');
         $currentEngine = $unifiedsearchlib->getCurrentEngineDetails();
         $fallbackEngine = $unifiedsearchlib->getFallbackEngineDetails();
+        $unusedIndices = $unifiedsearchlib->listAllUnusedIndexes($currentEngine);
 
         if (! $cron) {
             $message = '[' . \TikiLib::lib('tiki')->get_short_datetime(0) . '] Started rebuilding index...';
@@ -190,6 +191,14 @@ class IndexRebuildCommand extends Command
                         $output->writeln($fallbackEngineMessage);
                         $output->writeln('Index: ' . $index);
                     }
+                }
+
+                if (isset($unusedIndices['indices']) && count($unusedIndices['indices'])) {
+                    $io->section("\nUnused Indexes Detected");
+                    $io->listing($unusedIndices['indices']);
+                    $io->note("If you don't need them (for debugging), run the command: php console.php index:cleanup");
+                } elseif (isset($unusedIndices['error'])) {
+                    $io->error($unusedIndices['error']);
                 }
 
                 $io->section("\nExecution Statistics");
