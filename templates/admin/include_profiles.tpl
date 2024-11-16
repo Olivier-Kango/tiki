@@ -23,7 +23,7 @@
 {tabset name='tabs_admin-profiles'}
 
     {tab name="{tr}Apply{/tr}"}
-        
+
             {if $openSources == 'some'}
                 {remarksbox type="warning" title="{tr}Warning{/tr}"}
                     {tr}Some of your Profiles Repositories are not connecting. This may prevent you from applying certain profiles{/tr}
@@ -40,7 +40,7 @@
                         {if isset($category_list) and count($category_list) gt 0}
                             <div class="mb-3 row">
                                 <label class="col-form-label" for="categories">{tr}Profile types{/tr}</label>
-                                    <select multiple="multiple" name="categories[]" id="categories" class="form-control" style="min-height: 8em; max-height: 15em">
+                                    <select multiple="multiple" name="categories[]" id="categories" class="form-control" style="width:100%;">
                                         {foreach item=cat from=$category_list}
                                             <option value="{$cat|escape}"{if !empty($categories) and in_array($cat, $categories)} selected="selected"{/if}>{$cat|escape}</option>
                                         {/foreach}
