@@ -318,6 +318,9 @@ class CaldavClient
                         }
                     }
                 }
+                if (empty($caldata)) {
+                    continue;
+                }
                 if (! empty($recipient[0]['value'])) {
                     $recipient = $recipient[0]['value'];
                 }
