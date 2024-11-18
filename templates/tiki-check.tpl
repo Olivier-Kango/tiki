@@ -436,7 +436,7 @@
     {/if}
 
     <p>
-        {tr}You can check the full documentation on how to change the configurations values in <a href="http://www.php.net/manual/en/configuration.php" class="alert-link">http://www.php.net/manual/en/configuration.php</a>{/tr}
+        {tr _0='<a href="http://www.php.net/manual/en/configuration.php" class="alert-link">http://www.php.net/manual/en/configuration.php</a>' }You can check the full documentation on how to change the configurations values in %0{/tr}
     </p>
 {/remarksbox}
 
@@ -654,7 +654,7 @@
         </tbody></table>
     </div>
 {else}
-    {remarksbox type='error' title='{tr}OS not supported{/tr}' close='n'}
+    {remarksbox type='error' title="{tr}OS not supported{/tr}" close='n'}
         <p>{tr}Apparently tiki is running on a Windows based server. This feature is not supported natively.{/tr}</p>
     {/remarksbox}
 {/if}

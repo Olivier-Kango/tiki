@@ -556,7 +556,7 @@ if ($e == 0) {
         $php_properties['Error reporting'] = array(
             'fitness' => tra('info'),
             'setting' => 'Partly',
-            'message' => tra('Not all errors will be reported as the error_reporting level is at ' . $e . '. ' . 'This is not necessarily a bad thing (and it may be appropriate for a production site) as critical errors will be reported, but sometimes it may be useful to get more information. Check the error_reporting level in php.ini if any problems are occurring.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
+            'message' => tr('Not all errors will be reported as the error_reporting level is at %0. This is not necessarily a bad thing (and it may be appropriate for a production site) as critical errors will be reported, but sometimes it may be useful to get more information. Check the error_reporting level in php.ini if any problems are occurring. <a href="#php_conf_info">How to change this value</a>', $e)
         );
     }
 } else {
@@ -816,7 +816,7 @@ foreach ($tikiRequirements as $requirement) {
 $php_properties['PHP version'] = array(
     'fitness' => ($minCompatibleTikiVersion && $maxCompatibleTikiVersion) ? tra('good') : tra('bad'),
     'setting' => PHP_VERSION,
-    'message' => "Tiki $minCompatibleTikiVersion.x to Tiki $maxCompatibleTikiVersion.x will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details."
+    'message' => tr("Tiki %0.x to Tiki %1.x will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.", $minCompatibleTikiVersion, $maxCompatibleTikiVersion)
 );
 
 // Check PHP command line version
@@ -869,7 +869,7 @@ if (function_exists('exec')) {
         $php_properties['PHP CLI version'] = array(
             'fitness' => tra('unsure'),
             'setting' => '',
-            'message' => 'Unable to determine the command line executable for PHP.',
+            'message' => tra('Unable to determine the command line executable for PHP.'),
         );
     }
 }
@@ -2631,8 +2631,8 @@ $fcts = array(
          ),
          array(
             'function' => 'shell_exec',
-            'risky' => tra('Shell_exec is similar to exec.') . ' ' . tra('Tiki needs it to run PDF from URL: WebKit (wkhtmltopdf). ' . $pdf_webkit . 'If this is needed and the other PHP software on the server can be trusted, this should be enabled.'),
-            'safe' => tra('Shell_exec is similar to exec.') . ' ' . tra('Tiki needs it to run PDF from URL: WebKit (wkhtmltopdf). ' . $pdf_webkit . 'If this is needed and the other PHP software on the server can be trusted, this should be enabled.')
+            'risky' => tra('Shell_exec is similar to exec.') . ' ' . tra('Tiki needs it to run PDF from URL: WebKit (wkhtmltopdf). ') . $pdf_webkit . tra('If this is needed and the other PHP software on the server can be trusted, this should be enabled.'),
+            'safe' => tra('Shell_exec is similar to exec.') . ' ' . tra('Tiki needs it to run PDF from URL: WebKit (wkhtmltopdf). ') . $pdf_webkit . tra('If this is needed and the other PHP software on the server can be trusted, this should be enabled.')
          ),
          array(
             'function' => 'system',
@@ -3382,9 +3382,9 @@ if ($standalone && ! $nagios) {
     if ($iis_properties) {
         renderTable($iis_properties);
     } else {
-        $render .= "You are not running IIS web server.";
+        $render .= tra("You are not running IIS web server.");
     }
-    $render .= '<h2>PHP scripting language properties</h2>';
+    $render .= '<h2>' . tra('PHP scripting language properties') . '</h2>';
     renderTable($php_properties);
 
     $render_sapi_info = '';
@@ -3398,17 +3398,16 @@ if ($standalone && ! $nagios) {
         $render_sapi_info = '<p>' . $render_sapi_info . '</p>';
     }
 
-    $render .= '<p><a name="php_conf_info"></a>Change PHP configuration values:' . $render_sapi_info . ' You can check the full documentation on how to change the configurations values in <a href="http://www.php.net/manual/en/configuration.php">http://www.php.net/manual/en/configuration.php</a></p>';
-    $render .= '<h2>PHP security properties</h2>';
+    $render .= tr('Change PHP configuration values:%0 You can check the full documentation on how to change the configurations values in <a href="http://www.php.net/manual/en/configuration.php">http://www.php.net/manual/en/configuration.php</a>', $render_sapi_info);
+    $render .= '<h2>' . tra('PHP security properties') . '</h2>';
     renderTable($security);
-    $render .= '<h2>Tiki Security</h2>';
+    $render .= '<h2>' . tra('Tiki Security') . '</h2>';
     renderTable($tiki_security);
-    $render .= '<h2>MySQL Variables</h2>';
+    $render .= '<h2>' . tra('MySQL Variables') . '</h2>';
     renderTable($mysql_variables, 'wrap');
 
-    $render .= '<h2>File Gallery Search Indexing</h2>';
-    $render .= '<em>More info <a href="https://doc.tiki.org/Search-within-files">here</a></em>
-    ';
+    $render .= '<h2>' . tra('File Gallery Search Indexing') . '</h2>';
+    $render .= '<em>' . tra('More info') . ' <a href="https://doc.tiki.org/Search-within-files">' . tra('here') . '</a></em>';
     renderTable($file_handlers);
 
     $render .= '<h2>PHP Info</h2>';
@@ -3556,7 +3555,7 @@ if ($standalone && ! $nagios) {
     if ($iis_properties) {
         $smarty->assign_by_ref('iis_properties', $iis_properties);
     } else {
-        $smarty->assign('no_iis_properties', 'You are not running IIS web server.');
+        $smarty->assign('no_iis_properties', tra('You are not running IIS web server.'));
     }
     $smarty->assign_by_ref('security', $security);
     $smarty->assign_by_ref('mysql_variables', $mysql_variables);
@@ -3625,26 +3624,26 @@ if ($standalone && ! $nagios) {
     }
     $realtime = array(
         'feature_enabled' => array(
-            'requirement' => 'Feature enabled',
-            'status' => $prefs['feature_realtime'] === 'y' ? 'good' : 'bad',
-            'message' => $prefs['feature_realtime'] === 'y' ? 'Feature is enabled.' : 'Feature is disabled in Tiki admin.',
+            'requirement' => tra('Feature enabled'),
+            'status' => $prefs['feature_realtime'] === 'y' ? tra('good') : tra('bad'),
+            'message' => $prefs['feature_realtime'] === 'y' ? tra('Feature is enabled.') : tra('Feature is disabled in Tiki admin.'),
         ),
         'port_listening' => array(
-            'requirement' => 'Server listening',
-            'status' => $ws_listening ? 'good' : 'unsure',
-            'message' => $ws_listening ? 'Server is listening on local system port ' . $ws_port . '.' : 'No server found listening on default port ' . $ws_port . '. Server might be running on a different port or not running at all.',
+            'requirement' => tra('Server listening'),
+            'status' => $ws_listening ? tra('good') : tra('unsure'),
+            'message' => $ws_listening ? tra('Server is listening on local system port ') . $ws_port . '.' : tra('No server found listening on default port ') . $ws_port . tra('. Server might be running on a different port or not running at all.'),
         ),
         'connectivity' => array(
-            'requirement' => 'Connectivity',
+            'requirement' => tra('Connectivity'),
             'status' => 'js',
-            'message_good' => 'Connection to WS server established successfully.',
-            'message_bad' => 'Could not establish connection to WS server. Check if server is listening and web server proxy configured correctly.',
+            'message_good' => tra('Connection to WS server established successfully.'),
+            'message_bad' => tra('Could not establish connection to WS server. Check if server is listening and web server proxy configured correctly.'),
         ),
         'message_exchange' => array(
-            'requirement' => 'Message exchange',
+            'requirement' => tra('Message exchange'),
             'status' => 'js',
-            'message_good' => 'Successfully exchanged messages with realtime server.',
-            'message_bad' => 'Could not exchange messages with realtime server. Check if server is running and configured correctly.',
+            'message_good' => tra('Successfully exchanged messages with realtime server.'),
+            'message_bad' => tra('Could not exchange messages with realtime server. Check if server is running and configured correctly.'),
         )
     );
     $smarty->assign('realtime', $realtime);
