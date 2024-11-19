@@ -72,7 +72,7 @@ function batchImportUsers()
 
     $fname = $_FILES['csvlist']['tmp_name'];
     $fhandle = fopen($fname, 'r');
-    $fields = fgetcsv($fhandle, 1000);
+    $fields = fgetcsv($fhandle, 1000, escape: "");
 
     if (! $fields[0]) {
         $errors[] = tra('The file has incorrect syntax or is not a CSV file');
@@ -87,7 +87,7 @@ function batchImportUsers()
     }
 
     while (! feof($fhandle)) {
-        $data = fgetcsv($fhandle, 1000);
+        $data = fgetcsv($fhandle, 1000, escape: "");
         if (empty($data)) {
             continue;
         }

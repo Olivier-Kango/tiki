@@ -36,9 +36,9 @@ class Search_Formatter_Plugin_CsvTemplate extends Search_Formatter_Plugin_Abstra
         foreach ($this->fields as $field => $arguments) {
             $header[] = ! empty($arguments['label']) ? $arguments['label'] : '';
         }
-        fputcsv($fh, $header);
+        fputcsv($fh, $header, escape: "");
         foreach ($entries as $entry) {
-            fputcsv($fh, $entry);
+            fputcsv($fh, $entry, escape: "");
         }
         rewind($fh);
         $csv = stream_get_contents($fh);

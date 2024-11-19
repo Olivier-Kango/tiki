@@ -64,10 +64,10 @@ $index = [
 update_search_flag($data, $index, $stopWords);
 
 // Output results
-fputcsv(STDOUT, array_keys($fields));
+fputcsv(STDOUT, array_keys($fields), escape: "");
 
 foreach ($data as $values) {
-    fputcsv(STDOUT, array_values($values));
+    fputcsv(STDOUT, array_values($values), escape: "");
 }
 
 /**

@@ -73,10 +73,10 @@ $ourFileHandle = fopen($ourFileName, 'w+') or die("can't open file");
 
 
 // Output results
-fputcsv($ourFileHandle, array_keys($fields), '|');
+fputcsv($ourFileHandle, array_keys($fields), '|', escape: "");
 
 foreach ($data as $values) {
-    fputcsv($ourFileHandle, array_values($values), '|');
+    fputcsv($ourFileHandle, array_values($values), '|', escape: "");
 }
 
 fclose($ourFileHandle);

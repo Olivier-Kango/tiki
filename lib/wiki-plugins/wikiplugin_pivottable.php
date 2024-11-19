@@ -640,7 +640,7 @@ function wikiplugin_pivottable($data, $params)
                 } else {
                     $field = $field['name'];
                 }
-                $attributesOrder[$field] = str_getcsv($arguments['order']);
+                $attributesOrder[$field] = str_getcsv($arguments['order'], escape: "");
             }
         }
 

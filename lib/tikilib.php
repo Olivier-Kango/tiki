@@ -7123,7 +7123,7 @@ class TikiLib extends TikiDb_Bridge
     public function str_putcsv($arr)
     {
         $fh = fopen('php://temp', 'rw');
-        fputcsv($fh, $arr);
+        fputcsv($fh, $arr, escape: "");
         rewind($fh);
         $csv = stream_get_contents($fh);
         fclose($fh);
