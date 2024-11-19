@@ -195,7 +195,6 @@ class Search_Formatter_Builder
         if (isset($arguments['template'])) {
             if ($arguments['template'] == 'table') {
                 $arguments['template'] = __DIR__ . '/../../../../templates/search/list/table.tpl';
-                $arguments['pagination'] = true;
             } elseif ($arguments['template'] == 'medialist') {
                 $arguments['template'] = __DIR__ . '/../../../../templates/search/list/medialist.tpl';
             } elseif ($arguments['template'] == 'carousel') {
@@ -281,7 +280,7 @@ class Search_Formatter_Builder
             $plugin = new Search_Formatter_Plugin_WikiTemplate($output->getBody());
         }
 
-        if (isset($arguments['pagination'])) {
+        if (isset($arguments['pagination']) && in_array((string) $arguments['pagination'], ['y', '1'], true)) {
             $plugin = new Search_Formatter_AppendPagination($plugin, $this->paginationArguments);
         }
 
