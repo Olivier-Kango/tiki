@@ -10,7 +10,7 @@ vi.mock("@vuepic/vue-datepicker", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...actual,
-        default: vi.fn().mockImplementation(() => h("div", { "data-testid": DATA_TEST_ID.DATE_PICKER })),
+        default: vi.fn((props, { slots }) => h("div", props, slots["menu-header"]())),
     };
 });
 
@@ -21,6 +21,7 @@ vi.mock("../helpers/helpers", async (importOriginal) => {
         convertToUnixTimestamp: vi.fn(),
         formatDate: vi.fn(),
         goToURLWithData: vi.fn(),
+        daylightDiffAgainstBrowserTz: vi.fn(),
     };
 });
 
@@ -77,7 +78,11 @@ describe("DatetimePicker", () => {
                     locale: givenProps.language,
                     "enable-time-picker": givenProps.enableTimezonePicker,
                 }),
-                null
+                expect.objectContaining({
+                    slots: {
+                        "menu-header": expect.any(Function),
+                    },
+                })
             );
 
             expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(givenProps.timestamp * 1000);
@@ -105,6 +110,9 @@ describe("DatetimePicker", () => {
                 expect(optionElement.value).toBe(timezone);
                 expect(optionElement.textContent).toEqual(expect.stringContaining(timezone));
             });
+
+            const todayShortcut = within(containerElement).queryByTestId(DATA_TEST_ID.SHORTCUT_TODAY);
+            expect(todayShortcut).to.exist;
         });
 
         test("renders correctly when optional props are not provided", () => {
@@ -125,7 +133,7 @@ describe("DatetimePicker", () => {
                     range: false,
                     locale: "en",
                 }),
-                null
+                expect.any(Object)
             );
 
             const containerElement = screen.getByTestId(DATA_TEST_ID.CONTAINER);
@@ -134,12 +142,66 @@ describe("DatetimePicker", () => {
             const timezoneContainerElement = within(containerElement).queryByTestId(DATA_TEST_ID.TIMEZONE_CONTAINER);
             expect(timezoneContainerElement).toBeNull();
         });
+
+        test.each([
+            ["disabled", false, [DATA_TEST_ID.SHORTCUT_TODAY_FROM], DATA_TEST_ID.SHORTCUT_TODAY_TO],
+            ["enabled", true, [DATA_TEST_ID.SHORTCUT_TODAY_FROM, DATA_TEST_ID.SHORTCUT_TODAY_TO], null],
+        ])("renders correctly the today shortcut when the range picker is %s", (_, rangePickerProp, renderedElementsId, notRenderedElementId) => {
+            render(DatetimePicker, {
+                props: {
+                    rangePicker: rangePickerProp,
+                    dateTimeInput: document.createElement("input"),
+                    toDateTimeInput: document.createElement("input"),
+                },
+            });
+
+            const todayShortcut = screen.getByTestId(DATA_TEST_ID.SHORTCUT_TODAY);
+            renderedElementsId.forEach((elementId) => {
+                expect(within(todayShortcut).getByTestId(elementId)).to.exist;
+            });
+            if (notRenderedElementId) {
+                expect(within(todayShortcut).queryByTestId(notRenderedElementId)).toBeNull();
+            }
+            expect(todayShortcut).toMatchSnapshot();
+        });
     });
 
     describe("Action tests", () => {
         test.each([
+            ["disabled", false, DATA_TEST_ID.SHORTCUT_TODAY_FROM],
+            ["enabled", true, DATA_TEST_ID.SHORTCUT_TODAY_TO],
+        ])(
+            "should update the date picker value when the today shortcut is clicked and the range picker is %s",
+            async (_, rangePicker, shortcutId) => {
+                const emitValueChange = vi.fn();
+                vi.spyOn(Helpers, "daylightDiffAgainstBrowserTz").mockReturnValue("0");
+                render(DatetimePicker, {
+                    props: {
+                        rangePicker,
+                        dateTimeInput: document.createElement("input"),
+                        toDateTimeInput: document.createElement("input"),
+                        emitValueChange,
+                    },
+                });
+
+                const shortcut = screen.getByTestId(shortcutId);
+                await fireEvent.click(shortcut);
+
+                const now = moment().unix() * 1000;
+                expect(Helpers.daylightDiffAgainstBrowserTz).toHaveBeenCalledTimes(rangePicker ? 2 : 1);
+                expect(Helpers.daylightDiffAgainstBrowserTz).toBeCalledWith(now, "");
+                let expectedValue = moment(now).toDate();
+                if (rangePicker) {
+                    expectedValue = [moment(now).toDate(), moment(now).toDate()];
+                }
+                expect(emitValueChange).toHaveBeenCalledWith(expect.objectContaining({ value: expectedValue }));
+            }
+        );
+
+        test.each([
             ["the range picker is enabled", [new Date("2021-01-01"), new Date("2021-01-02")], true],
             ["the range picker is disabled", [new Date("2021-01-01")], false],
+            ["the range picker is enabled, but only the start date is given", [new Date("2021-01-01"), null], true],
         ])(
             "should update the hidden timestamp inputs when the date picker value changes and %s and call the emitValueChange prop",
             async (_, givenUpdatedDates, rangePicker) => {
@@ -231,13 +293,13 @@ describe("DatetimePicker", () => {
                 props: givenProps,
             });
 
-            expect(VueDatePicker).toHaveBeenCalledWith(expect.objectContaining({ timezone: { timezone: givenProps.timezone } }), null);
+            expect(VueDatePicker).toHaveBeenCalledWith(expect.objectContaining({ timezone: { timezone: givenProps.timezone } }), expect.any(Object));
 
             const timezoneSelectElement = screen.getByTestId(DATA_TEST_ID.TIMEZONE_SELECT);
             const selectedTimezone = timezoneSelectElement.children[1].value;
             await fireEvent.update(timezoneSelectElement, selectedTimezone);
 
-            expect(VueDatePicker).toHaveBeenCalledWith(expect.objectContaining({ timezone: { timezone: selectedTimezone } }), null);
+            expect(VueDatePicker).toHaveBeenCalledWith(expect.objectContaining({ timezone: { timezone: selectedTimezone } }), expect.any(Object));
             expect(Helpers.convertToUnixTimestamp).toHaveBeenCalledWith(expect.anything());
             expect(givenProps.emitValueChange).toHaveBeenCalledWith({
                 value: expect.anything(),

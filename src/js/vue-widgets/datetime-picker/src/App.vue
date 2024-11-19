@@ -3,7 +3,18 @@
     <div :data-testid="DATA_TEST_ID.CONTAINER">
         <VueDatePicker v-model="date" :timezone="tz" :locale="language" input-class-name="form-control tiki-form-control"
             :enable-time-picker="enableTimePicker" :range="rangePicker" @update:model-value="handleDatetimeChange"
-            :cancelText="cancelText" :selectText="selectText" :format="formatFn" :data-testid="DATA_TEST_ID.DATE_PICKER"/>
+            :cancelText="cancelText" :selectText="selectText" :format="formatFn" :data-testid="DATA_TEST_ID.DATE_PICKER" ref="datePicker">
+            <template #menu-header>
+                <div class="m-2" :data-testid="DATA_TEST_ID.SHORTCUT_TODAY">
+                    <div class="d-flex justify-content-between" v-if="rangePicker">
+                        <button type="button" class="btn btn-outline-dark btn-sm w-100 me-1" @click="handleTodayClick" :data-testid="DATA_TEST_ID.SHORTCUT_TODAY_FROM">Today</button>
+                        <span class="d-flex align-items-center">-</span>
+                        <button type="button" class="btn btn-outline-dark btn-sm w-100 ms-1" @click="e => handleTodayClick(e, true)" :data-testid="DATA_TEST_ID.SHORTCUT_TODAY_TO">Today</button>
+                    </div>
+                    <button type="button" class="btn btn-outline-dark btn-sm w-100" @click="handleTodayClick" :data-testid="DATA_TEST_ID.SHORTCUT_TODAY_FROM" v-else>Today</button>
+                </div>
+            </template>
+        </VueDatePicker>
         <div class="mt-3" v-if="enableTimezonePicker" :data-testid="DATA_TEST_ID.TIMEZONE_CONTAINER">
             <label for="timezone" class="form-label" :data-testid="DATA_TEST_ID.LABEL_TIMEZONE_CONTAINER">{{ TEXT.LABEL_TIMEZONE_CONTAINER }}</label>
             <select class="form-select" aria-label="Select a timezone" id="timezone" v-model="selectedTz" :data-testid="DATA_TEST_ID.TIMEZONE_SELECT" @change="handleTzChange">
@@ -26,6 +37,9 @@ export const DATA_TEST_ID = {
     TIMEZONE_CONTAINER: `timezone-container-${uniqueId}`,
     LABEL_TIMEZONE_CONTAINER: `timezone-container-label-${uniqueId}`,
     TIMEZONE_SELECT: `timezone-select-${uniqueId}`,
+    SHORTCUT_TODAY: `shortcut-today-${uniqueId}`,
+    SHORTCUT_TODAY_FROM: `shortcut-today-from-${uniqueId}`,
+    SHORTCUT_TODAY_TO: `shortcut-today-to-${uniqueId}`,
 }
 
 export const TEXT = {
@@ -110,6 +124,7 @@ const enableTimezonePicker = Number(props.enableTimezonePicker);
 
 const date = ref(getDefaultDate(props.timestamp, props.toTimestamp));
 const selectedTz = ref(props.timezone);
+const datePicker = ref(null);
 
 const unixTimestamp = computed(() => {
     return Array.isArray(date.value) ? getUnixTimestamp(date.value[0]) : getUnixTimestamp(date.value);
@@ -167,6 +182,19 @@ const handleTzChange = () => {
             timezone: selectedTz.value,
         });
     }
+};
+
+const handleTodayClick = (_, toDate = false) => {
+    const now = moment().unix() * 1000;
+
+    if (toDate) {
+        handleDatetimeChange([date.value[0], now]);
+    } else {
+        handleDatetimeChange(props.rangePicker ? [now, date.value[1]] : now);
+    }
+
+    // In the test environment, we do not yet have access to the closeMenu() method. However, not covering it in the test for now is not a big deal.
+    datePicker.value.closeMenu?.();
 };
 
 /*
