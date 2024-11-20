@@ -378,7 +378,7 @@ class Utilities
                 if ($user) {
                     $result['organizers'][] = $user;
                 }
-                $cn = (string)$organizer->CN;
+                $cn = isset($organizer->CN) ? (string)$organizer->CN : '';
                 if (empty($cn)) {
                     $result['real_organizers'][] = $email;
                 } else {
@@ -409,11 +409,12 @@ class Utilities
             $result['attendees'] = [];
             foreach ($component->ATTENDEE as $attendee) {
                 $email = preg_replace("/MAILTO:\s*/i", "", (string)$attendee);
-                $cn = (string)$attendee->CN;
+                $cn = isset($attendee->CN) ? (string)$attendee->CN : '';
                 if (empty($cn)) {
-                    $cn = $email;
+                    $result['attendees'][] = $email;
+                } else {
+                    $result['attendees'][] = "$cn <$email>";
                 }
-                $result['attendees'][] = "$cn <$email>";
             }
         }
 
@@ -683,6 +684,9 @@ class Utilities
             );
         }
         foreach ($participants as $par) {
+            if (! isset($par['role'])) {
+                $par['role'] = 0;
+            }
             $vevent->add(
                 'ATTENDEE',
                 'mailto:' . $par['email'],
