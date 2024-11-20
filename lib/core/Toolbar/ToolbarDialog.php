@@ -11,8 +11,8 @@ class ToolbarDialog extends ToolbarItem
     protected array $list;
     protected int $index;
     protected string $name;
-    private string $singleSpaAppName;
-    private string $singleSpaDomId;
+    protected string $singleSpaAppName;
+    protected string $singleSpaDomId;
 
     public static function fromName(string $tagName, bool $is_wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
