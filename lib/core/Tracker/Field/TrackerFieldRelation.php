@@ -96,7 +96,7 @@ class TrackerFieldRelation extends AbstractTrackerFieldRelational
             $distantTracker = Tracker_Definition::get($distantTrackerId);
         } else {
             //While editing the relationship, the distant tracker may not yet have been set
-            var_dump($this->getRelationId());
+            $this->getRelationId();
             return null;
         }
 

@@ -37,9 +37,13 @@ $availableTrackers = [];
 $goback = count($requestedTrackerIds) > 1 ? 'trackers' : 'tracker';
 $smarty->assign('goback', $goback);
 foreach ($definitions as $tracker) {
-    $tikilib->get_perm_object($tracker->getID(), 'tracker', $tracker->getInformation());
-    $access->check_permission('tiki_p_export_tracker', tra('Export Tracker'), 'tracker', $tracker->getID());
-    $availableTrackers[$tracker->getID()] = $tracker;
+    if (is_object($tracker) && method_exists($tracker, 'getID') && method_exists($tracker, 'getInformation')) {
+        $tikilib->get_perm_object($tracker->getID(), 'tracker', $tracker->getInformation());
+        $access->check_permission('tiki_p_export_tracker', tra('Export Tracker'), 'tracker', $tracker->getID());
+        $availableTrackers[$tracker->getID()] = $tracker;
+    } else {
+        Feedback::error("Invalid tracker detected: " . var_export($tracker, true));
+    }
 }
 
 if (! $requestedTrackerIds) {
