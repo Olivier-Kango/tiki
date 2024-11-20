@@ -79,6 +79,6 @@
 </div>
 
 {jq}
-$('#{{$object_selector_multi.id|escape}}')
+$('[id={{$object_selector_multi.id|escape}}]')
     .object_selector_multi();
 {/jq}
