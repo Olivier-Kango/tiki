@@ -954,7 +954,7 @@ class ParserLib extends TikiDb_Bridge
         // some plugins are just too fragile to do wysiwyg, so show the "source" for them ;(
         $excluded = ['tracker', 'trackerlist', 'trackerfilter', 'kaltura', 'toc', 'freetagged', 'draw', 'googlemap',
             'include', 'module', 'list', 'custom_search', 'iframe', 'map', 'calendar', 'file', 'files', 'mouseover', 'sort',
-            'slideshow', 'convene', 'redirect', 'galleriffic', 'sign'];
+            'slideshow', 'convene', 'redirect', 'sign'];
 
         $ignore = null;
         $enabled = $this->plugin_enabled($name, $ignore);

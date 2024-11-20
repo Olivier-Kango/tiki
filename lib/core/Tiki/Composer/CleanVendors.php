@@ -142,30 +142,6 @@ class CleanVendors
                 'jquery-ui-timepicker-addon.min.js'
             ]
         );
-        self::remove(
-            $vendors . 'jquery-plugins/anythingslider',
-            [
-                'anythingslider.jquery.json',
-                'expand.html',
-                'simple.html',
-                'video.html',
-                'css3.html',
-            ]
-        );
-        self::remove(
-            $vendors . 'jquery-plugins/galleriffic',
-            [
-                'js/jquery-1.3.2.js',
-                'js/jquery.history.js',
-                'js/jush.js',
-                'example-1.html',
-                'example-2.html',
-                'example-3.html',
-                'example-4.html',
-                'example-5.html',
-            ]
-        );
-        self::remove($vendors . 'jquery-plugins/infinitecarousel', 'jquery.infinitecarousel3.min.js');
         self::remove($vendors . 'jquery-plugins/reflection-jquery', 'src');
         self::remove(
             $vendors . 'rangy/rangy',

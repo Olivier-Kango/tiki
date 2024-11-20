@@ -572,10 +572,6 @@ if ($prefs['feature_syntax_highlighter'] == 'y') {
     createCodemirrorModes();
 }
 
-if ($prefs['feature_jquery_carousel'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/infinitecarousel/jquery.infinitecarousel3.js');
-}
-
 if ($prefs['feature_ajax'] === 'y') {
     $headerlib->add_jsfile('lib/jquery_tiki/tiki-confirm.js');
     $headerlib->add_jsfile('lib/ajax/autosave.js'); // Note that this file is needed even if ajax_autosave is off otherwise wysiwyg won't load.
