@@ -27,7 +27,7 @@ class Tracker_Field_Dropdown extends \Tracker\Field\AbstractItemField implements
                     'options' => [
                         'name' => tr('Option'),
                         'description' => tr('If an option contains an equal sign, the part before the equal sign will be used as the value, and the second part as the label'),
-                        'filter' => 'text',
+                        'filter' => 'xss',
                         'count' => '*',
                         'legacy_index' => 0,
                     ],
