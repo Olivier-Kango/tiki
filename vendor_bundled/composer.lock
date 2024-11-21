@@ -2269,13 +2269,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "f87ac3bb577efd3e8793cf73ecbf72daa9e58159"
+                "reference": "b5b97f556260036ff598f4f7713b18706e46b1a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-f87ac3bb577efd3e8793cf73ecbf72daa9e58159-zip-c013dd.zip",
-                "reference": "f87ac3bb577efd3e8793cf73ecbf72daa9e58159",
-                "shasum": "749c7cad80ac5d1b0697a9ad72c567321aa2b092"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-b5b97f556260036ff598f4f7713b18706e46b1a4-zip-06a88c.zip",
+                "reference": "b5b97f556260036ff598f4f7713b18706e46b1a4",
+                "shasum": "8c03fbc31ae830000fe25d1ed8dbc7c9f580d198"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2342,7 +2342,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-11-18T19:45:06+00:00"
+            "time": "2024-11-20T15:33:27+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -17212,9 +17212,9 @@
         "candy-chat/xmpp-prebind-php": 20,
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
-        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15
+        "phpcsstandards/phpcsutils": 15,
+        "rubix/extras": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17231,7 +17231,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",
