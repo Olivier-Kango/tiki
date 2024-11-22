@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
+use Laminas\Log\Writer\Stream as WriterStream;
+use Laminas\Log\Logger;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
@@ -63,6 +65,7 @@ class IndexRebuildCommand extends Command
         $currentEngine = $unifiedsearchlib->getCurrentEngineDetails();
         $fallbackEngine = $unifiedsearchlib->getFallbackEngineDetails();
         $unusedIndices = $unifiedsearchlib->listAllUnusedIndexes($currentEngine);
+        $logFiles = [];
 
         if (! $cron) {
             $message = '[' . \TikiLib::lib('tiki')->get_short_datetime(0) . '] Started rebuilding index...';
@@ -201,8 +204,18 @@ class IndexRebuildCommand extends Command
                     $io->error($unusedIndices['error']);
                 }
 
+                $executionTime = FormatterHelper::formatTime($timer->stop());
+
+                if ($log && is_array($currentEngine) && count($currentEngine)) {
+                    list($engine) = $currentEngine;
+                    $logToFile = new WriterStream($unifiedsearchlib->getLogFilename($log, strtolower($engine)), 'a');
+                    $loggerInstance = new Logger();
+                    $loggerInstance->addWriter($logToFile);
+                    $loggerInstance->info("Execution time: " . $executionTime);
+                }
+
                 $io->section("\nExecution Statistics");
-                $output->writeln('Execution time: ' . FormatterHelper::formatTime($timer->stop()));
+                $output->writeln('Execution time: ' . $executionTime);
                 $output->writeln('Current Memory usage: ' . FormatterHelper::formatMemory(memory_get_usage()));
                 $output->writeln('Memory peak usage before indexing: ' . FormatterHelper::formatMemory($memory_peak_usage_before));
                 $output->writeln('Memory peak usage after indexing: ' . FormatterHelper::formatMemory(memory_get_peak_usage()));

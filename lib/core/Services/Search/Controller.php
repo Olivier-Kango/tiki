@@ -132,9 +132,18 @@ class Services_Search_Controller
 
         $num_queries = ($num_queries_after - $num_queries_before);
 
+        $executionTime = FormatterHelper::formatTime($timer->stop());
+
+        if ($input->loggit->int()) {
+            $log = new Laminas\Log\Writer\Stream($unifiedsearchlib->getLogFilename($input->loggit->int(), $prefs['unified_engine']), 'a');
+            $loggerInstance = new Laminas\Log\Logger();
+            $loggerInstance->addWriter($log);
+            $loggerInstance->info("Execution time: " . $executionTime);
+        }
+
         if ($num_queries) {
             $msg = '<ul>';
-            $msg .= '<li>' . tr('Execution time:') . ' ' . FormatterHelper::formatTime($timer->stop()) . '</li>';
+            $msg .= '<li>' . tr('Execution time:') . ' ' . $executionTime . '</li>';
             $msg .= '<li>' . tr('Current Memory usage:') . ' ' . FormatterHelper::formatMemory(memory_get_usage()) . '</li>';
             $msg .= '<li>' . tr('Memory peak usage before indexing:') . ' ' . FormatterHelper::formatMemory($memory_peak_usage_before) . '</li>';
             $msg .= '<li>' . tr('Memory peak usage after indexing:') . ' ' . FormatterHelper::formatMemory(memory_get_peak_usage()) . '</li>';
