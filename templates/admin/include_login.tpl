@@ -223,6 +223,10 @@
                 {preference name=forgotPass}
                 {preference name=twoFactorAuth}
                 <div class="adminoptionboxchild" id="twoFactorAuth_childcontainer">
+                    {preference name=twoFactorAuthIntervalDays}
+                    {preference name=twoFactorAuthType}
+                    {preference name=twoFactorAuthEmailTokenLength}
+                    {preference name=twoFactorAuthEmailTokenTTL}
                     {preference name=twoFactorAuthAllUsers}
                     {preference name=twoFactorAuthIncludedGroup}
                     {preference name=twoFactorAuthIncludedUsers}

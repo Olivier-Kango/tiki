@@ -205,6 +205,7 @@ class ConsoleApplicationBuilder
                 new SchedulerRunCommand(),
                 new WebmailUnreadPagesCommand(),
                 new WebmailUnreadGlobalCommand(),
+                new Disable2FACommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',

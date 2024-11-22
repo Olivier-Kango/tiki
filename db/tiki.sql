@@ -2996,6 +2996,7 @@ CREATE TABLE `users_users` (
   `unsuccessful_logins` int(14) default 0,
   `waiting` char(1) default NULL,
   `twoFactorSecret` varchar(16) default NULL,
+  `last_mfa_date` bigint DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `login` (login (191)),
   KEY `registrationDate` (`registrationDate`)
@@ -4207,6 +4208,16 @@ CREATE TABLE `tiki_custom_color_modes` (
 ) ENGINE=MyISAM;
 
 INSERT INTO `tiki_custom_color_modes` (`name`, `icon`) VALUES ('light', 'sun'), ('dark','moon'), ('auto', 'circle-half');
+
+DROP TABLE IF EXISTS `tiki_2fa_email_tokens`;
+CREATE TABLE `tiki_2fa_email_tokens` (
+  `userId` INT(8) NOT NULL,
+  `type` VARCHAR(10) NOT NULL,
+  `token` VARCHAR(60) NOT NULL,
+  `attempts` INT NOT NULL DEFAULT 0,
+  `created` bigint NOT NULL,
+  PRIMARY KEY (`userId`)
+) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_iot_apps`;
 CREATE TABLE `tiki_iot_apps` (

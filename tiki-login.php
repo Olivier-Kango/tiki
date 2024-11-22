@@ -8,6 +8,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\TwoFactorAuth\TwoFactorAuthFactory;
+use Tiki\TwoFactorAuth\Exception\TwoFactorAuthException;
+
 $inputConfiguration = [
     [
         'staticKeyFilters'     => [
@@ -48,7 +51,7 @@ if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && T
 } elseif (isset($_REQUEST['cas']) && $_REQUEST['cas'] == 'y' && $prefs['auth_method'] == 'cas') {
     $login_url_params = '?cas=y';
     $_REQUEST['user'] = '';
-} elseif (! (isset($_REQUEST['user']) or isset($_REQUEST['username']))) {
+} elseif ($prefs['twoFactorAuth'] === 'n' && (! isset($_REQUEST['user']) or isset($_REQUEST['username']))) {
     if (! $https_mode && $prefs['https_login'] == 'required') {
         header('Location: ' . $base_url_https . 'tiki-login_scr.php');
     } else {
@@ -72,6 +75,13 @@ if (! $https_mode && $prefs['https_login'] == 'required') {
 
 if ($prefs['session_silent'] == 'y') {
     session_start();
+}
+
+if ($prefs['twoFactorAuth'] === 'y' && ! empty($_SESSION['tiki_creds_username']) && ! empty($_SESSION['tiki_creds_password'])) {
+    $_REQUEST['user'] = $_SESSION['tiki_creds_username'];
+    $_REQUEST['pass'] = $_SESSION['tiki_creds_password'];
+    unset($_SESSION['tiki_creds_username']);
+    unset($_SESSION['tiki_creds_password']);
 }
 
 // Remember where user is logging in from and send them back later; using session variable for those of us who use WebISO services
@@ -313,19 +323,33 @@ if (
             }
         }
     } elseif ($isvalid) {
-        $twoFactorAuthCode = "";
-        if (! empty($_REQUEST["twoFactorAuthCode"])) {
-            $twoFactorAuthCode = $_REQUEST["twoFactorAuthCode"];
-        }
+        try {
+            $twoFactorAuth = TwoFactorAuthFactory::getTwoFactorAuth();
+            $requireMfa = TwoFactorAuthFactory::isMFARequired($requestedUser);
 
-        $twoFactorSecret = $userlib->get_2_factor_secret($requestedUser);
-        if ($prefs['twoFactorAuth'] == 'y' && ! empty($twoFactorSecret) && ! $userlib->validate_two_factor($twoFactorSecret, $twoFactorAuthCode, $requestedUser)) {
-            $error = TWO_FA_INCORRECT;
-            $isvalid = false;
-            $smarty->assign('twoFactorForm', 'y');
-        } else {
-            $isdue = $userlib->is_due($requestedUser, $method);
-            $user = $requestedUser;
+            if ($prefs['twoFactorAuth'] == 'y' && isset($_REQUEST['login_mode']) && $_REQUEST['login_mode'] == 'popup') {
+                $_SESSION['tiki_creds_username'] = $_REQUEST['user'];
+                $_SESSION['tiki_creds_password'] = $_REQUEST['pass'];
+                $params = '&create2FaCodeNormalLogin&tiki_username=' . urlencode($_REQUEST['user']);
+                header('Location: ' . $base_url . 'tiki-login_scr.php?twoFactorForm' . $params);
+                exit;
+            }
+
+            if ($prefs['twoFactorAuth'] == 'y' && $requireMfa && ! $twoFactorAuth->validateCode($requestedUser, $_REQUEST['twoFactorAuthCode'])) {
+                $error = TWO_FA_INCORRECT;
+                $isvalid = false;
+                $smarty->assign('twoFactorForm', 'y');
+            } else {
+                if ($requireMfa) {
+                    $userlib->updateLastMFADate($requestedUser);
+                }
+                $isdue = $userlib->is_due($requestedUser, $method);
+                $user = $requestedUser;
+            }
+        } catch (TwoFactorAuthException $e) {
+            $smarty->assign('msg', $e->getMessage());
+            $smarty->display('error.tpl');
+            exit;
         }
     }
 }

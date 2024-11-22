@@ -99,6 +99,7 @@
         <service id="tiki.controller.performance" class="Services_Performance_Controller"/>
         <service id="tiki.controller.iconpicker" class="Services_IconPicker_Controller"/>
         <service id="tiki.controller.colormodes" class="Services_ColorModes_Controller"/>
+        <service id="tiki.controller.email2fa" class="Tiki\Services\TwoFactorAuth\Email2FAController"/>
         <service id="tiki.controller.iotapps" class="Services_IotApps_Controller"/>
     </services>
 </container>
