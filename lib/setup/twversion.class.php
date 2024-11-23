@@ -50,7 +50,7 @@ class TWVersion
         $this->branch   = 'stable';
 
         // Set everything else, including defaults.
-        $this->version  = '27.1vcs';
+        $this->version  = '27.1';
         $this->star     = 'Miaplacidus';
         $this->releases = [];
 
@@ -399,6 +399,7 @@ class TWVersion
                 '27.0beta',
                 '27.0RC1',
                 '27.0',
+                '27.1'
             ];
     }
 
