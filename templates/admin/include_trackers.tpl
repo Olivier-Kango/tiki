@@ -31,6 +31,7 @@
 
                 {preference name=feature_warn_on_edit}
                 {preference name=ajax_inline_edit}
+                {preference name="tracker_item_select_feature"}
                 <div class="adminoptionboxchild" id="ajax_inline_edit_childcontainer">
                     {preference name=ajax_inline_edit_trackerlist}
                 </div>

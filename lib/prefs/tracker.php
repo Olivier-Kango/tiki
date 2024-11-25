@@ -373,5 +373,15 @@ function prefs_tracker_list()
             'parentkey' => 'tracker_id',
             'profile_reference' => 'tracker_field',
         ],
+        'tracker_item_select_feature' => [
+            'name' => tr('Toggle selection option for all tracker field types that let us pick multiple options'),
+            'description' => tr('Show select all/invert selection when there is more than this number of items'),
+            'type' => 'text',
+            'size' => '50',
+            'units' => tra('items'),
+            'default' => 5,
+            'filter' => 'int',
+            'dependencies' => ['feature_trackers'],
+        ]
     ];
 }
