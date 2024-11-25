@@ -38,7 +38,6 @@
     --tiki-topbar-border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-
 .tiki-top-nav-light {
     @include top-nav-light;
 }
@@ -66,7 +65,7 @@
 }
 
 // Color mode preference trumps L&F admin dark navbar option
-[data-bs-theme=light] {                              // color mode
+[data-bs-theme=light] body:not(.tiki-admin.uab) {                              // light color mode
     .tiki-top-nav-dark {                           // dark top selector
         @include top-nav-light;                      // light values
     }
