@@ -116,6 +116,28 @@ class LogsLib extends TikiLib
         return $this->query($query, [(int)$date]);
     }
 
+    /**
+     * Delete logs keep entries with given count
+     * @param $date
+     * @return \TikiDb_Pdo_Result
+     */
+    public function cleanWithCount($count)
+    {
+        $query = "delete from `tiki_actionlog` where `objectType`='system' order by `lastModif` asc limit ?";
+        return $this->query($query, [(int) $count]);
+    }
+
+    /**
+     * Delete logs older than a specific date
+     * @param $date
+     * @return \TikiDb_Pdo_Result
+     */
+    public function logsCount()
+    {
+        $query = "select count(*) from `tiki_actionlog` where `objectType`='system'";
+        return (int) $this->getOne($query);
+    }
+
     public function add_action(
         $action,
         $object,

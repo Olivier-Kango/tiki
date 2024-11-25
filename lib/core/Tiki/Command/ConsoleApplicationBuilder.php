@@ -189,6 +189,7 @@ class ConsoleApplicationBuilder
                 new TrackerClearCommand(),
                 new AdminIndexRebuildCommand(),
                 new UserCreateCommand(),
+                new LogDeleteCommand(),
                 new UserUnlockCommand(),
                 new UsersListCommand(),
                 new UsersPasswordCommand(),
