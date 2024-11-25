@@ -56,10 +56,10 @@ if (empty($info) && ! isset($_REQUEST['file']) && ! isset($_REQUEST['fileId'])) 
 
 $objectperms = Perms::get('sheet', $_REQUEST['sheetId']);
 if ($user && $user == $info['author']) {
-    $objectperms->view_sheet = 1;
-    $objectperms->edit_sheet = 1;
-    $objectperms->tiki_p_view_sheet = 1;
-    $objectperms->tiki_p_edit_sheet = 1;
+    $objectperms->setPermission('view_sheet', 1);
+    $objectperms->setPermission('edit_sheet', 1);
+    $objectperms->setPermission('tiki_p_view_sheet', 1);
+    $objectperms->setPermission('tiki_p_edit_sheet', 1);
 }
 
 if (! $sheetlib->user_can_view($_REQUEST['sheetId'])) {
