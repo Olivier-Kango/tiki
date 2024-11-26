@@ -1337,6 +1337,9 @@
         "lib\/core\/Search\/Formatter\/Plugin\/ArrayTemplate.php": {
             "class:Search_Formatter_Plugin_ArrayTemplate": true
         },
+        "lib\/core\/Search\/Formatter\/Plugin\/Sublist.php": {
+            "class:Search_Formatter_Plugin_Sublist": true
+        },
         "lib\/core\/Services\/Tracker\/Utilities.php": {
             "class:Services_Tracker_Utilities": true
         },
@@ -5119,6 +5122,9 @@
         },
         "lib\/core\/Search\/Formatter\/Plugin\/ArrayTemplate.php": {
             "Search_Formatter_Plugin_ArrayTemplate": true
+        },
+        "lib\/core\/Search\/Formatter\/Plugin\/Sublist.php": {
+            "Search_Formatter_Plugin_Sublist": true
         },
         "lib\/core\/Services\/Tracker\/Utilities.php": {
             "Services_Tracker_Utilities": true
