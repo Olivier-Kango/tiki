@@ -130,10 +130,13 @@ class Search_MySql_Index implements Search_Index_Interface
         return $result ? $result['word'] : $word;
     }
 
-    public function callSuggestions($words, $condition, $conditions)
+    public function callSuggestions(array $options): array
     {
         $didYouMean = false;
         $correctedWords = [];
+        $words = $options['words'];
+        $condition = $options['condition'];
+        $conditions = $options['conditions'];
 
         foreach ($words as $word) {
             $correctWord = $this->findClosestWord($word);
@@ -158,7 +161,7 @@ class Search_MySql_Index implements Search_Index_Interface
     public function find(Search_Query_Interface $query, $resultStart, $resultCount)
     {
         try {
-            $words = $this->getWords($query->getExpr());
+            $words = $query->getWords();
             $condition = $this->builder->build($query->getExpr());
             $conditions = empty($condition) ? [] : [
                 $this->table->expr($condition),
@@ -198,7 +201,8 @@ class Search_MySql_Index implements Search_Index_Interface
 
             $count = $this->table->fetchCountIndex($conditions);
             if ($query->processDidYouMean() && $count === 0) {
-                list($didYouMean, $correctKeywords, $count, $conditions) = $this->callSuggestions($words, $condition, $conditions);
+                $params = compact('words', 'condition', 'conditions');
+                list($didYouMean, $correctKeywords, $count, $conditions) = $this->callSuggestions($params);
                 $scoreCalc = str_replace($words, $correctKeywords, $scoreCalc);
             }
             $entries = $this->table->fetchAllIndex($selectFields, $conditions, $resultCount, $resultStart, $order);
@@ -214,11 +218,11 @@ class Search_MySql_Index implements Search_Index_Interface
             }
 
             $resultSet = new Search_ResultSet($entries, $count, $resultStart, $resultCount);
-            $resultSet->setHighlightHelper(new Search_MySql_HighlightHelper($words));
-
             if (! empty($didYouMean)) {
                 $resultSet->setDidYouMean(implode(' ', $correctKeywords));
+                $words = $correctKeywords;
             }
+            $resultSet->setHighlightHelper(new Search_MySql_HighlightHelper($words));
 
             return $resultSet;
         } catch (Search_MySql_QueryException $e) {
@@ -275,24 +279,6 @@ class Search_MySql_Index implements Search_Index_Interface
         } else {
             return;
         }
-    }
-
-    private function getWords($expr)
-    {
-        $words = [];
-        $factory = new Search_Type_Factory_Direct();
-        $expr->walk(
-            function ($node) use (&$words, $factory) {
-                if ($node instanceof Search_Expr_Token && $node->getField() !== 'searchable') {
-                    $word = $node->getValue($factory)->getValue();
-                    if (is_string($word) && ! in_array($word, $words)) {
-                        $words[] = $word;
-                    }
-                }
-            }
-        );
-
-        return $words;
     }
 
     public function getTypeFactory()

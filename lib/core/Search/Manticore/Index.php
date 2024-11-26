@@ -413,7 +413,8 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 
         $result = $this->pdo_client->fetchAllRowsets($selectFields, $selectExpressions, $table, $condition, $order, $resultStart, $resultCount, $facets, array_keys($this->providedMappings));
         if ($query->processDidYouMean() && $result['total'] === 0) {
-            list($suggestionResult, $didYouMean, $correctKeywords) = $this->callSuggestions($table, $meta, $resultStart, $resultCount);
+            $params = compact('table', 'resultStart', 'resultCount', 'selectFields', 'selectExpressions');
+            list($suggestionResult, $didYouMean, $correctKeywords) = $this->callSuggestions($params);
             if ($suggestionResult) {
                 $result = $suggestionResult;
             }
@@ -493,8 +494,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $resultSet = new ResultSet($entries, $totalCount, $resultStart, $resultCount);
         if (! empty($didYouMean)) {
             $resultSet->setDidYouMean(implode(' ', $correctKeywords));
+            $words = $correctKeywords;
+        } else {
+            $words = $query->getWords();
         }
-        $words = $this->getWords($query->getExpr());
         $resultSet->setHighlightHelper(new \Search_MySql_HighlightHelper($words));
 
         $reader = new FacetReader($facets);
@@ -506,11 +509,19 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         return $resultSet;
     }
 
-    public function callSuggestions($table, $meta, $resultStart, $resultCount)
+    public function callSuggestions(array $options): array
     {
+        $table = $options['table'];
+        $resultStart = $options['resultStart'];
+        $resultCount = $options['resultCount'];
+        $selectFields = $options['selectFields'];
+        $selectExpressions = $options['selectExpressions'];
         $didYouMean = false;
         $correctKeywords = [];
         $result = null;
+
+        $meta = $this->pdo_client->fetchAll('SHOW META');
+
         foreach ($meta as $m) {
             if (preg_match('/keyword\[\d+]/', $m['Variable_name'])) {
                 preg_match('/\d+/', $m['Variable_name'], $key);
@@ -540,7 +551,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             $correctKeywords[] = end($didYouMeanQuery);
         }
         if ($didYouMean == true) {
-            $result = $this->pdo_client->fetchAllRowsets([], $table, "MATCH('" . implode(" ", $didYouMeanQuery) . "')", null, $resultStart, $resultCount, null, array_keys($this->providedMappings));
+            $result = $this->pdo_client->fetchAllRowsets($selectFields, $selectExpressions, $table, "MATCH('" . implode(" ", $didYouMeanQuery) . "')", null, $resultStart, $resultCount, null, array_keys($this->providedMappings));
         }
 
         return [$result, $didYouMean, $correctKeywords];
