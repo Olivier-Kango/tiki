@@ -7,18 +7,21 @@
         {else}
             {button href="?view=list" _class="btn btn-info" _text="{tr}List View{/tr}"}
         {/if}
-        {button href="#" _onclick="flip('editform');return false;" _class="btn btn-primary" _text="{tr}Create/edit contacts{/tr}"}
-        {button href="tiki-user_contacts_prefs.php" _class="btn btn-primary" _text="{tr}Preferences{/tr}"}
-        {if $prefs.feature_webmail eq 'y' and $tiki_p_use_webmail eq 'y'}
-            {button href="tiki-webmail.php" _class="btn btn-primary" _text="{tr}Webmail{/tr}"}
+        {if $user neq null}
+            {button href="#" _onclick="flip('editform');return false;" _class="btn btn-primary" _text="{tr}Create/edit contacts{/tr}"}
+            {button href="tiki-user_contacts_prefs.php" _class="btn btn-primary" _text="{tr}Preferences{/tr}"}
+            {if $prefs.feature_webmail eq 'y' and $tiki_p_use_webmail eq 'y' and $tiki_p_use_group_webmail eq 'y'}
+                {button href="tiki-webmail.php" _class="btn btn-primary" _text="{tr}Webmail{/tr}"}
+            {/if}
+            {button href="tiki-carddav.php/addressbooks/{$user}/webmail" _class="btn btn-primary" _text="{tr}CardDAV{/tr}"}
         {/if}
-        {button href="tiki-carddav.php/addressbooks/{$user}/webmail" _class="btn btn-primary" _text="{tr}CardDAV{/tr}"}
     </div>
 </div>
 
 <form action="tiki-contacts.php" method="post" id="editform" name="editform_contact" style="clear:both;margin:5px;display:{if $contactId}block{else}none{/if};">
     <input type="hidden" name="locSection" value="contacts">
     <input type="hidden" name="contactId" value="{$contactId|escape}">
+    {ticket name="contact"}
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">{tr}First Name{/tr}</label>
@@ -149,10 +152,16 @@
                         </a>
                     </td>
                     <td class="email">
-                        {if $prefs.feature_webmail eq 'y'}
+                        {if $prefs.feature_webmail eq 'y' and $tiki_p_use_webmail eq 'y' and $tiki_p_use_group_webmail eq 'y'}
                             {self_link _script='tiki-webmail.php' page='compose' compose_to=$channels[user].email}{$channels[user].email}{/self_link}
+                            {if isset($channels[user].workEmail)}
+                                <br>{self_link _script='tiki-webmail.php' page='compose' compose_to=$channels[user].workEmail}{$channels[user].workEmail}{/self_link}
+                            {/if}
                         {else}
                             <a class="link" href="mailto:{$channels[user].email}">{$channels[user].email}</a>
+                            {if isset($channels[user].workEmail)}
+                                <br><a class="link" href="mailto:{$channels[user].workEmail}">{$channels[user].workEmail}</a>
+                            {/if}
                         {/if}
                     </td>
                     <td class="text">
@@ -193,9 +202,17 @@
                                         </action>
                                     {/if}
                                     <action>
-                                        <a href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;remove={$channels[user].contactId}">
-                                            {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
-                                        </a>
+                                        <form action="tiki-contacts.php" method="post">
+                                            {ticket}
+                                            <input type="hidden" name="offset" value="{$offset}">
+                                            <input type="hidden" name="sort_mode" value="{$sort_mode}">
+                                            <input type="hidden" name="find" value="{$find}">
+                                            <input type="hidden" name="initial" value="{$setInitial}">
+                                            <input type="hidden" name="remove" value="{$channels[user].contactId}">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}" onclick="confirmPopup('{tr _0=$channels[user].email}Are you sure you want to delete %0?{/tr}')">
+                                                {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
+                                            </button>
+                                        </form>
                                     </action>
                                 {/if}
                             {/strip}
@@ -210,27 +227,9 @@
 </table>
 </div>
 
-{if $cant_pages > 0}
-<div class="mx-auto">
-    {if $prev_offset >= 0}
-        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$prev_offset}&amp;sort_mode={$sort_mode}">{tr}Prev{/tr}</a>]
-        &nbsp;
-    {/if}
-    {tr}Page:{/tr} {$actual_page}/{$cant_pages}
-    {if $next_offset >= 0}
-        &nbsp;
-        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$next_offset}&amp;sort_mode={$sort_mode}">{tr}Next{/tr}</a>]
-    {/if}
-    {if $prefs.direct_pagination eq 'y'}
-        <br>
-        {section loop=$cant_pages name=foo}
-            {assign var=selector_offset value=$smarty.section.foo.index|times:$prefs.maxRecords}
-            <a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$selector_offset}&amp;sort_mode={$sort_mode}">{$smarty.section.foo.index_next}</a>
-            &nbsp;
-        {/section}
-    {/if}
-</div>
-{/if}
+
+{pagination_links cant=$total_contact step=$maxRecords offset=$offset clean='y'}{/pagination_links}
+
 
 {literal}
 <script type="text/javascript">

@@ -19,6 +19,7 @@ $contactlib = TikiLib::lib('contact');
 $auto_query_args = [
     'contactId',
     'view',
+    'maxRecords',
     'find',
     'sort_mode',
     'offset',
@@ -66,14 +67,14 @@ $smarty->assign('info', $info);
 $smarty->assign('exts', $traducted_exts);
 
 if (isset($_REQUEST["remove"])) {
+    check_ticket('contact');
     $access->check_user($user);
-    $access->check_authenticity();
     $contactlib->remove_contact($_REQUEST["remove"], $user);
 }
 
 if (isset($_REQUEST["save"])) {
+    check_ticket('contact');
     $access->check_user($user);
-    check_ticket('webmail-contact');
     $ext_result = [];
     foreach ($exts as $ext) {
         $ext_result[$ext['fieldId']] = isset($_REQUEST['ext_' . $ext['fieldId']]) ? $_REQUEST['ext_' . $ext['fieldId']] : '';
@@ -88,60 +89,56 @@ if (isset($_REQUEST["save"])) {
     $smarty->assign('contactId', 0);
 }
 
-if (! isset($_REQUEST["sort_mode"])) {
-    $sort_mode = 'email_asc';
+$sort_mode = $_REQUEST["sort_mode"] ?? 'email_asc';
+$offset = (int)($_REQUEST["offset"] ?? 0);
+$find = $_REQUEST["find"] ?? '';
+if (! empty($_REQUEST['maxRecords'])) {
+    $maxRecords = $_REQUEST['maxRecords'];
 } else {
-    $sort_mode = $_REQUEST["sort_mode"];
+    $maxRecords = $prefs['maxRecords'] ?? 20;
 }
+$initial = $_REQUEST["initial"] ?? '';
+
 $smarty->assign_by_ref('sort_mode', $sort_mode);
-
-if (! isset($_REQUEST["offset"])) {
-    $offset = 0;
-} else {
-    $offset = $_REQUEST["offset"];
-}
-
 $smarty->assign_by_ref('offset', $offset);
-
-if (isset($_REQUEST["find"])) {
-    $find = $_REQUEST["find"];
-} else {
-    $find = '';
-}
-
 $smarty->assign('find', $find);
-$maxRecords = 20;
 
-$contacts = $contactlib->list_contacts($user, $offset, $maxRecords, $sort_mode, $find, true, $_REQUEST["initial"]);
+$contacts = $contactlib->list_contacts($user, $offset, $maxRecords, $sort_mode, $find, true, $initial);
+$cant = $contactlib->list_contacts($user, -1, -1, $sort_mode, $find, true, $initial);
+$cant = is_array($cant) ? count($cant) : 0;
 
-if (isset($_REQUEST['view'])) {
-    $_SESSION['UserContactsView'] = $_REQUEST['view'];
-} elseif (! isset($_SESSION['UserContactsView'])) {
-    $_SESSION['UserContactsView'] = $userlib->get_user_preference($user, 'user_contacts_default_view');
-}
+$_SESSION['UserContactsView'] = $_REQUEST['view'] ??
+($_SESSION['UserContactsView'] ?? $userlib->get_user_preference($user, 'user_contacts_default_view'));
 $smarty->assign('view', $_SESSION['UserContactsView']);
 
 if (is_array($contacts)) {
+    foreach ($contacts as $key => $contact) {
+        if (array_key_exists('ext', $contact)) {
+            foreach ($contact['ext'] as $extVal) {
+                // Checking for work email
+                if (filter_var($extVal, FILTER_VALIDATE_EMAIL)) {
+                    $contacts[$key]['workEmail'] = $extVal;
+                    break;
+                }
+            }
+        }
+    }
+
     if ($_SESSION['UserContactsView'] == 'list') {
         $smarty->assign('all', [$contacts]);
-        $cant = count($contacts);
     } else {
-        // ordering contacts by groups
         $all = [];
         $all_personnal = [];
-        $cant = 0;
 
         foreach ($contacts as $c) {
-            if (is_array($c['groups'])) {
+            if (array_key_exists('groups', $c) && is_array($c['groups'])) {
                 foreach ($c['groups'] as $g) {
                     $all[$g][] = $c;
-                    $cant++;
                 }
             }
 
             if ($c['user'] == $user) {
                 $all_personnal[] = $c;
-                $cant++;
             }
         }
 
@@ -167,16 +164,17 @@ if ($cant > ($offset + $maxRecords)) {
     $smarty->assign('next_offset', -1);
 }
 
-$smarty->assign('initial', range('a', 'z'));
-if ($offset > 0) {
-    $smarty->assign('prev_offset', $offset - $maxRecords);
-} else {
-    $smarty->assign('prev_offset', -1);
-}
+$smarty->assign('offset_arg', 'offset');
+$smarty->assign('count', $cant);
+$smarty->assign('step', $maxRecords);
+
+$smarty->assign('setInitial', $initial);
+$smarty->assign('maxRecords', $maxRecords);
+$smarty->assign('total_contact', $cant);
 
 include_once('tiki-section_options.php');
 
-ask_ticket('contacts');
+ask_ticket('contact');
 $smarty->assign('myurl', 'tiki-contacts.php');
 $smarty->assign('mid', 'tiki-contacts.tpl');
 $smarty->display('tiki.tpl');
