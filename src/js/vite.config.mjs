@@ -493,6 +493,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/reveal.js/dist"
                     },
                     {
+                        src: "node_modules/sass-svg-uri/*",
+                        dest: "vendor_dist/sass-svg-uri",
+                    },
+                    {
                         src: "node_modules/select2/dist/js/select2.min.js",
                         dest: "vendor_dist/select2/dist",
                     },
