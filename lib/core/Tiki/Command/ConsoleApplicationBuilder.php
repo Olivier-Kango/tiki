@@ -207,6 +207,7 @@ class ConsoleApplicationBuilder
                 new WebmailUnreadPagesCommand(),
                 new WebmailUnreadGlobalCommand(),
                 new Disable2FACommand(),
+                new ForumProcessInboundMail(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',
