@@ -193,7 +193,7 @@ class Executor
         }
         $fieldsToPreload = array_unique($fieldsToPreload);
 
-        $sf = new Search_Formatter(new Search_Formatter_Plugin_Sublist);
+        $sf = new Search_Formatter(new Search_Formatter_Plugin_Sublist());
         foreach ($this->formatterPlugins as $name => $plugin) {
             $sf->addSubFormatter($name, $plugin);
         }
