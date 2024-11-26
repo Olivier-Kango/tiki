@@ -314,6 +314,9 @@
         "lib\/core\/Search\/Formatter\/Plugin\/AbstractTableTemplate.php": {
             "class:Search_Formatter_Plugin_AbstractTableTemplate": true
         },
+        "lib\/core\/Search\/Formatter\/Plugin\/Sublist.php": {
+            "class:Search_Formatter_Plugin_Sublist": true
+        },
         "lib\/core\/Table\/Settings\/TikiListpages.php": {
             "class:Table_Settings_TikiListpages": true
         },
@@ -4202,6 +4205,9 @@
         },
         "lib\/core\/Search\/Formatter\/Plugin\/AbstractTableTemplate.php": {
             "Search_Formatter_Plugin_AbstractTableTemplate": true
+        },
+        "lib\/core\/Search\/Formatter\/Plugin\/Sublist.php": {
+            "Search_Formatter_Plugin_Sublist": true
         },
         "lib\/core\/Table\/Settings\/TikiListpages.php": {
             "Table_Settings_TikiListpages": true
