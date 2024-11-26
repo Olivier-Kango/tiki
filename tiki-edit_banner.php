@@ -11,8 +11,8 @@
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
-            'bannerId'                    => 'bool',          //post
-            'removeZone'                  => 'int',           //post
+            'bannerId'                    => 'int',           //post
+            'removeZone'                  => 'string',        //post
             'save'                        => 'bool',          //post
             'create_zone'                 => 'bool',          //post
             'fromTimeMeridian'            => 'int',           //post
@@ -38,7 +38,7 @@ $inputConfiguration = [
             'onlyInURIs'                  => 'string',        //post
             'exceptInURIs'                => 'string',        //post
             'url'                         => 'url',           //post
-            'use'                         => 'bool',          //post
+            'use'                         => 'string',        //post
             'useDates'                    => 'bool',          //post
             'Dmon'                        => 'bool',          //post
             'Dtue'                        => 'bool',          //post
@@ -118,6 +118,7 @@ if (isset($_REQUEST["bannerId"]) && $_REQUEST["bannerId"] > 0) {
 
     if (strlen($info["imageData"]) > 0) {
         $tmpfname = $prefs['tmpDir'] . "/bannerimage" . "." . $_REQUEST["bannerId"];
+        $data = $info["imageData"];
         $fp = fopen($tmpfname, "wb");
         if ($fp) {
             fwrite($fp, $data);
@@ -189,9 +190,9 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["create_zone"])) {
     $smarty->assign('maxImpressions', $_REQUEST["maxImpressions"]);
     $smarty->assign('maxUserImpressions', $_REQUEST["maxUserImpressions"]);
     $smarty->assign('maxClicks', $_REQUEST["maxClicks"]);
-    $smarty->assign('HTMLData', $_REQUEST["HTMLData"]);
-    $smarty->assign('fixedURLData', $_REQUEST["fixedURLData"]);
-    $smarty->assign('textData', $_REQUEST["textData"]);
+    $smarty->assign('HTMLData', $_REQUEST["HTMLData"] ?? '');
+    $smarty->assign('fixedURLData', $_REQUEST["fixedURLData"] ?? '');
+    $smarty->assign('textData', $_REQUEST["textData"] ?? '');
 
     if (isset($_REQUEST["zone"])) {
         $smarty->assign('zone', $_REQUEST["zone"]);
