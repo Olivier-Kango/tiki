@@ -36,6 +36,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         $this->offset = $offset;
         $this->maxRecords = $maxRecords;
         $this->checkNestedObjectPerms();
+        $this->assignRowIndex();
     }
 
     public function replaceEntries($list)
@@ -60,6 +61,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         $this->count += count($list);
         $this->maxRecords += count($list);
         $this->checkNestedObjectPerms();
+        $this->assignRowIndex();
     }
 
     public function setHighlightHelper(Laminas\Filter\FilterInterface $helper)
@@ -279,6 +281,17 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
                     }
                 }
                 $item['relation_objects'] = array_values($objects); //rebase keys
+            }
+        }
+    }
+
+    public function assignRowIndex()
+    {
+        $current = 0;
+        foreach ($this as &$item) {
+            $current++;
+            if (is_iterable($item)) {
+                $item['row_index'] = $this->offset + $current;
             }
         }
     }
