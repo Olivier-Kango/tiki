@@ -184,7 +184,7 @@
                             {foreach $modified_list as $name => $data}
                                 <li class="form-check">
                                     {if is_array($data.current.expanded)}
-                                        {$current = $data.current.expanded|join:', '}
+                                        {$current = $data.current.expanded|json_encode}
                                     {else}
                                         {$current = $data.current.expanded}
                                     {/if}
