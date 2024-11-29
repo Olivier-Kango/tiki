@@ -1,6 +1,10 @@
 #!/usr/bin/php
 <?php
 
+/**
+ * @package tikiwiki
+ */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -39,6 +43,9 @@ if (function_exists('pcntl_signal')) {
     pcntl_signal(SIGHUP, $exit);
     pcntl_signal(SIGINT, $exit);
 }
+
+// Enforce php version constraints
+require_once('lib/enforce_php_version_constraints.php');
 
 // we autoload if autoloading is available, otherwise we continue so Tiki can throw its regular errors.
 if (include('vendor_bundled/vendor/autoload.php')) {

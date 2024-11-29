@@ -47,7 +47,7 @@ for(var i =0; i < sessionStorage.length; i++){
 if (
     empty($_SESSION['cypht']['preference_name']) || $_SESSION['cypht']['preference_name'] != 'cypht_user_config'
     || (! empty($_SESSION['cypht']['username']) && $_SESSION['cypht']['username'] != $user)
-    || !empty($_REQUEST['clear_cache'])
+    || ! empty($_REQUEST['clear_cache'])
 ) {
   // resetting the session on purpose - could be coming from PluginCypht
     $_SESSION['cypht'] = [];
@@ -117,7 +117,7 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
         if (isset($_POST['msg_text'])) {
             $msg_text = $_POST['msg_text'];
         }
-        $contentpage = createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin);
+        $contentpage = createWebPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin);
         $filename = $header_from . '_' . $header_subject;
         $params = [
         'page' => 'messsage',
@@ -146,7 +146,7 @@ $smarty->display('tiki.tpl');
 /**
  * creates the HTML page to be print.
  */
-function createPage($header_subject, $header_date, $header_from, $header_to, $msg_text)
+function createWebPage($header_subject, $header_date, $header_from, $header_to, $msg_text)
 {
     return <<<END
     <<!DOCTYPE html>
