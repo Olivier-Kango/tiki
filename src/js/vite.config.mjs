@@ -204,6 +204,33 @@ export default defineConfig(({ command, mode }) => {
             postcss: {
                 plugins: [postcssRootToHost()],
             },
+            /**
+             * This workaround suppresses warnings from Sass about mixed declarations
+             * after nested rules. The issue originates from Bootstrap (twbs) and is
+             * tracked here: https://github.com/twbs/bootstrap/issues/40621.
+             *
+             * The fix involves configuring the `scss` preprocessor to silence the specific
+             * deprecation warnings (`mixed-decls`). This is implemented using the `silenceDeprecations`
+             * option with the value `['mixed-decls']`.
+             *
+             * IMPORTANT: This workaround can be removed once Bootstrap is updated to
+             * version 5.3.4 (or later), which includes the resolution to this issue
+             * (see: https://github.com/twbs/bootstrap/pull/40623).
+             *
+             * Original suppressed warning:
+             * DEPRECATION WARNING: Sass's behavior for declarations that appear after nested rules
+             * will change in future versions.
+             *
+             * Future developers should verify whether the workaround is still required
+             * by consulting the linked issue and confirming that the fix is included in the
+             * version of Bootstrap used by the project.
+             */
+             preprocessorOptions: {
+                scss: {
+                    api: 'modern-compiler', // or "modern", "legacy"
+                    silenceDeprecations: ['mixed-decls'],
+                },
+            }
         },
         plugins: [
             vue({
