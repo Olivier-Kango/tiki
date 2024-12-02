@@ -134,10 +134,13 @@ function wikiplugin_fancytable($data, $params)
     extract($params, EXTR_SKIP);
     $msg = '';
 
-    // Check for sortable
-    $sort = isset($sortable) && $sortable != 'n';
+    // Check if sorting is desired
+    $sortDesired = isset($sortable) && $sortable != 'n';
 
-    if ($sort && Table_Check::isEnabled()) {
+    if ($sortDesired && Table_Check::isEnabled()) {
+        // Enable sorting, may become false if building table fails
+        $sort = true;
+
         // If sortable and table plugin is enabled
         $ts = new Table_Plugin();
         $ts->setSettings(
@@ -167,8 +170,9 @@ function wikiplugin_fancytable($data, $params)
     } else {
         $sort = false;
     }
+
     // Check if sort is disabled or failed to build
-    if (! $sort) {
+    if (! $sort && $sortDesired) {
         if ($prefs['feature_jquery_tablesorter'] === 'n') {
             $msg = '<em>' . tra('The jQuery Sortable Tables feature must be activated for the sort feature to work.')
                 . '</em>';
