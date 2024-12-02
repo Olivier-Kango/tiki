@@ -133,7 +133,7 @@
                 {/foreach}
 
                 <h2 class="text-bg-secondary fs-4 py-2 px-3 mb-0 tips" title="{tr}Note: The links in the following sections go to pages that use the general, not admin, site navigation and appearance.{/tr}">
-                    {icon name="manage"} <span class="ms-1 narrow-hide">Manage</span>
+                    {icon name="manage"} <span class="ms-1 narrow-hide">{tr}Manage{tr}</span>
                 </h2>
                 {* Moved from admin_navbar_menu.tpl start *}
                 {* navbar menu for admin_navbar.tpl *}

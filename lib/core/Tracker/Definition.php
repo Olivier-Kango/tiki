@@ -53,7 +53,7 @@ class Tracker_Definition
         $trackerId = (int) $trackerId;
 
         if (! $trackerId) {
-            throw new InvalidArgumentException("trackerId parameter must be present");
+            throw new InvalidArgumentException(tra("trackerId parameter must be present"));
         }
 
         if ($useCache && isset(self::$definitions[$trackerId])) {
