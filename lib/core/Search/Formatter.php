@@ -45,7 +45,7 @@ class Search_Formatter
 
     public function format($list)
     {
-        if (0 == count($list) && $this->alternateOutput) {
+        if (0 == count($list) && (isset($this->alternateOutput))) {
             return $this->renderFilters() . $this->alternateOutput;
         }
 
