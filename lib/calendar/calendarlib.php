@@ -2266,6 +2266,15 @@ class CalendarLib extends TikiLib
         return $list;
     }
 
+    // get attendees
+    public function getAttendees()
+    {
+        $query = "select * from tiki_calendar_roles";
+        $result = $this->fetchAll($query);
+
+        return $result;
+    }
+
     /**
      * Helper method to check if user can admin the calendar info object passed.
      * Should either have global calendar admin permission or ability to admin
