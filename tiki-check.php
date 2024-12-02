@@ -1977,9 +1977,9 @@ if ($connection || ! $standalone) {
         }
 
         if (! empty($s)) {
-            $msg = 'MySQL is using strict mode';
+            $msg = tra('MySQL is using strict mode');
         } else {
-            $msg = 'MySQL is not using strict mode.';
+            $msg = tra('MySQL is not using strict mode.');
         }
     }
     $mysql_properties['Strict Mode'] = array(
@@ -3221,7 +3221,7 @@ if (! $standalone) {
     $serverRequirements['Tiki Version'] = array(
         'value' => $tikiBaseVersion,
         'fitness' => 'info',
-        'message' => 'Current Tiki version',
+        'message' => tra('Current Tiki version'),
     );
 } else {
     $recTikiVersion = array_filter($available_tiki_properties, function ($details) {
