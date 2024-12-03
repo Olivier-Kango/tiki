@@ -19,7 +19,7 @@ class SheetLib extends TikiLib
 
     public function get_sheet_info($sheetId) // {{{2
     {
-        $result = $this->query("SELECT * FROM `tiki_sheets` WHERE `sheetId` = ?", [ $sheetId ]);
+        $result = $this->query("SELECT * FROM `tiki_sheets` WHERE `sheetId` = ?", [$sheetId]);
         $result = $result->fetchRow();
 
         if (! empty($result)) {
@@ -46,7 +46,7 @@ class SheetLib extends TikiLib
 
     public function get_sheet_layout($sheetId) // {{{2
     {
-        $result = $this->query("SELECT `className`, `headerRow`, `footerRow`, `parseValues`, `metadata` FROM `tiki_sheet_layout` WHERE `sheetId` = ? AND `end` IS NULL", [ $sheetId ]);
+        $result = $this->query("SELECT `className`, `headerRow`, `footerRow`, `parseValues`, `metadata` FROM `tiki_sheet_layout` WHERE `sheetId` = ? AND `end` IS NULL", [$sheetId]);
 
         return $result->fetchRow();
     }
@@ -59,7 +59,7 @@ class SheetLib extends TikiLib
      */
     public function getSheetValue($sheetId) // {{{2
     {
-        $result = $this->fetchAll("SELECT `sheetId`, `begin`, `end`, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId` FROM `tiki_sheet_values` WHERE `sheetId` = ?", [ $sheetId ]);
+        $result = $this->fetchAll("SELECT `sheetId`, `begin`, `end`, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId` FROM `tiki_sheet_values` WHERE `sheetId` = ?", [$sheetId]);
 
         return $result;
     }
@@ -175,13 +175,13 @@ class SheetLib extends TikiLib
 
     public function remove_related_sheets($sheetId)
     {
-        $this->query(" UPDATE `tiki_sheets` SET `parentSheetId` = 0 WHERE `parentSheetId` = ? ", [ $sheetId ]);
+        $this->query(" UPDATE `tiki_sheets` SET `parentSheetId` = 0 WHERE `parentSheetId` = ? ", [$sheetId]);
         $this->remove_relate_all("sheet", $sheetId);
     }
 
     public function remove_related_sheet($childSheetId)
     {
-        $this->query(" UPDATE `tiki_sheets` SET `parentSheetId` = 0 WHERE `sheetId` = ? ", [ $childSheetId ]);
+        $this->query(" UPDATE `tiki_sheets` SET `parentSheetId` = 0 WHERE `sheetId` = ? ", [$childSheetId]);
         $sheetIds = $this->get_related_sheet_ids($childSheetId, true);
         $sheetId = end($sheetIds);
         $this->remove_relate("sheet", $sheetId, $childSheetId);
@@ -199,7 +199,7 @@ class SheetLib extends TikiLib
     public function get_related_sheet_ids($sheetId, $getParent = false) // {{{2
     {
         $sheetIds = [];
-        foreach ($this->fetchAll("SELECT `sheetId` FROM `tiki_sheets` WHERE `parentSheetId` = ?", [ $sheetId ]) as $result) {
+        foreach ($this->fetchAll("SELECT `sheetId` FROM `tiki_sheets` WHERE `parentSheetId` = ?", [$sheetId]) as $result) {
             $sheetIds[] = $result['sheetId'];
         }
 
@@ -300,7 +300,7 @@ class SheetLib extends TikiLib
                 FROM tiki_sheet_values
                 WHERE sheetId = ?
                 ORDER BY begin ASC
-            ", [ $sheetId ]);
+            ", [$sheetId]);
     }
 
     public function get_sheet_created($sheetId)
@@ -310,7 +310,7 @@ class SheetLib extends TikiLib
                 FROM tiki_sheet_layout
                 WHERE sheetId = ?
                 ORDER BY begin ASC
-            ", [ $sheetId ]);
+            ", [$sheetId]);
     }
 
     public function get_lastModif($sheetId)
@@ -321,7 +321,7 @@ class SheetLib extends TikiLib
                 WHERE
                     sheetId = ?
                 ORDER BY end DESC
-            ", [ $sheetId ]);
+            ", [$sheetId]);
     }
 
     public function get_sheet_lastModif($sheetId)
@@ -332,15 +332,15 @@ class SheetLib extends TikiLib
                 WHERE
                     sheetId = ?
                 ORDER BY end DESC
-            ", [ $sheetId ]);
+            ", [$sheetId]);
     }
 
     public function remove_sheet($sheetId) // {{{2
     {
         global $prefs;
-        $this->query("DELETE FROM `tiki_sheets` WHERE `sheetId` = ?", [ $sheetId ]);
-        $this->query("DELETE FROM `tiki_sheet_values` WHERE `sheetId` = ?", [ $sheetId ]);
-        $this->query("DELETE FROM `tiki_sheet_layout` WHERE `sheetId` = ?", [ $sheetId ]);
+        $this->query("DELETE FROM `tiki_sheets` WHERE `sheetId` = ?", [$sheetId]);
+        $this->query("DELETE FROM `tiki_sheet_values` WHERE `sheetId` = ?", [$sheetId]);
+        $this->query("DELETE FROM `tiki_sheet_layout` WHERE `sheetId` = ?", [$sheetId]);
 
         $this->remove_related_sheet($sheetId);
 
@@ -354,31 +354,30 @@ class SheetLib extends TikiLib
     public function replace_sheet($sheetId, $title, $description, $author, $parentSheetId = 0, $layout = []) // {{{2
     {
         global $prefs;
-
-        if ($sheetId == 0) {
-            $query = 'SELECT `sheetId` FROM `tiki_sheets` WHERE `title` = ? AND `description` = ? AND `author` = ?';
-            $existingSheetId = $this->getOne($query, [$title, $description, $author]);
-
-            if ($existingSheetId) {
-                Feedback::error(tra('A sheet with the same title and description already exists.'));
-            } else {
-                $this->query("INSERT INTO `tiki_sheets` ( `title`, `description`, `author` ) VALUES( ?, ?, ? )", [ $title, $description, $author ]);
-
-                $sheetId = $this->getOne("SELECT MAX(`sheetId`) FROM `tiki_sheets` WHERE `author` = ?", [ $author ]);
-                if ($prefs['feature_actionlog'] == 'y') {
-                    $logslib = TikiLib::lib('logs');
-                    $query = 'select `sheetId` from `tiki_sheets` where `title`=? and `description`= ? and `author`=?';
-                    $id = $this->getOne($query, [$title, $description, $author ]);
-                    $logslib->add_action('Created', $id, 'sheet');
-                    Feedback::success(tra('The sheet has been successfully created.'));
-                }
-            }
+        if (empty($title)) {
+            Feedback::error(tra('The title is required.'));
         } else {
-            $this->query("UPDATE `tiki_sheets` SET `title` = ?, `description` = ?, `author` = ? WHERE `sheetId` = ?", [ $title, $description, $author, (int) $sheetId ]);
-
-            $this->query("UPDATE `tiki_sheet_layout` SET `end` = ? WHERE `sheetId` = ?", [time(), $sheetId]);
-
-            Feedback::success(tra('The sheet has been successfully configured.'));
+            if ($sheetId == 0) {
+                $query = 'SELECT `sheetId` FROM `tiki_sheets` WHERE `title` = ? AND `description` = ? AND `author` = ?';
+                $existingSheetId = $this->getOne($query, [$title, $description, $author]);
+                if ($existingSheetId) {
+                    Feedback::error(tra('A sheet with the same title and description already exists.'));
+                } else {
+                    $this->query("INSERT INTO `tiki_sheets` ( `title`, `description`, `author` ) VALUES( ?, ?, ? )", [$title, $description, $author]);
+                    $sheetId = $this->getOne("SELECT MAX(`sheetId`) FROM `tiki_sheets` WHERE `author` = ?", [$author]);
+                    if ($prefs['feature_actionlog'] == 'y') {
+                        $logslib = TikiLib::lib('logs');
+                        $query = 'select `sheetId` from `tiki_sheets` where `title`=? and `description`= ? and `author`=?';
+                        $id = $this->getOne($query, [$title, $description, $author]);
+                        $logslib->add_action('Created', $id, 'sheet');
+                        Feedback::success(tra('The sheet has been successfully created.'));
+                    }
+                }
+            } else {
+                $this->query("UPDATE `tiki_sheets` SET `title` = ?, `description` = ?, `author` = ? WHERE `sheetId` = ?", [$title, $description, $author, (int) $sheetId]);
+                $this->query("UPDATE `tiki_sheet_layout` SET `end` = ? WHERE `sheetId` = ?", [time(), $sheetId]);
+                Feedback::success(tra('The sheet has been successfully configured.'));
+            }
         }
 
         $layoutDefault = [
@@ -417,7 +416,7 @@ class SheetLib extends TikiLib
     public function set_sheet_title($sheetId, $title)
     {
         if ($sheetId) {
-            $this->query("UPDATE `tiki_sheets` SET `title` = ? WHERE `sheetId` = ?", [ $title, $sheetId ]);
+            $this->query("UPDATE `tiki_sheets` SET `title` = ? WHERE `sheetId` = ?", [$title, $sheetId]);
         }
     }
 
@@ -463,7 +462,7 @@ class SheetLib extends TikiLib
             FROM `tiki_sheet_values`
             INNER JOIN `tiki_sheets` ON `tiki_sheets`.`sheetId` = `tiki_sheet_values`.`sheetId`
             WHERE `tiki_sheets`.`sheetId` = ? OR `tiki_sheets`.`parentSheetId` = ?
-            ORDER BY begin DESC", [ $sheetId, $sheetId ]);
+            ORDER BY begin DESC", [$sheetId, $sheetId]);
     }
 
     public function rollback_sheet($id, $readdate = null)
@@ -473,15 +472,15 @@ class SheetLib extends TikiLib
         if ($readdate) {
             $now = (int)time();
 
-             $this->query("
+            $this->query("
                  UPDATE `tiki_sheet_values`
                  SET `end` = ?
                  WHERE
                      `sheetId` = ? AND
                      `end` IS NULL
-             ", [ $now, $id ]);
+             ", [$now, $id]);
 
-             $this->query("
+            $this->query("
                  INSERT INTO `tiki_sheet_values` (`sheetId`, `begin`, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`)
                  SELECT `sheetId`, ?, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`
                  FROM `tiki_sheet_values`
@@ -489,7 +488,7 @@ class SheetLib extends TikiLib
                      `sheetId` = ? AND
                     ? >= `begin` AND
                     `end` > ?
-            ", [ $now, $id, $readdate, $readdate ]);
+            ", [$now, $id, $readdate, $readdate]);
         }
 
         if ($prefs['feature_actionlog'] == 'y') {
@@ -522,16 +521,16 @@ class SheetLib extends TikiLib
             SELECT CONCAT('CLONED - ', `title`), `description`, ?, ?, `sheetid`
             FROM `tiki_sheets`
             WHERE `sheetid` = ?
-        ", [ $user, $parentSheetId, $sheetId ]);
+        ", [$user, $parentSheetId, $sheetId]);
 
-        $newSheetId = $this->getOne("SELECT MAX(`sheetId`) FROM `tiki_sheets` WHERE `author` = ?", [ $user ]);
+        $newSheetId = $this->getOne("SELECT MAX(`sheetId`) FROM `tiki_sheets` WHERE `author` = ?", [$user]);
         //clone the sheet layout
         $this->query("
             INSERT INTO `tiki_sheet_layout` (`sheetId`, `begin`, `end`, `headerRow`, `footerRow`, `className`, `parseValues`, `clonedSheetId`)
             SELECT ?, `begin`, `end`, `headerRow`, `footerRow`, `className`, `parseValues`, `sheetId`
             FROM `tiki_sheet_layout`
             WHERE `sheetid` = ?
-        ", [ $newSheetId, $sheetId ]);
+        ", [$newSheetId, $sheetId]);
 
         //clone sheet's values
         $this->query("
@@ -545,10 +544,10 @@ class SheetLib extends TikiLib
                 `end` IS NULL OR
                 `end` > ?
             )
-      ", [ $newSheetId, $sheetId, $sheetId, $readdate, $readdate ]);
+      ", [$newSheetId, $sheetId, $sheetId, $readdate, $readdate]);
 
         //clone the children sheets if they exist
-        $result = $this->query("SELECT `sheetId` FROM `tiki_sheets` WHERE `parentSheetId` = ?", [ $sheetId ]);
+        $result = $this->query("SELECT `sheetId` FROM `tiki_sheets` WHERE `parentSheetId` = ?", [$sheetId]);
         while ($row = $result->fetchRow()) {
             if ($row['sheetId']) {
                 $this->clone_sheet($row['sheetId'], $readdate, $newSheetId);
@@ -568,10 +567,10 @@ class SheetLib extends TikiLib
     {
         if ($row = $this->get_sheet_layout($sheetId)) {
             if (
-                $row[ 'className' ] == $className
-                && $row[ 'headerRow' ] == $headerRow
-                && $row[ 'footerRow' ] == $footerRow
-                && $row[ 'parseValues' ] == $parseValues
+                $row['className'] == $className
+                && $row['headerRow'] == $headerRow
+                && $row['footerRow'] == $footerRow
+                && $row['parseValues'] == $parseValues
             ) {
                 return true; // No changes have to be made
             }
@@ -583,10 +582,10 @@ class SheetLib extends TikiLib
 
         $stamp = time();
 
-        $this->query("UPDATE `tiki_sheet_layout` SET `end` = ? WHERE sheetId = ? AND `end` IS NULL", [ $stamp, $sheetId ]);
+        $this->query("UPDATE `tiki_sheet_layout` SET `end` = ? WHERE sheetId = ? AND `end` IS NULL", [$stamp, $sheetId]);
         $this->query(
             "INSERT INTO `tiki_sheet_layout` ( `sheetId`, `begin`, `className`, `headerRow`, `footerRow`, `parseValues` ) VALUES( ?, ?, ?, ?, ?, ? )",
-            [ $sheetId, $stamp, $className, (int)$headerRow, (int)$footerRow, $parseValues ]
+            [$sheetId, $stamp, $className, (int)$headerRow, (int)$footerRow, $parseValues]
         );
 
         return true;
@@ -739,7 +738,7 @@ class SheetLib extends TikiLib
             for ($i = 0; $i < $count_longest($changes->orig, $changes->final); $i++) {
                 $class = ["", ""];
                 $char = ["", ""];
-                $vals = [ trim($changes->orig[$i]), trim($changes->final[$i]) ];
+                $vals = [trim($changes->orig[$i]), trim($changes->final[$i])];
 
                 if ($vals[0] && $vals[1]) {
                     if ($vals[0] != $vals[1]) {
@@ -823,13 +822,13 @@ class SheetLib extends TikiLib
     {
         global $user;
         $objectperms = Perms::get('sheet', $id);
-        return ( $objectperms->view_sheet || $objectperms->admin );
+        return ($objectperms->view_sheet || $objectperms->admin);
     }
 
     public function user_can_edit($id)
     {
         global $user;
         $objectperms = Perms::get('sheet', $id);
-        return ( $objectperms->edit_sheet || $objectperms->admin );
+        return ($objectperms->edit_sheet || $objectperms->admin);
     }
 }
