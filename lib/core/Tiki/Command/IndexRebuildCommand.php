@@ -204,7 +204,17 @@ class IndexRebuildCommand extends Command
                     $io->error($unusedIndices['error']);
                 }
 
-                $executionTime = FormatterHelper::formatTime($timer->stop());
+                $executionTime = $timer->stop();
+                if ($executionTime < 60) {
+                    $seconds = floor($executionTime);
+                    $executionTime = $seconds . ' ' . ($seconds == 1 ? 'sec' : 'secs');
+                } elseif ($executionTime < 3600) {
+                    $minutes = floor($executionTime / 60);
+                    $executionTime = $minutes . ' ' . ($minutes == 1 ? 'min' : 'mins');
+                } else {
+                    $hours = round($executionTime / 3600, 1);
+                    $executionTime = $hours . ' ' . ($hours == 1 ? 'hr' : 'hrs');
+                }
 
                 if ($log && is_array($currentEngine) && count($currentEngine)) {
                     list($engine) = $currentEngine;
