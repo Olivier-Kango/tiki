@@ -144,6 +144,7 @@ if (isset($_REQUEST["removesheet"]) && $access->checkCsrf()) {
     $access->check_permission('tiki_p_edit_sheet');
     $sheetlib->remove_sheet($_REQUEST["sheetId"]);
     header("Location: tiki-sheets.php");
+    exit;
 }
 $cat_objid = $_REQUEST['sheetId'];
 include_once('categorize_list.php');
