@@ -124,6 +124,11 @@ abstract class AbstractTrackerField
         return $this->fieldRow['isMandatory'] == 'y';
     }
 
+    public function getType(): string
+    {
+        return $this->fieldRow['type'];
+    }
+
     public function getFieldTypeName(): string
     {
         $fieldInfo = Tracker_Field_Factory::getFieldInfo($this->fieldRow['type']);
