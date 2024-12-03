@@ -1284,8 +1284,8 @@ window.onload = loadScript;');
 
         $this->add_jsfile_external('vendor_bundled/vendor/openlayers/openlayers/ol.js', true)
             ->add_cssfile('vendor_bundled/vendor/openlayers/openlayers/ol.css')
-            ->add_jsfile_external('vendor_bundled/vendor/walkermatt/ol-layerswitcher/dist/ol-layerswitcher.js')
-            ->add_cssfile('vendor_bundled/vendor/walkermatt/ol-layerswitcher/src/ol-layerswitcher.css')
+            ->add_jsfile_external(OL_LAYERSWITCHER_DIST_PATH . '/ol-layerswitcher.js')
+            ->add_cssfile(OL_LAYERSWITCHER_DIST_PATH . '/ol-layerswitcher.css')
             ->add_js(
                 ''
             );

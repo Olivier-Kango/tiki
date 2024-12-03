@@ -261,7 +261,6 @@
         "thomaspark/bootswatch": "~5.1",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",
         "tikiwiki/ilp-client": "^1.0",
-        "walkermatt/ol-layerswitcher": ">=3.3.0",
         "zbateson/mail-mime-parser": "^2.4",
         "zf1s/zend-service-akismet": "^1.15.2"
     },
