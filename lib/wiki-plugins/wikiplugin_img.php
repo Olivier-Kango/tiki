@@ -1350,6 +1350,11 @@ function wikiplugin_img($data, $params)
         $replimg .= ' data-src="' . $src . '"';
     }
 
+    //src
+    if (! empty($imgdata['src'])) {
+        $replimg .= ' src="' . $src . '"';
+    }
+
     //title (also used for description and link title below)
     //first set description, which is used for title if no title is set
     if (! empty($imgdata['desc']) || ! empty($imgdata['title'])) {
@@ -1431,7 +1436,7 @@ function wikiplugin_img($data, $params)
         if (! empty($imgdata['link'])) {
             $link = $imgdata['link'];
             if (! empty($imgdata['thumb']) && $imgdata['thumb'] === 'y') {
-              $imgtarget = " target='_blank' ";
+                $imgtarget = " target='_blank' ";
             }
         } elseif ((($imgdata['thumb'] == 'browse') || ($imgdata['thumb'] == 'browsepopup')) && ! empty($imgdata['id'])) {
             $link = 'tiki-browse_image.php?imageId=' . $imgdata['id'];
