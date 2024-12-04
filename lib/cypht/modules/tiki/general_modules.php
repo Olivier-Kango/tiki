@@ -367,23 +367,6 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
 }
 
 /**
- * Clear cache link
- * @subpackage tiki/output
- */
-class Hm_Output_clear_cache_link extends Hm_Output_Module
-{
-    public $format;
-    protected function output()
-    {
-        $res = '<a href="#" class="clear_cache">' . $this->trans('[clear cache]') . '</a>';
-        if ($this->format == 'HTML5') {
-            return $res;
-        }
-        $this->concat('formatted_folder_list', $res);
-    }
-}
-
-/**
  *  Format the message headers about mpdf generation of the message view
  * Format the message headers about mpdf generation of the message view
  * @subpackage tiki/output
