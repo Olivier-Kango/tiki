@@ -551,6 +551,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/svg-pan-zoom/dist",
                     },
                     {
+                        src: ["node_modules/swagger-ui-dist/swagger-ui-bundle.js","node_modules/swagger-ui-dist/swagger-ui.css","node_modules/swagger-ui-dist/favicon-16x16.png","node_modules/swagger-ui-dist/favicon-32x32.png"],
+                        dest: "vendor_dist/swagger-ui-dist",
+                    },
+                    {
                         src: "node_modules/tablesorter/dist/js/jquery.tablesorter.combined.js",
                         dest: "vendor_dist/tablesorter/dist/js",
                     },

@@ -181,6 +181,7 @@ const PLOTLYJS_DIST_PATH = 'public/generated/js/vendor_dist/plotly.js/dist';
 const REVEALJS_DIST_PATH = 'public/generated/js/vendor_dist/reveal.js/dist';
 const SUBTOTAL_DIST_PATH = 'public/generated/js/vendor_dist/subtotal/dist';
 const SIGNATURE_PAD_DIST_PATH = 'public/generated/js/vendor_dist/signature_pad/dist';
+const SWAGGER_UI_DIST_PATH = 'public/generated/js/vendor_dist/swagger-ui-dist';
 const SWIPER_DIST_PATH = 'vendor_bundled/vendor/nolimits4web/swiper/dist';
 const ZXING_DIST_PATH = 'public/generated/js/vendor_dist/@zxing/library';
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "022e91f0cf4ca2fcaebfbeb354a893fa",
+    "content-hash": "3eefac6e9ecb0da9c252c08193943bd4",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2270,13 +2270,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "4ebdcfe774cc09194e158ce6989349e2d60ec886"
+                "reference": "412b5adbd9ada0743d68ef788cbace54123153d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-4ebdcfe774cc09194e158ce6989349e2d60ec886-zip-94ee68.zip",
-                "reference": "4ebdcfe774cc09194e158ce6989349e2d60ec886",
-                "shasum": "16900e71101745411251d56218b21e687f7e623b"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-412b5adbd9ada0743d68ef788cbace54123153d5-zip-1a2378.zip",
+                "reference": "412b5adbd9ada0743d68ef788cbace54123153d5",
+                "shasum": "b61c5ef225acc93c87afc579ce201095d55f16c8"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2343,7 +2343,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-11-29T00:22:33+00:00"
+            "time": "2024-12-03T11:38:38+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -2994,23 +2994,23 @@
         },
         {
             "name": "laminas/laminas-http",
-            "version": "2.20.0",
+            "version": "2.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-http.git",
-                "reference": "a66bfb65c698aad6ee9f10df42cb5902f2c3dec8"
+                "reference": "a9867e4d1cda3dbad208903239c83a3d670cce10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-a66bfb65c698aad6ee9f10df42cb5902f2c3dec8-zip-7dcca4.zip",
-                "reference": "a66bfb65c698aad6ee9f10df42cb5902f2c3dec8",
-                "shasum": "6b39dbfeef25e5a123babf90c166b461e2e22c8d"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-a9867e4d1cda3dbad208903239c83a3d670cce10-zip-4856c8.zip",
+                "reference": "a9867e4d1cda3dbad208903239c83a3d670cce10",
+                "shasum": "2348952fbb65aee49c9bdeb6050e88c3758419bf"
             },
             "require": {
                 "laminas/laminas-loader": "^2.10",
                 "laminas/laminas-stdlib": "^3.6",
                 "laminas/laminas-uri": "^2.11",
-                "laminas/laminas-validator": "^2.15",
+                "laminas/laminas-validator": "^2.15 || ^3.0",
                 "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "conflict": {
@@ -3047,7 +3047,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-10-18T07:35:59+00:00"
+            "time": "2024-12-04T09:17:39+00:00"
         },
         {
             "name": "laminas/laminas-i18n",
@@ -4143,21 +4143,21 @@
         },
         {
             "name": "laminas/laminas-uri",
-            "version": "2.12.0",
+            "version": "2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-uri.git",
-                "reference": "95a41a7592bacf4c648648a88b7c94b0c5c22b9e"
+                "reference": "de53600ae8153b3605bb6edce8aeeef524eaafba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-95a41a7592bacf4c648648a88b7c94b0c5c22b9e-zip-8a1509.zip",
-                "reference": "95a41a7592bacf4c648648a88b7c94b0c5c22b9e",
-                "shasum": "e716871dd567be76e28edc3a5ed30454ca9abd85"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-de53600ae8153b3605bb6edce8aeeef524eaafba-zip-c80f8e.zip",
+                "reference": "de53600ae8153b3605bb6edce8aeeef524eaafba",
+                "shasum": "458135122a9bb5533b22b07cebf8a8dcaeaf27b3"
             },
             "require": {
                 "laminas/laminas-escaper": "^2.9",
-                "laminas/laminas-validator": "^2.39",
+                "laminas/laminas-validator": "^2.39 || ^3.0",
                 "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "conflict": {
@@ -4189,7 +4189,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-08-03T21:22:51+00:00"
+            "time": "2024-12-03T12:27:51+00:00"
         },
         {
             "name": "laminas/laminas-validator",
@@ -10631,63 +10631,6 @@
             "time": "2024-01-05T05:01:39+00:00"
         },
         {
-            "name": "swagger-api/swagger-ui",
-            "version": "v4.19.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "92ffd76d15671954c239fdefb43d1951e06f8bb5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/swagger-api/swagger-ui/swagger-api-swagger-ui-92ffd76d15671954c239fdefb43d1951e06f8bb5-zip-c64276.zip",
-                "reference": "92ffd76d15671954c239fdefb43d1951e06f8bb5",
-                "shasum": "756ab3b6e57f34e6bb15ae8ea6c9a20d3f570daf"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Anna Bodnia",
-                    "email": "anna.bodnia@gmail.com"
-                },
-                {
-                    "name": "Buu Nguyen",
-                    "email": "buunguyen@gmail.com"
-                },
-                {
-                    "name": "Josh Ponelat",
-                    "email": "jponelat@gmail.com"
-                },
-                {
-                    "name": "Kyle Shockey",
-                    "email": "kyleshockey1@gmail.com"
-                },
-                {
-                    "name": "Robert Barnwell",
-                    "email": "robert@robertismy.name"
-                },
-                {
-                    "name": "Sahar Jafari",
-                    "email": "shr.jafari@gmail.com"
-                }
-            ],
-            "description": " Swagger UI is a collection of HTML, Javascript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
-            "homepage": "http://swagger.io",
-            "keywords": [
-                "api",
-                "documentation",
-                "openapi",
-                "specification",
-                "swagger",
-                "ui"
-            ],
-            "time": "2023-06-12T16:31:43+00:00"
-        },
-        {
             "name": "symfony/config",
             "version": "v6.4.14",
             "source": {
@@ -14736,19 +14679,19 @@
             ],
             "type": "library",
             "extra": {
-                "bamarni-bin": {
-                    "bin-links": true,
-                    "target-directory": "vendor-bin",
-                    "forward-command": true
-                },
                 "hooks": {
+                    "pre-push": [
+                        "composer qa:check"
+                    ],
                     "pre-commit": [
                         "composer style:fix",
                         "composer code:check"
-                    ],
-                    "pre-push": [
-                        "composer qa:check"
                     ]
+                },
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": true,
+                    "target-directory": "vendor-bin"
                 },
                 "branch-alias": {
                     "dev-main": "9.4.x-dev"
@@ -14967,13 +14910,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "3f79f96be9289a49eb85a4db3e8f5b7d55ba06d2"
+                "reference": "02835e45d27f5d0ed1642d5c8a5e8bfd2c7d7796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-3f79f96be9289a49eb85a4db3e8f5b7d55ba06d2-zip-91d7b5.zip",
-                "reference": "3f79f96be9289a49eb85a4db3e8f5b7d55ba06d2",
-                "shasum": "3650fd9732d59803882609dbb8447f7e1e499e8b"
+                "url": "https://composer.tiki.org/dist/phpcompatibility/php-compatibility/phpcompatibility-php-compatibility-02835e45d27f5d0ed1642d5c8a5e8bfd2c7d7796-zip-42a805.zip",
+                "reference": "02835e45d27f5d0ed1642d5c8a5e8bfd2c7d7796",
+                "shasum": "ef1a0d654af4aba2f204b9eaa5ba10e13f66fa62"
             },
             "require": {
                 "php": ">=5.4",
@@ -15043,7 +14986,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-10-13T19:18:49+00:00"
+            "time": "2024-11-30T16:25:00+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
