@@ -317,7 +317,7 @@ $headerlib->add_jq_onready(
         });
 
         //reveal controls
-        $("body").on("#play","click", function () {
+        $("body").on("click", "#play", function () {
             if($("#play").hasClass("fa-play-circle")) {
                 $("#play").switchClass("fa-play-circle","fa-pause-circle", 1000, "easeInOutQuad");
                 Reveal.configure({ autoSlide:10000 });
@@ -330,26 +330,26 @@ $headerlib->add_jq_onready(
                 $(this).attr("style","");
             }
         });
-        $("body").on("#firstSlide","click", function () {
+        $("body").on("click", "#firstSlide", function () {
             Reveal.slide( 0, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").on("#lastSlide","click", function () {
+        $("body").on("click", "#lastSlide", function () {
             Reveal.slide( Reveal.getTotalSlides()-1, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").on("#nextSlide","click", function () {
+        $("body").on("click", "#nextSlide", function () {
             var currentSlide=Reveal.getIndices().h;
             Reveal.slide(currentSlide+1,0,0); //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").on("#prevSlide","click", function () {
+        $("body").on("click", "#prevSlide", function () {
             var currentSlide=Reveal.getIndices().h;
             if(currentSlide>0) {
             Reveal.slide(currentSlide-1,0,0);
              } //Reveal.slide( indexh, indexv, indexf );
         });
-        $("body").on("#listSlides","click", function () {
+        $("body").on("click", "#listSlides", function () {
             Reveal.toggleOverview();
         });
-        $("body").on("#loop","click", function () {
+        $("body").on("click", "#loop", function () {
             if($("#loop").hasClass("icon-inactive")){
                 $("#loop").switchClass("icon-inactive","icon-active");
                 Reveal.configure({loop: true});
@@ -372,7 +372,7 @@ $headerlib->add_jq_onready(
             var selectedTransition=$("#showtransition" ).val();
             Reveal.configure({ transition: selectedTransition });
         });
-        $("body").on("#exportPDF","click", function () {
+        $("body").on("click", "#exportPDF", function () {
             if($("#showtheme" ).val()!="") {
                 var pdfURL= $( "#exportPDF" ).attr("href")+"&theme="+$("#showtheme" ).val();
                 $( "#exportPDF" ).attr("href",pdfURL);
@@ -472,10 +472,8 @@ function formatContent($content, $tagArr, $slidePluginHeadingLevelSlideSeparator
     // set error level
     $internalErrors = libxml_use_internal_errors(true);
 
-    $doc->loadHTML(
-        htmlentities('<html lang="en"><body>' . $content . '</body></html>', ENT_QUOTES, 'UTF-8'),
-        LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-    );
+    $doc->loadHTML('<html lang="en"><body>' . $content . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
     $xpath = new DOMXpath($doc);
     $expression = '(//sslide//h1|//sslide//h2|//sslide//h3)';
     $elements = $xpath->query($expression);
