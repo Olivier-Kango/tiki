@@ -190,9 +190,19 @@ class IndexRebuildCommand extends Command
                         $output->writeln('Index: ' . $index);
                     }
                 }
-
+                $executionTime = $timer->stop();
+                if ($executionTime < 60) {
+                    $seconds = floor($executionTime);
+                    $executionTime = $seconds . ' ' . ($seconds == 1 ? 'sec' : 'secs');
+                } elseif ($executionTime < 3600) {
+                    $minutes = floor($executionTime / 60);
+                    $executionTime = $minutes . ' ' . ($minutes == 1 ? 'min' : 'mins');
+                } else {
+                    $hours = round($executionTime / 3600, 1);
+                    $executionTime = $hours . ' ' . ($hours == 1 ? 'hr' : 'hrs');
+                }
                 $io->section("\nExecution Statistics");
-                $output->writeln('Execution time: ' . FormatterHelper::formatTime($timer->stop()));
+                $output->writeln('Execution time: ' . $executionTime);
                 $output->writeln('Current Memory usage: ' . FormatterHelper::formatMemory(memory_get_usage()));
                 $output->writeln('Memory peak usage before indexing: ' . FormatterHelper::formatMemory($memory_peak_usage_before));
                 $output->writeln('Memory peak usage after indexing: ' . FormatterHelper::formatMemory(memory_get_peak_usage()));
