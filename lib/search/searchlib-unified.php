@@ -8,6 +8,8 @@
 
 use Tiki\Search\ContentSource\CreditSource;
 use Tiki\Search\ContentSource\GoalSource;
+use Tiki\Search\Elastic\ElasticSearchIndexManager;
+use Tiki\Search\MySql\MysqlSearchIndexManager;
 use Tiki\TikiInit;
 
 /**
@@ -1606,5 +1608,38 @@ class UnifiedSearchLib
         }
 
         return $searchIndex;
+    }
+
+    public function listAllUnusedIndexes($currentEngine)
+    {
+        global $prefs;
+
+        $indices = [];
+        list($engine, $version, $currentIndex) = $currentEngine;
+
+        switch ($engine) {
+            case 'Elastic':
+                try {
+                    $indexPrefix = $prefs['unified_elastic_index_prefix'];
+                    $connUrl = $prefs['unified_elastic_url'];
+                    $manager = new ElasticSearchIndexManager($currentIndex, $indexPrefix, $connUrl);
+                    $indices['indices'] = $manager->getUnusedIndexes();
+                } catch (\Exception $e) {
+                    $indices['error'] = "An error occurred while getting indices for Elasticsearch: " . $e->getMessage();
+                }
+                break;
+            case 'MySQL':
+                try {
+                    $mysqlManager = new MysqlSearchIndexManager($currentIndex);
+                    $indices['indices'] = $mysqlManager->getUnusedIndexes();
+                } catch (\Exception $e) {
+                    $indices['error'] = "An error occurred while getting indices for MYSQL: " . $e->getMessage();
+                }
+                break;
+            default:
+                break;
+        }
+
+        return $indices;
     }
 }
