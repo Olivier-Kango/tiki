@@ -472,7 +472,7 @@ function formatContent($content, $tagArr, $slidePluginHeadingLevelSlideSeparator
     // set error level
     $internalErrors = libxml_use_internal_errors(true);
 
-    $doc->loadHTML('<html lang="en"><body>' . $content . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $doc->loadHTML('<html lang="en"><head><meta charset="UTF-8"></head><body>' . $content . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
     $xpath = new DOMXpath($doc);
     $expression = '(//sslide//h1|//sslide//h2|//sslide//h3)';
