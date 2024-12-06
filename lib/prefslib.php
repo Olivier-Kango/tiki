@@ -139,7 +139,7 @@ class PreferencesLib
             'public' => false,
             'translatable' => false,
         ];
-        if ($data[$name]['type'] === 'textarea') {
+        if (isset($data[$name]['type']) && $data[$name]['type'] === 'textarea') {
             $defaults['size'] = 10;
         }
 
