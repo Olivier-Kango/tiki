@@ -105,7 +105,7 @@ class Services_Tracker_TabularController
             $result = $lib->update($info['tabularId'], $input->name->text(), $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $config, $odbc_config, $api_config);
 
             if ($result->numRows() > 0) {
-                Feedback::success('Import-Export Tracker was updated successfully.');
+                Feedback::success(tr('Import-Export Tracker was updated successfully.'));
             }
 
             return [
