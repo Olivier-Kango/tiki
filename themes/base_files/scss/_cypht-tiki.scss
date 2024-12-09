@@ -264,6 +264,13 @@
 //
 .mobile {
     .inline-cypht {
+        nav.folder_cell {
+            position: fixed;
+            z-index: 9999;
+        }
+        .menu-toggle {
+            z-index: 9999;
+        }
         .content_cell {
             padding: 0;
             border: none;
