@@ -12,10 +12,10 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2024-11-05, the community has:
-  * 817 members,
+As of 2024-12-09, the community has:
+  * 819 members,
   * 590 members on SourceForge.net,
-  * 503 of those people who made at least one code commit
+  * 505 of those people who made at least one code commit
 
 This list is automatically generated and alphabetically sorted
 from subversion repository by the following script:
@@ -43,6 +43,11 @@ First Commit: Tue May 19 14:32:18 2020 +0200
 Last Commit: Tue May 19 14:32:18 2020 +0200
 Number of Commits: 1
 
+Nickname: ANSIMA Elvis
+First Commit: Tue Nov 5 16:47:15 2024 +0200
+Last Commit: Mon Oct 28 20:29:29 2024 +0200
+Number of Commits: 3
+
 Nickname: Adrien Maloba
 First Commit: Sat Aug 24 02:06:26 2019 +0200
 Last Commit: Thu Feb 8 23:29:37 2024 +0200
@@ -50,8 +55,8 @@ Number of Commits: 78
 
 Nickname: Adrien Mbuya Maloba
 First Commit: Fri Mar 24 10:57:24 2023 +0000
-Last Commit: Wed Oct 23 08:25:17 2024 +0000
-Number of Commits: 114
+Last Commit: Tue Dec 3 22:01:49 2024 +0000
+Number of Commits: 117
 
 Nickname: Afsheen Shahzad
 First Commit: Fri Nov 4 10:02:06 2022 +0000
@@ -70,8 +75,8 @@ Number of Commits: 2
 
 Nickname: Alfred Syatsukwa
 First Commit: Mon Jan 15 09:03:40 2024 +0000
-Last Commit: Tue Oct 22 14:12:17 2024 +0000
-Number of Commits: 39
+Last Commit: Tue Nov 19 14:03:24 2024 +0000
+Number of Commits: 40
 
 Nickname: Alvin Bauma
 First Commit: Wed Mar 15 16:37:54 2023 +0200
@@ -105,8 +110,8 @@ Number of Commits: 10
 
 Nickname: Baraka Kinywa
 First Commit: Mon Aug 28 19:37:40 2023 +0000
-Last Commit: Sat Oct 12 23:48:10 2024 +0000
-Number of Commits: 45
+Last Commit: Mon Nov 25 21:39:17 2024 +0000
+Number of Commits: 46
 
 Nickname: Baraka Providence
 First Commit: Thu Jun 20 16:48:52 2024 +0000
@@ -120,8 +125,8 @@ Number of Commits: 10
 
 Nickname: Benoit Grégoire
 First Commit: Tue Sep 18 18:46:52 2018 -0400
-Last Commit: Mon Oct 21 12:05:16 2024 +0000
-Number of Commits: 198
+Last Commit: Fri Nov 29 22:38:36 2024 +0000
+Number of Commits: 202
 
 Nickname: Benoit Roy
 First Commit: Fri Jul 26 08:19:20 2024 +0000
@@ -140,13 +145,13 @@ Number of Commits: 24
 
 Nickname: Boss Ibrahim Mussa Gregoire
 First Commit: Tue Mar 28 12:14:38 2023 +0000
-Last Commit: Tue Oct 22 15:43:45 2024 +0000
-Number of Commits: 49
+Last Commit: Thu Nov 28 12:21:09 2024 +0000
+Number of Commits: 50
 
 Nickname: Bruno Kambere
 First Commit: Thu May 11 17:16:05 2023 +0000
-Last Commit: Fri Aug 30 07:12:17 2024 +0000
-Number of Commits: 66
+Last Commit: Wed Nov 13 01:01:35 2024 +0000
+Number of Commits: 67
 
 Nickname: Bsfez
 First Commit: Sun Aug 18 10:25:16 2019 +0300
@@ -170,8 +175,8 @@ Number of Commits: 1
 
 Nickname: Doddy MATABARO
 First Commit: Thu Sep 19 19:33:33 2024 +0000
-Last Commit: Mon Sep 23 13:52:19 2024 +0000
-Number of Commits: 2
+Last Commit: Thu Nov 21 13:44:28 2024 +0000
+Number of Commits: 3
 
 Nickname: Domeshow
 First Commit: Thu Mar 16 14:20:33 2023 +0200
@@ -180,8 +185,8 @@ Number of Commits: 66
 
 Nickname: Domeshow Emmanuel
 First Commit: Tue Apr 18 20:03:48 2023 +0000
-Last Commit: Mon Oct 21 08:04:00 2024 +0000
-Number of Commits: 95
+Last Commit: Thu Nov 14 12:54:25 2024 +0000
+Number of Commits: 96
 
 Nickname: Don de Dieu Bolenge
 First Commit: Thu Aug 1 09:27:07 2024 +0000
@@ -195,13 +200,13 @@ Number of Commits: 1
 
 Nickname: Elifeleti Mukisa Dan
 First Commit: Tue Apr 16 12:48:48 2024 +0000
-Last Commit: Mon Oct 14 08:04:01 2024 +0000
-Number of Commits: 26
+Last Commit: Mon Dec 2 15:52:20 2024 +0000
+Number of Commits: 29
 
 Nickname: Elvis Ansima
 First Commit: Sun May 7 12:40:09 2023 +0000
-Last Commit: Sun Oct 27 20:43:20 2024 +0000
-Number of Commits: 50
+Last Commit: Thu Nov 7 14:20:49 2024 +0000
+Number of Commits: 51
 
 Nickname: ElvisAns
 First Commit: Tue Apr 4 00:40:20 2023 +0200
@@ -230,8 +235,8 @@ Number of Commits: 4
 
 Nickname: Espoir Baraka
 First Commit: Mon Sep 9 08:44:23 2024 +0000
-Last Commit: Tue Oct 22 15:34:47 2024 +0000
-Number of Commits: 7
+Last Commit: Fri Dec 6 20:45:09 2024 +0000
+Number of Commits: 11
 
 Nickname: Eutyche odimba
 First Commit: Mon Mar 20 12:25:33 2023 +0000
@@ -245,8 +250,8 @@ Number of Commits: 287
 
 Nickname: Gary Cunningham-Lee
 First Commit: Sat Mar 18 14:05:46 2023 +0000
-Last Commit: Sat Nov 2 11:03:21 2024 +0000
-Number of Commits: 380
+Last Commit: Fri Nov 22 14:24:57 2024 +0000
+Number of Commits: 385
 
 Nickname: Geoff Brickell
 First Commit: Sun Oct 2 11:03:32 2022 +0000
@@ -370,8 +375,8 @@ Number of Commits: 63
 
 Nickname: Jonny Bradley
 First Commit: Sat Aug 3 18:55:03 2019 +0100
-Last Commit: Wed Oct 30 19:35:06 2024 +0000
-Number of Commits: 1684
+Last Commit: Mon Nov 25 14:21:02 2024 +0000
+Number of Commits: 1689
 
 Nickname: Jorge Sá Pereira
 First Commit: Fri Feb 28 12:13:56 2020 +0000
@@ -395,8 +400,8 @@ Number of Commits: 24
 
 Nickname: Joseph Ushindi
 First Commit: Tue Sep 17 17:53:49 2024 +0000
-Last Commit: Mon Nov 4 18:56:24 2024 +0000
-Number of Commits: 6
+Last Commit: Mon Dec 9 10:11:01 2024 +0000
+Number of Commits: 7
 
 Nickname: Josué USHINDI ZIRIMWABAGABO
 First Commit: Mon Mar 20 17:23:56 2023 +0200
@@ -405,8 +410,8 @@ Number of Commits: 79
 
 Nickname: Jyhem
 First Commit: Sun Apr 21 14:41:36 2013 +0000
-Last Commit: Mon Jun 24 17:48:03 2024 +0200
-Number of Commits: 941
+Last Commit: Wed Nov 20 23:21:35 2024 +0100
+Number of Commits: 942
 
 Nickname: Katy Kleinert
 First Commit: Thu Sep 24 19:09:34 2020 +0000
@@ -415,8 +420,8 @@ Number of Commits: 3
 
 Nickname: King KAMBALE DAVID
 First Commit: Fri Sep 13 11:58:15 2024 +0000
-Last Commit: Tue Oct 22 13:59:03 2024 +0000
-Number of Commits: 11
+Last Commit: Thu Dec 5 12:18:18 2024 +0000
+Number of Commits: 12
 
 Nickname: Kishiko
 First Commit: Fri Apr 20 11:50:25 2018 +0000
@@ -508,6 +513,11 @@ First Commit: Sun May 12 19:15:03 2024 +0000
 Last Commit: Sat Oct 12 01:00:25 2024 +0000
 Number of Commits: 7
 
+Nickname: Michel Ram
+First Commit: Mon Dec 2 18:16:14 2024 +0000
+Last Commit: Mon Dec 2 18:16:14 2024 +0000
+Number of Commits: 1
+
 Nickname: Mike KOTA
 First Commit: Mon Jul 15 15:28:24 2019 +0200
 Last Commit: Tue Feb 25 17:28:48 2020 +0000
@@ -530,8 +540,8 @@ Number of Commits: 1
 
 Nickname: Moïse Nturubika
 First Commit: Fri Aug 23 19:36:30 2024 +0000
-Last Commit: Fri Aug 23 19:36:30 2024 +0000
-Number of Commits: 1
+Last Commit: Mon Nov 25 17:45:42 2024 +0000
+Number of Commits: 3
 
 Nickname: Muhindo Ngesera Steven(StyNet243)
 First Commit: Tue Aug 15 16:12:59 2023 +0300
@@ -560,8 +570,8 @@ Number of Commits: 43
 
 Nickname: Olivier Kango
 First Commit: Mon Aug 19 13:04:04 2024 +0000
-Last Commit: Mon Nov 4 19:00:52 2024 +0000
-Number of Commits: 21
+Last Commit: Fri Nov 29 13:32:37 2024 +0000
+Number of Commits: 23
 
 Nickname: Philippe Cloutier
 First Commit: Tue Aug 28 14:56:14 2018 -0400
@@ -605,8 +615,8 @@ Number of Commits: 1
 
 Nickname: Rodriguez Nyiringabo
 First Commit: Sat Mar 18 22:42:24 2023 +0200
-Last Commit: Tue Nov 5 12:55:46 2024 +0100
-Number of Commits: 119
+Last Commit: Mon Dec 9 15:38:56 2024 +0100
+Number of Commits: 127
 
 Nickname: SKB-TECH
 First Commit: Wed Sep 18 18:19:09 2024 +0000
@@ -630,8 +640,8 @@ Number of Commits: 7
 
 Nickname: Sandeep D
 First Commit: Sun Sep 29 23:26:58 2024 +0000
-Last Commit: Thu Oct 24 23:32:02 2024 +0000
-Number of Commits: 12
+Last Commit: Wed Nov 27 19:02:49 2024 +0000
+Number of Commits: 16
 
 Nickname: Saša Janiška
 First Commit: Thu Jun 13 11:23:30 2019 +0200
@@ -665,8 +675,8 @@ Number of Commits: 2
 
 Nickname: SoftStart Code
 First Commit: Sun Jan 24 01:15:37 2021 +0000
-Last Commit: Sun Nov 3 03:36:08 2024 +0000
-Number of Commits: 196
+Last Commit: Sat Nov 9 18:21:06 2024 +0000
+Number of Commits: 197
 
 Nickname: Steven Ngesera
 First Commit: Thu Aug 24 15:10:18 2023 +0300
@@ -715,8 +725,8 @@ Number of Commits: 2
 
 Nickname: Victor Emanouilov
 First Commit: Tue Dec 18 11:48:14 2018 +0200
-Last Commit: Fri Nov 1 10:01:53 2024 +0200
-Number of Commits: 1221
+Last Commit: Thu Dec 5 15:56:38 2024 +0200
+Number of Commits: 1246
 
 Nickname: Volker Wysk
 First Commit: Sun Aug 29 18:05:36 2021 +0200
@@ -814,7 +824,7 @@ Nickname: alain_desilets
 Name: Alain DÃ©silets
 First Commit: 2008-03-11
 Last Commit: Thu Dec 12 19:36:35 2013 +0000
-Number of Commits: 170
+Number of Commits: 171
 SF Role: Developer
 
 Nickname: albrown
@@ -861,8 +871,8 @@ Number of Commits: 74
 
 Nickname: amani nyumu
 First Commit: Wed Apr 24 15:53:49 2024 +0000
-Last Commit: Thu Oct 3 19:15:35 2024 +0000
-Number of Commits: 5
+Last Commit: Thu Dec 5 12:48:31 2024 +0000
+Number of Commits: 7
 
 Nickname: ameoba32
 Name: Constantin Bosneaga
@@ -1277,7 +1287,7 @@ Number of Commits: 1096
 Nickname: chealer
 First Commit: Thu Jul 24 17:56:17 2014 +0000
 Last Commit: Fri Jan 26 16:00:49 2018 +0000
-Number of Commits: 2111
+Number of Commits: 2112
 
 Nickname: chessy
 Name: Juanan Pereira
@@ -1304,8 +1314,8 @@ SF Role: Developer
 
 Nickname: christer77
 First Commit: Thu Apr 4 18:35:32 2024 +0000
-Last Commit: Mon Oct 21 18:46:32 2024 +0000
-Number of Commits: 13
+Last Commit: Fri Nov 8 15:29:52 2024 +0000
+Number of Commits: 14
 
 Nickname: chuck
 Name: Chuck Hagenbuch
@@ -1396,7 +1406,7 @@ SF Role: Developer
 Nickname: damienmckenna
 First Commit: Mon Mar 24 17:16:12 2003 +0000
 Last Commit: Wed Apr 9 14:45:05 2003 +0000
-Number of Commits: 7
+Number of Commits: 8
 
 Nickname: damosoft
 First Commit: Sun Dec 7 11:25:40 2003 +0000
@@ -2325,7 +2335,7 @@ Nickname: jonnybradley
 Name: jonny Bradley
 First Commit: 2007-08-15
 Last Commit: Thu Aug 1 18:20:37 2019 +0000
-Number of Commits: 8392
+Number of Commits: 8430
 SF Role: Admin
 
 Nickname: jorgercosta
@@ -2633,7 +2643,7 @@ Nickname: lindonb
 Name: lindon
 First Commit: 2009-05-10
 Last Commit: Sun Sep 6 21:58:09 2020 -0400
-Number of Commits: 2256
+Number of Commits: 2260
 SF Role: Admin, Developer
 
 Nickname: llunax
@@ -2667,7 +2677,7 @@ Nickname: lphuberdeau
 Name: Louis-Philippe Huberdeau
 First Commit: 2004-04-10
 Last Commit: Wed Feb 18 17:41:34 2015 +0000
-Number of Commits: 3498
+Number of Commits: 3500
 SF Role: Developer
 
 Nickname: lrargerich
@@ -2705,14 +2715,14 @@ SF Role: Developer
 
 Nickname: luci
 First Commit: Mon Apr 30 13:37:50 2018 +0000
-Last Commit: Sat Nov 2 11:01:50 2024 +0000
-Number of Commits: 50
+Last Commit: Sat Nov 23 14:37:56 2024 +0000
+Number of Commits: 52
 
 Nickname: luciash
 Name: luciash d&#39; being
 First Commit: 2003-08-05
 Last Commit: Wed Oct 9 19:03:31 2019 +0000
-Number of Commits: 1288
+Number of Commits: 1289
 SF Role: Admin
 
 Nickname: luciash d' being
@@ -3202,7 +3212,7 @@ Nickname: nkoth
 Name: Nelson
 First Commit: 2007-05-17
 Last Commit: Tue Nov 26 21:26:14 2019 +0000
-Number of Commits: 1624
+Number of Commits: 1630
 SF Role: Developer
 
 Nickname: normandaoust
@@ -3549,7 +3559,7 @@ SF Role: Developer
 Nickname: redflo
 First Commit: Thu Sep 18 22:23:49 2014 +0000
 Last Commit: Thu Sep 18 22:23:49 2014 +0000
-Number of Commits: 338
+Number of Commits: 337
 
 Nickname: reiknir
 Name: Olafur Gunnlaugsson
@@ -3943,7 +3953,7 @@ SF Role: Developer
 Nickname: sylvieg
 First Commit: Wed May 28 01:41:30 2003 +0000
 Last Commit: Sun Nov 3 21:12:48 2013 +0000
-Number of Commits: 5331
+Number of Commits: 5357
 
 Nickname: syracine
 Name: S Racine
@@ -4120,8 +4130,8 @@ SF Role: Developer
 
 Nickname: ushindi bienvenu
 First Commit: Wed Aug 7 19:41:21 2024 +0000
-Last Commit: Mon Nov 4 19:19:50 2024 +0000
-Number of Commits: 29
+Last Commit: Mon Dec 9 09:16:24 2024 +0000
+Number of Commits: 39
 
 Nickname: uxeric
 First Commit: 2015-08-17
@@ -4216,7 +4226,7 @@ Nickname: xavidp
 Name: Xavier de Pedro
 First Commit: 2005-07-08
 Last Commit: Wed Dec 8 01:05:35 2021 +0100
-Number of Commits: 1208
+Number of Commits: 1211
 SF Role: Admin
 
 Nickname: xbtheria
