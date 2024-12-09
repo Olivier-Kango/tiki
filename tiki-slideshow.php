@@ -225,10 +225,10 @@ if (isset($_REQUEST['pdf'])) {
 
             //getting css
             $customCSS = file_get_contents(
-                REVEALJS_ASSETS_PATH . '/css/reveal.css'
+                REVEALJS_DIST_PATH . '/reveal.css'
             );
             $customCSS .= file_get_contents(
-                REVEALJS_ASSETS_PATH . '/css/theme/' . $theme . '.css'
+                REVEALJS_DIST_PATH . '/' . 'theme/' . $theme . '.css'
             );
 
             $customCSS .= '.reveal section{width:100%; height:100%;text-align:center;margin:auto;} section{text-align:center;margin: auto;width:100%;} .ss-heading{line-height:2.5em,padding-bottom:20px;} ' . $imgBackgroundCSS;
@@ -271,13 +271,13 @@ include_once('tiki-section_options.php');
 
 
 $headerlib->add_jsfile(
-    REVEALJS_ASSETS_PATH . '/js/reveal.js'
+    REVEALJS_DIST_PATH . '/reveal.js'
 );
 $headerlib->add_cssfile(
-    REVEALJS_ASSETS_PATH . '/css/reveal.css'
+    REVEALJS_DIST_PATH . '/reveal.css'
 );
 $headerlib->add_cssfile(
-    REVEALJS_ASSETS_PATH . '/css/theme/' . $theme
+    REVEALJS_DIST_PATH . '/' . 'theme/' . $theme
                 . '.css'
 );
 $headerlib->add_css(
@@ -366,7 +366,7 @@ $headerlib->add_jq_onready(
 
         $( "#showtheme" ).on("change", function() {
             var selectedCSS=$("#showtheme" ).val();
-            $("#themeCSS").attr("href","' . REVEALJS_ASSETS_PATH . '/css/theme/"+selectedCSS+".css");
+            $("#themeCSS").attr("href","' . REVEALJS_DIST_PATH . '/theme/"+selectedCSS+".css");
         });
         $( "#showtransition" ).on("change", function() {
             var selectedTransition=$("#showtransition" ).val();
