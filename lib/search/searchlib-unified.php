@@ -6,6 +6,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Search\ContentSource\CreditSource;
 use Tiki\Search\ContentSource\GoalSource;
+use Tiki\Search\Elastic\ElasticSearchIndexManager;
+use Tiki\Search\Manticore\ManticoreSearchIndexManager;
+use Tiki\Search\MySql\MysqlSearchIndexManager;
 use Tiki\TikiInit;
 
 /**
@@ -1856,5 +1859,49 @@ class UnifiedSearchLib
                 }
             }
         }
+    }
+
+    public function listAllUnusedIndexes($currentEngine)
+    {
+        global $prefs;
+
+        $indices = [];
+        list($engine, $version, $currentIndex) = $currentEngine;
+
+        switch ($engine) {
+            case 'Elastic':
+                try {
+                    $indexPrefix = $prefs['unified_elastic_index_prefix'];
+                    $connUrl = $prefs['unified_elastic_url'];
+                    $manager = new ElasticSearchIndexManager($currentIndex, $indexPrefix, $connUrl);
+                    $indices['indices'] = $manager->getUnusedIndexes();
+                } catch (\Exception $e) {
+                    $indices['error'] = "An error occurred while getting indices for Elasticsearch: " . $e->getMessage();
+                }
+                break;
+            case 'MySQL':
+                try {
+                    $mysqlManager = new MysqlSearchIndexManager($currentIndex);
+                    $indices['indices'] = $mysqlManager->getUnusedIndexes();
+                } catch (\Exception $e) {
+                    $indices['error'] = "An error occurred while getting indices for MYSQL: " . $e->getMessage();
+                }
+                break;
+            case 'Manticore':
+                try {
+                    $indexPrefix = $prefs['unified_manticore_index_prefix'] . 'main';
+                    $dsn = $prefs['unified_manticore_url'];
+                    $pdoPort = $prefs['unified_manticore_mysql_port'] ?: 9306;
+                    $manticoreManager = new ManticoreSearchIndexManager($currentIndex, $indexPrefix, $dsn, $pdoPort);
+                    $indices['indices'] = $manticoreManager->getUnusedIndexes();
+                } catch (\Exception $e) {
+                    $indices['error'] = "An error occurred while getting indices for Manticore: " . $e->getMessage();
+                }
+                break;
+            default:
+                break;
+        }
+
+        return $indices;
     }
 }

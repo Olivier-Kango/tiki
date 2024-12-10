@@ -155,6 +155,7 @@ class ConsoleApplicationBuilder
                 new FilesMoveCommand(),
                 new IndexRebuildCommand(),
                 new IndexOptimizeCommand(),
+                new IndexCleanupCommand(),
                 new IndexCatchUpCommand(),
                 new IndexCompareEnginesCommand(),
                 new ListExecuteCommand(),
