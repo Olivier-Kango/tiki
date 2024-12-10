@@ -4236,6 +4236,7 @@ CREATE TABLE `tiki_iot_apps` (
 	PRIMARY KEY (`id`),
   UNIQUE INDEX (`app_uuid`)
 ) ENGINE=MyISAM;
+
 DROP TABLE IF EXISTS `tiki_sql_query_logs`;
 CREATE TABLE `tiki_sql_query_logs` (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
