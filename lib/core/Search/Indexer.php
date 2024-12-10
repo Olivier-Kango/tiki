@@ -265,6 +265,13 @@ class Search_Indexer
             'global' => [],
             'object_types' => [],
         ];
+        $existing = null;
+        if (method_exists($this->searchIndex, 'getFieldMappings')) {
+            $existing = $this->searchIndex->getFieldMappings();
+        }
+        if (! is_null($existing)) {
+            $existing = array_keys($existing);
+        }
         /**
          * @var  string $objectType
          * @var  Search_ContentSource_Interface $contentSource
@@ -289,8 +296,7 @@ class Search_Indexer
             foreach ($this->packageSources as $packageSource) {
                 $output['object_types'][$objectType] = array_merge($output['object_types'][$objectType], $packageSource->getProvidedFields());
             }
-            if (method_exists($this->searchIndex, 'getFieldMappings')) {
-                $existing = array_keys($this->searchIndex->getFieldMappings());
+            if (! is_null($existing)) {
                 foreach ($output['object_types'][$objectType] as $key => $field) {
                     if (! in_array(strtolower($field), $existing)) {
                         unset($output['object_types'][$objectType][$key]);
@@ -299,8 +305,7 @@ class Search_Indexer
                 $output['object_types'][$objectType] = array_values($output['object_types'][$objectType]);
             }
         }
-        if (method_exists($this->searchIndex, 'getFieldMappings')) {
-            $existing = array_keys($this->searchIndex->getFieldMappings());
+        if (! is_null($existing)) {
             foreach ($output['global'] as $key => $field) {
                 if (! in_array(strtolower($field), $existing)) {
                     unset($output['global'][$key]);
