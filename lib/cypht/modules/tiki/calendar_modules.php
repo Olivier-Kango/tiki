@@ -424,6 +424,12 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                     );
                 } else {
                     $existing = TikiLib::lib('calendar')->get_item($existing['calitemId']);
+                    $res .= sprintf(
+                        '<tr><th>%s</th><td class="header_links"><a href="tiki-calendar.php?calitemId=%s" data-external="1">%s</a></td></tr>',
+                        tr('Event'),
+                        $existing['calitemId'],
+                        tr('View event in my calendar')
+                    );
                     foreach (['start', 'end', 'name', 'description', 'participants'] as $field) {
                         $val1 = $existing[$field];
                         $val2 = $event[$field];
