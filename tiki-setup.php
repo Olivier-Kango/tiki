@@ -107,6 +107,8 @@ require_once('lib/setup/sections.php');
 /** @var HeaderLib $headerlib */
 $headerlib = TikiLib::lib('header');
 
+$headerlib->add_js('window.tikiroot = "' . $tikiroot . '";');
+
 $domain_map = [];
 if (isset($_SERVER['HTTP_HOST'])) {
     $host = $_SERVER['HTTP_HOST'];
