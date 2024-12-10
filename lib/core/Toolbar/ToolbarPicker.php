@@ -7,6 +7,7 @@ use TikiLib;
 class ToolbarPicker extends ToolbarDialog
 {
     private string $styleType;
+    protected string $id;
 
     public static function fromName($tagName, bool $is_wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
@@ -63,6 +64,7 @@ class ToolbarPicker extends ToolbarDialog
 
         $tag->isMarkdown = $is_markdown;
         $tag->isWysiwyg = $is_wysiwyg;
+        $tag->id = $tag->name . uniqid();
 
         $tag->setWysiwygToken($wysiwyg)
             ->setLabel($label)
@@ -107,9 +109,8 @@ class ToolbarPicker extends ToolbarDialog
         if ($this->name == 'emoji' && $this->isDialogSupported()) {
             return 'displayEmojiPicker(\'' . str_replace('@vue-mf/', '', $this->singleSpaAppName) . '\', \'' . $this->domElementId . '\')';
         } elseif ($this->name === 'color' || $this->name === 'bgcolor') {
-            $id = $this->name;
             return "
-                const colorPicker = document.querySelector('sl-color-picker#$id');
+                const colorPicker = document.querySelector('sl-color-picker#$this->id');
                 colorPicker.trigger.click();
             ";
         } else {
@@ -180,30 +181,20 @@ class ToolbarPicker extends ToolbarDialog
         }
 
         if ($this->name === 'color' || $this->name === 'bgcolor') {
-            $id = $this->name;
-            $colorPickerVar = "colorPicker$id";
+            $id = $this->id;
             $areaId = $this->domElementId;
-            $insertScriptValue = $this->name === 'color' ? "'~~' + this.value + ':text~~'" : "'~~text-color-goes-here,' + this.value + ':text~~'";
-            "$.sheet.instance[I].cellChangeStyle(styleType, '');";
-            TikiLib::lib('header')->add_jq_onready("
-                const $colorPickerVar = document.querySelector('#$id');
-                $colorPickerVar.trigger.style.cssText = 'visibility: hidden; position: absolute; margin-left: -50px; margin-top: -30px;'; // The spacings used are not totally accurate, but they are good enough visually for now.
-                $colorPickerVar.addEventListener('sl-blur', function () {
-                    if ('$section' === 'sheet') {
-                        $.sheet.instance[$.sheet.I()].cellChangeStyle('$this->styleType', this.value);
-                    } else {
-                        insertAt('$areaId', $insertScriptValue);
-                    }
-                });
-            ");
             $html .= "<sl-color-picker 
                 id='$id'
+                areaId='$areaId'
+                type='$this->styleType'
+                section='$section'
                 value='black'
                 swatches='
                     #d0021b; #f5a623; #f8e71c; #8b572a; #7ed321; #417505; #bd10e0; #9013fe;
                     #4a90e2; #50e3c2; #b8e986; #000; #444; #888; #ccc; #fff;
                 '
-            ></sl-color-picker>";
+            ></sl-color-picker>
+            ";
         }
 
         return $html;

@@ -1020,6 +1020,7 @@ $headerlib->add_js_module('import Sortable from "sortablejs"; window.Sortable = 
 // Shoelace color picker
 $headerlib->add_js_module("import '@shoelace/color-picker';");
 $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/@shoelace-style/shoelace/dist/themes/light.css');
+$headerlib->add_js_module("import { textareaColorpicker } from '@jquery-tiki/ui-utils'; textareaColorpicker();");
 
 // element-plus-ui select, transfer
 $headerlib->add_js_module("import * as elementPlus from '@vue-widgets/element-plus-ui';");
