@@ -38,6 +38,17 @@ customElements.define(
 
             onMounted(() => {
                 createInputDataHolders();
+
+                // Check if the datepicker is inside a modal
+                const parentModal = dateTimeInputRef.value.closest(".modal");
+
+                if (parentModal) {
+                    const modalBody = parentModal.querySelector(".modal-body");
+
+                    if (modalBody) {
+                        modalBody.style.overflow = "visible";
+                    }
+                }
             });
 
             watch(

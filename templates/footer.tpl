@@ -1,13 +1,13 @@
 {* ==> put in this file what is not displayed in the layout (javascript, debug..)*}
 {foreach [1, 2, 3] as $modal}
     {assign var='modalId' value=($modal eq 1) ? 'bootstrap-modal' : "bootstrap-modal-{$modal}"}
-    <div id={$modalId} class="modal fade footer-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id={$modalId} class="modal fade footer-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title-{$modalId}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 {* Add header with title to avoid HTML validation errors for aria-labelledby missing a title while hidden.
                 Gets replaced when modal becomes visible.*}
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel{$modal}"></h5>
+                    <h5 class="modal-title" id="modal-title-{$modalId}"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
