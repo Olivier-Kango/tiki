@@ -170,13 +170,19 @@ class Search_MySql_Table extends TikiDb_Table
         if (! isset($this->indexes[$indexName]) && $indexesPerTable < self::MAX_MYSQL_INDEXES_PER_TABLE) {
             if ($type == 'fulltext') {
                 $this->addFullText($fieldName);
+                $actualIndex = true;
             } elseif ($type == 'index') {
                 $this->addIndex($fieldName);
+                $actualIndex = true;
+            } else {
+                $actualIndex = false;
             }
 
-            $this->indexes[$indexName] = [
-                'table' => $table,
-            ];
+            if ($actualIndex) {
+                $this->indexes[$indexName] = [
+                    'table' => $table,
+                ];
+            }
         } elseif ($indexesPerTable >= self::MAX_MYSQL_INDEXES_PER_TABLE) {
             $msg = tr('Maximum number of indexes per InnoDB table reached for MySQL index %0 when trying to add index %1.', $table, $indexName);
             throw new Search_MySql_QueryException($msg);
