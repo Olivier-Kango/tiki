@@ -538,18 +538,18 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
             if ($prefs['feature_calendar'] == 'y' && $method == 'REPLY') {
                 $existing = TikiLib::lib('calendar')->find_by_uid(null, $event['uid']);
 
-                if($existing){
+                if ($existing) {
                     $participants = TikiLib::lib('calendar')->get_participant_by_event_uid($event['uid']);
                     $participant_status_updated = true;
 
-                    if (!empty($existing['participants'])) {
+                    if (! empty($existing['participants'])) {
                         foreach ($event['participants'] as $role) {
-                            $idx = array_search($role['username'] , array_column($participants, 'username'));
-                            if(!$idx){
-                                $idx = array_search($role['email'] , array_column($participants, 'username'));
+                            $idx = array_search($role['username'], array_column($participants, 'username'));
+                            if (! $idx) {
+                                $idx = array_search($role['email'], array_column($participants, 'username'));
                             }
-        
-                            if($idx && $role['partstat'] != $participants[$idx]['partstat']){
+
+                            if ($idx && $role['partstat'] != $participants[$idx]['partstat']) {
                                 $participant_status_updated = false;
                                 break;
                             }
@@ -559,7 +559,7 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                     $event_update_participant_class = 'event_update_participant_status';
                     $event_update_participant_text = 'Update participant status';
 
-                    if($participant_status_updated){
+                    if ($participant_status_updated) {
                         $event_update_participant_class = 'event_participant_status_updated';
                         $event_update_participant_text = 'Participant status updated';
                     }
@@ -568,7 +568,7 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                     $res .= sprintf(
                         '<tr>
                             <th colspan="2" class="header_links">
-                            <a href="#" class="'. $event_update_participant_class .'">%s</a>
+                            <a href="#" class="' . $event_update_participant_class . '">%s</a>
                             </th>
                         </tr>',
                         tr($event_update_participant_text)
