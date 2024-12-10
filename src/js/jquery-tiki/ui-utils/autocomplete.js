@@ -60,7 +60,7 @@ export default function autocomplete(element, resourceType, options = {}) {
             break;
     }
 
-    const url = remoteSourceUrl ? window.location.origin + "/tiki/" + remoteSourceUrl : null; // TODO: Do not use a hardcoded URL
+    const url = remoteSourceUrl ? window.location.origin + (window.tikiroot || "/") + remoteSourceUrl : null;
     const autoCompleteArgs = [element, url, sourceList, valueKey];
 
     if (resourceType == "pagename" && ($(element).attr("name") == "highlight" || /^search_mod_input_\d|highlight$/.test($(element).attr("id")))) {
