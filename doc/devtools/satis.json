@@ -2126,6 +2126,7 @@
         "league/flysystem": ">=2.0.0-beta.3",
         "league/html-to-markdown": "^5.1",
         "league/oauth2-server": "^7.3||^8.0",
+        "maestroerror/php-heic-to-jpg": "^1.0.7",
         "manticoresoftware/manticoresearch-php": ">=v2.2.0",
         "mathjax/mathjax": "^2.7",
         "matthiasmullie/minify": ">=1.3.42",
