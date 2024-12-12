@@ -200,6 +200,26 @@ class IndexRebuildCommand extends Command
                     $io->error($unusedIndices['error']);
                 }
 
+                $executionTime = $timer->stop();
+                if ($executionTime < 60) {
+                    $seconds = floor($executionTime);
+                    $executionTime = $seconds . ' ' . ($seconds == 1 ? 'sec' : 'secs');
+                } elseif ($executionTime < 3600) {
+                    $minutes = floor($executionTime / 60);
+                    $executionTime = $minutes . ' ' . ($minutes == 1 ? 'min' : 'mins');
+                } else {
+                    $hours = round($executionTime / 3600, 1);
+                    $executionTime = $hours . ' ' . ($hours == 1 ? 'hr' : 'hrs');
+                }
+
+                if ($log && is_array($currentEngine) && count($currentEngine)) {
+                    list($engine) = $currentEngine;
+                    $logToFile = new WriterStream($unifiedsearchlib->getLogFilename($log, strtolower($engine)), 'a');
+                    $loggerInstance = new Logger();
+                    $loggerInstance->addWriter($logToFile);
+                    $loggerInstance->info("Execution time: " . $executionTime);
+                }
+
                 $io->section("\nExecution Statistics");
                 $output->writeln('Execution time: ' . FormatterHelper::formatTime($timer->stop()));
                 $output->writeln('Current Memory usage: ' . FormatterHelper::formatMemory(memory_get_usage()));
