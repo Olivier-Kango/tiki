@@ -3608,6 +3608,9 @@
         "lib\/core\/Math\/Formula\/Function\/StrToTime.php": {
             "class:Math_Formula_Function_StrToTime": true
         },
+        "lib\/core\/Math\/Formula\/Function\/DateDiff.php": {
+            "class:Math_Formula_Function_DateDiff": true
+        },
         "lib\/core\/Math\/Formula\/Function\/Concat.php": {
             "class:Math_Formula_Function_Concat": true
         },
@@ -6583,6 +6586,9 @@
         },
         "lib\/core\/Math\/Formula\/Function\/StrToTime.php": {
             "Math_Formula_Function_StrToTime": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/DateDiff.php": {
+            "Math_Formula_Function_DateDiff": true
         },
         "lib\/core\/Math\/Formula\/Function\/Concat.php": {
             "Math_Formula_Function_Concat": true
