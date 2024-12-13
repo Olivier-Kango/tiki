@@ -2140,7 +2140,7 @@ class TrackerLib extends TikiLib
 
             $handler = $this->get_field_handler($array, array_merge($item_info, $fil));
 
-            if (method_exists($handler, 'postSaveHook')) {
+            if ($handler && method_exists($handler, 'postSaveHook')) {
                 // postSaveHook will be called with final value saved
                 // after saving all item fields
                 $postSave[] = [
@@ -2149,7 +2149,7 @@ class TrackerLib extends TikiLib
                 ];
             }
 
-            if (method_exists($handler, 'handleFinalSave')) {
+            if ($handler && method_exists($handler, 'handleFinalSave')) {
                 // handleFinalSave will be called after all other fields are saved, and
                 // will get as parameter all other field data (other than ones that also
                 // use finalSave).
@@ -2162,7 +2162,7 @@ class TrackerLib extends TikiLib
                 }
             }
 
-            if (method_exists($handler, 'handleSave')) {
+            if ($handler && method_exists($handler, 'handleSave')) {
                 $array = array_merge($array, $handler->handleSave(! isset($array['value']) ? null : $array['value'], $old_value));
                 $value = ! isset($array['value']) ? null : $array['value'];
 
@@ -2178,7 +2178,7 @@ class TrackerLib extends TikiLib
                 continue;
             }
 
-            if (method_exists($handler, 'handleSpecialSave')) {
+            if ($handler && method_exists($handler, 'handleSpecialSave')) {
                 $array = array_merge($array, $handler->handleSpecialSave($array));
                 $value = ! isset($array['value']) ? null : $array['value'];
 
@@ -3093,7 +3093,7 @@ class TrackerLib extends TikiLib
                     }
 
                     $handler = $this->get_field_handler($f, $this->get_item_info($itemId));
-                    if (method_exists($handler, 'isValid') && empty($f['readonly'])) {
+                    if ($handler && method_exists($handler, 'isValid') && empty($f['readonly'])) {
                         $validationResponse = $handler->isValid($fields);
                         if ($validationResponse !== true) {
                             if (! empty($f['validationMessage'])) {
