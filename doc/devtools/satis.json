@@ -2021,7 +2021,7 @@
         "ezyang/htmlpurifier": ">=4.5.0",
         "fabpot/goutte": "^3.3",
         "fortawesome/font-awesome": "4.5.0||~4.7.0",
-        "fullcalendar/fullcalendar": "^3.9",
+        "fullcalendar/fullcalendar": "^3.4.0",
         "fullcalendar/fullcalendar-scheduler": "^1.9",
         "gidkom/php-openfire-restapi": ">=1.0.0",
         "google/apiclient": "1.1.6||^2.2.2",
