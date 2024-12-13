@@ -3534,6 +3534,9 @@
         "lib\/core\/Math\/Formula\/Function\/StrToTime.php": {
             "class:Math_Formula_Function_StrToTime": true
         },
+        "lib\/core\/Math\/Formula\/Function\/DateDiff.php": {
+            "class:Math_Formula_Function_DateDiff": true
+        },
         "lib\/core\/Math\/Formula\/Function\/Abs.php": {
             "class:Math_Formula_Function_Abs": true
         },
@@ -6408,6 +6411,9 @@
         },
         "lib\/core\/Math\/Formula\/Function\/StrToTime.php": {
             "Math_Formula_Function_StrToTime": true
+        },
+        "lib\/core\/Math\/Formula\/Function\/DateDiff.php": {
+            "Math_Formula_Function_DateDiff": true
         },
         "lib\/core\/Math\/Formula\/Function\/Abs.php": {
             "Math_Formula_Function_Abs": true
