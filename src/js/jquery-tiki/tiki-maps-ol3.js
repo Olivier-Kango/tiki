@@ -1,151 +1,175 @@
+import { defaults as defaultControls } from "ol/control";
+
 (function () {
     var mapNumber = 0,
         currentProtocol = document.location.protocol,
         errorLayers = [];
 
-    if (currentProtocol !== 'http:' && currentProtocol !== 'https:') {
-        currentProtocol = 'https:';
+    if (currentProtocol !== "http:" && currentProtocol !== "https:") {
+        currentProtocol = "https:";
     }
 
-    function getBaseLayers(tiles)
-    {
-        var layers = [], factories = {
-            openstreetmap: function () {
-                return new ol.layer.Tile({
-                    source: new ol.source.OSM(),
-                    title: 'OpenStreetMap'
-                });
-            },
-            bing_road: function () {
-                return new ol.layer.Tile({
-                    source: new ol.source.BingMaps({ key: jqueryTiki.bingMapsAPIKey, imagerySet: 'Road' }),
-                    title: 'BingRoad'
-                });
-            },
-            bing_road_on_demand: function () {
-                return new ol.layer.Tile({
-                    source: new ol.source.BingMaps({ key: jqueryTiki.bingMapsAPIKey, imagerySet: 'RoadOnDemand' }),
-                    title: 'BingRoadOnDemand'
-                });
-            },
-            bing_aerial: function () {
-                return new ol.layer.Tile({
-                    source: new ol.source.BingMaps({ key: jqueryTiki.bingMapsAPIKey, imagerySet: 'Aerial' }),
-                    title: 'BingAerial'
-                });
-            },
-            bing_aerial_with_labels: function () {
-                return new ol.layer.Tile({
-                    source: new ol.source.BingMaps({ key: jqueryTiki.bingMapsAPIKey, imagerySet: 'AerialWithLabels' }),
-                    title: 'BingAerialWithLabels'
-                });
-            },
-            bing_ordnance_survey: function () {
-                return new ol.layer.Tile({
-                    source: new ol.source.BingMaps({ key: jqueryTiki.bingMapsAPIKey, imagerySet: 'ordnanceSurvey' }),
-                    title: 'BingOrdnanceSurvey'
-                });
-            },
-            bing_collins_bart: function () {    // doesn't seem to work?
-                return new ol.layer.Tile({
-                    source: new ol.source.BingMaps({ key: jqueryTiki.bingMapsAPIKey, imagerySet: 'collinsBart' }),
-                    title: 'BingCollinsBart'
-                });
-            },
-            nextzen: function () {
-                var nextzenRoadStyleCache = {},
-                    nextzenStyle = function (feature, resolution) {
-                        switch (feature.get('layer')) {
-                            case 'water':
-                                return new ol.style.Style({
-                                    fill: new ol.style.Fill({
-                                        color: '#9db9e8'
-                                    })
-                                });
-                            case 'buildings':
-                                return (resolution < 10) ? new ol.style.Style({
-                                    fill: new ol.style.Fill({
-                                        color: '#bbb',
-                                        opacity: 0.4
-                                    }),
-                                    stroke: new ol.style.Stroke({
-                                        color: '#999',
-                                        width: 1
-                                    })
-                                }) : null;
-                            case 'roads':
-                                var kind = feature.get('kind');
-                                var railway = feature.get('railway');
-                                var sort_key = feature.get('sort_key');
-                                var styleKey = kind + '/' + railway + '/' + sort_key;
-                                var style = nextzenRoadStyleCache[styleKey];
-                                if (!style) {
-                                    var color, width = 1;
-                                    if (railway || kind === "rail") {
-                                        color = "#7a5";
-                                    } else if (kind === "major_road"){
-                                        color = "#aaa";
-                                    } else if (kind === "minor_road"){
-                                        color = "#ccb";
-                                    } else if (kind === "path"){
-                                        color = "#ddd";
-                                    } else if (kind === "highway"){
-                                        color = "#f39";
-                                        width = 2;
-                                    } else if (kind === "ferry"){
-                                        color = "#448cff";
-                                        width = 2;
-                                    } else if (kind === "aeroway"){
-                                        color = "#999";
-                                        width = 3;
-                                    } else {
-                                        color = "#aaa";
-                                        console.log("Unknown road kind: " + kind);
-                                    }
-                                    style = new ol.style.Style({
-                                        stroke: new ol.style.Stroke({
-                                            color: color,
-                                            width: width
-                                        }),
-                                        zIndex: sort_key
-                                    });
-                                    nextzenRoadStyleCache[styleKey] = style;
-                                }
-                                return style;
-                            default:
-                                return null;
-                        }
-
-                    };
-
-                return new ol.layer.VectorTile({
-                    source: new ol.source.VectorTile({
-                        attributions: '&copy; OpenStreetMap contributors, Who’s On First, ' +
-                            'Natural Earth, and openstreetmapdata.com',
-                        format: new ol.format.MVT({
-                            layertitle: 'layer',
-                            layers: ['water', 'roads', 'buildings']
+    function getBaseLayers(tiles) {
+        var layers = [],
+            factories = {
+                openstreetmap: function () {
+                    return new ol.layer.Tile({
+                        source: new ol.source.OSM(),
+                        title: "OpenStreetMap",
+                    });
+                },
+                bing_road: function () {
+                    return new ol.layer.Tile({
+                        source: new ol.source.BingMaps({
+                            key: jqueryTiki.bingMapsAPIKey,
+                            imagerySet: "Road",
                         }),
-                        maxZoom: 19,
-                        url: 'https://tile.nextzen.org/tilezen/vector/v1/all/{z}/{x}/{y}.mvt?api_key=' + jqueryTiki.nextzenAPIKey
-                    }),
-                    style: function (feature, resolution) {
-                        return typeof window.nextzenStyle === "function" ?  window.nextzenStyle(feature, resolution) : nextzenStyle(feature, resolution);
-                    }
-                });
-            }
+                        title: "BingRoad",
+                    });
+                },
+                bing_road_on_demand: function () {
+                    return new ol.layer.Tile({
+                        source: new ol.source.BingMaps({
+                            key: jqueryTiki.bingMapsAPIKey,
+                            imagerySet: "RoadOnDemand",
+                        }),
+                        title: "BingRoadOnDemand",
+                    });
+                },
+                bing_aerial: function () {
+                    return new ol.layer.Tile({
+                        source: new ol.source.BingMaps({
+                            key: jqueryTiki.bingMapsAPIKey,
+                            imagerySet: "Aerial",
+                        }),
+                        title: "BingAerial",
+                    });
+                },
+                bing_aerial_with_labels: function () {
+                    return new ol.layer.Tile({
+                        source: new ol.source.BingMaps({
+                            key: jqueryTiki.bingMapsAPIKey,
+                            imagerySet: "AerialWithLabels",
+                        }),
+                        title: "BingAerialWithLabels",
+                    });
+                },
+                bing_ordnance_survey: function () {
+                    return new ol.layer.Tile({
+                        source: new ol.source.BingMaps({
+                            key: jqueryTiki.bingMapsAPIKey,
+                            imagerySet: "ordnanceSurvey",
+                        }),
+                        title: "BingOrdnanceSurvey",
+                    });
+                },
+                bing_collins_bart: function () {
+                    // Doesn't seem to work?
+                    return new ol.layer.Tile({
+                        source: new ol.source.BingMaps({
+                            key: jqueryTiki.bingMapsAPIKey,
+                            imagerySet: "collinsBart",
+                        }),
+                        title: "BingCollinsBart",
+                    });
+                },
+                nextzen: function () {
+                    var nextzenRoadStyleCache = {},
+                        nextzenStyle = function (feature, resolution) {
+                            switch (feature.get("layer")) {
+                                case "water":
+                                    return new ol.style.Style({
+                                        fill: new ol.style.Fill({
+                                            color: "#9db9e8",
+                                        }),
+                                    });
+                                case "buildings":
+                                    return resolution < 10
+                                        ? new ol.style.Style({
+                                              fill: new ol.style.Fill({
+                                                  color: "#bbb",
+                                                  opacity: 0.4,
+                                              }),
+                                              stroke: new ol.style.Stroke({
+                                                  color: "#999",
+                                                  width: 1,
+                                              }),
+                                          })
+                                        : null;
+                                case "roads":
+                                    var kind = feature.get("kind");
+                                    var railway = feature.get("railway");
+                                    var sort_key = feature.get("sort_key");
+                                    var styleKey = `${kind}/${railway}/${sort_key}`;
+                                    var style = nextzenRoadStyleCache[styleKey];
+                                    if (!style) {
+                                        var color;
+                                        var width = 1;
+                                        if (railway || kind === "rail") {
+                                            color = "#7a5";
+                                        } else if (kind === "major_road") {
+                                            color = "#aaa";
+                                        } else if (kind === "minor_road") {
+                                            color = "#ccb";
+                                        } else if (kind === "path") {
+                                            color = "#ddd";
+                                        } else if (kind === "highway") {
+                                            color = "#f39";
+                                            width = 2;
+                                        } else if (kind === "ferry") {
+                                            color = "#448cff";
+                                            width = 2;
+                                        } else if (kind === "aeroway") {
+                                            color = "#999";
+                                            width = 3;
+                                        } else {
+                                            color = "#aaa";
+                                            console.log("Unknown road kind: " + kind);
+                                        }
+                                        style = new ol.style.Style({
+                                            stroke: new ol.style.Stroke({
+                                                color: color,
+                                                width: width,
+                                            }),
+                                            zIndex: sort_key,
+                                        });
+                                        nextzenRoadStyleCache[styleKey] = style;
+                                    }
+                                    return style;
+                                default:
+                                    return null;
+                            }
+                        };
 
-        };
+                    return new ol.layer.VectorTile({
+                        source: new ol.source.VectorTile({
+                            attributions: "&copy; OpenStreetMap contributors, Who’s On First, " + "Natural Earth, and openstreetmapdata.com",
+                            format: new ol.format.MVT({
+                                layertitle: "layer",
+                                layers: ["water", "roads", "buildings"],
+                            }),
+                            maxZoom: 19,
+                            url: "https://tile.nextzen.org/tilezen/vector/v1/all/{z}/{x}/{y}.mvt?api_key=" + jqueryTiki.nextzenAPIKey,
+                        }),
+                        style: function (feature, resolution) {
+                            return typeof window.nextzenStyle === "function"
+                                ? window.nextzenStyle(feature, resolution)
+                                : nextzenStyle(feature, resolution);
+                        },
+                    });
+                },
+            };
 
         if (tiles.length === 0) {
-            tiles.push('openstreetmap');
+            tiles.push("openstreetmap");
         }
 
         var visible = true;
 
         $.each(tiles, function (k, name) {
             var getLayer = function (name) {
-                var f = factories[name], layer;
+                var f = factories[name],
+                    layer;
                 if (f) {
                     layer = f();
                 } else {
@@ -154,9 +178,9 @@
 
                         layer = new ol.layer.Tile({
                             source: new ol.source.Stamen({
-                                layer: flavor
+                                layer: flavor,
                             }),
-                            title: 'Stamen' + flavor
+                            title: "Stamen" + flavor,
                         });
                     }
                 }
@@ -164,20 +188,21 @@
             };
 
             if (typeof name === "object") {
-                var sublayers = [], names = [];
+                var sublayers = [],
+                    names = [];
                 for (i = 0; i < name.length; i++) {
                     sublayers.push(getLayer(name[i]));
                     names.push(name[i]);
                 }
-                layers.push(new ol.layer.Group({
+                layers.push(
+                    new ol.layer.Group({
                         title: k,
                         combine: true,
                         visible: visible,
                         type: "base",
-                        layers: sublayers
+                        layers: sublayers,
                     })
                 );
-
             } else {
                 var lyr = getLayer(name);
                 if (lyr) {
@@ -204,7 +229,7 @@
             var lon = parseFloat(matching[1]);
             var zoom = matching[6] ? parseInt(matching[6], 10) : 0;
 
-            return {lat: lat, lon: lon, zoom: zoom};
+            return { lat: lat, lon: lon, zoom: zoom };
         }
 
         return null;
@@ -214,12 +239,9 @@
         var original = lonlat;
 
         if (fixProjection) {
-            lonlat = lonlat.transform(
-                map.getView().getProjection(),
-                new ol.proj.Projection({ code: "EPSG:4326" })
-            );
+            lonlat = lonlat.transform(map.getView().getProjection(), new ol.proj.Projection({ code: "EPSG:4326" }));
 
-            if (! lonlat) {
+            if (!lonlat) {
                 lonlat = original;
             }
         }
@@ -229,32 +251,33 @@
         return formatLocation(coords[0], coords[1], map.getView().getZoom());
     }
 
-    function formatLocation (lat, lon, zoom)
-    {
+    function formatLocation(lat, lon, zoom) {
         // Convert , decimal points - where those are used
-        var strLon = '' + lon;
-        strLon.replace(',', '.');
-        var strLat = '' + lat;
-        strLat.replace(',', '.');
-        return strLon + ',' + strLat + ',' + zoom;
+        var strLon = "" + lon;
+        strLon.replace(",", ".");
+        var strLat = "" + lat;
+        strLat.replace(",", ".");
+        return strLon + "," + strLat + "," + zoom;
     }
 
     $.fn.createMap = function () {
         this.each(function () {
-            var id = $(this).attr('id'), container = this, desiredControls;
-            $(container).css('background', 'white');
+            var id = $(this).attr("id"),
+                container = this,
+                desiredControls;
+            $(container).css("background", "white");
 
             container.getLayer = function (name) {
                 var vectors;
 
                 if (name) {
-                    if (! container.layers[name]) {
+                    if (!container.layers[name]) {
                         // basic feature clustering
                         if ($(container).data("cluster")) {
                             var distance = $(container).data("cluster"),
                                 clusterSource = new ol.source.Cluster({
                                     distance: distance,
-                                    source: new ol.source.Vector({wrapX: false})
+                                    source: new ol.source.Vector({ wrapX: false }),
                                 }),
                                 clusterFillColor = $(container).data("clusterfillcolor"),
                                 clusterTextColor = $(container).data("clustertextcolor");
@@ -282,15 +305,16 @@
                                     var feature, radius;
                                     for (var i = features.length - 1; i >= 0; --i) {
                                         feature = features[i];
-                                        var originalFeatures = feature.get('features');
+                                        var originalFeatures = feature.get("features");
                                         var extent = ol.extent.createEmpty();
-                                        var j = (void 0), jj = (void 0);
+                                        var j = void 0,
+                                            jj = void 0;
                                         for (j = 0, jj = originalFeatures.length; j < jj; ++j) {
                                             ol.extent.extend(extent, originalFeatures[j].getGeometry().getExtent());
                                         }
                                         maxFeatureCount = Math.max(maxFeatureCount, jj);
-                                        radius = .4 * (ol.extent.getWidth(extent) + ol.extent.getHeight(extent)) / resolution;
-                                        feature.set('radius', radius);
+                                        radius = (0.4 * (ol.extent.getWidth(extent) + ol.extent.getHeight(extent))) / resolution;
+                                        feature.set("radius", radius);
                                     }
                                 },
                                 createMarkerStyle = function (feature) {
@@ -301,27 +325,29 @@
                                                 anchor: [feature.get("offsetx"), feature.get("offsety")],
                                                 anchorXUnits: "pixels",
                                                 anchorYUnits: "pixels",
-                                                src: feature.get("url")
-                                            })
+                                                src: feature.get("url"),
+                                            }),
                                         });
                                     }
-                                }, invisibleFill = new ol.style.Fill({
-                                    color: 'rgba(255, 255, 255, 0.01)'
+                                },
+                                invisibleFill = new ol.style.Fill({
+                                    color: "rgba(255, 255, 255, 0.01)",
                                 }),
                                 selectClusterFeaturesStyle = function (feature) {
                                     var styles = [],
-                                        features = feature.get('features');
+                                        features = feature.get("features");
 
-                                    if (! features && feature) {
+                                    if (!features && feature) {
                                         return createMarkerStyle(feature);
                                     }
 
                                     if (features.length > 1) {
-                                        styles.push(new ol.style.Style({
+                                        styles.push(
+                                            new ol.style.Style({
                                                 image: new ol.style.Circle({
-                                                    radius: feature.get('radius'),
-                                                    fill: invisibleFill
-                                                })
+                                                    radius: feature.get("radius"),
+                                                    fill: invisibleFill,
+                                                }),
                                             })
                                         );
                                     }
@@ -331,12 +357,10 @@
                                     return styles;
                                 };
 
-
                             vectors = container.layers[name] = new ol.layer.Vector({
                                 source: clusterSource,
                                 title: name,
                                 style: function (feature, resolution) {
-
                                     var features = feature.get("features");
                                     if (features && features.length > 1) {
                                         calculateClusterInfo(resolution);
@@ -347,31 +371,30 @@
                                         if (!style) {
                                             style = new ol.style.Style({
                                                 image: new ol.style.Circle({
-                                                    radius: Math.max(feature.get('radius'), 20),
+                                                    radius: Math.max(feature.get("radius"), 20),
                                                     stroke: new ol.style.Stroke({
-                                                        color: clusterTextColor
+                                                        color: clusterTextColor,
                                                     }),
                                                     fill: new ol.style.Fill({
                                                         color: [
                                                             clusterFillColor[0],
                                                             clusterFillColor[1],
                                                             clusterFillColor[2],
-                                                            Math.min(0.8, 0.4 + (size / maxFeatureCount))
-                                                        ]
-                                                    })
+                                                            Math.min(0.8, 0.4 + size / maxFeatureCount),
+                                                        ],
+                                                    }),
                                                 }),
                                                 text: new ol.style.Text({
                                                     text: features.length.toString(),
                                                     font: "14px sans-serif",
                                                     fill: new ol.style.Fill({
-                                                        color: clusterTextColor
-                                                    })
-                                                })
+                                                        color: clusterTextColor,
+                                                    }),
+                                                }),
                                             });
                                             styleCache[size + " " + maxFeatureCount] = style;
                                         }
                                     } else if (features) {
-
                                         feature = features[0];
 
                                         if (feature.get("intent") === "marker") {
@@ -379,43 +402,39 @@
                                         }
                                     }
                                     return style;
-                                }
+                                },
                             });
 
                             if ($(container).data("clusterhover") === "features") {
-                                container.map.interactions = container.map.getInteractions().extend(
-                                    [new ol.interaction.Select({
+                                container.map.interactions = container.map.getInteractions().extend([
+                                    new ol.interaction.Select({
                                         condition: function (evt) {
-                                            return evt.type === 'pointermove' ||
-                                                evt.type === 'singleclick';
+                                            return evt.type === "pointermove" || evt.type === "singleclick";
                                         },
                                         style: selectClusterFeaturesStyle,
-                                        layers: [vectors]
-                                    })]);
+                                        layers: [vectors],
+                                    }),
+                                ]);
                             }
 
                             if ($(container).data("popup-style")) {
                                 var selectionInteraction = new ol.interaction.Select({
                                     style: createMarkerStyle,
-                                    layers: [vectors]
+                                    layers: [vectors],
                                 });
 
                                 container.map.addInteraction(selectionInteraction);
 
                                 // use select to make popup
-                                selectionInteraction.on('select', container.showPopup);
+                                selectionInteraction.on("select", container.showPopup);
                             }
-
-
                         } else {
-
                             vectors = container.layers[name] = new ol.layer.Vector({
-                                source: new ol.source.Vector({wrapX: false}),
-                                title: name
+                                source: new ol.source.Vector({ wrapX: false }),
+                                title: name,
                                 //styleMap: container.defaultStyleMap,
                                 //rendererOptions: {zIndexing: true}
                             });
-
                         }
 
                         container.overlays.getLayers().push(vectors);
@@ -430,31 +449,33 @@
             container.clearLayer = function (name) {
                 var vectors = container.getLayer(name).getSource();
 
-                vectors.getFeatures().forEach(f => {
+                vectors.getFeatures().forEach((f) => {
                     if ((f && f.get("itemId")) || (f && f.get("type") && f.get("object"))) {
                         vectors.removeFeature(f);
                     }
                 });
             };
 
-            desiredControls = $(this).data('map-controls');
+            desiredControls = $(this).data("map-controls");
             if (desiredControls === undefined) {
-                desiredControls = 'controls,layers,search_location,current_location,streetview,navigation';
+                desiredControls = "controls,layers,search_location,current_location,streetview,navigation";
             }
 
-            desiredControls = desiredControls.split(',');
+            desiredControls = desiredControls.split(",");
 
             var setupHeight = function () {
                 var height = $(container).height();
                 if (0 === height) {
-                    height = $(container).width() / 4.0 * 3.0;
+                    height = ($(container).width() / 4.0) * 3.0;
                 }
 
-                $(container).closest('.height-size').each(function () {
-                    height = $(this).data('available-height');
-                    $(this).css('padding', 0);
-                    $(this).css('margin', 0);
-                });
+                $(container)
+                    .closest(".height-size")
+                    .each(function () {
+                        height = $(this).data("available-height");
+                        $(this).css("padding", 0);
+                        $(this).css("margin", 0);
+                    });
 
                 $(container).height(height);
             };
@@ -462,44 +483,45 @@
 
             $(window).on("resize", setupHeight);
 
-            if (! id) {
+            if (!id) {
                 ++mapNumber;
-                id = 'openlayers' + mapNumber;
-                $(this).attr('id', id);
+                id = "openlayers" + mapNumber;
+                $(this).attr("id", id);
             }
 
             setTimeout(function () {
                 ol.ImgPath = "lib/openlayers/theme/dark/";
 
-                var controls = ol.control.defaults({
+                var controls = defaultControls({
                     // zoom control is added by default, so remove it if not needed
-                    zoom: $.inArray('controls', desiredControls) !== -1
+                    zoom: $.inArray("controls", desiredControls) !== -1,
                 });
 
-                if ($.inArray('coordinates', desiredControls) !== -1) {
-                    controls.push(new ol.control.MousePosition({
+                if ($.inArray("coordinates", desiredControls) !== -1) {
+                    controls.push(
+                        new ol.control.MousePosition({
                             projection: "EPSG:4326",
                             coordinateFormat: function (coordinate) {
-                                return ol.coordinate.format(coordinate, '{y}, {x}', 4);
-                            }
+                                return ol.coordinate.format(coordinate, "{y}, {x}", 4);
+                            },
                         })
                     );
                 }
 
-                if ($.inArray('scale', desiredControls) !== -1) {
+                if ($.inArray("scale", desiredControls) !== -1) {
                     controls.push(new ol.control.ScaleLine());
                 }
 
-                if ($.inArray('levels', desiredControls) !== -1) {
+                if ($.inArray("levels", desiredControls) !== -1) {
                     controls.push(new ol.control.ZoomSlider());
                 }
 
-                if (-1 !== $.inArray('layers', desiredControls)) {
+                if (-1 !== $.inArray("layers", desiredControls)) {
                     controls.push(new ol.control.LayerSwitcher());
                 }
 
-/* no navbar, pan or layer switcher anymore?
-                if (layers.length > 0 && -1 !== $.inArray('navigation', desiredControls)) {
+                /* no navbar, pan or layer switcher anymore?
+                if (layers.length > 0 && -1 !== $.inArray("navigation", desiredControls)) {
                     defaultMode.controls.push(new ol.control.NavToolbar());
                 }
 */
@@ -507,7 +529,10 @@
                 // Set up initial layers
                 container.layers = {};
 
-                var tilesets = {}, key = "", pos = -1, ts = $(container).data("tilesets") || jqueryTiki.mapTileSets;
+                var tilesets = {},
+                    key = "",
+                    pos = -1,
+                    ts = $(container).data("tilesets") || jqueryTiki.mapTileSets;
                 if (ts) {
                     if (typeof ts === "string") {
                         ts = ts.replace(/\s*/g, "").split(",");
@@ -541,40 +566,41 @@
                 var layers = [
                     new ol.layer.Group({
                         title: tr("Base Maps"),
-                        layers: getBaseLayers(tilesets)
+                        layers: getBaseLayers(tilesets),
                     }),
                     new ol.layer.Group({
-                        title: tr("Overlays")
-                    })
+                        title: tr("Overlays"),
+                    }),
                 ];
 
-                var map = container.map = new ol.Map({
+                var map = (container.map = new ol.Map({
                     target: id,
                     controls: controls,
                     view: new ol.View({
                         center: [0, 0],
-                        zoom: 2
+                        zoom: 2,
                     }),
-                    layers: layers
-                });
+                    layers: layers,
+                }));
 
                 if (errorLayers.length) {
                     $("#tikifeedback").showError(tr("Cannot create map layer/s: " + errorLayers.join(", ")));
                     errorLayers = [];
                 }
 
-                map.getLayerGroup().getLayers().forEach(function (layer) {
-                    if (layer.get("title") === tr("Overlays")) {
-                        container.overlays = layer;
-                    }
-                });
+                map.getLayerGroup()
+                    .getLayers()
+                    .forEach(function (layer) {
+                        if (layer.get("title") === tr("Overlays")) {
+                            container.overlays = layer;
+                        }
+                    });
 
                 container.vectors = container.getLayer(tr("Editable"));
 
                 container.uniqueMarkers = {};
 
                 container.resetPosition = function (center) {
-
                     center = center || [0, 0, 3];
 
                     var view = map.getView();
@@ -588,16 +614,19 @@
                     modes: [],
                     activeMode: null,
                     addMode: function (options) {
-                        var mode = $.extend({
-                            title: tr('Default'),
-                            icon: null,
-                            events: {
-                                activate: [],
-                                deactivate: []
+                        var mode = $.extend(
+                            {
+                                title: tr("Default"),
+                                icon: null,
+                                events: {
+                                    activate: [],
+                                    deactivate: [],
+                                },
+                                controls: [],
+                                layers: [],
                             },
-                            controls: [],
-                            layers: []
-                        }, options);
+                            options
+                        );
 
                         $.each(mode.layers, function (k, layer) {
                             layer.displayInLayerSwitcher = false;
@@ -612,14 +641,14 @@
 
                         this.modes.push(mode);
 
-                        this.register('activate', mode.name, mode.activate);
-                        this.register('deactivate', mode.name, mode.deactivate);
+                        this.register("activate", mode.name, mode.activate);
+                        this.register("deactivate", mode.name, mode.deactivate);
 
-                        if (! this.activeMode) {
+                        if (!this.activeMode) {
                             this.activate(mode);
                         }
 
-                        $(container).trigger('modechanged');
+                        $(container).trigger("modechanged");
 
                         return mode;
                     },
@@ -655,10 +684,10 @@
                             f.apply([], container);
                         });
 
-                        $(container).trigger('modechanged');
+                        $(container).trigger("modechanged");
                     },
                     deactivate: function () {
-                        if (! this.activeMode) {
+                        if (!this.activeMode) {
                             return;
                         }
 
@@ -673,36 +702,34 @@
                         });
 
                         this.activeMode = null;
-                    }
+                    },
                 };
 
                 var defaultMode = {
-                    controls: []
+                    controls: [],
                 };
 
-                var $mapBootstrapDummy = $("<div>")
-                        .attr("id", "map-tooltip")
-                        .css("position", "absolute")
-                        .appendTo($(".ol-viewport", container));
+                var $mapBootstrapDummy = $("<div>").attr("id", "map-tooltip").css("position", "absolute").appendTo($(".ol-viewport", container));
 
                 /* tooltips */
 
                 if ($(container).data("tooltips")) {
                     // based on https://gis.stackexchange.com/a/166745/25953
 
-
                     container.displayFeatureInfo = function (pixel, evt) {
                         $mapBootstrapDummy.tooltip("hide");
-                        var feature, layer, both = map.forEachFeatureAtPixel(pixel, function (feature, layer) {
-                            return [feature, layer];
-                        });
-                        if (! both) {
+                        var feature,
+                            layer,
+                            both = map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+                                return [feature, layer];
+                            });
+                        if (!both) {
                             return;
                         }
                         feature = both[0];
                         layer = both[1];
 
-                        if (! feature) {
+                        if (!feature) {
                             return;
                         }
                         if (layer && layer instanceof ol.layer.VectorTile) {
@@ -710,7 +737,7 @@
                         }
                         $mapBootstrapDummy.css({
                             left: pixel[0] + "px",
-                            top: (pixel[1] - 15) + "px"
+                            top: pixel[1] - 15 + "px",
                         });
                         var clusterFeatures = feature.get("features");
 
@@ -737,15 +764,15 @@
                                     trigger: "manual",
                                     html: true,
                                     title: feature.get("content"),
-                                    container: "body"
+                                    container: "body",
                                 })
                                 .tooltip("show");
                         }
                     };
 
-                    map.on('pointermove', function (evt) {
+                    map.on("pointermove", function (evt) {
                         if (evt.dragging) {
-                            $mapBootstrapDummy.tooltip('hide');
+                            $mapBootstrapDummy.tooltip("hide");
                             return true;
                         }
                         container.displayFeatureInfo(map.getEventPixel(evt.originalEvent), evt);
@@ -754,9 +781,10 @@
                 }
 
                 if ($(container).data("popup-style")) {
-
                     container.showPopup = function (e) {
-                        var pixel, feature, features = e.target.getFeatures();
+                        var pixel,
+                            feature,
+                            features = e.target.getFeatures();
 
                         if (features.getLength()) {
                             feature = features.getArray()[0];
@@ -770,13 +798,10 @@
                                     for (var i = 0; i < clusterFeatures.length; ++i) {
                                         ol.extent.extend(extent, clusterFeatures[i].getGeometry().getExtent());
                                     }
-                                    container.map.getView().fit(
-                                        extent,
-                                        {
-                                            duration: 2000,
-                                            padding: [10, 5, 10, 5]
-                                        }
-                                    );
+                                    container.map.getView().fit(extent, {
+                                        duration: 2000,
+                                        padding: [10, 5, 10, 5],
+                                    });
                                     return;
                                 }
                             } else {
@@ -790,21 +815,22 @@
 
                         $mapBootstrapDummy.tooltip("dispose").css({
                             left: pixel[0] + "px",
-                            top: pixel[1] + "px"
+                            top: pixel[1] + "px",
                         });
 
-                        let type = feature.get("type"), object = feature.get("object");
+                        let type = feature.get("type"),
+                            object = feature.get("object");
 
-                        if (! type && ! object) {
-                            type = "trackeritem", object = feature.get("itemId");
+                        if (!type && !object) {
+                            (type = "trackeritem"), (object = feature.get("itemId"));
                         }
 
-                        switch ($(container).data('popup-style')) {
-                            case 'dialog':
-
-                                var $modal = $('.footer-modal:not(.show)').first()
+                        switch ($(container).data("popup-style")) {
+                            case "dialog":
+                                var $modal = $(".footer-modal:not(.show)")
+                                    .first()
                                     .modal({})
-                                    .one('shown.bs.modal', function (event) {
+                                    .one("shown.bs.modal", function (event) {
                                         if (type && object) {
                                             $(container).loadInfoboxPopup({
                                                 type: type,
@@ -813,17 +839,14 @@
                                                 event: event,
                                                 element: this,
                                                 callback: function (event, $html) {
-                                                    var title = $html.find("h1").remove().text() || feature.get(
-                                                        "content"),
+                                                    var title = $html.find("h1").remove().text() || feature.get("content"),
                                                         $header = $(".modal-header", $modal);
 
                                                     $html.find("a.service-dialog").clickModal({});
 
                                                     if ($header.length === 0) {
                                                         $(".modal-content", $modal).append(
-                                                            $("<div class='modal-header'>").append(
-                                                                $("<h4 class='modal-title'>").text(title)
-                                                            )
+                                                            $("<div class='modal-header'>").append($("<h4 class='modal-title'>").text(title))
                                                         );
                                                     } else {
                                                         $(".modal-title", $modal).text(title);
@@ -832,81 +855,85 @@
                                                     $(".modal-content", $modal).append(
                                                         $("<div class='modal-body'>").append($html),
                                                         $("<div class='modal-footer'>").append(
-                                                            $('<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
-                                                                + tr('Close') + '</button>')
+                                                            $(
+                                                                "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>" +
+                                                                    tr("Close") +
+                                                                    "</button>"
+                                                            )
                                                         )
                                                     );
-                                                }
+                                                },
                                             });
                                         }
                                     })
-                                    .one('hidden.bs.modal', function () {
+                                    .one("hidden.bs.modal", function () {
                                         selectionInteraction.getFeatures().clear();
                                     })
                                     .modal("show");
 
                                 break;
-                            case 'popup':
+                            case "popup":
                             default:
-                                $mapBootstrapDummy.popover("dispose").popover({
-                                    trigger: "manual",
-                                    html: true,
-                                    content: tr("Loading..."),
-                                    container: "body",
-                                    placement: "auto"
-                                }).popover("show").on('shown.bs.popover', function (event) {
-                                    if (type && object) {
-                                        $(container).loadInfoboxPopup({
-                                            type: type,
-                                            object: object,
-                                            feature: feature,
-                                            event: event,
-                                            element: this,
-                                            callback: function (event, $html) {
-                                                var $popover = $(".popover.show").first();
-                                                $html.find("a.service-dialog").remove();
-                                                var title = $html.find("h1").remove().text() || feature.get("content");
-                                                $(".popover-header", $popover).text(title);
-                                                $(".popover-body", $popover).empty().append($html.children());
-                                                $popover.on("mouseleave", function () {
-                                                    $popover.popover("dispose");
-                                                    selectionInteraction.getFeatures().clear();
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
+                                $mapBootstrapDummy
+                                    .popover("dispose")
+                                    .popover({
+                                        trigger: "manual",
+                                        html: true,
+                                        content: tr("Loading..."),
+                                        container: "body",
+                                        placement: "auto",
+                                    })
+                                    .popover("show")
+                                    .on("shown.bs.popover", function (event) {
+                                        if (type && object) {
+                                            $(container).loadInfoboxPopup({
+                                                type: type,
+                                                object: object,
+                                                feature: feature,
+                                                event: event,
+                                                element: this,
+                                                callback: function (event, $html) {
+                                                    var $popover = $(".popover.show").first();
+                                                    $html.find("a.service-dialog").remove();
+                                                    var title = $html.find("h1").remove().text() || feature.get("content");
+                                                    $(".popover-header", $popover).text(title);
+                                                    $(".popover-body", $popover).empty().append($html.children());
+                                                    $popover.on("mouseleave", function () {
+                                                        $popover.popover("dispose");
+                                                        selectionInteraction.getFeatures().clear();
+                                                    });
+                                                },
+                                            });
+                                        }
+                                    });
                                 break;
                         }
                     };
-
                 }
 
-                function setupLayerEvents(vectors)
-                {
+                function setupLayerEvents(vectors) {
                     selectionInteraction = new ol.interaction.Select({
-                        condition: ol.events.condition.click
+                        condition: ol.events.condition.click,
                     });
 
                     map.addInteraction(selectionInteraction);
 
-                    selectionInteraction.on('select', function (event) {
-
+                    selectionInteraction.on("select", function (event) {
                         if (event.target.executor) {
                             event.target.executor();
                         }
                         container.showPopup.apply(null, [event]);
                     });
 
-                    selectionInteraction.on('modified', function (event) {
+                    selectionInteraction.on("modified", function (event) {
                         if (event.target.executor) {
                             event.target.executor();
                         }
                     });
 
-                    selectionInteraction.on('added', function (event) {
+                    selectionInteraction.on("added", function (event) {
                         if (!event.target.get("color")) {
-                            event.target.set("color", '#6699cc');
+                            event.target.set("color", "#6699cc");
                         }
                         if (!event.target.get("intent")) {
                             event.target.set("intent", "vectors");
@@ -917,16 +944,15 @@
 
                 setupLayerEvents(container.vectors);
 
-
-                if (layers.length > 0 && -1 !== $.inArray('overview', desiredControls)) {
-                    var overview = new ol.control.OverviewMap({minRatio: 128, maxRatio: 256, maximized: true});
+                if (layers.length > 0 && -1 !== $.inArray("overview", desiredControls)) {
+                    var overview = new ol.control.OverviewMap({ minRatio: 128, maxRatio: 256, maximized: true });
                     overview.desiredZoom = function () {
                         return Math.min(Math.max(1, map.getZoom() - 6), 3);
                     };
-                    overview.isSuitableOverview = function() {
+                    overview.isSuitableOverview = function () {
                         return this.ovmap.getZoom() === overview.desiredZoom() && this.ovmap.getExtent().contains(map.getExtent());
                     };
-                    overview.updateOverview = function() {
+                    overview.updateOverview = function () {
                         overview.ovmap.setCenter(map.getCenter());
                         overview.ovmap.zoomTo(overview.desiredZoom());
                         this.updateRectToMap();
@@ -943,29 +969,33 @@
                         this.loadingMarker.push(name);
                         this.actionQueue[name] = [];
 
-                        var img = new Image(), me = this;
+                        var img = new Image(),
+                            me = this;
                         img.onload = function () {
-                            var width = this.width, height = this.height, action;
+                            var width = this.width,
+                                height = this.height,
+                                action;
                             me.loadedMarker[name] = {
-                                intent: 'marker',
+                                intent: "marker",
                                 url: src,
                                 width: width,
                                 height: height,
                                 offsetx: width / 2,
-                                offsety: height
+                                offsety: height,
                             };
 
-                            while (action = me.actionQueue[name].pop()) {
+                            while ((action = me.actionQueue[name].pop())) {
                                 action();
                             }
                         };
                         $(img).on("error", function () {
                             console.log("Map error loading marker image " + src);
-                            var index = container.markerIcons.loadingMarker.indexOf(src), action;
+                            var index = container.markerIcons.loadingMarker.indexOf(src),
+                                action;
                             if (index > -1) {
                                 container.markerIcons.loadingMarker.splice(index, 1);
                             }
-                            while (action = me.actionQueue[name].pop()) {
+                            while ((action = me.actionQueue[name].pop())) {
                                 action();
                             }
                         });
@@ -989,26 +1019,24 @@
                     _createMarker: function (name, lonlat, callback) {
                         if (lonlat) {
                             var properties = $.extend(this.loadedMarker[name] || this.loadedMarker.default, {
-                                geometry: lonlat
-                            }), marker;
+                                    geometry: lonlat,
+                                }),
+                                marker;
 
-                            marker = new ol.Feature(
-                                properties
-                            );
+                            marker = new ol.Feature(properties);
                             callback(marker);
                         }
-                    }
+                    },
                 };
 
-                container.markerIcons.loadMarker('default', 'lib/openlayers/img/marker.svg');
-                container.markerIcons.loadMarker('selection', 'lib/openlayers/img/marker-gold.svg');
+                container.markerIcons.loadMarker("default", "lib/openlayers/img/marker.svg");
+                container.markerIcons.loadMarker("selection", "lib/openlayers/img/marker-gold.svg");
 
                 if (navigator.geolocation && navigator.geolocation.getCurrentPosition) {
-                    container.toMyLocation = $('<a class="btn btn-sm btn-info">')
-                        .attr('href', '')
+                    container.toMyLocation = $("<a class='btn btn-sm btn-info'>")
+                        .attr("href", "")
                         .on("click", function () {
                             navigator.geolocation.getCurrentPosition(function (position) {
-
                                 var view = map.getView();
                                 view.setCenter(ol.proj.fromLonLat([position.coords.longitude, position.coords.latitude]));
                                 view.setZoom(view.getZoomForResolution(position.coords.accuracy));
@@ -1016,45 +1044,47 @@
                                 $(container).addMapMarker({
                                     lat: position.coords.latitude,
                                     lon: position.coords.longitude,
-                                    unique: 'selection'
+                                    unique: "selection",
                                 });
                             });
                             return false;
                         })
-                        .text(tr('To My Location'));
+                        .text(tr("To My Location"));
 
-                    if (-1 !== $.inArray('current_location', desiredControls)) {
+                    if (-1 !== $.inArray("current_location", desiredControls)) {
                         $(container).after(container.toMyLocation);
                     }
                 }
 
-                container.searchLocation = $('<a class="btn btn-sm btn-info">')
-                    .attr('href', '')
+                container.searchLocation = $("<a class='btn btn-sm btn-info'>")
+                    .attr("href", "")
                     .on("click", function () {
-                        var address = prompt(tr('What address are you looking for?'), "");
+                        var address = prompt(tr("What address are you looking for?"), "");
 
-                        $(container).trigger('search', [ { address: address } ]);
+                        $(container).trigger("search", [{ address: address }]);
                         return false;
                     })
-                    .text(tr('Search Location'));
+                    .text(tr("Search Location"));
 
-                if (-1 !== $.inArray('search_location', desiredControls)) {
+                if (-1 !== $.inArray("search_location", desiredControls)) {
                     $(container).after(container.searchLocation);
                 }
 
-                var field = $(container).data('target-field');
-                var central = null, useMarker = true;
+                var field = $(container).data("target-field");
+                var central = null,
+                    useMarker = true;
 
                 if (field) {
-                    field = $($(container).closest('form')[0][field]);
+                    field = $($(container).closest("form")[0][field]);
 
                     $(container).setupMapSelection({
-                        field: field
+                        field: field,
                     });
                     var value = field.val();
                     central = parseCoordinates(value);
 
-                    if (central) { // cope with zoom levels greater than what OSM layer[0] can cope with
+                    if (central) {
+                        // cope with zoom levels greater than what OSM layer[0] can cope with
                         var geLayer;
                         if (central.zoom > 19) {
                             geLayer = map.getLayersByName("Google Satellite");
@@ -1069,22 +1099,20 @@
                     }
                 }
 
-                if ($(container).data('marker-filter')) {
-                    var filter = $(container).data('marker-filter');
+                if ($(container).data("marker-filter")) {
+                    var filter = $(container).data("marker-filter");
                     $(filter).each(function () {
-                        var lat = $(this).data('geo-lat')
-                            , lon = $(this).data('geo-lon')
-                            , zoom = $(this).data('geo-zoom')
-                            , extent = $(this).data('geo-extent')
-                            , icon = $(this).data('icon-src')
-                            , object = $(this).data('object')
-                            , type = $(this).data('type')
-                            , content = $(this).clone().data({}).wrap('<span/>').parent().html()
-                            ;
-
-                        if (! extent) {
-                            if ($(this).hasClass('primary') || this.href === document.location.href) {
-                                central = {lat: lat, lon: lon, zoom: zoom ? zoom : 0};
+                        var lat = $(this).data("geo-lat"),
+                            lon = $(this).data("geo-lon"),
+                            zoom = $(this).data("geo-zoom"),
+                            extent = $(this).data("geo-extent"),
+                            icon = $(this).data("icon-src"),
+                            object = $(this).data("object"),
+                            type = $(this).data("type"),
+                            content = $(this).clone().data({}).wrap("<span/>").parent().html();
+                        if (!extent) {
+                            if ($(this).hasClass("primary") || this.href === document.location.href) {
+                                central = { lat: lat, lon: lon, zoom: zoom ? zoom : 0 };
                             } else {
                                 $(container).addMapMarker({
                                     type: type,
@@ -1092,13 +1120,13 @@
                                     lon: lon,
                                     lat: lat,
                                     content: content,
-                                    icon: icon ? icon : null
+                                    icon: icon ? icon : null,
                                 });
                             }
-                        } else if ($(this).is('img')) {
+                        } else if ($(this).is("img")) {
                             var graphic = new ol.layer.Image(
-                                $(this).attr('alt'),
-                                $(this).attr('src'),
+                                $(this).attr("alt"),
+                                $(this).attr("src"),
                                 ol.Bounds.fromString(extent),
                                 new ol.Size($(this).width(), $(this).height())
                             );
@@ -1110,7 +1138,7 @@
                     });
                 }
 
-                var provided = $(container).data('geo-center');
+                var provided = $(container).data("geo-center");
 
                 if (provided && !central) {
                     central = parseCoordinates(provided);
@@ -1124,7 +1152,7 @@
                         $(container).addMapMarker({
                             lon: central.lon,
                             lat: central.lat,
-                            unique: 'selection'
+                            unique: "selection",
                         });
                     }
                 }
@@ -1133,14 +1161,14 @@
 
                 if (jqueryTiki.googleStreetView) {
                     container.streetview = {
-                        buttons: []
+                        buttons: [],
                     };
 
                     if (jqueryTiki.googleStreetViewOverlay) {
                         container.streetview.overlay = new ol.layer.XYZ(
                             "StreetView Overlay",
                             currentProtocol + "//mts1.google.com/vt?hl=en-US&lyrs=svv|cb_client:apiv3&style=40,18&x=${x}&y=${y}&z=${z}",
-                            {sphericalMercator: true, displayInLayerSwitcher: false}
+                            { sphericalMercator: true, displayInLayerSwitcher: false }
                         );
                         container.map.addLayer(container.streetview.overlay);
 
@@ -1149,61 +1177,69 @@
                                 if (container.streetview.overlay.visibility) {
                                     container.streetview.overlay.redraw();
                                 }
-                            }
+                            },
                         });
                     }
 
                     var StreetViewHandler = ol.Class(ol.control, {
                         defaultHandlerOptions: {
-                            'single': true,
-                            'double': false,
-                            'pixelTolerance': 0,
-                            'stopSingle': false,
-                            'stopDouble': false
+                            single: true,
+                            double: false,
+                            pixelTolerance: 0,
+                            stopSingle: false,
+                            stopDouble: false,
                         },
-                        initialize: function(options) {
+                        initialize: function (options) {
                             this.handlerOptions = ol.Util.extend({}, this.defaultHandlerOptions);
                             ol.control.prototype.initialize.apply(this, arguments);
                             this.handler = new ol.Handler.Click(
                                 this,
                                 {
-                                    'click': this.trigger
+                                    click: this.trigger,
                                 },
                                 this.handlerOptions
                             );
                         },
-                        trigger: function(e) {
-                            var width = 600, height = 500;
+                        trigger: function (e) {
+                            var width = 600,
+                                height = 500;
 
-                            var lonlat = map.getLonLatFromViewPortPx(e.xy).transform(
-                                map.getProjectionObject(),
-                                new ol.proj.Projection("EPSG:4326")
-                            );
+                            var lonlat = map.getLonLatFromViewPortPx(e.xy).transform(map.getProjectionObject(), new ol.proj.Projection("EPSG:4326"));
 
-                            var canvas = $('<div/>')[0];
-                            $(canvas).appendTo('body');
+                            var canvas = $("<div/>")[0];
+                            $(canvas).appendTo("body");
                             $.openModal({
-                                title: tr('Panorama'),
+                                title: tr("Panorama"),
                                 content: canvas,
-                                buttons: container.streetview.getButtons(canvas)
+                                buttons: container.streetview.getButtons(canvas),
                             });
 
                             canvas.getImageUrl = function () {
-                                var pov =  canvas.panorama.getPov();
-                                var pos =  canvas.panorama.getPosition();
-                                var base = currentProtocol + '//maps.googleapis.com/maps/api/streetview?'
-                                    + 'size=' + width + 'x' + height + '&'
-                                    + 'location=' + encodeURIComponent(pos.toUrlValue()) + '&'
-                                    + 'heading=' + encodeURIComponent(pov.heading) + '&'
-                                    + 'pitch=' + encodeURIComponent(pov.pitch) + '&'
-                                    + 'sensor=false'
-                                ;
-
+                                var pov = canvas.panorama.getPov();
+                                var pos = canvas.panorama.getPosition();
+                                var base =
+                                    currentProtocol +
+                                    "//maps.googleapis.com/maps/api/streetview?" +
+                                    "size=" +
+                                    width +
+                                    "x" +
+                                    height +
+                                    "&" +
+                                    "location=" +
+                                    encodeURIComponent(pos.toUrlValue()) +
+                                    "&" +
+                                    "heading=" +
+                                    encodeURIComponent(pov.heading) +
+                                    "&" +
+                                    "pitch=" +
+                                    encodeURIComponent(pov.pitch) +
+                                    "&" +
+                                    "sensor=false";
                                 return base;
                             };
 
                             canvas.getPosition = function () {
-                                var pos =  canvas.panorama.getPosition();
+                                var pos = canvas.panorama.getPosition();
 
                                 return formatLocation(pos.lat(), pos.lng(), 12);
                             };
@@ -1212,25 +1248,33 @@
                                 position: new google.maps.LatLng(lonlat.lat, lonlat.lon),
                                 zoomControl: false,
                                 scrollwheel: false,
-                                disableDoubleClickZoom: true
+                                disableDoubleClickZoom: true,
                             });
                             var timeout = setTimeout(function () {
-                                alert(tr('StreetView is not available at this specific point on the map. Zoom in as needed and make sure to click on a blue line.'));
+                                alert(
+                                    tr(
+                                        "StreetView is not available at this specific point on the map. Zoom in as needed and make sure to click on a blue line."
+                                    )
+                                );
                                 $.closeModal();
                             }, 5000);
-                            google.maps.event.addListener(canvas.panorama, 'pano_changed', function () {
-                                if (! canvas.panorama.getPano()) {
-                                    alert(tr('StreetView is not available at this specific point on the map. Zoom in as needed and make sure to click on a blue line.'));
+                            google.maps.event.addListener(canvas.panorama, "pano_changed", function () {
+                                if (!canvas.panorama.getPano()) {
+                                    alert(
+                                        tr(
+                                            "StreetView is not available at this specific point on the map. Zoom in as needed and make sure to click on a blue line."
+                                        )
+                                    );
                                     $.closeModal();
                                 }
                                 clearTimeout(timeout);
                             });
-                        }
+                        },
                     });
 
                     container.modeManager.addMode({
-                        title: 'StreetView',
-                        controls: [ new StreetViewHandler(), new ol.control.NavToolbar() ],
+                        title: "StreetView",
+                        controls: [new StreetViewHandler(), new ol.control.NavToolbar()],
                         activate: function () {
                             if (container.streetview.overlay) {
                                 container.streetview.overlay.setVisibility(true);
@@ -1240,13 +1284,13 @@
                             if (container.streetview.overlay) {
                                 container.streetview.overlay.setVisibility(false);
                             }
-                        }
+                        },
                     });
 
                     container.streetview.addButton = function (label, callback) {
                         container.streetview.buttons.unshift({
                             label: label,
-                            callback: callback
+                            callback: callback,
                         });
                     };
 
@@ -1262,177 +1306,181 @@
                         return buttons;
                     };
 
-                    container.streetViewToggle = $('<a/>')
-                        .css('display', 'block')
-                        .attr('href', '')
+                    container.streetViewToggle = $("<a/>")
+                        .css("display", "block")
+                        .attr("href", "")
                         .on("click", function () {
-                            if (container.modeManager.activeMode && container.modeManager.activeMode.name == 'StreetView') {
-                                container.modeManager.switchTo('Default');
-                                $(this).text(tr('Enable StreetView'));
+                            if (container.modeManager.activeMode && container.modeManager.activeMode.name == "StreetView") {
+                                container.modeManager.switchTo("Default");
+                                $(this).text(tr("Enable StreetView"));
                             } else {
-                                container.modeManager.switchTo('StreetView');
-                                $(this).text(tr('Disable StreetView'));
+                                container.modeManager.switchTo("StreetView");
+                                $(this).text(tr("Disable StreetView"));
                             }
                             return false;
                         })
-                        .text(tr('Enable StreetView'));
+                        .text(tr("Enable StreetView"));
 
-                    if (-1 !== $.inArray('streetview', desiredControls)) {
+                    if (-1 !== $.inArray("streetview", desiredControls)) {
                         $(container).after(container.streetViewToggle);
                     }
                 }
 
                 var searchboxes = $(container)
-                    .closest('.tab, #appframe, #tiki-center')
-                    .find('form.search-box')
+                    .closest(".tab, #appframe, #tiki-center")
+                    .find("form.search-box")
                     .filter(function () {
-                        return $(this).closest('.map-container').length === 0;
+                        return $(this).closest(".map-container").length === 0;
                     });
 
-                searchboxes = searchboxes.add($('form.search-box', container));
+                searchboxes = searchboxes.add($("form.search-box", container));
 
                 searchboxes
-                    .off('submit')
+                    .off("submit")
                     .on("submit", function () {
                         $(container).trigger("start.map.search");
                         var form = this;
-                        $.post('tiki-searchindex.php?filter~geo_located=y', $(this).serialize(), function (data) {
-
-                            if (! form.autoLayers) {
-                                form.autoLayers = [];
-                            }
-
-                            $(form.autoLayers).each(function (k, name) {
-                                container.clearLayer(name);
-                            });
-
-                            $.each(data.result, function (k, i) {
-                                var layerName = $(form).data('result-layer'), suffix = $(form).data('result-suffix');
-
-                                if (layerName && i[layerName]) {
-                                    layerName = i[layerName] + ": ";
-                                } else if (! layerName) {
-                                    layerName = ' -- ';
+                        $.post(
+                            "tiki-searchindex.php?filter~geo_located=y",
+                            $(this).serialize(),
+                            function (data) {
+                                if (!form.autoLayers) {
+                                    form.autoLayers = [];
                                 }
 
-                                if (suffix && i[suffix]) {
-                                    layerName = layerName + i[suffix];
-                                }
-
-                                if (-1 === $.inArray(layerName, form.autoLayers)) {
-                                    form.autoLayers.push(layerName);
-                                }
-
-                                var icon;
-                                $(i.link).each(function () {    // if the object has an img with it (tracker status for instance) then we need to find the <a>
-                                    if ($(this).is("a")) {    // and just using $(i.link).find("a") doesn't work for some reason
-                                        icon = $(this).data('icon-src');
-                                    }
+                                $(form.autoLayers).each(function (k, name) {
+                                    container.clearLayer(name);
                                 });
 
-                                if (i.geo_location) {
-                                    $(container).addMapMarker({
-                                        coordinates: i.geo_location,
-                                        content: i.title,
-                                        type: i.object_type,
-                                        object: i.object_id,
-                                        icon: icon ? icon : null,
-                                        layer: layerName,
-                                        dataSource: i,
-                                        form: form
-                                    });
-                                } else if (i.geo_feature) {
-                                    var  wkt = new ol.format.WKT()
-                                        , features
-                                        , layer = container.getLayer(layerName)
-                                        ;
+                                $.each(data.result, function (k, i) {
+                                    var layerName = $(form).data("result-layer"),
+                                        suffix = $(form).data("result-suffix");
 
-                                    format = new ol.format.GeoJSON();
-
-                                    try {
-                                        features = format.readFeatures(i.geo_feature);
-                                    } catch (e) {
-                                        features = null;
+                                    if (layerName && i[layerName]) {
+                                        layerName = i[layerName] + ": ";
+                                    } else if (!layerName) {
+                                        layerName = " -- ";
                                     }
 
-                                    if (! features) {
-                                        // Corrupted feature - display plain marker
+                                    if (suffix && i[suffix]) {
+                                        layerName = layerName + i[suffix];
+                                    }
+
+                                    if (-1 === $.inArray(layerName, form.autoLayers)) {
+                                        form.autoLayers.push(layerName);
+                                    }
+
+                                    var icon;
+                                    $(i.link).each(function () {
+                                        // if the object has an img with it (tracker status for instance) then we need to find the <a>
+                                        if ($(this).is("a")) {
+                                            // and just using $(i.link).find("a") doesn"t work for some reason
+                                            icon = $(this).data("icon-src");
+                                        }
+                                    });
+
+                                    if (i.geo_location) {
                                         $(container).addMapMarker({
-                                            coordinates: $(container).getMapCenter(),
+                                            coordinates: i.geo_location,
                                             content: i.title,
                                             type: i.object_type,
                                             object: i.object_id,
-                                            icon: null,
+                                            icon: icon ? icon : null,
                                             layer: layerName,
-                                            dataSource: i
+                                            dataSource: i,
+                                            form: form,
                                         });
-                                        return;
-                                    }
+                                    } else if (i.geo_feature) {
+                                        var wkt = new ol.format.WKT(),
+                                            features,
+                                            layer = container.getLayer(layerName);
+                                        format = new ol.format.GeoJSON();
 
-                                    $.each(features, function (k, feature) {
-                                        var initial;
-                                        feature.set("itemId", i.object_id);
-                                        feature.set("content", i.title);
-                                        if (! feature.get("color")) {
-                                            feature.set("color", '#6699cc');
-                                        }
-                                        if (! feature.get("intent")) {
-                                            feature.set("intent", "vectors");
-                                        }
-                                        if (! feature.get("popup_config")) {
-                                            feature.set("popup_config", $(form).data("popup-config"));
+                                        try {
+                                            features = format.readFeatures(i.geo_feature);
+                                        } catch (e) {
+                                            features = null;
                                         }
 
-                                        initial = wkt.writeFeature(feature) + feature.get("color");
+                                        if (!features) {
+                                            // Corrupted feature - display plain marker
+                                            $(container).addMapMarker({
+                                                coordinates: $(container).getMapCenter(),
+                                                content: i.title,
+                                                type: i.object_type,
+                                                object: i.object_id,
+                                                icon: null,
+                                                layer: layerName,
+                                                dataSource: i,
+                                            });
+                                            return;
+                                        }
 
-                                        feature.executor = delayedExecutor(5000, function () {
-                                            var fields = {}, current = wkt.write(feature) + feature.get("color");
-                                            fields[i.geo_feature_field] = format.writeFeature(feature);
-
-                                            if (current === initial || layer !== container.vectors) {
-                                                return;
+                                        $.each(features, function (k, feature) {
+                                            var initial;
+                                            feature.set("itemId", i.object_id);
+                                            feature.set("content", i.title);
+                                            if (!feature.get("color")) {
+                                                feature.set("color", "#6699cc");
+                                            }
+                                            if (!feature.get("intent")) {
+                                                feature.set("intent", "vectors");
+                                            }
+                                            if (!feature.get("popup_config")) {
+                                                feature.set("popup_config", $(form).data("popup-config"));
                                             }
 
-                                            $.post($.service('tracker', 'update_item'), {
-                                                trackerId: i.tracker_id,
-                                                itemId: i.object_id,
-                                                fields: fields
-                                            }, function () {
-                                                initial = current;
-                                            }, 'json')
-                                                .fail(function () {
-                                                    $(container).trigger('changed');
+                                            initial = wkt.writeFeature(feature) + feature.get("color");
+
+                                            feature.executor = delayedExecutor(5000, function () {
+                                                var fields = {},
+                                                    current = wkt.write(feature) + feature.get("color");
+                                                fields[i.geo_feature_field] = format.writeFeature(feature);
+
+                                                if (current === initial || layer !== container.vectors) {
+                                                    return;
+                                                }
+
+                                                $.post(
+                                                    $.service("tracker", "update_item"),
+                                                    {
+                                                        trackerId: i.tracker_id,
+                                                        itemId: i.object_id,
+                                                        fields: fields,
+                                                    },
+                                                    function () {
+                                                        initial = current;
+                                                    },
+                                                    "json"
+                                                ).fail(function () {
+                                                    $(container).trigger("changed");
                                                 });
+                                            });
                                         });
-                                    });
-                                    layer.getSource().addFeatures(features);
+                                        layer.getSource().addFeatures(features);
 
-                                    $.each(features, function (k, feature) {
-                                        $(container).trigger('add', [i, feature]);
-                                    });
+                                        $.each(features, function (k, feature) {
+                                            $(container).trigger("add", [i, feature]);
+                                        });
+                                    } else if (i.geo_file) {
+                                        // load a file containing geometry, set using tracker Files indexGeometry option
 
-                                } else if (i.geo_file) {    // load a file containing geometry, set using tracker Files indexGeometry option
+                                        var format,
+                                            files = i.geo_file.split(","),
+                                            proj4326 = new ol.proj.Projection("EPSG:4326"),
+                                            proj900913 = new ol.proj.Projection("EPSG:900913");
 
-                                    var format,
-                                        files = i.geo_file.split(","),
-                                        proj4326 = new ol.proj.Projection("EPSG:4326"),
-                                        proj900913 = new ol.proj.Projection("EPSG:900913");
+                                        layer = container.getLayer(layerName);
 
-                                    layer = container.getLayer(layerName);
-
-                                    if (i.geo_file_format == "geojson") {
-                                        format = new ol.format.GeoJSON();
-                                    } else {
-                                        if (i.geo_file_format == "gpx") {
-                                            format = new ol.format.GPX();
+                                        if (i.geo_file_format == "geojson") {
+                                            format = new ol.format.GeoJSON();
+                                        } else {
+                                            if (i.geo_file_format == "gpx") {
+                                                format = new ol.format.GPX();
+                                            }
                                         }
-                                    }
-                                    for (var f = 0; f < files.length; f++) {
-
-                                        $.get(
-                                            files[f],
-                                            function (data) {
-
+                                        for (var f = 0; f < files.length; f++) {
+                                            $.get(files[f], function (data) {
                                                 if (data.indexOf("&quot;") > -1) {
                                                     // decode html entities coming from file galleries
                                                     data = $("<div/>").html(data).text();
@@ -1448,16 +1496,15 @@
                                                         object: i.object_id,
                                                         icon: null,
                                                         layer: layerName,
-                                                        dataSource: i
+                                                        dataSource: i,
                                                     });
                                                     return;
                                                 }
                                                 $.each(features, function (k, feature) {
-
                                                     feature.set("itemId", i.object_id);
                                                     feature.set("content", i.title);
                                                     if (!feature.get("color")) {
-                                                        feature.set("color", '#ffa500');
+                                                        feature.set("color", "#ffa500");
                                                     }
                                                     if (!feature.get("intent")) {
                                                         feature.set("intent", "vectors");
@@ -1471,38 +1518,42 @@
                                                     if (geometry) {
                                                         geometry.transform(proj4326, proj900913);
                                                     }
-
                                                 });
                                                 layer.getSource().addFeatures(features);
 
                                                 $.each(features, function (k, feature) {
-                                                    $(container).trigger('add', [i, feature]);
+                                                    $(container).trigger("add", [i, feature]);
                                                 });
-
-                                            }
-                                        );
+                                            });
+                                        }
                                     }
-                                }
-                            });
-                        }, 'json').complete(function () {
+                                });
+                            },
+                            "json"
+                        ).complete(function () {
                             $(container).trigger("complete.map.search");
                         });
                         return false;
                     })
                     .each(function () {
-                        if ($(this).hasClass('onload')) {
-                            var fm = this, layerLoadDelay = parseInt($(fm).data("load-delay"), 10);
+                        if ($(this).hasClass("onload")) {
+                            var fm = this,
+                                layerLoadDelay = parseInt($(fm).data("load-delay"), 10);
 
                             if (layerLoadDelay) {
-                                setTimeout(function () { $(fm).trigger("submit"); }, layerLoadDelay * 1000);
+                                setTimeout(function () {
+                                    $(fm).trigger("submit");
+                                }, layerLoadDelay * 1000);
                             } else {
                                 $(fm).trigger("submit");
                             }
                         }
 
                         var skip = false;
-                        if ($(this).data('result-refresh')) {
-                            var form = this, refresh = parseInt($(this).data('result-refresh'), 10) * 1000, interval;
+                        if ($(this).data("result-refresh")) {
+                            var form = this,
+                                refresh = parseInt($(this).data("result-refresh"), 10) * 1000,
+                                interval;
                             interval = setInterval(function () {
                                 if (skip) {
                                     skip = false;
@@ -1511,18 +1562,18 @@
                                 }
                             }, refresh);
 
-                            $(container).on('unregister', function () {
+                            $(container).on("unregister", function () {
                                 clearInterval(interval);
                             });
                         }
 
-                        $(container).on('changed', function () {
+                        $(container).on("changed", function () {
                             $(form).trigger("submit");
                             skip = true;
                         });
                     });
-                $(container).on('search', function (e, data) {
-                    function markLocation (lat, lon, bounds) {
+                $(container).on("search", function (e, data) {
+                    function markLocation(lat, lon, bounds) {
                         var lonlat = ol.proj.fromLonLat([lon, lat]),
                             toViewport = function () {
                                 if (bounds) {
@@ -1536,37 +1587,37 @@
                         $(container).addMapMarker({
                             lat: lat,
                             lon: lon,
-                            unique: 'selection',
-                            click: toViewport
+                            unique: "selection",
+                            click: toViewport,
                         });
 
-                        if (typeof zoomToFoundLocation != 'undefined') {
+                        if (typeof zoomToFoundLocation != "undefined") {
                             // Center map to the new location and zoom
                             var zoomFactor = -1;
                             switch (zoomToFoundLocation) {
                                 default:
-                                case 'street':
-                                    zoomFactor = 1;    // these are now metres per pixel
+                                case "street":
+                                    zoomFactor = 1; // these are now metres per pixel
                                     break;
-                                case 'town':
+                                case "town":
                                     zoomFactor = 10;
                                     break;
-                                case 'region':
+                                case "region":
                                     zoomFactor = 100;
                                     break;
-                                case 'country':
+                                case "country":
                                     zoomFactor = 500;
                                     break;
-                                case 'continent':
+                                case "continent":
                                     zoomFactor = 20000;
                                     break;
-                                case 'world':
+                                case "world":
                                     zoomFactor = -1;
                                     break;
                             }
                             var view = map.getView();
                             if (zoomFactor < 0) {
-                                view.setZoom(2);    // whole world, more or less
+                                view.setZoom(2); // whole world, more or less
                             } else {
                                 view.setCenter(lonlat);
                                 view.setZoom(view.getZoomForResolution(zoomFactor * ol.proj.Units.METERS_PER_UNIT.m));
@@ -1579,14 +1630,16 @@
                         }
                     }
 
-                    function markGoogleLocation(result)
-                    {
-                        var loc = result.geometry.location
-                            , sw = result.geometry.viewport.getSouthWest()
-                            , ne = result.geometry.viewport.getNorthEast()
-                            , osw, one
-                            , left, bottom, right, top
-                            ;
+                    function markGoogleLocation(result) {
+                        var loc = result.geometry.location,
+                            sw = result.geometry.viewport.getSouthWest(),
+                            ne = result.geometry.viewport.getNorthEast(),
+                            osw,
+                            one,
+                            left,
+                            bottom,
+                            right,
+                            top;
 
                         osw = new ol.proj.fromLonLat([sw.lng(), sw.lat()]);
                         one = new ol.proj.fromLonLat([ne.lng(), ne.lat()]);
@@ -1599,58 +1652,53 @@
                         markLocation(loc.lat(), loc.lng(), [left, bottom, right, top]);
                     }
 
-                    function getBounds(bounds)
-                    {
-                        var osw, one
-                            ;
+                    function getBounds(bounds) {
+                        var osw, one;
 
-                        osw = new ol.LonLat(bounds.left, bounds.bottom).transform(
-                            map.getProjectionObject(),
-                            new ol.proj.Projection("EPSG:4326")
-                        );
-                        one = new ol.LonLat(bounds.right, bounds.top).transform(
-                            map.getProjectionObject(),
-                            new ol.proj.Projection("EPSG:4326")
-                        );
+                        osw = new ol.LonLat(bounds.left, bounds.bottom).transform(map.getProjectionObject(), new ol.proj.Projection("EPSG:4326"));
+                        one = new ol.LonLat(bounds.right, bounds.top).transform(map.getProjectionObject(), new ol.proj.Projection("EPSG:4326"));
 
                         return new google.maps.LatLngBounds(new google.maps.LatLng(osw.lat, osw.lon), new google.maps.LatLng(one.lat, one.lon));
                     }
 
                     if (data.address) {
                         if (window.google && google.maps && google.maps.Geocoder) {
-                            var geocoder = new google.maps.Geocoder()
-                                , loc = $(container).getMapCenter().split(',');
+                            var geocoder = new google.maps.Geocoder(),
+                                loc = $(container).getMapCenter().split(",");
 
-                            geocoder.geocode({
-                                //bounds: getBounds(map.getExtent()),
-                                address: data.address
-                            }, function(results, status) {
-                                var $list = $('<ul/>');
+                            geocoder.geocode(
+                                {
+                                    //bounds: getBounds(map.getExtent()),
+                                    address: data.address,
+                                },
+                                function (results, status) {
+                                    var $list = $("<ul/>");
 
-                                if (status === google.maps.GeocoderStatus.OK) {
-                                    if (results.length === 1) {
-                                        markGoogleLocation(results[0]);
-                                        return;
-                                    } else if (results.length > 0) {
-                                        $.each(results, function (k, result) {
-                                            var $link = $('<a href="#"/>');
-                                            $link.text(result.formatted_address);
-                                            $link.on("click", function () {
-                                                markGoogleLocation(result);
-                                                return false;
+                                    if (status === google.maps.GeocoderStatus.OK) {
+                                        if (results.length === 1) {
+                                            markGoogleLocation(results[0]);
+                                            return;
+                                        } else if (results.length > 0) {
+                                            $.each(results, function (k, result) {
+                                                var $link = $("<a href='#'/>");
+                                                $link.text(result.formatted_address);
+                                                $link.on("click", function () {
+                                                    markGoogleLocation(result);
+                                                    return false;
+                                                });
+                                                $("<li/>").append($link).appendTo($list);
                                             });
-                                            $('<li/>').append($link).appendTo($list);
-                                        });
+                                        }
                                     }
-                                }
 
-                                $.openModal({
-                                    title: data.address,
-                                    content: $list
-                                });
-                            });
+                                    $.openModal({
+                                        title: data.address,
+                                        content: $list,
+                                    });
+                                }
+                            );
                         } else {
-                            $.getJSON('tiki-ajax_services.php', {geocode: data.address}, function (data) {
+                            $.getJSON("tiki-ajax_services.php", { geocode: data.address }, function (data) {
                                 if (data && data.status === "OK") {
                                     markLocation(data.lat, data.lon, 500);
                                 } else {
@@ -1667,7 +1715,7 @@
                     }
                 });
 
-                $(container).trigger('initialized');
+                $(container).trigger("initialized");
             }, 250);
         });
 
@@ -1689,7 +1737,7 @@
             }
 
             if (options.coordinates) {
-                var parts = options.coordinates.split(',');
+                var parts = options.coordinates.split(",");
                 if (parts.length >= 2) {
                     options.lon = parts[0];
                     options.lat = parts[1];
@@ -1697,9 +1745,7 @@
             }
 
             if (options.lat && options.lon) {
-                lonlat = new ol.geom.Point(
-                    ol.proj.fromLonLat([parseFloat(options.lon), parseFloat(options.lat)])
-                );
+                lonlat = new ol.geom.Point(ol.proj.fromLonLat([parseFloat(options.lon), parseFloat(options.lat)]));
             }
 
             container.markerIcons.createMarker(iconModel, lonlat, function (feature) {
@@ -1707,26 +1753,29 @@
                     feature.set("type", options.type);
                     feature.set("object", options.object);
                 }
-                if (! feature.get("popup_config") && options.form) {
+                if (!feature.get("popup_config") && options.form) {
                     feature.set("popup_config", $(options.form).data("popup-config"));
                 }
 
-                feature.setStyle(new ol.style.Style({
-                    image: new ol.style.Icon({
-                        anchor: [feature.get("offsetx"), feature.get("offsety")],
-                        anchorXUnits: "pixels",
-                        anchorYUnits: "pixels",
-                        src: feature.get("url")
+                feature.setStyle(
+                    new ol.style.Style({
+                        image: new ol.style.Icon({
+                            anchor: [feature.get("offsetx"), feature.get("offsety")],
+                            anchorXUnits: "pixels",
+                            anchorYUnits: "pixels",
+                            src: feature.get("url"),
+                        }),
                     })
-                }));
+                );
 
-                var markerLayer = container.getLayer(options.layer), markerLayerSource,
+                var markerLayer = container.getLayer(options.layer),
+                    markerLayerSource,
                     initial = writeCoordinates(lonlat.clone(), container.map, true);
 
                 markerLayerSource = markerLayer.getSource();
 
                 if (typeof markerLayerSource.getSource === "function") {
-                    markerLayerSource = markerLayerSource.getSource();    // Cluster layer source
+                    markerLayerSource = markerLayerSource.getSource(); // Cluster layer source
                 }
 
                 if (options.unique) {
@@ -1739,10 +1788,10 @@
 
                 if (options.unique) {
                     container.uniqueMarkers[options.unique] = feature;
-                    $(container).trigger(options.unique + 'Change', options);
+                    $(container).trigger(options.unique + "Change", options);
                 }
 
-                if (options.type === 'trackeritem' && options.object && markerLayer === container.vectors) {
+                if (options.type === "trackeritem" && options.object && markerLayer === container.vectors) {
                     feature.executor = delayedExecutor(5000, function () {
                         var current = writeCoordinates(feature.geometry.getBounds().getCenterLonLat().clone(), container.map, true);
 
@@ -1750,15 +1799,19 @@
                             return;
                         }
 
-                        $.post($.service('tracker', 'set_location'), {
-                            itemId: options.object,
-                            location: current
-                        }, function () {
-                            initial = current;
-                        }, 'json')
-                            .fail(function () {
-                                $(container).trigger('changed');
-                            });
+                        $.post(
+                            $.service("tracker", "set_location"),
+                            {
+                                itemId: options.object,
+                                location: current,
+                            },
+                            function () {
+                                initial = current;
+                            },
+                            "json"
+                        ).fail(function () {
+                            $(container).trigger("changed");
+                        });
                     });
                 }
 
@@ -1771,7 +1824,7 @@
                 }
 
                 if (options.dataSource) {
-                    $(container).trigger('add', [options.dataSource, feature]);
+                    $(container).trigger("add", [options.dataSource, feature]);
                 }
             });
         });
@@ -1782,30 +1835,31 @@
     $.fn.setupMapSelection = function (options) {
         var control;
         this.each(function () {
-            var container = this, field = options.field, map = this.map;
+            var container = this,
+                field = options.field,
+                map = this.map;
 
-            if (! field.attr('disabled')) {
-                $(container).on('selectionChange', function (e, lonlat) {
+            if (!field.attr("disabled")) {
+                $(container).on("selectionChange", function (e, lonlat) {
                     if (lonlat) {
                         if (lonlat.lat && lonlat.lon) {
-                            lonlat = new ol.geom.Point(
-                                ol.proj.fromLonLat([parseFloat(lonlat.lon), parseFloat(lonlat.lat)])
-                            );
+                            lonlat = new ol.geom.Point(ol.proj.fromLonLat([parseFloat(lonlat.lon), parseFloat(lonlat.lat)]));
                         }
                         field.val(writeCoordinates(lonlat, map)).trigger("change");
                     } else {
-                        field.val('').trigger("change");
+                        field.val("").trigger("change");
                     }
                 });
-                map.on('zoomend', function (e, lonlat) {
-                    var coords = field.val().split(","), lon = 0, lat = 0;
+                map.on("zoomend", function (e, lonlat) {
+                    var coords = field.val().split(","),
+                        lon = 0,
+                        lat = 0;
                     if (coords.length > 1) {
                         lon = coords[0];
                         lat = coords[1];
                     }
                     field.val(formatLocation(lat, lon, map.getView().getZoom())).trigger("change");
                 });
-
             }
         });
 
@@ -1816,11 +1870,11 @@
         this.each(function () {
             var container = this;
 
-            if (container.uniqueMarkers['selection']) {
-                container.vectors.removeFeatures([container.uniqueMarkers['selection']]);
+            if (container.uniqueMarkers["selection"]) {
+                container.vectors.removeFeatures([container.uniqueMarkers["selection"]]);
             }
 
-            $(container).trigger('selectionChange', {});
+            $(container).trigger("selectionChange", {});
         });
 
         return this;
@@ -1838,31 +1892,29 @@
     };
 
     $.fn.loadInfoboxPopup = function (options) {
-        if (options.type && options.object && $.inArray(options.type,  jqueryTiki.infoboxTypes) !== -1) {
-
+        if (options.type && options.object && $.inArray(options.type, jqueryTiki.infoboxTypes) !== -1) {
             this.each(function () {
+                $.get(
+                    $.service("object", "infobox", {
+                        type: options.type,
+                        object: options.object,
+                    }),
+                    function (data) {
+                        var content = $("<body>").append(data);
 
-                $.get($.service('object', 'infobox', {
-                    type: options.type,
-                    object: options.object
-                }), function (data) {
+                        content.find(".svgImage").css("text-align", "center").css("margin", "auto");
 
-                    var content = $("<body>").append(data);
+                        // re-colorbox *box images
+                        $("a[rel*='box'][rel*='type=img'], a[rel*='box'][rel!='type=']", content).colorbox({
+                            photo: true,
+                        });
 
-                    content.find('.svgImage')
-                        .css('text-align', 'center')
-                        .css('margin', 'auto');
-
-                    // re-colorbox *box images
-                    $("a[rel*='box'][rel*='type=img'], a[rel*='box'][rel!='type=']", content).colorbox({
-                        photo: true
-                    });
-
-                    if (options.callback) {
-                        options.callback.call(options.element, options.event, content);
-                    }
-
-                }, 'html');
+                        if (options.callback) {
+                            options.callback.call(options.element, options.event, content);
+                        }
+                    },
+                    "html"
+                );
             });
 
             return true;
@@ -1872,20 +1924,18 @@
     };
 
     $.fn.finalMapRefresh = function (collector) {
-
         this.each(function () {
             var container = this;
 
-            $(container).trigger('unregister');
-            $(container).on('add', function (e, data, feature) {
+            $(container).trigger("unregister");
+            $(container).on("add", function (e, data, feature) {
                 collector(data, $.extend({}, feature));
             });
-            $(container).trigger('changed');
+            $(container).trigger("changed");
         });
 
         return this;
     };
-
 })();
 
 // TODO from OpenLayers2 tiki-maps.js still to be updated
@@ -1911,7 +1961,7 @@
                 container.defaultStyleMap = new ol.StyleMap({
                     "default": new ol.Style(ol.Util.applyDefaults({
                         cursor: "pointer"
-                    }, ol.Feature.Vector.style['default']), {
+                    }, ol.Feature.Vector.style["default"]), {
                         context: {
                             getFillColor: function (feature) {
                                 return getColor(feature, "default", "fill");
@@ -1938,7 +1988,7 @@
                     }),
                     "select": new ol.Style(ol.Util.applyDefaults({
                         cursor: "pointer"
-                    }, ol.Feature.Vector.style['select']), {
+                    }, ol.Feature.Vector.style["select"]), {
                         context: {
                             getFillColor: function (feature) {
                                 return getColor(feature, "select", "fill");
@@ -1965,7 +2015,7 @@
                     }),
                     "temporary": new ol.Style(ol.Util.applyDefaults({
                         cursor: "pointer"
-                    }, ol.Feature.Vector.style['temporary']), {
+                    }, ol.Feature.Vector.style["temporary"]), {
                         context: {
                             getFillColor: function (feature) {
                                 return getColor(feature, "temporary", "fill");
@@ -1996,7 +2046,7 @@
                         pointRadius: 5,
                         fillOpacity: ".7",
                         strokeDashstyle: "solid"
-                    }, ol.Feature.Vector.style['temporary']))
+                    }, ol.Feature.Vector.style["temporary"]))
                 });
 
                 var markerStyle = {
@@ -2032,11 +2082,11 @@
 /*
                 var ClickHandler = ol.Class(ol.control, {
                     defaultHandlerOptions: {
-                        'single': true,
-                        'double': false,
-                        'pixelTolerance': 0,
-                        'stopSingle': false,
-                        'stopDouble': false
+                        "single": true,
+                        "double": false,
+                        "pixelTolerance": 0,
+                        "stopSingle": false,
+                        "stopDouble": false
                     },
                     initialize: function(options) {
                         this.handlerOptions = ol.Util.extend({}, this.defaultHandlerOptions);
@@ -2044,7 +2094,7 @@
                         this.handler = new ol.Handler.Click(
                             this,
                             {
-                                'click': this.trigger
+                                "click": this.trigger
                             },
                             this.handlerOptions
                         );
@@ -2057,7 +2107,7 @@
                         $(container).addMapMarker({
                             lat: lonlat.lat,
                             lon: lonlat.lon,
-                            unique: 'selection'
+                            unique: "selection"
                         });
 
                         if (options.click) {
@@ -2070,4 +2120,3 @@
                 map.addControl(control);
                 control.activate();
 */
-

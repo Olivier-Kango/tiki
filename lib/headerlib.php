@@ -1282,8 +1282,8 @@ window.onload = loadScript;');
         }
         */
 
-        $this->add_jsfile_external('vendor_bundled/vendor/openlayers/openlayers/ol.js', true)
-            ->add_cssfile('vendor_bundled/vendor/openlayers/openlayers/ol.css')
+        $this->add_jsfile_external(OL_PATH . '/dist/ol.js', true)
+            ->add_cssfile(OL_PATH . '/ol.css')
             ->add_jsfile_external(OL_LAYERSWITCHER_DIST_PATH . '/ol-layerswitcher.js')
             ->add_cssfile(OL_LAYERSWITCHER_DIST_PATH . '/ol-layerswitcher.css')
             ->add_js(

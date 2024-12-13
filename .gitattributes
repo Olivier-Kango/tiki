@@ -3482,8 +3482,7 @@ lib/jquery_tiki/tiki-confirm.js -text
 lib/jquery_tiki/tiki-connect.js -text
 lib/jquery_tiki/tiki-jquery.js -text
 lib/jquery_tiki/tiki-jquery_upload.js -text
-lib/jquery_tiki/tiki-maps-ol3.js -text
-lib/jquery_tiki/tiki-maps.js -text
+src/js/jquery-tiki/tiki-maps-ol3.js -text
 lib/jquery_tiki/tiki-popovers_for_footnotes.js -text
 lib/jquery_tiki/tiki-tasks.js -text
 lib/jquery_tiki/tiki-toolbars.js -text

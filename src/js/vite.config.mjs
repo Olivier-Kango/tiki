@@ -491,6 +491,14 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/nestedSortable",
                     },
                     {
+                        src: "node_modules/ol/dist/ol.js",
+                        dest: "vendor_dist/ol/dist",
+                    },
+                    {
+                        src: "node_modules/ol/ol.css",
+                        dest: "vendor_dist/ol",
+                    },
+                    {
                         src: ["node_modules/ol-layerswitcher/dist/ol-layerswitcher.js","node_modules/ol-layerswitcher/dist/ol-layerswitcher.css"],
                         dest: "vendor_dist/ol-layerswitcher/dist",
                     },

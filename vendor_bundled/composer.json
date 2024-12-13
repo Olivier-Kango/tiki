@@ -211,7 +211,6 @@
         "npm-asset/vue": "^2.6",
         "onelogin/php-saml": "^4.0.0",
         "openannotation/annotator": ">=1.2.10",
-        "openlayers/openlayers": "^6.9",
         "paragonie/sodium_compat": "^1.17",
         "pclzip/pclzip": "^2.8",
         "pear/db": "1.7.13",

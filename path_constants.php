@@ -177,6 +177,7 @@ const FONTAWESOME_WEBFONTS_PATH = 'public/generated/js/vendor_dist/@fortawesome/
 const MERMAID_DIST_PATH = 'public/generated/js/vendor_dist/mermaid/dist';
 const MINICART_DIST_PATH = 'public/generated/js/vendor_dist/minicart/dist';
 const NESTEDSORTABLE_ASSETS_PATH = 'public/generated/js/vendor_dist/nestedsortable';
+const OL_PATH = 'public/generated/js/vendor_dist/ol'; // 'ol' was formerly called 'openlayers'
 const OL_LAYERSWITCHER_DIST_PATH = 'public/generated/js/vendor_dist/ol-layerswitcher/dist';
 const PIVOTTABLE_DIST_PATH = 'public/generated/js/vendor_dist/pivottable/dist';
 const PLOTLYJS_DIST_PATH = 'public/generated/js/vendor_dist/plotly.js/dist';

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee18ddc0fd456c3536e182791a1048bb",
+    "content-hash": "0f6983c96bcc371a26b7ee31b7ea5431",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1425,18 +1425,18 @@
             "type": "component",
             "extra": {
                 "component": {
-                    "scripts": [
-                        "js/*.js"
-                    ],
-                    "files": [
-                        "js/*.js",
-                        "css/*.css"
-                    ],
                     "shim": {
                         "deps": [
                             "jquery"
                         ]
-                    }
+                    },
+                    "files": [
+                        "js/*.js",
+                        "css/*.css"
+                    ],
+                    "scripts": [
+                        "js/*.js"
+                    ]
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4892,35 +4892,30 @@
         },
         {
             "name": "league/oauth2-client",
-            "version": "2.7.0",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-client.git",
-                "reference": "160d6274b03562ebeb55ed18399281d8118b76c8"
+                "reference": "3d5cf8d0543731dfb725ab30e4d7289891991e13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/oauth2-client/league-oauth2-client-160d6274b03562ebeb55ed18399281d8118b76c8-zip-7fec81.zip",
-                "reference": "160d6274b03562ebeb55ed18399281d8118b76c8",
-                "shasum": "f7e44d560b3446074589166daf8a754371735b03"
+                "url": "https://composer.tiki.org/dist/league/oauth2-client/league-oauth2-client-3d5cf8d0543731dfb725ab30e4d7289891991e13-zip-c4e5c9.zip",
+                "reference": "3d5cf8d0543731dfb725ab30e4d7289891991e13",
+                "shasum": "89751a440abb5fcf3a91222bed205c70b53a79e1"
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.0 || ^7.0",
-                "paragonie/random_compat": "^1 || ^2 || ^9.99",
-                "php": "^5.6 || ^7.0 || ^8.0"
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5.8 || ^7.4.5",
+                "php": "^7.1 || >=8.0.0 <8.5.0"
             },
             "require-dev": {
                 "mockery/mockery": "^1.3.5",
-                "php-parallel-lint/php-parallel-lint": "^1.3.1",
-                "phpunit/phpunit": "^5.7 || ^6.0 || ^9.5",
-                "squizlabs/php_codesniffer": "^2.3 || ^3.0"
+                "php-parallel-lint/php-parallel-lint": "^1.4",
+                "phpunit/phpunit": "^7 || ^8 || ^9 || ^10 || ^11",
+                "squizlabs/php_codesniffer": "^3.11"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "League\\OAuth2\\Client\\": "src/"
@@ -4954,7 +4949,7 @@
                 "oauth2",
                 "single sign on"
             ],
-            "time": "2023-04-16T18:19:15+00:00"
+            "time": "2024-12-11T05:05:52+00:00"
         },
         {
             "name": "league/oauth2-server",
@@ -6669,16 +6664,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/openannotation/annotator/openannotation-annotator-1.2.10.zip",
                 "shasum": "0e982ad018a75edd758111f9534c03513c7be9bc"
-            },
-            "type": "library"
-        },
-        {
-            "name": "openlayers/openlayers",
-            "version": "6.9.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/openlayers/openlayers/openlayers-openlayers-6.9.0.zip",
-                "shasum": "0e07a97c82be41c408a769c156a40a32c9e0be42"
             },
             "type": "library"
         },
@@ -11277,17 +11262,17 @@
         },
         {
             "name": "symfony/http-client-contracts",
-            "version": "v3.5.1",
+            "version": "v3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client-contracts.git",
-                "reference": "c2f3ad828596624ca39ea40f83617ef51ca8bbf9"
+                "reference": "ee8d807ab20fcb51267fdace50fbe3494c31e645"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client-contracts/symfony-http-client-contracts-c2f3ad828596624ca39ea40f83617ef51ca8bbf9-zip-caebca.zip",
-                "reference": "c2f3ad828596624ca39ea40f83617ef51ca8bbf9",
-                "shasum": "464b78cd2d7a2d06c6e651d84054e13f685329eb"
+                "url": "https://composer.tiki.org/dist/symfony/http-client-contracts/symfony-http-client-contracts-ee8d807ab20fcb51267fdace50fbe3494c31e645-zip-a1de5f.zip",
+                "reference": "ee8d807ab20fcb51267fdace50fbe3494c31e645",
+                "shasum": "c65be37a9d8cd17befff04316c895bffb1e1e667"
             },
             "require": {
                 "php": ">=8.1"
@@ -11348,7 +11333,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-25T12:02:18+00:00"
+            "time": "2024-12-07T08:49:48+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -11903,8 +11888,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -12063,8 +12048,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -16505,17 +16490,17 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.11.1",
+            "version": "3.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "19473c30efe4f7b3cd42522d0b2e6e7f243c6f87"
+                "reference": "1368f4a58c3c52114b86b1abe8f4098869cb0079"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-19473c30efe4f7b3cd42522d0b2e6e7f243c6f87-zip-9f9b6d.zip",
-                "reference": "19473c30efe4f7b3cd42522d0b2e6e7f243c6f87",
-                "shasum": "0712c79e3106841079965ed875ab93707dbfc9da"
+                "url": "https://composer.tiki.org/dist/squizlabs/php_codesniffer/squizlabs-php_codesniffer-1368f4a58c3c52114b86b1abe8f4098869cb0079-zip-7a5441.zip",
+                "reference": "1368f4a58c3c52114b86b1abe8f4098869cb0079",
+                "shasum": "3752a28f567305cdda61b056ef456e83e6e52f7e"
             },
             "require": {
                 "ext-simplexml": "*",
@@ -16575,7 +16560,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-11-16T12:02:36+00:00"
+            "time": "2024-12-11T16:04:26+00:00"
         },
         {
             "name": "stevegrunwell/phpunit-markup-assertions",
