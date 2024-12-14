@@ -141,8 +141,7 @@ class Tracker_Field_Text extends \Tracker\Field\AbstractItemField implements \Tr
         if (
             $this->getConfiguration('isMultilingual') == 'y' &&
             $context['list_mode'] === 'csv' &&
-            $_GET['controller'] === 'tracker' &&
-            $_GET['action'] === 'export_items'
+            ($context['multiLanguageAsJson'] ?? false) === true
         ) {
             $value = str_replace('"', '\"', json_encode($value, JSON_UNESCAPED_UNICODE));
         }
