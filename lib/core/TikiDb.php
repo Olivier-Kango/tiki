@@ -74,16 +74,19 @@ abstract class TikiDb
 
     protected function startTimer()
     {
-        list($micro, $sec) = explode(' ', microtime());
-        return $micro + $sec;
+        return microtime(true);
     }
 
     protected function stopTimer($starttime)
     {
         global $elapsed_in_db;
-        list($micro, $sec) = explode(' ', microtime());
-        $now = $micro + $sec;
-        $elapsed_in_db += $now - $starttime;
+
+        $now = microtime(true);
+        $elapsed = $now - $starttime;
+
+        $elapsed_in_db += $elapsed;
+
+        return $elapsed;
     }
 
     abstract public function qstr($str);
