@@ -2578,6 +2578,7 @@ class Services_Tracker_Controller
                                 'CR' => $cr,
                                 'delimitorL' => $delimitorL,
                                 'delimitorR' => $delimitorR,
+                                'multiLanguageAsJson' => true,
                             ]);
                         }
                     }
