@@ -1,5 +1,5 @@
+{tikimodule error=$module_params.error title=$tpl_module_title name="category_transition" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
 {if ! empty( $mod_transitions )}
-    {tikimodule error=$module_params.error title=$tpl_module_title name="category_transition" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
     <form method="post" action="">
         {foreach from=$mod_transitions item=trans}
             <div>
@@ -41,5 +41,9 @@
         {/literal}{/jq}
         <div><input type="submit" class="btn btn-primary btn-sm" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}"/></div>
     </form>
-    {/tikimodule}
+{else}
+    <div>
+        {tr}There is no categorized object with category transitions available.{/tr}
+    </div>
 {/if}
+{/tikimodule}
