@@ -1,6 +1,6 @@
 {if not empty($item.children)}
-    <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape}">
-        <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-bs-toggle="dropdown">
+    <li class="sm-sub-item {if $item.selected|default:null} active{/if} {$item.class|escape}">
+        <a href="{$item.sefurl|escape}" class="sm-sub-link sm-sub-toggler">
             {if $prefs.menus_items_icons eq "y"}
                 <span 
                     data-preset="icon-picker" 
@@ -20,7 +20,7 @@
             {/if}
             {tr}{$item.name}{/tr}
         </a>
-        <ul class="dropdown-menu">
+        <ul class="sm-sub">
             {* {if $sub}
                 <li class="dropdown-header">{tr}{$item.name}{/tr}</li>
                 <li class="dropdown-divider"></li>
@@ -31,10 +31,10 @@
         </ul>
     </li>
 {else}
-    <li class="nav-item {$item.class|escape}{if $item.selected|default:null} active{/if}">
+    <li class="sm-sub-item {$item.class|escape}{if $item.selected|default:null} active{/if}">
         {if !empty($item.block)}
             {* mega-menu class prevents error (TypeError: Cannot read property 'parentNode' of null - jquery.smartmenus.js:line 664) when block items contains <ul> elements  *}
-            <ul class="mega-menu block--container">
+            <ul class="sm-sub mega-menu block--container">
                 {if $prefs.menus_items_icons eq "y"}
                     <span 
                         data-preset="icon-picker" 
@@ -55,7 +55,7 @@
                 {tr}{$item.name}{/tr}
             </ul>
         {else}
-            <a class="{if $sub|default:false}dropdown-item{else}nav-link{/if}" href="{$item.sefurl|escape}">
+            <a class="sm-sub-link" href="{$item.sefurl|escape}">
                 {if $prefs.menus_items_icons eq "y"}
                     <span
                         data-preset="icon-picker" 

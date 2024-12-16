@@ -547,6 +547,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/signature_pad/dist",
                     },
                     {
+                        src: "node_modules/smartmenus/dist/*",
+                        dest: "vendor_dist/smartmenus/dist",
+                    },
+                    {
                         src: "node_modules/sortablejs/modular/*",
                         dest: "vendor_dist/sortablejs/modular",
                     },

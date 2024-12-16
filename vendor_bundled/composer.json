@@ -142,7 +142,6 @@
         "composer/semver": "^3.2",
         "cweagans/composer-patches": "^1.7",
         "dragonmantank/cron-expression": "^3.0",
-        "drmonty/smartmenus": ">=1.1.0",
         "elliotjreed/disposable-emails-filter": "~4.0.3",
         "ext-calendar": "*",
         "ext-curl": "*",

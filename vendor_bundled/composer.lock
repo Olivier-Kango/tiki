@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f6983c96bcc371a26b7ee31b7ea5431",
+    "content-hash": "acf2a0e663f11c247cd4de1c2fc8c6d8",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -354,17 +354,17 @@
         },
         {
             "name": "amphp/process",
-            "version": "v1.1.7",
+            "version": "v1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/process.git",
-                "reference": "1949d85b6d71af2818ff68144304a98495628f19"
+                "reference": "55b837d4f1857b9bd7efb7bb859ae6b0e804f13f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/amphp/process/amphp-process-1949d85b6d71af2818ff68144304a98495628f19-zip-b6166c.zip",
-                "reference": "1949d85b6d71af2818ff68144304a98495628f19",
-                "shasum": "af1181255fd8882abbf1d4be0f093ba6ef205a83"
+                "url": "https://composer.tiki.org/dist/amphp/process/amphp-process-55b837d4f1857b9bd7efb7bb859ae6b0e804f13f-zip-71d725.zip",
+                "reference": "55b837d4f1857b9bd7efb7bb859ae6b0e804f13f",
+                "shasum": "3c9bb1a39f41d43c37268536d4906499e2a68434"
             },
             "require": {
                 "amphp/amp": "^2",
@@ -411,7 +411,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-19T03:00:28+00:00"
+            "time": "2024-12-13T17:38:25+00:00"
         },
         {
             "name": "amphp/serialization",
@@ -1406,52 +1406,6 @@
             "time": "2024-10-09T13:47:03+00:00"
         },
         {
-            "name": "drmonty/smartmenus",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mrohnstock/smartmenus.git",
-                "reference": "0ae42a969723f09c6f53e90e9c8c112614856035"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/drmonty/smartmenus/drmonty-smartmenus-0ae42a969723f09c6f53e90e9c8c112614856035-zip-1e0661.zip",
-                "reference": "0ae42a969723f09c6f53e90e9c8c112614856035",
-                "shasum": "2f980d6831345bcd72d82aec519e31ab59248d8b"
-            },
-            "require": {
-                "components/jquery": ">=1.7.0"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "shim": {
-                        "deps": [
-                            "jquery"
-                        ]
-                    },
-                    "files": [
-                        "js/*.js",
-                        "css/*.css"
-                    ],
-                    "scripts": [
-                        "js/*.js"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "jQuery website menu plugin. Responsive and accessible list-based website menus that work on all devices.",
-            "homepage": "http://www.smartmenus.org",
-            "keywords": [
-                "dropdown",
-                "ui"
-            ],
-            "time": "2017-09-18T08:01:28+00:00"
-        },
-        {
             "name": "elliotjreed/disposable-emails-filter",
             "version": "4.0.20",
             "source": {
@@ -2270,13 +2224,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "b632b81067c7f7ae264434c49637b8f92d4087a9"
+                "reference": "15ff8558dcd4bad608f02c1dab70de64e4a9ef38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-b632b81067c7f7ae264434c49637b8f92d4087a9-zip-786193.zip",
-                "reference": "b632b81067c7f7ae264434c49637b8f92d4087a9",
-                "shasum": "3fb2d3d08aa9316da3a24ff711c12c3a99fb1b4f"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-15ff8558dcd4bad608f02c1dab70de64e4a9ef38-zip-564e56.zip",
+                "reference": "15ff8558dcd4bad608f02c1dab70de64e4a9ef38",
+                "shasum": "d0ef211259cdfda034de3e0839e2023fc703f09a"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2343,7 +2297,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-12-09T13:49:14+00:00"
+            "time": "2024-12-13T14:18:49+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -7790,17 +7744,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.42",
+            "version": "3.0.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "db92f1b1987b12b13f248fe76c3a52cadb67bb98"
+                "reference": "709ec107af3cb2f385b9617be72af8cf62441d02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-db92f1b1987b12b13f248fe76c3a52cadb67bb98-zip-9f59a1.zip",
-                "reference": "db92f1b1987b12b13f248fe76c3a52cadb67bb98",
-                "shasum": "3162b91ac6d6cae8cc9662f76ab8b27f038166ba"
+                "url": "https://composer.tiki.org/dist/phpseclib/phpseclib/phpseclib-phpseclib-709ec107af3cb2f385b9617be72af8cf62441d02-zip-5e3e80.zip",
+                "reference": "709ec107af3cb2f385b9617be72af8cf62441d02",
+                "shasum": "78f5673839837983152f7ff0b7c4fda1be2916f7"
             },
             "require": {
                 "paragonie/constant_time_encoding": "^1|^2|^3",
@@ -7892,7 +7846,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-16T03:06:04+00:00"
+            "time": "2024-12-14T21:12:59+00:00"
         },
         {
             "name": "phpxmlrpc/phpxmlrpc",

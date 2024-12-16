@@ -1,6 +1,6 @@
 {if not empty($item.children)}
-    <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape} {if $module_params.megamenu eq 'y' and $module_params.megamenu_static eq 'y' }static{/if}">
-        <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-bs-toggle="dropdown">
+    <li class="sm-nav-item{if $item.selected|default:null} active{/if} {$item.class|escape} {if $module_params.megamenu eq 'y' and $module_params.megamenu_static eq 'y' }static{/if}">
+        <a href="{$item.sefurl|escape}" class="sm-nav-link sm-sub-toggler">
             {if $prefs.menus_items_icons eq "y"}
                 <span 
                     data-preset="icon-picker" 
@@ -21,8 +21,8 @@
             {tr}{$item.name}{/tr}
         </a>
         {if $item.sectionLevel eq 0 and $module_params.megamenu eq 'y'}
-            <ul class="dropdown-menu mega-menu">
-                <li class="mega-menu--inner-container row mx-0">
+            <ul class="sm-sub mega-menu">
+                <li class="mega-menu--inner-container row mx-0 sm-nav-item--has-mega">
                     <ul class="mega-menu--item-container {if $module_params.megamenu_images eq 'y' and $item.image} col-sm-9{else} col-sm-12{/if} pd-0">
                         {foreach from=$item.children item=sub}
                             {include file='bootstrap_smartmenu_megamenu_children.tpl' item=$sub sub=true}
@@ -37,7 +37,7 @@
                 </li>
             </ul>
         {else}
-            <ul class="dropdown-menu">
+            <ul class="sm-sub">
                 {foreach from=$item.children item=sub}
                     {include file='bootstrap_smartmenu_children.tpl' item=$sub sub=true}
                 {/foreach}
@@ -45,8 +45,8 @@
         {/if}
     </li>
 {else}
-    <li class="nav-item {$item.class|escape}{if $item.selected|default:null} active{/if}">
-        <a class="{if $sub|default:false}dropdown-item{else}nav-link{/if}" href="{$item.sefurl|escape}">
+    <li class="sm-nav-item {$item.class|escape}{if $item.selected|default:null} active{/if}">
+        <a class="sm-nav-link" href="{$item.sefurl|escape}">
             {if $prefs.menus_items_icons eq "y"}
                 <span
                     data-preset="icon-picker" 
