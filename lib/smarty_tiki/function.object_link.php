@@ -120,6 +120,12 @@ function smarty_function_object_link_default($smarty, $object, $title = null, $t
     if ($url) {
         $escapedHref = smarty_modifier_escape(TikiLib::tikiUrlOpt($url));
     } else {
+        if ($type == 'tracker') {
+            $definition = Tracker_Definition::get($object);
+            if ($definition && $definition->isEnabled('adminOnlyViewEditItem') && ! Perms::get($type, $object)->admin_trackers) {
+                return $escapedText;
+            }
+        }
         $escapedHref = smarty_modifier_escape(smarty_modifier_sefurl($object, $type));
     }
 
@@ -209,7 +215,7 @@ function smarty_function_object_link_trackeritem($smarty, $object, $title = null
         $pre .= " ";
     }
 
-    if ($item && $item->canView()) {
+    if ($item && $item->canView() && (! $item->getDefinition()->isEnabled('adminOnlyViewEditItem') || Perms::get('trackeritem', $object)->admin_trackers)) {
         return $pre . smarty_function_object_link_default($smarty, $object, $title, $type, $url, $params);
     } else {
         $smarty->loadPlugin('smarty_modifier_escape');
