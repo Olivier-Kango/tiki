@@ -115,12 +115,6 @@
         color: $popover-body-color;
     }
 
-    .message_list .content_title, .message_list .content_title > div:first-child {
-        flex-direction: column;
-        align-items: flex-start;
-        display: block;
-        margin-bottom: 10px;
-    }
     .mailbox_list_title { display: inline-block; }
     .msg_controls { position: absolute; top: 25px; left: 50px; }
     .msg_controls .dropdown.on_mobile { display: none; }
@@ -191,7 +185,6 @@
     .msg_parts tr:not(:last-child) { border-bottom: 1px solid #444; }
     .part_desc, .part_size, .download_link { margin-left: 25px; }
     .msg_part_icon { padding: 0; margin-left: 5px; }
-    .imap_keyword { margin-top: 4px; }
     .msg_headers td { padding-right: 35px; }
     .noselect2 { display: none !important; }
 
@@ -212,7 +205,7 @@
     }
 
     .select2-container { min-width: 150px; margin-bottom: 0; }
-    .combined_sort { display: inline-block; margin-left: 10px; }
+    .combined_sort, .combined_sort + element-plus-ui { display: inline-block; margin-left: 10px; width: 150px; }
 
     .folders li, .inner_list li {
         word-break: break-all;
@@ -234,6 +227,11 @@
     }
     main .container {
         width: 100%;
+    }
+    #imap_filter_form {        
+        .imap_sort + element-plus-ui, .imap_filter + element-plus-ui {
+            width: 120px;
+        }
     }
 }
 
@@ -391,7 +389,6 @@
         .select2-container { min-width: 100px; }
         #list_controls_menu { background-color: var(--bs-body-bg); }
         #list_controls_menu.show { flex-direction: row; justify-content: center; align-items: center; }
-        #list_controls_menu.show > form { margin: 0 10px }
         .msg_text table { word-break: normal; }
 
         // groupmail
