@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acf2a0e663f11c247cd4de1c2fc8c6d8",
+    "content-hash": "36d6691f772a31612a4caebb715372af",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1550,6 +1550,101 @@
             "time": "2024-11-01T03:51:45+00:00"
         },
         {
+            "name": "garethp/http-playback",
+            "version": "v2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Garethp/HttpPlayback.git",
+                "reference": "50fd7b75c3d08ac0548df6d834a60ac65fc365df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/garethp/http-playback/garethp-http-playback-50fd7b75c3d08ac0548df6d834a60ac65fc365df-zip-8f6bfc.zip",
+                "reference": "50fd7b75c3d08ac0548df6d834a60ac65fc365df",
+                "shasum": "b18cf89b0a8570ede5396bbc88d15c261aec396d"
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~9.5",
+                "squizlabs/php_codesniffer": "~3.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "garethp\\HttpPlayback\\": "src/",
+                    "garethp\\HttpPlayback\\Test\\": "tests/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2021-05-10T01:13:55+00:00"
+        },
+        {
+            "name": "garethp/php-ews",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Garethp/php-ews.git",
+                "reference": "3d0d9e23e1e3f9077403266c256fb3c1219eef16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/garethp/php-ews/garethp-php-ews-3d0d9e23e1e3f9077403266c256fb3c1219eef16-zip-e242f5.zip",
+                "reference": "3d0d9e23e1e3f9077403266c256fb3c1219eef16",
+                "shasum": "5d9fecb995f7197ef40e6a7b5d9bd1b0f7a2e30e"
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "ext-soap": "*",
+                "garethp/http-playback": "^2.0"
+            },
+            "require-dev": {
+                "goetas/xsd-reader": "^2.0-dev",
+                "goetas/xsd2php": "^2.1",
+                "mockery/mockery": "^1.3",
+                "phpunit/phpunit": "^9.4 || ^8.5",
+                "squizlabs/php_codesniffer": "~3.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Utilities/ensureIsArray.php",
+                    "src/Utilities/ensureIsDateTime.php",
+                    "src/Utilities/cloneValue.php",
+                    "src/Utilities/getFolderIds.php"
+                ],
+                "psr-4": {
+                    "garethp\\ews\\": "src/",
+                    "garethp\\ews\\Test\\": "tests/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A PHP Library to interact with the Exchange SOAP service",
+            "keywords": [
+                "Microsoft Exchange",
+                "NTLM",
+                "calendar",
+                "contacts",
+                "email",
+                "ews",
+                "exchange web services",
+                "php",
+                "push notification",
+                "soap"
+            ],
+            "time": "2024-12-14T14:36:26+00:00"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "7.9.2",
             "source": {
@@ -2224,13 +2319,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "15ff8558dcd4bad608f02c1dab70de64e4a9ef38"
+                "reference": "93d9c952da662c31a0d0e518a91ea1067970d858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-15ff8558dcd4bad608f02c1dab70de64e4a9ef38-zip-564e56.zip",
-                "reference": "15ff8558dcd4bad608f02c1dab70de64e4a9ef38",
-                "shasum": "d0ef211259cdfda034de3e0839e2023fc703f09a"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-93d9c952da662c31a0d0e518a91ea1067970d858-zip-20db17.zip",
+                "reference": "93d9c952da662c31a0d0e518a91ea1067970d858",
+                "shasum": "1d76bd9a3207e181c27cda477bf569a2e185a04c"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2244,6 +2339,7 @@
                 "ext-openssl": "*",
                 "ext-session": "*",
                 "ezyang/htmlpurifier": "^4.17",
+                "garethp/php-ews": "dev-master",
                 "henrique-borba/php-sieve-manager": "^1.0",
                 "league/commonmark": "^2.4",
                 "paragonie/random_compat": "^2.0.18",
@@ -2297,7 +2393,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-12-13T14:18:49+00:00"
+            "time": "2024-12-17T17:13:22+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -2691,17 +2787,17 @@
         },
         {
             "name": "laminas/laminas-escaper",
-            "version": "2.14.0",
+            "version": "2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-escaper.git",
-                "reference": "0f7cb975f4443cf22f33408925c231225cfba8cb"
+                "reference": "c612b0488ae486284c39885efca494c180f16351"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-escaper/laminas-laminas-escaper-0f7cb975f4443cf22f33408925c231225cfba8cb-zip-87914d.zip",
-                "reference": "0f7cb975f4443cf22f33408925c231225cfba8cb",
-                "shasum": "fa774e565ba25229422c2e77b871dabc711242b6"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-escaper/laminas-laminas-escaper-c612b0488ae486284c39885efca494c180f16351-zip-f04268.zip",
+                "reference": "c612b0488ae486284c39885efca494c180f16351",
+                "shasum": "d6414fe64354366ed69c2f636041b63e686f3615"
             },
             "require": {
                 "ext-ctype": "*",
@@ -2712,12 +2808,12 @@
                 "zendframework/zend-escaper": "*"
             },
             "require-dev": {
-                "infection/infection": "^0.27.9",
-                "laminas/laminas-coding-standard": "~3.0.0",
+                "infection/infection": "^0.27.11",
+                "laminas/laminas-coding-standard": "~3.0.1",
                 "maglnet/composer-require-checker": "^3.8.0",
-                "phpunit/phpunit": "^9.6.16",
+                "phpunit/phpunit": "^9.6.22",
                 "psalm/plugin-phpunit": "^0.19.0",
-                "vimeo/psalm": "^5.21.1"
+                "vimeo/psalm": "^5.26.1"
             },
             "type": "library",
             "autoload": {
@@ -2741,7 +2837,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-10-24T10:12:53+00:00"
+            "time": "2024-12-17T19:39:54+00:00"
         },
         {
             "name": "laminas/laminas-eventmanager",
@@ -5915,14 +6011,14 @@
         },
         {
             "name": "npm-asset/babel--parser",
-            "version": "7.25.3",
+            "version": "7.26.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.3.zip",
-                "shasum": "57ef76e7fdb5369d3c042de128d3d3f4ba1d49f7"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.26.3.zip",
+                "shasum": "06e4ae954a6c0a21498718f05c90b325a54446f0"
             },
             "require": {
-                "npm-asset/babel--types": ">=7.25.2,<8.0.0"
+                "npm-asset/babel--types": ">=7.26.3,<8.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -5931,11 +6027,11 @@
         },
         {
             "name": "npm-asset/babel--types",
-            "version": "7.26.0",
+            "version": "7.26.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.26.0.zip",
-                "shasum": "c98d3e42ba9fc541a31b936459fdeaf2c2f45b37"
+                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.26.3.zip",
+                "shasum": "6e6489543682064141ce6c013e01725005915282"
             },
             "require": {
                 "npm-asset/babel--helper-string-parser": ">=7.25.9,<8.0.0",
@@ -11611,8 +11707,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -11760,8 +11856,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -15007,17 +15103,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.12",
+            "version": "1.12.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b5ae1b88f471d3fd4ba1aa0046234b5ca3776dd0"
+                "reference": "9b469068840cfa031e1deaf2fa1886d00e20680f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-b5ae1b88f471d3fd4ba1aa0046234b5ca3776dd0-zip-662c0c.zip",
-                "reference": "b5ae1b88f471d3fd4ba1aa0046234b5ca3776dd0",
-                "shasum": "de420f232153978e57b4a4f93f026ea4577c3459"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-9b469068840cfa031e1deaf2fa1886d00e20680f-zip-dc02c9.zip",
+                "reference": "9b469068840cfa031e1deaf2fa1886d00e20680f",
+                "shasum": "e2074f9b8c045b0aa13025cb2fce4f6adafbb8da"
             },
             "require": {
                 "php": "^7.2|^8.0"
@@ -15054,7 +15150,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-28T22:13:23+00:00"
+            "time": "2024-12-17T17:00:20+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -17074,11 +17170,12 @@
     "minimum-stability": "RC",
     "stability-flags": {
         "candy-chat/xmpp-prebind-php": 20,
+        "garethp/php-ews": 20,
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
-        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15
+        "phpcsstandards/phpcsutils": 15,
+        "rubix/extras": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17095,7 +17192,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",
