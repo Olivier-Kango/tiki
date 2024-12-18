@@ -1372,7 +1372,7 @@ function prefs_feature_list($partial = false)
             'name' => tra('Element Plus'),
             'description' => tra('Use Element Plus Vue based UI elements'),
             'type' => 'flag',
-            'default' => 'n',
+            'default' => 'y',
             'tags' => ['experimental'],
         ],
         'feature_sefurl_routes' => [
@@ -1906,7 +1906,7 @@ function prefs_feature_list($partial = false)
             'default' => 'n',
         ],
         'feature_jquery_autocomplete' => [
-            'name' => tra('Autocomplete'),
+            'name' => tra('jQuery Autocomplete'),
             'description' => tra('Provides various dropdown menus on many text input boxes for page names, user names, groups, tags, etc.'),
             'type' => 'flag',
             'help' => 'JQuery#Autocomplete',
@@ -1916,7 +1916,7 @@ function prefs_feature_list($partial = false)
             'conflicts' => [
                 'elementplus_autocomplete',
             ],
-            'default' => 'y',   // autocomplete on pages in QuickEdit (more coming soon)
+            'default' => 'n',   // autocomplete on pages in QuickEdit (more coming soon)
             'tags' => ['deprecated'],
         ],
         'feature_jquery_reflection' => [

@@ -1035,7 +1035,9 @@ $headerlib->add_js_module("import { textareaColorpicker } from '@jquery-tiki/ui-
 // element-plus-ui select, transfer
 $headerlib->add_js_module("import * as elementPlus from '@vue-widgets/element-plus-ui';");
 if ($prefs['feature_elementplus'] == 'y') {
-    $headerlib->add_js_module("elementPlus.applySelect();");
+    if ($prefs['elementplus_select'] == 'y') {
+        $headerlib->add_js_module("elementPlus.applySelect();");
+    }
     if ($prefs['elementplus_autocomplete'] == 'y') {
         $headerlib->add_js_module("import { autocomplete } from '@jquery-tiki/ui-utils'; window.autocomplete = autocomplete;");
         $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-autocomplete.css');

@@ -178,6 +178,7 @@
                 {preference name=feature_elementplus}
                 <div class="adminoptionboxchild" id="feature_elementplus_childcontainer">
                     {preference name=elementplus_autocomplete}
+                    {preference name=elementplus_select}
                     {preference name=elementplus_select_clearable}
                     {preference name=elementplus_select_collapse_tags}
                     {preference name=elementplus_select_max_collapse_tags}
