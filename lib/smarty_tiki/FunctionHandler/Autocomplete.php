@@ -44,7 +44,7 @@ class Autocomplete extends Base
             $options = '';
         }
 
-        if ($prefs['elementplus_autocomplete'] === 'y') {
+        if ($prefs['feature_elementplus'] === 'y' && $prefs['elementplus_autocomplete'] === 'y') {
             $content = 'autocomplete($("' . $params['element'] . '")[0], "' . $params['type'] . '"' . $options . ');';
         } else {
             $content = '$("' . $params['element'] . '").tiki("autocomplete", "' . $params['type'] . '"' . $options . ');';
