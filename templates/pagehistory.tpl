@@ -36,6 +36,7 @@
                     <td colspan="2"><div class="wikitext">{$new.data}</div></td>
                 </tr>
             {/if}
+            {if isset($smarty.request.oldver_idx, $smarty.request.newver_idx)}
             <tr>
                 {if $smarty.request.oldver_idx + 1 eq $smarty.request.newver_idx or $smarty.request.oldver_idx eq $smarty.request.newver_idx}
                     <td colspan="4">
@@ -62,6 +63,7 @@
                     </td>
                 {/if}
             </tr>
+            {/if}
             {if $diff_style eq 'unidiff'}
                 <tr>
                     <td colspan="4">
