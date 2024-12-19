@@ -152,7 +152,11 @@ function smarty_block_pagination_links($params, $url, $smarty, &$repeat)
     }
 
     if (empty($url) || preg_match('/^\s*$/', $url)) {
-        $url = smarty_function_query(['_type' => $default_type], $smarty);
+        $query_params = ['_type' => $default_type];
+        if (isset($params['_keepall'])) {
+            $query_params['_keepall'] = $params['_keepall'];
+        }
+        $url = smarty_function_query($query_params, $smarty);
     }
 
     // remove empty url arguments (done by default)
