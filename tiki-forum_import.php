@@ -58,7 +58,7 @@ $inputConfiguration = [
         'tForumid'                        => 'int',               //post
         'ftype'                           => 'word',              //post
         'prefix'                          => 'word',              //post
-        'server'                          => 'striptags ',        //post
+        'server'                          => 'striptags',        //post
         ],
     ],
 ];
