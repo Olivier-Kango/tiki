@@ -118,6 +118,7 @@ class ConsoleApplicationBuilder
                 new PluginRefreshRunCommand(),
                 new PatchCommand(),
                 new UpdateCommand(),
+                new DatabaseEngineConvertCommand()
                 ],
             ],[
             'condition' => 'checkTikiSetupComplete',
@@ -628,7 +629,7 @@ class ConsoleApplicationBuilder
                         }
                         $console->add($cmd);
                     }
-                } catch (ReflectionException $e) {
+                } catch (\ReflectionException $e) {
                 }
             }
         }
