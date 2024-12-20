@@ -15,7 +15,17 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     private $pdo_client;
     private $index;
     private $indexer;
+    // list of fields and their types from Manticore
     private $providedMappings = [];
+    // stored conversion of Manticore field names to Tiki field names
+    private $fieldMapping = [];
+    // stored list of date-only fields as Manticore stores all datetime types as timestamp
+    private $dateFields = [];
+    // correct mapping back to Tiki field names (possibly come from Manticore server desc statement)
+    private $providedMappingsCorrectName = [];
+
+    // has index been modified? we need to store mappings in the preferences
+    private bool $dirty = false;
 
     private $facetCount = 10;
 
@@ -31,6 +41,35 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         $this->index = $index;
         $this->indexer = null;
         $this->providedMappings = $this->pdo_client->describe($index);
+        $this->fieldMapping = $this->getUnifiedFieldMapping();
+        $this->dateFields = $this->getUnifiedDateFields();
+        $this->providedMappingsCorrectName = array_flip(array_map(function ($field) {
+            return $this->fieldMapping[$field] ?? $field;
+        }, array_keys($this->providedMappings)));
+        $this->dirty = false;
+    }
+
+    public function __destruct()
+    {
+        global $prefs;
+
+        if (! $this->dirty) {
+            return;
+        }
+
+        if (empty($this->index) || strstr($this->index, 'pref_')) {
+            return;
+        }
+
+        $fieldMapping = json_encode($this->fieldMapping);
+        if (empty($prefs['unified_field_mapping']) || $prefs['unified_field_mapping'] != $fieldMapping) {
+            TikiLib::lib('tiki')->set_preference('unified_field_mapping', $fieldMapping);
+        }
+
+        $dateFields = json_encode($this->dateFields);
+        if (empty($prefs['unified_date_fields']) || $prefs['unified_date_fields'] != $dateFields) {
+            TikiLib::lib('tiki')->set_preference('unified_date_fields', $dateFields);
+        }
     }
 
     public function getClient()
@@ -53,6 +92,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         if ($this->pdo_client->deleteIndex($this->index)) {
             $this->pdo_client->deleteIndex($this->index . 'pq');
             $this->providedMappings = [];
+            $this->fieldMapping = [];
+            $this->dateFields = [];
+            $this->providedMappingsCorrectName = [];
+            $this->dirty = false;
             $stopwords_file = $this->getStopwordsFilePath();
             if (file_exists($stopwords_file)) {
                 @unlink($stopwords_file);
@@ -104,21 +147,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     {
         global $prefs;
 
-        // stored conversion of manticore field names to tiki field names
-        $fieldMapping = $this->getUnifiedFieldMapping();
-
-        // stored list of date-only fields as Manticore stores all datetime types as timestamp
-        $dateFields = $this->getUnifiedDateFields();
-
-        // correct mapping back to tiki field names (possibly come from manticore server desc statement)
-        $providedMappingsCorrectName = array_flip(array_map(function ($field) use ($fieldMapping) {
-            return $fieldMapping[$field] ?? $field;
-        }, array_keys($this->providedMappings)));
-
-        // extract the difference of the new data only and convert to manticore types
+        // extract the difference of the new data only and convert to Manticore types
         $mapping = array_map(
             [$this, 'convertToManticoreType'],
-            array_diff_key($data, $providedMappingsCorrectName)
+            array_diff_key($data, $this->providedMappingsCorrectName)
         );
 
         // observe 256 full-text fields index limit - convert the rest to string attributes
@@ -137,7 +169,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         foreach ($mapping as $field => $type) {
             if (! empty($type['dateonly'])) {
                 unset($mapping[$field]['dateonly']);
-                $dateFields[] = $field;
+                $this->dateFields[] = $field;
             }
         }
 
@@ -166,7 +198,8 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
                 'types' => $type['type'] == 'text' ? ['text', 'string'] : [$type['type']],
                 'options' => $type['options'] ?? [],
             ];
-            $fieldMapping[strtolower($field)] = $field;
+            $this->fieldMapping[strtolower($field)] = $field;
+            $this->providedMappingsCorrectName[$field] = 1;
         }
 
         if ($prefs['storedsearch_enabled'] == 'y' && $mapping) {
@@ -181,14 +214,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             $this->updatePercolateIndex($this->index, $pq_mapping);
         }
 
-        $fieldMapping = json_encode($fieldMapping);
-        if (empty($prefs['unified_field_mapping']) || $prefs['unified_field_mapping'] != $fieldMapping) {
-            TikiLib::lib('tiki')->set_preference('unified_field_mapping', $fieldMapping);
-        }
-        $dateFields = json_encode($dateFields);
-        if (empty($prefs['unified_date_fields']) || $prefs['unified_date_fields'] != $dateFields) {
-            TikiLib::lib('tiki')->set_preference('unified_date_fields', $dateFields);
-        }
+        $this->dirty = true;
     }
 
     private function updatePercolateIndex($index, $mapping)

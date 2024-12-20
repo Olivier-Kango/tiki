@@ -905,7 +905,7 @@ class PreferencesLib
 
             foreach ($data as $pref => $info) {
                 $prefInfo = $this->getPreference($pref);
-                if (! empty($prefInfo['hide'])) {
+                if (empty($prefInfo) || ! empty($prefInfo['hide'])) {
                     continue;   // hidden prefs have had their info removed, so no point indexing them
                 }
                 if ($prefInfo) {
