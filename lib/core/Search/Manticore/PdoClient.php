@@ -103,7 +103,7 @@ class PdoClient
             if (! empty($type) && $row['Type'] != $type) {
                 continue;
             }
-            $results[] = $row['Index'];
+            $results[] = $row['Table'];
         }
         return $results;
     }
@@ -489,6 +489,9 @@ class PdoClient
 
     public function quote($string)
     {
+        if (is_null($string)) {
+            return $string;
+        }
         return $this->pdo->quote($string);
     }
 
@@ -509,7 +512,7 @@ class PdoClient
             if ($matches[1] == '?') {
                 return $this->quote($params[$i++]);
             } else {
-                return $this->query($params[substr($matches[1], 1)] ?? '');
+                return $this->quote($params[substr($matches[1], 1)] ?? '');
             }
         }, $query);
         fwrite($this->log, $query . ";\n");

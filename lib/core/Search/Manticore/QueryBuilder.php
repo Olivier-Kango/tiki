@@ -290,8 +290,8 @@ class QueryBuilder
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
         if ($mapping && array_intersect(['float', 'timestamp'], $mapping['types'])) {
             return floatval($raw);
-        } elseif (is_string($raw)) {
-            return $this->pdo_client->quote($prefix . $raw);
+        } elseif (is_string($raw) || ($mapping && in_array('string', $mapping['types']))) {
+            return $this->pdo_client->quote($prefix . strval($raw));
         } else {
             return $raw;
         }
