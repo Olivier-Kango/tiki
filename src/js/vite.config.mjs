@@ -127,6 +127,7 @@ export default defineConfig(({ command, mode }) => {
         "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
         "tiki-iot-dashboard": resolve(__dirname, "tiki-iot/dashboard.js"),
         "tiki-iot-dashboard-all": resolve(__dirname, "tiki-iot/dashboard-all.js"),
+        "tiki-vue-sfc-loader": resolve(__dirname, "tiki-vue-sfc-loader/src/tiki-vue-sfc-loader.js"),
     });
     return {
         base: "/public/generated/js", //This must NOT have a trailing slash
@@ -579,9 +580,9 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/tablesorter/dist/js/widgets",
                     },
                     {
-                        src: "node_modules/vue/dist/vue.esm-browser.prod.js",
+                        src: "node_modules/vue/dist/vue.esm-browser.js",
                         dest: "vendor_dist/vue/dist",
-                    }
+                    },
                 ],
             }),
             AutoImport({

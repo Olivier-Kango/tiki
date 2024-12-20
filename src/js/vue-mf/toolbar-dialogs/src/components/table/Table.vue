@@ -108,7 +108,7 @@ defineExpose({ execute: _insert, shown: _shown });
 </script>
 
 <template>
-    <table toolbar-object="toolbarObject" class="w-100 table table-sm table-borderless" ref="tableBuilderTable">
+    <table class="w-100 table table-sm table-borderless" ref="tableBuilderTable">
       <tbody>
         <tr v-for="i in cells.length">
           <td v-for="(c, j) in cells[0]">

@@ -42,7 +42,8 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "select2" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.js",
                 "smartmenus" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/smartmenus/dist/js/smartmenus.esm.js",
                 "sortablejs" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/sortablejs/modular/sortable.esm.js",
-                "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.prod.js",
+                // currently we don't use the prod build to improve the experience for SFC
+                "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.js",
 
                 /* jquery_tiki */
                 "@jquery-tiki/plugin-edit" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugin-edit/index.js",
@@ -76,6 +77,9 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 /* tiki-iot */
                 "@tiki-iot/tiki-iot-dashboard-all" => $tikiUrl . JS_ASSETS_PATH . "/tiki-iot/tiki-iot-dashboard-all.js",
                 "@tiki-iot/tiki-iot-dashboard" => $tikiUrl . JS_ASSETS_PATH . "/tiki-iot/tiki-iot-dashboard.js",
+
+                /* tiki-vue-sfc-loader */
+                "@tiki-vue-sfc-loader" => $tikiUrl . JS_ASSETS_PATH . "/tiki-vue-sfc-loader.js",
             ]
         ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);

@@ -209,7 +209,6 @@ function prefs_tracker_list()
             'default' => 'y',
             'dependencies' => [
                 'feature_trackers',
-                'vuejs_enable',
                 'feature_jquery_validation',
             ],
             'tags' => [ 'experimental' ],

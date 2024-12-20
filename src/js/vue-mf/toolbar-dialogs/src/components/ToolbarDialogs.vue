@@ -7,6 +7,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    syntax: {
+        type: String,
+        required: false,
+    },
 });
 
 const toolbarObject = ref(props.toolbarObject);

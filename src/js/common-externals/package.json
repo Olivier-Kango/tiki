@@ -53,7 +53,8 @@
     "svg-pan-zoom": "^3.6.1",
     "swagger-ui-dist": "^5.18.2",
     "tablesorter": "^2.32.0",
-    "vue": "^3.5.12"
+    "vue": "^3.5.12",
+    "vue3-sfc-loader": "^0.9.5"
   },
     "devDependenciesComment": {
       "@fortawesome/fontawesome-free": "Changelog: https://fontawesome.com/changelog",

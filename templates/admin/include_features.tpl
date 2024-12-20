@@ -225,10 +225,7 @@
                         <legend class="h3"><h4 class="showhide_heading" id="Experimental">{tr}Experimental{/tr} <a href="#Experimental" class="heading-link" aria-label="{tr}Experimental{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
                         {preference name=feature_jquery_carousel}
                         {preference name=feature_jquery_tablesorter}
-                        {preference name=vuejs_enable}
                         <div class="adminoptionboxchild" id="vuejs_enable_childcontainer">
-                            {preference name=vuejs_always_load}
-                            {preference name=vuejs_build_mode}
                             {preference name=tracker_field_rules}
                         </div>
                     </fieldset>
