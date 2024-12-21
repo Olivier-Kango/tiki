@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "36d6691f772a31612a4caebb715372af",
+    "content-hash": "ea218d9edd27e9cba0512b3150251817",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2319,13 +2319,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "93d9c952da662c31a0d0e518a91ea1067970d858"
+                "reference": "8c45018b28b8617171517ef1c877e3a30c32e784"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-93d9c952da662c31a0d0e518a91ea1067970d858-zip-20db17.zip",
-                "reference": "93d9c952da662c31a0d0e518a91ea1067970d858",
-                "shasum": "1d76bd9a3207e181c27cda477bf569a2e185a04c"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-8c45018b28b8617171517ef1c877e3a30c32e784-zip-65fddb.zip",
+                "reference": "8c45018b28b8617171517ef1c877e3a30c32e784",
+                "shasum": "27691a7057242ab8536b49008373737e6d48a6ab"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2393,7 +2393,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-12-17T17:13:22+00:00"
+            "time": "2024-12-20T15:50:06+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3797,17 +3797,17 @@
         },
         {
             "name": "laminas/laminas-session",
-            "version": "2.22.0",
+            "version": "2.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-session.git",
-                "reference": "97639e1b2392730b24aa7563e8e09fd22f6f6b1f"
+                "reference": "0c2b84c26abca83dfc2cb41f114edb12ad06d111"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-97639e1b2392730b24aa7563e8e09fd22f6f6b1f-zip-0613ec.zip",
-                "reference": "97639e1b2392730b24aa7563e8e09fd22f6f6b1f",
-                "shasum": "8cb95040156ec516fda402bd1ff74b6e586413e2"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-0c2b84c26abca83dfc2cb41f114edb12ad06d111-zip-bfc0e4.zip",
+                "reference": "0c2b84c26abca83dfc2cb41f114edb12ad06d111",
+                "shasum": "c9f0056e2737b71c7cc16e12af28c8a47752a5c5"
             },
             "require": {
                 "laminas/laminas-eventmanager": "^3.12",
@@ -3868,7 +3868,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-11-17T00:02:53+00:00"
+            "time": "2024-12-19T10:45:50+00:00"
         },
         {
             "name": "laminas/laminas-soap",
@@ -5003,17 +5003,17 @@
         },
         {
             "name": "league/oauth2-server",
-            "version": "8.5.4",
+            "version": "8.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "ab7714d073844497fd222d5d0a217629089936bc"
+                "reference": "cc8778350f905667e796b3c2364a9d3bd7a73518"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/oauth2-server/league-oauth2-server-ab7714d073844497fd222d5d0a217629089936bc-zip-f8bca6.zip",
-                "reference": "ab7714d073844497fd222d5d0a217629089936bc",
-                "shasum": "f0af27f5a034a6639b3fa902fd36ee82f5b5316f"
+                "url": "https://composer.tiki.org/dist/league/oauth2-server/league-oauth2-server-cc8778350f905667e796b3c2364a9d3bd7a73518-zip-d836e3.zip",
+                "reference": "cc8778350f905667e796b3c2364a9d3bd7a73518",
+                "shasum": "9cdba8b08efe1655e7364c7d618c1f44f1b621e4"
             },
             "require": {
                 "defuse/php-encryption": "^2.3",
@@ -5083,7 +5083,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-25T22:35:12+00:00"
+            "time": "2024-12-20T23:06:10+00:00"
         },
         {
             "name": "league/uri",
@@ -6227,15 +6227,15 @@
         },
         {
             "name": "npm-asset/postcss",
-            "version": "8.4.47",
+            "version": "8.4.49",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.47.zip",
-                "shasum": "107fa9280700b6d77c0a2355eb767c3e64e8d0ee"
+                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.4.49.zip",
+                "shasum": "3494dcc8ae37c1f8dcef40b48cf6ee4de5b74756"
             },
             "require": {
                 "npm-asset/nanoid": ">=3.3.7,<4.0.0",
-                "npm-asset/picocolors": ">=1.1.0,<2.0.0",
+                "npm-asset/picocolors": ">=1.1.1,<2.0.0",
                 "npm-asset/source-map-js": ">=1.2.1,<2.0.0"
             },
             "type": "npm-asset",
@@ -8682,16 +8682,6 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
-        },
-        {
-            "name": "rangy/rangy",
-            "version": "1.3.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/rangy/rangy/rangy-rangy-1.3.0.zip",
-                "shasum": "089c55e72750445844b862afb0f8e987acfd6775"
-            },
-            "type": "library"
         },
         {
             "name": "ratchet/pawl",
@@ -17173,9 +17163,9 @@
         "garethp/php-ews": 20,
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
+        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15,
-        "rubix/extras": 10
+        "phpcsstandards/phpcsutils": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17192,7 +17182,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",

@@ -144,20 +144,6 @@ class CleanVendors
         );
         self::remove($vendors . 'jquery-plugins/reflection-jquery', 'src');
         self::remove(
-            $vendors . 'rangy/rangy',
-            [
-                'uncompressed/rangy-highlighter.js',
-                'uncompressed/rangy-serializer.js',
-                'uncompressed/rangy-textrange.js',
-                'rangy-core.js',
-                'rangy-cssclassapplier.js',
-                'rangy-highlighter.js',
-                'rangy-selectionsaverestore.js',
-                'rangy-serializer.js',
-                'rangy-textrange.js',
-            ]
-        );
-        self::remove(
             $vendors . 'studio-42/elfinder',
             [
                 'files',
