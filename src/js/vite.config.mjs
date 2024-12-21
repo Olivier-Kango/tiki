@@ -340,6 +340,22 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/anime/dist",
                     },
                     {
+                        src: "node_modules/blueimp-file-upload/js/*.js",
+                        dest: "vendor_dist/blueimp-file-upload/js",
+                    },
+                    {
+                        src: ["node_modules/blueimp-file-upload/css/jquery.fileupload.css","node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css"],
+                        dest: "vendor_dist/blueimp-file-upload/css",
+                    },
+                    {
+                        src: "node_modules/blueimp-load-image/js/load-image.all.min.js",
+                        dest: "vendor_dist/blueimp-load-image/js",
+                    },
+                    {
+                        src: "node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js",
+                        dest: "vendor_dist/blueimp-canvas-to-blob/js"
+                      },
+                    {
                         src: "node_modules/chart.js/dist/chart.js*",
                         dest: "vendor_dist/chart.js/dist",
                     },
