@@ -12,7 +12,7 @@ $section = 'mytiki';
 $inputConfiguration = [
     [
         'staticKeyFilters'     => [
-        'noteId'               => 'bool',        //get
+        'noteId'               => 'int',        //get
         'remove'               => 'bool',        //post
         'wikify'               => 'bool',        //post
         'over'                 => 'bool',        //post
