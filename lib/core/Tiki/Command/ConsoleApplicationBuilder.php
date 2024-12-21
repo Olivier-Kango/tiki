@@ -131,6 +131,7 @@ class ConsoleApplicationBuilder
                 new PreferencesSetCommand(),
                 new PreferencesDeleteCommand(),
                 new PreferencesExportCommand(),
+                new SBOMGenerateCommand(),
                 ],
             ],[
             'condition' => 'checkDatabaseUpToDate',

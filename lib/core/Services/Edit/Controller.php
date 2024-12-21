@@ -302,7 +302,7 @@ $(window).on("load", function(){
             if ($prefs['wikiplugin_list_gui'] === 'y') {
                 TikiLib::lib('header')
                     ->add_jsfile('lib/jquery_tiki/pluginedit_list.js')
-                    ->add_jsfile('public/generated/js/vendor_dist/nestedsortable/jquery.mjs.nestedSortable.js');
+                    ->add_jsfile(NESTEDSORTABLE_ASSETS_PATH . '/jquery.mjs.nestedSortable.js');
             }
         }
 

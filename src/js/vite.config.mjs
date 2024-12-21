@@ -294,11 +294,11 @@ export default defineConfig(({ command, mode }) => {
                     /* tiki_themes */
                     {
                         src: "node_modules/@fortawesome/fontawesome-free/css/all.css",
-                        dest: "vendor_dist/@fortawesome/fontawesome",
+                        dest: "vendor_dist/@fortawesome/fontawesome-free",
                     },
                     {
                         src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
-                        dest: "vendor_dist/@fortawesome/webfonts",
+                        dest: "vendor_dist/@fortawesome/fontawesome-free/webfonts",
                     },
                     {
                         src: "node_modules/@zxing/library/umd/index.min.js",
@@ -541,7 +541,7 @@ export default defineConfig(({ command, mode }) => {
                     },
                     {
                         src: "node_modules/select2-bootstrap-5-theme/dist/*.min.css",
-                        dest: "vendor_dist/select2-bootstrap-theme/dist",
+                        dest: "vendor_dist/select2-bootstrap-5-theme/dist",
                     },
                     {
                         src: "node_modules/signature_pad/dist/signature_pad.umd.min.js",
