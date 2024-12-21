@@ -238,6 +238,7 @@ class ObjectLib extends TikiLib
             'wiki_page' => 'wiki page',
             'wiki page' => 'wiki page',
             'template' => 'template',
+            'user' => 'user',
         ];
 
         if (isset($supported[$type])) {
