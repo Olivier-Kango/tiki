@@ -298,7 +298,7 @@ export default defineConfig(({ command, mode }) => {
                     },
                     {
                         src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
-                        dest: "vendor_dist/@fortawesome/fontawesome-free/webfonts",
+                        dest: "vendor_dist/@fortawesome/webfonts",
                     },
                     {
                         src: "node_modules/@zxing/library/umd/index.min.js",
