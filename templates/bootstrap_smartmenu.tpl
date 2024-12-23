@@ -1,6 +1,6 @@
 {if not empty($item.children)}
     <li class="sm-nav-item{if $item.selected|default:null} active{/if} {$item.class|escape} {if $module_params.megamenu eq 'y' and $module_params.megamenu_static eq 'y' }static{/if}">
-        <a href="{$item.sefurl|escape}" class="sm-nav-link sm-sub-toggler">
+        <a href="{$item.sefurl|escape}" class="sm-nav-link nav-link sm-sub-toggler">
             {if $prefs.menus_items_icons eq "y"}
                 <span 
                     data-preset="icon-picker" 
@@ -37,7 +37,7 @@
                 </li>
             </ul>
         {else}
-            <ul class="sm-sub">
+            <ul class="sm-sub dropdown-menu">
                 {foreach from=$item.children item=sub}
                     {include file='bootstrap_smartmenu_children.tpl' item=$sub sub=true}
                 {/foreach}
@@ -45,8 +45,8 @@
         {/if}
     </li>
 {else}
-    <li class="sm-nav-item {$item.class|escape}{if $item.selected|default:null} active{/if}">
-        <a class="sm-nav-link" href="{$item.sefurl|escape}">
+    <li class="sm-nav-item{$item.class|escape}{if $item.selected|default:null} active{/if}">
+        <a class="sm-nav-link nav-link" href="{$item.sefurl|escape}">
             {if $prefs.menus_items_icons eq "y"}
                 <span
                     data-preset="icon-picker" 

@@ -1,6 +1,6 @@
 {if not empty($item.children)}
     <li class="sm-sub-item {if $item.selected|default:null} active{/if} {$item.class|escape}">
-        <a href="{$item.sefurl|escape}" class="sm-sub-link sm-sub-toggler">
+        <a href="{$item.sefurl|escape}" class="sm-sub-link dropdown-item sm-sub-toggler">
             {if $prefs.menus_items_icons eq "y"}
                 <span 
                     data-preset="icon-picker" 
@@ -20,7 +20,7 @@
             {/if}
             {tr}{$item.name}{/tr}
         </a>
-        <ul class="sm-sub">
+        <ul class="sm-sub dropdown-menu">
             {* {if $sub}
                 <li class="dropdown-header">{tr}{$item.name}{/tr}</li>
                 <li class="dropdown-divider"></li>
@@ -55,7 +55,7 @@
                 {tr}{$item.name}{/tr}
             </ul>
         {else}
-            <a class="sm-sub-link" href="{$item.sefurl|escape}">
+            <a class="was-sm-sub-link dropdown-item" href="{$item.sefurl|escape}">
                 {if $prefs.menus_items_icons eq "y"}
                     <span
                         data-preset="icon-picker" 

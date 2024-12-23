@@ -157,3 +157,8 @@ header.navbar.fixed-top {
         background-color: var(--bs-tertiary-bg);
     }
 }
+
+// Added for Smartmenus 2
+.tiki .sm-navbar {
+    --sm-navbar-z-index: reset; // 1050; // 9999;
+}

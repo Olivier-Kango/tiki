@@ -1,6 +1,6 @@
 {if $prefs.theme_unified_admin_backend eq 'y'}
     <div class="navbar-wrapper fixed-top" style="height: calc(100vh - var(--tiki-admin-top-modules-height)); max-width: var(--tiki-admin-offcanvas-width); overflow-y: auto; margin-top: var(--tiki-admin-top-modules-height)">
-        <nav class="navbar navbar-expand-lg py-0" role="navigation">
+        <div class="navbar navbar-expand-lg py-0" role="navigation">
 
             <div class="tiki-admin-aside-nav-{$prefs.theme_navbar_color_variant_admin}" style="height: var(--tiki-admin-top-modules-height)">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -495,7 +495,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
     </div>
 {else}
     {foreach from=$admin_icons key=page item=info}

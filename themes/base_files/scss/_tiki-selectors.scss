@@ -1175,3 +1175,52 @@ blockquote {
 .profile-tab-content h2{
     margin-top:0;
 }
+
+// Smartmenus
+ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
+    color: var(--bs-nav-link-color); // SmartMenus uses --sm-dropdowns-nav-link-color for this but why?
+}
+
+.navbar-dark.bg-dark.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
+    --bs-bg-opacity: 1;
+    --sm-dropdowns-navbar-bg: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+}
+
+@media (max-width: 767.98px) {
+    .navbar-dark.bg-dark.sm-navbar:not(.sm-navbar--dropdowns-only).sm-navbar {
+        --sm-collapsible-navbar-bg: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+    }
+}
+
+@media (min-width: 768px) {
+    .sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar.sm-navbar--vertical {
+        --sm-dropdowns-navbar-bg: transparent;
+    }
+}
+
+@media (min-width: 768px) {
+    .sm-nav-link {
+        --sm-dropdowns-nav-link-color: var(--bs-link-color);
+    }
+    .sm-sub-link {
+        --sm-dropdowns-sub-link-bg: var(--bs-body-bg);
+        --sm-dropdowns-sub-link-color: var(--bs-dropdown-color); // not defined by --bs-dropdown-color
+    }
+}
+
+.sm-toggler .sm-toggler-anchor .sm-toggler-icon {
+    color: var(--bs-navbar-color) !important;
+}
+
+[data-bs-theme=dark] .sm-navbar {
+    --sm-collapsible-nav-link-color: var(--bs-link-color);
+    --sm-collapsible-sub-first-level-bg: #000;
+ //   .sm-sub-link dropdown-item sm-sub-toggler sm-has-sub
+    --sm-collapsible-sub-link-color: var(--bs-link-color);
+    --sm-dropdowns-sub-bg: var(--bs-body-bg);
+}
+
+:root .sm-navbar {
+    --sm-brand: var(--bs-tertiary-bg);
+    --sm-brand-contrast: var(--bs-tertiary-color);
+}
