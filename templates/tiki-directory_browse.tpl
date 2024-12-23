@@ -89,7 +89,7 @@
 {/if}
 
 {* The links *}
-{if $categ_info.allowSites eq 'y'}
+{if isset($categ_info.allowSites) and $categ_info.allowSites eq 'y'}
     <h2>{tr}Links{/tr}</h2>
     {if ! empty($items) && count($items) > 0}
         <div class="dirlistsites">
