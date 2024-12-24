@@ -409,6 +409,9 @@ class SBOMGenerateCommand extends Command
                 $classes = array_unique(array_merge($classes, $this->getClassesFromFile("vendor_bundled/vendor/$packageName/$file")));
             }
             foreach ($functions as $function) {
+                if (empty($function)) {
+                    continue;
+                }
                 $namespaceMatchPattern .= '-e "[ =]' . $function . '(" ';
             }
             foreach ($classes as $class) {
