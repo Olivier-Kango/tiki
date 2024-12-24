@@ -62,8 +62,8 @@ export const DATA_TEST_ID = {
             :placeholder="placeholder"
             :teleported="false"
             @change="handleValueChange"
-            :multiple-limit="max" :clearable :collapse-tags
-            :max-collapse-tags
+            :multiple-limit="parseInt(max)" :clearable :collapse-tags
+            :max-collapse-tags="parseInt(maxCollapseTags)"
             :data-testid="DATA_TEST_ID.SELECT_ELEMENT"
         >
             <el-option 

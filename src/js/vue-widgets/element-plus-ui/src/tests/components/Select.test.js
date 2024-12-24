@@ -81,8 +81,8 @@ describe("Select", () => {
                 multiple: givenProps.multiple,
                 "allow-create": true,
                 "collapse-tags": true,
-                "max-collapse-tags": givenProps.maxCollapseTags,
-                "multiple-limit": givenProps.max,
+                "max-collapse-tags": parseInt(givenProps.maxCollapseTags),
+                "multiple-limit": parseInt(givenProps.max),
             }),
             expect.any(Object)
         );
