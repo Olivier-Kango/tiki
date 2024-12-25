@@ -10,7 +10,7 @@ use TikiLib;
 use PragmaRX\Google2FA\Google2FA as PragmaGoogle2FA;
 use Tiki\TwoFactorAuth\Exception\TwoFactorAuthException;
 
-class Google2FA implements TwoFactorAuth
+class Google2FA implements TwoFactorAuthInterface
 {
     private $google2fa;
     private $userlib;

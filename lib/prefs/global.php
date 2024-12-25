@@ -207,10 +207,10 @@ function prefs_global_list($partial = false)
             'description' => tra('Type of 2fa to be used.'),
             'type' => 'list',
             'options' => [
-                'google2FA' => tra('Google 2FA'),
-                'email2FA' => tra('Email 2FA'),
+                \Tiki\TwoFactorAuth\TwoFactorAuth::GOOGLE_2FA => tra('Google 2FA'),
+                \Tiki\TwoFactorAuth\TwoFactorAuth::EMAIL_2FA => tra('Email 2FA'),
             ],
-            'default' => 'google2FA',
+            'default' => \Tiki\TwoFactorAuth\TwoFactorAuth::GOOGLE_2FA,
         ],
         'twoFactorAuthEmailTokenLength' => [
             'name' => tra('Email 2FA Token Length'),

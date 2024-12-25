@@ -13,7 +13,7 @@ use TikiDb;
 use TikiLib;
 use TikiMail;
 
-class Email2FA implements TwoFactorAuth
+class Email2FA implements TwoFactorAuthInterface
 {
     private $twoFATable;
     private $userlib;

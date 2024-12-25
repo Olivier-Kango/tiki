@@ -8,7 +8,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-use Tiki\TwoFactorAuth\TwoFactorAuthFactory;
+use Tiki\TwoFactorAuth\TwoFactorAuth;
 use Tiki\TwoFactorAuth\Exception\TwoFactorAuthException;
 
 $inputConfiguration = [
@@ -324,10 +324,19 @@ if (
         }
     } elseif ($isvalid) {
         try {
-            $twoFactorAuth = TwoFactorAuthFactory::getTwoFactorAuth();
-            $requireMfa = TwoFactorAuthFactory::isMFARequired($requestedUser);
+            $twoFactorAuth = TwoFactorAuth::getTwoFactorAuth();
+            $requireMfa = TwoFactorAuth::isMFARequired($requestedUser);
+            $isForce2FA = TwoFactorAuth::forceTwoFactorAuth($requestedUser);
+            $twoFactorSecret = TwoFactorAuth::get2FactorSecret($requestedUser);
 
-            if ($prefs['twoFactorAuth'] == 'y' && isset($_REQUEST['login_mode']) && $_REQUEST['login_mode'] == 'popup') {
+            if (
+                $prefs['twoFactorAuth'] == 'y'
+                && isset($_REQUEST['login_mode'])
+                && $_REQUEST['login_mode'] == 'popup'
+                && $requireMfa
+                && $isForce2FA
+                && ! empty($twoFactorSecret)
+            ) {
                 $_SESSION['tiki_creds_username'] = $_REQUEST['user'];
                 $_SESSION['tiki_creds_password'] = $_REQUEST['pass'];
                 $params = '&create2FaCodeNormalLogin&tiki_username=' . urlencode($_REQUEST['user']);
@@ -335,11 +344,16 @@ if (
                 exit;
             }
 
-            if ($prefs['twoFactorAuth'] == 'y' && $requireMfa && ! $twoFactorAuth->validateCode($requestedUser, $_REQUEST['twoFactorAuthCode'])) {
-                $error = TWO_FA_INCORRECT;
-                $isvalid = false;
-                $smarty->assign('twoFactorForm', 'y');
-            } else {
+            if ($prefs['twoFactorAuth'] == 'y' && $requireMfa && $isForce2FA && ! empty($twoFactorSecret)) {
+                $is2FaPass = $twoFactorAuth->validateCode($requestedUser, $_REQUEST['twoFactorAuthCode']);
+                if (! $is2FaPass) {
+                    $error = TWO_FA_INCORRECT;
+                    $isvalid = false;
+                    $smarty->assign('twoFactorForm', 'y');
+                }
+            }
+
+            if ($isvalid) {
                 if ($requireMfa) {
                     $userlib->updateLastMFADate($requestedUser);
                 }

@@ -11,97 +11,144 @@ function capLock(e, el){
 {/jq}
 {jq}
 $(document).ready(function () {
-    {{if $prefs.twoFactorAuth eq 'y' && $prefs.twoFactorAuthType neq 'email2FA'}}
-        $('#two_factor_div').show();
-    {{/if}}
+    var twoFAType = "{{$prefs.twoFactorAuthType}}";
+    var is2FAEnabled = "{{$prefs.twoFactorAuth}}";
+
+    function show2FactorInputElement(btn, event) {
+        const btnStep = parseInt(btn.attr('step')) + 1;
+        btn.attr('step', btnStep);
+        $(event.currentTarget).find('fieldset').children().not('#two_factor_div').hide();
+        $(event.currentTarget).find('#two_factor_div').show();
+        $(btn).parent().show();
+    }
 
     function handleEmail2FA(username, btn, event) {
         $.ajax({
-            url: $.service("email2fa", "IsMFARequired"),
+            url: $.service("two_fa_auth", "IsMFARequired"),
             type: 'POST',
             data: { username: username },
-            success: function (res) {
+            success: async function (res) {
                 if (!res) {
                     $(event.currentTarget).off('submit').submit();
                 } else {
-                    generate2FACode(username, btn, event);
+                    const isForce2FA = await checkIsForce2FAForUser(username);
+                    if (isForce2FA) {
+                        if (twoFAType === 'google2FA') {
+                            show2FactorInputElement(btn, event);
+                        } else {
+                            generate2FACode(username, btn, event);
+                        }
+                    } else {
+                        $(event.currentTarget).off('submit').submit();
+                    }
                 }
             },
             error: function(req, status, error) {
-                $("#tikifeedback").html(
-                    `<div class = "alert alert-danger alert-dismissible">
-                        ${error}
-                        <button type="button" class= "btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>`
-                );
+                displayFeedback("error", error);
             }
         });
     }
 
     function generate2FACode(username, btn, event) {
         $.ajax({
-            url: $.service("email2fa", "GenerateCode"),
+            url: $.service("two_fa_auth", "GenerateCode"),
             type: 'POST',
             data: { username: username },
             success: function (data) {
                 if (data.success) {
-                    $("#tikifeedback").html(
-                        `<div class="alert alert-success alert-dismissible">
-                            ${data.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>`
-                    );
-                    btnStep = parseInt(btn.attr('step')) + 1;
-                    btn.attr('step', btnStep);
-                    $(event.currentTarget).find('fieldset').children().not('#two_factor_div').hide();
-                    $(event.currentTarget).find('#two_factor_div').show();
-                    $(btn).parent().show();
+                    displayFeedback("success", data.message);
+                    show2FactorInputElement(btn, event);
                 } else {
-                    $("#tikifeedback").html(
-                        `<div class="alert alert-danger alert-dismissible">
-                            ${data.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>`
-                    );
+                    displayFeedback("error", data.message);
                 }
             },
             error: function(req, status, error) {
-                $("#tikifeedback").html(
-                    `<div class = "alert alert-danger alert-dismissible">
-                        ${error}
-                        <button type="button" class= "btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>`
-                );
+                displayFeedback("error", error);
             }
         });
     }
 
-    $("#loginbox-{{$module_logo_instance}}").on("submit", function (event) {
+    function displayFeedback(type, message) {
+        const feedbackClass = type === "success" ? "alert-success" : "alert-danger";
+        $("#tikifeedback").html(
+            `<div class="alert ${feedbackClass} alert-dismissible">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`
+        );
+    }
+
+    function checkIsForce2FAForUser(username) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: $.service("two_fa_auth", "CheckForceTwoFactorAuth"),
+                type: 'POST',
+                data: { username: username },
+                success: function (data) {
+                    resolve(data);
+                },
+                error: function (req, status, error) {
+                    displayFeedback("error", error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    function getTwoFactorSecretGoogle2FA(username) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: $.service("two_fa_auth", "Get2FactorSecret"),
+                type: 'POST',
+                data: { username: username },
+                success: function (data) {
+                    if (data.success) {
+                        resolve(data.twoFactorSecret);
+                    } else {
+                        displayFeedback("error", data.message);
+                        resolve(null);
+                    }
+                },
+                error: function (req, status, error) {
+                    displayFeedback("error", error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    $("#loginbox-{{$module_logo_instance}}").on("submit", async function (event) {
         event.preventDefault();
         var isLoginScreen = parseInt($(event.currentTarget).parent('#login_form_div').length);
         var isNormalLogin = "{{$create2FaCodeNormalLogin}}";
+
         if (isNormalLogin === 'y') {
             var btn = $("button.submit", this);
             var btnStep = parseInt(btn.attr('step')) + 1;
             btn.attr('step', btnStep);
         }
+
         var username = $("#login-user_{{$module_logo_instance}}").val();
         var password = $("#login-pass_{{$module_logo_instance}}").val();
         var btn = $("button.submit", this);
         var btnStep = parseInt(btn.attr('step'));
+
         if (isNormalLogin === 'y') {
             $(this).off('submit').submit();
             return false;
-        } else if (username && password) {
-            {{if $prefs.twoFactorAuth eq 'y' && $prefs.twoFactorAuthType eq 'email2FA'}}
-                if (btnStep > 1 || isLoginScreen === 0) {
+        }
+
+        if (username && password) {
+            if (is2FAEnabled === 'y') {
+                var twoFASecret = await getTwoFactorSecretGoogle2FA(username);
+                if (btnStep > 1 || isLoginScreen === 0 || (twoFASecret == 'n' && twoFAType === 'google2FA')) {
                     $(this).off('submit').submit();
                     return false;
                 }
-                handleEmail2FA(username, btn, event);
-            {{else}}
+                await handleEmail2FA(username, btn, event);
+            } else {
                 $(this).off('submit').submit();
-            {{/if}}
+            }
         } else {
             $("#login-user_{{$module_logo_instance}}").trigger("focus");
             return false;
@@ -330,7 +377,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
             </div>
         </div>
         <input type="hidden" name="login_mode" value="{$mode}" />
-        {if isset($module_params.show_two_factor_auth) and $module_params.show_two_factor_auth eq 'y' and $prefs.twoFactorAuth eq 'y'}
+        {if $prefs.twoFactorAuth eq 'y' and ((isset($module_params.show_two_factor_auth) and $module_params.show_two_factor_auth eq 'y') or ! empty($error_login))}
         <div id="two_factor_div" class="my-2 {if $mode eq 'header'}mx-2{/if}" style="display: {if $create2FaCodeNormalLogin === 'y'} block; {else} none; {/if}">
             <label for="login-2fa_{$module_logo_instance}">{tr}Two-factor Authenticator Code:{/tr}</label>
             <input type="text" name="twoFactorAuthCode" autocomplete="off" class="form-control" id="login-2fa_{$module_logo_instance}">
