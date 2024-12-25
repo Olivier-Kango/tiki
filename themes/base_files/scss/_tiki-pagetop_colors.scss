@@ -23,7 +23,9 @@ body:not(.tiki-admin) .tiki-top-nav-dark
     a:not(.navbar-brand,.dropdown-item,.btn,.sm-sub-link),
     .dropdown-toggle,                  // Moved from tiki-selectors (this and next line)
     .nav-link.dropdown-toggle,
-    .btn.btn-link {
+    .btn.btn-link,
+    .sm-navbar:not(.sm-navbar--collapsible-only) .sm-nav-item .sm-nav-link
+    {
         color: var(--tiki-top-color);
         &:hover {
             color: var(--tiki-top-hover-color);
@@ -51,7 +53,9 @@ body:not(.tiki-admin) .tiki-top-nav-dark
     .dropdown-toggle,                  // Moved from tiki-selectors (this and next line)
     .nav-link.dropdown-toggle,
     .btn.btn-link,
-    .nav-link {
+    .nav-link,
+    .sm-navbar:not(.sm-navbar--collapsible-only) .sm-nav-item .sm-nav-link
+    {
         color: var(--tiki-topbar-color);
         &:hover {
             color: var(--tiki-topbar-hover-color);

@@ -55,7 +55,7 @@
                 {tr}{$item.name}{/tr}
             </ul>
         {else}
-            <a class="was-sm-sub-link dropdown-item" href="{$item.sefurl|escape}">
+            <a class="sm-sub-link{* dropdown-item*}" href="{$item.sefurl|escape}">
                 {if $prefs.menus_items_icons eq "y"}
                     <span
                         data-preset="icon-picker" 

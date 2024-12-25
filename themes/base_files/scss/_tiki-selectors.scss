@@ -1223,4 +1223,18 @@ ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
 :root .sm-navbar {
     --sm-brand: var(--bs-tertiary-bg);
     --sm-brand-contrast: var(--bs-tertiary-color);
+    --sm-dropdowns-sub-padding-y: 0px;
+    --sm-dropdowns-sub-padding-x: 0px;
+    .sm-sub-link {
+        border-radius: 0;
+    }
+    --sm-border-radius: 0px;
+    --sm-dropdowns-nav-link-border-radius: 0px;
+    --sm-dropdowns-sub-link-first-border-radius: 0px;
+    --sm-collapsible-nav-link-border-radius: 0px;
+    --sm-border-radius-large: 0px;
+    --sm-border-radius-small: 0px; // Used by sm-sub-item
+    --sm-font-size-small: var(--bs-body-font-size); // Used in dropdowns
+    --sm-dropdowns-sub-first-level-border-radius: 0px;
+    --sm-dropdowns-sub-border-color: var(--bs-border-color-translucent);
 }
