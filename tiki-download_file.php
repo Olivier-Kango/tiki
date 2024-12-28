@@ -141,6 +141,8 @@ if (! $skip) {
     }
 }
 
+TikiLib::lib('header')->setXRobotsTag($robots);
+
 //if the file is remote, display, and don't cache
 $attributelib = TikiLib::lib('attribute');
 $attributes = $attributelib->get_attributes('file', $info['fileId']);

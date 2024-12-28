@@ -22,6 +22,9 @@ if (! isset($_REQUEST["noteId"])) {
     $smarty->display("error.tpl");
     die;
 }
+
+TikiLib::lib('header')->setXRobotsTag($robots);
+
 if (isset($_REQUEST["save"])) {
     $disposition = "attachment";
 } else {

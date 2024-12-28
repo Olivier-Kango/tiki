@@ -95,6 +95,7 @@ if ($tiki_p_edit_structures == 'y') {
             $smarty->display("error.tpl");
             die;
         }
+        TikiLib::lib('header')->setXRobotsTag($robots);
         header("content-type: text/plain");
         $structlib->s_export_structure_tree($_REQUEST['export_tree']);
         die;

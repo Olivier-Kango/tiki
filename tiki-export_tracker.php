@@ -17,6 +17,9 @@ if (! isset($_REQUEST['trackerId'])) {
     $smarty->display('error.tpl');
     die;
 }
+
+TikiLib::lib('header')->setXRobotsTag($robots);
+
 $trklib = TikiLib::lib('trk');
 @ini_set('max_execution_time', 0);
 

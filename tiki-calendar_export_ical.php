@@ -115,6 +115,8 @@ if (((is_array($calendarIds) && (count($calendarIds) > 0)) or isset($_REQUEST["c
         $events = $calendarlib->getItemWithRecurrence($_REQUEST["calendarItem"]);
     }
 
+    TikiLib::lib('header')->setXRobotsTag($robots);
+
     if (isset($_REQUEST['csv'])) {
         header('Content-type: text/csv');
         header("Content-Disposition: inline; filename=tiki-calendar.csv");
