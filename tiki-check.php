@@ -1035,7 +1035,25 @@ if ($s != 'files') {
 // session.save_path
 $s = ini_get('session.save_path');
 if ($php_properties['session.save_handler']['setting'] == 'files') {
-    if (empty($s) || ! is_writable($s)) {
+    $writableSessionPath = false;
+    $currentSession = session_id();
+    session_write_close();
+
+    $newSession = session_create_id('tikicheck');
+    session_id($newSession);
+    session_start();
+    $_SESSION['tikisession'] = 'tikisession';
+    session_write_close();
+
+    session_id($newSession);
+    session_start();
+    $writableSessionPath = isset($_SESSION['tikisession']) && count($_SESSION) === 1 && $_SESSION['tikisession'] === 'tikisession';
+    session_write_close();
+
+    session_id($currentSession);
+    session_start();
+
+    if (! $writableSessionPath) {
         $php_properties['session.save_path'] = array(
             'fitness' => tra('bad'),
             'setting' => $s,
@@ -1049,11 +1067,12 @@ if ($php_properties['session.save_handler']['setting'] == 'files') {
         );
     }
 } else {
-    if (empty($s) || ! is_writable($s)) {
+    $openDir = ini_get('open_basedir');
+    if (strpos($openDir, $s) === false && ! empty($openDir)) {
         $php_properties['session.save_path'] = array(
-            'fitness' => tra('unsure'),
+            'fitness' => tra('unknown'),
             'setting' => $s,
-            'message' => tra('If you would be using the recommended session.save_handler setting of \'files\', the session.save_path would have to be writable. Currently it is not.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
+            'message' => tra('The session.save_path can\'t be checked because open_basedir is defined.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
         );
     } else {
         $php_properties['session.save_path'] = array(
