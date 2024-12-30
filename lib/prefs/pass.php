@@ -54,7 +54,7 @@ function prefs_pass_list()
         ],
         'pass_chr_special' => [
             'name' => tra('Require special characters'),
-            'description' => tra('Password must contain at least one special character in lower case like <b>" / $ % ? & * ( ) _ + .</b> Use this option to require users to select stronger passwords.'),
+            'description' => tra('Password must contain at least one special character like <b>" / $ % ? & * ( ) _ + .</b> Use this option to require users to select stronger passwords.'),
             'type' => 'flag',
             'default' => 'n',
         ],
@@ -66,6 +66,12 @@ function prefs_pass_list()
         ],
         'pass_diff_username' => [
             'name' => tra('The password must be different from the user\'s log-in name'),
+            'type' => 'flag',
+            'default' => 'y',
+        ],
+        'pass_show_rules' => [
+            'name' => tra('Show rules for password creation'),
+            'description' => tra('Display the password creation rules to users when they are setting their passwords. This helps users understand the requirements for creating a valid password.'),
             'type' => 'flag',
             'default' => 'y',
         ],
