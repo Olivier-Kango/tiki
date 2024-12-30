@@ -2601,17 +2601,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "v1.4.4",
+            "version": "v1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "28a10baaff30e72a4bd608eb147e80084975e1f8"
+                "reference": "b7686814aafc8c34416435ceb4fb9b2d569b9e14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-28a10baaff30e72a4bd608eb147e80084975e1f8-zip-807318.zip",
-                "reference": "28a10baaff30e72a4bd608eb147e80084975e1f8",
-                "shasum": "084976bb64d29286cfc8c80e83ae56084b54ff5e"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-b7686814aafc8c34416435ceb4fb9b2d569b9e14-zip-12c49e.zip",
+                "reference": "b7686814aafc8c34416435ceb4fb9b2d569b9e14",
+                "shasum": "7948b76c3eabe9712ee674d359d6e67896b45f14"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2670,7 +2670,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-08-09T10:24:45+00:00"
+            "time": "2024-12-19T09:45:08+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -15105,9 +15105,9 @@
         "erusev/parsedown": 10,
         "hesammousavi/bootstrap-v4-rtl": 20,
         "league/flysystem": 10,
+        "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
-        "rubix/extras": 10,
-        "montefuscolo/xmpp": 20
+        "rubix/extras": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -15124,7 +15124,7 @@
         "ext-iconv": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "ext-ldap": "0",
         "ext-soap": "0",
