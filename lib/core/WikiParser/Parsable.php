@@ -492,7 +492,7 @@ if ( \$('#$id') ) {
 
         $func_name = 'wikiplugin_' . $name;
 
-        $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'code', 'fade', 'footnote', 'gdgraph', 'html', 'htmlfeed', 'markdown', 'pdfpage', 'quote',
+        $plugins_parsing_data = ['accordion', 'benchmark', 'button', 'code', 'fade', 'footnote', 'gdgraph', 'html', 'markdown', 'pdfpage', 'quote',
                                 'registermemberpayment', 'rr_info', 'shorten', 'slideshowslide', 'swiper', 'tabs', 'tour', 'tracker', 'param', 'trackerquerytemplate', 'split', 'wantedpages', 'fluidgrid', 'sort'];
         if (($this->option['is_markdown'] ?? false) && ! in_array($name, $plugins_parsing_data)) {
             if ($name == 'fancytable') {

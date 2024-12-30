@@ -556,12 +556,6 @@
         "lib\/core\/Table\/Manager.php": {
             "class:Table_Manager": true
         },
-        "lib\/core\/Feed\/Contents.php": {
-            "class:Feed_Contents": true
-        },
-        "lib\/core\/Feed\/Container.php": {
-            "class:Feed_Container": true
-        },
         "lib\/test\/IntegrationTests\/MLModelTest.php": {
             "class:MLModelTest": true
         },
@@ -570,21 +564,6 @@
         },
         "lib\/test\/IntegrationTests\/TrackerItemPermissionTest.php": {
             "class:TrackerItemPermissionTest": true
-        },
-        "lib\/core\/Feed\/Abstract.php": {
-            "class:Feed_Abstract": true
-        },
-        "lib\/core\/Feed\/Html\/Receive.php": {
-            "class:Feed_Html_Receive": true
-        },
-        "lib\/test\/shipping\/ShippingTest.php": {
-            "class:ShippingTest": true
-        },
-        "lib\/core\/Feed\/Html.php": {
-            "class:Feed_Html": true
-        },
-        "lib\/core\/Feed\/Item.php": {
-            "class:Feed_Item": true
         },
         "lib\/test\/TikiLib\/MultiExplodeTest.php": {
             "class:TikiLib_MultiExplodeTest": true
@@ -4433,26 +4412,8 @@
         "lib\/core\/Table\/Manager.php": {
             "Table_Manager": true
         },
-        "lib\/core\/Feed\/Contents.php": {
-            "Feed_Contents": true
-        },
-        "lib\/core\/Feed\/Container.php": {
-            "Feed_Container": true
-        },
         "lib\/core\/Search\/ContentSource\/ForumPostSource.php": {
-            "Search_ContentSource_ForumPostSource": true
-        },
-        "lib\/core\/Feed\/Abstract.php": {
-            "Feed_Abstract": true
-        },
-        "lib\/core\/Feed\/Html\/Receive.php": {
-            "Feed_Html_Receive": true
-        },
-        "lib\/core\/Feed\/Html.php": {
-            "Feed_Html": true
-        },
-        "lib\/core\/Feed\/Item.php": {
-            "Feed_Item": true
+            "Search_Contentsource_ForumPostSource": true
         },
         "lib\/test\/TikiLib\/MultiExplodeTest.php": {
             "TikiLib_MultiExplodeTest": true

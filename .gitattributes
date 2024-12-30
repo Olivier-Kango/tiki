@@ -4857,8 +4857,6 @@ lib/wiki-plugins/wikiplugin_groupstat.php -text
 lib/wiki-plugins/wikiplugin_h5p.php -text
 lib/wiki-plugins/wikiplugin_hasbought.php -text
 lib/wiki-plugins/wikiplugin_html.php -text
-lib/wiki-plugins/wikiplugin_htmlfeed.php -text
-lib/wiki-plugins/wikiplugin_htmlfeedlink.php -text
 lib/wiki-plugins/wikiplugin_icon.php -text
 lib/wiki-plugins/wikiplugin_iframe.php -text
 lib/wiki-plugins/wikiplugin_img.php -text
@@ -8049,7 +8047,6 @@ themes/yeti/templates/index.php -text
 /tiki-export_wiki_pages.php -text
 /tiki-faq_questions.php -text
 /tiki-featured_link.php -text
-/tiki-feed.php -text
 /tiki-file_archives.php -text
 /tiki-file_galleries_rankings.php -text
 /tiki-file_galleries_rss.php -text
