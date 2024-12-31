@@ -281,18 +281,194 @@ $headerlib->add_cssfile(
     REVEALJS_DIST_PATH . '/' . 'theme/' . $theme
                 . '.css'
 );
-$headerlib->add_css(
-    '.reveal span{font-family: "Font Awesome 5 Free";font-style: normal;font-weight:900} .reveal #ss-options span.select2-selection__choice__value { font-family: "Source Sans Pro", Helvetica, sans-serif } .reveal .controls{z-index:103;}#ss-settings-holder {position:fixed;top:10px;left:0px;width:10%;height:30px;text-align:left;padding-left:15px;cursor:pointer;z-index:102;line-height:1.5rem}#ss-options{position:fixed;top:50px;left:-2000px;width:230px;background-color:rgba(00,00,00,0.8);font-size:1.1rem;line-height:2.2rem;color:#fff;z-index:101;padding: 10px;border-top-right-radius: 25px;border-bottom-right-radius: 25px;} #ss-options a{color:#999} #ss-options a:hover{color:#fff} #page-bar,.icon_edit_section,.editplugin, #show-errors-button, .wikitext, .icon_edit_section, #toc,.heading-link {display:none} .fade:not(.show) { opacity: 1;} @media all and (orientation: portrait){.reveal section div,.reveal span,.reveal p,.reveal blockquote,.reveal pre,.reveal ol,.reveal ul,.reveal article,.reveal section {font-size:100% !important}} #reveal-controls span,#listSlides{cursor:pointer;color:#999;padding:0.15em} #reveal-controls span:hover,#listSlides:hover{color:#fff} footer{visibility:hidden} .scale-1{transform:scale(0.9);transform-origin:top center} .scale-2{transform:scale(0.8);transform-origin:top center} .scale-3{transform:scale(0.7);transform-origin:top center} .scale-4{transform:scale(0.6);transform-origin:top center} .scale-5{transform:scale(0.5);transform-origin:top center} .scale-6{transform:scale(0.45);transform-origin:top center}'
+
+$headerlib->add_css(<<<CSS
+    .reveal span {
+        font-weight: bold;
+    }
+
+    .reveal #ss-options span.select2-selection__choice__value {
+        font-family: "Source Sans Pro", Helvetica, sans-serif;
+    }
+
+    .reveal .controls {
+        z-index: 103;
+    }
+
+    #ss-settings-holder {
+        position: fixed;
+        top: 10px;
+        left: 0px;
+        width: 10%;
+        height: 30px;
+        text-align: left;
+        padding-left: 15px;
+        cursor: pointer;
+        z-index: 102;
+        line-height: 1.5rem;
+    }
+
+    #ss-options {
+        position: fixed;
+        top: 50px;
+        left: -2000px;
+        width: 230px;
+        background-color: rgba(0, 0, 0, 0.8);
+        font-size: 1.1rem;
+        line-height: 2.2rem;
+        color: #fff;
+        z-index: 101;
+        padding: 10px;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+
+    #ss-options a {
+        color: #999;
+    }
+
+    #ss-options a:hover {
+        color: #fff;
+    }
+
+    #page-bar, .icon_edit_section, .editplugin, #show-errors-button, .wikitext, .icon_edit_section, #toc, .heading-link {
+        display: none;
+    }
+
+    .fade:not(.show) {
+        opacity: 1;
+    }
+
+    @media all and (orientation: portrait) {
+        .reveal section div, .reveal span, .reveal p, .reveal blockquote, .reveal pre, .reveal ol, .reveal ul, .reveal article, .reveal section { 
+            font-size: 100% !important; 
+        }
+    }
+
+    #reveal-controls span, #listSlides { 
+        cursor: pointer;
+        color: #999;
+        padding: 0.15em;
+    }
+
+    #reveal-controls span:hover, #listSlides:hover {
+        color: #fff;
+    }
+
+    footer {
+        visibility: hidden;
+    }
+
+    .scale-1 {
+        transform: scale(0.9);
+        transform-origin: top center;
+    }
+
+    .scale-2 {
+        transform: scale(0.8);
+        transform-origin: top center;
+    }
+
+    .scale-3 {
+        transform: scale(0.7);
+        transform-origin: top center; 
+    }
+
+    .scale-4 {
+        transform: scale(0.6);
+        transform-origin: top center; 
+    }
+
+    .scale-5 {
+        transform: scale(0.5);
+        transform-origin: top center;
+    }
+
+    .scale-6 {
+        transform: scale(0.45);
+        transform-origin: top center; 
+    }
+CSS
 );
 
-$headerlib->add_jq_onready(
-    '$("<link/>", {rel: "stylesheet",type: "text/css",href: "", id:"themeCSS"}).appendTo("head");
-    $("body").append("<style type=\"text/css\">.reveal li,.reveal section p { font-size: 1.3em; line-height:1.4em } .reveal li{margin:0.1em 0.5em 0.1em 0.5em} .reveal li ul li{font-size:0.9em !important; margin:0em !important}.reveal section pre code { font-size: 0.7em !important;} .reveal h1 {font-size: 2.8em; text-transform:none !important;margin-bottom:0 !important;} .reveal  {font-size: 1.4em;}.reveal .slides section .fragment.grow.visible {transform: scale(1.03);}.reveal table {overflow: hidden;} .reveal section img {border:0px;background:none;box-shadow:none} .reveal table th, .reveal table td{text-align:center;vertical-align:top !important} .reveal ul{vertical-align:top !important} @media (max-width: 768px) { .reveal { font-size: 1em; overflow-wrap: break-word; word-wrap: break-word; white-space: normal; word-break: break-word; } }</style>");
+$headerlib->add_jq_onready(<<<JS
+    $("<link/>", {
+        rel: "stylesheet",
+        type: "text/css",
+        href: "",
+        id:"themeCSS"
+    }).appendTo("head");
+
+    $("body").append(`
+        <style type=\"text/css\">
+            .reveal li, .reveal section p {
+                font-size: 1.3em;
+                line-height: 1.4em;
+            }
+            
+            .reveal li {
+                margin: 0.1em 0.5em 0.1em 0.5em;
+            }
+            
+            .reveal li ul li {
+                font-size: 0.9em !important;
+                margin: 0em !important;
+            }
+            
+            .reveal section pre code {
+                font-size: 0.7em !important;
+            }
+            
+            .reveal h1 {
+                font-size: 2.8em;
+                text-transform: none !important;
+                margin-bottom: 0 !important;
+            } 
+            
+            .reveal  {
+                font-size: 1.4em;
+            }
+            
+            .reveal .slides section .fragment.grow.visible {
+                transform: scale(1.03);
+            }
+            
+            .reveal table {
+                overflow: hidden;
+            } 
+            
+            .reveal section img {
+                border: 0px;
+                background: none;
+                box-shadow: none;
+            }
+            
+            .reveal table th, .reveal table td {
+                text-align: center;
+                vertical-align: top !important;
+            }
+            
+            .reveal ul {
+                vertical-align: top !important;
+            }
+            
+            @media (max-width: 768px) {
+                .reveal {
+                    font-size: 1em;
+                    overflow-wrap: break-word;
+                    word-wrap: break-word;
+                    white-space: normal;
+                    word-break: break-word;
+                }
+            }
+        </style>
+    `);
+
     var extraElements=["#page-bar",".icon_edit_section",".icon-link-external",".editplugin","#show-errors-button",".wikitext",".icon_edit_section","#toc","footer",".heading-link"];
+
     jQuery.each( extraElements, function( i, val ) {
         $( val ).remove();
     });
-
 
     if(fragments=="y") {
         $( "li" ).addClass( "fragment "+fragmentClass+" "+fragmentHighlightColor );
@@ -302,18 +478,18 @@ $headerlib->add_jq_onready(
         var position = $("#ss-options").position();
         if(position.left==0){
             $("#ss-settings").switchClass("fa-times","fa-cogs");
-            $("#ss-options").animate({left: \'-2000px\'});
+            $("#ss-options").animate({left: '-2000px'});
         }
         else {
             $("#ss-settings").switchClass("fa-cogs","fa-times");
-            $("#ss-options").animate({left: \'0px\'});}
+            $("#ss-options").animate({left: '0px'});}
         });
-        Reveal.addEventListener( \'slidechanged\', function( event ) {
+        Reveal.addEventListener( 'slidechanged', function( event ) {
 
             var position = $("#ss-options").position();
             if(position.left==0){
                 $("#ss-settings").switchClass("fa-times","fa-cogs");
-                $("#ss-options").animate({left: \'-2000px\'});
+                $("#ss-options").animate({left: '-2000px'});
             }
         });
 
@@ -398,7 +574,7 @@ $headerlib->add_jq_onready(
             //end of loop
         });
 
-        Reveal.addEventListener( \'ready\', function( event ) {
+        Reveal.addEventListener( 'ready', function( event ) {
 
             var found=0;
             if(location.hash && found==0){
@@ -416,7 +592,7 @@ $headerlib->add_jq_onready(
                  });
              }
         });
-        '
+JS
 );
 
 $params = [];
