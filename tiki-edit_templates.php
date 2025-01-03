@@ -28,14 +28,11 @@ $access->check_feature('feature_view_tpl');
 // you have to have the perm view and edit to continue:
       // if view perm is set: continue
 if (
-    ($tiki_p_view_templates != 'y') ||
+    ($prefs['feature_view_tpl'] != 'y') ||
       // if edit perm is set: continue, else quit if user tries save/delete
-      ($tiki_p_edit_templates != 'y' &&
         (isset($_REQUEST["save"]) ||
          isset($_REQUEST['saveTheme']) ||
-         isset($_REQUEST['delete'])
-        )
-      )
+         isset($_REQUEST['delete']))
 ) {
     $smarty->assign('errortype', 401);
     $smarty->assign('msg', tra("You don't have permission to use this feature"));
@@ -61,10 +58,10 @@ if (isset($_REQUEST["template"])) {
     }
 }
 
-$relativeDirectories = ['', 'mail/', 'map/', 'modules/', 'styles/' . str_replace('.css', '', $prefs['style']) . '/'];
+$relativeDirectories = ['', 'mail/', 'map/', 'modules/', isset($prefs['style']) && ! empty($prefs['style']) ? 'styles/' . str_replace('.css', '', $prefs['style']) . '/' : ''];
 
 // do editing stuff only if you have the permission to:
-if ($tiki_p_edit_templates == 'y') {
+if ($prefs['feature_view_tpl'] == 'y') {
     if ((isset($_REQUEST["save"]) || isset($_REQUEST['saveTheme'])) && ! empty($_REQUEST['template']) && $access->checkCsrf(true)) {
         $access->check_feature('feature_edit_templates');
         $access->checkCsrf();
