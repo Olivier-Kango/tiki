@@ -153,8 +153,9 @@ $imagePath: "../images/";
     --tiki-feb12-middle-bg: #ffffff url(../images/page.jpg) repeat-x;
     --tiki-feb12-col1-col3-bg: #ffffff url('#{$imagePath}page.jpg') repeat-x;
     --tiki-feb12-col2-bg: #a8cce2 url(../images/columnbg.jpg) repeat-x;
-    --tiki-feb12-col2-nav-link-color: $link-color;
-    --tiki-feb12-col2-nav-link-hover-color: $link-hover-color;
+    --tiki-feb12-col2-nav-link-color: #{$link-color};
+    --tiki-feb12-col2-nav-link-hover-color: #{$link-hover-color};
+    --tiki-feb12-main-footer-bg: #A8CCE2;
 }
 
 body.layout_classic {
@@ -168,8 +169,13 @@ body.layout_classic {
     --bs-navbar-color: #fff;
     --tiki-feb12-col2-nav-link-color: rgba(var(--bs-link-color-rgb));
     --tiki-feb12-col2-nav-link-hover-color: rgba(var(--bs-link-hover-color-rgb));
+    --tiki-feb12-main-footer-bg: #171d28;
 }
 
-:root {
+:root,
+[data-bs-theme="light"] {
     --tiki-page-content-top-margin: 0 !important; // Any positive value creates a gap between the backgrounds of the topbar and the page content.
+    .sm-sub-link {
+        color: #005999FF;
+    }
 }

@@ -240,6 +240,10 @@ table.table {
 // -------------------- Badges -------------------- //
 // -------------------- Modals -------------------- //
 // -------------------- Alerts -------------------- //
+.alert .position-absolute.end-0 {  // Move inward to clear border and shadow
+    right: 10px !important;
+}
+
 // -------------------- Progress bars -------------------- //
 // -------------------- List group -------------------- //
 // -------------------- Image thumbnails -------------------- //
@@ -307,4 +311,7 @@ input:checked + .slide-container .slide {
     .btn-link { color: #83b5fd !important; }
     .btn-link:hover {color: #83B5FDFF !important; }
     .dropdown-item:hover, .dropdown-item.active {background: #52525e};
+    ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
+        color: #83b5fd !important;
+    }
 }

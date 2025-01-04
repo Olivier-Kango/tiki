@@ -186,7 +186,9 @@
 :root {
     --tiki-card-bg: #fff;
     --tiki-card-color: var(--bs-body-color);
-//    --tiki-card-link-color:
+    .sm-nav-link {
+        --sm-font-family: var(--bs-body-font-family);
+    }
 }
 
 [data-bs-theme=dark] {

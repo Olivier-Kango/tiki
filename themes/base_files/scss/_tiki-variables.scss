@@ -160,5 +160,5 @@ header.navbar.fixed-top {
 
 // Added for Smartmenus 2
 .tiki .sm-navbar {
-    --sm-navbar-z-index: reset; // 1050; // 9999;
+    --sm-navbar-z-index: 1000; // reset; // 1050; // 9999;
 }

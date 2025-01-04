@@ -209,4 +209,7 @@
     .btn-outline-dark {
         --bs-btn-color: #818A92; --bs-btn-border-color: var(--bs-btn-color); // Same as secondary
     }
+    ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
+        color: var(--bs-nav-link-color);
+    }
 }

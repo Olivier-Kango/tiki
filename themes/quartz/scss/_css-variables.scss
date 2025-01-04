@@ -160,6 +160,9 @@
              color: $link-color-dark;
         }
     }
+    ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
+        color: $link-color-dark;
+    }
 }
 
 :root {

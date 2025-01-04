@@ -1223,8 +1223,10 @@ ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
 :root .sm-navbar {
     --sm-brand: var(--bs-tertiary-bg);
     --sm-brand-contrast: var(--bs-tertiary-color);
-    --sm-dropdowns-sub-padding-y: 0px;
-    --sm-dropdowns-sub-padding-x: 0px;
+
+    --sm-dropdowns-sub-padding-y: ;
+
+    --sm-dropdowns-sub-padding-x: var(--bs-dropdown-padding-x);
     .sm-sub-link {
         border-radius: 0;
     }
@@ -1237,4 +1239,23 @@ ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
     --sm-font-size-small: var(--bs-body-font-size); // Used in dropdowns
     --sm-dropdowns-sub-first-level-border-radius: 0px;
     --sm-dropdowns-sub-border-color: var(--bs-border-color-translucent);
+}
+
+:root .sm-nav-link {
+    --sm-dropdowns-nav-link-font-weight: var(--bs-nav-link-font-weight);
+    --sm-font-family: var(--bs-body-font-family);
+    --sm-dropdowns-nav-link-padding-y: 0.5rem; // var(--bs-navbar-nav-link-padding-y); - Variable value was undefined
+    --sm-dropdowns-nav-link-padding-x: 0.5rem; // var(--bs-navbar-nav-link-padding-x); - (also here)
+}
+
+:root .sm-sub {
+    --sm-dropdowns-sub-bg: var(--bs-dropdown-bg);
+    --sm-dropdowns-sub-padding-y: var(--bs-dropdown-padding-y);
+    --sm-dropdowns-sub-padding-x: var(--bs-dropdown-padding-x);
+}
+
+:root .sm-sub-link {
+    --sm-dropdowns-sub-link-bg: transparent;
+    --sm-dropdowns-sub-link-padding-y: var(--bs-dropdown-item-padding-y);
+    --sm-dropdowns-sub-link-padding-x: var(--bs-dropdown-item-padding-x);
 }

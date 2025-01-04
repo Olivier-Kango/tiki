@@ -163,6 +163,9 @@ $navbar-light-hover-bg: red;
 
 [data-bs-theme=dark] {
     --bs-secondary-bg: #2c3237;
+    .sm-sub-link {
+        color: var(--bs-link-color) !important;
+    }
 }
 
 :root {
