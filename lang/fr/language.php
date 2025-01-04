@@ -18512,6 +18512,7 @@ $lang_current = array(
 "Discuss" => "Discussion",
 "Bookmark" => "Signet",
 "View latest version before editing" => "Voir la dernière version avant de modifier",
+"View latest version" => "Voir la dernière version",
 "Contributions to" => "Contributions à",
 "current version" => "version courante",
 "Words" => "Mots",
