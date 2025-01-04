@@ -1,4 +1,4 @@
-<div class="card flex-fill p-3 bg-info-subtle text-info-emphasis tikihelp plugin" role="button" tabindex="1" title="{$plugin.name}" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="{$plugin.description}" data-plugin-name="{$plugin_name|lower|@addslashes}" data-area-id="{$area_id}">
+<div class="card flex-fill p-3 bg-info-subtle text-info-emphasis tikihelp plugin plugin-link" role="button" tabindex="1" title="{$plugin.name}" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="{$plugin.description}" data-plugin-name="{$plugin_name|lower|@addslashes}" data-area-id="{$area_id}">
     <div class="">
         <div class="d-flex flex-column align-items-center">
             <span class="fs-2">

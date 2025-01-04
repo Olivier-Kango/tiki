@@ -2,13 +2,13 @@
     "SPDXID": "SPDXRef-DOCUMENT",
     "spdxVersion": "SPDX-2.3",
     "creationInfo": {
-        "created": "2024-12-24T11:18:57+00:00",
+        "created": "2025-01-04T13:31:29+00:00",
         "creators": [
             "Tool: php console.php sbom:generate"
         ]
     },
     "name": "Tiki",
-    "documentNamespace": "https:\/\/tiki.org\/document-20241224T111857Z-676a98a1efd84",
+    "documentNamespace": "https:\/\/tiki.org\/document-20250104T133129Z-6779383187446",
     "packages": [
         {
             "SPDXID": "SPDXRef-Package-67214064faf62b255c10a1a807da3fea65e83d5fde3d53cbbdd504c11d0e56b7",
@@ -120,7 +120,7 @@
             "sourceInfo": "git+https:\/\/github.com\/vitejs\/vite-plugin-vue.git"
         },
         {
-            "SPDXID": "SPDXRef-Package-3653234bc2e55e232f68ab8bbfab3347bb33b6622654507e7fe360890217e9e2",
+            "SPDXID": "SPDXRef-Package-eed941e25895816b83eeb6adb34d2c1af2e509e4acfeee3be1da5031a08331d2",
             "name": "vite",
             "description": null,
             "homepage": "https:\/\/vite.dev",
@@ -141,12 +141,12 @@
             },
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "6.0.5",
-            "x-lastPublished": "2024-12-20T11:37:48.883Z",
+            "x-latestVersion": "6.0.7",
+            "x-lastPublished": "2025-01-02T19:50:46.030Z",
             "x-fileCount": 34,
-            "x-unpackedSize": "2816.333KB",
-            "versionInfo": "6.0.3",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/vite\/-\/vite-6.0.3.tgz",
+            "x-unpackedSize": "2818.13KB",
+            "versionInfo": "6.0.5",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/vite\/-\/vite-6.0.5.tgz",
             "licenseDeclared": "MIT",
             "sourceInfo": "git+https:\/\/github.com\/vitejs\/vite.git"
         },
@@ -243,7 +243,7 @@
             "licenseDeclared": "ISC"
         },
         {
-            "SPDXID": "SPDXRef-Package-48e20d8f751f9eade4f6452813f45b6a6b9b86c05f453ddaf58f566f4d8870da",
+            "SPDXID": "SPDXRef-Package-e970081004d84814de47803c86a4c6256e2d7604e166171c48b82154de295d89",
             "name": "@fortawesome\/fontawesome-free",
             "description": null,
             "x-usage": [
@@ -260,8 +260,8 @@
             "x-lastPublished": "2024-12-16T21:30:56.529Z",
             "x-fileCount": 2149,
             "x-unpackedSize": "18497.452KB",
-            "versionInfo": "6.7.1",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/@fortawesome\/fontawesome-free\/-\/fontawesome-free-6.7.1.tgz",
+            "versionInfo": "6.7.2",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/@fortawesome\/fontawesome-free\/-\/fontawesome-free-6.7.2.tgz",
             "licenseDeclared": "(CC-BY-4.0 AND OFL-1.1 AND MIT)",
             "homepage": "https:\/\/fontawesome.com",
             "sourceInfo": "git+https:\/\/github.com\/FortAwesome\/Font-Awesome.git"
@@ -356,16 +356,11 @@
             "sourceInfo": "git+https:\/\/github.com\/juliangarnier\/anime.git"
         },
         {
-            "SPDXID": "SPDXRef-Package-0eba9790f083e35793d9a186ed31c7c4864fd4d9ce8a86dd60b08899f6e5688c",
+            "SPDXID": "SPDXRef-Package-9d852eee2c7366881f7fcef62c3e7c1c8f0b6160537429c50617e31c2fdfdb7c",
             "name": "blueimp-canvas-to-blob",
-            "homepage": "https:\/\/github.com\/blueimp\/JavaScript-Canvas-to-Blob",
-            "license": null,
             "description": null,
             "x-usage": [
                 ".\/\/lib\/smarty_tiki\/FunctionHandler\/FileGalUploader.php:        $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '\/blueimp-canvas-to-blob\/js\/canvas-to-blob.js');"
-            ],
-            "x-requiredBy": [
-                "blueimp-file-upload"
             ],
             "x-workspace": "common-externals",
             "x-usageComment": "Required by 'blueimp-file-upload' for converting images to blob format via canvas",
@@ -375,14 +370,15 @@
             "x-lastPublished": "2021-09-25T16:10:31.596Z",
             "x-fileCount": 6,
             "x-unpackedSize": "14.694KB",
-            "versionInfo": "3.5.0",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/blueimp-canvas-to-blob\/-\/blueimp-canvas-to-blob-3.5.0.tgz",
+            "versionInfo": "3.29.0",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/blueimp-canvas-to-blob\/-\/blueimp-canvas-to-blob-3.29.0.tgz",
+            "licenseDeclared": "MIT",
+            "homepage": "https:\/\/github.com\/blueimp\/JavaScript-Canvas-to-Blob",
             "sourceInfo": "git:\/\/github.com\/blueimp\/JavaScript-Canvas-to-Blob.git"
         },
         {
             "SPDXID": "SPDXRef-Package-042aed83c4cec5555e22cbf57b5537323588472ee88e8e75c124b8bb05355de6",
             "name": "blueimp-file-upload",
-            "license": null,
             "description": null,
             "usageComment": null,
             "x-usage": [
@@ -397,13 +393,26 @@
             "x-unpackedSize": "168.214KB",
             "versionInfo": "9.34.0",
             "downloadLocation": "https:\/\/registry.npmjs.org\/blueimp-file-upload\/-\/blueimp-file-upload-9.34.0.tgz",
+            "licenseDeclared": "MIT",
             "homepage": "https:\/\/github.com\/blueimp\/jQuery-File-Upload",
             "sourceInfo": "git:\/\/github.com\/blueimp\/jQuery-File-Upload.git"
         },
         {
-            "SPDXID": "SPDXRef-Package-c6de078bb5ddeec266012fe8f1c4e94adbba67501f70e87991bce016b44926c2",
+            "SPDXID": "SPDXRef-Package-0eba9790f083e35793d9a186ed31c7c4864fd4d9ce8a86dd60b08899f6e5688c",
+            "name": "blueimp-canvas-to-blob",
+            "homepage": null,
+            "x-requiredBy": [
+                "blueimp-file-upload"
+            ],
+            "x-direct": false,
+            "x-type": "npm",
+            "versionInfo": "3.5.0",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/blueimp-canvas-to-blob\/-\/blueimp-canvas-to-blob-3.5.0.tgz",
+            "licenseDeclared": "MIT"
+        },
+        {
+            "SPDXID": "SPDXRef-Package-6f3ed293f7a6ca87a272ce4ce7ba026922e4b8b5d59278c76fed9b75fe4f4740",
             "name": "blueimp-load-image",
-            "license": null,
             "description": null,
             "x-usage": [
                 ".\/\/lib\/smarty_tiki\/FunctionHandler\/FileGalUploader.php:        $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '\/blueimp-load-image\/js\/load-image.all.min.js');"
@@ -416,8 +425,9 @@
             "x-lastPublished": "2021-10-20T14:18:14.642Z",
             "x-fileCount": 15,
             "x-unpackedSize": "176.214KB",
-            "versionInfo": "2.12.2",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/blueimp-load-image\/-\/blueimp-load-image-2.12.2.tgz",
+            "versionInfo": "2.31.0",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/blueimp-load-image\/-\/blueimp-load-image-2.31.0.tgz",
+            "licenseDeclared": "MIT",
             "homepage": "https:\/\/github.com\/blueimp\/JavaScript-Load-Image",
             "sourceInfo": "git:\/\/github.com\/blueimp\/JavaScript-Load-Image.git"
         },
@@ -998,7 +1008,7 @@
             "sourceInfo": "git+https:\/\/github.com\/codemirror\/basic-setup.git"
         },
         {
-            "SPDXID": "SPDXRef-Package-46c42e666fad25fbef053a84ab6de5c08de4f0a5bf29935c14d0f93219a882df",
+            "SPDXID": "SPDXRef-Package-29ccc12ebb833f4f842c546a5a42f48f85c2c6898227ae8efe35f1a5b2adb91d",
             "name": "converse.js",
             "description": null,
             "x-usage": [
@@ -1012,8 +1022,8 @@
             "x-lastPublished": "2024-12-17T05:08:06.503Z",
             "x-fileCount": 959,
             "x-unpackedSize": "41643.946KB",
-            "versionInfo": "10.1.7",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/converse.js\/-\/converse.js-10.1.7.tgz",
+            "versionInfo": "10.1.8",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/converse.js\/-\/converse.js-10.1.8.tgz",
             "licenseDeclared": "MPL-2.0",
             "homepage": "https:\/\/github.com\/conversejs\/converse.js#readme",
             "sourceInfo": "git:\/\/github.com\/conversejs\/converse.js.git"
@@ -1518,27 +1528,6 @@
             "sourceInfo": "git+https:\/\/github.com\/moment\/moment.git"
         },
         {
-            "SPDXID": "SPDXRef-Package-b7deb72ad5ae0f89011f163c57c9b53ef7149efe231290f8846c03ea8786ee34",
-            "name": "nestedSortable",
-            "license": null,
-            "description": null,
-            "usageComment": null,
-            "fileCount": null,
-            "x-usage": [
-                ".\/\/path_constants.php:const NESTEDSORTABLE_ASSETS_PATH = 'public\/generated\/js\/vendor_dist\/nestedSortable';"
-            ],
-            "x-workspace": "common-externals",
-            "x-direct": true,
-            "x-type": "npm",
-            "x-latestVersion": "1.3.4",
-            "x-lastPublished": "2016-04-21T14:55:12.203Z",
-            "x-unpackedSize": "0KB",
-            "versionInfo": "1.3.4",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/nestedSortable\/-\/nestedSortable-1.3.4.tgz",
-            "homepage": "https:\/\/github.com\/ilikenwf\/nestedSortable#readme",
-            "sourceInfo": "git+https:\/\/github.com\/ilikenwf\/nestedSortable.git"
-        },
-        {
             "SPDXID": "SPDXRef-Package-f116215923cbc7ab380d8ea2704b18a7ebd74175589c3e20e3691c49c98deb96",
             "name": "ol-layerswitcher",
             "description": null,
@@ -1579,8 +1568,8 @@
             ],
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "10.3.2-dev.1734966546937",
-            "x-lastPublished": "2024-12-23T15:09:44.046Z",
+            "x-latestVersion": "10.3.2-dev.1735646265607",
+            "x-lastPublished": "2024-12-31T11:58:22.515Z",
             "x-fileCount": 1086,
             "x-unpackedSize": "11042.224KB",
             "versionInfo": "10.3.1",
@@ -2103,10 +2092,10 @@
             "x-workspace": "root",
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "9.1.0",
-            "x-lastPublished": "2024-11-04T12:15:44.195Z",
-            "x-fileCount": 72,
-            "x-unpackedSize": "404.046KB",
+            "x-latestVersion": "9.1.2",
+            "x-lastPublished": "2024-12-31T04:23:10.412Z",
+            "x-fileCount": 74,
+            "x-unpackedSize": "405.643KB",
             "versionInfo": "9.1.0",
             "downloadLocation": "https:\/\/registry.npmjs.org\/concurrently\/-\/concurrently-9.1.0.tgz",
             "licenseDeclared": "MIT",
@@ -2325,10 +2314,10 @@
             "x-workspace": "element-plus-ui",
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "2.9.1",
-            "x-lastPublished": "2024-12-13T10:25:16.501Z",
+            "x-latestVersion": "2.9.2",
+            "x-lastPublished": "2025-01-03T13:24:33.756Z",
             "x-fileCount": 6927,
-            "x-unpackedSize": "49464.702KB",
+            "x-unpackedSize": "39046.894KB",
             "versionInfo": "2.9.1",
             "downloadLocation": "https:\/\/registry.npmjs.org\/element-plus\/-\/element-plus-2.9.1.tgz",
             "licenseDeclared": "MIT",
@@ -2411,7 +2400,7 @@
             "sourceInfo": "git+https:\/\/github.com\/prettier\/eslint-config-prettier.git"
         },
         {
-            "SPDXID": "SPDXRef-Package-7bf95c9eacaf5360049a23725e728ef0042c314eb11ba6851e79aa07ba0055b5",
+            "SPDXID": "SPDXRef-Package-57b2e9fd5ac53d8f35d575f8bb3cad490b2da7642af9aea6720ddf777083b89a",
             "name": "eslint",
             "description": null,
             "homepage": "https:\/\/eslint.org",
@@ -2433,8 +2422,8 @@
             "x-lastPublished": "2024-12-13T21:29:34.528Z",
             "x-fileCount": 423,
             "x-unpackedSize": "3370.234KB",
-            "versionInfo": "9.16.0",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/eslint\/-\/eslint-9.16.0.tgz",
+            "versionInfo": "9.17.0",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/eslint\/-\/eslint-9.17.0.tgz",
             "licenseDeclared": "MIT",
             "sourceInfo": "git+https:\/\/github.com\/eslint\/eslint.git"
         },
@@ -2591,10 +2580,10 @@
             "x-workspace": "root",
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "15.11.7",
-            "x-lastPublished": "2024-11-28T00:13:28.773Z",
-            "x-fileCount": 4696,
-            "x-unpackedSize": "12229.182KB",
+            "x-latestVersion": "16.3.0",
+            "x-lastPublished": "2025-01-01T19:25:07.639Z",
+            "x-fileCount": 4759,
+            "x-unpackedSize": "12565.731KB",
             "versionInfo": "15.11.7",
             "downloadLocation": "https:\/\/registry.npmjs.org\/happy-dom\/-\/happy-dom-15.11.7.tgz",
             "licenseDeclared": "MIT",
@@ -2805,7 +2794,6 @@
         {
             "SPDXID": "SPDXRef-Package-415b3295a46801c569235c0ee8fb8940b966770d42c137c2a2c61b18b77b61fd",
             "name": "jspdf",
-            "downloadUrl": null,
             "description": null,
             "usageComment": null,
             "x-usage": [
@@ -2819,6 +2807,7 @@
             "x-fileCount": 18,
             "x-unpackedSize": "14798.108KB",
             "versionInfo": "2.5.2",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/jspdf\/-\/jspdf-2.5.2.tgz",
             "licenseDeclared": "MIT",
             "homepage": "https:\/\/github.com\/mrrio\/jspdf",
             "sourceInfo": "git+https:\/\/github.com\/MrRio\/jsPDF.git"
@@ -3011,7 +3000,7 @@
             "licenseDeclared": "MIT"
         },
         {
-            "SPDXID": "SPDXRef-Package-c01d9d6b4ffd2d7dfe0681f28be5c23c0d290e43a31bc39308d206781a79e249",
+            "SPDXID": "SPDXRef-Package-9c25ae475f082056dc230fd03095d2de507394e79837eff5511ebc83eca8098a",
             "name": "vee-validate",
             "description": null,
             "usageComment": null,
@@ -3031,8 +3020,8 @@
             "x-lastPublished": "2024-12-22T16:20:58.763Z",
             "x-fileCount": 8,
             "x-unpackedSize": "509.859KB",
-            "versionInfo": "4.14.7",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/vee-validate\/-\/vee-validate-4.14.7.tgz",
+            "versionInfo": "4.15.0",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/vee-validate\/-\/vee-validate-4.15.0.tgz",
             "licenseDeclared": "MIT",
             "homepage": "https:\/\/vee-validate.logaretm.com\/",
             "sourceInfo": "git+https:\/\/github.com\/logaretm\/vee-validate.git"
@@ -3261,7 +3250,7 @@
             "licenseDeclared": "MIT"
         },
         {
-            "SPDXID": "SPDXRef-Package-f80c1727e93f7bc483b0c678d2b84a9f79d09f1651e7c13837240439d5edc1bd",
+            "SPDXID": "SPDXRef-Package-24c7a0ca5702d4519b5e89787f507ce2577796749e58ccff2186f2c3e2d89a34",
             "name": "npm-run-all2",
             "description": null,
             "usageComment": null,
@@ -3273,8 +3262,8 @@
             "x-lastPublished": "2024-12-16T17:13:19.612Z",
             "x-fileCount": 75,
             "x-unpackedSize": "223.157KB",
-            "versionInfo": "7.0.1",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/npm-run-all2\/-\/npm-run-all2-7.0.1.tgz",
+            "versionInfo": "7.0.2",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/npm-run-all2\/-\/npm-run-all2-7.0.2.tgz",
             "licenseDeclared": "MIT",
             "homepage": "https:\/\/github.com\/bcomnes\/npm-run-all2",
             "sourceInfo": "git+https:\/\/github.com\/bcomnes\/npm-run-all2.git"
@@ -3354,10 +3343,10 @@
             "x-workspace": "root",
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "5.12.0",
-            "x-lastPublished": "2023-12-27T18:35:14.075Z",
-            "x-fileCount": 37,
-            "x-unpackedSize": "687.345KB",
+            "x-latestVersion": "5.13.1",
+            "x-lastPublished": "2024-12-27T10:42:32.012Z",
+            "x-fileCount": 35,
+            "x-unpackedSize": "558.407KB",
             "versionInfo": "5.12.0",
             "downloadLocation": "https:\/\/registry.npmjs.org\/rollup-plugin-visualizer\/-\/rollup-plugin-visualizer-5.12.0.tgz",
             "licenseDeclared": "MIT",
@@ -3589,10 +3578,10 @@
             "x-usageComment": "https:\/\/github.com\/sass\/dart-sass\/blob\/main\/CHANGELOG.md",
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "1.83.0",
-            "x-lastPublished": "2024-12-12T22:31:59.445Z",
+            "x-latestVersion": "1.83.1",
+            "x-lastPublished": "2025-01-04T01:25:18.746Z",
             "x-fileCount": 36,
-            "x-unpackedSize": "5657.6KB",
+            "x-unpackedSize": "5657.357KB",
             "versionInfo": "1.83.0",
             "downloadLocation": "https:\/\/registry.npmjs.org\/sass\/-\/sass-1.83.0.tgz",
             "licenseDeclared": "MIT",
@@ -3786,10 +3775,10 @@
             "x-workspace": "tiki-iot",
             "x-direct": true,
             "x-type": "npm",
-            "x-latestVersion": "11.1.2",
-            "x-lastPublished": "2024-12-09T02:50:12.850Z",
+            "x-latestVersion": "11.2.0",
+            "x-lastPublished": "2024-12-30T00:56:14.823Z",
             "x-fileCount": 118,
-            "x-unpackedSize": "2936.76KB",
+            "x-unpackedSize": "2942.556KB",
             "versionInfo": "10.3.1",
             "downloadLocation": "https:\/\/registry.npmjs.org\/gridstack\/-\/gridstack-10.3.1.tgz",
             "licenseDeclared": "MIT",
@@ -3895,7 +3884,7 @@
             "licenseDeclared": "MIT"
         },
         {
-            "SPDXID": "SPDXRef-Package-388f0a829da7ea920a85b459522b981dc64abc44da07322def021a520855e2a0",
+            "SPDXID": "SPDXRef-Package-b4eb39fd3b9761b2a78121c6b9748a0e601109ee0528ebb216fd0ab092d0c048",
             "name": "unplugin-vue-components",
             "description": null,
             "usageComment": null,
@@ -3909,8 +3898,8 @@
             "x-lastPublished": "2024-12-16T05:55:59.581Z",
             "x-fileCount": 49,
             "x-unpackedSize": "244.478KB",
-            "versionInfo": "0.27.5",
-            "downloadLocation": "https:\/\/registry.npmjs.org\/unplugin-vue-components\/-\/unplugin-vue-components-0.27.5.tgz",
+            "versionInfo": "0.28.0",
+            "downloadLocation": "https:\/\/registry.npmjs.org\/unplugin-vue-components\/-\/unplugin-vue-components-0.28.0.tgz",
             "licenseDeclared": "MIT",
             "homepage": "https:\/\/github.com\/unplugin\/unplugin-vue-components#readme",
             "sourceInfo": "git+https:\/\/github.com\/unplugin\/unplugin-vue-components.git"
@@ -4231,10 +4220,10 @@
             "x-description": "A PHP package for determining whether an email address is from a disposable \/ temporary email address provider.",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "5.0.6",
-            "x-lastPublished": "2024-12-20T07:33:32+00:00",
+            "x-latestVersion": "5.0.8",
+            "x-lastPublished": "2025-01-03T07:33:34+00:00",
             "versionInfo": "4.0.20",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/elliotjreed\/disposable-emails-filter-php\/zipball\/0e22d1d1d01ef8d0cb4874dea43cb0a89ca58cbd",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/elliotjreed\/disposable-emails-filter-php\/zipball\/d16ee318a3bc7a6a0ccab2ce6590f1eeeda32302",
             "licenseDeclared": "MIT",
             "homepage": "",
             "sourceInfo": "https:\/\/github.com\/elliotjreed\/disposable-emails-filter-php.git"
@@ -4561,10 +4550,10 @@
             "x-description": "Kint - Advanced PHP dumper",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "6.0",
-            "x-lastPublished": "2024-11-16T18:50:50+00:00",
+            "x-latestVersion": "6.0.1",
+            "x-lastPublished": "2025-01-01T23:10:26+00:00",
             "versionInfo": "5.1.1",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/kint-php\/kint\/zipball\/371e67a3036fcfb7cec06481ab44eba15e338db7",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/kint-php\/kint\/zipball\/2bd133be30a0d4f5523e3d7d8e94b788d95978e6",
             "licenseDeclared": "MIT",
             "homepage": "https:\/\/kint-php.github.io\/kint\/",
             "sourceInfo": "https:\/\/github.com\/kint-php\/kint.git"
@@ -5387,10 +5376,10 @@
             "x-description": "Highly-extensible PHP Markdown parser which fully supports the CommonMark spec and GitHub-Flavored Markdown (GFM)",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "2.6.0",
-            "x-lastPublished": "2024-12-07T15:34:16+00:00",
+            "x-latestVersion": "2.6.1",
+            "x-lastPublished": "2024-12-29T14:10:59+00:00",
             "versionInfo": "2.6.0",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/thephpleague\/commonmark\/zipball\/d150f911e0079e90ae3c106734c93137c184f932",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/thephpleague\/commonmark\/zipball\/d990688c91cedfb69753ffc2512727ec646df2ad",
             "licenseDeclared": "BSD-3-Clause",
             "homepage": "https:\/\/commonmark.thephpleague.com",
             "sourceInfo": "https:\/\/github.com\/thephpleague\/commonmark.git"
@@ -6341,7 +6330,7 @@
                 ".\/\/lib\/importer\/tikiimporter_wiki_mediawiki.php:        if (! class_exists('DOMDocument')) {",
                 ".\/\/lib\/importer\/tikiimporter_blog_wordpress.php:        if (! class_exists('DOMDocument')) {",
                 ".\/\/lib\/core\/File\/DiagramHelper.php:            && class_exists('CasperJsInstaller\\Installer')",
-                ".\/\/lib\/core\/TwoFactorAuth\/TwoFactorAuthFactory.php:        if (! class_exists($class)) {",
+                ".\/\/lib\/core\/TwoFactorAuth\/TwoFactorAuth.php:        if (! in_array($type, self::AVAILABLE_2FA_TYPES, true) || ! class_exists($class)) {",
                 ".\/\/lib\/core\/WikiPlugin\/Negotiator\/Wiki.php:            return file_exists(str_replace('_', '\/', self::$zendRelativePath . $this->className . '.php')) == true && class_exists($this->className) == true;",
                 ".\/\/lib\/core\/Scheduler\/Manager.php:        if (! class_exists($className)) {",
                 ".\/\/lib\/core\/Scheduler\/Item.php:        if (! class_exists($class)) {",
@@ -6397,10 +6386,10 @@
             "x-description": "PHPStan - PHP Static Analysis Tool",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "2.0.4",
-            "x-lastPublished": "2024-12-17T17:14:01+00:00",
+            "x-latestVersion": "2.1.0",
+            "x-lastPublished": "2024-12-31T07:30:03+00:00",
             "versionInfo": "1.12.13",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/phpstan\/phpstan\/zipball\/50d276fc3bf1430ec315f2f109bbde2769821524",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/phpstan\/phpstan\/zipball\/2392d360fdf54ea253aa6c68cad1d4ba2e54e927",
             "licenseDeclared": "MIT",
             "homepage": "",
             "sourceInfo": "https:\/\/github.com\/phpstan\/phpstan.git"
@@ -6691,10 +6680,10 @@
             "x-description": "Event-driven library for executing child processes with ReactPHP.",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "v0.6.5",
-            "x-lastPublished": "2022-09-16T13:41:56+00:00",
+            "x-latestVersion": "v0.6.6",
+            "x-lastPublished": "2025-01-01T16:37:48+00:00",
             "versionInfo": "v0.6.5",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/reactphp\/child-process\/zipball\/e71eb1aa55f057c7a4a0d08d06b0b0a484bead43",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/reactphp\/child-process\/zipball\/1721e2b93d89b745664353b9cfc8f155ba8a6159",
             "licenseDeclared": "MIT",
             "homepage": "",
             "sourceInfo": "https:\/\/github.com\/reactphp\/child-process.git"
@@ -6708,10 +6697,10 @@
             "x-description": "Instant Upgrade and Automated Refactoring of any PHP code",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "2.0.3",
-            "x-lastPublished": "2024-12-12T15:22:19+00:00",
+            "x-latestVersion": "2.0.5",
+            "x-lastPublished": "2024-12-31T13:11:55+00:00",
             "versionInfo": "1.0.5",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/rectorphp\/rector\/zipball\/3f27091368bd935dbbaa8387099792fb20f65f68",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/rectorphp\/rector\/zipball\/f3354fbbdbeb090a53f5260fa5841d373540a831",
             "licenseDeclared": "MIT",
             "homepage": "",
             "sourceInfo": "https:\/\/github.com\/rectorphp\/rector.git"
@@ -6995,10 +6984,16 @@
                 ".\/\/lib\/messu\/messulib.php:use SlmMail\\Exception\\ExceptionInterface as SlmMailException;",
                 ".\/\/lib\/wiki-plugins\/wikiplugin_tracker.php:use SlmMail\\Exception\\ExceptionInterface as SlmMailException;"
             ],
+            "x-description": "Integration of various email service providers in the Laminas\\Mail",
             "x-direct": true,
-            "x-error": "Package registry not found",
             "x-type": "composer",
-            "versionInfo": "v4.7.0"
+            "x-latestVersion": "v5.0.2",
+            "x-lastPublished": "2024-11-22T11:38:43+00:00",
+            "versionInfo": "v4.7.0",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/Webador\/SlmMail\/zipball\/5572e3d38b19b6b31f87956373de2ddad868b7fa",
+            "licenseDeclared": "BSD-3-Clause",
+            "homepage": "https:\/\/github.com\/Webador\/SlmMail",
+            "sourceInfo": "https:\/\/github.com\/Webador\/SlmMail.git"
         },
         {
             "SPDXID": "SPDXRef-Package-b1340fccd8b903cb7794501fb066ad739d9e1f8e921c1bcf98437704f36bfefc",
@@ -8552,10 +8547,10 @@
             "x-description": "Finds files and directories via an intuitive fluent interface",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "v7.2.0",
-            "x-lastPublished": "2024-10-23T06:56:12+00:00",
+            "x-latestVersion": "v7.2.2",
+            "x-lastPublished": "2024-12-30T19:00:17+00:00",
             "versionInfo": "v6.4.13",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/symfony\/finder\/zipball\/6de263e5868b9a137602dd1e33e4d48bfae99c49",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/symfony\/finder\/zipball\/87a71856f2f56e4100373e92529eed3171695cfb",
             "licenseDeclared": "MIT",
             "homepage": "https:\/\/symfony.com",
             "sourceInfo": "https:\/\/github.com\/symfony\/finder.git"
@@ -8569,10 +8564,10 @@
             "x-description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
             "x-direct": true,
             "x-type": "composer",
-            "x-latestVersion": "v7.2.1",
-            "x-lastPublished": "2024-12-07T08:50:44+00:00",
+            "x-latestVersion": "v7.2.2",
+            "x-lastPublished": "2024-12-30T18:35:15+00:00",
             "versionInfo": "v6.4.16",
-            "downloadLocation": "https:\/\/api.github.com\/repos\/symfony\/http-client\/zipball\/ff4df2b68d1c67abb9fef146e6540ea16b58d99e",
+            "downloadLocation": "https:\/\/api.github.com\/repos\/symfony\/http-client\/zipball\/339ba21476eb184290361542f732ad12c97591ec",
             "licenseDeclared": "MIT",
             "homepage": "https:\/\/symfony.com",
             "sourceInfo": "https:\/\/github.com\/symfony\/http-client.git"

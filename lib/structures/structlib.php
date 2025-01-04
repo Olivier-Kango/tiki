@@ -203,7 +203,7 @@ class StructLib extends TikiLib
     }
 
     /**
-     * @param $data array - from from nestedSortable('toHierarchy')
+     * @param $data array - from from sortable('toHierarchy')
      */
 
     public function reorder_structure($data)

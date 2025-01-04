@@ -504,10 +504,6 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/moment/dist",
                     },
                     {
-                        src: "node_modules/nestedSortable/jquery.mjs.nestedSortable.js",
-                        dest: "vendor_dist/nestedSortable",
-                    },
-                    {
                         src: "node_modules/ol/dist/ol.js",
                         dest: "vendor_dist/ol/dist",
                     },
