@@ -69,10 +69,7 @@ function module_recordrtc($mod_reference, &$module_params)    // modifies $smod_
         return;
     }
 
-    include_once('lib/setup/absolute_urls.php');
-    global $https_mode;
-    $https = $https_mode ? true : false;
-
+    $https = TikiLib::httpScheme() === 'https';
     if (! $https) {
         $smarty->assign('module_error', tra('Record RTC requires https connection over SSL'));
         return;
