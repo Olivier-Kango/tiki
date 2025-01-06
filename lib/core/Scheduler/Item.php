@@ -41,7 +41,7 @@ class Scheduler_Item
     {
         global $prefs;
         $tasks = self::$availableTasks;
-        if ($prefs['feature_shell_command'] !== 'y') {
+        if ($prefs['scheduler_shell_command'] !== 'y') {
             unset($tasks['ShellCommandTask']);
         }
         return $tasks;
