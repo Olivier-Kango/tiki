@@ -484,7 +484,7 @@ class LogsLib extends TikiLib
         $start = 0,
         $end = 0,
         $categId = '',
-        $all = false
+        $all = true
     ) {
         global $prefs;
         $tikilib = TikiLib::lib('tiki');
