@@ -39,7 +39,8 @@ class Services_IotApps_Controller
                 'name' => $name,
                 'icon' => 'n',
                 'dashboard_config' => '',
-                'scenario_config' => '{}'
+                'scenario_config' => '{}',
+                'state_object' => '{}'
             ]);
             Feedback::success(tr("Successfully created the app: %0", $payload['app-name']));
         } catch (Exception $e) {
