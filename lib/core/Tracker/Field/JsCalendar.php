@@ -86,11 +86,6 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 
     public function getFieldData(array $requestData = []): array
     {
-        global $prefs;
-        if ($prefs['feature_jquery_ui'] !== 'y') {  // fall back to simple date field
-            return parent::getFieldData($requestData);
-        }
-
         $ins_id = $this->getInsertId();
 
         // Vue component stores as JSON array
@@ -117,11 +112,6 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 
     public function renderInput($context = [])
     {
-        global $prefs;
-        if ($prefs['feature_jquery_ui'] !== 'y') {  // fall back to simple date field
-            return parent::renderInput($context);
-        }
-
         $smarty = TikiLib::lib('smarty');
 
         $params = [ 'fieldname' => $this->getConfiguration('ins_id') ? $this->getConfiguration('ins_id') : $this->getInsertId()];

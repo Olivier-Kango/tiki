@@ -78,9 +78,6 @@ if (! empty($prefs['module_file'])) {
     );
 }
 
-
-$access->check_feature(['feature_jquery_ui']);
-
 // Values for the user_module edit/create form
 $smarty->assign('um_tgt_module', '');
 $smarty->assign('um_name', '');

@@ -142,8 +142,7 @@ function wikiplugin_toc($data, $params)
     global $page_ref_id;
     $structlib = TikiLib::lib('struct');
 
-    global $prefs;
-    if ($prefs['feature_jquery_ui'] === 'y' && $type === 'admin') {
+    if ($type === 'admin') {
         TikiLib::lib('header')
                 ->add_jsfile('lib/structures/tiki-edit_structure.js');
 
