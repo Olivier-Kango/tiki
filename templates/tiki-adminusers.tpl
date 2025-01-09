@@ -225,7 +225,7 @@
                                                         </action>
                                                         <action>
                                                             <a class="link" href="tiki-assignuser.php?assign_user={$users[user].user|escape:url}" title="{tr}Edit group expiry{/tr}">
-                                                                {icon name='time' _menu_text='y' _menu_icon='y' alt='{tr}Edit group expiry{/tr}'}
+                                                                {icon name='time' _menu_text='y' _menu_icon='y' alt="{tr}Edit group expiry{/tr}"}
                                                             </a>
                                                         </action>
                                                         <action>

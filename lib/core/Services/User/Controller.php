@@ -1162,13 +1162,18 @@ class Services_User_Controller
         if ($util->notConfirmPost()) {
             $util->setVars($input, [], 'checked');
             if ($util->itemsCount > 0) {
+                // Determine the action text
+                $actionText = $status_to_set === 'lock' ? tr('Lock') : tr('Unlock');
+
+                // Build the message based on the number of users
                 if (count($util->items) === 1) {
-                    $msg = tr('%0 the following user?', ucfirst($status_to_set));
+                    $msg = tr('%0 the following user?', $actionText);
                 } else {
-                    $msg = tr('%0 the following users?', ucfirst($status_to_set));
+                    $msg = tr('%0 the following users?', $actionText);
                 }
-                return $util->confirm($msg, tra(ucfirst($status_to_set)));
+                return $util->confirm($msg, $actionText);
             } else {
+                // No users selected exception
                 Services_Utilities::modalException(tra('No users were selected. Please select one or more users.'));
             }
         //after confirm submit - perform action and return success feedback
@@ -1178,12 +1183,15 @@ class Services_User_Controller
             $lock_status_updated = $this->updateUserLockStatus($util->items, $status_to_set);
 
             if ($lock_status_updated) {
-                //prepare feedback
+                // Determine the action text
+                $actionText = $status_to_set === 'lock' ? tr('locked') : tr('unlocked');
+
+                // Prepare feedback
                 if ($util->itemsCount === 1) {
-                    $msg = tr('The following user has been %0ed:', $status_to_set);
+                    $msg = tr('The following user has been %0:', ucfirst($actionText));
                     $toMsg = tra('Submit form below to ban this user.');
                 } else {
-                    $msg = tr('The following users have been %0ed:', $status_to_set);
+                    $msg = tr('The following users have been %0:', ucfirst($actionText));
                     $toMsg = tra('Submit form below to ban these users.');
                 }
                 $feedback = [
