@@ -3009,6 +3009,18 @@ function prefs_feature_list($partial = false)
                 'feature_trackers',
                 'feature_realtime',
             ],
-        ]
+        ],
+        'feature_draggable_modals' => [
+            'name' => tra('Draggable Modals'),
+            'description' => tra('Modal popups can be moved around.'),
+            'type' => 'flag',
+            'default' => 'y',
+        ],
+        'feature_resizable_modals' => [
+            'name' => tra('Resizable Modals'),
+            'description' => tra('Modal popups can be resized.'),
+            'type' => 'flag',
+            'default' => 'y',
+        ],
     ];
 }

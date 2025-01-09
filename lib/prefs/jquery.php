@@ -181,24 +181,6 @@ function prefs_jquery_list($partial = false)
                 'jquery_smartmenus_enable',
             ],
         ],
-        'jquery_ui_modals_draggable' => [
-            'name' => tra('Draggable Modals'),
-            'description' => tra('Modal popups can be moved around.'),
-            'type' => 'flag',
-            'default' => 'y',
-            'dependencies' => [
-                'feature_jquery_ui',
-            ],
-        ],
-        'jquery_ui_modals_resizable' => [
-            'name' => tra('Resizable Modals'),
-            'description' => tra('Modal popups can be resized.'),
-            'type' => 'flag',
-            'default' => 'y',
-            'dependencies' => [
-                'feature_jquery_ui',
-            ],
-        ],
         'jquery_jqdoublescroll' => [
             'name' => tra('jQuery Double Scroll'),
             'description' => tra('jQuery plugin which adds an extra horizontal scroll bar at the top.'),

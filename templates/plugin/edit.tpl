@@ -79,6 +79,10 @@
                 {else}
                     {if $param.filter eq "password"}
                         <input value="{$val|escape}" class="form-control{$groupClass}" id="{$inputId}" type="password" name="params[{$paramName|escape}]"{$dataAttribute}>
+                    {elseif $param.filter eq "date"}
+                        {jscalendar id="{$inputId}" showtime='n' fieldname="params[{$paramName|escape}]" date=$val}
+                    {elseif $param.filter eq "datetime"}
+                        {jscalendar id="{$inputId}" showtime='y' showtimezone="n" fieldname="params[{$paramName|escape}]"}
                     {else}
                         <input value="{$val|escape}" class="form-control{$groupClass}" id="{$inputId}" type="text" name="params[{$paramName|escape}]"{$dataAttribute}>
                     {/if}
@@ -91,16 +95,6 @@
                             {autocomplete element="#{$inputId}" type="username" options="multiple: true, multipleSeparator: '|'"}
                         {elseif $paramName eq "biblio_code"}
                             {autocomplete element="#{$inputId}" type="reference" options="multiple: true, multipleSeparator: ':'"}
-                        {elseif $param.filter eq "date"}
-                            {jq}
-                                $({{$inputId}}).tiki("datepicker");
-                                $(".ui-datepicker-trigger").remove();
-                            {/jq}
-                        {elseif $param.filter eq "datetime"}
-                            {jq}
-                                $({{$inputId}}).tiki("datetimepicker");
-                                $(".ui-datepicker-trigger").remove();
-                            {/jq}
                         {/if}
                     {/if}
                 {/if}

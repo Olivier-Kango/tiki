@@ -476,9 +476,6 @@
     {include file='metadata/meta_view_tabs.tpl'}
 {/if}
 {if ! $editFileId and $prefs.file_galleries_use_jquery_upload neq 'y'}
-    {if $prefs.feature_jquery_ui eq 'y'}
-        {jq}$('.datePicker').datepicker({minDate: 0, maxDate: '+1m', dateFormat: 'dd/mm/yy'});{/jq}
-    {/if}
     {jq notonready=true}
     {literal}
         $('#file_0').ajaxForm({target: '#progress_0', forceSync: true});

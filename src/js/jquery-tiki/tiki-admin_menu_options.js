@@ -100,32 +100,6 @@ $(function () {
             },
         });
 
-        // $("#node_new").draggable({
-        //     connectToSortable:"#options",
-        //     revert:"invalid",
-        //     helper:"clone",
-        //     start:function (event, ui) {
-        //         $(ui.helper)
-        //             .css({
-        //                 zIndex: 10000,
-        //                 width: "800px"
-        //             })
-        //             .find(".hidden").removeClass("hidden")
-        //         ;
-
-        //         $options.mouseover(function () {
-        //             $options.addClass("over");
-        //         }).mouseout(function () {
-        //             $options.removeClass("over");
-        //         });
-        //     },
-        //     stop:function (event, ui) {
-        //         $(ui.helper).css("z-index", "auto");
-
-        //         $options.off("mouseover").off("mouseout");
-        //     }
-        // }).disableSelection();
-
         $options.on("click", ".option-remove", function () {
             if (confirm(tr("Are you sure you want to remove this option?"))) {
                 var tab = $(this).siblings("a.option-edit").attr("href");
