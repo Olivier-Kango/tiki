@@ -32,6 +32,7 @@
  */
 class TrackerLib extends TikiLib
 {
+
     public $trackerinfo_cache;
     private $sectionFormats = [];
 
@@ -2324,7 +2325,7 @@ class TrackerLib extends TikiLib
         return "$groupName $itemId";
     }
 
-    public function format_data($field, $data)
+    public function _format_data($field, $data)
     {
         $data = trim($data);
         if ($field['type'] == 'a') {
@@ -2846,6 +2847,7 @@ class TrackerLib extends TikiLib
         $mandatory_fields = [];
         $erroneous_values = [];
         if (isset($ins_fields) && isset($ins_fields['data'])) {
+
             $fields = [];   // make a copy of $ins_fields['data'] where the field id is the array key
             foreach ($ins_fields['data'] as $f) {
                 $fields[$f['fieldId']] = $f;
@@ -4867,11 +4869,11 @@ class TrackerLib extends TikiLib
             }
         } else {
             // array syntax for callback function needed for some versions of PHP (5.2.0?) - thanks to mariush on http://php.net/preg_replace_callback
-            $value = preg_replace_callback('/\{\$(f_\w+)\}/', [ &$this, 'pretty_tracker_replace_value'], $value);
+            $value = preg_replace_callback('/\{\$(f_\w+)\}/', [ &$this, '_pretty_tracker_replace_value'], $value);
         }
     }
 
-    public static function pretty_tracker_replace_value($matches)
+    public static function _pretty_tracker_replace_value($matches)
     {
         $smarty = TikiLib::lib('smarty');
         $s_var = null;

@@ -518,9 +518,9 @@ class UsersLib extends TikiLib
             // if the user verified ok, log them in
             if ($userTiki) {//user validated in tiki, update lastlogin and be done
                 if ($auth_ldap) {
-                    return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result, 'tiki'];
+                    return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result, 'tiki'];
                 }
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             // if the user password was incorrect but the account was there, give an error
             } elseif ($userTikiPresent) { //user ixists in tiki but bad password
                 return [false, $user, $result];
@@ -549,7 +549,7 @@ class UsersLib extends TikiLib
             // start off easy
             // if the user verified in Tiki and PAM, log in
             if ($userPAM && $userTiki) {
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             } elseif (! $userTikiPresent && ! $userPAM) { // if the user wasn't found in either system, just fail
                 return [false, $user, $result];
             } elseif ($userPAM && ! $userTikiPresent) { // if the user was logged into PAM but not found in Tiki
@@ -561,7 +561,7 @@ class UsersLib extends TikiLib
                     // if it worked ok, just log in
                     if ($result == USER_VALID) {
                         // before we log in, update the login counter
-                        return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                        return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
                     // if the server didn't work, do something!
                     } elseif ($result == SERVER_ERROR) {
                         // check the notification status for this type of error
@@ -577,7 +577,7 @@ class UsersLib extends TikiLib
                 }
             } elseif ($userPAM && $userTikiPresent) {
                 // if the user was logged into PAM and found in Tiki (no password in Tiki user table necessary)
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             }
         } elseif ($auth_cas) {
         // next see if we need to check CAS
@@ -602,7 +602,7 @@ class UsersLib extends TikiLib
             // start off easy
             // if the user verified in Tiki and by CAS, log in
             if ($userCAS && $userTikiPresent) {
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             } elseif (! $userCAS) {
                 // if the user wasn't authenticated through CAS, just fail
                 return [false, $user, $result];
@@ -620,7 +620,7 @@ class UsersLib extends TikiLib
                     // if it worked ok, just log in
                     if ($result == USER_VALID) {
                         // before we log in, update the login counter
-                        return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                        return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
                     // if the server didn't work, do something!
                     } elseif ($result == SERVER_ERROR) {
                         // check the notification status for this type of error
@@ -636,7 +636,7 @@ class UsersLib extends TikiLib
                 }
             } elseif ($userCAS && $userTikiPresent) {
                 // if the user was authenticated by CAS and found in Tiki (no password in Tiki user table necessary)
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             }
         } elseif ($auth_shib) {
             // next see if we need to check Shibboleth
@@ -671,7 +671,7 @@ class UsersLib extends TikiLib
             // start off easy
             // if the user verified in Tiki and by Shibboleth, log in
             if ($userTikiPresent && $validafil) {
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, USER_VALID];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, USER_VALID];
             } else {
                 $smarty = TikiLib::lib('smarty');
                 // see if we can create a new account
@@ -714,7 +714,7 @@ class UsersLib extends TikiLib
                                 }
 
                                 // before we log in, update the login counter
-                                return [$this->ldap_sync_and_update_lastlogin($user, $randompass), $user, $result];
+                                return [$this->_ldap_sync_and_update_lastlogin($user, $randompass), $user, $result];
                             } elseif ($result == SERVER_ERROR) {
                             // if the server didn't work, do something!
 
@@ -899,7 +899,7 @@ class UsersLib extends TikiLib
                     $this->init_ldap($user, $pass);
                     $this->ldap_sync_user_data($user, $this->ldap->get_user_attributes());
                 }
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             } elseif (! $userTikiPresent && ! $userLdapPresent) {
             // if the user wasn't found in either system, just fail
 
@@ -915,7 +915,7 @@ class UsersLib extends TikiLib
                     // if it worked ok, just log in
                     if ($result == USER_VALID) {
                         // before we log in, update the login counter
-                        return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                        return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
                     } elseif ($result == SERVER_ERROR) {
                         // if the server didn't work, do something!
                         // check the notification status for this type of error
@@ -960,7 +960,7 @@ class UsersLib extends TikiLib
                             return [false, $user, ACCOUNT_DISABLED];
                         } else {
                             // before we log in, update the login counter
-                            return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                            return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
                         }
                     } elseif ($result == SERVER_ERROR) {
                     // if the server didn't work, do something!
@@ -975,7 +975,7 @@ class UsersLib extends TikiLib
                 }
             } elseif ($userLdap && $userTikiPresent) {
                 // if the user was logged into Auth and found in Tiki (no password in Tiki user table necessary)
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             }
         } elseif ($auth_phpbb) {
             $result = $this->validate_user_phpbb($user, $pass);
@@ -993,7 +993,7 @@ class UsersLib extends TikiLib
             // start off easy
             // if the user verified in Tiki and phpBB, log in
             if ($userPhpbb && $userTiki) {
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             } elseif (! $userTikiPresent && ! $userPhpbb) {
             // if the user wasn't found in either system, just fail
                 return [false, $user, USER_UNKNOWN];
@@ -1009,7 +1009,7 @@ class UsersLib extends TikiLib
                     // if it worked ok, just log in
                     if ($result == USER_VALID) {
                         // before we log in, update the login counter
-                        return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                        return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
                     } elseif ($result == SERVER_ERROR) { // if the server didn't work, do something!
                         // check the notification status for this type of error
                         return [false, $user, $result];
@@ -1032,7 +1032,7 @@ class UsersLib extends TikiLib
                 return [false, $user, ACCOUNT_DISABLED];
                 // if the user was logged into phpBB and found in Tiki (no password in Tiki user table necessary)
             } elseif ($userPhpbb && $userTikiPresent) {
-                return [$this->ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
+                return [$this->_ldap_sync_and_update_lastlogin($user, $pass), $user, $result];
             }
         }
 
@@ -1081,7 +1081,7 @@ class UsersLib extends TikiLib
         }
 
         // just make sure we're supposed to be here
-        if (! $this->init_cas_client()) {
+        if (! $this->_init_cas_client()) {
             return false;
         }
 
@@ -1128,7 +1128,7 @@ class UsersLib extends TikiLib
         }
     }
 
-    public function init_cas_client()
+    public function _init_cas_client()
     {
         global $prefs;
 
@@ -1152,7 +1152,7 @@ class UsersLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
 
         // just make sure we're supposed to be here
-        if (! $this->init_cas_client()) {
+        if (! $this->_init_cas_client()) {
             return false;
         }
 
@@ -1584,7 +1584,7 @@ class UsersLib extends TikiLib
         $users = $this->list_all_users();
 
         foreach ($users as $user) {
-            $this->ldap_sync_groups($user, null);
+            $this->_ldap_sync_groups($user, null);
         }
     }
 
@@ -1691,7 +1691,7 @@ class UsersLib extends TikiLib
      * @param user: username
      * @param pass: password (might be null)
      */
-    private function ldap_sync_groups($user, $pass)
+    private function _ldap_sync_groups($user, $pass)
     {
         if ($user == 'admin') {
             return true;
@@ -1708,7 +1708,7 @@ class UsersLib extends TikiLib
         $this->ldap->setOption('password', $pass);
 
         if ($prefs['auth_ldap_debug'] == 'y') {
-            $logslib->add_log('ldap', 'UsersLib::ldap_sync_groups(): Syncing group with ldap');
+            $logslib->add_log('ldap', 'UsersLib::_ldap_sync_groups(): Syncing group with ldap');
         }
         $userattributes = $this->ldap->get_user_attributes(true);
 
@@ -1773,7 +1773,7 @@ class UsersLib extends TikiLib
                 }
             }
 
-            $this->ldap_sync_group_data($user, $ldapgroups);
+            $this->_ldap_sync_group_data($user, $ldapgroups);
         }
 
         return $ret;
@@ -1784,12 +1784,12 @@ class UsersLib extends TikiLib
      *
      * For each group, assigns the user to it if it is not already a member of it.
      *
-     * Called from \UsersLib::ldap_sync_groups()
+     * Called from \UsersLib::_ldap_sync_groups()
      *
      * @param user: username
      * @param ldapgroups: list of LDAP group names
      */
-    private function ldap_sync_group_data($user, $ldapgroups)
+    private function _ldap_sync_group_data($user, $ldapgroups)
     {
         global $prefs;
         $logslib = TikiLib::lib('logs');
@@ -1846,19 +1846,19 @@ class UsersLib extends TikiLib
      * @param user: username
      * @param pass: password
      * @see \UserLib::_ldap_sync_user()
-     * @see \UserLib::ldap_sync_groups()
+     * @see \UserLib::_ldap_sync_groups()
      */
-    public function ldap_sync_user_and_groups($user, $pass)
+    public function _ldap_sync_user_and_groups($user, $pass)
     {
         global $prefs;
 
         if ($prefs['auth_ldap_debug'] == 'y') {
-            TikiLib::lib('logs')->add_log('ldap', 'UsersLib::ldap_sync_user_and_groups()');
+            TikiLib::lib('logs')->add_log('ldap', 'UsersLib::_ldap_sync_user_and_groups()');
         }
 
         $ret = true;
         $ret &= $this->ldap_sync_user($user, $pass);
-        $ret &= $this->ldap_sync_groups($user, $pass);
+        $ret &= $this->_ldap_sync_groups($user, $pass);
 
         // Invalidate cache
         $cachelib = TikiLib::lib('cache');
@@ -2060,13 +2060,13 @@ class UsersLib extends TikiLib
      * @param user: User name.
      * @param pass: Password.
      */
-    private function ldap_sync_and_update_lastlogin($user, $pass)
+    private function _ldap_sync_and_update_lastlogin($user, $pass)
     {
         global $prefs;
         global $tikilib;
 
         if ($prefs['auth_ldap_debug'] == 'y') {
-            TikiLib::lib('logs')->add_log('ldap', 'UsersLib::ldap_sync_and_update_lastlogin()');
+            TikiLib::lib('logs')->add_log('ldap', 'UsersLib::_ldap_sync_and_update_lastlogin()');
         }
 
         $ret = $this->update_lastlogin($user);
@@ -2077,7 +2077,7 @@ class UsersLib extends TikiLib
         }
 
         if ($prefs['auth_method'] === 'ldap' && ($prefs['syncGroupsWithDirectory'] == 'y' || $prefs['syncUsersWithDirectory'] == 'y' )) {
-            $ret &= $this->ldap_sync_user_and_groups($user, $pass);
+            $ret &= $this->_ldap_sync_user_and_groups($user, $pass);
         }
 
         return $ret;
@@ -2564,9 +2564,9 @@ class UsersLib extends TikiLib
 
     public function get_groups_for_permissions()
     {
-        $query = "SELECT * from users_groups
-                    where isTplGroup <> 'y' and groupName not in (select groupName
-                    from  tiki_group_inclusion where includeGroup in (SELECT groupName
+        $query = "SELECT * from users_groups 
+                    where isTplGroup <> 'y' and groupName not in (select groupName 
+                    from  tiki_group_inclusion where includeGroup in (SELECT groupName 
                     from users_groups where isTplGroup = 'y')) order by id asc;";
         $ret = $this->fetchAll($query);
         $retval = [];
@@ -2577,7 +2577,7 @@ class UsersLib extends TikiLib
 
     public function get_template_groups_containers()
     {
-        $query = "SELECT * from users_groups
+        $query = "SELECT * from users_groups 
                     where isTplGroup = 'y' order by id asc;";
         $ret = $this->fetchAll($query);
         $retval = [];
@@ -7846,7 +7846,7 @@ class UsersLib extends TikiLib
                 INNER JOIN `tiki_history` p2 ON ( p1.`pageName` = p2.`pageName` )
                 INNER JOIN `users_users` u2 ON ( u2.`login` = p2.`user` )
                 WHERE u2.`login` = ? AND u1.`login` <> ?
-                GROUP BY p1.`pageName`, u1.`login`
+                GROUP BY p1.`pageName`, u1.`login` 
                 ORDER BY quantity DESC
                 ';
         } else {
@@ -8919,11 +8919,14 @@ class UsersLib extends TikiLib
 
         $query = 'update `users_users` set `waiting`= ? where  `userId`= ?';
         $this->query($query, [ $user_lock_update, $userId ]);
+        
         $cachelib->invalidate('userslist');
+        
         // Notify user
         Scheduler_Manager::queueJob('Notify lock status to user', 'UserLockMailerCommandTask', ['user_login' => $user, 'lock_status' => $lock_status]);
 
         TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $user]);
+                
         return true;
     }
 
@@ -8937,15 +8940,18 @@ class UsersLib extends TikiLib
 
         include_once('lib/webmail/tikimaillib.php');
         $languageEmail = $this->get_user_preference($user, 'language', $prefs['site_language']);
+        
         $smarty->assign('lock_status', $lock_status);
         $smarty->assign('user_name', $user);
-        $smarty->assign('mail_site', $this_site);
+        $smarty->assign('mail_site',  $this_site);
+
         $mail = new TikiMail();
-        $mail_data = $smarty->fetchLang($languageEmail, "mail/" . $tpl . "_subject.tpl");
+        $mail_data = $smarty->fetchLang($languageEmail, "mail/". $tpl ."_subject.tpl");
         $mail_data = sprintf($mail_data, $this_site);
         $mail->setSubject($mail_data);
         $mail_data = $smarty->fetchLang($languageEmail, "mail/" . $tpl . ".tpl");
         $mail->setText($mail_data);
+        
         $email = $this->get_user_email($user);
         $mail->send([$email]);
     }
@@ -8956,12 +8962,14 @@ class UsersLib extends TikiLib
         $now = time();
 
         if ($prefs['users_admin_auto_lock_user'] === 'y') {
+
             $before_account_get_locked = $prefs['users_admin_auto_lock_user_days_before_lock'];
             $days_ago_before_lock = $now - ($before_account_get_locked * 24 * 60 * 60);
             // Exclude already locked accounts
             $query = "select `login` from `users_users` where `waiting` <> ? and `lastLogin` < ?";
             $results = $this->query($query, ['l', $days_ago_before_lock]);
             $users = $results->result;
+            
             foreach ($users as $user) {
                 $this->update_user_lock_status($user['login'], 'lock');
             }

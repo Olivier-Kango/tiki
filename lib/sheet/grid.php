@@ -867,8 +867,8 @@ class TikiSheetCSVHandler extends TikiSheetDataHandler
         $this->encoding = new Encoding($inputEncoding, $outputEncoding);
     }
 
-    // load
-    public function load(TikiSheet &$sheet)
+    // _load
+    public function _load(TikiSheet &$sheet)
     {
         $rows = explode("\n", $this->data);
         for ($i = 0; $i < count($rows) && $i < $this->maxrows; $i++) {
@@ -899,8 +899,8 @@ class TikiSheetCSVHandler extends TikiSheetDataHandler
         return true;
     }
 
-    // save
-    public function save(&$sheet)
+    // _save
+    public function _save(&$sheet)
     {
         $total = [];
 
@@ -986,8 +986,8 @@ class TikiSheetTrackerHandler extends TikiSheetDataHandler
         $this->cssName = 'readonly';
     }
 
-    // load
-    public function load(&$sheet)
+    // _load
+    public function _load(&$sheet)
     {
         $tikilib = TikiLib::lib('tiki');
 
@@ -1019,8 +1019,8 @@ class TikiSheetTrackerHandler extends TikiSheetDataHandler
         return true;
     }
 
-    // save
-    public function save(&$sheet)
+    // _save
+    public function _save(&$sheet)
     {
         return false;
     }
@@ -1061,8 +1061,8 @@ class TikiSheetSimpleArrayHandler extends TikiSheetDataHandler
         $this->cssName = 'readonly';
     }
 
-    // load
-    public function load(&$sheet)
+    // _load
+    public function _load(&$sheet)
     {
         $i = 0;
 
@@ -1097,8 +1097,8 @@ class TikiSheetSimpleArrayHandler extends TikiSheetDataHandler
         return true;
     }
 
-    // save
-    public function save(&$sheet)
+    // _save
+    public function _save(&$sheet)
     {
         return false;
     }
@@ -1144,8 +1144,8 @@ class TikiSheetCSVExcelHandler extends TikiSheetDataHandler
         $this->encoding = new Encoding($inputEncoding, $outputEncoding);
     }
 
-// load
-    public function load(&$sheet)
+// _load
+    public function _load(&$sheet)
     {
         $rows = explode("\n", $this->data);
         for ($i = 0; $i < count($rows) && $i < $this->maxrows; $i++) {
@@ -1174,8 +1174,8 @@ class TikiSheetCSVExcelHandler extends TikiSheetDataHandler
         return true;
     }
 
-    // save
-    public function save(&$sheet)
+    // _save
+    public function _save(&$sheet)
     {
         $total = [];
 
@@ -1298,8 +1298,8 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
         $this->metadata = $metadata;
     }
 
-    // load
-    public function load(TikiSheet &$sheet)
+    // _load
+    public function _load(TikiSheet &$sheet)
     {
         $sheetlib = TikiLib::lib('sheet');
         $tikilib = TikiLib::lib('tiki');
@@ -1350,8 +1350,8 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
         return $this->name;
     }
 
-    // save
-    public function save(TikiSheet &$sheet)
+    // _save
+    public function _save(TikiSheet &$sheet)
     {
         global $user, $prefs;
         $tikilib = TikiLib::lib('tiki');
@@ -1486,8 +1486,8 @@ class TikiSheetOpenOfficeHandler extends TikiSheetDataHandler
     {
     }
 
-    // save
-    public function save(&$sheet)
+    // _save
+    public function _save(&$sheet)
     {
         // Get rid of debug output
         ob_start();
@@ -1554,8 +1554,8 @@ class TikiSheetWikiTableHandler extends TikiSheetDataHandler
         $this->pageName = $pageName;
     }
 
-    // load
-    public function load(TikiSheet &$sheet)
+    // _load
+    public function _load(TikiSheet &$sheet)
     {
         $tikilib = TikiLib::lib('tiki');
 
@@ -1680,8 +1680,8 @@ class TikiSheetOutputHandler extends TikiSheetDataHandler
         $this->parseOutput = $parseOutput;
     }
 
-    // save
-    public function save(TikiSheet &$sheet)
+    // _save
+    public function _save(TikiSheet &$sheet)
     {
 //      if ( $sheet->headerRow + $sheet->footerRow > $sheet->getRowCount() )
 //          return false;
@@ -1904,8 +1904,8 @@ class TikiSheetLabeledOutputHandler extends TikiSheetDataHandler
     {
     }
 
-    // save
-    public function save(&$sheet)
+    // _save
+    public function _save(&$sheet)
     {
         $this->output = "<table class=\"default\">\n";
 
@@ -2019,6 +2019,7 @@ class TikiSheetLabeledOutputHandler extends TikiSheetDataHandler
  */
 class TikiSheetHTMLTableHandler extends TikiSheetDataHandler
 {
+
     public $data;
 
     /** Constructor
@@ -2030,8 +2031,8 @@ class TikiSheetHTMLTableHandler extends TikiSheetDataHandler
         $this->data = $json;
     }
 
-    // load
-    public function load(TikiSheet &$sheet)
+    // _load
+    public function _load(TikiSheet &$sheet)
     {
         $d = $this->data;
 

@@ -873,7 +873,7 @@ class PreferencesLib
         ];
     }
 
-    private function getFlagValue($info, $data)
+    private function _getFlagValue($info, $data)
     {
         $name = $info['preference'];
         if (isset($data[$name]) && ! empty($data[$name]) && $data[$name] != 'n') {
@@ -885,7 +885,7 @@ class PreferencesLib
         return $ret;
     }
 
-    private function getSelectorValue($info, $data)
+    private function _getSelectorValue($info, $data)
     {
         $name = $info['preference'];
         if (! empty($data[$name])) {
@@ -899,7 +899,7 @@ class PreferencesLib
         }
     }
 
-    private function getMultiselectorValue($info, $data)
+    private function _getMultiselectorValue($info, $data)
     {
         $name = $info['preference'];
 
@@ -920,7 +920,7 @@ class PreferencesLib
         }
     }
 
-    private function getTextValue($info, $data)
+    private function _getTextValue($info, $data)
     {
         $name = $info['preference'];
 
@@ -944,7 +944,7 @@ class PreferencesLib
         return $this->applyConstraints($info, $value);
     }
 
-    private function getPasswordValue($info, $data)
+    private function _getPasswordValue($info, $data)
     {
         $name = $info['preference'];
 
@@ -955,7 +955,7 @@ class PreferencesLib
         }
     }
 
-    private function getTextareaValue($info, $data)
+    private function _getTextareaValue($info, $data)
     {
         $name = $info['preference'];
 
@@ -975,7 +975,7 @@ class PreferencesLib
         }
     }
 
-    private function getListValue($info, $data)
+    private function _getListValue($info, $data)
     {
         $name = $info['preference'];
         $value = isset($data[$name]) ? $data[$name] : null;
@@ -990,7 +990,7 @@ class PreferencesLib
         }
     }
 
-    private function getMultilistValue($info, $data)
+    private function _getMultilistValue($info, $data)
     {
         $name = $info['preference'];
         $value = isset($data[$name]) ? (array) $data[$name] : [];
@@ -1001,7 +1001,7 @@ class PreferencesLib
         return array_intersect($value, $options);
     }
 
-    private function getRadioValue($info, $data)
+    private function _getRadioValue($info, $data)
     {
         $name = $info['preference'];
         $value = isset($data[$name]) ? $data[$name] : null;
@@ -1016,9 +1016,9 @@ class PreferencesLib
         }
     }
 
-    private function getMulticheckboxValue($info, $data)
+    private function _getMulticheckboxValue($info, $data)
     {
-        return $this->getMultilistValue($info, $data);
+        return $this->_getMultilistValue($info, $data);
     }
 
     /**
