@@ -438,11 +438,11 @@
                 <div>
                     <input type="checkbox" class="form-check-input" id="select-all-days">
                     <label class="form-check-label me-3" for="select-all-days">
-                        Select all
+                        {tr}Select all{/tr}
                     </label>
                     <input type="checkbox" id="select-working-days" class="form-check-input">
                     <label class="form-check-label" for="select-working-days">
-                        Select working days
+                        {tr}Select working days{/tr}
                     </label>
                 </div>
                 {section name="viewdays" start=0 loop=7}
@@ -505,7 +505,7 @@
                 <div class="col-sm-4">
                     {html_options class="form-control" name='options[defaulteventstatus]' output=$eventstatusoutput values=$eventstatus selected=$defaulteventstatus}
                     <div class="input-group my-2">
-                        <span class="input-group-text">{tr}New status:{/tr}</span>
+                        <span class="input-group-text">{tr}New Status:{/tr}</span>
                         <input type="text" class="form-control" name="newstatus">
                     </div>
                 </div>
