@@ -88,6 +88,40 @@ describe("Select", () => {
         );
     });
 
+    test("renders correctly grouped options", () => {
+        const givenProps = {
+            ...basicProps,
+            options: JSON.stringify([
+                { value: "foo", label: "Foo", group: "Group 1" },
+                { value: "bar", label: "Bar", group: "Group 1" },
+                { value: "foo 2", label: "Foo 2", group: "Group 2" },
+                { value: "bar 2", label: "Bar 2", group: "Group 2" },
+            ]),
+            group: "true",
+        };
+
+        render(Select, { props: givenProps });
+
+        const selectWrapper = screen.getByTestId(DATA_TEST_ID.SELECT_WRAPPER);
+        expect(selectWrapper).to.exist;
+
+        const select = within(selectWrapper).getByTestId(DATA_TEST_ID.SELECT_ELEMENT);
+        expect(select).to.exist;
+        const selectOptGroups = within(select).getAllByTestId(DATA_TEST_ID.SELECT_OPTION_GROUP);
+        expect(selectOptGroups).toHaveLength(2);
+        selectOptGroups.forEach((selectOptGroup, index) => {
+            expect(selectOptGroup.textContent).toBe("Group " + (index + 1));
+            const options = within(selectOptGroup).getAllByTestId(DATA_TEST_ID.SELECT_OPTION);
+            expect(options).toHaveLength(2);
+            const givenGroupOptions = JSON.parse(givenProps.options).filter((option) => option.group === selectOptGroup.textContent);
+            options.forEach((_, optionIndex) => {
+                const option = givenGroupOptions[optionIndex];
+                delete option.group;
+                expect(ElOption).toHaveBeenCalledWith(expect.objectContaining(option), null);
+            });
+        });
+    });
+
     describe("Behavior", () => {
         test("renders the select wrapper with the invalid class when the isInvalid prop is true", () => {
             const givenProps = {

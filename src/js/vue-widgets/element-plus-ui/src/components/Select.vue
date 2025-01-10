@@ -3,7 +3,7 @@ import { ref, watch, computed, onMounted } from 'vue';
 import Sortable from "sortablejs";
 import { sortOptions } from '../helpers/select/sortable';
 
-const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering']);
+const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering', 'group']);
 
 const modelValue = ref(JSON.parse(props.value));
 
@@ -17,6 +17,29 @@ const clearable = props.clearable ? JSON.parse(props.clearable): false;
 const collapseTags = props.collapseTags ? JSON.parse(props.collapseTags): false;
 const filterable = props.filterable ? JSON.parse(props.filterable): false;
 const allowCreate = props.allowCreate ? JSON.parse(props.allowCreate): false;
+const grouped = props.group ? JSON.parse(props.group): false;
+const options = JSON.parse(props.options).reduce((acc, item) => {
+    if (!grouped) {
+        acc.push(item);
+        return acc;
+    }
+    const group = acc.find(group => group.label === item.group);
+    if (group) {
+        group.options.push({
+            label: item.label,
+            value: item.value,
+        });
+    } else {
+        acc.push({
+            label: item.group,
+            options: [{
+                label: item.label,
+                value: item.value,
+            }],
+        });
+    }
+    return acc;
+}, []);
 const wrapperRef = ref(null);
 
 const handleValueChange = (value) => {
@@ -43,6 +66,7 @@ export const DATA_TEST_ID = {
     SELECT_WRAPPER: `select-wrapper-${uniqueId}`,
     SELECT_ELEMENT: `select-element-${uniqueId}`,
     SELECT_OPTION: `select-option-${uniqueId}`,
+    SELECT_OPTION_GROUP: `select-option-group-${uniqueId}`,
 };
 </script>
 
@@ -66,7 +90,24 @@ export const DATA_TEST_ID = {
             :max-collapse-tags="parseInt(maxCollapseTags)"
             :data-testid="DATA_TEST_ID.SELECT_ELEMENT"
         >
+            <el-option-group 
+                v-if="grouped"
+                v-for="group in options"
+                :key="group.label"
+                :label="group.label"
+                :data-testid="DATA_TEST_ID.SELECT_OPTION_GROUP"
+            >
+                <el-option 
+                    v-for="item in group.options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                    :data-testid="DATA_TEST_ID.SELECT_OPTION"
+                />
+            </el-option-group>
             <el-option 
+                v-else
                 v-for="item in JSON.parse(props.options)"
                 :key="item.value"
                 :label="item.label"

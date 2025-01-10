@@ -32,7 +32,7 @@ describe("applySelect helper functions", () => {
         }
     );
 
-    test("updates thhe element-plus-ui options when the select options change", async () => {
+    test("updates the element-plus-ui options when the select options change", async () => {
         const givenSelect = document.createElement("select");
         const givenElementPlusUi = document.createElement("element-plus-ui");
 
@@ -47,6 +47,24 @@ describe("applySelect helper functions", () => {
         expect(JSON.parse(givenElementPlusUi.getAttribute("options"))).toEqual([
             { value: "foo", label: selectOption.textContent, disabled: selectOption.disabled },
         ]);
+    });
+
+    test("updates the element-plus-ui groups when the select grouped options change", async () => {
+        const givenSelect = document.createElement("select");
+        const givenElementPlusUi = document.createElement("element-plus-ui");
+
+        observeSelectElementMutations(givenSelect, givenElementPlusUi);
+
+        const selectOptGroup = document.createElement("optgroup");
+        selectOptGroup.label = "group";
+        const selectOption = document.createElement("option");
+        selectOption.value = "foo";
+        selectOptGroup.appendChild(selectOption);
+        givenSelect.appendChild(selectOptGroup);
+
+        await window.happyDOM.waitUntilComplete();
+
+        expect(givenElementPlusUi.getAttribute("group")).toBe("true");
     });
 
     test.each([
