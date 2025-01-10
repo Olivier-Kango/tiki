@@ -1,5 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/vue";
-import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
+import fs from "fs";
+import path from "path";
+import { describe, test, expect, vi, beforeAll, afterAll } from "vitest";
 import App from "../App.vue";
 import { ElConfigProvider } from "element-plus/dist/index.full.mjs";
 import { h } from "vue";
@@ -28,6 +30,17 @@ vi.mock("../components/Transfer.vue", async (importOriginal) => {
 });
 
 describe("App", () => {
+    const localePath = path.resolve(__dirname, "../../../../../../public/generated/js/vendor_dist/element-plus/dist/locale/en.min.mjs");
+
+    beforeAll(() => {
+        fs.mkdirSync(path.dirname(localePath), { recursive: true });
+        fs.writeFileSync(localePath, "export default { name: 'locale' }");
+    });
+
+    afterAll(() => {
+        fs.unlinkSync(localePath);
+    });
+
     test("renders the correct component with the given props", async () => {
         const givenComponentProps = {
             foo: "bar",
@@ -46,6 +59,8 @@ describe("App", () => {
     });
 
     test("loads and applies the correct locale", async () => {
+        // given the locale file has been generated
+
         render(App, {
             props: {
                 component: "div",
