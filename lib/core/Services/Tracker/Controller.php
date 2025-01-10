@@ -132,6 +132,9 @@ class Services_Tracker_Controller
                 Feedback::error($msg);
 
                 return Services_Utilities::closeModal();
+            } elseif ($trackerIds = Tracker_Definition::permNameExists($permName)) {
+                Feedback::warning(tr('This permanent name %0 is already used in other trackers: %1', $permName, implode(", ", $trackerIds)));
+                Feedback::sendHeaders();
             }
 
             $fieldId = $this->utilities->createField(
@@ -355,9 +358,15 @@ class Services_Tracker_Controller
         $encryption_keys = TikiLib::lib('encryption')->get_keys();
 
         $permName = $input->permName->word();
+        if (isset($permName) && empty($permName)) {
+            throw new Services_Exception(tr('Tracker Field permanent name cannot be empty'));
+        }
         if ($permName && $field['permName'] != $permName) {
             if ($definition->getFieldFromPermName($permName)) {
                 throw new Services_Exception_DuplicateValue('permName', tr('This permanent name %0 is already used', $permName));
+            } elseif ($trackerIds = Tracker_Definition::permNameExists($permName)) {
+                Feedback::warning(tr('This permanent name %0 is already used in other trackers: %1', $permName, implode(", ", $trackerIds)));
+                Feedback::sendHeaders();
             }
         }
 
