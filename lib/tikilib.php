@@ -2980,7 +2980,7 @@ class TikiLib extends TikiDb_Bridge
                     $itemId = substr($slug, 4);
                     $trklib = TikiLib::lib('trk');
                     $trackerItem = Tracker_Item::fromId($itemId);
-                    $objectLink = ! empty($trackerItem) ? '[' . $uri . '|' . $slug . ']' : '';
+                    $objectLink = ! empty($trackerItem) ? '[' . $uri . ']' : ''; // keep the full URL
                     break;
                 case substr($slug, 0, 3) === 'int':
                     $repID = substr($slug, 3);
