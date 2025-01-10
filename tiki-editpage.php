@@ -1605,11 +1605,12 @@ if ($prefs['feature_multilingual'] === 'y') {
     }
     $histlib = TikiLib::lib('hist');
     if ($editlib->isTranslationMode()) {
+        $diff_style = $_REQUEST['diff_style'] ?? 'default'; // Provide a default value or handle it accordingly
         histlib_helper_setup_diff(
             $editlib->sourcePageName,
             $editlib->oldSourceVersion,
             $editlib->newSourceVersion,
-            $_REQUEST['diff_style']
+            $diff_style
         );
         $smarty->assign('diff_oldver', (int) $editlib->oldSourceVersion);
         $smarty->assign('diff_newver', (int) $editlib->newSourceVersion);
