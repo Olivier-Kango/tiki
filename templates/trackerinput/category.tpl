@@ -7,23 +7,23 @@
         {if $field.options_array[1] eq 'd' and (empty($field.value[0]) or $field.isMandatory ne 'y')}
             <option value=""></option>
         {/if}
-        {foreach key=ku item=cat from=$field.list}
-            <option value="{$cat.categId|escape}" {if in_array($cat.categId, $field.selected_categories)}selected="selected"{/if}>{$cat.relativePathString|escape}</option>
+        {foreach key=ku item=cat from=$categories}
+            <option value="{$cat.categId|escape}" {if in_array($cat.categId, $field.selected_categories)}selected="selected"{/if} {if !$cat.canchange} disabled="disabled"{/if}>{$cat.relativePathString|escape}</option>
         {/foreach}
     </select>
-    {foreach key=ku item=cat from=$field.list}
+    {foreach key=ku item=cat from=$categories}
         <input id="cat{$cat.categId|escape}_hidden" type="hidden" name="cat_managed_{$field.ins_id}[]" value="{$cat.categId|escape}">
     {/foreach}
 {elseif !empty($cat_tree)}
     {$cat_tree}{* checkboxes with descendents *}
 {else}
     <div class="input-group col-md-12">
-        {foreach key=ku item=iu from=$field.list name=eforeach}
+        {foreach key=ku item=iu from=$categories name=eforeach}
             {assign var=fcat value=$iu.categId}
             <div class="col-md-4">
                 <label for="cat{$iu.categId}" class="{if $field.options_array[1] eq "radio"}radio{else}checkbox{/if}">
                     <input id="cat{$iu.categId|escape}_hidden" type="hidden" name="cat_managed_{$field.ins_id}[]" value="{$iu.categId|escape}">
-                    <input type={if $field.options_array[1] eq "radio"}"radio"{else}"checkbox"{/if} name="{$field.ins_id}[]" value="{$iu.categId}" id="cat{$iu.categId}" {if in_array($fcat, $field.selected_categories)} checked="checked"{/if}>
+                    <input type={if $field.options_array[1] eq "radio"}"radio"{else}"checkbox"{/if} name="{$field.ins_id}[]" value="{$iu.categId}" id="cat{$iu.categId}" {if in_array($fcat, $field.selected_categories)} checked="checked"{/if} {if !$iu.canchange} disabled="disabled"{/if}>
                     {if $field.options_array[4] eq 1 && !empty($iu.description)}<a href="{$iu.description|escape}" target="tikihelp" class="tikihelp" title="{$iu.name|escape}:{$iu.description|escape}">{icon name='help'}</a>{/if}
                     {$iu.name|escape}
                 </label>
