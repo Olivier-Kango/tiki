@@ -101,6 +101,7 @@
             {$sourced|escape}
         </pre>
     </div>
+{/if}
 
 {if (isset($flaggedrev_approval) and $flaggedrev_approval) and $tiki_p_wiki_approve eq 'y' and $flaggedrev_compare_approve}
     {remarksbox type=comment title="{tr}Content Approval{/tr}"}
