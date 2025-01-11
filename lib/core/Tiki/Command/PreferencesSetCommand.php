@@ -30,7 +30,7 @@ class PreferencesSetCommand extends Command
             ->addArgument(
                 'value',
                 InputArgument::REQUIRED,
-                'Preference value'
+                'Preference value. In case of multiple values, for multilist/array preferences, use comma separated values, for others (type text), use the appropriate separator.'
             );
     }
 
@@ -57,6 +57,10 @@ class PreferencesSetCommand extends Command
 
         if (! empty($preferenceInfo['separator']) && ! is_array($value)) {
             $value = explode($preferenceInfo['separator'], $value);
+        }
+
+        if ($preferenceInfo['type'] == 'multilist' && ! is_array($value)) {
+            $value = explode(',', $value);
         }
 
         if ($tikilib->set_preference($preference, $value)) {
