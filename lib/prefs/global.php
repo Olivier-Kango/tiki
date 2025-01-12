@@ -200,6 +200,7 @@ function prefs_global_list($partial = false)
             'name' => tra('Allow users to use 2FA'),
             'description' => tra('Allow users to enable Two-factor Authentication.'),
             'type' => 'flag',
+            'help' => 'Two-factor-authentication',
             'default' => 'n',
         ],
         'twoFactorAuthType' => [
@@ -602,7 +603,7 @@ function prefs_global_list($partial = false)
                 5 => tra('Friday'),
                 6 => tra('Saturday'),
             ],
-            'default' => [0,1,2,3,4,5,6],
+            'default' => [0, 1, 2, 3, 4, 5, 6],
             'tags' => ['advanced'],
         ],
         'maintenanceOnceOffEnable' => [

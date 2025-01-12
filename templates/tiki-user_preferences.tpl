@@ -734,7 +734,7 @@
 
     {if $prefs.twoFactorAuth eq 'y' and ($tiki_p_admin ne 'y' or $userwatch eq $user)}
         {tab name="{tr}Security{/tr}"}
-            <h2>{tr}Two-Factor Authentication{/tr}</h2>
+                        <h2>{title help="Two-factor-authentication"}{tr}Two-Factor Authentication{/tr}{/title}</h2>
         {*If Two-factor authentication is required and the user has not yet enabled it, show a warning.*}
         {if $prefs.twoFactorAuth eq 'y' and $force2FA eq 'y' and empty($twoFactorSecret)}
             {remarksbox type="error" title="{tr}Two-factor authentication is required{/tr}" close="n"}{tr}Your access to the site is restricted until you enable <strong>Two-factor authentication</strong>. Please enable Two-factor authentication to keep using normally the site.{/tr}{/remarksbox}
