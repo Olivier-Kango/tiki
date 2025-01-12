@@ -285,3 +285,4 @@ ALTER TABLE `tiki_2fa_email_tokens` ENGINE = InnoDB;
 ALTER TABLE `tiki_sql_query_logs` ENGINE = InnoDB;
 ALTER TABLE `tiki_iot_apps` ENGINE = InnoDB;
 ALTER TABLE `tiki_iot_apps_actions_logs` ENGINE=InnoDB;
+ALTER TABLE `tiki_user_passwords_history` ENGINE = InnoDB;

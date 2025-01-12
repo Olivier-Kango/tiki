@@ -75,5 +75,20 @@ function prefs_pass_list()
             'type' => 'flag',
             'default' => 'y',
         ],
+        'pass_history_management' => [
+            'name' => tra('Password History Management'),
+            'description' => tra('To enforce password security, this option allows to determine the number of password resets associated with a user account before the password can be reused.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
+        'pass_history_number' => [
+            'name' => tra('Use old password after'),
+            'description' => tra('Number of password resets before the password can be reused.'),
+            'type' => 'text',
+            'size' => 5,
+            'filter' => 'int',
+            'units' => tra('resets'),
+            'default' => 5,
+        ],
     ];
 }

@@ -2003,6 +2003,34 @@ class UsersLib extends TikiLib
         return [PASSWORD_INCORRECT, $user];
     }
 
+    public function checkUserPasswordHistory($user, $pass): int
+    {
+        //First, select all password resets performed by the user
+        $userUpper = TikiLib::strtoupper($user);
+        $query = 'select * from `tiki_user_passwords_history` where upper(`user`) = ?';
+        $result = $this->fetchAll($query, [$userUpper]);
+        $line = [];
+        $numberOfResets = -1;
+        //Check those matching the new password and select the most recent one.
+        foreach ($result as $res) {
+            if ($res['hash'][0] == '$') {
+                if (password_verify($pass, $res['hash'])) {
+                    $line = $res;
+                }
+            }
+        }
+
+        if (! empty($line)) {
+            //Count the number of reset passwords recorded after the last reset (the one the user wants to set as new password).
+            $query = 'SELECT COUNT(`passId`) as resets FROM `tiki_user_passwords_history`
+                            WHERE `user` = ? AND `created_at` > ?;';
+            $result = $this->query($query, [$userUpper, $line['created_at']]);
+            $res = $result->fetchRow();
+            $numberOfResets = $res['resets'];
+        }
+        return $numberOfResets;
+    }
+
     public function handleUnsuccessfulLogin($user)
     {
         global $prefs, $base_url;
@@ -7433,6 +7461,7 @@ class UsersLib extends TikiLib
     public function check_password_policy($pass)
     {
         global $prefs, $user;
+        $userlib = TikiLib::lib('user');
         $errors = [];
 
         // Validate password here
@@ -7489,6 +7518,15 @@ class UsersLib extends TikiLib
             }
         }
 
+        //Check password history
+        if ($prefs['pass_history_management'] === 'y') {
+            $numberOfResets = $userlib->checkUserPasswordHistory($user, $pass);
+            if ($numberOfResets !== -1) {
+                if ($prefs['pass_history_number'] > $numberOfResets) {
+                    $errors[] = tra('You cannot use this password because you have used the same password in the past.');
+                }
+            }
+        }
 
         return empty($errors) ? '' : implode(' ', $errors);
     }
@@ -7572,7 +7610,7 @@ class UsersLib extends TikiLib
         return $force;
     }
 
-    public function change_user_password($user, $pass, $pass_first_login = false)
+    public function change_user_password($user, $pass, $pass_first_login = false): bool
     {
 
         $hash = password_hash($pass, PASSWORD_DEFAULT);
@@ -7581,22 +7619,34 @@ class UsersLib extends TikiLib
         if ($pass_first_login) {                    // if true, set pass_confirm to force passord change upon next login
             if (! empty($pass)) {
                 $query = 'update `users_users` set `hash`=? , `provpass`=?, `pass_confirm`=? where binary `login`=?';
-                $this->query($query, [$hash, $pass, 0, $user]);
+                $result = $this->query($query, [$hash, $pass, 0, $user]);
             } else {
                 $query = 'update `users_users` set `pass_confirm`=? where binary `login`=?';
-                $this->query($query, [0, $user]);
+                $result = $this->query($query, [0, $user]);
             }
         } else {
             $query = 'update `users_users` set `hash`=? ,`pass_confirm`=?, `provpass`=? where binary `login`=?';
-            $this->query($query, [$hash, $new_pass_confirm, '', $user]);
+            $result = $this->query($query, [$hash, $new_pass_confirm, '', $user]);
         }
-        // invalidate the cache so that after a fresh install, the admin (who has no user details at the install) can log in
-        $cachelib = TikiLib::lib('cache');
-        $cachelib->invalidate('user_details_' . $user);
 
-        TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $user]);
+        if ($result && $result->numRows() === 1) {
+            // invalidate the cache so that after a fresh install, the admin (who has no user details at the install) can log in
+            $cachelib = TikiLib::lib('cache');
+            $cachelib->invalidate('user_details_' . $user);
 
-        return true;
+            TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $user]);
+            return true;
+        } else {
+            throw new Exception(tr('An error occurred while updating the password.'));
+        }
+    }
+
+    public function addPasswordHistory($user, $pass)
+    {
+        $hash = password_hash($pass, PASSWORD_DEFAULT);
+
+        $query = 'insert into `tiki_user_passwords_history`(`user`,`hash`) values(?,?)';
+        $result = $this->query($query, [$user, $hash]);
     }
 
     public function add_group(

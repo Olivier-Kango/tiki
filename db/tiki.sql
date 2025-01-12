@@ -4256,6 +4256,15 @@ CREATE TABLE `tiki_iot_apps_actions_logs` (
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
+DROP TABLE IF EXISTS `tiki_user_passwords_history`;
+CREATE TABLE `tiki_user_passwords_history` (
+  `passId` int(8) NOT NULL auto_increment,
+  `user` varchar(200) NOT NULL default '',
+  `hash` varchar(60) default NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(`passId`)
+) ENGINE=MyISAM;
+
 DROP FUNCTION IF EXISTS levenshtein;
 -- Copyright (c) 2015 Felix Zandanel <felix@zandanel.me>
 

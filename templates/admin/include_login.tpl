@@ -243,6 +243,10 @@
                 {preference name=pass_diff_username}
                 {preference name=min_pass_length}
                 {preference name=pass_due}
+                {preference name=pass_history_management}
+                <div class="adminoptionboxchild" id="passHistoryManagment_childcontainer">
+                    {preference name=pass_history_number}
+                </div>
             </fieldset>
             <fieldset>
                 <div class="mb-3 row">
