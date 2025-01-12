@@ -1213,6 +1213,7 @@ ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
 }
 
 [data-bs-theme=dark] .sm-navbar {
+    --sm-dropdowns-navbar-bg: var(--bs-tertiary-bg);
     --sm-collapsible-nav-link-color: var(--bs-link-color);
     --sm-collapsible-sub-first-level-bg: #000;
  //   .sm-sub-link dropdown-item sm-sub-toggler sm-has-sub
@@ -1223,9 +1224,7 @@ ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
 :root .sm-navbar {
     --sm-brand: var(--bs-tertiary-bg);
     --sm-brand-contrast: var(--bs-tertiary-color);
-
-    --sm-dropdowns-sub-padding-y: ;
-
+//    --sm-dropdowns-sub-padding-y: ;
     --sm-dropdowns-sub-padding-x: var(--bs-dropdown-padding-x);
     .sm-sub-link {
         border-radius: 0;
