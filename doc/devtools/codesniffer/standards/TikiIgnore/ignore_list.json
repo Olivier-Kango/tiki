@@ -560,7 +560,7 @@
             "class:MLModelTest": true
         },
         "lib\/core\/Search\/ContentSource\/ForumPostSource.php": {
-            "class:Search_ContentSource_ForumPostSource": true
+            "class:SearchContentSourceForumPostSource": true
         },
         "lib\/test\/IntegrationTests\/TrackerItemPermissionTest.php": {
             "class:TrackerItemPermissionTest": true
