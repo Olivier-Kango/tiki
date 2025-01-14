@@ -16,10 +16,10 @@ $inputConfiguration = [
         'save'                   => 'bool',                //post
         'edit'                   => 'bool',                //post
         'description'            => 'xss',                 //post
-        'contentLabel'           => 'word',                //post
+        'contentLabel'           => 'string',              //post
         'sort_mode'              => 'word',                //get
         'offset'                 => 'int',                 //get
-        'find'                   => 'word',                //post
+        'find'                   => 'string',              //post
         ],
     ],
 ];
