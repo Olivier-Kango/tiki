@@ -224,7 +224,7 @@
         {if $add_child}<input type="hidden" name="add_child" value="true">{/if}
         {if $preview or $prefs.wiki_actions_bar eq 'top' or $prefs.wiki_actions_bar eq 'both'}
             <div class='top_actions'>
-                {include file='wiki_edit_actions.tpl' wysiwyg=$wysiwyg}
+                {include file='wiki_edit_actions.tpl' rootPath=$ajaxURL wysiwyg=$wysiwyg}
             </div>
         {/if}
         <div class="mb-3 mx-0">
@@ -815,7 +815,7 @@
                 {/if}
             {/if}{* sandbox *}
             {if $prefs.wiki_actions_bar neq 'top'}
-                {include file='wiki_edit_actions.tpl' wysiwyg=$wysiwyg page_info=$page_info}
+                {include file='wiki_edit_actions.tpl' wysiwyg=$wysiwyg page_info=$page_info rootPath=$ajaxURL}
             {/if}
         </div>
     </form>

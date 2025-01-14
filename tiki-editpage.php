@@ -22,6 +22,7 @@ $inputConfiguration = [
         'page' => 'pagename',
         'returnto' => 'pagename',
         'watch' => 'digits',
+        'cancel_edit' => 'url'
     ] ],
 ];
 
@@ -874,8 +875,6 @@ if (isset($prefs['feature_references']) && $prefs['feature_references'] === 'y')
             } else {
                 $smarty->assign('display', 'block');
             }
-            $smarty->assign('ajaxURL', $GLOBALS['base_url']);
-
             $smarty->assign('libReferencesCant', $lib_references['cant']);
             $smarty->assign('libReferences', $lib_references['data']);
             $smarty->assign('use_references', $use_references);
@@ -885,6 +884,7 @@ if (isset($prefs['feature_references']) && $prefs['feature_references'] === 'y')
         }
     }
 }
+$smarty->assign('ajaxURL', $GLOBALS['base_url']);
 /* Local reference handling */
 
 
