@@ -1574,7 +1574,7 @@ if ($prefs['feature_polls'] === 'y' and $prefs['feature_wiki_ratings'] === 'y' &
         $smarty->assign('poll_template', $_REQUEST['poll_template']);
     }
 }
-
+$diff_style = $_REQUEST['diff_style'] ?? $prefs['default_wiki_diff_style'];
 if ($prefs['feature_multilingual'] === 'y') {
     $languages = [];
     $langLib = TikiLib::lib('language');
@@ -1617,6 +1617,9 @@ if ($prefs['feature_multilingual'] === 'y') {
         $smarty->assign('update_translation', 'y');
     }
 }
+$diff_styles = \TikiLib::lib('prefs')->getPreference('default_wiki_diff_style');
+$smarty->assign('diff_styles', $diff_styles);
+$smarty->assign('diff_style', $diff_style);
 $cat_type = 'wiki page';
 $cat_objid = $_REQUEST["page"];
 $cat_lang = $pageLang;
