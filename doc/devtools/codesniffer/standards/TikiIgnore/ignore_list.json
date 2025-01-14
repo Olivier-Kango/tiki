@@ -625,6 +625,9 @@
         "lib\/core\/Perms.php": {
             "class:Perms": true
         },
+        "lib\/core\/Search\/ContentSource\/SurveySource.php": {
+            "class:Search_ContentSource_SurveySource": true
+        },
         "lib\/wizard\/pages\/profiles_useful_micro_confs.php": {
             "class:ProfilesWizardUsefulMicroConfs": true
         },
@@ -9171,6 +9174,9 @@
         },
         "lib\/core\/Math\/Formula\/Function\/StrReplace.php": {
             "Math_Formula_Function_StrReplace": true
+        },
+        "lib\/core\/Search\/ContentSource\/SurveySource.php": {
+            "Search_ContentSource_SurveySource": true
         },
         "lib\/core\/Search\/ContentSource\/Static.php": {
             "Search_ContentSource_Static": true
