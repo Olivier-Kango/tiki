@@ -233,6 +233,14 @@
             width: 120px;
         }
     }
+    .compose_form .form-floating:last-of-type {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .form-floating element-plus-ui + label {
+        transform: unset !important;
+        position: relative !important;
+    }
 }
 
 .mobile.tiki-cypht, .mobile.tiki-webmail {
