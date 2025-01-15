@@ -6131,22 +6131,6 @@ class TikiLib extends TikiDb_Bridge
     }
 
     /**
-     * @param $tab
-     * @param $valField1
-     * @param $field1
-     * @param $field2
-     * @return mixed
-     */
-    public function other_value_in_tab_line($tab, $valField1, $field1, $field2)
-    {
-        foreach ($tab as $line) {
-            if ($line[$field1] == $valField1) {
-                return $line[$field2];
-            }
-        }
-    }
-
-    /**
      * @param $file_name
      * @return string
      */
