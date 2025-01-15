@@ -53,7 +53,9 @@ class Tracker_Definition
         $trackerId = (int) $trackerId;
 
         if (! $trackerId) {
-            Feedback::error(tra("trackerId parameter must be present"));
+            $msg = "trackerId parameter must be present";
+            trigger_error($msg);
+            Feedback::error(tra($msg));
         }
 
         if ($useCache && isset(self::$definitions[$trackerId])) {
