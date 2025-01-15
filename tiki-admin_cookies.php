@@ -89,6 +89,11 @@ if (isset($_REQUEST["upload"]) && $access->checkCsrf()) {
     }
 }
 if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
+    if (! $_REQUEST['cookie']) {
+        $smarty->assign('msg', tra('You cannot save the cookie with empty cookie content'));
+        $smarty->display('error.tpl');
+        die;
+    }
     $result = $taglinelib->replace_cookie($_REQUEST["cookieId"], $_REQUEST["cookie"]);
     if ($result && $result->numRows()) {
         Feedback::success(tr('Cookie saved'));
