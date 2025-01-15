@@ -121,7 +121,7 @@ class Executor
                         $record = $this->record;
                         $subtype = substr($type, 7);
                         while (substr($subtype, 0, 6) === 'parent') {
-                            $subtype = substr($subtype, 8);
+                            $subtype = substr($subtype, 7);
                             $record = $record->getParent();
                             if (! $record) {
                                 throw new Exception(tr('Sublist parent requested but no such parent found: %0', $type));
