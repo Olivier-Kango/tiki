@@ -24,7 +24,7 @@ $inputConfiguration = [
         'horizontal'                      => 'bool',              //get
         ],
         'staticKeyFiltersForArrays' => [
-            'series'                => 'striptag',
+            'series'                => 'striptags',
         ],
     ],
 ];
