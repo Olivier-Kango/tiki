@@ -3,35 +3,32 @@
 function wikiplugin_oembed_info()
 {
     return [
-      'name' => tra('oEmbed'),
+      'name' => 'oEmbed',
       'documentation' => 'PluginOEmbed',
       'description' => tra('Embed a video or media using oEmbed protocol'),
       'prefs' => [ 'wikiplugin_oembed' ],
       'iconname' => 'oembed',
-      'introduced' => 2,
+      'introduced' => 29,
       'tags' => [ 'basic' ],
       'params' => [
         'url' => [
           'required' => true,
           'name' => tra('URL'),
           'description' => tra('Complete URL to the oEmbed video or media'),
-          'since' => '2.0',
           'filter' => 'url',
           'default' => '',
         ],
         'width' => [
           'required' => false,
           'name' => tra('Width'),
-          'description' => tra('Width in pixels.') . ' ' . tra('Default') . ' :<code>560</code>',
-          'since' => '2.0',
+          'description' => tra('Width in pixels. Default: ') . '<code>560</code>',
           'filter' => 'digits',
           'default' => 560,
         ],
         'height' => [
           'required' => false,
           'name' => tra('Height'),
-          'description' => tra('Height in pixels') . ' ' . tra('Default') . ' :<code>315</code>',
-          'since' => '2.0',
+          'description' => tra('Height in pixels. Default: ') . '<code>315</code>',
           'filter' => 'digits',
           'default' => 315,
         ],
@@ -50,9 +47,8 @@ function wikiplugin_oembed_info()
         'background' => [
           'required' => false,
           'name' => tra('Background'),
-          'description' => tra('Toolbar background color. Use an HTML color code.') . ' ' . tra('Example') . ': <code>ffffff</code>',
+          'description' => tra('Toolbar background color. Use an HTML color code. Example:') . ' <code>ffffff</code>',
           'accepted' => tra('HTML color code, e.g. ffffff'),
-          'since' => '6.1',
           'filter' => 'text',
           'default' => '',
           'advanced' => true
@@ -60,9 +56,8 @@ function wikiplugin_oembed_info()
         'border' => [
           'required' => false,
           'name' => tra('Borders'),
-          'description' => tra('Toolbar border colors. Use an HTML color code.') . ' ' . tra('Example') . ': <code>ffffff</code>',
+          'description' => tra('Toolbar border colors. Use an HTML color code. Example:') . ' <code>ffffff</code>',
           'accepted' => tra('HTML color code, e.g. ffffff'),
-          'since' => '6.1',
           'filter' => 'text',
           'default' => '',
           'advanced' => true
@@ -77,8 +72,7 @@ function wikiplugin_oembed_info()
         'quality' => [
           'required' => false,
           'name' => tra('Quality'),
-          'description' => tra('Quality of the video. Default is <code>high</code>.'),
-          'since' => '2.0',
+          'description' => tr('Quality of the video. Default is %0', '<code>high</code>'),
           'default' => 'high',
           'filter' => 'alpha',
           'options' => [
@@ -93,7 +87,6 @@ function wikiplugin_oembed_info()
           'required' => false,
           'name' => tra('Allow full-screen'),
           'description' => tra('Enlarge video to full screen size'),
-          'since' => '5.0',
           'default' => '',
           'filter' => 'alpha',
           'options' => [
@@ -120,7 +113,8 @@ function wikiplugin_oembed($data, $params)
     $params = array_merge($default, $params);
 
     if (empty($params['url'])) {
-        return '{BOX(class="text-bg-light")}' . tra('Plugin oEmbed error: the URL parameter is empty.') . '{BOX}';
+        Feedback::error(tra('Plugin oEmbed error: the URL parameter is empty.'));
+        return '';
     }
 
     $oEmbedData = getOEmbedData($params['url']);
@@ -139,7 +133,8 @@ function wikiplugin_oembed($data, $params)
 
     $iframe = $dom->getElementsByTagName('iframe')->item(0);
     if (! $iframe) {
-        return '{BOX(class="text-bg-light")}' . tra('Plugin oEmbed error: no iframe found in oEmbed data.') . '{BOX}';
+        Feedback::error(tra('Plugin oEmbed error: no iframe found in oEmbed data.'));
+        return '';
     }
 
     $newIframe = $dom->createElement('iframe');
@@ -192,7 +187,7 @@ function getOEmbedData($url)
     $response = @file_get_contents($oEmbedUrl);
 
     if ($response === false) {
-        Feedback::error(tr('Error fetching oEmbed data for URL: ' . $oEmbedUrl));
+        Feedback::error(tr('Error fetching oEmbed data for URL: %0', $oEmbedUrl));
         return false;
     }
 
@@ -202,6 +197,6 @@ function getOEmbedData($url)
         return $oEmbedData;
     }
 
-    Feedback::error(tr('Invalid or malformed oEmbed data: ' . print_r($oEmbedData, true)));
+    Feedback::error(tr('Invalid or malformed oEmbed data: %0', print_r($oEmbedData, true)));
     return false;
 }
