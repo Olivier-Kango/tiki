@@ -40,6 +40,8 @@ class TikiLib extends TikiDb_Bridge
 
     public $is_slideshow = false;
 
+    const TIKI_GLOBAL_CSV_ESCAPE_CHAR = '\\';
+
     /**
      * Collection of Tiki libraries.
      * Populated by TikiLib::lib()
@@ -7116,7 +7118,7 @@ class TikiLib extends TikiDb_Bridge
     public function str_putcsv($arr)
     {
         $fh = fopen('php://temp', 'rw');
-        fputcsv($fh, $arr, escape: "");
+        fputcsv($fh, $arr, escape: TikiLib::TIKI_GLOBAL_CSV_ESCAPE_CHAR);
         rewind($fh);
         $csv = stream_get_contents($fh);
         fclose($fh);
