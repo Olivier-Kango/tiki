@@ -22,7 +22,12 @@
                             {section name=date loop=$grid_content}
                                 <td class="sheet_sibling">
                                     <div style="font-size: 1.5em; text-align: center;">
-                                        Revision: {$history[$sheetIndexes[$smarty.section.date.index]].prettystamp}
+                                        Revision:
+                                        {if not empty($history)}
+                                        {$history[$sheetIndexes[$smarty.section.date.index]].prettystamp}
+                                        {else}
+                                            <span>{tr}No history at the moment{/tr}</span>
+                                        {/if}
                                     </div>
                                 </td>
                             {/section}
@@ -40,12 +45,12 @@
                             {section name=date loop=$grid_content}
                                 <td class="sheet_sibling">
                                     <div style="text-align: center;">
-                                        {button _keepall='y' href="tiki-view_sheets.php" sheetId=$sheetId readdate=$history[$sheetIndexes[$smarty.section.date.index]].stamp parse="y" class="view_button" _text="{tr}View{/tr}" _htmlelement="role_main" _title="{tr}View{/tr}"}
-                                        {button _keepall='y' href="tiki-view_sheets.php" sheetId=$sheetId readdate=$history[$sheetIndexes[$smarty.section.date.index]].stamp parse="clone" class="clone_button" _text="{tr}Clone{/tr}" _htmlelement="role_main" _title="{tr}Clone{/tr}"}
+                                        {button _keepall='y' href="tiki-view_sheets.php" sheetId=$sheetId readdate=$history[$sheetIndexes[$smarty.section.date.index]].stamp|default:""  parse="y" class="view_button" _text="{tr}View{/tr}" _htmlelement="role_main" _title="{tr}View{/tr}"}
+                                        {button _keepall='y' href="tiki-view_sheets.php" sheetId=$sheetId readdate=$history[$sheetIndexes[$smarty.section.date.index]].stamp|default:""  parse="clone" class="clone_button" _text="{tr}Clone{/tr}" _htmlelement="role_main" _title="{tr}Clone{/tr}"}
                                         <form style="display: inline" action="tiki-view_sheets.php" method="post">
                                             {ticket}
                                             <input type="hidden" name="sheetId" value="{$sheetId}">
-                                            <input type="hidden" name="readdate" value="{$history[$sheetIndexes[$smarty.section.date.index]].stamp}">
+                                            <input type="hidden" name="readdate" value="{$history[$sheetIndexes[$smarty.section.date.index]].stamp|default:""}">
                                             <input type="hidden" name="parse" value="rollback">
                                             <input type="hidden" name="class" value="rollback_button">
                                             <button type="submit" class="btn btn-primary" onclick="confirmPopup('{tr}Are you sure you want to roll back this spreadsheet?{/tr}')">
