@@ -147,7 +147,7 @@
     {capture name=upload_file assign=upload_str}
         <div class="fgal_file">
             <div class="fgal_file_c1">
-                {if $prefs.file_galleries_use_jquery_upload neq 'y' or $editFileId}
+                {if $prefs.elementplus_upload neq 'y' or $editFileId}
                     {if $simpleMode neq 'y'}
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label">{tr}File title{/tr}</label>
@@ -195,7 +195,7 @@
                             </div>
                         </div>
                     {/if}
-                    {if $prefs.file_galleries_use_jquery_upload neq 'y' || $editFileId}
+                    {if $prefs.elementplus_upload neq 'y' || $editFileId}
                         <div class="mb-3 row">
                             <label for="userfile" class="col-md-4 col-form-label">{if $editFileId}{tr}Re-upload from disk{/tr}{else}{tr}Upload from disk{/tr}{/if}</label>
                             <div class="col-md-8">
@@ -206,8 +206,6 @@
                             </div>
                         </div>
                     {/if}
-                {else}{* file_galleries_use_jquery_upload = y *}
-                    {filegal_uploader allowedMimeTypes=$allowedMimeTypes}
                 {/if}
             </div>
             <div class="col-sm-12">
@@ -419,6 +417,11 @@
                 {/if}
                 <input type="hidden" name="galleryId[]" value="{$galleryId}">
             {/if}
+            {if $prefs.elementplus_upload eq 'y'}
+                <div class="mb-3 row">
+                    <element-plus-ui id="uploader" component="FileGalUploader" accept="{$allowedMimeTypes}" max-size="{$max_upload_size}" max-files="{$max_file_uploads}" max-width="{$gal_info.image_max_size_x}" max-height="{$gal_info.image_max_size_y}" />
+                </div>
+            {/if}
             {if !$editFileId}
                 <input type="hidden" name="upload">
             {/if}
@@ -452,7 +455,7 @@
                     </div>
                 </div>
             {/if}
-            {if !$editFileId && $prefs.file_galleries_use_jquery_upload neq 'y'}
+            {if !$editFileId && $prefs.elementplus_upload neq 'y'}
                 <div id="page_bar" class="mb-3 row">
                     <div class="col-md-8 offset-md-4">
                         <input type="submit" class="btn btn-primary"
@@ -475,7 +478,7 @@
 {if not empty($metarray) and $metarray|count gt 0}
     {include file='metadata/meta_view_tabs.tpl'}
 {/if}
-{if ! $editFileId and $prefs.file_galleries_use_jquery_upload neq 'y'}
+{if ! $editFileId and $prefs.elementplus_upload neq 'y'}
     {jq notonready=true}
     {literal}
         $('#file_0').ajaxForm({target: '#progress_0', forceSync: true});
@@ -587,8 +590,16 @@ $("#imagesize").on("click", function () {
         //resetting size to default
         $("#image_max_size_x").attr('value',defaultx);
         $("#image_max_size_y").attr('value',defaulty);
+        $("element-plus-ui#uploader").attr('max-width', defaultx);
+        $("element-plus-ui#uploader").attr('max-height', defaulty);
     } else {
         $("#customsize").css("display", "");
+        $("#image_max_size_x").on("change", function () {
+            $("element-plus-ui#uploader").attr('max-width', $(this).val());
+        });
+        $("#image_max_size_y").on("change", function () {
+            $("element-plus-ui#uploader").attr('max-height', $(this).val());
+        });
     }
 });
 

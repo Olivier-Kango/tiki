@@ -18,13 +18,13 @@
 }
 
 .el-button--primary {
-    --el-button-text-color: var(--bs-emphasis-color);
+    --el-button-text-color: var(--bs-body-bg);
     --el-button-disabled-bg-color: var(--bs-primary);
     --el-button-disabled-border-color: var(--bs-primary);
     --el-button-hover-border-color: var(--bs-primary);
     --el-button-hover-bg-color: var(--bs-primary);
-    --el-button-hover-text-color: var(--bs-emphasis-color);
-    --el-button-disabled-text-color: var(--bs-emphasis-color);
+    --el-button-hover-text-color: var(--bs-body-bg);
+    --el-button-disabled-text-color: var(--bs-body-bg);
 }
 
 .el-button.is-disabled {

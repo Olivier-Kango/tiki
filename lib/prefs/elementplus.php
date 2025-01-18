@@ -83,6 +83,16 @@ function prefs_elementplus_list()
             'dependencies' => [
                 'elementplus_select'
             ]
+        ],
+        'elementplus_upload' => [
+            'name' => tra('Element Plus Upload'),
+            'description' => tra('Provides a more advanced upload component for the file gallery with features like drag and drop, upload progress, preview, and more.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'dependencies' => [
+                'feature_elementplus',
+                'feature_file_galleries'
+            ]
         ]
     ];
 }

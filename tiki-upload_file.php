@@ -313,7 +313,7 @@ $smarty->assign('category_jail', TikiLib::lib('tiki')->get_jail(false));
 
 // Display the template
 if (! $isUpload || ! empty($_REQUEST['fileId'])) {
-    if ($prefs['file_galleries_use_jquery_upload'] !== 'y') {
+    if ($prefs['elementplus_upload'] !== 'y') {
         $headerlib->add_jsfile(JS_ASSETS_PATH . '/vendor_dist/jquery-form/dist/jquery.form.min.js');
     }
     $smarty->assign('mid', 'tiki-upload_file.tpl');

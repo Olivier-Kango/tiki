@@ -7,6 +7,7 @@ import { glob } from "glob";
 import path from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import postcssRootToHost from "./postcssRootToHost";
 /*
 
@@ -325,6 +326,14 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/element-plus/theme-chalk/base.css",
                         dest: "vendor_dist/element-plus/css",
                     },
+                    {
+                        src: "node_modules/element-plus/theme-chalk/el-message.css",
+                        dest: "vendor_dist/element-plus/css",
+                    },
+                    {
+                        src: "node_modules/element-plus/theme-chalk/el-message-box.css",
+                        dest: "vendor_dist/element-plus/css",
+                    },
                     /* common_externals */
                     {
                         src: "node_modules/@shoelace-style/shoelace/dist/themes/*.css",
@@ -339,22 +348,6 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/animejs/lib/anime.es.js",
                         dest: "vendor_dist/anime/dist",
                     },
-                    {
-                        src: "node_modules/blueimp-file-upload/js/*.js",
-                        dest: "vendor_dist/blueimp-file-upload/js",
-                    },
-                    {
-                        src: ["node_modules/blueimp-file-upload/css/jquery.fileupload.css","node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css"],
-                        dest: "vendor_dist/blueimp-file-upload/css",
-                    },
-                    {
-                        src: "node_modules/blueimp-load-image/js/load-image.all.min.js",
-                        dest: "vendor_dist/blueimp-load-image/js",
-                    },
-                    {
-                        src: "node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js",
-                        dest: "vendor_dist/blueimp-canvas-to-blob/js"
-                      },
                     {
                         src: "node_modules/chart.js/dist/chart.js*",
                         dest: "vendor_dist/chart.js/dist",
@@ -598,29 +591,10 @@ export default defineConfig(({ command, mode }) => {
                 ],
             }),
             AutoImport({
-                // We don't use https://github.com/unplugin/unplugin-vue-components/resolvers because of https://github.com/vitest-dev/vitest/issues/1402 raised during the execution of the tests
-                resolvers: [
-                    (componentName) => {
-                        if (componentName.startsWith("El")) {
-                            return {
-                                name: componentName,
-                                from: `element-plus/dist/index.full.js`,
-                            };
-                        }
-                    },
-                ],
+                resolvers: [ElementPlusResolver()],
             }),
             Components({
-                resolvers: [
-                    (componentName) => {
-                        if (componentName.startsWith("El")) {
-                            return {
-                                name: componentName,
-                                from: `element-plus/dist/index.full.mjs`,
-                            };
-                        }
-                    },
-                ],
+                resolvers: [ElementPlusResolver()],
             }),
             /* Uncomment this in development to see which dependencies contribute to bundle size */
             //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
@@ -639,6 +613,11 @@ export default defineConfig(({ command, mode }) => {
                 include: ["src/js/vue-widgets/**/*.{vue,js}"],
                 exclude: ["**/*.ce.js", "**/*.test.js"],
                 provider: 'istanbul'
+            },
+            server: {
+                deps: {
+                    inline: [/element-plus/],
+                }
             },
         },
     };

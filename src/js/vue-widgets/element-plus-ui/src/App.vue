@@ -4,11 +4,13 @@ import Transfer from './components/Transfer.vue';
 import Select from './components/Select.vue';
 import Autocomplete from './components/Autocomplete.vue';
 import getBasePath from './helpers/getBasePath';
+import FileGalUploader from './components/FileGalUploader.vue';
 
 const components = {
     Transfer,
     Select,
     Autocomplete,
+    FileGalUploader,
 };
 
 const props = defineProps({

@@ -1035,6 +1035,8 @@ $headerlib->add_js_module("import { textareaColorpicker } from '@jquery-tiki/ui-
 // element-plus-ui select, transfer
 $headerlib->add_js_module("import * as elementPlus from '@vue-widgets/element-plus-ui';");
 if ($prefs['feature_elementplus'] == 'y') {
+    $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-message.css');
+    $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-message-box.css');
     if ($prefs['elementplus_select'] == 'y') {
         $headerlib->add_js_module("elementPlus.applySelect();");
     }
