@@ -1794,6 +1794,11 @@ if ($need_lang) {
 
         $smarty->assign('alert_content', $remarksbox);
     }
+    // Loading the InteractJS library
+    // NOTE: This approach may result in multiple loads, which is temporarily ignored.
+    // TODO: A refactor is planned to use ES modules with import-map for optimized and consistent loading.
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/interactjs/dist/interact.min.js');
+
     $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
     $smarty->display('tiki-editpage.tpl');
 }
