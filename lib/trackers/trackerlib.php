@@ -2476,7 +2476,7 @@ class TrackerLib extends TikiLib
             }
         }
         $max = count($header);
-        if ($max === 1 and strpos($header, "\t") !== false) {
+        if ($max === 1 and strpos($header[0], "\t") !== false) {
             Feedback::error(tr('No fields found in header, not a comma-separated values file?'));
             return 0;
         }
