@@ -94,7 +94,13 @@ if (isset($_REQUEST["change"])) {
         $userlib->change_user_email_only($_REQUEST['user'], $_REQUEST['email']);
     }
 
-    $userlib->change_user_password($_REQUEST["user"], $_REQUEST["pass"]);
+    $res = $userlib->change_user_password($_REQUEST["user"], $_REQUEST["pass"]);
+    //If the password is successfully changed
+    if ($res) {
+        // Add new password to history
+        $userlib->addPasswordHistory($_REQUEST["user"], $_REQUEST["pass"]);
+    }
+
     // Login the user and display Home page
     $_SESSION["$user_cookie_site"] = $_REQUEST["user"];
     $user = $_REQUEST["user"];
