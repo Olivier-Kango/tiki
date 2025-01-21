@@ -134,10 +134,15 @@ class Executor
                                     // parent sublists might have entries with multiple records per key
                                     foreach ($row as $j => $subrow) {
                                         if (self::checkFieldIsAvailable($field, $subrow)) {
-                                            $this->reverseMapping[$i][$j][] = [
+                                            $map = [
                                                 'value' => $valueExtractor($subrow[$field]),
                                                 'target_field' => $arguments['field'],
                                             ];
+                                            if ($record != $this->record) {
+                                                $this->reverseMapping[$j][$i][] = $map;
+                                            } else {
+                                                $this->reverseMapping[$i][$j][] = $map;
+                                            }
                                         }
                                     }
                                 } else {
