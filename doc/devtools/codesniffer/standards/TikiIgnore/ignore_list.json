@@ -4693,7 +4693,6 @@
             "Services_Manager_Controller::action_available_versions": true,
             "Services_Manager_Controller::action_clone": true,
             "Services_Manager_Controller::action_console": true,
-            "Services_Manager_Controller::action_check": true,
             "Services_Manager_Controller::action_requirements": true,
             "Services_Manager_Controller::action_clear_cache": true,
             "Services_Manager_Controller::action_apply": true,
