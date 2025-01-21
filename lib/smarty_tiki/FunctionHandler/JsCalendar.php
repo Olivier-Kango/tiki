@@ -51,13 +51,18 @@ class JsCalendar extends Base
         $fieldName = $params['fieldname'];
         $enableTimezonePicker = $params['showtimezone'] === 'y' ? 1 : 0;
         $enableTimePicker = $params['showtime'] === 'y' ? 1 : 0;
+        $goto = $params['goto'] ?? '';
+        $id = $params['id'] ?? '';
+        $endfieldname = $params['endfieldname'] ?? '';
+        $enddate = $params['enddate'] ?? '';
+        $timezoneFieldname = $params['timezoneFieldname'] ?? '';
 
         if (! isset($params['timezone'])) {
             $params['timezone'] = $tikilib->get_display_timezone();
         }
 
         return "
-        <datetime-picker input-name=\"{$fieldName}\" theme-css=\"{$theme_css}\" id=\"{$params['id']}\" to-input-name=\"{$params['endfieldname']}\" timestamp=\"{$params['date']}\" to-timestamp=\"{$params['enddate']}\" timezone=\"{$params['timezone']}\" timezone-field-name=\"{$params['timezoneFieldname']}\" enable-timezone-picker=\"{$enableTimezonePicker}\" enable-time-picker=\"{$enableTimePicker}\" go-to-url-on-change=\"{$params['goto']}\" language=\"{$tikilib->get_language()}\" cancel-text=\"Cancel\" select-text=\"Select\"></datetime-picker>
+        <datetime-picker input-name=\"{$fieldName}\" theme-css=\"{$theme_css}\" id=\"{$id}\" to-input-name=\"{$endfieldname}\" timestamp=\"{$params['date']}\" to-timestamp=\"{$enddate}\" timezone=\"{$params['timezone']}\" timezone-field-name=\"{$timezoneFieldname}\" enable-timezone-picker=\"{$enableTimezonePicker}\" enable-time-picker=\"{$enableTimePicker}\" go-to-url-on-change=\"{$goto}\" language=\"{$tikilib->get_language()}\" cancel-text=\"Cancel\" select-text=\"Select\"></datetime-picker>
         ";
     }
 }
