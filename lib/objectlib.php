@@ -821,6 +821,9 @@ class ObjectLib extends TikiLib
      */
     public function getFormattedValues(array $objects, string $format)
     {
+        if (empty($objects)) {
+            return [];
+        }
         $lib = TikiLib::lib('unifiedsearch');
         $metaItemIds = [];
         $query = $lib->buildQuery([]);
