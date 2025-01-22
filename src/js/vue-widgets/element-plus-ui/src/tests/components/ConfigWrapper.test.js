@@ -1,11 +1,10 @@
-import { render, screen, waitFor } from "@testing-library/vue";
+import { render, screen, waitFor, within } from "@testing-library/vue";
 import fs from "fs";
 import path from "path";
 import { describe, test, expect, vi, beforeAll, afterAll } from "vitest";
-import App from "../App.vue";
 import { ElConfigProvider } from "element-plus";
 import { h } from "vue";
-import Transfer from "../components/Transfer.vue";
+import ConfigWrapper from "../../components/ConfigWrapper.vue";
 
 vi.mock("element-plus", async (importOriginal) => {
     const actual = await importOriginal();
@@ -17,14 +16,11 @@ vi.mock("element-plus", async (importOriginal) => {
     };
 });
 
-vi.mock("../components/Transfer.vue", async (importOriginal) => {
-    return {
-        default: vi.fn((props) => h("div", props)),
-    };
-});
-
 describe("App", () => {
-    const localePath = path.resolve(__dirname, "../../../../../../public/generated/js/vendor_dist/element-plus/dist/locale/en.min.mjs");
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const consoleWarnSpy = vi.spyOn(console, "warn");
+
+    const localePath = path.resolve(__dirname, "../../../../../../../public/generated/js/vendor_dist/element-plus/dist/locale/en.min.mjs");
 
     beforeAll(() => {
         fs.mkdirSync(path.dirname(localePath), { recursive: true });
@@ -35,32 +31,21 @@ describe("App", () => {
         fs.unlinkSync(localePath);
     });
 
-    test("renders the correct component with the given props", async () => {
-        const givenComponentProps = {
-            foo: "bar",
-            baz: "qux",
-        };
-        render(App, {
-            props: {
-                component: "Transfer",
-                language: "en",
-                ...givenComponentProps,
-            },
-        });
-
-        expect(screen.getByTestId("app-component").textContent).to.exist;
-        expect(Transfer).toHaveBeenCalledWith(expect.objectContaining(givenComponentProps), null);
-    });
-
-    test("loads and applies the correct locale", async () => {
+    test("renders correctly, loads and applies the correct locale", async () => {
         // given the locale file has been generated
 
-        render(App, {
+        render(ConfigWrapper, {
             props: {
-                component: "div",
                 language: "en",
             },
+            slots: {
+                default: "<div>Slot component</div>",
+            },
         });
+
+        const configProvider = screen.getByTestId("config-provider");
+        expect(configProvider).to.exist;
+        expect(within(configProvider).getByText("Slot component")).to.exist;
 
         await waitFor(() =>
             expect(ElConfigProvider).toHaveBeenCalledWith(
@@ -70,13 +55,14 @@ describe("App", () => {
                 expect.anything()
             )
         );
+
+        expect(consoleErrorSpy).not.toHaveBeenCalled();
+        expect(consoleWarnSpy).not.toHaveBeenCalled();
     });
 
     test("logs an error if locale fails to load", async () => {
-        const consoleErrorSpy = vi.spyOn(console, "error");
-        render(App, {
+        render(ConfigWrapper, {
             props: {
-                component: "div",
                 language: "unknown",
             },
         });

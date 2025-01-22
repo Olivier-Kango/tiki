@@ -21,7 +21,7 @@
     {/if}
 {/if}
 <form class="simple no-ajax vimeo_upload" id="form{$ticket.ticket_id|escape}">
-    <element-plus-ui component="FileGalUploader" accept="video/*" max-size="{$availableMB * 1000000}" max-files="1" vimeo-url="{$ticket.upload_link_secure}" />
+    <tiki-el-file-gal-uploader accept="video/*" max-size="{$availableMB * 1000000}" max-files="1" vimeo-url="{$ticket.upload_link_secure}" />
 </form>
 
 {jq}

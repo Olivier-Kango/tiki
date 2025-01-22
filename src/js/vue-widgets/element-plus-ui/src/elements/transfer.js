@@ -1,16 +1,15 @@
 import { defineCustomElement, h, watch, reactive } from "vue";
-import App from "./App.vue";
-import styles from "./custom.scss?inline";
+import Transfer from "../components/Transfer/Transfer.vue";
+import styles from "../components/Transfer/transfer.scss?inline";
 
 customElements.define(
-    "element-plus-ui",
+    "el-transfer",
     defineCustomElement(
         (props, ctx) => {
             const internalState = reactive({ ...props });
 
             const emitValueChange = (detail) => {
-                const eventName = ctx.attrs.component.toLowerCase() + "-change";
-                ctx.emit(eventName, detail);
+                ctx.emit("transfer-change", detail);
             };
 
             const emitCustomEvent = (eventName, detail) => {
@@ -27,7 +26,7 @@ customElements.define(
                 },
                 { immediate: true, deep: true }
             );
-            return () => h(App, { ...internalState, emitValueChange, emitCustomEvent }, ctx.slots);
+            return () => h(Transfer, { ...internalState, emitValueChange, emitCustomEvent }, ctx.slots);
         },
         {
             styles: [styles],
@@ -39,8 +38,8 @@ customElements.define(
     Sync the Transfer hidden select with the form
 */
 new MutationObserver((mutations) => {
-    if (mutations.some((m) => m.target.querySelector("element-plus-ui"))) {
-        const elements = document.querySelectorAll("element-plus-ui");
+    if (mutations.some((m) => m.target.querySelector("el-transfer"))) {
+        const elements = document.querySelectorAll("el-transfer");
         elements.forEach((el) => {
             if (el.getAttribute("id")) {
                 return;
@@ -89,6 +88,3 @@ new MutationObserver((mutations) => {
         });
     }
 }).observe(document.body, { childList: true, subtree: true });
-
-export { default as applySelect } from "./utils/applySelect";
-export { default as applyAutocomplete } from "./utils/applyAutocomplete";

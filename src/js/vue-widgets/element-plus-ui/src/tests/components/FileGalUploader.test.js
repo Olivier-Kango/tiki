@@ -1,8 +1,9 @@
 import { render, screen, waitFor, within } from "@testing-library/vue";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import FileGalUploader, { DATA_TEST_ID, DEFAULT_ACTION_URL } from "../../components/FileGalUploader.vue";
+import FileGalUploader, { DATA_TEST_ID, DEFAULT_ACTION_URL } from "../../components/FileGalUploader/FileGalUploader.vue";
 import { h } from "vue";
 import { ElMessage, ElUpload } from "element-plus";
+import ConfigWrapper from "../../components/ConfigWrapper.vue";
 
 vi.mock("element-plus", async (importOriginal) => {
     const actual = await importOriginal();
@@ -12,7 +13,16 @@ vi.mock("element-plus", async (importOriginal) => {
     };
 });
 
+vi.mock("../../components/ConfigWrapper.vue", () => {
+    return {
+        default: vi.fn((props, { slots }) => h("div", { ...props, "data-testid": "config-wrapper" }, slots.default ? slots.default() : null)),
+    };
+});
+
 describe("FileGalUploader", () => {
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const consoleWarnSpy = vi.spyOn(console, "warn");
+
     afterEach(() => {
         vi.clearAllMocks();
         vi.resetModules();
@@ -40,11 +50,16 @@ describe("FileGalUploader", () => {
                 expect.any(Object)
             );
 
-            const uploadElement = screen.getByTestId(DATA_TEST_ID.UPLOAD_ELEMENT);
+            const configWrapper = screen.getByTestId("config-wrapper");
+            expect(configWrapper).to.exist;
+            const uploadElement = within(configWrapper).getByTestId(DATA_TEST_ID.UPLOAD_ELEMENT);
             expect(uploadElement).to.exist;
             expect(within(uploadElement).getByTestId(DATA_TEST_ID.UPLOAD_ICON)).to.exist;
             expect(within(uploadElement).getByTestId(DATA_TEST_ID.UPLOAD_TEXT)).to.exist;
             expect(screen.getByTestId(DATA_TEST_ID.SUBMIT_BUTTON).textContent).toBe("Upload");
+
+            expect(consoleErrorSpy).not.toHaveBeenCalled();
+            expect(consoleWarnSpy).not.toHaveBeenCalled();
         });
 
         test("renders correctly with some advanced props", () => {
@@ -53,9 +68,17 @@ describe("FileGalUploader", () => {
                 maxFiles: "1",
                 maxSize: "50",
                 vimeoUrl: "http://foo/bar",
+                language: "en",
             };
 
             render(FileGalUploader, { props: givenProps });
+
+            expect(ConfigWrapper).toHaveBeenCalledWith(
+                {
+                    language: givenProps.language,
+                },
+                expect.any(Object)
+            );
 
             expect(ElUpload).toHaveBeenCalledWith(
                 expect.objectContaining({
@@ -66,6 +89,9 @@ describe("FileGalUploader", () => {
                 }),
                 expect.any(Object)
             );
+
+            expect(consoleErrorSpy).not.toHaveBeenCalled();
+            expect(consoleWarnSpy).not.toHaveBeenCalled();
         });
 
         test("renders correctly when inserting a file into the text editor", async () => {

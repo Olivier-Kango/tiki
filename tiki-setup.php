@@ -1032,18 +1032,17 @@ $headerlib->add_js_module("import '@shoelace/color-picker';");
 $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/@shoelace-style/shoelace/dist/themes/light.css');
 $headerlib->add_js_module("import { textareaColorpicker } from '@jquery-tiki/ui-utils'; textareaColorpicker();");
 
-// element-plus-ui select, transfer
-$headerlib->add_js_module("import * as elementPlus from '@vue-widgets/element-plus-ui';");
+// element-plus-ui
 if ($prefs['feature_elementplus'] == 'y') {
+    $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/base.css');
     $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-message.css');
     $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-message-box.css');
     if ($prefs['elementplus_select'] == 'y') {
-        $headerlib->add_js_module("elementPlus.applySelect();");
+        $headerlib->add_js_module("import { applySelect } from '@vue-widgets/el-select'; applySelect();");
     }
     if ($prefs['elementplus_autocomplete'] == 'y') {
         $headerlib->add_js_module("import { autocomplete } from '@jquery-tiki/ui-utils'; window.autocomplete = autocomplete;");
         $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-autocomplete.css');
-        $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/base.css');
     }
 }
 // use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not

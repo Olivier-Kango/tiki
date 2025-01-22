@@ -2,8 +2,9 @@
 import { ref, onMounted, computed } from 'vue';
 import { Menu } from "@element-plus/icons-vue";
 import Sortable from "sortablejs";
+import ConfigWrapper from '../ConfigWrapper.vue';
 
-const props = defineProps(['data', 'fieldName', 'filterable', 'defaultValue', 'sourceListTitle', 'targetListTitle', 'filterPlaceholder', 'ordering', 'minItems', 'maxItems', 'helperText', 'emitValueChange', 'isInvalid']);
+const props = defineProps(['data', 'fieldName', 'filterable', 'defaultValue', 'sourceListTitle', 'targetListTitle', 'filterPlaceholder', 'ordering', 'minItems', 'maxItems', 'helperText', 'emitValueChange', 'isInvalid', 'language']);
 const data = typeof props.data === 'string' ? JSON.parse(props.data) : props.data;
 const defaultValue = typeof props.defaultValue === 'string' ? JSON.parse(props.defaultValue) : props.defaultValue;
 
@@ -65,19 +66,21 @@ export const DRAG_HANDLER_CLASS = "handle-drag";
 </script>
 
 <template>
-    <div>
-        <select multiple aria-hidden="true" :name="fieldName" style="display: none;" :data-testid="DATA_TEST_ID['HIDDEN_SELECT']">
-            <option v-for="key in selected" :value="key" :key="key" selected></option>
-        </select>
-        <el-alert :type="isInvalid ? 'error': 'info'" show-icon :closable="false" class="mb-2" v-if="infoMessage">
-            <p :data-testid="DATA_TEST_ID.HELPER_TEXT">{{ infoMessage }}</p>
-        </el-alert>
-        <div ref="elTransferContainer" :class="['transfer-container', { 'invalid': isInvalid }]" :data-testid="DATA_TEST_ID.TRANSFER_CONTAINER">
-            <el-transfer v-model="selected" :data="arrayData" :filterable="JSON.parse(filterable)" :titles="[sourceListTitle, targetListTitle]" :filter-placeholder="filterPlaceholder" :target-order="JSON.parse(ordering) ? 'push': 'original'" @change="handleValueChange">
-                <template #default="{ option }">
-                    <el-button v-if="selected.includes(option.key) && JSON.parse(ordering)" :class="DRAG_HANDLER_CLASS" :icon="Menu" size="small" link /> <span :data-key="option.key">{{ option.label }}</span>
-                </template>
-            </el-transfer>
+    <ConfigWrapper :language="language">
+        <div>
+            <select multiple aria-hidden="true" :name="fieldName" style="display: none;" :data-testid="DATA_TEST_ID['HIDDEN_SELECT']">
+                <option v-for="key in selected" :value="key" :key="key" selected></option>
+            </select>
+            <el-alert :type="isInvalid ? 'error': 'info'" show-icon :closable="false" class="mb-2" v-if="infoMessage">
+                <p :data-testid="DATA_TEST_ID.HELPER_TEXT">{{ infoMessage }}</p>
+            </el-alert>
+            <div ref="elTransferContainer" :class="['transfer-container', { 'invalid': isInvalid }]" :data-testid="DATA_TEST_ID.TRANSFER_CONTAINER">
+                <el-transfer v-model="selected" :data="arrayData" :filterable="JSON.parse(filterable)" :titles="[sourceListTitle, targetListTitle]" :filter-placeholder="filterPlaceholder" :target-order="JSON.parse(ordering) ? 'push': 'original'" @change="handleValueChange">
+                    <template #default="{ option }">
+                        <el-button v-if="selected.includes(option.key) && JSON.parse(ordering)" :class="DRAG_HANDLER_CLASS" :icon="Menu" size="small" link /> <span :data-key="option.key">{{ option.label }}</span>
+                    </template>
+                </el-transfer>
+            </div>
         </div>
-    </div>
+    </ConfigWrapper>
 </template>

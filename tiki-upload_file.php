@@ -311,6 +311,10 @@ $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 
 $smarty->assign('category_jail', TikiLib::lib('tiki')->get_jail(false));
 
+if ($prefs['elementplus_upload'] === 'y') {
+    $headerlib->add_js_module("import '@vue-widgets/el-file-gal-uploader';");
+}
+
 // Display the template
 if (! $isUpload || ! empty($_REQUEST['fileId'])) {
     if ($prefs['elementplus_upload'] !== 'y') {

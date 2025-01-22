@@ -1,8 +1,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { fetchSuggestions } from '../helpers/autocomplete/remote';
+import { fetchSuggestions } from '../../helpers/autocomplete/remote';
+import ConfigWrapper from '../ConfigWrapper.vue';
 
-const props = defineProps(['value', 'remoteSourceUrl', 'sourceList', 'emitCustomEvent', 'placeholder', 'valueKey']);
+const props = defineProps(['value', 'remoteSourceUrl', 'sourceList', 'emitCustomEvent', 'placeholder', 'valueKey', 'language']);
 
 const valueKey = props.valueKey || 'value';
 const placeholder = props.placeholder || TEXT.INPUT_PLACEHOLDER;
@@ -43,17 +44,20 @@ export const DATA_TEST_ID = {
 </script>
 
 <template>
-    <el-autocomplete
-        v-model="modelValue"
-        :debounce="500"
-        :trigger-on-focus="false"
-        :fetch-suggestions="handleFetchSuggestions"
-        :data-testid="DATA_TEST_ID.AUTOCOMPLETE_ELEMENT"
-        :placeholder="placeholder"
-        :value-key="valueKey"
-        @select="handleSelect"
-        @input="handleInput"
-        @keyup.enter="handlePressEnter"
-    >
-    </el-autocomplete>
+    <ConfigWrapper :language="language">
+        <el-autocomplete
+            v-model="modelValue"
+            :debounce="500"
+            :trigger-on-focus="false"
+            :fetch-suggestions="handleFetchSuggestions"
+            :data-testid="DATA_TEST_ID.AUTOCOMPLETE_ELEMENT"
+            :placeholder="placeholder"
+            :value-key="valueKey"
+            @select="handleSelect"
+            @input="handleInput"
+            @keyup.enter="handlePressEnter"
+            clearable
+        >
+        </el-autocomplete>
+    </ConfigWrapper>
 </template>

@@ -1,4 +1,4 @@
-import { applyAutocomplete } from "@vue-widgets/element-plus-ui";
+import { applyAutocomplete } from "@vue-widgets/el-autocomplete";
 
 export default function autocomplete(element, resourceType, options = {}) {
     let remoteSourceUrl = "";

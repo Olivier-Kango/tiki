@@ -419,7 +419,7 @@
             {/if}
             {if $prefs.elementplus_upload eq 'y'}
                 <div class="mb-3 row">
-                    <element-plus-ui id="uploader" component="FileGalUploader" accept="{$allowedMimeTypes}" max-size="{$max_upload_size}" max-files="{$max_file_uploads}" max-width="{$gal_info.image_max_size_x}" max-height="{$gal_info.image_max_size_y}" />
+                    <tiki-el-file-gal-uploader id="uploader" accept="{$allowedMimeTypes}" max-size="{$max_upload_size}" max-files="{$max_file_uploads}" max-width="{$gal_info.image_max_size_x}" max-height="{$gal_info.image_max_size_y}" />
                 </div>
             {/if}
             {if !$editFileId}
