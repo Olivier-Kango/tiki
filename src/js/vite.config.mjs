@@ -160,6 +160,7 @@ export default defineConfig(({ command, mode }) => {
                 external: [
                     /^@vue-mf\/.+/,
                     /^@vue-widgets\/.+/,
+                    /^@jquery-tiki\/.+/,
                     "@popperjs/core",
                     "bootstrap",
                     "clipboard",
