@@ -44,11 +44,11 @@ function wikiplugin_oembed_info()
             ['text' => tra('No'), 'value' => 'n'],
           ],
         ],
-        'background' => [
+        'bg' => [
           'required' => false,
           'name' => tra('Background'),
-          'description' => tra('Toolbar background color. Use an HTML color code. Example:') . ' <code>ffffff</code>',
-          'accepted' => tra('HTML color code, e.g. ffffff'),
+          'description' => tra('Object background color. Example:') . ' <code>#ffffff</code>, <code>rgb(255, 255, 255)</code>, <code>white</code>',
+          'accepted' => tra('Any valid CSS color value, e.g., hex, rgb(a), or color names'),
           'filter' => 'text',
           'default' => '',
           'advanced' => true
@@ -56,8 +56,8 @@ function wikiplugin_oembed_info()
         'border' => [
           'required' => false,
           'name' => tra('Borders'),
-          'description' => tra('Toolbar border colors. Use an HTML color code. Example:') . ' <code>ffffff</code>',
-          'accepted' => tra('HTML color code, e.g. ffffff'),
+          'description' => tra('Object border color. Example:') . ' <code>#ffffff</code>, <code>rgb(255, 255, 255)</code>, <code>white</code>',
+          'accepted' => tra('Any valid CSS color value, e.g., hex, rgb(a), or color names'),
           'filter' => 'text',
           'default' => '',
           'advanced' => true
@@ -69,25 +69,11 @@ function wikiplugin_oembed_info()
           'filter' => 'digits',
           'default' => 0,
         ],
-        'quality' => [
-          'required' => false,
-          'name' => tra('Quality'),
-          'description' => tr('Quality of the video. Default is %0', '<code>high</code>'),
-          'default' => 'high',
-          'filter' => 'alpha',
-          'options' => [
-            ['text' => '', 'value' => ''],
-            ['text' => tra('High'), 'value' => 'high'],
-            ['text' => tra('Medium'), 'value' => 'medium'],
-            ['text' => tra('Low'), 'value' => 'low'],
-          ],
-          'advanced' => true
-        ],
         'allowFullScreen' => [
           'required' => false,
           'name' => tra('Allow full-screen'),
           'description' => tra('Enlarge video to full screen size'),
-          'default' => '',
+          'default' => 'y',
           'filter' => 'alpha',
           'options' => [
             ['text' => '', 'value' => ''],
@@ -143,23 +129,18 @@ function wikiplugin_oembed($data, $params)
     $newIframe->setAttribute('height', $params['height']);
     $newIframe->setAttribute('sandbox', 'allow-scripts allow-same-origin');
 
-    if (! empty($params['background'])) {
-        $newIframe->setAttribute('style', 'background-color:#' . $params['background']);
+    if (! empty($params['bg'])) {
+        $newIframe->setAttribute('style', 'background-color:' . $params['bg']);
     }
 
     if (! empty($params['border'])) {
         $style = $newIframe->getAttribute('style');
-        $newIframe->setAttribute('style', $style . '; border: 1px solid #' . $params['border']);
+        $newIframe->setAttribute('style', $style . '; border: 1px solid ' . $params['border']);
     }
 
     if (isset($params['start']) && is_numeric($params['start']) && $params['start'] > 0) {
         $src = $newIframe->getAttribute('src');
         $newIframe->setAttribute('src', $src . (strpos($src, '?') === false ? '?' : '&') . 'start=' . $params['start']);
-    }
-
-    if (! empty($params['quality'])) {
-        $src = $newIframe->getAttribute('src');
-        $newIframe->setAttribute('src', $src . (strpos($src, '?') === false ? '?' : '&') . 'quality=' . $params['quality']);
     }
 
     if ($params['allowFullScreen'] === 'y') {
