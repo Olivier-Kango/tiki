@@ -13,7 +13,7 @@
                 {if $module_params.type|default:null eq 'horiz'}
                     <li class="nav-item dropdown {$item.class|escape|default:null} {if !empty($item.selected)}active{/if}">
                         <a class="nav-link dropdown-toggle" id="menu_option{$item.optionId|escape}" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                        <a class="nav-link collapse-toggle" data-bs-toggle="collapse" href="#menu_option{$item.optionId|escape}" aria-expanded="false">
+                        {* <a class="nav-link collapse-toggle" data-bs-toggle="collapse" href="#menu_option{$item.optionId|escape}" aria-expanded="false"> *}
                             {if $menu_info.use_items_icons eq "y" && $item.icon}
                                 {icon name=$item.icon}
                             {/if}
