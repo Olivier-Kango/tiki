@@ -788,7 +788,7 @@ class UnifiedSearchLib
         }
 
         if (isset($types['forum post'])) {
-            $aggregator->addContentSource('forum post', new SearchContentSourceForumPostSource());
+            $aggregator->addContentSource('forum post', new Search_ContentSource_ForumPostSource());
             $aggregator->addContentSource('forum', new Search_ContentSource_ForumSource());
         }
 
