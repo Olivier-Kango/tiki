@@ -5,11 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-namespace Tiki\Tests\Shipping;
-
-use TikiTestCase;
-use ShippingProvider;
-use ShippingLib;
+require_once __DIR__ . '/../../shipping/shippinglib.php';
 
 class ShippingTest extends TikiTestCase implements ShippingProvider
 {
