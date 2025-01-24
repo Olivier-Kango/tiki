@@ -4205,3 +4205,12 @@ CREATE TABLE `tiki_custom_color_modes` (
 ) ENGINE=MyISAM;
 
 INSERT INTO `tiki_custom_color_modes` (`name`, `icon`) VALUES ('light', 'sun'), ('dark','moon'), ('auto', 'circle-half');
+
+DROP TABLE IF EXISTS `tiki_user_passwords_history`;
+CREATE TABLE `tiki_user_passwords_history` (
+  `passId` int(8) NOT NULL auto_increment,
+  `user` varchar(200) NOT NULL default '',
+  `hash` varchar(60) default NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(`passId`)
+) ENGINE=MyISAM;
