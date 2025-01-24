@@ -84,6 +84,7 @@ $smarty->assign('title', '');
 $smarty->assign('description', '');
 $smarty->assign('edit_mode', 'n');
 $smarty->assign('chart_enabled', (function_exists('imagepng') || function_exists('pdf_new')) ? 'y' : 'n');
+$smarty->assign('creator', $user);
 // If we are editing an existing sheet prepare smarty variables
 if (isset($_REQUEST["edit_mode"]) && $_REQUEST["edit_mode"]) {
     $access->check_permission('tiki_p_edit_sheet');
@@ -105,7 +106,6 @@ if (isset($_REQUEST["edit_mode"]) && $_REQUEST["edit_mode"]) {
         $smarty->assign('headerRow', '0');
         $smarty->assign('footerRow', '0');
         $smarty->assign('parseValues', 'n');
-        $smarty->assign('creator', $user);
         $smarty->assign('parentSheetId', 0);
     }
 }
