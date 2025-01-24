@@ -152,6 +152,7 @@ export default defineConfig(({ command, mode }) => {
             target: "es2022", //https://caniuse.com/?search=es2022 Who cares about IE these days...
             optimizeDeps: {
                 disabled: false,
+                include: ['@event-calendar/core'],
                 //If you ever need to debug a dependency and see your changes do this (ref: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7):
                 //exclude: ["svelte"],
             },
@@ -275,6 +276,10 @@ export default defineConfig(({ command, mode }) => {
                     */
 
                     /* jquery_tiki */
+                    {
+                        src: "node_modules/@event-calendar/*",
+                        dest: "vendor_dist/@event-calendar",
+                    },
                     {
                         src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
                         dest: "vendor_dist/bootstrap/dist/css",

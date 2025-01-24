@@ -25,6 +25,13 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
             // NOTE: Keep the list alphabetically sorted.
             "imports" => [
                 /* common_externals available in ESM format */
+                "@event-calendar/core" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@event-calendar/core/index.js",
+                "@event-calendar/day-grid" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@event-calendar/day-grid/index.js",
+                "@event-calendar/interaction" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@event-calendar/interaction/index.js",
+                "@event-calendar/list" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@event-calendar/list/index.js",
+                "@event-calendar/resource-time-grid" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@event-calendar/resource-time-grid/index.js",
+                "@event-calendar/resource-timeline" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@event-calendar/resource-timeline/index.js",
+                "@event-calendar/time-grid" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@event-calendar/time-grid/index.js",
                 "@kurkle/color" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@kurkle/color/dist/color.esm.js",
                 "@popperjs/core" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/@popperjs/core/dist/esm/index.js",
                 "animejs" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/anime/dist/anime.es.js",
