@@ -60,7 +60,7 @@ function prefs_elementplus_list()
             'name' => tra('Filterable Select'),
             'description' => tra('whether select can be filtered'),
             'type' => 'flag',
-            'default' => 'n',
+            'default' => 'y',
             'dependencies' => [
                 'elementplus_select'
             ]

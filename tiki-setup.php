@@ -1019,6 +1019,7 @@ if ($prefs['feature_elementplus'] == 'y') {
         $headerlib->add_js_module("import { autocomplete } from '@jquery-tiki/ui-utils'; window.autocomplete = autocomplete;");
         $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-autocomplete.css');
         $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/base.css');
+        $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/element-plus/css/el-scrollbar.css');
     }
 }
 // use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not
