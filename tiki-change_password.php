@@ -15,7 +15,7 @@ $inputConfiguration = [
         'pass' => 'none',
         'passAgain' => 'none',
         'oldpass' => 'none',
-        'change' => null,
+        'change' => 'text',
     ],
     ]
 ];
