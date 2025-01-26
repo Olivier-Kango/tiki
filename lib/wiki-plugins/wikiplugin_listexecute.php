@@ -5,7 +5,6 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Command\ListExecuteCommand;
-use Tiki\HeadlessBrowser\Exception\HeadlessException;
 
 require_once 'lib/wiki/pluginslib.php';
 
@@ -241,7 +240,7 @@ function wikiplugin_listexecute($data, $params)
                         if (! $success) {
                             Feedback::error(tr("Unknown error executing action %0 on item %1.", $_POST['list_action'], $entry['title']));
                         }
-                    } catch (Search_Action_Exception | HeadlessException $e) {
+                    } catch (Search_Action_Exception $e) {
                         Feedback::error(
                             tr("Error executing action %0 on item %1:", $_POST['list_action'], $entry['title'])
                             . ' ' . $e->getMessage()
