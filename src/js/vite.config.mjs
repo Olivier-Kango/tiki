@@ -319,18 +319,11 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/element-plus/dist/locale/*.min.mjs",
                         dest: "vendor_dist/element-plus/dist/locale",
                     },
-                    /*
-                    NOTE: The following autocomplete CSS file is necessary to theme the autocomplete popper because, by default, it is teleported to the body, preventing it from inheriting the styles of the custom element.
-                    Although Element Plus provides an option to attach the popper to the custom element's context, this option currently exhibits a blocking bug. After several hours of investigating the source code, I have been unable to resolve it.
-                    The issue is that the options become unclickable when the popper is placed inside the custom element. Hopefully, we can fix this in the future and remove the need for this CSS file. - @mercihabam - 2024-10-18
-                    */
                     {
                         src: [
-                            "node_modules/element-plus/theme-chalk/el-autocomplete.css",
                             "node_modules/element-plus/theme-chalk/base.css",
                             "node_modules/element-plus/theme-chalk/el-message.css",
                             "node_modules/element-plus/theme-chalk/el-message-box.css",
-                            "node_modules/element-plus/theme-chalk/el-scrollbar.css", // needed for the autocomplete dropdown
                         ],
                         dest: "vendor_dist/element-plus/css",
                     },

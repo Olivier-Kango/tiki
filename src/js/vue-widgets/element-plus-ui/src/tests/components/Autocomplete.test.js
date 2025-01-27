@@ -92,6 +92,7 @@ describe("Autocomplete", () => {
                     modelValue: givenProps.value,
                     debounce: 500,
                     placeholder: givenProps.placeholder,
+                    teleported: false,
                     "trigger-on-focus": false,
                     "value-key": givenProps.valueKey,
                 }),
