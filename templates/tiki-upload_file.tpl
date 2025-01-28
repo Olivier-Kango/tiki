@@ -6,7 +6,7 @@
 {title help="File Galleries" admpage="fgal"}{if $editFileId}{tr}Edit File:{/tr} {$fileInfo.filename}{else}{tr}Upload File{/tr}{/if}{/title}
 {if !empty($galleryId) or (isset($galleries) and count($galleries) > 0 and $tiki_p_list_file_galleries eq 'y') or (isset($uploads) and count($uploads) > 0)}
     <div class="t_navbar mb-4">
-        {if !empty($galleryId)}
+        {if !empty($galleryId) and !isset($insertion_syntax)}
             {assign var=btnHref value="tiki-list_file_gallery.php"}
             {if isset($allowedMimeTypes)}
                 {assign var=btnHref value=$btnHref|cat:"?allowedMimeTypes="|cat:$allowedMimeTypes}
