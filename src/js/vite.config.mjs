@@ -117,10 +117,10 @@ export default defineConfig(({ command, mode }) => {
     Object.assign(rollupInput, {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
         "color-picker": resolve("node_modules/@shoelace-style/shoelace/dist/components/color-picker/color-picker.js"),
-        "datetime-picker": resolve(__dirname, "vue-widgets/datetime-picker/src/datetime-picker.ce.js"),
         "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
         "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
         "element-plus-ui/autocomplete": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/autocomplete.js"),
+        "element-plus-ui/datepicker": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/datepicker.js"),
         "element-plus-ui/fileGalUploader": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/fileGalUploader.js"),
         "element-plus-ui/select": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/select.js"),
         "element-plus-ui/transfer": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/transfer.js"),
@@ -137,9 +137,9 @@ export default defineConfig(({ command, mode }) => {
         base: "/public/generated/js", //This must NOT have a trailing slash
         publicDir: false, //tiki already uses public for other purposes.  If we want to use this feature we can create a src/public folder for it.
         resolve: {
-            /*alias: {
-            "@vue-mf/styleguide": resolve(__dirname, "vue-mf/styleguide/src/main.js"),
-        },*/
+            alias: {
+                "moment-timezone": resolve(__dirname, "../../node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.min.js"),
+            }
         },
         build: {
             outDir: resolve(__dirname, "../../public/generated/js"),
@@ -599,11 +599,11 @@ export default defineConfig(({ command, mode }) => {
             },
         },
         test: {
-            include: ["src/js/vue-widgets/**/tests/**/*.test.js"],
+            include: ["src/js/**/tests/**/*.test.js"],
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/vue-widgets/**/*.{vue,js}"],
+                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/jquery-tiki/ui-utils/handleDatePicker.js"],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
                 provider: 'istanbul'
             },
