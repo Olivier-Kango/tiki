@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, within } from "@testing-library/vue";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import Transfer, { DATA_TEST_ID, DRAG_HANDLER_CLASS } from "../../components/Transfer.vue";
-import { ElAlert, ElTransfer } from "element-plus/dist/index.full.mjs";
+import { ElAlert, ElTransfer } from "element-plus";
 import { h } from "vue";
 import Sortable from "sortablejs";
 
-vi.mock("element-plus/dist/index.full.mjs", async (importOriginal) => {
+vi.mock("element-plus", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...actual,

@@ -54,6 +54,8 @@ export const DATA_TEST_ID = {
         @select="handleSelect"
         @input="handleInput"
         @keyup.enter="handlePressEnter"
+        clearable
+        :teleported="false"
     >
     </el-autocomplete>
 </template>

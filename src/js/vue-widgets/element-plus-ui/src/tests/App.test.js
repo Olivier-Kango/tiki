@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { describe, test, expect, vi, beforeAll, afterAll } from "vitest";
 import App from "../App.vue";
-import { ElConfigProvider } from "element-plus/dist/index.full.mjs";
+import { ElConfigProvider } from "element-plus";
 import { h } from "vue";
 import Transfer from "../components/Transfer.vue";
 
@@ -13,7 +13,7 @@ vi.mock("/public/generated/js/vendor_dist/element-plus/dist/locale/en.min.mjs", 
     },
 }));
 
-vi.mock("element-plus/dist/index.full.mjs", async (importOriginal) => {
+vi.mock("element-plus", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...actual,

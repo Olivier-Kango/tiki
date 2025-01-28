@@ -2,10 +2,10 @@ import { fireEvent, render, screen } from "@testing-library/vue";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { h } from "vue";
 import Autocomplete, { DATA_TEST_ID, TEXT } from "../../components/Autocomplete.vue";
-import { ElAutocomplete } from "element-plus/dist/index.full.mjs";
+import { ElAutocomplete } from "element-plus";
 import { fetchSuggestions } from "../../helpers/autocomplete/remote";
 
-vi.mock("element-plus/dist/index.full.mjs", async (importOriginal) => {
+vi.mock("element-plus", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...actual,
@@ -77,6 +77,7 @@ describe("Autocomplete", () => {
                     modelValue: givenProps.value,
                     debounce: 500,
                     placeholder: givenProps.placeholder,
+                    teleported: false,
                     "trigger-on-focus": false,
                     "value-key": givenProps.valueKey,
                 }),

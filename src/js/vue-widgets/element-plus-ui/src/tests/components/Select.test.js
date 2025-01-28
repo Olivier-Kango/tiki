@@ -2,11 +2,11 @@ import { fireEvent, render, screen, within } from "@testing-library/vue";
 import { describe, expect, test, vi } from "vitest";
 import { h } from "vue";
 import Select, { DATA_TEST_ID } from "../../components/Select.vue";
-import { ElOption, ElSelect } from "element-plus/dist/index.full.mjs";
+import { ElOption, ElSelect } from "element-plus";
 import * as SortableHelper from "../../helpers/select/sortable";
 import Sortable from "sortablejs";
 
-vi.mock("element-plus/dist/index.full.mjs", async (importOriginal) => {
+vi.mock("element-plus", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...actual,

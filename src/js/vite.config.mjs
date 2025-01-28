@@ -7,6 +7,7 @@ import { glob } from "glob";
 import path from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import postcssRootToHost from "./postcssRootToHost";
 /*
 
@@ -309,19 +310,6 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/element-plus/dist/locale/*.min.mjs",
                         dest: "vendor_dist/element-plus/dist/locale",
                     },
-                    /*
-                    NOTE: The following autocomplete CSS file is necessary to theme the autocomplete popper because, by default, it is teleported to the body, preventing it from inheriting the styles of the custom element.
-                    Although Element Plus provides an option to attach the popper to the custom element's context, this option currently exhibits a blocking bug. After several hours of investigating the source code, I have been unable to resolve it.
-                    The issue is that the options become unclickable when the popper is placed inside the custom element. Hopefully, we can fix this in the future and remove the need for this CSS file. - @mercihabam - 2024-10-18
-                    */
-                    {
-                        src: [
-                            "node_modules/element-plus/theme-chalk/el-autocomplete.css",
-                            "node_modules/element-plus/theme-chalk/base.css",
-                            "node_modules/element-plus/theme-chalk/el-scrollbar.css", // needed for the autocomplete dropdown
-                        ],
-                        dest: "vendor_dist/element-plus/css",
-                    },
                     /* common_externals */
                     {
                         src: "node_modules/@shoelace-style/shoelace/dist/themes/*.css",
@@ -527,29 +515,10 @@ export default defineConfig(({ command, mode }) => {
                 ],
             }),
             AutoImport({
-                // We don't use https://github.com/unplugin/unplugin-vue-components/resolvers because of https://github.com/vitest-dev/vitest/issues/1402 raised during the execution of the tests
-                resolvers: [
-                    (componentName) => {
-                        if (componentName.startsWith("El")) {
-                            return {
-                                name: componentName,
-                                from: `element-plus/dist/index.full.js`,
-                            };
-                        }
-                    },
-                ],
+                resolvers: [ElementPlusResolver()],
             }),
             Components({
-                resolvers: [
-                    (componentName) => {
-                        if (componentName.startsWith("El")) {
-                            return {
-                                name: componentName,
-                                from: `element-plus/dist/index.full.mjs`,
-                            };
-                        }
-                    },
-                ],
+                resolvers: [ElementPlusResolver()],
             }),
             /* Uncomment this in development to see which dependencies contribute to bundle size */
             //visualizer({ filename: "temp/dev/stats.html", open: true, gzipSize: false }),
@@ -568,6 +537,11 @@ export default defineConfig(({ command, mode }) => {
                 include: ["src/js/vue-widgets/**/*.{vue,js}"],
                 exclude: ["**/*.ce.js", "**/*.test.js"],
                 provider: 'istanbul'
+            },
+            server: {
+                deps: {
+                    inline: [/element-plus/],
+                }
             },
         },
     };
