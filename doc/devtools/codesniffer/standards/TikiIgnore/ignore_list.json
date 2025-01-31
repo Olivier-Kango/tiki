@@ -2455,6 +2455,9 @@
         "lib\/language\/LanguageTranslations.php": {
             "class:LanguageTranslations": true
         },
+        "lib/core/Search/ContentSource/PollSource.php": {
+            "class:Search_ContentSource_PollSource": true
+        },
         "lib\/language\/FileType.php": {
             "class:Language_FileType": true
         },
@@ -5557,6 +5560,9 @@
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Plain.php": {
             "Search_Formatter_ValueFormatter_Plain": true
+        },
+        "lib\/core\/Search\/ContentSource\/PollSource.php": {
+            "Search_ContentSource_PollSource": true
         },
         "lib\/core\/Search\/Formatter\/ValueFormatter\/Objectlink.php": {
             "Search_Formatter_ValueFormatter_Objectlink": true

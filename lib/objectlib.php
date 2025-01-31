@@ -247,6 +247,7 @@ class ObjectLib extends TikiLib
             'file_gallery' => 'file gallery',
             'forum' => 'forum',
             'group' => 'group',
+            'poll' => 'poll',
             'tracker' => 'tracker',
             'tracker_field' => 'trackerfield',
             'survey' => 'survey',

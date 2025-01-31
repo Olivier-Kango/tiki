@@ -601,6 +601,10 @@ class UnifiedSearchLib
         $types['user'] = tra('user');
         $types['group'] = tra('group');
 
+        if ($prefs['feature_polls'] == 'y') {
+            $types['poll'] = tra('poll');
+        }
+
         return $types;
     }
 
@@ -910,6 +914,10 @@ class UnifiedSearchLib
 
         if (isset($types['survey'])) {
             $aggregator->addContentSource('survey', new Search_ContentSource_SurveySource());
+        }
+
+        if (isset($types['poll'])) {
+            $aggregator->addContentSource('poll', new Search_ContentSource_PollSource());
         }
 
         $aggregator->addGlobalSource(new Search_GlobalSource_TitleInitialSource());
