@@ -66,7 +66,7 @@ export default function autocomplete(element, resourceType, options = {}) {
     if (resourceType == "pagename" && ($(element).attr("name") == "highlight" || /^search_mod_input_\d|highlight$/.test($(element).attr("id")))) {
         const selectCb = (event) => {
             const page = event.detail[0];
-            window.location.href = page.label;
+            window.location.href = page.label.replace(/ /g, "-");
         };
         autoCompleteArgs.push(selectCb);
     } else if (options.select) {
