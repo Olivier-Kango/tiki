@@ -403,6 +403,11 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         return $search;
     }
 
+    public function getIndexTableName()
+    {
+        return $this->index;
+    }
+
     public function find(\Search_Query_Interface $query, $resultStart, $resultCount)
     {
         $builder = new QueryBuilder($this);

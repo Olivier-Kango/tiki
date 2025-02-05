@@ -342,7 +342,7 @@ class PdoClient
     public function document($index, $type, $id): ResultSet
     {
         $stmt = $this->prepareAndExecute("SELECT * FROM $index WHERE object_type = :object_type AND object_id = :object_id", ['object_type' => $type, 'object_id' => $id]);
-        return new ResultSet($stmt->fetch());
+        return new ResultSet($stmt->fetch(), 1, 0, 1);
     }
 
     public function optimize($index)

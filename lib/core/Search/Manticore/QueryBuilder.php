@@ -85,6 +85,12 @@ class QueryBuilder
         try {
             if (! $node instanceof NotX && count($fields) == 1 && $this->isFullText($node)) {
                 $query = $this->fieldBuilder->build($node, $this->factory);
+                if ($node instanceof MoreLikeThis) {
+                    $type = $node->getObjectType();
+                    $object = $node->getObjectId();
+                    $query = $this->getDocumentContent($type, $object);
+                }
+
                 if (preg_match('/^[\d\.]+$/', $query)) {
                     // version strings should be phrases
                     $query = '"' . $query . '"';
@@ -175,6 +181,13 @@ class QueryBuilder
                     $this->select[$key] = $query;
                     return "$key = 0";
                 }
+                $query = preg_replace_callback(
+                    '/\s(AND|OR)\s/',
+                    function ($matches) {
+                        return $matches[1] === 'AND' ? ' OR ' : ' AND ';
+                    },
+                    $query
+                );
                 $query = str_replace(' = ', ' <> ', $query);
                 $query = str_replace(' < ', ' >= ', $query);
                 $query = str_replace(' > ', ' <= ', $query);
@@ -318,5 +331,15 @@ class QueryBuilder
         }
         // single quotes require only one slash escape
         return addcslashes($qs, "'");
+    }
+
+    private function getDocumentContent($type, $object)
+    {
+        $doc = $this->pdo_client->document($this->index->getIndexTableName(), $type, $object, 'contents');
+        if (! empty($doc['contents'])) {
+            return $doc['contents'];
+        }
+
+        return '';
     }
 }
