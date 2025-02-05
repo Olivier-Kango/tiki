@@ -229,8 +229,8 @@
         width: 100%;
     }
     #imap_filter_form {        
-        .imap_sort + el-select, .imap_filter + el-select {
-            width: 120px;
+        .imap_sort, .imap_sort + el-select, .imap_filter + el-select {
+            width: 150px;
         }
     }
     .compose_form .form-floating:last-of-type {
@@ -270,6 +270,9 @@
 //
 .mobile {
     .inline-cypht {
+        .app-container {
+            padding: 20px 0;
+        }
         nav.folder_cell {
             position: fixed;
             z-index: 9999;
@@ -278,7 +281,6 @@
             z-index: 9999;
         }
         .content_cell {
-            padding: 0;
             border: none;
             display: block !important;
         }
@@ -302,6 +304,9 @@
             z-index: 100;
         }
         .imap_filter_form { margin-left: 10px; margin-right: 10px; }
+        .imap_sort, .imap_sort + el-select, .imap_filter + el-select {
+            width: 120px;
+        }
 
         .message_list .content_title > div:first-child { display: flex; flex-direction: row; }
         .mailbox_list_title { order: 2 }
@@ -361,7 +366,7 @@
 
         // mobile compose
         .compose_page { padding: 10px; overflow: hidden; }
-        .compose_form { width: 100% !important; padding: 0 !important; }
+        .compose_form { width: 100% !important; }
         .toggle_recipients { right: 10px !important; }
         .compose_bcc, .compose_cc, .compose_subject,
         .compose_to, .compose_body, .compose_server {
