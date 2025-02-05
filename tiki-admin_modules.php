@@ -582,6 +582,27 @@ $sameurl_elements = ['offset', 'sort_mode', 'where', 'find'];
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 
+if (! isset($_REQUEST['sort_mode'])) {
+    $sort_mode = 'name_desc';
+} else {
+    $sort_mode = $_REQUEST['sort_mode'];
+}
+
+if (isset($_REQUEST['find'])) {
+    $find = $_REQUEST['find'];
+} else {
+    $find = '';
+}
+
+$channels = $menulib->list_menus($offset, $maxRecords, $sort_mode, $find);
+foreach ($channels['data'] as $i => $channel) {
+    if ($userlib->object_has_one_permission($channel['menuId'], 'menus')) {
+        $channels['data'][$i]['individual'] = 'y';
+    }
+}
+
+$smarty->assign('channels', $channels['data']);
+
 if (! empty($_REQUEST['edit_module'])) {    // pick up ajax calls
     // the strings below are used to display the tab titles in the edit module box
     //get_strings tr('Module') tr('Appearance') tr('Visibility')
