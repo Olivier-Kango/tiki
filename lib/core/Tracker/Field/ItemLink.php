@@ -1192,9 +1192,18 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
 
         $baseKey = $this->getBaseKey();
 
+        static $map = [];
+        if (! $map) {
+            $list = $this->getPossibleItemValues();
+            foreach ($list as $id => $label) {
+                $map[crc32($id)] = $id;
+            }
+        }
+
         return [
             Search_Query_Facet_Term::fromField($baseKey)
                 ->setLabel($this->getConfiguration('name'))
+                ->setValueMap($map)
                 ->setRenderCallback([$this, 'getItemValue']),
         ];
     }
