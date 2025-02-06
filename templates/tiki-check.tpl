@@ -18,8 +18,8 @@
                 <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
                 <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.value}</td>
                 <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                 </td>
                 <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
@@ -54,11 +54,11 @@
                 <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
                 <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
                 <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                 </td>
-                <td data-th="{tr}OK:{/tr}" class="text">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
+                <td data-th="{tr}OK:{/tr}" class="text">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness_status eq $FITNESS_STATUS_GOOD}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                 <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
         {foreachelse}
@@ -266,11 +266,11 @@
                 <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
                 <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
                 <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                 </td>
-                <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
+                <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness_status eq $FITNESS_STATUS_GOOD}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                 <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
         {foreachelse}
@@ -338,11 +338,11 @@
                     <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
                     <td data-th="{tr}Value:{/tr}" class="text">{$item.setting}</td>
                     <td data-th="{tr}Tiki Fitness:{/tr}" class="text">
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness_status eq $FITNESS_STATUS_GOOD}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {foreachelse}
@@ -374,11 +374,11 @@
                     <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
                     <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
                     <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness_status eq $FITNESS_STATUS_GOOD}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {foreachelse}
@@ -409,11 +409,11 @@
                     <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
                     <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
                     <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness_status eq $FITNESS_STATUS_GOOD}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
         {foreachelse}
@@ -458,11 +458,11 @@
                     <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
                     <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
                     <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness_status eq $FITNESS_STATUS_GOOD}disabled{/if} {if !empty($item.ack)}checked{/if} /></td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
         {foreachelse}
@@ -521,8 +521,8 @@
                 <tr>
                     <th class="text">Mime type: {$key}</th>
                     <td data-th="{tr}Tiki Fitness:{/tr} " lass="text">
-                        <span class="text-{$fmap[$item.fitness]['class']}">
-                            {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                        <span class="text-{$fmap[$item.fitness_status]['class']}">
+                            {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                         </span>
                     </td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message|escape}</td>
@@ -621,8 +621,8 @@
                 <tr>
                     <th class="text">Requirement: {$key}</th>
                     <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
@@ -644,8 +644,8 @@
                 <tr>
                     <th class="text">Requirement: {$key}</th>
                     <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
                     <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
@@ -697,8 +697,8 @@
                 <tr>
                     <th class="text">Requirement: {$key}</th>
                     <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
                     <td data-th="{tr}Message:{/tr}" class="text">&nbsp;{$item.message}</td>
@@ -726,8 +726,8 @@
                 <th class="text">Package name: {$item.name}</th>
                 <td data-th="{tr}Version:{/tr}" class="text">&nbsp;{$item.version}</td>
                 <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
-                    <span class="text-{$fmap[$item.status]['class']}">
-                        {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"} {$item.status}
                     </span>
                 </td>
                 <td data-th="{tr}Message:{/tr}" class="text">&nbsp;
@@ -758,8 +758,8 @@
                 <th class="text">Requirement: {$item.name}</th>
                 <td data-th="{tr}Version:{/tr}" class="text">&nbsp;{$item.version}</td>
                 <td data-th="{tr}Status:{/tr} " data-th="{tr}Version : {/tr}" class="text">
-                    <span class="text-{$fmap[$item.status]['class']}">
-                        {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"} {$item.status}
                     </span>
                 </td>
                 <td data-th="{tr}Message:{/tr}" class="text">&nbsp;{$item.message}</td>
@@ -831,8 +831,8 @@ td > div {
                         {icon name="{$fmap['bad']['icon']}"} bad
                     </span>
                 {else}
-                    <span class="text-{$fmap[$item.status]['class']}">
-                        {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"} {$item.status}
                     </span>
                 {/if}
             </td>
