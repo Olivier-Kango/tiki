@@ -218,6 +218,9 @@ class PdoClient
                 $fields[$table] = $this->describe($table);
             }
         }
+        if (count($fields) == 1) {
+            return array_keys(array_shift($fields));
+        }
         $common = [];
         $result = array_shift($fields);
         if (! $result) {
