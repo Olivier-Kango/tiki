@@ -11,6 +11,7 @@ use Tiki\Lib\core\Scheduler\Output\SchedulerRunOutput;
 
 class Scheduler_Item
 {
+
     public $id;
     public $name;
     public $description;
@@ -27,7 +28,7 @@ class Scheduler_Item
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
 
-    private static $availableTasks = [
+    public static $availableTasks = [
         'ConsoleCommandTask' => 'ConsoleCommand',
         'ShellCommandTask' => 'ShellCommand',
         'HTTPGetCommandTask' => 'HTTPGetCommand',
@@ -41,12 +42,7 @@ class Scheduler_Item
 
     public static function getAvailableTasks()
     {
-        global $prefs;
-        $tasks = self::$availableTasks;
-        if ($prefs['feature_shell_command'] !== 'y') {
-            unset($tasks['ShellCommandTask']);
-        }
-        return $tasks;
+        return self::$availableTasks;
     }
 
     /**
