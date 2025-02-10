@@ -3208,11 +3208,13 @@ class TikiLib extends TikiDb_Bridge
      */
     public function getPageBySlug($slug)
     {
-        global $prefs;
+        $slug_variations = TikiLib::lib('slugmanager')->generateSlugsVariations($slug);
+        $bindvars = array_values($slug_variations);
+        $placeholders = implode(', ', array_fill(0, count($bindvars), '?'));
 
-        $pages = TikiDb::get()->table('tiki_pages');
-        $found = $pages->fetchOne('pageName', ['pageSlug' => $slug]);
+        $query = "SELECT `pageName` FROM `tiki_pages` WHERE pageSlug IN ($placeholders)";
 
+        $found = $this->getOne($query, $bindvars);
         return ! empty($found) ? $found : '';
     }
 
@@ -5039,13 +5041,19 @@ class TikiLib extends TikiDb_Bridge
         ) {
             return $this->cache_page_info[$pageNameEncode];
         }
+        $slugManager = TikiLib::lib('slugmanager');
+        $slug_variations = array_values($slugManager->generateSlugsVariations($pageName));
+
+        $placeholders = implode(',', array_fill(0, count($slug_variations), '?'));
 
         if ($retrieve_datas) {
-            $query = "SELECT * FROM `tiki_pages` WHERE `pageName`=?";
+            $query = "SELECT * FROM `tiki_pages` WHERE `pageName`=? OR `pageSlug` IN ($placeholders)";
         } else {
-            $query = "SELECT `page_id`, `pageName`, `hits`, `description`, `lastModif`, `comment`, `version`, `version_minor`, `user`, `ip`, `flag`, `points`, `votes`, `wiki_cache`, `cache_timestamp`, `pageRank`, `creator`, `page_size`, `lang`, `lockedby`, `is_html`, `created`, `wysiwyg`, `wiki_authors_style`, `comments_enabled` FROM `tiki_pages` WHERE `pageName`=?";
+            $query = "SELECT `page_id`, `pageName`, `hits`, `description`, `lastModif`, `comment`, `version`, `version_minor`, `user`, `ip`, `flag`, `points`, `votes`, `wiki_cache`, `cache_timestamp`, `pageRank`, `creator`, `page_size`, `lang`, `lockedby`, `is_html`, `created`, `wysiwyg`, `wiki_authors_style`, `comments_enabled` FROM `tiki_pages` WHERE `pageName`=? OR `pageSlug` IN ($placeholders)";
         }
-        $result = $this->query($query, [$pageName]);
+        $params = array_merge([$pageName], $slug_variations);
+
+        $result = $this->query($query, $params);
 
         if (! $result->numRows()) {
             return false;
