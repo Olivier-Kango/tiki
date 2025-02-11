@@ -100,23 +100,23 @@ class Tiki_FileGallery_FileTest extends TikiTestCase
         $this->assertEmpty($file->data);
     }
 
-    public function testHeicConversion()
+    private function testImageConversion($format, $method)
     {
         global $prefs;
 
         $prefs['fgal_use_db'] = 'n';
         $prefs['fgal_use_dir'] = vfsStream::setup(uniqid('', true), null)->url();
-        $imagepath = $prefs['fgal_use_dir'] . '/testfile.heic';
+        $imagepath = $prefs['fgal_use_dir'] . '/testfile.' . $format;
 
-        file_put_contents($imagepath, 'valid heic content');
+        file_put_contents($imagepath, 'valid ' . $format . ' content');
 
         $imageHandlerMock = $this->createMock(ImageFileHandler::class);
-        $imageHandlerMock->method('convertHeicToJpg')
+        $imageHandlerMock->method($method)
             ->with($imagepath)
             ->willReturn('converted jpeg content');
 
         try {
-            $convertedContent = $imageHandlerMock->convertHeicToJpg($imagepath);
+            $convertedContent = $imageHandlerMock->$method($imagepath);
             $this->assertNotEmpty($convertedContent);
 
             $finfo = $this->createMock(finfo::class);
@@ -124,8 +124,18 @@ class Tiki_FileGallery_FileTest extends TikiTestCase
             $mimeType = $finfo->buffer($convertedContent);
             $this->assertEquals('image/jpeg', $mimeType, 'The converted file is not a valid JPG.');
         } catch (Exception $e) {
-            $this->fail('Error during HEIC conversion: ' . $e->getMessage());
+            $this->fail('Error during ' . strtoupper($format) . ' conversion: ' . $e->getMessage());
         }
+    }
+
+    public function testHeicConversion()
+    {
+        $this->testImageConversion('heic', 'convertHeicToJpg');
+    }
+
+    public function testJxlConversion()
+    {
+        $this->testImageConversion('jxl', 'convertJxlToJpg');
     }
 
     public function testProcessFile()
@@ -134,30 +144,29 @@ class Tiki_FileGallery_FileTest extends TikiTestCase
 
         $prefs['fgal_use_db'] = 'n';
         $prefs['fgal_use_dir'] = vfsStream::setup(uniqid('', true), null)->url();
-        $imagepath = $prefs['fgal_use_dir'] . '/testfile.heic';
-        file_put_contents($imagepath, 'valid heic content');
+
+        $this->processFileTestHelper('testfile.heic', 'valid heic content', 'image/jpeg');
+        $this->processFileTestHelper('testfile.jpg', 'valid jpg content', 'valid jpg content');
+    }
+
+    private function processFileTestHelper($filename, $fileContent, $expectedMimeType)
+    {
+        global $prefs;
+
+        $imagepath = $prefs['fgal_use_dir'] . '/' . $filename;
+        file_put_contents($imagepath, $fileContent);
 
         $wrapperMock = $this->createMock(FileWrapper\PhysicalFile::class);
         $wrapperMock->method('getReadableFile')->willReturn($imagepath);
-        $wrapperMock->method('getContents')->willReturn('valid heic content');
+        $wrapperMock->method('getContents')->willReturn($fileContent);
 
         $imageHandler = new ImageFileHandler();
-        $convertedContent = $imageHandler->processFile(['filename' => 'testfile.heic'], $wrapperMock);
+        $convertedContent = $imageHandler->processFile(['filename' => $filename], $wrapperMock);
         $this->assertNotEmpty($convertedContent);
 
         $finfo = $this->createMock(finfo::class);
-        $finfo->method('buffer')->willReturn('image/jpeg');
+        $finfo->method('buffer')->willReturn($expectedMimeType);
         $mimeType = $finfo->buffer($convertedContent);
-        $this->assertEquals('image/jpeg', $mimeType, 'The converted file is not a valid JPG.');
-
-        $imagepath = $prefs['fgal_use_dir'] . '/testfile.jpg';
-        file_put_contents($imagepath, 'valid jpg content');
-
-        $wrapperMock = $this->createMock(FileWrapper\PhysicalFile::class);
-        $wrapperMock->method('getReadableFile')->willReturn($imagepath);
-        $wrapperMock->method('getContents')->willReturn('valid jpg content');
-
-        $convertedContent = $imageHandler->processFile(['filename' => 'testfile.jpg'], $wrapperMock);
-        $this->assertEquals('valid jpg content', $convertedContent);
+        $this->assertEquals($expectedMimeType, $mimeType, 'The converted file is not a valid JPG.');
     }
 }

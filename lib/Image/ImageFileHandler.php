@@ -31,8 +31,34 @@ class ImageFileHandler
         }
     }
 
+     /**
+     * Converts a JPEG XL file to JPG.
+     *
+     * @param string $imagepath Path to the JPEG XL image file.
+     * @return string The content of the converted image.
+     * @throws Exception If the conversion fails.
+     */
+    public function convertJxlToJpg(string $imagepath): string
+    {
+
+        $tempJpgPath = tempnam(sys_get_temp_dir(), 'jxl_') . '.jpg';
+
+        $command = "djxl {$imagepath} {$tempJpgPath}";
+        exec($command, $output, $return_var);
+
+        if ($return_var !== 0) {
+            throw new Exception('Error decoding JPEG XL image: ' . implode("\n", $output));
+        }
+
+        $content = file_get_contents($tempJpgPath);
+
+        unlink($tempJpgPath);
+
+        return $content;
+    }
+
     /**
-     * Processes the given file info and converts HEIC/HEIF files to JPEG.
+     * Processes the given file info and converts HEIC/HEIF or JPEG XL files to JPG.
      *
      * @param object $fileInfo Contains file metadata (like filename).
      * @param object $wrapper Wrapper for file operations.
@@ -47,10 +73,11 @@ class ImageFileHandler
         if ($filetype === 'image/heic' || $filetype === 'image/heif') {
             $imagepath = $wrapper->getReadableFile();
             return $this->convertHeicToJpg($imagepath);
+        } elseif ($filetype === 'image/jxl') {
+            $imagepath = $wrapper->getReadableFile();
+            return $this->convertJxlToJpg($imagepath);
         } else {
             return $wrapper->getContents();
         }
     }
-
-    // TODO: Add support for other image formats like AVIF and JPEG XL in another MR.
 }
