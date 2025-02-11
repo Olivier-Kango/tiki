@@ -355,24 +355,77 @@ class PdfGenerator
         $basecss = file_get_contents('themes/base_files/css/tiki_base.css'); // external css
         //apply available fonts to classes for printing
         $basecss .= '.far, .fa-regular { font-family: fontawesome; } .fa, .fas, .fa-solid { font-family: fontawesome-solid; } .fab, .fa-brands { font-family: fontawesome-brands; }';
-        //getting theme css
-        $themeLib = TikiLib::lib('theme');
-        $themecss = $themeLib->get_theme_path($prefs['theme'], '', $prefs['theme'] . '.css');
-        $themecss = file_get_contents($themecss) . 'b,strong{font-weight:bold !important;}';
-        $extcss = file_get_contents('vendor_bundled/vendor/jquery/jquery-sheet/jquery.sheet.css');
 
-        //checking if print friendly option is enabled, then attach print css otherwise theme styles will be retained by theme css
-        if ($pdfSettings['print_pdf_mpdf_printfriendly'] == 'y') {
+        if ($prefs['feature_sheet'] == 'y') {
+            $extcss = file_get_contents('vendor_bundled/vendor/jquery/jquery-sheet/jquery.sheet.css');
+        } else {
+            $extcss = '';
+        }
+
+        // checking if print friendly preference is enabled if so then attach print css
+        // otherwise theme styles will be retained by theme css
+        if ($pdfSettings['print_pdf_mpdf_printfriendly'] === 'y') {
             $printcss = file_get_contents('themes/base_files/css/printpdf.css'); // external css
             $bodycss = 'tiki tiki-print'; //execluding theme css in case print friendly is set to yes.
-        } else {//preserving theme styles by removing media print styles to print what is shown on screen
-            $themecss = str_replace(["media print","color : fff"], ["media p","color : #fff"], $themecss);
-            $printcss = file_get_contents('themes/base_files/css/printqueries.css'); //for bootstrap print hidden, screen hidden styles on divs
+        } else {
+            //getting theme css
+            $themeLib = TikiLib::lib('theme');
+            $themePath = ThemeLib::getThemePath(
+                $prefs['theme'],
+                '',
+                'css/' . $prefs['theme'] . '.css'
+            );
+            $themecss = file_get_contents($themePath);
+            // add custom.css if there
+            $themePath = ThemeLib::getThemePath(
+                $prefs['theme'],
+                '',
+                'css/custom.css'
+            );
+            if ($themePath) {
+                $themecss .= file_get_contents($themePath);
+            }
+
+            // add theme option css
+            $themePath = ThemeLib::getThemePath(
+                $prefs['theme'],
+                $prefs['theme_option'],
+                'css/' . $prefs['theme_option'] . '.css'
+            );
+            if ($themePath) {
+                $themecss .= file_get_contents($themePath);
+            }
+            // and an option custom.css
+            $themePath = ThemeLib::getThemePath(
+                $prefs['theme'],
+                $prefs['theme_option'],
+                'css/custom.css'
+            );
+            if ($themePath) {
+                $themecss .= file_get_contents($themePath);
+            }
+
+            $themecss .= "\nb,strong{font-weight:bold !important;}";
+            // preserving theme styles by removing media print styles to print what is shown on screen
+            $themecss = str_replace(["media print", "color : fff"], ["media p","color : #fff"], $themecss);
+            //  for bootstrap print hidden, screen hidden styles on divs
+            $printcss = file_get_contents('themes/base_files/css/printqueries.css');
             $bodycss = '';
         }
 
         $pdfPages = $this->getPDFPages($html, $pdfSettings);
-        $cssStyles = str_replace([".tiki","opacity: 0;","page-break-inside: avoid;"], ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"], '<style>' . $basecss . $themecss . $printcss . $extcss . $this->bootstrapReplace() . $prefs["header_custom_css"] . '</style>'); //adding css styles with first page content
+        //adding css styles with first page content
+        $allCss = '<style>' .
+                $basecss . $themecss . $printcss . $extcss .
+                $this->bootstrapReplace() .
+                $prefs["header_custom_css"] .
+            '</style>';
+
+        $cssStyles = str_replace(
+            [".tiki","opacity: 0;","page-break-inside: avoid;"],
+            ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"],
+            $allCss
+        );
         //PDF import templates will not work if background color is set, need to replace in css
         $cssStyles = $this->replaceCssVariables($cssStyles);
         $cssStyles = $this->evaluateCalcExpressions($cssStyles);
