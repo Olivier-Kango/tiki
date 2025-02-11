@@ -1007,4 +1007,49 @@ class Services_Wiki_Controller
             return Services_Utilities::refresh();
         }
     }
+
+    /**
+     * Perform a plugin execution with specific input data (e.g. for ListExecute plugin)
+     */
+    public function action_execute($input)
+    {
+        $util = new Services_Utilities();
+
+        $page = $input->page->text();
+        $plugin = $input->plugin->string();
+
+        $info = TikiLib::lib('wiki')->get_page_info($page);
+        if (! $info) {
+            throw new Services_Exception_NotFound(tr('Page "%0" not found', $page));
+        }
+
+        $parserlib = TikiLib::lib('parser');
+        $argumentParser = new WikiParser_PluginArgumentParser();
+
+        $data = '';
+
+        $matches = WikiParser_PluginMatcher::match($info['data']);
+        foreach ($matches as $match) {
+            $args = $argumentParser->parse($match->getArguments());
+            $meta = $parserlib->plugin_info($match->getName(), $args);
+            $fingerprint = $parserlib->plugin_fingerprint($match->getName(), $meta, $match->getBody(), $args);
+            if ($fingerprint === $plugin) {
+                $data .= (string) $match;
+            }
+        }
+
+        if ($util->isActionPost()) {
+            // ListExecute plugin needs these
+            $_GET = $_POST = $_REQUEST = $input->asArray();
+        } else {
+            $_GET = $_REQUEST = $input->asArray();
+        }
+
+        $result = TikiLib::lib('parser')->parse_data($data);
+
+        Feedback::sendHeaders();
+        return [
+            'result' => $result,
+        ];
+    }
 }

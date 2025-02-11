@@ -1,10 +1,15 @@
 <a name="listexecute_{$iListExecute}"></a>
-<form method="post" action="#listexecute_{$iListExecute}" class="d-flex flex-row flex-wrap align-items-center" id="listexecute-{$iListExecute}">
-    <button class="listexecute-select-all btn btn-primary btn-sm">{tr}Select All{/tr}</button>
+<form method="post" action="#listexecute_{$iListExecute}" class="d-flex flex-row flex-wrap align-items-center list-executable" id="listexecute-{$iListExecute}" data-id="{$id}">
+    <input type="hidden" name="plugin" value="{$fingerprint}">
+    <input type="hidden" name="iListExecute" value="{$iListExecute}">
+    <input type="checkbox" class="form-check-input listexecute-select-all" aria-label="{tr}Select{/tr}" name="selectall" value="">
+    <input type="hidden" name="objects{$iListExecute}[]" value="" class="listexecute-all">
+    {ticket}
+    {tr}Select All{/tr}
     <ol>
         {foreach from=$results item=entry}
             <li>
-                <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="objects{$iListExecute}[]" value="{$entry.object_type|escape}:{$entry.object_id|escape}">
+                <input type="checkbox" class="checkbox_objects form-check-input" aria-label="{tr}Select{/tr}" name="objects{$iListExecute}[]" value="{$entry.object_type|escape}:{$entry.object_id|escape}">
                 {if isset($entry.report_status) && $entry.report_status eq 'success'}
                     {icon name='ok'}
                 {elseif isset($entry.report_status) && $entry.report_status eq 'error'}
@@ -14,7 +19,7 @@
             </li>
         {/foreach}
     </ol>
-    <select name="list_action" class="form-select">
+    <select name="list_action" class="form-select check_submit_select" id="check_submit_select_{$id}">
         <option></option>
         {foreach from=$actions item=action}
             <option value="{$action->getName()|escape}" data-input="{$action->requiresInput()}" data-inputtype="{$action->inputtype()}"{if $action->getDefault()} selected{/if}>
@@ -22,6 +27,8 @@
             </option>
         {/foreach}
     </select>
+    <div class="list_input_container" id="list_input_container_{$id}">
+    </div>
     <input type="text" name="list_input" value="" class="form-control" style="display:none">
     {* category_tree *}
     {if $prefs.feature_categories eq 'y' and $tiki_p_modify_object_categories eq 'y' and count($categories) gt 0}
@@ -53,7 +60,7 @@
             {/if}
         </div> {* end #multiselect *}
     {/if}
-    <input type="submit" class="btn btn-primary btn-sm" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}">
+    <input type="submit" class="btn btn-primary btn-sm list_execute_submit" title="{tr}Apply Changes{/tr}" id="submit_form_{$id}" disabled value="{tr}Apply{/tr}">
     {if isset($smarty.get.page) && isset($schedulers_amount)}
         <div class="ms-3">
             {if $schedulers_amount eq 0}
@@ -67,32 +74,3 @@
         </div>
     {/if}
 </form>
-{jq}
-$('.listexecute-select-all').removeClass('listexecute-select-all').on('click', function (e) {
-    $(this).closest('form').find(':checkbox:not(:checked):not(:disabled)').prop('checked', true);
-    e.preventDefault();
-});
-$('#listexecute-{{$iListExecute}}').find('select[name=list_action]').on('change', function() {
-    var inputType = $(this).find('option:selected').data('inputtype');
-    if( $(this).find('option:selected').data('input') ) {
-        //if it is 'text', show the text input, else it is 'category_tree', show the category tree.
-        if (inputType === "text") {
-            $(this).siblings('input[name=list_input]').show();
-        } else {
-            $(".cat_tree").show();
-        }
-    } else {
-        $(this).siblings('input[name=list_input]').hide();
-        $(".cat_tree").hide();
-    }
-});
-$('#listexecute-{{$iListExecute}}').on("submit", function(){
-    var filters = $('#list_filter{{$iListExecute|replace:'wplistexecute-':''}} form').serializeArray();
-    for(var i = 0, l = filters.length; i < l; i++) {
-        var inp = $('<input type="hidden">');
-        inp.attr('name', filters[i].name);
-        inp.val(filters[i].value);
-        $('#listexecute-{{$iListExecute}}').append(inp);
-    }
-});
-{/jq}

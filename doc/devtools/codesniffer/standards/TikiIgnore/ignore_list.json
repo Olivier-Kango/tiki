@@ -7448,7 +7448,8 @@
             "Services_Wiki_Controller::action_lock_pages": true,
             "Services_Wiki_Controller::action_unlock_pages": true,
             "Services_Wiki_Controller::action_zip": true,
-            "Services_Wiki_Controller::action_title": true
+            "Services_Wiki_Controller::action_title": true,
+            "Services_Wiki_Controller::action_execute": true
         },
         "lib\/core\/Services\/Cypht\/Controller.php": {
             "Services_Cypht_Controller::action_ajax": true
