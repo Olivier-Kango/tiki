@@ -25,6 +25,7 @@ class Search_Formatter_Builder
     private $tsOn;
     private $tsettings;
     private $actions;
+    private $additionalOutputData;
     private $isDownload;
     private $downloadName;
 
@@ -58,6 +59,11 @@ class Search_Formatter_Builder
     public function setDownload($isDownload)
     {
         $this->isDownload = $isDownload;
+    }
+
+    public function setAdditionalOutputData(array $data)
+    {
+        $this->additionalOutputData = $data;
     }
 
     public function apply($matches, $params = null)
@@ -263,6 +269,9 @@ class Search_Formatter_Builder
                 $outputData[$k] = $this->paginationArguments[$k];
             }
             $outputData['actions'] = $this->actions;
+            if ($this->additionalOutputData) {
+                $outputData = array_merge($outputData, $this->additionalOutputData);
+            }
             if (strstr($arguments['template'], 'table')) {
                 $outputData['sticky'] = $sticky = isset($params['allowStickyHeaders']) && $params['allowStickyHeaders'] == 'y' ? true : false;
                 if (isset($arguments['downloadable'])) {
@@ -302,6 +311,9 @@ class Search_Formatter_Builder
                     $outputData[$k] = $this->paginationArguments[$k];
                 }
                 $outputData['actions'] = $this->actions;
+                if ($this->additionalOutputData) {
+                    $outputData = array_merge($outputData, $this->additionalOutputData);
+                }
                 $data = $tikilib->get_page_info($arguments['tplwiki']);
                 $wikicontent = $data['data'];
                 $plugin = new Search_Formatter_Plugin_SmartyTemplate($wikitpl);

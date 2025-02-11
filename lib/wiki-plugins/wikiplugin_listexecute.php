@@ -33,7 +33,16 @@ function wikiplugin_listexecute($data, $params)
     static $iListExecute = 0;
     $iListExecute++;
 
+    if (isset($_REQUEST['iListExecute'])) {
+        $iListExecute = $_REQUEST['iListExecute'];
+    }
+
     $unifiedsearchlib = TikiLib::lib('unifiedsearch');
+
+    TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/wikiplugin-listexecute.js', true);
+
+    $meta = TikiLib::lib('parser')->plugin_info('listexecute', $params);
+    $fingerprint = TikiLib::lib('parser')->plugin_fingerprint('listexecute', $meta, $data, $params);
 
     $actions = [];
 
@@ -141,6 +150,7 @@ function wikiplugin_listexecute($data, $params)
     $dataSource = $unifiedsearchlib->getDataSource();
     $builder = new Search_Formatter_Builder();
     $builder->setPaginationArguments($paginationArguments);
+    $builder->setAdditionalOutputData(['fingerprint' => $fingerprint]);
     $builder->setActions($actions);
     $builder->setId('wplistexecute-' . $iListExecute);
     $builder->setCount($result->count());
@@ -161,7 +171,8 @@ function wikiplugin_listexecute($data, $params)
 
         $pluginData = [
             'actions' => $actions,
-            'iListExecute' => $iListExecute
+            'iListExecute' => $iListExecute,
+            'fingerprint' => $fingerprint,
         ];
 
         if ($prefs['feature_categories'] == 'y' && $categorize) {
