@@ -54,7 +54,7 @@ class UserSelector extends Base
             'style' => '',
             'editable' => $tiki_p_admin,
             'user_selector_threshold' => $prefs['user_selector_threshold'],
-            'allowNone' => 'n',
+            'allowNone' => 'y',
             'noneLabel' => 'None',
             'realnames' => 'y',
             'class' => 'form-control',

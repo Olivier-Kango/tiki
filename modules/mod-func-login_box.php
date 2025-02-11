@@ -53,6 +53,11 @@ function module_login_box_info()
                 'description' => tra('Show the "Remember me" checkbox') . ' (y/n)',
                 'filter' => 'alpha',
             ],
+            'allowNone' => [
+                'name' => tra('Allow None'),
+                'description' => tra('Allow user selection field to be empty (without any users selected) when enabled.') . ' (y/n)',
+                'filter' => 'alpha',
+            ],
             'show_user_avatar' => [
                 'name' => tra('Show user avatar'),
                 'description' => tra('Show the user avatar when in popup mode') . ' (y/n)',
@@ -153,5 +158,8 @@ function module_login_box($mod_reference, &$module_params)
     }
     if (! isset($module_params['groups'])) {
         $module_params['groups'] = '';
+    }
+    if (! isset($module_params['allowNone'])) {
+        $module_params['allowNone'] = 'y';
     }
 }

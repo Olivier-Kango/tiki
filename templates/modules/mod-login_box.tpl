@@ -240,7 +240,7 @@ $('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', fu
                             {if $prefs.feature_help eq 'y'}
                                 {help url="Switch+User" desc="{tr}Help{/tr}" desc="{tr}Switch User:{/tr}{tr}Enter a username and click 'Switch'.<br>Useful for testing permissions.{/tr}"}
                             {/if}
-                            {user_selector groupIds=$module_params.groups id="login-switchuser_"|cat:$module_logo_instance name='username' user='' editable=$login_module.can_switch_user class='form-control'}
+                            {user_selector groupIds=$module_params.groups id="login-switchuser_"|cat:$module_logo_instance name='username' user='' editable=$login_module.can_switch_user class='form-control' allowNone=$module_params.allowNone}
                         </div>
                         <div class="text-center">
                             <button
