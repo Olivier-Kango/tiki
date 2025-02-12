@@ -51,7 +51,7 @@ if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && T
 } elseif (isset($_REQUEST['cas']) && $_REQUEST['cas'] == 'y' && $prefs['auth_method'] == 'cas') {
     $login_url_params = '?cas=y';
     $_REQUEST['user'] = '';
-} elseif ($prefs['twoFactorAuth'] === 'n' && (! isset($_REQUEST['user']) or isset($_REQUEST['username']))) {
+} elseif ($prefs['twoFactorAuth'] === 'n' && (! isset($_REQUEST['user']) or isset($_REQUEST['username'])) && empty($_REQUEST['su'])) {
     if (! $https_mode && $prefs['https_login'] == 'required') {
         header('Location: ' . $base_url_https . 'tiki-login_scr.php');
     } else {
