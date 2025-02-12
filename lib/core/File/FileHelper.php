@@ -62,7 +62,7 @@ class FileHelper
         } elseif ($file['filetype'] == 'application/pdf' || PDFHelper::canConvertToPDF($file['filetype'])) {
             // PDFs
             if ($tikilib->get_preference('fgal_pdfjs_feature') !== 'y') {
-                $accesslib->display_error('tiki-display.php', tr('PDF.js feature is disabled. If you do not have permission to enable, ask the site administrator.'));
+                $accesslib->display_error('tiki-display.php', tr("PDF.js feature is disabled. If you do not have permission to enable it, ask the site administrator to activate 'fgal_pdfjs_feature'."));
             }
 
             $errorMessageToAppend = '';
