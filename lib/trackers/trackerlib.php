@@ -3386,7 +3386,7 @@ class TrackerLib extends TikiLib
 
         foreach ($result as & $res) {
             $typeInfo = Tracker_Field_Factory::getFieldInfo($res['type']);
-            $options = Tracker_Options::fromSerialized($res['options'], $typeInfo);
+            $options = Tracker_Options::fromSerialized($res['options'] ?? '', $typeInfo);
             $res['options_array'] = $options->buildOptionsArray();
             $res['options_map'] = $options->getAllParameters();
             $res['itemChoices'] = ( $res['itemChoices'] != '' ) ? unserialize($res['itemChoices']) : [];
