@@ -238,15 +238,26 @@ JS;
             $logsLib->add_log('Casperjs', $e->getMessage());
 
             \Feedback::error(tr('Failed to generate chart image using Casperjs. Please check Tiki Action Log for more information.'));
-        } finally {
-            unlink($htmlFile);
-            unlink($casperFile);
         }
 
         if ($process->isSuccessful()) {
             $base64 = $process->getOutput();
+            unlink($htmlFile);
+            unlink($casperFile);
         } else {
-            return false;
+            $errorMessage = tr(
+                'Failed to generate chart image using Casperjs "%0"',
+                $process->getErrorOutput()
+            );
+            if (Perms::get()->admin) {
+                $errorMessage .= tr(
+                    ' (with html file "%0" and casper file "%1")',
+                    substr($htmlFile, strlen(TIKI_PATH)),
+                    substr($casperFile, strlen(TIKI_PATH))
+                );
+            }
+            \Feedback::error($errorMessage);
+            return $errorMessage;
         }
 
         $cacheLib->cacheItem($scriptHash, $base64, $cacheKey);
