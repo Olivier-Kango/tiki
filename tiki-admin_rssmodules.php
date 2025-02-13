@@ -174,9 +174,14 @@ if (isset($_REQUEST['article']) && $prefs['feature_articles'] == 'y') {
     } else {
         $cookietab = 3;
     }
-
-    $config = $rsslib->get_article_generator($_REQUEST['article']);
-    $smarty->assign('articleConfig', $config);
+    try {
+        $config = $rsslib->get_article_generator($_REQUEST['article']);
+    } catch (Exception $e) {
+        $smarty->assign('msg', $e->getMessage());
+        $smarty->display("error.tpl");
+        die;
+    }
+    $smarty->assign('articleConfig', $config ?? []);
     $smarty->assign('ratingOptions', array_map('strval', range(0, 10)));
 
     $sourcecats = $rsslib->get_feed_source_categories($_REQUEST["article"]);

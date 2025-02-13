@@ -267,7 +267,8 @@
                         <div class="input-group">
                             <input
                                 id="article_expiry"
-                                type="text"
+                                type="number"
+                                min="0"
                                 name="expiry"
                                 class="form-control"
                                 value="{$articleConfig.expiry|escape}"
@@ -282,7 +283,7 @@
                         <div class="input-group">
                             <input
                                 id="article_future_publish"
-                                type="text"
+                                type="number"
                                 name="future_publish"
                                 class="form-control"
                                 value="{$articleConfig.future_publish|escape}"
@@ -349,13 +350,16 @@
                         <p class="font-italic">{tr}No source categories detected for this feed{/tr}</p>
                     {else}
                         <table>
+                            <thead>
                             <tr>
-                                <th>{tr}Source Category{/tr}
+                                <th>{tr}Source Category{/tr}</th>
                                 <th>{tr}Type{/tr}</th>
                                 <th>{tr}Topic{/tr}</th>
                                 <th>{tr}Rating{/tr}</th>
-                                <th>{tr}Priority (10 is highest){/tr}</th>
+                                <th>{tr _0="<small>" _1="</small>"}Priority %0(10 is highest)%1{/tr}</th>
                             </tr>
+                            </thead>
+                            <tbody>
                             {foreach $sourcecats as $sourcecat => $settings}
                                 <tr>
                                     <td>
@@ -365,7 +369,7 @@
                                         <select name="custom_atype[{$sourcecat|escape}]">
                                             <option value="" selected>{tr}Default{/tr}</option>
                                             {foreach from=$types item=t}
-                                                <option value="{$t.type|escape}"{if $t.type eq $article_custom_info[$sourcecat].atype} selected="selected"{/if}>{$t.type|escape}</option>
+                                                <option value="{$t.type|escape}" {if isset($article_custom_info[$sourcecat]) && $article_custom_info[$sourcecat].atype eq $t.type} selected="selected" {/if}>{$t.type|escape}</option>
                                             {/foreach}
                                         </select>
                                     </td>
@@ -374,7 +378,7 @@
                                             <option value="" selected>{tr}Default{/tr}</option>
                                             <option value="0" {if $article_custom_info[$sourcecat].topic === "0"} selected="selected"{/if}>{tr}None{/tr}</option>
                                             {foreach from=$topics item=t}
-                                                <option value="{$t.topicId|escape}"{if $t.topicId eq $article_custom_info[$sourcecat].topic} selected="selected"{/if}>{$t.name|escape}</option>
+                                                <option value="{$t.topicId|escape}"{if isset($article_custom_info[$sourcecat]) && $article_custom_info[$sourcecat].topic eq $t.topicId} selected="selected"{/if}>{$t.name|escape}</option>
                                             {/foreach}
                                         </select>
                                     </td>
@@ -382,19 +386,20 @@
                                         <select name="custom_rating[{$sourcecat|escape}]">
                                             <option value="" selected>{tr}Default{/tr}</option>
                                             {foreach from=$ratingOptions item=v}
-                                                <option value="{$v|escape}"{if $v === $article_custom_info[$sourcecat].rating} selected="selected"{/if}>{$v|escape}</option>
+                                                <option value="{$v|escape}"{if isset($article_custom_info[$sourcecat]) && $article_custom_info[$sourcecat].rating === $v} selected="selected"{/if}>{$v|escape}</option>
                                             {/foreach}
                                         </select>
                                     </td>
                                     <td>
                                         <select name="custom_priority[{$sourcecat|escape}]">
                                             {foreach from=$ratingOptions item=v}
-                                                <option value="{$v|escape}"{if $v === $article_custom_info[$sourcecat].priority} selected="selected"{/if}>{$v|escape}</option>
+                                                <option value="{$v|escape}"{if isset($article_custom_info[$sourcecat]) && $article_custom_info[$sourcecat].priority  === $v} selected="selected"{/if}>{$v|escape}</option>
                                             {/foreach}
                                         </select>
                                     </td>
                                 </tr>
                             {/foreach}
+                            </tbody>
                         </table>
                     {/if}
                 </fieldset>
