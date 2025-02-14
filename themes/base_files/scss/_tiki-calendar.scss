@@ -98,3 +98,35 @@ h4.ec-day-head {
     width: fit-content;
     border-radius: 8px;
 }
+
+.ec-events > article {
+    overflow: hidden;
+}
+
+.ec-event-body {
+    flex-wrap: wrap;
+    overflow-y: hidden;
+}
+
+.ec-active, .ec-prev, .ec-next {
+    background-color: rgb(13, 110, 253) !important;
+    color: #fff !important;
+}
+
+button.ec-today {
+    background-color: #8da0bc !important;
+    color: #fff !important;
+}
+
+h4.ec-event-title {
+    font-size: 16px;
+    text-overflow: clip !important;
+    white-space: pre-wrap !important;
+    font-weight: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word !important;
+}
+
+.ec-days > time {
+    display: block;
+}
