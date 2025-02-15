@@ -214,6 +214,7 @@ $jqueryTiki['tiki_same_day_time_only'] = $prefs['tiki_same_day_time_only'];
 $jqueryTiki['jquery_timeago'] = $prefs['jquery_timeago'] === 'y' ? true : false;
 $jqueryTiki['short_date_format'] = $prefs['short_date_format'];
 $jqueryTiki['short_time_format'] = $prefs['short_time_format'];
+$jqueryTiki['wiki_url_scheme'] = $prefs['wiki_url_scheme'];
 //set at 4 hours if empty
 $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
     : TikiLib::lib('access')->getDefaultTimeout();
