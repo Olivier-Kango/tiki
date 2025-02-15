@@ -1,9 +1,10 @@
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue';
 import Sortable from "sortablejs";
-import { sortOptions } from '../helpers/select/sortable';
+import { sortOptions } from '../../helpers/select/sortable';
+import ConfigWrapper from '../ConfigWrapper.vue';
 
-const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering', 'group']);
+const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering', 'group', 'language']);
 
 const modelValue = ref(JSON.parse(props.value));
 
@@ -71,50 +72,52 @@ export const DATA_TEST_ID = {
 </script>
 
 <template>
-    <div 
-        :class="{ 'invalid': isInvalid }"
-        :data-testid="DATA_TEST_ID.SELECT_WRAPPER"
-        ref="wrapperRef"
-    >
-        <el-select
-            v-model="modelValue"
-            :multiple="multiple"
-            :filterable
-            :allow-create
-            default-first-option
-            :reserve-keyword="false"
-            :placeholder="placeholder"
-            :teleported="false"
-            @change="handleValueChange"
-            :multiple-limit="parseInt(max ?? 0)" :clearable :collapse-tags
-            :max-collapse-tags="parseInt(maxCollapseTags ?? 0)"
-            :data-testid="DATA_TEST_ID.SELECT_ELEMENT"
+    <ConfigWrapper :language="language">
+        <div 
+            :class="{ 'invalid': isInvalid }"
+            :data-testid="DATA_TEST_ID.SELECT_WRAPPER"
+            ref="wrapperRef"
         >
-            <el-option-group 
-                v-if="grouped"
-                v-for="group in options"
-                :key="group.label"
-                :label="group.label"
-                :data-testid="DATA_TEST_ID.SELECT_OPTION_GROUP"
+            <el-select
+                v-model="modelValue"
+                :multiple="multiple"
+                :filterable
+                :allow-create
+                default-first-option
+                :reserve-keyword="false"
+                :placeholder="placeholder"
+                :teleported="false"
+                @change="handleValueChange"
+                :multiple-limit="parseInt(max ?? 0)" :clearable :collapse-tags
+                :max-collapse-tags="parseInt(maxCollapseTags ?? 0)"
+                :data-testid="DATA_TEST_ID.SELECT_ELEMENT"
             >
+                <el-option-group 
+                    v-if="grouped"
+                    v-for="group in options"
+                    :key="group.label"
+                    :label="group.label"
+                    :data-testid="DATA_TEST_ID.SELECT_OPTION_GROUP"
+                >
+                    <el-option 
+                        v-for="item in group.options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                        :disabled="item.disabled"
+                        :data-testid="DATA_TEST_ID.SELECT_OPTION"
+                    />
+                </el-option-group>
                 <el-option 
-                    v-for="item in group.options"
+                    v-else
+                    v-for="item in JSON.parse(props.options)"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
                     :disabled="item.disabled"
                     :data-testid="DATA_TEST_ID.SELECT_OPTION"
                 />
-            </el-option-group>
-            <el-option 
-                v-else
-                v-for="item in JSON.parse(props.options)"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="item.disabled"
-                :data-testid="DATA_TEST_ID.SELECT_OPTION"
-            />
-        </el-select>
-    </div>
+            </el-select>
+        </div>
+    </ConfigWrapper>
 </template>

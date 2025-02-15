@@ -1,19 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import Transfer from './components/Transfer.vue';
-import Select from './components/Select.vue';
-import Autocomplete from './components/Autocomplete.vue';
-
-const components = {
-    Transfer,
-    Select,
-    Autocomplete,
-};
 
 const props = defineProps({
-    component: {
-        type: String,
-    },
     language: {
         type: String,
         default: 'en',
@@ -39,6 +27,6 @@ onMounted(() => {
 
 <template>
     <el-config-provider :locale="locale">
-        <component :is="components[component]" v-bind="{...$attrs}" data-testid="app-component" />
+        <slot />
     </el-config-provider>
 </template>

@@ -236,7 +236,7 @@
     }
 
     .select2-container { min-width: 150px; margin-bottom: 0; }
-    .combined_sort { display: inline-block; margin-left: 10px; }
+    .combined_sort, .combined_sort + el-select { display: inline-block; margin-left: 10px; width: 150px; }
 
     .folder_cell { max-width: 27%; width: 27%; }
     .folders li, .inner_list li {
@@ -248,6 +248,33 @@
     .folder_list { min-width: 95%; }
     .move_to_location .folders a:not(.btn), .move_to_location i { color: $dropdown-link-color !important; }
     .shortcut_table { width: 100%; }
+    .app-container {
+        padding: 20px;
+    }
+    .folder_list, .content_cell{
+        position: relative;
+        overflow-y: auto;
+        border-radius: var(--bs-border-radius);
+    }
+    .collapsed ul {
+        display: inherit;
+    }
+    main .container {
+        width: 100%;
+    }
+    #imap_filter_form {        
+        .imap_sort + el-select, .imap_filter + el-select {
+            width: 120px;
+        }
+    }
+    .compose_form .form-floating:last-of-type {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .form-floating el-select + label {
+        transform: unset !important;
+        position: relative !important;
+    }
 }
 
 .mobile.tiki-cypht, .mobile.tiki-webmail {
