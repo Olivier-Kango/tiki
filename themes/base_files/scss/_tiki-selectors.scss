@@ -1258,3 +1258,7 @@ ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
     --sm-dropdowns-sub-link-padding-y: var(--bs-dropdown-item-padding-y);
     --sm-dropdowns-sub-link-padding-x: var(--bs-dropdown-item-padding-x);
 }
+
+.sm-navbar:not(.sm-navbar--dropdowns-only).sm-navbar {
+    --sm-collapsible-navbar-bg: var(--bs-dropdown-bg);
+}
