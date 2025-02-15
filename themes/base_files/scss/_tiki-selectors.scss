@@ -1177,9 +1177,9 @@ blockquote {
 }
 
 // Smartmenus
-ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
-    color: var(--bs-nav-link-color); // SmartMenus uses --sm-dropdowns-nav-link-color for this but why?
-}
+//ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link { - This rule can't work because it doesn't account for light or dark navbar variations. Better solution coming.
+//    color: var(--bs-nav-link-color); // SmartMenus uses --sm-dropdowns-nav-link-color for this but why?
+//}
 
 .navbar-dark.bg-dark.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
     --bs-bg-opacity: 1;
@@ -1261,4 +1261,8 @@ ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
 
 .sm-navbar:not(.sm-navbar--dropdowns-only).sm-navbar {
     --sm-collapsible-navbar-bg: var(--bs-dropdown-bg);
+}
+
+.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
+    --sm-dropdowns-navbar-bg: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)); // Equivalent to $light and .bg-light, so same as Bootstrap light navbar
 }
