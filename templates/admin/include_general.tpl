@@ -112,6 +112,8 @@
                 </div>
                 {preference name=log_mail}
                 {preference name=log_sql}
+                {preference name=log_failed_logins}
+                {preference name=log_file}
                 <div class="adminoptionboxchild" id="log_sql_childcontainer">
                     {preference name=log_sql_perf_min}
                 </div>

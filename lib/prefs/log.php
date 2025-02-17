@@ -31,6 +31,19 @@ function prefs_log_list()
             'type' => 'flag',
             'default' => 'n',
         ],
+        'log_failed_logins' => [
+            'name' => tra('Log failed logins'),
+            'description' => tra('Failed logins will be logged with respective login error code.'),
+            'type' => 'flag',
+            'default' => 'y',
+        ],
+        'log_file_path' => [
+            'name' => tra('Log file'),
+            'description' => tra('Full path to the file to log entries.'),
+            'warning' => tra('Make sure that the path you insert is writable and exists.'),
+            'type' => 'text',
+            'default' => '',
+        ],
         'log_sql_perf_min' => [
             'name' => tra('Log queries using more than'),
             'description' => tra('Use to log only queries that exceed a specific amount of time.'),

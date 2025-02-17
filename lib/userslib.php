@@ -2041,6 +2041,10 @@ class UsersLib extends TikiLib
 
         $smarty = TikiLib::lib('smarty');
 
+        if (($prefs['log_failed_logins'] ?? 'n') === 'y') {
+            TikiLib::lib('logs')->add_log('login', tr('Failed login attempt for: %0. Number of attempts: %1.', $user, $nb_bad_logins));
+        }
+
         if ($prefs['unsuccessful_logins_invalid'] > 0 && ($nb_bad_logins >= $prefs['unsuccessful_logins_invalid'])) {
             $info = $this->get_user_info($user);
             $this->change_user_waiting($user, 'a');

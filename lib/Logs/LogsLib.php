@@ -19,7 +19,8 @@ class LogsLib extends TikiLib
 {
     public function add_log($type, $message, $who = '', $ip = '', $client = '', $time = '')
     {
-        global $user;
+        global $user, $prefs;
+
         if (empty($who)) {
             if (! empty($user)) {
                 $who = $user;
@@ -40,7 +41,12 @@ class LogsLib extends TikiLib
         if (empty($time)) {
             $time = $this->now;
         }
+
         $this->add_action($type, 'system', 'system', $message, $who, $ip, $client, $time);
+
+        if (! empty($prefs['log_file_path'])) {
+            $this->addFileLog($time, $who, $message);
+        }
     }
 
     public function list_logs($type = '', $user = '', $offset = 0, $maxRecords = -1, $sort_mode = 'lastModif_desc', $find = '', $min = 0, $max = 0)
@@ -282,6 +288,34 @@ class LogsLib extends TikiLib
         }
 
         return isset($actions[0]) ? $actions[0] : 0;
+    }
+
+    /**
+     * Add log into file using date and log itself.
+     * @param $date
+     * @param $param
+     * @return bool
+     * @throws \Exception
+     */
+    public function addFileLog($date, $user, $param): bool
+    {
+        global $prefs;
+
+        $path = $prefs['log_file_path'];
+
+        $file = fopen($path, 'a');
+
+        if (! $file) {
+            Feedback::warning(['mes' => tr('It was not possible to create the log file (%0). Make sure the path exists and right permissions are set.', $path), 'title' => tr('Log entry was not created.')]);
+            return false;
+        }
+
+        $date = date('Y-m-d H:i:s', $date);
+
+        $result = fwrite($file, "\n[$date] $user - $param");
+        fclose($file);
+
+        return $result !== false;
     }
 
     /**
