@@ -10,11 +10,11 @@ $inputConfiguration = [
         'delete'                   => 'word',                //post
         'duplicate'                => 'bool',                //post
         'toGroup'                  => 'word',                //post
-        'objectPerm'               => 'word',                //post
+        'objectPerm'               => 'string',              //post
         ],
         'staticKeyFiltersForArrays' => [
             'filterGroup'           => 'groupname',          //post
-            'groupPerm'             => 'bool',               //post
+            'groupPerm'             => 'string',             //post
         ],
     ],
 ];
