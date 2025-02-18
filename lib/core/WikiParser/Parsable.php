@@ -553,7 +553,7 @@ if ( \$('#$id') ) {
             $killtoc = false;
 
             $plugin_result = $this->convert_plugin_output($output, $pluginFormat, $outputFormat);
-            if (($this->option['wysiwyg'] ?? false)) {
+            if (($this->option['ck_editor'] ?? false)) {
                 return $this->convert_plugin_for_ckeditor($name, $args, $plugin_result, $data, $info);
             } else {
                 return $plugin_result;
