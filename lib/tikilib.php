@@ -6409,24 +6409,27 @@ class TikiLib extends TikiDb_Bridge
         $result = strip_tags($result);
         return $result;
     }
+
     /**
-     * @param $data
+     * @param        $data
      * @param string $outputType
-     * @param boolean $is_html
+     * @param array  $options ['indexing' => false, 'is_html' => false]
      * @param string $highlight
-     * @param int $length
+     * @param int    $length
      * @param string $start
      * @param string $end
+     *
      * @return string
+     * @throws Exception
      */
-    public function get_snippet($data, $outputType = '', $is_html = false, $highlight = '', $length = 240, $start = '', $end = '')
+    public function get_snippet($data, $outputType = '', $options = ['indexing' => false, 'is_html' => false], $highlight = '', $length = 240, $start = '', $end = '')
     {
         global $prefs;
         if ($prefs['search_parsed_snippet'] == 'y') {
             $data = preg_replace('/{(:?make)?toc[^}]*}/', '', $data);
 
             $_REQUEST['redirectpage'] = 'y'; //do not interpret redirect
-            $data = TikiLib::lib('parser')->parse_data($data, ['is_html' => $is_html, 'stripplugins' => true, 'parsetoc' => true]);
+            $data = TikiLib::lib('parser')->parse_data($data, ['is_html' => $options['is_html'], 'stripplugins' => true, 'parsetoc' => true, 'indexing' => $options['indexing']]);
         }
 
 

@@ -84,6 +84,7 @@ class ParserLib extends TikiDb_Bridge
                 'noparsefilereferences' => false,
                 'page' => $page,
                 'print' => false,
+                'indexing' => false,
                 'parseimgonly' => false,
                 'preview_mode' => false,
                 'suppress_icons' => false,

@@ -60,12 +60,10 @@ function wikiplugin_redirect($data, $params)
     extract($params, EXTR_SKIP);
     $areturn = '';
 
-    if (! isset($page)) {
-        $areturn = "REDIRECT plugin: No page specified!<br />";
+    if (! isset($page) && ! isset($url)) {
+        $areturn = "REDIRECT plugin: No page or url specified!<br />";
     }
-    if (! isset($url)) {
-        $areturn .= "REDIRECT plugin: No url specified!<br />";
-    }
+
     if (isset($page)) {
         $location = $page;
     } elseif (isset($url)) {

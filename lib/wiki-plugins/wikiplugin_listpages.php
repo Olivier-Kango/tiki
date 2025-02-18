@@ -470,7 +470,7 @@ function wikiplugin_listpages($data, $params)
 
     if (! empty($start) || ! empty($end) || $length > 0) {
         foreach ($listpages['data'] as $i => $page) {
-            $listpages['data'][$i]['snippet'] = $tikilib->get_snippet($page['data'], $page['outputType'], ! empty($page['is_html']), '', $length, $start, $end);
+            $listpages['data'][$i]['snippet'] = $tikilib->get_snippet($page['data'], $page['outputType'], ['is_html' => ! empty($page['is_html'])], '', $length, $start, $end);
         }
     }
     if (isset($_REQUEST["page"])) {
