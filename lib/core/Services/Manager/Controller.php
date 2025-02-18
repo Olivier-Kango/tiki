@@ -251,8 +251,16 @@ class Services_Manager_Controller
         $instanceId = $input->instanceId->int();
         if ($instance = Instance::getInstance($instanceId)) {
             try {
-                $instance->getApplication()->fixPermissions();
-                Feedback::success(tr("Fixed permissions."));
+                if ($instance->getApplication() !== false) {
+                    if (method_exists($instance->getApplication(), 'fixPermissions')) {
+                        $instance->getApplication()->fixPermissions();
+                        Feedback::success(tr("Fixed permissions."));
+                    } else {
+                        throw new \Exception(tr("Unable to fix permissions on the chosen instance"));
+                    }
+                } else {
+                    throw new \Exception(tr("Instance is not configured with a Tiki application"));
+                }
             } catch (\Exception $e) {
                 Feedback::error($e->getMessage());
             }
@@ -865,7 +873,7 @@ class Services_Manager_Controller
                 ];
 
                 return [
-                    'title' => tr('Verify instance') . " " . $instance->name ?: $instance->id,
+                    'title' => tr('Verify instance') . " " . $instance->name ?: $instance->getId(),
                     'info' => '',
                     'refresh' => true,
                     'inputValues' => $inputValues,
@@ -935,7 +943,7 @@ class Services_Manager_Controller
             $access = $instance->getBestAccess();
             $discovery = $instance->getDiscovery();
 
-            if ($type == 'local') {
+            if ($instance->type == 'local') {
                 $access->host = 'localhost';
                 $access->user = $discovery->detectUser();
             }
