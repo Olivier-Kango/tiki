@@ -1962,6 +1962,17 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jason-munro/cypht",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/cypht-org/cypht/archive/master.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "require": {
