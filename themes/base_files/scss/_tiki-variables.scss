@@ -150,6 +150,7 @@ header.navbar.fixed-top {
     --tiki-input-bg: var(--bs-body-bg);
     --tiki-input-select-color: var(--bs-emphasis-color); // $form-select-color;
     --tiki-input-select-bg: var(--bs-tertiary-bg);
+    --tiki-navbar-dark-color: #{$navbar-dark-color}; // The Bootstrap variable wasn't being defined.
 }
 
 [data-bs-theme=dark] {

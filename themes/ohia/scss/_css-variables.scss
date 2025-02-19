@@ -129,8 +129,7 @@
 
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
 
-:root,
-[data-bs-theme="dark"]{
+:root {
     --tiki-code-bg: #303030;
     ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link {
         color: var(--bs-link-color);

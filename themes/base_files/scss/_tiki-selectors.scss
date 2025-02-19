@@ -1180,11 +1180,33 @@ blockquote {
 //ul.navbar-nav.sm-nav > .sm-nav-item > .sm-nav-link { - This rule can't work because it doesn't account for light or dark navbar variations. Better solution coming.
 //    color: var(--bs-nav-link-color); // SmartMenus uses --sm-dropdowns-nav-link-color for this but why?
 //}
-
-.navbar-dark.bg-dark.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
-    --bs-bg-opacity: 1;
-    --sm-dropdowns-navbar-bg: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+@media (min-width: 768px) {
+    .navbar-light.bg-light.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
+        --bs-bg-opacity: 1;
+        --sm-dropdowns-navbar-bg: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)); // Equivalent to $light and .bg-light, so same as Bootstrap light navbar
+        .sm-nav-link {
+            color: var(--bs-navbar-light-color);
+            &:hover,.active,.sm-expanded {
+                color: var(--bs-secondary);
+            }
+        }
+    }
+    .navbar-dark.bg-dark.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
+        --bs-bg-opacity: 1;
+        --sm-dropdowns-navbar-bg: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)); // Equivalent to $dark and .bg-dark, so same as Bootstrap dark navbar
+        .sm-nav-link {
+            color: var(--tiki-navbar-dark-color); // The Bootstrap variable wasn't being defined.
+            &:hover,.active,.sm-expanded {
+                color: var(--bs-secondary);
+            }
+        }
+    }
 }
+
+//.navbar-dark.bg-dark.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
+//    --bs-bg-opacity: 1;
+//    --sm-dropdowns-navbar-bg: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+//}
 
 @media (max-width: 767.98px) {
     .navbar-dark.bg-dark.sm-navbar:not(.sm-navbar--dropdowns-only).sm-navbar {
@@ -1263,6 +1285,8 @@ blockquote {
     --sm-collapsible-navbar-bg: var(--bs-dropdown-bg);
 }
 
-.sm-navbar:not(.sm-navbar--collapsible-only).sm-navbar {
-    --sm-dropdowns-navbar-bg: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)); // Equivalent to $light and .bg-light, so same as Bootstrap light navbar
+// -------------
+
+:root {
+    --tiki-navbar-dark-color: #{$navbar-dark-color}; // The Bootstrap variable wasn't being defined.
 }
