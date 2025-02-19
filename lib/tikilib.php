@@ -248,6 +248,7 @@ class TikiLib extends TikiDb_Bridge
             $config['sslverifypeer'] = true;
         } else {
             $config['sslverifypeer'] = false;
+            $config['sslverifypeername'] = false;
         }
 
 
