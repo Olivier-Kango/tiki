@@ -24,13 +24,13 @@ $inputConfiguration = [
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_view_tpl');
-
+$globalperms = Perms::get();
 // you have to have the perm view and edit to continue:
       // if view perm is set: continue
 if (
-    ($tiki_p_view_templates != 'y') ||
+    ($globalperms->view_templates != 'y') ||
       // if edit perm is set: continue, else quit if user tries save/delete
-      ($tiki_p_edit_templates != 'y' &&
+      ($globalperms->edit_templates != 'y' &&
         (isset($_REQUEST["save"]) ||
          isset($_REQUEST['saveTheme']) ||
          isset($_REQUEST['delete'])
@@ -61,10 +61,10 @@ if (isset($_REQUEST["template"])) {
     }
 }
 
-$relativeDirectories = ['', 'mail/', 'map/', 'modules/', 'styles/' . str_replace('.css', '', $prefs['style']) . '/'];
+$relativeDirectories = ['', 'mail/', 'map/', 'modules/', isset($prefs['style']) && ! empty($prefs['style']) ? 'styles/' . str_replace('.css', '', $prefs['style']) . '/' : ''];
 
 // do editing stuff only if you have the permission to:
-if ($tiki_p_edit_templates == 'y') {
+if ($globalperms->edit_templates == 'y') {
     if ((isset($_REQUEST["save"]) || isset($_REQUEST['saveTheme'])) && ! empty($_REQUEST['template']) && $access->checkCsrf(true)) {
         $access->check_feature('feature_edit_templates');
         $access->checkCsrf();
