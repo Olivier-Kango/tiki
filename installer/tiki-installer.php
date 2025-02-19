@@ -87,7 +87,7 @@ try {
 
 require_once('tiki-filter-base.php');
 
-global $prefs;
+global $prefs, $tikilib;
 // we can't call the normal code for loading preferences (always) as many depends on DB being setup,
 // so we need to define here a few preferences to make things work and/or to avoid warnings in templates, etc.
 // we will load the actual preferences from step 6 (after tiki DB install).
@@ -163,7 +163,7 @@ include_once('lib/setup/twversion.class.php');
 
 $dbTiki = false;
 $commands = [];
-
+$tikilib = new TikiLib();
 // tra() should not use $tikilib because this lib is not available in every steps of the installer
 //  and because we want to be sure that translations of the installer are the original ones, even for an upgrade
 $prefs['lang_use_db'] = 'n';
@@ -566,8 +566,6 @@ if (
         $logslib->add_log('install', $logmsg);
         $smarty->assign('dbdone', 'y');
         $install_type = 'scratch';
-        require_once 'lib/tikilib.php';
-        $tikilib = new TikiLib();
         $userlib = TikiLib::lib('user');
         $tikidate = TikiLib::lib('tikidate');
     }
