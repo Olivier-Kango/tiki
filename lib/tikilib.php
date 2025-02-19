@@ -4395,7 +4395,7 @@ class TikiLib extends TikiDb_Bridge
         $preferences->insertOrUpdate(['value' => is_array($value) ? serialize($value) : $value], ['name' => $name]);
 
         if (isset($prefs)) {
-            if (in_array($name, $user_overrider_prefs)) {
+            if (isset($user_overrider_prefs) && in_array($name, $user_overrider_prefs)) {
                 $prefs['site_' . $name] = $value;
             } elseif (isset($user_preferences[$user][$name])) {
                 $prefs[$name] = $user_preferences[$user][$name];
