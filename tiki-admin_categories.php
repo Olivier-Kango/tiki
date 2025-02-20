@@ -494,7 +494,7 @@ foreach ($categories as $category) {
                         {
                         	filter: {
                                 deep_categories: $this.data("categid"),
-                                object_type: "not activity and not category",
+                                object_type: "not activity and not category and not comment",
                                 searchable: "y"
                             },
                             maxRecords: 1
