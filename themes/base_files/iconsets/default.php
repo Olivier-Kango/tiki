@@ -503,6 +503,10 @@ function iconset_default()
                 'id' => 'deviantart',
                 'prepend' => 'fab fa-'
             ],
+            'diagram' => [
+                'id' => 'diagram-project',
+                'prepend' => 'fa fa-'
+            ],
             'difference' => [
                 'id' => 'strikethrough',
             ],

@@ -13,6 +13,8 @@
     * find_show_categories  : If value = 'y' adds categories dropdown with categories array values
     * find_show_categories_multi : If value = 'y' adds categories dropdown with categories array values with multi selector
     * find_categId          : categories selected value
+    * find_show_objects_multi : If value = 'y' adds trackers dropdown with trackers array values with multi selector
+    * find_objectId        : trackers selected value
     * find_show_num_rows    : If value = 'y' adds maxRecords field. Value: maxRecords
     * find_show_date_range  : If value = 'y' adds date range to filter within
     * find_show_orphans     : If value = 'y' adds a checkbox orphan
@@ -292,6 +294,22 @@
                     <input type="submit" class="btn btn-primary btn-sm" name="searchmap" value="{tr}Show Map{/tr}">
                     <input type="hidden" name="mapview" value="n">
                 {/if}
+            </div>
+        {/if}
+        {if ($find_show_objects_multi eq 'y')}
+            <div class="mb-3 row mx-0 findfilter">
+                
+                <label class="col-form-label col-sm-5">
+                    {tr}Filtered trackers{/tr}
+                </label>
+                <div class="col-sm-7">
+                    <select name="filterTracker[]" class="form-control form-control-sm" multiple>
+                        <option value=''>{tr}Objects :{/tr}</option>
+                        {foreach item=object from=$findAllObjects}
+                            <option value="{$object[$objectId]}" {if in_array($object[$objectId], $find_objectId)} selected="selected"{/if}>{$object['name']}</option>
+                        {/foreach}
+                    </select>
+                </div>
             </div>
         {/if}
         {if (!isset($map_only) or $map_only ne 'y') or (isset($gmapbuttons) && $gmapbuttons)}

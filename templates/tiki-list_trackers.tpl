@@ -7,9 +7,11 @@
 {block name="navigation"}
     {if $tiki_p_admin_trackers eq 'y'}
         <div class="t_navbar mb-3">{* Class provides 15px bottom margin. *}
+        
             <a class="btn btn-link me-2" href="{bootstrap_modal controller=tracker action=replace}">
                 {icon name="create"} {tr}Create{/tr}
             </a>
+            
             {if $trackers|count gt 0}
                 <a class="btn btn-link me-2" href="{bootstrap_modal controller=tracker action=duplicate}">
                     {icon name="copy"} {tr}Duplicate{/tr}
@@ -17,28 +19,27 @@
             {/if}
             {if $tiki_p_export_tracker eq 'y'}
                 <a href="tiki-export_tracker_schema.php" class="btn btn-link" >
-                    {icon name="table"} {tr}ER diagram{/tr}
+                    {icon name="diagram"} {tr}ER diagram{/tr}
                 </a>
             {/if}
-            <div class="btn-group">
-                
-                <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
-                    {icon name="import"} {tr}Import{/tr}
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{bootstrap_modal controller=tracker action=import}">
-                        {tr}Import Structure{/tr}
+            
+            <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
+                {icon name="import"} {tr}Import{/tr}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{bootstrap_modal controller=tracker action=import}">
+                    {tr}Import Structure{/tr}
+                </a>
+                <a class="dropdown-item" href="{bootstrap_modal controller=tracker action=import_profile}">
+                    {tr}Import From Profile/YAML{/tr}
+                </a>
+                {if $prefs.tracker_tabular_enabled eq 'y' && $tiki_p_admin_trackers eq 'y'}
+                    <a class="dropdown-item" href="{service controller=tabular action=manage}">
+                        {tr}Manage Import-Export Formats{/tr}
                     </a>
-                    <a class="dropdown-item" href="{bootstrap_modal controller=tracker action=import_profile}">
-                        {tr}Import From Profile/YAML{/tr}
-                    </a>
-                    {if $prefs.tracker_tabular_enabled eq 'y' && $tiki_p_admin_trackers eq 'y'}
-                        <a class="dropdown-item" href="{service controller=tabular action=manage}">
-                            {tr}Manage Import-Export Formats{/tr}
-                        </a>
-                    {/if}
-                </div>
+                {/if}
             </div>
+            
             {if $prefs.tracker_tabular_enabled eq 'y' && $tiki_p_admin_trackers eq 'y'}
                 <a class="btn btn-link" href="{service controller=tabular action=manage}">
                     {icon name="list"} {tr}Manage Import-Export Formats{/tr}
@@ -57,7 +58,7 @@
     <a id="view"></a>
     {if ($trackers) or ($find)}
         {include autocomplete='trackername' file='find.tpl' filters=''}
-        {if ($find) and ($trackers)}
+        {if (($find) and ($trackers))}
             <h4 class="find-results">{tr}Results{/tr} <span class="label label-default">{$trackers|@count}</span></h4>
         {/if}
     {/if}
@@ -151,7 +152,7 @@
                                         <a 
                                             href="tiki-export_tracker_schema.php?trackerIds[]={$tracker.trackerId}"
                                         >
-                                            {icon name='export' _menu_text='y' _menu_icon='y' alt="{tr}Show in ER diagram{/tr}"}
+                                            {icon name="diagram"} {tr}Show in ER diagram{/tr}
                                         </a>
                                     </action>
                                 {/if}

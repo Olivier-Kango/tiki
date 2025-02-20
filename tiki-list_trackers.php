@@ -51,10 +51,30 @@ if (isset($_REQUEST["find"])) {
 } else {
     $find = '';
 }
-$smarty->assign('find', $find);
-$trackers = $trklib->list_trackers($offset, $maxRecords, $sort_mode, $find, true);
 
-foreach ($trackers["data"] as &$tracker) {
+
+$trackers = $trklib->list_trackers($offset, $maxRecords, $sort_mode, $find, true);
+$trackers_data = $trackers["data"];
+$isTrackerFiltered = 'n';
+$arrayOfTrackerIdsPassedInUrl = [];
+if (isset($_REQUEST['trackerIds'])) {
+    $isTrackerFiltered = 'y';
+    $allowedId = $_REQUEST['trackerIds'];
+    $filtered_trackers = array_filter($trackers["data"], function ($tracker) use ($allowedId) {
+        return in_array($tracker['trackerId'], $allowedId);
+    });
+
+    $arrayOfTrackerIdsPassedInUrl = $allowedId;
+    $allData = $trackers["data"];
+    $trackers_data = $filtered_trackers;
+    //This is set to space because : Make the clear button visible to show users that it is the filter.
+    $find = ' ';
+} else {
+    $trackers_data = $trackers["data"];
+}
+
+
+foreach ($trackers_data as &$tracker) {
     if ($userlib->object_has_one_permission($tracker["trackerId"], 'tracker')) {
         $tracker["individual"] = 'y';
     } else {
@@ -74,11 +94,14 @@ foreach ($trackers["data"] as &$tracker) {
         }
     }
 }
-$trackers['data'] = array_filter($trackers['data']);
-
+$trackers_data = array_filter($trackers_data);
+$smarty->assign('find', $find);
+$smarty->assign('objectId', 'trackerId');
+$smarty->assign('find_objectId', $arrayOfTrackerIdsPassedInUrl);
+$smarty->assign('find_show_objects_multi', $isTrackerFiltered);
 $smarty->assign_by_ref('cant', $trackers['cant']);
-$smarty->assign_by_ref('trackers', $trackers["data"]);
-
+$smarty->assign_by_ref('trackers', $trackers_data);
+$smarty->assign_by_ref('findAllObjects', $allData);
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 
