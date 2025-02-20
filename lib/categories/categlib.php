@@ -777,7 +777,7 @@ class CategLib extends ObjectLib
         $objs = [];
 
         foreach ($result as $res) {
-            if (isset($res['catObjectId'], $res['categId']) && ! in_array($res['catObjectId'] . '-' . $res['categId'], $objs)) { // same object and same category
+            if (! in_array($res['objectId'] . '-' . $res['category_ids'], $objs)) { // same object and same categories
                 if (preg_match('/trackeritem/', $res['type']) && $res['description'] == '') {
                     $trklib = TikiLib::lib('trk');
                     //This is a performance optimisation, but we can't rely on trackerId being present - benoitg - 2024-03-18
