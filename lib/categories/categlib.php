@@ -753,7 +753,7 @@ class CategLib extends ObjectLib
 
         $invalidTypes = [];
         // Get valid object types from the context map
-        $validObjectTypes = array_keys($contextMap);
+        $validObjectTypes = array_keys($contextMapMap);
         // Filter $requiredResult based on valid object types
         $requiredResult = array_filter($requiredResult, function ($res) use ($validObjectTypes, &$invalidTypes) {
             $check = in_array($res['type'], $validObjectTypes);
@@ -777,6 +777,8 @@ class CategLib extends ObjectLib
         } else {
             $count = count($requiredResult);
         }
+
+        $result = $requiredResult;
 
         $ret = [];
         $objs = [];
