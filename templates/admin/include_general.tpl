@@ -164,6 +164,13 @@
                 {preference name=scheduler_last_run_warning_minutes}
             </fieldset>
             <fieldset>
+                <legend class="h3">{tr}Headless Browser Integration{/tr}</legend>
+                {preference name=headlessbrowser_integration_type}
+                <div class="adminoptionbox headlessbrowser_integration_type_childcontainer chrome">
+                    {preference name=headlessbrowser_chrome_path}
+                </div>
+            </fieldset>
+            <fieldset>
                 <legend>{tr}Maintenance{/tr}</legend>
                 {preference name=maintenanceMessageReindex}
                 <div class="adminoptionboxchild" id="maintenanceMessageReindex_childcontainer">
