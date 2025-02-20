@@ -311,7 +311,8 @@
         "platform": {
             "php": "8.1",
             "ext-ldap": "0",
-            "ext-soap": "0"
+            "ext-soap": "0",
+            "ext-sockets": "0"
         },
         "secure-http": false,
         "allow-plugins": {
