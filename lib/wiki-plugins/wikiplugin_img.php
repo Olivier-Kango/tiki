@@ -830,12 +830,12 @@ function wikiplugin_img($data, $params)
         } else {                    //only attachments left
             $src = $attachpath . $imgdata['attId'];
         }
-    } elseif ((! empty($imgdata['src'])) && $absolute_links && ! preg_match('|^[a-zA-Z]+:\/\/|', $imgdata['src'])) {
+    } elseif ($absolute_links && ! preg_match('|^[a-zA-Z]+:\/\/|', $imgdata['src'])) {
         global $base_host, $url_path;
         $src = $base_host . ( $imgdata['src'][0] == '/' ? '' : $url_path ) . $imgdata['src'];
-    } elseif (! empty($imgdata['src']) && $tikidomain && ! preg_match('|^https?:|', $imgdata['src'])) {
+    } elseif ($tikidomain && ! preg_match('|^https?:|', $imgdata['src'])) {
         $src = preg_replace("~" . DEPRECATED_IMG_WIKI_UP_PATH . " /~", DEPRECATED_IMG_WIKI_UP_PATH . "/$tikidomain/", $imgdata['src']);
-    } elseif (! empty($imgdata['src'])) {
+    } else {
         $src = $imgdata['src'];
     }
 
@@ -844,14 +844,14 @@ function wikiplugin_img($data, $params)
     ///////////////////////////Get DB info for image size and metadata/////////////////////////////
     if (
         ! empty($imgdata['height']) || ! empty($imgdata['width']) || ! empty($imgdata['max'])
-        || ! empty($imgdata['desc']) || strpos($imgdata['rel'], 'box') !== false
+        || ! empty($imgdata['desc']) || str_contains($imgdata['rel'], 'box')
         || ! empty($imgdata['stylebox']) || ! empty($imgdata['styledesc']) || ! empty($imgdata['button'])
         || ! empty($imgdata['thumb'])  || ! empty($imgdata['align']) || ! empty($imgdata['metadata'])  || ! empty($imgdata['fileId'])
     ) {
         //Get ID numbers for images in galleries and attachments included in src as url parameter
         //So we can get db info for these too
         $parsed = parse_url($imgdata['src']);
-        if (empty($parsed['host']) || (! empty($parsed['host']) && strstr($base_url, $parsed['host']))) {
+        if (empty($parsed['host']) || strstr($base_url, $parsed['host'])) {
             if (strlen(strstr($imgdata['src'], $imagegalpath)) > 0) {
                 $imgdata['id'] = substr(strstr($imgdata['src'], $imagegalpath), strlen($imagegalpath));
             } elseif (strlen(strstr($imgdata['src'], $filegalpath)) > 0) {
@@ -864,7 +864,7 @@ function wikiplugin_img($data, $params)
         //Deal with images with info in tiki databases (file and image galleries and attachments)
         if (
             empty($imgdata['randomGalleryId']) && (! empty($imgdata['fileId'])
-            || ! empty($imgdata['attId']))
+                || ! empty($imgdata['attId']))
         ) {
             //Try to get image from database
             if (empty($dbinfo) && ! empty($imgdata['fileId'])) {
@@ -876,7 +876,6 @@ function wikiplugin_img($data, $params)
                 $imgdata['file'] = \Tiki\FileGallery\File::id($imgdata['attId']);
                 $dbinfo = $imgdata['file']->getParams();
             } else {                    //only attachments left
-                global $atts;
                 $wikilib = TikiLib::lib('wiki');
                 $dbinfo = $wikilib->get_item_attachment($imgdata['attId']);
                 $basepath = $prefs['w_use_dir'];
@@ -885,7 +884,7 @@ function wikiplugin_img($data, $params)
             if (! empty($imgdata['fileId']) || ! empty($imgdata['attId'])) {
                 if (! $dbinfo) {
                     return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('File not found.'));
-                } elseif (substr($dbinfo['filetype'], 0, 5) != 'image' and ! preg_match('/thumbnail/i', $imgdata['fileId'])) {
+                } elseif (! str_starts_with($dbinfo['filetype'], 'image') and ! preg_match('/thumbnail/i', $imgdata['fileId'])) {
                     return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('File is not an image.'));
                 } elseif (! Image::isAvailable()) {
                     return WikiParser_PluginOutput::error(tr('Plugin Image'), tr('Server does not support image manipulation.'));
@@ -919,16 +918,15 @@ function wikiplugin_img($data, $params)
         } elseif (isset($imgdata['file'])) {
             $imageObj = Image::create($imgdata['file']->getContents(), false);
             $filename = $imgdata['file']->filename;
-        } elseif (strpos($src, '//') === false) {
+        } elseif (! str_contains($src, '//')) {
             $imageObj = Image::create($src, true);
             $filename = $src;
         }
         // NOTE image sizing should only happen with local images, otherwise will break if remote server can't be reached
 
         //if we need metadata
-        $xmpview = ! empty($imgdata['metadata']) ? true : false;
-        if (is_object($imageObj) && ($imgdata['desc'] == 'idesc' || $imgdata['desc'] == 'ititle' || $xmpview)) {
-            $dbinfoparam = isset($dbinfo) ? $dbinfo : false;
+        if (is_object($imageObj) && ($imgdata['desc'] == 'idesc' || $imgdata['desc'] == 'ititle' || ! empty($imgdata['metadata']))) {
+            $dbinfoparam = $dbinfo ?? false;
             $metadata = getMetadataArray($imageObj, $dbinfoparam);
             if ($imgdata['desc'] == 'idesc') {
                 $idesc = getMetaField($metadata, ['User Data' => 'Description']);
@@ -945,15 +943,14 @@ function wikiplugin_img($data, $params)
             $fwidth = $imageObj->getWidth();
             $fheight = $imageObj->getHeight();
         }
-
         $fheightt = 1;
         $fwidtht = 1;
         //get image gal thumbnail image for height and width
-        if (! empty($dbinfot['data']) || ! empty($dbinfot['path'])) {
-            if (! empty($dbinfot['data'])) {
-                $imageObjt = Image::create($dbinfot['data'], false);
-            } elseif (! empty($dbinfot['path'])) {
-                $imageObjt = Image::create($basepath . $dbinfot['path'] . '.thumb', true);
+        if (! empty($dbinfo['data']) || ! empty($dbinfo['path'])) {
+            if (! empty($dbinfo['data'])) {
+                $imageObjt = Image::create($dbinfo['data'], false);
+            } elseif (! empty($dbinfo['path'])) {
+                $imageObjt = Image::create($basepath . $dbinfo['path'] . '.thumb', true);
             }
             $fwidtht = $imageObjt->getWidth();
             $fheightt = $imageObjt->getHeight();
@@ -961,7 +958,7 @@ function wikiplugin_img($data, $params)
     /////////////////////////////////////Add image dimensions to src string////////////////////////////////////////////
         //Use url resizing parameters for file gallery images to set $height and $width
         //since they can affect other elements; overrides plugin parameters
-        if (! empty($imgdata['fileId']) && strpos($src, '&') !== false) {
+        if (! empty($imgdata['fileId']) && str_contains($src, '&')) {
             $urlthumb = strpos($src, '&thumbnail');
             $urlprev = strpos($src, '&preview');
             $urldisp = strpos($src, '&display');
