@@ -6957,7 +6957,6 @@
             "ArtLib::add_article_hit": true,
             "ArtLib::remove_article": true,
             "ArtLib::remove_submission": true,
-            "ArtLib::delete_expired_submissions": true,
             "ArtLib::replace_submission": true,
             "ArtLib::replace_article": true,
             "ArtLib::add_topic": true,

@@ -26,7 +26,6 @@ $inputConfiguration = [
             'emails'                      => 'email',         //get
             'preview'                     => 'bool',          //post
             'publishDate'                 => 'string',        //post
-            'expireDate'                  => 'string',        //get
             'title'                       => 'string',        //get
             'authorName'                  => 'string',        //post
             'topicId'                     => 'int',           //post
@@ -137,14 +136,6 @@ if (isset($_REQUEST['templateId']) && $_REQUEST['templateId'] > 0) {
 
 $publishDate = $tikilib->now;
 $cur_time = explode(',', $tikilib->date_format('%Y,%m,%d,%H,%M,%S', $publishDate));
-$expireDate = $tikilib->make_time(
-    $cur_time[3],
-    $cur_time[4],
-    $cur_time[5],
-    $cur_time[1],
-    $cur_time[2],
-    $cur_time[0] + 1
-);
 
 //Use 12- or 24-hour clock for $publishDate time selector based on admin and user preferences
 $userprefslib = TikiLib::lib('userprefs');
@@ -188,7 +179,6 @@ $parserlib = TikiLib::lib('parser');
 if (isset($_REQUEST["articleId"]) and $_REQUEST["articleId"] > 0) {
     $cat_lang = $article_data['lang'];
     $publishDate = $article_data['publishDate'];
-    $expireDate = $article_data['expireDate'];
     $smarty->assign('arttitle', $article_data['title']);
     $smarty->assign('topline', $article_data['topline']);
     $smarty->assign('subtitle', $article_data['subtitle']);
@@ -316,12 +306,6 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
         $publishDate = $tikilib->now;
     }
 
-    if (isset($_REQUEST['expireDate'])) {
-        $expireDate = $_REQUEST['expireDate'];
-    } else {
-        $expireDate = $publishDate;
-    }
-
     $smarty->assign('reads', '0');
     $smarty->assign('edit_data', 'y');
     $smarty->assign('arttitle', $_REQUEST['title']);
@@ -361,7 +345,6 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
     $smarty->assign('show_author', $type["show_author"]);
     $smarty->assign('show_reads', $type["show_reads"]);
     $smarty->assign('show_pubdate', $type["show_pubdate"]);
-    $smarty->assign('show_expdate', $type["show_expdate"]);
     $smarty->assign('show_linkto', $type["show_linkto"]);
     $smarty->assign('use_ratings', $type["use_ratings"]);
 
@@ -509,12 +492,6 @@ if (isset($_REQUEST['save']) && empty($errors)) {
         $publishDate = $_REQUEST['publishDate'];
     } else {
         $publishDate = $tikilib->now;
-    }
-
-    if (isset($_REQUEST['expireDate'])) {
-        $expireDate = $_REQUEST['expireDate'];
-    } else {
-        $expireDate = $publishDate;
     }
 
     if (isset($_REQUEST['allowhtml']) && $_REQUEST['allowhtml'] == 'on' || $_SESSION['wysiwyg'] == 'y') {
@@ -687,7 +664,6 @@ if (isset($_REQUEST['save']) && empty($errors)) {
         $heading,
         $body,
         $publishDate,
-        $expireDate,
         $author,
         $articleId,
         $_REQUEST['image_x'],
@@ -833,7 +809,6 @@ if ($prefs['feature_freetags'] == 'y') {
 }
 
 $smarty->assign('publishDate', $publishDate);
-$smarty->assign('expireDate', $expireDate);
 $smarty->assign('siteTimeZone', $prefs['display_timezone']);
 
 include_once('tiki-section_options.php');

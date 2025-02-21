@@ -17,7 +17,6 @@ $inputConfiguration = [
             'update_type'                 => 'bool',                //post
             'use_ratings'                 => 'bool',                //post
             'show_pre_publ'               => 'bool',                //post
-            'show_post_expire'            => 'bool',                //post
             'heading_only'                => 'bool',                //post
             'allow_comments'              => 'bool',                //post
             'comment_can_rate_article'    => 'bool',                //post
@@ -25,7 +24,6 @@ $inputConfiguration = [
             'show_avatar'                 => 'bool',                //post
             'show_author'                 => 'bool',                //post
             'show_pubdate'                => 'bool',                //post
-            'show_expdate'                => 'bool',                //post
             'show_reads'                  => 'bool',                //post
             'show_size'                   => 'bool',                //post
             'show_topline'                => 'bool',                //post
@@ -61,7 +59,6 @@ if (isset($_REQUEST["add_type"])) {
         $defaultFields = [
             "use_ratings",
             "show_pre_publ",
-            "show_post_expire",
             "heading_only",
             "allow_comments",
             "comment_can_rate_article",
@@ -69,7 +66,6 @@ if (isset($_REQUEST["add_type"])) {
             "show_avatar",
             "show_author",
             "show_pubdate",
-            "show_expdate",
             "show_reads",
             "show_size",
             "show_topline",
@@ -91,7 +87,6 @@ if (isset($_REQUEST["add_type"])) {
             $this_type,
             $_REQUEST["use_ratings"][$this_type],
             $_REQUEST["show_pre_publ"][$this_type],
-            $_REQUEST["show_post_expire"][$this_type],
             $_REQUEST["heading_only"][$this_type],
             $_REQUEST["allow_comments"][$this_type],
             $_REQUEST["comment_can_rate_article"][$this_type],
@@ -99,7 +94,6 @@ if (isset($_REQUEST["add_type"])) {
             $_REQUEST["show_avatar"][$this_type],
             $_REQUEST["show_author"][$this_type],
             $_REQUEST["show_pubdate"][$this_type],
-            $_REQUEST["show_expdate"][$this_type],
             $_REQUEST["show_reads"][$this_type],
             $_REQUEST["show_size"][$this_type],
             $_REQUEST["show_topline"][$this_type],
