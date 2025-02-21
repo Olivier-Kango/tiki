@@ -8,6 +8,26 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'                => [
+            'quizId'                      => 'int',            //post
+            'questionId'                  => 'int',            //post
+            'question'                    => 'text',           //post
+            'remove'                      => 'int',            //post
+            'save'                        => 'bool',           //post
+            'questionType'                => 'string',         //post
+            'position'                    => 'string',         //post
+            'import'                      => 'bool',           //post
+            'input_data'                  => 'text',           //post
+            'useQuestion'                 => 'bool',           //post
+            'usequestionid'               => 'int',            //post
+            'sort_mode'                   => 'text',          //get
+            'offset'                      => 'int',            //get
+            'find'                        => 'alpha',          //post
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $quizlib = TikiLib::lib('quiz');
 
@@ -44,8 +64,11 @@ if (! isset($_REQUEST['questionId'])) {
 $smarty->assign('questionId', $_REQUEST['questionId']);
 
 $result = $quizlib->get_quiz_question($_REQUEST['questionId']);
-if (! $result) {
+if ($_REQUEST['questionId'] > 0 && ! $result) {
     Feedback::error(tra("The question you are trying to edit was not found. Please verify the question ID or create a new one."));
+}
+
+if (! $result) {
     $info = [];
 
     $info['question'] = '';
@@ -55,26 +78,28 @@ if (! $result) {
     $info = $result;
 }
 
-
 $smarty->assign('question', $info['question']);
 $smarty->assign('type', $info['type']);
 $smarty->assign('position', $info['position']);
 
 if (isset($_REQUEST['remove']) && $access->checkCsrf()) {
     $quizlib->remove_quiz_question($_REQUEST['remove']);
+    Feedback::success(tr('The question has been successfully deleted'));
 }
 
 if (isset($_REQUEST['save'])) {
     $access->checkCsrf();
 
-    $quizlib->replace_quiz_question(
+    $result = $quizlib->replace_quiz_question(
         $_REQUEST['questionId'],
         $_REQUEST['question'],
         $_REQUEST['questionType'],
         $_REQUEST['quizId'],
         $_REQUEST['position']
     );
-
+    if (is_numeric($result) && $result > 0) {
+        Feedback::success(tr('The question has been saved successfully'));
+    }
     $smarty->assign('question', '');
     $smarty->assign('questionId', 0);
 }
