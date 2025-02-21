@@ -13,9 +13,8 @@ variables:
   MYSQL_USER: tikiuser
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
-  #The source for these images is at https://github.com/rjsmelo/docker-ubuntu-php
   #Would be nice to update them from code, similar to https://medium.com/devops-with-valentine/how-to-build-a-docker-image-and-push-it-to-the-gitlab-container-registry-from-a-gitlab-ci-pipeline-acac0d1f26df
-  BASE_QA_IMAGE: rjsmelo/ubuntu-php:8.1-qa
+  BASE_QA_IMAGE: tikiwiki/tikiwiki-ci:8.1-qa
   #DBDiff is sensitive to mysql version.  
   #The schemas dumped for prior tikis on https://gitlab.com/tikiwiki/tikiwiki-ci-databases have explicit COLLATION() statements for each table column.  Later versions of mysql (8.0.11+, but not sure) will not dump the same whits explicit collations.
   #Running php doc/devtools/check_schema_upgrade.php -m 22 --db1=tiki:tiki@localhost:tikiold --db2=tiki:tiki@localhost:tikinew gives other errors localy that are false positives.  But locally, unless you decompress https://gitlab.com/tikiwiki/tikiwiki-ci-databases into doc/devtool/dbdiff/cache, tiki.org won't give the schemas to you, and will blacklist your IP address!  benoitg - 2023-05-16
@@ -193,7 +192,7 @@ phpcs:
 
 phplint:
   stage: lint
-  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:${PHP_VERSION}-qa
+  image: ${DEPENDENCY_PROXY_PREFIX}tikiwiki/tikiwiki-ci:${PHP_VERSION}-qa
   needs:
     - composer
   script:
@@ -484,7 +483,7 @@ console-php-works:
   stage: unit-tests
   needs:
     - composer
-  image: ${DEPENDENCY_PROXY_PREFIX}rjsmelo/ubuntu-php:${PHP_VERSION}-qa
+  image: ${DEPENDENCY_PROXY_PREFIX}tikiwiki/tikiwiki-ci:${PHP_VERSION}-qa
   services:
     - name: ${DEPENDENCY_PROXY_PREFIX}${DB_IMAGE}
       alias: mysql
