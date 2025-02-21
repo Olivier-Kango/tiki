@@ -22,6 +22,13 @@
 /**
  * This script may only be included, so it is better to die if called directly.
  */
+
+/**
+ * This constant is used to indicate that the status is not a tracker field in the strict context.
+ * Therefore, this field ID does not exist for a tracker item.
+ */
+define('HISTLIB_INVALID_FIELDID_THAT_MEANS_TRACKER_ITEM_STATUS_CHANGE', -1);
+
 /**
  * TrackerLib Class
  *
@@ -2104,7 +2111,7 @@ class TrackerLib extends TikiLib
 
         if (! empty($oldStatus) || ! empty($status)) {
             if (! empty($itemId) && $oldStatus != $status) {
-                 $this->log($version, $itemId, -1, $oldStatus);
+                 $this->log($version, $itemId, HISTLIB_INVALID_FIELDID_THAT_MEANS_TRACKER_ITEM_STATUS_CHANGE, $oldStatus);
             }
         }
 
