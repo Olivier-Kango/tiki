@@ -629,7 +629,7 @@ if ($prefs['jquery_fitvidjs'] == 'y') {
         ->add_jq_onready("fitvids('article', $customSelectors);");
 }
 if ($prefs['jquery_smartmenus_enable'] == 'y') {
-    $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/smartmenus/dist/css/smartmenus-max.css');
+    $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/smartmenus/dist/css/smartmenus-only-layout.css');
     $headerlib->add_js_module('import SmartMenus from "smartmenus";
         const nav = document.querySelectorAll("nav");
         let collapsible_behavior = jqueryTiki.smartmenus_collapsible_behavior == "default" ? false : true;
