@@ -13,7 +13,7 @@ variables:
   MYSQL_USER: tikiuser
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
-  #Would be nice to update them from code, similar to https://medium.com/devops-with-valentine/how-to-build-a-docker-image-and-push-it-to-the-gitlab-container-registry-from-a-gitlab-ci-pipeline-acac0d1f26df
+  #The source for these images is at https://gitlab.com/tikiwiki/ci-helpers/docker-tikiwiki-ci 
   BASE_QA_IMAGE: tikiwiki/tikiwiki-ci:8.1-qa
   #DBDiff is sensitive to mysql version.  
   #The schemas dumped for prior tikis on https://gitlab.com/tikiwiki/tikiwiki-ci-databases have explicit COLLATION() statements for each table column.  Later versions of mysql (8.0.11+, but not sure) will not dump the same whits explicit collations.
