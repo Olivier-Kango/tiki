@@ -186,6 +186,7 @@ phpcs:
         prefix: "phpcs"
         files:
           - phpcs.xml.dist
+          - doc/devtools/codesniffer/standards/TikiIgnore/ignore_list.json
       paths:
         - phpcs.cache
       policy: pull-push
