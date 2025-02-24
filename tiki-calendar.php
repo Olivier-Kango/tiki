@@ -69,10 +69,7 @@ if (empty($rawcals['data'])) {
     } else {
         $message = tra('No calendars found');
     }
-    $smarty->assign('errortype', 404);
-    $smarty->assign('msg', $message);
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie($message, \Laminas\Http\Response::STATUS_CODE_404);
 }
 
 $rawcals['data'] = Perms::filter(
@@ -84,10 +81,7 @@ $rawcals['data'] = Perms::filter(
 );
 
 if (empty($rawcals['data'])) {
-    $smarty->assign('errortype', 401);
-    $smarty->assign('msg', tra("You do not have permission to view the calendar"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("You do not have permission to view the calendar"), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 $minHourOfDay = 12;

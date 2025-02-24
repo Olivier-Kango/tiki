@@ -41,31 +41,23 @@ require_once('tiki-setup.php');
 
 // Feature available?
 if ($prefs['feature_accounting'] != 'y') {
-    $smarty->assign('msg', tra('This feature is disabled') . ': feature_accounting');
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('This feature is disabled') . ': feature_accounting', \Laminas\Http\Response::STATUS_CODE_403);
 }
 $bookId = $_REQUEST['bookId'];
 $globalperms = Perms::get();
 $objectperms = Perms::get([ 'type' => 'accounting book', 'object' => $bookId ]);
 
 if (! ($globalperms->acct_book or $objectperms->acct_book)) {
-    $smarty->assign('msg', tra('You do not have the right to book'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('You do not have the right to book'), \Laminas\Http\Response::STATUS_CODE_403);
 }
 if (! isset($_REQUEST['bookId'])) {
-    $smarty->assign('msg', tra('Missing book id'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Missing book id'), \Laminas\Http\Response::STATUS_CODE_400);
 }
 $accountinglib = TikiLib::lib('accounting');
 try {
     $book = $accountinglib->getBook($bookId);
 } catch (Exception $e) {
-    $smarty->assign('msg', tra($e->getMessage()));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra($e->getMessage()), \Laminas\Http\Response::STATUS_CODE_400);
 }
 $smarty->assign('bookId', $bookId);
 $smarty->assign('book', $book);

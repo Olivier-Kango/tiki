@@ -1315,10 +1315,7 @@ class EditLib
         // Read compiled (serialized) grammar
         $grammarfile = TIKI_PATH . '/lib/htmlparser/htmlgrammar.cmp';
         if (! $fp = @fopen($grammarfile, 'r')) {
-            $smarty = TikiLib::lib('smarty');
-            $smarty->assign('msg', tra("Can't parse HTML data - no grammar file"));
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie(tra("Can't parse HTML data - no grammar file"), \Laminas\Http\Response::STATUS_CODE_409);
         }
         $grammar = unserialize(fread($fp, filesize($grammarfile)));
         fclose($fp);

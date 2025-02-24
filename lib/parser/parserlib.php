@@ -1983,10 +1983,7 @@ class ParserLib extends TikiDb_Bridge
                                 $item_info = $trklib->get_item_info($_REQUEST['itemId']);
                                 $itemObject = Tracker_Item::fromInfo($item_info);
                                 if (! $itemObject->canView()) {
-                                    $smarty->assign('errortype', 401);
-                                    $smarty->assign('msg', tra('You do not have permission to view this information from this tracker.'));
-                                    $smarty->display('error.tpl');
-                                    die;
+                                    Feedback::errorAndDie(tra('You do not have permission to view this information from this tracker.'), \Laminas\Http\Response::STATUS_CODE_401);
                                 }
                                 $fieldId = empty($_REQUEST['fieldId']) ? 0 : $_REQUEST['fieldId'];
                                 $filter = [];
@@ -2009,10 +2006,7 @@ class ParserLib extends TikiDb_Bridge
                                 $item_info = $trklib->get_item_info($_REQUEST['itemId']);
                                 $itemObject = Tracker_Item::fromInfo($item_info);
                                 if (! $itemObject->canView()) {
-                                    $smarty->assign('errortype', 401);
-                                    $smarty->assign('msg', tra('You do not have permission to view this information from this tracker.'));
-                                    $smarty->display('error.tpl');
-                                    die;
+                                    Feedback::errorAndDie(tra('You do not have permission to view this information from this tracker.'), \Laminas\Http\Response::STATUS_CODE_401);
                                 }
                                 if ($item_info['lastModifBy'] != null) {
                                     if ($prefs['user_show_realnames'] == 'y') {
@@ -2035,10 +2029,7 @@ class ParserLib extends TikiDb_Bridge
                                 $item_info = $trklib->get_item_info($_REQUEST['itemId']);
                                 $itemObject = Tracker_Item::fromInfo($item_info);
                                 if (! $itemObject->canView()) {
-                                    $smarty->assign('errortype', 401);
-                                    $smarty->assign('msg', tra('You do not have permission to view this information from this tracker.'));
-                                    $smarty->display('error.tpl');
-                                    die;
+                                    Feedback::errorAndDie(tra('You do not have permission to view this information from this tracker.'), \Laminas\Http\Response::STATUS_CODE_401);
                                 }
                                 $value = $tikilib->get_short_datetime($item_info['lastModif']);
                                 break;

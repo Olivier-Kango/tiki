@@ -3092,9 +3092,7 @@ class FileGalLib extends TikiLib
 
             $smarty = TikiLib::lib('smarty');
             if (! $info = $this->get_file_info($params['fileId'])) {
-                $smarty->assign('msg', tra('Incorrect param'));
-                $smarty->display('error.tpl');
-                die;
+                Feedback::errorAndDie(tra('Incorrect param'), \Laminas\Http\Response::STATUS_CODE_409);
             }
 
             if (empty($params['gal_info']) || ! isset($params['gal_info']['user'])) {
@@ -3108,10 +3106,7 @@ class FileGalLib extends TikiLib
             global $tiki_p_admin_file_galleries, $user;
             if ($tiki_p_admin_file_galleries != 'y' && ( ! $user || $user != $params['gal_info']['user'] )) {
                 if ($user != $info['user']) {
-                    $smarty->assign('errortype', 401);
-                    $smarty->assign('msg', tra('You do not have permission to remove files from this gallery'));
-                    $smarty->display('error.tpl');
-                    die;
+                    Feedback::errorAndDie(tra('You do not have permission to remove files from this gallery'), \Laminas\Http\Response::STATUS_CODE_401);
                 }
             }
 
@@ -3169,10 +3164,7 @@ class FileGalLib extends TikiLib
             if ($gal_info !== null && ( $nb_files = count($params['galleryId']) ) != 1) {
                 for ($i = $nb_files - 1; $i >= 0; $i--) {
                     if (! isset($params['galleryId'][$i]) || $params['galleryId'][$i] != $params['galleryId'][0]) {
-                        $smarty->assign('errortype', 401);
-                        $smarty->assign('msg', tra('You are trying to edit multiple files in different galleries, which is not supported yet'));
-                        $smarty->display('error.tpl');
-                        die;
+                        Feedback::errorAndDie(tra('You are trying to edit multiple files in different galleries, which is not supported yet'), \Laminas\Http\Response::STATUS_CODE_409);
                     }
                 }
             }
@@ -3182,9 +3174,7 @@ class FileGalLib extends TikiLib
                 $fileInfo['fileId'] = $editFileId;
             } else {
                 if (! ( $fileInfo = $this->get_file_info($editFileId) )) {
-                    $smarty->assign('msg', tra('The specified file does not exist'));
-                    $smarty->display('error.tpl');
-                    die;
+                    Feedback::errorAndDie(tra('The specified file does not exist'), \Laminas\Http\Response::STATUS_CODE_404);
                 }
             }
 
@@ -3215,9 +3205,7 @@ class FileGalLib extends TikiLib
                         // use a dummy.svg filename just so content checker knows this is being interpreted as svg
                         $this->assertUploadedContentIsSafe($fileInfo['data'], 'dummy.svg');
                     } catch (Exception $e) {
-                        $smarty->assign('msg', tra("Forcing a filetype of image/svg+xml is blocked for security reasons"));
-                        $smarty->display('error.tpl');
-                        die;
+                        Feedback::errorAndDie(tra("Forcing a filetype of image/svg+xml is blocked for security reasons"), \Laminas\Http\Response::STATUS_CODE_403);
                     }
                 }
                 $fileInfo['filetype'] = $params['filetype'][0];
@@ -3507,6 +3495,7 @@ class FileGalLib extends TikiLib
         if (! empty($params['returnUrl'])) {
             if (! empty($errors)) {
                 $smarty->assign('msg', implode('<br />', $errors));
+                $smarty->assign('errortype', \Laminas\Http\Response::STATUS_CODE_409);
                 $smarty->display('error.tpl');
                 die;
             }

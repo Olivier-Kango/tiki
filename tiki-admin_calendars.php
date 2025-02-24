@@ -69,17 +69,13 @@ if (empty($_REQUEST["calendarId"])) {
     if ($calendarlib->calendarExists($_REQUEST['calendarId'])) {
         $info = $calendarlib->get_calendar($_REQUEST['calendarId']);
         if (empty($info)) {
-            $smarty->assign('msg', tra('Incorrect param'));
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie(tra('Incorrect param'), \Laminas\Http\Response::STATUS_CODE_409);
         }
         if (! $calendarlib->canAdminCalendar($info)) {
             $access->display_error('', tra('Permission denied') . ": " . 'tiki_p_admin_calendar', '403');
         }
     } else {
-        $smarty->assign('msg', tra('Incorrect param'));
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra('Incorrect param'), \Laminas\Http\Response::STATUS_CODE_409);
     }
 }
 

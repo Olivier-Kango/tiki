@@ -235,5 +235,4 @@ if ($mode == "view" && ! empty($app_id)) {
 
     $smarty->assign('mid', 'tiki-iot_dashboard.tpl');
 }
-
 $smarty->display("tiki.tpl");

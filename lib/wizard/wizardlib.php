@@ -217,10 +217,7 @@ class WizardLib extends TikiLib
             // Set the page title
             $smarty->assign('pageTitle', $pages[$stepNr]->pageTitle());
         } catch (Exception $e) {
-            $error = $e->getMessage();
-            $smarty->assign('msg', $error);
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_409);
         }
     }
 

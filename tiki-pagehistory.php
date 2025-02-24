@@ -52,9 +52,7 @@ if (! isset($_REQUEST["source"])) {
 }
 // Get the page from the request var or default it to HomePage
 if (! isset($_REQUEST["page"])) {
-    $smarty->assign('msg', tra("No page indicated"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("No page indicated"), \Laminas\Http\Response::STATUS_CODE_400);
 } else {
     $page = $_REQUEST["page"];
     $smarty->assign_by_ref('page', $_REQUEST["page"]);
@@ -74,9 +72,7 @@ if (empty($info)) {
     TikiLib::lib('wiki')->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
 
     // If after cleaning the url, the page does not exist then display an error
-    $smarty->assign('msg', tra('Page not found'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Page not found'), \Laminas\Http\Response::STATUS_CODE_404);
 }
 
 $tikilib->get_perm_object($_REQUEST['page'], 'wiki page', $info);

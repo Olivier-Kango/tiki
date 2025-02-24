@@ -37,11 +37,7 @@ if (
         )
       )
 ) {
-    $smarty->assign('errortype', 401);
-    $smarty->assign('msg', tra("You don't have permission to use this feature"));
-
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("You don't have permission to use this feature"), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 if (! isset($_REQUEST["mode"])) {
@@ -53,11 +49,7 @@ if (! isset($_REQUEST["mode"])) {
 // Validate to prevent editing any file
 if (isset($_REQUEST["template"])) {
     if (strstr($_REQUEST["template"], '..')) {
-        $smarty->assign('errortype', 401);
-        $smarty->assign('msg', tra("You do not have permission to do that"));
-
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra("You do not have permission to do that"), \Laminas\Http\Response::STATUS_CODE_401);
     }
 }
 
@@ -83,8 +75,7 @@ if ($globalperms->edit_templates == 'y') {
                 if (in_array($relativeDirectory . '/', $relativeDirectories)) {
                     mkdir($domainStyleTemplatesDirectory . '/' . $relativeDirectory);
                 } else {
-                    $smarty->assign('msg', tr('Template directory %0 unknown', $relativeDirectory));
-                    $smarty->display('error.tpl');
+                    Feedback::errorAndDie(tr('Template directory %0 unknown', $relativeDirectory), \Laminas\Http\Response::STATUS_CODE_500);
                 }
             }
         } else {
@@ -92,10 +83,7 @@ if ($globalperms->edit_templates == 'y') {
         }
         @$fp = fopen($file, 'w');
         if (! $fp) {
-            $smarty->assign('errortype', 401);
-            $smarty->assign('msg', tra("You do not have permission to write the template:") . ' ' . $file);
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie(tra("You do not have permission to write the template:") . ' ' . $file, \Laminas\Http\Response::STATUS_CODE_401);
         }
         $_REQUEST["data"] = str_replace("\r\n", "\n", $_REQUEST["data"]);
         fwrite($fp, $_REQUEST["data"]);
@@ -120,10 +108,7 @@ if (isset($_REQUEST["template"])) {
     }
     $fp = fopen($file, 'r');
     if (! $fp) {
-        $smarty->assign('errortype', 401);
-        $smarty->assign('msg', tra("You do not have permission to read the template"));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tra("You do not have permission to read the template"), \Laminas\Http\Response::STATUS_CODE_401);
     }
     $data = fread($fp, filesize($file));
     fclose($fp);

@@ -947,9 +947,7 @@ class TikiAccessLib extends TikiLib
         }
         if (! $check) {
             if ($returnHtml) {
-                $smarty = TikiLib::lib('smarty');
-                $smarty->display('error.tpl');
-                exit();
+                Feedback::errorAndDie("", \Laminas\Http\Response::STATUS_CODE_409);
             } else {
                 return false;
             }
@@ -1034,6 +1032,7 @@ class TikiAccessLib extends TikiLib
             $this->output_serialized($detail);
         } elseif ($this->is_xml_http_request()) {
             $smarty->assign('detail', $detail);
+            $smarty->assign('errortype', \Laminas\Http\Response::STATUS_CODE_409);
             $smarty->display('error-ajax.tpl');
         } else {
             if (

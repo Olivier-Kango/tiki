@@ -62,9 +62,7 @@ if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && T
 $smarty->assign('errortype', 'login'); // to avoid any redirection to the login box if error
 // Alert user if cookies are switched off
 if (ini_get('session.use_cookies') == 1 && ! isset($_COOKIE[ session_name() ]) && $prefs['session_silent'] != 'y') {
-    $smarty->assign('msg', tra('Cookies must be enabled to log in to this site'));
-    $smarty->display('error.tpl');
-    exit;
+    Feedback::errorAndDie(tra('Cookies must be enabled to log in to this site'), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 // Redirect to HTTPS if we are not in HTTPS but we require HTTPS login
@@ -110,9 +108,7 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
         $access->redirect($_SESSION['loginfrom']);
     } else {
         if (empty($_REQUEST['username'])) {
-            $smarty->assign('msg', tra('Username field cannot be empty. Please go back and try again.'));
-            $smarty->display('error.tpl');
-            exit;
+            Feedback::errorAndDie(tra('Username field cannot be empty. Please go back and try again.'), \Laminas\Http\Response::STATUS_CODE_409);
         }
         if ($prefs['user_show_realnames'] == 'y') {
             $finalusers = $userlib->find_best_user([$_REQUEST['username']], '', 'login');
@@ -162,9 +158,7 @@ if (
     $rpcauth = $userlib->intervalidate($prefs['interlist'][$_REQUEST['intertiki']], $requestedUser, $pass, ! empty($prefs['feature_intertiki_mymaster']) ? true : false);
     if (! $rpcauth) {
         $logslib->add_log('login', 'intertiki : ' . $requestedUser . '@' . $_REQUEST['intertiki'] . ': Failed');
-        $smarty->assign('msg', tra('Unable to contact remote server.'));
-        $smarty->display('error.tpl');
-        exit;
+        Feedback::errorAndDie(tra('Unable to contact remote server.'), \Laminas\Http\Response::STATUS_CODE_503);
     } else {
         if ($faultCode = $rpcauth->faultCode()) {
             if ($faultCode == 102) {
@@ -174,9 +168,7 @@ if (
             $user_msg = tra('XMLRPC Error: ') . $faultCode . ' - ' . tra($rpcauth->faultString());
             $log_msg = tra('XMLRPC Error: ') . $rpcauth->faultCode() . ' - ' . tra($rpcauth->faultString());
             $logslib->add_log('login', 'intertiki : ' . $requestedUser . '@' . $_REQUEST['intertiki'] . ': ' . $log_msg);
-            $smarty->assign('msg', $user_msg);
-            $smarty->display('error.tpl');
-            exit;
+            Feedback::errorAndDie($user_msg, \Laminas\Http\Response::STATUS_CODE_409);
         } else {
             $isvalid = true;
             $isdue = false;
@@ -204,9 +196,7 @@ if (
                 if (! $userlib->user_exists($requestedUser)) {
                     if (! $userlib->add_user($requestedUser, '', $user_details['info']['email'])) {
                         $logslib->add_log('login', 'intertiki : login creation failed');
-                        $smarty->assign('msg', tra('Unable to create login'));
-                        $smarty->display('error.tpl');
-                        die;
+                        Feedback::errorAndDie(tra('intertiki : login creation failed'), \Laminas\Http\Response::STATUS_CODE_409);
                     }
                 } else {
                     $userlib->update_lastlogin($requestedUser);
@@ -240,9 +230,7 @@ if (
                 } else {
                     $groups = preg_split('/\s*,\s*/', $prefs['interlist'][$prefs['feature_intertiki_mymaster']]['groups']);
                     if (empty($groups) || empty($groups[0])) {
-                        $smarty->assign('msg', tra('No groups set on Intertiki client.'));
-                        $smarty->display('error.tpl');
-                        exit;
+                        Feedback::errorAndDie(tra('No groups set on Intertiki client.'), \Laminas\Http\Response::STATUS_CODE_409);
                     }
                     foreach ($groups as $group) {
                         $userlib->assign_user_to_group($user, trim($group));
@@ -274,9 +262,7 @@ if (
                     'login',
                     'openid_connect : login creation failed'
                 );
-                $smarty->assign('msg', tra('Unable to create login'));
-                $smarty->display('error.tpl');
-                exit;
+                Feedback::errorAndDie(tra('Unable to create login'), \Laminas\Http\Response::STATUS_CODE_409);
             }
 
             $userlib->disable_tiki_auth($username); //disable that user's password in tiki - since we use OpenIdConnect
@@ -293,9 +279,7 @@ if (
         }
     } catch (Exception $e) {
         $logslib->add_log('login', 'openid_connect : ' . $e->getMessage());
-        $smarty->assign('msg', tra('An error occurred trying to login. Please contact the administrator.'));
-        $smarty->display('error.tpl');
-        exit;
+        Feedback::errorAndDie(tra('An error occurred trying to login. Please contact the administrator.'), \Laminas\Http\Response::STATUS_CODE_500);
     }
 } else {
     // Verify user is valid
@@ -360,9 +344,7 @@ if (
                 $user = $requestedUser;
             }
         } catch (TwoFactorAuthException $e) {
-            $smarty->assign('msg', $e->getMessage());
-            $smarty->display('error.tpl');
-            exit;
+            Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_409);
         }
     }
 }

@@ -44,9 +44,7 @@ if (! isset($_REQUEST["sheetId"])) {
         try {
             $info = $sheetlib->get_sheet_info($_REQUEST['sheetId']);
         } catch (Exception $e) {
-            $smarty->assign('msg', tra($e->getMessage()));
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie(tra($e->getMessage()), \Laminas\Http\Response::STATUS_CODE_404);
         }
     }
     if ($tiki_p_admin == 'y' || $tiki_p_admin_sheet == 'y' || $tikilib->user_has_perm_on_object($user, $_REQUEST['sheetId'], 'sheet', 'tiki_p_view_sheet')) {

@@ -46,9 +46,7 @@ $creditslib = TikiLib::lib('credits');
 //get_strings tra('Admin credits')
 
 if ($tiki_p_admin_users != 'y') {
-    $smarty->assign('msg', tra('You do not have the permission that is needed to use this feature'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('You do not have the permission that is needed to use this feature'), \Laminas\Http\Response::STATUS_CODE_403);
 }
 
 if (isset($_REQUEST['use_credit']) && $use_credit_userid = $tikilib->get_user_id($_POST['userfilter'])) {

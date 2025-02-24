@@ -40,15 +40,11 @@ $section = 'accounting';
 require_once('tiki-setup.php');
 // Feature available?
 if ($prefs['feature_accounting'] != 'y') {
-    $smarty->assign('msg', tra("This feature is disabled") . ": feature_accounting");
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("This feature is disabled") . ": feature_accounting", \Laminas\Http\Response::STATUS_CODE_403);
 }
 
 if (! isset($_REQUEST['bookId'])) {
-    $smarty->assign('msg', tra("Missing book id"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("Missing book id"), \Laminas\Http\Response::STATUS_CODE_400);
 }
 $bookId = $_REQUEST['bookId'];
 $accountinglib = TikiLib::lib('accounting');
@@ -56,9 +52,7 @@ $accountinglib = TikiLib::lib('accounting');
 try {
     $book = $accountinglib->getBook($bookId);
 } catch (Exception $e) {
-    $smarty->assign('msg', tra($e->getMessage()));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra($e->getMessage()), \Laminas\Http\Response::STATUS_CODE_400);
 }
 
 $smarty->assign('bookId', $bookId);
@@ -72,9 +66,7 @@ if (! isset($_REQUEST['action'])) {
 }
 
 if ($_REQUEST['action'] != 'new' and ! isset($_REQUEST['accountId'])) {
-    $smarty->assign('msg', tra("Missing account id"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("Missing account id"), \Laminas\Http\Response::STATUS_CODE_400);
 }
 
 $smarty->assign('action', $_REQUEST['action']);
@@ -84,15 +76,11 @@ if ($_REQUEST['action'] == '' or $_REQUEST['action'] == 'view') {
         ! ($globalperms->acct_view or $objectperms->acct_view or
             $globalperms->acct_book or $objectperms->acct_book)
     ) {
-        $smarty->assign('msg', tra("You do not have the rights to view this account"));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tra("You do not have the rights to view this account"), \Laminas\Http\Response::STATUS_CODE_403);
     }
 } else {
     if (! ($globalperms->acct_manage_accounts or $objectperms->acct_manage_accounts)) {
-        $smarty->assign('msg', tra("You do not have the rights to manage accounts"));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tra("You do not have the rights to manage accounts"), \Laminas\Http\Response::STATUS_CODE_403);
     }
 }
 if (! empty($_REQUEST['accountId'])) {
@@ -100,9 +88,7 @@ if (! empty($_REQUEST['accountId'])) {
     try {
         $account = $accountinglib->getAccount($bookId, $accountId);
     } catch (Exception $e) {
-        $smarty->assign('msg', tra($e->getMessage()));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tra($e->getMessage()), \Laminas\Http\Response::STATUS_CODE_400);
     }
 
     $smarty->assign('accountId', $accountId);
@@ -148,9 +134,7 @@ if (! empty($_REQUEST['action'])) {
             try {
                 $account = $accountinglib->getAccount($bookId, $accountId);
             } catch (Exception $e) {
-                $smarty->assign('msg', tra($e->getMessage()));
-                $smarty->display("error.tpl");
-                die;
+                Feedback::errorAndDie(tra($e->getMessage()), \Laminas\Http\Response::STATUS_CODE_400);
             }
             $smarty->assign('account', $account);
             break;

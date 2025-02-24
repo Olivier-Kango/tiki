@@ -525,6 +525,4 @@ if (! $unifiedsearch->rebuildInProgress()) {
     $smarty->assign('searchIndex', $searchIndex);
     $smarty->assign('lastLogItems', $lastLogItems);
 }
-
-
 $smarty->display('tiki.tpl');

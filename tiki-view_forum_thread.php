@@ -49,24 +49,18 @@ if (! isset($_REQUEST['comments_parentId']) && isset($_REQUEST['threadId'])) {
     $_REQUEST['comments_parentId'] = $_REQUEST['threadId'];
 }
 if (! isset($_REQUEST['comments_parentId'])) {
-    $smarty->assign('msg', tra("No thread indicated"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("No thread indicated"), \Laminas\Http\Response::STATUS_CODE_400);
 }
 
 $thread_info = $commentslib->get_comment($_REQUEST['comments_parentId']);
 if (empty($thread_info['object']) || $thread_info['objectType'] != 'forum') {
-    $smarty->assign('msg', tra('Incorrect thread'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Incorrect thread'), \Laminas\Http\Response::STATUS_CODE_400);
 }
 
 $forumId = $thread_info['object'];
 $forum_info = $commentslib->get_forum($forumId);
 if (empty($forum_info)) {
-    $smarty->assign('msg', tra('Incorrect thread'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Incorrect thread'), \Laminas\Http\Response::STATUS_CODE_400);
 }
 
 $pageCache = Tiki_PageCache::create()
@@ -279,9 +273,7 @@ if (empty($thread_info)) { // this should be moved up as $thread_info could be n
     if (! empty($forumId)) {
         TikiLib::lib('access')->redirect('tiki-view_forum.php?forumId=' . $forumId);
     } else {
-        $smarty->assign('msg', tr('Thread %0 does not exist.', $comments_parentId));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tr('Thread %0 does not exist.', $comments_parentId), \Laminas\Http\Response::STATUS_CODE_409);
     }
 }
 

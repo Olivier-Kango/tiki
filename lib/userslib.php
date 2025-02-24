@@ -699,9 +699,7 @@ class UsersLib extends TikiLib
 
                         $errmsg = $errmsg . '). For further information on this error goto the ((ShibReg)) Page';
 
-                        $smarty->assign('msg', $errmsg);
-                        $smarty->display('error.tpl');
-                        exit;
+                        Feedback::errorAndDie($errmsg, \Laminas\Http\Response::STATUS_CODE_409);
                     } else {
                         if ($validafil) {
                             // Create the user
@@ -740,16 +738,11 @@ class UsersLib extends TikiLib
                                                 '<BR/><BR/>You must have one of the following affiliations to get into this wiki.<BR/><BR/>' .
                                                 '<B>' . $vaffils . '</B><BR><BR/><BR/>' .
                                                 'For further information on this error goto the <a href="./tiki-index.php?page=ShibReg">Shibreg</a> Page';
-
-                            $smarty->assign('msg', $errmsg);
-                            $smarty->display('error.tpl');
-                            exit;
+                            Feedback::errorAndDie($errmsg, \Laminas\Http\Response::STATUS_CODE_401);
                         }
                     }
                 } else {
-                    $smarty->assign('msg', 'The user [ ' . $user . ' ] is not registered with this wiki.');
-                    $smarty->display('error.tpl');
-                    exit;
+                    Feedback::errorAndDie(tra('The user [ ' . $user . ' ] is not registered with this wiki.'), \Laminas\Http\Response::STATUS_CODE_401);
                 }
             }
         } elseif ($auth_saml) {
@@ -7084,11 +7077,7 @@ class UsersLib extends TikiLib
                 // is already created, for example in the 2nd pass in the registration process. To silently exit.
                 return false;
             }
-            $smarty = TikiLib::lib('smarty');
-            $smarty->assign('errortype', 'login');
-            $smarty->assign('msg', tra('We were unable to create your account because this email is already in use.'));
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie(tra('We were unable to create your account because this email is already in use.'), \Laminas\Http\Response::STATUS_CODE_409);
         }
 
         $userexists_cache[$user] = null;
@@ -7205,11 +7194,7 @@ class UsersLib extends TikiLib
     {
         global $prefs;
         if ($prefs['user_unique_email'] == 'y' && $this->other_user_has_email($user, $email)) {
-            $smarty = TikiLib::lib('smarty');
-            $smarty->assign('errortype', 'login');
-            $smarty->assign('msg', tra('Email cannot be set because this email is already in use by another user.'));
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie(tra('Email cannot be set because this email is already in use by another user.'), \Laminas\Http\Response::STATUS_CODE_409);
         }
         $query = 'update `users_users` set `email`=? where binary `login`=?';
         $result = $this->query($query, [$email, $user]);
@@ -7219,11 +7204,7 @@ class UsersLib extends TikiLib
     {
         global $prefs;
         if ($prefs['user_unique_email'] == 'y' && $this->other_user_has_email($user, $email)) {
-            $smarty = TikiLib::lib('smarty');
-            $smarty->assign('errortype', 'login');
-            $smarty->assign('msg', tra('Email cannot be set because this email is already in use by another user.'));
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie(tra('Email cannot be set because this email is already in use by another user.'), \Laminas\Http\Response::STATUS_CODE_409);
         }
 
         // Need to change the email-address for notifications, too
@@ -7946,11 +7927,7 @@ class UsersLib extends TikiLib
 
         if (isset($u['email'])) {
             if ($prefs['user_unique_email'] == 'y' && $this->other_user_has_email($u['login'], $u['email'])) {
-                $smarty = TikiLib::lib('smarty');
-                $smarty->assign('errortype', 'login');
-                $smarty->assign('msg', tra('Email cannot be set because this email is already in use by another user.'));
-                $smarty->display('error.tpl');
-                die;
+                Feedback::errorAndDie(tra('Email cannot be set because this email is already in use by another user.'), \Laminas\Http\Response::STATUS_CODE_409);
             }
             $q[] = '`email` = ?';
             $bindvars[] = strip_tags($u['email']);

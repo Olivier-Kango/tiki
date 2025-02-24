@@ -175,9 +175,7 @@ class RSSLib extends TikiDb_Bridge
             } else {
                 $msg .= ' ' . tra('Please contact the site administrator and request this error to be corrected');
             }
-            $smarty->assign('msg', $msg);
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie($msg, \Laminas\Http\Response::STATUS_CODE_409);
         }
 
         $feed_format = $this->get_current_feed_format();
@@ -241,10 +239,7 @@ class RSSLib extends TikiDb_Bridge
 
             if (! empty($author)) {
                 if (empty($author['name'])) {
-                    $msg = tra('If you set feed author email or URL, you must set feed author name.');
-                    $smarty->assign('msg', $msg);
-                    $smarty->display('error.tpl');
-                    die;
+                    Feedback::errorAndDie(tra('If you set feed author email or URL, you must set feed author name.'), \Laminas\Http\Response::STATUS_CODE_409);
                 }
                 $feed->addAuthor($author);
             }

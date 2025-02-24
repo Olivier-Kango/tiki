@@ -39,9 +39,7 @@ $auto_query_args = [
 $access->check_feature('feature_surveys');
 
 if (! isset($_REQUEST["surveyId"])) {
-    $smarty->assign('msg', tra("No survey indicated"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("No survey indicated"), \Laminas\Http\Response::STATUS_CODE_409);
 }
 $smarty->assign('surveyId', $_REQUEST["surveyId"]);
 $tikilib->get_perm_object($_REQUEST['surveyId'], 'survey');

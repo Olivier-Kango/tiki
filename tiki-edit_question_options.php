@@ -31,18 +31,13 @@ $auto_query_args = ['sort_mode', 'offset', 'find', 'questionId', 'quizId', 'opti
 $access->check_feature('feature_quizzes');
 
 if (! isset($_REQUEST["questionId"])) {
-    $smarty->assign('msg', tra("No question indicated"));
-
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("No question indicated"), \Laminas\Http\Response::STATUS_CODE_409);
 }
 
 $smarty->assign('questionId', $_REQUEST["questionId"]);
 $quiz_info = $quizlib->get_quiz_question($_REQUEST["questionId"]);
 if (! $quiz_info) {
-    $smarty->assign('msg', tra("The requested question was not found. Please check the question ID and try again."));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("The requested question was not found. Please check the question ID and try again."), \Laminas\Http\Response::STATUS_CODE_404);
 }
 $smarty->assign('question_info', $quiz_info);
 $_REQUEST["quizId"] = $quiz_info["quizId"];

@@ -44,10 +44,7 @@ $access->check_feature('feature_comm');
 $access->check_permission_either(['tiki_p_send_pages', 'tiki_p_send_articles']);
 
 if ($tiki_p_send_pages != 'y' && $tiki_p_send_articles != 'y') {
-    $smarty->assign('errortype', 401);
-    $smarty->assign('msg', tra('You do not have the permission that is needed to use this feature'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('You do not have the permission that is needed to use this feature'), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 if (! isset($_REQUEST['username'])) {

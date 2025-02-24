@@ -104,9 +104,7 @@ if ($_REQUEST['parentId']) {
 
     $p_info = $categlib->get_category($_REQUEST['parentId']);
     if (empty($p_info)) {
-        $smarty->assign('msg', tra('Incorrect parameter'));
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra('Incorrect parameter'), \Laminas\Http\Response::STATUS_CODE_400);
     }
     if ($prefs["feature_multilingual"] === "y") {
         $p_info["name"] = tra($p_info["name"]);
@@ -121,10 +119,7 @@ if ($_REQUEST['parentId']) {
 $smarty->assign('father', $father);
 
 if (! $canView) {
-    $smarty->assign('errortype', 401);
-    $smarty->assign('msg', tra('You do not have permission to view this page.'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('You do not have permission to view this page.'), \Laminas\Http\Response::STATUS_CODE_401);
 }
 //watches
 if ($prefs['feature_user_watches'] == 'y') {

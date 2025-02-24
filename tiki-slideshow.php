@@ -74,14 +74,7 @@ if (isset($_REQUEST['theme'])) {
 // Now check permissions to access this page
 $tikilib->get_perm_object($page, 'wiki page', $info);
 if ($tiki_p_view != 'y') {
-    $smarty->assign('errortype', 401);
-    $smarty->assign(
-        'msg',
-        tra("Permission denied. You cannot view this page.")
-    );
-
-    $smarty->display("error_raw.tpl");
-    die;
+    Feedback::errorAndDie(tra("Permission denied. You cannot view this page."), \Laminas\Http\Response::STATUS_CODE_401, "error_raw.tpl");
 }
 
 // BreadCrumbNavigation here

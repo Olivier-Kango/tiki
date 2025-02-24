@@ -21,9 +21,7 @@ require_once('tiki-setup.php');
 $menulib = TikiLib::lib('menu');
 $access->check_permission(['tiki_p_edit_menu_option']);
 if (! isset($_REQUEST["menuId"])) {
-    $smarty->assign('msg', tra("No menu indicated"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("No menu indicated"), \Laminas\Http\Response::STATUS_CODE_409);
 }
 $auto_query_args = [
     'menuId',

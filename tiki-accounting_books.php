@@ -49,9 +49,7 @@ $section = 'accounting';
 require_once('tiki-setup.php');
 // Feature available?
 if ($prefs['feature_accounting'] != 'y') {
-    $smarty->assign('msg', tra("This feature is disabled") . ": feature_accounting");
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("This feature is disabled") . ": feature_accounting", \Laminas\Http\Response::STATUS_CODE_403);
 }
 if (! isset($_REQUEST['action'])) {
     $_REQUEST['action'] = '';

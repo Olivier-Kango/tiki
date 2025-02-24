@@ -3874,15 +3874,11 @@ class Comments extends TikiLib
             return 0;
         }
         if ($forum_info['is_locked'] == 'y') {
-            $smarty->assign('msg', tra("This forum is locked"));
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie(tra("This forum is locked"), \Laminas\Http\Response::STATUS_CODE_401);
         }
         $parent_comment_info = $this->get_comment($parent_id);
         if ($parent_comment_info && $parent_comment_info['locked'] == 'y') {
-            $smarty->assign('msg', tra("This thread is locked"));
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie(tra("This thread is locked"), \Laminas\Http\Response::STATUS_CODE_401);
         }
 
         if (empty($user) && $prefs['feature_antibot'] == 'y' && ! $captchalib->validate()) {

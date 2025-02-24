@@ -208,10 +208,7 @@ if (! empty($_REQUEST['subId'])) {
         $same_user = false;
     }
     if (($article_perms->edit_submission != 'y' && ! $same_user != $user) or $user == '') {
-        $smarty->assign('errortype', 401);
-        $smarty->assign('msg', tra('You do not have permission to edit submissions'));
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra('You do not have permission to edit submissions'), \Laminas\Http\Response::STATUS_CODE_401);
     }
 }
 
@@ -352,10 +349,7 @@ if (isset($_REQUEST['preview']) || ! empty($errors)) {
             try {
                 $filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);
             } catch (Exception $e) {
-                $smarty->assign('errortype', 403);
-                $smarty->assign('msg', $e->getMessage());
-                $smarty->display("error.tpl");
-                die;
+                Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_403);
             }
             $file_name = $_FILES['userfile1']['name'];
             // Simple check if it's an image file
@@ -474,10 +468,7 @@ if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($er
             try {
                 $filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);
             } catch (Exception $e) {
-                $smarty->assign('errortype', 403);
-                $smarty->assign('msg', $e->getMessage());
-                $smarty->display("error.tpl");
-                die;
+                Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_403);
             }
             $fp = fopen($_FILES['userfile1']['tmp_name'], 'rb');
 
@@ -498,10 +489,7 @@ if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($er
 
     // If page exists
     if (! isset($_REQUEST['topicId'])) {
-        $smarty->assign('msg', tra('You have to create a topic first'));
-
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra('You have to create a topic first'), \Laminas\Http\Response::STATUS_CODE_400);
     }
     if (! isset($_REQUEST['topline'])) {
         $_REQUEST['topline'] = '';

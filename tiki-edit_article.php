@@ -72,16 +72,11 @@ if (! empty($_REQUEST['articleId'])) {
     $articleId = $_REQUEST['articleId'];
     $article_data = $artlib->get_article($_REQUEST['articleId']);
     if ($article_data === false) {
-        $smarty->assign('errortype', 401);
-        $smarty->assign('msg', tra('Permission denied'));
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra('Permission denied'), \Laminas\Http\Response::STATUS_CODE_401);
     }
 
     if (! $article_data) {
-        $smarty->assign('msg', tra('Article not found'));
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra('Article not found'), \Laminas\Http\Response::STATUS_CODE_404);
     }
 } else {
     $articleId = 0;
@@ -246,11 +241,7 @@ if (
             || empty($user)
             || $article_data['creator_edit'] != 'y')
 ) {
-    $smarty->assign('errortype', 401);
-    $smarty->assign('msg', tra('You do not have permission to edit this article'));
-
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('You do not have permission to edit this article'), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 if (isset($_REQUEST['allowhtml'])) {
@@ -401,10 +392,7 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
             try {
                 $filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);
             } catch (Exception $e) {
-                $smarty->assign('errortype', 403);
-                $smarty->assign('msg', $e->getMessage());
-                $smarty->display("error.tpl");
-                die;
+                Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_403);
             }
             $fp = fopen($_FILES['userfile1']['tmp_name'], 'rb');
             if (! $fp && isset($_FILES['userfile1']['error'])) {
@@ -549,18 +537,13 @@ if (isset($_REQUEST['save']) && empty($errors)) {
             try {
                 $filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);
             } catch (Exception $e) {
-                $smarty->assign('errortype', 403);
-                $smarty->assign('msg', $e->getMessage());
-                $smarty->display("error.tpl");
-                die;
+                Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_403);
             }
             $file_name = $_FILES['userfile1']['name'];
             $file_tmp_name = $_FILES['userfile1']['tmp_name'];
             $tmp_dest = $prefs['tmpDir'] . '/' . $file_name . '.tmp';
             if (! move_uploaded_file($file_tmp_name, $tmp_dest)) {
-                $smarty->assign('msg', tra('Errors detected'));
-                $smarty->display('error.tpl');
-                die();
+                Feedback::errorAndDie(tra('Errors detected'), \Laminas\Http\Response::STATUS_CODE_409);
             }
             $fp = fopen($tmp_dest, 'rb');
             if (! $fp && $_FILES['userfile1']['error']) {
@@ -624,9 +607,7 @@ if (isset($_REQUEST['save']) && empty($errors)) {
         $multilinguallib = TikiLib::lib('multilingual');
         if ($multilinguallib->updateObjectLang('article', $article_data['articleId'], $_REQUEST['lang'], true)) {
             $_REQUEST['lang'] = $article_data['lang'];
-            $smarty->assign('msg', tra("The language can't be changed as its set of translations has already this language"));
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie(tra("The language can't be changed as its set of translations has already this language"), \Laminas\Http\Response::STATUS_CODE_409);
         }
     }
 

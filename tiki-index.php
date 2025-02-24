@@ -186,9 +186,7 @@ if ($prefs['feature_wiki_structure'] == 'y') {
         }
     }
 } elseif (! empty($_REQUEST['page_ref_id'])) {
-    $smarty->assign('msg', tra('This feature is disabled') . ': feature_wiki_structure');
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('This feature is disabled') . ': feature_wiki_structure', \Laminas\Http\Response::STATUS_CODE_403);
 }
 
 if (! empty($page_ref_id)) {
@@ -255,10 +253,7 @@ if (! $info || isset($_REQUEST['date']) || isset($_REQUEST['version'])) {
             }
         } catch (Exception $e) {
             // Wrong date format
-            $msg = tra('Invalid date format');
-            $smarty->assign('msg', $msg);
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie($msg, \Laminas\Http\Response::STATUS_CODE_409);
         }
     }
 
@@ -271,9 +266,7 @@ if (! $info || isset($_REQUEST['date']) || isset($_REQUEST['version'])) {
         } catch (Exception $e) {
             // Unknown version
             $msg = tra('This version does not exist');
-            $smarty->assign('msg', $msg);
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie($msg, \Laminas\Http\Response::STATUS_CODE_404);
         }
     } else {
         $info = $tikilib->get_page_info($page);
@@ -376,9 +369,7 @@ if (empty($info) && ! ($user && $prefs['feature_wiki_userpage'] == 'y' && strcas
                         foreach ($items as $i) {
                             $msg .= '<br /><a href="tiki-index.php?page=' . urlencode($newPage) . '&itemId=' . $i . '">' . $i . '</a>';
                         }
-                        $smarty->assign('msg', $msg);
-                        $smarty->display('error.tpl');
-                        die;
+                        Feedback::errorAndDie($msg, \Laminas\Http\Response::STATUS_CODE_409);
                     } elseif (count($items)) {
                         $suffix = $items[0];
                     } else {
@@ -387,9 +378,7 @@ if (empty($info) && ! ($user && $prefs['feature_wiki_userpage'] == 'y' && strcas
 
                         if (! $suffix) {
                             $msg = tra('There are no items in the tracker with this title');
-                            $smarty->assign('msg', $msg);
-                            $smarty->display('error.tpl');
-                            die;
+                            Feedback::errorAndDie($msg, \Laminas\Http\Response::STATUS_CODE_409);
                         }
                     }
                 }
@@ -785,7 +774,6 @@ if (strtolower($_REQUEST["page"]) === 'sandbox') {
 }
 $smarty->assign('info', $info);
 $smarty->assign('mid', 'tiki-show_page.tpl');
-
 $smarty->display('tiki-show_page.tpl');
 
 // xdebug_dump_function_profile(XDEBUG_PROFILER_CPU);

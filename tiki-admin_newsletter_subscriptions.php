@@ -67,18 +67,14 @@ $nlId = 0;
 $offset = 0;
 
 if (! isset($_REQUEST["nlId"])) {
-    $smarty->assign('msg', tr('No newsletter indicated'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tr('No newsletter indicated'), \Laminas\Http\Response::STATUS_CODE_409);
 }
     $nlId = (int)$_REQUEST["nlId"];
     $info = $nllib->get_newsletter($nlId);
     $tikilib->get_perm_object($nlId, 'newsletter');
 
 if (empty($info)) {
-    $smarty->assign('msg', tr('Newsletter does not exist'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Newsletter does not exist'), \Laminas\Http\Response::STATUS_CODE_409);
 }
 $access->check_permission('tiki_p_admin_newsletters');
 

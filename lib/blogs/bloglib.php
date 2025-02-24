@@ -1262,10 +1262,7 @@ class BlogLib extends TikiDb_Bridge
         $smarty = TikiLib::lib('smarty');
 
         if (! $this->blog_exists($blogId)) {
-            $msg = tra('Blog cannot be found');
-            $smarty->assign('msg', $msg);
-            $smarty->display('error.tpl');
-            die;
+            Feedback::errorAndDie(tra('Blog cannot be found'), \Laminas\Http\Response::STATUS_CODE_404);
         }
     }
 

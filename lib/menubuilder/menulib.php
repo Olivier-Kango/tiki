@@ -553,9 +553,7 @@ class MenuLib extends TikiLib
         $fhandle = fopen($fname, "r");
         $fields = fgetcsv($fhandle, 1000, escape: TikiLib::TIKI_GLOBAL_CSV_ESCAPE_CHAR);
         if (! $fields[0]) {
-            $smarty->assign('msg', tra('The file has incorrect syntax or is not a CSV file'));
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie(tra('The file has incorrect syntax or is not a CSV file'), \Laminas\Http\Response::STATUS_CODE_409);
         }
         $mismatch_options = [];
         while (! feof($fhandle)) {

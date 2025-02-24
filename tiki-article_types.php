@@ -107,9 +107,7 @@ if (isset($_REQUEST["add_type"])) {
         if ($prefs["article_custom_attributes"] == 'y' && ! empty($_REQUEST["new_attribute"][$this_type])) {
             $ok = $artlib->add_article_type_attribute($this_type, $_REQUEST["new_attribute"][$this_type]);
             if (! $ok) {
-                $smarty->assign('msg', tra("Failed to add attribute"));
-                $smarty->display("error.tpl");
-                die;
+                Feedback::errorAndDie(tra("Failed to add attribute"), \Laminas\Http\Response::STATUS_CODE_409);
             }
         }
     }

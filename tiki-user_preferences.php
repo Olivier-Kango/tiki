@@ -84,9 +84,7 @@ use BaconQrCode\Writer;
 
 // User preferences screen
 if ($prefs['feature_userPreferences'] != 'y' && $prefs['change_password'] != 'y' && $tiki_p_admin_users != 'y') {
-    $smarty->assign('msg', tra("This feature is disabled") . ": feature_userPreferences");
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("This feature is disabled") . ": feature_userPreferences", \Laminas\Http\Response::STATUS_CODE_403);
 }
 $access->check_user($user);
 
@@ -108,9 +106,7 @@ if (! empty($_REQUEST['userId'])) {
 if ($userwatch != $user) {
     $access->check_permission('tiki_p_admin_users');
     if (empty($userwatch) || empty($userlib->user_exists($userwatch))) {
-        $smarty->assign('msg', tra("Unknown user"));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tra("Unknown user"), \Laminas\Http\Response::STATUS_CODE_400);
     }
 }
 
@@ -405,9 +401,7 @@ if (isset($_POST['chgadmin']) && $access->checkCsrf()) {
             list($ok, $userwatch, $error) = $userlib->validate_user($userwatch, $pass, false, null, false);
         }
         if (! $ok) {
-            $smarty->assign('msg', tra("Invalid password. Your current password is required to change administrative information"));
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie(tra("Invalid password. Your current password is required to change administrative information"), \Laminas\Http\Response::STATUS_CODE_409);
         }
     }
     if (! empty($_POST['email']) && ($prefs['login_is_email'] != 'y' || $user == 'admin') && $_POST['email'] != $userlib->get_user_email($userwatch)) {
@@ -433,15 +427,11 @@ if (isset($_POST['chgadmin']) && $access->checkCsrf()) {
     // If user has provided new password, let's try to change
     if (! empty($_POST["pass1"])) {
         if ($_POST["pass1"] != $_POST["pass2"]) {
-            $smarty->assign('msg', tra("The passwords did not match"));
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie(tra("The passwords did not match"), \Laminas\Http\Response::STATUS_CODE_400);
         }
         $polerr = $userlib->check_password_policy($_POST["pass1"]);
         if (strlen($polerr) > 0) {
-            $smarty->assign('msg', $polerr);
-            $smarty->display("error.tpl");
-            die;
+            Feedback::errorAndDie($polerr, \Laminas\Http\Response::STATUS_CODE_400);
         }
         $userlib->change_user_password($userwatch, $_POST["pass1"]);
         if ($prefs['feature_user_encryption'] === 'y') {

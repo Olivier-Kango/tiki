@@ -292,18 +292,16 @@ if (isset($_REQUEST['preview'])) {
         try {
             $data = $smarty->fetch('modules/user_module.tpl');
         } catch (Exception $e) {
-            $smarty->assign(
-                'msg',
+            Feedback::errorAndDie(
                 tr(
                     'There is a problem with your custom module "%0": ' . '<br><br><em>' . $e->getMessage()
                     . '</em><br><br>' . '<span class="button"><a href="tiki-admin_modules.php?um_edit='
                     . $_REQUEST['assign_name'] . '&cookietab=2#editcreate">' . tr('Click here to edit the module')
                     . '</a></span>',
                     $_REQUEST['assign_name']
-                )
+                ),
+                \Laminas\Http\Response::STATUS_CODE_409
             );
-            $smarty->display('error.tpl');
-            die;
         }
     } else {
         $phpfile = 'modules/mod-' . $_REQUEST['assign_name'] . '.php';

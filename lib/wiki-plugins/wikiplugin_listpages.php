@@ -497,9 +497,7 @@ function wikiplugin_listpages($data, $params)
 
     // Display an error message if the $showNameAndDescriptionOnly and $showNameOnly options are all entered at the same time
     if (isset($showNameAndDescriptionOnly) && $showNameAndDescriptionOnly == 'y' && isset($showNameOnly) && $showNameOnly == 'y') {
-        $smarty->assign('msg', tra("You cannot specify the showNameOnly and showNameAndDescriptionOnly options simultaneously, You must choose one of them."));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tra("You cannot specify the showNameOnly and showNameAndDescriptionOnly options simultaneously, You must choose one of them."), \Laminas\Http\Response::STATUS_CODE_409);
     }
 
     if (isset($showNameOnly) && $showNameOnly == 'y') {

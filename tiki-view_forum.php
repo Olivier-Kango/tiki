@@ -70,10 +70,7 @@ $auto_query_args = [
 $commentslib = TikiLib::lib('comments');
 
 if (! isset($_REQUEST['forumId']) || ! ($forum_info = $commentslib->get_forum($_REQUEST['forumId']))) {
-    $smarty->assign('errortype', 'no_redirect_login');
-    $smarty->assign('msg', tra('No forum indicated'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('No forum indicated'), \Laminas\Http\Response::STATUS_CODE_409);
 }
 
 if (isset($_REQUEST['comments_postCancel'])) {
@@ -263,10 +260,7 @@ if (isset($_REQUEST['comments_remove']) && isset($_REQUEST['comments_threadId'])
         $commentslib->remove_comment($_REQUEST['comments_threadId']);
         $commentslib->register_remove_post($_REQUEST['forumId'], 0);
     } else { // user can't edit this post
-        $smarty->assign('msg', tra('You do not have permission to remove someone else\'s post!'));
-        $smarty->assign('errortype', 'no_redirect_login');
-        $smarty->display('error.tpl');
-        die;
+        Feedback::errorAndDie(tra('You do not have permission to remove someone else\'s post!'), \Laminas\Http\Response::STATUS_CODE_401);
     }
     unset($_REQUEST['comments_threadId']);
     $smarty->assign('comments_threadId', 0);

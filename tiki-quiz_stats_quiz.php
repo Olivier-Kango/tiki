@@ -33,16 +33,12 @@ $tikilib->get_perm_object($_REQUEST["quizId"], 'quiz');
 $access->check_permission('tiki_p_view_quiz_stats');
 
 if (! isset($_REQUEST["quizId"])) {
-    $smarty->assign('msg', tra("No quiz indicated"));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("No quiz indicated"), \Laminas\Http\Response::STATUS_CODE_409);
 }
 
 $quiz_info = $quizlib->get_quiz($_REQUEST["quizId"]);
 if (! $quiz_info) {
-    $smarty->assign('msg', tra("The requested quiz was not found. Please check the quiz ID and try again."));
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie(tra("The requested quiz was not found. Please check the quiz ID and try again."), \Laminas\Http\Response::STATUS_CODE_404);
 }
 $smarty->assign('quizId', $_REQUEST["quizId"]);
 $smarty->assign('quiz_info', $quiz_info);

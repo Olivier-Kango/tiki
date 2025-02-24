@@ -1091,11 +1091,7 @@ function NextBlank($text)
  */
 function quizlib_error_exit($s)
 {
-    $smarty = TikiLib::lib('smarty');
-    $smarty->assign('msg', $s);
-
-    $smarty->display("error.tpl");
-    die;
+    Feedback::errorAndDie($s, \Laminas\Http\Response::STATUS_CODE_409);
 }
 
 // Called by tiki-edit_quiz_questions.php

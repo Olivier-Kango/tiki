@@ -50,9 +50,7 @@ if (! isset($_REQUEST['file']) && ! isset($_REQUEST['fileId'])) {
     try {
         $info = $sheetlib->get_sheet_info($_REQUEST['sheetId']);
     } catch (Exception $e) {
-        $smarty->assign('msg', tra($e->getMessage()));
-        $smarty->display("error.tpl");
-        die;
+        Feedback::errorAndDie(tra($e->getMessage()), \Laminas\Http\Response::STATUS_CODE_409);
     }
 }
 
@@ -65,9 +63,7 @@ if ($user && $user == $info['author']) {
 }
 
 if (! $sheetlib->user_can_view($_REQUEST['sheetId'])) {
-    $smarty->assign('msg', tra('Permission denied'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Permission denied'), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 $smarty->assign('page', isset($_REQUEST['page']) ? $_REQUEST['page'] : '');
@@ -95,16 +91,12 @@ $smarty->assign('description', $info['description']);
 
 // Start permissions
 if ($_REQUEST['parse'] == 'edit' && ! $sheetlib->user_can_edit($_REQUEST['sheetId'])) {
-    $smarty->assign('msg', tra('Permission denied') . ': feature_sheet');
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Permission denied') . ': feature_sheet', \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 //check to see if we are to do something other than view a file, which is not allowed
 if ($_REQUEST['parse'] != 'y' && ( isset($_REQUEST['file']) || isset($_REQUEST['fileId']) )) {
-    $smarty->assign('msg', tra('Files are read only at this time'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('Files are read only at this time'), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
 if ($prefs['feature_contribution'] == 'y') {

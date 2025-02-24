@@ -16,17 +16,13 @@ $trklib = TikiLib::lib('trk');
 $definitions = Tracker_Definition::getAll();
 
 if (empty($definitions)) {
-    $smarty->assign('msg', tra('No tracker found'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('No tracker found'), \Laminas\Http\Response::STATUS_CODE_404);
 }
 
 $requestedTrackerIds = $_REQUEST["trackerIds"] ?? [];
 $smarty->assign('requestedTrackerIds', $requestedTrackerIds);
 if (! is_array($requestedTrackerIds)) {
-    $smarty->assign('msg', tra('The trackerIds parameter must be an array of (possibly just one) tracker ids'));
-    $smarty->display('error.tpl');
-    die;
+    Feedback::errorAndDie(tra('The trackerIds parameter must be an array of (possibly just one) tracker ids'), \Laminas\Http\Response::STATUS_CODE_400);
 }
 
 $skipAttributes = ! empty($_REQUEST["skipAttributes"]) ?? false;
