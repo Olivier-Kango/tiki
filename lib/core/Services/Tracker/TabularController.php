@@ -388,6 +388,30 @@ class Services_Tracker_TabularController
         }
     }
 
+    public function actionExportSimpleHeaders($input)
+    {
+        $lib = TikiLib::lib('tabular');
+        $info = $lib->getInfo($input->tabularId->int());
+
+        Services_Exception_Denied::checkObject('tiki_p_tabular_export', 'tabular', $info['tabularId']);
+
+        $schema = $this->getSchema($info);
+        $schema->validate();
+
+        $headers = array_map(function ($column) {
+            return $column->getLabel();
+        }, $schema->getColumns());
+
+        $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']) . '_simple_headers.csv';
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment;filename=' . $name);
+
+        $output = fopen('php://output', 'w');
+        fputcsv($output, $headers);
+        fclose($output);
+        exit;
+    }
+
     public function action_export_partial_csv($input)
     {
         $tabularId = $input->tabularId->int();
@@ -779,6 +803,7 @@ class Services_Tracker_TabularController
             'data' => $writer->getData($source),
             'resultset' => $source->getResultSet(),
             'baseArguments' => $arguments,
+            'config' => $info['config'],
         ];
     }
 
