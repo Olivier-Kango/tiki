@@ -705,6 +705,9 @@ function iconset_default()
             'group' => [
                 'id' => 'users',
             ],
+            'groupedit' => [
+                'id' => 'users',
+            ],
             'h1' => [
                 'id' => 'heading',
             ],
@@ -930,6 +933,10 @@ function iconset_default()
             'merge' => [
                 'id' => 'random',
             ],
+            'message' => [
+                'id' => 'comment-dots',
+                'prepend' => 'fas fa-',
+            ],
             'microsoft' => [
                 'id' => 'microsoft',
                 'prepend' => 'fab fa-'
@@ -954,6 +961,10 @@ function iconset_default()
             ],
             'money' => [
                 'id' => 'money-bill',
+            ],
+            'monitor' => [
+                'id' => 'desktop',
+                'prepend' => 'far fa-',
             ],
             'more' => [
                 'id' => 'ellipsis-h',
@@ -1304,6 +1315,9 @@ function iconset_default()
             //thumbs-up in defaults
             'ticket' => [
                 'id' => 'ticket-alt',
+            ],
+            'tikimanager' => [
+                'id' => 'toolbox',
             ],
             'time' => [
                 'id' => 'clock',
@@ -1824,10 +1838,6 @@ function iconset_default()
             ],
             'code-compare' => [
                 'id' => 'code-compare',
-                'prepend' => 'fas fa-',
-            ],
-            'code-fork' => [
-                'id' => 'code-fork',
                 'prepend' => 'fas fa-',
             ],
             'code-pull-request' => [
