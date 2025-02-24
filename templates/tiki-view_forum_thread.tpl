@@ -132,7 +132,7 @@
 
 <section class="top_post">
     {if $prefs.feature_freetags eq 'y' and isset($tiki_p_view_freetags) and $tiki_p_view_freetags eq 'y' and $prefs.freetags_show_middle eq 'y'
-        and !$thread_info.topic.threadId}
+        and !$thread_info.threadId}
         {include file='freetag_list.tpl'}
         <div class="text-end mb-4">
             {wikiplugin _name="addfreetag" object="forum post:$comments_parentId"}{/wikiplugin}
