@@ -1660,6 +1660,12 @@ function prefs_feature_list($partial = false)
             'type' => 'flag',
             'default' => 'n',
         ],
+        'feature_forum_process_inbound_mail_in_cron' => [
+            'name' => tra('Process inbound mail in cron job.'),
+            'description' => tra('This prevent to process inbound mail when user is viewing a forum. This will require setting up a cron job running "php console.php forum:inbound-mail" command'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
         'feature_forum_parse' => [
             'name' => tra('Accept wiki syntax'),
             'type' => 'flag',
