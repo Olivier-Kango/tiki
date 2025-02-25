@@ -50,6 +50,8 @@ class ParserLib extends TikiDb_Bridge
         ],
     ];
 
+    public static $pluginCache = [];
+
     /*
      * Parsing "options". Some of these are real parsing parameters, such as protect_email and security options.
      * Others (like is_html) define the markup's semantic.

@@ -518,6 +518,8 @@ if ( \$('#$id') ) {
             $this->plugin_apply_filters($name, $data, $args);
         }
 
+        $result = '';
+
         if (function_exists($func_name)) {
             $pluginFormat = 'wiki';
 
@@ -554,13 +556,23 @@ if ( \$('#$id') ) {
 
             $plugin_result = $this->convert_plugin_output($output, $pluginFormat, $outputFormat);
             if (($this->option['ck_editor'] ?? false)) {
-                return $this->convert_plugin_for_ckeditor($name, $args, $plugin_result, $data, $info);
+                $result = $this->convert_plugin_for_ckeditor($name, $args, $plugin_result, $data, $info);
             } else {
-                return $plugin_result;
+                $result = $plugin_result;
             }
         } elseif (WikiPlugin_Negotiator_Wiki_Alias::findImplementation($name, $data, $args)) {
-            return $this->pluginExecute($name, $data, $args, $offset, $validationPerformed);
+            $result = $this->pluginExecute($name, $data, $args, $offset, $validationPerformed);
         }
+
+        if (! empty(ParserLib::$pluginCache)) {
+            $meta = $this->plugin_info($name, $args);
+            $fingerprint = $this->plugin_fingerprint($name, $meta, $data, $args);
+            if (isset(ParserLib::$pluginCache[$fingerprint])) {
+                ParserLib::$pluginCache[$fingerprint] = str_replace(['~np~', '~/np~'], '', $result);
+            }
+        }
+
+        return $result;
     }
 
     public function stripPlugins($name)

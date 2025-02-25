@@ -1023,21 +1023,6 @@ class Services_Wiki_Controller
             throw new Services_Exception_NotFound(tr('Page "%0" not found', $page));
         }
 
-        $parserlib = TikiLib::lib('parser');
-        $argumentParser = new WikiParser_PluginArgumentParser();
-
-        $data = '';
-
-        $matches = WikiParser_PluginMatcher::match($info['data']);
-        foreach ($matches as $match) {
-            $args = $argumentParser->parse($match->getArguments());
-            $meta = $parserlib->plugin_info($match->getName(), $args);
-            $fingerprint = $parserlib->plugin_fingerprint($match->getName(), $meta, $match->getBody(), $args);
-            if ($fingerprint === $plugin) {
-                $data .= (string) $match;
-            }
-        }
-
         if ($util->isActionPost()) {
             // ListExecute plugin needs these
             $_GET = $_POST = $_REQUEST = $input->asArray();
@@ -1045,11 +1030,13 @@ class Services_Wiki_Controller
             $_GET = $_REQUEST = $input->asArray();
         }
 
-        $result = TikiLib::lib('parser')->parse_data($data);
+        ParserLib::$pluginCache = [$plugin => ''];
+
+        TikiLib::lib('parser')->parse_data($info['data']);
 
         Feedback::sendHeaders();
         return [
-            'result' => $result,
+            'result' => ParserLib::$pluginCache[$plugin],
         ];
     }
 }
