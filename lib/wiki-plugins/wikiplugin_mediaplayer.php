@@ -102,10 +102,23 @@ function wikiplugin_mediaplayer($data, $params)
     $params['type'] = strtolower(isset($params['type']) ? $params['type'] : '');
     $extension = '';
     if ((empty($params['src']) && empty($params['mp3']))) {
-        Feedback::error(['mes' => "PluginMediaPlayer : src and mp3 cannot both be empty"]);
+        Feedback::error(['mes' => tr("PluginMediaPlayer : src and mp3 cannot both be empty")]);
         return '';
     } elseif (! empty($params['src'])) {
-        preg_match('/(?:dl|display|attId=|fileId=)(\d*)/', $params['src'], $matches);
+        // This regex is used to extract the file ID from various URL formats:
+        // - tiki-display.php?fileId=74
+        // - display74
+        // - dl74
+        //
+        // The pattern (?:dl|display|fileId=)(\d*)(?:$|&|?) ensures that:
+        // - The correct fileId is captured regardless of URL format.
+        // - It properly handles URLs with additional parameters.
+        //
+        // Ideally, URL parsing should be handled by the routing system (route.php) instead of using a regex in a plugin.
+        // However, since the necessary abstractions are not currently available, this regex is applied here as a temporary solution.
+
+        preg_match('/(?:dl|display|attId=|fileId=)(\d+)(?:$|&|\?)/', $params['src'], $matches);
+
         if (! empty($matches[1])) { // fileId 0 is also invalid
             $fileId = $matches[1];
             $filegallib = TikiLib::lib('filegal');
@@ -113,7 +126,7 @@ function wikiplugin_mediaplayer($data, $params)
             $sourceLink = TikiLib::lib('access')->absoluteUrl($params['src']);
 
             // Internal link.
-            if (strrpos($sourceLink, $base_url) === true) {
+            if (strrpos($sourceLink, $base_url) !== false) {
                 $file = $filegallib->get_file_info($fileId);
                 if (! empty($file['filetype']) && $file['fileId'] == $fileId) {
                     $extension = pathinfo($file['filename'], PATHINFO_EXTENSION);
@@ -143,13 +156,13 @@ function wikiplugin_mediaplayer($data, $params)
         }
 
         if (! in_array($extension, ALL_ACCEPTED_FORMATS)) {
-            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the supported formats : " . implode(", ", ALL_ACCEPTED_FORMATS));
+            Feedback::error(tr("PluginMediaPlayer: Media format not supported. Here are the supported formats: ") . implode(", ", ALL_ACCEPTED_FORMATS));
             return '';
         }
     } elseif (empty($params['src']) && ! empty($params['mp3'])) {
         $extension = pathinfo($params['mp3'], PATHINFO_EXTENSION);
         if (! in_array($extension, AUDIO_ACCEPTED_FORMATS)) {
-            Feedback::error("PluginMediaPlayer : Media format not supported. Here are the audio supported formats : " . implode(", ", AUDIO_ACCEPTED_FORMATS));
+            Feedback::error(tr("PluginMediaPlayer: Media format not supported. Here are the audio supported formats: ") . implode(", ", AUDIO_ACCEPTED_FORMATS));
             return '';
         }
         $params['src'] = $params['mp3'];
