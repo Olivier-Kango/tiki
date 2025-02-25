@@ -60,7 +60,7 @@
                 {if $hasImage eq 'y'}
                 {* display own article image *}
                 <img
-                    alt="{$smarty.capture.imgTitle}"
+                    alt="{$image_alt|escape}"
                     class="article-image img-thumbnail custom-image"
                     src="article_image.php?image_type={if isset($preview) and $imageIsChanged eq 'y'}preview&amp;id={$previewId}{elseif isset($preview) and $subId}submission&amp;id={$subId}{else}article&amp;id={$articleId}{if $image_x > 0}&width={$image_x}{/if}{/if}"
                     {$style=''}

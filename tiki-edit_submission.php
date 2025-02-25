@@ -124,6 +124,7 @@ $smarty->assign('topline', '');
 $smarty->assign('subtitle', '');
 $smarty->assign('linkto', '');
 $smarty->assign('image_caption', '');
+$smarty->assign('image_alt', '');
 $smarty->assign('lang', $prefs['language']);
 $authorName = $tikilib->get_user_preference($user, 'realName', $user);
 $smarty->assign('authorName', $authorName);
@@ -162,6 +163,7 @@ if (! empty($_REQUEST['subId'])) {
     $smarty->assign('subtitle', $article_data['subtitle'] ?? null);
     $smarty->assign('linkto', $article_data['linkto'] ?? null);
     $smarty->assign('image_caption', $article_data['image_caption'] ?? null);
+    $smarty->assign('image_alt', $article_data['image_alt']);
     $smarty->assign('lang', $article_data['lang'] ?? null);
     $smarty->assign('authorName', $article_data['authorName'] ?? null);
     $smarty->assign('topicId', $article_data['topicId'] ?? null);
@@ -320,6 +322,9 @@ if (isset($_REQUEST['preview']) || ! empty($errors)) {
     if (! isset($_REQUEST['image_caption'])) {
         $_REQUEST['image_caption'] = '';
     }
+    if (! isset($_REQUEST['image_alt'])) {
+        $_REQUEST['image_alt'] = '';
+    }
     if (! isset($_REQUEST['lang'])) {
         $_REQUEST['lang'] = '';
     }
@@ -328,6 +333,7 @@ if (isset($_REQUEST['preview']) || ! empty($errors)) {
     $smarty->assign('subtitle', $_REQUEST['subtitle']);
     $smarty->assign('linkto', $_REQUEST['linkto']);
     $smarty->assign('image_caption', $_REQUEST['image_caption']);
+    $smarty->assign('image_alt', $_REQUEST['image_alt']);
     $smarty->assign('lang', $_REQUEST['lang']);
     $smarty->assign('image_name', $_REQUEST['image_name']);
     $smarty->assign('image_type', $_REQUEST['image_type']);
@@ -503,6 +509,9 @@ if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($er
     if (! isset($_REQUEST['image_caption'])) {
         $_REQUEST['image_caption'] = '';
     }
+    if (! isset($_REQUEST['image_alt'])) {
+        $_REQUEST['image_alt'] = '';
+    }
     if (! isset($_REQUEST['lang'])) {
         $_REQUEST['lang'] = '';
     }
@@ -528,6 +537,7 @@ if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($er
         $_REQUEST['subtitle'],
         $_REQUEST['linkto'],
         $_REQUEST['image_caption'],
+        $_REQUEST['image_alt'],
         $_REQUEST['lang'],
         $_REQUEST['rating'],
         $isfloat

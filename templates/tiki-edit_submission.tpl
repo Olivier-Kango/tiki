@@ -140,7 +140,13 @@
         <label class="col-sm-3 col-form-label">{tr}Own Image{/tr}</label>
         <div class="col-sm-7">
             <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
-            <input name="userfile1" type="file" accept="image/*" onchange="document.getElementById('useImage').checked = true;">
+            <input name="userfile1" type="file" onchange="document.getElementById('useImage').checked = true; document.getElementById('image_alt').setAttribute('required', 'required');">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label" for="image_alt">{tr}Image alternative text{/tr}</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" name="image_alt" id="image_alt" value="{$image_alt|escape}" {if $hasImage eq 'y'} required{/if}>
         </div>
     </div>
     {if $hasImage eq 'y'}

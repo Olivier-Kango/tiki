@@ -698,6 +698,7 @@ class ObjectLib extends TikiLib
                     $info['subtitle'],
                     $info['linkto'],
                     $info['image_caption'],
+                    $info['image_alt'],
                     $info['lang'],
                     $info['ispublished']
                 );

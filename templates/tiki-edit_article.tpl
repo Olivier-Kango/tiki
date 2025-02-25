@@ -184,7 +184,7 @@
                 <input type="hidden" name="MAX_FILE_SIZE" value="{$prefs.article_image_file_size_max}">
                 <label for="userfile1" class="col-form-label col-md-4">{tr}Own Image{/tr}</label>
                 <div class="col-md-8">
-                    <input class="form-control" name="userfile1" id="userfile1" type="file" accept="image/*" onchange="document.getElementById('useImage').checked = true;">
+                    <input class="form-control" name="userfile1" id="userfile1" type="file" onchange="document.getElementById('useImage').checked = true; document.getElementById('image_alt').setAttribute('required', 'required');">
                     <span class="form-text">{tr}If not the topic image{/tr} - {tr}Max file size : {$prefs.article_image_file_size_max/1000} KB{/tr}</span>
                 </div>
             </div>
@@ -200,7 +200,13 @@
                     </div>
                 </div>
             {/if}
-            <div class="mb-3{if $types.$type.show_image_caption neq 'y'}hidden{/if}">
+            <div class="mb-3">
+                <label class="col-md-4 col-form-label" for="image_alt">{tr}Image alternative text{/tr}</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="image_alt" id="image_alt" value="{$image_alt|escape}" {if $hasImage eq 'y'} required{/if}>
+                </div>
+            </div>
+            <div class="mb-3 {if $types.$type.show_image_caption neq 'y'}hidden{/if}">
                 <label class="col-md-4 col-form-label" for="image_caption">{tr}Image caption{/tr}</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" name="image_caption" id="image_caption" value="{$image_caption|escape}" >

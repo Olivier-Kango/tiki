@@ -90,6 +90,7 @@ $smarty->assign('show_subtitle', $article_data["show_subtitle"]);
 $smarty->assign('linkto', $article_data["linkto"]);
 $smarty->assign('show_linkto', $article_data["show_linkto"]);
 $smarty->assign('image_caption', $article_data["image_caption"]);
+$smarty->assign('image_alt', $article_data["image_alt"]);
 $smarty->assign('show_image_caption', $article_data["show_image_caption"]);
 $smarty->assign('lang', $article_data["lang"]);
 $smarty->assign('authorName', $article_data["authorName"]);

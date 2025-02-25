@@ -70,11 +70,12 @@ class ArticlePut implements ActionInterface
         $subtitle = '';
         $linkto = '';
         $image_caption = '';
+        $image_alt = '';
         $lang = '';
         $rating = 7;
         $isfloat = 'n';
 
-        $subid = $artlib->replace_submission($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $userm, $subId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating, $isfloat);
+        $subid = $artlib->replace_submission($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $userm, $subId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $image_alt, $lang, $rating, $isfloat);
 
         $perms = TikiLib::lib('tiki')->get_user_permission_accessor($user, 'topic', $this->topicId);
         if ($perms->autoapprove_submission) {

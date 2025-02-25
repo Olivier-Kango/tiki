@@ -49,6 +49,7 @@ class ArtLib extends TikiLib
             $data['subtitle'],
             $data['linkto'],
             $data['image_caption'],
+            $data['image_alt'],
             $data['lang'],
             $data['rating'],
             $data['isfloat']
@@ -176,7 +177,7 @@ class ArtLib extends TikiLib
      * @return int
      * @throws Exception If a problem occurs while replacing a submission
     */
-    public function replace_submission($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $user, $subId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n')
+    public function replace_submission($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $user, $subId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $image_alt, $lang, $rating = 0, $isfloat = 'n')
     {
         global $tiki_p_autoapprove_submission, $prefs;
         $smarty = TikiLib::lib('smarty');
@@ -216,6 +217,7 @@ class ArtLib extends TikiLib
             'subtitle' => $subtitle,
             'linkto' => $linkto,
             'image_caption' => $image_caption,
+            'image_alt' => $image_alt,
             'lang' => $lang,
         ];
 
@@ -292,7 +294,7 @@ class ArtLib extends TikiLib
         throw new Exception("Failed to insert the new article. Invalid Id");
     }
 
-    public function replace_article($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $user, $articleId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n', $emails = '', $from = '', $list_image_x = '', $list_image_y = '', $ispublished = 'y', $fromurl = false)
+    public function replace_article($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $user, $articleId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $image_alt, $lang, $rating = 0, $isfloat = 'n', $emails = '', $from = '', $list_image_x = '', $list_image_y = '', $ispublished = 'y', $fromurl = false)
     {
 
         $tikilib = TikiLib::lib('tiki');
@@ -332,6 +334,7 @@ class ArtLib extends TikiLib
             'subtitle' => $subtitle,
             'linkto' => $linkto,
             'image_caption' => $image_caption,
+            'image_alt' => $image_alt,
             'lang' => $lang,
             'ispublished' => $ispublished,
         ];
@@ -880,6 +883,9 @@ class ArtLib extends TikiLib
         if (! isset($fields['image_caption'])) {
             $fields['image_caption'] = $i++;
         }
+        if (! isset($fields['image_alt'])) {
+            $fields['image_alt'] = $i++;
+        }
         if (! isset($fields['lang'])) {
             $fields['lang']                 = $i++;
         }
@@ -952,6 +958,9 @@ class ArtLib extends TikiLib
             if (! isset($data[$fields['image_caption']])) {
                 $data[$fields['image_caption']] = '';
             }
+            if (! isset($data[$fields['image_alt']])) {
+                $data[$fields['image_alt']] = '';
+            }
             if (! isset($data[$fields['lang']])) {
                 $data[$fields['lang']]                  = $prefs['language'];
             }
@@ -986,6 +995,7 @@ class ArtLib extends TikiLib
                 $data[$fields['subtitle']],
                 $data[$fields['linkto']],
                 $data[$fields['image_caption']],
+                $data[$fields['image_alt']],
                 $data[$fields['lang']],
                 $data[$fields['rating']],
                 $data[$fields['isfloat']],

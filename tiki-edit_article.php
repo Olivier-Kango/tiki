@@ -36,6 +36,7 @@ $inputConfiguration = [
             'subtitle'                    => 'string',        //post
             'linkto'                      => 'url',           //post
             'image_caption'               => 'string',        //post
+            'image_alt'                   => 'string',        //post
             'lang'                        => 'string',        //post
             'image_name'                  => 'string',        //get
             'from'                        => 'string',        //get
@@ -140,6 +141,7 @@ $smarty->assign('topline', '');
 $smarty->assign('subtitle', '');
 $smarty->assign('linkto', '');
 $smarty->assign('image_caption', '');
+$smarty->assign('image_alt', '');
 $smarty->assign('lang', $prefs['language']);
 $authorName = $tikilib->get_user_preference($user, 'realName', $user);
 $smarty->assign('authorName', $authorName);
@@ -178,6 +180,7 @@ if (isset($_REQUEST["articleId"]) and $_REQUEST["articleId"] > 0) {
     $smarty->assign('subtitle', $article_data['subtitle']);
     $smarty->assign('linkto', $article_data['linkto']);
     $smarty->assign('image_caption', $article_data['image_caption']);
+    $smarty->assign('image_alt', $article_data['image_alt']);
     $smarty->assign('lang', $article_data['lang']);
     $smarty->assign('authorName', $article_data['authorName']);
     $smarty->assign('topicId', $article_data['topicId']);
@@ -350,6 +353,9 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
     if (! isset($_REQUEST['image_caption'])) {
         $_REQUEST['image_caption'] = '';
     }
+    if (! isset($_REQUEST['image_alt'])) {
+        $_REQUEST['image_alt'] = '';
+    }
     if (! isset($_REQUEST['lang'])) {
         $_REQUEST['lang'] = '';
     }
@@ -367,6 +373,7 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
     $smarty->assign('subtitle', $_REQUEST['subtitle']);
     $smarty->assign('linkto', $_REQUEST['linkto']);
     $smarty->assign('image_caption', $_REQUEST['image_caption']);
+    $smarty->assign('image_alt', $_REQUEST['image_alt']);
     $smarty->assign('lang', $_REQUEST['lang']);
     $smarty->assign('image_name', $_REQUEST['image_name']);
     $smarty->assign('image_type', $_REQUEST['image_type']);
@@ -591,6 +598,9 @@ if (isset($_REQUEST['save']) && empty($errors)) {
     if (! isset($_REQUEST['image_caption'])) {
         $_REQUEST['image_caption'] = '';
     }
+    if (! isset($_REQUEST['image_alt'])) {
+        $_REQUEST['image_alt'] = '';
+    }
     if (! isset($_REQUEST['lang'])) {
         $_REQUEST['lang'] = '';
     }
@@ -653,6 +663,7 @@ if (isset($_REQUEST['save']) && empty($errors)) {
         $_REQUEST['subtitle'],
         $_REQUEST['linkto'],
         $_REQUEST['image_caption'],
+        $_REQUEST['image_alt'],
         $_REQUEST['lang'],
         $_REQUEST['rating'],
         $isfloat,
