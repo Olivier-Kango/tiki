@@ -78,6 +78,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\Div(), 'handle'];
             case 'duration_short':
                 return [new \SmartyTiki\Modifier\DurationShort(), 'handle'];
+            case 'debug_print_tree':
+                return [new \SmartyTiki\Modifier\DebugPrintTree(), 'handle'];
             case 'duration':
                 return [new \SmartyTiki\Modifier\Duration(), 'handle'];
             case 'escape':
