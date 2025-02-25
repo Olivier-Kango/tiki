@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import Transfer from './components/Transfer.vue';
+import getBasePath from './helpers/getBasePath';
 
 const components = {
     Transfer,
@@ -20,7 +21,7 @@ const locale = ref(null);
 
 const loadLocale = async (localeName) => {
     try {
-        const importedLocale = await import(`/public/generated/js/vendor_dist/element-plus/dist/locale/${localeName}.min.mjs`);
+        const importedLocale = await import(`${getBasePath()}/public/generated/js/vendor_dist/element-plus/dist/locale/${localeName}.min.mjs`);
         locale.value = importedLocale.default;
     } catch (error) {
         console.error('Error loading locale:', error);
