@@ -11,3 +11,7 @@
   border-top-left-radius: var(--bs-btn-border-radius) !important;
   border-bottom-left-radius: var(--bs-btn-border-radius) !important;
 }
+
+el-autocomplete ~ .search_mod_magnifier {
+  margin-top: unset !important;
+}

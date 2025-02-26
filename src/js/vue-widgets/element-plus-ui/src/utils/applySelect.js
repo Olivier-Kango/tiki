@@ -13,6 +13,11 @@ export default function applySelect() {
                     elementPlusUi.attr("id", elementUniqueId);
                     elementPlusUi.attr("max", $(this).attr("data-max"));
 
+                    // In respect to bootstrap form-control sizes
+                    if (this.classList.contains("form-control-sm")) {
+                        elementPlusUi.attr("size", "small");
+                    }
+
                     // Attributes set by preferences
                     const selectPreferences = window.elementPlus.select;
                     elementPlusUi.attr("clearable", selectPreferences.clearable);
