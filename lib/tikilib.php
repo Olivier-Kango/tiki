@@ -40,7 +40,7 @@ class TikiLib extends TikiDb_Bridge
 
     public $is_slideshow = false;
 
-    const TIKI_GLOBAL_CSV_ESCAPE_CHAR = '\\';
+    public const TIKI_GLOBAL_CSV_ESCAPE_CHAR = '\\';
 
     /**
      * Collection of Tiki libraries.
