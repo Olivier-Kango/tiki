@@ -87,6 +87,7 @@ describe("Select", () => {
             maxCollapseTags: "2",
             max: "2",
             language: "en",
+            size: "small",
         };
 
         render(Select, { props: givenProps });
@@ -103,6 +104,7 @@ describe("Select", () => {
                 clearable: true,
                 filterable: true,
                 multiple: givenProps.multiple,
+                size: "small",
                 "allow-create": true,
                 "collapse-tags": true,
                 "max-collapse-tags": parseInt(givenProps.maxCollapseTags),

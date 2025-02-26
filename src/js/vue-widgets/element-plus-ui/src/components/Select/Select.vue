@@ -4,7 +4,7 @@ import Sortable from "sortablejs";
 import { sortOptions } from '../../helpers/select/sortable';
 import ConfigWrapper from '../ConfigWrapper.vue';
 
-const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering', 'group', 'language']);
+const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering', 'group', 'language', 'size']);
 
 const modelValue = ref(JSON.parse(props.value));
 
@@ -90,6 +90,7 @@ export const DATA_TEST_ID = {
                 @change="handleValueChange"
                 :multiple-limit="parseInt(max ?? 0)" :clearable :collapse-tags
                 :max-collapse-tags="parseInt(maxCollapseTags ?? 0)"
+                :size="size"
                 :data-testid="DATA_TEST_ID.SELECT_ELEMENT"
             >
                 <el-option-group 

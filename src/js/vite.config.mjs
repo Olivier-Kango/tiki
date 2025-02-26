@@ -603,7 +603,7 @@ export default defineConfig(({ command, mode }) => {
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/jquery-tiki/ui-utils/handleDatePicker.js"],
+                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/jquery-tiki/ui-utils/handleDatePicker.js", "src/js/jquery-tiki/ui-utils/handleTransferList.js"],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
                 provider: 'istanbul'
             },
