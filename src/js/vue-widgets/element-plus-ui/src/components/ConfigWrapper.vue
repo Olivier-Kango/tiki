@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import getBasePath from '../helpers/getBasePath';
 
 const props = defineProps({
     language: {
@@ -12,8 +13,7 @@ const locale = ref(null);
 
 const loadLocale = async (localeName) => {
     try {
-        const basePath = window.location.pathname.split('/').slice(0, -1).join('/');
-        const importedLocale = await import(`${basePath}/public/generated/js/vendor_dist/element-plus/dist/locale/${localeName}.min.mjs`);
+        const importedLocale = await import(`${getBasePath()}/public/generated/js/vendor_dist/element-plus/dist/locale/${localeName}.min.mjs`);
         locale.value = importedLocale.default;
     } catch (error) {
         console.error('Error loading locale:', error);
