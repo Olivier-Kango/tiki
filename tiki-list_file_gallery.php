@@ -18,9 +18,9 @@ $inputConfiguration = [
         'parentId'                     => 'int',               //post
         'view'                         => 'word',              //get
         'fileId'                       => 'int',               //post
-        'movesel'                      => 'bool',              //post
-        'moveto'                       => 'bool',              //post
-        'file'                         => 'string',            //post
+        'movesel'                      => 'word',              //post
+        'moveto'                       => 'int',               //post
+        'file'                         => 'int',               //post
         'subgal'                       => 'int',               //get
         'groups'                       => 'groupname',         //post
         'lock'                         => 'bool',              //post
@@ -1226,7 +1226,7 @@ if (isset($_GET['slideshow'])) {
                 $galleryId,
                 $with_archive,
                 $with_subgals,
-                ($view === 'list' && $gal_info['show_size'] !== 'n'),
+                ($view !== 'admin' && $gal_info['show_size'] !== 'n'),
                 true,
                 false,
                 false,

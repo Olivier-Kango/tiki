@@ -96,7 +96,9 @@ class Services_File_Controller
 
         $gal_info = $this->checkTargetGallery($input);
         $fileId = $input->update->int() ? $input->fileId->int() : false;
-        $asuser = $input->user->text();
+        if (! empty($input->asArray('user')) && is_array($input->user->asArray())) {
+            $asuser = $input->asArray('user')[0];
+        }
         $title = $input->title->text();
         $description = $input->description->text() ?: '';
         $directoryPattern = $input->directoryPattern->text();
