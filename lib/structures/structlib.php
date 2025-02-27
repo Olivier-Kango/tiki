@@ -1039,6 +1039,10 @@ class StructLib extends TikiLib
 
     public function get_navigation_info($page_ref_id)
     {
+        if (! $page_ref_id || ! is_numeric($page_ref_id)) {
+            error_log("Invalid page_ref_id: " . $page_ref_id);
+            return null;
+        }
         return [
             'prev' => $this->get_neighbor_info($page_ref_id, 'get_prev_page'),
             'next' => $this->get_neighbor_info($page_ref_id, 'get_next_page'),
@@ -1076,7 +1080,8 @@ class StructLib extends TikiLib
                 return null;
             }
         } else {
-            trigger_error('No structlib method found: ' . $fn);
+            // Log the error or handle it gracefully
+            error_log("Method not found: $fn");
             return null;
         }
     }
