@@ -6423,9 +6423,14 @@ class TikiLib extends TikiDb_Bridge
      * @return string
      * @throws Exception
      */
-    public function get_snippet($data, $outputType = '', $options = ['indexing' => false, 'is_html' => false], $highlight = '', $length = 240, $start = '', $end = '')
+    public function get_snippet($data, $outputType = '', $options = [], $highlight = '', $length = 240, $start = '', $end = '')
     {
         global $prefs;
+
+        // Define default options and merge with provided options
+        $defaultOptions = ['indexing' => false, 'is_html' => false];
+        $options = array_merge($defaultOptions, $options);
+
         if ($prefs['search_parsed_snippet'] == 'y') {
             $data = preg_replace('/{(:?make)?toc[^}]*}/', '', $data);
 
