@@ -92,6 +92,10 @@ if ($del || $dup) {
     if (! empty($_REQUEST['groupPerm'])) {
         foreach ($_REQUEST['groupPerm'] as $perm) {
             $perm = json_decode($perm, true);
+            //Check that $perm is an array before accessing keys
+            if (! is_array($perm) || ! isset($perm['perm'], $perm['group'])) {
+                continue;
+            }
             if ($del) {
                 $userlib->remove_permission_from_group($perm['perm'], $perm['group']);
                 $feedbacks[] = tra('Remove permission %0 from %1', '', false, [$perm['perm'], $perm['group']]);
