@@ -992,7 +992,22 @@ class PreferencesLib
                 preg_match('/^include_(.*)\.tpl$/', $f, $m);
                 if (count($m) > 0) {
                     $page = $m[1];
-                    $c = file_get_contents(TEMPLATES_ADMIN_PATH . '/' . $f);
+                    $filePath = TEMPLATES_ADMIN_PATH . '/' . $f;
+                    $c = file_get_contents($filePath);
+
+                    // Replace {include file='admin/template.tpl'} with the content of the file
+                    $c = preg_replace_callback(
+                        '/\{include file=[\'"]([^\'"]+)[\'"]\}/i',
+                        function ($matches) {
+                            $includeFile = TEMPLATES_ADMIN_PATH . '/' . ltrim($matches[1], 'admin/');
+                            if (file_exists($includeFile)) {
+                                return file_get_contents($includeFile);
+                            }
+                            return '';
+                        },
+                        $c
+                    );
+
                     preg_match_all('/{preference.*name=[\'"]?(\w*)[\'"]?.*}/i', $c, $m2, PREG_OFFSET_CAPTURE);
                     if (count($m2[1]) > 0) {
                         // count number of tabs in front of each found pref
