@@ -5,6 +5,10 @@
     "repositories": [
         {
             "type": "vcs",
+            "url": "https://github.com/cypht-org/cypht"
+        },
+        {
+            "type": "vcs",
             "url": "https://gitlab.com/tikiwiki/libraries/ZendService_Akismet"
         },
         {
@@ -1959,17 +1963,6 @@
                 "version": "v0.11.0",
                 "dist": {
                     "url": "https://github.com/alchemy-fr/Imagine/archive/refs/tags/v0.11.0.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "jason-munro/cypht",
-                "version": "dev-master",
-                "dist": {
-                    "url": "https://github.com/cypht-org/cypht/archive/master.zip",
                     "type": "zip"
                 }
             }
