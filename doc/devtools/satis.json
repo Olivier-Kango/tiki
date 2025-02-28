@@ -2262,6 +2262,7 @@
         "ramsey/uuid": ">=4.7",
         "ratchet/pawl": "^0.4.1",
         "rangy/rangy": ">=1.2.3",
+        "react/async": "^4.3.0",
         "react/child-process": ">=0.6.4",
         "rector/rector": ">=0.16.0",
         "rmm5t/jquery-timeago": "^1.5",
