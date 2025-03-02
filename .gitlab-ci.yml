@@ -13,7 +13,7 @@ variables:
   MYSQL_USER: tikiuser
   MYSQL_PASSWORD: tikipass
   ELASTICSEARCH_HOST: elasticsearch
-  BASE_QA_IMAGE: rjsmelo/ubuntu-php:7.4-qa
+  BASE_QA_IMAGE: tikiwiki/tikiwiki-ci:7.4-qa
 
 workflow:
   rules:
@@ -459,7 +459,7 @@ tiki-sniffs:
 
 unit-tests-74:
   <<: *template-unit-tests
-  image: rjsmelo/ubuntu-php:7.4-qa
+  image: tikiwiki/tikiwiki-ci:7.4-qa
 
 
 
