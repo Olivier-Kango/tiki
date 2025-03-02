@@ -13,11 +13,32 @@ class HeadlessBrowserFactory
     public const CHROME = 'chrome';
     public const CASPERJS = 'casperjs';
 
-    public static function getHeadlessBrowser()
+    /**
+     * Returns the type of headless browser configured.
+     *
+     * @return string
+     */
+    public static function getHeadlessBrowserType()
     {
         global $prefs;
 
-        return self::getHeadlessBrowserByType($prefs['headlessbrowser_integration_type'] ?? self::CHROME);
+        $defaultHeadlessBrowser = self::CHROME;
+
+        $type = $prefs['headlessbrowser_integration_type'] ?? $defaultHeadlessBrowser;
+
+        switch ($type) {  // check $type if one of te defined values or return the default value
+            case self::CASPERJS:
+                // fall to next
+            case self::CHROME:
+                return $type;
+            default:
+                return $defaultHeadlessBrowser;
+        }
+    }
+
+    public static function getHeadlessBrowser()
+    {
+        return self::getHeadlessBrowserByType(self::getHeadlessBrowserType());
     }
 
     public static function getHeadlessBrowserByType($type)
