@@ -149,6 +149,7 @@ function wikiplugin_fancytable($data, $params)
     extract($params, EXTR_SKIP);
     $msg = '';
     $class = $params['class'] ?? '';
+    $desc = $params['desc'] ?? '';
 
     // Check if sorting is desired
     $sortDesired = isset($sortable) && $sortable != 'n';
