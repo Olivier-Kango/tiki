@@ -609,7 +609,7 @@ class RSSLib extends TikiDb_Bridge
         foreach ($feeds as $feed) {
             if (isset($feed['categories'])) {
                 foreach (json_decode($feed['categories']) as $sourcecat) {
-                     $categories[$sourcecat] = [];
+                    $categories[$sourcecat] = [];
                 }
             }
         }
@@ -623,13 +623,8 @@ class RSSLib extends TikiDb_Bridge
     {
         $result = $this->modules->fetchOne('actions', ['rssId' => $rssId]);
         $actions = [];
-        if ($result !== false && isset($result['actions'])) {
-            $actions = json_decode($result['actions'], true);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new InvalidArgumentException('Invalid JSON string: ' . json_last_error_msg());
-            }
-        } else {
-            trigger_error("No actions found for rssId: $rssId", E_USER_WARNING);
+        if (! empty($result)) {
+            $actions = json_decode($result, true);
         }
         $categories = [];
         $customFields = [
@@ -674,13 +669,13 @@ class RSSLib extends TikiDb_Bridge
             ]
         );
 
-        $actions = json_decode($actions, true);
+        $actions = empty($actions) ? [] : json_decode($actions, true);
 
         //currently handles creation of articles through process_action_article()
+        $actionCount = 0;
         if (! empty($actions)) {
             $pagecontentlib = TikiLib::lib('pagecontent');
             $data = $pagecontentlib->augmentInformation($data);
-            $actionCount = 0;
             foreach ($actions as $action) {
                 $method = 'process_action_' . $action['type'];
                 unset($action['type']);
@@ -883,11 +878,9 @@ class RSSLib extends TikiDb_Bridge
         $configuration['type'] = 'article';
 
         $module = $this->get_rss_module($rssId);
-
-        if ($module['actions']) {
+        $actions = [];
+        if (! empty($module['actions'])) {
             $actions = json_decode($module['actions'], true);
-        } else {
-            $actions = [];
         }
 
         $out = [];
@@ -909,12 +902,11 @@ class RSSLib extends TikiDb_Bridge
     {
         $module = $this->get_rss_module($rssId);
 
-        if ($module['actions']) {
-            $actions = json_decode($module['actions'], true);
-        } else {
-            $actions = [];
+        if (empty($module)) {
+            throw new Exception(tr('No rss found for the given ID: %0', $rssId));
         }
 
+        $actions = empty($module['actions']) ? [] : json_decode($module['actions'], true);
         $default = [
             'active' => false,
             'expiry' => 365,
@@ -923,7 +915,7 @@ class RSSLib extends TikiDb_Bridge
             'future_publish' => -1,
             'categories' => [],
             'rating' => 5,
-            'feed_name' => $module['name'],
+            'feed_name' => empty($module['name']) ? '' : $module['name'],
         ];
 
         foreach ($actions as $action) {
