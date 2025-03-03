@@ -48,8 +48,8 @@ $('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', fu
     {if isset($style)}{$module_params.style = $style}{/if}
 {/if}
 {tikimodule error="{if isset($module_params.error)}{$module_params.error}{/if}" title=$tpl_module_title name="login_box" flip="{if isset($module_params.flip)}{$module_params.flip}{/if}" decorations=$module_params.decorations nobox="{if isset($module_params.nobox)}{$module_params.nobox}{/if}" notitle="{if isset($module_params.notitle)}{$module_params.notitle}{/if}" style=$module_params.style}
-    {if $mode eq "header"}<div class="siteloginbar{if $user} logged-in{/if}">{/if}
-    {if $user}
+    {if $mode eq "header"}<div class="siteloginbar{if $user and $user neq 'anonymous'} logged-in{/if}">{/if}
+    {if $user and $user neq 'anonymous'}
         {if empty($mode) or $mode eq "module"}
             <div class="mb-3 mx-0">{tr}Logged in as:{/tr} <span class="d-inline-block col-12 text-truncate">&nbsp;{$user|userlink}</span></div>
             <div class="text-center">
@@ -343,7 +343,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
         <div class="social-buttons">
             {foreach from=$prefs.socnets_enabledProviders  key=k  item=pNum}
                 {$providerName = $socnetsAll[$pNum]}
-                {if $prefs["socnets_`$providerName`_loginEnabled"] eq 'y' and $mode neq "header" and empty($user)}
+                {if $prefs["socnets_`$providerName`_loginEnabled"] eq 'y' and $mode neq "header" and empty($user) and $user neq 'anonymous'}
                 {button _icon_name="{$providerName|lower}" _text="{tr}Log in via {/tr}{$providerName}" _class="btn btn-social btn-{$providerName|lower}" _script="tiki-login_hybridauth.php" _auto_args=provider provider="{$providerName}"  _title="{tr}Log in via {/tr}{$providerName}"}
                 {/if}
             {/foreach}
