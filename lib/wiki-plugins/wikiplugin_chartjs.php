@@ -252,8 +252,8 @@ JS;
             if (Perms::get()->admin) {
                 $errorMessage .= tr(
                     ' (with html file "%0" and casper file "%1")',
-                    substr($htmlFile, strlen(TIKI_PATH)),
-                    substr($casperFile, strlen(TIKI_PATH))
+                    $htmlFile,
+                    $casperFile
                 );
             }
             \Feedback::error($errorMessage);
