@@ -51,7 +51,7 @@ class WikiPluginTikiDocFromCode extends PluginsLib
         if (empty($helpurl)) {
             $helpurl = 'http://doc.tiki.org/';
         }
-
+        $filepath = '';
         $params = $this->getParams($params);
         $aPlugins = [];
         extract($params, EXTR_SKIP);
@@ -92,6 +92,10 @@ class WikiPluginTikiDocFromCode extends PluginsLib
             $type = "plugin";
         }
 
+        // Ensure $filepath is defined before using it
+        if (empty($filepath)) {
+            return '{BOX(class="text-bg-light")}' . tr('Error: The file path ($filepath) is not defined') . '{BOX}';
+        }
         $all = $aPlugins;
         //if the user set $module, that setting has now been moved to $plugin so that one code set is used
         //$aPlugins and $all now has the complete list of plugin or module file names - the code below modifies $aPlugins
