@@ -271,6 +271,57 @@ class AuthTokens
         ];
     }
 
+    private function getSefurlPatterns(): array
+    {
+        return  [
+            '/^blog\d+/' => 'blog',
+            '/^blogpost\d+/' => 'blogpost',
+            '/^cal\d+/' => 'calendar',
+            '/^calevent\d+/' => 'calendar event',
+            '/^article\d+/' => 'article',
+            '/^(display|thumbnail|preview)\d+/' => 'file',
+            '/^forum\d+/' => 'forum',
+            '/^forumthread\d+/' => 'forumthread',
+            '/^sheet\d+/' => 'sheet',
+            '/^cat\d+/' => 'category',
+        ];
+    }
+
+    public function convertToStandardUrl(string $url): ?string
+    {
+        global $prefs;
+
+        if ($prefs['feature_sefurl'] === 'y') {
+            return $url;
+        }
+
+        $parsedUrl = parse_url($url, PHP_URL_PATH);
+        $pathSegments = explode('/', trim($parsedUrl, '/'));
+
+        // Extract the last part of the URL path (e.g., '/blogpost45-New-Tech-Updates' -> 'blogpost45')
+        if (! empty($pathSegments)) {
+            $lastSegment = $pathSegments[count($pathSegments) - 1];
+            if (str_contains($lastSegment, 'tiki')) {
+                return $url;
+            }
+            if (str_contains($lastSegment, '-')) {
+                $lastSegment = explode('-', $lastSegment, 2)[0];
+            }
+
+            // Match the segment against regex patterns to determine the type
+            foreach ($this->getSefurlPatterns() as $pattern => $type) {
+                if (preg_match($pattern, $lastSegment, $matches)) {
+                    // Extract numeric ID (e.g., 'blogpost45' -> '45')
+                    $id = preg_replace('/[^0-9]/', '', $lastSegment);
+
+                    return smarty_modifier_sefurl($id, $type);
+                }
+            }
+            return smarty_modifier_sefurl($lastSegment); // Return 'wiki' type and page name (last segment)
+        }
+        return $url;
+    }
+
     public function createToken($entry, array $parameters, array $groups, array $arguments = [])
     {
         if (! empty($arguments['timeout'])) {
