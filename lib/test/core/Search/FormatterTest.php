@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Search\Formatter\Transform\DynamicLoader;
+
 class Search_FormatterTest extends PHPUnit\Framework\TestCase
 {
     public function testBasicFormatter()
@@ -225,7 +228,7 @@ OUT;
         $plugin = new Search_Formatter_Plugin_WikiTemplate("* {display name=object_id} ({display name=description})\n");
 
         $formatter = new Search_Formatter($plugin);
-        $searchResult->applyTransform(new Search_Formatter_Transform_DynamicLoader($source));
+        $searchResult->applyTransform(new DynamicLoader($source));
 
         $output = $formatter->format($searchResult);
 

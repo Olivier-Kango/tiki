@@ -1636,10 +1636,6 @@
         "lib\/core\/Search\/Formatter\/Transform\/FieldPermissionEnforcer.php": {
             "class:Search_Formatter_Transform_FieldPermissionEnforcer": true
         },
-        "lib\/core\/Search\/Formatter\/Transform\/DynamicLoader.php": {
-            "class:Search_Formatter_Transform_DynamicLoader": true,
-            "class:Search_Formatter_Transform_DynamicLoaderWrapper": true
-        },
         "lib\/core\/Search\/Formatter\/ArrayBuilder.php": {
             "class:Search_Formatter_ArrayBuilder": true
         },
@@ -3954,9 +3950,6 @@
         "lib\/core\/TikiDb\/Adodb.php": {
             "class:TikiDb_Adodb": true
         },
-        "lib\/core\/Search\/Formatter\/Transform\/DynamicLoader.php": {
-            "class:Search_Formatter_Transform_DynamicLoaderWrapper": true
-        },
         "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
             "class:Tiki_Profile_SymbolLoader_Store": true
         },
@@ -5662,10 +5655,6 @@
         },
         "lib\/core\/Search\/Formatter\/Transform\/FieldPermissionEnforcer.php": {
             "Search_Formatter_Transform_FieldPermissionEnforcer": true
-        },
-        "lib\/core\/Search\/Formatter\/Transform\/DynamicLoader.php": {
-            "Search_Formatter_Transform_DynamicLoader": true,
-            "Search_Formatter_Transform_DynamicLoaderWrapper": true
         },
         "lib\/core\/Search\/Formatter\/ArrayBuilder.php": {
             "Search_Formatter_ArrayBuilder": true

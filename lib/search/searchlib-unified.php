@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Search\Formatter\Transform\DynamicLoader;
 use Tiki\Search\ContentSource\CreditSource;
 use Tiki\Search\ContentSource\GoalSource;
 use Tiki\Search\Elastic\ElasticSearchIndexManager;
@@ -1321,7 +1323,7 @@ class UnifiedSearchLib
 
     public function initQueryPresentation($query)
     {
-        $query->applyTransform(new Search_Formatter_Transform_DynamicLoader($this->getDataSource('formatting')));
+        $query->applyTransform(new DynamicLoader($this->getDataSource('formatting')));
     }
 
     /**
