@@ -1711,7 +1711,6 @@ class TikiLib extends TikiDb_Bridge
             $last = time();
         }
         $ret["lastVisit"] = $last;
-        $ret["images"] = $this->getOne("select count(*) from `tiki_images` where `created`>?", [(int)$last]);
         $ret["pages"] = $this->getOne("select count(*) from `tiki_pages` where `lastModif`>?", [(int)$last]);
         $ret["files"] = $this->getOne("select count(*) from `tiki_files` where `created`>?", [(int)$last]);
         $ret["comments"] = $this->getOne("select count(*) from `tiki_comments` where `commentDate`>?", [(int)$last]);
