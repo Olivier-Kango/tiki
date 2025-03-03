@@ -48,8 +48,8 @@ $('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', fu
     {if isset($style)}{$module_params.style = $style}{/if}
 {/if}
 {tikimodule error="{if isset($module_params.error)}{$module_params.error}{/if}" title=$tpl_module_title name="login_box" flip="{if isset($module_params.flip)}{$module_params.flip}{/if}" decorations=$module_params.decorations nobox="{if isset($module_params.nobox)}{$module_params.nobox}{/if}" notitle="{if isset($module_params.notitle)}{$module_params.notitle}{/if}" style=$module_params.style}
-    {if $mode eq "header"}<div class="siteloginbar{if $user} logged-in{/if}">{/if}
-    {if $user}
+    {if $mode eq "header"}<div class="siteloginbar{if $user and $user neq 'anonymous'} logged-in{/if}">{/if}
+    {if $user and $user neq 'anonymous'}
         {if empty($mode) or $mode eq "module"}
             <div class="mb-3 mx-0">{tr}Logged in as:{/tr} <span class="d-inline-block col-12 text-truncate">&nbsp;{$user|userlink}</span></div>
             <div class="text-center">
@@ -102,7 +102,7 @@ $('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', fu
                             {if $prefs.feature_help eq 'y'}
                                 {help url="Switch+User" desc="{tr}Help{/tr}" desc="{tr}Switch User:{/tr}{tr}Select a username and click 'Switch'.<br>Useful for testing permissions.{/tr}"}
                             {/if}
-                            {user_selector groupIds=$module_params.groups id="login-switchuser_"|cat:$module_logo_instance name='username' user='' editable=$tiki_p_admin class='form-control'}
+                            {user_selector groupIds=$module_params.groups id="login-switchuser_"|cat:$module_logo_instance name='username' user='' editable=$login_module.can_switch_user class='form-control' allowNone=$module_params.allowNone}
                         </div>
                         <div class="text-center">
                             <button
@@ -222,7 +222,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
                 {/if}
             </label>
             {if !isset($loginuser) or $loginuser eq ''}
-                    <input class="form-control" type="text" name="user" id="login-user_{$module_logo_instance}" {if !empty($error_login)} value="{$error_user|escape}"{elseif !empty($adminuser)} value="{$adminuser|escape}"{/if} {if $prefs.desactive_login_autocomplete neq 'y'}autocomplete="username"{/if}/>
+                    <input class="form-control" type="text" name="user" id="login-user_{$module_logo_instance}" {if !empty($error_login)} value="{$error_user|escape}"{elseif !empty($adminuser)} value="{$adminuser|escape}"{/if} {if $prefs.desactive_login_autocomplete neq 'y'}autocomplete="username"{/if} {if $prefs.login_placeholders_enable eq 'y'}placeholder="{tr}Username{/tr}"{/if}/>
                 {jq}if ($('#login-user_{{$module_logo_instance}}:visible').length) {if ($("#login-user_{{$module_logo_instance}}").offset().top < $(window).height()) {$('#login-user_{{$module_logo_instance}}')[0].focus();} }{/jq}
             {else}
                 <input class="form-control" type="hidden" name="user" id="login-user_{$module_logo_instance}" value="{$loginuser|escape}" /><b>{$loginuser|escape}</b>
@@ -230,7 +230,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
         </div>
         <div class="pass my-2 {if $mode eq 'header'}mx-2{/if}">
             <label class="form-label" for="login-pass_{$module_logo_instance}">{tr}Password{/tr}</label>
-            <input onkeypress="capLock(event, this)" type="password" name="pass" class="form-control" id="login-pass_{$module_logo_instance}" autocomplete="{if $prefs.desactive_login_autocomplete eq 'y'}new-password{else}current-password{/if}">
+            <input onkeypress="capLock(event, this)" type="password" name="pass" class="form-control" id="login-pass_{$module_logo_instance}" autocomplete="{if $prefs.desactive_login_autocomplete eq 'y'}new-password{else}current-password{/if}" {if $prefs.login_placeholders_enable eq 'y'}placeholder="{tr}Password{/tr}"{/if}>
             {if $module_params.show_forgot eq 'y' && $prefs.forgotPass eq 'y'}
                 <a class="mt-1 d-block" href="tiki-remind_password.php" title="{tr}Click here if you've forgotten your password{/tr}">{tr}I forgot my password{/tr}</a>
             {/if}
@@ -343,7 +343,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
         <div class="social-buttons">
             {foreach from=$prefs.socnets_enabledProviders  key=k  item=pNum}
                 {$providerName = $socnetsAll[$pNum]}
-                {if $prefs["socnets_`$providerName`_loginEnabled"] eq 'y' and $mode neq "header" and empty($user)}
+                {if $prefs["socnets_`$providerName`_loginEnabled"] eq 'y' and $mode neq "header" and empty($user) and $user neq 'anonymous'}
                 {button _icon_name="{$providerName|lower}" _text="{tr}Log in via {/tr}{$providerName}" _class="btn btn-social btn-{$providerName|lower}" _script="tiki-login_hybridauth.php" _auto_args=provider provider="{$providerName}"  _title="{tr}Log in via {/tr}{$providerName}"}
                 {/if}
             {/foreach}

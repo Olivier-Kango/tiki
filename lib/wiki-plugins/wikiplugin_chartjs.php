@@ -190,15 +190,16 @@ function wikiplugin_chartjs($data, $params)
     }
 
     // PDF export related logic
-    $html_content = generateJsImportmapScripts(true); // generate imports with full URL since we load the html file as file://
-    $html_content .= <<<HTML
+
+    // casperJS uses PhantomJS that does not support ES6, so no support for modules.
+    // We are going to hardcode a reference to the latest version of chart.js 2.x to allow running
+    // the PDF export of the chart without using JS modules.
+    $html_content = <<<HTML
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 <div>
     $canvas
 </div>
-
-<script type="module">
-    import { Chart, registerables } from "chartjs";
-    Chart.register(...registerables);
+<script>
     $script
 </script>
 HTML;

@@ -7,7 +7,7 @@ import { glob } from "glob";
 import path from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
-
+import postcssRootToHost from "./postcssRootToHost";
 /*
 
 Overarching principles:
@@ -186,6 +186,11 @@ export default defineConfig(({ command, mode }) => {
                 },
                 preserveEntrySignatures: "allow-extension",
             },
+        },
+        css: {
+            postcss: {
+                plugins: [postcssRootToHost()],
+            }
         },
         plugins: [
             vue({
