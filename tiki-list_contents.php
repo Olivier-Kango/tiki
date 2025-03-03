@@ -45,7 +45,7 @@ if (isset($_REQUEST["save"])) {
     $smarty->assign('description', $description);
 
     if (empty(trim($contentLabel))) {
-        Feedback::error('Content Label is required to save the content block.');
+        Feedback::error(tr('Content Label is required to save the content block.'));
     } else {
         $id = $dcslib->replace_content($_REQUEST["contentId"], $description, $contentLabel);
         $smarty->assign('contentId', $id);
