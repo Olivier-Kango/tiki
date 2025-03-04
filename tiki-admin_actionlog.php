@@ -552,15 +552,11 @@ if (isset($_REQUEST['graph'])) {
     } else {
         require_once('lib/sheet/grid.php');
         require_once('lib/graph-engine/gd.php');
-        require_once('lib/graph-engine/pdflib.php');
-        require_once('lib/graph-engine/ps.php');
-        require_once('lib/graph-engine/graph.pie.php');
         require_once('lib/graph-engine/graph.bar.php');
-        require_once('lib/graph-engine/graph.multiline.php');
         $graphType = 'BarStackGraphic';
         $ext = 'jpg';
-        $background = new GD_GRenderer(max($widthUser, $widthWeek), 8 * $height, $ext);
-        $legendWidth = 300;
+        $background = new GD_GRenderer(max($widthUser, $widthWeek) + 80, 9 * $height, $ext);
+        $legendWidth = 400;
     }
     include_once('lib/smarty_tiki/modifier.tiki_short_date.php');
     $period = ' (' . smarty_modifier_tiki_short_date($startDate);
@@ -595,15 +591,18 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthUser, $height, $ext);
+            $totalVol = $series['totalVol'];
+            unset($series['totalVol']);
             $graph = new $graphType();
             $graph->setData($series);
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $renderer = new GD_GRenderer($widthUser, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 0, 0, 0, $renderer->width, $renderer->height);
         }
     }
-            $series = $logslib->draw_contribution_user($userContributions, 'del', $contributions);
+    $series = $logslib->draw_contribution_user($userContributions, 'del', $contributions);
     if ($series['totalVol']) {
         if ($tiki_p_admin == 'y') {
             $title = tra('Users Contributions: Suppression');
@@ -630,10 +629,13 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthUser, $height, $ext);
+            $totalVol = $series['totalVol'];
+            unset($series['totalVol']);
             $graph = new $graphType();
             $graph->setData($series);
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $renderer = new GD_GRenderer($widthUser, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -663,11 +665,13 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthWeek, $height, $ext);
-            $graph = new $graphType();
+            $totalVol = $series['totalVol'];
             unset($series['totalVol']);
-            $graph->setData($series);
+            $graph = new $graphType();
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $graph->setData($series);
+            $renderer = new GD_GRenderer($widthWeek, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 2 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -697,11 +701,13 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthWeek, $height, $ext);
-            $graph = new $graphType();
+            $totalVol = $series['totalVol'];
             unset($series['totalVol']);
-            $graph->setData($series);
+            $graph = new $graphType();
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $graph->setData($series);
+            $renderer = new GD_GRenderer($widthWeek, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 3 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -724,10 +730,13 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthTotal, $height, $ext);
+            $totalVol = $series['totalVol'];
+            unset($series['totalVol']);
             $graph = new $graphType();
-            $graph->setData($series);
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $graph->setData($series);
+            $renderer = new GD_GRenderer($widthTotal, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 4 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -750,10 +759,13 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthTotal, $height, $ext);
+            $totalVol = $series['totalVol'];
+            unset($series['totalVol']);
             $graph = new $graphType();
-            $graph->setData($series);
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $graph->setData($series);
+            $renderer = new GD_GRenderer($widthTotal, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 5 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -779,10 +791,13 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthGroup, $height, $ext);
+            $totalVol = $series['totalVol'];
+            unset($series['totalVol']);
             $graph = new $graphType();
-            $graph->setData($series);
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $graph->setData($series);
+            $renderer = new GD_GRenderer($widthGroup, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 6 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -808,10 +823,13 @@ if (isset($_REQUEST['graph'])) {
                 $logslib->insert_image($_REQUEST['galleryId'], $graph, $ext, $title, $period);
             }
         } else {
-            $renderer = new GD_GRenderer($widthGroup, $height, $ext);
+            $totalVol = $series['totalVol'];
+            unset($series['totalVol']);
             $graph = new $graphType();
-            $graph->setData($series);
             $graph->setTitle($title);
+            $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
+            $graph->setData($series);
+            $renderer = new GD_GRenderer($widthGroup, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 7 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }

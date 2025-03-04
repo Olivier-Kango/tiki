@@ -3552,7 +3552,16 @@ class TikiLib extends TikiDb_Bridge
         $this->table('tiki_history')->deleteMultiple(['pageName' => $page]);
         $this->table('tiki_links')->deleteMultiple(['fromPage' => $page]);
         $logslib = TikiLib::lib('logs');
-        $logslib->add_action('Removed', $page, 'wiki page', $params);
+        $removedActionId = $logslib->add_action('Removed', $page, 'wiki page', $params);
+        $getActions = $logslib->getActionLogDetails('Created', $page, 'wiki page');
+        if (! empty($getActions['actionId']) && $removedActionId) {
+            $createdActionId = $getActions['actionId'];
+            $getContribIds = $logslib->get_action_params($createdActionId, 'contribution');
+            if (count($getContribIds) > 0) {
+                $logslib->insert_params($removedActionId, 'contribution', $getContribIds);
+            }
+        }
+
         //get_strings tra("Removed");
         $this->table('users_groups')->updateMultiple(['groupHome' => null], ['groupHome' => $page]);
 

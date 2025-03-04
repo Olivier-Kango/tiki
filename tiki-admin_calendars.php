@@ -51,6 +51,7 @@ $inputConfiguration = [
             'show'                  => 'bool',    //post
             'subscription'          => 'none',    //post
         ],
+        'save' => 'text',
     ],
 ];
 $section = 'admin';

@@ -13,7 +13,7 @@ function prefs_log_list()
             'type' => 'flag',
             'warning' => tra('May impact performance'),
             'help' => 'System-Log',
-            'default' => 'n',
+            'default' => 'y',
         ],
         'log_tpl' => [
             'name' => tra('Smarty template usage indicator'),

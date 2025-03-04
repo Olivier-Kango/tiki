@@ -26,6 +26,7 @@ $inputConfiguration = [
             'sort_mode'                   => 'alnumdash',    //get
             'initial'                     => 'alpha',        //get
             'filterGroup'                 => 'groupname',    //get
+            'newuser'                     => 'text',         //post
             'filterEmailNotConfirmed'     => 'alpha',
             'filterNeverLoggedIn'         => 'alpha',
             'filterNotValidated'          => 'alpha',
