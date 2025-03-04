@@ -15,10 +15,6 @@ require_once('tiki-setup.php');
 $access->check_feature('feature_calendar');
 $access->check_permission('tiki_p_view_events');
 
-// Initialization
-TikiInit::appendIncludePath("lib/ical/");
-include_once('lib/ical/iCal.php');
-
 // list calendars //
 $calendarlib = TikiLib::lib('calendar');
 
@@ -139,7 +135,7 @@ if (((is_array($calendarIds) && (count($calendarIds) > 0)) or isset($_REQUEST["c
         fclose($fh);
         echo trim($csv);
     } else {
-        // create ical
+        // create ical with sabre/dav
 
         $userlb = TikiLib::get('Users');
 
@@ -218,8 +214,6 @@ if (((is_array($calendarIds) && (count($calendarIds) > 0)) or isset($_REQUEST["c
     die;
 }
 
-
-$smarty->assign('iCal', $iCal);
 
 // Display the template
 $smarty->display("tiki.tpl");
