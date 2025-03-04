@@ -8,7 +8,7 @@ use Tiki\Package\VendorHelper;
 
 const AUDIO_ACCEPTED_FORMATS = ['mp3', 'ogg', 'wav', 'aac', 'flac', 'opus'];
 const VIDEO_ACCEPTED_FORMATS = ['mp4', 'ogv', 'webm', '3gp', '3g2', 'mov', 'avi', 'mpg', 'mpeg', 'wmv'];
-const DOCUMENT_ACCEPTED_FORMATS = ['pdf', 'odt', 'ods', 'odp', 'txt'];
+const DOCUMENT_ACCEPTED_FORMATS = ['pdf', 'txt'];
 $ALL_ACCEPTED_FORMATS = array_merge(AUDIO_ACCEPTED_FORMATS, VIDEO_ACCEPTED_FORMATS, DOCUMENT_ACCEPTED_FORMATS);
 define('ALL_ACCEPTED_FORMATS', $ALL_ACCEPTED_FORMATS);
 
@@ -117,13 +117,13 @@ function wikiplugin_mediaplayer($data, $params)
         // Ideally, URL parsing should be handled by the routing system (route.php) instead of using a regex in a plugin.
         // However, since the necessary abstractions are not currently available, this regex is applied here as a temporary solution.
 
-        preg_match('/(?:dl|display|attId=|fileId=)(\d+)(?:$|&|\?)/', $params['src'], $matches);
-
+        preg_match('/(?:dl|display|attId=|fileId=)(\d+)(?:$|&|\?|#)/', $params['src'], $matches);
+        $file = '';
         if (! empty($matches[1])) { // fileId 0 is also invalid
             $fileId = $matches[1];
             $filegallib = TikiLib::lib('filegal');
             global $base_url;
-            $sourceLink = TikiLib::lib('access')->absoluteUrl($params['src']);
+            $sourceLink = $access->absoluteUrl($params['src']);
 
             // Internal link.
             if (strrpos($sourceLink, $base_url) !== false) {
@@ -131,10 +131,22 @@ function wikiplugin_mediaplayer($data, $params)
                 if (! empty($file['filetype']) && $file['fileId'] == $fileId) {
                     $extension = pathinfo($file['filename'], PATHINFO_EXTENSION);
                     $params['type'] = $file['filetype'];
+                    $sourceLink = smarty_modifier_sefurl($fileId, 'display');
+                    $fileUrl = $access->absoluteUrl($sourceLink);
+                    $params['src'] = $fileUrl;
+                } else {
+                    Feedback::error(tr("PluginMediaPlayer: File %0 not found.", $params['src']));
+                    return '';
                 }
             } else {
                 // External link.
                 $headers = get_headers($sourceLink, 1);
+
+                // Check if the file exists on the remote server.
+                if ($headers === false || ! isset($headers['Content-Disposition'])) {
+                    Feedback::error(tr("PluginMediaPlayer: File %0 not found on the remote server.", $params['src']));
+                    return '';
+                }
                 if (isset($headers['Content-Disposition'])) {
                     $disposition = $headers['Content-Disposition'];
                     if (preg_match('/filename="(.+)"/', $disposition, $matches)) {
@@ -180,7 +192,7 @@ function wikiplugin_mediaplayer($data, $params)
 
     //checking if pdf generation request
     if (in_array($params['type'], ['pdf']) && isset($_GET['display']) && strstr($_GET['display'], 'pdf') != '') {
-        return "<pdfpage>.<pdfinclude src='" . TikiLib::lib('access')->absoluteUrl($params['src']) . "' /></pdfpage>";
+        return "<pdfpage>.<pdfinclude src='" . $access->absoluteUrl($params['src']) . "' /></pdfpage>";
     }
     $defaults_html5 = [
         'width' => '',
@@ -199,7 +211,7 @@ function wikiplugin_mediaplayer($data, $params)
         if ($prefs['fgal_pdfjs_feature'] === 'y') {
             $smarty = TikiLib::lib('smarty');
 
-            $url = TikiLib::lib('access')->absoluteUrl($params['src']);
+            $url = $access->absoluteUrl($params['src']);
             $smarty->assign('url', $url);
             $smarty->assign('mediaplayerId', $iMEDIAPLAYER);
             $oldPdfJsFile = VendorHelper::getAvailableVendorPath('pdfjs', '/npm-asset/pdfjs-dist/build/pdf.js');
@@ -267,7 +279,7 @@ function wikiplugin_mediaplayer($data, $params)
                 $sourceLink = smarty_modifier_sefurl($fileId, 'display');
             } else {
                 global $base_url;
-                $sourceLink = TikiLib::lib('access')->absoluteUrl($params['src']);
+                $sourceLink = $access->absoluteUrl($params['src']);
 
                 // Not an internal link, lets set a security token.
                 if (strrpos($sourceLink, $base_url) === false) {
@@ -280,27 +292,34 @@ function wikiplugin_mediaplayer($data, $params)
 
             if (! empty($sourceLink)) {
                 $htmlViewFile = VendorHelper::getAvailableVendorPath('pdfjsviewer', '/npm-asset/pdfjs-dist-viewer-min/build/minified/web/viewer.html') . '?file=';
-                $sourceLink = $htmlViewFile . urlencode(TikiLib::lib('access')->absoluteUrl($sourceLink));
+                $sourceLink = $htmlViewFile . urlencode($access->absoluteUrl($sourceLink));
             }
 
             if (strtolower($params['type']) === 'txt') {
-                $sourceLink = smarty_modifier_sefurl($fileId, 'display');
+                if (! empty($fileId)) {
+                    $sourceLink = smarty_modifier_sefurl($fileId, 'display');
 
-                $filegallib = TikiLib::lib('filegal');
-                $file = $filegallib->get_file_info($fileId);
+                    $filegallib = TikiLib::lib('filegal');
+                    $file = $filegallib->get_file_info($fileId);
 
-                if (empty($file)) {
-                    return "<p>" . tr("Error: No file found.") . "</p>";
+                    $filename = $file['filename'];
+                    $filetype = $file['filetype'];
+
+                    if ($filetype != 'text/plain' || (strtolower(substr($filename, -4)) != '.txt')) {
+                        Feedback::error(tr("PluginMediaPlayer: The file is not a text file."));
+                        return;
+                    }
+
+                    $fileUrl = $access->absoluteUrl($sourceLink);
+                } else {
+                    $fileUrl = $access->absoluteUrl($params['src']);
                 }
 
-                $filename = $file['filename'];
-                $filetype = $file['filetype'];
-
-                if ($filetype != 'text/plain' || (strtolower(substr($filename, -4)) != '.txt')) {
-                    return "<p>" . tr("Error: The file is not a text file.") . "</p>";
+                if (! file_get_contents($fileUrl)) {
+                    Feedback::error(tr("PluginMediaPlayer: Unable to open the file %0. It may not exist or is inaccessible.", $fileUrl));
+                    return;
                 }
 
-                $fileUrl = TikiLib::lib('access')->absoluteUrl($sourceLink);
                 $text = file_get_contents($fileUrl);
                 $text = html_entity_decode($text);
 
