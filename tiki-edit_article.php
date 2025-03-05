@@ -29,7 +29,6 @@ $inputConfiguration = [
             'expireDate'                  => 'string',        //get
             'title'                       => 'string',        //get
             'authorName'                  => 'string',        //post
-            'topicId'                     => 'int',           //post
             'useImage'                    => 'bool',          //post
             'isfloat'                     => 'bool',          //post
             'image_data'                  => 'digits',        //post

@@ -50,7 +50,6 @@ $inputConfiguration = [
             'attach_comment'   => 'word',          //get
             'attach_version'   => 'int',           //get
             'attach_longdesc'  => 'word',          //get
-            'attId'            => 'int',           //get
             'status'           => 'word',          //get
             'conflictoverride' => 'bool',          //get
         ]
