@@ -4425,7 +4425,12 @@ class TikiLib extends TikiDb_Bridge
 
         $definition = $prefslib->getPreference($name);
 
-        if ($definition && ! $definition['available']) {
+        $forced_by_config = false;
+        if ($definition && isset($definition['notes']) && in_array('Configuration forced by host.', $definition['notes'])) {
+            $forced_by_config = true;
+        }
+
+        if ($definition && ! $definition['available'] && ! $forced_by_config) {
             return false;
         }
 
@@ -4449,7 +4454,11 @@ class TikiLib extends TikiDb_Bridge
         $cachelib = TikiLib::lib('cache');
         $cachelib->invalidate('global_preferences');
 
-        return true;
+        return [
+            'success' => true,
+            'forced_by_config' => $forced_by_config,
+            'config_value' => $definition['value'] ?? null,
+        ];
     }
 
     /**
