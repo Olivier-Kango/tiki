@@ -92,16 +92,20 @@ class CalendarLib extends TikiLib
             }
             $res2 = $this->query("select `optionName`,`value` from `tiki_calendar_options` where `calendarId`=?", [(int)$k]);
             while ($r2 = $res2->fetchRow()) {
-                if ($r2['optionName'] == 'eventstatus' && isset($r2['value'])) {
+                if ($r2['optionName'] == 'eventstatus') {
                     $eventstatus = json_decode($r2['value']);
                     $r[$r2['optionName']] = $eventstatus;
                     //add translation tag to statuses for display
-                    $r["eventstatusoutput"] = array_map(
-                        function ($status) {
-                            return tra($status);
-                        },
-                        $eventstatus
-                    );
+                    if (is_array($eventstatus)) {
+                        $r["eventstatusoutput"] = array_map(
+                            function ($status) {
+                                return tra($status);
+                            },
+                            $eventstatus
+                        );
+                    } else {
+                        $r["eventstatusoutput"] = [];
+                    }
                 } else {
                     $r[$r2['optionName']] = $r2['value'];
                 }
