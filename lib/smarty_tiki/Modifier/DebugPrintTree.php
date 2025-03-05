@@ -29,6 +29,6 @@ class DebugPrintTree
     protected function replaceCallback($matches)
     {
         $id = uniqid();
-        return "$matches[1]<a href=\"javascript:$('#$id').toggle();\">$matches[2]</a><div id='$id' style=\"display: none;\">";
+        return "$matches[1]<a href=\"#\" onclick=\"$('#$id').toggle(); return false;\">$matches[2]</a><div id='$id' style=\"display: none;\">";
     }
 }
