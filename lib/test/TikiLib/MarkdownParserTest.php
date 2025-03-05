@@ -217,8 +217,7 @@ Duplicated footnote reference[^second].
 </blockquote>
 </blockquote>
 <ul>
-<li>Create a list by starting a line with <code>+</code>, <code>-</code>, or <code>*</code>
-</li>
+<li>Create a list by starting a line with <code>+</code>, <code>-</code>, or <code>*</code></li>
 <li>Sub-lists are made by indenting 2 spaces:
 <ul>
 <li>Marker character change forces new list start:
@@ -241,8 +240,7 @@ Duplicated footnote reference[^second].
 <li>Consectetur adipiscing elit</li>
 <li>Integer molestie lorem at massa</li>
 <li>You can use sequential numbers...</li>
-<li>...or keep all the numbers as <code>1.</code>
-</li>
+<li>...or keep all the numbers as <code>1.</code></li>
 </ol>
 <p>Start numbering with offset:</p>
 <ol start="57">

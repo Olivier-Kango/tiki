@@ -116,17 +116,6 @@
     }
 
     .mailbox_list_title { display: inline-block; }
-    .msg_controls { position: absolute; top: 25px; left: 50px; }
-    .msg_controls .dropdown.on_mobile { display: none; }
-    .msg_controls .core_msg_control,
-    .msg_controls .btn {
-        padding: 1px 3px;
-        border-radius: 5px;
-        font-weight: bold;
-        color: var(--bs-body-color);
-    }
-    .msg_controls > .core_msg_control { display: none; }
-    .msg_controls .dropdown.on_mobile { display: block; }
     .move_to_location 
 
     .msg_text_inner {
@@ -205,7 +194,7 @@
     }
 
     .select2-container { min-width: 150px; margin-bottom: 0; }
-    .combined_sort, .combined_sort + el-select { display: inline-block; margin-left: 10px; width: 150px; }
+    .message_list .combined_sort, .message_list .combined_sort + el-select { display: inline-block; margin-left: 10px; width: 150px; }
 
     .folders li, .inner_list li {
         word-break: break-all;
@@ -233,13 +222,14 @@
             width: 150px;
         }
     }
-    .compose_form .form-floating:last-of-type {
+    .form-floating:has(el-select) {
         display: flex;
         flex-direction: column-reverse;
     }
     .form-floating el-select + label {
         transform: unset !important;
         position: relative !important;
+        padding: 0 !important;
     }
 }
 
@@ -291,9 +281,6 @@
 
         .content_title {
             background-color: $body-bg !important;
-            .list_controls {
-                width: 100%;
-            }
         }
 
         .list_controls i.bi-filter-circle {
@@ -307,8 +294,10 @@
         .imap_sort, .imap_sort + el-select, .imap_filter + el-select {
             width: 120px;
         }
+        .imap_filter + el-select {
+            display: none;
+        }
 
-        .message_list .content_title > div:first-child { display: flex; flex-direction: row; }
         .mailbox_list_title { order: 2 }
         .msg_headers th { width: 20%; }
 
@@ -397,7 +386,7 @@
         .msg_controls { position: relative; left: 0 !important; height: auto; padding-top: 0; }
         .select2-container { min-width: 100px; }
         #list_controls_menu { background-color: var(--bs-body-bg); }
-        #list_controls_menu.show { flex-direction: row; justify-content: center; align-items: center; }
+        #list_controls_menu.show { justify-content: center; align-items: center; margin-top: 1rem; }
         .msg_text table { word-break: normal; }
 
         // groupmail
