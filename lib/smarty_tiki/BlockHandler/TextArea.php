@@ -83,7 +83,7 @@ class TextArea extends Base
             } else {
                 $params['syntax'] = 'tiki';
             }// to pick the editor
-            if (isset($syntaxPluginResult['editor'])) {
+            if (isset($syntaxPluginResult['editor']) && empty($content) && empty($params['_wysiwyg'])) {
                 $params['_wysiwyg'] = $syntaxPluginResult['editor'] === 'wysiwyg' ? 'y' : 'n';
             }
         }
