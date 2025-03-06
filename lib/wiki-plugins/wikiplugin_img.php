@@ -1178,10 +1178,11 @@ function wikiplugin_img($data, $params)
         $smarty->assign('header_featured_images', $header_featured_images);
     }
 
+    $printing = preg_match("/tiki-print.php/", $_SERVER['REQUEST_URI']);
     $lozardImg = false;
     if (
         $prefs['allowImageLazyLoad'] === 'y' &&
-        empty(preg_match("/tiki-print.php/", $_SERVER['REQUEST_URI'])) &&
+        ! $printing &&
         (empty($params['lazyLoad']) || $params['lazyLoad'] !== 'n')
     ) {
         $lozadJsPath = VendorHelper::getAvailableVendorPath('lozad', 'npm-asset/lozad/dist/lozad.js');
@@ -1433,7 +1434,7 @@ function wikiplugin_img($data, $params)
     }
     // Set link to user setting or to image itself if thumb is set
     $imgtarget = "";
-    if (! empty($imgdata['link']) || (! empty($imgdata['thumb']) && ! (isset($params['link']) && empty($params['link'])))) {
+    if (! $printing && (! empty($imgdata['link']) || (! empty($imgdata['thumb']) && ! (isset($params['link']) && empty($params['link']))))) {
         $mouseover = '';
         if (! empty($imgdata['link'])) {
             $link = $imgdata['link'];

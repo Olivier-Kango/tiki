@@ -311,6 +311,13 @@ function prefs_print_list()
             'tags' => ['advanced'],
             'default' => '',
         ],
+        'print_pdf_mpdf_allow_unsafe_ssl_requests' => [
+            'name' => tra('Allow Unsafe SSL Requests'),
+            'description' => tra('Allow curl unsafe ssl request'),
+            'type' => 'flag',
+            'tags' => ['advanced'],
+            'default' => 'y',
+        ],
         'print_wiki_authors' => [
             'name' => tra('Print wiki authors'),
             'description' => tra('Include wiki page authors and date in print versions of wiki pages.'),
