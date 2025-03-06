@@ -815,7 +815,7 @@ class PdfGenerator
 
     public function file_get_contents_by_fget($url)
     {
-        global $base_url;
+        global $base_url, $prefs;
         //check if image is internal with full path
         $internalImg = 0;
         if (substr($url, 0, strlen($base_url)) == $base_url) {
@@ -835,6 +835,9 @@ class PdfGenerator
             chmod('temp/pdfimg', 0755);
         }
         $opts = ['http' => ['header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"]];
+        if (! empty($prefs['print_pdf_mpdf_allow_unsafe_ssl_requests']) && $prefs['print_pdf_mpdf_allow_unsafe_ssl_requests'] === 'y') {
+            $opts['ssl'] = ['verify_peer' => false, 'verify_peer_name' => false];
+        }
         $context = stream_context_create($opts);
         session_write_close();
         $data = file_get_contents($url, false, $context);
