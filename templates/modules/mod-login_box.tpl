@@ -240,6 +240,15 @@ $('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', fu
                             {if $prefs.feature_help eq 'y'}
                                 {help url="Switch+User" desc="{tr}Help{/tr}" desc="{tr}Switch User:{/tr}{tr}Select a username and click 'Switch'.<br>Useful for testing permissions.{/tr}"}
                             {/if}
+                            {if empty($login_module.can_revert)}
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="checkbox">
+                                        <label class="col-form-label">
+                                            <input class="form-check-input" type="checkbox" name="keep_login_box_visible"> {tr}Keep login box visible{/tr}
+                                        </label>
+                                    </div>
+                                </div>
+                            {/if}
                             {user_selector groupIds=$module_params.groups id="login-switchuser_"|cat:$module_logo_instance name='username' user='' editable=$login_module.can_switch_user class='form-control' allowNone=$module_params.allowNone}
                         </div>
                         <div class="text-center">

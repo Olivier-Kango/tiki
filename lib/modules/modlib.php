@@ -521,6 +521,11 @@ class ModLib extends TikiLib
         global $section, $page, $prefs, $user;
         $tikilib = TikiLib::lib('tiki');
 
+        if (TikiLib::lib('login')->isSwitched() && isset($_SESSION["keep_login_box_visible"]) && $_SESSION["keep_login_box_visible"] == 'y') {
+            if ($module["name"] === "login_box" && (! isset($module["mode"]) || isset($module["mode"]) === "module")) {
+                return true;
+            }
+        }
         // TODO: Check this if it behaves well on other "Admin" pages when UAB is enabled
         $topLogin = $module['name'] === 'login_box' && $module['position'] === 'top';
         $topQA = $module['name'] === 'quickadmin' && $module['position'] === 'top';
