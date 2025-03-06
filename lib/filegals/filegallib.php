@@ -2923,6 +2923,29 @@ class FileGalLib extends TikiLib
     }
 
     /**
+     * Convert a file size from bytes to a human-readable format.
+     *
+     * This function takes a file size in bytes and converts it to a more
+     * readable format using appropriate units (B, KB, MB, GB).
+     *
+     * @param int $size The file size in bytes.
+     * @return string The converted file size with the appropriate unit.
+     */
+    public function convertFileSize($size)
+    {
+        $size = (int) $size;
+        if ($size < 1024) {
+            return $size . ' B';
+        } elseif ($size < 1048576) {
+            return round($size / 1024, 2) . ' KB';
+        } elseif ($size < 1073741824) {
+            return round($size / 1048576, 2) . ' MB';
+        } else {
+            return round($size / 1073741824, 2) . ' GB';
+        }
+    }
+
+    /**
      * Get a file with additional data
      *
      * @param int $fileId
