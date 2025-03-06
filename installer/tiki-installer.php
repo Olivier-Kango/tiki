@@ -653,6 +653,8 @@ if ($install_step == '9') {
         initialize_prefs(true);
         TikiLib::lib('unifiedsearch')->rebuild();
         $u = 'tiki-change_password.php?user=admin&oldpass=admin&newuser=y';
+        $tikilib = TikiLib::lib('tiki');
+        $tikilib->set_preference('tiki_install_version', $TWV->version);
     } else {
         $u = '';
     }

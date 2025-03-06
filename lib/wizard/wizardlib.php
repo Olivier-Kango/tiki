@@ -197,6 +197,8 @@ class WizardLib extends TikiLib
                     // Do not show page, if it doesn't return a boolean
                     if ($show === true) {
                         $template = $pages[$stepNr]->getTemplate();
+                        $showChangesWizard = $this->showChangesWizard();
+                        $smarty->assign('showChangesWizard', $showChangesWizard);
                         $smarty->assign('wizardBody', $smarty->fetch($template));
                         $next = false;
                     }
@@ -225,5 +227,30 @@ class WizardLib extends TikiLib
     {
         $hide = $showOnLogin === 'y' ? 'n' : 'y';
         $this->set_preference('wizard_admin_hide_on_login', $hide);
+    }
+
+    /**
+     * Check if tiki get an upgrade to show changes wizard
+     * show the wizard if the branch is not stable or the version has changed
+     * @return bool
+     */
+    private function showChangesWizard()
+    {
+        $tikilib = TikiLib::lib('tiki');
+        $TWV = new TWVersion();
+
+        // We always display the changes wizard in the master branch
+        if ($TWV->branch !== 'stable') {
+            return true;
+        }
+
+        $tikiCurrentVersion = $TWV->version;
+        $tikiInstallVersion = $tikilib->get_preference('tiki_install_version');
+
+        if (! empty($tikiInstallVersion) && $tikiCurrentVersion === $tikiInstallVersion) {
+            return false;
+        }
+
+        return true;
     }
 }
