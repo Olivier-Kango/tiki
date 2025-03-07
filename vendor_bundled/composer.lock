@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfa9b5707c71febdb7fb5f8a83a29bfc",
+    "content-hash": "f60522bdb001211ee8294ba5885d3686",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2645,16 +2645,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jquery/jquery-timepicker-addon/jquery-jquery-timepicker-addon-1.6.3.zip",
                 "shasum": "9c66e144dec7cd433ee7366070bae73fd230d226"
-            },
-            "type": "library"
-        },
-        {
-            "name": "jquery/photoswipe",
-            "version": "3.0.5",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery/photoswipe/jquery-photoswipe-3.0.5.zip",
-                "shasum": "75ec4fb5a3b91ecfae40d5d5a50aeda02da9c41c"
             },
             "type": "library"
         },
