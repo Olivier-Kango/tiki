@@ -949,7 +949,7 @@ function wikiplugin_img($data, $params)
         if (! empty($dbinfo['data']) || ! empty($dbinfo['path'])) {
             if (! empty($dbinfo['data'])) {
                 $imageObjt = Image::create($dbinfo['data'], false);
-            } elseif (! empty($dbinfo['path'])) {
+            } elseif (! empty($dbinfo['path']) && isset($basepath)) {
                 $imageObjt = Image::create($basepath . $dbinfo['path'] . '.thumb', true);
             }
             $fwidtht = $imageObjt->getWidth();
