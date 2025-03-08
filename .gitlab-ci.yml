@@ -535,6 +535,17 @@ unit-tests-node:
     - npm run testci
   coverage: '/All files(?:[^|]*\|){4}\s*(\S+)/'
 
+# This test is only required because we don't have a combined node and php image currently. - benoitg - 2025-03-08
+unit-tests-icon-generator:
+  stage: unit-tests
+  needs:
+    - composer
+    - node_build
+  image:
+    name: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
+    - php console.php build:generateiconlist
+
 #
 # Package this Tiki build
 #
