@@ -166,9 +166,9 @@ function prefs_tracker_list()
         ],
         'tracker_adminonlyviewedititem_by_default' => [
             'name' => tr('All new trackers are restricted to wiki page access only by default'),
-            'description' => tr('Option "Restrict non admins to wiki page access only" is checked by default.'),
+            'description' => tr('Option "Restrict non admins to wiki page access only" is not checked by default.'),
             'type' => 'flag',
-            'default' => 'y',
+            'default' => 'n',
             'dependencies' => ['feature_trackers'],
         ],
         'tracker_report_resize_button' => [
