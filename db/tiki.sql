@@ -467,7 +467,8 @@ CREATE TABLE `tiki_calendar_items` (
   `uid` varchar(200),
   `uri` varchar(200),
   PRIMARY KEY (`calitemId`),
-  KEY `calendarId` (`calendarId`)
+  KEY `calendarId` (`calendarId`),
+  KEY `idx_lastmodif` (`lastmodif`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `tiki_calendar_locations`;
@@ -2570,7 +2571,8 @@ CREATE TABLE `tiki_tracker_items` (
   `lastModif` int(14) default NULL,
   `lastModifBy` varchar(200) default NULL,
   PRIMARY KEY (`itemId`),
-  INDEX `trackerId` (`trackerId`)
+  INDEX `trackerId` (`trackerId`),
+  INDEX `idx_lastModif` (`lastModif`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `tiki_tracker_options`;

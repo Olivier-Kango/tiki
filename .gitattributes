@@ -6704,6 +6704,7 @@ themes/base_files/scss/_tiki-maps.scss -text
 themes/base_files/scss/_tiki-media-print.scss -text
 themes/base_files/scss/_tiki-minor_features.scss -text
 themes/base_files/scss/_tiki-miscellaneous_global.scss -text
+themes/base_files/scss/_tiki-mod-since_last_visit.scss -text
 themes/base_files/scss/_tiki-modal_and_managestream.scss -text
 themes/base_files/scss/_tiki-modules.scss -text
 themes/base_files/scss/_tiki-multilike.scss -text

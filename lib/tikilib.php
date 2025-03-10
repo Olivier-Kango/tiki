@@ -1744,24 +1744,53 @@ class TikiLib extends TikiDb_Bridge
      */
     public function get_news_from_last_visit($user)
     {
-        if (! $user) {
+        if (empty($user)) {
             return false;
         }
 
         $last = $this->table('users_users')->fetchOne('lastLogin', ['login' => $user]);
-
-        $ret = [];
         if (! $last) {
             $last = time();
         }
-        $ret["lastVisit"] = $last;
-        $ret["pages"] = $this->getOne("select count(*) from `tiki_pages` where `lastModif`>?", [(int)$last]);
-        $ret["files"] = $this->getOne("select count(*) from `tiki_files` where `created`>?", [(int)$last]);
-        $ret["comments"] = $this->getOne("select count(*) from `tiki_comments` where `commentDate`>?", [(int)$last]);
-        $ret["users"] = $this->getOne("select count(*) from `users_users` where `registrationDate`>? and `provpass`=?", [(int)$last, '']);
-        $ret["trackers"] = $this->getOne("select count(*) from `tiki_tracker_items` where `lastModif`>?", [(int)$last]);
-        $ret["calendar"] = $this->getOne("select count(*) from `tiki_calendar_items` where `lastmodif`>?", [(int)$last]);
-        return $ret;
+
+        // Combined query using subqueries
+        $query = "
+            SELECT 
+                ? as lastVisit,
+                (SELECT COUNT(*) FROM `tiki_pages` WHERE `lastModif` > ?) as pages,
+                (SELECT COUNT(*) FROM `tiki_files` WHERE `created` > ?) as files,
+                (SELECT COUNT(*) FROM `tiki_comments` WHERE `commentDate` > ?) as comments,
+                (SELECT COUNT(*) FROM `users_users` WHERE `registrationDate` > ? AND `provpass` = '') as users,
+                (SELECT COUNT(*) FROM `tiki_tracker_items` WHERE `lastModif` > ?) as trackers,
+                (SELECT COUNT(*) FROM `tiki_calendar_items` WHERE `lastmodif` > ?) as calendar
+        ";
+
+        $result = $this->query($query, [
+            (int)$last,     // lastVisit
+            (int)$last,     // pages
+            (int)$last,     // files
+            (int)$last,     // comments
+            (int)$last,     // users
+            (int)$last,     // trackers
+            (int)$last      // calendar
+        ]);
+
+        if ($result) {
+            $row = $result->fetchRow();
+            if ($row) {
+                return $row;
+            }
+        }
+
+        return [
+            "lastVisit" => $last,
+            "pages" => 0,
+            "files" => 0,
+            "comments" => 0,
+            "users" => 0,
+            "trackers" => 0,
+            "calendar" => 0
+        ];
     }
 
     /**

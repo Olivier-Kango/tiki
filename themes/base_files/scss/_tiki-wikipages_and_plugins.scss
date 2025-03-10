@@ -2,6 +2,8 @@
 $imagePath: "../../../img/";
 $imagePathToIcons: "../../../img/icons/";
 
+@import "tiki-mod-since_last_visit";
+
 .trackerfilter_loader{
     display: none;
     position: fixed;
