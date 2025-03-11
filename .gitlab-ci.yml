@@ -540,7 +540,7 @@ unit-tests-icon-generator:
   stage: unit-tests
   needs:
     - composer
-    - node_build
+    - node_modules
   image:
     name: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:

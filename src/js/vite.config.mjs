@@ -273,7 +273,7 @@ export default defineConfig(({ command, mode }) => {
                             src: "node_modules/module-name/dist/*",",
                             dest: "vendor_dist/module-name/dist",
                         },
-                    But make sure to look into the dist folder, so we don't add a bunch of useless stiff, but don't miss required support files (such as language files)
+                    But make sure to look into the dist folder, so we don't add a bunch of useless stuff, but don't miss required support files (such as language files)
                     */
 
                     /* jquery_tiki */
@@ -305,11 +305,11 @@ export default defineConfig(({ command, mode }) => {
                     /* tiki_themes */
                     {
                         src: "node_modules/@fortawesome/fontawesome-free/css/all.css",
-                        dest: "vendor_dist/@fortawesome/fontawesome-free",
+                        dest: "vendor_dist/@fortawesome/fontawesome-free/css",
                     },
                     {
                         src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
-                        dest: "vendor_dist/@fortawesome/webfonts",
+                        dest: "vendor_dist/@fortawesome/fontawesome-free/webfonts",
                     },
                     {
                         src: "node_modules/@zxing/library/umd/index.min.js",

@@ -87,7 +87,7 @@ class PatchCypht
 
         // css custom pacthes, keep the bootstrap-icons path relative to lib/cypht as Tiki might be running in a subdirectory and absolute web paths don't work here
         $css = file_get_contents($cypht . 'site.css');
-        $css = str_replace('url("./fonts/bootstrap-icons', 'url("../../' . NODE_PUBLIC_DIST_PATH . '/bootstrap-icons/font/fonts/bootstrap-icons', $css);
+        $css = str_replace('url("./fonts/bootstrap-icons', 'url("../../' . BOOTSTRAP_ICONS_FONT_PATH . '/fonts/bootstrap-icons', $css);
         file_put_contents($cypht . 'site.css', $css);
 
         // js custom pacthes

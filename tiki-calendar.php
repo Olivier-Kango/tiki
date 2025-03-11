@@ -338,7 +338,7 @@ if ($prefs['feature_theme_control'] == 'y'  and isset($_REQUEST['calIds'])) {
 }
 include_once('tiki-section_options.php');
 
-    $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/bootstrap-icons/font/bootstrap-icons.css');
+    $headerlib->add_cssfile(BOOTSTRAP_ICONS_FONT_PATH . '/bootstrap-icons.css');
 // Disable fullcalendar's force events to be one-line tall
 $headerlib->add_css('.ec-event > .ec-content { white-space: normal; }');
 if ($canEditAnything) {

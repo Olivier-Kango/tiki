@@ -168,12 +168,17 @@ const GENERATED_ICONSET_PATH = 'public/generated/iconsets';
 
 
 /* BEGIN - VENDOR ASSETS SECTION */
+/** we need this to generate the icons json before js build is done */
+const BOOTSTRAP_ICONS_FONT_SRC_PATH = 'node_modules/bootstrap-icons/font';
+
 const BOOTSTRAP_ICONS_FONT_PATH = 'public/generated/js/vendor_dist/bootstrap-icons/font';
 const BOOTSTRAP_TOUR_DIST_PATH = 'vendor_bundled/vendor/sorich87/bootstrap-tour/build';
 const CODEMIRROR_DIST_PATH = 'public/generated/js/vendor_dist/codemirror';
 const CONVERSEJS_DIST_PATH = 'public/generated/js/vendor_dist/converse.js/dist';
-const FONTAWESOME_CSS_PATH = 'public/generated/js/vendor_dist/@fortawesome/fontawesome-free';
-const FONTAWESOME_WEBFONTS_PATH = 'public/generated/js/vendor_dist/@fortawesome/webfonts';
+/** we need this to generate the icons json before js build is done */
+const FONTAWESOME_CSS_SRC_PATH = 'node_modules/@fortawesome/fontawesome-free/css';
+const FONTAWESOME_CSS_PATH = 'public/generated/js/vendor_dist/@fortawesome/fontawesome-free/css';
+const FONTAWESOME_WEBFONTS_PATH = 'public/generated/js/vendor_dist/@fortawesome/fontawesome-free/webfonts';
 const MERMAID_DIST_PATH = 'public/generated/js/vendor_dist/mermaid/dist';
 const MINICART_DIST_PATH = 'public/generated/js/vendor_dist/minicart/dist';
 const OL_PATH = 'public/generated/js/vendor_dist/ol'; // 'ol' was formerly called 'openlayers'
