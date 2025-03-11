@@ -78,11 +78,6 @@ class ToolbarFileGallery extends ToolbarUtilityItem
 
     public function getWysiwygToken(): string
     {
-        if (! empty($this->wysiwyg)) {
-            $exec_js = str_replace('&amp;', '&', $this->getOnClick());
-
-            $this->setupCKEditorTool($exec_js);
-        }
         return $this->wysiwyg;
     }
 }

@@ -35,7 +35,7 @@
         "lib\/smarty_tiki\/resource.tplwiki.php": {
             "class:Smarty_Resource_Tplwiki": true
         },
-        "lib\/ckeditor_tiki\/wysiwyglib.php": {
+        "lib\/wysiwyg\/wysiwyglib.php": {
             "class:WYSIWYGLib": true
         },
         "lib\/attributes\/attributelib.php": {
@@ -8828,7 +8828,7 @@
             "ParserLib::approve_all_pending_plugins": true,
             "ParserLib::approve_selected_pending_plugings": true,
             "ParserLib::plugin_fingerprint": true,
-            "ParserLib::convert_plugin_for_ckeditor": true,
+            "ParserLib::convert_plugin_for_html_editor": true,
             "ParserLib::find_plugins": true,
             "ParserLib::process_save_plugins": true,
             "ParserLib::plugin_apply_filters": true,

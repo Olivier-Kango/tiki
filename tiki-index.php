@@ -217,13 +217,15 @@ if ($prefs['tracker_wikirelation_redirectpage'] == 'y' && ! isset($_REQUEST['adm
     }
 }
 
-// Inline Ckeditor editor
+// Inline wysiwyg editor
 if (
     $prefs['wysiwyg_inline_editing'] == 'y' && $page &&
         (   ($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit')) ||
             ($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit_inline')) )
 ) {
-    TikiLib::lib('wysiwyg')->setUpInlineEditor($page);      // init ckeditor
+    TikiLib::lib('wysiwyg')->setUpInlineEditor($page);
+    $inlineEditorContent = TikiLib::lib('edit')->parseToWysiwyg($info['data'], false, false, ['wysiwyg' => true, 'html_editor' => true]);
+    $smarty->assign('inline_editor_content', $inlineEditorContent);
 } elseif (getCookie('wysiwyg_inline_edit', 'preview')) {
     setCookieSection('wysiwyg_inline_edit', 0, 'preview');  // kill cookie if pref off or no perms
 }

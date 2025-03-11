@@ -191,13 +191,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'ckeditor/ckeditor',
-            [
-                '.npm',
-                'plugins/codesnippet/lib/highlight/README.ru.md ',
-            ]
-        );
-        self::remove(
             $vendors . 'smarty/smarty',
             [
                 'change_log.txt',

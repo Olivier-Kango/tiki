@@ -383,7 +383,7 @@
             <file>%kernel.root_dir%/lib/wizard/wizardlib.php</file>
         </service>
         <service id="tiki.lib.wysiwyg" class="WYSIWYGLib">
-            <file>%kernel.root_dir%/lib/ckeditor_tiki/wysiwyglib.php</file>
+            <file>%kernel.root_dir%/lib/wysiwyg/wysiwyglib.php</file>
         </service>
         <service id="tiki.lib.zotero" class="ZoteroLib">
             <file>%kernel.root_dir%/lib/zoterolib.php</file>

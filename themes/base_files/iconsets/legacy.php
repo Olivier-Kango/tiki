@@ -784,11 +784,9 @@ function iconset_legacy()
                 'id' => 'application_side_tree',
             ],
             'thumbs-down' => [
-                'prepend' => 'vendor_bundled/vendor/ckeditor/ckeditor/plugins/smiley/images/',
                 'id' => 'thumbs_down',
             ],
             'thumbs-up' => [
-                'prepend' => 'vendor_bundled/vendor/ckeditor/ckeditor/plugins/smiley/images/',
                 'id' => 'thumbs_up',
             ],
             'title' => [

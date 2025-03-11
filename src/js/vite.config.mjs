@@ -102,7 +102,7 @@ export default defineConfig(({ command, mode }) => {
     Object.assign(
         rollupInput,
         Object.fromEntries(
-            glob.sync("src/js/jquery-tiki/**/*.js", { ignore: ["**/node_modules/**"] }).map((file) => {
+            glob.sync("src/js/jquery-tiki/**/*.js", { ignore: ["**/node_modules/**", "**/*.test.js"] }).map((file) => {
                 //console.log(path.relative(__dirname, file));
                 return [
                     // This remove `src/js/jquery-tiki` as well as the file extension from each
@@ -177,6 +177,7 @@ export default defineConfig(({ command, mode }) => {
                     "reveal.js",
                     "sortablejs",
                     "subtotal",
+                    "summernote",
                     "vue",
                 ],
                 input: rollupInput,
@@ -581,6 +582,21 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/vue/dist/vue.esm-browser.js",
                         dest: "vendor_dist/vue/dist",
                     },
+                    {
+                        src: [
+                            "node_modules/summernote/dist/summernote-bs5.min.js",
+                            "node_modules/summernote/dist/summernote-bs5.min.css"
+                        ],
+                        dest: "vendor_dist/summernote/dist",
+                    },
+                    {
+                        src: "node_modules/summernote/dist/font/*",
+                        dest: "vendor_dist/summernote/dist/font",
+                    },
+                    {
+                        src: "node_modules/summernote/dist/lang/*.min.js",
+                        dest: "vendor_dist/summernote/dist/lang",
+                    }
                 ],
             }),
             AutoImport({
@@ -603,7 +619,7 @@ export default defineConfig(({ command, mode }) => {
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/jquery-tiki/ui-utils/handleDatePicker.js", "src/js/jquery-tiki/ui-utils/handleTransferList.js"],
+                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/jquery-tiki/wysiwyg/**/*.js", "src/js/jquery-tiki/ui-utils/handleDatePicker.js", "src/js/jquery-tiki/ui-utils/handleTransferList.js"],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
                 provider: 'istanbul'
             },

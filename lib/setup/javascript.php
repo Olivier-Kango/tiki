@@ -314,7 +314,12 @@ $(document).on("tiki.modal.redraw", function(event) {
     if (!$modalContent.is(".modal-content")) {
         $modalContent = $modalContent.find(".modal-content")
     }
-    $modalContent.find(".modal-body").css({ "overflow": "auto" });
+
+    const modalBody = $modalContent.find(".modal-body")[0];
+
+    const initialWidth = parseFloat(getComputedStyle($modalContent[0]).width.slice(0, -2));
+    const initialHeight = parseFloat(getComputedStyle($modalContent[0]).height.slice(0, -2));
+    const initialOverflow = getComputedStyle(modalBody).overflow;
     
     const modalId = 'modal' + Math.random().toString(36).substring(7);
     $modalContent.attr("id", modalId);
@@ -330,6 +335,12 @@ $(document).on("tiki.modal.redraw", function(event) {
                 height += e.deltaRect.top + e.deltaRect.bottom;
                 target.style.width = `${width}px`;
                 target.style.height = `${height}px`;
+                
+                if (width < initialWidth || height < initialHeight) {
+                    modalBody.style.overflow = "auto";
+                } else {
+                    modalBody.style.overflow = initialOverflow;
+                }
             }
         }
     });

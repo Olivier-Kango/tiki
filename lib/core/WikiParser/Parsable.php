@@ -254,7 +254,7 @@ class WikiParser_Parsable extends ParserLib
                     }
 
                     if ($this->option['wysiwyg']) {
-                        $ret = $this->convert_plugin_for_ckeditor($plugin_name, $arguments, tra('Plugin execution pending approval'), $plugin_data, ['icon' => 'img/icons/error.png']);
+                        $ret = $this->convert_plugin_for_html_editor($plugin_name, $arguments, tra('Plugin execution pending approval'), $plugin_data, ['icon' => 'img/icons/error.png']);
                     } else {
                         $smarty->assign('plugin_name', $plugin_name);
                         $smarty->assign('plugin_index', $current_index);
@@ -555,8 +555,8 @@ if ( \$('#$id') ) {
             $killtoc = false;
 
             $plugin_result = $this->convert_plugin_output($output, $pluginFormat, $outputFormat);
-            if (($this->option['ck_editor'] ?? false)) {
-                $result = $this->convert_plugin_for_ckeditor($name, $args, $plugin_result, $data, $info);
+            if (($this->option['html_editor'] ?? false)) {
+                return $this->convert_plugin_for_html_editor($name, $args, $plugin_result, $data, $info);
             } else {
                 $result = $plugin_result;
             }

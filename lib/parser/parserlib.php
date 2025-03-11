@@ -129,7 +129,6 @@ class ParserLib extends TikiDb_Bridge
     protected function parse_htmlchar(&$data)
     {
         // cleaning some user input
-        // ckeditor parses several times and messes things up, we should only let it parse once
         if (! $this->option['wysiwyg']) {
             $data = str_replace('&', '&amp;', $data);
         }
@@ -909,9 +908,9 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
-    protected function convert_plugin_for_ckeditor($name, $args, $plugin_result, $data, $info = [])
+    protected function convert_plugin_for_html_editor($name, $args, $plugin_result, $data, $info = [])
     {
-        $ck_editor_plugin = '{' . (empty($data) ? $name : TikiLib::strtoupper($name) . '(') . ' ';
+        $html_editor_plugin = '{' . (empty($data) ? $name : TikiLib::strtoupper($name) . '(') . ' ';
         $arg_str = '';      // not using http_build_query() as it converts spaces into +
         if (! empty($args)) {
             foreach ($args as $argKey => $argValue) {
@@ -921,24 +920,24 @@ class ParserLib extends TikiDb_Bridge
                     } else {
                          $sep = ',';
                     }
-                    $ck_editor_plugin .= $argKey . '="' . implode($sep, $argValue) . '" ';  // process array
+                    $html_editor_plugin .= $argKey . '="' . implode($sep, $argValue) . '" ';  // process array
                     $arg_str .= $argKey . '=' . implode($sep, $argValue) . '&';
                 } else {
                     // even though args are now decoded we still need to escape double quotes
                     $argValue = addcslashes($argValue, '"');
 
-                    $ck_editor_plugin .= $argKey . '="' . $argValue . '" ';
+                    $html_editor_plugin .= $argKey . '="' . $argValue . '" ';
                     $arg_str .= $argKey . '=' . $argValue . '&';
                 }
             }
         }
-        if (substr($ck_editor_plugin, -1) === ' ') {
-            $ck_editor_plugin = substr($ck_editor_plugin, 0, -1);
+        if (substr($html_editor_plugin, -1) === ' ') {
+            $html_editor_plugin = substr($html_editor_plugin, 0, -1);
         }
         if (! empty($data)) {
-            $ck_editor_plugin .= ')}' . $data . '{' . TikiLib::strtoupper($name) . '}';
+            $html_editor_plugin .= ')}' . $data . '{' . TikiLib::strtoupper($name) . '}';
         } else {
-            $ck_editor_plugin .= '}';
+            $html_editor_plugin .= '}';
         }
         // work out if I'm a nested plugin and return empty if so
         $stack = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
@@ -962,13 +961,13 @@ class ParserLib extends TikiDb_Bridge
         $ignore = null;
         $enabled = $this->plugin_enabled($name, $ignore);
         if (in_array($name, $excluded) || ! $enabled) {
-            $plugin_result = '&nbsp;&nbsp;&nbsp;&nbsp;' . $ck_editor_plugin;
+            $plugin_result = '&nbsp;&nbsp;&nbsp;&nbsp;' . $html_editor_plugin;
         } else {
             if (! isset($info['format']) || $info['format'] !== 'html') {
                 $oldOptions = $this->option;
                 $plugin_result = $this->parse_data($plugin_result, ['is_html' => false, 'suppress_icons' => true, 'wysiwyg' => true, 'noparseplugins' => true]);
                 $this->setOptions($oldOptions);
-                // reset the noparseplugins option, to allow for proper display in CkEditor
+                // reset the noparseplugins option, to allow for proper display in the wysiwyg editor
                 $this->option['noparseplugins'] = false;
             } else {
                 $plugin_result = preg_replace('/~[\/]?np~/ms', '', $plugin_result); // remove no parse tags otherwise they get nested later (bad)
@@ -1003,7 +1002,7 @@ class ParserLib extends TikiDb_Bridge
         }
 
         $ret = '~np~<' . $elem . ' contenteditable="false" unselectable="on" class="tiki_plugin" data-plugin="' . $name . '" style="' . $elem_style . '"' .
-                ' data-syntax="' . htmlentities($ck_editor_plugin, ENT_QUOTES, 'UTF-8') . '"' .
+                ' data-syntax="' . htmlentities($html_editor_plugin, ENT_QUOTES, 'UTF-8') . '"' .
                 ' data-args="' . htmlentities($arg_str, ENT_QUOTES, 'UTF-8') . '"' .
                 ' data-body="' . htmlentities($data, ENT_QUOTES, 'UTF-8') . '">' . // not <!--{cke_protected}
                 '<img src="' . $icon . '" width="16" height="16" class="plugin_icon" />' .
@@ -1532,7 +1531,7 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
-    protected function parse_data_wikilinks($data, $simple_wiki, $ck_editor = false) //TODO: need a wikilink handler
+    protected function parse_data_wikilinks($data, $simple_wiki, $html_editor = false) //TODO: need a wikilink handler
     {
         global $page_regex, $prefs;
 
@@ -1570,7 +1569,7 @@ class ParserLib extends TikiDb_Bridge
                 $description = strtok('|');
             }
 
-            $replacement = $this->get_wiki_link_replacement($pages[2][$i], ['description' => $description,'reltype' => $pages[1][$i],'anchor' => $anchor], $ck_editor);
+            $replacement = $this->get_wiki_link_replacement($pages[2][$i], ['description' => $description,'reltype' => $pages[1][$i],'anchor' => $anchor], $html_editor);
 
             $data = str_replace($exactMatch, $replacement, $data);
         }
@@ -1580,7 +1579,7 @@ class ParserLib extends TikiDb_Bridge
 
         foreach ($pages[2] as $idx => $page_parse) {
             $exactMatch = $pages[0][$idx];
-            $replacement = $this->get_wiki_link_replacement($page_parse, [ 'reltype' => $pages[1][$idx] ], $ck_editor);
+            $replacement = $this->get_wiki_link_replacement($page_parse, [ 'reltype' => $pages[1][$idx] ], $html_editor);
 
             $data = str_replace($exactMatch, $replacement, $data);
         }
@@ -1601,7 +1600,7 @@ class ParserLib extends TikiDb_Bridge
                 $words = ($prefs['feature_hotwords'] == 'y') ? $this->get_hotwords() : [];
                 foreach (array_unique($pages[1]) as $page_parse) {
                     if (! array_key_exists($page_parse, $words)) { // If this is not a hotword
-                        $repl = $this->get_wiki_link_replacement($page_parse, ['plural' => $prefs['feature_wiki_plurals'] == 'y'], $ck_editor);
+                        $repl = $this->get_wiki_link_replacement($page_parse, ['plural' => $prefs['feature_wiki_plurals'] == 'y'], $html_editor);
 
                         $data = preg_replace("/(?<=[ \n\t\r\,\;]|^)$page_parse(?=$|[ \n\t\r\,\;\.])/", "$1" . $repl . "$2", $data);
                     }
@@ -1717,7 +1716,7 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
-    protected function parse_data_inline_syntax($line, $words = null, $ck_editor = false)
+    protected function parse_data_inline_syntax($line, $words = null, $html_editor = false)
     {
         global $prefs;
 
@@ -1731,7 +1730,7 @@ class ParserLib extends TikiDb_Bridge
         // Links that were ignored by convertAbsoluteLinksToRelative (autolinks will highlight)
         $line = preg_replace("/(^|\s)==(.*?)==(\s|$)/", "$1$2$3", $line);
 
-        if (! $ck_editor) {
+        if (! $html_editor) {
             if ($prefs['feature_hotwords'] == 'y') {
                 // Replace Hotwords before begin
                 $line = $this->replace_hotwords($line, $words);
@@ -1743,7 +1742,7 @@ class ParserLib extends TikiDb_Bridge
             }
         }
 
-        if (! $ck_editor) {
+        if (! $html_editor) {
             // Replace definition lists
             $line = preg_replace("/^;([^:]*):([^\/\/].*)/", "<dl><dt>$1</dt><dd>$2</dd></dl>", $line);
             $line = preg_replace("/^;(<a [^<]*<\/a>):([^\/\/].*)/", "<dl><dt>$1</dt><dd>$2</dd></dl>", $line);
@@ -2808,7 +2807,7 @@ class ParserLib extends TikiDb_Bridge
                         }
 
                         $style = $do_center ? ' style="text-align: center;"' : '';
-                        if ($prefs['wiki_heading_links'] !== 'n' && ($prefs['wiki_heading_links'] >= $hdrlevel || $prefs['wiki_heading_links'] === 'y' )) {
+                        if ($prefs['wiki_heading_links'] !== 'n' && ($prefs['wiki_heading_links'] >= $hdrlevel || $prefs['wiki_heading_links'] === 'y' ) && (! isset($this->option['html_editor']) || ! $this->option['html_editor'])) {
                             $smarty = TikiLib::lib('smarty');
                             $headingLink = '<a href="#' . $thisid . '" class="heading-link" aria-label="heading link">' . smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate()) . '</a>';
                         } else {
@@ -3155,7 +3154,7 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
-    public function get_wiki_link_replacement($pageLink, $extra = [], $ck_editor = false)
+    public function get_wiki_link_replacement($pageLink, $extra = [], $html_editor = false)
     {
         global $prefs;
         $wikilib = TikiLib::lib('wiki');
@@ -3204,7 +3203,7 @@ class ParserLib extends TikiDb_Bridge
         $link->setQualifier($reltype);
         $link->setDescription($description);
         $link->setWikiLookup([ $this, 'parser_helper_wiki_info_getter' ]);
-        if ($ck_editor) {   // prevent page slug being used in wysiwyg editor, needs the page name
+        if ($html_editor) {   // prevent page slug being used in wysiwyg editor, needs the page name
             $link->setWikiLinkBuilder(
                 function ($pageLink) {
                     return $pageLink;
@@ -3226,7 +3225,7 @@ class ParserLib extends TikiDb_Bridge
             $link->setLanguage($GLOBALS['pageLang']);
         }
 
-        return $link->getHtml($ck_editor);
+        return $link->getHtml($html_editor);
     }
 
     //*

@@ -16,7 +16,7 @@ class ToolbarPicker extends ToolbarDialog
 
         switch ($tagName) {
             case 'specialchar':
-                $wysiwyg = 'SpecialChar';
+                $wysiwyg = 'specialChar';
                 $label = tra('Special Characters');
                 $iconname = 'keyboard';
                 // Line taken from DokuWiki + some added chars for Tiki
@@ -28,7 +28,7 @@ class ToolbarPicker extends ToolbarDialog
                 break;
             case 'emoji':
                 // TODO once working this will replace feature_smileys
-                $wysiwyg = 'Emoji';
+                $wysiwyg = 'emoji';
                 $label = tra('Emojis');
                 $iconname = 'laugh-wink';
                 $rawList = [];
@@ -37,7 +37,7 @@ class ToolbarPicker extends ToolbarDialog
 
                 break;
             case 'color':
-                $wysiwyg = 'TextColor';
+                $wysiwyg = 'forecolor';
                 $label = tra('Foreground color');
                 $iconname = 'font-color';
                 $styleType = 'color';
@@ -48,7 +48,7 @@ class ToolbarPicker extends ToolbarDialog
             case 'bgcolor':
                 $label = tra('Background Color');
                 $iconname = 'background-color';
-                $wysiwyg = 'BGColor';
+                $wysiwyg = 'backcolor';
                 $styleType = 'background-color';
                 $list = [];
 
@@ -106,7 +106,7 @@ class ToolbarPicker extends ToolbarDialog
     public function getOnClick(): string
     {
         // N.B. output is enclosed in double quotes later
-        if ($this->name == 'emoji' && $this->isDialogSupported()) {
+        if ($this->name == 'emoji') {
             return 'displayEmojiPicker(\'' . str_replace('@vue-mf/', '', $this->singleSpaAppName) . '\', \'' . $this->domElementId . '\')';
         } elseif ($this->name === 'color' || $this->name === 'bgcolor') {
             return "
@@ -123,7 +123,7 @@ class ToolbarPicker extends ToolbarDialog
     {
         static $pickerAdded = false;
 
-        if ($this->name == 'emoji' && $this->isDialogSupported()) {
+        if ($this->name == 'emoji') {
             TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
 
             // TODO refactor with \Tiki\Lib\core\Toolbar\ToolbarDialog::setupJs
@@ -135,8 +135,45 @@ class ToolbarPicker extends ToolbarDialog
             unset($data['list']);
             $data['pickerId'] = str_replace('@vue-mf/', '', $this->singleSpaAppName);
 
-                        // language=JavaScript
-            TikiLib::lib('header')->add_jq_onready('
+            if (! $this->isWysiwyg) {
+                TikiLib::lib('header')->add_jq_onready('
+                window.registerApplication({
+                    name: ' . json_encode($this->singleSpaAppName) . ',
+                    app: () => importShim("@vue-mf/emoji-picker"),
+                    activeWhen: (location) => {
+                        let condition = true;
+                        return condition;
+                    },
+                    customProps: {
+                        toolbarObject: ' . json_encode($data) . ',
+                        settings: {
+                            defaultColor: "#3B71CA",
+                            title: "my title",
+                            emoji: "sunglasses"
+                        }
+                    },
+                })
+                onDOMElementRemoved(' . json_encode($this->singleSpaDomId) . ', function () {
+                    window.unregisterApplication(' . json_encode($this->singleSpaAppName) . ');
+                });');
+            }
+        } elseif (! $pickerAdded && $this->name === 'specialchar') {
+            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
+            $pickerAdded = true;
+        }
+    }
+
+    public function getWysiwygRenderCallback(): string
+    {
+        if ($this->name !== 'emoji') {
+            return '';
+        }
+
+        $data = get_object_vars($this);
+        unset($data['list']);
+        $data['pickerId'] = str_replace('@vue-mf/', '', $this->singleSpaAppName);
+
+        return '
     window.registerApplication({
         name: ' . json_encode($this->singleSpaAppName) . ',
         app: () => importShim("@vue-mf/emoji-picker"),
@@ -155,11 +192,24 @@ class ToolbarPicker extends ToolbarDialog
     })
     onDOMElementRemoved(' . json_encode($this->singleSpaDomId) . ', function () {
         window.unregisterApplication(' . json_encode($this->singleSpaAppName) . ');
-    });');
-        } elseif (! $pickerAdded && $this->name === 'specialchar') {
-            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
-            $pickerAdded = true;
+    });';
+    }
+
+    public function getWysiwygJs(): string
+    {
+        if ($this->name === 'specialchar') {
+            $this->setupPickerJS();
         }
+        return $this->getOnClick();
+    }
+
+    public function getIconHtml(): string
+    {
+        $icon = parent::getIconHtml();
+        if ($this->name === 'emoji') {
+            $icon .= $this->getEmojiPicker();
+        }
+        return $icon;
     }
 
     public function getWikiHtml(): string

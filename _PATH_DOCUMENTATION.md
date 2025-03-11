@@ -166,7 +166,6 @@ This is the documentation for subdirectories, with hyperlinks to their respectiv
     * <= lib/vue-mf/
     * <= lib/jquery_tiki/ (lib/jquery_tiki/elfinder can move to to lib/elfinder, it has php files)
     * <= lib/tiki-js.js
-    * <= lib/ckeditor_tiki
   * **lang/**
     * ^= [lang/](lang/README.md)
   * **lib/**

@@ -435,17 +435,6 @@ div.tiki_plugin {
     margin-top: -1px !important;
 }
 
-// /* CKeditor contrast */
-// body.wikitext {
-//     background: $body-bg;
-//     color: @text-color;
-// }
-
-// /* for autocomplete menus to appear infront of ckeditor 3.6 dialogs this needs to be !important sadly */
-.ui-menu {
-    z-index: 10100 !important;
-}
-
 // /* Structure selection popup on wiki pages */
 .structure_select {
     position: relative;
@@ -1168,6 +1157,25 @@ h6:hover .heading-link {
     font-size: 12pt;
     line-height: 1.5;
     padding: 40px;
+}
+
+.wp_wysiwyg-wrapper {
+    position: relative;
+
+    .edit_button {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        display: none;
+        z-index: 9;
+    }
+    .wp_wysiwyg:hover ~ .edit_button, .wp_wysiwyg ~ .edit_button:hover {
+        display: block;
+    }
+}
+
+.inline-editor + .note-editor .note-statusbar {
+    display: none;
 }
 
 @media (max-width: 768px) {

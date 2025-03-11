@@ -687,7 +687,7 @@ function prefs_feature_list($partial = false)
         // TODO: Replace feature_wysiwyg and wysiwyg_optional with a single tri-state preference (allowing either just normal editor (default), just WYSIWYG or both) to clarify and avoid misinterpretation
         'feature_wysiwyg' => [
             'name' => tra('Full WYSIWYG editor'),
-            'description' => tra('WYSIWYG is an acronym for "What You See Is What You Get". <a href="https://ckeditor.com">CKEditor</a> is used to provide a word-processor-like editing experience.'),
+            'description' => tra('WYSIWYG is an acronym for "What You See Is What You Get". <a href="https://summernote.org">Summernote</a> is used to provide a word-processor-like editing experience.'),
             'help' => 'Wysiwyg',
             'type' => 'flag',
             'default' => 'y',
@@ -697,8 +697,6 @@ function prefs_feature_list($partial = false)
                 'feature_wiki_paragraph_formatting',
                 'feature_wiki_paragraph_formatting_add_br',
             ],
-            'tags' => ['deprecated'],
-            'warning' => tra('CKEditor4 is no longer supported.'),
         ],
 
         'feature_kaltura' => [

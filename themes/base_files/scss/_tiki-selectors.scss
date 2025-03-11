@@ -631,18 +631,6 @@ ul.all_languages > li {
     border-left: 1px dotted $gray-500;
 }
 
-// /* Inline CkEditor */
-.cke_editable:hover {
-    outline: $gray-500 dotted 1px;
-}
-
-// /* Background for CKEditor */
-.tiki .cke_wysiwyg_frame,
-.tiki .cke_wysiwyg_div {
-    background: $tiki-editor-bg; // $body-bg;
-    color: $tiki-editor-text-color; // $body-color;
-}
-
 .tiki_plugin {
     background-color: transparent; // /* was #f8f8f8; */
     border: 1px solid $gray-300;
@@ -685,12 +673,6 @@ ul.all_languages > li {
     background: var(--bs-body-bg);
     color: var(--bs-body-color);
     border: solid 2px var(--bs-body-color);
-}
-
-// /* CKeditor contrast */
-body.wikitext {
-    background: var(--bs-body-bg);
-    color: var(--bs-body-color);
 }
 
 .editable-inline {

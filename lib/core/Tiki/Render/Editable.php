@@ -95,9 +95,8 @@ class Tiki_Render_Editable
                 '_wysiwyg' => $this->field['wysiwyg'] ? 'y' : 'n',
             ];
             if ($params['_wysiwyg'] === 'y') {
-                $ckoptions = TikiLib::lib('wysiwyg')->setUpEditor('y', $fieldId, $params);
+                TikiLib::lib('wysiwyg')->setUpEditor($fieldId, $params);
                 $editable = '<input type="hidden" id="allowhtml" name="allowhtml" value="1" /><textarea name="' . $fieldId . '" id="' . $fieldId . '" style="display:none" rows="' . $params['rows'] . '">' . htmlspecialchars($value) . '</textarea>';
-                TikiLib::lib('header')->add_jq_onready('CKEDITOR.replace( "' . $fieldId . '",' . $ckoptions . ');', 20);  // after dialog tools init (10)
             } elseif ($this->layout == 'block') {
                 $editable = $this->wrapNp('<textarea class="form-control" name="' . $fieldId . '" id="' . $fieldId . '" rows="' . $params['rows'] . '">' . htmlspecialchars($value) . '</textarea>');
             } else {

@@ -1038,5 +1038,9 @@ if ($prefs['feature_elementplus'] == 'y') {
         $headerlib->add_js_module("import { autocomplete } from '@jquery-tiki/ui-utils'; window.autocomplete = autocomplete;");
     }
 }
+
+$headerlib->add_js_module('import "@jquery-tiki/constants";');
+
+$headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/summernote/dist/summernote-bs5.min.css');
 // use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not
 define('TIKI_SETUP_FINISHED', true);
