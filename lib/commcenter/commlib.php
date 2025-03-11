@@ -184,7 +184,7 @@ class CommLib extends TikiLib
         $result = $this->query($query, [(int)$receivedPageId]);
 
         if (! $result->numRows()) {
-            return false;
+            throw new Exception(tr('No received page found for the given ID: %0', $receivedPageId));
         }
 
         $res = $result->fetchRow();
@@ -198,7 +198,7 @@ class CommLib extends TikiLib
         $result = $this->query($query, [(int)$receivedArticleId]);
 
         if (! $result->numRows()) {
-            return false;
+            throw new Exception(tr('No received article found for the given ID: %0', $receivedArticleId));
         }
 
         $res = $result->fetchRow();
