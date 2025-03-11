@@ -407,7 +407,7 @@ class Services_Tracker_TabularController
         header('Content-Disposition: attachment;filename=' . $name);
 
         $output = fopen('php://output', 'w');
-        fputcsv($output, $headers);
+        fputcsv($output, $headers, escape: TikiLib::TIKI_GLOBAL_CSV_ESCAPE_CHAR);
         fclose($output);
         exit;
     }
