@@ -286,9 +286,20 @@ if (empty($info)) {
     // will result in a existing page. This will also help search engines to update the right location of a page.
     $slugManager = TikiLib::lib('slugmanager');
     foreach ($slugManager->getOptions() as $slugger => $desc) {
-        $infoForSlug = $tikilib->get_page_info($slugManager->degenerate($slugger, $originalPageRequested));
-        if ($infoForSlug) {
-            $access->redirect($infoForSlug['pageSlug'], '', 301);
+        $degeneratedSlug = $slugManager->degenerate($slugger, $originalPageRequested);
+        // Prevent redirection to the same page
+        if ($degeneratedSlug === $originalPageRequested) {
+            continue;
+        }
+        $infoForSlug = $tikilib->get_page_info($degeneratedSlug);
+        if (! empty($infoForSlug) && isset($infoForSlug['pageSlug'])) {
+            // Prevent redirection loop by ensuring the new slug is different
+            if ($infoForSlug['pageSlug'] !== $originalPageRequested) {
+                $access->redirect($infoForSlug['pageSlug'], '', 301);
+                exit;
+            } else {
+                error_log("Avoiding redirect loop: " . $infoForSlug['pageSlug']);
+            }
         }
     }
 }
