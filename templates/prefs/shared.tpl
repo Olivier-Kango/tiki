@@ -55,7 +55,12 @@
                 <div class="alert alert-warning pref_dependency d-inline-block"{if not $p.modified} style="display:none;"{/if}>{tr}You need to set{/tr} <a href="{$dep.link|escape}" class="alert-link">{$dep.label|escape}</a></div>
             {/if}
         {/foreach}
-{/if}
+    {/if}
+    {if !empty($p.notices)}
+        {foreach from=$p.notices key=value item=notice}
+            <div class="alert alert-warning pref_notice d-none" data-value="{$value}" data-pref-name="{$p.preference}">{$notice|escape}</div>
+        {/foreach}
+    {/if}
 </div>
 
 {* Contents moved to shared-form-text.tpl, to display under input. *}

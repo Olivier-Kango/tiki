@@ -119,6 +119,7 @@ class PreferencesLib
             'adminurl' => 'tiki-admin.php?lm_criteria=' . urlencode($name) . '&amp;exact',
             'dependencies' => [],
             'conflicts' => [],
+            'notices' => [],
             'packages_required' => [],
             'extensions' => [],
             'dbfeatures' => [],
@@ -165,6 +166,14 @@ class PreferencesLib
             $info['value'] = $fnc($value);
         } else {
             $info['value'] = $value;
+        }
+
+        $value = (string) $info['value'];
+        if ($info['notices'][$value]) {
+            Feedback::warning([
+                'title' => "The preference '{$name}' is set to '{$info['value']}'",
+                'mes' => $info['notices'][$value]
+            ]);
         }
 
         if (! isset($info['tags'])) {
