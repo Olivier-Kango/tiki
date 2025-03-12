@@ -297,9 +297,9 @@ function checkServerRequirements($phpVersion, $dbEngine, $dbVersion)
                 continue;
             }
             if (
-                isset($requirement[$dbEngine]['max'])
-                && $requirement[$dbEngine]['max'] !== $requirement[$dbEngine]['min']
-                && version_compare($dbVersion, $requirement[$dbEngine]['max'], '>')
+                isset($tikiVersion[$dbEngine]['max'])
+                && $tikiVersion[$dbEngine]['max'] !== $tikiVersion[$dbEngine]['min']
+                && version_compare($dbVersion, $tikiVersion[$dbEngine]['max'], '>')
             ) {
                 continue;
             }
@@ -387,16 +387,6 @@ function getCompatibleVersions($dbEngine = '', $dbVersion = '')
         $compatibleVersions[] = $requirement;
     }
     return $compatibleVersions;
-}
-
-function checkTikiVersionCompatible($compatibleVersions, $majorVersion)
-{
-    foreach ($compatibleVersions as $tiki) {
-        if ($tiki['version'] == $majorVersion) {
-            return true;
-        }
-    }
-    return false;
 }
 
 if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) {
@@ -4027,11 +4017,19 @@ if ($standalone && ! $nagios) {
         $result = $tikilib->query($query, $bindvars);
     }
 
+    $is_compatible = true;
+    if ($serverRequirements) {
+        foreach ($serverRequirements as $key => $value) {
+            if ($value['fitness_status'] == FITNESS_STATUS_BAD) {
+                $is_compatible = false;
+                break;
+            }
+        }
+    }
+
     $smarty->assign_by_ref('current_tiki_version', $tikiBaseVersion);
-    $is_compatible = checkTikiVersionCompatible($available_tiki_properties, $tikiBaseVersion);
     $smarty->assign_by_ref('is_compatible', $is_compatible);
     $smarty->assign_by_ref('server_req', $serverRequirements);
-    $smarty->assign_by_ref('is_compatible', $is_compatible);
     $smarty->assign_by_ref('available_tiki_properties', $available_tiki_properties);
     $smarty->assign_by_ref('server_information', $server_information);
     $smarty->assign_by_ref('server_properties', $server_properties);

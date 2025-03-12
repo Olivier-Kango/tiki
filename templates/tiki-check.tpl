@@ -2,6 +2,21 @@
 
 <h2  class="showhide_heading" id="Server_Compatibility">{tr}Server compatibility{/tr} <a href="#Server_compatibility" class="heading-link" aria-label="{tr}Server compatibility{/tr}><span class="icon icon-link fas fa-link "></span></a></h2>
 
+{if ! $is_compatible}
+    {remarksbox type='error' title="{tr}Server Compatibility Issue{/tr}" close='n'}
+        <p>{tr}The server does not meet the minimum requirements for this Tiki version due to the following issues:{/tr}</p>
+        <ul>
+            {foreach from=$server_req key=key item=item}
+                {if $item.fitness_status === FITNESS_STATUS_BAD}
+                    <li>{$key}: {$item.message}</li>
+                {/if}
+            {/foreach}
+        </ul>
+        <p>{tr}Please upgrade your server configuration to meet the Tiki requirements.{/tr}</p>
+        <p><a href="https://doc.tiki.org/Requirements" target="_blank">{tr}View the Tiki Requirements documentation{/tr}</a></p>
+    {/remarksbox}
+{/if}
+
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -26,6 +41,45 @@
             </tr>
             {foreachelse}
             {norecords _colspan=2}
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<h3>{tr}Supported Tiki versions{/tr}</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>{tr}Tiki Version{/tr}</th>
+            <th>{tr}PHP{/tr}</th>
+            <th>{tr}MySQL{/tr}</th>
+            <th>{tr}MariaDB{/tr}</th>
+            <th>{tr}Fitness{/tr}</th>
+            <th>{tr}Explanation{/tr}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach from=$available_tiki_properties key=key item=item}
+            <tr>
+                <th class="text">{$item.name}</th>
+                <td class="text">
+                    {$item.php.min}{if $item.php.max && $item.php.max != $item.php.min} - {$item.php.max}{elseif !$item.php.max}+{/if}
+                </td>
+                <td class="text">
+                    {$item.mysql.min}{if $item.mysql.max && $item.mysql.max != $item.mysql.min} - {$item.mysql.max}{elseif !$item.mysql.max}+{/if}
+                </td>
+                <td class="text">
+                    {$item.mariadb.min}{if $item.mariadb.max && $item.mariadb.max != $item.mariadb.min} - {$item.mariadb.max}{elseif !$item.mariadb.max}+{/if}
+                </td>
+                <td class="text">
+                    <span class="text-{$fmap[$item.fitness_status]['class']}">
+                        {icon name="{$fmap[$item.fitness_status]['icon']}"}&nbsp;{$item.fitness}
+                    </span>
+                </td>
+                <td class="text">{$item.message}</td>
+            </tr>
+        {foreachelse}
+            {norecords _colspan=4}
         {/foreach}
         </tbody>
     </table>
