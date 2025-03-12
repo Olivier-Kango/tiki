@@ -83,10 +83,23 @@ class PdfGenerator
     }
 
     /**
-     * @param $file
-     * @param array $params
-     * @return mixed
+     * Generates a PDF from the specified file and parameters.
+     *
+     * @param $file *The template file to be rendered into PDF.
+     * @param array $params *The parameters to be passed to the template.
+     * @param  $pdata *The pre-rendered content to be converted to PDF.
+     *                      The original implementation requires rendering a
+     *                      template, retrieving its contents, and passing it to
+     *                      this method as `$pdata`—the only way to do so at the
+     *                      moment. The `getPdf` method works fine for wiki pages,
+     *                      but for other content types, you must pass the rendered
+     *                      content as `$pdata`.
+     *                      A refactor could allow the underlying rendering method
+     *                      to choose how to render the content, but that's a larger
+     *                      project.
+     * @return mixed *The generated PDF content.
      */
+
     public function getPdf($file, array $params, $pdata = '')
     {
         return TikiLib::lib('tiki')->allocate_extra(
@@ -237,12 +250,15 @@ class PdfGenerator
 
     /**
      * @param $url string - address of the item to print as PDF
+     * @param $parsedData string - page contents to print as PDF
+     * @param $params array - parameters to pass to the PDF
+     *
      * @return string     - contents of the PDF
      */
-    private function mpdf($url, $parsedData = '', $params = [])
+    private function mpdf(string $url, string $parsedData = '', array $params = []): string
     {
         global $prefs;
-
+        $page = '';
         if ($parsedData != '') {
             $html = $parsedData;
         } else {
@@ -327,7 +343,7 @@ class PdfGenerator
         $mpdf->SetTitle($params['page'] ?? '');
 
         //toc levels
-        $mpdf->h2toc = isset($pdfSettings['toclevels']) ? $pdfSettings['toclevels'] : [];
+        $mpdf->h2toc = $pdfSettings['toclevels'] ?? [];
         //password protection
         if ($pdfSettings['print_pdf_mpdf_password']) {
             $mpdf->SetProtection([], 'UserPassword', $pdfSettings['print_pdf_mpdf_password']);
@@ -422,29 +438,40 @@ class PdfGenerator
             $cssStyles = str_replace(["background-color: #fff;","background:#fff;"], "background:none", $cssStyles);
         }
         //cover page checking
-        if ($pdfSettings['coverpage_text_settings'] != '' || ($pdfSettings['coverpage_image_settings'] != '' && $pdfSettings['coverpage_image_settings'] != 'off')) {
+        if ($pdfSettings['coverpage_text_settings'] != '' || ! empty($pdfSettings['coverpage_settings']) || ($pdfSettings['coverpage_image_settings'] != '' && $pdfSettings['coverpage_image_settings'] != 'off')) {
             $coverPage = explode("|", $pdfSettings['coverpage_text_settings']);
             $coverImage = $pdfSettings['coverpage_image_settings'] != 'off' ? $pdfSettings['coverpage_image_settings'] : '';
             $mpdf->SetHTMLHeader();     //resetting header footer for cover page
             $mpdf->SetHTMLFooter();
             $mpdf->AddPage($pdfSettings['orientation'], '', '', '', '', 0, 0, 0, 0, 0, 0); //adding new page with 0 margins
-            $coverPage[2] = $coverPage[2] == '' ? 'center' : $coverPage[2];
-            //getting border settings
-            if (count($coverPage) > 5) {
-                $borderWidth = $coverPage[5] == '' ? 1 : $coverPage[5];
-                $coverPageTextStyles = 'border:' . $borderWidth . ' solid ' . $coverPage[6] . ';';
+            $textColor = '';
+            $textAlign = 'center';
+            $textBgColor = '';
+            $coverPageTextBorder = '';
+            $coverPageBgColor = '';
+            $coverPageBorder = '';
+            if (count($coverPage) === 1 && ! empty($pdfSettings['coverpage_settings'])) {
+                list($bgColorValue, $borderWidthValue, $borderColorValue) = explode('|', $pdfSettings['coverpage_settings'] . '||');
+                $coverPageBgColor = ! empty($bgColorValue) ? "background-color:{$bgColorValue};" : '';
+                $coverPageBorder = ! empty($borderWidthValue) ? "border:{$borderWidthValue}px solid " . ("{$borderColorValue};" ?: 'black;') : '';
             } else {
-                $coverPageTextStyles = '';
+                //getting border settings
+                if (count($coverPage) > 5) {
+                    $borderWidth = empty($coverPage[5]) ? 1 : $coverPage[5];
+                    $coverPageTextBorder = "border:{$borderWidth}px solid {$coverPage[6]};";
+                }
+                $textAlign = empty($coverPage[2]) ? 'center' : $coverPage[2];
+                $textBgColor = ! empty($coverPage[3]) ? "background-color:{$coverPage[3]};" : '';
+                $textColor = ! empty($coverPage[4]) ? "color:{$coverPage[4]};" : '';
             }
-            $bgColor = $coverPage[3] == '' ? 'background-color:' . $coverPage[3] : '';
             for ($i = 0; $i <= 1; $i++) {
                 $coverPage[$i] = str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($coverPage[$i] ?? ''), ['is_html' => true, 'parse_wiki' => true]));
                 $coverPage[$i] = preg_replace_callback('/\{DATE\s+(.*?)\}/', function ($matches) {
                     return date($matches[1]);
                 }, $coverPage[$i]);
             }
-            $mpdf->WriteHTML('<body style="' . $bgColor . ';margin:0px;padding:0px"><div style="height:100%;background-image:url(' . $coverImage . ');padding:20px;background-repeat: no-repeat;background-position: center; "><div style="' . $coverPageTextStyles . 'height:95%;">
-<div style="text-align:' . $coverPage[2] . ';margin-top:30%;color:' . $coverPage[4] . '"><div style=margin-bottom:10px;font-size:50px>' . $coverPage[0] . '</div>' . $coverPage[1] . '</div></div></body>');
+            $mpdf->WriteHTML('<body style="' . $coverPageBgColor . 'margin:0px;padding:0px"><div style="height:100%;background-image:url(' . $coverImage . ');padding:20px;background-repeat: no-repeat;background-position: center; "><div style="' . $coverPageBorder . 'height:95%;">
+            <div style="text-align:' . $textAlign . ';margin-top:30%;' . $textColor . '"><div style="' . $textBgColor . $coverPageTextBorder . 'margin-bottom:10px;font-size:50px;">' . $coverPage[0] . '</div>' . $coverPage[1] . '</div></div></body>');
         }
         //Checking bookmark
         if (is_array($pdfSettings['autobookmarks'])) {
@@ -770,7 +797,7 @@ class PdfGenerator
                 }
             }
             //checking preferences
-            $pdfSettings['print_pdf_mpdf_printfriendly'] = $prefs['print_pdf_mpdf_printfriendly'] != '' ? $prefs['print_pdf_mpdf_printfriendly'] : '';
+            $pdfSettings['print_pdf_mpdf_printfriendly'] = $prefs['print_pdf_mpdf_printfriendly'] ?? '';
             $orientation = ! empty($params['orientation']) ? $params['orientation'] : $prefs['print_pdf_mpdf_orientation'];
             $pdfSettings['orientation'] = $orientation != '' ? $orientation : 'P';
             $pdfSettings['pagesize'] = $prefs['print_pdf_mpdf_pagesize'] != '' ? $prefs['print_pdf_mpdf_pagesize'] : 'Letter';
@@ -801,7 +828,9 @@ class PdfGenerator
             $pdfSettings['pagetitle'] = $prefs['print_pdf_mpdf_pagetitle'];
             $pdfSettings['watermark'] = $prefs['print_pdf_mpdf_watermark'];
             $pdfSettings['watermark_image'] = $prefs['print_pdf_mpdf_watermark_image'];
-            $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_coverpage_text_settings']);
+            $coverPageContentKey = ! empty($prefs['print_pdf_mpdf_coverpage_wiki']) ? 'coverpage_wiki' : 'coverpage_text_settings';
+            $pdfSettings['coverpage_text_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs["print_pdf_mpdf_{$coverPageContentKey}"]);
+            $pdfSettings['coverpage_settings'] = $prefs['print_pdf_mpdf_coverpage_settings'];
             $pdfSettings['coverpage_image_settings'] = str_ireplace("{PAGETITLE}", $params['page'] ?? '', $prefs['print_pdf_mpdf_coverpage_image_settings']);
             $pdfSettings['hyperlinks'] = $prefs['print_pdf_mpdf_hyperlinks'];
             $pdfSettings['columns'] = $prefs['print_pdf_mpdf_columns'];
