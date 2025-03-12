@@ -3945,7 +3945,6 @@ lib/setup/user_prefs.php -text
 lib/setup/userlevels.php -text
 lib/setup/usermenu.php -text
 lib/setup/wiki.php -text
-lib/sharelib.php -text
 lib/sheet/conf/config.inc.php -text
 lib/sheet/conf/index.php -text
 lib/sheet/excel/index.php -text

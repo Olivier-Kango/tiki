@@ -2255,10 +2255,6 @@
         "lib\/banners\/bannerlib.php": {
             "class:BannerLib": true
         },
-        "lib\/sharelib.php": {
-            "class:Tiki_ShareGroup": true,
-            "class:Tiki_ShareObject": true
-        },
         "lib\/ointegratelib.php": {
             "interface:OIntegrate_Converter": true,
             "interface:OIntegrate_Engine": true,
@@ -3965,9 +3961,6 @@
             "class:Text_Diff_Op_delete": true,
             "class:Text_Diff_Op_add": true,
             "class:Text_Diff_Op_change": true
-        },
-        "lib\/sharelib.php": {
-            "class:Tiki_ShareObject": true
         },
         "lib\/ointegratelib.php": {
             "interface:OIntegrate_Engine": true,
@@ -6229,10 +6222,6 @@
             "Text_Diff_Op_delete": true,
             "Text_Diff_Op_add": true,
             "Text_Diff_Op_change": true
-        },
-        "lib\/sharelib.php": {
-            "Tiki_ShareGroup": true,
-            "Tiki_ShareObject": true
         },
         "lib\/ointegratelib.php": {
             "OIntegrate_Converter": true,
