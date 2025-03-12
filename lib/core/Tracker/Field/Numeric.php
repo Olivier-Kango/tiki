@@ -194,11 +194,20 @@ class Tracker_Field_Numeric extends \Tracker\Field\AbstractItemField implements 
         $schema->addNew($permName, 'formatted')
             ->setLabel($this->getConfiguration('name'))
             ->addIncompatibility($permName, 'default')
+
+            // Reapplies prepend and append when rendering
             ->setRenderTransform(function ($value) use ($prepend, $append) {
                 return $prepend . $value . $append;
             })
+
+            // Removes prepend and append when parsing
             ->setParseIntoTransform(function (&$info, $value) use ($permName, $prepend, $append) {
-                $value = substr($value, strlen($prepend), -strlen($append));
+                // Remove prepend if present
+                $value = (! empty($prepend) ? substr($value, strlen($prepend)) : $value);
+                // Remove append if present
+                $value = (! empty($append) ? substr($value, 0, -strlen($append)) : $value);
+
+                // Store only the cleaned numeric value
                 $info['fields'][$permName] = $value;
             })
             ;
