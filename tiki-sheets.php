@@ -40,11 +40,14 @@ if (! isset($_REQUEST["sheetId"])) {
     if (isset($_REQUEST['edit_mode']) && $_REQUEST['edit_mode'] == 1) {
         $cookietab = 2;
     }
-    $info = $sheetlib->get_sheet_info($_REQUEST["sheetId"]);
-    if (empty($info) && $_SERVER['REQUEST_METHOD'] == 'GET') {
-        $smarty->assign('msg', tra("Spreadsheet not found"));
-        $smarty->display('error.tpl');
-        die;
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        try {
+            $info = $sheetlib->get_sheet_info($_REQUEST['sheetId']);
+        } catch (Exception $e) {
+            $smarty->assign('msg', tra($e->getMessage()));
+            $smarty->display("error.tpl");
+            die;
+        }
     }
     if ($tiki_p_admin == 'y' || $tiki_p_admin_sheet == 'y' || $tikilib->user_has_perm_on_object($user, $_REQUEST['sheetId'], 'sheet', 'tiki_p_view_sheet')) {
         $tiki_p_view_sheet = 'y';
@@ -64,7 +67,7 @@ if (! isset($_REQUEST["sheetId"])) {
         $tiki_p_view_sheet_history = 'n';
     }
     $smarty->assign('tiki_p_view_sheet_history', $tiki_p_view_sheet_history);
-    $smarty->assign('headtitle', tra('Spreadsheet - ') . $_REQUEST['title']);
+    $smarty->assign('headtitle', tra('Spreadsheet - ') . $info['title']);
 }
 
 $access->check_permission('tiki_p_view_sheet');
