@@ -1,3 +1,4 @@
+import showMessage from "../../vue-widgets/element-plus-ui/src/utils/showMessage";
 import initSummernote from "./initSummernote";
 
 export default function (toolbar, lang, page) {
@@ -92,7 +93,7 @@ function toggleInlineEditor(id, toolbar, lang, page) {
             })
             .fail(function () {
                 editor.tikiModal();
-                $.notify(tr("An error occurred while saving the content."));
+                showMessage(tr("An error occurred while saving the content."), "error");
             });
     });
 }

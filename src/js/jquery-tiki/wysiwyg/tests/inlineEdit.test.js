@@ -2,6 +2,7 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 import inlineEdit from "../inlineEdit";
 import $ from "jquery";
 import initSummernote from "../initSummernote";
+import showMessage from "../../../vue-widgets/element-plus-ui/src/utils/showMessage";
 
 vi.mock("../initSummernote.js", () => {
     return {
@@ -17,12 +18,17 @@ vi.mock("../initSummernote.js", () => {
     };
 });
 
+vi.mock("../../../vue-widgets/element-plus-ui/src/utils/showMessage", () => {
+    return {
+        default: vi.fn(),
+    };
+});
+
 describe("inlineEdit", () => {
     beforeAll(() => {
         window.$ = $;
         window.tr = vi.fn().mockReturnValue("Translated");
 
-        $.notify = vi.fn();
         $.service = vi.fn().mockReturnValue("service-url");
 
         $.fn.summernote = vi.fn();
@@ -178,14 +184,14 @@ describe("inlineEdit", () => {
             // should close the editor
             expect(inlineEditor.summernote).toHaveBeenCalledWith("destroy");
             // No error message should be shown
-            expect($.notify).not.toHaveBeenCalled();
+            expect(showMessage).not.toHaveBeenCalled();
 
             // When the request fails
             ajaxFailMock.mock.calls[0][0]();
             // hide the loading indicator
             expect(inlineEditor.tikiModal).toHaveBeenCalledWith();
             // show an error message
-            expect($.notify).toHaveBeenCalledWith("Translated");
+            expect(showMessage).toHaveBeenCalledWith("Translated", "error");
         });
     });
 });

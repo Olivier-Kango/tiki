@@ -79,7 +79,7 @@ function wikiplugin_registermemberpayment($data, $params, $offset)
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         if (isset($_POST['msg'])) {
             $_POST['msg'] = addslashes(htmlspecialchars($_POST['msg']));
-            $headerlib->add_jq_onready("$.notify('" . $_POST['msg'] . "')");
+            $headerlib->add_jq_onready("showMessage('" . $_POST['msg'] . "')");
         }
 
         if (empty($user)) {
@@ -158,15 +158,15 @@ reg
 
                                 reg.trigger('continueToPurchase');
                             } else { //registered
-                                $.notify(data.result);
-                                $.notify(tr('You will be redirected in 5 seconds'));
+                                showMessage(data.result, 'success');
+                                showMessage(tr('You will be redirected in 5 seconds'));
                                 setTimeout(function() {
                                     document.location = 'tiki-index.php';
                                 }, 5000);
                             }
                         } else { //errors
                             $.each(data.result, function(i) {
-                                $.notify(data.result[i].msg);
+                                showMessage(data.result[i].msg, 'error');
                             });
                         }
                     });

@@ -27,11 +27,11 @@
                 $.tikiModal();
                 if (feedback.length) {
                     for(i in feedback) {
-                        $.notify(feedback[i]);
+                        showMessage(feedback[i], "success");
                     }
                     document.location = document.location + '';
                 } else {
-                    $.notify(tr("Error, profile not applied"));
+                    showMessage(tr("Error, profile not applied"), "error");
                 }
             }, 'json');
             return false;

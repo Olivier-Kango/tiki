@@ -75,7 +75,7 @@
                                     $.tikiModal(tr('Loading...'));
                                     $.post($.service('rating', 'vote'), vals, function() {
                                         $.tikiModal();
-                                        $.notify(tr('Thanks for rating!'));
+                                        showMessage(tr('Thanks for rating!'), "success");
                                     });
                                     return false;
                                 });

@@ -3,6 +3,7 @@ import $ from "jquery";
 import initSummernote, { loadLanguage } from "..";
 import * as formatTikiToolbarsModule from "../formatTikiToolbars";
 import * as Handlers from "../handlers/index";
+import showMessage from "../../../vue-widgets/element-plus-ui/src/utils/showMessage";
 
 vi.mock("summernote", () => {
     $.fn.summernote = vi.fn();
@@ -15,10 +16,15 @@ vi.mock("../handlers/index", () => ({
     customCodeview: vi.fn(),
 }));
 
+vi.mock("../../../vue-widgets/element-plus-ui/src/utils/showMessage", () => {
+    return {
+        default: vi.fn(),
+    };
+});
+
 describe("initSummernote", () => {
     beforeAll(() => {
         window.$ = $;
-        $.notify = vi.fn();
         window.renderUserMentionModal = vi.fn();
     });
 
@@ -149,10 +155,10 @@ describe("loadLanguage", () => {
         scriptElement.onload();
 
         expect(callback).toHaveBeenCalled();
-        expect($.notify).not.toHaveBeenCalled();
+        expect(showMessage).not.toHaveBeenCalled();
     });
 
-    test("should call the callback and $.notify on error", () => {
+    test("should call the callback and show the error message when the language fails to load", () => {
         const callback = vi.fn();
 
         loadLanguage("/foo", callback);
@@ -160,6 +166,6 @@ describe("loadLanguage", () => {
         scriptElement.onerror();
 
         expect(callback).toHaveBeenCalled();
-        expect($.notify).toHaveBeenCalledWith("Failed to load the language file");
+        expect(showMessage).toHaveBeenCalledWith("Failed to load the language file", "error");
     });
 });
