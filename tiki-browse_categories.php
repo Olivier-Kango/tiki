@@ -284,7 +284,7 @@ $objects = $categlib->list_category_objects(
 
 if ($deep == 'on') {
     foreach ($objects['data'] as &$object) {
-        $object['categName'] = $tikilib->other_value_in_tab_line($ctall, $object['categId'], 'categId', 'name');
+        $object['categNames'] = implode(", ", other_value_in_tab_line($ctall, $object['category_ids']));
     }
 }
 
@@ -468,4 +468,23 @@ function add_watch_icons($descendants, $usercatwatches, $requestid, $categid, $d
 
 
 //  return $eyes . $eyesgroup;
+}
+
+/**
+ * @param $tab
+ * @param $category_ids
+ * @return array
+ */
+function other_value_in_tab_line($tab, $categoryIds): array
+{
+    $categoryIds = explode(",", $categoryIds);
+    $categoryNames = [];
+    foreach ($categoryIds as $catId) {
+        foreach ($tab as $line) {
+            if ($line['categId'] == (int) $catId) {
+                $categoryNames[] = $line['name'];
+            }
+        }
+    }
+    return $categoryNames;
 }
