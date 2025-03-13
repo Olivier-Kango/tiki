@@ -878,6 +878,8 @@ function wikiplugin_img($data, $params)
             } else {                    //only attachments left
                 $wikilib = TikiLib::lib('wiki');
                 $dbinfo = $wikilib->get_item_attachment($imgdata['attId']);
+            }
+            if (! empty($dbinfo['path'])) {
                 $basepath = $prefs['w_use_dir'];
             }
             //Give error messages if a file doesn't exist, isn't an image. Display nothing if user lacks permission
@@ -912,7 +914,7 @@ function wikiplugin_img($data, $params)
         if (! empty($dbinfo['data'])) {
             $imageObj = Image::create($dbinfo['data'], false);
             $filename = $dbinfo['filename'];
-        } elseif (! empty($dbinfo['path']) && isset($basepath)) {
+        } elseif (! empty($dbinfo['path'])) {
             $imageObj = Image::create($basepath . $dbinfo['path'], true);
             $filename = $dbinfo['filename'];
         } elseif (isset($imgdata['file'])) {
@@ -950,7 +952,7 @@ function wikiplugin_img($data, $params)
         if (! empty($dbinfo['data']) || ! empty($dbinfo['path'])) {
             if (! empty($dbinfo['data'])) {
                 $imageObjt = Image::create($dbinfo['data'], false);
-            } elseif (! empty($dbinfo['path']) && isset($basepath)) {
+            } elseif (! empty($dbinfo['path'])) {
                 $imageObjt = Image::create($basepath . $dbinfo['path'] . '.thumb', true);
             }
 
