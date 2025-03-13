@@ -19,7 +19,7 @@ export default [
             // Ignore site.js installed by composer from included library
             "lib/cypht/site.js",
             "lib/openlayers/**",
-            "lib/vue/lib/**",
+            "src/js/vue-mf/tracker-rules/src/lib/**",
 
             // Ignore Generated Files
             "public/generated/**",

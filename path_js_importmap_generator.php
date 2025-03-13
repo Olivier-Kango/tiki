@@ -80,6 +80,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "@vue-mf/styleguide" => $tikiUrl . JS_ASSETS_PATH . "/styleguide.js",
                 "@vue-mf/tiki-offline" => $tikiUrl . JS_ASSETS_PATH . "/tiki-offline.js",
                 "@vue-mf/toolbar-dialogs" => $tikiUrl . JS_ASSETS_PATH . "/toolbar-dialogs.js",
+                "@vue-mf/tracker-rules" => $tikiUrl . JS_ASSETS_PATH . "/tracker-rules.js",
 
                 /* vue widgets */
                 "@vue-widgets/el-autocomplete" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui/autocomplete.js",

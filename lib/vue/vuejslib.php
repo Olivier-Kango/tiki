@@ -133,30 +133,33 @@ class VueJsLib
             ];
         }
 
-        $params['definitiion'] = \Tracker\Rule\Definition::get();
+        $params['definition'] = \Tracker\Rule\Definition::get();
 
-        $appHtml = $this->processVue('lib/vue/rules/TrackerRulesApp.vue', 'TrackerRulesApp', true, $params);
+        $singleSpaAppName = "@vue-mf/tracker-rules-" . \Tiki\Utilities\Identifiers::getHttpRequestId();
+        $singleSpaDomId = "single-spa-application:{$singleSpaAppName}";
 
-        $appHtml .= $this->processVue('lib/vue/rules/TextArgument.vue', 'TextArgument');
-        $appHtml .= $this->processVue('lib/vue/rules/NumberArgument.vue', 'NumberArgument');
-        $appHtml .= $this->processVue('lib/vue/rules/DateArgument.vue', 'DateArgument');
-        $appHtml .= $this->processVue('lib/vue/rules/NothingArgument.vue', 'NoArgument');
-        $appHtml .= $this->processVue('lib/vue/rules/BoolArgument.vue', 'BoolArgument');
-        $appHtml .= $this->processVue('lib/vue/rules/CollectionArgument.vue', 'CollectionArgument');
-        $appHtml .= $this->processVue('lib/vue/rules/DefaultArgument.vue', 'DefaultArgument');
+        TikiLib::lib('header')->add_js_module('
+            import "@vue-mf/root-config";
+            import "@vue-mf/tracker-rules";
+        ');
+            // language=JavaScript
+            TikiLib::lib('header')->add_jq_onready('
+            window.registerApplication({
+                name: "' . $singleSpaAppName . '",
+                app: () => importShim("@vue-mf/tracker-rules"),
+                activeWhen: (location) => {
+                    return true;
+                },
+                customProps: {
+                    trackerRulesObject: ' . json_encode($params) . ',
+                },
+            });
+            onDOMElementRemoved("' . $singleSpaDomId . '", function () {
+                window.unregisterApplication("' . $singleSpaAppName . '");
+            });
+        ');
 
-        /** UI PREDICATE DEFAULT COMPONENT OVERRIDES */
-        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateAdd.vue', 'PredicateAdd');
-        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateRemove.vue', 'PredicateRemove');
-        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateTargets.vue', 'PredicateTargets');
-        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateOperators.vue', 'PredicateOperators');
-        $appHtml .= $this->processVue('lib/vue/lib/ui-predicate/PredicateLogicalTypes.vue', 'PredicateLogicalTypes');
-
-        /** END UI PREDICATE DEFAULT COMPONENT OVERRIDES */
-
-        $appHtml .= $this->processVue('lib/vue/rules/TrackerRules.vue', 'TrackerRules');
-
-        return $appHtml;
+        return  '<div id="' . $singleSpaDomId . '" class="tracker-rules"></div>';
     }
 
     public function generateTrackerRulesJS($fields, $parentSelector = '.tracker-field-group:first')

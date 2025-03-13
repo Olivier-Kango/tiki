@@ -1,10 +1,14 @@
-import { attachChangeEventHandler, observeSelectElementMutations, syncSelectOptions } from "../helpers/select/applySelect";
+import { attachChangeEventHandler, observeSelectElementMutations, syncSelectOptions, hasVueScopedAttribute } from "../helpers/select/applySelect";
 
 export default function applySelect() {
     new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
-            if ($(mutation.target).find("select:not([element-plus-ref])").length) {
-                const selects = $(mutation.target).find("select:not([element-plus-ref])");
+            const selects = $(mutation.target)
+                .find("select:not([element-plus-ref])")
+                .filter(function () {
+                    return !hasVueScopedAttribute(this);
+                });
+            if (selects.length) {
                 selects.each(function () {
                     const elementUniqueId = "el-" + Math.random().toString(36).substring(7);
                     const elementPlusUi = $("<el-select></el-select>");

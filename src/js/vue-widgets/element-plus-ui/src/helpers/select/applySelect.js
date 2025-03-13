@@ -58,3 +58,24 @@ export function attachChangeEventHandler(elementPlusSelect, select) {
         $(select).trigger("change");
     });
 }
+
+/**
+ * Determines whether a given element or any of its ancestors
+ * has an attribute that starts with "data-v-".
+ *
+ * This is useful for identifying elements that are part of
+ * rendered Vue app, where Vue uses dynamic scoped attributes
+ * such as "data-v-xxxx" for encapsulation.
+ *
+ * @param {HTMLElement} el - The element to check.
+ * @returns {boolean} True if the element or any parent element has a "data-v-" attribute, false otherwise.
+ */
+export function hasVueScopedAttribute(el) {
+    while (el) {
+        if (el.attributes && Array.from(el.attributes).some((attr) => attr.name.startsWith("data-v-"))) {
+            return true;
+        }
+        el = el.parentElement;
+    }
+    return false;
+}

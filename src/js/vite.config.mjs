@@ -129,6 +129,7 @@ export default defineConfig(({ command, mode }) => {
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
         "tiki-offline": resolve(__dirname, "vue-mf/tiki-offline/src/tiki-offline.js"),
         "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),
+        "tracker-rules": resolve(__dirname, "vue-mf/tracker-rules/src/tracker-rules.js"),
         "tiki-iot-dashboard": resolve(__dirname, "tiki-iot/dashboard.js"),
         "tiki-iot-dashboard-all": resolve(__dirname, "tiki-iot/dashboard-all.js"),
         "tiki-vue-sfc-loader": resolve(__dirname, "tiki-vue-sfc-loader/src/tiki-vue-sfc-loader.js"),
