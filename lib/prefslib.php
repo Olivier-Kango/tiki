@@ -167,6 +167,19 @@ class PreferencesLib
             $info['value'] = $value;
         }
 
+        if (is_array($info['value'])) {
+            $value = implode(',', $info['value']);
+        } else {
+            $value = (string) $info['value'];
+        }
+
+        if (isset($info['notices'][$value])) {
+            Feedback::warning([
+                'title' => "The preference '{$name}' is set to '{$info['value']}'",
+                'mes' => $info['notices'][$value]
+            ]);
+        }
+
         if (! isset($info['tags'])) {
             $info['tags'] = ['advanced'];
         }
