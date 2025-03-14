@@ -16,25 +16,11 @@ class Perms_MixedTest extends TikiTestCase
         $perms = new Perms();
         $perms->setResolverFactories(
             [
-                $resolver = $this->createMock('Perms_ResolverFactory'),
+                $this->createMock('Perms_ResolverFactory'),
                 new Perms_ResolverFactory_StaticFactory('global', new Perms_Resolver_Default(true)),
             ]
         );
         Perms::set($perms);
-
-        $resolver
-            ->method('getResolver')
-            ->willReturn(null);
-
-        // $bulkCalls = [
-        //     [['type' => 'wiki page'], 'object', ['A', 'B']],
-        //     [['type' => 'category'], 'object', [10]],
-        // ];
-
-        // $resolver->expects($this->exactly(3))
-        //     ->method('bulk')
-        //     ->withConsecutive(...$bulkCalls)
-        //     ->willReturnOnConsecutiveCalls([], [], []);
 
         $data = [
             ['type' => 'wiki page', 'object' => 'A', 'creator' => 'abc'],
