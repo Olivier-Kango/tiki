@@ -80,6 +80,7 @@
                 {preference name=wikiplugin_div}
                 {preference name=wikiplugin_dl}
                 {preference name=wikiplugin_fade}
+                {preference name=wikiplugin_mermaid}
                 {preference name=wikiplugin_fancylist}
                 {preference name=wikiplugin_fancytable}
                 {preference name=wikiplugin_font}

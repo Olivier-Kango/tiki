@@ -60,14 +60,12 @@ if (! $requestedTrackerIds) {
     //Remove the last &
     $urlParameterStringToGoBackToListOfTrackers = substr_replace($urlParameterStringToGoBackToListOfTrackers, "", -1);
 }
-
-$headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . "/svg-pan-zoom/dist/svg-pan-zoom.min.js");
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-export_tracker_schema.js');
 
 $smarty = TikiLib::lib('smarty');
 require_once("export-tracker_schema.php");
 $mermaidText = exportMermaidER($title, $entities, $relationships, $skipAttributes, $includePermNames);
-$mermaidOutput = renderMermaid($mermaidText);
+$mermaidOutput = handleMermaid($mermaidText);
 if (isset($_REQUEST['export'])) {
     $export = $_REQUEST['export'];
 } else {

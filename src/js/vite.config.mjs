@@ -133,6 +133,7 @@ export default defineConfig(({ command, mode }) => {
         "tracker-rules": resolve(__dirname, "vue-mf/tracker-rules/src/tracker-rules.js"),
         "tiki-iot-dashboard": resolve(__dirname, "tiki-iot/dashboard.js"),
         "tiki-iot-dashboard-all": resolve(__dirname, "tiki-iot/dashboard-all.js"),
+        "tiki-mermaid": resolve(__dirname, "tiki-mermaid/mermaid.js"),
         "tiki-vue-sfc-loader": resolve(__dirname, "tiki-vue-sfc-loader/src/tiki-vue-sfc-loader.js"),
     });
     return {
@@ -141,7 +142,7 @@ export default defineConfig(({ command, mode }) => {
         resolve: {
             alias: {
                 "moment-timezone": resolve(__dirname, "../../node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.min.js"),
-            }
+            },
         },
         build: {
             outDir: resolve(__dirname, "../../public/generated/js"),
@@ -481,10 +482,6 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jquery-validation/dist",
                     },
                     {
-                        src: "node_modules/mermaid/dist/!(mermaid.js|mermaid.min.js)*.(js|mjs)*",
-                        dest: "vendor_dist/mermaid/dist",
-                    },
-                    {
                         src: "node_modules/minicart/dist/*.js",
                         dest: "vendor_dist/minicart/dist",
                     },
@@ -559,10 +556,6 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/subtotal/dist/subtotal.min.js",
                         dest: "vendor_dist/subtotal/dist",
-                    },
-                    {
-                        src: "node_modules/svg-pan-zoom/dist/*.min.js",
-                        dest: "vendor_dist/svg-pan-zoom/dist",
                     },
                     {
                         src: ["node_modules/swagger-ui-dist/swagger-ui-bundle.js","node_modules/swagger-ui-dist/swagger-ui.css","node_modules/swagger-ui-dist/favicon-16x16.png","node_modules/swagger-ui-dist/favicon-32x32.png"],

@@ -103,6 +103,7 @@
   "workspaces": [
     "src/js/common-externals",
     "src/js/jquery-tiki",
+    "src/js/tiki-mermaid",
     "src/js/tiki-iot",
     "src/js/tiki-vue-sfc-loader",
     "src/js/vue-mf/*",
