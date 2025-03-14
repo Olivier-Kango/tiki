@@ -260,7 +260,6 @@
                     </div>
                     {preference name=feature_jscalendar}
                     {preference name=wiki_heading_links}
-                    {preference name=feature_equal_height_rows_js}
                     {preference name=feature_conditional_formatting}
                     {preference name=feature_draggable_modals}
                     {preference name=feature_resizable_modals}

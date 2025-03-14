@@ -2756,14 +2756,6 @@ function prefs_feature_list($partial = false)
             'help' => 'Inline-comments',
             'tags' => ['experimental'],
         ],
-        'feature_equal_height_rows_js' => [
-            'name' => tra('Enable JavaScript plugin for equal-height rows'),
-            'description' => tra('Enable responsive rows, the contained elements of which have the same height.'),
-            'type' => 'flag',
-            'default' => 'n',
-            'help' => "https://github.com/Sam152/Javascript-Equal-Height-Responsive-Rows",
-            'tags' => ['advanced'],
-        ],
         'feature_conditional_formatting' => [
             'name' => tra('Conditional formatting'),
             'description' => tra('Use different coloring for certain system objects. Only groups are supported for now.'),
