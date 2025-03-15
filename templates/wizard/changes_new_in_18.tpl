@@ -38,7 +38,6 @@
             {preference name='sitemap_enable'}
             {preference name='feature_sefurl_routes'}
             {preference name='fallbackBaseUrl'}
-            {preference name='wiki_make_ordered_list_items_display_unique_numbers'}
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}New Wiki Plugins{/tr}</legend>

@@ -572,7 +572,7 @@ div.categbar {
     counter-reset: item;
 }
 .uol ol:not(.media-list) > li { display: block; } // negative text-indent here simulates the common ol rendering indentation
-.uol ol:not(.media-list) > li:before { content: counters(item, ".") ".\0000a0"; counter-increment: item; margin-left: -3rem; } // \0000a0 is nbsp Unicode escaped
+.uol ol:not(.media-list) > li:before { content: counters(item, ".") ".\0000a0"; counter-increment: item } // \0000a0 is nbsp Unicode escaped
 .uol ol:not(.media-list) > li ol > li:before { content: counters(item, ".") "\0000a0"; counter-increment: item } // here we remove the last dot (looks better?)
 
 .nouol ol > li { display: list-item; text-indent: 0 }

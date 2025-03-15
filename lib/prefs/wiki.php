@@ -829,14 +829,6 @@ function prefs_wiki_list($partial = false)
             'default' => 'y',
             'dependencies' => [],
         ],
-        'wiki_make_ordered_list_items_display_unique_numbers' => [
-            'name' => tr('Multilevel style numbering for ordered lists'),
-            'description' => tr('Make ordered list items display unique numbers for all levels of their sub-items; for example: 1.1, 1.2, 1.2.1, 1.2.2, etc.'),
-            'keywords' => 'unique ordered lists numbered items syntax',
-            'help' => 'Wiki-Syntax-Lists#Creating_a_Numbered_List',
-            'type' => 'flag',
-            'default' => 'n',
-        ],
         'wiki_plugin_include_link_original' => [
             'name' => tr('Force link to included page'),
             'description' => tr('When only a portion of page is included, create a "See full page" link to the included page. It has the same effect of setting "linkoriginal=y" parameter every time Plugin Include is used.'),
