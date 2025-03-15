@@ -474,6 +474,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jquery-migrate/dist",
                     },
                     {
+                        src: ["node_modules/jquery-tagcanvas/jquery.tagcanvas.min.js"],
+                        dest: "vendor_dist/jquery-tagcanvas",
+                    },
+                    {
                         src: "node_modules/jquery-ui/dist/*",
                         dest: "vendor_dist/jquery-ui/dist",
                     },

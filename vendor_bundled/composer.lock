@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42f2c0eaa95ef1df8a824a70377e3249",
+    "content-hash": "d81daf1c6b0c601d25613537d4ea8475",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -2563,16 +2563,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jquery-plugins/reflection-jquery/jquery-plugins-reflection-jquery-1.1.zip",
                 "shasum": "083869875217e90ba98960c3a8ef0668122c0918"
-            },
-            "type": "library"
-        },
-        {
-            "name": "jquery-plugins/tagcanvas",
-            "version": "2.8",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery-plugins/tagcanvas/jquery-plugins-tagcanvas-2.8.zip",
-                "shasum": "2054830430c5a6f3970551831dcf3a8ca002c4b0"
             },
             "type": "library"
         },

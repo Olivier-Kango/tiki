@@ -665,7 +665,7 @@ if ($prefs['feature_jquery_tablesorter'] == 'y') {
 }
 
 if ($prefs['feature_jquery_tagcanvas'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/tagcanvas/jquery.tagcanvas.js');
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/jquery-tagcanvas/jquery.tagcanvas.min.js');
 }
 
 if ($prefs['feature_shadowbox'] == 'y') {
