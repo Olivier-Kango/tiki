@@ -24,7 +24,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="maxImpressions">{tr}Maximum impressions{/tr}</label>
                 <div class="col-sm-7">
-                    <input type="text" name="maxImpressions" id="maxImpressions" value="{$maxImpressions|escape}" maxlength="7" class="form-control">
+                    <input type="number" name="maxImpressions" id="maxImpressions" value="{$maxImpressions|escape}" maxlength="7" class="form-control">
                     <div class="form-text">
                         {tr}-1 for unlimited{/tr}
                     </div>
@@ -33,7 +33,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="maxUserImpressions">{tr}Maximum number of impressions for a user{/tr}</label>
                 <div class="col-sm-7">
-                    <input type="text" name="maxUserImpressions" id="maxUserImpressions" value="{$maxUserImpressions|escape}" maxlength="7" class="form-control">
+                    <input type="number" name="maxUserImpressions" id="maxUserImpressions" value="{$maxUserImpressions|escape}" maxlength="7" class="form-control">
                     <div class="form-text">
                         {tr}-1 for unlimited{/tr}
                     </div>
@@ -42,7 +42,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="maxClicks">{tr}Maximum clicks{/tr}</label>
                 <div class="col-sm-7">
-                    <input type="text" name="maxClicks" id="maxClicks" value="{$maxClicks|escape}" maxlength="7" class="form-control">
+                    <input type="number" name="maxClicks" id="maxClicks" value="{$maxClicks|escape}" maxlength="7" class="form-control">
                     <div class="form-text">
                         {tr}-1 for unlimited{/tr}
                     </div>

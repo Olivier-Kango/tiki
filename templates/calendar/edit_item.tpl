@@ -287,7 +287,7 @@
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}URL{/tr}</label>
                     <div class="col-sm-9">
-                        <input type="text" name="calitem[url]" value="{$calitem.url}" size="32" class="form-control url">
+                        <input type="url" name="calitem[url]" value="{$calitem.url}" size="32" class="form-control url">
                     </div>
                 </div>
                 {* / .mb-3.row *}

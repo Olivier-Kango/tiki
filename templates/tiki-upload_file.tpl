@@ -229,7 +229,7 @@
                     <label for="image_max_size_x" class="col-sm-4 text-end">{tr}Maximum width of images{/tr}</label>
                     <div class="col-sm-8">
                         <div class="input-group col-sm-4">
-                            <input type="text" name="image_max_size_x" id="image_max_size_x"
+                            <input type="number" name="image_max_size_x" id="image_max_size_x"
                                    value="{if isset($gal_info["image_max_size_x"])}{$gal_info["image_max_size_x"]}{else}0{/if}"
                                    class="form-control text-end">
                             <span class="input-group-text"> {tr}pixel{/tr}</span>
@@ -242,7 +242,7 @@
                     <label for="image_max_size_y" class="col-sm-4 text-end">{tr}Maximum height of images in gallery{/tr}</label>
                     <div class="col-sm-8">
                         <div class="input-group col-sm-4">
-                            <input type="text" name="image_max_size_y" id="image_max_size_y"  value="{if isset($gal_info["image_max_size_y"])}{$gal_info["image_max_size_y"]}{else}0{/if}"  class="form-control text-end">
+                            <input type="number" name="image_max_size_y" id="image_max_size_y"  value="{if isset($gal_info["image_max_size_y"])}{$gal_info["image_max_size_y"]}{else}0{/if}"  class="form-control text-end">
                             <span class="input-group-text"> {tr}pixel{/tr}</span>
                         </div>
                         <span class="form-text">{tr}If an image is higher than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited){/tr}</span>
@@ -403,7 +403,7 @@
                         <div class="mb-3 row">
                             <label for="comment" class="col-md-4 form-label">{tr}Comment{/tr}</label>
                             <div class="col-md-8">
-                                <input type="text" id="comment" name="comment[]" value="" size="40">
+                                <input type="text" id="comment" name="comment[]" value="" size="40" class="form-control">
                             </div>
                         </div>
                     {/if}

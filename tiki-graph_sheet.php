@@ -138,7 +138,7 @@ if (isset($_REQUEST['title'])) {
     }
 
     $handler = new TikiSheetDatabaseHandler($sheetId);
-    $grid = new TikiSheet($_REQUEST['sheetId']);
+    $grid = new TikiSheet();
     $grid->import($handler);
 
     $graph = $_REQUEST['graphic'];

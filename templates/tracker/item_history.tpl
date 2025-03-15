@@ -23,12 +23,12 @@
             <div class="row align-items-end">
                 <div class="mb-3 col-sm">
                     <label class="col-form-label">{tr}Version{/tr}
-                        <input type="text" name="version" value="{if !empty($filter.version)}{$filter.version|escape}{/if}" class="form-control">
+                        <input type="number" name="version" value="{if !empty($filter.version)}{$filter.version|escape}{/if}" class="form-control">
                     </label>
                 </div>
                 <div class="mb-3 col-sm">
                     <label class="col-form-label">{tr}Field ID{/tr}
-                        <input type="text" name="fieldId" value="{if !empty($fieldId)}{$fieldId|escape}{/if}" class="form-control">
+                        <input type="number" name="fieldId" value="{if !empty($fieldId)}{$fieldId|escape}{/if}" class="form-control">
                     </label>
                 </div>
                 <div class="mb-3 col-sm">
