@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b18654d2111cbe8d63426c614028d7f",
+    "content-hash": "92a1d02c9078d494efe4761265874a4c",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2371,17 +2371,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "dev-master",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "93d9c952da662c31a0d0e518a91ea1067970d858"
+                "reference": "a3efbf567d96ec61ab441a9a14e0bbfd76aedc65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-93d9c952da662c31a0d0e518a91ea1067970d858-zip-20db17.zip",
-                "reference": "93d9c952da662c31a0d0e518a91ea1067970d858",
-                "shasum": "1d76bd9a3207e181c27cda477bf569a2e185a04c"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-a3efbf567d96ec61ab441a9a14e0bbfd76aedc65-zip-ad135a.zip",
+                "reference": "a3efbf567d96ec61ab441a9a14e0bbfd76aedc65",
+                "shasum": "0a280401afbaa50029d76b444fc2a920b532c3c2"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2395,7 +2395,6 @@
                 "ext-openssl": "*",
                 "ext-session": "*",
                 "ezyang/htmlpurifier": "^4.17",
-                "garethp/php-ews": "dev-master",
                 "henrique-borba/php-sieve-manager": "^1.0",
                 "league/commonmark": "^2.4",
                 "paragonie/random_compat": "^2.0.18",
@@ -2420,7 +2419,17 @@
                 "ext-redis": "To use Redis for caching, this needs to be installed"
             },
             "type": "project",
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "post-update-cmd": [
+                    "composer suggest"
+                ],
+                "post-package-install": [
+                    "composer suggest"
+                ],
+                "post-install-cmd": [
+                    "composer suggest"
+                ]
+            },
             "license": [
                 "LGPL-2.1"
             ],
@@ -2449,7 +2458,14 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2024-12-17T17:13:22+00:00"
+            "support": {
+                "issues": "https://github.com/cypht-org/cypht/issues",
+                "chat": "https://gitter.im/cypht-org/community",
+                "wiki": "https://github.com/cypht-org/cypht/wiki",
+                "source": "https://github.com/cypht-org/cypht/",
+                "docs": "https://cypht.org/documentation.html"
+            },
+            "time": "2024-09-14T11:38:38+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -17520,7 +17536,6 @@
     "stability-flags": {
         "candy-chat/xmpp-prebind-php": 20,
         "garethp/php-ews": 20,
-        "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
         "phpcompatibility/php-compatibility": 20,
