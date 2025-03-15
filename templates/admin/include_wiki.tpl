@@ -38,6 +38,7 @@
                     {preference name=wiki_page_name_above}
                     {preference name=wiki_page_name_inside}
                     {preference name=wiki_page_hide_title}
+                    {preference name=wiki_customize_title_tag}
                     {preference name=wiki_heading_links}
                     {preference name=feature_wiki_description}
                     <div class="adminoptionboxchild" id="wiki_description_childcontainer">
@@ -324,7 +325,6 @@
                         <div class="offset-sm-4 colsm-8">
                             {tr}If the page name display stripper conflicts with the namespace separator, the namespace is used and the page name display is not stripped.{/tr}
                         </div>
-                        {preference name=wiki_pagename_strip}
                         {preference name=namespace_force_links}
                     </div>
                 </fieldset>
