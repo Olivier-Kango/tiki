@@ -613,8 +613,8 @@ if (typeof $.fn.button.noConflict === "function") {
             '.ui-autocomplete-loading { background: white url("img/spinner.gif") right center no-repeat; }'
         );
     }
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js');
-    $headerlib->add_cssfile('vendor_bundled/vendor/jquery/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.css');
+    $headerlib->add_jsfile(JQUERY_UI_TIMEPICKER_ADDON_DIST_PATH . '/jquery-ui-timepicker-addon.min.js');
+    $headerlib->add_cssfile(JQUERY_UI_TIMEPICKER_ADDON_DIST_PATH . '/jquery-ui-timepicker-addon.min.css');
 }
 if ($prefs['jquery_select2'] == 'y') {
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.js");

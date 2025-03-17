@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d81daf1c6b0c601d25613537d4ea8475",
+    "content-hash": "34a9156adb51de167b08bf7d37e093e0",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -2573,16 +2573,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/jquery/jquery-sheet/jquery-jquery-sheet-3.1.zip",
                 "shasum": "f795b13ceb1e95281cd575e92c7666bd6b15ca90"
-            },
-            "type": "library"
-        },
-        {
-            "name": "jquery/jquery-timepicker-addon",
-            "version": "1.6.3",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery/jquery-timepicker-addon/jquery-jquery-timepicker-addon-1.6.3.zip",
-                "shasum": "9c66e144dec7cd433ee7366070bae73fd230d226"
             },
             "type": "library"
         },

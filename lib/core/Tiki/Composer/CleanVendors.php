@@ -132,16 +132,6 @@ class CleanVendors
                 'parser/formula/formula.php'
             ]
         );
-        self::remove(
-            $vendors . 'jquery/jquery-timepicker-addon',
-            [
-                'lib',
-                'src',
-                'jquery-ui-timepicker-addon.json',
-                'jquery-ui-timepicker-addon.min.css',
-                'jquery-ui-timepicker-addon.min.js'
-            ]
-        );
         self::remove($vendors . 'jquery-plugins/reflection-jquery', 'src');
         self::remove(
             $vendors . 'studio-42/elfinder',
