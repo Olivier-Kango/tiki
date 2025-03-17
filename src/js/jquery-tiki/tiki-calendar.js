@@ -50,6 +50,67 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     date: fullCalendarParams.initialDate,
                     viewDidMount: function (data) {
                         $(calendarEl).tikiModal();
+                        if (data.type == "dayGridMonth") {
+                            calendar.setOption("duration", { months: 1 });
+                            if (!document.getElementById("quarter")) {
+                                const ecStart = document.querySelector(".ec-start");
+                                const buttonMonthView = document.createElement("div");
+                                buttonMonthView.innerHTML =
+                                    '<button class="ec-button" id="one-month">One-Month</button><button class="ec-button" id="quarter">Quarter</button><button class="ec-button" id="semester">Semester</button>';
+                                ecStart.appendChild(buttonMonthView);
+                            }
+
+                            const oneMonth = document.querySelector("#one-month");
+                            const quarter = document.querySelector("#quarter");
+                            const semester = document.querySelector("#semester");
+
+                            oneMonth.addEventListener("click", () => {
+                                oneMonth.classList.add("ec-active");
+                                quarter.classList.remove("ec-active");
+                                semester.classList.remove("ec-active");
+                                calendar.setOption("duration", { months: 1 });
+                                calendar.setOption("dayCellFormat", function (dayCell) {
+                                    return moment(dayCell).format("D");
+                                });
+                            });
+                            quarter.addEventListener("click", () => {
+                                oneMonth.classList.remove("ec-active");
+                                quarter.classList.add("ec-active");
+                                semester.classList.remove("ec-active");
+                                calendar.setOption("duration", { months: 3 });
+                                calendar.setOption("dayCellFormat", function (dayCell) {
+                                    return moment(dayCell).format("M/D");
+                                });
+                            });
+                            semester.addEventListener("click", () => {
+                                oneMonth.classList.remove("ec-active");
+                                quarter.classList.remove("ec-active");
+                                semester.classList.add("ec-active");
+                                calendar.setOption("duration", { months: 6 });
+                                calendar.setOption("dayCellFormat", function (dayCell) {
+                                    return moment(dayCell).format("M/D");
+                                });
+                            });
+                        } else {
+                            if (document.getElementById("quarter")) {
+                                document.getElementById("one-month").remove();
+                                document.getElementById("quarter").remove();
+                                document.getElementById("semester").remove();
+                            }
+                            if (data.type == "timeGridWeek") {
+                                console.log(calendar.getOption("duration"));
+                                calendar.setOption("duration", { days: 7 });
+                                calendar.setOption("dayCellFormat", function (dayCell) {
+                                    return moment(dayCell).format("D");
+                                });
+                            }
+                            if (data.type == "timeGridDay") {
+                                calendar.setOption("duration", { days: 1 });
+                                calendar.setOption("dayCellFormat", function (dayCell) {
+                                    return moment(dayCell).format("D");
+                                });
+                            }
+                        }
                     },
                     eventDidMount: function (arg) {
                         console.log();
