@@ -70,7 +70,7 @@ function wikiplugin_remarksbox_info()
                 'description' => tra('Show a close button (not shown by default).'),
                 'since' => '4.0',
                 'filter' => 'alpha',
-                'default' => 'y',
+                'default' => 'n',
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 'y'],
