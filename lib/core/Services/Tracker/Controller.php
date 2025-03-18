@@ -902,6 +902,9 @@ class Services_Tracker_Controller
                 throw new Services_Exception_Denied(tr("There were errors cloning the item, please check error messages"));
             }
 
+            TikiLib::lib('unifiedsearch')->processUpdateQueue();
+            TikiLib::events()->trigger('tiki.process.redirect'); // wait for indexing to complete before loading of next request to ensure updated info shown
+
             $processedItem = $this->utilities->processValues($definition, $itemData);
             $processedFields = $processedItem['fields'];
         }
