@@ -656,7 +656,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
         $excessBehavior = $this->getOption('excessBehavior');
         $count = (int) $this->getOption('count');
 
-        $fileIds = array_filter(explode(',', $value));
+        $fileIds = array_filter(explode(',', (string) $value));
 
         if ($count) {
             if ($excessBehavior === 'split') {
@@ -669,8 +669,8 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
             }
         }
 
-        $new = array_diff($fileIds, explode(',', $oldValue));
-        $remove = array_diff(explode(',', $oldValue), $fileIds);
+        $new = array_diff($fileIds, explode(',', (string) $oldValue));
+        $remove = array_diff(explode(',', (string) $oldValue), $fileIds);
         //If there new uploaded files
         if (! empty($new) && $this->trackerField->getOption('fileGalleryPerTrackerItem') === 'y') {
             //Create new gallery and move all uploaded files
