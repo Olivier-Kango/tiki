@@ -6,6 +6,7 @@ stages:
   - package-tiki
   - vendors-security
   - vendors_update
+  - composer-stability
 
 variables:
   MYSQL_ROOT_PASSWORD: secret
@@ -685,3 +686,20 @@ update_vendor_bundled_dependencies:
       - schedules
     variables:
       - $SCHEDULER == "update_vendor_bundled"
+
+composer-stability:
+  stage: composer-stability
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  needs:
+    - composer
+  script:
+    - php doc/devtools/check_composer_stability.php --ci
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
+    - when: manual
+  artifacts:
+    when: always  # Always upload artifacts even if job fails
+  allow_failure: true  # Allow job to fail without failing the pipeline
