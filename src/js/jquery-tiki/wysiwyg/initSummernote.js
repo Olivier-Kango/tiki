@@ -27,7 +27,11 @@ export default function (areaId, toolbar, lang) {
         callbacks: {
             onInit: function () {
                 renderCallbacks.forEach((cbName) => {
-                    window[cbName]();
+                    if (typeof cbName === "string") {
+                        window[cbName]();
+                    } else {
+                        cbName();
+                    }
                 });
             },
             onKeydown: function (event) {

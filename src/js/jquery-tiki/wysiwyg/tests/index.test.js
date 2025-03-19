@@ -49,7 +49,7 @@ describe("initSummernote", () => {
         const expectedCustomButtons = {
             plugin: function () {},
         };
-        const expectedRenderCallbacks = ["plugin"];
+        const expectedRenderCallbacks = ["plugin", vi.fn()];
         window.plugin = vi.fn();
 
         vi.spyOn(formatTikiToolbarsModule, "default").mockReturnValue({
@@ -77,6 +77,7 @@ describe("initSummernote", () => {
         givenTextarea.summernote.mock.calls[0][0].callbacks.onInit();
 
         expect(plugin).toHaveBeenCalled();
+        expect(expectedRenderCallbacks[1]).toHaveBeenCalled();
         expect(Handlers.formSubmission).toHaveBeenCalledWith(givenTextarea);
         expect(Handlers.pluginEdit).toHaveBeenCalledWith(id);
     });

@@ -1,3 +1,4 @@
+import admintoolbar from "./actions/admintoolbar";
 import replace from "./actions/replace";
 import tikilink from "./actions/tikilink";
 import createCustomButton from "./createCustomButton";
@@ -18,6 +19,7 @@ const CUSTOM_TOOLS = [
 export const CUSTOM_ACTIONS = {
     replace,
     tikilink,
+    admintoolbar,
 };
 
 export default function (toolbar) {

@@ -92,6 +92,7 @@ class WYSIWYGLib
         $headerlib->add_js_module(<<<JS
             const loadingIndicator = $($.IMPORT_LOADER_MARKUP);
             $('#{$dom_id}').after(loadingIndicator);
+            $.editorSection = "{$params['section']}";
 
             import('@jquery-tiki/wysiwyg').then((module) => {
                 module.loadLanguage('{$langFilePath}', () => {

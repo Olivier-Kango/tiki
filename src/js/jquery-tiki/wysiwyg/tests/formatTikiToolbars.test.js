@@ -2,6 +2,12 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import formatTikiToolbars, { CUSTOM_ACTIONS } from "../formatTikiToolbars";
 import * as createCustomButtonModule from "../createCustomButton";
 
+vi.mock("../actions/admintoolbar", () => {
+    return {
+        default: vi.fn(),
+    };
+});
+
 describe("formatTikiToolbars", () => {
     beforeEach(() => {
         vi.resetAllMocks();

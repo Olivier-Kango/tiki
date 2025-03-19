@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\core\Toolbar\ToolbarItem;
+
 /**
  * Class Services_Edit_Controller
  *
@@ -449,6 +452,78 @@ $(window).on("load", function(){
 
         return [
             'state' => $state
+        ];
+    }
+
+    public function actionListWysiwygHTMLTools(JitFilter $input)
+    {
+        global $tikilib;
+
+        $section = $input->section->wordspace();
+
+        $global = $tikilib->get_preference('toolbar_global');
+        $sectionToolbar = preg_split('/,|\||\//', $tikilib->get_preference('toolbar_' . $section, $global));
+
+        $list = ToolbarItem::getList();
+        $active = [];
+        $tools = [];
+        $plugins = [];
+
+        foreach ($list as $name) {
+            $tag = ToolbarItem::getTag($name, true, true);
+            if (! $tag || ! $tag->getWysiwygToken()) {
+                continue;
+            }
+
+            $tool = [
+                'name' => $name,
+                'token' => $tag->getWysiwygToken(),
+                'label' => $tag->getLabel(),
+                'icon' => htmlentities($tag->getIconHtml()),
+            ];
+
+            if (in_array($name, $sectionToolbar)) {
+                $active[] = $tool;
+            } elseif (strpos($name, 'wikiplugin_') !== false) {
+                $plugins[] = $tool;
+            } else {
+                $tools[] = $tool;
+            }
+        }
+
+        return [
+            'tools' => $tools,
+            'plugins' => $plugins,
+            'active' => $active,
+        ];
+    }
+
+    public function actionSaveTools(JitFilter $input)
+    {
+        global $tikilib;
+
+        $smarty = TikiLib::lib('smarty');
+
+        $section = $input->section->wordspace();
+        $tools = $input->tools->raw();
+
+        $prefName = 'toolbar_' . $section;
+        $result = $tikilib->set_preference($prefName, $tools);
+
+        if (! $result) {
+            throw new Services_Exception(tr('Failed to save toolbar settings'));
+        }
+
+        $tikilib->set_preference($prefName . 'modified', 'y');
+
+        $newTools = smarty_function_toolbars([
+            '_wysiwyg' => 'y',
+            '_is_html' => 'y',
+            'section' => $section,
+        ], $smarty->getEmptyInternalTemplate());
+
+        return [
+            'toolbar' => $newTools,
         ];
     }
 }

@@ -179,6 +179,8 @@ class ToolbarsList
                                     'type' => $tag->getType(),
                                     'callback' => $jsCbId,
                                     'renderCallback' => isset($jsRenderCbId) ? $jsRenderCbId : null,
+                                    'callbackContent' => $callback, // while callback and renderCallback are available and used on page load, callback contents are to be used when the toolbar is requested via ajax which would make it impossible to alter the browser global object via the php server. These are proposed further via js to be executed, see src/js/jquery-tiki/wysiwyg/actions/admintoolbar.js for how this is used to update the toolbar.
+                                    'renderCallbackContent' => $renderCallback,
                                 ];
                                 $group_count++;
                             }
