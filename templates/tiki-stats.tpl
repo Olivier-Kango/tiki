@@ -47,7 +47,7 @@
         {if $pdf_export eq 'y' and $tiki_p_export_pdf eq 'y'}
             <div class="text-end">
                 <div class="btn-group">
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Stats Actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Stats Actions{/tr}" role="button">
                         {icon name="menu-extra"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">

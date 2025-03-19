@@ -305,7 +305,7 @@
                                     <input type="submit" class="btn btn-primary" value=" {tr}Use Existing Connection{/tr} ">
                                 </form>
                                 <hr>
-                                <a href="#" onclick="$('#installer_3_new_db_form').toggle();return false;" class="btn btn-warning">{tr}Modify database connection{/tr}</a>
+                                <a href="#" onclick="$('#installer_3_new_db_form').toggle();return false;" class="btn btn-warning" role="button">{tr}Modify database connection{/tr}</a>
                             </div>
                         {/if}
                         <div id="installer_3_new_db_form"{if $dbcon eq 'y'} style="display:none;"{/if}>
@@ -981,7 +981,7 @@
                                 <h3 class="box-title">{tr}MultiTiki Setup{/tr} <a title="{tr}Help{/tr}" href="https://doc.tiki.org/MultiTiki" target="help">{icon name='help'}</h3>
                                 <div class="clearfix box-data">
                                     {if !empty({$multi})}
-                                        <div><a href="#" onclick="$('#multi').trigger('submit');return false;">{tr}Default Installation{/tr}</a></div>
+                                        <div><a href="#" onclick="$('#multi').trigger('submit');return false;" role="button">{tr}Default Installation{/tr}</a></div>
                                         <form method="post" action="tiki-install.php" id="multi">
                                             <input type="hidden" name="install_step" value="0">
                                             <input type="hidden" name="multi" value="">
@@ -993,7 +993,7 @@
                                             {if $k eq $multi}
                                                 <strong>{$k}</strong>
                                             {else}
-                                                <a href="#" onclick="$('#virt{$i@index}').trigger('submit');return false;" class="linkmodule">{$k}</a>
+                                                <a href="#" onclick="$('#virt{$i@index}').trigger('submit');return false;" class="linkmodule" role="button">{$k}</a>
                                                 <form method="post" action="tiki-install.php" id="virt{$i@index}">
                                                     <input type="hidden" name="multi" value="{$k}">
                                                     <input type="hidden" name="install_step" value="0">

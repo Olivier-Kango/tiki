@@ -11,7 +11,9 @@
                     class="tips"
                     title=":{tr}Show Tree{/tr}"
                     aria-label="{tr}Show Tree{/tr}"
-                    onclick="flip('fgalexplorer','');hide('fgalexplorer_close',false);show('fgalexplorer_open',false);return false;">
+                    onclick="flip('fgalexplorer','');hide('fgalexplorer_close',false);show('fgalexplorer_open',false);return false;"
+                    role="button"
+                >
                     {icon name='file-archive'}
                 </a>
             </div>
@@ -20,7 +22,9 @@
                     class="tips"
                     title=":{tr}Hide Tree{/tr}"
                     aria-label="{tr}Hide Tree{/tr}"
-                    onclick="flip('fgalexplorer','');hide('fgalexplorer_open',false);show('fgalexplorer_close',false);return false;">
+                    onclick="flip('fgalexplorer','');hide('fgalexplorer_open',false);show('fgalexplorer_close',false);return false;"
+                    role="button"
+                >
                     {icon name='file-archive-open'}
                 </a>
             </div>

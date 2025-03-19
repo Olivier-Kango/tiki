@@ -38,7 +38,7 @@ ttl_showdetails = function( data ) {
                                 <a href="{$block.link|sefurl:'wiki page'}">{$block.title|escape}</a>
                             {else}
                                 {if $prefs.feature_shadowbox eq 'y'}
-                                    <a href="#" onclick='ttl_showdetails({$block.encoded|escape});return false;'>{$block.title|escape}</a>
+                                    <a href="#" role="button" onclick='ttl_showdetails({$block.encoded|escape});return false;'>{$block.title|escape}</a>
                                 {else}
                                     <a href="tiki-view_tracker_item.php?itemId={$block.item|escape}">{$block.title|escape}</a>
                                 {/if}

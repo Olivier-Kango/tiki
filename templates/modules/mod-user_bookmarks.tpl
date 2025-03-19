@@ -11,7 +11,7 @@
                     {if $tiki_p_cache_bookmarks eq 'y' and $modb_urls[ix].datalen > 0}
                         (<a href="tiki-user_cached_bookmark.php?urlid={$modb_urls[ix].urlId}" class="linkmodule" target="_blank"><small>{tr}Cache{/tr}</small></a>)
                     {/if}
-                    <a class="btn btn-close ms-2" style="--bs-btn-font-size: .75rem;" title="{tr}Delete{/tr}" aria-label="{tr}Delete{/tr}" href="{$ownurl}{$modb_sep}bookmark_removeurl={$modb_urls[ix].urlId}"></a>
+                    <a class="btn btn-close ms-2" style="--bs-btn-font-size: .75rem;" title="{tr}Delete{/tr}" aria-label="{tr}Delete{/tr}" href="{$ownurl}{$modb_sep}bookmark_removeurl={$modb_urls[ix].urlId}" role="button"></a>
                 </li>
             {/section}
         </ul>

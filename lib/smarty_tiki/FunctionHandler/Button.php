@@ -230,7 +230,7 @@ class Button extends Base
 
         $type = isset($params['_type']) ? $params['_type'] : 'primary';
 
-        $html = preg_replace('/<a /', '<a class="btn btn-' . $type . ' ' . $class . '" target="' . $target . '" data-role="button" data-inline="true" ' . $id . ' ', $html);
+        $html = preg_replace('/<a /', '<a class="btn btn-' . $type . ' ' . $class . '" target="' . $target . '" role="button" data-role="button" data-inline="true" ' . $id . ' ', $html);
 
         return $html;
     }

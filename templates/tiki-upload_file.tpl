@@ -64,7 +64,7 @@
                     </td>
                     <td>
                         {if !empty($filegals_manager)}
-                            <a href="#" onclick="window.opener.insertAt('{$filegals_manager}','{$files[changes].wiki_syntax|escape}');checkClose();return false;" title="{tr}Click here to use the file{/tr}">{$uploads[ix].name} ({$uploads[ix].size|kbsize})</a>
+                            <a href="#" onclick="window.opener.insertAt('{$filegals_manager}','{$files[changes].wiki_syntax|escape}');checkClose();return false;" title="{tr}Click here to use the file{/tr}" role="button">{$uploads[ix].name} ({$uploads[ix].size|kbsize})</a>
                         {else}
                             <b>{$uploads[ix].name} ({$uploads[ix].size|kbsize})</b>
                         {/if}

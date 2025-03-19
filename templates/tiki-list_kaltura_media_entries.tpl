@@ -21,10 +21,10 @@
         <td class="text">{$item->userId}</td>
         <td class="text">{$item->tags}</td>
         <td class="action">
-            <a href="#" class="tips" title="{tr}Information{/tr}" {popup delay="0|4000" fullhtml="1" text=$smarty.capture.add_info left=true}>
+            <a href="#" class="tips" title="{tr}Information{/tr}" {popup delay="0|4000" fullhtml="1" text=$smarty.capture.add_info left=true} role="button">
                 {icon name='information'}
             </a>
-            <a href="#" class="tips" title="{tr}Actions{/tr}" {popup fullhtml="1" text=$smarty.capture.actions}>
+            <a href="#" class="tips" title="{tr}Actions{/tr}" {popup fullhtml="1" text=$smarty.capture.actions} role="button">
                 {icon name='wrench'}
             </a>
         </td>

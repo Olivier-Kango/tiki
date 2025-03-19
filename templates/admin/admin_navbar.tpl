@@ -17,7 +17,7 @@
                 <form method="post" class="d-flex align-items-center me-3">
                     <ul class="nav navbar-nav filter-menu mb-0">
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" title="{tr}Settings{/tr}">
+                            <a href="#" role="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" title="{tr}Settings{/tr}">
                                 {icon name="filter"} {tr}Preference Filters{/tr}
                             </a>
                             <ul class="dropdown-menu {if $prefs.theme_navbar_color_variant_admin eq 'dark'} dropdown-menu-dark{/if} border" role="menu">

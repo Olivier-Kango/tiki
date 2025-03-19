@@ -111,8 +111,8 @@
                         </table>
                     </div>
                     <ul class="nav nav-pills float-end">
-                        <li><a href="#">{tr}Records{/tr} <span class="badge bg-secondary">{$user_items|@count}</span></a>&nbsp;</li>
-                        <li><a href="#">{tr}Comments{/tr} <span class="badge bg-secondary">{$nb_item_comments}</span></a></li>
+                        <li><a href="#">{tr}Records{/tr} <span class="badge bg-secondary" role="button">{$user_items|@count}</span></a>&nbsp;</li>
+                        <li><a href="#">{tr}Comments{/tr} <span class="badge bg-secondary" role="button">{$nb_item_comments}</span></a></li>
                     </ul>
                     {pagination_links cant=$user_items_count step=$step offset=$user_items_offset clean='y'}{/pagination_links}
                 </div>

@@ -52,7 +52,7 @@
                                     </a>
                                 </action>
                                 <action>
-                                    <a class="text-danger" href="#"  onclick="deletecalItem({$event.calitemId}, '{$event.name|escape}')">
+                                    <a class="text-danger" href="#"  onclick="deletecalItem({$event.calitemId}, '{$event.name|escape}')" role="button">
                                         {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                     </a>
                                 </action>

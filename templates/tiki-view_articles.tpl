@@ -23,7 +23,7 @@
                 {button href="tiki-list_submissions.php" _type="link" class="btn btn-link" _icon_name="view" _text="{tr}View Submissions{/tr}"}
             {/if}
             {if $prefs.feature_user_watches eq 'y' or $prefs.feature_group_watches eq 'y'}
-                <a class="btn btn-sm btn-info dropdown-toggle float-end" data-bs-toggle="dropdown" href="#">
+                <a class="btn btn-sm btn-info dropdown-toggle float-end" data-bs-toggle="dropdown" href="#" role="button">
                     {icon name='menu-extra'}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -258,7 +258,7 @@
                             {include file='translated-lang.tpl' object_type='article' trads=$listpages[ix].translations articleId=$listpages[ix].articleId}
                         {/if}
                         <div class="btn-group">
-                            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
                                 {icon name="wrench"}
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">

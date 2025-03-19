@@ -62,7 +62,7 @@
 'help' => 'Packages'
 ]
 ]}
-    <a class="js-admin-bar link-admin-bar float-sm-end me-auto btn btn-link">{icon name='cog'}</a>
+    <a class="js-admin-bar link-admin-bar float-sm-end me-auto btn btn-link" role="button">{icon name='cog'}</a>
     <div class="sliding-panel-admin-bar js-sliding-panel-admin-bar card-header  invisible">
         <div class="card-header left"></div>
         <div class="container-fluid container-sliding-panel d-flex flex-column h-100 justify-content-center">
@@ -88,7 +88,7 @@
                                         {if ! $js}
                                         <ul>
                                             <li>{/if}
-                                                <a class="btn btn-link" data-bs-toggle="dropdown" href="#">
+                                                <a class="btn btn-link" data-bs-toggle="dropdown" href="#" role="button">
                                                     {icon name="history"} Recent Actions </a>
                                                 <div class="dropdown-menu" role="menu">
                                                     {foreach $recent_prefs as $p}
@@ -104,7 +104,7 @@
                                         {if ! $js}
                                         <ul>
                                             <li>{/if}
-                                                <a class="btn btn-link" data-bs-toggle="dropdown" href="#">
+                                                <a class="btn btn-link" data-bs-toggle="dropdown" href="#" role="button">
                                                     {icon name='menu-extra'} Quick Links </a>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="tiki-wizard_admin.php?stepNr=0&amp;url=index.php">

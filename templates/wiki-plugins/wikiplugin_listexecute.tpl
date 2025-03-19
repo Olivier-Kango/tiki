@@ -39,7 +39,7 @@
                 <div class="clearfix">
                     {if $tiki_p_admin_categories eq 'y'}
                         <div class="float-sm-end">
-                            <a class="btn btn-link btn-sm tips" href="tiki-admin_categories.php" title=":{tr}Admin Categories{/tr}">
+                            <a class="btn btn-link btn-sm tips" role="button" href="tiki-admin_categories.php" title=":{tr}Admin Categories{/tr}">
                                 {icon name="cog"} {tr}Categories{/tr}
                             </a>
                         </div>
@@ -50,7 +50,7 @@
                 <div class="clearfix">
                     {if $tiki_p_admin_categories eq 'y'}
                         <div class="float-sm-end">
-                            <a class="btn btn-link" href="tiki-admin_categories.php" title=":{tr}Admin Categories{/tr}">
+                            <a class="btn btn-link" role="button" href="tiki-admin_categories.php" title=":{tr}Admin Categories{/tr}">
                                 {icon name="cog"} {tr}Categories{/tr}
                             </a>
                         </div>

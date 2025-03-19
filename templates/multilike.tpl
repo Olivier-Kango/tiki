@@ -41,6 +41,7 @@
                         title="Worth {$button.value} Points"
                     {/if}
                     href="#"}
+                    role="button"
                 >
                     {if $button.selected eq '0'}
                         {icon name=$button.icon_unselected}

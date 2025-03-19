@@ -14,14 +14,14 @@
                                 <option value="{$itemId}">{$label|escape}</option>
                             {/foreach}
                         </select>
-                        <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}OK{/tr}</a>
+                        <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}" role="button">{tr}OK{/tr}</a>
                     </div>
                 </div>
             {else}
-                <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}{$field.options_map.addItems|escape}{/tr}</a>
+                <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}" role="button">{tr}{$field.options_map.addItems|escape}{/tr}</a>
             {/if}
             {if !empty($field.options_map.preSelectFieldThere)}
-                <a class="btn btn-primary update-tracker-links" href="{service controller=tracker action=link_items trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}Update{/tr}</a>
+                <a class="btn btn-primary update-tracker-links" href="{service controller=tracker action=link_items trackerId=$field.options_map.trackerId next=$data.next|escape}" role="button">{tr}Update{/tr}</a>
             {jq}
                 var preselectedValue = function() {
                     var preselectedEl = $("#il{{$field.ins_id}}").closest('form').find('[name=ins_{{$field.options_map.preSelectFieldHere}}]');
@@ -91,7 +91,7 @@
             {/foreach}
         </select>
         {if $field.options_map.addItems and $data.createTrackerItems}
-            <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}" data-href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}{$field.options_map.addItems|escape}{/tr}</a>
+            <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}" data-href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}" role="button">{tr}{$field.options_map.addItems|escape}{/tr}</a>
             {if !empty($field.options_map.preSelectFieldThere)}
             {jq}
                 $("#il{{$field.ins_id}}").find('.insert-tracker-item').on('click', function() {

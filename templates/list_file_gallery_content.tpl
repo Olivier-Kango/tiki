@@ -300,7 +300,7 @@
                 {if ( $prefs.use_context_menu_icon eq 'y' or $prefs.use_context_menu_text eq 'y' )
                     and (!isset($gal_info.show_action) or $gal_info.show_action neq 'n')}
                     <td style="white-space: nowrap">
-                        <a class="fgalname tips" title="{tr}Actions{/tr}" href="#" {popup fullhtml="1" center=true text=$smarty.capture.over_actions trigger="click"} style="padding:0; margin:0; border:0">
+                        <a class="fgalname tips" title="{tr}Actions{/tr}" href="#" {popup fullhtml="1" center=true text=$smarty.capture.over_actions trigger="click"} style="padding:0; margin:0; border:0" role="button">
                             {icon name='wrench' alt="{tr}Actions{/tr}"}
                         </a>
                     </td>
@@ -518,7 +518,7 @@
                             {if $over_infos eq ''}
                                 {icon name='minus' class='tips' title=":{tr}No information{/tr}"}
                             {else}
-                                <a class="fgalname tips left" href="#" onclick="return false;" title="{tr}Information{/tr}" {popup fullhtml="1" text=$over_infos|replace:'&amp;':'&' left=true} style="cursor:help">
+                                <a class="fgalname tips left" href="#" onclick="return false;" title="{tr}Information{/tr}" {popup fullhtml="1" text=$over_infos|replace:'&amp;':'&' left=true} style="cursor:help" role="button">
                                     {icon name='information' class='' title=''}
                                 </a>
                             {/if}

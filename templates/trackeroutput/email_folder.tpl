@@ -7,7 +7,7 @@
     {elseif $field.options_map.useFolders}
         {foreach from=$data.folders key=folder item=folderName}
             {if isset($data.emails[$folder]) and $data.emails[$folder]|count gt 0}
-                <div><a href="#" class="email-folder-switcher" data-folder="{$folder}">{$folderName} ({$data.emails[$folder]|count})</a></div>
+                <div><a href="#" class="email-folder-switcher" data-folder="{$folder}" role="button">{$folderName} ({$data.emails[$folder]|count})</a></div>
                 <div class="email-folder-contents folder-{$folder}" style="display: {if in_array($folder, $data.opened)}block{else}none{/if}">
                     {include file='trackeroutput/email_single_folder.tpl' emails=$data.emails[$folder]}
                 </div>

@@ -9,7 +9,7 @@
     <div class="t_navbar mb-4">
         <div class="btn-group float-end">
             {if ! $js}<ul><li>{/if}
-            <a class="btn btn-link border-radius--0" data-bs-toggle="dropdown" href="#" title="{tr}Calendar actions{/tr}">
+            <a class="btn btn-link border-radius--0" data-bs-toggle="dropdown" href="#" title="{tr}Calendar actions{/tr}" role="button">
                 {icon name='menu-extra'}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -209,7 +209,7 @@
         {/jq}
     {/if}
     {if $pdf_export eq 'y' and $pdf_warning eq 'n'}
-        <a id="calendar-pdf-btn"  href="#" class="text-end d-none">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
+        <a id="calendar-pdf-btn" href="#" class="text-end d-none" role="button">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
     {/if}
     <div id="test"></div>
     <style type='text/css'>

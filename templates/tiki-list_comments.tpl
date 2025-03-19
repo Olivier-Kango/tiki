@@ -128,8 +128,8 @@
             {if $tiki_p_admin_comments eq 'y' and $prefs.feature_comments_moderation eq 'y'}
                 <td class="approval">
                     {if $comments[ix].approved eq 'n'}
-                        <a href="#" data-action="approve" data-checked="{$id}" class="tips moderation-post text-success" title=":{tr}Approve{/tr}">{icon name='ok'}</a>
-                        <a href="#" data-action="reject" data-checked="{$id}" class="tips moderation-post text-danger" title=":{tr}Reject{/tr}">{icon name='delete'}</a>
+                        <a href="#" data-action="approve" data-checked="{$id}" class="tips moderation-post text-success" title=":{tr}Approve{/tr}" role="button">{icon name='ok'}</a>
+                        <a href="#" data-action="reject" data-checked="{$id}" class="tips moderation-post text-danger" title=":{tr}Reject{/tr}" role="button">{icon name='delete'}</a>
                     {elseif $comments[ix].approved eq 'y'}
                         &nbsp;{tr}Approved{/tr}&nbsp;
                     {elseif $comments[ix].approved eq 'r'}

@@ -124,7 +124,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <a href="{service controller=ml action=model_args mlmId=$model.mlmId}" class="btn btn-secondary add-learner">{tr}Enter Arguments{/tr}</a>
+                                    <a href="{service controller=ml action=model_args mlmId=$model.mlmId}" class="btn btn-secondary add-learner" role="button">{tr}Enter Arguments{/tr}</a>
                                     <textarea name="payload" class="d-none">{$model.payload}</textarea>
                                 </td>
                             </tr>

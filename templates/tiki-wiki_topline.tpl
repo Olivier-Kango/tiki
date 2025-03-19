@@ -49,7 +49,7 @@
                             //Create your sharelet with desired properties and set button element to false
                             var object = SHARETHIS.addEntry({ title:'{/literal}{$page|escape:"url"}{literal}'}, {button:false});
                             //Output your customized button
-                            document.write('<a class="btn btn-info btn-sm tips" id="share" href="#"{/literal} title="{tr}ShareThis{/tr}">{icon name="sharethis"}{literal}</a>');
+                            document.write('<a class="btn btn-info btn-sm tips" id="share" href="#"{/literal} title="{tr}ShareThis{/tr}" role="button">{icon name="sharethis"}{literal}</a>');
                             //Tie customized button to ShareThis button functionality.
                             var element = document.getElementById("share");
                             object.attachButton(element);
@@ -98,7 +98,7 @@
                 {if $structure eq 'y' or ( $structure eq 'n' and count($showstructs) neq 0 )}
                     <div class="btn-group structures">
                         {if ! $js}<ul><li>{/if}
-                        <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" title="{tr}Structures{/tr}">
+                        <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" title="{tr}Structures{/tr}" role="button">
                             {icon name="structure"}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" role="menu">
@@ -134,7 +134,7 @@
                 {assign var="hasPageAction" value="0"}
                 {capture name="pageActions"}
                     {if ! $js}<ul><li>{/if}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#"  title="{tr}Page actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#"  title="{tr}Page actions{/tr}" role="button">
                         {icon name="menu-extra"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
@@ -189,7 +189,7 @@
                                         });
                                         if (!getCookie("wiki_plugin_edit_view")) {$(".editplugin, .icon_edit_section").hide(); } else { $("#wiki_plugin_edit_view").trigger("click"); }
                                     {/jq}
-                                    <a class="dropdown-item" href="#" id="wiki_plugin_edit_view" title="{tr}Click to toggle on/off{/tr}">
+                                    <a class="dropdown-item" href="#" role="button" id="wiki_plugin_edit_view" title="{tr}Click to toggle on/off{/tr}">
                                         <span class="align-items-center text-with-toggle"><span class="text">{icon name='plugin' iclass="d-inline"} <span class="mx-1">{tr}Edit icons{/tr}</span> </span> {icon iclass="toggle-icon" name="toggle-off"}</span>
                                             {assign var="hasPageAction" value="1"}
                                         </a>
@@ -197,7 +197,7 @@
                             {/if}
                             {if ($tiki_p_edit eq 'y' or $tiki_p_edit_inline eq 'y' or $page|lower eq 'sandbox') and $beingEdited ne 'y' and $machine_translate_to_lang eq ''}
                                 {if $prefs.wysiwyg_inline_editing eq 'y' and $prefs.feature_wysiwyg eq 'y'}
-                                    <a class="dropdown-item" href="#" id="wysiwyg_inline_edit" title="{tr}Click to toggle on/off{/tr}">
+                                    <a class="dropdown-item" href="#" role="button" id="wysiwyg_inline_edit" title="{tr}Click to toggle on/off{/tr}">
                                             <span class="d-flex align-items-center text-with-toggle"><span class="text flex-fill me-3">{icon name='edit'} {tr}Inline edit{/tr} ({tr}Wysiwyg{/tr})</span> {icon iclass="toggle-icon" name="toggle-off"} {icon iclass="toggle-icon d-none" name="toggle-on"}</span>
                                             {assign var="hasPageAction" value="1"}
                                     </a>
@@ -230,7 +230,7 @@
                                     //Create your sharelet with desired properties and set button element to false
                                     var object = SHARETHIS.addEntry({ title:'{/literal}{$page|escape:"url"}{literal}'}, {button:false});
                                     //Output your customized button
-                                    document.write('<a class="dropdown-item" id="share" href="#"{/literal} title="{tr}ShareThis{/tr}">{icon name="sharethis"} {tr}ShareThis{/tr}{literal}</a>');
+                                    document.write('<a class="dropdown-item" id="share" role="button" href="#"{/literal} title="{tr}ShareThis{/tr}">{icon name="sharethis"} {tr}ShareThis{/tr}{literal}</a>');
                                     //Tie customized button to ShareThis button functionality.
                                     var element = document.getElementById("share");
                                     object.attachButton(element);
@@ -238,7 +238,7 @@
                             {/literal}
                         {/if}
                         {if $prefs.sefurl_short_url eq 'y'}
-                            <a class="dropdown-item" id="short_url_link" href="#" onclick="(function() { $(document.activeElement).attr('href', 'tiki-short_url.php?url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); })();">
+                            <a class="dropdown-item" id="short_url_link" href="#" role="button" onclick="(function() { $(document.activeElement).attr('href', 'tiki-short_url.php?url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); })();">
                                     {icon name="link"} {tr}Get a short URL{/tr}
                                     {assign var="hasPageAction" value="1"}
                             </a>

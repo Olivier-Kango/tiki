@@ -61,7 +61,7 @@
                     <td nowrap="nowrap" class="auto">
                         {if $attextra eq 'y'}
                             {assign var=link value='tiki-view_tracker_more_info.php?attId='|cat:$atts[ix].attId}
-                            <a class="tablename tips" href="#" title=":{tr}more info{/tr}" onclick="javascript:window.open('{$link}','','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=yes,width=450,height=600');">
+                            <a class="tablename tips" href="#" title=":{tr}more info{/tr}" onclick="javascript:window.open('{$link}','','menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=yes,width=450,height=600');" role="button">
                                 {icon name="information" alt="{tr}more info{/tr}"}
                             </a>
                         {/if}

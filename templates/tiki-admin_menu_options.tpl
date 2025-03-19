@@ -119,7 +119,7 @@
                                         <a href="{bootstrap_modal controller=menu action=edit_option menuId=$menuId optionId=$option.optionId}" class="tips input-group-text option-edit confirm" title="|{tr}Details{/tr}">
                                                 {icon name='edit' _menu_icon='y' alt="{tr}Details{/tr}"}
                                             </a>
-                                            <a href="#" class="tips input-group-text text-danger option-remove" title="|{tr}Remove Option{/tr}">
+                                            <a href="#" class="tips input-group-text text-danger option-remove" title="|{tr}Remove Option{/tr}" role="button">
                                                 {icon name='remove' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                             </a>
                                     </div>

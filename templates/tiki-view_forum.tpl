@@ -28,7 +28,7 @@
 
         <div class="btn-group float-sm-end">
             {if ! $js}<ul><li>{/if}
-            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Forum actions{/tr}">
+            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Forum actions{/tr}" role="button">
                 {icon name="menu-extra"}
             </a>
             <div class="dropdown-menu dropdown-menu-end">
@@ -644,10 +644,10 @@
                 </div>
                 <div class="float-sm-end">
                     {if $reported > 0}
-                        <a class="btn btn-primary btn-sm tips" href="tiki-forums_reported.php?forumId={$forumId}" title=":{tr}Reported messages{/tr}">{tr}Reported{/tr} <span class="badge bg-secondary">{$reported}<span></a>
+                        <a class="btn btn-primary btn-sm tips" href="tiki-forums_reported.php?forumId={$forumId}" title=":{tr}Reported messages{/tr}" role="button">{tr}Reported{/tr} <span class="badge bg-secondary">{$reported}<span></a>
                     {/if}
                     {if $queued > 0}
-                        <a class="btn btn-primary btn-sm tips" href="tiki-forum_queue.php?forumId={$forumId}" title=":{tr}Queued messages{/tr}">{tr}Queued{/tr} <span class="badge bg-secondary">{$queued}</span></a>
+                        <a class="btn btn-primary btn-sm tips" href="tiki-forum_queue.php?forumId={$forumId}" title=":{tr}Queued messages{/tr}" role="button">{tr}Queued{/tr} <span class="badge bg-secondary">{$queued}</span></a>
                     {/if}
                 </div>
             </div>

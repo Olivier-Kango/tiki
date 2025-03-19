@@ -54,7 +54,7 @@
 &nbsp;
         <div class="btn-group">
             {if ! $js}<ul><li>{/if}
-            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Forum actions{/tr}">
+            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Forum actions{/tr}" role="button">
                 {icon name="menu-extra"}
             </a>
             <div class="dropdown-menu dropdown-menu-end">

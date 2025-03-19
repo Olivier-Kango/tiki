@@ -30,7 +30,7 @@
                                         {icon name="remove"}
                                     </button>
                                 </form>
-                                <a href="#" title="{tr}Edit module{/tr}" class="btn-close" style="font-size: 16px" onclick="$(this).parents('.module').first().trigger('dblclick');">
+                                <a href="#" title="{tr}Edit module{/tr}" class="btn-close" style="font-size: 16px" onclick="$(this).parents('.module').first().trigger('dblclick');" role="button">
                                     {icon name="edit"}
                                 </a>
                             {/if}
@@ -62,7 +62,7 @@
                                         {icon name="remove"}
                                     </button>
                                 </form>
-                                <a href="#" title="{tr}Edit module{/tr}" class="btn-close" style="font-size: 16px" onclick="$(this).parents('.module').first().trigger('dblclick');">
+                                <a href="#" title="{tr}Edit module{/tr}" class="btn-close" style="font-size: 16px" onclick="$(this).parents('.module').first().trigger('dblclick');" role="button">
                                     {icon name="edit"}
                                 </a>
                             {/if}

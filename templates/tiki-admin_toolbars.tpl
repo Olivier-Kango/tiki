@@ -176,7 +176,7 @@
                 </form>
             </div>
             <label for="full-list-c">{tr}Custom Tools{/tr}</label>
-            <a href="#" id="toolbar_add_custom">{icon name="add" ititle=":{tr}Add a new custom tool{/tr}" iclass="tips"}</a>
+            <a href="#" id="toolbar_add_custom" role="button">{icon name="add" ititle=":{tr}Add a new custom tool{/tr}" iclass="tips"}</a>
             <ul id="full-list-c" class="full">
             {foreach from=$display_c item=tool}
                 <li title=":{$qtelement[$tool].label|escape}" class="tips {$qtelement[$tool].class}">{$qtelement[$tool].html}</li>

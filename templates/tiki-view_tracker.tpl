@@ -9,11 +9,11 @@
 <div class="t_navbar mb-4">
     {if $tiki_p_create_tracker_items eq 'y' && $prefs.tracker_legacy_insert neq 'y'}
         {if $fields_count gt 0}
-            <a class="btn btn-primary" href="{bootstrap_modal controller=tracker action=insert_item trackerId=$trackerId size='modal-lg'}">
+            <a class="btn btn-primary" href="{bootstrap_modal controller=tracker action=insert_item trackerId=$trackerId size='modal-lg'}" role="button">
                 {icon name="create"} {tr}Create Item{/tr}
             </a>
         {else}
-            <a class="btn btn-primary disabled" aria-disabled="true" href="{bootstrap_modal controller=tracker action=insert_item trackerId=$trackerId size='modal-lg'}">
+            <a class="btn btn-primary disabled" aria-disabled="true" href="{bootstrap_modal controller=tracker action=insert_item trackerId=$trackerId size='modal-lg'}" role="button">
                 {icon name="create"} {tr}Create Item{/tr}
             </a>
         {/if}
@@ -23,7 +23,7 @@
     <div class="btn-group float-sm-end">
         {if ! $js}<ul><li>{/if}
                 {if $prefs.feature_group_watches eq 'y' or $prefs.feature_user_watches eq 'y' or $prefs.feed_tracker eq 'y' or $tiki_p_admin_trackers eq 'y' or $tiki_p_export_tracker eq 'y' or $prefs.sefurl_short_url eq 'y'}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Tracker actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" title="{tr}Tracker actions{/tr}" role="button">
                         {icon name="menu-extra"}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -105,7 +105,7 @@
                         {/if}
                         {if $prefs.sefurl_short_url eq 'y'}
                             <li class="dropdown-item">
-                                <a id="short_url_link" href="#" onclick="(function() { $(document.activeElement).attr('href', 'tiki-short_url.php?url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); })();">
+                                <a id="short_url_link" href="#" onclick="(function() { $(document.activeElement).attr('href', 'tiki-short_url.php?url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); })();" role="button">
                                     {icon name="link"} {tr}Get a short URL{/tr}
                                     {assign var="hasPageAction" value="1"}
                                 </a>

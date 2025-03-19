@@ -59,7 +59,7 @@
                         {/if}
                     {else}
                         {strip}{* this anchor tag needs to be in a single long line to avoid stray underlining upon hover *}
-                        <a class='separator' href="#" onclick="icontoggle('menu{$cname}', this); return false;" title="{tr}Toggle options{/tr}" id="sep{$cname}">
+                        <a class='separator' href="#" onclick="icontoggle('menu{$cname}', this); return false;" title="{tr}Toggle options{/tr}" id="sep{$cname}" role="button">
                             {if empty($menu_info.icon)}
                                 <span class="toggle-open" style="display:{$open}">{icon name="$expanded" alt='Toggle'}</span>
                                 <span class="toggle-closed" style="display:{$closed}">{icon name="$collapsed" alt='Toggle'}</span>
@@ -80,7 +80,7 @@
                 {if $chdata.url and $link_on_section eq 'y'}
                     <a href="{if $prefs.feature_sefurl eq 'y' and !empty($chdata.sefurl)}{$chdata.sefurl|escape}{else}{$chdata.url|escape}{/if}" class="separator">
                 {else}
-                    <a href="#" onclick="icontoggle('menu{$cname}', this); return false;" class="separator" id="sep{$cname}">
+                    <a href="#" onclick="icontoggle('menu{$cname}', this); return false;" class="separator" id="sep{$cname}" role="button">
                 {/if}
                     <span class="menuText">
                         {if $translate eq 'n'}{$chdata.name}{else}{tr}{$chdata.name}{/tr}{/if}

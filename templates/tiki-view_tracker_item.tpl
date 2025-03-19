@@ -10,7 +10,7 @@
         <div class="t_navbar mb-4">
             <div class="float-sm-end btn-group">
                 {if ! $js}<ul><li>{/if}
-                <a class="btn btn-link" data-bs-toggle="dropdown" href="#">
+                <a class="btn btn-link" data-bs-toggle="dropdown" href="#" role="button">
                     {icon name='menu-extra'}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -91,7 +91,7 @@
                     {/if}
                     {if $prefs.sefurl_short_url eq 'y'}
                         <li class="dropdown-item">
-                            <a id="short_url_link" href="#" onclick="(function() { $(document.activeElement).attr('href', 'tiki-short_url.php?url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); })();">
+                            <a id="short_url_link" href="#" role="button" onclick="(function() { $(document.activeElement).attr('href', 'tiki-short_url.php?url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); })();">
                                 {icon name="link"} {tr}Get a short URL{/tr}
                                 {assign var="hasPageAction" value="1"}
                             </a>
@@ -112,7 +112,7 @@
             </div>
             {if $canModify && $prefs.tracker_legacy_insert neq 'y'}
                 {if not empty($smarty.request.from) and $prefs.pwa_feature ne 'y'}{$from = $smarty.request.from}{else}{$from=''}{/if}
-                <a class="btn btn-primary" href="{bootstrap_modal controller=tracker action=update_item trackerId=$trackerId itemId=$itemId redirect=$from size='modal-lg'}">{icon name="edit"} {tr}Edit{/tr}</a>
+                <a class="btn btn-primary" href="{bootstrap_modal controller=tracker action=update_item trackerId=$trackerId itemId=$itemId redirect=$from size='modal-lg'}" role="button">{icon name="edit"} {tr}Edit{/tr}</a>
             {/if}
 
             {* only include actions bar if no custom view template is assigned *}
@@ -122,7 +122,7 @@
 
             {* show button back only if tpl has been set with vi_tpl or ei_tpl *}
             {if $viewItemPretty.override and !empty($referer)}
-                <a class="btn btn-primary" href="{$referer}" title="{tr}Back{/tr}">{icon name="arrow-circle-left"} {tr}Back{/tr}</a>
+                <a class="btn btn-primary" href="{$referer}" title="{tr}Back{/tr}" role="button">{icon name="arrow-circle-left"} {tr}Back{/tr}</a>
             {/if}
         </div>
 

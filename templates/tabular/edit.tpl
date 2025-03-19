@@ -474,10 +474,13 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{service controller=tabular action=select trackerId=$trackerId modal=true permName=$column->getField()
-                                                    columnIndex=$column@index mode=$column->getMode()}"
-                                                    class="btn btn-sm btn-secondary add-field tips"
-                                                    title="{tr}Field{/tr} {$column->getField()|escape}|{tr}Mode:{/tr} {$column->getMode()|escape}">
+                                            <a
+                                                href="{service controller=tabular action=select trackerId=$trackerId modal=true permName=$column->getField()
+                                                columnIndex=$column@index mode=$column->getMode()}"
+                                                class="btn btn-sm btn-secondary add-field tips"
+                                                title="{tr}Field{/tr} {$column->getField()|escape}|{tr}Mode:{/tr} {$column->getMode()|escape}"
+                                                role="button"
+                                            >
                                                 <span class="field d-none">{$column->getField()|escape}</span>:
                                                 <span class="mode">{$column->getMode()|escape}</span>
                                             </a>
@@ -508,7 +511,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <a href="{service controller=tabular action=select trackerId=$trackerId modal=true}" class="btn btn-secondary add-field from-select">{tr}Select Mode{/tr}</a>
+                                        <a href="{service controller=tabular action=select trackerId=$trackerId modal=true}" class="btn btn-secondary add-field from-select" role="button">{tr}Select Mode{/tr}</a>
                                         <textarea name="fields" class="d-none">{$schema->getFormatDescriptor()|json_encode}</textarea>
                                     </td>
                                     <td colspan="6">
@@ -593,7 +596,7 @@
                                             </div>
                                         </td>
                                         <td><span class="field">{$filter->getField()|escape}</span>:<span class="mode">{$filter->getMode()|escape}</td>
-                                        <td><a href="{service controller=tabular action=choose_applied_value tabularId=$tabularId filterIndex=$idx}" class="btn btn-secondary choose-applied-value">{tr}: choose{/tr}</a></td>
+                                        <td><a href="{service controller=tabular action=choose_applied_value tabularId=$tabularId filterIndex=$idx}" class="btn btn-secondary choose-applied-value" role="button">{tr}: choose{/tr}</a></td>
                                         <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                     </tr>
                                 {/foreach}
@@ -609,7 +612,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <a href="{service controller=tabular action=select_filter trackerId=$trackerId}" class="btn btn-secondary add-filter">{tr}Select Mode{/tr}</a>
+                                        <a href="{service controller=tabular action=select_filter trackerId=$trackerId}" class="btn btn-secondary add-filter" role="button">{tr}Select Mode{/tr}</a>
                                         <textarea name="filters" class="d-none">{$filterCollection->getFilterDescriptor()|json_encode}</textarea>
                                     </td>
                                     <td colspan="2">&nbsp;</td>

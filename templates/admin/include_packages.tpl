@@ -100,6 +100,7 @@
                             {if $entry.state == 'replaced'}
                                 <a class="tips text-warning"
                                 href="#"
+                                role="button"
                                 style="text-decoration: none;"
                                 data-bs-toggle="popover"
                                 data-bs-container="body"
@@ -112,6 +113,7 @@
                             {elseif $entry.state == 'deprecated'}
                                 <a class="tips text-warning"
                                 href="#"
+                                role="button"
                                 style="text-decoration: none;"
                                 data-bs-toggle="popover"
                                 data-bs-container="body"
@@ -124,6 +126,7 @@
                             {else}
                                 <a class="tips"
                                 href="#"
+                                role="button"
                                 style="text-decoration: none;"
                                 data-bs-toggle="popover"
                                 data-bs-container="body"
@@ -246,6 +249,7 @@
                         {if $entry.state == 'replaced'}
                                 <a class="tips text-warning"
                                 href="#"
+                                role="button"
                                 style="text-decoration: none;"
                                 data-bs-toggle="popover"
                                 data-bs-container="body"
@@ -268,7 +272,7 @@
                                 <button class="btn btn-primary" name="auto-install-package" value="{$entry.key}">{tr}Install{/tr}</button>
                             </form>
                             {/if}
-                            <button type="button" data-bs-toggle="collapse" data-package-name="{$entry.name}" data-collapse-key="collapse-{$entry.key}" href="#collapse-{$entry.key}" role="button" aria-expanded="false" aria-controls="collapse-{$entry.name}" class="btn btn-light collapse-package-detail">{tr}Info{/tr}</button>
+                            <button type="button" data-bs-toggle="collapse" data-package-name="{$entry.name}" data-collapse-key="collapse-{$entry.key}" href="#collapse-{$entry.key}" aria-expanded="false" aria-controls="collapse-{$entry.name}" class="btn btn-light collapse-package-detail">{tr}Info{/tr}</button>
                         </td>
                     </tr>
                     <tr class="collapse border bg-body-tertiary" id="collapse-{$entry.key}">

@@ -312,7 +312,7 @@
                                 <input type="hidden" name="hasAlreadyInserted" value="">
                                 <input type="hidden" name="prefix" value="img/wiki_up/{if $tikidomain}{$tikidomain}/{/if}">
                                 <input name="picfile1" type="file" accept="image/*" class="form-control" onchange="insertImgFile('editwiki','picfile1','hasAlreadyInserted','img')">
-                                <a href="#" onclick="needToConfirm = false; addImgForm(event)">{tr}Add another image{/tr}</a>
+                                <a href="#" onclick="needToConfirm = false; addImgForm(event)" role="button">{tr}Add another image{/tr}</a>
                             </fieldset>
                         {/if}
                     {/if}

@@ -117,7 +117,8 @@
                                     <td>{$profile.name|escape}: {tr}See profile info below (may take a few seconds to load){/tr}.</td>
                                 {else}
                                     <td><a href="#" onclick="$.profilesShowDetails( '{$baseURI}', 'profile-{$k}', '{$profile.domain|escape}', '{$profile.name|escape}', event, '{$show}'); return false"
-                                           data-ticket="{ticket mode=get}"
+                                            data-ticket="{ticket mode=get}"
+                                            role="button"
                                         >
                                             {$profile.name|escape}
                                         </a>{if !empty($profile.installed)} <em>{tr}applied{/tr}</em>{/if}

@@ -400,13 +400,13 @@
                                             <td class="w-25">
                                                 <input type="text" name="calitem[participant_comment][{$ppl.username}]" value="{$ppl.comment|escape}" class="form-control">
                                             <td>
-                                                <a href="#" class="delete-participant"><span class="icon icon-remove fas fa-times"></span></a>
+                                                <a href="#" class="delete-participant" role="button"><span class="icon icon-remove fas fa-times"></span></a>
                                             </td>
                                         </tr>
                                     {/foreach}
                                 </table>
                             </div>
-                            <div><a href="#" class="btn btn-secondary btn-sm availability-check">{tr}Check availability{/tr}</a></div>
+                            <div><a href="#" class="btn btn-secondary btn-sm availability-check" role="button">{tr}Check availability{/tr}</a></div>
                             <br/>
                             <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="calitem[process_itip]" value="1" checked>
                             Send calendar invitations and event updates via email

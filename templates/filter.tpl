@@ -53,7 +53,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="filter-categories">{tr}Categories{/tr}</label>
                 <div class="col-sm-4">
-                    <a class="category-lookup btn btn-secondary mb-1" href="#">{tr}Lookup{/tr}</a>
+                    <a class="category-lookup btn btn-secondary mb-1" href="#" role="button">{tr}Lookup{/tr}</a>
                     <div class="form-check d-inline-block ms-4">
                         <label for="filter-deep" class="form-check-label">
                             <input type="checkbox" name="filter~deep" id="filter-deep" class="form-check-input" {if $filter_deep} checked="checked"{/if}> {tr}Deep search{/tr}
@@ -71,7 +71,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="filter-tags">{tr}Tags{/tr}</label>
                 <div class="col-sm-4">
-                    <a class="tag-lookup btn btn-secondary mb-1" href="#">{tr}Lookup{/tr}</a>
+                    <a class="tag-lookup btn btn-secondary mb-1" href="#" role="button">{tr}Lookup{/tr}</a>
                     <input type="text" name="filter~tags" class="tag-wizard" id="filter-tags" value="{$filter_tags|escape}">
                 </div>
                 <div class="tag-picker" title="{tr}Select Tags{/tr}" style="display:none;">
