@@ -67,10 +67,10 @@ function wikiplugin_remarksbox_info()
             'close' => [
                 'required' => false,
                 'name' => tra('Close'),
-                'description' => tra('Show a close button (not shown by default).'),
+                'description' => tra('Show a close button (shown by default).'),
                 'since' => '4.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => 'y',
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 'y'],
