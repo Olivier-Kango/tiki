@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\File\DiagramHelper;
 use Tiki\TikiInit;
+use Tiki\Lib\CookieConsent\CookieConsentLib;
 
 require_once(__DIR__ . '/../lib/debug/Tracer.php');
 
@@ -2338,7 +2339,7 @@ class TikiLib extends TikiDb_Bridge
 
         $ip = $this->get_ip_address();
         $_SESSION['votes'][] = $id;
-        setcookie(md5("tiki_wiki_poll_$id"), $ip, time() + 60 * 60 * 24 * 300);
+        CookieConsentLib::tikiSetCookie(md5("tiki_wiki_poll_$id"), $ip, CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL, time() + 60 * 60 * 24 * 300);
         if (! $user) {
             if ($prefs['ip_can_be_checked'] == 'y') {
                 $userVotings->delete(['ip' => $ip, 'id' => $id]);

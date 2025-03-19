@@ -10,6 +10,8 @@
 // and make comments, please see
 // http://tiki.org/tiki-index.php?page=ScoringSystemIdea
 
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 /**
  *
  */
@@ -247,7 +249,7 @@ class ScoreLib extends TikiLib
                 if (empty($uniqueVal)) {
                     $uniqueVal = getenv('HTTP_CLIENT_IP') . time() . rand();
                     $uniqueVal = md5($uniqueVal);
-                    setCookieSection('anonUserScoreId', "anon" . $uniqueVal);
+                    CookieConsentLib::tikiSetCookie('anonUserScoreId', "anon" . $uniqueVal, CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
                 }
                 $args['user'] = $uniqueVal;
             }

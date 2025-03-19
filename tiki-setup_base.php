@@ -15,6 +15,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 }
 
 use Tiki\Command\ConsoleSetupException;
+use Tiki\Lib\CookieConsent\CookieConsentLib;
 
 require_once('tiki-filter-base.php');
 
@@ -93,7 +94,7 @@ $needed_prefs = [
     'cookie_consent_feature' => 'n',
     'cookie_consent_disable' => 'n',
     'cookie_consent_analytics' => 'n',
-    'cookie_consent_name' => 'tiki_cookies_accepted',
+    'cookie_consent_name' => CookieConsentLib::COOKIE_CONSENT_NAME,
     'allocate_memory_php_execution' => '',
     'allocate_time_php_execution' => '',
     'https_port' => '443',
@@ -220,7 +221,7 @@ if (empty($tikidomain)) {
     $tikidomain = "";
 }
 
-if ($prefs['cookie_consent_feature'] === 'y' && empty($_COOKIE[$prefs['cookie_consent_name']]) && $prefs['cookie_consent_disable'] !== 'y') {
+if ($prefs['cookie_consent_feature'] === 'y' && empty($_COOKIE[CookieConsentLib::COOKIE_CONSENT_NAME]) && $prefs['cookie_consent_disable'] !== 'y') {
     // No consent yet
     $feature_no_cookie = true;
     $feature_no_cookie_analytics = true;
@@ -228,7 +229,7 @@ if ($prefs['cookie_consent_feature'] === 'y' && empty($_COOKIE[$prefs['cookie_co
     // Cookie consent not implemented or consent given or consent forced with preference cookie_consent_disable
     $feature_no_cookie = false;
     if ($prefs['cookie_consent_analytics'] === 'y') {
-        if (! empty($_COOKIE[$prefs['cookie_consent_name'] . '_analytics']) && $_COOKIE[$prefs['cookie_consent_name'] . '_analytics'] === 'y') {
+        if (CookieConsentLib::getConsentPreferences(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ANALYTICS)) {
             $feature_no_cookie_analytics = false;
         } else {
             $feature_no_cookie_analytics = true;
@@ -742,7 +743,7 @@ try {
                 'ticket'                      => 'alnumdash',
                 'confirmForm'                 => 'alpha',
                 //cookie
-                $prefs['cookie_consent_name'] => 'alnum',
+                CookieConsentLib::COOKIE_CONSENT_NAME => 'alnum',
                 'local_tz'                    => 'text',
                 'local_tzoffset'              => 'int',
                 'PHPSESSID'                   => 'alnum',

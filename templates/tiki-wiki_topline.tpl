@@ -79,7 +79,7 @@
                                 {*<li role="presentation">*}
                                     <span class="dropdown-item" role="menuitem" tabindex="-1">
                                         {if $backlinks[back].type eq 'wiki page'}
-                                            {icon name="notepad"} 
+                                            {icon name="notepad"}
                                         {elseif $backlinks[back].type eq 'trackeritemfield'}
                                             {icon name="database"}
                                         {/if}
@@ -177,7 +177,7 @@
                                         if (! $icon.hasClass("active highlight")) {
                                             $(".editplugin, .icon_edit_section").show();
                                             $icon.addClass("active highlight");
-                                            setCookieBrowser("wiki_plugin_edit_view", true);
+                                            setCookie("wiki_plugin_edit_view", true, "", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
                                             $(".toggle-icon", this).replaceWith($toggleOnIcon);
                                         } else {
                                             $(".editplugin, .icon_edit_section").hide();

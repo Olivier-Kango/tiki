@@ -20,7 +20,7 @@
 {if $remarksbox_cookie}
 {jq}
 $("button#btn-close", "#{{$remarksbox_id|escape}}").on("click", function() {
-    setCookie("{{$remarksbox_cookiehash}}", "1", "rbox");
+    setCookie("{{$remarksbox_cookiehash}}", "1", "rbox", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
 });
 {/jq}
 {/if}

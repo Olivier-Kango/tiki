@@ -155,16 +155,6 @@ $(document).ready(function () {
         }
     });
 });
-if (jqueryTiki.no_cookie) {
-    $('.box-login_box input').each(function(){
-        $(this).on("change", function() {
-            if (jqueryTiki.no_cookie && ! jqueryTiki.cookie_consent_alerted && $(this).val()) {
-                alert(jqueryTiki.cookie_consent_alert);
-                jqueryTiki.cookie_consent_alerted = true;
-            }
-        });
-    });
-}
 $("#switchbox-{{$module_logo_instance}} .submit").on("click", function () {
     if ($("#login-switchuser_{{$module_logo_instance}}").val()) {
         confirmPopup('{tr}Switch user?{/tr}')

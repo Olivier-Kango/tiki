@@ -15,6 +15,7 @@
 use Tiki\Maintenance\Maintenance;
 use Tiki\Package\VendorHelper;
 use Tiki\Profiling\Timer;
+use Tiki\Lib\CookieConsent\CookieConsentLib;
 
 //Be careful, composer autoloading isn't available until tiki-setup_base.php is required further down
 
@@ -227,38 +228,50 @@ if (! TIKI_API) {
             $jitRequest->offsetExists('cookie_consent')
         )
     ) {
-        if (! empty($_REQUEST['cookie_consent_checkbox']) || $prefs['site_closed'] === 'y') {
-            // js disabled
-            setCookieSection($prefs['cookie_consent_name'], 'y');   // set both real cookie and tiki_cookie_jar
+        $cookie_consent_name = CookieConsentLib::COOKIE_CONSENT_NAME;
+        if (
+            ! empty($_REQUEST[$cookie_consent_name]) ||
+            $prefs['site_closed'] === 'y'
+        ) {
+            // js disabled, so we need to set the cookies server-side
+            $consent = [
+                'consentGiven' => true,
+                'categories' => [
+                    'essential' => true,
+                    'analytics' => false,
+                    'marketing' => false,
+                    'functional' => false,
+                ],
+            ];
+            CookieConsentLib::setConsentPreferences($consent);
             $feature_no_cookie = false;
-            setCookieSection($prefs['cookie_consent_name'], 'y');
         }
-        $cookie_consent = getCookie($prefs['cookie_consent_name']);
-        if (empty($cookie_consent) || $jitRequest->offsetExists('cookie_consent')) {
-            $prefs['cookie_consent_mode'] = '';
+        // Retrieve the full consent object (This check first the browser and then user cookie consent prefs)
+        $consent_preferences = CookieConsentLib::initializeConsentPreferences();
+        if (! $consent_preferences['consentGiven'] || $jitRequest->offsetExists('cookie_consent')) {
             if (! $jitRequest->offsetExists('cookie_consent')) {
-                $headerlib->add_js('jqueryTiki.no_cookie = true; jqueryTiki.cookie_consent_alert = "' . addslashes($prefs['cookie_consent_alert']) . '";');
                 foreach ($_COOKIE as $k => $v) {
                     if (strpos($k, session_name()) === false) {
                         setcookie($k, '', time() - 3600);        // unset any previously existing cookies except the session and js detect
                     }
                 }
             }
+            // Get cookie categories
+            $cookie_categories = CookieConsentLib::getCookieCategories();
+            $smarty->assign('cookie_categories', $cookie_categories);
             $cookie_consent_html = $smarty->fetch('cookie_consent.tpl');
         } else {
-            // check if it was a client-side cookie and turn into a server-side one to get longer than 7 days expiry
-            if ($cookie_consent !== 'y') {
-                setcookie($prefs['cookie_consent_name'], 'y', intval($cookie_consent / 1000));
-            }
             $feature_no_cookie = false;
 
-            if ($prefs['cookie_consent_analytics'] === 'y') {
+            if (isset($consent['categories']['analytics']) && $consent['categories']['analytics'] === true) {
                 $analytics = getCookie($prefs['cookie_consent_name'] . '_analytics');
                 if (is_numeric($analytics)) {   // has been set server-side, so user is opting in to analytics
-                    setcookie($prefs['cookie_consent_name'] . '_analytics', 'y', intval($analytics / 1000));
+                    $consent_preferences['categories']['analytics'] = true;
+                    CookieConsentLib::setConsentPreferences($consent_preferences);
                     $feature_no_cookie_analytics = false;
                 } elseif (empty($analytics)) {
-                    setcookie($prefs['cookie_consent_name'] . '_analytics', 'n', 24 * 60 * 60 * $prefs['cookie_consent_expires']);
+                    $consent_preferences['categories']['analytics'] = false;
+                    CookieConsentLib::setConsentPreferences($consent_preferences);
                     $feature_no_cookie_analytics = true;
                 }
             }
@@ -572,6 +585,10 @@ if ($prefs['feature_syntax_highlighter'] == 'y') {
 if ($prefs['feature_ajax'] === 'y') {
     $headerlib->add_jsfile('lib/jquery_tiki/tiki-confirm.js');
     $headerlib->add_jsfile('lib/ajax/autosave.js'); // Note that this file is needed even if ajax_autosave is off otherwise wysiwyg won't load.
+}
+
+if ($prefs['cookie_consent_feature'] == 'y') {
+    $headerlib->add_js_module('import "@jquery-tiki/tiki-cookie-handler";');
 }
 
 // $url_scheme is 'http' or 'https' depending on request type condsidering already a reverse proxy

@@ -8,6 +8,8 @@
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
 
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 require_once('check_composer_exists.php');
 
 $inputConfiguration = [
@@ -227,7 +229,9 @@ if (
     $inlineEditorContent = TikiLib::lib('edit')->parseToWysiwyg($info['data'], false, false, ['wysiwyg' => true, 'html_editor' => true]);
     $smarty->assign('inline_editor_content', $inlineEditorContent);
 } elseif (getCookie('wysiwyg_inline_edit', 'preview')) {
-    setCookieSection('wysiwyg_inline_edit', 0, 'preview');  // kill cookie if pref off or no perms
+    TikiLib::lib('wysiwyg')->setUpInlineEditor($page);      // init ckeditor
+} elseif (CookieConsentLib::getCookie('wysiwyg_inline_edit', 'preview')) {
+    CookieConsentLib::tikiSetCookie('wysiwyg_inline_edit', 0, CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL, 0, 'preview'); // kill cookie if pref off or no perms
 }
 
 // Process page display options

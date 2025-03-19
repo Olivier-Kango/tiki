@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
     die('This script may only be included.');
 }
@@ -99,7 +102,7 @@ $headerlib->add_js(
     '
 try {
     var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setCookie("local_tz", timezone);
+    setCookie("local_tz", timezone, "", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
 } catch (e) {}
 
 // this is used by tiki-confirm.js checkTimeout, so needs to be always set
@@ -117,7 +120,7 @@ if (! timezone) {
     var allTimeZoneCodes = ' . json_encode(array_map("strtoupper", $tz)) . ';
     var now_string = now.toString();
     var offsethours = - now.getTimezoneOffset() / 60;
-    setCookie("local_tzoffset", offsethours);
+    setCookie("local_tzoffset", offsethours, "", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
     var m = now_string.match(/[ \(]([A-Z]{3,6})[ \)]?[ \d]*$/);    // try three or more char tz first at the end or just before the year
     if (!m) {
         m = now_string.match(/[ \(]([A-Z]{1,6})[ \)]?[ \d]*$/);    // might be a "military" one if not
@@ -132,19 +135,38 @@ if (! timezone) {
     // Etc/GMT+ is equivalent to GMT-
     if (m.substring(0,4) == "GMT + ") {
         m = "Etc / GMT - " + m.substring(4);
-        setCookie("local_tz", m);
+        setCookie("local_tz", m, "", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
     }
     if (m.substring(0,4) == "GMT - ") {
         m = "Etc / GMT + " + m.substring(4);
-        setCookie("local_tz", m);
+        setCookie("local_tz", m, "", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
     }
     if (inArray(m, allTimeZoneCodes)) {
-        setCookie("local_tz", m);
+        setCookie("local_tz", m, "", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
     }
 }
 ',
     2
 );
+
+// Extract cookie consent constants from the CookieConsentLib
+// When the pref cookie_consent_feature is set to y
+if ($prefs['cookie_consent_feature'] == 'y') {
+    // Create a ReflectionClass instance for the CookieConsentLib class
+    $reflection = new ReflectionClass(CookieConsentLib::class);
+
+    // Get all the constants defined in the CookieConsentLib class
+    $constants = $reflection->getConstants();
+
+    // Generate JavaScript content with the constants
+    $jsContent = "window.tikiCookieConstants = Object.freeze({\n";
+    foreach ($constants as $name => $value) {
+        $jsContent .= "    $name: " . json_encode($value) . ",\n";
+    }
+    $jsContent .= "});\n";
+    // Add the JavaScript content to the header
+    $headerlib->add_js($jsContent);
+}
 
 $jqueryTiki['ui'] = $prefs['feature_jquery_ui'] === 'y' ? true : false;
 $jqueryTiki['ui_theme'] = $prefs['feature_jquery_ui_theme'];
@@ -214,7 +236,13 @@ $jqueryTiki['tiki_same_day_time_only'] = $prefs['tiki_same_day_time_only'];
 $jqueryTiki['jquery_timeago'] = $prefs['jquery_timeago'] === 'y' ? true : false;
 $jqueryTiki['short_date_format'] = $prefs['short_date_format'];
 $jqueryTiki['short_time_format'] = $prefs['short_time_format'];
-$jqueryTiki['wiki_url_scheme'] = $prefs['wiki_url_scheme'];
+$jqueryTiki['cookie_consent_dom_id'] = $prefs['cookie_consent_dom_id'];
+$jqueryTiki['cookie_consent_mode'] = $prefs['cookie_consent_mode'];
+$jqueryTiki['cookie_consent_expires'] = $prefs['cookie_consent_expires'];
+$jqueryTiki['cookie_consent_name'] = CookieConsentLib::COOKIE_CONSENT_NAME;
+$jqueryTiki['cookie_consent_categories'] = json_encode(array_keys(CookieConsentLib::getCookieCategories()));
+$jqueryTiki['cookie_consent_value'] = json_encode(CookieConsentLib::getConsentPreferences(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
 //set at 4 hours if empty
 $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
     : TikiLib::lib('access')->getDefaultTimeout();
@@ -314,13 +342,8 @@ $(document).on("tiki.modal.redraw", function(event) {
     if (!$modalContent.is(".modal-content")) {
         $modalContent = $modalContent.find(".modal-content")
     }
+    $modalContent.find(".modal-body").css({ "overflow": "auto" });
 
-    const modalBody = $modalContent.find(".modal-body")[0];
-
-    const initialWidth = parseFloat(getComputedStyle($modalContent[0]).width.slice(0, -2));
-    const initialHeight = parseFloat(getComputedStyle($modalContent[0]).height.slice(0, -2));
-    const initialOverflow = getComputedStyle(modalBody).overflow;
-    
     const modalId = 'modal' + Math.random().toString(36).substring(7);
     $modalContent.attr("id", modalId);
     interact(`#${modalId}`).resizable({
@@ -335,7 +358,7 @@ $(document).on("tiki.modal.redraw", function(event) {
                 height += e.deltaRect.top + e.deltaRect.bottom;
                 target.style.width = `${width}px`;
                 target.style.height = `${height}px`;
-                
+
                 if (width < initialWidth || height < initialHeight) {
                     modalBody.style.overflow = "auto";
                 } else {

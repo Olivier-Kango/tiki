@@ -13,6 +13,7 @@
 // with a call to header(), then you will not see the traces
 // If you want to see the traces, set value below to true.
 // WARNING: DO NOT COMMIT WITH TRUE!!!!
+
 $dieInsteadOfForwardingWithHeader = false;
 global $prefs;
 require_once('lib/debug/Tracer.php');

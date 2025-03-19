@@ -4,6 +4,8 @@
  * @package tikiwiki
  */
 
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -797,7 +799,7 @@ if (isset($_REQUEST['show'])) {
     if ($_REQUEST['show'] == 'view') {
         $cookietab = 1;
         // for legacy edit mode after saving
-        setCookieSection('tabs_view_tracker_item', '', 'tabs');
+        CookieConsentLib::tikiSetCookie('tabs_view_tracker_item', '', CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL, 0, 'tabs');
     } elseif ($tracker_info["useComments"] == 'y' and $_REQUEST['show'] == 'com') {
         $cookietab = 2;
     } elseif ($_REQUEST['show'] == "mod") {

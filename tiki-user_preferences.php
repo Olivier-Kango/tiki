@@ -4,6 +4,8 @@
  * @package tikiwiki
  */
 
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -75,6 +77,11 @@ $modlib = TikiLib::lib('mod');
 $userprefslib = TikiLib::lib('userprefs');
 $perspectivelib = TikiLib::lib('perspective');
 
+// Get cookie consent user preferences
+$cookieConsentPrefs = CookieConsentLib::getConsentPreferences();
+// Get all the existing cookie categories
+$cookieCategories = CookieConsentLib::getCookieCategories();
+
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use PragmaRX\Google2FA\Google2FA;
 use BaconQrCode\Renderer\ImageRenderer;
@@ -127,6 +134,11 @@ $smarty->assign('show_mouseover_user_info', isset($prefs['show_mouseover_user_in
 
 if ($prefs['feature_perspective'] === 'y') {
     $smarty->assign('perspectives', $perspectivelib->list_perspectives());
+}
+
+if ($prefs['cookie_consent_feature'] === "y") {
+    $smarty->assign('cookieConsentPrefs', $cookieConsentPrefs);
+    $smarty->assign('cookieCategories', $cookieCategories);
 }
 
 // form in first tab "Personal Information"
@@ -194,6 +206,31 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
     }
     if (isset($_POST["notify_oneself"])) {
         $tikilib->set_user_preference($userwatch, 'notify_oneself', $_POST["notify_oneself"]);
+    }
+
+    if (isset($_POST["cookie_consent_update"])) {
+        // Initialize the preferences array using the consent action from POST data.
+        $preferences = [
+            'consentGiven' => true,
+            'action' => $_POST['cookie_consent_update'],
+            'categories' => []
+        ];
+        // Loop through all defined cookie categories and set their statuses.
+        foreach ($cookieCategories as $category => $description) {
+            if ($_POST['cookie_consent_update'] === 'declineNonEssential') {
+                // When the user declines unnecessary cookies, disable all non-essential categories.
+                $preferences['categories'][$category] = ($category === 'essential');
+            } else {
+                // For "acceptAll" or "customized" actions, enable the category only if the corresponding POST flag is set.
+                // Always ensure the essential category is true.
+                $preferences['categories'][$category] = ($category === 'essential') ? true : (isset($_POST["cookie_consent_$category"]) && $_POST["cookie_consent_$category"] === "on");
+            }
+        }
+        // Store the complete consent preferences as a single JSON cookie via CookieConsentLib.
+        CookieConsentLib::setConsentPreferences($preferences);
+
+        // Save the preferences in the user's settings as a JSON string.
+        $tikilib->set_user_preference($userwatch, 'cookie_consent_user_pref', json_encode($preferences));
     }
 
     if (isset($_POST["switch_user_notification"])) {

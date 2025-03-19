@@ -8,6 +8,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\CookieConsent\CookieConsentLib;
 use Tiki\TwoFactorAuth\TwoFactorAuth;
 use Tiki\TwoFactorAuth\Exception\TwoFactorAuthException;
 
@@ -128,6 +130,7 @@ $requestedUser = isset($_REQUEST['user']) ? trim($_REQUEST['user']) : false;
 $pass = isset($_REQUEST['pass']) ? trim($_REQUEST['pass']) : false;
 $isvalid = false;
 $isdue = false;
+
 // admin is always local
 if ($requestedUser == 'admin') {
     $prefs['feature_intertiki'] = 'n';

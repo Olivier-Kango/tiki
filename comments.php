@@ -29,6 +29,8 @@ $access = TikiLib::lib('access');
 $tikilib = TikiLib::lib('tiki');
 $headerlib = TikiLib::lib('header');
 
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 /*
  * Determine the settings used to display the thread
  */
@@ -79,14 +81,15 @@ $comments_aux = [];
 if (isset($_REQUEST['comzone'])) {
     $comments_show = 'n';
     $comzone_state = $_REQUEST['comzone'];
+
     if ($comzone_state == 'show' || $comzone_state == 'o') {
         $comments_show = 'y';
-        if (! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'c') {
-            setcookie('comzone', 'o');
+        if ((! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'c') && $functional_cookies) {
+            CookieConsentLib::tikiSetCookie('comzone', 'o', CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
         }
     }
     if ($comzone_state == 'hide' || $comzone_state == 'c') {
-        if (! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'o') {
+        if ((! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'o') && $functional_cookies) {
             setcookie('comzone', 'c');
         }
     }

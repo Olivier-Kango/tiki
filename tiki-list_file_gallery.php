@@ -8,6 +8,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\CookieConsent\CookieConsentLib;
 use Tiki\Package\VendorHelper;
 
 $inputConfiguration = [
@@ -1278,7 +1280,7 @@ $smarty->assign('thumbnail_size', $prefs['fgal_thumb_max_size']);
 
 if (isset($_REQUEST['show_details'])) {
     $show_details = $_REQUEST['show_details'] === 'y' ? 'y' : 'n';
-    setCookieSection('show_details', $show_details);
+    CookieConsentLib::tikiSetCookie('show_details', $show_details, CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL, 0);
 } else {
     $show_details = getCookie('show_details', null, 'n');
 }

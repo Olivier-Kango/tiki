@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 function wikiplugin_tour_info()
 {
     return [
@@ -215,7 +218,7 @@ function wikiplugin_tour($data, $params)
         $dontStart = false;
 
         if ($params['show_once'] === 'y') {
-            setCookieSection($cookie_id, 'y', 'tours', $cookie_expiry);
+            CookieConsentLib::tikiSetCookie($cookie_id, 'y', CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL, 0, 'tours');
         }
     }
 

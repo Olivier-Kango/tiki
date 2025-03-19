@@ -366,6 +366,58 @@
                             </select>
                         </div>
                     </div>
+                    {if $prefs.cookie_consent_feature eq 'y'}
+                    <div class="tiki-form-group row">
+                        <label class="col-form-label col-md-4" for="cookie_consent">
+                            {tr}Cookie consent{/tr}
+                        </label>
+                        <div class="col-md-8">
+                            <div class="d-flex flex-wrap gap-3">
+                                {* Accept All checkbox *}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="acceptAllCheck" name="cookie_consent_update" value="acceptAll">
+                                    <label class="form-check-label" for="acceptAllCheck">
+                                        {tr}Accept All{/tr}
+                                    </label>
+                                </div>
+                                {* Decline Non-Essential checkbox *}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="declineUnnecessaryCheck" name="cookie_consent_update" value="declineNonEssential">
+                                    <label class="form-check-label" for="declineUnnecessaryCheck">
+                                        {tr}Decline Non-Essential{/tr}
+                                    </label>
+                                </div>
+                                {* Customized checkbox *}
+                                <div class="form-check" id="customizedAction" style="display: none;">
+                                    <input class="form-check-input" type="checkbox" id="customizedCheck" name="cookie_consent_update" value="customized">
+                                    <label class="form-check-label" for="customizedCheck">
+                                        {tr}Customized{/tr}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="customConsentSection" class="tiki-form-group row mt-3">
+                        <div class="col-md-8 offset-md-4">
+                            {foreach from=$cookieCategories key=category item=description}
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input"
+                                        type="checkbox"
+                                        id="toggle{$category|capitalize}"
+                                        name="cookie_consent_{$category}"
+                                        {if $category == 'essential'}checked disabled
+                                        {elseif $cookieConsentPrefs.action eq 'acceptAll' || $cookieConsentPrefs.categories[$category] === true}checked{/if}>
+                                    <label class="form-check-label" for="toggle{$category|capitalize}">
+                                        {tr}{$category|capitalize}{/tr}
+                                        <span class="ms-2" data-bs-toggle="tooltip" data-bs-placement="right" title="{$description}">
+                                            <i class="icon icon-help fas fa-question-circle"></i>
+                                        </span>
+                                    </label>
+                                </div>
+                            {/foreach}
+                        </div>
+                    </div>
+                    {/if}
                     <div class="tiki-form-group row clearfix">
                         <label class="col-form-label col-md-4" for="display_timezone">
                             {tr}Displayed timezone{/tr}
@@ -392,7 +444,7 @@
                             {/if}
                         </div>
                     </div>
-    
+
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="display_12hr_clock" id="display_12hr_clock" {if $user_prefs.display_12hr_clock eq 'y'}checked="checked"{/if}>
                         <label class="form-check-label" for="display_12hr_clock">
@@ -407,7 +459,7 @@
                             </label>
                         </div>
                     {/if}
-    
+
                     {if $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y'}
                         <legend>{tr}User Messages{/tr}</legend>
                         <div class="tiki-form-group row clearfix">
@@ -528,7 +580,7 @@
                             </div>
                         </div>
                     {/if}
-    
+
                     <div class="row justify-content-end mb-2">
                         <div class="col-md-8">
                         {if $prefs.feature_wiki eq 'y'}
@@ -626,7 +678,7 @@
                             {button _text="{tr}Reset{/tr}" _onclick="if (confirm('{tr}This will reset the visibility of all the tips, notices and warning remarks boxes you have closed.{/tr}')) {ldelim}deleteCookie('rbox');{rdelim}return false;" _class='btn-sm'}
                         </div>
                     </div>
-    
+
                     {if $prefs.webmonetization_enabled eq 'y'}
                         <legend>{tr}Web Monetization{/tr}</legend>
                         <div class="tiki-form-group row clearfix">
@@ -646,7 +698,7 @@
                             </div>
                         </div>
                     {/if}
-    
+
                     <div class="submit text-center">
                         <input type="submit" class="btn btn-primary" name="new_prefs" value="{tr}Save changes{/tr}">
                     </div>

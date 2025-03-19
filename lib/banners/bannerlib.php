@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 class BannerLib extends TikiLib
 {
     public function select_banner_id($zone)
@@ -120,9 +123,8 @@ class BannerLib extends TikiLib
         if ($res['maxUserImpressions'] > 0) {
             $views[$res['bannerId']] = isset($views[$res['bannerId']]) ? $views[$res['bannerId']] + 1 : 1;
             $expire = $res['useDates'] ? $res['toDate'] : $tikilib->now + 60 * 60 * 24 * 90; //90 days
-            setcookie($cookieName, json_encode($views), $expire);
+            CookieConsentLib::tikiSetCookie($cookieName, json_encode($views), CookieConsentLib::BUILTIN_COOKIE_CATEGORY_MARKETING, $expire);
         }
-
         return $raw;
     }
 

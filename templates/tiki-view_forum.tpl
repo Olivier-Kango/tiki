@@ -391,13 +391,16 @@
                             {/if}
                             <input type="submit" class="btn btn-primary btn-sm" name="comments_postComment" value="{tr}Post{/tr}"
                                     {if empty($user)}
-                                        onclick="setCookie('anonymous_name',document.getElementById('anonymous_name').value);needToConfirm=false;"
+                                         onclick="setCookie('anonymous_name', document.getElementById('anonymous_name').value, '', 'session', 'functional');needToConfirm=false;"
                                     {else}
                                         onclick="needToConfirm=false;"
                                     {/if}
                             >
                             {if $prefs.ajax_edit_previews eq 'n'}
-                                <input type="submit" class="btn btn-secondary btn-sm" name="comments_previewComment" value="{tr}Preview{/tr}" {if empty($user)}onclick="setCookie('anonymous_name',document.getElementById('anonymous_name').value);needToConfirm=false;"{/if}>
+                                <input type="submit" class="btn btn-secondary btn-sm" name="comments_previewComment" value="{tr}Preview{/tr}"
+                                {if empty($user)}
+                                    onclick="setCookie('anonymous_name', document.getElementById('anonymous_name').value, '', 'session', 'functional');needToConfirm=false;"
+                                {/if}>
                             {/if}
                             <input type="submit" class="btn btn-link btn-sm" name="comments_postCancel" value="{tr}Cancel{/tr}" {if $comment_preview neq 'y'}onclick="hide('forumpost');window.location='#header';return false;"{/if}>
                         </div>
@@ -618,7 +621,7 @@
                         <button
                             type="submit"
                             form="view_forum"
-                            formaction="{bootstrap_modal controller=forum action=unlock_topic}" 
+                            formaction="{bootstrap_modal controller=forum action=unlock_topic}"
                             title=":{tr}Unlock{/tr}"
                             class="btn btn-primary btn-sm tips"
                             aria-label="{tr}Unlock{/tr}"
@@ -765,7 +768,7 @@
                         </td>
                         {if $forum_info.topic_smileys eq 'y'}
                             <td class="icon">
-                                {if isset($comments_coms[ix].smiley) && strlen($comments_coms[ix].smiley) > 0} 
+                                {if isset($comments_coms[ix].smiley) && strlen($comments_coms[ix].smiley) > 0}
                                     <img src='img/smiles/{$comments_coms[ix].smiley}'>
                                 {else}
                                     &nbsp;{$comments_coms[ix].smiley}
