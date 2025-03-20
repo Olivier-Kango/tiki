@@ -43,8 +43,8 @@
     "clean": "concurrently \"npm:clean:*\"",
     "test": "vitest --config=src/js/vite.config.mjs --coverage",
     "testci": "vitest --config=src/js/vite.config.mjs --coverage --run",
-    "postinstall": "patch-package --patch-dir=src/js/patches",
-    "patch": "patch-package --patch-dir=src/js/patches"
+    "postinstall": "patch-package --patch-dir=src/js/patches --error-on-fail",
+    "patch": "patch-package --patch-dir=src/js/patches --error-on-fail"
   },
   "engines": {
     "npm": ">=9.0.0 <11",
