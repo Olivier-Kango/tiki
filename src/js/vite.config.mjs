@@ -605,10 +605,6 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/summernote/dist/lang/*.min.js",
                         dest: "vendor_dist/summernote/dist/lang",
                     },
-                    {
-                        src: "src/js/jquery-tiki/tiki-cookie-handler.js",
-                        dest: "generated/js/"
-                    }
                 ],
             }),
             AutoImport({

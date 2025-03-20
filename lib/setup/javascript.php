@@ -150,23 +150,20 @@ if (! timezone) {
 );
 
 // Extract cookie consent constants from the CookieConsentLib
-// When the pref cookie_consent_feature is set to y
-if ($prefs['cookie_consent_feature'] == 'y') {
-    // Create a ReflectionClass instance for the CookieConsentLib class
-    $reflection = new ReflectionClass(CookieConsentLib::class);
+// Create a ReflectionClass instance for the CookieConsentLib class
+$reflection = new ReflectionClass(CookieConsentLib::class);
 
-    // Get all the constants defined in the CookieConsentLib class
-    $constants = $reflection->getConstants();
+// Get all the constants defined in the CookieConsentLib class
+$constants = $reflection->getConstants();
 
-    // Generate JavaScript content with the constants
-    $jsContent = "window.tikiCookieConstants = Object.freeze({\n";
-    foreach ($constants as $name => $value) {
-        $jsContent .= "    $name: " . json_encode($value) . ",\n";
-    }
-    $jsContent .= "});\n";
-    // Add the JavaScript content to the header
-    $headerlib->add_js($jsContent);
+// Generate JavaScript content with the constants
+$jsContent = "window.tikiCookieConstants = Object.freeze({\n";
+foreach ($constants as $name => $value) {
+    $jsContent .= "    $name: " . json_encode($value) . ",\n";
 }
+$jsContent .= "});\n";
+// Add the JavaScript content to the header
+$headerlib->add_js($jsContent);
 
 $jqueryTiki['ui'] = $prefs['feature_jquery_ui'] === 'y' ? true : false;
 $jqueryTiki['ui_theme'] = $prefs['feature_jquery_ui_theme'];
