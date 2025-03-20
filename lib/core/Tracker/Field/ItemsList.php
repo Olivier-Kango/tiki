@@ -10,7 +10,11 @@
  * Letter key: ~l~
  *
  */
+<<<<<<< Updated upstream
 class Tracker_Field_ItemsList extends \Tracker\Field\AbstractItemField implements \Tracker\Field\ExportableInterface, \Tracker\Field\FilterableInterface
+=======
+class Tracker_Field_ItemsList extends \Tracker\Field\AbstractField implements \Tracker\Field\ExportableInterface, Search_FacetProvider_Interface, \Tracker\Field\FilterableInterface
+>>>>>>> Stashed changes
 {
     private static $itemValuesLocalCache = [];
 
@@ -370,6 +374,27 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
     public function getGlobalFields(): array
     {
         return [];
+    }
+
+    /***
+     * Generate facets for search results
+     *
+     * @return array
+     */
+    public function getFacets()
+    {
+        $baseKey = $this->getBaseKey();
+
+        return [
+            Search_Query_Facet_Term::fromField($baseKey)
+                ->setLabel($this->getConfiguration('name'))
+                ->setRenderCallback([$this, 'getItemValue']),
+        ];
+    }
+
+    public function getItemValue($itemId)
+    {
+        return array_shift($this->getItemLabels([$itemId], ['list_mode' => 'csv']));
     }
 
     public function getTabularSchema()
