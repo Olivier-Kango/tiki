@@ -2961,10 +2961,6 @@
             "class:TikiSheetLabeledOutputHandler": true,
             "class:TikiSheetHTMLTableHandler": true
         },
-        "lib\/ziplib.php": {
-            "class:ZipWriter": true,
-            "class:ZipReader": true
-        },
         "lib\/ban\/banlib.php": {
             "class:BanLib": true
         },
@@ -4048,9 +4044,6 @@
             "class:TikiSheetOutputHandler": true,
             "class:TikiSheetLabeledOutputHandler": true,
             "class:TikiSheetHTMLTableHandler": true
-        },
-        "lib\/ziplib.php": {
-            "class:ZipReader": true
         },
         "lib\/graph-engine\/graph.bar.php": {
             "class:BarStackGraphic": true,
