@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34a9156adb51de167b08bf7d37e093e0",
+    "content-hash": "266a87608a0684128bd9c6a0c7f64a40",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -6070,49 +6070,6 @@
                 "validation"
             ],
             "time": "2024-08-07T15:39:19+00:00"
-        },
-        {
-            "name": "nicolaskruchten/pivottable",
-            "version": "v2.23.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nicolaskruchten/pivottable.git",
-                "reference": "a9cabee5382be0aaf0984ac906d9fa2e0376d2c1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/nicolaskruchten/pivottable/nicolaskruchten-pivottable-a9cabee5382be0aaf0984ac906d9fa2e0376d2c1-zip-5046c2.zip",
-                "reference": "a9cabee5382be0aaf0984ac906d9fa2e0376d2c1",
-                "shasum": "b4cdcee28301b37c39c98c8a17217934def19a53"
-            },
-            "require": {
-                "components/jquery": ">=1.9"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Kruchten",
-                    "email": "nicolas@kruchten.com"
-                }
-            ],
-            "description": "Javascript Pivot Table (aka Pivot Grid, Pivot Chart, Cross-Tab) implementation with drag'n'drop.",
-            "homepage": "https://pivottable.js.org/",
-            "keywords": [
-                "crosstab",
-                "grid",
-                "jquery",
-                "jquery-plugin",
-                "pivot",
-                "pivotchart",
-                "pivotgrid",
-                "pivottable",
-                "table"
-            ],
-            "time": "2018-11-04T18:21:09+00:00"
         },
         {
             "name": "nlgen/nlgen",
@@ -17425,9 +17382,9 @@
         "garethp/php-ews": 20,
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
-        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15
+        "phpcsstandards/phpcsutils": 15,
+        "rubix/extras": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17444,7 +17401,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",
