@@ -71,6 +71,31 @@ describe("formSubmission helpers", () => {
             expect($.fn.tikiModal.mock.calls[1][0]).toBe(undefined);
         });
 
+        test("succesfully parse the data containing html entities in the plugin syntax", () => {
+            // Given that the text editor is rendered within a form
+            const textarea = $("<textarea></textarea>");
+            $("body").append(textarea);
+
+            // mock the editor interface
+            const summernoteDataMock = {
+                code: vi.fn(() => '<div data-syntax="{&quot;plugin&quot;}" data-plugin="plugin-type"></div>'),
+                layoutInfo: {
+                    editor: textarea,
+                },
+            };
+            textarea.data("summernote", summernoteDataMock);
+
+            const stringReplaceSpy = vi.spyOn(String.prototype, "replace");
+
+            const successCallback = vi.fn();
+
+            parseData(textarea, successCallback, true);
+
+            expect(stringReplaceSpy).toHaveBeenCalledWith(/data-syntax="(\{.*?\})"/g, expect.any(Function));
+            expect(stringReplaceSpy).toHaveBeenCalledWith(/"&quot;"/g, '"');
+            expect(stringReplaceSpy.mock.contexts).toEqual(expect.arrayContaining([summernoteDataMock.code()]));
+        });
+
         test("succesfully parse the data when no callback is provided", () => {
             // Given that the text editor is rendered within a form
             const textarea = $("<textarea></textarea>");

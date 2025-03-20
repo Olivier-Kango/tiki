@@ -10,7 +10,9 @@ export default function (areaId) {
             });
         }
 
-        popupPluginForm(areaId, wrapper.data("plugin"), 0, "", args, false, wrapper.data("body") ?? "", null, null, null, {
+        const body = wrapper.data("syntax").match(/}(.*){/)?.[1];
+
+        popupPluginForm(areaId, wrapper.data("plugin"), 0, "", args, false, body ?? "", null, null, null, {
             target: wrapper,
         });
     });

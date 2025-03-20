@@ -1,6 +1,8 @@
 export function parseData(textarea, onSuccess = null, toWiki = true) {
     const editor = textarea.data("summernote");
-    const value = editor.code();
+    const value = editor.code().replace(/data-syntax="(\{.*?\})"/g, (_, p1) => {
+        return `data-syntax="${p1.replace(/"&quot;"/g, '"')}"`;
+    });
 
     editor.layoutInfo.editor.tikiModal(tr("Please wait..."));
 

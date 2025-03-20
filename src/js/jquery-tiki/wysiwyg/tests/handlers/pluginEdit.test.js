@@ -12,7 +12,9 @@ describe("pluginEdit handler", () => {
         // Given that a plugin is rendered within the editor
         const areaId = "editor";
         const area = $(`<div id="${areaId}"></div>`).appendTo("body");
-        area.after('<div class="note-editor"><div class="tiki_plugin" data-plugin="plugin-type"><img class="plugin_icon"></div></div></div>');
+        area.after(
+            '<div class="note-editor"><div class="tiki_plugin" data-syntax="{plugin}" data-plugin="plugin-type"><img class="plugin_icon"></div></div></div>'
+        );
 
         pluginEdit(areaId);
 
@@ -23,12 +25,12 @@ describe("pluginEdit handler", () => {
         });
     });
 
-    test("correctly handle plugin edition with arguments", () => {
+    test("correctly handle plugin edition with arguments and body content", () => {
         // Given that a plugin is rendered within the editor
         const areaId = "editor";
         const area = $(`<div id="${areaId}"></div>`).appendTo("body");
         area.after(
-            '<div class="note-editor"><div class="tiki_plugin" data-plugin="plugin-type" data-args="arg1=val1&arg2=val2"><img class="plugin_icon"></div></div></div>'
+            '<div class="note-editor"><div class="tiki_plugin" data-plugin="plugin-type" data-syntax="{plugin}body content{plugin}" data-args="arg1=val1&arg2=val2"><img class="plugin_icon"></div></div></div>'
         );
 
         pluginEdit(areaId);
@@ -42,7 +44,7 @@ describe("pluginEdit handler", () => {
             "",
             { arg1: "val1", arg2: "val2" },
             false,
-            "",
+            "body content",
             null,
             null,
             null,
