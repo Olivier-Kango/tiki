@@ -313,7 +313,6 @@ if (
         try {
             $twoFactorAuth = TwoFactorAuth::getTwoFactorAuth();
             $requireMfa = TwoFactorAuth::isMFARequired($requestedUser);
-            $isForce2FA = TwoFactorAuth::forceTwoFactorAuth($requestedUser);
             $twoFactorSecret = TwoFactorAuth::get2FactorSecret($requestedUser);
 
             if (
@@ -321,7 +320,6 @@ if (
                 && isset($_REQUEST['login_mode'])
                 && $_REQUEST['login_mode'] == 'popup'
                 && $requireMfa
-                && $isForce2FA
                 && ! empty($twoFactorSecret)
             ) {
                 $_SESSION['tiki_creds_username'] = $_REQUEST['user'];
@@ -331,7 +329,7 @@ if (
                 exit;
             }
 
-            if ($prefs['twoFactorAuth'] == 'y' && $requireMfa && $isForce2FA && ! empty($twoFactorSecret)) {
+            if ($prefs['twoFactorAuth'] == 'y' && $requireMfa && ! empty($twoFactorSecret)) {
                 $is2FaPass = $twoFactorAuth->validateCode($requestedUser, $_REQUEST['twoFactorAuthCode']);
                 if (! $is2FaPass) {
                     $error = TWO_FA_INCORRECT;

@@ -226,6 +226,7 @@
                     {preference name=twoFactorAuthIntervalDays}
                     {preference name=twoFactorAuthType}
                     {preference name=twoFactorAuthEmailTokenLength}
+                    {preference name=twoFactorAuthEmailTokenChars}
                     {preference name=twoFactorAuthEmailTokenTTL}
                     {preference name=twoFactorAuthAllUsers}
                     {preference name=twoFactorAuthIncludedGroup}

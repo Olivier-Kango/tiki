@@ -502,6 +502,10 @@ if (
     }
 }
 
+if (isset($_POST['twofactor']) && $access->checkCsrf() && $prefs['twoFactorAuthType'] == 'email2FA') {
+    $tfaSecret = $userlib->update_2_factor_secret($user, 'y');
+}
+
 if (
     isset($_POST['removetwofactor'])
     && $access->checkCsrf()
@@ -511,7 +515,6 @@ if (
     unset($_SESSION['tfaSecret']);
 }
 
-$force2FA = false;
 $twoFactorSecret = $userlib->get_2_factor_secret($userwatch);
 $force2FA = $userlib->forceTwoFactorAuth($userwatch);
 $smarty->assign('force2FA', $force2FA);
@@ -519,7 +522,7 @@ $smarty->assign('twoFactorSecret', $twoFactorSecret);
 
 $userinfo = $userlib->get_user_info($userwatch);
 $generate = isset($_REQUEST['tfagenerate']) || empty($tfaSecret);
-if ($prefs['twoFactorAuth'] == 'y' && $generate) {
+if ($prefs['twoFactorAuth'] == 'y' && $generate && $prefs['twoFactorAuthType'] == 'google2FA') {
     $google2fa = new Google2FA();
     if (empty($_SESSION['tfaSecret']) || $_SESSION['tfaSecret'] == $tfaSecret) {
         $_SESSION['tfaSecret'] = $google2fa->generateSecretKey();

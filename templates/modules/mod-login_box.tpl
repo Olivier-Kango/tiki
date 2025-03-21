@@ -31,15 +31,10 @@ $(document).ready(function () {
                 if (!res) {
                     $(event.currentTarget).off('submit').submit();
                 } else {
-                    const isForce2FA = await checkIsForce2FAForUser(username);
-                    if (isForce2FA) {
-                        if (twoFAType === 'google2FA') {
-                            show2FactorInputElement(btn, event);
-                        } else {
-                            generate2FACode(username, btn, event);
-                        }
+                    if (twoFAType === 'google2FA') {
+                        show2FactorInputElement(btn, event);
                     } else {
-                        $(event.currentTarget).off('submit').submit();
+                        generate2FACode(username, btn, event);
                     }
                 }
             },
@@ -78,23 +73,6 @@ $(document).ready(function () {
         );
     }
 
-    function checkIsForce2FAForUser(username) {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                url: $.service("two_fa_auth", "CheckForceTwoFactorAuth"),
-                type: 'POST',
-                data: { username: username },
-                success: function (data) {
-                    resolve(data);
-                },
-                error: function (req, status, error) {
-                    displayFeedback("error", error);
-                    reject(error);
-                }
-            });
-        });
-    }
-
     function getTwoFactorSecretGoogle2FA(username) {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -120,8 +98,7 @@ $(document).ready(function () {
     $("#loginbox-{{$module_logo_instance}}").on("submit", async function (event) {
         event.preventDefault();
         var isLoginScreen = parseInt($(event.currentTarget).parent('#login_form_div').length);
-        var isNormalLogin = "{{$create2FaCodeNormalLogin}}";
-
+        var isNormalLogin = $(this).data('normalLogin');
         if (isNormalLogin === 'y') {
             var btn = $("button.submit", this);
             var btnStep = parseInt(btn.attr('step')) + 1;
@@ -141,11 +118,14 @@ $(document).ready(function () {
         if (username && password) {
             if (is2FAEnabled === 'y') {
                 var twoFASecret = await getTwoFactorSecretGoogle2FA(username);
-                if (btnStep > 1 || isLoginScreen === 0 || (twoFASecret == 'n' && twoFAType === 'google2FA')) {
+                if (isNormalLogin != '2fa-regen' && (btnStep > 1 || isLoginScreen === 0 || (twoFASecret == 'n' && twoFAType === 'google2FA'))) {
                     $(this).off('submit').submit();
                     return false;
                 }
                 await handleEmail2FA(username, btn, event);
+                if (isNormalLogin == '2fa-regen') {
+                    $(this).data('normalLogin', 'y');
+                }
             } else {
                 $(this).off('submit').submit();
             }
@@ -321,6 +301,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
         <form name="loginbox" class="form{if $mode eq "header"} d-flex flex-row flex-wrap align-items-top{/if}" id="loginbox-{$module_logo_instance}" action="{$login_module.login_url|escape}"
                 method="post"
                 {if $prefs.desactive_login_autocomplete eq 'y'} autocomplete="off"{/if}
+                data-normalLogin="{{$create2FaCodeNormalLogin}}"
         >
         {ticket}
         {capture assign="close_tags"}</form>{$close_tags}{/capture}
@@ -379,8 +360,9 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
         <input type="hidden" name="login_mode" value="{$mode}" />
         {if $prefs.twoFactorAuth eq 'y' and ((isset($module_params.show_two_factor_auth) and $module_params.show_two_factor_auth eq 'y') or ! empty($error_login))}
         <div id="two_factor_div" class="my-2 {if $mode eq 'header'}mx-2{/if}" style="display: {if $create2FaCodeNormalLogin === 'y'} block; {else} none; {/if}">
-            <label for="login-2fa_{$module_logo_instance}">{tr}Two-factor Authenticator Code:{/tr}</label>
+            <label for="login-2fa_{$module_logo_instance}">{tr}Two-factor authentication code:{/tr}</label>
             <input type="text" name="twoFactorAuthCode" autocomplete="off" class="form-control" id="login-2fa_{$module_logo_instance}">
+            <a class="mt-1 d-block" href="#" onclick="$('#loginbox-{{$module_logo_instance}}').data('normalLogin', '2fa-regen').submit()" title="{tr}Click here if you've not received the code and want to send a new one.{/tr}">{tr}I didn't receive the code{/tr}</a>
         </div>
         {/if}
         {if $prefs.rememberme ne 'disabled' and (empty($module_params.remember) or $module_params.remember neq 'n')}
