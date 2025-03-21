@@ -295,6 +295,11 @@ if (isset($_REQUEST['filterfield'])) {
         $tryfiltervalue = $_REQUEST['filtervalue'][$tryfilterfield];
     } else {
         $tryfilterfield = preg_split('/\s*:\s*/', $_REQUEST['filterfield']);
+
+        if (! isset($_REQUEST['filtervalue']) or ! isset($_REQUEST['exactvalue'])) {
+            $access->display_error('', tra('Filter value or Exact value not specified.'), "400");
+        }
+
         $tryfiltervalue = preg_split('/\s*:\s*/', $_REQUEST['filtervalue']);
         $tryexactvalue = preg_split('/\s*:\s*/', $_REQUEST['exactvalue']);
     }
