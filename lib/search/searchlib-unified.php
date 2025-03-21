@@ -569,6 +569,10 @@ class UnifiedSearchLib
             $types['sheet'] = tra('sheet');
         }
 
+        if ($prefs['feature_wiki_structure'] == 'y') {
+            $types['structure'] = tra('structure');
+        }
+
         if (
             $prefs['feature_wiki_comments'] == 'y'
             || $prefs['feature_article_comments'] == 'y'
@@ -821,6 +825,10 @@ class UnifiedSearchLib
 
         if (isset($types['sheet'])) {
             $aggregator->addContentSource('sheet', new Search_ContentSource_SheetSource());
+        }
+
+        if (isset($types['structure'])) {
+            $aggregator->addContentSource('structure', new Search_ContentSource_StructureSource());
         }
 
         if (isset($types['comment'])) {
@@ -1662,6 +1670,14 @@ class UnifiedSearchLib
 
         if (isset($types['group'])) {
             // todo: unable to track groups by dates
+        }
+
+        if (isset($types['structure'])) {
+            $structlib = TikiLib::lib('struct');
+            $structures = $structlib->list_structures(0, 1, 'last_modified_desc');
+            if (! empty($structures['data'][0]['last_modified']) && $structures['data'][0]['last_modified'] > $threshold) {
+                return true;
+            }
         }
 
         if (isset($types['survey'])) {

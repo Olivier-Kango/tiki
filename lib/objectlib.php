@@ -182,6 +182,15 @@ class ObjectLib extends TikiLib
                         $href = "tiki-admin_content_templates.php?templateId=$itemId";
                         break;
 
+                    case 'structure':
+                        $structlib = TikiLib::lib('struct');
+                        $info = $structlib->s_get_page_info($itemId);
+
+                        $description = '';  // Structures don't have descriptions
+                        $name = $info['pageName'];
+                        $href = 'tiki-index.php?page_ref_id=' . $itemId;
+                        break;
+
                     case 'surveys':
                     case 'survey':
                         $surveylib = TikiLib::lib('survey');
@@ -228,6 +237,7 @@ class ObjectLib extends TikiLib
             'perspective',
             'poll',
             'quiz',
+            'structure',
             'tracker',
             'survey',
             'trackeritem',
@@ -248,6 +258,7 @@ class ObjectLib extends TikiLib
             'forum' => 'forum',
             'group' => 'group',
             'poll' => 'poll',
+            'structure' => 'structure',
             'tracker' => 'tracker',
             'tracker_field' => 'trackerfield',
             'survey' => 'survey',
@@ -601,6 +612,12 @@ class ObjectLib extends TikiLib
             if ($activity != null) {
                 return true;
             }
+        } elseif ($type === 'structure') {
+            $structlib = TikiLib::lib('struct');
+            $info = $structlib->s_get_page_info($objectId);
+            if ($info) {
+                return true;
+            }
         }
         return false;
     }
@@ -755,6 +772,12 @@ class ObjectLib extends TikiLib
                     $info['object'],
                 );
                 break;
+            case 'structure':
+                $structlib = TikiLib::lib('struct');
+                $info = $structlib->s_get_page_info($object);
+                $info = array_merge($info, $data);
+                $structlib->update_structure($info['page_ref_id'], $info);
+                break;
             default:
                 // No default
         }
@@ -866,6 +889,10 @@ class ObjectLib extends TikiLib
             case 'calendaritem':
                 $info = TikiLib::lib('calendar')->get_item($id);
                 return $this->getFormattedTitle($type, $id, $info['name'] ?? '', $format);
+            case 'structure':
+                $structlib = TikiLib::lib('struct');
+                $info = $structlib->s_get_page_info($id);
+                return ! empty($info['page_alias']) ? $info['page_alias'] : $info['pageName'];
         }
 
         $title = $this->table('tiki_objects')->fetchOne(
@@ -1157,6 +1184,7 @@ class ObjectLib extends TikiLib
             // newsletters can't be categorized, although there's some code in tiki-admin_newsletters.php
             // 'newsletter' => ?,
             // 'events' => ?,
+            'structure' => 'tiki_p_view',
         ];
     }
 

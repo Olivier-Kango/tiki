@@ -1546,4 +1546,60 @@ class StructLib extends TikiLib
         }
         return ['data' => $options, 'cant' => $cant];
     }
+
+    /**
+     * Update structure information
+     *
+     * @param int $page_ref_id Structure reference ID
+     * @param array $data Data to update (page_alias, pos, parent_id, structure_id)
+     * @return bool Success status
+     */
+    public function update_structure($page_ref_id, $data)
+    {
+        if (empty($page_ref_id)) {
+            return false;
+        }
+
+        $old_info = $this->s_get_page_info($page_ref_id);
+        if (! $old_info) {
+            return false;
+        }
+
+        $fields = [];
+        $params = [];
+
+        if (isset($data['page_alias'])) {
+            $fields[] = '`page_alias`=?';
+            $params[] = $data['page_alias'];
+        }
+
+        if (isset($data['pos'])) {
+            $fields[] = '`pos`=?';
+            $params[] = (int)$data['pos'];
+        }
+
+        if (isset($data['parent_id'])) {
+            $fields[] = '`parent_id`=?';
+            $params[] = (int)$data['parent_id'];
+        }
+
+        if (isset($data['structure_id'])) {
+            $fields[] = '`structure_id`=?';
+            $params[] = (int)$data['structure_id'];
+        }
+
+        if (empty($fields)) {
+            return false;
+        }
+
+        $params[] = (int)$page_ref_id;
+        $query = 'UPDATE `tiki_structures` SET ' . implode(', ', $fields) . ' WHERE `page_ref_id`=?';
+
+        $this->query($query, $params);
+
+        // Clear structure cache
+        $cachelib = TikiLib::lib('cache');
+        $cachelib->invalidate('structure_' . $old_info['structure_id']);
+        return true;
+    }
 }

@@ -868,6 +868,9 @@
         "lib\/core\/Math\/Formula\/Function\/And.php": {
             "class:Math_Formula_Function_And": true
         },
+        "lib\/core\/Search\/ContentSource\/StructureSource.php": {
+            "class:Search_ContentSource_StructureSource": true
+        },
         "lib\/core\/Math\/Formula\/Function\/Round.php": {
             "class:Math_Formula_Function_Round": true
         },
@@ -4907,6 +4910,9 @@
         "lib\/core\/Math\/Formula\/Function\/Sub.php": {
             "Math_Formula_Function_Sub": true
         },
+        "lib\/core\/Search\/ContentSource\/StructureSource.php": {
+            "Search_ContentSource_StructureSource": true
+        },
         "lib\/core\/Math\/Formula\/Function\/Currency.php": {
             "Math_Formula_Function_Currency": true
         },
@@ -7116,7 +7122,8 @@
             "StructLib::structure_to_webhelp": true,
             "StructLib::structure_to_tree": true,
             "StructLib::move_to_structure": true,
-            "StructLib::to_menu": true
+            "StructLib::to_menu": true,
+            "StructLib::update_structure": true
         },
         "lib\/core\/Tracker\/Field\/Image.php": {
             "Tracker_Field_Image::get_resize_dimensions": true
