@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "266a87608a0684128bd9c6a0c7f64a40",
+    "content-hash": "ea08a02a67e365be88613d1e3abec970",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -2545,16 +2545,6 @@
                 "versions"
             ],
             "time": "2024-11-18T16:19:46+00:00"
-        },
-        {
-            "name": "jquery-plugins/async",
-            "version": "1.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/jquery-plugins/async/jquery-plugins-async-1.0.zip",
-                "shasum": "c52184f6c46894f70d957d26dc3979fde2674eef"
-            },
-            "type": "library"
         },
         {
             "name": "jquery-plugins/reflection-jquery",
@@ -17382,9 +17372,9 @@
         "garethp/php-ews": 20,
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
+        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15,
-        "rubix/extras": 10
+        "phpcsstandards/phpcsutils": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17401,7 +17391,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",

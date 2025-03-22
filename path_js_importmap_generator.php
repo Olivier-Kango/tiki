@@ -53,6 +53,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.js",
 
                 /* jquery_tiki */
+                "@jquery-tiki/asyncLoop" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-async-loop.js",
                 "@jquery-tiki/constants" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/constants.js",
                 "@jquery-tiki/plugin-edit" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugin-edit/index.js",
                 "@jquery-tiki/plugin-edit/buttons" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/plugin-edit/buttons.js",
@@ -72,7 +73,6 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "@jquery-tiki/tiki-maps-ol3" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-maps-ol3.js",
                 "@jquery-tiki/wysiwyg" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/wysiwyg/index.js",
                 "@jquery-tiki/tiki-password" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-password.js",
-
                 "@mermaidPack" => $tikiUrl . JS_ASSETS_PATH . "/tiki-mermaid.js",
 
                 /* single-spa microfrontends and common files (root and styleguide) */

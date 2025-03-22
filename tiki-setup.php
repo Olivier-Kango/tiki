@@ -714,10 +714,8 @@ if ($prefs['feature_jquery_validation'] == 'y') {
 if ($prefs['tiki_prefix_css'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/prefixfree/prefixfree.js');
 }
-
-// note: jquery.async.js load a copy of jquery
-
-$headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/async/jquery.async.js');
+// note: @jquery-tiki/asyncLoop automatically loads a copy of jQuery
+$headerlib->add_js_module('import "@jquery-tiki/asyncLoop";');
 
 $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/jquery-treetable/jquery.treetable.js');
 $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/jquery-treetable/jquery.treetable.css');
