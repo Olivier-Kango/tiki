@@ -99,12 +99,6 @@
 {* --- tiki block --- *}
 <title>{$header_title}</title>
 
-{* --- GlitchTip reporting script should be load before any other JS to capture issues/failures on other JS scripts --- *}
-{if $prefs.error_tracking_enabled_js eq 'y' and  !empty($prefs.error_tracking_dsn)}
-    <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/sentry--browser/build/bundle.min.js"></script>
-    <script type="text/javascript">Sentry.init({ dsn: "{$prefs.error_tracking_dsn}", sampleRate: {if isset($prefs.error_tracking_sample_rate) and is_numeric($prefs.error_tracking_sample_rate)}{$prefs.error_tracking_sample_rate}{else}1{/if}});</script>
-{/if}
-
 {if $headerlib} 
     {$headerlib->output_headers()}
 {/if}

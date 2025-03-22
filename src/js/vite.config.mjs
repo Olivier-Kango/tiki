@@ -128,6 +128,7 @@ export default defineConfig(({ command, mode }) => {
         "element-plus-ui/transfer": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/transfer.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
+        "tiki-sentry-browser": resolve(__dirname, "tiki-sentry-browser/sentry-browser.js"),
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
         "tiki-offline": resolve(__dirname, "vue-mf/tiki-offline/src/tiki-offline.js"),
         "toolbar-dialogs": resolve(__dirname, "vue-mf/toolbar-dialogs/src/toolbar-dialogs.js"),

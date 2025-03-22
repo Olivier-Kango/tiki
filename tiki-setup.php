@@ -1032,6 +1032,19 @@ if ($prefs['tiki_monitor_performance'] == 'y') {
     $headerlib->add_jsfile_dependency('vendor_bundled/vendor/npm-asset/boomerangjs/plugins/rt.js');
 }
 
+if ($prefs['error_tracking_enabled_js'] == 'y' &&  ! empty($prefs['error_tracking_dsn'])) {
+    //GlitchTip reporting script should be load before any other JS to capture issues/failures on other JS scripts
+
+    $sampleRate = isset($prefs['error_tracking_sample_rate']) && is_numeric($prefs['error_tracking_sample_rate'])
+            ? $prefs['error_tracking_sample_rate']
+            : 1;
+            $dsn = addslashes($prefs['error_tracking_dsn']);
+            $script = <<<JS
+            import {Sentry} from "@tiki-modules/sentryBrowser";
+            Sentry.init({dsn: '$dsn', sampleRate: $sampleRate}); 
+            JS;
+        $headerlib->add_js_module($script, -10);
+}
 $headerlib->add_js_module('import Sortable from "sortablejs"; window.Sortable = Sortable;');
 
 // Shoelace color picker

@@ -863,7 +863,7 @@ class HeaderLib
         $this->outputStaticJSFooterWasStartedBy = $this->getOutputCallerInfo();
 
         $output = '';
-
+        ksort($this->js_modules);
         //We need the modules as they are likely dependencied of all the rest
         if (count($this->js_modules)) {
             $b = '';
@@ -934,7 +934,6 @@ class HeaderLib
 
         ksort($this->js);
         ksort($this->jq_onready);
-        ksort($this->js_modules);
 
         $back = "\n";
 

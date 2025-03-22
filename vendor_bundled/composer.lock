@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea08a02a67e365be88613d1e3abec970",
+    "content-hash": "a3b4c616b363608ed93ccc86249d9b2c",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -6552,111 +6552,6 @@
             "type": "npm-asset",
             "license": [
                 "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/sentry--browser",
-            "version": "6.19.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sentry--browser/npm-asset-sentry--browser-6.19.7.zip",
-                "shasum": "c8743ea2f82c2675c668734b8b0098f7e03f9ec2"
-            },
-            "require": {
-                "npm-asset/sentry--core": "6.19.7",
-                "npm-asset/sentry--types": "6.19.7",
-                "npm-asset/sentry--utils": "6.19.7",
-                "npm-asset/tslib": ">=1.9.3,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/sentry--core",
-            "version": "6.19.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sentry--core/npm-asset-sentry--core-6.19.7.zip",
-                "shasum": "aca246c2e53bf3d47199f250013243a7197882bf"
-            },
-            "require": {
-                "npm-asset/sentry--hub": "6.19.7",
-                "npm-asset/sentry--minimal": "6.19.7",
-                "npm-asset/sentry--types": "6.19.7",
-                "npm-asset/sentry--utils": "6.19.7",
-                "npm-asset/tslib": ">=1.9.3,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/sentry--hub",
-            "version": "6.19.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sentry--hub/npm-asset-sentry--hub-6.19.7.zip",
-                "shasum": "fcb085b510f54374fafeec6552d6fa3f92ce6f74"
-            },
-            "require": {
-                "npm-asset/sentry--types": "6.19.7",
-                "npm-asset/sentry--utils": "6.19.7",
-                "npm-asset/tslib": ">=1.9.3,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/sentry--minimal",
-            "version": "6.19.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sentry--minimal/npm-asset-sentry--minimal-6.19.7.zip",
-                "shasum": "9cd8fc03685d9f12705dfbabb9fa0b8180f40fc1"
-            },
-            "require": {
-                "npm-asset/sentry--hub": "6.19.7",
-                "npm-asset/sentry--types": "6.19.7",
-                "npm-asset/tslib": ">=1.9.3,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/sentry--types",
-            "version": "6.19.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sentry--types/npm-asset-sentry--types-6.19.7.zip",
-                "shasum": "0afd45a480c012b6a35784dbe1ed0529fadec6ef"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/sentry--utils",
-            "version": "6.19.7",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/sentry--utils/npm-asset-sentry--utils-6.19.7.zip",
-                "shasum": "61a5016a4d30e0d46a001310973088c58c0668ad"
-            },
-            "require": {
-                "npm-asset/sentry--types": "6.19.7",
-                "npm-asset/tslib": ">=1.9.3,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
             ]
         },
         {
