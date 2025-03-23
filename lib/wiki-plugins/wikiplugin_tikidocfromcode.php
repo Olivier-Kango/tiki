@@ -51,8 +51,7 @@ class WikiPluginTikiDocFromCode extends PluginsLib
         if (empty($helpurl)) {
             $helpurl = 'http://doc.tiki.org/';
         }
-        $filepath = '';
-        $module = $preference = $trackerfield = null; // Initialize variables
+
         $params = $this->getParams($params);
         $aPlugins = [];
         extract($params, EXTR_SKIP);
@@ -83,7 +82,7 @@ class WikiPluginTikiDocFromCode extends PluginsLib
             $sOutput = $this->generateFieldsExport($selectedFields);
         } elseif (
             // One of the variables below, not two or more, plus $info set
-            $this->exactlyOneSet([$module, $plugin, $preference, $trackerfield]) && isset($info)
+            $this->exactlyOneSet([[$module, $plugin, $preference, $trackerfield]]) && isset($info)
         ) {
             $aPrincipalField = ['field' => 'plugin', 'name' => 'Plugin'];
             $helppath = $helpurl . $aPrincipalField['name'];
@@ -197,7 +196,6 @@ class WikiPluginTikiDocFromCode extends PluginsLib
             }
 
             //single title table
-            $singletitle = $params['singletitle'] ?? 'none';
             if ($singletitle == 'table' || count($aPlugins) > 1) {
                 $aData = [];
                 foreach ($aPlugins as $sPluginFile) {
@@ -407,10 +405,11 @@ class WikiPluginTikiDocFromCode extends PluginsLib
                     }
                     $rows .= "\n\t" . '<tr>' . $cellbegin . '<em>' . tra('no parameters') . '</em></td>';
                 }
-                $showtopinfo = $params['showtopinfo'] ?? 'y';
                 $header .= "\n\t" . '</tr>';
-                $pluginprefs = ! empty($infoPlugin['prefs']) && $showtopinfo !== 'n' ? '<em>' . tra('Preferences required:') . '</em> ' . implode(', ', $infoPlugin['prefs']) . '<br/>' : '';
-                $title .= isset($infoPlugin['introduced']) && $showtopinfo !== 'n' ? '<em>' . tr('Introduced in %0', 'Tiki ' . $infoPlugin['introduced']) . '.</em>' : '';
+                $pluginprefs = ! empty($infoPlugin['prefs']) && $params['showtopinfo'] !== 'n' ? '<em>'
+                    . tra('Preferences required:') . '</em> ' . implode(', ', $infoPlugin['prefs']) . '<br/>' : '';
+                $title .= isset($infoPlugin['introduced']) && $params['showtopinfo'] !== 'n' ? '<em>' .
+                    tr('Introduced in %0', 'Tiki ' . $infoPlugin['introduced']) . '.</em>' : '';
                 $link = '[' . $sourcecode . '|' . tra('Go to the source code') . ']';
                 $required = ! empty($filteredparams) ? array_column($filteredparams, 'required') : [];
                 $bold = in_array(true, $required) > 0 ? '<em> ' . tr(
