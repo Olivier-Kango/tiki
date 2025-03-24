@@ -482,6 +482,12 @@ if ($prefs['feature_wiki_attachments'] === 'y' && $prefs['feature_use_fgal_for_w
 $unifiedsearch = \TikiLib::lib('unifiedsearch');
 $smarty->assign('search_index_outdated', $unifiedsearch->isOutdated());
 
+if (! empty($prefs['unified_check_unused_indexes']) && $prefs['unified_check_unused_indexes'] === 'y') {
+    $currentEngine = $unifiedsearch->getCurrentEngineDetails();
+    $unusedIndices = $unifiedsearch->listAllUnusedIndexes($currentEngine);
+    $smarty->assign('unusedIndices', $unusedIndices);
+}
+
 if ($prefs['feature_scheduler'] === 'y') {
     $schedulerUtils = new \Scheduler_Utils();
     $smarty->assign('isSchedulerRunConfigured', $schedulerUtils->isSchedulerRunConfigured());
