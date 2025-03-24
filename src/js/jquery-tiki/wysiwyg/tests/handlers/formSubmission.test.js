@@ -29,6 +29,8 @@ describe("formSubmission handler", () => {
 
         formSubmission(textarea);
 
+        expect(form.data("should-parse-editor-data")).toBe(true);
+
         // When the form is submitted
         form.trigger("submit");
 
@@ -36,7 +38,7 @@ describe("formSubmission handler", () => {
 
         parseDataSpy.mock.calls[0][1]();
 
-        expect(textarea.data("parsed")).toBe(true);
+        expect(form.data("should-parse-editor-data")).toBe(false);
         expect(form.get(0).submit).toHaveBeenCalled();
     });
 
@@ -60,7 +62,7 @@ describe("formSubmission handler", () => {
 
         parseDataSpy.mock.calls[0][1]();
 
-        expect(textarea.data("parsed")).toBe(true);
+        expect(form.data("should-parse-editor-data")).toBe(false);
         // And the submit button should fire a click event
         expect(clickSpy).toHaveBeenCalledWith("click");
     });

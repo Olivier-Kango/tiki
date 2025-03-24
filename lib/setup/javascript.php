@@ -318,6 +318,7 @@ $(document).on("shown.bs.modal", function(event) {
     interact(`#${draggableId}`).draggable({
         inertia: true,
         autoScroll: true,
+        allowFrom: '.modal-header',
         listeners: {
             move: (e) => {
                 const target = e.target;

@@ -463,6 +463,7 @@ $(window).on("load", function(){
 
         $global = $tikilib->get_preference('toolbar_global');
         $sectionToolbar = preg_split('/,|\||\//', $tikilib->get_preference('toolbar_' . $section, $global));
+        $sectionToolbar = array_map('trim', $sectionToolbar);
 
         $list = ToolbarItem::getList();
         $active = [];

@@ -1,14 +1,16 @@
 import { parseData } from "./formSubmission.helpers";
 
 export default function (textarea) {
+    const form = textarea.closest("form");
+    form.data("should-parse-editor-data", true);
     textarea.closest("form").on("submit", function (e) {
-        if (textarea.data("parsed") || textarea.summernote("codeview.isActivated")) {
+        if (!form.data("should-parse-editor-data") || textarea.summernote("codeview.isActivated")) {
             return;
         }
         e.preventDefault();
 
         parseData(textarea, () => {
-            textarea.data("parsed", true);
+            form.data("should-parse-editor-data", false);
             const submitter = e.originalEvent?.submitter;
             if (submitter) {
                 $(submitter).trigger("click");
