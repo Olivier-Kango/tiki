@@ -1002,8 +1002,9 @@ class ParserLib extends TikiDb_Bridge
         }
 
         $ret = '~np~<' . $elem . ' contenteditable="false" unselectable="on" class="tiki_plugin" data-plugin="' . $name . '" style="' . $elem_style . '"' .
-                ' data-syntax="' . htmlentities($html_editor_plugin, ENT_QUOTES, 'UTF-8') . '"' .
-                ' data-args="' . htmlentities($arg_str, ENT_QUOTES, 'UTF-8') . '"' . '">' .
+                ' data-syntax="' . htmlentities(htmlentities($html_editor_plugin, ENT_QUOTES, 'UTF-8'), ENT_NOQUOTES, 'UTF-8') . '"' .
+                ' data-body="' . htmlentities(htmlentities($data, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') . '"' .
+                ' data-args="' . htmlentities($arg_str, ENT_QUOTES, 'UTF-8') . '">' .
                 '<img src="' . $icon . '" width="16" height="16" class="plugin_icon" />' .
                 $plugin_result . '<!-- end tiki_plugin --></' . $elem . '>~/np~';
 

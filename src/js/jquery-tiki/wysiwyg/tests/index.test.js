@@ -82,26 +82,6 @@ describe("initSummernote", () => {
         expect(Handlers.pluginEdit).toHaveBeenCalledWith(id);
     });
 
-    test("should encode quotes in data-syntax attributes found in the textarea html value", () => {
-        const id = "foo";
-        const givenTextarea = $(`<textarea id="${id}"></textarea>`).val(`<div data-syntax="{QUOTE(replyto="John Doe")}lorem{QUOTE}"></div>`);
-        $("body").append(givenTextarea);
-
-        initSummernote(id, [], "en-US");
-
-        expect(givenTextarea.val()).toBe(`<div data-syntax="{QUOTE(replyto=&quot;John Doe&quot;)}lorem{QUOTE}"></div>`);
-    });
-
-    test("should encode quotes in data-syntax attributes found in the target html value", () => {
-        const id = "foo";
-        const givenElement = $(`<div id="${id}"></div>`).append(`<div data-syntax='{QUOTE(replyto="John Doe")}lorem{QUOTE}'></div>`);
-        $("body").append(givenElement);
-
-        initSummernote(id, [], "en-US");
-
-        expect(givenElement.html()).toBe(`<div data-syntax="{QUOTE(replyto=&quot;John Doe&quot;)}lorem{QUOTE}"></div>`);
-    });
-
     test("should render the user mention modal when the @ key is pressed", () => {
         const id = "foo";
         const givenTextarea = $(`<textarea id="${id}"></textarea>`);

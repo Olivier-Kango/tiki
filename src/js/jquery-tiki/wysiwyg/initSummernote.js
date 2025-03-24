@@ -4,18 +4,6 @@ import * as Handlers from "./handlers/index";
 
 export default function (areaId, toolbar, lang) {
     const target = $(`#${areaId}`);
-    const value = target.val() || target.html();
-
-    // encode to html entities, quotes found in the data-syntax attributes for plugins elements before rendering so that the browser does not take them as attribute delimiters
-    const htmlEncoded = value.replace(/data-syntax="(\{.*?\})"/g, (_, p1) => {
-        return `data-syntax="${p1.replace(/"/g, "&quot;")}"`;
-    });
-
-    if (target.is("textarea")) {
-        target.val(htmlEncoded);
-    } else {
-        target.html(htmlEncoded);
-    }
 
     const { tools, icons, customButtons, renderCallbacks } = formatTikiToolbars(toolbar);
 

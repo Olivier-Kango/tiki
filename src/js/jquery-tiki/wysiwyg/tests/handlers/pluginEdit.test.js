@@ -30,7 +30,7 @@ describe("pluginEdit handler", () => {
         const areaId = "editor";
         const area = $(`<div id="${areaId}"></div>`).appendTo("body");
         area.after(
-            '<div class="note-editor"><div class="tiki_plugin" data-plugin="plugin-type" data-syntax="{plugin}body content{plugin}" data-args="arg1=val1&arg2=val2"><img class="plugin_icon"></div></div></div>'
+            '<div class="note-editor"><div class="tiki_plugin" data-plugin="plugin-type" data-body="body content" data-args="arg1=val1&arg2=val2"><img class="plugin_icon"></div></div></div>'
         );
 
         pluginEdit(areaId);
