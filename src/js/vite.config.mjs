@@ -145,7 +145,7 @@ export default defineConfig(({ command, mode }) => {
         resolve: {
             alias: {
                 "moment-timezone": resolve(__dirname, "../../node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.min.js"),
-            },
+            }
         },
         build: {
             outDir: resolve(__dirname, "../../public/generated/js"),
@@ -607,6 +607,14 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/summernote/dist/lang/*.min.js",
                         dest: "vendor_dist/summernote/dist/lang",
+                    },
+                    {
+                        src : "node_modules/swiper/*.min.js",
+                        dest : "vendor_dist/swiper"
+                    },
+                    {
+                        src : "node_modules/swiper/*.min.css",
+                        dest : "vendor_dist/swiper"
                     },
                 ],
             }),

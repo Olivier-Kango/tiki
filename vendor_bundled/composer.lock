@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3b4c616b363608ed93ccc86249d9b2c",
+    "content-hash": "72bbca9f53de81e6a6e818b5e2ab4d21",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -2395,13 +2395,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "1ead675272181d5b9e4cf5672fd30f3acc1b4c07"
+                "reference": "f0900f1e6edddd9692750c8a15a64650b180f59e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1ead675272181d5b9e4cf5672fd30f3acc1b4c07-zip-b10f86.zip",
-                "reference": "1ead675272181d5b9e4cf5672fd30f3acc1b4c07",
-                "shasum": "4032c318730b8a65a9d96c01503a117bcc237ec2"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-f0900f1e6edddd9692750c8a15a64650b180f59e-zip-b541fe.zip",
+                "reference": "f0900f1e6edddd9692750c8a15a64650b180f59e",
+                "shasum": "1192e4c18e1a42b4383dfe899d02a156125efcb1"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2489,7 +2489,7 @@
                 "source": "https://github.com/cypht-org/cypht/",
                 "docs": "https://cypht.org/documentation.html"
             },
-            "time": "2025-03-01T08:36:38+00:00"
+            "time": "2025-03-21T21:40:40+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -6124,53 +6124,6 @@
                 }
             ],
             "time": "2022-10-11T13:10:14+00:00"
-        },
-        {
-            "name": "nolimits4web/swiper",
-            "version": "v4.5.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nolimits4web/swiper.git",
-                "reference": "2b05891cdc2aa427f5697fa747680d1280dc4379"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/nolimits4web/swiper/nolimits4web-swiper-2b05891cdc2aa427f5697fa747680d1280dc4379-zip-ca8476.zip",
-                "reference": "2b05891cdc2aa427f5697fa747680d1280dc4379",
-                "shasum": "4337aeaa4d61c3b81f767693d94b400bf7d2e351"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vladimir Kharalmpidi",
-                    "email": "nolimits4web@gmail.com",
-                    "homepage": "https://idangero.us",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Most modern mobile touch slider and framework with hardware accelerated transitions",
-            "homepage": "http://www.idangero.us/swiper/",
-            "keywords": [
-                "app",
-                "carousel",
-                "cordova",
-                "framework",
-                "framework7",
-                "gallery",
-                "ios",
-                "mobile",
-                "phonegap",
-                "plugin",
-                "slider",
-                "swipe",
-                "swiper",
-                "touch"
-            ],
-            "time": "2019-10-16T11:51:47+00:00"
         },
         {
             "name": "npm-asset/babel--helper-string-parser",
@@ -17267,9 +17220,9 @@
         "garethp/php-ews": 20,
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
-        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15
+        "phpcsstandards/phpcsutils": 15,
+        "rubix/extras": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17286,7 +17239,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",

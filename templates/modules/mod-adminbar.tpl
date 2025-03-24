@@ -214,8 +214,7 @@
 
 
 {literal}
-    <link rel="stylesheet" href="vendor_bundled/vendor/nolimits4web/swiper/dist/css/swiper.css" type="text/css">
-    <script type="text/javascript" src="vendor_bundled/vendor/nolimits4web/swiper/dist/js/swiper.min.js"></script>
+
     <style type="text/css">
         @media screen and (prefers-reduced-motion: reduce) {
             body {

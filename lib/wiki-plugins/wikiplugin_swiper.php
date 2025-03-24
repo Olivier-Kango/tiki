@@ -44,6 +44,8 @@ function wikiplugin_swiper_info()
                     ['text' => 'Cube', 'value' => 'cube'],
                     ['text' => 'Coverflow', 'value' => 'coverflow'],
                     ['text' => 'Flip', 'value' => 'flip'],
+                    ['text' => 'Creative', 'value' => 'creative'],
+                    ['text' => 'Cards', 'value' => 'cards'],
                 ],
             ],
             'sliderPosition' => [
@@ -386,11 +388,6 @@ function wikiplugin_swiper_info()
 
 function wikiplugin_swiper($data, $params)
 {
-    //checking for swiper existance
-    if (! file_exists(SWIPER_DIST_PATH . "/js/swiper.min.js")) {
-        Feedback::error(tr(' Please update composer to install required files'));
-        return;
-    }
     if ((! empty($params['fileIds']) && ! $params['fileIds']) && ! $params['fgalId'] && ! $data) {
         Feedback::error(tr('Paramaters missing: Please either select file gallery, give file ids or custom slide code in body.'));
         return;
@@ -442,12 +439,22 @@ function wikiplugin_swiper($data, $params)
         $navigationDiv = '';
     }
     $headerlib = TikiLib::lib('header');
-    $headerlib->add_jsfile(SWIPER_DIST_PATH . '/js/swiper.min.js');
-    $headerlib->add_cssfile(SWIPER_DIST_PATH . '/css/swiper.css');
-
+    $swiper_js_path = SWIPER_DIST_PATH . '/swiper-bundle.min.js';
+    $swiper_css_path = SWIPER_DIST_PATH . '/swiper-bundle.min.css';
+    //checking for swiper existence
+    if (! file_exists($swiper_js_path)) {
+        Feedback::error(tr('File %0 is missing, you need to execute npm run build', $swiper_js_path));
+        return;
+    }
+    if (! file_exists($swiper_css_path)) {
+        Feedback::error(tr('File %0 is missing, you need to execute npm run build', $swiper_css_path));
+        return;
+    }
+    $headerlib->add_cssfile($swiper_css_path)
+    ->add_jsfile($swiper_js_path);
     $slides = explode("|", ($data ? $data : ""));
     $slidesHtml = '';
-    //checking if gallery is choosen
+    //checking if there is a gallery chosen
     $filegallib = TikiLib::lib('filegal');
     if ($params['fgalId']) {
         $files = $filegallib->get_files(0, -1, '', '', $params['fgalId']);
@@ -506,6 +513,9 @@ function wikiplugin_swiper($data, $params)
         $swiperSettings .= $swiperParam . ":";
         if (! in_array($swiperParam, $swiperDigitsParams)) {
             $swiperSettings .= "'" . $params[$swiperParam] . "',";
+            if ($params[$swiperParam] == 'creative') {
+                $swiperSettings .= "creativeEffect: generateRandomCreativeEffect(),";
+            }
         } else {
             $params[$swiperParam] == '' ? $swiperSettings .= "0," : $swiperSettings .= $params[$swiperParam] . ",";
         }
@@ -538,6 +548,33 @@ function wikiplugin_swiper($data, $params)
         $thumbsSettings = ''; //' thumbs: {swiper: galleryThumbs'.$uid.'},';
         $thumbAfter = 'swiper' . $uid . '.controller.control = galleryThumbs' . $uid . ';galleryThumbs' . $uid . '.controller.control =swiper' . $uid . ';';
     }
+    $creativeRandomEffect = "
+    function generateRandomCreativeEffect() {
+            const creativeEffectList = [
+                {
+                    prev: { translate: [0, 0, -100], rotate: [0, 0, 0]},
+                    next: { translate: ['80%', '-100%', -1000], rotate: [0, 0, 0]}
+                },
+                {
+                    prev: { translate: ['100%', 0, -200], rotate: [0, 0, 90]},
+                    next: { translate: ['-100%', 0, -200], rotate: [0, 0, -90]},
+                },
+                {
+                    prev: { translate: ['100%', -200, -1000], rotate: [0, 0, 40], shadow: true},
+                    next: { translate: ['-100%', 200, -1000], rotate: [0, 0, 40], shadow: true},
+                },
+                {
+                    prev: { translate: ['-100%', -200, -1000]},
+                    next: { translate: ['100%', 200, -1000]},
+                },
+                {
+                    prev: { translate: ['-100%', -100, -300], rotate: [-45, -45, -45]},
+                    next: { translate: ['100%', 100, -300], rotate: [45, 45, 45]}
+                }
+            ];
+            return creativeEffectList[Math.floor(Math.random() * creativeEffectList.length)];
+        }
+    ";
     $swiperOpts .= 'var swiper' . $uid . ' = new Swiper("#swiper-container' . $uid . '",{
             ' . $swiperSettings . '
             init:false,
@@ -551,7 +588,7 @@ function wikiplugin_swiper($data, $params)
             ' . $autoPlay . '
             ' . $navigation . '
      
-            });' . $thumbAfter;
+            });' . $creativeRandomEffect . $thumbAfter;
     if ($params['sliderPosition'] == 'abovetopbar') {
         $headerlib->add_css("#swiper-container" . $uid . "{visibility:hidden;}");
         $swiperOpts .= 'var container=$(".container").first();$("#swiper-container' . $uid . '").insertBefore( container );$("#gallery-thumbs' . $uid . '").insertAfter( "#swiper-container' . $uid . '" );';
