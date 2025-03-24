@@ -8,6 +8,8 @@
 
 namespace Tiki\Command;
 
+use Laminas\Log\Writer\Stream as WriterStream;
+use Laminas\Log\Logger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Helper\ProgressBar;
