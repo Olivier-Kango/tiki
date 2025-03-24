@@ -209,7 +209,7 @@ describe("adminToolbar action", () => {
         expect(window.tr).toHaveBeenCalledWith("Toolbar updated.");
 
         expect(context.invoke).toHaveBeenCalledWith("destroy");
-        expect(initSummernote).toHaveBeenCalledWith("note-id", expectedToolbar, "en");
+        expect(initSummernote).toHaveBeenCalledWith("note-id", expectedToolbar, { lang: "en" });
 
         ajaxPostSpy.mock.results[0].value.always();
         expect($.tikiModal).toHaveBeenCalledWith();

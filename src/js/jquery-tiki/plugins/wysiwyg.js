@@ -1,4 +1,4 @@
-import initSummernote, { loadLanguage } from "../wysiwyg";
+import initSummernote, { loadLanguage } from "@wysiwyg/summernote";
 
 export default function (elementId, tools, page, editorConfig) {
     const target = $(`#${elementId}`);
@@ -24,7 +24,7 @@ export default function (elementId, tools, page, editorConfig) {
                         return;
                     }
 
-                    initSummernote(elementId, tools, editorConfig.lang);
+                    initSummernote(elementId, tools, { lang: editorConfig.lang });
 
                     const actions = $("<div class='d-flex justify-content-end mt-1 gap-1'></div>");
                     const saveButton = $("<button></button>").text(tr("Save")).addClass("btn btn-outline-primary btn-sm");

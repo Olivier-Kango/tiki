@@ -59,11 +59,12 @@ describe("initSummernote", () => {
             renderCallbacks: expectedRenderCallbacks,
         });
 
-        initSummernote(id, givenToolbar, "en-US");
+        initSummernote(id, givenToolbar, { lang: "en-US", height: 300 });
 
         expect(formatTikiToolbarsModule.default).toHaveBeenCalledWith(givenToolbar);
         expect(givenTextarea.summernote).toHaveBeenCalledWith({
             lang: "en-US",
+            height: 300,
             toolbar: expectedFormattedTools,
             icons: expectedIcons,
             buttons: expectedCustomButtons,

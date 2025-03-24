@@ -54,7 +54,7 @@ class WYSIWYGLib
         ['lang' => $lang, 'filePath' => $langFilePath] = $this->getEditorLang();
 
         $headerlib->add_js_module(<<<JS
-            import('@jquery-tiki/wysiwyg').then((module) => {
+            import('@wysiwyg/summernote').then((module) => {
                 module.loadLanguage('{$langFilePath}', () => {
                     module.inlineEdit(JSON.parse(`{$tools}`), '{$lang}', '{$pageName}');
                 });
@@ -94,10 +94,10 @@ class WYSIWYGLib
             $('#{$dom_id}').after(loadingIndicator);
             $.editorSection = "{$params['section']}";
 
-            import('@jquery-tiki/wysiwyg').then((module) => {
+            import('@wysiwyg/summernote').then((module) => {
                 module.loadLanguage('{$langFilePath}', () => {
                     loadingIndicator.remove();
-                    module.default('{$dom_id}', JSON.parse(`{$tools}`), '{$lang}');
+                    module.default('{$dom_id}', JSON.parse(`{$tools}`), {lang: '{$lang}', height: 600});
                 });
             });
         JS);

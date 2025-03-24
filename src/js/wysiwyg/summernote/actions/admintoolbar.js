@@ -75,7 +75,7 @@ export default function (context) {
                                     }
                                 };
                                 data.toolbar.forEach(groupCb);
-                                initSummernote(areaId, data.toolbar, lang);
+                                initSummernote(areaId, data.toolbar, { lang, minHeight: context.options.minHeight });
                             } else {
                                 showMessage(tr("Could not update the toolbar. Please try again."), "error");
                             }

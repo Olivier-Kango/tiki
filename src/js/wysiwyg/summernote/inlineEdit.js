@@ -45,7 +45,7 @@ export default function (toolbar, lang, page) {
 
 function toggleInlineEditor(id, toolbar, lang, page) {
     const target = $(`#${id}`);
-    initSummernote(id, toolbar, lang);
+    initSummernote(id, toolbar, { lang });
 
     const initialValue = target.html();
 

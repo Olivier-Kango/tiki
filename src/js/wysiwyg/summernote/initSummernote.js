@@ -2,16 +2,17 @@ import "summernote";
 import formatTikiToolbars from "./formatTikiToolbars";
 import * as Handlers from "./handlers/index";
 
-export default function (areaId, toolbar, lang) {
+export default function (areaId, toolbar, options) {
     const target = $(`#${areaId}`);
 
     const { tools, icons, customButtons, renderCallbacks } = formatTikiToolbars(toolbar);
 
     target.summernote({
-        lang,
+        lang: options.lang,
         toolbar: tools,
         icons,
         buttons: customButtons,
+        height: options.height,
         callbacks: {
             onInit: function () {
                 renderCallbacks.forEach((cbName) => {

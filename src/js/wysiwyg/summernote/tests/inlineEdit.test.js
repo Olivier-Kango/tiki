@@ -112,7 +112,7 @@ describe("inlineEdit", () => {
 
             inlineEditors.each(function (index) {
                 $(this).children().first().trigger("click");
-                expect(initSummernote).toHaveBeenCalledWith(this.id, [], "en");
+                expect(initSummernote).toHaveBeenCalledWith(this.id, [], { lang: "en" });
 
                 const editor = $(`#editor-${this.id}`);
                 expect(editor.length).toBe(1);

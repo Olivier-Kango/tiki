@@ -137,6 +137,7 @@ export default defineConfig(({ command, mode }) => {
         "tiki-iot-dashboard-all": resolve(__dirname, "tiki-iot/dashboard-all.js"),
         "tiki-mermaid": resolve(__dirname, "tiki-mermaid/mermaid.js"),
         "tiki-vue-sfc-loader": resolve(__dirname, "tiki-vue-sfc-loader/src/tiki-vue-sfc-loader.js"),
+        "wysiwyg-summernote": resolve(__dirname, "wysiwyg/summernote/index.js"),
     });
     return {
         base: "/public/generated/js", //This must NOT have a trailing slash
@@ -168,6 +169,7 @@ export default defineConfig(({ command, mode }) => {
                     /^@vue-widgets\/.+/,
                     /^@jquery-tiki\/.+/,
                     "@popperjs/core",
+                    "@wysiwyg/summernote",
                     "bootstrap",
                     "clipboard",
                     "converse.js",
@@ -628,7 +630,7 @@ export default defineConfig(({ command, mode }) => {
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/jquery-tiki/wysiwyg/**/*.js", "src/js/jquery-tiki/ui-utils/handleDatePicker.js", "src/js/jquery-tiki/ui-utils/handleTransferList.js"],
+                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/wysiwyg/**/*.js", "src/js/jquery-tiki/ui-utils/handleDatePicker.js", "src/js/jquery-tiki/ui-utils/handleTransferList.js"],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
                 provider: 'istanbul'
             },
