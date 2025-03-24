@@ -255,41 +255,40 @@ class Smarty_Tiki extends Smarty
     }
 
     /**
-     * needs a proper description
-     * @param null $_smarty_tpl_file
-     * @param null $_smarty_cache_id
-     * @param null $_smarty_compile_id
-     * @param null $parent
-     * @param bool $_smarty_display
-     * @param bool $merge_tpl_vars
-     * @param bool $no_output_filter
-     * @return string
-     */
+ * Override fetch method to sanitize tpl path before processing
+ * @param string $_smarty_tpl_file
+ * @param null $_smarty_cache_id
+ * @param null $_smarty_compile_id
+ * @param null $parent
+ * @param bool $_smarty_display
+ * @param bool $merge_tpl_vars
+ * @param bool $no_output_filter
+ * @return string
+ */
     public function fetch($_smarty_tpl_file = null, $_smarty_cache_id = null, $_smarty_compile_id = null, $parent = null, $_smarty_display = false, $merge_tpl_vars = true, $no_output_filter = false)
     {
+
         if (strpos($_smarty_tpl_file, 'extends:') === 0) {
             // temporarily disable extends_recursion which restores smarty < 3.1.28 behaviour
             // see note at vendor_bundled/vendor/smarty/smarty/libs/Smarty.class.php:296 for more
-
             $this->extends_recursion = false;
         }
         $this->muteExpectedErrors();
         $this->refreshLanguage();
-
         $this->assign_layout_sections($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
 
         $_smarty_tpl_file = $this->get_filename($_smarty_tpl_file);
+        // Sanitize tpl path
+        $_smarty_tpl_file = $this->sanitizeTemplatePath($_smarty_tpl_file);
 
         if ($_smarty_display) {
             $html = parent::display($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
         } else {
             $html = parent::fetch($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
         }
-
         if (! $this->extends_recursion) {
             $this->extends_recursion = true;
         }
-
         return $html;
     }
 
@@ -787,5 +786,20 @@ class Smarty_Tiki extends Smarty
         } else {
             return (array) $info;
         }
+    }
+/**
+ * Sanitize template path to prevent eval injection.
+ *
+ * @param string $tpl_path
+ * @return string Resolved real path
+ * @throws Exception if the path contains forbidden eval expression.
+ */
+    private function sanitizeTemplatePath($tpl_path)
+    {
+        // Disallow eval usage for security reasons
+        if (strpos($tpl_path, 'eval:') !== false) {
+            throw new Exception('Template path contains forbidden eval expression.');
+        }
+        return $tpl_path;
     }
 }

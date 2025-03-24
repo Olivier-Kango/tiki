@@ -55,5 +55,5 @@ function wikiplugin_includetpl($data, $params)
     }
 
     $smarty->assign('values', $defvalues);
-    return $smarty->fetch($params["filename"]);
+    return $smarty->fetch(TikiLib::sanitizeEvalExpression($params["filename"]));
 }
