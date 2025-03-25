@@ -269,21 +269,10 @@ class ConsoleApplicationBuilder
                 ],
             'commands' => [new RedactDBCommand(),],
             ],[
-            'condition' => 'checkIsDevModeAndDatabase',
-            'actions'   => [
-                UnavailableException::CHECK_VCS => self::ACTION_NOT_CALLABLE,
-                UnavailableException::CHECK_DEV => self::ACTION_NOT_PUBLISHED,
-                UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,
-                ],
-            'commands'  => [
-                new VendorSecurityCommand(),
-                ],
-            ],[
             'condition' => 'checkIsVCS',
             'actions'   => [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_CALLABLE],
             'commands'  => [
                 new VCSUpdateCommand(),
-                new SemiAutoMergeCommand(),
                 new DevConfigureCommand(),
                 new DevbuildwsconfsCommand(),
                 ],

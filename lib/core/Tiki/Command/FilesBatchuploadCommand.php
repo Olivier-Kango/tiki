@@ -89,6 +89,12 @@ class FilesBatchuploadCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Path to files to upload'
             )
+            ->addOption(
+                'keepSource',
+                'k',
+                InputOption::VALUE_NONE,
+                'Keep the source files after upload'
+            )
         ;
     }
 
@@ -158,6 +164,7 @@ class FilesBatchuploadCommand extends Command
                     'fileUser' => $input->getOption('fileUser'),
                     'fileGroup' => $input->getOption('fileGroup'),
                     'fileMode' => $input->getOption('fileMode'),
+                    'keepSource' => $input->getOption('keepSource'),
                     'filesPath' => $filesPath,
             ]);
 

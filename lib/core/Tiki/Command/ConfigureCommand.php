@@ -87,7 +87,12 @@ class ConfigureCommand extends Command
 
 LOCALPHP;
         $local_php = \Tiki\TikiInit::getCredentialsFile();
-        file_put_contents($local_php, $out);
+        $result = file_put_contents($local_php, $out);
+
+        if ($result === false) {
+            $output->writeln("<error>Failed to write to $local_php</error>");
+            return Command::FAILURE;
+        }
 
         $output->writeln("Wrote $local_php");
         return Command::SUCCESS;

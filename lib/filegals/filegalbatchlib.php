@@ -54,6 +54,7 @@ class FilegalBatchLib extends FileGalLib
                 'fileUser' => '',
                 'fileGroup' => '',
                 'fileMode' => '',
+                'keepSource' => false,
                 'filesPath' => '',
             ],
             $options
@@ -234,11 +235,13 @@ class FilegalBatchLib extends FileGalLib
 
             if ($fileId) {
                 $feedback[] = tra('Upload was successful') . ': ' . $name;
-                @unlink($file);    // seems to return false sometimes even if the file was deleted
-                if (! file_exists($file)) {
-                    $feedback[] = sprintf(tra('File %s removed from Batch directory.'), $file);
-                } else {
-                    $feedback[] = '<span class="text-danger">' . sprintf(tra('Impossible to remove file %s from Batch directory.'), $file) . '</span>';
+                if (! $options['keepSource']) {
+                    @unlink($file);    // seems to return false sometimes even if the file was deleted
+                    if (! file_exists($file)) {
+                        $feedback[] = tra('File %0 removed from Batch directory.', $file);
+                    } else {
+                        $feedback[] = '<span class="text-danger">' . tra('Impossible to remove file %0 from Batch directory.', $file) . '</span>';
+                    }
                 }
             }
         }

@@ -62,11 +62,7 @@ class FilegalCopyLib extends FileGalLib
 
         $source = $file->getWrapper()->getReadableFile();
         if (! copy($source, $destinationPath . $file->filename)) {
-            if (! is_writable($destinationPath)) {
-                return ['error' => tra('Cannot write to this path: ') . $destinationPath];
-            } else {
-                return ['error' => tra('Cannot read this file: ') . $source];
-            }
+            return ['error' => tra('Copy %0 to %1 failed', $source, $destinationPath . $file->filename)];
         }
 
         if ($move) {
