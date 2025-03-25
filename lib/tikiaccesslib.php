@@ -742,11 +742,11 @@ class TikiAccessLib extends TikiLib
         if ($error !== 'none') {
             global $user;
 
-            $crsfErrorId = 'CRSF' . md5(uniqId($user));
-            $this->userMsg = tr('Your attempt was blocked as a suspected malicious operation. If you are a real person and this is an incorrect report, please report to the site administrators with the following code: ') . $crsfErrorId;
+            $csrfErrorId = 'CSRF' . md5(uniqId($user));
+            $this->userMsg = tr('Your attempt was blocked as a suspected malicious operation. If you are a real person and this is an incorrect report, please report to the site administrators with the following code: ') . $csrfErrorId;
             //log message
             $this->csrfPhpErrorLog($this->logMsg);
-            $this->csrfSystemLog($crsfErrorId);
+            $this->csrfSystemLog($csrfErrorId);
 
             //user feedback
             switch ($error) {
@@ -1649,10 +1649,10 @@ class TikiAccessLib extends TikiLib
     /**
      * Save CSRF error to system log
      *
-     * @param string $crsfErrorId
+     * @param string $csrfErrorId
      * @return null
      */
-    private function csrfSystemLog($crsfErrorId)
+    private function csrfSystemLog($csrfErrorId)
     {
         global $prefs, $user;
 
@@ -1674,7 +1674,7 @@ class TikiAccessLib extends TikiLib
             array_walk($post, $redactPass);
         }
 
-        $logCrsf = [
+        $logCsrf = [
             'serverName' => $_SERVER['SERVER_NAME'],
             'userMessage' => $this->userMsg,
             'internalMessage' => $this->logMsg,
@@ -1689,6 +1689,6 @@ class TikiAccessLib extends TikiLib
             'get' => $get,
             'post' => $post
         ];
-        $logslib->add_action('CRSF Error', 'system', 'system', $crsfErrorId, '', '', '', '', '', '', $logCrsf);
+        $logslib->add_action('CSRF Error', 'system', 'system', $csrfErrorId, '', '', '', '', '', '', $logCsrf);
     }
 }
