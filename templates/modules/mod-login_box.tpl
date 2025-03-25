@@ -13,12 +13,15 @@ function capLock(e, el){
 $(document).ready(function () {
     var twoFAType = "{{$prefs.twoFactorAuthType}}";
     var is2FAEnabled = "{{$prefs.twoFactorAuth}}";
+    var isWebauthnEnabled = "{{$prefs.auth_webauthn_enabled}}";
+    var moduleLogoInstance = "{{$module_logo_instance}}";
 
     function show2FactorInputElement(btn, event) {
         const btnStep = parseInt(btn.attr('step')) + 1;
         btn.attr('step', btnStep);
         $(event.currentTarget).find('fieldset').children().not('#two_factor_div').hide();
         $(event.currentTarget).find('#two_factor_div').show();
+        $(event.currentTarget).find('div#webauthn_div').hide();
         $(btn).parent().show();
     }
 
@@ -97,6 +100,12 @@ $(document).ready(function () {
 
     $("#loginbox-{{$module_logo_instance}}").on("submit", async function (event) {
         event.preventDefault();
+        var isWebAuthnIsChoosen = $("#webauthn_checkbox_login").is(':checked') && isWebauthnEnabled === 'y';
+        var isWebauthnPassed = $("#webauthn_checkbox_login").attr('is_passed');
+        if (isWebAuthnIsChoosen && isWebauthnPassed === 'n') {
+            await $.fn.loginWebAuth.loginStart(event, moduleLogoInstance, 'login');
+        }
+
         var isLoginScreen = parseInt($(event.currentTarget).parent('#login_form_div').length);
         var isNormalLogin = $(this).data('normalLogin');
         if (isNormalLogin === 'y') {
@@ -115,7 +124,7 @@ $(document).ready(function () {
             return false;
         }
 
-        if (username && password) {
+        if ((username && password) || isWebauthnPassed === 'y' || isWebAuthnIsChoosen) {
             if (is2FAEnabled === 'y') {
                 var twoFASecret = await getTwoFactorSecretGoogle2FA(username);
                 if (isNormalLogin != '2fa-regen' && (btnStep > 1 || isLoginScreen === 0 || (twoFASecret == 'n' && twoFAType === 'google2FA'))) {
@@ -357,6 +366,11 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
                 {icon name='error' istyle="vertical-align:middle"} {tr}CapsLock is on.{/tr}
             </div>
         </div>
+        {if $prefs.auth_webauthn_enabled eq 'y'}
+            <div id="webauthn_div" class="my-2 {if $mode eq 'header'}mx-2{/if}" style="display: {if $create2FaCodeNormalLogin === 'y'} none; {else} block; {/if}">
+                {include file='webauthn.tpl' form='login'}
+            </div>
+        {/if}
         <input type="hidden" name="login_mode" value="{$mode}" />
         {if $prefs.twoFactorAuth eq 'y' and ((isset($module_params.show_two_factor_auth) and $module_params.show_two_factor_auth eq 'y') or ! empty($error_login))}
         <div id="two_factor_div" class="my-2 {if $mode eq 'header'}mx-2{/if}" style="display: {if $create2FaCodeNormalLogin === 'y'} block; {else} none; {/if}">
@@ -365,7 +379,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
             <a class="mt-1 d-block" href="#" onclick="$('#loginbox-{{$module_logo_instance}}').data('normalLogin', '2fa-regen').submit()" title="{tr}Click here if you've not received the code and want to send a new one.{/tr}">{tr}I didn't receive the code{/tr}</a>
         </div>
         {/if}
-        {if $prefs.rememberme ne 'disabled' and (empty($module_params.remember) or $module_params.remember neq 'n')}
+        {if $prefs.rememberme ne 'disabled' and (empty($module_params.remember) or $module_params.remember neq 'n') and $create2FaCodeNormalLogin ne 'y'}
             {if $prefs.rememberme eq 'always'}
                 <input type="hidden" name="rme" id="login-remember-module-input_{$module_logo_instance}" value="on" />
             {else}
@@ -405,7 +419,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
         {/if}
 
         <div class="my-2 {if $mode eq 'header'}mx-2{/if} text-center" {if $mode eq 'header'}style="margin-top: 2.4rem !important;"{/if}>
-            <button class="btn btn-primary button submit" type="submit" name="login" step="1">{tr}Log in{/tr} {* <i class="fa fa-arrow-circle-right"></i> *}</button>
+            <button class="btn btn-primary button submit" type="submit" id="loginSubmit" name="login" step="1">{tr}Log in{/tr} {* <i class="fa fa-arrow-circle-right"></i> *}</button>
         </div>
         {if $module_params.show_register eq 'y' or $prefs.twoFactorAuth eq 'y'}
             <div {if $mode eq 'header'}class="text-end" style="display:inline;"{/if}>

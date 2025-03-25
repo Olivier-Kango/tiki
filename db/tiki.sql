@@ -1774,6 +1774,7 @@ INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `s
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Webservices','tiki-admin_webservices.php',1280,'feature_webservices','tiki_p_admin_webservices','', 0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','References','tiki-references.php',255,'feature_wiki,feature_references','tiki_p_edit_references','', 0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42, 'o', 'Custom Routes', 'tiki-admin_routes.php', 1290, 'feature_sefurl_routes', 'tiki_p_admin', '', 0);
+INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42, 's', 'Webauthn', 'tiki-webauthn.php', 1300, 'auth_webauthn_enabled', '', '', 0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42, 'o', 'Admin Icons Dashboard', 'tiki-admin.php?admin_dashboard_icons=y', 1053, 'theme_unified_admin_backend', 'tiki_p_admin', '', 0);
 
 DROP TABLE IF EXISTS `tiki_menus`;
@@ -4207,6 +4208,20 @@ CREATE TABLE `tiki_custom_color_modes` (
 ) ENGINE=MyISAM;
 
 INSERT INTO `tiki_custom_color_modes` (`name`, `icon`) VALUES ('light', 'sun'), ('dark','moon'), ('auto', 'circle-half');
+
+DROP TABLE IF EXISTS `tiki_webauthn_credentials`;
+CREATE TABLE `tiki_webauthn_credentials` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `user` VARCHAR(100) DEFAULT NULL,
+  `device_name` VARCHAR(100) DEFAULT NULL,
+  `authenticator_id` VARCHAR(100) DEFAULT NULL,
+  `user_handle` VARCHAR(100) DEFAULT NULL,
+  `credential_id` text DEFAULT NULL,
+  `public_key` text DEFAULT NULL,
+  `sign_count` BIGINT NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `last_signin` TIMESTAMP NULL DEFAULT NULL
+) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_2fa_email_tokens`;
 CREATE TABLE `tiki_2fa_email_tokens` (

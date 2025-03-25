@@ -77,6 +77,11 @@ if ($prefs['session_silent'] == 'y') {
     session_start();
 }
 
+if ($prefs['auth_webauthn_enabled'] === 'y' && ! empty($_SESSION['webauthn_user'])) {
+    $_REQUEST['user'] = $_SESSION['webauthn_user'];
+    $_REQUEST['pass'] = ! empty($_REQUEST['pass']) ? trim($_REQUEST['pass']) : $userlib->genPass();
+}
+
 if ($prefs['twoFactorAuth'] === 'y' && ! empty($_SESSION['tiki_creds_username']) && ! empty($_SESSION['tiki_creds_password'])) {
     $_REQUEST['user'] = $_SESSION['tiki_creds_username'];
     $_REQUEST['pass'] = $_SESSION['tiki_creds_password'];
@@ -287,7 +292,11 @@ if (
     }
 } else {
     // Verify user is valid
-    $ret = $userlib->validate_user($requestedUser, $pass);
+    if ($prefs['auth_webauthn_enabled'] === 'y' && ! empty($_SESSION['webauthn_user']) && $_SESSION['webauthn_user'] === $requestedUser) {
+        $ret = [$userlib->update_lastlogin($requestedUser), $requestedUser, USER_VALID];
+    } else {
+        $ret = $userlib->validate_user($requestedUser, $pass);
+    }
     if (count($ret) == 3) {
         $ret[] = null;
     }
@@ -339,7 +348,7 @@ if (
             }
 
             if ($isvalid) {
-                if ($requireMfa) {
+                if ($requireMfa && $prefs['twoFactorAuth'] === 'y') {
                     $userlib->updateLastMFADate($requestedUser);
                 }
                 $isdue = $userlib->is_due($requestedUser, $method);

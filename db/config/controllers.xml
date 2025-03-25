@@ -98,6 +98,7 @@
         <service id="tiki.controller.ids" class="Services_IDS_Controller"/>
         <service id="tiki.controller.performance" class="Services_Performance_Controller"/>
         <service id="tiki.controller.colormodes" class="Services_ColorModes_Controller"/>
+        <service id="tiki.controller.webauthn" class="Tiki\Services\Webauthn\WebauthnController"/>
         <service id="tiki.controller.two_fa_auth" class="Tiki\Services\TwoFactorAuth\TwoFactorAuthController"/>
         <service id="tiki.controller.iotapps" class="Services_IotApps_Controller"/>
     </services>
