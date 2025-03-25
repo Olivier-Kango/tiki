@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "38cfcc136f0f531474a7662e5b36d5b9",
+    "content-hash": "b46fc89ee909d20250a277accdd765b7",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -6327,22 +6327,6 @@
             "license": [
                 "MIT"
             ]
-        },
-        {
-            "name": "npm-asset/prefixfree",
-            "version": "v1.0.10",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:LeaVerou/prefixfree.git",
-                "reference": "846904c874a2bf436ff8a9623585f935d7ef4009"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/prefixfree/npm-asset-prefixfree-846904c874a2bf436ff8a9623585f935d7ef4009-zip-825a34.zip",
-                "reference": "846904c874a2bf436ff8a9623585f935d7ef4009",
-                "shasum": "a5a380fab28e73d2912aaa53de19da847b1dea1f"
-            },
-            "type": "npm-asset"
         },
         {
             "name": "npm-asset/prettier",

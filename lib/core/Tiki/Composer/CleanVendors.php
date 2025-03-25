@@ -170,16 +170,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'npm-asset/prefixfree',
-            [
-            'index.js',
-            'css',
-            'fonts',
-            'img',
-            'minify'
-            ]
-        );
-        self::remove(
             $vendors . 'smarty/smarty',
             [
                 'change_log.txt',
