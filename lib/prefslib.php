@@ -174,13 +174,6 @@ class PreferencesLib
             $value = (string) $info['value'];
         }
 
-        if (isset($info['notices'][$value])) {
-            Feedback::warning([
-                'title' => "The preference '{$name}' is set to '{$info['value']}'",
-                'mes' => $info['notices'][$value]
-            ]);
-        }
-
         if (! isset($info['tags'])) {
             $info['tags'] = ['advanced'];
         }
@@ -216,8 +209,8 @@ class PreferencesLib
                 $info['dependencies'] = $this->getDependencies($info['dependencies']);
             }
             if (isset($info['conflicts'])) {
-                $info['conflicts'] = $this->getConflicts($info['conflicts']);
-                if (count($info['conflicts']['active']) && $info['value'] != 'y') {
+                $info['conflicts'] = $this->getConflicts($info['conflicts'], $info);
+                if (count($info['conflicts']['active']) && $info['type'] === 'flag' && $info['value'] != 'y') {
                     $info['available'] = false;
                 }
             }
@@ -835,30 +828,54 @@ class PreferencesLib
         return $out;
     }
 
-    private function getConflicts($conflicts)
+    private function getConflicts($conflicts, $subject)
     {
         $active = [];
         $inactive = [];
 
-        foreach ((array) $conflicts as $pref) {
-            $info = $this->getPreference($pref, false);
-            if (! $info) {
-                continue;
-            }
-            $name = isset($info['name']) ? $info['name'] : '';
-            $link = isset($info['adminurl']) ? $info['adminurl'] : '';
-            if ($info['value'] == 'y') {
-                $active[] = [
-                    'name' => $pref,
-                    'label' => $name,
-                    'link' => $link,
-                ];
+        foreach ((array) $conflicts as $key => $details) {
+            if (is_array($details)) {
+                $info = $this->getPreference($details['preference'], false);
+                if (! $info) {
+                    continue;
+                }
+                $name = isset($info['name']) ? $info['name'] : '';
+                $link = isset($info['adminurl']) ? $info['adminurl'] : '';
+                if ($subject['value'] === $key && $info['value'] === $details['value']) {
+                    $active[] = [
+                        'name' => $details['preference'],
+                        'label' => $name,
+                        'link' => $link,
+                        'message' => $details['message'],
+                    ];
+                } else {
+                    $inactive[] = [
+                        'name' => $details['preference'],
+                        'label' => $name,
+                        'link' => $link,
+                        'message' => $details['message'],
+                    ];
+                }
             } else {
-                $inactive[] = [
-                    'name' => $pref,
-                    'label' => $name,
-                    'link' => $link,
-                ];
+                $info = $this->getPreference($details, false);
+                if (! $info) {
+                    continue;
+                }
+                $name = isset($info['name']) ? $info['name'] : '';
+                $link = isset($info['adminurl']) ? $info['adminurl'] : '';
+                if ($info['value'] == 'y') {
+                    $active[] = [
+                        'name' => $key,
+                        'label' => $name,
+                        'link' => $link,
+                    ];
+                } else {
+                    $inactive[] = [
+                        'name' => $key,
+                        'label' => $name,
+                        'link' => $link,
+                    ];
+                }
             }
         }
 

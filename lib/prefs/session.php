@@ -18,9 +18,13 @@ function prefs_session_list()
                 'memcache' => tra('Memcache'),
             ],
             'default' => 'db',
-            'notices' => [
-                'db' => tra('Database storage is not efficient for high-traffic sites and is therefore not recommended for use in production.'),
-            ]
+            'conflicts' => [
+                'db' => [
+                    'preference' => 'feature_webmail',
+                    'value' => 'y',
+                    'message' => tra('It is recommended not to set the session storage to database if you use the webmail feature. <a href="https://dev.tiki.org/item8365-Race-condition-Sessions-stored-in-the-database-and-Cypht" class="alert-link">See more details.</a>')
+                ]
+            ],
         ],
         'session_lifetime' => [
             'name' => tra('Session lifetime'),

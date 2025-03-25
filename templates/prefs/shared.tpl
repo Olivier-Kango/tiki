@@ -39,10 +39,22 @@
 <div class="d-inline-flex flex-column">
     {if !empty($p.conflicts)}
         {foreach from=$p.conflicts.active item=conflict}
-            <div class="alert alert-danger pref_conflict d-inline-block alert-sm">{tr}Conflict:{/tr} <a href="{$conflict.link|escape}" class="alert-link">{$conflict.label|escape}</a> {tr}must be disabled first.{/tr}</div>
+            <div class="alert alert-danger pref_conflict d-inline-block alert-sm">
+                {if isset($conflict.message)}
+                    {$conflict.message} <br/>
+                {else}
+                    {tr}Conflict:{/tr} <a href="{$conflict.link|escape}" class="alert-link">{$conflict.label|escape}</a> {tr}must be disabled first.{/tr}
+                {/if}
+            </div>
         {/foreach}
         {foreach from=$p.conflicts.inactive item=conflict}
-            <div class="alert alert-warning pref_conflict d-inline-block alert-sm">{tr}Incompatibility detected with:{/tr} <a href="{$conflict.link|escape}" class="alert-link">{$conflict.label|escape}</a></div>
+            <div class="alert alert-warning pref_conflict d-inline-block alert-sm">
+                {if isset($conflict.message)}
+                    {$conflict.message} <br/>
+                {else}
+                    {tr}Incompatibility detected with:{/tr} <a href="{$conflict.link|escape}" class="alert-link">{$conflict.label|escape}</a>
+                {/if}
+            </div>
         {/foreach}
     {/if}
     {if !empty($p.dependencies)}
@@ -54,11 +66,6 @@
             {else}
                 <div class="alert alert-warning pref_dependency d-inline-block"{if not $p.modified} style="display:none;"{/if}>{tr}You need to set{/tr} <a href="{$dep.link|escape}" class="alert-link">{$dep.label|escape}</a></div>
             {/if}
-        {/foreach}
-    {/if}
-    {if !empty($p.notices)}
-        {foreach from=$p.notices key=value item=notice}
-            <div class="alert alert-warning pref_notice d-none" data-value="{$value}" data-pref-name="{$p.preference}">{$notice|escape}</div>
         {/foreach}
     {/if}
 </div>

@@ -623,6 +623,13 @@ function prefs_feature_list($partial = false)
             'tags' => ['experimental'],
             'admin' => 'webmail',
             'view' => 'tiki-webmail.php',
+            'conflicts' => [
+                'y' => [
+                    'preference' => 'session_storage',
+                    'value' => 'db',
+                    'message' => tra('It is recommended not to set the session storage to database if you use the webmail feature. <a href="https://dev.tiki.org/item8365-Race-condition-Sessions-stored-in-the-database-and-Cypht" class="alert-link">See more details.</a>')
+                ]
+            ]
         ],
         'feature_intertiki' => [
             'name' => tra('Intertiki'),
