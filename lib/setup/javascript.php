@@ -20,7 +20,7 @@ $smarty->assign('js', 1);
 //for use in setting tags for css menus as fallback for action dropdowns
 $smarty->assign('libeg', '');
 $smarty->assign('liend', '');
-    $plus_one_year = ($tikilib->now + 365 * 24 * 3600) * 1000;      // ms
+$plus_one_year = ($tikilib->now + 365 * 24 * 3600) * 1000;      // ms
 $prefs['feature_jquery'] = 'y'; // just in case
 
 // load translations lang object from /lang/xx/language.js if there
@@ -206,7 +206,6 @@ $jqueryTiki['googleStreetViewOverlay'] = $prefs['geo_google_streetview_overlay']
 $jqueryTiki['googleMapsAPIKey'] = $prefs['gmap_key'];
 $jqueryTiki['structurePageRepeat'] = $prefs['page_n_times_in_a_structure'] === 'y' ? true : false;
 $jqueryTiki['no_cookie'] = false;
-$jqueryTiki['cookie_consent_analytics'] = $prefs['cookie_consent_analytics'] === 'y' ? true : false;
 $jqueryTiki['language'] = $prefs['language'];
 $jqueryTiki['useInlineComment'] = $prefs['feature_inline_comments'] === 'y' ? true : false;
 $jqueryTiki['useInlineAnnotations'] = $prefs['comments_inline_annotator'] === 'y' ? true : false;
