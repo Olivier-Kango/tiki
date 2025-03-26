@@ -1,20 +1,28 @@
 window.CookieHandler = (() => {
-    const COOKIE_CONSENT_NAME = jqueryTiki.cookie_consent_name;
-    const COOKIE_CATEGORIES = JSON.parse(jqueryTiki.cookie_consent_categories);
-    const COOKIE_CONSENT_VALUE = JSON.parse(jqueryTiki.cookie_consent_value) ?? {
-        action: "customized",
-        consentGiven: false,
-        categories: {},
-    };
-
     function setConsentCookies(actionType = "customized") {
+        const COOKIE_CONSENT_NAME = jqueryTiki.cookie_consent_name;
+        const COOKIE_CATEGORIES = JSON.parse(jqueryTiki.cookie_consent_categories);
+        let getcookie_consent_value = JSON.parse(jqueryTiki.cookie_consent_value);
+
+        if (getcookie_consent_value === null || getcookie_consent_value.length === 0) {
+            getcookie_consent_value = {
+                action: "customized",
+                categories: {},
+                consentGiven: false,
+            };
+        }
+
+        const COOKIE_CONSENT_VALUE = getcookie_consent_value;
         const exp = new Date();
         exp.setTime(exp.getTime() + 24 * 60 * 60 * 1000 * jqueryTiki.cookie_consent_expires);
         jqueryTiki.no_cookie = false;
 
+        // Store category consent values properly as key-value pairs
+        COOKIE_CONSENT_VALUE.categories = {}; // Reset categories to an object
+
         COOKIE_CATEGORIES.forEach((category) => {
             const isChecked = $(`#toggle${capitalize(category)}`).is(":checked");
-            COOKIE_CONSENT_VALUE.categories[category] = isChecked;
+            COOKIE_CONSENT_VALUE.categories[category] = isChecked; // Store with category name as key
         });
 
         // Determine if the state is customized (some but not all checkboxes selected)
@@ -39,10 +47,8 @@ window.CookieHandler = (() => {
         }
 
         COOKIE_CONSENT_VALUE.consentGiven = true;
-
         // Store the entire consent object (including action and categories) in a single cookie
-        setCookieBrowser(COOKIE_CONSENT_NAME, JSON.stringify(COOKIE_CONSENT_VALUE), "/", exp);
-
+        setCookieBrowser(COOKIE_CONSENT_NAME, encodeURIComponent(JSON.stringify(COOKIE_CONSENT_VALUE)), "", exp);
         $(document).trigger("cookies.consent.agree");
     }
 

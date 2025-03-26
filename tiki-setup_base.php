@@ -221,6 +221,8 @@ if (empty($tikidomain)) {
     $tikidomain = "";
 }
 
+$feature_no_cookie_analytics = false;
+
 if ($prefs['cookie_consent_feature'] === 'y' && empty($_COOKIE[CookieConsentLib::COOKIE_CONSENT_NAME]) && $prefs['cookie_consent_disable'] !== 'y') {
     // No consent yet
     $feature_no_cookie = true;
@@ -234,8 +236,6 @@ if ($prefs['cookie_consent_feature'] === 'y' && empty($_COOKIE[CookieConsentLib:
         } else {
             $feature_no_cookie_analytics = true;
         }
-    } else {
-        $feature_no_cookie_analytics = false;
     }
 }
 

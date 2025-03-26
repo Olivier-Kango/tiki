@@ -54,35 +54,33 @@ class CookieConsentLib
     public static function initializeConsentPreferences()
     {
         global $tikilib, $user, $prefs;
-        $cookieName = self::COOKIE_CONSENT_NAME;
-        $defaultPreferences = [
+
+        $consentPreferences = [
             'action' => 'customized',
-            'consentGiven' => false, // Helps to determine if the user has given consent or not
+            'consentGiven' => false, // Helps determine if the user has given consent or not
             'categories' => array_map(fn() => false, array_keys(self::getCookieCategories())) // Default to false for all categories
         ];
 
-        // First, try to read the consent cookie
-        $consentCookie = self::getCookie($cookieName);
-        if ($consentCookie) {
-            $decoded = json_decode($consentCookie, true);
-            if (is_array($decoded)) {
-                return $decoded;
-            }
-        }
+        // First, try to read the consent cookie from browser cookie
+        $consentCookie = urldecode(self::getCookie(self::COOKIE_CONSENT_NAME));
 
+        if ($consentCookie) {
+            $consentPreferences = json_decode(urldecode($consentCookie), true);
+            return $consentPreferences;
+        }
         // If the user is logged in, try to load their stored preference
         if ($user) {
             $userPreferences = $tikilib->get_user_preference($user, 'cookie_consent_user_pref', '');
             if ($userPreferences) {
-                $decoded = json_decode($userPreferences, true);
-                if (is_array($decoded)) {
+                $consentPreferences = json_decode($userPreferences, true);
+                if (is_array($consentPreferences)) {
                     // Sync the cookie with the user preference
-                    self::setConsentPreferences($decoded);
-                    return $decoded;
+                    self::setConsentPreferences($consentPreferences);
+                    return $consentPreferences;
                 }
             }
         }
-        return $defaultPreferences;
+        return $consentPreferences;
     }
 
     /**
@@ -94,7 +92,7 @@ class CookieConsentLib
     public static function getConsentPreferences(?string $category = null)
     {
         $preferences = self::initializeConsentPreferences();
-        return $category ? ($preferences['categories'][$category] ?? null) : $preferences;
+        return $category ? ($preferences['categories'][$category] ?? $preferences) : $preferences;
     }
 
     /**
@@ -159,7 +157,7 @@ class CookieConsentLib
         // Retrieve the stored consent for the given category.
         // getConsentPreferences($category) should return
         // true (allowed), false (refused) or null (not answered).
-        return self::getConsentPreferences($category) === true;
+        return self::getConsentPreferences()['categories'][$category] ?? false;
     }
 
     /**
@@ -238,45 +236,12 @@ class CookieConsentLib
         }
     }
 
-    public static function getCookie($name, $section = null, $default = null)
+    public static function getCookie(string $cockie_name): ?string
     {
-        global $feature_no_cookie, $jitCookie;
-
-        if (isset($_COOKIE[$name])) {
-            $cookie = $_COOKIE[$name];
-        } elseif (isset($jitCookie[$name])) {
-            $cookie = $jitCookie[$name];
-        }
-
-        if (isset($cookie)) {
-            // we need a reliable way to get cookies even if user has not accepted cookies
-            // e.g. CSRF token in a cookie needs to be read as it is already set as a cookie
-            return $cookie;
-        }
-
-        if ($feature_no_cookie || (empty($section) && ! isset($cookie) && isset($_SESSION['tiki_cookie_jar'][$name]))) {
-            if (isset($_SESSION['tiki_cookie_jar'][$name])) {
-                return $_SESSION['tiki_cookie_jar'][$name];
-            } else {
-                return $default;
-            }
-        } elseif ($section) {
-            if (isset($_COOKIE[$section])) {
-                if (preg_match("/@" . preg_quote($name, '/') . "\:([^@;]*)/", $_COOKIE[$section], $matches)) {
-                    return $matches[1];
-                } else {
-                    return $default;
-                }
-            } else {
-                return $default;
-            }
-        } else {
-            if (isset($cookie)) {
-                return $cookie;
-            } else {
-                return $default;
-            }
-        }
+        $cokie_stored = array_values(array_filter(explode('; ', $_SERVER["HTTP_COOKIE"]), function ($cookie) use ($cockie_name) {
+            return strpos($cookie, $cockie_name) !== false;
+        }));
+        return $cokie_stored ? str_replace($cockie_name . '=', '', $cokie_stored[0]) : null;
     }
 
     /**
@@ -289,13 +254,5 @@ class CookieConsentLib
         if ($user) {
             $tikilib->set_user_preference($user, 'cookie_consent_user_pref', '');
         }
-    }
-
-    /**
-     * Get the current consent action.
-     */
-    public static function getConsentAction()
-    {
-        return self::getConsentPreferences()['action'] ?? null;
     }
 }

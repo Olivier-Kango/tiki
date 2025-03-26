@@ -248,8 +248,10 @@ if (! TIKI_API) {
         }
         // Retrieve the full consent object (This check first the browser and then user cookie consent prefs)
         $consent_preferences = CookieConsentLib::initializeConsentPreferences();
+
         if (! $consent_preferences['consentGiven'] || $jitRequest->offsetExists('cookie_consent')) {
             if (! $jitRequest->offsetExists('cookie_consent')) {
+                // die("Don't clean me");
                 foreach ($_COOKIE as $k => $v) {
                     if (strpos($k, session_name()) === false) {
                         setcookie($k, '', time() - 3600);        // unset any previously existing cookies except the session and js detect
@@ -262,7 +264,6 @@ if (! TIKI_API) {
             $cookie_consent_html = $smarty->fetch('cookie_consent.tpl');
         } else {
             $feature_no_cookie = false;
-
             if (isset($consent['categories']['analytics']) && $consent['categories']['analytics'] === true) {
                 $analytics = getCookie($prefs['cookie_consent_name'] . '_analytics');
                 if (is_numeric($analytics)) {   // has been set server-side, so user is opting in to analytics
@@ -574,9 +575,9 @@ if ($prefs['feature_syntax_highlighter'] == 'y') {
         ->add_jsfile(CODEMIRROR_DIST_PATH . '/addon/mode/overlay.js')
     //add tiki stuff
         ->add_cssfile('themes/base_files/feature_css/codemirror_tiki.css')
-        ->add_jsfile('lib/codemirror_tiki/codemirror_tiki.js')
+        ->add_jsfile('lib/codemirror_tiki/codemirror_tiki.js');
     //add interactjs
-        ->add_jsfile(NODE_PUBLIC_DIST_PATH . '/interactjs/dist/interact.min.js');
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/interactjs/dist/interact.min.js');
 
     require_once("lib/codemirror_tiki/tiki_codemirror.php");
     createCodemirrorModes();

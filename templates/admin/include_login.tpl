@@ -187,7 +187,6 @@
                         {preference name=cookie_consent_name}
                         {preference name=cookie_consent_expires}
                         {preference name=cookie_consent_description}
-                        {preference name=cookie_consent_question}
                         {preference name=cookie_consent_analytics}
                         {preference name=cookie_consent_preference}
                         {preference name=cookie_consent_mode}
