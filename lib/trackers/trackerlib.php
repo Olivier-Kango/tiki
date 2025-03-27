@@ -6716,11 +6716,11 @@ class TrackerLib extends TikiLib
                 $fieldItems = $this->fetchAll($query, $bindvars);
                 $fieldItems = array_map(
                     function ($row) {
-                        return $row['itemId'];
+                        return array_filter(explode(',', $row['itemId']));
                     },
                     $fieldItems
                 );
-                $items = array_merge($items, $fieldItems);
+                $items = array_merge($items, ...$fieldItems);
             }
         }
         $items = array_unique($items);
