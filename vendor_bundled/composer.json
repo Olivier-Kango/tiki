@@ -85,7 +85,7 @@
         "",
         "  symfony/*",
         "    Upgrading:  ",
-        "    Rector always has rules to refactors synfony code ",
+        "    Rector always has rules to refactors Symfony code ",
         "    automatically.  See rector.php",
         "    Symfony does not maintain a master branch.",
         "    However, they do maintain a CHANGELOG.mg  for EACH ",
