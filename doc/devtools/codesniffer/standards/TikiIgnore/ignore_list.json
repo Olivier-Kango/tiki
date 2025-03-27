@@ -626,6 +626,9 @@
         "lib\/core\/TikiDb\/Transaction.php": {
             "class:TikiDb_Transaction": true
         },
+        "lib\/core\/Search\/ContentSource\/SurveySource.php": {
+            "class:Search_ContentSource_SurveySource": true
+        },
         "lib\/test\/TikiLib\/TikiLibTest.php": {
             "class:TikiLibTest": true
         },
@@ -6423,6 +6426,9 @@
         },
         "lib\/core\/Math\/Formula\/Function\/StrReplace.php": {
             "Math_Formula_Function_StrReplace": true
+        },
+        "lib\/core\/Search\/ContentSource\/SurveySource.php": {
+            "Search_ContentSource_SurveySource": true
         },
         "lib\/core\/Math\/Formula\/Function\/NotEquals.php": {
             "Math_Formula_Function_NotEquals": true
