@@ -93,7 +93,6 @@ $needed_prefs = [
     'pass_chr_special' => 'n',
     'cookie_consent_feature' => 'n',
     'cookie_consent_disable' => 'n',
-    'cookie_consent_analytics' => 'n',
     'cookie_consent_name' => CookieConsentLib::COOKIE_CONSENT_NAME,
     'allocate_memory_php_execution' => '',
     'allocate_time_php_execution' => '',
@@ -221,21 +220,19 @@ if (empty($tikidomain)) {
     $tikidomain = "";
 }
 
-$feature_no_cookie_analytics = false;
+$feature_no_cookie_essentials = false;
 
 if ($prefs['cookie_consent_feature'] === 'y' && empty($_COOKIE[CookieConsentLib::COOKIE_CONSENT_NAME]) && $prefs['cookie_consent_disable'] !== 'y') {
     // No consent yet
     $feature_no_cookie = true;
-    $feature_no_cookie_analytics = true;
+    $feature_no_cookie_essentials = true;
 } else {
     // Cookie consent not implemented or consent given or consent forced with preference cookie_consent_disable
     $feature_no_cookie = false;
-    if ($prefs['cookie_consent_analytics'] === 'y') {
-        if (CookieConsentLib::getConsentPreferences(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ANALYTICS)) {
-            $feature_no_cookie_analytics = false;
-        } else {
-            $feature_no_cookie_analytics = true;
-        }
+    if (CookieConsentLib::getConsentPreferences(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ESSENTIAL)) {
+        $feature_no_cookie_essentials = false;
+    } else {
+        $feature_no_cookie_essentials = true;
     }
 }
 

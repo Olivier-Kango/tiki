@@ -269,11 +269,11 @@ if (! TIKI_API) {
                 if (is_numeric($analytics)) {   // has been set server-side, so user is opting in to analytics
                     $consent_preferences['categories']['analytics'] = true;
                     CookieConsentLib::setConsentPreferences($consent_preferences);
-                    $feature_no_cookie_analytics = false;
+                    $feature_no_cookie_essentials = false;
                 } elseif (empty($analytics)) {
                     $consent_preferences['categories']['analytics'] = false;
                     CookieConsentLib::setConsentPreferences($consent_preferences);
-                    $feature_no_cookie_analytics = true;
+                    $feature_no_cookie_essentials = true;
                 }
             }
         }
@@ -1039,7 +1039,7 @@ if ($prefs['error_tracking_enabled_js'] == 'y' &&  ! empty($prefs['error_trackin
             $dsn = addslashes($prefs['error_tracking_dsn']);
             $script = <<<JS
             import {Sentry} from "@tiki-modules/sentryBrowser";
-            Sentry.init({dsn: '$dsn', sampleRate: $sampleRate}); 
+            Sentry.init({dsn: '$dsn', sampleRate: $sampleRate});
             JS;
         $headerlib->add_js_module($script, -10);
 }

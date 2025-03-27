@@ -238,7 +238,7 @@ class CookieConsentLib
 
     public static function getCookie(string $cockie_name): ?string
     {
-        $cokie_stored = array_values(array_filter(explode('; ', $_SERVER["HTTP_COOKIE"]), function ($cookie) use ($cockie_name) {
+        $cokie_stored = array_values(array_filter(explode('; ', $_SERVER["HTTP_COOKIE"] ?? ''), function ($cookie) use ($cockie_name) {
             return strpos($cookie, $cockie_name) !== false;
         }));
         return $cokie_stored ? str_replace($cockie_name . '=', '', $cokie_stored[0]) : null;

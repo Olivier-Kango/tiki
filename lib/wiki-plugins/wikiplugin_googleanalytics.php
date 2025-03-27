@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 function wikiplugin_googleanalytics_info()
 {
     return [
@@ -43,7 +45,7 @@ function wikiplugin_googleanalytics_info()
 
 function wikiplugin_googleanalytics($data, $params)
 {
-    global $feature_no_cookie_analytics, $prefs;  // set according to cookie_consent_feature pref in tiki-setup.php
+    global $prefs;
 
     $showCode = WikiPlugin_Helper::showAnalyticsCode($params);
     if (! $showCode) {
@@ -53,8 +55,9 @@ function wikiplugin_googleanalytics($data, $params)
     if (empty($params['account'])) {
         return tra('Missing parameter');
     }
-    if ($feature_no_cookie_analytics) {
-        return '';
+    if (! CookieConsentLib::checkAllowedCookieCategory(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ANALYTICS)) {
+        $url = '<a href="tiki-user_preferences.php">' . $_SERVER['HTTP_HOST'] . '/tiki-user_preferences.php</a>';
+        return tr('Please, you must accept the cookie consent analytics to use this plugin. See %0', $url);
     }
     $account = htmlspecialchars($params['account'], ENT_QUOTES);
 

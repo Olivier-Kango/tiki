@@ -654,8 +654,8 @@ class ModLib extends TikiLib
 
         if ($prefs['cookie_consent_feature'] == 'y' && $prefs['cookie_consent_disable'] !== 'y') {      // check if consent required to show
             if (! empty($params['cookie_consent']) && $params['cookie_consent'] === 'y') {
-                global $feature_no_cookie_analytics;
-                if ($feature_no_cookie_analytics) {
+                global $feature_no_cookie_essentials;
+                if ($feature_no_cookie_essentials) {
                     return false;
                 }
             }
