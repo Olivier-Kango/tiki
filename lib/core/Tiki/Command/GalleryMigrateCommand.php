@@ -10,6 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TikiLib;
+use Tiki\Installer\Installer;
 
 /**
  * Allows the migration of images from the Image Gallery (deprecated) to the File Gallery
@@ -20,7 +21,7 @@ class GalleryMigrateCommand extends Command
     {
         $this
             ->setName('gallery:migrate')
-            ->setDescription(tra('Migrate images from the Image Gallery to the File Gallery'));
+            ->setDescription(tra('Migrate images from the Image Gallery (deprecated) to the File Gallery'));
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -30,6 +31,13 @@ class GalleryMigrateCommand extends Command
         $logslib = TikiLib::lib('logs');
 
         $fileGalLib = \TikiLib::lib('filegal');
+        $installer = Installer::getInstance();
+
+        if (! $installer->tableExists('tiki_images')) {
+            $output->writeln('<info>' . tr('This Tiki installation uses File Gallery only.') . '</info>');
+            $output->writeln('<comment>' . tr('Note: The Image Gallery feature was removed in Tiki 24.') . '</comment>');
+            return Command::FAILURE;
+        }
 
         if ($fileGalLib->is_default_gallery_writable()) {
             $containerGalleryId = $fileGalLib->migrateFilesFromImageGalleries();

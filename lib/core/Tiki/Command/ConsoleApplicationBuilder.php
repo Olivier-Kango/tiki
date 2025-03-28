@@ -284,6 +284,15 @@ class ConsoleApplicationBuilder
             'commands'  => [
                 new PerformanceCheckCommand(),
                 ],
+            ],[
+                'condition' => 'checkOldImageGalleryExists',
+                'actions' => [
+                UnavailableException::CHECK_UPDATED => self::ACTION_NOT_PUBLISHED,
+                UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_CALLABLE,
+                ],
+                'commands' => [
+                new GalleryMigrateCommand(),
+                ],
             ]];
     }
 
@@ -318,13 +327,13 @@ class ConsoleApplicationBuilder
     }
 
     /**
-     * Check if Tiki is being run as Git or SVN.
+     * Check if Tiki is being run as Git.
      *
-     * @throws CommandUnavailableException When SVN or GIT is not available.
+     * @throws CommandUnavailableException When GIT is not available.
      */
     protected function checkIsVCS(): void
     {
-        if (! (is_dir('.svn') || file_exists('.git'))) {
+        if (! file_exists('.git')) {
             //.git may be a directory (normal case) or a file (in the case of a git workspace)
             throw new UnavailableException(
                 'You must be running Tiki as a VCS see: https://dev.tiki.org/Get-code',
@@ -386,7 +395,7 @@ class ConsoleApplicationBuilder
 
     /**
      * Checks if tiki-setup.php has completed successfully, without any database errors.
-     * The database has previously been loaded, and much of tiki-check is likely to hae completed. However
+     * The database has previously been loaded, and much of tiki-check is likely to have completed. However
      * it is likely that critical changes were made to Tiki that causes severe database errors.
      *
      * @throws CommandUnavailableException When tiki-setup.php did not complete. (core database errors)
@@ -492,6 +501,19 @@ class ConsoleApplicationBuilder
         }
 
         $this->checkDatabaseUpToDate();
+    }
+
+    protected function checkOldImageGalleryExists(): void
+    {
+        $this->checkIsDatabaseInstalled();
+
+        $installer = \Tiki\Installer\Installer::getInstance();
+        if (! $installer->tableExists('tiki_images')) {
+            throw new UnavailableException(
+                'Image Gallery tables not found',
+                UnavailableException::CHECK_UPDATED
+            );
+        }
     }
 
     /**
