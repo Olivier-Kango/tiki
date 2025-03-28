@@ -142,6 +142,7 @@
         "bacon/bacon-qr-code": "^2.0.0",
         "candy-chat/xmpp-prebind-php": "dev-master",
         "cboden/ratchet": "^0.4",
+        "chrome-php/chrome": "^1.12",
         "ckeditor/ckeditor": "<=4.22.1",
         "codemirror/codemirror": "5.19.0",
         "codercat/jwk-to-pem": "^1.1",
