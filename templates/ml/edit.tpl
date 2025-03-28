@@ -91,7 +91,7 @@
                                     <a href="{service controller=ml action=model_args mlmId=$model.mlmId}" class="arguments"></a>
                                     <textarea class="serialized-args d-none"></textarea>
                                 </td>
-                                <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                <td class="text-end"><button class="remove btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                             </tr>
                             {foreach $model.instances as $instance}
                                 <tr>
@@ -105,7 +105,7 @@
                                         <a href="{service controller=ml action=model_args mlmId=$model.mlmId class=$instance.class}" class="arguments">{$instance.instance|escape}</a>
                                         <textarea class="serialized-args d-none">{$instance.serialized_args}</textarea>
                                     </td>
-                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                                 </tr>
                             {/foreach}
                         </tbody>

@@ -176,7 +176,7 @@
                             {$title = "{$groupname}:{tr}Group IS being monitored. Click icon to STOP monitoring.{/tr}"}
                             {$iconname = 'stop-watching'}
                         {/if}
-                        <button type="submit" class="tips btn btn-link" title="{$title}">
+                        <button type="submit" class="tips btn btn-link" title="{$title}" aria-label="{$title}">
                             {icon name="{$iconname}"}
                         </button>
                     </form>
@@ -672,6 +672,7 @@
                                     form="addorban"
                                     formaction="{service controller=group action=add_user anchor='#contenttabs_admingroups-3'}"
                                     title=":{tr}Add to group{/tr}"
+                                    aria-label="{tr}Add to group{/tr}"
                                     onclick="confirmPopup(event, true)"
                                 >
                                     {icon name=add size=2}
@@ -684,6 +685,7 @@
                                     form="addorban"
                                     formaction="{service controller=group action=ban_user anchor='#contenttabs_admingroups-4'}"
                                     title=":{tr}Ban from group{/tr}"
+                                    aria-label="{tr}Ban from group{/tr}"
                                     onclick="confirmPopup(event, true)"
                                 >
                                     {icon name=ban iclass="alert-danger" size=2}

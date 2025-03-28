@@ -74,7 +74,7 @@
                             <div><label class="col-form-control me-md-3 text-start">Admin Features </label> </div>
                             <div class="d-flex">
                                 <input type="text" name="lm_criteria" value="{$smarty.request.lm_criteria|escape}" class="form-control form-control-sm me-2 col-md-auto" placeholder="Search preferences...">
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button type="submit" class="btn btn-primary btn-sm" aria-label="{tr}Search{/tr}">
                                     <span class="icon icon-search fas fa-search fa-fw "></span>
                                 </button>
                             </div>

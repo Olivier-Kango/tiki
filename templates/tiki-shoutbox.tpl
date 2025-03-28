@@ -82,7 +82,7 @@
                 <input type="hidden" name="offset" value="{$offset}">
                 <input type="hidden" name="sort_mode" value="{$sort_mode}">
                 <input type="hidden" name="remove" value="{$channels[user].msgId}">
-                <button type="submit" class="btn btn-link px-0 pt-0 tips text-danger" title=":{tr}Remove{/tr}" onclick="confirmPopup()">
+                <button type="submit" class="btn btn-link px-0 pt-0 tips text-danger" title=":{tr}Remove{/tr}" aria-label="{tr}Remove{/tr}" onclick="confirmPopup()">
                     {icon name='remove'}
                 </button>
             </form>

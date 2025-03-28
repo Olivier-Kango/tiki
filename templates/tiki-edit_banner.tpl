@@ -285,7 +285,7 @@
                                 <form action="tiki-edit_banner.php" method="post">
                                     {ticket}
                                     <input type="hidden" name="removeZone" value="{$zones[ix].zone}">
-                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0 tips" title=":{tr}Remove{/tr}" onclick="confirmPopup('{tr}Do you want to delete this zone{/tr} ?')">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0 tips" title=":{tr}Remove{/tr}" onclick="confirmPopup('{tr}Do you want to delete this zone{/tr} ?')" aria-label="{tr}Remove{/tr}">
                                         {icon name='remove' _menu_icon='y' }
                                     </button>
                                 </form>

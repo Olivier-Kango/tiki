@@ -38,7 +38,7 @@
         <table class="table">
             <tr>
                 <td> {* th changed to td to prevent ARIA empty header error *}
-                    <button type="submit" class="btn btn-danger btn-sm" name="delete" title="{tr}Delete selected{/tr}" {if !$channels}disabled{/if}>
+                    <button type="submit" class="btn btn-danger btn-sm" name="delete" title="{tr}Delete selected{/tr}" aria-label="{tr}Delete selected{/tr}" {if !$channels}disabled{/if}>
                         {icon name="delete"}
                     </button>
                 </td>

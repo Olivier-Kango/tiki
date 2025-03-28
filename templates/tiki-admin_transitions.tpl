@@ -159,7 +159,7 @@
                                                     {ticket}
                                                     <input type="hidden" name="action" value="remove">
                                                     <input type="hidden" name="transitionId" value="{$trans.transitionId}">
-                                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Do you want to remove this transition ?{/tr}')">
+                                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Do you want to remove this transition ?{/tr}')" aria-label="{tr}Remove{/tr}">
                                                         {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                                     </button>
                                                 </form>

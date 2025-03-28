@@ -78,7 +78,7 @@
                                     <div class="input-group">
                                         <input type="hidden" name="filters">
                                         <input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
-                                        <button type="submit" class="btn btn-info btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
+                                        <button type="submit" class="btn btn-info btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if} aria-label="{tr}Search{/tr}>{icon name="search"}</button>
                                     </div>
                                 </form>
                             </li>
@@ -95,7 +95,7 @@
 
 {if $lm_searchresults}
     <div class="alert alert-secondary alert-dismissible pe-3" id="pref_searchresults">
-        <button type="button" class="btn-close mt-3" aria-hidden="true" data-bs-dismiss="alert"></button>
+        <button type="button" class="btn-close mt-3" aria-hidden="true" data-bs-dismiss="alert" aria-label="{tr}Close{/tr}"></button>
             <h3 class="alert-heading">{tr}Preference Search Results{/tr}</h3>
         <form method="post" href="tiki-admin.php" class="px-4">
             <div class="pref_search_results">

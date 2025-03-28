@@ -19,7 +19,7 @@
         {remarksbox type='errors' title="{tr}Field error{/tr}"}{$nonPublicFieldsWarning}{/remarksbox}
     {/if}
     {if $allowtableexpansion eq 'y'}
-        <button title="{tr}Expand table{/tr}" class="btn btn-primary btn-sm table-expand-toggle" type="button" ><span class="icon far fa-caret-square-right fa-fw "></span></button>
+        <button title="{tr}Expand table{/tr}" aria-label="{tr}Expand table{/tr}" class="btn btn-primary btn-sm table-expand-toggle" type="button" ><span class="icon far fa-caret-square-right fa-fw "></span></button>
         {jq}
             $(".table-expand-toggle").on("click", function(){
                 var $this = $(this);
@@ -95,8 +95,8 @@
 
             {if $prefs.tracker_report_resize_button eq 'y'}
                 <p class="tracker-resize" style="display:none;text-align:right">
-                    <button class="tracker-resize-expand btn btn-primary" title="{tr}Resize{/tr}">{icon name='expand'}</button>
-                    <button class="tracker-resize-compress btn btn-primary" title="{tr}Resize{/tr}" style="display:none">{icon name='compress'}</button>
+                    <button class="tracker-resize-expand btn btn-primary" title="{tr}Resize{/tr}" aria-label="{tr}Resize{/tr}">{icon name='expand'}</button>
+                    <button class="tracker-resize-compress btn btn-primary" title="{tr}Resize{/tr}" aria-label="{tr}Resize{/tr}" style="display:none">{icon name='compress'}</button>
                 </p>
                 {jq}
                     $('[id^="wptrackerlist"].ts-wrapperdiv').each(function() {

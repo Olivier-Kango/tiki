@@ -52,7 +52,7 @@
                                         <form action="tiki-list_contents.php" method="post">
                                             {ticket}
                                             <input type="hidden" name="remove" value="{$listpages[changes].contentId}">
-                                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()" aria-label="{tr}Delete{/tr}">
                                                 {icon name="remove" _menu_text='y'  _menu_icon='y' alt="{tr}Remove{/tr}"}
                                             </button>
                                         </form>

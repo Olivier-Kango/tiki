@@ -151,7 +151,7 @@
                                                 <form action="tiki-admin_structures.php" method="post">
                                                     {ticket}
                                                     <input type="hidden" name="remove" value="{$channels[ix].page_ref_id}">
-                                                    <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                                                    <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()" aria-label="{tr}Remove{/tr}">
                                                         {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                                     </button>
                                                 </form>

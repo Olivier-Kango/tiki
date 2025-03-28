@@ -35,6 +35,7 @@
                         value="y"
                         class="btn btn-secondary float-sm-end tips"
                         title=":{tr}Please be patient, this may take a while{/tr}"
+                        aria-label="{tr}Please be patient, this may take a while{/tr}"
                 >
                     {icon name="refresh" _menu_text='y' _menu_icon='y' alt="{tr}Refresh all feeds{/tr}"}
                 </button>

@@ -77,7 +77,7 @@
                                                 <input type="hidden" name="readdate" value="{$history[$sheetIndexes[$smarty.section.date.index]].stamp}">
                                                 <input type="hidden" name="parse" value="rollback">
                                                 <input type="hidden" name="class" value="rollback_button">
-                                                <button type="submit" class="btn btn-primary" onclick="confirmPopup('{tr}Are you sure you want to roll back this spreadsheet?{/tr}')">
+                                                <button type="submit" class="btn btn-primary" onclick="confirmPopup('{tr}Are you sure you want to roll back this spreadsheet?{/tr}')" aria-label="{tr}Roll back{/tr}">
                                                     {icon _menu_text='y' _menu_icon='n' alt="{tr}Roll back{/tr}"}
                                                 </button>
                                             </form>

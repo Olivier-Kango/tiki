@@ -56,6 +56,7 @@
                                         value="{$modules_l[ix].moduleId}"
                                         class="tips btn btn-link p-0"
                                         title=":{tr}Move module up{/tr}"
+                                        aria-label="{tr}Move module up{/tr}"
                                     >
                                         {icon name="up"}
                                     </button>
@@ -65,6 +66,7 @@
                                         value="{$modules_l[ix].moduleId}"
                                         class="tips btn btn-link p-0"
                                         title=":{tr}Move module down{/tr}"
+                                        aria-label="{tr}Move module down{/tr}"
                                     >
                                         {icon name="down"}
                                     </button>
@@ -75,6 +77,7 @@
                                             value="{$modules_l[ix].moduleId}"
                                             class="tips btn btn-link p-0"
                                             title=":{tr}Move to right side{/tr}"
+                                            aria-label="{tr}Move to right side{/tr}"
                                         >
                                             {icon name="next"}
                                         </button>
@@ -86,6 +89,7 @@
                                             value="{$modules_l[ix].moduleId}"
                                             class="tips btn btn-link p-0"
                                             title=":{tr}Unassign{/tr}"
+                                            aria-label="{tr}Unassign{/tr}"
                                         >
                                             {icon name="remove"}
                                         </button>
@@ -121,6 +125,7 @@
                                         value="{$modules_r[ix].moduleId}"
                                         class="tips btn btn-link p-0"
                                         title=":{tr}Move module up{/tr}"
+                                        aria-label="{tr}Move module up{/tr}"
                                     >
                                         {icon name="up"}
                                     </button>
@@ -130,6 +135,7 @@
                                         value="{$modules_r[ix].moduleId}"
                                         class="tips btn btn-link p-0"
                                         title=":{tr}Move module down{/tr}"
+                                        aria-label="{tr}Move module down{/tr}"
                                     >
                                         {icon name="down"}
                                     </button>
@@ -140,6 +146,7 @@
                                             value="{$modules_r[ix].moduleId}"
                                             class="tips btn btn-link p-0"
                                             title=":{tr}Move to left side{/tr}"
+                                            aria-label="{tr}Move to left side{/tr}"
                                         >
                                             {icon name="previous"}
                                         </button>
@@ -151,6 +158,7 @@
                                             value="{$modules_r[ix].moduleId}"
                                             class="tips btn btn-link p-0"
                                             title=":{tr}Unassign{/tr}"
+                                            aria-label="{tr}Unassign{/tr}"
                                         >
                                             {icon name="remove"}
                                         </button>

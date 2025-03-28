@@ -265,7 +265,7 @@
                         <input type="hidden" name="detach" value="1">
                     {/if}
                     <input type="hidden" name="galleryId" value="{$file.galleryId}">
-                    <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup('{tr}Delete file?{/tr}')">
+                    <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup('{tr}Delete file?{/tr}')" aria-label="{tr}Delete file{/tr}">
                         {icon _menu_text=$menu_text _menu_icon=$menu_icon name='remove' alt="{tr}Delete{/tr}"}
                     </button>
                 </form>

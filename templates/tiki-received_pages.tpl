@@ -92,7 +92,7 @@
                             <input type="hidden" name="offset" value="{$offset}">
                             <input type="hidden" name="sort_mode" value="{$sort_mode}">
                             <input type="hidden" name="accept" value="{$channels[user].receivedPageId}">
-                            <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Accept{/tr}">
+                            <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Accept{/tr}" aria-label="{tr}Accept{/tr}">
                                 {icon name='ok'}
                             </button>
                         </form>
@@ -101,7 +101,7 @@
                             <input type="hidden" name="offset" value="{$offset}">
                             <input type="hidden" name="sort_mode" value="{$sort_mode}">
                             <input type="hidden" name="remove" value="{$channels[user].receivedPageId}">
-                            <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Remove{/tr}">
+                            <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Remove{/tr}" aria-label="{tr}Remove{/tr}">
                                 {icon name='remove'}
                             </button>
                         </form>
@@ -166,7 +166,7 @@
                                 <input type="hidden" name="offset" value="{$offset}">
                                 <input type="hidden" name="sort_mode" value="{$sort_mode}">
                                 <input type="hidden" name="remove" value="{$structures[user].receivedPageId}">
-                                <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Remove{/tr}">
+                                <button id="deleteButton" type="button" onclick="confirmPopup()" class="btn btn-link px-0 pt-0 tips" title=":{tr}Remove{/tr}" aria-label="{tr}Remove{/tr}">
                                     {icon name='remove'}
                                 </button>
                             </form>

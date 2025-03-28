@@ -36,7 +36,7 @@
                             <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto">
                                 <div class="input-group">
                                     <input type="text" name="lm_criteria" value="{if ! empty($smarty.request.lm_criteria)}{$smarty.request.lm_criteria|escape}{/if}" class="form-control form-control-sm" placeholder="Search preferences...">
-                                    <button type="submit" class="btn btn-primary btn-sm">
+                                    <button type="submit" class="btn btn-primary btn-sm" aria-label="{tr}Search{/tr}">
                                         <span class="icon icon-search fas fa-search fa-fw "></span>
                                     </button>
                                 </div>

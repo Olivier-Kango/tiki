@@ -81,7 +81,7 @@
                                         {ticket}
                                         <input type="hidden" name="view" value="{$view}">
                                         <input type="hidden" name="remove" value="{$slots[ix].events[jj].eventId}">
-                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup()">
+                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup()" aria-label="{tr}Remove{/tr}">
                                             {icon name='remove' alt="{tr}Remove{/tr}" style="vertical-align:middle;"}
                                         </button>
                                     </form>

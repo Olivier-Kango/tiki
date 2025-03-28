@@ -55,7 +55,7 @@
                                         <input type="hidden" name="find" value="{$find}">
                                         <input type="hidden" name="initial" value="{$setInitial}">
                                         <input type="hidden" name="remove" value="{$channels[user].contactId}">
-                                        <button id="deleteButton" type="button" onClick="show_alert(this.form);" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}">
+                                        <button id="deleteButton" type="button" onClick="show_alert(this.form);" class="btn btn-link px-0 pt-0 pb-0" title=":{tr}Delete{/tr}" aria-label="{tr}Delete{/tr}">
                                             {icon name='delete'}
                                         </button>
                                     </form>

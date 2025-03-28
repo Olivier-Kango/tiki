@@ -451,7 +451,7 @@
                                     <td><input class="unique-key form-check-input" type="checkbox"></td>
                                     <td><input class="read-only form-check-input" type="checkbox"></td>
                                     <td><input class="export-only form-check-input" type="checkbox"></td>
-                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                                 </tr>
                                 {foreach $schema->getColumns() as $column}
                                     <tr>
@@ -496,7 +496,7 @@
                                         <td><input class="unique-key form-check-input" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
                                         <td><input class="read-only form-check-input" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>
                                         <td><input class="export-only form-check-input" type="checkbox" {if $column->isExportOnly()} checked {/if}></td>
-                                        <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                        <td class="text-end"><button class="remove btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                                     </tr>
                                 {/foreach}
                             </tbody>
@@ -574,7 +574,7 @@
                                     </td>
                                     <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
                                     <td>{tr}save first{/tr}</td>
-                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                                 </tr>
                                 {foreach $filterCollection->getFilters() as $idx => $filter}
                                     <tr>
@@ -597,7 +597,7 @@
                                         </td>
                                         <td><span class="field">{$filter->getField()|escape}</span>:<span class="mode">{$filter->getMode()|escape}</td>
                                         <td><a href="{service controller=tabular action=choose_applied_value tabularId=$tabularId filterIndex=$idx}" class="btn btn-secondary choose-applied-value" role="button">{tr}: choose{/tr}</a></td>
-                                        <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                        <td class="text-end"><button class="remove btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                                     </tr>
                                 {/foreach}
                             </tbody>

@@ -127,7 +127,7 @@
                                         <form action="tiki-list_submissions.php" method="post">
                                             {ticket}
                                             <input type="hidden" name="remove" value="{$listpages[changes].subId}">
-                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].subId}Are you sure you want to permanently remove the submitted article with identifier %0?{/tr}')">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].subId}Are you sure you want to permanently remove the submitted article with identifier %0?{/tr}')" aria-label="{tr}Remove{/tr}">
                                                 {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                             </button>
                                         </form>

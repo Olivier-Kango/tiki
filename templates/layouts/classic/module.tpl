@@ -26,7 +26,7 @@
                                 <form action="tiki-admin_modules.php" method="post">
                                     {ticket}
                                     <input type="hidden" name="unassign" value="{$moduleId}">
-                                    <button type="submit" class="btn btn-link close" title="{tr}Unassign module{/tr}">
+                                    <button type="submit" class="btn btn-link close" title="{tr}Unassign module{/tr}" aria-label="{tr}Unassign module{/tr}">
                                         {icon name="remove"}
                                     </button>
                                 </form>
@@ -58,7 +58,7 @@
                                 <form action="tiki-admin_modules.php" method="post">
                                     {ticket}
                                     <input type="hidden" name="unassign" value="{$moduleId}">
-                                    <button type="submit" class="btn btn-link close" title="{tr}Unassign module{/tr}">
+                                    <button type="submit" class="btn btn-link close" title="{tr}Unassign module{/tr}" aria-label="{tr}Unassign module{/tr}">
                                         {icon name="remove"}
                                     </button>
                                 </form>

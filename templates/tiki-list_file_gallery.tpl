@@ -249,7 +249,7 @@
     {if $view neq 'page'}
         {if $prefs.fgal_elfinder_feature neq 'y' or $view neq 'finder'}
             <div class="search-button-container clearfix">
-                <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchListFgal" aria-expanded="false" aria-controls="searchListFgal" title="{tr}Search file galleries{/tr}">{icon name="search"}</button>
+                <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchListFgal" aria-expanded="false" aria-controls="searchListFgal" title="{tr}Search file galleries{/tr}" aria-label="{tr}Search file galleries{/tr}">{icon name="search"}</button>
             </div>
             <div class="collapse" id="searchListFgal">
                 <div class="row">

@@ -21,7 +21,7 @@
 
 {if $listpages or ($find ne '') or ($types ne '') or ($topics ne '') or ($lang ne '') or ($categId ne '')}
     <div class="search-button-container clearfix">
-        <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchListArticles" aria-expanded="false" aria-controls="searchListArticles" title="{tr}Search articles{/tr}">
+        <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchListArticles" aria-expanded="false" aria-controls="searchListArticles" title="{tr}Search articles{/tr}" aria-label="{tr}Search articles{/tr}">
             {icon name="search"}
         </button>
     </div>
@@ -207,7 +207,7 @@
                                         <form action="tiki-list_articles.php" method="post">
                                             {ticket}
                                             <input type="hidden" name="remove" value="{$listpages[changes].articleId}">
-                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].articleId}Are you sure you want to permanently remove the article with identifier %0?{/tr}')">
+                                            <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr _0=$listpages[changes].articleId}Are you sure you want to permanently remove the article with identifier %0?{/tr}')" aria-label="{tr}Remove{/tr}">
                                                 {icon name='delete' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                             </button>
                                         </form>

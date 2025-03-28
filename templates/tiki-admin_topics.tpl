@@ -74,7 +74,7 @@
                                     <form action="tiki-admin_topics.php" method="post">
                                         {ticket}
                                         <input type="hidden" name="activate" value="{$topics[user].topicId}">
-                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to activate this topic?{/tr}')">
+                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to activate this topic?{/tr}')" aria-label="{tr}Activate{/tr}">
                                             {icon name="toggle-on" _menu_text='y' _menu_icon='y' alt="{tr}Activate{/tr}"}
                                         </button>
                                     </form>
@@ -84,8 +84,8 @@
                                     <form action="tiki-admin_topics.php" method="post">
                                         {ticket}
                                         <input type="hidden" name="deactivate" value="{$topics[user].topicId}">
-                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to de-activate this topic?{/tr}')">
-                                            {icon name="toggle-off" _menu_text='y' _menu_icon='y' alt="{tr}De-activate{/tr}"}
+                                        <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to deactivate this topic?{/tr}')" aria-label="{tr}Deactivate{/tr}">
+                                            {icon name="toggle-off" _menu_text='y' _menu_icon='y' alt="{tr}Deactivate{/tr}"}
                                         </button>
                                     </form>
                                 </action>
@@ -99,7 +99,7 @@
                                 <form action="tiki-admin_topics.php" method="post">
                                     {ticket}
                                     <input type="hidden" name="remove" value="{$topics[user].topicId}">
-                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to remove this topic?{/tr}')">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to remove this topic?{/tr}')" aria-label="{tr}Remove{/tr}">
                                         {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                     </button>
                                 </form>
@@ -108,7 +108,7 @@
                                 <form action="tiki-admin_topics.php" method="post">
                                     {ticket}
                                     <input type="hidden" name="removeall" value="{$topics[user].topicId}">
-                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to remove this topic AND all the articles related?{/tr}')">
+                                    <button type="submit" class="btn btn-link px-0 pt-0 pb-0" onclick="confirmPopup('{tr}Are you sure you want to remove this topic AND all the articles related?{/tr}')" aria-label="{tr}Remove with articles{/tr}">
                                         {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove with articles{/tr}"}
                                     </button>
                                 </form>

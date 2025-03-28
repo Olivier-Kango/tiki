@@ -71,7 +71,7 @@
                             {ticket}
                             <input type="hidden" name="quizId" value="{$quizId}">
                             <input type="hidden" name="remove" value="{$channels[user].userResultId}">
-                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()">
+                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup()" aria-label="{tr}Remove{/tr}">
                                 {icon name='remove'}
                             </button>
                         </form>

@@ -36,7 +36,7 @@
                                         <form method="post">
                                             {ticket}
                                             <input type="hidden" name="cancel" value="{$payment.paymentRequestId}">
-                                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup('{tr _0=$payment.paymentRequestId}Cancel payment %0?{/tr}')">
+                                            <button type="submit" class="btn btn-link px-0 pt-0" onclick="confirmPopup('{tr _0=$payment.paymentRequestId}Cancel payment %0?{/tr}')" aria-label="{tr}Cancel this payment request{/tr}">
                                                 {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Cancel this payment request{/tr}"}
                                             </button>
                                         </form>

@@ -38,7 +38,7 @@
                                 <input type="hidden" name="watch_event" value="article_*">
                                 <input type="hidden" name="watch_object" value="*">
                                 <input type="hidden" name="watch_action" value="add">
-                                <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" onclick="confirmPopup()">
+                                <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" aria-label="{tr}Delete{/tr}" onclick="confirmPopup()">
                                     {icon name='watch' _menu_text='y' _menu_icon='y' alt="{tr}Monitor articles{/tr}"}
                                 </button>
                             </form>
@@ -48,7 +48,7 @@
                                 <input type="hidden" name="watch_event" value="article_*">
                                 <input type="hidden" name="watch_object" value="*">
                                 <input type="hidden" name="watch_action" value="remove">
-                                <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" onclick="confirmPopup()">
+                                <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" aria-label="{tr}Delete{/tr}" onclick="confirmPopup()">
                                     {icon name='stop-watching' _menu_text='y' _menu_icon='y' alt="{tr}Stop monitoring articles{/tr}"}
                                 </button>
                             </form>
@@ -281,7 +281,7 @@
                                     <form action="tiki-list_articles.php" method="post">
                                         {ticket}
                                         <input type="hidden" name="remove" value="{$listpages[ix].articleId}">
-                                        <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" onclick="confirmPopup('{tr _0=$listpages[ix].articleId}Are you sure you want to permanently remove the article with identifier %0?{/tr}')">
+                                        <button type="submit" class="btn btn-link dropdown-item" title=":{tr}Delete{/tr}" aria-label="{tr}Delete{/tr}" onclick="confirmPopup('{tr _0=$listpages[ix].articleId}Are you sure you want to permanently remove the article with identifier %0?{/tr}')">
                                             {icon name='remove'} {tr}Remove{/tr}
                                         </button>
                                     </form>

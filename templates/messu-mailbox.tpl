@@ -75,11 +75,11 @@
                     <td class="prio{$items[user].priority}"><input type="checkbox" name="msg[{$items[user].msgId}]"></td>
                     <td class="prio{$items[user].priority}">
                         {if $items[user].isFlagged eq 'y'}
-                            <button type="submit" name="flagmsg" value="n_{$items[user].msgId}" class="btn btn-link pt-0">
+                            <button type="submit" name="flagmsg" value="n_{$items[user].msgId}" class="btn btn-link pt-0" aria-label="{tr}Flagged: Click to unflag{/tr}">
                                 <i class="fa fa-flag tips" aria-hidden="true" title="{tr}Flagged: Click to unflag{/tr}"></i>
                             </button>
                         {else}
-                            <button type="submit" name="flagmsg" value="y_{$items[user].msgId}" class="btn btn-link pt-0">
+                            <button type="submit" name="flagmsg" value="y_{$items[user].msgId}" class="btn btn-link pt-0" aria-label="{tr}Not Flagged: Click to flag{/tr}">
                                 <i class="far fa-flag tips" aria-hidden="true" title="{tr}Not Flagged: Click to flag{/tr}"></i>
                             </button>
                         {/if}
@@ -105,7 +105,7 @@
         </table>
     </div>
     {if $items}
-        <div class="mb-3 col-12">
+        <div class="mb-3 row">
             {tr}Perform action with checked:{/tr}
         <input
             type="submit"
@@ -116,15 +116,13 @@
         >
         <input type="submit" class="btn btn-primary btn-sm" name="archive" value="{tr}Archive{/tr}">
         <input type="submit" class="btn btn-primary btn-sm no-timeout" name="download" value="{tr}Download{/tr}">
-        <div class="input-group mt-3">
-            <select name="action" class="form-select form-select-sm">
-                <option value="isRead_y">{tr}Mark as read{/tr}</option>
-                <option value="isRead_n">{tr}Mark as unread{/tr}</option>
-                <option value="isFlagged_y">{tr}Mark as flagged{/tr}</option>
-                <option value="isFlagged_n">{tr}Mark as unflagged{/tr}</option>
-            </select>
-            <input type="submit" class="btn btn-primary btn-sm" name="mark" value="{tr}Mark{/tr}">
-        </div>
+        <select name="action" class="form-select ms-4 me-2">
+            <option value="isRead_y">{tr}Mark as read{/tr}</option>
+            <option value="isRead_n">{tr}Mark as unread{/tr}</option>
+            <option value="isFlagged_y">{tr}Mark as flagged{/tr}</option>
+            <option value="isFlagged_n">{tr}Mark as unflagged{/tr}</option>
+        </select>
+        <input type="submit" class="btn btn-primary btn-sm" name="mark" value="{tr}Mark{/tr}">
         </div>
     {/if}
 </form>

@@ -6,7 +6,7 @@
     {/if}
     {if $use_find eq 'y'}
         <div class="search-button-container clearfix">
-            <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchBlogs" aria-expanded="false" aria-controls="searchBlogs" title="{tr}Search blogs{/tr}">
+            <button class="btn btn-info btn-sm mb-2 dropdown-toggle float-end" type="button" data-bs-toggle="collapse" data-bs-target="#searchBlogs" aria-expanded="false" aria-controls="searchBlogs" title="{tr}Search blogs{/tr}" aria-label="{tr}Search blogs{/tr}>
                 {icon name="search"}
             </button>
         </div>

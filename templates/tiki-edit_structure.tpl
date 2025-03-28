@@ -113,7 +113,7 @@
                             <input type="hidden" name="page_ref_id" value={$page_ref_id}>
                             <input type="hidden" name="watch_object" value={$page_ref_id}>
                             <input type="hidden" name="watch_action" value="add">
-                            <button type="submit" name="page" value={$structure_name} data-bs-trigger="hover focus" data-bs-delay="500" data-bs-content="{tr}Monitor the structure{/tr}" class="tips btn btn-link btn-sm">
+                            <button type="submit" name="page" value={$structure_name} data-bs-trigger="hover focus" data-bs-delay="500" data-bs-content="{tr}Monitor the structure{/tr}" class="tips btn btn-link btn-sm"  aria-label="{tr}Monitor the structure{/tr}">
                                 {icon name="watch"}
                             </button>
                         </form>

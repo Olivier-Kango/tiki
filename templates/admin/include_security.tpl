@@ -356,7 +356,7 @@
                                             {icon name='pencil' href='tiki-admin.php?page=security&encryption_key='|cat:$key.keyId}
                                         </td>
                                         <td>
-                                            <button type="submit" name="key_delete" value="{$key.keyId}" class="btn btn-link text-danger" style="cursor: pointer" onclick="confirmPopup('{tr}Remove key? Encrypted data will be lost!{/tr}', '{ticket mode=get}')">
+                                            <button type="submit" name="key_delete" value="{$key.keyId}" class="btn btn-link text-danger" style="cursor: pointer" onclick="confirmPopup('{tr}Remove key? Encrypted data will be lost!{/tr}', '{ticket mode=get}')" aria-label="{tr}Delete{/tr}">
                                                 {icon name='delete'}
                                             </button>
                                         </td>
