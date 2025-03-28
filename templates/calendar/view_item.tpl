@@ -5,7 +5,12 @@
 {/block}
 
 {block name="content"}
-    <h5 class="mb-3">{$calitem.parsedName}</h5>
+    {include 
+        file='calendar_header.tpl'
+        viewlist='listEventView'
+    }
+  
+    <h5 class="mt-3 mb-3">{tr}Title{/tr} : {$calitem.parsedName}</h5>
     <div class="summary mb-4">
         {$thiscustombgcolor = $calendar.custombgcolor}
         {$thiscustomfgcolor = $calendar.customfgcolor}
@@ -205,10 +210,10 @@
         {/if}
     {/if}
     <div class="summary">
-        {$calitem.display_datetimes}
+        <span class="px-3 py-2 rounded" style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};">{tr}Start{/tr} - {tr}End{/tr} : <b>{$calitem.display_datetimes}</b></span>
     </div>
-    <div class="description">
-        {$calitem.parsed|default:"<em>{tr}No description{/tr}</em>"}
+    <div class="row px-3 py-2 rounded">
+        <span class=" col-md-3" style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};">{tr}Description{/tr} : </span><p class="description col-md-6">{$calitem.parsed|default:"<em>{tr}No description{/tr}</em>"}</p>
     </div>
     <div class="small mt-3">
         <div class="table-responsive">
