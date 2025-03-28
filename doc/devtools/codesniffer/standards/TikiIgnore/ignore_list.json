@@ -2307,9 +2307,7 @@
             "class:ExportLib": true
         },
         "lib\/wiki\/wikilib.php": {
-            "class:WikiLib": true,
-            "class:convertToTiki9": true,
-            "class:WikiLibOutput": true
+            "class:WikiLib": true
         },
         "lib\/wiki\/pluginslib.php": {
             "class:PluginsLib": true,
@@ -3984,10 +3982,6 @@
         },
         "lib\/wiki\/xmllib.php": {
             "class:page_Parser": true
-        },
-        "lib\/wiki\/wikilib.php": {
-            "class:convertToTiki9": true,
-            "class:WikiLibOutput": true
         },
         "lib\/wiki\/pluginslib.php": {
             "class:PluginsLibUtil": true
@@ -6243,9 +6237,6 @@
         },
         "lib\/wiki\/xmllib.php": {
             "page_Parser": true
-        },
-        "lib\/wiki\/wikilib.php": {
-            "convertToTiki9": true
         },
         "lib\/mail\/mimelib.php": {
             "mime": true

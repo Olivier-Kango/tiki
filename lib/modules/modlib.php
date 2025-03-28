@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\Lib\Wiki\ConvertToTiki9;
 use Tiki\Profiling\Timer;
 
 /**
@@ -83,7 +84,7 @@ class ModLib extends TikiLib
             $cachelib->invalidate("user_modules_$name");
 
             $wikilib = TikiLib::lib('wiki');    // used to require lib/wiki/wikilib.php where convertToTiki9 lives
-            $converter = new convertToTiki9();
+            $converter = new ConvertToTiki9();
             $converter->saveObjectStatus($name, 'tiki_user_modules', 'new9.0+');
 
             return $result;

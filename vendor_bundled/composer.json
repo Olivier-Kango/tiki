@@ -340,6 +340,7 @@
             ],
             "Tiki\\Lib\\": "../lib/",
             "Tiki\\Lib\\Payment\\": "../lib/payment",
+            "Tiki\\Lib\\Wiki\\": "../lib/wiki",
             "SmartyTiki\\": "../lib/smarty_tiki"
         },
         "classmap": [

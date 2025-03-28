@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\File\DiagramHelper;
+use Tiki\Lib\Wiki\ConvertToTiki9;
 use Tiki\TikiInit;
 use Tiki\Lib\CookieConsent\CookieConsentLib;
 
@@ -4891,7 +4892,7 @@ class TikiLib extends TikiDb_Bridge
 
         //update status, page storage was updated in tiki 9 to be non html encoded
         $wikilib = TikiLib::lib('wiki');
-        $converter = new convertToTiki9();
+        $converter = new ConvertToTiki9();
         $converter->saveObjectStatus($page_id, 'tiki_pages');
 
         $this->replicate_page_to_history($name);
@@ -4987,7 +4988,7 @@ class TikiLib extends TikiDb_Bridge
 
         //update status, we don't want the page to be decoded later
         $wikilib = TikiLib::lib('wiki');
-        $converter = new convertToTiki9();
+        $converter = new ConvertToTiki9();
         $converter->saveObjectStatus($id, 'tiki_history');
 
         return $id;
@@ -5415,7 +5416,7 @@ class TikiLib extends TikiDb_Bridge
 
         //update status, page storage was updated in tiki 9 to be non html encoded
         $wikilib = TikiLib::lib('wiki');
-        $converter = new convertToTiki9();
+        $converter = new ConvertToTiki9();
         $converter->saveObjectStatus($this->getOne("SELECT page_id FROM tiki_pages WHERE pageName = ?", [$pageName]), 'tiki_pages');
 
         // Parse edit_data updating the list of links from this page

@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\Wiki\ConvertToTiki9;
+
 class HistLib extends TikiLib
 {
     /*
@@ -145,7 +148,7 @@ class HistLib extends TikiLib
     {
         //fix for encoded slowly without doing it all at once in the installer upgrade script
         $wikilib = TikiLib::lib('wiki');
-        $converter = new convertToTiki9();
+        $converter = new ConvertToTiki9();
         $converter->convertPageHistoryFromPageAndVersion($page, $version);
 
         $query = "select * from `tiki_history` where `pageName`=? and `version`=?";
@@ -244,7 +247,7 @@ class HistLib extends TikiLib
     public function get_page_from_history($page, $version, $fetchdata = false)
     {
         $wikilib = TikiLib::lib('wiki');
-        $converter = new convertToTiki9();
+        $converter = new ConvertToTiki9();
         $converter->convertPageHistoryFromPageAndVersion($page, $version);
 
         if ($fetchdata == true) {
