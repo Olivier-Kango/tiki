@@ -229,6 +229,7 @@ class UsersLib extends TikiLib
         }
         return $userexists_cache[$user];
     }
+
     public function user_exists_by_email($email)
     {
         if (! isset($userexists_cache[$email])) {
@@ -238,6 +239,13 @@ class UsersLib extends TikiLib
         }
         return $userexists_cache[$email];
     }
+
+    public function user_exists_by_realname($realName)
+    {
+        $query = 'select count(*) from `tiki_user_preferences` where `prefName` = ? and upper(`value`) = ?';
+        return $this->getOne($query, ['realName', TikiLib::strtoupper($realName)]);
+    }
+
     public function get_user_real_case($user)
     {
         $query = 'select `login` from `users_users` where upper(`login`) = ?';
