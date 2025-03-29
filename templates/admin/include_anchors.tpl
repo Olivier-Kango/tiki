@@ -93,7 +93,7 @@
                                 </div>
                             </div>
 
-                            <h2 class="text-bg-secondary fs-6 py-2 px-3 mb-0">{icon name="sliders-h"} <span class="ms-1 narrow-hide">Configure</span></h2>
+                            <h2 class="text-bg-secondary fs-6 py-2 px-3 mb-0">{icon name="sliders-h"} <span class="ms-1 narrow-hide">{tr}Configure{/tr}</span></h2>
                             {foreach $admin_icons as $section => $secInfo}
                                 <div class="accordion-item tips right" title="{$secInfo.title}|{$secInfo.description}">
                                     <div class="accordion-header" id="flush-heading-{$section}">
