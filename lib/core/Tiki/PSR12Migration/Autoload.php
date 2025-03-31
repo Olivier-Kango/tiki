@@ -27,6 +27,7 @@ class Autoload
         'convertToTiki9' => 'Tiki\\Lib\\Wiki\\ConvertToTiki9',
         'Search_Formatter_Transform_DynamicLoaderWrapper' => 'Tiki\\Search\\Formatter\\Transform\\DynamicLoaderWrapper',
         'Search_Formatter_Transform_DynamicLoader' => 'Tiki\\Search\\Formatter\\Transform\\DynamicLoader',
+        'Document' => 'Tiki\\Lib\\Wiki\\Document',
     ];
 
     /**

@@ -2320,8 +2320,7 @@
             "class:WikiRenderer": true
         },
         "lib\/wiki\/histlib.php": {
-            "class:HistLib": true,
-            "class:Document": true
+            "class:HistLib": true
         },
         "lib\/wiki\/editlib.php": {
             "class:EditLib": true
@@ -3985,9 +3984,6 @@
         },
         "lib\/wiki\/pluginslib.php": {
             "class:PluginsLibUtil": true
-        },
-        "lib\/wiki\/histlib.php": {
-            "class:Document": true
         },
         "lib\/wiki-plugins\/wikiplugin_fitnesse.php": {
             "class:FixtureMockTrackerField": true
