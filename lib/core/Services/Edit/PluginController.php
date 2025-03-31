@@ -540,7 +540,7 @@ class Services_Edit_PluginController
         $lastMatchEnd = 0;
         $hasParent = $parent && in_array(strtolower($parent['name']), ['output', 'format']);
 
-        /** @var WikiParser_PluginMatcher_Match $match */
+        /** @var \Tiki\WikiParser\PluginMatcherMatch $match */
         foreach ($matches as $match) {
             $name = $match->getName();
 

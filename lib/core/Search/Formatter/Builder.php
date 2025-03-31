@@ -212,7 +212,7 @@ class Search_Formatter_Builder
     }
 
     /**
-     * @param WikiParser_PluginMatcher_Match $output
+     * @param \Tiki\WikiParser\PluginMatcherMatch $output
      *
      * @throws Exception
      */

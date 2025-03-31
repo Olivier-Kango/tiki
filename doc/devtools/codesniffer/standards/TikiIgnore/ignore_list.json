@@ -1917,8 +1917,7 @@
             "class:Tiki_Profile_Object": true
         },
         "lib\/core\/WikiParser\/PluginMatcher.php": {
-            "class:WikiParser_PluginMatcher": true,
-            "class:WikiParser_PluginMatcher_Match": true
+            "class:WikiParser_PluginMatcher": true
         },
         "lib\/core\/WikiParser\/Parsable.php": {
             "class:WikiParser_Parsable": true
@@ -3948,9 +3947,6 @@
         "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
             "class:Tiki_Profile_SymbolLoader_Store": true
         },
-        "lib\/core\/WikiParser\/PluginMatcher.php": {
-            "class:WikiParser_PluginMatcher_Match": true
-        },
         "lib\/diff\/Diff.php": {
             "class:Text_MappedDiff": true,
             "class:Text_Diff_Engine_xdiff": true,
@@ -5919,8 +5915,7 @@
             "Tiki_Profile_Object": true
         },
         "lib\/core\/WikiParser\/PluginMatcher.php": {
-            "WikiParser_PluginMatcher": true,
-            "WikiParser_PluginMatcher_Match": true
+            "WikiParser_PluginMatcher": true
         },
         "lib\/core\/WikiParser\/Parsable.php": {
             "WikiParser_Parsable": true
