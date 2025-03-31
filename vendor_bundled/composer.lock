@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b46fc89ee909d20250a277accdd765b7",
+    "content-hash": "b3ec5de0bc0adea44d62f77c78fd1537",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -6126,65 +6126,6 @@
             "time": "2022-10-11T13:10:14+00:00"
         },
         {
-            "name": "npm-asset/babel--helper-string-parser",
-            "version": "7.25.9",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-string-parser/npm-asset-babel--helper-string-parser-7.25.9.zip",
-                "shasum": "8f0a0dd3568ea0d2980e2482c8b9787d80e144c1"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/babel--helper-validator-identifier",
-            "version": "7.25.9",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--helper-validator-identifier/npm-asset-babel--helper-validator-identifier-7.25.9.zip",
-                "shasum": "6e9ab615c141c5610c3a5e126f98dbfdffc57a39"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/babel--parser",
-            "version": "7.25.3",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--parser/npm-asset-babel--parser-7.25.3.zip",
-                "shasum": "57ef76e7fdb5369d3c042de128d3d3f4ba1d49f7"
-            },
-            "require": {
-                "npm-asset/babel--types": ">=7.25.2,<8.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/babel--types",
-            "version": "7.26.8",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/babel--types/npm-asset-babel--types-7.26.8.zip",
-                "shasum": "5cfb3c8ca6e4e2b8b47223e9c21d014bbdf80808"
-            },
-            "require": {
-                "npm-asset/babel--helper-string-parser": ">=7.25.9,<8.0.0",
-                "npm-asset/babel--helper-validator-identifier": ">=7.25.9,<8.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/boomerangjs",
             "version": "1.815.0",
             "dist": {
@@ -6210,19 +6151,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/npm-asset/credit-card-regex/npm-asset-credit-card-regex-2.0.0.zip",
                 "shasum": "0133b11b66043b2263059c7ad4a9320911b8a51d"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/csstype",
-            "version": "3.1.3",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/csstype/npm-asset-csstype-3.1.3.zip",
-                "shasum": "e0d5d9bdbf21616867f027a2fff5ba70c568880f"
             },
             "type": "npm-asset",
             "license": [
@@ -6272,69 +6200,12 @@
             ]
         },
         {
-            "name": "npm-asset/nanoid",
-            "version": "3.3.8",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/nanoid/npm-asset-nanoid-3.3.8.zip",
-                "shasum": "9dd78f60ac9022b8a814ff755b276dea3c1f7c0c"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/orderedmap",
             "version": "2.1.1",
             "dist": {
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/npm-asset/orderedmap/npm-asset-orderedmap-2.1.1.zip",
                 "shasum": "1c6b3957c0866db13c3f694d251898966c69f697"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/picocolors",
-            "version": "1.1.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/picocolors/npm-asset-picocolors-1.1.1.zip",
-                "shasum": "723106ac479ef42b587646d35585218dc97f3c35"
-            },
-            "type": "npm-asset",
-            "license": [
-                "ISC"
-            ]
-        },
-        {
-            "name": "npm-asset/postcss",
-            "version": "8.5.3",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/postcss/npm-asset-postcss-8.5.3.zip",
-                "shasum": "b2c0415a0466fa7ee55be47fb71d4382b5d43991"
-            },
-            "require": {
-                "npm-asset/nanoid": ">=3.3.8,<4.0.0",
-                "npm-asset/picocolors": ">=1.1.1,<2.0.0",
-                "npm-asset/source-map-js": ">=1.2.1,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/prettier",
-            "version": "2.8.8",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/prettier/npm-asset-prettier-2.8.8.zip",
-                "shasum": "9facc595c21791e69104380aad8c68934707ad02"
             },
             "type": "npm-asset",
             "license": [
@@ -6492,32 +6363,6 @@
             ]
         },
         {
-            "name": "npm-asset/source-map",
-            "version": "0.6.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/source-map/npm-asset-source-map-0.6.1.zip",
-                "shasum": "94e7586e1d84fb3a386195d24c1972608e82d638"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/source-map-js",
-            "version": "1.2.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/source-map-js/npm-asset-source-map-js-1.2.1.zip",
-                "shasum": "32aaf559db0eda52433dee7710f09c49b590b16f"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
             "name": "npm-asset/stackframe",
             "version": "0.3.1",
             "dist": {
@@ -6565,39 +6410,6 @@
             "license": [
                 "MIT"
             ]
-        },
-        {
-            "name": "npm-asset/vue",
-            "version": "2.7.16",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/vue/npm-asset-vue-2.7.16.zip",
-                "shasum": "907e73959ccff092bee47af78147b959158d9f0c"
-            },
-            "require": {
-                "npm-asset/csstype": ">=3.1.0,<4.0.0",
-                "npm-asset/vue--compiler-sfc": "2.7.16"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue--compiler-sfc",
-            "version": "2.7.16",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/vue--compiler-sfc/npm-asset-vue--compiler-sfc-2.7.16.zip",
-                "shasum": "0cf227365f9d576bea7e884cc208977c0c93489f"
-            },
-            "require": {
-                "npm-asset/babel--parser": ">=7.23.5,<8.0.0",
-                "npm-asset/postcss": ">=8.4.14,<9.0.0",
-                "npm-asset/prettier": ">=1.18.2,<2.0.0|>=2.0.0,<3.0.0",
-                "npm-asset/source-map": ">=0.6.1,<0.7.0"
-            },
-            "type": "npm-asset"
         },
         {
             "name": "npm-asset/w3c-keyname",
