@@ -75,6 +75,8 @@ class TextArea extends Base
         $params['comments'] = isset($params['comments']) ? $params['comments'] : 'n';
         $params['autosave'] = isset($params['autosave']) ? $params['autosave'] : 'y';
 
+        $smarty->assign('textarea_id', $params['id']);
+
         if (empty($params['syntax'])) { // work out if we have Tiki or Markdown syntax
             $wikiParserParsable = new \WikiParser_Parsable($content);
             $syntaxPluginResult = $wikiParserParsable->guess_syntax($content);// for the toolbars
@@ -205,9 +207,6 @@ class TextArea extends Base
                 if ($k[0] != '_' && ! in_array($k, ['comments', 'switcheditor', 'section', 'area_id', 'autosave'])) {
                     $textarea_attributes .= ' ' . $k . '="' . $v . '"';
                 }
-            }
-            if (empty($textarea_id)) {
-                $smarty->assign('textarea_id', $params['id']);
             }
             $smarty->assign('textarea__toolbars', $params['_toolbars']);
             if ($textarea_attributes != '') {

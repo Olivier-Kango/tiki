@@ -8,6 +8,7 @@ export default function (textarea) {
             return;
         }
         e.preventDefault();
+        form.data("submitted", false);
 
         parseData(textarea, () => {
             form.data("should-parse-editor-data", false);

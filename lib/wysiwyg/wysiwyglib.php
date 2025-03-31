@@ -84,8 +84,12 @@ class WYSIWYGLib
 
 
 
-        $tools = json_encode(smarty_function_toolbars($params, $smarty->getEmptyInternalTemplate()), JSON_UNESCAPED_UNICODE | JSON_HEX_APOS);
-        $tools = addslashes($tools); // Escape special characters for JavaScript
+        if ($params['_toolbars'] !== 'n') {
+            $tools = json_encode(smarty_function_toolbars($params, $smarty->getEmptyInternalTemplate()), JSON_UNESCAPED_UNICODE | JSON_HEX_APOS);
+            $tools = addslashes($tools); // Escape special characters for JavaScript
+        } else {
+            $tools = json_encode([]);
+        }
 
         ['lang' => $lang, 'filePath' => $langFilePath] = $this->getEditorLang();
 
@@ -97,7 +101,11 @@ class WYSIWYGLib
             import('@wysiwyg/summernote').then((module) => {
                 module.loadLanguage('{$langFilePath}', () => {
                     loadingIndicator.remove();
-                    module.default('{$dom_id}', JSON.parse(`{$tools}`), {lang: '{$lang}', height: 600});
+                    const options = {lang: '{$lang}'};
+                    if ($.editorSection === 'wiki page') {
+                        options.height = 600;
+                    }
+                    module.default('{$dom_id}', JSON.parse(`{$tools}`), options);
                 });
             });
         JS);

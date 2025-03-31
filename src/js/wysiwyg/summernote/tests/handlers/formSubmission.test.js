@@ -39,6 +39,7 @@ describe("formSubmission handler", () => {
         parseDataSpy.mock.calls[0][1]();
 
         expect(form.data("should-parse-editor-data")).toBe(false);
+        expect(form.data("submitted")).toBe(false);
         expect(form.get(0).submit).toHaveBeenCalled();
     });
 
