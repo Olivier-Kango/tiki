@@ -9,7 +9,7 @@ function prefs_tiki_list()
     return [
         'tiki_version_check_frequency' => [
             'name' => tra('Check frequency'),
-            'description' => tra('How often Tiki should check for updates. This field applies only if "Check for updates automatically" is enabled. '),
+            'description' => tra('How often Tiki should check for updates. This field applies only if "Check for updates automatically" is enabled.'),
             'hint' => tra('Click "Check for Updates Now" to perform an update check.'),
             'type' => 'list',
             'perspective' => false,
