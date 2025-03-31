@@ -14,6 +14,7 @@ abstract class ToolbarItem
     protected string $domElementId = '';
     protected string $class = '';
     protected string $syntax = '';
+    protected string $editorSyntaxType = '';
     protected string $markdown = '';
     protected string $markdown_wysiwyg = '';
     private array $requiredPrefs = [];
@@ -412,6 +413,18 @@ abstract class ToolbarItem
     public function setSyntax(string $syntax): ToolbarItem
     {
         $this->syntax = $syntax;
+
+        return $this;
+    }
+
+    public function getEditorSyntaxType(): string
+    {
+        return $this->editorSyntaxType;
+    }
+
+    public function setEditorSyntaxType(string $editorSyntaxType): ToolbarItem
+    {
+        $this->editorSyntaxType = $editorSyntaxType;
 
         return $this;
     }

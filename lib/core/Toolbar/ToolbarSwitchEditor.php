@@ -50,7 +50,7 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
         $smarty = TikiLib::lib('smarty');
         $servicelib = TikiLib::lib('service');
 
-        $params = ['controller' => 'edit', 'action' => 'editor_settings', 'modal' => 1, 'domId' => $this->domElementId, 'syntax' => $this->getSyntax()];
+        $params = ['controller' => 'edit', 'action' => 'editor_settings', 'modal' => 1, 'domId' => $this->domElementId, 'syntax' => $this->getEditorSyntaxType()];
 
         $icon = smarty_function_icon(['name' => $this->iconname], $smarty->getEmptyInternalTemplate());
         $url = $servicelib->getUrl($params);
@@ -67,7 +67,7 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
     public function getWysiwygJs(): string
     {
         $servicelib = TikiLib::lib('service');
-        $syntax = $this->getSyntax();
+        $syntax = $this->getEditorSyntaxType();
         $params = ['controller' => 'edit', 'action' => 'editor_settings', 'modal' => 1, 'domId' => $this->domElementId, 'type' => 'wysiwyg', 'syntax' => $syntax];
         return '$.openModal({show: true, remote: "' . $servicelib->getUrl($params) . '"});';
     }

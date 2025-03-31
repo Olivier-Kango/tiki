@@ -132,7 +132,7 @@ class ToolbarsList
                     ))
                     && $tag->isAccessible()
                 ) {
-                    $tag->setSyntax($this->syntax);
+                    $tag->setEditorSyntaxType($this->syntax);
                     $group[] = $tag->setDomElementId($this->domElementId);
                 }
             }
