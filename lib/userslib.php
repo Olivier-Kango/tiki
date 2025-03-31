@@ -2257,7 +2257,7 @@ class UsersLib extends TikiLib
         return($ret);
     }
 
-    public function get_users_names($offset = 0, $maxRecords = -1, $sort_mode = 'login_asc', $find = '')
+    public function get_users_names($offset = 0, $maxRecords = -1, $sort_mode = 'login_asc', $find = '', $group = '')
     {
         global $tiki_p_list_users, $tiki_p_admin;
 
@@ -2265,21 +2265,32 @@ class UsersLib extends TikiLib
             return [];
         }
 
-        // This function gets an array of user login names.
+        $mid = '';
+        $bindvars = [];
+        if (! empty($group)) {
+            if (! is_array($group)) {
+                $group = [$group];
+            }
+            $mid = ', `users_usergroups` uug where uu.`userId`=uug.`userId` and uug.`groupName` in (' .
+                            implode(',', array_fill(0, count($group), '?')) . ')';
+
+            $bindvars = $group;
+        }
         if (! empty($find)) {
             $findesc = '%' . $find . '%';
-            $mid = ' where `login` like ?';
-            $bindvars = [$findesc];
-        } else {
-            $mid = '';
-            $bindvars = [];
+            if (empty($mid)) {
+                $mid .= ' where uu.`login` like ?';
+            } else {
+                $mid .= ' and uu.`login` like ?';
+            }
+            $bindvars[] = $findesc;
         }
 
-        $query = "select `login` from `users_users` $mid order by " . $this->convertSortMode($sort_mode);
-        $result = $this->query($query, $bindvars, $maxRecords, $offset);
+        $query = "select uu.`login` from `users_users` uu $mid order by " . $this->convertSortMode($sort_mode);
+        $result = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
         $ret = [];
 
-        while ($res = $result->fetchRow()) {
+        foreach ($result as $res) {
             $ret[] = $res['login'];
         }
 
