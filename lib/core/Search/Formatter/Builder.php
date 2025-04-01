@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Search\Formatter\Sublist\Parser as SublistParser;
+use Tiki\WikiParser\PluginMatcherMatch;
 
 /** This mostly deals with the OUTPUT block of Pluginlist, as opposed to class Search_Formatter which mostly deals with the FORMAT block.
  */
@@ -184,7 +185,7 @@ class Search_Formatter_Builder
         $this->subFormatters[$arguments['name']] = $plugin;
     }
 
-    private function handleFilter(WikiParser_PluginMatcher_Match $match): void
+    private function handleFilter(PluginMatcherMatch $match): void
     {
         $arguments = $this->parser->parse($match->getArguments());
 
@@ -216,7 +217,7 @@ class Search_Formatter_Builder
      *
      * @throws Exception
      */
-    private function handleOutput(WikiParser_PluginMatcher_Match $output, $params): void
+    private function handleOutput(PluginMatcherMatch $output, $params): void
     {
         global $prefs, $tiki_p_modify_object_categories, $tiki_p_admin_categories;
         $smarty = TikiLib::lib('smarty');
