@@ -62,7 +62,7 @@ class Services_File_FinderController
 
         if ($this->parentIds === null) {
             $ids = TikiLib::lib('filegal')->getGalleriesParentIds();
-            $this->parentIds = [ 'galleries' => [], 'files' => [] ];
+            $this->parentIds = ['galleries' => [], 'files' => []];
             foreach ($ids as $id) {
                 if ($id['parentId'] > 0) {
                     $this->parentIds['galleries'][(int) $id['galleryId']] = (int) $id['parentId'];
@@ -90,9 +90,9 @@ class Services_File_FinderController
 
         $rootDefaults = [
             'driver' => 'TikiFiles', // driver for accessing file system (REQUIRED)
-//          'path' => $rootId, // tiki root filegal - path to files (REQUIRED) - to be filled in later
+            //          'path' => $rootId, // tiki root filegal - path to files (REQUIRED) - to be filled in later
             'disabled' => $disabled,
-//          'URL'           =>                                  // URL to files (seems not to be REQUIRED)
+            //          'URL'           =>                                  // URL to files (seems not to be REQUIRED)
             'accessControl' => [$this, 'elFinderAccess'], // obey tiki perms
             'uploadMaxSize' => ini_get('upload_max_filesize'),
             'accessControlData' => [
@@ -168,16 +168,16 @@ class Services_File_FinderController
             $opts['roots'][$startRoot]['startPath'] = $d . $startGallery;
         }
 
-/* thumb size not working due to css issues - tried this in setup/javascript.php but needs extensive css overhaul to get looking right
-        if ($prefs['fgal_elfinder_feature'] === 'y') {
-            $tmbSize = (int) $prefs['fgal_thumb_max_size'] / 2;
-            TikiLib::lib('header')->add_css(".elfinder-cwd-icon {width:{$tmbSize}px; height:{$tmbSize}px;}");   // def 48
-            $tmbSize += 4;  // def 52
-            TikiLib::lib('header')->add_css(".elfinder-cwd-view-icons .elfinder-cwd-file-wrapper {width:{$tmbSize}px; height:{$tmbSize}px;}");
-            $tmbSize += 28; $tmbSizeW = $tmbSize + 40;  // def 120 x 80
-            TikiLib::lib('header')->add_css(".elfinder-cwd-view-icons .elfinder-cwd-file {width: {$tmbSizeW}px;height: {$tmbSize}px;}");
-        }
-*/
+        /* thumb size not working due to css issues - tried this in setup/javascript.php but needs extensive css overhaul to get looking right
+         if ($prefs['fgal_elfinder_feature'] === 'y') {
+             $tmbSize = (int) $prefs['fgal_thumb_max_size'] / 2;
+             TikiLib::lib('header')->add_css(".elfinder-cwd-icon {width:{$tmbSize}px; height:{$tmbSize}px;}");   // def 48
+             $tmbSize += 4;  // def 52
+             TikiLib::lib('header')->add_css(".elfinder-cwd-view-icons .elfinder-cwd-file-wrapper {width:{$tmbSize}px; height:{$tmbSize}px;}");
+             $tmbSize += 28; $tmbSizeW = $tmbSize + 40;  // def 120 x 80
+             TikiLib::lib('header')->add_css(".elfinder-cwd-view-icons .elfinder-cwd-file {width: {$tmbSizeW}px;height: {$tmbSize}px;}");
+         }
+ */
         // run elFinder
 
         session_write_close();
@@ -187,6 +187,12 @@ class Services_File_FinderController
 
         $filegallib = TikiLib::lib('filegal');
         if ($input->cmd->text() === 'tikiFileFromHash') {   // intercept tiki only commands
+            $fileId = $elFinder->realpath($input->hash->text());
+            if (strpos($fileId, 'f_') !== false) {
+                $info = $filegallib->get_file(str_replace('f_', '', $fileId));
+            } else {
+                $info = $filegallib->get_file_gallery(str_replace('d_', '', $fileId));
+            }
             $params = [];
             if ($input->filegals_manager->text()) {
                 $params['filegals_manager'] = $input->filegals_manager->text();
@@ -194,8 +200,9 @@ class Services_File_FinderController
             if ($input->insertion_syntax->text()) {
                 $params['insertion_syntax'] = $input->insertion_syntax->text();
             }
-            $ret = $this->getHashInfo($elFinder, $input->hash->text(), $params);
-            return $ret;
+            $info['wiki_syntax'] = $filegallib->getWikiSyntax($info['galleryId'], empty($info['fileId']) ? [] : $info, $params);
+            $info['data'] = ''; // binary data makes JSON fall over
+            return $info;
         } elseif ($input->cmd->text() === 'file') {
             // intercept download command and use tiki-download_file so the mime type and extension is correct
             $fileId = $elFinder->realpath($input->target->text());
