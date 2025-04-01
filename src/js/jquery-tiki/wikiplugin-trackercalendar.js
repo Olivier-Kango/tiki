@@ -1,5 +1,5 @@
 /**
- * Support JavaScript for FullCalendar Resource Views used by wikiplugin_trackercalendar
+ * Support JavaScript for EventCalendar Resource Views used by wikiplugin_trackercalendar
  */
 
 import Calendar from "@event-calendar/core";
@@ -9,7 +9,7 @@ import resourceTimelinePlugin from "@event-calendar/resource-timeline";
 import resourceTimeGridPlugin from "@event-calendar/resource-time-grid";
 import moment from "moment";
 
-$.fn.setupFullCalendar = function (tcPluginParams) {
+$.fn.setupEventCalendar = function (tcPluginParams) {
     this.each(function () {
         let cal = this;
 
@@ -279,7 +279,7 @@ $.fn.setupFullCalendar = function (tcPluginParams) {
 
         if (jqueryTiki.print_pdf_from_url !== "none") {
             $(function () {
-                $("#" + tcPluginParams.id).addFullCalendarPrint("#calendar-pdf-btn", calendar);
+                $("#" + tcPluginParams.id).addEventCalendarPrint("#calendar-pdf-btn", calendar);
             });
         }
     });

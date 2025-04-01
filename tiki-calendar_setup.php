@@ -432,7 +432,7 @@ switch ($prefs['calendar_view_mode']) {
 }
 
 $smarty->assign(
-    'fullCalendarParams',
+    'eventCalendarParams',
     [
         'firstDayofWeek'   => $firstDayofWeek,
         'display_timezone' => $prefs['display_timezone'],

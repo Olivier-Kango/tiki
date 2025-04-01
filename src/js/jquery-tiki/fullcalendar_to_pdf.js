@@ -6,7 +6,7 @@
 import moment from "moment";
 import { jsPDF } from "jspdf";
 
-$.fn.addFullCalendarPrint = function (buttonId, calendar) {
+$.fn.addEventCalendarPrint = function (buttonId, calendar) {
     let viewContainer = $(this);
     var calendarId = "#" + $(this).attr("id");
     if (!viewContainer) {

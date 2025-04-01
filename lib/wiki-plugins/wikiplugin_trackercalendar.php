@@ -14,13 +14,6 @@ function wikiplugin_trackercalendar_info()
         'name' => tr('Tracker Calendar'),
         'description' => tr('Create and display a calendar using tracker data'),
         'prefs' => ['wikiplugin_trackercalendar'],
-        'packages_required' => [
-            'npm-asset/fullcalendar-scheduler' =>
-                VendorHelper::getAvailableVendorPath(
-                    'fullcalendarscheduler',
-                    'npm-asset/fullcalendar-scheduler/main.min.js'
-                )
-        ],
         'format' => 'html',
         'iconname' => 'calendar',
         'introduced' => 10,
@@ -421,11 +414,8 @@ function wikiplugin_trackercalendar($data, $params)
     static $id = 0;
     $headerlib = TikiLib::lib('header');
 
-    // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.ec-day-grid > .ec-content, .ec-timeline > .ec-content { white-space: normal; }');
 
-    //$headerlib->add_cssfile($vendorPath . '/npm-asset/fullcalendar-scheduler/main.css');
-    // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.ec-day-grid > .ec-content { white-space: normal; }');
     $headerlib->add_js_module('import "@jquery-tiki/wikiplugin-trackercalendar";');
 
@@ -505,7 +495,7 @@ function wikiplugin_trackercalendar($data, $params)
         'timelineYear' => 'resourceTimelineYear',
         'timelineMonth' => 'resourceTimelineMonth',
         'timelineWeek' => 'resourceTimelineWeek',
-        'resourceWeek' => 'resourceTimelineWeek', // Old value on fullcalendar resources
+        'resourceWeek' => 'resourceTimelineWeek',
         'timelineDay' => 'resourceTimelineDay'
     ];
 

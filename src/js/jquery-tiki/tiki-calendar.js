@@ -1,5 +1,5 @@
 /**
- * Support JavaScript for FullCalendar Resource Views used by tiki's calendar feature
+ * Support JavaScript for EventCalendar Resource Views used by tiki's calendar feature
  */
 import Calendar from "@event-calendar/core";
 import dayGridPlugin from "@event-calendar/day-grid";
@@ -7,7 +7,7 @@ import timeGridPlugin from "@event-calendar/time-grid";
 import interactionPlugin from "@event-calendar/interaction";
 import moment from "moment";
 
-$.fn.setupFullCalendar = function (fullCalendarParams) {
+$.fn.setupEventCalendar = function (eventCalendarParams) {
     this.each(function () {
         const calendarEl = document.getElementById("calendar");
         $(calendarEl).tikiModal(tr("Loading..."));
@@ -20,11 +20,11 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     eventTimeFormat: {
                         hour: "numeric",
                         minute: "2-digit",
-                        meridiem: fullCalendarParams.timeFormat,
-                        hour12: fullCalendarParams.timeFormat,
+                        meridiem: eventCalendarParams.timeFormat,
+                        hour12: eventCalendarParams.timeFormat,
                     },
-                    //timeZone: fullCalendarParams.display_timezone,
-                    locale: fullCalendarParams.language,
+                    //timeZone: eventCalendarParams.display_timezone,
+                    locale: eventCalendarParams.language,
                     headerToolbar: {
                         start: "prev,next today",
                         center: "title",
@@ -33,8 +33,8 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                     editable: true,
                     selectable: true,
                     eventSources: [{ url: "tiki-ajax_services.php?controller=calendar&action=list_items" }],
-                    slotMinTime: fullCalendarParams.minHourOfDay,
-                    slotMaxTime: fullCalendarParams.maxHourOfDay,
+                    slotMinTime: eventCalendarParams.minHourOfDay,
+                    slotMaxTime: eventCalendarParams.maxHourOfDay,
                     nowIndicator: true,
                     pointer: true,
                     buttonText: {
@@ -44,10 +44,10 @@ $.fn.setupFullCalendar = function (fullCalendarParams) {
                         timeGridDay: tr("day"),
                     },
                     allDayContent: tr("all-day"),
-                    firstDay: fullCalendarParams.firstDayofWeek,
-                    slotDuration: fullCalendarParams.slotDuration,
-                    view: fullCalendarParams.initialView,
-                    date: fullCalendarParams.initialDate,
+                    firstDay: eventCalendarParams.firstDayofWeek,
+                    slotDuration: eventCalendarParams.slotDuration,
+                    view: eventCalendarParams.initialView,
+                    date: eventCalendarParams.initialDate,
                     viewDidMount: function (data) {
                         $(calendarEl).tikiModal();
                         if (data.type == "dayGridMonth") {
