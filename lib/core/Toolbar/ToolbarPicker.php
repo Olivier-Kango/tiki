@@ -84,7 +84,7 @@ class ToolbarPicker extends ToolbarDialog
         global $toolbarPickerIndex;
         ++$toolbarPickerIndex;
         $tag->index = $toolbarPickerIndex;
-        $tag->singleSpaAppName = "@vue-mf/emoji-picker-" . \Tiki\Utilities\Identifiers::getHttpRequestId() . '_' . $tag->index;
+        $tag->singleSpaAppName = "@vue-mf/emoji-picker-" . \Tiki\Utilities\Identifiers::getHttpRequestId() . '_' . $domElementId . '_' . $tag->index;
         $tag->singleSpaDomId = "single-spa-application:{$tag->singleSpaAppName}";
         $tag->setupJs();
 

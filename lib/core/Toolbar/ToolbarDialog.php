@@ -227,10 +227,6 @@ class ToolbarDialog extends ToolbarItem
      */
     protected function isDialogSupported(): bool
     {
-        if (! $this->isMarkdown) {
-            return false;
-        }
-
         $supported = ['tikilink', 'link'];
 
         if (! $this->isWysiwyg) {   // not working in toast yet TODO
