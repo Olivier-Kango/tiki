@@ -249,7 +249,7 @@ class LogsLib extends TikiLib
                 }
             } elseif (! in_array($object, $nottostore)) {
                 // It's possible that this action is being added during upgrade to 18.x before the `log` field has been added
-                // to the database. To avoid error on doc/devtools/svnup.php, do not use the field here if $log is null
+                // to the database.
                 if ($log != null) {
                     $query = "insert into `tiki_actionlog`" .
                         " (`action`, `object`, `lastModif`, `user`, `ip`, `comment`, `objectType`, `client`, `log`)" .

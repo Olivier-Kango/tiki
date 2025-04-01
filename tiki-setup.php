@@ -346,9 +346,6 @@ if ($prefs['feature_integrator'] == 'y') {
 if (isset($_REQUEST['comzone'])) {
     require_once('lib/setup/comments_zone.php');
 }
-if ($prefs['feature_lastup'] == 'y') {
-    require_once('lib/setup/last_update.php');
-}
 if (! empty($_SESSION['interactive_translation_mode']) && ($_SESSION['interactive_translation_mode'] == 'on')) {
     $cachelib->empty_cache('templates_c');
 }
@@ -477,7 +474,6 @@ $smarty->assign('stay_in_ssl_mode', $stay_in_ssl_mode);
 $smarty->assign('tiki_version', $TWV->version);
 $smarty->assign('tiki_branch', $TWV->branch);
 $smarty->assign('tiki_star', $TWV->getStar());
-$smarty->assign('tiki_uses_svn', $TWV->svn);
 $smarty->assign('symbols', TikiLib::symbols());
 
 $maintenance = new Maintenance();

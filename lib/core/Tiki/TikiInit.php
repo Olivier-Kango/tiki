@@ -328,11 +328,11 @@ class TikiInit
         $dbfail_url = '';
 
         /*
-        SVN Developers: Do not change any of the above.
+        Developers: Do not change any of the above.
         Instead, create a file, called db/local.php, containing any of
         the variables listed above that are different for your
         development environment.  This will protect you from
-        accidentally committing your username/password to SVN!
+        accidentally committing your username/password!
 
         example of db/local.php
         <?php

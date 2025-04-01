@@ -51,9 +51,10 @@ if (! ($options = get_options()) || $options['help']) {
     display_usage();
 }
 
-$vcs = 'svn';
-if ($options['use-git'] || file_exists(ROOT . '/.git')) {
+if (file_exists(ROOT . '/.git')) {
     $vcs = 'git';
+} else {
+    exit;
 }
 
 require_once TOOLS . '/' . $vcs . 'tools.php';
@@ -126,7 +127,7 @@ if (! $options['no-first-update'] && important_step('Update working copy to the 
 }
 
 if (empty($subrelease)) {
-    $branch = $vcs == 'svn' ? "branches/$mainversion.x" : "$mainversion.x";
+    $branch = "$mainversion.x";
     $tag = "tags/$version";
     $packageVersion = $version;
     if (! empty($pre)) {
@@ -134,7 +135,7 @@ if (empty($subrelease)) {
     }
     $secdbVersion = $version;
 } else {
-    $branch = $vcs == 'svn' ? "branches/$mainversion.x" : "$mainversion.x";
+    $branch = "$mainversion.x";
     $tag = "tags/$version$subrelease";
     $packageVersion = "$version.$pre$subrelease";
     $secdbVersion = "$version$subrelease";
@@ -346,7 +347,7 @@ function updateSecdb($version)
  * @param string $dir
  * @param string $version
  * @param array $queries queries returned
- * @param array $excludes files to exclude when doing secdb on an svn or checkout
+ * @param array $excludes files to exclude when doing secdb on a checkout
  */
 function build_secdb_queries($dir, $version, &$queries, $excludes = [])
 {
@@ -364,8 +365,8 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
             continue; // if is a symlink we should not run any hash
         }
         if (is_dir($entry)) {
-            // do not descend and no CVS/Subversion files
-            if ($e != '..' && $e != '.' && $e != 'CVS' && $e != '.git' && $e != '.gitignore' && $e != '.svn' && $entry != ROOT . '/' . TEMP_PATH && $entry != ROOT . '/' . TIKI_VENDOR_CUSTOM_PATH && $entry != ROOT . '/' . TIKI_CUSTOMIZATIONS_SRC_PATH) {
+            // do not descend and no git files
+            if ($e != '..' && $e != '.' && $e != '.git' && $e != '.gitignore' && $entry != ROOT . '/' . TEMP_PATH && $entry != ROOT . '/' . TIKI_VENDOR_CUSTOM_PATH && $entry != ROOT . '/' . TIKI_CUSTOMIZATIONS_SRC_PATH) {
                 build_secdb_queries($entry, $version, $queries, $excludes);
             }
         } else {
@@ -546,7 +547,7 @@ function build_packages($releaseVersion)
     $workDir = $_SERVER['HOME'] . "/tikipack";
     $fileName = 'tiki-' . $releaseVersion;
     $relDir = $workDir . '/' . $releaseVersion;    // where the tiki dir and tarballs go
-    $sourceDir = $relDir . '/' . $fileName;        // the svn export
+    $sourceDir = $relDir . '/' . $fileName;        // the git export
 
     echo "Seting up $workDir directory\n";
     if (! is_dir($workDir)) {
@@ -743,8 +744,8 @@ function get_files_list($dir, &$entries, $regexp_pattern)
     while (false !== ($e = $d->read())) {
         $entry = $dir . '/' . $e;
         if (is_dir($entry)) {
-            // do not descend and no CVS/Subversion files
-            if ($e != '..' && $e != '.' && $e != 'CVS' && $e != '.git' && $e != '.gitignore' && $e != '.svn' && $entry != './' . SMARTY_COMPILED_TEMPLATES_PATH && $entry != './' . TIKI_VENDOR_BUNDLED_PATH) {
+            // do not descend and no git files
+            if ($e != '..' && $e != '.' && $e != '.git' && $e != '.gitignore' && $entry != './' . SMARTY_COMPILED_TEMPLATES_PATH && $entry != './' . TIKI_VENDOR_BUNDLED_PATH) {
                 if (! get_files_list($entry, $entries, $regexp_pattern)) {
                     return false;
                 }
@@ -1094,7 +1095,6 @@ function get_options()
         'debug-packaging' => false,
         'only-secdb' => false,
         'devmode' => false,
-        'use-git' => false,
         'skip' => 0,
     ];
 
@@ -1407,7 +1407,7 @@ As of $now, the community has:
   * $nbCommiters of those people who made at least one code commit
 
 This list is automatically generated and alphabetically sorted
-from subversion repository by the following script:
+from git repository by the following script:
   doc/devtools/release.php
 
 Counting the commits is not as trivial as it may sound. If your number of commits
@@ -1649,7 +1649,6 @@ Options:
     --debug-packaging         : display debug output while in packaging step
     --devmode                 : equivalent to no-commit + no-check-vcs + no-first-update
     --skip=0                  : number of steps to skip when debugging (for use with -- devmode)
-    --use-git                 : use git instead of snv (git working copy automatically detected)
 Notes:
     Subreleases begining with 'pre' will not be tagged.
 ";

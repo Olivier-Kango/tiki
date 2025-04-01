@@ -188,8 +188,6 @@ class Cachelib
         while ($file = readdir($all)) {
             if (
                 substr($file, 0, 1) == "." or
-                    $file == 'CVS' or
-                    $file == '.svn' or
                     $file == "index.php" or
                     $file == "README" or
                     $file == "web.config" or
@@ -198,7 +196,7 @@ class Cachelib
                 continue;
             }
 
-            if (is_dir($path . '/' . $file) and $file <> ".." and $file <> "." and $file <> "CVS" and $file <> ".svn") {
+            if (is_dir($path . '/' . $file) and $file <> ".." and $file <> ".") {
                 $du = $this->count_cache_files($path . '/' . $file);
                 $total += $du['total'];
                 $cant += $du['cant'];
@@ -293,8 +291,6 @@ class Cachelib
             while (false !== ($file = readdir($dir))) {
                 if (
                     ( substr($file, 0, 1) == "." && substr($file, -5) != $extracheck ) or
-                    $file == 'CVS' or
-                    $file == '.svn' or
                     $file == "index.php" or
                     $file == "README" or
                     $file == "README.md" or

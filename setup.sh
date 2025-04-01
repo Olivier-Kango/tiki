@@ -51,7 +51,7 @@ WHAT_NEXT_AFTER_f='x'
 # upgrading via GIT, you need to run Composer after 'git clone' and 'git pull'.
 # More info at https://doc.tiki.org/Composer
 
-if [ -d ".svn" ] || [ -d ".git" ]; then
+if [ -d ".git" ]; then
     DEFAULT_WHAT='b'
 else
     DEFAULT_WHAT='f'
@@ -1169,7 +1169,7 @@ EOF
 tiki_setup_default() {
     dummy=foo
     #WHAT='f' # old default
-    WHAT=${DEFAULT_WHAT} # composer is recommended in case of an svn checkout
+    WHAT=${DEFAULT_WHAT} # composer is recommended in case of a checkout
     while true
     do
         if [ "${COMMAND}" != "more-TPC-options" ] ; then

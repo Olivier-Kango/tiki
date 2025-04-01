@@ -210,8 +210,6 @@ function get_default_prefs()
             'feature_sefurl_paths' => [''], //empty string needed to keep preference from setting unexpectedly
             'feature_sefurl_routes' => 'n',
 
-            'feature_lastup' => 'y',
-
             'terminology_profile_installed' => 'n',
 
             // Web Monetization
@@ -234,8 +232,6 @@ function get_default_prefs()
     // Special default values
 
     $_SESSION['tmpDir'] = $prefs['tmpDir'];
-
-    $prefs['feature_lastup'] = 'y';
 
     // Be sure we have a default value for user prefs
     foreach ($prefs as $p => $v) {

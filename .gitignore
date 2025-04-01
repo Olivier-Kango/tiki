@@ -84,7 +84,6 @@ index.php
 /storage/public/*
 /storage/prefsdoc
 /storage/fgal/*
-/svn-commit.tmp
 /temp/*
 /temp/cache/*
 /temp/mail_attachs/*
@@ -111,7 +110,6 @@ db/.htaccess
 db/cert/*.pem
 db/local.php
 db/lock
-db/tiki-secdb_*vcs_mysql.sql
 db/virtuals.inc
 
 lang/.htaccess

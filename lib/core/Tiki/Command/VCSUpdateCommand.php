@@ -465,7 +465,6 @@ class VCSUpdateCommand extends Command
 
                 $errors = ['is not writable', ''];
                 $command = 'php doc/devtools/release.php --only-secdb --no-check-vcs';
-                $command .= ' --use-git';
                 $raw = $this->execCommand($command);
                 $this->OutputErrors($logger, $raw, 'Problem updating secdb', $errors);
             }

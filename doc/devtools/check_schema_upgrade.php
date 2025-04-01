@@ -118,7 +118,7 @@ class CheckSchemaUpgrade
             $tikiVersion = new TWVersion();
 
             //
-            // Run upgrade from previous major (from latest SVN)
+            // Run upgrade from previous major
             //
             $this->printMessage('Loading database 1 from previous major version');
             $this->writeLocalConfig($this->oldDb);

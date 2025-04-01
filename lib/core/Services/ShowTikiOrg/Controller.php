@@ -23,7 +23,7 @@ class Services_ShowTikiOrg_Controller
         $username = $input->username->text();
         $fieldId = $input->fieldId->int();
         $command = $input->command->word();
-        $svntag = $input->svntag->text();
+        $gitbranch = $input->gitbranch->text();
         $creator = $input->username->text();
 
         $item = Tracker_Item::fromId($id);
@@ -114,10 +114,10 @@ class Services_ShowTikiOrg_Controller
                 throw new Services_Exception_Denied();
             }
 
-            if (empty($svntag)) {
+            if (empty($gitbranch)) {
                 $fullstring = "$command -u $creator -i $id -U $userid";
             } else {
-                $fullstring = "$command -t $svntag -u $username -i $id -U $userid";
+                $fullstring = "$command -t $gitbranch -u $username -i $id -U $userid";
             }
 
             $output = $conn->exec($fullstring);

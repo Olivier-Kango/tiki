@@ -37,10 +37,6 @@ class TWVersion
      */
     public $star;
     /**
-     * @var string Is this a Subversion version or a package?
-     */
-    public $svn;
-    /**
      * @var string Is this a Git version or a package?
      */
     public $git;
@@ -53,9 +49,6 @@ class TWVersion
         $this->version  = '29.0vcs';
         $this->star     = 'TBA';
         $this->releases = [];
-
-        // Check for Subversion or not
-        $this->svn  = is_dir('.svn') ? 'y' : 'n';
 
         // Check for Git or not
         $this->git  = is_dir('.git') ? 'y' : 'n';

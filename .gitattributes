@@ -112,7 +112,6 @@ doc/devtools/extract-img-db-to-fs.php -text
 doc/devtools/findstyledef.pl -text
 doc/devtools/findstyledef.sh -text
 doc/devtools/fix-encoding.php -text
-doc/devtools/fixsvnkeyids.php -text
 doc/devtools/generate_release_changelog.py -text
 doc/devtools/get_translation_percentage.php -text
 doc/devtools/ggg-trace.php -text
@@ -149,16 +148,6 @@ doc/devtools/sqlupgrade.sh -text
 doc/devtools/stripbraces.pl -text
 doc/devtools/stripcomments.php -text
 doc/devtools/stripcomments.pl -text
-doc/devtools/svn-update-check.sh -text
-doc/devtools/svnbranch.php -text
-doc/devtools/svnbranchreview.php -text
-doc/devtools/svnbranchupdate.php -text
-doc/devtools/svnmerge.php -text
-doc/devtools/svnrevert.sh -text
-doc/devtools/svnswitch.php -text
-doc/devtools/svntools.php -text
-doc/devtools/svnup.php -text
-doc/devtools/svnup.sh -text
 doc/devtools/sync.php -text
 doc/devtools/synctiki.sh -text
 doc/devtools/tiki-create_md5.php -text
@@ -178,7 +167,6 @@ doc/devtools/tim/tim-create -text
 doc/devtools/tim/tim-cron -text
 doc/devtools/tim/tim-snapshot -text
 doc/devtools/tim/tim-ssh -text
-doc/devtools/tim/tim-svn-cache -text
 doc/devtools/tim/tim.conf -text
 doc/devtools/translate.php -text
 doc/devtools/update.dogfoodserver.sh -text
@@ -399,7 +387,7 @@ img/flags/Russian_Federation.png -text
 img/flags/Rwanda.png -text
 img/flags/Saint_Helena.png -text
 img/flags/Saint_Kitts_and_Nevis.png -text
-img/flags/Saint_Lucia.png -text svneol=unset#unset
+img/flags/Saint_Lucia.png -text
 img/flags/Saint_Pierre_and_Miquelon.png -text
 img/flags/Samoa.png -text
 img/flags/San_Marino.png -text
@@ -1272,8 +1260,8 @@ img/overlay-50.png -text
 img/overlay-85.png -text
 img/overlay-disabled_item.png -text
 img/overlay-light.png -text
-img/poweredby/php.png -text svneol=unset#image/png
-img/poweredby/smarty.png -text svneol=unset#image/png
+img/poweredby/php.png -text
+img/poweredby/smarty.png -text
 img/profiles/index.php -text
 img/profiles/profile_thumb_activity_stream.png -text
 img/profiles/profile_thumb_barter_market.png -text
@@ -1414,7 +1402,7 @@ installer/Patch.php -text
 installer/composer-patches/adodb-php__remove-the-check-if-the-adodb-php_ext-is-enabled.patch -text
 installer/composer-patches/adodb-php__remove_references_to_adodb_extension.patch -text
 installer/composer-patches/composer-patches.json -text
-installer/composer-patches/jcbrand-conversejs_remove-native-javascript-for-bootstrap.patch -text svneol=unset#application/octet-stream binary
+installer/composer-patches/jcbrand-conversejs_remove-native-javascript-for-bootstrap.patch -text
 installer/composer-patches/jquery-sheet_fix-visibility-issues.patch -text
 installer/composer-patches/pear_xml_rpc-php7-patch-RELEASE_1_5_5.patch -text
 installer/composer-patches/text_wiki__recursive_call_to_constructor.json -text
@@ -2848,7 +2836,6 @@ lib/core/Tiki/Command/FilesCopyCommand.php -text
 lib/core/Tiki/Command/FilesDeleteoldCommand.php -text
 lib/core/Tiki/Command/FilesMoveCommand.php -text
 lib/core/Tiki/Command/FixBOMandUnixCommand.php -text
-lib/core/Tiki/Command/FixSVNKeyIdsCommand.php -text
 lib/core/Tiki/Command/GetStringsCommand.php -text
 lib/core/Tiki/Command/GoalCheckCommand.php -text
 lib/core/Tiki/Command/IndexCatchUpCommand.php -text
@@ -4135,8 +4122,6 @@ lib/smarty_tiki/function.service.php -text
 lib/smarty_tiki/function.service_inline.php -text
 lib/smarty_tiki/function.set.php -text
 lib/smarty_tiki/function.show_sort.php -text
-lib/smarty_tiki/function.svn_lastup.php -text
-lib/smarty_tiki/function.svn_rev.php -text
 lib/smarty_tiki/function.thumb.php -text
 lib/smarty_tiki/function.ticket.php -text
 lib/smarty_tiki/function.toolbars.php -text
@@ -4571,16 +4556,16 @@ lib/test/importer/fixtures/mediawiki_revision_invalid_syntax.xml -text
 lib/test/importer/fixtures/mediawiki_sample.xml -text
 lib/test/importer/fixtures/mediawiki_sample_v0.2.xml -text
 lib/test/importer/fixtures/mediawiki_sample_v0.4.xml -text
-lib/test/importer/fixtures/wordpress_attachments.xml -text svneol=unset#text/plain
-lib/test/importer/fixtures/wordpress_comment.xml -text svneol=unset#text/plain
-lib/test/importer/fixtures/wordpress_comment_spam.xml -text svneol=unset#text/plain
+lib/test/importer/fixtures/wordpress_attachments.xml -text
+lib/test/importer/fixtures/wordpress_comment.xml -text
+lib/test/importer/fixtures/wordpress_comment_spam.xml -text
 lib/test/importer/fixtures/wordpress_invalid.xml -text
 lib/test/importer/fixtures/wordpress_page.xml -text
 lib/test/importer/fixtures/wordpress_post.xml -text
-lib/test/importer/fixtures/wordpress_post_content.txt -text svneol=unset#text/plain
+lib/test/importer/fixtures/wordpress_post_content.txt -text
 lib/test/importer/fixtures/wordpress_post_content_internal_links.txt -text
 lib/test/importer/fixtures/wordpress_post_content_internal_links_replaced.txt -text
-lib/test/importer/fixtures/wordpress_post_content_parsed.txt -text svneol=unset#text/plain
+lib/test/importer/fixtures/wordpress_post_content_parsed.txt -text
 lib/test/importer/fixtures/wordpress_post_content_shortcodes.txt -text
 lib/test/importer/fixtures/wordpress_post_content_shortcodes_parsed.txt -text
 lib/test/importer/fixtures/wordpress_sample.xml -text
@@ -5719,7 +5704,7 @@ templates/modules/mod-friend_list.tpl -text
 templates/modules/mod-google.tpl -text
 templates/modules/mod-groups_emulation.tpl -text
 templates/modules/mod-last_actions.tpl -text
-templates/modules/mod-last_actions.tpl.nocache -text svneol=unset#application/octet-stream
+templates/modules/mod-last_actions.tpl.nocache
 templates/modules/mod-last_blog_posts.tpl -text
 templates/modules/mod-last_category_objects.tpl -text
 templates/modules/mod-last_created_blogs.tpl -text
@@ -6801,21 +6786,21 @@ themes/darkshine/css/newsletter.css -text
 themes/darkshine/fonts/index.php -text
 themes/darkshine/icons/index.php -text
 themes/darkshine/images/ad.gif -text
-themes/darkshine/images/arrows-000000.png -text svneol=unset#image/png
-themes/darkshine/images/blue.png -text svneol=unset#image/png
-themes/darkshine/images/border.jpg -text svneol=unset#image/jpeg
-themes/darkshine/images/box.jpg -text svneol=unset#image/jpeg
-themes/darkshine/images/darkshine.png -text svneol=unset#image/png
-themes/darkshine/images/green.png -text svneol=unset#image/png
-themes/darkshine/images/hover_list.jpg -text svneol=unset#image/jpeg
+themes/darkshine/images/arrows-000000.png -text
+themes/darkshine/images/blue.png -text
+themes/darkshine/images/border.jpg -text
+themes/darkshine/images/box.jpg -text
+themes/darkshine/images/darkshine.png -text
+themes/darkshine/images/green.png -text
+themes/darkshine/images/hover_list.jpg -text
 themes/darkshine/images/index.php -text
 themes/darkshine/images/main.gif -text
 themes/darkshine/images/nav.gif -text
-themes/darkshine/images/orange.png -text svneol=unset#image/png
-themes/darkshine/images/red.png -text svneol=unset#image/png
-themes/darkshine/images/stripes.png -text svneol=unset#image/png
+themes/darkshine/images/orange.png -text
+themes/darkshine/images/red.png -text
+themes/darkshine/images/stripes.png -text
 themes/darkshine/images/stripes_small.gif -text
-themes/darkshine/images/title_background.jpg -text svneol=unset#image/jpeg
+themes/darkshine/images/title_background.jpg -text
 themes/darkshine/scss/_tiki-selectors.scss -text
 themes/darkshine/scss/_variables.scss -text
 themes/darkshine/scss/darkshine.scss -text
@@ -6912,7 +6897,7 @@ themes/fivealive-lite/options/lemon/scss/_button_color_variables.scss -text
 themes/fivealive-lite/options/lemon/scss/_variables.scss -text
 themes/fivealive-lite/options/lemon/scss/lemon.scss -text
 themes/fivealive-lite/options/orange/css/orange.css -text
-themes/fivealive-lite/options/orange/icons/information.png -text svneol=unset#image/png
+themes/fivealive-lite/options/orange/icons/information.png -text
 themes/fivealive-lite/options/orange/icons/orange.php -text
 themes/fivealive-lite/options/orange/images/arrows-c74b23.png -text
 themes/fivealive-lite/options/orange/images/index.php -text
@@ -7424,7 +7409,7 @@ themes/jqui/options/trontastic/css/trontastic.css -text
 themes/jqui/options/trontastic/fonts/index.php -text
 themes/jqui/options/trontastic/icons/index.php -text
 themes/jqui/options/trontastic/images/index.php -text
-themes/jqui/options/trontastic/images/trontastic.png -text svneol=unset#image/png
+themes/jqui/options/trontastic/images/trontastic.png -text
 themes/jqui/options/trontastic/index.php -text
 themes/jqui/options/trontastic/pics/icons/folder.png -text
 themes/jqui/options/trontastic/pics/icons/index.php -text
@@ -7656,12 +7641,12 @@ themes/strasa/options/cool/images/box_bottom.gif -text
 themes/strasa/options/cool/images/box_top.gif -text
 themes/strasa/options/cool/images/cool.png -text
 themes/strasa/options/cool/images/fold-topright.jpg -text
-themes/strasa/options/cool/images/headerbg.jpg -text svneol=unset#image/jpeg
+themes/strasa/options/cool/images/headerbg.jpg -text
 themes/strasa/options/cool/images/headermenuitem-hover.png -text
 themes/strasa/options/cool/images/index.php -text
-themes/strasa/options/cool/images/login.jpg -text svneol=unset#image/jpeg
-themes/strasa/options/cool/images/loginlong.jpg -text svneol=unset#image/jpeg
-themes/strasa/options/cool/images/register.jpg -text svneol=unset#image/jpeg
+themes/strasa/options/cool/images/login.jpg -text
+themes/strasa/options/cool/images/loginlong.jpg -text
+themes/strasa/options/cool/images/register.jpg -text
 themes/strasa/options/index.php -text
 themes/strasa/options/mono/css/index.php -text
 themes/strasa/options/mono/css/mono.css -text

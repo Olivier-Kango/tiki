@@ -384,15 +384,15 @@ if (isset($_POST['check_files'])) {
 
     if ($version->git == 'y' && is_readable(DEPRECATED_DEVTOOLS_PATH . '/gittools.php')) {   // git checkout
         require_once(DEPRECATED_DEVTOOLS_PATH . '/gittools.php');
-        $svn_diff = files_differ('./');
+        $git_diff = files_differ('./');
     } else {
-        $svn_diff = [];
+        $git_diff = [];
     }
 
     $result = TikiLib::lib('tiki')->allocate_extra(
         'secdb_check',
-        function () use ($result, $svn_diff) {
-            md5_check_dir(".", $result, $svn_diff);
+        function () use ($result, $git_diff) {
+            md5_check_dir(".", $result, $git_diff);
             return $result;
         }
     );

@@ -32,8 +32,6 @@ function check_bin_version()
  *
  * @param $localPath string Path of the checkout
  * @return bool true if at least 1 versioned file has been modified, added or removed, false otherwise
- *
- * @see Similar function svn_files_identical()
  */
 function has_uncommited_changes($localPath)
 {

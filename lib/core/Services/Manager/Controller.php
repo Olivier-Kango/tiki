@@ -1056,7 +1056,7 @@ class Services_Manager_Controller
         } else {
             /** Form initialization */
             $inputValues = [
-                'vcs' => ['git', 'svn', 'src'],
+                'vcs' => ['git', 'src'],
                 'selected_vcs' => 'git'
             ];
 
