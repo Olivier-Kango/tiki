@@ -52,7 +52,7 @@
                         {assign var='cntcol' value=$cntcol+1}
                         <th id="pageid">
                             {self_link _sort_arg='sort_mode' _sort_field='page_id'}{tr}Id{/tr}{/self_link}
-                        </th> 
+                        </th>
                     {else}
                         <th id="pageid">{$ln|escape}</th>
                     {/if}
@@ -179,7 +179,7 @@
                 </tr>
             </thead>
         {/if}
-        
+
         <tbody>
 
             {section name=changes loop=$listpages}
@@ -255,7 +255,11 @@
                     {if $prefs.wiki_list_lastmodif eq 'y' or $prefs.wiki_list_comment eq 'y'}
                         <td class="date">
                             {if $prefs.wiki_list_lastmodif eq 'y'}
-                                <div>{$listpages[changes].lastModif|tiki_short_datetime}</div>
+                                {if $listpages[changes].version > 1}
+                                    <div>{$listpages[changes].lastModif|tiki_short_datetime}</div>
+                                {else}
+                                    <div>{tr _0=$listpages[changes].lastModif|tiki_short_datetime}%0 : Initial version{/tr}</div>
+                                {/if}
                             {/if}
                             {if $prefs.wiki_list_comment eq 'y' && $listpages[changes].comment neq ""}
                                 <div>

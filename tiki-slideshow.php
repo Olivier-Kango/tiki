@@ -253,6 +253,7 @@ if (isset($_REQUEST['pdf'])) {
 }
 $smarty->assign('pages', $pages);
 $smarty->assign_by_ref('parsed', $pdata);
+$smarty->assign_by_ref('version', $info["version"]);
 $smarty->assign_by_ref('lastModif', $info["lastModif"]);
 
 if (empty($info["user"])) {
