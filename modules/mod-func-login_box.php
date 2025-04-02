@@ -110,6 +110,10 @@ function module_login_box($mod_reference, &$module_params)
         Laminas\Session\Container::getDefaultManager()->start();
     }
 
+    if ($prefs['auth_webauthn_enabled'] === 'y') {
+        TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-webauthn.js');
+    }
+
     $smarty->assign('module_logo_instance', $module_logo_instance);
     $smarty->assign('mode', isset($module_params['mode']) ? $module_params['mode'] : 'module');
     $smarty->assign('login_text_explanation', $tikilib->get_preference('login_text_explanation'));
