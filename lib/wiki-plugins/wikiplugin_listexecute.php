@@ -23,6 +23,16 @@ function wikiplugin_listexecute_info()
         'introduced' => 11,
         'tags' => [ 'advanced' ],
         'params' => [
+            'button_label' => [
+                'required' => false,
+                'name' => tra('Button label'),
+                'description' => tr(
+                    'Label for the form submit button. Default is %0.',
+                    '<code>' . tr('Apply') . '</code>'
+                ),
+                'since' => '27.3',
+                'default' => 'Apply'
+            ]
         ],
     ];
 }
@@ -30,6 +40,7 @@ function wikiplugin_listexecute_info()
 function wikiplugin_listexecute($data, $params, $offset, $parser)
 {
     global $prefs, $tiki_p_modify_object_categories, $tiki_p_admin_categories;
+
     static $iListExecute = 0;
     $iListExecute++;
     $fingerprint = "listexecute-$iListExecute";
@@ -129,7 +140,7 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
     $result->setId('wplistexecute-' . $iListExecute);
 
     $resultBuilder = new Search_ResultSet_WikiBuilder($result);
-    $resultBuilder->apply($matches);
+    $resultBuilder->apply($matches, $params);
 
     $dataSource = $unifiedsearchlib->getDataSource();
     $builder = new Search_Formatter_Builder();
@@ -139,7 +150,7 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
     $builder->setId('wplistexecute-' . $iListExecute);
     $builder->setCount($result->count());
     $builder->setTsOn($tsret['tsOn']);
-    $builder->apply($matches);
+    $builder->apply($matches, $params);
 
     $result->setTsSettings($builder->getTsSettings());
     $result->setTsOn($tsret['tsOn']);
@@ -147,7 +158,7 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
     $formatter = $builder->getFormatter();
     $formatter->setCounter($iListExecute);
 
-    if (! $customOutput) {
+    if (! $customOutput) { // default list output when OUTPUT block is not in use
         $plugin = new Search_Formatter_Plugin_SmartyTemplate('templates/wiki-plugins/wikiplugin_listexecute.tpl');
         $plugin->setFields(['report_status' => null]);
 
@@ -155,6 +166,7 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
             'actions' => $actions,
             'iListExecute' => $iListExecute,
             'fingerprint' => $fingerprint,
+            'label' => $params['button_label'] ?? '',
         ];
 
         if ($prefs['feature_categories'] == 'y') {
@@ -274,7 +286,7 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
             $result = $searchQuery->search($index);
             $result->setId('wplistexecute-' . $iListExecute);
             $resultBuilder = new Search_ResultSet_WikiBuilder($result);
-            $resultBuilder->apply($matches);
+            $resultBuilder->apply($matches, $params);
             $builder->setCount($result->count());
             // remove any tablesorter header js that will be added twice otherwise
             foreach (TikiLib::lib('header')->jq_onready as &$scripts) {
@@ -284,7 +296,7 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
                     }
                 }
             }
-            $builder->apply($matches);
+            $builder->apply($matches, $params);
             $result->setTsSettings($builder->getTsSettings());
             $result->setTsOn($tsret['tsOn']);
             $formatter = $builder->getFormatter();
@@ -296,7 +308,7 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
 
     $formatted = $formatter->format($result);
 
-    if (! strstr($formatted, "listexecute-$listexecute")) {
+    if (! strstr($formatted, "listexecute-$iListExecute")) {
         $formatted = '~np~
 <form method="post" class="list-executable" id="listexecute-' . $iListExecute . '" data-id="wplistexecute-' . $iListExecute . '">
     <input type="hidden" name="plugin" value="' . $fingerprint . '">~/np~' . $formatted . '~np~

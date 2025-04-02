@@ -269,6 +269,9 @@ class Search_Formatter_Builder
             if ($this->additionalOutputData) {
                 $outputData = array_merge($outputData, $this->additionalOutputData);
             }
+            if (isset($params['button_label'])) { // custom label on submit button for list actions (used by PluginListExecute)
+                $outputData['label'] = $params['button_label'];
+            }
             if (strstr($arguments['template'], 'table')) {
                 $outputData['sticky'] = $sticky = isset($params['allowStickyHeaders']) && $params['allowStickyHeaders'] == 'y' ? true : false;
                 if (isset($arguments['downloadable'])) {

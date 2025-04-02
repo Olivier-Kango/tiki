@@ -216,14 +216,14 @@
 {if $actions}
     <div class="row w-100 list_execute_actions">
         <div class="col-sm-1">
-            <input type="submit" class="btn btn-primary btn-sm list_execute_submit" title="{tr}Apply Changes{/tr}" id="submit_form_{$id}" disabled value="{tr}Apply{/tr}">
+            <input type="submit" class="btn btn-primary btn-sm list_execute_submit" title="{tr}Apply Changes{/tr}" id="submit_form_{$id}" disabled value="{if !empty($label)}{tr}{$label|escape}{/tr}{else}{tr}Apply{/tr}{/if}">
         </div>
         <div class="col-sm-4">
             <select name="list_action" class="form-control check_submit_select" id="check_submit_select_{$id}">
                 <option></option>
                 {foreach from=$actions item=action}
                     <option value="{$action->getName()|escape}" data-input='{$action->requiresInput()}' data-inputtype='{$action->inputtype()}'{if $action->getDefault()} selected{/if}>
-                        {$action->getName()|escape}
+                        {$action->getName()|tra|escape}
                     </option>
                 {/foreach}
             </select>
