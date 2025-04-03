@@ -3199,8 +3199,7 @@
             "class:SerializedList": true
         },
         "lib\/webservicelib.php": {
-            "class:Tiki_Webservice": true,
-            "class:Tiki_Webservice_Template": true
+            "class:Tiki_Webservice": true
         },
         "lib\/test\/smarty_tiki\/ModifierDurationTest.php": {
             "class:ModifierDurationTest": true
@@ -4056,9 +4055,6 @@
         },
         "lib\/auth\/api_token.php": {
             "class:ApiTokenException": true
-        },
-        "lib\/webservicelib.php": {
-            "class:Tiki_Webservice_Template": true
         },
         "lib\/test\/core\/Search\/FormatterTest.php": {
             "class:Search_FormatterTest_HighlightHelper": true
@@ -6381,8 +6377,7 @@
             "OpenPGP_Zend_Mail_Transport_Smtp": true
         },
         "lib\/webservicelib.php": {
-            "Tiki_Webservice": true,
-            "Tiki_Webservice_Template": true
+            "Tiki_Webservice": true
         },
         "lib\/test\/core\/Tracker\/OptionsTest.php": {
             "Tracker_OptionsTest": true
