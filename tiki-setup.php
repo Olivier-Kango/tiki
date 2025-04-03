@@ -251,7 +251,6 @@ if (! TIKI_API) {
 
         if (! $consent_preferences['consentGiven'] || $jitRequest->offsetExists('cookie_consent')) {
             if (! $jitRequest->offsetExists('cookie_consent')) {
-                // die("Don't clean me");
                 foreach ($_COOKIE as $k => $v) {
                     if (strpos($k, session_name()) === false) {
                         setcookie($k, '', time() - 3600);        // unset any previously existing cookies except the session and js detect
@@ -262,20 +261,6 @@ if (! TIKI_API) {
             $cookie_categories = CookieConsentLib::getCookieCategories();
             $smarty->assign('cookie_categories', $cookie_categories);
             $cookie_consent_html = $smarty->fetch('cookie_consent.tpl');
-        } else {
-            $feature_no_cookie = false;
-            if (isset($consent['categories']['analytics']) && $consent['categories']['analytics'] === true) {
-                $analytics = getCookie($prefs['cookie_consent_name'] . '_analytics');
-                if (is_numeric($analytics)) {   // has been set server-side, so user is opting in to analytics
-                    $consent_preferences['categories']['analytics'] = true;
-                    CookieConsentLib::setConsentPreferences($consent_preferences);
-                    $feature_no_cookie_essentials = false;
-                } elseif (empty($analytics)) {
-                    $consent_preferences['categories']['analytics'] = false;
-                    CookieConsentLib::setConsentPreferences($consent_preferences);
-                    $feature_no_cookie_essentials = true;
-                }
-            }
         }
     }
     $smarty->assign('cookie_consent_html', $cookie_consent_html);

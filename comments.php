@@ -84,12 +84,12 @@ if (isset($_REQUEST['comzone'])) {
 
     if ($comzone_state == 'show' || $comzone_state == 'o') {
         $comments_show = 'y';
-        if ((! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'c') && $functional_cookies) {
+        if ((! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'c') && CookieConsentLib::isCategoryAllowed(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL)) {
             CookieConsentLib::tikiSetCookie('comzone', 'o', CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
         }
     }
     if ($comzone_state == 'hide' || $comzone_state == 'c') {
-        if ((! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'o') && $functional_cookies) {
+        if ((! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'o') && CookieConsentLib::isCategoryAllowed(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL)) {
             setcookie('comzone', 'c');
         }
     }

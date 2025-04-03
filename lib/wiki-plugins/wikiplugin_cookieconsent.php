@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Lib\CookieConsent\CookieConsentLib;
+
 function wikiplugin_cookieconsent_info()
 {
     global $prefs;
@@ -56,7 +58,7 @@ function wikiplugin_cookieconsent_info()
 
 function wikiplugin_cookieconsent($body, $params)
 {
-    global $prefs, $feature_no_cookie_essentials;
+    global $prefs;
 
     if ($prefs['cookie_consent_feature'] !== 'y') {
         return $body;
@@ -72,7 +74,7 @@ function wikiplugin_cookieconsent($body, $params)
 
     $class = $params['element_class'];
 
-    if ($feature_no_cookie_essentials) {
+    if (! CookieConsentLib::checkAllowedCookieCategory(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ESSENTIAL)) {
         $body = $params['no_consent_message'];
         $class .= ($class ? ' ' : '') . $params['no_consent_class'];
     }

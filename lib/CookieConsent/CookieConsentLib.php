@@ -62,7 +62,8 @@ class CookieConsentLib
         ];
 
         // First, try to read the consent cookie from browser cookie
-        $consentCookie = urldecode(self::getCookie(self::COOKIE_CONSENT_NAME));
+        $rawConsentCookie = self::getCookie(self::COOKIE_CONSENT_NAME);
+        $consentCookie = $rawConsentCookie !== null ? urldecode($rawConsentCookie) : null;
 
         if ($consentCookie) {
             $consentPreferences = json_decode(urldecode($consentCookie), true);

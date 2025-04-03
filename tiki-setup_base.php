@@ -220,22 +220,6 @@ if (empty($tikidomain)) {
     $tikidomain = "";
 }
 
-$feature_no_cookie_essentials = false;
-
-if ($prefs['cookie_consent_feature'] === 'y' && empty($_COOKIE[CookieConsentLib::COOKIE_CONSENT_NAME]) && $prefs['cookie_consent_disable'] !== 'y') {
-    // No consent yet
-    $feature_no_cookie = true;
-    $feature_no_cookie_essentials = true;
-} else {
-    // Cookie consent not implemented or consent given or consent forced with preference cookie_consent_disable
-    $feature_no_cookie = false;
-    if (CookieConsentLib::getConsentPreferences(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ESSENTIAL)) {
-        $feature_no_cookie_essentials = false;
-    } else {
-        $feature_no_cookie_essentials = true;
-    }
-}
-
 $start_session = true;
 $extra_cookie_name = session_name() . 'CV';
 if ($prefs['session_silent'] == 'y' && empty($_COOKIE[session_name()]) && empty($_COOKIE[$extra_cookie_name])) {

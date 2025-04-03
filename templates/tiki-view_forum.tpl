@@ -391,7 +391,7 @@
                             {/if}
                             <input type="submit" class="btn btn-primary btn-sm" name="comments_postComment" value="{tr}Post{/tr}"
                                     {if empty($user)}
-                                         onclick="setCookie('anonymous_name', document.getElementById('anonymous_name').value, '', 'session', 'functional');needToConfirm=false;"
+                                         onclick="setCookie('anonymous_name', document.getElementById('anonymous_name').value, '', 'session', window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);needToConfirm=false;"
                                     {else}
                                         onclick="needToConfirm=false;"
                                     {/if}
@@ -399,7 +399,7 @@
                             {if $prefs.ajax_edit_previews eq 'n'}
                                 <input type="submit" class="btn btn-secondary btn-sm" name="comments_previewComment" value="{tr}Preview{/tr}"
                                 {if empty($user)}
-                                    onclick="setCookie('anonymous_name', document.getElementById('anonymous_name').value, '', 'session', 'functional');needToConfirm=false;"
+                                    onclick="setCookie('anonymous_name', document.getElementById('anonymous_name').value, '', 'session', window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);needToConfirm=false;"
                                 {/if}>
                             {/if}
                             <input type="submit" class="btn btn-link btn-sm" name="comments_postCancel" value="{tr}Cancel{/tr}" {if $comment_preview neq 'y'}onclick="hide('forumpost');window.location='#header';return false;"{/if}>

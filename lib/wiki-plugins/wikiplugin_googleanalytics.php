@@ -56,8 +56,7 @@ function wikiplugin_googleanalytics($data, $params)
         return tra('Missing parameter');
     }
     if (! CookieConsentLib::checkAllowedCookieCategory(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ANALYTICS)) {
-        $url = '<a href="tiki-user_preferences.php">' . $_SERVER['HTTP_HOST'] . '/tiki-user_preferences.php</a>';
-        return tr('Please, you must accept the cookie consent analytics to use this plugin. See %0', $url);
+        return;
     }
     $account = htmlspecialchars($params['account'], ENT_QUOTES);
 
