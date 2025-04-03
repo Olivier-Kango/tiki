@@ -44,7 +44,7 @@ class Table_Code_Bind extends Table_Code_Manager
 
             global $prefs;
             if ($prefs['jquery_timeago'] === 'y') { // re-attach timeago for ajax calls
-                $bindtr[] = '$(\'time.timeago\', \'' . parent::$tid . '\').timeago();';
+                $bindtr[] = '$(\'time.timeago\', \'' . parent::$tid . '\').tikiTimeago();';
             }
         }
         $bindtr[] = '$(\'div#' . parent::$id . '\').css(\'visibility\', \'visible\');';

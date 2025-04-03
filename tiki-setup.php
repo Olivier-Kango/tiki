@@ -688,13 +688,24 @@ if ($prefs['feature_shadowbox'] == 'y') {
 }
 
 if ($prefs['jquery_timeago'] === 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/rmm5t/jquery-timeago/jquery.timeago.js');
-    $language_short = substr($prefs['language'], 0, 2);
-    $timeago_locale = "vendor_bundled/vendor/rmm5t/jquery-timeago/locales/jquery.timeago.{$language_short}.js";
-    if (is_readable($timeago_locale)) {
-        $headerlib->add_jsfile($timeago_locale);    // TODO handle zh-CN and zh-TW
+    $language = $prefs['language'];
+    $locale_file = '';
+
+    $full_locale_path = NODE_PUBLIC_DIST_PATH . "/timeago/dist/locales/jquery.timeago.{$language}.js";
+
+    $language_short = substr($language, 0, 2);
+    $short_locale_path = NODE_PUBLIC_DIST_PATH . "/timeago/dist/locales/jquery.timeago.{$language_short}.js";
+
+    $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . '/timeago/dist/jquery.timeago.js');
+
+    if (is_readable($full_locale_path)) {
+        $headerlib->add_jsfile($full_locale_path);
+    } elseif (is_readable($short_locale_path)) {
+        $headerlib->add_jsfile($short_locale_path);
     }
-    $headerlib->add_jq_onready('$("time.timeago").timeago(); jQuery.timeago.settings.allowFuture = true;');
+
+    $headerlib->add_jsfile(JS_ASSETS_PATH . "/jquery-tiki/timeago.js");
+    $headerlib->add_cssfile('themes/base_files/feature_css/timeago.css');
 }
 
 if ($prefs['jquery_jqdoublescroll'] == 'y') {

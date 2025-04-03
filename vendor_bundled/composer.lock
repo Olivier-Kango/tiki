@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7f5225cb0db1d11762810f43d039df9",
+    "content-hash": "7511d1ee837769e4878f96b2093585c2",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -1077,48 +1077,6 @@
             ],
             "description": "Convert JWK to PEM format.",
             "time": "2021-04-28T07:37:03+00:00"
-        },
-        {
-            "name": "components/jquery",
-            "version": "v3.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/components/jquery.git",
-                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/components/jquery/components-jquery-8edc7785239bb8c2ad2b83302b856a1d61de60e7-zip-6a67b1.zip",
-                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7",
-                "shasum": "0d04410bdd5bdf353e8b9c3aeff699b9b8af4925"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "files": [
-                        "jquery.min.js",
-                        "jquery.min.map",
-                        "jquery.slim.js",
-                        "jquery.slim.min.js",
-                        "jquery.slim.min.map"
-                    ],
-                    "scripts": [
-                        "jquery.js"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "JS Foundation and other contributors"
-                }
-            ],
-            "description": "jQuery JavaScript Library",
-            "homepage": "http://jquery.com",
-            "time": "2023-09-22T01:43:46+00:00"
         },
         {
             "name": "composer/semver",
@@ -9129,52 +9087,6 @@
                 }
             ],
             "time": "2024-06-11T12:45:25+00:00"
-        },
-        {
-            "name": "rmm5t/jquery-timeago",
-            "version": "v1.6.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rmm5t/jquery-timeago.git",
-                "reference": "48fdda3ca724dcd655e8e990f6d7fbd203718905"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/rmm5t/jquery-timeago/rmm5t-jquery-timeago-48fdda3ca724dcd655e8e990f6d7fbd203718905-zip-a892aa.zip",
-                "reference": "48fdda3ca724dcd655e8e990f6d7fbd203718905",
-                "shasum": "29a4fac20d4b37849634dd4972ae193883985335"
-            },
-            "require": {
-                "components/jquery": ">=1.5.0 <4.0"
-            },
-            "type": "library",
-            "extra": {
-                "component": {
-                    "files": [
-                        "locales/jquery.timeago.*.js"
-                    ],
-                    "scripts": [
-                        "jquery.timeago.js"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ryan McGeary",
-                    "email": "ryan@mcgeary.org"
-                }
-            ],
-            "description": "jQuery plugin that makes it easy to support automatically updating fuzzy timestamps (e.g. \"4 minutes ago\" or \"about 1 day ago\").",
-            "homepage": "http://timeago.yarp.com/",
-            "keywords": [
-                "microformat",
-                "time"
-            ],
-            "time": "2019-04-23T15:55:20+00:00"
         },
         {
             "name": "robicch/jquery-gantt",

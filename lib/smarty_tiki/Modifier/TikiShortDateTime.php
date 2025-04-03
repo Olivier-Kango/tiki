@@ -28,7 +28,7 @@ class TikiShortDateTime
         $intro = ! empty($intro) ? tra($intro) . ' ' : '';
 
         if ($prefs['jquery_timeago'] === 'y' && $same === 'y') {
-            TikiLib::lib('header')->add_jq_onready('$("time.timeago").timeago();');
+            TikiLib::lib('header')->add_jq_onready('$("time.timeago").tikiTimeago();');
             return '<time class="timeago" datetime="' . TikiLib::date_format('c', $string, false, 5, false) . '">' . $date . ' ' . $time . '</time>';
         } elseif ($same != 'n' && $prefs['tiki_same_day_time_only'] == 'y' && $date == smarty_modifier_tiki_date_format(time(), $prefs['short_date_format'])) {
             //tra('on') tra('on:') tra('at') tra('at:')

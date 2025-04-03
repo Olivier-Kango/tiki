@@ -181,7 +181,7 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractItemField implements
             }
 
             if ($prefs['jquery_timeago'] === 'y' && $this->getOption('useTimeAgo')) {
-                TikiLib::lib('header')->add_jq_onready('$("time.timeago").timeago();');
+                TikiLib::lib('header')->add_jq_onready('$("time.timeago").tikiTimeago();');
                 return '<time class="timeago" datetime="' . TikiLib::date_format('c', $value, false, 5, false) . '">' . $tikilib->get_short_datetime($value) . '</time>';
             }
             $date = $tikilib->get_short_date($value);

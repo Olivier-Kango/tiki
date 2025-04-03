@@ -304,6 +304,13 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/bootstrap-icons/font/*",
                         dest: "vendor_dist/bootstrap-icons/font",
                     },
+                    {
+                        src: [
+                            "node_modules/timeago/jquery.timeago.js",
+                            "node_modules/timeago/locales"
+                        ],
+                        dest: "vendor_dist/timeago/dist",
+                    },
                     /* module system */
                     {
                         src: "node_modules/es-module-shims/dist/es-module-shims.js",
