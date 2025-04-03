@@ -219,7 +219,8 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Alternate Text'),
                 'filter' => 'text',
-                'description' => tra('Alternate text that displays when image does not load. Set to "Image" by default.'),
+                'description' => tr('Alternate text that displays when image does not load. Use %0name%1 or %0desc%1 or %0namedesc%1 for Tiki name and
+                    description properties, otherwise enter your own description. Set to "Image" by default', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'text',
                 'default' => 'Image',
@@ -1323,18 +1324,7 @@ function wikiplugin_img($data, $params)
         }
         $replimg .= ' style="' . $imalign . $border . $style . '"';
     }
-    //alt
-    if (! empty($imgdata['alt'])) {
-        $replimg .= ' alt="' . $imgdata['alt'] . '"';
-    } elseif (! empty($imgdata['desc'])) {
-        $replimg .= ' alt="' . $imgdata['desc'] . '"';
-    } elseif (! empty($dbinfo['description'])) {
-        $replimg .= ' alt="' . str_replace('"', '&quot;', $dbinfo['description']) . '"';
-    } elseif (! empty($dbinfo['name'])) {
-        $replimg .= ' alt="' . str_replace('"', '&quot;', $dbinfo['name']) . '"';
-    } else {
-        $replimg .= ' alt="Image"';
-    }
+
     //usemap
     if (! empty($imgdata['usemap'])) {
         $replimg .= ' usemap="#' . $imgdata['usemap'] . '"';
@@ -1355,70 +1345,56 @@ function wikiplugin_img($data, $params)
 
     //title (also used for description and link title below)
     //first set description, which is used for title if no title is set
-    if (! empty($imgdata['desc']) || ! empty($imgdata['title'])) {
-        $desconly = '';
-        //attachment database uses comment instead of description or name
-        if (! empty($dbinfo['comment'])) {
-            $desc = $dbinfo['comment'];
-            $imgname = $dbinfo['comment'];
-        } else {
-            $desc = ! empty($dbinfo['description']) ? str_replace('"', '&quot;', $dbinfo['description']) : '';
-            $imgname = ! empty($dbinfo['name']) ? str_replace('"', '&quot;', $dbinfo['name']) : '';
-        }
-        if (! empty($imgdata['desc'])) {
-            switch ($imgdata['desc']) {
-                case 'desc':
-                    $desconly = $desc;
-                    break;
-                case 'idesc':
-                    $desconly = $idesc;
-                    break;
-                case 'name':
-                    $desconly = $imgname;
-                    break;
-                case 'ititle':
-                    $desconly = $ititle;
-                    break;
-                case 'namedesc':
-                    $desconly = $imgname . ((! empty($imgname) && ! empty($desc)) ? ' - ' : '') . $desc;
-                    break;
-                default:
-                    $desconly = $imgdata['desc'];
-            }
-        }
-        //now set title
-        $imgtitle = '';
-        $titleonly = '';
-        if (! empty($imgdata['title']) || ! empty($desconly)) {
-            $imgtitle = ' title="';
-            if (! empty($imgdata['title'])) {
-                switch ($imgdata['title']) {
-                    case 'desc':
-                        $titleonly = $desc;
-                        break;
-                    case 'name':
-                        $titleonly = $imgname;
-                        break;
-                    case 'namedesc':
-                        $titleonly = $imgname . ((! empty($imgname) && ! empty($desc)) ? ' - ' : '') . $desc;
-                        break;
-                    default:
-                        $titleonly = $imgdata['title'];
-                }
-            //use desc setting for title if title is empty
-            } else {
-                $titleonly = $desconly;
-            }
-            $imgtitle .= $titleonly . '"';
-            $replimg .= $imgtitle;
-        }
+    $desconly = '';
+    //attachment database uses comment instead of description or name
+    if (! empty($dbinfo['comment'])) {
+        $desc = $dbinfo['comment'];
+        $imgname = $dbinfo['comment'];
+    } else {
+        $desc = ! empty($dbinfo['description']) ? str_replace('"', '&quot;', $dbinfo['description']) : '';
+        $imgname = ! empty($dbinfo['name']) ? str_replace('"', '&quot;', $dbinfo['name']) : '';
     }
+    // The match expression branches evaluation based on an identity check of a value. https://www.php.net/manual/en/control-structures.match.php
+    if (! empty($imgdata['desc'])) {
+        $desconly = match ($imgdata['desc']) {
+            'desc' => $desc,
+            'idesc' => $idesc ?? '',
+            'name' => $imgname,
+            'ititle' => $ititle ?? '',
+            'namedesc' => $imgname . ((! empty($imgname) && ! empty($desc)) ? ' - ' : '') . $desc,
+            default => $imgdata['desc'],
+        };
+    }
+
+    //now set title
+    $imgtitle = '';
+    $titleonly = '';
+    if (! empty($imgdata['title']) || ! empty($desconly)) {
+        $titleonly = ! empty($imgdata['title']) ? match ($imgdata['title']) {
+            'desc' => $desc,
+            'name' => $imgname,
+            'namedesc' => $imgname . ((! empty($imgname) && ! empty($desc)) ? ' - ' : '') . $desc,
+            default => $imgdata['title'],
+        } : $desconly;
+        $imgtitle = ' title="' . $titleonly . '"';
+        $replimg .= $imgtitle;
+    }
+    //alt
+    $altText = ! empty($imgdata['alt']) ? match ($imgdata['alt']) {
+        'desc' => $desc,
+        'name' => $imgname,
+        'namedesc' => $imgname . ((! empty($imgname) && ! empty($desc)) ? ' - ' : '') . $desc,
+        default => $imgdata['alt'],
+    } : (empty($desconly) ? "Image" : $desconly);
+
+    $replimg .= ' alt="' . $altText . '"';
 
     if (empty($repldata)) {
         $replimg .= ' />' . "\r";
     } else {
         $replimg .= '>' . $repldata . '</' . $tagName . '>';
     }
+
 
     ////////////////////////////////////////// Create the HTML link ///////////////////////////////////////////
     //Variable for identifying if javascript mouseover is set
