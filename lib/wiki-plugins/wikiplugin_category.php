@@ -44,7 +44,6 @@ function wikiplugin_category_info()
                     ['text' => tra('Survey'), 'value' => 'survey'],
                     ['text' => tra('Tracker'), 'value' => 'tracker'],
                     ['text' => tra('Wiki'), 'value' => 'wiki'],
-                    ['text' => tra('Image gallery'), 'value' => 'img'],
                 ],
                 'filter' => 'text',
                 'default' => '*',
