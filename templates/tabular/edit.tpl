@@ -10,7 +10,7 @@
 
 {block name="content"}
     <div class="table-responsive">
-        <form class="edit-tabular" method="post" action="{service controller=tabular action=edit tabularId=$tabularId}">
+        <form id="edit-tabular" class="edit-tabular" method="post" action="{service controller=tabular action=edit tabularId=$tabularId}">
             <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Name{/tr}</label>
                 <div class="col-sm-10">
@@ -451,7 +451,7 @@
                                     <td><input class="unique-key form-check-input" type="checkbox"></td>
                                     <td><input class="read-only form-check-input" type="checkbox"></td>
                                     <td><input class="export-only form-check-input" type="checkbox"></td>
-                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
+                                    <td class="text-end"><button class="remove btn btn-sm btn-outline-warning" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
                                 </tr>
                                 {foreach $schema->getColumns() as $column}
                                     <tr>
@@ -501,6 +501,11 @@
                                 {/foreach}
                             </tbody>
                             <tfoot>
+                                <tr class="mt-3">
+                                    <td class="d-none" id="tr-save-fields">
+                                        <input type="submit" id="btn-save-fields" class="btn btn-primary d-none" value="{tr}Save fields{/tr}" onclick="$(window).off('beforeunload');return true;" form="edit-tabular">
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
                                         <select class="selection form-select">
@@ -535,11 +540,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3 row submit">
-                <div class="col-sm-10 offset-sm-2">
-                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
-                </div>
-            </div>
+            
             <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Filters{/tr}</label>
                 <div class="col-sm-10">
@@ -603,6 +604,11 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <td colspan="3">
+                                        <textarea name="filters" class="d-none w-100 my-2">{$filterCollection->getFilterDescriptor()|json_encode}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>
                                         <select class="selection form-select">
                                             <option disabled="disabled" selected="selected">{tr}Select a field...{/tr}</option>
@@ -625,11 +631,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3 row submit">
-                <div class="col-sm-10 offset-sm-2">
-                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
-                </div>
-            </div>
+
             <fieldset class="row mb-3">
                 <legend class="col-form-label col-sm-2 pt-0">{tr}Options{/tr}</legend>
                 <div class="col-sm-5">

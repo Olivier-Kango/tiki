@@ -51,3 +51,10 @@
         <a class="btn btn-link" href="{service controller=tabular action=manage}" role="button">{icon name=home} {tr}Manage{/tr}</a>
     {/permission}
 </div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    {permission name=admin_trackers}
+        {if $mode eq 'edit'}
+           <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;" form="edit-tabular">
+        {/if}
+    {/permission}
+</div>
