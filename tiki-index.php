@@ -778,6 +778,24 @@ if ($prefs['feature_forums'] && $prefs['feature_wiki_discuss'] == 'y' && $prefs[
 if (strtolower($_REQUEST["page"]) === 'sandbox') {
     $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 }
+
+// Check if the user is allowed to see wiki actions
+$showWikiActions = true; // Default to showing for all users
+if (! empty($prefs['wiki_page_actions_groups'])) {
+    $allowedGroups = (array)$prefs['wiki_page_actions_groups'];
+
+    if (! empty($allowedGroups)) {
+        $userGroups = Perms::get()->getGroups();
+
+        // Check if any user groups are in allowed groups (case-insensitive)
+        $showWikiActions = (bool)array_uintersect(
+            $userGroups,
+            $allowedGroups,
+            'strcasecmp'
+        );
+    }
+}
+$smarty->assign('show_wiki_actions', $showWikiActions);
 $smarty->assign('info', $info);
 $smarty->assign('mid', 'tiki-show_page.tpl');
 $smarty->display('tiki-show_page.tpl');

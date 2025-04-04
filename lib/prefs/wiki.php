@@ -859,6 +859,21 @@ function prefs_wiki_list($partial = false)
             'dependencies' => [
                 'feature_wiki_description'
             ]
-        ]
+        ],
+        'wiki_page_actions_groups' => [
+            'name' => tra('Groups that can see wiki page actions button'),
+            'description' => tra('Control which user groups see the page actions button at the top of wiki pages.'),
+            'type' => 'list',
+            'options' => [
+                'type' => 'group',
+                'format' => 'name',
+            ],
+            'default' => [],
+            'tags' => ['basic'],
+            'help' => 'Page-Actions-Button',
+            'profile_reference' => 'group',
+            'separator' => ',',
+            'hint' => tra('Leave empty to show to all groups'),
+        ],
     ];
 }

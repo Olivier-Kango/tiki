@@ -29,10 +29,11 @@
 {if !isset($versioned) and $print_page ne 'y'}
     <div class="wikiactions_wrapper clearfix">
     {strip}
+    {if $show_wiki_actions}
         <div class="wikiactions d-flex justify-content-end mb-2">
             <div class="btn-group ms-2">
                 {* Show language dropdown only if there is more than 1 language or user has right to edit *}
-                {if ($tiki_p_admin eq 'y' or $tiki_p_admin_wiki eq 'y' or $tiki_p_edit eq 'y' or $tiki_p_edit eq 'y' or $tiki_p_edit_inline eq 'y') or (isset($translationsCount) and $translationsCount gt 1)}
+                {if ($tiki_p_admin eq 'y' or $tiki_p_admin_wiki eq 'y' or $tiki_p_edit eq 'y' or $tiki_p_edit_inline eq 'y') or (isset($translationsCount) and $translationsCount gt 1)}
                     {if $prefs.feature_multilingual eq 'y' && $prefs.show_available_translations eq 'y' && $machine_translate_to_lang eq '' }
                         {*span class="btn-i18n" *}
                         {include file='translated-lang.tpl' object_type='wiki page'}
@@ -49,7 +50,7 @@
                             //Create your sharelet with desired properties and set button element to false
                             var object = SHARETHIS.addEntry({ title:'{/literal}{$page|escape:"url"}{literal}'}, {button:false});
                             //Output your customized button
-                            document.write('<a class="btn btn-info btn-sm tips" id="share" href="#"{/literal} title="{tr}ShareThis{/tr}" role="button">{icon name="sharethis"}{literal}</a>');
+                            document.write('<a class="btn btn-outline-secondary btn-sm opacity-75 tips" id="share" href="#"{/literal} title="{tr}ShareThis{/tr}" role="button">{icon name="sharethis"}{literal}</a>');
                             //Tie customized button to ShareThis button functionality.
                             var element = document.getElementById("share");
                             object.attachButton(element);
@@ -62,9 +63,9 @@
                     <div class="btn-group backlinks">
                         {if ! $js}<ul><li>{/if}
                         {if $backlinks|count eq 1}
-                        <a href="#" role="button" data-bs-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}1 page is linked to this page{/tr}">
+                        <a href="#" role="button" data-bs-toggle="dropdown" class="btn btn-outline-secondary btn-sm opacity-75 dropdown-toggle" title="{tr}1 page is linked to this page{/tr}">
                         {elseif $backlinks|count gt 1}
-                        <a href="#" role="button" data-bs-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr _0=$backlinks|count}%0 pages are linked to this page{/tr}">
+                        <a href="#" role="button" data-bs-toggle="dropdown" class="btn btn-outline-secondary btn-sm opacity-75 dropdown-toggle" title="{tr _0=$backlinks|count}%0 pages are linked to this page{/tr}">
                         {/if}
                             {icon name="backlink"}
                             <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill bg-secondary">{$backlinks|count}</span>
@@ -98,7 +99,7 @@
                 {if $structure eq 'y' or ( $structure eq 'n' and count($showstructs) neq 0 )}
                     <div class="btn-group structures">
                         {if ! $js}<ul><li>{/if}
-                        <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" title="{tr}Structures{/tr}" role="button">
+                        <a href="#" class="btn btn-outline-secondary btn-sm opacity-75 dropdown-toggle" data-bs-toggle="dropdown" title="{tr}Structures{/tr}" role="button">
                             {icon name="structure"}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" role="menu">
@@ -134,7 +135,7 @@
                 {assign var="hasPageAction" value="0"}
                 {capture name="pageActions"}
                     {if ! $js}<ul><li>{/if}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" href="#"  title="{tr}Page actions{/tr}" role="button">
+                    <a class="btn btn-outline-secondary btn-sm opacity-75 dropdown-toggle" data-bs-toggle="dropdown" href="#"  title="{tr}Page actions{/tr}" role="button">
                         {icon name="menu-extra"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
@@ -324,6 +325,7 @@
                 {/if}
             </div>
         </div> {* END of wikiactions *}
+        {/if}
     {/strip}
     </div>
 {/if}

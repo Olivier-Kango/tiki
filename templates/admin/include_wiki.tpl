@@ -54,6 +54,7 @@
                     {preference name=wiki_collapse_expand_all_headings}
                     {preference name=wiki_page_navigation_bar}
                     {preference name=wiki_topline_position}
+                    {preference name=wiki_page_actions_groups}
                     {preference name=page_bar_position}
                 </fieldset>
             </div>
