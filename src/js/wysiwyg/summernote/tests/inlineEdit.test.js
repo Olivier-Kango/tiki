@@ -10,7 +10,7 @@ vi.mock("../initSummernote.js", () => {
             const target = $(`#${id}`);
             target.data("summernote", {
                 layoutInfo: {
-                    editor: $("<div></div>").attr("id", "editor-" + id),
+                    editor: $("<div class='note-editor'></div>").attr("id", "editor-" + id),
                 },
             });
             target.after(target.data("summernote").layoutInfo.editor);
@@ -31,8 +31,14 @@ describe("inlineEdit", () => {
 
         $.service = vi.fn().mockReturnValue("service-url");
 
-        $.fn.summernote = vi.fn();
+        $.fn.summernote = vi.fn(function (action) {
+            if (action === "destroy") {
+                $(this).next(".note-editor").remove();
+            }
+        });
         $.fn.tikiModal = vi.fn();
+
+        vi.useFakeTimers();
     });
 
     afterEach(() => {
@@ -138,6 +144,9 @@ describe("inlineEdit", () => {
                 // Clicking again the content should show the editor
                 $(this).children().first().trigger("click");
                 expect(initSummernote).toHaveBeenCalledTimes((index + 1) * 2);
+
+                // close the editor to clean up
+                $(`#editor-${this.id} + .inline-editor-actions`).find("button").eq(0).trigger("click");
             });
         });
 
@@ -192,6 +201,42 @@ describe("inlineEdit", () => {
             expect(inlineEditor.tikiModal).toHaveBeenCalledWith();
             // show an error message
             expect(showMessage).toHaveBeenCalledWith("Translated", "error");
+        });
+
+        test("should prevent the initialization of a new editor if one is already open, and highlight the later", () => {
+            const givenPageData = $(`
+                <div id="page-data">
+                    <div class="inline-editor-content">
+                        <div>content 1</div>
+                        <div>content 2</div>
+                    </div>
+                </div>`);
+            givenPageData.appendTo("body");
+
+            inlineEdit([], "en", "page");
+
+            const inlineEditor = givenPageData.find(".inline-editor").first();
+            const secondInlineEditor = givenPageData.find(".inline-editor").last();
+
+            // Open the editor
+            inlineEditor.children().first().trigger("click");
+            expect(initSummernote).toHaveBeenCalledWith(inlineEditor[0].id, [], { lang: "en" });
+            const scrollIntoViewSpy = vi.spyOn(inlineEditor.next(".note-editor")[0], "scrollIntoView");
+
+            secondInlineEditor.children().first().trigger("click");
+            expect(initSummernote).not.toHaveBeenCalledWith(secondInlineEditor[0].id, [], { lang: "en" });
+            expect(initSummernote).toHaveBeenCalledTimes(1);
+            expect(inlineEditor.next(".note-editor").hasClass("highlight")).toBe(true);
+
+            // should scroll to the editor
+            expect(scrollIntoViewSpy).toHaveBeenCalledWith({
+                behavior: "smooth",
+                block: "center",
+                inline: "nearest",
+            });
+
+            vi.advanceTimersByTime(2000);
+            expect(inlineEditor.next(".note-editor").hasClass("highlight")).toBe(false);
         });
     });
 });

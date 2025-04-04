@@ -1178,6 +1178,9 @@ h6:hover .heading-link {
 .inline-editor + .note-editor .note-statusbar {
     display: none;
 }
+.inline-editor + .note-editor.highlight {
+    border-color: var(--bs-primary);
+}
 
 @media (max-width: 768px) {
     .viewtextfile-viewer-container {

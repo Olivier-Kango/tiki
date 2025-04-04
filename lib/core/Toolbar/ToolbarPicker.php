@@ -189,8 +189,8 @@ class ToolbarPicker extends ToolbarDialog
                 emoji: "sunglasses"
             }
         },
-    })
-    onDOMElementRemoved(' . json_encode($this->singleSpaDomId) . ', function () {
+    });
+    onDOMElementRemoved("' . $data['pickerId'] . '", function () {
         window.unregisterApplication(' . json_encode($this->singleSpaAppName) . ');
     });';
     }

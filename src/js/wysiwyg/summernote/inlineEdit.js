@@ -36,11 +36,25 @@ export default function (toolbar, lang, page) {
             const id = "inline-edit-" + Math.random().toString(36).substring(7);
 
             $(this).wrap(`<div id="${id}" class="inline-editor"></div>`);
-            $(this).on("click", (e) => {
-                e.preventDefault();
-                toggleInlineEditor(id, toolbar, lang, page);
-            });
+            $(this).on("click", handleEditorEntryClick.bind(this, id, toolbar, lang, page));
         });
+}
+
+function handleEditorEntryClick(id, toolbar, lang, page) {
+    const activeEditor = $(".inline-editor + .note-editor");
+    if (!activeEditor.length) {
+        toggleInlineEditor(id, toolbar, lang, page);
+    } else {
+        activeEditor.addClass("highlight");
+        activeEditor[0].scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest",
+        });
+        setTimeout(() => {
+            activeEditor.removeClass("highlight");
+        }, 2000);
+    }
 }
 
 function toggleInlineEditor(id, toolbar, lang, page) {
@@ -63,9 +77,7 @@ function toggleInlineEditor(id, toolbar, lang, page) {
             .children()
             .first()
             .each(function () {
-                $(this).on("click", function () {
-                    toggleInlineEditor(id, toolbar, lang, page);
-                });
+                $(this).on("click", handleEditorEntryClick.bind(this, id, toolbar, lang, page));
             });
     };
 
@@ -96,4 +108,6 @@ function toggleInlineEditor(id, toolbar, lang, page) {
                 showMessage(tr("An error occurred while saving the content."), "error");
             });
     });
+
+    $.noteEditorId = id;
 }

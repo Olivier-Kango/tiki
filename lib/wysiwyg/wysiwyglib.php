@@ -38,7 +38,7 @@ class WYSIWYGLib
 
         $params = [
             '_wysiwyg'     => 'y',
-            'area_id'      => 'page-data',
+            'area_id'      => false,
             'comments'     => '',
             '_is_html'      => 'y',  // temporary element id
             'switcheditor' => 'n',
