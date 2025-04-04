@@ -23,6 +23,8 @@ class Autoload
         'InstallerDatabaseErrorHandler' => 'Tiki\\Installer\\InstallerDatabaseErrorHandler',
         'LogsLib' => 'Tiki\\Lib\\Logs\\LogsLib',
         'LogsQueryLib' => 'Tiki\\Lib\\Logs\\LogsQueryLib',
+        'PluginsLibUtil' => 'Tiki\\Lib\\Wiki\\PluginsLibUtil',
+        'PluginsLib' => 'Tiki\\Lib\\Wiki\\PluginsLib',
         'Tiki_Webservice_Template' => 'Tiki\\Lib\\TikiWebServiceTemplate',
         'WikiParser_PluginMatcher_Match' => 'Tiki\\WikiParser\\PluginMatcherMatch',
         'WikiLibOutput' => 'Tiki\\Lib\\Wiki\\WikiLibOutput',

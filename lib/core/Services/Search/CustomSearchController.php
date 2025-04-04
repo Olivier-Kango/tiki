@@ -7,6 +7,7 @@
 // Controller to process requests from the custom search plugin using the list plugin to display results
 // Refactored from customsearch_ajax.php for Tiki
 
+use Tiki\Lib\Wiki\PluginsLibUtil;
 
 class Services_Search_CustomSearchController
 {
@@ -190,7 +191,6 @@ class Services_Search_CustomSearchController
         $facetsBuilder->build($query, $unifiedsearchlib->getFacetProvider());
 
         $index = $unifiedsearchlib->getIndex();
-        require_once 'lib/wiki/pluginslib.php';
         PluginsLibUtil::handleDownload($query, $index, $matches, $input->asArray());
         $resultSet = $query->search($index);
         if (! empty($_SESSION['tikifeedback']) && $_SESSION['tikifeedback'][0]['type'] === 'error') {

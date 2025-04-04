@@ -4957,7 +4957,7 @@ lib/wiki/exportlib.php -text
 lib/wiki/flaggedrevisionlib.php -text
 lib/wiki/histlib.php -text
 lib/wiki/index.php -text
-lib/wiki/pluginslib.php -text
+lib/wiki/PluginsLib.php -text
 lib/wiki/quantifylib.php -text
 lib/wiki/renderlib.php -text
 lib/wiki/semanticlib.php -text

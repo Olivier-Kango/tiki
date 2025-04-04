@@ -2308,10 +2308,6 @@
         "lib\/wiki\/wikilib.php": {
             "class:WikiLib": true
         },
-        "lib\/wiki\/pluginslib.php": {
-            "class:PluginsLib": true,
-            "class:PluginsLibUtil": true
-        },
         "lib\/wiki\/quantifylib.php": {
             "class:QuantifyLib": true
         },
@@ -3976,9 +3972,6 @@
         },
         "lib\/wiki\/xmllib.php": {
             "class:page_Parser": true
-        },
-        "lib\/wiki\/pluginslib.php": {
-            "class:PluginsLibUtil": true
         },
         "lib\/wiki-plugins\/wikiplugin_fitnesse.php": {
             "class:FixtureMockTrackerField": true
