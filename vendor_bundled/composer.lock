@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7511d1ee837769e4878f96b2093585c2",
+    "content-hash": "79527495b4f481bbabc8a54eb576a3a8",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -15350,20 +15350,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.16",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e0bb5cb78545aae631220735aa706eac633a6be9"
+                "reference": "7d08f569e582ade182a375c366cbd896eccadd3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-e0bb5cb78545aae631220735aa706eac633a6be9-zip-c6bc53.zip",
-                "reference": "e0bb5cb78545aae631220735aa706eac633a6be9",
-                "shasum": "1af83eca7acb674fe48ef6194a41cce61f1328e2"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan/phpstan-phpstan-7d08f569e582ade182a375c366cbd896eccadd3a-zip-1425d8.zip",
+                "reference": "7d08f569e582ade182a375c366cbd896eccadd3a",
+                "shasum": "9655434f1b57b31da7471ebc0f49ef4d2bff2a75"
             },
             "require": {
-                "php": "^7.2|^8.0"
+                "php": "^7.4|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -15397,30 +15397,30 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-21T14:50:05+00:00"
+            "time": "2025-01-21T14:54:06+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
-            "version": "1.2.1",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
-                "reference": "f94d246cc143ec5a23da868f8f7e1393b50eaa82"
+                "reference": "1cc1259cb91ee4cfbb5c39bca9f635f067c910b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpstan/phpstan-deprecation-rules/phpstan-phpstan-deprecation-rules-f94d246cc143ec5a23da868f8f7e1393b50eaa82-zip-c5997d.zip",
-                "reference": "f94d246cc143ec5a23da868f8f7e1393b50eaa82",
-                "shasum": "d6efceed0699f2d3b92d11e9920c04c1905db493"
+                "url": "https://composer.tiki.org/dist/phpstan/phpstan-deprecation-rules/phpstan-phpstan-deprecation-rules-1cc1259cb91ee4cfbb5c39bca9f635f067c910b4-zip-29beec.zip",
+                "reference": "1cc1259cb91ee4cfbb5c39bca9f635f067c910b4",
+                "shasum": "b10087fb887a8eb1f6a89bfe8ab1e48baf969888"
             },
             "require": {
-                "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.12"
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^2.0"
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^9.5"
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -15440,7 +15440,7 @@
                 "MIT"
             ],
             "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
-            "time": "2024-09-11T15:52:35+00:00"
+            "time": "2024-11-28T21:56:36+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -15884,21 +15884,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "1.0.5",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "73eb63e4f9011dba6b7c66c3262543014e352f34"
+                "reference": "e70d681f6a0c361a63e6825897cd97746436f015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-73eb63e4f9011dba6b7c66c3262543014e352f34-zip-c877b7.zip",
-                "reference": "73eb63e4f9011dba6b7c66c3262543014e352f34",
-                "shasum": "8b57de9f765490f3e0f82b28580ef347c2738a94"
+                "url": "https://composer.tiki.org/dist/rector/rector/rector-rector-e70d681f6a0c361a63e6825897cd97746436f015-zip-dbf4ee.zip",
+                "reference": "e70d681f6a0c361a63e6825897cd97746436f015",
+                "shasum": "b17d77aa878337a853819408cf8fc8a59245e93c"
             },
             "require": {
-                "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.57"
+                "php": "^7.4|^8.0",
+                "phpstan/phpstan": "^2.1.1"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -15935,7 +15935,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-10T05:31:15+00:00"
+            "time": "2025-01-19T09:41:28+00:00"
         },
         {
             "name": "sebastian/cli-parser",
