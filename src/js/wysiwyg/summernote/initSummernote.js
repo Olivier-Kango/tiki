@@ -36,5 +36,6 @@ export default function (areaId, toolbar, options) {
     });
 
     Handlers.formSubmission(target);
+    Handlers.dirtyCheck(target);
     Handlers.pluginEdit(areaId);
 }

@@ -70,8 +70,11 @@ function toggleInlineEditor(id, toolbar, lang, page) {
     const editor = target.data("summernote").layoutInfo.editor;
     editor.after(actions);
 
-    const closeEditor = () => {
+    const closeEditor = (cancelling) => {
         target.summernote("destroy");
+        if (cancelling) {
+            target.html(initialValue);
+        }
         actions.remove();
         target
             .children()
@@ -82,8 +85,7 @@ function toggleInlineEditor(id, toolbar, lang, page) {
     };
 
     cancelButton.on("click", function () {
-        target.html(initialValue);
-        closeEditor();
+        closeEditor(true);
     });
 
     saveButton.on("click", function () {

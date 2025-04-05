@@ -14,6 +14,7 @@ vi.mock("../handlers/index", () => ({
     formSubmission: vi.fn(),
     pluginEdit: vi.fn(),
     customCodeview: vi.fn(),
+    dirtyCheck: vi.fn(),
 }));
 
 vi.mock("../../../vue-widgets/element-plus-ui/src/utils/showMessage", () => {
@@ -80,6 +81,7 @@ describe("initSummernote", () => {
         expect(plugin).toHaveBeenCalled();
         expect(expectedRenderCallbacks[1]).toHaveBeenCalled();
         expect(Handlers.formSubmission).toHaveBeenCalledWith(givenTextarea);
+        expect(Handlers.dirtyCheck).toHaveBeenCalledWith(givenTextarea);
         expect(Handlers.pluginEdit).toHaveBeenCalledWith(id);
     });
 
