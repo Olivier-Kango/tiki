@@ -40,6 +40,7 @@ describe("formSubmission handler", () => {
 
         expect(form.data("should-parse-editor-data")).toBe(false);
         expect(form.data("submitted")).toBe(false);
+        expect(textarea.data("is-submitting")).toBe(true);
         expect(form.get(0).submit).toHaveBeenCalled();
     });
 

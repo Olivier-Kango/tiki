@@ -43,6 +43,22 @@ describe("dirtyCheck handler", () => {
         expect(preventDefaultSpy).not.toHaveBeenCalled();
     });
 
+    test("should not prevent the window from reloading when the textarea is being submitted", () => {
+        const textarea = $("<textarea></textarea>");
+        textarea.data("summernote", {});
+        const event = new Event("beforeunload");
+        const preventDefaultSpy = vi.spyOn(event, "preventDefault");
+
+        dirtyCheck(textarea);
+
+        textarea.val("new value");
+        textarea.data("is-submitting", true);
+
+        window.dispatchEvent(event);
+
+        expect(preventDefaultSpy).not.toHaveBeenCalled();
+    });
+
     test("shoudld prevent the window from reloading when the textarea has unsaved changes", () => {
         const textarea = $("<textarea></textarea>");
         textarea.data("summernote", {});

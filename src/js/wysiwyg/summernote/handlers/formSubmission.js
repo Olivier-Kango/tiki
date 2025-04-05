@@ -12,6 +12,7 @@ export default function (textarea) {
 
         parseData(textarea, () => {
             form.data("should-parse-editor-data", false);
+            textarea.data("is-submitting", true);
             const submitter = e.originalEvent?.submitter;
             if (submitter) {
                 $(submitter).trigger("click");
