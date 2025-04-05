@@ -24,7 +24,6 @@
 time.timeago {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
     transition: border-color 0.2s ease;
-    cursor: help;
 }
 
 time.timeago:hover {

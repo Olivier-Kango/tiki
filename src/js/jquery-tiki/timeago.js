@@ -4,7 +4,7 @@
     if (typeof $.timeago === "function") {
         $.timeago.settings.allowFuture = true;
         $.timeago.settings.refreshMillis = 60000;
-        $.timeago.settings.cutoff = 1000 * 60 * 60 * 24 * 30;
+        $.timeago.settings.cutoff = 0;
 
         $.fn.tikiTimeago = function () {
             return this.each(function () {
@@ -12,6 +12,11 @@
                 var datetime = $time.attr("datetime");
 
                 if (datetime) {
+                    // Set title for tooltip if not already set
+                    if (!$time.attr("title")) {
+                        var date = new Date(datetime);
+                        $time.attr("title", date.toLocaleString());
+                    }
                     $time.timeago();
 
                     // Use tooltip instead of popover
