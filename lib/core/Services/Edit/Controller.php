@@ -330,6 +330,34 @@ $(window).on("load", function(){
         ];
     }
 
+    public function actionPostEditorSettings($input)
+    {
+        $editor = $input->editor->word();
+        $syntax = $input->syntax->word();
+        $data = $input->data->none();
+
+
+        $converted = TikiLib::lib('edit')->parseToWiki($data);
+
+        if ($syntax === 'markdown') {
+            $converted = TikiLib::lib('edit')->convertWikiSyntax(
+                $converted,
+                $syntax,
+                $input->page->word()
+            );
+        } elseif ($syntax === 'tiki' && $editor === 'wysiwyg') {
+            $converted = TikiLib::lib('edit')->parseToWysiwyg($data, true, false, ['wysiwyg' => true, 'html_editor' => true]);
+        }
+
+        return [
+            'wysiwyg' => $input->editor->word() === 'wysiwyg' ? 'y' : 'n',
+            'syntax' => $syntax,
+            'content' => $converted,
+            'domId' => $input->domId->word(),
+            'domName' => $input->domName->raw(),
+        ];
+    }
+
     public function action_inline_dialog($input)
     {
         $smarty = TikiLib::lib('smarty');
