@@ -314,7 +314,12 @@ function wikiplugin_listexecute($data, $params, $offset, $parser)
 </form>~/np~';
     }
 
-    if (! empty($parser->option['mark_plugins']) && in_array($fingerprint, $parser->option['mark_plugins'])) {
+    $mark_plugins = $parser->option['mark_plugins'];
+    if (empty($mark_plugins && ! empty(TikiLib::lib('parser')->core_options['mark_plugins']))) {
+        $mark_plugins = TikiLib::lib('parser')->core_options['mark_plugins'];
+    }
+
+    if (! empty($mark_plugins) && in_array($fingerprint, $mark_plugins)) {
         $formatted = "~$fingerprint~" . $formatted . "~/$fingerprint~";
     }
 
