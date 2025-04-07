@@ -34,7 +34,7 @@ class GalleryMigrateCommand extends Command
         if ($fileGalLib->is_default_gallery_writable()) {
             $containerGalleryId = $fileGalLib->migrateFilesFromImageGalleries();
 
-            if ($containerGalleryId) {
+            if ($containerGalleryId > 0) {
                 $output->writeln('<info>' . tr('All image galleries and files migrated to file gallery #%0', $containerGalleryId) . '</info>');
                 $logslib->add_action(
                     'gallery migrate',
@@ -50,7 +50,7 @@ class GalleryMigrateCommand extends Command
                     );
                 }
             } else {
-                $output->writeln('<error>' . tr('Something went wrong so please check errors output here or php logs') . '</error>');
+                $output->writeln('<info>' . tr('No image files found to migrate.') . '</info>');
             }
         } else {
             $output->writeln('<error>' . tr('No files migrated, default file gallery path is not writable.') . '</error>');
