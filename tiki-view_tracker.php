@@ -612,7 +612,7 @@ if (isset($tracker_info['useRatings']) && $tracker_info['useRatings'] == 'y' && 
 }
 
 // Generate validation js
-if ($prefs['feature_jquery'] == 'y' && $prefs['feature_jquery_validation'] == 'y') {
+if ($prefs['feature_jquery_validation'] == 'y') {
     $validatorslib = TikiLib::lib('validators');
     $validationjs = $validatorslib->generateTrackerValidateJS($trackerDefinition);
     $smarty->assign('validationjs', $validationjs);

@@ -12,7 +12,7 @@ function wikiplugin_trackertoggle_info()
         'description' => tra("Adjust the visibility of content based on a tracker field's value, possibly dynamically"),
         'iconname' => 'trackers',
         'introduced' => 7,
-        'prefs' => ['wikiplugin_trackertoggle', 'feature_jquery', 'feature_trackers'],
+        'prefs' => ['wikiplugin_trackertoggle','feature_trackers'],
         'params' => [
             'fieldId' => [
                 'required' => true,

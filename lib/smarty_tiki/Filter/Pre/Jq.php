@@ -12,7 +12,6 @@ namespace SmartyTiki\Filter\Pre;
  * -------------------------------------------------------------
  * Prefilter {jq} contents - replace {{ with {literal} etc
  *
- * Doesn't check $prefs['feature_jquery'] here as prefilter only loaded if enabled (in lib/setup/javascript.php)
  * -------------------------------------------------------------
  */
 class Jq implements \Smarty\Filter\FilterInterface

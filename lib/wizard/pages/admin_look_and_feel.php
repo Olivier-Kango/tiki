@@ -65,34 +65,34 @@ class AdminWizardLookAndFeel extends Wizard
         $smarty->assign('thumbfile', $thumbfile);
 
 // hash of themes and their options and their thumbnail images
-        if ($prefs['feature_jquery'] == 'y') {
+
             $js = 'var theme_options = {';
-            foreach ($themes as $theme => $value) {
-                $js .= "\n'$theme':['" . $themelib->get_thumbnail_file($theme, '') . '\',{';
-                $options = $themelib->list_theme_options($theme);
-                if ($options) {
-                    foreach ($options as $option) {
-                        $js .= "'$option':'" . $themelib->get_thumbnail_file($theme, $option) . '\',';
-                    }
-                    $js = substr($js, 0, strlen($js) - 1) . '}';
-                } else {
-                    $js .= '}';
+        foreach ($themes as $theme => $value) {
+            $js .= "\n'$theme':['" . $themelib->get_thumbnail_file($theme, '') . '\',{';
+            $options = $themelib->list_theme_options($theme);
+            if ($options) {
+                foreach ($options as $option) {
+                    $js .= "'$option':'" . $themelib->get_thumbnail_file($theme, $option) . '\',';
                 }
-                $js .= '],';
+                    $js = substr($js, 0, strlen($js) - 1) . '}';
+            } else {
+                    $js .= '}';
             }
+                $js .= '],';
+        }
             $js = substr($js, 0, strlen($js) - 1);
             $js .= '};';
 
             $js .= 'var theme_layouts = ';
-            foreach ($themes as $theme => $value) {
-                $theme_layouts[$theme] = ThemeLib::listUserSelectableLayouts($theme);
-                $options = $themelib->list_theme_options($theme);
-                if ($options) {
-                    foreach ($options as $option) {
-                        $theme_layouts[$theme . ':' . $option] = ThemeLib::listUserSelectableLayouts($theme, $option);
-                    }
+        foreach ($themes as $theme => $value) {
+            $theme_layouts[$theme] = ThemeLib::listUserSelectableLayouts($theme);
+            $options = $themelib->list_theme_options($theme);
+            if ($options) {
+                foreach ($options as $option) {
+                    $theme_layouts[$theme . ':' . $option] = ThemeLib::listUserSelectableLayouts($theme, $option);
                 }
             }
+        }
             //encode $theme_layouts into json to allow js below to fetch layouts based on theme selected by user
             $theme_layouts_js = json_encode($theme_layouts);
             $js .= $theme_layouts_js . ";";
@@ -189,8 +189,6 @@ class AdminWizardLookAndFeel extends Wizard
 });
 JS
             );
-        }
-
 //        // find thumbnail if there is one
 //      $a_style = $prefs['site_style'];
 //          // just changed theme menu, so refill options

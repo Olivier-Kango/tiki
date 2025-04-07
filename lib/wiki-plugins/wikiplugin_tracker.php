@@ -1901,7 +1901,7 @@ function wikiplugin_tracker($data, $params)
             $headerlib->clear_js();                             // so store existing js for later and clear
         }
 
-        if ($prefs['feature_jquery'] == 'y' && $prefs['feature_jquery_validation'] == 'y') {
+        if ($prefs['feature_jquery_validation'] == 'y') {
             $validatorslib = TikiLib::lib('validators');
             $customvalidation = '';
             $customvalidation_m = '';

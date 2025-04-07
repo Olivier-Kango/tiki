@@ -21,7 +21,6 @@ $smarty->assign('js', 1);
 $smarty->assign('libeg', '');
 $smarty->assign('liend', '');
 $plus_one_year = ($tikilib->now + 365 * 24 * 3600) * 1000;      // ms
-$prefs['feature_jquery'] = 'y'; // just in case
 
 // load translations lang object from /lang/xx/language.js if there
 if (file_exists('lang/' . $prefs['language'] . '/language.js')) {

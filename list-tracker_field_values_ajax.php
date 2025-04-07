@@ -13,7 +13,7 @@ $trklib = TikiLib::lib('trk');
 $err = false;
 
 if (
-    $prefs['feature_trackers'] !== 'y' || $prefs['feature_jquery'] !== 'y' || $prefs['feature_jquery_autocomplete'] !== 'y' ||
+    $prefs['feature_trackers'] !== 'y' || $prefs['feature_jquery_autocomplete'] !== 'y' ||
                 empty($_REQUEST['fieldId'])
 ) {
     $err = true;
