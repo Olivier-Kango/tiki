@@ -113,7 +113,6 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                         }
                     },
                     eventDidMount: function (arg) {
-                        console.log();
                         const event = arg.event;
                         const element = $(arg.el);
                         const dayGrid = $(".ec-daygrid").length;
