@@ -88,6 +88,7 @@ function wikiplugin_wysiwyg($data, $params)
         $params['_wysiwyg'] = 'y';
         $params['is_html'] = $contentIsHTML;
         $params['_is_html'] = $contentIsHTML;    // needed for toolbars
+        $params['area_id'] = $exec_key;
         //$params['comments'] = true;
 
         if ($prefs['namespace_enabled'] == 'y' && $prefs['namespace_force_links'] == 'y') {

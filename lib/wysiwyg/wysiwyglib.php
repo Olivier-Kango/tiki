@@ -93,14 +93,15 @@ class WYSIWYGLib
 
         ['lang' => $lang, 'filePath' => $langFilePath] = $this->getEditorLang();
 
+        $loadingIndicatorVar = 'loadingIndicator' . $dom_id;
         $headerlib->add_js_module(<<<JS
-            const loadingIndicator = $($.IMPORT_LOADER_MARKUP);
-            $('#{$dom_id}').after(loadingIndicator);
+            const $loadingIndicatorVar = $($.IMPORT_LOADER_MARKUP);
+            $('#{$dom_id}').after($loadingIndicatorVar);
             $.editorSection = "{$params['section']}";
 
             import('@wysiwyg/summernote').then((module) => {
                 module.loadLanguage('{$langFilePath}', () => {
-                    loadingIndicator.remove();
+                    $loadingIndicatorVar.remove();
                     const options = {lang: '{$lang}'};
                     if ($.editorSection === 'wiki page') {
                         options.height = 600;

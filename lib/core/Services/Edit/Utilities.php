@@ -17,7 +17,7 @@ class Services_Edit_Utilities
 {
     public function replacePlugin($input, $checkCsrf = true)
     {
-        global $user;
+        global $user, $prefs;
 
         $tikilib = TikiLib::lib('tiki');
         $parserlib = TikiLib::lib('parser');
@@ -36,6 +36,16 @@ class Services_Edit_Utilities
 
         if (! $page || ! $type || ! $referer) {
             throw new Services_Exception(tr('Missing parameters'));
+        }
+
+        if (
+            $prefs['wysiwyg_inline_editing'] == 'y' &&
+                (   ($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit')) ||
+                    ($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit_inline')) )
+        ) {
+            // When the inline editing is enabled, each plugin in a page gets executed twice, incrementing by one its index.
+            // The following line is to ensure that the correct index is retained.
+            $index -= 1;
         }
 
         $plugin = strtolower($type);
