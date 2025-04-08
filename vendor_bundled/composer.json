@@ -220,7 +220,7 @@
         "rubix/extras": "2.0.0-beta",
         "rubix/ml": "^2.1",
         "sabre/dav": "~4.4.0",
-        "sentry/sdk": "^3.3",
+        "sentry/sdk": "~3.6",
         "simile_timeline/simile_timeline": "2.3.0",
         "slm/mail": "^4.2",
         "smalot/pdfparser": "^2.11",
@@ -244,7 +244,7 @@
         "teqneers/shamir": "^2.0.0",
         "thomaspark/bootswatch": "~5.1",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",
-        "tikiwiki/ilp-client": "^1.0",
+        "tikiwiki/ilp-client": "~1.0",
         "web-auth/webauthn-lib": "^4.8.7",
         "zbateson/mail-mime-parser": "^2.4",
         "zf1s/zend-service-akismet": "^1.15.2"
