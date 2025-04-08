@@ -155,7 +155,7 @@ class TikiDbBasicAssumptionsPdoTest extends TestCase
     }
 
     /**
-     * Retrieves a TikiDB object, TikiDb_Pdo
+     * Retrieves a TikiDB object, Tiki\TikiDb\PdoDb
      */
     protected function getTikiDb()
     {

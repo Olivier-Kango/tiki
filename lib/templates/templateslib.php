@@ -301,7 +301,7 @@ class TemplatesLib extends TikiLib
      * @param $templateId
      * @param $section
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      * @throws Exception
      */
     public function remove_template_from_section($templateId, $section)
@@ -332,7 +332,7 @@ class TemplatesLib extends TikiLib
     /**
      * @param $templateId
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      * @throws Exception
      */
     public function remove_template($templateId)

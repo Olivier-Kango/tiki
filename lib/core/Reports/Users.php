@@ -54,7 +54,7 @@ class Reports_Users
      * Remove user preferences for reports.
      *
      * @param string $user
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function delete($user)
     {
@@ -71,7 +71,7 @@ class Reports_Users
      * @param string $type         whether the report should be send in plain text or html
      * @param int    $always_email if true the user will receive an e-mail even if there are no changes
      *
-     * @return int|TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return int|Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function save($user, $interval, $view, $type, $always_email = 0)
     {

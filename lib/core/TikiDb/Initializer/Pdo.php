@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\TikiDb\PdoDb;
+
 class TikiDb_Initializer_Pdo
 {
     public function isSupported()
@@ -51,7 +54,7 @@ class TikiDb_Initializer_Pdo
             $dbTiki->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
             //  $dbTiki->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
 
-            $db = new TikiDb_Pdo($dbTiki);
+            $db = new PdoDb($dbTiki);
 
             foreach ($pdo_post_queries as $query) {
                 $db->query($query);

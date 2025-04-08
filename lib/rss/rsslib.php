@@ -439,7 +439,7 @@ class RSSLib extends TikiDb_Bridge
      * @param int $rssId     feed id
      * @param int $olderThan publication date more than than this number of seconds ago
      *
-     * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function clear_rss_cache($rssId, $olderThan = 0)
     {
@@ -862,7 +862,7 @@ class RSSLib extends TikiDb_Bridge
      * @param $rssId
      * @param $configuration
      *
-     * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function set_article_generator($rssId, $configuration)
     {

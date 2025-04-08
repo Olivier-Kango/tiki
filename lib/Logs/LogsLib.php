@@ -114,7 +114,7 @@ class LogsLib extends TikiLib
     /**
      * Delete logs older than a specific date
      * @param $date
-     * @return \TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\PdoResult
      */
     public function clean_logs($date)
     {
@@ -125,7 +125,7 @@ class LogsLib extends TikiLib
     /**
      * Delete logs keep entries with given count
      * @param $date
-     * @return \TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\PdoResult
      */
     public function cleanWithCount($count)
     {
@@ -136,7 +136,7 @@ class LogsLib extends TikiLib
     /**
      * Delete logs older than a specific date
      * @param $date
-     * @return \TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\PdoResult
      */
     public function logsCount()
     {

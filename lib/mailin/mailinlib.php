@@ -202,7 +202,7 @@ class MailinLib extends TikiDb_Bridge
     /**
      * @param $accountId
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_mailin_account($accountId)
     {

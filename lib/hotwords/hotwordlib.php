@@ -54,7 +54,7 @@ class HotwordsLib extends TikiLib
      * @param $word
      * @param $url
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function add_hotword($word, $url)
     {
@@ -70,7 +70,7 @@ class HotwordsLib extends TikiLib
     /**
      * @param $word
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_hotword($word)
     {

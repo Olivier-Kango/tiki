@@ -824,10 +824,6 @@
         "lib\/core\/TikiDb\/Initializer\/Adodb.php": {
             "class:TikiDb_Initializer_Adodb": true
         },
-        "lib\/core\/TikiDb\/Pdo.php": {
-            "class:TikiDb_Pdo_Result": true,
-            "class:TikiDb_Pdo": true
-        },
         "lib\/core\/TikiDb\/Table.php": {
             "class:TikiDb_Table": true
         },
@@ -836,10 +832,6 @@
         },
         "lib\/core\/TikiDb\/Bridge.php": {
             "class:TikiDb_Bridge": true
-        },
-        "lib\/core\/TikiDb\/Adodb.php": {
-            "class:TikiDb_Adodb_Result": true,
-            "class:TikiDb_Adodb": true
         },
         "lib\/core\/TikiDb\/MasterSlaveDispatch.php": {
             "class:TikiDb_MasterSlaveDispatch": true
@@ -3933,12 +3925,6 @@
         "lib\/smarty_tiki\/Modifier\/NumStyle.php": {
             "class:StyleType": true
         },
-        "lib\/core\/TikiDb\/Pdo.php": {
-            "class:TikiDb_Pdo": true
-        },
-        "lib\/core\/TikiDb\/Adodb.php": {
-            "class:TikiDb_Adodb": true
-        },
         "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
             "class:Tiki_Profile_SymbolLoader_Store": true
         },
@@ -4808,10 +4794,6 @@
         "lib\/core\/TikiDb\/Initializer\/Adodb.php": {
             "TikiDb_Initializer_Adodb": true
         },
-        "lib\/core\/TikiDb\/Pdo.php": {
-            "TikiDb_Pdo_Result": true,
-            "TikiDb_Pdo": true
-        },
         "lib\/core\/TikiDb\/Table.php": {
             "TikiDb_Table": true
         },
@@ -4820,10 +4802,6 @@
         },
         "lib\/core\/TikiDb\/Bridge.php": {
             "TikiDb_Bridge": true
-        },
-        "lib\/core\/TikiDb\/Adodb.php": {
-            "TikiDb_Adodb_Result": true,
-            "TikiDb_Adodb": true
         },
         "lib\/core\/TikiDb\/MasterSlaveDispatch.php": {
             "TikiDb_MasterSlaveDispatch": true

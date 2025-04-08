@@ -31,7 +31,7 @@ class PerformanceStatsLib extends TikiLib
 
     /**
      * Clear all performance records from the database
-     * @return TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\PdoResult
      */
     public function clearPerformanceRecords()
     {
@@ -44,7 +44,7 @@ class PerformanceStatsLib extends TikiLib
      * @param int $offset
      * @param string $find
      * @param string $order
-     * @return TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\PdoResult
      */
     public function getRequestsBasedOnAverageRequestTime(int $amount = 25, int $offset = 0, string $find = '', string $order = 'DESC', string $orderType = '')
     {
@@ -61,7 +61,7 @@ class PerformanceStatsLib extends TikiLib
      * @param int $offset
      * @param string $find
      * @param string $order
-     * @return TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\PdoResult
      */
     public function getRequestsBasedOnMaximumProcessingTime(int $amount = 25, int $offset = 0, string $find = '', string $order = 'DESC')
     {

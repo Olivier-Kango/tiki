@@ -18,7 +18,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 class MultilingualLib extends TikiLib
 {
     /**
-     * @var \TikiDb_Pdo_Result
+     * @var Tiki\TikiDb\PdoResult
      */
     public $query;
     public $mtEnabled = 'y';

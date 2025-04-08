@@ -15,6 +15,8 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 }
 
 use Tiki\Command\ConsoleSetupException;
+use Tiki\TikiDb\AdoDb;
+use Tiki\TikiDb\PdoDb;
 use Tiki\Lib\CookieConsent\CookieConsentLib;
 
 require_once('tiki-filter-base.php');
@@ -187,9 +189,9 @@ if (isset($prefs['session_storage']) && $prefs['session_storage'] == 'db') {
         $db->getReal();
     }
 
-    if ($db instanceof TikiDb_AdoDb) {
+    if ($db instanceof AdoDb) {
         require_once('lib/tikisession-adodb.php');
-    } elseif ($db instanceof TikiDb_Pdo) {
+    } elseif ($db instanceof PdoDb) {
         require_once('lib/tikisession-pdo.php');
     }
 } elseif (isset($prefs['session_storage']) && $prefs['session_storage'] == 'memcache' && TikiLib::lib("memcache")->isEnabled()) {

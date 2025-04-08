@@ -2591,7 +2591,7 @@ class UsersLib extends TikiLib
      * @param      $group
      * @param bool $bulk
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      * @throws Exception
      */
     public function remove_user_from_group($user, $group, $bulk = false)
@@ -6915,7 +6915,7 @@ class UsersLib extends TikiLib
      * @param      $group
      * @param bool $bulk
      *
-     * @return bool|TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return bool|Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      * @throws Services_Exception
      */
     public function assign_user_to_group($user, $group, $bulk = false)

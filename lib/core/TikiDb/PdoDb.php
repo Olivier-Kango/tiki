@@ -5,61 +5,15 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+namespace Tiki\TikiDb;
+
+use Exception;
+use PDO;
+use TikiDb;
+use TikiLib;
 use Tiki\Profiling\DatabaseQueryLog;
 
-/**
- * Class TikiDb_Pdo_Result
- *
- * Returns result set along with affected rows.
- * Works on an already fetched result set as an array or a PDOStatement object.
- * Original array mode is kept here as we have many places that use directly
- * the global $result variable expecting it to be an array - that should be refactored! (2024-09-12 @victor)
- */
-class TikiDb_Pdo_Result
-{
-    /** @var array */
-    public $result = null;
-    /** @var int */
-    public $numrows = 0;
-
-    private ?PDOStatement $statement = null;
-
-    /**
-     * TikiDb_Pdo_Result constructor.
-     * @param $result
-     * @param $rowCount
-     */
-    public function __construct($result, $rowCount = 0)
-    {
-        if (is_array($result)) {
-            $this->result = &$result;
-            $this->numrows = is_numeric($rowCount) ? $rowCount : count($this->result);
-        } elseif ($result) {
-            $this->statement = $result;
-            $this->numrows = $result->rowCount();
-        }
-    }
-
-    /** @return array */
-    public function fetchRow()
-    {
-        if (is_array($this->result)) {
-            return array_shift($this->result);
-        } elseif ($this->statement) {
-            return $this->statement->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
-    }
-
-    /** @return int */
-    public function numRows()
-    {
-        return (int) $this->numrows;
-    }
-}
-
-class TikiDb_Pdo extends TikiDb
+class PdoDb extends TikiDb
 {
     /**
      * @var array track queries that needs logging
@@ -77,7 +31,7 @@ class TikiDb_Pdo extends TikiDb
     private $rowCount;
 
     /**
-     * TikiDb_Pdo constructor.
+     * Tiki\TikiDb\PdoDb constructor.
      * @param PDO $db
      */
     public function __construct($db)
@@ -215,7 +169,7 @@ class TikiDb_Pdo extends TikiDb
         if ($result === false) {
             $this->handleQueryError($query, $values, $result, $reporterrors);
         }
-        return new TikiDb_Pdo_Result($result, $this->rowCount);
+        return new PdoResult($result, $this->rowCount);
     }
 
     public function scrollableQuery($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT, array $options = [])
@@ -224,7 +178,7 @@ class TikiDb_Pdo extends TikiDb
         if ($result === false) {
             $this->handleQueryError($query, $values, $result, $reporterrors);
         }
-        return new TikiDb_Pdo_Result($result);
+        return new PdoResult($result, $this->rowCount);
     }
 
     public function lastInsertId()

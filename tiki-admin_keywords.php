@@ -23,7 +23,7 @@ $access->check_permission('tiki_p_admin_wiki');
  * @param        $page
  * @param string $keywords
  *
- * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+ * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
  * @throws Exception
  */
 function set_keywords($page, $keywords = "")

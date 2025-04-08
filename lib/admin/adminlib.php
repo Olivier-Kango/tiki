@@ -51,7 +51,7 @@ class AdminLib extends TikiLib
      * @param $dsn
      * @param $name
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function replace_dsn($dsnId, $dsn, $name)
     {
@@ -73,7 +73,7 @@ class AdminLib extends TikiLib
     /**
      * @param int $dsnId
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_dsn($dsnId)
     {
@@ -175,7 +175,7 @@ class AdminLib extends TikiLib
      *
      * @param $extwikiId int Id of the external wiki to be removed
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_extwiki($extwikiId)
     {

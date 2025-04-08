@@ -3115,7 +3115,7 @@ lib/core/Tiki/Wiki/SlugManager/UrlencodeGenerator.php -text
 lib/core/Tiki/Wiki/SlugManager/index.php -text
 lib/core/Tiki/index.php -text
 lib/core/TikiDb.php -text
-lib/core/TikiDb/Adodb.php -text
+lib/core/TikiDb/AdoDb.php -text
 lib/core/TikiDb/Bridge.php -text
 lib/core/TikiDb/ErrorHandler.php -text
 lib/core/TikiDb/Exception.php -text
@@ -3127,7 +3127,7 @@ lib/core/TikiDb/Initializer/Adodb.php -text
 lib/core/TikiDb/Initializer/Pdo.php -text
 lib/core/TikiDb/Initializer/index.php -text
 lib/core/TikiDb/MasterSlaveDispatch.php -text
-lib/core/TikiDb/Pdo.php -text
+lib/core/TikiDb/PdoDb.php -text
 lib/core/TikiDb/Table.php -text
 lib/core/TikiDb/Transaction.php -text
 lib/core/TikiDb/index.php -text

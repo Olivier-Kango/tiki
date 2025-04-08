@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\TikiDb\AdoDb;
+
 if (! defined('ADODB_FORCE_NULLS')) {
     define('ADODB_FORCE_NULLS', 1);
 }
@@ -34,6 +37,6 @@ class TikiDb_Initializer_Adodb
             @ $dbTiki->Execute("SET CHARACTER SET " . $credentials['charset']);
         }
 
-        return new TikiDb_Adodb($dbTiki);
+        return new AdoDb($dbTiki);
     }
 }

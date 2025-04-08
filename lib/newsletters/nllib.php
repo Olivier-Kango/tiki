@@ -358,7 +358,7 @@ class NlLib extends TikiLib
      * @param string  $email
      * @param boolean $isUser
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      * @access public
      */
     public function remove_newsletter_subscription($nlId, $email, $isUser)
@@ -372,7 +372,7 @@ class NlLib extends TikiLib
      *
      * @param string $code
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      * @access public
      */
     public function remove_newsletter_subscription_code($code)
@@ -385,7 +385,7 @@ class NlLib extends TikiLib
      * @param $nlId
      * @param $group
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_newsletter_group($nlId, $group)
     {
@@ -397,7 +397,7 @@ class NlLib extends TikiLib
      * @param $nlId
      * @param $includedId
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_newsletter_included($nlId, $includedId)
     {
@@ -812,7 +812,7 @@ class NlLib extends TikiLib
      * @param        $group
      * @param string $include_groups
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function add_group($nlId, $group, $include_groups = 'n')
     {
@@ -1170,7 +1170,7 @@ class NlLib extends TikiLib
     /**
      * @param $nlId
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_newsletter($nlId)
     {
@@ -1197,7 +1197,7 @@ class NlLib extends TikiLib
      * @param $email
      * @param $isUser
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function valid_subscription($nlId, $email, $isUser)
     {
@@ -1245,7 +1245,7 @@ class NlLib extends TikiLib
      * @param $editionId
      * @param $user
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function mark_edition_subscriber($editionId, $user)
     {
@@ -1361,7 +1361,7 @@ class NlLib extends TikiLib
      * @param string $validate
      * @param string $addToList
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function add_page($nlId, $wikiPageName, $validate = 'n', $addToList = 'n')
     {
@@ -1375,7 +1375,7 @@ class NlLib extends TikiLib
      * @param $nlId
      * @param $wikiPageName
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_newsletter_page($nlId, $wikiPageName)
     {

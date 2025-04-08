@@ -5,6 +5,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\File\DiagramHelper;
+use Tiki\TikiDb\AdoDb;
+use Tiki\TikiDb\PdoDb;
 use Tiki\Lib\Wiki\ConvertToTiki9;
 use Tiki\TikiInit;
 use Tiki\Lib\CookieConsent\CookieConsentLib;
@@ -591,11 +593,11 @@ class TikiLib extends TikiDb_Bridge
 
                     $dbsqlplugin = ADONewConnection($dbdriver);
                     if ($dbsqlplugin->NConnect($dbhost, $dbuserid, $dbpassword, $database)) {
-                        $connectionMap[$name] = new TikiDb_AdoDb($dbsqlplugin);
+                        $connectionMap[$name] = new AdoDb($dbsqlplugin);
                     }
                 } else {
                     $dbsqlplugin = new PDO("$dbdriver:host=$dbhost;dbname=$database", $dbuserid, $dbpassword);
-                    $connectionMap[$name] = new TikiDb_Pdo($dbsqlplugin);
+                    $connectionMap[$name] = new PdoDb($dbsqlplugin);
                 }
             }
             return $connectionMap[$name];
@@ -872,7 +874,7 @@ class TikiLib extends TikiDb_Bridge
     /**
      * @param $id
      *
-     * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return bool|Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function remove_user_watch_by_id($id)
     {
@@ -887,7 +889,7 @@ class TikiLib extends TikiDb_Bridge
     /**
      * @param $id
      *
-     * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function remove_group_watch_by_id($id)
     {
@@ -902,7 +904,7 @@ class TikiLib extends TikiDb_Bridge
      * @param string $type  = 'wiki page'
      * @param string $email = ''
      *
-     * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function remove_user_watch($user, $event, $object, $type = 'wiki page', $email = '')
     {
@@ -4630,7 +4632,7 @@ class TikiLib extends TikiDb_Bridge
      * @param $name
      * @param $value
      *
-     * @return bool|TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return bool|Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      * @throws Exception
      */
     public function set_user_preference($my_user, $name, $value)

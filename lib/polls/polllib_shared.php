@@ -149,7 +149,7 @@ class PollLibShared extends TikiLib
      * @param $optionId
      * @param $previous_vote
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result|bool
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult|bool
      */
     public function poll_vote($user, $pollId, $optionId, $previous_vote)
     {
@@ -232,7 +232,7 @@ class PollLibShared extends TikiLib
     /**
      * @param $pollId
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_poll($pollId)
     {
@@ -313,7 +313,7 @@ class PollLibShared extends TikiLib
      * @param $title
      * @param $position
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function replace_poll_option($pollId, $optionId, $title, $position)
     {
@@ -357,7 +357,7 @@ class PollLibShared extends TikiLib
      * @param        $pollId
      * @param string $title
      *
-     * @return TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\PdoResult
      */
     public function poll_categorize($catObjectId, $pollId, $title = '')
     {
@@ -476,7 +476,7 @@ class PollLibShared extends TikiLib
      * @param $ip
      * @param $optionId
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function delete_vote($pollId, $user, $ip, $optionId)
     {

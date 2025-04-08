@@ -23,7 +23,7 @@ class UserModulesLib extends TikiLib
      * @param $moduleId
      * @param $user
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function unassign_user_module($moduleId, $user)
     {
@@ -35,7 +35,7 @@ class UserModulesLib extends TikiLib
      * @param $moduleId
      * @param $user
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function up_user_module($moduleId, $user)
     {
@@ -47,7 +47,7 @@ class UserModulesLib extends TikiLib
      * @param $moduleId
      * @param $user
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function down_user_module($moduleId, $user)
     {
@@ -60,7 +60,7 @@ class UserModulesLib extends TikiLib
      * @param $user
      * @param $position
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function set_column_user_module($moduleId, $user, $position)
     {
@@ -74,7 +74,7 @@ class UserModulesLib extends TikiLib
      * @param $order
      * @param $user
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function assign_user_module($moduleId, $position, $order, $user)
     {
@@ -147,7 +147,7 @@ class UserModulesLib extends TikiLib
     /**
      * @param $user
      *
-     * @return bool|TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return bool|Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function create_user_assigned_modules($user)
     {
@@ -232,7 +232,7 @@ class UserModulesLib extends TikiLib
      * @param $moduleId
      * @param $user
      *
-     * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return bool|Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function swap_up_user_module($moduleId, $user)
     {
@@ -245,7 +245,7 @@ class UserModulesLib extends TikiLib
      * @param $moduleId
      * @param $user
      *
-     * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return bool|Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function swap_down_user_module($moduleId, $user)
     {
@@ -259,7 +259,7 @@ class UserModulesLib extends TikiLib
      * @param $user
      * @param $op
      *
-     * @return bool|TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return bool|Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function swap_adjacent($moduleId, $user, $op)
     {
@@ -291,7 +291,7 @@ class UserModulesLib extends TikiLib
      * @param $moduleId
      * @param $user
      *
-     * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
+     * @return Tiki\TikiDb\AdoDbResult|Tiki\TikiDb\PdoResult
      */
     public function move_module($moduleId, $user)
     {

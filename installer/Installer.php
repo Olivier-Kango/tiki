@@ -15,7 +15,6 @@ use SplObjectStorage;
 use SplObserver;
 use TWVersion;
 use Exception;
-use TikiDb_Pdo_Result;
 
 /**
  * @see Patch
@@ -342,7 +341,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
      * @param bool $reporterrors
      * @param string $patch
      * @param bool $countQueries
-     * @return TikiDb_Pdo_Result or false if the query failed
+     * @return Tiki\TikiDb\PdoResult or false if the query failed
      */
     public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, $patch = '', $countQueries = true)
     {

@@ -96,7 +96,7 @@ class blacklistLib extends TikiLib
 
     /**
      * Find the number of indexed passwords currently stored
-     *@$result TikiDb_Pdo_Result
+     *@$result Tiki\TikiDb\PdoResult
      *
      * @return int
      */

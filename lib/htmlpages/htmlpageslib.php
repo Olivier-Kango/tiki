@@ -18,7 +18,7 @@ class HtmlPagesLib extends TikiLib
     /**
      * @param $pageName
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_html_page($pageName)
     {
@@ -178,7 +178,7 @@ class HtmlPagesLib extends TikiLib
      * @param $zone
      * @param $content
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function replace_html_page_content($pageName, $zone, $content)
     {
@@ -190,7 +190,7 @@ class HtmlPagesLib extends TikiLib
      * @param $pageName
      * @param $zone
      *
-     * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
+     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
      */
     public function remove_html_page_content($pageName, $zone)
     {
