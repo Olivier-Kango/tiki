@@ -46,14 +46,18 @@ export function attachChangeEventHandler(elementPlusSelect, select) {
         const selectedValues = event.detail[0].value;
 
         // Adding new items to the select list
+        const appendOption = (value) => {
+            if (!$(select).find(`option[value="${value}"]`).length) {
+                const option = $("<option></option>").val(value).text(value);
+                $(select).append(option);
+            }
+        };
         if (Array.isArray(selectedValues)) {
-            selectedValues.forEach((selectedValue) => {
-                if (!$(select).find(`option[value="${selectedValue}"]`).length) {
-                    const option = $("<option></option>").val(selectedValue).text(selectedValue);
-                    $(select).append(option);
-                }
-            });
+            selectedValues.forEach(appendOption);
+        } else {
+            appendOption(selectedValues);
         }
+
         $(select).val(selectedValues);
         $(select).trigger("change");
     });

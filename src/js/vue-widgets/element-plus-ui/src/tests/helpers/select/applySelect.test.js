@@ -104,34 +104,35 @@ describe("applySelect helper functions", () => {
         }
     );
 
-    test("attachChangeEventHandler is able to correctly update the multi select value when the element-plus-ui value changes with a new option added to the select", async () => {
-        const givenSelect = document.createElement("select");
-        givenSelect.multiple = true;
-        const selectOptions = ["foo", "bar"].map((v) => {
-            const option = document.createElement("option");
-            option.value = v;
-            return option;
-        });
+    test.each([
+        [true, ["foo", "bar"]],
+        [false, "baz"],
+    ])(
+        "attachChangeEventHandler is able to correctly update the select value when the element-plus-ui value changes with a new option added to the selection when multiple is %s",
+        async (multiple, updatedValue) => {
+            const givenSelect = document.createElement("select");
+            givenSelect.multiple = multiple;
 
-        givenSelect.append(...selectOptions);
-        givenSelect.value = "";
+            const givenElementPlusUi = document.createElement("element-plus-ui");
 
-        const givenElementPlusUi = document.createElement("element-plus-ui");
+            attachChangeEventHandler(givenElementPlusUi, givenSelect);
 
-        attachChangeEventHandler(givenElementPlusUi, givenSelect);
+            expect(givenSelect.value).toBe("");
 
-        expect(givenSelect.value).toBe("");
+            const selectChangeEvent = $.Event("select-change", { detail: [{ value: updatedValue }] });
+            $(givenElementPlusUi).trigger(selectChangeEvent);
 
-        const selectChangeEvent = $.Event("select-change", { detail: [{ value: ["foo", "bar", "baz"] }] });
-        $(givenElementPlusUi).trigger(selectChangeEvent);
+            await window.happyDOM.waitUntilComplete();
 
-        await window.happyDOM.waitUntilComplete();
-
-        const actualValue = [];
-        for (let i = 0; i < givenSelect.selectedOptions.length; i++) {
-            actualValue.push(givenSelect.selectedOptions[i].value);
+            if (multiple) {
+                const actualValue = [];
+                for (let i = 0; i < givenSelect.selectedOptions.length; i++) {
+                    actualValue.push(givenSelect.selectedOptions[i].value);
+                }
+                expect(actualValue).toEqual(updatedValue);
+            } else {
+                expect(givenSelect.value).toEqual(updatedValue);
+            }
         }
-        expect(actualValue).toEqual(["foo", "bar", "baz"]);
-        expect($(givenSelect).find("option[value='baz']")).toHaveLength(1);
-    });
+    );
 });

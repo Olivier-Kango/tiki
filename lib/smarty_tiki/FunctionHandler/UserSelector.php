@@ -191,7 +191,7 @@ HTML;
 
             if (! empty($params['inputtype']) && $params['inputtype'] === 't') {
                 return smarty_function_jstransfer_list([
-                    'fieldName' => $params['name'] . '[]',
+                    'fieldName' => $params['name'],
                     'data' => $users,
                     'defaultSelected' => $params['select'],
                     'sourceListTitle' => $params['sourceListTitle'],
@@ -204,7 +204,7 @@ HTML;
                 ], $template);
             }
 
-            $ret .= '<select name="' . $params['name'] . ($params['multiple'] === 'true' ? '[]' : '') . '" id="' . $params['id'] . '"' . $sz . $ed . $mt . ' style="' . $params['style'] . '" class="form-control">';
+            $ret .= '<select name="' . $params['name'] . '" id="' . $params['id'] . '"' . $sz . $ed . $mt . ' style="' . $params['style'] . '" class="form-control">';
             if ($params['allowNone'] === 'y') {
                 $ret .= '<option value=""' . (empty($params['user']) ? ' selected="selected"' : '') . ' >' . tra($params['noneLabel']) . '</option>';
             }
@@ -221,7 +221,7 @@ HTML;
             $ret .= '</select>';
 
             if ($params['multiple'] === 'true' && $params['allowNone'] === 'y') {
-                $ret .= '<input type="hidden" name="' . $params['name'] . '[]" value="">';
+                $ret .= '<input type="hidden" name="' . $params['name'] . '" value="">';
             }
         }
         return $ret;
