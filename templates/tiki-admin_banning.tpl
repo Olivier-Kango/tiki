@@ -102,19 +102,19 @@
             <div class="col-sm-5">
                 <div class="d-flex flex-row">
                     <div>
-                        <input type="text" name="ip1" id="banning-ipregex" value="{$info.ip1|escape}" onfocus="$('input[name=mode]').val(['ip']);" class="form-control">
+                        <input type="number" name="ip1" id="banning-ipregex" value="{$info.ip1|escape}" onfocus="$('input[name=mode]').val(['ip']);" class="form-control">
                     </div>
                     <div class="px-1">.</div>
                     <div>
-                        <input type="text" name="ip2" value="{$info.ip2|escape}" class="form-control">
+                        <input type="number" name="ip2" value="{$info.ip2|escape}" class="form-control">
                     </div>
                     <div class="px-1">.</div>
                     <div>
-                        <input type="text" name="ip3" value="{$info.ip3|escape}" class="form-control">
+                        <input type="number" name="ip3" value="{$info.ip3|escape}" class="form-control">
                     </div>
                     <div class="px-1">.</div>
                     <div>
-                        <input type="text" name="ip4" value="{$info.ip4|escape}" class="form-control">
+                        <input type="number" name="ip4" value="{$info.ip4|escape}" class="form-control">
                     </div>
                 </div>
             </div>
