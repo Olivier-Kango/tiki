@@ -5,7 +5,7 @@
     overflow-y: hidden;
     background-color: var(--bs-secondary-bg);
 
-    .hide { display: none !important; }
+    .hide { display: none; }
     // override colors when not using cypht default theme
     img { opacity: 1 !important; max-width: 100%; }
     i.bi, .folders li, .inner_list li { color: var(--bs-body-color) !important; }
