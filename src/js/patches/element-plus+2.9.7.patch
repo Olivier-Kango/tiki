@@ -1,7 +1,7 @@
-diff --git a/node_modules/element-plus/es/components/tooltip/src/content.mjs b/node_modules/element-plus/es/components/tooltip/src/content.mjs
-index 51dc1f7..02522a7 100644
---- a/node_modules/element-plus/es/components/tooltip/src/content.mjs
-+++ b/node_modules/element-plus/es/components/tooltip/src/content.mjs
+diff --git a/node_modules/element-plus/es/components/tooltip/src/content2.mjs b/node_modules/element-plus/es/components/tooltip/src/content2.mjs
+index b02ab74..3bfc40a 100644
+--- a/node_modules/element-plus/es/components/tooltip/src/content2.mjs
++++ b/node_modules/element-plus/es/components/tooltip/src/content2.mjs
 @@ -112,7 +112,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
        var _a;
        const popperContent = (_a = contentRef.value) == null ? void 0 : _a.popperContentRef;
