@@ -170,7 +170,6 @@ function wikiplugin_attach($data, $params)
 
     $wikilib = TikiLib::lib('wiki');
     $tikilib = TikiLib::lib('tiki');
-    $pluginlib = TikiLib::lib('pluginslib');
 
     extract($params, EXTR_SKIP);
 
@@ -189,7 +188,7 @@ function wikiplugin_attach($data, $params)
             $tracker_info = $trklib->get_tracker($atts_item_name);
             $tracker_options = $trklib->get_tracker_options($atts_item_name);
             if (! is_array($tracker_info) || ! is_array($tracker_options)) {
-                return $pluginlib->error(tr('No tracker found matching id %0', $atts_item_name));
+                throw new Exception(tr('No tracker found matching id %0', $atts_item_name));
             }
 
             // Merge the two arrays

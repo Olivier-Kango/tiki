@@ -395,7 +395,7 @@ $(window).on("load", function(){
             $converted = TikiLib::lib('edit')->convertWikiSyntax(
                 $converted,
                 $input->syntax->word(),
-                $input->page->word()
+                $input->page->pagename()
             );
         } catch (Exception $e) {
             Feedback::error($e->getMessage());
