@@ -12,11 +12,9 @@ export function observeSelectElementMutations(select, elementPlusUi) {
                 } else {
                     $(elementPlusUi).removeAttr("is-invalid");
                 }
-            }
-
-            // Allow to limit the maximum number of selectable items
-            if (mutation.attributeName === "data-max") {
-                $(elementPlusUi).attr("max", mutation.target.getAttribute("data-max"));
+            } else if (mutation.attributeName) {
+                const attributeName = mutation.attributeName.replace("data-", "");
+                $(elementPlusUi).attr(attributeName, mutation.target.getAttribute(mutation.attributeName));
             }
         });
     }).observe(select, { childList: true, attributes: true });

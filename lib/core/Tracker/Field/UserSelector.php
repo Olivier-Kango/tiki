@@ -347,23 +347,38 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implem
                     return $group['groupName'];
                 }, $groups);
                 $selected_groups = [];
-                $users = $userlib->get_members($groups);
-                foreach ($users as $group => &$usrs) {
-                    if (array_intersect($value, $usrs)) {
-                        $selected_groups[] = $group;
+                $users = [];
+                $templateData = [];
+                if ($this->trackerField->getOption('lazyload')) {
+                    foreach ($value as $v) {
+                        $selected_groups = array_unique(array_merge($selected_groups, $userlib->get_user_groups($v)));
                     }
-                    if ($this->getOption('showRealname')) {
-                        $usrs = array_combine($usrs, array_map('smarty_modifier_username', $usrs));
-                    } else {
-                        $usrs = array_combine($usrs, $usrs);
+                    TikiLib::setExternalContext(true);
+                    $templateData['remote_url'] = TikiLib::lib('service')->getUrl([
+                        'groups' => implode(',', $selected_groups),
+                        'listonly' => $this->trackerField->getOption('showRealname') ? 'userrealnames' : 'users',
+                    ]);
+                } else {
+                    $users = $userlib->get_members($groups);
+                    foreach ($users as $group => &$usrs) {
+                        if (array_intersect($value, $usrs)) {
+                            $selected_groups[] = $group;
+                        }
+                        if ($this->getOption('showRealname')) {
+                            $usrs = array_combine($usrs, array_map('smarty_modifier_username', $usrs));
+                        } else {
+                            $usrs = array_combine($usrs, $usrs);
+                        }
                     }
                 }
-                return $this->renderTemplate('trackerinput/userselector_grouped.tpl', $context, [
+                $templateData = array_merge($templateData, [
                     'groups' => $groups,
                     'users' => $users,
                     'selected_users' => $value,
                     'selected_groups' => $selected_groups,
+                    'lazyload' => $this->trackerField->getOption('lazyload'),
                 ]);
+                return $this->renderTemplate('trackerinput/userselector_grouped.tpl', $context, $templateData);
             } else {
                 return smarty_function_user_selector(
                     [
