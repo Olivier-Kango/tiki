@@ -112,22 +112,23 @@ class UserSelector extends Base
         }
 
         if ($params['lazyload']) {
-            if ($params['realnames'] === 'y') {
-                $remoteUrl = 'tiki-ajax_services.php?listonly=userrealnames';
-            } else {
-                $remoteUrl = 'tiki-ajax_services.php?listonly=users';
-            }
+            $urlParams = [
+                'listonly' => $params['realnames'] === 'y' ? 'userrealnames' : 'users',
+            ];
 
             if (! empty($groupNames)) {
-                $remoteUrl .= '&groups=' . implode(',', $groupNames);
+                $urlParams['groups'] = implode(',', $groupNames);
             }
+
+            TikiLib::setExternalContext(true);
+            $remoteUrl = TikiLib::lib('service')->getUrl($urlParams);
 
             $options = "";
             foreach ($params['select'] as $selected) {
                 $options .= "<option value=\"$selected\" selected>$selected</option>";
             }
             return <<<HTML
-                <select name="{$params['name']}" id="{$params['id']}" class="form-control" data-remote-source-url="{$remoteUrl}">{$options}</select>
+                <select name="{$params['name']}" id="{$params['id']}" class="form-control" data-remote-source-url="{$remoteUrl}" $mt>{$options}</select>
 HTML;
         }
 

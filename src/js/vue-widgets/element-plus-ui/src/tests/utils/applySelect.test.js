@@ -106,17 +106,17 @@ describe("applySelect", () => {
         window.elementPlus = {
             select: {},
         };
-        window.tikiroot = "/tiki/";
 
         applySelect();
 
         const givenSelect = document.createElement("select");
-        givenSelect.setAttribute("data-remote-source-url", "test");
+        const givenRemoteSourceUrl = "http://foo/bar";
+        givenSelect.setAttribute("data-remote-source-url", givenRemoteSourceUrl);
         document.body.appendChild(givenSelect);
 
         await window.happyDOM.waitUntilComplete();
 
         const elementPlusUi = document.querySelector("el-select");
-        expect(elementPlusUi.getAttribute("remote-source-url")).toBe(window.location.origin + window.tikiroot + "test");
+        expect(elementPlusUi.getAttribute("remote-source-url")).toBe(givenRemoteSourceUrl);
     });
 });

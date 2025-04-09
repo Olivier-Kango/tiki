@@ -32,10 +32,7 @@ export default function applySelect() {
                     elementPlusUi.attr("ordering", selectPreferences.ordering);
 
                     if ($(this).data("remote-source-url")) {
-                        $(elementPlusUi).attr(
-                            "remote-source-url",
-                            window.location.origin + (window.tikiroot || "/") + $(this).data("remote-source-url")
-                        );
+                        $(elementPlusUi).attr("remote-source-url", $(this).data("remote-source-url"));
                     }
 
                     syncSelectOptions(elementPlusUi.get(0), this);
