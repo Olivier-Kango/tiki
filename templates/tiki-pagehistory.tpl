@@ -22,7 +22,7 @@
     {if $info.version ne $preview and $tiki_p_rollback eq 'y'}
         <div class="d-flex flex-column">
             {self_link _script="tiki-pagehistory.php" page=$page source=$preview _title="{tr}View source of this version{/tr}"}{tr}View source of this version{/tr}{/self_link}
-            {self_link _script="tiki-rollback.php" page=$page version=$preview _title="{tr}Roll back{/tr}"}{tr}Roll back to this version{/tr}{/self_link}
+            {self_link _script="tiki-rollback.php" page=$page version=$preview _title="{tr _0=$element.version}Revert to version %0{/tr}"}{tr}Revert to this version{/tr}{/self_link}
         </div>
     {/if}
     <div>
@@ -82,7 +82,7 @@
     </h2>
     {if $info.version ne $source and $tiki_p_rollback eq 'y'}
         <div class="d-flex flex-column">
-            {self_link _script="tiki-rollback.php" page=$page version=$source _title="{tr}Roll back{/tr}"}{tr}Roll back to this version{/tr}{/self_link}
+            {self_link _script="tiki-rollback.php" page=$page version=$source _title="{tr}Revert{/tr}"}{tr}Revert to this version{/tr}{/self_link}
         </div>
     {/if}
     <div>
@@ -437,7 +437,7 @@
                                         {if $tiki_p_rollback eq 'y' && $lock neq true}
                                             <action>
                                                 {self_link _script="tiki-rollback.php" page=$page version=$element.version _icon_name="undo" _menu_text='y' _menu_icon='y'}
-                                                    {tr}Roll back{/tr}
+                                                    {tr _0=$element.version}Revert to version %0{/tr}
                                                 {/self_link}
                                             </action>
                                         {/if}
