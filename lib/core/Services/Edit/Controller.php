@@ -333,7 +333,7 @@ $(window).on("load", function(){
     public function actionPostEditorSettings($input)
     {
         $editor = $input->editor->word();
-        $syntax = $input->syntax->word();
+        $syntax = $input->syntax->word() ?: 'tiki';
         $data = $input->data->none();
 
 
