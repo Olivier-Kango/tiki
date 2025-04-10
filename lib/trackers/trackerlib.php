@@ -6661,6 +6661,19 @@ class TrackerLib extends TikiLib
 
         $items = [];
 
+        // add removed values from ItemLink modified fields, so they can be correctly refreshed
+        foreach ($modifiedFields as $fieldId) {
+            if (empty($args['old_values'][$fieldId])) {
+                continue;
+            }
+            $field = $this->get_field_info($fieldId);
+            if ($field && $field['type'] == 'r') {
+                $handler = $this->get_field_handler($field, $args['old_values']);
+                $data = $handler->getFieldData();
+                $items = array_merge($items, array_filter($data['value']));
+            }
+        }
+
         $fields = $this->table('tiki_tracker_fields');
         $list = $fields->fetchAll(
             $fields->all(),
