@@ -174,6 +174,11 @@ class Search_Action_EmailAction implements Search_Action_Action
         return false;
     }
 
+    public function requiresConfirm()
+    {
+        return false;
+    }
+
     private function parse($content, $is_html = null)
     {
         $content = "~np~$content~/np~";

@@ -222,7 +222,7 @@
             <select name="list_action" class="form-control check_submit_select" id="check_submit_select_{$id}">
                 <option></option>
                 {foreach from=$actions item=action}
-                    <option value="{$action->getName()|escape}" data-input='{$action->requiresInput()}' data-inputtype='{$action->inputtype()}'{if $action->getDefault()} selected{/if}>
+                    <option value="{$action->getName()|escape}" data-input='{$action->requiresInput()}' data-inputtype='{$action->inputtype()}'{if $action->getDefault()} selected{/if}{if $action->requiresConfirm()} data-confirm="true"{/if}>
                         {$action->getName()|tra|escape}
                     </option>
                 {/foreach}

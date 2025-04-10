@@ -985,8 +985,11 @@ class Services_Wiki_Controller
         }
 
         $data = TikiLib::lib('parser')->parse_data($info['data'], ['mark_plugins' => [$plugin]]);
-        if (preg_match("/~$plugin~(.*)~\/$plugin~/s", $data, $m)) {
-            $data = $m[1];
+        $start = mb_strpos($data, "~$plugin~");
+        $end = mb_strpos($data, "~/$plugin~");
+        if ($start !== false && $end !== false) {
+            $start += mb_strlen("~$plugin~");
+            $data = mb_substr($data, $start, $end - $start);
         } else {
             $data = tr("Plugin not found.");
         }
