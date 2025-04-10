@@ -18338,6 +18338,7 @@ $lang_current = array(
 "List Wiki Pages" => "Liste des pages Wiki",
 "Page aliases found" => "Alias de page trouvés",
 "Create a Wiki Page" => "Créer une page Wiki",
+"Name of new page" => "Nom de la nouvelle page",
 "Insert name of the page you wish to create" => "Saisir le nom de la page que vous souhaitez créer",
 // "Create page within %0" => "Create page within %0",
 "Page creator" => "Créateur",
