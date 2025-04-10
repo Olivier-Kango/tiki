@@ -187,6 +187,11 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
         return false;
     }
 
+    public function requiresConfirm()
+    {
+        return false;
+    }
+
     /**
      * Generate a string based on the template provided
      *

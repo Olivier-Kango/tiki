@@ -79,6 +79,11 @@ class Search_Action_Snapshot implements Search_Action_Action
         return false;
     }
 
+    public function requiresConfirm()
+    {
+        return false;
+    }
+
     /**
      * @param $value
      * @param $itemData
