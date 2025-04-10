@@ -295,7 +295,8 @@
         },
         "audit": {
             "ignore": {
-                "CVE-2024-24815": "Ignoring this vulnerability as work on this is in progress."
+                "CVE-2024-24815": "Tiki adds a modifier character <x> to break potentially dangerous elements before they can be executed by the browser.",
+                "CVE-2024-43407": "Tiki doesn't include the CKEditor 4 Code Snippet GeSHi plugin."
             }
         }
     },
