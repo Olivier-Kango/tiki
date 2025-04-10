@@ -74,6 +74,11 @@ class Search_Action_TrackerItemInsert implements Search_Action_Action
         return false;
     }
 
+    public function requiresConfirm()
+    {
+        return false;
+    }
+
     public function changeObject($data)
     {
         if (empty($this->insert_object_id)) {
