@@ -3,13 +3,13 @@
     <input type="hidden" name="plugin" value="{$fingerprint}">
     <input type="hidden" name="objects{$iListExecute}[]" value="" class="listexecute-all">
     {ticket}
-    <div class="form-check me-2">
+    <div class="form-check align-self-center me-2">
         <input type="checkbox" class="form-check-input listexecute-select-all" id="sa_listexecute-{$iListExecute}" aria-label="{tr}Select{/tr}" name="selectall" value="">
         <label class="form-check-label" for="sa_listexecute-{$iListExecute}">{tr}Select All{/tr}</label>
     </div>
     <ol class="list list-group list-group-flush mb-2">
         {foreach from=$results item=entry}
-            <li class="list-group-item">
+            <li class="list-group-item list-group-item-action">
                 <input type="checkbox" class="checkbox_objects form-check-input me-1" aria-label="{tr}Select{/tr}" id="{$entry.object_type|replace:" ":"-"|escape}_{$entry.object_id|escape}" name="objects{$iListExecute}[]" value="{$entry.object_type|escape}:{$entry.object_id|escape}">
                 {if isset($entry.report_status) && $entry.report_status eq 'success'}
                     {icon name='ok'}
@@ -28,12 +28,11 @@
             </option>
         {/foreach}
     </select>
-    <div class="list_input_container mb-2" id="list_input_container_{$id}">
-    </div>
+    <div class="list_input_container mb-2" id="list_input_container_{$id}" style="display:none"></div>
     <input type="text" name="list_input" value="" class="form-control mb-2" style="display:none">
     {* category_tree *}
     {if $prefs.feature_categories eq 'y' and $tiki_p_modify_object_categories eq 'y' and count($categories) gt 0}
-        <div class="multiselect form-select cat_tree mb-2" style="display:none;">
+        <div class="col-sm-12 mb-2 multiselect form-select cat_tree" style="display:none">
             {if is_array($categories) and count($categories) gt 0}
                 {$cat_tree}
                 <input type="hidden" name="cat_categorize" value="on">
@@ -61,7 +60,7 @@
             {/if}
         </div> {* end #multiselect *}
     {/if}
-    <input type="submit" class="btn btn-primary btn-sm list_execute_submit mb-2" title="{tr}Apply Changes{/tr}" id="submit_form_{$id}" disabled value="{if !empty($label)}{tr}{$label|escape}{/tr}{else}{tr}Apply{/tr}{/if}">
+    <input type="submit" class="btn btn-primary btn-sm list_execute_submit mb-2 ms-auto mt-1" title="{tr}Apply Changes{/tr}" id="submit_form_{$id}" disabled value="{if !empty($label)}{tr}{$label|escape}{/tr}{else}{tr}Apply{/tr}{/if}">
     {if isset($smarty.get.page) && isset($schedulers_amount)}
         <div class="ms-3">
             {if $schedulers_amount eq 0}
