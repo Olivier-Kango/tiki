@@ -307,6 +307,10 @@ var syntaxHighlighter = {
 EOT;
 }
 
+if (in_array('y', [$prefs['feature_draggable_modals'], $prefs['feature_resizable_modals']])) {
+    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/interactjs/dist/interact.min.js');
+}
+
 if ($prefs['feature_draggable_modals'] === 'y') {
     $js .= <<< 'EOT'
 $(document).on("shown.bs.modal", function(event) {
