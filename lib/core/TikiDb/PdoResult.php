@@ -11,28 +11,44 @@
  */
 namespace Tiki\TikiDb;
 
+use PDO;
+use PDOStatement;
+
 class PdoResult
 {
     /** @var array */
-    public $result;
+    public $result = null;
     /** @var int */
-    public $numrows;
+    public $numrows = 0;
+
+    private ?PDOStatement $statement = null;
 
     /**
      * Tiki\TikiDb\PdoResult constructor.
      * @param $result
      * @param $rowCount
      */
-    public function __construct($result, $rowCount)
+    public function __construct($result, $rowCount = 0)
     {
-        $this->result = &$result;
-        $this->numrows = is_numeric($rowCount) ? $rowCount : count($this->result);
+        if (is_array($result)) {
+            $this->result = &$result;
+            $this->numrows = is_numeric($rowCount) ? $rowCount : count($this->result);
+        } elseif ($result) {
+            $this->statement = $result;
+            $this->numrows = $result->rowCount();
+        }
     }
 
     /** @return array */
     public function fetchRow()
     {
-        return is_array($this->result) ? array_shift($this->result) : 0;
+        if (is_array($this->result)) {
+            return array_shift($this->result);
+        } elseif ($this->statement) {
+            return $this->statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
     }
 
     /** @return int */
