@@ -91,7 +91,7 @@ $console->setAutoExit(false);
 try {
     $exitCode = $console->run(null, $output);
 } catch (Throwable $e) {
-    $output->writeln('<comment>A error was encountered while running a command</comment>');
+    $output->writeln('<comment>An error was encountered while running a command</comment>');
     TikiLib::lib('errortracking')->captureException($e);
     $output->write('<error>' . $e->getMessage() . '</error> on line ' . $e->getLine() . ' of ' . $e->getFile());
     $exitCode = Command::FAILURE;
