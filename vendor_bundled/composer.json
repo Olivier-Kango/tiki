@@ -138,7 +138,7 @@
         "cboden/ratchet": "^0.4",
         "chrome-php/chrome": "^1.12",
         "codercat/jwk-to-pem": "^1.1",
-        "composer/semver": "^3.2",
+        "composer/semver": "~3.4",
         "cweagans/composer-patches": "^1.7",
         "dragonmantank/cron-expression": "^3.0",
         "elliotjreed/disposable-emails-filter": "~4.0.3",
