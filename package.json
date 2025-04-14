@@ -103,6 +103,7 @@
     "src/js/tiki-mermaid",
     "src/js/tiki-sentry-browser",
     "src/js/tiki-iot",
+    "src/js/tiki-toast-ui",
     "src/js/tiki-vue-sfc-loader",
     "src/js/vue-mf/*",
     "src/js/vue-widgets/*",

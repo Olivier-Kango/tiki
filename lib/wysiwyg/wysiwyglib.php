@@ -185,8 +185,8 @@ class WYSIWYGLib
         $languageCode = $this->languageMapISO($prefs['language']);
         if ($languageCode) {
             $options['language'] = $languageCode;
-            $headerlib->add_jsfile_external(
-                'https://uicdn.toast.com/editor/latest/i18n/' . strtolower($languageCode) . '.js'
+            $headerlib->add_jsfile(
+                NODE_PUBLIC_DIST_PATH . "/@toast-ui/editor/dist/i18n/" . strtolower($languageCode) . '.js'
             );
         }
 
@@ -210,10 +210,11 @@ class WYSIWYGLib
         $jsonOptions = preg_replace(['/"%~/', '/~%"/'], '', $jsonOptions);
 
         $headerlib
-            //->add_jsfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.js', true)
-            //->add_cssfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.css')
-            //->add_cssfile('https://uicdn.toast.com/editor/latest/toastui-editor.min.css')
-            ->add_jq_onready("tikiToastEditor($jsonOptions);");
+        ->add_js_module("import tikiToastEditor from '@tiki-toast-ui/editor-index';
+            $(document).ready(function() {
+                tikiToastEditor($jsonOptions);
+            })
+        ");
 
         return [];
     }

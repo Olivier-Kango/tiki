@@ -137,6 +137,7 @@ export default defineConfig(({ command, mode }) => {
         "tiki-iot-dashboard-all": resolve(__dirname, "tiki-iot/dashboard-all.js"),
         "tiki-mermaid": resolve(__dirname, "tiki-mermaid/mermaid.js"),
         "tiki-vue-sfc-loader": resolve(__dirname, "tiki-vue-sfc-loader/src/tiki-vue-sfc-loader.js"),
+        "tiki-toast-ui": resolve(__dirname, "tiki-toast-ui/toast-index.js"),
         "wysiwyg-summernote": resolve(__dirname, "wysiwyg/summernote/index.js"),
     });
     return {
@@ -622,6 +623,18 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src : "node_modules/swiper/*.min.css",
                         dest : "vendor_dist/swiper"
+                    },
+                    /**
+                     * Toast UI Editor: We place the CSS file here because inserting it directly into the toast-index.js file
+                     * causes part of the editor to be styled while another part remains unstyled. Therefore, we preferred to use the CSS file directly
+                    */
+                    {
+                        src: "node_modules/@toast-ui/editor/dist/toastui-editor.css",
+                        dest: "vendor_dist/@toast-ui/editor/dist",
+                    },
+                    {
+                        src: "node_modules/@toast-ui/editor/dist/i18n/*",
+                        dest: "vendor_dist/@toast-ui/editor/dist/i18n/",
                     },
                 ],
             }),

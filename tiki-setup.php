@@ -765,13 +765,7 @@ if ($prefs['xmpp_conversejs_always_load'] === 'y') {
 if ($prefs['markdown_enabled'] === 'y' && $prefs['feature_wysiwyg'] === 'y') {
     $str = $prefs['tiki_minify_javascript'] === 'y' ? '.min' : '';
 
-    $headerlib
-        //->add_jsfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.js', true)
-        //->add_cssfile('vendor_bundled/vendor/npm-asset/toast-ui--editor/dist/toastui-editor.css')
-        ->add_jsfile_external("https://uicdn.toast.com/editor/latest/toastui-editor-all$str.js", ($prefs['tiki_minify_javascript'] === 'y'))
-        ->add_jsfile('lib/toastui_tiki/tiki-toastui.js')
-        ->add_jsfile('lib/toastui_tiki/tiki-plugin.js')
-        ->add_cssfile("https://uicdn.toast.com/editor/latest/toastui-editor$str.css");
+    $headerlib ->add_cssfile(NODE_PUBLIC_DIST_PATH . "/@toast-ui/editor/dist/toastui-editor.css");
 }
 
 if ($prefs['workspace_ui'] == 'y') {
