@@ -2147,12 +2147,12 @@ class Services_Tracker_Controller
                 throw new Services_Exception_MissingValue('name');
             }
 
-            if ($input->start->int()) {
-                $intput->offsetSet('start', $this->readDate($input, 'start'));
+            if ($input->startDate->text()) {
+                $input->offsetSet('start', $this->readDate($input, 'start'));
             }
 
-            if ($input->end->int()) {
-                $intput->offsetSet('end', $this->readDate($input, 'end'));
+            if ($input->endDate->text()) {
+                $input->offsetSet('end', $this->readDate($input, 'end'));
             }
 
             $data = array_merge([
