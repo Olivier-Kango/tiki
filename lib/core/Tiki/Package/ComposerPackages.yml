@@ -146,7 +146,7 @@ PDFjsViewer:
   requiredBy:
     - fgal_pdfjs_feature
     - fgal_convert_documents_pdf
-  requiredVersion: ^2.1.266
+  requiredVersion: ^3.11.174
 WebODF:
   licence: AGPL
   licenceUrl: "https://github.com/kogmbh/webodf.js_release/blob/master/AGPL-3.0.txt"
