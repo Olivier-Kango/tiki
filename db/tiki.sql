@@ -212,7 +212,8 @@ CREATE TABLE `tiki_articles` (
   KEY `author` (`author`(32)),
   KEY `topicId` (`topicId`),
   KEY `publishDate` (`publishDate`),
-  KEY `type` (`type`)
+  KEY `type` (`type`),
+  KEY `idx_slvn_created` (`created`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `tiki_article_types`;
@@ -508,7 +509,8 @@ CREATE TABLE `tiki_calendars` (
   `lastmodif` int(14) NOT NULL default '0',
   `personal` enum ('n', 'y') NOT NULL default 'n',
   `private` enum ('n', 'y') NOT NULL default 'n',
-  PRIMARY KEY (`calendarId`)
+  PRIMARY KEY (`calendarId`),
+  KEY `idx_slvn_created` (`created`)
 ) ENGINE=MyISAM ;
 
 DROP TABLE IF EXISTS `tiki_calendar_changes`;
@@ -728,7 +730,8 @@ CREATE TABLE `tiki_comments` (
   KEY `tc_pi` (`parentId`),
   KEY `objectType` (object(160), `objectType`),
   KEY `commentDate` (`commentDate`),
-  KEY `threaded` (message_id(89), in_reply_to(88), `parentId`)
+  KEY `threaded` (message_id(89), in_reply_to(88), `parentId`),
+  KEY `idx_slvn_commentDate` (`commentDate`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `tiki_content`;
@@ -2573,7 +2576,8 @@ CREATE TABLE `tiki_tracker_items` (
   `lastModifBy` varchar(200) default NULL,
   PRIMARY KEY (`itemId`),
   INDEX `trackerId` (`trackerId`),
-  INDEX `idx_lastModif` (`lastModif`)
+  INDEX `idx_lastModif` (`lastModif`),
+  INDEX `idx_slvn_created` (`created`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `tiki_tracker_options`;

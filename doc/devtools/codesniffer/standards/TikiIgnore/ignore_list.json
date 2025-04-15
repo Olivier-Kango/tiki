@@ -10180,7 +10180,8 @@
             "Comments::find_root": true,
             "Comments::get_root_path": true,
             "Comments::admin_forum": true,
-            "Comments::get_lastPost": true
+            "Comments::get_lastPost": true,
+            "Comments::get_comments_since_last_visit": true
         },
         "lib\/groupalert\/groupalertlib.php": {
             "groupAlertLib::AddGroup": true,

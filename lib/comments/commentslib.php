@@ -4410,6 +4410,22 @@ class Comments extends TikiLib
             return [];
         }
     }
+
+    /**
+     * Get all non-forum comments since a specified date
+     *
+     * @param int $sinceDate Unix timestamp
+     * @return array Array of comments with their details
+     */
+    public function get_comments_since_last_visit($sinceDate)
+    {
+        $query = 'select `object`,`objectType`,`title`,`commentDate`,`userName`,`threadId`, `parentId`, `approved`, `archived`, `data`' .
+                ' from `tiki_comments`' .
+                " where `commentDate`>? and `objectType` != 'forum' and `data` != ''" .
+                ' order by `commentDate` desc';
+
+        return $this->fetchAll($query, [(int) $sinceDate]);
+    }
 }
 
 /**
