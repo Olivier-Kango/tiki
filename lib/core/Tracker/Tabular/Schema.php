@@ -411,6 +411,9 @@ class Schema
         $headerMapping = [];
 
         foreach ($this->columns as $columnIndex => $column) {
+            if ($column->isExportOnly()) {
+                continue;
+            }
             foreach ($headers as $headerIndex => $header) {
                 if ($this->config['simple_headers'] && $column->getLabel() == $header) {
                     $headerMapping[$columnIndex] = $headerIndex;
