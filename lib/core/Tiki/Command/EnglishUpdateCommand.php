@@ -55,12 +55,6 @@ class EnglishUpdateCommand extends Command
                 'e',
                 InputOption::VALUE_REQUIRED,
                 'Email address to send a message to if untranslated strings are found. Must be used in conjunction with "audit".'
-            )
-            ->addOption(
-                'git',
-                null,
-                InputOption::VALUE_NONE,
-                'Set this if diff-command is based on git'
             );
     }
 
