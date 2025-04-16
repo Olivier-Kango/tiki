@@ -375,10 +375,19 @@ $(document) . on("tiki.modal.redraw", function (event) {
         . css({width: "", height: ""})
         . resizable({
             minHeight: 100,
-            minWidth: 200
-        })
-        . find(".modal-body") . css({
-            "overflow": "auto"
+            minWidth: 200,
+            resize: function(event, ui) {
+                const modalBody = ui.element.find(".modal-body");
+                if (ui.size.width < ui.originalSize.width || ui.size.height < ui.originalSize.height) {
+                    modalBody.css({
+                        "overflow": "auto"
+                    });
+                } else {
+                    modalBody.css({
+                        "overflow": ""
+                    });
+                }
+            }
         });
 });
 ';
