@@ -440,11 +440,11 @@ class Feedback
             }
 
             if (count($watches)) {
-                $message = "<ul>";
+                $usersList = [];
                 foreach ($watches as $watch) {
-                    $message .= "<li class='fw-bold'><a href='tiki-user_information.php?user=" . $watch['user'] . "'>" . $watch['user'] . "</a></li>";
+                    $usersList[] = "<a href='tiki-user_information.php?user=" . $watch['user'] . "' class='fw-bold'>" . $watch['user'] . "</a>";
                 }
-                $message .= "</ul>";
+                $message = implode(", ", $usersList);
                 self::note([
                     'title' => tr('Notification sent to:'),
                     'mes' => $message,
