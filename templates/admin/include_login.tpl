@@ -184,7 +184,6 @@
                     <legend class="h3">{tr}Cookie consent{/tr}</legend>
                     {preference name=cookie_consent_feature}
                     <div class="adminoptionboxchild" id="cookie_consent_feature_childcontainer">
-                        {preference name=cookie_consent_name}
                         {preference name=cookie_consent_expires}
                         {preference name=cookie_consent_description}
                         {preference name=cookie_consent_preference}

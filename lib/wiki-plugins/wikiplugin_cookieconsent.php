@@ -19,14 +19,6 @@ function wikiplugin_cookieconsent_info()
         'introduced' => 10,
         'iconname' => 'information',
         'params' => [
-            'no_consent_message' => [
-                'required' => false,
-                'name' => tra('No Cookie Message'),
-                'description' => tra('Message displayed if user has not consented to accepting cookies.'),
-                'since' => '10.0',
-                'default' => tra($prefs['cookie_consent_alert']),
-                'filter' => 'text',
-            ],
             'element' => [
                 'required' => false,
                 'name' => tra('Containing Element'),
@@ -75,7 +67,7 @@ function wikiplugin_cookieconsent($body, $params)
     $class = $params['element_class'];
 
     if (! CookieConsentLib::checkAllowedCookieCategory(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ESSENTIAL)) {
-        $body = $params['no_consent_message'];
+        $body = '';
         $class .= ($class ? ' ' : '') . $params['no_consent_class'];
     }
 

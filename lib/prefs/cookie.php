@@ -66,17 +66,6 @@ function prefs_cookie_list()
                 'cookie_consent_feature',
             ],
         ],
-        'cookie_consent_alert' => [
-            'name' => tra('Cookie consent alert'),
-            'description' => tra('Alert displayed when user tries to access or use a feature requiring cookies.'),
-            'type' => 'text',
-            'size' => 35,
-            'default' => tra('Sorry, cookie consent required'),
-            'tags' => ['experimental'],
-            'dependencies' => [
-                'cookie_consent_feature',
-            ],
-        ],
         'cookie_consent_mode' => [
             'name' => tra('Cookie consent display mode'),
             'description' => tra('Appearance of consent dialog'),
