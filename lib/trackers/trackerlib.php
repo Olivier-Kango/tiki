@@ -6670,7 +6670,11 @@ class TrackerLib extends TikiLib
             if ($field && $field['type'] == 'r') {
                 $handler = $this->get_field_handler($field, $args['old_values']);
                 $data = $handler->getFieldData();
-                $items = array_merge($items, array_filter($data['value']));
+                if (is_array($data['value'])) {
+                    $items = array_merge($items, array_filter($data['value']));
+                } elseif (! empty($data['value'])) {
+                    $items[] = $data['value'];
+                }
             }
         }
 
