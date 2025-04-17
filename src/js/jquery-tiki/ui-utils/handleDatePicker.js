@@ -24,9 +24,13 @@ export default function handleDatePicker(selector, options) {
         if (Array.isArray(value)) {
             inputDateHolder.attr("value", moment(value[0]).unix());
             inputEndDateHolder.attr("value", moment(value[1]).unix());
+            inputEndDateHolder.trigger("change");
         } else {
             inputDateHolder.attr("value", moment(value).unix());
         }
+
+        inputDateHolder.trigger("change");
+
         if (options.goto) {
             goToURLWithData(value, options.goto, inputDateHolder.val(), inputEndDateHolder.val(), element.attr("timezone"), options.globalCallback);
         }

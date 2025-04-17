@@ -1161,20 +1161,20 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
     $picker = '<div class="row col-sm-6">' . smarty_function_jscalendar($params, $smarty->getEmptyInternalTemplate()) . '</div>';
 
     $script .= "
-$('input[name=\"$from_fieldname\"],input[name=\"$to_fieldname\"]').on('change', function() {
-    updateDateRange_$fieldid();
-});
-function updateDateRange_$fieldid() {
-    const from = $('input[name=\"$from_fieldname\"]').val();
-    const to = $('input[name=\"$to_fieldname\"]').val();
-    const val = (from && to) ? from + ',' + to : '';
-    customsearch$id.add('$fieldid', {
-        config: " . json_encode($arguments) . ",
-        name: 'daterange',
-        value: val
+    $(document).on('change', 'input[name=\"$from_fieldname\"],input[name=\"$to_fieldname\"]', function() {
+        updateDateRange_$fieldid();
     });
-}
-updateDateRange_$fieldid();
+    function updateDateRange_$fieldid() {
+        const from = $('input[name=\"$from_fieldname\"]').val();
+        const to = $('input[name=\"$to_fieldname\"]').val();
+        const val = (from && to) ? from + ',' + to : '';
+        customsearch$id.add('$fieldid', {
+            config: " . json_encode($arguments) . ",
+            name: 'daterange',
+            value: val
+        });
+    }
+    updateDateRange_$fieldid();
 ";
     return $picker;
 }
