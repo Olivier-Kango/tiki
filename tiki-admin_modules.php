@@ -613,7 +613,8 @@ if (! empty($_REQUEST['edit_module'])) {    // pick up ajax calls
     if (getCookie('show_col3') === 'n') {
         unset($headerlib->css[100][array_search('#c1c2 #wrapper #col1.marginright { margin-right: 0; }', $headerlib->css[100])]);
     }
-
+    $smarty->assign('padding_top_layout', true);
+    $smarty->assign('theme_navbar_fixed_topbar_offset', $prefs["theme_navbar_fixed_topbar_offset"] + 35);
     $smarty->assign('mid', 'tiki-admin_modules.tpl');
     $smarty->display('tiki.tpl');
 }

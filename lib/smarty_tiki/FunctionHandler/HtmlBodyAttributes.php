@@ -16,6 +16,7 @@ use Smarty\Template;
 
 class HtmlBodyAttributes extends Base
 {
+    // Used in the template to create the html_body_attributes tag which can take a class as parameter and returns the attributes for a standard tiki page body tag
     public function handle($params, Template $template)
     {
         global $section, $prefs, $page, $section_class, $user;

@@ -4,7 +4,7 @@
     {include file='header.tpl'}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body{html_body_attributes}>
+<body {if $padding_top_layout}{html_body_attributes class="tiki-admin-padding-top"}{else}{html_body_attributes}{/if}>
 {$cookie_consent_html}
 
 {include file="layout_fullscreen_check.tpl"}
