@@ -108,12 +108,16 @@ describe("handleDatePicker", () => {
         handleDatePicker("#date-picker", options);
 
         const inputDateHolder = $(`input[name="${options.fieldName}"]`);
+        const inputDateHolderChangeEventHandler = vi.fn();
+        inputDateHolder.on("change", inputDateHolderChangeEventHandler);
+
         expect(inputDateHolder[0]).to.exist;
         expect(inputDateHolder.attr("value")).toBe(options.date.toString());
 
         givenDatePickerElement[0].dispatchEvent(new CustomEvent("change", { detail: [moment("2021-01-02").toDate()] }));
 
         expect(inputDateHolder.attr("value")).toBe(moment("2021-01-02").unix().toString());
+        expect(inputDateHolderChangeEventHandler).toHaveBeenCalled();
     });
 
     test("update the input date holders when the date picker value changes in range mode", () => {
@@ -129,9 +133,16 @@ describe("handleDatePicker", () => {
         handleDatePicker("#date-picker", options);
 
         const inputDateHolder = $(`input[name="${options.fieldName}"]`);
+        const inputDateHolderChangeEventHandler = vi.fn();
+        inputDateHolder.on("change", inputDateHolderChangeEventHandler);
+
         expect(inputDateHolder[0]).to.exist;
         expect(inputDateHolder.attr("value")).toBe(options.date.toString());
+
         const inputEndDateHolder = $(`input[name="${options.endFieldName}"]`);
+        const inputEndDateHolderChangeEventHandler = vi.fn();
+        inputEndDateHolder.on("change", inputEndDateHolderChangeEventHandler);
+
         expect(inputEndDateHolder[0]).to.exist;
         expect(inputEndDateHolder.attr("value")).toBe(options.endDate.toString());
 
@@ -141,6 +152,9 @@ describe("handleDatePicker", () => {
 
         expect(inputDateHolder.attr("value")).toBe(moment("2021-01-03").unix().toString());
         expect(inputEndDateHolder.attr("value")).toBe(moment("2021-01-04").unix().toString());
+
+        expect(inputDateHolderChangeEventHandler).toHaveBeenCalled();
+        expect(inputEndDateHolderChangeEventHandler).toHaveBeenCalled();
     });
 
     test("calls the goToURLWithData function when the date picker value changes and the goto option is provided", async () => {
