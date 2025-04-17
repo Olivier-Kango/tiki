@@ -344,6 +344,20 @@ function wikiplugin_listpages($data, $params)
             $initial = '';
         }
     }
+
+    $ts = Table_Check::setVars('listpages', true);
+    $smarty->assign('ts', $ts);
+    if ($ts['ajax']) {
+        if (! empty($_REQUEST['categPath_ts']) || ! empty($_REQUEST['categ_ts'])) {
+            $req = $_REQUEST['categPath_ts'] ?? $_REQUEST['categ_ts'];
+            $pos = strrpos($req, '::');
+            $catname = ($pos !== false) ? substr($req, $pos + 2) : $req;
+
+            $categlib = TikiLib::lib('categ');
+            $categId = $categlib->get_category_id($catname);
+        }
+    }
+
     if (! empty($categId)) {
         if (strstr($categId, ':')) {
             $filter['categId'] = explode(':', $categId);

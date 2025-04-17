@@ -34,8 +34,8 @@
 {/if}
 
 {assign var='pagefound' value='n'}
-<div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}> {*the table-responsive class cuts off dropdown menus *}
-    <table id="{$ts.tableid}" class="table normal table-striped table-hover" data-count="{$cant|escape}">
+<div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv"> {*the table-responsive class cuts off dropdown menus *}
+    <table id="{$ts.tableid}" class="table normal table-striped table-hover{if !empty($ts.enabled)} tablesorter{/if}" data-count="{$cant|escape}">
         {if !isset($noheader) || $noheader != 1}
             <thead>
                 <tr>
