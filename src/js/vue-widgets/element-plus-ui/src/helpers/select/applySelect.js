@@ -2,7 +2,17 @@ export function observeSelectElementMutations(select, elementPlusUi) {
     new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.addedNodes.length) {
-                syncSelectOptions(elementPlusUi, select);
+                /*
+                    Ensure that options added as a side effect of the value change event
+                    do not alter the Element Plus select options, as those already exist
+                    in the UI element and would only disrupt the UI picker options.
+                */
+                const newOptions = $(select)
+                    .find("option")
+                    .filter((_, option) => $(option).val() && !$(select).val().includes($(option).val()));
+                if (newOptions.length) {
+                    syncSelectOptions(elementPlusUi, select);
+                }
             }
 
             // jquery-validation error highlighting
@@ -42,7 +52,6 @@ export function syncSelectOptions(elementPlusSelect, select) {
 export function attachChangeEventHandler(elementPlusSelect, select) {
     $(elementPlusSelect).on("select-change", function (event) {
         const selectedValues = event.detail[0].value;
-
         // Adding new items to the select list
         const appendOption = (value) => {
             if (!$(select).find(`option[value="${value}"]`).length) {
