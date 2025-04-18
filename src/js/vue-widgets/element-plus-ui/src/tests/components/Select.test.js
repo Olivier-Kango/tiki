@@ -205,19 +205,19 @@ describe("Select", () => {
             expect(ElSelect.mock.calls[1][0].modelValue).toBe("foo");
         });
 
-        test("should handle remote searching when the remote-source-url prop is set", () => {
+        test("should handle remote searching when the remote-source-url prop is set", async () => {
             const givenProps = {
                 ...basicProps,
                 remoteSourceUrl: "http://foo.bar",
             };
 
-            const expectedData = [{ value: "foo", label: "Foo remote" }];
+            const expectedData = [{ value: "foo-remote", label: "Foo remote" }];
 
             const fetchSpy = getFetchSpy(expectedData);
 
             render(Select, { props: givenProps });
 
-            ElSelect.mock.calls[0][0]["remote-method"]("query");
+            await ElSelect.mock.calls[0][0]["remote-method"]("query");
 
             expect(fetchSpy).toHaveBeenCalledWith(givenProps.remoteSourceUrl + "/?q=query", {
                 headers: {
@@ -226,11 +226,22 @@ describe("Select", () => {
             });
 
             expectedData.forEach(async (option) => {
-                await waitFor(() => expect(ElOption).toHaveBeenCalledWith(expect.objectContaining(option), null));
+                expect(ElOption).toHaveBeenCalledWith(expect.objectContaining(option), null);
             });
+
+            const renderedOptions = screen.getAllByTestId(DATA_TEST_ID.SELECT_OPTION);
+            expect(renderedOptions).toHaveLength(expectedData.length + 1); // + 1 for the initial value
+
+            // Previously selected options should be prepended to the list
+            const renderedOption1 = renderedOptions[0];
+            expect(renderedOption1.getAttribute("value")).toBe(JSON.parse(givenProps.value));
+
+            const renderedOption2 = renderedOptions[1];
+            expect(renderedOption2.getAttribute("value")).toBe(expectedData[0].value);
+            expect(renderedOption2.getAttribute("label")).toBe(expectedData[0].label);
         });
 
-        test("should not trigger the remote search when the query is empty", () => {
+        test("should not trigger the remote search when the query is empty", async () => {
             const givenProps = {
                 ...basicProps,
                 remoteSourceUrl: "http://foo.bar",
@@ -240,12 +251,12 @@ describe("Select", () => {
 
             render(Select, { props: givenProps });
 
-            ElSelect.mock.calls[0][0]["remote-method"]("");
+            await ElSelect.mock.calls[0][0]["remote-method"]("");
 
             expect(fetchSpy).not.toHaveBeenCalled();
         });
 
-        test("should correctly parse the remote data when it is an array of strings", () => {
+        test("should correctly parse the remote data when it is an array of strings", async () => {
             const givenProps = {
                 ...basicProps,
                 remoteSourceUrl: "http://foo.bar",
@@ -257,10 +268,10 @@ describe("Select", () => {
 
             render(Select, { props: givenProps });
 
-            ElSelect.mock.calls[0][0]["remote-method"]("query");
+            await ElSelect.mock.calls[0][0]["remote-method"]("query");
 
             expectedData.forEach(async (option) => {
-                await waitFor(() => expect(ElOption).toHaveBeenCalledWith(expect.objectContaining({ value: option, label: option }), null));
+                expect(ElOption).toHaveBeenCalledWith(expect.objectContaining({ value: option, label: option }), null);
             });
         });
 
