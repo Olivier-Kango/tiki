@@ -679,7 +679,7 @@ composer()
     #${PHPCLI} ${PHP_OPTION}
     LOCAL_PHP_VERSION_NUMERIC=$("${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7)
     #echo ${LOCAL_PHP_VERSION}
-    LIKELY_ALTERNATE_PHP_CLI="php81 ph8.1 php8.1-cli" # These have been known to exist on some hosting platforms
+    LIKELY_ALTERNATE_PHP_CLI="php81 php8.1 php8.1-cli" # These have been known to exist on some hosting platforms
     if [ "${LOCAL_PHP_VERSION_NUMERIC}" -lt "${TIKI_MIN_PHP_VERSION_NUMERIC}" ] || [ "${LOCAL_PHP_VERSION_NUMERIC}" -ge "${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC}" ] ; then
         echo "Wrong PHP version: php${LOCAL_PHP_VERSION_NUMERIC}.  A version >= php${TIKI_MIN_PHP_VERSION_NUMERIC} and <= php${TIKI_TOO_RECENT_PHP_VERSION_NUMERIC} is necessary."
         echo "Searching for typically named alternative PHP version ..."
