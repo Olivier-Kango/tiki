@@ -5,7 +5,7 @@ import * as Handlers from "./handlers/index";
 export default function (areaId, toolbar, options) {
     const target = $(`#${areaId}`);
 
-    const { tools, icons, customButtons, renderCallbacks } = formatTikiToolbars(toolbar);
+    const { tools, icons, customButtons } = formatTikiToolbars(toolbar);
 
     target.summernote({
         lang: options.lang,
@@ -15,12 +15,9 @@ export default function (areaId, toolbar, options) {
         height: options.height,
         callbacks: {
             onInit: function () {
-                renderCallbacks.forEach((cbName) => {
-                    if (typeof cbName === "string") {
-                        window[cbName]();
-                    } else {
-                        cbName();
-                    }
+                const toolbar = $(this).data("summernote").layoutInfo.toolbar;
+                toolbar.find(".custom-btn-wrapper").each(function () {
+                    $(this).children().unwrap();
                 });
             },
             onKeydown: function (event) {

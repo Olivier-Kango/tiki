@@ -36,7 +36,6 @@ export default function (toolbar) {
     const tools = {};
     const icons = {};
     const customButtons = {};
-    const renderCallbacks = [];
 
     let groupIndex = 0;
 
@@ -66,10 +65,6 @@ export default function (toolbar) {
             }
 
             customButtons[item.token] = createCustomButton(item);
-
-            if (item.renderCallback) {
-                renderCallbacks.push(item.renderCallback);
-            }
         }
     });
 
@@ -79,6 +74,5 @@ export default function (toolbar) {
             .map((group) => [group, tools[group]]),
         icons,
         customButtons,
-        renderCallbacks,
     };
 }

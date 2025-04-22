@@ -40,6 +40,12 @@ describe("initSummernote", () => {
     test("should initialize summernote", () => {
         const id = "foo";
         const givenTextarea = $(`<textarea id="${id}"></textarea>`);
+        givenTextarea.data("summernote", {
+            layoutInfo: {
+                toolbar: $("<div></div>"),
+            },
+        });
+
         $("body").append(givenTextarea);
         const givenToolbar = ["color", "font"];
         const expectedFormattedTools = [["group", ["color", "font"]]];
@@ -50,14 +56,11 @@ describe("initSummernote", () => {
         const expectedCustomButtons = {
             plugin: function () {},
         };
-        const expectedRenderCallbacks = ["plugin", vi.fn()];
-        window.plugin = vi.fn();
 
         vi.spyOn(formatTikiToolbarsModule, "default").mockReturnValue({
             tools: expectedFormattedTools,
             icons: expectedIcons,
             customButtons: expectedCustomButtons,
-            renderCallbacks: expectedRenderCallbacks,
         });
 
         initSummernote(id, givenToolbar, { lang: "en-US", height: 300 });
@@ -76,13 +79,47 @@ describe("initSummernote", () => {
             },
         });
 
-        givenTextarea.summernote.mock.calls[0][0].callbacks.onInit();
+        givenTextarea.summernote.mock.calls[0][0].callbacks.onInit.call(givenTextarea[0]);
 
-        expect(plugin).toHaveBeenCalled();
-        expect(expectedRenderCallbacks[1]).toHaveBeenCalled();
         expect(Handlers.formSubmission).toHaveBeenCalledWith(givenTextarea);
         expect(Handlers.dirtyCheck).toHaveBeenCalledWith(givenTextarea);
         expect(Handlers.pluginEdit).toHaveBeenCalledWith(id);
+    });
+
+    test("should unwrap custom buttons on init", () => {
+        const id = "foo";
+        const givenTextarea = $(`<textarea id="${id}"></textarea>`);
+        const toolbar = $(`<div>
+            <div class="custom-btn-wrapper">
+                <button>tool1</button>
+                <span>tool1 custom element</span>
+            </div>
+            <div class="custom-btn-wrapper">
+                <button>tool2</button>
+                <span>tool2 custom element</span>
+            </div>
+        </div>`);
+        givenTextarea.data("summernote", {
+            layoutInfo: {
+                toolbar,
+            },
+        });
+        $("body").append(givenTextarea);
+        const givenToolbar = [
+            {
+                icon: "colorIcon",
+                label: "Color",
+                callback: "colorCb",
+            },
+        ];
+
+        vi.spyOn(formatTikiToolbarsModule, "default");
+
+        initSummernote(id, givenToolbar, { lang: "en-US" });
+
+        givenTextarea.summernote.mock.calls[0][0].callbacks.onInit.call(givenTextarea[0]);
+
+        expect(toolbar.html()).toMatchSnapshot();
     });
 
     test("should render the user mention modal when the @ key is pressed", () => {

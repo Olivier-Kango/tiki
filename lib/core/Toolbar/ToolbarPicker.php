@@ -172,8 +172,11 @@ class ToolbarPicker extends ToolbarDialog
         $data = get_object_vars($this);
         unset($data['list']);
         $data['pickerId'] = str_replace('@vue-mf/', '', $this->singleSpaAppName);
+        $picker = $this->getEmojiPicker();
 
         return '
+        this.append("' . $picker . '");
+        this.find("button").addClass("dropdown-toggle"); // this class is added so that the button is treated as a dropdown by summernote
     window.registerApplication({
         name: ' . json_encode($this->singleSpaAppName) . ',
         app: () => importShim("@vue-mf/emoji-picker"),
@@ -189,9 +192,6 @@ class ToolbarPicker extends ToolbarDialog
                 emoji: "sunglasses"
             }
         },
-    });
-    onDOMElementRemoved("' . $data['pickerId'] . '", function () {
-        window.unregisterApplication(' . json_encode($this->singleSpaAppName) . ');
     });';
     }
 
@@ -201,15 +201,6 @@ class ToolbarPicker extends ToolbarDialog
             $this->setupPickerJS();
         }
         return $this->getOnClick();
-    }
-
-    public function getIconHtml(): string
-    {
-        $icon = parent::getIconHtml();
-        if ($this->name === 'emoji') {
-            $icon .= $this->getEmojiPicker();
-        }
-        return $icon;
     }
 
     public function getWikiHtml(): string

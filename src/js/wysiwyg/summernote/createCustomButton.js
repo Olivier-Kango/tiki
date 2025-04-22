@@ -14,7 +14,25 @@ export default function (tool) {
             },
         });
 
-        return button.render();
+        /*
+        These wrappers are used to allow insertion of custom elements following the button.
+        They are later removed when the editor is initialized and elements inserted.
+        The main reason for they removal is to avoid breaking the summernote toolbar layout.
+        A typical example of this is with the emoji picker tool, which uses the renderCallback execution to insert the picker element within the DOM.
+        */
+        const wrapper = $("<div class='custom-btn-wrapper'></div>");
+
+        button.render(wrapper);
+
+        if (tool.renderCallback) {
+            if (typeof tool.renderCallback === "string") {
+                window[`${tool.renderCallback}`].call(wrapper);
+            } else {
+                tool.renderCallback.call(wrapper);
+            }
+        }
+
+        return wrapper;
     };
 }
 

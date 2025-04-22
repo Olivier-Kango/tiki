@@ -11,10 +11,13 @@ describe("formSubmission handler", () => {
         $.service = vi.fn((service, action) => `${service}/${action}`);
         $.fn.showError = vi.fn();
         $.fn.summernote = vi.fn();
+
+        vi.useFakeTimers();
     });
 
     afterEach(() => {
         vi.clearAllMocks();
+        vi.resetAllMocks();
         $("body").empty();
     });
 
@@ -85,5 +88,61 @@ describe("formSubmission handler", () => {
         form.trigger("submit");
 
         expect(parseDataSpy).not.toHaveBeenCalled();
+    });
+
+    test("do not parse the content if the form does not have the submitted flag, but has some validation pending request", () => {
+        // Given that the text editor is rendered within a form
+        const textarea = $("<textarea></textarea>");
+        const form = $("<form></form>").append(textarea);
+        form.data("submitted", false);
+        $.fn.validate = vi.fn(() => ({
+            pendingRequest: 1,
+        }));
+
+        $("body").append(form);
+
+        const parseDataSpy = vi.spyOn(formSubmissionHelpers, "parseData");
+
+        formSubmission(textarea);
+
+        form.trigger("submit");
+
+        expect(parseDataSpy).not.toHaveBeenCalled();
+    });
+
+    test("do not submit the form when the parseing has been requested many times, and yet all to be completed", () => {
+        const textarea = $("<textarea></textarea>");
+        const textarea2 = $("<textarea></textarea>");
+        const form = $("<form></form>").append(textarea).append(textarea2);
+        $("body").append(form);
+
+        const formSubmitSpy = vi.fn();
+        form.get(0).submit = formSubmitSpy;
+
+        const parseDataSpy = vi.spyOn(formSubmissionHelpers, "parseData").mockImplementationOnce((_, cb) => {
+            setTimeout(cb, 200);
+        });
+
+        parseDataSpy.mockImplementationOnce((_, cb) => {
+            setTimeout(cb, 400);
+        });
+
+        formSubmission(textarea);
+        formSubmission(textarea2);
+
+        form.trigger("submit");
+
+        vi.advanceTimersByTime(200);
+
+        expect(parseDataSpy).toHaveBeenCalledWith(textarea, expect.any(Function));
+        expect(parseDataSpy).toHaveBeenCalledWith(textarea2, expect.any(Function));
+        expect(textarea.data("is-submitting")).toBe(true);
+        expect(form.data("should-parse-editor-data")).toBe(true);
+        expect(formSubmitSpy).not.toHaveBeenCalled();
+
+        vi.advanceTimersByTime(200);
+        expect(textarea2.data("is-submitting")).toBe(true);
+        expect(form.data("should-parse-editor-data")).toBe(false);
+        expect(formSubmitSpy).toHaveBeenCalled();
     });
 });
