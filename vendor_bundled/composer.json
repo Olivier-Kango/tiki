@@ -156,7 +156,7 @@
         "h5p/h5p-editor": "~1.25",
         "henrique-borba/php-sieve-manager": "^1.0.0",
         "hybridauth/hybridauth": "^3.7",
-        "jasig/phpcas": "^1.3",
+        "jasig/phpcas": "~1.6",
         "jason-munro/cypht": "dev-master",
         "jquery-plugins/reflection-jquery": "1.1",
         "jquery/jquery-sheet": "3.1",
