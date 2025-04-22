@@ -611,6 +611,7 @@ class PdfGenerator
                         $bgColor = "background: linear-gradient(top, " . $pdfPage['background'] . ", " . $pdfPage['background'] . ");";
                     }
                     $pdfPage['pageContent'] = $this->getHtmlLayout($pdfPage['pageContent']);
+                    $this->_getImages($pdfPage['pageContent'], $tempImgArr);
 
                     $mpdf->WriteHTML('<html><body class="' . $bodycss . '" style="margin:0px;padding:0px;">' . $cssStyles);
                     $pagesTotal += floor(strlen($pdfPage['pageContent']) / 3000);
