@@ -248,6 +248,9 @@ function prefs_site_list()
             'hint' => tra('Note: this does not affect the Unified Admin Backend. Only the legacy admin pages when UAB is disabled. An admin theme must be selected first.'),
             'tags' => ['advanced'],
             'options' => $available_admin_layouts,
+            'mandatory_dependencies' => [
+                'theme_admin',
+            ],
         ],
         'site_layout_per_object' => [
             'name' => tr('Enable layout per page, etc.'),

@@ -8,10 +8,10 @@
         {/if}
         {if is_array( $p.value )}
             <input name="{$p.preference|escape}" id="{$p.id|escape}" value="{$p.value|join:$p.separator|escape}" class="form-control" size="{$p.size|default:40|escape}"
-                type="text" {$p.params}>
+                type="text" {$p.params}{if $p.parameters.disabled} disabled="disabled"{/if}>
         {else}
             <input name="{$p.preference|escape}" id="{$p.id|escape}" value="{$p.value|escape}" class="form-control" size="{$p.size|default:40|escape}"
-                   type="text" {$p.params}>
+                   type="text" {$p.params}{if $p.parameters.disabled} disabled="disabled"{/if}>
         {/if}
         {if !empty($p.units)}
                 <span class="input-group-text">{$p.units}</span>

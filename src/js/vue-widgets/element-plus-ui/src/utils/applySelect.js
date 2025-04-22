@@ -16,7 +16,9 @@ export default function applySelect() {
                     elementPlusUi.attr("multiple", $(this).prop("multiple"));
                     elementPlusUi.attr("id", elementUniqueId);
                     elementPlusUi.attr("max", $(this).attr("data-max"));
-
+                    if (this.hasAttribute("disabled")) {
+                        elementPlusUi.css("pointer-events", "none");
+                    }
                     // In respect to bootstrap form-control sizes
                     if (this.classList.contains("form-control-sm")) {
                         elementPlusUi.attr("size", "small");

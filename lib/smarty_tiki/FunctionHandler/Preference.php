@@ -85,6 +85,17 @@ class Preference extends Base
                 $info['tags'] = [];
             }
 
+            $info['parameters']['disabled'] = false;
+
+            if (! empty($info['mandatory_dependencies'])) {
+                foreach ($info['mandatory_dependencies'] as $dep) {
+                    if (empty($prefs[$dep])) {
+                        $info['parameters']['disabled'] = true;
+                        break;
+                    }
+                }
+            }
+
             $smarty->assign('p', $info);
 
             /* Allows having preference Lisa show only if its parent preference Homer is *un*checked (rather than checked), by setting mode=invert on Homer.
