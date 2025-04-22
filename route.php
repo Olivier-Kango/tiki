@@ -173,9 +173,12 @@ function tiki_route($path)
     );
 
     tiki_route_attempt(
-        '|^tiki\-(\w+)\-(\w+)$|',
+        '|^tiki\-(\w*)\-(\w*)$|',
         'tiki-ajax_services.php',
         function ($parts) {
+            if (! $parts[1]) {
+                return [];
+            }
             if ($parts[2] == 'x') {
                 return [
                     'controller' => $parts[1],
