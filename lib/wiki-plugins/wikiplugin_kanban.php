@@ -127,17 +127,18 @@ If the whole parameter is absent (not recommended), all possible field values wi
 function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesParam, string $fieldPermName, array $fieldDefaultConfig)
 {
     //echo '<pre>Field';print_r($fieldHandler->getFieldDefinition());echo '</pre>';
-    if (! $fieldHandler instanceof \Tracker\Field\EnumerableInterface) {
-        throw new TypeError(tra('The tracker field "%0" selected in parameter is of a type that is not enumerable (does not implement \Tracker\Field\EnumerableInterface)', '', false, [
+    if ($fieldHandler instanceof \Tracker\Field\EnumerableInterface) {
+        if ($fieldHandler->canHaveMultipleValues()) {
+            throw new TypeError(tra('The tracker field "%0" selected in parameter is configured to allow multiple values. This is not mappable in a kanban board', '', false, [
+                $fieldPermName
+            ]));
+        }
+        $fieldValuesMap = $fieldHandler->getPossibleItemValues();
+    } else {
+        throw new TypeError(tra('The tracker field "%0" selected in parameter is of a type that is not enumerable', '', false, [
             $fieldPermName
         ]));
     }
-    if ($fieldHandler->canHaveMultipleValues()) {
-        throw new TypeError(tra('The tracker field "%0" selected in parameter is configured to allow multiple values.  This is not mappable in a kanban board', '', false, [
-            $fieldPermName
-        ]));
-    }
-    $fieldValuesMap = $fieldHandler->getPossibleItemValues();
 
     //echo '<pre>Possible item values';print_r($fieldValuesMap);echo '</pre>';
     $fieldInfo = [];
