@@ -225,6 +225,9 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     }
     $params = array_merge($defaults, $params);
 
+    // Filter out unknown parameters
+    $params = array_intersect_key($params, $plugininfo['params']);
+
     $jit = new JitFilter($params);
 
     // Begin mapping the fields
@@ -240,55 +243,61 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 
     $boardFields = [
         'title' => $jit->title->word(),
-        'description' => $jit->description->word(),
+        'description' => $jit->description->word() ?? '',
         'column' => $jit->column->word(),
         'order' => $jit->order->word(),
-        'swimlane' => $jit->swimlane->word(),
+        'swimlane' => $jit->swimlane->word() ?? '',
     ];
 
     foreach ($boardFields as $key => $field) {
-        if (! $field) {
+        if (empty($field) && $plugininfo['params'][$key]['required']) {
             return WikiParser_PluginOutput::userError(tr('Param "%0" is missing', $key));
         }
-        $fieldDef = $mappedTrackerDefinition->getFieldFromPermName($field);
-        if (! $fieldDef) {
-            return WikiParser_PluginOutput::userError(tra('Tracker field with permName "%0" not found for param "%1".  Possible fields are %2', '', false, [
-                $field,
-                $key,
-                implode(',', array_column($mappedTrackerDefinition->getFields(), 'permName'))
-            ]));
+        // Only call getFieldFromPermName if $field is not empty
+        if (! empty($field)) {
+            $fieldDef = $mappedTrackerDefinition->getFieldFromPermName($field);
+            if (! $fieldDef) {
+                return WikiParser_PluginOutput::userError(tra('Tracker field with permName "%0" not found for param "%1". Possible fields are %2', '', false, [
+                    $field,
+                    $key,
+                    implode(',', array_column($mappedTrackerDefinition->getFields(), 'permName'))
+                ]));
+            }
+            $boardFields[$key] = $fieldDef;
         }
-        $boardFields[$key] = $fieldDef;
     }
 
     $fieldFactory = $mappedTrackerDefinition->getFieldFactory();
     try {
-        $columnsHandler = $fieldFactory->getHandler($boardFields['column']);
-        $columnFieldPermName = $boardFields['column']['permName'];
-        $columnsInfo = _map_field(
-            $columnsHandler,
-            'columnValues',
-            $jit->columnValues->text(),
-            $columnFieldPermName,
-            [
-                'wip' => null
-            ],
-            true
-        );
+        if (! empty($boardFields['column'])) {
+            $columnsHandler = $fieldFactory->getHandler($boardFields['column']);
+            $columnFieldPermName = $boardFields['column']['permName'];
+            $columnsInfo = _map_field(
+                $columnsHandler,
+                'columnValues',
+                $jit->columnValues->text(),
+                $columnFieldPermName,
+                [
+                    'wip' => null
+                ],
+                true
+            );
+        }
 
-
-        $swimlanesHandler = $fieldFactory->getHandler($boardFields['swimlane']);
-        $swimlaneFieldPermName = $boardFields['swimlane']['permName'];
-        $swimlanesInfo = _map_field(
-            $swimlanesHandler,
-            'swimlaneValues',
-            $jit->swimlaneValues->text(),
-            $swimlaneFieldPermName,
-            [
-                'wip' => null
-            ],
-            true
-        );
+        if (! empty($boardFields['swimlane'])) {
+            $swimlanesHandler = $fieldFactory->getHandler($boardFields['swimlane']);
+            $swimlaneFieldPermName = $boardFields['swimlane']['permName'];
+            $swimlanesInfo = _map_field(
+                $swimlanesHandler,
+                'swimlaneValues',
+                $jit->swimlaneValues->text(),
+                $swimlaneFieldPermName,
+                [
+                    'wip' => null
+                ],
+                true
+            );
+        }
     } catch (TypeError $e) {
         return WikiParser_PluginOutput::userError($e);
     }
@@ -397,8 +406,10 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         $trackerItem = Tracker_Item::newItem($trackerId);
         $updatableFields = [];
         foreach ($boardFields as $field) {
-            if ($trackerItem->canModifyField($field['fieldId'])) {
-                $updatableFields[] = $field['permName'];
+            if ($field['permName']) {
+                if ($trackerItem->canModifyField($field['fieldId'])) {
+                    $updatableFields[] = $field['permName'];
+                }
             }
         }
         if (count($updatableFields) > 0) {
@@ -420,8 +431,10 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         $trackerItem = Tracker_Item::fromId($row['object_id']);
         $updatableFields = [];
         foreach ($boardFields as $field) {
-            if ($trackerItem->canModifyField($field['fieldId'])) {
-                $updatableFields[] = $field['permName'];
+            if ($field['permName']) {
+                if ($trackerItem->canModifyField($field['fieldId'])) {
+                    $updatableFields[] = $field['permName'];
+                }
             }
         }
         $trackerItemData = $trackerItem->getData();
