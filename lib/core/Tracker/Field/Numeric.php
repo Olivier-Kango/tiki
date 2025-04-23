@@ -22,7 +22,7 @@ class Tracker_Field_Numeric extends \Tracker\Field\AbstractItemField implements 
                 'prefs' => ['trackerfield_numeric'],
                 'tags' => ['basic'],
                 'default' => 'y',
-                'supported_changes' => ['d', 'D', 'R', 'M', 't', 'a', 'n', 'q', 'b', 'DUR'],
+                'supported_changes' => ['d', 'D', 'R', 'M', 't', 'a', 'n', 'q', 'b', 'DUR', 'SLIDER'],
                 'params' => [
                     'samerow' => [
                         'name' => tr('Same Row'),

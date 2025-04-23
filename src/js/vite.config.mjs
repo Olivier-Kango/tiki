@@ -125,6 +125,7 @@ export default defineConfig(({ command, mode }) => {
         "element-plus-ui/input": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/input.js"),
         "element-plus-ui/message": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/message.js"),
         "element-plus-ui/select": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/select.js"),
+        "element-plus-ui/slider": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/slider.js"),
         "element-plus-ui/transfer": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/transfer.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
@@ -340,6 +341,7 @@ export default defineConfig(({ command, mode }) => {
                             "node_modules/element-plus/theme-chalk/base.css",
                             "node_modules/element-plus/theme-chalk/el-message.css",
                             "node_modules/element-plus/theme-chalk/el-message-box.css",
+                            "node_modules/element-plus/theme-chalk/el-popper.css",
                         ],
                         dest: "vendor_dist/element-plus/css",
                     },
@@ -658,7 +660,7 @@ export default defineConfig(({ command, mode }) => {
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/wysiwyg/**/*.js", "src/js/jquery-tiki/ui-utils/handleDatePicker.js", "src/js/jquery-tiki/ui-utils/handleTransferList.js"],
+                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/wysiwyg/**/*.js", "src/js/jquery-tiki/ui-utils/handle*.js"],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
                 provider: 'istanbul'
             },
