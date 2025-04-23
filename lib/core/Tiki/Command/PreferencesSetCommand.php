@@ -76,7 +76,7 @@ class PreferencesSetCommand extends Command
 
         if ($result = $tikilib->set_preference($preference, $value)) {
             if ($result['success']) {
-                $userValue = implode(',', $value);
+                $userValue = is_array($value) ? implode(',', $value) : $value;
                 $output->writeln(sprintf('Preference %s was successfully set to %s in the database.', $preference, $userValue));
                 if ($result['forced_by_config']) {
                     $configValue = $result['config_value'];
