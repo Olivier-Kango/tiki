@@ -133,7 +133,8 @@ case 'modifier_name':
 replacing `modifier_name` with the name of the modifier and `modifierName` with the name of the created class.
 
 #### `Custom modifiers which are PHP native functions`
-* In the file `lib/smarty_tiki/Extension/SmartyTikiExtension.php` in the class `SmartyTiki\Extension\SmartyTikiExtension`, add a new function which name starts with `smartyModifier` to differentiate modifier function from the Extension handler function, and ends with the name of the modifier you want to create in camel case format that accepts as its first parameter the value on which the modifier is to operate. The rest of the parameters are optional, depending on what kind of operation is to be performed. The function has to return the result of its processing.
+In the file `lib/smarty_tiki/Extension/SmartyTikiExtension.php`
+* In the class `SmartyTiki\Extension\SmartyTikiExtension`, add a new function which name starts with `smartyModifier` to differentiate modifier function from the Extension handler function, and ends with the name of the modifier you want to create in camel case format that accepts as its first parameter the value on which the modifier is to operate. The rest of the parameters are optional, depending on what kind of operation is to be performed. The function has to return the result of its processing.
 * Add the modifier to Tiki custom Extension: In the same class, in the function `getModifierCallback()`, then in the `switch(){}` statement add a `case` block of the from:
 ```
 case 'modifier_name':
