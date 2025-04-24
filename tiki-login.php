@@ -100,6 +100,7 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
         }
         if ($userlib->user_exists($_REQUEST['username'])) {
             $loginlib->switchUser($_REQUEST['username']);
+            $access->redirect();
         }
 
         $access->redirect($_SESSION['loginfrom']);
