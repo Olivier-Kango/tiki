@@ -9,6 +9,10 @@
         },
         {
             "type": "vcs",
+            "url": "https://github.com/cypht-org/php-sieve-manager"
+        },
+        {
+            "type": "vcs",
             "url": "https://gitlab.com/tikiwiki/libraries/ZendService_Akismet"
         },
         {
