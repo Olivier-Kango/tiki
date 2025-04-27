@@ -119,9 +119,9 @@ class Services_Search_Controller
         $executionTime = FormatterHelper::formatTime($timer->stop());
 
         if ($input->loggit->int()) {
-            $log = new Laminas\Log\Writer\Stream($unifiedsearchlib->getLogFilename($input->loggit->int(), $prefs['unified_engine']), 'a');
-            $loggerInstance = new Laminas\Log\Logger();
-            $loggerInstance->addWriter($log);
+            $log = new Monolog\Handler\StreamHandler($unifiedsearchlib->getLogFilename($input->loggit->int(), $prefs['unified_engine']), Monolog\Logger::DEBUG);
+            $loggerInstance = new Monolog\Logger('search_controller');
+            $loggerInstance->pushHandler($log);
             $loggerInstance->info("Execution time: " . $executionTime);
         }
 

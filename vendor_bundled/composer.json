@@ -166,7 +166,6 @@
         "laminas/laminas-http": "^2.15",
         "laminas/laminas-i18n": "^2.10.1",
         "laminas/laminas-ldap": "^2.10.1",
-        "laminas/laminas-log": "^2.12",
         "laminas/laminas-mail": "^2.10",
         "laminas/laminas-mime": "^2.7.2",
         "laminas/laminas-oauth": "~2.0",

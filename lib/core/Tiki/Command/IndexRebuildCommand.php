@@ -6,8 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Command;
 
-use Laminas\Log\Writer\Stream as WriterStream;
-use Laminas\Log\Logger;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
@@ -223,9 +221,9 @@ class IndexRebuildCommand extends Command
 
                 if ($log && is_array($currentEngine) && count($currentEngine)) {
                     list($engine) = $currentEngine;
-                    $logToFile = new WriterStream($unifiedsearchlib->getLogFilename($log, strtolower($engine)), 'a');
-                    $loggerInstance = new Logger();
-                    $loggerInstance->addWriter($logToFile);
+                    $logToFile = new \Monolog\Handler\StreamHandler($unifiedsearchlib->getLogFilename($log, strtolower($engine)), \Monolog\Logger::INFO);
+                    $loggerInstance = new \Monolog\Logger('index_rebuild');
+                    $loggerInstance->pushHandler($logToFile);
                     $loggerInstance->info("Execution time: " . $executionTime);
                 }
 
