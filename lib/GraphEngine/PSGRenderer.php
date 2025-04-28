@@ -9,13 +9,13 @@
  *
  * vim: fdm=marker tabstop=4 shiftwidth=4 noet:
  *
- * This file contains the PDF graphic renderer. (Using PDFLib)
+ * This file contains the PostScript graphic renderer. (Using PSLib)
  */
-require_once('lib/graph-engine/core.php');
+namespace Tiki\Lib\GraphEngine;
 
-class PDFLib_GRenderer extends GRenderer // {{{1
+class PSGRenderer extends GRenderer // {{{1
 {
-    public $pdf;
+    public $ps;
     public $styles;
     public $font;
 
@@ -33,11 +33,11 @@ class PDFLib_GRenderer extends GRenderer // {{{1
             $this->width = $size[0];
             $this->height = $size[1];
 
-            $this->pdf = pdf_new();
-            pdf_open_file($this->pdf, '');
-            PDF_begin_page_ext($this->pdf, $this->width, $this->height, '');
+            $this->ps = ps_new();
+            ps_open_file($this->ps, '');
+            ps_begin_page($this->ps, $this->width, $this->height);
 
-            $this->font = pdf_findfont($this->pdf, 'Helvetica', 'builtin', 0);
+            $this->font = ps_findfont($this->ps, 'Helvetica', '', 0);
         }
     }
 
@@ -50,8 +50,8 @@ class PDFLib_GRenderer extends GRenderer // {{{1
         $this->_convertPosition($x1, $y1);
         $this->_convertPosition($x2, $y2);
 
-        pdf_setcolor(
-            $this->pdf,
+        ps_setcolor(
+            $this->ps,
             'stroke',
             $style['line'][0],
             $style['line'][1],
@@ -60,11 +60,11 @@ class PDFLib_GRenderer extends GRenderer // {{{1
             $style['line'][4]
         );
 
-        pdf_setlinewidth($this->pdf, $style['line-width']);
+        ps_setlinewidth($this->ps, $style['line-width']);
 
-        pdf_moveto($this->pdf, $x1, $y1);
-        pdf_lineto($this->pdf, $x2, $y2);
-        pdf_stroke($this->pdf);
+        ps_moveto($this->ps, $x1, $y1);
+        ps_lineto($this->ps, $x2, $y2);
+        ps_stroke($this->ps);
     }
 
     public function drawRectangle($left, $top, $right, $bottom, $style) // {{{2
@@ -72,8 +72,8 @@ class PDFLib_GRenderer extends GRenderer // {{{1
         $this->_convertPosition($left, $top);
         $this->_convertPosition($right, $bottom);
 
-        pdf_setcolor(
-            $this->pdf,
+        ps_setcolor(
+            $this->ps,
             'stroke',
             $style['line'][0],
             $style['line'][1],
@@ -83,8 +83,8 @@ class PDFLib_GRenderer extends GRenderer // {{{1
         );
 
         if (isset($style['fill'])) {
-            pdf_setcolor(
-                $this->pdf,
+            ps_setcolor(
+                $this->ps,
                 'fill',
                 $style['fill'][0],
                 $style['fill'][1],
@@ -94,14 +94,14 @@ class PDFLib_GRenderer extends GRenderer // {{{1
             );
         }
 
-        pdf_setlinewidth($this->pdf, $style['line-width']);
+        ps_setlinewidth($this->ps, $style['line-width']);
 
-        pdf_rect($this->pdf, $left, $top, $right - $left, $bottom - $top);
+        ps_rect($this->ps, $left, $top, $right - $left, $bottom - $top);
 
         if (isset($style['fill'])) {
-            pdf_fill_stroke($this->pdf);
+            ps_fill_stroke($this->ps);
         } else {
-            pdf_stroke($this->pdf);
+            ps_stroke($this->ps);
         }
     }
 
@@ -110,8 +110,8 @@ class PDFLib_GRenderer extends GRenderer // {{{1
         $this->_convertPosition($centerX, $centerY);
         $radius = $radius * min($this->width, $this->height);
 
-        pdf_setcolor(
-            $this->pdf,
+        ps_setcolor(
+            $this->ps,
             'stroke',
             $style['line'][0],
             $style['line'][1],
@@ -121,8 +121,8 @@ class PDFLib_GRenderer extends GRenderer // {{{1
         );
 
         if (isset($style['fill'])) {
-            pdf_setcolor(
-                $this->pdf,
+            ps_setcolor(
+                $this->ps,
                 'fill',
                 $style['fill'][0],
                 $style['fill'][1],
@@ -132,16 +132,17 @@ class PDFLib_GRenderer extends GRenderer // {{{1
             );
         }
 
-        pdf_setlinewidth($this->pdf, $style['line-width']);
+        ps_setlinewidth($this->ps, $style['line-width']);
 
-        pdf_moveto($this->pdf, $centerX, $centerY);
-        pdf_arc($this->pdf, $centerX, $centerY, $radius, $begin, $end);
-        pdf_lineto($this->pdf, $centerX, $centerY);
+        ps_moveto($this->ps, $centerX, $centerY);
+        ps_arc($this->ps, $centerX, $centerY, $radius, $begin, $end);
+        ps_lineto($this->ps, $centerX, $centerY);
+        ps_closepath($this->ps);
 
         if (isset($style['fill'])) {
-            pdf_closepath_fill_stroke($this->pdf);
+            ps_fill_stroke($this->ps);
         } else {
-            pdf_closepath_stroke($this->pdf);
+            ps_stroke($this->ps);
         }
     }
 
@@ -151,8 +152,8 @@ class PDFLib_GRenderer extends GRenderer // {{{1
         $this->_convertPosition($left, $height);
         $this->_convertPosition($right, $h);
 
-        pdf_setcolor(
-            $this->pdf,
+        ps_setcolor(
+            $this->ps,
             'fill',
             $style['fill'][0],
             $style['fill'][1],
@@ -161,13 +162,13 @@ class PDFLib_GRenderer extends GRenderer // {{{1
             $style['fill'][4]
         );
 
-        pdf_setfont($this->pdf, $this->font, $style['font']);
-        pdf_show_boxed($this->pdf, $text, $left, $height - $style['font'], $right - $left, $style['font'], $style['align'], '');
+        ps_setfont($this->ps, $this->font, $style['font']);
+        ps_show_boxed($this->ps, $text, $left, $height - $style['font'], $right - $left, $style['font'], $style['align'], '');
     }
 
     public function getTextWidth($text, $style) // {{{2
     {
-        return pdf_stringwidth($this->pdf, $text, $this->font, $style['font']) / $this->width;
+        return ps_stringwidth($this->ps, $text, $this->font, $style['font']) / $this->width;
     }
 
     public function getTextHeight($style) // {{{2
@@ -186,29 +187,29 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 
     public function httpOutput($filename) // {{{2
     {
-        pdf_end_page($this->pdf);
-        PDF_end_document($this->pdf, '');
+        ps_end_page($this->ps);
+        ps_close($this->ps);
 
-        $buf = pdf_get_buffer($this->pdf);
+        $buf = ps_get_buffer($this->ps);
         $len = strlen($buf);
 
-        header("Content-type: application/pdf");
+        header("Content-type: application/ps");
         header("Content-Length: $len");
         header("Content-Disposition: inline; filename=$name");
         echo $buf;
 
-        pdf_delete($this->pdf);
+        ps_delete($this->ps);
     }
 
     public function writeToStream($stream) // {{{2
     {
-        pdf_end_page($this->pdf);
-        PDF_end_document($this->pdf, '');
+        ps_end_page($this->ps);
+        ps_close($this->ps);
 
-        $buf = pdf_get_buffer($this->pdf);
+        $buf = ps_get_buffer($this->ps);
         fwrite($stream, $buf);
 
-        pdf_delete($this->pdf);
+        ps_delete($this->ps);
     }
 
     public function _convertLength($value, $type) // {{{2
@@ -273,9 +274,6 @@ class PDFLib_GRenderer extends GRenderer // {{{1
                 break;
             case 'Text':
                 $style['fill'] = $this->_getColor('Black');
-                if (! isset($parts[1])) {
-                    $parts[1] = null;
-                }
                 switch ($parts[1]) {
                     case 'Center':
                         $style['align'] = 'center';

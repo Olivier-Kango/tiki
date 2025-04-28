@@ -3364,38 +3364,6 @@
         "lib\/minical\/minicallib.php": {
             "class:MiniCalLib": true
         },
-        "lib\/graph-engine\/gd.php": {
-            "class:GD_GRenderer": true
-        },
-        "lib\/graph-engine\/ps.php": {
-            "class:PS_GRenderer": true
-        },
-        "lib\/graph-engine\/graph.multiline.php": {
-            "class:MultilineGraphic": true
-        },
-        "lib\/graph-engine\/pdflib.php": {
-            "class:PDFLib_GRenderer": true
-        },
-        "lib\/graph-engine\/graph.bar.php": {
-            "class:BarBasedGraphic": true,
-            "class:BarStackGraphic": true,
-            "class:MultibarGraphic": true
-        },
-        "lib\/graph-engine\/graph.pie.php": {
-            "class:PieChartGraphic": true
-        },
-        "lib\/graph-engine\/abstract.gridbased.php": {
-            "class:GridBasedGraphic": true,
-            "class:GridScale": true,
-            "class:LinearGridScale": true,
-            "class:StaticGridScale": true
-        },
-        "lib\/graph-engine\/core.php": {
-            "class:GRenderer": true,
-            "class:Fake_GRenderer": true,
-            "class:DataHandler": true,
-            "class:Graphic": true
-        },
         "lib\/language\/GetStrings.php": {
             "class:Language_GetStrings": true
         },
@@ -6546,18 +6514,6 @@
         "lib\/diff\/renderer_htmldiff.php": {
             "Text_Diff_Renderer_htmldiff": true
         },
-        "lib\/graph-engine\/gd.php": {
-            "GD_GRenderer": true
-        },
-        "lib\/graph-engine\/ps.php": {
-            "PS_GRenderer": true
-        },
-        "lib\/graph-engine\/pdflib.php": {
-            "PDFLib_GRenderer": true
-        },
-        "lib\/graph-engine\/core.php": {
-            "Fake_GRenderer": true
-        },
         "lib\/language\/GetStrings.php": {
             "Language_GetStrings": true
         },
@@ -6735,20 +6691,6 @@
             "class:Text_Diff_Op_delete": true,
             "class:Text_Diff_Op_add": true,
             "class:Text_Diff_Op_change": true
-        },
-        "lib\/graph-engine\/graph.bar.php": {
-            "class:BarStackGraphic": true,
-            "class:MultibarGraphic": true
-        },
-        "lib\/graph-engine\/abstract.gridbased.php": {
-            "class:GridScale": true,
-            "class:LinearGridScale": true,
-            "class:StaticGridScale": true
-        },
-        "lib\/graph-engine\/core.php": {
-            "class:Fake_GRenderer": true,
-            "class:DataHandler": true,
-            "class:Graphic": true
         },
         "lib\/shipping\/shippinglib.php": {
             "class:CustomShippingProvider": true,
@@ -10298,7 +10240,7 @@
             "_deleted": true,
             "_changed": true
         },
-        "lib\/graph-engine\/gd.php": {
+        "lib\/GraphEngine\/GDGRenderer.php": {
             "_convertLength": true,
             "_convertPosition": true,
             "_findStyle": true,
@@ -10308,14 +10250,14 @@
             "_drawCenterText": true,
             "_drawRightText": true
         },
-        "lib\/graph-engine\/ps.php": {
+        "lib\/GraphEngine\/PSGRenderer.php": {
             "_convertLength": true,
             "_convertPosition": true,
             "_findStyle": true,
             "_getColor": true,
             "_getFormat": true
         },
-        "lib\/graph-engine\/graph.multiline.php": {
+        "lib\/GraphEngine\/MultilineGraphic.php": {
             "_getMinValue": true,
             "_getMaxValue": true,
             "_getLabels": true,
@@ -10324,14 +10266,14 @@
             "_drawLegendBox": true,
             "_default": true
         },
-        "lib\/graph-engine\/pdflib.php": {
+        "lib\/GraphEngine\/PDFLibGRenderer.php": {
             "_convertLength": true,
             "_convertPosition": true,
             "_findStyle": true,
             "_getColor": true,
             "_getFormat": true
         },
-        "lib\/graph-engine\/graph.bar.php": {
+        "lib\/GraphEngine\/BarBasedGraphic.php": {
             "_getMinValue": true,
             "_getMaxValue": true,
             "_getLabels": true,
@@ -10342,13 +10284,13 @@
             "_drawLegendBox": true,
             "_default": true
         },
-        "lib\/graph-engine\/graph.pie.php": {
+        "lib\/GraphEngine\/PieChartGraphic.php": {
             "_handleData": true,
             "_drawContent": true,
             "_drawLegendBox": true,
             "_default": true
         },
-        "lib\/graph-engine\/abstract.gridbased.php": {
+        "lib\/GraphEngine\/GridBasedGraphic.php": {
             "_getMinValue": true,
             "_getMaxValue": true,
             "_getLabels": true,
@@ -10368,8 +10310,45 @@
             "_getZeroLocation": true,
             "_getValue": true
         },
-        "lib\/graph-engine\/core.php": {
+        "lib\/GraphEngine\/LinearGridScale.php": {
+            "_adjustScale": true,
+            "_drawGridLine": true,
+            "_drawGridTick": true,
+            "_calculateSkip": true,
+            "_getLargest": true,
+            "_getMajorInterval": true,
+            "_getMinorInterval": true,
+            "_getZeroLocation": true,
+            "_getValue": true
+        },
+        "lib\/GraphEngine\/StaticGridScale.php": {
+            "_drawGridLine": true,
+            "_drawGridTick": true,
+            "_calculateSkip": true,
+            "_getValue": true
+        },
+        "lib\/GraphEngine\/GRenderer.php": {
             "_getRawColor": true,
+            "_getColor": true,
+            "_drawLegend": true,
+            "_drawContent": true,
+            "_drawLegendBox": true,
+            "_handleData": true,
+            "_default": true,
+            "_layout": true,
+            "_notify": true
+        },
+        "lib\/GraphEngine\/MultibarGraphic.php": {
+            "_drawColumn": true,
+            "_default": true
+        },
+        "lib\/GraphEngine\/BarStackGraphic.php": {
+            "_getMinValue": true,
+            "_getMaxValue": true,
+            "_drawColumn": true,
+            "_default": true
+        },
+        "lib\/GraphEngine\/Graphic.php": {
             "_getColor": true,
             "_drawLegend": true,
             "_drawContent": true,

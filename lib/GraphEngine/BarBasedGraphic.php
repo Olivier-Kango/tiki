@@ -4,7 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-require_once 'lib/graph-engine/abstract.gridbased.php';
+namespace Tiki\Lib\GraphEngine;
 
 class BarBasedGraphic extends GridBasedGraphic // {{{1
 {
@@ -145,10 +145,10 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 
             switch ($this->independant->orientation) {
                 case 'vertical':
-                    $ren = new Fake_GRenderer($renderer, 0, $range[0], 1, $range[1]);
+                    $ren = new FakeGRenderer($renderer, 0, $range[0], 1, $range[1]);
                     break;
                 case 'horizontal':
-                    $ren = new Fake_GRenderer($renderer, $range[0], 0, $range[1], 1);
+                    $ren = new FakeGRenderer($renderer, $range[0], 0, $range[1], 1);
                     break;
             }
 
@@ -196,141 +196,6 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
                 'grid-independant-scale' => 'static',
                 'grid-independant-major-guide' => 'Thin-LineStroke-Black'
             ]
-        );
-    }
-}
-
-class BarStackGraphic extends BarBasedGraphic // {{{1
-{
-    public function __construct() // {{{2
-    {
-        parent::__construct();
-    }
-
-    public function _getMinValue($type) // {{{2
-    {
-        switch ($type) {
-            case 'dependant':
-                $extremes = [];
-                foreach ($this->columns as $line) {
-                    $extremes[] = array_sum($line);
-                }
-
-                $min = min($extremes);
-                break;
-            case 'independant':
-                $min = min(array_keys($this->columns));
-                break;
-        }
-
-        if ($min > 0) {
-            $min = 0;
-        }
-
-        return $min;
-    }
-
-    public function _getMaxValue($type) // {{{2
-    {
-        switch ($type) {
-            case 'dependant':
-                $extremes = [];
-                foreach ($this->columns as $line) {
-                    $extremes[] = array_sum($line);
-                }
-
-                return max($extremes);
-
-            case 'independant':
-                return max(array_keys($this->columns));
-        }
-    }
-
-    public function _drawColumn(&$renderer, $values, $zero) // {{{2
-    {
-        $layout = $this->_layout();
-        $begin = ( 1 - $layout['stack-column-width'] ) / 2;
-        $end = $begin + $layout['stack-column-width'];
-
-        $positive = 0;
-        $negative = 0;
-        foreach ($values as $style => $value) {
-            if ($value == 0) {
-                continue;
-            }
-
-            if ($value > 0) {
-                $bottom = $positive;
-                $positive += $value;
-                $top = $positive;
-            } else {
-                $top = $negative;
-                $negative += $value;
-                $bottom = $negative;
-            }
-
-            $this->_drawBox(
-                $renderer,
-                $begin,
-                $this->dependant->getLocation($top),
-                $end,
-                $this->dependant->getLocation($bottom),
-                $style
-            );
-        }
-    }
-
-    public function _default() // {{{2
-    {
-        return array_merge(
-            parent::_default(),
-            ['stack-column-width' => 0.6]
-        );
-    }
-}
-
-class MultibarGraphic extends BarBasedGraphic // {{{1
-{
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function _drawColumn(&$renderer, $values, $zero)
-    {
-        $layout = $this->_layout();
-        $count = count($values);
-        $width = $layout['multi-columns-width'] / $count;
-        $pad = ( 1 - $layout['multi-columns-width'] ) / 2;
-
-        $positions = [];
-        $i = 0;
-
-        foreach ($values as $style => $value) {
-            $base = $pad + $width * $i++;
-
-            if ($value == 0) {
-                continue;
-            }
-
-            $bottom = $this->dependant->getLocation($value);
-            $this->_drawBox($renderer, $base, $zero, $base + $width, $bottom, $style);
-            $positions[$style] = [
-                            'left' => $base,
-                            'top' => $zero,
-                            'right' => $base + $width,
-                            'bottom' => $bottom
-            ];
-        }
-
-        return $positions;
-    }
-
-    public function _default()
-    {
-        return array_merge(
-            parent::_default(),
-            ['multi-columns-width' => 0.8]
         );
     }
 }

@@ -4,7 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// plugin that uses lib/graph-engine/ to produce simple bar charts on screen
+// plugin that uses Tiki\Lib\GraphEngine to produce simple bar charts on screen
 // Usage
 // {GDGRAPH(various parameters)}
 //  x,y data
@@ -193,7 +193,7 @@ function wikiplugin_gdgraph($data, $params)
     }
 
 // -------------------------------------------------------
-// Construct separate XY data strings from the array data to suit the graph-engine libraries - and check that at least one y value is non-zero.
+// Construct separate XY data strings from the array data to suit the Tiki\Lib\GraphEngine libraries - and check that at least one y value is non-zero.
 // The XY data strings should each contain the same number
 // of data elements.
     $ynonzero = false;

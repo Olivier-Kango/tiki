@@ -11,9 +11,9 @@
  *
  * This file contains the GD graphic renderer.
  */
-require_once('lib/graph-engine/core.php');
+namespace Tiki\Lib\GraphEngine;
 
-class GD_GRenderer extends GRenderer // {{{1
+class GDGRenderer extends GRenderer // {{{1
 {
     public $gd;
     public $styles;

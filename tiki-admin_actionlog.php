@@ -8,6 +8,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\GraphEngine\GDGRenderer;
+
 $inputConfiguration = [
     [
         'staticKeyFilters'                   => [
@@ -551,11 +554,9 @@ if (isset($_REQUEST['graph'])) {
         $background->SetMargin(10, 10, 10, 10);
     } else {
         require_once('lib/sheet/grid.php');
-        require_once('lib/graph-engine/gd.php');
-        require_once('lib/graph-engine/graph.bar.php');
-        $graphType = 'BarStackGraphic';
+        $graphType = 'Tiki\\Lib\\GraphEngine\\BarStackGraphic';
         $ext = 'jpg';
-        $background = new GD_GRenderer(max($widthUser, $widthWeek) + 80, 9 * $height, $ext);
+        $background = new GDGRenderer(max($widthUser, $widthWeek) + 80, 9 * $height, $ext);
         $legendWidth = 400;
     }
     include_once('lib/smarty_tiki/modifier.tiki_short_date.php');
@@ -597,7 +598,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setData($series);
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
-            $renderer = new GD_GRenderer($widthUser, $height, $ext);
+            $renderer = new GDGRenderer($widthUser, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 0, 0, 0, $renderer->width, $renderer->height);
         }
@@ -635,7 +636,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setData($series);
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
-            $renderer = new GD_GRenderer($widthUser, $height, $ext);
+            $renderer = new GDGRenderer($widthUser, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -671,7 +672,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
             $graph->setData($series);
-            $renderer = new GD_GRenderer($widthWeek, $height, $ext);
+            $renderer = new GDGRenderer($widthWeek, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 2 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -707,7 +708,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
             $graph->setData($series);
-            $renderer = new GD_GRenderer($widthWeek, $height, $ext);
+            $renderer = new GDGRenderer($widthWeek, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 3 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -736,7 +737,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
             $graph->setData($series);
-            $renderer = new GD_GRenderer($widthTotal, $height, $ext);
+            $renderer = new GDGRenderer($widthTotal, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 4 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -765,7 +766,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
             $graph->setData($series);
-            $renderer = new GD_GRenderer($widthTotal, $height, $ext);
+            $renderer = new GDGRenderer($widthTotal, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 5 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -797,7 +798,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
             $graph->setData($series);
-            $renderer = new GD_GRenderer($widthGroup, $height, $ext);
+            $renderer = new GDGRenderer($widthGroup, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 6 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }
@@ -829,7 +830,7 @@ if (isset($_REQUEST['graph'])) {
             $graph->setTitle($title);
             $graph->setSubtitle("Total: " . $totalVol . " " . $_REQUEST['unit']);
             $graph->setData($series);
-            $renderer = new GD_GRenderer($widthGroup, $height, $ext);
+            $renderer = new GDGRenderer($widthGroup, $height, $ext);
             $graph->draw($renderer);
             imagecopy($background->gd, $renderer->gd, 0, 7 * ($height + $space), 0, 0, $renderer->width, $renderer->height);
         }

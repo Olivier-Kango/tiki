@@ -8,6 +8,12 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\GraphEngine\GDGRenderer;
+use Tiki\Lib\GraphEngine\GridBasedGraphic;
+use Tiki\Lib\GraphEngine\PDFLibGRenderer;
+use Tiki\Lib\GraphEngine\PSGRenderer;
+
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
@@ -31,13 +37,6 @@ $inputConfiguration = [
 require_once('tiki-setup.php');
 
 $sheetlib = TikiLib::lib('sheet');
-
-require_once('lib/graph-engine/gd.php');
-require_once('lib/graph-engine/pdflib.php');
-require_once('lib/graph-engine/ps.php');
-require_once('lib/graph-engine/graph.pie.php');
-require_once('lib/graph-engine/graph.bar.php');
-require_once('lib/graph-engine/graph.multiline.php');
 
 /**
  * @param $serie
@@ -109,22 +108,22 @@ if (isset($_REQUEST['title'])) {
 
     switch ($_REQUEST['renderer']) {
         case 'PNG':
-            $renderer = new GD_GRenderer($_REQUEST['width'], $_REQUEST['height'], 'png');
+            $renderer = new GDGRenderer($_REQUEST['width'], $_REQUEST['height'], 'png');
             $ext = 'png';
             break;
 
         case 'JPEG':
-            $renderer = new GD_GRenderer($_REQUEST['width'], $_REQUEST['height'], 'jpg');
+            $renderer = new GDGRenderer($_REQUEST['width'], $_REQUEST['height'], 'jpg');
             $ext = 'jpg';
             break;
 
         case 'PDF':
-            $renderer = new PDFLib_GRenderer($_REQUEST['format'], $_REQUEST['orientation']);
+            $renderer = new PDFLibGRenderer($_REQUEST['format'], $_REQUEST['orientation']);
             $ext = 'pdf';
             break;
 
         case 'PS':
-            $renderer = new PS_GRenderer($_REQUEST['format'], $_REQUEST['orientation']);
+            $renderer = new PSGRenderer($_REQUEST['format'], $_REQUEST['orientation']);
             $ext = 'ps';
             break;
         default:
@@ -225,7 +224,7 @@ if (isset($_REQUEST['title'])) {
             $smarty->assign('im_height', $_GET['height']);
         }
 
-        if (is_a($g, 'GridBasedGraphic')) {
+        if (is_a($g, GridBasedGraphic::class)) {
             $smarty->assign('showgridparam', true);
         }
     } else {
