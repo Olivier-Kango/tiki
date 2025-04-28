@@ -28,7 +28,6 @@ class Search_Formatter_Builder
     private $additionalOutputData;
     private $isDownload;
     private $downloadName;
-
     public function __construct()
     {
         $this->parser = new WikiParser_PluginArgumentParser();
@@ -70,7 +69,6 @@ class Search_Formatter_Builder
     {
         foreach ($matches as $match) {
             $name = $match->getName();
-
             if ($name == 'output') {
                 $this->handleOutput($match, $params);
             }
@@ -224,7 +222,7 @@ class Search_Formatter_Builder
         $smarty = TikiLib::lib('smarty');
         $tikilib = TikiLib::lib('tiki');
         $data = [];
-        if ($prefs['feature_categories'] == 'y' && isset($params['categorize']) && $params['categorize']) {
+        if ($prefs['feature_categories'] == 'y') {
             $categlib = TikiLib::lib('categ');
             $categories = $categlib->getCategories();
 
@@ -235,7 +233,6 @@ class Search_Formatter_Builder
             $cat_tree = $categlib->generate_cat_tree($categories);
             $data['categories'] = $categories;
             $data['cat_tree'] = $cat_tree;
-            $data['categorize'] = $params['categorize'];
             $data['tiki_p_modify_object_categories'] = $tiki_p_modify_object_categories;
             $data['tiki_p_admin_categories'] = $tiki_p_admin_categories;
         }

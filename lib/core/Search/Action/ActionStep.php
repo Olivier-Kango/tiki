@@ -69,6 +69,11 @@ class Search_Action_ActionStep implements Search_Action_Step
         return false;
     }
 
+    public function inputType(): string
+    {
+        return '';
+    }
+
     public function requiresInput()
     {
         $params = array_merge($this->definition, ['field_variants' => $this->fieldVariants()]);
