@@ -404,7 +404,7 @@ if (! hm_exists('tiki_move_to_tracker_dropdown')) {
 if (! hm_exists('get_message_data')) {
     function get_message_data($imap, $folder, $msg_id)
     {
-        $msg = $imap->get_message_content($msg_id, 0);
+        $msg = $imap->get_message_content($folder, $msg_id, 0);
         $msg = str_replace("\r\n", "\n", $msg);
         $msg = str_replace("\n", "\r\n", $msg);
         $msg = rtrim($msg) . "\r\n";
