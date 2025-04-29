@@ -191,7 +191,8 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
             $selected = array_unique(array_merge($selected, $tracker_categories));
         }
 
-        $categories = $this->getApplicableCategories();
+        // get fresh list of applicable categories as processing more than one item might actually change the list
+        $categories = $this->getApplicableCategories(false);
         $selected = array_intersect($selected, $this->getIds($categories));
 
         if (isset($requestData[$key])) {
@@ -374,12 +375,12 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
         return $validIds;
     }
 
-    private function getApplicableCategories()
+    private function getApplicableCategories($use_cache = true)
     {
         static $cache = [];
         $fieldId = $this->getConfiguration('fieldId');
 
-        if (! isset($cache[$fieldId])) {
+        if (! isset($cache[$fieldId]) || ! $use_cache) {
             $parentId = (int) $this->getOption('parentId');
             $descends = $this->getOption('descendants') > 0;
             if ($parentId > 0) {
