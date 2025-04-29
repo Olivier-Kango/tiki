@@ -332,21 +332,32 @@ $(window).on("load", function(){
 
     public function actionPostEditorSettings($input)
     {
+        global $tikilib;
         $editor = $input->editor->word();
-        $syntax = $input->syntax->word() ?: 'tiki';
+        $syntax = $input->syntax->word();
         $data = $input->data->none();
+        $page_name = $input->page->pagename();
+        $converted = $data;
 
+        $page_infos = $tikilib->get_page_info($page_name);
+        $wikiParserParsable = new WikiParser_Parsable($data);
+        $syntaxPluginResult = $wikiParserParsable->guess_syntax($page_infos['data']);
+        $source_syntax = $syntaxPluginResult['syntax'];
 
-        $converted = TikiLib::lib('edit')->parseToWiki($data);
-
-        if ($syntax === 'markdown') {
+        if ($source_syntax !== $syntax) {
             $converted = TikiLib::lib('edit')->convertWikiSyntax(
                 $converted,
                 $syntax,
-                $input->page->word()
+                $page_name
             );
-        } elseif ($syntax === 'tiki' && $editor === 'wysiwyg') {
-            $converted = TikiLib::lib('edit')->parseToWysiwyg($data, true, false, ['wysiwyg' => true, 'html_editor' => true]);
+        }
+
+        if ($syntax === 'tiki') {
+            if ($editor === 'wysiwyg') {
+                $converted = TikiLib::lib('edit')->parseToWysiwyg($converted, true, false, ['wysiwyg' => true, 'html_editor' => true]);
+            } else {
+                $converted = TikiLib::lib('edit')->parseToWiki($converted);
+            }
         }
 
         return [
@@ -354,6 +365,7 @@ $(window).on("load", function(){
             'syntax' => $syntax,
             'content' => $converted,
             'domId' => $input->domId->word(),
+            'type' => $input->editor->word(),
             'domName' => $input->domName->raw(),
         ];
     }
