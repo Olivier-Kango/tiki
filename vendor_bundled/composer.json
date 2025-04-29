@@ -160,7 +160,7 @@
         "jason-munro/cypht": "dev-master",
         "jquery-plugins/reflection-jquery": "1.1",
         "jquery/jquery-sheet": "3.1",
-        "kaltura/api-client-library": "^19.4",
+        "kaltura/api-client-library": "~19.4",
         "laminas/laminas-captcha": "^2.9",
         "laminas/laminas-config": "^3.3",
         "laminas/laminas-eventmanager": "^3.2.1",
