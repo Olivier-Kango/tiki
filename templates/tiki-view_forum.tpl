@@ -439,7 +439,7 @@
             {tr}Sub Forums{/tr}
         </div>
     </div>
-    <table id="{$ts.tableid}" class="table table-striped table-hover table-forum normal" data-count="{$cant|escape}">
+    <table id="{$ts.tableid}" class="table table-striped table-hover table-forum normal" data-count="{$count|escape}">
         {block name=forumheader}
             <thead>
             <tr>
@@ -660,7 +660,7 @@
     <input type="hidden" name="forumId" value="{$forumId|escape}">
     {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
     <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
-        <table id="{$ts.tableid}" class="table normal table-striped table-hover table-forum" data-count="{$comments_cant|escape}">
+        <table id="{$ts.tableid}" class="table normal table-striped table-hover table-forum" data-count="{$comments_count|escape}">
             {block name=forumheader}
             <thead>
                 <tr>
@@ -909,7 +909,7 @@
 </form>
 {if !$ts.ajax}
     {if !$ts.enabled}
-        {pagination_links cant=$comments_cant step=$comments_per_page offset=$comments_offset offset_arg='comments_offset'}{/pagination_links}
+        {pagination_links count=$comments_count step=$comments_per_page offset=$comments_offset offset_arg='comments_offset'}{/pagination_links}
     {/if}
     {if $forum_info.forum_last_n > 0 && count($last_comments)}
         {* Last n titles *}

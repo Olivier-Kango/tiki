@@ -336,7 +336,7 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
         if (! isset($cache[$fieldId])) {
             $userGroups = TikiLib::lib('user')->get_groups();
         }
-        $cache[$fieldId] = $userGroups['cant'] > 0 ? $userGroups['data'] : [];
+        $cache[$fieldId] = $userGroups['count'] > 0 ? $userGroups['data'] : [];
 
         return $cache[$fieldId];
     }

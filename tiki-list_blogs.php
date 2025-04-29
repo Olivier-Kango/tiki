@@ -72,7 +72,7 @@ for ($i = 0; $i < $temp_max; $i++) {
     $listpages["data"][$i]["individual_tiki_p_create_blogs"] = $blogperms->create_blogs ? 'y' : 'n';
 }
 $smarty->assign_by_ref('listpages', $listpages["data"]);
-$smarty->assign_by_ref('cant', $listpages["cant"]);
+$smarty->assign_by_ref('count', $listpages["count"]);
 include_once('tiki-section_options.php');
 // Display the template
 $smarty->assign('mid', 'tiki-list_blogs.tpl');

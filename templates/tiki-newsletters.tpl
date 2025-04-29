@@ -119,5 +119,5 @@
             {/section}
         </table>
     </div>
-    {pagination_links cant=$cant offset=$offset step=$maxRecords}{/pagination_links}
+    {pagination_links count=$count offset=$offset step=$maxRecords}{/pagination_links}
 {/if}

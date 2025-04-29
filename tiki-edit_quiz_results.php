@@ -110,7 +110,7 @@ $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $quizlib->list_quiz_results($_REQUEST["quizId"], $offset, $maxRecords, $sort_mode, $find);
 
-$smarty->assign_by_ref('cant_pages', $channels["cant"]);
+$smarty->assign_by_ref('pages_count', $channels["count"]);
 
 $smarty->assign_by_ref('channels', $channels["data"]);
 

@@ -7,7 +7,7 @@
     {* The $parent_com is only set in this case*}
     {* WARNING: when previewing a new reply to a forum post, $parent_com is also set *}
 
-    {if $comments_cant gt 0}
+    {if $comments_count gt 0}
         <form method="post" id="comment-form" class="comments">
             {section name=i loop=$comments_request_data}
                 <input type="hidden" name="{$comments_request_data[i].name|escape}" value="{$comments_request_data[i].value|escape}">
@@ -67,12 +67,12 @@
             {/if}
 
             {if $prefs.forum_thread_user_settings eq 'y'}
-                {if $comments_cant > 0 and $section eq 'blogs'}
+                {if $comments_count > 0 and $section eq 'blogs'}
                     {* displaying just for blogs only because I'm not sure if this is useful for other sections *}
-                    {capture name=comments_cant_title}{if $comments_cant == 1}{tr _0=$comments_cant}%0 comment{/tr}{else}{tr _0=$comments_cant}%0 comments{/tr}{/if}{/capture}
-                    <h3>{$smarty.capture.comments_cant_title}</h3>
+                    {capture name=comments_count_title}{if $comments_count == 1}{tr _0=$comments_count}%0 comment{/tr}{else}{tr _0=$comments_count}%0 comments{/tr}{/if}{/capture}
+                    <h3>{$smarty.capture.comments_count_title}</h3>
                 {/if}
-                {if $comments_cant > $prefs.forum_thread_user_settings_threshold}
+                {if $comments_count > $prefs.forum_thread_user_settings_threshold}
                     <div class="forum_actions">
                         <div class="actions">
                             <span class="action">
@@ -139,13 +139,13 @@
                 </div>
             {/if}
 
-            {if $comments_cant_pages gt 1}
+            {if $comments_count_pages gt 1}
                 <div class="mx-auto">
                     {if $comments_prev_offset >= 0 && ! $display eq ''}
                         [<a class="prevnext" href="{$comments_complete_father}comments_threshold={$comments_threshold}&amp;comments_parentId={$comments_parentId}&amp;comments_offset={$comments_prev_offset}{$thread_sort_mode_param}&amp;comments_per_page={$comments_per_page}&amp;thread_style={$thread_style}">{tr}Prev{/tr}</a>]&nbsp;
                     {/if}
 
-                    {tr}Page:{/tr} {$comments_actual_page}/{$comments_cant_pages}
+                    {tr}Page:{/tr} {$comments_actual_page}/{$comments_count_pages}
 
                     {if $comments_next_offset >= 0 && $display eq ''}
                         &nbsp;[<a class="prevnext" href="{$comments_complete_father}comments_threshold={$comments_threshold}&amp;comments_parentId={$comments_parentId}&amp;comments_offset={$comments_next_offset}{$thread_sort_mode_param}&amp;comments_per_page={$comments_per_page}&amp;thread_style={$thread_style}">{tr}Next{/tr}</a>]
@@ -153,7 +153,7 @@
 
                     {if $prefs.direct_pagination eq 'y' && $display eq ''}
                         <br>
-                        {section loop=$comments_cant_pages name=foo}
+                        {section loop=$comments_count_pages name=foo}
                             {assign var=selector_offset value=$smarty.section.foo.index|times:$comments_per_page}
                             <a class="prevnext" href="{$comments_complete_father}comments_threshold={$comments_threshold}&amp;comments_parentId={$comments_parentId}&amp;comments_offset={$selector_offset}{$thread_sort_mode_param}&amp;comments_per_page={$comments_per_page}&amp;thread_style={$thread_style}">
                             {$smarty.section.foo.index_next}</a>&nbsp;

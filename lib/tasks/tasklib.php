@@ -401,7 +401,7 @@ class TaskLib extends TikiLib
         // Place the count query before the addition of the order by
         // clause to make the query work in postgres..
         $query_count = "select count(distinct `t_head`.`taskId`) $query";
-        $cant = $this->getOne($query_count, $values);
+        $count = $this->getOne($query_count, $values);
 
         $query .= "ORDER BY $order_str `t_head`.`taskId` desc";
 
@@ -425,7 +425,7 @@ class TaskLib extends TikiLib
         }
         $retval = [];
         $retval["data"] = $tasklist;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
 
         $list_tasks_end = microtime(true);
         $list_tasks_time = $list_tasks_end - $list_tasks_start;

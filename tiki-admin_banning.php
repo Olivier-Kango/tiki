@@ -295,8 +295,8 @@ if (isset($_REQUEST['export']) || isset($_REQUEST['csv'])) {
     die();
 }
 
-$smarty->assign('cant', $items['cant']);
-$smarty->assign_by_ref('cant_pages', $items["cant"]);
+$smarty->assign('count', $items['count']);
+$smarty->assign_by_ref('pages_count', $items["count"]);
 $smarty->assign_by_ref('items', $items["data"]);
 $smarty->assign('sections', $sections_enabled);
 // disallow robots to index page:

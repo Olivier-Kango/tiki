@@ -143,7 +143,7 @@
                 {include file='tracker_filter.tpl'}
             {/if}
 
-            {if (isset($cant_pages) && $cant_pages > 1) or $initial}{initials_filter_links}{/if}
+            {if (isset($pages_count) && $pages_count > 1) or $initial}{initials_filter_links}{/if}
 
             {if $items|@count ge '1'}
                 {* ------- list headings --- *}
@@ -333,7 +333,7 @@
                         </div>
                     {/if}
                 </form>
-                {pagination_links cant=$item_count step=$maxRecords offset=$offset}{/pagination_links}
+                {pagination_links count=$item_count step=$maxRecords offset=$offset}{/pagination_links}
             {/if}
         {/tab}
     {/if}

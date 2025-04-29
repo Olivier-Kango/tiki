@@ -74,7 +74,7 @@
             </table>
         </div>
 
-        {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
+        {pagination_links count=$pages_count step=$prefs.maxRecords offset=$offset}{/pagination_links}
 
         {button _text="{tr}Save{/tr}" _style="display:none;" _class="save_list" _ajax="n" _auto_args="save_list"}
     {/tab}

@@ -210,14 +210,14 @@
                 &nbsp;&mdash;&nbsp;{tr}Category:{/tr} {$reportCateg|escape}
             {/if}
             {if $maxRecords gt 0}
-                {if $cant gt $maxRecords}
+                {if $count gt $maxRecords}
                     {self_link max=-1}{tr}All{/tr}{/self_link}
                 {/if}
             {else}
                 {self_link max=$prefs.maxRecords}{tr}Pagination{/tr}{/self_link}
             {/if}
-            {pagination_links cant=$cant step=$maxRecords offset_arg="startDate=$startDate&endDate=$endDate&offset" offset=$offset}{/pagination_links}
-            {tr}Records:{/tr} {$cant}
+            {pagination_links count=$count step=$maxRecords offset_arg="startDate=$startDate&endDate=$endDate&offset" offset=$offset}{/pagination_links}
+            {tr}Records:{/tr} {$count}
             {if !empty($actionlogs)}
                 <a href="#Statistics">{tr}See Statistics{/tr}</a><br/>
             {/if}
@@ -345,7 +345,7 @@
                         </tbody>
                     </table>
                 </div>
-                {pagination_links cant=$cant step=$maxRecords offset_arg="startDate=$startDate&endDate=$endDate&offset" offset=$offset}{/pagination_links}
+                {pagination_links count=$count step=$maxRecords offset_arg="startDate=$startDate&endDate=$endDate&offset" offset=$offset}{/pagination_links}
                 {if $prefs.feature_banning eq 'y'}
                     <div class="input-group col-sm-8">
                         <select class="form-select" name="action">

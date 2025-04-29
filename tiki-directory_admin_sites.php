@@ -138,7 +138,7 @@ if ($all) {
 } else {
     $items = $dirlib->dir_list_sites($_REQUEST["parent"], $offset, $maxRecords, $sort_mode, $find, $isValid = '');
 }
-$smarty->assign_by_ref('cant_pages', $items["cant"]);
+$smarty->assign_by_ref('pages_count', $items["count"]);
 $smarty->assign_by_ref('items', $items["data"]);
 $categs = $dirlib->dir_get_all_categories_accept_sites(0, -1, 'name asc', $find, $_REQUEST["siteId"]);
 $smarty->assign('categs', $categs);

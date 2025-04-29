@@ -138,7 +138,7 @@ function module_users_list($mod_reference, $module_params)
         }
     }
 
-    for ($i = 0; $i < $users['cant']; ++$i) {
+    for ($i = 0; $i < $users['count']; ++$i) {
         $my_user = $users['data'][$i]['user'];
         if (isset($module_params['realName']) && $module_params['realName'] == 'y') {
             $users['data'][$i]['realName'] = $tikilib->get_user_preference($my_user, 'realName', '');

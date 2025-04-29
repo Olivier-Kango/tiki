@@ -6,7 +6,7 @@
         </div>
     </div>
 {/if}
-{pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
 <div id="webauthn-div">
     <div class="table-responsive webauthn">
         <table id="webauthn_table" class="table normal table-striped table-hover" data-count="{$devices|count}">
@@ -43,7 +43,7 @@
         </table>
     </div>
 </div>
-{pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
 {jq}
     $('#registerWebAuthDevice').on('click', async function(event) {
         const registeredUser = "{{$user}}";

@@ -68,7 +68,7 @@ class Menu
 
         $menuId = 0;
         $searchMenu = $menuLib->list_menus(0, -1, 'menuId_desc', $data['name']);
-        if ($searchMenu['cant'] == 1) {
+        if ($searchMenu['count'] == 1) {
             $menuId = $searchMenu['data'][0]['menuId'];
         }
         $menuLib->replace_menu($menuId, $data['name'], $data['description'], $type, $data['icon'], $data['use_items_icons'], $data['parse']);

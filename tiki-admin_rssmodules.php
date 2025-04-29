@@ -271,8 +271,8 @@ if ($prefs['feature_multilingual'] == 'y') {
 $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $rsslib->list_rss_modules($offset, $maxRecords, $sort_mode, $find);
-$cant = $channels['cant'];
-$smarty->assign_by_ref('cant', $cant);
+$count = $channels['count'];
+$smarty->assign_by_ref('count', $count);
 $temp_max = count($channels["data"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 // disallow robots to index page:

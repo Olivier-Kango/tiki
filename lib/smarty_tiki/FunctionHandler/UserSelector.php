@@ -106,9 +106,9 @@ class UserSelector extends Base
         $users = [];
         $ret = '';
         if (! empty($groupNames)) {
-            $ucant = $userlib->count_users_consolidated($groupNames);
+            $userCount = $userlib->count_users_consolidated($groupNames);
         } else {
-            $ucant = $userlib->count_users('');
+            $userCount = $userlib->count_users('');
         }
 
         if ($params['lazyload']) {
@@ -132,7 +132,7 @@ class UserSelector extends Base
 HTML;
         }
 
-        if ($prefs['feature_jquery_autocomplete'] == 'y' && ($ucant > $prefs['user_selector_threshold'] or $ucant > $params['user_selector_threshold'])) {
+        if ($prefs['feature_jquery_autocomplete'] == 'y' && ($userCount > $prefs['user_selector_threshold'] or $userCount > $params['user_selector_threshold'])) {
             $ret .= '<input id="' . $params['id'] . '" type="text" name="' . $params['name'] . '" value="' . htmlspecialchars($params['user']) . '"' . $sz . $ed . ' style="' . $params['style'] . '"' . $class . ' />';
             if (($params['contact'] == 'true')) {
                 $mode = ('usersandcontacts');

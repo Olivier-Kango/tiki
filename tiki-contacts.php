@@ -129,8 +129,8 @@ $smarty->assign_by_ref('offset', $offset);
 $smarty->assign('find', $find);
 
 $contacts = $contactlib->list_contacts($user, $offset, $maxRecords, $sort_mode, $find, true, $initial);
-$cant = $contactlib->list_contacts($user, -1, -1, $sort_mode, $find, true, $initial);
-$cant = is_array($cant) ? count($cant) : 0;
+$count = $contactlib->list_contacts($user, -1, -1, $sort_mode, $find, true, $initial);
+$count = is_array($count) ? count($count) : 0;
 
 $_SESSION['UserContactsView'] = $_REQUEST['view'] ??
 ($_SESSION['UserContactsView'] ?? $userlib->get_user_preference($user, 'user_contacts_default_view'));
@@ -185,7 +185,7 @@ $smarty->assign('groups', $groups);
 $smarty->assign('initial', range('a', 'z'));
 $smarty->assign('setInitial', $initial);
 $smarty->assign('maxRecords', $maxRecords);
-$smarty->assign('total_contact', $cant);
+$smarty->assign('total_contact', $count);
 
 include_once('tiki-section_options.php');
 

@@ -42,12 +42,12 @@ $devices = array_map(function ($row) {
     $row['authenticator_name'] = $getAuthenticator['name'];
     return $row;
 }, $listCreds);
-$cant = $credsTable->fetchCount(['user' => $user]);
+$count = $credsTable->fetchCount(['user' => $user]);
 
 $smarty->assign_by_ref('devices', $devices);
 $smarty->assign('offset', $offset);
 $smarty->assign('maxRecords', $maxRecords);
-$smarty->assign('cant', $cant);
+$smarty->assign('count', $count);
 $smarty->assign('user', $user);
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 $smarty->assign('mid', 'tiki-webauthn.tpl');

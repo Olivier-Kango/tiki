@@ -56,7 +56,7 @@ $headerlib->add_js('var prefNames = ' . json_encode($feature_prefs) . ';');
 $options = $menulib->list_menu_options($_REQUEST["menuId"], 0, -1, 'position_asc', '', true, 0, true, true);
 $smarty->assign_by_ref('no_editable_page', $options["no_editable_page"]);
 $options = $menulib->prepare_options_for_editing($options);
-$smarty->assign_by_ref('cant_pages', $options["cant"]);
+$smarty->assign_by_ref('pages_count', $options["count"]);
 $smarty->assign_by_ref('options', $options["data"]);
 if (isset($info['groupname']) && ! is_array($info['groupname'])) {
     $info['groupname'] = explode(',', $info['groupname']);

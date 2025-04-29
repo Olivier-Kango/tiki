@@ -37,14 +37,14 @@ if (isset($_POST['action']) && isset($_POST['attId']) && $access->checkCsrf()) {
 
 if (isset($_POST['all2db']) && $access->checkCsrf()) {
     $attachments = $trklib->list_all_attachments();
-    for ($i = 0; $i < $attachments['cant']; $i++) {
+    for ($i = 0; $i < $attachments['count']; $i++) {
         if ($attachments['data'][$i]['path']) {
             $trklib->file_to_db($prefs['t_use_dir'] . $attachments['data'][$i]['path'], $attachments['data'][$i]['attId']);
         }
     }
 } elseif (isset($_POST['all2file']) && $access->checkCsrf()) {
     $attachments = $trklib->list_all_attachments();
-    for ($i = 0; $i < $attachments['cant']; $i++) {
+    for ($i = 0; $i < $attachments['count']; $i++) {
         if (! $attachments['data'][$i]['path']) {
             $trklib->db_to_file($prefs['t_use_dir'] . md5($attachments['data'][$i]['filename']), $attachments['data'][$i]['attId']);
         }
@@ -76,7 +76,7 @@ $smarty->assign_by_ref('offset', $offset);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 
 $attachments = $trklib->list_all_attachments($offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant_pages', $attachments['cant']);
+$smarty->assign_by_ref('pages_count', $attachments['count']);
 $headerlib->add_cssfile('themes/base_files/feature_css/admin.css');
 $smarty->assign_by_ref('attachments', $attachments['data']);
 

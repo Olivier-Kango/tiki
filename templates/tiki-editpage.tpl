@@ -173,7 +173,7 @@
                 </div>
             {/if}
             <div id="diff_history">
-                {include file='pagehistory.tpl' cant=0}
+                {include file='pagehistory.tpl' count=0}
                 {if $diff_summaries}
                     <div class="wikitext" id="diff_versions">
                         <ul>

@@ -289,7 +289,7 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
                 }
             }
             $start += 1000;
-            $hasMore = $start < $res['cant'];
+            $hasMore = $start < $res['count'];
         }
 
         return $this->dirsCache[$path];
@@ -309,7 +309,7 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
             $id = $row['id'];
             $id = 'd_' . $id;
             $dirs = $this->filegallib->list_file_galleries(0, -1, 'name_desc', '', '', $row['id']);
-            $r['dirs'] = $dirs['cant'];
+            $r['dirs'] = $dirs['count'];
             $r['mime'] = "directory";
             $r['size'] = 0;
         } else {

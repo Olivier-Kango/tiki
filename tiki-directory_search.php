@@ -58,7 +58,7 @@ if (isset($_REQUEST['where']) && $_REQUEST['where'] == 'all') {
 } else {
     $items = $dirlib->dir_search_cat($_REQUEST['parent'], $_REQUEST['words'], $_REQUEST['how'], $offset, $maxRecords, $sort_mode);
 }
-$smarty->assign_by_ref('cant_pages', $items["cant"]);
+$smarty->assign_by_ref('pages_count', $items["count"]);
 $smarty->assign_by_ref('items', $items["data"]);
 include_once('tiki-section_options.php');
 // Display the template

@@ -102,12 +102,12 @@ class LogsLib extends TikiLib
 
         $query = "select `logId`,`loguser`,`logtype`,`logmessage`,`logtime`,`logip`,`logclient` ";
         $query .= " from `tiki_logs` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_logs` $mid";
+        $query_count = "select count(*) from `tiki_logs` $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -613,11 +613,11 @@ class LogsLib extends TikiLib
             (($mid === '' && $where1 === null) ? " 1 " : "") .
             ($where1 !== null ? $where1 : "");
 
-        $query_cant = preg_replace('/a\.\*/', 'count(1)', $query);
+        $query_count = preg_replace('/a\.\*/', 'count(1)', $query);
 
         $query .= " order by " . $this->convertSortMode($sort_mode);
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -657,7 +657,7 @@ class LogsLib extends TikiLib
             $ret[] = $res;
         }
 
-        return ['data' => $ret, 'cant' => $cant];
+        return ['data' => $ret, 'count' => $count];
     }
 
     public function sort_by_date($action1, $action2)
@@ -1405,7 +1405,7 @@ class LogsLib extends TikiLib
         $ret = [];
         $ret['totalVol'] = 0;
         $ret['x'][] = tra('Contributions');
-        $ret['color'] = $this->get_colors($contributions['cant']);
+        $ret['color'] = $this->get_colors($contributions['count']);
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
@@ -1434,7 +1434,7 @@ class LogsLib extends TikiLib
             $ret['x'][] = $i++;
         }
 
-        $ret['color'] = $this->get_colors($contributions['cant']);
+        $ret['color'] = $this->get_colors($contributions['count']);
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
@@ -1465,7 +1465,7 @@ class LogsLib extends TikiLib
             $ret['x'][] = mb_convert_encoding($user, 'ISO-8859-1', 'UTF-8');
         }
 
-        $ret['color'] = $this->get_colors($contributions['cant']);
+        $ret['color'] = $this->get_colors($contributions['count']);
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
@@ -1493,7 +1493,7 @@ class LogsLib extends TikiLib
             $ret['x'][] = mb_convert_encoding($group, 'ISO-8859-1', 'UTF-8');
         }
 
-        $ret['color'] = $this->get_colors($contributions['cant']);
+        $ret['color'] = $this->get_colors($contributions['count']);
         $iy = 0;
 
         foreach ($contributions['data'] as $contribution) {
@@ -1602,11 +1602,11 @@ class LogsLib extends TikiLib
 
         $query = 'select * from `tiki_sql_query_logs`' . ($find ? " where $amid" : '') . ' order by ' . $this->convertSortMode($sort_mode);
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $query_cant = 'select count(*) from `tiki_sql_query_logs`' . ($find ? " where $amid" : '');
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = 'select count(*) from `tiki_sql_query_logs`' . ($find ? " where $amid" : '');
+        $count = $this->getOne($query_count, $bindvars);
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
 
         return $retval;
     }

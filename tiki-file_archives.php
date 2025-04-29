@@ -120,7 +120,7 @@ $files = $filegallib->get_archives($_REQUEST['fileId'], $_REQUEST['offset'], $_R
 $file = [$fileInfo];
 $smarty->assign_by_ref('files', $files['data']);
 $smarty->assign_by_ref('file', $file);
-$smarty->assign_by_ref('cant', $files['cant']);
+$smarty->assign_by_ref('count', $files['count']);
 $smarty->assign_by_ref('file_info', $fileInfo);
 
 $gal_info = array_merge($filegallib->default_file_gallery(), $gal_info);

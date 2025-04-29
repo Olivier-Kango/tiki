@@ -1,14 +1,14 @@
-{if $comments_cant gt 0}
+{if $comments_count gt 0}
     {assign var=thisbuttonclass value='highlight'}
 {else}
     {assign var=thisbuttonclass value=''}
 {/if}
-{if $comments_cant == 0 or ($tiki_p_read_comments == 'n' and $tiki_p_post_comments == 'y')}
+{if $comments_count == 0 or ($tiki_p_read_comments == 'n' and $tiki_p_post_comments == 'y')}
     {assign var=thistext value="{tr}Add Comment{/tr}"}
-{elseif $comments_cant == 1}
+{elseif $comments_count == 1}
     {assign var=thistext value="{tr}1 comment{/tr}"}
 {else}
-    {assign var=thistext value="$comments_cant&nbsp;{tr}Comments{/tr}"}
+    {assign var=thistext value="$comments_count&nbsp;{tr}Comments{/tr}"}
 {/if}
 {if isset($pagemd5)}
     {assign var=thisflipid value="comzone$pagemd5"}

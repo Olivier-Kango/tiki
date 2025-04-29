@@ -327,7 +327,7 @@ class Services_Group_Controller
 
 
 
-                if (! empty($input['isTplGroup']) && $children["cant"] > 0) {
+                if (! empty($input['isTplGroup']) && $children["count"] > 0) {
                     $names = [];
                     foreach ($children["data"] as $child) {
                         $names[] = $child["groupName"];

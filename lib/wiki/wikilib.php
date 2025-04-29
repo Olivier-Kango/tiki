@@ -905,9 +905,9 @@ class WikiLib extends TikiLib
 
         $query = 'select `user`,`attId`,`page`,`filename`,`filesize`,`filetype`,`hits`,`created`,`comment`' .
             ' from `tiki_wiki_attachments` ' . $mid . ' order by ' . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_wiki_attachments` $mid";
+        $query_count = "select count(*) from `tiki_wiki_attachments` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -916,7 +916,7 @@ class WikiLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
     public function list_all_attachments($offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '')
@@ -931,16 +931,16 @@ class WikiLib extends TikiLib
         }
         $query = 'select `user`,`attId`,`page`,`filename`,`filesize`,`filetype`,`hits`,`created`,`comment`,`path` ';
         $query .= ' from `tiki_wiki_attachments` ' . $mid . ' order by ' . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_wiki_attachments` $mid";
+        $query_count = "select count(*) from `tiki_wiki_attachments` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -1745,8 +1745,8 @@ class WikiLib extends TikiLib
         $bindvars = array_merge($bindvars, $jail_bind);
         $results = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
         $ret['data'] = $results;
-        $query_cant = "select count(*) from (select count(*) from `tiki_pages` $jail_join where `data` like ? $jail_where group by `page_id`) as `temp`";
-        $ret['cant'] = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from (select count(*) from `tiki_pages` $jail_join where `data` like ? $jail_where group by `page_id`) as `temp`";
+        $ret['count'] = $this->getOne($query_count, $bindvars);
 
         return $ret;
     }

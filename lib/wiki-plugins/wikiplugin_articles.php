@@ -448,7 +448,7 @@ function wikiplugin_articles($data, $params)
         $comments_prefix_var = 'article:';
         $comments_object_var = $listpages["data"][$i]["articleId"];
         $comments_objectId = $comments_prefix_var . $comments_object_var;
-        $listpages["data"][$i]["comments_cant"] = TikiLib::lib('comments')->count_comments($comments_objectId);
+        $listpages["data"][$i]["comments_count"] = TikiLib::lib('comments')->count_comments($comments_objectId);
         //print_r($listpages["data"][$i]['title']);
     }
 
@@ -486,7 +486,7 @@ function wikiplugin_articles($data, $params)
     if ($usePagination == 'y') {
         $smarty->assign('maxArticles', $max);
         $smarty->assign_by_ref('offset', $start);
-        $smarty->assign_by_ref('cant', $listpages['cant']);
+        $smarty->assign_by_ref('count', $listpages['count']);
     }
     if (! empty($order)) {
         foreach ($listpages['data'] as $i => $article) {

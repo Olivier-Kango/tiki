@@ -620,7 +620,7 @@ if ($prefs['userTracker'] === 'y') {
     }
 }
 $smarty->assign_by_ref('users', $users['data']);
-$smarty->assign_by_ref('cant', $users['cant']);
+$smarty->assign_by_ref('count', $users['count']);
 
 if (isset($_REQUEST['add'])) {
     $cookietab = 2;
@@ -638,7 +638,7 @@ if ($ts['enabled'] && ! $ts['ajax']) {
         'TikiAdminusers',
         [
             'id' => $ts['tableid'],
-            'total' => $users['cant'],
+            'total' => $users['count'],
             'columns' => [
                 '#groups' => [
                     'filter' => [

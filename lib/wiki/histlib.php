@@ -393,7 +393,7 @@ class HistLib extends TikiLib
 
         // TODO: Optimize. This fetches all records just to be able to give a count.
         $result = Perms::filter([ 'type' => 'wiki page' ], 'object', $this->fetchAll($query, $bindvars), [ 'object' => 'object' ], 'view');
-        $cant = count($result);
+        $count = count($result);
         $ret = [];
 
         if ($limit == -1) {
@@ -407,13 +407,13 @@ class HistLib extends TikiLib
             $ret[] = $res;
         }
 
-        return ['data' => $ret, 'cant' => $cant];
+        return ['data' => $ret, 'count' => $count];
     }
     public function get_nb_history($page)
     {
-        $query_cant = "select count(*) from `tiki_history` where `pageName` = ?";
-        $cant = $this->getOne($query_cant, [$page]);
-        return $cant;
+        $query_count = "select count(*) from `tiki_history` where `pageName` = ?";
+        $count = $this->getOne($query_count, [$page]);
+        return $count;
     }
 
     // This function gets the version number of the version before or after the time specified

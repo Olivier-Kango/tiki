@@ -479,7 +479,7 @@ foreach ($categories as $category) {
                 ''
             );
             $countString = '<span class="object-count badge badge-pill badge-info bg-info float-end">' .
-                $objectcount['cant'] . '</span>';
+                $objectcount['count'] . '</span>';
         } elseif ($prefs['feature_search'] === 'y') {
             // fall back to unified search if not category_browse_count_objects
             $countString = '<a class="object-count badge badge-pill badge-info bg-info float-end" data-categid="' .
@@ -566,13 +566,13 @@ if ($prefs['feature_search'] !== 'y' || $prefs['unified_add_to_categ_search'] !=
         $smarty = TikiLib::lib('smarty');
 
         if (is_null($data)) {
-            $data = ['data' => [], 'cant' => 0];
+            $data = ['data' => [], 'count' => 0];
         }
 
         $smarty->assign($data_key, $data['data']);
-        $smarty->assign('cant_' . $data_key, $data['cant']);
+        $smarty->assign('_count' . $data_key, $data['count']);
 
-        $max = max($max, $data['cant']);
+        $max = max($max, $data['count']);
     }
 
     $articles = $galleries = $file_galleries = $forums = $polls = $blogs = $pages = $faqs = $quizzes = $trackers = $directories = $objects = null;
@@ -636,7 +636,7 @@ if ($prefs['feature_search'] !== 'y' || $prefs['unified_add_to_categ_search'] !=
                 $pages_not_in_cat[] = $pg;
             }
         }
-        $pages['cant'] = $pages['cant'] - count($pages['data']) + count($pages_not_in_cat);
+        $pages['count'] = $pages['count'] - count($pages['data']) + count($pages_not_in_cat);
         $pages['data'] = $pages_not_in_cat;
     }
 
@@ -691,7 +691,7 @@ if ($prefs['feature_search'] !== 'y' || $prefs['unified_add_to_categ_search'] !=
         false
     );
     $smarty->assign('objects', $objects['data']);
-    $smarty->assign('cant_objects', $objects['cant']);
+    $smarty->assign('objects_count', $objects['count']);
     $objectlib = TikiLib::lib('object');
     $supportedTypes = array_intersect(
         TikiLib::lib('unifiedsearch')->getSupportedTypes(),

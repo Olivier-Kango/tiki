@@ -25,12 +25,12 @@ class StatsLib extends TikiLib
      * @param $maxRecords
      * @param string $sort_mode
      * @param string $find
-     * @param bool $onlyCant
+     * @param bool $onlyCount
      * @return array
      */
-    public function list_orphan_pages($offset = 0, $maxRecords = -1, $sort_mode = 'pageName_desc', $find = '', $onlyCant = false)
+    public function list_orphan_pages($offset = 0, $maxRecords = -1, $sort_mode = 'pageName_desc', $find = '', $onlyCount = false)
     {
-        return $this->list_pages($offset, $maxRecords, $sort_mode, $find, '', true, true, true, true, false, '', $onlyCant);
+        return $this->list_pages($offset, $maxRecords, $sort_mode, $find, '', true, true, true, true, false, '', $onlyCount);
     }
 
     /**
@@ -50,7 +50,7 @@ class StatsLib extends TikiLib
         }
         $stats["visits"] = $this->getOne("select sum(`hits`) from `tiki_pages`", []);
         $or = $this->list_orphan_pages(0, -1, 'pageName_desc', '', true);
-        $stats["orphan"] = $or["cant"];
+        $stats["orphan"] = $or["count"];
         $links = $this->getOne("select count(*) from `tiki_links`", []);
 
         if ($stats["pages"]) {
@@ -292,12 +292,12 @@ class StatsLib extends TikiLib
             $object = $id . "?" . $object;
         }
 
-        $cant = $this->getOne(
+        $count = $this->getOne(
             "select count(*) from `tiki_stats` where `object`=? and `type`=? and `day`=?",
             [$object, $type, (int) $dayzero]
         );
 
-        if ($cant) {
+        if ($count) {
             $query = "update `tiki_stats` set `hits`=`hits`+1 where `object`=? and `type`=? and `day`=?";
         } else {
             $query = "insert into `tiki_stats` (`object`,`type`,`day`,`hits`) values(?,?,?,1)";
@@ -390,11 +390,11 @@ class StatsLib extends TikiLib
             $mid .= " and `day` < '" . $endDate . "' ";
         }
 
-        $query_cant = "SELECT sum(`hits`) AS `hits` FROM `tiki_stats` WHERE `object`=? AND `type`=? " .
+        $query_count = "SELECT sum(`hits`) AS `hits` FROM `tiki_stats` WHERE `object`=? AND `type`=? " .
                                         $mid .
                                         " GROUP BY `object`,`type`";
-        $cant = $this->getOne($query_cant, $bindvars);
-        return $cant;
+        $count = $this->getOne($query_count, $bindvars);
+        return $count;
     }
 
     /**
@@ -544,9 +544,9 @@ class StatsLib extends TikiLib
         $conditions = ['day' => (int) $dayzero,];
 
         $pageviews = $this->table('tiki_pageviews');
-        $cant = $pageviews->fetchCount($conditions);
+        $count = $pageviews->fetchCount($conditions);
 
-        if ($cant) {
+        if ($count) {
             $pageviews->update(['pageviews' => $pageviews->increment(1),], $conditions);
         } else {
             $pageviews->insert(['day' => (int) $dayzero,'pageviews' => 1,]);

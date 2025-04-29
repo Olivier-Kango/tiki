@@ -28,7 +28,7 @@
     </div>
 </form>
 {if $search_on}
-    <strong>{$search_cant|escape} {tr}results found!{/tr}</strong>
+    <strong>{$search_count|escape} {tr}results found!{/tr}</strong>
 {/if}
 
 {if $existing_keywords}
@@ -80,4 +80,4 @@
     <h2>{tr}No pages found{/tr}</h2>
 {/if}
 
-{pagination_links cant=$pages_cant step=$prefs.maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$pages_count step=$prefs.maxRecords offset=$offset}{/pagination_links}

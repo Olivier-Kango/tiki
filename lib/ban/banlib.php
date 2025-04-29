@@ -100,9 +100,9 @@ class BanLib extends TikiLib
         }
 
         $query = "select * from `tiki_banning` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_banning` $mid";
+        $query_count = "select count(*) from `tiki_banning` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -121,7 +121,7 @@ class BanLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         $query = "select `banId` from `tiki_banning` where `use_dates`=? and `date_to` < FROM_UNIXTIME(?)";
         $result = $this->query($query, ['y', $this->now]);
 

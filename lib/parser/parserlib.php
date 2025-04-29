@@ -793,9 +793,9 @@ class ParserLib extends TikiDb_Bridge
     public function list_plugins_pending_approval($maxRecords = 30, $offset = 0)
     {
         $query = "SELECT `fingerprint`, `added_by`, `last_update`, `last_objectType`, `last_objectId`, `body` FROM `tiki_plugin_security` WHERE `status` = 'pending' ORDER BY `last_update` DESC";
-        $queryCant = "SELECT COUNT(*) FROM `tiki_plugin_security` WHERE `status` = 'pending'";
+        $query_count = "SELECT COUNT(*) FROM `tiki_plugin_security` WHERE `status` = 'pending'";
 
-        $count = $this->getOne($queryCant);
+        $count = $this->getOne($query_count);
         $ret = $this->fetchAll($query, [], $maxRecords, $offset);
         $retval = [];
         $retval['data'] = $ret;

@@ -1426,7 +1426,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
                                 }
                             }
                             $items = TikiLib::lib('trk')->list_items($remoteSchema->getDefinition()->getConfiguration('trackerId'), 0, 1, '', '', array_keys($remoteItem), '', '', '', array_values($remoteItem), '', null, true, true);
-                            if ($items['cant'] > 0) {
+                            if ($items['count'] > 0) {
                                 $info['fields'][$permName] = $items['data'][0]['itemId'];
                             } else {
                                 $remoteInfo = [

@@ -257,7 +257,7 @@ class Services_Menu_Controller
                 $oldOptions = $this->menulib->list_menu_options($menuId);
                 //Get position from current menu
                 if ($oldOptions) {
-                    $position = (int)$oldOptions['cant'] + 1;
+                    $position = (int)$oldOptions['count'] + 1;
                 } else {
                     $position = 1;
                 }

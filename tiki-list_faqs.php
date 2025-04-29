@@ -97,7 +97,7 @@ $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $faqlib->list_faqs($offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('channels', $channels["data"]);
-$smarty->assign_by_ref('cant', $channels["cant"]);
+$smarty->assign_by_ref('count', $channels["count"]);
 $cat_type = 'faq';
 $cat_objid = $_REQUEST["faqId"];
 include_once("categorize_list.php");

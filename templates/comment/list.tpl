@@ -27,7 +27,7 @@
         <div id="add-comment-zone-{$objectId|replace:' ':''|replace:',':''|escape:'attr'}" class="add-comment-zone"></div>
     {/if}
 
-    {if $cant gt 0}
+    {if $count gt 0}
         {include file="comment/list_inner.tpl"}
         <script type="text/javascript">
             $(function() {

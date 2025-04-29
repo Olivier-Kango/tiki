@@ -159,7 +159,7 @@ $channels = $quizlib->list_quiz_questions($_REQUEST['quizId'], $offset, $maxReco
 // $questions = $quizlib->list_all_questions(0, -1, 'position_desc', '');
 // $smarty->assign('questions', $questions["data"]);
 
-$smarty->assign_by_ref('cant_pages', $channels['cant']);
+$smarty->assign_by_ref('pages_count', $channels['count']);
 
 $smarty->assign_by_ref('channels', $channels['data']);
 

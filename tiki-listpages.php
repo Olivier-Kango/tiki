@@ -297,10 +297,10 @@ if (! empty($multiprint_pages)) {
 
     $smarty->assign('show_actions', $show_actions);
     // If there're more records then assign next_offset
-    $cant_pages = ceil($listpages['cant'] / $maxRecords);
-    $smarty->assign_by_ref('cant_pages', $cant_pages);
+    $pages_count = ceil($listpages['count'] / $maxRecords);
+    $smarty->assign_by_ref('pages_count', $pages_count);
     $smarty->assign('actual_page', 1 + ($offset / $maxRecords));
-    if ($listpages['cant'] > ($offset + $maxRecords)) {
+    if ($listpages['count'] > ($offset + $maxRecords)) {
         $smarty->assign('next_offset', $offset + $maxRecords);
     } else {
         $smarty->assign('next_offset', -1);
@@ -350,7 +350,7 @@ if (! empty($multiprint_pages)) {
     }
 
     $smarty->assign_by_ref('listpages', $listpages['data']);
-    $smarty->assign_by_ref('cant', $listpages['cant']);
+    $smarty->assign_by_ref('count', $listpages['count']);
     include_once('tiki-section_options.php');
 
     // Exact match and single result, go to page directly
@@ -433,7 +433,7 @@ if (! empty($multiprint_pages)) {
 
         $settings = [
             'id' => $ts['tableid'],
-            'total'     => $listpages['cant'],
+            'total'     => $listpages['count'],
             'vars'  => [
                 'show_actions' => $show_actions,
             ],

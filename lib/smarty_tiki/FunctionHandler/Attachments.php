@@ -79,7 +79,7 @@ class Attachments extends Base
         if (! empty($galleryId)) {
             $files = $filegallib->get_files(0, -1, $params['sort_mode'], '', $galleryId);
         } else {
-            $files = ['data' => [], 'cant' => 0];
+            $files = ['data' => [], 'count' => 0];
         }
 
         // Readjust perms using special wiki attachments perms
@@ -101,7 +101,7 @@ class Attachments extends Base
 
         $params['gal_info'] = $gal_info;
         $params['files'] = $files['data'];
-        $params['cant'] = $files['cant'];
+        $params['count'] = $files['count'];
         $params['from_wiki_page'] = true;
 
         $return = "\n" . $smarty->plugin_fetch('fgal_attachments.tpl', $params) . "\n";

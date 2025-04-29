@@ -82,9 +82,9 @@ class ContactLib extends TikiLib
             $con = trim($con);
 
             $query = "select count(*) from `tiki_webmail_contacts` where `email`=?";
-            $cant = $this->getOne($query, [$con]);
+            $count = $this->getOne($query, [$con]);
 
-            if (! $cant) {
+            if (! $count) {
                 $ret[] = $con;
             }
         }

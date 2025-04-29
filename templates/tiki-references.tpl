@@ -94,7 +94,7 @@
                 </table>
             </div>
         </div>
-    {pagination_links cant=$cant step=$maxRecords offset=$offset}
+    {pagination_links count=$count step=$maxRecords offset=$offset}
         tiki-references.php?find={$find}&maxRecords={$maxRecords}
     {/pagination_links}
     {/tab}

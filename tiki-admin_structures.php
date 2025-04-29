@@ -278,7 +278,7 @@ if ($prefs['feature_multilingual'] == 'y') {
     $smarty->assign_by_ref('languages', $languages);
 }
 $channels = $structlib->list_structures($offset, $maxRecords, $sort_mode, $find, $exact_match, $filter);
-$smarty->assign('cant', $channels["cant"]);
+$smarty->assign('count', $channels["count"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 include_once('tiki-section_options.php');
 // disallow robots to index page:

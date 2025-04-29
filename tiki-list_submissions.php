@@ -131,7 +131,7 @@ if ($prefs['feature_multilingual'] == 'y') {
 }
 
 $listpages = $artlib->list_submissions($offset, $maxRecords, $sort_mode, $find, $pdate, $_REQUEST['type'], $_REQUEST['topic'], $_REQUEST['lang']);
-$smarty->assign_by_ref('cant_pages', $listpages["cant"]);
+$smarty->assign_by_ref('pages_count', $listpages["count"]);
 include_once('tiki-section_options.php');
 $smarty->assign_by_ref('listpages', $listpages["data"]);
 

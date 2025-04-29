@@ -57,7 +57,7 @@ class Services_User_Controller
 
         return [
             'result' => $result['data'],
-            'count' => $result['cant'],
+            'count' => $result['count'],
         ];
     }
 

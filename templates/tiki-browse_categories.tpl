@@ -132,7 +132,7 @@
     </div>
 {/if}
 
-{if $cant_pages > 0}
+{if $pages_count > 0}
     {tabset name='browse-categories'}
         {tab name="{tr}Categories{/tr}"}
             {if $parentId ne '0'}
@@ -190,7 +190,7 @@
                 </div>
             </div>
 
-            {pagination_links cant=$cant_pages step=$maxRecords offset=$offset}{/pagination_links}
+            {pagination_links count=$pages_count step=$maxRecords offset=$offset}{/pagination_links}
         {/tab}
     {/tabset}
 {else}

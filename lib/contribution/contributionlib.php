@@ -83,8 +83,8 @@ class ContributionLib extends TikiLib
         $query = "select * from `tiki_contributions` $mid order by " . $this->convertSortMode($sort_mode);
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
 
-        $query_cant = "select count(*) from `tiki_contributions` $mid";
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from `tiki_contributions` $mid";
+        $count = $this->getOne($query_count, $bindvars);
 
         $ret = [];
 
@@ -94,7 +94,7 @@ class ContributionLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
 
         return $retval;
     }

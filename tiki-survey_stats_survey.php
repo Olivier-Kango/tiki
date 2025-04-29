@@ -56,10 +56,10 @@ $usersthatvoted = $srvlib->list_users_that_voted($_REQUEST["surveyId"]);
 $smarty->assign('usersthatvoted', $usersthatvoted);
 $questions = $srvlib->list_survey_questions($_REQUEST["surveyId"], 0, -1, $sort_mode, $find);
 
-$cant_pages = ceil($questions["cant"] / $maxRecords);
-$smarty->assign_by_ref('cant_pages', $cant_pages);
+$pages_count = ceil($questions["count"] / $maxRecords);
+$smarty->assign_by_ref('pages_count', $pages_count);
 $smarty->assign('actual_page', 1 + ($offset / $maxRecords));
-if ($questions["cant"] > ($offset + $maxRecords)) {
+if ($questions["count"] > ($offset + $maxRecords)) {
     $smarty->assign('next_offset', $offset + $maxRecords);
 } else {
     $smarty->assign('next_offset', -1);

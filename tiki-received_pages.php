@@ -119,7 +119,7 @@ $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $tikilib->list_received_pages($offset, $maxRecords, $sort_mode, $find, 'p');
 $smarty->assign_by_ref('channels', $channels["data"]);
-$smarty->assign_by_ref('cant', $channels['cant']);
+$smarty->assign_by_ref('count', $channels['count']);
 if (! isset($_REQUEST['sort_modes'])) {
     $sort_modes = 'receivedDate_desc';
 } else {

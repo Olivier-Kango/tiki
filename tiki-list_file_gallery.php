@@ -1171,7 +1171,7 @@ if (isset($_GET['slideshow'])) {
         $find
     );
     $smarty->assign('offset', $_REQUEST['offset'] ?? 0);
-    $smarty->assign('cant', $files['cant']);
+    $smarty->assign('count', $files['count']);
     $smarty->assign_by_ref('files', $files['data']);
 
     $smarty->assign('show_find', 'n');
@@ -1206,7 +1206,7 @@ if (isset($_GET['slideshow'])) {
             } catch (Exception $e) {
                 Feedback::errorPage(['mes' => tr('File %0 not found', $fileId), 'errortype' => 404]);
             }
-            $smarty->assign('cant', 1);
+            $smarty->assign('count', 1);
             if ($prefs['ocr_enable'] === 'y') {
                 $info = $filegallib->get_file_info($fileId);
                 if ($info['ocr_state'] === '1') {
@@ -1241,7 +1241,7 @@ if (isset($_GET['slideshow'])) {
                 $find,
                 $syntax
             );
-            $smarty->assign('cant', $files['cant']);
+            $smarty->assign('count', $files['count']);
             if ($view == 'page') {
                 $file = $files['data'][0] ?? null;
             }
@@ -1269,7 +1269,7 @@ if (isset($_GET['slideshow'])) {
                     $subs = $subs + $f['isgal'];
                 }
             }
-            $smarty->assign('filescount', $files['cant'] - $subs);
+            $smarty->assign('filescount', $files['count'] - $subs);
         }
     }
     $smarty->assign('mid', 'tiki-list_file_gallery.tpl');

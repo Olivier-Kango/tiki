@@ -16,17 +16,17 @@
         </tr>
         <tr>
             <td><b>./temp/templates_c/</b></td>
-            <td>({$templates_c.cant} {tr}Files{/tr} / {$templates_c.total|kbsize|default:'0 Kb'})</td>
+            <td>({$templates_c.count} {tr}Files{/tr} / {$templates_c.total|kbsize|default:'0 Kb'})</td>
             <td><a href="tiki-admin_system.php?do=templates_c" class="tips" title="{tr}Empty{/tr}" aria-label="{tr}Empty{/tr}">{icon name="trash"}</a></td>
         </tr>
         <tr>
             <td><b>./temp/cache/</b></td>
-            <td>({$tempcache.cant} {tr}Files{/tr} / {$tempcache.total|kbsize|default:'0 Kb'})</td>
+            <td>({$tempcache.count} {tr}Files{/tr} / {$tempcache.total|kbsize|default:'0 Kb'})</td>
             <td><a href="tiki-admin_system.php?do=temp_cache" class="tips" title="{tr}Empty{/tr}" aria-label="{tr}Empty{/tr}">{icon name="trash"}</a></td>
         </tr>
         <tr>
             <td><b>./temp/public/</b></td>
-            <td>({$temppublic.cant} {tr}Files{/tr} / {$temppublic.total|kbsize|default:'0 Kb'})</td>
+            <td>({$temppublic.count} {tr}Files{/tr} / {$temppublic.total|kbsize|default:'0 Kb'})</td>
             <td><a href="tiki-admin_system.php?do=temp_public" class="tips" title="{tr}Empty{/tr}" aria-label="{tr}Empty{/tr}">{icon name="trash"}</a></td>
         </tr>
         <tr>

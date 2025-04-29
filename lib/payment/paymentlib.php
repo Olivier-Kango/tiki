@@ -95,7 +95,7 @@ class PaymentLib extends TikiDb_Bridge
         $all = $this->fetchAll($data, $bindvars, $max, $offset);
 
         return [
-            'cant' => $this->getOne($count, $bindvars),
+            'count' => $this->getOne($count, $bindvars),
             'data' => Perms::filter(
                 [ 'type' => 'payment' ],
                 'object',
@@ -158,7 +158,7 @@ class PaymentLib extends TikiDb_Bridge
         }
 
         return [
-            'cant' => $this->getOne($count, $bindvars),
+            'count' => $this->getOne($count, $bindvars),
             'data' => Perms::filter(
                 [ 'type' => 'payment' ],
                 'object',

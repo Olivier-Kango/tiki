@@ -178,7 +178,7 @@ class XmlLib extends TikiLib
         if ($prefs['feature_wiki_comments'] == 'y' && $this->config['comments']) {
             $commentslib = TikiLib::lib('comments');
             $comments = $commentslib->get_comments('wiki page:' . $page, 0, 0, 0, 'commentDate_asc', '', 0, 'commentStyle_plain');
-            if (! empty($comments['cant'])) {
+            if (! empty($comments['count'])) {
                 $smarty->assign_by_ref('comments', $comments['data']);
             }
         }
@@ -265,7 +265,7 @@ class XmlLib extends TikiLib
         if ($prefs['feature_wiki_attachments'] == 'y' && $this->config['attachments']) {
             $wikilib = TikiLib::lib('wiki');
             $attachments = $wikilib->list_wiki_attachments($page, 0, -1);
-            if (! empty($attachments['cant'])) {
+            if (! empty($attachments['count'])) {
                 foreach ($attachments['data'] as $key => $att) {
                     $att_info = $wikilib->get_item_attachment($att['attId']);
                     $attachments['data'][$key]['zip'] = "$dir/attachments/" . $att['attId'];

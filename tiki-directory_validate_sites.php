@@ -61,7 +61,7 @@ $smarty->assign_by_ref('offset', $offset);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $smarty->assign('find', $find);
 $items = $dirlib->dir_list_invalid_sites($offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant_pages', $items["cant"]);
+$smarty->assign_by_ref('pages_count', $items["count"]);
 $smarty->assign_by_ref('items', $items["data"]);
 // This page should be displayed with Directory section options
 $section = 'directory';

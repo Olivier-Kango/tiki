@@ -179,7 +179,7 @@ class CommentsTest extends TikiTestCase
         // Assertions
         $this->assertNotEmpty($result);
         $this->assertArrayHasKey('data', $result);
-        $this->assertArrayHasKey('cant', $result);
+        $this->assertArrayHasKey('count', $result);
         // Check that the data returned matches the inserted report
         $reportedData = $result['data'][0];
         $this->assertEquals(1, $reportedData['forumId']);
@@ -726,14 +726,14 @@ class CommentsTest extends TikiTestCase
         // Test without any conditions
         $result = $this->commentsLib->list_all_attachments();
         $data = $result['data'];
-        $count = $result['cant'];
+        $count = $result['count'];
         $this->assertCount(3, $data);
         $this->assertEquals(3, $count);
 
         // Test with a search condition
         $result = $this->commentsLib->list_all_attachments(0, -1, 'attId_asc', 'TestFile');
         $data = $result['data'];
-        $count = $result['cant'];
+        $count = $result['count'];
         $this->assertCount(2, $data);
         $this->assertEquals(2, $count);
         $this->assertEquals('TestFile.txt', $data[0]['filename']);
@@ -1032,7 +1032,7 @@ class CommentsTest extends TikiTestCase
         // Test the list_forum_queue method
         $result = $this->commentsLib->list_forum_queue($object, 0, 10, 'qId_asc', '');
         $this->assertCount(2, $result['data']);
-        $this->assertEquals(2, $result['cant']);
+        $this->assertEquals(2, $result['count']);
 
         // Check the first item in the result
         $firstItem = $result['data'][0];
@@ -1055,7 +1055,7 @@ class CommentsTest extends TikiTestCase
 
         $resultWithFind = $this->commentsLib->list_forum_queue($object, 0, 10, 'qId_asc', 'Test Data 2');
         $this->assertCount(1, $resultWithFind['data']);
-        $this->assertEquals(1, $resultWithFind['cant']);
+        $this->assertEquals(1, $resultWithFind['count']);
         $this->assertEquals('Test Title 2', $resultWithFind['data'][0]['title']);
     }
 

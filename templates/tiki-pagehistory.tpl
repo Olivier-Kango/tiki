@@ -28,9 +28,9 @@
     <div>
         {if !isset($noHistory)}
             {if isset($show_all_versions) and $show_all_versions eq "n"}
-                {pagination_links cant=$ver_cant offset=$smarty.request.preview_idx offset_arg="preview_idx" itemname="{tr}Session{/tr}" show_numbers="n"}{/pagination_links}
+                {pagination_links count=$ver_count offset=$smarty.request.preview_idx offset_arg="preview_idx" itemname="{tr}Session{/tr}" show_numbers="n"}{/pagination_links}
             {else}
-                {pagination_links cant=$ver_cant offset=$smarty.request.preview_idx offset_arg="preview_idx" itemname="{tr}Version{/tr}" show_numbers="n"}{/pagination_links}
+                {pagination_links count=$ver_count offset=$smarty.request.preview_idx offset_arg="preview_idx" itemname="{tr}Version{/tr}" show_numbers="n"}{/pagination_links}
             {/if}
         {/if}
     </div>
@@ -88,9 +88,9 @@
     <div>
         {if !isset($noHistory)}
             {if isset($show_all_versions) and $show_all_versions eq "n"}
-                {pagination_links cant=$ver_cant offset=$smarty.request.source_idx offset_arg="source_idx" itemname="{tr}Session{/tr}" show_numbers="n"}{/pagination_links}
+                {pagination_links count=$ver_count offset=$smarty.request.source_idx offset_arg="source_idx" itemname="{tr}Session{/tr}" show_numbers="n"}{/pagination_links}
             {else}
-                {pagination_links cant=$ver_cant offset=$smarty.request.source_idx offset_arg="source_idx" itemname="{tr}Version{/tr}" show_numbers="n"}{/pagination_links}
+                {pagination_links count=$ver_count offset=$smarty.request.source_idx offset_arg="source_idx" itemname="{tr}Version{/tr}" show_numbers="n"}{/pagination_links}
             {/if}
         {/if}
     </div>
@@ -489,10 +489,10 @@
             </div>
             {if $paginate}
                 {if isset($smarty.request.history_offset)}
-                    {pagination_links cant=$history_cant offset=$smarty.request.history_offset offset_arg="history_offset" step=$history_pagesize}
+                    {pagination_links count=$history_count offset=$smarty.request.history_offset offset_arg="history_offset" step=$history_pagesize}
                     {/pagination_links}
                 {else}
-                    {pagination_links cant=$history_cant offset_arg="history_offset" step=$history_pagesize}
+                    {pagination_links count=$history_count offset_arg="history_offset" step=$history_pagesize}
                     {/pagination_links}
                 {/if}
             {/if}

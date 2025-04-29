@@ -391,7 +391,7 @@ $comments_coms = $commentslib->get_forum_topics(
     $forum_info
 );
 
-$comments_cant = $commentslib->count_forum_topics(
+$comments_count = $commentslib->count_forum_topics(
     $_REQUEST['forumId'],
     $comments_offset,
     $_REQUEST['comments_per_page'],
@@ -405,7 +405,7 @@ $comments_cant = $commentslib->count_forum_topics(
 $last_comments = $commentslib->get_last_forum_posts($_REQUEST['forumId'], $forum_info['forum_last_n']);
 
 $smarty->assign_by_ref('last_comments', $last_comments);
-$smarty->assign('comments_cant', $comments_cant);
+$smarty->assign('comments_count', $comments_count);
 $comments_maxRecords = $_REQUEST["comments_per_page"];
 $smarty->assign_by_ref('comments_coms', $comments_coms);
 
@@ -523,7 +523,7 @@ if ($ts['enabled'] && ! $ts['ajax']) {
         'TikiViewforum',
         [
             'id' => $ts['tableid'],
-            'total' => $comments_cant,
+            'total' => $comments_count,
             'pager' => [
                 'max' => $_REQUEST['comments_per_page'],
             ],

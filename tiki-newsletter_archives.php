@@ -71,10 +71,10 @@ if (isset($_REQUEST["nlId"])) {
 } else {
     $channels = $nllib->list_editions(0, $ed_offset, $maxRecords, $ed_sort_mode, $ed_find, false, 'tiki_p_view_newsletter');
 }
-$cant_pages = ceil($channels["cant"] / $maxRecords);
-$smarty->assign_by_ref('cant_pages', $cant_pages);
+$pages_count = ceil($channels["count"] / $maxRecords);
+$smarty->assign_by_ref('pages_count', $pages_count);
 $smarty->assign('actual_page', 1 + ($ed_offset / $maxRecords));
-if ($channels["cant"] > ($ed_offset + $maxRecords)) {
+if ($channels["count"] > ($ed_offset + $maxRecords)) {
     $smarty->assign('next_offset', $ed_offset + $maxRecords);
 } else {
     $smarty->assign('next_offset', -1);

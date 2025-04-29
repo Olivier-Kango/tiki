@@ -27,7 +27,7 @@
 {/if}
 
 {if $findwhat!=""}
-    {tr}Found{/tr} "<b>{$findwhat|escape}</b>" {tr}in{/tr} {$cant_records|escape} {tr}LastChanges{/tr}
+    {tr}Found{/tr} "<b>{$findwhat|escape}</b>" {tr}in{/tr} {$records_count|escape} {tr}LastChanges{/tr}
 {/if}
 <div class="table-responsive">
 <table class="table">
@@ -81,4 +81,4 @@
     {/section}
 </table>
 </div>
-{pagination_links cant=$cant_records step=$prefs.maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$records_count step=$prefs.maxRecords offset=$offset}{/pagination_links}

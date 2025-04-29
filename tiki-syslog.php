@@ -103,7 +103,7 @@ foreach ($list['data'] as &$row) {
         $row['log_pretty'] = print_r(unserialize($row['log']), true);
     }
 }
-$smarty->assign_by_ref('cant', $list['cant']);
+$smarty->assign_by_ref('count', $list['count']);
 $smarty->assign('list', $list['data']);
 $smarty->assign('api_tiki', $api_tiki);
 $urlquery['sort_mode'] = $sort_mode;

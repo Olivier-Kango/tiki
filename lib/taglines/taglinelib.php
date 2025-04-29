@@ -32,16 +32,16 @@ class TagLineLib extends TikiLib
             $bindvars = [];
         }
         $query = "select * from `tiki_cookies` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_cookies` $mid";
+        $query_count = "select count(*) from `tiki_cookies` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

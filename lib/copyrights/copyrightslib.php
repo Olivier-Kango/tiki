@@ -15,9 +15,9 @@ class CopyrightsLib extends TikiLib
     public function list_copyrights($page)
     {
         $query = 'select * from `tiki_copyrights` WHERE `page`=? order by ' . $this->convertSortMode('copyright_order_asc');
-        $query_cant = 'select count(*) from `tiki_copyrights` WHERE `page`=?';
+        $query_count = 'select count(*) from `tiki_copyrights` WHERE `page`=?';
         $result = $this->query($query, [$page]);
-        $cant = $this->getOne($query_cant, [$page]);
+        $count = $this->getOne($query_count, [$page]);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -26,7 +26,7 @@ class CopyrightsLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 

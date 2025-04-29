@@ -43,7 +43,7 @@
                             <tr>
                                 {section name=date loop=$grid_content}
                                     <td class="sheet_sibling" style="width: 50%;">
-                                        {pagination_links cant=$ver_cant itemname="{tr}Sheet{/tr}" offset_arg="idx_{$smarty.section.date.index}" offset=$sheetIndexes[$smarty.section.date.index] show_numbers=n}{/pagination_links}
+                                        {pagination_links count=$ver_count itemname="{tr}Sheet{/tr}" offset_arg="idx_{$smarty.section.date.index}" offset=$sheetIndexes[$smarty.section.date.index] show_numbers=n}{/pagination_links}
                                     </td>
                                 {/section}
                             </tr>

@@ -228,11 +228,11 @@ function wikiplugin_attach($data, $params)
         }
     }
 
-    if (! array_key_exists("cant", $atts)) {
+    if (! array_key_exists("count", $atts)) {
         if (array_key_exists("data", $atts)) {
-            $atts['cant'] = count($atts["data"]);
+            $atts['count'] = count($atts["data"]);
         } else {
-            $atts['cant'] = 0;
+            $atts['count'] = 0;
             $atts["data"] = "";
         }
     }
@@ -257,12 +257,12 @@ function wikiplugin_attach($data, $params)
         $name = '';
     }
 
-    if (! $atts['cant']) {
+    if (! $atts['count']) {
         return "''" . tra('No such attachment on this page') . "''";
-    } elseif ($num > 0 and $num < ($atts['cant'] + 1)) {
+    } elseif ($num > 0 and $num < ($atts['count'] + 1)) {
         $loop[] = $num;
     } else {
-        $loop = range(1, $atts['cant']);
+        $loop = range(1, $atts['count']);
     }
 
     $out = [];

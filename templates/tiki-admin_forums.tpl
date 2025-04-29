@@ -32,7 +32,7 @@
 {/if}
     <form method='post' id="admin_forums">
         <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}>
-            <table id="{$ts.tableid}" class="table table-striped table-hover" data-count="{$cant|escape}">
+            <table id="{$ts.tableid}" class="table table-striped table-hover" data-count="{$count|escape}">
                 {$numbercol = 0}
                 <thead>
                 <tr>
@@ -172,7 +172,7 @@
         {/if}
     </form>
 {if !$ts.enabled}
-    {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+    {pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
 {/if}
 {/tab}
 {if !$ts.ajax}

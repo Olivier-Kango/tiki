@@ -243,7 +243,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
 
         $rawcals = $this->calendarLib->list_calendars();
 
-        if ($rawcals['cant'] === 0) {
+        if ($rawcals['count'] === 0) {
             throw new Services_Exception_NotFound(tr('No calendars found'));
         }
 

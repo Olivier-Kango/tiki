@@ -296,7 +296,7 @@
             {/foreach}
         </table>
     </div>
-    {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+    {pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
 
 {jq}
 $(document).on('click', '.remove.confirm-prompt', $.clickModal({

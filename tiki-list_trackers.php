@@ -122,7 +122,7 @@ $smarty->assign('find', $find);
 $smarty->assign('objectId', 'trackerId');
 $smarty->assign('find_objectId', $arrayOfTrackerIdsPassedInUrl);
 $smarty->assign('find_show_objects_multi', $isTrackerFiltered);
-$smarty->assign_by_ref('cant', $trackers['cant']);
+$smarty->assign_by_ref('count', $trackers['count']);
 $smarty->assign_by_ref('trackers', $trackers_data);
 $smarty->assign_by_ref('findAllObjects', $allData);
 // disallow robots to index page:

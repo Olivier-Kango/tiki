@@ -79,7 +79,7 @@ if (isset($_REQUEST["find"])) {
 $smarty->assign('find', $find);
 // Get a list of last changes to the Wiki database
 $listpages = $dcslib->list_content($offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant', $listpages['cant']);
+$smarty->assign_by_ref('count', $listpages['count']);
 $smarty->assign_by_ref('listpages', $listpages["data"]);
 // Display the template
 $smarty->assign('mid', 'tiki-list_contents.tpl');

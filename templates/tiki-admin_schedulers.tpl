@@ -289,7 +289,7 @@
                     </tbody>
                 </table>
             </div>
-            {pagination_links cant=$cant step=$numrows offset=$offset}tiki-admin_schedulers.php?scheduler={$schedulerinfo.id}&cookietab=3{/pagination_links}
+            {pagination_links count=$count step=$numrows offset=$offset}tiki-admin_schedulers.php?scheduler={$schedulerinfo.id}&cookietab=3{/pagination_links}
         {/tab}
     {/if}
 

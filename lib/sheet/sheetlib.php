@@ -288,7 +288,7 @@ class SheetLib extends TikiLib
         }
 
         //print_r($results);
-        $results['cant'] = $this->getOne("SELECT COUNT(*) FROM `tiki_sheets` $mid", $bindvars);
+        $results['count'] = $this->getOne("SELECT COUNT(*) FROM `tiki_sheets` $mid", $bindvars);
 
         return $results;
     }

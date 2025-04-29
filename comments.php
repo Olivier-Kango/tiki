@@ -386,28 +386,28 @@ $comments_coms = $commentslib->get_comments(
 );
 
 if ($comments_prefix_var == 'forum:') {
-    $comments_cant = $commentslib->count_comments('topic:' . $_REQUEST['comments_parentId']); // comments in the topic not in the forum
+    $comments_count = $commentslib->count_comments('topic:' . $_REQUEST['comments_parentId']); // comments in the topic not in the forum
 } else {
-    $comments_cant = $commentslib->count_comments($comments_objectId);
+    $comments_count = $commentslib->count_comments($comments_objectId);
 }
-$comments_cant_page = $comments_coms['cant'];
+$comments_count_page = $comments_coms['count'];
 
 $smarty->assign('comments_below', $comments_coms["below"]);
-$smarty->assign('comments_cant', $comments_cant);
+$smarty->assign('comments_count', $comments_count);
 
 // Offset management
 $comments_maxRecords = $comments_per_page;
 
 if ($comments_maxRecords != 0) {
-    $comments_cant_pages = ceil($comments_cant_page / $comments_maxRecords);
+    $comments_count_pages = ceil($comments_count_page / $comments_maxRecords);
     $smarty->assign('comments_actual_page', 1 + ($comments_offset / $comments_maxRecords));
 } else {
-    $comments_cant_pages = 1;
+    $comments_count_pages = 1;
     $smarty->assign('comments_actual_page', 1);
 }
-$smarty->assign('comments_cant_pages', $comments_cant_pages);
+$smarty->assign('comments_count_pages', $comments_count_pages);
 
-if ($comments_cant_page > ($comments_offset + $comments_maxRecords)) {
+if ($comments_count_page > ($comments_offset + $comments_maxRecords)) {
     $smarty->assign('comments_next_offset', $comments_offset + $comments_maxRecords);
 } else {
     $smarty->assign('comments_next_offset', -1);

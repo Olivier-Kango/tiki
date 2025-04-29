@@ -210,9 +210,9 @@
 
 <div class="freetagresult">
     {if $tagString}
-        <h4>{tr}Results{/tr} <span class="badge bg-secondary">{$cantobjects}</span></h4>
+        <h4>{tr}Results{/tr} <span class="badge bg-secondary">{$objects_count}</span></h4>
     {/if}
-    {if $cantobjects > 0}
+    {if $objects_count > 0}
         <table class="table table-hover">
             <tbody>
                 {section name=ix loop=$objects}
@@ -244,6 +244,6 @@
                 {/section}
             </tbody>
         </table>
-        {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+        {pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
     {/if}
 </div>

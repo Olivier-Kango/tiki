@@ -35,14 +35,14 @@
             <h2>{tr}List of existing groups{/tr}</h2>
             {if !$ts.enabled}
                 {include file='find.tpl' find_show_num_rows='y'}
-                {if $cant_pages > $maxRecords or !empty($initial) or !empty($find)}
+                {if $pages_count > $maxRecords or !empty($initial) or !empty($find)}
                     {initials_filter_links}
                 {/if}
             {/if}
             <form id="checkform1" method="post">
             <div class="{if $js}table-responsive {/if}ts-wrapperdiv"> {* table-responsive class cuts off css drop-down menus *}
         {/if}
-            <table id="{$ts.tableid}" class="table normal table-striped table-hover" data-count="{$cant_pages|escape}">
+            <table id="{$ts.tableid}" class="table normal table-striped table-hover" data-count="{$pages_count|escape}">
                 <thead>
                 <tr>
                     <th id="checkbox">{select_all checkbox_names='checked[]' tablesorter="{$ts.enabled}"}</th>
@@ -112,7 +112,7 @@
                                     </a>
                                 </action>
                                 <action>
-                                    {permission_link mode=text group=$users[user].groupName count=$users[user].permcant}
+                                    {permission_link mode=text group=$users[user].groupName count=$users[user].permcount}
                                 </action>
                                 {if $users[user].groupName ne 'Anonymous' and $users[user].groupName ne 'Registered' and $users[user].groupName ne 'Admins'}
                                     <action>
@@ -147,7 +147,7 @@
                     </div>
             </form>
             {if !$ts.enabled}
-                {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
+                {pagination_links count=$pages_count step=$prefs.maxRecords offset=$offset}{/pagination_links}
             {/if}
         {/if}
     {/tab}
@@ -643,7 +643,7 @@
                     </form>
                     </div>
                     {if !$ts.enabled}
-                        {pagination_links cant=$membersCount step=$prefs.maxRecords offset=$membersOffset offset_arg='membersOffset'}{/pagination_links}
+                        {pagination_links count=$membersCount step=$prefs.maxRecords offset=$membersOffset offset_arg='membersOffset'}{/pagination_links}
                     {/if}
                 {/if}
             {else}

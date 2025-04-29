@@ -195,7 +195,7 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
             $runsCount = $numOfLogs;
         }
 
-        $smarty->assign_by_ref('cant', $runsCount);
+        $smarty->assign_by_ref('count', $runsCount);
         $smarty->assign_by_ref('numOfLogs', $numOfLogs);
 
         // Check if last run is still running and can be stopped.

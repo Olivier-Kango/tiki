@@ -215,7 +215,7 @@ if (isset($_REQUEST['action']) && isset($ref_id)) {
 
 $references = $referenceslib->list_lib_references($find, $maxRecords, $offset);
 $smarty->assign('references', $references['data']);
-$smarty->assign('cant', $references['cant']);
+$smarty->assign('count', $references['count']);
 if (! empty($ref_id)) {
     $currentlibreference = $referenceslib->get_reference_from_id($ref_id);
     if (isset($currentlibreference['data']) && isset($currentlibreference['data'][0]) && $currentlibreference['data'][0]['page_id'] == null) {

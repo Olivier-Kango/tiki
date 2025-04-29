@@ -123,20 +123,20 @@ function module_months_links($mod_reference, $module_params)
 
             $timestamp_month_start = $tikilib->make_time(0, 0, 0, $current_month_num, 1, $current_year);
 
-            // Ensure $archives[$current_year]['cant'] is set and not null before use
-            $archives[$current_year]['cant'] ??= 0;
+            // Ensure $archives[$current_year]['count'] is set and not null before use
+            $archives[$current_year]['count'] ??= 0;
 
             if ($module_params['feature'] == 'blogs') {
                 $posts_of_month = $bloglib->list_blog_posts($module_params['id'], true, 0, -1, 'created_desc', '', $timestamp_month_start, $timestamp_month_end);
-                if ($posts_of_month['cant'] > 0) {
+                if ($posts_of_month['count'] > 0) {
                     $archives[$current_year]['monthlist'][$real_month_name]['link'] = sprintf($link, $timestamp_month_start, $timestamp_month_end);
-                    $archives[$current_year]['monthlist'][$real_month_name]['cant'] = $posts_of_month['cant'];
+                    $archives[$current_year]['monthlist'][$real_month_name]['count'] = $posts_of_month['count'];
                     // Clicking on the year number displays the first non-empty month
                     if (! isset($archives[$current_year]['link'])) {
                         $archives[$current_year]['link'] = $archives[$current_year]['monthlist'][$real_month_name]['link'];
                     }
-                    $archives[$current_year]['cant'] += $posts_of_month['cant'];
-                    for ($post = 0; $post < $posts_of_month['cant']; $post++) {
+                    $archives[$current_year]['count'] += $posts_of_month['count'];
+                    for ($post = 0; $post < $posts_of_month['count']; $post++) {
                         $archives[$current_year]['monthlist'][$real_month_name]['postlist'][$posts_of_month['data'][$post]['postId']] = $posts_of_month['data'][$post]['title'];
                     }
                 }
@@ -164,17 +164,17 @@ function module_months_links($mod_reference, $module_params)
                     ''
                 );
 
-                if ($posts_of_month["cant"] > 0) {
+                if ($posts_of_month["count"] > 0) {
                     $archives[$current_year]['monthlist'][$real_month_name]['link'] = sprintf($link, $timestamp_month_start, $timestamp_month_end);
-                    $archives[$current_year]['monthlist'][$real_month_name]['cant'] = $posts_of_month['cant'];
+                    $archives[$current_year]['monthlist'][$real_month_name]['count'] = $posts_of_month['count'];
                     // Clicking on the year number displays the first non-empty month
                     if (! isset($archives[$current_year]['link'])) {
                         $archives[$current_year]['link'] = $archives[$current_year]['monthlist'][$real_month_name]['link'];
                     }
 
-                    $archives[$current_year]['cant'] += $posts_of_month['cant'];
+                    $archives[$current_year]['count'] += $posts_of_month['count'];
 
-                    for ($post = 0; $post < $posts_of_month['cant']; $post++) {
+                    for ($post = 0; $post < $posts_of_month['count']; $post++) {
                         $archives[$current_year]['monthlist'][$real_month_name]['postlist'][$posts_of_month['data'][$post]['articleId']] = $posts_of_month['data'][$post]['title'];
                     }
                 }

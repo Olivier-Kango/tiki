@@ -1291,8 +1291,8 @@ class ArtLib extends TikiLib
             );
 
         $result = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $query_cant = "select distinct count(*) from `tiki_articles` $fromSql $join $mid $mid2";
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select distinct count(*) from `tiki_articles` $fromSql $join $mid $mid2";
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         $articleIds = array_map(
             function ($res) {
@@ -1333,7 +1333,7 @@ class ArtLib extends TikiLib
         }
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -1395,9 +1395,9 @@ class ArtLib extends TikiLib
         }
 
         $query = "select * from `tiki_submissions` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_submissions` $mid";
+        $query_count = "select count(*) from `tiki_submissions` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -1420,7 +1420,7 @@ class ArtLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 

@@ -75,16 +75,16 @@ class MiniCalLib extends TikiLib
         }
 
         $query = "select `isIcon`,`path`,`name`,`topicId` from `tiki_minical_topics` where `user`=? $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_minical_topics` where `user`=? $mid";
+        $query_count = "select count(*) from `tiki_minical_topics` where `user`=? $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -108,9 +108,9 @@ class MiniCalLib extends TikiLib
         }
 
         $query = "select * from `tiki_minical_events` where `user`=? $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_minical_events` where `user`=? $mid";
+        $query_count = "select count(*) from `tiki_minical_events` where `user`=? $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -126,7 +126,7 @@ class MiniCalLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -141,9 +141,9 @@ class MiniCalLib extends TikiLib
             $mid = "";
         }
         $query = "select * from `tiki_minical_events` where `start`>? and `user`=? $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_minical_events` where `start`>? and `user`=? $mid";
+        $query_count = "select count(*) from `tiki_minical_events` where `start`>? and `user`=? $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             $res2 = [];
@@ -157,7 +157,7 @@ class MiniCalLib extends TikiLib
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

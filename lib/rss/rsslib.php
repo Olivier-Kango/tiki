@@ -364,7 +364,7 @@ class RSSLib extends TikiDb_Bridge
 
         return [
             'data' => $ret,
-            'cant' => $this->modules->fetchCount($conditions),
+            'count' => $this->modules->fetchCount($conditions),
         ];
     }
 

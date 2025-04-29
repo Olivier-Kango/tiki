@@ -154,9 +154,9 @@ if ($broaden == 'y') {
 $objects = $freetaglib->get_objects_with_tag_combo($tagArray, $type, $view_user, $offset, $maxRecords, $query_sort_mode, $find, $broaden, $objectId);
 
 $smarty->assign_by_ref('objects', $objects["data"]);
-$smarty->assign('cantobjects', count($objects['data']));
-$cant = $objects['cant'];
-$smarty->assign('cant', $objects['cant']);
+$smarty->assign('objects_count', count($objects['data']));
+$count = $objects['count'];
+$smarty->assign('count', $objects['count']);
 
 include_once('tiki-section_options.php');
 

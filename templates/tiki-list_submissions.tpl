@@ -167,7 +167,7 @@
         </div>
     {/if}
 
-    {pagination_links cant=$cant_pages step=$maxRecords offset=$offset}{/pagination_links}
+    {pagination_links count=$pages_count step=$maxRecords offset=$offset}{/pagination_links}
 </form>
 {jq}
     var checkboxes = $('.checkboxes');

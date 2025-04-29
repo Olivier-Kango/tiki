@@ -456,9 +456,9 @@ class WikiRenderer
             if (! empty($galleryId)) {
                 $files = $filegallib->get_files(0, -1, '', '', $galleryId);
             } else {
-                $files = ['data' => [], 'cant' => 0];
+                $files = ['data' => [], 'count' => 0];
             }
-            $this->smartyassign('atts_count', $files['cant']);
+            $this->smartyassign('atts_count', $files['count']);
             return;
         }
 
@@ -470,7 +470,7 @@ class WikiRenderer
 
         $atts = $wikilib->list_wiki_attachments($this->page, 0, -1, $this->sortMode, '');
         $this->smartyassign('atts', $atts["data"]);
-        $this->smartyassign('atts_count', $atts['cant']);
+        $this->smartyassign('atts_count', $atts['count']);
     }
 
     private function setupFootnotes()

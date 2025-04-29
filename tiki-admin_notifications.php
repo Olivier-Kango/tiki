@@ -139,7 +139,7 @@ $smarty->assign_by_ref('watches', $watches);
 $smarty->assign_by_ref('maxRecords', $maxRecords);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $tikilib->list_watches($offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant', $channels['cant']);
+$smarty->assign_by_ref('count', $channels['count']);
 $smarty->assign_by_ref('channels', $channels["data"]);
 if ($prefs['feature_trackers'] == 'y') {
     $trklib = TikiLib::lib('trk');

@@ -124,4 +124,4 @@
     </div>
     <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}" />
 </form>
-{pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$pages_count step=$prefs.maxRecords offset=$offset}{/pagination_links}

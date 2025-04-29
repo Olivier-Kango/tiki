@@ -828,7 +828,7 @@ class CategLib extends ObjectLib
         }
         return [
             "data" => $ret,
-            "cant" => $count,
+            "count" => $count,
         ];
     }
 
@@ -931,7 +931,7 @@ class CategLib extends ObjectLib
         // return the maxRecord data result and data count plus the actual total count as a single array
         return [
             "data" => $result,
-            "cant" => $count,
+            "count" => $count,
             "countall" => $countall,
         ];
     }

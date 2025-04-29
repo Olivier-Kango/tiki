@@ -74,7 +74,7 @@
         {/if}
     {/if}
 
-    {if (isset($cant_pages) && $cant_pages > 1 && !tsOn) or $tr_initial or $showinitials eq 'y'}
+    {if (isset($pages_count) && $pages_count > 1 && !tsOn) or $tr_initial or $showinitials eq 'y'}
         {initials_filter_links _initial='tr_initial'}
     {/if}
 
@@ -277,7 +277,7 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
             {button class='more' href="$moreUrl" _text="{tr}More...{/tr}"}
         </div>
     {elseif $showpagination ne 'n'}
-        {pagination_links cant=$count_item step=$max offset=${$offset_arg} offset_arg=$offset_arg _keepall=y} {/pagination_links}
+        {pagination_links count=$count_item step=$max offset=${$offset_arg} offset_arg=$offset_arg _keepall=y} {/pagination_links}
     {/if}
     {if $export eq 'y' && ($perms.tiki_p_admin_trackers eq 'y' || $perms.tiki_p_export_tracker eq 'y')}
         {button href=$exportUrl _text="{tr}Export{/tr}" _class='exportButton'}

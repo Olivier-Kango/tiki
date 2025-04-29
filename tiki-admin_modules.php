@@ -479,27 +479,27 @@ $maxRecords = $prefs['maxRecords'];
 
 $polls = $polllib->list_active_polls($offset, $maxRecords, 'publishDate_desc', '');
 $smarty->assign('polls', $polls['data']);
-$maximum = max($maximum, $polls['cant']);
+$maximum = max($maximum, $polls['count']);
 
 $contents = $dcslib->list_content($offset, $maxRecords, 'contentId_desc', '');
 $smarty->assign('contents', $contents['data']);
-$maximum = max($maximum, $contents['cant']);
+$maximum = max($maximum, $contents['count']);
 
 $rsss = $rsslib->list_rss_modules($offset, $maxRecords, 'name_desc', '');
 $smarty->assign('rsss', $rsss['data']);
-$maximum = max($maximum, $rsss['cant']);
+$maximum = max($maximum, $rsss['count']);
 
 $menus = $menulib->list_menus($offset, $maxRecords, 'menuId_desc', '');
 $smarty->assign('menus', $menus['data']);
-$maximum = max($maximum, $menus['cant']);
+$maximum = max($maximum, $menus['count']);
 
 $banners = $bannerlib->list_zones();
 $smarty->assign('banners', $banners['data']);
-$maximum = max($maximum, $banners['cant']);
+$maximum = max($maximum, $banners['count']);
 
 $wikistructures = $structlib->list_structures('0', '100', 'pageName_asc', '');
 $smarty->assign('wikistructures', $wikistructures['data']);
-$maximum = max($maximum, $wikistructures['cant']);
+$maximum = max($maximum, $wikistructures['count']);
 
 $smarty->assign('maxRecords', $maxRecords);
 $smarty->assign('offset', $offset);

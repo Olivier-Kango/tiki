@@ -410,13 +410,13 @@ for ($i = 0; $i < $max; $i++) {
     }
 }
 $smarty->assign_by_ref('channels', $channels["data"]);
-$smarty->assign_by_ref('cant', $channels["cant"]);
+$smarty->assign_by_ref('count', $channels["count"]);
 $cat_type = 'forum';
 $cat_objid = $_REQUEST["forumId"];
 $categories = [];
 include_once("categorize_list.php");
 if (! empty($_REQUEST['dup_mode'])) {
-    if ($offset == 0 && ($maxRecords == - 1 || $channels['cant'] <= $maxRecords)) {
+    if ($offset == 0 && ($maxRecords == - 1 || $channels['count'] <= $maxRecords)) {
         $smarty->assign_by_ref('allForums', $channels['data']);
     } else {
         $allForums = $commentslib->list_forums(0, -1, 'name_asc');
@@ -452,7 +452,7 @@ if ($ts['enabled'] && ! $ts['ajax']) {
         'TikiAdminForums',
         [
             'id' => $ts['tableid'],
-            'total' => $channels['cant'],
+            'total' => $channels['count'],
         ]
     );
 }

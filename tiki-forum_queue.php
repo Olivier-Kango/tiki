@@ -259,8 +259,8 @@ if (isset($_REQUEST["find"])) {
 $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $items = $commentslib->list_forum_queue('forum:' . $_REQUEST['forumId'], $offset, $maxRecords, $sort_mode, $find);
-$smarty->assign('cant', $items['cant']);
-$smarty->assign_by_ref('cant_pages', $items['cant']);
+$smarty->assign('count', $items['count']);
+$smarty->assign_by_ref('pages_count', $items['count']);
 
 $smarty->assign_by_ref('items', $items["data"]);
 

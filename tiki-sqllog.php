@@ -52,6 +52,6 @@ $find = (isset($_REQUEST['find'])) ? $_REQUEST['find'] : '';
 $smarty->assign_by_ref('find', $find);
 $logs = $logslib->list_logsql($sort_mode, $offset, $numrows, $find);
 $smarty->assign_by_ref('logs', $logs['data']);
-$smarty->assign_by_ref('cant', $logs['cant']);
+$smarty->assign_by_ref('count', $logs['count']);
 $smarty->assign('mid', 'tiki-sqllog.tpl');
 $smarty->display('tiki.tpl');

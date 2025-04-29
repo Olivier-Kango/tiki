@@ -1,4 +1,4 @@
-{if !$ts.enabled && ($cant_pages > 1 or $initial or $find)}
+{if !$ts.enabled && ($pages_count > 1 or $initial or $find)}
     {initials_filter_links}
 {/if}
 
@@ -35,7 +35,7 @@
 
 {assign var='pagefound' value='n'}
 <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv"> {*the table-responsive class cuts off dropdown menus *}
-    <table id="{$ts.tableid}" class="table normal table-striped table-hover{if !empty($ts.enabled)} tablesorter{/if}" data-count="{$cant|escape}">
+    <table id="{$ts.tableid}" class="table normal table-striped table-hover{if !empty($ts.enabled)} tablesorter{/if}" data-count="{$count|escape}">
         {if !isset($noheader) || $noheader != 1}
             <thead>
                 <tr>
@@ -503,10 +503,10 @@
 
     {if !isset($ts.enabled) or !$ts.enabled}
         {if $pluginlistpages eq 'y' and $pagination eq 'y'}
-            {pagination_links cant=$cant step=$maxRecords offset=$offset offset_arg=$offset_arg clean=$clean}{/pagination_links}
+            {pagination_links count=$count step=$maxRecords offset=$offset offset_arg=$offset_arg clean=$clean}{/pagination_links}
         {elseif $pluginlistpages eq 'y' and $pagination neq 'y'}
         {else}
-            {pagination_links cant=$cant step=$maxRecords offset=$offset clean=$clean}{/pagination_links}
+            {pagination_links count=$count step=$maxRecords offset=$offset clean=$clean}{/pagination_links}
         {/if}
     {/if}
 {/if}

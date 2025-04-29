@@ -29,7 +29,7 @@ $inputConfiguration = [
             'exactvalue'       => 'word',          //get
             'reloff'           => 'word',          //get
             'move'             => 'word',          //get
-            'cant'             => 'int',           //get
+            'count'             => 'int',           //get
             'remove'           => 'int',           //post
             'moveto'           => 'int',           //get
             'removeattach'     => 'int',           //get
@@ -321,7 +321,7 @@ if (isset($_REQUEST['reloff'])) {
                 $tryreloff = (int)$_REQUEST['move'];
         }
     }
-    $cant = 0;
+    $count = 0;
     $listfields = [];
     if (substr($sort_mode, 0, 2) == 'f_') { //look at the field in case the field needs some processing to find the sort
         list($a, $i, $o) = explode('_', $sort_mode);
@@ -334,8 +334,8 @@ if (isset($_REQUEST['reloff'])) {
             }
         }
     }
-    if (isset($_REQUEST['cant'])) {
-        $cant = $_REQUEST['cant'];
+    if (isset($_REQUEST['count'])) {
+        $count = $_REQUEST['count'];
     } else {
         if (is_array($tryfiltervalue)) {
             $tryfiltervalue = array_values($tryfiltervalue);
@@ -347,10 +347,10 @@ if (isset($_REQUEST['reloff'])) {
                 $itemId = $trymove['data'][0]['itemId'];
                 unset($item_info);
             }
-            $cant = $trymove['cant'];
+            $count = $trymove['count'];
         }
     }
-    $smarty->assign('cant', $cant);
+    $smarty->assign('count', $count);
 }
 //*********** that's all for prev/next *****************
 $smarty->assign('itemId', $itemId);
@@ -360,7 +360,7 @@ if (! isset($item_info)) {
         Feedback::errorAndDie(tra("No item indicated"), \Laminas\Http\Response::STATUS_CODE_409);
     }
 }
-$item_info['logs'] = ['cant' => $trklib->item_has_history($item_info['itemId'])];   // only used to show history links, no need to load everything
+$item_info['logs'] = ['count' => $trklib->item_has_history($item_info['itemId'])];   // only used to show history links, no need to load everything
 
 $itemObject = Tracker_Item::fromInfo($item_info);
 $item_info['canViewHistory'] = $itemObject->canViewHistory();
@@ -791,7 +791,7 @@ if ($tracker_info_value('useAttachments') == 'y') {
     $attfields = explode(',', strtok($tracker_info["orderAttachments"], '|'));
     $atts = $trklib->list_item_attachments($itemId, 0, -1, 'comment_asc', '');
     $smarty->assign('atts', $atts["data"]);
-    $smarty->assign('attCount', $atts["cant"]);
+    $smarty->assign('attCount', $atts["count"]);
     $smarty->assign('attfields', $attfields);
     $smarty->assign('attextra', $attextra);
 }

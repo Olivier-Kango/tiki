@@ -68,7 +68,7 @@
                 {/foreach}
             </table>
         </div>
-        {pagination_links cant=$count_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
+        {pagination_links count=$count_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
 
         <p>
             <label for="submit_mult">{tr}Perform action with checked:{/tr}</label>

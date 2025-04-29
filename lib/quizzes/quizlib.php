@@ -114,7 +114,7 @@ class QuizLib extends TikiLib
 
         return [
             'data' => $ret,
-            'cant' => $n,
+            'count' => $n,
         ];
     }
 
@@ -334,9 +334,9 @@ class QuizLib extends TikiLib
         $bindvars = [(int) $quizId];
 
         $query = "select * from `tiki_user_quizzes` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_user_quizzes` $mid";
+        $query_count = "select count(*) from `tiki_user_quizzes` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -361,7 +361,7 @@ class QuizLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -385,7 +385,7 @@ class QuizLib extends TikiLib
 
         return [
             'data' => $stats->fetchAll($stats->all(), $conditions, $maxRecords, $offset, $stats->expr($this->convertSortMode($sort_mode))),
-            'cant' => $stats->fetchCount($conditions),
+            'count' => $stats->fetchCount($conditions),
         ];
     }
 
@@ -468,12 +468,12 @@ class QuizLib extends TikiLib
      */
     public function register_quiz_answer($quizId, $questionId, $optionId)
     {
-        $cant = $this->getOne(
+        $count = $this->getOne(
             "select count(*) from `tiki_quiz_stats` where `quizId`=? and `questionId`=? and `optionId`=?",
             [(int) $quizId, (int) $questionId, (int) $optionId]
         );
 
-        if ($cant) {
+        if ($count) {
             $query = "update `tiki_quiz_stats` set `votes`=`votes`+1 where `quizId`=? and `questionId`=? and `optionId`=?";
             $bindvars = [(int) $quizId, (int) $questionId, (int) $optionId];
         } else {
@@ -513,9 +513,9 @@ class QuizLib extends TikiLib
      */
     public function user_has_taken_quiz($user, $quizId)
     {
-        $cant = $this->getOne("select count(*) from `tiki_user_taken_quizzes` where `user`=? and `quizId`=?", [$user, (int) $quizId]);
+        $count = $this->getOne("select count(*) from `tiki_user_taken_quizzes` where `user`=? and `quizId`=?", [$user, (int) $quizId]);
 
-        return $cant;
+        return $count;
     }
 
     /**
@@ -610,9 +610,9 @@ class QuizLib extends TikiLib
         }
 
         $query = "select * from `tiki_quiz_results` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_quiz_results` $mid";
+        $query_count = "select count(*) from `tiki_quiz_results` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -621,7 +621,7 @@ class QuizLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -809,9 +809,9 @@ class QuizLib extends TikiLib
         }
 
         $query = "select * from `tiki_quiz_questions` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_quiz_questions` $mid";
+        $query_count = "select count(*) from `tiki_quiz_questions` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -822,7 +822,7 @@ class QuizLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -846,9 +846,9 @@ class QuizLib extends TikiLib
         }
 
         $query = "select * from `tiki_quiz_questions` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_quiz_questions` $mid";
+        $query_count = "select count(*) from `tiki_quiz_questions` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -860,7 +860,7 @@ class QuizLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -885,9 +885,9 @@ class QuizLib extends TikiLib
         }
 
         $query = "select * from `tiki_quiz_question_options` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_quiz_question_options` $mid";
+        $query_count = "select count(*) from `tiki_quiz_question_options` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -896,7 +896,7 @@ class QuizLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

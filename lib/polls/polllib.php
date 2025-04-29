@@ -39,9 +39,9 @@ class PollLib extends PollLibShared
         }
 
         $query = "select * from `tiki_polls` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_polls` $mid";
+        $query_count = "select count(*) from `tiki_polls` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -53,7 +53,7 @@ class PollLib extends PollLibShared
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -77,9 +77,9 @@ class PollLib extends PollLibShared
         }
 
         $query = "select * from `tiki_polls` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_polls` $mid";
+        $query_count = "select count(*) from `tiki_polls` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -88,7 +88,7 @@ class PollLib extends PollLibShared
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -112,9 +112,9 @@ class PollLib extends PollLibShared
         }
 
         $query = "select * from `tiki_polls` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_polls` $mid";
+        $query_count = "select count(*) from `tiki_polls` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -123,7 +123,7 @@ class PollLib extends PollLibShared
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

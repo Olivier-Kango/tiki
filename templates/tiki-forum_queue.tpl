@@ -1,7 +1,7 @@
 {title help="forums" admpage="forums"}{$forum_info.name}{/title}
 <h4>
     {tr}Queued messages{/tr}
-    <span class="badge bg-secondary">{$cant}</span>
+    <span class="badge bg-secondary">{$count}</span>
     {icon name="refresh" href="tiki-forum_queue.php?forumId=$forumId" class="btn btn-link tips" title=":{tr}Refresh list{/tr}"}
 </h4>
 
@@ -202,4 +202,4 @@
 </form>
 {* END OF LISTING *}
 
-{pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$pages_count step=$prefs.maxRecords offset=$offset}{/pagination_links}

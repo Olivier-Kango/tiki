@@ -132,7 +132,7 @@ $smarty->assign('history_pagesize', $history_pagesize);
 
 // fetch page history, but omit the actual page content (to save memory)
 $history = $histlib->get_page_history($page, false, $history_offset, $paginate ? $history_pagesize : -1);
-$smarty->assign('history_cant', $histlib->get_nb_history($page) - 1);
+$smarty->assign('history_count', $histlib->get_nb_history($page) - 1);
 
 if ($prefs['flaggedrev_approval'] == 'y') {
     $flaggedrevisionlib = TikiLib::lib('flaggedrevision');
@@ -239,7 +239,7 @@ $history_sessions[] = 0;
 $smarty->assign_by_ref('history', $history);
 
 // for pagination
-$smarty->assign('ver_cant', count($history_versions));
+$smarty->assign('ver_count', count($history_versions));
 
 if (isset($_REQUEST['clear_versions'])) {
     unset($_REQUEST['clear_versions']);

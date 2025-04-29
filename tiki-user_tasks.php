@@ -745,7 +745,7 @@ $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 if (! $show_form) {
     $tasklist = $tasklib->list_tasks($user, $offset, $maxRecords, $find, $sort_mode, $show_private, $show_submitted, $show_received, $show_shared, false, null, $show_trash, $show_completed, $show_admin);
-    $smarty->assign('cant', $tasklist['cant']);
+    $smarty->assign('count', $tasklist['count']);
     $smarty->assign_by_ref('tasklist', $tasklist["data"]);
 }
 

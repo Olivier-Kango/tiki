@@ -687,7 +687,7 @@ function duplicate(array $info, array $params, array $trackerData, string $level
 
         // CHECK IF CHOSEN GANTT ID EXISTS
         $items = $trackerlib->list_items($trackerId, 0, -1, '', '', [$trackerField['fieldId']], '', '', '', [$ganttId]);
-        if ($items['cant']) {
+        if ($items['count']) {
             Feedback::error(tr('Gantt ID already exists'));
             $error = true;
         }

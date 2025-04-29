@@ -367,7 +367,7 @@
             </form>
         {/tab}
 
-        {assign var=name value="{tr _0=$cant_drafts}Drafts (%0){/tr}"}
+        {assign var=name value="{tr _0=$count_drafts}Drafts (%0){/tr}"}
         {tab name=$name}
         {* --- tab with drafts --- *}
             {assign var=channels value=$drafts}
@@ -376,7 +376,7 @@
             {assign var=next_offset value=$dr_next_offset}
             {assign var=prev_offset value=$dr_prev_offset}
             {assign var=actual_page value=$dr_actual_page}
-            {assign var=cant_pages value=$dr_cant_pages}
+            {assign var=pages_count value=$dr_count_pages}
             {assign var=cur value='dr'}
             {assign var=bak value='ed'}
             {assign var=sort_mode value=$dr_sort_mode}
@@ -390,7 +390,7 @@
             {include file='sent_newsletters.tpl'}
         {/tab}
 
-        {assign var=name value="{tr _0=$cant_editions}Sent Editions (%0){/tr}"}
+        {assign var=name value="{tr _0=$count_editions}Sent Editions (%0){/tr}"}
         {tab name=$name}
         {* --- tab with editions --- *}
             {assign var=channels value=$editions}
@@ -399,7 +399,7 @@
             {assign var=next_offset value=$ed_next_offset}
             {assign var=prev_offset value=$ed_prev_offset}
             {assign var=actual_page value=$ed_actual_page}
-            {assign var=cant_pages value=$ed_cant_pages}
+            {assign var=pages_count value=$ed_count_pages}
             {assign var=cur value='ed'}
             {assign var=bak value='dr'}
             {assign var=sort_mode value=$ed_sort_mode}

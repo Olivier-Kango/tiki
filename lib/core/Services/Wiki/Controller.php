@@ -60,7 +60,7 @@ class Services_Wiki_Controller
             true,
             $input->onlyOrphans->text() == 'y',
             $input->filter->asArray(),
-            $input->onlyCant->text() == 'y'
+            $input->onlyCount->text() == 'y'
         );
     }
 

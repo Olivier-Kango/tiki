@@ -60,7 +60,7 @@ class SurveyLib extends TikiLib
         }
 
         $retval["data"] = $surveys;
-        $retval["cant"] = count($surveys);
+        $retval["count"] = count($surveys);
         return $retval;
     }
 
@@ -488,7 +488,7 @@ class SurveyLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = count($questions);
+        $retval["count"] = count($questions);
         return $retval;
     }
 

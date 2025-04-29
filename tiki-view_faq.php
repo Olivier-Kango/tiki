@@ -76,7 +76,7 @@ if (isset($_POST["sugg"])) {
 }
 $suggested = $faqlib->list_suggested_questions(0, -1, 'created_desc', '', $_REQUEST["faqId"]);
 $smarty->assign_by_ref('suggested', $suggested["data"]);
-$smarty->assign('suggested_cant', count($suggested["data"]));
+$smarty->assign('suggested_count', count($suggested["data"]));
 include_once('tiki-section_options.php');
 if ($prefs['feature_theme_control'] == 'y') {
     $cat_type = 'faq';

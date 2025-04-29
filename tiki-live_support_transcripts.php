@@ -67,7 +67,7 @@ $smarty->assign('find', $find);
 $smarty->assign('where', $where);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $items = $lsadminlib->list_support_requests($offset, $maxRecords, $sort_mode, $find, $where);
-$smarty->assign_by_ref('cant_pages', $items["cant"]);
+$smarty->assign_by_ref('pages_count', $items["count"]);
 $smarty->assign_by_ref('items', $items["data"]);
 $smarty->assign('users', $lsadminlib->get_all_tiki_users());
 $smarty->assign('operators', $lsadminlib->get_all_operators());

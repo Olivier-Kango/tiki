@@ -441,7 +441,7 @@ $calendars = $calendarlib->list_calendars($offset, $maxRecords, $sort_mode, $fin
 foreach (array_keys($calendars["data"]) as $i) {
     $calendars["data"][$i]["individual"] = $userlib->object_has_one_permission($i, 'calendar');
 }
-$smarty->assign_by_ref('cant', $calendars['cant']);
+$smarty->assign_by_ref('count', $calendars['count']);
 $smarty->assign_by_ref('calendars', $calendars["data"]);
 
 $subscriptions = $calendarlib->get_subscriptions($user, $offset, $maxRecords, $sort_mode, $find);

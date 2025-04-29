@@ -210,7 +210,7 @@ foreach ($users['data'] as $key => $gr) {
     }
 }
 
-$smarty->assign_by_ref('cant_pages', $users["cant"]);
+$smarty->assign_by_ref('pages_count', $users["count"]);
 
 // Get users (list of users)
 $smarty->assign_by_ref('users', $users["data"]);

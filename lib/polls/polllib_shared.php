@@ -128,9 +128,9 @@ class PollLibShared extends TikiLib
         }
 
         $query = "select * from `tiki_polls` where `active`=? and `publishDate`>=? and `publishDate`<=? $mid";
-        $query_cant = "select count(*) from `tiki_polls` where `active`=? and `publishDate`>=? and `publishDate`<=? $mid";
+        $query_count = "select count(*) from `tiki_polls` where `active`=? and `publishDate`>=? and `publishDate`<=? $mid";
         $result = $this->query($query, $bindvars);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
 
         $ret = [];
         while ($res = $result->fetchRow()) {
@@ -139,7 +139,7 @@ class PollLibShared extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

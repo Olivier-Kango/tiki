@@ -285,6 +285,6 @@ $smarty->assign_by_ref('comments', $comments['data']);
 $smarty->assign_by_ref('filters', $filters);
 $smarty->assign_by_ref('filter_names', $filter_names);
 $smarty->assign_by_ref('filter_values', $filter_values);
-$smarty->assign_by_ref('cant', $comments['cant']);
+$smarty->assign_by_ref('count', $comments['count']);
 $smarty->assign('mid', 'tiki-list_comments.tpl');
 $smarty->display('tiki.tpl');

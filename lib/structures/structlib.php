@@ -675,8 +675,8 @@ class StructLib extends TikiLib
     {
         global $user, $tikilib, $prefs;
         $ret = [];
-        $cant = $this->getOne('select count(*) from `tiki_structures` where `parent_id`=?', [(int) $id]);
-        if ($cant) {
+        $count = $this->getOne('select count(*) from `tiki_structures` where `parent_id`=?', [(int) $id]);
+        if ($count) {
             // TODO : FIX
             $args = [];
             if (! $this->displayLanguageOrder) {
@@ -893,16 +893,16 @@ class StructLib extends TikiLib
         $query  = 'select count(*) ';
         $query .= 'from `tiki_structures` ts, `tiki_pages` tp ';
         $query .= 'where ts.`page_id`=tp.`page_id` and `pageName`=?';
-        $cant = $this->getOne($query, [$pageName]);
-        return $cant;
+        $count = $this->getOne($query, [$pageName]);
+        return $count;
     }
     public function page_id_is_in_structure($pageId)
     {
         $query  = 'select count(*) ';
         $query .= 'from `tiki_structures` ts, `tiki_pages` tp ';
         $query .= 'where ts.`page_id`=tp.`page_id` and `page_id`=?';
-        $cant = $this->getOne($query, [$pageId]);
-        return $cant;
+        $count = $this->getOne($query, [$pageId]);
+        return $count;
     }
     //Is this page the head page for a structure?
     public function get_struct_ref_if_head($pageName)
@@ -1245,9 +1245,9 @@ class StructLib extends TikiLib
             `pageName`,tp.`hits`,`data`,tp.`description`,`lastModif`,`comment`,`version`,
             `user`,`ip`,`flag`,`points`,`votes`,`cache`,`wiki_cache`,`cache_timestamp`,
             `pageRank`,`creator`,`page_size` from `tiki_structures` as ts $join_tables $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_structures` ts $join_tables $mid";
+        $query_count = "select count(*) from `tiki_structures` ts $join_tables $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             global $user;
@@ -1277,7 +1277,7 @@ class StructLib extends TikiLib
         }
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
     public function get_page_alias($page_ref_id)
@@ -1506,17 +1506,17 @@ class StructLib extends TikiLib
         $smarty = TikiLib::lib('smarty');
         include_once('lib/smarty_tiki/function.sefurl.php');
         $options = [];
-        $cant = 0;
+        $count = 0;
         if (empty($channels)) {
-            return ['cant' => 0, 'data' => []];
+            return ['count' => 0, 'data' => []];
         }
         foreach ($channels as $channel) {
             if (empty($channel['sub'])) {
-                if (isset($options[$cant - 1]['sectionLevel'])) {
-                    $level = $options[$cant - 1]['sectionLevel'];
+                if (isset($options[$count - 1]['sectionLevel'])) {
+                    $level = $options[$count - 1]['sectionLevel'];
                     while ($level-- > $sectionLevel) {
                         $options[] = ['type' => '-', 'sectionLevel' => $level];
-                        ++$cant;
+                        ++$count;
                     }
                 }
             }
@@ -1529,22 +1529,22 @@ class StructLib extends TikiLib
             $option['url'] = smarty_function_sefurl(['page' => $channel['pageName'], 'structure' => $structure, 'page_ref_id' => $channel['page_ref_id'], 'sefurl' => 'n'], $smarty->getEmptyInternalTemplate());
             $option['canonic'] = '((' . $channel['pageName'] . '))';
             $option['sefurl'] = smarty_function_sefurl(['page' => $channel['pageName'], 'structure' => $structure, 'page_ref_id' => $channel['page_ref_id']], $smarty->getEmptyInternalTemplate());
-            $option['position'] = $cant + $cumul;
+            $option['position'] = $count + $cumul;
             $option['sectionLevel'] = $sectionLevel;
 
             $option['url'] = str_replace('&amp;', '&', $option['url']);         // as of Tiki 7 menu items get encoded later
             $option['sefurl'] = str_replace('&amp;', '&', $option['sefurl']);
             $option['optionId'] = $channel['page_ref_id'];
 
-            ++$cant;
+            ++$count;
             $options[] = $option;
             if (! empty($channel['sub'])) {
-                $oSub = $this->to_menu($channel['sub'], $structure, $sectionLevel + 1, $cant + $cumul, $params);
-                $cant += $oSub['cant'];
+                $oSub = $this->to_menu($channel['sub'], $structure, $sectionLevel + 1, $count + $cumul, $params);
+                $count += $oSub['count'];
                 $options = array_merge($options, $oSub['data']);
             }
         }
-        return ['data' => $options, 'cant' => $cant];
+        return ['data' => $options, 'count' => $count];
     }
 
     /**

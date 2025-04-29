@@ -137,7 +137,7 @@ class WikiPluginTitleSearch extends PluginsLib
             if (! empty($exclude)) {
                 if (in_array($aPage["pageName"], $exclude)) {
                     unset($aPages["data"][$idPage]);
-                    $aPages["cant"]--;
+                    $aPages["count"]--;
                 }
             }
         }
@@ -148,7 +148,7 @@ class WikiPluginTitleSearch extends PluginsLib
         //
         if (isset($noheader) && ! $noheader) {
             // Create header
-            $count = $aPages["cant"];
+            $count = $aPages["count"];
             if (! $count) {
                 $sOutput  .= tra("No pages found for title search") . " '__" . $search . "__'";
             } elseif ($count == 1) {

@@ -291,7 +291,7 @@ class NlLib extends TikiLib
         }
 
         $page_emails = $this->list_newsletter_pages($nlId);
-        if ($page_emails['cant'] > 0) {
+        if ($page_emails['count'] > 0) {
             foreach ($page_emails['data'] as $page) {
                 $emails = $this->get_emails_from_page($page['wikiPageName']);
                 if (! is_array($emails)) {
@@ -946,8 +946,8 @@ class NlLib extends TikiLib
         group by tn.`nlId`, tn.`name`, tn.`description`, tn.`users`, tn.`editions`, tn.`author`
         order by " . $this->convertSortmode("$sort_mode");
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $query_cant = "select count(*) from  `tiki_newsletters` as tn $mid";
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from  `tiki_newsletters` as tn $mid";
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -983,7 +983,7 @@ class NlLib extends TikiLib
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -1025,8 +1025,8 @@ class NlLib extends TikiLib
         $query .= " where tn.`nlId`=tsn.`nlId` $mid order by " . $this->convertSortMode("$sort_mode");
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
         $ret = [];
-        $query_cant = "select count(*) from `tiki_newsletters` tn, `tiki_sent_newsletters` tsn where tn.`nlId`=tsn.`nlId` $mid";
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from `tiki_newsletters` tn, `tiki_sent_newsletters` tsn where tn.`nlId`=tsn.`nlId` $mid";
+        $count = $this->getOne($query_count, $bindvars);
 
         while ($res = $result->fetchRow()) {
             if ($nlId) {
@@ -1049,7 +1049,7 @@ class NlLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -1066,9 +1066,9 @@ class NlLib extends TikiLib
         }
 
         $query = "select * from `tiki_newsletter_subscriptions` $mid order by " . $this->convertSortMode("$sort_mode") . ", email asc";
-        $query_cant = "select count(*) from tiki_newsletter_subscriptions $mid";
+        $query_count = "select count(*) from tiki_newsletter_subscriptions $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -1076,7 +1076,7 @@ class NlLib extends TikiLib
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -1092,9 +1092,9 @@ class NlLib extends TikiLib
         }
 
         $query = "select * from `tiki_newsletter_groups` $mid order by " . $this->convertSortMode("$sort_mode");
-        $query_cant = "select count(*) from `tiki_newsletter_groups` $mid";
+        $query_count = "select count(*) from `tiki_newsletter_groups` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         $userlib = TikiLib::lib('user');
@@ -1107,7 +1107,7 @@ class NlLib extends TikiLib
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -1395,9 +1395,9 @@ class NlLib extends TikiLib
         }
 
         $query = "select * from `tiki_newsletter_pages` $mid order by " . $this->convertSortMode("$sort_mode");
-        $query_cant = "select count(*) from `tiki_newsletter_pages` $mid";
+        $query_count = "select count(*) from `tiki_newsletter_pages` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -1405,7 +1405,7 @@ class NlLib extends TikiLib
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

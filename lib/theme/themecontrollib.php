@@ -116,16 +116,16 @@ class ThemeControlLib extends ThemeLib
         $query = "select tc.`categId`,tc.`name`,`theme`" .
                         " from `tiki_theme_control_categs` ttt,`tiki_categories` tc where ttt.`categId`=tc.`categId` $mid" .
                         " order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_theme_control_categs` ttt,`tiki_categories` tc where ttt.`categId`=tc.`categId` $mid";
+        $query_count = "select count(*) from `tiki_theme_control_categs` ttt,`tiki_categories` tc where ttt.`categId`=tc.`categId` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -147,9 +147,9 @@ class ThemeControlLib extends ThemeLib
             $bindvars = [];
         }
         $query = "select * from `tiki_theme_control_sections` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_theme_control_sections` $mid";
+        $query_count = "select count(*) from `tiki_theme_control_sections` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             $ret[] = $res;
@@ -157,7 +157,7 @@ class ThemeControlLib extends ThemeLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -183,16 +183,16 @@ class ThemeControlLib extends ThemeLib
             $bindvars = [$type];
         }
         $query = "select * from `tiki_theme_control_objects` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_theme_control_objects` $mid";
+        $query_count = "select count(*) from `tiki_theme_control_objects` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         while ($res = $result->fetchRow()) {
             $ret[] = $res;
         }
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

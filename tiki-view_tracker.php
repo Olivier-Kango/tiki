@@ -549,7 +549,7 @@ if (isset($tracker_info['useComments']) && $tracker_info['useComments'] == 'y' &
         }
         if (isset($tracker_info['showLastComment']) && $tracker_info['showLastComment'] == 'y') {
             $l = $trklib->list_last_comments($items['data'][$itkey]['trackerId'], $items['data'][$itkey]['itemId'], 0, 1);
-            $items['data'][$itkey]['lastComment'] = ! empty($l['cant']) ? $l['data'][0] : '';
+            $items['data'][$itkey]['lastComment'] = ! empty($l['count']) ? $l['data'][0] : '';
         }
     }
 }
@@ -572,7 +572,7 @@ $smarty->assign('tracker_info', $tracker_info);
 $smarty->assign('fields', $fields['data']);
 $smarty->assign('ins_fields', $ins_fields['data']);
 $smarty->assign_by_ref('items', $items["data"]);
-$smarty->assign_by_ref('item_count', $items['cant']);
+$smarty->assign_by_ref('item_count', $items['count']);
 $smarty->assign_by_ref('listfields', $listfields);
 $smarty->assign('fields_count', count($xfields['data']));
 $users = $userlib->list_all_users();
@@ -591,7 +591,7 @@ if ($tiki_p_export_tracker == 'y') {
             $smarty->assign_by_ref('displayedFields', $_REQUEST['displayedFields']);
         }
     }
-    $smarty->assign('recordsMax', $items['cant']);
+    $smarty->assign('recordsMax', $items['count']);
     $smarty->assign('recordsOffset', 1);
 }
 include_once('tiki-section_options.php');

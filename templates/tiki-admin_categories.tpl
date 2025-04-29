@@ -255,7 +255,7 @@ $("#remove_object_form").off("submit").on("submit", function (e) {
                 {/jq}
             </div>
 
-            {pagination_links cant=$cant_objects step=$prefs.maxRecords offset=$offset}{/pagination_links}
+            {pagination_links count=$objects_count step=$prefs.maxRecords offset=$offset}{/pagination_links}
         {/tab}
 
         {tab name="{tr}Add objects{/tr}"}
@@ -335,7 +335,7 @@ $("#add_object_type").on("change", function () {
                     <input type="hidden" name="offset" value="{$offset|escape}">
                     <input type="hidden" name="find" value="{$find|escape}">
                 </form>
-                {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
+                {pagination_links count=$maximum step=$maxRecords offset=$offset}{/pagination_links}
                 <form action="tiki-admin_categories.php" method="post">
                     {ticket}
                     <input type="hidden" name="parentId" value="{$parentId|escape}">
@@ -568,7 +568,7 @@ $("#add_object_type").on("change", function () {
                         {/if}
                     </fieldset>
                 </form>
-                {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
+                {pagination_links count=$maximum step=$maxRecords offset=$offset}{/pagination_links}
             {/if}
         {/tab}
 

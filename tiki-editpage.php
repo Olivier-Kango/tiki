@@ -838,15 +838,15 @@ if (isset($prefs['feature_references']) && $prefs['feature_references'] === 'y')
             }
 
             $smarty->assign('key_exists', $key_exists);
-            $smarty->assign('referencesCant', $references['cant']);
+            $smarty->assign('referencesCount', $references['count']);
             $smarty->assign('references', $references['data']);
 
-            if ($references['cant'] < 1 && $lib_references['cant'] < 1) {
+            if ($references['count'] < 1 && $lib_references['count'] < 1) {
                 $smarty->assign('display', 'none');
             } else {
                 $smarty->assign('display', 'block');
             }
-            $smarty->assign('libReferencesCant', $lib_references['cant']);
+            $smarty->assign('libReferencesCount', $lib_references['count']);
             $smarty->assign('libReferences', $lib_references['data']);
             $smarty->assign('use_references', $use_references);
             $smarty->assign('edit_references', $edit_references);
@@ -1648,7 +1648,7 @@ if ($prefs['wiki_feature_copyrights'] === 'y' && $tiki_p_edit_copyrights === 'y'
     include_once('lib/copyrights/copyrightslib.php');
     $copyrightslib = new CopyrightsLib();
     $copyrights = $copyrightslib->list_copyrights($_REQUEST["page"]);
-    if ($copyrights['cant']) {
+    if ($copyrights['count']) {
         $smarty->assign_by_ref('copyrights', $copyrights['data']);
     }
 }

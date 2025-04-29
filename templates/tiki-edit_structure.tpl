@@ -190,7 +190,7 @@
                         </li>
                     {/foreach}
                 </ul>
-                {pagination_links cant=$listpages.cant step=$maxRecords offset=$offset}{/pagination_links}
+                {pagination_links count=$listpages.count step=$maxRecords offset=$offset}{/pagination_links}
             </div>
         </div>
     </form>

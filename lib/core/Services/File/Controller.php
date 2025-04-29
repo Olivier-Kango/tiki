@@ -683,7 +683,7 @@ class Services_File_Controller
             'galleryId' => $galleryId,
             'offset' => $offset,
             'maxRecords' => $maxRecords,
-            'count' => $result['cant'],
+            'count' => $result['count'],
             'result' => $result['data'],
         ];
     }
@@ -714,7 +714,7 @@ class Services_File_Controller
             'parentId' => $galleryId,
             'offset' => $offset,
             'maxRecords' => $maxRecords,
-            'count' => $result['cant'],
+            'count' => $result['count'],
             'result' => $result['data'],
         ];
     }

@@ -140,7 +140,7 @@
                 </div>
             {/section}
         </div>
-        {pagination_links cant=$cant_pages step=$prefs.directory_links_per_page offset=$offset}{/pagination_links}
+        {pagination_links count=$pages_count step=$prefs.directory_links_per_page offset=$offset}{/pagination_links}
     {elseif !empty($parent)}
         {tr}No records.{/tr}
     {/if}

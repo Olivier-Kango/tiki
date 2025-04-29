@@ -25,7 +25,7 @@
 {/if}
 
         <div id="images" class="hidden">
-            {if $cant eq 0}
+            {if $count eq 0}
                 <p style="font-style:italic; margin-left:10px">
                     {tr}There are no images to display{/tr}
                 </p>

@@ -158,9 +158,9 @@ class BannerLib extends TikiLib
         }
 
         $query = "select * from `tiki_banners` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_banners` $mid";
+        $query_count = "select count(*) from `tiki_banners` $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -169,7 +169,7 @@ class BannerLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -177,9 +177,9 @@ class BannerLib extends TikiLib
     {
         $query = "select `zone` from `tiki_zones`";
 
-        $query_cant = "select count(*) from `tiki_zones`";
+        $query_count = "select count(*) from `tiki_zones`";
         $result = $this->query($query, []);
-        $cant = $this->getOne($query_cant, []);
+        $count = $this->getOne($query_count, []);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -188,7 +188,7 @@ class BannerLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

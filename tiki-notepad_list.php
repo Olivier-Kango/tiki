@@ -117,7 +117,7 @@ if (isset($_SESSION['thedate'])) {
     $pdate = $tikilib->now;
 }
 $channels = $notepadlib->list_notes($user, $offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant_pages', $channels["cant"]);
+$smarty->assign_by_ref('pages_count', $channels["count"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 include_once('tiki-section_options.php');
 include_once('tiki-mytiki_shared.php');

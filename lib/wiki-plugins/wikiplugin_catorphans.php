@@ -91,7 +91,7 @@ function wikiplugin_catorphans($data, $params)
         $listobjects = $categlib->get_catorphan_object_type($offset, $max, 'forum', 'forums', 'forumId');
     }
     $smarty->assign_by_ref('orphans', $listobjects['data']);
-    $smarty->assign('pagination', ['cant' => $listobjects['cant'], 'step' => $max, 'offset' => $offset]);
+    $smarty->assign('pagination', ['count' => $listobjects['count'], 'step' => $max, 'offset' => $offset]);
     $smarty->assign('totalcount', $listobjects['countall']);
     $out = '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_catorphans.tpl') . '~/np~';
     $smarty->assign('pagination', null);

@@ -413,9 +413,9 @@ function wikiplugin_listpages($data, $params)
     $only_name = ( isset($showNameOnly) && $showNameOnly == 'y' );
     $only_orphan_pages = ( isset($only_orphan_pages) && $only_orphan_pages == 'y' );
     $for_list_pages = ( isset($for_list_pages) && $for_list_pages == 'y' );
-    $only_cant = false;
+    $only_count = false;
 
-    $listpages = $tikilib->list_pages($offset, $max, $sort, $find, $initial, $exact_match, $only_name, $for_list_pages, $only_orphan_pages, $filter, $only_cant, '', $exclude_pages);
+    $listpages = $tikilib->list_pages($offset, $max, $sort, $find, $initial, $exact_match, $only_name, $for_list_pages, $only_orphan_pages, $filter, $only_count, '', $exclude_pages);
     if (! empty($includetag) || ! empty($excludetag)) {
         if (preg_match('/;/', $includetag)) {
             $aIncludetag = explode(';', $includetag);
@@ -433,7 +433,7 @@ function wikiplugin_listpages($data, $params)
         foreach ($listpages['data'] as $page) {
             $bToRemove = true;
             $aListTags = $freetaglib->get_tags_on_object($page['pageName'], 'wiki page');
-            if (! empty($aListTags['cant'])) {
+            if (! empty($aListTags['count'])) {
                 foreach ($aListTags['data'] as $aListTag) {
                     if (in_array($aListTag['tag'], $aExcludetag) && ! empty($aExcludetag[0])) {
                         unset($listpages['data'][$i]);
@@ -474,7 +474,7 @@ function wikiplugin_listpages($data, $params)
     }
 
     // Count how many pages are left after tag filtering
-    $listpages['cant'] = count($listpages['data']);
+    $listpages['count'] = count($listpages['data']);
 
     $smarty->assign_by_ref('checkboxes_on', $showCheckbox);
     $smarty->assign_by_ref('showNumberOfPages', $showNumberOfPages);
@@ -492,7 +492,7 @@ function wikiplugin_listpages($data, $params)
     }
 
     // Count how many pages are left after sorting
-    $smarty->assign("cant", $listpages['cant']);
+    $smarty->assign("count", $listpages['count']);
     // The following two are for tiki-listpages_content.tpl (pagination)
     $smarty->assign("pluginlistpages", 'y');
     $smarty->assign("pagination", $pagination);

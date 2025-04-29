@@ -232,7 +232,7 @@
 </table>
 </div>
 
-{pagination_links cant=$total_contact step=$maxRecords offset=$offset clean='y'}{/pagination_links}
+{pagination_links count=$total_contact step=$maxRecords offset=$offset clean='y'}{/pagination_links}
 
 {literal}
 <script type="text/javascript">

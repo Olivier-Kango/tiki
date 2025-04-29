@@ -120,7 +120,7 @@ if (isset($_REQUEST["find"])) {
 $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $taglinelib->list_cookies($offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant_pages', $channels["cant"]);
+$smarty->assign_by_ref('pages_count', $channels["count"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

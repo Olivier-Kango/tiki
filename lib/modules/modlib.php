@@ -349,8 +349,8 @@ class ModLib extends TikiLib
         $query = "select * from `tiki_user_modules` order by " . $this->convertSortMode($sort_mode);
 
         $result = $this->query($query, []);
-        $query_cant = "select count(*) from `tiki_user_modules`";
-        $cant = $this->getOne($query_cant, []);
+        $query_count = "select count(*) from `tiki_user_modules`";
+        $count = $this->getOne($query_count, []);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -359,7 +359,7 @@ class ModLib extends TikiLib
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

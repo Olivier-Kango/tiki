@@ -131,7 +131,7 @@ $channels = $faqlib->list_faq_questions($_REQUEST["faqId"], 0, -1, $sort_mode, $
 $allq = $faqlib->list_all_faq_questions(0, -1, 'position_asc,questionId_asc', $_REQUEST["filter"]);
 $smarty->assign_by_ref('allq', $allq["data"]);
 
-$smarty->assign_by_ref('cant_pages', $channels["cant"]);
+$smarty->assign_by_ref('pages_count', $channels["count"]);
 
 $smarty->assign_by_ref('channels', $channels["data"]);
 

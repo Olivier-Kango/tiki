@@ -170,11 +170,11 @@ class Cachelib
         global $tikidomain;
 
         if (! $path or ! is_dir($path)) {
-            return (['total' => 0,'cant' => 0]);
+            return (['total' => 0,'count' => 0]);
         }
 
         $total = 0;
-        $cant = 0;
+        $count = 0;
         $back = [];
         $all = opendir($path);
 
@@ -199,7 +199,7 @@ class Cachelib
             if (is_dir($path . '/' . $file) and $file <> ".." and $file <> ".") {
                 $du = $this->count_cache_files($path . '/' . $file);
                 $total += $du['total'];
-                $cant += $du['cant'];
+                $count += $du['count'];
                 unset($file);
             } elseif (! is_dir($path . '/' . $file)) {
                 if (isset($begin) && substr($file, 0, strlen($begin)) != $begin) {
@@ -207,14 +207,14 @@ class Cachelib
                 }
                 $stats = @stat($path . '/' . $file); // avoid the warning if safe mode on
                 $total += $stats['size'];
-                $cant++;
+                $count++;
                 unset($file);
             }
         }
         closedir($all);
         unset($all);
         $back['total'] = $total;
-        $back['cant'] = $cant;
+        $back['count'] = $count;
         return $back;
     }
 

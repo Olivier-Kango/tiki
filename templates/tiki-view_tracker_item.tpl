@@ -40,7 +40,7 @@
                         </li>
                     {/if}
 
-                    {if $item_info.logs.cant|default:null and $item_info.canViewHistory}
+                    {if $item_info.logs.count|default:null and $item_info.canViewHistory}
                         <li class="dropdown-item">
                             <a href="tiki-tracker_view_history.php?itemId={$itemId}">
                                 {icon name="history"} {tr}History{/tr}
@@ -137,7 +137,7 @@
 
         {* ------- return/next/previous tab --- *}
         {if $canView}
-            {pagination_links cant=$cant|default:null offset=$offset reloff=$smarty.request.reloff|default:null itemname="{tr}Item{/tr}"}
+            {pagination_links count=$count|default:null offset=$offset reloff=$smarty.request.reloff|default:null itemname="{tr}Item{/tr}"}
                 {* Do not specify an itemId in URL used for pagination, because it will use the specified itemId instead of moving to another item *}
                 {$smarty.server.php_self|default:null}?{query itemId=NULL trackerId=$trackerId}
             {/pagination_links}

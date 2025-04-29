@@ -234,5 +234,5 @@
             {/foreach}
         </table>
     </div>
-    {pagination_links cant=$atts.cant offset=$atts.offset offset_arg='fa_offset' step=$atts.maxRecords _anchor='attachments'}{/pagination_links}
+    {pagination_links count=$atts.count offset=$atts.offset offset_arg='fa_offset' step=$atts.maxRecords _anchor='attachments'}{/pagination_links}
 {/if}

@@ -135,11 +135,11 @@ $smarty->assign_by_ref('sort_mode', $sort_mode);
 if ($get) {
     $data = $shoutboxlib->get_shoutbox($get);
     $channels['data'] = [$data];
-    $channels['cant'] = 1;
+    $channels['count'] = 1;
 } else {
     $channels = $shoutboxlib->list_shoutbox($offset, $maxRecords, $sort_mode, $find);
 }
-$smarty->assign_by_ref('cant_pages', $channels["cant"]);
+$smarty->assign_by_ref('pages_count', $channels["count"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 // Display the template
 $smarty->assign('mid', 'tiki-shoutbox.tpl');

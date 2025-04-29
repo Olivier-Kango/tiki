@@ -777,7 +777,7 @@ function wikiplugin_tracker($data, $params)
     $fieldsfillseparator = $params['fieldsfillseparator'] ?? '';
     $fieldsfilllabel = $params['fieldsfilllabel'] ?? '';
     $fieldsfilldescription = $params['fieldsfilldescription'] ?? '';
-    $fill_line_cant = null;
+    $fill_line_count = null;
     $fill_flds = [];
     $fill_flds_defaults = [];
 
@@ -1170,7 +1170,7 @@ function wikiplugin_tracker($data, $params)
                     $fieldsfillnames[] = $tmp['name'];
                 }
             }
-            $fill_line_cant = count($fill_flds['data']);
+            $fill_line_count = count($fill_flds['data']);
             if ($fieldsfillseparator == '') {
                 $fieldsfillseparator = '|';
             }
@@ -1387,7 +1387,7 @@ function wikiplugin_tracker($data, $params)
                     'skipUserCreation' => ! empty($skipUserCreation) && $skipUserCreation == 'y',
                     'fieldsfill' => $fieldsfill,
                     'fieldsfillseparator' => $fieldsfillseparator,
-                    'fill_line_cant' => $fill_line_cant,
+                    'fill_line_count' => $fill_line_count,
                     'fill_flds' => $fill_flds,
                     'fill_flds_defaults' => $fill_flds_defaults,
                 ];
@@ -2348,7 +2348,7 @@ FILL;
             if (isset($params['fieldsfilldescription']) && ! empty($params['fieldsfilldescription'])) {
                 $back .= tra($params['fieldsfilldescription']);
             } else {
-                $back .= sprintf(tra('Each line is a list of %d field values separated with: %s'), $fill_line_cant, htmlspecialchars($fieldsfillseparator));
+                $back .= sprintf(tra('Each line is a list of %d field values separated with: %s'), $fill_line_count, htmlspecialchars($fieldsfillseparator));
                 $back .= '      </div>';
                 $back .= '      <div name="ins_fill_desc2" class="trackerplugindesc" >' . htmlspecialchars(implode($fieldsfillseparator, $fieldsfillnames));
             }
@@ -2613,9 +2613,9 @@ function wikiplugin_tracker_save_item($trackerSavedState)
             if (trim($fill_line) == '') {   // Ignore blank lines
                 continue;
             }
-            $fill_line_item = explode($fieldsfillseparator, $fill_line, $fill_line_cant);   // Extra fields are merged with the last field. this avoids data loss and permits a last text field with commas or whichever separator is chosen
+            $fill_line_item = explode($fieldsfillseparator, $fill_line, $fill_line_count);   // Extra fields are merged with the last field. this avoids data loss and permits a last text field with commas or whichever separator is chosen
             $rid = $trklib->replace_item($trackerId, $itemId, $ins_fields, $status, $ins_categs);
-            for ($i = 0; $i < $fill_line_cant; $i++) {
+            for ($i = 0; $i < $fill_line_count; $i++) {
                 if ($fill_line_item[$i] != '') {
                     $fill_item = trim($fill_line_item[$i]);
                 } else {

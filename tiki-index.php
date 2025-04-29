@@ -765,14 +765,14 @@ if ($prefs['feature_forums'] && $prefs['feature_wiki_discuss'] == 'y' && $prefs[
     $comments_data = tra('Use this thread to discuss the page:') . " [tiki-index.php?page=" . rawurlencode($page) . "|$page]";
     $threadId = $commentslib->check_for_topic($page, $prefs['wiki_forum_id']);
     $comments_coms = $commentslib->get_forum_topics($prefs['wiki_forum_id'], 0, -1);
-    $discuss_replies_cant = 0;
+    $discuss_replies_count = 0;
     foreach ($comments_coms as $topic) {
         if ($topic['threadId'] == $threadId) {
-            $discuss_replies_cant = $topic['replies'];
+            $discuss_replies_count = $topic['replies'];
             break;
         }
     }
-    $smarty->assign('discuss_replies_cant', $discuss_replies_cant);
+    $smarty->assign('discuss_replies_count', $discuss_replies_count);
 }
 
 if (strtolower($_REQUEST["page"]) === 'sandbox') {

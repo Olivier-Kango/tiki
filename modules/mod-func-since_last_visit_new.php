@@ -463,7 +463,7 @@ function module_since_last_visit_new($mod_reference, &$module_params)
                 'label' => $res['name'] . ' (' . $res['filename'] . ')'
             ];
         }
-        $ret['items']['files']['count'] = $files['cant'];
+        $ret['items']['files']['count'] = $files['count-'];
     }
 
 

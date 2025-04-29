@@ -1399,7 +1399,7 @@ function wikiplugin_trackerlist($data, $params)
                 $filter
             );
             if (isset($items['data'][0]['itemId'])) {
-                $_REQUEST['cant'] = $items['cant'];
+                $_REQUEST['count'] = $items['count'];
                 $_REQUEST['itemId'] = $items['data'][0]['itemId'];
             }
         }
@@ -2144,7 +2144,7 @@ function wikiplugin_trackerlist($data, $params)
                     isset($tspaginate) ? $tspaginate : null,
                     isset($tscolselect) ? $tscolselect : null,
                     $GLOBALS['requestUri'],
-                    $items['cant'],
+                    $items['count'],
                     isset($tstotals) ? $tstotals : null,
                     isset($tstotalformat) ? $tstotalformat : null,
                     isset($tstotaloptions) ? $tstotaloptions : null
@@ -2163,7 +2163,7 @@ function wikiplugin_trackerlist($data, $params)
                 }
             }
             //handle certain tablesorter sorts
-            if (isset($sortcol) && $items['cant'] > 1) {
+            if (isset($sortcol) && $items['count'] > 1) {
                 $fieldtype = $items['data'][0]['field_values'][$sortcol + $adjustCol]['type'];
                 //convert categoryId sort to category name sort when tablesorter server side sorting is used
                 if ($fieldtype === 'e') {
@@ -2179,11 +2179,11 @@ function wikiplugin_trackerlist($data, $params)
             }
             /*** end second tablesorter section ***/
 
-            if (isset($silent) && $silent == 'y' && empty($items['cant'])) {
+            if (isset($silent) && $silent == 'y' && empty($items['count'])) {
                 return;
             }
 
-            if (isset($items['cant']) && $items['cant'] == 1 && isset($goIfOne) && ($goIfOne == 'y' || $goIfOne == 1)) {
+            if (isset($items['count']) && $items['count'] == 1 && isset($goIfOne) && ($goIfOne == 'y' || $goIfOne == 1)) {
                 header('Location: tiki-view_tracker_item.php?itemId=' . $items['data'][0]['itemId'] . '&amp;trackerId=' . $items['data'][0]['trackerId']);
                 die;
             }
@@ -2201,7 +2201,7 @@ function wikiplugin_trackerlist($data, $params)
                     }
                     if ($definition->isEnabled('showLastComment')) {
                         $l = $trklib->list_last_comments($items['data'][$itkey]['trackerId'], $items['data'][$itkey]['itemId'], 0, 1);
-                        $items['data'][$itkey]['lastComment'] = ! empty($l['cant']) ? $l['data'][0] : '';
+                        $items['data'][$itkey]['lastComment'] = ! empty($l['count']) ? $l['data'][0] : '';
                     }
                 }
             }
@@ -2338,15 +2338,15 @@ function wikiplugin_trackerlist($data, $params)
             }
             $smarty->assign('tpl', $tpl);
 
-            if (! empty($itemId) && $showpagination == 'y' && ! empty($_REQUEST['cant'])) {
+            if (! empty($itemId) && $showpagination == 'y' && ! empty($_REQUEST['count'])) {
                 $smarty->assign('max', 1);
-                $smarty->assign('count_item', $_REQUEST['cant']);
+                $smarty->assign('count_item', $_REQUEST['count']);
                 $smarty->assign('offset_arg', 'reloff');
                 $smarty->assign("tr_offset$iTRACKERLIST", $_REQUEST['reloff']);
             } else {
                 $smarty->assign_by_ref('max', $max);
-                $smarty->assign_by_ref('item_count', $items['cant']);
-                $smarty->assign_by_ref('count_item', $items['cant']);
+                $smarty->assign_by_ref('item_count', $items['count']);
+                $smarty->assign_by_ref('count_item', $items['count']);
                 $smarty->assign('offset_arg', "tr_offset$iTRACKERLIST");
             }
             $smarty->assign_by_ref('items', $items["data"]);

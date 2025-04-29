@@ -144,7 +144,7 @@ $maxRecords = $blog_data["maxPosts"];
 $smarty->assign('maxRecords', $maxRecords);
 // If there're more records then assign next_offset
 $smarty->assign_by_ref('listpages', $listpages["data"]);
-$smarty->assign_by_ref('cant', $listpages["cant"]);
+$smarty->assign_by_ref('count', $listpages["count"]);
 if ($user && $prefs['feature_notepad'] == 'y' && $tiki_p_notepad == 'y' && isset($_REQUEST['savenotepad']) && $access->checkCsrf(true)) {
     $post_info = $bloglib->get_post($_POST['savenotepad']);
     $tikilib->replace_note($user, 0, $post_info['title'] ? $post_info['title'] : $tikilib->date_format("%d/%m/%Y [%H:%M]", $post_info['created']), $post_info['data']);

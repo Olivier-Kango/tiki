@@ -256,7 +256,7 @@
             </table>
         </div>
         <br>
-        {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
+        {pagination_links count=$maximum step=$maxRecords offset=$offset}{/pagination_links}
         {if $um_name eq ''}
             <h2>{tr}Create new custom module{/tr}</h2>
         {else}
@@ -293,7 +293,7 @@
                 </div>
             </div>
             <h3>{tr}Objects that can be included{/tr}</h3>
-            {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
+            {pagination_links count=$maximum step=$maxRecords offset=$offset}{/pagination_links}
             {if $prefs.feature_polls eq "y"}
                 <div class="tiki-form-group row">
                     <label class="col-sm-2 col-form-label" for='list_polls'>{tr}Polls{/tr}</label>

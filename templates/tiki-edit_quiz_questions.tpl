@@ -132,5 +132,5 @@
     </table>
 </div>
 
-{pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$pages_count step=$prefs.maxRecords offset=$offset}{/pagination_links}
 {* tiki-edit_quiz_questions.tpl end *}

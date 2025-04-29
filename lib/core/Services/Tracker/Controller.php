@@ -2448,7 +2448,7 @@ class Services_Tracker_Controller
             'diff_style' => $diff_style,
             'offset' => $offset,
             'history' => $history['data'],
-            'cant' => $history['cant'],
+            'count' => $history['count'],
             'item_info' => $item_info,
             'field_option' => $field_option,
             'metatag_robots' => 'NOINDEX, NOFOLLOW',

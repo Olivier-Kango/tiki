@@ -73,7 +73,7 @@
                 {/foreach}
             </table>
         </div>
-        {pagination_links offset=$offset step=$prefs.maxRecords cant=$count}{/pagination_links}
+        {pagination_links offset=$offset step=$prefs.maxRecords count=$count}{/pagination_links}
     {/tab}
 
     {if $tiki_p_perspective_create eq 'y'}

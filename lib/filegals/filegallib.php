@@ -2820,7 +2820,7 @@ class FileGalLib extends TikiLib
         }
         $ret = [];
         $gal_size_order = [];
-        $cant = 0;
+        $count = 0;
         $galleryIds = array_map(
             function ($res) {
                 return $res['id'];
@@ -2902,21 +2902,21 @@ class FileGalLib extends TikiLib
                 $res['name'] = $this->get_user_gallery_name($res);
             }
 
-            $ret[$cant] = $res;
+            $ret[$count] = $res;
             if ($with_subgals_size && $res['isgal'] == 1) {
-                $ret[$cant]['size'] = (string)$this->getUsedSize($res['id']);
-                $ret[$cant]['filesize'] = $ret[$cant]['size']; /// Obsolete
+                $ret[$count]['size'] = (string)$this->getUsedSize($res['id']);
+                $ret[$count]['filesize'] = $ret[$count]['size']; /// Obsolete
                 if ($keep_subgals_together) {
-                    $gal_size_order[$cant] = $ret[$cant]['size'];
+                    $gal_size_order[$count] = $ret[$count]['size'];
                 }
             }
             if ($with_subgals_size && ! $keep_subgals_together) {
-                $gal_size_order[$cant] = $ret[$cant]['size'];
+                $gal_size_order[$count] = $ret[$count]['size'];
             }
             // generate link for podcasts
-            $ret[$cant]['podcast_filename'] = $res['path'];
+            $ret[$count]['podcast_filename'] = $res['path'];
 
-            $cant++;
+            $count++;
         }
 
         if (count($gal_size_order) > 0) {
@@ -2947,7 +2947,7 @@ class FileGalLib extends TikiLib
             }
         }
 
-        return ['data' => $ret, 'cant' => $numResults];
+        return ['data' => $ret, 'count' => $numResults];
     }
 
     /**
@@ -3032,7 +3032,7 @@ class FileGalLib extends TikiLib
         $sort = $this->convertSortMode($sort_mode);
         return [
             "data" => $fileGalleries->fetchAll($fileGalleries->all(), $conditions, $maxRecords, $offset, $fileGalleries->expr($sort)),
-            "cant" => $fileGalleries->fetchCount($conditions),
+            "count" => $fileGalleries->fetchCount($conditions),
         ];
     }
 
@@ -4243,7 +4243,7 @@ class FileGalLib extends TikiLib
             $allfgals['data'][0]['id'] = $allfgals['data'][0]['galleryId'];
         }
 
-        if ($allfgals['cant'] > 0) {
+        if ($allfgals['count'] > 0) {
             unset($listfgals['']);
             foreach ($allfgals['data'] as $onefgal) {
                 $listfgals[ $onefgal['id'] ] = substr($onefgal['name'], 0, 30);

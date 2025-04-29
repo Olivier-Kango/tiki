@@ -1,4 +1,4 @@
-{if $cant > 0}
+{if $count > 0}
 <div class="table-responsive">
     <table class="table table-striped table-hover">
     <tr>

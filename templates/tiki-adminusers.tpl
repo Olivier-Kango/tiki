@@ -101,7 +101,7 @@
                     </div>
                 </form>
             {/if}
-            {if ($cant > $numrows or !empty($initial)) && !$ts.enabled}
+            {if ($count > $numrows or !empty($initial)) && !$ts.enabled}
                 {initials_filter_links}
             {/if}
             <form name="checkform" id="checkform" method="post">
@@ -109,7 +109,7 @@
                     <div class="{if $js}table-responsive{/if} user-table ts-wrapperdiv">
         {/if}
                         {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
-                        <table id="{$ts.tableid}" class="table normal table-striped table-hover" data-count="{$cant|escape}">
+                        <table id="{$ts.tableid}" class="table normal table-striped table-hover" data-count="{$count|escape}">
                             {* Note: th element ids here need to match those at /lib/core/Table/Settings/TikiAdminusers.php
                             for tablesorter to work properly *}
                             {if !$ts.ajax}
@@ -390,7 +390,7 @@
 
 
         {if !$ts.enabled}
-            {pagination_links cant=$cant step=$numrows offset=$offset}{/pagination_links}
+            {pagination_links count=$count step=$numrows offset=$offset}{/pagination_links}
         {/if}
     {/if}
         {/tab}

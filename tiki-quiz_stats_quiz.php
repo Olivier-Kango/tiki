@@ -67,7 +67,7 @@ if (isset($_REQUEST["find"])) {
 $smarty->assign('find', $find);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 $channels = $quizlib->list_quiz_stats($_REQUEST["quizId"], $offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant_pages', $channels["cant"]);
+$smarty->assign_by_ref('pages_count', $channels["count"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 //Get all the statistics for this quiz
 $questions = $quizlib->list_quiz_question_stats($_REQUEST["quizId"], 0, -1, 'position_asc', '');

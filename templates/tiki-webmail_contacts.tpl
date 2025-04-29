@@ -80,7 +80,7 @@
                         </a>
                         ]&nbsp;
                     {/if}
-                    {tr}Page:{/tr} {$actual_page}/{if $cant_pages > 0}{$cant_pages}{else}1{/if}
+                    {tr}Page:{/tr} {$actual_page}/{if $pages_count > 0}{$pages_count}{else}1{/if}
                     {if $next_offset >= 0}
                         &nbsp;[
                         <a class="prevnext" href="tiki-webmail_contacts.php?element={$element}&amp;section=contacts&amp;find={$find}&amp;offset={$next_offset}&amp;sort_mode={$sort_mode}">
@@ -89,7 +89,7 @@
                     {/if}
                     {if $prefs.direct_pagination eq 'y'}
                         <br>
-                        {section loop=$cant_pages name=foo}
+                        {section loop=$pages_count name=foo}
                             {assign var=selector_offset value=$smarty.section.foo.index|times:$prefs.maxRecords}
                             <a class="prevnext" href="tiki-webmail_contacts.php?element={$element}&amp;section=contacts&amp;find={$find}&amp;offset={$selector_offset}&amp;sort_mode={$sort_mode}">
                                 {$smarty.section.foo.index_next}

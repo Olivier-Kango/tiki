@@ -23,7 +23,7 @@
 {tabset name="admin_menu_options"}
 {tab name="{tr}Manage menu{/tr} {$editable_menu_info.name}"}
     <div>
-        <h2>{tr}Menu options{/tr} <span class="badge bg-secondary">{$cant_pages}</span></h2>
+        <h2>{tr}Menu options{/tr} <span class="badge bg-secondary">{$pages_count}</span></h2>
         {include file='tiki-admin_menu_options_insert_component.tpl'}
         <form method="get" action="tiki-admin_menu_options.php">
             {ticket}

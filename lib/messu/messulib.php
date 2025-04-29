@@ -242,9 +242,9 @@ class Messu extends TikiLib
 
         $query = 'select * from `messu_' . $dbsource . "` where `user`=? $mid order by " .
                         $this->convertSortMode($sort_mode) . ',' . $this->convertSortMode('msgId_desc');
-        $query_cant = 'select count(*) from `messu_' . $dbsource . "` where `user`=? $mid";
+        $query_count = 'select count(*) from `messu_' . $dbsource . "` where `user`=? $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
 
         while ($res = $result->fetchRow()) {
@@ -259,7 +259,7 @@ class Messu extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -274,16 +274,16 @@ class Messu extends TikiLib
         }
 
         $bindvars = [$user];
-        $query_cant = 'select count(*) from `messu_' . $dbsource . '` where `user`=?';
+        $query_count = 'select count(*) from `messu_' . $dbsource . '` where `user`=?';
         if ($unreadOnly == true) {
-            $query_cant .= ' and `isRead`="n"';
+            $query_count .= ' and `isRead`="n"';
         }
         if (! empty($newSince)) {
-            $query_cant .= ' and `date` >= ?';
+            $query_count .= ' and `date` >= ?';
             $bindvars[] = $newSince;
         }
-        $cant = $this->getOne($query_cant, $bindvars);
-        return $cant;
+        $count = $this->getOne($query_count, $bindvars);
+        return $count;
     }
 
     /**

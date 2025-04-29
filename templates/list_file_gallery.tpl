@@ -42,9 +42,9 @@
         <div class="col-sm-12 fgallisting explorerDisplayed">
     {/if}
     <div>
-        {if $maxRecords > 20 and $cant > $maxRecords}
+        {if $maxRecords > 20 and $count > $maxRecords}
             <div class="clearboth" style="margin-bottom: 3px;">
-                {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+                {pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
             </div>
         {/if}
         <form name="fgalformid" id="fgalform" method="post" action="{if !empty($filegals_manager)}{query _type='relative' filegals_manager=$filegals_manager|escape}{else}{query _type='relative'}{/if}" enctype="multipart/form-data">
@@ -219,7 +219,7 @@
             {/if}
         </form>
         {reindex_file_pixel id=$reindex_file_id}<br>
-        {pagination_links cant=$cant step=$maxRecords offset=$offset}
+        {pagination_links count=$count step=$maxRecords offset=$offset}
             {if $view eq 'page'}
                 tiki-list_file_gallery.php?galleryId={$galleryId}&maxWidth={$maxWidth}&maxRecords={$maxRecords}&view={$view}
             {/if}

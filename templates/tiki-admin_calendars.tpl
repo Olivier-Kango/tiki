@@ -155,7 +155,7 @@
             {/foreach}
         </table>
         </div>
-        {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+        {pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
 
         <h2>{tr}Calendar Subscriptions{/tr}</h2>
 
@@ -233,7 +233,7 @@
             {/foreach}
         </table>
         </div>
-        {pagination_links cant=$subscriptions.count step=$maxRecords offset=$offset}{/pagination_links}
+        {pagination_links count=$subscriptions.count step=$maxRecords offset=$offset}{/pagination_links}
     {/tab}
 
     {if $calendarId gt 0}

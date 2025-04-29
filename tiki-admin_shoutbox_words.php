@@ -61,7 +61,7 @@ if (isset($_REQUEST["find"])) {
 }
 $smarty->assign('find', $find);
 $words = $shoutboxlib->get_bad_words($offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant_pages', $words["cant"]);
+$smarty->assign_by_ref('pages_count', $words["count"]);
 // Get users (list of users)
 $smarty->assign_by_ref('words', $words["data"]);
 // disallow robots to index page:

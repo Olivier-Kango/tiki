@@ -60,7 +60,7 @@ class Services_Comment_Controller
             'type'              => $type,
             'objectId'          => $objectId,
             'parentId'          => 0,
-            'cant'              => $comments['cant'],
+            'count'              => $comments['count'],
             'offset'            => $offset,
             'maxRecords'        => $maxRecords,
             'sortMode'          => $sortMode,

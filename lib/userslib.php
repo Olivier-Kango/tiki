@@ -2426,9 +2426,9 @@ class UsersLib extends TikiLib
             $mmid = $mid;
         }
         $query = "select uu.* from `users_users` uu $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `users_users` uu $mmid";
+        $query_count = "select count(*) from `users_users` uu $mmid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $mbindvars);
+        $count = $this->getOne($query_count, $mbindvars);
 
         Perms::bulk([ 'type' => 'group' ], 'object', $group);
 
@@ -2492,7 +2492,7 @@ class UsersLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -2653,7 +2653,7 @@ class UsersLib extends TikiLib
         $ret = $this->fetchAll($query);
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = count($ret);
+        $retval['count'] = count($ret);
         return $retval;
     }
 
@@ -2664,7 +2664,7 @@ class UsersLib extends TikiLib
         $ret = $this->fetchAll($query);
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = count($ret);
+        $retval['count'] = count($ret);
         return $retval;
     }
 
@@ -2675,7 +2675,7 @@ class UsersLib extends TikiLib
         $ret = $this->fetchAll($query, [$groupName]);
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = count($ret);
+        $retval['count'] = count($ret);
         return $retval;
     }
 
@@ -2686,7 +2686,7 @@ class UsersLib extends TikiLib
         $ret = $this->fetchAll($query, [$groupName]);
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = count($ret);
+        $retval['count'] = count($ret);
         return $retval;
     }
 
@@ -2724,15 +2724,15 @@ class UsersLib extends TikiLib
         }
 
         $query = "select * from `users_groups` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `users_groups` $mid";
+        $query_count = "select count(*) from `users_groups` $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
 
         foreach ($ret as &$res) {
             if ($details == 'y') {
                 $perms = $this->get_group_permissions($res['groupName']);
                 $res['perms'] = $perms;
-                $res['permcant'] = count($perms);
+                $res['permCount'] = count($perms);
                 $groups = $this->get_included_groups($res['groupName']);
                 $res['included'] = $groups;
                 $res['included_direct'] = $this->get_included_groups($res['groupName'], false);
@@ -2741,7 +2741,7 @@ class UsersLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -6750,7 +6750,7 @@ class UsersLib extends TikiLib
 
         return [
             'data' => $ret,
-            'cant' => count($ret),
+            'count' => count($ret),
         ];
     }
 
@@ -7019,7 +7019,7 @@ class UsersLib extends TikiLib
         }
         $max = $max > 0 ? $max : null;
         $ret['data'] = array_slice($temp, $offset, $max);
-        $ret['cant'] = count($res);
+        $ret['count'] = count($res);
         return $ret;
     }
 

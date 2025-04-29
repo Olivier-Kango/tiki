@@ -109,6 +109,6 @@
         </table>
     </div>
 
-    {pagination_links cant=$cant offset=$offset step=$prefs.maxRecords}
+    {pagination_links count=$count offset=$offset step=$prefs.maxRecords}
     {/pagination_links}
 {/block}

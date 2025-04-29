@@ -162,8 +162,8 @@ class WikiPluginBackLinks extends PluginsLib
         //
         if (! isset($noheader) || ! $noheader) {
             // Create header
-            if (! empty($aPages["cant"])) {
-                $count = $aPages["cant"];
+            if (! empty($aPages["count"])) {
+                $count = $aPages["count"];
             } else {
                 $count = 0;
             }

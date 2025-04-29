@@ -432,7 +432,7 @@ if (isset($_REQUEST['list']) || isset($_REQUEST['export']) || isset($_REQUEST['g
     }
     $results = $logslib->list_actions('', '', $_REQUEST['selectedUsers'], $offset, $maxRecords, 'lastModif_desc', $find, $startDate, $endDate, $_REQUEST['categId']);
     $actions = &$results['data'];
-    $actions_cant = $results['cant'];
+    $actions_count = $results['count'];
     $actions = $logslib->get_more_info($actions, $categNames);
     $contributorActions = $logslib->split_actions_per_contributors($actions, $_REQUEST['selectedUsers']);
     if (! empty($_REQUEST['selectedUsers'])) {
@@ -870,7 +870,7 @@ if (empty($_REQUEST)) {
     $smarty->assign('endDate', $endDate);
 }
 $smarty->assign_by_ref('offset', $offset);
-$smarty->assign_by_ref('cant', $actions_cant);
+$smarty->assign_by_ref('count', $actions_count);
 $smarty->assign_by_ref('maxRecords', $maxRecords);
 $action_log_types = $logslib->get_actionlog_types();
 if (! empty($_REQUEST['action_log_type'])) {

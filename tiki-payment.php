@@ -310,7 +310,7 @@ function fetch_payment_list($type)
             $tableclass,
             [
                 'id' => 'pmt_' . $type,
-                'total' => $data['cant'],
+                'total' => $data['count'],
                 'ajax' => [
                     'requiredparams' => [
                         'list_type' => $type,

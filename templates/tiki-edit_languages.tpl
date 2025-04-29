@@ -229,7 +229,7 @@
             </div>
 
             <div class="card-footer text-center">
-                {pagination_links cant=$total step=$maxRecords offset=$offset _ajax='n'}{strip}
+                {pagination_links count=$total step=$maxRecords offset=$offset _ajax='n'}{strip}
                 tiki-edit_languages.php?edit_language={$edit_language}&action={$action}&maxRecords={$maxRecords}&only_db_translations={$only_db_translations}&only_db_untranslated={$only_db_untranslated}{if isset($find)}&find={$find}{/if}
                 {/strip}{/pagination_links}
             </div>

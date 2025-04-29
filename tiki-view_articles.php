@@ -151,7 +151,7 @@ for ($i = 0; $i < $temp_max; $i++) {
     $comments_prefix_var = 'article:';
     $comments_object_var = $listpages["data"][$i]["articleId"];
     $comments_objectId = $comments_prefix_var . $comments_object_var;
-    $listpages["data"][$i]["comments_cant"] = TikiLib::lib('comments')->count_comments($comments_objectId);
+    $listpages["data"][$i]["comments_count"] = TikiLib::lib('comments')->count_comments($comments_objectId);
     if ($prefs['feature_freetags'] == 'y') { // And get the Tags for the posts
         $listpages["data"][$i]["freetags"] = $freetaglib->get_tags_on_object($listpages["data"][$i]["articleId"], "article");
     }
@@ -174,7 +174,7 @@ if (! empty($type) && ! strstr($type, '!') && ! strstr($type, '+')) {
 $smarty->assign('maxArticles', $prefs['maxArticles']);
 // If there're more records then assign next_offset
 $smarty->assign_by_ref('listpages', $listpages["data"]);
-$smarty->assign_by_ref('cant', $listpages["cant"]);
+$smarty->assign_by_ref('count', $listpages["count"]);
 if ($prefs['feature_user_watches'] == 'y') {
     if ($user && isset($_REQUEST['watch_action'])) {
         $access->checkCsrf();

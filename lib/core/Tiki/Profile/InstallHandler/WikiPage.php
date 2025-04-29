@@ -366,7 +366,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
         foreach ($pageNames as $pageName) {
             $listPages = $tikilib->list_pages(0, -1, 'pageName_desc', $pageName);
 
-            if ($listPages['cant'] == 0) {
+            if ($listPages['count'] == 0) {
                 continue;
             }
 

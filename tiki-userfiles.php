@@ -132,7 +132,7 @@ if (isset($_SESSION['thedate'])) {
     $pdate = $tikilib->now;
 }
 $channels = $userfileslib->list_userfiles($user, $offset, $maxRecords, $sort_mode, $find);
-$smarty->assign_by_ref('cant_pages', $channels["cant"]);
+$smarty->assign_by_ref('pages_count', $channels["count"]);
 $smarty->assign_by_ref('channels', $channels["data"]);
 include_once('tiki-mytiki_shared.php');
 $smarty->assign('mid', 'tiki-userfiles.tpl');

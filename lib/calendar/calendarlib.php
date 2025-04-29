@@ -79,8 +79,8 @@ class CalendarLib extends TikiLib
 
         $query = "select tcal.* from `tiki_calendars` as tcal $join where 1=1 $mid order by " . $sort;
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
-        $query_cant = "select count(*) from `tiki_calendars` as tcal $join where 1=1 $mid";
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from `tiki_calendars` as tcal $join where 1=1 $mid";
+        $count = $this->getOne($query_count, $bindvars);
 
         $res = [];
         while ($r = $result->fetchRow()) {
@@ -132,7 +132,7 @@ class CalendarLib extends TikiLib
             $res["$k"] = $r;
         }
         $retval["data"] = $res;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -1284,8 +1284,8 @@ class CalendarLib extends TikiLib
 
         $ret = $this->fetchAll($query, $bindvars, $maxrows, $start);
 
-        $query_cant = "select count(*) from `tiki_calendar_items` i $ljoin where 1=1 " . $cond . " GROUP BY i.calitemId order by " . $this->convertSortMode($order);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from `tiki_calendar_items` i $ljoin where 1=1 " . $cond . " GROUP BY i.calitemId order by " . $this->convertSortMode($order);
+        $count = $this->getOne($query_count, $bindvars);
 
         foreach ($ret as &$res) {
             $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']);
@@ -1293,7 +1293,7 @@ class CalendarLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -1353,8 +1353,8 @@ class CalendarLib extends TikiLib
 
         $ret = $this->fetchAll($query, $bindvars, $maxrows, $start);
 
-        $query_cant = "select count(*) from `tiki_calendar_items` i $ljoin where 1=1 " . $cond . " order by " . $this->convertSortMode($order);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from `tiki_calendar_items` i $ljoin where 1=1 " . $cond . " order by " . $this->convertSortMode($order);
+        $count = $this->getOne($query_count, $bindvars);
 
         foreach ($ret as &$res) {
             $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']);
@@ -1362,7 +1362,7 @@ class CalendarLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -1504,8 +1504,8 @@ class CalendarLib extends TikiLib
 
         $ret = $this->fetchAll($query, $bindvars, $maxrows, $start);
 
-        $query_cant = "select count(*) from `tiki_calendar_items` i $ljoin where 1=1 " . $cond . " order by " . $this->convertSortMode($order);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = "select count(*) from `tiki_calendar_items` i $ljoin where 1=1 " . $cond . " order by " . $this->convertSortMode($order);
+        $count = $this->getOne($query_count, $bindvars);
 
         foreach ($ret as &$res) {
             $res['parsed'] = TikiLib::lib('parser')->parse_data($res['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y', 'objectType' => 'calendar event', 'objectId' => $res['calitemId'], 'fieldName' => 'description']);
@@ -1513,7 +1513,7 @@ class CalendarLib extends TikiLib
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 

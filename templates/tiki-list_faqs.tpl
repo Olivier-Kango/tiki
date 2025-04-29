@@ -75,7 +75,7 @@
             </table>
         </div>
 
-        {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+        {pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
     {/tab}
 
     {if $tiki_p_admin_faqs eq 'y'}

@@ -207,7 +207,7 @@ foreach ($ctall as $c) {
             (! empty($_REQUEST['and'])) ? true : false
         );
         $countString = '<span class="object-count badge rounded-pill text-bg-info px-3 float-end">' .
-            $objectcount['cant'] . '</span>';
+            $objectcount['count'] . '</span>';
     } elseif ($prefs['feature_search'] === 'y') {   // fall back to unified search if not category_browse_count_objects
         $countString = '<a class="object-count badge badge-pill badge-info bg-info float-end" data-categid="' .
             $c['categId'] . '">' . $fetchCountIcon . '</a>';
@@ -285,7 +285,7 @@ if ($deep == 'on') {
 
 
 $smarty->assign_by_ref('objects', $objects['data']);
-$smarty->assign_by_ref('cant_pages', $objects['cant']);
+$smarty->assign_by_ref('pages_count', $objects['count']);
 $smarty->assign_by_ref('maxRecords', $maxRecords);
 include_once('tiki-section_options.php');
 

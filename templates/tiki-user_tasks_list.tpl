@@ -171,5 +171,5 @@
     </table>
 </form>
 
-{pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
+{pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
 {* end ************ Task list ***************}

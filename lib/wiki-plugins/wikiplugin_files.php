@@ -623,7 +623,7 @@ function wikiplugin_files($data, $params)
         foreach ($objects['data'] as $og) {
             $gal_info = $filegallib->get_file_gallery($og['itemId']);
             $fs = $filegallib->get_files(0, $max, $sort, '', $og['itemId'], false, $withsubgals == 'y', false, true, false, $show_parentName == 'y', true, $recursive, '', false, false, false, $filter);
-            if ($fs['cant']) {
+            if ($fs['count']) {
                 for ($i = 0, $count_fs_data = count($fs['data']); $i < $count_fs_data; ++$i) {
                     $fs['data'][$i]['gallery'] = $gal_info['name'];
                     $fs['data'][$i]['galleryId'] = $gal_info['galleryId'];

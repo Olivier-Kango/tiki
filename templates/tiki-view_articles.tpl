@@ -235,16 +235,16 @@
                     {/if}
                     {if ($prefs.feature_article_comments eq 'y') and ($listpages[ix].perms.tiki_p_read_comments eq 'y') and ($listpages[ix].allow_comments eq 'y')}
                         <li class="list-inline-item">
-                            <a href="{$listpages[ix].articleId|sefurl:article:with_next}{if $prefs.feature_sefurl neq 'y'}&amp;{/if}show_comzone=y{if !empty($urlparam)}&amp;{$urlparam}{/if}#comments"{if $listpages[ix].comments_cant > 0} class="mark"{/if}>
-                                {if $listpages[ix].comments_cant == 0 and $listpages[ix].perms.tiki_p_post_comments == 'y'}
+                            <a href="{$listpages[ix].articleId|sefurl:article:with_next}{if $prefs.feature_sefurl neq 'y'}&amp;{/if}show_comzone=y{if !empty($urlparam)}&amp;{$urlparam}{/if}#comments"{if $listpages[ix].comments_count > 0} class="mark"{/if}>
+                                {if $listpages[ix].comments_count == 0 and $listpages[ix].perms.tiki_p_post_comments == 'y'}
                                     {if !isset($actions) or $actions eq "y"}
                                         {icon name="comment"} {tr}Add Comment{/tr}
                                     {/if}
                                 {elseif $listpages[ix].perms.tiki_p_read_comments eq 'y'}
-                                    {if $listpages[ix].comments_cant == 1}
+                                    {if $listpages[ix].comments_count == 1}
                                         {icon name="comment"} {tr}1 comment{/tr}
                                     {else}
-                                        {icon name="comments"} {$listpages[ix].comments_cant}&nbsp;{tr}comments{/tr}
+                                        {icon name="comments"} {$listpages[ix].comments_count}&nbsp;{tr}comments{/tr}
                                     {/if}
                                 {/if}
                             </a>
@@ -318,5 +318,5 @@
 {/if}
 
 {if !empty($listpages) && (!isset($usePagination) or $usePagination ne 'n')}
-    {pagination_links cant=$cant step=$maxArticles offset=$offset}{if isset($urlnext)}{$urlnext}{/if}{/pagination_links}
+    {pagination_links count=$count step=$maxArticles offset=$offset}{if isset($urlnext)}{$urlnext}{/if}{/pagination_links}
 {/if}

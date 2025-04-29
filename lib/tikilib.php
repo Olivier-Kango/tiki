@@ -769,13 +769,13 @@ class TikiLib extends TikiDb_Bridge
                 select 'group' as watchtype, `watchId`, `group`, `event`, `object`, `title`, `type`, `url`, '' as `email`
                 from `tiki_group_watches` $mid2
             order by " . $this->convertSortMode($sort_mode);
-        $query_cant = 'select count(*) from `tiki_user_watches` ' . $mid;
-        $query_cant2 = 'select count(*) from `tiki_group_watches` ' . $mid2;
+        $query_count_user_watches = 'select count(*) from `tiki_user_watches` ' . $mid;
+        $query_count_group_watches = 'select count(*) from `tiki_group_watches` ' . $mid2;
         $ret = $this->fetchAll($query, array_merge($bindvars1, $bindvars2), $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars1) + $this->getOne($query_cant2, $bindvars2);
+        $count = $this->getOne($query_count_user_watches, $bindvars1) + $this->getOne($query_count_group_watches, $bindvars2);
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -1370,7 +1370,7 @@ class TikiLib extends TikiDb_Bridge
 
         return [
             'data' => $sites->fetchAll($sites->all(), $conditions, $maxRecords, $offset, $sites->expr($this->convertSortMode($sort_mode))),
-            'cant' => $sites->fetchCount($conditions),
+            'count' => $sites->fetchCount($conditions),
         ];
     }
 
@@ -1688,9 +1688,9 @@ class TikiLib extends TikiDb_Bridge
     {
         $refererStats = $this->table('tiki_referer_stats');
 
-        $cant = $refererStats->fetchCount(['referer' => $referer]);
+        $count = $refererStats->fetchCount(['referer' => $referer]);
 
-        if ($cant) {
+        if ($count) {
             $refererStats->update(
                 [
                     'hits' => $refererStats->increment(1),
@@ -1802,12 +1802,12 @@ class TikiLib extends TikiDb_Bridge
      */
     public function pick_cookie()
     {
-        $cant = $this->getOne("select count(*) from `tiki_cookies`", []);
-        if (! $cant) {
+        $count = $this->getOne("select count(*) from `tiki_cookies`", []);
+        if (! $count) {
             return '';
         }
 
-        $bid = rand(0, $cant - 1);
+        $bid = rand(0, $count - 1);
         //$cookie = $this->getOne("select `cookie`  from `tiki_cookies` limit $bid,1"); getOne seems not to work with limit
         $result = $this->query("select `cookie`  from `tiki_cookies`", [], 1, $bid);
         if ($res = $result->fetchRow()) {
@@ -2074,11 +2074,11 @@ class TikiLib extends TikiDb_Bridge
                         // Fixed query.  -rlpowell
                         $q2 = "select count(*) from `tiki_links` where `fromPage`= ? and `fromPage` not like 'objectlink:%'";
                         // page rank does not count links from non-page objects TODO: full feature allowing this with options
-                        $cant = $this->getOne($q2, [$linking]);
-                        if ($cant == 0) {
-                            $cant = 1;
+                        $count = $this->getOne($q2, [$linking]);
+                        if ($count == 0) {
+                            $count = 1;
                         }
-                        $sum += $pages[$linking] / $cant;
+                        $sum += $pages[$linking] / $count;
                     }
                 }
 
@@ -2127,7 +2127,7 @@ class TikiLib extends TikiDb_Bridge
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $n;
+        $retval['count'] = $n;
         return $retval;
     }
 
@@ -2154,14 +2154,14 @@ class TikiLib extends TikiDb_Bridge
 
         $query = "select * from `tiki_comments`,`tiki_forums` where ";
         $query .= " `forumId`=? and `object`=? and `objectType`=? and `tiki_comments`.`parentId`=? $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_comments`,`tiki_forums` where ";
-        $query_cant .= " `forumId`=? and `object`=? and `objectType`=? and `tiki_comments`.`parentId`=? $mid";
+        $query_count = "select count(*) from `tiki_comments`,`tiki_forums` where ";
+        $query_count .= " `forumId`=? and `object`=? and `objectType`=? and `tiki_comments`.`parentId`=? $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -2261,13 +2261,13 @@ class TikiLib extends TikiDb_Bridge
         }
 
         $query = "select trp.*, tp.`pageName` as pageExists from `tiki_received_pages` trp left join `tiki_pages` tp on (tp.`pageName`=trp.`pageName`) $mid order by `structureName` asc, `pos` asc," . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_received_pages` trp $mid";
+        $query_count = "select count(*) from `tiki_received_pages` trp $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -2434,18 +2434,18 @@ class TikiLib extends TikiDb_Bridge
         if ($find) {
             $findesc = '%' . $find . '%';
             $mid = 'where (`login` like ? or p1.`value` like ?)';
-            $mid_cant = $mid;
+            $mid_count = $mid;
             $bindvars[] = $findesc;
             $bindvars[] = $findesc;
             $bindvars2 = [$findesc, $findesc];
             $find_join = " left join `tiki_user_preferences` p1 on (u.`login` = p1.`user` and p1.`prefName` = 'realName')";
-            $find_join_cant = $find_join;
+            $find_join_count = $find_join;
         } else {
             $mid = '';
             $bindvars2 = [];
             $find_join = '';
-            $find_join_cant = '';
-            $mid_cant = '';
+            $find_join_count = '';
+            $mid_count = '';
         }
 
         // This allows to use a sort_mode by prefs
@@ -2486,9 +2486,9 @@ class TikiLib extends TikiDb_Bridge
 
         $query = "select u.* $pref_field  from `users_users` u $pref_join $find_join $pref_where $sort_mode";
 
-        $query_cant = "select count(distinct u.`login`) from `users_users` u $find_join_cant $mid_cant";
+        $query_count = "select count(distinct u.`login`) from `users_users` u $find_join_count $mid_count";
         $result = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars2);
+        $count = $this->getOne($query_count, $bindvars2);
 
         $ret = [];
         foreach ($result as $res) {
@@ -2498,7 +2498,7 @@ class TikiLib extends TikiDb_Bridge
             $ret[] = $res;
         }
 
-        return ['data' => $ret, 'cant' => $cant];
+        return ['data' => $ret, 'count' => $count];
     }
 
     // CMS functions -ARTICLES- & -SUBMISSIONS- ////
@@ -2554,8 +2554,8 @@ class TikiLib extends TikiDb_Bridge
         $oldy = $this->now - $delay;
         if ($user != '') { // was the user timeout?
             $query = "select count(*) from `tiki_sessions` where `sessionId`=?";
-            $cant = $this->getOne($query, [$this->sessionId]);
-            if ($cant == 0) {
+            $count = $this->getOne($query, [$this->sessionId]);
+            if ($count == 0) {
                 if ($prefs['login_multiple_forbidden'] != 'y' || $user == 'admin') {
                     // Recover after timeout
                     $logslib->add_log("login", "back", $user, '', '', $this->now);
@@ -2563,8 +2563,8 @@ class TikiLib extends TikiDb_Bridge
                     // Prevent multiple sessions for same user
                     // Must check any user session, not only timed out ones
                     $query = "SELECT count(*) FROM `tiki_sessions` WHERE user = ?";
-                    $cant = $this->getOne($query, [$user]);
-                    if ($cant == 0) {
+                    $count = $this->getOne($query, [$user]);
+                    if ($count == 0) {
                         // Recover after timeout (no other session)
                         $logslib->add_log("login", "back", $user, '', '', $this->now);
                     } else {
@@ -2628,7 +2628,7 @@ class TikiLib extends TikiDb_Bridge
     public function count_cluster_sessions()
     {
         $this->update_session();
-        $query = "select `tikihost`, count(`tikihost`) as cant from `tiki_sessions` group by `tikihost`";
+        $query = "select `tikihost`, count(`tikihost`) as count from `tiki_sessions` group by `tikihost`";
         return $this->fetchMap($query, []);
     }
 
@@ -3368,13 +3368,13 @@ class TikiLib extends TikiDb_Bridge
         }
 
         $query = "select `cacheId` ,`url`,`refresh` from `tiki_link_cache` $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_link_cache` $mid";
+        $query_count = "select count(*) from `tiki_link_cache` $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
 
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -3698,11 +3698,11 @@ class TikiLib extends TikiDb_Bridge
      * @param bool $forListPages
      * @param bool $only_orphan_pages
      * @param string $filter
-     * @param bool $onlyCant
+     * @param bool $onlyCount
      * @param string $ref
      * @return array
      */
-    public function list_pages($offset = 0, $maxRecords = -1, $sort_mode = 'pageName_desc', $find = '', $initial = '', $exact_match = true, $onlyName = false, $forListPages = false, $only_orphan_pages = false, $filter = [], $onlyCant = false, $ref = '', $exclude_pages = '')
+    public function list_pages($offset = 0, $maxRecords = -1, $sort_mode = 'pageName_desc', $find = '', $initial = '', $exact_match = true, $onlyName = false, $forListPages = false, $only_orphan_pages = false, $filter = [], $onlyCount = false, $ref = '', $exclude_pages = '')
     {
         global $prefs, $tiki_p_wiki_view_ratings;
 
@@ -3872,7 +3872,7 @@ class TikiLib extends TikiDb_Bridge
             $bindvars = empty($bindvars) ? $join_bindvars : array_merge($join_bindvars, $bindvars);
         }
 
-        if ($onlyCant) {
+        if ($onlyCount) {
             $select = 'tp.`pageName`';
         } elseif ($onlyName) {
             $select = 'tp.`pageName`, tp.`creator`';
@@ -3890,7 +3890,7 @@ class TikiLib extends TikiDb_Bridge
         // HOTFIX (svn Rev. 22969 or near there)
         // Chunk loading. Because we cannot know what pages are visible, we load chunks of pages
         // and use Perms::filter to see what remains. Stop, if we have enough.
-        $cant = 0;
+        $count = 0;
         $n = -1;
         $ret = [];
         $raw = [];
@@ -3942,7 +3942,7 @@ class TikiLib extends TikiDb_Bridge
                 continue;
             }
 
-            if (! $onlyCant && ( $need_everything || $maxRecords == -1 || $cant < $maxRecords )) {
+            if (! $onlyCount && ( $need_everything || $maxRecords == -1 || $count < $maxRecords )) {
                 if ($onlyName) {
                     $res = ['pageName' => $res['pageName']];
                 } else {
@@ -3977,10 +3977,10 @@ class TikiLib extends TikiDb_Bridge
                 }
                 $ret[] = $res;
             }
-            $cant++;
+            $count++;
         }
         if (! $need_everything) {
-            $cant += $offset;
+            $count += $offset;
         }
 
         // If sortmode is versions, links or backlinks sort using the ad-hoc function and reduce using old_offset and old_maxRecords
@@ -4009,7 +4009,7 @@ class TikiLib extends TikiDb_Bridge
 
         $retval = [];
         $retval['data'] = $ret;
-        $retval['cant'] = $pageCount; // this is not exact. Workaround.
+        $retval['count'] = $pageCount; // this is not exact. Workaround.
         return $retval;
     }
 
@@ -5174,13 +5174,13 @@ class TikiLib extends TikiDb_Bridge
      */
     public static function how_many_at_start($str, $car)
     {
-        $cant = 0;
+        $count = 0;
         $i = 0;
         while (($i < strlen($str)) && (isset($str[$i])) && ($str[$i] == $car)) {
             $i++;
-            $cant++;
+            $count++;
         }
-        return $cant;
+        return $count;
     }
 
     /**
@@ -6307,12 +6307,12 @@ class TikiLib extends TikiDb_Bridge
             $join = "left join `$table` on (`tiki_user_votings`.`optionId` = `$table`.`optionId`)";
         }
         $query = "select * $select from `tiki_user_votings` $join $mid order by " . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_user_votings` $join $mid";
+        $query_count = "select count(*) from `tiki_user_votings` $join $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $retval = [];
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 

@@ -76,7 +76,7 @@ function get_all_keywords($limit = 0, $offset = 0, $page = "")
 
     $ret = [
         'pages' => $tikilib->fetchAll("SELECT `keywords`, `pageName` as page " . $query, $bindvars, $limit, $offset),
-        'cant' => $tikilib->getOne('SELECT COUNT(*) ' . $query, $bindvars),
+        'count' => $tikilib->getOne('SELECT COUNT(*) ' . $query, $bindvars),
     ];
 
     return $ret;
@@ -122,18 +122,18 @@ if (isset($_REQUEST['page'], $_REQUEST['remove_keywords']) && ! $_REQUEST['remov
 if (isset($_REQUEST['q'], $_REQUEST['remove_keywords'], $_REQUEST['save_keywords']) && ! $_REQUEST['remove_keywords'] && ! $_REQUEST['save_keywords']) {
     $existing_keywords = get_all_keywords($limit, $offset, $_REQUEST['q']);
     $smarty->assign('search_on', 'y');
-    $smarty->assign('search_cant', $existing_keywords['cant']);
+    $smarty->assign('search_count', $existing_keywords['count']);
 }
 
-if (! isset($existing_keywords['cant'])) {
+if (! isset($existing_keywords['count'])) {
     $existing_keywords = get_all_keywords($limit, $offset);
 }
 
-if ($existing_keywords['cant'] > 0) {
+if ($existing_keywords['count'] > 0) {
     $smarty->assign('existing_keywords', $existing_keywords['pages']);
 
-    $pages_cant = ceil($existing_keywords['cant'] / $limit);
-    $smarty->assign('pages_cant', $pages_cant);
+    $pages_count = ceil($existing_keywords['count'] / $limit);
+    $smarty->assign('pages_count', $pages_count);
     $smarty->assign('offset', $offset);
 }
 

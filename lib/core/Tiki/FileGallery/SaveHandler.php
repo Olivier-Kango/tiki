@@ -209,7 +209,7 @@ class SaveHandler
         if ($count_archives > 0) {
             $archives = TikiLib::lib('filegal')->get_archives($file->fileId, 0, -1, 'created_asc');
 
-            if ($archives['cant'] >= $count_archives) {
+            if ($archives['count'] >= $count_archives) {
                 $toRemove = [];
 
                 foreach ($archives['data'] as $i => $values) {

@@ -111,7 +111,7 @@ foreach ($channels['data'] as $i => $channel) {
         $channels['data'][$i]['individual'] = 'y';
     }
 }
-$smarty->assign_by_ref('cant', $channels['cant']);
+$smarty->assign_by_ref('count', $channels['count']);
 $smarty->assign_by_ref('channels', $channels['data']);
 
 // disallow robots to index page:

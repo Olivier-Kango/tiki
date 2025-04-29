@@ -26,8 +26,8 @@
     </form>
 </div>
 
-{tr}Number of invitations:{/tr} {$cant}
-{if $cant > 0}
+{tr}Number of invitations:{/tr} {$count}
+{if $count > 0}
     <div class="table-responsive">
         <table class="table">
             <tr>
@@ -53,4 +53,4 @@
     </div>
 {/if}
 
-{pagination_links cant=$cant step=$max offset=$offset}{/pagination_links}
+{pagination_links count=$count step=$max offset=$offset}{/pagination_links}

@@ -183,7 +183,7 @@ class TrackerLib extends TikiLib
 
         return [
             'data' => $attachments->fetchAll($fields, $conditions, $maxRecords, $offset, $order),
-            'cant' => $attachments->fetchCount($conditions),
+            'count' => $attachments->fetchCount($conditions),
         ];
     }
 
@@ -218,7 +218,7 @@ class TrackerLib extends TikiLib
 
         return [
             'data' => $attachments->fetchAll($fields, $conditions, $maxRecords, $offset, $order),
-            'cant' => $attachments->fetchCount($conditions),
+            'count' => $attachments->fetchCount($conditions),
         ];
     }
 
@@ -394,19 +394,19 @@ class TrackerLib extends TikiLib
         if ($trackerId != 0) {
             $query = "select t.*, t.object itemId from `tiki_comments` t left join `tiki_tracker_items` a on t.`object`=a.`itemId` where $mid and a.`trackerId`=? and t.`objectType` = 'trackeritem' order by t.`commentDate` desc";
             $bindvars[] = $trackerId;
-            $query_cant = "select count(*) from `tiki_comments` t left join `tiki_tracker_items` a on t.`object`=a.`itemId` where $mid and a.`trackerId`=? AND t.`objectType` = 'trackeritem' order by t.`commentDate` desc";
+            $query_count = "select count(*) from `tiki_comments` t left join `tiki_tracker_items` a on t.`object`=a.`itemId` where $mid and a.`trackerId`=? AND t.`objectType` = 'trackeritem' order by t.`commentDate` desc";
         } else {
             $query = "select t.*, t.object itemId, a.`trackerId` from `tiki_comments` t left join `tiki_tracker_items` a on t.`object`=a.`itemId` where $mid AND t.`objectType` = 'trackeritem' order by `commentDate` desc";
-            $query_cant = "select count(*) from `tiki_comments` where $mid AND `objectType` = 'trackeritem'";
+            $query_count = "select count(*) from `tiki_comments` where $mid AND `objectType` = 'trackeritem'";
         }
 
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
 
         foreach ($ret as $key => &$res) {
             $itemObject = Tracker_Item::fromId($res['itemId']);
             if (! $itemObject->canView()) {
-                --$cant;
+                --$count;
                 unset($ret[$key]);
                 continue;
             }
@@ -415,7 +415,7 @@ class TrackerLib extends TikiLib
 
         return [
             'data' => array_values($ret),
-            'cant' => $cant,
+            'count' => $count,
         ];
     }
 
@@ -566,17 +566,17 @@ class TrackerLib extends TikiLib
             $bindvars[] = $csort_mode;
             $query = "select tti.*, ttif.`value` from `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif, `tiki_tracker_fields` ttf ";
             $query .= " $mid and tti.`itemId`=ttif.`itemId` and ttf.`fieldId`=ttif.`fieldId` and ttf.`name`=? order by ttif.`value`";
-            $query_cant = "select count(*) from `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif, `tiki_tracker_fields` ttf ";
-            $query_cant .= " $mid and tti.`itemId`=ttif.`itemId` and ttf.`fieldId`=ttif.`fieldId` and ttf.`name`=? ";
+            $query_count = "select count(*) from `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif, `tiki_tracker_fields` ttf ";
+            $query_count .= " $mid and tti.`itemId`=ttif.`itemId` and ttf.`fieldId`=ttif.`fieldId` and ttf.`name`=? ";
         } else {
             if (! $sort_mode) {
                 $sort_mode = "lastModif_desc";
             }
             $query = "select * from `tiki_tracker_items` tti $mid order by " . $this->convertSortMode($sort_mode);
-            $query_cant = "select count(*) from `tiki_tracker_items` tti $mid ";
+            $query_count = "select count(*) from `tiki_tracker_items` tti $mid ";
         }
         $result = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         foreach ($result as $res) {
             $fields = [];
@@ -619,7 +619,7 @@ class TrackerLib extends TikiLib
         //$ret=$this->sort_items_by_condition($ret,$sort_mode);
         $retval = [];
         $retval["data"] = array_values($ret);
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -829,9 +829,9 @@ class TrackerLib extends TikiLib
             $bindvars = array_merge($bindvars, [$findesc, $findesc]);
         }
         $query = "select * from `tiki_trackers` $join where 1=1 $where order by `tiki_trackers`." . $this->convertSortMode($sort_mode);
-        $query_cant = "select count(*) from `tiki_trackers` $join where 1=1 $where";
+        $query_count = "select count(*) from `tiki_trackers` $join where 1=1 $where";
         $result = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-        $cant = $this->getOne($query_cant, $bindvars);
+        $count = $this->getOne($query_count, $bindvars);
         $ret = [];
         $list = [];
         $systemTrackerIds = $this->getSystemTrackerIds();
@@ -851,7 +851,7 @@ class TrackerLib extends TikiLib
         $retval = [];
         $retval["list"] = $list;
         $retval["data"] = $ret;
-        $retval["cant"] = $cant;
+        $retval["count"] = $count;
         return $retval;
     }
 
@@ -1282,7 +1282,7 @@ class TrackerLib extends TikiLib
         }
 
         if (! $this->getSqlStatus($status, $mid, $bindvars, $trackerId, $skip_status_perm_check) && ! $skip_status_perm_check && $status) {
-            return ['cant' => 0, 'data' => ''];
+            return ['count' => 0, 'data' => ''];
         }
         if (substr($sort_mode, 0, 2) == 'f_') {
             list($a, $asort_mode, $corder) = preg_split('/_/', $sort_mode);
@@ -1337,9 +1337,9 @@ class TrackerLib extends TikiLib
                             ';
                             break;
                         case 's':
-    //                      if ($field['name'] == 'Rating' || $field['name'] == tra('Rating')) { // No need to have that string, isn't it? Admins can replace for a more suited string in their use case
+        //                      if ($field['name'] == 'Rating' || $field['name'] == tra('Rating')) { // No need to have that string, isn't it? Admins can replace for a more suited string in their use case
                             $numsort = true;
-    //                      }
+        //                      }
                             break;
                         case 'p':
                             $prefSort = true;
@@ -1719,7 +1719,7 @@ class TrackerLib extends TikiLib
             $query .= ',' . $this->convertSortMode($csort_mode);
         }
         //echo htmlentities($query); print_r($bindvars);
-        $query_cant = 'SELECT count(DISTINCT ttif.`itemId`) FROM ' . $base_tables . $sort_tables . $cat_table . $mid;
+        $query_count = 'SELECT count(DISTINCT ttif.`itemId`) FROM ' . $base_tables . $sort_tables . $cat_table . $mid;
 
         // save the result
         $ret = [];
@@ -1738,9 +1738,9 @@ class TrackerLib extends TikiLib
         // set to true when we have enough records or no records left.
         $finished = false;
         // used internaly - one time query that returns the total number of records without taking into account filter or permissions
-        $cant = $this->getOne($query_cant, $bindvars);
-        // $cant will be modified bc its used otherwise. so save the totalCount value
-        $totalCount = $cant;
+        $count = $this->getOne($query_count, $bindvars);
+        // $count will be modified bc its used otherwise. so save the totalCount value
+        $totalCount = $count;
         // total number of records read so far
         $currentCount = 0;
         // number of records in the result set
@@ -1812,7 +1812,7 @@ class TrackerLib extends TikiLib
                     $res += $ownershipData[$res['itemId']] ?? [];
                     $itemObject = Tracker_Item::fromInfo($res);
                     if (! $itemObject->canView()) {
-                        $cant--;
+                        $count--;
                         // skipped record bc of permissions - need to count for outer loop
                         $currentCount++;
                         continue;
@@ -1849,7 +1849,7 @@ class TrackerLib extends TikiLib
                         }
                     }
                     if ($filterout) {
-                        $cant--;
+                        $count--;
                         // skipped record bc of filter criteria - need to count for outer loop
                         $currentCount++;
                         continue;
@@ -1887,7 +1887,7 @@ class TrackerLib extends TikiLib
             }
         } // while
 
-// End loop to get the required number of items if permissions / filters are in use
+        // End loop to get the required number of items if permissions / filters are in use
 
         if ($prefSort) {
             $corder === 'desc' ? krsort($ret) : ksort($ret);
@@ -1895,7 +1895,7 @@ class TrackerLib extends TikiLib
 
         $retval = [];
         $retval['data'] = array_values($ret);
-        $retval['cant'] = $cant;
+        $retval['count'] = $count;
         return $retval;
     }
 
@@ -2760,8 +2760,8 @@ class TrackerLib extends TikiLib
             $total++;
         }
 
-        $cant_items = $items->fetchCount(['trackerId' => (int) $trackerId]);
-        $this->trackers()->update(['items' => (int) $cant_items, 'lastModif' => $this->now], ['trackerId' => (int) $trackerId]);
+        $items_count = $items->fetchCount(['trackerId' => (int) $trackerId]);
+        $this->trackers()->update(['items' => (int) $items_count, 'lastModif' => $this->now], ['trackerId' => (int) $trackerId]);
 
         global $prefs;
         if ($prefs['feature_search'] === 'y' && $prefs['unified_incremental_update'] === 'y') {
@@ -2862,8 +2862,8 @@ class TrackerLib extends TikiLib
             . ')' . $join;
 
 
-        $query_cant = 'SELECT count(DISTINCT ttif.`itemId`) FROM ' . $base_tables . $mid;
-        $cant = $this->getOne($query_cant, $bindvars);
+        $query_count = 'SELECT count(DISTINCT ttif.`itemId`) FROM ' . $base_tables . $mid;
+        $count = $this->getOne($query_count, $bindvars);
 
         $avail_mem = $tikilib->get_memory_avail();
         $maxrecords_items = (int)(($avail_mem - 10 * 1024 * 1025) / 5000);      // depends on size of items table (fixed)
@@ -2879,9 +2879,9 @@ class TrackerLib extends TikiLib
         $maxrecords = (int) ($avail_mem / 40000) * count($fields['data']);  // depends on number of fields
         if ($maxrecords < 0) {
             // cope with memory_limit = -1
-            $maxrecords = $cant * count($fields['data']);
+            $maxrecords = $count * count($fields['data']);
         }
-        $canto = $cant * count($fields['data']);
+        $totalIterations = $count * count($fields['data']);
         $offset = 0;
         $lastItem = -1;
         $count = 0;
@@ -2889,7 +2889,7 @@ class TrackerLib extends TikiLib
         $field_values = [];
 
         // write out rows
-        for ($offset = 0; $offset < $canto; $offset = $offset + $maxrecords) {
+        for ($offset = 0; $offset < $totalIterations; $offset = $offset + $maxrecords) {
             $field_values = $this->fetchAll($query_fields, $bindvars, $maxrecords, $offset);
             $mem = memory_get_usage(true);
 
@@ -3389,7 +3389,7 @@ class TrackerLib extends TikiLib
         }
 
         $result = $fieldsTable->fetchAll($fieldsTable->all(), $conditions, $maxRecords, $offset, $fieldsTable->sortMode($sort_mode));
-        $cant = $fieldsTable->fetchCount($conditions);
+        $count = $fieldsTable->fetchCount($conditions);
 
         foreach ($result as & $res) {
             $typeInfo = Tracker_Field_Factory::getFieldInfo($res['type']);
@@ -3411,7 +3411,7 @@ class TrackerLib extends TikiLib
 
         return [
             'data' => $result,
-            'cant' => $cant,
+            'count' => $count,
         ];
     }
 
@@ -4629,7 +4629,7 @@ class TrackerLib extends TikiLib
             }
         }
         $allFields['data'] = $tmp;
-        $allFields['cant'] = count($tmp);
+        $allFields['count'] = count($tmp);
         return $allFields;
     }
 
@@ -5348,7 +5348,7 @@ class TrackerLib extends TikiLib
             }
             $history['data'][] = $hist;
         }
-        $history['cant'] = $count;
+        $history['count'] = $count;
         return $history;
     }
 
@@ -6314,8 +6314,8 @@ class TrackerLib extends TikiLib
     {
         $items = $this->items();
         $trackerId = (int) $args['trackerId'];
-        $cant_items = $items->fetchCount(['trackerId' => $trackerId]);
-        $this->trackers()->update(['items' => (int) $cant_items, 'lastModif' => $this->now], ['trackerId' => $trackerId]);
+        $items_count = $items->fetchCount(['trackerId' => $trackerId]);
+        $this->trackers()->update(['items' => (int) $items_count, 'lastModif' => $this->now], ['trackerId' => $trackerId]);
     }
 
     public function sync_freetags($args)
