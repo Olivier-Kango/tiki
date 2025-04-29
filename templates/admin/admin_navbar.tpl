@@ -75,7 +75,7 @@
                         <ul class="navbar-nav flex-row d-md-flex me-4">
                             <li class="nav-item">
                                 <form method="post" class="d-flex ms-auto">
-                                    <div class="input-group">
+                                    <div class="input-group search-prefs-container">
                                         <input type="hidden" name="filters">
                                         <input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
                                         <button type="submit" class="btn btn-info btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if} aria-label="{tr}Search{/tr}>{icon name="search"}</button>

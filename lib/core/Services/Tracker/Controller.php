@@ -2962,6 +2962,9 @@ class Services_Tracker_Controller
 
             // Highlight elements representing the field
             $(`[field-name="${element.getAttribute("name")}"]`).attr("is-invalid", true);
+            if ($(element).attr("element-plus-ref")) {
+                $(`#${$(element).attr("element-plus-ref")}`).attr("is-invalid", true);
+            }
         },
         unhighlight: function(element) {
             $(element).removeClass("is-invalid");
@@ -2971,6 +2974,9 @@ class Services_Tracker_Controller
 
             // Unhighlight elements representing the field
             $(`[field-name="${element.getAttribute("name")}"]`).attr("is-invalid", false);
+            if ($(element).attr("element-plus-ref")) {
+                $(`#${$(element).attr("element-plus-ref")}`).attr("is-invalid", false);
+            }
         },
         ignore: ".ignore"
         });';

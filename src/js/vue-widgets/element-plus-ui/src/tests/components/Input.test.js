@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/vue";
+import { fireEvent, render, screen } from "@testing-library/vue";
 import { describe, expect, test, vi } from "vitest";
 import Input, { DATA_TEST_ID } from "../../components/Input/Input.vue";
 import { ElInput } from "element-plus";
@@ -48,6 +48,7 @@ describe("Input", () => {
                 "prefix-icon": null,
                 "suffix-icon": null,
                 clearable: false,
+                autocomplete: true,
             }),
             null
         );
@@ -62,6 +63,7 @@ describe("Input", () => {
             prefixIcon: "mockPrefix-icon",
             suffixIcon: "mockSuffix-icon",
             clearable: "true",
+            autocomplete: "off",
             _expose: vi.fn(),
             _emit: vi.fn(),
         };
@@ -77,36 +79,44 @@ describe("Input", () => {
                 "prefix-icon": givenProps.prefixIcon,
                 "suffix-icon": givenProps.suffixIcon,
                 clearable: true,
+                autocomplete: givenProps.autocomplete,
             }),
             null
         );
     });
 
-    test.each([["input"], ["change"]])("emits the %s event to the context when it is triggered from within the element", (eventType) => {
-        const givenProps = {
-            value: "foo",
-            placeholder: "foo",
-            _expose: vi.fn(),
-            _emit: vi.fn(),
-        };
+    test.each([["input", "bar"], ["change", "bar"], ["focus"], ["blur"], ["enter"]])(
+        "emits the %s event to the context when it is triggered from within the element",
+        async (...params) => {
+            const givenProps = {
+                value: "foo",
+                placeholder: "foo",
+                _expose: vi.fn(),
+                _emit: vi.fn(),
+            };
 
-        ElInput = {
-            emits: ["input", "change"],
-            setup(_, { emit }) {
-                return () =>
-                    h("input", {
-                        "data-testid": DATA_TEST_ID.INPUT,
-                        onInput: () => emit("input", "bar"),
-                        onChange: () => emit("change", "bar"),
-                    });
-            },
-        };
+            ElInput = {
+                emits: ["input", "change"],
+                setup(_, { emit }) {
+                    return () =>
+                        h("input", {
+                            "data-testid": DATA_TEST_ID.INPUT,
+                            onInput: () => emit("input", "bar"),
+                            onChange: () => emit("change", "bar"),
+                        });
+                },
+            };
 
-        render(Input, { props: givenProps });
+            render(Input, { props: givenProps });
 
-        const input = screen.getByTestId(DATA_TEST_ID.INPUT);
-        input.dispatchEvent(new Event(eventType));
+            const input = screen.getByTestId(DATA_TEST_ID.INPUT);
+            if (params[0] === "enter") {
+                await fireEvent.keyUp(input, { key: "Enter" });
+            } else {
+                await fireEvent[params[0]](input);
+            }
 
-        expect(givenProps._emit).toHaveBeenCalledWith(eventType, "bar");
-    });
+            expect(givenProps._emit).toHaveBeenCalledWith(...params);
+        }
+    );
 });

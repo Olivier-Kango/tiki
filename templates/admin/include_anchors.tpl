@@ -78,7 +78,7 @@
                                 <div class="my-1 mx-4">
                                     <form method="post" action="tiki-admin.php" class="d-flex justify-content-center my-md-0 ms-auto">
                                         <input type="hidden" name="filters">
-                                        <div class="input-group">
+                                        <div class="input-group search-prefs-container">
                                             <input type="text" role="search" aria-label="{tr}Search Admin Preferences{/tr}" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
                                             <button type="submit" aria-label="{tr}Search{/tr}" class="btn btn-primary btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
                                         </div>

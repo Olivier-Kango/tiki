@@ -298,6 +298,10 @@ body.tiki-admin {
     border: none;
 }
 
+.tiki-admin aside el-input + .btn {
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+}
+
 .tiki-admin aside nav {
     .dropdown-menu {
         border-radius: 0 !important;
