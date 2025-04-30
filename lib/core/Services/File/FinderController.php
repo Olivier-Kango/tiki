@@ -194,7 +194,7 @@ class Services_File_FinderController
             if ($input->insertion_syntax->text()) {
                 $params['insertion_syntax'] = $input->insertion_syntax->text();
             }
-            return $this->getHashInfo($elFinder, $input->hash->array(), $params);
+            return $this->getHashInfo($elFinder, $input->hash->word(), $params);
         } elseif ($input->cmd->text() === 'file') {
             // intercept download command and use tiki-download_file so the mime type and extension is correct
             $fileId = $elFinder->realpath($input->target->text());

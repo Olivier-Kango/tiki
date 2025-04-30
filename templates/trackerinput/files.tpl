@@ -349,19 +349,23 @@
                 }
             });
 
-            window.handleFinderFile = function (files, elfinder) {
-                var hashes = [];
-                for (var i = 0; i < files.length; i++) {
-                    let file = files[i];
-                    if (typeof file === "string") {
-                        var m = file.match(/target=([^&]*)/);
-                        if (!m || m.length < 2) {
-                            return false;    // error?
+            window.handleFinderFile = function (value, elfinder) {
+                const hashes = [];
+                if (Array.isArray(value)) {
+                    for (var i = 0; i < value.length; i++) {
+                        let file = value[i];
+                        if (typeof file === "string") {
+                            var m = file.match(/target=([^&]*)/);
+                            if (!m || m.length < 2) {
+                                return false;    // error?
+                            }
+                            hashes.push(m[1]);
+                        } else {
+                            hashes.push(file.hash);
                         }
-                        hashes.push(m[1]);
-                    } else {
-                        hashes.push(file.hash);
                     }
+                } else {
+                    hashes.push(value.hash);
                 }
 
                 $.ajax({
@@ -387,7 +391,7 @@
                     error: function (jqxhr) {
                     },
                     complete: function () {
-                        bootstrap.Modal.getInstance($(window).data("elFinderDialog")).hide();
+                        $.closeModal();
                         $(window).data("elFinderDialog", null);
                         return false;
                     }
