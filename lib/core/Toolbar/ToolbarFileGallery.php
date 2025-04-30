@@ -33,13 +33,13 @@ class ToolbarFileGallery extends ToolbarUtilityItem
             include_once 'lib/jquery_tiki/elfinder/tikiElFinder.php';
             \tikiElFinder::loadJSCSS();
             TikiLib::lib('header')->add_jq_onready(
-                'window.handleFinderInsertAt = function (files, elfinder, area_id) {
-                    const hashes = files.map(function (file) {
+                'window.handleFinderInsertAt = function (value, elfinder, area_id) {
+                    const hashes = Array.isArray(value) ? value.map(function (file) {
                         return file.hash;
-                    });
+                    }): value.hash;
                     $.getJSON($.service("file_finder", "finder"), { cmd: "tikiFileFromHash", hash: hashes },
                         function (data) {
-                            bootstrap.Modal.getInstance($(window).data("elFinderDialog")).hide();
+                            $.closeModal();
                             $(window).data("elFinderDialog", null);
                             let wiki_syntax = "";
                             for (var i = 0; i < data.length; i++) {

@@ -373,7 +373,7 @@ $elFinderInstance.bind("open", function (data) {
         var href = '';
         $(".t_navbar a").each(function () {
             href = $(this).attr("href");
-            if (href) {    // avoid chosen select replacements
+            if (href && data.galleryId) {    // avoid chosen select replacements
                 href = href.replace(/(galleryId|objectId|parentId|watch_object)=\d+/, '$1=' + data.galleryId);
                 $(this).attr("href", href);
             }
