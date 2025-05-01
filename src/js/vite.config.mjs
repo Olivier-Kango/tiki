@@ -365,7 +365,7 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/chart.js/dist",
                     },
                     {
-                        src: "node_modules/chart.js/dist/chunks/helpers.segment.js*",
+                        src: "node_modules/chart.js/dist/chunks/helpers.dataset.js",
                         dest: "vendor_dist/chart.js/dist/chunks",
                     },
                     {
