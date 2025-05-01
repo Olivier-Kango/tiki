@@ -166,6 +166,19 @@ function wikiplugin_trackerfilter_info()
                     ['text' => tra('No'), 'value' => 'n']
                 ]
             ],
+            'useCssTruncate' => [
+                'required' => false,
+                'name' => tra('Use CSS-based truncation'),
+                'description' => tra('Enable visual truncation using CSS.'),
+                'since' => '29.0',
+                'default' => 'n',
+                'filter' => 'alpha',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n']
+                ],
+            ],
         ],
         $list['params']
     );
@@ -195,7 +208,7 @@ function wikiplugin_trackerfilter($data, $params)
     }
     $iTrackerFilter++;
     $default = ['noflipflop' => 'y', 'action' => 'Filter', 'line' => 'n', 'displayList' => 'n', 'export_action' => '',
-                     'export_itemid' => 'y', 'export_status' => 'n', 'export_created' => 'n', 'export_modif' => 'n', 'export_charset' => 'UTF-8', 'status' => 'opc'];
+                     'export_itemid' => 'y', 'export_status' => 'n', 'export_created' => 'n', 'export_modif' => 'n', 'export_charset' => 'UTF-8', 'status' => 'opc', 'useCssTruncate' => 'n'];
 
     if (isset($_REQUEST['reset_filter'])) {
         wikiplugin_trackerFilter_reset_filters($iTrackerFilter);
@@ -370,6 +383,7 @@ function wikiplugin_trackerfilter($data, $params)
         wikiplugin_trackerFilter_save_session_filters($params, $iTrackerFilter);
         $smarty->assign('urlquery', wikiplugin_trackerFilter_build_urlquery($params));
         include_once('lib/wiki-plugins/wikiplugin_trackerlist.php');
+        $smarty->assign('useCssTruncate', $useCssTruncate);
         $dataRes .= wikiplugin_trackerlist($data, $params);
     } else {
         $data = '';

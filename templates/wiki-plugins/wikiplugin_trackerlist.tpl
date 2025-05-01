@@ -349,13 +349,38 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
                         <td class={if $field.type eq 'n' or $field.type eq 'q' or $field.type eq 'b'}"numeric"{else}"auto"{/if} {if $field.type eq 'b'} style="padding-right:5px;{$tdinstyle}"{else}{$tdstyle}{/if}>
                             {if $rowurl}<a href="{$rowurl|replacei:'#itemId':$items[user].itemId}" {$tdastyle}>{/if}
                                     {if $field.isHidden eq 'c' and $fieldr and $perms.tiki_p_admin_trackers ne 'y'}
-                                    {elseif isset($perms)}
-                                        {trackeroutput item=$items[user] field=$field list_mode=$list_mode showlinks=$showlinks showpopup=$showpopup popupfields=$popupfields url=$txturl editable=in_array($field.fieldId, $items[user].editableFields)
+                                        {elseif isset($perms)}
+                                            {assign var="output" value={trackeroutput 
+                                                item=$items[user]
+                                                field=$field
+                                                list_mode=$list_mode
+                                                showlinks=$showlinks
+                                                showpopup=$showpopup
+                                                popupfields=$popupfields
+                                                url=$txturl
+                                                editable=in_array($field.fieldId, $items[user].editableFields)
                                                 tiki_p_view_trackers=$perms.tiki_p_view_trackers tiki_p_modify_tracker_items=$perms.tiki_p_modify_tracker_items tiki_p_modify_tracker_items_pending=$perms.tiki_p_modify_tracker_items_pending
-                                                tiki_p_modify_tracker_items_closed=$perms.tiki_p_modify_tracker_items_closed tiki_p_comment_tracker_items=$perms.tiki_p_comment_tracker_items reloff=$itemoff}
-                                    {else}
-                                        {trackeroutput item=$items[user] field=$field list_mode=$list_mode reloff=$itemoff showlinks=$showlinks showpopup=$showpopup popupfields=$popupfields url=$txturl editable=in_array($field.fieldId, $items[user].editableFields)}
-                                    {/if}
+                                                tiki_p_modify_tracker_items_closed=$perms.tiki_p_modify_tracker_items_closed tiki_p_comment_tracker_items=$perms.tiki_p_comment_tracker_items reloff=$itemoff
+                                            }}
+                                            <span class="{if $useCssTruncate eq 'y'}truncate-text{/if}" title="{$output|strip_tags}">
+                                                {$output}
+                                            </span>
+                                        {else}
+                                            {assign var="output" value={trackeroutput 
+                                                item=$items[user]
+                                                field=$field
+                                                list_mode=$list_mode
+                                                reloff=$itemoff
+                                                showlinks=$showlinks
+                                                showpopup=$showpopup
+                                                popupfields=$popupfields
+                                                url=$txturl
+                                                editable=in_array($field.fieldId, $items[user].editableFields)
+                                            }}
+                                            <span class="{if $useCssTruncate eq 'y'}truncate-text{/if}" title="{$output|strip_tags}">
+                                                {$output}
+                                            </span>
+                                        {/if}
                             {if $rowurl}&nbsp;</a>{/if}
                         </td>
                     {/if}
