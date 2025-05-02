@@ -48,7 +48,7 @@ describe("Input", () => {
                 "prefix-icon": null,
                 "suffix-icon": null,
                 clearable: false,
-                autocomplete: true,
+                autocomplete: "on",
             }),
             null
         );
@@ -85,7 +85,7 @@ describe("Input", () => {
         );
     });
 
-    test.each([["input", "bar"], ["change", "bar"], ["focus"], ["blur"], ["enter"]])(
+    test.each([["input", "bar"], ["change", "bar"], ["focus"], ["blur"], ["enter"], ["keyUp"], ["keyDown"]])(
         "emits the %s event to the context when it is triggered from within the element",
         async (...params) => {
             const givenProps = {
@@ -116,7 +116,7 @@ describe("Input", () => {
                 await fireEvent[params[0]](input);
             }
 
-            expect(givenProps._emit).toHaveBeenCalledWith(...params);
+            expect(givenProps._emit).toHaveBeenCalledWith(...[params[0].toLowerCase()].concat(params.slice(1)));
         }
     );
 });

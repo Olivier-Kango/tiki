@@ -37,7 +37,7 @@ export const DATA_TEST_ID = {
                 :suffix-icon="suffixIcon"
                 :clearable="clearable"
                 :show-password="showPassword"
-                :autocomplete="autocomplete ?? true"
+                :autocomplete="autocomplete ?? 'on'"
                 :name="name"
                 :disabled="disabled"
                 :type="type"
@@ -46,6 +46,8 @@ export const DATA_TEST_ID = {
                 @blur="() => _emit('blur')"
                 @focus="() => _emit('focus')"
                 @keyup.enter="() => _emit('enter')"
+                @keyup="() => _emit('keyup')"
+                @keydown="() => _emit('keydown')"
                 :data-testid="DATA_TEST_ID.INPUT"
             >
                 <template #prepend v-if="prependText">{{ prependText }}</template>
