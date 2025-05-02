@@ -190,7 +190,7 @@
         "matthiasmullie/minify": "~1.3",
         "mautic/api-library": "~3.0",
         "melbahja/seo": "~2.1",
-        "meyfa/php-svg": "^0.16",
+        "meyfa/php-svg": "~0.16",
         "michelf/php-smartypants": "^1.8.1",
         "montefuscolo/xmpp": "dev-php8.1",
         "nlgen/nlgen": "^0.18",
