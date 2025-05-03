@@ -607,11 +607,6 @@ if (typeof $.fn.button.noConflict === "function") {
     //  }
     }
 
-    if ($prefs['feature_jquery_autocomplete'] == 'y') {
-        $headerlib->add_css(
-            '.ui-autocomplete-loading { background: white url("img/spinner.gif") right center no-repeat; }'
-        );
-    }
     $headerlib->add_jsfile(JQUERY_UI_TIMEPICKER_ADDON_DIST_PATH . '/jquery-ui-timepicker-addon.min.js');
     $headerlib->add_cssfile(JQUERY_UI_TIMEPICKER_ADDON_DIST_PATH . '/jquery-ui-timepicker-addon.min.css');
 }

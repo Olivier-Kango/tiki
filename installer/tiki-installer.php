@@ -838,7 +838,6 @@ var jqueryTiki = new Object();
 jqueryTiki.ui = false;
 jqueryTiki.ui_theme = "";
 jqueryTiki.tooltips = false;
-jqueryTiki.autocomplete = false;
 jqueryTiki.reflection = false;
 jqueryTiki.tablesorter = false;
 jqueryTiki.colorbox = false;

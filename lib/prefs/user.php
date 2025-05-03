@@ -293,11 +293,11 @@ function prefs_user_list($partial = false)
         ],
         'user_selector_threshold' => [
             'name' => tra('Maximum users in drop-down lists'),
-            'description' => tra('Use jQuery autocomplete text input to prevent out-of-memory errors and performance issues when the user list is very large.'),
+            'description' => tra('Use the autocomplete text input to prevent out-of-memory errors and performance issues when the user list is very large.'),
             'type' => 'text',
             'size' => '5',
             'units' => tra('users'),
-            'dependencies' => ['feature_jquery_autocomplete'],
+            'dependencies' => ['elementplus_autocomplete'],
             'default' => 50,
         ],
         'user_selector_realnames_tracker' => [
@@ -305,7 +305,7 @@ function prefs_user_list($partial = false)
             'description' => tra('Use the user\'s real name instead of log-in name in the autocomplete selector in trackers'),
             'type' => 'flag',
             'hint' => tra('This is a global switch for the parameter "Show real name if possible". Requires activation in the options of each User Selector field independently.'),
-            'dependencies' => ['feature_jquery_autocomplete', 'user_show_realnames', 'feature_trackers'],
+            'dependencies' => ['elementplus_autocomplete', 'user_show_realnames', 'feature_trackers'],
             'default' => 'n',
 
         ],
@@ -313,7 +313,7 @@ function prefs_user_list($partial = false)
             'name' => tra('Show user\'s real name'),
             'description' => tra('Use the user\'s real name instead of log-in name in the autocomplete selector in the messaging feature.'),
             'type' => 'flag',
-            'dependencies' => ['feature_jquery_autocomplete', 'user_show_realnames', 'feature_messages'],
+            'dependencies' => ['elementplus_autocomplete', 'user_show_realnames', 'feature_messages'],
             'default' => 'n',
         ],
         'user_favorites' => [

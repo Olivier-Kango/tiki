@@ -1910,20 +1910,6 @@ function prefs_feature_list($partial = false)
             'type' => 'flag',
             'default' => 'n',
         ],
-        'feature_jquery_autocomplete' => [
-            'name' => tra('jQuery Autocomplete'),
-            'description' => tra('Provides various dropdown menus on many text input boxes for page names, user names, groups, tags, etc.'),
-            'type' => 'flag',
-            'help' => 'JQuery#Autocomplete',
-            'dependencies' => [
-                'feature_jquery_ui',
-            ],
-            'conflicts' => [
-                'elementplus_autocomplete',
-            ],
-            'default' => 'n',   // autocomplete on pages in QuickEdit (more coming soon)
-            'tags' => ['deprecated'],
-        ],
         'feature_jquery_reflection' => [
             'name' => tra('Reflection'),
             'description' => tra('Creates a reflection under an image. Used in Plugin Img with the parameter "class=reflect"'),

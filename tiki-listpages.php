@@ -464,7 +464,7 @@ if (! empty($multiprint_pages)) {
     }
 
     if ($access->is_serializable_request()) {
-        $autocomplete_is_enabled = $prefs['feature_jquery_autocomplete'] == 'y' || $prefs['elementplus_autocomplete'] == 'y';
+        $autocomplete_is_enabled = $prefs['elementplus_autocomplete'] == 'y';
         if (isset($_REQUEST['listonly']) && ($autocomplete_is_enabled)) {
             $pages = [];
             foreach ($listpages['data'] as $page) {
@@ -544,7 +544,7 @@ function setLangFilter($filter)
     $smarty = TikiLib::lib('smarty');
 
     $lang = $multilinguallib->currentPageSearchLanguage();
-    if (isset($_REQUEST['listonly']) && $prefs['feature_jquery_autocomplete'] == 'y' && strlen($lang) > 2) {
+    if (isset($_REQUEST['listonly']) && $prefs['elementplus_autocomplete'] == 'y' && strlen($lang) > 2) {
         $lang = substr($lang, 0, 2);        // for autocomplete - use only language filter, not culture as well
     }
     // Without this condition, default listing is empty and language filter shows any language

@@ -167,7 +167,6 @@ $headerlib->add_js($jsContent);
 $jqueryTiki['ui'] = $prefs['feature_jquery_ui'] === 'y' ? true : false;
 $jqueryTiki['ui_theme'] = $prefs['feature_jquery_ui_theme'];
 $jqueryTiki['tooltips'] = true;
-$jqueryTiki['autocomplete'] = $prefs['feature_jquery_autocomplete'] === 'y' ? true : false;
 $jqueryTiki['smartmenus'] = $prefs['jquery_smartmenus_enable'] === 'y' ? true : false;
 $jqueryTiki['smartmenus_collapsible_behavior'] = $prefs['jquery_smartmenus_collapsible_behavior'];
 $jqueryTiki['smartmenus_open_close_click'] = $prefs['jquery_smartmenus_open_close_click'] === 'y' ? true : false;
