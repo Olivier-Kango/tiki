@@ -359,7 +359,7 @@
                                     <tr class="d-none" id="participant-template-row">
                                         <td class="username"></td>
                                         <td>
-                                            <select class="form-control noselect2" name="calitem[participant_partstat]">
+                                            <select class="form-control" name="calitem[participant_partstat]">
                                                 <option value="NEEDS-ACTION">{tr}NEEDS-ACTION{/tr}</option>
                                                 <option value="ACCEPTED">{tr}ACCEPTED{/tr}</option>
                                                 <option value="TENTATIVE">{tr}TENTATIVE{/tr}</option>
@@ -367,7 +367,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-control noselect2" name="calitem[participant_roles]">
+                                            <select class="form-control" name="calitem[participant_roles]">
                                                 <option value="0">{tr}Chair{/tr}</option>
                                                 <option value="1">{tr}Required participant{/tr}</option>
                                                 <option value="2">{tr}Optional participant{/tr}</option>

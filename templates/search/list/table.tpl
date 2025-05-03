@@ -40,7 +40,6 @@
         {*    close these after the table </div></div>*}
         {if not empty($adddata)}
             {jq}
-                $.applySelect2();
                 $('.facets ul').registerFacet();
             {/jq}
         {/if}

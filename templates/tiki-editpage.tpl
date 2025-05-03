@@ -40,7 +40,7 @@
             if ($('#autosave_preview:visible').length === 0) {
                 if (!ajaxPreviewWindow) {
                     setCookie("preview_diff_style", "", "preview", "session", window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);
-                    $("#preview_diff_style").val("").trigger("change.select2");
+                    $("#preview_diff_style").val("");
                     $('#autosave_preview').slideDown('slow', function(){ ajax_preview( 'editwiki', autoSaveId, true );});
                 }
             } else {

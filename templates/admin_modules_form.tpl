@@ -52,7 +52,7 @@
                             <option value="{$groups[ix].groupName|escape}" {if $groups[ix].selected eq 'y'}selected="selected"{/if}>{$groups[ix].groupName|escape}</option>
                         {/section}
                     </select>
-                    {if $prefs.jquery_select2 ne 'y'}
+                    {if $prefs.elementplus_select ne 'y'}
                         {remarksbox type="tip" title="{tr}Tip{/tr}"}{tr}Use Ctrl+Click to select multiple options{/tr}{/remarksbox}
                     {/if}
                     {if $prefs.modallgroups eq 'y'}

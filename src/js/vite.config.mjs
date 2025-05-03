@@ -182,7 +182,6 @@ export default defineConfig(({ command, mode }) => {
                     "jquery-ui",
                     "jquery-validation",
                     /^moment\/.+/,
-                    "select2",
                     "pivottablejs",
                     "reveal.js",
                     "sortablejs",
@@ -555,18 +554,6 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/reveal.js/dist/*",
                         dest: "vendor_dist/reveal.js/dist"
-                    },
-                    {
-                        src: "node_modules/select2/dist/js/select2.min.js",
-                        dest: "vendor_dist/select2/dist",
-                    },
-                    {
-                        src: "node_modules/select2/dist/css/select2.min.css",
-                        dest: "vendor_dist/select2/dist",
-                    },
-                    {
-                        src: "node_modules/select2-bootstrap-5-theme/dist/*.min.css",
-                        dest: "vendor_dist/select2-bootstrap-5-theme/dist",
                     },
                     {
                         src: "node_modules/signature_pad/dist/signature_pad.umd.min.js",

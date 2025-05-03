@@ -45,7 +45,6 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 // We can't add jquery-validation because it's not available as ESM
                 "moment" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/moment/dist/moment.js",
                 "ol" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/ol/dist/ol.js",
-                "select2" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/select2/dist/select2.min.js",
                 "smartmenus" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/smartmenus/dist/js/smartmenus.esm.js",
                 "sortablejs" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/sortablejs/modular/sortable.esm.js",
                 "summernote" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/summernote/dist/summernote-bs5.min.js",

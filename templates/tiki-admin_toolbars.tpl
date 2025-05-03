@@ -127,7 +127,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="tool_type">{tr}Type:{/tr}</label>
-                                <select name="tool_type" id="tool_type" class="form-control noselect2">
+                                <select name="tool_type" id="tool_type" class="form-control">
                                     <option value="Inline">Inline</option>
                                     <option value="Block">Block</option>
                                     <option value="LineBased">LineBased</option>
@@ -149,7 +149,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="tool_plugin">{tr}Plugin name:{/tr}</label>
-                                <select name="tool_plugin" id="tool_plugin" class="form-control mb-2 noselect2">
+                                <select name="tool_plugin" id="tool_plugin" class="form-control mb-2">
                                     <option value="">{tr}None{/tr}</option>
                                     {foreach from=$plugins key=plugin item=info}
                                         <option value="{$plugin|escape}">{$info.name|escape}</option>

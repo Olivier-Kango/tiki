@@ -81,7 +81,7 @@
                                     </label>
                                 {/foreach}
                             {elseif $field.options_map.inputtype eq 'm'}
-                                {if $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
+                                {if $prefs.elementplus_select neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
                                 <select name="filtervalue[{$fid}][]" multiple="multiple" class="form-select">
                                     {foreach key=ku from=$field.possibilities key=value item=label}
                                         <option value="{$value|escape}" {if is_array($filtervalue) and in_array($value, $filtervalue)}selected="selected"{/if}>{$label|escape}</option>

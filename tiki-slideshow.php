@@ -281,10 +281,6 @@ $headerlib->add_css(<<<CSS
         font-weight: bold;
     }
 
-    .reveal #ss-options span.select2-selection__choice__value {
-        font-family: "Source Sans Pro", Helvetica, sans-serif;
-    }
-
     .reveal .controls {
         z-index: 103;
     }
