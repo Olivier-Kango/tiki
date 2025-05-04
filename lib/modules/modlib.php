@@ -912,8 +912,8 @@ class ModLib extends TikiLib
                     'section' => 'appearance',
                 ],
                 'decorations' => [
-                    'name' => tra('Title, background, etcs'),
-                    'description' => 'y|n ' . tra('Show module decorations'),
+                    'name' => tra('Backgrounds and Borders (if specified by the theme)'),
+                    'description' => 'y|n ' . tra('Default: "y". "n": show only title and content.'),
                     'section' => 'appearance',
                 ],
                 'notitle' => [
@@ -1012,7 +1012,7 @@ class ModLib extends TikiLib
                 ],
                 'flip' => [
                     'name' => tra('Flip'),
-                    'description' => tra('y|yc|n Users can open and close the module. y: module initially open. yc: module initially closed. n: module always open (default).'),
+                    'description' => tra('y|yc|n Users can open and close the module. "y": module initially open. "yc": module initially closed. "n": module always open (default).'),
                     'filter' => 'alpha',
                     'section' => 'appearance',
                 ],
