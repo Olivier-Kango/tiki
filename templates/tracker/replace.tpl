@@ -35,11 +35,15 @@
             </div>
             {jq}$("#name").on("change", function() {
     if ($("#name").val()) {
-        if (! $("#fieldPrefix").val()) {
-            $("#fieldPrefix").val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+        const prefix = $("#fieldPrefix")
+        if (! prefix.val()) {
+            prefix.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+            prefix.next('el-input').attr("value", prefix.val());
         }
-        if (! $("#permName").val()) {
-            $("#permName").val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+        const permName = $("#permName")
+        if (! permName.val()) {
+            permName.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+            permName.next('el-input').attr("value", permName.val());
         }
     }
 });{/jq}

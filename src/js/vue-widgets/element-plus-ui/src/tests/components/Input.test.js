@@ -55,7 +55,7 @@ describe("Input", () => {
         expect(givenProps._expose).toHaveBeenCalledWith({ value: expect.objectContaining({ _value: givenProps.value, __v_isRef: true }) });
     });
 
-    test("renders correctly with all props", () => {
+    test("renders correctly with all props", async () => {
         const givenProps = {
             value: "foo",
             placeholder: "foo",
@@ -68,7 +68,7 @@ describe("Input", () => {
             _emit: vi.fn(),
         };
 
-        render(Input, { props: givenProps });
+        const { rerender } = render(Input, { props: givenProps });
 
         expect(screen.getByTestId(DATA_TEST_ID.INPUT)).to.exist;
         expect(ElInput).toHaveBeenCalledWith(
@@ -83,6 +83,20 @@ describe("Input", () => {
             }),
             null
         );
+
+        // Should correctly rerender the the value prop changes
+        await rerender({
+            ...givenProps,
+            value: "bar",
+        });
+
+        expect(ElInput).toHaveBeenCalledWith(
+            expect.objectContaining({
+                modelValue: "bar",
+            }),
+            null
+        );
+        expect(givenProps._expose).toHaveBeenCalledWith({ value: expect.objectContaining({ _value: "bar", __v_isRef: true }) });
     });
 
     test.each([["input", "bar"], ["change", "bar"], ["focus"], ["blur"], ["enter"], ["keyUp"], ["keyDown"]])(

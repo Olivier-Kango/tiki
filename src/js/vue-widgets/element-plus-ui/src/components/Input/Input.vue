@@ -16,6 +16,7 @@ props._expose({ value: modelValue });
 
 watchEffect(() => {
     isInvalid.value = props.isInvalid === "true";
+    modelValue.value = props.value;
 });
 </script>
 
