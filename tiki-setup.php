@@ -606,9 +606,6 @@ if (typeof $.fn.button.noConflict === "function") {
     //      $headerlib->add_cssfile('vendor_bundled/vendor/jquery/jquery-ui-themes/themes/' . $prefs['feature_jquery_ui_theme'] . '/jquery-ui.css');
     //  }
     }
-
-    $headerlib->add_jsfile(JQUERY_UI_TIMEPICKER_ADDON_DIST_PATH . '/jquery-ui-timepicker-addon.min.js');
-    $headerlib->add_cssfile(JQUERY_UI_TIMEPICKER_ADDON_DIST_PATH . '/jquery-ui-timepicker-addon.min.css');
 }
 if ($prefs['jquery_fitvidjs'] == 'y') {
     $customSelectors = \Tiki\Lib\FitVidJs\FitVidJs::getCustomSelector();

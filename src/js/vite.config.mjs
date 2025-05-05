@@ -496,14 +496,6 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jquery-ui/dist",
                     },
                     {
-                        src: ["node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css", "node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js"],
-                        dest: "vendor_dist/jquery-ui-timepicker-addon/dist",
-                    },
-                    {
-                        src: ["node_modules/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-addon-i18n.min.js"],
-                        dest: "vendor_dist/jquery-ui-timepicker-addon/dist/i18n",
-                    },
-                    {
                         src: "node_modules/jquery-validation/dist/*",
                         dest: "vendor_dist/jquery-validation/dist",
                     },
