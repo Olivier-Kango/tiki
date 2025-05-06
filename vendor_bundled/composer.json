@@ -193,7 +193,7 @@
         "meyfa/php-svg": "~0.16",
         "michelf/php-smartypants": "^1.8.1",
         "montefuscolo/xmpp": "dev-php8.1",
-        "nlgen/nlgen": "^0.18",
+        "nlgen/nlgen": "~0.18",
         "npm-asset/boomerangjs": "^1.687",
         "npm-asset/toast-ui--editor": "^3.2.0",
         "onelogin/php-saml": "^4.0.0",
