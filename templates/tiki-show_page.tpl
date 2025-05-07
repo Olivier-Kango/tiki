@@ -28,6 +28,8 @@ Note: The show content block must be defined at root level to use the include. A
 {/block}
 
 {block name="quicknav"}
+
+    {include file='token_view_actions.tpl'}
     {if !$prefs.wiki_topline_position or $prefs.wiki_topline_position eq 'top' or $prefs.wiki_topline_position eq 'both'}
         {include file='tiki-wiki_topline.tpl'}
     {/if}
