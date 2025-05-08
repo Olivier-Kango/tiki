@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c839b3c9963eeb00de3beb2d2f9416d",
+    "content-hash": "38bb92b43afaacfc1b3b4f65ea6772f1",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -2358,13 +2358,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "5d2ce88b12cdee868afa72c83d9ae730d270b6f0"
+                "reference": "83aaf70ad8709d796aebe9c11b7b7b9fb2db9581"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-5d2ce88b12cdee868afa72c83d9ae730d270b6f0-zip-1b1111.zip",
-                "reference": "5d2ce88b12cdee868afa72c83d9ae730d270b6f0",
-                "shasum": "5adc6b03635b3f19ad442d35e65ec291632a0fbf"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-83aaf70ad8709d796aebe9c11b7b7b9fb2db9581-zip-7f7a02.zip",
+                "reference": "83aaf70ad8709d796aebe9c11b7b7b9fb2db9581",
+                "shasum": "9ca36fe137b76f5734f4bb749019203557674ae2"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2452,7 +2452,7 @@
                 "source": "https://github.com/cypht-org/cypht/",
                 "docs": "https://cypht.org/documentation.html"
             },
-            "time": "2025-04-17T07:07:47+00:00"
+            "time": "2025-05-03T22:46:04+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -6798,16 +6798,6 @@
             ],
             "description": "More info available on: http://pear.php.net/package/Console_Getopt",
             "time": "2019-11-20T18:27:48+00:00"
-        },
-        {
-            "name": "pear/db",
-            "version": "1.7.13",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/pear/db/pear-db-1.7.13.zip",
-                "shasum": "5cbb15606739bd77a2e09e8a90c1e302d52b974e"
-            },
-            "type": "library"
         },
         {
             "name": "pear/net_socket",

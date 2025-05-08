@@ -200,7 +200,6 @@
         "openannotation/annotator": ">=1.2.10",
         "paragonie/sodium_compat": "^1.17",
         "pclzip/pclzip": "^2.8",
-        "pear/db": "1.7.13",
         "pear/net_socket": "^1.2",
         "pear/pear": "^1.10",
         "pear/text_wiki_mediawiki": "0.2.0",
