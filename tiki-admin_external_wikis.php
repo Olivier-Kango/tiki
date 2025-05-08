@@ -8,6 +8,20 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+$inputConfiguration = [
+    [
+        'staticKeyFilters'    => [
+            'extwikiId'       => 'int',        //post
+            'name'            => 'striptags',  //post
+            'save'            => 'bool',       //post
+            'remove'          => 'int',       //post
+            'extwiki'         => 'text',       //post
+            'find'            => 'text',       //post
+            'sort_mode'       => 'text',       //get
+            'offset'          => 'digits',     //get
+        ],
+    ],
+];
 require_once('tiki-setup.php');
 $adminlib = TikiLib::lib('admin');
 
