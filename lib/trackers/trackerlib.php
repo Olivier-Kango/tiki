@@ -503,6 +503,8 @@ class TrackerLib extends TikiLib
             $list = json_decode($value, true);
             if (isset($list[$prefs['language']])) {
                 return $list[$prefs['language']];
+            } else {
+                return '';
             }
         }
 
