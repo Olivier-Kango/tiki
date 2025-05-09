@@ -35,11 +35,11 @@ class CleanVendors
     {
         $vendors = rtrim($event->getComposer()->getConfig()->get('vendor-dir'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
-        self::remove($vendors . 'jquery/jquery-sheet', [
-            'jquery-1.10.2.min.js', 'jquery-ui', 'parser.php', 'parser/formula/formula.php'
-        ]);
+        // self::remove($vendors . 'jquery/jquery-sheet', [
+        //     'jquery-1.10.2.min.js', 'jquery-ui', 'parser.php', 'parser/formula/formula.php'
+        // ]);
 
-        self::remove($vendors . 'jquery-plugins/reflection-jquery', 'src');
+        // self::remove($vendors . 'jquery-plugins/reflection-jquery', 'src');
         self::remove($vendors . 'studio-42/elfinder', ['files', 'elfinder.html']);
 
         self::remove($vendors . 'adodb/adodb-php', [
