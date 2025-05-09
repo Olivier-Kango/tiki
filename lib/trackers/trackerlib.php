@@ -697,14 +697,14 @@ class TrackerLib extends TikiLib
     }
 
     /* experimental shared */
-    public function get_items_list($trackerId, $fieldId, $value, $status = 'o', $multiple = false, $sortFieldIds = null)
+    public function get_items_list($trackerId, $fieldId, $value, $status = 'o', $multiple = false, $sortFieldIds = null, $useCache = true)
     {
         static $cache = [];
         $cacheKey = implode('.', [
             $trackerId, $fieldId, $value, $status, $multiple,
             is_array($sortFieldIds) ? implode($sortFieldIds) : $sortFieldIds
         ]);
-        if (isset($cache[$cacheKey]) && ! defined('TIKI_IN_TEST')) {
+        if (isset($cache[$cacheKey]) && ! defined('TIKI_IN_TEST') && $useCache) {
             return $cache[$cacheKey];
         }
         $query = "select distinct tti.`itemId`, tti.`itemId` i from `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif ";
