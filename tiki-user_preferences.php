@@ -476,7 +476,7 @@ if (isset($_POST['chgadmin']) && $access->checkCsrf()) {
             $cryptlib = TikiLib::lib('crypt');
             $cryptlib->onChangeUserPassword($_POST["pass"], $_POST["pass1"]);
         }
-        Feedback::success(sprintf(tra('Password has been changed')));
+        Feedback::success(tra('Password has been changed'));
     }
 }
 

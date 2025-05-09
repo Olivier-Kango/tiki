@@ -137,8 +137,6 @@ if (((is_array($calendarIds) && (count($calendarIds) > 0)) or isset($_REQUEST["c
     } else {
         // create ical with sabre/dav
 
-        $userlb = TikiLib::get('Users');
-
         $vcalendar = new Sabre\VObject\Component\VCalendar();
 
         foreach ($events as $event) {

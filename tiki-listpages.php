@@ -87,9 +87,7 @@ if (
 
 if ($prefs['feature_multilingual'] == 'y' && isset($_REQUEST['lang']) && isset($_REQUEST['term_srch'])) {
     $multilinguallib = TikiLib::lib('multilingual');
-    if (isset($_REQUEST['term_srch'])) {
-        $multilinguallib->storeCurrentTermSearchLanguageInSession($_REQUEST['lang']);
-    }
+    $multilinguallib->storeCurrentTermSearchLanguageInSession($_REQUEST['lang']);
     $smarty->assign('template_name', $_REQUEST['create_new_pages_using_template_name']);
 }
 
@@ -168,7 +166,7 @@ if (! empty($multiprint_pages)) {
 
     if ($prefs['feature_multilingual'] == 'y') {
         $smarty->assign('find_lang', '');
-        if (((! isset($_REQUEST['lang']) ) || (isset($_REQUEST['lang']) && $_REQUEST['lang'] != ''))) {
+        if (((! isset($_REQUEST['lang']) ) || ($_REQUEST['lang'] != ''))) {
             $filter = setLangFilter($filter);
         }
         $smarty->assign('find_langOrphan', '');

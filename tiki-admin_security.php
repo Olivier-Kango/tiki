@@ -341,30 +341,27 @@ function md5_check_dir($dir, &$result, $vcs_diff = [])
                         }
                     }
                 }
-                if ($is_tikifile == false) {
+                if (! $is_tikifile) {
                     if ($vcs_diff && isset($vcs_diff[substr($entry, 2)]) && $vcs_diff[substr($entry, 2)] !== 'unversioned') {
                         $result[$entry] = tra('This Tiki file differs from the VCS repository version. Check if this file was uploaded and if it is dangerous.');
                     } else {
                         $result[$entry] = tra('This is not a Tiki file. Check if this file was uploaded and if it is dangerous.');
                     }
-                } elseif ($is_tikifile == true && count($is_tikiver) == 0) {
+                } elseif (count($is_tikiver) == 0) {
                     $result[$entry] = tra('This is a modified File. Cannot check version. Check if it is dangerous.');
                 } else {
                     // check if we have a most recent valid version
                     $most_recent = false;
                     for ($i = $c_tiki_versions; $i > 0; $i--) { // search $valid_tikiver top to down to find the most recent version
                         if (isset($valid_tikiver[$i])) {
-                            if ($valid_tikiver[$i] == false) {
-                                //$most_recent stays false. we break
-                                break;
-                            } else {
+                            if ($valid_tikiver[$i]) {
                                 $most_recent = true; // in this case we have found the most recent version. good
-                                break;
                             }
+                            break;
                         }
                     }
                     // use result of most_recent to decide
-                    if ($most_recent == false) {
+                    if (! $most_recent) {
                         $result[$entry] = tra('This file is from another Tiki version: ') . implode(' ' . tra('or') . ' ', $is_tikiver);
                     }
                 }

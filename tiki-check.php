@@ -2125,7 +2125,7 @@ if ($connection || ! $standalone) {
     if ($isSSL) {
         $msg = tra('MySQL SSL connection is active');
         $s = 'ON';
-    } elseif ($haveMySQLSSL && ! $isSSL) {
+    } elseif ($haveMySQLSSL) {
         $msg = tra('MySQL connection is not encrypted');
         $s = 'OFF';
     } else {

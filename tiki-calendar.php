@@ -104,7 +104,7 @@ foreach ($rawcals['data'] as $calendar) {
     $endOfDayMinute = ($endOfDayUnix % 3600) / 60;
     $maxHourOfDay = date('H:i:s', mktime($endOfDayHour, $endOfDayMinute, 0));
 
-    $canEditAnything = $calendar['perms']->add_events || $calendar['perms']->add_events;
+    $canEditAnything = $calendar['perms']->add_events;
 }
 
 $rawsubs = $calendarlib->get_subscriptions($user);
@@ -134,11 +134,11 @@ if (isset($_REQUEST["calIds"]) and is_array($_REQUEST["calIds"]) and count($_REQ
     if (! empty($user)) {
         $tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
     }
-} elseif (! isset($_SESSION['CalendarViewGroups']) || ! empty($_REQUEST['allCals'])) {
+} elseif (! isset($_SESSION['CalendarViewGroups'])) {
     $use_default_calendars = true;
 } elseif (isset($_REQUEST["refresh"]) and ! isset($_REQUEST["calIds"])) {
     $_SESSION['CalendarViewGroups'] = [];
-} elseif (! empty($user) || ! isset($_SESSION['CalendarViewGroups'])) {
+} elseif (! empty($user)) {
     $use_default_calendars = true;
 }
 
@@ -190,13 +190,13 @@ if (isset($_REQUEST["find"])) {
 }
 $smarty->assign('find', $find);
 
-if (isset($_REQUEST['mon']) && ! empty($_REQUEST['mon'])) {
+if (! empty($_REQUEST['mon'])) {
     $request_month = $_REQUEST['mon'];
 }
-if (isset($_REQUEST['day']) && ! empty($_REQUEST['day'])) {
+if (! empty($_REQUEST['day'])) {
     $request_day = $_REQUEST['day'];
 }
-if (isset($_REQUEST['year']) && ! empty($_REQUEST['year'])) {
+if (! empty($_REQUEST['year'])) {
     $request_year = $_REQUEST['year'];
 }
 

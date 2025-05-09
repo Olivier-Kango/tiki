@@ -424,8 +424,6 @@ function add_watch_icons($descendants, $usercatwatches, $requestid, $categid, $d
         if ($usercatwatch['object'] == $categid) {
             $watch_this = 'y';
             break;
-        } else {
-            $watch_this = 'n';
         }
     }
     if ($categid == 0) {

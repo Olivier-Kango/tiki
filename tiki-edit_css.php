@@ -64,7 +64,7 @@ if (! empty($_REQUEST['edit'])) {
         header("location: tiki-edit_css.php?theme=$theme");
     } else {
         $action = 'edit';
-        header("location: tiki-edit_css.php?theme=$theme&edit=" . tra('Edit') . "");
+        header("location: tiki-edit_css.php?theme=$theme&edit=" . tra('Edit'));
     }
     $data = '';
 } else {
@@ -93,8 +93,7 @@ if (! empty($_REQUEST['try'])) {
 }
 
 if (! empty($_SESSION['try_theme'])) {
-    $try_active = true;
-    $smarty->assign('try_active', $try_active);
+    $smarty->assign('try_active', true);
     list($try_theme, $try_theme_option) = ThemeLib::extractThemeAndOptionFromString($_SESSION['try_theme']);
     $smarty->assign('try_theme', $try_theme);
     $smarty->assign('try_theme_option', $try_theme_option);

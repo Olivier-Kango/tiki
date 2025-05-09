@@ -61,42 +61,24 @@ if ($tiki_p_post_shoutbox == 'y') {
         $access->checkCsrf();
         if (($prefs['feature_antibot'] == 'y' && empty($user)) && ! $captchalib->validate()) {
             Feedback::error(['mes' => $captchalib->getErrors()]);
-            if (! empty($_REQUEST['message'])) {
-                $smarty->assign_by_ref('message', $_REQUEST['message']);
-            }
+            $smarty->assign_by_ref('message', $_REQUEST['message']);
         } else {
             $shoutboxlib->replace_shoutbox(
                 $_REQUEST['msgId'],
                 $owner,
                 $_REQUEST['message'],
-                (isset($_REQUEST['tweet']) ? $_REQUEST['tweet'] == 1 : false)
+                (isset($_REQUEST['tweet']) && $_REQUEST['tweet'] == 1)
             );
             $smarty->assign('msgId', '0');
             $smarty->assign('message', '');
         }
     }
 }
-if (! isset($_REQUEST["sort_mode"])) {
-    $sort_mode = 'timestamp_desc';
-} else {
-    $sort_mode = $_REQUEST["sort_mode"];
-}
-if (! isset($_REQUEST["offset"])) {
-    $offset = 0;
-} else {
-    $offset = $_REQUEST["offset"];
-}
+$sort_mode = $_REQUEST["sort_mode"] ?? 'timestamp_desc';
+$offset = $_REQUEST["offset"] ?? 0;
 $smarty->assign_by_ref('offset', $offset);
-if (isset($_REQUEST["find"])) {
-    $find = $_REQUEST["find"];
-} else {
-    $find = '';
-}
-if (isset($_REQUEST["get"])) {
-    $get = $_REQUEST["get"];
-} else {
-    $get = 0;
-}
+$find = $_REQUEST["find"] ?? '';
+$get = $_REQUEST["get"] ?? 0;
 /* additions for ajax (formerly shoutjax) */
 /**
  * @param $formValues

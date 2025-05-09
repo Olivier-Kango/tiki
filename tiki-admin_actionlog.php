@@ -367,12 +367,12 @@ if (isset($_REQUEST['list']) || isset($_REQUEST['export']) || isset($_REQUEST['g
     if (! isset($_REQUEST['selectedUsers']) || (count($_REQUEST['selectedUsers']) == 1 && $_REQUEST['selectedUsers'][0] == '')) {
         $_REQUEST['selectedUsers'] = '';
     }
-    if (! isset($_REQUEST['categId']) || $_REQUEST['categId'] == 0) {
+    if (empty($_REQUEST['categId'])) {
         $_REQUEST['categId'] = '';
     } else {
         $url .= '&amp;categId=' . $_REQUEST['categId'];
         $reportCateg = '';
-        if (isset($_REQUEST['categId']) && array_key_exists($_REQUEST['categId'], $categNames)) {
+        if (array_key_exists($_REQUEST['categId'], $categNames)) {
             $reportCateg = $categNames[$_REQUEST['categId']];
         }
         $smarty->assign('reportCateg', $reportCateg);
@@ -470,7 +470,7 @@ if (isset($_REQUEST['list']) || isset($_REQUEST['export']) || isset($_REQUEST['g
         $smarty->assign_by_ref('statUserCateg', $statUserCateg);
     }
     if ($showLogin) {
-        $logins = $logslib->list_logs('login', $_REQUEST['selectedUsers'], 0, -1, 'lastModif_asc', '', $startDate, $endDate, $actions);
+        $logins = $logslib->list_logs('login', $_REQUEST['selectedUsers'], 0, -1, 'lastModif_asc', '', $startDate, $endDate);
         $logTimes = $logslib->get_login_time($logins['data'], $startDate, $endDate, $actions);
         $smarty->assign_by_ref('logTimes', $logTimes);
     }
