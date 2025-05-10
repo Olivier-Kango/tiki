@@ -246,12 +246,17 @@ $('label[for="login-remember-module_{{$module_logo_instance}}"]').on('click', fu
             <span style="white-space: nowrap">{$user|userlink}</span> <a href="tiki-logout.php" title="{tr}Log out{/tr}">{tr}Log out{/tr}</a>
         {elseif $mode eq "popup"}
             <div class="siteloginbar_popup dropdown float-sm-end me-auto" role="group">
-                <button type="button" class="dropdown-toggle login_link btn btn-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {if isset($module_params.show_user_avatar) && $module_params.show_user_avatar eq 'y'}{$user|avatarize:n:n:n:n}{/if}
-                    {if isset($module_params.show_user_name) && $module_params.show_user_name eq 'y'}{$user|username:n:n:n}{/if}
-                    {if (!isset($module_params.show_user_avatar) || $module_params.show_user_avatar neq 'y') and (!isset($module_params.show_user_name) || $module_params.show_user_name neq 'y')}{tr}Log out{/tr}{/if}
-                    <span class="sr-only">{tr}Toggle dropdown{/tr}</span>
-                </button>
+                {if isset($module_params.show_user_avatar) && $module_params.show_user_avatar eq 'y'}
+                    <div class="dropdown-toggle login_link mod-login-avatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {$user|avatarize:n:n:n:n}
+                    </div>
+                {else}
+                    <button type="button" class="dropdown-toggle login_link btn btn-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {if isset($module_params.show_user_name) && $module_params.show_user_name eq 'y'}{$user|username:n:n:n}{/if}
+                        {if (!isset($module_params.show_user_avatar) || $module_params.show_user_avatar neq 'y') and (!isset($module_params.show_user_name) || $module_params.show_user_name neq 'y')}{tr}Log out{/tr}{/if}
+                        <span class="sr-only">{tr}Toggle dropdown{/tr}</span>
+                    </button>
+                {/if}
                 {if empty($module_params.menu_id)}
                     <div class="dropdown-menu dropdown-menu-end">
                         <a class="dropdown-item" href="tiki-user_information.php" title="{tr}My Account{/tr}">

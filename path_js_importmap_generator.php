@@ -107,6 +107,8 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "@tiki-vue-sfc-loader" => $tikiUrl . JS_ASSETS_PATH . "/tiki-vue-sfc-loader.js",
 
                 "@wysiwyg/summernote" => $tikiUrl . JS_ASSETS_PATH . "/wysiwyg-summernote.js",
+
+                "avatar-generator" => $tikiUrl . JS_ASSETS_PATH . "/avatar-generator.js",
             ]
         ];
     $importmapJson = json_encode($importmap, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);

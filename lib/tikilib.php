@@ -1553,7 +1553,7 @@ class TikiLib extends TikiDb_Bridge
             $res = $user;
             $user = $user['login'];
         } else {
-            $res = $this->table('users_users')->fetchRow(['login', 'avatarType', 'avatarLibName', 'email'], ['login' => $user]);
+            $res = $this->table('users_users')->fetchRow(['login', 'avatarType', 'avatarLibName', 'email', 'avatarName'], ['login' => $user]);
         }
 
         if (! $res) {
@@ -1591,6 +1591,13 @@ class TikiLib extends TikiDb_Bridge
 
         switch ($type) {
             case 'l':
+                if (substr($libname, 0, 8) == 'dicebear') {
+                    return [
+                        'type' => 'dicebear',
+                        'seed' => $res['avatarName'],
+                        'style' => explode('/', $libname)[1],
+                    ];
+                }
                 if ($libname) {
                     $ret = '<img class="user-profile-picture rounded" width="45" height="45" src="' . $libname . '" ' . $style . ' alt="' . $username . '">';
                 }

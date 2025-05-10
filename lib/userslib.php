@@ -7141,6 +7141,8 @@ class UsersLib extends TikiLib
             );
         }
 
+        TikiLib::lib('userprefs')->set_user_avatar($user, 'l', 'dicebear/initials', $user, null, null, null, false);
+
         if (empty($groups)) {
             $this->assign_user_to_group($user, 'Registered');
         } else {

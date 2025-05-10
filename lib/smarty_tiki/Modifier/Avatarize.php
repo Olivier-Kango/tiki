@@ -25,6 +25,16 @@ class Avatarize
 
         $avatar = TikiLib::lib('tiki')->get_user_avatar($user, $float);
 
+        if (is_array($avatar) && $avatar['type'] == 'dicebear') {
+            return <<<HTML
+                <div class="dicebear-avatar" data-seed="{$avatar['seed']}" data-style="{$avatar['style']}"></div>
+                <script type="module">
+                    import { renderAvatars } from 'avatar-generator';
+                    renderAvatars();
+                </script>
+            HTML;
+        }
+
         if (! $avatar && $default) {
             $smarty = TikiLib::lib('smarty');
             $name = TikiLib::lib('user')->clean_user($user);

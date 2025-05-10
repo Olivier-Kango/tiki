@@ -116,6 +116,7 @@ export default defineConfig(({ command, mode }) => {
     );
     Object.assign(rollupInput, {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
+        "avatar-generator": resolve(__dirname, "avatar-generator/index.js"),
         "color-picker": resolve("node_modules/@shoelace-style/shoelace/dist/components/color-picker/color-picker.js"),
         "duration-picker": resolve(__dirname, "vue-mf/duration-picker/src/duration-picker.js"),
         "emoji-picker": resolve(__dirname, "vue-mf/emoji-picker/src/emoji-picker.js"),
@@ -640,7 +641,7 @@ export default defineConfig(({ command, mode }) => {
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/wysiwyg/**/*.js", "src/js/jquery-tiki/ui-utils/handle*.js"],
+                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/wysiwyg/**/*.js", "src/js/avatar-generator/**/*.js", "src/js/jquery-tiki/ui-utils/handle*.js"],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
                 provider: 'istanbul'
             },
