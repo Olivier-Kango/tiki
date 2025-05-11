@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4607b2c51990c66a6fad911fcd091732",
+    "content-hash": "198daf206317a9ad3e7c4b806e06bd1a",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -7684,16 +7684,6 @@
             ],
             "description": "More info available on: http://pear.php.net/package/Console_Getopt",
             "time": "2019-11-20T18:27:48+00:00"
-        },
-        {
-            "name": "pear/db",
-            "version": "1.7.13",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/pear/db/pear-db-1.7.13.zip",
-                "shasum": "5cbb15606739bd77a2e09e8a90c1e302d52b974e"
-            },
-            "type": "library"
         },
         {
             "name": "pear/net_socket",
@@ -17587,9 +17577,9 @@
         "montefuscolo/xmpp": 20,
         "npm-asset/html2canvas": 5,
         "npm-asset/select2": 5,
-        "rubix/extras": 10,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15
+        "phpcsstandards/phpcsutils": 15,
+        "rubix/extras": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -17606,7 +17596,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",
