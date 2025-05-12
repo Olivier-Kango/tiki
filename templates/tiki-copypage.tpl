@@ -66,7 +66,7 @@
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label"></label>
         <div class="col-sm-7">
-            <input type="submit" class="btn btn-primary btn-sm" name="copy" value="{tr}Copy{/tr}">
+            <input type="submit" class="btn btn-primary btn-sm" name="copy" value="{tr}Duplicate{/tr}">
         </div>
     </div>
 </form>

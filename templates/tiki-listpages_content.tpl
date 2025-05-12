@@ -375,7 +375,7 @@
                                         </action>
                                         <action>
                                             <a href="tiki-copypage.php?page={$listpages[changes].pageName|escape:"url"}&amp;version=last">
-                                                {icon name='copy' _menu_text='y' _menu_icon='y' alt="{tr}Copy{/tr}"}
+                                                {icon name='copy' _menu_text='y' _menu_icon='y' alt="{tr}Duplicate{/tr}"}
                                             </a>
                                         </action>
                                     {/if}

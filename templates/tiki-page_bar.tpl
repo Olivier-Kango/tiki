@@ -6,6 +6,11 @@
                     {tr}Remove{/tr}
                 </a>
             {/if}
+            {if $tiki_p_edit eq 'y'}
+                <a class="dropdown-item btn btn-link border-0 rounded-0 mb-0 py-0 px-4" style="font-weight: inherit;" href="tiki-copypage.php?page={$page|escape:'url'}&amp;version=last">
+                    {tr}Duplicate{/tr}
+                </a>
+            {/if}
             {if $tiki_p_admin_wiki eq 'y' or $tiki_p_assign_perm_wiki_page eq 'y'}
                 {permission_link mode="button" type="wiki page" addclass="dropdown-item" id=$page permType=wiki title=$page}
             {/if}
