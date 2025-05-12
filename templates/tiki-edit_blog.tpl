@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            {if $prefs.feature_blog_heading eq 'y' and $tiki_p_edit_templates eq 'y'}
+            {if $prefs.feature_blog_heading eq 'y'}
                 <input type="submit" class="wikiaction btn btn-primary" name="preview" value="{tr}Heading preview{/tr}">
             {/if}
             {include file='categorize.tpl' labelcol='3' inputcol='9'}
@@ -174,7 +174,7 @@
                 </div>
                 <div class="form-text">{tr}Maximum number of related posts to display{/tr}</div>
             </div>
-            {if $prefs.feature_blog_heading eq 'y' and $tiki_p_edit_templates eq 'y'}
+            {if $prefs.feature_blog_heading eq 'y'}
                 <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="blogs-heading">{tr}Blog heading{/tr}</label>
                     <div class="col-sm-9">

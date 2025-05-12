@@ -6384,15 +6384,6 @@ class UsersLib extends TikiLib
                 'scope' => 'global',
             ],
             [
-                'name' => 'tiki_p_create_css',
-                'description' => tra('Can create a new CSS file (style sheet) appended with -user'),
-                'level' => 'registered',
-                'type' => 'tiki',
-                'admin' => false,
-                'prefs' => ['feature_editcss'],
-                'scope' => 'global',
-            ],
-            [
                 'name' => 'tiki_p_detach_translation',
                 'description' => tra('Can remove the association between two pages in a translation set'),
                 'level' => 'editors',
@@ -6436,15 +6427,6 @@ class UsersLib extends TikiLib
                 'type' => 'tiki',
                 'admin' => false,
                 'prefs' => [],
-                'scope' => 'global',
-            ],
-            [
-                'name' => 'tiki_p_edit_templates',
-                'description' => tra('Can edit site templates'),
-                'level' => 'admin',
-                'type' => 'tiki',
-                'admin' => false,
-                'prefs' => ['feature_edit_templates'],
                 'scope' => 'global',
             ],
             [
@@ -6536,15 +6518,6 @@ class UsersLib extends TikiLib
                 'type' => 'tiki',
                 'admin' => false,
                 'prefs' => ['feature_stats'],
-                'scope' => 'global',
-            ],
-            [
-                'name' => 'tiki_p_view_templates',
-                'description' => tra('Can view site templates'),
-                'level' => 'admin',
-                'type' => 'tiki',
-                'admin' => false,
-                'prefs' => ['feature_edit_templates'],
                 'scope' => 'global',
             ],
             [
