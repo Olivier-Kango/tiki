@@ -5686,7 +5686,7 @@ class TrackerLib extends TikiLib
                     $desc = $this->get_item_value($trackerId, $itemId, $mail_main_value_fieldId);
                 }
                 $smarty = TikiLib::lib('smarty');
-
+                $desc = $this->removeInlineSyntaxTags($desc);
                 $smarty->assign('mail_date', $this->now);
                 $smarty->assign('mail_user', $user);
                 $smarty->assign('mail_itemId', $itemId);
@@ -5701,8 +5701,8 @@ class TrackerLib extends TikiLib
                     // expose the pretty tracker fields to the email tpls
                     foreach ($tracker_definition->getFields() as $field) {
                         $fieldId = $field['fieldId'];
-                        $old_value = isset($old_values[$fieldId]) ? $old_values[$fieldId] : '';
-                        $new_value = isset($new_values[$fieldId]) ? $new_values[$fieldId] : '';
+                        $old_value = $old_values[$fieldId] ?? '';
+                        $new_value = $new_values[$fieldId] ?? '';
                         $smarty->assign('f_' . $fieldId, $new_value);
                         $smarty->assign('f_' . $field['permName'], $new_value);
                         $smarty->assign('f_old_' . $fieldId, $old_value);
@@ -5804,7 +5804,6 @@ class TrackerLib extends TikiLib
                     $subject = $matches[1] . ' ' . $matches[2] . ' ' . $matches[3] . ' ' . $matches[4];
                 }
 
-                $i = 0;
                 foreach ($watchers as $watcher) {
                     $watcher['language'] = $this->get_user_preference($watcher['user'], 'language', $prefs['site_language']);
                     $mail = new TikiMail($watcher['user']);
@@ -5816,7 +5815,6 @@ class TrackerLib extends TikiLib
                         $mail->setReplyTo($my_sender);
                     }
                     $mail->send([$watcher['email']]);
-                    $i++;
                 }
             }
         }
@@ -5947,7 +5945,7 @@ class TrackerLib extends TikiLib
                     $userOk = true;
                 }
                 if ($userOk) {
-                    $the_data .= $handler->watchCompare($old_value, $new_value);
+                    $the_data .= $handler->watchCompare($this->removeInlineSyntaxTags($old_value), $this->removeInlineSyntaxTags($new_value));
                 }
             } else {
                 $the_data .= tr('Tracker field not enabled: fieldId=%0 type=%1', $field['fieldId'], tra($field['type'])) . "\n";

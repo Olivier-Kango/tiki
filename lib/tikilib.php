@@ -1069,6 +1069,15 @@ class TikiLib extends TikiDb_Bridge
         );
     }
 
+    public function removeInlineSyntaxTags($text)
+    {
+        if (str_starts_with($text, '{syntax')) {
+            return preg_replace('/^\{syntax[^}]*}/i', '', $text);
+        }
+        return $text;
+    }
+
+
     /*shared*/
     /**
      * @param $event
