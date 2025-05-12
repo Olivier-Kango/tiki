@@ -146,7 +146,7 @@ class Tracker_Field_Math extends \Tracker\Field\AbstractItemField implements \Tr
             $providedFields = $this->replaceBaseKeyInArrayValues($mirrorProvidedFields);
         }
         $baseKey = $this->getBaseKey();
-        array_push($providedFields, $this->getBaseKey());
+        $providedFields[] = $this->getBaseKey();
         return $providedFields;
     }
 

@@ -305,7 +305,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
         $statements = self::splitSqlStatements($command);
 
         $this->queries['currentFile'] = basename($file);
-        array_push($this->queries['files'], $file);
+        $this->queries['files'][] = $file;
         $this->queries['total'] += count($statements);
 
         $status = true;
@@ -452,11 +452,11 @@ class Installer extends TikiDb_Bridge implements SplSubject
         $patchesFilesNames = [];
         foreach ($patches as $key => $patch) {
             if (file_exists($patchDir . $key . ".sql")) {
-                array_push($patchesFilesNames, $key . ".sql");
+                $patchesFilesNames[] = $key . ".sql";
             } elseif (file_exists($patchDir . $key . ".yml")) {
-                array_push($patchesFilesNames, $key . ".yml");
+                $patchesFilesNames[] = $key . ".yml";
             } else {
-                array_push($patchesFilesNames, $key . ".php");
+                $patchesFilesNames[] = $key . ".php";
             }
         }
         return $patchesFilesNames;

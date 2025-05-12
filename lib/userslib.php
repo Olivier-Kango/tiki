@@ -2379,8 +2379,10 @@ class UsersLib extends TikiLib
             $mid .= $mid == '' ? ' where' : ' and';
             $mid .= ' (uu.`email` like ? or  uu.`login` like ?)';
             $mmid = $mid;
-            array_push($bindvars, '%' . $email . '%', '%' . $find . '%');
-            array_push($mbindvars, '%' . $email . '%', '%' . $find . '%');
+            $bindvars[] = '%' . $email . '%';
+            $bindvars[] = '%' . $find . '%';
+            $mbindvars[] = '%' . $email . '%';
+            $mbindvars[] = '%' . $find . '%';
         } elseif (! empty($email) && empty($find)) {
             $mid .= $mid == '' ? ' where' : ' and';
             $mid .= ' uu.`email` like ?';

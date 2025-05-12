@@ -758,7 +758,7 @@ class CategLib extends ObjectLib
         $requiredResult = array_filter($requiredResult, function ($res) use ($validObjectTypes, &$invalidTypes) {
             $check = in_array($res['type'], $validObjectTypes);
             if (! $check) {
-                array_push($invalidTypes, $res);
+                $invalidTypes[] = $res;
             }
             return $check;
         });

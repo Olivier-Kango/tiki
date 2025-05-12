@@ -833,7 +833,7 @@ class ModLib extends TikiLib
             if ($dh = opendir(MODULES_PATH)) {
                 while (($file = readdir($dh)) !== false) {
                     if (preg_match("/^mod-func-.*\.php$/", $file)) {
-                        array_push($files, $file);
+                        $files[] = $file;
                     }
                 }
                 closedir($dh);
