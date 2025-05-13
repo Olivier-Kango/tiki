@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e03ee996ef8f60fd8841953e8749cedb",
+    "content-hash": "75023ba2c49f7a345a8c423d533da271",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -7239,16 +7239,6 @@
             ],
             "description": "More info available on: http://pear.php.net/package/Console_Getopt",
             "time": "2019-11-20T18:27:48+00:00"
-        },
-        {
-            "name": "pear/db",
-            "version": "1.7.13",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/pear/db/pear-db-1.7.13.zip",
-                "shasum": "5cbb15606739bd77a2e09e8a90c1e302d52b974e"
-            },
-            "type": "library"
         },
         {
             "name": "pear/net_socket",
