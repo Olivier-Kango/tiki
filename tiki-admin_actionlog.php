@@ -201,9 +201,9 @@ if ($tiki_p_view_actionlog == 'y') {
         $_prefs = $tikilib->get_user_preference($user, 'actionlog_conf', '');
         if (! empty($_prefs)) {
             foreach ($confs as $i => $conf) {
-                if ($confs[$i]['status'] == 'v' || $confs[$i]['status'] == 'y') {
-                    if (preg_match('/[vy]' . $confs[$i]['id'] . '([vy])/', $_prefs, $matches)) {
-                        $confs[$i]['status'] = $matches[1];
+                if ($conf['status'] == 'v' || $conf['status'] == 'y') {
+                    if (preg_match('/[vy]' . $conf['id'] . '([vy])/', $_prefs, $matches)) {
+                        $conf['status'] = $matches[1];
                     }
                 }
             }
