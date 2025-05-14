@@ -5,11 +5,6 @@
     {include file='tiki-mytiki_bar.tpl'}
 {/if}
 
-<script type="module">
-    import { renderAvatars } from 'avatar-generator';
-    renderAvatars();
-</script>
-
 {if $prefs.feature_tabs neq 'y' and $user and $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y' and $allowMsgs eq 'y'}
     <div class="t_navbar">
         {button href="#message" class="btn btn-primary" _text="{tr}Send a message{/tr}"}
@@ -44,11 +39,7 @@
                                     <div class="col-sm-8">
                                         <div class="col-sm-3">
                                             {if $userinfo.login eq $user}<a href="tiki-pick_avatar.php">{/if}
-                                                {if is_array($avatar) && $avatar.type eq 'dicebear'}
-                                                    <div class="dicebear-avatar" data-seed="{$avatar.seed}" data-style="{$avatar.style}"></div>
-                                                {else}
-                                                    {$avatar}
-                                                {/if}
+                                                {$avatar}
                                             {if $userinfo.login eq $user}</a>{/if}
                                         </div>
                                         <div class="col-sm-9">

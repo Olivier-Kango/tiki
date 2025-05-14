@@ -1601,11 +1601,16 @@ class TikiLib extends TikiDb_Bridge
         switch ($type) {
             case 'l':
                 if (substr($libname, 0, 8) == 'dicebear') {
-                    return [
-                        'type' => 'dicebear',
-                        'seed' => $res['avatarName'],
-                        'style' => explode('/', $libname)[1],
-                    ];
+                    TikiLib::lib('header')->add_js_module(<<<JS
+                        import { renderAvatars } from 'avatar-generator';
+                        renderAvatars();
+                    JS);
+
+                    $seed = $res['avatarName'];
+                    $style = explode('/', $libname)[1];
+                    return <<<HTML
+                        <div class="dicebear-avatar" data-seed="{$seed}" data-style="{$style}"></div>
+                    HTML;
                 }
                 if ($libname) {
                     $ret = '<img class="user-profile-picture rounded" width="45" height="45" src="' . $libname . '" ' . $style . ' alt="' . $username . '">';

@@ -21,11 +21,7 @@
     {if $avatar}
         <div class="d-inline-block" id="user-picture">
             {if isset($user_picture_id)}{tr}Thumbnail{/tr}<br>{/if}
-            {if is_array($avatar) && $avatar.type eq 'dicebear'}
-                <div class="dicebear-avatar" data-seed="{$avatar.seed}" data-style="{$avatar.style}"></div>
-            {else}
-                {$avatar}
-            {/if}
+            {$avatar}
         </div>
         {if isset($user_picture_id)}
             <div>{tr}Full size{/tr}<br>
