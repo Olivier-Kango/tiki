@@ -471,12 +471,6 @@ if (
 ) {
     $tikilib->check_duplicate_alias($info['data'], $page);
 }
-//Uncomment if we decide to translate wiki markup. For now we are going
-//with translating rendered html content
-//$translatedWikiMarkup = '';
-//if (isset($_REQUEST['machine_translate_to_lang'])) {
-//  $translatedWikiMarkup = generate_machine_translated_markup($info, $_REQUEST['machine_translate_to_lang']);
-//}
 
 if (isset($_REQUEST['approve'], $_REQUEST['revision']) && $_REQUEST['revision'] <= $info['version']) {
     $flaggedrevisionlib = TikiLib::lib('flaggedrevision');
@@ -799,24 +793,6 @@ $smarty->assign('show_wiki_actions', $showWikiActions);
 $smarty->assign('info', $info);
 $smarty->assign('mid', 'tiki-show_page.tpl');
 $smarty->display('tiki-show_page.tpl');
-
-// xdebug_dump_function_profile(XDEBUG_PROFILER_CPU);
-// debug: print all objects
-
-
-/**
- * generate machine translation of markup
- * @param $pageInfo
- * @param $targetLang
- * @return string
- */
-function generate_machine_translated_markup($pageInfo, $targetLang)
-{
-    make_sure_machine_translation_is_enabled();
-    $pageContent = $pageInfo['data'];
-    $sourceLang = $pageInfo['lang'];
-    return translate_text($pageContent, $sourceLang, $targetLang);
-}
 
 /**
  * generate machine translation of content

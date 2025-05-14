@@ -756,8 +756,7 @@ class UsersLib extends TikiLib
         } elseif ($auth_saml) {
             // next see if we need to check SAML
             if (
-                isset($_SESSION['samlUserdata']) && ! empty($_SESSION['samlUserdata']) ||
-                isset($_SESSION['samlNameId']) && ! empty($_SESSION['samlNameId'])
+                ! empty($_SESSION['samlUserdata']) || ! empty($_SESSION['samlNameId'])
             ) {
                 $saml_username = $saml_email = '';
                 $saml_groups = [];

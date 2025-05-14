@@ -297,7 +297,7 @@ $secdb_severity = [
 function md5_check_dir($dir, &$result, $vcs_diff = [])
 {
  // save all suspicious files in $result
-    global $tikilib, $tiki_versions, $tikipath;
+    global $tikilib, $tiki_versions;
     $c_tiki_versions = count($tiki_versions);
     $query = "select * from `tiki_secdb` where `filename`=?";
     $d = dir($dir);
@@ -316,13 +316,11 @@ function md5_check_dir($dir, &$result, $vcs_diff = [])
                 $is_tikifile = false;
                 $is_tikiver = [];
                 $valid_tikiver = [];
-                $severity = 0;
                 // we could avoid the following with a second sql, but i think, this is faster.
                 while ($res = $dbresult->FetchRow()) {
                     $is_tikifile = true; // we know the filename ... probably modified
                     if ($res['md5_value'] == $md5val) {
                         $is_tikiver[] = $res['tiki_version']; // found
-                        $severity = $res['severity'];
                     }
                     $k = array_search($res['tiki_version'], $tiki_versions);
                     if ($k > 0) {

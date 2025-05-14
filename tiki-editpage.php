@@ -43,7 +43,6 @@ function guess_new_page_attributes_from_parent_pages($page, $page_info)
 {
     global $prefs, $need_lang;
     $editlib = TikiLib::lib('edit');
-    $tikilib = TikiLib::lib('tiki');
     $smarty = TikiLib::lib('smarty');
 
     if (! $page_info) {
@@ -122,7 +121,6 @@ function execute_module_translation()
 
 function possibly_set_pagedata_to_pretranslation_of_source_page()
 {
-    global $tracer;
     $multilinguallib = TikiLib::lib('multilingual');
     $smarty = TikiLib::lib('smarty');
     $editlib = TikiLib::lib('edit');
@@ -431,7 +429,7 @@ if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_na
     $mimelib = new mime();
     $output = $mimelib->decode($data);
     $parts = [];
-    parse_output($output, $parts, 0);
+    parse_output($output, $parts);
     $last_part = '';
     $last_part_ver = 0;
     usort($parts, 'compare_import_versions');
@@ -1029,11 +1027,11 @@ $smarty->assign_by_ref('parsed', $parsed);
  * @param $parts
  * @param $i
  */
-function parse_output(&$obj, &$parts, $i)
+function parse_output(&$obj, &$parts)
 {
     if (! empty($obj['parts'])) {
         foreach ($obj['parts'] as $index => $part) {
-            parse_output($part, $parts, $index);
+            parse_output($part, $parts);
         }
     } elseif ($obj['type'] === 'application/x-tikiwiki') {
         $aux["body"] = $obj['body'];
