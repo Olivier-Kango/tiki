@@ -273,7 +273,7 @@
                                         </td>
                                         <td>
                                             {* TODO add confirmation *}
-                                            <button type="submit" name="alias_delete" aria-label="{tr}Delete{/tr}" value="{$name|escape}" class="btn btn-link text-danger" style="cursor: pointer">
+                                            <button data-alias-name="{$name|escape}" title="{tr}Delete this alias{/tr}" aria-label="{tr}Delete{/tr}" value="{$name|escape}" class="btn btn-link text-danger delete-alias">
                                                 {icon name='delete'}
                                             </button>
                                         </td>
