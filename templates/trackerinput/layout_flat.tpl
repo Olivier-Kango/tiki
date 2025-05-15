@@ -24,9 +24,9 @@
                 </label>
             {/if}
             <br>
-            {assign var="maxItems" value=$prefs.tracker_item_select_feature*1}
+            {$maxItems=$prefs.tracker_item_select_feature*1}
             {if !empty($field.type) and $field.type == 'e' and $field.options|json_decode|count > 0}
-                {assign var="feildOption" value=$field.options|json_decode}
+                {$feildOption=$field.options|json_decode}
             {/if}
             {if ((!empty($field.type)
                 and ($field.type eq 'M'  or ($field.type eq 'r' and $field.options_map.selectMultipleValues eq 1))

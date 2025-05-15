@@ -606,7 +606,7 @@
                         </a>
                     </label>
                     <div style="width: 100%">
-                        {if empty($info.tabularSyncLastImport)}{assign var="tabularSyncLastImport" value="0"}{else}{assign var="tabularSyncLastImport" value=$info.tabularSyncLastImport}{/if}
+                        {if empty($info.tabularSyncLastImport)}{$tabularSyncLastImport="0"}{else}{$tabularSyncLastImport=$info.tabularSyncLastImport}{/if}
                         {jscalendar date=$tabularSyncLastImport fieldname="tabularSyncLastImport" showtime='y' timezone=$displayTimezone}
                     </div>
                 </div>

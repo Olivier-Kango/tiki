@@ -1,4 +1,4 @@
-{if empty($iListExecute)}{assign var=iListExecute value=$id|replace:'wplistexecute-':''}{/if}
+{if empty($iListExecute)}{$iListExecute=$id|replace:'wplistexecute-':''}{/if}
 {if ! empty($downloadable) && ! empty($downloadabletop) && $downloadabletop == 'y'}
     <form method="post" id="listexecute-download-top-{$iListExecute}">
         <input type="hidden" name="download" value="1">

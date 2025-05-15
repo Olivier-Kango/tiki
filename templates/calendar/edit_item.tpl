@@ -165,9 +165,9 @@
                 <label class="col-form-label col-sm-3">{tr}Start - End{/tr}</label>
                 <div class="col-sm-7 start">
                     {if $calitem.allday}
-                        {assign var="showtime" value="n"}
+                        {$showtime="n"}
                     {else}
-                        {assign var="showtime" value="y"}
+                        {$showtime="y"}
                     {/if}
                     {jscalendar id="event-datetime" date=$calitem.start enddate=$calitem.end fieldname="calitem[start]" showtime=$showtime endfieldname="calitem[end]" showtimezone="n" timezone=$displayTimezone}
                 </div>
@@ -213,9 +213,9 @@
                     <label class="col-form-label col-sm-3">{tr}Status{/tr}</label>
                     <div class="col-sm-9">
                         {if (! empty($calitem))}
-                            {assign var="selected" value="{$calitem.status}"}
+                            {$selected="{$calitem.status}"}
                         {else}
-                            {assign var="selected" value="{$calendar.defaulteventstatus}"}
+                            {$selected="{$calendar.defaulteventstatus}"}
                         {/if}
                         {html_options class="form-control" name='calitem[status]' output=$calendar.eventstatusoutput values=$calendar.eventstatus selected=$selected}
                     </div>

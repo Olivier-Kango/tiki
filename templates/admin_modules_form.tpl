@@ -97,8 +97,8 @@
                                         <select id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}]" class="form-control" aria-label="{tr}Select Menu{/tr}">
                                             <option value="" disabled {if !isset($param.value)}selected{/if}>{tr}Select Menu{/tr}</option>
                                             {foreach from=$channels item=channel}
-                                                {assign var="menuId" value=$channel.menuId}
-                                                {assign var="truncatedDescription" value=$channel.description|truncate:30:"..."}
+                                                {$menuId=$channel.menuId}
+                                                {$truncatedDescription=$channel.description|truncate:30:"..."}
                                                 <option value="{$menuId|escape}" {if isset($param.value) && $param.value eq $menuId}selected="selected"{/if}>
                                                     {$channel.name|escape} ({$menuId|escape}){if $channel.description} - {$truncatedDescription|escape}{/if}
                                                 </option>

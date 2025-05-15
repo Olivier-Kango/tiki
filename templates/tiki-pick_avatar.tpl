@@ -11,7 +11,7 @@
     {include file='tiki-mytiki_bar.tpl'}
 {else}
     <div class="t_navbar">
-        {assign var=thisuserwatch value=$userwatch|escape}
+        {$thisuserwatch=$userwatch|escape}
         {button href="tiki-user_preferences.php?view_user=$thisuserwatch" class="btn btn-primary" _text="{tr}User Preferences{/tr}"}
     </div>
 {/if}
@@ -67,7 +67,7 @@
             {{section name=ix loop=$avatars}
                 avatars[{$smarty.section.ix.index}] = '{$avatars[ix]}';
                 {if $smarty.section.ix.index eq $yours}
-                    {assign var="yours" value=$avatars[ix]}
+                    {$yours=$avatars[ix]}
                 {/if}
             {/section}}
             var pepe=1;

@@ -26,7 +26,7 @@
 {else}
     <div class="input-group col-md-12">
         {foreach key=ku item=iu from=$categories name=eforeach}
-            {assign var=fcat value=$iu.categId}
+            {$fcat=$iu.categId}
             <div class="col-md-4">
                 <label for="cat{$iu.categId}" class="{if $field.options_array[1] eq "radio"}radio{else}checkbox{/if}">
                     <input id="cat{$iu.categId|escape}_hidden" type="hidden" name="cat_managed_{$field.html_name}" value="{$iu.categId|escape}">

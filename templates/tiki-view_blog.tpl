@@ -17,9 +17,9 @@
     {/if}
 {/if}
 {if !empty($excerpt) and $excerpt eq 'y'}
-    {assign "request_context" "excerpt"}
+    {$request_context="excerpt"}
 {else}
-    {assign "request_context" "view_blog"}
+    {$request_context="view_blog"}
 {/if}
 
 {if $listpages|@count > 0}

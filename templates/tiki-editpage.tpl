@@ -185,7 +185,7 @@
                                         {tr}Version:{/tr} <em>{tr}No diff yet{/tr}</em> - <em>{tr}No comment{/tr}</em>
                                     {/if}
                                     {if count($diff_summaries) gt 1}
-                                        {assign var=diff_version value=$diff.version}
+                                        {$diff_version=$diff.version}
                                         {icon name="next" onclick="\$('input[name=oldver]').val($diff_version);\$('#editpageform').trigger('submit');return false;" title=":{tr}View{/tr}" style="cursor: pointer"}
                                     {/if}
                                 </li>
@@ -618,8 +618,8 @@
                                     {foreach from=$poll_rated item=rating}
                                         <div>
                                             <a href="tiki-admin_poll_options.php?pollId={$rating.info.pollId}">{$rating.info.title}</a>
-                                            {assign var=thispage value=$page|escape:"url"}
-                                            {assign var=thispoll_rated value=$rating.info.pollId}
+                                            {$thispage=$page|escape:"url"}
+                                            {$thispoll_rated=$rating.info.pollId}
                                             {button href="?page=$thispage&amp;removepoll=$thispoll_rated" _text="{tr}Disable{/tr}"}
                                         </div>
                                     {/foreach}

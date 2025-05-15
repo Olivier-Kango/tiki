@@ -1,5 +1,5 @@
-{assign var="safe_is_token_access" value=$is_token_access|default:false}
-{assign var="safe_view_as_visitor" value=$view_as_visitor|default:false}
+{$safe_is_token_access=$is_token_access|default:false}
+{$safe_view_as_visitor=$view_as_visitor|default:false}
 {if $safe_is_token_access}
     {remarksbox type="tip" title="{tr}Preview{/tr}"}
         <div class="actions d-flex flex-column align-items-start">

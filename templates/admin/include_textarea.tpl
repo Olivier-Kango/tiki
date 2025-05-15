@@ -217,10 +217,10 @@
                                 <strong>{$plugin|escape}</strong>: {$info.description|default:''|escape}
                                 {help url="Plugin$plugin"}
                             </div>
-                            {assign var=pref value="wikiplugin_$plugin"}
+                            {$pref="wikiplugin_$plugin"}
                             {if in_array( $pref, $info.prefs)}
-                                {assign var=pref value="wikiplugin_$plugin"}
-                                {assign var=pref_inline value="wikiplugininline_$plugin"}
+                                {$pref="wikiplugin_$plugin"}
+                                {$pref_inline="wikiplugininline_$plugin"}
                                 {preference name=$pref label="{tr}Enable{/tr}"}
                                 {preference name=$pref_inline label="{tr}Disable edit plugin icon (make plugin inline){/tr}"}
                             {/if}

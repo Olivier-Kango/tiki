@@ -153,10 +153,10 @@
     {/tab}
 
     {if $groupname}
-        {assign var=tabaddeditgroup_admgrp value="{tr}Edit{/tr}"}
+        {$tabaddeditgroup_admgrp="{tr}Edit{/tr}"}
         {$gname = "<i>{$groupname|escape}</i>"}
     {else}
-        {assign var=tabaddeditgroup_admgrp value="{tr}Create group{/tr}"}
+        {$tabaddeditgroup_admgrp="{tr}Create group{/tr}"}
         {$gname = ""}
     {/if}
 
@@ -297,7 +297,7 @@
                             <select name="groupstracker" id="groupstracker" class="form-select">
                                 <option value="0">{tr}choose a group tracker ...{/tr}</option>
                                 {foreach key=tid item=tit from=$trackers}
-                                    <option value="{$tid}"{if isset($grouptrackerid) && $tid eq $grouptrackerid} {assign var="ggr" value="$tit"}selected="selected"{/if}>{$tit|escape}</option>
+                                    <option value="{$tid}"{if isset($grouptrackerid) && $tid eq $grouptrackerid} {$ggr="$tit"}selected="selected"{/if}>{$tit|escape}</option>
                                 {/foreach}
                             </select>
                             <div class="form-text">
@@ -333,7 +333,7 @@
                             <select name="userstracker" id="userstracker" class="form-select">
                                 <option value="0">{tr}choose a user tracker ...{/tr}</option>
                                 {foreach key=tid item=tit from=$trackers}
-                                    <option value="{$tid}"{if isset($userstrackerid) && $tid eq $userstrackerid} {assign var="ugr" value="$tit"}selected="selected"{/if}>{$tit|escape}</option>
+                                    <option value="{$tid}"{if isset($userstrackerid) && $tid eq $userstrackerid} {$ugr="$tit"}selected="selected"{/if}>{$tit|escape}</option>
                                 {/foreach}
                             </select>
                             <div class="form-text">
@@ -555,7 +555,7 @@
 {/if}
 
 {if $groupname}
-    {assign var=tabgroup_memberstabgroup value="{tr}Members{/tr}"}
+    {$tabgroup_memberstabgroup="{tr}Members{/tr}"}
     {$gname = "{$groupname|escape}"}
 
     {tab name="<span class='d-block'><span class='badge bg-secondary'>{$membersCount}</span>{$tabgroup_memberstabgroup}</span>{$gname}"}
@@ -696,11 +696,11 @@
         {/tab}
 
     {if $tiki_p_admin eq 'y'}
-        {assign var="tabgroup_bannedtabgroup" value="{tr}Users banned from{/tr}"}
-        {assign var="gname" value="{$groupname|escape}"}
+        {$tabgroup_bannedtabgroup="{tr}Users banned from{/tr}"}
+        {$gname="{$groupname|escape}"}
 
-        {assign var="tabgroup_bannedtabgroup" value="{tr}Users banned from{/tr}"}
-        {assign var="gname" value="{$groupname|escape}"}
+        {$tabgroup_bannedtabgroup="{tr}Users banned from{/tr}"}
+        {$gname="{$groupname|escape}"}
 
         {tab name="<span class='d-block'><span class='badge bg-secondary'>{$bannedCount} </span>{$tabgroup_bannedtabgroup}</span>{$gname}"}
 
@@ -767,7 +767,7 @@
 
 {if $tiki_p_admin eq 'y'}
     {if $groupname}
-        {assign var=tabgroup_importexporttabgroup value="{tr}Import/export{/tr}"}
+        {$tabgroup_importexporttabgroup="{tr}Import/export{/tr}"}
         {$gname = "{$groupname|escape}"}
 
         {tab name="<span class='d-block'>{$tabgroup_importexporttabgroup}</span>{$gname}"}

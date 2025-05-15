@@ -39,7 +39,7 @@
             {/if}
             {foreach $field.possibilities as $value => $label}
                 {if $value !== 0  and ($value eq 'other' or $value eq "{tr}other{/tr}")}
-                    {assign var=otherLabel value={$label|escape}}
+                    {$otherLabel={$label|escape}}
                     {continue}{* TODO: Ignores options which would have "other" as key, which is not documented. Avoids displaying 2 "other" options, since the option needed to be specified manually prior to Tiki 18. *}
                 {/if}
                 <option value="{$value|escape}"
@@ -49,7 +49,7 @@
             {/foreach}
             {if $field.type eq 'D'}
                 {if ! isset($otherLabel)}
-                    {assign var=otherLabel value="{tr}Other{/tr}"}
+                    {$otherLabel="{tr}Other{/tr}"}
                 {/if}
                 <option value="other" style="font-style: italic">
                     {$otherLabel}

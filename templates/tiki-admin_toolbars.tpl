@@ -78,7 +78,7 @@
                     {/foreach}
                 {/foreach}
                 {if $smarty.foreach.line.last and $rowCount gt 1}
-                    {assign var=total value=$smarty.foreach.line.total+1}
+                    {$total=$smarty.foreach.line.total+1}
                     </ul>
                     <label for="row-{$total|escape}">{tr}Row{/tr}&nbsp;{$total}</label>
                     <ul id="row-{$total|escape}" class="navbar card d-flex flex-row justify-content-start p-1 mb-3">

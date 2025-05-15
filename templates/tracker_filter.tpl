@@ -21,11 +21,11 @@
             {if $show_filters eq 'y'}
                 {jq}
                     fields = [];
-                    {{assign var=c value=0}}
+                    {{$c=0}}
                     {{foreach key=fid item=field from=$listfields}
                         {if $field.isSearchable eq 'y' and $field.type ne 'f' and $field.type ne 'j' and $field.type ne 'i'}
                             fields[{$c}] = '{$fid}';
-                            {assign var=c value=$c+1}
+                            {$c=$c+1}
                         {/if}
                     {/foreach}}
                 {/jq}
@@ -34,14 +34,14 @@
                     {foreach key=fid item=field from=$listfields}
                         {if $field.isSearchable eq 'y' and $field.type ne 'f' and $field.type ne 'j' and $field.type ne 'i' and ($field.isHidden ne 'y' or $tiki_p_admin_trackers eq 'y')}
                             <option value="{$fid}"{if $fid eq $filterfield} selected="selected"{/if}>{tr}{$field.name|truncate:65|escape}{/tr}</option>
-                            {assign var=filter_button value='y'}
+                            {$filter_button='y'}
                         {/if}
                     {/foreach}
                 </select>
             {/if}
         </div>
         <div class="d-flex gap-2">
-            {assign var=cnt value=0}
+            {$cnt=0}
             {foreach key=fid item=field from=$listfields}
                 {if $field.isSearchable eq 'y' and $field.type ne 'f' and $field.type ne 'j' and $field.type ne 'i'}
                     {if $field.type eq 'c'}
@@ -54,9 +54,9 @@
                     {elseif $field.type eq 'd' or $field.type eq 'D'}
                         <div style="display:{if $filterfield eq $fid}block{else}none{/if};" id="fid{$fid}">
                             <select name="filtervalue[{$fid}]" class="form-select">
-                                {if $field.type eq 'D'}<option value="" />{/if}
+                                {if $field.type eq 'D'}<option value=""></option>{/if}
                                 {foreach from=$field.possibilities key=dropdown_key item=dropdown_value}
-                                    <option value="{$dropdown_key|escape}" {if $fid == $filterfield}{if $filtervalue eq $dropdown_key}{assign var=gotit value=y}selected="selected"{/if}{/if}>{$dropdown_value|tr_if}</option>
+                                    <option value="{$dropdown_key|escape}" {if $fid == $filterfield}{if $filtervalue eq $dropdown_key}{$gotit='y'}selected="selected"{/if}{/if}>{$dropdown_value|tr_if}</option>
                                 {/foreach}
                             </select>
                             {if $field.type eq 'D'}
@@ -122,7 +122,7 @@
                             <input type="text" class="form-control" name="filtervalue[{$fid}]" value="{if $fid == $filterfield}{$filtervalue}{/if}">
                         </div>
                     {/if}
-                    {assign var=cnt value=$cnt+1}
+                    {$cnt=$cnt+1}
                 {/if}
             {/foreach}
         </div>
