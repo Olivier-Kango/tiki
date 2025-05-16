@@ -12,7 +12,7 @@
  * Letter key: ~GF~
  *
  */
-class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Indexable, Tracker_Field_Exportable, Tracker_Field_Filterable
+class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Indexable, Tracker_Field_Exportable, Tracker_Field_Filterable, Search_FacetProvider_Interface
 {
     private static $runner;
 
@@ -134,6 +134,21 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     public function getGlobalFields()
     {
         return [];
+    }
+
+    /***
+     * Generate facets for search results
+     *
+     * @return array
+     */
+    public function getFacets()
+    {
+        $baseKey = $this->getBaseKey();
+
+        return [
+            Search_Query_Facet_Term::fromField($baseKey)
+                ->setLabel($this->getConfiguration('name'))
+        ];
     }
 
     /**
