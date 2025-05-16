@@ -3,6 +3,8 @@ import { ref, watchEffect } from 'vue';
 import * as Icons from '@element-plus/icons-vue';
 import ConfigWrapper from '../ConfigWrapper.vue';
 
+defineOptions({ inheritAttrs: false })
+
 const props = defineProps(["_emit", "_expose", "placeholder", "value", "prefixIcon", "suffixIcon", "clearable", "showPassword", "autocomplete", "name", "disabled", "isInvalid", "type", "prependText", "appendText"]);
 const showPassword = props.showPassword === "true";
 const clearable = props.clearable === "true";
@@ -27,7 +29,7 @@ export const DATA_TEST_ID = {
 </script>
 
 <template>
-    <ConfigWrapper locale="en">
+    <ConfigWrapper language="en">
         <div 
             :class="{ 'invalid': isInvalid }"
         >
