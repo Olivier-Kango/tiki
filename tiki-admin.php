@@ -407,7 +407,6 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
                 || file_exists(__DIR__ . '/vendor/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
             && (file_exists(__DIR__ . '/vendor/smarty/smarty/libs/Smarty.class.php') //Smarty
                 || file_exists(__DIR__ . '/vendor/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
-            && file_exists(__DIR__ . '/vendor/adodb/adodb/adodb.inc.php') //Adodb
         )
     ) {
         $vendorAutoloadIgnored = false;

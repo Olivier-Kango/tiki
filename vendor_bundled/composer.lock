@@ -4,69 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95efa1e9e4b8955d99065e7089e8aeac",
+    "content-hash": "bbf43b2f14ffc7b3604f3d6256acdf68",
     "packages": [
-        {
-            "name": "adodb/adodb-php",
-            "version": "v5.22.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "a568bfeb72d6b5942df747adc36b95165a083e60"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/a568bfeb72d6b5942df747adc36b95165a083e60",
-                "reference": "a568bfeb72d6b5942df747adc36b95165a083e60",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "adodb.inc.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause",
-                "LGPL-2.1-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "John Lim",
-                    "email": "jlim@natsoft.com",
-                    "role": "Author"
-                },
-                {
-                    "name": "Damien Regad",
-                    "role": "Current maintainer"
-                },
-                {
-                    "name": "Mark Newnham",
-                    "role": "Developer"
-                }
-            ],
-            "description": "ADOdb is a PHP database abstraction layer library",
-            "homepage": "https://adodb.org/",
-            "keywords": [
-                "abstraction",
-                "database",
-                "layer",
-                "library",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/ADOdb/ADOdb/issues",
-                "source": "https://github.com/ADOdb/ADOdb"
-            },
-            "time": "2025-05-01T11:49:24+00:00"
-        },
         {
             "name": "amphp/amp",
             "version": "v2.6.4",
@@ -1741,12 +1680,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Garethp/php-ews.git",
-                "reference": "474b60737b7c4284401ba666f866aff5a90864f8"
+                "reference": "e69b5abb5bc640c4b5cdba2466c109607bd81858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Garethp/php-ews/zipball/474b60737b7c4284401ba666f866aff5a90864f8",
-                "reference": "474b60737b7c4284401ba666f866aff5a90864f8",
+                "url": "https://api.github.com/repos/Garethp/php-ews/zipball/e69b5abb5bc640c4b5cdba2466c109607bd81858",
+                "reference": "e69b5abb5bc640c4b5cdba2466c109607bd81858",
                 "shasum": ""
             },
             "require": {
@@ -1755,14 +1694,15 @@
                 "ext-libxml": "*",
                 "ext-simplexml": "*",
                 "ext-soap": "*",
-                "garethp/http-playback": "^2.0"
+                "garethp/http-playback": "^2.0",
+                "laminas/laminas-code": "4.*"
             },
             "require-dev": {
-                "goetas/xsd-reader": "^2.0-dev",
-                "goetas/xsd2php": "^2.1",
-                "mockery/mockery": "^1.3",
-                "phpunit/phpunit": "^9.4 || ^8.5",
-                "squizlabs/php_codesniffer": "~3.6.0"
+                "goetas/xsd-reader": "2.0.x-dev",
+                "goetas/xsd2php": "2.1.*",
+                "mockery/mockery": "1.3.*",
+                "phpunit/phpunit": "11.*|10.*",
+                "squizlabs/php_codesniffer": "3.6.*"
             },
             "default-branch": true,
             "type": "library",
@@ -1797,9 +1737,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Garethp/php-ews/issues",
-                "source": "https://github.com/Garethp/php-ews/tree/v0.10.3"
+                "source": "https://github.com/Garethp/php-ews/tree/v0.11.0"
             },
-            "time": "2025-05-04T12:51:19+00:00"
+            "time": "2025-05-11T10:20:24+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3104,16 +3044,16 @@
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.23.0",
+            "version": "2.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "23807e692b3174750b426143bd93572b71b6739a"
+                "reference": "7c6755695cdca18f983d8a116bfa6a55439b1a94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/23807e692b3174750b426143bd93572b71b6739a",
-                "reference": "23807e692b3174750b426143bd93572b71b6739a",
+                "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/7c6755695cdca18f983d8a116bfa6a55439b1a94",
+                "reference": "7c6755695cdca18f983d8a116bfa6a55439b1a94",
                 "shasum": ""
             },
             "require": {
@@ -3180,7 +3120,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-10-09T10:53:30+00:00"
+            "time": "2025-05-13T09:35:51+00:00"
         },
         {
             "name": "laminas/laminas-filter",
@@ -13929,16 +13869,16 @@
         },
         {
             "name": "thomaspark/bootswatch",
-            "version": "v5.3.5",
+            "version": "v5.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thomaspark/bootswatch.git",
-                "reference": "c690d4c91f44c183431ea908d4ec2c1b8f73d9ea"
+                "reference": "c72edbf8ae5d3607cb3d07f56917feac654266fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/c690d4c91f44c183431ea908d4ec2c1b8f73d9ea",
-                "reference": "c690d4c91f44c183431ea908d4ec2c1b8f73d9ea",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/c72edbf8ae5d3607cb3d07f56917feac654266fd",
+                "reference": "c72edbf8ae5d3607cb3d07f56917feac654266fd",
                 "shasum": ""
             },
             "suggest": {
@@ -13968,9 +13908,9 @@
             "description": "Themes for Bootstrap",
             "support": {
                 "issues": "https://github.com/thomaspark/bootswatch/issues",
-                "source": "https://github.com/thomaspark/bootswatch/tree/v5.3.5"
+                "source": "https://github.com/thomaspark/bootswatch/tree/v5.3.6"
             },
-            "time": "2025-04-05T03:25:29+00:00"
+            "time": "2025-05-10T15:16:04+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -14128,16 +14068,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.12.1",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "805db3aa03e9a6e07d658ebe360e38b0a70c1b1c"
+                "reference": "ce0e49dd063243118a115f17ad1fe1fe7576d552"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/805db3aa03e9a6e07d658ebe360e38b0a70c1b1c",
-                "reference": "805db3aa03e9a6e07d658ebe360e38b0a70c1b1c",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/ce0e49dd063243118a115f17ad1fe1fe7576d552",
+                "reference": "ce0e49dd063243118a115f17ad1fe1fe7576d552",
                 "shasum": ""
             },
             "type": "library",
@@ -14161,9 +14101,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.12.1"
+                "source": "https://github.com/twbs/icons/tree/v1.13.1"
             },
-            "time": "2025-05-04T06:28:47+00:00"
+            "time": "2025-05-09T23:01:19+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -16275,16 +16215,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.14",
+            "version": "2.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2"
+                "reference": "b8c1cf533cba0c305d91c6ccd23f3dd0566ba5f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b8c1cf533cba0c305d91c6ccd23f3dd0566ba5f9",
+                "reference": "b8c1cf533cba0c305d91c6ccd23f3dd0566ba5f9",
                 "shasum": ""
             },
             "require": {
@@ -16329,25 +16269,25 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-02T15:32:28+00:00"
+            "time": "2025-05-16T09:40:10+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
-                "reference": "9d8e7d4e32711715ad78a1fb6ec368df9af01fdf"
+                "reference": "468e02c9176891cc901143da118f09dc9505fc2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/9d8e7d4e32711715ad78a1fb6ec368df9af01fdf",
-                "reference": "9d8e7d4e32711715ad78a1fb6ec368df9af01fdf",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/468e02c9176891cc901143da118f09dc9505fc2f",
+                "reference": "468e02c9176891cc901143da118f09dc9505fc2f",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpstan": "^2.1.13"
+                "phpstan/phpstan": "^2.1.15"
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
@@ -16374,9 +16314,9 @@
             "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/2.0.2"
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/2.0.3"
             },
-            "time": "2025-04-26T19:59:57+00:00"
+            "time": "2025-05-14T10:56:57+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -16851,16 +16791,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.0.15",
+            "version": "2.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "abbbf32474a67e242d26bffc098a712a05b3d32a"
+                "reference": "f1366d1f8c7490541c8f7af6e5c7cef7cca1b5a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/abbbf32474a67e242d26bffc098a712a05b3d32a",
-                "reference": "abbbf32474a67e242d26bffc098a712a05b3d32a",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/f1366d1f8c7490541c8f7af6e5c7cef7cca1b5a2",
+                "reference": "f1366d1f8c7490541c8f7af6e5c7cef7cca1b5a2",
                 "shasum": ""
             },
             "require": {
@@ -16898,7 +16838,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.0.15"
+                "source": "https://github.com/rectorphp/rector/tree/2.0.16"
             },
             "funding": [
                 {
@@ -16906,7 +16846,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-05T10:00:41+00:00"
+            "time": "2025-05-12T16:37:16+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -17826,16 +17766,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.12.2",
+            "version": "3.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa"
+                "reference": "65ff2489553b83b4597e89c3b8b721487011d186"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa",
-                "reference": "6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/65ff2489553b83b4597e89c3b8b721487011d186",
+                "reference": "65ff2489553b83b4597e89c3b8b721487011d186",
                 "shasum": ""
             },
             "require": {
@@ -17906,7 +17846,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-04-13T04:10:18+00:00"
+            "time": "2025-05-11T03:36:00+00:00"
         },
         {
             "name": "stevegrunwell/phpunit-markup-assertions",

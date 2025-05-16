@@ -195,7 +195,7 @@ class ModLib extends TikiLib
     /**
      * @param $moduleId
      *
-     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
+     * @return Tiki\TikiDb\PdoResult
      */
     public function module_up($moduleId)
     {
@@ -206,7 +206,7 @@ class ModLib extends TikiLib
     /**
      * @param $moduleId
      *
-     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
+     * @return Tiki\TikiDb\PdoResult
      */
     public function module_down($moduleId)
     {
@@ -219,7 +219,7 @@ class ModLib extends TikiLib
      *
      * @param $moduleId
      *
-     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
+     * @return Tiki\TikiDb\PdoResult
      */
     public function module_left($moduleId)
     {
@@ -232,7 +232,7 @@ class ModLib extends TikiLib
      *
      * @param $moduleId
      *
-     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
+     * @return Tiki\TikiDb\PdoResult
      */
     public function module_right($moduleId)
     {
@@ -322,7 +322,7 @@ class ModLib extends TikiLib
     /**
      * @param $name
      *
-     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
+     * @return Tiki\TikiDb\PdoResult
      * @throws Exception
      */
     public function remove_user_module($name)

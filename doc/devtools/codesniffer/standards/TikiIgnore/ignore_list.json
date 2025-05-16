@@ -783,11 +783,9 @@
         "lib\/core\/Search\/GlobalSource\/RelationSource.php": {
             "class:Search_GlobalSource_RelationSource": true
         },
-        "lib\/core\/Search\/ResultSet\/WikiBuilder.php": {
-            "class:Search_ResultSet_WikiBuilder": true
-        },
-        "lib\/core\/Search\/ResultSet\/FacetFilter.php": {
-            "class:Search_ResultSet_FacetFilter": true
+        "lib\/core\/TikiDb\/Pdo.php": {
+            "class:TikiDb_Pdo_Result": true,
+            "class:TikiDb_Pdo": true
         },
         "lib\/core\/Search\/ResultSet\/SnippetHelper.php": {
             "class:Search_ResultSet_SnippetHelper": true
@@ -798,11 +796,8 @@
         "lib\/core\/Search\/Elastic\/OrderBuilder.php": {
             "class:Search_Elastic_OrderBuilder": true
         },
-        "lib\/core\/Search\/Elastic\/Prefilter.php": {
-            "class:Search_Elastic_Prefilter": true
-        },
-        "lib\/core\/Search\/Elastic\/Index.php": {
-            "class:Search_Elastic_Index": true
+        "lib\/core\/TikiDb\/MasterSlaveDispatch.php": {
+            "class:TikiDb_MasterSlaveDispatch": true
         },
         "lib\/core\/Search\/Elastic\/FacetBuilder.php": {
             "class:Search_Elastic_FacetBuilder": true
@@ -1747,9 +1742,6 @@
         "lib\/core\/TikiDb\/Initializer\/Pdo.php": {
             "class:TikiDb_Initializer_Pdo": true
         },
-        "lib\/core\/TikiDb\/Initializer\/Adodb.php": {
-            "class:TikiDb_Initializer_Adodb": true
-        },
         "lib\/core\/TikiDb\/Bridge.php": {
             "class:TikiDb_Bridge": true
         },
@@ -2530,6 +2522,18 @@
         },
         "lib\/test\/core\/Search\/Elastic\/PrefilterTest.php": {
             "class:Search_Elastic_PrefilterTest": true
+        },
+        "lib\/core\/Search\/ResultSet\/FacetFilter.php": {
+            "class:Search_ResultSet_FacetFilter": true
+        },
+        "lib\/core\/Search\/Elastic\/Prefilter.php": {
+            "class:Search_Elastic_Prefilter": true
+        },
+        "lib\/core\/Search\/Elastic\/Index.php": {
+            "class:Search_Elastic_Index": true
+        },
+        "lib\/core\/Search\/ResultSet\/WikiBuilder.php": {
+            "class:Search_ResultSet_WikiBuilder": true
         },
         "lib\/test\/core\/Search\/Elastic\/SearchElasticQueryRepository.php": {
             "class:SearchElasticQueryRepository": true
@@ -3568,14 +3572,17 @@
         "lib\/taglines\/taglinelib.php": {
             "class:TagLineLib": true
         },
-        "lib\/webmail\/tikimaillib.php": {
-            "class:TikiMail": true
+        "lib\/core\/Search\/Formatter\/Transform\/DynamicLoader.php": {
+            "class:Search_Formatter_Transform_DynamicLoaderWrapper": true
+        },
+        "lib\/webmail\/addressbooklib.php": {
+            "class:AddressBookLib": true
         },
         "lib\/webmail\/contactlib.php": {
             "class:ContactLib": true
         },
-        "lib\/webmail\/addressbooklib.php": {
-            "class:AddressBookLib": true
+        "lib\/webmail\/tikimaillib.php": {
+            "class:TikiMail": true
         },
         "lib\/serializedlist.php": {
             "class:SerializedList": true
@@ -3923,6 +3930,15 @@
         },
         "lib\/core\/Category\/Manipulator.php": {
             "Category_Manipulator": true
+        },
+        "lib\/core\/Math\/Formula\/Runner.php": {
+            "Math_Formula_Runner": true
+        },
+        "lib\/core\/Math\/Formula\/Exception.php": {
+            "Math_Formula_Exception": true
+        },
+        "lib\/core\/Math\/Formula\/Currency.php": {
+            "Math_Formula_Currency": true
         },
         "lib\/core\/WikiParser\/PluginDefinition.php": {
             "WikiParser_PluginDefinition": true
@@ -4497,14 +4513,9 @@
         "lib\/core\/Math\/Formula\/Tokenizer.php": {
             "Math_Formula_Tokenizer": true
         },
-        "lib\/core\/Math\/Formula\/Currency.php": {
-            "Math_Formula_Currency": true
-        },
-        "lib\/core\/Math\/Formula\/Exception.php": {
-            "Math_Formula_Exception": true
-        },
-        "lib\/core\/Math\/Formula\/Runner.php": {
-            "Math_Formula_Runner": true
+        "lib\/core\/TikiDb\/Pdo.php": {
+            "TikiDb_Pdo_Result": true,
+            "TikiDb_Pdo": true
         },
         "lib\/core\/IDS\/Rule.php": {
             "IDS_Rule": true
@@ -4515,11 +4526,8 @@
         "lib\/core\/Search\/ContentFilter\/VersionNumber.php": {
             "Search_ContentFilter_VersionNumber": true
         },
-        "lib\/core\/Search\/FacetProvider.php": {
-            "Search_FacetProvider": true
-        },
-        "lib\/core\/Search\/GlobalSource\/Static.php": {
-            "Search_GlobalSource_Static": true
+        "lib\/core\/TikiDb\/MasterSlaveDispatch.php": {
+            "TikiDb_MasterSlaveDispatch": true
         },
         "lib\/core\/Search\/GlobalSource\/SocialSource.php": {
             "Search_GlobalSource_SocialSource": true
@@ -4568,6 +4576,12 @@
         },
         "lib\/core\/Search\/GlobalSource\/RelationSource.php": {
             "Search_GlobalSource_RelationSource": true
+        },
+        "lib\/core\/Search\/GlobalSource\/Static.php": {
+            "Search_GlobalSource_Static": true
+        },
+        "lib\/core\/Search\/FacetProvider.php": {
+            "Search_FacetProvider": true
         },
         "lib\/core\/Search\/ResultSet\/WikiBuilder.php": {
             "Search_ResultSet_WikiBuilder": true
@@ -5526,9 +5540,6 @@
         },
         "lib\/core\/TikiDb\/Initializer\/Pdo.php": {
             "TikiDb_Initializer_Pdo": true
-        },
-        "lib\/core\/TikiDb\/Initializer\/Adodb.php": {
-            "TikiDb_Initializer_Adodb": true
         },
         "lib\/core\/TikiDb\/Bridge.php": {
             "TikiDb_Bridge": true

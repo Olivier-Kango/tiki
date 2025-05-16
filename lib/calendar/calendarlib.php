@@ -1520,7 +1520,7 @@ class CalendarLib extends TikiLib
     /**
      * @param $calendarId
      * @param $days
-     * @return Tiki\TikiDb\PdoResult|Tiki\TikiDb\AdoDbResult
+     * @return TikiDb_Pdo_Result
      */
     public function cleanEvents($calendarId, $days)
     {

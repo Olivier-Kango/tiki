@@ -1742,7 +1742,7 @@ function wikiplugin_dbreport_info()
     return [
         'name' => tra('DB Report'),
         'documentation' => 'PluginDBReport',
-        'description' => tra('Query an ADOdb database and display results (does not work with PDO)'),
+        'description' => tra('Query a database and display results'),
         'prefs' => ['wikiplugin_dbreport'],
         'body' => tra('report definition'),
         'validate' => 'all',
@@ -1863,58 +1863,47 @@ function wikiplugin_dbreport($data, $params)
         if (! $perms->dsn_query) {
             return tra('You do not have the permission that is needed to use this feature');
         }
-        // retrieve the dsn string
-        $dsn = $tikilib->get_dsn_by_name($db);
     }
-    // open the database
+    // Open the database
     if (isset($dsn)) {
-        // Force autoloading
-        if (! class_exists('ADOConnection')) {
-            return tr('AdoDb not found');
-        }
+        $db = $tikilib->get_db_by_name($db);
+        $query = $db->query($report->sql, $bindvars);
+        // Convert result set to FETCH_BOTH manually
+        $query->result = array_map(function ($row) {
+            return array_merge($row, array_values($row));
+        }, $query->result);
 
-        $ado = ADONewConnection($dsn);
-        if (! $ado) {
-            $ret .= wikiplugin_dbreport_error_box($ado->ErrorMsg());
-            return $ret;
-        } else {
-            // execute sql query
-            $ado->SetFetchMode(ADODB_FETCH_BOTH);
-            $query =& $ado->Execute($report->sql, $bindvars);
-            $field_count = $query->FieldCount();
-            $fetchfield = 'FetchField';
-            if (! $query) {
-                $ret .= wikiplugin_dbreport_error_box($ado->ErrorMsg());
-                return $ret;
-            }
+        // Fetch the first row to get field names
+        $first_row = $query->fetchRow();
+
+        if (! $first_row) {
+            return wikiplugin_dbreport_error_box('No data returned by the query.');
         }
     } else {
-        return (tra('No DSN connection string found!'));
+        return tra('No DSN connection string found!');
     }
-    // create an array of field names and their index
+
+    // Get field names from the first row
+    $field_names = array_keys($first_row);
     $field_index = [];
-    //  $field_count = $query->FieldCount();
-    for ($index = 0; $index < $field_count; $index++) {
-        $column =& $query->$fetchfield($index);
-        // some PDO connections (eg. oci) won't be able to return meta info on the column
-        if ($column->name == 'bad getColumnMeta()' && $ado->fetchMode === ADODB_FETCH_BOTH) {
-            $internal_field_keys = array_keys($query->fields);
-            $column->name = $internal_field_keys[$index * 2];
-        }
-        $field_index[$column->name] = $index;
+
+    foreach ($field_names as $index => $field_name) {
+        $field_index[$field_name] = $index;
     }
-    // go through the parsed fields and assign indexes
+
+    // Go through the parsed fields and assign indexes
     foreach ($wikiplugin_dbreport_fields as $key => $value) {
         $parse_field =& $wikiplugin_dbreport_fields[$key];
-        $index = $field_index[$parse_field->name];
-        if (isset($index)) {
-            $parse_field->index = $index;
+
+        if (array_key_exists($parse_field->name, $field_index)) {
+            $parse_field->index = $field_index[$parse_field->name];
         } else {
-            // not a valid field. log the message.
-            $ret .= wikiplugin_dbreport_error_box("The Field '$parse_field->name' was not returned by the SQL query.");
+            // Not a valid field. Log the message.
+            $ret .= wikiplugin_dbreport_error_box("The Field '{$parse_field->name}' was not returned by the SQL query.");
             return $ret;
         }
     }
+
     // does the report have a table definition?
     if (! isset($report->table)) {
         // create a default definition from the data
@@ -1932,10 +1921,10 @@ function wikiplugin_dbreport($data, $params)
         $row->styles[] = new WikipluginDBReportStyle($style);
         $report->table->rows[] =& $row;
         // fill in the cells
-        $field_count = $query->FieldCount();
+        $field_count = count($query->result);
         for ($index = 0; $index < $field_count; $index++) {
             // get the query field
-            $column =& $query->FetchField($index);
+            $column =& $query->fetchRow($index);
             // create the header cell
             unset($text);
             $text = new WikipluginDBReportText(new WikipluginDBReportToken());
@@ -1964,35 +1953,48 @@ function wikiplugin_dbreport($data, $params)
     if (! $wiki) {
         $ret .= '~np~';
     }
-    if (! $query->EOF) {
-        // get the first row
-        $current_row = $query->FetchRow();
-        // start the group breaks
+    // Check if the query returned results
+    if (! empty($query->result)) {
+        // Get all rows into an array
+        $rows = $query->result;
+        $rowCount = count($rows);
+
+        // Initialize row pointer
+        $rowIndex = 0;
+        $current_row = $rows[$rowIndex];
+
+        // Start the group breaks
         if (isset($report->groups)) {
             foreach ($report->groups as $group) {
                 $group->check_break($current_row);
                 $ret .= $group->start_html($current_row);
             }
         }
-        // first row is always considered 'after a break'
+
+        // First row is always considered 'after a break'
         $breaking = true;
-        // go through the rows
-        while ($current_row) {
-            // do we generate a table header?
+
+        // Iterate through rows
+        while ($rowIndex < $rowCount) {
+            // Do we generate a table header?
             if ($breaking) {
                 $ret .= $report->table->header_row_html($current_row);
             }
-            // write the table row
+
+            // Write the table row
             $ret .= $report->table->record_row_html($current_row);
-            // get the next row
-            if ($query->EOF) {
-                unset($next_row);
+
+            // Move to the next row
+            $rowIndex++;
+            if ($rowIndex >= $rowCount) {
+                $next_row = null;
                 $breaking = true;
             } else {
-                $next_row = $query->FetchRow();
+                $next_row = $rows[$rowIndex];
                 $breaking = false;
             }
-            // check group breaks
+
+            // Check group breaks
             if (isset($report->groups)) {
                 $break_end = '';
                 $break_start = '';
@@ -2008,26 +2010,26 @@ function wikiplugin_dbreport($data, $params)
                     }
                 }
             }
+
             if ($breaking) {
                 $ret .= $report->table->footer_row_html($current_row);
                 $ret .= $break_end;
                 $ret .= $break_start;
             }
-            // move to the next row
+
+            // Move to the next row
             $current_row = $next_row;
         }
     } else {
-        // no records returned. output the fail message
+        // No records returned, output the fail message
         if ($report->fail) {
             $ret .= $report->fail->html();
         }
     }
+
     if (! $wiki) {
         $ret .= '~/np~';
     }
-    // close the database connection
-    $query->Close();
-    $ado->Close();
 
     if (! empty($params['audit'])) {
         TikiLib::lib('logs')->add_log('wikiplugin_dbreport', "Page - " . $_GET['page'] . "\nParameters - " . print_r($bindvars, true));

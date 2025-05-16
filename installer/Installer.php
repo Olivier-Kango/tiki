@@ -117,12 +117,11 @@ class Installer extends TikiDb_Bridge implements SplSubject
         $this->assureInnoDdTableRowFormatIsDynamicOrBetter();
 
         $TWV = new TWVersion();
-        $dbversion_tiki = $TWV->version;
 
         // If a Mysql data file exists, use that. Very fast
         //  If data file is missing or the batch loader is not available, use the single insert method
-        $secdb = __DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki-secdb_' . $dbversion_tiki . '_mysql.sql';
-        $secdbData = __DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki-secdb_' . $dbversion_tiki . '_mysql.data';
+        $secdb = __DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki-secdb_' . $TWV->version . '_mysql.sql';
+        $secdbData = __DIR__ . '/../' . TIKI_BASE_SQL_SCHEMA_PATH . '/tiki-secdb_' . $TWV->version . '_mysql.data';
         if (file_exists($secdbData)) {
             // A MySQL datafile exists
             $truncateTable = true;
