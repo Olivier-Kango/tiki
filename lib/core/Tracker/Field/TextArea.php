@@ -389,8 +389,8 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
                     ->addIncompatibility($permName, 'current-raw')
                     ->addIncompatibility($permName, $lang)
                     ->setRenderTransform($render($lang))
-                    ->setParseIntoTransform(function (&$info, $value) use ($permName) {
-                        $info['fields'][$permName] = TikiLib::lib('edit')->parseToWiki($value);
+                    ->setParseIntoTransform(function (&$info, $value) use ($permName, $lang) {
+                        $info['fields'][$permName][$lang] = TikiLib::lib('edit')->parseToWiki($value);
                     });
             }
         }
