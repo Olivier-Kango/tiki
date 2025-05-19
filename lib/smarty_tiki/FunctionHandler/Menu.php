@@ -107,17 +107,25 @@ class Menu extends Base
 
             if (! empty($channels['data'])) {
                 // Builds Menus nested tree of options
+                $formattedCategGroups = array_reduce(
+                    $categGroups,
+                    function ($accumulatedGroups, $item) {
+                        return $accumulatedGroups + $item;
+                    },
+                    []
+                );
                 foreach ($channels['data'] as $element) {
                     $attribute = \TikiLib::lib('attribute')->get_attribute('menu', $element["optionId"], 'tiki.menu.templatedgroupid');
-                    if ($attribute && $catName = $categGroups[$attribute]) {
+                    if ($attribute) {
+                        if (! array_key_exists($attribute, $formattedCategGroups) || empty($formattedCategGroups[$attribute])) {
+                            continue;
+                        }
+                        $catName = $formattedCategGroups[$attribute];
                         $element["name"] = str_replace("--groupname--", $catName, $element["name"]);
                         $element["url"] = str_replace("--groupname--", $catName, $element["name"]);
                         $element["sefurl"] = str_replace("--groupname--", $catName, $element["sefurl"]);
                         $element["canonic"] = str_replace("--groupname--", $catName, $element["canonic"]);
-                    } elseif ($attribute && ! $categGroups[$attribute]) {
-                        continue;
                     }
-
                     if ($element['type'] !== '-') {
                         $level = $element['sectionLevel'];
                         // Creates new branch at level 0
