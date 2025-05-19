@@ -8734,6 +8734,9 @@ class UsersLib extends TikiLib
     {
         $finalusers = [];
         foreach ($usrs as $u) {
+            if (empty($u)) {
+                continue;
+            }
             $u = trim($u);
             if (! $u) {
                 continue;
