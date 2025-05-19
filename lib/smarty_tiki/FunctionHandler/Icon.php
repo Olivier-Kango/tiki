@@ -124,7 +124,7 @@ class Icon extends \Smarty\FunctionHandler\Base
                 if (! empty($params['href'])) { //use href if not empty
                     $a_href = 'href="' . $params['href'] . '"';
                 } else {
-                    $a_href = '';
+                    $a_href = 'href=""';
                 }
 
                 if (isset($params['data-toggle'])) { //add data-toggle if set
