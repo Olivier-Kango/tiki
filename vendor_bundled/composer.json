@@ -131,7 +131,7 @@
     "require": {
         "bacon/bacon-qr-code": "~2.0",
         "candy-chat/xmpp-prebind-php": "dev-master",
-        "cboden/ratchet": "^0.4",
+        "cboden/ratchet": "~0.4",
         "chrome-php/chrome": "^1.12",
         "codercat/jwk-to-pem": "^1.1",
         "composer/semver": "~3.4",
