@@ -38,7 +38,7 @@
                 {icon name='remove'}
             </a>
         {/if}
-        <button class="btn btn-sm btn-outline-secondary rounded tips" id="show-avatar-picker" title=":{tr}Choose an avatar{/tr}">{icon name="smile"}</button>
+        <button class="btn btn-sm btn-outline-secondary rounded tips" id="show-avatar-picker" title=":{tr}Choose an avatar{/tr}">{icon name="user-edit"}</button>
     </div>
 </div>
 

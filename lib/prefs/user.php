@@ -369,6 +369,42 @@ function prefs_user_list($partial = false)
             'default' => 'n',
             'dependencies' => ['feature_userPreferences'],
         ],
+        'user_default_avatar_style' => [
+            'name' => tr('Default avatar style'),
+            'description' => tr('Default avatar style for users when registering.'),
+            'help' => 'https://www.dicebear.com/styles/',
+            'type' => 'list',
+            'tags' => ['advanced'],
+            'default' => 'initials',
+            'options' => [
+                'adventurer' => 'Adventurer',
+                'adventurerNeutral' => 'Adventurer Neutral',
+                'bigEars' => 'Big Ears',
+                'bigEarsNeutral' => 'Big Ears Neutral',
+                'bigSmile' => 'Big Smile',
+                'croodles' => 'Croodles',
+                'croodlesNeutral' => 'Croodles Neutral',
+                'dylan' => 'Dylan',
+                'funEmoji' => 'Fun Emoji',
+                'glass' => 'Glass',
+                'icons' => 'Icons',
+                'identIcon' => 'Identicon',
+                'initials' => 'Initials',
+                'lorelei' => 'Lorelei',
+                'loreleiNeutral' => 'Lorelei Neutral',
+                'micah' => 'Micah',
+                'miniavs' => 'Miniavs',
+                'notionists' => 'Notionists',
+                'notionistsNeutral' => 'Notionists Neutral',
+                'openPeeps' => 'Open Peeps',
+                'personas' => 'Personas',
+                'pixelArt' => 'Pixel Art',
+                'pixelArtNeutral' => 'Pixel Art Neutral',
+                'rings' => 'Rings',
+                'shapes' => 'Shapes',
+                'thumbs' => 'Thumbs',
+            ]
+        ]
     ];
 }
 

@@ -1,8 +1,8 @@
 import { createAvatar } from "@dicebear/core";
 import * as collections from "@dicebear/collection";
 import stylesConstant from "./styles.constant";
-import avatarSizeConstant from "./avatarSize.constant";
 import { getAvatarElement, getRandomAvatars, handleAvatarClick } from "./showPickerModal.helpers";
+import { AVATAR_RADIUS, AVATAR_SIZE } from "./avatarOptions.constant";
 
 export default function showPickerModal() {
     $.openModal({
@@ -64,7 +64,11 @@ export default function showPickerModal() {
                                 .find("img")
                                 .attr(
                                     "src",
-                                    createAvatar(collections[style], { seed: selectedAvatar.data("seed"), size: avatarSizeConstant }).toDataUri()
+                                    createAvatar(collections[style], {
+                                        seed: selectedAvatar.data("seed"),
+                                        size: AVATAR_SIZE.small,
+                                        radius: AVATAR_RADIUS,
+                                    }).toDataUri()
                                 );
 
                             $.closeModal();

@@ -4,7 +4,7 @@ import stylesConstant from "../styles.constant";
 import $ from "jquery";
 import { createAvatar } from "@dicebear/core";
 import * as collections from "@dicebear/collection";
-import avatarSizeConstant from "../avatarSize.constant";
+import { AVATAR_RADIUS, AVATAR_SIZE } from "../avatarOptions.constant";
 
 vi.mock("@dicebear/core", () => ({
     createAvatar: vi.fn(() => ({
@@ -26,7 +26,7 @@ describe("renderAvatars", () => {
         $("body").append(`
             <div class="avatar-container">
                 <div class="dicebear-avatar" data-style="${stylesConstant[0].name}" data-seed="seed1"></div>
-                <div class="dicebear-avatar" data-style="${stylesConstant[1].name}" data-seed="seed2"></div>
+                <div class="dicebear-avatar" data-style="${stylesConstant[1].name}" data-seed="seed2" data-size="large"></div>
             </div>
         `);
 
@@ -42,7 +42,8 @@ describe("renderAvatars", () => {
 
             expect(createAvatar).toHaveBeenCalledWith(collections[style], {
                 seed: seed,
-                size: avatarSizeConstant,
+                size: index === 0 ? AVATAR_SIZE.small : AVATAR_SIZE.large,
+                radius: AVATAR_RADIUS,
             });
         });
     });

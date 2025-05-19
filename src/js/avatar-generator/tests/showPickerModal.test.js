@@ -5,7 +5,7 @@ import { getAvatarElement, getRandomAvatars, handleAvatarClick } from "../showPi
 import stylesConstant from "../styles.constant";
 import { createAvatar } from "@dicebear/core";
 import * as collections from "@dicebear/collection";
-import avatarSizeConstant from "../avatarSize.constant";
+import { AVATAR_RADIUS, AVATAR_SIZE } from "../avatarOptions.constant";
 
 vi.mock("@dicebear/core", () => ({
     createAvatar: vi.fn(() => ({
@@ -177,7 +177,8 @@ describe("showPickerModal", () => {
         expect($(".mod-login-avatar").find("img").attr("src")).toBe("data:avatar/uri");
         expect(createAvatar).toHaveBeenCalledWith(collections[content.find("#avatar-style").val()], {
             seed: "selectedSeed",
-            size: avatarSizeConstant,
+            size: AVATAR_SIZE.small,
+            radius: AVATAR_RADIUS,
         });
 
         expect($.closeModal).toHaveBeenCalled();

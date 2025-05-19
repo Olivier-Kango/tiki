@@ -2,9 +2,9 @@ import { describe, test, expect, beforeAll } from "vitest";
 import { getAvatarElement, getRandomAvatars, handleAvatarClick } from "../showPickerModal.helpers";
 import { createAvatar } from "@dicebear/core";
 import * as collections from "@dicebear/collection";
-import avatarSizeConstant from "../avatarSize.constant";
 import stylesConstant from "../styles.constant";
 import $ from "jquery";
+import { AVATAR_RADIUS, AVATAR_SIZE } from "../avatarOptions.constant";
 
 vi.mock("@dicebear/core", () => ({
     createAvatar: vi.fn(() => ({
@@ -29,7 +29,8 @@ describe("showPickerModal helper functions", () => {
 
             expect(createAvatar).toHaveBeenCalledWith(collections[activeStyle], {
                 seed: avatar.seed,
-                size: avatarSizeConstant,
+                size: AVATAR_SIZE.large,
+                radius: AVATAR_RADIUS,
             });
         });
     });

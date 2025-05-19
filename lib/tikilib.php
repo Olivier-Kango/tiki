@@ -1536,7 +1536,7 @@ class TikiLib extends TikiDb_Bridge
      * @param string $float
      * @return string
      */
-    public function get_user_avatar($user, $float = '')
+    public function get_user_avatar($user, $float = '', $avatarRenderSize = 'small')
     {
         global $prefs;
 
@@ -1595,7 +1595,7 @@ class TikiLib extends TikiDb_Bridge
                     $seed = $res['avatarName'];
                     $style = explode('/', $libname)[1];
                     return <<<HTML
-                        <div class="dicebear-avatar" data-seed="{$seed}" data-style="{$style}"></div>
+                        <div class="dicebear-avatar" data-seed="{$seed}" data-style="{$style}" data-size="{$avatarRenderSize}"></div>
                     HTML;
                 }
                 if ($libname) {

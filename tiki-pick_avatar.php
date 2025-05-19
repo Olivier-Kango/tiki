@@ -89,7 +89,7 @@ $smarty->assign_by_ref('avatars', $avatars);
 $smarty->assign('numav', count($avatars));
 $smarty->assign('yours', mt_rand(0, count($avatars)));
 
-$avatar = $tikilib->get_user_avatar($userwatch);
+$avatar = $tikilib->get_user_avatar($userwatch, '', 'large');
 $smarty->assign('avatar', $avatar);
 
 // Get full user picture if it is set

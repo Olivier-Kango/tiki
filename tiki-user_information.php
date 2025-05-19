@@ -116,7 +116,7 @@ $smarty->assign_by_ref('gender', $gender);
 $smarty->assign_by_ref('userbreadCrumb', $userbreadCrumb);
 $homePage = $tikilib->get_user_preference($userwatch, 'homePage', '');
 $smarty->assign_by_ref('homePage', $homePage);
-$avatar = $tikilib->get_user_avatar($userwatch);
+$avatar = $tikilib->get_user_avatar($userwatch, '', 'large');
 $smarty->assign('avatar', $avatar);
 $user_information = $tikilib->get_user_preference($userwatch, 'user_information', 'public');
 $smarty->assign('user_information', $user_information);
