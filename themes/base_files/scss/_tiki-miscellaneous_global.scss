@@ -422,6 +422,12 @@ span.btn-link {
     --bs-btn-padding-y: 0;
 }
 
+// Make the links clickable in stretched-link elements (e.g., in PluginListExecute simple list)
+.stretched-link a {
+    position: relative;
+    z-index: 2;
+}
+
 //date picker dropdowns
 select.form-control.date {
     width: auto;
