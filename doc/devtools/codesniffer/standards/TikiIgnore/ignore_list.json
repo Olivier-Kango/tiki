@@ -1,9 +1,5 @@
 {
     "PSR1.Classes.ClassDeclaration.MissingNamespace": {
-        "tiki-webservices.php": {
-            "class:Tiki_ComplexType": true,
-            "class:Tiki_WebServices": true
-        },
         "tiki-print_indexed.php": {
             "class:ObjectList": true,
             "class:ObjectRenderer": true,
@@ -3879,10 +3875,6 @@
         }
     },
     "Squiz.Classes.ValidClassName.NotCamelCaps": {
-        "tiki-webservices.php": {
-            "Tiki_ComplexType": true,
-            "Tiki_WebServices": true
-        },
         "tiki-print_indexed.php": {
             "ObjectRenderer_TrackerItem": true,
             "ObjectRenderer_Wiki": true,
@@ -6635,9 +6627,6 @@
         }
     },
     "PSR1.Classes.ClassDeclaration.MultipleClasses": {
-        "tiki-webservices.php": {
-            "class:Tiki_WebServices": true
-        },
         "tiki-print_indexed.php": {
             "class:ObjectRenderer": true,
             "class:ObjectRenderer_TrackerItem": true,
@@ -6769,9 +6758,6 @@
         }
     },
     "PSR1.Methods.CamelCapsMethodName.NotCamelCaps": {
-        "tiki-webservices.php": {
-            "Tiki_WebServices::test_complex": true
-        },
         "tiki-check.php": {
             "BenchmarkPhp::test_benchmark": true,
             "BenchmarkPhp::test_math": true,

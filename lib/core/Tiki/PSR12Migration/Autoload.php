@@ -23,6 +23,8 @@ class Autoload
         'InstallerDatabaseErrorHandler' => 'Tiki\\Installer\\InstallerDatabaseErrorHandler',
         'LogsLib' => 'Tiki\\Lib\\Logs\\LogsLib',
         'LogsQueryLib' => 'Tiki\\Lib\\Logs\\LogsQueryLib',
+        'Tiki_WebServices' => 'Tiki\\Webservices\\Base',
+        'Tiki_ComplexType' => 'Tiki\\Webservices\\ComplexType',
         'PieChartGraphic' => 'Tiki\\Lib\\GraphEngine\\PieChartGraphic',
         'PDFLib_GRenderer' => 'Tiki\\Lib\\GraphEngine\\PDFLibGRenderer',
         'PS_GRenderer' => 'Tiki\\Lib\\GraphEngine\\PSGRenderer',
