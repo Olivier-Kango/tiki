@@ -68,6 +68,8 @@
                         );
                         return;
                     }
+                } else {
+                    this.submit();
                 }
             });
         {/jq}
