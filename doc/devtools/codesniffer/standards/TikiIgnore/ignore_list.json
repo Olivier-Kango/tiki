@@ -2272,28 +2272,6 @@
         "lib\/test\/rating\/AggregationTest.php": {
             "class:Rating_AggregationTest": true
         },
-        "lib\/test\/importer\/TikiImporterTest.php": {
-            "class:TikiImporterTest": true,
-            "class:TikiImporterFirstChild": true,
-            "class:TikiImporterSecondChild": true,
-            "class:TikiImporterGranSon": true
-        },
-        "lib\/test\/importer\/TikiImporterBlogWordpressTest.php": {
-            "class:TikiImporterBlogWordpressTest": true
-        },
-        "lib\/test\/importer\/tikiimporter_testcase.php": {
-            "class:TikiImporter_TestCase": true
-        },
-        "lib\/test\/importer\/TikiImporterBlogTest.php": {
-            "class:TikiImporterBlogTest": true
-        },
-        "lib\/test\/importer\/TikiImporterWikiTest.php": {
-            "class:TikiImporterWikiTest": true,
-            "class:TikiImporter_Wiki_InsertPage_Test": true
-        },
-        "lib\/test\/importer\/TikiImporterWikiMediawikiTest.php": {
-            "class:TikiImporterWikiMediawikiTest": true
-        },
         "lib\/test\/Calendar\/CalRecurrenceTest.php": {
             "class:Calendar_CalRecurrenceTest": true
         },
@@ -6013,12 +5991,6 @@
         "lib\/test\/rating\/AggregationTest.php": {
             "Rating_AggregationTest": true
         },
-        "lib\/test\/importer\/tikiimporter_testcase.php": {
-            "TikiImporter_TestCase": true
-        },
-        "lib\/test\/importer\/TikiImporterWikiTest.php": {
-            "TikiImporter_Wiki_InsertPage_Test": true
-        },
         "lib\/test\/Calendar\/CalRecurrenceTest.php": {
             "Calendar_CalRecurrenceTest": true
         },
@@ -6657,14 +6629,6 @@
             "class:CacheLibFileSystem": true,
             "class:CacheLibMemcache": true,
             "class:CacheLibNoCache": true
-        },
-        "lib\/test\/importer\/TikiImporterTest.php": {
-            "class:TikiImporterFirstChild": true,
-            "class:TikiImporterSecondChild": true,
-            "class:TikiImporterGranSon": true
-        },
-        "lib\/test\/importer\/TikiImporterWikiTest.php": {
-            "class:TikiImporter_Wiki_InsertPage_Test": true
         },
         "lib\/test\/core\/Search\/FormatterTest.php": {
             "class:Search_FormatterTest_HighlightHelper": true

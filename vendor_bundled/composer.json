@@ -327,6 +327,7 @@
         },
         "classmap": [
             "../installer/",
+            "../lib/importer/",
             "../lib/language/",
             "../lib/openpgp/",
             "../lib/rating/formula/",
@@ -351,7 +352,10 @@
     "autoload-dev": {
         "classmap": [
             "../lib/test/"
-        ]
+        ],
+        "psr-4": {
+            "Tiki\\Lib\\Test\\": "../lib/test"
+        }
     },
     "include-path": [
         "vendor/pear/text_wiki_mediawiki/"
