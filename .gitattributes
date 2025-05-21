@@ -3313,7 +3313,10 @@ lib/debug/debugger-common.php -text
 lib/debug/debugger-ext.php -text
 lib/debug/debugger.php -text
 lib/debug/index.php -text
-lib/diff.php -text
+lib/WikiDiff/Formatter.php -text
+lib/WikiDiff/Engine.php -text
+lib/WikiDiff/UnifiedFormatter.php -text
+lib/WikiDiff/Base.php -text
 lib/diff/Diff.php -text
 lib/diff/Renderer.php -text
 lib/diff/difflib.php -text

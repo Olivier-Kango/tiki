@@ -2218,12 +2218,6 @@
         "lib\/core\/Perms.php": {
             "class:Perms": true
         },
-        "lib\/diff.php": {
-            "class:_WikiDiffEngine": true,
-            "class:WikiDiff": true,
-            "class:WikiDiffFormatter": true,
-            "class:WikiUnifiedDiffFormatter": true
-        },
         "lib\/cache\/cachelib.php": {
             "class:Cachelib": true,
             "class:CacheLibFileSystem": true,
@@ -5956,9 +5950,6 @@
         "lib\/core\/Reports\/Send.php": {
             "Reports_Send": true
         },
-        "lib\/diff.php": {
-            "_WikiDiffEngine": true
-        },
         "lib\/openpgp\/OpenPGP_Zend_Mail_Transport_Sendmail.php": {
             "OpenPGP_Zend_Mail_Transport_Smtp": true
         },
@@ -6599,11 +6590,6 @@
         },
         "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
             "class:Tiki_Profile_SymbolLoader_Store": true
-        },
-        "lib\/diff.php": {
-            "class:WikiDiff": true,
-            "class:WikiDiffFormatter": true,
-            "class:WikiUnifiedDiffFormatter": true
         },
         "lib\/cache\/cachelib.php": {
             "class:CacheLibFileSystem": true,
