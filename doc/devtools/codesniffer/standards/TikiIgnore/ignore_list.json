@@ -3635,31 +3635,11 @@
         "lib\/wiki-plugins\/wikiplugin_backlinks.php": {
             "class:WikiPluginBackLinks": true
         },
-        "lib\/wiki-plugins\/wikiplugin_dbreport.php": {
-            "class:WikipluginDBReportToken": true,
-            "class:WikipluginDBReportField": true,
-            "class:WikipluginDBReportString": true,
-            "class:WikipluginDBReportContent": true,
-            "class:WikipluginDBReportText": true,
-            "class:WikipluginDBReportStyle": true,
-            "class:WikipluginDBReportLink": true,
-            "class:WikipluginDBReportCell": true,
-            "class:WikipluginDBReportLine": true,
-            "class:WikipluginDBReportTable": true,
-            "class:WikipluginDBReportGroup": true,
-            "class:WikipluginDBReportParameter": true,
-            "class:WikipluginDBReportFail": true,
-            "class:WikipluginDBReport": true
-        },
         "lib\/wiki-plugins\/wikiplugin_prefdoc.php": {
             "class:PrefsDoc": true
         },
         "lib\/wiki-plugins\/wikiplugin_trackerquerytemplate.php": {
             "class:dataToFieldHandler": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_fitnesse.php": {
-            "class:FixtureTable": true,
-            "class:FixtureMockTrackerField": true
         },
         "lib\/wiki-plugins\/wikiplugin_titlesearch.php": {
             "class:WikiPluginTitleSearch": true
@@ -6681,24 +6661,6 @@
             "class:OIntegrate_Converter_HtmlToTiki": true,
             "class:OIntegrate_Converter_TikiToHtml": true,
             "class:OIntegrate_Converter_Indexer": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_dbreport.php": {
-            "class:WikipluginDBReportField": true,
-            "class:WikipluginDBReportString": true,
-            "class:WikipluginDBReportContent": true,
-            "class:WikipluginDBReportText": true,
-            "class:WikipluginDBReportStyle": true,
-            "class:WikipluginDBReportLink": true,
-            "class:WikipluginDBReportCell": true,
-            "class:WikipluginDBReportLine": true,
-            "class:WikipluginDBReportTable": true,
-            "class:WikipluginDBReportGroup": true,
-            "class:WikipluginDBReportParameter": true,
-            "class:WikipluginDBReportFail": true,
-            "class:WikipluginDBReport": true
-        },
-        "lib\/wiki-plugins\/wikiplugin_fitnesse.php": {
-            "class:FixtureMockTrackerField": true
         },
         "lib\/sheet\/grid.php": {
             "class:TikiSheet": true,
@@ -9749,25 +9711,37 @@
             "WikiPluginBackLinks::get_item_field_id": true,
             "WikiPluginBackLinks::list_backlinks_from_tracker_items": true
         },
-        "lib\/wiki-plugins\/wikiplugin_dbreport.php": {
-            "WikipluginDBReportToken::type_name": true,
-            "WikipluginDBReportContent::parse_text": true,
-            "WikipluginDBReportContent::append_field": true,
-            "WikipluginDBReportContent::append_variable": true,
-            "WikipluginDBReportContent::append_string": true,
-            "WikipluginDBReportStyle::html_start": true,
-            "WikipluginDBReportStyle::html_end": true,
-            "WikipluginDBReportLink::html_start": true,
-            "WikipluginDBReportLink::html_end": true,
-            "WikipluginDBReportLink::html_onclick": true,
-            "WikipluginDBReportLine::row_html": true,
-            "WikipluginDBReportTable::line_row_html": true,
-            "WikipluginDBReportTable::header_row_html": true,
-            "WikipluginDBReportTable::record_row_html": true,
-            "WikipluginDBReportTable::footer_row_html": true,
-            "WikipluginDBReportGroup::check_break": true,
-            "WikipluginDBReportGroup::start_html": true,
-            "WikipluginDBReportGroup::end_html": true
+        "lib\/core\/WikiPlugin\/DBReport\/Content.php": {
+            "Content::parse_text": true,
+            "Content::append_field": true,
+            "Content::append_variable": true,
+            "Content::append_string": true
+        },
+        "lib\/core\/WikiPlugin\/DBReport\/Style.php": {
+            "Style::html_start": true,
+            "Style::html_end": true
+        },
+        "lib\/core\/WikiPlugin\/DBReport\/Link.php": {
+            "Link::html_start": true,
+            "Link::html_end": true,
+            "Link::html_onclick": true
+        },
+        "lib\/core\/WikiPlugin\/DBReport\/Line.php": {
+            "Line::row_html": true
+        },
+        "lib\/core\/WikiPlugin\/DBReport\/Table.php": {
+            "Table::line_row_html": true,
+            "Table::header_row_html": true,
+            "Table::record_row_html": true,
+            "Table::footer_row_html": true
+        },
+        "lib\/core\/WikiPlugin\/DBReport\/Group.php": {
+            "Group::check_break": true,
+            "Group::start_html": true,
+            "Group::end_html": true
+        },
+        "lib\/core\/WikiPlugin\/DBReport\/Token.php": {
+            "Token::type_name": true
         },
         "lib\/wiki-plugins\/wikiplugin_mcalendar.php": {
             "MCalendar::Maya": true
