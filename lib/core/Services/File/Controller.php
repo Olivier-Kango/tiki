@@ -180,7 +180,8 @@ class Services_File_Controller
             throw new Services_Exception(tr($message), 406);
         }
         $util = new Services_Utilities();
-        if ($util->isActionPost()) {
+        // skip unsetting the CSRF ticket as multiple files might be dropped in the dropzone
+        if ($util->isActionPost(false)) {
             if ($fileId) {
                 // if we are updating a file, we need to get the missing file info from the database
                 $size = $size ?: $fileInfo['filesize'];
