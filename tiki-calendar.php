@@ -104,7 +104,7 @@ foreach ($rawcals['data'] as $calendar) {
     $endOfDayMinute = ($endOfDayUnix % 3600) / 60;
     $maxHourOfDay = date('H:i:s', mktime($endOfDayHour, $endOfDayMinute, 0));
 
-    $canEditAnything = $calendar['perms']->add_events;
+    $canEditAnything = $canEditAnything || $calendar['perms']->add_events;
 }
 
 $rawsubs = $calendarlib->get_subscriptions($user);
