@@ -216,7 +216,8 @@
                                     {/if}
 
                                     {* ------- list values --- *}
-                                    {$ajaxedit = $prefs.ajax_inline_edit_trackerlist eq 'y' and
+                                    {$ajaxedit = (empty($tracker_info.allowInlineEditing) and $prefs.ajax_inline_edit_trackerlist eq 'y') or
+                                            ($tracker_info.allowInlineEditing eq 'y') and
                                             ($tiki_p_modify_tracker_items eq 'y' and $items[user].status ne 'p' and $items[user].status ne 'c') or
                                             ($tiki_p_modify_tracker_items_pending eq 'y' and $items[user].status eq 'p') or
                                             ($tiki_p_modify_tracker_items_closed eq 'y' and $items[user].status eq 'c')

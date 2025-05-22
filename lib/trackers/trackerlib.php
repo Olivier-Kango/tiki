@@ -6545,20 +6545,24 @@ class TrackerLib extends TikiLib
                     $id = "{$id}{$item['itemId']}";
                 }
 
-                $r = new Tiki_Render_Editable(
-                    $r,
-                    [
-                        'layout' => $params['editable'],
-                        'label' => $field['name'],
-                        'group' => ! empty($params['editgroup']) ? $params['editgroup'] : false,
-                        'field' => [
-                            'id' => $id,
-                            'type' => $field['type']
-                        ],
-                        'object_store_url' => $objectStoreUrl,
-                        'field_fetch_url' => $fetchUrl,
-                    ]
-                );
+                $tracker_info = $this->get_tracker_options($params['field']['trackerId']);
+
+                if (! isset($tracker_info['allowInlineEditing']) || empty($tracker_info['allowInlineEditing']) || $tracker_info['allowInlineEditing'] === 'y') {
+                    $r = new Tiki_Render_Editable(
+                        $r,
+                        [
+                            'layout' => $params['editable'],
+                            'label' => $field['name'],
+                            'group' => ! empty($params['editgroup']) ? $params['editgroup'] : false,
+                            'field' => [
+                                'id' => $id,
+                                'type' => $field['type']
+                            ],
+                            'object_store_url' => $objectStoreUrl,
+                            'field_fetch_url' => $fetchUrl,
+                        ]
+                    );
+                }
             } elseif (isset($params['oldValue'])) {
                 $r = $handler->renderDiff($context);
             } else {
@@ -7055,6 +7059,7 @@ class TrackerLib extends TikiLib
             'tabularSyncLastImportSkipUpdate' => $input->tabularSyncLastImportSkipUpdate->int() ? 'y' : 'n',
             'notifyOn' => $input->notifyOn->word() ? $input->notifyOn->word() : 'both',
             'relationshipBehaviour' => $input->relationshipBehaviour->text(),
+            'allowInlineEditing' => $input->allowInlineEditing->int() ? 'y' : 'n',
         ];
     }
 }

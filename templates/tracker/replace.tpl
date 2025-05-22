@@ -128,6 +128,15 @@
                     </div>
                 {/foreach}
             </fieldset>
+            {if $prefs.ajax_inline_edit eq 'y'}
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="allowInlineEditing" id="allowInlineEditing" value="1"
+                        {if $info.allowInlineEditing eq 'y' or (empty($info.allowInlineEditing) and $prefs.ajax_inline_edit_trackerlist eq 'y')} checked="checked"{/if}>
+                    <label class="form-check-label" for="allowInlineEditing">
+                        {tr}Allow inline editing{/tr}
+                    </label>
+                </div>
+            {/if}
         {/accordion_group}
         {accordion_group title="{tr}Display{/tr}"}
             <div class="mb-3 mx-0">
