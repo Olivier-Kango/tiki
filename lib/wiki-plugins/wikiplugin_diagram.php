@@ -145,7 +145,7 @@ function wikiplugin_diagram($data, $params)
                 $logsLib = TikiLib::lib('logs');
                 $logsLib->add_log('HeadlessBrowser', $e->getMessage());
                 Feedback::error($e->getMessage());
-                break;
+                TikiLib::lib('access')->redirect($page);
             }
             $html .= ! empty($html) ? '<br/>' : '';
             $html .= '<div style="text-align:' . $alignment . ';">' .

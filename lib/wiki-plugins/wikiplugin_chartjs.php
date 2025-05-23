@@ -227,9 +227,10 @@ HTML;
         if (! $cacheLib->isCached($scriptHash, $cacheKey)) {
             $headlessBrowser = HeadlessBrowserFactory::getHeadlessBrowser();
             $htmlFile = writeTempFile($html_content, '', true, 'wikiplugin_chart_', '.html');
+            $htmlFileUrl = rtrim($base_url, '/') . '/temp/' . basename($htmlFile);
             $hash = str_replace('wikiplugin_chart_', '', str_replace('.html', '', basename($htmlFile)));
             $outputPath = TIKI_PATH . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . 'wikiplugin_chart_' . $hash . '.png';
-            $base64 = $headlessBrowser->getUrlAsImage($htmlFile, $outputPath, 'body', $timeout);
+            $base64 = $headlessBrowser->getUrlAsImage($htmlFileUrl, $outputPath, 'body', $timeout);
             $cacheLib->cacheItem($scriptHash, $base64, $cacheKey);
         } else {
             $base64 = $cacheLib->getCached($scriptHash, $cacheKey);
@@ -238,6 +239,17 @@ HTML;
         $logsLib = TikiLib::lib('logs');
         $logsLib->add_log('HeadlessBrowser', $e->getMessage());
         Feedback::error($e->getMessage());
+        return; // Early return to show an error message
+    } finally {
+        // This block will always execute even if an exception is thrown or early return
+        // Clean up temporary files
+        if (! empty($htmlFile) && file_exists($htmlFile)) {
+            unlink($htmlFile);
+        }
+
+        if (! empty($outputPath) && file_exists($outputPath)) {
+            unlink($outputPath);
+        }
     }
 
     $canvas = <<<HTML
