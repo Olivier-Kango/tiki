@@ -134,7 +134,7 @@ function wikiplugin_diagram($data, $params)
         $alignment = $info['params']['align']['default'];
     }
 
-    if (! empty($_GET['display']) && $_GET['display'] == 'pdf') {
+    if (defined('TIKI_PRINTING_PDF') && TIKI_PRINTING_PDF) {
         $html = '';
 
         foreach ($diagrams as $diagram) {

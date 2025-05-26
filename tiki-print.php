@@ -8,6 +8,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+/**
+ * TIKI_PRINTING is always true when tiki-print.php is used.
+ * TIKI_PRINTING_PDF is true only for PDF exports (?display=pdf).
+ * TIKI_PRINTING_PDF => TIKI_PRINTING, but not the reverse.
+ * TIKI_DISPLAY_CONTAINS_PDF is true when the display parameter contains 'pdf' anywhere in its value.
+ */
+define('TIKI_PRINTING', true);
+define('TIKI_PRINTING_PDF', isset($_REQUEST['display']) && $_REQUEST['display'] === 'pdf');
+define('TIKI_DISPLAY_CONTAINS_PDF', isset($_GET['display']) && strpos($_GET['display'], 'pdf') !== false);
+
 $section_class = "tiki_wiki_page print";
 $inputConfiguration = [
     [
@@ -58,7 +69,7 @@ $smarty->assign('page_id', $info['page_id']);
 $tikilib->get_perm_object($page, 'wiki page', $info);
 $access->check_permission('tiki_p_view', '', 'wiki page', $page);
 // check if the user can export to pdf (including sub request to print system)
-if (($_REQUEST['display'] ?? '') == 'pdf') {
+if (TIKI_PRINTING_PDF) {
     $access->check_permission('tiki_p_export_pdf', '', 'wiki page', $page);
 }
 $pdfExportSubRequest = false;
@@ -72,7 +83,7 @@ if (($_REQUEST['pdf_token'] ?? '') != '') {
 }
 
 // check if user can print and disable the jQuery TableSorter feature if it is enabled.
-if (! $pdfExportSubRequest && ($_REQUEST['display'] ?? '') != 'pdf') {
+if (! $pdfExportSubRequest && ! TIKI_PRINTING_PDF) {
     $access->check_permission('tiki_p_print', '', 'wiki page', $page);
     $prefs['feature_jquery_tablesorter'] = 'n';
 }
@@ -164,7 +175,7 @@ $smarty->assign('display', isset($_REQUEST['display']) ? $_REQUEST['display'] : 
 $smarty->assign('phpErrors', []);
 
 // Allow PDF export by installing a Mod that define an appropriate function
-if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
+if (TIKI_PRINTING_PDF) {
     // Detect if we have a PDF export mod installed
     $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
     $smarty->assign('pdf_warning', 'n');
