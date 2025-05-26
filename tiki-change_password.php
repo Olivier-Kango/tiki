@@ -31,15 +31,36 @@ if (! isset($_REQUEST["oldpass"])) {
     $_REQUEST["oldpass"] = '';
 }
 
+// Expected hash
+$user = $_REQUEST["user"];
+$timestamp = $_REQUEST["timestamp"];
+$actpass = $_REQUEST["apass"];
+$expected_hash = md5($user . '|' . $actpass . '|' . $timestamp);
+
 if (isset($_REQUEST["newuser"]) && $_REQUEST["newuser"] == 'y') {
     $smarty->assign('new_user_validation', 'y');
 }
 
 $smarty->assign('userlogin', $_REQUEST["user"]);
 $smarty->assign('oldpass', $_REQUEST["oldpass"]);
+$smarty->assign('password', $_REQUEST["actpass"]);
+$smarty->assign('timestamp', $_REQUEST["ts"]);
+$smarty->assign('hash', $_REQUEST["hash"]);
 
 if (isset($_REQUEST["change"])) {
     $access->checkCsrf();
+    // Check if the hash is valid
+    $provided_hash = $_REQUEST["hash"];
+    if ($expected_hash !== $provided_hash) {
+        Feedback::errorAndDie(tra("Invalid hash."), \Laminas\Http\Response::STATUS_CODE_403);
+    }
+
+    // Check if the timestamp is valid
+    $resetTime = $prefs['resetpasswordlink_expiry'];
+    if (time() - (int)$timestamp > $resetTime) {
+        Feedback::errorAndDie(tra("The link has expired."), \Laminas\Http\Response::STATUS_CODE_410);
+    }
+
     // Check that pass and passAgain match, otherwise display error and exit
     if ($_REQUEST["pass"] != $_REQUEST["passAgain"]) {
         Feedback::errorAndDie(tra("The passwords do not match"), \Laminas\Http\Response::STATUS_CODE_400);

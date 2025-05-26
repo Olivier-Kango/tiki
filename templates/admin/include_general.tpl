@@ -98,6 +98,10 @@
                 {preference name=newsletter_external_client}
             </fieldset>
             <fieldset>
+                <legend class="h3">{tr}Email token reset{/tr}</legend>
+                {preference name=resetpasswordlink_expiry}
+            </fieldset>
+            <fieldset>
                 <legend class="h3">{tr}Logging and reporting{/tr}</legend>
                 <div class="adminoptionbox">
                     {preference name=error_reporting_level}

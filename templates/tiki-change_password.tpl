@@ -17,6 +17,13 @@
                 {if $new_user_validation eq 'y'}
                     <input type="hidden" name="new_user_validation" value="y">
                 {/if}
+                {if !empty($timestamp)}
+                    <input type="hidden" name="apass" value="{$password|escape}">
+                    <input type="hidden" name="timestamp" value="{$timestamp|escape}">
+                {/if}
+                {if !empty($hash)}
+                    <input type="hidden" name="hash" value="{$hash|escape}">
+                {/if}
                 <div class="card-header text-center">
                     {if $new_user_validation neq 'y'}
                         <h3 class="card-title">{tr}Change password{/tr}</h3>

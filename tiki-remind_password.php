@@ -25,7 +25,16 @@ if (isset($_REQUEST["user"])) {
     }
 }
 if (isset($_REQUEST["remind"])) {
-    $emailResetMessage = tra("An email with a link to reset your password has been sent to the address on record if you have one, if you do not receive one shortly, please contact the administrator.");
+    // Duration before the password reset link becomes invalid
+    $resetTime = $prefs['resetpasswordlink_expiry'];
+    if ($resetTime < 60) {
+        $resetTime = $resetTime . ' ' . tr($resetTime == 1 ? 'minute' : 'minutes');
+    } else {
+        $hours = round($resetTime / 60, 1);
+        $resetTime = $hours . ' ' . tr($hours == 1 ? 'hour' : 'hours');
+    }
+
+    $emailResetMessage = tr("An email with a link to reset your password has been sent to the address on record if you have one, if you do not receive one shortly, please contact the administrator. Be sure to check your inbox and follow the link within the next %0.", $resetTime);
 
     // validate captcha
     $captchalib = TikiLib::lib('captcha');
@@ -72,13 +81,17 @@ if (isset($_REQUEST["remind"])) {
         include_once('lib/webmail/tikimaillib.php');
         $name = $_REQUEST['name'];
 
-        $pass = $userlib->renew_user_password($name);
+        $pass = md5($userlib->renew_user_password($name));
+        $timestamp = time();
+        $hash = md5($name . '|' . $pass . '|' . $timestamp);
 
         $languageEmail = $tikilib->get_user_preference($name, "language", $prefs['site_language']);
         // Now check if the user should be notified by email
         $smarty->assign('mail_site', $_SERVER["SERVER_NAME"]);
         $smarty->assign('mail_user', $name);
-        $smarty->assign('mail_apass', md5($pass));
+        $smarty->assign('mail_timestamp', $timestamp);
+        $smarty->assign('mail_timestamp_hash', $hash);
+        $smarty->assign('mail_apass', $pass);
         $smarty->assign('mail_ip', $tikilib->get_ip_address());
         $mail_data = sprintf($smarty->fetchLang($languageEmail, 'mail/password_reminder_subject.tpl'), $_SERVER["SERVER_NAME"]);
         $mail = new TikiMail($name);
