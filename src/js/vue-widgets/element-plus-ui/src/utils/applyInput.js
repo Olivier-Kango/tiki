@@ -8,6 +8,7 @@ export default function applyInput() {
                 .filter(function () {
                     if ($(this).attr("element-plus-ref")) return false;
                     if ($(this).css("display") === "none") return false;
+                    if ($(this).closest(".cypht-layout").length) return false;
 
                     return [undefined, "text", "number", "email", "password", "search", "url", "tel", "file"].includes($(this).attr("type"));
                 });

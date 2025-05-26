@@ -110,6 +110,17 @@ describe("applyInput", () => {
         expect($("body").html()).toBe(input.prop("outerHTML"));
     });
 
+    test("should not transform inputs inside cypht-layout", async () => {
+        applyInput();
+        const input = $("<input>");
+        const layout = $("<div class='cypht-layout'></div>");
+        layout.append(input);
+        $("body").append(layout);
+
+        await window.happyDOM.waitUntilComplete();
+        expect($("body").html()).toBe(`<div class="cypht-layout"><input></div>`);
+    });
+
     test.each([["change", ["new value"]], ["input", ["new value"]], ["input", ["input value"]], ["blur"], ["focus"], ["keyup"], ["keydown"]])(
         "handles correctly the %s event",
         async (eventName, eventDetail) => {
