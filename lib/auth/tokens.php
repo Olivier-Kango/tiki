@@ -25,9 +25,13 @@ class AuthTokens
         );
     }
 
-    public function __construct($db, $options = [], DateTime|null $dt = null)
+    public function __construct($db = null, $options = [], DateTime|null $dt = null)
     {
-        $this->db = $db;
+        if (is_null($db)) {
+            $this->db = TikiDb::get();
+        } else {
+            $this->db = $db;
+        }
         $this->table = $this->db->table('tiki_auth_tokens');
 
         if (is_null($dt)) {
@@ -325,7 +329,7 @@ class AuthTokens
         return $url;
     }
 
-    public function createToken($entry, array $parameters, array $groups, array $arguments = [])
+    public function createToken($entry, array $parameters, array $groups, array $arguments = [], array $data = [])
     {
         if (! empty($arguments['timeout'])) {
             $timeout = min($this->maxTimeout, $arguments['timeout']);
@@ -357,18 +361,22 @@ class AuthTokens
             $userPrefix = '';
         }
 
+        global $user;
+
         $this->db->query(
-            'INSERT INTO tiki_auth_tokens ( timeout, maxhits, hits, entry, parameters, `groups`, email, createUser, userPrefix ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ? )',
+            'INSERT INTO tiki_auth_tokens ( timeout, maxhits, hits, entry, parameters, data, `groups`, email, createUser, userPrefix, user ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )',
             [
                 (int) $timeout,
                 (int) $hits,
                 (int) $hits,
                 $entry,
                 json_encode($parameters),
+                json_encode($data),
                 json_encode($groups),
                 $email,
                 $createUser,
                 $userPrefix,
+                $arguments['user'] ?? $user,
 
             ]
         );
@@ -390,15 +398,18 @@ class AuthTokens
      * @param int $hits Number of hits allowed before token expires. If not included, will use default as set in prefs.
      * @param boolean $createUser Login token user as temporary user if set to true
      * @param string $userPrefix Username of the created users will be a 6 digit number based on the token ID prefixed with this (default is 'guest')
+     * @param string $creatorUser The user that created the token. If not included, will use the current user.
+    * @param array $data The extra data/params that should not be included in the URL but are associated with the token.
      * @return string A URL that has the security token included.
      */
-    public function includeToken($url, array $groups = [], $email = '', $timeout = 0, $hits = 0, $createUser = false, $userPrefix = 'guest')
+    public function includeToken($url, array $groups = [], $email = '', $timeout = 0, $hits = 0, $createUser = false, $userPrefix = 'guest', $creatorUser = null, array $data = [])
     {
-        $data = parse_url($url);
+        global $user;
+        $urlData = parse_url($url);
         $longurl = '';
 
-        if (isset($data['query'])) {
-            parse_str($data['query'], $args);
+        if (isset($urlData['query'])) {
+            parse_str($urlData['query'], $args);
             unset($args['TOKEN']);
         } else {
             global $prefs, $sefurl_regex_out;
@@ -444,8 +455,9 @@ class AuthTokens
         }
         $settings['createUser'] = $createUser;
         $settings['userPrefix'] = $userPrefix;
+        $settings['user'] = $creatorUser ?? $user;
 
-        $token = $this->createToken($data['path'], $args, $groups, $settings);
+        $token = $this->createToken($urlData['path'], $args, $groups, $settings, $data);
         if ($longurl) { // sefurl was used so the args should be reset now the token has been created
             $args = [];
         }
@@ -453,13 +465,36 @@ class AuthTokens
 
         $query = '?' . http_build_query($args, '', '&');
 
-        if (! isset($data['fragment'])) {
+        if (! isset($urlData['fragment'])) {
             $anchor = '';
         } else {
-            $anchor = "#{$data['fragment']}";
+            $anchor = "#{$urlData['fragment']}";
         }
 
-        return "{$data['scheme']}://{$data['host']}{$data['path']}$query$anchor";
+        return "{$urlData['scheme']}://{$urlData['host']}{$urlData['path']}$query$anchor";
+    }
+
+    /**
+     * Retrieves the token from a given URL.
+     *
+     * This function parses the query parameters of the provided URL and checks if a 'TOKEN' parameter is present.
+     * If the 'TOKEN' parameter is found, it retrieves the token using the `getToken` method and returns it.
+     * If the 'TOKEN' parameter is not found, it returns null.
+     *
+     * @param string $url The URL to extract the token from.
+     * @return string|null The token if found, or null if not found.
+     */
+    public function getTokenFromUrl($url)
+    {
+        $data = parse_url($url);
+        if (isset($data['query'])) {
+            parse_str($data['query'], $args);
+            if (isset($args['TOKEN'])) {
+                return $this->getToken($args['TOKEN']);
+            }
+        }
+
+        return null;
     }
 
     public function deleteToken($tokenId)

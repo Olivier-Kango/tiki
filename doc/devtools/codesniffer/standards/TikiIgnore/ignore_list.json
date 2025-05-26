@@ -2044,6 +2044,9 @@
         "lib\/core\/Services\/Xmpp\/Controller.php": {
             "class:Services_Xmpp_Controller": true
         },
+            "lib\/core\/Services\/Share\/Controller.php": {
+            "class:Services_Share_Controller": true
+        },
         "lib\/core\/Services\/ShowTikiOrg\/Controller.php": {
             "class:Services_ShowTikiOrg_Controller": true
         },
@@ -5782,6 +5785,9 @@
         "lib\/core\/Services\/Xmpp\/Controller.php": {
             "Services_Xmpp_Controller": true
         },
+        "lib\/core\/Services\/Share\/Controller.php": {
+            "Services_Share_Controller": true
+        },
         "lib\/core\/Services\/ShowTikiOrg\/Controller.php": {
             "Services_ShowTikiOrg_Controller": true
         },
@@ -7782,6 +7788,11 @@
             "Services_Xmpp_Controller::action_prebind": true,
             "Services_Xmpp_Controller::action_groups_in_room": true,
             "Services_Xmpp_Controller::action_users_in_room": true
+        },
+        "lib\/core\/Services\/Share\/Controller.php": {
+            "Services_Share_Controller::action_index": true,
+            "Services_Share_Controller::action_remove": true,
+            "Services_Share_Controller::action_no_action": true
         },
         "lib\/core\/Services\/ShowTikiOrg\/Controller.php": {
             "Services_ShowTikiOrg_Controller::action_process": true

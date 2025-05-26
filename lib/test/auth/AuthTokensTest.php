@@ -56,8 +56,8 @@ class AuthTokensTest extends TikiDatabaseTestCase
         $expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/auth_tokens_dataset_create.xml')
             ->getTable('tiki_auth_tokens');
 
-        $token = $this->obj->createToken('tiki-index.php', ['page' => 'HomePage'], ['Registered'], ['timeout' => 5]);
-        $this->db->query("UPDATE tiki_auth_tokens SET creation = '2012-02-03 15:25:07', token = '0ae3b4b86286ab68f5a66fb8c49da163' WHERE token = '$token'");
+        $token = $this->obj->createToken('tiki-index.php', ['page' => 'HomePage'], ['Registered'], ['timeout' => 5], ['destination' => 'message']);
+        $this->db->query("UPDATE tiki_auth_tokens SET creation = '2012-02-03 15:25:07', token = '0ae3b4b86286ab68f5a66fb8c49da163', user = 'admin' WHERE token = '$token'");
 
         $queryTable = $this->getConnection()->createQueryTable('tiki_auth_tokens', 'SELECT * FROM tiki_auth_tokens');
 

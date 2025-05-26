@@ -33,6 +33,9 @@
         <service id="tiki.lib.webhook" class="Webhook">
             <file>%kernel.root_dir%/lib/auth/webhook.php</file>
         </service>
+        <service id="tiki.lib.authtokens" class="AuthTokens">
+            <file>%kernel.root_dir%/lib/auth/tokens.php</file>
+        </service>
         <service id="tiki.lib.autosave" class="AutoSaveLib">
             <file>%kernel.root_dir%/lib/ajax/autosave.php</file>
         </service>

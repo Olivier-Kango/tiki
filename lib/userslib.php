@@ -6458,6 +6458,15 @@ class UsersLib extends TikiLib
                 'scope' => 'global',
             ],
             [
+                'name' => 'tiki_p_remove_share',
+                'description' => tra('Can Delete his/her own shared page URL'),
+                'level' => 'basic',
+                'type' => 'tiki',
+                'admin' => false,
+                'prefs' => ['feature_share'],
+                'scope' => 'global',
+            ],
+            [
                 'name' => 'tiki_p_use_HTML',
                 'description' => tra('Can use HTML in pages'),
                 'level' => 'editors',
