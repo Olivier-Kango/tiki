@@ -452,8 +452,10 @@ class Hm_Handler_post_imap_save_sent extends Hm_Handler_Module
 
         $subject = $this->request->post['compose_subject'];
         $body = $this->request->post['compose_body'];
+        $body = strip_tags($body);
+        $body = str_replace(['@', '<', '>', '+', '-'], '', $body);
 
-        $keywords = [$subject];
+        $keywords = [];
 
         foreach (explode(' ', $subject) as $word) {
             $keywords[] = $word;
@@ -462,6 +464,8 @@ class Hm_Handler_post_imap_save_sent extends Hm_Handler_Module
         foreach (explode(' ', $body) as $word) {
             $keywords[] = $word;
         }
+        $keywords = array_map('trim', $keywords);
+        $keywords = array_filter($keywords);
         $keywords = array_unique($keywords);
 
         $this->session->set('keywords', $keywords);

@@ -463,6 +463,7 @@ function find_relevant_tracker_items($keywords)
         'filter' => [
             'content' => $keywords,
             'tracker_id' => implode(' OR ', $trackerIds),
+            'type' => 'trackeritem',
         ]
     ]);
 
