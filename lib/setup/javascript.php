@@ -358,7 +358,7 @@ $(document) . on("shown.bs.modal", function (event) {
         });
 });
 ';
-    $headerlib->add_css(' . modal - header {cursor: grab}');
+    $headerlib->add_css('.modal-header {cursor: grab}');
 }
 
 if ($prefs['jquery_ui_modals_resizable'] === 'y') {
