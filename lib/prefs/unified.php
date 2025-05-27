@@ -441,9 +441,25 @@ function prefs_unified_list()
             'tags' => ['advanced'],
             'help' => 'PluginList',
         ],
-        'unified_last_rebuild_stats' => [
+        'unified_last_rebuild_stats_mysql' => [
             'name' => tra('Last rebuild statistics'),
-            'description' => tra('Record of last rebuild object counts and timings.'),
+            'description' => tra('Record of last rebuild object counts and timings for mysql.'),
+            'hint' => tra('Do not change this value unless you know what you are doing.'),
+            'type' => 'text',
+            'default' => [],
+            'tags' => ['advanced'],
+        ],
+        'unified_last_rebuild_stats_elastic' => [
+            'name' => tra('Last rebuild statistics'),
+            'description' => tra('Record of last rebuild object counts and timings for elastic search.'),
+            'hint' => tra('Do not change this value unless you know what you are doing.'),
+            'type' => 'text',
+            'default' => [],
+            'tags' => ['advanced'],
+        ],
+        'unified_last_rebuild_stats_manticore' => [
+            'name' => tra('Last rebuild statistics'),
+            'description' => tra('Record of last rebuild object counts and timings for manticore search.'),
             'hint' => tra('Do not change this value unless you know what you are doing.'),
             'type' => 'text',
             'default' => [],

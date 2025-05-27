@@ -263,7 +263,7 @@ class UnifiedSearchLib
         try {
             $indexDecorator = new Search_Index_TypeAnalysisDecorator($index);
             $indexer = $this->buildIndexer($indexDecorator, $loggit);
-            $lastStats = $tikilib->get_preference('unified_last_rebuild_stats', [], true);
+            $lastStats = $tikilib->get_preference('unified_last_rebuild_stats_' . $prefs['unified_engine'], [], true);
 
             $stat = $tikilib->allocate_extra(
                 'unified_rebuild',
@@ -397,8 +397,8 @@ class UnifiedSearchLib
             TikiLib::lib('storedsearch')->reloadAll();
         }
 
-        $tikilib->set_preference('unified_last_rebuild', $tikilib->now);
-        $tikilib->set_preference('unified_last_rebuild_stats', $stats);
+        $tikilib->set_preference('unified_last_rebuild_' . $prefs['unified_engine'], $tikilib->now);
+        $tikilib->set_preference('unified_last_rebuild_stats_' . $prefs['unified_engine'], $stats);
 
         $this->isRebuildingNow = false;
         $access->preventRedirect(false);
@@ -1012,8 +1012,8 @@ class UnifiedSearchLib
      */
     public function getLastRebuildDocsCount($index = 'default')
     {
-        global $tikilib;
-        $lastStats = $tikilib->get_preference('unified_last_rebuild_stats', [], true);
+        global $tikilib, $prefs;
+        $lastStats = $tikilib->get_preference('unified_last_rebuild_stats_' . $prefs['unified_engine'], [], true);
         if (! isset($lastStats[$index]['counts'])) {
             return 0;
         }
@@ -1115,7 +1115,7 @@ class UnifiedSearchLib
      */
     private function getMySqlEngineInfo(): array
     {
-        global $tikilib;
+        global $tikilib, $prefs;
 
         $info = [];
         $totalDocuments = $this->getLastRebuildDocsCount();
@@ -1144,7 +1144,7 @@ class UnifiedSearchLib
             $info[tr('MySQL Index %0', $indexName)] = tr('%0 documents', $index['tbl_rows'] ?: 0);
         }
 
-        $lastRebuild = $tikilib->get_preference('unified_last_rebuild');
+        $lastRebuild = $tikilib->get_preference('unified_last_rebuild_' . $prefs['unified_engine']);
         if (! empty($lastRebuild)) {
             $info['MySQL Last Rebuild Index'] = $tikilib->get_long_date($lastRebuild) . ', ' . $tikilib->get_long_time($lastRebuild);
         }
@@ -1561,7 +1561,7 @@ class UnifiedSearchLib
 
         $tikilib = TikiLib::lib('tiki');
 
-        $last_rebuild = $tikilib->get_preference('unified_last_rebuild');
+        $last_rebuild = $tikilib->get_preference('unified_last_rebuild_' . $prefs['unified_engine']);
         $threshold = strtotime('+ ' . $prefs['search_index_outdated'] . ' days', $last_rebuild);
 
         $types = $this->getSupportedTypes();

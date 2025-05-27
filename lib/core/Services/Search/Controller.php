@@ -37,7 +37,7 @@ class Services_Search_Controller
 
 
         if ($input->getlaststats->int()) {
-            $stat = $prefs['unified_last_rebuild_stats'];
+            $stat = $prefs['unified_last_rebuild_stats_' . $prefs['unified_engine']];
         } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Apply 'Search index rebuild memory limit' setting if available
             if (! empty($prefs['allocate_memory_unified_rebuild'])) {
@@ -153,7 +153,8 @@ class Services_Search_Controller
             'lastLogItemWeb' => $lastLogItem['web'] ?: tr('Unable to get info from log file.'),
             'lastLogItemConsole' => $lastLogItem['console'] ?: tr('Unable to get info from log file.'),
             'isAjax' => $access->is_xml_http_request(),
-            'showForm' => empty($stat)
+            'showForm' => empty($stat),
+            'unified_last_rebuild' => $prefs['unified_last_rebuild_' . $prefs['unified_engine']]
         ];
     }
 

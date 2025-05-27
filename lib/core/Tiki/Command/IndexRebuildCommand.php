@@ -109,7 +109,7 @@ class IndexRebuildCommand extends Command
         }
 
         if ($input->getOption('progress') && ! $cron) {
-            $lastStats = \TikiLib::lib('tiki')->get_preference('unified_last_rebuild_stats', [], true);
+            $lastStats = \TikiLib::lib('tiki')->get_preference('unified_last_rebuild_stats_' . $prefs['unified_engine'], [], true);
             if (isset($lastStats['default']['counts'])) {
                 if (isset($lastStats['default']['times']['total'])) {
                     $steps = $lastStats['default']['times']['total'] * 1000 + 5000; // milliseconds plus 5 seconds for prefs (guess)

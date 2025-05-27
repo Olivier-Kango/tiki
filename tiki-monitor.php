@@ -7,6 +7,7 @@
 use Tiki\Installer\Installer;
 
 require_once('tiki-setup.php');
+global $prefs;
 
 isMonitorRestrited();
 getMonitorRole();
@@ -46,7 +47,7 @@ if (isValidMonitor('DbRequiresUpdate')) {
 }
 
 if (isValidMonitor('SearchIndexRebuildLast')) {
-    $result['SearchIndexRebuildLast'] = $tikilib->get_preference('unified_last_rebuild');
+    $result['SearchIndexRebuildLast'] = $tikilib->get_preference('unified_last_rebuild_' . $prefs['unified_engine']);
 }
 
 // Get probes result
