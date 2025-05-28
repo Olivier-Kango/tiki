@@ -49,16 +49,20 @@ $smarty->assign('hash', $_REQUEST["hash"]);
 
 if (isset($_REQUEST["change"])) {
     $access->checkCsrf();
-    // Check if the hash is valid
-    $provided_hash = $_REQUEST["hash"];
-    if ($expected_hash !== $provided_hash) {
-        Feedback::errorAndDie(tra("Invalid hash."), \Laminas\Http\Response::STATUS_CODE_403);
-    }
 
-    // Check if the timestamp is valid
-    $resetTime = $prefs['resetpasswordlink_expiry'];
-    if (time() - (int)$timestamp > $resetTime) {
-        Feedback::errorAndDie(tra("The link has expired."), \Laminas\Http\Response::STATUS_CODE_410);
+    // If this is a new user validation, we do not check the hash or timestamp
+    if (! isset($_REQUEST["new_user_validation"]) && $_REQUEST["new_user_validation"] !== 'y') {
+        // Check if the hash is valid
+        $provided_hash = $_REQUEST["hash"];
+        if ($expected_hash !== $provided_hash) {
+            Feedback::errorAndDie(tra("Invalid hash."), \Laminas\Http\Response::STATUS_CODE_403);
+        }
+
+        // Check if the timestamp is valid
+        $resetTime = $prefs['resetpasswordlink_expiry'];
+        if (time() - (int)$timestamp > $resetTime) {
+            Feedback::errorAndDie(tra("The link has expired."), \Laminas\Http\Response::STATUS_CODE_410);
+        }
     }
 
     // Check that pass and passAgain match, otherwise display error and exit
