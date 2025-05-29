@@ -342,8 +342,14 @@ if (
                 $is2FaPass = $twoFactorAuth->validateCode($requestedUser, $_REQUEST['twoFactorAuthCode']);
                 if (! $is2FaPass) {
                     $error = TWO_FA_INCORRECT;
-                    $isvalid = false;
                     $smarty->assign('twoFactorForm', 'y');
+                    $_SESSION['tiki_creds_username'] = $_REQUEST['user'];
+                    $_SESSION['tiki_creds_password'] = $_REQUEST['pass'];
+                    $smarty->assign('create2FaCodeNormalLogin', "y");
+                    $smarty->assign('error_login', $error);
+                    $smarty->assign('mid', 'tiki-login.tpl');
+                    $smarty->display('tiki.tpl');
+                    exit;
                 }
             }
 

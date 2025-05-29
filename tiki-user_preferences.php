@@ -488,9 +488,9 @@ if (
         );
     } else {
         if (empty($_POST['tfaPin'])) {
-            Feedback::error(tr('Field Pin Code is required.'));
+            Feedback::error(tr('Field 2FA Code is required.'));
         } else {
-            Feedback::error(tr('Invalid Pin Code.'));
+            Feedback::error(tr('Invalid 2FA Code.'));
         }
         header('Location: ' . basename(__FILE__) . '?tfagenerate=true');
         die;

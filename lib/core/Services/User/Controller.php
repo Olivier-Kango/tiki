@@ -1273,4 +1273,13 @@ class Services_User_Controller
         }
         return true;
     }
+
+    public function actionValidateUser($input)
+    {
+        $username = $input->username->text();
+        $password = $input->password->text();
+        $userlib = TikiLib::lib('user');
+        $ret = $userlib->validate_user($username, $password);
+        return $ret[0];
+    }
 }
