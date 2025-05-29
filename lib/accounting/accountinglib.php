@@ -114,7 +114,9 @@ class AccountingLib extends LogsLib
         }
 
         $userlib->add_group($groupname);
-        $userlib->assign_user_to_group($user, $groupname);
+        if ($userlib->user_exists($user)) {
+            $userlib->assign_user_to_group($user, $groupname);
+        }
         $userlib->assign_object_permission($groupname, $bookId, 'accounting book', 'tiki_p_acct_view');
         $userlib->assign_object_permission($groupname, $bookId, 'accounting book', 'tiki_p_acct_book');
         $userlib->assign_object_permission($groupname, $bookId, 'accounting book', 'tiki_p_acct_manage_accounts');

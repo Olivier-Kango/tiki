@@ -1,0 +1,1 @@
+DELETE FROM `users_users` WHERE `userId` = 1;
