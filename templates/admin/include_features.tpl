@@ -213,7 +213,6 @@
                 {preference name=jquery_timeago}
                 {preference name=jquery_jqdoublescroll}
                 {preference name=allowImageLazyLoad}
-                {preference name=tiki_prefix_css}
                 <div class="adminoptionboxchild">
                     <fieldset>
                         <legend class="h3"><h4 class="showhide_heading" id="Experimental">{tr}Experimental{/tr} <a href="#Experimental" class="heading-link" aria-label="{tr}Experimental{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>

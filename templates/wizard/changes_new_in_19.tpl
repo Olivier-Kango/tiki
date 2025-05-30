@@ -64,7 +64,6 @@
             {preference name=jquery_smartmenus_enable}
             {preference name=jquery_ui_modals_draggable}
             {preference name=jquery_ui_modals_resizable}
-            {preference name=tiki_prefix_css}
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Other Extended Features{/tr}</legend>
