@@ -156,14 +156,16 @@ describe("applyInput", () => {
     );
 
     test.each([
-        ["should submit the form for seach input type", true],
+        ["submit", "type", "search", true],
+        ["submit", "role", "search", true],
+        ["not submit", "type", "text", false],
         ["should not submit the form for non search input type", false],
-    ])("the enter event %s", async (_, isSearch) => {
+    ])("the enter event should %s when the %s is %s", async (_, attr, attrValue, shouldSubmit) => {
         applyInput();
 
         const input = $("<input>");
         input.attr("placeholder", "Input");
-        input.attr("type", isSearch ? "search" : "text");
+        input.attr(attr, attrValue);
         input.attr("value", "Value");
 
         const form = $("<form></form>");
@@ -182,7 +184,7 @@ describe("applyInput", () => {
 
         await window.happyDOM.waitUntilComplete();
 
-        if (isSearch) {
+        if (shouldSubmit) {
             expect(submitHandler).toHaveBeenCalled();
         } else {
             expect(submitHandler).not.toHaveBeenCalled();

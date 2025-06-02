@@ -70,7 +70,7 @@ export default function applyInput() {
                 });
 
                 elementPlusUi.on("enter", () => {
-                    if ($(this).attr("type") === "search") {
+                    if ($(this).attr("type") === "search" || $(this).attr("role") === "search") {
                         $(this).closest("form").trigger("submit");
                         $(this).val(elementPlusUi.val());
                     }
