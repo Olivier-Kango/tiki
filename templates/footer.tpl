@@ -91,8 +91,8 @@
     {* some js to enabled falsely detected js disabled browsers to be rechecked * disabled when in the installer *}
 
 {/if}
-{if !empty($prefs.site_piwik_code)}
-    {wikiplugin _name=piwik code=$prefs.site_piwik_code group_option=$prefs.site_piwik_group_option groups={$prefs.site_piwik_groups|join:','}}{/wikiplugin}
+{if !empty($prefs.site_matomo_code)}
+    {wikiplugin _name=matomo code=$prefs.site_matomo_code group_option=$prefs.site_matomo_group_option groups={$prefs.site_matomo_groups|join:','}}{/wikiplugin}
 {/if}
 {if $prefs.feature_scheduler eq "y" && $prefs.webcron_enabled == 'y' && $prefs.webcron_type != 'url'}
     <script type="text/javascript">

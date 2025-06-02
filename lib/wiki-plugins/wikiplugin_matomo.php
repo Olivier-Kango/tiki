@@ -4,25 +4,25 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function wikiplugin_piwik_info()
+function wikiplugin_matomo_info()
 {
     return [
-        'name' => tra('Piwik'),
-        'documentation' => 'PluginPiwik',
-        'description' => tr('Embed a Piwik preformatted report (widget module) - Piwik Analytics is required.
-                            To use this plugin you have to grant in your Piwik view permission to anonymous for the selected "Site Id" or to add a token authentification parameter.'),
-        'prefs' => ['wikiplugin_piwik'],
+        'name' => tra('Matomo'),
+        'documentation' => 'PluginMatomo',
+        'description' => tr('Embed a Matomo preformatted report (widget module) - Matomo Analytics is required.
+                            To use this plugin you have to grant in your Matomo view permission to anonymous for the selected "Site Id" or to add a token authentification parameter.'),
+        'prefs' => ['wikiplugin_matomo'],
         'iconname' => 'chart',
         'introduced' => 15,
         'tags' => ['basic'],
         'format' => 'html',
         'params' => [
-            'piwikserverurl' => [
+            'matomoserverurl' => [
                 'required' => false,
-                'name' => tra('Piwik server url'),
-                'description' => tr('The url to your Piwik Server, where data for the report are collected and available.') . ' <code>http(s)://yourpiwik.tld/index.php?</code> ' . '<br />'
-                    . tr('In Piwik, the selected site (Site Id) must have view permission set for anonymous, or a token authentication parameter can be inserted in the Piwik server URL.') . '<br />'
-                    . '<code>http(s)://yourpiwik.tld/index.php&token_auth=yourtokencode</code> ' . tr('Important : token_auth is visible in the html code and must be used in private page accessible to trusted users.'),
+                'name' => tra('Matomo server url'),
+                'description' => tr('The url to your Matomo Server, where data for the report are collected and available.') . ' <code>http(s)://yourMatomo.tld/index.php?</code> ' . '<br />'
+                    . tr('In Matomo, the selected site (Site Id) must have view permission set for anonymous, or a token authentication parameter can be inserted in the Matomo server URL.') . '<br />'
+                    . '<code>http(s)://yourMatomo.tld/index.php&token_auth=yourtokencode</code> ' . tr('Important : token_auth is visible in the html code and must be used in private page accessible to trusted users.'),
                 'since' => '15',
                 'default' => '',
             ],
@@ -30,7 +30,7 @@ function wikiplugin_piwik_info()
             'idSite' => [
                 'required' => false,
                 'name' => tra('Site Id'),
-                'description' => tr('The ID of this website in Piwik To be improved.'),
+                'description' => tr('The ID of this website in Matomo To be improved.'),
                 'since' => '15',
                 'filter' => 'digits',
                 'default' => '',
@@ -39,7 +39,7 @@ function wikiplugin_piwik_info()
             'moduleToWidgetize' => [
                 'required' => false,
                 'name' => tra('Module and Action To Widgetize'),
-                'description' => tr('Piwik widget module to be used (as described in the widget section of your Piwik server) followed by the actionToWidgetize parameter separated by a comma.'),
+                'description' => tr('Matomo widget module to be used (as described in the widget section of your Matomo server) followed by the actionToWidgetize parameter separated by a comma.'),
                 'since' => '15',
                 'default' => 'VisitsSummary,getEvolutionGraph',
                 'options' => [
@@ -144,29 +144,29 @@ function wikiplugin_piwik_info()
             ],
             'code' => [
                 'required' => true,
-                'name' => tra('Piwik javascript code'),
-                'description' => tr('Piwik JavaScript tracking code'),
+                'name' => tra('Matomo javascript code'),
+                'description' => tr('Matomo JavaScript tracking code'),
                 'filter' => 'none',
                 'default' => ''
             ],
             'group_option' => [
                 'required' => true,
                 'name' => tra('Groups Option'),
-                'description' => tr('Define option for Piwik groups, include or exclude'),
+                'description' => tr('Define option for Matomo groups, include or exclude'),
                 'filter' => 'text',
                 'default' => ''
             ],
             'groups' => [
                 'required' => true,
                 'name' => tra('Available Groups'),
-                'description' => tr('User groups for which piwik will be available'),
+                'description' => tr('User groups for which Matomo will be available'),
                 'default' => ''
             ],
         ],
     ];
 }
 
-function wikiplugin_piwik($data, $params)
+function wikiplugin_matomo($data, $params)
 {
     global $prefs;
 
@@ -178,31 +178,31 @@ function wikiplugin_piwik($data, $params)
         return;
     }
 
-    $plugininfo = wikiplugin_piwik_info();
+    $plugininfo = wikiplugin_matomo_info();
     $default = [];
     foreach ($plugininfo['params'] as $key => $param) {
         $default["$key"] = $param['default'];
     }
     $params = array_merge($default, $params);
 
-    if (empty($params['piwikserverurl'])) {
-        $params['piwikserverurl'] = $prefs['site_piwik_analytics_server_url'];
+    if (empty($params['matomoserverurl'])) {
+        $params['matomoserverurl'] = $prefs['site_matomo_analytics_server_url'];
     }
 
-    if (empty($params['piwikserverurl'])) {
-        return tra('Plugin Piwik error:') . ' ' . tra('Piwik server url is required.');
-    }
-
-    if (empty($params['idSite'])) {
-        $params['idSite'] = $prefs['site_piwik_site_id'];
+    if (empty($params['matomoserverurl'])) {
+        return tra('Plugin Matomo error:') . ' ' . tra('Matomo server url is required.');
     }
 
     if (empty($params['idSite'])) {
-        return tra('Plugin Piwik error:') . ' ' . tra('Site Id is required.');
+        $params['idSite'] = $prefs['site_matomo_site_id'];
+    }
+
+    if (empty($params['idSite'])) {
+        return tra('Plugin Matomo error:') . ' ' . tra('Site Id is required.');
     }
 
     if (empty($params['moduleToWidgetize'])) {
-        return tra('Plugin Piwik error:') . ' ' . tra('moduleToWidgetize is required.');
+        return tra('Plugin Matomo error:') . ' ' . tra('moduleToWidgetize is required.');
     } else {
         $arr = explode(',', $params['moduleToWidgetize']);
 
@@ -215,7 +215,7 @@ function wikiplugin_piwik($data, $params)
             $params['date'] .= ',' . $params['enddate'];
             unset($params['enddate']);
         } else {
-            return tra('Plugin Piwik error:') . ' ' . tra('Period set to range but no end date provided.');
+            return tra('Plugin Matomo error:') . ' ' . tra('Period set to range but no end date provided.');
         }
     }
 
@@ -232,8 +232,8 @@ function wikiplugin_piwik($data, $params)
     }
 
     // parse the main url param and unset it
-    $url_parts = parse_url($params['piwikserverurl']);
-    unset($params['piwikserverurl']);
+    $url_parts = parse_url($params['matomoserverurl']);
+    unset($params['matomoserverurl']);
 
     // add the fixed query params
     $params['module'] = 'Widgetize';
