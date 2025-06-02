@@ -4188,7 +4188,10 @@ class TrackerLib extends TikiLib
                 if (isset($decoded[$prefs['language']])) {
                     return $decoded[$prefs['language']];
                 } elseif (is_array($decoded)) {
-                    return reset($decoded);
+                    $v = reset($decoded);
+                    if (is_string($v)) {
+                        return $v;
+                    }
                 }
             }
         }
