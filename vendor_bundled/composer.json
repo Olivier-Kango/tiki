@@ -195,7 +195,7 @@
         "npm-asset/toast-ui--editor": "^3.2.0",
         "onelogin/php-saml": "~4.2",
         "paragonie/sodium_compat": "~2.1",
-        "pclzip/pclzip": "^2.8",
+        "pclzip/pclzip": "~2.8",
         "pear/net_socket": "^1.2",
         "pear/pear": "~1.10",
         "pear/xml_parser": "^1.3",
