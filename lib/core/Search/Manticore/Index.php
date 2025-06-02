@@ -682,6 +682,14 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         return $this->providedMappings;
     }
 
+    public function isDateField($field)
+    {
+        $mapping = $this->getFieldMapping($field);
+        if (! empty($mapping['types']) && in_array('timestamp', $mapping['types'])) {
+            return true;
+        }
+        return false;
+    }
     public function isTextField($field)
     {
         $mapping = $this->getFieldMapping($field);

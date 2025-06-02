@@ -805,6 +805,14 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
         return new stdClass();
     }
 
+    public function isDateField($field)
+    {
+        $mapping = $this->getFieldMapping($field);
+        if (! empty($mapping->type) && in_array($mapping->type, ['date', 'datetime'])) {
+            return true;
+        }
+        return false;
+    }
     public function isTextField($field)
     {
         $mapping = $this->getFieldMapping($field);

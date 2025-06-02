@@ -79,8 +79,8 @@ class Search_Formatter
                 return $formattedList;
             }
         }
-
         $list = Search_ResultSet::create($list);
+        $date_fields = $list->getDateFields();
         $defaultValues = $this->plugin->getFields();
 
         $fields = array_keys($defaultValues);
@@ -170,7 +170,7 @@ class Search_Formatter
         }
 
         $formattedList = $list->replaceEntries($data);
-
+        $formattedList->setDateFields($date_fields);
         if ($prefs['unified_cache_formatted_result'] === 'y') {
             $cachelib->cacheItem($cacheKey, serialize($formattedList), 'searchformat');
         }

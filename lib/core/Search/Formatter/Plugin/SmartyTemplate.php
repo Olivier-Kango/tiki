@@ -69,6 +69,17 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
             $smarty->setLeftDelimiter('{{');
             $smarty->setRightDelimiter('}}');
         }
+        // Make Date type field elements not wrap
+        foreach ($entries as $key_row => $entry) {
+            foreach ($this->data["column"] as $key_column => $column) {
+                if (in_array($column["field"], $entries->getDateFields())) {
+                    $entries[$key_row][$column["field"]] = "<span class='text-nowrap'>" . $entry[$column["field"]] . "</span>";
+                    if (! isset($column["mode"]) || $column["mode"] !== "raw") {
+                        $this->data["column"][$key_column]["mode"] = "raw";
+                    }
+                }
+            }
+        }
 
         foreach ($this->data as $key => $value) {
             $smarty->assign($key, $value);

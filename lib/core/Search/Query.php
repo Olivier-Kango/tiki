@@ -445,7 +445,17 @@ class Search_Query implements Search_Query_Interface
         }
 
         $resultset = $this->processReturnOnlyResultsFromList($resultset);
-
+        // Add the list of date fields to the result set
+        foreach ($resultset as $row => $entry) {
+            $tabDateField = [];
+            foreach ($entry as $column => $value) {
+                if ($index->isDateField($column)) {
+                    $tabDateField[] = $column;
+                }
+            }
+            $resultset->setDateFields($tabDateField);
+            break;
+        }
         return $resultset;
     }
 

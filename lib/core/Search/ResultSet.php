@@ -19,6 +19,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
     public $errorInQuery = '';
     public $didYouMean = '';
 
+    private $date_fields = [];
     public static function create($list): self
     {
         if ($list instanceof self) {
@@ -137,6 +138,14 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
         return $this->offset;
     }
 
+    public function setDateFields($date_fields)
+    {
+        $this->date_fields = $date_fields;
+    }
+    public function getDateFields()
+    {
+        return $this->date_fields;
+    }
     public function count(): int
     {
         return $this->count;
