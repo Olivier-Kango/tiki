@@ -224,6 +224,9 @@ add_output('settings', 'tiki_run_sieve_filters_on_imap_unread_setting', true, 't
 setup_base_ajax_page('ajax_tiki_msg_tracker_items', 'tiki');
 add_handler('ajax_tiki_msg_tracker_items', 'get_msg_tracker_items', true, 'tiki');
 
+setup_base_page('ajax_tiki_auto_move_reply_to_tracker', 'tiki');
+add_handler('ajax_tiki_auto_move_reply_to_tracker', 'auto_move_reply_to_tracker', true, 'tiki');
+
 return [
   'allowed_pages' => [
     'groupmail',
@@ -247,6 +250,7 @@ return [
     'ajax_tiki_sieve_get_mailboxes',
     'info',
     'ajax_tiki_msg_tracker_items',
+    'ajax_tiki_auto_move_reply_to_tracker',
   ],
   'allowed_get' => [
     'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,
@@ -272,6 +276,9 @@ return [
     'list_path' => [FILTER_UNSAFE_RAW, false],
     'tracker_items' => [FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY],
     'error' => [FILTER_UNSAFE_RAW, false],
+    'auto_move' => [FILTER_VALIDATE_BOOLEAN, false],
+    'item_id' => [FILTER_SANITIZE_FULL_SPECIAL_CHARS, false],
+    'field_id' => [FILTER_SANITIZE_FULL_SPECIAL_CHARS, false],
   ],
   'allowed_post' => [
     'imap_server_id' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
@@ -311,5 +318,7 @@ return [
     'tiki_archive_replied' => FILTER_VALIDATE_INT,
     'tiki_run_sieve_filters_on_imap_unread' => FILTER_VALIDATE_INT,
     'lookup' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+    'in_reply_to' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+    'auto_move' => FILTER_VALIDATE_BOOLEAN,
   ]
 ];
