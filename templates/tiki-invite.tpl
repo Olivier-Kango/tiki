@@ -12,7 +12,12 @@
         {/foreach}
     </ul>
 {elseif $smarty.request.send && !$smarty.request.confirm && !$smarty.request.back}
-    <div class="highlight">{tr}You are about to send an invitation to theses people, please confirm{/tr}</div>
+    <div class="highlight mt-2">{tr}You are about to send an invitation to theses people, please confirm :{/tr}</div>
+    <ul>
+        {foreach from=$emails item=mail}
+            <li>{$mail.email|escape}</li>
+        {/foreach}
+    </ul>
     <form method='POST' action='tiki-invite.php'>
         <input type='hidden' name='emailslist' value='{$smarty.request.emailslist|escape}'>
         <input type='hidden' name='emailslist_format' value='{$smarty.request.emailslist_format|escape}'>
@@ -25,14 +30,10 @@
             <input type='hidden' name='invitegroups[]' value='{$g|escape}'>
         {/foreach}
 
-        <input type='submit' name='confirm' value="{tr}Ok{/tr}">
-        <input type='submit' name='back' value="{tr}Go back{/tr}">
+        <input type='submit' name='back' value="{tr}Go back{/tr}" class="btn btn-secondary">
+        <input type='submit' name='confirm' value="{tr}Ok{/tr}" class="btn btn-primary">
     </form>
-    <ul>
-        {foreach from=$emails item=mail}
-            <li>{$mail.email|escape}</li>
-        {/foreach}
-    </ul>
+    
 {else}
     <form method='POST' action='tiki-invite.php'>
         <br>
@@ -97,6 +98,6 @@ You are here because you have just clicked on the link from my invitation email.
         <br>
         <div>Redirect to this wiki page after invitation acceptance (let it blank if unwanted) : <input type='text' name='wikipageafter' value='{$smarty.request.wikipageafter|escape}'></div>
         <br>
-        <div><input type='submit' name='send' value="{tr}Send{/tr}"></div>
+        <div><input type='submit' name='send' value="{tr}Send{/tr}" class="btn btn-primary"></div>
     </form>
 {/if}

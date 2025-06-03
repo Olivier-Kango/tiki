@@ -8,7 +8,7 @@ $inputConfiguration = [
     [
         'staticKeyFilters'                => [
         'loadprevious'                    => 'word',              //post
-        'emailslist'                      => 'word',              //post
+        'emailslist'                      => 'xss',              //post
         'emailslist_format'               => 'word',              //post
         'emailsubject'                    => 'word',              //post
         'emailcontent'                    => 'xss',               //post
@@ -63,7 +63,6 @@ function parsemails_all($bloc)
     $bloc = str_replace("\n\r", "\n", $bloc);
     $bloc = str_replace("\r", "\n", $bloc);
     $mails = preg_split('/[^a-zA-Z0-9@._-]/', $bloc);
-
     $results = [];
     foreach ($mails as $m) {
         $m = trim($m);
@@ -126,7 +125,6 @@ if (isset($_REQUEST['send'])) {
     $_text = str_replace("\r", "\n", $_text);
 
     $mails = $_REQUEST["emailslist"];
-
     switch ($_REQUEST['emailslist_format']) {
         case 'all':
             $emails = parsemails_all($mails);
