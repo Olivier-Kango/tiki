@@ -62,7 +62,8 @@ if (isset($_REQUEST["emulategroups"])) {
     $tikilib->invalidate_usergroups_cache($user);
 }
 $smarty->assign('groups_are_emulated', $_SESSION["groups_are_emulated"]);
-$smarty->assign_by_ref('groups_emulated', unserialize($_SESSION['groups_emulated']));
+$unserializeGroupsEmulated = unserialize($_SESSION['groups_emulated']);
+$smarty->assign_by_ref('groups_emulated', $unserializeGroupsEmulated);
 
 header("location: $orig_url");
 exit;

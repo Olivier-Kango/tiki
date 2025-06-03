@@ -153,7 +153,6 @@ if (isset($_REQUEST["action"])) {
 
         default:
             Feedback::errorAndDie(tra("Requested action in not supported on repository"), \Laminas\Http\Response::STATUS_CODE_500);
-            break;
     }
 }
 // Get repository name

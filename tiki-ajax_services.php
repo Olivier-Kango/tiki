@@ -88,7 +88,8 @@ if ($access->is_serializable_request() && $jitRequest->offsetExists('listonly'))
         $access->output_serialized($grs);
     } elseif ($listonly == 'users') {
         $names_array = explode(',', str_replace(';', ',', $query));
-        $last_name = trim(end(array_filter($names_array)));
+        $filterNames = array_filter($names_array);
+        $last_name = trim(end($filterNames));
         $groups = $jitRequest->groups->text();
         $groups = $groups ? explode(',', $groups) : [];
 

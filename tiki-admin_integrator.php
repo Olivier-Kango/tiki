@@ -90,7 +90,6 @@ if (isset($_REQUEST['action'])) {
 
         default:
             Feedback::errorAndDie(tra('Requested action is not supported on repository'), \Laminas\Http\Response::STATUS_CODE_500);
-            break;
     }
 }
 

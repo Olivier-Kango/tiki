@@ -99,7 +99,7 @@ $smarty->assign_by_ref('offset', $offset);
 if (! empty($_REQUEST['maxRecords'])) {
     $maxRecords = $_REQUEST['maxRecords'];
 } else {
-    $maxRecords = $maxRecords;
+    $maxRecords = -1;
 }
 $smarty->assign_by_ref('maxRecords', $maxRecords);
 

@@ -60,8 +60,12 @@ include_once('tiki-section_options.php');
 
 $gal_info = $filegallib->get_file_gallery($_REQUEST['galleryId']);
 
-$fileType = reset(explode(';', $fileInfo['filetype']));
-$extension = end(explode('.', $fileInfo['filename']));
+$fileTypeParts = explode(';', $fileInfo['filetype']);
+$fileType = reset($fileTypeParts);
+
+$extensionParts = explode('.', $fileInfo['filename']);
+$extension = end($extensionParts);
+
 $supportedExtensions = ['odt', 'ods', 'odp'];
 $supportedTypes = array_map(
     function ($type) use ($mimetypes) {

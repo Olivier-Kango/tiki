@@ -135,7 +135,7 @@ if (! empty($multiprint_pages)) {
     if (isset($_REQUEST['maxRecords'])) {
         $maxRecords = $_REQUEST['maxRecords'];
     } else {
-        $maxRecords = $maxRecords;
+        $maxRecords = -1;
     }
     if (! isset($_REQUEST['sort_mode'])) {
         $sort_mode = $prefs['wiki_list_sortorder'] . '_' . $prefs['wiki_list_sortdirection'];

@@ -65,7 +65,8 @@ if (isset($_REQUEST['ext_private'])) {
     $contactlib->modify_ext($user, $_REQUEST['ext_private'], ['flagsPublic' => 'n']);
     $cookietab = 2;
 }
-$exts = & $contactlib->get_ext_list($user);
+$extList = $contactlib->get_ext_list($user);
+$exts = &$extList;
 $nb_exts = count($exts);
 // consistancy check
 foreach ($exts as $k => $ext) {

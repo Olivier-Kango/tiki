@@ -213,7 +213,7 @@ function editPost($params)
         }
     }
 
-    $id = $bloglib->update_post($postid, $blogid, $content, $username, $title);
+    $bloglib->update_post($postid, $blogid, $content, $username, $title);
     return new XML_RPC_Response(new XML_RPC_Value(1, 'boolean'));
 }
 

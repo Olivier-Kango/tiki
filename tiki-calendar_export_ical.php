@@ -60,15 +60,15 @@ if (isset($_REQUEST['start_date_Month'])) {
 $endDate = new TikiDate();
 $endDate->setDate($startTime);
 if ($calendarViewMode['casedefault'] == 'month') {
-     $stopTime = $endDate->addMonths(1);
+    $endDate->addMonths(1);
 } elseif ($calendarViewMode['casedefault'] == 'quarter') {
-    $stopTime = $endDate->addMonths(3);
+    $endDate->addMonths(3);
 } elseif ($calendarViewMode['casedefault'] == 'semester') {
-    $stopTime = $endDate->addMonths(6);
+    $endDate->addMonths(6);
 } elseif ($calendarViewMode['casedefault'] == 'year') {
-    $stopTime = $endDate->addMonths(12);
+    $endDate->addMonths(12);
 } else {
-    $stopTime = $endDate->addMonths(1);
+    $endDate->addMonths(1);
 }
 $stopTime = $endDate->getTime();
 
