@@ -204,16 +204,9 @@ table.treetable.objectperms td.removed {
     background: transparent url('#{$imagePathToImgDir}loading-light.gif') no-repeat 50% 50%;
 }
 
-// cookie consent style
-#cookie_consent_div {
-    padding: $alert-padding-x $alert-padding-y;
-    border: 1px solid darken($info, 10%);
-    color: $white;
-}
-
 #cookie_consent_div.banner {
     padding: $alert-padding-x $alert-padding-y;
-    border: 1px solid $info;
+    // border: 1px solid $info;
 }
 
 #cookie_consent_div .description a {
