@@ -822,6 +822,14 @@ class TrackerLib extends TikiLib
         $join = '';
         $where = '';
         $bindvars = [];
+        $sqlSortMode = '';
+
+        if (str_contains($sort_mode, 'fieldsCount_')) {
+            $sqlSortMode = $this->convertSortMode($sort_mode);
+        } else {
+            $sqlSortMode = 'tiki_trackers.' . $this->convertSortMode($sort_mode);
+        }
+
         if ($jail = $categlib->get_jail()) {
             $categlib->getSqlJoin($jail, 'tracker', '`tiki_trackers`.`trackerId`', $join, $where, $bindvars);
         }
@@ -830,7 +838,18 @@ class TrackerLib extends TikiLib
             $where .= ' and (`tiki_trackers`.`name` like ? or `tiki_trackers`.`description` like ?)';
             $bindvars = array_merge($bindvars, [$findesc, $findesc]);
         }
-        $query = "select * from `tiki_trackers` $join where 1=1 $where order by `tiki_trackers`." . $this->convertSortMode($sort_mode);
+
+        $query = "
+          SELECT tiki_trackers.*, 
+          COUNT(tiki_tracker_fields.fieldId) AS fieldsCount
+          FROM tiki_trackers
+          LEFT JOIN tiki_tracker_fields 
+          ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
+          $join
+          WHERE 1=1 $where
+          GROUP BY tiki_trackers.trackerId
+          ORDER BY $sqlSortMode";
+
         $query_count = "select count(*) from `tiki_trackers` $join where 1=1 $where";
         $result = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
         $count = $this->getOne($query_count, $bindvars);
@@ -850,13 +869,13 @@ class TrackerLib extends TikiLib
                 $list[$res['trackerId']] = $res['name'];
             }
         }
+
         $retval = [];
         $retval["list"] = $list;
         $retval["data"] = $ret;
         $retval["count"] = $count;
         return $retval;
     }
-
     /**
      * Return a list of tracker IDs used as system trackers.
      */
