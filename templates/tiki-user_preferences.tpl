@@ -100,10 +100,19 @@
                         <label class="col-form-label col-md-4" for="location">
                             {tr}Location{/tr}
                         </label>
-                        <div class="col-md-8 mb-5" style="height: 250px;" data-geo-center="{defaultmapcenter}" data-target-field="location">
-                            <div class="map-container" style="height: 250px;" data-geo-center="{defaultmapcenter}" data-target-field="location"></div>
-                        </div>
-                        <input type="hidden" name="location" id="location" value="{$location|escape}">
+                        {if $prefs.geo_enabled eq 'n'}
+                            <div class="col-md-8 mb-5 w-full" style="height: auto">
+                                <p class="ml-2 text-warning">{tr}Geolocation features are not enabled.{/tr}</p>
+                                {if $tiki_p_admin eq 'y'}
+                                    <a href="tiki-admin.php?page=maps" class="ml-2 text-primary text-decoration-none">{tr}Enable{/tr}</a>
+                                {/if}
+                            </div>
+                        {else}
+                            <div class="col-md-8 mb-5" style="height: 250px;" data-geo-center="{defaultmapcenter}" data-target-field="location">
+                                <div class="map-container" style="height: 250px;" data-geo-center="{defaultmapcenter}" data-target-field="location"></div>
+                            </div>
+                            <input type="hidden" name="location" id="location" value="{$location|escape}">
+                        {/if}
                     </div>
                     <div class="tiki-form-group row">
                         <label class="col-form-label col-md-4" for="homePage">
