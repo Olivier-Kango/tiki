@@ -159,3 +159,8 @@ header.navbar.fixed-top {
 .tiki .sm-navbar {
     --sm-navbar-z-index: 1000; // reset; // 1050; // 9999;
 }
+
+:root {
+    --tiki-list-top-margin: 0;
+    --tiki-list-bottom-margin: 0;
+}

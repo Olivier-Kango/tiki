@@ -1353,3 +1353,9 @@ blockquote {
 :root {
     --tiki-navbar-dark-color: #{$navbar-dark-color}; // The Bootstrap variable wasn't being defined.
 }
+
+// Remove the margin of lists that directly follow a paragraph
+p + ul, p + ol {
+    margin-top: var(--tiki-list-top-margin);  
+    margin-bottom: var(--tiki-list-bottom-margin);
+}
