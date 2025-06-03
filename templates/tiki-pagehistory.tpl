@@ -434,7 +434,7 @@
                                                 {/self_link}
                                             </action>
                                         {/if}
-                                        {if $tiki_p_rollback eq 'y' && $lock neq true}
+                                        {if $tiki_p_rollback eq 'y' && $lock neq true && $current neq $element.version}
                                             <action>
                                                 {self_link _script="tiki-rollback.php" page=$page version=$element.version _icon_name="undo" _menu_text='y' _menu_icon='y'}
                                                     {tr _0=$element.version}Revert to version %0{/tr}
