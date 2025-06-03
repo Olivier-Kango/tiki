@@ -28,7 +28,7 @@ $body-bg:       #060606;  // default
 $body-color:    #999999; // $gray-400 !default; Lightened to meet WCAG minimum
 
 // Copied from variables-dark and renamed
-$body-secondary-color:         rgba($body-color, .75);  // default
+$body-secondary-color:         #B0B0B0BF; // rgba($body-color, .75);  // default
 $body-secondary-bg:            $gray-800;  // default
 $body-tertiary-color:          rgba($body-color, .5);  // default
 $body-tertiary-bg:             mix($gray-800, $gray-900, 50%);  // default
@@ -36,13 +36,14 @@ $body-emphasis-color:          $white;  // default
 $border-color:                 $gray-700;  // default
 
 // Links
-$link-color:                              #56B5E1; // #2799CE; //#2389B8; // $primary !default;
+$link-color: #5d97b4; // #2799CE; //#2389B8; // $primary !default;
 
 // Typography
 
 $font-family-sans-serif:        Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
 $font-size-base:                1.1rem;
 $mark-bg:                     #4D2900;
+$blockquote-footer-color:     #A3A3A3; // $gray-600 !default;
 
 // Tables
 $table-color:                   var(--#{$prefix}body-color);  // default // $white !default;
@@ -70,10 +71,10 @@ $form-invalid-border-color:         $form-feedback-invalid-color; // !default;
 // Navbar
 $navbar-dark-hover-color:           $white;  // default
 
-$navbar-light-color:                $link-color;
+$navbar-light-color:                #81ADC5;
 $navbar-light-hover-color:          rgba($black, .7);  // default
-$navbar-light-active-color:         rgba($black, .9);  // default
-$navbar-light-disabled-color:       rgba($black, .3);  // default
+$navbar-light-active-color:         #72BADCFF; // rgba($black, .9);  // default
+$navbar-light-disabled-color: #3C6980FF; // rgba($black, .3);  // default
 $navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");  // default
 $navbar-light-toggler-border-color: rgba($black, .1);  // default
 $navbar-light-brand-color:          $navbar-light-active-color;  // default
@@ -98,6 +99,9 @@ $progress-bg:                       var(--#{$prefix}secondary-bg);  // default;
 
 // List group
 // Breadcrumbs
+// Figures
+$figure-caption-color:  #919191;
+
 // Close
 // Code
 

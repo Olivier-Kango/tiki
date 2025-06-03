@@ -6,25 +6,6 @@
     --bs-navbar-active-color: #2aad9d;
 }
 // These two mixins, for a light blue background, aren't used anywhere, just preserved here.
-//@mixin top-nav-light {
-//    --tiki-top-bg: rgb(68, 217, 232);
-//    --tiki-top-color: rgba(0, 0, 0, 0.55);
-//    --tiki-top-hover-color: rgba(0, 0, 0, 0.9);
-//    --tiki-top-text-color: rgba(0, 0, 0, 0.9);
-//    --tiki-top-box-shadow: 0 0 2px rgba(68, 217, 232, 0.9), 0 0 4px rgba(68, 217, 232, 0.4), 0 0 1rem rgba(68, 217, 232, 0.3), 0 0 4rem rgba(68, 217, 232, 0.1);
-//    --bs-navbar-brand-color: #{$navbar-light-brand-color};
-//    --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
-//}
-//
-//@mixin topbar-nav-light {
-//    --tiki-topbar-bg: rgb(68, 217, 232);
-//    --tiki-topbar-color: rgba(0, 0, 0, 0.55);
-//    --tiki-topbar-hover-color: rgba(0, 0, 0, 0.9);
-//    --tiki-topbar-text-color: rgba(0, 0, 0, 0.9);
-//    --tiki-topbar-box-shadow: 0 0 2px rgba(68, 217, 232, 0.9), 0 0 4px rgba(68, 217, 232, 0.4), 0 0 1rem rgba(68, 217, 232, 0.3), 0 0 4rem rgba(68, 217, 232, 0.1);
-//}
-
-// The light and dark styles below are the same (purple background.
 @mixin top-nav-light {
     --tiki-top-bg: rgb(111, 66, 193);
     --tiki-top-color: rgba(255, 255, 255, 0.55);
@@ -42,7 +23,7 @@
 }
 
 @mixin top-nav-dark {
-    --tiki-top-bg: rgb(111, 66, 193);
+    --tiki-top-bg: #{$dark}; // #170229;
     --tiki-top-color: rgba(255, 255, 255, 0.55);
     --tiki-top-hover-color: rgba(255, 255, 255, 0.75);
     --tiki-top-text-color: rgba(255, 255, 255, 0.75);
@@ -52,7 +33,7 @@
 }
 
 @mixin topbar-nav-dark {
-    --tiki-topbar-bg: rgb(111, 66, 193);
+    --tiki-topbar-bg: #{$dark}; // rgb(111, 66, 193);
     --tiki-topbar-color: rgba(255, 255, 255, 0.55);
     --tiki-topbar-hover-color: rgba(255, 255, 255, 0.75);
     --tiki-topbar-text-color: rgba(255, 255, 255, 0.75);
@@ -75,25 +56,25 @@
     @include topbar-nav-dark;
 }
 
-// Color mode preference trumps L&F admin light navbar option
-[data-bs-theme=dark] {                              // color mode
-    .tiki-top-nav-light {                           // light top selector
-        @include top-nav-dark;                      // dark values
-    }
-    .tiki-topbar-nav-light {
-        @include topbar-nav-dark;
-    }
-}
+//// Color mode preference trumps L&F admin light navbar option - Not in this theme
+//[data-bs-theme=dark] {                              // color mode
+//    .tiki-top-nav-light {                           // light top selector
+//        @include top-nav-dark;                      // dark values
+//    }
+//    .tiki-topbar-nav-light {
+//        @include topbar-nav-dark;
+//    }
+//}
 
 // Color mode preference trumps L&F admin dark navbar option
-[data-bs-theme=light] {                              // color mode
-    .tiki-top-nav-dark {                           // dark top selector
-        @include top-nav-light;                      // light values
-    }
-    .tiki-topbar-nav-dark {
-        @include topbar-nav-light;
-    }
-}
+//[data-bs-theme=light] {                              // color mode
+//    .tiki-top-nav-dark {                           // dark top selector
+//        @include top-nav-light;                      // light values
+//    }
+//    .tiki-topbar-nav-dark {
+//        @include topbar-nav-light;
+//    }
+//}
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
 
@@ -122,11 +103,12 @@
 
 // Dark navbar minus top nav
 @mixin admin-nav-dark {
-    --tiki-admin-top-nav-bg: rgb(111, 66, 193);
+    --tiki-admin-top-nav-bg: #{$dark}; //rgb(111, 66, 193);
     --tiki-admin-top-nav-color: #fff;
+    box-shadow: var(--tiki-top-box-shadow);
     --tiki-admin-top-nav-hover-color: rgba(255, 255, 255, 0.75);
     --tiki-admin-top-nav-hover-bg: #{$navbar-dark-hover-color};
-    --tiki-admin-aside-nav-bg: rgb(111, 66, 193);
+    --tiki-admin-aside-nav-bg: #{$dark}; // rgb(111, 66, 193);
     --tiki-admin-aside-nav-color: var(--tiki-admin-top-nav-color);
     --tiki-admin-aside-nav-hover-color: var(--tiki-admin-top-nav-hover-color);
     --tiki-admin-dropdown-link-color: #{$dropdown-dark-link-color};
@@ -193,4 +175,25 @@ body {
     .fc-v-event {
         background: #7645C0 !important; // --bs-secondary-bg doesn't seem to be set
     }
+    --tiki-code-bg: #546873;
+    --tiki-input-color: #{$input-color};
+    --tiki-input-bg: #{$input-bg};
+    --tiki-input-select-color: var(--tiki-input-color);
+    --tiki-input-select-bg: var(--tiki-input-bg);
+}
+
+.tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected=true],
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--highlighted {
+    background-color: #{rgba($input-bg, .75)}; // var(--bs-tertiary-bg);
+}
+
+// Highlighted select2 dropdown item bg
+.tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected=true] {
+    background-color: #{rgba($input-bg, .75)}; //var(--bs-tertiary-bg);
+}
+
+.tiki .select2-container--bootstrap-5.select2-container--disabled .select2-selection, .tiki .select2-container--bootstrap-5.select2-container--disabled.select2-container--focus .select2-selection {
+//   color: var(--bs-secondary-color-rgb);
+    background-color: #{rgba($input-bg, .30)}; // var(--bs-secondary-bg);
+//    border-color: var(--bs-border-color);
 }

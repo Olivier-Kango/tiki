@@ -18,6 +18,62 @@ $imagePath: "../images/";
 //    border-left-color: $table-border-color;
 //}
 
+.alert-success a {
+    color: #fff !important;
+    opacity: 1;
+}
+
+.blockquote-footer {
+    color: #029C8A;
+}
+.page-item.disabled {
+    --bs-pagination-disabled-color: #029C8A; // Lightened for WCAG2
+}
+
+.nav-pills .nav-link.active,
+.page-link.active, .active > .page-link {
+    background: #D4169E;
+}
+
+/* WebKit Browsers */
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-track {
+    background: #029C8A;
+}
+body::-webkit-scrollbar-thumb {
+    background: #029C8A;
+    border-radius: 5px;
+}
+
+/* width */
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+    background: pink;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+    background: purple;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+    /* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #e0e0e0;
+}
+
+
 //.dropdown-menu a {
 //    display: block;
 //    width: 100%;

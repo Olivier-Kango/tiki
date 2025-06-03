@@ -22,7 +22,7 @@ $prefix:                      $variable-prefix;  // default
 
 // Body
 $body-color:                #aaa;  // default
-$body-secondary-color:      rgba($body-color, .75);  // default
+$body-secondary-color:      rgba($body-color, 1.0);  // default
 $body-secondary-bg:         $gray-800;
 $body-tertiary-color:       rgba($body-color, .5);  // default
 $body-tertiary-bg:          $gray-700;
@@ -31,7 +31,10 @@ $body-tertiary-bg:          $gray-700;
 //$link-color: #9EA0A3;
 $link-decoration: underline;
 
-// Fonts
+// Typography
+$text-muted: #A0A6AB;
+$mark-bg: #2D1E01;
+
 // Tables
 // Buttons
 // Forms

@@ -1,7 +1,7 @@
 //--------------------------- Tiki CSS variables
 @mixin top-nav-light {
     --tiki-top-bg: #{$light};
-    --tiki-top-color: #{$link-color};
+    --tiki-top-color: #{$navbar-light-color};
     --tiki-top-hover-color: #{lighten($blue, 10%)};
     --tiki-top-text-color:  #{lighten($blue, 10%)};
     --bs-navbar-brand-color: #{$navbar-light-brand-color};
@@ -10,7 +10,7 @@
 
 @mixin topbar-nav-light {
     --tiki-topbar-bg: #{$light};
-    --tiki-topbar-color: #{$link-color};
+    --tiki-topbar-color: #{$navbar-light-color};
     --tiki-topbar-hover-color: #{lighten($blue, 10%)};
     --tiki-topbar-text-color: #{lighten($blue, 10%)};
 }
@@ -20,7 +20,8 @@
     --tiki-top-color: rgba(255, 255, 255, 0.55);
     --tiki-top-hover-color: #{$white};
     --tiki-top-text-color: #{$white};
-    --tiki-top-border: 1px solid #282828;
+    --tiki-top-border: solid #282828;
+    --tiki-top-border-width: 0px 0px 1px 0px;
     --bs-navbar-brand-color: #{$navbar-dark-brand-color};
     --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
@@ -30,7 +31,8 @@
     --tiki-topbar-color: rgba(255, 255, 255, 0.55);
     --tiki-topbar-hover-color: #{$white};
     --tiki-topbar-text-color: #{$white};
-    --tiki-topbar-border: 1px solid #282828;
+    --tiki-topbar-border: solid #282828;
+    --tiki-topbar-border-width: 0px 0px 1px 0px;
 }
 
 .tiki-top-nav-light {

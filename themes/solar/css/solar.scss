@@ -1,13 +1,20 @@
-/* Bootswatch theme adapted by the Tiki Community for Tiki Wiki CMS Groupware */
-/* Original Bootswatch information:
- * bootswatch v5.3.3
- * Homepage: http://bootswatch.com
- * Copyright 2012-2022 Thomas Park
+/*!
+ * Bootswatch solar theme adapted by the Tiki Community for Tiki Wiki CMS Groupware (https://tiki.org)
+ * Copyright 2002-2025 The Tiki Community as described in copyright.txt
+ * Licensed under MIT
+*/
+/*!
+ * Bootswatch v5.3.3 (https://bootswatch.com)
+ * Theme: solar
+ * Copyright 2012-2024 Thomas Park
  * Licensed under MIT
  * Based on Bootstrap
- *
- * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
 */
+/*!
+ * Bootstrap  v5.3.3 (https://getbootstrap.com/)
+ * Copyright 2011-2024 The Bootstrap Authors
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
 
 @import "../../base_files/scss/_tiki-bootstrap_functions"; // 1. Functions are included first (so colors, etc. can be manipulated).
 
@@ -38,3 +45,28 @@
     margin-top: .5rem;
     margin-bottom: .5rem;
 }
+
+.invalid-feedback { --bs-form-invalid-color: #E279AC; }
+.valid-feedback { --bs-form-valid-color: #29A39B; }
+
+.btn-outline-primary { --bs-btn-color: #BD8E00; --bs-btn-border-color: #BD8E00; }
+.btn-outline-secondary { --bs-btn-color: #869898; --bs-btn-border-color: #869898; }
+.btn-outline-success { --bs-btn-color: #29A39B; --bs-btn-border-color: #29A39B; }
+.btn-outline-danger { --bs-btn-color: #E279AC; --bs-btn-border-color: #E279AC; }
+.btn-outline-warning { --bs-btn-color: #EA723E; --bs-btn-border-color: #EA723E; }
+.btn-outline-info { --bs-btn-color: #4AA0DE; --bs-btn-border-color: #4AA0DE; }
+.btn-outline-dark { --bs-btn-color: #159BBC; --bs-btn-border-color: #159BBC; }
+
+// Accordion
+.accordion-button:not(.collapsed) { color: #fff; background:  #946F00; }
+.accordion-button.collapsed { background-color: #607171; }
+
+
+code { background-color: #231F10; --tiki-code-bg: #231F10; }
+.breadcrumb-item a { color: #37CDC3; }
+.navbar-light .nav-link { color: black};
+.page-link.disabled, .disabled > .page-link { color: #9dbcbe; --bs-pagination-disabled-color: #9dbcbe; }
+.form-text { color:  #ACB6B9BF; }
+.navbar-dark .nav-pills .nav-link { color: #fff; }
+
+

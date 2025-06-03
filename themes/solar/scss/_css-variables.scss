@@ -171,3 +171,26 @@
     --bs-accordion-btn-bg: #839496;
     --bs-accordion-btn-color: #fff;
 }
+
+:root {
+    --tiki-input-color: #{$input-color};
+    --tiki-input-bg: #{$input-bg};
+    --tiki-input-select-color: var(--tiki-input-color);
+    --tiki-input-select-bg: var(--tiki-input-bg);
+}
+
+.tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected=true],
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--highlighted {
+    background-color: #{rgba($input-bg, .75)}; // var(--bs-tertiary-bg);
+}
+
+// Highlighted select2 dropdown item bg
+.tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected=true] {
+    background-color: #{rgba($input-bg, .75)}; //var(--bs-tertiary-bg);
+}
+
+.tiki .select2-container--bootstrap-5.select2-container--disabled .select2-selection, .tiki .select2-container--bootstrap-5.select2-container--disabled.select2-container--focus .select2-selection {
+    //   color: var(--bs-secondary-color-rgb);
+    background-color: #{rgba($input-bg, .30)}; // var(--bs-secondary-bg);
+    //    border-color: var(--bs-border-color);
+}
