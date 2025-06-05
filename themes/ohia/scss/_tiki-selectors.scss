@@ -16,12 +16,10 @@ h1,h2,h3,h4,h5,h6 {
     font-variant: small-caps;
 }
 
-// Added here because the normal method to specify the color wasn't working.
-.nav-link {
-    color: $leaf;
-    &:hover,
-    &.active {
-        color: lighten($leaf, 10%);
+.navbar-dark {
+    background-color: #343a40;
+    .nav-link {
+        color: rgba($white, .55);;
     }
 }
 
@@ -43,15 +41,15 @@ h1,h2,h3,h4,h5,h6 {
     border-bottom: 5px solid $wood;
 }
 
-footer.footer .modules {
-    background: #030511;
-  padding-top: 1rem;
-      color: #f4f4f4;
-    font-size: 0.9em;
-    a, a:visited {
-        color: #f4f4f4;
-    }
-}
+//footer.footer .modules {
+//    background: #030511;
+//  padding-top: 1rem;
+//      color: #f4f4f4;
+//    font-size: 0.9em;
+//    a, a:visited {
+//        color: #f4f4f4;
+//    }
+//}
 
 .popover {
     background-color: lighten(#030511, 10%);
@@ -85,12 +83,18 @@ body.fullscreen {
 
 // Badges
 .badge {
-//    &.bg-primary,
-    &.bg-danger,
-    &.bg-secondary,
-    &.bg-success,
+    &.bg-primary,
+//    &.bg-danger,
+//    &.bg-secondary,
+//    &.bg-success,
     &.bg-info,
     &.bg-warning { color: #000 !important; }
+}
+
+.badge.bg-primary,
+.badge.bg-danger {
+    color: #fff;
+    --bs-badge-color: #fff;
 }
 
 // Modals
@@ -107,6 +111,24 @@ body.fullscreen {
     color: lighten($primary, 50%);
     border-color: lighten($primary, 50%);
 }
+
+//
+//.btn-outline-secondary {
+//    --bs-btn-color: #68850F;
+//    --bs-btn-border-color: #68850F;
+//}
+//.btn-outline-success {
+//    --bs-btn-color: #0079D6;
+//    --bs-btn-border-color: #0079D6;
+//}
+//.btn-outline-danger {
+//    --bs-btn-color: #DB3939;
+//    --bs-btn-border-color: #DB3939;
+//}
+//.btn-outline-dank {
+//    --bs-btn-color: #181A1B; // #6E7A81;
+//    --bs-btn-border-color: #181A1B; // #6E7A81;
+//}
 
 // override for some cypht background colors
 .tiki {
@@ -129,4 +151,82 @@ body.fullscreen {
             &, .list_controls { background: $card-header-bg; }
         }
     }
+}
+
+// Buttons
+.btn-outline-secondary { --bs-btn-color: #799C11; --bs-btn-border-color: #799C11;  }
+.btn-outline-success { --bs-btn-color: #0088F0; --bs-btn-border-color: #0088F0;  }
+.btn-outline-danger { --bs-btn-color: #EB1E1E; --bs-btn-border-color: #EB1E1E; }
+.btn-outline-dark { --bs-btn-color: #949494; --bs-btn-border-color: #949494; }
+
+// List group
+.list-group-item-primary { background-color: #384706; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-secondary { background-color: #2F3D06; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-success { background-color: #004070; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-danger { background-color: #800000; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-warning { background-color: #4E3B18; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-info { background-color: #173E63; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-light { background-color: $light; --bs-list-group-color: #2B2B2B; }
+.list-group-item-dark { background-color: $dark; --bs-list-group-color: #111212BF; }
+
+.list-group-item-action:not(.list-group-item-light) {
+    --bs-list-group-action-color: #B9BCC0E6;
+}
+
+.list-group-item-action.list-group-item-light {
+    color: #111212BF;
+}
+
+// Alerts
+:root .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);;
+}
+
+.alert-primary {
+    --bs-alert-color: #6ea8fe;
+    --bs-alert-bg: #031633;
+    --bs-alert-border-color: #6ea8fe; // #084298;
+    --bs-alert-link-color: #6ea8fe;
+}
+.alert-secondary {
+    --bs-alert-color: var(--bs-secondary-text-emphasis);
+    --bs-alert-bg: var(--bs-secondary-bg-subtle);
+    --bs-alert-border-color: var(--bs-secondary-text-emphasis); //-border-subtle);
+    --bs-alert-link-color: var(--bs-secondary-text-emphasis);
+}
+.alert-success {
+    --bs-alert-color: var(--bs-success-text-emphasis);
+    --bs-alert-bg: var(--bs-success-bg-subtle);
+    --bs-alert-border-color: var(--bs-success-text-emphasis); // -border-subtle);
+    --bs-alert-link-color: var(--bs-success-text-emphasis);
+}
+.alert-danger {
+    --bs-alert-color: var(--bs-danger-text-emphasis);
+    --bs-alert-bg: var(--bs-danger-bg-subtle);
+    --bs-alert-border-color: var(--bs-danger-text-emphasis); // -border-subtle);
+    --bs-alert-link-color: var(--bs-danger-text-emphasis);
+}
+.alert-warning {
+    --bs-alert-color: var(--bs-warning-text-emphasis);
+    --bs-alert-bg: var(--bs-warning-bg-subtle);
+    --bs-alert-border-color: var(--bs-warning-text-emphasis); // -border-subtle);
+    --bs-alert-link-color: var(--bs-warning-text-emphasis);
+}
+.alert-info {
+    --bs-alert-color: var(--bs-info-text-emphasis);
+    --bs-alert-bg: var(--bs-info-bg-subtle);
+    --bs-alert-border-color: var(--bs-info-text-emphasis); // -border-subtle);
+    --bs-alert-link-color: var(--bs-info-text-emphasis);
+}
+.alert-light {
+    --bs-alert-color: var(--bs-light-text-emphasis);
+    --bs-alert-bg: var(--bs-light-bg-subtle);
+    --bs-alert-border-color: var(--bs-light-text-emphasis); // -border-subtle);
+    --bs-alert-link-color: var(--bs-light-text-emphasis);
+}
+.alert-dark {
+    --bs-alert-color: var(--bs-dark-text-emphasis);
+    --bs-alert-bg: var(--bs-dark-bg-subtle);
+    --bs-alert-border-color: var(--bs-dark-text-emphasis); // -border-subtle);
+    --bs-alert-link-color: var(--bs-dark-text-emphasis);
 }

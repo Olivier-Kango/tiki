@@ -1,25 +1,34 @@
 //--------------------------- Tiki CSS variables
+// CSS variables / custom properties for base_files/scss/_tiki-pagetop_colors.scss -- Interpolation info from https://developersink.com/css/css-custom-properties-sass-variables/
+
+// Used for L&F nav color choice and color mode override
 @mixin top-nav-light {
-    --tiki-top-bg: #{rgba($gray-800, 1)}; // #{$light};
-    --tiki-top-color: #{rgba($white, .6)}; //#{$navbar-light-color};
+    --tiki-top-bg: rgba(55,90,127,1); // #{rgba($gray-800, 1)}; // #{$light};
+    --tiki-top-color: #{rgba($white, .9)}; //#{$navbar-light-color};
     --tiki-top-hover-color: #{$white}; //#{$navbar-light-hover-color};
     --tiki-top-text-color: #{$white};
     --bs-navbar-brand-color: #{$white};
     --bs-navbar-brand-hover-color: #{$navbar-light-brand-hover-color};
+    --tiki-top-border: solid #282828;
+    --tiki-top-border-width: 0px 0px 1px 0px;
 }
 
 @mixin topbar-nav-light {
-    --tiki-topbar-bg: #444; //#{$light};
-    --tiki-topbar-color: #{rgba($white, .6)}; //#{$navbar-light-color};
+    --tiki-topbar-bg: rgba(55,90,127,1); //#444; //#{$light};
+    --tiki-topbar-color: #{rgba($white, .9)}; //#{$navbar-light-color};
     --tiki-topbar-hover-color: #{$white}; //#{$navbar-light-hover-color};
     --tiki-topbar-text-color: #{$white};
+    --tiki-topbar-border: solid #282828;
+    --tiki-topbar-border-width: 0px 0px 1px 0px;
 }
 
 @mixin top-nav-dark {
-    --tiki-top-bg: #{rgba($gray-800, 1)};
+    --tiki-top-bg: #343a40; //#{rgba($gray-800, 1)};
     --tiki-top-color: #{rgba($white, .6)};
     --tiki-top-hover-color: #{$white};
     --tiki-top-text-color: #{$white};
+    --tiki-top-border: solid #282828;
+    --tiki-top-border-width: 0px 0px 1px 0px;
     --bs-navbar-brand-color: #{$navbar-dark-brand-color};
     --bs-navbar-brand-hover-color: #{$navbar-dark-brand-hover-color};
 }
@@ -29,6 +38,22 @@
     --tiki-topbar-color: #{rgba($white, .6)};
     --tiki-topbar-hover-color: #{$white};
     --tiki-topbar-text-color: #{$white};
+}
+
+.tiki-top-nav-light {
+    @include top-nav-light;
+}
+
+.tiki-topbar-nav-light {
+    @include topbar-nav-light;
+}
+
+.tiki-top-nav-dark {
+    @include top-nav-dark;
+}
+
+.tiki-topbar-nav-dark {
+    @include topbar-nav-dark;
 }
 
 // - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
@@ -78,14 +103,14 @@
     --tiki-admin-top-nav-bg: #{rgba($gray-800, 1)};
 }
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
+
 // Changing variables didn't work
 .accordion {
     --bs-accordion-active-bg: #444;
     --bs-accordion-active-color: #fff;
 }
 
-:root,
-[data-bs-theme="dark"]{
+:root {
     --tiki-code-bg: #303030;
 }
 :root {

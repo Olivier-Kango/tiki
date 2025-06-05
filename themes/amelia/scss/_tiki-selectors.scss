@@ -8,7 +8,7 @@
 // }
 
 // Color system
-.bg-dark { background: #ad1d28 !important; }
+//.bg-dark { background: #ad1d28 !important; }
 
 // Body
 body.fullscreen { background: $body-bg; }
@@ -20,6 +20,7 @@ body.fullscreen { background: $body-bg; }
 .text-success, .valid-feedback { color: #AEE6A7  !important; }
 .text-warning { color: #EDDFA6  !important; }
 .text-danger, .invalid-feedback, .was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label { color: #F3D7C4  !important; }
+.text-muted { color: #FFFFFFCC; }
 
 // Forms
 legend {
@@ -31,7 +32,7 @@ legend {
 .card,
 .autotoc > .nav {
 //  background-color: #13a0aa !important;
-  border-color: #0d747c !important;
+  border-color: #0d747c;
 }
 
 .card-body  a:not(.btn,.dropdown-item),
@@ -42,7 +43,7 @@ legend {
 .card-header,
 .modal-header{
   color: #ffffff;
-  background-color: #6e0d0d !important;
+  background-color: $accordion-button-bg !important;
   border-color: #0d747c !important;
 }
 
@@ -84,6 +85,10 @@ legend {
     }
 }
 
+.btn-outline-secondary { --bs-btn-color: #EDDEDE; }
+.btn-outline-danger { --bs-btn-color: #FDC79B; }
+.btn-outline-warning { --bs-btn-color: #FFD966; --bs-btn-border-color: #F5B800; }
+
 // Badges
 .badge.bg-dark { color: #fff; }
 
@@ -95,3 +100,22 @@ legend {
 }
 
 //.textarea-toolbar a.toolbar { color: #222; }
+
+// List group
+.list-group-item {color: #FFFFFFE6; }
+.list-group-item-primary { background-color: #384706; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-secondary { background-color: #2F3D06; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-success { background-color: #004070; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-danger { background-color: #800000; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-warning { background-color: #4E3B18; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-info { background-color: #173E63; --bs-list-group-color: #B9BCC0E6; }
+.list-group-item-light { background-color: $light; --bs-list-group-color: #2B2B2B; }
+.list-group-item-dark { background-color: $dark; --bs-list-group-color: #111212BF; }
+
+.list-group-item-action:not(.list-group-item-light) {
+    --bs-list-group-action-color: #B9BCC0E6;
+}
+
+.list-group-item-action.list-group-item-light {
+    color: #111212BF;
+}

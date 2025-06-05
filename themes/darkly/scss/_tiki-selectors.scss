@@ -1,11 +1,34 @@
-// Darkly tiki-selectors less file
-
+// ----------------------------- Overrides and adjustments ----------------------------- //
 
 body.fullscreen { background: var(--#{$prefix}body-bg); }
+
+// Increase navbar height to reinstate Bootswatch style
+.topbar_modules > * {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
 
 // Update for Smartmenus
 $dropdown-item: $dropdown-link-color;
 .dropdown-menu.mega-menu a { color: $link-color !important; }
 
+.btn-outline-primary { --bs-btn-color: #299FD6; color: #299FD6; }
+.btn-outline-secondary { --bs-btn-color: #9C9C9C; }
+.btn-outline-success { --bs-btn-color: #85C700; }
+.btn-outline-danger { --bs-btn-color: #FF5252; }
+.btn-outline-warning { --bs-btn-color: #F08000; }
+.btn-outline-info { --bs-btn-color: #BC78DD; }
+.btn-outline-light { --bs-btn-color: #999999; }
+.btn-outline-dark { --bs-btn-color: #949494; }
 
+.blockquote-footer,
+.figure-caption {
+    color: #949494;
+}
 
+.invalid-feedback { --bs-form-invalid-color: #FF4D4D; }
+.valid-feedback { --bs-form-valid-color: #699E00; }
+
+.navbar.bg-light {
+    background-color: rgba(55,90,127,1);
+}

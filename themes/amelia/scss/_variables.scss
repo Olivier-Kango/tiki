@@ -28,8 +28,8 @@ $success: #A5E4A0;
 $info: #D5CDEA;
 $warning: #E4D081;
 $danger: #EEC9AF;
-$dark: #FDF7F9; // #ad1d28;
-$light: #0F7D85; // #5AE3ED;
+$dark: #6e0d0d; // #0F7D85; // #ad1d28;
+$light: #c8e8eb; // #5AE3ED; // #FDF7F9;
 
 $theme-colors: (
     "primary":           #F5CDC2, // #f5af9f, //#F3C9C9, // #ad1d28,
@@ -38,8 +38,8 @@ $theme-colors: (
     "info":              #D5CDEA, // #907bc7, // #4d3a7d,
     "warning":           #E4D081, // #e0c96b,
     "danger":            #ef98b5, // #EEC9AF, // #d98c56,
-    "light":             #0F7D85, // #5AE3ED, // #18cbd8,
-    "dark":              #FDF7F9, //  #ad1d28, // $black,
+    "light":             #c8e8eb, // #5AE3ED, // #FDF7F9, //  #ad1d28, // $black,
+    "dark":              #6e0d0d, // #0F7D85, // #5AE3ED, // #18cbd8,
 );
 
 
@@ -67,6 +67,7 @@ $body-emphasis-color:       $white; // $black default
 // Utility maps
 // Links
 $link-color: #FCF6E8; // lighten(#E4D081FF, 15%); //lighten($warning, 15%);
+$link-decoration:                         underline;
 $link-shade-percentage:                   20%;  // default // BS53
 $link-hover-color: shift-color($link-color, $link-shade-percentage); // !default;
 $link-hover-decoration: underline;
@@ -112,8 +113,7 @@ $form-feedback-invalid-color:       $danger;  // default // BS53
 $form-invalid-color:                $form-feedback-invalid-color;  // default // BS53
 
 // Navs
-$nav-link-color:                  var(--#{$prefix}link-color);  // default // #444;
-//$nav-link-color:                  var(--#{$prefix}link-color);
+$nav-link-color:                  $link-color; // #1A1A1A; // var(--#{$prefix}link-color);  // default // #444;
 $nav-link-hover-color:            var(--#{$prefix}link-hover-color);
 
 $nav-tabs-border-color:             $gray-300;
@@ -132,7 +132,7 @@ $navbar-dark-hover-color:           rgba($white, .75); // !default; // lighten($
 $navbar-dark-active-color:          $navbar-dark-color;
 $navbar-dark-disabled-color:        rgba($white, .25); //  !default;lighten($navbar-dark-color, 50%);
 
-$navbar-light-color:                $link-color; // $black;
+$navbar-light-color:                $black; // $link-color; // $black;
 $navbar-light-hover-color:          rgba($black, .7);  // default
 $navbar-light-active-color:         rgba($black, .9);  // default
 $navbar-light-disabled-color:       rgba($black, .3);  // default
@@ -195,7 +195,7 @@ $accordion-border-color:                  var(--#{$prefix}border-color);  // def
 //$accordion-button-padding-y:              $accordion-padding-y;  // default
 //$accordion-button-padding-x:              $accordion-padding-x;  // default
 $accordion-button-color:                  $accordion-color !default;
-$accordion-button-bg:                     #6e0d0d; // #ddb9af; // var(--#{$prefix}accordion-bg) !default;
+$accordion-button-bg:                     $dark; // #6e0d0d; // #ddb9af; // var(--#{$prefix}accordion-bg) !default;
 //$accordion-transition:                    $btn-transition, border-radius .15s ease !default;
 $accordion-button-active-bg:              #981919; // tint-color($component-active-bg, 90%) !default;
 $accordion-button-active-color:           #ddb9af; //shade-color($primary, 10%) !default;
@@ -256,11 +256,11 @@ $code-color:                        $pink;  // default // BS53
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
-$bg-dark: #ad1d28 !important;
-$navbar-dark-bg: #ad1d28 !important;
+$tiki-bg-dark: #ad1d28 !important;
+$tiki-navbar-dark-bg: #ad1d28 !important;
 
 $blockquote-color: #E6E8EA;
 $tiki-blockquote-left-border-color: #E6E8EA;
 $dropdown-item: $dropdown-link-color;
 
-//$megamenu-dropdown-link-color: $dropdown-link-color;
+//$tiki-megamenu-dropdown-link-color: $dropdown-link-color;
