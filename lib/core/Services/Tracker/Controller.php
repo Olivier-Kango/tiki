@@ -3182,4 +3182,72 @@ class Services_Tracker_Controller
 
         return $data;
     }
+
+    public function actionAddItemEmailFolder($input)
+    {
+        $itemId = $input->itemId->int();
+        $fieldId = $input->fieldId->int();
+        $folder = $input->folder->text();
+
+        $trk = TikiLib::lib('trk');
+
+        $item = Tracker_Item::fromId($itemId);
+        $field = $trk->get_field_info($fieldId);
+
+        if (! $item || ! $field) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $trackerId = $item->getDefinition()->getId();
+
+        $field['value'] = [
+            'newFolder' => $folder,
+        ];
+
+        $trk->replace_item($trackerId, $itemId, [
+            'data' => [$field]
+        ]);
+
+        return [
+            'success' => true,
+            'message' => tr('Folder added successfully'),
+        ];
+    }
+
+    public function actionGetItemEmailFolders($input)
+    {
+        $itemId = $input->itemId->int();
+        $fieldId = $input->fieldId->int();
+
+        $trk = TikiLib::lib('trk');
+
+        $item = Tracker_Item::fromId($itemId);
+        $field = $trk->get_field_info($fieldId);
+
+        if (! $item || ! $field) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $fieldHandler = $item->getDefinition()->getFieldFactory()->getHandler($field, $item->getData());
+
+        if (! method_exists($fieldHandler, 'getFolders')) {
+            throw new ServicesExceptionBadRequest(tr('Incorrect field type'));
+        }
+
+        $folders = [];
+
+        foreach ($fieldHandler->getFolders() as $name => $label) {
+            if (empty($name)) {
+                continue;
+            }
+            $folders[] = [
+                'name' => $name,
+                'label' => $label,
+            ];
+        }
+
+        return [
+            'folders' => $folders,
+        ];
+    }
 }

@@ -110,15 +110,15 @@ describe("applyInput", () => {
         expect($("body").html()).toBe(input.prop("outerHTML"));
     });
 
-    test("should not transform inputs inside cypht-layout", async () => {
+    test.each([["cypht-layout"], ["tiki-webmail"]])("should not transform inputs inside %s", async (givenClass) => {
         applyInput();
         const input = $("<input>");
-        const layout = $("<div class='cypht-layout'></div>");
+        const layout = $(`<div class='${givenClass}'></div>`);
         layout.append(input);
         $("body").append(layout);
 
         await window.happyDOM.waitUntilComplete();
-        expect($("body").html()).toBe(`<div class="cypht-layout"><input></div>`);
+        expect($("body").html()).toBe(`<div class="${givenClass}"><input></div>`);
     });
 
     test.each([["change", ["new value"]], ["input", ["new value"]], ["input", ["input value"]], ["blur"], ["focus"], ["keyup"], ["keydown"]])(
