@@ -191,7 +191,7 @@ function wikiplugin_mediaplayer($data, $params)
     }
 
     //checking if pdf generation request
-    if (in_array($params['type'], ['pdf']) && isset($_GET['display']) && strstr($_GET['display'], 'pdf') != '') {
+    if (in_array($params['type'], ['pdf']) && defined('TIKI_DISPLAY_CONTAINS_PDF') && TIKI_DISPLAY_CONTAINS_PDF) {
         return "<pdfpage>.<pdfinclude src='" . $access->absoluteUrl($params['src']) . "' /></pdfpage>";
     }
     $defaults_html5 = [

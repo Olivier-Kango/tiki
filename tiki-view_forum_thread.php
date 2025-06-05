@@ -8,6 +8,12 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+// TIKI_PRINTING_PDF is true only for PDF exports (?display=pdf).
+define('TIKI_PRINTING_PDF', isset($_REQUEST['display']) && $_REQUEST['display'] === 'pdf');
+// TIKI_PRINTING_ALL is true when displaying all content for printing (?display=print_all).
+define('TIKI_PRINTING_ALL', isset($_REQUEST['display']) && $_REQUEST['display'] === 'print_all');
+
 $section = 'forums';
 $inputConfiguration = [
     [
@@ -195,12 +201,10 @@ if ($tiki_p_admin_forum == 'y') {
 
 $access->check_permission(['tiki_p_forum_read'], '', 'thread', $comments_parentId);
 
-if (isset($_REQUEST['display'])) {
-    if ($_REQUEST['display'] == 'pdf') {
-        $access->check_permission(['tiki_p_export_pdf'], '', 'thread', $comments_parentId);
-    } else {
-        $access->check_permission(['tiki_p_print'], '', 'thread', $comments_parentId);
-    }
+if (TIKI_PRINTING_PDF) {
+    $access->check_permission(['tiki_p_export_pdf'], '', 'thread', $comments_parentId);
+} else {
+    $access->check_permission(['tiki_p_print'], '', 'thread', $comments_parentId);
 }
 
 $smarty->assign('topics_next_offset', $_REQUEST['topics_offset'] + 1);
@@ -296,7 +300,7 @@ if ($prefs['feature_forum_process_inbound_mail_in_cron'] !== 'y' && ! empty($for
     $commentslib->process_inbound_mail($forumId);
 }
 
-if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'print_all') {
+if (TIKI_PRINTING_ALL) {
     $_REQUEST['comments_per_page'] = 0; // unlimited
 }
 $forum_mode = 'y';
@@ -422,7 +426,7 @@ if (isset($_REQUEST['display'])) {
     // Display the forum messages
     $smarty->assign('mid', 'tiki-print_forum_thread.tpl');
     // Allow PDF export by installing a Mod that define an appropriate function
-    if ($_REQUEST['display'] == 'pdf') {
+    if (TIKI_PRINTING_PDF) {
         $pdata = $smarty->fetch("tiki-print_forum_thread.tpl");
         $generator = new PdfGenerator();
         if (! empty($generator->error)) {

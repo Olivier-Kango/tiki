@@ -690,7 +690,7 @@ class PdfGenerator
                         $mpdf->SetColumns(1, 'justify');
                     }
                     $backgroundImage = '';
-                    if (isset($_GET['display']) && strstr($_GET['display'], 'pdf') !== false) {
+                    if (defined('TIKI_DISPLAY_CONTAINS_PDF') && TIKI_DISPLAY_CONTAINS_PDF) {
                         $bgColor = "background: linear-gradient(top, '','');";
                     }
                     if ($pdfPage['background'] != '') {

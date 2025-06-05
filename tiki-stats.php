@@ -8,6 +8,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+// TIKI_PRINTING_PDF is true only for PDF exports (?display=pdf).
+define('TIKI_PRINTING_PDF', isset($_REQUEST['display']) && $_REQUEST['display'] === 'pdf');
+
 $inputConfiguration = [
     [
         'staticKeyFilters'     => [
@@ -132,8 +136,7 @@ $smarty->assign_by_ref('best_objects_stats_lastweek', $best_objects_stats_lastwe
 $best_objects_stats_between = $statslib->best_overall_object_stats(20, 0, $start_date, $end_date);
 $smarty->assign_by_ref('best_objects_stats_between', $best_objects_stats_between);
 $smarty->assign('mid', 'tiki-stats.tpl');
-
-if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
+if (TIKI_PRINTING_PDF) {
     $smarty->assign('display', $_REQUEST['display']);
     $smarty->assign('print_page', 'y');
     $pdata = $smarty->fetch("tiki.tpl");
