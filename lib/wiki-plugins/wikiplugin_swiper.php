@@ -412,7 +412,7 @@ function wikiplugin_swiper($data, $params)
     if ($params['autoHeight'] === 'y') {
         $heightMode = 'variable';
         $heightCSS = 'height: auto;';
-    } else if (! empty($params['height']) && preg_match('/^\d+(px|%)$/', $params['height'])) {
+    } elseif (! empty($params['height']) && preg_match('/^\d+(px|%)$/', $params['height'])) {
         $heightMode = 'custom';
         $heightCSS = 'height: ' . $params['height'] . ';';
     }
