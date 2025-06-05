@@ -257,6 +257,7 @@ if (isset($_REQUEST['add'])) {
 }
 
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-schedulers.js');
+$smarty->assign('display_timezone', TikiLib::lib('tiki')->get_display_timezone(false));
 $smarty->assign('schedulerinfo', $schedulerinfo);
 $smarty->assign('schedulerruns', isset($schedulerRuns) ? $schedulerRuns : []);
 $smarty->assign('schedulerId', $scheduler);

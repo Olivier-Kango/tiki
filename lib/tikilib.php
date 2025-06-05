@@ -5851,18 +5851,20 @@ class TikiLib extends TikiDb_Bridge
     }
 
     /**
-     * @param $format
-     * @param bool $timestamp
-     * @param bool $_user
-     * @param int $input_format
-     * @param bool $is_strftime_format
+     * @param string $format the desired date format.
+     * @param int|false $timestamp The timestamp to be formatted. Can be an integer representing a UNIX timestamp or false.
+     * @param string|false $_user if specified, use this user's timezone instead of the current user's, if specified forceTimezone must be false.
+     * @param int $input_format Input format, default 5 (DATE_FORMAT_UNIXTIME).
+     * @param bool $is_strftime_format indicates whether the format is strftime.
+     * @param string|false $forceTimezone the time zone to be applied. Can be a timezone identifier or false, if user is not false forceTimezone must always be false.
+     *
      * @return string
      */
-    public static function date_format($format, $timestamp = false, $_user = false, $input_format = 5/*DATE_FORMAT_UNIXTIME*/, $is_strftime_format = true, $use_display_tz = true)
+    public static function date_format(string $format, int|false $timestamp = false, string|false $_user = false, int $input_format = 5, bool $is_strftime_format = true, string|false $forceTimezone = false): string
     {
+        global $user;
         $tikilib = TikiLib::lib('tiki');
         static $currentUserDateByFormat = [];
-
         if (! $timestamp) {
             $timestamp = $tikilib->now;
         }
@@ -5878,10 +5880,10 @@ class TikiLib extends TikiDb_Bridge
             return $e->getMessage();
         }
 
-        $tz = $tikilib->get_display_timezone($_user);
-
-        // If user timezone is not also in UTC, convert the date
-        if ($tz != 'UTC' && $use_display_tz) {
+        if ($_user !== false && $forceTimezone !== false) {
+            throw new InvalidArgumentException('Either $_user or $forceTimezone should be provided, not both.');
+        } else {
+            $tz = $forceTimezone !== false ? $forceTimezone : $tikilib->get_display_timezone($_user);
             $tikidate->setTZbyID($tz);
         }
 
