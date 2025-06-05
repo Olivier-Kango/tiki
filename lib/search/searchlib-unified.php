@@ -371,9 +371,9 @@ class UnifiedSearchLib
             $stats['fallback'] = $this->rebuild($loggit, true);
             $prefs['unified_engine'] = $defaultEngine;
 
-            $log = new Laminas\Log\Writer\Stream($this->getLogFilename($loggit, $defaultEngine), 'a');
-            $loggerInstance = new Laminas\Log\Logger();
-            $loggerInstance->addWriter($log);
+            $log = new Monolog\Handler\StreamHandler($this->getLogFilename($loggit, $defaultEngine), Monolog\Logger::DEBUG);
+            $loggerInstance = new Monolog\Logger('fallback');
+            $loggerInstance->pushHandler($log);
 
             $loggerInstance->info('Fallback:');
             $loggerInstance->info("  Engine $fallbackEngineName" . (empty($fallbackVersion) ? '' : ", version $fallbackVersion"));
@@ -716,7 +716,7 @@ class UnifiedSearchLib
         $logWriter = null;
 
         if ($loggit) {
-            $logWriter = new Laminas\Log\Writer\Stream($this->getLogFilename($loggit), 'w');
+            $logWriter = new Monolog\Handler\StreamHandler($this->getLogFilename($loggit), Monolog\Logger::DEBUG);
         }
 
         $indexer = new Search_Indexer($index, $logWriter);

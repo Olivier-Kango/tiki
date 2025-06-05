@@ -326,7 +326,7 @@ class Feedback
     /**
      * Print any feedback out to a log file
      *
-     * @param \Laminas\Log\Logger $log
+     * @param \Monolog\Logger $log
      * @param bool $clear - remove existing entries from the local storage after sending to log file
      */
     public static function printToLog($log, $clear = false)
@@ -348,10 +348,10 @@ class Feedback
 
                     switch ($type) {
                         case 'error':
-                            $log->err($message);
+                            $log->error($message);
                             break;
                         case 'warning':
-                            $log->warn($message);
+                            $log->warning($message);
                             break;
                         case 'feedback':
                         case 'success':
@@ -362,7 +362,7 @@ class Feedback
                             break;
                     }
                 } else {
-                    $log->err($message);
+                    $log->error($message);
                 }
             }
         }
