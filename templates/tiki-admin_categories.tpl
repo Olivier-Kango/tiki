@@ -598,7 +598,7 @@ spinach,Spinach is a leafy green flowering plant,vegetable
                 </div>
                 <div class="mb-3 row">
                     <div class="col-sm-3 offset-sm-3">
-                        <input type="submit" class="btn btn-secondary" name="import" value="{tr}Upload{/tr}">
+                        <input type="submit" class="btn btn-primary" name="import" value="{tr}Upload{/tr}">
                     </div>
                 </div>
             </form>
