@@ -198,7 +198,7 @@ class Icon extends \Smarty\FunctionHandler\Base
                         $img_file = $v . $icons_extension;
                         $v = $icons_basedir . $img_file;
                         $themelib = \TikiLib::lib('theme');
-                        $v2 = $themelib->get_theme_path($current_theme, $current_theme_option, $img_file, 'icons/');
+                        $v2 = $themelib->get_theme_path($current_theme, $current_theme_option, $img_file, 'icons');
 
                         if (! empty($v2)) {
                             $params['file'] = $v2;
