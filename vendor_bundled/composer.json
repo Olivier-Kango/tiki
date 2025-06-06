@@ -15,6 +15,8 @@
         "    First, make sure the version you want is covered by ",
         "    doc/devtools/statis.json,  as that's what makes the ",
         "    package available on composer.tiki.org",
+        "    NOTE: composer.tiki.org is only used up to Tiki 28.x.",
+        "    For Tiki 29.x and above, dependencies use public repositories like Packagist.org.",
         "  check composer.json: ",
         "    composer -d vendor_bundled update --dry-run",
         "  update composer.lock: ",
