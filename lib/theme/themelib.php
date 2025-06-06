@@ -401,7 +401,7 @@ class ThemeLib extends TikiLib
      * @param string $option - optional theme option file name (e.g. "akebi")
      * @param string $filename - optional filename to look for (e.g. "purple.png")
      * @param string $subdir - optional dir to look in, e.g. 'css' etc (will guess by file extension if this not set but filename is)
-     * @return string          - path to dir or file if found or empty string if not - e.g. "themes/mydomain.tld/fivealive/options/akebi/"
+     * @return string          - path to dir or file if found or empty string if not - e.g. "themes/mydomain.tld/fivealive/options/akebi"
      */
 
     public function get_theme_path(?string $theme = null, $option = '', $filename = '', $subdir = ''): string

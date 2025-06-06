@@ -773,7 +773,7 @@ class PreferencesLib
         if (preg_match('/^themes_(.*)$/', $file, $matches)) {
             $themeName = $matches[1];
             $themePath = TikiLib::lib('theme')->get_theme_path($themeName);
-            $inc_file = $themePath . "prefs/{$file}.php";
+            $inc_file = $themePath . "/prefs/{$file}.php";
         }
         if (file_exists($inc_file) && $file !== "index") {
             require_once $inc_file;
@@ -1344,7 +1344,7 @@ class PreferencesLib
         }
         foreach (TikiLib::lib('theme')->get_available_themes() as $theme => $label) {
             $themePath = TikiLib::lib('theme')->get_theme_path($theme);
-            foreach (glob($themePath . 'prefs/*.php') as $file) {
+            foreach (glob($themePath . '/prefs/*.php') as $file) {
                 if (basename($file) === "index.php") {
                     continue;
                 }
