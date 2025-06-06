@@ -34,9 +34,19 @@ $backLocation = '';
 $baseUrl = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/';
 $referer = $_SERVER['HTTP_REFERER'] ?? '';
 
-if (! empty($galleryId) && is_numeric($galleryId)) {
-    $type = 'file gallery';
-    $objectId = $_REQUEST['fileId'] ?? null;
+if (! empty($galleryId)) {
+    if (is_numeric($galleryId)) {
+        $type = 'file gallery';
+        $objectId = $_REQUEST['fileId'] ?? null;
+    } else {
+        if (strpos($referer, $baseUrl) === 0) {
+            header('Location: ' . $referer);
+        } else {
+            header("Location: " . $baseUrl . "tiki-list_file_gallery.php");
+        }
+        Feedback::error(tr('Invalid %0%1%2: must be numeric', '<code>', 'galleryId', '</code>'));
+        return '';
+    }
 } elseif (! empty($page)) {
     $type = 'wiki page';
     $objectId = $page;
@@ -46,7 +56,7 @@ if (! empty($galleryId) && is_numeric($galleryId)) {
     } else {
         header("Location: " . $baseUrl . "tiki-list_file_gallery.php");
     }
-    Feedback::error(tr('Missing or invalid %0%1%2 and/or %0%3%2', '<code>', 'galleryId', '</code>', 'page'));
+    Feedback::error(tr('Missing parameters: either %0%1%2 or %0%3%2 is required.', '<code>', 'galleryId', '</code>', 'page'));
     return '';
 }
 
