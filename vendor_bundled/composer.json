@@ -14,6 +14,8 @@
         "  satis and composer.tiki.org",
         "    First, make sure the version you want is covered by ",
         "    doc/devtools/statis.json,  as that's what makes the ",
+        "    NOTE: composer.tiki.org is only used up to Tiki 28.x.",
+        "    For Tiki 29.x and above, dependencies should use the public Composer repositories (e.g. Packagist.org) directly.",
         "    package available on composer.tiki.org",
         "  check composer.json: ",
         "    composer -d vendor_bundled update --dry-run",
