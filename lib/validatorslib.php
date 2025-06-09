@@ -52,7 +52,7 @@ class Validators
         return $validators;
     }
 
-    public function generateTrackerValidateJS($fields_data, $prefix = 'ins_', $custom_rules = '', $custom_messages = '', $custom_handlers = '')
+    public function generateTrackerValidateJS($fields_data, $prefix = 'ins_', $custom_rules = '', $custom_messages = '', $custom_handlers = '', $requiredFields = [])
     {
         global $prefs;
         $validationjs = 'rules: { ';
@@ -63,7 +63,10 @@ class Validators
                         return $("#' . $prefix . $field_value['fieldId'] . '").val()!="";
                     },},';
             }
-            if ($field_value['validation'] || $field_value['isMandatory'] == 'y') {
+            $isMandatory = self::isFieldMandatory($field_value, $requiredFields);
+            $hasValidation = ! empty($field_value['validation']);
+
+            if ($hasValidation ||  $isMandatory) {
                 if ($field_value['type'] == 'e' || $field_value['type'] == 'M') {
                     $validationjs .= '"' . $prefix . $field_value['fieldId'] . '[]": { ';
                 } else {
@@ -73,7 +76,7 @@ class Validators
                         $validationjs .= $prefix . $field_value['fieldId'] . ': { ';
                     }
                 }
-                if ($field_value['isMandatory'] == 'y') {
+                if ($isMandatory) {
                     if ($field_value['type'] == 'D') {
                         $validationjs .= 'required_in_group: [1, ".group_' . $prefix . $field_value['fieldId'] . '", "other"], ';
                     } elseif ($field_value['type'] == 'A') {
@@ -165,7 +168,10 @@ class Validators
                     $validationjs .= $prefix . $field_value['fieldId'] . '_currency: "' . tra('This field is required') . '",';
                 }
             }
-            if ($field_value['validationMessage'] && $field_value['isMandatory'] == 'y') {
+            $isMandatory = self::isFieldMandatory($field_value, $requiredFields);
+            $hasValidationMessage = ! empty($field_value['validationMessage']);
+
+            if ($isMandatory && $hasValidationMessage) {
                 if ($field_value['type'] == 'e' || $field_value['type'] == 'M') {
                     $validationjs .= '"' . $prefix . $field_value['fieldId'] . '[]": { ';
                 } else {
@@ -173,7 +179,7 @@ class Validators
                 }
                 $validationjs .= 'required: "' . tra($field_value['validationMessage']) . '" ';
                 $validationjs .= '}, ';
-            } elseif ($field_value['isMandatory'] == 'y') {
+            } elseif ($isMandatory) {
                 if ($field_value['isMultilingual'] == 'y') {
                     $validationjs .= "\"ins_" . $field_value['fieldId'] . "[" . end($prefs["available_languages"]) . "]\"" . " : { ";
                     $validationjs .= 'required: "' . tra('The mandatory field ' . $field_value['name'] . ' must contain at least one language value') . '" ';
@@ -232,5 +238,19 @@ invalidHandler: function(event, validator) {
             $validationjs .= ",\n$custom_handlers";
         }
         return $validationjs;
+    }
+
+    public function isFieldMandatory($field_value, $requiredFields)
+    {
+        return ($field_value['isMandatory'] == 'y')
+            || (isset($requiredFields) && in_array($field_value['fieldId'], $requiredFields));
+    }
+
+    public function getValidationMessage($field_value)
+    {
+        if (! empty($field_value['validationMessage'])) {
+            return tra($field_value['validationMessage']);
+        }
+        return tra('This field is required');
     }
 }
