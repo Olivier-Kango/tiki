@@ -463,8 +463,8 @@ if (! empty($multiprint_pages)) {
 
     if ($access->is_serializable_request()) {
         $autocomplete_is_enabled = $prefs['elementplus_autocomplete'] == 'y';
+        $pages = [];
         if (isset($_REQUEST['listonly']) && ($autocomplete_is_enabled)) {
-            $pages = [];
             foreach ($listpages['data'] as $page) {
                 if (isset($_REQUEST['nonamespace'])) {
                     $pages[] = [
@@ -499,7 +499,6 @@ if (! empty($multiprint_pages)) {
             }
             $access->output_serialized($pages);
         } else {
-            $pages = [];
             $wikilib = TikiLib::lib('wiki');
             foreach ($listpages['data'] as $page) {
                 $pages[] = [

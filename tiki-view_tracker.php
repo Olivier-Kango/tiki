@@ -188,11 +188,10 @@ foreach ($status_raw as $let => $sta) {
     if (isset($sta['perm']) || ($my || $ours)) {
         if (in_array($let, $sts)) {
             $sta['class'] = 'statuson';
-            $sta['statuslink'] = $let;
         } else {
             $sta['class'] = 'statusoff';
-            $sta['statuslink'] = $let;
         }
+        $sta['statuslink'] = $let;
         $status_types[$let] = $sta;
     }
 }

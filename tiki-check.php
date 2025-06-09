@@ -2205,8 +2205,8 @@ if (function_exists('apache_get_version')) {
     // mod_rewrite
     $s = false;
     $s = array_search('mod_rewrite', $apache_modules);
+    $apache_properties = array();
     if ($s) {
-        $apache_properties = array();
         $apache_properties['mod_rewrite'] = array(
             'setting' => 'Loaded',
             'fitness' => tra('good') ,
@@ -2214,7 +2214,6 @@ if (function_exists('apache_get_version')) {
             'message' => tra('Tiki needs this module for Search Engine Friendly URLs via .htaccess. However, it can\'t be checked if this web server respects configurations made in .htaccess. For further information go to Admin->SefURL in your Tiki.')
         );
     } else {
-        $apache_properties = array();
         $apache_properties['mod_rewrite'] = array(
             'setting' => 'Not available',
             'fitness' => tra('unsure') ,

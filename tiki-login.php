@@ -111,7 +111,6 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
     $loginlib = TikiLib::lib('login');
     if ($loginlib->isSwitched() && $_REQUEST['su'] == 'revert') {
         $loginlib->revertSwitch();
-        $access->redirect($_SESSION['loginfrom']);
     } else {
         if (empty($_REQUEST['username'])) {
             Feedback::errorAndDie(tra('Username field cannot be empty. Please go back and try again.'), \Laminas\Http\Response::STATUS_CODE_409);
@@ -127,9 +126,8 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
             $access->redirect();
         }
         $_SESSION["keep_login_box_visible"] = isset($_REQUEST["keep_login_box_visible"]) ? 'y' : 'n';
-
-        $access->redirect($_SESSION['loginfrom']);
     }
+    $access->redirect($_SESSION['loginfrom']);
 }
 $requestedUser = isset($_REQUEST['user']) ? trim($_REQUEST['user']) : false;
 $pass = isset($_REQUEST['pass']) ? trim($_REQUEST['pass']) : false;

@@ -143,13 +143,9 @@ if ($access->is_serializable_request() && $jitRequest->offsetExists('listonly'))
                             $finalusers[$oldkey] = $done[$usr];
                         }
                     }
-                    if (stripos($longusr, $last_name) !== false) {
-                        $finalusers[] = $longusr;
-                    }
-                } else {
-                    if (stripos($longusr, $last_name) !== false) {
-                        $finalusers[] = $longusr;
-                    }
+                }
+                if (stripos($longusr, $last_name) !== false) {
+                    $finalusers[] = $longusr;
                 }
                 $done[$usr] = $longusr;
             }

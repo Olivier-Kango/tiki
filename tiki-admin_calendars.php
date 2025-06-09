@@ -95,12 +95,10 @@ $subscription_default = [
 
 if (! empty($_REQUEST['subscriptionId'])) {
     $subscription = $calendarlib->get_subscription($_REQUEST['subscriptionId']);
-    if ($subscription['user'] == $user) {
-        $smarty->assign('subscription', $subscription);
-    } else {
+    if ($subscription['user'] != $user) {
         $subscription = $subscription_default;
-        $smarty->assign('subscription', $subscription);
     }
+    $smarty->assign('subscription', $subscription);
 } else {
     $subscription = $subscription_default;
     $smarty->assign('subscription', $subscription);

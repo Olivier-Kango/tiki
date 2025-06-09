@@ -88,15 +88,13 @@ if (! in_array($page, $_SESSION["breadCrumb"])) {
     if (count($_SESSION["breadCrumb"]) > $prefs['userbreadCrumb']) {
         array_shift($_SESSION["breadCrumb"]);
     }
-
-    $_SESSION["breadCrumb"][] = $page;
 } else {
     // If the page is in the array move to the last position
     $pos = array_search($page, $_SESSION["breadCrumb"]);
 
     unset($_SESSION["breadCrumb"][$pos]);
-    $_SESSION["breadCrumb"][] = $page;
 }
+$_SESSION["breadCrumb"][] = $page;
 
 // Now increment page hits since we are visiting this page
 $tikilib->add_hit($page);
@@ -142,111 +140,114 @@ if (isset($_REQUEST['pdf'])) {
 
     $_POST["html"] = urldecode($_POST["html"] ?? '');
 
-    $generator = new PdfGenerator(PdfGenerator::MPDF);
-    if (! empty($generator->getError())) {
-        Feedback::error(
-            tr(
-                'Exporting slideshow as PDF requires a working installation of mPDF.'
-            )
-            . "<br \>"
-            . tr('Export to PDF error: %0', $generator->getError())
-        );
-        $access = TikiLib::lib('access');
-        $access->redirect(
-            str_replace(
-                'tiki-slideshow.php?',
-                'tiki-index.php?',
-                $_SERVER['HTTP_REFERER']
-            )
-        );
-    }
-
-    $params = [
-        'orientation' => isset($_REQUEST['landscape']) ? 'L' : 'P',
-    ];
-    $filename = TikiLib::lib('tiki')
-        ->remove_non_word_characters_and_accents($_REQUEST['page']);
-
-    $pdfSettings = $_REQUEST['pdfSettings'] ?? null;
-    if ($pdfSettings !== null) {
-        $_POST['html'] = '<' . $_REQUEST['pdfSettings'] . ' />'
-            . $_POST['html'];
-    }
-
-    // initialize background image
-    $imgBackgroundCSS = '';
-
-    //checking if to export slideshow
-    if (isset($_REQUEST['printslides'])) {
-        $customCSS
-            = "<style type='text/css'>img{max-height:300px;width:auto;} body{font-size:1em} h1{font-size:1.5em;text-transform:none !important;}  section{height:300px;border:1px solid #000;margin-bottom:1%;padding:1%;}</style> ";
-        $pdata = $customCSS . '<pdfsettings printFriendly="y" header="off" footer="off"></pdfsettings>' . $pdata;
-    } else {
-        $doc = new DOMDocument();
-        libxml_use_internal_errors(true);
-        $doc->loadHTML('<html lang="en"><head><meta charset="UTF-8"></head><body>' . $pdata . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        libxml_clear_errors();
-
-        $sections = $doc->getElementsByTagName('section');
-
-        foreach ($sections as $key => $section) {
-            // Remove saveHTML call
-            $color = $section->getAttribute('data-background-color');
-            $imgBackground = $section->getAttribute('data-background-image');
-
-            if (! empty($imgBackground)) {
-                $class = $section->getAttribute('class');
-                $section->setAttribute("class", 'section_bg_image_' . $key . ' ' . $class);
-
-                $imgBackgroundCSS .= ' .section_bg_image_' . $key . '{
-                    background-image: url("' . $imgBackground . '");
-                    background-position: top left;
-                    background-repeat: no-repeat;
-                    background-image-resize: 4;
-                    background-image-resolution: from-image;
-                }';
-            }
-
-            if (! empty($color)) {
-                $style = $section->getAttribute('style');
-                $section->setAttribute("style", "background-color:" . $color . ";" . $style);
-            }
+    if (isset($_POST["html"])) {
+        $generator = new PdfGenerator(PdfGenerator::MPDF);
+        if (! empty($generator->getError())) {
+            Feedback::error(
+                tr(
+                    'Exporting slideshow as PDF requires a working installation of mPDF.'
+                )
+                . "<br \>"
+                . tr('Export to PDF error: %0', $generator->getError())
+            );
+            $access = TikiLib::lib('access');
+            $access->redirect(
+                str_replace(
+                    'tiki-slideshow.php?',
+                    'tiki-index.php?',
+                    $_SERVER['HTTP_REFERER']
+                )
+            );
         }
 
-        $pdata = $doc->saveHTML();
+        $params = [
+            'orientation' => isset($_REQUEST['landscape']) ? 'L' : 'P',
+        ];
+        $filename = TikiLib::lib('tiki')
+            ->remove_non_word_characters_and_accents($_REQUEST['page']);
 
-        //getting css
-        $customCSS = file_get_contents(
-            REVEALJS_DIST_PATH . '/reveal.css'
-        );
-        $customCSS .= file_get_contents(
-            REVEALJS_DIST_PATH . '/' . 'theme/' . $theme . '.css'
-        );
+        $pdfSettings = $_REQUEST['pdfSettings'] ?? null;
+        if ($pdfSettings !== null) {
+            $_POST['html'] = '<' . $_REQUEST['pdfSettings'] . ' />'
+                . $_POST['html'];
+        }
 
-        $customCSS .= '.reveal section{width:100%; height:100%;text-align:center;margin:auto;} section{text-align:center;margin: auto;width:100%;} .ss-heading{line-height:2.5em,padding-bottom:20px;} ' . $imgBackgroundCSS;
-        $pdata = '<pdfsettings header="off" footer="off" margin_top="0" margin_bottom="0" margin_left="0" margin_right="0" printfriendly="n"></pdfsettings><div class="reveal">' . $pdata . '</div>';
-        $pdata = str_replace(
-            "</section><section",
-            "</section><pagebreak /><section",
-            $pdata . '<style>' . str_replace([".reveal {","vertical-align: baseline;"], [".reveal,.reveal table{ ","vertical-align:top;"], $customCSS) . ' div.reveal, .reveal li{font-size:1.3em;font-weight:normal;line-height:1.5;height:auto !important; } img{max-height:400px;}  .reveal h1 {font-size: 2.8em; text-transform:none !important;} .reveal li ul li {font-size: 0.95em !important;margin: 0em !important;}</style>'
-        ) . $pdfStyles;
+        // initialize background image
+        $imgBackgroundCSS = '';
+
+        //checking if to export slideshow
+        if (isset($_REQUEST['printslides'])) {
+            $customCSS
+                = "<style type='text/css'>img{max-height:300px;width:auto;} body{font-size:1em} h1{font-size:1.5em;text-transform:none !important;}  section{height:300px;border:1px solid #000;margin-bottom:1%;padding:1%;}</style> ";
+            $pdata = $customCSS . '<pdfsettings printFriendly="y" header="off" footer="off"></pdfsettings>' . $pdata;
+        } else {
+            $doc = new DOMDocument();
+            libxml_use_internal_errors(true);
+            $doc->loadHTML('<html lang="en"><head><meta charset="UTF-8"></head><body>' . $pdata . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_clear_errors();
+
+            $sections = $doc->getElementsByTagName('section');
+
+            foreach ($sections as $key => $section) {
+                // Remove saveHTML call
+                $color = $section->getAttribute('data-background-color');
+                $imgBackground = $section->getAttribute('data-background-image');
+
+                if (! empty($imgBackground)) {
+                    $class = $section->getAttribute('class');
+                    $section->setAttribute("class", 'section_bg_image_' . $key . ' ' . $class);
+
+                    $imgBackgroundCSS .= ' .section_bg_image_' . $key . '{
+                        background-image: url("' . $imgBackground . '");
+                        background-position: top left;
+                        background-repeat: no-repeat;
+                        background-image-resize: 4;
+                        background-image-resolution: from-image;
+                    }';
+                }
+
+                if (! empty($color)) {
+                    $style = $section->getAttribute('style');
+                    $section->setAttribute("style", "background-color:" . $color . ";" . $style);
+                }
+            }
+
+            $pdata = $doc->saveHTML();
+
+            //getting css
+            $customCSS = file_get_contents(
+                REVEALJS_DIST_PATH . '/reveal.css'
+            );
+            $customCSS .= file_get_contents(
+                REVEALJS_DIST_PATH . '/' . 'theme/' . $theme . '.css'
+            );
+
+            $customCSS .= '.reveal section{width:100%; height:100%;text-align:center;margin:auto;} section{text-align:center;margin: auto;width:100%;} .ss-heading{line-height:2.5em,padding-bottom:20px;} ' . $imgBackgroundCSS;
+            $pdata = '<pdfsettings header="off" footer="off" margin_top="0" margin_bottom="0" margin_left="0" margin_right="0" printfriendly="n"></pdfsettings><div class="reveal">' . $pdata . '</div>';
+            $pdata = str_replace(
+                "</section><section",
+                "</section><pagebreak /><section",
+                $pdata . '<style>' . str_replace([".reveal {","vertical-align: baseline;"], [".reveal,.reveal table{ ","vertical-align:top;"], $customCSS) . ' div.reveal, .reveal li{font-size:1.3em;font-weight:normal;line-height:1.5;height:auto !important; } img{max-height:400px;}  .reveal h1 {font-size: 2.8em; text-transform:none !important;} .reveal li ul li {font-size: 0.95em !important;margin: 0em !important;}</style>'
+            ) . $pdfStyles;
+        }
+
+        $pdf = $generator->getPdf(
+            $filename,
+            $params,
+            preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata)
+        );
+        $length = strlen($pdf);
+        header('Cache-Control: private, must-revalidate');
+        header('Pragma: private');
+        header('Content-disposition: inline; filename="' . $filename . '.pdf"');
+        header("Content-Type: application/pdf");
+        header("Content-Transfer-Encoding: binary");
+        header('Content-Length: ' . $length);
+        TikiLib::lib('header')->setXRobotsTag($robots);
+        echo $pdf;
+        exit(0);
     }
-
-    $pdf = $generator->getPdf(
-        $filename,
-        $params,
-        preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata)
-    );
-    $length = strlen($pdf);
-    header('Cache-Control: private, must-revalidate');
-    header('Pragma: private');
-    header('Content-disposition: inline; filename="' . $filename . '.pdf"');
-    header("Content-Type: application/pdf");
-    header("Content-Transfer-Encoding: binary");
-    header('Content-Length: ' . $length);
-    TikiLib::lib('header')->setXRobotsTag($robots);
-    echo $pdf;
-    exit(0);
+    die;
 }
 $smarty->assign('pages', $pages);
 $smarty->assign_by_ref('parsed', $pdata);

@@ -158,12 +158,10 @@ $smarty->assign('comments_parentId', $comments_parentId);
 if (isset($_REQUEST["comments_grandParentId"])) {
     $smarty->assign('comments_grandParentId', $_REQUEST["comments_grandParentId"]);
 }
-if (isset($_REQUEST["comments_reply_threadId"])) {
-    $smarty->assign('comments_reply_threadId', $_REQUEST["comments_reply_threadId"]);
-} else {
+if (! isset($_REQUEST["comments_reply_threadId"])) {
     $_REQUEST["comments_reply_threadId"] = $comments_parentId;
-    $smarty->assign('comments_reply_threadId', $_REQUEST["comments_reply_threadId"]);
 }
+$smarty->assign('comments_reply_threadId', $_REQUEST["comments_reply_threadId"]);
 $smarty->assign('forumId', $forumId);
 if (isset($_REQUEST['lock'])) {
     $access->checkCsrf();

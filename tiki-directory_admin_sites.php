@@ -69,13 +69,12 @@ if ($_REQUEST["siteId"]) {
 $smarty->assign_by_ref('info', $info);
 // Remove a category
 if (isset($_REQUEST["remove"])) {
+    $access->checkCsrf();
     if (is_array($_REQUEST["remove"])) {
-        $access->checkCsrf();
         foreach ($_REQUEST["remove"] as $remid) {
             $dirlib->dir_remove_site($remid);
         }
     } else {
-        $access->checkCsrf();
         $dirlib->dir_remove_site($_REQUEST["remove"]);
     }
 }

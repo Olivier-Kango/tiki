@@ -154,11 +154,10 @@ if (isset($_REQUEST['update_tasks']) && isset($_REQUEST['task'])) {
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->mark_task_as_trash($task, $user);
             $trashed_task = $tasklib->get_task($user, $task);
+            $msg_from = $user;
             if ($trashed_task['user'] == $user) {
-                $msg_from = $user;
                 $msg_to = $trashed_task['creator'];
             } else {
-                $msg_from = $user;
                 $msg_to = $trashed_task['user'];
             }
             $msg_title = tra('Task') . ' "' . $trashed_task['title'] . '" ' . tra('was moved to the trash');
@@ -175,11 +174,10 @@ if (isset($_REQUEST['update_tasks']) && isset($_REQUEST['task'])) {
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->open_task($task, $user);
             $trashed_task = $tasklib->get_task($user, $task);
+            $msg_from = $user;
             if ($trashed_task['user'] == $user) {
-                $msg_from = $user;
                 $msg_to = $trashed_task['creator'];
             } else {
-                $msg_from = $user;
                 $msg_to = $trashed_task['user'];
             }
             $msg_title = tra('Task') . ' "' . $trashed_task['title'] . '" ' . tra('open / in process');
@@ -196,11 +194,10 @@ if (isset($_REQUEST['update_tasks']) && isset($_REQUEST['task'])) {
         foreach (array_keys($_REQUEST['task']) as $task) {
             $tasklib->mark_complete_task($task, $user);
             $trashed_task = $tasklib->get_task($user, $task);
+            $msg_from = $user;
             if ($trashed_task['user'] == $user) {
-                $msg_from = $user;
                 $msg_to = $trashed_task['creator'];
             } else {
-                $msg_from = $user;
                 $msg_to = $trashed_task['user'];
             }
             $msg_title = tra('Task') . ' "' . $trashed_task['title'] . '" ' . tra('completed (100%)');
@@ -714,12 +711,8 @@ $smarty->assign('created_Day', $tikilib->date_format('%d', $info['created']));
 $smarty->assign('created_Year', $tikilib->date_format('%Y', $info['created']));
 $smarty->assign('created_Hour', $tikilib->date_format('%H', $info['created']));
 $smarty->assign('created_Minute', $tikilib->date_format('%M', $info['created']));
-if ((! isset($info['start'])) || ($info['start'] == null)) {
-    $info['start'] = $tikilib->now;
-    $smarty->assign('start_date', $info['start']);
-} else {
-    $smarty->assign('start_date', $info['start']);
-}
+$info['start'] = $info['start'] ?? $tikilib->now;
+$smarty->assign('start_date', $info['start']);
 if ((! isset($info['end'])) || ($info['end'] == null)) {
     $smarty->assign('end_date', ($info['start'] + 86400));
 } else {

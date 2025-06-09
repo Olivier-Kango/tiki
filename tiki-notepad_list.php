@@ -66,11 +66,10 @@ if (isset($_REQUEST["merge"])) {
         if ($first) {
             $first = false;
             $merge .= "---------" . tra('merged note:') . $data_c['name'] . "----" . "\n";
-            $merge .= $data;
         } else {
             $merge .= "\n---------" . tra('merged note:') . $data_c['name'] . "----" . "\n";
-            $merge .= $data;
         }
+        $merge .= $data;
     }
     // Now create the merged note
     $tikilib->replace_note($user, 0, $_REQUEST['merge_name'], $merge);
