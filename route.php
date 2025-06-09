@@ -331,7 +331,7 @@ switch (PHP_SAPI) {
         // Fix $_SERVER['REQUEST_URI', which is ASCII encoded on IIS
         //  Convert the SERVER variable itself, to fix $_SERVER['REQUEST_URI'] access everywhere
         //  route.php comes first in the processing.  Avoid dependencies.
-        if (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'IIS') !== false) {
+        if (isset($_SERVER['SERVER_SOFTWARE']) && str_contains($_SERVER['SERVER_SOFTWARE'], 'IIS')) {
             if (mb_detect_encoding($_SERVER['REQUEST_URI'], 'UTF-8', true) == false) {
                 $_SERVER['REQUEST_URI'] = mb_convert_encoding($_SERVER['REQUEST_URI'], 'UTF-8', 'ISO-8859-1');
             }
@@ -341,7 +341,7 @@ switch (PHP_SAPI) {
             $full = $_SERVER['SCRIPT_URL'];
         } elseif (isset($_SERVER['REQUEST_URI'])) {
             $full = $_SERVER['REQUEST_URI'];
-            if (strpos($full, '?') !== false) {
+            if (str_contains($full, '?')) {
                 $full = substr($full, 0, strpos($full, '?'));
             }
         } elseif (isset($_SERVER['REDIRECT_URL'])) {

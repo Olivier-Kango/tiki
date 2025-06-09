@@ -60,7 +60,7 @@ class Search_MySql_QueryBuilder
             if ($this->table) {
                 // comparison of date with empty string errors in mysql 8+
                 $type = $this->table->getFieldType($node->getField());
-                if ($type && strstr($type, 'date')) {
+                if ($type && str_contains($type, 'date')) {
                     return "`{$this->tfTranslator->shortenize($node->getField())}` IS NULL";
                 }
             }

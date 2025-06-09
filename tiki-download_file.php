@@ -422,7 +422,7 @@ if (isset($_GET['preview']) || isset($_GET['thumbnail']) || isset($_GET['display
                 }
             } while ($tryIconFallback);
         }
-        if (strpos($info['filetype'], 'image/svg') !== false) {
+        if (str_contains($info['filetype'], 'image/svg')) {
             $info['filetype'] = 'image/svg+xml';
             $content = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' . "\n" . $content;
         }
@@ -454,7 +454,11 @@ if (
             || $info['filetype'] == 'application/octet-stream' || $info['filetype'] == 'unknown'
 ) {
     $info['filetype'] = $mimelib->from_path($info['filename'], $filepath);
-} elseif (isset($_GET['thumbnail']) && (strpos($info['filetype'], 'image') === false || ($content_changed && strpos($info['filetype'], 'image/svg') === false))) {  // use thumb format
+} elseif (
+    isset($_GET['thumbnail'])
+    && (! str_contains($info['filetype'], 'image')
+        || ($content_changed && ! str_contains($info['filetype'], 'image/svg')))
+) {  // use thumb format
     $info['filetype'] = $mimelib->from_content($info['filename'], $content);
 }
 header('Content-type: ' . $info['filetype']);
@@ -474,7 +478,7 @@ if (! empty($filepath) && is_file($filepath) && ! $content_changed) {
     $filesize = filesize($filepath);
     header("Accept-Ranges: bytes");
     if (empty($_SERVER['HTTP_RANGE'])) {
-        if (strpos($info['filetype'], 'text/') === false || $downloading) {
+        if (! str_contains($info['filetype'], 'text/') || $downloading) {
             header('Content-Length: ' . $filesize);
             readfile($filepath);
         } else {
@@ -515,7 +519,7 @@ if (! empty($filepath) && is_file($filepath) && ! $content_changed) {
         }
     }
 } else {
-    if (strpos($info['filetype'], 'text/') !== false && ! $downloading) {
+    if (str_contains($info['filetype'], 'text/') && ! $downloading) {
         $content = htmlspecialchars($content);
     }
     if (function_exists('mb_strlen')) {

@@ -39,9 +39,7 @@ function wikiplugin_article_info()
 function wikiplugin_article($data, $params)
 {
     global $user, $tiki_p_admin_cms;
-    $userlib = TikiLib::lib('user');
     $tikilib = TikiLib::lib('tiki');
-    $statslib = TikiLib::lib('stats');
     $artlib = TikiLib::lib('art');
     $smarty = TikiLib::lib('smarty');
 

@@ -703,8 +703,7 @@ function formatContent($content, $tagArr, $slidePluginHeadingLevelSlideSeparator
         foreach ($headingsTags as $slide) {
             if ($firstSlide == 0) {
                 //checking if first slide has pluginSlideShowSlide instance, then concat with main text, otherwise ignore
-                $sectionCheck = strpos($slide, '<sslide');
-                if ($sectionCheck == true) {
+                if (str_contains($slide, '<sslide')) {
                     $slideContent .= str_replace("sslide", "section", $slide);
                 } else {
                     $slideContent .= slideshow_section($slide, $headingStart, $slideStart, $slideEnd, $slidePluginHeadingLevelSlideSeparator);

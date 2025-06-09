@@ -94,7 +94,7 @@ if ($output["data"] == "EMPTY") {
                 }
             }
         } else {
-            $result = strpos($diff, '<tr>') === 0 ? '<table>' . $diff . '</table>' : $diff;
+            $result = str_starts_with($diff, '<tr>') ? '<table>' . $diff . '</table>' : $diff;
         }
 
         $data["$descId"] = $result;

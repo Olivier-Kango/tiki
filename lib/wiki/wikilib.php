@@ -1924,8 +1924,8 @@ class WikiLib extends TikiLib
         $currPage = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
         if (
             ! empty($currPage) &&
-            (strstr($_SERVER["SCRIPT_NAME"], "tiki-editpage.php") === false) &&
-            (strstr($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php') === false)
+            (! str_contains($_SERVER["SCRIPT_NAME"], "tiki-editpage.php")) &&
+            (! str_contains($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php'))
         ) {
             // Determine the auto TOC setting
             if ($prefs['wiki_auto_toc'] === 'y') {

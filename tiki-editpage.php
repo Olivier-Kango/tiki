@@ -173,7 +173,13 @@ if ($prefs['namespace_enabled'] === 'y') {
     if (isset($_REQUEST['current_page_id'])) {
         $s_page_info = $structlib->s_get_page_info($_REQUEST['current_page_id']);
         $s_suffix = '';
-        if (isset($prefs['namespace_separator']) && ! empty($prefs['namespace_separator']) && strpos($s_page_info['pageName'], $prefs['namespace_separator']) !== false) {
+        if (
+            ! empty($prefs['namespace_separator'])
+            && str_contains(
+                $s_page_info['pageName'],
+                $prefs['namespace_separator']
+            )
+        ) {
             $split = explode($prefs['namespace_separator'], $s_page_info['pageName']);
             $s_suffix = reset($split);
         }
@@ -186,7 +192,7 @@ if (! empty($s_suffix)) {
 if ($prefs['namespace_enabled'] == 'y' && isset($_REQUEST['namespace'])) {
     // Only prepend the namespace separator, if the page is missing a namespace
     $ns = $_REQUEST['namespace'] . $prefs['namespace_separator'];
-    if (strpos($page, $ns, 0) === false) {
+    if (! str_contains($page, $ns)) {
         $page = $ns . $page;
     }
 }
@@ -202,7 +208,7 @@ if ($editlib->isNewTranslationMode() || $editlib->isUpdateTranslationMode()) {
 $editlib->make_sure_page_to_be_created_is_not_an_alias($page, $info);
 guess_new_page_attributes_from_parent_pages($page, $info);
 
-if ($translation_mode === 'n' && isset($info['page_id']) ? translationsToThisPageAreInProgress($info['page_id']) : false) {
+if ($translation_mode === 'n' && isset($info['page_id']) && translationsToThisPageAreInProgress($info['page_id'])) {
     $smarty->assign('prompt_for_edit_or_translate', 'y');
     include_once('modules/mod-func-translation.php');
     execute_module_translation();
@@ -290,12 +296,12 @@ if (isset($_REQUEST['cancel_edit'])) {
     } else {
         $url = $wikilib->sefurl($page);
         if (! empty($_REQUEST['page_ref_id'])) {
-            $url .= (strpos($url, '?') === false ? '?' : '&') . 'page_ref_id=' . $_REQUEST['page_ref_id'];
+            $url .= (! str_contains($url, '?') ? '?' : '&') . 'page_ref_id=' . $_REQUEST['page_ref_id'];
         }
     }
 
     if ($prefs['feature_multilingual'] === 'y' && $prefs['feature_best_language'] === 'y' && isset($info['lang']) && $info['lang'] !== $prefs['language']) {
-        $url .= (strpos($url, '?') === false ? '?' : '&') . 'no_bl=y';
+        $url .= (! str_contains($url, '?') ? '?' : '&') . 'no_bl=y';
     }
 
     if ($dieInsteadOfForwardingWithHeader) {
@@ -541,7 +547,7 @@ if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_na
             $url = $wikilib->sefurl($page);
         }
         if ($prefs['feature_best_language'] === 'y') {
-            $url .= (strpos($url, '?') === false ? '?' : '&') . 'no_bl=y';
+            $url .= (! str_contains($url, '?') ? '?' : '&') . 'no_bl=y';
         }
 
 
@@ -549,7 +555,7 @@ if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_na
             $flaggedrevisionlib = TikiLib::lib('flaggedrevision');
 
             if ($flaggedrevisionlib->page_requires_approval($page)) {
-                $url .= (strpos($url, '?') === false ? '?' : '&') . 'latest=1';
+                $url .= (! str_contains($url, '?') ? '?' : '&') . 'latest=1';
             }
         }
         if ($dieInsteadOfForwardingWithHeader) {
@@ -1462,14 +1468,14 @@ if (
             $url = $wikilib->sefurl($page);
         }
         if ($prefs['feature_multilingual'] === 'y' && $prefs['feature_best_language'] === 'y' && isset($info['lang']) && $info['lang'] !== $prefs['language']) {
-            $url .= (strpos($url, '?') === false ? '?' : '&') . 'no_bl=y';
+            $url .= (! str_contains($url, '?') ? '?' : '&') . 'no_bl=y';
         }
 
         if ($prefs['flaggedrev_approval'] == 'y' && $tiki_p_wiki_approve == 'y') {
             $flaggedrevisionlib = TikiLib::lib('flaggedrevision');
 
             if ($flaggedrevisionlib->page_requires_approval($page)) {
-                $url .= (strpos($url, '?') === false ? '?' : '&') . 'latest=1';
+                $url .= (! str_contains($url, '?') ? '?' : '&') . 'latest=1';
             }
         }
 
@@ -1590,7 +1596,7 @@ if ($prefs['feature_categories'] === 'y') {
     } else {
         $smarty->assign('categIds', []);
     }
-    if (isset($_SERVER['HTTP_REFERER']) && strstr($_SERVER['HTTP_REFERER'], 'tiki-index.php') && ! $tikilib->page_exists($_REQUEST["page"])) { // default the categs the page you come from for a new page
+    if (isset($_SERVER['HTTP_REFERER']) && str_contains($_SERVER['HTTP_REFERER'], 'tiki-index.php') && ! $tikilib->page_exists($_REQUEST["page"])) { // default the categs the page you come from for a new page
         if (preg_match('/page=([^\&]+)/', $_SERVER['HTTP_REFERER'], $ms)) {
             $p = $ms[1];
         } else {

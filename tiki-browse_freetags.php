@@ -49,7 +49,7 @@ if (! isset($_REQUEST['tag']) && $prefs['freetags_preload_random_search'] == 'y'
     $tag = $freetaglib->get_tag_suggestion('', 1);
     if (! empty($tag[0])) {
         $_REQUEST['tag'] = $tag[0];
-        if (strstr($tag[0], ' ')) {
+        if (str_contains($tag[0], ' ')) {
             $_REQUEST['tag'] = '"' . $_REQUEST['tag'] . '"';
         }
     }
@@ -95,7 +95,7 @@ $smarty->assign('broaden', $broaden);
 $tagArray = $freetaglib->parse_tag((isset($_REQUEST['tag'])) ? $_REQUEST['tag'] : '');
 $tagString = '';
 foreach ($tagArray as $t_ar) {
-    if (strstr($t_ar, ' ')) {
+    if (str_contains($t_ar, ' ')) {
         $tagString .= '"' . $t_ar . '" ';
     } else {
         $tagString .= $t_ar . ' ';

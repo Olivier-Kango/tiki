@@ -140,7 +140,7 @@ $user_info = $userlib->get_user_info($assign_user, true);
 $smarty->assign_by_ref('user_info', $user_info);
 if (! empty($_REQUEST['save']) && $access->checkCsrf()) {
     foreach ($_REQUEST as $r => $v) {
-        if (strpos($r, 'new_') === 0) {
+        if (str_starts_with($r, 'new_')) {
             $g = substr($r, 4);
             if ($_REQUEST['new_' . $g] != $_REQUEST['old_' . $g]) {
                 $t = strtotime($_REQUEST['new_' . $g]);

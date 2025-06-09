@@ -359,11 +359,11 @@ function wikiplugin_listpages($data, $params)
     }
 
     if (! empty($categId)) {
-        if (strstr($categId, ':')) {
+        if (str_contains($categId, ':')) {
             $filter['categId'] = explode(':', $categId);
-        } elseif (strstr($categId, '+')) {
+        } elseif (str_contains($categId, '+')) {
             $filter['andCategId'] = explode('+', $categId);
-        } elseif (strstr($categId, '-')) {
+        } elseif (str_contains($categId, '-')) {
             $categories = explode('-', $categId);
             $filter['categId'] = array_shift($categories);
             $filter['notCategId'] = $categories;

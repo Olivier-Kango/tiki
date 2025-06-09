@@ -13,7 +13,7 @@ use Tiki\Lib\CookieConsent\CookieConsentLib;
 require_once(__DIR__ . '/../lib/debug/Tracer.php');
 
 // this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER["SCRIPT_NAME"], basename(__FILE__))) {
     header("location: index.php");
     exit;
 }
@@ -70,7 +70,7 @@ class TikiLib extends TikiDb_Bridge
         $container = TikiInit::getContainer();
 
         //if no period in the lib name, default to tiki.lib prefix.
-        if (strpos($name, ".") !== false) {
+        if (str_contains($name, ".")) {
             $service = $name;
         } else {
             $service = "tiki.lib.$name";
@@ -198,7 +198,7 @@ class TikiLib extends TikiDb_Bridge
         $method = false;
         $arguments = false;
         foreach ($authentications as $auth) {
-            if (0 === strpos($info['path'], $auth['path'])) {
+            if (str_starts_with($info['path'], $auth['path'])) {
                 $len = strlen($auth['path']);
                 if ($len > $max) {
                     $max = $len;
@@ -432,7 +432,7 @@ class TikiLib extends TikiDb_Bridge
     private function http_perform_request_skip_frameset($client, $response)
     {
         // Only attempt if document is declared as HTML
-        if (0 === strpos($response->getHeaders()->get('Content-Type'), 'text/html')) {
+        if (str_starts_with($response->getHeaders()->get('Content-Type'), 'text/html')) {
             $use_int_errors = libxml_use_internal_errors(true); // suppress errors and warnings due to bad HTML
             $dom = new DOMDocument();
             if ($response->getBody() && $dom->loadHTML($response->getBody())) {
@@ -463,7 +463,7 @@ class TikiLib extends TikiDb_Bridge
      */
     public function http_get_uri(Laminas\Uri\Http $uri, $relative)
     {
-        if (strpos($relative, 'http://') === 0 || strpos($relative, 'https://') === 0) {
+        if (str_starts_with($relative, 'http://') || str_starts_with($relative, 'https://')) {
             $uri = new Laminas\Uri\Http($relative);
         } else {
             $uri = clone $uri;
@@ -1936,7 +1936,7 @@ class TikiLib extends TikiDb_Bridge
             $ret[] = "Anonymous";
             return $ret;
         }
-        if ($prefs['feature_intertiki'] == 'y' and empty($prefs['feature_intertiki_mymaster']) and strstr($user, '@')) {
+        if ($prefs['feature_intertiki'] == 'y' and empty($prefs['feature_intertiki_mymaster']) and str_contains($user, '@')) {
             $realm = substr($user, strpos($user, '@') + 1);
             if (isset($prefs['interlist'][$realm])) {
                 $user = substr($user, 0, strpos($user, '@'));
@@ -3334,11 +3334,11 @@ class TikiLib extends TikiDb_Bridge
     {
         // simple implementation: future versions should analyse
         // if this is a link to the local machine
-        if (strstr($url, 'tiki-')) {
+        if (str_contains($url, 'tiki-')) {
             return false;
         }
 
-        if (strstr($url, 'messu-')) {
+        if (str_contains($url, 'messu-')) {
             return false;
         }
 
@@ -3521,8 +3521,8 @@ class TikiLib extends TikiDb_Bridge
         // ... seems like it is better to enum that allowed explicitly than all
         // noncacheable protocols.
         if (
-            ((strstr($url, 'tiki-') || strstr($url, 'messu-')) && $data == '')
-                || (substr($url, 0, 7) != 'http://' && substr($url, 0, 8) != 'https://')
+            ((str_contains($url, 'tiki-') || str_contains($url, 'messu-')) && $data == '')
+                || (! str_starts_with($url, 'http://') && ! str_starts_with($url, 'https://'))
         ) {
             return false;
         }
@@ -6421,7 +6421,7 @@ class TikiLib extends TikiDb_Bridge
         $flags = [];
         $h = opendir("img/flags/");
         while ($file = readdir($h)) {
-            if (strstr($file, ".png")) {
+            if (str_contains($file, ".png")) {
                 $parts = explode('.', $file);
                 $flags[] = $parts[0];
             }

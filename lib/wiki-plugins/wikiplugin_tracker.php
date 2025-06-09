@@ -1676,7 +1676,7 @@ function wikiplugin_tracker($data, $params)
                     }
                     $itemIdPos = strpos($url[$key], 'itemId');
                     if ($itemIdPos !== false) {
-                        if (strstr($url[$key], '#itemId')) {
+                        if (str_contains($url[$key], '#itemId')) {
                             $url[$key] = str_replace('#itemId', $rid, $url[$key]);
                         } elseif (($itemIdPos + strlen('itemId') >= strlen($url[$key]) - 1) || (substr($url[$key], $itemIdPos + strlen('itemId'), 1) == "&")) {
                             // replace by the itemId if in the end (or -1: for backward compatibility so that "&itemId=" also works) or if it is followed by an '&'
@@ -2553,7 +2553,7 @@ function wikiplugin_tracker_process_email_recipients($emailOrField, $fields, $it
     foreach ($output as &$single) {
         $single = trim($single);
         // string but not an email yet, therefore a username
-        if (! empty($single) && ! strstr($single, '@')) {
+        if (! empty($single) && ! str_contains($single, '@')) {
             $email = TikiLib::lib('user')->get_user_email($single);
             if ($email) {
                 $single = $email;

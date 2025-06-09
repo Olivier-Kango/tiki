@@ -166,7 +166,7 @@ function wikiplugin_split($data, $params, $pos)
                 $tdsize[$i] = 0;
             } else {
                 $tdsize[$i] = trim($tdsize[$i]);
-                if (strstr($tdsize[$i], '%')) {
+                if (str_contains($tdsize[$i], '%')) {
                     $percent = true;
                 }
             }
@@ -243,7 +243,7 @@ function wikiplugin_split($data, $params, $pos)
         foreach ($rows as $r) {
             $result .= '<td ' . (($fixedsize && isset($tdsize)) ? ' width="' . $tdsize[$idx] . (strstr($tdsize[$idx], '%') ? '' : '%') . '"' : '') . '>';
             foreach ($r as $i) {
-                if (substr($i, 0, 2) == "\r\n") {
+                if (str_starts_with($i, "\r\n")) {
                     $i = substr($i, 2);
                     $ind += 2;
                 }

@@ -7,7 +7,7 @@
 // this script may only be included - so its better to die if called directly.
 use Tiki\Lib\Logs\LogsLib;
 
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -49,11 +49,11 @@ class SocialNetworksLib extends LogsLib
         $port = '';
         if (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
             $url .= 's';
-            if ($_SERVER['SERVER_PORT'] != 443 and strpos($_SERVER['HTTP_HOST'], ':') == 0) {
+            if ($_SERVER['SERVER_PORT'] != 443 && str_starts_with($_SERVER['HTTP_HOST'], ':')) {
                 $port = ':' . $_SERVER['SERVER_PORT'];
             }
         } else {
-            if ($_SERVER['SERVER_PORT'] != 80 and strpos($_SERVER['HTTP_HOST'], ':') == 0) {
+            if ($_SERVER['SERVER_PORT'] != 80 && str_starts_with($_SERVER['HTTP_HOST'], ':')) {
                 $port = ':' . $_SERVER['SERVER_PORT'];
             }
         }
@@ -159,7 +159,7 @@ class SocialNetworksLib extends LogsLib
         }
         $scope = implode(',', $scopes);
         $url = $this->getURL();
-        if (strpos($url, '?') != 0) {
+        if (! str_starts_with($url, '?')) {
             $url = preg_replace('/\?.*/', '', $url);
         }
         $url = urlencode($url . '?request_facebook');
@@ -193,7 +193,7 @@ class SocialNetworksLib extends LogsLib
         );
         $decodedBody = json_decode($responseBody);
 
-        if (isset($decodedBody->access_token) || substr($responseBody, 0, 13) == 'access_token=') {
+        if (isset($decodedBody->access_token) || str_starts_with($responseBody, 'access_token=')) {
             if (isset($decodedBody->access_token)) {
                 $access_token = $decodedBody->access_token;
             } else {
@@ -226,9 +226,7 @@ class SocialNetworksLib extends LogsLib
         }
 
         $resp = $this->facebookGraph('', 'me', ['fields' => implode(',', $fields),'access_token' => $access_token], false, 'GET');
-        $fb_profile = json_decode($resp);
-
-        return $fb_profile;
+        return json_decode($resp);
     }
 
     /**
@@ -392,7 +390,7 @@ class SocialNetworksLib extends LogsLib
         $_SESSION['LINKEDIN_REQ_STATE'] = $state;
 
         $url = $this->getURL();
-        if (strpos($url, '?') != 0) {
+        if (! str_starts_with($url, '?')) {
             $url = preg_replace('/\?.*/', '', $url);
         }
         $_SESSION['LINKEDIN_CALLBACK_URL'] = $url;

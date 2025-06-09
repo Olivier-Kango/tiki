@@ -94,7 +94,7 @@ if (
 ) {
     $i = 0;
     foreach ($_REQUEST['checked'] as $id) {
-        if (strpos($id, 'user') === 0) {
+        if (str_starts_with($id, 'user')) {
             $result = $tikilib->remove_user_watch_by_id(substr($id, 4));
         } else {
             $result = $tikilib->remove_group_watch_by_id(substr($id, 5));

@@ -228,7 +228,7 @@ class Search_Action_EmailAction implements Search_Action_Action
             return array_map(function ($email) {
                 return trim($email, ",;\n\r\t ");
             }, $m[0]);
-        } elseif (strstr($email_or_username, '@')) {
+        } elseif (str_contains($email_or_username, '@')) {
             return [$email_or_username];
         } else {
             $users = TikiLib::lib('trk')->parse_user_field($email_or_username);
@@ -244,7 +244,7 @@ class Search_Action_EmailAction implements Search_Action_Action
             return null;
         }
         $email_or_username = $this->stripNp($email_or_username);
-        if (strstr($email_or_username, '@')) {
+        if (str_contains($email_or_username, '@')) {
             return null;
         } else {
             $users = TikiLib::lib('trk')->parse_user_field($email_or_username);

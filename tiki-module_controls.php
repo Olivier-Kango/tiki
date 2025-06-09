@@ -76,4 +76,4 @@ if (defined('TIKI_SETUP_FINISHED') && TIKI_SETUP_FINISHED) {
 }
 
 $smarty->assign('current_location', $url);
-$smarty->assign('mpchar', (strpos($url, '?') ? '&' : '?'));
+$smarty->assign('mpchar', (str_contains($url, '?') ? '&' : '?'));

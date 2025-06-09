@@ -242,7 +242,7 @@ function wikiplugin_trackerstat($data, $params)
                     $v[$j]['count'] = 0;
                     foreach ($objects as $o) {
                         $s = $trklib->get_item_info($o['itemId']);
-                        if (strstr($status, $s['status']) !== false) {
+                        if (str_contains($status, $s['status'])) {
                             ++$v[$j]['count'];
                         }
                     }

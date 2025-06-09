@@ -5,7 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -3286,7 +3286,7 @@ class UsersLib extends TikiLib
 
         $w = $what == '*' ? 'uu.*, ug.`created`, ug.`expire` ' : "uu.`$what`";
 
-        if (strpos($sort_mode, 'created_') !== false) {
+        if (str_contains($sort_mode, 'created_')) {
             $sort_mode = 'ug.' . $sort_mode;    // avoid ambiguity of created column
         }
         $query = "select $w from `users_users` uu, `users_usergroups` ug where uu.`userId`=ug.`userId` and `groupName`=? order by " .

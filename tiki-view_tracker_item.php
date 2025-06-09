@@ -785,7 +785,7 @@ if ($tracker_info_value('useAttachments') == 'y') {
     }
     // If anything below here is changed, please change lib/wiki-plugins/wikiplugin_attach.php as well.
     $attextra = 'n';
-    if (strstr($tracker_info["orderAttachments"], '|')) {
+    if (str_contains($tracker_info["orderAttachments"], '|')) {
         $attextra = 'y';
     }
     $attfields = explode(',', strtok($tracker_info["orderAttachments"], '|'));
@@ -896,7 +896,7 @@ if (! empty($tracker_info['viewItemPretty'])) {
         $viewItemPretty['value'] = $_REQUEST['vi_tpl'];
     }
     // Need to check wether this is a wiki: or tpl: template, bc the smarty template needs to take care of this
-    if (strpos(strtolower($viewItemPretty['value']), 'wiki:') === false) {
+    if (! str_contains(strtolower($viewItemPretty['value']), 'wiki:')) {
         $viewItemPretty['type'] = 'tpl';
     }
 }
@@ -905,7 +905,7 @@ $smarty->assign('viewItemPretty', $viewItemPretty);
 // Edit
 $editItemPretty = [
     'override' => false,
-    'value' => isset($tracker_info['editItemPretty']) ? $tracker_info['editItemPretty'] : '',
+    'value' => $tracker_info['editItemPretty'] ?? '',
     'type' => 'wiki'
 ];
 if (! empty($tracker_info['editItemPretty'])) {
@@ -913,7 +913,7 @@ if (! empty($tracker_info['editItemPretty'])) {
         $editItemPretty['override'] = true;
         $editItemPretty['value'] = $_REQUEST['ei_tpl'];
     }
-    if (strpos(strtolower($editItemPretty['value']), 'wiki:') === false) {
+    if (! str_contains(strtolower($editItemPretty['value']), 'wiki:')) {
         $editItemPretty['type'] = 'tpl';
     }
 }
@@ -923,9 +923,9 @@ $smarty->assign('editItemPretty', $editItemPretty);
 // check wether we have been called from a different page than ourselfs to save a link to the referer for a back buttom.
 // this can be a wikipage with the trackerlist item and and view item temlate set using vi_tpl=wiki:mytemplate
 // if we do anything on the current page (i.e. adding a comment) we need to keep that saved link.
-$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+$referer = $_SERVER['HTTP_REFERER'] ?? '';
 $temp = strtolower($referer);
-if (strpos($temp, 'vi_tpl=') || strpos($temp, 'ei_tpl=')) {
+if (str_contains($temp, 'vi_tpl=') || str_contains($temp, 'ei_tpl=')) {
     $referer = $_SESSION['item_tpl_referer'];
 } else {
     $_SESSION['item_tpl_referer'] = $referer;

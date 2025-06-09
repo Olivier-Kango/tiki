@@ -313,7 +313,7 @@ class OIntegrate_Response
             $this->data['_template'][$engine][$output] = [];
         }
 
-        if (0 !== strpos($templateLocation, 'http')) {
+        if (! str_starts_with($templateLocation, 'http')) {
             $host = $_SERVER['HTTP_HOST'];
             $proto = 'http';
             $path = dirname($_SERVER['SCRIPT_NAME']);
@@ -576,7 +576,7 @@ class OIntegrate_Converter_Indexer implements OIntegrate_Converter
                     $data = [];
                     $count = 0;
                     foreach ($documents as $document) {
-                        if (strpos($document, $_REQUEST['nt_name']) === 0) {
+                        if (str_starts_with($document, $_REQUEST['nt_name'])) {
                             $data[$document] = $source->getDocument($document, $factory);
                             $count++;
                             if ($count > 100) { // enough for a preview?

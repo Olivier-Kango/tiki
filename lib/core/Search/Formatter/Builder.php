@@ -286,7 +286,7 @@ class Search_Formatter_Builder
                 $outputData['carousel']['height'] = 'tallest';
             }
 
-            if (strstr($arguments['template'], 'table')) {
+            if (str_contains($arguments['template'], 'table')) {
                 $outputData['sticky'] = $sticky = isset($params['allowStickyHeaders']) && $params['allowStickyHeaders'] == 'y' ? true : false;
                 if (isset($arguments['downloadable'])) {
                     $outputData['downloadable'] = true;

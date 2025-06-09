@@ -1187,7 +1187,7 @@ class EditLib
                             // If src attribute present in <img> tag
                             if (isset($node['pars']['src']['value'])) {
                                 // Note what it produce (img) not {img}! Will fix this below...
-                                if (strstr($node['pars']['src']['value'], 'http:')) {
+                                if (str_contains($node['pars']['src']['value'], 'http:')) {
                                     $src .= '{img src="' . $node['pars']['src']['value'] . '"}';
                                 } else {
                                     $src .= '{img src="' . $head_url . $node['pars']['src']['value'] . '"}';
@@ -1207,24 +1207,6 @@ class EditLib
                                 // parse the link
                                 $this->parseLinkTag($node['pars'], $text, $src, $p);
                             }
-
-                            // deactivated by mauriz, will be replaced by the routine above
-                            // If href attribute present in <a> tag
-                            /*
-                            if (isset($c[$i]['pars']['href']['value'])) {
-                                if ( strstr( $c[$i]['pars']['href']['value'], 'http:' )) {
-                                    $src .= '['.$c[$i]['pars']['href']['value'].'|';
-                                } else {
-                                    $src .= '['.$head_url.$c[$i]['pars']['href']['value'].'|';
-                                }
-                                $p['stack'][] = array('tag' => 'a', 'string' => ']');
-                            }
-                            if ( isset($c[$i]['pars']['name']['value'])) {
-                                $src .= '{ANAME()}'.$c[$i]['pars']['name']['value'].'{ANAME}';
-                            }
-                            */
-
-
                             break;
                     }   // end switch on tag name
                 } else {

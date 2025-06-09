@@ -9,7 +9,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER["SCRIPT_NAME"], basename(__FILE__))) {
     header("location: index.php");
     exit;
 }
@@ -235,7 +235,7 @@ if ($cdn_pref) {
         exit;
     }
 }
-if (isset($_SERVER["REQUEST_URI"]) && strstr($_SERVER['REQUEST_URI'], 'tiki-realtime.php') === false) {
+if (isset($_SERVER["REQUEST_URI"]) && ! str_contains($_SERVER['REQUEST_URI'], 'tiki-realtime.php')) {
     ini_set('session.cookie_path', str_replace("\\", "/", $tikiroot));
     if ($start_session) {
         // enabing silent sessions mean a session is only started when a cookie is presented

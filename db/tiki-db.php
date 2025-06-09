@@ -5,7 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -165,7 +165,6 @@ class TikiDbLegacyErrorHandler implements TikiDb_ErrorHandler
      */
     public function handle(TikiDb $db, $query, $values, $result) // {{{
     {
-        global $prefs;
         $smarty = TikiLib::lib('smarty');
         $msg = $db->getErrorMessage();
         $q = $query;
@@ -218,7 +217,7 @@ class TikiDbLegacyErrorHandler implements TikiDb_ErrorHandler
     {
         global $user, $tikilib;
         $query = 'insert into `tiki_actionlog` (`objectType`,`action`,`object`,`user`,`ip`,`lastModif`, `comment`, `client`) values (?,?,?,?,?,?,?,?)';
-        $result = $tikilib->query($query, ['system', 'db error', 'system', $user, $tikilib->get_ip_address(), $tikilib->now, $msg, substr($_SERVER['HTTP_USER_AGENT'], 0, 200)]);
+        $tikilib->query($query, ['system', 'db error', 'system', $user, $tikilib->get_ip_address(), $tikilib->now, $msg, substr($_SERVER['HTTP_USER_AGENT'], 0, 200)]);
     }
 }
 

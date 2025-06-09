@@ -366,13 +366,11 @@ class BigBlueButtonLib
         global $prefs;
 
         $base = rtrim($prefs['bigbluebutton_server_location'], '/');
-        if (false === strpos($base, '/bigbluebutton')) {
+        if (! str_contains($base, '/bigbluebutton')) {
             $base .= '/bigbluebutton';
         }
 
-        $url = "$base$path";
-
-        return $url;
+        return "$base$path";
     }
 
     /**

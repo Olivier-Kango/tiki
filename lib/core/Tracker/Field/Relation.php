@@ -181,7 +181,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
             $data = array_unique($data);
             if (empty($data) && $this->getValue()) {
                 $data = array_filter(array_map(function ($line) {
-                    if (! strstr($line, ':')) {
+                    if (! str_contains($line, ':')) {
                         return null;
                     } else {
                         return trim($line);

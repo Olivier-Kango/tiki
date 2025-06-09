@@ -1248,7 +1248,7 @@ class ParserLib extends TikiDb_Bridge
         }
 
         if ($prefs['feature_wikiwords'] == 'y') {
-            if (strstr($newName, ' ')) {
+            if (str_contains($newName, ' ')) {
                 $data = preg_replace("/(?<= |\n|\t|\r|\,|\;|^)$quotedOldName(?= |\n|\t|\r|\,|\;|$)/", '((' . $newName . '))', $data);
             } else {
                 $data = preg_replace("/(?<= |\n|\t|\r|\,|\;|^)$quotedOldName(?= |\n|\t|\r|\,|\;|$)/", $newName, $data);
@@ -1554,7 +1554,7 @@ class ParserLib extends TikiDb_Bridge
             foreach ($matches[0] as $mi => $match) {
                 do {
                     $randNum = chr(0xff) . rand(0, 1048576) . chr(0xff);
-                } while (strstr($data, $randNum));
+                } while (str_contains($data, $randNum));
                 $data = str_replace($match, $randNum, $data);
                 $noParseWikiLinksK[] = $randNum;
                 $noParseWikiLinksT[] = $matches[1][$mi];
@@ -1650,7 +1650,7 @@ class ParserLib extends TikiDb_Bridge
             if ($prefs['popupLinks'] == 'y') {
                 $target = 'target="_blank"';
             }
-            if (! strstr($link, '://')) {
+            if (! str_contains($link, '://')) {
                 $target = '';
             } else {
                 $class = 'class="wiki external"';
@@ -2587,7 +2587,11 @@ class ParserLib extends TikiDb_Bridge
                             array_unshift($listbeg, ($litype == '*' ? '</ul>' : '</ol>'));
                             if ($listlevel == count($listbeg)) {
                                 $listate = substr($line, $listlevel, 1);
-                                if (($listate == '+' || $listate == '-') && ! ($litype == '*' && ! strstr(current($listbeg), '</ul>') || $litype == '#' && ! strstr(current($listbeg), '</ol>'))) {
+                                if (
+                                    ($listate == '+' || $listate == '-')
+                                    && ! ( $litype == '*' && ! str_contains(current($listbeg), '</ul>')
+                                        || $litype == '#' && ! str_contains(current($listbeg), '</ol>'))
+                                ) {
                                     $thisid = 'id' . microtime(true) * 1000000;
                                     if (! $this->option['wysiwyg']) {
                                         $data .= '<br /><a id="flipper' . $thisid . '" class="link" href="javascript:flipWithSign(\'' . $thisid . '\')">[' . ($listate == '-' ? '+' : '-') . ']</a>';
@@ -2600,7 +2604,7 @@ class ParserLib extends TikiDb_Bridge
                         }
                         $liclose = '';
                     }
-                    if ($litype == '*' && ! strstr(current($listbeg), '</ul>') || $litype == '#' && ! strstr(current($listbeg), '</ol>')) {
+                    if ($litype == '*' && ! str_contains(current($listbeg), '</ul>') || $litype == '#' && ! str_contains(current($listbeg), '</ol>')) {
                         $data .= array_shift($listbeg);
                         $listyle = '';
                         $listate = substr($line, $listlevel, 1);
@@ -2617,7 +2621,7 @@ class ParserLib extends TikiDb_Bridge
                         array_unshift($listbeg, ($litype == '*' ? '</li></ul>' : '</li></ol>'));
                     }
                     $line = $liclose . '<li>' . substr($line, $listlevel + $addremove);
-                    if (substr(current($listbeg), 0, 5) != '</li>') {
+                    if (! str_starts_with(current($listbeg), '</li>')) {
                         array_unshift($listbeg, '</li>' . array_shift($listbeg));
                     }
                 } elseif ($litype == '+') {
@@ -2632,7 +2636,7 @@ class ParserLib extends TikiDb_Bridge
                     // Must append paragraph for list item of given depth...
                     $listlevel = $tikilib->how_many_at_start($line, $litype);
                     if (count($listbeg)) {
-                        if (substr(current($listbeg), 0, 5) != '</li>') {
+                        if (! str_starts_with(current($listbeg), '</li>')) {
                             array_unshift($listbeg, '</li>' . array_shift($listbeg));
                             $liclose = '<li>';
                         } else {

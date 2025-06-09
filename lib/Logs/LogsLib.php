@@ -685,8 +685,8 @@ class LogsLib extends TikiLib
                 $logTimes[$login['user']]['nbLogins'] = 0;
             }
 
-            if (strstr($login['comment'], 'logged from') || $login['comment'] == 'back') {
-                if (strstr($login['comment'], 'logged from')) {
+            if (str_contains($login['comment'], 'logged from') || $login['comment'] == 'back') {
+                if (str_contains($login['comment'], 'logged from')) {
                     ++$logTimes[$login['user']]['nbLogins'];
                 }
                 // can be already log in

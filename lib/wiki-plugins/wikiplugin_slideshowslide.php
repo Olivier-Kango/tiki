@@ -163,7 +163,7 @@ function wikiplugin_slideshowslide_info()
 
 function wikiplugin_slideshowslide($data, $params)
 {
-    if (strstr($_SERVER['PHP_SELF'], 'tiki-slideshow.php') == '') {
+    if (! str_contains($_SERVER['PHP_SELF'], 'tiki-slideshow.php')) {
         return $data;
     }
     $defaults = [];

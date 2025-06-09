@@ -978,12 +978,12 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                 }
             }
             $out = $out2;
-        } elseif (strstr($sortOrder, 'name')) {
+        } elseif (str_contains($sortOrder, 'name')) {
             $sep = strrpos($sortOrder, '_');
             $field = substr($sortOrder, 0, $sep);
             $dir = substr($sortOrder, $sep + 1);
             $sortArray = array_map(function ($file) use ($field) {
-                return isset($file[$field]) ? $file[$field] : '';
+                return $file[$field] ?? '';
             }, $out);
             natsort($sortArray);
             if ($dir == 'desc') {

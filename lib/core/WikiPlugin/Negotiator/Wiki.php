@@ -707,7 +707,7 @@ class WikiPlugin_Negotiator_Wiki
             foreach (self::$pluginsAwaitingExecution as &$pluginDetails) {
                 $this->setDetails($pluginDetails);
 
-                if (self::$currentParserLevel == $level && strstr($input, $this->key)) {
+                if (self::$currentParserLevel == $level && str_contains($input, $this->key)) {
                     $this->parser->plugin[$this->key] = $this->body;
 
                     $result = $this->parser->parsePlugin($this->execute());

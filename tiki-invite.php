@@ -45,7 +45,7 @@ function parsemails_csv($bloc)
         $r['lastname'] = trim($l[0]);
         $r['firstname'] = trim($l[1]);
         $r['email'] = trim($l[2]);
-        if (strpos($r['email'], '@') !== false) {
+        if (str_contains($r['email'], '@')) {
             $results[] = $r;
         }
     }
@@ -66,10 +66,10 @@ function parsemails_all($bloc)
     $results = [];
     foreach ($mails as $m) {
         $m = trim($m);
-        if (strpos($m, '@') === false) {
+        if (! str_contains($m, '@')) {
             continue;
         }
-        if (strpos($m, '.') === false) {
+        if (! str_contains($m, '.')) {
             continue;
         }
         $r = [];

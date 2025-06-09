@@ -747,7 +747,7 @@ class HeaderLib
             $cacheType = 'cdn_minify_check';
             if ($prefs['tiki_cdn_check'] === 'y' && ! $cachelib->isCached($cdnFile, $cacheType)) {
                 $cdnHeaders = get_headers($cdnFile);
-                if (strpos(current($cdnHeaders), '200') !== false) {    // check the file is really there
+                if (str_contains(current($cdnHeaders), '200')) {    // check the file is really there
                     $cachelib->cacheItem($cdnFile, $cdnHeaders, $cacheType);
                 }
             } else {

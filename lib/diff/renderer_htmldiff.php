@@ -76,7 +76,7 @@ class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
     {
         $string = "";
         if ($line != '') {
-            if (strstr($line, "<") === false) {
+            if (! str_contains($line, "<")) {
                 if ($span === false) {
                     $string .= "<span class='$tag'>";
                     $span = true;
@@ -87,7 +87,7 @@ class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
                     $string .= "</span class='fin'>";
                     $span = false;
                 }
-                if (strstr($line, "class=") === false) {
+                if (! str_contains($line, "class=")) {
                     $string .= preg_replace("#<([^/> ]+)(.*[^/]?)?>#", "<$1 class='$tag' $2>", $line);
                     $string = preg_replace("#<br class='(.*)'\s*/>#", "<span class='$1'>&crarr;</span><br class='$1' />", $string);
                 } else {

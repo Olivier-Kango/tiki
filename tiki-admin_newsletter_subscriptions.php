@@ -156,7 +156,7 @@ if (isset($_REQUEST["addemail"]) && $_REQUEST["addemail"] == "y") {
         $errorCount = 0;
 if (isset($_REQUEST["add"]) && $access->checkCsrf()) {
     if (isset($_REQUEST["email"]) && $_REQUEST["email"] != "") {
-        if (strpos($_REQUEST["email"], ',')) {
+        if (str_contains($_REQUEST["email"], ',')) {
                     $emails = explode(',', $_REQUEST["email"]);
             foreach ($emails as $e) {
                 if ($userlib->user_exists(trim($e))) {

@@ -462,7 +462,7 @@ function wikiplugin_articles($data, $params)
         $type = '';
     }
 
-    if (! empty($topic) && ! strstr($topic, '!') && ! strstr($topic, '+')) {
+    if (! empty($topic) && ! str_contains($topic, '!') && ! str_contains($topic, '+')) {
         $smarty->assign_by_ref('topic', $topic);
     } elseif (! empty($topicId) &&  is_numeric($topicId)) {
         $smarty->assign_by_ref('topicId', $topicId);
@@ -477,7 +477,7 @@ function wikiplugin_articles($data, $params)
     } elseif (empty($topicId)) {
         $smarty->assign_by_ref('topicId', $topicId);
     }
-    if (! empty($type) && ! strstr($type, '!') && ! strstr($type, '+')) {
+    if (! empty($type) && ! str_contains($type, '!') && ! str_contains($type, '+')) {
         $smarty->assign_by_ref('type', $type);
     } elseif (empty($type)) {
         $smarty->assign_by_ref('type', $type);

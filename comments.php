@@ -138,7 +138,7 @@ $comments_father = $comments_parsed["path"];
 
 $comments_complete_father = $comments_father . $comments_t_query;
 
-if (strstr($comments_complete_father, "?")) {
+if (str_contains($comments_complete_father, "?")) {
     $comments_complete_father .= '&amp;';
 } else {
     $comments_complete_father .= '?';
@@ -276,7 +276,7 @@ if ($_REQUEST["comments_threadId"] > 0) {
 
     if ($prefs['forum_reply_forcetitle'] == 'y') {
         $comment_title = '';
-    } elseif ($prefs['forum_comments_no_title_prefix'] != 'y' && strpos($comment_info['title'], tra('Re:')) !== 0) {
+    } elseif ($prefs['forum_comments_no_title_prefix'] != 'y' && ! str_starts_with($comment_info['title'], tra('Re:'))) {
         $comment_title = tra('Re:') . ' ' . $comment_info['title'];
     } else {
         $comment_title = $comment_info['title'];

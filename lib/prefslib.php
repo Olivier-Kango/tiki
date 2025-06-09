@@ -152,7 +152,7 @@ class PreferencesLib
         if (
             ! empty($value) &&
             is_string($value) &&
-            (strlen($value) > 1 && $value[1] == ':' && strpos($value, '{') !== false) &&
+            (strlen($value) > 1 && $value[1] == ':' && str_contains($value, '{')) &&
             false !== $unserialized = @unserialize($value)
         ) {
             $value = $unserialized;
@@ -726,11 +726,11 @@ class PreferencesLib
         if (in_array($name, $this->system_modified)) {
             return null;
         }
-        if (substr($name, 0, 3) == 'tp_') {
+        if (str_starts_with($name, 'tp_')) {
             $midpos = strpos($name, '__', 3);
             $pos = strpos($name, '__', $midpos + 2);
             $file = substr($name, 0, $pos);
-        } elseif (substr($name, 0, 7) == 'themes_') {
+        } elseif (str_starts_with($name, 'themes_')) {
             $pos = strpos($name, '_', 7 + 1);
             $file = substr($name, 0, $pos);
         } elseif (false !== $pos = strpos($name, '_')) {
@@ -993,10 +993,10 @@ class PreferencesLib
             }
         }
 
-        if (strpos($name, 'wikiplugin_') === 0 || strpos($name, 'wikiplugininline_') === 0) {
+        if (str_starts_with($name, 'wikiplugin_') || str_starts_with($name, 'wikiplugininline_')) {
             $pages[] = ['textarea', 2]; // plugins are included in textarea admin dynamically
         }
-        if (strpos($name, 'trackerfield_') === 0) {
+        if (str_starts_with($name, 'trackerfield_')) {
             $pages[] = ['trackers', 3]; // trackerfields are also included in tracker admin dynamically
         }
 

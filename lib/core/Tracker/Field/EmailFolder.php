@@ -230,7 +230,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
                 }
             }
         }
-        if (strstr($view_path, '?')) {
+        if (str_contains($view_path, '?')) {
             $view_path .= '&';
         } else {
             $view_path .= '?';
@@ -299,7 +299,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
         } else {
             $compose_path = "tiki-webmail.php";
         }
-        if (strstr($compose_path, '?')) {
+        if (str_contains($compose_path, '?')) {
             $compose_path .= '&';
         } else {
             $compose_path .= '?';

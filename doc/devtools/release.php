@@ -95,7 +95,7 @@ if (! preg_match("/^\d+\.\d+$/", $version)) {
     error("Version number should be in X.X format.\n");
 }
 
-$isPre = strpos($subrelease, 'pre') === 0;
+$isPre = str_starts_with($subrelease, 'pre');
 if ($isPre) {
     $subrelease = substr($subrelease, 3);
     $pre = 'pre';
@@ -378,7 +378,7 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
                 }
 
                 foreach ($virtuals as $virtual) {
-                    if (strpos($entry, "/$virtual/") !== false) {
+                    if (str_contains($entry, "/$virtual/")) {
                         continue 2;
                     }
                 }
@@ -626,10 +626,11 @@ function build_packages($releaseVersion)
     }
 
     if (
-        strpos($shellout, 'Fatal error:') !== false ||
-        strpos($shellout, 'Installation failed,') !== false ||
+        str_contains($shellout, 'Fatal error:')
+        || str_contains($shellout, 'Installation failed,')
+        ||
         // symfony/dependency-injection comes in quite late in the list and is required - sometimes no error is reported even though it didn't work
-        strpos($shellout, 'symfony/dependency-injection') === false
+        ! str_contains($shellout, 'symfony/dependency-injection')
     ) {
         echo 'Vendor bundled packages installation Failed. Exiting' . "\n";
         die();
@@ -719,7 +720,7 @@ function build_packages($releaseVersion)
 
     echo "Creating $fileName.7z\n";
     $shellout = shell_exec("cd $relDir; 7za a " . escapeshellarg($fileName . ".7z") . ' ' . escapeshellarg($fileName) . ' -xr!*.DS_Store -mx=9 2>&1');
-    if (strpos($shellout, 'command not found')) {
+    if (str_contains($shellout, 'command not found')) {
         error("7za not installed. Archive creation failed.\n");
     }
     if ($options['debug-packaging']) {
@@ -822,7 +823,7 @@ function check_smarty_syntax(&$error_msg)
     for ($i = 0; $i < $nbEntries; $i++) {
         display_progress_percentage($i, $nbEntries, '%d%% of files passed the Smarty syntax check');
 
-        if (strpos($entries[$i], 'tiki-mods.tpl') === false) {
+        if (! str_contains($entries[$i], 'tiki-mods.tpl')) {
             $template_file = substr($entries[$i], strlen($templates_dir) + 1);
 
             try {
@@ -854,7 +855,7 @@ function check_smarty_syntax(&$error_msg)
  */
 function check_smarty_syntax_error_handler($errno, $errstr, $errfile = '', $errline = 0, $errcontext = [])
 {
-    if (strpos($errstr, 'filemtime(): stat failed for') === false) {    // smarty seems to emit these for every file
+    if (! str_contains($errstr, 'filemtime(): stat failed for')) {    // smarty seems to emit these for every file
         echo "\n" . color($errstr, 'red') . "\n";
     }
     return true;
@@ -882,7 +883,7 @@ function check_php_syntax(&$dir, &$error_msg, $hide_php_warnings)
         exec("$checkPhpCommand -l {$entries[$i]} 2>&1", $output, $return_var);
         $fullOutput = implode("\n", $output);
 
-        if (strpos($fullOutput, 'Segmentation fault') !== false) {
+        if (str_contains($fullOutput, 'Segmentation fault')) {
             // If php -l command segfaults, wait and retry (it seems to happen quite often on some environments for this command)
             echo "\r[Retrying due to a Segfault...]";
             sleep(1);
@@ -964,7 +965,7 @@ function check_database_files_and_upgrade($mainversion, &$error_msg)
 
     foreach ($checkList as $checkPrefix => $checkName) {
         foreach ($jobs['tiki-check'] as $jobName => $job) {
-            if (strpos($jobName, $checkPrefix) === 0) {
+            if (str_starts_with($jobName, $checkPrefix)) {
                 echo color(
                     $checkName . ': ' . $job['status'] . ', job: ' . $jobName . ', url: ' . $gitlabUrl . $job['url'] . "\n",
                     $job['status'] == PIPELINE_STATUS_PASSED ? 'green' : 'red'
@@ -1130,7 +1131,7 @@ function get_options()
                 if (($uri = substr($arg, 17)) != '') {
                     $options[substr($arg, 2, 14)] = $uri;
                 }
-            } elseif (strpos($arg, '=') !== false) {
+            } elseif (str_contains($arg, '=')) {
                 $parts = explode('=', substr($arg, 2));
                 if (isset($options[$parts[0]])) {
                     $options[$parts[0]] = $parts[1];
@@ -1374,7 +1375,7 @@ function update_copyright_file($newVersion)
     $contributors = [];
 
     $repositoryUri = empty($options['mirror-uri']) ? TIKIVCS : $options['mirror-uri']; //
-    if (strpos($repositoryUri, '/') === 0) {
+    if (str_starts_with($repositoryUri, '/')) {
         $repositoryUri = 'file://' . $repositoryUri;
     }
     $repositoryInfo = get_revision($repositoryUri);
@@ -1472,7 +1473,7 @@ function parse_copyrights()
         if (empty($line)) {
             continue;
         }
-        if (substr($line, 0, 10) == 'Nickname: ') {
+        if (str_starts_with($line, 'Nickname: ')) {
             $curNickname = rtrim(substr($line, 10));
             $return[$curNickname] = [];
         } elseif ($curNickname != '' && ($pos = strpos($line, ':')) !== false) {

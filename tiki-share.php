@@ -142,7 +142,7 @@ if (empty($_REQUEST['url'])) {
 
 $_REQUEST['url'] = urldecode($_REQUEST['url']);
 
-if (strstr($_REQUEST['url'], 'tiki-share.php')) {
+if (str_contains($_REQUEST['url'], 'tiki-share.php')) {
     $_REQUEST['url'] = preg_replace('/.*tiki-share.php\?url=/', '', $_REQUEST['url']);
     header('location: tiki-share.php?url=' . $_REQUEST['url']);
 }
@@ -247,7 +247,7 @@ if (isset($_REQUEST['send'])) {
                 $prefs['auth_token_access_maxhits'] = $_REQUEST['how_much_time_access'];
 
                 /* To upload, you need 2 token: one to see the page and another */
-                if (strpos($_REQUEST['url'], 'tiki-upload_file')) {
+                if (str_contains($_REQUEST['url'], 'tiki-upload_file')) {
                     $prefs['auth_token_access_maxhits'] = $prefs['auth_token_access_maxhits'] * 2 + 1;
                 }
             }

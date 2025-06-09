@@ -40,7 +40,7 @@ if (isset($_REQUEST['controller'])) {
     $controller = $_REQUEST['controller'];
     $extensionPackage = '';
 
-    if (strpos($_REQUEST['controller'], ".") !== false) {
+    if (str_contains($_REQUEST['controller'], ".")) {
         $parts = explode(".", $_REQUEST['controller']);
         if (count($parts) == 3) {
             $extensionPackage = $parts[0] . "." . $parts[1];

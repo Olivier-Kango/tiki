@@ -1505,7 +1505,7 @@ class UnifiedSearchLib
             ];
 
             foreach (TikiLib::lib('federatedsearch')->getIndices() as $indexname => $index) {
-                if (strstr($indexname, ':')) {
+                if (str_contains($indexname, ':')) {
                     $parts = explode(':', $indexname);
                     $prefix = array_pop($parts);
                 } else {

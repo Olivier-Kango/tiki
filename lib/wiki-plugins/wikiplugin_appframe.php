@@ -113,8 +113,8 @@ function wikiplugin_appframe($data, $params)
         $fullscreen = 1;
     }
 
-    $absolute = (int)(isset($params['absolute']) ? $params['absolute'] == 'y' : false);
-    $top = isset($params['top']) ? $params['top'] : 0;
+    $absolute = (int)(isset($params['absolute']) && $params['absolute'] == 'y');
+    $top = $params['top'] ?? 0;
 
     $headerlib = TikiLib::lib('header');
 

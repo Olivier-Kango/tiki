@@ -245,15 +245,15 @@ function analyse_file_path($path) // {{{
 
     $type = 'unknown';
     $name = basename($path);
-    if (strpos($name, '.') !== false) {
+    if (str_contains($name, '.')) {
         $extension = substr($name, strrpos($name, '.') + 1);
     } else {
         $extension = false;
     }
 
-    if (strpos($path, '/CVS/') !== false) {
+    if (str_contains($path, '/CVS/')) {
         $type = 'cvs';
-    } elseif (strpos($path, "./" . SMARTY_COMPILED_TEMPLATES_PATH . "/") === 0) {
+    } elseif (str_starts_with($path, "./" . SMARTY_COMPILED_TEMPLATES_PATH . "/")) {
         $type = 'cache';
     } elseif (regex_match($path, $safePaths)) {
         $type = 'safe';
@@ -262,30 +262,30 @@ function analyse_file_path($path) // {{{
             $type = 'blocker';
         } elseif ($name == 'language.php') {
             $type = 'lang';
-        } elseif (strpos($path, './lib/wiki-plugins') === 0) {
+        } elseif (str_starts_with($path, './lib/wiki-plugins')) {
             $type = 'wikiplugin';
-        } elseif (strpos($path, './lib/') === 0) {
+        } elseif (str_starts_with($path, './lib/')) {
             if (regex_match($path, $thirdpartyLibs)) {
                 $type = '3dparty';
             } else {
                 $type = 'lib';
             }
-        } elseif (strpos($path, './tiki-') === 0) {
+        } elseif (str_starts_with($path, './tiki-')) {
             $type = 'public';
-        } elseif (strpos($path, './modules/') === 0) {
+        } elseif (str_starts_with($path, './modules/')) {
             $type = 'module';
         } else {
             $type = "include";
         }
     } elseif (in_array($extension, ['txt', 'png', 'jpg', 'html', 'css', 'sql', 'gif', 'afm', 'js'])) {
         $type = 'static';
-    } elseif (strpos($path, './' . DEPRECATED_DEVTOOLS_PATH . '/') === 0) {
+    } elseif (str_starts_with($path, './' . DEPRECATED_DEVTOOLS_PATH . '/')) {
         $type = 'script';
-    } elseif (strpos($path, './files/') === 0) {
+    } elseif (str_starts_with($path, './files/')) {
         $type = 'user';
     } elseif ($extension == 'sh') {
         $type = 'system';
-    } elseif (strpos($path, '_htaccess') !== false) {
+    } elseif (str_contains($path, '_htaccess')) {
         $type = 'system';
     } elseif (in_array(basename($path), ['INSTALL', 'README'])) {
         $type = 'doc';
@@ -450,7 +450,7 @@ function perform_extract_skip_check(&$file) // {{{
     preg_match_all($pattern, get_content($file['path']), $parts);
 
     foreach ($parts[0] as $extract) {
-        if (strpos($extract, 'EXTR_SKIP') === false) {
+        if (! str_contains($extract, 'EXTR_SKIP')) {
             $file['unsafeextract'] = true;
         }
     }

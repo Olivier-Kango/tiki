@@ -253,7 +253,7 @@ class WikiPluginWantedPages extends PluginsLib
             } // foreach ignorepage
 
             // if toPage contains colon, and exloding yields two parts => external Wiki
-            if (($skipext) && (strstr($row['toPage'], ':') !== false)) {
+            if (($skipext) && (str_contains($row['toPage'], ':'))) {
                 $parts = explode(':', $row['toPage']);
                 if (count($parts) == 2) {
                     if ($debug == 2) {
@@ -493,7 +493,7 @@ if (! function_exists('is_object_link')) {
     function is_object_link($link)
     {
         $parts = explode(':', $link);
-        if (strstr($link, 'objectlink:') && count($parts) >= 3) {
+        if (str_contains($link, 'objectlink:') && count($parts) >= 3) {
             return true;
         }
         return false;

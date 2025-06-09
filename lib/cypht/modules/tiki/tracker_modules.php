@@ -23,7 +23,7 @@ class Hm_Handler_tracker_message_list_type extends Hm_Handler_Module
     public function process()
     {
         $path = $this->request->get['list_path'];
-        if (! strstr($path, 'tracker_folder_')) {
+        if (! str_contains($path, 'tracker_folder_')) {
             return;
         }
         $title = ['Tracker Folder'];
@@ -305,7 +305,7 @@ class Hm_Handler_tiki_mark_as_answered extends Hm_Handler_Module
         }
 
         $path = $this->request->post['compose_msg_path'];
-        if (! strstr($path, 'tracker_folder_')) {
+        if (! str_contains($path, 'tracker_folder_')) {
             return;
         }
 
@@ -330,7 +330,7 @@ class Hm_Handler_tiki_presave_sent extends Hm_Handler_Module
         }
 
         $path = $this->request->post['compose_msg_path'];
-        if (strstr($path, 'tracker_folder_')) {
+        if (str_contains($path, 'tracker_folder_')) {
             $this->out('save_sent_server', false);
         }
     }
@@ -353,7 +353,7 @@ class Hm_Handler_tiki_save_sent extends Hm_Handler_Module
         $headers = $mime->get_headers();
 
         $path = $this->request->post['compose_msg_path'];
-        if (! strstr($path, 'tracker_folder_')) {
+        if (! str_contains($path, 'tracker_folder_')) {
             return;
         }
         $path = str_replace('tracker_folder_', '', $path);
@@ -396,7 +396,7 @@ class Hm_Handler_tiki_presave_draft extends Hm_Handler_Module
             return;
         }
         $path = $this->request->get['list_path'];
-        if (strstr($path, 'tracker_folder_')) {
+        if (str_contains($path, 'tracker_folder_')) {
             $this->out('save_draft_to_imap', false);
         }
     }
@@ -416,7 +416,7 @@ class Hm_Handler_tiki_save_draft extends Hm_Handler_Module
         }
 
         $path = $this->request->get['list_path'];
-        if (! strstr($path, 'tracker_folder_')) {
+        if (! str_contains($path, 'tracker_folder_')) {
             return;
         }
         $path = str_replace('tracker_folder_', '', $path);
@@ -473,7 +473,7 @@ class Hm_Handler_tiki_compose_from_draft extends Hm_Handler_Module
     {
         $draftId = $this->request->get['draft_id'] ?? '';
         $path = $this->request->get['list_path'] ?? '';
-        if (! strstr($path, 'tracker_folder_') || ! $draftId) {
+        if (! str_contains($path, 'tracker_folder_') || ! $draftId) {
             return;
         }
 
@@ -515,7 +515,7 @@ class Hm_Handler_tiki_archive_replied extends Hm_Handler_Module
         }
 
         $path = $this->request->post['compose_msg_path'];
-        if (! strstr($path, 'tracker_folder_')) {
+        if (! str_contains($path, 'tracker_folder_')) {
             return;
         }
         $msg_uid = $this->request->post['compose_msg_uid'];
@@ -921,12 +921,12 @@ class Hm_Handler_tiki_process_imap_unread extends Hm_Handler_Module
                 }
                 $actions = [];
                 foreach ($config['sieve_scripts'][$mailbox['name']] as $name => $script) {
-                    if (strstr($name, 'cyphtfilter')) {
+                    if (str_contains($name, 'cyphtfilter')) {
                         $base64_obj = str_replace("# ", "", preg_split('#\r?\n#', $script, 0)[1]);
                         $conditions = json_decode(base64_decode($base64_obj), true);
                         $base64_obj = str_replace("# ", "", preg_split('#\r?\n#', $script, 0)[2]);
                         $actions = json_decode(base64_decode($base64_obj), true);
-                        $operator = strstr($script, 'allof') ? 'ALLOF' : 'ANYOF';
+                        $operator = str_contains($script, 'allof') ? 'ALLOF' : 'ANYOF';
                         $filters[] = compact('conditions', 'actions', 'operator');
                     }
                 }

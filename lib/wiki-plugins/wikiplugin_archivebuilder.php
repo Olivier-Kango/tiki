@@ -83,7 +83,7 @@ function wikiplugin_archivebuilder($data, $params)
         $label = tra('Download archive');
 
         $urlParts = parse_url($_SERVER['REQUEST_URI']);
-        $path = isset($urlParts['path']) ? $urlParts['path'] : '/';
+        $path = $urlParts['path'] ?? '/';
         if (isset($urlParts['query'])) {
             parse_str($urlParts['query'], $archiveParams);
         } else {

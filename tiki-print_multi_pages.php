@@ -150,7 +150,7 @@ if (TIKI_PRINTING_PDF) {
     } else {
         Feedback::error($generator->error);
         $tab = '';
-        if (strpos($_SERVER['HTTP_REFERER'], 'tiki-print_pages.php') !== false && ! empty($printpages)) {
+        if (str_contains($_SERVER['HTTP_REFERER'], 'tiki-print_pages.php') && ! empty($printpages)) {
             $tab = '#contenttabs_print_pages-2';
         }
         $access->redirect($_SERVER['HTTP_REFERER'] . $tab);

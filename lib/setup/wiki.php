@@ -20,9 +20,9 @@ if ($prefs['wiki_page_regex'] == 'strict') {
 
 // find out the page name if url=tiki-index_x.php (can be needed in module)
 if (
-    strstr($_SERVER['SCRIPT_NAME'], 'tiki-index.php')
-        || strstr($_SERVER['SCRIPT_NAME'], 'tiki-index_p.php')
-        || strstr($_SERVER['SCRIPT_NAME'], 'tiki-index_raw.php')
+    str_contains($_SERVER['SCRIPT_NAME'], 'tiki-index.php')
+        || str_contains($_SERVER['SCRIPT_NAME'], 'tiki-index_p.php')
+        || str_contains($_SERVER['SCRIPT_NAME'], 'tiki-index_raw.php')
 ) {
     $check = false;
     $userDefaultHomepage = $userlib->get_user_default_homepage($user);

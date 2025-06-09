@@ -16,7 +16,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
     $orig_url = $prefs['tikiIndex'];
 }
 
-if ($prefs['feature_sefurl'] == 'y' && ! strstr($orig_url, '.php') && ! preg_match('/article[0-9]+$/', $orig_url)) {
+if ($prefs['feature_sefurl'] == 'y' && ! str_contains($orig_url, '.php') && ! preg_match('/article[0-9]+$/', $orig_url)) {
     $orig_url = preg_replace('#\/([^\/]+)$#', '/tiki-index.php?page=$1', $orig_url);
 }
 

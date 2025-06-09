@@ -668,7 +668,7 @@ class TikiAccessLib extends TikiLib
             $this->ticket = false;
         }
         //just in case url decoding is needed
-        if (strpos($this->ticket, '%') !== false) {
+        if (str_contains($this->ticket, '%')) {
             $this->ticket = urldecode($this->ticket);
         }
 
@@ -1365,15 +1365,15 @@ class TikiAccessLib extends TikiLib
         foreach ($accept as $type) {
             $known = null;
 
-            if (strpos($type, $t = 'application/json') !== false) {
+            if (str_contains($type, $t = 'application/json')) {
                 $known = 'json';
-            } elseif (strpos($type, $t = 'text/javascript') !== false) {
+            } elseif (str_contains($type, $t = 'text/javascript')) {
                 $known = 'json';
-            } elseif (strpos($type, $t = 'text/x-yaml') !== false) {
+            } elseif (str_contains($type, $t = 'text/x-yaml')) {
                 $known = 'yaml';
-            } elseif (strpos($type, $t = 'application/rss+xml') !== false) {
+            } elseif (str_contains($type, $t = 'application/rss+xml')) {
                 $known = 'rss';
-            } elseif (strpos($type, $t = 'application/atom+xml') !== false) {
+            } elseif (str_contains($type, $t = 'application/atom+xml')) {
                 $known = 'atom';
             }
 
@@ -1528,7 +1528,7 @@ class TikiAccessLib extends TikiLib
     {
         global $tikipath, $base_url_http, $base_url_https;
         // if the directory is within the Tiki root, then remove the prefixed Tiki root
-        if (0 === strpos($filename, $tikipath)) {
+        if (str_starts_with($filename, $tikipath)) {
             $filename = substr($filename, strlen($tikipath));
         }
 
@@ -1660,7 +1660,7 @@ class TikiAccessLib extends TikiLib
         $logslib = TikiLib::lib('logs');
 
         $redactPass = function (&$item, $key) {
-            if (strpos($key, 'pass') !== false) {
+            if (str_contains($key, 'pass')) {
                 $item = '** ' . tr('redacted') . ' **';
             }
         };

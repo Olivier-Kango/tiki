@@ -90,7 +90,7 @@ if (! ($tiki_p_admin_objects == 'y' || (isset($$perm) && $$perm == 'y') || (isse
 }
 
 if (! isset($_REQUEST['referer'])) {
-    if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'tiki-objectpermissions.php') === false) {
+    if (isset($_SERVER['HTTP_REFERER']) && ! str_contains($_SERVER['HTTP_REFERER'], 'tiki-objectpermissions.php')) {
         $_REQUEST['referer'] = $_SERVER['HTTP_REFERER'];
     } else {
         unset($_REQUEST['referer']);

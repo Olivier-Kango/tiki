@@ -41,7 +41,6 @@ if (! empty($re['usersTrackerId']) && ! empty($re['registrationUsersFieldIds']))
     $json_data['debug'] = $re;
 }
 
-
 /**
  * @param $matches
  * @return string

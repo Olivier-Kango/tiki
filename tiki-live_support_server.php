@@ -66,7 +66,7 @@ if (isset($_REQUEST['write'])) {
     if ($_REQUEST['role'] == 'observer') {
         $color = 'grey';
     }
-    if (! strstr($_REQUEST['msg'], 'has left')) {
+    if (! str_contains($_REQUEST['msg'], 'has left')) {
         $_REQUEST['msg'] = '<span class="' . $_REQUEST['role'] . '" style="color:' . $color . ';">(' . $_REQUEST['name'] . ')' . ' ' . $_REQUEST['msg'] . '</span>';
     }
     $lslib->put_message($_REQUEST['write'], $_REQUEST['msg'], $_REQUEST['senderId']);

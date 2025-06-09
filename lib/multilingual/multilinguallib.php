@@ -472,7 +472,7 @@ class MultilingualLib extends TikiLib
         if (preg_match('/[?&]no_bl=/', $url)) {
             $url = preg_replace('/([?&])no_bl=[yn]{0,1}/', '$1no_bl=$no_bl_value', $url);
         } elseif (! preg_match('/[?&]lang=/', $url)) {
-            if (strstr($url, '?')) {
+            if (str_contains($url, '?')) {
                 $url .= '&no_bl=$no_bl_value';
             } else {
                 $url .= '?no_bl=$no_bl_value';

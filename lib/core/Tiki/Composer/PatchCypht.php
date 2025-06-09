@@ -69,7 +69,7 @@ class PatchCypht
         file_put_contents($vendors . $cypthFolder . DIRECTORY_SEPARATOR . $genScript, $contents);
         $output = `cd {$vendors}{$cypthFolder} && {$php_binary} {$genScript}`;
 
-        if (! is_string($output)  || ! strstr($output, 'dynamic.php file written')) {
+        if (! is_string($output)  || ! str_contains($output, 'dynamic.php file written')) {
             $io->write('Could not build Cypht package configuration. Check the output below and make sure minimum PHP version is available and executable as CLI.');
             if ($output === false) {
                 $io->write('The pipe cannot be established.');

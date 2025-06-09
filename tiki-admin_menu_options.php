@@ -47,7 +47,7 @@ $smarty->assign('preview_css', isset($_REQUEST['preview_css']) && $_REQUEST['pre
 $headerlib->add_js('var permNames = ' . json_encode(TikiLib::lib('user')->get_permission_names_for('all')) . ';');
 $feature_prefs = [];
 foreach ($prefs as $k => $v) {  // attempt to filter out non-feature prefs (still finds 133!)
-    if (strpos($k, 'feature') !== false && preg_match_all('/_/m', $k, $m) === 1) {
+    if (str_contains($k, 'feature') && preg_match_all('/_/m', $k, $m) === 1) {
         $feature_prefs[] = $k;
     }
 }

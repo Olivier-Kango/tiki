@@ -61,7 +61,7 @@ if (! empty($_REQUEST['del'])) {
 
 if (! empty($_REQUEST['id'])) {
     if ($info = $discountlib->get_discount($_REQUEST['id'])) {
-        if (strstr($info['value'], '%')) {
+        if (str_contains($info['value'], '%')) {
             $info['percent'] = (int)$info['value'];
         }
         $smarty->assign_by_ref('info', $info);

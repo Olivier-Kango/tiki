@@ -1124,7 +1124,7 @@ if ($php_properties['session.save_handler']['setting'] == 'files') {
     }
 } else {
     $openDir = ini_get('open_basedir');
-    if (strpos($openDir, $s) === false && ! empty($openDir)) {
+    if (! str_contains($openDir, $s) && ! empty($openDir)) {
         $php_properties['session.save_path'] = array(
             'fitness' => tra('unknown'),
             'fitness_status' => FITNESS_STATUS_UNKNOWN,
@@ -2823,22 +2823,21 @@ $security = false;
 // check file upload dir and compare it to tiki root dir
 $s = ini_get('upload_tmp_dir');
 $sn = substr($_SERVER['SCRIPT_NAME'], 0, -14);
-if ($s != "" && strpos($sn, $s) !== false) {
-    $security['upload_tmp_dir'] = array(
-        'fitness' => tra('unsafe') ,
-        'fitness_status' => FITNESS_STATUS_UNSAFE,
+$isInsideTiki = $s !== "" && str_contains($sn, $s);
+$security = array(
+    'upload_tmp_dir' => array(
+        'fitness' => $isInsideTiki ? tra('unsafe') : tra('unknown'),
+        'fitness_status' => $isInsideTiki ? FITNESS_STATUS_UNSAFE : FITNESS_STATUS_UNKNOWN,
         'setting' => $s,
-        'message' => tra('upload_tmp_dir is probably inside the Tiki directory. There is a risk that someone can upload any file to this directory and access it via web browser.')
-    );
-} else {
-    $security = array();
-    $security['upload_tmp_dir'] = array(
-        'fitness' => tra('unknown') ,
-        'fitness_status' => FITNESS_STATUS_UNKNOWN,
-        'setting' => $s,
-        'message' => tra('It can\'t be reliably determined if the upload_tmp_dir is accessible via a web browser. To be sure, check the webserver configuration.')
-    );
-}
+        'message' => $isInsideTiki
+            ? tra(
+                'upload_tmp_dir is probably inside the Tiki directory. There is a risk that someone can upload any file to this directory and access it via web browser.'
+            )
+            : tra(
+                'It can\'t be reliably determined if the upload_tmp_dir is accessible via a web browser. To be sure, check the webserver configuration.'
+            ),
+    ),
+);
 
 // Determine system state
 $pdf_webkit = '';

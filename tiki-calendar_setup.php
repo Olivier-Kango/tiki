@@ -20,7 +20,7 @@ global $tikiroot;
  *
  */
 
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -142,7 +142,7 @@ $calendarGroupByItem = $_SESSION['CalendarGroupByItem'];
 $firstDayofWeek = $calendarlib->firstDayofWeek();
 
 $strRef = tra("%H:%M %Z");
-if (strstr($strRef, "%h") || strstr($strRef, "%g")) {
+if (str_contains($strRef, "%h") || str_contains($strRef, "%g")) {
     $timeFormat12_24 = "12";
 } else {
     $timeFormat12_24 = "24";

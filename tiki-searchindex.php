@@ -247,7 +247,7 @@ function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords
                     $label = $facet->getLabel();
                     if (key_exists($label, $duplicateLabels)) {
                         // it's almost always tracker fields that are duplicated, so just them for now
-                        if (strpos($name, 'tracker_field_') === 0) {
+                        if (str_starts_with($name, 'tracker_field_')) {
                             $field = TikiLib::lib('trk')->get_tracker_field(substr($name, 14));
                             $definition = \Tracker_Definition::get($field['trackerId']);
                             $facet->setLabel($label . ' (' . $definition->getConfiguration('name') . ')');

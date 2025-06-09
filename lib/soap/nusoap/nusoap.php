@@ -3211,7 +3211,7 @@ class soap_transport_http extends nusoap_base {
          // see if we need to resend the request with http digest authentication
          if (isset($this->incoming_headers['www-authenticate']) && $http_status == 401) {
              $this->debug("Got 401 $http_reason with WWW-Authenticate: " . $this->incoming_headers['www-authenticate']);
-             if (strstr($this->incoming_headers['www-authenticate'], "Digest ")) {
+             if (str_contains($this->incoming_headers['www-authenticate'], "Digest ")) {
                  $this->debug('Server wants digest authentication');
                  // remove "Digest " from our elements
                  $digestString = str_replace('Digest ', '', $this->incoming_headers['www-authenticate']);
@@ -3818,7 +3818,7 @@ class nusoap_server extends nusoap_base {
                     $this->SOAPAction = $v;
                 } elseif ($k == 'content-type') {
                     // get the character encoding of the incoming request
-                    if (strpos($v, '=')) {
+                    if (str_contains($v, '=')) {
                         $enc = substr(strstr($v, '='), 1);
                         $enc = str_replace('"', '', $enc);
                         $enc = str_replace('\\', '', $enc);
@@ -3852,7 +3852,7 @@ class nusoap_server extends nusoap_base {
                     $this->SOAPAction = $v;
                 } elseif ($k == 'content-type') {
                     // get the character encoding of the incoming request
-                    if (strpos($v, '=')) {
+                    if (str_contains($v, '=')) {
                         $enc = substr(strstr($v, '='), 1);
                         $enc = str_replace('"', '', $enc);
                         $enc = str_replace('\\', '', $enc);
@@ -4233,7 +4233,7 @@ class nusoap_server extends nusoap_base {
         // NOTE: there is no way to know whether the Web server will also compress
         // this data.
         if (strlen($payload) > 1024 && isset($this->headers) && isset($this->headers['accept-encoding'])) {
-            if (strstr($this->headers['accept-encoding'], 'gzip')) {
+            if (str_contains($this->headers['accept-encoding'], 'gzip')) {
                 if (function_exists('gzencode')) {
                     if (isset($this->debug_flag) && $this->debug_flag) {
                         $payload .= "<!-- Content being gzipped -->";
@@ -4245,7 +4245,7 @@ class nusoap_server extends nusoap_base {
                         $payload .= "<!-- Content will not be gzipped: no gzencode -->";
                     }
                 }
-            } elseif (strstr($this->headers['accept-encoding'], 'deflate')) {
+            } elseif (str_contains($this->headers['accept-encoding'], 'deflate')) {
                 // Note: MSIE requires gzdeflate output (no Zlib header and checksum),
                 // instead of gzcompress output,
                 // which conflicts with HTTP 1.1 spec (http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.5)
@@ -4307,7 +4307,7 @@ class nusoap_server extends nusoap_base {
             $this->setError('Request not of type text/xml (no content-type header)');
             return false;
         }
-        if (!strstr($headers['content-type'], 'text/xml')) {
+        if (! str_contains($headers['content-type'], 'text/xml')) {
             $this->setError('Request not of type text/xml');
             return false;
         }
@@ -4936,7 +4936,7 @@ class wsdl extends nusoap_base {
                 // get ns prefix
                 $prefix = substr($name, 0, strpos($name, ':'));
                 // get ns
-                $namespace = isset($this->namespaces[$prefix]) ? $this->namespaces[$prefix] : '';
+                $namespace = $this->namespaces[$prefix] ?? '';
                 // get unqualified name
                 $name = substr(strstr($name, ':'), 1);
             }
@@ -7668,7 +7668,7 @@ class nusoap_client extends nusoap_base  {
             $this->setError('Response not of type text/xml (no content-type header)');
             return false;
         }
-        if (!strstr($headers['content-type'], 'text/xml')) {
+        if (! str_contains($headers['content-type'], 'text/xml')) {
             $this->setError('Response not of type text/xml: ' . $headers['content-type']);
             return false;
         }

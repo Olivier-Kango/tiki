@@ -230,7 +230,7 @@ function wikiplugin_trackeritemfield($data, $params)
             $dataelse = '';
     }
     if (! empty($status)) {
-        if (! strstr($status, $memoStatus)) {
+        if (! str_contains($status, $memoStatus)) {
             return $dataelse;
         }
     }

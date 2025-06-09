@@ -521,7 +521,7 @@ function wikiplugin_files($data, $params)
     }
 
     $files = [];
-    if (isset($categId) && strstr($categId, ':')) {
+    if (isset($categId) && str_contains($categId, ':')) {
         $categId = explode(':', $categId);
     }
     static $iplugin = 0;

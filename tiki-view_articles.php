@@ -156,7 +156,7 @@ for ($i = 0; $i < $temp_max; $i++) {
         $listpages["data"][$i]["freetags"] = $freetaglib->get_tags_on_object($listpages["data"][$i]["articleId"], "article");
     }
 }
-if (! empty($topicName) && ! strstr($topicName, '!') && ! strstr($topicName, '+')) {
+if (! empty($topicName) && ! str_contains($topicName, '!') && ! str_contains($topicName, '+')) {
     $smarty->assign_by_ref('topic', $topicName);
 } elseif (! empty($topic) && is_numeric($topic)) {
     if (! empty($listpages['data'][0]['topicName'])) {
@@ -168,7 +168,7 @@ if (! empty($topicName) && ! strstr($topicName, '!') && ! strstr($topicName, '+'
         }
     }
 }
-if (! empty($type) && ! strstr($type, '!') && ! strstr($type, '+')) {
+if (! empty($type) && ! str_contains($type, '!') && ! str_contains($type, '+')) {
     $smarty->assign_by_ref('type', $type);
 }
 $smarty->assign('maxArticles', $prefs['maxArticles']);

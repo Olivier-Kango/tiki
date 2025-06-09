@@ -39,7 +39,6 @@ function wikiplugin_alink_info()
 function wikiplugin_alink($data, $params)
 {
     global $prefs;
-    $multilinguallib = TikiLib::lib('multilingual');
     $tikilib = TikiLib::lib('tiki');
     extract($params, EXTR_SKIP);
 

@@ -3367,14 +3367,14 @@ class TrackerLib extends TikiLib
                 $bindvars = $val;
             } elseif (is_array($val)) {
                 if (count($val) > 0) {
-                    if (! strstr($type, '`')) {
+                    if (! str_contains($type, '`')) {
                         $type = "`$type`";
                     }
                     $mids[] = "$type in (" . implode(",", array_fill(0, count($val), '?')) . ')';
                     $bindvars = array_merge($bindvars, $val);
                 }
             } else {
-                if (! strstr($type, '`')) {
+                if (! str_contains($type, '`')) {
                     $type = "`$type`";
                 }
                 $mids[] = "$type=?";
@@ -4071,7 +4071,7 @@ class TrackerLib extends TikiLib
         if ($resu) {
             $resu['orderAttachments'] = $resu['value'];
         }
-        if (strstr($resu['orderAttachments'], '|')) {
+        if (str_contains($resu['orderAttachments'], '|')) {
             $fields = preg_split('/,/', substr($resu['orderAttachments'], strpos($resu['orderAttachments'], '|') + 1));
             $res = $this->attachments()->fetchRow($fields, ['attId' => (int) $attId]);
             $res["trackerId"] = $resu['trackerId'];

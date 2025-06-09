@@ -105,12 +105,12 @@ function diff2($page1, $page2, $type = 'sidediff')
     } else {
         $context = 2;
         $words = 1;
-        if (strstr($type, "-")) {
+        if (str_contains($type, "-")) {
             list($type,$opt) = explode("-", $type, 2);
-            if (strstr($opt, "full")) {
+            if (str_contains($opt, "full")) {
                 $context = count($page1);
             }
-            if (strstr($opt, "char")) {
+            if (str_contains($opt, "char")) {
                 $words = 0;
             }
         }

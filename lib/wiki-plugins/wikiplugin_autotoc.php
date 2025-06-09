@@ -123,11 +123,11 @@ function wikiplugin_autotoc($data, $params)
     $tikilib = TikiLib::lib('tiki');
     $headerlib = TikiLib::lib('header');
 
-    $currPage = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+    $currPage = $_REQUEST['page'] ?? '';
     if (
         ! empty($currPage) &&
-        (strstr($_SERVER["SCRIPT_NAME"], "tiki-editpage.php") === false) &&
-        (strstr($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php') === false)
+        (! str_contains($_SERVER["SCRIPT_NAME"], "tiki-editpage.php")) &&
+        (! str_contains($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php'))
     ) {
         if (! isset($params['activity'])) {
             Feedback::error(tra('Missing activity parameter for AutoTOC plugin'));

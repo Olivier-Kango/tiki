@@ -74,7 +74,7 @@ class Cypht
             $source = $parts[0];
             $folder = $parts[1] ?? null;
 
-            if (strstr($source, '@')) {
+            if (str_contains($source, '@')) {
                 // imap source
                 $imap_id = null;
                 foreach (Hm_IMAP_List::getAll() as $server) {

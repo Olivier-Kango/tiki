@@ -84,7 +84,7 @@ function check($file)
             $i = 0;
             while ($line = fgets($fileHandler)) {
                 $i++;
-                if (strpos($line, '{/tr}:') !== false || strpos($line, '{/tr},') !== false) {
+                if (str_contains($line, '{/tr}:') || str_contains($line, '{/tr},')) {
                     $lineNumber .= $i . ",";
                 }
             }

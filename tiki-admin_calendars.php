@@ -139,7 +139,7 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
             $customflags["private"] = 'y';
         }
     }
-    $customflags['customstatus'] = isset($_REQUEST['customstatus']) ? $_REQUEST['customstatus'] : 'y';
+    $customflags['customstatus'] = $_REQUEST['customstatus'] ?? 'y';
     $options = $_REQUEST['options'];
     if (array_key_exists('customcolors', $options) && strPos($options['customcolors'], '-') > 0) {
         $customColors = explode('-', $options['customcolors']);

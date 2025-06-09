@@ -1843,7 +1843,7 @@ class FileGalLib extends TikiLib
             if ($type == 'blog post') {
                 $this->parentObjects($list, 'tiki_blog_posts', 'postId', 'blogId');
                 $filtered = Perms::filter(['type' => 'blog'], 'object', $list, ['object' => 'blogId'], str_replace('tiki_p_', '', $map['blog']));
-            } elseif (strstr($type, 'comment')) {
+            } elseif (str_contains($type, 'comment')) {
                 $this->parentObjects($list, 'tiki_comments', 'threadId', 'object');
                 $t = str_replace(' comment', '', $type);
                 $filtered = Perms::filter(['type' => $t], 'object', $list, ['object' => 'object'], str_replace('tiki_p_', '', $map[$t]));

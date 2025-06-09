@@ -57,7 +57,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             return;
         }
 
-        if (empty($this->index) || strstr($this->index, 'pref_')) {
+        if (empty($this->index) || str_contains($this->index, 'pref_')) {
             return;
         }
 

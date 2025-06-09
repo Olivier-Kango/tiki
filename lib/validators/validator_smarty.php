@@ -14,7 +14,7 @@ function validator_smarty($input, $parameter = '', $message = '')
 
     TikiLib::lib('events')->bind('tiki.process.shutdown', function () {
         $content = ob_get_contents();
-        if (strstr($content, 'Fatal error')) {
+        if (str_contains($content, 'Fatal error')) {
             ob_end_clean();
             echo 'Fatal error occured while trying to validate your smarty code.';
         }

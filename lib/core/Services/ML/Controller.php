@@ -392,7 +392,7 @@ class Services_ML_Controller
                         $input_type = 'layers';
                     } elseif ($type->isBuiltin()) {
                         $input_type = 'text';
-                    } elseif (strstr($type->getName(), 'Rubix\\ML')) {
+                    } elseif (str_contains($type->getName(), 'Rubix\\ML')) {
                         $input_type = 'rubix';
                     } else {
                         $input_type = $type->getName();

@@ -475,7 +475,7 @@ if (! $unifiedsearch->rebuildInProgress()) {
         $removeIndexErrorsCallback = function ($item) {
             if ($item['type'] == 'error') {
                 foreach ($item['mes'] as $me) {
-                    if (strpos($me, 'stream_socket_client') !== false) {
+                    if (str_contains($me, 'stream_socket_client')) {
                         return true;
                     }
                 }

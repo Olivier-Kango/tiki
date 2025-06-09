@@ -331,7 +331,7 @@ function buildPackageHistory($versionsToCheck)
         }
 
         foreach ($composer['require'] as $package => $versionConstraint) {
-            if ($package === 'php' || strpos($package, 'ext-') === 0) {
+            if ($package === 'php' || str_starts_with($package, 'ext-')) {
                 continue;
             }
 

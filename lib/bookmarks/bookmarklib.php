@@ -131,7 +131,7 @@ class BookmarkLib extends TikiLib
     {
         $info = $this->get_url($urlId);
 
-        if (strstr($info["url"], 'tiki-') || strstr($info["url"], 'messu-')) {
+        if (str_contains($info["url"], 'tiki-') || str_contains($info["url"], 'messu-')) {
             return false;
         }
 

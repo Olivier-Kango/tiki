@@ -159,7 +159,7 @@ class PdoClient
 
     public function parseDistributedIndexDefinition($name)
     {
-        if (strstr($name, ':')) {
+        if (str_contains($name, ':')) {
             $parts = explode(':', $name);
             $host = trim($parts[0]);
             if (count($parts) > 2) {
@@ -235,7 +235,7 @@ class PdoClient
                 if ($opts['types'] != $tableFields[$field]['types']) {
                     continue 2;
                 }
-                if (strstr($table, ':') && ($field == 'deep_categories' || $field == 'categories')) {
+                if (str_contains($table, ':') && ($field == 'deep_categories' || $field == 'categories')) {
                     continue 2;
                 }
             }
@@ -482,7 +482,7 @@ class PdoClient
             }
             return $result;
         } catch (PDOException $e) {
-            if ($retry && strstr($e->getMessage(), 'unknown local table')) {
+            if ($retry && str_contains($e->getMessage(), 'unknown local table')) {
                 if ($stmt) {
                     $stmt->closeCursor();
                 }
@@ -559,7 +559,7 @@ class PdoClient
         try {
             $stmt->execute($params);
         } catch (PDOException $e) {
-            if (strstr($e->getMessage(), "server has gone away")) {
+            if (str_contains($e->getMessage(), "server has gone away")) {
                 $this->connect(true);
                 if ($tries < self::QUERY_RETRIES) {
                     $this->executeWithRetry($stmt, $params, $tries + 1);

@@ -307,8 +307,8 @@ class ModLib extends TikiLib
         // Now add all the system modules
         $h = opendir(TEMPLATES_MODULES_PATH);
         while (($file = readdir($h)) !== false) {
-            if (substr($file, 0, 4) == 'mod-' && preg_match("/\.tpl$/", $file)) {
-                if (! strstr($file, "nocache")) {
+            if (str_starts_with($file, 'mod-') && preg_match("/\.tpl$/", $file)) {
+                if (! str_contains($file, "nocache")) {
                     $name = substr($file, 4, strlen($file) - 8);
 
                     $all_modules[] = $name;

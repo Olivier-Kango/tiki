@@ -236,7 +236,7 @@ if (
 }
 if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["name"]) > 0 && $access->checkCsrf()) {
     // Save
-    if (! empty($_REQUEST["tplGroupContainer"]) && strpos($_REQUEST["tplGroupPattern"], '--groupname--') === false) {
+    if (! empty($_REQUEST["tplGroupContainer"]) && ! str_contains($_REQUEST["tplGroupPattern"], '--groupname--')) {
         Feedback::error(tra('A pattern that does not contain "--groupname--" is not allowed'));
     }
     if ($_REQUEST["categId"]) {

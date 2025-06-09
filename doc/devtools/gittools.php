@@ -201,7 +201,7 @@ function checkoutBranch($branch, $newBranch = false)
         $output = `git checkout $branch 2>&1`;
     }
 
-    if (strpos($output, 'fatal') !== false || strpos($output, 'error') !== false) {
+    if (str_contains($output, 'fatal') || str_contains($output, 'error')) {
         error("Failed to " . ($newBranch ? "create and " : "") . "checkout branch $branch: $output\n");
         return false;
     }

@@ -326,7 +326,7 @@ class MenuLib extends TikiLib
         }
         $url = str_replace('+', ' ', str_replace('&amp;', '&', urldecode($_SERVER['REQUEST_URI'])));
         $option['url'] = str_replace('+', ' ', str_replace('&amp;', '&', urldecode($option['url'])));
-        if (strstr($option['url'], 'structure=') && ! strstr($url, 'structure=')) {
+        if (str_contains($option['url'], 'structure=') && ! str_contains($url, 'structure=')) {
             // try to find al the occurence of the page in structures
             $option['url'] = preg_replace('/&structure=.*/', '', $option['url']);
         }
@@ -708,7 +708,7 @@ class MenuLib extends TikiLib
             if (! $full) {
                 $display = true;
                 if (isset($res['section']) and $res['section']) {
-                    if (strstr($res['section'], '|')) {
+                    if (str_contains($res['section'], '|')) {
                         $display = false;
                         $sections = preg_split('/\s*\|\s*/', $res['section']);
                         foreach ($sections as $sec) {
@@ -730,7 +730,7 @@ class MenuLib extends TikiLib
                 }
                 if ($display && $tiki_p_admin != 'y') {
                     if (isset($res['perm']) and $res['perm']) {
-                        if (strstr($res['perm'], '|')) {
+                        if (str_contains($res['perm'], '|')) {
                             $display = false;
                             $sections = preg_split('/\s*\|\s*/', $res['perm']);
                             foreach ($sections as $sec) {

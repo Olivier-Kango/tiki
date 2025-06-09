@@ -27,7 +27,7 @@ global $prefs, $tikilib;
 
 ini_set('session.cookie_httponly', 1);
 
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -145,7 +145,7 @@ if ($prefs['tiki_domain_prefix'] == 'strip' && substr($host, 0, 4) == 'www.') {
     $domain_map[$host] = 'www.' . $host;
 }
 
-if (strpos($prefs['tiki_domain_redirects'], ',') !== false) {
+if (str_contains($prefs['tiki_domain_redirects'], ',')) {
     foreach (explode("\n", $prefs['tiki_domain_redirects']) as $row) {
         list($old, $new) = array_map('trim', explode(',', $row, 2));
         $domain_map[$old] = $new;
@@ -224,7 +224,7 @@ if (! TIKI_API) {
     if (
         $prefs['cookie_consent_feature'] === 'y' &&
         (
-            strpos($_SERVER['PHP_SELF'], 'tiki-cookie-jar.php') === false && http_response_code() !== false ||
+            ! str_contains($_SERVER['PHP_SELF'], 'tiki-cookie-jar.php') && http_response_code() !== false ||
             $jitRequest->offsetExists('cookie_consent')
         )
     ) {
@@ -252,7 +252,7 @@ if (! TIKI_API) {
         if (! $consent_preferences['consentGiven'] || $jitRequest->offsetExists('cookie_consent')) {
             if (! $jitRequest->offsetExists('cookie_consent')) {
                 foreach ($_COOKIE as $k => $v) {
-                    if (strpos($k, session_name()) === false) {
+                    if (! str_contains($k, session_name())) {
                         setcookie($k, '', time() - 3600);        // unset any previously existing cookies except the session and js detect
                     }
                 }

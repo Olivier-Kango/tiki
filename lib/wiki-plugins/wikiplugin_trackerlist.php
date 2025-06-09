@@ -1756,7 +1756,7 @@ function wikiplugin_trackerlist($data, $params)
         }
 
         if (isset($itemId)) {
-            if (is_string($itemId) && strstr($itemId, ':')) {   // JB Tiki7: This doesn't quite make sense as itemId is an array
+            if (is_string($itemId) && str_contains($itemId, ':')) {   // JB Tiki7: This doesn't quite make sense as itemId is an array
                 $itemId = explode(':', $itemId);                //           Probably just some redundant code TOKIL
             }
             $filter['tti.`itemId`'] = $itemId;
@@ -2219,7 +2219,7 @@ function wikiplugin_trackerlist($data, $params)
                     if (empty($passfields[$fieldId])) {
                         continue;
                     }
-                    if (strstr($fieldId, "/")) {
+                    if (str_contains($fieldId, "/")) {
                         list($fieldId, $oper) = preg_split('/ *\/ */', $fieldId);
                         $oper = strtolower($oper);
                         if ($oper == 'average') {

@@ -429,7 +429,7 @@ class CheckSchemaUpgrade
         $dbUrl = sprintf(self::DB_URL_TEMPLATE, $major);
         $dbContent = file_get_contents($dbUrl);
         /** @noinspection SyntaxError */
-        if (! empty($dbContent) && strpos($dbContent, 'CREATE TABLE `tiki_schema`') !== false) { //check that looks like a sql file
+        if (! empty($dbContent) && str_contains($dbContent, 'CREATE TABLE `tiki_schema`')) { //check that looks like a sql file
             $sql = $dbContent;
             file_put_contents($cachedDbFile, $dbContent);
             return $sql;

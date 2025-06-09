@@ -188,7 +188,7 @@ function wikiplugin_ajaxload($data, $params)
                     (! empty($parts['port']) ? ':' . $parts['port'] : '') .
                     (! empty($parts['path']) ? pathinfo($parts['path'], PATHINFO_DIRNAME) : '');
 
-                if (substr($base, -1) !== '/') {
+                if (! str_ends_with($base, '/')) {
                     $base .= '/';
                 }
 

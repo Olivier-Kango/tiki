@@ -590,7 +590,7 @@ class PdfGenerator
                         global $tikiroot;
                         $fileId = 0;
                         if (preg_match('/dl(\d+)/', $breakPageContent, $parts)) {
-                            $fileId = isset($parts[1]) ? $parts[1] : 0;
+                            $fileId = $parts[1] ?? 0;
                             $params = ['fileId' => $fileId];
                             $tokenParam = '?TOKEN';
                         }
@@ -1031,7 +1031,7 @@ class PdfGenerator
         foreach ($tags as $tag) {
             $imgSrc = $tag->getAttribute('src');
             //bypassing base64 encoded images
-            if (! strstr($imgSrc, ';base64')) {
+            if (! str_contains($imgSrc, ';base64')) {
                 //replacing image with new temp image, all these images will be unlinked after pdf creation
                 $newFile = $this->file_get_contents_by_fget($imgSrc);
                 //replacing old protected image path with temp image
@@ -1467,7 +1467,7 @@ TEXT;
     public function processHeaderFooter($value = '', $page = '', $border = 'bottom', $withPagination = true)
     {
         //evaluating type
-        if (strpos($value, '|') !== false) {
+        if (str_contains($value, '|')) {
             //checking if legacy header/footer is used. Important since not all users are good to add HTML formatted values
             $valueText = explode("|", $value);
             //formatting in table

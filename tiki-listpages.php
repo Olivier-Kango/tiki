@@ -418,10 +418,10 @@ if (! empty($multiprint_pages)) {
         if ($remperm || $prefs['feature_wiki_multiprint'] === 'y') {
             array_unshift($cols, 'checkbox');
         }
-        if (strpos($sort_mode, '_desc') !== false) {
+        if (str_contains($sort_mode, '_desc')) {
             $pos = strlen($sort_mode) - 5;
             $sortdir = 1;
-        } elseif (strpos($sort_mode, '_asc') !== false) {
+        } elseif (str_contains($sort_mode, '_asc')) {
             $pos = strlen($sort_mode) - 4;
             $sortdir = 0;
         }
