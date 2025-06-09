@@ -1414,8 +1414,9 @@ class NlLib extends TikiLib
     {
         global $prefs, $base_url;
         static $mailcache = [];
+        $cachekey = $editionId;
 
-        if (! isset($mailcache[$editionId])) {
+        if (! isset($mailcache[$cachekey])) {
             $tikilib = TikiLib::lib('tiki');
             $headerlib = TikiLib::lib('header');
 
@@ -1432,7 +1433,19 @@ class NlLib extends TikiLib
                 $is_html = ! empty($is_html);
             }
             if (stristr($info['data'], '<body') === false) {
-                $html = "<html>$beginHtml" . $this->parseBody($info['data'], $is_html) . "$endHtml</html>";
+                $preparsed = str_replace([
+                    '{{recipient.user}}',
+                    '{{recipient.email}}',
+                    '{{recipient.realName}}'
+                ], [
+                    $target['user'],
+                    $target['email'],
+                    $this->get_user_preference($target['user'], 'realName'),
+                ], $info['data']);
+                if ($preparsed != $info['data']) {
+                    $cachekey .= $target['email'];
+                }
+                $html = "<html>$beginHtml" . $this->parseBody($preparsed, $is_html) . "$endHtml</html>";
             } else {
                 $html = str_ireplace('<body>', $beginHtml, $info['data']);
                 $html = str_ireplace('</body>', $endHtml, $html);
@@ -1497,7 +1510,7 @@ class NlLib extends TikiLib
 
             $zmail->setSubject($info['subject']);
 
-            $mailcache[$editionId] = [
+            $mailcache[$cachekey] = [
                 'zmail' => $zmail,
                 'text' => $info['datatxt'],
                 'html' => $html,
@@ -1506,7 +1519,7 @@ class NlLib extends TikiLib
             ];
         }
 
-        $cache = $mailcache[$editionId];
+        $cache = $mailcache[$cachekey];
 
         $html = $cache['html'];
         $unsubmsg = '';
