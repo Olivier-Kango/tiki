@@ -900,11 +900,27 @@ function wikiplugin_img($data, $params)
         if (! empty($dbinfo['data']) || ! empty($dbinfo['path'])) {
             if (! empty($dbinfo['data'])) {
                 $imageObjt = Image::create($dbinfo['data'], false);
-            } elseif (! empty($dbinfo['path'])) {
+            } elseif (! empty($dbinfo['path']) && isset($basepath)) {
                 $imageObjt = Image::create($basepath . $dbinfo['path'] . '.thumb', true);
+            } else {
+                $imageObjt = null;
             }
-            $fwidtht = $imageObjt->getWidth();
-            $fheightt = $imageObjt->getHeight();
+            if ($imageObjt) {
+                $fwidtht = $imageObjt->getWidth();
+                $fheightt = $imageObjt->getHeight();
+            }
+
+            // Ensure $imageObjt is defined before using it
+            if (isset($imageObjt) && is_object($imageObjt)) {
+                $fwidtht = $imageObjt->getWidth();
+                $fheightt = $imageObjt->getHeight();
+            } else {
+                // Handle the case where $imageObjt could not be created
+                if (empty($dbinfo['fileId'])) {
+                    Feedback::error(tr('Failed to create thumbnail image. The image file may be missing or corrupted.'));
+                    return;
+                }
+            }
         }
     /////////////////////////////////////Add image dimensions to src string////////////////////////////////////////////
         //Use url resizing parameters for file gallery images to set $height and $width
