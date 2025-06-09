@@ -11,7 +11,7 @@
                 type="text" {$p.params}>
         {else}
             <input name="{$p.preference|escape}" id="{$p.id|escape}" value="{$p.value|escape}" class="form-control" size="{$p.size|default:40|escape}"
-                type="text" {$p.params}>
+                   type="text" {$p.params}>
         {/if}
         {if !empty($p.units)}
                 <span class="input-group-text">{$p.units}</span>

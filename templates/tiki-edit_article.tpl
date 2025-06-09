@@ -43,7 +43,7 @@
                     {textarea _simple="y" name="heading" class="form-control" rows="5" id="subheading" comments="y"}{$heading}{/textarea}
                 {/if}
             </div>
-            <div id='heading_only' class="mb-3 mx-0" {if $types.$type.heading_only eq 'y'}style="display: none;"{/if}>
+            <div id='heading_only' class="mb-3 mx-0"{if $types.$type.heading_only eq 'y'}style="display: none;"{/if}>
                 <label for="body">{tr}Body{/tr}</label>
                 {textarea name="body" id="body" _preview=$prefs.ajax_edit_previews}{$body}{/textarea}
             </div>
@@ -52,7 +52,7 @@
                     <div class="mb-3 mx-0">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="allowhtml" {if $allowhtml eq 'y'}checked="checked"{/if}>
+                                <input class="form-check-input" type="checkbox" name="allowhtml"{if $allowhtml eq 'y'}checked="checked"{/if}>
                                 {tr}Allow full HTML{/tr} <em>({tr}Keep any HTML tag.{/tr})</em>
                             </label>
                             <div class="form-text">{tr}If not enabled, Tiki will retain some HTML tags (a, p, pre, img, hr, b, i){/tr}.</div>
@@ -76,7 +76,7 @@
                             <span class="form-text">
                                 {tr _0="tiki-edit_article.php?translationOf=$articleId"}To translate, do not change the language and the content. Instead, <a class="alert-link" href="%0">create a new translation</a> in the new language.{/tr}
                             </span>
-                            {if $translations and $translations[1].objId}
+                            {if not empty($translations[1].objId)}
                                 {remarksbox type=tip title="{tr}Translations{/tr}"}
                                     <ul>
                                         <li>
@@ -101,9 +101,9 @@
                 <div class="col-md-6">
                     <select name="topicId" id="topicId" class="form-control">
                         {foreach $topics as $topic}
-                            <option value="{$topic.topicId|escape}" {if $topicId eq $topic.topicId}selected="selected"{/if}>{$topic.name|escape}</option>
+                            <option value="{$topic.topicId|escape}"{if $topicId eq $topic.topicId}selected="selected"{/if}>{$topic.name|escape}</option>
                         {/foreach}
-                        <option value="" {if $topicId eq 0}selected="selected"{/if}>{tr}None{/tr}</option>
+                        <option value=""{if $topicId eq 0}selected="selected"{/if}>{tr}None{/tr}</option>
                     </select>
                 </div>
                 {if $tiki_p_admin_cms eq 'y'}
@@ -119,7 +119,7 @@
                 <div class="col-md-6">
                     <select id='articletype' name="type" onchange='javascript:chgArtType();' class="form-control">
                         {foreach $types as $typei => $prop}
-                            <option value="{$typei|escape}" {if $type eq $typei}selected="selected"{/if}>{tr}{$typei|escape}{/tr}</option>
+                            <option value="{$typei|escape}"{if $type eq $typei}selected="selected"{/if}>{tr}{$typei|escape}{/tr}</option>
                         {/foreach}
                     </select>
                 </div>
@@ -149,7 +149,7 @@
                 <div class="col-md-4 offset-md-4">
                     <div class="form-check well well-sm">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="ispublished" {if $ispublished eq 'y' || !$articleId}checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="ispublished"{if $ispublished eq 'y' || !$articleId}checked="checked"{/if}>
                             <strong>{tr}Published{/tr}</strong>
                         </label>
                     </div>
@@ -164,7 +164,7 @@
                     <input type="text" name="authorName" id="authorName" value="{$authorName|escape}" class="form-control">
                 </div>
             </div>
-            <div class="mb-3 row {if $tiki_p_edit_article_user neq 'y'}hidden{/if} clearfix">
+            <div class="mb-3 row{if $tiki_p_edit_article_user neq 'y'} hidden{/if} clearfix">
                 <label for="author" class="col-form-label col-md-4">{tr}User (article owner){/tr}</label>
                 <div class="col-md-4">
                     <input id="author" type="text" name="author" value="{$author|escape}" class="form-control">
@@ -186,7 +186,7 @@
         {/tab}
         {tab name="{tr}Image{/tr}"}
             <h2>{tr}Image{/tr}</h2>
-            <div class="mb-3 {if $types.$type.show_image neq 'y'}hidden{/if}">
+            <div class="mb-3{if $types.$type.show_image neq 'y'} hidden{/if}">
                 <input type="hidden" name="MAX_FILE_SIZE" value="{$prefs.article_image_file_size_max}">
                 <label for="userfile1" class="col-form-label col-md-4">{tr}Own Image{/tr}</label>
                 <div class="col-md-8">
@@ -195,7 +195,7 @@
                 </div>
             </div>
             {if $hasImage eq 'y'}
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <label class="col-md-4 col-form-label">{tr}Current Image{/tr}</label>
                     <div class="thumbnail col-md-8">
                         {if $imageIsChanged eq 'y'}
@@ -213,32 +213,32 @@
                     <div class="form-text">{tr}Default will use the topic name{/tr}</div>
                 </div>
             </div>
-            <div class="form-check {if $types.$type.show_image neq 'y'}hidden{/if} offset-md-4">
+            <div class="form-check{if $types.$type.show_image neq 'y'} hidden{/if}">
                 <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="useImage" id="useImage" {if $useImage eq 'y'}checked='checked'{/if} >
+                    <input type="checkbox" class="form-check-input" name="useImage" id="useImage"{if $useImage eq 'y'}checked='checked'{/if} >
                     {tr}Use own image{/tr}
                 </label>
             </div>
-            <div class="form-check {if $types.$type.show_image neq 'y'}hidden{/if} offset-md-4">
+            <div class="form-check{if $types.$type.show_image neq 'y'} hidden{/if} mb-3">
                 <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="isfloat" {if $isfloat eq 'y'}checked='checked'{/if}>
+                    <input type="checkbox" class="form-check-input" name="isfloat"{if $isfloat eq 'y'}checked='checked'{/if}>
                     {tr}Float text around image{/tr}
                 </label>
             </div>
             <fieldset class="{if $types.$type.show_image neq 'y'}hidden{/if}">
                 <legend>{tr}Read Article{/tr}</legend>
                 <span class="form-text">{tr}Maximum dimensions of custom image in view mode{/tr}</span>
-                <div class="mb-3 row">
+                <div class="mb-3 row col-md-8">
                     <label for="image_x" class="col-form-label col-md-4">{tr}Width{/tr}</label>
                     <div class="input-group col-sm-3">
-                        <input type="text" class="form-control" name="image_x" id="image_x"{if $image_x > 0} value="{$image_x|escape}"{/if}>
+                        <input type="number" class="form-control" name="image_x" id="image_x"{if $image_x > 0} value="{$image_x|escape}"{/if}>
                         <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3 row col-md-8">
                     <label for="image_y" class="col-form-label col-md-4">{tr}Height{/tr}</label>
                     <div class="input-group col-sm-3">
-                        <input type="text" class="form-control" name="image_y" id="image_y"{if $image_y > 0} value="{$image_y|escape}"{/if}>
+                        <input type="number" class="form-control" name="image_y" id="image_y"{if $image_y > 0} value="{$image_y|escape}"{/if}>
                         <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
@@ -246,17 +246,17 @@
             <fieldset class="{if $types.$type.show_image neq 'y'}hidden{/if}">
                 <legend>{tr}View Articles{/tr}</legend>
                 <span class="form-text">{tr}Maximum dimensions of custom image in list mode{/tr}</span>
-                <div class="mb-3 row">
+                <div class="mb-3 row col-md-8">
                     <label for="list_image_x" class="col-form-label col-sm-4">{tr}Width{/tr}</label>
                     <div class="input-group col-sm-3">
-                        <input type="text" class="form-control" name="list_image_x" id="list_image_x"{if $list_image_x > 0} value="{$list_image_x|escape}"{/if}>
+                        <input type="number" class="form-control" name="list_image_x" id="list_image_x"{if $list_image_x > 0} value="{$list_image_x|escape}"{/if}>
                         <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3 row col-md-8">
                     <label for="list_image_y" class="col-form-label col-sm-4">{tr}Height{/tr}</label>
                     <div class="input-group col-sm-3">
-                        <input type="text" class="form-control" name="list_image_y" id="list_image_y"{if $list_image_y > 0} value="{$list_image_y|escape}"{/if}>
+                        <input type="number" class="form-control" name="list_image_y" id="list_image_y"{if $list_image_y > 0} value="{$list_image_y|escape}"{/if}>
                         <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
@@ -271,29 +271,29 @@
                     </label>
                     <div class="col-md-8">
                         <select id='translationOf' name="translationOf" class="form-control">
-                            <option></option>
+                            <option value="">{tr}Select Article{/tr}</option>
                             {foreach $articles as $row}
                                 {if $row['articleId'] neq $articleId}
-                                    <option value="{$row['articleId']|escape}" {if $translations[1].objId eq $row['articleId']}selected="selected"{/if}>{tr}{$row['title']|escape|truncate:70:"..."}{/tr}</option>
+                                    <option value="{$row['articleId']|escape}"{if not empty($translations[1].objId ) and $translations[1].objId eq $row['articleId']}selected="selected"{/if}>{tr}{$row['title']|escape|truncate:70:"..."}{/tr}</option>
                                 {/if}
                             {/foreach}
                         </select>
                     </div>
                 </div>
             {/if}
-            <div class="mb-3 {if $types.$type.show_topline neq 'y'}hidden{/if}">
+            <div class="mb-3{if $types.$type.show_topline neq 'y'} hidden{/if}">
                 <label for="topline" class="col-form-label col-md-4">{tr}Topline{/tr}</label>
                 <div class="col-md-8">
                     <input type="text" name="topline" id="topline" value="{$topline|escape}" class="form-control">
                 </div>
             </div>
-            <div class="mb-3 {if $types.$type.show_subtitle neq 'y'}hidden{/if}">
+            <div class="mb-3{if $types.$type.show_subtitle neq 'y'} hidden{/if}">
                 <label for="subtitle" class="col-form-label col-md-4">{tr}Subtitle{/tr}</label>
                 <div class="col-md-8">
                     <input type="text" name="subtitle" id="subtitle" value="{$subtitle|escape}" class="form-control">
                 </div>
             </div>
-            <div class="mb-3 {if $types.$type.show_linkto neq 'y'}hidden{/if}">
+            <div class="mb-3{if $types.$type.show_linkto neq 'y'} hidden{/if}">
                 <label for="linkto" class="col-form-label col-md-4">{tr}Source{/tr}</label>
                 <div class="col-md-8">
                     <input type="url" name="linkto" id="linkto" value="{$linkto|escape}" class="form-control" placeholder="https://...">
@@ -305,36 +305,18 @@
                     {/if}
                 </div>
             </div>
-            <div class="mb-3 {if $types.$type.use_ratings neq 'y'}hidden{/if}">
+            <div class="mb-3{if $types.$type.use_ratings neq 'y'} hidden{/if}">
                 <label for="rating" class="col-md-4 col-form-label">{tr}Author rating{/tr}</label>
                 <div class="col-md-4">
-                    <select name='rating' id='rating' class="form-control">
-                        <option value="10" {if $rating eq 10}selected="selected"{/if}>10</option>
-                        <option value="9.5" {if $rating eq "9.5"}selected="selected"{/if}>9.5</option>
-                        <option value="9" {if $rating eq 9}selected="selected"{/if}>9</option>
-                        <option value="8.5" {if $rating eq "8.5"}selected="selected"{/if}>8.5</option>
-                        <option value="8" {if $rating eq 8}selected="selected"{/if}>8</option>
-                        <option value="7.5" {if $rating eq "7.5"}selected="selected"{/if}>7.5</option>
-                        <option value="7" {if $rating eq 7}selected="selected"{/if}>7</option>
-                        <option value="6.5" {if $rating eq "6.5"}selected="selected"{/if}>6.5</option>
-                        <option value="6" {if $rating eq 6}selected="selected"{/if}>6</option>
-                        <option value="5.5" {if $rating eq "5.5"}selected="selected"{/if}>5.5</option>
-                        <option value="5" {if $rating eq 5}selected="selected"{/if}>5</option>
-                        <option value="4.5" {if $rating eq "4.5"}selected="selected"{/if}>4.5</option>
-                        <option value="4" {if $rating eq 4}selected="selected"{/if}>4</option>
-                        <option value="3.5" {if $rating eq "3.5"}selected="selected"{/if}>3.5</option>
-                        <option value="3" {if $rating eq 3}selected="selected"{/if}>3</option>
-                        <option value="2.5" {if $rating eq "2.5"}selected="selected"{/if}>2.5</option>
-                        <option value="2" {if $rating eq 2}selected="selected"{/if}>2</option>
-                        <option value="1.5" {if $rating eq "1.5"}selected="selected"{/if}>1.5</option>
-                        <option value="1" {if $rating eq 1}selected="selected"{/if}>1</option>
-                        <option value="0.5" {if $rating eq "0.5"}selected="selected"{/if}>0.5</option>
-                        <option value="0" {if $rating eq "0"}selected="selected"{/if}>0</option>
+                    <select name="rating" id="rating" class="form-control">
+                        {foreach from=[10, 9.5, 9, 8.5, 8, 7.5, 7, 6.5, 6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0] item=option}
+                            <option value="{$option}"{if $rating == $option}selected="selected"{/if}>{$option}</option>
+                        {/foreach}
                     </select>
                 </div>
             </div>
-            {if $prefs.geo_locate_article eq 'y'}
-                <div class="mb-3 row clearfix">
+           {if $prefs.geo_locate_article eq 'y'}
+                <div class="mb-3 clearfix">
                     <label class="col-form-label col-md-4">{tr}Location{/tr}</label>
                     <div class="col-md-8">
                         <div class="map-container" data-geo-center="{defaultmapcenter}" data-target-field="geolocation"></div>
@@ -343,7 +325,7 @@
                 </div>
             {/if}
             {if $prefs.feature_cms_templates eq 'y' and $tiki_p_use_content_templates eq 'y' and $templates|@count ne 0}
-                <div class="mb-3 row clearfix">
+                <div class="mb-3 clearfix">
                     <label for="templateId" class="col-form-label col-md-4">{tr}Apply content template{/tr}</label>
                     <div class="col-md-8">
                         <select class="form-select" name="templateId" id="templateId" onchange="javascript:document.getElementById('editpageform').submit();">
@@ -356,8 +338,8 @@
                 </div>
             {/if}
             {if $prefs.feature_cms_emails eq 'y'}
-                <div class="mb-3 row">
-                    <label for="emails" class="col-md-4">{tr}Email{/tr}</label>
+                <div class="mb-3">
+                    <label for="emails" class="col-md-4 col-form-label">{tr}Email{/tr}</label>
                     <div class="col-md-8">
                         <input type="text" name="emails" id="emails" value="{$emails|escape}" class="form-control">
                         <span class="form-text">{tr}Email addresses to be sent notifications (comma-separated){/tr}</span>

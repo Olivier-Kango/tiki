@@ -8,7 +8,7 @@
                 </label>
                 <div class="col-sm-8">
                     <input
-                        type="text"
+                        type="number"
                         id="fgal_{$key}"
                         name="fgal_{$key}"
                         value="{$item.value}"

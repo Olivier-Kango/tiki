@@ -13,22 +13,22 @@
 [{$messu_mailbox_number} / {$prefs.messu_mailbox_size}] {tr}messages{/tr}. {if $messu_mailbox_number ge $prefs.messu_mailbox_size}{tr}Mailbox is full! Delete or archive some messages if you want to receive more messages.{/tr}{/if}
 {/if}
 
-<form class="d-flex flex-row flex-wrap align-items-center mb-4" action="messu-mailbox.php" method="get">
-    <div class="mb-3 col-sm-3">
+<form class="d-flex flex-wrap align-items-center mb-4" action="messu-mailbox.php" method="get">
+    <div class="col-sm-3">
         <label for="mess-mailmessages">{tr}Messages:{/tr}</label>
         <select name="flags" id="mess-mailmessages" class="form-select">
+            <option value="_" {if $flag eq ''}selected="selected"{/if}>{tr}All{/tr}</option>
             <option value="isRead_y" {if $flag eq 'isRead' and $flagval eq 'y'}selected="selected"{/if}>{tr}Read{/tr}</option>
             <option value="isRead_n" {if $flag eq 'isRead' and $flagval eq 'n'}selected="selected"{/if}>{tr}Unread{/tr}</option>
             <option value="isFlagged_y" {if $flag eq 'isFlagged' and $flagval eq 'y'}selected="selected"{/if}>{tr}Flagged{/tr}</option>
             <option value="isFlagged_n" {if $flag eq 'isflagged' and $flagval eq 'n'}selected="selected"{/if}>{tr}Unflagged{/tr}</option>
-            <option value="" {if $flag eq ''}selected="selected"{/if}>{tr}All{/tr}</option>
         </select>
     </div>
 
-    <div class="mb-3 col-sm-3">
+    <div class="col-sm-3">
         <label for="mess-mailprio">{tr}Priority:{/tr}</label>
         <select name="priority" id="mess-mailprio" class="form-select">
-            <option value="" {if $priority eq ''}selected="selected"{/if}>{tr}All{/tr}</option>
+            <option value="0" {if $priority eq ''}selected="selected"{/if}>{tr}All{/tr}</option>
             <option value="1" {if $priority eq 1}selected="selected"{/if}>{tr}1{/tr}</option>
             <option value="2" {if $priority eq 2}selected="selected"{/if}>{tr}2{/tr}</option>
             <option value="3" {if $priority eq 3}selected="selected"{/if}>{tr}3{/tr}</option>
@@ -37,7 +37,7 @@
         </select>
     </div>
 
-    <div class="mb-3 col-sm-4">
+    <div class="col-sm-4">
         <label for="mess-mailcont">{tr}Containing:{/tr}</label>
         <div class="input-group">
             <input type="text" name="find" id="mess-mailcont" value="{$find|escape}" class="form-control">

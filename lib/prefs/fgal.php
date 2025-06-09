@@ -696,7 +696,8 @@ When the limit is reached, no more files can be uploaded. The user will see an e
             'size' => 4,
             'type' => 'text',
             'filter' => 'int',
-            'default' => '250'
+            'default' => '250',
+            'units' => 'pixels'
         ],
         'fgal_export_diagram_on_image_save' => [
             'name' => tra('Export diagram image on save'),

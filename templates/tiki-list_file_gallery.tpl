@@ -286,16 +286,21 @@
         {/if}
     {else}
         <div class="pageview">
-            <form id="size-form" class="form d-flex flex-row flex-wrap align-items-center" action="tiki-list_file_gallery.php">
+            <form id="size-form" class="form d-flex flex-row flex-wrap align-items-end gap-1" action="tiki-list_file_gallery.php">
                 {ticket}
                 <input type="hidden" name="view" value="page">
                 <input type="hidden" name="galleryId" value="{$galleryId}">
                 <input type="hidden" name="maxRecords" value=1>
                 <input type="hidden" name="offset" value="{$offset}">
-                <label for="maxWidth">
-                    {tr}Maximum width{/tr}&nbsp;<input id="maxWidth" class="form-control" type="text" name="maxWidth" value="{$maxWidth}">
-                </label>
+                <div class="row col-sm-3">
+                    <label for="maxWidth" class="col-form-label">{tr}Maximum width{/tr}</label>
+                    <div class="input-group col-sm-2">
+                        <input id="maxWidth" class="form-control" type="number" name="maxWidth" value="{$maxWidth|substr:0:-2}">
+                        <span class="input-group-text">{tr}pixels{/tr}</span>
+                    </div>
+                </div>
                 <input type="submit" class="wikiaction btn btn-primary" name="setSize" value="{tr}Submit{/tr}">
+               </d>
             </form>
         </div><br>
         {pagination_links cant=$cant step=$maxRecords offset=$offset}
