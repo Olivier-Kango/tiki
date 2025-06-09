@@ -77,10 +77,11 @@ $inputConfiguration = [
             'forum_password'                   => 'password',    //post
             'outbound_address'                 => 'text',        //post
             'outbound_from'                    => 'text',        //post
-            'inbound_pop_server'               => 'text',        //post
-            'inbound_pop_port'                 => 'text',        //post
-            'inbound_pop_user'                 => 'text',        //post
-            'inbound_pop_password'             => 'password',    //post
+            'inbound_imap_server'              => 'text',        //post
+            'inbound_imap_port'                => 'text',        //post
+            'inbound_imap_user'                => 'text',        //post
+            'inbound_imap_password'            => 'password',    //post
+            'inbound_imap_ssl'                 => 'text',    //post
             'save'                             => 'bool',        //post
         ],
     ],

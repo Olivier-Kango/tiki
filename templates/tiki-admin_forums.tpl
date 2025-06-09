@@ -368,27 +368,43 @@
                     <legend class="col-sm-4 col-form-label">{tr}Add messages from this email to the forum{/tr}</legend>
                     <div class="col-sm-8">
                         <div class="tiki-form-group row">
-                            <label class="col-sm-4 col-form-label" for="inbound_pop_server">{tr}POP3 server{/tr}</label>
+                            <label class="col-sm-4 col-form-label" for="inbound_imap_server">{tr}IMAP server{/tr}</label>
                             <div class="col-sm-8">
-                                <input type="text" name="inbound_pop_server" id="inbound_pop_server" class="form-control" value="{$inbound_pop_server|escape}">
+                                <input type="text" name="inbound_imap_server" id="inbound_imap_server" class="form-control" value="{$inbound_imap_server|escape}">
                             </div>
                         </div>
                         <div class="tiki-form-group row">
-                            <label class="col-sm-4 col-form-label" for="inbound_pop_port">{tr}POP3 port{/tr}</label>
+                            <label class="col-sm-4 col-form-label" for="inbound_imap_port">{tr}IMAP port{/tr}</label>
                             <div class="col-sm-8">
-                                <input type="text" name="inbound_pop_port" id="inbound_pop_port" class="form-control" value="{$inbound_pop_port|escape}">
+                                <input type="text" name="inbound_imap_port" id="inbound_imap_port" class="form-control" value="{$inbound_imap_port|escape}">
                             </div>
                         </div>
                         <div class="tiki-form-group row">
-                            <label class="col-sm-4 col-form-label" for="inbound_pop_user">{tr}User{/tr}</label>
+                            <label class="col-sm-4 col-form-label" for="inbound_imap_user">{tr}User{/tr}</label>
                             <div class="col-sm-8">
-                                <input type="text" name="inbound_pop_user" id="inbound_pop_user" class="form-control" value="{$inbound_pop_user|escape}" autocomplete="off">
+                                <input type="text" name="inbound_imap_user" id="inbound_imap_user" class="form-control" value="{$inbound_imap_user|escape}" autocomplete="off">
                             </div>
                         </div>
                         <div class="tiki-form-group row">
-                            <label class="col-sm-4 col-form-label" for="inbound_pop_password">{tr}Password{/tr}</label>
+                            <label class="col-sm-4 col-form-label" for="inbound_imap_password">{tr}Password{/tr}</label>
                             <div class="col-sm-8">
-                                <input type="password" name="inbound_pop_password" id="inbound_pop_password" class="form-control" value="{$inbound_pop_password|escape}" autocomplete="new-password">
+                                <input type="password" name="inbound_imap_password" id="inbound_imap_password" class="form-control" value="{$inbound_imap_password|escape}" autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="tiki-form-group row">
+                            <label class="col-sm-4 col-form-label" for="inbound_imap_ssl">{tr}SSL support{/tr}</label>
+                            <div class="col-sm-8">
+                                <select id="inbound_imap_ssl" name="inbound_imap_ssl" class="form-control">
+                                    <option value=""{if not $inbound_imap_ssl} selected="selected"{/if}>
+                                    {tr}No{/tr}
+                                    </option>
+                                    <option value="SSL"{if $inbound_imap_ssl eq 'SSL'} selected="selected"{/if}>
+                                    {tr}SSL{/tr}
+                                    </option>
+                                    <option value="TLS"{if $inbound_imap_ssl eq 'TLS'} selected="selected"{/if}>
+                                    {tr}TLS{/tr}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>

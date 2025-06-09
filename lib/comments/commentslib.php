@@ -1,5 +1,8 @@
 <?php
 
+use Laminas\Mail\Storage\Imap;
+use Laminas\Mail\Header\Exception\InvalidArgumentException;
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -336,120 +339,128 @@ class Comments extends TikiLib
         }
     }
 
-    public function process_inbound_mail($forumId, $maxImport = 10)
+    public function process_inbound_mail($forumId, $maxImport = 5)
     {
         global $prefs, $user;
-        require_once("lib/webmail/net_pop3.php");
+
         require_once("lib/mail/mimelib.php");
 
         $info = $this->get_forum($forumId);
 
         // for any reason my sybase test machine adds a space to
-        // the inbound_pop_server field in the table.
-        $info["inbound_pop_server"] = trim($info["inbound_pop_server"]);
+        // the inbound_imap_server field in the table.
+        $info["inbound_imap_server"] = trim($info["inbound_imap_server"]);
 
-        if (empty($info["inbound_pop_server"])) {
+        if (empty($info["inbound_imap_server"])) {
             return;
         }
 
-        $pop3 = new Net_POP3();
-        if (! $pop3->connect($info["inbound_pop_server"], $info["inbound_pop_port"])) {
-            return;
-        }
-        if ($pop3->login($info["inbound_pop_user"], $info["inbound_pop_password"]) !== true) {
-            return;
-        }
+        $imap = new Imap([
+            'host' => $info["inbound_imap_server"],
+            'user' => $info["inbound_imap_user"],
+            'password' => $info["inbound_imap_password"],
+            'port' => $info['inbound_imap_port'],
+            'ssl' => $info['inbound_imap_ssl'] ?? false,
+            'novalidatecert' => true,
+        ]);
 
-        $mailSum = $pop3->numMsg();
+        $mailSum = $imap->countMessages();
 
         if ($mailSum > $maxImport) {
             $mailSum = $maxImport;
         }
 
         for ($i = 1; $i <= $mailSum; $i++) {
-            //echo 'loop ' . $i;
+            try {
+                $message = $imap->getMessage($i);
+                $headers = $message->getHeaders();
 
-            $aux = $pop3->getParsedHeaders($i);
-
-            // If the mail came from Tiki, we don't need to add it again
-            if (isset($aux['X-Tiki']) && $aux['X-Tiki'] == 'yes') {
-                $pop3->deleteMsg($i);
-                continue;
-            }
-
-            // If the connection is done, or the mail has an error, or whatever,
-            // we try to delete the current mail (because something is wrong with it)
-            // and continue on. --rlpowell
-            if ($aux == false) {
-                $pop3->deleteMsg($i);
-                continue;
-            }
-
-            if (! isset($aux['From'])) {
-                if (isset($aux['Return-path'])) {
-                    $aux['From'] = $aux['Return-path'];
-                } else {
-                    $aux['From'] = "";
-                    $aux['Return-path'] = "";
-                }
-            }
-
-            //try to get the date from the email:
-            $postDate = strtotime($aux['Date']);
-            if ($postDate == false) {
-                $postDate = $this->now;
-            }
-
-            //save the original email address, if we don't get a user match, then we
-            //can at least give some info about the poster.
-            $original_email = $aux["From"];
-
-            //fix mailman addresses, or there is no chance to get a match
-            $aux["From"] = str_replace(' at ', '@', $original_email);
-
-
-            preg_match('/<?([-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+)>?/', $aux["From"], $mail);
-
-            // should we throw out emails w/ invalid (possibly obfusicated) email addressses?
-            //this should be an admin option, but I don't know how to put it there yet.
-            $throwOutInvalidEmails = false;
-            if (! array_key_exists(1, $mail)) {
-                if ($throwOutInvalidEmails) {
+                // If the mail came from Tiki, we don't need to add it again
+                if ($headers->has('X-Tiki') && $message->getHeader('X-Tiki', 'string') == 'yes') {
+                    $imap->removeMessage($i);
                     continue;
                 }
-            }
 
-            $email = $mail[1];
-            // Determine user from email
-            $userName = $this->table('users_users')->fetchOne('login', ['email' => $email]);
-
-            //use anonomus name feature if we don't have a real name
-            if (! $userName) {
-                $anonName = $original_email;
-            }
-            // Check permissions
-            if ($prefs['forum_inbound_mail_ignores_perms'] !== 'y') {
-                 // store currently logged-in user to restore later as setting the Perms_Context overwrites the global $user
-                $currentUser = $user;
-                // N.B. Perms_Context needs to be assigned to a variable or it gets destructed immediately and does nothing
-                /** @noinspection PhpUnusedLocalVariableInspection */
-                $permissionContext = new Perms_Context($userName ? $userName : '');
-                $forumperms = Perms::get(['type' => 'forum', 'object' => $forumId]);
-
-                if (! $forumperms->forum_post) {
-                    // premission refused - TODO move this message to the moderated queue if there is one
+                // If the connection is done, or the mail has an error, or whatever,
+                // we try to delete the current mail (because something is wrong with it)
+                // and continue on. --rlpowell
+                if (! count($headers)) {
+                    $imap->removeMessage($i);
                     continue;
                 }
-            }
 
-            $full = $pop3->getMsg($i);
+                $aux['From'] = $message->getHeader('From', 'string');
+                if ($headers->has('From')) {
+                    if ($headers->has('Return-path')) {
+                        $aux['From'] = $message->getHeader('Return-path', 'string');
+                    } else {
+                        $aux['Return-path'] = "";
+                    }
+                }
+
+                //try to get the date from the email:
+                $postDate = strtotime($message->getHeader('Date', 'string'));
+                if ($postDate == false) {
+                    $postDate = $this->now;
+                }
+
+                //save the original email address, if we don't get a user match, then we
+                //can at least give some info about the poster.
+                $original_email = $aux["From"];
+
+                //fix mailman addresses, or there is no chance to get a match
+                $aux["From"] = str_replace(' at ', '@', $original_email);
+
+
+                preg_match('/<?([-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+)>?/', $aux["From"], $mail);
+
+                // should we throw out emails w/ invalid (possibly obfusicated) email addressses?
+                //this should be an admin option, but I don't know how to put it there yet.
+                $throwOutInvalidEmails = false;
+                if (! array_key_exists(1, $mail)) {
+                    if ($throwOutInvalidEmails) {
+                        continue;
+                    }
+                }
+
+                $email = $mail[1];
+                // Determine user from email
+                $userName = $this->table('users_users')->fetchOne('login', ['email' => $email]);
+
+                //use anonomus name feature if we don't have a real name
+                if (! $userName) {
+                    $anonName = $original_email;
+                }
+                // Check permissions
+                if ($prefs['forum_inbound_mail_ignores_perms'] !== 'y') {
+                    // store currently logged-in user to restore later as setting the Perms_Context overwrites the global $user
+                    $currentUser = $user;
+                    // N.B. Perms_Context needs to be assigned to a variable or it gets destructed immediately and does nothing
+                    /** @noinspection PhpUnusedLocalVariableInspection */
+                    $permissionContext = new Perms_Context($userName ? $userName : '');
+                    $forumperms = Perms::get(['type' => 'forum', 'object' => $forumId]);
+
+                    if (! $forumperms->forum_post) {
+                        // premission refused - TODO move this message to the moderated queue if there is one
+                        continue;
+                    }
+                }
+
+                $full = $message->getContent();
+            } catch (InvalidArgumentException $e) {
+                // Something when wrong with the message, so we remove it
+                $imap->removeMessage($i);
+                continue;
+            } catch (RuntimeException $e) {
+                continue;
+            }
 
             $mimelib = new mime();
             $output = $mimelib->decode($full);
             $body = '';
 
             if ($output['type'] == 'multipart/report') {            // mimelib doesn't seem to parse error reports properly
-                $pop3->deleteMsg($i);                               // and we almost certainly don't want them in the forum
+                $imap->removeMessage($i);                           // and we almost certainly don't want them in the forum
                 continue;                                           // TODO also move it to the moderated queue
             }
 
@@ -604,7 +615,7 @@ class Comments extends TikiLib
                     $postDate
                 );
                 $this->register_forum_post($forumId, $parentId);// Process attachments
-                if (array_key_exists('parts', $output) && count($output['parts']) > 1) {
+                if (is_array($output) && array_key_exists('parts', $output) && count($output['parts']) > 1) {
                     $forum_info = $this->get_forum($forumId);
                     if ($forum_info['att'] != 'att_no') {
                         $errors = [];
@@ -689,16 +700,16 @@ class Comments extends TikiLib
                         $parentId
                     );
                 }
-                $pop3->deleteMsg($i);
+                $imap->removeMessage($i);
             } catch (TikiDb_Exception_DuplicateEntry $e) {
                 // the message already exists in the forum (e.g. for some reason the message was not deleted before)
                 // mark the message to be deleted and keep processing
-                $pop3->deleteMsg($i);
+                $imap->removeMessage($i);
             } catch (Exception $e) {
                 Feedback::error(tr('Adding email %0 to the forum failed due to "%1"', $title, $e->getMessage()));
             }
         }
-        $pop3->disconnect();
+        $imap->close();
 
         if (! empty($currentUser)) {
             new Perms_Context($currentUser);    // restore current user's perms
@@ -1169,10 +1180,10 @@ class Comments extends TikiLib
             'topics_list_author' => 'y',
             'vote_threads' => 'n',
             'show_description' => 'n',
-            'inbound_pop_server' => '',
-            'inbound_pop_port' => 110,
-            'inbound_pop_user' => '',
-            'inbound_pop_password' => '',
+            'inbound_imap_server' => '',
+            'inbound_imap_port' => 110,
+            'inbound_imap_user' => '',
+            'inbound_imap_password' => '',
             'outbound_address' => '',
             'outbound_mails_for_inbound_mails' => 'n',
             'outbound_mails_reply_link' => 'n',
@@ -1236,10 +1247,10 @@ class Comments extends TikiLib
      *     @type string $topics_list_author         Indicates if the author is displayed in topic list.
      *     @type string $vote_threads               Indicates if thread voting is enabled.
      *     @type string $show_description           Indicates if the description is shown.
-     *     @type string $inbound_pop_server         The POP server for inbound mail.
-     *     @type int    $inbound_pop_port           The port for the inbound POP server.
-     *     @type string $inbound_pop_user           The user for the inbound POP server.
-     *     @type string $inbound_pop_password       The password for the inbound POP server.
+     *     @type string $inbound_imap_server         The POP server for inbound mail.
+     *     @type int    $inbound_imap_port           The port for the inbound POP server.
+     *     @type string $inbound_imap_user           The user for the inbound POP server.
+     *     @type string $inbound_imap_password       The password for the inbound POP server.
      *     @type string $outbound_address           The address for outbound mail.
      *     @type string $outbound_mails_for_inbound_mails Indicates if outbound mails for inbound mails is enabled.
      *     @type string $outbound_mails_reply_link  Indicates if outbound mails include a reply link.
@@ -1295,7 +1306,7 @@ class Comments extends TikiLib
             'pruneMaxAge',
             'topicsPerPage',
             'forum_last_n',
-            'inbound_pop_port',
+            'inbound_imap_port',
             'att_max_size'
         ];
 
@@ -3733,10 +3744,10 @@ class Comments extends TikiLib
                 $forum_info['topics_list_author'],
                 $forum_info['vote_threads'],
                 $forum_info['show_description'],
-                $forum_info['inbound_pop_server'],
-                $forum_info['inbound_pop_port'],
-                $forum_info['inbound_pop_user'],
-                $forum_info['inbound_pop_password'],
+                $forum_info['inbound_imap_server'],
+                $forum_info['inbound_imap_port'],
+                $forum_info['inbound_imap_user'],
+                $forum_info['inbound_imap_password'],
                 $forum_info['outbound_address'],
                 $forum_info['outbound_mails_for_inbound_mails'],
                 $forum_info['outbound_mails_reply_link'],
