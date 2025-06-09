@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // This file is for additional LESS rules beyond what are in variables.scss.
 // Image path example:
 $imagePath: "../images/";
@@ -6,11 +8,11 @@ $imagePath: "../images/";
 // }
 
 .dropdown-item.btn-link.text-danger {
-    background: lighten($danger, 40%) !important; //lighten($danger, 70%);
+    background: color.adjust($danger, $lightness: 40%, $space: hsl) !important; //lighten($danger, 70%);
     border-radius: 0 !important;
 
     &:hover {
-        background: lighten($danger, 30%) !important;
+        background: color.adjust($danger, $lightness: 30%, $space: hsl) !important;
     }
 }
 

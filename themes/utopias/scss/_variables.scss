@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
 // Colors
@@ -137,7 +139,7 @@ $btn-primary-border: #cccccc;
 
 $btn-secondary-color: #ffffff;
 $btn-secondary-bg: $secondary;
-$btn-secondary-border: darken($btn-secondary-bg, 5%);
+$btn-secondary-border: color.adjust($btn-secondary-bg, $lightness: -5%, $space: hsl);
 
 // Forms
 //$input-border: #dddddd;

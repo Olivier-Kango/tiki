@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // This file is for additional SCSS rules beyond what are in _bootstrap-variables.scss.
 // Image path example:
 $imagePath: "../images/";
@@ -266,7 +268,7 @@ body.fullscreen,
         &:hover,
         &:focus,
         &.active {
-            color: lighten(#000,10%) !important;
+            color: color.adjust(#000,$lightness: 10%, $space: hsl) !important;
         }
     }
 
@@ -308,7 +310,7 @@ body.fullscreen,
     &:hover,
     &:focus,
     &.active {
-        color: lighten(#000,10%) !important;
+        color: color.adjust(#000,$lightness: 10%, $space: hsl) !important;
     }
 }
 
@@ -452,14 +454,14 @@ body.fullscreen,
 
     .main-footer,
     footer.footer {
-        color: lighten(#9d9d9d, 15%);
+        color: color.adjust(#9d9d9d, $lightness: 15%, $space: hsl);
 
         a {
             color: #9d9d9d;
 
             &:hover,
             &:focus {
-                color: lighten(#9d9d9d, 15%);
+                color: color.adjust(#9d9d9d, $lightness: 15%, $space: hsl);
             }
         }
 

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 @import "../../default/scss/variables";
 // Colors
@@ -84,7 +86,7 @@ $navbar-dark-bg: $dark;
 $navbar-dark-border: $border-color;
 
 //// Navbarlinks ??
-$navbar-dark-color:                      lighten( $gray-300, 15%) ;
+$navbar-dark-color:                      color.adjust( $gray-300, $lightness: 15%, $space: hsl) ;
 $navbar-dark-hover-color:           #fff;
 //$navbar-dark-active-color:          $white;  // default
 //$navbar-dark-disabled-color:        rgba($white, .25);  // default

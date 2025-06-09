@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // variables.scss 2017-05-16 made by BarbaraLassalle
 
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
@@ -178,9 +180,9 @@ $navbar-light-brand-hover-color:    $navbar-light-active-color;  // default
 $tiki-navbar-dark-bg:                    #222;
 $navbar-dark-color:                 #ffffff;
 $navbar-dark-hover-color:           $gray-300;
-$navbar-dark-hover-bg:              darken($tiki-navbar-dark-bg, 6.5%);
+$navbar-dark-hover-bg:              color.adjust($tiki-navbar-dark-bg, $lightness: -6.5%, $space: hsl);
 $navbar-dark-active-color:          #ffffff;
-$navbar-dark-active-bg:            darken($tiki-navbar-dark-bg, 6.5%);
+$navbar-dark-active-bg:            color.adjust($tiki-navbar-dark-bg, $lightness: -6.5%, $space: hsl);
 $navbar-dark-brand-color:           $navbar-dark-active-color;  // default
 $navbar-dark-brand-hover-color:     $navbar-dark-active-color;  // default
 
@@ -193,7 +195,7 @@ $card-bg: var(--tiki-lighty-col1-bg);
 //$card-header-bg: #386dbb;
 
 // Accordion
-$accordion-button-active-color: darken($body-color, 10%);
+$accordion-button-active-color: color.adjust($body-color, $lightness: -10%, $space: hsl);
 
 // Tooltips
 // Popovers

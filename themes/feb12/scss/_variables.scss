@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // This file defines variables for the Feb12 theme.
 
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
@@ -117,7 +119,7 @@ $dropdown-color: #fff;
 $dropdown-header-color: #d0cece;
 $dropdown-link-color: #fff;
 $dropdown-bg: #4d90bd;
-$dropdown-link-hover-bg: darken($dropdown-bg,10%);
+$dropdown-link-hover-bg: color.adjust($dropdown-bg,$lightness: -10%, $space: hsl);
 
 $dropdown-dark-color: $dropdown-color;
 $dropdown-dark-bg: $dropdown-bg;

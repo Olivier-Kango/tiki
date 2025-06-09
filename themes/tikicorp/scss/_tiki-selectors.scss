@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // This file contains CSS rules for this theme that aren't covered by Bootstrap, such as additional Tiki theme properties.
 
 $imagePath: "../images/";
@@ -105,7 +107,7 @@ nav {
 
 .nav-link:hover, .nav-link:focus,
 .navbar-nav .show > .nav-link, .navbar-nav .nav-link.active {
-    color: lighten($link-color, 7%);
+    color: color.adjust($link-color, $lightness: 7%, $space: hsl);
 }
 
 .nav-tabs {

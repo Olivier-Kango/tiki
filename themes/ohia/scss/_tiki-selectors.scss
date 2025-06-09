@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $imagePath: "../images/";
 // body {
 //     background-image: url('#{$imagePath}bg.jpg');
@@ -52,7 +54,7 @@ h1,h2,h3,h4,h5,h6 {
 //}
 
 .popover {
-    background-color: lighten(#030511, 10%);
+    background-color: color.adjust(#030511, $lightness: 10%, $space: hsl);
 }
 
 .popover-header {
@@ -108,8 +110,8 @@ body.fullscreen {
 }
 
 .btn.btn-outline-primary {
-    color: lighten($primary, 50%);
-    border-color: lighten($primary, 50%);
+    color: color.adjust($primary, $lightness: 50%, $space: hsl);
+    border-color: color.adjust($primary, $lightness: 50%, $space: hsl);
 }
 
 //

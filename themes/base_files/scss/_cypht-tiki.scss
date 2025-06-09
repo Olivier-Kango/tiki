@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .inline-cypht {
     font-family: $font-family-base;
     color: var(--bs-body-color) !important;
@@ -17,14 +19,14 @@
     .btn-primary {
         color: color-yiq($primary) !important;
         background-color: $primary !important;
-        border-color: darken($primary, 7.5%) !important;
-        &:hover, &:focus { background-color: darken($primary, 7.5%) !important; }
+        border-color: color.adjust($primary, $lightness: -7.5%, $space: hsl) !important;
+        &:hover, &:focus { background-color: color.adjust($primary, $lightness: -7.5%, $space: hsl) !important; }
     }
     .btn-info {
         color: color-yiq($info) !important;
         background-color: $info !important;
-        border-color: darken($info, 7.5%) !important;
-        &:hover, &:focus { background-color: darken($info, 7.5%) !important; }
+        border-color: color.adjust($info, $lightness: -7.5%, $space: hsl) !important;
+        &:hover, &:focus { background-color: color.adjust($info, $lightness: -7.5%, $space: hsl) !important; }
     }
     .card { border-color: $card-border-color !important; }
     .card-header { border-color: $card-border-color !important; }

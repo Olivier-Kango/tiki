@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Custom variables for the FiveAlive theme
 
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
@@ -264,7 +266,7 @@ $side-column-card-header-color: #1174a5 !default;
 // #3f1020;
 $side-column-card-header-border-color: #1174a5 !default;
 $side-column-card-header-border-width: 0 0 1px 0 !default;
-$header_outer-bg: darken(#28aae1, 10%) !default;
+$header_outer-bg: color.adjust(#28aae1, $lightness: -10%, $space: hsl) !default;
 // url('#{$imagePath}siteheadertile.png') 0 0 no-repeat;
 $header_container_header-background: url('#{$imagePath}siteheader2.png') no-repeat;
 $header-color: #ffffff;

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // This file is for additional LESS rules beyond what are in variables.scss.
 
 .topbar {
@@ -118,7 +120,7 @@
 .btn-info.disabled,
 .btn-warning.disabled,
 .btn-danger.disabled {
-    color: lighten(#333, 10%);
+    color: color.adjust(#333, $lightness: 10%, $space: hsl);
 }
 
 .show > .btn-primary.dropdown-toggle {

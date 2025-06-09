@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
 // Colors
@@ -165,7 +167,7 @@ $navbar-light-border: #aaaaaa;
 
 // Pagination
 $pagination-active-bg: #aaaaaa;
-$pagination-active-border: darken(#aaa, 10%);
+$pagination-active-border: color.adjust(#aaa, $lightness: -10%, $space: hsl);
 
 // Jumbotron
 // Cards

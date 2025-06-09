@@ -1,3 +1,5 @@
+@use "sass:color";
+
 //Custom styles for the Tuften theme.
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
@@ -64,7 +66,7 @@ $body-color: $gray-800;
 
 // Links
 $link-color:            #222;
-$link-hover-color:      darken($link-color, 15%);
+$link-hover-color:      color.adjust($link-color, $lightness: -15%, $space: hsl);
 $link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 $link-hover-decoration: none; // underline;
 
@@ -94,10 +96,10 @@ $blockquote-footer-font-size: $small-font-size;  // default
 
 // Tables
 $table-bg:                      transparent;
-$table-bg-accent:               darken( $body-bg, 4% ); //#f9f9f9;
+$table-bg-accent:               color.adjust( $body-bg, $lightness: -4%, $space: hsl ); //#f9f9f9;
 $table-bg-hover:                transparent; //#f5f5f5;
 $table-bg-active:               transparent; // $table-bg-hover;
-$table-border-color:            darken( $body-bg, 5% ); // #ddd;
+$table-border-color:            color.adjust( $body-bg, $lightness: -5%, $space: hsl ); // #ddd;
 
 // Buttons + Forms
 //
@@ -171,10 +173,10 @@ $navbar-light-disabled-color:       #ccc;
 
 // Navbar brand label
 $navbar-light-brand-color:               $navbar-light-color;
-$navbar-light-brand-hover-color:         darken( $navbar-light-brand-color, 10% );
+$navbar-light-brand-hover-color:         color.adjust( $navbar-light-brand-color, $lightness: -10%, $space: hsl );
 $navbar-light-brand-hover-bg:            transparent;
 
-$navbar-dark-color:                      lighten( $gray-300, 15%) ;
+$navbar-dark-color:                      color.adjust( $gray-300, $lightness: 15%, $space: hsl) ;
 //$navbar-dark-bg:                         #222;
 //$navbar-dark-border:                     darken( $navbar-dark-bg, 10%) ;
 

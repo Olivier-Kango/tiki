@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Morph 5.2.0 -- This is a copy of node_modules/bootswatch/dist/morph/_variables.scss with
 // Tiki CSS variables added and color values updated to better comply with WCAG guidelines.
 
@@ -75,7 +77,7 @@ $dropdown-dark-link-hover-bg:       rgba($white, .15);  // default
 $pagination-bg:                     var(--#{$prefix}body-bg);
 
 // Cards
-$card-bg:                           lighten($body-bg, 3%);  // default
+$card-bg:                           color.adjust($body-bg, $lightness: 3%, $space: hsl);  // default
 
 // Bootswatch overrides
 $web-font-path: none; // Override value in vendor file

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
 // Color system
@@ -196,7 +198,7 @@ $body-bg: #fff; // #addd63;// darken(#bce380, 7%);
 
 // Links
 $link-color: $primary;
-$link-hover-color: lighten($link-color, 15%);
+$link-hover-color: color.adjust($link-color, $lightness: 15%, $space: hsl);
 $link-shade-percentage:                   20%;  // default // Bootstrap 5.3
 
 // Components
@@ -216,7 +218,7 @@ $font-size-base: 1rem;
 $nav-link-color: var(--#{$prefix}link-color);  // default // $link-color;
 //$navbar-light-color: $link-color; // #e0d6cc;
 $navbar-light-bg: $link-hover-color; //#f8f8f8;
-$navbar-light-border: darken($navbar-light-bg, 6.5%);
+$navbar-light-border: color.adjust($navbar-light-bg, $lightness: -6.5%, $space: hsl);
 
 // Navbar links
 $navbar-light-color: $nav-link-color;
@@ -240,7 +242,7 @@ $pagination-active-bg: #cda256;
 $pagination-active-border: #cda256;
 
 // Jumbotron
-$jumbotron-bg: lighten(#E6FFB2, 10%);
+$jumbotron-bg: color.adjust(#E6FFB2, $lightness: 10%, $space: hsl);
 $jumbotron-font-size: ceil(($font-size-base * 1.5));
 
 // Cards

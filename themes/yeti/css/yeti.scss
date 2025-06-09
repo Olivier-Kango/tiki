@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* Bootswatch theme adapted by the Tiki Community for Tiki Wiki CMS Groupware */
 /* Original Bootswatch information:
  * bootswatch v5.3.3
@@ -46,7 +48,7 @@
 
 .navbar-dark.bg-dark .dropdown-menu.mega-menu a:hover,
 .navbar-dark.bg-dark .dropdown-menu.mega-menu a:hover:focus  {
-    background-color: darken($gray-800, 5%);
+    background-color: color.adjust($gray-800, $lightness: -5%, $space: hsl);
     color: #fff;
 }
 

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Custom styles for the Business theme.
 
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
@@ -170,7 +172,7 @@ $nav-link-hover-color:              var(--#{$prefix}link-hover-color); // !impor
 //Navbar
 $navbar-dark-color:             #ffffff;
 $navbar-dark-bg:                 #1f5daa;
-$navbar-dark-border:             darken($navbar-dark-bg, 6.5%);
+$navbar-dark-border:             color.adjust($navbar-dark-bg, $lightness: -6.5%, $space: hsl);
 
 
 

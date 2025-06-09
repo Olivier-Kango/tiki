@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Amelia for Bootstrap 5
 // Variables
 
@@ -170,7 +172,7 @@ $pagination-disabled-color: $pagination-focus-color;
 $pagination-disabled-bg: #094344;
 
     // Jumbotron (retired)
-$jumbotron-bg: darken($body-bg, 5%); // Todo
+$jumbotron-bg: color.adjust($body-bg, $lightness: -5%, $space: hsl); // Todo
 
 // Cards
 $card-bg: #0D6C73;

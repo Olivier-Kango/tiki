@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 
 // Colors
@@ -285,7 +287,7 @@ $side-column-card-header-color: #1174a5 !default;
 // #3f1020;
 $side-column-card-header-border-color: #1174a5 !default;
 $side-column-card-header-border-width: 0 0 1px 0 !default;
-$header_outer-bg: darken(#28aae1, 10%) !default;
+$header_outer-bg: color.adjust(#28aae1, $lightness: -10%, $space: hsl) !default;
 // url('#{$imagePath}siteheadertile.png') 0 0 no-repeat;
 $header_container_header-bg: url('#{$imagePath}siteheader.png') -248px 0 no-repeat;
 $header-color: #ffffff !default;

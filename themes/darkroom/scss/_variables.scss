@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variables for Darkroom theme
 
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
@@ -205,7 +207,7 @@ $navbar-dark-active-color: $navbar-light-active-color;
 
 //Navbarbrandlabel
 $navbar-light-brand-color: $navbar-light-color;
-$navbar-light-brand-hover-color: darken($navbar-light-color,10%);
+$navbar-light-brand-hover-color: color.adjust($navbar-light-color,$lightness: -10%, $space: hsl);
 $navbar-light-brand-hover-bg: transparent;
 
 $navbar-dark-color:                 $navbar-light-color;
@@ -265,7 +267,7 @@ $pagination-disabled-border: #dddddd;
 // Jumbotron (obsolete)
 $jumbotron-padding: 30px;
 $jumbotron-color: inherit;
-$jumbotron-bg: lighten($body-bg,10%);
+$jumbotron-bg: color.adjust($body-bg,$lightness: 10%, $space: hsl);
 $jumbotron-heading-color: inherit;
 
 // Placeholders
@@ -294,8 +296,8 @@ $tooltip-arrow-color: $tooltip-bg;
 
 // Popovers
 $popover-bg: #292929;
-$popover-border-color: darken($popover-bg,3%);
-$popover-header-bg: darken($popover-bg,3%);
+$popover-border-color: color.adjust($popover-bg,$lightness: -3%, $space: hsl);
+$popover-header-bg: color.adjust($popover-bg,$lightness: -3%, $space: hsl);
 $popover-arrow-color: $popover-bg;
 
 // Toasts
@@ -309,7 +311,7 @@ $badge-active-bg: #ffffff;
 // Modals
 $modal-content-bg: $body-bg;
 $modal-content-border-color: rgba(0,0,0,.2);
-$modal-backdrop-bg: darken(#d9534f,30%);
+$modal-backdrop-bg: color.adjust(#d9534f,$lightness: -30%, $space: hsl);
 $modal-header-border-color: #e5e5e5;
 $modal-footer-border-color: $modal-header-border-color;
 
@@ -318,7 +320,7 @@ $modal-footer-border-color: $modal-header-border-color;
 $progress-bar-color: #000;
 
 //Listgroup
-$list-group-bg: lighten($body-bg,8%);
+$list-group-bg: color.adjust($body-bg,$lightness: 8%, $space: hsl);
 $list-group-disabled-color: #e9eecf;
 $list-group-disabled-bg: #303030;
 $list-group-disabled-text-color: $list-group-disabled-color;
