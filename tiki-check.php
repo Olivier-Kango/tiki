@@ -1854,12 +1854,12 @@ if (! $standalone) {
     );
     try {
         $captchaId = $captcha->getId();    // simple test for missing random generator
-    } catch (Exception $e) {
+    } catch (Throwable $e) {
         $math_random['fitness'] = tra('unsure');
         $math_random['fitness_status'] = FITNESS_STATUS_UNSURE;
         $math_random['setting'] = 'Not available';
     }
-    $php_properties['\Laminas\Math\Rand'] = $math_random;
+    $php_properties['Random Bytes'] = $math_random;
 }
 
 

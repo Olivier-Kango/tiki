@@ -1239,7 +1239,7 @@ class FileGalLib extends TikiLib
         global $tiki_p_admin_file_galleries, $prefs, $user;
         $userlib = TikiLib::lib('user');
         $list = [];
-        $temp = '/' . md5(\Laminas\Math\Rand::getBytes(10)) . '/';
+        $temp = '/' . md5(random_bytes(10)) . '/';
         if (! mkdir(sys_get_temp_dir() . $temp)) {
             $temp = sys_get_temp_dir() . $temp;
         } elseif (mkdir('temp' . $temp)) {
