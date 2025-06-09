@@ -963,21 +963,6 @@ function wikiplugin_img($data, $params)
                 $fwidtht = $imageObjt->getWidth();
                 $fheightt = $imageObjt->getHeight();
             }
-<<<<<<< Updated upstream
-
-            // Ensure $imageObjt is defined before using it
-            if (isset($imageObjt) && is_object($imageObjt)) {
-                $fwidtht = $imageObjt->getWidth();
-                $fheightt = $imageObjt->getHeight();
-            } else {
-                // Handle the case where $imageObjt could not be created
-                if (empty($dbinfo['fileId'])) {
-                    Feedback::error(tr('Failed to create thumbnail image. The image file may be missing or corrupted.'));
-                    return;
-                }
-            }
-=======
->>>>>>> Stashed changes
         }
     /////////////////////////////////////Add image dimensions to src string////////////////////////////////////////////
         //Use url resizing parameters for file gallery images to set $height and $width
