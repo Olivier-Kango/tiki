@@ -115,7 +115,6 @@
                         <fieldset>
                             <legend class="h3"><h4 class="showhide_heading" id="Payment_and_accounting">{tr}Payment and accounting{/tr} <a href="#Payment_and_accounting" class="heading-link" aria-label="{tr}Payment and accounting{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
                             {preference name=feature_credits}
-                            {preference name=feature_accounting}
                             {preference name=payment_feature}
                         </fieldset>
                     </div>

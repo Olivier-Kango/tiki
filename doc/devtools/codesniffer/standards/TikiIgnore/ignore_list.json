@@ -16,9 +16,6 @@
         "lib\/tikisession-memcache.php": {
             "class:MemcacheSession": true
         },
-        "lib\/accounting\/accountinglib.php": {
-            "class:AccountingLib": true
-        },
         "lib\/tree\/BrowseTreeMaker.php": {
             "class:BrowseTreeMaker": true
         },
@@ -2853,9 +2850,6 @@
         },
         "lib\/test\/editlib\/ParseToWiki_ListTest.php": {
             "class:EditLib_ParseToWiki_ListTest": true
-        },
-        "lib\/test\/lib\/accounting\/AccountingLibTest.php": {
-            "class:AccountingLibTest": true
         },
         "lib\/test\/wiki-plugins\/TranslationOfTest.php": {
             "class:WikiPlugin_TranslationOfTest": true

@@ -403,9 +403,6 @@
         <service id="tiki.lib.version" class="TWVersion">
             <file>%kernel.root_dir%/lib/setup/twversion.class.php</file>
         </service>
-        <service id="tiki.lib.accounting" class="AccountingLib">
-            <file>%kernel.root_dir%/lib/accounting/accountinglib.php</file>
-        </service>
         <service id="tiki.lib.performancestats" class="PerformanceStatsLib">
             <file>%kernel.root_dir%/lib/performance/performancestatslib.php</file>
         </service>

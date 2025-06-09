@@ -2611,15 +2611,6 @@ function prefs_feature_list($partial = false)
             'default' => 'n',
             'tags' => ['experimental'],
         ],
-        'feature_accounting' => [
-            'name' => tra('Accounting'),
-            'description' => tra('Double-entry accounting system'),
-            'help' => 'Accounting',
-            'type' => 'flag',
-            'default' => 'n',
-            'view' => 'tiki-accounting_books.php',
-            'tags' => ['experimental'],
-        ],
         'feature_syntax_highlighter' => [
             'name' => tra('Code editor (CodeMirror)'),
             'description' => tra('CodeMirror code editor, which provides syntax highlighting'),
