@@ -131,6 +131,7 @@ export default defineConfig(({ command, mode }) => {
         "element-plus-ui/transfer": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/transfer.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
+        "tiki-glightbox": resolve(__dirname, "tiki-glightbox/glightbox-index.js"),
         "tiki-sentry-browser": resolve(__dirname, "tiki-sentry-browser/sentry-browser.js"),
         styleguide: resolve(__dirname, "vue-mf/styleguide/src/styleguide.js"),
         "tiki-offline": resolve(__dirname, "vue-mf/tiki-offline/src/tiki-offline.js"),
@@ -441,6 +442,18 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/fitvids/dist",
                     },
                     {
+                        src: ["node_modules/glightbox/dist/css/glightbox.min.css"],
+                        dest: "vendor_dist/glightbox/dist",
+                    },
+                    {
+                        src: ["node_modules/plyr/dist/plyr.css"],
+                        dest: "vendor_dist/glightbox/dist",
+                    },
+                    {
+                        src: ["node_modules/plyr/dist/plyr.min.js"],
+                        dest: "vendor_dist/glightbox/dist",
+                    },
+                    {
                         src: "node_modules/html2canvas-pro/dist/html2canvas-pro.min.js",
                         dest: "vendor_dist/html2canvas-pro/dist",
                     },
@@ -471,14 +484,6 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/jquery/dist/*",
                         dest: "vendor_dist/jquery/dist",
-                    },
-                    {
-                        src: "node_modules/jquery-colorbox/jquery.colorbox-min.js",
-                        dest: "vendor_dist/jquery-colorbox",
-                    },
-                    {
-                        src: "node_modules/jquery-colorbox/example*", // Examples are used as themes in Tiki instead of the default Design of Colorbox.
-                        dest: "vendor_dist/jquery-colorbox",
                     },
                     {
                         src: "node_modules/jquery-form/dist/*",

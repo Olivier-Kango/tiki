@@ -559,8 +559,6 @@ function prefs_feature_list($partial = false)
             'type' => 'flag',
             'default' => 'n',
         ],
-
-
         'feature_shadowbox' => [
             'name' => tra('Shadowbox / ColorBox'),
             'description' => tra('Display images in a modal popup window (also referred to as shadowbox, lightbox or colorbox).'),

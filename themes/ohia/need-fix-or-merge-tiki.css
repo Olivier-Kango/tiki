@@ -1657,11 +1657,7 @@ body.filegal_popup #tiki-center {
 .thumbdescription {
   text-align: left;
 }
-/* ColorBox */
-#cboxTitle div {
-  overflow: auto;
-  margin: 3px 100px 0;
-}
+
 table.treetable {
   padding-left: 19px;
   width: 100%;

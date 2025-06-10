@@ -1904,10 +1904,9 @@ import { defaults as defaultControls } from "ol/control";
 
                         content.find(".svgImage").css("text-align", "center").css("margin", "auto");
 
-                        // re-colorbox *box images
-                        $("a[rel*='box'][rel*='type=img'], a[rel*='box'][rel!='type=']", content).colorbox({
-                            photo: true,
-                        });
+                        if (jqueryTiki.colorbox) {
+                            applyGlightbox();
+                        }
 
                         if (options.callback) {
                             options.callback.call(options.element, options.event, content);

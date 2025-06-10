@@ -799,7 +799,6 @@ jqueryTiki.tooltips = false;
 jqueryTiki.reflection = false;
 jqueryTiki.tablesorter = false;
 jqueryTiki.colorbox = false;
-jqueryTiki.cboxCurrent = "{current} / {total}";
 jqueryTiki.carousel = false;
 
 jqueryTiki.effect = "";

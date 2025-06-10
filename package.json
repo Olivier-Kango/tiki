@@ -100,6 +100,7 @@
   "workspaces": [
     "src/js/common-externals",
     "src/js/jquery-tiki",
+    "src/js/tiki-glightbox",
     "src/js/tiki-mermaid",
     "src/js/tiki-sentry-browser",
     "src/js/tiki-iot",

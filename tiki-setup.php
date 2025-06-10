@@ -651,8 +651,36 @@ if ($prefs['feature_jquery_tagcanvas'] == 'y') {
 }
 
 if ($prefs['feature_shadowbox'] == 'y') {
-    $headerlib->add_jsfile(JS_ASSETS_PATH . '/vendor_dist/jquery-colorbox/jquery.colorbox-min.js');
-    $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/jquery-colorbox/' . $prefs['jquery_colorbox_theme'] . '/colorbox.css');
+    $headerlib->add_cssfile(NODE_PUBLIC_DIST_PATH . '/glightbox/dist/glightbox.min.css');
+    $headerlib->add_css('
+.gcounter {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 14px;
+    color: white;
+    z-index: 9999;
+}
+.gcontainer .ginner-container {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+.gnext.disabled, 
+.gprev.disabled{
+    display: none !important;
+}
+');
+    $localPlyrCSS = NODE_PUBLIC_DIST_PATH . '/glightbox/dist/plyr.css';
+    $localPlyrJS = NODE_PUBLIC_DIST_PATH . '/glightbox/dist/plyr.min.js';
+    $headerlib->add_js_module(<<<JS
+    import initGlightbox from "@tiki-glightbox";
+    window.applyGlightbox = initGlightbox({
+         plyr: {
+            css: "$localPlyrCSS",
+            js: "$localPlyrJS"
+        }
+    });
+    JS);
 }
 
 if ($prefs['jquery_timeago'] === 'y') {

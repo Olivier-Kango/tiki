@@ -256,11 +256,6 @@ input:-webkit-autofill {
     color: $input-color !important; /* the Google guys forgot the number-one rule... when they specify background they should specify forgeround color too ;) */
 }
 
-// ColorBox
-#cboxTitle {
-    background-color: var(--bs-body-bg);
-}
-
 #captchaImg {
     border: 1px solid $border-color;
 }

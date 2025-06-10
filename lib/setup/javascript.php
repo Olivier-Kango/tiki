@@ -172,8 +172,7 @@ $jqueryTiki['smartmenus_collapsible_behavior'] = $prefs['jquery_smartmenus_colla
 $jqueryTiki['smartmenus_open_close_click'] = $prefs['jquery_smartmenus_open_close_click'] === 'y' ? true : false;
 $jqueryTiki['reflection'] = $prefs['feature_jquery_reflection'] === 'y' ? true : false;
 $jqueryTiki['tablesorter'] = $prefs['feature_jquery_tablesorter'] === 'y' ? true : false;
-$jqueryTiki['colorbox'] = $prefs['feature_shadowbox'] === 'y' ? true : false;
-$jqueryTiki['cboxCurrent'] = "{current} / {total}";
+$jqueryTiki['colorbox'] = $prefs['feature_shadowbox'] === 'y';
 $jqueryTiki['sheet'] = $prefs['feature_sheet'] === 'y' ? true : false;
 $jqueryTiki['carousel'] = $prefs['feature_jquery_carousel'] === 'y' ? true : false;
 $jqueryTiki['validate'] = $prefs['feature_jquery_validation'] === 'y' ? true : false;
