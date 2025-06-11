@@ -1,4 +1,6 @@
 {if !$ts.ajax}
+
+    {include file='token_view_actions.tpl'}
     {block name=title}
         {title help="forums" admpage="forums" url=$forum_info.forumId|sefurl:'forum'}{$forum_info.name}{/title}
     {/block}

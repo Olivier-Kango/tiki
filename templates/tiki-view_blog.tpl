@@ -1,3 +1,4 @@
+{include file='token_view_actions.tpl'}
 {if !isset($show_heading) or $show_heading neq "n"}
     {if strlen($heading) > 0 and $prefs.feature_blog_heading eq 'y'}
         {eval var=$heading}
@@ -15,7 +16,6 @@
         </div>
     {/if}
 {/if}
-
 {if !empty($excerpt) and $excerpt eq 'y'}
     {assign "request_context" "excerpt"}
 {else}
