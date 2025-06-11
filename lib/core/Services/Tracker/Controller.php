@@ -2355,6 +2355,10 @@ class Services_Tracker_Controller
 
             if (! empty($item_info)) {
                 $history = $trklib->get_item_history($item_info, $fieldId, $filter, $offset, $prefs['maxRecords']);
+                if ($history['data'] == []) {
+                    $field_option = [];
+                    Feedback::error(tra('Invalid version or fieldId specified.'));
+                }
                 $has_initial_version = false;
                 foreach ($history['data'] as $i => &$hist) {
                     if ($hist['version'] == 0) {
