@@ -135,9 +135,6 @@
         "  sebastian/diff: ",
         "    provides SebastianBergmann\\Diff\\Differ",
         "    Used by phpunit and console.php index:compare-engines",
-        "",
-        "  phpunit/phpunit: ",
-        "    Temporarily pinned to 10.5.26, because .27 and .28 cause Message:  Schema for PHPUnit index.php is not available errors",
         ""
 
     ],
@@ -261,7 +258,7 @@
         "phpcsstandards/phpcsutils": "^1.0.0-alpha3",
         "phpstan/phpstan": "~2.1",
         "phpstan/phpstan-deprecation-rules": "~2.0",
-        "phpunit/phpunit": "10.5.26",
+        "phpunit/phpunit": "~10.5.26",
         "php-webdriver/webdriver": "^1.15.1",
         "rector/rector": "~2.0",
         "sebastian/diff": "^5.1.1",
