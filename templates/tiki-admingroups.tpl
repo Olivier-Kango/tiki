@@ -656,7 +656,7 @@
                             <div class="form-group">
                                 <select name="user[]" multiple="multiple" size="10" class="{*custom-select*} form-select"  style="width: 100%; display: block;">
                                     {foreach from=$userslist item=iuser}
-                                        <option>{$iuser|escape}</option>
+                                        <option value="{$iuser|escape}">{$iuser|escape}</option>
                                     {/foreach}
                                 </select>
                             </div>
