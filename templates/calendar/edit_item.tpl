@@ -450,7 +450,7 @@
             {/if}
             {if $calitemId && ! $recurrence.id}
                 <input type="submit" name="delete" data-alt_controller="calendar" data-alt_action="delete_item"
-                       class="btn btn-danger cleanable-false" onclick="needToConfirm=false;" value="{tr}Delete event{/tr}">
+                       class="btn btn-danger cleanable-false" onclick="needToConfirm=false;" data-bs-dismiss="modal" value="{tr}Delete event{/tr}">
             {/if}
             {if $recurrence.id}
                 <div class="dropdown">
