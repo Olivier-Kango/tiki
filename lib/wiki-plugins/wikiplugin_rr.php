@@ -389,9 +389,40 @@ function wikiplugin_rr($data, $params)
         $data = $tikilib->htmldecode($data);
     }
 
-    if ($params["security"] == 0) {
-        /* do nothing: i.e. don't check for security in the command sent to R*/
-    } else {        /* default: check for security in the commands sent to R*/
+    // Apply default parameters if not set
+    $pluginInfo = wikiplugin_rr_info();
+    foreach ($pluginInfo['params'] as $paramKey => $paramDefinition) {
+        if (isset($paramDefinition['default']) && ! array_key_exists($paramKey, $params)) {
+            $defaultValue = $paramDefinition['default'];
+
+            // Apply filter if defined
+            if (isset($paramDefinition['filter'])) {
+                switch ($paramDefinition['filter']) {
+                    case 'int':
+                        $defaultValue = (int)$defaultValue;
+                        break;
+                    // Add other filter cases as needed
+                }
+            }
+
+            $params[$paramKey] = $defaultValue;
+        }
+    }
+
+    // Ensure only 0 or 1 are accepted
+    if (! in_array($params['security'], ["0", "1", 0, 1], true)) {
+        return displayRrErrorBox(
+            "error",
+            tra("Invalid 'security' parameter. Only 0 or 1 are allowed."),
+            tra("Set 'security=0' to disable command checking (use with caution), or 'security=1' to enable strict command validation.")
+        );
+    }
+
+    // Ensure 'security' is treated as an integer
+    $securityFlag = (int) $params['security'];
+
+    if ($securityFlag === 1) {
+        /* Security is enabled (1 or default): check R commands for disallowed content */
         $rejected = checkCommands($data);
         if (count($rejected) > 0) {
             return displayRrErrorBox("errors", tra("Blocked commands found: ") . implode(', ', $rejected), tra("Use Plugin RR instead and validate your plugin call, or contact a site admin to have the plugin call validated for you."));
@@ -425,9 +456,9 @@ function wikiplugin_rr($data, $params)
         // Moved the hashing after the attId recognition attempt, in order to include the filename (if any) in the hash process
         // so that if a new filename is passed through attId (and/or itemId), a new R script is generated and processed accordingly
         // to avoid the former caching issues when dynamically passing a different attId to the same cached R custom script
-        $sha1 = md5($data . $md5lastModif . $params . $output . $style);
+        $sha1 = md5(json_encode($data) . $md5lastModif . json_encode($params) . json_encode($output) . json_encode($style));
     } else {
-        $sha1 = md5($data . $params . $output . $style);
+        $sha1 = md5(json_encode($data) . json_encode($params) . json_encode($output) . json_encode($style));
     }
 
     if (isset($params["echo"])) {
