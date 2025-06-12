@@ -5851,16 +5851,16 @@ class TikiLib extends TikiDb_Bridge
     }
 
     /**
-     * @param string $format the desired date format.
+     * @param $format the desired date format.
      * @param int|false $timestamp The timestamp to be formatted. Can be an integer representing a UNIX timestamp or false.
-     * @param string|false $_user if specified, use this user's timezone instead of the current user's, if specified forceTimezone must be false.
+     * @param bool $_user if specified, use this user's timezone instead of the current user's, if specified forceTimezone must be false.
      * @param int $input_format Input format, default 5 (DATE_FORMAT_UNIXTIME).
      * @param bool $is_strftime_format indicates whether the format is strftime.
      * @param string|false $forceTimezone the time zone to be applied. Can be a timezone identifier or false, if user is not false forceTimezone must always be false.
      *
      * @return string
      */
-    public static function date_format(string $format, int|false $timestamp = false, string|false $_user = false, int $input_format = 5, bool $is_strftime_format = true, string|false $forceTimezone = false): string
+    public static function date_format($format, $timestamp = false, $_user = false, $input_format = 5, $is_strftime_format = true, $forceTimezone = false)
     {
         global $user;
         $tikilib = TikiLib::lib('tiki');
