@@ -101,6 +101,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "@vue-widgets/el-select" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui/select.js",
                 "@vue-widgets/el-slider" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui/slider.js",
                 "@vue-widgets/el-transfer" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui/transfer.js",
+                "@vue-widgets/el-backtop" => $tikiUrl . JS_ASSETS_PATH . "/element-plus-ui/backTop.js",
 
                 /* tiki-iot */
                 "@tiki-iot/tiki-iot-dashboard-all" => $tikiUrl . JS_ASSETS_PATH . "/tiki-iot/tiki-iot-dashboard-all.js",
