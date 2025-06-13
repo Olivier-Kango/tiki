@@ -290,8 +290,8 @@ export default defineConfig(({ command, mode }) => {
 
                     /* jquery_tiki */
                     {
-                        src: "node_modules/@event-calendar/*",
-                        dest: "vendor_dist/@event-calendar",
+                        src: "node_modules/@event-calendar/core/dist/index.css",
+                        dest: "vendor_dist/@event-calendar/core/dist",
                     },
                     {
                         src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
