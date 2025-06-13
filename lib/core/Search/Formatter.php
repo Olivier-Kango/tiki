@@ -197,6 +197,10 @@ class Search_Formatter
             }
         }
         $input = new JitFilter(@$_REQUEST);
+        if ($input->controller->text() == 'wiki' && $input->action->text() == 'execute') {
+            // ajax list-execute actions should not re-render the filters
+            return '';
+        }
         $fields = [];
         foreach ($filters as $filter) {
             if (! $filter->getControl()->isUsable()) {
