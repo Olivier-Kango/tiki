@@ -255,6 +255,12 @@ if (
     $smarty->assign('plugin_admin', $emptyPluginInfo);
 }
 $smarty->assign('plugins_alias', $pluginsAlias);
+// allow plugin aliases of other aliases
+$pluginAliasNames = array_keys($pluginsAlias);
+if (! empty($_REQUEST['plugin_alias'])) {
+    unset($pluginAliasNames[array_search($_REQUEST['plugin_alias'], $pluginAliasNames)]);
+}
+$pluginsReal = array_merge($pluginsReal, ['--'], $pluginAliasNames);
 $smarty->assign('plugins_real', $pluginsReal);
 
 if (isset($_REQUEST['disabled']) && $tiki_p_admin == 'y') {
