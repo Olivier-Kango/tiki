@@ -78,6 +78,27 @@
                 <a href="{service controller=file action=browse galleryId=$context.galleryId limit=$actual_limit type=$field.filter image_x=$field.image_x image_y=$field.image_y}" class="btn btn-primary browse-files" role="button">{tr}Browse Files{/tr}</a>
             {/if}
         {/if}
+        {if $field.options_map.liveRecord neq 'n'}
+            {$liveRecord=$field.options_map.liveRecord}
+            {if $liveRecord eq 'audio'}
+                {$recordLabel="{tr}Record an audio{/tr}"}
+                {$recordIcon="microphone"}
+            {elseif $liveRecord eq 'screen'}
+                {$recordLabel="{tr}Record the screen{/tr}"}
+                {$recordIcon="desktop"}
+            {elseif $liveRecord eq 'screenandaudio'}
+                {$recordLabel="{tr}Record the screen with audio{/tr}"}
+                {$recordIcon="desktop"}
+            {elseif $liveRecord eq 'camera'}
+                {$recordLabel="{tr}Record the camera{/tr}"}
+                {$recordIcon="camera"}
+            {elseif $liveRecord eq 'cameraandaudio'}
+                {$recordLabel="{tr}Record the camera with audio{/tr}"}
+                {$recordIcon="camera"}
+            {/if}
+            <button class="btn btn-secondary start-recording" data-tracker-files="true" data-type="{$liveRecord}" data-gallery-id="{$field.galleryId}" data-field-id="{$field.fieldId}">{icon name=$recordIcon} {$recordLabel}</button>
+            <button class="btn btn-secondary stop-recording d-none">{icon name="stop"} {tr}Stop recording{/tr}</button>
+        {/if}
         {if $prefs.fgal_upload_from_source eq 'y' and $field.canUpload}
             <fieldset>
                 <legend class="visually-hidden">{tr}Upload File(s){/tr}</legend>
@@ -155,6 +176,8 @@
 
                 toggleWarning();
             }
+
+            window[`addFile_${$self.data('field-id')}`] = addFile;
 
             function checkFile(fileName, $form) {
                 if (! $self.data('namefilter')) {

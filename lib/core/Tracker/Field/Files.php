@@ -229,7 +229,20 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                             'n' => tr('No'),
                             'y' => tr('Yes'),
                         ],
-                    ]
+                    ],
+                    'liveRecord' => [
+                        'name' => tr('Live Record'),
+                        'description' => tr('Use the browser to record a video, an audio or a screen capture.'),
+                        'filter' => 'alpha',
+                        'default' => 'n',
+                        'options' => [
+                            'n' => tr('No'),
+                            'audio' => tr('Audio only'),
+                            'screen' => tr('Screen only'),
+                            'screenandaudio' => tr('Screen and audio'),
+                            'cameraandaudio' => tr('Camera and audio'),
+                        ],
+                    ],
                 ],
             ],
         ];

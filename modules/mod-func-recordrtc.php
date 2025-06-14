@@ -83,11 +83,6 @@ function module_recordrtc($mod_reference, &$module_params)    // modifies $smod_
         return;
     }
 
-    $headerlib = TikiLib::lib('header');
-    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/moment/min/moment.min.js', true);
-    $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/recordrtc/RecordRTC.js', true);
-    $headerlib->add_jsfile('lib/jquery_tiki/recordrtc.js', true);
-
     $recordingTypes = module_recordrtc_recording_types();
     $smarty->assign('mod_recordrtc_recording_types', $recordingTypes);
     $smarty->assign('module_error', '');
