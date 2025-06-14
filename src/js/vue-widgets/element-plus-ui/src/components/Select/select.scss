@@ -16,3 +16,9 @@
     border-color: var(--bs-body-color) !important;
     border-radius: var(--bs-border-radius) !important;
 }
+
+.el-tag.el-tag--info {
+    --el-tag-text-color: var(--bs-secondary-color);
+    --el-tag-bg-color: var(--bs-secondary-bg);
+
+}
