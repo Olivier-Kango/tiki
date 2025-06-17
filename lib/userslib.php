@@ -8101,6 +8101,7 @@ class UsersLib extends TikiLib
         $smarty = TikiLib::lib('smarty');
 
         $smarty->assign('mail_site', $_SERVER['SERVER_NAME']);
+        $smarty->assign('mail_link', 'tiki-login_validate.php');
         $smarty->assign('mail_user', $name);
         $smarty->assign('mail_apass', $apass);
         $smarty->assign('mail_email', $email);
