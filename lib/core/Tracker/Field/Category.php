@@ -196,10 +196,9 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
         $selected = array_intersect($selected, $this->getIds($categories));
 
         if (isset($requestData[$key])) {
-            $value = $requestData[$key];
-            if (is_array($value)) {
-                $value = implode(',', $value);
-            }
+            $selectedCategoryIds = is_array($requestData[$key]) ? $requestData[$key] : [$requestData[$key]];
+            $selected = array_unique(array_merge($selected, $selectedCategoryIds));
+            $value = implode(',', $selected);
         } elseif (isset($requestData["cat_managed_$key"])) {
             $value = '';
         } elseif ($this->getValue()) {
