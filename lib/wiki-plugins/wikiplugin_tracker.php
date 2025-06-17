@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
 use SlmMail\Exception\ExceptionInterface as SlmMailException;
+use Tiki\Lib\Registration\Error as RegistrationError;
 
 function wikiplugin_tracker_info()
 {
@@ -1302,14 +1303,14 @@ function wikiplugin_tracker($data, $params)
                     $rve = $_REQUEST['valerror'];
                     if (is_array($rve)) {
                         foreach ($rve as $ve) {
-                            if (is_a($ve, 'RegistrationError')) {
+                            if (is_a($ve, RegistrationError::class)) {
                                 if (isset($ve->field) && $ve->field == 'antibotcode') {
                                     $field_errors['err_antibot'] = 'y';
                                     continue;
                                 }
                             }
                         }
-                    } elseif (is_a($rve, 'RegistrationError')) {
+                    } elseif (is_a($rve, RegistrationError::class)) {
                         if (isset($rve->field) && $rve->field == 'antibotcode') {
                             $field_errors['err_antibot'] = 'y';
                         }
@@ -2609,7 +2610,7 @@ function wikiplugin_tracker_save_item($trackerSavedState)
         } else {
             $result = $registrationlib->register_new_user($req);
         }
-        if (is_a($result, "RegistrationError")) {
+        if (is_a($result, RegistrationError::class)) {
             $smarty->assign('msg', $result->msg);
             $smarty->assign('errortype', 0);
             $smarty->display("error.tpl");

@@ -281,9 +281,7 @@
         <service id="tiki.lib.references" class="ReferencesLib">
             <file>%kernel.root_dir%/lib/references/referenceslib.php</file>
         </service>
-        <service id="tiki.lib.registration" class="RegistrationLib">
-            <file>%kernel.root_dir%/lib/registration/registrationlib.php</file>
-        </service>
+        <service id="tiki.lib.registration" class="Tiki\Lib\Registration\RegistrationLib"/>
         <service id="tiki.lib.relation" class="RelationLib">
             <file>%kernel.root_dir%/lib/attributes/relationlib.php</file>
         </service>

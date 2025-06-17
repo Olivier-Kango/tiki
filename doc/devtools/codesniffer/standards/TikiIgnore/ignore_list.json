@@ -63,10 +63,6 @@
         "lib\/filegals\/scormlib.php": {
             "class:ScormLib": true
         },
-        "lib\/registration\/registrationlib.php": {
-            "class:RegistrationLib": true,
-            "class:RegistrationError": true
-        },
         "lib\/tasks\/tasklib.php": {
             "class:TaskLib": true
         },
@@ -6582,9 +6578,6 @@
         "lib\/filegals\/filegallib.php": {
             "class:FileIsNotSafeException": true
         },
-        "lib\/registration\/registrationlib.php": {
-            "class:RegistrationError": true
-        },
         "lib\/importer\/tikiimporter.php": {
             "class:ImporterParserException": true
         },
@@ -7009,7 +7002,7 @@
             "ScormLib::handle_file_creation": true,
             "ScormLib::handle_file_update": true
         },
-        "lib\/registration\/registrationlib.php": {
+        "lib\/Registration\/RegistrationLib.php": {
             "RegistrationLib::SnowCheckMail": true,
             "RegistrationLib::get_customfields": true,
             "RegistrationLib::local_check_registration": true,

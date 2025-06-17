@@ -11,6 +11,7 @@
  *
  * @date created: 2003/3/21 16:48
  */
+namespace Tiki\Lib\Registration;
 
 //this script may only be included - so it's better to die if called directly
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
@@ -20,11 +21,14 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 require_once('lib/tikilib.php'); // httpScheme(), get_user_preference
 require_once('lib/webmail/tikimaillib.php');
-require_once('lib/db/tiki_registration_fields.php');
 use PhpXmlRpc\Value as XML_RPC_Value;
 use PhpXmlRpc\Request as XML_RPC_Message;
 use PhpXmlRpc\Client as XML_RPC_Client;
 use PhpXmlRpc\Encoder as XML_RPC_Encoder;
+use Services_Utilities;
+use TikiLib;
+use TikiRegistrationFields;
+use Tiki\Lib\Registration\Error as RegistrationError;
 
 if (! isset($Debug)) {
     $Debug = false;
@@ -465,7 +469,7 @@ class RegistrationLib extends TikiLib
     /**
      * @param $registration array
      * @param $from_intertiki bool
-     * @return mixed|RegistrationError
+     * @return mixed|Tiki\Lib\Registration\Error
      */
     private function register_new_user_to_intertiki($registration, $from_intertiki)
     {
@@ -507,7 +511,7 @@ class RegistrationLib extends TikiLib
      *  Check registration data
      * @param $registration array of registration (login, pass, email, etc.)
      * @param $from_intertiki bool
-     * @return array|string RegistrationError if error, string with message if ok
+     * @return array|string Tiki\Lib\Registration\Error if error, string with message if ok
      */
     public function register_new_user($registration, $from_intertiki = false)
     {
@@ -765,7 +769,7 @@ class RegistrationLib extends TikiLib
 
                 $this->master_prefs = $result;
 
-                if (is_a($result, 'RegistrationError')) {
+                if (is_a($result, RegistrationError::class)) {
                     return $result;
                 }
 
@@ -810,21 +814,5 @@ class RegistrationLib extends TikiLib
             }
         }
         return $this->merged_prefs;
-    }
-}
-
-/**
- * RegistrationError
- *
- */
-class RegistrationError
-{
-    public $field;
-    public $msg;
-
-    public function __construct($field, $msg)
-    {
-        $this->field = $field;
-        $this->msg = $msg;
     }
 }

@@ -11,6 +11,7 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
 use Feedback;
+use Tiki\Lib\Registration\Error as RegistrationError;
 
 class UserRegistration extends Base
 {
@@ -37,7 +38,7 @@ class UserRegistration extends Base
         $smarty->assign('_PROMPT_PASS', sprintf($_VALID, tra("password"), $registrationlib->merged_prefs['min_pass_length'], "0-9,a-z,A-Z"));
         $smarty->assign('min_username_length', $registrationlib->merged_prefs['min_username_length']);
         $smarty->assign('min_pass_length', $registrationlib->merged_prefs['min_pass_length']);
-        if (is_a($registrationlib->merged_prefs, "RegistrationError")) {
+        if (is_a($registrationlib->merged_prefs, RegistrationError::class)) {
             Feedback::error(['mes' => $registrationlib->merged_prefs->msg]);
         }
         $smarty->assign_by_ref('merged_prefs', $registrationlib->merged_prefs);
@@ -100,7 +101,7 @@ class UserRegistration extends Base
                     foreach ($result as $r) {
                         Feedback::error(['mes' => $r->msg]);
                     }
-                } elseif (is_a($result, 'RegistrationError')) {
+                } elseif (is_a($result, RegistrationError::class)) {
                     Feedback::error(['mes' => $result->msg]);
                 } elseif (is_string($result) && $registrationlib->merged_prefs['userTracker'] !== 'y') {    // more to do for usertrackers
                     return $result;
@@ -214,7 +215,7 @@ class UserRegistration extends Base
                         foreach ($result as $r) {
                             Feedback::error(['mes' => $r->msg]);
                         }
-                    } elseif (is_a($result, 'RegistrationError')) {
+                    } elseif (is_a($result, RegistrationError::class)) {
                         Feedback::error(['mes' => $result->msg]);
                     } else {
                         $user = ''; // reset $user
@@ -230,7 +231,7 @@ class UserRegistration extends Base
                     foreach ($result as $r) {
                         Feedback::error(['mes' => $r->msg]);
                     }
-                } elseif (is_a($result, 'RegistrationError')) {
+                } elseif (is_a($result, RegistrationError::class)) {
                     Feedback::error(['mes' => $result->msg]);
                 } else {
                     $user = ''; // reset $user

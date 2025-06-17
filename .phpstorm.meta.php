@@ -102,7 +102,7 @@ namespace PHPSTORM_META {
             'ratingconfig'               => \RatingConfigLib::class,
             'recommendationcontentbatch' => \Tiki\Recommendation\BatchProcessor::class,
             'references'                 => \ReferencesLib::class,
-            'registration'               => \RegistrationLib::class,
+            'registration'               => \Tiki\Lib\Registration\RegistrationLib::class,
             'relation'                   => \RelationLib::class,
             'rss'                        => \RSSLib::class,
             'scheduler'                  => \SchedulersLib::class,
