@@ -514,7 +514,7 @@ if ( \$('#$id') ) {
             }
         }
 
-        if (! $validationPerformed && ! ($this->option['wysiwyg'] ?? false)) {
+        if (! $validationPerformed) {
             $this->plugin_apply_filters($name, $data, $args);
         }
 
