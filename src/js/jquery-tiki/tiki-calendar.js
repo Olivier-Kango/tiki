@@ -1,7 +1,7 @@
 /**
  * Support JavaScript for EventCalendar Resource Views used by tiki's calendar feature
  */
-import { createCalendar, DayGrid, TimeGrid, Interaction } from "@event-calendar/core";
+import { createCalendar, DayGrid, TimeGrid, Interaction, List } from "@event-calendar/core";
 import moment from "moment";
 
 $.fn.setupEventCalendar = function (eventCalendarParams) {
@@ -9,7 +9,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
         const calendarEl = document.getElementById("calendar");
         $(calendarEl).tikiModal(tr("Loading..."));
 
-        window.calendar = createCalendar(document.getElementById("calendar"), [DayGrid, TimeGrid, Interaction], {
+        window.calendar = createCalendar(document.getElementById("calendar"), [DayGrid, TimeGrid, Interaction, List], {
             eventTimeFormat: {
                 hour: "numeric",
                 minute: "2-digit",
@@ -21,7 +21,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
             headerToolbar: {
                 start: "prev,next today",
                 center: "title",
-                end: "dayGridMonth,timeGridWeek,timeGridDay",
+                end: "dayGridMonth,timeGridWeek,timeGridDay,listDay,listWeek,listMonth,listYear",
             },
             editable: true,
             selectable: true,
@@ -35,6 +35,10 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                 dayGridMonth: tr("month"),
                 timeGridWeek: tr("week"),
                 timeGridDay: tr("day"),
+                listDay: tr("list day"),
+                listWeek: tr("list week"),
+                listMonth: tr("list month"),
+                listYear: tr("list year"),
             },
             allDayContent: tr("all-day"),
             firstDay: eventCalendarParams.firstDayofWeek,
@@ -43,7 +47,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
             date: eventCalendarParams.initialDate,
             viewDidMount: function (data) {
                 $(calendarEl).tikiModal();
-                if (data.type == "dayGridMonth") {
+                if (data.type == "dayGridMonth" || data.type == "listMonth") {
                     calendar.setOption("duration", { months: 1 });
                     if (!document.getElementById("quarter")) {
                         const ecStart = document.querySelector(".ec-start");
@@ -90,15 +94,22 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                         document.getElementById("quarter").remove();
                         document.getElementById("semester").remove();
                     }
-                    if (data.type == "timeGridWeek") {
+                    if (data.type == "timeGridWeek" || data.type == "listWeek") {
                         console.log(calendar.getOption("duration"));
                         calendar.setOption("duration", { days: 7 });
                         calendar.setOption("dayCellFormat", function (dayCell) {
                             return moment(dayCell).format("D");
                         });
                     }
-                    if (data.type == "timeGridDay") {
+                    if (data.type == "timeGridDay" || data.type == "listDay") {
                         calendar.setOption("duration", { days: 1 });
+                        calendar.setOption("dayCellFormat", function (dayCell) {
+                            return moment(dayCell).format("D");
+                        });
+                    }
+
+                    if (data.type == "listYear") {
+                        calendar.setOption("duration", { months: 12 });
                         calendar.setOption("dayCellFormat", function (dayCell) {
                             return moment(dayCell).format("D");
                         });
@@ -140,7 +151,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                         categoryBackgroundColor = "#FFEA00";
                         textColor = "#000";
                     }
-
+                    event.backgroundColor = backgroundColor;
                     $(element).attr("style", "background-color: " + backgroundColor);
                     if (categoryBackgroundColor !== "") {
                         $(element).attr("style", "background-color: " + categoryBackgroundColor);

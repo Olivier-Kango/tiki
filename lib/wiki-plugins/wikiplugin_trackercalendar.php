@@ -46,7 +46,7 @@ function wikiplugin_trackercalendar_info()
                 'name' => tr('Title Field'),
                 'description' => tr('Permanent name of the field to use for event title'),
                 'since' => '29.0',
-                'required' => false,
+                'required' => true,
                 'filter' => 'word',
             ],
             'description' => [
@@ -220,19 +220,6 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('List by Days'),
                 'description' => tra('Display the option to change the view to list by days'),
-                'since' => '20.1',
-                'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
-            ],
-            'ryear' => [
-                'required' => false,
-                'name' => tra('Resources by Years'),
-                'description' => tra('Display the option to change the view to resources by years'),
                 'since' => '20.1',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -469,10 +456,6 @@ function wikiplugin_trackercalendar($data, $params)
     if ($resourceField = $jit->resource->word()) {
         $field = $definition->getFieldFromPermName($resourceField);
         $resources = wikiplugin_trackercalendar_get_resources($field);
-
-        if ($params['ryear'] === 'y') {
-            $views[] = 'resourceTimelineYear';
-        }
         if ($params['rmonth'] === 'y') {
             $views[] = 'resourceTimelineMonth';
         }

@@ -224,6 +224,12 @@
         .ec-dark .ec-active {
             color: white;
         }
+        article.tips {
+            display: flex;
+        }
+        .ec-event-tag {
+            height: auto;
+        }
         @media only screen and (max-width: 767px) {
             .ec-toolbar {
                 display: block !important;

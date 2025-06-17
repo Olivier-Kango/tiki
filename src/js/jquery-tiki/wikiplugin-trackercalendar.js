@@ -2,7 +2,7 @@
  * Support JavaScript for EventCalendar Resource Views used by wikiplugin_trackercalendar
  */
 
-import { createCalendar, List, DayGrid, ResourceTimeGrid, ResourceTimeline } from "@event-calendar/core";
+import { createCalendar, List, DayGrid, ResourceTimeGrid, ResourceTimeline, Interaction } from "@event-calendar/core";
 import moment from "moment";
 
 $.fn.setupEventCalendar = function (tcPluginParams) {
@@ -42,7 +42,7 @@ $.fn.setupEventCalendar = function (tcPluginParams) {
             hour12: tcPluginParams.timeFormat,
         };
 
-        const calendar = createCalendar(cal, [List, DayGrid, ResourceTimeGrid, ResourceTimeline], {
+        const calendar = createCalendar(cal, [List, DayGrid, ResourceTimeGrid, ResourceTimeline, Interaction], {
             date: tcPluginParams.initialDate,
             eventTimeFormat: {
                 hour: "numeric",
@@ -182,9 +182,9 @@ $.fn.setupEventCalendar = function (tcPluginParams) {
                     // standard tracker item view/edit
                     let e = eventData.event;
 
-                    if (e.startEditable && e.extendedProps.trackerId) {
+                    if (e.editable && tcPluginParams.trackerId) {
                         var info = {
-                            trackerId: e.extendedProps.trackerId,
+                            trackerId: tcPluginParams.trackerId,
                             itemId: e.id,
                         };
                         $.openModal({
@@ -229,6 +229,7 @@ $.fn.setupEventCalendar = function (tcPluginParams) {
                     customClass: "popover-sm",
                 });
             },
+            hiddenDays: tcPluginParams.weekends ? [] : [0, 6],
             dateClick: function (date) {
                 if (tcPluginParams.canInsert) {
                     var info = {

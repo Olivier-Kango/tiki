@@ -151,7 +151,7 @@ class Services_Tracker_CalendarController
                 'start'            => $useTimestamp ? $dtStart : TikiLib::date_format("c", $dtStart, $user, 5, false),
                 'end'              => $useTimestamp ? $dtEnd : TikiLib::date_format("c", $dtEnd, $user, 5, false),
                 'editable'         => $item->canModify(),
-                'color'            => $this->getColor(isset($row[$coloring]) ? $row[$coloring] : '', $colormap),
+                'color'            => $row[$coloring] ? ($row[$coloring] ? $row[$coloring] : $row['coloring']) : ($this->getColor(isset($row[$coloring]) ? $row[$coloring] : '', $colormap)),
                 'textColor'        => '#000',
                 'resourceId'       => ($resource && isset($row[$resource])) ? strtolower($row[$resource]) : '',
                 'resourceEditable' => true,
