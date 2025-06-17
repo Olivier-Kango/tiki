@@ -125,8 +125,14 @@ $smarty->assign_by_ref('objects', $objects);
 if (isset($_REQUEST['assign'])) {
     $access->checkCsrf();
     list($id, $name) = explode('_', $_REQUEST['objdata']);
+
+    $type = $_REQUEST['type'];
+    $themeKey = $_REQUEST['theme'];
+
     if (isset($name) && $name !== '') {
-        $themecontrollib->tc_assign_object($id, $_REQUEST['theme'], $_REQUEST['type'], $name);
+        $themecontrollib->tc_assign_object($id, $themeKey, $type, $name);
+        $themeName = isset($themes[$themeKey]['name']) ? $themes[$themeKey]['name'] : $themeKey;
+        Feedback::success(tr("Theme '%0' was successfully assigned to the %1 '%2'.", $themeName, $type, $name));
     } else {
         Feedback::error(tr('The object name cannot be empty.'));
     }
@@ -137,6 +143,7 @@ if (isset($_REQUEST["delete"])) {
         foreach (array_keys($_REQUEST["obj"]) as $obj) {
             $themecontrollib->tc_remove_object($obj);
         }
+        Feedback::success(tra("Theme associations were removed from the selected objects."));
     } else {
         Feedback::error(tr('No object selected.'));
     }

@@ -54,7 +54,15 @@ $smarty->assign('themes', $themes);
 if (isset($_REQUEST['assign'])) {
     if (isset($_REQUEST['categoryId'])) {
         $access->checkCsrf();
-        $themecontrollib->tc_assign_category($_REQUEST['categoryId'], $_REQUEST['theme']);
+        $categoryId = $_REQUEST['categoryId'];
+        $themeKey = $_REQUEST['theme'];
+        $themecontrollib->tc_assign_category($categoryId, $themeKey);
+        // Get the category name
+        $category = $categlib->get_category($categoryId);
+        $categoryName = $category['name'] ?? ("ID " . $categoryId);
+        $themes = $themelib->list_themes_and_options();
+        $themeName = isset($themes[$themeKey]['name']) ? $themes[$themeKey]['name'] : $themeKey;
+        Feedback::success(tr("Theme '%0' was successfully assigned to the category '%1'.", $themeName, $categoryName));
     } else {
         Feedback::errorAndDie(tra("Please create a category first"), \Laminas\Http\Response::STATUS_CODE_409);
     }
@@ -64,6 +72,12 @@ if (isset($_REQUEST['delete'])) {
     if (isset($_REQUEST['categoryIds']) && is_array($_REQUEST['categoryIds'])) {
         foreach (array_keys($_REQUEST['categoryIds']) as $cat) {
             $themecontrollib->tc_remove_cat($cat);
+            $category = $categlib->get_category($cat);
+            $categoryNames[] = $category['name'] ?? ("ID " . $cat);
+        }
+        if (! empty($categoryNames)) {
+            $categoryList = implode(', ', array_map(fn ($name)=> "'$name'", $categoryNames));
+            Feedback::success(tr("Theme associations were removed for the following categories: %0", $categoryList));
         }
     } else {
         Feedback::error(tr('No category selected.'));

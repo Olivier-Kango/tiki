@@ -36,13 +36,24 @@ $smarty->assign('themes', $themes);
 
 if (isset($_REQUEST['assign'])) {
     $access->checkCsrf();
-    $themecontrollib->tc_assign_section($_REQUEST['section'], $_REQUEST['theme']);
+    $section = $_REQUEST['section'];
+    $themeKey = $_REQUEST['theme'];
+    $themecontrollib->tc_assign_section($section, $themeKey);
+     $themeName = isset($themes[$themeKey]['name']) ? $themes[$themeKey]['name'] : $themeKey;
+     Feedback::success(tr("Theme '%0' was successfully assigned to section '%1'.", $themeName, $section));
 }
 if (isset($_REQUEST['delete'])) {
     $access->checkCsrf();
     if (isset($_REQUEST["sec"]) && is_array($_REQUEST["sec"])) {
         foreach (array_keys($_REQUEST["sec"]) as $sec) {
             $themecontrollib->tc_remove_section($sec);
+            $removedSections[] = $sec;
+        }
+        if (! empty($removedSections)) {
+            $sectionList = implode(', ', array_map(function ($name) {
+                return "'$name'";
+            }, $removedSections));
+            Feedback::success(tr("Theme associations were removed for the following sections: %0.", $sectionList));
         }
     } else {
         Feedback::error(tr('No section selected.'));
