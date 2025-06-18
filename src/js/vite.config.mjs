@@ -626,6 +626,10 @@ export default defineConfig(({ command, mode }) => {
                         src: "node_modules/@toast-ui/editor/dist/i18n/*",
                         dest: "vendor_dist/@toast-ui/editor/dist/i18n/",
                     },
+                    {
+                        src: ["node_modules/vis-timeline/dist/vis-timeline-graph2d.esm.js", "node_modules/vis-timeline/dist/vis-timeline-graph2d.min.css"],
+                        dest: "vendor_dist/vis-timeline/dist",
+                    },
                 ],
             }),
             AutoImport({
