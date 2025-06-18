@@ -151,7 +151,7 @@ export default defineConfig(({ command, mode }) => {
         resolve: {
             alias: {
                 "moment-timezone": resolve(__dirname, "../../node_modules/moment-timezone/builds/moment-timezone-with-data-10-year-range.min.js"),
-            }
+            },
         },
         build: {
             outDir: resolve(__dirname, "../../public/generated/js"),
@@ -164,7 +164,7 @@ export default defineConfig(({ command, mode }) => {
             target: "es2022", //https://caniuse.com/?search=es2022 Who cares about IE these days...
             optimizeDeps: {
                 disabled: false,
-                include: ['@event-calendar/core'],
+                include: ["@event-calendar/core"],
                 //If you ever need to debug a dependency and see your changes do this (ref: https://dev.to/hontas/using-vite-with-linked-dependencies-37n7):
                 //exclude: ["svelte"],
             },
@@ -193,6 +193,7 @@ export default defineConfig(({ command, mode }) => {
                     "vue",
                 ],
                 input: rollupInput,
+                maxParallelFileOps: 100, // TRy to workaround run watch getting stalled with no error.  See https://github.com/vitejs/vite/issues/19410 and https://github.com/rollup/rollup/issues/5848
                 output: {
                     //dir: "./public/generated/js",
                     //file: "../../../storage/public/vue-mf/kanban/vue-mf-kanban.min.js",
@@ -245,12 +246,12 @@ export default defineConfig(({ command, mode }) => {
              * by consulting the linked issue and confirming that the fix is included in the
              * version of Bootstrap used by the project.
              */
-             preprocessorOptions: {
+            preprocessorOptions: {
                 scss: {
-                    api: 'modern-compiler', // or "modern", "legacy"
-                    silenceDeprecations: ['mixed-decls'],
+                    api: "modern-compiler", // or "modern", "legacy"
+                    silenceDeprecations: ["mixed-decls"],
                 },
-            }
+            },
         },
         plugins: [
             vue({
@@ -310,10 +311,7 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/bootstrap-icons/font",
                     },
                     {
-                        src: [
-                            "node_modules/timeago/jquery.timeago.js",
-                            "node_modules/timeago/locales"
-                        ],
+                        src: ["node_modules/timeago/jquery.timeago.js", "node_modules/timeago/locales"],
                         dest: "vendor_dist/timeago/dist",
                     },
                     /* module system */
@@ -420,8 +418,8 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/recordrtc",
                     },
                     {
-                        src : "node_modules/interactjs/dist/*",
-                        dest : "vendor_dist/interactjs/dist",
+                        src: "node_modules/interactjs/dist/*",
+                        dest: "vendor_dist/interactjs/dist",
                     },
                     {
                         src: "node_modules/dompurify/dist/purify.(es|min)*",
@@ -524,7 +522,7 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/ol",
                     },
                     {
-                        src: ["node_modules/ol-layerswitcher/dist/ol-layerswitcher.js","node_modules/ol-layerswitcher/dist/ol-layerswitcher.css"],
+                        src: ["node_modules/ol-layerswitcher/dist/ol-layerswitcher.js", "node_modules/ol-layerswitcher/dist/ol-layerswitcher.css"],
                         dest: "vendor_dist/ol-layerswitcher/dist",
                     },
                     {
@@ -553,7 +551,7 @@ export default defineConfig(({ command, mode }) => {
                     },
                     {
                         src: "node_modules/reveal.js/dist/*",
-                        dest: "vendor_dist/reveal.js/dist"
+                        dest: "vendor_dist/reveal.js/dist",
                     },
                     {
                         src: "node_modules/signature_pad/dist/signature_pad.umd.min.js",
@@ -572,7 +570,12 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/subtotal/dist",
                     },
                     {
-                        src: ["node_modules/swagger-ui-dist/swagger-ui-bundle.js","node_modules/swagger-ui-dist/swagger-ui.css","node_modules/swagger-ui-dist/favicon-16x16.png","node_modules/swagger-ui-dist/favicon-32x32.png"],
+                        src: [
+                            "node_modules/swagger-ui-dist/swagger-ui-bundle.js",
+                            "node_modules/swagger-ui-dist/swagger-ui.css",
+                            "node_modules/swagger-ui-dist/favicon-16x16.png",
+                            "node_modules/swagger-ui-dist/favicon-32x32.png",
+                        ],
                         dest: "vendor_dist/swagger-ui-dist",
                     },
                     {
@@ -584,7 +587,15 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/tablesorter/dist/js/parsers",
                     },
                     {
-                        src: ["node_modules/tablesorter/dist/js/widgets/widget-columnSelector.min.js", "node_modules/tablesorter/dist/js/widgets/widget-filter-formatter-jui.min.js", "node_modules/tablesorter/dist/js/widgets/widget-grouping.min.js", "node_modules/tablesorter/dist/js/widgets/widget-math.min.js", "node_modules/tablesorter/dist/js/widgets/widget-pager.min.js", "node_modules/tablesorter/dist/js/widgets/widget-output.min.js", "node_modules/tablesorter/dist/js/widgets/widget-sort2Hash.min.js"],
+                        src: [
+                            "node_modules/tablesorter/dist/js/widgets/widget-columnSelector.min.js",
+                            "node_modules/tablesorter/dist/js/widgets/widget-filter-formatter-jui.min.js",
+                            "node_modules/tablesorter/dist/js/widgets/widget-grouping.min.js",
+                            "node_modules/tablesorter/dist/js/widgets/widget-math.min.js",
+                            "node_modules/tablesorter/dist/js/widgets/widget-pager.min.js",
+                            "node_modules/tablesorter/dist/js/widgets/widget-output.min.js",
+                            "node_modules/tablesorter/dist/js/widgets/widget-sort2Hash.min.js",
+                        ],
                         dest: "vendor_dist/tablesorter/dist/js/widgets",
                     },
                     {
@@ -592,10 +603,7 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/vue/dist",
                     },
                     {
-                        src: [
-                            "node_modules/summernote/dist/summernote-bs5.min.js",
-                            "node_modules/summernote/dist/summernote-bs5.min.css"
-                        ],
+                        src: ["node_modules/summernote/dist/summernote-bs5.min.js", "node_modules/summernote/dist/summernote-bs5.min.css"],
                         dest: "vendor_dist/summernote/dist",
                     },
                     {
@@ -607,17 +615,17 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/summernote/dist/lang",
                     },
                     {
-                        src : "node_modules/swiper/*.min.js",
-                        dest : "vendor_dist/swiper"
+                        src: "node_modules/swiper/*.min.js",
+                        dest: "vendor_dist/swiper",
                     },
                     {
-                        src : "node_modules/swiper/*.min.css",
-                        dest : "vendor_dist/swiper"
+                        src: "node_modules/swiper/*.min.css",
+                        dest: "vendor_dist/swiper",
                     },
                     /**
                      * Toast UI Editor: We place the CSS file here because inserting it directly into the toast-index.js file
                      * causes part of the editor to be styled while another part remains unstyled. Therefore, we preferred to use the CSS file directly
-                    */
+                     */
                     {
                         src: "node_modules/@toast-ui/editor/dist/toastui-editor.css",
                         dest: "vendor_dist/@toast-ui/editor/dist",
@@ -627,7 +635,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/@toast-ui/editor/dist/i18n/",
                     },
                     {
-                        src: ["node_modules/vis-timeline/dist/vis-timeline-graph2d.esm.js", "node_modules/vis-timeline/dist/vis-timeline-graph2d.min.css"],
+                        src: [
+                            "node_modules/vis-timeline/dist/vis-timeline-graph2d.esm.js",
+                            "node_modules/vis-timeline/dist/vis-timeline-graph2d.min.css",
+                        ],
                         dest: "vendor_dist/vis-timeline/dist",
                     },
                 ],
@@ -652,14 +663,19 @@ export default defineConfig(({ command, mode }) => {
             globals: true,
             environment: "happy-dom",
             coverage: {
-                include: ["src/js/vue-widgets/**/*.{vue,js}", "src/js/wysiwyg/**/*.js", "src/js/avatar-generator/**/*.js", "src/js/jquery-tiki/ui-utils/handle*.js"],
+                include: [
+                    "src/js/vue-widgets/**/*.{vue,js}",
+                    "src/js/wysiwyg/**/*.js",
+                    "src/js/avatar-generator/**/*.js",
+                    "src/js/jquery-tiki/ui-utils/handle*.js",
+                ],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
-                provider: 'istanbul'
+                provider: "istanbul",
             },
             server: {
                 deps: {
                     inline: [/element-plus/],
-                }
+                },
             },
         },
     };
