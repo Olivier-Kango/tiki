@@ -12,7 +12,7 @@ function validator_smarty($input, $parameter = '', $message = '')
 
     // Feedback warning if eval and string is disabled, but still return true to not block saving
     if (! empty($prefs['smarty_enable_string_eval']) && $prefs['smarty_enable_string_eval'] === 'n') {
-        Feedback::error(tra('The use of "eval" and "string" has been disabled by the administrator for security reasons.'));
+        Feedback::warning(tr('The use of "eval" and "string" has been disabled by the administrator for security reasons. The module will still be saved, but use with caution.'));
         return true;
     }
 
@@ -20,7 +20,7 @@ function validator_smarty($input, $parameter = '', $message = '')
         $content = ob_get_contents();
         if (str_contains($content, 'Fatal error')) {
             ob_end_clean();
-            echo 'Fatal error occurred while trying to validate your smarty code.';
+            echo tr('Fatal error occurred while trying to validate your smarty code.');
         }
     });
 

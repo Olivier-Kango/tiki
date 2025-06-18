@@ -48,7 +48,7 @@ function wikiplugin_smarty($data, $params)
         && isset($prefs['smarty_enable_string_eval'])
         && $prefs['smarty_enable_string_eval'] === 'n'
     ) {
-        return tra('This feature has been disabled by administrator for security reasons.');
+        return tra('The use of "eval" and "string" has been disabled by the administrator for security reasons.');
     }
 
     if ($params['name'] == 'eval') {

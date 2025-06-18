@@ -707,7 +707,7 @@
                                     <input class="form-check-input" type="checkbox" id="smarty_enable_string_eval" name="smarty_enable_string_eval" value="y"
                                     {if $prefs.smarty_enable_string_eval eq 'y'}checked="checked"{/if}>
                                     <label class="form-check-label" for="smarty_enable_string_eval">
-                                     {tr}Enable inline Smarty string and evaluation execution {/tr}
+                                     {tr}Enable inline Smarty string and evaluation execution.{/tr}
                                     </label>
                                     <div class="form-text text-danger">
                                         <strong>{tr}Warning:{/tr}</strong> {tr}Allows execution of inline Smarty code in user modules. Only enable if you trust admin users.{/tr}
