@@ -12,6 +12,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 use Symfony\Component\Console\Input\ArrayInput;
 use TikiManager\Application\Discovery\LinuxDiscovery;
+use TikiManager\Application\Discovery\MacOSDiscovery;
 use TikiManager\Application\Discovery\WindowsDiscovery;
 use TikiManager\Application\Instance;
 use TikiManager\Application\Tiki\Versions\Fetcher\YamlFetcher;
@@ -1538,7 +1539,9 @@ class Services_Manager_Controller
             $access->password = $input->password->text();
         }
 
-        if (stristr(PHP_OS, 'WIN')) {
+        if (PHP_OS == 'Darwin') {
+            $discovery = new MacOSDiscovery($instance, $access, ['os' => 'DARWIN']);
+        } elseif (stristr(PHP_OS, 'WIN')) {
             $discovery = new WindowsDiscovery($instance, $access, ['os' => 'WINDOWS']);
         } else {
             $discovery = new LinuxDiscovery($instance, $access, ['os' => 'LINUX']);
