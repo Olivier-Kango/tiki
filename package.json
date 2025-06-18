@@ -55,27 +55,30 @@
     "node": "We track supported vite node version, which is 18 as of vite 5"
   },
   "dependencies": {
-    "single-spa-css": "^2.0.0",
-    "single-spa-vue": "^3.0.0"
+    "single-spa-css": "^4.0.1",
+    "single-spa-vue": "^3.0.1"
   },
-  "depencenciesCommentSingleLibs": {},
+  "depencenciesComment": {
+    "single-spa-css": "https://github.com/single-spa/single-spa-css/releases",
+    "single-spa-vue": "https://github.com/single-spa/single-spa-vue/releases"
+  },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^2.12.1",
+    "@stylistic/eslint-plugin-js": "^4.4.1",
     "@testing-library/vue": "^8.1.0",
-    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-istanbul": "^2.1.8",
     "check-engines": "^1.6.0",
-    "concurrently": "^9.1.0",
+    "concurrently": "^9.2.0",
     "copy-and-watch": "^0.1.8",
-    "es-module-shims": "^1.10.1",
-    "eslint": "^9.17.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-vue": "^9.32",
-    "happy-dom": "^15.11.7",
-    "npm-run-all2": "^7.0.2",
+    "es-module-shims": "^2.6.0",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.0",
+    "eslint-plugin-vue": "^10.2.0",
+    "happy-dom": "^18.0.1",
+    "npm-run-all2": "^8.0.4",
     "patch-package": "^8.0.0",
-    "prettier": "^3.4.2",
+    "prettier": "^3.6.0",
     "rollup-plugin-visualizer": "^6.0.3",
     "tinyglobby": "^0.2.14",
     "unplugin-auto-import": "^0.19.0",
@@ -91,11 +94,14 @@
     "eslint-config-prettier": "",
     "eslint-plugin-prettier": "",
     "eslint-plugin-vue": "",
+    "happy-dom": "https://github.com/capricorn86/happy-dom/releases",
+    "npm-run-all2": "Used to parallelize npm build operations.  https://github.com/bcomnes/npm-run-all2/blob/master/CHANGELOG.md",
     "prettier": "",
     "sass": "https://github.com/sass/dart-sass/blob/main/CHANGELOG.md",
     "tinyglobby": "Only used directly in vite.config.mjs.  Migrated from glob to align with vite and avoid problem with bad engine specifier in glob that skipped node 21.  https://github.com/SuperchupuDev/tinyglobby/blob/main/CHANGELOG.md",
     "vite": "https://github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md",
-    "vite-plugin-static-copy": "https://github.com/sapphi-red/vite-plugin-static-copy/blob/main/CHANGELOG.md"
+    "vite-plugin-static-copy": "https://github.com/sapphi-red/vite-plugin-static-copy/blob/main/CHANGELOG.md",
+    "vitest": "https://github.com/vitest-dev/vitest/releases"
   },
   "workspaces": [
     "src/js/common-externals",
