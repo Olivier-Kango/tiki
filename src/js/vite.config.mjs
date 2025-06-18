@@ -3,7 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { glob } from "glob";
+import { globSync } from "tinyglobby";
 import path from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -102,7 +102,7 @@ export default defineConfig(({ command, mode }) => {
     Object.assign(
         rollupInput,
         Object.fromEntries(
-            glob.sync("src/js/jquery-tiki/**/*.js", { ignore: ["**/node_modules/**", "**/*.test.js"] }).map((file) => {
+            globSync("src/js/jquery-tiki/**/*.js", { ignore: ["**/node_modules/**", "**/*.test.js"] }).map((file) => {
                 //console.log(path.relative(__dirname, file));
                 return [
                     // This remove `src/js/jquery-tiki` as well as the file extension from each
