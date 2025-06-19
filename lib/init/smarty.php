@@ -135,6 +135,15 @@ class Tiki_Security_Policy extends Smarty_Security
 
         $this->secure_dir = array_merge($this->secure_dir, $dirs);
     }
+
+    /**
+     * Work around a bug in smarty where _updateResourceDir doesn't clear the values correctly when
+     * smarty templateDir has been updated
+     */
+    public function clearResourceDir()
+    {
+        $this->_resource_dir = [];
+    }
 }
 
 /**
@@ -171,7 +180,7 @@ class Smarty_Tiki extends Smarty
 
         $this->initializePaths();
 
-        $this->setConfigDir(null);
+        $this->setConfigDir('./temp/configs');
         if (! isset($prefs['smarty_compilation'])) {
             $prefs['smarty_compilation'] = '';
         }

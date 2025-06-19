@@ -288,10 +288,37 @@ function smarty_function_icon($params, $smarty)
                 break;
             case 'img':
             default:
+               // temporarily add the dirname here as allowed smarty resource for HtmlImage smarty function
+                $temporaryDirname = false;
+                $protocol = str_contains($params['file'], '://');
+                if ($protocol === false) {
+                    if (! empty($params['basedir'])) {
+                        $dirname = dirname($params['basedir'] . $params['file']);
+                    } else {
+                        $dirname = dirname($params['file']);
+                    }
+                    $dirname = $smarty->_realpath($dirname);
+                    $currentDir = $smarty->getTemplateDir();
+                    if (! in_array($dirname, $currentDir)) {
+                        $smarty->addTemplateDir($dirname);
+                        $temporaryDirname = $dirname;
+                    }
+                }
                 try {
                     $html = smarty_function_html_image($params, $smarty->getEmptyInternalTemplate());
                 } catch (Exception $e) {
                     $html = '<span class="icon error" title="' . tra('Error:') . ' ' . $e->getMessage() . '">?</span>';
+                }
+                // remove temporary dirname as it might be abused later
+                if ($temporaryDirname) {
+                    $currentDir = $smarty->getTemplateDir();
+                    $last = array_key_last($currentDir);
+                    if ($last !== null && str_starts_with($currentDir[$last], $temporaryDirname)) {
+                        unset($currentDir[$last]);
+                        $smarty->setTemplateDir($currentDir);
+                        // manually clear the security resource dir as a bug prevents them from auto-update
+                        $smarty->security_policy->clearResourceDir();
+                    }
                 }
         }
 

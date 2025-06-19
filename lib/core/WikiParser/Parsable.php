@@ -237,8 +237,6 @@ if ( \$('#$id') ) {
             $data = preg_replace(';(?<!~np~)~tc~(.*?)~/tc~(?!~/np~);s', '', $this->markup);
         }
 
-        $this->parse_wiki_argvariable($data);
-
         /* <x> XSS Sanitization handling */
 
         // Fix false positive in wiki syntax
@@ -251,8 +249,9 @@ if ( \$('#$id') ) {
         $this->strip_unparsed_block($data, $noparsed, true);
         if (! $this->option['noparseplugins'] || $this->option['stripplugins']) {
             $this->parse_first($data, $preparsed, $noparsed);
-            $this->parse_wiki_argvariable($data);
         }
+
+        $this->parse_wiki_argvariable($data);
 
         // Handle ~pre~...~/pre~ sections
         $data = preg_replace(';~pre~(.*?)~/pre~;s', '<pre>$1</pre>', $data);
@@ -413,6 +412,11 @@ if ( \$('#$id') ) {
 
         $data = $this->unprotectSpecialChars($data, true);                  // We want to give plugins original
         $args = preg_replace(['/^&quot;/', '/&quot;$/'], '', $args);        // Similarly remove the encoded " chars from the args
+
+        $this->parse_wiki_argvariable($data);
+        foreach ($args as &$arg) {
+            $this->parse_wiki_argvariable($arg);
+        }
 
         $outputFormat = 'wiki';
         if (isset($this->option['context_format'])) {
