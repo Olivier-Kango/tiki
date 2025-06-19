@@ -5,7 +5,7 @@
 {/block}
 
 {block name="content"}
-    <form action="{service controller='calendar' action='edit_item'}" method="post" class="edit-event-form">
+    <form action="{service controller='calendar' action='edit_item'}" method="post" class="edit-event-form" data-should-parse-editor-data="false">
         <div class="form-contents">
             <div class="preview d-none">
                 <button type="button" class="btn-close" style="position:absolute;right:2rem;top:2rem;z-index:1;" aria-label="{tr}Close{/tr}"></button>
@@ -410,8 +410,14 @@
                             </div>
                             <div><a href="#" class="btn btn-secondary btn-sm availability-check" role="button">{tr}Check availability{/tr}</a></div>
                             <br/>
-                            <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="calitem[process_itip]" value="1" checked>
-                            Send calendar invitations and event updates via email
+                            <div>
+                                <input type="checkbox" class="form-check-input" aria-label="{tr}Select{/tr}" name="calitem[process_itip]" value="1" checked>
+                                Send calendar invitations and event updates via email
+                            </div>
+                            <div>
+                                <input type="checkbox" class="form-check-input" name="calitem[hideParticipants]" aria-label="{tr}Hide participants list from others{/tr}" {if $calitem.hideParticipants}checked="checked"{/if}/>
+                                {tr}Hide participants list from others{/tr}
+                            </div>
                         {/if}
                     </div>
                 </div> {* / .mb-3.row *}
@@ -453,7 +459,7 @@
                        class="btn btn-danger cleanable-false" onclick="needToConfirm=false;" data-bs-dismiss="modal" value="{tr}Delete event{/tr}">
             {/if}
             {if $recurrence.id}
-                <div class="dropdown">
+                <div class="dropdown" data-cb-close-all="true">
                     <button class="btn btn-danger dropdown-toggle" type="button" id="deleteMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         {tr}Delete event(s){/tr}
                     </button>

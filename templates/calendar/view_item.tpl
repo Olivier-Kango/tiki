@@ -310,6 +310,8 @@
                                         {if $person.username eq $user}{$participating = true}{/if}
                                     {/foreach}
                                     </ul>
+                                {elseif $calitem.hiddenParticipants}
+                                    <em class="text-secondary">{tr}Participants list has been hidden at organizer's request{/tr}</em>
                                 {else}
                                     <em class="text-secondary">{tr}No participants{/tr}</em>
                                 {/if}

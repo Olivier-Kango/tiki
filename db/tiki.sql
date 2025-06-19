@@ -467,6 +467,7 @@ CREATE TABLE `tiki_calendar_items` (
   `allday` tinyint(1) NOT NULL default '0',
   `uid` varchar(200),
   `uri` varchar(200),
+  `hideParticipants` tinyint(1) default '0',
   PRIMARY KEY (`calitemId`),
   KEY `calendarId` (`calendarId`),
   KEY `idx_lastmodif` (`lastmodif`)

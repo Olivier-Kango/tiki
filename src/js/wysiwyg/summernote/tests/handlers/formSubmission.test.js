@@ -88,6 +88,7 @@ describe("formSubmission handler", () => {
         form.trigger("submit");
 
         expect(parseDataSpy).not.toHaveBeenCalled();
+        expect(textarea.data("is-submitting")).toBe(true);
     });
 
     test("do not parse the content if the form does not have the submitted flag, but has some validation pending request", () => {
@@ -108,6 +109,24 @@ describe("formSubmission handler", () => {
         form.trigger("submit");
 
         expect(parseDataSpy).not.toHaveBeenCalled();
+        expect(textarea.data("is-submitting")).toBe(true);
+    });
+
+    test("do not parse the content if the form has the should-parse-editor-data flag set to false", () => {
+        // Given that the text editor is rendered within a form
+        const textarea = $("<textarea></textarea>");
+        const form = $("<form></form>").append(textarea);
+        form.data("should-parse-editor-data", false);
+        $("body").append(form);
+
+        const parseDataSpy = vi.spyOn(formSubmissionHelpers, "parseData");
+
+        formSubmission(textarea);
+
+        form.trigger("submit");
+
+        expect(parseDataSpy).not.toHaveBeenCalled();
+        expect(textarea.data("is-submitting")).toBe(true);
     });
 
     test("do not submit the form when the parseing has been requested many times, and yet all to be completed", () => {
@@ -144,5 +163,7 @@ describe("formSubmission handler", () => {
         expect(textarea2.data("is-submitting")).toBe(true);
         expect(form.data("should-parse-editor-data")).toBe(false);
         expect(formSubmitSpy).toHaveBeenCalled();
+
+        expect(textarea.data("is-submitting")).toBe(true);
     });
 });

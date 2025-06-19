@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\SabreDav;
 
+use CalRecurrence;
 use Sabre\CalDAV\Subscriptions\Subscription;
 use Sabre\DAV\Client as DavClient;
 use Sabre\DAV\PropPatch;
@@ -46,6 +47,7 @@ class CaldavClient
             $calendar = TikiLib::lib('calendar')->get_calendar($calitem['calendarId']);
             $user = $calendar['user'];
         }
+
         $vcal = Utilities::constructCalendarData($calitem);
         $r = Sapi::createFromServerArray($_SERVER);
         $r->setMethod('PUT');
@@ -54,7 +56,7 @@ class CaldavClient
         $this->invokeBackendMethod($r);
     }
 
-    public function saveRecurringCalendarObject($calRecurrence, $updateManuallyChangedEvents = true)
+    public function saveRecurringCalendarObject(CalRecurrence $calRecurrence, $updateManuallyChangedEvents = true)
     {
         global $url_path;
         if (empty($calRecurrence->getId())) {
@@ -62,6 +64,7 @@ class CaldavClient
         } else {
             $uri = Utilities::getCalendarObjectUri($calRecurrence);
         }
+
         $vcal = $calRecurrence->constructVCalendar(null, $calRecurrence->getOrganizers(), $calRecurrence->getParticipants());
         $vcal->VEVENT->{'X-Tiki-UpdateManuallyChangedEvents'} = intval($updateManuallyChangedEvents);
         // TODO: Sabredav validation fails when multiple events reside in the same calendar, so we can only send one event per request

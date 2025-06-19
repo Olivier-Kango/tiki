@@ -691,11 +691,43 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
                 $rec = $data['rec'];
             }
             $data['calitemId'] = $item['calitemId'];
+
+            if ($data['hideParticipants']) {
+                $prev = $this->constructRecurringCalendarData($rec);
+                $prevData = Utilities::getDenormalizedData($prev);
+                if (isset($prevData['participants'])) {
+                    foreach ($prevData['participants'] as $par) {
+                        $exist = array_filter($data['participants'] ?? [], function ($p) use ($par) {
+                            return $p['username'] === $par['username'];
+                        });
+                        if (empty($exist)) {
+                            $data['participants'][] = $par;
+                        }
+                    }
+                }
+            }
+
             $rec->updateDetails($data);
             $rec->setUser($userToSet);
             $rec->save($data['updateManuallyChangedEvents'] ?? true);
             $rec->updateOverrides($data['overrides']);
         } else {
+            if ($data['hideParticipants']) {
+                $prev = $this->constructCalendarData($item);
+                if ($prev) {
+                    $prevData = Utilities::getDenormalizedData($prev);
+                    if (isset($prevData['participants'])) {
+                        foreach ($prevData['participants'] as $par) {
+                            $exist = array_filter($data['participants'] ?? [], function ($p) use ($par) {
+                                return $p['username'] === $par['username'];
+                            });
+                            if (empty($exist)) {
+                                $data['participants'][] = $par;
+                            }
+                        }
+                    }
+                }
+            }
             TikiLib::lib('calendar')->set_item($userToSet, $item['calitemId'], $data);
         }
 

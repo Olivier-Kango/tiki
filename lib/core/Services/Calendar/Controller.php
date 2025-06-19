@@ -516,6 +516,15 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $customPriorityColors = ['fff','fdd','fcc','fbb','faa','f99','e88','d77','c66','b66','a66'];
         $customRoles = ['0' => '','1' => tra('required'),'2' => tra('optional'),'3' => tra('non-participant')];
 
+        if (($calitem['hideParticipants'] ?? false) && ! $this->calendarLib->canAdminCalendar($calendar)) {
+            $calitem['participants'] = array_filter(
+                $calitem['participants'],
+                function ($participant) use ($user) {
+                    return $participant['username'] === $user;
+                }
+            );
+        }
+
         return [
             // collections
             'daynames'                   => $this->daynames,
@@ -649,6 +658,11 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 $starttime = $tikilib->get_short_time($calitem['start']);
                 $endtime = $tikilib->get_short_time($calitem['end']);
                 $calitem['display_datetimes'] = tr('%0 %1 to %2 %3', $startday, $starttime, $endday, $endtime);
+            }
+
+            if ($calitem['hideParticipants'] && ! $this->calendarLib->canAdminCalendar($calendar)) {
+                $calitem['participants'] = [];
+                $calitem['hiddenParticipants'] = true;
             }
         }
 
@@ -851,6 +865,9 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         if (! empty($calitem['calitemId'])) {
             // store the initial event if it was already created
             $recurrence->setInitialItem($calitem);
+        }
+        if ($calitem['hideParticipants'] ?? false) {
+            $recurrence->setHideParticipants(true);
         }
         return $recurrence;
     }
