@@ -73,7 +73,10 @@ class Filter extends Base
         if ($prefs['feature_freetags'] == 'y' && $prefs['search_show_tag_filter'] == 'y') {
             $freetaglib = \TikiLib::lib('freetag');
 
-            $smarty->assign('filter_tags', explode(' ', $filter->tags->wordspace()));
+            $tags_string = $filter->tags->wordspace();
+            $filter_tags = $tags_string === null ? [] : explode(' ', $tags_string);
+
+            $smarty->assign('filter_tags', $filter_tags);
             $smarty->assign('tags', \TikiDb::get()->fetchAll('SELECT tagId, tag FROM tiki_freetags'));
         }
 
