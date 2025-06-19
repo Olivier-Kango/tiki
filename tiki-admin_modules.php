@@ -19,7 +19,7 @@ $inputConfiguration = [
 ];
 
 $section = 'admin';
-require_once('tiki-setup.php');
+require_once 'tiki-setup.php';
 
 $dcslib = TikiLib::lib('dcs');
 $bannerlib = TikiLib::lib('banner');
@@ -216,7 +216,7 @@ if (isset($_REQUEST['um_update']) && $access->checkCsrf()) {
 //post is used for preview because there is another submit item on the form requiring it
 //and using get for just the preview element would result in exposing the ticket
 //non-state-changing-action
-if (isset($_REQUEST['assign']) || isset($_REQUEST['preview'])) { 
+if (isset($_REQUEST['assign']) || isset($_REQUEST['preview'])) {
     // Verify that required parameters are present
     $missing_params = [];
     $modinfo = $modlib->get_module_info($_REQUEST['assign_name']);
@@ -530,25 +530,36 @@ if ($prefs['feature_jquery_validation'] === 'y') {
             ],
             'um_data' => [
                 'required' => true,
-                'remote' => [
-                    'url' => 'validate-ajax.php',
-                    'type' => 'post',
-                    'data' => [
-                        'validator' => 'smarty',
-                        'input' => 'inputFunction',
-                        'parameter' => 'parameterFunction',
-                    ],
-                ],
             ],
         ],
         'submitHandler' => 'submitHandlerFunction',
     ];
+
+    // Add remote validator only if eval is allowed
+    if ($prefs['smarty_enable_string_eval'] === 'y') {
+        $rules['rules']['um_data']['remote'] = [
+            'url' => 'validate-ajax.php',
+            'type' => 'post',
+            'data' => [
+                'validator' => 'smarty',
+                'input' => 'inputFunction',
+                'parameter' => 'parameterFunction',
+            ],
+        ];
+    }
+
     $validationjs = '$("form[name=editusr]").validate(' . json_encode($rules) . ')';
     $validationjs = str_replace('"inputFunction"', 'function() { return $("#um_data").val(); }', $validationjs);
     $validationjs = str_replace('"parameterFunction"', 'function() { return $("#um_parse").val(); }', $validationjs);
-    $validationjs = str_replace('"submitHandlerFunction"', 'function(form, event){return process_submit(form, event);}', $validationjs);
+    $validationjs = str_replace(
+        '"submitHandlerFunction"',
+        'function(form, event){return process_submit(form, event);}',
+        $validationjs
+    );
+
     TikiLib::lib('header')->add_jq_onready($validationjs);
 }
+
 
 $sameurl_elements = ['offset', 'sort_mode', 'where', 'find'];
 
