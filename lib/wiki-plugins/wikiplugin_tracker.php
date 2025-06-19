@@ -2480,6 +2480,7 @@ function wikiplugin_tracker_render_input($f, $item, $dynamicSave, $requestData =
                     'trackerId' => $f['trackerId'],
                     'itemId' => $item['itemId'],
                 ],
+                'field' => $f,
             ]
         );
     }
