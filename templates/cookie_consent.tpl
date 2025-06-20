@@ -3,24 +3,21 @@
     <div class="modal" tabindex="-1" role="dialog" id="{$prefs.cookie_consent_dom_id}">
       <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
+          <div class="modal-header">
             <h5 class="modal-title">{tr}Cookie Consent{/tr}</h5>
           </div>
           <div class="modal-body">
-  {else}
-    <div id="{$prefs.cookie_consent_dom_id}" role="alert" {if not empty($prefs.cookie_consent_mode)}
-      style="display:none;" class="{$prefs.cookie_consent_mode}" {/if}>
-  {/if}
-  
-  {if $prefs.cookie_consent_mode eq 'dialog'}
-    <form method="POST">
+              <form method="POST">
       <div class="w-100 h-100">
   {else}
-    <form method="POST" class="position-fixed bottom-0 start-0 end-0">
-      <div class="alert alert-primary rounded-2 border-top border-secondary border-1 mb-0 py-4">
+    <div id="{$prefs.cookie_consent_dom_id}" role="alert"  style="position: fixed; top:0; z-index: 1050; background-color: rgba(0, 0, 0, 0.74); height: 100vh; width: 100vw;"
+     {if not empty($prefs.cookie_consent_mode)}
+      class="{$prefs.cookie_consent_mode}" {/if}>
+        <form method="POST"  class="position-fixed bottom-0 start-0 end-0 collapse show"
+        style="z-index: 1050;">
+      <div class="alert alert-primary rounded-2 border-top border-secondary border-1 mb-0 py-4 collapse show">
         <div class="container">
-  {/if}
-  
+  {/if}  
         <div class="row mb-4">
           <div class="col-12">
             <p class="mb-0 lead">
