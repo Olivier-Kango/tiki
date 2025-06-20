@@ -47,6 +47,14 @@ export default function applyInput() {
                     elementPlusUi.attr("name", $(this).attr("name"));
                 }
 
+                if ($(this).attr("style")) {
+                    elementPlusUi.attr("style", $(this).attr("style"));
+                }
+
+                if ($(this).attr("role")) {
+                    elementPlusUi.attr("role", $(this).attr("role"));
+                }
+
                 handleAffixes(this, elementPlusUi);
 
                 $(this).attr("element-plus-ref", elementUniqueId);

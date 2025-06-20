@@ -1,11 +1,27 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
-import * as Icons from '@element-plus/icons-vue';
-import ConfigWrapper from '../ConfigWrapper.vue';
+import { ref, watchEffect } from "vue";
+import * as Icons from "@element-plus/icons-vue";
+import ConfigWrapper from "../ConfigWrapper.vue";
 
-defineOptions({ inheritAttrs: false })
+defineOptions({ inheritAttrs: false });
 
-const props = defineProps(["_emit", "_expose", "placeholder", "value", "prefixIcon", "suffixIcon", "clearable", "showPassword", "autocomplete", "name", "disabled", "isInvalid", "type", "prependText", "appendText"]);
+const props = defineProps([
+    "_emit",
+    "_expose",
+    "placeholder",
+    "value",
+    "prefixIcon",
+    "suffixIcon",
+    "clearable",
+    "showPassword",
+    "autocomplete",
+    "name",
+    "disabled",
+    "isInvalid",
+    "type",
+    "prependText",
+    "appendText",
+]);
 const showPassword = props.showPassword === "true";
 const clearable = props.clearable === "true";
 const prefixIcon = props.prefixIcon ? Icons[props.prefixIcon] : null;
@@ -24,15 +40,13 @@ watchEffect(() => {
 
 <script>
 export const DATA_TEST_ID = {
-    INPUT: 'input',
+    INPUT: "input",
 };
 </script>
 
 <template>
     <ConfigWrapper language="en">
-        <div 
-            :class="{ 'invalid': isInvalid }"
-        >
+        <div :class="{ invalid: isInvalid }">
             <el-input
                 v-model="modelValue"
                 :placeholder="placeholder"
@@ -42,6 +56,8 @@ export const DATA_TEST_ID = {
                 :show-password="showPassword"
                 :autocomplete="autocomplete ?? 'on'"
                 :name="name"
+                :style="style"
+                :role="role"
                 :disabled="disabled"
                 :type="type"
                 @change="(value) => _emit('change', value)"
