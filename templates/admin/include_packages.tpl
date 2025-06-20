@@ -14,14 +14,6 @@
     {/remarksbox}
 {/if}
 
-{if isset($composer_installed_errors)}
-    {remarksbox type="warning" title="{tr}Composer errors{/tr}"}
-
-    {tr}Composer returned some errors:{/tr}<br />
-        <pre>{$composer_installed_errors}</pre>
-    {/remarksbox}
-{/if}
-
 {if not empty($composer_environment_warning)}
     {remarksbox type="warning" title="{tr}Issues with composer environment{/tr}"}
 

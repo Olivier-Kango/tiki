@@ -122,10 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $installableList = $composerManager->getInstalled();
-$lastResult = $composerManager->getComposer()->getLastResult();
-if ($lastResult !== null && ! empty($lastResult['errors'])) {
-    $smarty->assign('composer_installed_errors', $lastResult['errors']);
-}
 
 if ($installableList === false) {
     $packagesMissing = false;
