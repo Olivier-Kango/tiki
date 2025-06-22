@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcd76ebf3503439a696f9f24fac97c6a",
+    "content-hash": "6ae66bea921f30a8aa9a53d6043b0a3b",
     "packages": [
         {
             "name": "amphp/amp",
@@ -612,16 +612,16 @@
         },
         {
             "name": "brick/math",
-            "version": "0.12.3",
+            "version": "0.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "866551da34e9a618e64a819ee1e01c20d8a588ba"
+                "reference": "fc7ed316430118cc7836bf45faff18d5dfc8de04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/866551da34e9a618e64a819ee1e01c20d8a588ba",
-                "reference": "866551da34e9a618e64a819ee1e01c20d8a588ba",
+                "url": "https://api.github.com/repos/brick/math/zipball/fc7ed316430118cc7836bf45faff18d5dfc8de04",
+                "reference": "fc7ed316430118cc7836bf45faff18d5dfc8de04",
                 "shasum": ""
             },
             "require": {
@@ -660,7 +660,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.12.3"
+                "source": "https://github.com/brick/math/tree/0.13.1"
             },
             "funding": [
                 {
@@ -668,7 +668,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-28T13:11:00+00:00"
+            "time": "2025-03-29T13:50:30+00:00"
         },
         {
             "name": "candy-chat/xmpp-prebind-php",
@@ -2193,16 +2193,16 @@
         },
         {
             "name": "hybridauth/hybridauth",
-            "version": "v3.12.1",
+            "version": "v3.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "9449686baf2593739129a24e515a60908738ea8d"
+                "reference": "c6184bf92404394e918353a0ea0d35a97ac3b0fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/9449686baf2593739129a24e515a60908738ea8d",
-                "reference": "9449686baf2593739129a24e515a60908738ea8d",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/c6184bf92404394e918353a0ea0d35a97ac3b0fe",
+                "reference": "c6184bf92404394e918353a0ea0d35a97ac3b0fe",
                 "shasum": ""
             },
             "require": {
@@ -2249,9 +2249,9 @@
             "support": {
                 "gitter": "https://gitter.im/hybridauth/hybridauth",
                 "issues": "https://github.com/hybridauth/hybridauth/issues",
-                "source": "https://github.com/hybridauth/hybridauth/tree/v3.12.1"
+                "source": "https://github.com/hybridauth/hybridauth/tree/v3.12.2"
             },
-            "time": "2025-04-22T05:22:57+00:00"
+            "time": "2025-06-18T11:58:48+00:00"
         },
         {
             "name": "jasig/phpcas",
@@ -4090,16 +4090,16 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.64.3",
+            "version": "2.64.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "b3ec5865e7aa60a0fbce211500f4a5c6a6e11a30"
+                "reference": "e2e6631f599a9b0db1e23adb633c09a2f0c68bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/b3ec5865e7aa60a0fbce211500f4a5c6a6e11a30",
-                "reference": "b3ec5865e7aa60a0fbce211500f4a5c6a6e11a30",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/e2e6631f599a9b0db1e23adb633c09a2f0c68bed",
+                "reference": "e2e6631f599a9b0db1e23adb633c09a2f0c68bed",
                 "shasum": ""
             },
             "require": {
@@ -4170,7 +4170,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2025-06-11T10:23:09+00:00"
+            "time": "2025-06-16T14:38:00+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -7332,16 +7332,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.43",
+            "version": "3.0.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "709ec107af3cb2f385b9617be72af8cf62441d02"
+                "reference": "1d0b5e7e1434678411787c5a0535e68907cf82d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/709ec107af3cb2f385b9617be72af8cf62441d02",
-                "reference": "709ec107af3cb2f385b9617be72af8cf62441d02",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/1d0b5e7e1434678411787c5a0535e68907cf82d9",
+                "reference": "1d0b5e7e1434678411787c5a0535e68907cf82d9",
                 "shasum": ""
             },
             "require": {
@@ -7422,7 +7422,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.43"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.44"
             },
             "funding": [
                 {
@@ -7438,23 +7438,24 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-14T21:12:59+00:00"
+            "time": "2025-06-15T09:59:26+00:00"
         },
         {
             "name": "phpxmlrpc/phpxmlrpc",
-            "version": "4.11.1",
+            "version": "4.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gggeek/phpxmlrpc.git",
-                "reference": "06b9d7275d637f6859527091a54a5edfe8a16749"
+                "reference": "f095a46961567dba2a1e8149d9d5f7cbca19673d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/06b9d7275d637f6859527091a54a5edfe8a16749",
-                "reference": "06b9d7275d637f6859527091a54a5edfe8a16749",
+                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/f095a46961567dba2a1e8149d9d5f7cbca19673d",
+                "reference": "f095a46961567dba2a1e8149d9d5f7cbca19673d",
                 "shasum": ""
             },
             "require": {
+                "ext-ctype": "*",
                 "ext-xml": "*",
                 "php": "^5.4.0 || ^7.0 || ^8.0"
             },
@@ -7466,14 +7467,14 @@
                 "ext-curl": "*",
                 "ext-dom": "*",
                 "ext-mbstring": "*",
-                "phpunit/phpunit": "^4.8 || ^5.0 || ^8.5.14",
+                "phpunit/phpunit": "^4.8.28 || ^5.6.3 || ^8.5.42",
                 "phpunit/phpunit-selenium": "*",
                 "yoast/phpunit-polyfills": "*"
             },
             "suggest": {
                 "ext-curl": "Needed for HTTPS, HTTP2 and HTTP 1.1 support, NTLM Auth etc...",
                 "ext-mbstring": "Needed to allow reception of requests/responses in character sets other than ASCII,LATIN-1,UTF-8",
-                "ext-zlib": "Needed for sending compressed requests and receiving compressed responses, if cURL is not available",
+                "ext-zlib": "Needed for sending compressed requests and receiving compressed responses, if CURL is not available",
                 "phpxmlrpc/extras": "Adds more featured Server classes, including self-documenting and ajax-enabled servers",
                 "phpxmlrpc/jsonrpc": "Adds support for the JSON-RPC protocol"
             },
@@ -7496,9 +7497,9 @@
             ],
             "support": {
                 "issues": "https://github.com/gggeek/phpxmlrpc/issues",
-                "source": "https://github.com/gggeek/phpxmlrpc/tree/4.11.1"
+                "source": "https://github.com/gggeek/phpxmlrpc/tree/4.11.2"
             },
-            "time": "2025-01-17T17:04:37+00:00"
+            "time": "2025-06-20T11:29:05+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -8915,88 +8916,6 @@
             "time": "2024-11-20T21:13:56+00:00"
         },
         {
-            "name": "rubix/extras",
-            "version": "2.0.0-beta",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RubixML/Extras.git",
-                "reference": "3eb3b3f783adaee7cea6a722739422fef0271709"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RubixML/Extras/zipball/3eb3b3f783adaee7cea6a722739422fef0271709",
-                "reference": "3eb3b3f783adaee7cea6a722739422fef0271709",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4",
-                "rubix/ml": "^2.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.0",
-                "phpbench/phpbench": "^1.0",
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Rubix\\ML\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrew DalPino",
-                    "email": "support@andrewdalpino.com",
-                    "homepage": "https://github.com/andrewdalpino"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/RubixML/Extras/graphs/contributors"
-                }
-            ],
-            "description": "Experimental features for the Rubix ML library.",
-            "homepage": "https://rubixml.com",
-            "keywords": [
-                "Deep learning",
-                "Extras",
-                "Neural network",
-                "Rubix",
-                "ai",
-                "analytics",
-                "artificial intelligence",
-                "data mining",
-                "machine learning",
-                "ml",
-                "php",
-                "php ai",
-                "php ml",
-                "php-ml",
-                "rubix ml",
-                "rubixml"
-            ],
-            "support": {
-                "chat": "https://t.me/RubixML",
-                "email": "support@andrewdalpino.com",
-                "issues": "https://github.com/RubixML/Extras/issues",
-                "source": "https://github.com/RubixML/Extras"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/RubixML",
-                    "type": "github"
-                }
-            ],
-            "abandoned": true,
-            "time": "2022-09-06T02:03:54+00:00"
-        },
-        {
             "name": "rubix/ml",
             "version": "2.5.2",
             "source": {
@@ -10020,37 +9939,37 @@
         },
         {
             "name": "spomky-labs/cbor-php",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spomky-Labs/cbor-php.git",
-                "reference": "499d9bff0a6d59c4f1b813cc617fc3fd56d6dca4"
+                "reference": "5404f3e21cbe72f5cf612aa23db2b922fd2f43bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spomky-Labs/cbor-php/zipball/499d9bff0a6d59c4f1b813cc617fc3fd56d6dca4",
-                "reference": "499d9bff0a6d59c4f1b813cc617fc3fd56d6dca4",
+                "url": "https://api.github.com/repos/Spomky-Labs/cbor-php/zipball/5404f3e21cbe72f5cf612aa23db2b922fd2f43bf",
+                "reference": "5404f3e21cbe72f5cf612aa23db2b922fd2f43bf",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.9|^0.10|^0.11|^0.12",
+                "brick/math": "^0.9|^0.10|^0.11|^0.12|^0.13",
                 "ext-mbstring": "*",
                 "php": ">=8.0"
             },
             "require-dev": {
-                "ekino/phpstan-banned-code": "^1.0",
+                "deptrac/deptrac": "^3.0",
+                "ekino/phpstan-banned-code": "^1.0|^2.0|^3.0",
                 "ext-json": "*",
                 "infection/infection": "^0.29",
                 "php-parallel-lint/php-parallel-lint": "^1.3",
                 "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-beberlei-assert": "^1.0",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpstan/phpstan-strict-rules": "^1.0",
-                "phpunit/phpunit": "^10.1|^11.0",
-                "qossmic/deptrac": "^2.0",
-                "rector/rector": "^1.0",
+                "phpstan/phpstan": "^1.0|^2.0",
+                "phpstan/phpstan-beberlei-assert": "^1.0|^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.0|^2.0",
+                "phpstan/phpstan-strict-rules": "^1.0|^2.0",
+                "phpunit/phpunit": "^10.1|^11.0|^12.0",
+                "rector/rector": "^1.0|^2.0",
                 "roave/security-advisories": "dev-latest",
                 "symfony/var-dumper": "^6.0|^7.0",
                 "symplify/easy-coding-standard": "^12.0"
@@ -10087,7 +10006,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Spomky-Labs/cbor-php/issues",
-                "source": "https://github.com/Spomky-Labs/cbor-php/tree/3.1.0"
+                "source": "https://github.com/Spomky-Labs/cbor-php/tree/3.1.1"
             },
             "funding": [
                 {
@@ -10099,20 +10018,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-07-18T08:37:03+00:00"
+            "time": "2025-06-13T11:57:55+00:00"
         },
         {
             "name": "spomky-labs/pki-framework",
-            "version": "1.2.3",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spomky-Labs/pki-framework.git",
-                "reference": "5ff1dcc21e961b60149a80e77f744fc047800b31"
+                "reference": "eced5b5ce70518b983ff2be486e902bbd15135ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spomky-Labs/pki-framework/zipball/5ff1dcc21e961b60149a80e77f744fc047800b31",
-                "reference": "5ff1dcc21e961b60149a80e77f744fc047800b31",
+                "url": "https://api.github.com/repos/Spomky-Labs/pki-framework/zipball/eced5b5ce70518b983ff2be486e902bbd15135ae",
+                "reference": "eced5b5ce70518b983ff2be486e902bbd15135ae",
                 "shasum": ""
             },
             "require": {
@@ -10196,7 +10115,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Spomky-Labs/pki-framework/issues",
-                "source": "https://github.com/Spomky-Labs/pki-framework/tree/1.2.3"
+                "source": "https://github.com/Spomky-Labs/pki-framework/tree/1.3.0"
             },
             "funding": [
                 {
@@ -10208,7 +10127,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-04-25T15:57:13+00:00"
+            "time": "2025-06-13T08:35:04+00:00"
         },
         {
             "name": "steverhoades/oauth2-openid-connect-client",
@@ -13163,16 +13082,16 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v5.3.6",
+            "version": "v5.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "f849680d16a9695c9a6c9c062d6cff55ddcf071e"
+                "reference": "e0032ae6a5a628a51a8552091816cec09b6434df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/f849680d16a9695c9a6c9c062d6cff55ddcf071e",
-                "reference": "f849680d16a9695c9a6c9c062d6cff55ddcf071e",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/e0032ae6a5a628a51a8552091816cec09b6434df",
+                "reference": "e0032ae6a5a628a51a8552091816cec09b6434df",
                 "shasum": ""
             },
             "replace": {
@@ -13207,9 +13126,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/bootstrap/issues",
-                "source": "https://github.com/twbs/bootstrap/tree/v5.3.6"
+                "source": "https://github.com/twbs/bootstrap/tree/v5.3.7"
             },
-            "time": "2025-05-05T19:21:55+00:00"
+            "time": "2025-06-10T15:44:49+00:00"
         },
         {
             "name": "twbs/bootstrap-icons",
@@ -13478,37 +13397,37 @@
         },
         {
             "name": "web-auth/cose-lib",
-            "version": "4.4.0",
+            "version": "4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/cose-lib.git",
-                "reference": "2166016e48e0214f4f63320a7758a9386d14c92a"
+                "reference": "b095f160a8c8fa7e53d0e36307093e34c26e7787"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/cose-lib/zipball/2166016e48e0214f4f63320a7758a9386d14c92a",
-                "reference": "2166016e48e0214f4f63320a7758a9386d14c92a",
+                "url": "https://api.github.com/repos/web-auth/cose-lib/zipball/b095f160a8c8fa7e53d0e36307093e34c26e7787",
+                "reference": "b095f160a8c8fa7e53d0e36307093e34c26e7787",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.9|^0.10|^0.11|^0.12",
+                "brick/math": "^0.9|^0.10|^0.11|^0.12|^0.13",
                 "ext-json": "*",
                 "ext-openssl": "*",
                 "php": ">=8.1",
                 "spomky-labs/pki-framework": "^1.0"
             },
             "require-dev": {
-                "ekino/phpstan-banned-code": "^1.0",
+                "deptrac/deptrac": "^3.0",
+                "ekino/phpstan-banned-code": "^1.0|^2.0|^3.0",
                 "infection/infection": "^0.29",
                 "php-parallel-lint/php-parallel-lint": "^1.3",
                 "phpstan/extension-installer": "^1.3",
-                "phpstan/phpstan": "^1.7",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.1",
-                "phpstan/phpstan-strict-rules": "^1.2",
-                "phpunit/phpunit": "^10.1|^11.0",
-                "qossmic/deptrac": "^2.0",
-                "rector/rector": "^1.0",
+                "phpstan/phpstan": "^1.7|^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.1|^2.0",
+                "phpstan/phpstan-strict-rules": "^1.0|^2.0",
+                "phpunit/phpunit": "^10.1|^11.0|^12.0",
+                "rector/rector": "^2.0",
                 "symfony/phpunit-bridge": "^6.4|^7.0",
                 "symplify/easy-coding-standard": "^12.0"
             },
@@ -13544,7 +13463,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-auth/cose-lib/issues",
-                "source": "https://github.com/web-auth/cose-lib/tree/4.4.0"
+                "source": "https://github.com/web-auth/cose-lib/tree/4.4.1"
             },
             "funding": [
                 {
@@ -13556,7 +13475,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-07-18T08:47:32+00:00"
+            "time": "2025-06-13T11:35:45+00:00"
         },
         {
             "name": "web-auth/webauthn-lib",
@@ -15791,16 +15710,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.46",
+            "version": "10.5.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8080be387a5be380dda48c6f41cee4a13aadab3d"
+                "reference": "3637b3e50d32ab3a0d1a33b3b6177169ec3d95a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8080be387a5be380dda48c6f41cee4a13aadab3d",
-                "reference": "8080be387a5be380dda48c6f41cee4a13aadab3d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3637b3e50d32ab3a0d1a33b3b6177169ec3d95a3",
+                "reference": "3637b3e50d32ab3a0d1a33b3b6177169ec3d95a3",
                 "shasum": ""
             },
             "require": {
@@ -15872,7 +15791,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.46"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.47"
             },
             "funding": [
                 {
@@ -15896,7 +15815,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-02T06:46:24+00:00"
+            "time": "2025-06-20T11:29:11+00:00"
         },
         {
             "name": "psr/cache",
@@ -16924,16 +16843,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.13.1",
+            "version": "3.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "1b71b4dd7e7ef651ac749cea67e513c0c832f4bd"
+                "reference": "5b5e3821314f947dd040c70f7992a64eac89025c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/1b71b4dd7e7ef651ac749cea67e513c0c832f4bd",
-                "reference": "1b71b4dd7e7ef651ac749cea67e513c0c832f4bd",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/5b5e3821314f947dd040c70f7992a64eac89025c",
+                "reference": "5b5e3821314f947dd040c70f7992a64eac89025c",
                 "shasum": ""
             },
             "require": {
@@ -17004,7 +16923,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-06-12T15:04:34+00:00"
+            "time": "2025-06-17T22:17:01+00:00"
         },
         {
             "name": "stevegrunwell/phpunit-markup-assertions",
@@ -17584,8 +17503,7 @@
         "jason-munro/cypht": 20,
         "montefuscolo/xmpp": 20,
         "phpcompatibility/php-compatibility": 20,
-        "phpcsstandards/phpcsutils": 15,
-        "rubix/extras": 10
+        "phpcsstandards/phpcsutils": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
