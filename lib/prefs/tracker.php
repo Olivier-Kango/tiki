@@ -420,7 +420,6 @@ function prefs_tracker_list()
             'tags' => ['advanced'],
             'help' => 'Tracker_Lock',
             'keywords' => 'tracker password unlock admin',
-            'admin' => 'tiki-admin.php?page=trackers',
             'dependencies' => ['tracker_lock_closed_items'],
         ],
         'tracker_lock_mode' => [
@@ -436,7 +435,6 @@ function prefs_tracker_list()
             'tags' => ['advanced'],
             'help' => 'Tracker_Lock',
             'keywords' => 'tracker lock mode status explicit hybrid invoice',
-            'admin' => 'tiki-admin.php?page=trackers',
             'dependencies' => ['tracker_lock_closed_items'],
         ],
     ];
