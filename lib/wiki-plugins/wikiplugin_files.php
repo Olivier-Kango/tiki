@@ -652,6 +652,19 @@ function wikiplugin_files($data, $params)
             }
         }
         $gal_info = $filegallib->default_file_gallery();
+    } else {
+        $fs = $filegallib->get_files(0, $max, $sort, null, null, false, true);
+        foreach ($fs['data'] as $file) {
+            if (isset($file['isgal']) && $file['isgal'] == 1) {
+                continue;
+            }
+            $file['p_download_files'] = $file['perms']['tiki_p_download_files'];
+            $file['p_view_file_gallery'] = $file['perms']['tiki_p_view_file_gallery'];
+            $file['p_admin_file_galleries'] = $file['perms']['tiki_p_admin_file_galleries'];
+            $file['p_edit_gallery_file'] = $file['perms']['tiki_p_edit_gallery_file'];
+            $files[] = $file;
+        }
+        $gal_info = $filegallib->default_file_gallery();
     }
     $smarty->assign_by_ref('files', $files);
     if (isset($data)) {
