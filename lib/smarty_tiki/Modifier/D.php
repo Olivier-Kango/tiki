@@ -47,7 +47,10 @@ class D
                     ~Kint::dump($var);
                     break;
                 default:
-                    Kint::dump($var);
+                    Kint::$return = true;
+                    Kint::$depth_limit = 8;
+                    $return = Kint::dump($var);
+                    echo str_replace(['~np~', '~/np~'], '', $return);
             }
         } else {
             var_dump($var);
