@@ -17,7 +17,7 @@ $inputConfiguration = [
             'trackerId'        => 'int',           //post
             'itemId'           => 'int',           //post
             'user'             => 'word',          //get
-            'view'             => 'word',          //get
+            'view'             => 'string',          //get
             'usertracker'      => 'bool',          //get
             'grouptracker'     => 'bool',          //get
             'group'            => 'groupname',     //get
@@ -106,22 +106,32 @@ if (isset($_REQUEST['itemId'])) {
     $itemId = $_REQUEST['itemId'];
 }
 $special = false;
-if (! isset($trackerId) && $prefs['userTracker'] == 'y' && ! isset($_REQUEST['user'])) {
-    if (isset($_REQUEST['view']) and $_REQUEST['view'] == ' user') {
+
+// --- SCENARIO 1: CURRENT LOGGED-IN USER'S TRACKER (`?view=user` with no user specified)
+// Handles the "my profile" use case.
+if (! isset($trackerId) && $prefs['userTracker'] == 'y' && empty($_REQUEST['user'])) {
+    if (isset($_REQUEST['view']) && $_REQUEST['view'] == ' user') {
         if (empty($user)) {
-            Feedback::errorAndDie(tra("You are not logged in"), \Laminas\Http\Response::STATUS_CODE_402);
+            Feedback::errorAndDie(tra("You are not logged in"), \Laminas\Http\Response::STATUS_CODE_401);
         }
+
+        // Fetch tracker config for the user's group.
         $utid = $userlib->get_tracker_usergroup($user);
-        if (isset($utid['usersTrackerId'])) {
+        if (isset($utid['usersTrackerId']) && ! empty($utid['usersFieldId'])) {
             $trackerId = $utid['usersTrackerId'];
             $itemId = $trklib->get_item_id($trackerId, $utid['usersFieldId'], $user);
-            if ($itemId == null) {
+
+            // KEY FEATURE: Auto-creates item on first visit and redirects
+            if (empty($itemId)) {
                 $addit = [];
+                // 1. Set the user field specified in the user's group settings.
                 $addit[] = [
                     'fieldId' => $utid['usersFieldId'],
                     'type' => 'u',
                     'value' => $user,
                 ];
+
+                // 2. Also check for the tracker's primary "User" field and set it if it's different.
                 $definition = Tracker_Definition::get($trackerId);
                 if ($definition && $f = $definition->getUserField()) {
                     if ($f != $utid['usersFieldId']) {
@@ -132,6 +142,8 @@ if (! isset($trackerId) && $prefs['userTracker'] == 'y' && ! isset($_REQUEST['us
                         ];
                     }
                 }
+
+                // 3. Also check for and set the "Writer Group" field for permissions.
                 if ($definition && $f = $definition->getWriterGroupField()) {
                     $addit[] = [
                         'fieldId' => $f,
@@ -139,11 +151,17 @@ if (! isset($trackerId) && $prefs['userTracker'] == 'y' && ! isset($_REQUEST['us
                         'value' => $group,
                     ];
                 }
+
+                // Create the item with the complete field data and redirect.
                 $itemId = $trklib->replace_item($trackerId, 0, ['data' => $addit], 'o');
+                $access->redirect('tiki-view_tracker_item.php?itemId=' . $itemId);
             }
             $special = 'user';
+        } else {
+            Feedback::errorAndDie(tra("User Tracker feature is enabled but not configured for this user's group."));
         }
-    } elseif (isset($_REQUEST["usertracker"]) and $tiki_p_admin == 'y') {
+    } elseif (isset($_REQUEST["usertracker"]) && $tiki_p_admin == 'y') {
+        // Legacy admin-only path for fetching a user's tracker.
         $utid = $userlib->get_tracker_usergroup($_REQUEST['usertracker']);
         if (isset($utid['usersTrackerId'])) {
             $trackerId = $utid['usersTrackerId'];
@@ -151,23 +169,30 @@ if (! isset($trackerId) && $prefs['userTracker'] == 'y' && ! isset($_REQUEST['us
         }
     }
 }
+
+// --- SCENARIO 2: GROUP'S TRACKER (`?view=group`)
 if (! isset($trackerId) && $prefs['groupTracker'] == 'y') {
-    if (isset($_REQUEST['view']) and $_REQUEST['view'] == ' group') {
+    if (isset($_REQUEST['view']) && $_REQUEST['view'] == ' group') {
+        if (empty($_REQUEST['group'])) {
+            Feedback::errorAndDie(tra("No group specified. Please add '&group=groupname' to the URL."), \Laminas\Http\Response::STATUS_CODE_400);
+        }
+        $group = $_REQUEST['group'];
+
         $gtid = $userlib->get_grouptrackerid($group);
-        if (isset($gtid['groupTrackerId'])) {
+        if (isset($gtid['groupTrackerId']) && ! empty($gtid['groupFieldId'])) {
             $trackerId = $gtid['groupTrackerId'];
             $itemId = $trklib->get_item_id($trackerId, $gtid['groupFieldId'], $group);
-            if ($itemId == null) {
-                $addit = ['data' => [
-                    'fieldId' => $gtid['groupFieldId'],
-                    'type' => 'g',
-                    'value' => $group,
-                ]];
-                $itemId = $trklib->replace_item($trackerId, 0, $addit, 'o');
+
+            if (empty($itemId)) {
+                $addit = [[ 'fieldId' => $gtid['groupFieldId'], 'type' => 'g', 'value' => $group ]];
+                $itemId = $trklib->replace_item($trackerId, 0, ['data' => $addit], 'o');
+                $access->redirect('tiki-view_tracker_item.php?itemId=' . $itemId);
             }
             $special = 'group';
+        } else {
+            Feedback::errorAndDie(tra("Group Tracker feature is enabled but not configured for this group."));
         }
-    } elseif (isset($_REQUEST["grouptracker"]) and $tiki_p_admin == 'y') {
+    } elseif (isset($_REQUEST["grouptracker"]) && $tiki_p_admin == 'y') {
         $gtid = $userlib->get_grouptrackerid($_REQUEST["grouptracker"]);
         if (isset($gtid['groupTrackerId'])) {
             $trackerId = $gtid['groupTrackerId'];
@@ -175,9 +200,13 @@ if (! isset($trackerId) && $prefs['groupTracker'] == 'y') {
         }
     }
 }
+
 $smarty->assign_by_ref('special', $special);
-//url to a user user tracker tiki-view_tracker_item.php?user=yyyyy&view=+user or tiki-view_tracker_item.php?greoup=yyy&user=yyyyy&view=+user or tiki-view_tracker_item.php?trackerId=xxx&user=yyyyy&view=+user
-if ($prefs['userTracker'] == 'y' && isset($_REQUEST['view']) && $_REQUEST['view'] = ' user' && ! empty($_REQUEST['user'])) {
+
+// --- SCENARIO 3: VIEWING ANOTHER USER'S TRACKER (`?view=user&user=somebody`)
+//url to a user user tracker tiki-view_tracker_item.php?user=yyyyy&view=+user or tiki-view_tracker_item.php?group=yyy&user=yyyyy&view=+user or tiki-view_tracker_item.php?trackerId=xxx&user=yyyyy&view=+user
+if ($prefs['userTracker'] == 'y' && isset($_REQUEST['view']) && $_REQUEST['view'] == ' user' && ! empty($_REQUEST['user'])) {
+    // Infer `trackerId` and `fieldId` if not already known.
     if (empty($trackerId)) {
         if (empty($_REQUEST['group'])) {
             $_REQUEST['group'] = $userlib->get_user_default_group($_REQUEST['user']);
@@ -191,20 +220,27 @@ if ($prefs['userTracker'] == 'y' && isset($_REQUEST['view']) && $_REQUEST['view'
         }
     }
     if (! empty($trackerId)) {
+        // Fallback to the tracker's primary user field if not found via group config.
         if (empty($fieldId)) {
             $definition = Tracker_Definition::get($trackerId);
             if ($definition) {
                 $fieldId = $definition->getUserField();
             }
         }
+        // With all parts, attempt final lookup.
         if (! empty($fieldId)) {
             $itemId = $trklib->get_item_id($trackerId, $fieldId, $_REQUEST['user']);
+
+            // Unlike scenarios 1 & 2, this fails hard if the item doesn't exist.
+            // It does NOT auto-create for another user.
+            // NOTE: The `Feedback` call below has a known issue where it escapes HTML and doesn't display the link (Need to be fixed)
             if (! $itemId) {
                 Feedback::errorAndDie(tra("You don't have a personal tracker item yet. Click here to make one:") . '<br /><a href="tiki-view_tracker.php?trackerId=' . $trackerId . '&cookietab=2">' . tra('Create tracker item') . '</a>', \Laminas\Http\Response::STATUS_CODE_409);
             }
         }
     }
 }
+
 if ((! isset($trackerId) || ! $trackerId) && isset($itemId)) {
     $item_info = $trklib->get_tracker_item($itemId);
     if (isset($item_info['trackerId'])) {
@@ -212,9 +248,20 @@ if ((! isset($trackerId) || ! $trackerId) && isset($itemId)) {
     }
 }
 if (! isset($trackerId) || ! $trackerId) {
-    Feedback::errorAndDie(tra("No tracker indicated"), \Laminas\Http\Response::STATUS_CODE_409);
+    $errorMsg = tra("No tracker indicated");
+
+    if ($tiki_p_admin == 'y') {
+        $errorMsg .= "\n\nDebug Info:";
+        $errorMsg .= "\nUser: " . ($user ?? 'none');
+        $errorMsg .= "\nGroup: " . ($group ?? 'none');
+        $errorMsg .= "\nUserTracker: " . ($prefs['userTracker'] ?? 'n');
+        $errorMsg .= "\nGroupTracker: " . ($prefs['groupTracker'] ?? 'n');
+        $errorMsg .= "\nRequest: " . print_r($_REQUEST, true);
+    }
+
+    Feedback::errorAndDie(tra($errorMsg), \Laminas\Http\Response::STATUS_CODE_409);
 }
-if (! isset($utid) and ! isset($gtid) and (! isset($itemId) or ! $itemId) and ! isset($_REQUEST["offset"])) {
+if (! isset($utid) && ! isset($gtid) && (! isset($itemId) || ! $itemId) && ! isset($_REQUEST["offset"])) {
     Feedback::errorAndDie(tra("No item indicated"), \Laminas\Http\Response::STATUS_CODE_409);
 }
 
@@ -291,12 +338,12 @@ foreach (
     }
 }
 if (isset($_REQUEST['filterfield'])) {
-    if (is_array($_REQUEST['filtervalue']) and isset($_REQUEST['filtervalue'][$tryfilterfield])) {
+    if (is_array($_REQUEST['filtervalue']) && isset($_REQUEST['filtervalue'][$tryfilterfield])) {
         $tryfiltervalue = $_REQUEST['filtervalue'][$tryfilterfield];
     } else {
         $tryfilterfield = preg_split('/\s*:\s*/', $_REQUEST['filterfield']);
 
-        if (! isset($_REQUEST['filtervalue']) or ! isset($_REQUEST['exactvalue'])) {
+        if (! isset($_REQUEST['filtervalue']) || ! isset($_REQUEST['exactvalue'])) {
             $access->display_error('', tra('Filter value or Exact value not specified.'), "400");
         }
 
@@ -373,16 +420,16 @@ $cat_type = 'trackeritem';
 $tracker_info = $definition->getInformation();
 $tracker_info_value = fn($key) => array_key_exists($key, $tracker_info) ? $tracker_info[$key] : null;
 
-if (! isset($tracker_info["writerCanModify"]) or (isset($utid) and ($trackerId != $utid['usersTrackerId']))) {
+if (! isset($tracker_info["writerCanModify"]) || (isset($utid) && ($trackerId != $utid['usersTrackerId']))) {
     $tracker_info["writerCanModify"] = 'n';
 }
-if (! isset($tracker_info["userCanSeeOwn"]) or (isset($utid) and ($trackerId != $utid['usersTrackerId']))) {
+if (! isset($tracker_info["userCanSeeOwn"]) || (isset($utid) && ($trackerId != $utid['usersTrackerId']))) {
     $tracker_info["userCanSeeOwn"] = 'n';
 }
-if (! isset($tracker_info["writerGroupCanModify"]) or (isset($gtid) and ($trackerId != $gtid['groupTrackerId']))) {
+if (! isset($tracker_info["writerGroupCanModify"]) || (isset($gtid) && ($trackerId != $gtid['groupTrackerId']))) {
     $tracker_info["writerGroupCanModify"] = 'n';
 }
-if (! isset($tracker_info["groupCanSeeOwn"]) or (isset($gtid) and ($trackerId != $gtid['groupTrackerId']))) {
+if (! isset($tracker_info["groupCanSeeOwn"]) || (isset($gtid) && ($trackerId != $gtid['groupTrackerId']))) {
     $tracker_info["groupCanSeeOwn"] = 'n';
 }
 $tikilib->get_perm_object($trackerId, 'tracker', $tracker_info);
@@ -404,8 +451,7 @@ if (! empty($_REQUEST['moveto'])) {
     if ($tiki_p_admin_trackers == 'y' && $perms->create_tracker_items) {
         // Move item to another tracker. This assumes certain similarities between the 2 trackers.
         $trklib->move_item($trackerId, $itemId, $_REQUEST['moveto']);
-        header('Location: ' . filter_out_sefurl('tiki-view_tracker_item.php?itemId=' . $itemId));
-        exit;
+        $access->redirect(filter_out_sefurl('tiki-view_tracker_item.php?itemId=' . $itemId));
     } else {
         Feedback::errorAndDie(tra("Permission denied"), \Laminas\Http\Response::STATUS_CODE_403);
     }
@@ -438,11 +484,10 @@ if (empty($tracker_info)) {
 $fieldFactory = $definition->getFieldFactory();
 
 $rateFieldId = $definition->getRateField();
-if (isset($tracker_info['useRatings']) and $tracker_info['useRatings'] == 'y' and $tiki_p_tracker_vote_ratings == 'y') {
-    if ($user and isset($rateFieldId) and isset($_REQUEST['ins_' . $rateFieldId])) {
+if (isset($tracker_info['useRatings']) && $tracker_info['useRatings'] == 'y' && $tiki_p_tracker_vote_ratings == 'y') {
+    if ($user && isset($rateFieldId) && isset($_REQUEST['ins_' . $rateFieldId])) {
         $trklib->replace_rating($trackerId, $itemId, $rateFieldId, $user, $_REQUEST['ins_' . $rateFieldId]);
-        header('Location: tiki-view_tracker_item.php?trackerId=' . $trackerId . '&itemId=' . $itemId);
-        die;
+        $access->redirect('tiki-view_tracker_item.php?trackerId=' . $trackerId . '&itemId=' . $itemId);
     }
 }
 
@@ -510,7 +555,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
                 $groupalertlib->Notify($_REQUEST['listtoalert'] ?? '', "tiki-view_tracker_item.php?itemId=" . $itemId);
             }
             $access->checkCsrf();
-            if (! isset($_REQUEST["edstatus"]) or ($tracker_info["showStatus"] != 'y' and $tiki_p_admin_trackers != 'y')) {
+            if (! isset($_REQUEST["edstatus"]) || ($tracker_info["showStatus"] != 'y' && $tiki_p_admin_trackers != 'y')) {
                 $_REQUEST["edstatus"] = $tracker_info["modItemStatus"];
             }
             $trklib->replace_item($trackerId, $itemId, $ins_fields, $_REQUEST["edstatus"]);
@@ -551,8 +596,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
         }
         if (isset($_REQUEST['save_return']) && isset($_REQUEST['from'])) {
             $fromUrl = filter_out_sefurl('tiki-index.php?page=' . urlencode($_REQUEST['from']));
-            header("Location: {$fromUrl}");
-            exit;
+            $access->redirect($fromUrl);
         }
 
         if (isset($_REQUEST['save_and_comment'])) {
@@ -591,20 +635,18 @@ if (isset($_REQUEST["removeImage"])) {
 // ************* return to list ***************************
 if (isset($_REQUEST["returntracker"]) || isset($_REQUEST["save_return"])) {
     require_once('lib/smarty_tiki/block.self_link.php');
-    header(
-        'Location: ' . smarty_block_self_link(
-            [
-                '_script' => 'tiki-view_tracker.php',
-                '_tag' => 'n',
-                '_urlencode' => 'n',
-                'itemId' => 'NULL',
-                'trackerId' => $trackerId
-            ],
-            '',
-            $smarty->getEmptyInternalTemplate()
-        )
+    $returnUrl = smarty_block_self_link(
+        [
+            '_script' => 'tiki-view_tracker.php',
+            '_tag' => 'n',
+            '_urlencode' => 'n',
+            'itemId' => 'NULL',
+            'trackerId' => $trackerId
+        ],
+        '',
+        $smarty->getEmptyInternalTemplate()
     );
-    die;
+    $access->redirect($returnUrl);
 }
 // ********************************************************
 $info = $trklib->get_tracker_item($itemId);
@@ -678,8 +720,8 @@ $smarty->assign('tracker_info', $tracker_info);
 $smarty->assign_by_ref('info', $info);
 $smarty->assign_by_ref('fields', $fields["data"]);
 $smarty->assign_by_ref('ins_fields', $ins_fields["data"]);
-if ($prefs['feature_user_watches'] == 'y' and $tiki_p_watch_trackers == 'y') {
-    if ($user and isset($_REQUEST['watch'])) {
+if ($prefs['feature_user_watches'] == 'y' && $tiki_p_watch_trackers == 'y') {
+    if ($user && isset($_REQUEST['watch'])) {
         $access->checkCsrf();
         if ($_REQUEST['watch'] == 'add') {
             $tikilib->add_user_watch($user, 'tracker_item_modified', $itemId, 'tracker ' . $trackerId, $tracker_info['name'], "tiki-view_tracker_item.php?trackerId=" . $trackerId . "&amp;itemId=" . $itemId);
@@ -690,7 +732,7 @@ if ($prefs['feature_user_watches'] == 'y' and $tiki_p_watch_trackers == 'y') {
     }
     $smarty->assign('user_watching_tracker', 'n');
     $it = $tikilib->user_watches($user, 'tracker_item_modified', $itemId, 'tracker ' . $trackerId);
-    if ($user and $tikilib->user_watches($user, 'tracker_item_modified', $itemId, 'tracker ' . $trackerId)) {
+    if ($user && $tikilib->user_watches($user, 'tracker_item_modified', $itemId, 'tracker ' . $trackerId)) {
         $smarty->assign('user_watching_tracker', 'y');
     }
     // Check, if the user is watching this trackers' item by a category.
@@ -805,7 +847,7 @@ if (isset($_REQUEST['show'])) {
         $cookietab = 1;
         // for legacy edit mode after saving
         CookieConsentLib::tikiSetCookie('tabs_view_tracker_item', '', CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL, 0, 'tabs');
-    } elseif ($tracker_info["useComments"] == 'y' and $_REQUEST['show'] == 'com') {
+    } elseif ($tracker_info["useComments"] == 'y' && $_REQUEST['show'] == 'com') {
         $cookietab = 2;
     } elseif ($_REQUEST['show'] == "mod") {
         $cookietab = 2;
