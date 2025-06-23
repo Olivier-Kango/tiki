@@ -61,7 +61,7 @@ $inputConfiguration = [
             'initial'          => 'text',          //get
             'lock'             => 'bool',          //get
             'unlock'           => 'bool',          //get
-            'master_password'  => 'word',          //post
+            'master_password'  => 'text',          //post
         ]
     ],
 ];
