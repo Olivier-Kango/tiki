@@ -822,7 +822,7 @@ import { defaults as defaultControls } from "ol/control";
                             object = feature.get("object");
 
                         if (!type && !object) {
-                            (type = "trackeritem"), (object = feature.get("itemId"));
+                            ((type = "trackeritem"), (object = feature.get("itemId")));
                         }
 
                         switch ($(container).data("popup-style")) {

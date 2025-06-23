@@ -63,7 +63,7 @@
     "single-spa-vue": "https://github.com/single-spa/single-spa-vue/releases"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^4.4.1",
+    "@stylistic/eslint-plugin": "^5.0.0",
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-istanbul": "^2.1.8",
@@ -88,6 +88,7 @@
     "vitest": "^2.1.8"
   },
   "devDepencenciesCommentWillAlsoBeAvailableAsDevDependenciesInWorkspace": {
+    "@stylistic/eslint-plugin": "https://github.com/eslint-stylistic/eslint-stylistic/blob/main/CHANGELOG.md",
     "es-module-shims": "https://github.com/guybedford/es-module-shims. Copied to be available as an external, but not in common-externals, because it will not be included from import-maps",
     "@vitejs/plugin-vue": "https://github.com/vitejs/vite-plugin-vue/blob/main/packages/plugin-vue/CHANGELOG.md",
     "eslint": "",
