@@ -211,6 +211,7 @@ class ConsoleApplicationBuilder
                 new WebmailUnreadGlobalCommand(),
                 new Disable2FACommand(),
                 new ForumProcessInboundMail(),
+                new SecurityFileGenerateCommand(),
                 ],
             ],[
             'condition' => 'checkIsOCRAvailable',
