@@ -331,6 +331,16 @@ $(window).on("load", function(){
         ];
     }
 
+    /**
+     * While the editor settings form is submitted,
+     * parsed the data and convert to ma
+     * and save it back to the textarea
+     *
+     * @param $input
+     *
+     * @return array
+     * @throws Exception
+     */
     public function actionPostEditorSettings($input)
     {
         global $tikilib;
@@ -339,13 +349,21 @@ $(window).on("load", function(){
         $data = $input->data->none();
         $page_name = $input->page->pagename();
         $converted = $data;
+        // check if the data is html and convert it to wiki
+        if ($input->is_html->word() === 'y') {
+            $converted = TikiLib::lib('edit')->parseToWiki($data);
+        }
 
         $page_infos = $tikilib->get_page_info($page_name);
-        $wikiParserParsable = new WikiParser_Parsable($data);
+        $wikiParserParsable = new WikiParser_Parsable($converted);
         $syntaxPluginResult = $wikiParserParsable->guess_syntax($page_infos['data']);
         $source_syntax = $syntaxPluginResult['syntax'];
 
         if ($source_syntax !== $syntax) {
+            if (strpos('{syntax type=', $data) !== 0) {
+                $converted = '{syntax type="' . $source_syntax . '" editor="' . $editor . '"} ' . $converted;
+            }
+
             $converted = TikiLib::lib('edit')->convertWikiSyntax(
                 $converted,
                 $syntax,
@@ -353,12 +371,8 @@ $(window).on("load", function(){
             );
         }
 
-        if ($syntax === 'tiki') {
-            if ($editor === 'wysiwyg') {
-                $converted = TikiLib::lib('edit')->parseToWysiwyg($converted, true, false, ['wysiwyg' => true, 'html_editor' => true]);
-            } else {
-                $converted = TikiLib::lib('edit')->parseToWiki($converted);
-            }
+        if ($syntax === 'tiki' && $editor === 'wysiwyg') {
+            $converted = TikiLib::lib('edit')->parseToWysiwyg($converted, true, false, ['wysiwyg' => true, 'html_editor' => true]);
         }
 
         return [
