@@ -990,12 +990,13 @@ class Services_Wiki_Controller
         if ($start !== false && $end !== false) {
             $start += mb_strlen("~$plugin~");
             $data = mb_substr($data, $start, $end - $start);
-            $data .= TikiLib::lib('header')->output_js();
         } else {
             $data = tr("Plugin not found.");
         }
 
         Feedback::sendHeaders();
+        $data .= TikiLib::lib('header')->output_js();
+
         return [
             'result' => $data,
         ];
