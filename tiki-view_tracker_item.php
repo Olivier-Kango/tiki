@@ -248,18 +248,7 @@ if ((! isset($trackerId) || ! $trackerId) && isset($itemId)) {
     }
 }
 if (! isset($trackerId) || ! $trackerId) {
-    $errorMsg = tra("No tracker indicated");
-
-    if ($tiki_p_admin == 'y') {
-        $errorMsg .= "\n\nDebug Info:";
-        $errorMsg .= "\nUser: " . ($user ?? 'none');
-        $errorMsg .= "\nGroup: " . ($group ?? 'none');
-        $errorMsg .= "\nUserTracker: " . ($prefs['userTracker'] ?? 'n');
-        $errorMsg .= "\nGroupTracker: " . ($prefs['groupTracker'] ?? 'n');
-        $errorMsg .= "\nRequest: " . print_r($_REQUEST, true);
-    }
-
-    Feedback::errorAndDie(tra($errorMsg), \Laminas\Http\Response::STATUS_CODE_409);
+    Feedback::errorAndDie(tra("No tracker indicated"), \Laminas\Http\Response::STATUS_CODE_409);
 }
 if (! isset($utid) && ! isset($gtid) && (! isset($itemId) || ! $itemId) && ! isset($_REQUEST["offset"])) {
     Feedback::errorAndDie(tra("No item indicated"), \Laminas\Http\Response::STATUS_CODE_409);
