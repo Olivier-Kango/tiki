@@ -59,6 +59,9 @@ $inputConfiguration = [
             'ei_tpl'           => 'text',          //get
             'maxRecords'       => 'int',           //get
             'initial'          => 'text',          //get
+            'lock'             => 'bool',          //get
+            'unlock'           => 'bool',          //get
+            'master_password'  => 'word',          //post
         ]
     ],
 ];
@@ -284,6 +287,35 @@ if (! $definition) {
 $fieldDefinitions = $definition->getFields();
 $smarty->assign('tracker_is_multilingual', $prefs['feature_multilingual'] == 'y' && $definition->getLanguageField());
 
+$isLocked = $trklib->isTrackerItemLocked($itemId);
+$canEditLocked = $trklib->canEditLockedItem($itemId, $_REQUEST['master_password'] ?? null);
+
+if ($tiki_p_admin_trackers == 'y' && isset($_REQUEST['lock']) && $access->checkCsrf()) {
+    $trklib->lockTrackerItem($itemId);
+    header("Location: tiki-view_tracker_item.php?trackerId=$trackerId&itemId=$itemId");
+    exit;
+}
+if ($tiki_p_admin_trackers == 'y' && isset($_REQUEST['unlock']) && $access->checkCsrf()) {
+    $trklib->unlockTrackerItem($itemId);
+    header("Location: tiki-view_tracker_item.php?trackerId=$trackerId&itemId=$itemId");
+    exit;
+}
+
+if (isset($_REQUEST['master_password']) && $isLocked && ! $canEditLocked) {
+    if ($trklib->canEditLockedItem($itemId, $_REQUEST['master_password'])) {
+        $smarty->assign('unlock_success', true);
+        $canEditLocked = true;
+    } else {
+        $smarty->assign('unlock_error', true);
+    }
+}
+
+$smarty->assign('item_is_locked', $isLocked);
+$smarty->assign('can_edit_locked', $canEditLocked);
+$smarty->assign('show_lock_controls', $tiki_p_admin_trackers == 'y');
+$smarty->assign('lock_mode', $prefs['tracker_lock_mode'] ?? 'status');
+$smarty->assign('has_master_password', ! empty($prefs['tracker_master_password']));
+
 if ($prefs['feature_groupalert'] == 'y') {
     $groupforalert = $groupalertlib->GetGroup('tracker', $trackerId);
     if ($groupforalert != "") {
@@ -491,10 +523,14 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
             TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $itemId, 'object_type' => 'trackeritem']);
         }
     }
+
+    if ($isLocked && ! $canEditLocked) {
+        Feedback::errorAndDie(tra("This item is locked and cannot be edited"), \Laminas\Http\Response::STATUS_CODE_403);
+    }
     foreach ($fieldDefinitions as $i => $current_field) {
         $fid = $current_field["fieldId"];
         $fieldIsVisible = $itemObject->canViewField($fid);
-        $fieldIsEditable = $itemObject->canModifyField($fid);
+        $fieldIsEditable = $itemObject->canModifyField($fid) && $canEditLocked;
 
         $current_field_ins = null;
         if ($fieldIsVisible || $fieldIsEditable) {
@@ -652,7 +688,7 @@ foreach ($fieldDefinitions as $i => $current_field) {
     $handler = $fieldFactory->getHandler($current_field, $info);
 
     $fieldIsVisible = $itemObject->canViewField($fid);
-    $fieldIsEditable = $itemObject->canModifyField($fid);
+    $fieldIsEditable = $itemObject->canModifyField($fid) && $canEditLocked;
 
     if ($fieldIsVisible || $fieldIsEditable) {
         $current_field_ins = $current_field;
@@ -878,7 +914,7 @@ if (! empty($path)) {
 }
 $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
 $smarty->assign('canView', $itemObject->canView());
-$smarty->assign('canModify', $itemObject->canModify());
+$smarty->assign('canModify', $itemObject->canModify() && $canEditLocked);
 $smarty->assign('canRemove', $itemObject->canRemove());
 $smarty->assign('conflictoverride', ! empty($_REQUEST['conflictoverride']));
 
