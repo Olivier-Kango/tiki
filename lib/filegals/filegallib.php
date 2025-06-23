@@ -2839,6 +2839,7 @@ class FileGalLib extends TikiLib
         );
         Perms::bulk(['type' => 'file gallery'], 'object', $galleryIds);
         Perms::bulk(['type' => 'file'], 'object', $fileIds);
+        $fileGallerySettings = $this->default_file_gallery();
         foreach ($result as $res) {
             $object_type = ( $res['isgal'] == 1 ? 'file gallery' : 'file');
             $galleryId = $res['isgal'] == 1 ? $res['id'] : $res['galleryId'];
@@ -2866,7 +2867,7 @@ class FileGalLib extends TikiLib
             }
             if (empty($backlinkPerms[$res['galleryId']])) {
                 $info = $this->get_file_gallery_info($res['galleryId']);
-                $backlinkPerms[$res['galleryId']] = $info['backlinkPerms'];
+                $backlinkPerms[$res['galleryId']] = $info['backlinkPerms'] ?? $fileGallerySettings["backlinkPerms"];
             }
             if ($backlinkPerms[$res['galleryId']] == 'y' && $this->hasOnlyPrivateBacklinks($res['id'])) {
                 $numResults--;
