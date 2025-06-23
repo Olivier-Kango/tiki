@@ -1289,13 +1289,13 @@ class PdfGenerator
 .col-xs-2 { width: 12.2%; float:left; }
 .col-xs-1 { width: 3.92%; float:left; }
 .table-striped { border: 0.75pt solid #ccc; }
-.table-striped td { 
+.table-striped td {
     padding: 6pt;
     line-height: 1.42857143;
     vertical-align: center;
-    border-top: 0.75pt solid #ccc; 
+    border-top: 0.75pt solid #ccc;
 }
-.table-striped th { 
+.table-striped th {
     padding: 7.5pt;
     line-height: 1.42857143;
     vertical-align: center;
@@ -1669,7 +1669,8 @@ function cleanHtml($html, $config = null, $encoding = 'utf8')
     if (extension_loaded('tidy') == true) {
         $default = [
             'clean' => true,
-            'output-xhtml' => true,
+            'output-xhtml' => false,
+            'merge-divs' => false,
             'show-body-only' => false,
             'new-blocklevel-tags' => 'pdfsettings pdfpage pdfinclude article aside audio bdi canvas details dialog figcaption figure footer header hgroup main menu menuitem nav section source summary template track video',
             'new-empty-tags' => 'embed keygen source track wbr',
