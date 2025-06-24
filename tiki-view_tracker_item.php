@@ -233,7 +233,6 @@ if ($prefs['userTracker'] == 'y' && isset($_REQUEST['view']) && $_REQUEST['view'
 
             // Unlike scenarios 1 & 2, this fails hard if the item doesn't exist.
             // It does NOT auto-create for another user.
-            // NOTE: The `Feedback` call below has a known issue where it escapes HTML and doesn't display the link (Need to be fixed)
             if (! $itemId) {
                 Feedback::errorAndDie(tra("You don't have a personal tracker item yet. Click here to make one:") . '<br /><a href="tiki-view_tracker.php?trackerId=' . $trackerId . '&cookietab=2">' . tra('Create tracker item') . '</a>', \Laminas\Http\Response::STATUS_CODE_409);
             }

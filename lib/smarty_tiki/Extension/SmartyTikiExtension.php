@@ -232,6 +232,8 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 return [new \SmartyTiki\Modifier\YesNo(), 'handle'];
             case 'zone_is_empty':
                 return [$this, 'smartyModifierZoneIsEmpty'];
+            case 'safe_html':
+                return [$this, 'smartyModifierSafeHtml'];
         }
         return null;
     }
@@ -1064,5 +1066,34 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierStrtotime($datetime, $baseTimestamp = null)
     {
         return strtotime($datetime, $baseTimestamp);
+    }
+
+    /**
+     * @param string|null $string The HTML string to sanitize.
+     * @return string The sanitized, safe HTML.
+    */
+    public function smartyModifierSafeHtml(?string $string): string
+    {
+        if (empty($string)) {
+            return '';
+        }
+
+        // Use a static instance to ensure the expensive purifier setup runs only once per request.
+        static $purifier = null;
+        if ($purifier === null) {
+            $config = \HTMLPurifier_Config::createDefault();
+
+            // Define a strict security policy based on a whitelist of allowed elements and attributes.
+            $config->set('HTML.Allowed', 'a[href|title],b,strong,i,em,br,p,u');
+            $config->set('URI.AllowedSchemes', ['http' => true, 'https' => true, 'mailto' => true]);
+
+            // Add defense-in-depth attributes for all links.
+            $config->set('HTML.TargetBlank', true);
+            $config->set('HTML.Nofollow', true);
+
+            $purifier = new \HTMLPurifier($config);
+        }
+
+        return $purifier->purify($string);
     }
 }
