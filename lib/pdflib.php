@@ -364,6 +364,7 @@ class PdfGenerator
 
         // checking if print friendly preference is enabled if so then attach print css
         // otherwise theme styles will be retained by theme css
+        $themecss = '';
         if ($pdfSettings['print_pdf_mpdf_printfriendly'] === 'y') {
             $printcss = file_get_contents('themes/base_files/css/printpdf.css'); // external css
             $bodycss = 'tiki tiki-print'; //execluding theme css in case print friendly is set to yes.
