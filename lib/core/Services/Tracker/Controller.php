@@ -965,8 +965,9 @@ class Services_Tracker_Controller
             throw new Services_Exception_Denied();
         }
 
-        $fields = $input->fields->none();
-        $forced = $input->forced->none();
+        $fields = $input->fields->none() ?: [];
+        $forced = $input->forced->none() ?: [];
+        $editable = $input->editable->none() ?: [];
         $processedFields = $itemObject->prepareInput($input);
         $suppressFeedback = $input->suppressFeedback->bool();
         $toRemove = [];
@@ -1006,7 +1007,7 @@ class Services_Tracker_Controller
                 foreach ($processedFields as $k => $f) {
                     $permName = $f['permName'];
 
-                    if (! isset($fields[$permName])) {
+                    if (! isset($fields[$permName]) && ! in_array($permName, $editable)) {
                         $toRemove[$permName] = $k;
                     }
                 }
