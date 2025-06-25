@@ -530,7 +530,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
     foreach ($fieldDefinitions as $i => $current_field) {
         $fid = $current_field["fieldId"];
         $fieldIsVisible = $itemObject->canViewField($fid);
-        $fieldIsEditable = $itemObject->canModifyField($fid) && $canEditLocked;
+        $fieldIsEditable = $itemObject->canModifyField($fid) && (! $isLocked || $canEditLocked);
 
         $current_field_ins = null;
         if ($fieldIsVisible || $fieldIsEditable) {
@@ -688,7 +688,7 @@ foreach ($fieldDefinitions as $i => $current_field) {
     $handler = $fieldFactory->getHandler($current_field, $info);
 
     $fieldIsVisible = $itemObject->canViewField($fid);
-    $fieldIsEditable = $itemObject->canModifyField($fid) && $canEditLocked;
+    $fieldIsEditable = $itemObject->canModifyField($fid) && (! $isLocked || $canEditLocked);
 
     if ($fieldIsVisible || $fieldIsEditable) {
         $current_field_ins = $current_field;
@@ -914,7 +914,7 @@ if (! empty($path)) {
 }
 $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
 $smarty->assign('canView', $itemObject->canView());
-$smarty->assign('canModify', $itemObject->canModify() && $canEditLocked);
+$smarty->assign('canModify', $itemObject->canModify() && (! $isLocked || $canEditLocked));
 $smarty->assign('canRemove', $itemObject->canRemove());
 $smarty->assign('conflictoverride', ! empty($_REQUEST['conflictoverride']));
 

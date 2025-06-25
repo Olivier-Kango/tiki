@@ -10,58 +10,17 @@
 
         {* --------- navigation ------ *}
         <div class="t_navbar mb-4">
-        {* Added: Section to display lock status and controls *}
-            {if $prefs.tracker_lock_closed_items eq 'y'}
-                <div class="tracker-lock-status mb-3">
-                    {if $item_is_locked}
-                        <div class="alert alert-warning">
-                            <i class="fas fa-lock"></i> 
-                            {tr}This tracker item is locked and cannot be edited{/tr}
-                            {if $lock_mode eq 'status'}
-                                {tr}(Status: Closed){/tr}
-                            {elseif $lock_mode eq 'explicit'}
-                                {tr}(Explicitly locked){/tr}
-                            {else}
-                                {tr}(Closed or explicitly locked){/tr}
-                            {/if}
-                        </div>
-                        
-                        {* Form for the master password *}
-                        {if !$can_edit_locked && $has_master_password}
-                            <div class="master-password-form">
-                                <form method="post" class="form-inline" action="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}">
-                                    {ticket}
-                                    <div class="form-group mr-2">
-                                        <label class="sr-only">{tr}Master Password{/tr}</label>
-                                        <input type="password" name="master_password" class="form-control" placeholder="{tr}Master Password{/tr}">
-                                    </div>
-                                    <button type="submit" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-unlock"></i> {tr}Unlock{/tr}
-                                    </button>
-                                </form>
-                                {if $unlock_error}
-                                    <small class="text-danger">{tr}Invalid master password{/tr}</small>
-                                {/if}
-                                {if $unlock_success}
-                                    <small class="text-success">{tr}Item unlocked successfully{/tr}</small>
-                                {/if}
-                            </div>
+            {if $prefs.tracker_lock_closed_items eq 'y' && $item_is_locked}
+                <div class="tracker-lock-status mb-2">
+                    <small class="text-muted">
+                        <i class="fas fa-lock me-1"></i>
+                        {tr}This item is locked{/tr}
+                        {if $lock_mode eq 'status'}
+                            - {tr}Status: Closed{/tr}
+                        {elseif $lock_mode eq 'explicit'}
+                            - {tr}Explicitly locked{/tr}
                         {/if}
-                        
-                        {* Controls for admins *}
-                        {if $show_lock_controls && $lock_mode neq 'status'}
-                            <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}&unlock=1" class="btn btn-sm btn-outline-warning">
-                                <i class="fas fa-unlock"></i> {tr}Admin Unlock{/tr}
-                            </a>
-                        {/if}
-                    {else}
-                        {* Explicit lock button for admins *}
-                        {if $show_lock_controls && $lock_mode neq 'status'}
-                            <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}&lock=1" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-lock"></i> {tr}Lock Item{/tr}
-                            </a>
-                        {/if}
-                    {/if}
+                    </small>
                 </div>
             {/if}
 
@@ -164,6 +123,35 @@
                             {favorite button_classes="favorite-icon" label="{tr}Favorite{/tr}"  type="trackeritem" object=$itemId }
                         </li>
                     {/if}
+
+                    {if $prefs.tracker_lock_closed_items eq 'y'}
+                        {if $item_is_locked}
+                            {if !$can_edit_locked && $has_master_password}
+                                <li class="dropdown-item">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#masterPasswordModal">
+                                        {icon name="unlock"} {tr}Unlock{/tr}
+                                    </a>
+                                </li>
+                            {/if}
+                            
+                            {if $show_lock_controls && $lock_mode neq 'status'}
+                                <li class="dropdown-item">
+                                    <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}&unlock=1">
+                                        {icon name="unlock"} {tr}Admin Unlock{/tr}
+                                    </a>
+                                </li>
+                            {/if}                   
+                        {else}
+                            {if $show_lock_controls && $lock_mode neq 'status'}
+                                <li class="dropdown-item">
+                                    <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}&lock=1">
+                                        {icon name="lock"} {tr}Lock Item{/tr}
+                                    </a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                            {/if}
+                        {/if}
+                    {/if}
                 </ul>
                 {if ! $js}</li></ul>{/if}
             </div>
@@ -201,6 +189,39 @@
         {/if}
 
         {include file='tracker_error.tpl'}
+
+        {if $prefs.tracker_lock_closed_items eq 'y' && $item_is_locked && !$can_edit_locked && $has_master_password}
+            <div class="modal fade" id="masterPasswordModal" tabindex="-1" aria-labelledby="masterPasswordModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <form method="post" action="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}">
+                            {ticket}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="masterPasswordModalLabel">
+                                    <i class="fas fa-unlock"></i> {tr}Unlock Item{/tr}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="master_password" class="form-label">{tr}Master Password{/tr}</label>
+                                    <input type="password" name="master_password" id="master_password" class="form-control" autofocus>
+                                </div>
+                                {if $unlock_error}
+                                    <div class="alert alert-danger">{tr}Invalid master password{/tr}</div>
+                                {/if}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{tr}Cancel{/tr}</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-unlock"></i> {tr}Unlock{/tr}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {/if}
     {else}
         <style>
         .tab-content .tab-pane {
