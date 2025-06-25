@@ -487,7 +487,7 @@ class TrackerLib extends TikiLib
 
     /* experimental shared */
     /* trackerId is useless */
-    public function get_item_value($trackerId, $itemId, $fieldId, $useCache = true)
+    public function get_item_value($trackerId, $itemId, $fieldId, $useCache = true, $allLanguages = false)
     {
         global $prefs;
 
@@ -499,7 +499,7 @@ class TrackerLib extends TikiLib
 
         $value = $this->itemFields()->fetchOne('value', ['fieldId' => (int) $fieldId, 'itemId' => (int) $itemId]);
 
-        if ($this->is_multilingual($fieldId) == 'y') {
+        if ($this->is_multilingual($fieldId) == 'y' && ! $allLanguages) {
             $list = json_decode($value, true);
             if (isset($list[$prefs['language']])) {
                 return $list[$prefs['language']];
@@ -6457,11 +6457,12 @@ class TrackerLib extends TikiLib
         // check wether we have a value assigned to $fields.
         // This might be the case if $fields was passed through $params and not from the tracker definition.
         // Build the $items['fieldId'] = value structure
+        $process = isset($params['process']) && $params['process'] == 'y';
         if (isset($field['fieldId'])) {
             if (isset($field['value'])) {
                 $item[$field['fieldId']] = $field['value'];
             } elseif (isset($item['itemId'])) {
-                $item[$field['fieldId']] = $this->get_item_value(null, $item['itemId'], $field['fieldId']);
+                $item[$field['fieldId']] = $this->get_item_value(null, $item['itemId'], $field['fieldId'], true, $process);
             } elseif (isset($params['value'])) {
                 $field['value'] = $params['value'];
                 $field['ins_' . $field['fieldId']] = $field['value'];
@@ -6496,7 +6497,7 @@ class TrackerLib extends TikiLib
                 $handler = $this->get_field_handler($field, $item);
             }
 
-            if (isset($params['process']) && $params['process'] == 'y') {
+            if ($process) {
                 if ($field['type'] === 'e') {   // category
                     if (! is_array($field['value'])) {
                         $categIds = explode(',', $field['value']);
