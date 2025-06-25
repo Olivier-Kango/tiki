@@ -58,7 +58,7 @@
                             <input type="checkbox" name="filter~deep" id="filter-deep" class="form-check-input" {if $filter_deep} checked="checked"{/if}> {tr}Deep search{/tr}
                         </label>
                     </div>
-                    <input type="text" name="filter~categories" id="filter-categories" class="category-wizard form-control d-none" value="{implode(' ',$filter_categories)}">
+                    <input type="text" name="filter~categories" id="filter-categories" class="category-wizard form-control d-none" value="{$filter_categories|join:' '}">
                     <select id="filter-categories-ui" class="form-control" multiple>
                         {foreach from=$categories item=c}
                             <option value="{$c.categId}"{if in_array($c.categId, $filter_categories)} selected="selected"{/if}>{$c.name}</option>
@@ -71,7 +71,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label" for="filter-tags">{tr}Tags{/tr}</label>
                 <div class="col-sm-4">
-                    <input type="text" name="filter~tags" class="tag-wizard d-none" id="filter-tags" value="{implode(' ', $filter_tags)}">
+                    <input type="text" name="filter~tags" class="tag-wizard d-none" id="filter-tags" value="{$filter_tags|join:' '}">
                     <select id="filter-tags-ui" class="form-control" multiple>
                         {foreach from=$tags item=tag}
                             <option value="{$tag.tagId}"{if in_array($tag.tagId, $filter_tags)} selected="selected"{/if}>{$tag.tag}</option>
