@@ -11,6 +11,7 @@ describe("formSubmission handler", () => {
         $.service = vi.fn((service, action) => `${service}/${action}`);
         $.fn.showError = vi.fn();
         $.fn.summernote = vi.fn();
+        $.fn.validate = vi.fn();
 
         vi.useFakeTimers();
     });
@@ -96,9 +97,9 @@ describe("formSubmission handler", () => {
         const textarea = $("<textarea></textarea>");
         const form = $("<form></form>").append(textarea);
         form.data("submitted", false);
-        $.fn.validate = vi.fn(() => ({
+        $.fn.validate.mockReturnValue({
             pendingRequest: 1,
-        }));
+        });
 
         $("body").append(form);
 
