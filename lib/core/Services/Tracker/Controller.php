@@ -3315,4 +3315,32 @@ class Services_Tracker_Controller
             'useFolders' => $trackerField->getOption('useFolders')
         ];
     }
+
+    public function action_unlockModal($input)
+    {
+        global $prefs;
+
+        $trackerId = $input->trackerId->int();
+        $itemId = $input->itemId->int();
+
+        $perms = Perms::get('tracker', $trackerId);
+        if (! $perms->view) {
+            throw new Services_Exception_Denied(tr('You do not have permission to view this item'));
+        }
+
+        $definition = Tracker_Definition::get($trackerId);
+        $item = Tracker_Item::fromId($itemId);
+
+        if (! $definition || ! $item) {
+            throw new Services_Exception_NotFound();
+        }
+
+        return [
+            'title' => tr('Unlock Item'),
+            'trackerId' => $trackerId,
+            'itemId' => $itemId,
+            'has_master_password' => ! empty($prefs['tracker_master_password']),
+            'title' => tr('Unlock Item'),
+        ];
+    }
 }

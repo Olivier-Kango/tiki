@@ -128,7 +128,8 @@
                         {if $item_is_locked}
                             {if !$can_edit_locked && $has_master_password}
                                 <li class="dropdown-item">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#masterPasswordModal">
+                                    <a data-bs-toggle="modal" data-bs-target="#bootstrap-modal"
+                                    href="{service controller=tracker action=unlockModal trackerId=$trackerId itemId=$itemId modal=1}">
                                         {icon name="unlock"} {tr}Unlock{/tr}
                                     </a>
                                 </li>
@@ -190,38 +191,6 @@
 
         {include file='tracker_error.tpl'}
 
-        {if $prefs.tracker_lock_closed_items eq 'y' && $item_is_locked && !$can_edit_locked && $has_master_password}
-            <div class="modal fade" id="masterPasswordModal" tabindex="-1" aria-labelledby="masterPasswordModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <form method="post" action="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}">
-                            {ticket}
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="masterPasswordModalLabel">
-                                    <i class="fas fa-unlock"></i> {tr}Unlock Item{/tr}
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="master_password" class="form-label">{tr}Master Password{/tr}</label>
-                                    <input type="password" name="master_password" id="master_password" class="form-control" autofocus>
-                                </div>
-                                {if $unlock_error}
-                                    <div class="alert alert-danger">{tr}Invalid master password{/tr}</div>
-                                {/if}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{tr}Cancel{/tr}</button>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-unlock"></i> {tr}Unlock{/tr}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        {/if}
     {else}
         <style>
         .tab-content .tab-pane {
