@@ -1045,7 +1045,7 @@ $headerlib->add_js_module('import Sortable from "sortablejs"; window.Sortable = 
 // Shoelace color picker
 $headerlib->add_js_module("import '@shoelace/color-picker';");
 $headerlib->add_cssfile(JS_ASSETS_PATH . '/vendor_dist/@shoelace-style/shoelace/dist/themes/light.css');
-$headerlib->add_js_module("import { textareaColorpicker } from '@jquery-tiki/ui-utils'; textareaColorpicker();");
+$headerlib->add_js_module("import { textareaColorpicker } from '@tiki/ui-utils'; textareaColorpicker();");
 
 // element-plus-ui
 if ($prefs['feature_elementplus'] == 'y') {
@@ -1060,7 +1060,7 @@ if ($prefs['feature_elementplus'] == 'y') {
         $headerlib->add_js_module("import { applySelect } from '@vue-widgets/el-select'; applySelect();");
     }
     if ($prefs['elementplus_autocomplete'] == 'y') {
-        $headerlib->add_js_module("import { autocomplete } from '@jquery-tiki/ui-utils'; window.autocomplete = autocomplete;");
+        $headerlib->add_js_module("import { autocomplete } from '@tiki/ui-utils'; window.autocomplete = autocomplete;");
     }
 } else {
     $headerlib->add_jq_onready("window.showMessage = function (message) { alert(message); };");

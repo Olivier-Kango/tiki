@@ -113,6 +113,7 @@
     "src/js/tiki-iot",
     "src/js/tiki-toast-ui",
     "src/js/tiki-vue-sfc-loader",
+    "src/js/tiki-ui-utils",
     "src/js/vue-mf/*",
     "src/js/vue-widgets/*",
     "src/scss",

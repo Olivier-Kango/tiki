@@ -102,7 +102,7 @@ export default defineConfig(({ command, mode }) => {
     Object.assign(
         rollupInput,
         Object.fromEntries(
-            globSync("src/js/jquery-tiki/**/*.js", { ignore: ["**/node_modules/**", "**/*.test.js"] }).map((file) => {
+            globSync("src/js/jquery-tiki/**/*.js", { ignore: ["**/node_modules/**"] }).map((file) => {
                 //console.log(path.relative(__dirname, file));
                 return [
                     // This remove `src/js/jquery-tiki` as well as the file extension from each
@@ -143,6 +143,7 @@ export default defineConfig(({ command, mode }) => {
         "tiki-mermaid": resolve(__dirname, "tiki-mermaid/mermaid.js"),
         "tiki-vue-sfc-loader": resolve(__dirname, "tiki-vue-sfc-loader/src/tiki-vue-sfc-loader.js"),
         "tiki-toast-ui": resolve(__dirname, "tiki-toast-ui/toast-index.js"),
+        "@tiki/ui-utils": resolve(__dirname, "@tiki/ui-utils/index.js"),
         "wysiwyg-summernote": resolve(__dirname, "wysiwyg/summernote/index.js"),
     });
     return {
@@ -667,7 +668,7 @@ export default defineConfig(({ command, mode }) => {
                     "src/js/vue-widgets/**/*.{vue,js}",
                     "src/js/wysiwyg/**/*.js",
                     "src/js/avatar-generator/**/*.js",
-                    "src/js/jquery-tiki/ui-utils/handle*.js",
+                    "src/js/@tiki/ui-utils/handle*.js",
                 ],
                 exclude: ["**/*.ce.js", "**/*.test.js", "**/elements/**"],
                 provider: "istanbul",

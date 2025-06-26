@@ -66,7 +66,7 @@ class JsCalendar extends Base
 
         $headerlib->add_js_module(<<<JS
             if (typeof handleDatePicker === 'undefined') {
-                import('@jquery-tiki/ui-utils').then(({ handleDatePicker }) => {
+                import('@tiki/ui-utils').then(({ handleDatePicker }) => {
                     handleDatePicker('#{$id}', {
                         fieldName: '{$fieldName}',
                         endFieldName: '{$endfieldname}',
