@@ -27,7 +27,6 @@ use PhpXmlRpc\Client as XML_RPC_Client;
 use PhpXmlRpc\Encoder as XML_RPC_Encoder;
 use Services_Utilities;
 use TikiLib;
-use TikiRegistrationFields;
 use Tiki\Lib\Registration\Error as RegistrationError;
 
 if (! isset($Debug)) {
@@ -202,7 +201,7 @@ class RegistrationLib extends TikiLib
 
     public function get_customfields($user = false)
     {
-        $table = new TikiRegistrationFields();
+        $table = new Fields();
         return $table->getVisibleFields2($user);
     }
 

@@ -3539,9 +3539,6 @@
         "lib\/dcs\/dcslib.php": {
             "class:DCSLib": true
         },
-        "lib\/db\/tiki_registration_fields.php": {
-            "class:TikiRegistrationFields": true
-        },
         "lib\/surveys\/surveylib.php": {
             "class:SurveyLib": true
         },

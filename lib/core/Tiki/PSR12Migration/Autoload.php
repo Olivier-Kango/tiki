@@ -43,6 +43,7 @@ class Autoload
         'Text_Diff_Renderer_bytes' => 'Tiki\\Lib\\Diff\\Renderer\\Bytes',
         'RegistrationError' => 'Tiki\\Lib\\Registration\\Error',
         'RegistrationLib' => 'Tiki\\Lib\\Registration\\RegistrationLib',
+        'TikiRegistrationFields' => 'Tiki\\Lib\\Registration\\Fields',
         '_WikiDiffEngine' => 'Tiki\\Lib\\WikiDiff\\Engine',
         'WikiDiff' => 'Tiki\\Lib\\WikiDiff\\Base',
         'WikiDiffFormatter' => 'Tiki\\Lib\\WikiDiff\\Formatter',

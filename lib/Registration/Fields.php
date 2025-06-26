@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Registration;
+
+use TikiLib;
+
 /**
  * @package Tiki
  * @subpackage db
@@ -11,7 +15,7 @@
 /**
  *
  */
-class TikiRegistrationFields extends TikiLib
+class Fields extends TikiLib
 {
     public function __construct()
     {
