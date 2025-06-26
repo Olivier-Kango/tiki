@@ -58,9 +58,11 @@ class UserSelector extends Base
             'noneLabel' => 'None',
             'realnames' => 'y',
             'class' => 'form-control',
+            'lazyload' => 'false'
         ];
 
         $params = array_merge($defaults, $params);
+        $lazyload = filter_var($params['lazyload'], FILTER_VALIDATE_BOOLEAN);
         if (isset($params['size'])) {
             $sz = ' size="' . $params['size'] . '"';
         } else {
@@ -111,7 +113,7 @@ class UserSelector extends Base
             $ucant = $userlib->count_users('');
         }
 
-        if ($params['lazyload']) {
+        if ($lazyload) {
             $urlParams = [
                 'listonly' => $params['realnames'] === 'y' ? 'userrealnames' : 'users',
             ];
