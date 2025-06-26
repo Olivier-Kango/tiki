@@ -139,6 +139,7 @@ if (isset($_REQUEST['pdf'])) {
     set_time_limit(777);
 
     $_POST["html"] = urldecode($_POST["html"] ?? '');
+    $referer = array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : 'tiki-index.php';
 
     if (isset($_POST["html"])) {
         $generator = new PdfGenerator(PdfGenerator::MPDF);
@@ -155,7 +156,7 @@ if (isset($_REQUEST['pdf'])) {
                 str_replace(
                     'tiki-slideshow.php?',
                     'tiki-index.php?',
-                    $_SERVER['HTTP_REFERER']
+                    $referer
                 )
             );
         }
