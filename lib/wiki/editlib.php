@@ -10,6 +10,10 @@
  *
  */
 
+use Tiki\Lib\Diff\TextDiff;
+use Tiki\Lib\Diff\Op\Add;
+use Tiki\Lib\Diff\Op\Change;
+use Tiki\Lib\Diff\Op\Copy;
 use Tiki\WikiParser\Markdown\Converter\DefinitionListConverter;
 use Tiki\WikiParser\Markdown\Converter\StrikeConverter;
 
@@ -1426,15 +1430,14 @@ class EditLib
                 $oldData = explode("\n", $oldData);
                 $newData = explode("\n", $newData);
                 $sections = [];
-                require_once('lib/diff/difflib.php');
-                $textDiff = new Text_Diff($oldData, $newData, true);
+                $textDiff = new TextDiff($oldData, $newData, true);
                 if (! $textDiff->isEmpty()) {
                     foreach ($textDiff->edits as $edit) {
-                        if (is_a($edit, 'Text_Diff_Op_add')) { // new content
+                        if (is_a($edit, Add::class)) { // new content
                             $sections[] = findMentions($edit->final, 'new');
-                        } elseif (is_a($edit, 'Text_Diff_Op_change')) { // change or new content
+                        } elseif (is_a($edit, Change::class)) { // change or new content
                             $sections[] = findMentionsOnChange($edit);
-                        } elseif (is_a($edit, 'Text_Diff_Op_copy')) { // no diffs on content
+                        } elseif (is_a($edit, Copy::class)) { // no diffs on content
                             $sections[] = findMentions($edit->final, 'old');
                         }
                     }

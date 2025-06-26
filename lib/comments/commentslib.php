@@ -3074,7 +3074,7 @@ class Comments extends TikiLib
         $data = $this->process_save_plugins($data, $comment['objectType'], $threadId);
 
         if ($prefs['feature_actionlog'] == 'y') {
-            include_once('lib/diff/difflib.php');
+            include_once('lib/Diff/difflib.php');
             $bytes = diff2($comment['data'], $data, 'bytes');
             $logslib = TikiLib::lib('logs');
             if ($comment['objectType'] == 'forum') {

@@ -154,7 +154,7 @@ class Services_Edit_Controller
                         }
                         $info['data'] = substr($info['data'], $real_start, $real_len);
                     }
-                    require_once('lib/diff/difflib.php');
+                    require_once('lib/Diff/difflib.php');
                     if ($info['is_html'] == 1) {
                         $diffold = $tikilib->htmldecode($info['data']);
                     } else {

@@ -301,7 +301,7 @@ class IndexCompareEnginesCommand extends Command
                 }
             }
         } elseif ($input->getOption('html')) {
-            include_once 'lib/diff/difflib.php';
+            include_once 'lib/Diff/difflib.php';
             include_once 'lib/wiki-plugins/wikiplugin_code.php';
 
             $htmlOutput = "";

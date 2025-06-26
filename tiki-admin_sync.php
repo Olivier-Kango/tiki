@@ -36,7 +36,7 @@ if (! empty($_REQUEST['submit'])) {
         $export_controller = new Services_Export_Controller();
         $local_content = $export_controller->dumpContent();
 
-        require_once('lib/diff/difflib.php');
+        require_once('lib/Diff/difflib.php');
         $diff = diff2($local_content, $remote_content, 'sidediff-full');
         if (empty($diff)) {
             $diff = '<tr><td colspan="4">The diff is empty.</td></tr>';

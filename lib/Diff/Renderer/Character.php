@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Diff\Renderer;
+
 /**
  * "Side-by-Side" diff renderer.
  *
@@ -11,7 +13,7 @@
  *
  * @package Text_Diff
  */
-class Text_Diff_Renderer_character extends Tiki_Text_Diff_Renderer
+class Character extends TikiRenderer
 {
     protected $orig;
     protected $final;

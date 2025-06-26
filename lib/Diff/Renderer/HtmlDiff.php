@@ -4,14 +4,13 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Diff\Renderer;
+
 /**
  * HTML diff renderer.
  * This class renders the diff of an HTML page with best effort.
  */
-
-include_once("Renderer.php");
-
-class Text_Diff_Renderer_htmldiff extends Tiki_Text_Diff_Renderer
+class HtmlDiff extends TikiRenderer
 {
     public $words;
     public $original;

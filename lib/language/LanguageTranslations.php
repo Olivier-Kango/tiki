@@ -350,7 +350,7 @@ class LanguageTranslations extends TikiDb_Bridge
             }
 
             if ($originalTranslations && isset($lang[$res['source']]) && $lang[$res['source']]['tran'] != $res['tran']) {
-                require_once('lib/diff/difflib.php');
+                require_once('lib/Diff/difflib.php');
                 $res['originalTranslation'] = $lang[$res['source']]['tran'];
                 $res['diff'] = $this->_diff($res['originalTranslation'], $res['tran']);
             }
@@ -390,7 +390,7 @@ class LanguageTranslations extends TikiDb_Bridge
             }
 
             if ($originalTranslations && isset($lang[$res['source']]) && $lang[$res['source']]['tran'] != $res['tran']) {
-                require_once('lib/diff/difflib.php');
+                require_once('lib/Diff/difflib.php');
                 $res['originalTranslation'] = $lang[$res['source']]['tran'];
                 $res['diff'] = $this->_diff($res['originalTranslation'], $res['tran']);
             }

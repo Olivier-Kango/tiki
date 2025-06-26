@@ -27,8 +27,6 @@ require_once("lib/sheet/ole.php");
 require_once("lib/sheet/excel/writer.php");
 //require_once( "lib/sheet/conf/config.inc.php" );
 require_once("lib/encoding/lib-encoding.php");
-include_once 'lib/diff/Diff.php';
-include_once 'lib/diff/Renderer.php';
 // Constants
 
 /*

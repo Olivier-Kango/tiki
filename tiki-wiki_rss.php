@@ -76,7 +76,7 @@ if ($output["data"] == "EMPTY") {
         $prev_page_p = TikiLib::lib('parser')->parse_data($prev_page[$descId], ['print' => true, 'is_html' => $curr_page['is_html']]);
 
         // do a diff between both pages
-        require_once('lib/diff/difflib.php');
+        require_once('lib/Diff/difflib.php');
         $diff = diff2($prev_page_p, $curr_page_p, $curr_page['is_html'] ? 'htmldiff' : 'unidiff');
 
 

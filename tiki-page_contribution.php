@@ -26,7 +26,6 @@ $inputConfiguration = [
 ];
 require_once('tiki-setup.php');
 $histlib = TikiLib::lib('hist');
-require_once("lib/diff/difflib.php");
 
 $access->check_feature('feature_wiki');
 $access->check_feature('feature_page_contribution');

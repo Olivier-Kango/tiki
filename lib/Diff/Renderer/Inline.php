@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Diff\Renderer;
+
+// require_once('lib/Diff/difflib.php');
 /**
  * "Inline" diff renderer.
  *
@@ -12,10 +15,7 @@
  *
  * @package Text_Diff
  */
-
-require_once "renderer_sidebyside.php";
-
-class Text_Diff_Renderer_inline extends Text_Diff_Renderer_sidebyside
+class Inline extends SideBySide
 {
     private $words;
     public function __construct($context_lines = 4, $words = 1)

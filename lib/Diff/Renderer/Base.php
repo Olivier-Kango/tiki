@@ -1,5 +1,16 @@
 <?php
 
+// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
+//
+// All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Diff\Renderer;
+
+use Tiki\Lib\Diff\Op\Add;
+use Tiki\Lib\Diff\Op\Change;
+use Tiki\Lib\Diff\Op\Copy;
+use Tiki\Lib\Diff\Op\Delete;
+
 /**
  * A class to render Diffs in different formats.
  *
@@ -10,7 +21,7 @@
  *
  * @package Text_Diff
  */
-class Text_Diff_Renderer
+class Base
 {
     /**
      * Number of leading context "lines" to preserve.
@@ -60,14 +71,14 @@ class Text_Diff_Renderer
         $this->_startDiff();
 
         foreach ($diff->getDiff() as $edit) {
-            if (is_a($edit, 'Text_Diff_Op_copy')) {
+            if (is_a($edit, Copy::class)) {
                 if (is_array($block)) {
                     if (count($edit->orig) <= $nlead + $ntrail) {
                         $block[] = $edit;
                     } else {
                         if ($ntrail) {
                             $context = array_slice($edit->orig, 0, $ntrail);
-                            $block[] = new Text_Diff_Op_copy($context);
+                            $block[] = new Copy($context);
                         }
                         $this->_block(
                             $x0,
@@ -87,7 +98,7 @@ class Text_Diff_Renderer
                     $y0 = $yi - count($context);
                     $block = [];
                     if ($context) {
-                        $block[] = new Text_Diff_Op_copy($context);
+                        $block[] = new Copy($context);
                     }
                 }
                 $block[] = $edit;
@@ -118,27 +129,17 @@ class Text_Diff_Renderer
     {
         $this->_startBlock($this->_blockHeader($xbeg, $xlen, $ybeg, $ylen));
         foreach ($edits as $edit) {
-            switch (strtolower(get_class($edit))) {
-                case 'text_diff_op_copy':
-                    $this->_context($edit->orig);
-                    break;
-
-                case 'text_diff_op_add':
-                    $this->_added($edit->final);
-                    break;
-
-                case 'text_diff_op_delete':
-                    $this->_deleted($edit->orig);
-                    break;
-
-                case 'text_diff_op_change':
-                    $this->_changed($edit->orig, $edit->final);
-                    break;
-
-                default:
-                    trigger_error("Unknown edit type", E_USER_WARNING);
+            if ($edit instanceof Copy) {
+                $this->_context($edit->orig);
+            } elseif ($edit instanceof Add) {
+                $this->_added($edit->final);
+            } elseif ($edit instanceof Delete) {
+                $this->_deleted($edit->orig);
+            } elseif ($edit instanceof Change) {
+                $this->_changed($edit->orig, $edit->final);
+            } else {
+                trigger_error("Unknown edit type: " . get_class($edit), E_USER_WARNING);
             }
-
             $this->_endBlock();
         }
     }

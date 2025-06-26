@@ -11,7 +11,6 @@ ini_set('display_errors', 'on');
 error_reporting(E_ALL & ~E_DEPRECATED);
 
 ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . "." . PATH_SEPARATOR . "../../core" . PATH_SEPARATOR . "../../..");
-include_once('./include_non_autoload_compatible_classes.php');
 
 function tra($string)
 {

@@ -5,83 +5,29 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
+use Tiki\Lib\Diff\TextDiff;
+use Tiki\Lib\Diff\Renderer\Bytes;
+use Tiki\Lib\Diff\Renderer\HtmlDiff;
+use Tiki\Lib\Diff\Renderer\Inline;
+use Tiki\Lib\Diff\Renderer\SideBySide;
+use Tiki\Lib\Diff\Renderer\Unified;
+
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
     header("location: index.php");
     exit;
 }
 
-require_once(__DIR__ . "/Diff.php");
-require_once(__DIR__ . "/Renderer.php");
-
-/* @brief modif tiki for the renderer lib   */
-class Tiki_Text_Diff_Renderer extends Text_Diff_Renderer
+function getMappingForDiffRenderer()
 {
-    protected function _lines($lines, $prefix = '', $suffix = '', $type = '')
-    {
-//ADD $suffix
-        foreach ($lines as $line) {
-            echo "$prefix$line$suffix\n";
-        }
-    }
-    public function render($diff, $singleEdit = false)
-    {
-        $x0 = $y0 = 0;
-        $xi = $yi = 1;
-        $block = false;
-        $context = [];
-
-        $nlead = $this->leading_context_lines;
-        $ntrail = $this->trailing_context_lines;
-
-        $this->_startDiff();
-
-        if (! $singleEdit) {
-            $diff = $diff->getDiff();
-        }
-
-        foreach ($diff as $edit) {
-            if (is_a($edit, 'Text_Diff_Op_copy')) {
-                if (is_array($block)) {
-                    if (count($edit->orig) <= $nlead + $ntrail) {
-                        $block[] = $edit;
-                    } else {
-                        if ($ntrail) {
-                            $context = array_slice($edit->orig, 0, $ntrail);
-                            $block[] = new Text_Diff_Op_copy($context);
-                        }
-                        $this->_block($x0, $ntrail + $xi - $x0, $y0, $ntrail + $yi - $y0, $block);
-                        $block = false;
-                    }
-                }
-                $context = $edit->orig;
-            } else {
-                if (! is_array($block)) {
-                    //BUG if compare on all the length:                    $context = array_slice($context, count($context) - $nlead);
-                    $context = array_slice($context, -$nlead, $nlead);
-                    $x0 = $xi - count($context);
-                    $y0 = $yi - count($context);
-                    $block = [];
-                    if ($context) {
-                        $block[] = new Text_Diff_Op_copy($context);
-                    }
-                }
-                $block[] = $edit;
-            }
-
-            if ($edit->orig) {
-                $xi += count($edit->orig);
-            }
-            if ($edit->final) {
-                $yi += count($edit->final);
-            }
-        }
-
-        if (is_array($block)) {
-            $this->_block($x0, $xi - $x0, $y0, $yi - $y0, $block);
-        }
-
-        return $this->_endDiff();
-    }
+    return [
+        'character_inline' => 'CharacterInline',
+        'bytes' => 'Bytes',
+        'inline' => 'Inline',
+        'sidebyside' => 'SideBySide',
+        'unified' => 'Unified',
+        'htmldiff' => 'HtmlDiff',
+        'character' => 'Character',
+    ];
 }
 
 function diff2($page1, $page2, $type = 'sidediff')
@@ -99,7 +45,7 @@ function diff2($page1, $page2, $type = 'sidediff')
         $page1 = empty($page1) ? [] : explode("\n", $page1);
         $page2 = empty($page2) ? [] : explode("\n", $page2);
     }
-    $z = new Text_Diff($page1, $page2);
+    $z = new TextDiff($page1, $page2);
     if ($z->isEmpty()) {
         $html = '';
     } else {
@@ -116,20 +62,15 @@ function diff2($page1, $page2, $type = 'sidediff')
         }
 
         if ($type == 'unidiff') {
-            require_once('renderer_unified.php');
-            $renderer = new Text_Diff_Renderer_unified($context);
+            $renderer = new Unified($context);
         } elseif ($type == 'inlinediff') {
-            require_once('renderer_inline.php');
-            $renderer = new Text_Diff_Renderer_inline($context, $words);
+            $renderer = new Inline($context, $words);
         } elseif ($type == 'sidediff') {
-            require_once('renderer_sidebyside.php');
-            $renderer = new Text_Diff_Renderer_sidebyside($context, $words);
+            $renderer = new SideBySide($context, $words);
         } elseif ($type == 'bytes' && $prefs['feature_actionlog_bytes'] == 'y') {
-            require_once('renderer_bytes.php');
-            $renderer = new Text_Diff_Renderer_bytes();
+            $renderer = new Bytes();
         } elseif ($type == 'htmldiff') {
-            require_once('renderer_htmldiff.php');
-            $renderer = new Text_Diff_Renderer_htmldiff($context, $words);
+            $renderer = new HtmlDiff($context, $words);
         } else {
             return "";
         }
@@ -157,14 +98,15 @@ function diffChar($orig, $final, $words = 0, $function = 'character')
         $line1 = preg_split('//u', implode($glue, $orig), -1, PREG_SPLIT_NO_EMPTY);
         $line2 = preg_split('//u', implode($glue, $final), -1, PREG_SPLIT_NO_EMPTY);
     }
-    $z = new Text_Diff($line1, $line2);
+    $z = new TextDiff($line1, $line2);
     if ($z->isEmpty()) {
         return [$orig[0], $final[0]];
     }
-//echo "<pre>";print_r($z);echo "</pre>";
-
+    //echo "<pre>";print_r($z);echo "</pre>";
     compileRendererClass($function);
-      $new = "Text_Diff_Renderer_$function";
+
+    $rendererMap = getMappingForDiffRenderer();
+    $new = "\\Tiki\\Lib\\Diff\\Renderer\\" . $rendererMap[$function];
     $renderer = new $new(count($line1));
     return $renderer->render($z);
 }
@@ -184,7 +126,7 @@ function restoreLineBreaks($lines, $glue)
 function compileRendererClass($function)
 {
     /*
-     * The various subclasses of Text_Diff_Renderer have methods whose signatures are incompatible
+     * The various subclasses of Tiki\Lib\Diff\Renderer\Base have methods whose signatures are incompatible
      * with those of their parents. This raises some warnings which don't matter in production settings.
      *
      * But when running phpunit tests, this causes some failures, because we have configured phpunit
@@ -199,7 +141,8 @@ function compileRendererClass($function)
         $old_error_reporting_level = error_reporting(E_ERROR | E_PARSE);
     }
 
-    require_once("renderer_$function.php");
+    // PSR-12 uses autoloading (via Composer), So no longer need to manually include files
+    // require_once("renderer_$function.php");
 
     if (defined('TIKI_IN_TEST')) {
         error_reporting($old_error_reporting_level);
@@ -249,8 +192,7 @@ function findMentionsOnChange($edit)
                 $allMatches[] = $m;
             }
         } else {
-            require_once('renderer_inline.php');
-            $renderer = new Text_Diff_Renderer_inline(1);
+            $renderer = new Inline(1);
             $html = $renderer->render([$edit], true);
 
             // remove unnecessary content

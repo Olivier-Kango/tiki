@@ -9,7 +9,7 @@ namespace Tiki\Tests\diff;
 use TikiLib;
 use TikiTestCase;
 
-require_once __DIR__ . '/../../diff/difflib.php';
+require_once __DIR__ . '/../../Diff/difflib.php';
 
 class DiffTest extends TikiTestCase
 {

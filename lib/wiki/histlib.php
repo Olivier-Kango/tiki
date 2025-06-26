@@ -536,7 +536,7 @@ function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '', $c
         $old["data"] = $parserlib->parse_data($old["data"], ['preview_mode' => true]);
         $new["data"] = $parserlib->parse_data($new["data"], ['preview_mode' => true]);
     } else {
-        require_once('lib/diff/difflib.php');
+        require_once('lib/Diff/difflib.php');
         if ($info['is_html'] == 1 and $diff_style != "htmldiff") {
             $search[] = "~</(table|td|th|div|p)>~";
             $replace[] = "\n";

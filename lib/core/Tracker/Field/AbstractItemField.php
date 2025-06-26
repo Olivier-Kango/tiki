@@ -246,7 +246,7 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
         if (empty($context['diff_style'])) {
             $context['diff_style'] = 'inlinediff';
         }
-        require_once('lib/diff/difflib.php');
+        require_once('lib/Diff/difflib.php');
         $diff = diff2($old, $new, $context['diff_style']);
         $result = '';
 

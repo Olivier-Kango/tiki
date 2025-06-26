@@ -5472,7 +5472,7 @@ class TikiLib extends TikiDb_Bridge
                     $contributionlib->change_assigned_contributions($pageName, 'wiki page', $historyId, 'history', '', $pageName . '/' . $old_version, "tiki-pagehistory.php?page=$pageName&preview=$old_version");
                 }
             }
-            include_once('lib/diff/difflib.php');
+            include_once('lib/Diff/difflib.php');
             if (strtolower($pageName) != 'sandbox' && ! $autoupdate) {
                 $logslib = TikiLib::lib('logs');
                 $bytes = diff2($data, $edit_data, 'bytes');

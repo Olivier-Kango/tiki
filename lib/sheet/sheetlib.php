@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // Tikiwiki Sheet Library {{{1
 
+use Tiki\Lib\Diff\TextDiff;
+
 require_once("grid.php");
 
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
@@ -783,26 +785,9 @@ class SheetLib extends TikiLib
                     $cellValue2 = isset($grids2[$i]->dataGrid[$row][$col]) && is_array($grids2[$i]->dataGrid[$row][$col])
                         ? $grids2[$i]->dataGrid[$row][$col]["value"] ?? ''
                         : $grids2[$i]->dataGrid[$row][$col] ?? '';
-                    $diff = new Text_Diff($sanitize_for_diff(html_entity_decode($cellValue1)), $sanitize_for_diff(html_entity_decode($cellValue2)));
+                    $diff = new TextDiff($sanitize_for_diff(html_entity_decode($cellValue1)), $sanitize_for_diff(html_entity_decode($cellValue2)));
                     $changes = $diff->getDiff();
-
-                    //I left this diff switch, but it really isn't being used as of now, in the future we may though.
-                    switch (get_class($changes[0])) {
-                        case 'Text_Diff_Op_copy':
-                            $values = $diff_to_html($changes[0]);
-                            break;
-                        case 'Text_Diff_Op_change':
-                            $values = $diff_to_html($changes[0]);
-                            break;
-                        case 'Text_Diff_Op_delete':
-                            $values = $diff_to_html($changes[0]);
-                            break;
-                        case 'Text_Diff_Op_add':
-                            $values = $diff_to_html($changes[0]);
-                            break;
-                        default:
-                            $values = $diff_to_html($changes[0]);
-                    }
+                    $values = $diff_to_html($changes[0]);
                     $result1 .= (empty($values[0]) ? '<td></td>' : $values[0]);
                     $result2 .= (empty($values[1]) ? '<td></td>' : $values[1]);
                 }

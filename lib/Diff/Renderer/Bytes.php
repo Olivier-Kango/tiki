@@ -4,11 +4,14 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Diff\Renderer;
+
+require_once('lib/Diff/difflib.php');
 /**
  * Give back the kb change
  *
  */
-class Text_Diff_Renderer_bytes extends Text_Diff_Renderer
+class Bytes extends Base
 {
     private $addBytes = 0;
     private $delBytes = 0;

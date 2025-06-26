@@ -17,7 +17,10 @@
 
 namespace Tiki\Lib\Wiki;
 
-use Text_Diff;
+use Tiki\Lib\Diff\TextDiff;
+use Tiki\Lib\Diff\Op\Add;
+use Tiki\Lib\Diff\Op\Copy;
+use Tiki\Lib\Diff\Op\Delete;
 use TikiLib;
 
 class Document
@@ -641,16 +644,16 @@ class Document
         }
         preg_match_all($this->search, $page, $out, PREG_PATTERN_ORDER);
         $new = $out[0];
-        $z = new Text_Diff($this->getDiffArray(), $new);
+        $z = new TextDiff($this->getDiffArray(), $new);
         $pos = 0;
         foreach ($z->getDiff() as $element) {
-            if (is_a($element, 'Text_Diff_Op_copy')) {
+            if (is_a($element, Copy::class)) {
                 $this->moveWords($newdoc, $pos, $element->orig, $deleted, $deleted_by);
             } else {
-                if (is_a($element, 'Text_Diff_Op_add')) {
+                if (is_a($element, Add::class)) {
                     $newdoc = $this->addWords($newdoc, $element->final, $author, $deleted, $deleted_by);
                 } else {
-                    if (is_a($element, 'Text_Diff_Op_delete')) {
+                    if (is_a($element, Delete::class)) {
                         $this->moveWords($newdoc, $pos, $element->orig, $deleted, $author);
                     } else { //change
                         $newdoc = $this->addWords($newdoc, $element->final, $author, $deleted, $deleted_by);

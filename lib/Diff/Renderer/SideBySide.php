@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Diff\Renderer;
+
+// require_once('lib/Diff/difflib.php');
 /**
  * "Side-by-Side" diff renderer.
  *
@@ -11,7 +14,7 @@
  *
  * @package Text_Diff
  */
-class Text_Diff_Renderer_sidebyside extends Tiki_Text_Diff_Renderer
+class SideBySide extends TikiRenderer
 {
     private $words;
     public function __construct($context_lines = 4, $words = 1)
@@ -120,9 +123,8 @@ class Text_Diff_Renderer_sidebyside extends Tiki_Text_Diff_Renderer
         $lines = diffChar($orig, $final, $this->words);
         $this->_deleted(preg_split('/<br[ \/]*>/', $lines[0]), true);
         $this->_added(preg_split('/<br[ \/]*>/', $lines[1]), true);
-/* switch with these lines for no character diff
-        $this->_deleted($orig, TRUE);
-        $this->_added($final, TRUE);
-*/
+        // switch with these lines for no character diff
+        // $this->_deleted($orig, TRUE);
+        // $this->_added($final, TRUE);
     }
 }

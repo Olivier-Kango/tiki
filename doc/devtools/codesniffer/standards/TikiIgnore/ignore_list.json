@@ -3288,44 +3288,6 @@
         "lib\/wiki\/histlib.php": {
             "class:HistLib": true
         },
-        "lib\/diff\/renderer_bytes.php": {
-            "class:Text_Diff_Renderer_bytes": true
-        },
-        "lib\/diff\/Diff.php": {
-            "class:Text_Diff": true,
-            "class:Text_MappedDiff": true,
-            "class:Text_Diff_Engine_xdiff": true,
-            "class:Text_Diff_Engine_native": true,
-            "class:Text_Diff_Op": true,
-            "class:Text_Diff_Op_copy": true,
-            "class:Text_Diff_Op_delete": true,
-            "class:Text_Diff_Op_add": true,
-            "class:Text_Diff_Op_change": true
-        },
-        "lib\/diff\/Renderer.php": {
-            "class:Text_Diff_Renderer": true
-        },
-        "lib\/diff\/renderer_character_inline.php": {
-            "class:Text_Diff_Renderer_character_inline": true
-        },
-        "lib\/diff\/renderer_unified.php": {
-            "class:Text_Diff_Renderer_unified": true
-        },
-        "lib\/diff\/renderer_inline.php": {
-            "class:Text_Diff_Renderer_inline": true
-        },
-        "lib\/diff\/renderer_sidebyside.php": {
-            "class:Text_Diff_Renderer_sidebyside": true
-        },
-        "lib\/diff\/renderer_character.php": {
-            "class:Text_Diff_Renderer_character": true
-        },
-        "lib\/diff\/difflib.php": {
-            "class:Tiki_Text_Diff_Renderer": true
-        },
-        "lib\/diff\/renderer_htmldiff.php": {
-            "class:Text_Diff_Renderer_htmldiff": true
-        },
         "lib\/minical\/minicallib.php": {
             "class:MiniCalLib": true
         },
@@ -6418,44 +6380,6 @@
         "lib\/wiki\/xmllib.php": {
             "page_Parser": true
         },
-        "lib\/diff\/renderer_bytes.php": {
-            "Text_Diff_Renderer_bytes": true
-        },
-        "lib\/diff\/Diff.php": {
-            "Text_Diff": true,
-            "Text_MappedDiff": true,
-            "Text_Diff_Engine_xdiff": true,
-            "Text_Diff_Engine_native": true,
-            "Text_Diff_Op": true,
-            "Text_Diff_Op_copy": true,
-            "Text_Diff_Op_delete": true,
-            "Text_Diff_Op_add": true,
-            "Text_Diff_Op_change": true
-        },
-        "lib\/diff\/Renderer.php": {
-            "Text_Diff_Renderer": true
-        },
-        "lib\/diff\/renderer_character_inline.php": {
-            "Text_Diff_Renderer_character_inline": true
-        },
-        "lib\/diff\/renderer_unified.php": {
-            "Text_Diff_Renderer_unified": true
-        },
-        "lib\/diff\/renderer_inline.php": {
-            "Text_Diff_Renderer_inline": true
-        },
-        "lib\/diff\/renderer_sidebyside.php": {
-            "Text_Diff_Renderer_sidebyside": true
-        },
-        "lib\/diff\/renderer_character.php": {
-            "Text_Diff_Renderer_character": true
-        },
-        "lib\/diff\/difflib.php": {
-            "Tiki_Text_Diff_Renderer": true
-        },
-        "lib\/diff\/renderer_htmldiff.php": {
-            "Text_Diff_Renderer_htmldiff": true
-        },
         "lib\/language\/GetStrings.php": {
             "Language_GetStrings": true
         },
@@ -6604,16 +6528,6 @@
         },
         "lib\/wiki\/xmllib.php": {
             "class:page_Parser": true
-        },
-        "lib\/diff\/Diff.php": {
-            "class:Text_MappedDiff": true,
-            "class:Text_Diff_Engine_xdiff": true,
-            "class:Text_Diff_Engine_native": true,
-            "class:Text_Diff_Op": true,
-            "class:Text_Diff_Op_copy": true,
-            "class:Text_Diff_Op_delete": true,
-            "class:Text_Diff_Op_add": true,
-            "class:Text_Diff_Op_change": true
         },
         "lib\/shipping\/shippinglib.php": {
             "class:CustomShippingProvider": true,
@@ -8482,10 +8396,10 @@
             "HistLib::get_nb_history": true,
             "HistLib::get_version_by_time": true
         },
-        "lib\/diff\/renderer_htmldiff.php": {
-            "Text_Diff_Renderer_htmldiff::_insert_tag": true,
-            "Text_Diff_Renderer_htmldiff::_count_tags": true,
-            "Text_Diff_Renderer_htmldiff::_can_break": true
+        "lib\/Diff\/Renderer\/HtmlDiff.php": {
+            "HtmlDiff::_insert_tag": true,
+            "HtmlDiff::_count_tags": true,
+            "HtmlDiff::_can_break": true
         },
         "lib\/minical\/minicallib.php": {
             "MiniCalLib::minical_events_by_slot": true,
@@ -10062,7 +9976,7 @@
         }
     },
     "PSR2.Methods.MethodDeclaration.Underscore": {
-        "lib\/diff\/renderer_bytes.php": {
+        "lib\/Diff\/Renderer\/Bytes.php": {
             "_startDiff": true,
             "_endDiff": true,
             "_blockHeader": true,
@@ -10071,7 +9985,7 @@
             "_changed": true,
             "_count": true
         },
-        "lib\/diff\/Diff.php": {
+        "lib\/Diff\/TextDiff.php": {
             "_trimNewlines": true,
             "_check": true,
             "_diag": true,
@@ -10079,7 +9993,16 @@
             "_compareseq": true,
             "_shiftBoundaries": true
         },
-        "lib\/diff\/Renderer.php": {
+        "lib\/Diff\/EngineNative.php": {
+            "_diag": true,
+            "_lcsPos": true,
+            "_compareseq": true,
+            "_shiftBoundaries": true
+        },
+        "lib\/Diff\/Renderer\/TikiRenderer.php": {
+            "_lines": true
+        },
+        "lib\/Diff\/Renderer\/Base.php": {
             "_block": true,
             "_startDiff": true,
             "_endDiff": true,
@@ -10092,7 +10015,7 @@
             "_deleted": true,
             "_changed": true
         },
-        "lib\/diff\/renderer_character_inline.php": {
+        "lib\/Diff\/Renderer\/CharacterInline.php": {
             "_startDiff": true,
             "_endDiff": true,
             "_blockHeader": true,
@@ -10105,7 +10028,7 @@
             "_deleted": true,
             "_changed": true
         },
-        "lib\/diff\/renderer_unified.php": {
+        "lib\/Diff\/Renderer\/Unified.php": {
             "_startDiff": true,
             "_endDiff": true,
             "_blockHeader": true,
@@ -10114,10 +10037,10 @@
             "_deleted": true,
             "_changed": true
         },
-        "lib\/diff\/renderer_inline.php": {
+        "lib\/Diff\/Renderer\/Inline.php": {
             "_block": true
         },
-        "lib\/diff\/renderer_sidebyside.php": {
+        "lib\/Diff\/Renderer\/SideBySide.php": {
             "_startDiff": true,
             "_endDiff": true,
             "_blockHeader": true,
@@ -10129,7 +10052,7 @@
             "_deleted": true,
             "_changed": true
         },
-        "lib\/diff\/renderer_character.php": {
+        "lib\/Diff\/Renderer\/Character.php": {
             "_startDiff": true,
             "_endDiff": true,
             "_blockHeader": true,
@@ -10141,10 +10064,7 @@
             "_deleted": true,
             "_changed": true
         },
-        "lib\/diff\/difflib.php": {
-            "_lines": true
-        },
-        "lib\/diff\/renderer_htmldiff.php": {
+        "lib\/Diff\/Renderer\/HtmlDiff.php": {
             "_startDiff": true,
             "_endDiff": true,
             "_blockHeader": true,
