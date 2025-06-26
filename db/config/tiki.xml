@@ -158,9 +158,7 @@
         <service id="tiki.lib.hist" class="HistLib">
             <file>%kernel.root_dir%/lib/wiki/histlib.php</file>
         </service>
-        <service id="tiki.lib.iconset" class="IconsetLib">
-            <file>%kernel.root_dir%/lib/theme/iconsetlib.php</file>
-        </service>
+        <service id="tiki.lib.iconset" class="Tiki\Lib\Theme\IconsetLib"/>
         <service id="tiki.lib.imagegal" class="ImageGalsLib">
             <file>%kernel.root_dir%/lib/imagegals/imagegallib.php</file>
         </service>
@@ -332,12 +330,8 @@
         <service id="tiki.lib.template" class="TemplatesLib">
             <file>%kernel.root_dir%/lib/templates/templateslib.php</file>
         </service>
-        <service id="tiki.lib.theme" class="ThemeLib">
-            <file>%kernel.root_dir%/lib/theme/themelib.php</file>
-        </service>
-        <service id="tiki.lib.themecontrol" class="ThemeControlLib">
-            <file>%kernel.root_dir%/lib/theme/themecontrollib.php</file>
-        </service>
+        <service id="tiki.lib.theme" class="Tiki\Lib\Theme\ThemeLib"/>
+        <service id="tiki.lib.themecontrol" class="Tiki\Lib\Theme\ThemeControlLib"/>
         <service id="tiki.lib.tikicalendar" class="TikiCalendarLib">
             <file>%kernel.root_dir%/lib/calendar/tikicalendarlib.php</file>
         </service>

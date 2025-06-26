@@ -5,6 +5,7 @@
  */
 
 use Tiki\Lib\CookieConsent\CookieConsentLib;
+use Tiki\Lib\Theme\ThemeLib;
 
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //

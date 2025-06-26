@@ -4,12 +4,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Theme;
+
+use Symfony\Component\Routing\Exception\InvalidParameterException;
+use Tiki\Package\ExtensionManager;
+use Tiki\Paths\Customization;
+use TikiLib;
+
 /*
 ThemeLib
 @uses TikiLib
 */
-
-use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 /** This manages the theme access
  *
@@ -113,7 +118,7 @@ class ThemeLib extends TikiLib
         global $tikidomain;
 
         $paths = [];
-        $path = Tiki\Paths\Customization::getCurrentSitePublicPath(THEMES_PATH_FRAGMENT);
+        $path = Customization::getCurrentSitePublicPath(THEMES_PATH_FRAGMENT);
         if ($path) {
                 $paths[] = $path;
         }
@@ -177,7 +182,7 @@ class ThemeLib extends TikiLib
             }
         }
         //Look in extensions
-        foreach (\Tiki\Package\ExtensionManager::getPaths() as $path) {
+        foreach (ExtensionManager::getPaths() as $path) {
             if (file_exists($path . '/templates/layouts/')) {
                 foreach (scandir($path . '/templates/layouts/') as $layoutName) {
                     if ($layoutName[0] != '.' && $layoutName != 'index.php') {

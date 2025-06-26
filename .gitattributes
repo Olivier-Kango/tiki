@@ -4655,10 +4655,11 @@ lib/test/wiki-plugins/TranslationOfTest.php -text
 lib/test/wiki-plugins/YoutubeTest.php -text
 lib/test/wiki-plugins/index.php -text
 lib/test/wiki/WikiLibTest.php -text
-lib/theme/iconsetlib.php -text
-lib/theme/index.php -text
-lib/theme/themecontrollib.php -text
-lib/theme/themelib.php -text
+lib/Theme/IconsetLib.php -text
+lib/Theme/Iconset.php -text
+lib/Theme/index.php -text
+lib/Theme/ThemeControlLib.php -text
+lib/Theme/ThemeLib.php -text
 lib/tiki-dynamic-js.php -text
 lib/tiki-js.js -text
 lib/tikiaccesslib.php -text

@@ -3455,16 +3455,6 @@
         "lib\/smarty_tiki\/resource.tplwiki.php": {
             "class:Smarty_Resource_Tplwiki": true
         },
-        "lib\/theme\/iconsetlib.php": {
-            "class:IconsetLib": true,
-            "class:Iconset": true
-        },
-        "lib\/theme\/themecontrollib.php": {
-            "class:ThemeControlLib": true
-        },
-        "lib\/theme\/themelib.php": {
-            "class:ThemeLib": true
-        },
         "lib\/ml\/mllib.php": {
             "class:MachineLearningLib": true
         },
@@ -6536,9 +6526,6 @@
         "lib\/smarty_tiki\/Modifier\/D.php": {
             "class:SmartyKint": true
         },
-        "lib\/theme\/iconsetlib.php": {
-            "class:Iconset": true
-        },
         "lib\/ointegratelib.php": {
             "interface:OIntegrate_Engine": true,
             "class:OIntegrate": true,
@@ -9143,7 +9130,7 @@
             "BookmarkLib::list_folder": true,
             "BookmarkLib::get_child_folders": true
         },
-        "lib\/theme\/themecontrollib.php": {
+        "lib\/Theme\/ThemeControlLib.php": {
             "ThemeControlLib::tc_assign_category": true,
             "ThemeControlLib::tc_assign_section": true,
             "ThemeControlLib::tc_assign_object": true,
@@ -9158,7 +9145,7 @@
             "ThemeControlLib::tc_remove_object": true,
             "ThemeControlLib::get_tc_theme": true
         },
-        "lib\/theme\/themelib.php": {
+        "lib\/Theme\/ThemeLib.php": {
             "ThemeLib::list_themes": true,
             "ThemeLib::get_options": true,
             "ThemeLib::list_theme_options": true,
