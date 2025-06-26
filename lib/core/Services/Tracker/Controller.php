@@ -3316,7 +3316,7 @@ class Services_Tracker_Controller
         ];
     }
 
-    public function action_unlockModal($input)
+    public function actionUnlockModal($input)
     {
         global $prefs;
 
