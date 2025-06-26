@@ -1990,14 +1990,14 @@ class TrackerLib extends TikiLib
         if ($prefs['tracker_lock_closed_items'] !== 'y') {
             return false;
         }
-        
+
         $item = $this->get_tracker_item($itemId);
         if (! $item) {
             return false;
         }
-        
+
         $lockMode = $prefs['tracker_lock_mode'] ?? 'status';
-        
+
         switch ($lockMode) {
             case 'status':
                 return $item['status'] === 'c';
@@ -2019,19 +2019,19 @@ class TrackerLib extends TikiLib
     public function lockTrackerItem($itemId, $userId = null)
     {
         global $prefs, $user;
-        
+
         if (! in_array($prefs['tracker_lock_mode'] ?? 'status', ['explicit', 'hybrid'])) {
             return false;
         }
-        
+
         $userId = $userId ?: $this->getOne("SELECT userId FROM users_users WHERE login = ?", [$user]);
-        
+
         $query = "UPDATE tiki_tracker_items SET 
                 is_locked = 'y', 
                 locked_by = ?, 
                 locked_date = ? 
                 WHERE itemId = ?";
-        
+
         return $this->query($query, [$userId, time(), $itemId]);
     }
 
@@ -2043,17 +2043,17 @@ class TrackerLib extends TikiLib
     public function unlockTrackerItem($itemId)
     {
         global $prefs;
-        
+
         if (! in_array($prefs['tracker_lock_mode'] ?? 'status', ['explicit', 'hybrid'])) {
             return false;
         }
-        
+
         $query = "UPDATE tiki_tracker_items SET 
                 is_locked = 'n', 
                 locked_by = NULL, 
                 locked_date = NULL 
                 WHERE itemId = ?";
-        
+
         return $this->query($query, [$itemId]);
     }
 
@@ -2066,15 +2066,15 @@ class TrackerLib extends TikiLib
     public function canEditLockedItem($itemId, $masterPassword = null)
     {
         global $prefs, $tiki_p_admin_users;
-        
+
         if ($tiki_p_admin_users === 'y') {
             return true;
         }
-        
+
         if ($masterPassword && ! empty($prefs['tracker_master_password'])) {
             return $masterPassword === $prefs['tracker_master_password'];
         }
-        
+
         return false;
     }
 
