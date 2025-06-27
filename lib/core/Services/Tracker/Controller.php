@@ -2349,15 +2349,11 @@ class Services_Tracker_Controller
 
         if ($itemId) {
             $item_info = $trklib->get_tracker_item($itemId);
-            if (! $item_info) {
-                throw new Services_Exception_NotFound(tr('Tracker item %0 not found.', $itemId));
-            }
-            $item = Tracker_Item::fromInfo($item_info);
-            if (! $item->canViewHistory()) {
-                throw new Services_Exception(tra('You do not have permission to view this page.'), 401);
-            }
-
             if (! empty($item_info)) {
+                $item = Tracker_Item::fromInfo($item_info);
+                if (! $item->canViewHistory()) {
+                    throw new Services_Exception(tra('You do not have permission to view this page.'), 401);
+                }
                 $history = $trklib->get_item_history($item_info, $fieldId, $filter, $offset, $prefs['maxRecords']);
                 if ($history['data'] == []) {
                     $field_option = [];
