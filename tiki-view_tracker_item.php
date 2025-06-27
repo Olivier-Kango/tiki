@@ -155,6 +155,9 @@ if ($prefs['userTracker'] == 'y' && isset($_REQUEST['view']) && $_REQUEST['view'
         }
         if (! empty($fieldId)) {
             $itemId = $trklib->get_item_id($trackerId, $fieldId, $_REQUEST['user']);
+
+            // Unlike scenarios 1 & 2, this fails hard if the item doesn't exist.
+            // It does NOT auto-create for another user.
             if (! $itemId) {
                 $smarty->assign(
                     'msg',
