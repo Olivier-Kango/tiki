@@ -2024,7 +2024,14 @@ class TrackerLib extends TikiLib
             return false;
         }
 
-        $userId = $userId ?: $this->getOne("SELECT userId FROM users_users WHERE login = ?", [$user]);
+        if (! $userId) {
+            $userId = $userId ?: $this->getOne("SELECT userId FROM users_users WHERE login = ?", [$user]);
+            if (! $userId) {
+                Feedback::error(tr('You must be logged in to lock an item.'));
+                return false;
+            }
+        }
+
 
         $query = "UPDATE tiki_tracker_items SET 
                 is_locked = 'y', 
@@ -2065,17 +2072,52 @@ class TrackerLib extends TikiLib
      */
     public function canEditLockedItem($itemId, $masterPassword = null)
     {
-        global $prefs, $tiki_p_admin_users;
+        global $prefs, $tiki_p_admin_users, $user;
+
+        $this->cleanExpiredUnlocks();
 
         if ($tiki_p_admin_users === 'y') {
             return true;
         }
 
-        if ($masterPassword && ! empty($prefs['tracker_master_password'])) {
+        if ($masterPassword !== null && ! empty($prefs['tracker_master_password'])) {
             return $masterPassword === $prefs['tracker_master_password'];
         }
 
+                // Vérifier si l'item est déjà unlocked en session
+        if (!empty($_SESSION['unlocked_items'][$itemId])) {
+            $unlockTime = $_SESSION['unlocked_items'][$itemId];
+            $timeout = 3600; // 1 heure de validité
+            if ((time() - $unlockTime) < $timeout) {
+                return true;
+            } else {
+                // Nettoyer les entrées expirées
+                unset($_SESSION['unlocked_items'][$itemId]);
+            }
+        }
+
+        $item = $this->get_tracker_item($itemId);
+        if ($item && $item['locked_by']) {
+            $lockingUser = $this->getOne("SELECT login FROM users_users WHERE userId = ?", [$item['locked_by']]);
+            if ($lockingUser === $user) {
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    public function cleanExpiredUnlocks()
+    {
+        if (!empty($_SESSION['unlocked_items'])) {
+            $timeout = 3600; // 1 heure
+            $now = time();
+            foreach ($_SESSION['unlocked_items'] as $itemId => $unlockTime) {
+                if (($now - $unlockTime) >= $timeout) {
+                    unset($_SESSION['unlocked_items'][$itemId]);
+                }
+            }
+        }
     }
 
     public function replace_item($trackerId, $itemId, $ins_fields, $status = '', $ins_categs = 0, $bulk_import = false, $skip_sync = false, $deleted_files = [])
@@ -2087,6 +2129,8 @@ class TrackerLib extends TikiLib
             if (! $this->canEditLockedItem($itemId)) {
                 $logslib = TikiLib::lib('logs');
                 $logslib->add_action('Locked Edit Attempt', $itemId, 'trackeritem', '');
+
+                Feedback::error(tr('This item is locked and you do not have permission to edit it.'));
                 return false;
             }
         }

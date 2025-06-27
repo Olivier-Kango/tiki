@@ -3340,7 +3340,23 @@ class Services_Tracker_Controller
             'trackerId' => $trackerId,
             'itemId' => $itemId,
             'has_master_password' => ! empty($prefs['tracker_master_password']),
-            'title' => tr('Unlock Item'),
         ];
+
+        $masterPassword = $input->master_password->text();
+
+        $trackerlib = TikiLib::lib('tracker');
+        if ($trackerlib->canEditLockedItem($itemId, $masterPassword)) {
+        $_SESSION['unlock_item_' . $itemId] = true;
+            
+            return [
+                'success' => true,
+                'message' => tr('Item unlocked successfully')
+            ];
+        } else {
+            return [
+                'error' => true,
+                'message' => tr('Invalid master password')
+            ];
+        }
     }
 }

@@ -288,7 +288,7 @@ $fieldDefinitions = $definition->getFields();
 $smarty->assign('tracker_is_multilingual', $prefs['feature_multilingual'] == 'y' && $definition->getLanguageField());
 
 $isLocked = $trklib->isTrackerItemLocked($itemId);
-$canEditLocked = $trklib->canEditLockedItem($itemId, $_REQUEST['master_password'] ?? null);
+$canEditLocked = false;
 
 if ($tiki_p_admin_trackers == 'y' && isset($_REQUEST['lock']) && $access->checkCsrf()) {
     $trklib->lockTrackerItem($itemId);
@@ -301,13 +301,19 @@ if ($tiki_p_admin_trackers == 'y' && isset($_REQUEST['unlock']) && $access->chec
     exit;
 }
 
-if (isset($_REQUEST['master_password']) && $isLocked && ! $canEditLocked) {
+if (isset($_REQUEST['master_password']) && $isLocked) {
     if ($trklib->canEditLockedItem($itemId, $_REQUEST['master_password'])) {
         $smarty->assign('unlock_success', true);
         $canEditLocked = true;
+         $_SESSION['unlocked_items'][$itemId] = time();
     } else {
         $smarty->assign('unlock_error', true);
+        $canEditLocked = false;
     }
+} else {
+    $canEditLocked = $trklib->canEditLockedItem($itemId) || 
+                     (! empty($_SESSION['unlocked_items'][$itemId]) && 
+                      (time() - $_SESSION['unlocked_items'][$itemId]) < 3600);
 }
 
 $smarty->assign('item_is_locked', $isLocked);
