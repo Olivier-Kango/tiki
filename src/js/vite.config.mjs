@@ -96,24 +96,12 @@ Currently (2023-09-27), this is problematic for common CSS.  If input module1 an
 
 export default defineConfig(({ command, mode }) => {
     let rollupInput = {};
-    /* Proof of concept.  Inspired by the documentation for input on https://rollupjs.org/configuration-options/#input but needs to be generalized further so it's not only used for jquery-tiki.  But it does work to generate stuff in subdirectories!
 
-    We now need a function that computes everything from the glob - benoitg - 2023-11-10 */
-    Object.assign(
-        rollupInput,
-        Object.fromEntries(
-            globSync("src/js/jquery-tiki/**/*.js", { ignore: ["**/node_modules/**"] }).map((file) => {
-                //console.log(path.relative(__dirname, file));
-                return [
-                    // This remove `src/js/jquery-tiki` as well as the file extension from each
-                    // file, so e.g. src/js/jquery-tiki/nested/foo.js becomes src/js/jquery-tiki/nested/foo
-                    "jquery-tiki/" + path.relative("src/js/jquery-tiki", file.slice(0, file.length - path.extname(file).length)),
-                    // This expands the relative paths to absolute paths, so e.g.
-                    resolve(__dirname, path.relative(__dirname, file)),
-                ];
-            })
-        )
-    );
+    addGlobEntries(rollupInput, [
+        { prefix: "jquery-tiki/", src: "src/js/jquery-tiki" },
+        { prefix: "common-reexported/", src: "src/js/common-reexported" },
+    ]);
+
     Object.assign(rollupInput, {
         //Watch out, __dirname is the path of the config file, no matter how vite is called...
         "avatar-generator": resolve(__dirname, "avatar-generator/index.js"),
@@ -172,6 +160,7 @@ export default defineConfig(({ command, mode }) => {
             rollupOptions: {
                 // NOTE: Keep the list alphabetically sorted.
                 external: [
+                    /^common-reexported\/.+/,
                     /^@vue-mf\/.+/,
                     /^@vue-widgets\/.+/,
                     /^@jquery-tiki\/.+/,
@@ -681,3 +670,27 @@ export default defineConfig(({ command, mode }) => {
         },
     };
 });
+
+/**
+ * Adds glob-based entries to rollupInput from multiple source folders.
+ * @param {object} rollupInput - The rollupInput object to update.
+ * @param {Array} entries - An array of objects with the following properties:
+ *   - prefix: prefix used for the key names (e.g., "jquery-tiki/")
+ *   - src: path to the source folder to scan (e.g., "src/js/jquery-tiki")
+ */
+function addGlobEntries(rollupInput, entries) {
+    entries.forEach(({ prefix, src }) => {
+        Object.assign(
+            rollupInput,
+            Object.fromEntries(
+                globSync(`${src}/**/*.js`, {
+                    ignore: ["**/node_modules/**", "**/*.test.js"]
+                }).map(file => {
+                    const relativePath = path.relative(src, file.slice(0, file.length - path.extname(file).length));
+                    const fullPath = resolve(__dirname, path.relative(__dirname, file));
+                    return [`${prefix}${relativePath}`, fullPath];
+                })
+            )
+        );
+    });
+}

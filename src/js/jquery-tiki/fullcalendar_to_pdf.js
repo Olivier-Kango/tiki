@@ -4,7 +4,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 import moment from "moment";
-import { jsPDF } from "jspdf";
+import { jsPDF } from "common-reexported/jspdf";
 
 $.fn.addEventCalendarPrint = function (buttonId, calendar) {
     let viewContainer = $(this);

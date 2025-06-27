@@ -976,7 +976,6 @@ if ($prefs['openpgp_gpg_pgpmimemail'] == 'y') {
 if ($prefs['print_pdf_from_url'] != 'none') {
     $headerlib->add_jsfile('lib/jquery_tiki/pdf.js');
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . "/html2canvas-pro/dist/html2canvas-pro.min.js", true);
-    $headerlib->add_jsfile('vendor_bundled/vendor/mrrio/jspdf/jspdf.min.js', true);
 }
 
 if (file_exists(TIKI_CUSTOMIZATIONS_SETUP_PHP_FILE)) {

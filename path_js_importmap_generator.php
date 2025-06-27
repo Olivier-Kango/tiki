@@ -45,6 +45,9 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 // currently we don't use the prod build to improve the experience for SFC
                 "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.js",
 
+                /* common_reexported */
+                "common-reexported/jspdf" => $tikiUrl . JS_ASSETS_PATH . "/common-reexported/jspdf/index.js",
+
                 /* jquery_tiki */
                 "@jquery-tiki/asyncLoop" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-async-loop.js",
                 "@jquery-tiki/constants" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/constants.js",

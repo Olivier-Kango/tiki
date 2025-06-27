@@ -18,7 +18,6 @@
   "devDependencies": {
     "@svgedit/svgcanvas": "^7.2.1",
     "async-es": "^3.2.6",
-    "jspdf" : "^2.5.2",
     "summernote": "^0.9.1"
   }
 }

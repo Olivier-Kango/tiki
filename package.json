@@ -106,6 +106,7 @@
   },
   "workspaces": [
     "src/js/common-externals",
+    "src/js/common-reexported",
     "src/js/jquery-tiki",
     "src/js/tiki-glightbox",
     "src/js/tiki-mermaid",
