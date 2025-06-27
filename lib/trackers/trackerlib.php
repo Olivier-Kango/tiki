@@ -2084,14 +2084,12 @@ class TrackerLib extends TikiLib
             return $masterPassword === $prefs['tracker_master_password'];
         }
 
-                // Vérifier si l'item est déjà unlocked en session
-        if (!empty($_SESSION['unlocked_items'][$itemId])) {
+        if (! empty($_SESSION['unlocked_items'][$itemId])) {
             $unlockTime = $_SESSION['unlocked_items'][$itemId];
-            $timeout = 3600; // 1 heure de validité
+            $timeout = 5; // 1 hour validity
             if ((time() - $unlockTime) < $timeout) {
                 return true;
             } else {
-                // Nettoyer les entrées expirées
                 unset($_SESSION['unlocked_items'][$itemId]);
             }
         }

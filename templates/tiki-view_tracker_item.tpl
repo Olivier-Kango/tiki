@@ -10,7 +10,7 @@
 
         {* --------- navigation ------ *}
         <div class="t_navbar mb-4">
-            {if $prefs.tracker_lock_closed_items eq 'y' && $item_is_locked}
+            {if $prefs.tracker_lock_closed_items eq 'y' && $item_is_locked  && !$can_edit_locked}
                 <div class="tracker-lock-status mb-2">
                     <small class="text-muted">
                         <i class="fas fa-lock me-1"></i>

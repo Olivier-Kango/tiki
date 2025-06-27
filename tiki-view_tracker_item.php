@@ -305,15 +305,25 @@ if (isset($_REQUEST['master_password']) && $isLocked) {
     if ($trklib->canEditLockedItem($itemId, $_REQUEST['master_password'])) {
         $smarty->assign('unlock_success', true);
         $canEditLocked = true;
-         $_SESSION['unlocked_items'][$itemId] = time();
+        $_SESSION['unlocked_items'][$itemId] = time();
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true, 'message' => tra('Item unlocked successfully')]);
+            Feedback::success(tra('Item unlocked successfully'));
+            exit;
+        }
     } else {
         $smarty->assign('unlock_error', true);
         $canEditLocked = false;
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => tra('Invalid master password')]);
+            Feedback::error(tra('Invalid master password'));
+            exit;
+        }
     }
 } else {
-    $canEditLocked = $trklib->canEditLockedItem($itemId) || 
-                     (! empty($_SESSION['unlocked_items'][$itemId]) && 
-                      (time() - $_SESSION['unlocked_items'][$itemId]) < 3600);
+    $canEditLocked = $trklib->canEditLockedItem($itemId);
 }
 
 $smarty->assign('item_is_locked', $isLocked);
