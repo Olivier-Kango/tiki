@@ -539,10 +539,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
             TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $itemId, 'object_type' => 'trackeritem']);
         }
     }
-
-    if ($isLocked && ! $canEditLocked) {
-        Feedback::errorAndDie(tra("This item is locked and cannot be edited"), \Laminas\Http\Response::STATUS_CODE_403);
-    }
+    
     foreach ($fieldDefinitions as $i => $current_field) {
         $fid = $current_field["fieldId"];
         $fieldIsVisible = $itemObject->canViewField($fid);

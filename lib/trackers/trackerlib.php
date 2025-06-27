@@ -2086,7 +2086,7 @@ class TrackerLib extends TikiLib
 
         if (! empty($_SESSION['unlocked_items'][$itemId])) {
             $unlockTime = $_SESSION['unlocked_items'][$itemId];
-            $timeout = 5; // 1 hour validity
+            $timeout = 3600; // 1 hour validity
             if ((time() - $unlockTime) < $timeout) {
                 return true;
             } else {
@@ -2108,7 +2108,7 @@ class TrackerLib extends TikiLib
     public function cleanExpiredUnlocks()
     {
         if (!empty($_SESSION['unlocked_items'])) {
-            $timeout = 3600; // 1 heure
+            $timeout = 3600;
             $now = time();
             foreach ($_SESSION['unlocked_items'] as $itemId => $unlockTime) {
                 if (($now - $unlockTime) >= $timeout) {
