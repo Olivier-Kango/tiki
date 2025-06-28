@@ -412,30 +412,5 @@ function prefs_tracker_list()
             'keywords' => 'tracker lock immutable invoice closed',
             'admin' => 'tiki-admin.php?page=trackers',
         ],
-        'tracker_master_password' => [
-            'name' => tr('Tracker master password'),
-            'description' => tr('Password to unlock closed tracker items for administrators.'),
-            'type' => 'password',
-            'default' => '',
-            'tags' => ['advanced'],
-            'help' => 'Tracker_Lock',
-            'keywords' => 'tracker password unlock admin',
-            'dependencies' => ['tracker_lock_closed_items'],
-        ],
-        'tracker_lock_mode' => [
-            'name' => tr('Tracker lock mode'),
-            'description' => tr('Choose how tracker items are locked (status-based, explicit, or both).'),
-            'type' => 'list',
-            'options' => [
-                'status' => tr('Based on status only'),
-                'explicit' => tr('Explicit lock/unlock'),
-                'hybrid' => tr('Both status and explicit'),
-            ],
-            'default' => 'status',
-            'tags' => ['advanced'],
-            'help' => 'Tracker_Lock',
-            'keywords' => 'tracker lock mode status explicit hybrid invoice',
-            'dependencies' => ['tracker_lock_closed_items'],
-        ],
     ];
 }
