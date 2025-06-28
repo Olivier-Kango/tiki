@@ -244,7 +244,7 @@ function wikiplugin_tour($data, $params)
 
     $html = '';
 
-    if ($_SESSION[$TOUR_NUMBER_OF_STEPS] === count($_SESSION[$TOUR_STEPS])) {
+    if (isset($_SESSION[$TOUR_NUMBER_OF_STEPS]) && $_SESSION[$TOUR_NUMBER_OF_STEPS] === count($_SESSION[$TOUR_STEPS])) {
         $jsSteps = "";
         foreach ($_SESSION[$TOUR_STEPS] as $step) {
             $jsSteps .= "{element: '$step[element]', popover: {title: \"$step[title]\", description: \"$step[content]\", align: '$step[align]', side: '$step[side]'}},";
