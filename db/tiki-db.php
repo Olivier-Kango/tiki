@@ -11,7 +11,7 @@ if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
 }
 
 use Tiki\Config\Config;
-use Tiki\Config\Tiki_Config_Ini;
+use Tiki\Config\Ini;
 use Tiki\Command\ConsoleSetupException;
 use Tiki\Installer\Installer;
 use Tiki\TikiInit;
@@ -90,7 +90,7 @@ if (isset($_SERVER['TIKI_INI_FILE'])) {
         exit(1);
     }
 
-    $configReader = new Tiki_Config_Ini();
+    $configReader = new Ini();
     $configReader->setFilterSection(isset($_SERVER['TIKI_INI_IDENTIFIER']) ? $_SERVER['TIKI_INI_IDENTIFIER'] : null);
     $configData = $configReader->fromFile($_SERVER['TIKI_INI_FILE']);
     $systemConfiguration = $systemConfiguration->merge($configData);
@@ -107,7 +107,7 @@ if (isset($system_configuration_file)) {
     if (! isset($system_configuration_identifier)) {
         $system_configuration_identifier = null;
     }
-    $configReader = new Tiki_Config_Ini();
+    $configReader = new Ini();
     $configReader->setFilterSection($system_configuration_identifier);
 
     if (preg_match('/\.ini.php$/', $system_configuration_file)) {
