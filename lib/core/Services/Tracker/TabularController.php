@@ -71,25 +71,29 @@ class Services_Tracker_TabularController
         Services_Exception_Denied::checkGlobal('tiki_p_tabular_admin');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $lib = TikiLib::lib('tabular');
+            if (empty($input->trackerId->int())) {
+                Feedback::error(tr('No Tracker Selected.'));
+            } else {
+                $lib = TikiLib::lib('tabular');
 
-            $tabularId = $lib->create($input->name->text(), $input->trackerId->int(), $input->use_odbc->int() ? $input->odbc->none() : []);
+                $tabularId = $lib->create($input->name->text(), $input->trackerId->int(), $input->use_odbc->int() ? $input->odbc->none() : []);
 
-            $forward = [
-                'controller' => 'tabular',
-                'action' => 'edit',
-                'tabularId' => $tabularId
-            ];
+                $forward = [
+                    'controller' => 'tabular',
+                    'action' => 'edit',
+                    'tabularId' => $tabularId
+                ];
 
-            if (! empty($input->prefill->text())) {
-                $forward['prefill'] = true;
+                if (! empty($input->prefill->text())) {
+                    $forward['prefill'] = true;
+                }
+
+                if (! empty($input->prefill_odbc->text())) {
+                    $forward['prefill_odbc'] = true;
+                }
+
+                return ['FORWARD' => $forward];
             }
-
-            if (! empty($input->prefill_odbc->text())) {
-                $forward['prefill_odbc'] = true;
-            }
-
-            return ['FORWARD' => $forward];
         }
 
         return [
