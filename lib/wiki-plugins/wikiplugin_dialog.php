@@ -185,7 +185,9 @@ function wikiplugin_dialog($data, $params)
     $defaults = [];
     $plugininfo = wikiplugin_dialog_info();
     foreach ($plugininfo['params'] as $key => $param) {
-        $defaults["$key"] = $param['default'];
+        if (isset($param['default']) && ! isset($params[$key])) {
+            $params[$key] = $param['default'];
+        }
     }
 
     $params = array_merge($defaults, $params);
