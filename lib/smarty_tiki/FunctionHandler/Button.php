@@ -196,11 +196,20 @@ class Button extends Base
             if (! isset($params['_text'])) { // avoid NOTICE (E_NOTICE): Undefined index
                 $params['_text'] = '';
             }
+
+            $originalType = isset($params['_type']) ? $params['_type'] : null;
+
             $html = $smartyBlockSelfLinkHandler->handle(
                 $params,
                 $params['_text'],
                 $template
             );
+
+            if ($originalType !== null) {
+                $params['_type'] = $originalType;
+            } else {
+                unset($params['_type']);
+            }
 
             $url = str_replace('+', ' ', str_replace('&amp;', '&', urldecode($_SERVER['REQUEST_URI'])));
             $encoded_html = htmlentities($html);
