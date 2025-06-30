@@ -16,6 +16,11 @@ function has_tiki_db()
     return $installer->tableExists('users_users');
 }
 
+function set_system_administrator_password($randompass)
+{
+    global $installer;
+    $installer->query("UPDATE users_users SET hash=? WHERE userId=1", [ password_hash($randompass, PASSWORD_DEFAULT) ]);
+}
 /**
  * @return bool
  */

@@ -516,6 +516,12 @@ if (
         $installer->attach(new ProgressBar());
 
         $installer->cleanInstall();
+        // Set Administrator password
+        $randompass = TikiLib::lib('user')->genPass();
+        set_system_administrator_password($randompass);
+        $smarty->assign('defaultpass', $randompass);
+        $default_password_field = '<input type="hidden" name="defaultpass" value="' . $randompass . '">';
+        $smarty->assign('default_password_field', $default_password_field);
         if ($has_tiki_db) {
             $logmsg = 'database "' . $dbs_tiki . '" destroyed and reinstalled';
         } else {
@@ -590,6 +596,12 @@ if (
 if (! isset($install_type)) {
     if (isset($_POST['install_type'])) {
         $install_type = $_POST['install_type'];
+        if ($install_type == 'scratch' && isset($_POST['defaultpass'])) {
+            $defaultpass = $_POST['defaultpass'];
+            $smarty->assign('defaultpass', $defaultpass);
+            $default_password_field = '<input type="hidden" name="defaultpass" value="' . $defaultpass . '">';
+            $smarty->assign('default_password_field', $default_password_field);
+        }
     } else {
         $install_type = '';
     }
@@ -610,7 +622,7 @@ if ($install_step == '9') {
     if ($install_type == 'scratch') {
         initialize_prefs(true);
         TikiLib::lib('unifiedsearch')->rebuild();
-        $u = 'tiki-change_password.php?user=admin&oldpass=admin&newuser=y';
+        $u = isset($defaultpass) ? 'tiki-change_password.php?user=admin&oldpass=' . $defaultpass . '&newuser=y' : 'tiki-change_password.php?user=admin&newuser=y';
         $tikilib = TikiLib::lib('tiki');
         $tikilib->set_preference('tiki_install_version', $TWV->version);
     } else {
