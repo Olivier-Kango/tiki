@@ -92,12 +92,6 @@
                 {preference name=user_force_avatar_upload}
                 {preference name=user_default_avatar_style}
             </fieldset>
-            <fieldset class="admin">
-                <legend class="h3">{tr}Tracker Locking{/tr}</legend>
-                {preference name=tracker_lock_closed_items}
-                {preference name=tracker_master_password}
-                {preference name=tracker_lock_mode}
-            </fieldset>
         {/tab}
 
         {tab name="{tr}Plugins{/tr}"}

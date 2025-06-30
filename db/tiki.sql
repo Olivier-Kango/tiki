@@ -2602,6 +2602,7 @@ CREATE TABLE `tiki_trackers` (
   `created` int(14) default NULL,
   `lastModif` int(14) default NULL,
   `items` int(10) default NULL,
+  `lock_on_close` tinyint(1) default 0,
   PRIMARY KEY (`trackerId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 

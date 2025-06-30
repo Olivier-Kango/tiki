@@ -3318,20 +3318,20 @@ class Services_Tracker_Controller
 
     public function actionUnlockModal($input)
     {
-        global $prefs;
+        global $tiki_p_unlock_tracker_item;
 
         $trackerId = $input->trackerId->int();
         $itemId = $input->itemId->int();
 
         $perms = Perms::get('tracker', $trackerId);
-        if (! $perms->view) {
-            throw new Services_Exception_Denied(tr('You do not have permission to view this item'));
+        if (! $perms->view || $tiki_p_unlock_tracker_item !== 'y') {
+            throw new Services_Exception_Denied(tr('You do not have permission to unlock this item'));
         }
 
         $definition = Tracker_Definition::get($trackerId);
         $item = Tracker_Item::fromId($itemId);
 
-        if (! $definition || ! $item) {
+        if (! $definition || ! $item || ! $item->isLocked()) {
             throw new Services_Exception_NotFound();
         }
 
@@ -3339,24 +3339,6 @@ class Services_Tracker_Controller
             'title' => tr('Unlock Item'),
             'trackerId' => $trackerId,
             'itemId' => $itemId,
-            'has_master_password' => ! empty($prefs['tracker_master_password']),
         ];
-
-        $masterPassword = $input->master_password->text();
-
-        $trackerlib = TikiLib::lib('tracker');
-        if ($trackerlib->canEditLockedItem($itemId, $masterPassword)) {
-        $_SESSION['unlock_item_' . $itemId] = true;
-            
-            return [
-                'success' => true,
-                'message' => tr('Item unlocked successfully')
-            ];
-        } else {
-            return [
-                'error' => true,
-                'message' => tr('Invalid master password')
-            ];
-        }
     }
 }

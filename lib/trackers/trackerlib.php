@@ -1978,160 +1978,10 @@ class TrackerLib extends TikiLib
         $_GET = $get;
     }
 
-    /**
-     * Check if a tracker item is locked
-     * @param int $itemId ID of the item to check
-     * @return bool True if the item is locked, false otherwise
-     */
-    public function isTrackerItemLocked($itemId)
-    {
-        global $prefs;
-
-        if ($prefs['tracker_lock_closed_items'] !== 'y') {
-            return false;
-        }
-
-        $item = $this->get_tracker_item($itemId);
-        if (! $item) {
-            return false;
-        }
-
-        $lockMode = $prefs['tracker_lock_mode'] ?? 'status';
-
-        switch ($lockMode) {
-            case 'status':
-                return $item['status'] === 'c';
-            case 'explicit':
-                return ($item['is_locked'] ?? 'n') === 'y';
-            case 'hybrid':
-                return $item['status'] === 'c' || ($item['is_locked'] ?? 'n') === 'y';
-            default:
-                return false;
-        }
-    }
-
-    /**
-     * Explicitly locks an item (explicit/hybrid modes)
-     * @param int $itemId ID of the item to lock
-     * @param int|null $userId ID of the user locking the item (optional)
-     * @return bool True if the lock succeeds, false otherwise
-     */
-    public function lockTrackerItem($itemId, $userId = null)
-    {
-        global $prefs, $user;
-
-        if (! in_array($prefs['tracker_lock_mode'] ?? 'status', ['explicit', 'hybrid'])) {
-            return false;
-        }
-
-        if (! $userId) {
-            $userId = $userId ?: $this->getOne("SELECT userId FROM users_users WHERE login = ?", [$user]);
-            if (! $userId) {
-                Feedback::error(tr('You must be logged in to lock an item.'));
-                return false;
-            }
-        }
-
-
-        $query = "UPDATE tiki_tracker_items SET 
-                is_locked = 'y', 
-                locked_by = ?, 
-                locked_date = ? 
-                WHERE itemId = ?";
-
-        return $this->query($query, [$userId, time(), $itemId]);
-    }
-
-    /**
-     * Explicitly unlocks an item (explicit/hybrid modes)
-     * @param int $itemId ID of the item to unlock
-     * @return bool True if the unlock succeeds, false otherwise
-     */
-    public function unlockTrackerItem($itemId)
-    {
-        global $prefs;
-
-        if (! in_array($prefs['tracker_lock_mode'] ?? 'status', ['explicit', 'hybrid'])) {
-            return false;
-        }
-
-        $query = "UPDATE tiki_tracker_items SET 
-                is_locked = 'n', 
-                locked_by = NULL, 
-                locked_date = NULL 
-                WHERE itemId = ?";
-
-        return $this->query($query, [$itemId]);
-    }
-
-    /**
-     * Checks if the user can edit a locked item.
-     * @param int $itemId ID of the item
-     * @param string|null $masterPassword Provided master password (optional)
-     * @return bool True if the user can edit, false otherwise
-     */
-    public function canEditLockedItem($itemId, $masterPassword = null)
-    {
-        global $prefs, $tiki_p_admin_users, $user;
-
-        $this->cleanExpiredUnlocks();
-
-        if ($tiki_p_admin_users === 'y') {
-            return true;
-        }
-
-        if ($masterPassword !== null && ! empty($prefs['tracker_master_password'])) {
-            return $masterPassword === $prefs['tracker_master_password'];
-        }
-
-        if (! empty($_SESSION['unlocked_items'][$itemId])) {
-            $unlockTime = $_SESSION['unlocked_items'][$itemId];
-            $timeout = 3600; // 1 hour validity
-            if ((time() - $unlockTime) < $timeout) {
-                return true;
-            } else {
-                unset($_SESSION['unlocked_items'][$itemId]);
-            }
-        }
-
-        $item = $this->get_tracker_item($itemId);
-        if ($item && $item['locked_by']) {
-            $lockingUser = $this->getOne("SELECT login FROM users_users WHERE userId = ?", [$item['locked_by']]);
-            if ($lockingUser === $user) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public function cleanExpiredUnlocks()
-    {
-        if (!empty($_SESSION['unlocked_items'])) {
-            $timeout = 3600;
-            $now = time();
-            foreach ($_SESSION['unlocked_items'] as $itemId => $unlockTime) {
-                if (($now - $unlockTime) >= $timeout) {
-                    unset($_SESSION['unlocked_items'][$itemId]);
-                }
-            }
-        }
-    }
-
     public function replace_item($trackerId, $itemId, $ins_fields, $status = '', $ins_categs = 0, $bulk_import = false, $skip_sync = false, $deleted_files = [])
     {
         global $user, $prefs, $tiki_p_admin_trackers, $tiki_p_admin_users;
         $final_event = 'tiki.trackeritem.update';
-
-        if ($itemId && $this->isTrackerItemLocked($itemId)) {
-            if (! $this->canEditLockedItem($itemId)) {
-                $logslib = TikiLib::lib('logs');
-                $logslib->add_action('Locked Edit Attempt', $itemId, 'trackeritem', '');
-
-                Feedback::error(tr('This item is locked and you do not have permission to edit it.'));
-                return false;
-            }
-        }
 
         if (! $bulk_import) {
             $transaction = $this->begin();
@@ -2406,13 +2256,6 @@ class TrackerLib extends TikiLib
                 }
 
                 $fil[$fieldId] = $value;
-            }
-        }
-
-        // Lock the item if the status changes to 'closed' and locking is enabled
-        if ($status === 'c' && $prefs['tracker_lock_closed_items'] === 'y') {
-            if (in_array($prefs['tracker_lock_mode'] ?? 'status', ['explicit', 'hybrid'])) {
-                $this->lockTrackerItem($currentItemId);
             }
         }
 
@@ -3542,11 +3385,13 @@ class TrackerLib extends TikiLib
             $description = "{syntax type={$prefs['markdown_default']}}\r\n$description";
         }
 
+        $lock_on_close = ! empty($options['lock_on_close']) ? 1 : 0;
         $data = [
             'name' => $name,
             'description' => $description,
             'descriptionIsParsed' => $descriptionIsParsed,
             'lastModif' => $this->now,
+            'lock_on_close' => $lock_on_close,
         ];
 
         $logOption = 'Updated';
@@ -7375,6 +7220,7 @@ class TrackerLib extends TikiLib
             'relationshipBehaviour' => $input->relationshipBehaviour->text(),
             'allowInlineEditing' => $input->allowInlineEditing->int() ? 'y' : 'n',
             'allowChooseFieldsToDisplay' => $input->allowChooseFieldsToDisplay->int() ? 'y' : 'n',
+            'lock_on_close' => $input->lock_on_close->int() ? 1 : 0,
         ];
     }
 }

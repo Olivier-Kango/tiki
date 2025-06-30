@@ -401,16 +401,6 @@ function prefs_tracker_list()
             'default' => 5,
             'filter' => 'int',
             'dependencies' => ['feature_trackers'],
-        ],
-        'tracker_lock_closed_items' => [
-            'name' => tr('Lock closed tracker items'),
-            'description' => tr('Prevent editing of tracker items with status "Closed".'),
-            'type' => 'flag',
-            'default' => 'n',
-            'tags' => ['basic'],
-            'help' => 'Tracker_Lock',
-            'keywords' => 'tracker lock immutable invoice closed',
-            'admin' => 'tiki-admin.php?page=trackers',
-        ],
+        ]
     ];
 }

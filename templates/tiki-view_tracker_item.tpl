@@ -10,16 +10,11 @@
 
         {* --------- navigation ------ *}
         <div class="t_navbar mb-4">
-            {if $prefs.tracker_lock_closed_items eq 'y' && $item_is_locked  && !$can_edit_locked}
+            {if $item_is_locked && !$canModify}
                 <div class="tracker-lock-status mb-2">
                     <small class="text-muted">
                         <i class="fas fa-lock me-1"></i>
-                        {tr}This item is locked{/tr}
-                        {if $lock_mode eq 'status'}
-                            - {tr}Status: Closed{/tr}
-                        {elseif $lock_mode eq 'explicit'}
-                            - {tr}Explicitly locked{/tr}
-                        {/if}
+                        {tr}This item is locked (Status: Closed){/tr}
                     </small>
                 </div>
             {/if}
@@ -123,35 +118,13 @@
                             {favorite button_classes="favorite-icon" label="{tr}Favorite{/tr}"  type="trackeritem" object=$itemId }
                         </li>
                     {/if}
-
-                    {if $prefs.tracker_lock_closed_items eq 'y'}
-                        {if $item_is_locked}
-                            {if !$can_edit_locked && $has_master_password}
-                                <li class="dropdown-item">
-                                    <a data-bs-toggle="modal" data-bs-target="#bootstrap-modal"
-                                    href="{service controller=tracker action=unlockModal trackerId=$trackerId itemId=$itemId modal=1}">
-                                        {icon name="unlock"} {tr}Unlock{/tr}
-                                    </a>
-                                </li>
-                            {/if}
-                            
-                            {if $show_lock_controls && $lock_mode neq 'status'}
-                                <li class="dropdown-item">
-                                    <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}&unlock=1">
-                                        {icon name="unlock"} {tr}Admin Unlock{/tr}
-                                    </a>
-                                </li>
-                            {/if}                   
-                        {else}
-                            {if $show_lock_controls && $lock_mode neq 'status'}
-                                <li class="dropdown-item">
-                                    <a href="tiki-view_tracker_item.php?trackerId={$trackerId}&itemId={$itemId}&lock=1">
-                                        {icon name="lock"} {tr}Lock Item{/tr}
-                                    </a>
-                                </li>
-                                <li class="dropdown-divider"></li>
-                            {/if}
-                        {/if}
+                    {if $show_lock_controls && $item_is_locked}
+                        <li class="dropdown-item">
+                            <a data-bs-toggle="modal" data-bs-target="#bootstrap-modal"
+                            href="{service controller=tracker action=unlockModal trackerId=$trackerId itemId=$itemId modal=1}">
+                                {icon name="unlock"} {tr}Unlock{/tr}
+                            </a>
+                        </li>
                     {/if}
                 </ul>
                 {if ! $js}</li></ul>{/if}
