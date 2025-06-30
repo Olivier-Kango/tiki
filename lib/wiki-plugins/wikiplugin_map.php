@@ -346,6 +346,9 @@ function wp_map_plugin_searchlayer($body, $args)
 
     $fieldList = '';
     if (! empty($fields)) {
+        $fields = array_map(function ($field) {
+            return str_replace('tracker_field_', '', $field);
+        }, $fields);
         $fieldList = '<input type="hidden" name="fields" value="' . smarty_modifier_escape(implode(',', $fields)) . '"/>';
     }
 
