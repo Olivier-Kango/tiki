@@ -1150,7 +1150,7 @@ class TrackerLib extends TikiLib
                 'smarty_assign' => 'n',
                 'list_mode' => $list_mode,
             ]);
-            $ret2[$itemId] = trim(strip_tags($rendered), " \t\n\r\0\x0B\xC2\xA0");
+            $ret2[$itemId] = html_entity_decode(strip_tags($rendered), ENT_QUOTES, 'UTF-8');
         }
         return $ret2;
     }
