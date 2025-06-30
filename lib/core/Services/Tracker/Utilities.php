@@ -730,7 +730,7 @@ EXPORT;
                 continue;
             }
             // since field may have comma or quotes or tab in it
-            $fields = str_getcsv($row, "\t");
+            $fields = str_getcsv($row, "\t", escape: TikiLib::TIKI_GLOBAL_CSV_ESCAPE_CHAR);
             if (substr($row, -1) === "\t") {
                 $fields[] = '';
             }
