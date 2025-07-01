@@ -291,15 +291,16 @@ if (! $itemObject) {
     Feedback::errorAndDie(tra("Item not found"), \Laminas\Http\Response::STATUS_CODE_404);
 }
 
-$isLocked = $itemObject->isLocked();
 $itemData = $itemObject->getData();
 
 if ($definition->isLockOnCloseEnabled() && isset($itemData['status']) && $itemData['status'] == 'c') {
     $itemObject->lock();
 }
 
+$isLocked = $itemObject->isLocked();
+
 if ($tiki_p_unlock_tracker_item == 'y' && isset($_REQUEST['unlock']) && $access->checkCsrf()) {
-    if ($itemObject->isLocked()) {
+    if ($isLocked) {
         $itemObject->unlock();
         Feedback::success(tr('Item unlocked successfully'));
     } else {
@@ -519,7 +520,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
             TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $itemId, 'object_type' => 'trackeritem']);
         }
     }
-    
+
     foreach ($fieldDefinitions as $i => $current_field) {
         $fid = $current_field["fieldId"];
         $fieldIsVisible = $itemObject->canViewField($fid);

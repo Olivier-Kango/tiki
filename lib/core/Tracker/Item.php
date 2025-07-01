@@ -130,7 +130,7 @@ class Tracker_Item
         if ($this->canFromSpecialPermissions('Modify')) {
             return true;
         }
-        
+
         if ($this->isLocked()) {
             return false;
         }
@@ -642,6 +642,12 @@ class Tracker_Item
         if (! $item) {
             return false;
         }
+        
+        $definition = Tracker_Definition::get($this->info['trackerId']);
+        // If lock on close is not enabled, we don't check for lock
+        if (! $definition->isLockOnCloseEnabled()) {
+            return false;
+        }
 
         return ! empty($item['is_locked']) && $item['is_locked'] == 1;
     }
@@ -667,7 +673,7 @@ class Tracker_Item
         }
         return $result;
     }
-    
+
     /**
      * Unlock the tracker item
      * @param int|null $userId ID of the user unlocking the item
@@ -676,7 +682,7 @@ class Tracker_Item
     public function unlock($userId = null)
     {
         global $user, $tiki_p_unlock_tracker_item;
-        
+
         if ($tiki_p_unlock_tracker_item !== 'y') {
             Feedback::error(tr('You do not have permission to unlock this item.'));
             return false;
