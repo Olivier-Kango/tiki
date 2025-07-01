@@ -27,7 +27,7 @@ function module_git_detail_info()
  */
 function module_git_detail($mod_reference, $module_params)
 {
-    /** @var Smarty_Tiki $smarty */
+    /** @var \Tiki\Smarty\SmartyTiki $smarty */
     $smarty = TikiLib::lib('smarty');
     /** @var GitLib $gitlib */
     $gitlib = TikiLib::lib('git');

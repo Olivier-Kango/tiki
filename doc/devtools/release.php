@@ -1,8 +1,5 @@
 <?php
 
-include_once('lib/core/Tiki/TikiInit.php');
-use Tiki\TikiInit;
-
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,6 +12,11 @@ use Tiki\TikiInit;
 // You can also get a detailed help on this script with:
 //    php doc/devtools/release.php --help
 //
+
+use Tiki\Smarty\SmartyTiki;
+use Tiki\TikiInit;
+
+include_once('lib/core/Tiki/TikiInit.php');
 
 define('TOOLS', __DIR__);
 define('ROOT', realpath(TOOLS . '/../..'));
@@ -801,13 +803,11 @@ function check_smarty_syntax(&$error_msg)
     $prefs['feature_sefurl_filter'] = 'y';
     $prefs['site_layout'] = 'basic';
     require_once 'lib/init/initlib.php';
-    require_once 'lib/init/smarty.php';
-    // needed in Smarty_Tiki
     define('TIKI_PATH', getcwd());
     require_once 'lib/smarty_tiki/prefilter.tr.php';
     require_once 'lib/smarty_tiki/prefilter.jq.php';
     require_once 'lib/smarty_tiki/prefilter.log_tpl.php';
-    $smarty = new Smarty_Tiki();
+    $smarty = new SmartyTiki();
     set_error_handler('check_smarty_syntax_error_handler');
 
     $templates_dir = TIKI_PATH . '/' . SMARTY_TEMPLATES_PATH;

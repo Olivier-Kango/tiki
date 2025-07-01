@@ -28,7 +28,7 @@ use TikiLib;
 /**
  * @param array $params
  * @param string $content
- * @param Smarty_Tiki $smarty
+ * @param \Tiki\Smarty\SmartyTiki $smarty
  * @param boolean $repeat
  * @return string
  * @throws Exception

@@ -12,7 +12,7 @@ require_once('tiki-setup.php');
 
 /***
  * @var \TikiAccessLib  $access
- * @var \Smarty_Tiki    $smarty
+ * @var \Tiki\Smarty\SmartyTiki  $smarty
  *
  */
 

@@ -112,7 +112,7 @@ namespace PHPSTORM_META {
             'semantic'                   => \SemanticLib::class,
             'service'                    => \ServiceLib::class,
             'slugmanager'                => \Tiki\Wiki\SlugManager::class,
-            'smarty'                     => \Smarty_Tiki::class,
+            'smarty'                     => \Tiki\Smarty\SmartyTiki::class,
             'social'                     => \SocialLib::class,
             'sheet'                      => \SheetLib::class,
             'stats'                      => \StatsLib::class,

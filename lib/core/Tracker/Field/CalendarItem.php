@@ -234,7 +234,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
     {
         global $tikiroot;
 
-        /** @var Smarty_Tiki $smarty */
+        /** @var \Tiki\Smarty\SmartyTiki $smarty */
         $smarty = TikiLib::lib('smarty');
 
         $smarty->assign('datePickerHtml', parent::renderInput($context));

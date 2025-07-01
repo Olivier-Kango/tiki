@@ -14,7 +14,7 @@ global $tikiroot;
 
 /***
  * @var int $trunc
- * @var \Smarty_Tiki    $smarty
+ * @var \Tiki\Smarty\SmartyTiki  $smarty
  * @var \TikiLib    $tikilib
  *
  *

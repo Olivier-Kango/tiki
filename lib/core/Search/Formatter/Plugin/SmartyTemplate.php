@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Smarty\SmartyTiki;
+
 class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_Interface
 {
     private $templateFile;
@@ -63,7 +66,7 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
             return $this->wrapEditableByContext($_REQUEST[$this->editableId]);
         }
 
-        $smarty = new Smarty_Tiki();
+        $smarty = new SmartyTiki();
 
         if ($this->changeDelimiters) {
             $smarty->setLeftDelimiter('{{');

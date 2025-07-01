@@ -305,9 +305,7 @@
             <file>%kernel.root_dir%/lib/servicelib.php</file>
         </service>
         <service id="tiki.lib.slugmanager" class="Tiki\Wiki\SlugManager"/>
-        <service id="tiki.lib.smarty" class="Smarty_Tiki">
-            <file>%kernel.root_dir%/lib/init/smarty.php</file>
-        </service>
+        <service id="tiki.lib.smarty" class="Tiki\Smarty\SmartyTiki"/>
         <service id="tiki.lib.social" class="SocialLib">
             <file>%kernel.root_dir%/lib/user/sociallib.php</file>
         </service>

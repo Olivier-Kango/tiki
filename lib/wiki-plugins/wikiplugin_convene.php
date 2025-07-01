@@ -170,7 +170,7 @@ function wikiplugin_convene($data, $params): string
     $headerlib = TikiLib::lib('header');
     /** @var TikiLib $tikilib */
     $tikilib = TikiLib::lib('tiki');
-    /** @var Smarty_Tiki $smarty */
+    /** @var \Tiki\Smarty\SmartyTiki $smarty */
     $smarty = TikiLib::lib('smarty');
     /** @var UserLib $userlib */
     $userlib = TikiLib::lib('user');

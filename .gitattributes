@@ -3099,6 +3099,9 @@ lib/core/Tiki/SabreDav/PrincipalBackend.php -text
 lib/core/Tiki/SabreDav/Utilities.php -text
 lib/core/Tiki/SabreDav/WikiDirectory.php -text
 lib/core/Tiki/SabreDav/WikiPage.php -text
+lib/core/Tiki/Smarty/SecurityPolicy.php -text
+lib/core/Tiki/Smarty/SmartyTiki.php -text
+lib/core/Tiki/Smarty/SmartyTikiErrorHandler.php -text
 lib/core/Tiki/Security.php -text
 lib/core/Tiki/TimeLimit.php -text
 lib/core/Tiki/Transition.php -text
@@ -3428,7 +3431,6 @@ lib/importerlib.php -text
 lib/index.php -text
 lib/init/index.php -text
 lib/init/initlib.php -text
-lib/init/smarty.php -text
 lib/init/tra.php -text
 lib/init/typography.php -text
 lib/integrator/index.php -text

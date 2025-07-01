@@ -191,7 +191,7 @@ class WYSIWYGLib
         }
 
         if (! empty($params['_toolbars'])  && $params['_toolbars'] === 'y') {
-            /** @var Smarty_Tiki $smarty */
+            /** @var \Tiki\Smarty\SmartyTiki $smarty */
             $smarty = TikiLib::lib('smarty');
             $toolbarParams = [
                 'syntax' => 'markdown',

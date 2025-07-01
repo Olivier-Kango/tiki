@@ -22,13 +22,6 @@
         "lib\/tree\/tree.php": {
             "class:TreeMaker": true
         },
-        "lib\/init\/SmartyTikiErrorHandler.php": {
-            "class:SmartyTikiErrorHandler": true
-        },
-        "lib\/init\/smarty.php": {
-            "class:Tiki_Security_Policy": true,
-            "class:Smarty_Tiki": true
-        },
         "lib\/copyrights\/copyrightslib.php": {
             "class:CopyrightsLib": true
         },
@@ -3774,10 +3767,6 @@
             "ObjectRenderer_Wiki": true,
             "ObjectRenderer_MultilingualWiki": true
         },
-        "lib\/init\/smarty.php": {
-            "Tiki_Security_Policy": true,
-            "Smarty_Tiki": true
-        },
         "lib\/rating\/formula\/ArticleInfo.php": {
             "Tiki_Formula_Function_ArticleInfo": true
         },
@@ -6483,9 +6472,6 @@
             "class:ObjectRenderer_Wiki": true,
             "class:ObjectRenderer_MultilingualWiki": true
         },
-        "lib\/init\/smarty.php": {
-            "class:Smarty_Tiki": true
-        },
         "lib\/filegals\/filegallib.php": {
             "class:FileIsNotSafeException": true
         },
@@ -6628,14 +6614,14 @@
             "TreeMaker::node_child_end_code": true,
             "TreeMaker::node_end_code": true
         },
-        "lib\/init\/smarty.php": {
-            "Smarty_Tiki::plugin_fetch": true,
-            "Smarty_Tiki::clear_assign": true,
-            "Smarty_Tiki::assign_by_ref": true,
-            "Smarty_Tiki::assign_layout_sections": true,
-            "Smarty_Tiki::get_filename": true,
-            "Smarty_Tiki::set_request_overriders": true,
-            "Smarty_Tiki::remove_request_overriders": true
+        "lib\/core\/Tiki\/Smarty\/SmartyTiki.php": {
+            "SmartyTiki::plugin_fetch": true,
+            "SmartyTiki::clear_assign": true,
+            "SmartyTiki::assign_by_ref": true,
+            "SmartyTiki::assign_layout_sections": true,
+            "SmartyTiki::get_filename": true,
+            "SmartyTiki::set_request_overriders": true,
+            "SmartyTiki::remove_request_overriders": true
         },
         "lib\/copyrights\/copyrightslib.php": {
             "CopyrightsLib::list_copyrights": true,

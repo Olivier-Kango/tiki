@@ -1,147 +1,32 @@
 <?php
 
-/**
- * brings Smarty functionality into Tiki
- *
- * this script may only be included, it will die if called directly.
- *
- * @package TikiWiki
- * @subpackage lib\init
- * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project. All Rights Reserved. See copyright.txt for details and a complete list of authors.
- * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
- */
+// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
+//
+// All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Smarty;
 
-// die if called directly.
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-    header('location: index.php');
-    exit;
-}
-
-require_once __DIR__ . '/../setup/third_party.php';
-require_once __DIR__ . '/SmartyTikiErrorHandler.php';
-
-/**
- * extends \Smarty\Security
- * @package TikiWiki\lib\init
- */
-class Tiki_Security_Policy extends \Smarty\Security
-{
-    /**
-     * is an array of regular expressions matching URIs that are considered trusted.
-     * See https://smarty-php.github.io/smarty/5.x/api/security/ for more details
-     *
-     * @var array
-     */
-    public $trusted_uri = [];
-
-    /**
-     * This is the list of template directories that are considered secure.
-     * $template_dir is in this list implicitly. A directory configured using $smarty->setTemplateDir() is
-     * considered secure implicitly. The default is an empty array.
-     *
-     * @var array
-     */
-    public $secure_dir = [];
-
-    /**
-     * This is an array of allowed tags. It's the array of (registered / autoloaded) function-, block and filter plugins
-     * that should be accessible to the template. If empty, no restriction by allowed_tags.
-     *
-     * @var array
-     */
-    public $allowed_tags = [];
-
-    /**
-     * This is an array of disabled tags. It's the array of (registered / autoloaded) function-, block and filter plugins
-     * that may not be accessible to the template. If empty, no restriction by disabled_tags.
-     *
-     * @var array
-     */
-    public $disabled_tags = [];
-
-    /**
-     * This is an array of allowed modifier plugins. It's the array of (registered / autoloaded) modifiers that should be accessible to the template.
-     * If this array is non-empty, only the herein listed modifiers may be used. This is a whitelist.
-     * If empty, no restriction by allowed_modifiers.
-     *
-     * @var array
-     */
-    public $allowed_modifiers = [];
-
-    /**
-     * This is an array of disabled modifier plugins. It's the array of (registered / autoloaded) modifiers that may not be accessible to the template.
-     * If empty, no restriction by disabled_modifiers.
-     *
-     * @var array
-     */
-    public $disabled_modifiers = [];
-
-    /**
-     * needs a proper description
-     * @param \Smarty\Smarty $smarty
-     */
-    public function __construct($smarty)
-    {
-        if (class_exists("TikiLib")) {
-            $tikilib = TikiLib::lib('tiki');
-            // modlib defines zone_is_empty which must exist before smarty initializes to fix bug with smarty autoloader after version 3.1.21
-            TikiLib::lib('mod');
-        }
-
-        parent::__construct($smarty);
-
-
-        //With phpunit and command line these don't exist yet for some reason
-        if (isset($tikilib) && method_exists($tikilib, "get_preference")) {
-            global $url_host;
-            $this->trusted_uri[] = '#' . preg_quote("http://$url_host", '$#') . '#';
-            $this->trusted_uri[] = '#' . preg_quote("https://$url_host", '$#') . '#';
-
-            $allowed_tags = array_filter($tikilib->get_preference('smarty_security_allowed_tags', [], true));
-            $disabled_tags = array_filter($tikilib->get_preference('smarty_security_disabled_tags', [], true));
-            $allowed_modifiers = array_filter($tikilib->get_preference('smarty_security_allowed_modifiers', [], true));
-            $disabled_modifiers = array_filter($tikilib->get_preference('smarty_security_disabled_modifiers', [], true));
-            $dirs = array_filter($tikilib->get_preference('smarty_security_dirs', [], true));
-
-            $cdns = preg_split('/\s+/', $tikilib->get_preference('tiki_cdn', ''));
-            $cdns_ssl = preg_split('/\s+/', $tikilib->get_preference('tiki_cdn_ssl', ''));
-            $cdn_uri = array_filter(array_merge($cdns, $cdns_ssl));
-            foreach ($cdn_uri as $uri) {
-                $this->trusted_uri[] = '#' . preg_quote($uri) . '$#';
-            }
-        } else {
-            $allowed_tags = [];
-            $disabled_tags = [];
-            $allowed_modifiers = [];
-            $disabled_modifiers = [];
-            $dirs = [];
-        }
-
-        // Add defaults
-        $this->allowed_tags = $allowed_tags;
-        $this->disabled_tags = $disabled_tags;
-        $this->allowed_modifiers = $allowed_modifiers;
-        $this->disabled_modifiers = $disabled_modifiers;
-        $this->secure_dir = array_merge($this->secure_dir, $dirs);
-    }
-
-    /**
-     * Work around a bug in smarty where _updateResourceDir doesn't clear the values correctly when
-     * smarty templateDir has been updated
-     */
-    public function clearResourceDir()
-    {
-        $this->_resource_dir = [];
-    }
-}
+use Error;
+use Exception;
+use Feedback;
+use HTMLPurifier;
+use Perms;
+use Smarty\Extension\CoreExtension;
+use Smarty\Extension\DefaultExtension;
+use Smarty\Smarty;
+use Smarty\Variable;
+use Smarty_Resource_Tplwiki;
+use Smarty_Resource_Wiki;
+use SmartyTiki\Extension\SmartyTikiExtension;
+use TikiLib;
 
 /**
  * extends \Smarty\Smarty
  *
  * Centralizing overrides here will avoid problems when upgrading to newer versions of the Smarty library.
- * @package TikiWiki\lib\init
+ * @package TikiWiki\lib\core\Tiki\Smarty
  */
-class Smarty_Tiki extends \Smarty\Smarty
+class SmartyTiki extends Smarty
 {
     /**
      * needs a proper description
@@ -182,9 +67,9 @@ class Smarty_Tiki extends \Smarty\Smarty
 
         // Extensions order must be like to this override smarty default extension
         $this->setExtensions([
-            new Smarty\Extension\CoreExtension(),
-            new SmartyTiki\Extension\SmartyTikiExtension(),
-            new Smarty\Extension\DefaultExtension(),
+            new CoreExtension(),
+            new SmartyTikiExtension(),
+            new DefaultExtension(),
         ]);
 
         $this->setConfigDir(TIKI_PATH . '/' . SMARTY_CONFIG_PATH);
@@ -203,7 +88,7 @@ class Smarty_Tiki extends \Smarty\Smarty
 
         // sets the default security class, even if is Security not enabled
         // this is the class to be used when you call enableSecurity() without arguments
-        $this->security_class = 'Tiki_Security_Policy';
+        $this->security_class = SecurityPolicy::class;
 
         if (! isset($prefs['smarty_security']) || $prefs['smarty_security'] == 'y') {
             $this->enableSecurity();
@@ -312,11 +197,11 @@ class Smarty_Tiki extends \Smarty\Smarty
      * This is used to assign() values to the templates by reference instead of making a copy.
      * @param $var string
      * @param $value mixed
-     * @return Smarty\Variable
+     * @return Variable
      */
     public function assign_by_ref($var, &$value)
     {
-        $variable = new Smarty\Variable(null);
+        $variable = new Variable(null);
         $variable->value = &$value;
         return $this->tpl_vars[$var] = $variable;
     }
@@ -356,7 +241,7 @@ class Smarty_Tiki extends \Smarty\Smarty
      * * @return void
      *
      * @throws \Smarty\Exception
-     * @throws \Exception
+     * @throws Exception
      * */
     public function display(
         $template = null,

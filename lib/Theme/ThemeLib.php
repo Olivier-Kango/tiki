@@ -94,7 +94,7 @@ class ThemeLib extends TikiLib
         return [$theme_active, $theme_option_active];
     }
     /**
-     * A utility method for Smarty_Tiki to convert paths like
+     * A utility method for \Tiki\Smarty\SmartyTiki to convert paths like
      * public/generated/_custom/sites/default_site/themes/customizationstest/ back into
      * _custom/sites/default_site/themes/customizationstest/
      *

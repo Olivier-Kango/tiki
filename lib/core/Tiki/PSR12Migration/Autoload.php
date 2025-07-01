@@ -97,6 +97,9 @@ class Autoload
         'Search_Formatter_Transform_DynamicLoaderWrapper' => 'Tiki\\Search\\Formatter\\Transform\\DynamicLoaderWrapper',
         'Search_Formatter_Transform_DynamicLoader' => 'Tiki\\Search\\Formatter\\Transform\\DynamicLoader',
         'Document' => 'Tiki\\Lib\\Wiki\\Document',
+        'Tiki_Security_Policy' => 'Tiki\\Smarty\\SecurityPolicy',
+        'Smarty_Tiki' => 'Tiki\\Smarty\\SmartyTiki',
+        'SmartyTikiErrorHandler' => 'Tiki\\Smarty\\SmartyTikiErrorHandler',
     ];
 
     /**

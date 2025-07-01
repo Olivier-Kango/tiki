@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Symfony\Component\Yaml\Yaml;
+use Tiki\Smarty\SmartyTiki;
 
 /**
  *
@@ -447,8 +448,8 @@ class OIntegrate_Engine_Smarty implements OIntegrate_Engine
      */
     public function process($data, $templateFile)
     {
-        /** @var Smarty_Tiki $smarty */
-        $smarty = new Smarty_Tiki();
+        /** @var SmartyTiki $smarty */
+        $smarty = new SmartyTiki();
         $smarty->setTemplateDir(dirname($templateFile));
 
         if ($this->changeDelimiters) {

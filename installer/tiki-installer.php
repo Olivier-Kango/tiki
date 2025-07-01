@@ -157,7 +157,6 @@ $prefs = [
 require_once 'lib/init/initlib.php';
 require_once 'lib/tikilib.php';
 require_once('lib/setup/error_reporting.php');
-require_once('lib/init/smarty.php');
 require_once('installer/installlib.php');
 include_once('lib/setup/twversion.class.php');
 
