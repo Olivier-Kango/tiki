@@ -235,7 +235,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
         }
 
         $tikilib = TikiLib::lib('tiki');
-        $newPageData = $requestData[$ins_id];
+        $newPageData = $requestData[$ins_id] ?? null;
         if ($page_name) {
             // There is already a wiki pagename set (the value of the field is the wiki page name)
             if ($tikilib->page_exists($page_name)) {
