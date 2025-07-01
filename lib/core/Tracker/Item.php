@@ -122,7 +122,6 @@ class Tracker_Item
      */
     public function canModify()
     {
-        global $tiki_p_unlock_tracker_item;
 
         if ($this->isNew()) {
             return $this->perms->create_tracker_items;
@@ -654,25 +653,10 @@ class Tracker_Item
      */
     public function lock($userId = null)
     {
-        global $user, $tiki_p_lock_tracker_item;
-
-        if ($tiki_p_lock_tracker_item !== 'y') {
-            Feedback::error(tr('You do not have permission to lock this item.'));
-            return false;
-        }
-
         $definition = Tracker_Definition::get($this->info['trackerId']);
         if (! $definition->isLockOnCloseEnabled()) {
             return false;
         }
-
-        if (! $userId) {
-        $userId = TikiLib::lib('tiki')->get_user_id($user);
-        if (! $userId) {
-            Feedback::error(tr('You must be logged in to lock an item.'));
-            return false;
-        }
-    }
 
         $query = "UPDATE tiki_tracker_items SET is_locked = 1 WHERE itemId = ?";
         $result = TikiLib::lib('tiki')->query($query, [$this->getId()]);
@@ -683,7 +667,7 @@ class Tracker_Item
         }
         return $result;
     }
-
+    
     /**
      * Unlock the tracker item
      * @param int|null $userId ID of the user unlocking the item

@@ -292,11 +292,10 @@ if (! $itemObject) {
 }
 
 $isLocked = $itemObject->isLocked();
+$itemData = $itemObject->getData();
 
-if ($definition->isLockOnCloseEnabled() && isset($_REQUEST['status']) && $_REQUEST['status'] == 'c') {
-    if ($itemObject->lock()) {
-        Feedback::success(tr('Item locked: Status set to Closed'));
-    }
+if ($definition->isLockOnCloseEnabled() && isset($itemData['status']) && $itemData['status'] == 'c') {
+    $itemObject->lock();
 }
 
 if ($tiki_p_unlock_tracker_item == 'y' && isset($_REQUEST['unlock']) && $access->checkCsrf()) {
@@ -311,7 +310,6 @@ if ($tiki_p_unlock_tracker_item == 'y' && isset($_REQUEST['unlock']) && $access-
 }
 
 $smarty->assign('item_is_locked', $isLocked);
-$smarty->assign('can_edit_locked', $canEditLocked);
 $smarty->assign('show_lock_controls', $tiki_p_unlock_tracker_item == 'y');
 
 if ($prefs['feature_groupalert'] == 'y') {
