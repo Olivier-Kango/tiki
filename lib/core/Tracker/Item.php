@@ -643,7 +643,7 @@ class Tracker_Item
         if (! $item) {
             return false;
         }
-        
+
         $definition = Tracker_Definition::get($this->info['trackerId']);
         // If lock on close is not enabled, we don't check for lock
         if (! $definition->isLockOnCloseEnabled()) {
