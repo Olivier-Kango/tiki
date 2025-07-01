@@ -705,6 +705,6 @@ class Tracker_Definition
      */
     public function isLockOnCloseEnabled()
     {
-        return ! empty($this->trackerInfo['lock_on_close']) && $this->trackerInfo['lock_on_close'] == 1;
+        return isset($this->trackerInfo['lock_on_close']) && $this->trackerInfo['lock_on_close'] == 1;
     }
 }

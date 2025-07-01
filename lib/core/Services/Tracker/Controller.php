@@ -3339,6 +3339,7 @@ class Services_Tracker_Controller
             'title' => tr('Unlock Item'),
             'trackerId' => $trackerId,
             'itemId' => $itemId,
+            'show_lock_controls' => $tiki_p_unlock_tracker_item === 'y',
         ];
     }
 }
