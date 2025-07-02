@@ -163,7 +163,6 @@
         {/if}
 
         {include file='tracker_error.tpl'}
-
     {else}
         <style>
         .tab-content .tab-pane {
