@@ -43,7 +43,7 @@ class JsCalendar extends Base
         }
 
         $fieldName = $params['fieldname'];
-        $enableTimezonePicker = $params['showtimezone'] === 'y' ? "true" : "false";
+        $enableTimezonePicker = ($params['showtimezone'] ?? '') === 'y' ? "true" : "false";
         $enableTimePicker = $params['showtime'] === 'y' ? 1 : 0;
         $goto = $params['goto'] ?? '';
         $id = $params['id'] ?? "date-picker-" . uniqid();
