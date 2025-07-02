@@ -634,7 +634,6 @@ class Tracker_Item
      */
     public function isLocked()
     {
-        global $tiki_p_admin_users, $tiki_p_unlock_tracker_item;
         $item = $this->getData();
         if (! $item) {
             return false;
@@ -643,10 +642,6 @@ class Tracker_Item
         $definition = Tracker_Definition::get($this->info['trackerId']);
         // If lock on close is not enabled, we don't check for lock
         if (! $definition->isLockOnCloseEnabled()) {
-            return false;
-        }
-
-        if ($tiki_p_admin_users === 'y') {
             return false;
         }
 
