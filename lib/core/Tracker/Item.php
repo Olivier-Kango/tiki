@@ -638,7 +638,7 @@ class Tracker_Item
      */
     public function isLocked()
     {
-        global $tiki_p_admin_users;
+        global $tiki_p_admin_users, $tiki_p_unlock_tracker_item;
         $item = $this->getData();
         if (! $item) {
             return false;

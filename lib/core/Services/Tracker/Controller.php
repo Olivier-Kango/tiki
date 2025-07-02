@@ -3324,7 +3324,7 @@ class Services_Tracker_Controller
         $itemId = $input->itemId->int();
 
         $perms = Perms::get('tracker', $trackerId);
-        if (! $perms->view || $tiki_p_unlock_tracker_item !== 'y') {
+        if (! $perms->view || ! $perms->unlock_tracker_item) {
             throw new Services_Exception_Denied(tr('You do not have permission to unlock this item'));
         }
 
@@ -3339,7 +3339,7 @@ class Services_Tracker_Controller
             'title' => tr('Unlock Item'),
             'trackerId' => $trackerId,
             'itemId' => $itemId,
-            'show_lock_controls' => $tiki_p_unlock_tracker_item === 'y',
+            'show_lock_controls' => $perms->unlock_tracker_item,
         ];
     }
 }
