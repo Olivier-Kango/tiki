@@ -662,7 +662,7 @@ if (isset($_REQUEST['save']) && empty($errors)) {
             $mail_data .= tra("You must finish your work on") . ": " . $tikilib->date_format($prefs['short_date_format'] . ' ' . $prefs['short_time_format'], $info['end']) . "\n";
         }
         $mail_data .= "\n" . tra("Log in and click the link below") . "\n";
-        $mail_data .= "http://" . $_REQUEST['HTTP_HOST'] . $_REQUEST['REQUEST_URI'] . "?tiki_view_mode=view&taskId=" . $taskId . "\n\n";
+        $mail_data .= "{$base_url}tiki-user_tasks.php?tiki_view_mode=view&taskId={$taskId}\n\n";
         $mail_data .= tra("Please read the task and work on it!");
         $mail->setText($mail_data);
         $mail->send([$email]);
