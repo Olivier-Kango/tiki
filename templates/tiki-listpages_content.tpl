@@ -34,18 +34,19 @@
 {/if}
 
 {assign var='pagefound' value='n'}
-<div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if !empty($ts.enabled)}style="visibility:hidden;"{/if}> {*the table-responsive class cuts off dropdown menus *}
-    <table id="{$ts.tableid}" class="table normal table-striped table-hover" data-count="{$cant|escape}">
-        <thead>
-            <tr>
-                {if isset($checkboxes_on) and $checkboxes_on eq 'y'}
-                    <dh id="checkbox">
-                        {select_all checkbox_names='checked[]' tablesorter="{$ts.enabled}"}
-                    </dh>
-                    {assign var='cntcol' value='1'}
-                {else}
-                    {assign var='cntcol' value='0'}
-                {/if}
+<div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv"> {*the table-responsive class cuts off dropdown menus *}
+    <table id="{$ts.tableid}" class="table normal table-striped table-hover{if !empty($ts.enabled)} tablesorter{/if}" data-count="{$cant|escape}">
+        {if !isset($noheader) || $noheader != 1}
+            <thead>
+                <tr>
+                    {if isset($checkboxes_on) and $checkboxes_on eq 'y'}
+                        <dh id="checkbox">
+                            {select_all checkbox_names='checked[]' tablesorter="{$ts.enabled}"}
+                        </dh>
+                        {assign var='cntcol' value='1'}
+                    {else}
+                        {assign var='cntcol' value='0'}
+                    {/if}
 
                 {if $prefs.wiki_list_id eq 'y'}
                     {assign var='cntcol' value=$cntcol+1}
