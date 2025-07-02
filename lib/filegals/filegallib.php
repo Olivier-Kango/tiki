@@ -2612,6 +2612,8 @@ class FileGalLib extends TikiLib
                 'tf.`ocr_state`' => "'' as `ocr_state`",
                 "'' as `visible`" => 'tfg.`visible`',
                 "'' as `public`" => 'tfg.`public`',
+                "'' as `source`" => 'tfg.`show_source`',
+                "'' as `files`" => 'tfg.`show_files`',
 
                 /// Below are obsolete fields that will be removed soon (they have their new equivalents above)
                 'tf.`fileId`' => 'tfg.`galleryId` as `fileId`', /// use 'id' instead
