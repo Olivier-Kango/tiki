@@ -131,14 +131,10 @@ class Tracker_Item
             return true;
         }
 
-        if ($this->isLocked()) {
-            return false;
-        }
-
         $status = $this->info['status'] ?? '';
 
         if ($status == 'c') {
-            return $this->perms->modify_tracker_items_closed;
+            return ! $this->isLocked() && $this->perms->modify_tracker_items_closed;
         } elseif ($status == 'p') {
             return $this->perms->modify_tracker_items_pending;
         } else {

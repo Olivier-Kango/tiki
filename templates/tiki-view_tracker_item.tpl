@@ -118,7 +118,7 @@
                             {favorite button_classes="favorite-icon" label="{tr}Favorite{/tr}"  type="trackeritem" object=$itemId }
                         </li>
                     {/if}
-                    {if $show_lock_controls && $item_is_locked}
+                    {if $show_lock_controls && $item_is_locked && !$canModify}
                         <li class="dropdown-item">
                             <a data-bs-toggle="modal" data-bs-target="#bootstrap-modal"
                             href="{service controller=tracker action=unlockModal trackerId=$trackerId itemId=$itemId modal=1}">

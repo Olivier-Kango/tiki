@@ -669,10 +669,7 @@ class Services_Comment_Controller
             case 'trackeritem':
                 $item = Tracker_Item::fromId($objectId);
                 if ($item) {
-                    if ($item->isLocked()) {
-                        return false;
-                    }
-                    return $item->canPostComments();
+                    return $item->canModify() && $item->canPostComments();
                 } else {
                     return $perms->comment_tracker_items;
                 }
