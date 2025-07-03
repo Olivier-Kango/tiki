@@ -3318,8 +3318,6 @@ class Services_Tracker_Controller
 
     public function actionUnlockModal($input)
     {
-        global $tiki_p_unlock_tracker_item;
-
         $trackerId = $input->trackerId->int();
         $itemId = $input->itemId->int();
 

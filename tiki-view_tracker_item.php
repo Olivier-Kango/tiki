@@ -299,7 +299,8 @@ if ($definition->isLockOnCloseEnabled() && isset($itemData['status']) && $itemDa
 
 $isLocked = $itemObject->isLocked();
 
-if ($tiki_p_unlock_tracker_item == 'y' && isset($_REQUEST['unlock']) && $access->checkCsrf()) {
+$perms = Perms::get('tracker', $trackerId);
+if ($perms->unlock_tracker_item && isset($_REQUEST['unlock']) && $access->checkCsrf()) {
     if ($isLocked) {
         $itemObject->unlock();
         Feedback::success(tr('Item unlocked successfully'));
@@ -311,7 +312,7 @@ if ($tiki_p_unlock_tracker_item == 'y' && isset($_REQUEST['unlock']) && $access-
 }
 
 $smarty->assign('item_is_locked', $isLocked);
-$smarty->assign('show_lock_controls', $tiki_p_unlock_tracker_item == 'y');
+$smarty->assign('show_lock_controls', $perms->unlock_tracker_item);
 
 if ($prefs['feature_groupalert'] == 'y') {
     $groupforalert = $groupalertlib->GetGroup('tracker', $trackerId);
