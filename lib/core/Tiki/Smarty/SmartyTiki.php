@@ -98,10 +98,10 @@ class SmartyTiki extends Smarty
         $this->use_sub_dirs = false;
         $this->url_overriding_prefix_stack = [];
 
-        include_once(__DIR__ . '/../smarty_tiki/resource.tplwiki.php');
+        include_once(__DIR__ . '/../../../smarty_tiki/resource.tplwiki.php');
         $this->registerResource('tplwiki', new Smarty_Resource_Tplwiki());
 
-        include_once(__DIR__ . '/../smarty_tiki/resource.wiki.php');
+        include_once(__DIR__ . '/../../../smarty_tiki/resource.wiki.php');
         $this->registerResource('wiki', new Smarty_Resource_Wiki());
 
         global $prefs;
