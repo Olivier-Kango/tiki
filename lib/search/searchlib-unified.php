@@ -749,11 +749,11 @@ class UnifiedSearchLib
         // trackeritem object type needs to further split fields by tracker ID, so we know which are relevant to each tracker item object
         if (isset($fields['object_types']['trackeritem'])) {
             $types_by_tracker_id = [];
-            $all_fields = TikiLib::lib('trk')->table('tiki_tracker_fields')->fetchMap('permName', 'trackerId', []);
-            foreach ($all_fields as $permName => $trackerId) {
+            $all_fields = TikiLib::lib('trk')->table('tiki_tracker_fields')->fetchAll(['permName', 'trackerId']);
+            foreach ($all_fields as $row) {
                 foreach ($fields['object_types']['trackeritem'] as $field) {
-                    if (str_starts_with($field, 'tracker_field_' . $permName)) {
-                        $types_by_tracker_id['trackeritem' . $trackerId][] = $field;
+                    if (str_starts_with($field, 'tracker_field_' . $row['permName'])) {
+                        $types_by_tracker_id['trackeritem' . $row['trackerId']][] = $field;
                     }
                 }
             }
