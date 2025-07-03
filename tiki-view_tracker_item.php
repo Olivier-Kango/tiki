@@ -287,16 +287,6 @@ $fieldDefinitions = $definition->getFields();
 $smarty->assign('tracker_is_multilingual', $prefs['feature_multilingual'] == 'y' && $definition->getLanguageField());
 
 $itemObject = Tracker_Item::fromId($itemId);
-if (! $itemObject) {
-    Feedback::errorAndDie(tra("Item not found"), \Laminas\Http\Response::STATUS_CODE_404);
-}
-
-$itemData = $itemObject->getData();
-
-if ($definition->isLockOnCloseEnabled() && isset($itemData['status']) && $itemData['status'] == 'c') {
-    $itemObject->lock();
-}
-
 $isLocked = $itemObject->isLocked();
 
 $perms = Perms::get('tracker', $trackerId);

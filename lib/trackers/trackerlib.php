@@ -2035,6 +2035,12 @@ class TrackerLib extends TikiLib
             }
 
             $version = $this->last_log_version($itemId) + 1;
+            if ($status == 'c' && $tracker_definition->isLockOnCloseEnabled()) {
+                $itemObject = Tracker_Item::fromId($itemId);
+                if ($itemObject && ! $itemObject->isLocked()) {
+                    $itemObject->lock();
+                }
+            }
         } else {
             if (empty($status) && isset($tracker_info['newItemStatus'])) {
                 // set status based on tracker setting of status not explicitly requested
@@ -2062,6 +2068,12 @@ class TrackerLib extends TikiLib
             $version = 0;
 
             $final_event = 'tiki.trackeritem.create';
+            if ($status == 'c' && $tracker_definition->isLockOnCloseEnabled()) {
+                $itemObject = Tracker_Item::fromId($new_itemId);
+                if ($itemObject && ! $itemObject->isLocked()) {
+                    $itemObject->lock();
+                }
+            }
         }
 
         $currentItemId = $itemId ? $itemId : $new_itemId;
