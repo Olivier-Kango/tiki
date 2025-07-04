@@ -1427,6 +1427,7 @@ class EditLib
             }
 
             if ($oldData || $newData) {
+                require_once('lib/Diff/difflib.php');
                 $oldData = explode("\n", $oldData);
                 $newData = explode("\n", $newData);
                 $sections = [];
