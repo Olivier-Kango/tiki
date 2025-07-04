@@ -2614,14 +2614,16 @@ class UsersLib extends TikiLib
         $query = 'update `users_users` set `default_group`=? where `login`=? and `default_group`=?';
         $this->query($query, ['Registered', $user, $group]);
 
+        if (! empty($_SESSION['u_info']['login']) && $_SESSION['u_info']['login'] == $user) {
+            $_SESSION['u_info']['group'] = 'Registered';
+        }
+
         TikiLib::events()->trigger('tiki.user.groupleave', [
             'type' => 'user',
             'object' => $user,
             'group' => $group,
             'bulk_import' => $bulk,
         ]);
-
-        $_SESSION['u_info']['group'] = 'Registered';
 
         return $result;
     }
