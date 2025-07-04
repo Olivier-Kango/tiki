@@ -156,7 +156,10 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
         if (! in_array($defGroup, $data['list'])) {
             // find the one in the list this user is in
             $includedGroups = array_intersect(array_keys($userGroups), $data['list']);
-            if (empty($includedGroups) && ! $perms->admin_trackers) {
+            if (! $user) {
+                // Handle anonymous users: allow default group assignment silently
+                $defGroup = $group;
+            } elseif (empty($includedGroups) && ! $perms->admin_trackers) {
                 // user not in any of the required groups, use the global default $group and warn
                 $defGroup = $group;
                 Feedback::warning(tr('User not in any of the required groups for GroupSelector field'));
