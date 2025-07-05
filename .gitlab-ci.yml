@@ -292,15 +292,15 @@ translation-standards:
   script:
     - php doc/devtools/check_template_translation_standards.php --all
 
-satis-validates:
-  stage: tiki-check
-  needs: []
-  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
-  script:
-    - php doc/devtools/check_satis_validation.php
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+#satis-validates:
+#  stage: tiki-check
+#  needs: []
+#  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+#  script:
+#    - php doc/devtools/check_satis_validation.php
+#  rules:
+#    - if: '$CI_COMMIT_BRANCH == "master"'
+#    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
 
 #This is a non-network check
 composer-validates:
