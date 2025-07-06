@@ -144,7 +144,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
         return [
             'name'       => 'Tiki',
             'version'    => $TWV->version,
-            'h5pVersion' => '1.0.0', // TODO: Use variable? (\H5PLib not loaded)
+            'h5pVersion' => '1.0.0', // TODO: Use variable? (\Tiki\Lib\Filegals\H5PLib not loaded)
         ];
     }
 

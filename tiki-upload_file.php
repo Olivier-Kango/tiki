@@ -175,7 +175,7 @@ if (! empty($_REQUEST['galleryId'][0]) && $prefs['feature_groupalert'] == 'y') {
 }
 
 if (empty($_REQUEST['returnUrl'])) {
-    include('lib/filegals/max_upload_size.php');
+    include('lib/Filegals/max_upload_size.php');
 }
 
 // Process an upload here

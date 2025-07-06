@@ -4,6 +4,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Filegals;
+
+use DOMDocument;
+use DOMElement;
+use Services_Tracker_Utilities;
+use Tiki\FileGallery\File;
+use TikiDb;
+use TikiLib;
+use Tracker_Definition;
+use ZipArchive;
+
 class ScormLib
 {
     public function handle_file_creation($args)
@@ -46,7 +57,7 @@ class ScormLib
     {
         $metadata = null;
 
-        $file = \Tiki\FileGallery\File::id($args['object']);
+        $file = File::id($args['object']);
 
         if (
             $this->isZipFile($args)

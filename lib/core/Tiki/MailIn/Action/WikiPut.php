@@ -271,7 +271,7 @@ class WikiPut implements ActionInterface
 
         if (! $att['link']) {
             if ($prefs['feature_use_fgal_for_wiki_attachments'] === 'y') {
-                $galleryId = TikiLib::lib('filegallib')->get_attachment_gallery($page, 'wiki page', true);
+                $galleryId = TikiLib::lib('filegal')->get_attachment_gallery($page, 'wiki page', true);
                 if (! $galleryId) {
                     return '';
                 }

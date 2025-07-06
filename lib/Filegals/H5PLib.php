@@ -4,7 +4,19 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Filegals;
+
+use Exception;
+use Feedback;
+use H5P_EditorTikiStorage;
+use H5P_H5PTiki;
+use H5PCore;
+use H5peditor;
 use Tiki\FileGallery\File as TikiFile;
+use TikiDb;
+use TikiLib;
+use TWVersion;
+use ZipArchive;
 
 class H5PLib
 {
@@ -127,7 +139,7 @@ class H5PLib
         $id = $this->getContentIdFromFileId($fileId);
 
         if ($id) {// Try to find content with $id.
-            $core = \H5P_H5PTiki::get_h5p_instance('core');
+            $core = H5P_H5PTiki::get_h5p_instance('core');
             $content = $core->loadContent($id); // TODO: Is it possible to pass $fileId directly here to reduce the number of queries?
 
             if (is_array($content) && ! empty($content)) {
@@ -236,7 +248,7 @@ class H5PLib
         $cid = 'cid-' . $content['id'];
         if (! isset(self::$settings['contents'][$cid])) {
             self::$settings['contents'][$cid] = $this->getContentSettings($content);
-            $core = \H5P_H5PTiki::get_h5p_instance('core');
+            $core = H5P_H5PTiki::get_h5p_instance('core');
 
             // Get assets for this content
             $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
@@ -360,7 +372,7 @@ class H5PLib
 
         $settings = [
             'baseUrl'            => $base_url,
-            'url'                => $base_url . \H5P_H5PTiki::$h5p_path,
+            'url'                => $base_url . H5P_H5PTiki::$h5p_path,
             'postUserStatistics' => ($prefs['h5p_track_user'] === 'y') && $userId,
             'ajax'               => [
                 'setFinished'     => 'tiki-ajax_services.php?controller=h5p&action=results',
@@ -394,7 +406,7 @@ class H5PLib
      */
     public function enqueueAssets(&$assets)
     {
-        $rel_url = \H5P_H5PTiki::$h5p_path;
+        $rel_url = H5P_H5PTiki::$h5p_path;
 
         foreach ($assets['scripts'] as $script) {
             $url = $rel_url . $script->path . $script->version;
@@ -592,9 +604,9 @@ class H5PLib
         $ajaxPath = 'tiki-ajax_services.php?controller=h5p&action=';
 
         // Add JavaScript settings
-        $contentvalidator = \H5P_H5PTiki::get_h5p_instance('contentvalidator');
+        $contentvalidator = H5P_H5PTiki::get_h5p_instance('contentvalidator');
         self::$settings['editor'] = [
-            'filesPath' => $tikiroot . \H5P_H5PTiki::$h5p_path . '/editor',
+            'filesPath' => $tikiroot . H5P_H5PTiki::$h5p_path . '/editor',
             'fileIcon' => [
                 'path' => $url . 'images/binary-file.png',
                 'width' => 50,
@@ -623,7 +635,7 @@ class H5PLib
      */
     public function saveContent(&$content, $input)
     {
-        $core = \H5P_H5PTiki::get_h5p_instance('core');
+        $core = H5P_H5PTiki::get_h5p_instance('core');
 
         $oldLibrary = empty($content['library']) ? null : $content['library'];
         $oldParams = empty($content['params']) ? null : $content['params'];
@@ -697,7 +709,7 @@ class H5PLib
         $content['id'] = $core->saveContent($content, $fileId);
 
         // Move images to parmanent storage and find all required content dependencies
-        $editor = \H5P_EditorTikiStorage::get_h5peditor_instance();
+        $editor = H5P_EditorTikiStorage::get_h5peditor_instance();
         $editor->processParameters($content['id'], $content['library'], $params->params, $oldLibrary, $oldParams);
 
         // export the project into the new file gallery file

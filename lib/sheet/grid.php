@@ -867,7 +867,7 @@ class TikiSheetCSVHandler extends TikiSheetDataHandler
         $this->lineLen = $lineLen;
         $this->type = "file";
 
-        if (is_array($fileInfo)) { // When loading from FileGalLib
+        if (is_array($fileInfo)) { // When loading from Tiki\Lib\Filegals\FileGalLib
             $this->data = strip_tags($fileInfo['data']);
             $this->name = $fileInfo['name'];
             $this->id = $fileInfo['fileId'];

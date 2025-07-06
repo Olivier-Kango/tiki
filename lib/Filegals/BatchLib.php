@@ -4,13 +4,19 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Filegals;
+
+use Exception;
+use Tiki\FileGallery\File;
+use TikiLib;
+
 /**
- * Class FilegalBatchLib
+ * Class BatchLib
  *
  * Container for functions involved in tiki-batch_upload_files.php and files:batchupload console command
  *
  */
-class FilegalBatchLib extends FileGalLib
+class BatchLib extends FileGalLib
 {
     // list of filetypes you DO NOT want to show
     private $disallowed_types = [
@@ -224,7 +230,7 @@ class FilegalBatchLib extends FileGalLib
             // get filename
             $name = $path_parts['basename'];
 
-            $tikiFile = new Tiki\FileGallery\File([
+            $tikiFile = new File([
                 'galleryId' => $destinationGalleryId,
                 'description' => $tmpDesc,
                 'user' => $creator,

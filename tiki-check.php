@@ -2968,7 +2968,7 @@ if ($s == 1) {
 }
 
 if ($standalone || (! empty($prefs) && $prefs['fgal_enable_auto_indexing'] === 'y')) {
-    // adapted from \FileGalLib::get_file_handlers
+    // adapted from \Tiki\Lib\Filegals\FileGalLib::get_file_handlers
     $fh_possibilities = array(
         'application/ms-excel' => array('xls2csv %1'),
         'application/msexcel' => array('xls2csv %1'),

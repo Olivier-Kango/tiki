@@ -37,25 +37,6 @@
         "lib\/tikiaccesslib.php": {
             "class:TikiAccessLib": true
         },
-        "lib\/filegals\/vimeolib.php": {
-            "class:VimeoLib": true
-        },
-        "lib\/filegals\/filegalbatchlib.php": {
-            "class:FilegalBatchLib": true
-        },
-        "lib\/filegals\/filegalcopylib.php": {
-            "class:FilegalCopyLib": true
-        },
-        "lib\/filegals\/h5plib.php": {
-            "class:H5PLib": true
-        },
-        "lib\/filegals\/filegallib.php": {
-            "class:FileGalLib": true,
-            "class:FileIsNotSafeException": true
-        },
-        "lib\/filegals\/scormlib.php": {
-            "class:ScormLib": true
-        },
         "lib\/tasks\/tasklib.php": {
             "class:TaskLib": true
         },
@@ -6472,9 +6453,6 @@
             "class:ObjectRenderer_Wiki": true,
             "class:ObjectRenderer_MultilingualWiki": true
         },
-        "lib\/filegals\/filegallib.php": {
-            "class:FileIsNotSafeException": true
-        },
         "lib\/importer\/tikiimporter.php": {
             "class:ImporterParserException": true
         },
@@ -6807,13 +6785,13 @@
             "TikiAccessLib::is_xml_http_request": true,
             "TikiAccessLib::output_serialized": true
         },
-        "lib\/filegals\/h5plib.php": {
+        "lib\/Filegals\/H5PLib.php": {
             "H5PLib::handle_fileCreation": true,
             "H5PLib::handle_fileUpdate": true,
             "H5PLib::handle_fileDelete": true,
             "H5PLib::alter_assets": true
         },
-        "lib\/filegals\/filegallib.php": {
+        "lib\/Filegals\/FileGalLib.php": {
             "FileGalLib::is_default_gallery_writable": true,
             "FileGalLib::get_attachment_gallery": true,
             "FileGalLib::get_wiki_attachment_gallery": true,
@@ -6882,7 +6860,7 @@
             "FileGalLib::refresh_file": true,
             "FileGalLib::is_filename_valid": true
         },
-        "lib\/filegals\/scormlib.php": {
+        "lib\/Filegals\/ScormLib.php": {
             "ScormLib::handle_file_creation": true,
             "ScormLib::handle_file_update": true
         },

@@ -10,7 +10,6 @@ use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Tiki\Files\CheckFileGallery;
 use TikiLib;
-use FileGalLib;
 
 class CheckFileGalleryTest extends TestCase
 {
@@ -58,7 +57,7 @@ class CheckFileGalleryTest extends TestCase
         $prefs['fgal_podcast_dir'] = $this->podcastDir;
 
         // clean File Gallery and generate the default categories
-        /** @var FileGalLib $fileGalleryLib */
+        /** @var Tiki\Lib\Filegals\FileGalLib $fileGalleryLib */
         $fileGalleryLib = TikiLib::lib('filegal');
         $fileGalleryLib->table('tiki_files')->deleteMultiple([]);
         $fileGalleryLib->table('tiki_file_galleries')->deleteMultiple([]);
@@ -370,14 +369,14 @@ class CheckFileGalleryTest extends TestCase
         $data = file_get_contents($this->testImage);
         $size = strlen($data);
 
-        /** @var FileGalLib $fileGalleryLib */
+        /** @var Tiki\Lib\Filegals\FileGalLib $fileGalleryLib */
         $fileGalleryLib = TikiLib::lib('filegal');
         return $fileGalleryLib->upload_single_file($gallery, $baseName . '.png', $size, 'image/png', $data);
     }
 
     protected function getFilePath($id)
     {
-        /** @var FileGalLib $fileGalleryLib */
+        /** @var Tiki\Lib\Filegals\FileGalLib $fileGalleryLib */
         $fileGalleryLib = TikiLib::lib('filegal');
         $file = $fileGalleryLib->get_file($id);
 

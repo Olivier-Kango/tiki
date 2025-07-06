@@ -26,8 +26,8 @@ $events = [
 ["feature_articles","Articles","article_new",tra("Publish an article"),20,0],
 ["feature_articles","Articles","article_is_read",tra("Have your article read"),1,0], // tikilib.php
 
-["feature_file_galleries","File Galleries","fgallery_new",tra("Create new file gallery"),10,0],  // filegallib.php
-["feature_file_galleries","File Galleries","fgallery_new_file",tra("Upload a new file to a gallery"),10,0],  // filegallib.php
+["feature_file_galleries","File Galleries","fgallery_new",tra("Create new file gallery"),10,0],  // FileGalLib.php
+["feature_file_galleries","File Galleries","fgallery_new_file",tra("Upload a new file to a gallery"),10,0],  // FileGalLib.php
 ["feature_file_galleries","File Galleries","fgallery_download",tra("Download another user's file"),5,0],  // tikilib.php
 ["feature_file_galleries","File Galleries","fgallery_is_downloaded",tra("Have your file downloaded"),5,0], // tikilib.php
 

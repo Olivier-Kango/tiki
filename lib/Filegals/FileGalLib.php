@@ -4,11 +4,31 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Filegals;
+
+use BrowseTreeMaker;
+use DOMDocument;
+use Exception;
+use Feedback;
+use FileMetadata;
+use finfo;
+use Laminas\Http\Exception\ExceptionInterface;
+use ObjectLib;
+use PclZip;
+use Perms;
+use StatsLib;
 use Tiki\FileGallery\Definition as GalleryDefinition;
 use Tiki\FileGallery\FileWrapper\WrapperInterface as FileWrapper;
 use Tiki\FileGallery\File as TikiFile;
 use Tiki\FileGallery\FileDraft as TikiFileDraft;
 use Tiki\FileGallery\ImageTransformer;
+use Tiki\Lib\Filegals\FileIsNotSafeException;
+use TikiDb;
+use TikiLib;
+use TikiMail;
+use Tracker_Item;
+use WikiParser_PluginArgumentParser;
+use WikiParser_PluginMatcher;
 
 class FileGalLib extends TikiLib
 {
@@ -3834,7 +3854,7 @@ class FileGalLib extends TikiLib
                 'expires' => $expiryDate,
                 'etag' => $etag,
             ];
-        } catch (Laminas\Http\Exception\ExceptionInterface $e) {
+        } catch (ExceptionInterface $e) {
             TikiLib::lib('logs')->add_action($action, $url, 'url', 'error=' . $e->getMessage());
             return false;
         }
@@ -4255,11 +4275,4 @@ class FileGalLib extends TikiLib
 
         return $listfgals;
     }
-}
-
-/**
- *
- */
-class FileIsNotSafeException extends Exception
-{
 }

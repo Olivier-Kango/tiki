@@ -119,15 +119,9 @@
         <service id="tiki.lib.flaggedrevision" class="FlaggedRevisionLib">
             <file>%kernel.root_dir%/lib/wiki/flaggedrevisionlib.php</file>
         </service>
-        <service id="tiki.lib.filegal" class="FileGalLib">
-            <file>%kernel.root_dir%/lib/filegals/filegallib.php</file>
-        </service>
-        <service id="tiki.lib.filegalbatch" class="FileGalBatchLib">
-            <file>%kernel.root_dir%/lib/filegals/filegalbatchlib.php</file>
-        </service>
-        <service id="tiki.lib.filegalcopy" class="FileGalCopyLib">
-            <file>%kernel.root_dir%/lib/filegals/filegalcopylib.php</file>
-        </service>
+        <service id="tiki.lib.filegal" class="Tiki\Lib\Filegals\FileGalLib"/>
+        <service id="tiki.lib.filegalbatch" class="Tiki\Lib\Filegals\BatchLib"/>
+        <service id="tiki.lib.filegalcopy" class="Tiki\Lib\Filegals\CopyLib"/>
         <service id="tiki.lib.freetag" class="FreetagLib">
             <file>%kernel.root_dir%/lib/freetag/freetaglib.php</file>
         </service>
@@ -149,9 +143,7 @@
         <service id="tiki.lib.groupalert" class="GroupAlertLib">
             <file>%kernel.root_dir%/lib/groupalert/groupalertlib.php</file>
         </service>
-        <service id="tiki.lib.h5p" class="H5PLib">
-            <file>%kernel.root_dir%/lib/filegals/h5plib.php</file>
-        </service>
+        <service id="tiki.lib.h5p" class="Tiki\Lib\Filegals\H5PLib"/>
         <service id="tiki.lib.header" class="HeaderLib">
             <file>%kernel.root_dir%/lib/headerlib.php</file>
         </service>
@@ -292,9 +284,7 @@
         <service id="tiki.lib.score" class="ScoreLib">
             <file>%kernel.root_dir%/lib/score/scorelib.php</file>
         </service>
-        <service id="tiki.lib.scorm" class="ScormLib">
-            <file>%kernel.root_dir%/lib/filegals/scormlib.php</file>
-        </service>
+        <service id="tiki.lib.scorm" class="Tiki\Lib\Filegals\ScormLib"/>
         <service id="tiki.lib.searchstats" class="SearchStatsLib">
             <file>%kernel.root_dir%/lib/search/searchstatslib.php</file>
         </service>
@@ -362,8 +352,7 @@
         <service id="tiki.lib.vuejs" class="VueJsLib">
             <file>%kernel.root_dir%/lib/vue/vuejslib.php</file>
         </service>
-        <service id="tiki.lib.vimeo" class="VimeoLib">
-            <file>%kernel.root_dir%/lib/filegals/vimeolib.php</file>
+        <service id="tiki.lib.vimeo" class="Tiki\Lib\Filegals\VimeoLib">
             <argument type="service" id="tiki.lib.oauth"/>
         </service>
         <service id="tiki.lib.xmpp" class="XMPPLib">

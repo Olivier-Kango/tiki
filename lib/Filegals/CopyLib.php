@@ -4,13 +4,17 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Filegals;
+
+use Tiki\FileGallery\File;
+
 /**
- * Class FilegalCopyLib
+ * Class CopyLib
  *
  * Container for functions involved in files:copy and files:move console commands
  *
  */
-class FilegalCopyLib extends FileGalLib
+class CopyLib extends FileGalLib
 {
     /**
      * Processes a list of files to be copied/moved to a directory in the filesystem
@@ -58,7 +62,7 @@ class FilegalCopyLib extends FileGalLib
      */
     public function copyFile($file, $destinationPath, $move = false)
     {
-        $file = \Tiki\FileGallery\File::id($file['fileId']);
+        $file = File::id($file['fileId']);
 
         $source = $file->getWrapper()->getReadableFile();
         if (! copy($source, $destinationPath . $file->filename)) {
