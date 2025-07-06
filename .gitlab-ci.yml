@@ -129,6 +129,13 @@ node_build:
       - .composercache/
     policy: pull-push
 
+composer-ext-check:
+  stage: tiki-check
+  needs: []
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
+    - php doc/devtools/check_composer_extensions.php
+
 composer:
   stage: build
   needs: []
