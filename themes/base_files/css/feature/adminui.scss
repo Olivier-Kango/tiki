@@ -630,12 +630,20 @@ body.tiki-admin {
 }
 
 .tiki-admin .admin-content nav.navbar-expand-md.mb-4 .navbar-brand img {
-    max-width: 32px;
-    max-height: 32px;
+    margin-left: 25px;
+    max-width: 38px;
+    max-height: 38px;
 }
 
 .tiki-admin .box-logo {
-    display: none;
+    display: none !important;
+}
+
+.tiki-admin .siteloginbar_popup img {
+    margin-top: -20px;
+    vertical-align: baseline;
+    max-width: 38px;
+    max-height: 38px;
 }
 
 .tiki-admin .admin-content nav.navbar-expand-md.mb-4 .navbar-collapse form {
