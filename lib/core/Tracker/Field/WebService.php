@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\OIntegrate\Response;
+
 /**
  * Handler class for WebService
  *
@@ -270,7 +273,7 @@ class Tracker_Field_WebService extends \Tracker\Field\AbstractItemField
             }
         }
         if (! $itemId) {
-            $response = OIntegrate_Response::create($oldData, false);
+            $response = Response::create($oldData, false);
             unlink($template->getTemplateFile());
             $template = $webservice->getTemplate($tpl);
         }

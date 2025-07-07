@@ -4,6 +4,8 @@
  * @package tikiwiki
  */
 
+use Tiki\Lib\OIntegrate\Response;
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -513,8 +515,7 @@ if (! empty($multiprint_pages)) {
                         'lang' => $page['lang'],
                 ];
             }
-            require_once 'lib/ointegratelib.php';
-            $response = OIntegrate_Response::create(['list' => $pages], '1.0');
+            $response = Response::create(['list' => $pages], '1.0');
             $response->addTemplate('smarty', 'tikiwiki', 'templates/smarty-tikiwiki-1.0-shortlist.txt');
             $response->schemaDocumentation = 'http://dev.tiki.org/WebserviceListpages';
             $response->send();
