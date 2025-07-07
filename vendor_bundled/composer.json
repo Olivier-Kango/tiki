@@ -246,7 +246,7 @@
         "robicch/jquery-gantt": "^6.3",
         "rubix/extras": "2.0.0-beta",
         "rubix/ml": "^2.1",
-        "sabre/dav": "~4.4.0",
+        "sabre/dav": "~4.7",
         "sam152/javascript-equal-height-responsive-rows": "1.0.0",
         "sentry/sdk": "^3.3",
         "simile_timeline/simile_timeline": "2.3.0",
