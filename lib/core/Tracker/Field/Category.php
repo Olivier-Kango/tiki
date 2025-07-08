@@ -823,15 +823,17 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
     {
         if ($args['type'] == 'trackeritem') {
             $itemId = $args['object'];
-            $trackerId = TikiLib::lib('trk')->get_tracker_for_item($itemId);
+            $trklib = TikiLib::lib('trk');
+            $trackerId = $trklib->get_tracker_for_item($itemId);
             $definition = Tracker_Definition::get($trackerId);
             if ($fieldIds = $definition->getCategorizedFields()) {
                 foreach ($fieldIds as $fieldId) {
                     $field = $definition->getField($fieldId);
-                    $handler = TikiLib::lib('trk')->get_field_handler($field);
+                    $handler = $trklib->get_field_handler($field);
                     $data = $handler->getFieldData();
                     $applicable = array_keys($data['list']);
-                    $value = $old_value = explode(",", TikiLib::lib('trk')->get_item_value($trackerId, $itemId, $fieldId));
+                    $itemValue = $trklib->get_item_value($trackerId, $itemId, $fieldId) ?? '';
+                    $value = $old_value = explode(",", $itemValue);
                     foreach ($args['added'] as $added) {
                         if (! in_array($added, $applicable)) {
                             continue;
@@ -850,7 +852,7 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
                     }
                     if ($value != $old_value) {
                         $value = implode(",", $value);
-                        TikiLib::lib('trk')->modify_field($itemId, $fieldId, $value);
+                        $trklib->modify_field($itemId, $fieldId, $value);
                     }
                 }
             }
