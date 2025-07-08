@@ -412,6 +412,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/interactjs/dist",
                     },
                     {
+                        src: ["node_modules/d3-milestones/build/d3-milestones.css", "node_modules/d3-milestones/build/d3-milestones.min.js"],
+                        dest: "vendor_dist/d3-milestones/build",
+                    },
+                    {
                         src: "node_modules/dompurify/dist/purify.(es|min)*",
                         dest: "vendor_dist/dompurify/dist",
                     },
