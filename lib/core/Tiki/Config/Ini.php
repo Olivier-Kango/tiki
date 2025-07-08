@@ -4,9 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-namespace Tiki\Config;
-
-class Tiki_Config_Ini
+class Tiki_Config_Ini extends Laminas\Config\Reader\Ini
 {
     public const SECTION_SEPARATOR = ':';
     public const SECTION_EXTENDS_KEY = ';extends';
@@ -19,30 +17,6 @@ class Tiki_Config_Ini
     }
 
     /**
-     * Load configuration from an INI file.
-     *
-     * @param  string $file
-     * @return array
-    */
-    public function fromFile(string $file): array
-    {
-        $data = parse_ini_file($file, true, INI_SCANNER_TYPED);
-        return $this->process($data);
-    }
-
-    /**
-     * Load configuration from a string containing INI content.
-     *
-     * @param  string $iniContent
-     * @return array
-     */
-    public function fromString(string $iniContent): array
-    {
-        $data = parse_ini_string($iniContent, true, INI_SCANNER_TYPED);
-        return $this->process($data);
-    }
-
-    /**
      * Process data from the parsed ini file.
      *
      * @param  array $data
@@ -51,7 +25,7 @@ class Tiki_Config_Ini
     protected function process(array $data)
     {
         $data = $this->preProcessSectionInheritance($data);
-        $config = $data;
+        $config = parent::process($data);
         $config = $this->posProcessSectionInheritance($config);
 
         if (! is_null($this->filterSection)) {

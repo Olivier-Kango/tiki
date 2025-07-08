@@ -10,8 +10,7 @@ if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     exit;
 }
 
-use Tiki\Config\Config;
-use Tiki\Config\Tiki_Config_Ini;
+use Laminas\Config\Config;
 use Tiki\Command\ConsoleSetupException;
 use Tiki\Installer\Installer;
 use Tiki\TikiInit;
@@ -78,7 +77,7 @@ $systemConfiguration = new Config(
         'preference' => [],
         'rules' => [],
     ],
-    false
+    ['readOnly' => false]
 );
 if (isset($_SERVER['TIKI_INI_FILE'])) {
     if (! is_readable($_SERVER['TIKI_INI_FILE'])) {
@@ -93,7 +92,7 @@ if (isset($_SERVER['TIKI_INI_FILE'])) {
     $configReader = new Tiki_Config_Ini();
     $configReader->setFilterSection(isset($_SERVER['TIKI_INI_IDENTIFIER']) ? $_SERVER['TIKI_INI_IDENTIFIER'] : null);
     $configData = $configReader->fromFile($_SERVER['TIKI_INI_FILE']);
-    $systemConfiguration = $systemConfiguration->merge($configData);
+    $systemConfiguration = $systemConfiguration->merge(new Laminas\Config\Config($configData));
 }
 if (isset($system_configuration_file)) {
     if (! is_readable($system_configuration_file)) {

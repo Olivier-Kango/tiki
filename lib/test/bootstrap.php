@@ -4,7 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-use Tiki\Config\Config;
+use Laminas\Config\Config;
 use Tiki\Installer\Installer;
 
 const TIKI_IN_TEST = 1;
@@ -101,7 +101,7 @@ $systemConfiguration = new Config(
         'preference' => [],
         'rules' => [],
     ],
-    false
+    ['readOnly' => false]
 );
 
 global $user_overrider_prefs, $prefs, $tikipath;
