@@ -97,7 +97,7 @@ namespace PHPSTORM_META {
             'prefs'                      => \PreferencesLib::class,
             'quantify'                   => \QuantifyLib::class,
             'queue'                      => \QueueLib::class,
-            'quiz'                       => \QuizLib::class,
+            'quiz'                       => \Tiki\Lib\Quizzes\QuizLib::class,
             'rating'                     => \RatingLib::class,
             'ratingconfig'               => \RatingConfigLib::class,
             'recommendationcontentbatch' => \Tiki\Recommendation\BatchProcessor::class,

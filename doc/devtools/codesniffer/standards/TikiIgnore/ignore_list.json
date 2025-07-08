@@ -3618,13 +3618,6 @@
         "lib\/metadata\/metadatalib.php": {
             "class:FileMetadata": true
         },
-        "lib\/quizzes\/quizlib.php": {
-            "class:QuizLib": true,
-            "class:HW_QuizQuestion": true,
-            "class:HW_QuizQuestionMultipleChoice": true,
-            "class:HW_QuizQuestionYesNo": true,
-            "class:Quiz": true
-        },
         "lib\/credits\/creditslib.php": {
             "class:CreditsLib": true
         },
@@ -6398,11 +6391,6 @@
         "lib\/wiki-plugins\/wikiplugin_trackerquerytemplate.php": {
             "dataToFieldHandler": true
         },
-        "lib\/quizzes\/quizlib.php": {
-            "HW_QuizQuestion": true,
-            "HW_QuizQuestionMultipleChoice": true,
-            "HW_QuizQuestionYesNo": true
-        },
         "lib\/jquery_tiki\/elfinder\/tikiElFinder.php": {
             "tikiElFinder": true
         },
@@ -6476,12 +6464,6 @@
             "class:TikiSheetOutputHandler": true,
             "class:TikiSheetLabeledOutputHandler": true,
             "class:TikiSheetHTMLTableHandler": true
-        },
-        "lib\/quizzes\/quizlib.php": {
-            "class:HW_QuizQuestion": true,
-            "class:HW_QuizQuestionMultipleChoice": true,
-            "class:HW_QuizQuestionYesNo": true,
-            "class:Quiz": true
         }
     },
     "PSR1.Methods.CamelCapsMethodName.NotCamelCaps": {
@@ -9737,7 +9719,29 @@
             "ZoteroLib::get_entry": true,
             "ZoteroLib::get_formatted_references": true
         },
-        "lib\/quizzes\/quizlib.php": {
+        "lib\/Quizzes\/Quiz.php": {
+            "Quiz::show_html": true,
+            "Quiz::data_load": true
+        },
+        "lib\/Quizzes\/HWQuizQuestionYesNo.php": {
+            "HWQuizQuestionYesNo::from_text": true,
+            "HWQuizQuestionYesNo::to_text": true
+        },
+        "lib\/Quizzes\/HWQuizQuestionMultipleChoice.php": {
+            "HWQuizQuestionMultipleChoice::from_text": true,
+            "HWQuizQuestionMultipleChoice::to_text": true
+        },
+        "lib\/Quizzes\/HWQuizQuestion.php": {
+            "HWQuizQuestion::from_text": true,
+            "HWQuizQuestion::to_text": true
+        },
+        "lib\/Quizzes\/Helper\/QuizUtils.php": {
+            "QuizUtils::NextText": true,
+            "QuizUtils::NextBlank": true,
+            "QuizUtils::quizlib_error_exit": true,
+            "QuizUtils::TextToQuestions": true
+        },
+        "lib\/Quizzes\/QuizLib.php": {
             "QuizLib::get_quiz": true,
             "QuizLib::compute_quiz_stats": true,
             "QuizLib::list_quizzes": true,
@@ -9773,15 +9777,7 @@
             "QuizLib::remove_quiz": true,
             "QuizLib::quiz_fetch": true,
             "QuizLib::quiz_store": true,
-            "QuizLib::get_upload_dir": true,
-            "HW_QuizQuestion::from_text": true,
-            "HW_QuizQuestion::to_text": true,
-            "HW_QuizQuestionMultipleChoice::from_text": true,
-            "HW_QuizQuestionMultipleChoice::to_text": true,
-            "HW_QuizQuestionYesNo::from_text": true,
-            "HW_QuizQuestionYesNo::to_text": true,
-            "Quiz::show_html": true,
-            "Quiz::data_load": true
+            "QuizLib::get_upload_dir": true
         },
         "lib\/notifications\/notificationlib.php": {
             "NotificationLib::list_mail_events": true,

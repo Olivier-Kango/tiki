@@ -3883,8 +3883,13 @@ lib/prefslib.php -text
 lib/profilelib/index.php -text
 lib/profilelib/shell.php -text
 lib/queuelib.php -text
-lib/quizzes/index.php -text
-lib/quizzes/quizlib.php -text
+lib/Quizzes/index.php -text
+lib/Quizzes/QuizLib.php -text
+lib/Quizzes/HWQuizQuestion.php -text
+lib/Quizzes/HWQuizQuestionMultipleChoice.php -text
+lib/Quizzes/HWQuizQuestionYesNo.php -text
+lib/Quizzes/Quiz.php -text
+lib/Quizzes/Helper/QuizUtils.php -text
 lib/rankings/index.php -text
 lib/rankings/ranklib.php -text
 lib/rating/configlib.php -text

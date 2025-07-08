@@ -255,9 +255,7 @@
         <service id="tiki.lib.queue" class="QueueLib">
             <file>%kernel.root_dir%/lib/queuelib.php</file>
         </service>
-        <service id="tiki.lib.quiz" class="QuizLib">
-            <file>%kernel.root_dir%/lib/quizzes/quizlib.php</file>
-        </service>
+        <service id="tiki.lib.quiz" class="Tiki\Lib\Quizzes\QuizLib"/>
         <service id="tiki.lib.rating" class="RatingLib">
             <file>%kernel.root_dir%/lib/rating/ratinglib.php</file>
         </service>

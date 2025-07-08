@@ -8,6 +8,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Lib\Quizzes\Helper\QuizUtils;
+
 $inputConfiguration = [
     [
         'staticKeyFilters'                => [
@@ -102,7 +104,7 @@ if (isset($_REQUEST['save'])) {
 if (isset($_REQUEST['import'])) {
     $access->checkCsrf();
 
-    $questions = TextToQuestions($_REQUEST['input_data']);
+    $questions = QuizUtils::TextToQuestions($_REQUEST['input_data']);
 
     foreach ($questions as $index => $question) {
         $question_text = $question->getQuestion();
