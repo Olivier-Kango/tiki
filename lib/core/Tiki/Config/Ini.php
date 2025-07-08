@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Config;
 
-class Ini
+class Tiki_Config_Ini
 {
     public const SECTION_SEPARATOR = ':';
     public const SECTION_EXTENDS_KEY = ';extends';
@@ -26,21 +26,7 @@ class Ini
     */
     public function fromFile(string $file): array
     {
-        $content = file_get_contents($file);
-
-        // Check if PHP tags are at the top, remove them safely, fail if PHP code found elsewhere
-        if (preg_match('/^<\?php\s.*?\?>/s', $content, $matches)) {
-            $content = substr($content, strlen($matches[0]));
-            if (strpos($content, '<?php') !== false || strpos($content, '?>') !== false) {
-                throw new \RuntimeException("The INI file contains unexpected PHP code outside the protection block: {$file}");
-            }
-        }
-
-        $data = parse_ini_string($content, true, INI_SCANNER_TYPED);
-        if ($data === false) {
-            throw new \RuntimeException("Failed to parse INI file: {$file}");
-        }
-
+        $data = parse_ini_file($file, true, INI_SCANNER_TYPED);
         return $this->process($data);
     }
 
