@@ -36,6 +36,20 @@ $imagePathToImgDir: "../../../img/";
     }
 //}
 
+.record-preview {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background: #000;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    color: white;
+    text-align: center;
+}
+
 // h3 heading in modules
 .module h3.card-title { font-size: $tiki-module-h3-card-title-font-size; }
 
