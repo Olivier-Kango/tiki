@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "198daf206317a9ad3e7c4b806e06bd1a",
+    "content-hash": "8aa7b138ec5de599c4334ea39be88163",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -10174,17 +10174,17 @@
         },
         {
             "name": "sabre/dav",
-            "version": "4.4.0",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/dav.git",
-                "reference": "b65362abc926520eda2c57e219f022a6c288069d"
+                "reference": "074373bcd689a30bcf5aaa6bbb20a3395964ce7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/dav/sabre-dav-b65362abc926520eda2c57e219f022a6c288069d-zip-d10135.zip",
-                "reference": "b65362abc926520eda2c57e219f022a6c288069d",
-                "shasum": "e5a8653be428b484278b8481d67feba80a234936"
+                "url": "https://composer.tiki.org/dist/sabre/dav/sabre-dav-074373bcd689a30bcf5aaa6bbb20a3395964ce7a-zip-a0d153.zip",
+                "reference": "074373bcd689a30bcf5aaa6bbb20a3395964ce7a",
+                "shasum": "521fb7e4961f8c89b801fe6f6562f95d6ffca115"
             },
             "require": {
                 "ext-ctype": "*",
@@ -10206,11 +10206,11 @@
                 "sabre/xml": "^2.0.1"
             },
             "require-dev": {
-                "evert/phpdoc-md": "~0.1.0",
-                "friendsofphp/php-cs-fixer": "^2.17.1",
-                "monolog/monolog": "^1.18",
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.0"
+                "friendsofphp/php-cs-fixer": "^2.19",
+                "monolog/monolog": "^1.27 || ^2.0",
+                "phpstan/phpstan": "^0.12 || ^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6"
             },
             "suggest": {
                 "ext-curl": "*",
@@ -10224,10 +10224,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Sabre\\DAV\\": "lib/DAV/",
-                    "Sabre\\CalDAV\\": "lib/CalDAV/",
-                    "Sabre\\DAVACL\\": "lib/DAVACL/",
-                    "Sabre\\CardDAV\\": "lib/CardDAV/"
+                    "Sabre\\": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -10251,7 +10248,7 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2022-06-27T09:07:55+00:00"
+            "time": "2024-10-29T11:46:02+00:00"
         },
         {
             "name": "sabre/event",
