@@ -132,20 +132,12 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
 
         if (isset($_SESSION['CalendarViewGroups']) && $_SESSION['CalendarViewGroups']) {
             $listevents = $this->calendarLib->list_raw_items(
-                $_SESSION['CalendarViewGroups'],
+                array_intersect($_SESSION['CalendarViewGroups'], array_keys($calendars)),
                 $user,
                 $viewstart,
                 $viewend,
                 0,
                 -1
-            );
-
-            $listevents = Perms::filter(
-                ['type' => 'calendaritem'],
-                'object',
-                $listevents,
-                ['object' => 'calitemId'],
-                ['view_events']
             );
         } else {
             $listevents = [];
@@ -212,6 +204,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 'allDay'      => $allDay,
                 'start'       => $start->format(DATE_ATOM),
                 'end'         => $end->format(DATE_ATOM),
+                'viewable'    => $event['perms']->view_events,
                 'editable'    => $event['perms']->change_events,
                 'color'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
                 'textColor'   => '#' . $calendars[$event['calendarId']]['customfgcolor'],
@@ -816,7 +809,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             throw new Services_Exception_NotFound();
         }
 
-        $calperms = Perms::get(['type' => 'calendar', 'object' => $cal_id]);
+        $calperms = Perms::get(['type' => 'calendaritem', 'object' => $item]);
         if (! $calperms->$perm) {
             throw new Services_Exception_Denied();
         }

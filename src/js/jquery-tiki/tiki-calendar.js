@@ -198,10 +198,10 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
             eventClick: function (info) {
                 info.jsEvent.preventDefault();
                 console.log(info.el);
-                let $this = $(info.el).tikiModal(" ");
                 const event = info.event;
                 console.log(event);
-                if (event.id) {
+                if (event.id && event.viewable) {
+                    let $this = $(info.el).tikiModal(" ");
                     $.openModal({
                         title: tr("New event"),
                         size: "modal-lg",
