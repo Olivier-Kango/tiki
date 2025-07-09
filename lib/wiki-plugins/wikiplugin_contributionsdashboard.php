@@ -97,7 +97,7 @@ function wikiplugin_contributionsdashboard($data, $params)
             var r = Raphael(me[0]);
 
             r.g.barchart(10,10, me.width(), me.height(), [s.data])
-                .on('mouseenter',unction () {
+                .on('mouseenter',function () {
                     this.flag = r.g.popup(
                         this.bar.x,
                         this.bar.y,
