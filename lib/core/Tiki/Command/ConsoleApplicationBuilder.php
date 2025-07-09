@@ -164,6 +164,7 @@ class ConsoleApplicationBuilder
                 new ListExecuteCommand(),
                 new MailInPollCommand(),
                 new MailQueueSendCommand(),
+                new MigrateMiniCalCommand(),
                 new NotificationDigestCommand(),
                 new ObjectsNotifyMaintainersCommand(),
                 new ObjectsExportCommand(),

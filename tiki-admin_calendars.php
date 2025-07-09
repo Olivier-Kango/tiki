@@ -413,7 +413,7 @@ $info["eventstatusoutput"] = array_map(
     function ($status) {
         return tra($status);
     },
-    $info["eventstatus"]
+    $info["eventstatus"] ?? []
 );
 $smarty->assign("eventstatusoutput", $info["eventstatusoutput"]);
 $smarty->assign_by_ref('info', $info);
