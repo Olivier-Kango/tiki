@@ -116,60 +116,6 @@ class CleanVendors
     {
         $vendors = rtrim($event->getComposer()->getConfig()->get('vendor-dir'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
-        self::remove($vendors . 'ezyang/htmlpurifier', [
-            'INSTALL.fr.utf8',
-            'release1-update.php',
-            'release2-tag.php',
-            'test-settings.sample.php',
-            'test-settings.travis.php',
-            'VERSION',
-            'WHATSNEW',
-            'WYSIWYG',
-        ]);
-
-        self::remove($vendors . 'jason-munro/cypht', 'hm3.sample.ini');
-        self::remove($vendors . 'studio-42/elfinder', ['files', 'elfinder.html']);
-
-        self::remove($vendors . 'laminas/', [
-            'laminas-feed/docs',
-            'laminas-feed/test',
-            'laminas-filter/docs',
-            'laminas-filter/test',
-            'laminas-i18n/docs',
-            'laminas-i18n/test',
-            'laminas-ldap/docs',
-            'laminas-ldap/test',
-            'laminas-servicemanager/docs',
-            'laminas-servicemanager/test',
-            'laminas-validator/docs',
-            'laminas-validator/test',
-        ]);
-
-        self::remove($vendors . 'league/commonmark', 'CHANGELOG-0.x.md');
-        self::remove($vendors . 'pear/pear/', ['docs', 'tests']);
-
-        self::remove($vendors . 'smarty/smarty', [
-            'change_log.txt',
-            'INHERITANCE_RELEASE_NOTES.txt',
-            'SMARTY_2_BC_NOTES.txt',
-            'SMARTY_3.0_BC_NOTES.txt',
-            'SMARTY_3.1_NOTES.txt',
-        ]);
-
-        self::remove($vendors . 'symfony/', [
-            'config/Tests',
-            'console/Tests',
-            'dependency-injection/Tests',
-            'http-client/Test',
-            'http-foundation/Test',
-            'http-foundation/Tests',
-            'mime/Test',
-            'mime/Tests',
-            'routing/Tests',
-        ]);
-
-        self::remove($vendors . 'wamania/php-stemmer', 'test');
-
         self::removeStandard($vendors);
         self::addIndexFiles($vendors);
     }
@@ -211,42 +157,6 @@ class CleanVendors
                 $fs->remove($file);
             } elseif (is_dir($file)) {
                 self::removeStandard($file);
-            }
-        }
-    }
-
-    private static function remove(string $base, array|string $files): void
-    {
-        $files = (array) $files;
-        $base = rtrim(str_replace('/', DIRECTORY_SEPARATOR, $base), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        $fs = new FileSystem();
-
-        if (! is_dir($base)) {
-            echo "Error: directory $base is not found\n";
-            return;
-        }
-
-        foreach ($files as $file) {
-            $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
-            $path = $base . $file;
-
-            if (! file_exists($path)) {
-                echo "Warning : '$path' does not exist .\n";
-                continue;
-            }
-
-            try {
-                if (is_link($path) || is_file($path)) {
-                    $fs->remove($path);
-                } elseif (is_dir($path)) {
-                    $fs->removeDirectory($path);
-                }
-
-                if (file_exists($path)) {
-                    echo "Error: Unable to delete '$path'\n";
-                }
-            } catch (Exception $e) {
-                echo "Error : {$e->getMessage()}\n";
             }
         }
     }
