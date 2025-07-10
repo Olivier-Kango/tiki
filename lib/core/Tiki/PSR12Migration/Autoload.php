@@ -23,6 +23,7 @@ class Autoload
         'InstallerDatabaseErrorHandler' => 'Tiki\\Installer\\InstallerDatabaseErrorHandler',
         'LogsLib' => 'Tiki\\Lib\\Logs\\LogsLib',
         'LogsQueryLib' => 'Tiki\\Lib\\Logs\\LogsQueryLib',
+        'MiniCalLib' => 'Tiki\\Lib\\MiniCal\\MiniCalLib',
     ];
 
     /**
