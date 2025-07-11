@@ -66,6 +66,7 @@ class SelfLink extends Base
             } else {
                 $anchor = '';
             }
+            $dataAttributes = '';
             if (empty($params['_disabled'])) {
                 if (! isset($params['_sort_arg'])) {
                     $params['_sort_arg'] = 'sort';
@@ -91,7 +92,6 @@ class SelfLink extends Base
                     }
                 }
 
-                $dataAttributes = '';
                 if (! empty($params['data'])) {
                     parse_str($params['data'], $attrs);
 
