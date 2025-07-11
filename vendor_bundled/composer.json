@@ -297,7 +297,7 @@
         "rector/rector": "~2.0",
         "sebastian/diff": "~5.1",
         "squizlabs/php_codesniffer": "~3.1",
-        "stevegrunwell/phpunit-markup-assertions": "~1.4",
+        "stevegrunwell/phpunit-markup-assertions": "~2.0",
         "symfony/browser-kit": "~6.4",
         "symfony/http-client": "~6.4"
     },
