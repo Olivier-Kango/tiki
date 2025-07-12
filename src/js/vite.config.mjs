@@ -118,6 +118,7 @@ export default defineConfig(({ command, mode }) => {
         "element-plus-ui/slider": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/slider.js"),
         "element-plus-ui/transfer": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/transfer.js"),
         "element-plus-ui/backtop": resolve(__dirname, "vue-widgets/element-plus-ui/src/elements/backtop.js"),
+        "tiki-html5-qrcode": resolve(__dirname, "tiki-html5-qrcode/index.js"),
         kanban: resolve(__dirname, "vue-mf/kanban/src/kanban.js"),
         "root-config": resolve(__dirname, "vue-mf/root-config/src/root-config.js"),
         "tiki-glightbox": resolve(__dirname, "tiki-glightbox/glightbox-index.js"),

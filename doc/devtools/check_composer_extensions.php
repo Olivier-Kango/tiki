@@ -21,6 +21,7 @@ $baseExtensions = [
     "ext-simplexml" => true,
     "ext-json" => true,
     "ext-fileinfo" => true,
+    "ext-gd" => true,
     "ext-mbstring" => true,
     "ext-session" => true,
     "ext-ctype" => true,

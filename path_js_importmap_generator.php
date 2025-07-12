@@ -45,6 +45,9 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 // currently we don't use the prod build to improve the experience for SFC
                 "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.js",
 
+                /* html5-qrcode */
+                "@html5-qrcode/html5-qrcode" => $tikiUrl . JS_ASSETS_PATH . "/tiki-html5-qrcode.js",
+
                 /* common_reexported */
                 "common-reexported/jspdf" => $tikiUrl . JS_ASSETS_PATH . "/common-reexported/jspdf/index.js",
 
