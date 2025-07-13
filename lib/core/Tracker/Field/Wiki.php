@@ -41,6 +41,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
                         'profile_reference' => 'tracker_field',
                         'parent' => 'input[name=trackerId]',
                         'parentkey' => 'tracker_id',
+                        'required' => true,
                     ],
                     'namespace' => [
                         'name' => tr('Namespace for Wiki Page'),
