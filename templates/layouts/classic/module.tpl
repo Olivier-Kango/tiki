@@ -15,7 +15,7 @@
             {if $module_decorations ne 'n'}
             <div class="card-header" {if !empty($module_params.bgcolor)} style="background-color:{$module_params.bgcolor};"{/if}>
                 {if ($module_notitle ne 'y' && !empty($module_title)) || ($module_flip eq 'y') || $prefs.menus_items_icons eq 'y'}
-                <h3 class="card-title clearfix">
+                <h3 class="tiki-card-header-title clearfix">
                     {if $module_notitle ne 'y' && !empty($module_title)}
                         <span class="moduletitle">{$module_title}</span>
                     {/if}

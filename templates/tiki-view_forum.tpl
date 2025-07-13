@@ -941,7 +941,7 @@
         <div class="col-md-8" styles="padding-top:15px">
             <div class="card" id="filter-panel">
                 <div class="card-header filter-card-header">
-                    <h4 class="card-title">
+                    <h4 class="tiki-card-header-title">
                         <a data-bs-toggle="collapse" href="#filterCollapse" class="collapsed">
                             {tr}Filter Posts{/tr} {icon name="angle-down"}
                         </a>
