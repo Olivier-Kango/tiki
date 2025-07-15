@@ -184,12 +184,12 @@ class Math_Formula_RunnerTest extends TikiTestCase
 
     public function testIf()
     {
-        $this->runner->setFormula('(if condition then else)');
+        $this->runner->setFormula('(if condition then else-statement)');
         $this->runner->setVariables(
             [
                 'condition' => 1,
                 'then' => 123,
-                'else' => 456,
+                'else-statement' => 456,
             ]
         );
 
@@ -199,7 +199,7 @@ class Math_Formula_RunnerTest extends TikiTestCase
             [
                 'condition' => 0,
                 'then' => 123,
-                'else' => 456,
+                'else-statement' => 456,
             ]
         );
 
@@ -434,5 +434,70 @@ class Math_Formula_RunnerTest extends TikiTestCase
         $this->assertEquals(10, $calendarDiff);
         $this->assertEquals(3, $workingDiff);
         $this->assertEquals(-3, $negativeWorkingDateDiff);
+    }
+
+    public function testElse()
+    {
+        $this->runner->setFormula('(if condition then else then2)');
+        $this->runner->setVariables(
+            [
+                'condition' => 1,
+                'then' => 123,
+                'then2' => 456,
+            ]
+        );
+        $this->assertEquals(123, $this->runner->evaluate());
+
+        $this->runner->setVariables(
+            [
+                'condition' => 0,
+                'then' => 123,
+                'then2' => 456,
+            ]
+        );
+        $this->assertEquals(456, $this->runner->evaluate());
+    }
+
+    public function testElseIf()
+    {
+        $this->runner->setFormula('(if condition1 then1 elseif condition2 then2 elseif condition3 then3 else then4)');
+        $this->runner->setVariables(
+            [
+                'condition1' => 1,
+                'then1' => 23,
+                'condition2' => 0,
+                'then2' => 89,
+                'condition3' => 0,
+                'then3' => 45,
+                'then4' => 54
+            ]
+        );
+        $this->assertEquals(23, $this->runner->evaluate());
+
+        $this->runner->setVariables(
+            [
+                'condition1' => 0,
+                'then1' => 12,
+                'condition2' => 1,
+                'then2' => 78,
+                'condition3' => 0,
+                'then3' => 34,
+                'then4' => 32,
+            ]
+        );
+        $this->assertEquals(78, $this->runner->evaluate());
+
+        $this->runner->setVariables(
+            [
+                'condition1' => 0,
+                'then1' => 12,
+                'condition2' => 0,
+                'then2' => 78,
+                'condition3' => 0,
+                'then3' => 34,
+                'then4' => 54
+            ]
+        );
+        $this->assertEquals(54, $this->runner->evaluate());
     }
 }
