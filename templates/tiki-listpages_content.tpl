@@ -176,8 +176,9 @@
                     {assign var='cntcol' value=$cntcol+1}
                     <td id="actions"></td>
                 {/if}
-            </tr>
-        </thead>
+                </tr>
+            </thead>
+        {/if}
 
         <tbody>
 
