@@ -230,7 +230,8 @@ HTML;
             $htmlFile = writeTempFile($html_content, '', true, 'wikiplugin_chart_', '.html');
             $hash = str_replace('wikiplugin_chart_', '', str_replace('.html', '', basename($htmlFile)));
             $outputPath = TIKI_PATH . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . 'wikiplugin_chart_' . $hash . '.png';
-            $base64 = $headlessBrowser->getUrlAsImage($htmlFile, $outputPath, 'body', $timeout);
+            $htmlFile = realpath($htmlFile);
+            $base64 = $headlessBrowser->getUrlAsImage("file:///$htmlFile", $outputPath, 'body', $timeout);
             $cacheLib->cacheItem($scriptHash, $base64, $cacheKey);
         } else {
             $base64 = $cacheLib->getCached($scriptHash, $cacheKey);
