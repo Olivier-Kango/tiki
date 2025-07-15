@@ -553,7 +553,7 @@ if (isset($_REQUEST['graph'])) {
         $background->SetFrame(true, 'black');
         $background->SetMargin(10, 10, 10, 10);
     } else {
-        require_once('lib/sheet/grid.php');
+        require_once('lib/Sheet/grid.php');
         $graphType = 'Tiki\\Lib\\GraphEngine\\BarStackGraphic';
         $ext = 'jpg';
         $background = new GDGRenderer(max($widthUser, $widthWeek) + 80, 9 * $height, $ext);

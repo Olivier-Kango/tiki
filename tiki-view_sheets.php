@@ -4,6 +4,10 @@
  * @package tikiwiki
  */
 
+use Tiki\Lib\Sheet\Sheet;
+use Tiki\Lib\Sheet\CSVHandler;
+use Tiki\Lib\Sheet\DatabaseHandler;
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -169,8 +173,8 @@ if (isset($_REQUEST['relate']) && isset($_REQUEST['trackerId'])) {
     $filegallib = TikiLib::lib('filegal');
     $access->check_feature('feature_file_galleries');
     $fileInfo = $filegallib->get_file_info($_REQUEST['fileId']);
-    $handler = new TikiSheetCSVHandler($fileInfo);
-    $grid = new TikiSheet();
+    $handler = new CSVHandler($fileInfo);
+    $grid = new Sheet();
     $grid->import($handler);
     $tableHtml[0] = $grid->getTableHtml();
     $smarty->assign('notEditable', 'true');
@@ -180,14 +184,14 @@ if (isset($_REQUEST['relate']) && isset($_REQUEST['trackerId'])) {
     }
 } else {
     //Database sheet
-    $handler = new TikiSheetDatabaseHandler($_REQUEST['sheetId']);
+    $handler = new DatabaseHandler($_REQUEST['sheetId']);
     //We make sheet able to look at other date save
     if (isset($_REQUEST['readdate']) && ! empty($_REQUEST['readdate'])) {
         $smarty->assign('read_date', $_REQUEST['readdate']);
         $handler->setReadDate($_REQUEST['readdate']);
     }
 
-    $grid = new TikiSheet();
+    $grid = new Sheet();
     $grid->import($handler);
 
     //ensure that sheet isn't being edited, then parse values if needed

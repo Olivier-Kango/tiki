@@ -4,6 +4,11 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\Sheet\Sheet;
+use Tiki\Lib\Sheet\CSVHandler;
+use Tiki\Lib\Sheet\DatabaseHandler;
+
 function wikiplugin_sheet_info()
 {
     return [
@@ -195,7 +200,7 @@ EOF;
         }
     }
 
-    $sheet = new TikiSheet();
+    $sheet = new Sheet();
 
     if (empty($url)) {
         $info;
@@ -213,8 +218,7 @@ EOF;
         }
 
         // Build required objects
-        $db = new TikiSheetDatabaseHandler($id);
-        //$out = new TikiSheetOutputHandler($data);
+        $db = new DatabaseHandler($id);
 
         // Fetch sheet from database
         $sheet->import($db);
@@ -235,8 +239,8 @@ EOF;
         $file = file_get_contents($url);
         $pathInfo = pathinfo($url);
         if ($pathInfo['extension'] == 'csv') {
-            $handler = new TikiSheetCSVHandler($url);
-            $grid = new TikiSheet();
+            $handler = new CSVHandler($url);
+            $grid = new Sheet();
             $grid->import($handler);
             $ret = $grid->getTableHtml(true, null, false);
         } else {

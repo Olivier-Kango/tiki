@@ -3558,23 +3558,8 @@
         "lib\/performance\/performancestatslib.php": {
             "class:PerformanceStatsLib": true
         },
-        "lib\/sheet\/sheetlib.php": {
+        "lib\/Sheet\/sheetlib.php": {
             "class:SheetLib": true
-        },
-        "lib\/sheet\/grid.php": {
-            "class:TikiSheetDataFormat": true,
-            "class:TikiSheet": true,
-            "class:TikiSheetDataHandler": true,
-            "class:TikiSheetCSVHandler": true,
-            "class:TikiSheetTrackerHandler": true,
-            "class:TikiSheetSimpleArrayHandler": true,
-            "class:TikiSheetCSVExcelHandler": true,
-            "class:TikiSheetDatabaseHandler": true,
-            "class:TikiSheetOpenOfficeHandler": true,
-            "class:TikiSheetWikiTableHandler": true,
-            "class:TikiSheetOutputHandler": true,
-            "class:TikiSheetLabeledOutputHandler": true,
-            "class:TikiSheetHTMLTableHandler": true
         },
         "lib\/ban\/banlib.php": {
             "class:BanLib": true
@@ -6450,20 +6435,6 @@
         },
         "lib\/smarty_tiki\/Modifier\/D.php": {
             "class:SmartyKint": true
-        },
-        "lib\/sheet\/grid.php": {
-            "class:TikiSheet": true,
-            "class:TikiSheetDataHandler": true,
-            "class:TikiSheetCSVHandler": true,
-            "class:TikiSheetTrackerHandler": true,
-            "class:TikiSheetSimpleArrayHandler": true,
-            "class:TikiSheetCSVExcelHandler": true,
-            "class:TikiSheetDatabaseHandler": true,
-            "class:TikiSheetOpenOfficeHandler": true,
-            "class:TikiSheetWikiTableHandler": true,
-            "class:TikiSheetOutputHandler": true,
-            "class:TikiSheetLabeledOutputHandler": true,
-            "class:TikiSheetHTMLTableHandler": true
         }
     },
     "PSR1.Methods.CamelCapsMethodName.NotCamelCaps": {
@@ -9551,7 +9522,14 @@
             "GitLib::parse_object": true,
             "GitLib::parse_object_commit": true
         },
-        "lib\/sheet\/sheetlib.php": {
+        "lib\/Sheet\/DataFormat.php": {
+            "DataFormat::currency_ca": true,
+            "DataFormat::currency_us": true
+        },
+        "lib\/Sheet\/Sheet.php": {
+            "Sheet::error_handler": true
+        },
+        "lib\/Sheet\/sheetlib.php": {
             "SheetLib::get_sheet_info": true,
             "SheetLib::get_sheet_layout": true,
             "SheetLib::add_relate": true,
@@ -9593,11 +9571,6 @@
             "SheetLib::diff_sheets_as_html": true,
             "SheetLib::user_can_view": true,
             "SheetLib::user_can_edit": true
-        },
-        "lib\/sheet\/grid.php": {
-            "TikiSheetDataFormat::currency_ca": true,
-            "TikiSheetDataFormat::currency_us": true,
-            "TikiSheet::error_handler": true
         },
         "lib\/ban\/banlib.php": {
             "BanLib::get_rule": true,
@@ -10129,10 +10102,6 @@
         "lib\/pdflib.php": {
             "_getImages": true,
             "_parseHTML": true
-        },
-        "lib\/sheet\/grid.php": {
-            "_load": true,
-            "_save": true
         },
         "lib\/credits\/creditslib.php": {
             "_useCredits": true,

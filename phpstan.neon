@@ -41,7 +41,7 @@ parameters:
     - lib/test
 
     # DEPRECATED code
-    - lib/sheet
+    - lib/Sheet
     - lib/wiki-plugins/wikiplugin_sheet.php
     - lib/core/Tiki/Profile/InstallHandler/Sheet.php 
     - tiki-export_sheet.php

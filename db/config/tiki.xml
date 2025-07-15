@@ -298,7 +298,7 @@
             <file>%kernel.root_dir%/lib/user/sociallib.php</file>
         </service>
         <service id="tiki.lib.sheet" class="SheetLib">
-            <file>%kernel.root_dir%/lib/sheet/sheetlib.php</file>
+            <file>%kernel.root_dir%/lib/Sheet/sheetlib.php</file>
         </service>
         <service id="tiki.lib.stats" class="StatsLib">
             <file>%kernel.root_dir%/lib/stats/statslib.php</file>

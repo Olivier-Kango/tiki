@@ -6,6 +6,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // Tikiwiki Sheet Library {{{1
 
+use Tiki\Lib\Sheet\Sheet;
+use Tiki\Lib\Sheet\DatabaseHandler;
+use Tiki\Lib\Sheet\HTMLTableHandler;
 use Tiki\Lib\Diff\TextDiff;
 
 require_once("grid.php");
@@ -436,7 +439,7 @@ class SheetLib extends TikiLib
                 ->add_jsfile('vendor_bundled/vendor/jquery/jquery-sheet/parser/tsv/tsv.js')
 
                 //tiki integration
-                ->add_jsfile('lib/sheet/grid.js')
+                ->add_jsfile('lib/Sheet/grid.js')
 
                 // plugins
                 ->add_jsfile('vendor_bundled/vendor/jquery/jquery-sheet/plugins/jquery.sheet.dts.js')
@@ -602,10 +605,10 @@ class SheetLib extends TikiLib
         $rc = '';
 
         if (! empty($sheetId)) {
-            $grid = new TikiSheet();
+            $grid = new Sheet();
             if (is_array($sheets)) {
                 foreach ($sheets as $sheet) {
-                    $handler = new TikiSheetHTMLTableHandler($sheet);
+                    $handler = new HTMLTableHandler($sheet);
                     $res = $grid->import($handler);
                     // Save the changes
                     $rc .= strlen($rc) === 0 ? '' : ', ';
@@ -625,11 +628,11 @@ class SheetLib extends TikiLib
                             $newId = $this->replace_sheet(0, $title, '', $user, $sheetId, $layout);
                             $rc .= tra('new') . " (sheetId=$newId) ";
                             $sheet->id = $newId;
-                            $handler = new TikiSheetHTMLTableHandler($sheet);
+                            $handler = new HTMLTableHandler($sheet);
                             $res = $grid->import($handler);
                         }
                         if ($sheetId && $res) {
-                            $handler = new TikiSheetDatabaseHandler($sheet->id, null, json_encode($sheet->metadata));
+                            $handler = new DatabaseHandler($sheet->id, null, json_encode($sheet->metadata));
                             $grid->export($handler);
                             $rc .= $grid->getColumnCount() . ' x ' . $grid->getRowCount() . ' ' . tra('sheet') . " (sheetId=" . $sheet->id . ")";
                         }
@@ -704,17 +707,17 @@ class SheetLib extends TikiLib
         $join_with_sub_grids = function ($id, $date) {
             global $prefs;
 
-            $handler = new TikiSheetDatabaseHandler($id, $date);
+            $handler = new DatabaseHandler($id, $date);
             $handler->setReadDate($date);
-            $grid = new TikiSheet();
+            $grid = new Sheet();
             $grid->import($handler);
 
             $childSheetIds = $this->get_related_sheet_ids($grid->id);
             $grids = [$grid];
             foreach ($childSheetIds as $childSheetId) {
-                $handler = new TikiSheetDatabaseHandler($childSheetId, $date);
+                $handler = new DatabaseHandler($childSheetId, $date);
                 $handler->setReadDate($date);
-                $childSheet = new TikiSheet();
+                $childSheet = new Sheet();
                 $childSheet->import($handler);
 
                 $grids[] = $childSheet;
