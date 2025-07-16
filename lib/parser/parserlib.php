@@ -911,7 +911,9 @@ class ParserLib extends TikiDb_Bridge
     // Transitional wrapper over WikiParser_Parsable::pluginExecute()
     public function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
     {
-        return (new WikiParser_Parsable($data))->pluginExecute($name, $data, $args, $offset, $validationPerformed, $option);
+        $parsable = new WikiParser_Parsable($data);
+        $parsable->setOptions();
+        return $parsable->pluginExecute($name, $data, $args, $offset, $validationPerformed, $option);
     }
 
     //*
