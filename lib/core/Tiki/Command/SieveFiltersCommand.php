@@ -69,12 +69,12 @@ class SieveFiltersCommand extends Command
 
                 $output->writeln(tr('Checking account %0', $mailbox['name']));
 
-                Hm_IMAP_List::add($mailbox, $idx);
+                Hm_IMAP_List::add($mailbox, false);
 
                 $smtp_servers = $config['smtp_servers'] ?? [];
                 $smtp_index = 0;
                 foreach ($smtp_servers as $server) {
-                    Hm_SMTP_List::add($server, $smtp_index);
+                    Hm_SMTP_List::add($server, false);
                     $smtp_index++;
                 }
 
