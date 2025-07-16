@@ -164,6 +164,10 @@ function wikiplugin_list($data, $params)
     } else {
         $cacheName = md5($data . "loggedout");
     }
+
+    // use a different cache for each language
+    $cacheName = $prefs['feature_multilingual'] === 'y' ? "{$prefs['language']}-{$cacheName}" : $cacheName;
+
     if (isset($params['cacheexpiry'])) {
         $cacheExpiry = $params['cacheexpiry'];
     } else {
