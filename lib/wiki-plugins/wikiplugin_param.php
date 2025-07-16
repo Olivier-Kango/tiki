@@ -42,8 +42,9 @@ function wikiplugin_param_info()
             'value' => [
                 'required' => false,
                 'name' => tra('Value'),
-                'description' => tra('Value to test for. If empty then just tests if the named params are set and not
-                    "empty".'),
+                'separator' => '|',
+                'description' => tra('Value to test for. Multiple values can be separated by a pipe | character.' .
+                    'If empty then just tests if the named params are set and not "empty".'),
                 'since' => '13.1',
                 'filter' => 'text',
             ],
@@ -86,7 +87,12 @@ function wikiplugin_param($data, $params)
                 break;
         }
         if (isset($params['value'])) {
-            if ($value !== $params['value']) {
+            if (is_array($params['value'])) {
+                if (! in_array($value, $params['value'])) {
+                    $test = false;
+                    break;
+                }
+            } elseif ($value !== $params['value']) {
                 $test = false;
                 break;
             }
