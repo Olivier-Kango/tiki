@@ -497,11 +497,11 @@
     {if $checkboxes_on eq 'y'}
         </form>
     {/if}
-
     {if !isset($ts.enabled) or !$ts.enabled}
-        {if $pluginlistpages eq 'y' and $pagination eq 'y'}
-            {pagination_links count=$count step=$maxRecords offset=$offset offset_arg=$offset_arg clean=$clean}{/pagination_links}
-        {elseif $pluginlistpages eq 'y' and $pagination neq 'y'}
+        {if $pluginlistpages eq 'y'}
+            {if $pagination eq 'y'}
+                {pagination_links count=$count step=$maxRecords offset=$offset offset_arg=$offset_arg clean=$clean}{/pagination_links}
+            {/if}
         {else}
             {pagination_links count=$count step=$maxRecords offset=$offset clean=$clean}{/pagination_links}
         {/if}
