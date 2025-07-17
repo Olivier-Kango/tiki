@@ -158,8 +158,7 @@ describe("applyInput", () => {
     test.each([
         ["submit", "type", "search", true],
         ["submit", "role", "search", true],
-        ["not submit", "type", "text", false],
-        ["should not submit the form for non search input type", false],
+        ["submit", "type", "text", true],
     ])("the enter event should %s when the %s is %s", async (_, attr, attrValue, shouldSubmit) => {
         applyInput();
 

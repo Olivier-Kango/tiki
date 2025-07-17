@@ -64,8 +64,10 @@ function transformContainerInputs(containerElement) {
         });
 
         elementPlusUi.on("enter", () => {
-            if (originalInput.is('[type="search"], [role="search"]')) {
-                originalInput.val(elementPlusUi.val()).closest("form").trigger("submit");
+            const $form = originalInput.closest("form");
+            if ($form.length) {
+                originalInput.val(elementPlusUi.val());
+                $form.trigger("submit");
             }
         });
 
