@@ -50,6 +50,13 @@ $imagePathToImgDir: "../../../img/";
     text-align: center;
 }
 
+.waveform-container {
+    width: 100%;
+    height: 80px;
+    display: none;
+    margin-top: 10px;
+}
+
 //// h3 heading in modules
 //.module h3.card-title { font-size: $tiki-module-h3-card-title-font-size; }
 
