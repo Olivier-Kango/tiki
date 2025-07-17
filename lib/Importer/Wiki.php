@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Importer;
+
+use TikiLib;
+
 /**
  * Abstract class to provide basic functionalities to wiki importers.
  * Based on the work done on http://dev.tiki.org/MediaWiki+to+TikiWiki+converter
@@ -11,8 +15,6 @@
  * @author Rodrigo Sampaio Primo <rodrigo@utopia.org.br>
  * @package tikiimporter
  */
-
-require_once('tikiimporter.php');
 
 /**
  * Abstract class to provide basic functionalities to wiki importers.
@@ -22,12 +24,12 @@ require_once('tikiimporter.php');
  *
  * @package tikiimporter
  */
-class TikiImporter_Wiki extends TikiImporter
+class Wiki extends Base
 {
     public $revisionsNumber;
     public $alreadyExistentPageName;
     /**
-     * @see lib/importer/TikiImporter#importOptions()
+     * @see Base#importOptions()
      */
     public static function importOptions()
     {

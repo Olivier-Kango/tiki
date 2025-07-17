@@ -4,18 +4,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Auth;
+
 /*
  *  Class that adds LDAP Authentication to Tiki and aids Tiki to get User/Group Information
  *  from a LDAP directory
  */
 
+use Exception;
 use Laminas\Ldap\Filter;
 use Laminas\Ldap\Ldap;
 use Laminas\Ldap\Exception\LdapException;
 use Laminas\Ldap\Collection\DefaultIterator as LdapCollectionIterator;
 use Tiki\Lib\Logs\LogsLib;
+use TikiLib;
 
-class TikiLdapLib
+class LdapLib
 {
     public $groups;
     // var to hold a established connection

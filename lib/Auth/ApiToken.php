@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Auth;
+
+use TikiLib;
+
 /**
  * ApiToken library for access and modification of API tokens and OAuth tokens
  *
@@ -88,8 +92,4 @@ class ApiToken extends TikiLib
     {
         return hash('sha256', $prefix . uniqid() . $suffix);
     }
-}
-
-class ApiTokenException extends Exception
-{
 }

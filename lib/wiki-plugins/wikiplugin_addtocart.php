@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\Auth\Tokens;
+
 function wikiplugin_addtocart_info()
 {
     return [
@@ -286,8 +289,7 @@ function wikiplugin_addtocart($data, $params)
                     if (! $user || $params['forceanon'] == 'y' && ! Perms::get('payment', $invoice)->manual_payment) {
                         // token access needs to be an optional feature
                         // and needs to depend on auth_token_access pref
-                        require_once 'lib/auth/tokens.php';
-                        $tokenlib = AuthTokens::build($prefs);
+                        $tokenlib = Tokens::build($prefs);
                         $tokenpaymenturl = $tokenlib->includeToken($paymenturl, ['Temporary Shopper','Anonymous']);
                     }
                     if ($globalperms->payment_admin || Perms::get('payment', $invoice)->manual_payment || empty($tokenpaymenturl)) {

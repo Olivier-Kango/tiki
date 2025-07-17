@@ -44,6 +44,9 @@ use ElliotJReed\DisposableEmail\Exceptions\InvalidEmailException;
 use PhpXmlRpc\Value as XML_RPC_Value;
 use PhpXmlRpc\Request as XML_RPC_Message;
 use PhpXmlRpc\Client as XML_RPC_Client;
+use Tiki\Lib\Auth\Tokens;
+use Tiki\Lib\Auth\LdapLib;
+use Tiki\Lib\Auth\PhpBBLib;
 
 class UsersLib extends TikiLib
 {
@@ -1355,7 +1358,6 @@ class UsersLib extends TikiLib
     {
         global $prefs;
         if (! isset($this->ldap)) {
-            require_once('auth/ldap.php');
             $ldap_options = [
                     'host' => $prefs['auth_ldap_host'],
                     'port' => $prefs['auth_ldap_port'],
@@ -1384,7 +1386,7 @@ class UsersLib extends TikiLib
                     'debug' => $prefs['auth_ldap_debug']
             ];
             // print_r($ldap_options);
-            $this->ldap = new TikiLdapLib($ldap_options);
+            $this->ldap = new LdapLib($ldap_options);
         }
     }
 
@@ -1446,20 +1448,19 @@ class UsersLib extends TikiLib
     // validate the user from a phpBB database
     public function validate_user_phpbb($user, $pass)
     {
-        require_once('auth/phpbb.php');
-        $this->phpbbauth = new TikiPhpBBLib();
+        $this->phpbbauth = new PhpBBLib();
 
         switch ($this->phpbbauth->check($user, $pass)) {
-            case PHPBB_INVALID_CREDENTIALS:
+            case PhpBBLib::PHPBB_INVALID_CREDENTIALS:
                 return PASSWORD_INCORRECT;
                 break;
 
-            case PHPBB_INVALID_SYNTAX:
-            case PHPBB_NO_SUCH_USER:
+            case PhpBBLib::PHPBB_INVALID_SYNTAX:
+            case PhpBBLib::PHPBB_NO_SUCH_USER:
                 return USER_NOT_FOUND;
                 break;
 
-            case PHPBB_SUCCESS:
+            case PhpBBLib::PHPBB_SUCCESS:
                 //$logslib->add_log('phpbb','PhpBB user validation successful.');
                 return USER_VALID;
                 break;
@@ -1503,7 +1504,6 @@ class UsersLib extends TikiLib
             return false;
         }
 
-        require_once('auth/ldap.php');
         if ($prefs['auth_ldap_debug'] == 'y') {
             $logslib->add_log('ldap', 'UsersLib::ldap_sync_all_users(): Syncing all Tiki users to LDAP');
         }
@@ -1552,7 +1552,7 @@ class UsersLib extends TikiLib
                     'debug' => $prefs['auth_ldap_debug']
         ];
 
-        $user_ldap = new TikiLdapLib($ldap_options);
+        $user_ldap = new LdapLib($ldap_options);
 
         // Retrieve all users from LDAP:
         if (! ($users_attributes = $user_ldap->get_all_users_attributes())) {
@@ -1758,7 +1758,7 @@ class UsersLib extends TikiLib
                         $ldap_group_options['bindpw'] = $prefs['auth_ldap_group_adminpass'];
                     }
 
-                    $ext_dir = new TikiLdapLib($ldap_group_options);
+                    $ext_dir = new LdapLib($ldap_group_options);
                 }
 
                 $ext_dir->setOption('username', $userattributes[$prefs['auth_ldap_group_corr_userattr']]);
@@ -8883,12 +8883,11 @@ class UsersLib extends TikiLib
         $smarty->assign('expiry', $user);
         $mail->setBcc($this->get_user_email($user));
         $smarty->assign('token_expiry', $this->get_long_datetime($this->now + $timeout));
-        require_once 'lib/auth/tokens.php';
 
         $emailTokenURLs = [];
 
         foreach ($emails as $email) {
-            $tokenlib = AuthTokens::build($prefs);
+            $tokenlib = Tokens::build($prefs);
             $token_url = $tokenlib->includeToken(TikiLib::lib('tiki')->tikiUrl($path), $groups, $email, $timeout, -1, true, $prefix);
             include_once('tiki-sefurl.php');
             $token_url = filter_out_sefurl($token_url);

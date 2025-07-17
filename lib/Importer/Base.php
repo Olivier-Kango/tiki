@@ -4,11 +4,13 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Importer;
+
 /**
- * TikiImporter
+ * Base
  *
- * This file has the main class for the TikiImporter.
- * The TikiImporter was started as a Google Summer of Code project and
+ * This file has the main class for the Importer.
+ * The Importer was started as a Google Summer of Code project and
  * aim to provide a generic structure for importing content from other
  * softwares to TikiWiki
  * See http://dev.tiki.org/gsoc2009rodrigo for more information
@@ -18,12 +20,12 @@
  */
 
 /**
- * TikiImporter is a generic class that should be extended
+ * This is a generic class that should be extended
  * by any importer class. Each importer class must implement
  * the methods validateInput(), parseData() and import()
  *
  */
-class TikiImporter
+class Base
 {
     /**
      * The name of the software to import from.
@@ -229,11 +231,4 @@ class TikiImporter
 
         flush();
     }
-}
-
-/**
- *
- */
-class ImporterParserException extends Exception
-{
 }

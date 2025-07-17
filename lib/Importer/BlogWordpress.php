@@ -4,7 +4,18 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-require_once('tikiimporter_blog.php');
+namespace Tiki\Lib\Importer;
+
+use DOMDocument;
+use DOMElement;
+use DOMException;
+use EditLib;
+use Exception;
+use Laminas\Http\Exception\ExceptionInterface;
+use Tiki\FileGallery\File;
+use TikiDb;
+use TikiLib;
+use UnexpectedValueException;
 
 /**
  * Parses a Wordpress XML file and prepare it to be imported into Tiki.
@@ -12,7 +23,7 @@ require_once('tikiimporter_blog.php');
  *
  * @package tikiimporter
  */
-class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
+class BlogWordpress extends Blog
 {
     /**
      * @var \DOMElement
@@ -50,7 +61,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
     public $permalinks = [];
 
     /**
-     * @see lib/importer/TikiImporter#importOptions()
+     * @see Base#importOptions()
      */
     public static function importOptions()
     {
@@ -78,7 +89,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
     /**
      * Check for DOMDocument.
      *
-     * @see lib/importer/TikiImporter#checkRequirements()
+     * @see Base#checkRequirements()
      *
      * @return void
      * @throws Exception if DOMDocument not available
@@ -91,7 +102,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
     }
 
     /*
-     * @see lib/importer/TikiImporter_Blog#setupTiki()
+     * @see Blog#setupTiki()
      */
     public function setupTiki()
     {
@@ -112,7 +123,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
      * calling wordpress specific import functions (like extractBlogInfo()
      * and downloadAttachments())
      *
-     * @see lib/importer/TikiImporter_Blog#import()
+     * @see Blog#import()
      *
      * @param string $filePath path to the XML file
      * @return null
@@ -160,7 +171,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
      * There is not DTD for WXR so only a very basic validation
      * is done by checking the value of the xmlns:wp attribute
      *
-     * @see lib/importer/TikiImporter#validateInput()
+     * @see Base#validateInput()
      * @throws DOMException if not able to validate file
      * @return bool true if valid file
      */
@@ -286,7 +297,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
                 try {
                     $this->currentItem = $item;
                     $items[$type . 's'][] = $this->extractInfo($item);
-                } catch (ImporterParserException $e) {
+                } catch (ParserException $e) {
                     $this->saveAndDisplayLog($e->getMessage(), true);
                 }
             }
@@ -391,7 +402,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 
             try {
                 $response = $client->send();
-            } catch (Laminas\Http\Exception\ExceptionInterface $e) {
+            } catch (ExceptionInterface $e) {
                 $this->saveAndDisplayLog(
                     'Unable to download file ' . $attachment['fileName'] . '. Error message was: ' . $e->getMessage() . "\n",
                     true
@@ -405,7 +416,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
             $mimeType = $response->getHeaders()->get('Content-type');
 
             if ($response->isSuccess()) {
-                $file = new Tiki\FileGallery\File([
+                $file = new File([
                     'galleryId' => $galleryId,
                     'author' => $attachment['author'],
                     'user' => $attachment['author'],
@@ -566,7 +577,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
      *
      * @param DOMElement $item
      * @return array $data information for one item (page or post)
-     * @throws ImporterParserException if fail to parse an item
+     * @throws ParserException if fail to parse an item
      */
     public function extractInfo(DOMElement $item)
     {
@@ -633,7 +644,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
             $data['hasInternalLinks'] = $this->identifyInternalLinks($data);
         }
 
-        // create revision key to reuse TikiImporter_Wiki::insertPage()
+        // create revision key to reuse Wiki::insertPage()
         if ($data['type'] == 'page') {
             $revision = [];
             $revision['data'] = $data['content'];
@@ -934,7 +945,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
      * Call $this->storeNewLink and leave the rest
      * with the parent method.
      *
-     * @see lib/importer/TikiImporter_Blog#insertItem($item)
+     * @see Blog#insertItem($item)
      */
     public function insertItem($item)
     {
@@ -988,7 +999,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
      * Note: The $parsedData argument is not used. It's just there to make the signatures
      *       of insertData() uniform across implementations.
      *
-     * @see lib/importer/TikiImporter_Blog#insertData()
+     * @see Blog#insertData()
      */
     public function insertData($parsedData = null)
     {

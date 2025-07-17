@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib\Importer;
+
+use TikiLib;
+
 /**
  * Class to provide basic functionalities to blog importers. So far
  * used only for the Wordpress importer. For more information
@@ -12,8 +16,6 @@
  * @author Rodrigo Sampaio Primo <rodrigo@utopia.org.br>
  * @package tikiimporter
  */
-
-require_once('tikiimporter.php');
 
 /**
  * Class to provide basic functionalities to blog importers. So far
@@ -26,7 +28,7 @@ require_once('tikiimporter.php');
  *
  * @package tikiimporter
  */
-class TikiImporter_Blog extends TikiImporter
+class Blog extends Base
 {
     /**
      * Blog information extracted from the XML file (title, description, created etc)
@@ -35,8 +37,8 @@ class TikiImporter_Blog extends TikiImporter
     public $blogInfo = [];
 
     /**
-     * Instance of TikiImporter_Wiki
-     * @var TikiImporter_Wiki
+     * Instance of Wiki
+     * @var Wiki
      */
     public $importerWiki = '';
 
@@ -59,7 +61,7 @@ class TikiImporter_Blog extends TikiImporter
     public $permalinks = [];
 
     /**
-     * @see lib/importer/TikiImporter#importOptions()
+     * @see Base#importOptions()
      */
     public static function importOptions()
     {
@@ -364,7 +366,7 @@ class TikiImporter_Blog extends TikiImporter
         $this->instantiateImporterWiki();
         $pageName = $this->importerWiki->insertPage($page);
 
-        // maybe this should go to TikiImporter_Wiki::insertPage()
+        // maybe this should go to Wiki::insertPage()
         if ($pageName) {
             $objectlib->insert_object('wiki page', $pageName, '', $pageName, 'tiki-index.php?page=' . urlencode($pageName));
         }
@@ -464,14 +466,13 @@ class TikiImporter_Blog extends TikiImporter
 
     /**
      * This function just create an instance of
-     * TikiImporter_Wiki and set some default values
+     * Wiki and set some default values
      *
      * @return void
      */
     public function instantiateImporterWiki()
     {
-        require_once('tikiimporter_wiki.php');
-        $this->importerWiki = new TikiImporter_Wiki();
+        $this->importerWiki = new Wiki();
         $this->importerWiki->alreadyExistentPageName = 'appendPrefix';
         $this->importerWiki->softwareName = $this->softwareName;
     }

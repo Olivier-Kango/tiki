@@ -366,7 +366,6 @@
         },
         "classmap": [
             "../installer/",
-            "../lib/importer/",
             "../lib/language/",
             "../lib/openpgp/",
             "../lib/rating/formula/",

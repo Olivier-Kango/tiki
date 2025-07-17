@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\Lib\Auth\Tokens;
 use Tiki\Lib\Theme\ThemeLib;
 
 /**
@@ -113,8 +114,7 @@ class PdfGenerator
                 if ($prefs['auth_token_access'] == 'y') {
                     $perms = Perms::get();
 
-                    require_once 'lib/auth/tokens.php';
-                    $tokenlib = AuthTokens::build($prefs);
+                    $tokenlib = Tokens::build($prefs);
                     $params['TOKEN'] = $tokenlib->createToken(
                         $tikiroot . $file,
                         $params,
@@ -616,8 +616,7 @@ class PdfGenerator
 
                         if ($fileId > 0) {
                             $perms = Perms::get();
-                            require_once 'lib/auth/tokens.php';
-                            $tokenlib = AuthTokens::build($prefs);
+                            $tokenlib = Tokens::build($prefs);
                             $token = $tokenlib->createToken(
                                 $tikiroot . 'tiki-download_file.php',
                                 $params,

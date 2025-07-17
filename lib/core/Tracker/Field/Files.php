@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\File\PDFHelper;
+use Tiki\Lib\Auth\Tokens;
 use Tiki\Package\ComposerManager;
 
 class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \Tracker\Field\ExportableInterface
@@ -538,8 +539,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                             } else {
                                 $fileurl = urlencode($base_url . "tiki-download_file.php?fileId=" . $fileId);
                             }
-                            require_once 'lib/auth/tokens.php';
-                            $tokenlib = AuthTokens::build($prefs);
+                            $tokenlib = Tokens::build($prefs);
                             if ($prefs['feature_sefurl'] === 'y') {
                                 $token = $tokenlib->createToken(
                                     $tikiroot . "dl" . $fileId,

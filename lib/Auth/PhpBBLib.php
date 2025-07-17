@@ -4,43 +4,48 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+namespace Tiki\Lib\Auth;
+
+use Exception;
+use PDO;
+use PDOException;
+
 // Tikiwiki authentication backend for phpBB3
 // By Jacob 'jacmoe2' Moen 10 Dec 2009
 // Based on:
 // Mediawiki authentication plugin for phpBB3 with mysql4
 // By Steve Streeting 26 Dec 2008
 
-require_once('lib/auth/PasswordHash.php');
-
 // some definitions for helping with authentication
 // Er, what about definition clashes ?
 // @Todo: Make sure there is no definition clash
-define("PHPBB_INVALID_CREDENTIALS", -21);
-define("PHPBB_INVALID_SYNTAX", -23);
-define("PHPBB_NO_SUCH_USER", -25);
-define("PHPBB_SUCCESS", -29);
-define("SERVER_ERROR", -1);
-
 
 //TODO: support other database types
 
-class TikiPhpBBLib
+class PhpBBLib
 {
     public $db;
+
+    public const PHPBB_INVALID_CREDENTIALS = -21;
+    public const PHPBB_INVALID_SYNTAX = -23;
+    public const PHPBB_NO_SUCH_USER = -25;
+    public const PHPBB_SUCCESS = -29;
+    public const SERVER_ERROR = -1;
 
     public function check($user, $pass)
     {
 
     // no need to progress further if the user doesn't even exist
         if (! $this->userExists($user)) {
-            return PHPBB_NO_SUCH_USER;
+            return self::PHPBB_NO_SUCH_USER;
         }
 
         // if the user does exist, authenticate
         if ($this->authenticate($user, $pass)) {
-            return PHPBB_SUCCESS;
+            return self::PHPBB_SUCCESS;
         } else {
-            return PHPBB_INVALID_CREDENTIALS;
+            return self::PHPBB_INVALID_CREDENTIALS;
         }
     }
 

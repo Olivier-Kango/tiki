@@ -4,7 +4,15 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-require_once('tikiimporter_wiki.php');
+namespace Tiki\Lib\Importer;
+
+use DOMDocument;
+use DOMElement;
+use DOMException;
+use Exception;
+use PEAR_Error;
+use Text_Wiki;
+use UnexpectedValueException;
 
 /**
  * Parses a MediaWiki-style XML dump to import it into TikiWiki.
@@ -13,7 +21,7 @@ require_once('tikiimporter_wiki.php');
  *
  * @package tikiimporter
  */
-class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
+class WikiMediawiki extends Wiki
 {
     public $revisionsNumber;
     public $softwareName = 'Mediawiki';
@@ -43,7 +51,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
      */
     public $parser = '';
     /**
-     * @see lib/importer/TikiImporter#importOptions()
+     * @see Base#importOptions()
      */
     public static function importOptions()
     {
@@ -66,7 +74,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
     /**
      * Check for DOMDocument.
      *
-     * @see lib/importer/TikiImporter#checkRequirements()
+     * @see Base#checkRequirements()
      *
      * @return void
      * @throws Exception if DOMDocument not available
@@ -81,7 +89,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
     /**
      * Start the importing process by loading the XML file.
      *
-     * @see lib/importer/TikiImporter_Wiki#import()
+     * @see Wiki#import()
      *
      * @param string $filePath path to the XML file
      * @return void
@@ -174,7 +182,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
      * for some unknown reason the former method is unable to automatically
      * retrieve Mediawiki XML DTD and dies with "no DTD found" error.
      *
-     * @see lib/importer/TikiImporter#validateInput()
+     * @see Base#validateInput()
      *
      * @throws DOMException if XML file does not validate against schema
      */
@@ -277,7 +285,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
             if ($isAttachment->length == 0) {
                 try {
                     $parsedData[] = $this->extractInfo($page);
-                } catch (ImporterParserException $e) {
+                } catch (ParserException $e) {
                     $this->saveAndDisplayLog($e->getMessage(), true);
                 }
             }
@@ -351,16 +359,16 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
     /**
      * Parse an DOM representation of a Mediawiki page and return all the values
      * that will be imported (page name, page content for all revisions). The
-     * property TikiImporter_Wiki::revisionsNumber define how many wiki page
+     * property Wiki::revisionsNumber define how many wiki page
      * revisions are parsed.
      *
      * Note: the names of the keys are changed to reflected the names used by
      * Tiki builtin function (i.e. 'title' is changed to 'name' as used in
-     * TikiLib::create_page() which will be called by TikiImporter_Wiki::insertPage())
+     * TikiLib::create_page() which will be called by Wiki::insertPage())
      *
      * @param DOMElement $page
      * @return array $data information for one wiki page
-     * @throws ImporterParserException if fail to parse all revisions of a page
+     * @throws ParserException if fail to parse all revisions of a page
      */
     public function extractInfo(DOMElement $page)
     {
@@ -388,7 +396,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
                         if (! isset($j) || ($i > ($totalRevisions - $this->revisionsNumber))) {
                             try {
                                 $data['revisions'][] = $this->extractRevision($node);
-                            } catch (ImporterParserException $e) {
+                            } catch (ParserException $e) {
                                 $this->saveAndDisplayLog(
                                     tr(
                                         'Error while parsing revision %0 of the page "%1". There could be a problem in the page syntax or in the Text_Wiki parser used by the importer.',
@@ -418,7 +426,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
             $this->saveAndDisplayLog($msg);
             return $data;
         } else {
-            throw new ImporterParserException(tr('Page "%0" is NOT going to be imported. It was not possible to parse any of the page revisions.', $data['name']) . "\n", true);
+            throw new ParserException(tr('Page "%0" is NOT going to be imported. It was not possible to parse any of the page revisions.', $data['name']) . "\n", true);
         }
     }
 
@@ -431,7 +439,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
      *
      * @param DOMElement $page
      * @return array $data information for one wiki page revision
-     * @throws ImporterParserException if unable to parse revision content
+     * @throws ParserException if unable to parse revision content
      */
     public function extractRevision(DOMElement $revision)
     {
@@ -453,7 +461,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
                     case 'text':
                         $text = $this->convertMarkup($node->textContent);
                         if ($text instanceof PEAR_Error) {
-                            throw new ImporterParserException($text->message);
+                            throw new ParserException($text->message);
                         } else {
                             $data['data'] = $text;
                             if ($prefs['feature_categories'] == 'y') {

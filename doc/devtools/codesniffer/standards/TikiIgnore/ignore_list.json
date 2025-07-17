@@ -70,22 +70,6 @@
         "lib\/rating\/ratinglib.php": {
             "class:RatingLib": true
         },
-        "lib\/importer\/tikiimporter.php": {
-            "class:TikiImporter": true,
-            "class:ImporterParserException": true
-        },
-        "lib\/importer\/tikiimporter_blog.php": {
-            "class:TikiImporter_Blog": true
-        },
-        "lib\/importer\/tikiimporter_wiki_mediawiki.php": {
-            "class:TikiImporter_Wiki_Mediawiki": true
-        },
-        "lib\/importer\/tikiimporter_blog_wordpress.php": {
-            "class:TikiImporter_Blog_Wordpress": true
-        },
-        "lib\/importer\/tikiimporter_wiki.php": {
-            "class:TikiImporter_Wiki": true
-        },
         "lib\/calendar\/calendarlib.php": {
             "class:CalendarLib": true
         },
@@ -2881,25 +2865,6 @@
         "lib\/refererstats\/refererlib.php": {
             "class:RefererLib": true
         },
-        "lib\/auth\/tokens.php": {
-            "class:AuthTokens": true
-        },
-        "lib\/auth\/PasswordHash.php": {
-            "class:PasswordHash": true
-        },
-        "lib\/auth\/ldap.php": {
-            "class:TikiLdapLib": true
-        },
-        "lib\/auth\/webhook.php": {
-            "class:Webhook": true
-        },
-        "lib\/auth\/api_token.php": {
-            "class:ApiToken": true,
-            "class:ApiTokenException": true
-        },
-        "lib\/auth\/phpbb.php": {
-            "class:TikiPhpBBLib": true
-        },
         "lib\/references\/referenceslib.php": {
             "class:ReferencesLib": true
         },
@@ -3735,18 +3700,6 @@
         },
         "lib\/rating\/formula\/RelationPresent.php": {
             "Tiki_Formula_Function_RelationPresent": true
-        },
-        "lib\/importer\/tikiimporter_blog.php": {
-            "TikiImporter_Blog": true
-        },
-        "lib\/importer\/tikiimporter_wiki_mediawiki.php": {
-            "TikiImporter_Wiki_Mediawiki": true
-        },
-        "lib\/importer\/tikiimporter_blog_wordpress.php": {
-            "TikiImporter_Blog_Wordpress": true
-        },
-        "lib\/importer\/tikiimporter_wiki.php": {
-            "TikiImporter_Wiki": true
         },
         "lib\/core\/Category\/Manipulator.php": {
             "Category_Manipulator": true
@@ -6399,9 +6352,6 @@
             "class:ObjectRenderer_Wiki": true,
             "class:ObjectRenderer_MultilingualWiki": true
         },
-        "lib\/importer\/tikiimporter.php": {
-            "class:ImporterParserException": true
-        },
         "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
             "class:Tiki_Profile_SymbolLoader_Store": true
         },
@@ -6416,9 +6366,6 @@
         "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
             "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
             "class:TikiAcceptanceTestDBRestorerBinaryDumps": true
-        },
-        "lib\/auth\/api_token.php": {
-            "class:ApiTokenException": true
         },
         "lib\/tikidate.php": {
             "class:Date_Calc": true
@@ -7831,7 +7778,7 @@
             "RefererLib::clear_referer_stats": true,
             "RefererLib::list_referer_stats": true
         },
-        "lib\/auth\/PasswordHash.php": {
+        "lib\/Auth\/PasswordHash.php": {
             "PasswordHash::get_random_bytes": true,
             "PasswordHash::gensalt_private": true,
             "PasswordHash::crypt_private": true,
@@ -7840,14 +7787,14 @@
             "PasswordHash::HashPassword": true,
             "PasswordHash::CheckPassword": true
         },
-        "lib\/auth\/ldap.php": {
-            "TikiLdapLib::get_user_attributes": true,
-            "TikiLdapLib::get_all_users_attributes": true,
-            "TikiLdapLib::get_groups": true,
-            "TikiLdapLib::userbase_dn": true,
-            "TikiLdapLib::user_dn": true,
-            "TikiLdapLib::groupbase_dn": true,
-            "TikiLdapLib::add_log": true
+        "lib\/Auth\/LdapLib.php": {
+            "LdapLib::get_user_attributes": true,
+            "LdapLib::get_all_users_attributes": true,
+            "LdapLib::get_groups": true,
+            "LdapLib::userbase_dn": true,
+            "LdapLib::user_dn": true,
+            "LdapLib::groupbase_dn": true,
+            "LdapLib::add_log": true
         },
         "lib\/references\/referenceslib.php": {
             "ReferencesLib::list_references": true,

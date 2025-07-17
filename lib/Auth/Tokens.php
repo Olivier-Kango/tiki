@@ -4,7 +4,13 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class AuthTokens
+namespace Tiki\Lib\Auth;
+
+use DateTime;
+use TikiDb;
+use TikiLib;
+
+class Tokens
 {
     private const SCHEME = 'MD5( CONCAT(tokenId, creation, timeout, entry, parameters, `groups`) )';
     private $db;
@@ -16,7 +22,7 @@ class AuthTokens
 
     public static function build($prefs)
     {
-        return new AuthTokens(
+        return new Tokens(
             TikiDb::get(),
             [
                 'maxTimeout' => $prefs['auth_token_access_maxtimeout'],

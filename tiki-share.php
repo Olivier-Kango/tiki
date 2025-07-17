@@ -10,6 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // To include a link in your tpl do
 //<a href="tiki-share.php?url={$smarty.server.REQUEST_URI|escape:'url'}">{tr}Share this page{/tr}</a>
+use Tiki\Lib\Auth\Tokens;
 
 $section = 'share';
 $inputConfiguration = [
