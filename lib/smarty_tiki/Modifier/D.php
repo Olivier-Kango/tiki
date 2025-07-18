@@ -9,6 +9,10 @@ namespace SmartyTiki\Modifier;
 
 use Kint\Kint;
 use Kint\Parser\Parser;
+use Kint\Parser\PluginBeginInterface;
+use Kint\Value\AbstractValue;
+use Kint\Value\Context\BaseContext;
+use Kint\Value\Context\ContextInterface;
 
 /**
  * If installed, this modifier will use Kint (from https://github.com/kint-php/kint/)
@@ -59,7 +63,8 @@ class D
 }
 
 if (class_exists('Kint')) {
-    class SmartyKint implements \Kint\Parser\PluginInterface
+//    https://kint-php.github.io/kint/writing-plugins/
+    class SmartyKint implements PluginBeginInterface
     {
         protected $parser;
 
@@ -77,17 +82,22 @@ if (class_exists('Kint')) {
         {
             return Parser::TRIGGER_BEGIN;
         }
-
-        public function parse(&$var, \Kint\Zval\Value &$o, $trigger): void
+        public function parseBegin(&$var, ContextInterface $c): ?AbstractValue
         {
-            if ($trigger === Parser::TRIGGER_BEGIN) {
-                // we begin the Kint dump
-                $replace = preg_replace('/.*\[\'(.*)\']->value/', '$$1', $o->access_path);
-                // if the path of the var is $_smarty_tpl->tpl_vars[...]->value then just use the smarty var name for the title
-                if ($o->access_path !== $replace) {
-                    $o->name = $replace;
+            // TODO: Implement parseBegin() method.
+            $accessPath = $c->getAccessPath();
+            if ($accessPath !== null) {
+                $replace = preg_replace('/.*\[\'([^\']+)\']->value/', '$$1', $accessPath);
+                if ($accessPath !== $replace) {
+                    $base = new BaseContext($replace);
+                    $base->depth = $c->getDepth();
+                    $base->access_path = $c->getAccessPath();
+                    $base->reference = $c->isRef();
+                    return $this->parser?->parse($var, $base);
                 }
             }
+
+            return null;
         }
     }
 }

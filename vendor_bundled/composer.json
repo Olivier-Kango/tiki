@@ -203,7 +203,7 @@
         "hybridauth/hybridauth": "~3.11",
         "jasig/phpcas": "~1.6",
         "jason-munro/cypht": "dev-master",
-        "kaltura/api-client-library": "~19.4",
+        "kaltura/api-client-library": "~21.18",
         "laminas/laminas-captcha": "~2.9",
         "laminas/laminas-config": "~3.3",
         "laminas/laminas-eventmanager": "~3.14",
@@ -285,7 +285,7 @@
         "zf1s/zend-service-akismet": "~1.15"
     },
     "require-dev": {
-        "kint-php/kint": "~5.1",
+        "kint-php/kint": "~6.0",
         "kornrunner/dbunit": "~7.0",
         "mikey179/vfsstream": "~1.6",
         "overtrue/phplint": "~9.0",
