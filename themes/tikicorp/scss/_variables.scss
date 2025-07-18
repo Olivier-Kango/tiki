@@ -1,3 +1,12 @@
+// Variables for TikiCorop theme
+// Contains overriding declarations of Bootstrap variables and possible related value aliases to implement an override.
+// For example, if `$component-active-bg: $primary;` then ``$dropdown-link-active-bg: $component-active-bg;` also needs to be explicitly restated for the theme value to override the Bootstrap default.
+
+// Enable SCSS color functions and import default variable values
+@use "sass:color";
+@import "../../base_files/scss/_tiki-bootstrap_functions"; // 1. Functions are included first (so colors, etc. can be manipulated), required before import of variables.scss.
+@import "../../default/scss/variables"; // 2. Import directly to allow removal of redundant Bootstrap default declarations in this file.
+
 // - - - - - - - Bootstrap variables (override values in node_modules/bootstrap/scss/_variables.scss - - - - - - //
 //
 // Colors
@@ -69,12 +78,12 @@ $light:         $gray-100;  // default
 // scss-docs-end theme-color-variables
 
 $theme-colors: (
-  "primary":         #087EB4, // #56c4f7,
-  "secondary": #1784b7,
-  "success":          #5cb85c,
-  "info":             #5bc0de,
-  "warning":          #f0ad4e,
-  "danger":           #FF3D3D,
+    "primary":             $primary,
+    "secondary":           $secondary,
+    "success":             $success,
+    "info":                $info,
+    "warning":             $warning,
+    "danger":              $danger,
 //    "light":      #1784b7,
   "dark":       #000000,
   "mono":           #0a1218,
@@ -139,6 +148,8 @@ $link-shade-percentage:                   20%;  // default
 $border-radius:               0.5rem;
 $border-radius-lg:            .2rem;
 $border-radius-sm:            .1rem;
+$component-active-color:      $white;  // default
+$component-active-bg:         $primary;  // default
 
 // Fonts
 $font-family-serif:  Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif; // "Myriad Pro", Helvetica, Arial, sans-serif;
@@ -174,17 +185,20 @@ $input-group-addon-color:               $input-color;
 $input-group-addon-bg:                  var(--#{$prefix}tertiary-bg);  // default // $gray-800;
 $input-placeholder-color:               $gray-300;
 
-// Dropdowns
+$form-check-input-checked-color:          $component-active-color; // !default; NECESSARY
+$form-check-input-checked-bg-color:       $component-active-bg; // !default; NECESSARY
+$form-range-thumb-bg:                      $component-active-bg; // !default; NECESSARY
+
 // Navs
 // Navbar
 $navbar-dark-color: $link-color; // #1784b7; // previous version note: unintuitive but has to match class of div in tpl
 $navbar-dark-active-color: $navbar-dark-color;
 $navbar-dark-active-hover-color: $navbar-dark-active-color;
-$navbar-dark-bg: rgba(23, 132, 183, 0.77); // ditto
+$tiki-navbar-dark-bg: rgba(23, 132, 183, 0.77); // ditto
 $navbar-dark-hover-color: #1784b7;
 $nav-link-color: var(--#{$prefix}link-color);  // default // $link-color;
 // $navbar-nav-link-padding-x: 2rem;
-//$navbar-dark-border: darken($navbar-dark-bg, 6.5%);
+//$navbar-dark-border: darken($tiki-navbar-dark-bg, 6.5%);
 
 //$navbar-dark-hover-color: darken(#fff, 10%);
 //$navbar-dark-hover-bg: #3270bd;
@@ -194,6 +208,7 @@ $nav-link-color: var(--#{$prefix}link-color);  // default // $link-color;
 
 // Dropdowns
 $dropdown-bg:                      rgba(23, 132, 183, 0.95); // var(--#{$prefix}body-bg);  // default
+$dropdown-link-active-bg:           $component-active-bg; //  !default;
 
 // Pagination
 $pagination-color:                  $link-color;

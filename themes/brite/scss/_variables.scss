@@ -1,7 +1,11 @@
-// This file overrides and adds to node_modules/bootswatch/dist/brite/_variables.scss with
-// Tiki SCSS variables may be added and color values may be updated to better comply with WCAG guidelines.
+// Brite 5.3.7
+// Color values may be updated to better comply with WCAG color contrast guidelines, and other changes for Tiki.
+// "default" below means the Bootswatch theme default.
 
-@import "../../../node_modules/bootswatch/dist/brite/_variables.scss";
+@use "sass:color";
+@import "../../base_files/scss/_tiki-bootstrap_functions"; // 1. Functions are included first (so colors, etc. can be manipulated), required before import of variables.scss.
+@import "../../default/scss/_variables.scss"; // Bootstrap variable declarations
+@import "../../../node_modules/bootswatch/dist/brite/_variables.scss"; // Bootswatch theme variables file
 
 //
 // Color system
@@ -10,11 +14,6 @@ $red-300: tint-color($red, 40%); // !default;
 $green-300: tint-color($green, 40%); // !default;
 
 // Options
-// Prefix for :root CSS variables
-
-$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
-$prefix:                      $variable-prefix !default;
-
 // Body
 $body-color:                $gray-900; // !default;
 
