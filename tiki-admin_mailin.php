@@ -69,4 +69,6 @@ $smarty->assign('checkPackage', $checkPackage);
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
-$smarty->display('tiki-admin_mailin.tpl');
+
+$smarty->assign('mid', 'tiki-admin_mailin.tpl');
+$smarty->display('tiki.tpl');

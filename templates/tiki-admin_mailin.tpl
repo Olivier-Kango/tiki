@@ -1,5 +1,3 @@
-{extends $global_extend_layout|default:'layout_view.tpl'}
-
 {block name="title"}
     {title help="Webmail"}{tr}Mail-in accounts{/tr}{/title}
 {/block}
