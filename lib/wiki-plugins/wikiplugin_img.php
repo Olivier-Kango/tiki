@@ -852,9 +852,6 @@ function wikiplugin_img($data, $params)
                 $wikilib = TikiLib::lib('wiki');
                 $dbinfo = $wikilib->get_item_attachment($imgdata['attId']);
             }
-            if (! empty($dbinfo['path'])) {
-                $basepath = $prefs['w_use_dir'];
-            }
             //Give error messages if a file doesn't exist, isn't an image. Display nothing if user lacks permission
             if (! empty($imgdata['fileId']) || ! empty($imgdata['attId'])) {
                 if (! $dbinfo) {
@@ -881,8 +878,11 @@ function wikiplugin_img($data, $params)
                     }
                 }
             }
-        } //finished getting info from db for images in image or file galleries or attachments
-
+        }
+        //finished getting info from db for images in image or file galleries or attachments
+        if (! empty($dbinfo['path'])) {
+            $basepath = $prefs['w_use_dir'];
+        }
         //get image to get height and width and iptc data
         if (! empty($dbinfo['data'])) {
             $imageObj = Image::create($dbinfo['data'], false);
@@ -926,7 +926,7 @@ function wikiplugin_img($data, $params)
         if (! empty($dbinfo['data']) || ! empty($dbinfo['path'])) {
             if (! empty($dbinfo['data'])) {
                 $imageObjt = Image::create($dbinfo['data'], false);
-            } elseif (! empty($dbinfo['path']) && isset($basepath)) {
+            } elseif (! empty($dbinfo['path'])) {
                 $imageObjt = Image::create($basepath . $dbinfo['path'] . '.thumb', true);
             } else {
                 $imageObjt = null;
