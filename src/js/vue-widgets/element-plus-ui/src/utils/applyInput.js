@@ -79,7 +79,7 @@ function transformContainerInputs(containerElement) {
                     $form.find("input[element-plus-ref]").each(function () {
                         const $input = $(this);
                         const $el = $("#" + $input.attr("element-plus-ref"));
-                        if ($el.length && ! $el.is("el-autocomplete")) $input.val($el.val());
+                        if ($el.length && !$el.is("el-autocomplete")) $input.val($el.val());
                     });
                 })
                 .data("ep-sync-added", true);
