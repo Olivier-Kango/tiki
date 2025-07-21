@@ -2307,7 +2307,7 @@ class Services_Tracker_Controller
         $itemId = $input->itemId->int();
         $fieldId = $input->fieldId->int();
         $filter = [];
-        if ($input->version->text()) {
+        if ($input->version->text() !== '') {
             $filter['version'] = $input->version->text();
         }
         $offset = $input->offset->int();

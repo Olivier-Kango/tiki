@@ -5324,7 +5324,7 @@ class TrackerLib extends TikiLib
 
         $itemsBindvars = [$item_info['itemId']];
         $itemsWhere = '`itemId`=?';
-        if (! empty($filter['version'])) {
+        if (isset($filter['version']) && $filter['version'] !== '') {
             $itemsWhere .= ' AND `version` <= ?';
             $itemsBindvars[] = $filter['version'];
         }
