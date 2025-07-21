@@ -78,6 +78,9 @@ function transformContainerInputs(containerElement) {
                 .on("submit.ep-sync", () => {
                     $form.find("input[element-plus-ref]").each(function () {
                         const $input = $(this);
+                        if ($input.is('[type="file"]')) {
+                            return;
+                        }
                         const $el = $("#" + $input.attr("element-plus-ref"));
                         if ($el.length && !$el.is("el-autocomplete")) $input.val($el.val());
                     });
