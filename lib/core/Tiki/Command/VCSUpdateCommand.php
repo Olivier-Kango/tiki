@@ -168,9 +168,14 @@ class VCSUpdateCommand extends Command
         $console->run($input);
     }
 
+    /**
+     * Identify the upstream branch of your current local branch/tags in a human-readable format
+     *
+     * @return string
+     */
     protected function getGitFollowUpBranch()
     {
-        $raw = $this->execCommand('git rev-parse --abbrev-ref @{upstream}');
+        $raw = $this->execCommand('git rev-parse --abbrev-ref @{upstream} 2>/dev/null || git describe --tags --exact-match');
 
         $upstreamBranch = trim($raw);
 
@@ -180,11 +185,12 @@ class VCSUpdateCommand extends Command
     /**
      * Get GIT revision
      *
-     * @param string $branch
-     * @param int $before A timestamp value
-     * @return String
+     * @param string|null $branch branch name to point to
+     * @param int         $before A timestamp value
+     *
+     * @return string|null
      */
-    protected function getGitRevision(string|null $branch = null, int $before = 0)
+    protected function getGitRevision(string|null $branch = null, int $before = 0): ?string
     {
         $command = 'git log -n 1 --pretty=format:"%H"';
 
@@ -538,8 +544,9 @@ class VCSUpdateCommand extends Command
     }
 
     /**
-     * @param string command
-     * @return string|null
+     * @param string $command
+     *
+     * @return string
      */
     protected function execCommand(string $command): string
     {
