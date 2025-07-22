@@ -578,6 +578,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $calitemId = $input->calitemId->int();
         $recurrence = [];
         $preview = false;
+        $calendar = null;
+        $calitem = null;
 
         if ($input->act->word() === 'preview') {
             $preview = true;
@@ -622,14 +624,21 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         } elseif ($calitemId) {
             $calitemId = $this->getItemId($input, 'view_events');  // also checks edit perms
             $calitem = $this->calendarLib->get_item($calitemId);
+
+            if (! $calitem) {
+                throw new Services_Exception_NotFound(tr('Event not found.'));
+            }
             $calendar = $this->calendarLib->get_calendar($calitem['calendarId']);
+
+            if (! $calendar) {
+                throw new Services_Exception_NotFound(tr('Event not found.'));
+            }
             if (isset($calitem['recurrenceId']) && $calitem['recurrenceId'] > 0) {
                 $recurrence = new CalRecurrence($calitem['recurrenceId']);
                 $recurrence = $recurrence->toArray();
             }
         } else {
-            Feedback::error(tr('Not found'));
-            $calitem = [];
+            throw new Services_Exception_NotFound(tr('Not found'));
         }
 
         if ($calitem) {
