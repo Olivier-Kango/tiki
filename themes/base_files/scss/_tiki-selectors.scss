@@ -800,30 +800,30 @@ ul.all_languages > li {
 
 // /* TOC */
 .toc {
-    border-top: 1px dotted $gray-300;
-    border-bottom: 1px dotted $gray-300;
+    border-top: 1px dotted var(--bs-border-color); //$gray-300;
+    border-bottom: 1px dotted var(--bs-border-color); //$gray-300;
 }
 
 // /* Wiki diff styles */
 .diff td {
-    border: 1px solid $gray-700;
+    border: 1px solid var(--bs-border-color); // $gray-700;
 }
 
 .diff div {
-    border-top: 1px solid $gray-300;
+    border-top: 1px solid var(--bs-border-color); // $gray-300;
 }
 
 .diffadded {
-    background: $success;
-    --bs-table-bg: #{$success}; // These need to be specified to override :root --bs-table-bg .
-    color: color.adjust($success,$lightness: 50%, $space: hsl);
+    background: var(--bs-success-bg-subtle); // $success;
+    --bs-table-bg: var(--bs-success-bg-subtle); //#{$success}; // These need to be specified to override :root --bs-table-bg .
+//    color: color.adjust($success,$lightness: 50%, $space: hsl);
     word-break: break-word;
 }
 
 .diffdeleted {
-    background: $danger;
-    --bs-table-bg: #{$danger};
-    color: color.adjust($danger,$lightness: 50%, $space: hsl);
+    background: var(--bs-danger-bg-subtle); // $danger;
+    --bs-table-bg: var(--bs-danger-bg-subtle); //#{$danger};
+//    color: color.adjust($danger,$lightness: 50%, $space: hsl);
     word-break: break-word;
 }
 
@@ -838,21 +838,21 @@ ul.all_languages > li {
 }
 
 .diffinldel {
-    background: $warning;
+    background: var(--bs-warning-bg-subtle); //$warning;
 }
 
 .diffbody {
-    background: $gray-200;
-    --bs-table-bg: #{$gray-200};
-    color: $gray-700;
+    background: var(--bs-secondary-bg); // $gray-200;
+    --bs-table-bg: var(--bs-secondary-bg); //#{$gray-200};
+    color: var(--bs-secondary-color); // $gray-700;
 }
 
 .diffchar {
-    color: color.adjust($danger, $lightness: 50%, $space: hsl);
+    color: var(--bs-danger); // color.adjust($danger, $lightness: 50%, $space: hsl);
 }
 
 .diffadded .diffchar {
-    color: color.adjust($success, $lightness: 50%, $space: hsl);
+    color: var(--bs-success); // color.adjust($success, $lightness: 50%, $space: hsl);
 }
 
 // diff email converts <ins> and <del> to spans for better rendering
@@ -865,7 +865,7 @@ span.diffchar.deleted {
 }
 
 .highlight_word {
-    font-size: bold;
+    font-weight: bold;
 }
 
 //.searchresults blockquote em.hlt1,
