@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Package\VendorHelper;
 
-function prefs_zend_list()
+function prefs_mailer_list()
 {
     $emailOptions = [
         'sendmail' => tra('Sendmail'),
@@ -19,10 +19,10 @@ function prefs_zend_list()
         $emailOptions = array_merge($emailOptions, ['amazonSes' => tra('Amazon SES')]);
     }
     $slmMailOptions = [
-        'elasticEmail' => tra('Elastic Email'),
+//        'elasticEmail' => tra('Elastic Email'),
         'mailgun' => tra('Mailgun'),
         'mandrill' => tra('Mandrill'),
-        'postage' => tra('Postage'),
+        'postal' => tra('Postal'),
         'postmark' => tra('Postmark'),
         'sendGrid' => tra('SendGrid'),
         'sparkPost' => tra('SparkPost')
@@ -30,104 +30,92 @@ function prefs_zend_list()
     $emailOptions = array_merge($emailOptions, $slmMailOptions);
 
     return [
-        'zend_mail_amazon_ses_key' => [
+        'mailer_amazon_ses_key' => [
             'name' => tra('Amazon SES Key'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_amazon_ses_secret' => [
+        'mailer_amazon_ses_secret' => [
             'name' => tra('Amazon SES Secret'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_amazon_ses_region' => [
+        'mailer_amazon_ses_region' => [
             'name' => tra('Amazon SES Region'),
             'type' => 'text',
             'perspective' => false,
-            'default' => '',
+            'default' => 'eu-west-1',
         ],
-        'zend_mail_amazon_ses_version' => [
-            'name' => tra('Amazon SES version'),
-            'type' => 'text',
-            'perspective' => false,
-            'default' => '',
-        ],
-        'zend_mail_elastic_email_username' => [
-            'name' => tra('Elastic Email Username'),
-            'type' => 'text',
-            'perspective' => false,
-            'default' => '',
-        ],
-        'zend_mail_elastic_email_key' => [
+        'mailer_elastic_email_key' => [
             'name' => tra('Elastic Email Key'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_mailgun_domain' => [
+        'mailer_mailgun_domain' => [
             'name' => tra('Mailgun Domain'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_mailgun_key' => [
+        'mailer_mailgun_key' => [
             'name' => tra('Mailgun Key'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_mailgun_api_endpoint' => [
-            'name' => tra('Mailgun API Endpoint'),
+        'mailer_mailgun_region' => [
+            'name' => tra('Mailgun Region'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_mandrill_key' => [
+        'mailer_mandrill_key' => [
             'name' => tra('Mandrill Key'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_postage_key' => [
-            'name' => tra('Postage Key'),
-            'type' => 'text',
-            'perspective' => false,
-            'default' => '',
-        ],
-        'zend_mail_postmark_key' => [
+        'mailer_postmark_key' => [
             'name' => tra('Postmark Key'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_send_grid_username' => [
-            'name' => tra('SendGrid Username'),
+        'mailer_send_grid_region' => [
+            'name' => tra('SendGrid Region'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_send_grid_key' => [
+        'mailer_send_grid_key' => [
             'name' => tra('SendGrid Key'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_spark_post_key' => [
+        'mailer_spark_post_key' => [
             'name' => tra('SparkPost Key'),
             'type' => 'text',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_smtp_server' => [
+        'mailer_spark_post_region' => [
+            'name' => tra('SparkPost Region'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'mailer_smtp_server' => [
             'name' => tra('SMTP server'),
             'type' => 'text',
             'size' => '20',
             'perspective' => false,
             'default' => '',
         ],
-        'zend_mail_smtp_user' => [
+        'mailer_smtp_user' => [
             'name' => tra('Username'),
             'type' => 'text',
             'size' => '20',
@@ -135,7 +123,7 @@ function prefs_zend_list()
             'autocomplete' => 'off',
             'default' => '',
         ],
-        'zend_mail_smtp_pass' => [
+        'mailer_smtp_pass' => [
             'name' => tra('Password'),
             'type' => 'password',
             'size' => '20',
@@ -143,14 +131,14 @@ function prefs_zend_list()
             'autocomplete' => 'off',
             'default' => '',
         ],
-        'zend_mail_smtp_port' => [
+        'mailer_smtp_port' => [
             'name' => tra('Port'),
             'type' => 'text',
             'size' => '5',
             'perspective' => false,
             'default' => 25,
         ],
-        'zend_mail_smtp_security' => [
+        'mailer_smtp_security' => [
             'name' => tra('Security'),
             'type' => 'list',
             'perspective' => false,
@@ -161,14 +149,14 @@ function prefs_zend_list()
             ],
             'default' => '',
         ],
-        'zend_mail_handler' => [
+        'mailer_handler' => [
             'name' => tra('Mail sender'),
             'description' => tra('Specify if Tiki should use Sendmail(the PHP mail() function), SMTP or File (Debug) (to debug email sending by means of storing emails as files on disk at ./temp/Mail_yyyymmddhhmmss_randomstring.tmp ) to send mail notifications.'),
             'type' => 'list',
             'options' => $emailOptions,
             'default' => 'sendmail',
         ],
-        'zend_mail_smtp_auth' => [
+        'mailer_smtp_auth' => [
             'name' => tra('Authentication'),
             'description' => tra('Mail server authentication'),
             'type' => 'list',
@@ -180,7 +168,7 @@ function prefs_zend_list()
             ],
             'default' => '',
         ],
-        'zend_mail_smtp_helo' => [
+        'mailer_smtp_helo' => [
             'name' => tra('Local server name'),
             'description' => tra('Name of the local server. Will be reported to SMTP relay on the HELO/EHLO line.'),
             'type' => 'text',
@@ -188,7 +176,7 @@ function prefs_zend_list()
             'perspective' => false,
             'default' => 'localhost',
         ],
-        'zend_mail_queue'         => [
+        'mailer_queue'         => [
             'name' => tra('Mail delivery'),
             'description' => tr(
                 'When set to Queue, messages will be stored in the database. Requires using the shell script %0 to be run for actual delivery.',
@@ -201,26 +189,7 @@ function prefs_zend_list()
             ],
             'default' => '',
         ],
-        'zend_http_sslverifypeer' => [
-            'name' => tra('Verify HTTPS certificates of remote servers'),
-            'description' => tra('When set to enforce, the server will fail to connect over HTTPS to a remote server that do not have a SSL certificate that is valid and can be verified against the local list of Certificate Authority (CA)'),
-            'type' => 'list',
-            'options' => [
-                '' => tra('Do not enforce verification'),
-                'y' => tra('Enforce verification'),
-            ],
-            'default' => '',
-        ],
-        'zend_http_use_curl'      => [
-            'name'        => tra('Use CURL for HTTP connections'),
-            'description' => tra(
-                'Use CURL instead of sockets for server to server HTTP connections, when sockets are not available.'
-            ),
-            'type'        => 'flag',
-            'default'     => 'n',
-            'extensions'  => ['curl'],
-        ],
-        'zend_mail_redirect' => [
+        'mailer_redirect' => [
             'name' => tra('Catch-all email address'),
             'description' => tra('Tiki will send all emails to this email address instead of the target recipients. This will actually rewrite the recipient TO, CC and BCC email headers.'),
             'type' => 'text',

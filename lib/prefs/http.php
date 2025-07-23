@@ -140,5 +140,24 @@ function prefs_http_list()
                 'http_header_public_key_pins',
             ],
         ],
+        'http_sslverifypeer' => [
+            'name' => tra('Verify HTTPS certificates of remote servers'),
+            'description' => tra('When set to enforce, the server will fail to connect over HTTPS to a remote server that do not have a SSL certificate that is valid and can be verified against the local list of Certificate Authority (CA)'),
+            'type' => 'list',
+            'options' => [
+                '' => tra('Do not enforce verification'),
+                'y' => tra('Enforce verification'),
+            ],
+            'default' => '',
+        ],
+        'http_use_curl'      => [
+            'name'        => tra('Use CURL for HTTP connections'),
+            'description' => tra(
+                'Use CURL instead of sockets for server to server HTTP connections, when sockets are not available.'
+            ),
+            'type'        => 'flag',
+            'default'     => 'n',
+            'extensions'  => ['curl'],
+        ],
     ];
 }

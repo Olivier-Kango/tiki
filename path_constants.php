@@ -91,6 +91,7 @@ const TEMP_PATH = 'temp';
 const TEMP_HTTP_PUBLIC_PATH = 'temp/public';
 const TEMP_CACHE_PATH = 'temp/cache';
 const TEMP_PUBLIC_PATH = 'temp/public';
+const TEMP_MAIL_DEBUG = 'temp/mail_debug';
 const HTMLPURIFIERCACHE_CACHE_PATH = 'temp/cache/HTMLPurifierCache';
 
 const WIKIPLUGINS_SRC_PATH = 'lib/wiki-plugins';

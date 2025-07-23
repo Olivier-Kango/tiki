@@ -198,7 +198,7 @@ class CaldavClient
                 'userName' => $result['arguments']['username'],
                 'password' => $result['arguments']['password'],
             ]);
-            if ($prefs['zend_http_sslverifypeer'] !== 'y') {
+            if ($prefs['http_sslverifypeer'] !== 'y') {
                 $client->addCurlSetting(CURLOPT_SSL_VERIFYPEER, 0);
             }
             $response = $client->request('REPORT', '', '

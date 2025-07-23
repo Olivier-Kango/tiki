@@ -111,7 +111,7 @@ AwsSDK:
   licenceUrl: "https://github.com/aws/aws-sdk-php/blob/master/LICENSE"
   name: aws/aws-sdk-php
   requiredBy:
-    - "zend_mail_smtp_server"
+    - "mailer_smtp_server"
     - "Amazon SES mail sender"
     - "S3 storage for direct mapping file gallery"
   requiredVersion: ^3.208

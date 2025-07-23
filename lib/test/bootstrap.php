@@ -110,7 +110,7 @@ $prefs['language'] = 'en';
 $tikipath = dirname(__DIR__, 2) . '/';
 require_once 'lib/setup/prefs.php';
 $prefs['site_language'] = 'en';
-$prefs['zend_mail_handler'] = 'file';
+$prefs['mailer_handler'] = 'file';
 $prefs['feature_typo_quotes'] = 'n';
 $prefs['feature_typo_approximative_quotes'] = 'n';
 $prefs['feature_typo_dashes_and_ellipses'] = 'n';

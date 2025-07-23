@@ -4,8 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
-use SlmMail\Exception\ExceptionInterface as SlmMailException;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Tiki\Lib\Registration\Error as RegistrationError;
 
 function wikiplugin_tracker_info()
@@ -1216,7 +1215,7 @@ function wikiplugin_tracker($data, $params)
                         $_REQUEST["$fields_prefix$f"] = str_replace($matches[0], $_SESSION[$transactionName][$traStep]['request'][$traStepInsField], $autosavevalues[$i]);
                     } elseif ($ff['type'] == 'e') {
                         $_REQUEST["$fields_prefix$f"][] = $autosavevalues[$i];
-                    } elseif ($ff['type'] == 't' && substr($autosavevalues[$i], 0, 7) == 'GENPASS') {
+                    } elseif ($ff['type'] == 't' && str_starts_with($autosavevalues[$i], 'GENPASS')) {
                         $passlength = substr($autosavevalues[$i], 7);
                         if (! empty($passlength)) {
                             $tmppref = $prefs['min_pass_length'];
@@ -1330,7 +1329,7 @@ function wikiplugin_tracker($data, $params)
                         Feedback::error($captchalib->getErrors());
                         $field_errors['err_antibot'] = 'y';
                     }
-                } else if (isset($transactionName) && ! empty($transactionName)) {
+                } elseif (isset($transactionName) && ! empty($transactionName)) {
                     // if transaction, set antibot session var to avoid revalidation
                     $_SESSION[$transactionName]['captchaValidated'] = true;
                 }
@@ -1590,7 +1589,7 @@ function wikiplugin_tracker($data, $params)
                     $sentMails = [];
 
                     foreach ($emailOptions[1] as $ieo => $ueos) {
-                        $mailDir = strpos($tplSubject[$subjectCounter], 'wiki:') !== 0 ? 'mail/' : '';
+                        $mailDir = ! str_starts_with($tplSubject[$subjectCounter], 'wiki:') ? 'mail/' : '';
                         @$mail_data = $smarty->fetch($mailDir . $tplSubject[$subjectCounter]);
                         if (empty($mail_data)) {
                             $mail_data = tra('Tracker was modified at ') . $_SERVER['SERVER_NAME'];
@@ -1598,12 +1597,12 @@ function wikiplugin_tracker($data, $params)
                             $mail_data = trim(str_replace('&nbsp;', ' ', strip_tags($mail_data)));  // tidy
                         }
                         $mail->setSubject($mail_data);
-                        $mailDir = strpos($emailOptions[2][$templateCounter], 'wiki:') !== 0 ? 'mail/' : '';    // wiki pages dont start with wiki:
+                        $mailDir = ! str_starts_with($emailOptions[2][$templateCounter], 'wiki:') ? 'mail/' : '';    // wiki pages dont start with wiki:
                         $mail_data = $smarty->fetch($mailDir . $emailOptions[2][$templateCounter]);
                         if (isset($emailformat) && $emailformat === 'html') {
                             $mail->setHtml($mail_data, strip_tags($mail_data));
                         } else {
-                            if (strpos($emailOptions[2][$templateCounter], 'wiki:') === 0) {
+                            if (str_starts_with($emailOptions[2][$templateCounter], 'wiki:')) {
                                 $mail_data = str_replace('&nbsp;', ' ', strip_tags($mail_data));
                             }
                             $mail->setText($mail_data);
@@ -1617,14 +1616,14 @@ function wikiplugin_tracker($data, $params)
                                     $mail->send($ueo);
                                     $sentMails[] = $ueo . $tplKey;
                                     $title = 'mail';
-                                } catch (ZendMailException | SlmMailException $e) {
+                                } catch (TransportExceptionInterface | \Throwable $e) {
                                     $title = 'mail error';
                                 }
                                 if ($title == 'mail error') {
                                     // Log the email error at the tiki syslog
                                     $logslib = TikiLib::lib('logs');
                                     $logslib->add_log('mail error', 'plugin tracker email error / ' . $ueo . ' / item' . $rid);
-                                } elseif ($title == 'mail' && $prefs['log_mail'] == 'y') {
+                                } elseif ($prefs['log_mail'] == 'y') {
                                     // Log the email at the tiki syslog
                                     $logslib = TikiLib::lib('logs');
                                     $logslib->add_log('mail', 'plugin tracker email sent / ' . $ueo . ' / item' . $rid);
@@ -1691,7 +1690,7 @@ function wikiplugin_tracker($data, $params)
                             $ins = preg_replace('/^(ins_)/', '', $kk); // replace the ins_ from the input field names to match with e.g. urlparams="1:2:3"
                             $vv = urlencode($vv);
                             if ($urlparams[0] === '*' || in_array($ins, $urlparams)) {
-                                $ss = strstr($url[$key], '?') ? '&' : '?'; // if there is "?" already in the URL, use "&" to separate the params
+                                $ss = str_contains($url[$key], '?') ? '&' : '?'; // if there is "?" already in the URL, use "&" to separate the params
                                 $url[$key] .= "$ss$kk=$vv";
                             }
                             $i++;
