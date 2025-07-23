@@ -10,9 +10,6 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-
-@import "../scss/fonts";
-
 @import "../../base_files/scss/_tiki-bootstrap_functions"; // 1. Functions are included first (so colors, etc. can be manipulated).
 
 @import "../../base_files/scss/_tiki-variables.scss"; // 2. Default value declarations for Tiki variables and the default vendor Bootstrap variables.
