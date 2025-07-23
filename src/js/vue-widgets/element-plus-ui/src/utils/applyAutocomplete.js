@@ -51,9 +51,13 @@ export default function applyAutocomplete(element, remoteSourceUrl = null, sourc
         }
     });
 
-    if (selectCb) {
-        elementPlusUi.addEventListener("select", selectCb);
-    }
+    elementPlusUi.addEventListener("select", (event) => {
+        element.value = event.detail[0].value;
+        element.dispatchEvent(new Event("change"));
+        if (selectCb) {
+            selectCb(event);
+        }
+    });
 
     element.setAttribute("element-plus-ref", elementUniqueId);
     element.style.display = "none";

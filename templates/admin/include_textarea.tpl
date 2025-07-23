@@ -431,10 +431,10 @@
                                 {elseif $token eq '__NEW__'}
                                     <div class="mb-3 row d-none param">
                                         <div class="col-sm-6">
-                                            <input class="form-control sparam-name" type="text" name="sparams[__NEW__][token]" value="" placeholder="{tr}Name{/tr}">
+                                            <input class="form-control sparam-name d-none" type="text" name="sparams[__NEW__][token]" value="" placeholder="{tr}Name{/tr}">
                                         </div>
                                         <div class="col-sm-5">
-                                            <input class="form-control sparam-default" type="text" name="sparams[__NEW__][default]" value="" placeholder="{tr}Default Value{/tr}">
+                                            <input class="form-control sparam-default d-none" type="text" name="sparams[__NEW__][default]" value="" placeholder="{tr}Default Value{/tr}">
                                         </div>
                                         <div class="col-sm-1">
                                             {icon name='delete' class='text-danger delete-param tips btn btn-link' title='{tr}Delete this parameter{/tr}'}
@@ -458,7 +458,7 @@
                                             {tr}Parameter{/tr}
                                         </label>
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="text" name="input[{$token|escape}][token]" id="input[{$token|escape}][token]" value="{if $token neq '__NEW__'}{$token|escape}{/if}">
+                                            <input class="form-control {if $token eq '__NEW__'} d-none{/if}" type="text" name="input[{$token|escape}][token]" id="input[{$token|escape}][token]" value="{if $token neq '__NEW__'}{$token|escape}{/if}">
                                         </div>
                                         <div class="col-sm-1">
                                             {icon name='delete' class='text-danger delete-param tips btn btn-link' title="{tr}Delete this parameter's documentation{/tr}"}
@@ -469,7 +469,7 @@
                                             {tr}Name{/tr}
                                         </label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text" name="input[{$token|escape}][name]" id="input[{$token|escape}][name]" value="{$detail.name|escape}">
+                                            <input class="form-control {if $token eq '__NEW__'} d-none{/if}" type="text" name="input[{$token|escape}][name]" id="input[{$token|escape}][name]" value="{$detail.name|escape}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -477,13 +477,13 @@
                                             {tr}Description{/tr}
                                         </label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text" name="input[{$token|escape}][description]" id="input[{$token|escape}][description]" value="{$detail.description|escape}">
+                                            <input class="form-control {if $token eq '__NEW__'} d-none{/if}" type="text" name="input[{$token|escape}][description]" id="input[{$token|escape}][description]" value="{$detail.description|escape}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <div class=" col-sm-2 offset-sm-4">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="input[{$token|escape}][required]" id="input[{$token|escape}][required]" value="y"{if !empty($detail.required)} checked="checked"{/if}>
+                                                <input class="form-check-input {if $token eq '__NEW__'} d-none{/if}" type="checkbox" name="input[{$token|escape}][required]" id="input[{$token|escape}][required]" value="y"{if !empty($detail.required)} checked="checked"{/if}>
                                                 <label class="col-form-label" for="input[{$token|escape}][required]">
                                                     {tr}Required{/tr}
                                                 </label>
@@ -491,7 +491,7 @@
                                         </div>
                                         <div class=" col-sm-2">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="input[{$token|escape}][safe]" id="input[{$token|escape}][safe]" value="y"{if !empty($detail.safe)} checked="checked"{/if}>
+                                                <input class="form-check-input {if $token eq '__NEW__'} d-none{/if}" type="checkbox" name="input[{$token|escape}][safe]" id="input[{$token|escape}][safe]" value="y"{if !empty($detail.safe)} checked="checked"{/if}>
                                                 <label class="col-form-label" for="input[{$token|escape}][safe]">
                                                     {tr}Safe{/tr}
                                                 </label>
@@ -501,7 +501,7 @@
                                             {tr}Filter{/tr}
                                         </label>
                                         <div class="col-sm-3">
-                                            <input class="form-control" type="text" name="input[{$token|escape}][filter]" id="input[{$token|escape}][filter]" value="{$detail.filter|default:xss|escape}">
+                                            <input class="form-control {if $token eq '__NEW__'} d-none{/if}" type="text" name="input[{$token|escape}][filter]" id="input[{$token|escape}][filter]" value="{$detail.filter|default:xss|escape}">
                                         </div>
                                     </div>
                                     <hr>

@@ -50,7 +50,9 @@ describe("applyAutocomplete", () => {
         applyAutocomplete(givenInput, null, [{ value: "foo" }], null, givenSelectCb);
 
         const expectedAutoCompleteElement = givenInput.nextElementSibling;
-        const expectedEventDetails = new CustomEvent("select");
+        const expectedEventDetails = new CustomEvent("select", {
+            detail: [{ value: "foo" }],
+        });
         expectedAutoCompleteElement.dispatchEvent(expectedEventDetails);
 
         expect(givenSelectCb).toHaveBeenCalledWith(expectedEventDetails);
