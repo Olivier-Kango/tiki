@@ -1,6 +1,7 @@
 import "summernote";
 import formatTikiToolbars from "./formatTikiToolbars";
 import * as Handlers from "./handlers/index";
+import { parseData } from "./handlers/formSubmission.helpers";
 
 export default function (areaId, toolbar, options) {
     const target = $(`#${areaId}`);
@@ -19,6 +20,11 @@ export default function (areaId, toolbar, options) {
                 toolbar.find(".custom-btn-wrapper").each(function () {
                     $(this).children().unwrap();
                 });
+                if (!options.inline) {
+                    parseData(target, Handlers.dirtyCheck.bind(null, target), false);
+                } else {
+                    Handlers.dirtyCheck(target);
+                }
             },
             onKeydown: function (event) {
                 if (event.key === "@") {
@@ -33,6 +39,5 @@ export default function (areaId, toolbar, options) {
     });
 
     Handlers.formSubmission(target);
-    Handlers.dirtyCheck(target);
     Handlers.pluginEdit(areaId);
 }

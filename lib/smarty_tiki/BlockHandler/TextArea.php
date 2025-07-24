@@ -184,10 +184,9 @@ class TextArea extends Base
                 $html .= '<div id="' . $as_id . '_editor"></div>';
             } else {
                 $params['_is_html'] = true;
-                $parsedContent = TikiLib::lib('edit')->parseToWysiwyg($content, false, false, ['wysiwyg' => true, 'html_editor' => true]);
                 $html .= <<<HTML
                 <textarea class="wikiedit d-none" name="{$params['name']}" id="{$as_id}">
-                    {$parsedContent}
+                    {$content}
                 </textarea>
                 <input type="hidden" name="wysiwyg" value="y" />
                 HTML;
