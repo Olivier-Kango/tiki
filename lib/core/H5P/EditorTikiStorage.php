@@ -273,8 +273,8 @@ ORDER BY `title`'
         );
 
         $codes = ['en']; // Semantics is 'en' by default.
-        foreach ($results as $result) {
-            $codes[] = $result->language_code;
+        foreach ($results->result as $result) {
+            $codes[] = $result['language_code'];
         }
 
         return $codes;
