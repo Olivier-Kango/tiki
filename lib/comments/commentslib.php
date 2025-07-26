@@ -1,6 +1,5 @@
 <?php
 
-use Ddeboer\Imap\Server;
 use Symfony\Component\Mime\Exception\RfcComplianceException;
 use ZBateson\MailMimeParser\MailMimeParser;
 use Symfony\Component\Mime\Address;
