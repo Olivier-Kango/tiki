@@ -9,6 +9,7 @@ namespace Tiki\Tracker\Field;
 
 use Tracker\Field\AbstractItemField;
 use Tracker\Field\SynchronizableInterface;
+
 class TrackerFieldPeerTube extends AbstractItemField implements SynchronizableInterface
 {
     public static function getManagedTypesInfo(): array

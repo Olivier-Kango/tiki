@@ -26,7 +26,7 @@ $access->check_feature('feature_peertube');
 
 try {
     $videoId = [];
-    if (!empty($_REQUEST['videoId'])) {
+    if (! empty($_REQUEST['videoId'])) {
         if (is_array($_REQUEST['videoId'])) {
             $videoId = $_REQUEST['videoId'];
         } else {
@@ -35,9 +35,9 @@ try {
     }
 
     $mode = null;
-    if (!empty($videoId) && isset($_REQUEST['action'])) {
+    if (! empty($videoId) && isset($_REQUEST['action'])) {
         $mode = $_REQUEST['action'];
-        $smarty->assign('pmode', $mode); // 'pmode' pour PeerTube, différencier de 'kmode' de Kaltura
+        $smarty->assign('pmode', $mode);
 
         switch ($mode) {
             case 'delete':
@@ -45,7 +45,7 @@ try {
                 $access->checkCsrf();
                 $peertubelib = TikiLib::lib('peertubeuser');
                 foreach ($videoId as $vi) {
-                    $peertubelib->deleteVideo($vi); // Méthode à implémenter dans peertubelib.php
+                    $peertubelib->deleteVideo($vi);
                 }
                 header('Location: tiki-list_peertube_entries.php');
                 exit;
@@ -53,7 +53,7 @@ try {
             case 'edit':
                 $access->check_permission(['tiki_p_edit_peertube']);
                 $peertubelib = TikiLib::lib('peertubeuser');
-                $video = $peertubelib->getVideo($videoId[0]); // Méthode à implémenter dans peertubelib.php
+                $video = $peertubelib->getVideo($videoId[0]);
                 if ($_REQUEST['update']) {
                     $peertubelib->updateVideo(
                         $videoId[0],
@@ -62,7 +62,7 @@ try {
                             'description' => $_REQUEST['description'],
                             'tags' => $_REQUEST['tags'],
                         ]
-                    ); // Méthode à implémenter dans peertubelib.php
+                    );
                     header('Location: tiki-peertube_video.php?videoId=' . $videoId[0]);
                     exit;
                 }
@@ -78,13 +78,12 @@ try {
             $access->check_permission(['tiki_p_view_peertube']);
             $smarty->assign('pmode', 'view');
             $peertubelib = TikiLib::lib('peertubeuser');
-            $video = $peertubelib->getVideo($videoId[0]); // Méthode à implémenter
+            $video = $peertubelib->getVideo($videoId[0]);
             $smarty->assign('videoId', $videoId[0]);
             $smarty->assign('videoInfo', $video);
         }
     }
 
-    // Afficher le template
     $smarty->assign('mid', 'tiki-peertube_video.tpl');
     $smarty->display('tiki.tpl');
 } catch (Exception $e) {
