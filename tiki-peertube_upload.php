@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Tiki\TikiInit;
+
 require_once 'tiki-setup.php';
 
 $access = TikiLib::lib('access');

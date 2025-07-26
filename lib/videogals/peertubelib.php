@@ -61,7 +61,7 @@ class PeerTubeLib
         return $token['access_token'];
     }
 
-private function makeRequest($method, $url, $data = [], $auth = true, $rawBody = false)
+    private function makeRequest($method, $url, $data = [], $auth = true, $rawBody = false)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
