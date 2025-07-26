@@ -713,6 +713,15 @@ function prefs_feature_list($partial = false)
             'admin' => 'video',
             'view' => 'tiki-list_kaltura_entries.php?list=media',
         ],
+        'feature_peertube' => [
+            'name' => tra('PeerTube video management'),
+            'description' => tra('Integration with the PeerTube video platform'),
+            'help' => 'PeerTube',
+            'type' => 'flag',
+            'default' => 'n',
+            'admin' => 'video',
+            'view' => 'tiki-list_peertube_entries.php?list=videos',
+        ],
         'feature_friends' => [
             'name' => tra('Friendship Network'),
             'description' => tra('Users can identify other users as their friends'),

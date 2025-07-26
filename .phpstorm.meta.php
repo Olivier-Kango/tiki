@@ -67,6 +67,7 @@ namespace PHPSTORM_META {
             'imagegal'                   => \ImageGalsLib::class,
             'kalturaadmin'               => \KalturaLib::class,
             'kalturauser'                => \KalturaLib::class,
+            'peertubeuser'               => \PeerTubeLib::class,
             'language'                   => \Language::class,
             'languagetranslations'       => \LanguageTranslations::class,
             'ldap'                       => \LdapLib::class,

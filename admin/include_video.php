@@ -40,5 +40,35 @@ if ($prefs['feature_kaltura'] === 'y') {
     $kcwText = "<div class='adminoptionbox error'>" . tr("Kaltura feature disabled") . "</div>";
     $kplayerlist = "<div class='adminoptionbox error'>" . tr("Kaltura feature disabled") . "</div>";
 }
+
+// PeerTube feature handling
+if ($prefs['feature_peertube'] === 'y') {
+    $peertubelib = TikiLib::lib('peertubeuser');
+
+    if (substr($prefs['peertube_service_url'], -1) != '/') {
+        $prefs['peertube_service_url'] = $prefs['peertube_service_url'] . '/';
+        TikiLib::lib('tiki')->set_preference('peertube_service_url', $prefs['peertube_service_url']);
+    }
+
+    // Test PeerTube API connection
+    if ($peertubelib->testConnection()) {
+        $peertubeText = "<div class='adminoptionbox success'>" . tr("PeerTube API connection successful.") . "</div>";
+        // If peertube_player_id is empty, no action is needed as PeerTube uses a default player
+        if (empty($prefs['peertube_player_id'])) {
+            $peertubePlayerList = "<div class='adminoptionbox note'>" . tr("Using default PeerTube player. Set a custom player ID if desired.") . "</div>";
+        } else {
+            $peertubePlayerList = "<div class='adminoptionbox success'>" . tr("Custom PeerTube player ID set: %0", $prefs['peertube_player_id']) . "</div>";
+        }
+    } else {
+        $peertubeText = "<div class='adminoptionbox error'>" . tr("Unable to connect to PeerTube. Please check the service URL and credentials in the PeerTube settings section.") . "</div>";
+        $peertubePlayerList = "<div class='adminoptionbox error'>" . tr("Unable to validate PeerTube settings. Please check the service URL and credentials.") . "</div>";
+    }
+} else {
+    $peertubeText = "<div class='adminoptionbox error'>" . tr("PeerTube feature disabled") . "</div>";
+    $peertubePlayerList = "<div class='adminoptionbox error'>" . tr("PeerTube feature disabled") . "</div>";
+}
+
 $smarty->assign('kcwText', $kcwText);
 $smarty->assign('kplayerlist', $kplayerlist);
+$smarty->assign('peertubeText', $peertubeText);
+$smarty->assign('peertubePlayerList', $peertubePlayerList);
