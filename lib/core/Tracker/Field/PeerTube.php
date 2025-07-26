@@ -4,12 +4,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-/**
- * Handler class for PeerTube video integration
- *
- * Letter key: ~peertube~
- *
- */
 
 namespace Tiki\Tracker\Field;
 
