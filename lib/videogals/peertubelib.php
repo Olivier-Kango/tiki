@@ -1,5 +1,10 @@
 <?php
 
+// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
+//
+// All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Videogals;
 class PeerTubeLib
 {
     private $sessionType;
@@ -25,7 +30,7 @@ class PeerTubeLib
         global $prefs, $user;
         $session = "peertube_session_{$this->sessionType}_$user";
 
-        if (isset($_SESSION[$session]) && $_SESSION[$session]['expiry'] > TikiLib::lib('tiki')->now) {
+        if (isset($_SESSION[$session]) && $_SESSION[$session]['expiry'] > \TikiLib::lib('tiki')->now) {
             return $_SESSION[$session]['token'];
         }
 
@@ -43,12 +48,12 @@ class PeerTubeLib
         $token = json_decode($response, true);
 
         if (! isset($token['access_token']) || ! isset($token['expires_in'])) {
-            throw new Exception('Invalid token response from PeerTube');
+            throw new \Exception('Invalid token response from PeerTube');
         }
 
         $_SESSION[$session] = [
             'token' => $token['access_token'],
-            'expiry' => TikiLib::lib('tiki')->now + $token['expires_in'],
+            'expiry' => \TikiLib::lib('tiki')->now + $token['expires_in'],
         ];
 
         return $token['access_token'];
@@ -84,7 +89,7 @@ class PeerTubeLib
         if (curl_errno($ch)) {
             $error = curl_error($ch);
             curl_close($ch);
-            throw new Exception("cURL error: $error");
+            throw new \Exception("cURL error: $error");
         }
 
         $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
@@ -99,7 +104,7 @@ class PeerTubeLib
         curl_close($ch);
 
         if ($http_code >= 400) {
-            throw new Exception("HTTP error $http_code: $body");
+            throw new \Exception("HTTP error $http_code: $body");
         }
 
         return $body;
@@ -117,7 +122,7 @@ class PeerTubeLib
             'description' => $metadata['description'],
         ];
 
-        $cfile = new CURLFile($file['tmp_name'], $file['type'], $file['name']);
+        $cfile = new \CURLFile($file['tmp_name'], $file['type'], $file['name']);
         $data['videofile'] = $cfile;
 
         return json_decode($this->makeRequest('POST', $url, $data), true);
@@ -175,7 +180,7 @@ class PeerTubeLib
             $response = $this->makeRequest('GET', '/api/v1/config');
             $data = json_decode($response, true);
             return isset($data['instance']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }

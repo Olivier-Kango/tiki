@@ -1,14 +1,17 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-class Services_PeerTube_Controller
+namespace Services\PeerTube;
+
+class ServicesPeerTubeController
 {
     public function setUp()
     {
-        Services_Exception_Disabled::check('feature_peertube');
+        \Services_Exception_Disabled::check('feature_peertube');
     }
 
     /**
@@ -24,11 +27,11 @@ class Services_PeerTube_Controller
      * @throws Exception
      * @throws Services_Exception_Denied
      */
-    public function action_list($input)
+    public function actionList($input)
     {
-        $perms = Perms::get();
+        $perms = \Perms::get();
         if (! $perms->list_peertube) {
-            throw new Services_Exception_Denied('Not allowed to list videos');
+            throw new \Services_Exception_Denied('Not allowed to list videos');
         }
 
         $sort_mode = $input->sort_mode->word() ?: 'desc_createdAt';
@@ -37,7 +40,7 @@ class Services_PeerTube_Controller
         $offset = max(0, $input->offset->int());
         $page = ($offset / $page_size) + 1;
 
-        $peertubelib = TikiLib::lib('peertubeuser');
+        $peertubelib = \TikiLib::lib('peertubeuser');
         $videoList = $peertubelib->listVideos($sort_mode, $page, $page_size, $find);
 
         $out = [

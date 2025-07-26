@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -10,10 +11,11 @@
  *
  */
 
+namespace Tiki\Tracker\Field;
+
 use Tracker\Field\AbstractItemField;
 use Tracker\Field\SynchronizableInterface;
-
-class Tracker_Field_PeerTube extends AbstractItemField implements SynchronizableInterface
+class TrackerFieldPeerTube extends AbstractItemField implements SynchronizableInterface
 {
     public static function getManagedTypesInfo(): array
     {

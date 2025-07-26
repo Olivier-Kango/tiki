@@ -98,7 +98,7 @@ try {
                 unset($video);
             }
             $smarty->assign('klist', $videolist->data);
-    $smarty->assign('count', $videolist->total ?? count($videolist->data));
+            $smarty->assign('count', $videolist->total ?? count($videolist->data));
         } else {
             $smarty->assign('klist', []);
             $smarty->assign('count', 0);
