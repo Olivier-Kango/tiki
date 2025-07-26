@@ -3,7 +3,7 @@ INSERT INTO `tiki_preferences` (`name`, `value`) VALUES ('feature_peertube', 'n'
 ON DUPLICATE KEY UPDATE `value` = 'n';
 
 -- Permissions
-INSERT INTO `users_permissions` (`permName`, `level`) VALUES
+INSERT IGNORE INTO `users_permissions` (`permName`, `level`) VALUES
 ('tiki_p_admin_peertube', 'admin'),
 ('tiki_p_upload_peertube', 'registered'),
 ('tiki_p_edit_peertube', 'registered'),
