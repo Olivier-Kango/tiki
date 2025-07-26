@@ -61,7 +61,7 @@ class PeerTubeLib
         return $token['access_token'];
     }
 
-    private function makeRequest($method, $url, $data = [], $auth = true, $rawBody = false)
+private function makeRequest($method, $url, $data = [], $auth = true, $rawBody = false)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -70,15 +70,21 @@ class PeerTubeLib
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
 
-        $headers = ['Accept: application/json', 'Content-Type: application/x-www-form-urlencoded'];
-        if ($auth) {
-            $headers[] = 'Authorization: Bearer ' . $this->getAccessToken();
+        if ($method === 'POST' && is_array($data) && isset($data['videofile'])) {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            $headers = ['Accept: application/json'];
+        } else {
+            $headers = ['Accept: application/json', 'Content-Type: application/x-www-form-urlencoded'];
+            if ($method === 'POST') {
+                curl_setopt($ch, CURLOPT_POST, true);
+                $postFields = $rawBody ? $data : http_build_query($data);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+            }
         }
 
-        if ($method === 'POST') {
-            curl_setopt($ch, CURLOPT_POST, true);
-            $postFields = $rawBody ? $data : http_build_query($data);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+        if ($auth) {
+            $headers[] = 'Authorization: Bearer ' . $this->getAccessToken();
         }
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -119,13 +125,15 @@ class PeerTubeLib
         $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/videos/upload';
 
         $data = [
-            'channelId' => $prefs['peertube_channel_id'],
+            'channelId' => $metadata['channelId'] ?? $prefs['peertube_channel_id'],
             'name' => $metadata['name'],
             'description' => $metadata['description'],
+            'videofile' => $file['videofile'],
         ];
 
-        $cfile = new \CURLFile($file['tmp_name'], $file['type'], $file['name']);
-        $data['videofile'] = $cfile;
+        if (isset($metadata['categories'])) {
+            $data['category'] = $metadata['categories'];
+        }
 
         return json_decode($this->makeRequest('POST', $url, $data), true);
     }
