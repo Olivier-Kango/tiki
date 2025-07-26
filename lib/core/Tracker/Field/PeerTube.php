@@ -111,3 +111,5 @@ class TrackerFieldPeerTube extends AbstractItemField implements SynchronizableIn
         return $info;
     }
 }
+
+class_alias(TrackerFieldPeerTube::class, 'Tracker_Field_PeerTube');
