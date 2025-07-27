@@ -1,12 +1,5 @@
 {
     "PSR1.Classes.ClassDeclaration.MissingNamespace": {
-        "tiki-print_indexed.php": {
-            "class:ObjectList": true,
-            "class:ObjectRenderer": true,
-            "class:ObjectRenderer_TrackerItem": true,
-            "class:ObjectRenderer_Wiki": true,
-            "class:ObjectRenderer_MultilingualWiki": true
-        },
         "tiki-check.php": {
             "class:BenchmarkPhp": true
         },
@@ -3672,11 +3665,6 @@
         }
     },
     "Squiz.Classes.ValidClassName.NotCamelCaps": {
-        "tiki-print_indexed.php": {
-            "ObjectRenderer_TrackerItem": true,
-            "ObjectRenderer_Wiki": true,
-            "ObjectRenderer_MultilingualWiki": true
-        },
         "lib\/rating\/formula\/ArticleInfo.php": {
             "Tiki_Formula_Function_ArticleInfo": true
         },
@@ -6346,12 +6334,6 @@
         }
     },
     "PSR1.Classes.ClassDeclaration.MultipleClasses": {
-        "tiki-print_indexed.php": {
-            "class:ObjectRenderer": true,
-            "class:ObjectRenderer_TrackerItem": true,
-            "class:ObjectRenderer_Wiki": true,
-            "class:ObjectRenderer_MultilingualWiki": true
-        },
         "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
             "class:Tiki_Profile_SymbolLoader_Store": true
         },

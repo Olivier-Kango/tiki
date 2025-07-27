@@ -3538,6 +3538,11 @@ lib/notepad/notepadlib.php -text
 lib/notifications/index.php -text
 lib/notifications/notificationemaillib.php -text
 lib/notifications/notificationlib.php -text
+lib/core/Tiki/ObjectRenderer/ObjectList.php -text
+lib/core/Tiki/ObjectRenderer/AbstractObjectRenderer.php -text
+lib/core/Tiki/ObjectRenderer/MultilingualWiki.php -text
+lib/core/Tiki/ObjectRenderer/TrackerItem.php -text
+lib/core/Tiki/ObjectRenderer/Wiki.php -text
 lib/oauthlib.php -text
 lib/objectlib.php -text
 lib/ocrlib.php -text
