@@ -2219,223 +2219,217 @@
         "lib\/test\/Calendar\/DateTest.php": {
             "class:Calendar_DateTest": true
         },
-        "lib\/test\/core\/Transition\/AtLeastTest.php": {
+        "lib\/test\/Core\/Transition\/AtLeastTest.php": {
             "class:Transition_AtLeastTest": true
         },
-        "lib\/test\/core\/Transition\/AtMostTest.php": {
+        "lib\/test\/Core\/Transition\/AtMostTest.php": {
             "class:Transition_AtMostTest": true
         },
-        "lib\/test\/core\/Transition\/BasicTest.php": {
+        "lib\/test\/Core\/Transition\/BasicTest.php": {
             "class:Transition_BasicTest": true
         },
-        "lib\/test\/core\/Category\/ManipulatorTest.php": {
-            "class:CategoryManipulatorTest": true
-        },
-        "lib\/test\/core\/WikiParser\/PluginArgumentParserTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginArgumentParserTest.php": {
             "class:WikiParser_PluginArgumentParserTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginParserTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginParserTest.php": {
             "class:WikiParser_PluginParserTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginRepositoryTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginRepositoryTest.php": {
             "class:WikiParser_PluginRepositoryTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginMatcherTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginMatcherTest.php": {
             "class:WikiParser_PluginMatcherTest": true
         },
-        "lib\/test\/core\/WikiParser\/StressTest.php": {
+        "lib\/test\/Core\/WikiParser\/StressTest.php": {
             "class:WikiParser_StressTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginOutputTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginOutputTest.php": {
             "class:WikiParser_PluginOutputTest": true
         },
-        "lib\/test\/core\/WikiParser\/OutputLinkTest.php": {
+        "lib\/test\/Core\/WikiParser\/OutputLinkTest.php": {
             "class:WikiParser_OutputLinkTest": true
         },
-        "lib\/test\/core\/DeclFilter\/ConfigureTest.php": {
+        "lib\/test\/Core\/DeclFilter\/ConfigureTest.php": {
             "class:DeclFilterConfigureTest": true
         },
-        "lib\/test\/core\/DeclFilter\/BaseTest.php": {
+        "lib\/test\/Core\/DeclFilter\/BaseTest.php": {
             "class:DeclFilterBaseTest": true
         },
-        "lib\/test\/core\/DeclFilter\/StaticKeyUnsetTest.php": {
+        "lib\/test\/Core\/DeclFilter\/StaticKeyUnsetTest.php": {
             "class:DeclFilterStaticKeyUnsetTest": true
         },
-        "lib\/test\/core\/DeclFilter\/KeyPatternFilterTest.php": {
+        "lib\/test\/Core\/DeclFilter\/KeyPatternFilterTest.php": {
             "class:DeclFilterKeyPatternFilterTest": true
         },
-        "lib\/test\/core\/DeclFilter\/CatchAllUnsetTest.php": {
+        "lib\/test\/Core\/DeclFilter\/CatchAllUnsetTest.php": {
             "class:DeclFilterCatchAllUnsetTest": true
         },
-        "lib\/test\/core\/DeclFilter\/CatchAllFilterTest.php": {
+        "lib\/test\/Core\/DeclFilter\/CatchAllFilterTest.php": {
             "class:DeclFilterCatchAllFilterTest": true
         },
-        "lib\/test\/core\/DeclFilter\/StaticKeyFilterTest.php": {
+        "lib\/test\/Core\/DeclFilter\/StaticKeyFilterTest.php": {
             "class:DeclFilterStaticKeyFilterTest": true
         },
-        "lib\/test\/core\/DeclFilter\/KeyPatternUnsetTest.php": {
+        "lib\/test\/Core\/DeclFilter\/KeyPatternUnsetTest.php": {
             "class:DeclFilterKeyPatternUnsetTest": true
         },
-        "lib\/test\/core\/Workspace\/AnalyserTest.php": {
+        "lib\/test\/Core\/Workspace\/AnalyserTest.php": {
             "class:Profile_AnalyserTest": true
         },
-        "lib\/test\/core\/Workspace\/BuilderTest.php": {
+        "lib\/test\/Core\/Workspace\/BuilderTest.php": {
             "class:Profile_BuilderTest": true
         },
-        "lib\/test\/core\/TikiFilter\/WordTest.php": {
+        "lib\/test\/Core\/TikiFilter\/WordTest.php": {
             "class:TikiFilter_WordTest": true
         },
-        "lib\/test\/core\/TikiFilter\/CallbackTest.php": {
+        "lib\/test\/Core\/TikiFilter\/CallbackTest.php": {
             "class:TikiFilter_CallbackTest": true
         },
-        "lib\/test\/core\/TikiFilter\/MapTest.php": {
+        "lib\/test\/Core\/TikiFilter\/MapTest.php": {
             "class:TikiFilter_MapTest": true
         },
-        "lib\/test\/core\/TikiFilter\/PrepareInputTest.php": {
+        "lib\/test\/Core\/TikiFilter\/PrepareInputTest.php": {
             "class:TikiFilter_PrepareInputTest": true
         },
-        "lib\/test\/core\/TikiFilter\/XssTest.php": {
+        "lib\/test\/Core\/TikiFilter\/XssTest.php": {
             "class:TikiFilter_XssTest": true
         },
-        "lib\/test\/core\/Perms\/CheckSequenceTest.php": {
+        "lib\/test\/Core\/Perms\/CheckSequenceTest.php": {
             "class:Perms_CheckSequenceTest": true
         },
-        "lib\/test\/core\/Perms\/BaseTest.php": {
+        "lib\/test\/Core\/Perms\/BaseTest.php": {
             "class:Perms_BaseTest": true
         },
-        "lib\/test\/core\/Perms\/MixedTest.php": {
+        "lib\/test\/Core\/Perms\/MixedTest.php": {
             "class:Perms_MixedTest": true
         },
-        "lib\/test\/core\/Perms\/ApplierTest.php": {
+        "lib\/test\/Core\/Perms\/ApplierTest.php": {
             "class:Perms_ApplierTest": true
         },
-        "lib\/test\/core\/Perms\/AccessorTest.php": {
+        "lib\/test\/Core\/Perms\/AccessorTest.php": {
             "class:Perms_AccessorTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/IndirectTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/IndirectTest.php": {
             "class:Perms_Check_IndirectTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/DirectTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/DirectTest.php": {
             "class:Perms_Check_DirectTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/CreatorTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/CreatorTest.php": {
             "class:Perms_Check_CreatorTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/AlternateTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/AlternateTest.php": {
             "class:Perms_Check_AlternateTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/GlobalFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/GlobalFactoryTest.php": {
             "class:Perms_ResolverFactory_GlobalFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/TestFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/TestFactoryTest.php": {
             "class:Perms_ResolverFactory_TestFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/ObjectFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/ObjectFactoryTest.php": {
             "class:Perms_ResolverFactory_ObjectFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/CategoryFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/CategoryFactoryTest.php": {
             "class:Perms_ResolverFactory_CategoryFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/Resolver\/StaticTest.php": {
+        "lib\/test\/Core\/Perms\/Resolver\/StaticTest.php": {
             "class:Perms_Resolver_StaticTest": true
         },
-        "lib\/test\/core\/Perms\/Resolver\/DefaultTest.php": {
+        "lib\/test\/Core\/Perms\/Resolver\/DefaultTest.php": {
             "class:Perms_Resolver_DefaultTest": true
         },
-        "lib\/test\/core\/Perms\/BuilderTest.php": {
+        "lib\/test\/Core\/Perms\/BuilderTest.php": {
             "class:Perms_BuilderTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/QuickTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/QuickTest.php": {
             "class:Perms_Reflection_QuickTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/PermissionComparatorTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/PermissionComparatorTest.php": {
             "class:Perms_Reflection_PermissionComparatorTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/PermissionSetTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/PermissionSetTest.php": {
             "class:Perms_Reflection_PermissionSetTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/FactoryTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/FactoryTest.php": {
             "class:Perms_Reflection_FactoryTest": true
         },
-        "lib\/test\/core\/TikiSecurityTest.php": {
-            "class:TikiSecurityTest": true
-        },
-        "lib\/test\/core\/Tracker\/OptionsTest.php": {
+        "lib\/test\/Core\/Tracker\/OptionsTest.php": {
             "class:Tracker_OptionsTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/CurrencyTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/CurrencyTest.php": {
             "class:Math_Formula_CurrencyTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/DummyFunction\/Testop.php": {
+        "lib\/test\/Core\/Math\/Formula\/DummyFunction\/Testop.php": {
             "class:Math_Formula_DummyFunction_Testop": true
         },
-        "lib\/test\/core\/Math\/Formula\/DummyFunction\/FortyTwo.php": {
+        "lib\/test\/Core\/Math\/Formula\/DummyFunction\/FortyTwo.php": {
             "class:Math_Formula_DummyFunction_FortyTwo": true
         },
-        "lib\/test\/core\/Math\/Formula\/ParserTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/ParserTest.php": {
             "class:Math_Formula_ParserTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/ElementTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/ElementTest.php": {
             "class:Math_Formula_ElementTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/TokenizerTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/TokenizerTest.php": {
             "class:Math_Formula_TokenizerTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/RunnerTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/RunnerTest.php": {
             "class:Math_Formula_RunnerTest": true
         },
-        "lib\/test\/core\/Search\/IndexerTest.php": {
+        "lib\/test\/Core\/Search\/IndexerTest.php": {
             "class:Search_IndexerTest": true
         },
-        "lib\/test\/core\/Search\/GlobalSource\/TitleInitialTest.php": {
+        "lib\/test\/Core\/Search\/GlobalSource\/TitleInitialTest.php": {
             "class:Search_GlobalSource_TitleInitialTest": true
         },
-        "lib\/test\/core\/Search\/GlobalSource\/PermissionSourceTest.php": {
+        "lib\/test\/Core\/Search\/GlobalSource\/PermissionSourceTest.php": {
             "class:Search_GlobalSource_PermissionSourceTest": true
         },
-        "lib\/test\/core\/Search\/QueryTest.php": {
+        "lib\/test\/Core\/Search\/QueryTest.php": {
             "class:Search_QueryTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/BulkIndexingTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/BulkIndexingTest.php": {
             "class:Search_Elastic_BulkIndexingTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FacetReaderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FacetReaderTest.php": {
             "class:Search_Elastic_FacetReaderTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FederatedQueryTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FederatedQueryTest.php": {
             "class:Search_Elastic_FederatedQueryTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/BulkIncrementalUpdateTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/BulkIncrementalUpdateTest.php": {
             "class:Search_Elastic_BulkIncrementalUpdateTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/BaseTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/BaseTest.php": {
             "class:Search_Elastic_BaseTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/NumericTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/NumericTest.php": {
             "class:Search_Elastic_NumericTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/IncrementalUpdateTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/IncrementalUpdateTest.php": {
             "class:Search_Elastic_IncrementalUpdateTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/ProtocolTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/ProtocolTest.php": {
             "class:Search_Elastic_ProtocolTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/CamelCaseTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/CamelCaseTest.php": {
             "class:Search_Elastic_CamelCaseTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/PaginationTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/PaginationTest.php": {
             "class:Search_Elastic_PaginationTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/SortTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/SortTest.php": {
             "class:Search_Elastic_SortTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/SearchElasticPartialUpdateTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/SearchElasticPartialUpdateTest.php": {
             "class:SearchElasticPartialUpdateTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/QueryBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/QueryBuilderTest.php": {
             "class:Search_Elastic_QueryBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/PrefilterTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/PrefilterTest.php": {
             "class:Search_Elastic_PrefilterTest": true
         },
         "lib\/core\/Search\/ResultSet\/FacetFilter.php": {
@@ -2450,209 +2444,178 @@
         "lib\/core\/Search\/ResultSet\/WikiBuilder.php": {
             "class:Search_ResultSet_WikiBuilder": true
         },
-        "lib\/test\/core\/Search\/Elastic\/SearchElasticQueryRepository.php": {
+        "lib\/test\/Core\/Search\/Elastic\/SearchElasticQueryRepository.php": {
             "class:SearchElasticQueryRepository": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FacetTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FacetTest.php": {
             "class:Search_Elastic_FacetTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/RescoreQueryBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/RescoreQueryBuilderTest.php": {
             "class:Search_Elastic_RescoreQueryBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/StemmingTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/StemmingTest.php": {
             "class:Search_Elastic_StemmingTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/TypeAnalyzerTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/TypeAnalyzerTest.php": {
             "class:Search_Elastic_TypeAnalyzerTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FacetBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FacetBuilderTest.php": {
             "class:Search_Elastic_FacetBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Expr\/ParserTest.php": {
+        "lib\/test\/Core\/Search\/Expr\/ParserTest.php": {
             "class:Search_Expr_ParserTest": true
         },
-        "lib\/test\/core\/Search\/Expr\/TokenizerTest.php": {
+        "lib\/test\/Core\/Search\/Expr\/TokenizerTest.php": {
             "class:Search_Expr_TokenizerTest": true
         },
-        "lib\/test\/core\/Search\/ActionStepTest.php": {
+        "lib\/test\/Core\/Search\/ActionStepTest.php": {
             "class:Search_ActionStepTest": true
         },
-        "lib\/test\/core\/Search\/Formatter\/ArrayBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Formatter\/ArrayBuilderTest.php": {
             "class:Search_Formatter_ArrayBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Formatter\/DataSourceTest.php": {
+        "lib\/test\/Core\/Search\/Formatter\/DataSourceTest.php": {
             "class:Search_Formatter_DataSourceTest": true
         },
-        "lib\/test\/core\/Search\/Formatter\/FactoryTest.php": {
+        "lib\/test\/Core\/Search\/Formatter\/FactoryTest.php": {
             "class:Search_Formatter_FactoryTest": true
         },
-        "lib\/test\/core\/Search\/Type\/WikiTextTest.php": {
+        "lib\/test\/Core\/Search\/Type\/WikiTextTest.php": {
             "class:Search_Type_WikiTextTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/BaseTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/BaseTest.php": {
             "class:Search_MySql_BaseTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/IncrementalUpdateTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/IncrementalUpdateTest.php": {
             "class:Search_MySql_IncrementalUpdateTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/LargeDatasetTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/LargeDatasetTest.php": {
             "class:Search_MySql_LargeDatasetTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/SearchMySqlPartialUpdateTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/SearchMySqlPartialUpdateTest.php": {
             "class:SearchMySqlPartialUpdateTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/PaginationTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/PaginationTest.php": {
             "class:Search_MySql_PaginationTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/SortTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/SortTest.php": {
             "class:Search_MySql_SortTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/QueryBuilderTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/QueryBuilderTest.php": {
             "class:Search_MySql_QueryBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexPagination.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexPagination.php": {
             "class:SearchIndexPagination": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexPartialUpdate.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexPartialUpdate.php": {
             "class:SearchIndexPartialUpdate": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexStemming.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexStemming.php": {
             "class:SearchIndexStemming": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexIncrementalUpdate.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexIncrementalUpdate.php": {
             "class:SearchIndexIncrementalUpdate": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexTypeAnalyzer.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexTypeAnalyzer.php": {
             "class:SearchIndexTypeAnalyzer": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexSort.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexSort.php": {
             "class:SearchIndexSort": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexBase.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexBase.php": {
             "class:SearchIndexBase": true
         },
-        "lib\/test\/core\/Search\/Index\/SearchIndexNumeric.php": {
+        "lib\/test\/Core\/Search\/Index\/SearchIndexNumeric.php": {
             "class:SearchIndexNumeric": true
         },
-        "lib\/test\/core\/Search\/Query\/OrderTest.php": {
+        "lib\/test\/Core\/Search\/Query\/OrderTest.php": {
             "class:Search_Query_OrderTest": true
         },
-        "lib\/test\/core\/Search\/TypeAnalyzerTest.php": {
+        "lib\/test\/Core\/Search\/TypeAnalyzerTest.php": {
             "class:Search_TypeAnalyzerTest": true
         },
-        "lib\/test\/core\/Search\/FormatterTest.php": {
-            "class:Search_FormatterTest": true,
-            "class:Search_FormatterTest_HighlightHelper": true
-        },
-        "lib\/test\/core\/Multilingual\/MachineTranslation\/GoogleTranslateWrapperTest.php": {
-            "class:Multilingual_MachineTranslation_GoogleTranslateWrapperTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/SentenceSegmentorTest.php": {
-            "class:Multilingual_Aligner_SentenceSegmentorTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/UpdatePagesTest.php": {
-            "class:Multilingual_Aligner_UpdatePagesTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/ShortestPathFinderTest.php": {
-            "class:Multilingual_Aligner_ShortestPathFinderTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/BilingualAlignerTest.php": {
-            "class:Multilingual_Aligner_BilingualAlignerTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/SentenceAlignmentsTest.php": {
-            "class:Multilingual_Aligner_SentenceAlignmentsTest": true
-        },
-        "lib\/test\/core\/Tiki\/ProfileTest.php": {
+        "lib\/test\/Core\/Tiki\/ProfileTest.php": {
             "class:ProfileTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/FileDraftTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/FileDraftTest.php": {
             "class:Tiki_FileGallery_FileDraftTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/FileTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/FileTest.php": {
             "class:Tiki_FileGallery_FileTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/DefinitionTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/DefinitionTest.php": {
             "class:Tiki_FileGallery_DefinitionTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/SaveHandlerTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/SaveHandlerTest.php": {
             "class:Tiki_FileGallery_Manipulator_SaveHandlerTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/Manipulator\/ImageTransformerTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/Manipulator\/ImageTransformerTest.php": {
             "class:Tiki_FileGallery_Manipulator_ImageTransformerTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/Manipulator\/ValidatorTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/Manipulator\/ValidatorTest.php": {
             "class:Tiki_FileGallery_Manipulator_ValidatorTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/Manipulator\/MetadataExtractorTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/Manipulator\/MetadataExtractorTest.php": {
             "class:Tiki_FileGallery_Manipulator_MetadataExtractorTest": true
         },
-        "lib\/test\/core\/Tiki\/Command\/ListExecute\/ExecuteTest.php": {
+        "lib\/test\/Core\/Tiki\/Command\/ListExecute\/ExecuteTest.php": {
             "class:Tiki_Command_ListExecute_ExecuteTest": true
         },
-        "lib\/test\/core\/Tiki\/Command\/UsersPasswordCommand\/UsersPasswordCommandTest.php": {
+        "lib\/test\/Core\/Tiki\/Command\/UsersPasswordCommand\/UsersPasswordCommandTest.php": {
             "class:UsersPasswordCommandTest": true
         },
-        "lib\/test\/core\/Tiki\/Command\/ProfileExport\/TrackerItemTest.php": {
+        "lib\/test\/Core\/Tiki\/Command\/ProfileExport\/TrackerItemTest.php": {
             "class:Tiki_Command_ProfileExport_TrackerItemTest": true
         },
-        "lib\/test\/core\/Tiki\/Package\/ComposerManagerTest.php": {
+        "lib\/test\/Core\/Tiki\/Package\/ComposerManagerTest.php": {
             "class:Tiki_Package_ComposerManagerTest": true
         },
-        "lib\/test\/core\/Tiki\/Package\/ComposerCliTest.php": {
+        "lib\/test\/Core\/Tiki\/Package\/ComposerCliTest.php": {
             "class:Tiki_Package_ComposerCliTest": true
         },
-        "lib\/test\/core\/JitFilter\/FilterTest.php": {
+        "lib\/test\/Core\/JitFilter\/FilterTest.php": {
             "class:JitFilterFilterTest": true
         },
-        "lib\/test\/core\/JitFilter\/AccessTest.php": {
+        "lib\/test\/Core\/JitFilter\/AccessTest.php": {
             "class:JitFilterAccessTest": true
         },
-        "lib\/test\/core\/JitFilter\/IteratorTest.php": {
+        "lib\/test\/Core\/JitFilter\/IteratorTest.php": {
             "class:JitFilterIteratorTest": true
         },
-        "lib\/test\/core\/Request\/RequestTest.php": {
+        "lib\/test\/Core\/Request\/RequestTest.php": {
             "class:RequestTest": true
         },
-        "lib\/test\/core\/TikiDb\/TableTest.php": {
+        "lib\/test\/Core\/TikiDb\/TableTest.php": {
             "class:TikiDb_TableTest": true
         },
-        "lib\/test\/core\/Connect\/ClientTest.php": {
-            "class:ConnectClientTest": true
-        },
-        "lib\/test\/core\/Event\/ManagerTest.php": {
-            "class:TikiEventManagerTest": true
-        },
-        "lib\/test\/core\/Event\/CustomizerTest.php": {
-            "class:TikiEventCustomizerTest": true
-        },
-        "lib\/test\/core\/Services\/Encryption\/ControllerTest.php": {
+        "lib\/test\/Core\/Services\/Encryption\/ControllerTest.php": {
             "class:Services_Encryption_ControllerTest": true
         },
-        "lib\/test\/core\/Services\/Comment\/ControllerTest.php": {
+        "lib\/test\/Core\/Services\/Comment\/ControllerTest.php": {
             "class:Services_Comment_ControllerTest": true
         },
-        "lib\/test\/core\/Services\/ResultLoaderTest.php": {
+        "lib\/test\/Core\/Services\/ResultLoaderTest.php": {
             "class:Services_ResultLoaderTest": true
         },
-        "lib\/test\/core\/Reports\/ManagerTest.php": {
+        "lib\/test\/Core\/Reports\/ManagerTest.php": {
             "class:Reports_ManagerTest": true
         },
-        "lib\/test\/core\/Reports\/CacheTest.php": {
+        "lib\/test\/Core\/Reports\/CacheTest.php": {
             "class:Reports_CacheTest": true
         },
-        "lib\/test\/core\/Reports\/UsersTest.php": {
+        "lib\/test\/Core\/Reports\/UsersTest.php": {
             "class:Reports_UsersTest": true
         },
-        "lib\/test\/core\/Reports\/ReportsEndToEndTest.php": {
+        "lib\/test\/Core\/Reports\/ReportsEndToEndTest.php": {
             "class:Reports_EndToEndTest": true
         },
-        "lib\/test\/core\/Reports\/SendTest.php": {
+        "lib\/test\/Core\/Reports\/SendTest.php": {
             "class:Reports_SendTest": true
         },
-        "lib\/test\/core\/Reports\/FactoryTest.php": {
+        "lib\/test\/Core\/Reports\/FactoryTest.php": {
             "class:Reports_FactoryTest": true
         },
-        "lib\/test\/core\/Reports\/Send\/EmailBuilderTest.php": {
+        "lib\/test\/Core\/Reports\/Send\/EmailBuilderTest.php": {
             "class:Reports_Send_EmailBuilderTest": true
         },
         "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
@@ -5788,341 +5751,319 @@
         "lib\/test\/Calendar\/DateTest.php": {
             "Calendar_DateTest": true
         },
-        "lib\/test\/core\/Transition\/AtLeastTest.php": {
+        "lib\/test\/Core\/Transition\/AtLeastTest.php": {
             "Transition_AtLeastTest": true
         },
-        "lib\/test\/core\/Transition\/AtMostTest.php": {
+        "lib\/test\/Core\/Transition\/AtMostTest.php": {
             "Transition_AtMostTest": true
         },
-        "lib\/test\/core\/Transition\/BasicTest.php": {
+        "lib\/test\/Core\/Transition\/BasicTest.php": {
             "Transition_BasicTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginArgumentParserTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginArgumentParserTest.php": {
             "WikiParser_PluginArgumentParserTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginParserTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginParserTest.php": {
             "WikiParser_PluginParserTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginRepositoryTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginRepositoryTest.php": {
             "WikiParser_PluginRepositoryTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginMatcherTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginMatcherTest.php": {
             "WikiParser_PluginMatcherTest": true
         },
-        "lib\/test\/core\/WikiParser\/StressTest.php": {
+        "lib\/test\/Core\/WikiParser\/StressTest.php": {
             "WikiParser_StressTest": true
         },
-        "lib\/test\/core\/WikiParser\/PluginOutputTest.php": {
+        "lib\/test\/Core\/WikiParser\/PluginOutputTest.php": {
             "WikiParser_PluginOutputTest": true
         },
-        "lib\/test\/core\/WikiParser\/OutputLinkTest.php": {
+        "lib\/test\/Core\/WikiParser\/OutputLinkTest.php": {
             "WikiParser_OutputLinkTest": true
         },
-        "lib\/test\/core\/Workspace\/AnalyserTest.php": {
+        "lib\/test\/Core\/Workspace\/AnalyserTest.php": {
             "Profile_AnalyserTest": true
         },
-        "lib\/test\/core\/Workspace\/BuilderTest.php": {
+        "lib\/test\/Core\/Workspace\/BuilderTest.php": {
             "Profile_BuilderTest": true
         },
-        "lib\/test\/core\/TikiFilter\/WordTest.php": {
+        "lib\/test\/Core\/TikiFilter\/WordTest.php": {
             "TikiFilter_WordTest": true
         },
-        "lib\/test\/core\/TikiFilter\/CallbackTest.php": {
+        "lib\/test\/Core\/TikiFilter\/CallbackTest.php": {
             "TikiFilter_CallbackTest": true
         },
-        "lib\/test\/core\/TikiFilter\/MapTest.php": {
+        "lib\/test\/Core\/TikiFilter\/MapTest.php": {
             "TikiFilter_MapTest": true
         },
-        "lib\/test\/core\/TikiFilter\/PrepareInputTest.php": {
+        "lib\/test\/Core\/TikiFilter\/PrepareInputTest.php": {
             "TikiFilter_PrepareInputTest": true
         },
-        "lib\/test\/core\/TikiFilter\/XssTest.php": {
+        "lib\/test\/Core\/TikiFilter\/XssTest.php": {
             "TikiFilter_XssTest": true
         },
-        "lib\/test\/core\/Perms\/CheckSequenceTest.php": {
+        "lib\/test\/Core\/Perms\/CheckSequenceTest.php": {
             "Perms_CheckSequenceTest": true
         },
-        "lib\/test\/core\/Perms\/BaseTest.php": {
+        "lib\/test\/Core\/Perms\/BaseTest.php": {
             "Perms_BaseTest": true
         },
-        "lib\/test\/core\/Perms\/MixedTest.php": {
+        "lib\/test\/Core\/Perms\/MixedTest.php": {
             "Perms_MixedTest": true
         },
-        "lib\/test\/core\/Perms\/ApplierTest.php": {
+        "lib\/test\/Core\/Perms\/ApplierTest.php": {
             "Perms_ApplierTest": true
         },
-        "lib\/test\/core\/Perms\/AccessorTest.php": {
+        "lib\/test\/Core\/Perms\/AccessorTest.php": {
             "Perms_AccessorTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/IndirectTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/IndirectTest.php": {
             "Perms_Check_IndirectTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/DirectTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/DirectTest.php": {
             "Perms_Check_DirectTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/CreatorTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/CreatorTest.php": {
             "Perms_Check_CreatorTest": true
         },
-        "lib\/test\/core\/Perms\/Check\/AlternateTest.php": {
+        "lib\/test\/Core\/Perms\/Check\/AlternateTest.php": {
             "Perms_Check_AlternateTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/GlobalFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/GlobalFactoryTest.php": {
             "Perms_ResolverFactory_GlobalFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/TestFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/TestFactoryTest.php": {
             "Perms_ResolverFactory_TestFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/ObjectFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/ObjectFactoryTest.php": {
             "Perms_ResolverFactory_ObjectFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/ResolverFactory\/CategoryFactoryTest.php": {
+        "lib\/test\/Core\/Perms\/ResolverFactory\/CategoryFactoryTest.php": {
             "Perms_ResolverFactory_CategoryFactoryTest": true
         },
-        "lib\/test\/core\/Perms\/Resolver\/StaticTest.php": {
+        "lib\/test\/Core\/Perms\/Resolver\/StaticTest.php": {
             "Perms_Resolver_StaticTest": true
         },
-        "lib\/test\/core\/Perms\/Resolver\/DefaultTest.php": {
+        "lib\/test\/Core\/Perms\/Resolver\/DefaultTest.php": {
             "Perms_Resolver_DefaultTest": true
         },
-        "lib\/test\/core\/Perms\/BuilderTest.php": {
+        "lib\/test\/Core\/Perms\/BuilderTest.php": {
             "Perms_BuilderTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/QuickTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/QuickTest.php": {
             "Perms_Reflection_QuickTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/PermissionComparatorTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/PermissionComparatorTest.php": {
             "Perms_Reflection_PermissionComparatorTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/PermissionSetTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/PermissionSetTest.php": {
             "Perms_Reflection_PermissionSetTest": true
         },
-        "lib\/test\/core\/Perms\/Reflection\/FactoryTest.php": {
+        "lib\/test\/Core\/Perms\/Reflection\/FactoryTest.php": {
             "Perms_Reflection_FactoryTest": true
         },
-        "lib\/test\/core\/Tracker\/OptionsTest.php": {
+        "lib\/test\/Core\/Tracker\/OptionsTest.php": {
             "Tracker_OptionsTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/CurrencyTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/CurrencyTest.php": {
             "Math_Formula_CurrencyTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/DummyFunction\/Testop.php": {
+        "lib\/test\/Core\/Math\/Formula\/DummyFunction\/Testop.php": {
             "Math_Formula_DummyFunction_Testop": true
         },
-        "lib\/test\/core\/Math\/Formula\/DummyFunction\/FortyTwo.php": {
+        "lib\/test\/Core\/Math\/Formula\/DummyFunction\/FortyTwo.php": {
             "Math_Formula_DummyFunction_FortyTwo": true
         },
-        "lib\/test\/core\/Math\/Formula\/ParserTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/ParserTest.php": {
             "Math_Formula_ParserTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/ElementTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/ElementTest.php": {
             "Math_Formula_ElementTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/TokenizerTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/TokenizerTest.php": {
             "Math_Formula_TokenizerTest": true
         },
-        "lib\/test\/core\/Math\/Formula\/RunnerTest.php": {
+        "lib\/test\/Core\/Math\/Formula\/RunnerTest.php": {
             "Math_Formula_RunnerTest": true
         },
-        "lib\/test\/core\/Search\/IndexerTest.php": {
+        "lib\/test\/Core\/Search\/IndexerTest.php": {
             "Search_IndexerTest": true
         },
-        "lib\/test\/core\/Search\/GlobalSource\/TitleInitialTest.php": {
+        "lib\/test\/Core\/Search\/GlobalSource\/TitleInitialTest.php": {
             "Search_GlobalSource_TitleInitialTest": true
         },
-        "lib\/test\/core\/Search\/GlobalSource\/PermissionSourceTest.php": {
+        "lib\/test\/Core\/Search\/GlobalSource\/PermissionSourceTest.php": {
             "Search_GlobalSource_PermissionSourceTest": true
         },
-        "lib\/test\/core\/Search\/QueryTest.php": {
+        "lib\/test\/Core\/Search\/QueryTest.php": {
             "Search_QueryTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/BulkIndexingTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/BulkIndexingTest.php": {
             "Search_Elastic_BulkIndexingTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FacetReaderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FacetReaderTest.php": {
             "Search_Elastic_FacetReaderTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FederatedQueryTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FederatedQueryTest.php": {
             "Search_Elastic_FederatedQueryTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/BulkIncrementalUpdateTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/BulkIncrementalUpdateTest.php": {
             "Search_Elastic_BulkIncrementalUpdateTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/BaseTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/BaseTest.php": {
             "Search_Elastic_BaseTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/NumericTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/NumericTest.php": {
             "Search_Elastic_NumericTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/IncrementalUpdateTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/IncrementalUpdateTest.php": {
             "Search_Elastic_IncrementalUpdateTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/ProtocolTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/ProtocolTest.php": {
             "Search_Elastic_ProtocolTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/CamelCaseTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/CamelCaseTest.php": {
             "Search_Elastic_CamelCaseTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/PaginationTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/PaginationTest.php": {
             "Search_Elastic_PaginationTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/SortTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/SortTest.php": {
             "Search_Elastic_SortTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/QueryBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/QueryBuilderTest.php": {
             "Search_Elastic_QueryBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/PrefilterTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/PrefilterTest.php": {
             "Search_Elastic_PrefilterTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FacetTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FacetTest.php": {
             "Search_Elastic_FacetTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/RescoreQueryBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/RescoreQueryBuilderTest.php": {
             "Search_Elastic_RescoreQueryBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/MoreLikeThisTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/MoreLikeThisTest.php": {
             "Search_Elastic_MoreLikeThisTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/StemmingTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/StemmingTest.php": {
             "Search_Elastic_StemmingTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/TypeAnalyzerTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/TypeAnalyzerTest.php": {
             "Search_Elastic_TypeAnalyzerTest": true
         },
-        "lib\/test\/core\/Search\/Elastic\/FacetBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Elastic\/FacetBuilderTest.php": {
             "Search_Elastic_FacetBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Expr\/ParserTest.php": {
+        "lib\/test\/Core\/Search\/Expr\/ParserTest.php": {
             "Search_Expr_ParserTest": true
         },
-        "lib\/test\/core\/Search\/Expr\/TokenizerTest.php": {
+        "lib\/test\/Core\/Search\/Expr\/TokenizerTest.php": {
             "Search_Expr_TokenizerTest": true
         },
-        "lib\/test\/core\/Search\/ActionStepTest.php": {
+        "lib\/test\/Core\/Search\/ActionStepTest.php": {
             "Search_ActionStepTest": true
         },
-        "lib\/test\/core\/Search\/Formatter\/ArrayBuilderTest.php": {
+        "lib\/test\/Core\/Search\/Formatter\/ArrayBuilderTest.php": {
             "Search_Formatter_ArrayBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Formatter\/DataSourceTest.php": {
+        "lib\/test\/Core\/Search\/Formatter\/DataSourceTest.php": {
             "Search_Formatter_DataSourceTest": true
         },
-        "lib\/test\/core\/Search\/Formatter\/FactoryTest.php": {
+        "lib\/test\/Core\/Search\/Formatter\/FactoryTest.php": {
             "Search_Formatter_FactoryTest": true
         },
-        "lib\/test\/core\/Search\/Type\/WikiTextTest.php": {
+        "lib\/test\/Core\/Search\/Type\/WikiTextTest.php": {
             "Search_Type_WikiTextTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/BaseTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/BaseTest.php": {
             "Search_MySql_BaseTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/IncrementalUpdateTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/IncrementalUpdateTest.php": {
             "Search_MySql_IncrementalUpdateTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/LargeDatasetTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/LargeDatasetTest.php": {
             "Search_MySql_LargeDatasetTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/PaginationTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/PaginationTest.php": {
             "Search_MySql_PaginationTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/SortTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/SortTest.php": {
             "Search_MySql_SortTest": true
         },
-        "lib\/test\/core\/Search\/MySql\/QueryBuilderTest.php": {
+        "lib\/test\/Core\/Search\/MySql\/QueryBuilderTest.php": {
             "Search_MySql_QueryBuilderTest": true
         },
-        "lib\/test\/core\/Search\/Query\/OrderTest.php": {
+        "lib\/test\/Core\/Search\/Query\/OrderTest.php": {
             "Search_Query_OrderTest": true
         },
-        "lib\/test\/core\/Search\/TypeAnalyzerTest.php": {
+        "lib\/test\/Core\/Search\/TypeAnalyzerTest.php": {
             "Search_TypeAnalyzerTest": true
         },
-        "lib\/test\/core\/Search\/FormatterTest.php": {
-            "Search_FormatterTest": true,
-            "Search_FormatterTest_HighlightHelper": true
-        },
-        "lib\/test\/core\/Multilingual\/MachineTranslation\/GoogleTranslateWrapperTest.php": {
-            "Multilingual_MachineTranslation_GoogleTranslateWrapperTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/SentenceSegmentorTest.php": {
-            "Multilingual_Aligner_SentenceSegmentorTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/UpdatePagesTest.php": {
-            "Multilingual_Aligner_UpdatePagesTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/ShortestPathFinderTest.php": {
-            "Multilingual_Aligner_ShortestPathFinderTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/BilingualAlignerTest.php": {
-            "Multilingual_Aligner_BilingualAlignerTest": true
-        },
-        "lib\/test\/core\/Multilingual\/Aligner\/SentenceAlignmentsTest.php": {
-            "Multilingual_Aligner_SentenceAlignmentsTest": true
-        },
-        "lib\/test\/core\/Tiki\/FileGallery\/FileDraftTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/FileDraftTest.php": {
             "Tiki_FileGallery_FileDraftTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/FileTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/FileTest.php": {
             "Tiki_FileGallery_FileTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/DefinitionTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/DefinitionTest.php": {
             "Tiki_FileGallery_DefinitionTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/SaveHandlerTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/SaveHandlerTest.php": {
             "Tiki_FileGallery_Manipulator_SaveHandlerTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/Manipulator\/ImageTransformerTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/Manipulator\/ImageTransformerTest.php": {
             "Tiki_FileGallery_Manipulator_ImageTransformerTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/Manipulator\/ValidatorTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/Manipulator\/ValidatorTest.php": {
             "Tiki_FileGallery_Manipulator_ValidatorTest": true
         },
-        "lib\/test\/core\/Tiki\/FileGallery\/Manipulator\/MetadataExtractorTest.php": {
+        "lib\/test\/Core\/Tiki\/FileGallery\/Manipulator\/MetadataExtractorTest.php": {
             "Tiki_FileGallery_Manipulator_MetadataExtractorTest": true
         },
-        "lib\/test\/core\/Tiki\/Command\/ListExecute\/ExecuteTest.php": {
+        "lib\/test\/Core\/Tiki\/Command\/ListExecute\/ExecuteTest.php": {
             "Tiki_Command_ListExecute_ExecuteTest": true
         },
-        "lib\/test\/core\/Tiki\/Command\/ProfileExport\/TrackerItemTest.php": {
+        "lib\/test\/Core\/Tiki\/Command\/ProfileExport\/TrackerItemTest.php": {
             "Tiki_Command_ProfileExport_TrackerItemTest": true
         },
-        "lib\/test\/core\/Tiki\/Package\/ComposerManagerTest.php": {
+        "lib\/test\/Core\/Tiki\/Package\/ComposerManagerTest.php": {
             "Tiki_Package_ComposerManagerTest": true
         },
-        "lib\/test\/core\/Tiki\/Package\/ComposerCliTest.php": {
+        "lib\/test\/Core\/Tiki\/Package\/ComposerCliTest.php": {
             "Tiki_Package_ComposerCliTest": true
         },
-        "lib\/test\/core\/TikiDb\/TableTest.php": {
+        "lib\/test\/Core\/TikiDb\/TableTest.php": {
             "TikiDb_TableTest": true
         },
-        "lib\/test\/core\/Services\/Encryption\/ControllerTest.php": {
+        "lib\/test\/Core\/Services\/Encryption\/ControllerTest.php": {
             "Services_Encryption_ControllerTest": true
         },
-        "lib\/test\/core\/Services\/Comment\/ControllerTest.php": {
+        "lib\/test\/Core\/Services\/Comment\/ControllerTest.php": {
             "Services_Comment_ControllerTest": true
         },
-        "lib\/test\/core\/Services\/ResultLoaderTest.php": {
+        "lib\/test\/Core\/Services\/ResultLoaderTest.php": {
             "Services_ResultLoaderTest": true
         },
-        "lib\/test\/core\/Reports\/ManagerTest.php": {
+        "lib\/test\/Core\/Reports\/ManagerTest.php": {
             "Reports_ManagerTest": true
         },
-        "lib\/test\/core\/Reports\/CacheTest.php": {
+        "lib\/test\/Core\/Reports\/CacheTest.php": {
             "Reports_CacheTest": true
         },
-        "lib\/test\/core\/Reports\/UsersTest.php": {
+        "lib\/test\/Core\/Reports\/UsersTest.php": {
             "Reports_UsersTest": true
         },
-        "lib\/test\/core\/Reports\/ReportsEndToEndTest.php": {
+        "lib\/test\/Core\/Reports\/ReportsEndToEndTest.php": {
             "Reports_EndToEndTest": true
         },
-        "lib\/test\/core\/Reports\/SendTest.php": {
+        "lib\/test\/Core\/Reports\/SendTest.php": {
             "Reports_SendTest": true
         },
-        "lib\/test\/core\/Reports\/FactoryTest.php": {
+        "lib\/test\/Core\/Reports\/FactoryTest.php": {
             "Reports_FactoryTest": true
         },
-        "lib\/test\/core\/Reports\/Send\/EmailBuilderTest.php": {
+        "lib\/test\/Core\/Reports\/Send\/EmailBuilderTest.php": {
             "Reports_Send_EmailBuilderTest": true
         },
         "lib\/test\/payment\/CartTest.php": {
@@ -6341,9 +6282,6 @@
             "class:CacheLibFileSystem": true,
             "class:CacheLibMemcache": true,
             "class:CacheLibNoCache": true
-        },
-        "lib\/test\/core\/Search\/FormatterTest.php": {
-            "class:Search_FormatterTest_HighlightHelper": true
         },
         "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
             "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
@@ -7712,7 +7650,7 @@
             "OpenPGPLib::get_admin_email_for_armor_block": true,
             "OpenPGPLib::post_message_with_pgparmor_attachment": true
         },
-        "lib\/test\/core\/ObjectSelector\/ObjectSelectorTest.php": {
+        "lib\/test\/Core\/ObjectSelector\/ObjectSelectorTest.php": {
             "ObjectSelectorTest::get_title": true
         },
         "lib\/test\/AcceptanceTests\/ListPagesTest.php": {

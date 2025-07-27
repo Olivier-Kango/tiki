@@ -637,7 +637,7 @@ class SmartyTiki extends Smarty
         $this->addTemplateDir($this->main_template_dir);
 
         //Test templates
-        $this->addTemplateDir(TIKI_PATH . '/lib/test/core/Search/');
+        $this->addTemplateDir(TIKI_PATH . '/lib/test/Core/Search/');
         //var_dump($this->getTemplateDir());
     }
 
