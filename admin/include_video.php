@@ -62,5 +62,3 @@ if ($prefs['feature_peertube'] === 'y') {
 
 $smarty->assign('kcwText', $kcwText);
 $smarty->assign('kplayerlist', $kplayerlist);
-$smarty->assign('peertubeText', $peertubeText);
-$smarty->assign('peertubePlayerList', $peertubePlayerList);

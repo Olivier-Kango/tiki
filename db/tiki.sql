@@ -1766,8 +1766,6 @@ INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `s
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Contribution','tiki-admin_contribution.php',1265,'feature_contribution','tiki_p_admin_contribution','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'s', 'Kaltura Video', 'tiki-list_kaltura_entries.php', 950, 'feature_kaltura', 'tiki_p_admin | tiki_p_admin_kaltura | tiki_p_list_videos', '', 0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o', 'List Media', 'tiki-list_kaltura_entries.php', 952, 'feature_kaltura', 'tiki_p_admin | tiki_p_admin_kaltura | tiki_p_list_videos', '', 0);
-INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`)
-VALUES (42, 's', 'PeerTube Video', 'tiki-list_peertube_entries.php', 960, 'feature_peertube', 'tiki_p_admin | tiki_p_admin_peertube | tiki_p_list_peertube', '', 0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Permissions','tiki-objectpermissions.php',1077,'','tiki_p_admin|tiki_p_admin_objects','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Perspectives','tiki-edit_perspective.php',1081,'feature_perspective','tiki_p_admin','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Social networks','tiki-socialnetworks.php',115,'feature_mytiki,feature_socialnetworks','tiki_p_socialnetworks|tiki_p_admin_socialnetworks','Registered',0);
@@ -3517,7 +3515,6 @@ UPDATE tiki_menu_options SET icon = 'globe' WHERE name = 'Users Map';
 UPDATE tiki_menu_options SET icon = 'telephone' WHERE name = 'Contact Us';
 UPDATE tiki_menu_options SET icon = 'bug' WHERE name = '(debug)';
 UPDATE tiki_menu_options SET icon = 'kaltura' WHERE name = 'Kaltura Video';
-UPDATE tiki_menu_options SET icon = 'video' WHERE name = 'PeerTube Video';
 UPDATE tiki_menu_options SET icon = 'calendar' WHERE name = 'Tiki Calendar';
 UPDATE tiki_menu_options SET icon = 'wizard' WHERE name = 'User Wizard';
 UPDATE tiki_menu_options SET icon = 'key' WHERE name = 'Webauthn';
