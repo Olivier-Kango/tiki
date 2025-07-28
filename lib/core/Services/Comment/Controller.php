@@ -183,7 +183,7 @@ class Services_Comment_Controller
             }
 
             if ($prefs['comments_notitle'] == 'y') {
-                $title = 'Untitled ' . TikiLib::lib('tiki')->get_long_datetime(TikiLib::lib('tikidate')->getTime());
+                $title = 'Untitled';
             }
 
 
