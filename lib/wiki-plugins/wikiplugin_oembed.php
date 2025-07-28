@@ -225,7 +225,7 @@ function wikiplugin_oembed($data, $params)
 
     $embedHtml = '<div style="' . $containerStyle . '">' . $dom->saveHTML($newIframe) . '</div>';
 
-    return '~np~' . $embedHtml . '~/np~';
+    return $embedHtml;
 }
 
 function getOEmbedData($url)

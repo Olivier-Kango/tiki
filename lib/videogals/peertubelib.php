@@ -46,7 +46,7 @@ class PeerTubeLib
             'password' => $prefs['peertube_password'],
         ];
 
-        $response = $this->makeRequest('POST', $url, http_build_query($data, '', '&', PHP_QUERY_RFC3986), false, true);
+        $response = $this->makeRequest('POST', $url, $data, false);
         $token = json_decode($response, true);
 
         if (! isset($token['access_token']) || ! isset($token['expires_in'])) {
@@ -66,16 +66,25 @@ class PeerTubeLib
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
 
+        // Enable verbose logging only in debug mode
+        global $prefs;
+        if (! empty($prefs['debug']) && $prefs['debug'] === 'y') {
+            curl_setopt($ch, CURLOPT_VERBOSE, true);
+            $verbose = fopen('php://temp', 'w+');
+            curl_setopt($ch, CURLOPT_STDERR, $verbose);
+        }
+
+        // Prepare headers
+        $headers = ['Accept: application/json'];
         if ($method === 'POST' && is_array($data) && isset($data['videofile'])) {
+            // Multipart request (e.g., file upload)
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            $headers = ['Accept: application/json'];
         } else {
-            $headers = ['Accept: application/json', 'Content-Type: application/x-www-form-urlencoded'];
+            // Standard POST or other methods
+            $headers[] = 'Content-Type: application/x-www-form-urlencoded';
             if ($method === 'POST') {
                 curl_setopt($ch, CURLOPT_POST, true);
                 $postFields = $rawBody ? $data : http_build_query($data);
@@ -83,39 +92,54 @@ class PeerTubeLib
             }
         }
 
+        // Add authentication header if required
         if ($auth) {
-            $headers[] = 'Authorization: Bearer ' . $this->getAccessToken();
+            try {
+                $token = $this->getAccessToken();
+                if (empty($token)) {
+                    throw new \Exception('Authentication token is empty');
+                }
+                $headers[] = 'Authorization: Bearer ' . $token;
+            } catch (\Exception $e) {
+                error_log("Authentication error: " . $e->getMessage());
+                throw new \Exception('Failed to obtain access token: ' . $e->getMessage());
+            }
         }
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        $verbose = fopen('php://temp', 'w+');
-        curl_setopt($ch, CURLOPT_STDERR, $verbose);
 
         $response = curl_exec($ch);
 
         if (curl_errno($ch)) {
             $error = curl_error($ch);
+            if (isset($verbose)) {
+                rewind($verbose);
+                $verboseLog = stream_get_contents($verbose);
+                fclose($verbose);
+                error_log("cURL verbose log: $verboseLog");
+            }
             curl_close($ch);
             throw new \Exception("cURL error: $error");
         }
 
-        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        $header = substr($response, 0, $header_size);
-        $body = substr($response, $header_size);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        rewind($verbose);
-        $verboseLog = stream_get_contents($verbose);
-        fclose($verbose);
-
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($http_code >= 400) {
-            throw new \Exception("HTTP error $http_code: $body");
+        if (isset($verbose)) {
+            rewind($verbose);
+            $verboseLog = stream_get_contents($verbose);
+            fclose($verbose);
+            if (! empty($verboseLog)) {
+                error_log("cURL verbose log: $verboseLog");
+            }
         }
 
-        return $body;
+        if ($httpCode >= 400) {
+            error_log("HTTP error $httpCode: $response");
+            throw new \Exception("HTTP error $httpCode");
+        }
+
+        return $response;
     }
 
     public function uploadVideo($file, $metadata)
@@ -125,14 +149,21 @@ class PeerTubeLib
         $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/videos/upload';
 
         $data = [
-            'channelId' => $metadata['channelId'] ?? $prefs['peertube_channel_id'],
+            'channelId' => $metadata['channelId'],
             'name' => $metadata['name'],
-            'description' => $metadata['description'],
             'videofile' => $file['videofile'],
         ];
 
+        if (isset($metadata['description'])) {
+            $data['description'] = $metadata['description'];
+        }
+
         if (isset($metadata['categories'])) {
             $data['category'] = $metadata['categories'];
+        }
+
+        if (isset($metadata['privacy'])) {
+            $data['privacy'] = $metadata['privacy'];
         }
 
         return json_decode($this->makeRequest('POST', $url, $data), true);
@@ -154,7 +185,14 @@ class PeerTubeLib
     public function getVideo($id)
     {
         global $prefs;
-        $url = rtrim($prefs['peertube_service_url'], '/') . "/api/v1/videos/$id";
+
+        $id = trim($id);
+
+        if (empty($id)) {
+            throw new \Exception("Video ID cannot be empty");
+        }
+
+        $url = rtrim($prefs['peertube_service_url'], '/') . "/api/v1/videos/" . urlencode($id);
         $response = $this->makeRequest('GET', $url);
         return json_decode($response, true);
     }
@@ -182,6 +220,37 @@ class PeerTubeLib
             $videos[] = $this->getVideo($id);
         }
         return $videos;
+    }
+
+    public function getMyAccountName(): string
+    {
+        global $prefs;
+
+        $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/users/me';
+
+        $response = $this->makeRequest('GET', $url);
+        $data = json_decode($response, true);
+
+        if (! isset($data['account']) || ! isset($data['account']['name'])) {
+            throw new \Exception('Could not retrieve account name from PeerTube');
+        }
+
+        return $data['account']['name'];
+    }
+
+    public function getMyChannels(): array
+    {
+        global $prefs;
+
+        if (empty($prefs['peertube_service_url'])) {
+            throw new \Exception('Missing PeerTube service URL.');
+        }
+
+        $accountName = $this->getMyAccountName();
+
+        $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/accounts/' . urlencode($accountName) . '/video-channels';
+
+        return json_decode($this->makeRequest('GET', $url), true);
     }
 
     public function testConnection(): bool

@@ -19,7 +19,6 @@ $peertubelib = new \Tiki\Videogals\PeerTubeLib();
 $filegallib = TikiLib::lib('filegal');
 
 $errors = [];
-$success = '';
 
 include('lib/Filegals/max_upload_size.php');
 
@@ -29,6 +28,23 @@ if ($prefs['feature_categories'] == 'y') {
     $cat_objid = 0;
     include_once('categorize_list.php');
 }
+
+$channelList = [];
+try {
+    $channelResponse = $peertubelib->getMyChannels();
+    if (! empty($channelResponse['data'])) {
+        foreach ($channelResponse['data'] as $channel) {
+            $id = $channel['id'];
+            $name = $channel['displayName'] ?? $channel['name'];
+            $channelList[$id] = $name;
+        }
+    }
+} catch (Exception $e) {
+    $errors[] = tra('Failed to load PeerTube channels: ') . $e->getMessage();
+}
+
+$smarty = TikiLib::lib('smarty');
+$smarty->assign('channelList', $channelList);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['video'])) {
@@ -40,11 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $metadata = [
                 'name' => $_POST['name'] ?? 'Untitled Video',
                 'description' => $_POST['description'] ?? '',
-                'channelId' => $prefs['peertube_channel_id'],
+                'channelId' => intval($_POST['channelId']),
             ];
+
 
             if ($prefs['feature_categories'] == 'y' && ! empty($_POST['cat_categories'])) {
                 $metadata['categories'] = $_POST['cat_categories'];
+            }
+
+            if (! empty($_POST['privacy'])) {
+                $metadata['privacy'] = intval($_POST['privacy']);
             }
 
             $file = [
@@ -58,8 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $result = $peertubelib->uploadVideo($file, $metadata);
                 if (! empty($result['video']['uuid'])) {
-                    $success = tra('Video uploaded successfully!');
-                    header('Location: tiki-peertube_video.php?videoId=' . urlencode($result['video']['uuid']));
+                    Feedback::success(tra('Video uploaded successfully!'));
+                    header('Location: tiki-peertube_video.php?videoId=' . urlencode($result['video']['shortUUID']));
                     exit;
                 } else {
                     $errors[] = tra('Failed to upload video to PeerTube.');
@@ -73,9 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$smarty = TikiLib::lib('smarty');
 $smarty->assign('errors', $errors);
-$smarty->assign('success', $success);
 $smarty->assign('max_upload_size', $max_upload_size);
 $smarty->assign('max_upload_size_comment', $max_upload_size_comment);
 $smarty->assign('is_iis', TikiInit::isIIS());

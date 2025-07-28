@@ -14,12 +14,6 @@
     </div>
 {/if}
 
-{if $success}
-    <div class="alert alert-success">
-        {$success}
-    </div>
-{/if}
-
 <div class="col-md-12">
     {remarksbox type="note" title="{tr}Information{/tr}"}
         {tr}Maximum file size is around:{/tr}
@@ -37,6 +31,16 @@
         <div class="fgal_file">
             <div class="fgal_file_c1">
                 <div class="mb-3 row">
+                    <label for="channelId" class="col-md-4 col-form-label">{tr}Select Channel{/tr}</label>
+                    <div class="col-md-8">
+                        <select name="channelId" id="channelId" class="form-control" required>
+                            {foreach from=$channelList key=channelId item=channelName}
+                                <option value="{$channelId}">{$channelName|escape}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label for="name" class="col-md-4 col-form-label">{tr}Video Title{/tr}</label>
                     <div class="col-md-8">
                         <input class="form-control" type="text" id="name" name="name" size="40">
@@ -46,6 +50,18 @@
                     <label for="description" class="col-md-4 col-form-label">{tr}Video Description{/tr}</label>
                     <div class="col-md-8">
                         <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="privacy" class="col-md-4 col-form-label">{tr}Privacy{/tr}</label>
+                    <div class="col-md-8">
+                        <select name="privacy" id="privacy" class="form-control">
+                            <option value="1">{tr}Public{/tr}</option>
+                            <option value="2">{tr}Unlisted{/tr}</option>
+                            <option value="3">{tr}Private{/tr}</option>
+                            <option value="4">{tr}Internal{/tr}</option>
+                            <option value="5">{tr}Password protected{/tr}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">

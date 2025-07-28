@@ -4,53 +4,44 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-require_once 'lib/wiki-plugins/wikiplugin_oembed.php';
 
 function wikiplugin_peertube_info()
 {
     return [
         'name' => tra('PeerTube Video'),
         'documentation' => 'PluginPeerTube',
-        'description' => tra('Display a video hosted on a PeerTube instance'),
+        'description' => tra('Embed a PeerTube video using the oEmbed protocol'),
         'prefs' => ['wikiplugin_peertube', 'feature_peertube'],
         'format' => 'html',
         'iconname' => 'video',
         'params' => [
-            'id' => [
+            'url' => [
                 'required' => true,
-                'name' => tra('PeerTube Video ID'),
-                'description' => tra('PeerTube UUID of the video to be displayed'),
-                'type' => 'text',
-                'area' => 'peertube_uploader_id',
-                'tags' => ['basic'],
+                'name' => tra('URL'),
+                'description' => tra('Complete URL to the PeerTube video (e.g., https://videos.example.com/w/abc123xyz)'),
+                'filter' => 'url',
+                'default' => '',
             ],
             'width' => [
                 'required' => false,
                 'name' => tra('Width'),
-                'description' => tra('Width in pixels (e.g., 560). Leave empty for responsive design.'),
-                'default' => '',
+                'description' => tra('Width in pixels (e.g., 560). Leave empty to use provider dimensions.'),
                 'filter' => 'digits',
+                'default' => '',
             ],
             'height' => [
                 'required' => false,
                 'name' => tra('Height'),
-                'description' => tra('Height in pixels (e.g., 315). Leave empty for responsive design.'),
+                'description' => tra('Height in pixels (e.g., 315). Leave empty to use provider dimensions.'),
+                'filter' => 'digits',
                 'default' => '',
-                'filter' => 'digits',
-            ],
-            'start' => [
-                'required' => false,
-                'name' => tra('Start time'),
-                'description' => tra('Start time offset in seconds'),
-                'filter' => 'digits',
-                'default' => 0,
             ],
             'privacyEnhanced' => [
                 'required' => false,
                 'name' => tra('Privacy-Enhanced'),
                 'description' => tra('Enable privacy-enhanced mode (if applicable)'),
-                'default' => '',
                 'filter' => 'alpha',
+                'default' => '',
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 'y'],
@@ -60,7 +51,7 @@ function wikiplugin_peertube_info()
             'bg' => [
                 'required' => false,
                 'name' => tra('Background'),
-                'description' => tra('Container background color (e.g., #ffffff, rgb(255, 255, 255), white)'),
+                'description' => tra('Object background color. Example:') . ' <code>#ffffff</code>',
                 'filter' => 'text',
                 'default' => '',
                 'advanced' => true,
@@ -68,7 +59,7 @@ function wikiplugin_peertube_info()
             'border' => [
                 'required' => false,
                 'name' => tra('Borders'),
-                'description' => tra('Container border color (e.g., #ffffff, rgb(255, 255, 255), white)'),
+                'description' => tra('Object border color. Example:') . ' <code>#ffffff</code>',
                 'filter' => 'text',
                 'default' => '',
                 'advanced' => true,
@@ -76,7 +67,7 @@ function wikiplugin_peertube_info()
             'borderRadius' => [
                 'required' => false,
                 'name' => tra('Border Radius'),
-                'description' => tra('Apply rounded corners to the container (default: Yes)'),
+                'description' => tra('Apply rounded corners. Default: Yes'),
                 'default' => 'y',
                 'filter' => 'alpha',
                 'options' => [
@@ -84,6 +75,13 @@ function wikiplugin_peertube_info()
                     ['text' => tra('No'), 'value' => 'n'],
                 ],
                 'advanced' => true,
+            ],
+            'start' => [
+                'required' => false,
+                'name' => tra('Start time'),
+                'description' => tra('Start time offset in seconds'),
+                'filter' => 'digits',
+                'default' => 0,
             ],
             'allowFullScreen' => [
                 'required' => false,
@@ -103,26 +101,18 @@ function wikiplugin_peertube_info()
 
 function wikiplugin_peertube($data, $params)
 {
-    global $prefs;
-
-    if (empty($params['id'])) {
-        return '<span class="alert-warning">' . tra('Video ID is required to display the video') . '</span>';
+    if (! is_array($params)) {
+        $params = [];
     }
 
-    $url = rtrim($prefs['peertube_service_url'], '/') . '/videos/watch/' . $params['id'];
+    if (! function_exists('wikiplugin_oembed')) {
+        require_once 'lib/wiki-plugins/wikiplugin_oembed.php';
+    }
 
-    $oembedParams = [
-        'url' => $url,
-        'width' => $params['width'] ?? '',
-        'height' => $params['height'] ?? '',
-        'start' => $params['start'] ?? 0,
-        'privacyEnhanced' => $params['privacyEnhanced'] ?? '',
-        'bg' => $params['bg'] ?? '',
-        'border' => $params['border'] ?? '',
-        'borderRadius' => $params['borderRadius'] ?? 'y',
-        'allowFullScreen' => $params['allowFullScreen'] ?? 'y',
-    ];
+    if (empty($params['url'])) {
+        Feedback::error(tra('PeerTube plugin error: the URL parameter is missing.'));
+        return '';
+    }
 
-    // Call oEmbed plugin to handle embedding
-    return wikiplugin_oembed('', $oembedParams);
+    return wikiplugin_oembed('', $params);
 }

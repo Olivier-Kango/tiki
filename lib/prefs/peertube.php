@@ -49,14 +49,6 @@ function prefs_peertube_list()
             'default' => '',
             'tags' => ['basic'],
         ],
-        'peertube_channel_id' => [
-            'name' => tra('Channel ID'),
-            'description' => tra('PeerTube channel ID for video uploads'),
-            'type' => 'text',
-            'size' => 45,
-            'default' => '',
-            'tags' => ['basic'],
-        ],
         'peertube_player_id' => [
             'name' => tra('PeerTube player ID'),
             'description' => tra('PeerTube player configuration ID (if applicable)'),

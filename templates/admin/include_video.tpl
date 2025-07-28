@@ -100,7 +100,6 @@
                 {preference name=peertube_client_secret}
                 {preference name=peertube_username}
                 {preference name=peertube_password}
-                {preference name=peertube_channel_id}
                 {preference name=peertube_player_id}
                 <div class="col-sm-12">
                     {remarksbox type="note" title="{tr}Note{/tr}"}
