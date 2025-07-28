@@ -19619,6 +19619,7 @@ $lang_current = array(
 // "Clear All" => "Clear All",
 "Options for %0" => "Options pour %0",
 "Separate multiple with commas" => "Séparer les valeurs multiples par des virgules",
+"Separate multiple options with commas. Repeat an option in the list to set it as the default." => "Séparez les options par des virgules. Répétez une option dans la liste pour la définir comme valeur par défaut.",
 // "Separate multiple with &quot;{\$def.separator}&quot" => "Separate multiple with &quot;{\$def.separator}&quot",
 "Error Message" => "Message d'erreur",
 "Visible by all" => "Visible par tous",
