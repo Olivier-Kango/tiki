@@ -52,20 +52,12 @@ if ($prefs['feature_peertube'] === 'y') {
 
     // Test PeerTube API connection
     if ($peertubelib->testConnection()) {
-        $peertubeText = "<div class='adminoptionbox success'>" . tr("PeerTube API connection successful.") . "</div>";
-        // If peertube_player_id is empty, no action is needed as PeerTube uses a default player
-        if (empty($prefs['peertube_player_id'])) {
-            $peertubePlayerList = "<div class='adminoptionbox note'>" . tr("Using default PeerTube player. Set a custom player ID if desired.") . "</div>";
-        } else {
-            $peertubePlayerList = "<div class='adminoptionbox success'>" . tr("Custom PeerTube player ID set: %0", $prefs['peertube_player_id']) . "</div>";
-        }
+        Feedback::success(tr("PeerTube API connection successful."));
     } else {
-        $peertubeText = "<div class='adminoptionbox error'>" . tr("Unable to connect to PeerTube. Please check the service URL and credentials in the PeerTube settings section.") . "</div>";
-        $peertubePlayerList = "<div class='adminoptionbox error'>" . tr("Unable to validate PeerTube settings. Please check the service URL and credentials.") . "</div>";
+        Feedback::error(tr("Unable to connect to PeerTube or validate its settings. Please check the service URL and credentials in the PeerTube settings section."));
     }
 } else {
-    $peertubeText = "<div class='adminoptionbox error'>" . tr("PeerTube feature disabled") . "</div>";
-    $peertubePlayerList = "<div class='adminoptionbox error'>" . tr("PeerTube feature disabled") . "</div>";
+    Feedback::error(tr("PeerTube feature disabled"));
 }
 
 $smarty->assign('kcwText', $kcwText);

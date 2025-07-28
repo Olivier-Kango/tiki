@@ -256,7 +256,9 @@ class PeerTubeLib
     public function testConnection(): bool
     {
         try {
-            $response = $this->makeRequest('GET', '/api/v1/config');
+            global $prefs;
+            $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/config';
+            $response = $this->makeRequest('GET', $url);
             $data = json_decode($response, true);
             return isset($data['instance']);
         } catch (\Exception $e) {
