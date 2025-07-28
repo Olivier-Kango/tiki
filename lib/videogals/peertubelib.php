@@ -253,16 +253,39 @@ class PeerTubeLib
         return json_decode($this->makeRequest('GET', $url), true);
     }
 
-    public function testConnection(): bool
+    public function testConnection()
     {
         try {
             global $prefs;
+
+            $required = [
+                'peertube_service_url'    => tr('PeerTube service URL'),
+                'peertube_client_id'      => tr('Client ID'),
+                'peertube_client_secret'  => tr('Client secret'),
+                'peertube_username'       => tr('Username'),
+                'peertube_password'       => tr('Password'),
+            ];
+
+            foreach ($required as $key => $label) {
+                if (empty($prefs[$key])) {
+                    return tr("PeerTube configuration '%0' is missing.", $label);
+                }
+            }
+
             $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/config';
-            $response = $this->makeRequest('GET', $url);
+            $response = $this->makeRequest('GET', $url, [], false);
             $data = json_decode($response, true);
-            return ! empty($data['instance']);
+            if (empty($data['instance'])) {
+                return tr("Could not retrieve PeerTube instance configuration.");
+            }
+
+            return true;
         } catch (\Exception $e) {
-            return false;
+            return tr(
+                'Failed to reach the PeerTube instance at %0. Please verify the PeerTube service URL. If the problem persists consult the <a href="%1" target="_blank">PeerTube documentation</a>.',
+                $prefs['peertube_service_url'],
+                'https://docs.joinpeertube.org/api/rest-getting-started'
+            );
         }
     }
 }

@@ -49,12 +49,15 @@ if ($prefs['feature_peertube'] === 'y') {
         $prefs['peertube_service_url'] = $prefs['peertube_service_url'] . '/';
         TikiLib::lib('tiki')->set_preference('peertube_service_url', $prefs['peertube_service_url']);
     }
+    $result = $peertubelib->testConnection();
 
-    // Test PeerTube API connection
-    if ($peertubelib->testConnection()) {
-        Feedback::success(tr("PeerTube API connection successful."));
+    if ($result === true) {
+        Feedback::success(tr(
+            "PeerTube instance is reachable. However, to ensure the credentials are valid, please visit <a href='%0'>the video list</a>.",
+            'tiki-list_peertube_entries.php'
+        ));
     } else {
-        Feedback::error(tr("Unable to connect to PeerTube or validate its settings. Please check the service URL and credentials in the PeerTube settings section."));
+        Feedback::error($result);
     }
 } else {
     Feedback::error(tr("PeerTube feature disabled"));
