@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a50b572bff55965b694ca61724ee70c6",
+    "content-hash": "dcdc78a641dd32cd0991ec023c487be8",
     "packages": [
         {
             "name": "amphp/amp",
@@ -15259,34 +15259,29 @@
         },
         {
             "name": "kornrunner/dbunit",
-            "version": "7.0.0",
+            "version": "9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kornrunner/dbunit.git",
-                "reference": "45cb86a0314b4f96f1aa9b90f6bb126fa9ccbb64"
+                "reference": "91f0f5440e7825837f3e82362dad7f2ac2560611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kornrunner/dbunit/zipball/45cb86a0314b4f96f1aa9b90f6bb126fa9ccbb64",
-                "reference": "45cb86a0314b4f96f1aa9b90f6bb126fa9ccbb64",
+                "url": "https://api.github.com/repos/kornrunner/dbunit/zipball/91f0f5440e7825837f3e82362dad7f2ac2560611",
+                "reference": "91f0f5440e7825837f3e82362dad7f2ac2560611",
                 "shasum": ""
             },
             "require": {
                 "ext-pdo": "*",
                 "ext-simplexml": "*",
-                "php": "^7.3 || ^8.0",
-                "phpunit/phpunit": "^8.2 || ^9.0 || ^10.0",
-                "symfony/yaml": "^3.0 || ^4.0 || ^5.0 || ^6.0"
+                "php": "^8.1",
+                "phpunit/phpunit": "^10.5 || ^11.0 || ^12.0",
+                "symfony/yaml": "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "replace": {
                 "phpunit/dbunit": "self.version"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -15312,22 +15307,22 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/dbunit/issues",
-                "source": "https://github.com/kornrunner/dbunit/tree/7.0.0"
+                "source": "https://github.com/kornrunner/dbunit/tree/9.1.0"
             },
-            "time": "2023-02-04T13:09:21+00:00"
+            "time": "2025-02-07T12:33:13+00:00"
         },
         {
             "name": "masterminds/html5",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "f5ac2c0b0a2eefca70b2ce32a5809992227e75a6"
+                "reference": "fcf91eb64359852f00d921887b219479b4f21251"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/f5ac2c0b0a2eefca70b2ce32a5809992227e75a6",
-                "reference": "f5ac2c0b0a2eefca70b2ce32a5809992227e75a6",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/fcf91eb64359852f00d921887b219479b4f21251",
+                "reference": "fcf91eb64359852f00d921887b219479b4f21251",
                 "shasum": ""
             },
             "require": {
@@ -15379,9 +15374,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Masterminds/html5-php/issues",
-                "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
+                "source": "https://github.com/Masterminds/html5-php/tree/2.10.0"
             },
-            "time": "2024-03-31T07:05:07+00:00"
+            "time": "2025-07-25T09:04:22+00:00"
         },
         {
             "name": "mikey179/vfsstream",

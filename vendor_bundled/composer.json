@@ -290,7 +290,7 @@
     },
     "require-dev": {
         "kint-php/kint": "~6.0",
-        "kornrunner/dbunit": "~7.0",
+        "kornrunner/dbunit": "~9.1",
         "mikey179/vfsstream": "~1.6",
         "overtrue/phplint": "~9.0",
         "phpcompatibility/php-compatibility": "~10.x-dev",
