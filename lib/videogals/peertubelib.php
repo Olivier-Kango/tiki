@@ -36,17 +36,24 @@ class PeerTubeLib
             return $_SESSION[$session]['token'];
         }
 
-        $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/users/token';
+        $clientUrl = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/oauth-clients/local';
+        $clientResponse = $this->makeRequest('GET', $clientUrl, [], false);
+        $clientData = json_decode($clientResponse, true);
 
+        if (empty($clientData['client_id']) || empty($clientData['client_secret'])) {
+            throw new \Exception('Unable to retrieve client credentials from PeerTube');
+        }
+
+        $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/users/token';
         $data = [
-            'client_id' => $prefs['peertube_client_id'],
-            'client_secret' => $prefs['peertube_client_secret'],
+            'client_id' => $clientData['client_id'],
+            'client_secret' => $clientData['client_secret'],
             'grant_type' => 'password',
             'username' => $prefs['peertube_username'],
             'password' => $prefs['peertube_password'],
         ];
 
-        $response = $this->makeRequest('POST', $url, $data, false);
+        $response = $this->makeRequest('POST', $url, http_build_query($data, '', '&', PHP_QUERY_RFC3986), false, true);
         $token = json_decode($response, true);
 
         if (! isset($token['access_token']) || ! isset($token['expires_in'])) {
