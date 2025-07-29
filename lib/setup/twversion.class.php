@@ -46,8 +46,8 @@ class TWVersion
         $this->branch   = 'stable';
 
         // Set everything else, including defaults.
-        $this->version  = '29.0vcs';
-        $this->star     = 'TBA';
+        $this->version  = '29.0alpha';
+        $this->star     = 'Bellatrix';
         $this->releases = [];
 
         // Check for Git or not
