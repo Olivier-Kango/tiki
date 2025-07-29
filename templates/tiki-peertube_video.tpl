@@ -38,12 +38,14 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="tiki-peertube_manage.php?videoId={$videoInfo->uuid|escape}">
+                            <a class="dropdown-item" href="tiki-peertube_video.php?videoId={$videoInfo->uuid|escape}&action=edit">
                                 <i class="fas fa-cogs me-2"></i> {tr}Manage{/tr}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item text-danger" href="tiki-peertube_delete.php?videoId={$videoInfo->uuid|escape}" onclick="return confirm('{tr}Are you sure you want to delete this video?{/tr}')">
+                            <a class="dropdown-item text-danger"
+                            href="tiki-peertube_video.php?videoId={$videoInfo->id}&action=delete"
+                            onclick="return confirm('{tr}Are you sure you want to delete this video?{/tr}')">
                                 <i class="fas fa-trash me-2"></i> {tr}Delete{/tr}
                             </a>
                         </li>

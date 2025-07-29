@@ -40,11 +40,18 @@ try {
 
         switch ($mode) {
             case 'delete':
-                $access->check_permission(['tiki_p_delete_peertube']);
-                $access->checkCsrf();
+            $access->check_permission(['tiki_p_delete_peertube']);
+            $access->checkCsrf();
+
+            try {
                 $peertubelib->deleteVideo($videoId);
-                header('Location: tiki-list_peertube_entries.php');
-                exit;
+                Feedback::success(tra('The video has been successfully deleted.'));
+            } catch (Exception $e) {
+                Feedback::error(tra('Failed to delete the video: ') . $e->getMessage());
+            }
+
+            header('Location: tiki-list_peertube_entries.php');
+            exit;
 
             case 'edit':
                 $access->check_permission(['tiki_p_edit_peertube']);

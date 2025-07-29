@@ -203,9 +203,17 @@ class PeerTubeLib
     public function deleteVideo($id)
     {
         global $prefs;
+    
+        if (!is_numeric($id)) {
+            throw new \Exception("Expected numeric ID for delete, got: $id");
+        }
+
         $url = rtrim($prefs['peertube_service_url'], '/') . "/api/v1/videos/$id";
-        $response = $this->makeRequest('DELETE', $url);
-        return json_decode($response, true);
+
+
+        $response = $this->makeRequest('DELETE', $url, [], ['expected_status' => 204]);
+
+        return true;
     }
 
     public function updateVideo($id, array $data)

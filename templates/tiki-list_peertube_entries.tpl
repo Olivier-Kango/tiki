@@ -35,7 +35,7 @@
         {section name=ix loop=$klist}
             <tr>
                 <td>
-                    <a href="{$prefs.peertube_service_url}videos/watch/{$klist[ix]->uuid}" target="_blank">
+                    <a href="tiki-peertube_video.php?videoId={$klist[ix]->shortUUID|escape}">
                         {$klist[ix]->name|escape}
                     </a>
                 </td>
