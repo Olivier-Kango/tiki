@@ -65,11 +65,15 @@
         {/tab}
         
         {tab name="{tr}PeerTube{/tr}"}
-            <br>
-            {remarksbox type="info" title="{tr}PeerTube Registration{/tr}"}
-                {tr}To get a PeerTube account, set up your own instance or register at a PeerTube server.{/tr}
-            {/remarksbox}
+            <br> 
+            {if $peertubeText}
+                {remarksbox type="info" title="{tr}PeerTube Configuration Status{/tr}"}
+                    <div class="mb-3">{$peertubeText}</div>
+                {/remarksbox}
+            {/if}
+
             {button _text="{tr}List Videos{/tr}" href="tiki-list_peertube_entries.php"}
+
             <div class="row">
                 <div class="mb-3 col-lg-12 clearfix">
                     {include file='admin/include_apply_top.tpl'}
@@ -92,20 +96,12 @@
             <br>
             <fieldset>
                 <legend class="h3">{tr}PeerTube settings{/tr}</legend>
-                {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                    {tr}Ensure the PeerTube service URL and credentials are correct. Test the connection after saving.{/tr}
-                {/remarksbox}
                 {preference name=peertube_service_url}
                 {preference name=peertube_client_id}
                 {preference name=peertube_client_secret}
                 {preference name=peertube_username}
                 {preference name=peertube_password}
-                {preference name=peertube_player_id}
-                <div class="col-sm-12">
-                    {remarksbox type="note" title="{tr}Note{/tr}"}
-                        {tr}The PeerTube player ID is optional and only needed for custom player configurations.{/tr}
-                    {/remarksbox}
-                </div>
+                {* {preference name=peertube_player_id} *}
             </fieldset>
             <br>
         {/tab}

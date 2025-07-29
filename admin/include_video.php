@@ -41,7 +41,7 @@ if ($prefs['feature_kaltura'] === 'y') {
     $kplayerlist = "<div class='adminoptionbox error'>" . tr("Kaltura feature disabled") . "</div>";
 }
 
-// PeerTube feature handling
+$peertubeText = "";
 if ($prefs['feature_peertube'] === 'y') {
     $peertubelib = TikiLib::lib('peertubeuser');
 
@@ -52,16 +52,17 @@ if ($prefs['feature_peertube'] === 'y') {
     $result = $peertubelib->testConnection();
 
     if ($result === true) {
-        Feedback::success(tr(
+        $peertubeText = "<div class='adminoptionbox'>" . tr(
             "PeerTube instance is reachable. However, to ensure the credentials are valid, please visit <a href='%0'>the video list</a>.",
             'tiki-list_peertube_entries.php'
-        ));
+        ) . "</div>";
     } else {
-        Feedback::error($result);
+        $peertubeText = "<div class='adminoptionbox error'>" . tr($result) . "</div>";
     }
 } else {
-    Feedback::error(tr("PeerTube feature disabled"));
+    $peertubeText = "<div class='adminoptionbox error'>" . tr("PeerTube feature disabled") . "</div>";
 }
 
 $smarty->assign('kcwText', $kcwText);
 $smarty->assign('kplayerlist', $kplayerlist);
+$smarty->assign('peertubeText', $peertubeText);
