@@ -22,13 +22,6 @@ $errors = [];
 
 include('lib/Filegals/max_upload_size.php');
 
-if ($prefs['feature_categories'] == 'y') {
-    $categlib = TikiLib::lib('categ');
-    $cat_type = 'peertube_video';
-    $cat_objid = 0;
-    include_once('categorize_list.php');
-}
-
 $channelList = [];
 try {
     $channelResponse = $peertubelib->getMyChannels();
@@ -58,11 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'description' => $_POST['description'] ?? '',
                 'channelId' => intval($_POST['channelId']),
             ];
-
-
-            if ($prefs['feature_categories'] == 'y' && ! empty($_POST['cat_categories'])) {
-                $metadata['categories'] = $_POST['cat_categories'];
-            }
 
             if (! empty($_POST['privacy'])) {
                 $metadata['privacy'] = intval($_POST['privacy']);

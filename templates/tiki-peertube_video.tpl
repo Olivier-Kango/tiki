@@ -14,14 +14,10 @@
         <table width="100%">
             <tr>
                 <td width="100%" align="center">
-                    {if $videoInfo->uuid}
-                        {wikiplugin _name=peertube id=$videoInfo->uuid}{/wikiplugin}
-                    {elseif $videoInfo->shortUUID}
-                        {wikiplugin _name=peertube id=$videoInfo->shortUUID}{/wikiplugin}
-                    {elseif $videoId}
-                        {wikiplugin _name=peertube id=$videoId}{/wikiplugin}
+                    {if $videoUrl}
+                        {wikiplugin _name=peertube url=$videoUrl}{/wikiplugin}
                     {else}
-                        <p class="alert alert-warning">{tr}Video ID is required to display the video{/tr}</p>
+                        <p class="alert alert-warning">{tr}Video URL is required to display the video{/tr}</p>
                     {/if}
                 </td>
             </tr>
@@ -52,8 +48,8 @@
                 <tr>
                     <td class="fw-bold">{tr}Embed code{/tr}</td>
                     <td>
-                        <code>{ldelim}peertube id="{if $videoInfo->shortUUID}{$videoInfo->shortUUID}{elseif $videoInfo->uuid}{$videoInfo->uuid}{else}{$videoId}{/if}"{rdelim}</code>
-                        <button class="btn btn-sm btn-outline-secondary ms-2" onclick="navigator.clipboard.writeText('{ldelim}peertube id=&quot;{if $videoInfo->shortUUID}{$videoInfo->shortUUID}{elseif $videoInfo->uuid}{$videoInfo->uuid}{else}{$videoId}{/if}&quot;{rdelim}')">
+                        <code>{ldelim}peertube url="{$videoUrl}"{rdelim}</code>
+                        <button class="btn btn-sm btn-outline-secondary ms-2" onclick="navigator.clipboard.writeText('{ldelim}peertube url=&quot;{$videoUrl}&quot;{rdelim}')">
                             {tr}Copy{/tr}
                         </button>
                     </td>

@@ -57,7 +57,7 @@ if ($prefs['feature_peertube'] === 'y') {
             'tiki-list_peertube_entries.php'
         ) . "</div>";
     } else {
-        $peertubeText = "<div class='adminoptionbox error'>" . tr($result) . "</div>";
+        $peertubeText = "<div class='adminoptionbox error'>" . $result . "</div>";
     }
 } else {
     $peertubeText = "<div class='adminoptionbox error'>" . tr("PeerTube feature disabled") . "</div>";

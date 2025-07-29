@@ -165,10 +165,6 @@ class PeerTubeLib
             $data['description'] = $metadata['description'];
         }
 
-        if (isset($metadata['categories'])) {
-            $data['category'] = $metadata['categories'];
-        }
-
         if (isset($metadata['privacy'])) {
             $data['privacy'] = $metadata['privacy'];
         }

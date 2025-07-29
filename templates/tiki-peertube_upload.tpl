@@ -71,11 +71,6 @@
                     </div>
                 </div>
             </div>
-            {if $prefs['feature_categories'] == 'y'}
-                <div class="fgal_file_c2">
-                    {include file='categorize.tpl' cat_type='peertube_video' cat_objid=$cat_objid}
-                </div>
-            {/if}
             <div class="fgal_file_c3">
                 <div id="page_bar" class="mb-3 row">
                     <div class="col-md-8 offset-md-4">
