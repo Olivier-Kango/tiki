@@ -4,7 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class Tracker_Field_Language extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface
+class Tracker_Field_Language extends \Tracker\Field\AbstractItemField implements \Tracker\Field\SynchronizableInterface, \Tracker\Field\ExportableInterface
 {
     public static function getManagedTypesInfo(): array
     {
@@ -157,5 +157,23 @@ class Tracker_Field_Language extends \Tracker\Field\AbstractItemField implements
     public function getGlobalFields(): array
     {
         return [];
+    }
+
+    public function getTabularSchema()
+    {
+        $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
+        $permName = $this->getConfiguration('permName');
+        $name = $this->getConfiguration('name');
+
+        $schema->addNew($permName, 'default')
+            ->setLabel($name)
+            ->setRenderTransform(function ($value) {
+                return $value;
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $info['fields'][$permName] = $value;
+            });
+
+        return $schema;
     }
 }
