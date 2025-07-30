@@ -200,20 +200,27 @@ class PeerTubeLib
         return json_decode($response, true);
     }
 
-    public function deleteVideo($id)
+    public function deleteVideo($uuid)
     {
         global $prefs;
-    
-        if (!is_numeric($id)) {
-            throw new \Exception("Expected numeric ID for delete, got: $id");
+
+        $baseUrl = rtrim($prefs['peertube_service_url'], '/');
+        $deleteUrl = "$baseUrl/api/v1/videos/$uuid";
+
+        try {
+            $deleteResponse = $this->makeRequest('DELETE', $deleteUrl);
+            $result = json_decode($deleteResponse, true);
+
+            if ($deleteResponse === '' || (is_array($result) && empty($result))) {
+                return ['success' => true];
+            }
+
+            throw new \Exception("Failed to delete video: Invalid response from server");
+        } catch (\Exception $e) {
+
+            error_log("PeerTube deleteVideo error: " . $e->getMessage() . " | UUID: $uuid | URL: $deleteUrl");
+            throw new \Exception("Failed to delete video: " . $e->getMessage());
         }
-
-        $url = rtrim($prefs['peertube_service_url'], '/') . "/api/v1/videos/$id";
-
-
-        $response = $this->makeRequest('DELETE', $url, [], ['expected_status' => 204]);
-
-        return true;
     }
 
     public function updateVideo($id, array $data)

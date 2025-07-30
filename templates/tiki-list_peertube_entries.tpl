@@ -45,7 +45,7 @@
                     {* Show delete form if user has delete permission *}
                     {if $tiki_p_delete_peertube eq 'y'}
                         <form method="post" action="tiki-list_peertube_entries.php">
-                            <input type="hidden" name="csrftoken" value="{$token}">
+                            <input type="hidden" name="ticket" value="{$ticket}">
                             <input type="hidden" name="action" value="Delete">
                             <input type="hidden" name="videoId[]" value="{$klist[ix]->uuid}">
                             <input type="submit" class="btn btn-danger" value="{tr}Delete{/tr}">

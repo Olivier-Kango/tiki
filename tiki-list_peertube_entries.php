@@ -39,6 +39,8 @@ if (! isset($_REQUEST['list'])) {
 }
 
 try {
+    TikiLib::lib('access')->setTicket();
+
     if (isset($_REQUEST['action'])) {
         $videoId = [];
 
@@ -51,7 +53,7 @@ try {
         }
 
         switch ($_REQUEST['action']) {
-            case tra('Delete'):
+            case 'Delete':
                 $access->check_permission(['tiki_p_delete_peertube']);
                 $access->checkCsrf();
                 $peertubelib = TikiLib::lib('peertubeuser');
@@ -59,6 +61,7 @@ try {
                 foreach ($videoId as $vi) {
                     $peertubelib->deleteVideo($vi);
                 }
+                //Feedback::success(tra('Video deleted successfully.'));
                 header('Location: tiki-list_peertube_entries.php?list=videos');
                 die;
             default:
@@ -110,6 +113,7 @@ try {
     $smarty->assign('offset', $offset);
     $smarty->assign('maxRecords', $page_size);
     $smarty->assign('mid', 'tiki-list_peertube_entries.tpl');
+    $smarty->assign('ticket', TikiLib::lib('access')->getTicket());
     $smarty->display('tiki.tpl');
 } catch (Exception $e) {
     $access->display_error('', tra('Communication error'), 500, true, tra('Invalid response provided by the PeerTube server. Please retry.') . '<br /><em>' . $e->getMessage() . '</em>');
