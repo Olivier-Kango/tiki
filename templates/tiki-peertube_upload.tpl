@@ -1,4 +1,4 @@
-{title help="PeerTube" admpage="video"}{tr}Upload Video to PeerTube{/tr}{/title}
+{title help="PeerTube" admpage="video"}{tr}Upload Video{/tr}{/title}
 
 <div class="t_navbar mb-4">
     {button href="tiki-list_peertube_entries.php" class="btn btn-primary" _text="{tr}Browse Videos{/tr}"}

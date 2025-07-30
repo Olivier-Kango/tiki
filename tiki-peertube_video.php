@@ -47,13 +47,13 @@ try {
                 try {
                     $videoId = $_POST['videoId'];
                     $peertubelib->deleteVideo($videoId);
-                    //Feedback::success(tra('The video has been successfully deleted.'));
+                    Feedback::success(tra('The video has been successfully deleted.'));
                 } catch (Exception $e) {
                     Feedback::error(tra('Failed to delete the video: ') . $e->getMessage());
                 }
 
-            header('Location: tiki-list_peertube_entries.php');
-            exit;
+                header('Location: tiki-list_peertube_entries.php');
+                exit;
 
             case 'edit':
                 $access->check_permission(['tiki_p_edit_peertube']);

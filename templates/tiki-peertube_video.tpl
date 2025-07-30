@@ -55,8 +55,8 @@
                 {* Title and info *}
                 <h2 class="fw-bold mb-3">{$videoInfo->name|escape}</h2>
                 <p class="text-muted">
-                    {tr}Published{/tr}: {$videoInfo->publishedAt|tiki_short_datetime} • 
-                    {tr}Views{/tr}: {$videoInfo->views|default:0}
+                    {tr}Published:{/tr} {$videoInfo->publishedAt|tiki_short_datetime} • 
+                    {tr}Views:{/tr} {$videoInfo->views|default:0}
                 </p>
 
                 <hr>
@@ -91,7 +91,7 @@
                 <hr class="my-4">
 
                 <div class="mb-3">
-                    <strong>{tr}Embed code{/tr}:</strong><br>
+                    <strong>{tr}Embed code:{/tr}<br></strong>
                     <code class="bg-light p-2 d-inline-block">{ldelim}peertube url="{$videoUrl}"{rdelim}</code>
                     <button class="btn btn-sm btn-outline-secondary ms-2"
                         onclick="navigator.clipboard.writeText('{ldelim}peertube url=&quot;{$videoUrl}&quot;{rdelim}')">

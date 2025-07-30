@@ -208,16 +208,28 @@ class PeerTubeLib
         $deleteUrl = "$baseUrl/api/v1/videos/$uuid";
 
         try {
-            $deleteResponse = $this->makeRequest('DELETE', $deleteUrl);
-            $result = json_decode($deleteResponse, true);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $deleteUrl);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
-            if ($deleteResponse === '' || (is_array($result) && empty($result))) {
+            $headers = [
+                'Accept: application/json',
+                'Authorization: Bearer ' . $this->getAccessToken()
+            ];
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($httpCode === 204) {
                 return ['success' => true];
             }
 
-            throw new \Exception("Failed to delete video: Invalid response from server");
+            throw new \Exception("HTTP error $httpCode. Response: $response");
         } catch (\Exception $e) {
-
             error_log("PeerTube deleteVideo error: " . $e->getMessage() . " | UUID: $uuid | URL: $deleteUrl");
             throw new \Exception("Failed to delete video: " . $e->getMessage());
         }

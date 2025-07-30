@@ -61,7 +61,7 @@ try {
                 foreach ($videoId as $vi) {
                     $peertubelib->deleteVideo($vi);
                 }
-                //Feedback::success(tra('Video deleted successfully.'));
+                Feedback::success(tra('Video deleted successfully.'));
                 header('Location: tiki-list_peertube_entries.php?list=videos');
                 die;
             default:
