@@ -59,7 +59,7 @@ AND hlt.`language_code` = ?',
             [$name, $majorVersion, $minorVersion, $language]
         );
 
-        return empty($translation->result) ? false : $translation->result[0]->translation;
+        return empty($translation->result[0]['translation']) ? false : $translation->result[0]['translation'];
     }
 
     /**
