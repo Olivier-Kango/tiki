@@ -5,7 +5,7 @@
     <form method="get" class="col-md-12 d-flex flex-row flex-wrap align-items-center">
         <label class="col-form-label col-sm-2" for="find">{tr}Find{/tr}</label>
         <div class="input-group col-sm-8">
-            <input type="text" name="find" class="form-control" id="find" value="{$find|escape}">
+            <input type="text" name="find" class="form-control" id="find" value="{$find|escape}" placeholder="Search videos...">
             <input type="hidden" name="list" value="videos">
         </div>
         <div class="col-sm-2">
@@ -14,7 +14,7 @@
     </form>
 </div>
 
-<div class="navbar btn-group">
+<div class="navbar btn-group mb-3">
     {if $tiki_p_upload_peertube eq 'y'}
         {button class="btn btn-info" _text="{tr}Upload Video{/tr}" href="tiki-peertube_upload.php"}
     {/if}
@@ -25,35 +25,73 @@
         <div class="pagination">{$paginationBar}</div>
     {/if}
 
-    <table class="table">
-        <tr>
-            <th>{self_link _sort_arg="asc_name" _sort_field="name"}{tr}Title{/tr}{/self_link}</th>
-            <th>{tr}Status{/tr}</th>
-            <th>{self_link _sort_arg="asc_publishedAt" _sort_field="publishedAt"}{tr}Published{/tr}{/self_link}</th>
-            <th>{tr}Actions{/tr}</th>
-        </tr>
-        {section name=ix loop=$klist}
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>
-                    <a href="tiki-peertube_video.php?videoId={$klist[ix]->shortUUID|escape}">
-                        {$klist[ix]->name|escape}
-                    </a>
-                </td>
-                <td>{$klist[ix]->statusString|default:'N/A'|escape}</td>
-                <td>{$klist[ix]->publishedAt|date_format:"%d %b %Y %H:%M"}</td>
-                <td>
-                    {* Show delete form if user has delete permission *}
-                    {if $tiki_p_delete_peertube eq 'y'}
-                        <form method="post" action="tiki-list_peertube_entries.php">
-                            <input type="hidden" name="ticket" value="{$ticket}">
-                            <input type="hidden" name="action" value="Delete">
-                            <input type="hidden" name="videoId[]" value="{$klist[ix]->uuid}">
-                            <input type="submit" class="btn btn-danger" value="{tr}Delete{/tr}">
-                        </form>
-                    {/if}
-                </td>
+                <th>{self_link _sort_arg="asc_name" _sort_field="name"}{tr}Title{/tr}{/self_link}</th>
+                <th>{tr}Status{/tr}</th>
+                <th>{self_link _sort_arg="asc_publishedAt" _sort_field="publishedAt"}{tr}Published{/tr}{/self_link}</th>
+                <th>{tr}Actions{/tr}</th>
             </tr>
-        {/section}
+        </thead>
+        <tbody>
+            {section name=ix loop=$klist}
+                <tr>
+                    <td>
+                        <div class="peertube-title-hover">
+                            <a href="tiki-peertube_video.php?videoId={$klist[ix]->shortUUID|escape}" class="text-decoration-none">
+                                {$klist[ix]->name|escape}
+                            </a>
+                            <div class="peertube-hover-info">
+                                <div class="hover-info-item">
+                                    <span class="hover-info-label">{tr}Title:{/tr}</span>
+                                    <span class="hover-info-value">{$klist[ix]->name|escape}</span>
+                                </div>
+                                <div class="hover-info-item">
+                                    <span class="hover-info-label">{tr}Duration:{/tr}</span>
+                                    {assign var=seconds value=$klist[ix]->duration}
+                                    {math equation="floor(x/3600)" x=$seconds assign=hours}
+                                    {math equation="floor((x%3600)/60)" x=$seconds assign=minutes}
+                                    {math equation="x%60" x=$seconds assign=remainingSeconds}
+
+                                    <span class="hover-info-value">
+                                        {if $hours > 0}{$hours}h{/if}
+                                        {if $minutes > 0 || $hours > 0}{$minutes|string_format:"%02d"}min{/if}
+                                        {if $hours == 0 && $minutes == 0}{$remainingSeconds}s{/if}
+                                    </span>
+                                </div>
+                                <div class="hover-info-item">
+                                    <span class="hover-info-label">{tr}Views:{/tr}</span>
+                                    <span class="hover-info-value">{$klist[ix]->views|escape}</span>
+                                </div>
+                                <div class="hover-info-item">
+                                    <span class="hover-info-label">{tr}Video ID:{/tr}</span>
+                                    <span class="hover-info-value"><pre style="margin:0">{$klist[ix]->uuid|escape}</pre></span>
+                                </div>
+                                {if !empty($klist[ix]->description)}
+                                <div class="hover-info-item">
+                                    <span class="hover-info-label">{tr}Description:{/tr}</span>
+                                    <span class="hover-info-value">{$klist[ix]->description|escape}</span>
+                                </div>
+                                {/if}
+                            </div>
+                        </div>
+                    </td>
+                    <td>{$klist[ix]->statusString|default:'N/A'|escape}</td>
+                    <td>{$klist[ix]->publishedAt|date_format:"%d %b %Y %H:%M"}</td>
+                    <td>
+                        {if $tiki_p_delete_peertube eq 'y'}
+                            <form method="post" action="tiki-list_peertube_entries.php" style="display: inline;">
+                                <input type="hidden" name="ticket" value="{$ticket}">
+                                <input type="hidden" name="action" value="Delete">
+                                <input type="hidden" name="videoId[]" value="{$klist[ix]->uuid}">
+                                <input type="submit" class="btn btn-danger btn-sm" value="{tr}Delete{/tr}" onclick="return confirm('{tr}Are you sure you want to delete this video?{/tr}')">
+                            </form>
+                        {/if}
+                    </td>
+                </tr>
+            {/section}
+        </tbody>
     </table>
 
     {if $paginationBar}
@@ -64,3 +102,64 @@
 {/if}
 
 {pagination_links count=$count step=$maxRecords offset=$offset}{/pagination_links}
+
+<style>
+    .peertube-title-hover {
+        position: relative;
+        display: inline-block;
+    }
+    .peertube-hover-info {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1050;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        min-width: 300px;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    .peertube-title-hover:hover .peertube-hover-info {
+        display: block !important;
+    }
+    .peertube-hover-info::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 20px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #ddd;
+    }
+    .peertube-hover-info::after {
+        content: '';
+        position: absolute;
+        top: -7px;
+        left: 21px;
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid #fff;
+    }
+    .hover-info-item {
+        margin-bottom: 8px;
+    }
+    .hover-info-item:last-child {
+        margin-bottom: 0;
+    }
+    .hover-info-label {
+        font-weight: 600;
+        color: #495057;
+    }
+    .hover-info-value {
+        color: #6c757d;
+    }
+</style>

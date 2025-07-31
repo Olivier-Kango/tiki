@@ -84,7 +84,16 @@
                     </tr>
                     <tr>
                         <td class="fw-bold">{tr}Duration{/tr}</td>
-                        <td>{$videoInfo->duration} sec</td>
+                        <td>
+                            {assign var=seconds value=$videoInfo->duration}
+                            {math equation="floor(x/3600)" x=$seconds assign=hours}
+                            {math equation="floor((x%3600)/60)" x=$seconds assign=minutes}
+                            {math equation="x%60" x=$seconds assign=remainingSeconds}
+                            
+                            {if $hours > 0}{$hours}h {/if}
+                            {if $minutes > 0 || $hours > 0}{$minutes|string_format:"%02d"}min{/if}
+                            {if $hours == 0 && $minutes == 0}{$remainingSeconds}s{/if}
+                        </td>
                     </tr>
                 </table>
 
