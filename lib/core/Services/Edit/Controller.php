@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Tiki\Lib\core\Toolbar\ToolbarItem;
+use Tiki\Lib\Diff\DiffUtils;
 
 /**
  * Class Services_Edit_Controller
@@ -154,7 +155,7 @@ class Services_Edit_Controller
                         }
                         $info['data'] = substr($info['data'], $real_start, $real_len);
                     }
-                    require_once('lib/Diff/difflib.php');
+
                     if ($info['is_html'] == 1) {
                         $diffold = $tikilib->htmldecode($info['data']);
                     } else {
@@ -169,7 +170,7 @@ class Services_Edit_Controller
                         $diffnew = $parserlib->parse_data($diffnew, $options);
                         $diffold = $parserlib->parse_data($diffold, $options);
                     }
-                    $data = diff2($diffold, $diffnew, $diffstyle);
+                    $data = DiffUtils::diff2($diffold, $diffnew, $diffstyle);
                     $smarty->assign_by_ref('diffdata', $data);
 
                     $smarty->assign('translation_mode', 'y');   // disables the headings etc

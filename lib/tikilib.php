@@ -9,6 +9,7 @@ use Tiki\TikiDb\PdoDb;
 use Tiki\Lib\Wiki\ConvertToTiki9;
 use Tiki\TikiInit;
 use Tiki\Lib\CookieConsent\CookieConsentLib;
+use Tiki\Lib\Diff\DiffUtils;
 
 require_once(__DIR__ . '/../lib/debug/Tracer.php');
 
@@ -5472,10 +5473,10 @@ class TikiLib extends TikiDb_Bridge
                     $contributionlib->change_assigned_contributions($pageName, 'wiki page', $historyId, 'history', '', $pageName . '/' . $old_version, "tiki-pagehistory.php?page=$pageName&preview=$old_version");
                 }
             }
-            include_once('lib/Diff/difflib.php');
+
             if (strtolower($pageName) != 'sandbox' && ! $autoupdate) {
                 $logslib = TikiLib::lib('logs');
-                $bytes = diff2($data, $edit_data, 'bytes');
+                $bytes = DiffUtils::diff2($data, $edit_data, 'bytes');
                 $logslib->add_action('Updated', $pageName, 'wiki page', $bytes, $edit_user, $edit_ip, '', $saveLastModif, $hash['contributions'], $hash2);
                 if ($prefs['feature_contribution'] == 'y') {
                     $contributionlib = TikiLib::lib('contribution');
@@ -5511,7 +5512,7 @@ class TikiLib extends TikiDb_Bridge
 
                 TikiLib::lib('smarty')->assign('has_md5_content_diagrams', $replacedOldPagePlugins || $replacedEditedPagePlugins);
 
-                $diff = diff2($parsedOldPage, $parsedNewPage, "unidiff"); // TODO: Only compute if we have at least one notification to send
+                $diff = DiffUtils::diff2($parsedOldPage, $parsedNewPage, "unidiff"); // TODO: Only compute if we have at least one notification to send
                 sendWikiEmailNotification('wiki_page_changed', $pageName, $edit_user, $edit_comment, $old_version, $edit_data, $machine, $diff, $edit_minor, $hash['contributions'], 0, 0, $lang);
             }
         }

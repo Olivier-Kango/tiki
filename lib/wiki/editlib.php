@@ -10,6 +10,7 @@
  *
  */
 
+use Tiki\Lib\Diff\DiffUtils;
 use Tiki\Lib\Diff\TextDiff;
 use Tiki\Lib\Diff\Op\Add;
 use Tiki\Lib\Diff\Op\Change;
@@ -1489,11 +1490,11 @@ class EditLib
                 if (! $textDiff->isEmpty()) {
                     foreach ($textDiff->edits as $edit) {
                         if (is_a($edit, Add::class)) { // new content
-                            $sections[] = findMentions($edit->final, 'new');
+                            $sections[] = DiffUtils::findMentions($edit->final, 'new');
                         } elseif (is_a($edit, Change::class)) { // change or new content
-                            $sections[] = findMentionsOnChange($edit);
+                            $sections[] = DiffUtils::findMentionsOnChange($edit);
                         } elseif (is_a($edit, Copy::class)) { // no diffs on content
-                            $sections[] = findMentions($edit->final, 'old');
+                            $sections[] = DiffUtils::findMentions($edit->final, 'old');
                         }
                     }
                 }

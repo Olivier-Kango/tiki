@@ -14,6 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Tiki\Lib\Diff\DiffUtils;
 use TikiLib;
 
 #[AsCommand(
@@ -301,7 +302,6 @@ class IndexCompareEnginesCommand extends Command
                 }
             }
         } elseif ($input->getOption('html')) {
-            include_once 'lib/Diff/difflib.php';
             include_once 'lib/wiki-plugins/wikiplugin_code.php';
 
             $htmlOutput = "";
@@ -309,7 +309,7 @@ class IndexCompareEnginesCommand extends Command
             foreach ($differentOutputs as $output) {
                 $pageName = $output['page'];
                 $pluginCode = wikiplugin_code($output['plugin'], ['colors' => 'tiki'], null, []);
-                $diff = diff2($output['output'][$engines[0]], $output['output'][$engines[1]]);
+                $diff = DiffUtils::diff2($output['output'][$engines[0]], $output['output'][$engines[1]]);
                 $htmlOutput .= <<<HTML
 <table class='table table-striped' style='margin-top: 40px'>
     <tbody>

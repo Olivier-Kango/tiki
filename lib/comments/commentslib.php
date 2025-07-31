@@ -1,14 +1,16 @@
 <?php
 
-use Symfony\Component\Mime\Exception\RfcComplianceException;
-use ZBateson\MailMimeParser\MailMimeParser;
-use Symfony\Component\Mime\Address;
-
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // A library to handle comments on object (notes, articles, etc)
+
+use Symfony\Component\Mime\Exception\RfcComplianceException;
+use ZBateson\MailMimeParser\MailMimeParser;
+use Symfony\Component\Mime\Address;
+use Tiki\Lib\Diff\DiffUtils;
+
 /**
  *
  */
@@ -3051,8 +3053,7 @@ class Comments extends TikiLib
         $data = $this->process_save_plugins($data, $comment['objectType'], $threadId);
 
         if ($prefs['feature_actionlog'] == 'y') {
-            include_once('lib/Diff/difflib.php');
-            $bytes = diff2($comment['data'], $data, 'bytes');
+            $bytes = DiffUtils::diff2($comment['data'], $data, 'bytes');
             $logslib = TikiLib::lib('logs');
             if ($comment['objectType'] == 'forum') {
                 $logslib->add_action('Updated', $comment['object'], $comment['objectType'], "comments_parentId=$threadId&amp;$bytes#threadId$threadId", '', '', '', '', $contributions);

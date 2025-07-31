@@ -3318,7 +3318,7 @@ lib/debug/debugger-ext.php -text
 lib/debug/debugger.php -text
 lib/debug/index.php -text
 lib/diff.php -text
-lib/Diff/difflib.php -text
+lib/Diff/DiffUtils.php -text
 lib/Diff/TextDiff.php -text
 lib/Diff/EngineNative.php -text
 lib/Diff/EngineXdiff.php -text

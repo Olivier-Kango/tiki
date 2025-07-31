@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 //this script may only be included - so its better to die if called directly.
+use Tiki\Lib\Diff\DiffUtils;
+
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
     header('location: index.php');
     exit;
@@ -350,7 +352,6 @@ class LanguageTranslations extends TikiDb_Bridge
             }
 
             if ($originalTranslations && isset($lang[$res['source']]) && $lang[$res['source']]['tran'] != $res['tran']) {
-                require_once('lib/Diff/difflib.php');
                 $res['originalTranslation'] = $lang[$res['source']]['tran'];
                 $res['diff'] = $this->_diff($res['originalTranslation'], $res['tran']);
             }
@@ -390,7 +391,6 @@ class LanguageTranslations extends TikiDb_Bridge
             }
 
             if ($originalTranslations && isset($lang[$res['source']]) && $lang[$res['source']]['tran'] != $res['tran']) {
-                require_once('lib/Diff/difflib.php');
                 $res['originalTranslation'] = $lang[$res['source']]['tran'];
                 $res['diff'] = $this->_diff($res['originalTranslation'], $res['tran']);
             }
@@ -412,7 +412,7 @@ class LanguageTranslations extends TikiDb_Bridge
      */
     protected function _diff($original, $new)
     {
-        return diff2($original, $new, 'htmldiff');
+        return DiffUtils::diff2($original, $new, 'htmldiff');
     }
 
     /**

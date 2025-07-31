@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tracker\Field;
 
+use Tiki\Lib\Diff\DiffUtils;
 use Tracker_Definition;
 
 /**
@@ -246,8 +247,8 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
         if (empty($context['diff_style'])) {
             $context['diff_style'] = 'inlinediff';
         }
-        require_once('lib/Diff/difflib.php');
-        $diff = diff2($old, $new, $context['diff_style']);
+
+        $diff = DiffUtils::diff2($old, $new, $context['diff_style']);
         $result = '';
 
         if (is_array($diff)) {
