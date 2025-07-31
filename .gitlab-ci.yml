@@ -711,3 +711,18 @@ composer-stability:
   artifacts:
     when: always  # Always upload artifacts even if job fails
   allow_failure: true  # Allow job to fail without failing the pipeline
+
+composer-operator-check:
+  stage: composer-stability
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  needs:
+    - composer
+  script:
+  - chmod +x doc/devtools/check_caret_operator.sh
+  - ./doc/devtools/check_caret_operator.sh
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
+  allow_failure: false
