@@ -430,9 +430,30 @@
         "test": "php ../lib/test/phpunit.php -c phpunit.xml.dist --colors=always"
     },
     "repositories": {
+        "packagist.org": {
+            "type": "composer",
+            "url": "https://packagist.org",
+            "exclude": [
+                "pear/text_wiki_mediawiki"
+            ]
+        },
         "asset-packagist.org": {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        "tiki.org": {
+            "type": "composer",
+            "url": "https://composer.tiki.org",
+            "canonical": false,
+            "only": [
+                "simile_timeline/simile_timeline",
+                "openannotation/annotator",
+                "jquery-plugins/reflection-jquery",
+                "jquery/jquery-sheet",
+                "umakantp/smartylint",
+                "bower-asset/wodo.texteditor",
+                "pear/text_wiki_mediawiki"
+            ]
         }
     }
 }
