@@ -29,6 +29,7 @@
         "",
         "  NOTE ON VERSION CONSTRAINTS:",
         "    As of 2025-04, we use the tilde (~) operator instead of caret (^) for all dependencies.",
+        "    This file is automatically checked in CI by .gitlab-ci.yml using doc/devtools/check_caret_operator.sh to ensure the use of ~ instead of ^ in version constraints.",
         "    This change aims to prevent unexpected upgrades caused by packages that do not strictly follow semantic versioning.",
         "    The caret (^) operator (e.g., ^1.10.0) allows updates up to the next major version (<2.0.0).",
         "       This can introduce breaking changes if the package does not adhere strictly to SemVer.",
