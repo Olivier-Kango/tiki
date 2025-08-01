@@ -114,6 +114,7 @@
     "src/js/tiki-html5-qrcode",
     "src/js/tiki-mermaid",
     "src/js/tiki-sentry-browser",
+    "src/js/tiki-figlet",
     "src/js/tiki-iot",
     "src/js/tiki-toast-ui",
     "src/js/tiki-vue-sfc-loader",

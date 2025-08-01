@@ -76,6 +76,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "@tiki-modules/sentryBrowser" => $tikiUrl . JS_ASSETS_PATH . "/tiki-sentry-browser.js",
                 "@mermaidPack" => $tikiUrl . JS_ASSETS_PATH . "/tiki-mermaid.js",
                 "@tiki-glightbox" => $tikiUrl . JS_ASSETS_PATH . "/tiki-glightbox.js",
+                "@tiki-figlet" => $tikiUrl . JS_ASSETS_PATH . "/tiki-figlet.js",
 
                 /* Toast-ui editor */
                 "@tiki-toast-ui/editor-index" => $tikiUrl . JS_ASSETS_PATH . "/tiki-toast-ui.js",
