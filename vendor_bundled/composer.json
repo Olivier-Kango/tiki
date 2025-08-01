@@ -227,7 +227,7 @@
         "league/oauth2-client": "~2.6",
         "league/oauth2-server": "~8.5",
         "maestroerror/php-heic-to-jpg": "~1.0",
-        "manticoresoftware/manticoresearch-php": "~3.2",
+        "manticoresoftware/manticoresearch-php": "~4.0",
         "matthiasmullie/minify": "~1.3",
         "mautic/api-library": "~3.0",
         "melbahja/seo": "~2.1",

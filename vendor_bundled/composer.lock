@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e969f13b27db7776b20eb762a8c493cb",
+    "content-hash": "648ed4203d0c784ec09b57fd17c008f9",
     "packages": [
         {
             "name": "amphp/amp",
@@ -5607,16 +5607,16 @@
         },
         {
             "name": "manticoresoftware/manticoresearch-php",
-            "version": "3.2.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/manticoresoftware/manticoresearch-php.git",
-                "reference": "02950b0f73ba8ad72d3f48bed4471b582b87ae8d"
+                "reference": "fe6ea1c5ddbfc79f0d31dfbeb0284a890c4c9687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/manticoresoftware/manticoresearch-php/zipball/02950b0f73ba8ad72d3f48bed4471b582b87ae8d",
-                "reference": "02950b0f73ba8ad72d3f48bed4471b582b87ae8d",
+                "url": "https://api.github.com/repos/manticoresoftware/manticoresearch-php/zipball/fe6ea1c5ddbfc79f0d31dfbeb0284a890c4c9687",
+                "reference": "fe6ea1c5ddbfc79f0d31dfbeb0284a890c4c9687",
                 "shasum": ""
             },
             "require": {
@@ -5628,7 +5628,7 @@
             "require-dev": {
                 "mockery/mockery": "*",
                 "phpstan/phpstan": "^1.4",
-                "phpunit/phpunit": ">=7.5 || ^9.6",
+                "phpunit/phpunit": ">=7.5 || ^10.5",
                 "slevomat/coding-standard": "^7.0",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -5673,7 +5673,7 @@
                 "issues": "https://github.com/manticoresoftware/manticoresearch-php/issues",
                 "source": "https://github.com/manticoresoftware/manticoresearch-php/"
             },
-            "time": "2024-10-31T10:38:53+00:00"
+            "time": "2025-03-31T12:51:13+00:00"
         },
         {
             "name": "matthiasmullie/minify",
