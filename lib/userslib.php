@@ -47,6 +47,7 @@ use PhpXmlRpc\Client as XML_RPC_Client;
 use Tiki\Lib\Auth\Tokens;
 use Tiki\Lib\Auth\LdapLib;
 use Tiki\Lib\Auth\PhpBBLib;
+use Tiki\Lib\TikiDate;
 
 class UsersLib extends TikiLib
 {

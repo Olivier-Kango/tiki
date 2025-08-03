@@ -155,6 +155,8 @@ class Autoload
         'Tiki_Security_Policy' => 'Tiki\\Smarty\\SecurityPolicy',
         'Smarty_Tiki' => 'Tiki\\Smarty\\SmartyTiki',
         'SmartyTikiErrorHandler' => 'Tiki\\Smarty\\SmartyTikiErrorHandler',
+        'TikiDate' => 'Tiki\\Lib\\TikiDate',
+        'Date_Calc' => 'Tiki\\Lib\\DateCalc',
     ];
 
     /**

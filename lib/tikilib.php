@@ -9,6 +9,7 @@ use Tiki\TikiDb\PdoDb;
 use Tiki\Lib\Wiki\ConvertToTiki9;
 use Tiki\TikiInit;
 use Tiki\Lib\CookieConsent\CookieConsentLib;
+use Tiki\Lib\TikiDate;
 use Tiki\Lib\Diff\DiffUtils;
 
 require_once(__DIR__ . '/../lib/debug/Tracer.php');

@@ -375,7 +375,6 @@
             "../lib/rating/formula/",
             "../lib/setup",
             "../lib/stats",
-            "../lib/tikidate.php",
             "../lib/webmail",
             "../lib/calendar/calrecurrence.php",
             "vendor/h5p/h5p-core",

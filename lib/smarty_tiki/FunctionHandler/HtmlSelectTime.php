@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use Tiki\Lib\TikiDate;
 
 /**
  * Smarty {html_select_time} function handler
@@ -40,7 +41,7 @@ class HtmlSelectTime extends Base
         $minute_interval    = 1;
         $second_interval    = 1;
         $hour_minmax        = '0-23';
-        $tikidate = new \TikiDate();
+        $tikidate = new TikiDate();
         /* Should the select boxes be part of an array when returned from PHP?
        e.g. setting it to "birthday", would create "birthday[Hour]",
        "birthday[Minute]", "birthday[Seconds]" & "birthday[Meridian]".

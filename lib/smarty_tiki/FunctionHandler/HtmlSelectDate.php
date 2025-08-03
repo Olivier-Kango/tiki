@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use Tiki\Lib\TikiDate;
 
 /**
  * Smarty {html_select_date} plugin
@@ -57,7 +58,7 @@ class HtmlSelectDate extends Base
         $display_months  = true;
         $display_years   = true;
         $month_format    = "%B";
-        $tikidate = new \TikiDate();
+        $tikidate = new TikiDate();
 
         /* Write months as numbers by default  GL */
         $month_value_format = "%m";

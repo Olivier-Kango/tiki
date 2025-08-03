@@ -3091,10 +3091,6 @@
         "lib\/admin\/adminlib.php": {
             "class:AdminLib": true
         },
-        "lib\/tikidate.php": {
-            "class:TikiDate": true,
-            "class:Date_Calc": true
-        },
         "lib\/geo\/geolib.php": {
             "class:GeoLib": true
         },
@@ -6174,9 +6170,6 @@
         "lib\/mail\/mimelib.php": {
             "mime": true
         },
-        "lib\/tikidate.php": {
-            "Date_Calc": true
-        },
         "lib\/ocrlib.php": {
             "ocrLib": true
         },
@@ -6286,9 +6279,6 @@
         "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
             "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
             "class:TikiAcceptanceTestDBRestorerBinaryDumps": true
-        },
-        "lib\/tikidate.php": {
-            "class:Date_Calc": true
         },
         "lib\/wiki\/xmllib.php": {
             "class:page_Parser": true
@@ -7931,7 +7921,7 @@
             "AdminLib::create_tag": true,
             "AdminLib::restore_tag": true
         },
-        "lib\/tikidate.php": {
+        "lib\/TikiDate.php": {
             "TikiDate::TimezoneIsValidId": true
         },
         "lib\/geo\/geolib.php": {

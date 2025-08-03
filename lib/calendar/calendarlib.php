@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\DateCalc;
+use Tiki\Lib\TikiDate;
+
 if (! defined('ROLE_ORGANIZER')) {
     define('ROLE_ORGANIZER', '6');
 }
@@ -1567,7 +1571,7 @@ class CalendarLib extends TikiLib
             'date' => $focusDate,
             'weekDay' => TikiLib::date_format('%w', $focusDate) // in (0, 6)
         ];
-        $focus['daysInMonth'] = Date_Calc::daysInMonth($focus['month'], $focus['year']);
+        $focus['daysInMonth'] = DateCalc::daysInMonth($focus['month'], $focus['year']);
         return $focus;
     }
     // Compute the start date (the 1 first of the month of the focus date or the day) and the next start date from the period around a focus date
@@ -1614,7 +1618,7 @@ class CalendarLib extends TikiLib
         } else {
             $previous['month'] -= $nbMonths[$view];
         }
-        $previous['daysInMonth'] = Date_Calc::daysInMonth($previous['month'], $previous['year']);
+        $previous['daysInMonth'] = DateCalc::daysInMonth($previous['month'], $previous['year']);
         if ($previous['day'] > $previous['daysInMonth']) {
             $previous['day'] = $previous['daysInMonth'];
         }
@@ -1640,7 +1644,7 @@ class CalendarLib extends TikiLib
         } else {
             $next['month'] += $nbMonths[$view];
         }
-        $next['daysInMonth'] = Date_Calc::daysInMonth($next['month'], $next['year']);
+        $next['daysInMonth'] = DateCalc::daysInMonth($next['month'], $next['year']);
         if ($next['day'] > $next['daysInMonth']) {
             $next['day'] = $next['daysInMonth'];
         }
@@ -1663,15 +1667,15 @@ class CalendarLib extends TikiLib
         $viewStart = $start;
         $nbBackDays = $start['weekDay'] < $firstWeekDay ? 6 : $start['weekDay'] - $firstWeekDay;
         if ($nbBackDays == 0) {
-            $viewStart['daysInMonth'] = Date_Calc::daysInMonth($viewStart['month'], $viewStart['year']);
+            $viewStart['daysInMonth'] = DateCalc::daysInMonth($viewStart['month'], $viewStart['year']);
         } elseif ($start['day'] - $nbBackDays < 0) {
             $viewStart['month'] = $start['month'] == 1 ? 12 : $start['month'] - 1;
             $viewStart['year'] = $start['month'] == 1 ? $start['year'] - 1 : $start['year'];
-            $viewStart['daysInMonth'] = Date_Calc::daysInMonth($viewStart['month'], $viewStart['year']);
+            $viewStart['daysInMonth'] = DateCalc::daysInMonth($viewStart['month'], $viewStart['year']);
             $viewStart['day'] = $viewStart['daysInMonth'] - $nbBackDays + 1;
             $viewStart['date'] = TikiLib::make_time(0, 0, 0, $viewStart['month'], $viewStart['day'], $viewStart['year']);
         } else {
-            $viewStart['daysInMonth'] = Date_Calc::daysInMonth($viewStart['month'], $viewStart['year']);
+            $viewStart['daysInMonth'] = DateCalc::daysInMonth($viewStart['month'], $viewStart['year']);
             $viewStart['day'] = $viewStart['day'] - $nbBackDays;
             $viewStart['date'] = TikiLib::make_time(0, 0, 0, $viewStart['month'], $viewStart['day'], $viewStart['year']);
         }
@@ -1701,7 +1705,7 @@ class CalendarLib extends TikiLib
                 } else {
                     $loop['month'] += 1;
                 }
-                $loop['daysInMonth'] = Date_Calc::daysInMonth($loop['month'], $loop['year']);
+                $loop['daysInMonth'] = DateCalc::daysInMonth($loop['month'], $loop['year']);
             } else {
                 $loop['day'] = $loop['day'] + 1;
             }

@@ -10,6 +10,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 //this script may only be included - so its better to die if called directly.
 
+use Tiki\Lib\DateCalc;
+
 global $tikiroot;
 
 /***
@@ -248,7 +250,7 @@ if (
 
             // $tikilib->make_time() used with timezones doesn't support day = 0
             // This supposes that $viewstart's day == 1, as defined above
-            $viewstart_d = Date_Calc::daysInMonth($viewstart_m, $viewstart_y) - ( $TmpWeekday - 1 );
+            $viewstart_d = DateCalc::daysInMonth($viewstart_m, $viewstart_y) - ( $TmpWeekday - 1 );
 
             $viewstart = $tikilib->make_time(0, 0, 0, $viewstart_m, $viewstart_d, $viewstart_y);
         }
@@ -340,7 +342,7 @@ if (
 
             // $tikilib->make_time() used with timezones doesn't support day = 0
             // This supposes that $viewstart's day == 1, as defined above
-            $viewstart_d = Date_Calc::daysInMonth($viewstart_m, $viewstart_y) - ( $wd - $viewstart_d );
+            $viewstart_d = DateCalc::daysInMonth($viewstart_m, $viewstart_y) - ( $wd - $viewstart_d );
         } else {
             $viewstart_d -= $wd;
         }

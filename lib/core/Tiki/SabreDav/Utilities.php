@@ -11,6 +11,7 @@ use Sabre\CardDAV;
 use Sabre\DAV;
 use Sabre\DAVACL;
 use Sabre\VObject;
+use Tiki\Lib\TikiDate;
 use TikiLib;
 use TikiMail;
 
@@ -269,7 +270,7 @@ class Utilities
             }
             if (isset($component->RRULE)) {
                 $rec = self::mapRRuleToRecurrence($component);
-                $rec->setStartPeriod(\TikiDate::getStartDay($firstOccurence, 'UTC'));
+                $rec->setStartPeriod(TikiDate::getStartDay($firstOccurence, 'UTC'));
             }
 
             // Ensure Occurence values are positive

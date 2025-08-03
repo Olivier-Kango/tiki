@@ -124,7 +124,7 @@ namespace PHPSTORM_META {
             'theme'                      => \Tiki\Lib\Theme\ThemeLib::class,
             'themecontrol'               => \Tiki\Lib\Theme\ThemeControlLib::class,
             'tikicalendar'               => \TikiCalendarLib::class,
-            'tikidate'                   => \TikiDate::class,
+            'tikidate'                   => \Tiki\Lib\TikiDate::class,
             'trk'                        => \TrackerLib::class,
             'unifiedsearch'              => \UnifiedSearchLib::class,
             'user'                       => \UsersLib::class,

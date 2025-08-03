@@ -4,6 +4,12 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Lib;
+
+use DateTime;
+use DateTimeZone;
+use Exception;
+
 //this script may only be included - so its better to die if called directly.
 if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
@@ -509,21 +515,5 @@ class TikiDate
         }
 
         return $timestamp;
-    }
-}
-
-/**
- *
- */
-class Date_Calc
-{
-    /**
-     * @param $month
-     * @param $year
-     * @return int
-     */
-    public static function daysInMonth($month, $year)
-    {
-        return cal_days_in_month(CAL_GREGORIAN, $month, $year);
     }
 }

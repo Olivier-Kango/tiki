@@ -7,6 +7,7 @@
 
 use Tiki\Lib\CookieConsent\CookieConsentLib;
 use Tiki\Lib\Theme\ThemeLib;
+use Tiki\Lib\TikiDate;
 
 if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
     die('This script may only be included.');

@@ -4703,7 +4703,8 @@ lib/Theme/ThemeLib.php -text
 lib/tiki-dynamic-js.php -text
 lib/tiki-js.js -text
 lib/tikiaccesslib.php -text
-lib/tikidate.php -text
+lib/TikiDate.php -text
+lib/DateCalc.php -text
 lib/tikihelp/content.html -text
 lib/tikihelp/css/index.php -text
 lib/tikihelp/css/menu.css -text
