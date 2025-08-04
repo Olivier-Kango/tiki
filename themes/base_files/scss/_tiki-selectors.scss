@@ -62,6 +62,12 @@ $imagePathToImgDir: "../../../img/";
     margin-top: 10px;
 }
 
+.recording-timer {
+    margin-left: 10px;
+    font-weight: bold;
+    display: none
+}
+
 //// h3 heading in modules
 //.module h3.card-title { font-size: $tiki-module-h3-card-title-font-size; }
 
