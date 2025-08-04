@@ -286,41 +286,39 @@ if (isset($_REQUEST['sort_mode'])) {
 $viewstart = $_REQUEST['todate'] ?? $tikilib->now;
 $viewend = $viewstart + 90 * 86400 - 1; // 1 month approx
 
-if ($_SESSION['CalendarViewGroups']) {
-    if (array_key_exists('CalendarViewList', $_SESSION) && $_SESSION['CalendarViewList'] == "list") {
-        if (! isset($sort_mode)) {
-            $sort_mode = "start_asc";
-        }
-        $smarty->assign_by_ref('sort_mode', $sort_mode);
+$listevents = [];
+if (! empty($_SESSION['CalendarViewGroups']) && ! empty($_SESSION['CalendarViewList']) && $_SESSION['CalendarViewList'] === 'list') {
+    // This logic is only for the 'list' view. The 'table' view is handled by AJAX.
 
-        $listevents = $calendarlib->list_raw_items(
-            $_SESSION['CalendarViewGroups'],
-            $user,
-            $viewstart,
-            $viewend,
-            0,
-            $prefs['maxRecords'],
-            $sort_mode
-        );
-
-        $listevents = Perms::filter(
-            ['type' => 'calendaritem'],
-            'object',
-            $listevents,
-            ['object' => 'calitemId'],
-            ['view_events']
-        );
-
-        foreach ($listevents as & $event) {
-            $event['perms'] = Perms::get([ 'type' => 'calendaritem', 'object' => $event['calitemId']]);
-        }
-    } else {
-        $listevents = $calendarlib->list_items($_SESSION['CalendarViewGroups'], $user, $viewstart, $viewend, 0, -1);
+    if (! isset($sort_mode)) {
+        $sort_mode = "start_asc";
     }
-    $smarty->assign_by_ref('listevents', $listevents);
-} else {
-    $listevents = [];
+    $smarty->assign_by_ref('sort_mode', $sort_mode);
+
+    $listevents = $calendarlib->list_raw_items(
+        $_SESSION['CalendarViewGroups'],
+        $user,
+        $viewstart,
+        $viewend,
+        0,
+        $prefs['maxRecords'],
+        $sort_mode
+    );
+
+    $listevents = Perms::filter(
+        ['type' => 'calendaritem'],
+        'object',
+        $listevents,
+        ['object' => 'calitemId'],
+        ['view_events']
+    );
+
+    foreach ($listevents as & $event) {
+        $event['perms'] = Perms::get([ 'type' => 'calendaritem', 'object' => $event['calitemId']]);
+    }
+    unset($event);
 }
+$smarty->assign_by_ref('listevents', $listevents);
 
 $mloop = TikiLib::date_format("%m", $viewstart);
 $dloop = TikiLib::date_format("%d", $viewstart);

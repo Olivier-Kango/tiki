@@ -201,7 +201,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                 console.log(info.el);
                 const event = info.event;
                 console.log(event);
-                if (event.id && event.viewable) {
+                if (event.id && event.extendedProps.viewable) {
                     let $this = $(info.el).tikiModal(" ");
                     $.openModal({
                         title: tr("New event"),
