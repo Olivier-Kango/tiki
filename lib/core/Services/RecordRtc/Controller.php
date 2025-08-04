@@ -32,10 +32,12 @@ class Services_RecordRtc_Controller
             $fileName = $audioFilename;
             $tempName = $_FILES['audioblob']['tmp_name'];
             $_FILES['data'] = $_FILES['audioblob'];
+            $_FILES['data']['type'] = 'audio/webm';
         } else {
             $fileName = $videoFilename;
             $tempName = $_FILES['videoblob']['tmp_name'];
             $_FILES['data'] = $_FILES['videoblob'];
+            $_FILES['data']['type'] = 'video/webm';
         }
 
         if (empty($fileName) || empty($tempName)) {
@@ -63,7 +65,6 @@ class Services_RecordRtc_Controller
             return;
         }
         $_FILES['data']['name'] = $fileName;
-        $_FILES['data']['type'] = ($extension == 'webm') ? 'video/webm' : $_FILES['data']['type'];
 
         if ($galleryId) {
             $_FILES['data']['galleryId'] = $galleryId;

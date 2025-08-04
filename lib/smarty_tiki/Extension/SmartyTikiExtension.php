@@ -454,6 +454,9 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'icon':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\Icon();
                 break;
+            case 'inline_audio_player':
+                $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\InlineAudioPlayer();
+                break;
             case 'initials_filter_links':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\InitialsFilterLinks();
                 break;

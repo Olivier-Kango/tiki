@@ -413,7 +413,7 @@
                             {if isset($files[changes].isgal) && $files[changes].isgal eq 1}
                                 {capture assign=propval}{icon name='file-archive-open' class=''}{/capture}
                             {else}
-                                {$propval=$files[changes].filename|iconify:$files[changes].type}
+                                {$propval=$files[changes].filename|iconify:$files[changes].type:$files[changes].id}
                             {/if}
                         {elseif $propname eq 'description' and $gal_info.max_desc gt 0}
                             {$propval=$propval|truncate:$gal_info.max_desc:"...":false|nl2br}
