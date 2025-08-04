@@ -232,7 +232,35 @@ class QueryBuilder
     {
         $field = $this->getField($node);
         Index::addSearchedField($node->getField(), 'others');
-        $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
+
+        $raw = $this->getRaw($node);
+        if (is_string($raw) && $raw !== '' && str_contains($raw, ',') && str_starts_with($node->getField(), 'tracker_field_')) {
+            $permName = substr($node->getField(), strlen('tracker_field_'));
+            static $fieldTypes = [];
+            if (! isset($fieldTypes[$permName])) {
+                $fieldTypes[$permName] = \TikiDb::get()->getOne(
+                    "SELECT `type` FROM `tiki_tracker_fields` WHERE `permName` = ?",
+                    [$permName]
+                );
+            }
+
+            if ($fieldTypes[$permName] === 'M') {
+                $values = array_map('trim', explode(',', $raw));
+                $conds  = [];
+                foreach ($values as $v) {
+                    if ($v === '') {
+                        continue;
+                    }
+                    $pattern = '(^|\\\|)' . preg_quote($v, '/') . '(\||$)';
+                    $conds[] = 'REGEX(' . $field . ', ' . $this->pdo_client->quote($pattern) . ')';
+                }
+                if ($conds) {
+                    return '(' . implode(' OR ', $conds) . ')';
+                }
+            }
+        }
+
+        $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new \stdClass();
         if (isset($mapping['types']) && (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types']))) {
             $terms = $this->getRaw($node, 'multivalue');
             return 'ANY(' . $field . ')' . ' IN (' . implode(',', $terms) . ')';

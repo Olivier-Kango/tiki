@@ -246,6 +246,26 @@ class Search_Elastic_QueryBuilder
     private function handleToken($node)
     {
         $value = $node->getValue($this->factory)->getValue();
+        if (is_string($value) && $value !== '' && str_contains($value, ',') && str_starts_with($node->getField(), 'tracker_field_')) {
+            $permName = substr($node->getField(), strlen('tracker_field_'));
+            static $fieldTypes = [];
+
+            if (! isset($fieldTypes[$permName])) {
+                $fieldTypes[$permName] = TikiDb::get()->getOne(
+                    "SELECT `type` FROM `tiki_tracker_fields` WHERE `permName` = ?",
+                    [$permName]
+                );
+            }
+
+            if ($fieldTypes[$permName] === 'M') {
+                $values = array_map('trim', explode(',', $value));
+                return [
+                    'terms' => [
+                        $this->getNodeField($node) => $values
+                    ]
+                ];
+            }
+        }
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
         if ($value === '' || (isset($mapping->type) && $mapping->type === 'date' && is_null($value))) {
             if (isset($mapping->type) && ($mapping->type === 'date' || $mapping->type === 'float')) {

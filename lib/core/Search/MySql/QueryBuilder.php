@@ -107,6 +107,29 @@ class Search_MySql_QueryBuilder
                 $to = $this->db->qstr($raw + 0.00001);
                 return "`{$this->tfTranslator->shortenize($node->getField())}` BETWEEN $from AND $to";
             } else {
+                if (str_contains($raw, ',') && str_starts_with($node->getField(), 'tracker_field_')) {
+                    $permName = substr($node->getField(), strlen('tracker_field_'));
+                    static $fieldTypes = [];
+                    if (! isset($fieldTypes[$permName])) {
+                        $fieldTypes[$permName] = $this->db->getOne(
+                            "SELECT `type` FROM `tiki_tracker_fields` WHERE `permName` = ?",
+                            [$permName]
+                        );
+                    }
+                    if ($fieldTypes[$permName] === 'M') {
+                        $shortField = $this->tfTranslator->shortenize($node->getField());
+                        $values = explode(',', $raw);
+                        $conditions = [];
+
+                        foreach ($values as $v) {
+                            $v = trim($v);
+                            $regexp = $this->db->qstr("(^|\\|)" . preg_quote($v, '/') . "(\\||\$)");
+                            $conditions[] = "`$shortField` REGEXP $regexp";
+                        }
+
+                        return '(' . implode(' OR ', $conditions) . ')';
+                    }
+                }
                 $value = $this->getQuoted($node);
                 $this->requireIndex($node->getField(), 'index', $node->getWeight());
                 return "(`{$this->tfTranslator->shortenize($node->getField())}` = $value AND `{$this->tfTranslator->shortenize($node->getField())}` IS NOT NULL)";
