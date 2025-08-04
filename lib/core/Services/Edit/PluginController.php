@@ -317,7 +317,7 @@ class Services_Edit_PluginController
                 'pageName' => $page,
                 'pluginArgs' => $pluginArgs,
                 'pluginArgsJSON' => json_encode($pluginArgs),
-                'bodyContent' => $bodyContent,
+                'bodyContent' => TikiLib::lib("parser")->unprotectSpecialChars(html_entity_decode($bodyContent), true),
                 'edit_icon' => $edit_icon,
                 'selectedMod' => $selectedMod,
                 'isMarkdown' => $isMarkdown,
