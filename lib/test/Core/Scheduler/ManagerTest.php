@@ -202,4 +202,35 @@ class ManagerTest extends TestCase
 
         $this->assertFalse($shouldRun);
     }
+    /**
+     * Test if the Scheduler does run in the Timezone of the server.
+     */
+    public function testSchedulerRunsInServerTimezone()
+    {
+        $defaultTimezone = date_default_timezone_get();
+        $testTimezone = $defaultTimezone === 'Pacific/Kiritimati' ? 'Pacific/Fiji' : 'Pacific/Kiritimati';
+        $currentTime = date('Y-m-d H:i:s');
+        $logger = new Tiki_Log('UnitTests', LogLevel::ERROR);
+        $scheduler = Scheduler_Item::fromArray([
+            'id' => null,
+            'name' => 'Test Scheduler Server Timezone',
+            'description' => 'Scheduler to test Server Timezone',
+            'task' => 'ConsoleCommandTask',
+            'params' => '{"console_command":"list"}',
+            'run_time' => '0 2 * * *',
+            'status' => Scheduler_Item::STATUS_ACTIVE,
+            're_run' => 0,
+            'run_only_once' => 0,
+            'creation_date' => time() - 60,
+            'user_run_now' => self::USER,
+        ], $logger);
+        $scheduler->save();
+        $date_run_default_timezone = new \DateTime('@' . $scheduler->getPreviousRunDate($currentTime));
+        $date_default_timezone = $date_run_default_timezone->format('Y-m-d H:i');
+        date_default_timezone_set($testTimezone);
+        $date_run_test_timezone = new \DateTime('@' . $scheduler->getPreviousRunDate($currentTime));
+        $date_test_timezone = $date_run_test_timezone->format('Y-m-d H:i');
+        date_default_timezone_set($defaultTimezone);
+        $this->assertNotEquals($date_default_timezone, $date_test_timezone);
+    }
 }

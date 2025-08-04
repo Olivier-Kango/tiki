@@ -143,7 +143,8 @@
     <div class="row">
         <div class="offset-sm-2 col-sm-10">
             {remarksbox type="note" title="{tr}Information{/tr}"}
-            {tr}Use CRON format to enter the values in "Run Time":<br>Minute, Hour, Day of Month, Month, Day of Week<br>Eg. every 5 minutes: */5 * * * *{/tr}
+            {tr}Use CRON format to enter the values in "Run Time":<br>Minute, Hour, Day of Month, Month, Day of Week<br>Eg. every 5 minutes: */5 * * * *{/tr}<br>
+            {tr _0=$run_timezone}"Run time" must be in the %0 time zone.{/tr}
             {/remarksbox}
         </div>
     </div>

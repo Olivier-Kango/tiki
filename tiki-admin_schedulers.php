@@ -263,6 +263,7 @@ $smarty->assign('schedulerruns', isset($schedulerRuns) ? $schedulerRuns : []);
 $smarty->assign('schedulerId', $scheduler);
 $smarty->assign('schedulerTasks', $schedulerTasks);
 $smarty->assign('selectedTask', '');
+$smarty->assign('run_timezone', TikiLib::lib('tiki')->get_display_timezone(false));
 $smarty->assign('schedulerStatus', [
     Scheduler_Item::STATUS_ACTIVE => tra('Active'),
     Scheduler_Item::STATUS_INACTIVE => tra('Inactive'),
