@@ -1351,10 +1351,6 @@
         "lib\/core\/Tiki\/Profile\/DateConverter.php": {
             "class:Tiki_Profile_DateConverter": true
         },
-        "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
-            "class:Tiki_Profile_SymbolLoader": true,
-            "class:Tiki_Profile_SymbolLoader_Store": true
-        },
         "lib\/core\/Tiki\/Profile\/List.php": {
             "class:Tiki_Profile_List": true
         },
@@ -4933,10 +4929,6 @@
         "lib\/core\/Tiki\/Profile\/DateConverter.php": {
             "Tiki_Profile_DateConverter": true
         },
-        "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
-            "Tiki_Profile_SymbolLoader": true,
-            "Tiki_Profile_SymbolLoader_Store": true
-        },
         "lib\/core\/Tiki\/Profile\/List.php": {
             "Tiki_Profile_List": true
         },
@@ -6268,9 +6260,6 @@
         }
     },
     "PSR1.Classes.ClassDeclaration.MultipleClasses": {
-        "lib\/core\/Tiki\/Profile\/SymbolLoader.php": {
-            "class:Tiki_Profile_SymbolLoader_Store": true
-        },
         "lib\/cache\/cachelib.php": {
             "class:CacheLibFileSystem": true,
             "class:CacheLibMemcache": true,

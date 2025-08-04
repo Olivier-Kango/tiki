@@ -118,7 +118,7 @@ namespace PHPSTORM_META {
             'stats'                      => \StatsLib::class,
             'storedsearch'               => \StoredSearchLib::class,
             'struct'                     => \StructLib::class,
-            'symbols'                    => \Tiki_Profile_SymbolLoader::class,
+            'symbols'                    => \Tiki\Profile\SymbolLoader::class,
             'tabular'                    => \Tracker\Tabular\Manager::class,
             'template'                   => \TemplatesLib::class,
             'theme'                      => \Tiki\Lib\Theme\ThemeLib::class,

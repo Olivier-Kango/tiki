@@ -107,7 +107,7 @@ class TikiLib extends TikiDb_Bridge
     }
 
     /**
-     * @return Tiki_Profile_SymbolLoader
+     * @return Tiki\Profile\SymbolLoader
      * @throws Exception
      */
     public static function symbols()

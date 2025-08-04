@@ -303,7 +303,7 @@
         <service id="tiki.lib.struct" class="StructLib">
             <file>%kernel.root_dir%/lib/structures/structlib.php</file>
         </service>
-        <service id="tiki.lib.symbols" class="Tiki_Profile_SymbolLoader" />
+        <service id="tiki.lib.symbols" class="Tiki\Profile\SymbolLoader" />
         <service id="tiki.lib.tabular" class="Tracker\Tabular\Manager">
             <argument type="service" id="tiki.lib.db"/>
         </service>
