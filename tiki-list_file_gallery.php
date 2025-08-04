@@ -1172,6 +1172,24 @@ if (isset($_GET['slideshow'])) {
     );
     $smarty->assign('offset', $_REQUEST['offset'] ?? 0);
     $smarty->assign('count', $files['count']);
+
+    if ($prefs['feature_categories'] == 'y') {
+        $categlib = TikiLib::lib('categ');
+        foreach ($files['data'] as &$file) {
+            $file['categs'] = $categlib->get_object_categories('file', $file['fileId']);
+            // var_dump($file['categs']);
+            if (is_array($file['categs'])) {
+                $file['categs'] = array_map(function ($c) {
+                    return $c['name'];
+                }, $file['categs']);
+            } else {
+                $file['categs'] = [];
+            }
+            $file['categs'] = implode(', ', $file['categs']);
+        }
+        unset($file);
+    }
+
     $smarty->assign_by_ref('files', $files['data']);
 
     $smarty->assign('show_find', 'n');
@@ -1248,7 +1266,6 @@ if (isset($_GET['slideshow'])) {
         }
         if ($view == 'page') {
             $smarty->assign('maxWidth', $_REQUEST['maxWidth'] ?? '300px');
-            //need to convert fileId to an offset to bring up a specific file for page view
             $smarty->assign('maxRecords', 1);
             $smarty->assign(
                 'metarray',
@@ -1261,6 +1278,30 @@ if (isset($_GET['slideshow'])) {
                 include_once 'lib/jquery_tiki/elfinder/tikiElFinder.php';
                 \tikiElFinder::loadJSCSS();
             }
+            if ($prefs['feature_categories'] == 'y') {
+                $categlib = TikiLib::lib('categ');
+
+                foreach ($files['data'] as &$file) {
+                    if (empty($file['categories']) || ! is_array($file['categories'])) {
+                        $file['categories'] = [];
+
+                        $cats = [];
+                        if (! empty($file['isgal']) && $file['isgal'] == 1) {
+                            $cats = $categlib->get_object_categories('file gallery', $file['id']);
+                        } elseif (! empty($file['fileId'])) {
+                            $cats = $categlib->get_object_categories('file', $file['fileId']);
+                        }
+
+                        foreach ($cats as $catId) {
+                            $file['categories'][] = [
+                                'categId' => $catId,
+                                'name'    => $categlib->get_category_name($catId),
+                            ];
+                        }
+                    }
+                }
+            }
+
             $smarty->assign_by_ref('files', $files['data']);
 
             $subs = 0;
