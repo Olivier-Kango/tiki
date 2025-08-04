@@ -548,6 +548,7 @@ $prefs['feature_left_column'] = 'fixed';
 $prefs['feature_right_column'] = 'fixed';
 $prefs['module_zones_pagebottom'] = 'fixed';
 $prefs['module_zones_bottom'] = 'fixed';
+$prefs['module_sidebar_toggle_small_screen'] = 'fixed';
 
 $headerlib->add_css(
     '.module:hover {' . ' cursor: move;' . ' background-color: #ffa;' . ' }'
