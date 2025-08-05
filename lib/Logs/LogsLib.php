@@ -17,6 +17,22 @@ use function mb_convert_encoding;
 
 class LogsLib extends TikiLib
 {
+    /**
+     * @var array|null Caches the action log configuration to avoid repeated DB queries.
+     */
+
+    private static $cachedActionlogConf = null;
+
+    /**
+     * Clears the internal static cache for the action log configuration.
+     * This ensures that the next call to get_all_actionlog_conf() will fetch fresh data.
+     */
+
+    private function clearActionlogConfCache()
+    {
+        self::$cachedActionlogConf = null;
+    }
+
     public function add_log($type, $message, $who = '', $ip = '', $client = '', $time = '', $log = '')
     {
         global $user, $prefs;
@@ -426,12 +442,11 @@ class LogsLib extends TikiLib
 
     public function set_actionlog_conf($action, $objectType, $status)
     {
-        global $actionlogConf;
         $this->delete_actionlog_conf($action, $objectType);
         $action = str_replace('*', '%', $action);
         $query = "insert into `tiki_actionlog_conf` (`action`, `objectType`, `status`) values(?, ?, ?)";
         $this->query($query, [$action, $objectType, $status]);
-        unset($actionlogConf);
+        $this->clearActionlogConfCache();
     }
 
     public function delete_actionlog_conf($action, $objectType)
@@ -445,13 +460,11 @@ class LogsLib extends TikiLib
 
     public function get_all_actionlog_conf()
     {
-        global $actionlogConf;
-
-        if (! isset($actionlogConf)) {
-            $actionlogConf = self::get_actionlog_conf();
+        if (self::$cachedActionlogConf === null) {
+            self::$cachedActionlogConf = self::get_actionlog_conf();
         }
 
-        return $actionlogConf;
+        return self::$cachedActionlogConf;
     }
 
     public function get_actionlog_conf($type = '%', $action = '%')

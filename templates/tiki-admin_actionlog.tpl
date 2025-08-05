@@ -810,9 +810,10 @@
             <br class="clearfix"/>
 
             <div class="mb-3 row">
-                <div class="col-sm-1 offset-sm-11">
-                    <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Set{/tr}">
-                </div>
+            <p class="offset-sm-10">
+                <input type="submit" class="btn btn-secondary btn-sm" name="unset" value="{tr}Unset All{/tr}">
+                <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Set{/tr}">
+            </p>
             </div>
             <div class="mb-3 row">
                 {*<div class="col-sm-12">*}
@@ -871,9 +872,10 @@
                 {*</div>*}
             </div>
             <div class="mb-3 row">
-                <div class="col-sm-1 offset-sm-11">
-                    <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Set{/tr}">
-                </div>
+            <p class="offset-sm-10">
+                <input type="submit" class="btn btn-secondary btn-sm" name="unset" value="{tr}Unset All{/tr}">
+                <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Set{/tr}">
+            </p>
             </div>
         </form>
     {/tab}

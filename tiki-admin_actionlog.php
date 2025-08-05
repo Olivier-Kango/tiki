@@ -163,6 +163,16 @@ if (isset($_REQUEST['max'])) {
 }
 
 if ($tiki_p_view_actionlog == 'y') {
+    if (isset($_POST['unset']) && $access->checkCsrf()) {
+        foreach ($action_log_conf_selected as $conf) {
+            $logslib->set_actionlog_conf($conf['action'], $conf['objectType'], 'n');
+        }
+
+        $confs = $logslib->get_all_actionlog_conf();
+        $action_log_conf_selected = $logslib->get_actionlog_conf($action_log_type);
+        $cookietab = 1;
+        Feedback::success(tr('All actions logs unset'));
+    }
     if (isset($_POST['save']) && $access->checkCsrf()) {
         $itemsSelected = false;
         $recordedWithoutReported = [];
@@ -195,13 +205,26 @@ if ($tiki_p_view_actionlog == 'y') {
                 $logslib->set_actionlog_conf($conf['action'], $conf['objectType'], 'n');
             }
         }
-        global $actionlogConf;
-        unset($actionlogConf);
+
         $confs = $logslib->get_all_actionlog_conf();
         $action_log_conf_selected = $logslib->get_actionlog_conf($action_log_type);
         $cookietab = 1;
     }
 } else {
+    if (isset($_POST['unset']) && $access->checkCsrf()) {
+        $_prefs = 'v';
+        foreach ($action_log_conf_selected as $conf) {
+            if ($conf['status'] === 'v' || $conf['status'] === 'y') {
+                $_prefs .= $conf['id'] . 'y';
+            }
+        }
+
+        $tikilib->set_user_preference($user, 'actionlog_conf', $_prefs);
+        $confs = $logslib->get_all_actionlog_conf();
+        $action_log_conf_selected = $logslib->get_actionlog_conf($action_log_type);
+        $cookietab = 1;
+        Feedback::success(tr('All actions logs unset'));
+    }
     if (isset($_POST['save']) && $access->checkCsrf()) {
         $_prefs = 'v';
         foreach ($action_log_conf_selected as $index => $conf) {
@@ -213,8 +236,7 @@ if ($tiki_p_view_actionlog == 'y') {
                 }
             }
         }
-        global $actionlogConf;
-        unset($actionlogConf);
+
         $confs = $logslib->get_all_actionlog_conf();
         $action_log_conf_selected = $logslib->get_actionlog_conf($action_log_type);
         $tikilib->set_user_preference($user, 'actionlog_conf', $_prefs);
@@ -229,10 +251,10 @@ if ($tiki_p_view_actionlog == 'y') {
                     }
                 }
             }
+            unset($conf);
         }
     }
-    global $actionlogConf;
-    $actionlogConf = $confs;
+    $logslib->set_actionlog_conf($confs);
 }
 
 foreach ($confs as $conf) {
