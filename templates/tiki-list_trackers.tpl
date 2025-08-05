@@ -122,10 +122,14 @@
                     </td>
                     {if $prefs.tracker_display_categories eq 'y'}
                         <td class="categories">
-                            {if !empty($tracker.category_names)}
+                            {if !empty($tracker.category_details)}
                                 <ul class="tracker-category-list list-unstyled mb-0">
-                                    {foreach from=$tracker.category_names item=catname}
-                                        <li><span class="badge bg-info">{$catname|escape}</span></li>
+                                    {foreach from=$tracker.category_details item=category}
+                                        <li>
+                                            <a class="tips" href="tiki-browse_categories.php?parentId={$category.id}&deep=off&type=#contentbrowse-categories-2" title="{$category.name|escape}:{tr}View category{/tr}">
+                                                <span class="badge bg-info">{$category.name|escape}</span>
+                                            </a>
+                                        </li>
                                     {/foreach}
                                 </ul>
                             {else}

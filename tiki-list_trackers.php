@@ -101,13 +101,16 @@ foreach ($trackers_data as &$tracker) {
     }
 
     // Get categories for valid trackers
-    $tracker['categories'] = $categlib->get_object_categories('tracker', $tracker['trackerId']);
-    if (! empty($tracker['categories'])) {
-        $tracker['category_names'] = [];
-        foreach ($tracker['categories'] as $categoryId) {
+    $tracker['categorie_ids'] = $categlib->get_object_categories('tracker', $tracker['trackerId']);
+    if (! empty($tracker['categorie_ids'])) {
+        $tracker['category_details'] = [];
+        foreach ($tracker['categorie_ids'] as $categoryId) {
             $category_info = $categlib->get_category($categoryId);
             if ($category_info) {
-                $tracker['category_names'][] = $category_info['name'];
+                $tracker['category_details'][] = [
+                    "id" => $category_info['categId'],
+                    "name" => $category_info["name"]
+                ];
             }
         }
     }
