@@ -164,6 +164,28 @@ if (isset($_REQUEST['max'])) {
 
 if ($tiki_p_view_actionlog == 'y') {
     if (isset($_POST['save']) && $access->checkCsrf()) {
+        $itemsSelected = false;
+        $recordedWithoutReported = [];
+
+        foreach ($action_log_conf_selected as $index => $conf) {
+            $recorded = isset($_REQUEST[$conf['code']]) && $_REQUEST[$conf['code']] == 'on';
+            $reported = isset($_REQUEST['v_' . $conf['code']]) && $_REQUEST['v_' . $conf['code']] == 'on';
+
+            if ($recorded || $reported) {
+                $itemsSelected = true;
+            }
+
+            if ($recorded && ! $reported) {
+                $recordedWithoutReported[] = $conf['action'] . ' - ' . $conf['objectType'];
+            }
+        }
+
+        if (! $itemsSelected) {
+            Feedback::warning(tra('Action logs have been configured successfully. No item checked to be recorded or reported.'));
+        } elseif (! empty($recordedWithoutReported)) {
+            Feedback::success(tra('Action logs have been configured successfully. Some selected items have been recorded but not reported'));
+        }
+
         foreach ($action_log_conf_selected as $index => $conf) {
             if (isset($_REQUEST['v_' . $conf['code']]) && $_REQUEST['v_' . $conf['code']] == 'on') { //viewed and reported
                 $logslib->set_actionlog_conf($conf['action'], $conf['objectType'], 'v');

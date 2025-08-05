@@ -9,7 +9,10 @@
         <form method="get" action="tiki-admin_actionlog.php#List">
             {* no ticket needed as this form doesn't change the database *}
             {if empty($nbViewedConfs)}
-                {button _text="{tr}Please select some actions to be reported.{/tr}" href="#" _onclick="showTab(2); return true;"}
+                {remarksbox type="tip" title="{tr}No Actions selected to be Reported{/tr}"}
+                    {tr}No action selected to be reported. Follow the link below to select actions you want to report.{/tr}
+                    {button _text="{tr}Select actions to be reported.{/tr}" href="#" _onclick="showTab(2); return true;"}
+                {/remarksbox}
             {else}
                 <fieldset>
                     <legend>{tr}Date{/tr}</legend>
