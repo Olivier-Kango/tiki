@@ -326,3 +326,16 @@
     </div>
 </form>
 {/block}
+
+{jq}
+    const validationTypeDropdown = $('select[name="validation_type"]');
+    const isPasswordDropdown = $('select[name="option~is_password"]');
+
+    // Automatically set "Display as password" to "Yes" when the user 
+    // selects "Password" as the validation type.
+    validationTypeDropdown.on('change', function() {
+        if ($(this).val() === 'password') {
+            isPasswordDropdown.val('1');
+        }
+    });
+{/jq}
