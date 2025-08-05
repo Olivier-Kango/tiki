@@ -95,7 +95,6 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                         document.getElementById("semester").remove();
                     }
                     if (data.type == "timeGridWeek" || data.type == "listWeek") {
-                        console.log(calendar.getOption("duration"));
                         calendar.setOption("duration", { days: 7 });
                         calendar.setOption("dayCellFormat", function (dayCell) {
                             return moment(dayCell).format("D");
@@ -119,26 +118,15 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
             eventDidMount: function (arg) {
                 const event = arg.event;
                 const element = $(arg.el);
-                const dayGrid = $(".ec-daygrid").length;
+                const dayGrid = $(".ec-event").length;
                 if (dayGrid > 0) {
-                    let backgroundColor = event._def.ui.backgroundColor;
-                    let textColor = event._def.ui.textColor;
-                    let categoryBackgroundColor = event._def.extendedProps.categoryBackgroundColor;
-                    let eventDotElement = element.find(".ec-daygrid-event-dot"),
-                        defaultBackgroundColor;
-                    if (eventDotElement.length === 0) {
-                        eventDotElement = element;
-                    }
-                    const styleDot = getComputedStyle(eventDotElement[0]);
-                    const borderCol = styleDot.border || styleDot.borderColor || styleDot.borderTopColor || styleDot.borderTopColor;
-                    const matches = String(borderCol).match(/(rgb\(\d+,\s*\d+,\s*\d+\))/i) || ["rgb(55, 136, 216)"];
-                    defaultBackgroundColor = matches[0];
-                    if (eventDotElement !== element) {
-                        $(eventDotElement[0]).remove();
-                    }
+                    let backgroundColor = event.backgroundColor;
+                    let textColor = event.textColor;
+                    let categoryBackgroundColor = event.extendedProps.categoryBackgroundColor;
+                    let defaultBackgroundColor = element.css("background-color");
+
                     const titleElement = element.find(".ec-event-title");
-                    const styleElement = getComputedStyle(titleElement[0]);
-                    const defaultTextColor = styleElement.color;
+                    const defaultTextColor = titleElement.css("color");
                     if (backgroundColor === "#") {
                         backgroundColor = defaultBackgroundColor;
                     }
@@ -162,7 +150,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                     $(element).find(".ec-event-title").css({
                         color: textColor,
                     });
-                    const showCopyButton = event._def.extendedProps.showCopyButton;
+                    const showCopyButton = event.extendedProps.showCopyButton;
                     if (showCopyButton === "y") {
                         const copyButton = $("<i>", {
                             id: "event" + event.id,
@@ -198,9 +186,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
             },
             eventClick: function (info) {
                 info.jsEvent.preventDefault();
-                console.log(info.el);
                 const event = info.event;
-                console.log(event);
                 if (event.id && event.extendedProps.viewable) {
                     let $this = $(info.el).tikiModal(" ");
                     $.openModal({
@@ -243,7 +229,6 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                                         "submit",
                                         ajaxSubmitEventHandler(function (data) {
                                             calendarEditSubmit(data, this);
-                                            console.log(data);
                                         })
                                     );
                             },

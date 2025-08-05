@@ -206,6 +206,7 @@
         .ec-event {
             display: block;
             white-space: break-spaces;
+            margin-top: 1px;
         }
         .ec-events .ec-event-time {
             color: #ffffff;

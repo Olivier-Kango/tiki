@@ -209,17 +209,18 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                             'fieldName' => 'description'
                         ]
                     ) : '',
-                    'categoryBackgroundColor' => $event['categoryBackgroundColor'] ? $event['categoryBackgroundColor'] : ''
+                    'categoryBackgroundColor' => $event['categoryBackgroundColor'] ? $event['categoryBackgroundColor'] : '',
+                    'showCopyButton' => $calendars[$event['calendarId']]['copybuttononeachevent'],
+                    'viewable'    => $event['perms']->view_events,
+                    'baseUrl'   => $base_url
                 ],
                 'url'         => $url,
                 'allDay'      => $allDay,
                 'start'       => $start->format(DATE_ATOM),
                 'end'         => $end->format(DATE_ATOM),
                 'editable'    => $event['perms']->change_events,
-                'color'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
+                'backgroundColor'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
                 'textColor'   => '#' . $calendars[$event['calendarId']]['customfgcolor'],
-                'showCopyButton' => $calendars[$event['calendarId']]['copybuttononeachevent'],
-                'baseUrl'   => $base_url
             ];
         }
         return $events;
