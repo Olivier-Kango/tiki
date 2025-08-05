@@ -177,6 +177,7 @@
     "require": {
         "bacon/bacon-qr-code": "~3.0",
         "bertoost/elasticemail-mailer": "~1.1",
+        "bigbluebutton/bigbluebutton-api-php": "~2.3",
         "candy-chat/xmpp-prebind-php": "dev-master",
         "cboden/ratchet": "~0.4",
         "chrome-php/chrome": "~1.13",
