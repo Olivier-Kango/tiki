@@ -1,16 +1,5 @@
 {strip}
 {title help="Modules" admpage="module"}{tr}Admin Modules{/tr}{/title}
-{block name="toggleSwitch_modules"}
-    <div class="modules-admin-toggle-container fixed-top">
-        <div class="custom-toggle">
-            <label class="form-switch">
-                <input class="form-check-input toggle-switch-modules" type="checkbox" id="toggleSwitch-modules" checked>
-            </label>
-            <span class="form-check-label" style="color: #ddd;">{tr}Exit Modules{/tr}</span>
-        </div>
-    </div>   
-{/block}
-
 <div class="t_navbar mb-4">
     <form action="tiki-admin_modules.php" method="post" style="display: inline">
         {ticket}
@@ -422,12 +411,6 @@
         {jq}
 $("#module_list_show_all").on("click", function(){
     $("#module_list li.disabled").toggle($(this).prop("checked"));
-});
-
-document.getElementById('toggleSwitch-modules').addEventListener('change', function() {
-    if (!this.checked) {
-        window.location.href = "./";
-    }
 });
         {/jq}
     {/tab}
