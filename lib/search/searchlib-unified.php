@@ -814,6 +814,15 @@ class UnifiedSearchLib
             $aggregator->addGlobalSource(new Search_GlobalSource_ArticleAttachmentSource($articleSource));
         }
 
+        // Article topics and types are handled through the ArticleSource's getReferenceMap()
+        if (isset($types['article_topic']) || isset($types['article_type'])) {
+            if (! isset($articleSource)) {
+                $articleSource = new Search_ContentSource_ArticleSource();
+                $aggregator->addContentSource('article', $articleSource);
+                $aggregator->addGlobalSource(new Search_GlobalSource_ArticleAttachmentSource($articleSource));
+            }
+        }
+
         if (isset($types['file'])) {
             $fileSource = new Search_ContentSource_FileSource();
             $aggregator->addContentSource('file', $fileSource);

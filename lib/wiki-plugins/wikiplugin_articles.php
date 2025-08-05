@@ -7,6 +7,24 @@
 function wikiplugin_articles_info()
 {
     global $prefs;
+
+    // Get topics and types for dropdown options
+    $artlib = TikiLib::lib('art');
+    $topics = $artlib->list_topics();
+    $types = $artlib->list_types_byname();
+
+    // Convert topics to options format
+    $topicOptions = [];
+    foreach ($topics as $topicId => $topic) {
+        $topicOptions[] = ['text' => $topic['name'], 'value' => $topicId];
+    }
+
+    // Convert types to options format
+    $typeOptions = [];
+    foreach ($types as $typeName => $type) {
+        $typeOptions[] = ['text' => $typeName, 'value' => $typeName];
+    }
+
     return [
         'name' => tra('Article List'),
         'documentation' => 'PluginArticles',
@@ -37,39 +55,36 @@ function wikiplugin_articles_info()
                 'since' => '1',
                 'default' => $prefs['maxRecords'],
             ],
-            'topic' => [
-                'required' => false,
-                'name' => tra('Topic Name Filter'),
-                'description' => tra('Filter the list of articles by topic. Example: ') . '<code>[!]topic+topic+topic</code>',
-                'filter' => 'text',
-                'since' => '1',
-                'default' => '',
-            ],
             'topicId' => [
                 'required' => false,
-                'name' => tra('Topic ID Filter'),
-                'description' => tra('Filter the list of articles by topic ID. Example: ') . '<code>[!]topicId+topicId+topicId</code>',
-                'filter' => 'text',
+                'name' => tra('Topic Filter'),
+                'description' => tra('Filter articles by topic. You can select multiple topics from the dropdown. Use negation (e.g., !topic1+topic2) to exclude articles from specific topics.'),
+                'filter' => 'striptags',
                 'accepted' => tra('Valid topic IDs'),
                 'default' => '',
                 'profile_reference' => 'article_topic',
                 'since' => '2.0',
+                'options' => $topicOptions,
+                'separator' => '+',
+                'select_multiple' => 'y',
             ],
             'type' => [
                 'required' => false,
                 'name' => tra('Type Filter'),
                 'description' => tra('Filter the list of articles by types. Example: ') . '<code>[!]type+type+type</code>',
-                'filter' => 'text',
+                'filter' => 'striptags',
                 'since' => '1',
                 'accepted' => tra('Valid article types'),
                 'default' => '',
                 'profile_reference' => 'article_type',
+                'options' => $typeOptions,
+                'separator' => '+',
+                'select_multiple' => 'y',
             ],
             'categId' => [
                 'required' => false,
-                'name' => tra('Category ID'),
-                'description' => tra('List of category IDs, separated by "%0". Only articles in all these categories are
-                    listed', '<code>|</code>'),
+                'name' => tra('Category Filter'),
+                'description' => tra('Filter articles by category. You can select multiple categories from the dropdown. Only articles in all selected categories will be listed.'),
                 'filter' => 'digits',
                 'default' => '',
                 'profile_reference' => 'category',
@@ -86,15 +101,28 @@ function wikiplugin_articles_info()
             ],
             'sort' => [
                 'required' => false,
-                'name' => tra('Sort order'),
-                'description' => tr('The column and order of the sort in %0columnName_asc%1 or %0columnName_desc%1 format.
-                    Defaults to %0publishDate_desc%1 (other column examples are %0title%1, %0lang%1, %0articleId%1,
-                    %0authorName%1 & %0topicName%1). Use "random" to have random items.', '<code>', '</code>'),
-                'filter' => 'word',
+                'name' => tra('Sort Order'),
+                'description' => tra('Choose how to sort the articles. Default is by publication date (newest first).'),'filter' => 'word',
                 'default' => 'publishDate_desc',
                 'since' => '2.0',
-                'accepted' => tra('random or column names to add _asc _desc to: ')
-                    . 'created, author, title, publishDate, articleId, topline, subtitle, lang, linkto, authorName, topicId, topicName, state, size, heading, body, isfloat, useImage, image_name, image_caption, image_alt, image_type, image_size, image_x, image_y, image_data, list_image_x, list_image_y, nbreads, votes, points, type, rating, ispublished'],
+                'options' => [
+                    ['text' => tra('Publication Date (Newest First)'), 'value' => 'publishDate_desc'],
+                    ['text' => tra('Publication Date (Oldest First)'), 'value' => 'publishDate_asc'],
+                    ['text' => tra('Title (A-Z)'), 'value' => 'title_asc'],
+                    ['text' => tra('Title (Z-A)'), 'value' => 'title_desc'],
+                    ['text' => tra('Author Name (A-Z)'), 'value' => 'authorName_asc'],
+                    ['text' => tra('Author Name (Z-A)'), 'value' => 'authorName_desc'],
+                    ['text' => tra('Article ID (Lowest First)'), 'value' => 'articleId_asc'],
+                    ['text' => tra('Article ID (Highest First)'), 'value' => 'articleId_desc'],
+                    ['text' => tra('Topic Name (A-Z)'), 'value' => 'topicName_asc'],
+                    ['text' => tra('Topic Name (Z-A)'), 'value' => 'topicName_desc'],
+                    ['text' => tra('Creation Date (Newest First)'), 'value' => 'created_desc'],
+                    ['text' => tra('Creation Date (Oldest First)'), 'value' => 'created_asc'],
+                    ['text' => tra('Language (A-Z)'), 'value' => 'lang_asc'],
+                    ['text' => tra('Language (Z-A)'), 'value' => 'lang_desc'],
+                    ['text' => tra('Random Order'), 'value' => 'random'],
+                ],
+            ],
             'order' => [
                 'required' => false,
                 'name' => tra('Specific order'),
@@ -400,6 +428,22 @@ function wikiplugin_articles($data, $params)
     }
     if (! empty($notArticleId)) {
         $filter['notArticleId'] = $notArticleId;
+    }
+
+    if (! empty($topicId)) {
+        if (is_array($topicId)) {
+            $separator = $pluginInfo['params']['topicId']['separator'] ?? '+';
+            $topicId = implode($separator, $topicId);
+        }
+        $filter['topicId'] = $topicId;
+    }
+
+    if (! empty($type)) {
+        if (is_array($type)) {
+            $separator = $pluginInfo['params']['type']['separator'] ?? '+';
+            $type = implode($separator, $type);
+        }
+        $filter['type'] = $type;
     }
 
     if (! is_array($categId) || count($categId) == 0) {

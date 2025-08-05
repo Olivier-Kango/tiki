@@ -226,6 +226,8 @@ class ObjectLib extends TikiLib
     {
         return [
             'article',
+            'article_topic',
+            'article_type',
             'blog',
             'calendar',
             'directory',
@@ -252,6 +254,8 @@ class ObjectLib extends TikiLib
     {
         $supported = [
             'article' => 'article',
+            'article_topic' => 'article_topic',
+            'article_type' => 'article_type',
             'blog' => 'blog',
             'calendar' => 'calendar',
             'category' => 'category',
