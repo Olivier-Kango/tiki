@@ -7075,7 +7075,7 @@ class UsersLib extends TikiLib
                 }
                 $this->assign_user_to_group($user, 'Registered');
             } else {
-                $this->assign_user_to_groups($user, array_merge('Registered', $groups));
+                $this->assign_user_to_groups($user, array_merge(['Registered'], [$groups]));
             }
         }
 
