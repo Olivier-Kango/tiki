@@ -235,6 +235,7 @@ $jqueryTiki['cookie_consent_expires'] = $prefs['cookie_consent_expires'];
 $jqueryTiki['cookie_consent_name'] = CookieConsentLib::COOKIE_CONSENT_NAME;
 $jqueryTiki['cookie_consent_categories'] = json_encode(array_keys(CookieConsentLib::getCookieCategories()));
 $jqueryTiki['cookie_consent_value'] = json_encode(CookieConsentLib::getConsentPreferences(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+$jqueryTiki['BUILTIN_COOKIE_CATEGORY_ESSENTIAL'] = json_encode(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ESSENTIAL);
 
 //set at 4 hours if empty
 $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
@@ -340,7 +341,7 @@ $(document).on("tiki.modal.redraw", function(event) {
     if (!$modalContent.is(".modal-content")) {
         $modalContent = $modalContent.find(".modal-content")
     }
-    
+
     const modalBody = $modalContent.find(".modal-body")[0];
 
     const initialWidth = parseFloat(getComputedStyle($modalContent[0]).width.slice(0, -2));
