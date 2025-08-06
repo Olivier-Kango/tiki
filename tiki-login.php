@@ -102,6 +102,7 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
             $loginlib->switchUser($_REQUEST['username']);
             $access->redirect();
         }
+        $_SESSION["keep_login_box_visible"] = isset($_REQUEST["keep_login_box_visible"]) ? 'y' : 'n';
 
         $access->redirect($_SESSION['loginfrom']);
     }
