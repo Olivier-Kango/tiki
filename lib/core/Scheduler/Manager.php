@@ -65,7 +65,7 @@ class Scheduler_Manager
                 $this->logger->info(tr("Scheduler %0 (id: %1) is stalled", $schedulerTask->name, $schedulerTask->id));
 
                 //Attempt to heal
-                $notify = $tikilib->get_preference('scheduler_notify_on_healing', 'y');
+                $notify = $tikilib->get_preference('scheduler_notify_on_stalled', 'y');
                 $schedulerTask->heal('Scheduler was healed by cron', $notify);
             }
         }

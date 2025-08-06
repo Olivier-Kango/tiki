@@ -4021,7 +4021,9 @@ CREATE TABLE `tiki_scheduler` (
   `re_run` TINYINT,
   `run_only_once` TINYINT,
   `creation_date` INT(14),
-  `user_run_now` VARCHAR(255) NULL DEFAULT NULL
+  `user_run_now` VARCHAR(255) NULL DEFAULT NULL,
+  `enable_send_notification_override` TINYINT DEFAULT 0,
+  `stalled_notification_sent_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_scheduler_run`;

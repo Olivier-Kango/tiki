@@ -54,9 +54,10 @@ class SchedulersLib extends TikiLib
      * @param int|null $scheduler_id The scheduler id (optional)
      * @param int|null $creation_date schedule created date
      * @param string $user_run_now user that request a run now in background
+     * @param int $enable_send_notification_override 0 or 1 to enable notification override for this job
      * @return int    The scheduler id
      */
-    public function set_scheduler($name, $description, $task, $params, $run_time, $status, $re_run, $run_only_once, $scheduler_id = null, $creation_date = null, $user_run_now = null)
+    public function set_scheduler($name, $description, $task, $params, $run_time, $status, $re_run, $run_only_once, $scheduler_id = null, $creation_date = null, $user_run_now = null, $enable_send_notification_override = 0)
     {
 
         $values = [
@@ -69,6 +70,7 @@ class SchedulersLib extends TikiLib
             're_run' => $re_run ? 1 : 0,
             'run_only_once' => $run_only_once ? 1 : 0,
             'user_run_now' => $user_run_now,
+            'enable_send_notification_override' => $enable_send_notification_override ? 1 : 0,
         ];
 
         $schedulersTable = $this->table('tiki_scheduler');
@@ -291,5 +293,17 @@ class SchedulersLib extends TikiLib
     {
         $schedulerTable = $this->table('tiki_scheduler');
         $schedulerTable->update(['status' => Scheduler_Item::STATUS_ACTIVE], ['id' => $scheduler_id]);
+    }
+
+    /**
+     * Update a field in the schedular table
+     * @param $scheduler_id
+     * @param $field
+     * @param $value
+     */
+    public function updateSchedulerField($scheduler_id, $field, $value)
+    {
+        $schedulerTable = $this->table('tiki_scheduler');
+        return $schedulerTable->update([$field => $value], ['id' => $scheduler_id]);
     }
 }
