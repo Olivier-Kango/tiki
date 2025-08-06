@@ -3516,6 +3516,7 @@ UPDATE tiki_menu_options SET icon = 'bug' WHERE name = '(debug)';
 UPDATE tiki_menu_options SET icon = 'kaltura' WHERE name = 'Kaltura Video';
 UPDATE tiki_menu_options SET icon = 'calendar' WHERE name = 'Tiki Calendar';
 UPDATE tiki_menu_options SET icon = 'wizard' WHERE name = 'User Wizard';
+UPDATE tiki_menu_options SET icon = 'key' WHERE name = 'Webauthn';
 UPDATE tiki_menus SET use_items_icons='y' WHERE `menuId`=42;
 
 DROP TABLE IF EXISTS `tiki_plugin_security`;
