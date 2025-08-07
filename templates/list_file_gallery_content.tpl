@@ -6,9 +6,9 @@
         <tr>
             {if !empty($files) and $gal_info.show_checked ne 'n' and ($tiki_p_admin_file_galleries eq 'y' or $tiki_p_upload_files eq 'y')}
                 {if isset($nbCols)}
-                    {$nbCols=$nbCols+1}
+                    {assign var="nbCols" value=$nbCols+1}
                 {else}
-                    {$nbCols=1}
+                    {assign var="nbCols" value=1}
                 {/if}
                 <td class="checkbox-cell"> {* th changed to td to avoid ARIA empty header error  *}
                     {select_all checkbox_names='file[],subgal[]'}
@@ -18,9 +18,9 @@
             {if ( $prefs.use_context_menu_icon eq 'y' or $prefs.use_context_menu_text eq 'y' )
                 and (!isset($gal_info.show_action) or $gal_info.show_action eq 'y')}
                 {if isset($nbCols)}
-                    {$nbCols++}
+                    {assign var="nbCols" value=$nbCols+1}
                 {else}
-                    {$nbCols = 1}
+                    {assign var="nbCols" value=1}
                 {/if}
                 <td style="width: 1em">&nbsp; {* th changed to td to avoid ARIA empty header error  *}
 
@@ -77,9 +77,9 @@
 
                     {if $propname eq 'name' and ( $gal_info.show_name eq 'a' or $gal_info.show_name eq 'f' )}
                         {if isset($nbCols)}
-                            {$nbCols=$nbCols+1}
+                            {assign var="nbCols" value=$nbCols+1}
                         {else}
-                            {$nbCols=1}
+                            {assign var="nbCols" value=1}
                         {/if}
                         <th{$td_args}>
                             {self_link _sort_arg=$sort_arg _sort_field='filename'}
@@ -92,9 +92,9 @@
                         or ( $gal_info.show_name eq 'a' or $gal_info.show_name eq 'n' )) and ($propname neq 'description'
                         or $gal_info.show_name neq 'n')}
                         {if isset($nbCols)}
-                            {$nbCols=$nbCols+1}
+                            {assign var="nbCols" value=$nbCols+1}
                         {else}
-                            {$nbCols=1}
+                            {assign var="nbCols" value=1}
                         {/if}
                         <th{$td_args}>
                             {self_link _sort_arg=$sort_arg _sort_field=$propname _title=":$link_title" _class='tips'}
@@ -123,9 +123,9 @@
 
             {if !empty($other_columns_selected)}
                 {if isset($nbCols)}
-                    {$nbCols=$nbCols+1}
+                    {assign var="nbCols" value=$nbCols+1}
                 {else}
-                    {$nbCols=1}
+                    {assign var="nbCols" value=1}
                 {/if}
                 <th>
                     {self_link _sort_arg=$sort_arg _sort_field=$other_columns_selected _title=$fgal_listing_conf.$other_columns_selected.name}
@@ -137,9 +137,9 @@
             {if ( $prefs.use_context_menu_icon neq 'y' and $prefs.use_context_menu_text neq 'y' )
                 or (isset($gal_info.show_action) && $gal_info.show_action eq 'y')}
                 {if isset($nbCols)}
-                    {$nbCols=$nbCols+1}
+                    {assign var="nbCols" value=$nbCols+1}
                 {else}
-                    {$nbCols=1}
+                    {assign var="nbCols" value=$nbCols+1}
                 {/if}
                 <th>
                     {tr}Actions{/tr}
@@ -148,9 +148,9 @@
             
             {if ( $prefs.feature_categories eq 'y')}
                 {if isset($nbCols)}
-                    {$nbCols=$nbCols+1}
+                    {assign var="nbCols" value=$nbCols+1}
                 {else}
-                    {$nbCols=1}
+                    {assign var="nbCols" value=1}
                 {/if}
                 <th>
                     {tr}Categories{/tr}
@@ -160,9 +160,9 @@
 
             {if ( !empty($other_columns) or !empty($other_columns_selected))}
                 {if isset($nbCols)}
-                    {$nbCols=$nbCols+1}
+                    {assign var="nbCols" value=$nbCols+1}
                 {else}
-                    {$nbCols=1}
+                    {assign var="nbCols" value=1}
                 {/if}
                 <th style="width: 1em">
                     {if !empty($other_columns)}
