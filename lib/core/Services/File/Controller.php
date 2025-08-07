@@ -936,11 +936,22 @@ class Services_File_Controller
 
     private function checkTargetGallery($input)
     {
-        if ($input->fileId->int()) {
+        // The file uploader sends galleryId as an array, while elFinder and older methods send it as an integer. This logic handles all cases.
+
+        // First, check for the array format used by the file uploader.
+        $galleryIdFromInput = $input->galleryId->asArray();
+        if (! empty($galleryIdFromInput) && is_array($galleryIdFromInput) && isset($galleryIdFromInput[0])) {
+            $galleryId = (int) $galleryIdFromInput[0];
+        } elseif ($input->galleryId->int()) {
+            // Second, check for an integer format, used by elFinder and other parts of Tiki.
+            $galleryId = $input->galleryId->int();
+        } elseif ($input->fileId->int()) {
+            // Third, fall back to the context of an existing file (for editing).
             $fileInfo = TikiLib::lib('filegal')->get_file_info($input->fileId->int());
             $galleryId = $fileInfo ? $fileInfo['galleryId'] : $this->defaultGalleryId;
         } else {
-            $galleryId = $input->galleryId->int() ?: $this->defaultGalleryId;
+            // Finally, if no gallery is specified in any of the above contexts, use the system default.
+            $galleryId = $this->defaultGalleryId;
         }
 
         // Patch for uninitialized utilities.
