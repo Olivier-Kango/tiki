@@ -428,6 +428,8 @@ class UsersLib extends TikiLib
 
         $user = str_replace(chr(0), '', $user);
         $pass = str_replace(chr(0), '', $pass);
+        $userlib = TikiLib::lib('user');
+        $isAdminGroupMember = in_array($user, $userlib->get_members('Admins'), true);
 
         if ($user != 'admin' && $prefs['feature_intertiki'] == 'y' && ! empty($prefs['feature_intertiki_mymaster'])) {
             // slave intertiki sites should never check passwords locally, just for admin
@@ -475,7 +477,7 @@ class UsersLib extends TikiLib
 
         // first attempt a login via the standard Tiki system
         //
-        if (! ($auth_shib || $auth_cas || $auth_saml) || $user == 'admin') { //redflo: does this mean, that users in cas and shib are not replicated to tiki tables? Does this work well?
+        if (! ($auth_shib || $auth_cas || $auth_saml) || $isAdminGroupMember) { //redflo: does this mean, that users in cas and shib are not replicated to tiki tables? Does this work well?
             list($result, $user) = $this->validate_user_tiki($user, $pass, $validate_phase);
         } else {
             $result = null;
@@ -520,19 +522,19 @@ class UsersLib extends TikiLib
         // if we are using tiki auth or if we're using an alternative auth except for admin
 
         // todo: bad hack. better search for a more general solution here
-        if (
-            (! $auth_ldap && ! $auth_pam && ! $auth_cas && ! $auth_shib && ! $auth_saml && ! $auth_phpbb)
-                || (
-                        ( ($auth_ldap && $skip_admin)
-                            || ($auth_shib && $shib_skip_admin)
-                            || ($auth_saml && $saml_skip_admin)
-                            || ($auth_pam && $pam_skip_admin)
-                            || ($auth_cas && $cas_skip_admin)
-                            || ($auth_phpbb && $phpbb_skip_admin)
-                        )
-                        && $user == 'admin')
-                || ($auth_ldap && ($prefs['auth_ldap_permit_tiki_users'] == 'y' && $userTiki))
-        ) {
+        // Check if no special authentication method is enabled
+        $noSpecialAuthEnabled = ! $auth_ldap && ! $auth_pam && ! $auth_cas && ! $auth_shib && ! $auth_saml && ! $auth_phpbb;
+
+        // Check if admin can skip special auth and use Tiki auth instead
+        $adminHasSkipPrivilege = ($auth_ldap && $skip_admin) || ($auth_pam && $pam_skip_admin) || ($auth_cas && $cas_skip_admin)
+        || ($auth_shib && $shib_skip_admin) || ($auth_saml && $saml_skip_admin) || ($auth_phpbb && $phpbb_skip_admin);
+
+        $adminCanSkip = $isAdminGroupMember && $adminHasSkipPrivilege;
+
+        // Check if the user created using Tiki can use Tiki to login, when LDAP is enabled
+        $ldapUserHasTikiLoginAccess = $auth_ldap && ($prefs['auth_ldap_permit_tiki_users'] == 'y' && $userTiki);
+
+        if ($noSpecialAuthEnabled || $adminCanSkip || $ldapUserHasTikiLoginAccess) {
             // if the user verified ok, log them in
             if ($userTiki) {//user validated in tiki, update lastlogin and be done
                 if ($auth_ldap) {
