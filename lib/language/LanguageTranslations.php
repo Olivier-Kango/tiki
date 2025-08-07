@@ -225,6 +225,15 @@ class LanguageTranslations extends TikiDb_Bridge
             // convert every entry in the array $dbTrans (translations that are not present in language.php)
             // to a string in the format '"original string" => "translation"'
             $newTrans = [];
+            // Ensure the previous line has a comma if it doesn't already
+            if ($lastStr > 0) {
+                $prevLine = trim($langFile[$lastStr - 1]);
+                // Check if previous line is a translation entry without a trailing comma
+                if (preg_match('/^".*"\s*=>\s*".*"$/', $prevLine)) {
+                    $langFile[$lastStr - 1] = rtrim($langFile[$lastStr - 1]) . ",\n";
+                }
+            }
+
             foreach ($dbTrans as $orig => $trans) {
                 $newTrans[] = '"' . $orig . '" => "' . $trans . "\",\n";
                 $stats['new']++;
