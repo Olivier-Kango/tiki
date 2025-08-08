@@ -26,10 +26,10 @@ class TikiMail
 
     /**
      * @param string|null $user to username
-     * @param string|null $from from email
-     * @param string|null $fromName from Name
+     * @param string $from from email
+     * @param string $fromName from Name
      */
-    public function __construct($user = null, $from = null, $fromName = null)
+    public function __construct($user = null, $from = '', $fromName = '')
     {
         global $user_preferences, $prefs;
 
@@ -78,27 +78,18 @@ class TikiMail
     {
     }
 
-    public function setSender($email, $name = null)
+    public function setSender($email, $name = '')
     {
-        if (! $name) {
-            $name = null;
-        }
         $this->mail->sender(new Address($email, $name));
     }
 
-    public function setFrom($email, $name = null)
+    public function setFrom($email, $name = '')
     {
-        if (! $name) {
-            $name = null;
-        }
         $this->mail->from(new Address($email, $name));
     }
 
-    public function setReplyTo($email, $name = null)
+    public function setReplyTo($email, $name = '')
     {
-        if (! $name) {
-            $name = null;
-        }
         $this->mail->replyTo(new Address($email, $name));
     }
 
