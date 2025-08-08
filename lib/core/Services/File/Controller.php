@@ -102,7 +102,13 @@ class Services_File_Controller
         }
 
         $gal_info = $this->checkTargetGallery($input);
-        $fileId = $input->update->int() ? $input->fileId->int() : false;
+
+        if (($input->update->int() || $input->upload->int()) && $input->fileId->int()) {
+            $fileId = $input->fileId->int();
+        } else {
+            $fileId = false;
+        }
+
         if (! empty($input->asArray('user')) && is_array($input->user->asArray())) {
             $asuser = $input->asArray('user')[0];
         }
