@@ -35,6 +35,9 @@
                     {preference name='fgal_preserve_filenames'}
                 </div>
                 <div class="mb-sm-3">
+                    {preference name='fgal_filename_to_display_name'}
+                </div>
+                <div class="mb-sm-3">
                     {preference name='fgal_use_dir'}
                     <button role="button" type="submit" class="btn btn-primary" name="move" value="to_fs">
                         {tr}Move files from database to directory{/tr}

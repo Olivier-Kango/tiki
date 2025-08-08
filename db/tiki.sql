@@ -918,6 +918,7 @@ CREATE TABLE `tiki_file_galleries` (
   `direct` text,
   `template` int(10) default NULL,
   `description` text,
+  `display_name_generation` VARCHAR(20) DEFAULT NULL,
   `created` int(14) default NULL,
   `visible` char(1) default NULL,
   `lastModif` int(14) default NULL,

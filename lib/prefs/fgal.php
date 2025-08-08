@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Package\VendorHelper;
+use Tiki\Lib\Filegals\FileGalLib;
 
 function prefs_fgal_list()
 {
@@ -159,6 +160,19 @@ When the limit is reached, no more files can be uploaded. The user will see an e
             'type' => 'flag',
             'perspective' => false,
             'default' => 'n',
+            'tags' => ['basic'],
+        ],
+        'fgal_filename_to_display_name' => [
+            'name' => tra('Default Display Name Generation'),
+            'type' => 'radio',
+            'default' => FileGalLib::DISPLAY_NAME_PRESERVE,
+            'description' => tra("Controls how Tiki generates a file's default 'Display Name' from its original filename upon upload."),
+            'options' => [
+                FileGalLib::DISPLAY_NAME_PRESERVE => tra('Keep original filename (Recommended)'),
+                FileGalLib::DISPLAY_NAME_TITLECASE => tra('Convert to Title Case (Legacy Behavior)'),
+                FileGalLib::DISPLAY_NAME_SPACE => tra('Replace underscores and hyphens with spaces only'),
+            ],
+            'note' => tra("This affects the title shown to users in lists and pages. It is separate from the 'Preserve filenames' option, which controls the physical filename on the server disk."),
             'tags' => ['basic'],
         ],
         'fgal_search_in_content' => [

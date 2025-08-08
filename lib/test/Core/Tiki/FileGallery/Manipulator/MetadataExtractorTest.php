@@ -63,10 +63,12 @@ class Tiki_FileGallery_Manipulator_MetadataExtractorTest extends TikiTestCase
 
     public function testNameExtractionFromFilename()
     {
+        global $prefs;
+        $prefs['fgal_filename_to_display_name'] = 'preserve';
         $this->file->setParam('name', 'test-data.png');
         $this->file->setParam('filename', 'test-data.png');
         (new MetadataExtractor($this->file))->run();
-        $this->assertEquals('Test Data', $this->file->name);
+        $this->assertEquals('test-data', $this->file->name);
     }
 
     public function testCreatedSoon()
@@ -96,5 +98,25 @@ class Tiki_FileGallery_Manipulator_MetadataExtractorTest extends TikiTestCase
         $this->file->setParam('filetype', 'application/octet-stream');
         (new MetadataExtractor($this->file))->run();
         $this->assertEquals('image/png', $this->file->filetype);
+    }
+
+    public function testNameExtractionWithTitleCaseSetting()
+    {
+        global $prefs;
+        $prefs['fgal_filename_to_display_name'] = 'titlecase';
+        $this->file->setParam('name', 'test-data.png');
+        $this->file->setParam('filename', 'test-data.png');
+        (new MetadataExtractor($this->file))->run();
+        $this->assertEquals('Test Data', $this->file->name);
+    }
+
+    public function testNameExtractionWithSpaceSetting()
+    {
+        global $prefs;
+        $prefs['fgal_filename_to_display_name'] = 'space';
+        $this->file->setParam('name', 'test-data_file.png');
+        $this->file->setParam('filename', 'test-data_file.png');
+        (new MetadataExtractor($this->file))->run();
+        $this->assertEquals('test data file', $this->file->name);
     }
 }

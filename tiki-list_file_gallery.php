@@ -614,6 +614,11 @@ $smarty->assign('url', $tikilib->httpPrefix() . parse_url($_SERVER['REQUEST_URI'
 if (isset($_REQUEST['edit_mode']) and $_REQUEST['edit_mode']) {
     $smarty->assign('edit_mode', 'y');
     $smarty->assign('edited', 'y');
+
+    $prefslib = TikiLib::lib('prefs');
+    $displayNamePrefInfo = $prefslib->getPreference('fgal_filename_to_display_name');
+    $smarty->assign('displayNameGenerationOptions', $displayNamePrefInfo['options']);
+
     if ($prefs['feature_categories'] == 'y') {
         $cat_type = 'file gallery';
         $cat_objid = $galleryId;
@@ -813,6 +818,7 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         $gal_info = [
             'galleryId' => $galleryId,
             'name' => $_REQUEST['name'],
+            'display_name_generation' => empty($_REQUEST['display_name_generation']) ? null : $_REQUEST['display_name_generation'],
             'description' => $_REQUEST['description'],
             'user' => $_REQUEST['user'],
             'maxRows' => $_REQUEST['maxRows'],

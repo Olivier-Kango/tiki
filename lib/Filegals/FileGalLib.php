@@ -32,6 +32,9 @@ use WikiParser_PluginMatcher;
 
 class FileGalLib extends TikiLib
 {
+    public const DISPLAY_NAME_PRESERVE = 'preserve';
+    public const DISPLAY_NAME_TITLECASE = 'titlecase';
+    public const DISPLAY_NAME_SPACE = 'space';
     private $wikiupMoved = [];
 
     protected static $getGalleriesParentIdsCache = null;
@@ -3421,7 +3424,7 @@ class FileGalLib extends TikiLib
                     }
 
                     if (empty($params['name'][$key])) {
-                        $params['name'][$key] = $this->getTitleFromFilename($name);
+                        $params['name'][$key] = $this->generateDisplayNameFromFilename($name, $galleryId);
                     }
 
                     if (empty($params['deleteAfter'][$key]) || empty($params['deleteAfter_unit'][$key])) {
@@ -3646,6 +3649,54 @@ class FileGalLib extends TikiLib
         $this->table('tiki_files')->update(['deleteAfter' => $deleteAfter], ['fileId' => $fileId]);
     }
 
+    /**
+     * Generates a file display name based on the original filename, respecting system preferences.
+     * This is the centralized logic to replace getTitleFromFilename().
+     *
+     * @param string $filename The original filename (e.g., "my-file_v1.txt").
+     * @param int    $galleryId The ID of the gallery the file is being
+     * uploaded to.
+     * @return string The processed display name.
+     */
+    public function generateDisplayNameFromFilename(string $filename, int $galleryId)
+    {
+        global $prefs;
+
+        $gallery_info = $this->get_file_gallery_info($galleryId);
+        $behavior = $gallery_info['display_name_generation'] ?? $prefs['fgal_filename_to_display_name'];
+
+        // Use the new preference to decide the behavior.
+        switch ($behavior) {
+            case self::DISPLAY_NAME_TITLECASE:
+                // For 'titlecase', we still pass the original filename to the legacy function.
+                return self::getTitleFromFilename($filename);
+            case self::DISPLAY_NAME_SPACE:
+                // Strips the string after the last dot (i.e., the file extension).
+                $title = preg_replace('/\.[^\.]*$/', '', $filename);
+                // Unify separators by replacing any sequence of hyphens or underscores with a single space.
+                $title = preg_replace('/[\-_]+/', ' ', $title);
+                break;
+            case self::DISPLAY_NAME_PRESERVE:
+            default:
+                // Strips the string after the last dot (i.e., the file extension).
+                $title = preg_replace('/\.[^\.]*$/', '', $filename);
+                break;
+        }
+
+        // As a final safeguard, ensure the name isn't too long for the database.
+        if (mb_strlen($title) > 200) {
+            $title = mb_substr($title, 0, 200);
+        }
+
+        return $title;
+    }
+
+    /**
+     * Applies opinionated cosmetic changes to a filename to create a display
+     * title.
+     * @deprecated Use generateDisplayNameFromFilename() instead. This
+     * function's logic is preserved for legacy compatibility.
+    */
     public static function getTitleFromFilename($title)
     {
         if (strpos($title, '.zip') !== strlen($title) - 4) {
