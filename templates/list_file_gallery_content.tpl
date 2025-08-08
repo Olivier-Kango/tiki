@@ -18,7 +18,7 @@
             {if ( $prefs.use_context_menu_icon eq 'y' or $prefs.use_context_menu_text eq 'y' )
                 and (!isset($gal_info.show_action) or $gal_info.show_action eq 'y')}
                 {if isset($nbCols)}
-                    {$nbCols++}
+                    {$nbCols=$nbCols+1}
                 {else}
                     {$nbCols = 1}
                 {/if}
