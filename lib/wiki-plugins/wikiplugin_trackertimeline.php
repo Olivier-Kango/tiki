@@ -289,14 +289,6 @@ function wikiplugin_trackertimeline($data, $params)
         $fieldIds[ $params['step'] ] = 'step';
     }
 
-    if (isset($params['group'])) {
-        $fieldIds[ $params['group'] ] = 'group';
-    }
-
-    if (isset($params['color'])) {
-        $fieldIds[ $params['color'] ] = 'color';
-    }
-
     if (isset($params['type'])) {
         $fieldIds[ $params['type'] ] = 'type';
     }
@@ -305,8 +297,11 @@ function wikiplugin_trackertimeline($data, $params)
         $params['title'] => 'title',
         $params['summary'] => 'summary',
         $params['start'] => 'start',
-        $params['end'] => 'end',
     ];
+
+    if (isset($params['end'])) {
+        $fieldIds[ $params['end'] ] = 'end';
+    }
 
     if (isset($params['link_page'])) {
         $fieldIds[ $params['link_page'] ] = 'link_page';
@@ -314,6 +309,14 @@ function wikiplugin_trackertimeline($data, $params)
 
     if (! empty($params['image_field'])) {
         $fieldIds[ $params['image_field'] ] = 'image';
+    }
+
+    if (isset($params['color'])) {
+        $fieldIds[ $params['color'] ] = 'color';
+    }
+
+    if (isset($params['group'])) {
+        $fieldIds[ $params['group'] ] = 'group';
     }
 
     $fields = [];
@@ -336,7 +339,6 @@ function wikiplugin_trackertimeline($data, $params)
         $detailSummary = $detail['summary'] ?? null;
         $detailGroup = $detail['group'] ?? null;
         $detail['encoded'] = json_encode($detail);
-
         // Add to data list
         if (! array_key_exists($detailGroup, $data)) {
             $data[$detailGroup] = [];
@@ -413,7 +415,7 @@ function wikiplugin_trackertimeline($data, $params)
             'events' => $events,
         ];
     }
-    $js .= 'var data = ' . json_encode($events) . "; const options = {};";
+    $js .= 'var data = ' . json_encode($events) . "; const options = {}; console.log(data);";
     $js .= ! empty($start) ? "let start = new Date(" . $start * 1000 . "); options.start = start;" : "";
     $js .= ! empty($end) ? "let end = new Date(" . $end * 1000 . "); options.end = end;" : "";
     $js .= ! empty($params['height']) ? "let height = '" . $params['height'] . "';options.height = height;" : "";
@@ -428,7 +430,7 @@ function wikiplugin_trackertimeline($data, $params)
             groupsOption.push({id: arrayOfGroupWithoutDuplication[i], content: arrayOfGroupWithoutDuplication[i]})
         };\n;
     ";
-    $js .= ! empty($params['group']) ? "var groups = " . json_encode($groups) . ";\n" . $codeHandleGroupParameter : "";
+    $js .= ! empty($params['group']) ? "var groups = " . json_encode($groups) . ";console.log('franck'); console.log('$groups');\n" . $codeHandleGroupParameter : "";
     $js .= "const container = document.getElementById('container-timeline');\n";
     $js .= "const items = new DataSet(data);";
     $js .= ! empty($params['group']) ? "const timeline = new Timeline(container, items, groupsOption, options);" : "const timeline = new Timeline(container, items, options);";
