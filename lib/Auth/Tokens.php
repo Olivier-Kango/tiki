@@ -120,7 +120,7 @@ class Tokens
         $skip_params = false;
         $stored_entry = $data['entry'];
         $storedParams = (array) json_decode($data['parameters'], true);
-        if (str_starts_with($stored_entry, $tikiroot)) {
+        if (! empty($tikiroot) && str_starts_with($stored_entry, $tikiroot)) {
             $stored_entry = substr($stored_entry, strlen($tikiroot));
         }
         $stored_entry = ltrim($stored_entry, '/'); // Remove leading slash
