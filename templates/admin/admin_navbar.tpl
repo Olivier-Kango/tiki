@@ -1,6 +1,6 @@
 <nav class="navbar-expand-md navbar-{$prefs.theme_navbar_color_variant_admin} bg-{$prefs.theme_navbar_color_variant_admin} tiki-topbar-nav-{$prefs.theme_navbar_color_variant_admin} tiki-admin-top-nav-{$prefs.theme_navbar_color_variant_admin} admin-navbar mb-4 border-0 shadow-none" role="navigation">
     {if $prefs.theme_unified_admin_backend eq 'y'}
-        <a class="navbar-brand" href="./" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{tr}Back to the home page{/tr}">
+        <a class="navbar-brand px-2" href="./" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{tr}Return to home page{/tr}">
             {if $prefs.sitelogo_icon && $prefs.sitelogo_icon neq 'img/tiki/tikilogo_icon.png'}
                 <img src="{$prefs.sitelogo_icon}" alt="{if !empty($prefs.sitelogo_alt)}{$prefs.sitelogo_alt|escape}{else}{tr}Site logo{/tr}{/if}">
             {else}
