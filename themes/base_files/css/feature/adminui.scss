@@ -230,7 +230,7 @@ body.tiki-admin {
 .tiki-admin .top_modules { //  The Classic Bootstrap layout was missing this rule because, in UAB, .top_modules is in #middle_outer, not in .page-header.
     width: 100%;
     height: var(--tiki-admin-top-modules-height); // 50px;
-    padding: 0 1.6rem;
+//    padding: 0 1.6rem; This rule is being overridden by something.
 }
 .tiki-admin aside.admin-nav > nav {
     height: calc(100% - var(--tiki-admin-top-modules-height) - 2.3rem);
@@ -541,10 +541,10 @@ body.tiki-admin {
     }
 
     // other changes in mobile menu
-    .tiki-admin .admin-navbar > .navbar-collapse > .navbar-nav > .nav-item > .nav-link.show {
-        background-color: #007BFF !important;
-        color: white !important;
-    }
+//    .tiki-admin .admin-navbar > .navbar-collapse > .navbar-nav > .nav-item > .nav-link.show {
+//        background-color: #007BFF !important;
+//        color: white !important;
+//    }
 
     .tiki-admin .admin-navbar .navbar-nav .nav-link {
         display: flex;
@@ -618,9 +618,9 @@ body.tiki-admin {
 }
 
 .tiki-admin .admin-content nav.navbar-expand-md.mb-4 .navbar-brand {
-    padding: 0;
+ //   padding: 0;
     height: var(--tiki-admin-top-modules-height); //50px;
-    width: 60px;
+ //   width: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -630,9 +630,11 @@ body.tiki-admin {
 }
 
 .tiki-admin .admin-content nav.navbar-expand-md.mb-4 .navbar-brand img {
-    margin-left: 25px;
-    max-width: 38px;
-    max-height: 38px;
+    height: 100%;
+    width: auto;
+//    margin-left: 25px;
+//    max-width: 38px;
+//    max-height: 38px;
 }
 
 .tiki-admin .box-logo {
@@ -770,7 +772,7 @@ body.tiki-admin {
     border: none;
     position: fixed;
     left: 0;
-    padding-left: 7rem;
+//    padding-left: 7rem;
     z-index: 9999 !important;
 }
 
@@ -837,7 +839,7 @@ body.tiki-admin {
 
 // little tweak of the position
 .tiki-admin .admin-content nav.admin-navbar {
-    padding-left: 6rem;
+//    padding-left: 6rem;
     top: 0;
 }
 
