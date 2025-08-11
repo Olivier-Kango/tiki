@@ -460,6 +460,8 @@ if (! empty($prefs['unified_check_unused_indexes']) && $prefs['unified_check_unu
 if ($prefs['feature_scheduler'] === 'y') {
     $schedulerUtils = new \Scheduler_Utils();
     $smarty->assign('isSchedulerRunConfigured', $schedulerUtils->isSchedulerRunConfigured());
+} else {
+    $smarty->assign('isSchedulerRunConfigured', true);
 }
 
 if (! $unifiedsearch->rebuildInProgress()) {
