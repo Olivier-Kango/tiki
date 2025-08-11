@@ -1547,7 +1547,6 @@ class CategLib extends ObjectLib
         } elseif (isset($typetitles["$types"])) {
             $typesallowed = [$types];
         }
-        $out = $smarty->fetch("categobjects_title.tpl");
         foreach ($catids as $id) {
             if (! $this->user_has_perm_on_object($user, $id, 'category', 'tiki_p_view_category')) {
                 continue;
