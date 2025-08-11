@@ -1,3 +1,12 @@
+// Default values for necessary Bootstrap and Tiki CSS variables in case themes don't provide them
+:root {
+    --tiki-page-content-top-margin: 1.25rem; // Equivalent to 20px that was hard-coded in Tiki at one time
+}
+
+.navbar-brand {
+    --bs-navbar-brand-padding-y: 0.31225rem; // Value based on typical navbar brand font size, etc.
+}
+
 //****** Misc. Global Classes (layout and style) ****/
 
 // Extra-small button, initially for the side column toggle icons
