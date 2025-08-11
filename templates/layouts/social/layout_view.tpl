@@ -33,7 +33,7 @@
     {if !isset($smarty.session.fullscreen) || isset($smarty.session.fullscreen) && $smarty.session.fullscreen ne 'y'}
         {if $prefs.theme_unified_admin_backend neq 'y' or $smarty.server.SCRIPT_NAME|strpos:'tiki-admin.php' === false}            
             <header
-                class="navbar navbar-expand-md tiki-top-nav-{$navbar_color_variant} navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-header-top" style="padding: 0 0 0 0;">
+                class="navbar navbar-expand-md tiki-top-nav-{$navbar_color_variant} navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-header-top fixed-top p-0">
                 <div class="container-fluid">
                     {modulelist zone=top class="top_modules w-100 tiki-top-nav-{$navbar_color_variant} navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent" heading_text='{tr}Site identity, navigation, etc.{/tr}' role=banner}
                 </div>
