@@ -138,6 +138,8 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
     }
 }
 
+$headerlib->add_cssfile(BOOTSTRAP_ICONS_FONT_PATH . '/bootstrap-icons.css');
+
 $headerlib->add_js_module('import "@jquery-tiki/plugins/cypht";');
 
 $smarty->display('tiki.tpl');
