@@ -117,7 +117,7 @@ class ModuleList extends Base
 
                             $device_classes = implode(' ', $device_classes);
                         } else {
-                            $device_classes = 'd-flex';
+                            $device_classes = ' d-print-block';
                         }
 
                         $moduleContent = preg_replace('/ class="([^"]*\bmodule\b[^"]*)"/', ' class="$1 ' . $device_classes . '"', $moduleContent);
