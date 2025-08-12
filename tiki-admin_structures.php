@@ -8,6 +8,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\Lib\Wiki\XmlLib;
+
 $inputConfiguration = [
     [
         'staticKeyFilters'          => [
@@ -56,7 +59,6 @@ if ($tiki_p_edit_structures == 'y') {
     }
     if (isset($_REQUEST['zip']) && $tiki_p_admin == 'y') {
         $access->checkCsrf(false, true);
-        include_once('lib/wiki/xmllib.php');
         $xmllib = new XmlLib();
         $zipFile = 'dump/xml.zip';
         $config['debug'] = false;

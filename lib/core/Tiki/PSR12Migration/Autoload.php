@@ -155,6 +155,8 @@ class Autoload
         'Tiki_Security_Policy' => 'Tiki\\Smarty\\SecurityPolicy',
         'Smarty_Tiki' => 'Tiki\\Smarty\\SmartyTiki',
         'SmartyTikiErrorHandler' => 'Tiki\\Smarty\\SmartyTikiErrorHandler',
+        'page_Parser' => 'TIki\\Lib\\Wiki\\PageParser',
+        'XmlLib' => 'TIki\\Lib\\Wiki\\XmlLib',
         'Tiki_Profile_SymbolLoader' => 'Tiki\\Profile\\SymbolLoader',
         'Tiki_Profile_SymbolLoader_Store' => 'Tiki\\Profile\\SymbolLoaderStore',
         'TikiDate' => 'Tiki\\Lib\\TikiDate',

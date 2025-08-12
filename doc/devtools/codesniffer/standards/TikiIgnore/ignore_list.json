@@ -3153,10 +3153,6 @@
         "lib\/wiki\/renderlib.php": {
             "class:WikiRenderer": true
         },
-        "lib\/wiki\/xmllib.php": {
-            "class:XmlLib": true,
-            "class:page_Parser": true
-        },
         "lib\/wiki\/editlib.php": {
             "class:EditLib": true
         },
@@ -6165,9 +6161,6 @@
         "lib\/ocrlib.php": {
             "ocrLib": true
         },
-        "lib\/wiki\/xmllib.php": {
-            "page_Parser": true
-        },
         "lib\/language\/GetStrings.php": {
             "Language_GetStrings": true
         },
@@ -6268,9 +6261,6 @@
         "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
             "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
             "class:TikiAcceptanceTestDBRestorerBinaryDumps": true
-        },
-        "lib\/wiki\/xmllib.php": {
-            "class:page_Parser": true
         },
         "lib\/shipping\/shippinglib.php": {
             "class:CustomShippingProvider": true,
@@ -7987,7 +7977,7 @@
             "PerspectiveLib::get_perspective_with_given_name": true,
             "PerspectiveLib::get_perspective_name": true
         },
-        "lib\/wiki\/xmllib.php": {
+        "lib\/wiki\/XmlLib.php": {
             "XmlLib::get_error": true,
             "XmlLib::export_pages": true,
             "XmlLib::export_page": true,
