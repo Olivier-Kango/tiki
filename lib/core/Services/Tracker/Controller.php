@@ -2975,7 +2975,8 @@ class Services_Tracker_Controller
             // Highlight elements representing the field
             $(`[field-name="${element.getAttribute("name")}"]`).attr("is-invalid", true);
             if ($(element).attr("element-plus-ref")) {
-                $(`#${$(element).attr("element-plus-ref")}`).attr("is-invalid", true);
+                let takeExistingClassNameAndAddInvalid = $(`#${$(element).attr("element-plus-ref")}`)[0]._root.children[1].className + " invalid";
+                $(`#${$(element).attr("element-plus-ref")}`)[0]._root.children[1].className = takeExistingClassNameAndAddInvalid;
             }
         },
         unhighlight: function(element) {
@@ -2987,7 +2988,9 @@ class Services_Tracker_Controller
             // Unhighlight elements representing the field
             $(`[field-name="${element.getAttribute("name")}"]`).attr("is-invalid", false);
             if ($(element).attr("element-plus-ref")) {
-                $(`#${$(element).attr("element-plus-ref")}`).attr("is-invalid", false);
+                let takeExistingClassName = $(`#${$(element).attr("element-plus-ref")}`)[0]._root.children[1].className;
+                let newClassWithoutInvalidClassName = takeExistingClassName.replace(/\binvalid\b/, " ")
+                $(`#${$(element).attr("element-plus-ref")}`)[0]._root.children[1].className = newClassWithoutInvalidClassName;
             }
         },
         ignore: ".ignore"
