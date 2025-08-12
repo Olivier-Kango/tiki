@@ -112,11 +112,10 @@
                                     <label>{tr}Units{/tr}</label>
                                 </div>
                                 <div class="mb-3 col-sm-4">
-                                    <label>{tr}bytes{/tr}</label>
-                                    <input class="radio" type="radio" name="unit"
-                                        value="bytes"{if $unit ne 'kb'} checked="checked"{/if}>
-                                    <label class="offset-sm-1">{tr}kb{/tr}</label>
-                                    <input type="radio" name="unit" value="kb"{if $unit eq 'kb'} checked="checked"{/if}>
+                                    <label for="unit_bytes">{tr}bytes{/tr}</label>
+                                    <input class="radio" type="radio" name="unit" id="unit_bytes" value="bytes"{if $unit ne 'kb'} checked="checked"{/if}>
+                                    <label class="offset-sm-1" for="unit_kb">{tr}kb{/tr}</label>
+                                    <input type="radio" name="unit" id="unit_kb" value="kb"{if $unit eq 'kb'} checked="checked"{/if}>
                                 </div>
                             </div>
                         </div>
@@ -129,20 +128,20 @@
                                     <label>{tr}Contribution Time{/tr}</label>
                                 </div>
                                 <div class="mb-3 col-sm-4">
-                                    <label>{tr}Week{/tr}</label>
-                                    <input type="radio" name="contribTime" value="w"{if $contribTime ne 'd'} checked="checked"{/if}>
-                                    <label class="offset-sm-1">{tr}Day{/tr}</label>
-                                    <input type="radio" name="contribTime" value="d"{if $contribTime eq 'd'} checked="checked"{/if}>
+                                    <label for="contrib_week">{tr}Week{/tr}</label>
+                                    <input type="radio" id="contrib_week" name="contribTime" value="w"{if $contribTime ne 'd'} checked="checked"{/if}>
+                                    <label class="offset-sm-1" for="contrib_day">{tr}Day{/tr}</label>
+                                    <input type="radio" name="contribTime" id="contrib_day" value="d"{if $contribTime eq 'd'} checked="checked"{/if}>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <legend>{tr}Search{/tr}</legend>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label" for="">{tr}Search{/tr}</label>
+                        <label class="col-sm-2 col-form-label" for="find_input">{tr}Search{/tr}</label>
 
                         <div class="col-sm-6">
-                            <input class="form-control" type="text" name="find" value="{$find}">
+                            <input class="form-control" type="text" name="find" id="find_input" value="{$find}">
                         </div>
                     </div>
 
@@ -230,51 +229,51 @@
                 <div class="{if $js}table-responsive{/if}"> {* table-responsive class cuts off css drop-down menus *}
                     <table class="table table-striped table-hover">
                         <thead>
-                        <tr>
-                            {if $prefs.feature_banning eq 'y'}
+                            <tr>
+                                {if $prefs.feature_banning eq 'y'}
+                                    <th>
+                                        {select_all checkbox_names='checked[]'}
+                                        {$numbercol=$numbercol+1}
+                                    </th>
+                                {/if}
                                 <th>
-                                    {select_all checkbox_names='checked[]'}
-                                    {$numbercol=$numbercol+1}
+                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=user_{if $sort_mode eq 'user_desc'}asc{else}desc{/if}{$url}">{tr}User{/tr}</a>
                                 </th>
-                            {/if}
-                            <th>
-                                <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=user_{if $sort_mode eq 'user_desc'}asc{else}desc{/if}{$url}">{tr}User{/tr}</a>
-                            </th>
-                            <th>
-                                <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=lastModif_{if $sort_mode eq 'lastModif_desc'}asc{else}desc{/if}{$url}">{tr}Date{/tr}</a>
-                            </th>
-                            <th>
-                                <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=action_{if $sort_mode eq 'action_desc'}asc{else}desc{/if}{$url}">{tr}Action{/tr}</a>
-                            </th>
-                            <th>
-                                <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=objectType_{if $sort_mode eq 'objectType_desc'}asc{else}desc{/if}{$url}">{tr}Type{/tr}</a>
-                            </th>
-                            <th>
-                                <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=object_{if $sort_mode eq 'object_desc'}asc{else}desc{/if}{$url}">{tr}Object{/tr}</a>
-                            </th>
-                            {if $reportCateg eq '' and $showCateg eq 'y'}
                                 <th>
-                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=categName_{if $sort_mode eq 'categName_desc'}asc{else}desc{/if}{$url}">{tr}Category{/tr}</a>
+                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=lastModif_{if $sort_mode eq 'lastModif_desc'}asc{else}desc{/if}{$url}">{tr}Date{/tr}</a>
                                 </th>
-                            {/if}
-                            <th>{tr}IP{/tr}</th>
-                            <th style="white-space: nowrap;">
-                                <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=add_{if $sort_mode eq 'add_desc'}asc{else}desc{/if}{$url}">+{if $unit eq 'kb'}{tr}kb{/tr}{else}{tr}bytes{/tr}{/if}</a>
-                            </th>
-                            <th style="white-space: nowrap;">
-                                <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=del_{if $sort_mode eq 'del_desc'}asc{else}desc{/if}{$url}">-{if $unit eq 'kb'}{tr}kb{/tr}{else}{tr}bytes{/tr}{/if}</a>
-                            </th>
-                            {if $prefs.feature_contribution eq 'y'}
-                                <th>{tr}contribution{/tr}</th>
-                            {/if}
-                            {if $prefs.feature_contributor_wiki eq 'y'}
-                                <th>{tr}contributor{/tr}</th>
-                            {/if}
-                            {if $tiki_p_admin eq 'y' and ($prefs.feature_contribution eq 'y' or $prefs.feature_categories eq 'y')}
-                                <th></th>
-                            {/if}
-                        </tr>
-                        <thead>
+                                <th>
+                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=action_{if $sort_mode eq 'action_desc'}asc{else}desc{/if}{$url}">{tr}Action{/tr}</a>
+                                </th>
+                                <th>
+                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=objectType_{if $sort_mode eq 'objectType_desc'}asc{else}desc{/if}{$url}">{tr}Type{/tr}</a>
+                                </th>
+                                <th>
+                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=object_{if $sort_mode eq 'object_desc'}asc{else}desc{/if}{$url}">{tr}Object{/tr}</a>
+                                </th>
+                                {if $reportCateg eq '' and $showCateg eq 'y'}
+                                    <th>
+                                        <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=categName_{if $sort_mode eq 'categName_desc'}asc{else}desc{/if}{$url}">{tr}Category{/tr}</a>
+                                    </th>
+                                {/if}
+                                <th>{tr}IP{/tr}</th>
+                                <th style="white-space: nowrap;">
+                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=add_{if $sort_mode eq 'add_desc'}asc{else}desc{/if}{$url}">+{if $unit eq 'kb'}{tr}kb{/tr}{else}{tr}bytes{/tr}{/if}</a>
+                                </th>
+                                <th style="white-space: nowrap;">
+                                    <a href="tiki-admin_actionlog.php?startDate={$startDate}&amp;endDate={$endDate}&amp;sort_mode=del_{if $sort_mode eq 'del_desc'}asc{else}desc{/if}{$url}">-{if $unit eq 'kb'}{tr}kb{/tr}{else}{tr}bytes{/tr}{/if}</a>
+                                </th>
+                                {if $prefs.feature_contribution eq 'y'}
+                                    <th>{tr}contribution{/tr}</th>
+                                {/if}
+                                {if $prefs.feature_contributor_wiki eq 'y'}
+                                    <th>{tr}contributor{/tr}</th>
+                                {/if}
+                                {if $tiki_p_admin eq 'y' and ($prefs.feature_contribution eq 'y' or $prefs.feature_categories eq 'y')}
+                                    <th></th>
+                                {/if}
+                            </tr>
+                        </thead>
                         <tbody>
                         {foreach from=$actionlogs item=actionlog}
                             <tr>

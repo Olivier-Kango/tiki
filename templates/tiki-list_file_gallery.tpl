@@ -301,7 +301,6 @@
                     </div>
                 </div>
                 <input type="submit" class="wikiaction btn btn-primary" name="setSize" value="{tr}Submit{/tr}">
-               </d>
             </form>
         </div><br>
         {pagination_links count=$count step=$maxRecords offset=$offset}

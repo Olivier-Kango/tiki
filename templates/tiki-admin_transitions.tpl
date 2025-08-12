@@ -172,7 +172,7 @@
                     <legend>{tr}General{/tr}</legend>
                     <div class="tiki-form-group row mt-0">
                         <label class="col-form-label" for="new-transition-name">{tr}Label{/tr}</label>
-                        <input type="text" name="label" {if $selected_transition}value="{$selected_transition.name|escape}"{/if} class="form-control">
+                        <input type="text" name="label" id="new-transition-name" {if $selected_transition}value="{$selected_transition.name|escape}"{/if} class="form-control">
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
@@ -268,7 +268,7 @@
                         </div>
                         <div class="tiki-form-group row">
                             <label for="guard-count" class="col-form-label">{tr}Count{/tr}</label>
-                            <input type="text" name="count" class="form-control">
+                            <input type="text" name="count" id="guard-count" class="form-control">
                         </div>
                     </fieldset>
                     <div class="mb-3 row mt-2">

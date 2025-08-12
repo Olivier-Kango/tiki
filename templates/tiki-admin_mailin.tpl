@@ -87,7 +87,7 @@
         <div class="tiki-form-group row">
             <label for="mailin_autocheckFreq" class="col-form-label col-md-3">{tr}Frequency{/tr}</label>
             <div class="col-md-3">
-                <input type="text" name="mailin_autocheckFreq" value="{$prefs.mailin_autocheckFreq|escape}" class="form-control">
+                <input type="text" name="mailin_autocheckFreq" id="mailin_autocheckFreq" value="{$prefs.mailin_autocheckFreq|escape}" class="form-control">
                 <div class="form-text">
                     {tr}minutes{/tr}
                 </div>

@@ -228,7 +228,7 @@
         <div class="row">
            <div class="offset-sm-2 col-sm-10">
                {remarksbox type="warning" title="{tr}Warning{/tr}"}
-               <tr>{tr}Some commands may need to determine the URL of the website and will not be able to do so reliably because fallbackBaseUrl is not set in the <a target="_blank" href="tiki-admin.php?page=general">admin</a>.{/tr}</tr>
+               {tr}Some commands may need to determine the URL of the website and will not be able to do so reliably because fallbackBaseUrl is not set in the <a target="_blank" href="tiki-admin.php?page=general">admin</a>.{/tr}
                {/remarksbox}
            </div>
        </div>

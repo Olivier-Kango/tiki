@@ -316,6 +316,7 @@
                                                         {/if}
                                                     {/strip}
                                                 {/actions}
+                                            </td>
                                         </tr>
                                     {/if}
                                 {sectionelse}
@@ -533,7 +534,7 @@
                     {/if}
                     {if $prefs.login_is_email neq 'y'}
                         <div class="mb-3 row">
-                            <label class="col-sm-3 col-md-2 col-form-label" for="pass1">{tr}Email{/tr}</label>
+                            <label class="col-sm-3 col-md-2 col-form-label" for="email">{tr}Email{/tr}</label>
                             <div class="col-sm-7 col-md-6">
                                 <input type="text" class="form-control" id="email" name="email" size="30" value="{$userinfo.email|escape}">
                             </div>

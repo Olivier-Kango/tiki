@@ -147,7 +147,7 @@
                         {tr}Please proceed to <a class="alert-link" href="{bootstrap_modal controller=search action=rebuild}">{tr}rebuild Index{/tr}</a>.{/tr}
                         {tr}If you have shell (SSH) access, you can also use the following, on the command line, from the root of your Tiki installation:{/tr}
                         <kbd>php console.php{if not empty($tikidomain)} --site={$tikidomain|replace:'/':''}{/if} index:rebuild</kbd>
-                    {else if $prefs.unified_elastic_mysql_search_fallback eq 'n'}
+                    {elseif $prefs.unified_elastic_mysql_search_fallback eq 'n'}
                         {tr}The main search engine is not working properly and the fallback is also not set.</br>
                             Search engine results might not be properly displayed.{/tr}
                     {/if}

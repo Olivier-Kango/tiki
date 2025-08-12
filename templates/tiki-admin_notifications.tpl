@@ -72,7 +72,7 @@
         </div>
     </div>
     <div class="submit text-center">
-        <input type="submit" class="btn btn-primary" name="add" value="{tr}Add{/tr}"></td>
+        <input type="submit" class="btn btn-primary" name="add" value="{tr}Add{/tr}">
     </div>
 </form>
 <br>

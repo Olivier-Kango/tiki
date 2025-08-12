@@ -91,7 +91,7 @@
                                                 {actions}
                                                     {strip}
                                                         <action>
-                                                            <form href="tiki-admin_modules.php" method="post">
+                                                            <form action="tiki-admin_modules.php" method="post">
                                                                 {ticket}
                                                                 <button
                                                                     type="submit"
@@ -105,14 +105,14 @@
                                                             </form>
                                                         </action>
                                                         <action>
-                                                            <form href="tiki-admin_modules.php" method="post">
+                                                            <form action="tiki-admin_modules.php" method="post">
                                                                 {ticket}
                                                                 <button
                                                                     type="submit"
                                                                     name="moddown"
                                                                     value="{$module.moduleId}"
                                                                     class="btn btn-link link-list"
-                                                                    {if $module@last} disabled="disabled" class="disabled"{/if}
+                                                                    {if $module@last} disabled="disabled"{/if}
                                                                 >
                                                                     {icon name="down"} {tr}Move down{/tr}
                                                                 </button>
@@ -124,7 +124,7 @@
                                                             </a>
                                                         </action>
                                                         <action>
-                                                            <form href="tiki-admin_modules.php" method="post">
+                                                            <form action="tiki-admin_modules.php" method="post">
                                                                 {ticket}
                                                                 <button
                                                                     type="submit"

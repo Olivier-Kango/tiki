@@ -7,7 +7,7 @@
     <div class="mb-3 row">
         <label for="name" class="col-sm-3 col-form-label">{tr}Name{/tr}<span class="text-danger"> *</span></label>
         <div class="col-sm-9">
-            <input type="text" maxlength="255" class="form-control" name="name" value="{$info.name|escape}" required>
+            <input type="text" maxlength="255" class="form-control" name="name" id="name" value="{$info.name|escape}" required>
         </div>
     </div>
     <div class="mb-3 row">

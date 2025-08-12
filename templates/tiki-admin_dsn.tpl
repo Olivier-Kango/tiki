@@ -109,7 +109,7 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="method">
+            <label class="col-sm-3 col-form-label" for="user_selector_auth">
                 {tr}User{/tr}
                 <a class="tikihelp text-info" title="{tr}User:{/tr} {tr}Limit usage of this content authentication to a specific user, e.g. when importing/exporting a tracker via tabular with remote API. Leave blank for usage regardless of user context.{/tr}">
                     {icon name=information}

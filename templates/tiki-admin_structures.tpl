@@ -187,7 +187,7 @@
                 <div class="mb-3 row mx-0">
                     <label for="batchaction" class="col-form-label">{tr}Perform action with selected{/tr}</label>
                     <div class="input-group col-sm-6">
-                        <select name="batchaction" class="form-control">
+                        <select name="batchaction" id="batchaction" class="form-control">
                             <option value="" selected>{tr}...{/tr}</option>
                             <option value="delete">{tr}Delete{/tr}</option>
                             <option value="delete_with_page">{tr}Delete with the pages{/tr}</option>
