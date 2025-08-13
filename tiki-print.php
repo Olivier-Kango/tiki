@@ -74,7 +74,7 @@ if (TIKI_PRINTING_PDF) {
 }
 $pdfExportSubRequest = false;
 if (($_REQUEST['pdf_token'] ?? '') != '') {
-    /** @var Cachelib $cachelib */
+    /** @var \Tiki\Cache\CacheLib $cachelib */
     $cachelib = TikiLib::lib('cache');
     $pdfTokenValue = $cachelib->getCached($_REQUEST['pdf_token'], 'pdfprint_');
     if ($pdfTokenValue !== false && $page == $pdfTokenValue) {
@@ -194,7 +194,7 @@ if (TIKI_PRINTING_PDF) {
             try {
                 // Allow to mark a subrequest to tiki-print as being part of the pdf export (when using external services)
                 $pdfToken = md5($page . time() . uniqid('', true));
-                /** @var Cachelib $cachelib */
+                /** @var \Tiki\Cache\CacheLib $cachelib */
                 $cachelib = TikiLib::lib('cache');
                 $cachelib->cacheItem($pdfToken, $page, 'pdfprint_');
 

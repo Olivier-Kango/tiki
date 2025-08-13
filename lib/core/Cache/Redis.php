@@ -4,13 +4,18 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Cache;
+
+//This happens really early in tiki init, autoloading doesn't seem to be available yet
+require_once __DIR__ . '/KvpCacheInterface.php';
+
 /**
- * Class CacheLibRedis
+ * Class Redis
  *
  * Requires PHP-Redis
  */
 
-class CacheLibRedis implements Tiki\Cache\KvpCacheInterface
+class Redis implements KvpCacheInterface
 {
     private $redis;
 
@@ -18,14 +23,14 @@ class CacheLibRedis implements Tiki\Cache\KvpCacheInterface
     {
         global $prefs;
         if (empty($this->redis)) {
-            $this->redis = new Redis();
+            $this->redis = new \Redis();
             $success = $this->redis->pconnect($prefs["redis_host"], $prefs["redis_port"], $prefs["redis_timeout"]);
             if (! $success) {
-                throw new Exception('Unable to connect to Redis.');
+                throw new \Exception('Unable to connect to Redis.');
             }
             if ($prefs['redis_prefix']) {
                 // This option automatically prefixes ALL keys provided as input to Redis
-                $this->redis->setOption(Redis::OPT_PREFIX, $prefs['redis_prefix']);
+                $this->redis->setOption(\Redis::OPT_PREFIX, $prefs['redis_prefix']);
             }
         }
     }

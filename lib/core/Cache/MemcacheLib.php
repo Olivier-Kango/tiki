@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Cache;
+
 /**
  * Class Memcachelib
  *
@@ -12,7 +14,7 @@
  * This utility library is not a complete wrapper for PHP memcache functions,
  * and only provides a minimal set currently in use in SUMO.
  */
-class Memcachelib
+class MemcacheLib
 {
     private $memcache = false;
     public $options;
@@ -69,12 +71,12 @@ class Memcachelib
         $memcached_options['flags'] = 0;
 
         $this->options  = $memcached_options;
-        $this->memcache = new Memcached();
+        $this->memcache = new \Memcached();
 
         $this->memcache->setOptions([
             //50ms is already pretty long for a memcache server.  If it's that slow to respond, may as well not use it.
-            Memcached::OPT_CONNECT_TIMEOUT => 50,
-            Memcached::OPT_SERVER_FAILURE_LIMIT => 1
+            \Memcached::OPT_CONNECT_TIMEOUT => 50,
+            \Memcached::OPT_SERVER_FAILURE_LIMIT => 1
             ]);
         foreach ($memcached_servers as $server) {
             if ($server['host'] == 'localhost') {

@@ -803,10 +803,10 @@ class LanguageTranslations extends TikiDb_Bridge
     }
 
     /**
-     * Return a Cachelib object. Used to be able to
+     * Return a \Tiki\Cache\CacheLib object. Used to be able to
      * mock cachelib por test purposes.
      *
-     * @return Cachelib cachelib object
+     * @return \Tiki\Cache\CacheLib cachelib object
      */
     protected function _getCacheLib()
     {

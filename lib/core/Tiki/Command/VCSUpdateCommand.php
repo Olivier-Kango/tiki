@@ -21,6 +21,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Command\HelpCommand;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Tiki\Cache\CacheLib;
 use Tiki\Package\ComposerCli;
 
 /**
@@ -430,7 +431,7 @@ class VCSUpdateCommand extends Command
         $this->execCommand('git gc 2>&1');
 
         if (! $noDb) {
-            $cacheLib = new \Cachelib();
+            $cacheLib = new CacheLib();
             $output->writeln('');
             $progress->setMessage('Clearing all caches');
             $progress->advance();

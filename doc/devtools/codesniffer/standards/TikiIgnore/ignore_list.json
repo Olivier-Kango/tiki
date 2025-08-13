@@ -2161,18 +2161,6 @@
         "lib\/core\/Perms.php": {
             "class:Perms": true
         },
-        "lib\/cache\/cachelib.php": {
-            "class:Cachelib": true,
-            "class:CacheLibFileSystem": true,
-            "class:CacheLibMemcache": true,
-            "class:CacheLibNoCache": true
-        },
-        "lib\/cache\/redislib.php": {
-            "class:CacheLibRedis": true
-        },
-        "lib\/cache\/memcachelib.php": {
-            "class:Memcachelib": true
-        },
         "lib\/structures\/structlib.php": {
             "class:StructLib": true
         },
@@ -6253,11 +6241,6 @@
         }
     },
     "PSR1.Classes.ClassDeclaration.MultipleClasses": {
-        "lib\/cache\/cachelib.php": {
-            "class:CacheLibFileSystem": true,
-            "class:CacheLibMemcache": true,
-            "class:CacheLibNoCache": true
-        },
         "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
             "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
             "class:TikiAcceptanceTestDBRestorerBinaryDumps": true
@@ -7509,19 +7492,19 @@
             "Services_MailIn_Controller::action_remove_account": true,
             "Services_MailIn_Controller::action_fields_account": true
         },
-        "lib\/cache\/cachelib.php": {
-            "Cachelib::empty_cache": true,
-            "Cachelib::count_cache_files": true,
-            "Cachelib::flush_opcode_cache": true,
-            "Cachelib::flush_memcache": true,
-            "Cachelib::flush_redis": true,
-            "Cachelib::erase_dir_content": true,
-            "Cachelib::cache_templates": true,
-            "Cachelib::get_cache_purge_rules": true,
-            "Cachelib::get_purge_rules_for_cache": true,
-            "Cachelib::clear_purge_rules_for_cache": true,
-            "Cachelib::set_cache_purge_rule": true,
-            "Cachelib::invalidate_by_cache_purge_rules": true
+        "lib\/core\/Cache\/CacheLib.php": {
+            "CacheLib::empty_cache": true,
+            "CacheLib::count_cache_files": true,
+            "CacheLib::flush_opcode_cache": true,
+            "CacheLib::flush_memcache": true,
+            "CacheLib::flush_redis": true,
+            "CacheLib::erase_dir_content": true,
+            "CacheLib::cache_templates": true,
+            "CacheLib::get_cache_purge_rules": true,
+            "CacheLib::get_purge_rules_for_cache": true,
+            "CacheLib::clear_purge_rules_for_cache": true,
+            "CacheLib::set_cache_purge_rule": true,
+            "CacheLib::invalidate_by_cache_purge_rules": true
         },
         "lib\/structures\/structlib.php": {
             "StructLib::s_export_structure": true,

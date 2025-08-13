@@ -156,7 +156,7 @@ function wikiplugin_preview($data, $params)
         ob_end_clean();
     } // Be sure output buffering is turned off
 
-    /** @var Cachelib $cacheLib */
+    /** @var \Tiki\Cache\CacheLib $cacheLib */
     $cacheLib = TikiLib::lib('cache');
 
     $cacheName = $fileMd5 . $requestUniqueIdentifier;

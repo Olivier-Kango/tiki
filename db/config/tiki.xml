@@ -54,9 +54,7 @@
         <service id="tiki.lib.blog" class="BlogLib">
             <file>%kernel.root_dir%/lib/blogs/bloglib.php</file>
         </service>
-        <service id="tiki.lib.cache" class="CacheLib">
-            <file>%kernel.root_dir%/lib/cache/cachelib.php</file>
-        </service>
+        <service id="tiki.lib.cache" class="Tiki\Cache\CacheLib"/>
         <service id="tiki.lib.calendar" class="CalendarLib">
             <file>%kernel.root_dir%/lib/calendar/calendarlib.php</file>
         </service>
@@ -180,9 +178,7 @@
         <service id="tiki.lib.mailin" class="MailinLib">
             <file>%kernel.root_dir%/lib/mailin/mailinlib.php</file>
         </service>
-        <service id="tiki.lib.memcache" class="Memcachelib">
-            <file>%kernel.root_dir%/lib/cache/memcachelib.php</file>
-        </service>
+        <service id="tiki.lib.memcache" class="Tiki\Cache\MemcacheLib"/>
         <service id="tiki.lib.message" class="Messu">
             <file>%kernel.root_dir%/lib/messu/messulib.php</file>
         </service>

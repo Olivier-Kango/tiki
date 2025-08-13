@@ -2220,9 +2220,13 @@ lib/blogs/index.php -text
 lib/bookmarks/bookmarklib.php -text
 lib/bookmarks/index.php -text
 lib/breadcrumblib.php -text
-lib/cache/cachelib.php -text
-lib/cache/index.php -text
-lib/cache/memcachelib.php -text
+lib/core/Cache/CacheLib.php -text
+lib/core/Cache/Memcache.php -text
+lib/core/Cache/FileSystem.php -text
+lib/core/Cache/NoCache.php -text
+lib/core/Cache/Redis.php -text
+lib/core/Cache/MemcacheLib.php -text
+lib/Cache/index.php -text
 lib/calendar/calendarlib.php -text
 lib/calendar/calrecurrence.php -text
 lib/calendar/index.php -text

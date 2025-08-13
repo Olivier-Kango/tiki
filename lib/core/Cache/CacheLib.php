@@ -4,9 +4,13 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+namespace Tiki\Cache;
 
-//This happens really early in tiki init, autoloading doesn't seem to be available yet
-require_once('lib/core/Cache/KvpCacheInterface.php');
+use Error;
+use Exception;
+use Feedback;
+use TikiLib;
+
 /**
  * \brief This is a library to handle all caching in Tiki.
  *
@@ -14,7 +18,7 @@ require_once('lib/core/Cache/KvpCacheInterface.php');
  *
  * It also manages template caching, opcode caching, etc...
  */
-class Cachelib
+class CacheLib
 {
     private $implementation;
 
@@ -22,14 +26,14 @@ class Cachelib
         'Memcache' => [
             'pref' => 'memcache_enabled',
             'extension' => 'memcached',
-            'class' => CacheLibMemcache::class,
-            'require' => ''
+            'class' => Memcache::class,
+            'require' => __DIR__ . '/Memcache.php'
         ],
         'Redis' => [
             'pref' => 'redis_enabled',
             'extension' => 'redis',
-            'class' => CacheLibRedis::class,
-            'require' => 'lib/cache/redislib.php'
+            'class' => Redis::class,
+            'require' => __DIR__ . '/Redis.php'
         ],
     ];
 
@@ -53,7 +57,8 @@ class Cachelib
             }
         }
         // Default implementation and fallback
-        $this->implementation = new CacheLibFileSystem();
+        require_once(__DIR__ . '/FileSystem.php');
+        $this->implementation = new FileSystem();
     }
 
     public function replaceImplementation($implementation)
@@ -240,7 +245,7 @@ class Cachelib
     {
         global $prefs;
 
-        if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] === 'y' && ($this->implementation instanceof CacheLibMemcache)) {
+        if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] === 'y' && ($this->implementation instanceof Memcache)) {
             $memcachelib = TikiLib::lib("memcache");
             if ($memcachelib->isFunctional()) {
                 $memcachelib->flush();
@@ -253,7 +258,7 @@ class Cachelib
     {
         global $prefs;
 
-        if (isset($prefs['redis_enabled']) && $prefs['redis_enabled'] === 'y' && $this->implementation instanceof CacheLibRedis) {
+        if (isset($prefs['redis_enabled']) && $prefs['redis_enabled'] === 'y' && $this->implementation instanceof Redis) {
             $this->implementation->flush();
         }
         return;
@@ -532,156 +537,5 @@ class Cachelib
         }
 
         return ''; // empty string if no failure found
-    }
-}
-
-class CacheLibFileSystem implements Tiki\Cache\KvpCacheInterface
-{
-    public $folder;
-
-    public function __construct()
-    {
-        global $tikidomain;
-        $this->folder = realpath(TEMP_CACHE_PATH);
-        if ($tikidomain) {
-            $this->folder .= "/$tikidomain";
-        }
-        if (! is_dir($this->folder)) {
-            mkdir($this->folder);
-            chmod($this->folder, 0777);
-            $resource = opendir($this->folder);
-            if ($resource === false) {
-                throw new Exception("Unable to create cache directory {$this->folder}");
-            }
-        }
-    }
-
-    public function isFunctional(): bool
-    {
-        return true;
-    }
-
-    public function cacheItem($key, $data, $type = '')
-    {
-        $key = $type . md5($key);
-        @file_put_contents($this->folder . "/$key", $data);
-        return true;
-    }
-
-    public function isCached($key, $type = '')
-    {
-        $key = $type . md5($key);
-        return is_file($this->folder . "/$key");
-    }
-
-    public function getCached($key, $type = '', $lastModif = false)
-    {
-        $key = $type . md5($key);
-        $file = $this->folder . "/$key";
-        if (is_readable($file)) {
-            // If a last date is given for cache validity, make sure the file is younger
-            if ($lastModif !== false && filemtime($file) < $lastModif) {
-                unlink($file);
-                return false;
-            }
-
-            return @file_get_contents($file);
-        } else {
-            return false;
-        }
-    }
-
-    public function invalidate($key, $type = '')
-    {
-        $key = $type . md5($key);
-        if (is_file($this->folder . "/$key")) {
-            unlink($this->folder . "/$key");
-        }
-    }
-
-    public function invalidateAll($type)
-    {
-        $path = $this->folder;
-        $all = opendir($path);
-        if ($all === false) {
-            throw new Exception("Unable to open cache directory {$this->folder}");
-        }
-        while ($file = readdir($all)) {
-            if (strpos($file, $type) === 0) {
-                unlink("$path/$file");
-            }
-        }
-    }
-}
-
-class CacheLibMemcache implements Tiki\Cache\KvpCacheInterface
-{
-    private function getKey($key, $type)
-    {
-        return $type . md5($key);
-    }
-
-    public function isFunctional(): bool
-    {
-        return TikiLib::lib("memcache")->isFunctional();
-    }
-
-    public function cacheItem($key, $data, $type = '')
-    {
-        TikiLib::lib("memcache")->set($this->getKey($key, $type), $data);
-        return true;
-    }
-
-    public function isCached($key, $type = '')
-    {
-        return false;
-    }
-
-    public function getCached($key, $type = '', $lastModif = false)
-    {
-        return TikiLib::lib("memcache")->get($this->getKey($key, $type));
-    }
-
-    public function invalidate($key, $type = '')
-    {
-        return TikiLib::lib("memcache")->delete($this->getKey($key, $type));
-    }
-
-    public function invalidateAll($type)
-    {
-        return TikiLib::lib("memcache")->flush();
-    }
-}
-
-class CacheLibNoCache implements Tiki\Cache\KvpCacheInterface
-{
-    public function isFunctional(): bool
-    {
-        return true;
-    }
-
-    public function cacheItem($key, $data, $type = '')
-    {
-        return false;
-    }
-
-    public function isCached($key, $type = '')
-    {
-        return false;
-    }
-
-    public function getCached($key, $type = '', $lastModif = false)
-    {
-        return false;
-    }
-
-    public function invalidate($key, $type = '')
-    {
-        return false;
-    }
-
-    public function invalidateAll($type)
-    {
-        return false;
     }
 }
