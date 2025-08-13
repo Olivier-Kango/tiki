@@ -196,6 +196,7 @@ class ConsoleApplicationBuilder
                 new LogDeleteCommand(),
                 new UserUnlockCommand(),
                 new UsersListCommand(),
+                new PagePrintCommand(),
                 new UsersPasswordCommand(),
                 new UsersTemporaryCommand(),
                 new TokensClearCommand(),
