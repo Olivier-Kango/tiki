@@ -2602,11 +2602,6 @@
         "lib\/test\/Core\/Reports\/Send\/EmailBuilderTest.php": {
             "class:Reports_Send_EmailBuilderTest": true
         },
-        "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
-            "class:TikiAcceptanceTestDBRestorer": true,
-            "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
-            "class:TikiAcceptanceTestDBRestorerBinaryDumps": true
-        },
         "lib\/test\/auth\/AuthTokensTest.php": {
             "class:AuthTokensTest": true
         },
@@ -6241,10 +6236,6 @@
         }
     },
     "PSR1.Classes.ClassDeclaration.MultipleClasses": {
-        "lib\/test\/TikiAcceptanceTestDBRestorer.php": {
-            "class:TikiAcceptanceTestDBRestorerSQLDumps": true,
-            "class:TikiAcceptanceTestDBRestorerBinaryDumps": true
-        },
         "lib\/shipping\/shippinglib.php": {
             "class:CustomShippingProvider": true,
             "class:ShippingLib": true

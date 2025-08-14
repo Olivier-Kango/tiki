@@ -4318,7 +4318,9 @@ lib/test/TestHelpers.php -text
 lib/test/TestRunnerWithBaseline.php -text
 lib/test/TestRunnerWithBaselineTest.php -text
 lib/test/TestableTikiLib.php -text
-lib/test/TikiAcceptanceTestDBRestorer.php -text
+lib/test/AcceptanceTests/AbstractDBRestorer.php -text
+lib/test/AcceptanceTests/DBRestorerBinaryDumps.php -text
+lib/test/AcceptanceTests/DBRestorerSQLDumps.php -text
 lib/test/TikiDatabaseTestCase.php -text
 lib/test/TikiLib/LibTest.php -text
 lib/test/TikiLib/MultiExplodeTest.php -text
