@@ -304,7 +304,7 @@
         "mikey179/vfsstream": "^1",
         "overtrue/phplint": "^9.0.4",
         "phpcompatibility/php-compatibility": "^10.x-dev",
-        "phpcsstandards/phpcsutils": "^1.0.0-alpha3",
+        "phpcsstandards/phpcsutils": "^1.1.0",
         "phpstan/phpstan": "^1.10.57",
         "phpstan/phpstan-deprecation-rules": "^1.1.3",
         "phpunit/phpunit": "10.5.26",
@@ -449,14 +449,57 @@
         "test": "php ../lib/test/phpunit.php -c phpunit.xml.dist --colors=always"
     },
     "repositories": {
-        "tiki.org": {
+        "packagist.org": {
             "type": "composer",
-            "url": "https://composer.tiki.org",
-            "canonical": true
+            "url": "https://packagist.org",
+            "exclude": [
+                "pear/text_wiki_mediawiki",
+                "itsjavi/bootstrap-colorpicker",
+                "league/commonmark"
+            ]
         },
         "asset-packagist.org": {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        "tiki.org": {
+            "type": "composer",
+            "url": "https://composer.tiki.org",
+            "canonical": false,
+            "only": [
+                "simile_timeline/simile_timeline",
+                "openannotation/annotator",
+                "jquery-plugins/reflection-jquery",
+                "jquery/jquery-sheet",
+                "umakantp/smartylint",
+                "bower-asset/wodo.texteditor",
+                "pear/text_wiki_mediawiki",
+                "avianey/jqdoublescroll",
+                "codemirror/codemirror",
+                "css-tricks/anythingslider-themes",
+                "jquery-plugins/anythingslider",
+                "jquery-plugins/async",
+                "jquery-plugins/colorbox",
+                "jquery-plugins/fitvidjs",
+                "jquery-plugins/galleriffic",
+                "jquery-plugins/infinitecarousel",
+                "jquery-plugins/jquery-json",
+                "jquery-plugins/nestedsortable",
+                "jquery-plugins/tagcanvas",
+                "jquery-plugins/treetable",
+                "jquery-plugins/zoom",
+                "jquery/jquery-timepicker-addon",
+                "jquery/minicart",
+                "jquery/photoswipe",
+                "mrrio/jspdf",
+                "openlayers/openlayers",
+                "rangy/rangy",
+                "sam152/javascript-equal-height-responsive-rows",
+                "svg-edit/svg-edit",
+                "walkermatt/ol-layerswitcher",
+                "itsjavi/bootstrap-colorpicker",
+                "league/commonmark"
+            ]
         }
     }
 }
