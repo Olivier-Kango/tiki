@@ -144,6 +144,19 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
                             'value' => 'transfer'
                         ],
                     ],
+                    'displayFieldsListSort' => [
+                        'name' => tr('Default Sort Order'),
+                        'description' => tr('Sort the items in the dropdown list.'),
+                        'filter' => 'alpha',
+                        'options' => [
+                            'itemId' => tr('Item ID'),
+                            'formatted' => tr('Formatted Value'),
+                        ],
+                        'depends' => [
+                            'field' => 'displayFieldsListType',
+                            'value' => 'dropdown'
+                        ],
+                    ],
                     'trackerListOptions' => [
                         'name' => tr('Plugin TrackerList options'),
                         'description' => tr('Override one or more options of Plugin TrackerList to customize displayed table at item edit time (e.g. editable, tsfilters, etc.)'),
@@ -905,6 +918,9 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
                     $this->getOption('displayFieldsListFormat')
                 );
                 $list = $this->handleDuplicates($list);
+                if ($this->getOption('displayFieldsListSort') == 'formatted') {
+                    natsort($list);
+                }
             }
         } else {
             $list = TikiLib::lib('trk')->get_all_items(
