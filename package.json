@@ -67,7 +67,7 @@
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitest/coverage-istanbul": "^3.2.4",
-    "check-engines": "^1.6.0",
+    "check-engine": "^1.14.0",
     "concurrently": "^9.2.0",
     "copy-and-watch": "^0.1.8",
     "es-module-shims": "^2.6.1",
