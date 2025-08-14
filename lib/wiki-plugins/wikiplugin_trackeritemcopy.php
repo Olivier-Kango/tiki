@@ -158,8 +158,6 @@ function wikiplugin_trackeritemcopy($data, $params)
                     $updateFieldValues[] = $itemLinkId;
                 }
 
-                //print_r(array($trackerId, $updateFieldIds, $updateFieldValues, $copyFieldIds, $itemIds, $linkFieldId, $itemLinkId, $copies));
-
                 for ($i = 0, $count_updateFieldIds = count($updateFieldIds); $i < $count_updateFieldIds; $i++) {
                     $ins_fields["data"][] = [
                         'options_array' => $fieldOptionsArray[$updateFieldIds[$i]],

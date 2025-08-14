@@ -1183,7 +1183,6 @@ if (isset($_GET['slideshow'])) {
         $categlib = TikiLib::lib('categ');
         foreach ($files['data'] as &$file) {
             $file['categs'] = $categlib->get_object_categories('file', $file['fileId']);
-            // var_dump($file['categs']);
             if (is_array($file['categs'])) {
                 $file['categs'] = array_map(function ($c) {
                     return $c['name'];

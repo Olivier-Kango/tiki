@@ -279,7 +279,6 @@ class SheetLib extends TikiLib
                 $sheets[$sheet['sheetId']] = $sheet;
             }
         }
-        //print_r($sheets);
         $results = [];
 
         $results['data'] = $sheets;
@@ -292,7 +291,6 @@ class SheetLib extends TikiLib
             }
         }
 
-        //print_r($results);
         $results['count'] = $this->getOne("SELECT COUNT(*) FROM `tiki_sheets` $mid", $bindvars);
 
         return $results;

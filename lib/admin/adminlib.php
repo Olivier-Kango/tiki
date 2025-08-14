@@ -421,7 +421,6 @@ class AdminLib extends TikiLib
             $data = "<html>";
             $data .= "<head>";
             $data .= "<title>" . $res["pageName"] . "</title>";
-            // $data .= "<link rel='StyleSheet' href='styles/" . $prefs['style'] . "' type='text/css'>";
             $data .= '</head>';
             $data .= "<body><a class='wiki' href='" .
                 $prefs['wikiHomePage'] .

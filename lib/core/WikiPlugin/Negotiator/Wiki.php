@@ -258,7 +258,6 @@ class WikiPlugin_Negotiator_Wiki
                 break;
             }
         }
-        //var_dump($pluginPhpFilePath, $exists);
         return $exists ? $pluginPhpFilePath : null;
     }
 

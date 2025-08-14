@@ -60,24 +60,24 @@ function wikiplugin_kanban_info(): array
                 'name' => tr('Column acceptable values and configuration'),
                 'description' => tr('For the tracker field mapped in "column", defines for each column the value a tracker item must have for that field, as well as the label displayed as the column header and the WiP limit for that column. Implicitely defines the number of columns and in which order they are shown; You can skip values so they are not part of the board (and you typically do, if only to eventually archive done cards).
 
-The parameter is and array of colon separated values, each containing a coma separated arguments configuring the column.
+                The parameter is and array of colon separated values, each containing a coma separated arguments configuring the column.
 
-In order, the configuration represent the:
+                In order, the configuration represent the:
 
-1) Mandatory. The value the mapped field must have in the tracker item for the card to be shown in the matching column.
-2) Optional. If present and not "null", the text to be displayed as the column header instead of the normal tracker field label for the value above. (For example "Done" instead of "Closed")
-3) Optional. If present and not "null", the WiP (Work in Progress) limit for the cards in the column. In "null", there is no limit for the number of cards in the column. Typically you will use null for the first and last column.
+                1) Mandatory. The value the mapped field must have in the tracker item for the card to be shown in the matching column.
+                2) Optional. If present and not "null", the text to be displayed as the column header instead of the normal tracker field label for the value above. (For example "Done" instead of "Closed")
+                3) Optional. If present and not "null", the WiP (Work in Progress) limit for the cards in the column. In "null", there is no limit for the number of cards in the column. Typically you will use null for the first and last column.
 
-null or nothing between the comas means the parameter is not set. Necessary since the arguments are positional.
+                null or nothing between the comas means the parameter is not set. Necessary since the arguments are positional.
 
-So for example:
-someValue,someAlternateTextToDisplay,null:someOtherValue,,4
+                So for example:
+                someValue,someAlternateTextToDisplay,null:someOtherValue,,4
 
-Means the board would have two colums, the first column would be titled "someAlternateTextToDisplay" containing cards with the value "someValue" for the mapped field and no limit to the number of cards. The second column would have cards with "someOtherValue" for the mapped field, with whatever the label is for that value in the field definition, and the column would be highlighted red if there is more than 4 cards. No card with any other value would be anywhere on the board.
+                Means the board would have two colums, the first column would be titled "someAlternateTextToDisplay" containing cards with the value "someValue" for the mapped field and no limit to the number of cards. The second column would have cards with "someOtherValue" for the mapped field, with whatever the label is for that value in the field definition, and the column would be highlighted red if there is more than 4 cards. No card with any other value would be anywhere on the board.
 
-To allow empty values, include a field with an empty value (ex: someValue:someOtherValue:,Unsorted cards)
+                To allow empty values, include a field with an empty value (ex: someValue:someOtherValue:,Unsorted cards)
 
-If the whole parameter is absent (not recommended), all possible field values will be used to generate columns (except the empty value).
+                If the whole parameter is absent (not recommended), all possible field values will be used to generate columns (except the empty value).
 
                 '),
                 'hint' => tr('e.g. "someValue,someAlternateTextToDisplay,null:someOtherValue,,4"'),
@@ -126,7 +126,6 @@ If the whole parameter is absent (not recommended), all possible field values wi
 
 function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesParam, string $fieldPermName, array $fieldDefaultConfig)
 {
-    //echo '<pre>Field';print_r($fieldHandler->getFieldDefinition());echo '</pre>';
     if ($fieldHandler instanceof \Tracker\Field\EnumerableInterface) {
         if ($fieldHandler->canHaveMultipleValues()) {
             throw new TypeError(tra('The tracker field "%0" selected in parameter is configured to allow multiple values. This is not mappable in a kanban board', '', false, [
@@ -140,7 +139,6 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
         ]));
     }
 
-    //echo '<pre>Possible item values';print_r($fieldValuesMap);echo '</pre>';
     $fieldInfo = [];
 
     $appendAllPossibleFieldValues = false;
@@ -160,7 +158,6 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
         foreach ($fieldValuesMap as $value => $label) {
             $fieldInfo[$value] = array_merge($fieldDefaultConfig, ['title' => $label, 'value' => $value]);
         }
-        //echo'<pre>';print_r($fieldInfo);echo '</pre>';
     }
     if (is_array($fieldValuesParam) && ! empty($fieldValuesParam)) {
         foreach ($fieldValuesParam as $key => $fieldParams) {
@@ -176,7 +173,6 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
                     implode(',', array_keys($fieldValuesMap))
                 ]));
             }
-            //echo '<pre>';print_r($fieldValue);echo '</pre>';
             if ($fieldValue !== '') {
                 $fieldData = ['title' => $fieldValuesMap[$fieldValue], 'value' => $fieldValue];
             } else {
@@ -203,7 +199,6 @@ function _map_field($fieldHandler, string $fieldValuesParamName, $fieldValuesPar
         }
     }
 
-    //echo '<pre>_map_field returning:';print_r($fieldInfo);echo '</pre>';
     return $fieldInfo;
 }
 function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
@@ -302,16 +297,12 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     } catch (TypeError $e) {
         return WikiParser_PluginOutput::userError($e);
     }
-
-
-    //echo '<pre>';print_r($columnsInfo);echo '</pre>';
     //END mapping the fields
 
     //Begin mapping the cards
     $query = new Search_Query();
     $query->filterType('trackeritem');
     $query->filterContent((string)$jit->boardTrackerId->int(), 'tracker_id');
-    //print_r(array_keys($swimlanesInfo));
 
     //Filter the cards
     //We only filter the swimlane or column field values if we don't allow empty values. Search_Query cannot include specific values plus the empty ones.
@@ -386,7 +377,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $entries = $formatter->getPopulatedList($result, false);
     $entries = $plugin->renderEntries($entries);
 
-    //echo '<pre>TrackerQueryResults:\n';print_r($entries);echo '</pre>';
     $boardCards = [];
 
 
@@ -522,7 +512,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             'user' => $user,
             'CASLAbilityRules' => $caslAbilities
         ];
-    //echo ("<pre>");var_dump($kanbanData);echo ("</pre>");
     $smarty->assign(
         'kanbanData',
         $kanbanData
@@ -534,7 +523,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     ');
 
     $out = "";
-    //$out = str_replace(['~np~', '~/np~'], '', $formatter->renderFilters());
 
     $out .= $smarty->fetch('wiki-plugins/wikiplugin_kanban.tpl');
 

@@ -409,7 +409,6 @@ class Search_Indexer
             'object_id' => $typeFactory->identifier($objectId),
             'contents' => $typeFactory->plainmediumtext($this->getGlobalContent($data, $globalFields)),
         ];
-        //var_dump($globalFields);
         $data = array_merge(array_filter($data), $base);
         $data = $this->applyFilters($data);
 

@@ -493,7 +493,6 @@ function wikiplugin_articles($data, $params)
         $comments_object_var = $listpages["data"][$i]["articleId"];
         $comments_objectId = $comments_prefix_var . $comments_object_var;
         $listpages["data"][$i]["comments_count"] = TikiLib::lib('comments')->count_comments($comments_objectId);
-        //print_r($listpages["data"][$i]['title']);
     }
 
     $topics = $artlib->list_topics();

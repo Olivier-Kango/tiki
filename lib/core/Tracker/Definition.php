@@ -85,7 +85,6 @@ class Tracker_Definition
         $trklib = TikiLib::lib('trk');
         $trackerInfos = $trklib->list_trackers(0, -1, 'trackerId_asc');
         $definitions = [];
-        //var_dump($trackerInfos['list']);
         foreach ($trackerInfos['list'] as $id => $name) {
             $definition = self::get($id);
             $definitions[] = $definition;

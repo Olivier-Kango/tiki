@@ -174,10 +174,7 @@ class Spreadsheet_Excel_Reader
 
          */
 
-        //var_dump($this->data);
-
         $this->pos = 0;
-        //$this->readRecords();
         return $this->_parse();
 
     }
@@ -200,7 +197,6 @@ class Spreadsheet_Excel_Reader
             return false;
         }
 
-        //print_r($rec);
         $pos += $length + 4;
 
         $code = ord($this->data[$pos]) | ord($this->data[$pos+1])<<8;
@@ -314,9 +310,6 @@ class Spreadsheet_Excel_Reader
                         if ($extendedString) {
                             $spos += $extendedRunLength;
                         }
-                        //if ($retstr == 'Derby'){
-                        //      echo "bb\n";
-                        //}
                         $this->sst[]=$retstr;
                     }
                     /*$continueRecords = array();
