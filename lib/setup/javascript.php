@@ -306,7 +306,7 @@ var syntaxHighlighter = {
 EOT;
 }
 
-if (in_array('y', [$prefs['feature_draggable_modals'], $prefs['feature_resizable_modals']])) {
+if (in_array('y', [$prefs['feature_draggable_modals'], ! empty($prefs['feature_resizable_modals']) ? $prefs['feature_resizable_modals'] : 'n'])) {
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/interactjs/dist/interact.min.js');
 }
 
@@ -334,7 +334,7 @@ EOT;
     $headerlib->add_css('.modal-header {cursor: grab}');
 }
 
-if ($prefs['feature_resizable_modals'] === 'y') {
+if (! empty($prefs['feature_resizable_modals']) && $prefs['feature_resizable_modals'] === 'y') {
     $js .= <<< 'EOT'
 $(document).on("tiki.modal.redraw", function(event) {
     let $modalContent = $(event.target);
