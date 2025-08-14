@@ -4272,6 +4272,10 @@ lib/smarty_tiki/prefilter.log_tpl.php -text
 lib/smarty_tiki/prefilter.tr.php -text
 lib/smarty_tiki/resource.tplwiki.php -text
 lib/smarty_tiki/resource.wiki.php -text
+lib/smarty_tiki/Modifier/NumStyle.php -text
+lib/smarty_tiki/Utils/StyleType.php -text
+lib/smarty_tiki/Modifier/D.php -text
+lib/smarty_tiki/Utils/SmartyKint.php -text
 lib/soap/index.php -text
 lib/soap/nusoap/index.php -text
 lib/soap/nusoap/nusoap.php -text

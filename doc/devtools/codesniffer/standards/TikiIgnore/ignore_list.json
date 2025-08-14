@@ -6239,12 +6239,6 @@
         "lib\/shipping\/shippinglib.php": {
             "class:CustomShippingProvider": true,
             "class:ShippingLib": true
-        },
-        "lib\/smarty_tiki\/Modifier\/NumStyle.php": {
-            "class:StyleType": true
-        },
-        "lib\/smarty_tiki\/Modifier\/D.php": {
-            "class:SmartyKint": true
         }
     },
     "PSR1.Methods.CamelCapsMethodName.NotCamelCaps": {

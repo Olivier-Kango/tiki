@@ -155,6 +155,8 @@ class Autoload
         'Tiki_Security_Policy' => 'Tiki\\Smarty\\SecurityPolicy',
         'Smarty_Tiki' => 'Tiki\\Smarty\\SmartyTiki',
         'SmartyTikiErrorHandler' => 'Tiki\\Smarty\\SmartyTikiErrorHandler',
+        'StyleType' => 'SmartyTiki\\Utils\\StyleType',
+        'SmartyKint' => 'SmartyTiki\\Utils\\SmartyKint',
         'TikiAcceptanceTestDBRestorer' => 'Tiki\\Lib\\Test\\AcceptanceTests\\AbstractDBRestorer',
         'TikiAcceptanceTestDBRestorerSQLDumps' => 'Tiki\\Lib\\Test\\AcceptanceTests\\DBRestorerSQLDumps',
         'TikiAcceptanceTestDBRestorerBinaryDumps' => 'Tiki\\Lib\\Test\\AcceptanceTests\\DBRestorerBinaryDumps',
