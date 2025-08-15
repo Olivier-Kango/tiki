@@ -1,3 +1,24 @@
+{capture assign=modzonetop}
+    {modulelist zone=top class="top_modules w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-top-nav-{$navbar_color_variant}" heading_text='{tr}Site identity, navigation, etc.{/tr}'}
+{/capture}
+{capture assign=modzonetopbar}
+    {modulelist zone=topbar class="topbar_modules w-100 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-topbar-nav-{$navbar_color_variant}" heading_text='{tr}Navigation and related functionality and content{/tr}'}
+{/capture}
+{capture assign=modzonepagetop}
+    {modulelist zone=pagetop heading_text='{tr}Related content{/tr}' role=complementary}
+{/capture}
+{capture assign=modzonepagebottom}
+    {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
+{/capture}
+{capture assign=modzoneright}
+    {modulelist zone=right class="right-aside" heading_text='{tr}More content and functionality (right side){/tr}' role=complementary}
+{/capture}
+{capture assign=modzoneleft}
+    {modulelist zone=left class="left-aside" heading_text='{tr}More content and functionality (left side){/tr}' role=complementary}
+{/capture}
+{capture assign=modzonebottom}
+    {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
+{/capture}
 <!DOCTYPE html>
 <html lang="{if !empty($pageLang)}{$pageLang}{else}{$prefs.language}{/if}"{if Language::isRTL()} dir="rtl"{/if}{if !empty($page_id)} id="page_{$page_id}"{/if}>
 <head>
@@ -23,7 +44,7 @@
             <div class="header_container">
                 <div class="container{* {if $smarty.session.fullscreen eq 'y'}*}-fluid{*{/if}*} container-std">
                     <header class="header page-header row" id="page-header" role="banner">
-                        {modulelist zone=top class="top_modules w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-top-nav-{$navbar_color_variant}" heading_text='{tr}Site identity, navigation, etc.{/tr}'}
+                        {$modzonetop}
                     </header>
                 </div>
             </div>
@@ -34,7 +55,7 @@
     <div class="middle_outer" id="middle_outer" >
         <div class="topbar-wrapper navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-topbar-nav-{$navbar_color_variant}">
             <div class="topbar container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-topbar-nav-{$navbar_color_variant}" id="topbar">
-                {modulelist zone=topbar class="topbar_modules w-100 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-topbar-nav-{$navbar_color_variant}" heading_text='{tr}Navigation and related functionality and content{/tr}'}
+                {$modzonetopbar}
             </div>
         </div>
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
@@ -44,7 +65,7 @@
                     <div class="col col1 col-md-12 pb-4" id="col1">
                         {if $prefs.feature_layoutshadows eq 'y'}<div id="tiki-center-shadow">{eval var=$prefs.center_shadow_start}{/if}
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
-                            {modulelist zone=pagetop heading_text='{tr}Related content{/tr}' role=complementary}
+                            {$modzonepagetop}
                         {/if}
                             <div id="feedback" role="alert">
                                 {feedback}
@@ -56,7 +77,7 @@
                                 {block name=content}{/block}
                             </main>
                             {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
-                                {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
+                                {$modzonepagebottom}
                             {/if}
                             {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                         </div>
@@ -66,7 +87,7 @@
                         <div id="col1top-outer-wrapper" class="col1top-outer-wrapper d-flex justify-content-between">
                             <div class="col1top-inner-wrapper flex-grow-1 mx-2">
                                 {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
-                                    {modulelist zone=pagetop heading_text='{tr}Related content{/tr}' role=complementary}
+                                    {$modzonepagetop}
                                 {/if}
                                 <div id="feedback" role="alert">
                                     {feedback}
@@ -88,7 +109,7 @@
                             {block name=content}{/block}
                         </main>
                         {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
-                            {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
+                            {$modzonepagebottom}
                         {/if}
                         {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                     </div>
@@ -103,7 +124,7 @@
                                 </div>
                             {/if}
                         </div>
-                        {modulelist zone=right class="right-aside" heading_text='{tr}More content and functionality (right side){/tr}' role=complementary}
+                        {$modzoneright}
                     </div>
                 {elseif zone_is_empty('right') or $prefs.feature_right_column eq 'n'}
                     <div class="col col1 col-md-12 col-lg-9 {if $prefs.feature_fixed_width neq 'y'}col-xl-10{/if} order-md-1 order-lg-2 pb-4" id="col1">
@@ -120,7 +141,7 @@
                                 </div>
                                 <div class="col1top-inner-wrapper flex-grow-1 mx-2">
                                     {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
-                                        {modulelist zone=pagetop heading_text='{tr}Related content{/tr}' role=complementary}
+                                        {$modzonepagetop}
                                     {/if}
                                     <div id="feedback" role="alert">
                                         {feedback}
@@ -134,7 +155,7 @@
                                 {block name=content}{/block}
                             </main>
                             {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
-                                {modulelist zone=pagebottom heading_text='{tr}Related content{/tr}' role=complementary}
+                                {$modzonepagebottom}
                             {/if}
                     </div>
                     {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
@@ -149,7 +170,7 @@
                                 </div>
                             {/if}
                         </div>
-                        {modulelist zone=left class="left-aside" heading_text='{tr}More content and functionality (left side){/tr}' role=complementary}
+                        {$modzoneleft}
                     </div>
                 {else}
                     <div class="col col1 col-sm-12 col-lg-8 order-xs-1 order-lg-2 pb-4" id="col1">
@@ -165,7 +186,7 @@
                                 </div>
                                 <div class="col1top-inner-wrapper flex-grow-1 mx-2">
                                     {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
-                                        {modulelist zone=pagetop heading_text='{tr}Related content{/tr}' role=complementary}
+                                        {$modzonepagetop}
                                     {/if}
                                     <div id="feedback" role="alert">
                                         {feedback}
@@ -187,7 +208,7 @@
                                 {block name=content}{/block}
                             </main>
                             {if $prefs.module_zones_pagebottom eq 'fixed' or ($prefs.module_zones_pagebottom ne 'n' && ! zone_is_empty('pagebottom'))}
-                                {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
+                                {$modzonepagebottom}
                             {/if}
                             {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                     </div>
@@ -202,8 +223,7 @@
                                 </div>
                             {/if}
                         </div>
-                        {modulelist zone=left class="left-aside" heading_text='{tr}More content and functionality (left side){/tr}' role=complementary}
-                    </div>
+                        {$modzoneleft}                    </div>
                     <div class="col col3 col-12 col-md-6 col-lg-2 order-md-3" id="col3">
                         <div class="d-block d-lg-none">
                             {if $prefs.feature_right_column eq 'user'}
@@ -215,8 +235,7 @@
                                 </div>
                             {/if}
                         </div>
-                        {modulelist zone=right class="right-aside" heading_text='{tr}More content and functionality (right side){/tr}' role=complementary}
-                    </div>
+                        {$modzoneright}                    </div>
                 {/if}
             </div>
         </div>
@@ -227,7 +246,7 @@
         <footer class="footer main-footer" id="footer">
             <div class="footer_liner">
                 <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
-                    {modulelist zone=bottom class='bottom_modules p-3 mx-n2point5' heading_text='{tr}Site information, links, etc.{/tr}' role=contentinfo}
+                    {$modzonebottom}
                 </div>
             </div>
         </footer>
