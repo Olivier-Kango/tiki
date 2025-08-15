@@ -49,15 +49,15 @@ function tiki_mail_setup()
     global $tiki_maillib__mailer_default_transport;
     global $prefs;
     $dns = "sendmail://default";
-    if ($prefs['mailer_handler'] === 'amazonSes') {
+    if (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'amazonSes') {
         $key = $prefs['mailer_amazon_ses_key'];
         $secret = $prefs['mailer_amazon_ses_secret'];
         $region = $prefs['mailer_amazon_ses_region'];
         $dns = "ses+api://$key:$secret@default?region=$region";
-    } elseif ($prefs['mailer_handler'] === 'elasticEmail') { // https://github.com/bertoost/ElasticEmail-Mailer
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'elasticEmail') { // https://github.com/bertoost/ElasticEmail-Mailer
         $apiKey = $prefs['mailer_elastic_email_key'];
         $dns = "elasticemail+api://$apiKey@default";
-    } elseif ($prefs['mailer_handler'] === 'mailgun') {
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'mailgun') {
 //        Do not use Api key from mailgun. Instead, go to
 //        Sending -> Domain -> Sending key and create key there.
 //        That is the "API key" for establishing connection.
@@ -65,21 +65,21 @@ function tiki_mail_setup()
         $domain = $prefs['mailer_mailgun_domain'];
         $region = $prefs['mailer_mailgun_region'];
         $dns = "mailgun+api://$key:$domain@default?region=$region";
-    } elseif ($prefs['mailer_handler'] === 'mandrill') {
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'mandrill') {
         $key = $prefs['mailer_mandrill_key'];
         $dns = "mandrill+api://$key@default";
-    } elseif ($prefs['mailer_handler'] === 'postmark') {
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'postmark') {
         $key = $prefs['mailer_postmark_key'];
         $dns = "postmark+api://$key@default";
-    } elseif ($prefs['mailer_handler'] === 'sendGrid') {
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'sendGrid') {
         $key = $prefs['mailer_send_grid_key'];
         $region = $prefs['mailer_send_grid_region'];
         $dns = "sendgrid+api://$key@default?region=$region";
-    } elseif ($prefs['mailer_handler'] === 'sparkPost') { // https://github.com/gam6itko/sparkpost-mailer
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'sparkPost') { // https://github.com/gam6itko/sparkpost-mailer
         $key = $prefs['mailer_spark_post_key'];
         $region = $prefs['mailer_spark_region'];
         $dns = "sparkpost+api://$key@default?region=$region";
-    } elseif ($prefs['mailer_handler'] === 'smtp') {
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'smtp') {
         $host = $prefs['mailer_smtp_server'] ?? 'localhost';
         $port = $prefs['mailer_smtp_port'] ?? 25;
         $username = $prefs['mailer_smtp_user'];
@@ -110,9 +110,9 @@ function tiki_mail_setup()
         if (! empty($queryParameters)) {
             $dns .= "?" . implode("&", $queryParameters);
         }
-    } elseif ($prefs['mailer_handler'] === 'sendmail' && ! empty($prefs['sender_email'])) {
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'sendmail' && ! empty($prefs['sender_email'])) {
         $dns = "sendmail://default?command=" . urlencode('-f' . $prefs['sender_email']);
-    } elseif ($prefs['mailer_handler'] === 'file') {
+    } elseif (! empty($prefs['mailer_handler']) && $prefs['mailer_handler'] === 'file') {
         $mail_debug_path = TIKI_PATH . '/' . TEMP_MAIL_DEBUG ;
         if (! file_exists($mail_debug_path)) {
             // is the parent temp dir group writable?
