@@ -215,6 +215,12 @@ class WikiRenderer
 
             $headerlib = TikiLib::lib('header');
             $links = [];
+
+            $wikilib = TikiLib::lib('wiki');
+            $selfHref = $wikilib->sefurl($this->page);
+
+            $links[] = '<link rel="alternate" href="' . $selfHref . '" hreflang="' . $this->info['lang'] . '">';
+
             foreach ($this->trads as $trad) {
                 if ($trad['lang'] != $this->info['lang']) {
                     $links[] = '<link rel="alternate" href="tiki-index.php?page=' . $trad['objName'] . '" hreflang="' . $trad['lang'] . '">';
