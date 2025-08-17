@@ -99,9 +99,9 @@ try {
         $base = rtrim($prefs['peertube_service_url'], '/');
         $uuid     = $video->shortUUID ?? $video->uuid ?? $videoId;
 
-        $privacyLabel  = $video->privacy['label']  ?? null;
+        $privacyLabel  = $video->privacy['label'] ?? null;
         $categoryLabel = $video->category['label'] ?? null;
-        $licenceLabel  = $video->licence['label']  ?? null;
+        $licenceLabel  = $video->licence['label'] ?? null;
         $langLabel     = $video->language['label'] ?? null;
 
         if (! $video) {
