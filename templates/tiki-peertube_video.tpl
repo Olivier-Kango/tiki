@@ -33,9 +33,11 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="videoActionMenu">
                         <li>
-                            <a class="dropdown-item" href="{$videoInfo->fileUrl}" download>
+                            {if $peertube_download_url}
+                            <a class="dropdown-item" href="{$peertube_download_url|escape}">
                                 <i class="fas fa-download me-2"></i> {tr}Download{/tr}
                             </a>
+                            {/if}
                         </li>
                         <li>
                             <a class="dropdown-item" href="tiki-peertube_video.php?videoId={$videoInfo->uuid|escape}&action=edit">
@@ -64,23 +66,31 @@
                 <table class="table table-borderless w-auto">
                     <tr>
                         <td class="fw-bold">{tr}Privacy{/tr}</td>
-                        <td>{tr}Public{/tr}</td>
+                        <td>{$peertube_privacy_label|default:{tr}Unknown{/tr}|escape}</td>
                     </tr>
                     <tr>
                         <td class="fw-bold">{tr}Category{/tr}</td>
-                        <td>{tr}Unknown{/tr}</td>
+                        <td>{$peertube_category_label|default:{tr}Unknown{/tr}|escape}</td>
                     </tr>
                     <tr>
                         <td class="fw-bold">{tr}Licence{/tr}</td>
-                        <td>{tr}Unknown{/tr}</td>
+                        <td>{$peertube_licence_label|default:{tr}Unknown{/tr}|escape}</td>
                     </tr>
                     <tr>
                         <td class="fw-bold">{tr}Language{/tr}</td>
-                        <td>{tr}English{/tr}</td>
+                        <td>{$peertube_language_label|default:{tr}Unknown{/tr}|escape}</td>
                     </tr>
                     <tr>
                         <td class="fw-bold">{tr}Tags{/tr}</td>
-                        <td><em>{tr}None{/tr}</em></td>
+                          <td>
+                            {if $videoInfo->tags|@count}
+                            {foreach from=$videoInfo->tags item=t name=tags}
+                                {$t|escape}{if not $smarty.foreach.tags.last}, {/if}
+                            {/foreach}
+                            {else}
+                            <em>{tr}None{/tr}</em>
+                            {/if}
+                        </td>
                     </tr>
                     <tr>
                         <td class="fw-bold">{tr}Duration{/tr}</td>
@@ -108,9 +118,11 @@
                     </button>
                 </div>
 
-                <a href="{$videoUrl}" target="_blank" class="btn btn-outline-primary">
-                    <i class="fas fa-external-link-alt"></i> {tr}View on PeerTube{/tr}
-                </a>
+                {if $videoUrl}
+                    <a href="{$videoUrl|escape}" target="_blank" class="btn btn-outline-primary">
+                        <i class="fas fa-external-link-alt"></i> {tr}View on PeerTube{/tr}
+                    </a>
+                {/if}
             </div>
         {/if}
     </div>

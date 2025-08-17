@@ -96,14 +96,35 @@ try {
             $video = (object) $video;
         }
 
-        $smarty->assign('videoInfo', $video);
-    }
+        $base = rtrim($prefs['peertube_service_url'], '/');
+        $uuid     = $video->shortUUID ?? $video->uuid ?? $videoId;
 
-    if (! empty($video)) {
-        $baseUrl = rtrim($prefs['peertube_service_url'], '/');
-        $uuid = $video->shortUUID ?? $video->uuid ?? $videoId;
-        $videoUrl = $baseUrl . '/w/' . $uuid;
-        $smarty->assign('videoUrl', $videoUrl);
+        $privacyLabel  = $video->privacy['label']  ?? null;
+        $categoryLabel = $video->category['label'] ?? null;
+        $licenceLabel  = $video->licence['label']  ?? null;
+        $langLabel     = $video->language['label'] ?? null;
+
+        if (! $video) {
+            Feedback::error(tra('Invalid URL or video not found. The video may be private or unavailable.'));
+        } elseif ($privacyLabel === 'Internal') {
+            Feedback::error(tra('This video is set to "Internal". You may not be able to view it here.'));
+        }
+
+        $viewUrl  = $base . '/w/' . $uuid;
+        $embedUrl = isset($video->embedPath) ? $base . $video->embedPath : null;
+
+        $dlUrl = $video->streamingPlaylists[0]['files'][0]['fileDownloadUrl'] ?? null;
+
+        $smarty->assign('videoInfo', $video);
+        $smarty->assign('videoUrl', $viewUrl);
+        $smarty->assign('peertube_embed_url', $embedUrl);
+        $smarty->assign('peertube_download_url', $dlUrl);
+        $smarty->assign('peertube_privacy_label', $privacyLabel);
+        $smarty->assign('peertube_category_label', $categoryLabel);
+        $smarty->assign('peertube_licence_label', $licenceLabel);
+        $smarty->assign('peertube_language_label', $langLabel);
+
+        $smarty->assign('videoInfo', $video);
     }
 
     $smarty->assign('mid', 'tiki-peertube_video.tpl');
