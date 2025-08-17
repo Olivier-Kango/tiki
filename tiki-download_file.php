@@ -251,10 +251,6 @@ if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $last_modified == strtotime(cur
     unset($tmp);
 }
 
-header("Pragma: ");
-header('Expires: ');
-header('Cache-Control: ' . ( ! empty($user) ? 'private' : 'public' ) . ',must-revalidate,post-check=0,pre-check=0');
-
 if ($use_client_cache) {
     header('Status: 304 Not Modified', true, 304);
     exit;
@@ -262,6 +258,18 @@ if ($use_client_cache) {
     if (! empty($last_modified)) {
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $last_modified) . ' GMT');
     }
+}
+
+$maxAge = isset($prefs['tiki_cachecontrol_maxage']) ? (int) $prefs['tiki_cachecontrol_maxage'] : 86400;
+$downloadableByAnonymous = $userlib->user_has_perm_on_object(null, $info['fileId'], 'file', 'tiki_p_download_files');
+
+if ($downloadableByAnonymous) {
+    header('Cache-Control: public, max-age=' . $maxAge . ', must-revalidate');
+    header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $maxAge) . ' GMT');
+} else {
+    header('Cache-Control: private, no-cache, no-store, must-revalidate');
+    header('Expires: ' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
+    header('Pragma: no-cache');
 }
 
 // Indicates if a 'office' document should be converted to pdf for download or display in browser.
