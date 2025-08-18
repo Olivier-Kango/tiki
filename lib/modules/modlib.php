@@ -136,7 +136,7 @@ class ModLib extends TikiLib
         }
         if ($type == "D" || $type == "P") {
             $usermoduleslib = TikiLib::lib('usermodules');
-            $usermoduleslib->add_module_users($moduleId, $name, $title, $position, $order, $cache_time, $rows, $groups, $params, $type);
+            $usermoduleslib->add_module_users($moduleId, $name, $position, $order, $type);
         }
         return $moduleId;
     }
