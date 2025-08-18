@@ -629,9 +629,7 @@ if ($prefs['jquery_smartmenus_enable'] == 'y') {
         }
     ');
 }
-if ($prefs['feature_jquery_reflection'] == 'y') {
-    $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/reflection-jquery/js/reflection.js');
-}
+
 if ($prefs['feature_jquery_tablesorter'] == 'y') {
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/tablesorter/dist/js/jquery.tablesorter.combined.js');
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/tablesorter/dist/js/parsers/parser-input-select.min.js');

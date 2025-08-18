@@ -1873,13 +1873,6 @@ function prefs_feature_list($partial = false)
             'type' => 'flag',
             'default' => 'n',
         ],
-        'feature_jquery_reflection' => [
-            'name' => tra('Reflection'),
-            'description' => tra('Creates a reflection under an image. Used in Plugin Img with the parameter "class=reflect"'),
-            'type' => 'flag',
-            'help' => 'JQuery#Reflection',
-            'default' => 'n',       // reflection effects on images
-        ],
         'feature_jquery_ui' => [
             'name' => tra('JQuery UI'),
             'description' => tra('Include jQuery UI library. Enables a number of interface features.'),

@@ -1083,7 +1083,7 @@ function wikiplugin_img($data, $params)
             }
             if (
                 (! empty($imgdata['max']) && $imgdata['thumb'] != 'download')
-                    && (empty($urlthumb) && empty($urlmax[0]) && empty($urlprev))
+                && (empty($urlthumb) && empty($urlmax[0]) && empty($urlprev))
             ) {
                 $src .= '&max=' . $imgdata['max'];
                 $imgdata_dim .= ' width="' . $width . '"';
@@ -1290,8 +1290,9 @@ function wikiplugin_img($data, $params)
         $replimg .= ' usemap="#' . $imgdata['usemap'] . '"';
     }
     //class
-    if (! empty($imgdata['class'])) {
-        $replimg .= ' class="' . $imgdata['class'] . '"';
+    [$imageClassList, $reflectClassList] = filterImgClassList($imgdata['class']);
+    if (! empty($imageClassList)) {
+        $replimg .= ' class="' . $imageClassList . '"';
     }
     //data-src
     if (! empty($imgdata['data-src'])) {
@@ -1355,6 +1356,7 @@ function wikiplugin_img($data, $params)
         $replimg .= '>' . $repldata . '</' . $tagName . '>';
     }
 
+    $replimg = applyReflectIfExists($replimg, $src, $reflectClassList);
 
     ////////////////////////////////////////// Create the HTML link ///////////////////////////////////////////
     //Variable for identifying if javascript mouseover is set
@@ -1735,4 +1737,107 @@ function buildLinkRelAttribute(array $imgdata): string
     }
 
     return '';
+}
+
+function filterImgClassList($classList)
+{
+    $reflectClassList = '';
+    $imageClassList = '';
+    // get all the class that doesn't start with reflect
+    foreach (explode(' ', $classList) as $class) {
+        if (str_starts_with($class, 'reflect')) {
+            $reflectClassList .= $class . ' ';
+        } else {
+            $imageClassList .= $class . ' ';
+        }
+    }
+    return [$imageClassList, $reflectClassList];
+}
+
+function applyReflectIfExists($html, $src, $classList)
+{
+    global $base_url, $headerlib;
+    $classes = explode(' ', $classList);
+    // Check if "reflect" exists as a standalone word
+    if (in_array('reflect', $classes)) {
+        $headerlib->add_jq_onready(<<<JS
+            function setReflectHeight(\$img) {
+                const height = \$img.height();
+                \$img.closest('.reflect-container').css('--reflect-height', height + 'px');
+            }
+            // select all images inside reflect-container
+            $('.reflect-container > img').each(function() {
+                const \$img = $(this);
+                // if image already loaded (cached), apply immediately
+                if (this.complete) {
+                    setReflectHeight(\$img);
+                } else {
+                    // attach load handler
+                    //.off('load.reflect') → ensures we don’t attach multiple handlers accidentally.
+                    \$img.off('load.reflect').on('load.reflect', function() {
+                        setReflectHeight(\$img);
+                    });
+                }
+            });
+            
+            // recalc on window resize
+            $(window).on('resize', function() {
+                $('.reflect-container img').each(function() {
+                    setReflectHeight($(this));
+                });
+            });
+JS);
+        $headerlib->add_css(<<<CSS
+                .reflect-container {
+                    --reflect-height: 200px;
+                    --reflect-opacity: 0.5;
+                    --reflect-fade-point: 80%;
+                    --reflect-gap: 0px;
+                    position: relative;
+                    display: inline-block;
+                    margin-bottom: calc((var(--reflect-height) + var(--reflect-gap)));
+                }
+                
+                .reflect-container > img {
+                    display: block;
+                    margin-bottom: var(--reflect-gap);
+                }
+                
+                .reflect-container::after {
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    height: var(--reflect-height);
+                    background-image: var(--reflect-src);
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    background-position: bottom;
+                    transform: scaleY(-1);
+                    mask-image: linear-gradient(to top, rgba(0, 0, 0, var(--reflect-opacity)) 0%, rgba(0, 0, 0, 0.0) var(--reflect-fade-point));
+                    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, var(--reflect-opacity)) 0%, rgba(0, 0, 0, 0.0) var(--reflect-fade-point));
+                }
+CSS);
+        if (! str_starts_with($src, 'http:') && ! str_starts_with($src, 'https:')) {
+            $src = $base_url . $src;
+        }
+        $styles = "--reflect-src: url('" . htmlspecialchars($src) . "');";
+        // Match all words starting with "reflect-"
+        foreach ($classes as $class) {
+            if (str_starts_with($class, 'reflect-')) {
+                if (str_starts_with($class, 'reflect-opacity-')) {
+                    $opacity = substr($class, strlen('reflect-opacity-')) / 100;
+                    $styles .= " --reflect-opacity: " . number_format($opacity, 2) . ";";
+                } elseif (str_starts_with($class, 'reflect-height-')) {
+                    $height = substr($class, strlen('reflect-height-')) . "px";
+                    $styles .= " --reflect-height: " . $height . ";";
+                } elseif (str_starts_with($class, 'reflect-gap-')) {
+                    $gap = substr($class, strlen('reflect-gap-')) . "px";
+                    $styles .= " --reflect-gap: " . $gap . ";";
+                }
+            }
+        }
+        $html = '<div class="reflect-container" style="' . $styles . '">' . $html . '</div>';
+    }
+
+    return $html;
 }
