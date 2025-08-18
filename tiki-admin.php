@@ -231,8 +231,8 @@ if (isset($_POST['lm_preference']) && $access->checkCsrf()) {
 }
 
 if (isset($_REQUEST['lm_criteria'])) {
-    if (empty($_REQUEST['lm_criteria'])) {
-        Feedback::errorAndDie(tra('Your search request is empty'), \Laminas\Http\Response::STATUS_CODE_400);
+    if ($_REQUEST['lm_criteria'] == '') {
+        Feedback::error(tra('Your search request is empty'), \Laminas\Http\Response::STATUS_CODE_400);
     }
     set_time_limit(0);
     try {
