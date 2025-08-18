@@ -13,7 +13,7 @@
         "How to update dependencies",
         "  satis and composer.tiki.org",
         "    First, make sure the version you want is covered by ",
-        "    doc/devtools/statis.json,  as that's what makes the ",
+        "    doc/devtools/satis.json,  as that's what makes the ",
         "    package available on composer.tiki.org",
         "    NOTE: composer.tiki.org is only used up to Tiki 28.x.",
         "    For Tiki 29.x and above, dependencies use public repositories like Packagist.org.",
