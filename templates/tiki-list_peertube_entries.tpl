@@ -28,9 +28,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>{self_link _sort_arg="asc_name" _sort_field="name"}{tr}Title{/tr}{/self_link}</th>
+                <th>
+                    <a href="tiki-list_peertube_entries.php?offset={$offset}&sort_mode={if $sort_mode eq 'name_desc'}name_asc{else}name_desc{/if}">{tr}Title{/tr}</a>
+                </th>
                 <th>{tr}Status{/tr}</th>
-                <th>{self_link _sort_arg="asc_publishedAt" _sort_field="publishedAt"}{tr}Published{/tr}{/self_link}</th>
+                <th>
+                    <a href="tiki-list_peertube_entries.php?offset={$offset}&sort_mode={if $sort_mode eq 'created_desc'}created_asc{else}created_desc{/if}">{tr}Published{/tr}</a>
+                </th>
                 <th>{tr}Actions{/tr}</th>
             </tr>
         </thead>

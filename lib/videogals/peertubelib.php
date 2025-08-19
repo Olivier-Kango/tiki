@@ -172,10 +172,15 @@ class PeerTubeLib
         return json_decode($this->makeRequest('POST', $url, $data), true);
     }
 
-    public function listVideos($sort_mode = 'createdAt_desc', $page = 1, $page_size = 10, $find = '')
+    public function listVideos($sort_mode = '-publishedAt', $page = 1, $page_size = 10, $find = '')
     {
         global $prefs;
-        $url = rtrim($prefs['peertube_service_url'], '/') . "/api/v1/videos?start=" . (($page - 1) * $page_size) . "&count=$page_size&sort=$sort_mode";
+
+        $start = ($page - 1) * $page_size;
+        $base  = rtrim($prefs['peertube_service_url'], '/');
+
+        $url = $base . "/api/v1/videos?start={$start}&count={$page_size}"
+            . "&sort=" . rawurlencode($sort_mode);  // <— encode; avoids '+'=>space issues
 
         if ($find) {
             $url .= "&search=" . urlencode($find);

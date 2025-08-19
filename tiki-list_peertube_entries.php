@@ -69,13 +69,20 @@ try {
         }
     }
 
-    $sort_mode = $jitRequest->sort_mode->word() ?: 'desc_publishedAt';
+    $sort_mode = $jitRequest->sort_mode->word() ?: 'created_desc';
     $smarty->assign_by_ref('sort_mode', $sort_mode);
-    $sort_mode = preg_replace(['/desc_/', '/asc_/'], ['-', '+'], $sort_mode, 1);
-    $sort_mode = preg_replace('/-+/', '-', $sort_mode);
-    $sort_mode = trim($sort_mode, '-+');
-    if (! preg_match('/^[+-][a-zA-Z0-9_]+$/', $sort_mode)) {
-        $sort_mode = '-publishedAt';
+
+    $map = [
+        'created'   => 'publishedAt',
+        'lastModif' => 'updatedAt',
+        'name'      => 'name',
+        'size'      => 'filesize',
+    ];
+
+    $apiSort = '-publishedAt';
+    if (preg_match('/^(created|lastModif|name|size)_(asc|desc)$/', $sort_mode, $m)) {
+        $field = $map[$m[1]] ?? 'publishedAt';
+        $apiSort = ($m[2] === 'desc' ? '-' : '') . $field;
     }
 
     $find = $jitRequest->find->text();
@@ -87,7 +94,7 @@ try {
 
     if ($_REQUEST['list'] == 'videos') {
         $peertubelib = TikiLib::lib('peertubeuser');
-        $videolist = $peertubelib->listVideos($sort_mode, $page, $page_size, $find); // Call list method from PeerTubeLib
+        $videolist = $peertubelib->listVideos($apiSort, $page, $page_size, $find);
 
         if ($videolist && isset($videolist->data) && is_array($videolist->data)) {
             if ($jitRequest->view->alpha() != 'browse') {
