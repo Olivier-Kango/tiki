@@ -120,6 +120,7 @@ class TWVersion
                 37 => 'Alnilam',         // 26.x
                 38 => 'Miaplacidus',     // 27.x
                 39 => 'Castor',          // 28.x
+                40 => 'Bellatrix',       // 29.x
         ];
     }
 
