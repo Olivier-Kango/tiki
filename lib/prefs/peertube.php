@@ -9,10 +9,10 @@ function prefs_peertube_list()
     return [
         'peertube_service_url' => [
             'name' => tra('PeerTube service URL'),
-            'description' => tra('For example, https://videos.evoludata.com/'),
+            'description' => tra('Your PeerTube instance URL. More information: https://joinpeertube.org/'),
             'type' => 'text',
             'size' => 40,
-            'default' => 'https://videos.evoludata.com/',
+            'default' => '',
             'tags' => ['basic'],
         ],
         'peertube_client_id' => [
