@@ -82,7 +82,13 @@
                                 </div>
                             </div>
                         </td>
-                        <td>{$klist[ix]->statusString|default:'N/A'|escape}</td>
+                        <td>
+                            {if !empty($klist[ix]->statusString)}
+                                {$klist[ix]->statusString|escape}
+                            {else}
+                                {tr}N/A{/tr}
+                            {/if}
+                        </td>
                         <td>{$klist[ix]->publishedAt|date_format:"%d %b %Y %H:%M"}</td>
                         <td class="action">
                             {actions}
