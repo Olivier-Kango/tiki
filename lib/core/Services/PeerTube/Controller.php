@@ -34,7 +34,7 @@ class ServicesPeerTubeController
             throw new \Services_Exception_Denied('Not allowed to list videos');
         }
 
-        $sort_mode = $input->sort_mode->word() ?: 'desc_createdAt';
+        $sort_mode = $input->sort_mode->word() ?: 'created_desc';
         $find = $input->find->text();
         $page_size = $input->maxRecords->int() ?: -1;
         $offset = max(0, $input->offset->int());
