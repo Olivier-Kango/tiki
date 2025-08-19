@@ -3424,7 +3424,7 @@ class FileGalLib extends TikiLib
                     }
 
                     if (empty($params['name'][$key])) {
-                        $params['name'][$key] = $this->generateDisplayNameFromFilename($name, $galleryId);
+                        $params['name'][$key] = $this->generateDisplayNameFromFilename($name, (int) $params['galleryId']);
                     }
 
                     if (empty($params['deleteAfter'][$key]) || empty($params['deleteAfter_unit'][$key])) {
