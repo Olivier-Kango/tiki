@@ -71,7 +71,9 @@
                 <th>{self_link _sort_arg='sort_mode' _sort_field='name'}{tr}Name{/tr}{/self_link}</th>
                 <th>{self_link _sort_arg='sort_mode' _sort_field='created'}{tr}Created{/tr}{/self_link}</th>
                 <th>{self_link _sort_arg='sort_mode' _sort_field='lastModif'}{tr}Last modified{/tr}{/self_link}</th>
-                <th>{self_link _sort_arg='sort_mode' _sort_field='fieldsCount'}{tr}Fields{/tr}{/self_link}</th>
+                {if $tiki_p_admin eq 'y' or $tiki_p_admin_trackers eq 'y'}
+                    <th>{self_link _sort_arg='sort_mode' _sort_field='fieldsCount'}{tr}Fields{/tr}{/self_link}</th>
+                {/if}
                 <th class="text-end">{self_link _sort_arg='sort_mode' _sort_field='items'}{tr}Items{/tr}{/self_link}</th>
                 {if $prefs.tracker_display_categories eq 'y'}
                     <th>{self_link _sort_arg='sort_mode' _sort_field='items'}{tr}Categories{/tr}{/self_link}</th>
@@ -108,12 +110,14 @@
                     </td>
                     <td class="date">{$tracker.created|tiki_short_date}</td>
                     <td class="date">{$tracker.lastModif|tiki_short_datetime}</td>
-                    <td class="date">
-                        <a class="tips" title="{tr}{$tracker.name|escape}:{/tr}{tr}View{/tr}"
-                            href="tiki-view_tracker.php?trackerId={$tracker.trackerId}">
-                            {$tracker.fieldsCount|escape}
-                        </a>
-                    </td>
+                    {if $tiki_p_admin eq 'y' or $tiki_p_admin_trackers eq 'y'}
+                        <td class="integer">
+                            <a class="tips" title="{tr}{$tracker.name|escape}:{/tr}{tr}View fields{/tr}"
+                                href="tiki-admin_tracker_fields.php?trackerId={$tracker.trackerId}">
+                                {$tracker.fieldsCount|escape}
+                            </a>
+                        </td>
+                    {/if}
                     <td class="integer">
                         <a class="tips" title="{tr}{$tracker.name|escape}:{/tr}{tr}View{/tr}"
                             href="tiki-view_tracker.php?trackerId={$tracker.trackerId}">
