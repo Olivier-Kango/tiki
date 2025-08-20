@@ -89,7 +89,7 @@
                                 {tr}N/A{/tr}
                             {/if}
                         </td>
-                        <td>{$klist[ix]->publishedAt|date_format:"%d %b %Y %H:%M"}</td>
+                        <td>{$klist[ix]->publishedAt|tiki_long_date}</td>
                         <td class="action">
                             {actions}
                                 {strip}
