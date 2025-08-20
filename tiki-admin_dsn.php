@@ -49,11 +49,15 @@ if (isset($_REQUEST["remove"]) && $access->checkCsrf(true)) {
     }
 }
 if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
-    $result = $adminlib->replace_dsn($_REQUEST["dsnId"], $_REQUEST["dsn"], $_REQUEST['name']);
-    if ($result && $result->numRows()) {
-        Feedback::success(tr('DSN created or modified'));
+    if (empty(trim($_REQUEST["name"])) || empty(trim($_REQUEST["dsn"]))) {
+        Feedback::error(tr('Both DSN and name fields are required.'));
     } else {
-        Feedback::error(tr('DSN not created or modified'));
+        $result = $adminlib->replace_dsn($_REQUEST["dsnId"], $_REQUEST["dsn"], $_REQUEST['name']);
+        if ($result && $result->numRows()) {
+            Feedback::success(tr('DSN created or modified'));
+        } else {
+            Feedback::error(tr('DSN not created or modified'));
+        }
     }
     $info = [];
     $info["dsn"] = '';
