@@ -424,12 +424,7 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                     $res .= sprintf('<div class="row g-0 py-0 py-sm-1 small_header d-flex" id="event_calendar_to_rsvp" style="display:none"><div class="col-md-12"><span class="text-muted">%s</span><span class="text-danger">*</span><select class="event_calendar_select_rsvp">%s</select></div></div>', tr('Calendar'), implode('', array_slice($options, 1)));
                 } else {
                     $existing = TikiLib::lib('calendar')->get_item($existing['calitemId']);
-                    $res .= sprintf(
-                        '<tr><th>%s</th><td class="header_links"><a href="tiki-calendar.php?calitemId=%s" data-external="1">%s</a></td></tr>',
-                        tr('Event'),
-                        $existing['calitemId'],
-                        tr('View event in my calendar')
-                    );
+                    $res .= sprintf('<div class="row g-0 py-0 py-sm-1 small_header d-flex"><div class="col-md-2"><span class="text-muted">%s</span></div><div class="col-md-10 col-12 header_links"><a href="tiki-calendar.php?calitemId=%s" data-external="1">%s</a></div></div>', tr('Event'), $existing['calitemId'], tr('View event in my calendar'));
                     foreach (['start', 'end', 'name', 'description', 'participants'] as $field) {
                         $val1 = $existing[$field];
                         $val2 = $event[$field];
@@ -444,10 +439,7 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                             sort($val2);
                         }
                         if ($val1 != $val2) {
-                            $res .= sprintf(
-                                '<tr class="header_event_addtocal"><th>&nbsp;</th><td class="header_links"><a href="#" class="event_calendar_update">%s</a></td></tr>',
-                                tr('Update in my calendar')
-                            );
+                            $res .= sprintf('<div class="row g-0 py-0 py-sm-1 small_header d-flex header_event_addtocal"><div class="col-md-2"><span class="text-muted">&nbsp;</span></div><div class="col-md-10 col-12 header_links"><a href="#" class="event_calendar_update">%s</a></div></div>', tr('Update in my calendar'));
                             break;
                         }
                     }
@@ -498,28 +490,16 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
                         $event_update_participant_class = 'event_participant_status_updated';
                         $event_update_participant_text = 'Participant status updated';
                     }
-
-
-                    $res .= sprintf(
-                        '<tr>
-                            <th colspan="2" class="header_links">
-                            <a href="#" class="' . $event_update_participant_class . '">%s</a>
-                            </th>
-                        </tr>',
-                        tr($event_update_participant_text)
-                    );
+                    $res .= sprintf('<div class="row g-0 py-0 py-sm-1 small_header d-flex"><div class="col-md-2 header_links"><a href="#" class="' . $event_update_participant_class . '">%s</a></div><div class="col-md-10 col-12"></div></div>', tr($event_update_participant_text));
                 }
             }
             if ($prefs['feature_calendar'] == 'y' && $method == 'CANCEL') {
                 $existing = TikiLib::lib('calendar')->find_by_uid(null, $event['uid']);
                 if ($existing) {
-                    $res .= sprintf(
-                        '<tr><th colspan="2" class="header_links"><a href="#" class="event_remove_from_calendar">%s</a></th></tr>',
-                        tr('Remove from calendar')
-                    );
+                    $res .= sprintf('<div class="row g-0 py-0 py-sm-1 small_header d-flex"><div class="col-md-2 header_links"><a href="#" class="event_remove_from_calendar">%s</a></div><div class="col-md-10 col-12"></div></div>', tr('Remove from calendar'));
                 }
             }
-            $headers = preg_replace("#<tr><td[^>]*header_space[^>]*>.*?</td></tr>#", $res . "\\0", $headers);
+            $headers = preg_replace("#<div[^>]*event_calendar_section[^>]*>.*?</div>#", $res . "\\0", $headers);
         }
         $this->out('msg_headers', $headers, false);
     }
