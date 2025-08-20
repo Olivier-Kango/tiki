@@ -1282,4 +1282,13 @@ class Services_User_Controller
         $ret = $userlib->validate_user($username, $password);
         return $ret[0];
     }
+
+    public function action_save_column_prefs($input)
+    {
+        global $user;
+        $columns = $input->prefs->value();
+        $tracker_name = $input->trackerName->value();
+        TikiLib::lib('tiki')->set_user_preference($user, 'trk_items_column_pref', $columns);
+        return tr('Your column preference for tracker "%0" is saved.', $tracker_name);
+    }
 }

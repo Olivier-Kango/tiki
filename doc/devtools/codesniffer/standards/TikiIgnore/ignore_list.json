@@ -7114,7 +7114,8 @@
             "Services_User_Controller::action_get_message_count": true,
             "Services_User_Controller::action_invite_tempuser": true,
             "Services_User_Controller::action_upload_avatar": true,
-            "Services_User_Controller::action_set_user_lock_status": true
+            "Services_User_Controller::action_set_user_lock_status": true,
+            "Services_User_Controller::action_save_column_prefs":true
         },
         "lib\/core\/Services\/User\/MonitorController.php": {
             "Services_User_MonitorController::action_object": true,
@@ -8071,7 +8072,8 @@
             "UserPrefsLib::get_user_picture_id": true,
             "UserPrefsLib::get_userprefs": true,
             "UserPrefsLib::get_userdistance": true,
-            "UserPrefsLib::get_user_clock_pref": true
+            "UserPrefsLib::get_user_clock_pref": true,
+            "UserPrefsLib::get_user_tracker_items_col_pref": true
         },
         "lib\/trackers\/trackerlib.php": {
             "TrackerLib::remove_field_images": true,

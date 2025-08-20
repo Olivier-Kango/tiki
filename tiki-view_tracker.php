@@ -620,6 +620,7 @@ if ($prefs['feature_jquery_validation'] == 'y') {
 $userprefslib = TikiLib::lib('userprefs');
 $smarty->assign('use_24hr_clock', $userprefslib->get_user_clock_pref($user));
 
+$smarty->assign('trk_items_col_pref', $userprefslib->get_user_tracker_items_col_pref($user));
 // Display the template
 $smarty->assign('mid', 'tiki-view_tracker.tpl');
 $smarty->display("tiki.tpl");

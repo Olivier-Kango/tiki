@@ -147,11 +147,38 @@
             {if (isset($pages_count) && $pages_count > 1) or $initial}{initials_filter_links}{/if}
 
             {if $items|@count ge '1'}
+                {* ------- list toggleable fields --- *}
+                {if $trk_items_col_pref neq ''}
+                    <textarea id="savedcolpref" class="d-none">{$trk_items_col_pref}</textarea>
+                {/if}
+                <form id="savecolprefsform" method="post" action="{service controller=user action=save_column_prefs}">
+                    {ticket}
+                    <div class="mb-3">
+                        <div class="toggle-col-warning d-none">
+                            {remarksbox type="danger" title="{tr}Warning{/tr}" close="y"}
+                                {tr}{"At least one column must remain visible."}{/tr}
+                            {/remarksbox}
+                        </div>
+                        {foreach from=$listfields key=ix item=field_value}
+                            {if $field_value.isTblVisible eq 'y' and ( $field_value.type ne 'x' and $field_value.type ne 'h') and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password') and $field_value.visibleInViewMode eq 'y'}
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input toggle-col" data-col-name="{$field_value.name}" checked>
+                                    <label class="form-check-label">{$field_value.name|tra|truncate:255:"..."|escape|default:"&nbsp;"}</label>
+                                </div>
+                            {/if}
+                        {/foreach}
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="prefs" id="prefs" class="d-none"></textarea>
+                        <input name="trackerId" type="hidden" id="col_pref_trackerid" value="{$trackerId}">
+                        <input name="trackerName" type="hidden" value="{tr}{$tracker_info.name}{/tr}">
+                    </div>
+                </form>
                 {* ------- list headings --- *}
                 <form name="checkform" method="post">
                     {ticket}
                     <div class="{if $js}table-responsive{/if}"> {*the table-responsive class cuts off dropdown menus *}
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="trItemTable">
                             <tr>
                                 {if $tracker_info.showStatus eq 'y' or ($tracker_info.showStatusAdminOnly eq 'y' and $tiki_p_admin_trackers eq 'y')}
                                     <td class="auto" style="width:20px;"></td> {* th changed to td to prevent ARIA empty header error *}
@@ -165,7 +192,7 @@
 
                                 {foreach from=$listfields key=ix item=field_value}
                                     {if $field_value.isTblVisible eq 'y' and ( $field_value.type ne 'x' and $field_value.type ne 'h') and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password') and $field_value.visibleInViewMode eq 'y'}
-                                        <th class="auto">
+                                        <th class="auto" data-col-name="{$field_value.name}">
                                             {self_link _sort_arg='sort_mode' _sort_field='f_'|cat:$field_value.fieldId}{$field_value.name|tra|truncate:255:"..."|escape|default:"&nbsp;"}{/self_link}
                                         </th>
                                     {/if}
@@ -224,7 +251,7 @@
                                     }
                                     {foreach from=$items[user].field_values key=ix item=field_value}
                                         {if $field_value.isTblVisible eq 'y' and $field_value.type ne 'x' and $field_value.type ne 'h' and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password') and $field_value.visibleInViewMode eq 'y'}
-                                            <td class={if $field_value.type eq 'n' or $field_value.type eq 'q' or $field_value.type eq 'b'}"numeric"{else}"auto"{/if}>
+                                            <td class={if $field_value.type eq 'n' or $field_value.type eq 'q' or $field_value.type eq 'b'}"numeric"{else}"auto"{/if} data-col-name="{$field_value.name}">
                                                 {if $field_value.type eq 'wiki'}
                                                     <a href="tiki-index.php?page={$field_value.value|escape:"url"}">{$field_value.value}</a>
                                                 {else}
@@ -336,6 +363,73 @@
                     {/if}
                 </form>
                 {pagination_links count=$item_count step=$maxRecords offset=$offset}{/pagination_links}
+                {jq}
+                    loadColumnPrefs();
+
+                    $('.toggle-col').on('change', function () {
+                        const checkedboxes = $('.toggle-col:checked');
+                        let form = $('#savecolprefsform');
+
+                        if (checkedboxes.length === 0) {
+                            $(this).prop('checked', true);
+                            $('.toggle-col-warning').removeClass('d-none');
+                            return;
+                        }
+                        $('.toggle-col').each(function () {
+                            const columnName = $(this).data('col-name');
+                            const isVisible = $(this).is(':checked');
+                            $('#trItemTable [data-col-name="' + columnName + '"]').toggle(isVisible);
+                        });
+                        $('#prefs').val(getColumnPrefs());
+                        saveColsPref();
+                    });
+
+                    function getColumnPrefs() {
+                        const prefs = {};
+                        let currentSavedPrefs = JSON.parse($('#savedcolpref').val());
+                        const trackerId = $('#col_pref_trackerid').val();
+                        const colprefkey = 'tracker_' + trackerId;
+
+                        $('.toggle-col').each(function() {
+                            const columnName = $(this).data('col-name');
+                            const isChecked = $(this).is(':checked');
+                            prefs[columnName] = isChecked;
+                        });
+                        currentSavedPrefs[colprefkey] = prefs;
+                        return JSON.stringify(currentSavedPrefs);
+                    }
+
+                    function loadColumnPrefs() {
+                        let savedPrefs = $('#savedcolpref').val();
+                        const trackerId = $('#col_pref_trackerid').val();
+                        const colprefkey = 'tracker_' + trackerId;
+
+                        if (savedPrefs) {
+                            let prefs = JSON.parse(savedPrefs);
+                            const actual_tracker_prefs = prefs[colprefkey];
+                            Object.keys(actual_tracker_prefs).forEach(function (columnName) {
+                                const checkbox = $('.toggle-col[data-col-name="' + columnName +'"]');
+                                checkbox.prop('checked', actual_tracker_prefs[columnName]);
+                                $('#trItemTable [data-col-name="' + columnName + '"]').toggle(actual_tracker_prefs[columnName]);
+                            });
+                        }
+                    }
+
+                    const saveColsPref = delayedExecutor(2000, function () {
+                        let form = $('#savecolprefsform');
+                        $.ajax({
+                            url: form.attr('action'),
+                            type: 'POST',
+                            data: form.serialize(),
+                            success: function (message) {
+                                if (! message) {
+                                    feedback(tr('An error occured while attempting to save your column preference.'), 'error');
+                                }
+                                feedback(message, 'success');
+                            }
+                        });
+                    });
+                {/jq}
             {/if}
         {/tab}
     {/if}
