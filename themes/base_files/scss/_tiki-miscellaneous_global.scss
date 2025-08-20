@@ -9,6 +9,40 @@
 
 //****** Misc. Global Classes (layout and style) ****/
 
+// Accessibility: Honor prefers-reduced-motion setting
+// This disables non-essential animations and transitions when users have requested reduced motion
+@media screen and (prefers-reduced-motion: reduce) {
+  * {
+    // Disable all transitions
+    transition-duration: 0.001s !important;
+    transition-delay: 0s !important;
+    
+    // Disable all animations
+    animation-duration: 0.001s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    
+    // Disable scroll behavior
+    scroll-behavior: auto !important;
+  }
+  
+  // Specific elements that might have animations
+  .sliding-panel-admin-bar,
+  .dropdown-menu,
+  .collapse,
+  .fade,
+  .modal,
+  .carousel-item,
+  .progress-bar,
+  .accordion-button,
+  .nav-link,
+  .btn,
+  .alert {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 // Extra-small button, initially for the side column toggle icons
 .btn-xs { padding: 0 .25rem !important; }
 .btn-xs > span { width: 1rem !important; }
