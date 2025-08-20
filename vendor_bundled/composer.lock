@@ -2822,12 +2822,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "8d4d6148a9073e4695c53bf0f2bc8060549030c1"
+                "reference": "717c28f90b5c67844efac50303606d19d7d34957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/8d4d6148a9073e4695c53bf0f2bc8060549030c1",
-                "reference": "8d4d6148a9073e4695c53bf0f2bc8060549030c1",
+                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/717c28f90b5c67844efac50303606d19d7d34957",
+                "reference": "717c28f90b5c67844efac50303606d19d7d34957",
                 "shasum": ""
             },
             "require": {
@@ -2904,7 +2904,7 @@
                 "source": "https://github.com/cypht-org/cypht/",
                 "wiki": "https://github.com/cypht-org/cypht/wiki"
             },
-            "time": "2025-08-06T12:31:47+00:00"
+            "time": "2025-08-20T05:43:57+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
