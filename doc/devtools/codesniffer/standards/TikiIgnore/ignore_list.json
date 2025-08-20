@@ -3211,20 +3211,6 @@
         "lib\/trackers\/trackerlib.php": {
             "class:TrackerLib": true
         },
-        "lib\/shipping\/shippinglib.php": {
-            "interface:ShippingProvider": true,
-            "class:CustomShippingProvider": true,
-            "class:ShippingLib": true
-        },
-        "lib\/shipping\/provider_ups.php": {
-            "class:ShippingProvider_Ups": true
-        },
-        "lib\/shipping\/custom\/example.php": {
-            "class:CustomShippingProvider_Example": true
-        },
-        "lib\/shipping\/provider_fedex.php": {
-            "class:ShippingProvider_Fedex": true
-        },
         "lib\/soap\/wsdllib.php": {
             "class:Tiki_Wsdl": true
         },
@@ -6177,15 +6163,6 @@
         "lib\/user\/blacklistlib.php": {
             "blacklistLib": true
         },
-        "lib\/shipping\/provider_ups.php": {
-            "ShippingProvider_Ups": true
-        },
-        "lib\/shipping\/custom\/example.php": {
-            "CustomShippingProvider_Example": true
-        },
-        "lib\/shipping\/provider_fedex.php": {
-            "ShippingProvider_Fedex": true
-        },
         "lib\/soap\/wsdllib.php": {
             "Tiki_Wsdl": true
         },
@@ -6235,12 +6212,7 @@
             "DbgCmd_Watch": true
         }
     },
-    "PSR1.Classes.ClassDeclaration.MultipleClasses": {
-        "lib\/shipping\/shippinglib.php": {
-            "class:CustomShippingProvider": true,
-            "class:ShippingLib": true
-        }
-    },
+    "PSR1.Classes.ClassDeclaration.MultipleClasses": {},
     "PSR1.Methods.CamelCapsMethodName.NotCamelCaps": {
         "tiki-check.php": {
             "BenchmarkPhp::test_benchmark": true,

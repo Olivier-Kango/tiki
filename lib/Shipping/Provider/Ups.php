@@ -4,9 +4,16 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-require_once 'lib/shipping/shippinglib.php';
+namespace Tiki\Lib\Shipping\Provider;
 
-class ShippingProvider_Ups implements ShippingProvider
+use DOMDocument;
+use DOMXPath;
+use Laminas\Http\Client\Exception\ExceptionInterface;
+use Laminas\Http\Request;
+use Tiki\Lib\Shipping\Provider\ShippingProviderInterface as ShippingProvider;
+use TikiLib;
+
+class Ups implements ShippingProvider
 {
     private $username;
     private $password;
@@ -44,7 +51,7 @@ class ShippingProvider_Ups implements ShippingProvider
             $client->setUri('https://www.ups.com/ups.app/xml/Rate');
             $client->setRawBody($auth . $request);
 
-            $client->setMethod(Laminas\Http\Request::METHOD_POST);
+            $client->setMethod(Request::METHOD_POST);
             $response = $client->send();
             $body = $response->getBody();
 
@@ -52,7 +59,7 @@ class ShippingProvider_Ups implements ShippingProvider
             $dom->loadXML($body);
 
             return $dom;
-        } catch (Laminas\Http\Exception\ExceptionInterface $e) {
+        } catch (ExceptionInterface $e) {
             return null;
         }
     }

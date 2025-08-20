@@ -16,6 +16,9 @@
 // will be serialized and sent to the browser.
 //
 // Otherwise, the procedural script remains
+
+use Tiki\Lib\Shipping\ShippingLib;
+
 $inputConfiguration = [[
     'staticKeyFilters' => [
         'action' => 'word',         //get
@@ -168,8 +171,7 @@ if ($access->is_serializable_request() && $jitRequest->offsetExists('listonly'))
         read_icon_dir($dir, $icons, $max, $query);
         $access->output_serialized($icons);
     } elseif ($listonly == 'shipping' && $prefs['shipping_service'] == 'y') {
-        global $shippinglib;
-        require_once 'lib/shipping/shippinglib.php';
+        $shippinglib = new ShippingLib();
 
         $access->output_serialized($shippinglib->getRates($_REQUEST['from'], $_REQUEST['to'], $_REQUEST['packages']));
     } elseif ($listonly == 'trackername') {

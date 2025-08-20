@@ -11,10 +11,11 @@
  * Declare the options you require in the constructor
  * and the logic to caluculate the price etc (in this case) in getRate
  */
+namespace Tiki\Lib\Shipping\Provider\Custom;
 
-require_once 'lib/shipping/shippinglib.php';
+use Tiki\Lib\Shipping\Provider\AbstractCustomShippingProvider as CustomShippingProvider;
 
-class CustomShippingProvider_Example extends CustomShippingProvider
+class Example extends CustomShippingProvider
 {
     private $services;
 

@@ -4,7 +4,13 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-class ShippingProvider_Fedex implements ShippingProvider
+namespace Tiki\Lib\Shipping\Provider;
+
+use SoapClient;
+use SoapFault;
+use Tiki\Lib\Shipping\Provider\ShippingProviderInterface as ShippingProvider;
+
+class Fedex implements ShippingProvider
 {
     public $account;
     private $key;
@@ -24,7 +30,7 @@ class ShippingProvider_Fedex implements ShippingProvider
             return [];
         }
 
-        $wsdl = __DIR__ . '/FedEx_v8.wsdl';
+        $wsdl = __DIR__ . '/wsdl/fedex/FedEx_v8.wsdl';
         $args = [];
 
         $request = $this->getRequest($from, $to, $packages);
