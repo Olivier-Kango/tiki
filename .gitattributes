@@ -4715,6 +4715,7 @@ lib/Theme/ThemeControlLib.php -text
 lib/Theme/ThemeLib.php -text
 lib/tiki-dynamic-js.php -text
 lib/tiki-js.js -text
+public/generated/js/jquery-tiki/tiki-menu.js -text
 lib/tikiaccesslib.php -text
 lib/TikiDate.php -text
 lib/DateCalc.php -text
