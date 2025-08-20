@@ -2562,7 +2562,7 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "v2.4.0",
+            "version": "v2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
