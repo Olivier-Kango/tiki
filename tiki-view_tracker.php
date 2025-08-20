@@ -70,12 +70,12 @@ if (! empty($_REQUEST['itemId'])) {
 }
 $_REQUEST["itemId"] = 0;
 $smarty->assign('itemId', $_REQUEST["itemId"]);
-if (! isset($_REQUEST["trackerId"])) {
-    Feedback::errorAndDie(tra("No tracker indicated"), \Laminas\Http\Response::STATUS_CODE_400);
+if (empty($_REQUEST["trackerId"]) || ! filter_var($_REQUEST["trackerId"], FILTER_VALIDATE_INT)) {
+    Feedback::errorAndDie(tra("No tracker specified or tracker ID is invalid."), \Laminas\Http\Response::STATUS_CODE_400);
 }
 $trackerDefinition = Tracker_Definition::get($_REQUEST['trackerId']);
 if (! $trackerDefinition) {
-    Feedback::errorAndDie(tra("No tracker indicated"), \Laminas\Http\Response::STATUS_CODE_400);
+    Feedback::errorAndDie(tra("The specified tracker does not exist or may have been deleted."), \Laminas\Http\Response::STATUS_CODE_400);
 }
 
 $tracker_info = $trackerDefinition->getInformation();
