@@ -93,7 +93,7 @@
     {/if}
 </nav>
 
-{if $lm_searchresults}
+{if $lm_searchresults && $lm_criteria}
     <div class="alert alert-secondary alert-dismissible pe-3" id="pref_searchresults">
         <button type="button" class="btn-close mt-3" aria-hidden="true" data-bs-dismiss="alert" aria-label="{tr}Close{/tr}"></button>
             <h3 class="alert-heading">{tr}Preference Search Results{/tr}</h3>
@@ -110,7 +110,7 @@
             {ticket}
         </form>
     </div>
-{elseif $lm_criteria}
+{elseif $lm_criteria ne ''}
     {remarksbox type="note" title="{tr}No results{/tr}" icon="magnifier"}
         {tr}No preferences were found for your search query.{/tr}<br>
         {tr _0='<a class="alert-link" href="tiki-admin.php?prefrebuild">' _1='</a>'}Not what you expected? Try %0rebuilding%1 the preferences search index.{/tr}
