@@ -38,15 +38,15 @@ class MailQueueSendCommand extends Command
             $output->writeln('Sending message ' . $messageId . '...');
             $mail = unserialize($serializedEmail);
             $error = '';
-
             if ($mail instanceof Email) {
                 $tikiMail = new \TikiMail();
                 $tikiMail->setFrom($mail->getFrom()[0]->getAddress(), $mail->getFrom()[0]->getName());
                 $tikiMail->setSubject($mail->getSubject());
                 $recipients = $this->collectRecipients($mail);
-
-                if ($tikiMail->send($recipients)) {
-                    $query = 'DELETE FROM tiki_mail_queue WHERE messageId = ?';
+                $query = 'DELETE FROM tiki_mail_queue WHERE messageId = ?';
+                if (empty($recipients)) {
+                    $output->writeln('Deleted object id: ' . $messageId . ' (mail has no recipients)');
+                } elseif ($tikiMail->send($recipients)) {
                     $output->writeln('Sent.');
                 } else {
                     $query = 'UPDATE tiki_mail_queue SET attempts = attempts + 1 WHERE messageId = ?';
