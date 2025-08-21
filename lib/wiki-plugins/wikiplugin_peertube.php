@@ -58,7 +58,7 @@ function wikiplugin_peertube_info()
             ],
             'border' => [
                 'required' => false,
-                'name' => tra('Borders'),
+                'name' => tra('Border Color'),
                 'description' => tra('Object border color. Example:') . ' <code>#ffffff</code>',
                 'filter' => 'text',
                 'default' => '',
@@ -78,14 +78,14 @@ function wikiplugin_peertube_info()
             ],
             'start' => [
                 'required' => false,
-                'name' => tra('Start time'),
+                'name' => tra('Start Time'),
                 'description' => tra('Start time offset in seconds'),
                 'filter' => 'digits',
                 'default' => 0,
             ],
             'allowFullScreen' => [
                 'required' => false,
-                'name' => tra('Allow full-screen'),
+                'name' => tra('Allow Full-Screen'),
                 'description' => tra('Enlarge video to full screen size'),
                 'default' => 'y',
                 'filter' => 'alpha',
@@ -116,5 +116,5 @@ function wikiplugin_peertube($data, $params)
 
     $html = wikiplugin_oembed('', $params);
 
-    return str_replace(['~np~','~/np~'], '', $html);
+    return trim($html, '~/np');
 }
