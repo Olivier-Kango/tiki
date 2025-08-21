@@ -82,13 +82,13 @@
                     </tr>
                     <tr>
                         <td class="fw-bold">{tr}Tags{/tr}</td>
-                          <td>
+                        <td>
                             {if $videoInfo->tags|@count}
-                            {foreach from=$videoInfo->tags item=t name=tags}
-                                {$t|escape}{if not $smarty.foreach.tags.last}, {/if}
-                            {/foreach}
+                                {foreach from=$videoInfo->tags item=t name=tags}
+                                    {$t|escape}{if not $smarty.foreach.tags.last}, {/if}
+                                {/foreach}
                             {else}
-                            <em>{tr}None{/tr}</em>
+                                <em>{tr}None{/tr}</em>
                             {/if}
                         </td>
                     </tr>
