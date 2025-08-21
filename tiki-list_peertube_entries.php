@@ -123,5 +123,5 @@ try {
     $smarty->assign('ticket', TikiLib::lib('access')->getTicket());
     $smarty->display('tiki.tpl');
 } catch (Exception $e) {
-    $access->display_error('', tra('Communication error'), 500, true, tra('Invalid response provided by the PeerTube server. Please retry.') . '<br /><em>' . $e->getMessage() . '</em>');
+    $access->display_error('', tra('Communication error'), 500, true, tra('Invalid response provided by the PeerTube server. Please retry.') . '<br><em>' . $e->getMessage() . '</em>');
 }
