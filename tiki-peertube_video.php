@@ -17,7 +17,7 @@ $inputConfiguration = [
             'name' => 'word',
             'description' => 'xss',
             'update' => 'bool',
-            'tags' => 'word',
+            'tags' => 'text',
         ],
     ],
 ];
