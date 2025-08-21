@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea3fcf13a6f98039c332a7cc26ada9a0",
+    "content-hash": "c30077a9a87c2107ad62fb848a4ecaf6",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -18841,7 +18841,6 @@
     "stability-flags": {
         "candy-chat/xmpp-prebind-php": 20,
         "montefuscolo/xmpp": 20,
-        "npm-asset/html2canvas": 5,
         "npm-asset/select2": 5,
         "phpcompatibility/php-compatibility": 20,
         "rubix/extras": 10
