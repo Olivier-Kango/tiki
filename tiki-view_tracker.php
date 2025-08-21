@@ -75,7 +75,7 @@ if (empty($_REQUEST["trackerId"]) || ! filter_var($_REQUEST["trackerId"], FILTER
 }
 $trackerDefinition = Tracker_Definition::get($_REQUEST['trackerId']);
 if (! $trackerDefinition) {
-    Feedback::errorAndDie(tra("The specified tracker does not exist or may have been deleted."), \Laminas\Http\Response::STATUS_CODE_400);
+    Feedback::errorAndDie(tra("The specified tracker does not exist or may have been deleted."), \Laminas\Http\Response::STATUS_CODE_404);
 }
 
 $tracker_info = $trackerDefinition->getInformation();
