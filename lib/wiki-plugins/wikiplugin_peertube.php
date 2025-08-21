@@ -114,5 +114,7 @@ function wikiplugin_peertube($data, $params)
         return '';
     }
 
-    return wikiplugin_oembed('', $params);
+    $html = wikiplugin_oembed('', $params);
+
+    return str_replace(['~np~','~/np~'], '', $html);
 }
