@@ -10,12 +10,12 @@
         </a>
     {/if}
     {if $tiki_p_edit_peertube eq 'y' or $tiki_p_admin_peertube eq 'y' or $tiki_p_admin eq 'y'}
-        <a href="tiki-peertube_video.php?videoId={$item->uuid}&action=edit">
+        <a href="tiki-peertube_video.php?videoId={$item->uuid}&action=edit" title="{tr}Change Details{/tr}">
             {icon name="edit" _menu_text='y' _menu_icon='y' alt="{tr}Change Details{/tr}"}
         </a>
     {/if}
     {if $tiki_p_delete_peertube eq 'y' or $tiki_p_admin_peertube eq 'y' or $tiki_p_admin eq 'y'}
-        <a href="tiki-peertube_video.php?videoId={$item->uuid}&action=delete" class="iconmenu text-danger">
+        <a href="tiki-peertube_video.php?videoId={$item->uuid}&action=delete" class="iconmenu text-danger" title="{tr}Delete{/tr}">
             {icon name="delete" _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
         </a>
     {/if}

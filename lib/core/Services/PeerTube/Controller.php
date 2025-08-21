@@ -16,7 +16,7 @@ class ServicesPeerTubeController
 
     /**
      * @param $input JitFilter
-     *              sort_mode string   default desc_createdAt
+     *              sort_mode string   default created_desc
      *              find string        search query for video title or description
      *              maxRecords int     entries per page
      *              offset int         for paging
