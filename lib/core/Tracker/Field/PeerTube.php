@@ -1,10 +1,5 @@
 <?php
 
-// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
-//
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-
 namespace Tiki\Tracker\Field;
 
 use Tracker\Field\AbstractItemField;
@@ -44,67 +39,77 @@ class TrackerFieldPeerTube extends AbstractItemField implements SynchronizableIn
 
         if (isset($requestData[$insertId])) {
             $value = implode(',', $requestData[$insertId]);
-        } elseif (! empty($requestData['old_' . $insertId])) { // All entries removed
+        } elseif (! empty($requestData['old_' . $insertId])) { // all entries removed
             $value = '';
         } else {
-            $value = $this->getValue();
+            $value = (string) $this->getValue();
         }
 
-        return [
-            'value' => $value,
-        ];
+        return ['value' => $value];
     }
 
     public function renderInput($context = [])
     {
-        global $tikilib;
-        $peertubelib = $tikilib->getLib('peertubeuser');
+        $peertubelib = \TikiLib::lib('peertubeuser');
         if (! $peertubelib) {
             return tr('PeerTube library not available.');
         }
-        $videos = array_filter(explode(',', $this->getValue()));
-        $videoList = $peertubelib->getVideoList($videos);
+
+        $value  = (string) $this->getValue();
+        $videos = array_values(array_filter(array_map('trim', explode(',', $value))));
+
+        try {
+            $videoList = $peertubelib->getVideoList($videos);
+        } catch (\Exception $e) {
+            $videoList = [];
+        }
+
+        $listedIds = array_values(array_filter(array_map(function ($v) {
+            if (is_array($v))  return $v['id'] ?? $v['uuid'] ?? null;
+            if (is_object($v)) return $v->id ?? $v->uuid ?? null;
+            return null;
+        }, (array) $videoList)));
+
+        $extras = array_values(array_diff($videos, $listedIds));
 
         return $this->renderTemplate(
             'trackerinput/peertube.tpl',
             $context,
             [
                 'videos' => $videoList,
-                'extras' => array_diff($videos, array_column($videoList, 'id')),
+                'extras' => $extras,
             ]
         );
     }
 
     public function renderOutput($context = [])
     {
-        $params = $context['list_mode'] === 'y' ? $this->getOption('displayParamsForLists', []) : $this->getOption('displayParams', []);
-        parse_str($params, $params);
+        $otherParams = ($context['list_mode'] ?? 'n') === 'y'
+            ? $this->getOption('displayParamsForLists', [])
+            : $this->getOption('displayParams', []);
 
-        include_once 'lib/wiki-plugins/wikiplugin_peertube.php';
-        $videoIds = array_filter(explode(',', $this->getValue()));
-        $output = '';
-
-        foreach ($videoIds as $id) {
-            $output .= wikiplugin_peertube('', array_merge($params, ['id' => $id]));
+        if ($otherParams) {
+            parse_str($otherParams, $otherParams);
+        } else {
+            $otherParams = [];
         }
 
-        return $output;
+        include_once 'lib/wiki-plugins/wikiplugin_peertube.php';
+
+        $videoIds = array_filter(array_map('trim', explode(',', (string) $this->getValue())));
+        $out = '';
+
+        foreach ($videoIds as $id) {
+            $params = array_merge($otherParams, ['id' => $id]);
+            $out   .= wikiplugin_peertube('', $params);
+        }
+
+        return $out;
     }
 
-    public function importRemote($value)
-    {
-        return $value;
-    }
-
-    public function exportRemote($value)
-    {
-        return $value;
-    }
-
-    public function importRemoteField(array $info, array $syncInfo)
-    {
-        return $info;
-    }
+    public function importRemote($value)      { return $value; }
+    public function exportRemote($value)      { return $value; }
+    public function importRemoteField(array $info, array $syncInfo) { return $info; }
 }
 
 class_alias(TrackerFieldPeerTube::class, 'Tracker_Field_PeerTube');

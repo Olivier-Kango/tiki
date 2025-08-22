@@ -1,11 +1,9 @@
 <?php
 
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
-//
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE.
 
-namespace Services\PeerTube;
+namespace Services\Peertube;
 
 class ServicesPeerTubeController
 {
@@ -14,42 +12,67 @@ class ServicesPeerTubeController
         \Services_Exception_Disabled::check('feature_peertube');
     }
 
-    /**
-     * @param $input JitFilter
-     *              sort_mode string   default created_desc
-     *              find string        search query for video title or description
-     *              maxRecords int     entries per page
-     *              offset int         for paging
-     *              formId string      id of the form to add the video to
-     *              targetName string  name of the target hidden input
-     *
-     * @return array
-     * @throws Exception
-     * @throws Services_Exception_Denied
-     */
-    public function actionList($input)
+    public function action_list($input)
     {
         $perms = \Perms::get();
-        if (! $perms->list_peertube) {
-            throw new \Services_Exception_Denied('Not allowed to list videos');
+        if (! $perms->list_videos) {
+            throw new \Services_Exception_Denied(tr('Not allowed to list videos'));
         }
 
+        global $prefs;
+
         $sort_mode = $input->sort_mode->word() ?: 'created_desc';
+
+        $map = [
+            'created_desc'   => '-createdAt',
+            'created_asc'    => 'createdAt',
+            'published_desc' => '-publishedAt',
+            'published_asc'  => 'publishedAt',
+            'name_desc'      => '-name',
+            'name_asc'       => 'name',
+
+            'desc_createdAt'    => '-createdAt',
+            'asc_createdAt'     => 'createdAt',
+            'desc_publishedAt'  => '-publishedAt',
+            'asc_publishedAt'   => 'publishedAt',
+        ];
+        $apiSort = $map[$sort_mode] ?? '-publishedAt';
+
+        $page_size = (int) $input->maxRecords->int();
+        if ($page_size <= 0) {
+            $page_size = (int) ($prefs['maxRecords'] ?? 20);
+        }
+        $page_size = max(1, min(100, $page_size));
+
+        $offset = max(0, (int) $input->offset->int());
+        $page   = (int) floor($offset / $page_size) + 1;
+
         $find = $input->find->text();
-        $page_size = $input->maxRecords->int() ?: -1;
-        $offset = max(0, $input->offset->int());
-        $page = ($offset / $page_size) + 1;
 
-        $peertubelib = \TikiLib::lib('peertubeuser');
-        $videoList = $peertubelib->listVideos($sort_mode, $page, $page_size, $find);
+        $peertube = \TikiLib::lib('peertubeuser');
+        $list = $peertube->listVideos($apiSort, $page, $page_size, $find);
 
-        $out = [
-            'entries' => $videoList->objects,
-            'totalCount' => $videoList->totalCount,
-            'formId' => $input->formId->text(),
+        return [
+            'entries'    => $list->data ?? [],
+            'totalCount' => $list->total ?? 0,
+            'formId'     => $input->formId->text(),
             'targetName' => $input->targetName->text(),
         ];
+    }
 
-        return $out;
+    public function action_upload($input)
+    {
+        $perms = \Perms::get();
+        if (! $perms->upload_peertube) {
+            throw new \Services_Exception_Denied(tr('Not allowed to upload videos'));
+        }
+
+        return [
+            'ok'         => true,
+            'formId'     => $input->formId->text(),
+            'targetName' => $input->targetName->text(),
+        ];
     }
 }
+
+class_alias(\Services\Peertube\ServicesPeerTubeController::class, 'Services_Peertube_Controller');
