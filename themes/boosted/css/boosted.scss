@@ -106,3 +106,12 @@
         color: #ff7900;
     }
 }
+
+.accordion { --bs-accordion-body-padding-start: 1.25rem; }
+.accordion-button { --bs-accordion-btn-padding-x: 1.25rem; }
+.accordion-body.p-0 {
+    --bs-accordion-body-padding-top: 0px;
+    --bs-accordion-body-padding-end: 0rem;
+    --bs-accordion-body-padding-bottom: 0rem;
+    --bs-accordion-body-padding-start: 0;
+}
