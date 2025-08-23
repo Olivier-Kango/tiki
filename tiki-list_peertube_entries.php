@@ -102,9 +102,15 @@ try {
         if ($videolist && isset($videolist->data) && is_array($videolist->data)) {
             if ($jitRequest->view->alpha() != 'browse') {
                 foreach ($videolist->data as &$video) {
-                    if (is_array($video)) { $video = (object) $video; }
-                    if (isset($video->state) && is_array($video->state)) { $video->state = (object) $video->state; }
-                    if (isset($video->privacy) && is_array($video->privacy)) { $video->privacy = (object) $video->privacy; }
+                    if (is_array($video)) {
+                        $video = (object) $video;
+                    }
+                    if (isset($video->state) && is_array($video->state)) {
+                        $video->state = (object) $video->state;
+                    }
+                    if (isset($video->privacy) && is_array($video->privacy)) {
+                        $video->privacy = (object) $video->privacy;
+                    }
 
                     $video->mediaType = 'Video';
 
@@ -113,8 +119,8 @@ try {
                     $video->privacyLabel = $label;
 
                     $video->thumbUrl = $video->thumbnailUrl
-                        ?? (!empty($video->thumbnailPath) ? $base . $video->thumbnailPath : null)
-                        ?? (!empty($video->previewPath)   ? $base . $video->previewPath   : null);
+                        ?? (! empty($video->thumbnailPath) ? $base . $video->thumbnailPath : null)
+                        ?? (! empty($video->previewPath) ? $base . $video->previewPath : null);
                 }
                 unset($video);
             }

@@ -65,8 +65,12 @@ class TrackerFieldPeerTube extends AbstractItemField implements SynchronizableIn
         }
 
         $listedIds = array_values(array_filter(array_map(function ($v) {
-            if (is_array($v))  return $v['id'] ?? $v['uuid'] ?? null;
-            if (is_object($v)) return $v->id ?? $v->uuid ?? null;
+            if (is_array($v)) {
+                return $v['id'] ?? $v['uuid'] ?? null;
+            }
+            if (is_object($v)) {
+                return $v->id ?? $v->uuid ?? null;
+            }
             return null;
         }, (array) $videoList)));
 
@@ -107,9 +111,18 @@ class TrackerFieldPeerTube extends AbstractItemField implements SynchronizableIn
         return $out;
     }
 
-    public function importRemote($value)      { return $value; }
-    public function exportRemote($value)      { return $value; }
-    public function importRemoteField(array $info, array $syncInfo) { return $info; }
+    public function importRemote($value)
+    {
+        return $value;
+    }
+    public function exportRemote($value)
+    {
+        return $value;
+    }
+    public function importRemoteField(array $info, array $syncInfo)
+    {
+        return $info;
+    }
 }
 
 class_alias(TrackerFieldPeerTube::class, 'Tracker_Field_PeerTube');

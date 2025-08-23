@@ -33,7 +33,11 @@
                     <th>
                         <a href="tiki-list_peertube_entries.php?offset={$offset}&sort_mode={if $sort_mode eq 'name_desc'}name_asc{else}name_desc{/if}">{tr}Title{/tr}</a>
                     </th>
-                    <th>{tr}Privacy{/tr}</th>
+                    <th>
+                        <a href="tiki-list_peertube_entries.php?offset={$offset}&sort_mode={if $sort_mode eq 'privacy_desc'}privacy_asc{else}privacy_desc{/if}">
+                            {tr}Privacy{/tr}
+                        </a>
+                    </th>
                     <th>
                         <a href="tiki-list_peertube_entries.php?offset={$offset}&sort_mode={if $sort_mode eq 'created_desc'}created_asc{else}created_desc{/if}">{tr}Published{/tr}</a>
                     </th>
@@ -60,7 +64,7 @@
                         {/if}
                         <div><strong>{tr}Video ID:{/tr}</strong> <code>{$klist[ix]->uuid|escape}</code></div>
                         {if !empty($klist[ix]->description)}
-                            <div class="mt-1">{$klist[ix]->description|escape}</div>
+                            <div class="mt-1"><strong>{tr}Description:{/tr}</strong> {$klist[ix]->description|escape}</div>
                         {/if}
                         </div>
                     {/capture}

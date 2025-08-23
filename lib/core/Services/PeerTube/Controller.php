@@ -12,7 +12,7 @@ class ServicesPeerTubeController
         \Services_Exception_Disabled::check('feature_peertube');
     }
 
-    public function action_list($input)
+    public function actionList($input)
     {
         $perms = \Perms::get();
         if (! $perms->list_peertube) {
@@ -43,7 +43,7 @@ class ServicesPeerTubeController
             $o = is_array($v) ? (object) $v : $v;
             if (! empty($o->thumbnailUrl)) {
                 $o->thumbUrl = $o->thumbnailUrl;
-            } elseif (!empty($o->thumbnailPath) && $base) {
+            } elseif (! empty($o->thumbnailPath) && $base) {
                 $o->thumbUrl = $base . $o->thumbnailPath;
             }
             $normalized[] = $o;
@@ -57,7 +57,7 @@ class ServicesPeerTubeController
         ];
     }
 
-    public function action_upload($input)
+    public function actionUpload($input)
     {
         $perms = \Perms::get();
         if (! $perms->upload_peertube) {
