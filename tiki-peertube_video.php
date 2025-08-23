@@ -41,7 +41,7 @@ try {
         switch ($mode) {
             case 'delete':
                 $access = TikiLib::lib('access');
-                $access->check_permission(['tiki_p_delete_peertube']);
+                $access->check_permission(['tiki_p_delete_videos']);
                 $access->checkCsrf();
 
                 try {
@@ -56,7 +56,7 @@ try {
                 exit;
 
             case 'edit':
-                $access->check_permission(['tiki_p_edit_peertube']);
+                $access->check_permission(['tiki_p_edit_videos']);
                 $video = $peertubelib->getVideo($videoId);
 
                 if (is_array($video)) {
@@ -85,7 +85,7 @@ try {
                 Feedback::errorAndDie(tra('Incorrect param'), \Laminas\Http\Response::STATUS_CODE_409);
         }
     } elseif (! empty($videoId)) {
-        $access->check_permission(['tiki_p_view_peertube']);
+        $access->check_permission(['tiki_p_view_videos']);
         $smarty->assign('pmode', 'view');
 
         require_once 'lib/videogals/peertubelib.php';

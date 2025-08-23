@@ -11,7 +11,7 @@ require_once 'tiki-setup.php';
 
 $access = TikiLib::lib('access');
 $access->check_feature('feature_peertube');
-$access->check_permission('tiki_p_upload_peertube');
+$access->check_permission('tiki_p_upload_videos');
 
 require_once 'lib/videogals/peertubelib.php';
 

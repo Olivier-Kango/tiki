@@ -15,7 +15,7 @@
 </div>
 
 <div class="navbar btn-group mb-3">
-    {if $tiki_p_upload_peertube eq 'y'}
+    {if $tiki_p_upload_videos eq 'y'}
         {button class="btn btn-info" _text="{tr}Upload Video{/tr}" href="tiki-peertube_upload.php"}
     {/if}
 </div>
@@ -119,21 +119,21 @@
                                     {icon name='view' _menu_text='y' _menu_icon='y' alt="{tr}View{/tr}"}
                                     </a>
                                 </action>
-                                {if $tiki_p_download_peertube eq 'y'}
+                                {if $tiki_p_download_videos eq 'y'}
                                     <action>
                                     <a href="tiki-peertube_video.php?videoId={$klist[ix]->shortUUID|escape}#download">
                                         {icon name='download' _menu_text='y' _menu_icon='y' alt="{tr}Download{/tr}"}
                                     </a>
                                     </action>
                                 {/if}
-                                {if $tiki_p_edit_peertube eq 'y'}
+                                {if $tiki_p_edit_videos eq 'y'}
                                     <action>
                                     <a href="tiki-peertube_upload.php?videoId={$klist[ix]->uuid|escape}">
                                         {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                                     </a>
                                     </action>
                                 {/if}
-                                {if $tiki_p_delete_peertube eq 'y'}
+                                {if $tiki_p_delete_videos eq 'y'}
                                     <action>
                                     <form action="tiki-list_peertube_entries.php" method="post" class="m-0">
                                         {ticket}

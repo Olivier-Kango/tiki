@@ -20,7 +20,7 @@ $inputConfiguration = [
 ];
 require_once 'tiki-setup.php';
 $access->check_feature('feature_peertube');
-$access->check_permission(['tiki_p_list_peertube']);
+$access->check_permission(['tiki_p_list_videos']);
 
 $mediaTypeAsString['1'] = 'Video'; // PeerTube primarily handles videos, no images or audio natively
 
@@ -54,7 +54,7 @@ try {
 
         switch ($_REQUEST['action']) {
             case 'Delete':
-                $access->check_permission(['tiki_p_delete_peertube']);
+                $access->check_permission(['tiki_p_delete_videos']);
                 $access->checkCsrf();
                 $peertubelib = TikiLib::lib('peertubeuser');
 

@@ -15,7 +15,7 @@ class ServicesPeerTubeController
     public function actionList($input)
     {
         $perms = \Perms::get();
-        if (! $perms->list_peertube) {
+        if (! $perms->list_videos) {
             throw new \Services_Exception_Denied('Not allowed to list videos');
         }
 
@@ -60,7 +60,7 @@ class ServicesPeerTubeController
     public function actionUpload($input)
     {
         $perms = \Perms::get();
-        if (! $perms->upload_peertube) {
+        if (! $perms->upload_videos) {
             throw new \Services_Exception_Denied('Not allowed to upload videos');
         }
 
