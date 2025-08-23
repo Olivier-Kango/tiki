@@ -176,17 +176,41 @@ class PeerTubeLib
     {
         global $prefs;
 
-        $start = ($page - 1) * $page_size;
-        $base  = rtrim($prefs['peertube_service_url'], '/');
-
-        $url = $base . "/api/v1/videos?start={$start}&count={$page_size}"
-            . "&sort=" . rawurlencode($sort_mode);  // <— encode; avoids '+'=>space issues
-
-        if ($find) {
-            $url .= "&search=" . urlencode($find);
+        $map = [
+            'created_desc'   => '-createdAt',
+            'created_asc'    => 'createdAt',
+            'published_desc' => '-publishedAt',
+            'published_asc'  => 'publishedAt',
+            'name_desc'      => '-name',
+            'name_asc'       => 'name',
+            'desc_createdAt'   => '-createdAt',
+            'asc_createdAt'    => 'createdAt',
+            'desc_publishedAt' => '-publishedAt',
+            'asc_publishedAt'  => 'publishedAt',
+        ];
+        $apiSort = $map[$sort_mode] ?? $sort_mode;
+        if (! preg_match('/^-?(name|createdAt|publishedAt|duration|views|likes|comments)$/', $apiSort)) {
+            $apiSort = '-publishedAt';
         }
 
+        $page_size = max(1, min(100, (int) $page_size));
+        $start     = max(0, (int) (($page - 1) * $page_size));
+
+        $base = rtrim($prefs['peertube_service_url'], '/');
+        $query = http_build_query([
+            'start' => $start,
+            'count' => $page_size,
+            'sort'  => $apiSort,
+        ], '', '&', PHP_QUERY_RFC3986);
+        $url = "$base/api/v1/videos?$query";
+        if ($find !== '') {
+            $url .= '&search=' . rawurlencode($find);
+        }
+
+        error_log("[PeerTube/listVideos] URL: $url");
+
         $response = $this->makeRequest('GET', $url);
+        error_log("[PeerTube/listVideos] Response: " . substr($response, 0, 1000));
         return json_decode($response);
     }
 

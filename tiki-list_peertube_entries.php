@@ -96,14 +96,25 @@ try {
         $peertubelib = TikiLib::lib('peertubeuser');
         $videolist = $peertubelib->listVideos($apiSort, $page, $page_size, $find);
 
+        global $prefs;
+        $base = rtrim($prefs['peertube_service_url'], '/');
+
         if ($videolist && isset($videolist->data) && is_array($videolist->data)) {
             if ($jitRequest->view->alpha() != 'browse') {
                 foreach ($videolist->data as &$video) {
-                    if (is_array($video)) {
-                        $video['mediaType'] = $mediaTypeAsString[1];
-                        $state_id = isset($video['state']) && is_array($video['state']) ? ($video['state']['id'] ?? null) : null;
-                        $video['statusString'] = $state_id !== null ? ($statusAsString[$state_id] ?? tra('Unknown')) : tra('Unknown');
-                    }
+                    if (is_array($video)) { $video = (object) $video; }
+                    if (isset($video->state) && is_array($video->state)) { $video->state = (object) $video->state; }
+                    if (isset($video->privacy) && is_array($video->privacy)) { $video->privacy = (object) $video->privacy; }
+
+                    $video->mediaType = 'Video';
+
+                    $pid   = $video->privacy->id ?? $video->privacy ?? null;
+                    $label = $video->privacy->label ?? ($privacyMap[$pid] ?? tra('Unknown'));
+                    $video->privacyLabel = $label;
+
+                    $video->thumbUrl = $video->thumbnailUrl
+                        ?? (!empty($video->thumbnailPath) ? $base . $video->thumbnailPath : null)
+                        ?? (!empty($video->previewPath)   ? $base . $video->previewPath   : null);
                 }
                 unset($video);
             }
