@@ -118,10 +118,13 @@ class UnifiedSearchLib
                     $queuelib->push(self::INCREMENT_QUEUE, $message);
                 }
 
-                Feedback::error(
-                    tr('The search index could not be updated. The site is misconfigured. Contact an administrator.') .
-                    '<br />' . $e->getMessage()
-                );
+                $msg = $e->getMessage();
+                if (strpos($msg, "Out of range value for column 'entryId'") !== false
+                    || stripos($msg, 'AUTO_INCREMENT') !== false
+                ) {
+                    $msg = tr('Indexing queue overflow. Go to Admin → Search → Reset indexing queue (TRUNCATE tiki_queue), then Rebuild/Optimize.');
+                }
+                Feedback::error(tr('The search index could not be updated.') . '<br />' . $msg);
             }
 
             if ($indexer) {
