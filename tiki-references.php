@@ -26,7 +26,7 @@ $inputConfiguration = [
         'ref_year'                 => 'digits',            //post
         'ref_style'                => 'word',              //post
         'ref_template'             => 'digits',            //post
-        'find'                     => 'alpha',             //post
+        'find'                     => 'string',             //post
         'maxRecords'               => 'int',               //post
         'offset'                   => 'digits',            //get
         'addreference'             => 'bool',              //post
@@ -56,7 +56,7 @@ $msg = "";
 $page_id = TikiLib::lib('tiki')->get_page_id_from_name($page);
 $action = $getInput($_REQUEST, 'action');
 $ref_id = $getInput($_REQUEST, 'referenceId');
-$ref_auto_biblio_code = empty($_REQUEST['ref_auto_biblio_code']) ? 'off' : $_REQUEST['ref_auto_biblio_code'];
+$ref_auto_biblio_code = empty($_REQUEST['ref_auto_biblio_code']) ? 'off' : 'on';
 $ref_biblio_code = $getInput($_REQUEST, 'ref_biblio_code');
 $ref_author = $getInput($_REQUEST, 'ref_author');
 $ref_title = $getInput($_REQUEST, 'ref_title');
@@ -106,7 +106,7 @@ if (isset($_REQUEST['addreference'])) {
         $record = array_shift($record['data']);
         $record['success'] = true;
         $record['id'] = $record['ref_id'];
-        if ($_REQUEST['response'] == 'json') {
+        if (isset($_REQUEST['response']) && $_REQUEST['response'] == 'json') {
             echo json_encode($record);
             return;
         }
@@ -115,7 +115,7 @@ if (isset($_REQUEST['addreference'])) {
         foreach ($errors as $error) {
             $msg .= tra($error);
         }
-        if ($_REQUEST['response'] == 'json') {
+        if (isset($_REQUEST['response']) && $_REQUEST['response'] == 'json') {
             echo json_encode([
                 'success' => false,
                 'msg' => $msg
