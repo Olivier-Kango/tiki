@@ -119,12 +119,16 @@ class UnifiedSearchLib
                 }
 
                 $msg = $e->getMessage();
-                if (strpos($msg, "Out of range value for column 'entryId'") !== false
+                if (
+                    strpos($msg, "Out of range value for column 'entryId'") !== false
                     || stripos($msg, 'AUTO_INCREMENT') !== false
                 ) {
-                    $msg = tr('Indexing queue overflow. Go to Admin → Search → Reset indexing queue (TRUNCATE tiki_queue), then Rebuild/Optimize.');
+                    $msg = tr('Indexing queue overflow. In your database, run: TRUNCATE TABLE `tiki_queue`; then in Tiki go to Admin → Search → Rebuild Index.');
                 }
-                Feedback::error(tr('The search index could not be updated.') . '<br />' . $msg);
+                Feedback::error(
+                    tr('The search index could not be updated. The site is misconfigured. Contact an administrator.')
+                    . '<br />' . $msg
+                );
             }
 
             if ($indexer) {
