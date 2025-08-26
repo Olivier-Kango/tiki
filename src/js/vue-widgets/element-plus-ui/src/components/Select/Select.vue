@@ -28,7 +28,9 @@ const filterable = computed(() =>
 const allowCreate = computed(() => normalize(props.allowCreate, false));
 const grouped = computed(() => normalize(props.group, false));
 const getOptionsProp = computed(() => {
-    const optionsArray = parseValue(props.options) || [];
+    const parsedOptions = parseValue(props.options) || [];
+    // Ensure we have an array to work with
+    const optionsArray = Array.isArray(parsedOptions) ? parsedOptions : [];
     return optionsArray.reduce((acc, item) => {
         if (!grouped.value) {
             acc.push(item);
@@ -92,7 +94,7 @@ const remoteMethod = async (query) => {
 onMounted(() => {
     try {
         const orderingConfig = props.ordering ? JSON.parse(props.ordering) : null;
-        if (orderingConfig && props.multiple && wrapperRef.value) {
+        if (orderingConfig && multiple.value && wrapperRef.value) {
             const selectionElement = wrapperRef.value.querySelector('.el-select__selection');
             if (selectionElement) {
                 new Sortable(selectionElement, {
