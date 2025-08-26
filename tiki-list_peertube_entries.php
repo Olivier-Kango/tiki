@@ -65,7 +65,7 @@ try {
                 header('Location: tiki-list_peertube_entries.php?list=videos');
                 die;
             default:
-                Feedback::errorAndDie(tra('Invalid action'), \Laminas\Http\Response::STATUS_CODE_409);
+                Feedback::errorAndDie(tra('Invalid action'), 409);
         }
     }
 
@@ -133,12 +133,13 @@ try {
         $smarty->assign('entryType', 'videos');
         $smarty->assign('view', $jitRequest->view->alpha());
     }
-
-    $smarty->assign('offset', $offset);
-    $smarty->assign('maxRecords', $page_size);
-    $smarty->assign('mid', 'tiki-list_peertube_entries.tpl');
-    $smarty->assign('ticket', TikiLib::lib('access')->getTicket());
-    $smarty->display('tiki.tpl');
 } catch (Exception $e) {
     $access->display_error('', tra('Communication error'), 500, true, tra('Invalid response provided by the PeerTube server. Please retry.') . '<br><em>' . $e->getMessage() . '</em>');
 }
+
+
+$smarty->assign('offset', $offset);
+$smarty->assign('maxRecords', $page_size);
+$smarty->assign('mid', 'tiki-list_peertube_entries.tpl');
+$smarty->assign('ticket', TikiLib::lib('access')->getTicket());
+$smarty->display('tiki.tpl');

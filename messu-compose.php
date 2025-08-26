@@ -17,7 +17,7 @@ $access->check_permission('tiki_p_messages');
 
 if ($prefs['allowmsg_is_optional'] == 'y') {
     if ($tikilib->get_user_preference($user, 'allowMsgs', 'y') != 'y') {
-        Feedback::errorAndDie(tra("You have to be able to receive messages in order to send them. Goto your user preferences and enable 'Allow messages from other users'"), \Laminas\Http\Response::STATUS_CODE_409);
+        Feedback::errorAndDie(tra("You have to be able to receive messages in order to send them. Goto your user preferences and enable 'Allow messages from other users'"), \Monolog\Http\Response::STATUS_CODE_409);
     }
 }
 if (($prefs['messu_sent_size'] > 0) && ($messulib->count_messages($user, 'sent') >= $prefs['messu_sent_size'])) {
