@@ -192,9 +192,9 @@ table.table {
 //    &:hover {
 //        color: var(--tiki-card-link-hover-color);
 //    }
-    &.no-decorations {
-        box-shadow: none;
-    }
+//    &.no-decorations {
+//        box-shadow: none;
+//    }
 }
 
 .table-responsive.ts-wrapperdiv {
@@ -205,45 +205,228 @@ table.table {
     padding: 1rem;
 }
 
-.col2 .modules .card.module {
-    &:nth-child(1) .card-header { background: #cbffa8; }
-    &:nth-child(2) .card-header { background: #a8b5ff; }
-    &:nth-child(3) .card-header { background: #ffa8e1; }
-    &:nth-child(4) .card-header { background: #a8ffc6; }
-    &:nth-child(5) .card-header { background: #dca8ff; }
-    &:nth-child(6) .card-header { background: #ffb0a8; }
-    &:nth-child(7) .card-header { background: #a8f8ff; }
-    &:nth-child(8) .card-header { background: #ffe3a8; }
+[data-bs-theme=light] {
+    .col2 .modules .card.module {
+        &:nth-child(1) .card-header {
+            --tiki-card-bg: #cbffa8;
+        }
+
+        &:nth-child(2) .card-header {
+            --tiki-card-bg: #a8b5ff;
+        }
+
+        &:nth-child(3) .card-header {
+            --bs-card-cap-bg: #ffa8e1;
+        }
+
+        &:nth-child(4) .card-header {
+            background: #a8ffc6;
+        }
+
+        &:nth-child(5) .card-header {
+            background: #dca8ff;
+        }
+
+        &:nth-child(6) .card-header {
+            background: #ffb0a8;
+        }
+
+        &:nth-child(7) .card-header {
+            background: #a8f8ff;
+        }
+
+        &:nth-child(8) .card-header {
+            background: #ffe3a8;
+        }
+    }
+
+    .col3 .modules .card.module {
+        &:nth-child(1) .card-header {
+            background: #ffe3a8;
+        }
+
+        &:nth-child(2) .card-header {
+            background: #a8f8ff;
+        }
+
+        &:nth-child(3) .card-header {
+            background: #ffb0a8;
+        }
+
+        &:nth-child(4) .card-header {
+            background: #dca8ff;
+        }
+
+        &:nth-child(5) .card-header {
+            background: #a8ffc6;
+        }
+
+        &:nth-child(6) .card-header {
+            background: #ffa8e1;
+        }
+
+        &:nth-child(7) .card-header {
+            background: #a8b5ff;
+        }
+
+        &:nth-child(8) .card-header {
+            background: #cbffa8;
+        }
+    }
+
+    .main-footer .bottom_modules .card.module {
+        //    div:nth-child(5) .card.module .card-header { background: #3D4D32; }
+        &:nth-child(1) .card-header {
+            background: #dca8ff;
+        }
+
+        &:nth-child(2) .card-header {
+            background: #ffa8e1;
+        }
+
+        &:nth-child(3) .card-header {
+            background: #a8ffc6;
+        }
+
+        &:nth-child(4) .card-header {
+            background: #a8f8ff;
+        }
+
+        &:nth-child(5) .card-header {
+            background: #cbffa8;
+        }
+
+        &:nth-child(6) .card-header {
+            background: #a8b5ff;
+        }
+
+        &:nth-child(7) .card-header {
+            background: #ffb0a8;
+        }
+
+        &:nth-child(8) .card-header {
+            background: #ffe3a8;
+        }
+    }
+
+    .col2 .modules .card.module .card-title,
+    .col3 .modules .card.module .card-title,
+    .main-footer .bottom_modules .card.module .card-title {
+        color: #000; // Not color mode responsive, because backgrounds aren't.
+    }
 }
 
-.col3 .modules .card.module {
-    &:nth-child(8) .card-header { background: #cbffa8; }
-    &:nth-child(7) .card-header { background: #a8b5ff; }
-    &:nth-child(6) .card-header { background: #ffa8e1; }
-    &:nth-child(5) .card-header { background: #a8ffc6; }
-    &:nth-child(4) .card-header { background: #dca8ff; }
-    &:nth-child(3) .card-header { background: #ffb0a8; }
-    &:nth-child(2) .card-header { background: #a8f8ff; }
-    &:nth-child(1) .card-header { background: #ffe3a8; }
+[data-bs-theme=dark] {
+    .col2 .modules .card.module {
+        &:nth-child(1) .card-header {
+            --tiki-card-bg: #5B734C;
+        }
+
+        &:nth-child(2) .card-header {
+            --tiki-card-bg: #4C5173;
+        }
+
+        &:nth-child(3) .card-header {
+            --bs-card-cap-bg: #734C65;
+        }
+
+        &:nth-child(4) .card-header {
+            background: #4C7359;
+        }
+
+        &:nth-child(5) .card-header {
+            background: #382B41;
+        }
+
+        &:nth-child(6) .card-header {
+            background: #452F2D;
+        }
+
+        &:nth-child(7) .card-header {
+            background: #5F8C8F;
+        }
+
+        &:nth-child(8) .card-header {
+            background: #393326;
+        }
+    }
+
+    .col3 .modules .card.module {
+        &:nth-child(1) .card-header {
+            background: #393326;
+        }
+
+        &:nth-child(2) .card-header {
+            background: #5F8C8F;
+        }
+
+        &:nth-child(3) .card-header {
+            background: #452F2D;
+        }
+
+        &:nth-child(4) .card-header {
+            background: #382B41;
+        }
+
+        &:nth-child(5) .card-header {
+            background: #324D3B;
+        }
+
+        &:nth-child(6) .card-header {
+            background: #4D3244;
+        }
+
+        &:nth-child(7) .card-header {
+            background: #32364D;
+        }
+
+        &:nth-child(8) .card-header {
+            background: #3D4D32;
+        }
+    }
+
+    .main-footer .bottom_modules .card.module {
+        //    div:nth-child(5) .card.module .card-header { background: #3D4D32; }
+        &:nth-child(1) .card-header {
+            background: #382B41;
+        }
+
+        &:nth-child(2) .card-header {
+            background: #4D3244;
+        }
+
+        &:nth-child(3) .card-header {
+            background: #324D3B;
+        }
+
+        &:nth-child(4) .card-header {
+            background: #5F8C8F;
+        }
+
+        &:nth-child(5) .card-header {
+            background: #3D4D32;
+        }
+
+        &:nth-child(6) .card-header {
+            background: #32364D;
+        }
+
+        &:nth-child(7) .card-header {
+            background: #452F2D;
+        }
+
+        &:nth-child(8) .card-header {
+            background: #BFAA7E;
+        }
+    }
+
+    .col2 .modules .card.module .tiki-card-header-title,
+    .col3 .modules .card.module .tiki-card-header-title,
+    .main-footer .bottom_modules .card.module .tiki-card-header-title {
+        --bs-heading-color: #EBEEEF;
+    }
 }
 
-.main-footer .bottom_modules .card.module  {
-//    div:nth-child(5) .card.module .card-header { background: #cbffa8; }
-    &:nth-child(6) .card-header { background: #a8b5ff; }
-    &:nth-child(2) .card-header { background: #ffa8e1; }
-    &:nth-child(3) .card-header { background: #a8ffc6; }
-    &:nth-child(1) .card-header { background: #dca8ff; }
-    &:nth-child(7) .card-header { background: #ffb0a8; }
-    &:nth-child(4) .card-header { background: #a8f8ff; }
-    &:nth-child(8) .card-header { background: #ffe3a8; }
-    &:nth-child(5) .card-header { background: #cbffa8; }
-}
-
-.col2 .modules .card.module .card-title,
-.col3 .modules .card.module .card-title,
-.main-footer .bottom_modules .card.module .card-title {
-    color: #000; // Not color mode responsive, because backgrounds aren't.
-}
 
 // Accordion
 .accordion-header .accordion-button {

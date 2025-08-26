@@ -177,3 +177,12 @@
         color: var(--bs-body-color) !important;
     }
 }
+
+[data-bs-theme=dark] {
+    .nav-tabs .nav-link {
+        color: #909090;
+    }
+    .nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus {
+        color: #2196f3;
+    }
+}

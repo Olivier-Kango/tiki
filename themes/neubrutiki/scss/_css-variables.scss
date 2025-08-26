@@ -60,6 +60,7 @@
     --tiki-topbar-active-bg: transparent;
     --tiki-topbar-text-color: #{$navbar-light-hover-color};
     --tiki-topbar-border: solid #1a1a1a;
+    --tiki-topbar-border-width: 0 0.75rem 0.75rem 0.75rem;
     --tiki-topbar-box-shadow: none;
 }
 
@@ -198,7 +199,7 @@
 // - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
 
 :root {
-    --tiki-card-bg: #fff;
+//    --tiki-card-bg: #fff;
     --tiki-card-color: var(--bs-body-color);
     .sm-nav-link {
         --sm-font-family: var(--bs-body-font-family);

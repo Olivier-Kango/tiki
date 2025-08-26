@@ -23,8 +23,13 @@ $warning:       #AA6618; // $orange;  // default
     // Prefix
 $prefix: bs-; // default -- Compiling needs this to be declared
 
+// Components
+$border-color:                green; // $gray-300; // !default;
+
 // Form-validation
 $form-valid-color: #3F8406;
+$input-border-color: var(--bs-body-color);
+$input-bg: var(--bs-secondary-bg);
 
 // Body
 $body-color: $gray-800;  // default

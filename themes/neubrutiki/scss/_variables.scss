@@ -174,3 +174,7 @@ $breadcrumb-active-color:           $gray-600;  // default
 $code-color:                      $body-color; //   $pink;  // default
 
 // - - - - - - - - - -  - - - - - - Tiki SCSS variables - - - - - - - - - - - - - - - - - //
+
+:root {
+    --tiki-card-bg: var(--bs-tertiary-bg);
+}
