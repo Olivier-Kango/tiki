@@ -1,6 +1,15 @@
 {* Title and help link for the page *}
 {title help="PeerTube" admpage="video"}{tr}List Videos{/tr}{/title}
 
+{if isset($errors) and $errors|@count}
+  <div class="alert alert-danger">
+    <h2>{tr}Errors detected{/tr}</h2>
+    {section name=ix loop=$errors}
+      {$errors[ix]}<br>
+    {/section}
+  </div>
+{/if}
+
 <div class="row mb-3 row">
     <form method="get" class="col-md-12 d-flex flex-row flex-wrap align-items-center">
         <label class="col-form-label col-sm-2" for="find">{tr}Find{/tr}</label>

@@ -134,10 +134,11 @@ try {
         $smarty->assign('view', $jitRequest->view->alpha());
     }
 } catch (Exception $e) {
-    $access->display_error('', tra('Communication error'), 500, true, tra('Invalid response provided by the PeerTube server. Please retry.') . '<br><em>' . $e->getMessage() . '</em>');
+    $errors[] = tr('Invalid response provided by the PeerTube server. Please retry.') .
+        ' <em>' . $e->getMessage() . '</em>';
 }
 
-
+$smarty->assign('errors', $errors);
 $smarty->assign('offset', $offset);
 $smarty->assign('maxRecords', $page_size);
 $smarty->assign('mid', 'tiki-list_peertube_entries.tpl');
