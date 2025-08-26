@@ -359,20 +359,6 @@ class CleanVendors
             ]
         );
         self::remove(
-            $vendors . 'plotly/plotly.js/',
-            [
-                'test',
-                'devtools',
-                'src',
-                'dist/README.md',
-                'dist/extras',
-                'dist/topojson',
-                'CHANGELOG.md',
-                'CONTRIBUTING.md',
-                'README.md'
-            ]
-        );
-        self::remove(
             $vendors . 'laminas/',
             [
                 'laminas-feed/test',

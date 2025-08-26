@@ -190,7 +190,7 @@ export default defineConfig(({ command, mode }) => {
         css: {
             postcss: {
                 plugins: [postcssRootToHost()],
-            }
+            },
         },
         plugins: [
             vue({
@@ -353,6 +353,26 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/mermaid/dist/!(mermaid.js|mermaid.min.js)*.(js|mjs)*",
                         dest: "vendor_dist/mermaid/dist",
+                    },
+                    {
+                        src: "node_modules/plotly.js/dist/topojson*",
+                        dest: "vendor_dist/plotly.js/dist/topojson",
+                    },
+                    {
+                        src: "node_modules/plotly.js/dist/*.min.js",
+                        dest: "vendor_dist/plotly.js/dist",
+                    },
+                    {
+                        src: "node_modules/plotly.js/dist/plotly-locale*",
+                        dest: "vendor_dist/plotly.js/dist",
+                    },
+                    {
+                        src: "node_modules/plotly.js/dist/plot-schema.json",
+                        dest: "vendor_dist/plotly.js/dist",
+                    },
+                    {
+                        src: "node_modules/plotly.js/dist/plotly-geo-assets.js",
+                        dest: "vendor_dist/plotly.js/dist",
                     },
                     {
                         src: "node_modules/svg-pan-zoom/dist/*.min.js",
