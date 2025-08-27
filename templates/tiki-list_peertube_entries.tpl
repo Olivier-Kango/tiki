@@ -177,7 +177,7 @@
 {jq}
     $('.pt-popover').each(function () {
         var $el = $(this);
-        var content = $el.attr('data-pt-content'); // HTML déjà échappé
+        var content = $el.attr('data-pt-content');
         $el.popover({
         html: true,
         trigger: 'hover focus',
