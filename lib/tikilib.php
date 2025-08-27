@@ -3826,8 +3826,12 @@ class TikiLib extends TikiDb_Bridge
                     $select .= ',ts.`page_alias`';
                 } elseif ($type == 'langOrphan') {
                     $langs = is_array($val) ? $val : [$val];
-                    $tmp_mid[] = 'tp.`lang` NOT IN (' . implode(',', array_fill(0, count($langs), '?')) . ')';
-                    $bindvars = array_merge($bindvars, $langs);
+                    $placeholders = implode(',', array_fill(0, count($langs), '?'));
+
+                    $join_tables .= " left join `tiki_translated_objects` tro on (tro.`type` = 'wiki page' and tro.`objId` = tp.`page_id`) ";
+                    $tmp_mid[] = "((tro.`traId` IS NULL AND tp.`lang` NOT IN ($placeholders)) OR tro.`traId` NOT IN (SELECT `traId` FROM `tiki_translated_objects` WHERE `lang` IN ($placeholders)))";
+
+                    $bindvars = array_merge($bindvars, $langs, $langs);
                 } elseif ($type == 'structure_orphans') {
                     $join_tables .= " left join `tiki_structures` as tss on (tss.`page_id` = tp.`page_id`) ";
                     $tmp_mid[] = "(tss.`page_ref_id` is null)";
