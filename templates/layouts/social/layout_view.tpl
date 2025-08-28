@@ -41,7 +41,11 @@
         display: block;
         height: {/literal}{$prefs.theme_navbar_fixed_topbar_offset}{literal}px; /* fixed header height*/
         margin: -{/literal}{$prefs.theme_navbar_fixed_topbar_offset}{literal}px 0 0; /* negative fixed header height */
-    }{/literal}
+    }
+    #middle_outer {
+        margin-top: {/literal}{$prefs.theme_navbar_fixed_topbar_offset}{literal}px;
+    }
+    {/literal}
     </style>{/if}
 </head>
 <body{html_body_attributes class="navbar-padding"}>
@@ -241,6 +245,32 @@
             </div>
         </footer>
     {/if}
+    
+    {* Manage top margin of middle_outer dynamically in case header height changes due to content changes (ex. Module added on Top position) or responsive design *}
+    {jq}
+        (function ($) {
+            var $header = $('header.tiki-header-top');
+            var $middle = $('#middle_outer');
+
+            function adjustMargin() {
+                if ($header.length && $middle.length) {
+                    $middle.css('margin-top', $header.outerHeight() + 'px');
+                }
+            }
+
+            // Initial adjust
+            adjustMargin();
+
+            // Update on window resize
+            $(window).on('resize', adjustMargin);
+
+            // Update if header size changes
+            if (typeof ResizeObserver !== 'undefined') {
+                var ro = new ResizeObserver(adjustMargin);
+                $header.each(function () { ro.observe(this); });
+            }
+        })(jQuery);
+    {/jq}
 
     {include file='footer.tpl'}
 </body>
