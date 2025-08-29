@@ -73,4 +73,4 @@ class ServicesPeerTubeController
     }
 }
 
-class_alias(\Services\Peertube\ServicesPeerTubeController::class, 'Services_Peertube_Controller');
+class_alias(\Services\Peertube\ServicesPeerTubeController::class, 'Services_PeerTube_Controller');

@@ -86,12 +86,12 @@
             <br>
             <fieldset>
                 <legend class="h3">{tr}Plugin to embed in pages{/tr}</legend>
-                {preference name=wikiplugin_peertube}
+                {preference name=wikiplugin_peertube visible="always"}
             </fieldset>
             <br>
             <fieldset>
                 <legend class="h3">{tr}Enable related tracker field types{/tr}</legend>
-                {preference name=trackerfield_peertube}
+                {preference name=trackerfield_peertube visible="always"}
             </fieldset>
             <br>
             <fieldset>

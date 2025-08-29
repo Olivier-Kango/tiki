@@ -88,6 +88,7 @@ try {
     $find = $jitRequest->find->text();
     $smarty->assign('find', $find);
 
+    $errors = [];
     $page_size = $jitRequest->maxRecords->int() ?: $prefs['maxRecords']; // Number of items per page
     $offset = max(0, $jitRequest->offset->int()); // Offset for pagination
     $page = (int)(($offset / $page_size) + 1); // Current page number (cast to int)

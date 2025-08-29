@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiki\Tracker\Field;
+namespace Tracker\Field;
 
 use Tracker\Field\AbstractItemField;
 use Tracker\Field\SynchronizableInterface;
