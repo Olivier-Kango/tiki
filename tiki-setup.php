@@ -1027,7 +1027,7 @@ if ($prefs['feature_calendar'] === 'y') {
 
 // Using boomerang for performance monitoring
 if ($prefs['tiki_monitor_performance'] == 'y') {
-    $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/boomerangjs/boomerangjs.js");
+    $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/boomerangjs/boomerang.js");
     $headerlib->add_jsfile_dependency(NODE_PUBLIC_DIST_PATH . "/boomerangjs/plugins/rt.js");
 }
 

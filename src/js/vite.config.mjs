@@ -287,8 +287,11 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/@event-calendar/core/dist",
                     },
                     {
-                        src: ["node_modules/boomerangjs/boomerangjs.js", "node_modules/boomerangjs/plugins/rt.js"],
+                        src: "node_modules/boomerangjs/boomerang.js",
                         dest: "vendor_dist/boomerangjs/",
+                    },{
+                        src: "node_modules/boomerangjs/plugins/rt.js",
+                        dest: "vendor_dist/boomerangjs/plugins",
                     },
                     {
                         src: "node_modules/bootstrap/dist/css/bootstrap.min.*",
