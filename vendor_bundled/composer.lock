@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d579ee4b4916729603c4046edd450eda",
+    "content-hash": "f7f428b2e4522dc5ea3cde9ce5db99d6",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2887,6 +2887,16 @@
                 "source": "https://github.com/Jean85/pretty-package-versions/tree/2.1.1"
             },
             "time": "2025-03-19T14:43:43+00:00"
+        },
+        {
+            "name": "jquery/jquery-sheet",
+            "version": "3.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/jquery/jquery-sheet/jquery-jquery-sheet-3.1.zip",
+                "shasum": "f795b13ceb1e95281cd575e92c7666bd6b15ca90"
+            },
+            "type": "library"
         },
         {
             "name": "kaltura/api-client-library",
@@ -6530,6 +6540,16 @@
             "time": "2025-05-25T14:28:00+00:00"
         },
         {
+            "name": "openannotation/annotator",
+            "version": "1.2.10",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/openannotation/annotator/openannotation-annotator-1.2.10.zip",
+                "shasum": "0e982ad018a75edd758111f9534c03513c7be9bc"
+            },
+            "type": "library"
+        },
+        {
             "name": "paragonie/constant_time_encoding",
             "version": "v3.0.0",
             "source": {
@@ -7167,6 +7187,16 @@
                 "source": "https://github.com/pear/Structures_Graph"
             },
             "time": "2024-06-02T15:12:16+00:00"
+        },
+        {
+            "name": "pear/text_wiki_mediawiki",
+            "version": "0.2.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/pear/text_wiki_mediawiki/pear-text_wiki_mediawiki-0.2.0.zip",
+                "shasum": "8e7ab56efd4d446887b601bcfa70ecb2cd495c4d"
+            },
+            "type": "library"
         },
         {
             "name": "pear/xml_parser",
@@ -9459,16 +9489,16 @@
         },
         {
             "name": "sabre/http",
-            "version": "5.1.12",
+            "version": "5.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/http.git",
-                "reference": "dedff73f3995578bc942fa4c8484190cac14f139"
+                "reference": "7c2a14097d1a0de2347dcbdc91a02f38e338f4db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabre-io/http/zipball/dedff73f3995578bc942fa4c8484190cac14f139",
-                "reference": "dedff73f3995578bc942fa4c8484190cac14f139",
+                "url": "https://api.github.com/repos/sabre-io/http/zipball/7c2a14097d1a0de2347dcbdc91a02f38e338f4db",
+                "reference": "7c2a14097d1a0de2347dcbdc91a02f38e338f4db",
                 "shasum": ""
             },
             "require": {
@@ -9480,7 +9510,7 @@
                 "sabre/uri": "^2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.17.1||^3.63",
+                "friendsofphp/php-cs-fixer": "~2.17.1||3.63.2",
                 "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6"
             },
@@ -9518,7 +9548,7 @@
                 "issues": "https://github.com/sabre-io/http/issues",
                 "source": "https://github.com/fruux/sabre-http"
             },
-            "time": "2024-08-27T16:07:41+00:00"
+            "time": "2025-09-09T10:21:47+00:00"
         },
         {
             "name": "sabre/uri",
@@ -18204,6 +18234,16 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
+        },
+        {
+            "name": "umakantp/smartylint",
+            "version": "0.1.4-p1",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/umakantp/smartylint/umakantp-smartylint-0.1.4-p1.zip",
+                "shasum": "db8c31c54599c95dcdd74d6b3ba6d60563dc7100"
+            },
+            "type": "library"
         }
     ],
     "aliases": [],
