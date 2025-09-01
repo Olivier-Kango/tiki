@@ -2867,12 +2867,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "e857d5cae1df8b8db5d9b5f2830e6cb6f428bc71"
+                "reference": "ba3508604626b7c244e6de556ad924ee426b5d73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/e857d5cae1df8b8db5d9b5f2830e6cb6f428bc71",
-                "reference": "e857d5cae1df8b8db5d9b5f2830e6cb6f428bc71",
+                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/ba3508604626b7c244e6de556ad924ee426b5d73",
+                "reference": "ba3508604626b7c244e6de556ad924ee426b5d73",
                 "shasum": ""
             },
             "require": {
@@ -2948,7 +2948,7 @@
                 "source": "https://github.com/cypht-org/cypht/",
                 "wiki": "https://github.com/cypht-org/cypht/wiki"
             },
-            "time": "2025-08-27T13:25:43+00:00"
+            "time": "2025-09-01T08:08:16+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -14420,16 +14420,6 @@
             "time": "2025-05-09T23:01:19+00:00"
         },
         {
-            "name": "umakantp/smartylint",
-            "version": "0.1.4-p1",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/umakantp/smartylint/umakantp-smartylint-0.1.4-p1.zip",
-                "shasum": "db8c31c54599c95dcdd74d6b3ba6d60563dc7100"
-            },
-            "type": "library"
-        },
-        {
             "name": "voku/portable-ascii",
             "version": "2.0.3",
             "source": {
@@ -18584,6 +18574,16 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
+        },
+        {
+            "name": "umakantp/smartylint",
+            "version": "0.1.4-p1",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/umakantp/smartylint/umakantp-smartylint-0.1.4-p1.zip",
+                "shasum": "db8c31c54599c95dcdd74d6b3ba6d60563dc7100"
+            },
+            "type": "library"
         }
     ],
     "aliases": [],
