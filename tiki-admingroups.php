@@ -278,7 +278,7 @@ if (! empty($_REQUEST["group"])) {
     $bannedMax = $_REQUEST['bannedMax'] ?? $prefs['maxRecords'];
     if (empty($_REQUEST['bannedSort'])) {
         $bannedSort = ['source_itemId' => 'asc'];
-    } elseif (substr($_REQUEST['bannedSort'], -4) === 'desc') {
+    } elseif (str_ends_with($_REQUEST['bannedSort'], 'desc')) {
         $bannedSort = ['source_itemId' => 'desc'];
     } else {
         $bannedSort = ['source_itemId' => 'asc'];

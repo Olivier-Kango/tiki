@@ -223,7 +223,7 @@ function wikiplugin_convene($data, $params): string
         : [];
 
     /** For new data structure */
-    if (substr($data, 0, 1) == "[") {
+    if (str_starts_with($data, "[")) {
         $dataArrays = json_decode($data, true);
         $dataArray = $dataArrays[0]; // Default data votes
         $dataArrayComments = $dataArrays[1]; //Data comments
@@ -324,7 +324,7 @@ function wikiplugin_convene($data, $params): string
             $dateLabels[$stamp]['formatted'] = $tikilib->get_long_datetime($stamp);
         } elseif ($params['dateformat'] === 'other') {
             $format = $params['dateformatother'];
-            if (strpos($format, '%') === 0) {   // assuming a strftime format starts with %
+            if (str_starts_with($format, '%')) {   // assuming a strftime format starts with %
                 $dateLabels[$stamp]['formatted'] = TikiLib::date_format($format, $stamp);
             } else {
                 $dateLabels[$stamp]['formatted'] = TikiLib::date_format2($format, $stamp);

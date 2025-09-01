@@ -149,7 +149,7 @@ function wikiplugin_list($data, $params)
     if ($params['cache'] == 'y') {
         // Exclude any type of admin from caching
         foreach (TikiLib::lib('user')->get_user_permissions($user) as $permission) {
-            if (substr($permission, 0, 12) == 'tiki_p_admin') {
+            if (str_starts_with($permission, 'tiki_p_admin')) {
                 $params['cache'] = 'n';
                 break;
             }

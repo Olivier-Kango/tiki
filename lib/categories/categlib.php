@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 //this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER["SCRIPT_NAME"], basename(__FILE__))) {
     header("location: index.php");
     exit;
 }
@@ -1533,7 +1533,7 @@ class CategLib extends ObjectLib
         }
         if ($types == '*') {
             $typesallowed = array_keys($typetitles);
-        } elseif (strpos($types, '+')) {
+        } elseif (str_contains($types, '+')) {
             $alltypes = preg_split('/\+/', $types);
             foreach ($alltypes as $t) {
                 if (isset($typetokens["$t"])) {
@@ -1558,7 +1558,7 @@ class CategLib extends ObjectLib
             $acats = $andcat = [];
             foreach ($objectcat["data"] as $obj) {
                 $type = $obj["type"];
-                if (substr($type, 0, 7) == 'tracker') {
+                if (str_starts_with($type, 'tracker')) {
                     $type = 'tracker';
                 }
                 if (($types == '*') || in_array($type, $typesallowed)) {

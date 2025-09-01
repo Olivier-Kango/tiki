@@ -311,7 +311,7 @@ function wikiplugin_trackerfilter($data, $params)
 
     if (empty($_REQUEST['filter']) && empty($export_action)) { // look if not coming from an initial and not exporting
         foreach ($_REQUEST as $key => $val) {
-            if (substr($key, 0, 2) == 'f_') {
+            if (str_starts_with($key, 'f_')) {
                 $_REQUEST['filter'] = 'y';
                 break;
             }
@@ -467,7 +467,7 @@ function wikiplugin_trackerfilter_build_trackerlist_filter($input, $formats, &$f
     $trklib = TikiLib::lib('trk');
 
     foreach ($input as $key => $val) {
-        if (substr($key, 0, 2) == 'f_' && ! empty($val) && (! is_array($val) || ! empty($val[0]))) {
+        if (str_starts_with($key, 'f_') && ! empty($val) && (! is_array($val) || ! empty($val[0]))) {
             if (! is_array($val)) {
                 $val = urldecode($val);
             }
@@ -553,7 +553,7 @@ function wikiplugin_trackerFilter_reset_filters($iTrackerFilter = 0)
     unset($_REQUEST['tracker_filters']);
 
     foreach ($_REQUEST as $key => $val) {
-        if (substr($key, 0, 2) == 'f_') {
+        if (str_starts_with($key, 'f_')) {
             unset($_REQUEST[$key]);
         }
     }
@@ -561,7 +561,7 @@ function wikiplugin_trackerFilter_reset_filters($iTrackerFilter = 0)
 
 function wikiplugin_trackerFilter_get_session_filters_key($iTrackerFilter = 0)
 {
-    $trackerId = isset($_REQUEST['trackerId']) ? $_REQUEST['trackerId'] : 0;
+    $trackerId = $_REQUEST['trackerId'] ?? 0;
     if (! empty($_REQUEST['page'])) {
         return 'f_' . $_REQUEST['page'] . '_' . $iTrackerFilter;
     }

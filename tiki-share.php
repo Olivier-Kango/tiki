@@ -231,7 +231,7 @@ if (isset($_REQUEST['send'])) {
 
         if (isset($_REQUEST['do_email']) and $_REQUEST['do_email'] == 1) {
             // Fix for multi adresses with autocomplete funtionnality
-            if (substr($_REQUEST['addresses'], -2) == ', ') {
+            if (str_ends_with($_REQUEST['addresses'], ', ')) {
                 $_REQUEST['addresses'] = substr($_REQUEST['addresses'], 0, -2);
             }
             // Call checkAddresses with error = false to avoid double error reporting
@@ -351,7 +351,7 @@ if (isset($_REQUEST['send'])) {
                     $prefs['auth_token_access_maxhits'] = $_REQUEST['msg_how_much_time_access'];
 
                     /* To upload, you need 2 tokens: one to see the page and another */
-                    if (strpos($_REQUEST['url'], 'tiki-upload_file')) {
+                    if (str_contains($_REQUEST['url'], 'tiki-upload_file')) {
                         $prefs['auth_token_access_maxhits'] = $prefs['auth_token_access_maxhits'] * 2 + 1;
                     }
                 }

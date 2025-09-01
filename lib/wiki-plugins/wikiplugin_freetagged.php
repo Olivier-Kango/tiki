@@ -240,7 +240,7 @@ function wikiplugin_freetagged($data, $params)
 
     $moreurlparams = 'tag=' . $tags . '&old_type=' . urlencode($type ?? '') . '&sort_mode=' . urlencode($params['sort_mode'] ?? '') . '&find=' . urlencode($find ?? '') . '&broaden=' . urlencode($broaden ?? '');
 
-    if (strpos($moreurl, '?') === false) {
+    if (! str_contains($moreurl, '?')) {
         $moreurl = $moreurl . '?' . $moreurlparams;
     } else {
         $moreurl = $moreurl . '&' . $moreurlparams;

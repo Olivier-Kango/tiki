@@ -116,7 +116,7 @@ function update_working_copy($localPath, $ignore_externals = false)
  */
 function get_revision($path)
 {
-    if (substr($path, 0, 4) === "http") {
+    if (str_starts_with($path, "http")) {
         `git fetch`;
     }
     return trim(`git rev-parse HEAD`);

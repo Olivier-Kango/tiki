@@ -46,7 +46,7 @@ function wikiplugin_translated($data, $params)
 
     $h = opendir("img/flags/");
     while ($file = readdir($h)) {
-        if (substr($file, 0, 1) != '.' and substr($file, -4, 4) == '.png') {
+        if (! str_starts_with($file, '.') and str_ends_with($file, '.png')) {
             $avflags[] = substr($file, 0, strlen($file) - 4);
         }
     }

@@ -62,7 +62,7 @@ class Faker extends FakerProviderBase
         if (! empty($field) && ! empty($field['options_array'])) {
             $options = $field['options_array'];
             $optionRand = $options[array_rand($options)];
-            if (strpos($optionRand, '=') !== false) {
+            if (str_contains($optionRand, '=')) {
                 $optionRand = explode('=', $optionRand);
                 $optionRand = $optionRand[1];
             }
@@ -82,7 +82,7 @@ class Faker extends FakerProviderBase
         if (! empty($field) && ! empty($field['options_array'])) {
             $options = $field['options_array'];
             $optionRand = $options[array_rand($options)];
-            if (strpos($optionRand, '=') !== false) {
+            if (str_contains($optionRand, '=')) {
                 $optionRand = explode('=', $optionRand);
                 $optionRand = $optionRand[0];
             }
@@ -102,7 +102,7 @@ class Faker extends FakerProviderBase
         if (! empty($field) && ! empty($field['options_array'])) {
             $options = $field['options_array'];
             $optionRand = $options[array_rand($options)];
-            if (strpos($optionRand, '=') !== false) {
+            if (str_contains($optionRand, '=')) {
                 $optionRand = explode('=', $optionRand);
                 $optionRand = $optionRand[0];
             }

@@ -135,8 +135,8 @@ class WikiPlugin_Negotiator_Wiki_Alias
             if (isset($info['body'])) {
                 if (! empty($info['body']['input'])) {
                     if (($info['body']['input'] == 'ignore' ) || empty($data)) {
-                        $data = isset($info['body']['default']) ? $info['body']['default'] : '';
-                    } elseif (strpos($info['body']['default'], '%body%') !== false) {
+                        $data = $info['body']['default'] ?? '';
+                    } elseif (str_contains($info['body']['default'], '%body%')) {
                         // replace the string %body% with the provided body text if not ignoring user input
                         $rules = [
                             'body' => [

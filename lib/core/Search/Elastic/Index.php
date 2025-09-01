@@ -670,7 +670,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
                     $data[$key] = $correctQueryImploded;
                 } else {
                     foreach ($wrongKeywords as $index => $wrongKeyword) {
-                        if (strpos($value, $wrongKeyword) !== false) {
+                        if (str_contains($value, $wrongKeyword)) {
                             $data[$key] = str_replace($wrongKeyword, $correctKeywords[$index], $value);
                         }
                     }

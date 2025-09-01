@@ -142,9 +142,9 @@ class Comments extends TikiLib
         if ($forum_info['att_store'] == 'dir') {
             $fhash = md5(uniqid('.'));
             // Just in case the directory doesn't have the trailing slash
-            if (substr($forum_info['att_store_dir'], strlen($forum_info['att_store_dir']) - 1, 1) == '\\') {
+            if (str_ends_with($forum_info['att_store_dir'], '\\')) {
                 $forum_info['att_store_dir'] = substr($forum_info['att_store_dir'], 0, strlen($forum_info['att_store_dir']) - 1) . '/';
-            } elseif (substr($forum_info['att_store_dir'], strlen($forum_info['att_store_dir']) - 1, 1) != '/') {
+            } elseif (! str_ends_with($forum_info['att_store_dir'], '/')) {
                 $forum_info['att_store_dir'] .= '/';
             }
 
@@ -1080,26 +1080,26 @@ class Comments extends TikiLib
         }
 
         // Prevent ambiguous field database errors
-        if (strpos($sort_mode, 'commentDate') !== false) {
+        if (str_contains($sort_mode, 'commentDate')) {
             $sort_mode = str_replace('commentDate', 'a.commentDate', $sort_mode);
         }
-        if (strpos($sort_mode, 'smiley') !== false) {
+        if (str_contains($sort_mode, 'smiley')) {
             $sort_mode = str_replace('smiley', 'a.smiley', $sort_mode);
         }
 
-        if (strpos($sort_mode, 'hits') !== false) {
+        if (str_contains($sort_mode, 'hits')) {
             $sort_mode = str_replace('hits', 'a.hits', $sort_mode);
         }
 
-        if (strpos($sort_mode, 'title') !== false) {
+        if (str_contains($sort_mode, 'title')) {
             $sort_mode = str_replace('title', 'a.title', $sort_mode);
         }
 
-        if (strpos($sort_mode, 'type') !== false) {
+        if (str_contains($sort_mode, 'type')) {
             $sort_mode = str_replace('type', 'a.type', $sort_mode);
         }
 
-        if (strpos($sort_mode, 'userName') !== false) {
+        if (str_contains($sort_mode, 'userName')) {
             $sort_mode = str_replace('userName', 'a.userName', $sort_mode);
         }
 
@@ -1507,7 +1507,7 @@ class Comments extends TikiLib
             ++$count;
         }
         //handle sorts for displayed columns not in the database
-        if (substr($sort_mode, -4) === '_asc') {
+        if (str_ends_with($sort_mode, '_asc')) {
             $sortdir = 'asc';
             $sortcol = substr($sort_mode, 0, strlen($sort_mode) - 4);
         } else {

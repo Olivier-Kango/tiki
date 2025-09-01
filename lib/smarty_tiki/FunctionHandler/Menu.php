@@ -233,11 +233,11 @@ class Menu extends Base
         } else {
             return '<span class="alert-warning">menu function: Menu or Structure ID not set</span>';
         }
-        if (strpos($_SERVER['SCRIPT_NAME'], 'tiki-register') === false) {
+        if (! str_contains($_SERVER['SCRIPT_NAME'], 'tiki-register')) {
             $cachelib->cacheItem($cacheName, serialize([$menu_info, $channels]), $cacheType);
         }
         if (! isset($setSelected) || $setSelected !== 'n') {
-            $channels = $menulib->setSelected($channels, isset($sectionLevel) ? $sectionLevel : '', isset($toLevel) ? $toLevel : '', $params);
+            $channels = $menulib->setSelected($channels, $sectionLevel ?? '', isset($toLevel) ? $toLevel : '', $params);
         }
 
         foreach ($channels['data'] as &$item) {

@@ -99,7 +99,7 @@ if (isset($_REQUEST["preview"])) {
         $rep = $integrator->get_repository($repID);
         // Check if file given and present at configured location
         $f = $integrator->get_rep_file($rep, $file);
-        if ((substr($rep["path"], 0, 7) != 'http://') && (substr($rep["path"], 0, 8) != 'https://') && ! file_exists($f)) {
+        if ((! str_starts_with($rep["path"], 'http://')) && (! str_starts_with($rep["path"], 'https://')) && ! file_exists($f)) {
             Feedback::errorAndDie(tra("File not found ") . $f, \Laminas\Http\Response::STATUS_CODE_404);
         }
         // Get file content to string

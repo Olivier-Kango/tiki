@@ -376,7 +376,7 @@ class ModLib extends TikiLib
         $h = opendir($dircache);
         $i = 0;
         while (($file = readdir($h)) !== false) {
-            if (substr($file, 0, 4) == 'mod-') {
+            if (str_starts_with($file, 'mod-')) {
                 $file = "$dircache/$file";
                 $result = unlink($file);
                 if ($result) {

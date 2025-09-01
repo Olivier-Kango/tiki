@@ -101,7 +101,7 @@ function wikiplugin_versions($data, $params)
     }
     if (! isset($_REQUEST['preview'])) {
         if ($p == 0) {
-            if (strpos($data, '---(') !== false) {
+            if (str_contains($data, '---(')) {
                 $data = substr($data, 0, strpos($data, '---('));
             }
             if ($nav == 'n' and $title == 'y') {
@@ -119,7 +119,7 @@ function wikiplugin_versions($data, $params)
                 $end   = $p + 1 < count($t[0]) ? $t[0][$p + 1][1] : strlen($data);
                 $data = substr($data, $start, $end);
             }
-            if (strpos($data, '---(') !== false) {
+            if (str_contains($data, '---(')) {
                 $data = substr($data, 0, strpos($data, '---('));
             }
         }
@@ -144,12 +144,12 @@ function wikiplugin_versions($data, $params)
                                     ;
             } else {
                 $navbar .= ' <li class="' . $high . '"><a href="';
-                if (strpos($_SERVER['REQUEST_URI'], '?') !== false) {
+                if (str_contains($_SERVER['REQUEST_URI'], '?')) {
                     $navb = preg_replace("~(\?|&)tikiversion=[^&]*~", "", $_SERVER['REQUEST_URI']);
                 } else {
                     $navb = $_SERVER['REQUEST_URI'];
                 }
-                if (strpos($navb, '?') !== false) {
+                if (str_contains($navb, '?')) {
                     $navbar .= "$navb&";
                 } else {
                     $navbar .= "$navb?";

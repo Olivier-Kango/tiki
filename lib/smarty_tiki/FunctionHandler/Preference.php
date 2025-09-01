@@ -129,7 +129,7 @@ class Preference extends Base
                 'tagstring' => 'modified basic all',
                 'separator' => null,
             ];
-            if (strpos($_SERVER["SCRIPT_NAME"], 'tiki-edit_perspective.php') !== false) {
+            if (str_contains($_SERVER["SCRIPT_NAME"], 'tiki-edit_perspective.php')) {
                 $info['hint'] = tra('Drag this out of the perspective and resave the perspective.');
             }
 

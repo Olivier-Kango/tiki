@@ -161,10 +161,10 @@ class Tracker_Field_AutoIncrement extends \Tracker\Field\AbstractItemField imple
                 return $prepend . $value . $append;
             })
             ->setParseIntoTransform(function (&$info, $value) use ($permName, $prepend, $append) {
-                if (substr($value, 0, strlen($prepend)) === $prepend) {
+                if (str_starts_with($value, $prepend)) {
                     $value = substr($value, strlen($prepend));
                 }
-                if (substr($value, 0 - strlen($append)) === $append) {
+                if (str_ends_with($value, $append)) {
                     $value = substr($value, 0, 0 - strlen($append));
                 }
                 $info['fields'][$permName] = $value;

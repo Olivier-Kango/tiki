@@ -648,13 +648,13 @@ class CalRecurrence extends TikiLib
             } elseif ($found['changed'] == 0 || $updateManuallyChangedEvents) {
                 // update with changes
                 foreach ($changedFields as $field) {
-                    if (substr($field, 0, 1) != "_") {
+                    if (! str_starts_with($field, "_")) {
                         $found[$field] = $this->$field;
                     }
                 }
                 $changedFieldsOfEvent = $this->compareFieldsOfEvent($found, $this);
                 foreach ($changedFieldsOfEvent as $field) {
-                    if (substr($field, 0, 1) == "_") {
+                    if (str_starts_with($field, "_")) {
                         $found['start'] = $vevent->DTSTART->getDateTime()->getTimeStamp();
                         $found['end'] = $vevent->DTEND->getDateTime()->getTimeStamp();
                         $found['organizers'] = $this->getOrganizers();

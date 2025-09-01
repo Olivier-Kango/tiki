@@ -535,7 +535,7 @@ class TrackerLib extends TikiLib
             }
         }
         $csort_mode = '';
-        if (substr($sort_mode, 0, 2) == "f_") {
+        if (str_starts_with($sort_mode, "f_")) {
             list($a,$csort_mode,$corder) = explode('_', $sort_mode, 3);
         }
         $trackerId = (int) $trackerId;
@@ -1305,7 +1305,7 @@ class TrackerLib extends TikiLib
         if (! $this->getSqlStatus($status, $mid, $bindvars, $trackerId, $skip_status_perm_check) && ! $skip_status_perm_check && $status) {
             return ['count' => 0, 'data' => ''];
         }
-        if (substr($sort_mode, 0, 2) == 'f_') {
+        if (str_starts_with($sort_mode, "f_")) {
             list($a, $asort_mode, $corder) = preg_split('/_/', $sort_mode);
         }
         if ($initial) {
@@ -1320,8 +1320,8 @@ class TrackerLib extends TikiLib
             $sort_mode = 'lastModif_desc';
         }
 
-        if (substr($sort_mode, 0, 2) == 'f_' or ! empty($filterfield)) {
-            if (substr($sort_mode, 0, 2) == 'f_') {
+        if (str_starts_with($sort_mode, 'f_') or ! empty($filterfield)) {
+            if (str_starts_with($sort_mode, 'f_')) {
                 $csort_mode = 'sttif.`value` ';
                 $sort_tables = ' LEFT JOIN (`tiki_tracker_item_fields` sttif)'
                     . ' ON (tti.`itemId` = sttif.`itemId`'
@@ -1372,7 +1372,7 @@ class TrackerLib extends TikiLib
                                 LEFT JOIN `tiki_categories` sttif ON substring_index(trim(both "," from scttif.value), ",", 1) = sttif.categId';
                             break;
                         case 'math':
-                            if (strpos($field['options'], 'numeric_sort') == true) {
+                            if (str_contains($field['options'], 'numeric_sort')) {
                                 if ($corder == 'asc') {
                                     $corder = 'nasc';
                                 } else {
@@ -1637,9 +1637,9 @@ class TrackerLib extends TikiLib
                             $mid .= ' OR ';
                         }
                         $mid .= " upper(ttif$i.`value`) like upper(?) ";
-                        if (substr($v, 0, 1) == '*' || substr($v, 0, 1) == '%') {
+                        if (str_starts_with($v, '*') || str_starts_with($v, '%')) {
                             $bindvars[] = '%' . substr($v, 1);
-                        } elseif (substr($v, -1, 1) == '*' || substr($v, -1, 1) == '%') {
+                        } elseif (str_ends_with($v, '*') || str_ends_with($v, '%')) {
                             $bindvars[] = substr($v, 0, strlen($v) - 1) . '%';
                         } else {
                             $bindvars[] = '%' . $v . '%';
@@ -1656,7 +1656,7 @@ class TrackerLib extends TikiLib
                 }
             }
         } else {
-            if (strpos($sort_mode, '_') !== false) {
+            if (str_contains($sort_mode, '_')) {
                 list($csort_mode, $corder) = preg_split('/_/', $sort_mode);
             } else {
                 $csort_mode = $sort_mode;
@@ -2499,12 +2499,12 @@ class TrackerLib extends TikiLib
         }
         if ($encoding == 'UTF-8') {
             // See en.wikipedia.org/wiki/Byte_order_mark
-            if (substr($header[0], 0, 3) == "\xef\xbb\xbf") {
+            if (str_starts_with($header[0], "\xef\xbb\xbf")) {
                 $header[0] = substr($header[0], 3);
             }
         }
         $max = count($header);
-        if ($max === 1 and strpos($header[0], "\t") !== false) {
+        if ($max === 1 and str_contains($header[0], "\t")) {
             Feedback::error(tr('No fields found in header, not a comma-separated values file?'));
             return 0;
         }
@@ -4632,7 +4632,7 @@ class TrackerLib extends TikiLib
     {
         $tmp = [];
         foreach ($listFields as $fieldId) {
-            if (substr($fieldId, 0, 1) == '-') {
+            if (str_starts_with($fieldId, '-')) {
                 $fieldId = substr($fieldId, 1);
             }
             foreach ($allFields['data'] as $i => $field) {
@@ -5006,7 +5006,7 @@ class TrackerLib extends TikiLib
                 $f = $wiki_info['data'];
             }
         } else {
-            if (strpos($resource, 'templates/') === 0) {
+            if (str_starts_with($resource, 'templates/')) {
                 $resource = substr($resource, 10);
             }
             $resource_name = $smarty->get_filename($resource);

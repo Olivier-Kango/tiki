@@ -976,7 +976,7 @@ class ObjectLib extends TikiLib
                 if (isset($item[$key])) {
                     $values[$value_key] = $item[$key];
                     return $item[$key];
-                } elseif (substr($key, 0, 5) == 'meta.') {
+                } elseif (str_starts_with($key, 'meta.')) {
                     $values[$value_key] = $metadata[$item['object_type'] . ':' . $item['object_id']][substr($key, 5)] ?? '';
                 } elseif (! $format || $format == '{title}') {
                     $values[$value_key] = '';
@@ -1046,7 +1046,7 @@ class ObjectLib extends TikiLib
                     $key = $matches[1];
                     if (isset($item[$key])) {
                         return $item[$key];
-                    } elseif (substr($key, 0, 5) == 'meta.') {
+                    } elseif (str_starts_with($key, 'meta.')) {
                         return $metadata[substr($key, 5)] ?? '';
                     } elseif (! $format || $format == '{title}') {
                         return tr('empty');
@@ -1082,7 +1082,7 @@ class ObjectLib extends TikiLib
      */
     public function get_wiki_content($type, $objectId)
     {
-        if (substr($type, -7) == 'comment') {
+        if (str_ends_with($type, 'comment')) {
             $comment_info = TikiLib::lib('comments')->get_comment((int)$objectId);
             return $comment_info['data'];
         }
@@ -1122,7 +1122,7 @@ class ObjectLib extends TikiLib
      */
     public function get_verbose_type($type)
     {
-        if (substr($type, -7) == 'comment') {
+        if (str_ends_with($type, 'comment')) {
             $isComment = true;
             $type = substr($type, 0, strlen($type) - 8);
         } else {

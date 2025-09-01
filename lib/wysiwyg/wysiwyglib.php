@@ -141,7 +141,7 @@ class WYSIWYGLib
                 continue;
             }
 
-            if (strpos($pluginMarkup, ' ') === false) {
+            if (! str_contains($pluginMarkup, ' ')) {
                 // custom blocks without spaces seem to trigger an error in toast rendering code, so add a "harlmess" space if we don't find one
                 $pluginMarkup = str_replace('}', ' }', $pluginMarkup);
             }

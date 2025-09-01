@@ -154,7 +154,7 @@ class Icon extends \Smarty\FunctionHandler\Base
         } //ICONSET END
 
         // Handle _ids that contains the real filename and path
-        if (strpos($params['_id'], '/') !== false || strpos($params['_id'], '.') !== false) {
+        if (str_contains($params['_id'], '/') || str_contains($params['_id'], '.')) {
             if (($icons_basedir = dirname($params['_id'])) == '') {
                 $icons_basedir = $basedirs[0];
             }

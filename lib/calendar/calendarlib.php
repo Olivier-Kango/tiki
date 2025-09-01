@@ -245,7 +245,7 @@ class CalendarLib extends TikiLib
     public function get_calendar($calendarId)
     {
         global $prefs;
-        if (substr($calendarId, 0, 1) === 's') {
+        if (str_starts_with($calendarId, 's')) {
             $subscription = $this->get_subscription(substr($calendarId, 1));
             $subscription['startday'] = ! empty($prefs['calendar_start_day']) ? $prefs['calendar_start_day'] : 25200;
             $subscription['endday'] = ! empty($prefs['calendar_end_day']) ? $prefs['calendar_end_day'] : 72000;
@@ -422,11 +422,11 @@ class CalendarLib extends TikiLib
         $joinCompl = '';
         $tblRef = 'i.';
 
-        if (substr($sort_mode, 0, 12) == "categoryName") {
+        if (str_starts_with($sort_mode, "categoryName")) {
             $queryCompl = "`tiki_calendar_categories` as compl right join ";
             $joinCompl = " on i.categoryId = compl.calcatid ";
             $tblRef = "compl.";
-        } elseif (substr($sort_mode, 0, 12) == "locationName") {
+        } elseif (str_starts_with($sort_mode, "locationName")) {
             $queryCompl = "`tiki_calendar_locations` as compl right join ";
             $joinCompl = " on i.locationId = compl.callocid ";
             $tblRef = "compl.";
@@ -445,7 +445,7 @@ class CalendarLib extends TikiLib
         }
 
         foreach ($calIds as $calendarId) {
-            if (substr($calendarId, 0, 1) === 's') {
+            if (str_starts_with($calendarId, 's')) {
                 $parserlib = TikiLib::lib('parser');
                 $timezone = TikiLib::lib('tiki')->get_display_timezone();
                 $sub = $this->get_subscription(substr($calendarId, 1));

@@ -238,7 +238,7 @@ function wikiplugin_googlechart($data, $params)
     }
     $queryp = [];
     foreach ($params as $key => $param) {
-        if (strpos($key, 'query_') === 0) {
+        if (str_starts_with($key, 'query_')) {
             $queryp[substr($key, strlen('query_'))] = $param;
         }
     }
@@ -248,7 +248,7 @@ function wikiplugin_googlechart($data, $params)
     $chart = ['options' => ['width' => '100%']];
 
     foreach ($params as $key => $param) {
-        if (strpos($key, 'chart_') === 0) {
+        if (str_starts_with($key, 'chart_')) {
             $chart[substr($key, strlen('query_'))] = $param;
         }
     }

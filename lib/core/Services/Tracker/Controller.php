@@ -1742,7 +1742,7 @@ class Services_Tracker_Controller
         ];
         if (! empty($trackerInfo['viewItemPretty'])) {
             // Need to check wether this is a wiki: or tpl: template, bc the smarty template needs to take care of this
-            if (strpos(strtolower($viewItemPretty['value']), 'wiki:') === false) {
+            if (! str_contains(strtolower($viewItemPretty['value']), 'wiki:')) {
                 $viewItemPretty['type'] = 'tpl';
             }
         }

@@ -253,7 +253,7 @@ class BlogWordpress extends Blog
                                 if (! in_array($node->textContent, $oldLinks)) {
                                     $oldLinks[] = $node->textContent;
                                 }
-                                if (strpos($node->textContent, $this->blogInfo['link']) !== false) {
+                                if (str_contains($node->textContent, $this->blogInfo['link'])) {
                                     $relativePath = str_replace($this->blogInfo['link'], '', $node->textContent);
                                     if (! in_array($relativePath, $oldLinks)) {
                                         $oldLinks[] = $relativePath;
@@ -559,7 +559,7 @@ class BlogWordpress extends Blog
             $src = $tag->getAttribute('src');
 
             //test if it is a youtube embedded video
-            if (strpos($src, 'youtube.com/embed') > 0) {
+            if (str_contains($src, 'youtube.com/embed') && ! str_starts_with($src, 'youtube.com/embed')) {
                 $youtubeVideoId = substr($src, strripos($src, '/') + 1);
                 $tagWithHtml = $dom->saveHTML($tag);
                 $newTag = '{youtube movie="' . $youtubeVideoId
@@ -877,7 +877,7 @@ class BlogWordpress extends Blog
             // in WP each post or page in general has two different permalinks
             // one with the item id and other with the title
             foreach ($links['oldLinks'] as $link) {
-                if (strpos($item['content'], $link) !== false) {
+                if (str_contains($item['content'], $link)) {
                     return true;
                 }
             }
@@ -970,7 +970,7 @@ class BlogWordpress extends Blog
     {
         global $prefs, $base_url;
 
-        if (substr($base_url, -1) != '/') {
+        if (! str_ends_with($base_url, '/')) {
             $base_url .= '/';
         }
 
@@ -1040,7 +1040,7 @@ class BlogWordpress extends Blog
 
                 foreach ($this->permalinks as $key => $links) {
                     foreach ($links['oldLinks'] as $link) {
-                        if (strpos($content, $link) !== false) {
+                        if (str_contains($content, $link)) {
                             $newLink = $this->permalinks[$key]['newLink'];
                             $content = str_replace($link, $newLink, $content);
                             $changed = true;
@@ -1075,7 +1075,7 @@ class BlogWordpress extends Blog
             foreach ($link['oldLinks'] as $oldLink) {
                 // oldLinks contain both the absolute and relative URLs
                 // in this case we want only relative
-                if (strpos($oldLink, '/') === 0) {
+                if (str_starts_with($oldLink, '/')) {
                     //TODO: properly filter Tiki URLs with non-English characters and spaces
                     $rules .= "Redirect 301 $oldLink " . str_replace(' ', '+', $link['newLink']) . "\n";
                 }

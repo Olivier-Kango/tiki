@@ -110,13 +110,10 @@ class PasswordHash
 
     public function crypt_private($password, $setting)
     {
-        $output = '*0';
-        if (substr($setting, 0, 2) == $output) {
-            $output = '*1';
-        }
+        $output = str_starts_with($setting, '*0') ? '*1' : '*0';
 
         // SJS modified for compat with phpBB3 hashes - $P$ to $H$
-        if (substr($setting, 0, 3) != '$H$') {
+        if (! str_starts_with($setting, '$H$')) {
             return $output;
         }
 

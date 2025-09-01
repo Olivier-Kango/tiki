@@ -116,11 +116,11 @@ function wikiplugin_redirect($data, $params)
 
         // Make it possible to edit the plugin in wysiwyg
         // Do not redirect if the page is being edited
-        $isEditMode = (strpos($_SERVER['SCRIPT_NAME'], 'tiki-editpage.php') !== false) || (isset($_REQUEST['controller']) && $_REQUEST['controller'] == 'edit');
-        if ($isEditMode == false) {
+        $isEditMode = (str_contains($_SERVER['SCRIPT_NAME'], 'tiki-editpage.php')) || (isset($_REQUEST['controller']) && $_REQUEST['controller'] == 'edit');
+        if (! $isEditMode) {
             // Auto login to remote Tiki functionality
             if (! empty($autologin_remotetiki)) {
-                if (substr($autologin_remotetiki, -1) == '/') {
+                if (str_ends_with($autologin_remotetiki, '/')) {
                     $autologin_remotetiki = rtrim($autologin_remotetiki, '/');
                 }
                 if (! empty($page)) {

@@ -285,7 +285,7 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
                 continue; // Skip default values
             }
 
-            if (substr($field, 0, 5) == 'show_') {
+            if (str_starts_with($field, 'show_')) {
                 $short = substr($field, 5);
                 if ($value == 'a' || $value == 'o') {
                     $popup[] = $short;

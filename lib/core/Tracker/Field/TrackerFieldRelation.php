@@ -71,7 +71,7 @@ class TrackerFieldRelation extends AbstractTrackerFieldRelational
     {
         $length = strlen('.invert');
 
-        if (substr($qualifier, -$length) === '.invert') {
+        if (str_ends_with($qualifier, '.invert')) {
             $qualifier = substr($qualifier, 0, -$length);
         } else {
             $qualifier .= '.invert';

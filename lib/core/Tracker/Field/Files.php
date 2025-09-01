@@ -598,7 +598,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                     $ret .= '<li>';
                     if ($prefs['vimeo_upload'] == 'y' && $this->getOption('displayMode') == 'vimeo') {
                         $ret .= smarty_function_icon(['name' => 'vimeo'], $smarty->getEmptyInternalTemplate());
-                    } elseif (substr($file['filetype'], 0, 6) == 'audio/') {
+                    } elseif (str_starts_with($file['filetype'], 'audio/')) {
                         $ret .= smarty_function_inline_audio_player(['fileId' => $fileId], $smarty->getEmptyInternalTemplate());
                     } else {
                         $ret .= smarty_modifier_iconify('tiki-download_file.php?fileId=' . $fileId, $file['filetype'], $fileId, 2);
@@ -1198,7 +1198,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                 $fileIds = [];
                 $urls = explode("\n", $value);
                 foreach ($urls as $url) {
-                    if (substr($url, 0, strlen($base_url)) === $base_url && preg_match('/(\d+)$/', $url, $m)) {
+                    if (str_starts_with($url, $base_url) && preg_match('/(\d+)$/', $url, $m)) {
                         $fileIds[] = $m[1];
                     } else {
                         $file_info = $filegallib->get_info_from_url($url);

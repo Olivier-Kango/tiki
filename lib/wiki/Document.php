@@ -498,10 +498,10 @@ class Document
                     }
                     if (! $options['escape']) {
                         if ($this->parsed and ! $this->nohtml) { // skipping popups for links
-                            if (substr($w, 0, 3) == '<a ') {
+                            if (str_starts_with($w, '<a ')) {
                                 $text .= '{AUTHOR}';
                             }
-                            if (substr($w, -4) == '</a>') {
+                            if (str_ends_with($w, '</a>')) {
                                 $text .= $w . "{AUTHOR(author=\"$author\"" .
                                        ($deleted ? ",deleted_by=\"$deleted_by\"" : '') .
                                        ',visible="1", ' .

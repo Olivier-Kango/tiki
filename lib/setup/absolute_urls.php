@@ -145,7 +145,7 @@ if (! empty($_SERVER['REQUEST_URI']) && strpos(substr($_SERVER['REQUEST_URI'], s
     $base_uri = $base_host; // maybe better than nothing
 }
 
-if (strpos($base_uri, $tikiroot . 'route.php') !== false && ! empty($inclusion)) {
+if (str_contains($base_uri, $tikiroot . 'route.php') && ! empty($inclusion)) {
     $base_uri = $base_url . $inclusion;
     if (! empty($_GET)) {
         $base_uri .= '?' . http_build_query($_GET, '', '&');

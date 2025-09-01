@@ -44,7 +44,7 @@ class mime
         $headparsed = preg_replace('/' . $crlf . "(\t| )/", ' ', $header);
         $heads = explode($crlf, trim($headparsed));
 
-        if (substr($heads[0], 0, 5) == 'From ') {
+        if (str_starts_with($heads[0], 'From ')) {
             $heads[0] = str_replace('From ', 'x-From: ', $heads[0]);
         }
 
@@ -52,7 +52,7 @@ class mime
             $hdr_name = trim(substr($line, 0, strpos($line, ':')));
             $hdr_value = trim(substr($line, strpos($line, ':') + 1));
 
-            if (substr($hdr_value, 0, 1) == ' ') {
+            if (str_starts_with($hdr_value, ' ')) {
                 $hdr_value = substr($hdr_value, 1);
             }
 

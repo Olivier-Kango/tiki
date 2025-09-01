@@ -73,7 +73,7 @@ class Tiki_Profile_InstallHandler_Sheet extends Tiki_Profile_InstallHandler
                         $formula = "";
                         $rawValue = $rows[$r][$c];
 
-                        if (substr($rawValue, 0, 1) == "=") {
+                        if (str_starts_with($rawValue, "=")) {
                             $formula = $rawValue;
                         } else {
                             $value = $rawValue;

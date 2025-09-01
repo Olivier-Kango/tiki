@@ -58,7 +58,7 @@ class ODBCSourceEntry implements SourceEntryInterface
     {
         if (isset($this->data[$remoteField])) {
             $value = $this->data[$remoteField];
-        } elseif (strstr($remoteField, '.')) {
+        } elseif (str_contains($remoteField, '.')) {
             $parts = explode('.', $remoteField);
             $value = $this->data[array_pop($parts)] ?? null;
         } else {

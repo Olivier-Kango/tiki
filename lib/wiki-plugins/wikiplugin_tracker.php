@@ -1540,8 +1540,8 @@ function wikiplugin_tracker($data, $params)
                     if (! empty($emailOptions[2])) { //tpl
                         $emailOptions[2] = preg_split('/ *, */', $emailOptions[2]);
                         foreach ($emailOptions[2] as $ieo => $eo) {
-                            if (strpos($eo, 'wiki:') !== 0) {
-                                if (! preg_match('/\.tpl$/', $eo)) {        // template file
+                            if (! str_starts_with($eo, 'wiki:')) {
+                                if (! str_ends_with($eo, '.tpl')) {        // template file
                                     $emailOptions[2][$ieo] = $eo . '.tpl';
                                 }
                                 $tplSubject[$ieo] = str_replace('.tpl', '_subject.tpl', $emailOptions[2][$ieo]);

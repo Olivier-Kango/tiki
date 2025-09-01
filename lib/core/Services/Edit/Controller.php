@@ -361,7 +361,7 @@ $(window).on("load", function(){
         $source_syntax = $syntaxPluginResult['syntax'];
 
         if ($source_syntax !== $syntax) {
-            if (strpos('{syntax type=', $data) !== 0) {
+            if (! str_starts_with('{syntax type=', $data)) {
                 $converted = '{syntax type="' . $source_syntax . '" editor="' . $editor . '"} ' . $converted;
             }
 
@@ -541,7 +541,7 @@ $(window).on("load", function(){
 
             if (in_array($name, $sectionToolbar)) {
                 $active[] = $tool;
-            } elseif (strpos($name, 'wikiplugin_') !== false) {
+            } elseif (str_contains($name, 'wikiplugin_')) {
                 $plugins[] = $tool;
             } else {
                 $tools[] = $tool;

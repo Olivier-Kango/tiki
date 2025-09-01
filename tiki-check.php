@@ -873,7 +873,7 @@ $php_properties['PHP version'] = array(
 // Check PHP command line version
 if (function_exists('exec')) {
     $cliSearchList = array('php', 'php56', 'php5.6', 'php5.6-cli');
-    $isUnix = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? false : true;
+    $isUnix = ! str_starts_with(strtoupper(PHP_OS), 'WIN');
     if ($isUnix) {
         // add virtualmin per-domain php configurations
         array_unshift($cliSearchList, __DIR__ . '/bin/php');
@@ -929,7 +929,7 @@ if (function_exists('exec')) {
 }
 
 // PHP Server API (SAPI)
-if (substr(PHP_SAPI, 0, 3) === 'cgi') {
+if (str_starts_with(PHP_SAPI, 'cgi')) {
     $php_properties['PHP Server API'] = array(
         'fitness' => tra('info'),
         'fitness_status' => FITNESS_STATUS_INFO,
@@ -941,7 +941,7 @@ if (substr(PHP_SAPI, 0, 3) === 'cgi') {
         'message' => tra('Looks like you are running PHP as FPM/CGI/FastCGI, you may be able to override some of your PHP configurations by add them to .user.ini files, see:'),
         'link' => 'http://php.net/manual/en/configuration.file.per-user.php'
     );
-} elseif (substr(PHP_SAPI, 0, 3) === 'fpm') {
+} elseif (str_starts_with(PHP_SAPI, 'fpm')) {
     $php_properties['PHP Server API'] = array(
         'fitness' => tra('info'),
         'fitness_status' => FITNESS_STATUS_INFO,
@@ -954,7 +954,7 @@ if (substr(PHP_SAPI, 0, 3) === 'cgi') {
         'link' => 'http://php.net/manual/en/configuration.file.per-user.php'
     );
 } else {
-    if (substr(PHP_SAPI, 0, 6) === 'apache') {
+    if (str_starts_with(PHP_SAPI, 'apache')) {
         $php_sapi_info = array(
             'message' => tra('Looks like you are running PHP as a module in Apache, you may be able to override some of your PHP configurations by add them to .htaccess files, see:'),
             'link' => 'http://php.net/manual/en/configuration.changes.php#configuration.changes.apache'
@@ -2058,7 +2058,7 @@ if ($connection || ! $standalone) {
     $query = "SHOW VARIABLES LIKE 'character_set_system';";
     $result = query($query, $connection);
     foreach ($result as $value) {
-        if (substr($value['Value'], 0, 4) == 'utf8') {
+        if (str_starts_with($value['Value'], 'utf8')) {
             $mysql_properties[$value['Variable_name']] = array(
                 'fitness' => tra('good'),
                 'fitness_status' => FITNESS_STATUS_GOOD,
@@ -2080,7 +2080,7 @@ if ($connection || ! $standalone) {
         $query = "SHOW VARIABLES LIKE 'collation_" . $type . "';";
         $result = query($query, $connection);
         foreach ($result as $value) {
-            if (substr($value['Value'], 0, 7) == 'utf8mb4') {
+            if (str_starts_with($value['Value'], 'utf8mb4')) {
                 $mysql_properties[$value['Variable_name']] = array(
                     'fitness' => tra('good'),
                     'fitness_status' => FITNESS_STATUS_GOOD,
@@ -2247,7 +2247,7 @@ if (function_exists('apache_get_version')) {
             $rewritebase = '/';
             while ($nextLine = fgets($enabledFile)) {
                 if (preg_match('/^RewriteBase\s*(.*)$/', $nextLine, $m)) {
-                    $rewritebase = substr($m[1], -1) !== '/' ? $m[1] . '/' : $m[1];
+                    $rewritebase = ! str_ends_with($m[1], '/') ? $m[1] . '/' : $m[1];
                     break;
                 }
             }
@@ -3415,7 +3415,7 @@ SQL;
 /**
  * Tiki Manager Section
  **/
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+if (str_starts_with(strtoupper(PHP_OS), 'WIN')) {
     $trimCapable = false;
 } else {
     $trimCapable = true;
@@ -4305,7 +4305,7 @@ function checkPreferences(array $preferences)
  */
 function commandIsAvailable($command)
 {
-    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    if (str_starts_with(strtoupper(PHP_OS), 'WIN')) {
         $template = "where %s";
     } else {
         $template = "command -v %s 2>/dev/null";
@@ -4559,7 +4559,7 @@ function check_for_remote_readable_files(array &$files, $sourceDir = 'db')
     //fix dir slash
     $sourceDir = str_replace('\\', '/', $sourceDir);
 
-    if (substr($sourceDir, -1, 1) != '/') {
+    if (! str_ends_with($sourceDir, '/')) {
         $sourceDir .= '/';
     }
 
@@ -4613,7 +4613,7 @@ function check_isIIS()
     static $IIS;
     // Sample value Microsoft-IIS/7.5
     if (! isset($IIS) && isset($_SERVER['SERVER_SOFTWARE'])) {
-        $IIS = substr($_SERVER['SERVER_SOFTWARE'], 0, 13) == 'Microsoft-IIS';
+        $IIS = str_starts_with($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS');
     }
     return $IIS;
 }

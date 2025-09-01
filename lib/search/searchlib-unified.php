@@ -1054,7 +1054,7 @@ class UnifiedSearchLib
                     if (version_compare($root->version->number, '1.0.0') === -1) {
                         $status = $connection->rawApi('/_status');
                         foreach ($status->indices as $indexName => $data) {
-                            if (strpos($indexName, $prefs['unified_elastic_index_prefix']) === 0) {
+                            if (str_starts_with($indexName, $prefs['unified_elastic_index_prefix'])) {
                                 $info[tr('Index %0', $indexName)] = tr(
                                     '%0 documents, totaling %1',
                                     $data->docs->num_docs,
@@ -1071,7 +1071,7 @@ class UnifiedSearchLib
                         $status = $connection->getIndexStatus();
 
                         foreach ($status->indices as $indexName => $data) {
-                            if (strpos($indexName, $prefs['unified_elastic_index_prefix']) === 0) {
+                            if (str_starts_with($indexName, $prefs['unified_elastic_index_prefix'])) {
                                 if (isset($data->primaries)) {  // v2
                                     $info[tr('Index %0', $indexName)] = tr(
                                         '%0 documents, totaling %1 bytes',

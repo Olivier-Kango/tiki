@@ -1111,7 +1111,7 @@ function get_options()
     }
 
     foreach ($_SERVER['argv'] as $arg) {
-        if (substr($arg, 0, 2) == '--') {
+        if (str_starts_with($arg, '--')) {
             if (($opt = substr($arg, 2)) != '' && isset($options[$opt])) {
                 $options[$opt] = true;
             } elseif (substr($arg, 2, 11) == 'http-proxy=') {

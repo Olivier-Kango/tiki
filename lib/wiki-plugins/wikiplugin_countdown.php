@@ -432,9 +432,9 @@ function wikiplugin_countdown($data, $params)
         }
     //if after the event and no countdown shown
     } elseif (! empty($data)) {
-        if (empty($text) || strpos($text, '|') === false) {
+        if (empty($text) || ! str_contains($text, '|')) {
             $word = tra('is over');
-        } elseif (strpos($text, '|') !== false) {
+        } elseif (str_contains($text, '|')) {
             $custom = explode('|', $text);
             //$custom[4] = text to display after event occurs when no countdown is shown because since set to n
             $word = ! empty($custom[4]) ? $custom[4] : '';

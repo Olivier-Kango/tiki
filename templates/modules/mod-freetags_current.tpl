@@ -3,7 +3,7 @@
         {if $modFreetagsCurrent.count gt 0}
             {section name=ix loop=$modFreetagsCurrent.data}
                 <div class="module">
-                    {capture name=tagurl}{if (strstr($modFreetagsCurrent.data[ix].tag, ' '))}"{$modFreetagsCurrent.data[ix].tag}"{else}{$modFreetagsCurrent.data[ix].tag}{/if}{/capture}
+                    {capture name=tagurl}{if (str_contains($modFreetagsCurrent.data[ix].tag, ' '))}"{$modFreetagsCurrent.data[ix].tag}"{else}{$modFreetagsCurrent.data[ix].tag}{/if}{/capture}
                     <a class="linkmodule" href="tiki-browse_freetags.php?tag={$smarty.capture.tagurl|escape:'url'}">{$modFreetagsCurrent.data[ix].tag|escape}</a>
                 </div>
             {/section}

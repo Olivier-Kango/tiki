@@ -8,7 +8,7 @@
 
 use Tiki\Lib\Wiki\WikiLibOutput;
 
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -1434,7 +1434,7 @@ class WikiLib extends TikiLib
                 $objectId = substr($res['fromPage'], strlen($type) + 12);
                 if ($type == 'trackeritemfield') {
                     $feature = 'wiki_backlinks_show_trackeritem';
-                } elseif (substr($type, -7) == 'comment') {
+                } elseif (str_ends_with($type, 'comment')) {
                     $feature = 'wiki_backlinks_show_comment';
                 } else {
                     $feature = 'wiki_backlinks_show_' . str_replace(" ", "_", $type);
@@ -1506,7 +1506,7 @@ class WikiLib extends TikiLib
 
         while ($res = $result->fetchRow()) {
             $frompage = $res['fromPage'];
-            if (substr($frompage, 0, 11) != 'objectlink:') {
+            if (! str_starts_with($frompage, 'objectlink:')) {
                 $wikiLastModif = (int) $tikilib->get_page_info($frompage)[$lastModif];
                 $tikilib->query($updateQuery, [$wikiLastModif, $frompage, $page]);
             } else {

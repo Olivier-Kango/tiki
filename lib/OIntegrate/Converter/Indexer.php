@@ -38,7 +38,7 @@ class Indexer implements ConverterInterface
                     $data = [];
                     $count = 0;
                     foreach ($documents as $document) {
-                        if (strpos($document, $_REQUEST['nt_name']) === 0) {
+                        if (str_starts_with($document, $_REQUEST['nt_name'])) {
                             $data[$document] = $source->getDocument($document, $factory);
                             $count++;
                             if ($count > 100) { // enough for a preview?

@@ -10,7 +10,7 @@ $access->check_permission('tiki_p_admin');
 // tikiwiki preferences check
 // do we need to get the preferences or are they already loaded?
 $tikisettings = [];
-if ($prefs['feature_file_galleries'] == 'y' && ! empty($prefs['fgal_use_dir']) && substr($prefs['fgal_use_dir'], 0, 1) != '/') { // todo: check if absolute path is in tiki root
+if ($prefs['feature_file_galleries'] == 'y' && ! empty($prefs['fgal_use_dir']) && ! str_starts_with($prefs['fgal_use_dir'], '/')) { // todo: check if absolute path is in tiki root
     $tikisettings['fgal_use_dir'] = [
         'risk' => tra('unsafe') ,
         'setting' => $prefs['fgal_use_dir'],

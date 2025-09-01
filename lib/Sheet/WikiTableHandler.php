@@ -105,7 +105,7 @@ class WikiTableHandler extends DataHandler
 
             $content = substr($data, $begin + 2, $end - $begin - 2);
 
-            if (strpos($content, '|') !== false) {
+            if (str_contains($content, '|')) {
                 $tables[] = $content;
             }
         }

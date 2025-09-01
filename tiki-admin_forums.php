@@ -133,7 +133,7 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
         $_REQUEST["section"] = $_REQUEST["new_section"];
     }
     // Check for last character being a / or a \
-    if (substr($_REQUEST["att_store_dir"], -1) != "\\" && substr($_REQUEST["att_store_dir"], -1) != "/" && $_REQUEST["att_store_dir"] != "") {
+    if (! str_ends_with($_REQUEST["att_store_dir"], "\\") && ! str_ends_with($_REQUEST["att_store_dir"], "/") && $_REQUEST["att_store_dir"] != "") {
         $_REQUEST["att_store_dir"] .= "/";
     }
     $_REQUEST['forumLanguage'] = htmlspecialchars($_REQUEST["forumLanguage"] ?? '');

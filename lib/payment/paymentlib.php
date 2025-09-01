@@ -536,7 +536,7 @@ class PaymentLib extends TikiDb_Bridge
                 $sort = explode(',', $sort);
             }
             foreach ($sort as $s) {
-                if (strpos($s, '.') === false) {
+                if (! str_contains($s, '.')) {
                     $dir = strrchr($s, '_');
                     $sfield = substr($s, 0, strlen($s) - strlen($dir));
                     $stable = $this->setTable($sfield);

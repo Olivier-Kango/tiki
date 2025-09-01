@@ -165,9 +165,9 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
             if (! empty($context['url'])) {
                 if ($context['url'] == 'sefurl') {
                     $context['url'] = 'item' . $itemId;
-                } elseif (strpos($context['url'], 'itemId') !== false) {
+                } elseif (str_contains($context['url'], 'itemId')) {
                     $context['url'] = preg_replace('/([&|\?])itemId=?[^&]*/', '\\1itemId=' . $itemId, $context['url']);
-                } elseif (isset($context['reloff']) && strpos($context['url'], 'offset') !== false) {
+                } elseif (isset($context['reloff']) && str_contains($context['url'], 'offset')) {
                     $smarty = \TikiLib::lib('smarty');
                     $context['url'] = preg_replace('/([&|\?])tr_offset=?[^&]*/', '\\1tr_offset' . $smarty->tpl_vars['iTRACKERLIST']
                         . '=' . $context['reloff'], $context['url']);

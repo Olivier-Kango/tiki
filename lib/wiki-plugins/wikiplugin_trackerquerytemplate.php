@@ -324,7 +324,7 @@ class dataToFieldHandler
             }
         }
 
-        if (strpos($data, '$created$')) {
+        if (str_contains($data, '$created$')) {
             $data = str_replace('$created$', $tikilib->get_short_date($tikilib->getOne("SELECT created FROM tiki_tracker_items WHERE itemId = ?", [$this->itemId])), $data);
         }
 

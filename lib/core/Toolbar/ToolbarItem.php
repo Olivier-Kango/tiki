@@ -282,7 +282,7 @@ abstract class ToolbarItem
             'plugin' => $plugin,
         ];
 
-        if (strpos($icon, 'img/icons/') !== false) {
+        if (str_contains($icon, 'img/icons/')) {
             $data['icon'] = $icon;
         } else {
             $data['iconname'] = $icon;

@@ -1,7 +1,7 @@
 <?php
 
 //this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"],basename(__FILE__)) !== false) {
+if (str_contains($_SERVER["SCRIPT_NAME"], basename(__FILE__))) {
   header("location: index.php");
   exit;
 }
@@ -146,7 +146,7 @@ class HTTPHeader {
         }
         $path = preg_replace('/[#\?].*/', '', $path);
         $path = preg_replace('/\.php\/.*$/', '', $path);
-        if (substr($path, -1, 1) == '/'){
+        if (str_ends_with($path, '/')){
             $path .= 'dummy';
         }
         $path = dirname($path);

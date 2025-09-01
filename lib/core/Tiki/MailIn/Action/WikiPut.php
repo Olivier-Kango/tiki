@@ -298,13 +298,13 @@ class WikiPut implements ActionInterface
         $user = $message->getAssociatedUser();
 
         foreach ($message->getAttachments() as $att) {
-            if (substr($att['type'], 0, 6) != 'image/') {
+            if (! str_starts_with($att['type'], 'image/')) {
                 // Skip non-images
                 continue;
             }
 
             $string = "cid:{$att['contentId']}"; // This string may differ
-            if (strpos($body, $string) !== false) {
+            if (str_contains($body, $string)) {
                 $link = $this->attachFile($page, $att, $user);
                 $message->setLink($att['contentId'], $link);
                 $body = str_replace($string, $link, $body);

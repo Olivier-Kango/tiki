@@ -308,7 +308,7 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
                     } else {
                         $str = $category['name'];
                     }
-                    if (strpos($this->getOption('outputtype'), 'links') !== false && $rendered) {
+                    if (str_contains($this->getOption('outputtype'), 'links') && $rendered) {
                         $deep = $this->getOption('descendants') != 0;
                         $href = smarty_modifier_sefurl($categId, 'category', $deep, '', 'y', $str);
                         if ($deep) {
@@ -321,7 +321,7 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
                 }
             }
         }
-        if (strpos($this->getOption('outputtype'), 'ul') === 0 && $rendered) {
+        if (str_starts_with($this->getOption('outputtype'), 'ul') && $rendered) {
             if (count($ret)) {
                 $out = '<ul class="tracker_field_category">';
                 foreach ($ret as $li) {

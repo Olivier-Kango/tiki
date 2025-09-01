@@ -170,14 +170,14 @@ class Tracker_Field_Location extends \Tracker\Field\AbstractItemField implements
         if (! empty(array_filter($sourceFieldsList))) {
             $event = $this->getOption('sourceSearchEvent');
 
-            $emptyValue = ! $value || strpos($value, '0,0,') !== false;
+            $emptyValue = ! $value || str_contains($value, '0,0,');
 
             if ($event === 'save' && $emptyValue || $event === 'savealways') {
                 $value = $this->searchForLocation($sourceFieldsList);
             }
         }
 
-        if (strpos($value, '0,0,') !== false) {
+        if (str_contains($value, '0,0,')) {
             $value = '';
         }
 

@@ -92,7 +92,7 @@ if (isset($_REQUEST["save"])) {
     if (empty($_REQUEST["url"])) {
         $msg .= tra("Must enter a url to add a site. ");
     } else {
-        if (substr($_REQUEST["url"], 0, 7) <> 'http://' && substr($_REQUEST["url"], 0, 8) <> 'https://') {
+        if (! str_starts_with($_REQUEST["url"], 'http://') && ! str_starts_with($_REQUEST["url"], 'https://')) {
             $_REQUEST["url"] = 'http://' . $_REQUEST["url"];
         }
         if ($dirlib->dir_url_exists($_REQUEST['url'])) {

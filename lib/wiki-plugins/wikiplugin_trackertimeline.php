@@ -394,7 +394,7 @@ function wikiplugin_trackertimeline($data, $params)
             }
             $image = $itemImage;
             if (! empty($image)) {
-                if (strpos($image, ',') !== false) {
+                if (str_contains($image, ',')) {
                     // just the first one
                     $image = substr($image, 0, strpos($image, ','));
                 }

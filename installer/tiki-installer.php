@@ -12,7 +12,7 @@ use Tiki\Installer\Patch;
 use Tiki\Installer\ProgressBar;
 
 //this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER["SCRIPT_NAME"], basename(__FILE__))) {
     header("location: index.php");
     exit;
 }
@@ -550,7 +550,7 @@ if (
 
 
     if ($install_step == '6' || $install_step == '7') {
-        if (strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false) {
+        if (str_contains($_SERVER['SERVER_SOFTWARE'], 'Apache')) {
             if (! file_exists('.htaccess')) {
                 if (! isset($_REQUEST['htaccess_process'])) {
                     $htaccess_options = ['auto' => tra('Automatic')];

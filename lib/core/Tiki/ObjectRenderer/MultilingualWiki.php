@@ -66,7 +66,7 @@ class MultilingualWiki extends AbstractObjectRenderer
      */
     public function getIndexValue($key)
     {
-        if (strpos($key, 'lang_') === 0) {
+        if (str_starts_with($key, 'lang_')) {
             list( $key, $lang ) = explode('_', substr($key, 5), 2);
 
             if (isset($this->renderers[$lang]) && $this->renderers[$lang]) {

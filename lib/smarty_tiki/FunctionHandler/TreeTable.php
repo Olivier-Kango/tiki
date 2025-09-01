@@ -116,7 +116,7 @@ class TreeTable extends Base
         }
         if (! empty($_checkboxTitles)) {
             if (is_string($_checkboxTitles)) {
-                if (strpos($_checkboxTitles, ',') !== false) {
+                if (str_contains($_checkboxTitles, ',')) {
                     $_checkboxTitles = preg_split('/,/', trim($_checkboxTitles));
                 } else {
                     $_checkboxTitles = [trim($_checkboxTitles)];
@@ -127,7 +127,7 @@ class TreeTable extends Base
             }
         }
 
-        $_columnsContainHtml = isset($_columnsContainHtml) ? $_columnsContainHtml : 'n';
+        $_columnsContainHtml = $_columnsContainHtml ?? 'n';
 
         $html = '';
         $nl = "\n";
@@ -472,7 +472,7 @@ $("#' . $id . '_showSelected").on("click", function () {
         }
 
         if ($sort) {
-            if (strpos($sort, 'sort') === false) {
+            if (! str_contains($sort, 'sort')) {
                 $sort = 'asort';
             }
             $sort($arrTemp);

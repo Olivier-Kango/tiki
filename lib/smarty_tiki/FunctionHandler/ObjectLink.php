@@ -159,7 +159,7 @@ class ObjectLink extends Base
 
         $class = ' class="' . implode(' ', $classList) . '"';
 
-        if (strpos($escapedHref, '://') === false) {
+        if (! str_contains($escapedHref, '://')) {
             //$html = '<a href="' . $base_url . $escapedHref . '"' . $class . $titleAttribute . $metadata . '>' . $escapedText . '</a>';
             // When the link is created for a tiki page, then we do NOT want the baseurl included,
             // because it might be we are using a reverse proxy or a an ssl offloader, or we access from a public fqdn that is not
@@ -254,7 +254,7 @@ class ObjectLink extends Base
         $cachelib = \TikiLib::lib('cache');
         $tikilib = \TikiLib::lib('tiki');
 
-        if (substr($link_orig, 0, 4) === 'www.') {
+        if (str_starts_with($link_orig, 'www.')) {
             $link = 'http://' . $link_orig;
         } else {
             $link = $link_orig;

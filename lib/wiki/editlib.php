@@ -1317,20 +1317,20 @@ class EditLib
             }
             // Recursive call on tags with content...
             if (! empty($node['content'])) {
-                if (substr($src, -1) != ' ') {
+                if (! str_ends_with($src, ' ')) {
                     $src .= ' ';
                 }
                 $this->walk_and_parse($node['content'], $src, $p, $head_url);
             }
         }
-        if (substr($src, -2) == "\n\n") {   // seem to always get too many line ends
+        if (str_ends_with($src, "\n\n")) {   // seem to always get too many line ends
             $src = substr($src, 0, -2);
         }
     }
 
     public function startNewLine(&$str)
     {
-        if (strlen($str) && substr($str, -1) != "\n") {
+        if (strlen($str) && ! str_ends_with($str, "\n")) {
             $str .= "\n";
         }
     }
@@ -2072,7 +2072,7 @@ class EditLib
 
                 // These are likely broken parts of the font-family declaration
                 // Reconstruct the complete style attribute
-                if (strpos($style, 'font-family:') !== false && substr($style, -1) !== ';') {
+                if (str_contains($style, 'font-family:') && ! str_ends_with($style, ';')) {
                     $style .= ', ' . $attr1;
                     if ($attr2) {
                         $style .= ', ' . $attr2;

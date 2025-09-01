@@ -1005,7 +1005,7 @@ function runR($output, $convert, $sha1, $input, $r_echo, $ws, $params, $user, $r
     }
     $cont = file_get_contents($rst);
 
-    if (strpos($cont, '<html>') === false) {
+    if (! str_contains($cont, '<html>')) {
         if (! $fd = fopen($rst, 'w')) {
             $runR_errors = ['error' => true, 'type' => 'error', 'title' => 'Can not open cached file' , 'body' => $err];
             return;

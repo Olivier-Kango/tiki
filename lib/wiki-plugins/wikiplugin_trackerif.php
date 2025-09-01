@@ -47,7 +47,7 @@ function wikiplugin_trackerif($data, $params)
     $values = [];
     $dataelse = '';
 
-    if (strpos($data, '{ELSE}')) {
+    if (str_contains($data, '{ELSE}')) {
         // Else bloc when test does not pass
         $dataelse = substr($data, strpos($data, '{ELSE}') + 6);
         $data = substr($data, 0, strpos($data, '{ELSE}'));

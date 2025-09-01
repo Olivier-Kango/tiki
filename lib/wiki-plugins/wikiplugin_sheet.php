@@ -251,7 +251,7 @@ EOF;
         $ret = ($sheet->getTableHtml($subsheets));
     }
 
-    if (strpos($ret, '<table ') === false) {
+    if (! str_contains($ret, '<table ')) {
         return '~np~' . $ret . '~/np~'; // return a single cell raw
     }
 

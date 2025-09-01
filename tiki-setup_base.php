@@ -439,7 +439,7 @@ function varcheck(&$array, $category)
             } elseif (isset($vartype["$rq"])) {
                 $has_sign = false;
                 // Variable allowed to be empty?
-                if ('+' == substr($vartype[$rq], 0, 1)) {
+                if (str_starts_with($vartype[$rq], '+')) {
                     if ($rv == "") {
                         // $return[] = tra("Notice: this variable may not be empty:") . ' <font color="red">$' . $category . '["' . $rq . '"]</font>';
                         continue;

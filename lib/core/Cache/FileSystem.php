@@ -83,7 +83,7 @@ class FileSystem implements KvpCacheInterface
             throw new Exception("Unable to open cache directory {$this->folder}");
         }
         while ($file = readdir($all)) {
-            if (strpos($file, $type) === 0) {
+            if (str_starts_with($file, $type)) {
                 unlink("$path/$file");
             }
         }

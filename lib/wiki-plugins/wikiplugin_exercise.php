@@ -78,7 +78,7 @@ function wikiplugin_exercise_parse_data($data)
             continue;
         }
 
-        if (substr($line, 0, 3) === '---') {
+        if (str_starts_with($line, '---')) {
             $key = count($exercises);
             $exercises[] = [];
         } elseif ($key !== -1) {

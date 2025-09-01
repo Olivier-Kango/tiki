@@ -121,7 +121,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
         $newFileList = [];
         foreach (explode(',', $fileList) as $fileId) {
             $file = $fileGal->get_file($fileId);
-            if (substr($file['filetype'], 0, 6) != 'image/') {
+            if (! str_starts_with($file['filetype'], 'image/')) {
                 $newFileList[] = $fileId;
                 continue;
             }
@@ -231,7 +231,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 
         if ($checkMissing) {
             foreach ($values as $key => $value) {
-                if (strpos($template, $key) !== false) {
+                if (str_contains($template, $key)) {
                     if (empty($value)) {
                         $missingTemplateKeys[] = $key;
                     }

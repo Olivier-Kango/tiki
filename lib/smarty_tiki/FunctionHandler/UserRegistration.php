@@ -141,7 +141,7 @@ class UserRegistration extends Base
                     $re['registrationUsersFieldIds'] = explode(':', $re['registrationUsersFieldIds']);
                 }
                 if ($registrationlib->merged_prefs["user_register_prettytracker"] == 'y' && ! empty($registrationlib->merged_prefs["user_register_prettytracker_tpl"])) {
-                    if (substr($registrationlib->merged_prefs["user_register_prettytracker_tpl"], -4) == ".tpl") {
+                    if (str_ends_with($registrationlib->merged_prefs["user_register_prettytracker_tpl"], ".tpl")) {
                         $userTrackerData = wikiplugin_tracker(
                             '',
                             [

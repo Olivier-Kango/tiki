@@ -128,7 +128,7 @@ class Search_Elastic_Connection
         } catch (Exception $e) {
             $message = $e->getMessage();
 
-            if (strpos($message, '[_status]') === false && strpos($message, 'no such index') === false) {   // another error
+            if (! str_contains($message, '[_status]') && ! str_contains($message, 'no such index')) {   // another error
                 Feedback::error($message . ' for index ' . $index);
                 return null;
             }
@@ -613,7 +613,7 @@ class Search_Elastic_Connection
     private function getClient($path)
     {
         $full = "{$this->dsn}$path";
-        if (substr($path, -8) === '_refresh') {
+        if (str_ends_with($path, '_refresh')) {
             $options = ['timeout' => 300];
         } else {
             $options = null;

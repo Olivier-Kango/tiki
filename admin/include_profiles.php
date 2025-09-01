@@ -7,7 +7,7 @@
 use Symfony\Component\Yaml\Yaml;
 
 //this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -51,7 +51,7 @@ if (isset($_POST['forget'], $_POST['pp'], $_POST['pd']) && $access->checkCsrf())
 
     if ($target = $profile->getInstructionPage()) {
         foreach ($profilefeedback as $feedback) {
-            if (strpos($feedback, tra('An error occurred: ')) === 0) {
+            if (str_starts_with($feedback, tra('An error occurred: '))) {
                 Feedback::error($feedback);
             }
         }
@@ -119,7 +119,7 @@ if (isset($_POST['install'], $_POST['pd'], $_POST['pp'])) {
 
 if (isset($_POST['test'], $_POST['profile_tester'], $_POST['profile_tester_name']) && $access->checkCsrf()) {
     $test_source = $_POST['profile_tester'];
-    if (strpos($test_source, '{CODE}') === false) {
+    if (! str_contains($test_source, '{CODE}')) {
         // wrap in CODE tags if none there
         $test_source = "{CODE(caption=>YAML)}\n$test_source\n{CODE}";
     }

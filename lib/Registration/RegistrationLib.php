@@ -14,7 +14,7 @@
 namespace Tiki\Lib\Registration;
 
 //this script may only be included - so it's better to die if called directly
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     die;
 }

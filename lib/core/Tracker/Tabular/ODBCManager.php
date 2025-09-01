@@ -419,7 +419,7 @@ class ODBCManager
                         if ($replace_arr == $local_arr) {
                             return true;
                         }
-                    } elseif (strstr($replace, ',')) {
+                    } elseif (str_contains($replace, ',')) {
                         if (in_array($local, preg_split('/\s*,\s*/', $replace))) {
                             return true;
                         }

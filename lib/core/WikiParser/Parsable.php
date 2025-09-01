@@ -482,7 +482,7 @@ if ( \$('#$id') ) {
                 $_REQUEST['tr_offset1'] = 0;
             }
             foreach ($args as $arg) {
-                if (substr($arg, 0, 4) == '{$f_') {
+                if (str_starts_with($arg, '{$f_')) {
                     return $name . ': ' . tr(
                         'Pretty tracker reference "%0" could not be replaced in plugin "%1".',
                         str_replace(['{','}'], '', $arg),

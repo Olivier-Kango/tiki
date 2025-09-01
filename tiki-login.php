@@ -142,7 +142,7 @@ if ($requestedUser == 'admin') {
 if ($prefs['feature_intertiki'] == 'y' && $prefs['feature_intertiki_server'] != 'y') {
     if (! empty($prefs['feature_intertiki_mymaster'])) {
         $_REQUEST['intertiki'] = $prefs['feature_intertiki_mymaster'];
-    } elseif (strstr($requestedUser, '@')) {
+    } elseif (str_contains($requestedUser, '@')) {
         list($requestedUser, $intertiki_domain) = explode('@', $requestedUser);
         $_REQUEST['intertiki'] = $intertiki_domain;
     }
@@ -407,9 +407,9 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
         if (($prefs['feature_best_language'] == 'y') && ($prefs['feature_sefurl'] == 'y')) {
             // If the URL contains the 'main' home page, remove the page name and let Tiki choose the correct home page upon reload
             $homePageUrl = urlencode($prefs['wikiHomePage']);
-            if (strpos($url, 'page=' . $homePageUrl) !== false) {
+            if (str_contains($url, 'page=' . $homePageUrl)) {
                 $url = str_replace('page=' . $homePageUrl, '', $url);
-            } elseif (strpos($url, $homePageUrl) !== false) {
+            } elseif (str_contains($url, $homePageUrl)) {
                 // Strip away the page name from the URL
                 $parts = parse_url($url);
                 $url = '';
@@ -460,7 +460,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
                     //  - pageName => tiki-index.php?page=pageName
                     $anonymous_homepage = $userlib->get_group_home('Anonymous');
                     if (! preg_match('#^https?://#', $anonymous_homepage)) {
-                        if (substr($anonymous_homepage, 0, 5) == 'http:') {
+                        if (str_starts_with($anonymous_homepage, 'http:')) {
                             $anonymous_homepage = substr($anonymous_homepage, 5);
                         } else {
                             $anonymous_homepage = 'tiki-index.php?page=' . urlencode($anonymous_homepage);
@@ -689,7 +689,7 @@ if ($stay_in_ssl_mode == 'y' && $https_mode) {
 }
 
 if (defined('SID') && SID != '') {
-    $url .= ((strpos($url, '?') === false) ? '?' : '&') . SID;
+    $url .= ((! str_contains($url, '?')) ? '?' : '&') . SID;
 }
 
 // Check if a wizard should be run.

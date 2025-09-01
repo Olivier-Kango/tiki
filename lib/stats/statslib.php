@@ -345,7 +345,7 @@ class StatsLib extends TikiLib
         $i = 0;
 
         while ($res = $result->fetchRow()) {
-            if (strpos($res["object"], "?")) {
+            if (str_contains($res["object"], "?")) {
                 list($stats[$i]['ID'],$stats[$i]['object']) = explode("?", $res["object"], 2);
             } else {
                 $stats[$i]['object'] = $res["object"];

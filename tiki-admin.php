@@ -297,14 +297,14 @@ if (isset($_REQUEST['page'])) {
             $current_admin_icon = $admin_icons[$adminPage];
 
             $admintitle = $current_admin_icon['title'];
-            $description = isset($current_admin_icon['description']) ? $current_admin_icon['description'] : '';
-            $helpUrl = isset($current_admin_icon['help']) ? $current_admin_icon['help'] : '';
+            $description = $current_admin_icon['description'] ?? '';
+            $helpUrl = $current_admin_icon['help'] ?? '';
         }
     }
     $helpDescription = tr("Help on %0 Config", $admintitle);
 
     $smarty->assign('include', $adminPage);
-    if (substr($adminPage, 0, 3) == 'tp_' && ! file_exists("admin/include_$adminPage.tpl")) {
+    if (str_starts_with($adminPage, 'tp_') && ! file_exists("admin/include_$adminPage.tpl")) {
         $packageAdminTplFile = $utilities->getExtensionFilePath("templates/admin/include_$adminPage.tpl");
         if (! file_exists($packageAdminTplFile)) {
             $smarty->assign('include', 'extension_package_missing_page');

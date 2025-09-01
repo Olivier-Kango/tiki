@@ -23,7 +23,7 @@ class PatchCypht
         $vendors = $event->getComposer()->getConfig()->get('vendor-dir');
         $io = $event->getIO();
 
-        if (substr($vendors, -1, 1) !== DIRECTORY_SEPARATOR) {
+        if (! str_ends_with($vendors, DIRECTORY_SEPARATOR)) {
             if (DIRECTORY_SEPARATOR == "/") {
                 $vendors .= DIRECTORY_SEPARATOR;
             } else {

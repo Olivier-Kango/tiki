@@ -484,7 +484,7 @@ window.customsearch_$id = customsearch$id;
         } elseif ($recalllastsearch && isset($_SESSION["customsearch_$id"][$fieldid])) {
             $default = $_SESSION["customsearch_$id"][$fieldid];
         } elseif (! empty($arguments['_default'])) {
-            if (strpos($arguments['_default'], ',') !== false) {
+            if (str_contains($arguments['_default'], ',')) {
                 $default = explode(',', $arguments['_default']);
             } else {
                 $default = $arguments['_default'];
@@ -723,7 +723,7 @@ function cs_design_setbasic($element, $fieldid, $fieldname, $arguments)
     $element->setAttribute('id', $fieldid);
     $element->setAttribute('name', $fieldname);
     foreach ($arguments as $k => $v) {
-        if (substr($k, 0, 1) != '_') {
+        if (! str_starts_with($k, '_')) {
             $element->setAttribute($k, $v);
         }
     }

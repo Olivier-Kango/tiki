@@ -585,7 +585,7 @@ class PdfGenerator
             }
 
             if (strip_tags(trim($pdfPage['pageContent']), "img,pdfinclude") != '') { //including external pdf
-                if (strpos($pdfPage['pageContent'], "<pdfinclude")) {
+                if (str_contains($pdfPage['pageContent'], "<pdfinclude")) {
                     //getting src
                     $breakPageContent = str_replace(["<pdfpage>.","</pdfpage>","<pdfinclude src=","/>","\""], "", $pdfPage['pageContent']);
                     $breakPageContent = trim($breakPageContent);
@@ -599,17 +599,17 @@ class PdfGenerator
                             $tokenParam = '?TOKEN';
                         }
                         if (preg_match('/display(\d+)/', $breakPageContent, $parts)) {
-                            $fileId = isset($parts[1]) ? $parts[1] : 0;
+                            $fileId = $parts[1] ?? 0;
                             $params = ['fileId' => $fileId, 'display' => ''];
                             $tokenParam = '?TOKEN';
                         }
                         if (preg_match('/fileId=(\d+)/', $breakPageContent, $parts)) {
-                            $fileId = isset($parts[1]) ? $parts[1] : 0;
+                            $fileId = $parts[1] ?? 0;
                             $params = ['fileId' => $fileId];
                             $tokenParam = '&TOKEN';
                         }
                         if (preg_match('/fileId=(\d+)(.*)display/', $breakPageContent, $parts)) {
-                            $fileId = isset($parts[1]) ? $parts[1] : 0;
+                            $fileId = $parts[1] ?? 0;
                             $params = ['fileId' => $fileId, 'display' => ''];
                             $tokenParam = '&TOKEN';
                         }
@@ -1059,7 +1059,7 @@ class PdfGenerator
         global $base_url, $prefs;
         //check if image is internal with full path
         $internalImg = 0;
-        if (substr($url, 0, strlen($base_url)) == $base_url) {
+        if (str_starts_with($url, $base_url)) {
             $internalImg = 1;
         }
         //checking for external images

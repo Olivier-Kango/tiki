@@ -60,7 +60,7 @@ class Services_Search_Controller
             $removeIndexErrorsCallback = function ($item) {
                 if ($item['type'] == 'error') {
                     foreach ($item['mes'] as $me) {
-                        if (strpos($me, 'does not exist in the current index') !== false) {
+                        if (str_contains($me, 'does not exist in the current index')) {
                             return true;
                         }
                     }
@@ -82,7 +82,7 @@ class Services_Search_Controller
         if (! empty($stat)) {
             $list = false;
             $unifiedsearchlib->formatStats($stat, function ($line) use (&$msg, &$list) {
-                if (substr($line, 0, 2) === '  ') {
+                if (str_starts_with($line, '  ')) {
                     if (! $list) {
                         $list = true;
                         $msg .= "<ul>";
@@ -256,7 +256,7 @@ class Services_Search_Controller
                                 }
                                 return $value;
                             }
-                        } elseif (substr($key, 0, 5) == 'meta.') {
+                        } elseif (str_starts_with($key, 'meta.')) {
                             return '';
                         } elseif ($format == '{title}') {
                             return tr('empty');

@@ -758,7 +758,7 @@ class RSSLib extends TikiDb_Bridge
             $publication = $tikilib->now + $configuration['future_publish'] * 60;
         }
 
-        if (strpos($data['content'], trim($data['description'])) === 0 && strlen($data['description']) < 1024) {
+        if (str_starts_with($data['content'], trim($data['description'])) && strlen($data['description']) < 1024) {
             $data['content'] = substr($data['content'], strlen(trim($data['description'])));
         }
         $data['content'] = trim($data['content']) == '' ? $data['content'] : '~np~' . $data['content'] . '~/np~';

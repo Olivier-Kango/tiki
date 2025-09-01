@@ -766,7 +766,7 @@ class PreferencesLib
     private function realLoad($file, $partial)
     {
         $inc_file = __DIR__ . "/prefs/{$file}.php";
-        if (substr($file, 0, 3) == "tp_") {
+        if (str_starts_with($file, "tp_")) {
             $paths = \Tiki\Package\ExtensionManager::getPaths();
             $package = str_replace('__', '/', substr($file, 3));
             $inc_file = $paths[$package] . "/prefs/{$file}.php";
@@ -1526,7 +1526,7 @@ class PreferencesLib
         global $prefs;
         $ret = [];
         foreach (array_keys($prefs) as $prefName) {
-            if (substr($prefName, 0, 3) == 'tp_') {
+            if (str_starts_with($prefName, 'tp_')) {
                 $ret[] = $prefName;
             }
         }
@@ -1544,7 +1544,7 @@ class PreferencesLib
         global $prefs;
         $ret = [];
         foreach (array_keys($prefs) as $prefName) {
-            if (substr($prefName, 0, 7) == 'themes_') {
+            if (str_starts_with($prefName, 'themes_')) {
                 $ret[] = $prefName;
             }
         }

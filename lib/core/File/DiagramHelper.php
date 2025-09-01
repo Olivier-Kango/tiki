@@ -144,7 +144,7 @@ class DiagramHelper
 
         if (in_array($type, ['text/plain', 'text/xml'])) {
             $data = trim($file->getContents());
-            if (strpos($data, '<mx') === 0) {
+            if (str_starts_with($data, '<mx')) {
                 return true;
             }
         }

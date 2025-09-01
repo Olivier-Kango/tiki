@@ -358,7 +358,7 @@ if (isset($_REQUEST['reloff'])) {
     }
     $count = 0;
     $listfields = [];
-    if (substr($sort_mode, 0, 2) == 'f_') { //look at the field in case the field needs some processing to find the sort
+    if (str_starts_with($sort_mode, 'f_')) { //look at the field in case the field needs some processing to find the sort
         list($a, $i, $o) = explode('_', $sort_mode);
         foreach ($fieldDefinitions as $f) {
             if ($f['fieldId'] == $i) {

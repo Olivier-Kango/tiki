@@ -117,7 +117,7 @@ class Executor
                             return $val;
                         }
                     };
-                    if (substr($type, 0, 6) === 'parent') {
+                    if (str_starts_with($type, 'parent')) {
                         $record = $this->record;
                         $subtype = substr($type, 7);
                         while (substr($subtype, 0, 6) === 'parent') {

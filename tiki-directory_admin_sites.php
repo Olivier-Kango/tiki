@@ -87,7 +87,11 @@ if (isset($_REQUEST["save"])) {
     if (empty($_REQUEST["url"])) {
         Feedback::errorAndDie(tra("Must enter a url to add a site"), \Laminas\Http\Response::STATUS_CODE_400);
     }
-    if ((substr($_REQUEST["url"], 0, 7) <> 'http://') && (substr($_REQUEST["url"], 0, 8) <> 'https://') && (substr($_REQUEST["url"], 0, 6) <> 'ftp://')) {
+    if (
+        (! str_starts_with($_REQUEST["url"], 'http://')) &&
+        (! str_starts_with($_REQUEST["url"], 'https://')) &&
+        (! str_starts_with($_REQUEST["url"], 'ftp://'))
+    ) {
         $_REQUEST["url"] = 'http://' . $_REQUEST["url"];
     }
     if (! isset($_REQUEST["siteCats"]) || count($_REQUEST["siteCats"]) == 0) {

@@ -669,9 +669,9 @@ class ParserLib extends TikiDb_Bridge
         }
 
         $val = $this->plugin_fingerprint_check($fingerprint, $data, $args, $dont_modify, $context);
-        if (strpos($val, 'accept') === 0) {
+        if (str_starts_with($val, 'accept')) {
             return true;
-        } elseif (strpos($val, 'reject') === 0) {
+        } elseif (str_starts_with($val, 'reject')) {
             return 'rejected';
         } else {
             global $tiki_p_plugin_approve, $tiki_p_plugin_preview, $user;
@@ -940,7 +940,7 @@ class ParserLib extends TikiDb_Bridge
                 }
             }
         }
-        if (substr($html_editor_plugin, -1) === ' ') {
+        if (str_ends_with($html_editor_plugin, ' ')) {
             $html_editor_plugin = substr($html_editor_plugin, 0, -1);
         }
         if (! empty($data)) {
@@ -2580,7 +2580,7 @@ class ParserLib extends TikiDb_Bridge
             $line = $this->parse_data_inline_syntax($line, null, $this->option['wysiwyg']);
 
             // This line is parseable then we have to see what we have
-            if (substr($line, 0, 3) == '---') {
+            if (str_starts_with($line, '---')) {
                 // This is not a list item --- close open paragraph and lists, but not div's
                 $this->close_blocks($data, $in_paragraph, $listbeg, $divdepth, 1, 1, 0);
                 $line = preg_replace("/---/s", "<hr />", $line);
@@ -3128,14 +3128,14 @@ class ParserLib extends TikiDb_Bridge
                     global $TOC_newstring, $TOC_oldstring ;
 
                     $TOC_newstring = $maketoc ; //===== get a copy of the newest TOC before we do anything to it
-                    if (! empty($TOC_oldstring) && strpos($maketoc, $TOC_oldstring) !== false) { // larryg - if this MAKETOC contains previous chapter's TOC entries, remove that portion of the string
+                    if (! empty($TOC_oldstring) && str_contains($maketoc, $TOC_oldstring)) { // larryg - if this MAKETOC contains previous chapter's TOC entries, remove that portion of the string
                         $maketoc = substr($maketoc, 0, strpos($maketoc, $TOC_oldstring)) . substr($maketoc, strpos($maketoc, $TOC_oldstring) + strlen($TOC_oldstring)) ;
                     }
 
                     //prepare this chapter's TOC entry to be compared with the next chapter's string]
                     $head_string = '<li><a href='   ;
                     $tail_string = '<!--toc-->' ;
-                    if (strpos($TOC_newstring, $head_string) && strpos($TOC_newstring, $tail_string)) {
+                    if (str_contains($TOC_newstring, $head_string) && str_contains($TOC_newstring, $tail_string)) {
                         $TOC_newstring = substr($TOC_newstring, strpos($TOC_newstring, $head_string)) ; // trim unwanted stuff from the beginning of the string
                         $TOC_newstring = substr($TOC_newstring, 0, (strpos($TOC_newstring, $tail_string) - 5)) ; // trim the stuff from the tail of the string    </ul></li></ul>
                         $TOC_oldstring = $TOC_newstring ;
@@ -3419,7 +3419,7 @@ class ParserLib extends TikiDb_Bridge
             //  Non-sefurl links will be mapped as "tiki-index.php"
             $tikiindex = [];
             foreach ($htmlLinksSefurl[1] as $pageName) {
-                if (strpos($pageName, 'tiki-index.php') !== false) {
+                if (str_contains($pageName, 'tiki-index.php')) {
                     $tikiindex[] = $pageName;
                 }
             }
@@ -3599,7 +3599,7 @@ class ParserLib extends TikiDb_Bridge
                     continue;
                 }
                 $search = 'data-type="file" data-object="' . $fileId . '"';
-                if (strpos($file->filetype, 'image') !== false) {
+                if (str_contains($file->filetype, 'image')) {
                     $appendMaxSize = '';
 
                     if (! empty($maxWidthPreview)) {

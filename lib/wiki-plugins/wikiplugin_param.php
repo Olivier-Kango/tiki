@@ -61,12 +61,12 @@ function wikiplugin_param($data, $params)
     $noparsed = [];
     $parserlib->plugins_remove($data, $noparsed);
 
-    if (strpos($data, '{ELSE}')) {
+    if (str_contains($data, '{ELSE}')) {
         $dataelse = substr($data, strpos($data, '{ELSE}') + 6);
         $data = substr($data, 0, strpos($data, '{ELSE}'));
     }
 
-    if (! isset($params['source']) || empty($params['source'])) {
+    if (empty($params['source'])) {
         $params['source'] = 'request';
     }
 

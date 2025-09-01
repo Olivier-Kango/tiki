@@ -2094,12 +2094,12 @@ function wikiplugin_trackerlist($data, $params)
                 // and we must take params from tracker definition because no explicit options have been defined
                 if ($tsServer) {
                     //format from plugin: type:text|type:dropdown;option:1=Open;option:2=Closed|type:text|type:nofilter|type:nofilter|type:nofilter
-                    if (! empty($tsfilters) && strpos($tsfilters, 'dropdown') !== false) {
+                    if (! empty($tsfilters) && str_contains($tsfilters, 'dropdown')) {
                         $tsfiltersArray = explode('|', $tsfilters);
                         $adjustCol = (isset($showstatus) && $showstatus == 'y' && $definition->isEnabled('showStatus')) ? -1 : 0;
                         foreach ($tsfiltersArray as $col => &$tsfilterField) {
                             // only consider dropdown definitions without explicit option
-                            if (strpos($tsfilterField, 'dropdown') !== false && strpos($tsfilterField, 'option') === false) {
+                            if (str_contains($tsfilterField, 'dropdown') && ! str_contains($tsfilterField, 'option')) {
                                 //content from options (json object): {"options":["1=Open"," 2=Closed]} - note there can be whitespaces - it should not but there can be - yet another fix required
                                 if ($allfields['data'][$col + $adjustCol]['type'] == 'd') {
                                     $options = $allfields['data'][$col + $adjustCol]['options'];
@@ -2123,19 +2123,19 @@ function wikiplugin_trackerlist($data, $params)
                 $ts = new Table_Plugin();
                 $ts->setSettings(
                     $ts_id,
-                    isset($server) ? $server : null,
+                    $server ?? null,
                     $sortable,
-                    isset($sortList) ? $sortList : null,
-                    isset($tsortcolumns) ? $tsortcolumns : null,
-                    isset($tsfilters) ? $tsfilters : null,
-                    isset($tsfilteroptions) ? $tsfilteroptions : null,
-                    isset($tspaginate) ? $tspaginate : null,
-                    isset($tscolselect) ? $tscolselect : null,
+                    $sortList ?? null,
+                    $tsortcolumns ?? null,
+                    $tsfilters ?? null,
+                    $tsfilteroptions ?? null,
+                    $tspaginate ?? null,
+                    $tscolselect ?? null,
                     $GLOBALS['requestUri'],
                     $items['count'],
-                    isset($tstotals) ? $tstotals : null,
-                    isset($tstotalformat) ? $tstotalformat : null,
-                    isset($tstotaloptions) ? $tstotaloptions : null
+                    $tstotals ?? null,
+                    $tstotalformat ?? null,
+                    $tstotaloptions ?? null
                 );
                 //loads the jquery tablesorter code
                 if (is_array($ts->settings)) {

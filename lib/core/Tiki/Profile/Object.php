@@ -14,7 +14,7 @@ class Tiki_Profile_Object
 
     public static function serializeNamedObject($object)
     {
-        if (strpos($object['domain'], '://') === false) {
+        if (! str_contains($object['domain'], '://')) {
             if (is_dir($object['domain'])) {
                 $object['domain'] = "file://" . $object['domain'];
             } else {

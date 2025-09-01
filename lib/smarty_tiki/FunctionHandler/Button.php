@@ -177,7 +177,7 @@ class Button extends Base
             $url_args = [];
             if (! empty($params['href'])) {
                 // Handle anchors
-                if (strpos($params['href'], '#')) {
+                if (str_contains($params['href'], '#')) {
                     list($params['href'], $params['_anchor']) = explode('#', $params['href'], 2);
                 }
 

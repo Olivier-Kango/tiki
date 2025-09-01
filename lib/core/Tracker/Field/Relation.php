@@ -517,7 +517,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
             $field = $trklib->get_field_info($args['sourcefield']);
             $handler = $trklib->get_field_handler($field);
             $relation = $handler->getOption(TrackerFieldRelation::OPT_RELATION);
-            if (substr($relation, -7) === '.invert') {
+            if (str_ends_with($relation, '.invert')) {
                 $straight = false;
             } else {
                 $straight = true;

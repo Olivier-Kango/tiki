@@ -3699,7 +3699,7 @@ class FileGalLib extends TikiLib
     */
     public static function getTitleFromFilename($title)
     {
-        if (strpos($title, '.zip') !== strlen($title) - 4) {
+        if (! str_ends_with($title, '.zip')) {
             $title = preg_replace('/\.[^\.]*$/', '', $title); // remove extension
             $title = preg_replace('/[\-_]+/', ' ', $title); // turn _ etc into spaces
             $title = ucwords($title);
@@ -3743,7 +3743,7 @@ class FileGalLib extends TikiLib
         $safe = true;
         if ($filename !== null) {
             $mimelib = TikiLib::lib('mime');
-            if (substr($mimelib->from_filename($filename), 0, 9) == 'image/svg') {
+            if (str_starts_with($mimelib->from_filename($filename), 'image/svg')) {
                 $dom = new DOMDocument();
                 if (! $dom->loadXML($data, LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_NONET)) {
                     throw new FileIsNotSafeException("You are trying to upload a file as SVG, but content can't be parsed as XML. This is a security risk.");
@@ -4096,7 +4096,7 @@ class FileGalLib extends TikiLib
         $mimelib = TikiLib::lib('mime');
         $argumentParser = new WikiParser_PluginArgumentParser();
         $files = [];
-        if (strpos($page_info['data'], DEPRECATED_IMG_WIKI_UP_PATH) === false) {
+        if (! str_contains($page_info['data'], DEPRECATED_IMG_WIKI_UP_PATH)) {
             return false;
         }
         $matches = WikiParser_PluginMatcher::match($page_info['data']);

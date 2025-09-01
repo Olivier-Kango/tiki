@@ -665,10 +665,10 @@ class Search_Query_WikiBuilder
                         if (count($timestamps) === 2) {
                             $from = $timestamps[0] / 1000;
                             $to = $timestamps[1] / 1000;
-                        } elseif (strpos($filter, '>=') === 0) {
+                        } elseif (str_starts_with($filter, '>=')) {
                             $from = substr($filter, 2) / 1000;
                             $to = 'now';
-                        } elseif (strpos($filter, '<=') === 0) {
+                        } elseif (str_starts_with($filter, '<=')) {
                             $from = '1970-01-01';
                             $to = substr($filter, 2) / 1000;
                         }

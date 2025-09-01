@@ -1588,7 +1588,7 @@ class TikiLib extends TikiDb_Bridge
 
         switch ($type) {
             case 'l':
-                if (substr($libname, 0, 8) == 'dicebear') {
+                if (str_starts_with($libname, 'dicebear')) {
                     TikiLib::lib('header')->add_js_module(<<<JS
                         import { renderAvatars } from 'avatar-generator';
                         renderAvatars();
@@ -2890,13 +2890,13 @@ class TikiLib extends TikiDb_Bridge
     {
         global $base_url_http, $base_url_https;
 
-        if (strpos($link, $base_url_http) !== false) {
+        if (str_contains($link, $base_url_http)) {
             return $base_url_http;
-        } elseif (strpos($link, rtrim($base_url_http, '/')) !== false) {
+        } elseif (str_contains($link, rtrim($base_url_http, '/'))) {
             return rtrim($base_url_http, '/');
-        } elseif (strpos($link, $base_url_https) !== false) {
+        } elseif (str_contains($link, $base_url_https)) {
             return $base_url_https;
-        } elseif (strpos($link, rtrim($base_url_https, '/')) !== false) {
+        } elseif (str_contains($link, rtrim($base_url_https, '/'))) {
             return rtrim($base_url_https, '/');
         } else {
             return null;
@@ -2919,43 +2919,43 @@ class TikiLib extends TikiDb_Bridge
             $slug = $slug[0];
 
             switch ($slug) {
-                case (substr($slug, 0, 7) === 'article' || substr($slug, 0, 3) === 'art'):
-                    $articleId = substr($slug, 0, 7) === 'article' ? substr($slug, 7) : substr($slug, 3);
+                case (str_starts_with($slug, 'article') || str_starts_with($slug, 'art')):
+                    $articleId = str_starts_with($slug, 'article') ? substr($slug, 7) : substr($slug, 3);
                     $artlib = TikiLib::lib('art');
                     $article = $artlib->get_article($articleId);
                     $objectLink = ! empty($article['title']) ? '[' . $uri . '|' . $article['title'] . ']' : '';
                     break;
-                case substr($slug, 0, 8) === 'blogpost':
+                case str_starts_with($slug, 'blogpost'):
                     $blogPostId = substr($slug, 8);
                     $bloglib = TikiLib::lib('blog');
                     $blogPost = $bloglib->get_post($blogPostId);
                     $objectLink = ! empty($blogPost['title']) ? '[' . $uri . '|' . $blogPost['title'] . ']' : '';
                     break;
-                case substr($slug, 0, 4) === 'blog':
+                case str_starts_with($slug, 'blog'):
                     $blogId = substr($slug, 4);
                     $bloglib = TikiLib::lib('blog');
                     $blog = $bloglib->get_blog($blogId);
                     $objectLink = ! empty($blog['title']) ? '[' . $uri . '|' . $blog['title'] . ']' : '';
                     break;
-                case substr($slug, 0, 8) === 'calevent':
+                case str_starts_with($slug, 'calevent'):
                     $eventId = substr($slug, 8);
                     $calendarlib = TikiLib::lib('calendar');
                     $event = $calendarlib->get_item($eventId);
                     $objectLink = ! empty($event['name']) ? '[' . $uri . '|' . $event['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 3) === 'cal':
+                case str_starts_with($slug, 'cal'):
                     $calendarId = substr($slug, 3);
                     $calendarlib = TikiLib::lib('calendar');
                     $calendar = $calendarlib->get_calendar($calendarId);
                     $objectLink = ! empty($calendar['name']) ? '[' . $uri . '|' . $calendar['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 3) === 'cat':
+                case str_starts_with($slug, 'cat'):
                     $catId = substr($slug, 3);
                     $categlib = TikiLib::lib('categ');
                     $cat = $categlib->get_category($catId);
                     $objectLink = ! empty($cat['name']) ? '[' . $uri . '|' . $cat['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 9) === 'directory':
+                case str_starts_with($slug, 'directory'):
                     $directoryCatId = substr($slug, 9);
                     if ($directoryCatId == 0) {
                         $objectLink = '[' . $uri . '|Top]';
@@ -2966,41 +2966,41 @@ class TikiLib extends TikiDb_Bridge
                         $objectLink = ! empty($directoryCat['name']) ? '[' . $uri . '|' . $directoryCat['name'] . ']' : '';
                     }
                     break;
-                case substr($slug, 0, 7) === 'dirlink':
+                case str_starts_with($slug, 'dirlink'):
                     $siteId = substr($slug, 7);
                     global $dirlib;
                     include_once('lib/directory/dirlib.php');
                     $site = $dirlib->dir_get_site($siteId);
                     $objectLink = ! empty($site['name']) ? '[' . $uri . '|' . $site['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 5) === 'event':
+                case str_starts_with($slug, 'event'):
                     $eventId = substr($slug, 5);
                     $calendarlib = TikiLib::lib('calendar');
                     $event = $calendarlib->get_item($eventId);
                     $objectLink = ! empty($event['name']) ? '[' . $uri . '|' . $event['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 3) === 'faq':
+                case str_starts_with($slug, 'faq'):
                     $faqId = substr($slug, 3);
                     $faqlib = TikiLib::lib('faq');
                     $faq = $faqlib->get_faq($faqId);
                     $objectLink = ! empty($faq['title']) ? '[' . $uri . '|' . $faq['title'] . ']' : '';
                     break;
-                case substr($slug, 0, 4) === 'file':
+                case str_starts_with($slug, 'file'):
                     $fileGalleryId = substr($slug, 4);
                     $filegallib = TikiLib::lib('filegal');
                     $gallery = $filegallib->get_file_gallery($fileGalleryId);
                     $objectLink = ! empty($gallery['name']) ? '[' . $uri . '|' . $gallery['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 7) === 'gallery':
+                case str_starts_with($slug, 'gallery'):
                     $galleryId = substr($slug, 7);
                     $filegallib = TikiLib::lib('filegal');
                     $gallery = $filegallib->get_file_gallery($galleryId);
                     $objectLink = ! empty($gallery['name']) ? '[' . $uri . '|' . $gallery['name'] . ']' : '';
                     break;
-                case (substr($slug, 0, 2) === 'dl' || substr($slug, 0, 9) === 'thumbnail' || substr($slug, 0, 7) === 'display' || substr($slug, 0, 7) === 'preview'):
-                    if (substr($slug, 0, 2) === 'dl') {
+                case (str_starts_with($slug, 'dl') || str_starts_with($slug, 'thumbnail') || str_starts_with($slug, 'display') || str_starts_with($slug, 'preview')):
+                    if (str_starts_with($slug, 'dl')) {
                         $fileId = substr($slug, 2);
-                    } elseif (substr($slug, 0, 9) === 'thumbnail') {
+                    } elseif (str_starts_with($slug, 'thumbnail')) {
                         $fileId = substr($slug, 9);
                     } else {
                         $fileId = substr($slug, 7);
@@ -3009,68 +3009,68 @@ class TikiLib extends TikiDb_Bridge
                     $file = $filegallib->get_file($fileId);
                     $objectLink = ! empty($file['name']) ? '[' . $uri . '|' . $file['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 11) === 'forumthread':
+                case str_starts_with($slug, 'forumthread'):
                     $forumCommentId = substr($slug, 11);
                     $commentslib = TikiLib::lib('comments');
                     $forumComment = $commentslib->get_comment($forumCommentId);
                     $objectLink = ! empty($forumComment['title']) ? '[' . $uri . '|' . $forumComment['title'] . ']' : '';
                     break;
-                case substr($slug, 0, 5) === 'forum':
+                case str_starts_with($slug, 'forum'):
                     $forumId = substr($slug, 5);
                     $commentslib = TikiLib::lib('comments');
                     $forum = $commentslib->get_forum($forumId);
                     $objectLink = ! empty($forum['name']) ? '[' . $uri . '|' . $forum['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 4) === 'item':
+                case str_starts_with($slug, 'item'):
                     $itemId = substr($slug, 4);
                     $trklib = TikiLib::lib('trk');
                     $trackerItem = Tracker_Item::fromId($itemId);
                     $objectLink = ! empty($trackerItem) ? '[' . $uri . ']' : ''; // keep the full URL
                     break;
-                case substr($slug, 0, 3) === 'int':
+                case str_starts_with($slug, 'int'):
                     $repID = substr($slug, 3);
                     $integrator = new TikiIntegrator();
                     $rep = $integrator->get_repository($repID);
                     $objectLink = ! empty($rep['name']) ? '[' . $uri . '|' . $rep['name'] . ']' : '';
                     break;
-                case (substr($slug, 0, 10) === 'newsletter' || substr($slug, 0, 2) === 'nl'):
-                    $newsletterId = substr($slug, 0, 10) === 'newsletter' ? substr($slug, 10) : substr($slug, 2);
+                case (str_starts_with($slug, 'newsletter') || str_starts_with($slug, 'nl')):
+                    $newsletterId = str_starts_with($slug, 'newsletter') ? substr($slug, 10) : substr($slug, 2);
                     global $nllib;
                     include_once('lib/newsletters/nllib.php');
                     $newsletter = $nllib->get_newsletter($newsletterId);
                     $objectLink = ! empty($newsletter['name']) ? '[' . $uri . '|' . $newsletter['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 4) === 'poll':
+                case str_starts_with($slug, 'poll'):
                     $pollId = substr($slug, 4);
                     $polllib = TikiLib::lib('poll');
                     $poll = $polllib->get_poll($pollId);
                     $objectLink = ! empty($poll['title']) ? '[' . $uri . '|' . $poll['title'] . ']' : '';
                     break;
-                case substr($slug, 0, 4) === 'quiz':
+                case str_starts_with($slug, 'quiz'):
                     $quizId = substr($slug, 4);
                     $quizlib = TikiLib::lib('quiz');
                     $quiz = $quizlib->get_quiz($quizId);
                     $objectLink = ! empty($quiz['name']) ? '[' . $uri . '|' . $quiz['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 7) === 'tracker':
+                case str_starts_with($slug, 'tracker'):
                     $trackerId = substr($slug, 7);
                     $trklib = TikiLib::lib('trk');
                     $tracker = $trklib->get_tracker($trackerId);
                     $objectLink = ! empty($tracker['name']) ? '[' . $uri . '|' . $tracker['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 5) === 'sheet':
+                case str_starts_with($slug, 'sheet'):
                     $sheetId = substr($slug, 5);
                     $sheetlib = TikiLib::lib("sheet");
                     $sheet = $sheetlib->get_sheet_info($sheetId);
                     $objectLink = ! empty($sheet['title']) ? '[' . $uri . '|' . $sheet['title'] . ']' : '';
                     break;
-                case substr($slug, 0, 6) === 'survey':
+                case str_starts_with($slug, 'survey'):
                     include_once('lib/surveys/surveylib.php');
                     $surveyId = substr($slug, 6);
                     $survey = $srvlib->get_survey($surveyId);
                     $objectLink = ! empty($survey['name']) ? '[' . $uri . '|' . $survey['name'] . ']' : '';
                     break;
-                case substr($slug, 0, 4) === 'user':
+                case str_starts_with($slug, 'user'):
                     $userId = substr($slug, 4);
                     $user = $this->get_user_login($userId);
                     $objectLink = ! empty($user) ? '[' . $uri . '|' . $user . ']' : '';
@@ -6037,7 +6037,7 @@ class TikiLib extends TikiDb_Bridge
         $i = 0;
         foreach ($file as $line) {
             $r = $s = '';
-            if (substr($line, 0, 1) != "#") {
+            if (! str_starts_with($line, "#")) {
                 if (preg_match("/^\[([A-Z0-9]+)\]/", $line, $r)) {
                     if ($preserve || ($r[1] === "TRACKER")) {
                         $var = strtolower($r[1]);
@@ -6162,7 +6162,7 @@ class TikiLib extends TikiDb_Bridge
     {
         global $base_url;
 
-        if (strpos($url, $base_url) !== false) {
+        if (str_contains($url, $base_url)) {
             $out = substr($url, strlen($base_url));
         } else {
             $out = $url;
@@ -6709,13 +6709,13 @@ class TikiLib extends TikiDb_Bridge
             $np_level -= preg_match('/~\/np~/', $lines[$i]);
             // We test if we are inside nonparsed or pre section to ignore !*
             if ($pp_level % 2 == 0 and $np_level % 2 == 0) {
-                if (substr($lines[$i], 0, 1) == '!') {
+                if (str_starts_with($lines[$i], '!')) {
                     ++$header;
                     if ($header == $hdr) { // we are on it - now find the next header at same or lower level
                         $level = $this->how_many_at_start($lines[$i], '!');
                         $end = strlen($lines[$i]) + 1;
                         for (++$i; $i < $count_lines; ++$i) {
-                            if (substr($lines[$i], 0, 1) == '!' && $level >= $this->how_many_at_start($lines[$i], '!')) {
+                            if (str_starts_with($lines[$i], '!') && $level >= $this->how_many_at_start($lines[$i], '!')) {
                                 return ([$start, $end]);
                             }
                             $end += strlen($lines[$i]) + 1;
@@ -7282,7 +7282,7 @@ class TikiLib extends TikiDb_Bridge
         if (! $realdir) {
             return (false);
         }
-        if (substr($realfile, 0, strlen($realdir)) != $realdir) {
+        if (! str_starts_with($realfile, $realdir)) {
             return(false);
         } else {
             return($realfile);
@@ -7545,7 +7545,7 @@ function writeTempFile(?string $data, string $directory = '', bool $system = tru
 
     if ($system) {
         $tmpDir = $prefs['tmpDir'];
-        if (substr($tmpDir, -1) !== '/') {
+        if (! str_ends_with($tmpDir, '/')) {
             $tmpDir = $tmpDir . '/';
         }
         if (file_exists($tmpDir . $directory)) {

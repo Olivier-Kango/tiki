@@ -309,7 +309,7 @@ class H5PLib
                     if ($addition[0] === '*' || isset($libraries[$addition[0]])) {
                         $version = $addition[2] ?? '1.0.0';
                         $filepath = $addition[1];
-                        if (strpos(parse_url($filepath, PHP_URL_PATH), '/') !== 0) {
+                        if (! str_starts_with(parse_url($filepath, PHP_URL_PATH), '/')) {
                             // relative path needs to be absolute to tiki base
                             $filepath = $base_url . $filepath;
                         }

@@ -339,7 +339,7 @@ class CacheLib
             while (false !== ($file = readdir($dir))) {
                 $a = explode(".", $file);
                 $ext = strtolower(end($a));
-                if (substr($file, 0, 1) == "." or $file == 'CVS') {
+                if (str_starts_with($file, ".") or $file == 'CVS') {
                     continue;
                 }
                 if (is_dir($path . "/" . $file)) {

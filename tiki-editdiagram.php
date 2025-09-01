@@ -39,7 +39,7 @@ if (! empty($galleryId)) {
         $type = 'file gallery';
         $objectId = $_REQUEST['fileId'] ?? null;
     } else {
-        if (strpos($referer, $baseUrl) === 0) {
+        if (str_starts_with($referer, $baseUrl)) {
             header('Location: ' . $referer);
         } else {
             header("Location: " . $baseUrl . "tiki-list_file_gallery.php");
@@ -51,7 +51,7 @@ if (! empty($galleryId)) {
     $type = 'wiki page';
     $objectId = $page;
 } else {
-    if (strpos($referer, $baseUrl) === 0) {
+    if (str_starts_with($referer, $baseUrl)) {
         header('Location: ' . $referer);
     } else {
         header("Location: " . $baseUrl . "tiki-list_file_gallery.php");
@@ -77,7 +77,7 @@ if ($objectperms->getContext()['type'] == 'file gallery' && $galleryId != 0) {
     });
     $current_galInfos = array_values($current_galInfos);
     if (isset($current_galInfos) && ($current_galInfos[0]['perms']['tiki_p_upload_files'] !== 'y')) {
-        if (strpos($referer, $baseUrl) === 0) {
+        if (str_starts_with($referer, $baseUrl)) {
             header('Location: ' . $referer);
         } else {
             header("Location: " . $baseUrl . "tiki-list_file_gallery.php");

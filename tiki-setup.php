@@ -139,9 +139,9 @@ if ($prefs['twoFactorAuth'] == 'y' && empty($twoFactorSecret) && $force2FA && ! 
     }
 }
 
-if ($prefs['tiki_domain_prefix'] == 'strip' && substr($host, 0, 4) == 'www.') {
+if ($prefs['tiki_domain_prefix'] == 'strip' && str_starts_with($host, 'www.')) {
     $domain_map[$host] = substr($host, 4);
-} elseif ($prefs['tiki_domain_prefix'] == 'force' && substr($host, 0, 4) != 'www.') {
+} elseif ($prefs['tiki_domain_prefix'] == 'force' && ! str_starts_with($host, 'www.')) {
     $domain_map[$host] = 'www.' . $host;
 }
 
@@ -289,7 +289,7 @@ if ($prefs['feature_sefurl'] == 'y' && ! defined('TIKI_CONSOLE')) {
     if ($prefs['tikiIndex'] == 'tiki-index.php' && $prefs['wikiHomePage']) {
         $wikilib = TikiLib::lib('wiki');
         $prefs['tikiIndex'] = $wikilib->sefurl($userlib->best_multilingual_page($prefs['wikiHomePage']));
-    } elseif (substr($prefs['tikiIndex'], 0, strlen('tiki-view_blog.php')) == 'tiki-view_blog.php') {
+    } elseif (str_starts_with($prefs['tikiIndex'], 'tiki-view_blog.php')) {
         include_once('tiki-sefurl.php');
         $prefs['tikiIndex'] = filter_out_sefurl($prefs['tikiIndex'], 'blog');
     }
@@ -427,7 +427,7 @@ if (! empty($prefs['feature_canonical_domain'])) {
     $base_url_canonical = $base_url_canonical_default;
 }
 // Since it's easier to be error-resistant than train users, ensure base_url_canonical ends with '/'
-if (substr($base_url_canonical, -1) != '/') {
+if (! str_ends_with($base_url_canonical, '/')) {
     $base_url_canonical .= '/';
 }
 

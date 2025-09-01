@@ -235,7 +235,7 @@ function get_default_prefs()
 
     // Be sure we have a default value for user prefs
     foreach ($prefs as $p => $v) {
-        if (substr($p, 0, 12) == 'users_prefs_') {
+        if (str_starts_with($p, 'users_prefs_')) {
             $prefs[substr($p, 12)] = $v;
         }
     }

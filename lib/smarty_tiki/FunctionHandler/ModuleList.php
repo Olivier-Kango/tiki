@@ -28,10 +28,10 @@ class ModuleList extends Base
         $class = 'modules';
         if (! empty($params['class'])) {
             $class .= ' ' . $params['class'];
-            if (strpos($class, 'navbar') !== false) {
+            if (str_contains($class, 'navbar')) {
                 $tag = 'nav';
             }
-            if (strpos($class, 'aside') !== false) {
+            if (str_contains($class, 'aside')) {
                 $tag = 'aside';
             }
         }

@@ -544,7 +544,7 @@ class PdoClient
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            if (strstr($e->getMessage(), "Connection refused") && $retry) {
+            if (str_contains($e->getMessage(), "Connection refused") && $retry) {
                 // deals with Manticore restarts during rebuilds - e.g. due to memory limits
                 sleep(self::CONNECT_SLEEP_RETRY_SECONDS);
                 $this->connect();

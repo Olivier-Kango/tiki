@@ -169,7 +169,7 @@ class FilesBatchuploadCommand extends Command
             ]);
 
             foreach ($feedback as $message) {
-                if (strpos($message, '<span class="text-danger">') !== false) {
+                if (str_contains($message, '<span class="text-danger">')) {
                     $error = true;
                 } else {
                     $error = false;

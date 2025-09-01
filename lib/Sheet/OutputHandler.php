@@ -188,7 +188,7 @@ class OutputHandler extends DataHandler
                     if (mb_ereg_match('[^A-Za-z0-9\s]', $data)) {   // needs to be multibyte regex here
                         $data = TikiLib::lib('parser')->parse_data($data, ['suppress_icons' => true]);
                     }
-                    if (strpos($data, '<p>') === 0) {   // remove containing <p> tag
+                    if (str_starts_with($data, '<p>')) {   // remove containing <p> tag
                         $data = substr($data, 3);
                         if (strrpos($data, '</p>') === strlen($data) - 4) {
                             $data = substr($data, 0, -4);

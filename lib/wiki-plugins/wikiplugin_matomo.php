@@ -223,7 +223,7 @@ function wikiplugin_matomo($data, $params)
     $attributes = '';
 
     foreach ($params as $key => $value) {
-        if (strpos($key, '_') === 0) {
+        if (str_starts_with($key, '_')) {
             if ($value) {
                 $attributes .= ' ' . substr($key, 1) . '="' . $value . '"';
             }

@@ -198,7 +198,7 @@ class Services_File_FinderController
         } elseif ($input->cmd->text() === 'file') {
             // intercept download command and use tiki-download_file so the mime type and extension is correct
             $fileId = $elFinder->realpath($input->target->text());
-            if (strpos($fileId, 'f_') !== false) {
+            if (str_contains($fileId, 'f_')) {
                 global $base_url;
 
                 $fileId = str_replace('f_', '', $fileId);
@@ -242,7 +242,7 @@ class Services_File_FinderController
         $ret = [];
         foreach ($hashes as $hash) {
             $fileId = $elFinder->realpath($hash);
-            if (strpos($fileId, 'f_') !== false) {
+            if (str_contains($fileId, 'f_')) {
                 $info = $filegallib->get_file(str_replace('f_', '', $fileId));
             } else {
                 $info = $filegallib->get_file_gallery(str_replace('d_', '', $fileId));

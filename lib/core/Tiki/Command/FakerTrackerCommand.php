@@ -169,7 +169,7 @@ class FakerTrackerCommand extends Command
                         $fakerArguments = [$fakerArguments];
                     } elseif ($fakerArguments[0] === 'fieldId') {
                         $fakerArguments[0] = $trackerDefinition->getField($fieldFaker['fieldId']);
-                    } elseif (substr($fakerAction, 0, 4) === 'tiki') {
+                    } elseif (str_starts_with($fakerAction, 'tiki')) {
                         array_unshift($fakerArguments, $trackerDefinition->getField($fieldFaker['fieldId']));
                     }
                     $value = call_user_func_array([$faker, $fakerAction], $fakerArguments);

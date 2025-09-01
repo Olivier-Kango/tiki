@@ -102,7 +102,7 @@ class Rules
 
                 $actions[]
                     = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
-                if (strpos($predicate->operator_id, 'Required') === false) {
+                if (! str_contains($predicate->operator_id, 'Required')) {
                     // show/hide etc needs the parent object
                     $actions[] = "    $targetSelector.parents('$parentSelector')" .
                         $this->getPredicateSyntax($predicate, 'Action') . ';';
@@ -123,7 +123,7 @@ class Rules
                     $targetSelector = "\$(\"[{$selectorAttribute}='{$predicate->target_id}']\", \$(this).closest(\"form\")).last()";
                     $else[]
                         = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
-                    if (strpos($predicate->operator_id, 'Required') === false) {
+                    if (! str_contains($predicate->operator_id, 'Required')) {
                         $else[] = "    $targetSelector.parents('$parentSelector')" .
                             $this->getPredicateSyntax($predicate, 'Action') . ';';
                     } else {
@@ -162,7 +162,7 @@ class Rules
             $syntax = str_replace('%argument%', $predicate->argument, $syntax);
             $syntax = str_replace('%field%', $predicate->target_id, $syntax);
         } else {
-            if (strpos($syntax, '%argument%') !== false) {
+            if (str_contains($syntax, '%argument%')) {
                 $syntax = str_replace('%argument%', tr('No argument for \"%0\" rule', $predicate->operator_id), $syntax);
             }
         }

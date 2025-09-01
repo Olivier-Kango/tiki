@@ -99,7 +99,7 @@ class WikiPluginTikiDocFromCode extends PluginsLib
         //$aPlugins and $all now has the complete list of plugin or module file names - the code below modifies $aPlugins
         //if necessary based on user settings
         if (! empty($plugin)) {
-            if (strpos($plugin, '|') !== false) {
+            if (str_contains($plugin, '|')) {
                 $aPlugins = [];
                 $userlist = explode('|', $plugin);
                 foreach ($userlist as $useritem) {
@@ -111,7 +111,7 @@ class WikiPluginTikiDocFromCode extends PluginsLib
                         $aPlugins[] = $file;
                     }
                 }
-            } elseif (strpos($plugin, '-') !== false) {
+            } elseif (str_contains($plugin, '-')) {
                 $userrange = explode('-', $plugin);
                 $begin = array_search($filepath . $userrange[0] . '.php', $aPlugins);
                 $end = array_search($filepath . $userrange[1] . '.php', $aPlugins);
@@ -157,11 +157,11 @@ class WikiPluginTikiDocFromCode extends PluginsLib
         } elseif (! empty($preference) || ! empty($trackerfield)) {
             $object = ! empty($preference) ? $preference : $trackerfield;
             // Generate a list of elements based on separators
-            if (strpos($object, '|') !== false || strpos($object, '-') !== false) {
+            if (str_contains($object, '|') || str_contains($object, '-')) {
                 $separator = '|'; // Default separator
-                if (strpos($object, '|') === false) {
+                if (! str_contains($object, '|')) {
                     $separator = '-';
-                } elseif (strpos($object, '-') !== false && strpos($object, '-') < strpos($object, '|')) {
+                } elseif (str_contains($object, '-') && strpos($object, '-') < strpos($object, '|')) {
                     $separator = '-';
                 }
                 $objectsArr = explode($separator, $object);

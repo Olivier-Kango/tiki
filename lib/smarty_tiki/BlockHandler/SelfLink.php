@@ -198,7 +198,7 @@ class SelfLink extends Base
                     . $dataAttributes;
 
                 if (! empty($params['_rel'])) {
-                    if (strpos($params['_rel'], 'box') !== false) {
+                    if (str_contains($params['_rel'], 'box')) {
                         $rel = 'data-box="box" ';
                     } else {
                         $rel = 'rel="' . str_replace('"', '\"', $params['_rel']) . '" ';
@@ -208,7 +208,7 @@ class SelfLink extends Base
                 }
                 $link .= $rel;
                 foreach ($params as $k => $v) {
-                    if (strlen($k) > 3 && substr($k, 0, 3) == '_on' && ! empty($v)) {
+                    if (strlen($k) > 3 && str_starts_with($k, '_on') && ! empty($v)) {
                         $link .= htmlentities(substr($k, 1)) . '="' . $v . '" '; // $v should be already htmlentitized in the template
                         unset($params[$k]);
                     }

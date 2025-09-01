@@ -8,7 +8,7 @@
 //this script may only be included - so its better to die if called directly.
 use Tiki\Lib\Diff\DiffUtils;
 
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
+if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
     header('location: index.php');
     exit;
 }
@@ -211,7 +211,7 @@ class LanguageTranslations extends TikiDb_Bridge
                             $langFile[$key] = '"' . $matches[1] . '" => "' . $dbNewStr . "\",\n";
 
                             // count number of new and updated strings
-                            if (strpos($line, '//') === 0) {
+                            if (str_starts_with($line, '//')) {
                                 $stats['new']++;
                             } else {
                                 $stats['modif']++;

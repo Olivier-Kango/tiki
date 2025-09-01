@@ -107,7 +107,7 @@ function wikiplugin_sql($data, $params)
                     } else {
                         $bindvars[$key] = $variable[1] . $GLOBALS[$varName] . $variable[3];
                     }
-                } elseif (strpos($value, "$") === 0) {
+                } elseif (str_starts_with($value, "$")) {
                     $varName = substr($value, 1);
                     $originalVarValue = $varValue = '{{' . $varName . '}}';
                     TikiLib::lib('parser')->parse_wiki_argvariable($varName);

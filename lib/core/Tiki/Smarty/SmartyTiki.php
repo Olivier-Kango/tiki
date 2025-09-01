@@ -391,19 +391,19 @@ class SmartyTiki extends Smarty
                 if ($script_name === 'route.php' && ! empty($inclusion)) {
                     $script_name = $inclusion;
                 }
-                if ($script_name != 'tiki-admin.php' && strpos($script_name, 'tiki-admin') === 0) {
+                if ($script_name != 'tiki-admin.php' && str_starts_with($script_name, 'tiki-admin')) {
                     $str = substr($script_name, 10, strpos($script_name, '.php') - 10);
                     $str = ucwords(trim(str_replace('_', ' ', $str)));
                     $this->assign('headtitle', 'Admin ' . $str);
-                } elseif (strpos($script_name, 'tiki-list') === 0) {
+                } elseif (str_starts_with($script_name, 'tiki-list')) {
                     $str = substr($script_name, 9, strpos($script_name, '.php') - 9);
                     $str = ucwords(trim(str_replace('_', ' ', $str)));
                     $this->assign('headtitle', 'List ' . $str);
-                } elseif (strpos($script_name, 'tiki-view') === 0) {
+                } elseif (str_starts_with($script_name, 'tiki-view')) {
                     $str = substr($script_name, 9, strpos($script_name, '.php') - 9);
                     $str = ucwords(trim(str_replace('_', ' ', $str)));
                     $this->assign('headtitle', 'View ' . $str);
-                } elseif ($prefs['urlIndex'] && strpos($script_name, $prefs['urlIndex']) === 0) {
+                } elseif ($prefs['urlIndex'] && str_starts_with($script_name, $prefs['urlIndex'])) {
                     $this->assign('headtitle', tra($prefs['urlIndexBrowserTitle']));    // Viewing Custom Homepage
                 } else { // still not set? guess...
                     $str = str_replace(['tiki-', '.php', '_'], ['', '', ' '], $script_name);
@@ -441,7 +441,7 @@ class SmartyTiki extends Smarty
      */
     public function get_filename($template)
     {
-        if (substr($template, 0, 5) === 'file:') {
+        if (str_starts_with($template, 'file:')) {
             $template = substr($template, 5);
         }
 
@@ -466,7 +466,7 @@ class SmartyTiki extends Smarty
                     continue;
                 }
 
-                if (strpos(realpath($template), $dirPath) === 0) {
+                if (str_starts_with(realpath($template), $dirPath)) {
                     $valid_path = true;
                     break;
                 }

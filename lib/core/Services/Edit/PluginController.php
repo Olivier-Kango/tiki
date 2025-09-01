@@ -61,7 +61,7 @@ class Services_Edit_PluginController
         $results = TikiLib::lib('prefs')->getMatchingPreferences($query, $filters, 500, $sort);
 
         foreach ($results as $result) {
-            if (strpos($result, 'wikiplugin_') === 0) {
+            if (str_starts_with($result, 'wikiplugin_')) {
                 $key = strtoupper(substr($result, 11));
                 $arr = array_filter($this->pluginList, function ($plugin) use ($key) {
                     return $plugin['name'] === $key;
@@ -237,7 +237,7 @@ class Services_Edit_PluginController
 
             foreach ($extraParams as $extraParam => $val) {
                 // skip buttons parameters as obviously at this stage they will be plugged as extra parameters
-                if (strpos($extraParam, 'buttons') === 0) {
+                if (str_starts_with($extraParam, 'buttons')) {
                     continue;
                 }
                 $info['params'][$extraParam] = [

@@ -108,7 +108,7 @@ function wikiplugin_playscorm($data, $params)
     $localname = "scorm$fileId";
     $sitepath = parse_url($base_url);
 
-    if (substr($moodle_url, -1) == '/') {
+    if (str_ends_with($moodle_url, '/')) {
         $moodle_url = substr($moodle_url, 0, -1);
     }
 

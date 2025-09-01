@@ -296,7 +296,7 @@ class CaldavClient
         }
 
         $organizer = (string)$vcalendar->VEVENT->ORGANIZER;
-        if (substr($organizer, 0, strlen('mailto:')) === 'mailto:') {
+        if (str_starts_with($organizer, 'mailto:')) {
             $organizer = TikiLib::lib('user')->get_user_by_email(substr($organizer, strlen('mailto:')));
         }
 
@@ -331,7 +331,7 @@ class CaldavClient
                 if (! empty($recipient[0]['value'])) {
                     $recipient = $recipient[0]['value'];
                 }
-                if (substr($recipient, 0, strlen('mailto:')) === 'mailto:') {
+                if (str_starts_with($recipient, 'mailto:')) {
                     $recipient = substr($recipient, strlen('mailto:'));
                 }
                 if (empty($slots[$recipient])) {

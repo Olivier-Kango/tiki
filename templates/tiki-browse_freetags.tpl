@@ -94,7 +94,7 @@
         <div class="card mb-4">
             <div class="card-body freetaglist mb-4">
                 {foreach from=$most_popular_tags item=popular_tag}
-                    {capture name=tagurl}{if (strstr($popular_tag.tag, ' '))}"{$popular_tag.tag}"{else}{$popular_tag.tag}{/if}{/capture}
+                    {capture name=tagurl}{if (str_contains($popular_tag.tag, ' '))}"{$popular_tag.tag}"{else}{$popular_tag.tag}{/if}{/capture}
                     <a class="freetag_{$popular_tag.size}{if $tag eq $popular_tag.tag|escape} selectedtag{/if}" 
                         href="tiki-browse_freetags.php?tag={$smarty.capture.tagurl|escape:'url'}{if $broaden eq 'y'}&amp;broaden=y{/if}" 
                         onclick="javascript:addTag('{$popular_tag.tag|escape:'javascript'|escape:'htmlall'}');return false;"

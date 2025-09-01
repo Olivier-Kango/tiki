@@ -495,7 +495,7 @@ class Tracker_Item
     {
         $deleteFiles = [];
         foreach ($input as $k => $v) {
-            if (substr($k, 0, 4) == 'del_') {
+            if (str_starts_with($k, 'del_')) {
                 $key = substr($k, 4);
                 if ($this->canModifyField($key)) {
                     $deleteFiles[$key] = $v;

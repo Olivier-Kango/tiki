@@ -60,7 +60,7 @@ if (isset($_REQUEST['msg'])) {
     $msg = '';
     $msgon = null;
 }
-if (substr($msg, 0, 1) == '/') {
+if (str_starts_with($msg, '/')) {
     $words = explode(' ', $msg);
     switch ($words[0]) {
         case '/join':
@@ -83,7 +83,7 @@ foreach ($chans as $chan) {
     $closed = false;
     if (($msgon == $channel) && (! is_null($channel))) {
         $time = time();
-        if (substr($msg, 0, 1) == '/') {
+        if (str_starts_with($msg, '/')) {
             $words = explode(' ', $msg);
             switch ($words[0]) {
                 case '/part':
