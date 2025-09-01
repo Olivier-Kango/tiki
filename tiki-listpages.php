@@ -136,8 +136,7 @@ if (! empty($multiprint_pages)) {
     // it will default to 1 recovering information for today
     if (isset($_REQUEST['maxRecords'])) {
         $maxRecords = $_REQUEST['maxRecords'];
-    } else {
-        $maxRecords = -1;
+        $smarty->assign('maxRecords', $maxRecords);
     }
     if (! isset($_REQUEST['sort_mode'])) {
         $sort_mode = $prefs['wiki_list_sortorder'] . '_' . $prefs['wiki_list_sortdirection'];
