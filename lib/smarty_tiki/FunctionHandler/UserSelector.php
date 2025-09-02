@@ -113,7 +113,7 @@ class UserSelector extends Base
             $userCount = $userlib->count_users('');
         }
 
-        if ($lazyload || ($prefs['elementplus_select'] == 'y' && ($userCount > $prefs['user_selector_threshold'] || $userCount > $params['user_selector_threshold']))) {
+        if ($lazyload || ($prefs['feature_elementplus'] == 'y' && $prefs['elementplus_select'] == 'y' && ($userCount > $prefs['user_selector_threshold'] || $userCount > $params['user_selector_threshold']))) {
             $urlParams = [
                 'listonly' => $params['realnames'] === 'y' ? 'userrealnames' : 'users',
             ];
