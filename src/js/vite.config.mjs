@@ -445,6 +445,10 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/fitvids/dist",
                     },
                     {
+                        src: ["node_modules/fieldslinker/fieldsLinker.css", "node_modules/fieldslinker/fieldsLinker.js"],
+                        dest: "vendor_dist/fieldslinker",
+                    },
+                    {
                         src: ["node_modules/glightbox/dist/css/glightbox.min.css"],
                         dest: "vendor_dist/glightbox/dist",
                     },

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52e7003a30ba3fafd32504a5daf75c87",
+    "content-hash": "b82f3cb47cf759c8510f174c6dc01c67",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2867,12 +2867,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "ba3508604626b7c244e6de556ad924ee426b5d73"
+                "reference": "1d8aa908f68d477b61cb3350aad93bc8873d0e65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/ba3508604626b7c244e6de556ad924ee426b5d73",
-                "reference": "ba3508604626b7c244e6de556ad924ee426b5d73",
+                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/1d8aa908f68d477b61cb3350aad93bc8873d0e65",
+                "reference": "1d8aa908f68d477b61cb3350aad93bc8873d0e65",
                 "shasum": ""
             },
             "require": {
@@ -2948,7 +2948,7 @@
                 "source": "https://github.com/cypht-org/cypht/",
                 "wiki": "https://github.com/cypht-org/cypht/wiki"
             },
-            "time": "2025-09-01T08:08:16+00:00"
+            "time": "2025-08-29T14:45:09+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -7536,49 +7536,6 @@
                 "source": "https://github.com/pear/XML_Util"
             },
             "time": "2020-04-19T15:08:27+00:00"
-        },
-        {
-            "name": "philippemarcmeyer/fieldslinker",
-            "version": "v1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PhilippeMarcMeyer/FieldsLinker.git",
-                "reference": "e9371bb0dc5658c6c5640e3b62c66af8eb562900"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PhilippeMarcMeyer/FieldsLinker/zipball/e9371bb0dc5658c6c5640e3b62c66af8eb562900",
-                "reference": "e9371bb0dc5658c6c5640e3b62c66af8eb562900",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Phillipe Marc Mayer",
-                    "email": "pmg.meyer@gmail.com",
-                    "homepage": "https://philippemarcmeyer.github.io",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Designed for matching files headers to database fields during the process importing. Allows drawing links between elements of 2 lists.",
-            "keywords": [
-                "canvas",
-                "jquery",
-                "jquery-plugin",
-                "lines",
-                "list",
-                "plugins"
-            ],
-            "support": {
-                "docs": "https://github.com/PhilippeMarcMeyer/FieldsLinker",
-                "issues": "https://github.com/PhilippeMarcMeyer/FieldsLinker/issues",
-                "source": "https://github.com/PhilippeMarcMeyer/FieldsLinker"
-            },
-            "time": "2021-08-16T12:58:49+00:00"
         },
         {
             "name": "php-di/invoker",
