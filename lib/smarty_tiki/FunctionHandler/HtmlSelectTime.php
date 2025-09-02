@@ -56,7 +56,7 @@ class HtmlSelectTime extends Base
         $minute_empty = null;
         $second_empty = null;
         $all_empty = null;
-        $class = 'form-control date';
+        $class = 'form-control date-time-selector-field';
 
         extract($params);
         if (! empty($all_empty)) {

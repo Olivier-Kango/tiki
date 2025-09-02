@@ -468,7 +468,8 @@ span.btn-link {
 }
 
 //date picker dropdowns
-select.form-control.date {
+// date class renamed to date-time-selector-field to avoid conflict with jQuery validation date class
+select.form-control.date-time-selector-field {
     width: auto;
     display: inline;
 }
