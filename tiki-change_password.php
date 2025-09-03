@@ -9,15 +9,17 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 $inputConfiguration = [
-    [ 'staticKeyFilters' => [
-        'user' => 'text',
-        'username' => 'text',
-        'pass' => 'none',
-        'passAgain' => 'none',
-        'oldpass' => 'none',
-        'change' => 'text',
+    [
+        'staticKeyFilters' => [
+            'user' => 'text',
+            'username' => 'text',
+            'pass' => 'none',
+            'passAgain' => 'none',
+            'oldpass' => 'none',
+            'change' => 'text',
+            'token' => 'text',
+        ],
     ],
-    ]
 ];
 require_once('tiki-setup.php');
 
@@ -31,11 +33,8 @@ if (! isset($_REQUEST["oldpass"])) {
     $_REQUEST["oldpass"] = '';
 }
 
-// Expected hash
 $user = $_REQUEST["user"];
-$timestamp = $_REQUEST["timestamp"];
-$actpass = $_REQUEST["apass"];
-$expected_hash = md5($user . '|' . $actpass . '|' . $timestamp);
+$secure_token = $_REQUEST["token"] ?? '';
 
 if (isset($_REQUEST["newuser"]) && $_REQUEST["newuser"] == 'y') {
     $smarty->assign('new_user_validation', 'y');
@@ -43,26 +42,27 @@ if (isset($_REQUEST["newuser"]) && $_REQUEST["newuser"] == 'y') {
 
 $smarty->assign('userlogin', $_REQUEST["user"]);
 $smarty->assign('oldpass', $_REQUEST["oldpass"]);
-$smarty->assign('password', $_REQUEST["actpass"]);
-$smarty->assign('timestamp', $_REQUEST["ts"]);
-$smarty->assign('hash', $_REQUEST["hash"]);
+$smarty->assign('secure_token', $secure_token);
 
 if (isset($_REQUEST["change"])) {
     $access->checkCsrf();
 
-    // If this is a new user validation, we do not check the hash or timestamp
+    // If this is a new user validation, we do not check the token
     if (! isset($_REQUEST["new_user_validation"]) && $_REQUEST["new_user_validation"] !== 'y') {
-        // Check if the hash is valid
-        $provided_hash = $_REQUEST["hash"];
-        if ($expected_hash !== $provided_hash) {
-            Feedback::errorAndDie(tra("Invalid hash."), \Laminas\Http\Response::STATUS_CODE_403);
+        // Check if the secure token is valid
+        if (empty($secure_token)) {
+            Feedback::errorAndDie(tra("Missing reset token."), \Laminas\Http\Response::STATUS_CODE_400);
         }
 
-        // Check if the timestamp is valid
-        $resetTime = $prefs['resetpasswordlink_expiry'];
-        if (time() - (int)$timestamp > $resetTime) {
-            Feedback::errorAndDie(tra("The link has expired."), \Laminas\Http\Response::STATUS_CODE_410);
+        $passwordResetLib = new \Tiki\Lib\Auth\PasswordResetLib();
+        $token_info = $passwordResetLib->validatePasswordResetToken($user, $secure_token);
+
+        if (! $token_info) {
+            Feedback::errorAndDie(tra("Invalid or expired reset token."), \Laminas\Http\Response::STATUS_CODE_403);
         }
+
+        // Mark the token as used to prevent reuse
+        $passwordResetLib->markPasswordResetTokenUsed($user, $secure_token);
     }
 
     // Check that pass and passAgain match, otherwise display error and exit

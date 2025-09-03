@@ -4148,3 +4148,17 @@ CREATE TABLE `tiki_user_passwords_history` (
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY(`passId`)
 ) ENGINE=MyISAM;
+
+DROP TABLE IF EXISTS `tiki_password_reset_tokens`;
+CREATE TABLE `tiki_password_reset_tokens` (
+  `tokenId` int(11) NOT NULL AUTO_INCREMENT,
+  `user` varchar(200) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `created` int NOT NULL,
+  `expires` int NOT NULL,
+  `used` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`tokenId`),
+  UNIQUE KEY `token` (`token`),
+  KEY `user` (`user`),
+  KEY `expires` (`expires`)
+) ENGINE=MyISAM;
