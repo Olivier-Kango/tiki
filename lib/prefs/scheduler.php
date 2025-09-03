@@ -16,8 +16,8 @@ function prefs_scheduler_list($partial = false)
             'tags' => ['advanced'],
         ],
         'scheduler_notify_on_stalled' => [
-            'name' => tr('Notify on stalled and healed schedulers'),
-            'description' => tr('Send an email notification when a stalled scheduler is detected or healed.'),
+            'name' => tr('Notify on stalled, healed and failed schedulers'),
+            'description' => tr('Send an email notification when a stalled, healed or failed scheduler is detected.'),
             'type' => 'flag',
             'default' => 'y',
             'tags' => ['advanced'],
@@ -30,8 +30,8 @@ function prefs_scheduler_list($partial = false)
             'tags' => ['advanced'],
         ],
         'scheduler_users_to_notify_on_stalled' => [
-            'name' => tr('Users to notify on stalled and healed tasks'),
-            'description' => tr('List of users/emails separated by comma to be notified when a scheduler task is stalled or healed.</br><code>Ex: admin,operations@example.com</code></br><strong>If empty and "Notify admins" is checked, notifications will be sent to all administrators.</strong>'),
+            'name' => tr('Users to notify on stalled, healed and failed tasks'),
+            'description' => tr('List of users/emails separated by comma to be notified when a scheduler task is stalled, healed, or failed.</br><code>Ex: admin,operations@example.com</code></br><strong>If empty and "Notify admins" is checked, notifications will be sent to all administrators.</strong>'),
             'type' => 'text',
             'default' => '',
             'tags' => ['advanced'],

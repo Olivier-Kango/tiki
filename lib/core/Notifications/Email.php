@@ -75,7 +75,7 @@ class Email
      * @return int The number of sent emails
      * @throws \Exception
      */
-    public static function sendSchedulerNotification($subjectTpl, $txtTpl, $scheduler, $usersToNotify = [])
+    public static function sendSchedulerNotification($subjectTpl, $txtTpl, $scheduler, $usersToNotify = [], $customMessage = '')
     {
         global $prefs, $tikipath;
 
@@ -89,6 +89,7 @@ class Email
         $smarty->assign('webroot', $tikipath);
         $smarty->assign('stalledTimeout', $tikilib->get_preference('scheduler_stalled_timeout'));
         $smarty->assign('healingTimeout', $tikilib->get_preference('scheduler_healing_timeout'));
+        $smarty->assign('customMessage', $customMessage);
 
         $defaultLang = $prefs['site_language'];
         $watchList = array_map(function ($user) use ($defaultLang) {
