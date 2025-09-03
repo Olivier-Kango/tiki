@@ -40,9 +40,9 @@
             <thead>
                 <tr>
                     {if isset($checkboxes_on) and $checkboxes_on eq 'y'}
-                        <dh id="checkbox">
+                        <th id="checkbox">
                             {select_all checkbox_names='checked[]' tablesorter="{$ts.enabled}"}
-                        </dh>
+                        </th>
                         {$cntcol='1'}
                     {else}
                         {$cntcol='0'}
@@ -53,8 +53,6 @@
                         <th id="pageid">
                             {self_link _sort_arg='sort_mode' _sort_field='page_id'}{tr}Id{/tr}{/self_link}
                         </th>
-                    {else}
-                        <th id="pageid">{$ln|escape}</th>
                     {/if}
 
                     {if $prefs.wiki_list_name eq 'y'}
