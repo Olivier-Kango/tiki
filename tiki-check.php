@@ -30,6 +30,17 @@ use Tiki\Lib\Alchemy\AlchemyLib;
 use Tiki\Lib\Unoconv\UnoconvLib;
 use Tiki\Package\ComposerManager;
 
+// Define fitness status constants early
+define('FITNESS_STATUS_GOOD', 'good');
+define('FITNESS_STATUS_BAD', 'bad');
+define('FITNESS_STATUS_UNSURE', 'unsure');
+define('FITNESS_STATUS_INFO', 'info');
+define('FITNESS_STATUS_NA', 'N/A');
+define('FITNESS_STATUS_SAFE', 'safe');
+define('FITNESS_STATUS_UNSAFE', 'unsafe');
+define('FITNESS_STATUS_UNKNOWN', 'unknown');
+define('FITNESS_STATUS_RISKY', 'risky');
+
 // TODO : Create sane 3rd mode for Monitoring Software like Nagios, Icinga, Shinken
 // * needs authentication, if not standalone
 isset($_REQUEST['nagios']) ? $nagios = true : $nagios = false;
@@ -52,15 +63,261 @@ if (isset($_REQUEST['tiki-check-ping'])) {
     die('pong:' . (int)$_REQUEST['tiki-check-ping']);
 }
 
-define('FITNESS_STATUS_GOOD', 'good');
-define('FITNESS_STATUS_BAD', 'bad');
-define('FITNESS_STATUS_UNSURE', 'unsure');
-define('FITNESS_STATUS_INFO', 'info');
-define('FITNESS_STATUS_NA', 'N/A');
-define('FITNESS_STATUS_SAFE', 'safe');
-define('FITNESS_STATUS_UNSAFE', 'unsafe');
-define('FITNESS_STATUS_UNKNOWN', 'unknown');
-define('FITNESS_STATUS_RISKY', 'risky');
+// AJAX dashboard refresh
+if (isset($_REQUEST['ajax']) && $_REQUEST['ajax'] === 'dashboard') {
+    // Set up standalone mode for AJAX
+    $standalone = true;
+    if (! function_exists('tra')) {
+        function tra($string)
+        {
+            return $string;
+        }
+    }
+
+    // Initialize variables for AJAX calculation
+    $critical_count = 0;
+    $warning_count = 0;
+    $info_count = 0;
+    $good_count = 0;
+    $critical_issues = array();
+
+    // Recalculate server properties
+    $server_properties = array();
+    $php_properties = array();
+    $security = array();
+    $mysql_properties = array();
+    $tiki_security = array();
+
+    // Check PHP properties (simplified version)
+    $e = error_reporting();
+    $d = ini_get('display_errors');
+    $l = ini_get('log_errors');
+
+    if ($l) {
+        if (! $d) {
+            $php_properties['Error logging'] = array(
+                'fitness' => tra('info'),
+                'fitness_status' => FITNESS_STATUS_INFO,
+                'setting' => 'Enabled',
+                'message' => tra('Errors will be logged, since log_errors is enabled. Also, display_errors is disabled.')
+            );
+        } else {
+            $php_properties['Error logging'] = array(
+                'fitness' => tra('info'),
+                'fitness_status' => FITNESS_STATUS_INFO,
+                'setting' => 'Enabled',
+                'message' => tra('Errors will be logged, since log_errors is enabled, but display_errors is also enabled.')
+            );
+        }
+    } else {
+        $php_properties['Error logging'] = array(
+            'fitness' => tra('info'),
+            'fitness_status' => FITNESS_STATUS_INFO,
+            'setting' => 'Full',
+            'message' => tra('Errors will not be logged, since log_errors is not enabled.')
+        );
+    }
+
+    // Check critical security functions
+    $dangerous_functions = array('exec', 'passthru', 'shell_exec', 'system', 'proc_open', 'popen', 'curl_exec', 'curl_multi_exec', 'parse_ini_file');
+    foreach ($dangerous_functions as $func) {
+        if (function_exists($func)) {
+            $security[$func] = array(
+                'fitness' => tra('bad'),
+                'fitness_status' => FITNESS_STATUS_BAD,
+                'setting' => 'Enabled',
+                'message' => tra('This function is enabled and could be a security risk.')
+            );
+        } else {
+            $security[$func] = array(
+                'fitness' => tra('good'),
+                'fitness_status' => FITNESS_STATUS_GOOD,
+                'setting' => 'Disabled',
+                'message' => tra('This function is disabled, which is good for security.')
+            );
+        }
+    }
+
+    // Check allow_url_fopen
+    if (ini_get('allow_url_fopen')) {
+        $security['allow_url_fopen'] = array(
+            'fitness' => tra('bad'),
+            'fitness_status' => FITNESS_STATUS_BAD,
+            'setting' => 'Enabled',
+            'message' => tra('allow_url_fopen is enabled, which could be a security risk.')
+        );
+    } else {
+        $security['allow_url_fopen'] = array(
+            'fitness' => tra('good'),
+            'fitness_status' => FITNESS_STATUS_GOOD,
+            'setting' => 'Disabled',
+            'message' => tra('allow_url_fopen is disabled, which is good for security.')
+        );
+    }
+
+    // Check PHP extensions
+    $required_extensions = array('tidy', 'gd', 'mbstring', 'curl', 'xml', 'json');
+    foreach ($required_extensions as $ext) {
+        if (extension_loaded($ext)) {
+            $php_properties[$ext] = array(
+                'fitness' => tra('good'),
+                'fitness_status' => FITNESS_STATUS_GOOD,
+                'setting' => 'Loaded',
+                'message' => tra("The $ext extension is loaded.")
+            );
+        } else {
+            $php_properties[$ext] = array(
+                'fitness' => tra('bad'),
+                'fitness_status' => FITNESS_STATUS_BAD,
+                'setting' => 'Not loaded',
+                'message' => tra("The $ext extension is not loaded.")
+            );
+        }
+    }
+
+    // Check database connection if available
+    if (file_exists('./db/local.php')) {
+        require_once './db/local.php';
+        if (isset($host_tiki) && isset($user_tiki) && isset($pass_tiki) && isset($dbs_tiki)) {
+            $connection = mysqli_connect($host_tiki, $user_tiki, $pass_tiki, $dbs_tiki);
+            if ($connection) {
+                $mysql_properties['Database Connection'] = array(
+                    'fitness' => tra('good'),
+                    'fitness_status' => FITNESS_STATUS_GOOD,
+                    'setting' => 'Connected',
+                    'message' => tra('Database connection successful.')
+                );
+                mysqli_close($connection);
+            } else {
+                $mysql_properties['Database Connection'] = array(
+                    'fitness' => tra('bad'),
+                    'fitness_status' => FITNESS_STATUS_BAD,
+                    'setting' => 'Failed',
+                    'message' => tra('Database connection failed.')
+                );
+            }
+        }
+    }
+
+    // Run enhanced security checks for AJAX
+    $db_permissions = check_database_config_permissions();
+    $phpmyadmin_check = check_phpmyadmin_installations();
+    $adminer_check = check_adminer_installations();
+    $backup_config_check = check_backup_configuration_files();
+    $directory_listing_check = check_directory_listing_vulnerabilities();
+    $ssl_check = check_ssl_configuration();
+
+    $tiki_security['Database Configuration Permissions'] = $db_permissions;
+    $tiki_security['phpMyAdmin Security'] = $phpmyadmin_check;
+    $tiki_security['Adminer Security'] = $adminer_check;
+    $tiki_security['Backup Configuration Files'] = $backup_config_check;
+    $tiki_security['Directory Listing Security'] = $directory_listing_check;
+    $tiki_security['SSL/TLS Configuration'] = $ssl_check;
+
+    // Count issues from different sections
+    $all_properties = array_merge(
+        $server_properties,
+        $mysql_properties,
+        $php_properties,
+        $security,
+        $tiki_security,
+        isset($apache_properties) && is_array($apache_properties) ? $apache_properties : array(),
+        isset($iis_properties) && is_array($iis_properties) ? $iis_properties : array()
+    );
+
+    foreach ($all_properties as $key => $item) {
+        if (! isset($item['fitness_status'])) { // Some items so not have fitness_status
+            continue;
+        }
+        switch ($item['fitness_status']) {
+            case FITNESS_STATUS_BAD:
+            case FITNESS_STATUS_UNSAFE:
+            case FITNESS_STATUS_RISKY:
+                $critical_count++;
+
+                // Determine the correct section based on which array the item came from
+                $section = 'Server_Properties'; // default
+                if (isset($server_properties[$key])) {
+                    $section = 'Server_Properties';
+                } elseif (isset($mysql_properties[$key])) {
+                    $section = 'MySQL_or_MariaDB_Database_Properties';
+                } elseif (isset($php_properties[$key])) {
+                    $section = 'PHP_scripting_language_properties';
+                } elseif (isset($security[$key])) {
+                    $section = 'Tiki_Security';
+                } elseif (isset($tiki_security[$key])) {
+                    $section = 'Tiki_Security';
+                } elseif (isset($apache_properties) && isset($apache_properties[$key])) {
+                    $section = 'Apache_properties';
+                } elseif (isset($iis_properties) && isset($iis_properties[$key])) {
+                    $section = 'IIS_properties';
+                }
+
+                $critical_issues[] = array(
+                    'title' => $key,
+                    'message' => $item['message'],
+                    'section' => $section
+                );
+                break;
+            case FITNESS_STATUS_UNSURE:
+                $warning_count++;
+                break;
+            case FITNESS_STATUS_INFO:
+                $info_count++;
+                break;
+            case FITNESS_STATUS_GOOD:
+            case FITNESS_STATUS_SAFE:
+                $good_count++;
+                break;
+        }
+    }
+
+    // Calculate health score (0-100)
+    $total_checks = $critical_count + $warning_count + $info_count + $good_count;
+    $health_score = $total_checks > 0 ? round((($good_count + $info_count * 0.5) / $total_checks) * 100) : 100;
+
+    // Calculate percentages for progress bar
+    $critical_percentage = $total_checks > 0 ? round(($critical_count / $total_checks) * 100) : 0;
+    $warning_percentage = $total_checks > 0 ? round(($warning_count / $total_checks) * 100) : 0;
+    $health_percentage = $total_checks > 0 ? round((($good_count + $info_count) / $total_checks) * 100) : 100;
+
+    // Critical issues are now handled by the template
+
+    // Use Smarty template for dashboard
+    $smarty = new Smarty();
+    $smarty->setTemplateDir('./templates/');
+    $smarty->setCompileDir('./temp/');
+    $smarty->setCacheDir('./temp/');
+
+    // Add translation function for template
+    if (! function_exists('tr')) {
+        function tr($string)
+        {
+            return $string;
+        }
+    }
+
+    // Assign variables to template
+    $smarty->assign('critical_count', $critical_count);
+    $smarty->assign('warning_count', $warning_count);
+    $smarty->assign('info_count', $info_count);
+    $smarty->assign('good_count', $good_count);
+    $smarty->assign('health_percentage', $health_percentage);
+    $smarty->assign('warning_percentage', $warning_percentage);
+    $smarty->assign('critical_percentage', $critical_percentage);
+    $smarty->assign('health_score', $health_score);
+    $smarty->assign('critical_issues', $critical_issues);
+    $smarty->assign('source_breakdown', array(
+        'critical' => array('main' => 0, 'packages' => 0, 'ocr' => 0),
+        'warning' => array('main' => 0, 'packages' => 0, 'ocr' => 0),
+        'info' => array('main' => 0, 'packages' => 0, 'ocr' => 0),
+        'good' => array('main' => 0, 'packages' => 0, 'ocr' => 0)
+    ));
+
+    // Render dashboard using template
+    $dashboard_html = $smarty->fetch('tiki-check-dashboard.tpl');
+    die($dashboard_html);
+}
 
 function checkOPcacheCompatibility()
 {
@@ -414,6 +671,11 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
     // This page is an admin tool usually used in the early stages of setting up Tiki, before layout considerations.
     // Restricting the width is contrary to its purpose.
     $prefs['feature_fixed_width'] = 'n';
+
+    // Add CSS for enhanced status indicators (only if file exists)
+    if (file_exists('themes/base_files/feature_css/tiki-check.css')) {
+        $headerlib->add_cssfile('themes/base_files/feature_css/tiki-check.css');
+    }
 } else {
     $standalone = true;
     $render = "";
@@ -3240,8 +3502,105 @@ if (! $standalone) {
     $smarty->assign('packages', $packagesToDisplay);
 }
 
+// Enhanced Security Checks
 $sensitiveDataDetectedFiles = array();
 check_for_remote_readable_files($sensitiveDataDetectedFiles);
+
+// Check database configuration file permissions
+$db_config_issues = check_database_config_permissions();
+if (! empty($db_config_issues)) {
+    $tiki_security['Database Configuration Permissions'] = array(
+        'fitness' => tra('bad'),
+        'fitness_status' => FITNESS_STATUS_BAD,
+        'message' => tra('Database configuration file has insecure permissions: ') . implode(', ', $db_config_issues)
+    );
+} else {
+    $tiki_security['Database Configuration Permissions'] = array(
+        'fitness' => tra('safe'),
+        'fitness_status' => FITNESS_STATUS_SAFE,
+        'message' => tra('Database configuration file permissions are secure')
+    );
+}
+
+// Check for phpMyAdmin installations
+$phpmyadmin_issues = check_phpmyadmin_installations();
+if (! empty($phpmyadmin_issues)) {
+    $tiki_security['phpMyAdmin Security'] = array(
+        'fitness' => tra('bad'),
+        'fitness_status' => FITNESS_STATUS_BAD,
+        'message' => tra('phpMyAdmin installation detected that may expose database management: ') . implode(', ', $phpmyadmin_issues)
+    );
+} else {
+    $tiki_security['phpMyAdmin Security'] = array(
+        'fitness' => tra('safe'),
+        'fitness_status' => FITNESS_STATUS_SAFE,
+        'message' => tra('No insecure phpMyAdmin installations detected')
+    );
+}
+
+// Check for Adminer installations
+$adminer_issues = check_adminer_installations();
+if (! empty($adminer_issues)) {
+    $tiki_security['Adminer Security'] = array(
+        'fitness' => tra('bad'),
+        'fitness_status' => FITNESS_STATUS_BAD,
+        'message' => tra('Adminer installation detected that may expose database management: ') . implode(', ', $adminer_issues)
+    );
+} else {
+    $tiki_security['Adminer Security'] = array(
+        'fitness' => tra('safe'),
+        'fitness_status' => FITNESS_STATUS_SAFE,
+        'message' => tra('No insecure Adminer installations detected')
+    );
+}
+
+// Check for additional backup and configuration files
+$backup_file_issues = check_backup_configuration_files();
+if (! empty($backup_file_issues)) {
+    $tiki_security['Backup Configuration Files'] = array(
+        'fitness' => tra('risky'),
+        'fitness_status' => FITNESS_STATUS_RISKY,
+        'message' => tra('Backup configuration files detected that may expose sensitive information: ') . implode(', ', $backup_file_issues)
+    );
+} else {
+    $tiki_security['Backup Configuration Files'] = array(
+        'fitness' => tra('safe'),
+        'fitness_status' => FITNESS_STATUS_SAFE,
+        'message' => tra('No insecure backup configuration files detected')
+    );
+}
+
+// Check for directory listing vulnerabilities
+$directory_listing_issues = check_directory_listing_vulnerabilities();
+if (! empty($directory_listing_issues)) {
+    $tiki_security['Directory Listing Security'] = array(
+        'fitness' => tra('risky'),
+        'fitness_status' => FITNESS_STATUS_RISKY,
+        'message' => tra('Directory listing may be enabled in sensitive directories: ') . implode(', ', $directory_listing_issues)
+    );
+} else {
+    $tiki_security['Directory Listing Security'] = array(
+        'fitness' => tra('safe'),
+        'fitness_status' => FITNESS_STATUS_SAFE,
+        'message' => tra('Directory listing security is properly configured')
+    );
+}
+
+// Check SSL/TLS configuration
+$ssl_issues = check_ssl_configuration();
+if (! empty($ssl_issues)) {
+    $tiki_security['SSL/TLS Configuration'] = array(
+        'fitness' => tra('risky'),
+        'fitness_status' => FITNESS_STATUS_RISKY,
+        'message' => tra('SSL/TLS configuration issues detected: ') . implode(', ', $ssl_issues)
+    );
+} else {
+    $tiki_security['SSL/TLS Configuration'] = array(
+        'fitness' => tra('safe'),
+        'fitness_status' => FITNESS_STATUS_SAFE,
+        'message' => tra('SSL/TLS configuration appears secure')
+    );
+}
 
 if (! empty($sensitiveDataDetectedFiles)) {
     $files = ' (Files: ' . trim(implode(', ', $sensitiveDataDetectedFiles)) . ')';
@@ -4061,6 +4420,7 @@ if ($standalone && ! $nagios) {
         $smarty->assign('no_iis_properties', tra('You are not running IIS web server.'));
     }
     $smarty->assign_by_ref('security', $security);
+    $smarty->assign_by_ref('tiki_security', $tiki_security);
     $smarty->assign_by_ref('mysql_variables', $mysql_variables);
     $smarty->assign_by_ref('mysql_crashed_tables', $mysql_crashed_tables);
     if ($prefs['fgal_enable_auto_indexing'] === 'y') {
@@ -4087,6 +4447,7 @@ if ($standalone && ! $nagios) {
     $smarty->assign('FITNESS_STATUS_UNSURE', FITNESS_STATUS_UNSURE);
     $smarty->assign('FITNESS_STATUS_INFO', FITNESS_STATUS_INFO);
     $smarty->assign('FITNESS_STATUS_UNKNOWN', FITNESS_STATUS_UNKNOWN);
+
 
     if (isset($_REQUEST['bomscanner']) && class_exists('BOMChecker_Scanner')) {
         $timeoutLimit = ini_get('max_execution_time');
@@ -4187,6 +4548,253 @@ if ($standalone && ! $nagios) {
     }
 
     $smarty->assign('locales', $locales);
+
+    // Calculate dashboard statistics
+    $critical_count = 0;
+    $warning_count = 0;
+    $info_count = 0;
+    $good_count = 0;
+    $critical_issues = array();
+
+    // Count issues from different sections
+    $all_properties = array_merge(
+        $server_properties,
+        $mysql_properties,
+        $php_properties,
+        $security,
+        $tiki_security,
+        isset($apache_properties) && is_array($apache_properties) ? $apache_properties : array(),
+        isset($iis_properties) && is_array($iis_properties) ? $iis_properties : array()
+    );
+
+    foreach ($all_properties as $key => $item) {
+        switch ($item['fitness_status']) {
+            case FITNESS_STATUS_BAD:
+            case FITNESS_STATUS_UNSAFE:
+            case FITNESS_STATUS_RISKY:
+                $critical_count++;
+
+                // Determine the correct section based on which array the item came from
+                $section = 'Server_Properties'; // default
+                if (isset($server_properties[$key])) {
+                    $section = 'Server_Properties';
+                } elseif (isset($mysql_properties[$key])) {
+                    $section = 'MySQL_or_MariaDB_Database_Properties';
+                } elseif (isset($php_properties[$key])) {
+                    $section = 'PHP_scripting_language_properties';
+                } elseif (isset($security[$key])) {
+                    $section = 'Tiki_Security';
+                } elseif (isset($tiki_security[$key])) {
+                    $section = 'Tiki_Security';
+                } elseif (isset($apache_properties) && isset($apache_properties[$key])) {
+                    $section = 'Apache_properties';
+                } elseif (isset($iis_properties) && isset($iis_properties[$key])) {
+                    $section = 'IIS_properties';
+                }
+
+                $critical_issues[] = array(
+                    'title' => $key,
+                    'message' => $item['message'],
+                    'section' => $section
+                );
+                break;
+            case FITNESS_STATUS_UNSURE:
+                $warning_count++;
+                break;
+            case FITNESS_STATUS_INFO:
+                $info_count++;
+                break;
+            case FITNESS_STATUS_GOOD:
+            case FITNESS_STATUS_SAFE:
+                $good_count++;
+                break;
+        }
+    }
+
+    // Count from packages
+    if (isset($packagesToDisplay)) {
+        foreach ($packagesToDisplay as $package) {
+            switch ($package['fitness_status']) {
+                case FITNESS_STATUS_BAD:
+                case FITNESS_STATUS_UNSAFE:
+                case FITNESS_STATUS_RISKY:
+                    $critical_count++;
+                    $critical_issues[] = array(
+                        'title' => $package['name'],
+                        'message' => implode(', ', $package['message']),
+                        'section' => 'Tiki_Packages'
+                    );
+                    break;
+                case FITNESS_STATUS_UNSURE:
+                    $warning_count++;
+                    break;
+                case FITNESS_STATUS_INFO:
+                    $info_count++;
+                    break;
+                case FITNESS_STATUS_GOOD:
+                case FITNESS_STATUS_SAFE:
+                    $good_count++;
+                    break;
+            }
+        }
+    }
+
+    // Count from OCR
+    if (isset($ocrToDisplay)) {
+        foreach ($ocrToDisplay as $ocr) {
+            switch ($ocr['fitness_status']) {
+                case FITNESS_STATUS_BAD:
+                case FITNESS_STATUS_UNSAFE:
+                case FITNESS_STATUS_RISKY:
+                    $critical_count++;
+                    $critical_issues[] = array(
+                        'title' => $ocr['name'],
+                        'message' => $ocr['message'],
+                        'section' => 'OCR_Status'
+                    );
+                    break;
+                case FITNESS_STATUS_UNSURE:
+                    $warning_count++;
+                    break;
+                case FITNESS_STATUS_INFO:
+                    $info_count++;
+                    break;
+                case FITNESS_STATUS_GOOD:
+                case FITNESS_STATUS_SAFE:
+                    $good_count++;
+                    break;
+            }
+        }
+    }
+
+    // Calculate health score (0-100)
+    $total_checks = $critical_count + $warning_count + $info_count + $good_count;
+    $health_score = $total_checks > 0 ? round((($good_count + $info_count * 0.5) / $total_checks) * 100) : 100;
+
+    // Calculate percentages for progress bar
+    $critical_percentage = $total_checks > 0 ? round(($critical_count / $total_checks) * 100) : 0;
+    $warning_percentage = $total_checks > 0 ? round(($warning_count / $total_checks) * 100) : 0;
+    $health_percentage = $total_checks > 0 ? round((($good_count + $info_count) / $total_checks) * 100) : 100;
+
+    // Assign dashboard variables
+    $smarty->assign('critical_count', $critical_count);
+    $smarty->assign('warning_count', $warning_count);
+    $smarty->assign('info_count', $info_count);
+    $smarty->assign('good_count', $good_count);
+    $smarty->assign('critical_issues', $critical_issues);
+    $smarty->assign('health_score', $health_score);
+    $smarty->assign('health_percentage', $health_percentage);
+    $smarty->assign('critical_percentage', $critical_percentage);
+    $smarty->assign('warning_percentage', $warning_percentage);
+    $smarty->assign('total_checks', $total_checks);
+
+    // Calculate source breakdowns for tooltips
+    $main_critical = 0;
+    $main_warning = 0;
+    $main_info = 0;
+    $main_good = 0;
+    $packages_critical = 0;
+    $packages_warning = 0;
+    $packages_info = 0;
+    $packages_good = 0;
+    $ocr_critical = 0;
+    $ocr_warning = 0;
+    $ocr_info = 0;
+    $ocr_good = 0;
+
+    // Count main checks (from all_properties)
+    foreach ($all_properties as $key => $item) {
+        switch ($item['fitness_status']) {
+            case FITNESS_STATUS_BAD:
+            case FITNESS_STATUS_UNSAFE:
+            case FITNESS_STATUS_RISKY:
+                $main_critical++;
+                break;
+            case FITNESS_STATUS_UNSURE:
+                $main_warning++;
+                break;
+            case FITNESS_STATUS_INFO:
+                $main_info++;
+                break;
+            case FITNESS_STATUS_GOOD:
+            case FITNESS_STATUS_SAFE:
+                $main_good++;
+                break;
+        }
+    }
+
+    // Count packages
+    if (isset($packagesToDisplay)) {
+        foreach ($packagesToDisplay as $package) {
+            switch ($package['fitness_status']) {
+                case FITNESS_STATUS_BAD:
+                case FITNESS_STATUS_UNSAFE:
+                case FITNESS_STATUS_RISKY:
+                    $packages_critical++;
+                    break;
+                case FITNESS_STATUS_UNSURE:
+                    $packages_warning++;
+                    break;
+                case FITNESS_STATUS_INFO:
+                    $packages_info++;
+                    break;
+                case FITNESS_STATUS_GOOD:
+                case FITNESS_STATUS_SAFE:
+                    $packages_good++;
+                    break;
+            }
+        }
+    }
+
+    // Count OCR
+    if (isset($ocrToDisplay)) {
+        foreach ($ocrToDisplay as $ocr) {
+            switch ($ocr['fitness_status']) {
+                case FITNESS_STATUS_BAD:
+                case FITNESS_STATUS_UNSAFE:
+                case FITNESS_STATUS_RISKY:
+                    $ocr_critical++;
+                    break;
+                case FITNESS_STATUS_UNSURE:
+                    $ocr_warning++;
+                    break;
+                case FITNESS_STATUS_INFO:
+                    $ocr_info++;
+                    break;
+                case FITNESS_STATUS_GOOD:
+                case FITNESS_STATUS_SAFE:
+                    $ocr_good++;
+                    break;
+            }
+        }
+    }
+
+    // Create source breakdown array for tooltips
+    $source_breakdown = array(
+        'critical' => array(
+            'main' => $main_critical,
+            'packages' => $packages_critical,
+            'ocr' => $ocr_critical
+        ),
+        'warning' => array(
+            'main' => $main_warning,
+            'packages' => $packages_warning,
+            'ocr' => $ocr_warning
+        ),
+        'info' => array(
+            'main' => $main_info,
+            'packages' => $packages_info,
+            'ocr' => $ocr_info
+        ),
+        'good' => array(
+            'main' => $main_good,
+            'packages' => $packages_good,
+            'ocr' => $ocr_good
+        )
+    );
+
+    // Assign source breakdown to Smarty
+    $smarty->assign('source_breakdown', $source_breakdown);
 
     $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
     $smarty->assign('mid', 'tiki-check.tpl');
@@ -4645,6 +5253,225 @@ function get_content_from_url($url)
     return $content;
 }
 
+/**
+ * Check database configuration file permissions
+ * @return array Array of security issues found
+ */
+function check_database_config_permissions()
+{
+    $issues = array();
+
+    // Check db/local.php permissions
+    if (file_exists('db/local.php')) {
+        $perms = fileperms('db/local.php');
+        // Check if world readable (others can read)
+        if (($perms & 0x0004) || ($perms & 0x0002)) {
+            $issues[] = 'db/local.php is world-readable';
+        }
+    }
+
+    // Check for other potential config files
+    $config_files = array('db/local.php', 'db/local.php.bak', 'db/local.php.backup');
+    foreach ($config_files as $file) {
+        if (file_exists($file)) {
+            $perms = fileperms($file);
+            if (($perms & 0x0004) || ($perms & 0x0002)) {
+                $issues[] = $file . ' is world-readable';
+            }
+        }
+    }
+
+    return $issues;
+}
+
+/**
+ * Check for phpMyAdmin installations
+ * @return array Array of security issues found
+ */
+function check_phpmyadmin_installations()
+{
+    $issues = array();
+
+    // Common phpMyAdmin paths to check
+    $phpmyadmin_paths = array(
+        'phpmyadmin',
+        'pma',
+        'mysql',
+        'myadmin',
+        'phpMyAdmin',
+        'phpmyadmin2',
+        'phpmyadmin3',
+        'phpmyadmin4'
+    );
+
+    // Check for phpMyAdmin directories
+    foreach ($phpmyadmin_paths as $path) {
+        if (is_dir($path)) {
+            $issues[] = 'phpMyAdmin directory found: ' . $path;
+        }
+    }
+
+    // Check for phpMyAdmin files in document root
+    $phpmyadmin_files = array(
+        'phpmyadmin.php',
+        'pma.php',
+        'mysql.php',
+        'myadmin.php'
+    );
+
+    foreach ($phpmyadmin_files as $file) {
+        if (file_exists($file)) {
+            $issues[] = 'phpMyAdmin file found: ' . $file;
+        }
+    }
+
+    return $issues;
+}
+
+/**
+ * Check for Adminer installations
+ * @return array Array of security issues found
+ */
+function check_adminer_installations()
+{
+    $issues = array();
+
+    // Check for Adminer files
+    $adminer_files = array(
+        'adminer.php',
+        'adminer-*.php',
+        'adminer/index.php',
+        'adminer/adminer.php'
+    );
+
+    foreach ($adminer_files as $pattern) {
+        if (strpos($pattern, '*') !== false) {
+            // Handle wildcard patterns
+            $files = glob($pattern);
+            foreach ($files as $file) {
+                $issues[] = 'Adminer file found: ' . $file;
+            }
+        } else {
+            if (file_exists($pattern)) {
+                $issues[] = 'Adminer file found: ' . $pattern;
+            }
+        }
+    }
+
+    // Check for Adminer directory
+    if (is_dir('adminer')) {
+        $issues[] = 'Adminer directory found: adminer/';
+    }
+
+    return $issues;
+}
+
+/**
+ * Check for backup configuration files
+ * @return array Array of security issues found
+ */
+function check_backup_configuration_files()
+{
+    $issues = array();
+
+    // Directories to check for backup files
+    $directories = array('.', 'db', 'lib', 'templates');
+
+    // Backup file patterns
+    $backup_patterns = array(
+        '*.bak',
+        '*.backup',
+        '*.old',
+        '*.tmp',
+        '*~',
+        '*.swp',
+        '*.swo',
+        '*.orig',
+        '*.save'
+    );
+
+    foreach ($directories as $dir) {
+        if (is_dir($dir)) {
+            foreach ($backup_patterns as $pattern) {
+                $files = glob($dir . '/' . $pattern);
+                foreach ($files as $file) {
+                    // Skip if it's a PHP file that will be interpreted
+                    if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+                        continue;
+                    }
+                    $issues[] = 'Backup file found: ' . $file;
+                }
+            }
+        }
+    }
+
+    return $issues;
+}
+
+/**
+ * Check for directory listing vulnerabilities
+ * @return array Array of security issues found
+ */
+function check_directory_listing_vulnerabilities()
+{
+    $issues = array();
+
+    // Check for .htaccess files that might enable directory listing
+    $htaccess_files = array('.htaccess', 'htaccess.txt');
+
+    foreach ($htaccess_files as $file) {
+        if (file_exists($file)) {
+            $content = file_get_contents($file);
+            if (strpos($content, 'Options +Indexes') !== false) {
+                $issues[] = 'Directory listing enabled in ' . $file;
+            }
+        }
+    }
+
+    // Check sensitive directories for index files
+    $sensitive_dirs = array('db', 'lib', 'templates', 'temp');
+
+    foreach ($sensitive_dirs as $dir) {
+        if (is_dir($dir)) {
+            $index_files = array('index.php', 'index.html', 'index.htm');
+            foreach ($index_files as $index_file) {
+                if (file_exists($dir . '/' . $index_file)) {
+                    $issues[] = 'Index file found in sensitive directory: ' . $dir . '/' . $index_file;
+                }
+            }
+        }
+    }
+
+    return $issues;
+}
+
+/**
+ * Check SSL/TLS configuration
+ * @return array Array of security issues found
+ */
+function check_ssl_configuration()
+{
+    $issues = array();
+
+    // Check if HTTPS is being used
+    if (! isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+        $issues[] = 'HTTPS not detected - connection may not be encrypted';
+    }
+
+    // Check for secure headers
+    if (function_exists('getallheaders')) {
+        $headers = getallheaders();
+        if (! isset($headers['X-Forwarded-Proto']) || $headers['X-Forwarded-Proto'] !== 'https') {
+            // Only warn if we're not on HTTPS and no secure proxy is detected
+            if (! isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+                $issues[] = 'No secure proxy headers detected';
+            }
+        }
+    }
+
+    return $issues;
+}
+
 function no_cache_found()
 {
     global $php_properties;
@@ -4665,3 +5492,325 @@ function no_cache_found()
         );
     }
 }
+
+// Debug: Count FITNESS_STATUS constants
+function countFitnessStatuses($arrays)
+{
+    $counts = array(
+        'good' => 0,
+        'bad' => 0,
+        'unsure' => 0,
+        'info' => 0,
+        'N/A' => 0,
+        'safe' => 0,
+        'unsafe' => 0,
+        'unknown' => 0,
+        'risky' => 0
+    );
+
+    foreach ($arrays as $array_name => $array_data) {
+        if (is_array($array_data)) {
+            foreach ($array_data as $key => $item) {
+                if (is_array($item) && isset($item['fitness'])) {
+                    $status = $item['fitness'];
+                    if (isset($counts[$status])) {
+                        $counts[$status]++;
+                    }
+                }
+            }
+        }
+    }
+
+    return $counts;
+}
+
+
+
+// Initialize undefined arrays to prevent warnings
+if (! isset($tiki_performance)) {
+    $tiki_performance = array();
+}
+if (! isset($tiki_requirements)) {
+    $tiki_requirements = array();
+}
+if (! isset($tiki_available)) {
+    $tiki_available = array();
+}
+if (! isset($tiki_installed)) {
+    $tiki_installed = array();
+}
+if (! isset($tiki_configured)) {
+    $tiki_configured = array();
+}
+if (! isset($tiki_working)) {
+    $tiki_working = array();
+}
+if (! isset($tiki_health)) {
+    $tiki_health = array();
+}
+if (! isset($tiki_issues)) {
+    $tiki_issues = array();
+}
+if (! isset($tiki_warnings)) {
+    $tiki_warnings = array();
+}
+if (! isset($tiki_info)) {
+    $tiki_info = array();
+}
+if (! isset($tiki_good)) {
+    $tiki_good = array();
+}
+if (! isset($tiki_permissions)) {
+    $tiki_permissions = array();
+}
+if (! isset($tiki_properties)) {
+    $tiki_properties = array();
+}
+if (! isset($database_properties)) {
+    $database_properties = array();
+}
+
+// Count statuses in all arrays
+$all_arrays = array(
+    'php_properties' => $php_properties,
+    'server_properties' => $server_properties,
+    'database_properties' => $database_properties,
+    'tiki_properties' => $tiki_properties,
+    'tiki_security' => $tiki_security,
+    'tiki_permissions' => $tiki_permissions,
+    'tiki_performance' => $tiki_performance,
+    'tiki_requirements' => $tiki_requirements,
+    'tiki_available' => $tiki_available,
+    'tiki_installed' => $tiki_installed,
+    'tiki_configured' => $tiki_configured,
+    'tiki_working' => $tiki_working,
+    'tiki_health' => $tiki_health,
+    'tiki_issues' => $tiki_issues,
+    'tiki_warnings' => $tiki_warnings,
+    'tiki_info' => $tiki_info,
+    'tiki_good' => $tiki_good
+);
+
+$fitness_counts = countFitnessStatuses($all_arrays);
+
+// Calculate dashboard statistics for main template (same as AJAX section)
+$main_critical = 0;
+$main_warning = 0;
+$main_info = 0;
+$main_good = 0;
+$critical_count = 0;
+$warning_count = 0;
+$info_count = 0;
+$good_count = 0;
+$critical_issues = array();
+
+// Count issues from different sections (same logic as AJAX section)
+$all_properties = array_merge(
+    $server_properties,
+    $mysql_properties,
+    $php_properties,
+    $security,
+    $tiki_security,
+    isset($apache_properties) && is_array($apache_properties) ? $apache_properties : array(),
+    isset($iis_properties) && is_array($iis_properties) ? $iis_properties : array(),
+    isset($tiki_properties) && is_array($tiki_properties) ? $tiki_properties : array(),
+    isset($database_properties) && is_array($database_properties) ? $database_properties : array()
+);
+
+foreach ($all_properties as $key => $item) {
+    switch ($item['fitness_status']) {
+        case FITNESS_STATUS_BAD:
+        case FITNESS_STATUS_UNSAFE:
+        case FITNESS_STATUS_RISKY:
+            $main_critical++;
+            $critical_count++;
+
+            // Determine the correct section based on which array the item came from
+            $section = 'Server_Properties'; // default
+            if (isset($server_properties[$key])) {
+                $section = 'Server_Properties';
+            } elseif (isset($mysql_properties[$key])) {
+                $section = 'MySQL_or_MariaDB_Database_Properties';
+            } elseif (isset($php_properties[$key])) {
+                $section = 'PHP_scripting_language_properties';
+            } elseif (isset($security[$key])) {
+                $section = 'Tiki_Security';
+            } elseif (isset($tiki_security[$key])) {
+                $section = 'Tiki_Security';
+            } elseif (isset($apache_properties) && isset($apache_properties[$key])) {
+                $section = 'Apache_properties';
+            } elseif (isset($iis_properties) && isset($iis_properties[$key])) {
+                $section = 'IIS_properties';
+            } elseif (isset($tiki_properties) && isset($tiki_properties[$key])) {
+                $section = 'Tiki_Properties';
+            } elseif (isset($database_properties) && isset($database_properties[$key])) {
+                $section = 'Database_Properties';
+            }
+
+            $critical_issues[] = array(
+                'title' => $key,
+                'message' => $item['message'],
+                'section' => $section
+            );
+            break;
+        case FITNESS_STATUS_UNSURE:
+            $main_warning++;
+            $warning_count++;
+            break;
+        case FITNESS_STATUS_INFO:
+            $main_info++;
+            $info_count++;
+            break;
+        case FITNESS_STATUS_GOOD:
+        case FITNESS_STATUS_SAFE:
+            $main_good++;
+            $good_count++;
+            break;
+    }
+}
+
+// Count from packages
+$packages_critical = 0;
+$packages_warning = 0;
+$packages_info = 0;
+$packages_good = 0;
+
+if (isset($packagesToDisplay)) {
+    foreach ($packagesToDisplay as $package) {
+        switch ($package['fitness_status']) {
+            case FITNESS_STATUS_BAD:
+            case FITNESS_STATUS_UNSAFE:
+            case FITNESS_STATUS_RISKY:
+                $critical_count++;
+                $packages_critical++;
+                $critical_issues[] = array(
+                    'title' => $package['name'],
+                    'message' => implode(', ', $package['message']),
+                    'section' => 'Tiki_Packages'
+                );
+                break;
+            case FITNESS_STATUS_UNSURE:
+                $warning_count++;
+                $packages_warning++;
+                break;
+            case FITNESS_STATUS_INFO:
+                $info_count++;
+                $packages_info++;
+                break;
+            case FITNESS_STATUS_GOOD:
+            case FITNESS_STATUS_SAFE:
+                $good_count++;
+                $packages_good++;
+                break;
+        }
+    }
+}
+
+// Count from OCR
+$ocr_critical = 0;
+$ocr_warning = 0;
+$ocr_info = 0;
+$ocr_good = 0;
+
+if (isset($ocrToDisplay)) {
+    foreach ($ocrToDisplay as $ocr) {
+        switch ($ocr['fitness_status']) {
+            case FITNESS_STATUS_BAD:
+            case FITNESS_STATUS_UNSAFE:
+            case FITNESS_STATUS_RISKY:
+                $critical_count++;
+                $ocr_critical++;
+                $critical_issues[] = array(
+                    'title' => $ocr['name'],
+                    'message' => $ocr['message'],
+                    'section' => 'OCR_Status'
+                );
+                break;
+            case FITNESS_STATUS_UNSURE:
+                $warning_count++;
+                $ocr_warning++;
+                break;
+            case FITNESS_STATUS_INFO:
+                $info_count++;
+                $ocr_info++;
+                break;
+            case FITNESS_STATUS_GOOD:
+            case FITNESS_STATUS_SAFE:
+                $good_count++;
+                $ocr_good++;
+                break;
+        }
+    }
+}
+
+// Calculate health score (0-100)
+$total_checks = $critical_count + $warning_count + $info_count + $good_count;
+$health_score = $total_checks > 0 ? round((($good_count + $info_count * 0.5) / $total_checks) * 100) : 100;
+
+// Calculate percentages for progress bar
+$critical_percentage = $total_checks > 0 ? round(($critical_count / $total_checks) * 100) : 0;
+$warning_percentage = $total_checks > 0 ? round(($warning_count / $total_checks) * 100) : 0;
+$health_percentage = $total_checks > 0 ? round((($good_count + $info_count) / $total_checks) * 100) : 100;
+
+// Assign dashboard variables to Smarty
+$smarty->assign('critical_count', $critical_count);
+$smarty->assign('warning_count', $warning_count);
+$smarty->assign('info_count', $info_count);
+$smarty->assign('good_count', $good_count);
+$smarty->assign('critical_issues', $critical_issues);
+$smarty->assign('health_score', $health_score);
+$smarty->assign('health_percentage', $health_percentage);
+$smarty->assign('critical_percentage', $critical_percentage);
+$smarty->assign('warning_percentage', $warning_percentage);
+
+// Calculate source breakdowns for tooltips
+$source_breakdown = array(
+    'critical' => array(
+        'main' => $main_critical,
+        'packages' => $packages_critical,
+        'ocr' => $ocr_critical
+    ),
+    'warning' => array(
+        'main' => $main_warning,
+        'packages' => $packages_warning,
+        'ocr' => $ocr_warning
+    ),
+    'info' => array(
+        'main' => $main_info,
+        'packages' => $packages_info,
+        'ocr' => $ocr_info
+    ),
+    'good' => array(
+        'main' => $main_good,
+        'packages' => $packages_good,
+        'ocr' => $ocr_good
+    )
+);
+
+// Also add to Smarty for template access
+$smarty->assign('fitness_counts', $fitness_counts);
+
+// Create formatted tooltip HTML for each status type
+function formatTooltipHtml($type, $breakdown)
+{
+    $title = ucfirst($type) . ' Breakdown:';
+    $main = isset($breakdown['main']) ? $breakdown['main'] : 0;
+    $packages = isset($breakdown['packages']) ? $breakdown['packages'] : 0;
+    $ocr = isset($breakdown['ocr']) ? $breakdown['ocr'] : 0;
+
+    return "<strong>{$title}</strong><br>" .
+           "• Main Checks: {$main}<br>" .
+           "• Packages: {$packages}<br>" .
+           "• OCR: {$ocr}";
+}
+
+$tooltip_html = array(
+    'critical' => formatTooltipHtml('critical', $source_breakdown['critical']),
+    'warning' => formatTooltipHtml('warning', $source_breakdown['warning']),
+    'info' => formatTooltipHtml('info', $source_breakdown['info']),
+    'good' => formatTooltipHtml('good', $source_breakdown['good'])
+);
+
+// Assign source breakdown to Smarty
+$smarty->assign('source_breakdown', $source_breakdown);
+$smarty->assign('tooltip_html', $tooltip_html);
