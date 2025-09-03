@@ -9,6 +9,7 @@ stages:
   - composer-stability
 
 variables:
+  TZ: "UTC"
   MYSQL_ROOT_PASSWORD: secret
   MYSQL_DATABASE: tikitest
   MYSQL_USER: tikiuser

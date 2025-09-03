@@ -1128,6 +1128,55 @@ class Services_User_Controller
         }
     }
 
+    public function actionLocalTimezoneSync($input)
+    {
+        global $user, $tikilib;
+        $access = TikiLib::lib('access');
+        $clientTz = $input->client_timezone->text();
+        $action = $input->timezone_action->text();
+
+        if ($action === 'never') {
+            if ($tikilib->set_preference('user_localtimezonesync', 'n')) {
+                $tikilib->set_user_preference($user, 'localtimezonesync', 'n');
+            }
+            $access->redirect($_SERVER['HTTP_REFERER']);
+            return [];
+        }
+
+        if (! empty($_SESSION["temp_timezone"])) {
+            $preferedTz = $_SESSION["temp_timezone"];
+        } else {
+            $preferedTz = $tikilib->get_user_preference($user, 'display_timezone', '');
+        }
+
+        if ($action === 'switch') {
+            $tikilib->set_user_preference($user, 'display_timezone', $clientTz);
+            $preferedTz = $tikilib->get_user_preference($user, 'display_timezone', '');
+        } elseif ($action === 'temporary') {
+            $_SESSION["temp_timezone"] = $clientTz;
+            $preferedTz = $clientTz;
+        }
+
+        $different = $clientTz && $clientTz !== $preferedTz;
+        $result = [
+            'different'      => $different ? true : false,
+            'preferedTimezone' => $preferedTz,
+            'clientTimezone'   => $clientTz,
+        ];
+
+        if ($action === 'switch' || $action === 'temporary') {
+            return $this->redirectAndReturn($result);
+        }
+
+        return $result;
+    }
+
+    private function redirectAndReturn($data = []): array
+    {
+        header("Location:" . $_SERVER['HTTP_REFERER']);
+        return $data;
+    }
+
     private function removeUsers(array $users, $page = false, $trackerIds = [], $files = false)
     {
         global $user;

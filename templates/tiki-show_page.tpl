@@ -39,7 +39,10 @@ Note: The show content block must be defined at root level to use the include. A
     {if !isset($hide_page_header) or !$hide_page_header}
         {include file='tiki-flaggedrev_approval_header.tpl'}
     {/if}
-
+    {if $prefs.user_localtimezonesync == 'y' and !empty($user)}
+        {include file="user/localtimezonesync.tpl"}
+    {/if}
+    
     {if $print_page ne 'y'}
         {if $prefs.page_bar_position eq 'top'}
             {include file='tiki-page_bar.tpl'}
