@@ -12,6 +12,7 @@ use Tracker\Tabular\Source\CsvSource;
 use Tracker\Tabular\Schema;
 use Tracker\Tabular\Source\PaginatedQuerySource;
 use Tracker\Tabular\Source\QuerySource;
+use Tracker\Tabular\Source\TrackerSourceEntry;
 use Tracker\Tabular\Writer\APIWriter;
 use Tracker\Tabular\Writer\HtmlWriter;
 use Tracker\Tabular\Writer\ODBCWriter;
@@ -557,15 +558,25 @@ class Services_Tracker_TabularController
 
             return TikiLib::lib('tiki')->allocate_extra(
                 'tracker_import_items',
-                function () use ($writer, $source, $info) {
-                    $writer->write($source);
+                function () use ($writer, $source, $info, $schema) {
+                    $result = $writer->write($source);
 
                     unlink($_FILES['file']['tmp_name']);
 
                     $message = tr('Your import was completed successfully.');
 
                     if (TIKI_API) {
-                        return ['feedback' => $message];
+                        $data = [];
+                        $columns = $schema->getColumns();
+                        foreach ($result as $itemId) {
+                            $entry = new TrackerSourceEntry($itemId);
+                            $row = ['itemId' => $itemId];
+                            foreach ($columns as $column) {
+                                $row[$column->getField()] = $entry->render($column, false);
+                            }
+                            $data[] = $row;
+                        }
+                        return $data;
                     }
 
                     Feedback::success($message);
