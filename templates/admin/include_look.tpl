@@ -253,9 +253,6 @@
                 <div class="admin featurelist">
                     {preference name=feature_shadowbox}
                     {preference name=allowImageLazyLoad}
-                    <div class="adminoptionboxchild" id="feature_shadowbox_childcontainer">
-                        {preference name=jquery_colorbox_theme}
-                    </div>
                     {preference name=feature_jscalendar}
                     {preference name=wiki_heading_links}
                     {preference name=feature_conditional_formatting}
@@ -484,7 +481,7 @@
                         {tr}Custom color modes{/tr}
                     </p>
                     <div>
-                        {foreach $custom_modes item=mode}
+                        {foreach from=$custom_modes item=mode}
                             <div class="input-group mb-3 w-100" data-mode-name='{$mode.name}' data-mode-icon='{$mode.icon}'>
                                 <code class="d-none">{$mode.css_variables}</code>
                                 <button class="btn btn-primary rounded" style="cursor:default" type="button">{icon name=$mode.icon} {$mode.name} <span style="cursor: pointer;" onclick="edit_custom_mode(this,'{$mode.id}','{$mode.name}','{$mode.icon}')">{icon name='edit'}</span> <span style="cursor: pointer;" class="text-danger" onclick="delete_custom_mode(this,'{$mode.id}','{$mode.name}')">{icon name='trash'}</span></button>
