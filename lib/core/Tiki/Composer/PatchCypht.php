@@ -57,8 +57,13 @@ class PatchCypht
         if (! is_dir($assetsPath)) {
             mkdir($assetsPath, 0755);
         }
-        $fs->copy($vendors . $fixDS('jason-munro/cypht/assets'), $assetsPath);
 
+        $cyphtAssetsSource = $vendors . $fixDS('jason-munro/cypht/assets');
+        if (is_dir($cyphtAssetsSource)) {
+            $fs->copy($cyphtAssetsSource, $assetsPath);
+        } else {
+            $io->write('Warning: Cypht assets directory not found at ' . $cyphtAssetsSource . '. Skipping assets copy.');
+        }
 
         // generate Cypht config
         $php_binary = preg_replace("/(?<!\\\) /", '\ ', PHP_BINARY);
@@ -81,9 +86,20 @@ class PatchCypht
             }
         }
         // copy site.js and site.css
-        copy($vendors . $fixDS('jason-munro/cypht/site/site.js'), $cypht . 'site.js');
-        copy($vendors . $fixDS('jason-munro/cypht/site/site.css'), $cypht . 'site.css');
+        $siteJsSource = $vendors . $fixDS('jason-munro/cypht/site/site.js');
+        $siteCssSource = $vendors . $fixDS('jason-munro/cypht/site/site.css');
 
+        if (file_exists($siteJsSource)) {
+            copy($siteJsSource, $cypht . 'site.js');
+        } else {
+            $io->write('Warning: Cypht site.js file not found at ' . $siteJsSource . '. Skipping copy.');
+        }
+
+        if (file_exists($siteCssSource)) {
+            copy($siteCssSource, $cypht . 'site.css');
+        } else {
+            $io->write('Warning: Cypht site.css file not found at ' . $siteCssSource . '. Skipping copy.');
+        }
 
         // css custom pacthes, keep the bootstrap-icons path relative to lib/cypht as Tiki might be running in a subdirectory and absolute web paths don't work here
         $css = file_get_contents($cypht . 'site.css');

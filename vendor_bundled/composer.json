@@ -174,7 +174,7 @@
 
     ],
     "require": {
-        "bacon/bacon-qr-code": "~3.0",
+        "bacon/bacon-qr-code": "~2.0",
         "bertoost/elasticemail-mailer": "~1.1",
         "candy-chat/xmpp-prebind-php": "dev-master",
         "cboden/ratchet": "~0.4",
@@ -203,7 +203,7 @@
         "henrique-borba/php-sieve-manager": "~1.0",
         "hybridauth/hybridauth": "~3.11",
         "jasig/phpcas": "~1.6",
-        "jason-munro/cypht": "dev-master",
+        "jason-munro/cypht": "~2.0",
         "kaltura/api-client-library": "~21.18",
         "laminas/laminas-captcha": "~2.9",
         "laminas/laminas-config": "~3.3",
@@ -285,7 +285,7 @@
         "tijsverkoyen/css-to-inline-styles": "~2.2",
         "tikiwiki/ilp-client": "~1.0",
         "web-auth/webauthn-lib": "~4.9",
-        "zbateson/mail-mime-parser": "^3.0",
+        "zbateson/mail-mime-parser": "~2.4",
         "zf1s/zend-service-akismet": "~1.15"
     },
     "require-dev": {
