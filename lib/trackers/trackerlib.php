@@ -4842,7 +4842,7 @@ class TrackerLib extends TikiLib
                     } elseif (! $wikilib->get_namespace($value) && $value != $wikilib->get_without_namespace($new)) {
                         $this->modify_field($itemId, $fieldId, $wikilib->get_without_namespace($new));
                     }
-                    if ($nameFieldId) {
+                    if ($nameFieldId && isset($field['options_map']['syncWikiPageNameWithTrackerField']) && $field['options_map']['syncWikiPageNameWithTrackerField'] == 'y') {
                         $this->modify_field($itemId, $nameFieldId, $wikilib->get_without_namespace($new));
                     }
                 }

@@ -213,7 +213,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
         $page_name = $this->getValue();
         $insForPagenameField = 'ins_' . $this->getOption('fieldIdForPagename');
 
-        if (! $page_name) {
+        if (! $page_name || (isset($requestData['action']) && $requestData['action'] === 'clone_item')) {
             if (! empty($requestData[$insForPagenameField])) {
                 $page_name = $requestData[$insForPagenameField];    // from tabular import replace
                 $itemId = isset($requestData['itemId']) ? $requestData['itemId'] : 0;
