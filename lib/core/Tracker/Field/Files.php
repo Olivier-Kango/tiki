@@ -214,7 +214,17 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                             'n' => tr('No'),
                             'y' => tr('Yes'),
                         ],
-                    ]
+                    ],
+                    'changeFileNameOnUpload' => [
+                        'name' => tr('Change file name'),
+                        'description' => tr('Change file name on uploaded files. Upload In Modal required.'),
+                        'filter' => 'alpha',
+                        'default' => 'n',
+                        'options' => [
+                            'n' => tr('No'),
+                            'y' => tr('Yes'),
+                        ],
+                    ],
                 ],
             ],
         ];
@@ -391,6 +401,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
         return $this->renderTemplate('trackerinput/files.tpl', $context, [
             'replaceFile' => 'y' == $this->getOption('replace', 'n'),
             'addDecriptionOnUpload' => $this->getOption('addDecriptionOnUpload') === 'y' ? 1 : 0,
+            'changeFileNameOnUpload' => $this->trackerField->getOption('changeFileNameOnUpload') === 'y' ? 1 : 0,
         ]);
     }
 
