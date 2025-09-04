@@ -95,35 +95,7 @@
                     });
                 {/jq}
             </div>
-            {if $tiki_p_view_events eq 'y' and $prefs.calendar_export eq 'y'}
-                {button href="#" _onclick="toggle('exportcal');return false;" _text='{tr}Export{/tr}' _icon_name='export' _type='info'}
-                <div class="d-inline-block">
-                    <form id="exportcal" class="card" method="post" action="tiki-calendar_export_ical.php" name="f" style="display:none;">
-                        <input type="hidden" name="export" value="y">
-                        <div class="card-header caltitle py-1 px-2">
-                            <strong>{tr}Export calendars{/tr}</strong>
-                            <button type="button" class="btn-close float-end"  onclick="toggle('exportcal')" aria-hidden="true"></button>
-                        </div>
-                        <div class="caltoggle">
-                            {select_all checkbox_names='calendarIds[]' label="{tr}Check / Uncheck All{/tr}"}
-                        </div>
-                        {foreach $calendars as $calendarId => $calendar}
-                            <div class="calcheckbox">
-                                <input type="checkbox" name="calendarIds[]" value="{$calendarId|escape}" id="groupexcal_{$calendarId}"
-                                    {if in_array($calendarId, $displayedcals)}checked="checked"{/if}>
-                                <label for="groupexcal_{$calendarId}" class="calId{$calendarId}">{$calendar.name|escape} ({tr}Id #{$calendarId}{/tr})</label>
-                            </div>
-                        {/foreach}
-                        <div class="calcheckbox">
-                            <a href="{$iCalAdvParamsUrl}">{tr}advanced parameters{/tr}</a>
-                        </div>
-                        <div class="calinput">
-                            <input type="submit" class="btn btn-primary btn-sm" name="ical" value="{tr}Export as iCal{/tr}">
-                            <input type="submit" class="btn btn-primary btn-sm" name="csv" value="{tr}Export as CSV{/tr}">
-                        </div>
-                    </form>
-                </div>
-            {/if}
+            {include file="export_calendar_in_csv_or_ical.tpl"}
 
             <div id="configlinks" class="mb-3 text-end">
                 {if count($checkedCalIds)}
@@ -190,61 +162,7 @@
         <a id="calendar-pdf-btn" href="#" class="text-end d-none" role="button">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
     {/if}
     <div id="test"></div>
-    <style type='text/css'>
-        /* Fix pb with DatePicker */
-        .ui-datepicker {
-            z-index:9999 !important;
-        }
-        .ec .ec-scrollgrid, .ec .ec-scrollgrid table,
-        .ec .ec-day-grid {
-            width: 100% !important;
-        }
-        .ec-day-grid-harness {
-            border-radius: 4px;
-            margin: 0px 3px 0px;
-        }
-        .ec-event {
-            display: block;
-            white-space: break-spaces;
-            margin-top: 1px;
-        }
-        .ec-events .ec-event-time {
-            color: #ffffff;
-            font-weight: bold;
-        }
-        .ec-events .ec-event-title {
-            color: #ffffff;
-            font-weight: normal;
-        }
-        .ec-time-grid-event .ec-event-time {
-            font-weight: bold;
-        }
-        .ec-time-grid .ec-event-title {
-            font-weight: normal;
-        }
-        .ec-dark .ec-active {
-            color: white;
-        }
-        article.tips {
-            display: flex;
-        }
-        .ec-event-tag {
-            height: auto;
-        }
-        @media only screen and (max-width: 767px) {
-            .ec-toolbar {
-                display: block !important;
-            }
-            .ec-toolbar .ec-button .btn-group .btn {
-                padding: 0.375rem 0.1rem;
-            }
-        }
-        @media print {
-            .ec .ec-day-grid-day-top {
-                border-bottom: 1px solid #dee2e6;
-            }
-        }
-    </style>
+    
     <div id='currentcalitemId' class='d-none'>{$currentcalitemId}</div>
     <div id='calendar'></div>
 </div>
