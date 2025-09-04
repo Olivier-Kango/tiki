@@ -4054,7 +4054,7 @@ CREATE TABLE `tiki_oauthserver_clients` (
 DROP TABLE IF EXISTS `tiki_performance`;
 CREATE TABLE `tiki_performance` (
     `id` int(12) NOT NULL AUTO_INCREMENT,
-    `url` varchar (255) NOT NULL,
+    `url` TEXT NOT NULL,
     `time_taken` int(12) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
