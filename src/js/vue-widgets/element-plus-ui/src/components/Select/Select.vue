@@ -147,6 +147,7 @@ export const DATA_TEST_ID = {
                 :remote-method="remoteMethod"
                 :remote="Boolean(remoteSourceUrl)"
                 v-bind="$attrs"
+                :empty-values="[null, undefined]"
             >
                 <template v-if="grouped">
                     <el-option-group 

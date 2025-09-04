@@ -71,7 +71,7 @@ describe("Select", () => {
         });
 
         expect(ElSelect).toHaveBeenCalledWith(
-            expect.objectContaining({ modelValue: JSON.parse(basicProps.value), remote: false }),
+            expect.objectContaining({ modelValue: JSON.parse(basicProps.value), remote: false, "empty-values": [null, undefined] }),
             expect.any(Object)
         );
 
@@ -114,6 +114,7 @@ describe("Select", () => {
                 "collapse-tags": true,
                 "max-collapse-tags": parseInt(givenProps.maxCollapseTags, 10),
                 "multiple-limit": parseInt(givenProps.max, 10),
+                "empty-values": [null, undefined],
             }),
             expect.any(Object)
         );
