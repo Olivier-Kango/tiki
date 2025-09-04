@@ -120,6 +120,7 @@ export const DATA_TEST_ID = {
                 :data-testid="DATA_TEST_ID.SELECT_ELEMENT"
                 :remote-method="remoteMethod"
                 :remote="Boolean(remoteSourceUrl)"
+                :empty-values="[null, undefined]"
             >
                 <el-option-group 
                     v-if="grouped"
