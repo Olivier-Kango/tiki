@@ -25,6 +25,8 @@ $inputConfiguration = [
             'logs'                       => 'string',         //post
             'add'                        => 'bool',           //post
             'filter'                     => 'string',         //get
+            'url'                        => 'url',            //post
+            'output_file'                => 'purifier'        //post
         ],
     ],
 ];
@@ -85,6 +87,16 @@ function saveScheduler()
             if (empty($_POST[$httpParamName])) {
                 $errors[] = sprintf(tra('%s is required'), $param['name']);
                 $addTask = false;
+            }
+
+            $validateMethod = 'validate' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+
+            if (method_exists($class, $validateMethod)) {
+                $validationResult = $class->$validateMethod($_POST[$httpParamName]);
+                if (is_string($validationResult)) {
+                    $errors[] = $validationResult;
+                    $addTask = false;
+                }
             }
         }
 
