@@ -12,9 +12,11 @@ use Fabiang\Xmpp\Util\JID;
 use Tiki\Lib\Auth\Tokens;
 use Tiki\Lib\Xmpp\TikiXmppExternalPrebind;
 
+if (class_exists('XmppPrebind')) {
+    require_once __DIR__ . '/TikiXmppPrebind.php';
+}
+
 require_once __DIR__ . '/ConverseJS.php';
-require_once __DIR__ . '/TikiXmppChat.php';
-require_once __DIR__ . '/TikiXmppPrebind.php';
 
 class XMPPLib extends TikiLib
 {
@@ -647,6 +649,11 @@ class XMPPLib extends TikiLib
         $use_tikitoken = $use_tikitoken && $prefs['xmpp_auth_method'] === 'tikitoken';
 
         if ($use_tikitoken) {
+            if (! $this->hasPrebind) {
+                header("HTTP/1.1 501 Not Implemented");
+                header('Content-Type: application/json');
+                return ['msg' => 'XMPP prebind is not available on this installation.'];
+            }
             $token = $tokenlib->createToken(
                 'openfireauthtoken',
                 ['user' => $user],  // parameters
@@ -663,6 +670,9 @@ class XMPPLib extends TikiLib
                 $xmpp['password'] = $this->getExternalPassword($user) ?? '';
             }
             if (empty($xmpp['password'])) {
+                return [];
+            }
+            if (! $this->hasPrebind) {
                 return [];
             }
         }
