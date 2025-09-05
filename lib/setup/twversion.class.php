@@ -413,6 +413,7 @@ class TWVersion
                 '28.3',
                 '28.4',
                 '29.0alpha',
+                '29.0beta',
             ];
     }
 
