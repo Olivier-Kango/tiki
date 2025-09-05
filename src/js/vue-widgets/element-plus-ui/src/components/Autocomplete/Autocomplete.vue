@@ -53,6 +53,7 @@ export const DATA_TEST_ID = {
             :data-testid="DATA_TEST_ID.AUTOCOMPLETE_ELEMENT"
             :placeholder="placeholder"
             :value-key="valueKey"
+            :highlight-first-item="true"
             @select="handleSelect"
             @input="handleInput"
             @keyup.enter="handlePressEnter"
