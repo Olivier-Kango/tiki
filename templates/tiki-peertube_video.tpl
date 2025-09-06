@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item text-danger"
+                            <a class="dropdown-item"
                             href="tiki-peertube_video.php?videoId={$videoInfo->id}&action=delete"
                             onclick="return confirm('{tr}Are you sure you want to delete this video?{/tr}')">
                                 <i class="fas fa-trash me-2"></i> {tr}Delete{/tr}
@@ -59,7 +59,7 @@
 
                 <hr>
 
-                <table class="table table-borderless w-auto">
+                <table class="table table-borderless w-auto table-striped">
                     <tr>
                         <td class="fw-bold">{tr}Privacy{/tr}</td>
                         <td>{$peertube_privacy_label|default:{tr}Unknown{/tr}|escape}</td>
@@ -106,12 +106,14 @@
                 <hr class="my-4">
 
                 <div class="mb-3">
-                    <strong>{tr}Embed code:{/tr}<br></strong>
-                    <code class="bg-light p-2 d-inline-block">{ldelim}peertube url="{$videoUrl}"{rdelim}</code>
-                    <button class="btn btn-sm btn-outline-secondary ms-2"
-                        onclick="navigator.clipboard.writeText('{ldelim}peertube url=&quot;{$videoUrl}&quot;{rdelim}')">
-                        <i class="fas fa-copy"></i> {tr}Copy{/tr}
-                    </button>
+                    <label class="form-label fw-bold">{tr}Embed code:{/tr}</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light" readonly value='{ldelim}peertube url="{$videoUrl}"{rdelim}' id="embedCodeInput">
+                        <button class="btn btn-outline-secondary" type="button"
+                            onclick="navigator.clipboard.writeText(document.getElementById('embedCodeInput').value)">
+                            <i class="fas fa-copy"></i> {tr}Copy{/tr}
+                        </button>
+                    </div>
                 </div>
 
                 {if $videoUrl}

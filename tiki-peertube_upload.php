@@ -62,12 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errors[] = tra('Please select a valid channel.');
             }
 
-            if (! $errors) {       
+            if (! $errors) {
                 $metadata = [
                     'name' => $name,
                     'channelId' => $channelId,
                 ];
-                
+
                 if ($desc !== '') {
                     $metadata['description'] = $desc;
                 }
