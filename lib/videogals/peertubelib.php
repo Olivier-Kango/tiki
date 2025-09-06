@@ -91,7 +91,7 @@ class PeerTubeLib
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         } else {
             // Standard POST or other methods
-            $headers[] = 'Content-Type: application/x-www-form-urlencoded';  
+            $headers[] = 'Content-Type: application/x-www-form-urlencoded';
             if ($method === 'POST') {
                 curl_setopt($ch, CURLOPT_POST, true);
                 $postFields = $rawBody ? $data : http_build_query($data);
@@ -151,13 +151,13 @@ class PeerTubeLib
             if (is_array($j)) {
                 if (! empty($j['detail'])) {
                     $msg .= ' — ' . $j['detail'];
-                } elseif (!empty($j['error'])) {
+                } elseif (! empty($j['error'])) {
                     $msg .= ' — ' . $j['error'];
                 }
                 if (! empty($j['invalid-params']) && is_array($j['invalid-params'])) {
                     $first = reset($j['invalid-params']);
                     $paramName = array_key_first($j['invalid-params']);
-                    if (is_array($first) && !empty($paramName) && !empty($first['msg'])) {
+                    if (is_array($first) && ! empty($paramName) && ! empty($first['msg'])) {
                         $msg .= " (invalid '{$paramName}': " . $first['msg'] . ")";
                     }
                 }

@@ -46,35 +46,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($_FILES['video']['size'] > $max_upload_size) {
             $errors[] = tra('File exceeds maximum size of ') . $max_upload_size_comment;
         } else {
-            $metadata = [
-                'name' => $_POST['name'] ?? 'Untitled Video',
-                'description' => $_POST['description'] ?? '',
-                'channelId' => intval($_POST['channelId']),
-            ];
+            $name      = trim($_POST['name'] ?? '');
+            $desc      = trim($_POST['description'] ?? '');
+            $channelId = (int) ($_POST['channelId'] ?? 0);
 
-            if (! empty($_POST['privacy'])) {
-                $metadata['privacy'] = intval($_POST['privacy']);
+            if (mb_strlen($name) < 3 || mb_strlen($name) > 120) {
+                $errors[] = tra('Title must be between 3 and 120 characters.');
             }
 
-            $file = [
-                'videofile' => new \CURLFile(
-                    $_FILES['video']['tmp_name'],
-                    $_FILES['video']['type'],
-                    $_FILES['video']['name']
-                ),
-            ];
+            if ($desc !== '' && mb_strlen($desc) < 3) {
+                $errors[] = tra('Description must be at least 3 characters, or leave it empty.');
+            }
 
-            try {
-                $result = $peertubelib->uploadVideo($file, $metadata);
-                if (! empty($result['video']['uuid'])) {
-                    Feedback::success(tra('Video uploaded successfully!'));
-                    header('Location: tiki-peertube_video.php?videoId=' . urlencode($result['video']['shortUUID']));
-                    exit;
-                } else {
-                    $errors[] = tra('Failed to upload video to PeerTube.');
+            if ($channelId <= 0) {
+                $errors[] = tra('Please select a valid channel.');
+            }
+
+            if (! $errors) {       
+                $metadata = [
+                    'name' => $name,
+                    'channelId' => $channelId,
+                ];
+                
+                if ($desc !== '') {
+                    $metadata['description'] = $desc;
                 }
-            } catch (Exception $e) {
-                $errors[] = tra('Error during upload: ') . $e->getMessage();
+
+                if (! empty($_POST['privacy'])) {
+                    $metadata['privacy'] = (int) $_POST['privacy'];
+                }
+
+                $file = [
+                    'videofile' => new \CURLFile(
+                        $_FILES['video']['tmp_name'],
+                        $_FILES['video']['type'],
+                        $_FILES['video']['name']
+                    ),
+                ];
+
+                try {
+                    $result = $peertubelib->uploadVideo($file, $metadata);
+                    if (! empty($result['video']['uuid'])) {
+                        Feedback::success(tra('Video uploaded successfully!'));
+                        header('Location: tiki-peertube_video.php?videoId=' . urlencode($result['video']['shortUUID']));
+                        exit;
+                    } else {
+                        $errors[] = tra('Failed to upload video to PeerTube.');
+                    }
+                } catch (Exception $e) {
+                    $errors[] = tra('Error during upload: ') . $e->getMessage();
+                }
             }
         }
     } else {
