@@ -83,24 +83,20 @@ class PeerTubeLib
             curl_setopt($ch, CURLOPT_STDERR, $verbose);
         }
 
-        // Prepare headers & body
+        // Prepare headers
         $headers = ['Accept: application/json'];
-        if (is_array($data) && isset($data['videofile'])) {
+        if ($method === 'POST' && is_array($data) && isset($data['videofile'])) {
+            // Multipart request (e.g., file upload)
+            curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        } elseif ($method !== 'GET' && $data !== [] && $data !== null) {
-            $postFields = $rawBody ? $data : http_build_query($data, '', '&', PHP_QUERY_RFC3986);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            $headers[] = 'Content-Type: application/x-www-form-urlencoded';
-        }
-        switch ($method) {
-            case 'GET':
-                break;
-            case 'POST':
+        } else {
+            // Standard POST or other methods
+            $headers[] = 'Content-Type: application/x-www-form-urlencoded';  
+            if ($method === 'POST') {
                 curl_setopt($ch, CURLOPT_POST, true);
-                break;
-            default:
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-                break;
+                $postFields = $rawBody ? $data : http_build_query($data);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+            }
         }
 
         // Add authentication header if required
@@ -150,7 +146,25 @@ class PeerTubeLib
             return $this->makeRequest($method, $url, $data, $auth, $rawBody);
         } elseif ($httpCode >= 400) {
             error_log("HTTP error $httpCode: $response");
-            throw new \Exception("HTTP error $httpCode");
+            $msg = "HTTP error $httpCode";
+            $j = json_decode($response, true);
+            if (is_array($j)) {
+                if (! empty($j['detail'])) {
+                    $msg .= ' — ' . $j['detail'];
+                } elseif (!empty($j['error'])) {
+                    $msg .= ' — ' . $j['error'];
+                }
+                if (! empty($j['invalid-params']) && is_array($j['invalid-params'])) {
+                    $first = reset($j['invalid-params']);
+                    $paramName = array_key_first($j['invalid-params']);
+                    if (is_array($first) && !empty($paramName) && !empty($first['msg'])) {
+                        $msg .= " (invalid '{$paramName}': " . $first['msg'] . ")";
+                    }
+                }
+            } elseif (is_string($response) && trim($response) !== '') {
+                $msg .= ' — ' . trim($response);
+            }
+            throw new \Exception($msg);
         }
 
         return $response;
@@ -175,7 +189,7 @@ class PeerTubeLib
         if (isset($metadata['privacy'])) {
             $data['privacy'] = $metadata['privacy'];
         }
-
+var_dump($url, $data); // Debug line
         return json_decode($this->makeRequest('POST', $url, $data), true);
     }
 

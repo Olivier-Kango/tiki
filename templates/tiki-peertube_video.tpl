@@ -3,25 +3,19 @@
     {else}{tr}PeerTube Video{/tr}{/if}
 {/title}
 
-<div class="navbar btn-group">
+<div class="navbar justify-content-end mb-2">
     {if $tiki_p_list_videos eq 'y'}
-        {button class="btn btn-info" _text="{tr}List Videos{/tr}" href="tiki-list_peertube_entries.php"}
+        {button class="btn btn-info btn-sm" _text="{tr}List Videos{/tr}" href="tiki-list_peertube_entries.php"}
     {/if}
 </div>
 
 <div>
     <div class="fgal_file">
-        <table width="100%">
-            <tr>
-                <td width="100%" align="center">
-                    {if $videoUrl}
-                        {wikiplugin _name=peertube url=$videoUrl}{/wikiplugin}
-                    {else}
-                        <p class="alert alert-warning">{tr}Video URL is required to display the video{/tr}</p>
-                    {/if}
-                </td>
-            </tr>
-        </table>
+        {if $videoUrl}
+            {wikiplugin _name=peertube url=$videoUrl}{/wikiplugin}
+        {else}
+            <p class="alert alert-warning">{tr}Video URL is required to display the video{/tr}</p>
+        {/if}
 
         {if $videoInfo}
             <div class="card border-0 shadow-sm p-4 position-relative">

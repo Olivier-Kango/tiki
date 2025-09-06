@@ -23,9 +23,9 @@
     </form>
 </div>
 
-<div class="navbar btn-group mb-3">
+<div class="navbar justify-content-end mb-2">
     {if $tiki_p_upload_videos eq 'y'}
-        {button class="btn btn-info" _text="{tr}Upload Video{/tr}" href="tiki-peertube_upload.php"}
+        {button class="btn btn-info btn-sm" _text="{tr}Upload Video{/tr}" href="tiki-peertube_upload.php"}
     {/if}
 </div>
 
