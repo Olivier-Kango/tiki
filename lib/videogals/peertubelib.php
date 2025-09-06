@@ -150,8 +150,8 @@ class PeerTubeLib
             return $this->makeRequest($method, $url, $data, $auth, $rawBody);
         } elseif ($httpCode >= 400) {
             error_log("HTTP error $httpCode: $response");
-             throw new \Exception("HTTP error $httpCode");
-         }
+            throw new \Exception("HTTP error $httpCode");
+        }
 
         return $response;
     }
