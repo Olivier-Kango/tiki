@@ -11,6 +11,7 @@ class PeerTubeLib
 {
     private $sessionType;
     private $initialized = false;
+    private $localClientCache = null;
 
     public function __construct($session_type = 0)
     {
@@ -21,8 +22,6 @@ class PeerTubeLib
     {
         global $prefs;
         return ! empty($prefs['peertube_service_url'])
-            && ! empty($prefs['peertube_client_id'])
-            && ! empty($prefs['peertube_client_secret'])
             && ! empty($prefs['peertube_username'])
             && ! empty($prefs['peertube_password']);
     }
@@ -30,24 +29,24 @@ class PeerTubeLib
     public function getAccessToken()
     {
         global $prefs, $user;
-        $session = "peertube_session_{$this->sessionType}_$user";
+        $base = rtrim($prefs['peertube_service_url'] ?? '', '/');
+        $userKey = $user ?: 'anonymous';
+        $session = "peertube_session_{$this->sessionType}_" . md5($base . '|' . $userKey);
 
         if (isset($_SESSION[$session]) && $_SESSION[$session]['expiry'] > \TikiLib::lib('tiki')->now) {
             return $_SESSION[$session]['token'];
         }
 
-        $clientUrl = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/oauth-clients/local';
-        $clientResponse = $this->makeRequest('GET', $clientUrl, [], false);
-        $clientData = json_decode($clientResponse, true);
+        [$clientId, $clientSecret] = $this->getLocalOAuthClient($base);
 
-        if (empty($clientData['client_id']) || empty($clientData['client_secret'])) {
+        if (empty($clientId) || empty($clientSecret)) {
             throw new \Exception('Unable to retrieve client credentials from PeerTube');
         }
 
-        $url = rtrim($prefs['peertube_service_url'], '/') . '/api/v1/users/token';
+        $url = $base . '/api/v1/users/token';
         $data = [
-            'client_id' => $clientData['client_id'],
-            'client_secret' => $clientData['client_secret'],
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
             'grant_type' => 'password',
             'username' => $prefs['peertube_username'],
             'password' => $prefs['peertube_password'],
@@ -71,6 +70,7 @@ class PeerTubeLib
     private function makeRequest($method, $url, $data = [], $auth = true, $rawBody = false)
     {
         $ch = curl_init();
+        $method = strtoupper($method);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -83,21 +83,25 @@ class PeerTubeLib
             curl_setopt($ch, CURLOPT_STDERR, $verbose);
         }
 
-        // Prepare headers
+        // Prepare headers & body
         $headers = ['Accept: application/json'];
-        if ($method === 'POST' && is_array($data) && isset($data['videofile'])) {
-            // Multipart request (e.g., file upload)
-            curl_setopt($ch, CURLOPT_POST, true);
+        if (is_array($data) && isset($data['videofile'])) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        } else {
-            // Standard POST or other methods
+        } elseif ($method !== 'GET' && $data !== [] && $data !== null) {
+            $postFields = $rawBody ? $data : http_build_query($data, '', '&', PHP_QUERY_RFC3986);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
             $headers[] = 'Content-Type: application/x-www-form-urlencoded';
-            if ($method === 'POST') {
-                curl_setopt($ch, CURLOPT_POST, true);
-                $postFields = $rawBody ? $data : http_build_query($data);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            }
         }
+        switch ($method) {
+            case 'GET':
+                break;
+            case 'POST':
+                curl_setopt($ch, CURLOPT_POST, true);
+                break;
+           default:
+               curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+               break;
+       }
 
         // Add authentication header if required
         if ($auth) {
@@ -141,10 +145,13 @@ class PeerTubeLib
             }
         }
 
-        if ($httpCode >= 400) {
+        if ($httpCode === 401 && $auth) {
+            $this->clearCachedToken();
+            return $this->makeRequest($method, $url, $data, $auth, $rawBody);
+        } elseif ($httpCode >= 400) {
             error_log("HTTP error $httpCode: $response");
-            throw new \Exception("HTTP error $httpCode");
-        }
+             throw new \Exception("HTTP error $httpCode");
+         }
 
         return $response;
     }
@@ -319,8 +326,6 @@ class PeerTubeLib
 
             $required = [
                 'peertube_service_url'    => tr('PeerTube service URL'),
-                'peertube_client_id'      => tr('Client ID'),
-                'peertube_client_secret'  => tr('Client secret'),
                 'peertube_username'       => tr('Username'),
                 'peertube_password'       => tr('Password'),
             ];
@@ -346,5 +351,41 @@ class PeerTubeLib
                 'https://docs.joinpeertube.org/api/rest-getting-started'
             );
         }
+    }
+
+    /**
+    * Retrieves and caches (in session) the "local" OAuth client.
+     */
+    private function getLocalOAuthClient(string $base): array
+    {
+        if ($this->localClientCache) {
+            return [$this->localClientCache['client_id'], $this->localClientCache['client_secret']];
+        }
+        $sessionKey = 'peertube_local_client_' . md5($base);
+        if (!empty($_SESSION[$sessionKey]['client_id']) && !empty($_SESSION[$sessionKey]['client_secret'])) {
+            $this->localClientCache = $_SESSION[$sessionKey];
+            return [$this->localClientCache['client_id'], $this->localClientCache['client_secret']];
+        }
+        $clientUrl = $base . '/api/v1/oauth-clients/local';
+        $clientResponse = $this->makeRequest('GET', $clientUrl, [], false);
+        $clientData = json_decode($clientResponse, true);
+        if (empty($clientData['client_id']) || empty($clientData['client_secret'])) {
+            throw new \Exception('Unable to retrieve client credentials from PeerTube');
+        }
+        $this->localClientCache = [
+            'client_id' => $clientData['client_id'],
+            'client_secret' => $clientData['client_secret'],
+        ];
+        $_SESSION[$sessionKey] = $this->localClientCache;
+        return [$clientData['client_id'], $clientData['client_secret']];
+    }
+
+    private function clearCachedToken(): void
+    {
+        global $prefs, $user;
+        $base = rtrim($prefs['peertube_service_url'] ?? '', '/');
+        $userKey = $user ?: 'anonymous';
+        $session = "peertube_session_{$this->sessionType}_" . md5($base . '|' . $userKey);
+        unset($_SESSION[$session]);
     }
 }
