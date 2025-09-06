@@ -98,10 +98,10 @@ class PeerTubeLib
             case 'POST':
                 curl_setopt($ch, CURLOPT_POST, true);
                 break;
-           default:
-               curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-               break;
-       }
+            default:
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+                break;
+        }
 
         // Add authentication header if required
         if ($auth) {
@@ -362,7 +362,7 @@ class PeerTubeLib
             return [$this->localClientCache['client_id'], $this->localClientCache['client_secret']];
         }
         $sessionKey = 'peertube_local_client_' . md5($base);
-        if (!empty($_SESSION[$sessionKey]['client_id']) && !empty($_SESSION[$sessionKey]['client_secret'])) {
+        if (! empty($_SESSION[$sessionKey]['client_id']) && ! empty($_SESSION[$sessionKey]['client_secret'])) {
             $this->localClientCache = $_SESSION[$sessionKey];
             return [$this->localClientCache['client_id'], $this->localClientCache['client_secret']];
         }
