@@ -189,7 +189,7 @@ class PeerTubeLib
         if (isset($metadata['privacy'])) {
             $data['privacy'] = $metadata['privacy'];
         }
-var_dump($url, $data); // Debug line
+
         return json_decode($this->makeRequest('POST', $url, $data), true);
     }
 

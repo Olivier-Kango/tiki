@@ -11,11 +11,13 @@
 
 <div>
     <div class="fgal_file">
-        {if $videoUrl}
-            {wikiplugin _name=peertube url=$videoUrl}{/wikiplugin}
-        {else}
-            <p class="alert alert-warning">{tr}Video URL is required to display the video{/tr}</p>
-        {/if}
+        <div class="text-center mb-3">
+            {if $videoUrl}
+                {wikiplugin _name=peertube url=$videoUrl}{/wikiplugin}
+            {else}
+                <p class="alert alert-warning">{tr}Video URL is required to display the video{/tr}</p>
+            {/if}
+        </div>
 
         {if $videoInfo}
             <div class="card border-0 shadow-sm p-4 position-relative">
