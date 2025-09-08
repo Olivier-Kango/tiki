@@ -54,71 +54,7 @@
                 </li>
             </ul>
         </div>
-        {include 
-            file='calendar_header.tpl'
-        }
-
-        {if count($calendars) >= 1}
-            {button href="#" _onclick="toggle('filtercal');return false;" _text='{tr}Calendars{/tr}' _icon_name='eye' _type='info'}
-            <div class="d-inline-block">
-                <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
-                    <div class="card-header caltitle py-1 px-2">
-                        <strong>{tr}Calendars{/tr}</strong>
-                        <button type="button" class="btn-close float-end"  onclick="toggle('filtercal')" aria-hidden="true"></button>
-                    </div>
-                    <ul class="list-group list-group-flush list-unstyled mt-2">
-                        <li class="caltoggle">
-                            {select_all checkbox_names='calIds[]' label="{tr}Check / Uncheck All{/tr}"}
-                        </li>
-                        {foreach $calendars as $calendarId => $calendar}
-                            <li class="calcheckbox">
-                                <input type="checkbox" name="calIds[]" value="{$calendarId|escape}" id="groupcal_{$calendarId}"
-                                    {if in_array($calendarId, $displayedcals)}checked="checked"{/if}>
-                                <label for="groupcal_{$calendarId}" class="calId{$calendarId}">{$calendar.name|escape} ({tr}Id #{$calendarId}{/tr})</label>
-                            </li>
-                        {/foreach}
-                        <li class="calinput">
-                            <input type="hidden" name="todate" value="{$focusdate}">
-                            <input type="submit" class="btn btn-primary btn-sm" name="refresh" value="{tr}Refresh{/tr}">
-                        </li>
-                    </ul>
-                </form>
-                {jq}
-                    // handle calendar switcher form submit
-                    $("#filtercal").on("submit", function () {
-                        if ($("input[type=checkbox]:not(#clickall):not(:checked)", this).length === 0) {
-                            location.href = (jqueryTiki.sefurl ? "calendar" : "tiki-calendar.php") + "?allCals=y";
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    });
-                {/jq}
-            </div>
-            {include file="export_calendar_in_csv_or_ical.tpl"}
-
-            <div id="configlinks" class="mb-3 text-end">
-                {if count($checkedCalIds)}
-                    {$maxCalsForButton = 20}
-                    {if count($checkedCalIds) > $maxCalsForButton}<select size="5">{/if}
-                    {foreach $checkedCalIds as $checkedCalId}
-                        {if $calendarId}
-                            {$thiscustombgcolor = $calendars[$checkedCalId].custombgcolor}
-                            {$thiscustomfgcolor = $calendars[$checkedCalId].customfgcolor}
-                            {$thiscalendarsname = $calendars[$checkedCalId].displayName|escape}
-                            {if count($checkedCalIds) > $maxCalsForButton}
-                                <option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">
-                                    {$thiscalendarsname}
-                                </option>
-                            {else}
-                                {button href="{$checkedCalId|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="{$thiscalendarsname}" _class='btn btn-sm me-2'}
-                            {/if}
-                        {/if}
-                    {/foreach}
-                    {if count($checkedCalIds) > $maxCalsForButton}</select>{/if}
-                {/if}
-            </div>
-        {/if}
+        
         {if $nlg_availability}
             <div class="alert alert-info">
                 {$nlg_availability}
@@ -150,21 +86,95 @@
     {else}
         {$timeFormat=false}
     {/if}
-    {if $viewlist eq 'list'}
-        {include file='tiki-calendar_listmode.tpl'}
-    {else}
-        {jq}
-            $("#calendar").setupEventCalendar({{$eventCalendarParams|json_encode}});
-            {{if $prefs.print_pdf_from_url neq 'none'}$("#calendar").addEventCalendarPrint('#calendar-pdf-btn', calendar);{/if}}
-        {/jq}
-    {/if}
-    {if $pdf_export eq 'y' and $pdf_warning eq 'n'}
-        <a id="calendar-pdf-btn" href="#" class="text-end d-none" role="button">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
-    {/if}
+    
     <div id="test"></div>
     
     <div id='currentcalitemId' class='d-none'>{$currentcalitemId}</div>
-    <div id='calendar'></div>
+    <div class='border border-secondary p-2 row'>
+        <div class='col-md-3 border-end border-secondary'>
+            {include 
+                file='calendar_header.tpl' isInMainCalendar="y"
+            }
+            {if count($calendars) >= 1}
+                {button _class="mt-2" _style="display: block;" href="#" _onclick="toggle('filtercal');return false;" _text='{tr}Calendars{/tr}' _icon_name='eye' _type='info'}
+                <div class="d-inline-block">
+                    <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
+                        <div class="card-header caltitle py-1 px-2">
+                            <strong>{tr}Calendars{/tr}</strong>
+                            <button type="button" class="btn-close float-end"  onclick="toggle('filtercal')" aria-hidden="true"></button>
+                        </div>
+                        <ul class="list-group list-group-flush list-unstyled mt-2">
+                            <li class="caltoggle">
+                                {select_all checkbox_names='calIds[]' label="{tr}Check / Uncheck All{/tr}"}
+                            </li>
+                            {foreach $calendars as $calendarId => $calendar}
+                                <li class="calcheckbox">
+                                    <input type="checkbox" name="calIds[]" value="{$calendarId|escape}" id="groupcal_{$calendarId}"
+                                        {if in_array($calendarId, $displayedcals)}checked="checked"{/if}>
+                                    <label for="groupcal_{$calendarId}" class="calId{$calendarId}">{$calendar.name|escape} ({tr}Id #{$calendarId}{/tr})</label>
+                                </li>
+                            {/foreach}
+                            <li class="calinput">
+                                <input type="hidden" name="todate" value="{$focusdate}">
+                                <input type="submit" class="btn btn-primary btn-sm" name="refresh" value="{tr}Refresh{/tr}">
+                            </li>
+                        </ul>
+                    </form>
+                    {jq}
+                        // handle calendar switcher form submit
+                        $("#filtercal").on("submit", function () {
+                            if ($("input[type=checkbox]:not(#clickall):not(:checked)", this).length === 0) {
+                                location.href = (jqueryTiki.sefurl ? "calendar" : "tiki-calendar.php") + "?allCals=y";
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        });
+                    {/jq}
+                </div>
+                {include file="export_calendar_in_csv_or_ical.tpl" isInMainCalendar="y"}
+                <h5 class="text-center text-secondary border-top border-bottom">
+                {tr}Displayed calendar{/tr}
+                <h5>
+                <div id="configlinks" class="mb-3 text-end">
+                    {if count($checkedCalIds)}
+                        {$maxCalsForButton = 20}
+                        {if count($checkedCalIds) > $maxCalsForButton}<select size="5">{/if}
+                        {foreach $checkedCalIds as $checkedCalId}
+                            {if $calendarId}
+                                {$thiscustombgcolor = $calendars[$checkedCalId].custombgcolor}
+                                {$thiscustomfgcolor = $calendars[$checkedCalId].customfgcolor}
+                                {$thiscalendarsname = $calendars[$checkedCalId].displayName|escape}
+                                {if count($checkedCalIds) > $maxCalsForButton}
+                                    <option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">
+                                        {$thiscalendarsname}
+                                    </option>
+                                {else}
+                                    {button href="{$checkedCalId|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor; display: block;" _text="{$thiscalendarsname}" _class='btn btn-sm me-2 mt-2' _icon_name='calendar'}
+                                {/if}
+                            {/if}
+                        {/foreach}
+                        {if count($checkedCalIds) > $maxCalsForButton}</select>{/if}
+                    {/if}
+                </div>
+            {/if}
+        </div>
+        <div class='col-md-9'>
+            {if $viewlist eq 'list'}
+                {include file='tiki-calendar_listmode.tpl'}
+            {else}
+                {jq}
+                    $("#calendar").setupEventCalendar({{$eventCalendarParams|json_encode}});
+                    {{if $prefs.print_pdf_from_url neq 'none'}$("#calendar").addEventCalendarPrint('#calendar-pdf-btn', calendar);{/if}}
+                {/jq}
+            {/if}
+            {if $pdf_export eq 'y' and $pdf_warning eq 'n'}
+                <a id="calendar-pdf-btn" href="#" class="text-end d-none" role="button">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
+            {/if}
+            <div id='calendar'></div>
+        </div>
+        
+    </div>
 </div>
 {if $prefs.feature_jscalendar eq 'y'}
     {js_insert_icon type="jscalendar"}

@@ -21,7 +21,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
             headerToolbar: {
                 start: "prev,next today",
                 center: "title",
-                end: "dayGridMonth,timeGridWeek,timeGridDay,listDay,listWeek,listMonth,listYear",
+                end: "dayGridMonth,timeGridWeek,timeGridDay,listYear",
             },
             editable: true,
             selectable: true,
@@ -35,10 +35,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                 dayGridMonth: tr("month"),
                 timeGridWeek: tr("week"),
                 timeGridDay: tr("day"),
-                listDay: tr("list day"),
-                listWeek: tr("list week"),
-                listMonth: tr("list month"),
-                listYear: tr("list year"),
+                listYear: tr("list"),
             },
             allDayContent: tr("all-day"),
             firstDay: eventCalendarParams.firstDayofWeek,
@@ -140,7 +137,6 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
                         textColor = "#000";
                     }
                     event.backgroundColor = backgroundColor;
-                    $(element).attr("style", "background-color: " + backgroundColor);
                     if (categoryBackgroundColor !== "") {
                         $(element).attr("style", "background-color: " + categoryBackgroundColor);
                     }
@@ -259,7 +255,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
 // open modal for edit form
 $(document).on("click", ".edit-calendar-item-btn", function (e) {
     const $this = $(this);
-    const $modal = $this.parents().hasClass("modal-body");
+    const $modal = $this.parents().hasClass("modal-body")[0];
     if ($modal) {
         e.preventDefault();
         $.closeModal({
