@@ -1010,10 +1010,6 @@ td > div {
     display:none;
 }
 
-
-
-
-
 /* fold columns into rows when we have mobile screens. */
 @media only screen and (max-width: 40em) {
   thead th:not(:first-child) {
