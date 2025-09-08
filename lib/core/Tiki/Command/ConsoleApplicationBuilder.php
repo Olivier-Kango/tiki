@@ -371,7 +371,7 @@ class ConsoleApplicationBuilder
      */
     protected function checkIsDbRunning(): void
     {
-        if (! DB_RUNNING) {
+        if (! defined('DB_RUNNING') || ! DB_RUNNING) {
             throw new UnavailableException(
                 'Your database must be running and have valid credentials in the local.php file. See http://doc.tiki.org/Installation for more information.',
                 UnavailableException::CHECK_RUNNING
@@ -389,7 +389,7 @@ class ConsoleApplicationBuilder
     {
         // we want to provide the right feedback, so lets check pre-requirements first.
         $this->checkIsDbRunning();
-        if (! DB_STATUS) {
+        if (! defined('DB_STATUS') || ! DB_STATUS) {
             throw new UnavailableException(
                 'Cannot initiate Database. Probably because the database needs updating.',
                 UnavailableException::CHECK_INSTALLED
@@ -407,7 +407,7 @@ class ConsoleApplicationBuilder
     protected function checkTikiSetupComplete(): void
     {
         $this->checkIsDatabaseInstalled();
-        if (! DB_TIKI_SETUP) {
+        if (! defined('DB_TIKI_SETUP') || ! DB_TIKI_SETUP) {
             throw new UnavailableException(
                 'Database errors prevented tiki-setup from completing. Try running php console.php database:update',
                 UnavailableException::CHECK_TIKI_SETUP
@@ -427,7 +427,7 @@ class ConsoleApplicationBuilder
         // we want to provide the right feedback, so lets check pre-requirements first.
         $this->checkTikiSetupComplete();
 
-        if (! DB_SYNCHRONAL) {
+        if (! defined('DB_SYNCHRONAL') || ! DB_SYNCHRONAL) {
             throw new UnavailableException(
                 'The database needs to be updated. Solved by: php console.php database:update',
                 UnavailableException::CHECK_UPDATED
