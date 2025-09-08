@@ -1973,23 +1973,6 @@ if ($s) {
     );
 }
 
-$s = extension_loaded('ssh2');
-if ($s) {
-    $php_properties['SSH2'] = array(
-        'fitness' => tra('good'),
-        'fitness_status' => FITNESS_STATUS_GOOD,
-        'setting' => 'Loaded',
-        'message' => tra('This extension is needed for the show.tiki.org tracker field type, up to Tiki 17.')
-    );
-} else {
-    $php_properties['SSH2'] = array(
-        'fitness' => tra('info'),
-        'fitness_status' => FITNESS_STATUS_INFO,
-        'setting' => 'Not available',
-        'message' => tra('This extension is needed for the show.tiki.org tracker field type, up to Tiki 17.')
-    );
-}
-
 $s = extension_loaded('soap');
 if ($s) {
     $php_properties['soap'] = array(
