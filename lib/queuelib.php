@@ -36,6 +36,7 @@ class QueueLib extends TikiDb_Bridge
         "));
 
         if ($columnType !== 'int') {
+            $done = true;
             return;
         }
 
@@ -46,37 +47,15 @@ class QueueLib extends TikiDb_Bridge
                AND TABLE_NAME = 'tiki_queue'
         ");
 
-        if ($ai < self::QUEUE_GUARD_THRESHOLD) {
-            return;
-        }
-
-        try {
-            $db->query("
-                ALTER TABLE `tiki_queue`
-                MODIFY COLUMN `entryId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT
-            ");
-
-            $logs = TikiLib::lib('logs');
-            if ($logs && method_exists($logs, 'add_log')) {
-                $logs->add_log(
-                    'system',
-                    'Upgraded tiki_queue.entryId to BIGINT UNSIGNED to prevent AUTO_INCREMENT overflow.',
-                    'QueueLib'
-                );
-            } else {
-                error_log('[Tiki][QueueLib] Upgraded tiki_queue.entryId to BIGINT UNSIGNED.');
-            }
-
+        if ($ai >= self::QUEUE_GUARD_THRESHOLD) {
             $done = true;
-            return;
-        } catch (\Exception $e) {
             throw new \RuntimeException(
-                tr(
-                    'Failed to upgrade tiki_queue.entryId to BIGINT: %0. Go to Admin → Search, Reset indexing queue (TRUNCATE), then Rebuild/Optimize.',
-                    $e->getMessage()
-                )
+                tr('Indexing queue is nearing the INT AUTO_INCREMENT limit. '
+                 . 'Run DB migrations (installer/schema/*.sql), then TRUNCATE TABLE `tiki_queue`, '
+                 . 'and in Tiki go to Admin → Search → Rebuild Index.')
             );
         }
+        $done = true;
     }
 
     public function pushAll($queue, array $messages)
