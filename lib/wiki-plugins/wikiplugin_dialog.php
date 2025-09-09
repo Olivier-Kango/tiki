@@ -45,6 +45,7 @@ function wikiplugin_dialog_info()
                 'description' => tra('Css class names to apply to the buttons. Use comma-separated values for multiple buttons.'),
                 'since' => '28.0',
                 'filter' => 'text',
+                'default' => '',
             ],
             'buttonsActions' => [
                 'required' => false,
@@ -52,6 +53,7 @@ function wikiplugin_dialog_info()
                 'description' => tra('JavaScript to perform on button click. Use comma-separated values for multiple buttons'),
                 'since' => '28.0',
                 'filter' => 'text',
+                'default' => '',
             ],
             'actions' => [
                 'required' => false,
