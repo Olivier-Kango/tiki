@@ -1142,22 +1142,38 @@ class CategLib extends ObjectLib
 
             $categories = [];
             $roots = [];
-            $query = "select *, (select count(*) from tiki_categories_roles_available cr where tc.categId = cr.categId ) as num_roles from `tiki_categories` tc;";
+            $query = "SELECT tc.*, (select count(*) from tiki_categories_roles_available cr where tc.categId = cr.categId ) as num_roles FROM tiki_categories tc";
+
+            if ($prefs['category_browse_count_objects'] === 'y') {
+                $query = "
+                    SELECT 
+                        tc.*,
+                        COUNT(DISTINCT cr.categRoleId) AS num_roles,
+                        COUNT(DISTINCT tco.catObjectId) AS objects
+                    FROM
+                        `tiki_categories` tc
+                    LEFT JOIN
+                        `tiki_category_objects` tco ON tc.categId = tco.categId
+                     LEFT JOIN `tiki_categories_roles_available` cr
+                              ON tc.categId = cr.categId
+                    GROUP BY
+                        tc.categId
+                ";
+            }
+
             $result = $this->query($query, []);
             while ($res = $result->fetchRow()) {
                 $id = $res["categId"];
-                if ($prefs['category_browse_count_objects'] === 'y') {
-                    $query = "select count(*) from `tiki_category_objects` where `categId`=?";
-                    $res['objects'] = $this->getOne($query, [$id]);
-                } else {
+
+                if ($prefs['category_browse_count_objects'] !== 'y') {
                     $res['objects'] = null;
                 }
+
                 $res['children'] = [];
                 $res['descendants'] = [];
                 if ($localized) {
                     $res['name'] = tr($res['name']);
                 }
-
                 $categories[$id] = $res;
             }
 
@@ -1214,7 +1230,7 @@ class CategLib extends ObjectLib
             $cachelib->cacheItem('roots', serialize($roots), 'allcategs'); // Used in get_category_descendants()
         }
 
-        $type = is_null($filter) ? 'all' : (isset($filter['type']) ? $filter['type'] : 'self');
+        $type = is_null($filter) ? 'all' : ($filter['type'] ?? 'self');
         if ($type != 'all') {
             $kept = [];
             if ($type != 'roots') {
