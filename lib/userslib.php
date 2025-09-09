@@ -5047,6 +5047,15 @@ class UsersLib extends TikiLib
                 'scope' => 'global',
             ],
             [
+                'name' => 'tiki_p_admin_peertube',
+                'description' => tra('Can admin PeerTube video feature'),
+                'level' => 'admin',
+                'type' => 'media',
+                'admin' => true,
+                'prefs' => ['feature_peertube'],
+                'scope' => 'global',
+            ],
+            [
                 'name' => 'tiki_p_broadcast_all',
                 'description' => tra('Can broadcast messages to all users'),
                 'level' => 'admin',

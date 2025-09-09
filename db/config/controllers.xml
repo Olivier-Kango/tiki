@@ -46,6 +46,7 @@
         <service id="tiki.controller.file" class="Services_File_Controller"/>
         <service id="tiki.controller.h5p" class="Services_H5P_Controller"/>
         <service id="tiki.controller.kaltura" class="Services_Kaltura_Controller"/>
+        <service id="tiki.controller.peertube" class="Services_PeerTube_Controller"/>
         <service id="tiki.controller.language" class="Services_Language_Controller"/>
         <service id="tiki.controller.manager" class="Services_Manager_Controller"/>
         <service id="tiki.controller.manager_field" class="Services_Manager_FieldController"/>

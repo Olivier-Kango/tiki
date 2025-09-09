@@ -154,6 +154,10 @@
             <file>%kernel.root_dir%/lib/videogals/kalturalib.php</file>
             <argument type="string">0</argument> <!-- KalturaLib::SESSION_USER -->
         </service>
+        <service id="tiki.lib.peertubeuser" class="Tiki\Videogals\PeerTubeLib">
+            <file>%kernel.root_dir%/lib/videogals/peertubelib.php</file>
+            <argument type="string">0</argument> <!-- PeerTubeLib::SESSION_USER -->
+        </service>
         <service id="tiki.lib.language" class="Language">
             <file>%kernel.root_dir%/lib/language/Language.php</file>
         </service>
