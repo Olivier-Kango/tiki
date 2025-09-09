@@ -136,7 +136,7 @@ function wikiplugin_sql($data, $params)
         return '~np~' . tra('Could not obtain valid DSN connection.') . '~/np~';
     }
 
-    $setup_table = ( isset($raw) or isset($delim) ) ? false : true;
+    $setup_table = ! ((isset($raw) or isset($delim)));
     $class = 'even';
     while ($result && $res = $result->fetchRow()) {
         if ($setup_table) {

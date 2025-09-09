@@ -228,7 +228,7 @@ function wikiplugin_memberpayment($data, $params, $offset)
             }
             $smarty->assign('wp_member_postperiods', $periods);
             $oneuser = $params['currentuser'] == 'y' ? [$user] : explode('|', $_POST['wp_member_users']);
-            $oneuser = count($oneuser) == 1 ? true : false;
+            $oneuser = count($oneuser) == 1;
             if ($oneuser) {
                 $extendinfo = $userlib->get_extend_until_info($user, $params['group'], $periods);
                 $paidterm = $extendinfo['interval'];

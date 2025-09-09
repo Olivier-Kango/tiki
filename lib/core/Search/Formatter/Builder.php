@@ -287,7 +287,7 @@ class Search_Formatter_Builder
             }
 
             if (str_contains($arguments['template'], 'table')) {
-                $outputData['sticky'] = $sticky = isset($params['allowStickyHeaders']) && $params['allowStickyHeaders'] == 'y' ? true : false;
+                $outputData['sticky'] = $sticky = isset($params['allowStickyHeaders']) && $params['allowStickyHeaders'] == 'y';
                 if (isset($arguments['downloadable'])) {
                     $outputData['downloadable'] = true;
                     $this->downloadName = $arguments['downloadable'];

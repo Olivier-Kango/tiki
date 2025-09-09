@@ -1313,7 +1313,7 @@ class BlogLib extends TikiDb_Bridge
            word boundary. The truncate function asks if words can be broken.
            The same question is asked inversely so the supplied parameter needs
            to be reversed to remain accurate. */
-        $breakword = ($wordBoundary == 'y') ? false : true;
+        $breakword = ! ($wordBoundary == 'y');
 
         $etc = ($ellipsis == 'y') ? ' ... ' : ' ';
         $numBlogs = count($blogItems["data"]);

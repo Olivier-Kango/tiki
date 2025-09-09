@@ -291,7 +291,7 @@ class CalendarLib extends TikiLib
         $res = $this->query("select `calendarId` from `tiki_calendars` where `calendarId`=?", [(int)$calendarId]);
         $cal = $res->fetchRow();
 
-        return empty($cal) ? false : true;
+        return ! empty($cal);
     }
 
     public function get_calendar_options($calendarId)
@@ -1688,7 +1688,7 @@ class CalendarLib extends TikiLib
                 break;
             }
             $cell[$ilign][$icol] = $loop;
-            $cell[$ilign][$icol]['focus'] = $loop['date'] < $start['date'] || $loop['date'] >= $startNext['date'] ? false : true;
+            $cell[$ilign][$icol]['focus'] = ! ($loop['date'] < $start['date'] || $loop['date'] >= $startNext['date']);
             $cell[$ilign][$icol]['weekDay'] = $weekDay;
             $weekDay = ($weekDay + 1) % 7;
             if ($icol >= 6) {

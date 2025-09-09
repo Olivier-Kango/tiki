@@ -1223,7 +1223,7 @@ class TrackerLib extends TikiLib
         if ($definition && $groupCreatorFieldId = $definition->getWriterGroupField()) {
             $tracker_info = $definition->getInformation();
             $perms = $this->get_special_group_tracker_perm($tracker_info);
-            return empty($perms[$perm]) ? false : true;
+            return ! empty($perms[$perm]);
         } else {
             return false;
         }

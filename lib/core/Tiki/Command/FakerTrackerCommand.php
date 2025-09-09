@@ -82,9 +82,9 @@ class FakerTrackerCommand extends Command
 
         $trackerId = $input->getArgument('tracker');
         $numberItems = $input->getOption('items');
-        $randomizeStatus = empty($input->getOption('random-status')) ? false : true;
+        $randomizeStatus = ! empty($input->getOption('random-status'));
         $fieldOverrideDefinition = $input->getOption('field');
-        $reuseFiles = empty($input->getOption('reuse-files')) ? false : true;
+        $reuseFiles = ! empty($input->getOption('reuse-files'));
 
         if (! is_numeric($numberItems)) {
             $output->writeln('<error>' . tra('The value of items is not a number') . '</error>');

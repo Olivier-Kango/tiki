@@ -41,7 +41,7 @@ class Services_Edit_Controller
 
     public function action_tohtml($input)
     {
-        $htmlEditor = $input->htmleditor->int() ? true : false;
+        $htmlEditor = (bool)$input->htmleditor->int();
         $wysiwyg = $input->allowhtml->int() ? true : $htmlEditor;
         $res = TikiLib::lib('edit')->parseToWysiwyg($input->data->none(), false, $wysiwyg, ['wysiwyg' => $wysiwyg, 'html_editor' => $htmlEditor]);
 

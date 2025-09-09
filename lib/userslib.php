@@ -3398,7 +3398,7 @@ class UsersLib extends TikiLib
             $idStr = '';
         }
 
-        $isSelf = ($auser === $user) ? true : false;
+        $isSelf = $auser === $user;
         // Only process if feature_friends enabled, user_information public or we query ourselfs
         if (($this->get_user_preference($auser, 'user_information', 'public') != 'public') && ($prefs['feature_friends'] != 'y') && ! $isSelf) {
             return "<span{$idStr}>$body</span>";

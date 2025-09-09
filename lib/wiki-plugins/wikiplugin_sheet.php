@@ -145,12 +145,11 @@ function wikiplugin_sheet($data, $params)
 //  $urlHeight .= (isset($width)) ? "&width=$width" : '';
     $urlHeight = (isset($height)) ? "&height=100" : ''; // not setting any height or width in the sheet params created for me the literal '...&height=100%&...' or '...&width=100%&...' in the url with a 400 error (bad request). Hardcoding to 100 (instead of 100%) to avoid this error until a better fix is found
     $urlHeight .= (isset($width)) ? "&width=100" : ''; // not setting any height or width in the sheet params created for me the literal '...&height=100%&...' or '...&width=100%&...' in the url with a 400 error (bad request). Hardcoding to 100 (instead of 100%) to avoid this error until a better fix is found
-    $editable = isset($editable) && $editable == 'n' ? false : true;
-    $subsheets = isset($subsheets) && $subsheets == 'n' ? false : true;
+    $editable = ! (isset($editable) && $editable == 'n');
+    $subsheets = ! (isset($subsheets) && $subsheets == 'n');
     $class = (isset($class)) ? " $class" : '';
 
     $sheetlib = TikiLib::lib("sheet");
-    $tikilib = TikiLib::lib('tiki');
     $smarty = TikiLib::lib('smarty');
 
     static $index = 0;

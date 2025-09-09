@@ -1335,7 +1335,7 @@ class WikiLib extends TikiLib
             return false;
         }
 
-        return ($this->is_locked($page, $info) == null || $user == $this->is_locked($page, $info)) ? true : false;
+        return $this->is_locked($page, $info) == null || $user == $this->is_locked($page, $info);
     }
 
     /**
@@ -1990,7 +1990,7 @@ class WikiLib extends TikiLib
                     $isPageHideTitle = $this->get_page_hide_title($currPage);
                     if ($isPageHideTitle != 0) {
                         // Use page specific setting
-                        $isHideTitle = $isPageHideTitle < 0 ? true : false;
+                        $isHideTitle = $isPageHideTitle < 0;
                     }
                 }
                 if ($isHideTitle) {

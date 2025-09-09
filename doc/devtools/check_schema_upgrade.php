@@ -231,10 +231,10 @@ class CheckSchemaUpgrade
         $options = $this->getOpts();
 
         $this->previousMajor = $this->getOption($options, 'm', 'major');
-        $this->verbose = $this->getOption($options, 'v', 'verbose') === false ? true : false;
-        $this->ignorePreferenceChanges = $this->getOption($options, 'p', 'preferences') === false ? false : true;
-        $this->useInnoDB = strtolower($this->getOption($options, 'e', 'engine')) === 'myisam' ? false : true;
-        $this->removeColumnCollateKey = $this->getOption($options, 'c', 'keep-collate') === false ? false : true;
+        $this->verbose = $this->getOption($options, 'v', 'verbose') === false;
+        $this->ignorePreferenceChanges = ! ($this->getOption($options, 'p', 'preferences') === false);
+        $this->useInnoDB = ! (strtolower($this->getOption($options, 'e', 'engine')) === 'myisam');
+        $this->removeColumnCollateKey = ! ($this->getOption($options, 'c', 'keep-collate') === false);
 
         $this->oldDbRaw = $this->getOption($options, null, 'db1');
         $result = $this->parseDbRaw($this->oldDbRaw);

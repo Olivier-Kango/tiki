@@ -139,7 +139,7 @@ class Tiki_PageCache
                     if (is_array($cachedOutput['jsfiles'])) {
                         foreach ($cachedOutput['jsfiles'] as $rank => $files) {
                             foreach ($files as $file) {
-                                $skip_minify = isset($cachedOutput['skip_minify']) ? true : false;
+                                $skip_minify = isset($cachedOutput['skip_minify']);
                                 $headerlib->add_jsfile_by_rank($file, $rank, $skip_minify);
                             }
                         }

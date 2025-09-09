@@ -608,7 +608,7 @@ if (isset($_REQUEST['graph'])) {
             $s = smarty_modifier_tiki_short_date($startDate);
             $e = smarty_modifier_tiki_short_date($endDate);
             $period = ($s != $e) ? " ($s-$e)" : " ($s)";
-            $accumulated = (isset($_REQUEST['barPlot']) && $_REQUEST['barPlot'] == 'acc') ? true : false;
+            $accumulated = isset($_REQUEST['barPlot']) && $_REQUEST['barPlot'] == 'acc';
             $series = $logslib->draw_contribution_user($userContributions, 'add', $contributions);
     if ($series['totalVol']) {
         if ($tiki_p_admin == 'y') {

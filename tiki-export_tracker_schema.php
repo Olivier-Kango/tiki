@@ -27,7 +27,7 @@ if (! is_array($requestedTrackerIds)) {
 
 $skipAttributes = ! empty($_REQUEST["skipAttributes"]) ?? false;
 $skipRelations = ! empty($_REQUEST["skipRelations"]) ?? false;
-$includePermNames = empty($_REQUEST["includePermNames"]) ? false : true;
+$includePermNames = ! empty($_REQUEST["includePermNames"]);
 
 $skipAttributesChecked = $skipAttributes ? 'checked' : '';
 $skipRelationsChecked = $skipRelations ? 'checked' : '';

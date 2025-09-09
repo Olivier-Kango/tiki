@@ -107,7 +107,7 @@ function wikiplugin_diagram($data, $params)
     $fileName = preg_replace('/\%page\%/', $page, $fileName);
     $fileName = preg_replace('/\%date\%/', date('Y-m-d'), $fileName);
 
-    $compressXml = ($prefs['fgal_use_diagram_compression_by_default'] !== 'y') ? false : true;
+    $compressXml = ! (($prefs['fgal_use_diagram_compression_by_default'] !== 'y'));
     $compressXmlParam = false;
 
     if (empty($params['fileId']) && empty(trim($data)) && ! empty($params['template'])) {

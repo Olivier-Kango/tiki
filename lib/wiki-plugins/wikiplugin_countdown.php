@@ -212,12 +212,12 @@ function wikiplugin_countdown($data, $params)
         $show_minutes = false;
         $show_seconds = false;
     } else {
-        $show_years = (strpos($show, 'y') === false) ? false : true;
-        $show_months = (strpos($show, 'o') === false) ? false : true;
-        $show_days = strpos($show, 'd') === false ? false : true;
-        $show_hours = strpos($show, 'h') === false ? false : true;
-        $show_minutes = strpos($show, 'm') === false ? false : true;
-        $show_seconds = strpos($show, 's') === false ? false : true;
+        $show_years = str_contains($show, 'y');
+        $show_months = str_contains($show, 'o');
+        $show_days = str_contains($show, 'd');
+        $show_hours = str_contains($show, 'h');
+        $show_minutes = str_contains($show, 'm');
+        $show_seconds = str_contains($show, 's');
     }
 
     if ($show_days) {

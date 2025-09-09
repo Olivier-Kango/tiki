@@ -61,7 +61,7 @@ class Services_Search_CustomSearchController
 
         $adddata = json_decode($input->adddata->text(), true);
 
-        $recalllastsearch = $input->recalllastsearch->int() ? true : false;
+        $recalllastsearch = $input->recalllastsearch->int();
 
         $id = $input->searchid->text();
         if (empty($id)) {

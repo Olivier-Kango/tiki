@@ -1541,7 +1541,7 @@ function wikiplugin_trackerlist($data, $params)
         }
         $smarty->assign_by_ref('allowtableexpansion', $allowtableexpansion);
 
-        $sticky = isset($allowStickyHeaders) && $allowStickyHeaders == 'y' ? true : false;
+        $sticky = isset($allowStickyHeaders) && $allowStickyHeaders == 'y';
         $smarty->assign_by_ref('sticky', $sticky);
         if (! isset($sortchoice)) {
             $sortchoice = '';

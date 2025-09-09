@@ -59,7 +59,7 @@ class Zip
             $this->setFileName($fileName);
         }
         $fileExtension = strtolower($fileNamePieces[$fileCountPieces - 1]);
-        $isZipFile = $fileExtension === 'zip' ? true : false;
+        $isZipFile = $fileExtension === 'zip';
         return $isZipFile;
     }
 

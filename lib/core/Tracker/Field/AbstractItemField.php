@@ -624,7 +624,7 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
     public function isMainField(): bool
     {
         //We use this instead of 'isMain' because there is no constraint enforced that there is only one field per tracker set 'isMain'.
-        return ($this->trackerField->getId() == $this->trackerDefinition->getMainFieldId()) ? true : false;
+        return $this->trackerField->getId() == $this->trackerDefinition->getMainFieldId();
     }
 
     protected function renderTemplate($file, $context = [], $data = [])

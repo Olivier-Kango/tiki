@@ -414,7 +414,7 @@ function wikiplugin_pivottable($data, $params)
         $headerlib->add_jsfile(PIVOTTABLE_DIST_PATH . '/pivot.' . $lang . '.js', true);
     }
 
-    $translate = (! empty($params['translate']) && $params['translate'] == 'y') ? true : false;
+    $translate = ! empty($params['translate']) && $params['translate'] == 'y';
 
     $smarty = TikiLib::lib('smarty');
     $smarty->assign('lang', $lang);

@@ -25,7 +25,7 @@ class Preference extends Base
         if (isset($params['source'])) {
             $source = $params['source'];
         }
-        $get_pages = isset($params['get_pages']) && $params['get_pages'] != 'n' ? true : false;
+        $get_pages = isset($params['get_pages']) && $params['get_pages'] != 'n';
 
         if ($info = $prefslib->getPreference($params['name'], true, $source, $get_pages)) {
             if (isset($info['hide']) && $info['hide'] === true) {

@@ -107,7 +107,7 @@ class Tiki_Hm_Functions
                 }
                 return $not ? ! $comparison : $comparison;
             });
-            $filtered[] = $values ? true : false;
+            $filtered[] = (bool)$values;
         }
         if ($filter['operator'] == 'ALLOF') {
             $pass = count(array_filter($filtered)) == count($filtered);

@@ -105,7 +105,7 @@ class TrackerFieldRelation extends AbstractTrackerFieldRelational
         }
 
         $invertField = $this->getInvertFieldInstance();
-        $isManyToMany = $invertField ? true : false;
+        $isManyToMany = (bool)$invertField;
 
         $relationInfo = new RelationInfoRelation();
         //TODO:  This should be ordered so we always show the non-invert first.  Othewise, the name depends on the order in which the trackers were traversed - benoitg - 2024-08-28.

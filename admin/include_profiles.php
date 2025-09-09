@@ -81,7 +81,7 @@ if (isset($_POST['install'], $_POST['pd'], $_POST['pp'])) {
     $installer = new Tiki_Profile_Installer();
     $installer->setUserData($data);
     $profile = Tiki_Profile::fromNames($_POST['pd'], $_POST['pp']);
-    $dryRun = isset($_POST['dryrun']) ? true : false;
+    $dryRun = isset($_POST['dryrun']);
     if ($dryRun || $access->checkCsrf()) {
         $installer->install($profile, 'all', $dryRun);
     }

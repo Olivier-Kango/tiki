@@ -178,7 +178,7 @@ function wikiplugin_datachannel($data, $params)
         $channels = array_filter(array_map('trim', explode(',', $params['channel'])));
     }
 
-    $datachannelWithTemplate = empty($params['template']) ? false : true;
+    $datachannelWithTemplate = ! empty($params['template']);
 
     if (isset($params['price']) && $params['price'] == 0) {
         // Convert things like 0.00 to empty

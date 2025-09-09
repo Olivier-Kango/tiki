@@ -188,7 +188,7 @@ class CheckSqlEngineConversion
     {
         $options = $this->getOpts();
 
-        $this->verbose = $this->getOption($options, 'v', 'verbose') === false ? true : false;
+        $this->verbose = $this->getOption($options, 'v', 'verbose') === false;
 
         $this->oldDbRaw = $this->getOption($options, null, 'db1');
         $result = $this->parseDbRaw($this->oldDbRaw);

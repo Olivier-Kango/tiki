@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         && (getCookie('admin_textarea', 'tabs') == '#contentadmin_textarea-plugin_alias')
     ) {
         // tab=3 is plugins alias tab (TODO improve)
-        $isUpdate = isset($pluginsAlias[$_POST['plugin_alias']]) ? true : false;
+        $isUpdate = isset($pluginsAlias[$_POST['plugin_alias']]);
         $info = [
             'implementation' => $_POST['implementation'],
             'description' => [

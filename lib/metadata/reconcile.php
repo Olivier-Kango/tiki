@@ -622,14 +622,14 @@ class ReconcileExifIptcXmp
             //files with EXIF and XMP need 2 passes, one for fields with matching field names and one for mapped fields
             if (isset($i) && $i < 5) {
                 $i++;
-                $newsamekey = $i == 4 ? true : false;
+                $newsamekey = $i == 4;
                 $newtypes = $this->repeat[$i];
                 $omni = $this->reconcile($newtypes, $omni, $newsamekey, $i);
             }
         } else {
             if (isset($i) && $i < 5) {
                 $i++;
-                $newsamekey = $i == 4 ? true : false;
+                $newsamekey = $i == 4;
                 $newtypes = $this->repeat[$i];
                 $omni = $this->reconcile($newtypes, $omni, $newsamekey, $i);
             }

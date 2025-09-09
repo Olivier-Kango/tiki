@@ -4907,7 +4907,7 @@ function commandIsAvailable($command)
         exec(sprintf($template, escapeshellarg($command)), $output, $returnCode);
     }
 
-    return $returnCode === 0 ? true : false;
+    return $returnCode === 0;
 }
 
 /**

@@ -304,7 +304,7 @@ function tag_exists($tag, $remote = false)
     $searchedTag = `git tag --list '$tag'`;
     $searchedTag = ! empty($searchedTag) ? trim($searchedTag) : '';
 
-    return ! empty($searchedTag) ? true : false;
+    return ! empty($searchedTag);
 }
 
 /**
