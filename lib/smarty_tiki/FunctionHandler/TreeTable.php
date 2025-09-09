@@ -185,12 +185,6 @@ class TreeTable extends Base
 
         $class = empty($class) ? 'table table-striped' : $class;    // treetable
 
-        /*
-    if ($prefs['feature_jquery_tablesorter'] == 'y' && strpos($class, 'sortable') === false) {
-         //$class .= ' sortable';
-    }
-*/
-
         if ($_listFilter == 'y' && count($_data) > $_filterMinRows) {
             $html .= smarty_function_listfilter(
                 [

@@ -25,7 +25,7 @@ class Tiki_Wsdl
 
         $context = null;
 
-        if ($prefs['use_proxy'] == 'y' && ! strpos($wsdlUri, 'localhost')) {
+        if ($prefs['use_proxy'] == 'y' && ! str_contains($wsdlUri, 'localhost')) {
             // Use proxy
             $context = stream_context_create(
                 [

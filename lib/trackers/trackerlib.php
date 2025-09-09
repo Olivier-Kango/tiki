@@ -1859,7 +1859,7 @@ class TrackerLib extends TikiLib
                         foreach ($linkfilter as $lf) {
                             if ($field['fieldId'] == $lf["filterfield"]) {
                                 // extra comma at the front and back of filtervalue to avoid ambiguity in partial match
-                                if ($lf["filtervalue"] && strpos(',' . implode(',', $field['items']) . ',', $lf["filtervalue"]) === false) {
+                                if ($lf["filtervalue"] && ! str_contains(',' . implode(',', $field['items']) . ',', $lf["filtervalue"])) {
                                     $filterout = true;
                                     break 2;
                                 } elseif ($lf["exactvalue"] && ! in_array($lf['exactvalue'], $field['items'])) {

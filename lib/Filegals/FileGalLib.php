@@ -4108,7 +4108,7 @@ class FileGalLib extends TikiLib
                 $arguments = $argumentParser->parse($match->getArguments());
                 $newArgs = [];
                 foreach ($arguments as $key => $val) {
-                    if ($key === 'src' && strpos($val, DEPRECATED_IMG_WIKI_UP_PATH) !== false) {
+                    if ($key === 'src' && str_contains($val, DEPRECATED_IMG_WIKI_UP_PATH)) {
                         //first time the wiki_up file is found
                         if (! isset($this->wikiupMoved[$val])) {
                             if (false === $data = @file_get_contents($val)) {

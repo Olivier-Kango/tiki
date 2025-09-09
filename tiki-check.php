@@ -5328,7 +5328,7 @@ function check_adminer_installations()
     );
 
     foreach ($adminer_files as $pattern) {
-        if (strpos($pattern, '*') !== false) {
+        if (str_contains($pattern, '*')) {
             // Handle wildcard patterns
             $files = glob($pattern);
             foreach ($files as $file) {
@@ -5405,7 +5405,7 @@ function check_directory_listing_vulnerabilities()
     foreach ($htaccess_files as $file) {
         if (file_exists($file)) {
             $content = file_get_contents($file);
-            if (strpos($content, 'Options +Indexes') !== false) {
+            if (str_contains($content, 'Options +Indexes')) {
                 $issues[] = 'Directory listing enabled in ' . $file;
             }
         }

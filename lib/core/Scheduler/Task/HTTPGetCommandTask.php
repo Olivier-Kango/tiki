@@ -113,7 +113,7 @@ class Scheduler_Task_HTTPGetCommandTask extends Scheduler_Task_CommandTask
         foreach ($publicPathes as $dir) {
             $realDir = realpath($dir);
 
-            if (strpos($pathDir, $realDir) === 0) {
+            if (str_starts_with($pathDir, $realDir)) {
                 return tra('You cannot write to this path.');
             }
         }

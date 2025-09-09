@@ -1533,7 +1533,7 @@ class UnifiedSearchLib
                         $out = $indexMap[$index];
                     } else {
                         foreach ($indexMap as $candidate => $name) {
-                            if (0 === strpos($index, $candidate . '_')) {
+                            if (str_starts_with($index, $candidate . '_')) {
                                 $indexMap[$index] = $name;
                                 $out = $name;
                                 break;

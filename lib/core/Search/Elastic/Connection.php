@@ -288,7 +288,7 @@ class Search_Elastic_Connection
             if (isset($info->aliases->$alias)) {
                 $active[] = $indexName;
                 $toRemove[] = $indexName;
-            } elseif (0 === strpos($indexName, $alias . '_') && $indexName != $targetIndex) {
+            } elseif (str_starts_with($indexName, $alias . '_') && $indexName != $targetIndex) {
                 $toRemove[] = $indexName;
             }
         }
@@ -326,7 +326,7 @@ class Search_Elastic_Connection
         }
         foreach ($current as $indexName => $info) {
             $hasAlias = isset($info->aliases) && count((array) $info->aliases) > 0;
-            if (0 === strpos($indexName, $aliasName . '_') && ! $hasAlias) {
+            if (str_starts_with($indexName, $aliasName . '_') && ! $hasAlias) {
                 // Matching name, no alias, means currently rebuilding
                 return true;
             }

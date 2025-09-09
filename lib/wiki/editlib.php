@@ -2121,7 +2121,7 @@ class EditLib
                 $value = $matches[2];
 
                 // For URL values, keep them quoted but use single quotes
-                if ($property === 'background-image' && strpos($value, 'url(') !== false) {
+                if ($property === 'background-image' && str_contains($value, 'url(')) {
                     $value = preg_replace('/url\s*\(\s*"([^"]*)"\s*\)/', "url('$1')", $value);
                 } else {
                     // Replace inner double quotes with single quotes for other properties

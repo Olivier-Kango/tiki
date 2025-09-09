@@ -549,7 +549,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
                     $index = $indicesMap[$index];
                 } else {
                     foreach ($indicesMap as $candidate) {
-                        if (0 === strpos($index, $candidate . '_')) {
+                        if (str_starts_with($index, $candidate . '_')) {
                             $indicesMap[$index] = $candidate;
                             $index = $candidate;
                             break;

@@ -60,7 +60,7 @@ class Response
             $this->data['_template'][$engine][$output] = [];
         }
 
-        if (0 !== strpos($templateLocation, 'http')) {
+        if (! str_starts_with($templateLocation, 'http')) {
             $host = $_SERVER['HTTP_HOST'];
             $proto = 'http';
             $path = dirname($_SERVER['SCRIPT_NAME']);

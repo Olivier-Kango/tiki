@@ -103,8 +103,8 @@ class WikiParser_Parsable extends ParserLib
         }
 
         // if we removed the syntax plugin then clean up the leftover linefeed
-        if ($found && (strpos($data, "\r\n") === 0 || strpos($data, "\n") === 0)) {
-            $data = substr($data, strpos($data, "\r\n") === 0 ? 2 : 1);
+        if ($found && (str_starts_with($data, "\r\n") || str_starts_with($data, "\n"))) {
+            $data = substr($data, str_starts_with($data, "\r\n") ? 2 : 1);
         }
 
         return $return;

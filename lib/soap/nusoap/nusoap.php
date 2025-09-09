@@ -764,7 +764,7 @@ class nusoap_base {
     */
     public function expandQname($qname){
         // get element prefix
-        if(strpos($qname,':') && !preg_match('/^http:\/\//',$qname)){
+        if(str_contains($qname,':') && !preg_match('/^http:\/\//',$qname)){
             // get unqualified name
             $name = substr(strstr($qname,':'),1);
             // get ns prefix
@@ -1327,7 +1327,7 @@ class nusoap_xmlschema extends nusoap_base  {
                 }
                 if (isset($attrs['http://schemas.xmlsoap.org/wsdl/:arrayType'])) {
                     $v = $attrs['http://schemas.xmlsoap.org/wsdl/:arrayType'];
-                    if (!strpos($v, ':')) {
+                    if (! str_contains($v, ':')) {
                         // no namespace in arrayType attribute value...
                         if ($this->defaultNamespace[$pos]) {
                             // ...so use the default
@@ -1361,11 +1361,11 @@ class nusoap_xmlschema extends nusoap_base  {
                     } else {
                         $v = '';
                     }
-                    if(strpos($v,'[,]')){
+                    if(str_contains($v,'[,]')){
                         $this->complexTypes[$this->currentComplexType]['multidimensional'] = true;
                     }
                     $v = substr($v,0,strpos($v,'[')); // clip the []
-                    if(!strpos($v,':') && isset($this->typemap[$this->XMLSchemaVersion][$v])){
+                    if(! str_contains($v,':') && isset($this->typemap[$this->XMLSchemaVersion][$v])){
                         $v = $this->XMLSchemaVersion.':'.$v;
                     }
                     $this->complexTypes[$this->currentComplexType]['arrayType'] = $v;
@@ -6496,7 +6496,7 @@ class wsdl extends nusoap_base {
         {
             foreach($in as $pName => $pType)
             {
-                if(strpos($pType,':')) {
+                if(str_contains($pType,':')) {
                     $pType = $this->getNamespaceFromPrefix($this->getPrefix($pType)).":".$this->getLocalPart($pType);
                 }
                 $this->messages[$name.'Request'][$pName] = $pType;
@@ -6508,7 +6508,7 @@ class wsdl extends nusoap_base {
         {
             foreach($out as $pName => $pType)
             {
-                if(strpos($pType,':')) {
+                if(str_contains($pType,':')) {
                     $pType = $this->getNamespaceFromPrefix($this->getPrefix($pType)).":".$this->getLocalPart($pType);
                 }
                 $this->messages[$name.'Response'][$pName] = $pType;
@@ -6694,7 +6694,7 @@ class nusoap_parser extends nusoap_base {
         // set self as current value for this depth
         $this->depth_array[$this->depth] = $pos;
         // get element prefix
-        if(strpos($name,':')){
+        if(str_contains($name,':')){
             // get ns prefix
             $prefix = substr($name,0,strpos($name,':'));
             // get unqualified name
@@ -6833,7 +6833,7 @@ class nusoap_parser extends nusoap_base {
         $pos = $this->depth_array[$this->depth--];
 
         // get element prefix
-        if(strpos($name,':')){
+        if(str_contains($name,':')){
             // get ns prefix
             $prefix = substr($name,0,strpos($name,':'));
             // get unqualified name
@@ -7609,15 +7609,8 @@ class nusoap_client extends nusoap_base  {
                 }
                 $this->debug('sending message, length='.strlen($msg));
                 if(preg_match('/^http:/',$this->endpoint)){
-                //if(strpos($this->endpoint,'http:')){
                     $this->responseData = $http->send($msg,$timeout,$response_timeout,$this->cookies);
                 } elseif(preg_match('/^https/',$this->endpoint)){
-                //} elseif(strpos($this->endpoint,'https:')){
-                    //if(phpversion() == '4.3.0-dev'){
-                        //$response = $http->send($msg,$timeout,$response_timeout);
-                           //$this->request = $http->outgoing_payload;
-                        //$this->response = $http->incoming_payload;
-                    //} else
                     $this->responseData = $http->send($msg,$timeout,$response_timeout,$this->cookies);
                 } else {
                     $this->setError('no http/s in endpoint url');

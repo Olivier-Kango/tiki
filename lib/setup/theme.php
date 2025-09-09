@@ -139,7 +139,7 @@ if (
         }
         $smarty->assign('admin_icons', $admin_icons);
     }
-    if (! strpos($_SERVER['PHP_SELF'], 'tiki-admin_modules.php')) { // Exclude the modules admin here
+    if (! str_contains($_SERVER['PHP_SELF'], 'tiki-admin_modules.php')) { // Exclude the modules admin here
         $smarty->assign('navbar_color_variant', $prefs['theme_navbar_color_variant_admin']);
     }
 } else {

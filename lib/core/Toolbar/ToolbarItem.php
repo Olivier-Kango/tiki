@@ -598,7 +598,8 @@ abstract class ToolbarItem
         }
 
         if (
-            strpos($class, 'qt-plugin') !== false && ($this->iconname == 'plugin'
+            str_contains($class, 'qt-plugin')
+            && ($this->iconname == 'plugin'
                 || $this->icon == 'img/icons/plugin.png')
         ) {
             $params['_menu_text'] = 'y';

@@ -125,7 +125,7 @@ class Tokens
         }
         $stored_entry = ltrim($stored_entry, '/'); // Remove leading slash
         $page = $parameters['page'] ?? '';
-        if ($prefs['feature_sefurl'] === 'y' && strpos($entry, 'tiki-autologin.php') === false) {
+        if ($prefs['feature_sefurl'] === 'y' && ! str_contains($entry, 'tiki-autologin.php')) {
             $sefurlTypeMap = $this->getSefurlTypeMap();
             $keys = array_keys($_GET);
             $seftype = '';

@@ -196,7 +196,7 @@ function module_last_youtube_playlist_videos($mod_reference, $module_params)
             $errorBody = json_decode($e->getMessage(), true);
 
             // Handling specific errors
-            if ($errorBody['error']['code'] == 403 && strpos($errorBody['error']['message'], 'blocked') !== false) {
+            if ($errorBody['error']['code'] == 403 && str_contains($errorBody['error']['message'], 'blocked')) {
                 Feedback::error(tr('Your API Key is blocked or restricted. Please update your API Key settings in Google Cloud to allow requests from this domain.'));
             } else {
                 Feedback::error(tr('Error fetching YouTube playlist: ') . $errorBody['error']['message']) ;

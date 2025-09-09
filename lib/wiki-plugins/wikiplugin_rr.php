@@ -1228,7 +1228,7 @@ function checkCommands($input)
     $found = [];
 
     foreach ($banned as $suspected) {
-        if (false !== strpos($input, $suspected)) {
+        if (str_contains($input, $suspected)) {
             // okay, we found something forbidden, now we need a regular expression to check if it is a function call like 'name  (', 'name =' or 'name.' !
             // Strictly speaking, this would be pattern '/\b' . preg_quote($suspected,'/') . '([\W]*\(|[\W]*\=|[\W]*\.)/'; but let's also forbid 'name .' until confirmation
             $pattern = '/\b' . preg_quote($suspected, '/') . '([\W]*\(|[\W]*\=|[\W]*\.)/';

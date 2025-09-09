@@ -210,7 +210,7 @@ class Services_File_FinderController
                     $info = $filegallib->get_file($fileId);
 
                     if (
-                        strpos($info['filetype'], 'image/') !== false ||
+                        str_contains($info['filetype'], 'image/') ||
                         ($prefs['fgal_pdfjs_feature'] === 'y' && $info['filetype'] === 'application/pdf')
                     ) {
                         $url .= '&display';
