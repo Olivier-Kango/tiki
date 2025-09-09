@@ -37,4 +37,3 @@
     }).css("cursor", "pointer");
   {/jq}
 {/block}
-
