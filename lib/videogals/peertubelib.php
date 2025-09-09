@@ -372,25 +372,21 @@ class PeerTubeLib
      */
     private function getLocalOAuthClient(string $base): array
     {
-        if ($this->localClientCache) {
-            return [$this->localClientCache['client_id'], $this->localClientCache['client_secret']];
-        }
-        $sessionKey = 'peertube_local_client_' . md5($base);
+        $cacheKey  = rtrim($base, '/');
+        $sessionKey = 'peertube_local_client_' . md5($cacheKey);
         if (! empty($_SESSION[$sessionKey]['client_id']) && ! empty($_SESSION[$sessionKey]['client_secret'])) {
-            $this->localClientCache = $_SESSION[$sessionKey];
-            return [$this->localClientCache['client_id'], $this->localClientCache['client_secret']];
+            return [$_SESSION[$sessionKey]['client_id'], $_SESSION[$sessionKey]['client_secret']];
         }
-        $clientUrl = $base . '/api/v1/oauth-clients/local';
+        $clientUrl = $cacheKey . '/api/v1/oauth-clients/local';
         $clientResponse = $this->makeRequest('GET', $clientUrl, [], false);
         $clientData = json_decode($clientResponse, true);
-        if (empty($clientData['client_id']) || empty($clientData['client_secret'])) {
+        if (! is_array($clientData) || empty($clientData['client_id']) || empty($clientData['client_secret'])) {
             throw new \Exception('Unable to retrieve client credentials from PeerTube');
         }
-        $this->localClientCache = [
-            'client_id' => $clientData['client_id'],
+        $_SESSION[$sessionKey] = [
+            'client_id'     => $clientData['client_id'],
             'client_secret' => $clientData['client_secret'],
         ];
-        $_SESSION[$sessionKey] = $this->localClientCache;
         return [$clientData['client_id'], $clientData['client_secret']];
     }
 
