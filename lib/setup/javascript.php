@@ -234,6 +234,7 @@ $jqueryTiki['cookie_consent_expires'] = $prefs['cookie_consent_expires'];
 $jqueryTiki['cookie_consent_name'] = CookieConsentLib::COOKIE_CONSENT_NAME;
 $jqueryTiki['cookie_consent_categories'] = json_encode(array_keys(CookieConsentLib::getCookieCategories()));
 $jqueryTiki['cookie_consent_value'] = json_encode(CookieConsentLib::getConsentPreferences(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+$jqueryTiki['wiki_url_scheme'] = $prefs['wiki_url_scheme'];
 
 //set at 4 hours if empty
 $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
