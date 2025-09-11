@@ -33,14 +33,18 @@ class UserRegistration extends Base
             return;
         }
 
+        // Check if merged_prefs is an error object before using it as an array
+        if (is_a($registrationlib->merged_prefs, RegistrationError::class)) {
+            Feedback::error(['mes' => $registrationlib->merged_prefs->msg]);
+            return;
+        }
+
         $_VALID = tra("Please enter a valid %s.  No spaces, more than %d characters and contain %s");
         $smarty->assign('_PROMPT_UNAME', sprintf($_VALID, tra("username"), $registrationlib->merged_prefs['min_username_length'], "0-9,a-z,A-Z"));
         $smarty->assign('_PROMPT_PASS', sprintf($_VALID, tra("password"), $registrationlib->merged_prefs['min_pass_length'], "0-9,a-z,A-Z"));
         $smarty->assign('min_username_length', $registrationlib->merged_prefs['min_username_length']);
         $smarty->assign('min_pass_length', $registrationlib->merged_prefs['min_pass_length']);
-        if (is_a($registrationlib->merged_prefs, RegistrationError::class)) {
-            Feedback::error(['mes' => $registrationlib->merged_prefs->msg]);
-        }
+
         $smarty->assign_by_ref('merged_prefs', $registrationlib->merged_prefs);
         $smarty->assign('allowRegister', 'y');
 
