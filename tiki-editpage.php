@@ -160,6 +160,18 @@ if (strtolower($_REQUEST["page"]) == 'sandbox' && $prefs['feature_sandbox'] !== 
 }
 
 $page = $_REQUEST["page"];
+if (isset($_GET['quickedit'])) {
+    // Normalize before checking input by replacing prefs[wiki_url_scheme] symbols ("-", "_", and "+") with space.
+    // This ensures page names like "Marc Andre" and "Marc-Andre" are treated as the same,
+    // preventing slug duplication when regenerating.
+    $normalized = preg_replace('/[\s+_-]/', ' ', $page);
+    if ($page_by_slug = $tikilib->getPageBySlug($normalized)) {
+        Feedback::errorAndDie(
+            tr('Cannot create page "%0", A page "%1" with the same slug variation already exists.', $page, '<strong>' . $page_by_slug . '</strong>'),
+            \Laminas\Http\Response::STATUS_CODE_409
+        );
+    }
+}
 
 if (isset($_REQUEST["description"])) {
     $max_pagedescription_length = 201;
