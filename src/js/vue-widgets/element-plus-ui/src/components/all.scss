@@ -14,16 +14,19 @@
     .el-select__wrapper.is-filterable, // Placing these outside of :host didn't work, also declaring CSS variables within host but without classes didn't work.
     .el-select-dropdown,
     .el-select {
-        background: var(--tiki-input-bg) !important;
-        color: var(--tiki-input-color) !important;
-        --el-text-color-regular: var(--tiki-input-color) !important;
-        --el-text-color-placeholder: var(--tiki-input-color) !important;
+        background: var(--bs-body-bg);
+        color: var(--tiki-input-color);
+        --el-text-color-regular: var(--tiki-input-color);
+        --el-text-color-placeholder: var(--tiki-input-color);
     }
-    .el-input__inner {
-        --el-text-color-regular: var(--tiki-input-color) !important;
+    .el-input__wrapper {
+        background-color: var(--bs-body-bg);
+        .el-input__inner {
+            --el-text-color-regular: var(--tiki-input-color);
+        }
     }
     .el-input {
-        --el-input-text-color: var(--tiki-input-color) !important;
+        --el-input-text-color: var(--tiki-input-color);
     }
 }
 
