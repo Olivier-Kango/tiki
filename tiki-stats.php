@@ -74,6 +74,13 @@ if ($prefs['feature_quizzes'] == 'y') {
     $quiz_stats = false;
 }
 $smarty->assign_by_ref('quiz_stats', $quiz_stats);
+if ($prefs['feature_trackers'] == 'y') {
+    // Retrieve trackers statistics and prepare extracted data for display.
+    $tracker_stats = $statslib->trackerStats();
+} else {
+    $tracker_stats = false;
+}
+$smarty->assign_by_ref('tracker_stats', $tracker_stats);
 $user_stats = $statslib->user_stats();
 $smarty->assign_by_ref('user_stats', $user_stats);
 $site_stats = $statslib->site_stats();

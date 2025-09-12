@@ -585,4 +585,35 @@ class StatsLib extends TikiLib
         $ret['ydata'] = $ydata;
         return $ret;
     }
+
+    /**
+     * @return array
+     */
+    public function trackerStats()
+    {
+        $stats = [];
+        $tables = [
+            'trackers' => 'tiki_trackers',
+            'tracker_fields' => 'tiki_tracker_fields',
+            'tiki_tracker_items' => 'tiki_tracker_items',
+            'tiki_tracker_item_attachments' => 'tiki_tracker_item_attachments',
+            'tiki_tracker_options' => 'tiki_tracker_options',
+        ];
+
+        foreach ($tables as $key => $table) {
+            // Accurate row count
+            $stats[$key]['rowCount'] = (int) $this->getOne("SELECT COUNT(*) FROM `$table`", []);
+
+            // Table size via SHOW TABLE STATUS
+            $stat = $this->query("SHOW TABLE STATUS WHERE `Name` = ?", [$table]);
+            $dataLength = 0;
+
+            if (isset($stat->result[0])) {
+                $dataLength = (int) $stat->result[0]['Data_length'];
+            }
+
+            $stats[$key]['dataLengthMb'] = $dataLength / 1024 / 1024;
+        }
+        return $stats;
+    }
 }
