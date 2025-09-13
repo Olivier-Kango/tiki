@@ -7080,6 +7080,7 @@ class TrackerLib extends TikiLib
             'notifyOn' => $input->notifyOn->word() ? $input->notifyOn->word() : 'both',
             'relationshipBehaviour' => $input->relationshipBehaviour->text(),
             'allowInlineEditing' => $input->allowInlineEditing->int() ? 'y' : 'n',
+            'allowChooseFieldsToDisplay' => $input->allowChooseFieldsToDisplay->int() ? 'y' : 'n',
         ];
     }
 }

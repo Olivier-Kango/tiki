@@ -148,32 +148,35 @@
 
             {if $items|@count ge '1'}
                 {* ------- list toggleable fields --- *}
-                {if $trk_items_col_pref neq ''}
-                    <textarea id="savedcolpref" class="d-none">{$trk_items_col_pref}</textarea>
-                {/if}
-                <form id="savecolprefsform" method="post" action="{service controller=user action=save_column_prefs}">
-                    {ticket}
-                    <div class="mb-3">
-                        <div class="toggle-col-warning d-none">
-                            {remarksbox type="danger" title="{tr}Warning{/tr}" close="y"}
-                                {tr}{"At least one column must remain visible."}{/tr}
-                            {/remarksbox}
+
+                {if $tracker_info.allowChooseFieldsToDisplay eq 'y'}
+                    {if $trk_items_col_pref neq ''}
+                        <textarea id="savedcolpref" class="d-none">{$trk_items_col_pref}</textarea>
+                    {/if}
+                    <form id="savecolprefsform" method="post" action="{service controller=user action=save_column_prefs}">
+                        {ticket}
+                        <div class="mb-3">
+                            <div class="toggle-col-warning d-none">
+                                {remarksbox type="danger" title="{tr}Warning{/tr}" close="y"}
+                                    {tr}{"At least one column must remain visible."}{/tr}
+                                {/remarksbox}
+                            </div>
+                            {foreach from=$listfields key=ix item=field_value}
+                                {if $field_value.isTblVisible eq 'y' and ( $field_value.type ne 'x' and $field_value.type ne 'h') and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password') and $field_value.visibleInViewMode eq 'y'}
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input toggle-col" data-col-name="{$field_value.name}" checked>
+                                        <label class="form-check-label">{$field_value.name|tra|truncate:255:"..."|escape|default:"&nbsp;"}</label>
+                                    </div>
+                                {/if}
+                            {/foreach}
                         </div>
-                        {foreach from=$listfields key=ix item=field_value}
-                            {if $field_value.isTblVisible eq 'y' and ( $field_value.type ne 'x' and $field_value.type ne 'h') and ($field_value.type ne 'p' or $field_value.options_array[0] ne 'password') and $field_value.visibleInViewMode eq 'y'}
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input toggle-col" data-col-name="{$field_value.name}" checked>
-                                    <label class="form-check-label">{$field_value.name|tra|truncate:255:"..."|escape|default:"&nbsp;"}</label>
-                                </div>
-                            {/if}
-                        {/foreach}
-                    </div>
-                    <div class="mb-3">
-                        <textarea name="prefs" id="prefs" class="d-none"></textarea>
-                        <input name="trackerId" type="hidden" id="col_pref_trackerid" value="{$trackerId}">
-                        <input name="trackerName" type="hidden" value="{tr}{$tracker_info.name}{/tr}">
-                    </div>
-                </form>
+                        <div class="mb-3">
+                            <textarea name="prefs" id="prefs" class="d-none"></textarea>
+                            <input name="trackerId" type="hidden" id="col_pref_trackerid" value="{$trackerId}">
+                            <input name="trackerName" type="hidden" value="{tr}{$tracker_info.name}{/tr}">
+                        </div>
+                    </form>
+                {/if}
                 {* ------- list headings --- *}
                 <form name="checkform" method="post">
                     {ticket}
@@ -407,6 +410,9 @@
                         if (savedPrefs) {
                             let prefs = JSON.parse(savedPrefs);
                             const actual_tracker_prefs = prefs[colprefkey];
+                            if (! actual_tracker_prefs) {
+                                return;
+                            }
                             Object.keys(actual_tracker_prefs).forEach(function (columnName) {
                                 const checkbox = $('.toggle-col[data-col-name="' + columnName +'"]');
                                 checkbox.prop('checked', actual_tracker_prefs[columnName]);

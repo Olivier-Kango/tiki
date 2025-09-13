@@ -242,6 +242,13 @@
                 <label for="showPopup">{tr}List detail popup{/tr}</label>
                 {object_selector_multi type=trackerfield tracker_id=$info.trackerId _simplevalue=$info.showPopup _separator="," _simplename="showPopup"}
             </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="allowChooseFieldsToDisplay" value="1"
+                    {if $info.allowChooseFieldsToDisplay eq 'y'} checked="checked"{/if}>
+                <label class="form-check-label" for="allowChooseFieldsToDisplay">
+                    {tr}Allow user to choose fields to display{/tr}
+                </label>
+            </div>
         {/accordion_group}
     {accordion_group title="{tr}Section Format{/tr}"}
                 <div class="mb-3 mx-0">
