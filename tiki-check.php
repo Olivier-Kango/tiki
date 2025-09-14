@@ -3634,6 +3634,9 @@ $diffFileTables = array();
 $diffFileColumns = array();
 $dynamicTables = array();
 $sqlFileTables = array();
+$diffColDefs = array();
+$diffIndexDefis = array();
+$alterTableFile = array();
 
 // Get Security token, neccessary for mismatch tables deletion
 if (! $standalone) {
@@ -3641,26 +3644,97 @@ if (! $standalone) {
     $smarty->assign('ticket', $ticket);
 }
 
+function processKeyFields(&$alterTableFile, $tableName, $keyFields, $isUnique = false)
+{
+    $keyLen = isset($alterTableFile[$tableName]) ? count($alterTableFile[$tableName]) : 0;
+    $indexNameField = $isUnique ? 2 : 1;
+    $indexColumnsField = $isUnique ? 3 : 3;
+    $indexType = $isUnique ? 'UNIQUE' : $keyFields[2];
+    $keyFields[$indexNameField] = strtolower(trim(preg_replace('/\s+/', '', $keyFields[$indexNameField])));
+    $keyFields[$indexColumnsField] = strtolower(trim(preg_replace(array('/(\s+)|(\([^)]*\))/'), array('', ''), $keyFields[$indexColumnsField])));
+    $alterTableFile[$tableName][$keyLen] = array(
+        'INDEX_NAME' => $keyFields[$indexNameField],
+        'INDEX_COLUMNS' => $keyFields[$indexColumnsField],
+        'INDEX_TYPE' => $indexType
+    );
+}
+
 // Function used to check db mismatches
 function check_db_mismatches()
 {
     $tikiSql = file_get_contents('db/tiki.sql');
     preg_match_all('/CREATE TABLE (?:.(?!;[^\S]))+./s', $tikiSql, $tables);
+    preg_match_all("/ALTER TABLE (?:.(?!;[^\S]))+./s", $tikiSql, $alterTables);
+
+    if (is_array($alterTables) && count($alterTables)) {
+        foreach ($alterTables[0] as $alterTable) {
+            preg_match('/ALTER TABLE[\s\t]*`?(\w+)`?/', $alterTable, $matches);
+            $tableName = strtolower(trim($matches[1]));
+            preg_match(
+                "/(ADD (INDEX|KEY) [^ ]+) \((.+)\)/",
+                $alterTable,
+                $indKeyfields
+            );
+            preg_match(
+                "/(ADD UNIQUE INDEX ([^\s]+) \(([^)]+)\))/",
+                $alterTable,
+                $uniqKeyfields
+            );
+
+            if (is_array($uniqKeyfields) && count($uniqKeyfields)) {
+                processKeyFields($alterTableFile, $tableName, $uniqKeyfields, true);
+            }
+
+            if (is_array($indKeyfields) && count($indKeyfields)) {
+                $indKeyfields[1] = str_replace('ADD INDEX', '', $indKeyfields[1]);
+                processKeyFields($alterTableFile, $tableName, $indKeyfields);
+            }
+        }
+    }
 
     foreach ($tables[0] as $table) {
         preg_match('/CREATE TABLE[\s\t]*`?(\w+)`?/', $table, $matches);
         $tableName = strtolower(trim($matches[1]));
         $sqlFileTables[$tableName] = array();
 
-        preg_match_all('/^[\s\t]*`?(?!CREATE|KEY|PRIMARY|UNIQUE|INDEX)(\w+)`?/m', $table, $fields);
+        //preg_match_all('/^[\s\t]*`?(?!CREATE|KEY|PRIMARY|UNIQUE|INDEX)(\w+)`?/m', $table, $fields);
+        preg_match_all('/^[\s\t]*`?(?!CREATE|KEY|PRIMARY|UNIQUE|INDEX)(\w+)`?\h*(\w+\s*\([^)]*\)|\w+)/m', $table, $fields);
 
-        foreach ($fields[1] as $field) {
-            $sqlFileTables[$tableName][] = strtolower($field);
+        $cols = $fields[1];
+        $types = $fields[2];
+
+        foreach ($types as $k => $type) {
+            $types[$k] = preg_replace_callback('/(\w+)\s*\((.*?)\)/', function ($matches) {
+                $inner = trim(preg_replace('/\s*,\s*/', ',', $matches[2]));
+                return $matches[1] . '(' . $inner . ')';
+            }, $type);
         }
+
+        foreach ($cols as $ind => $col) {
+            $columnType = isset($types[$ind]) ? $types[$ind] : null;
+            $tmpCol = strtolower($col);
+            $sqlFileTables[$tableName][$tmpCol] = strtolower($columnType);
+        }
+
+        $diffIndexDefis[$tableName]['file'] = array();
+        $diffIndexDefis[$tableName]['db'] = array();
+        $keyDefsFromFile = array();
+
+        if (count($alterTableFile) && isset($alterTableFile[$tableName])) {
+            $keyDefsFromFile = $alterTableFile[$tableName];
+        }
+
+        extractKeyDefsFromFile($table, $keyDefsFromFile, "INDEX|KEY");
+        extractKeyDefsFromFile($table, $keyDefsFromFile, "PRIMARY");
+        extractKeyDefsFromFile($table, $keyDefsFromFile, "UNIQUE");
+
+        $keyDefsFromDb = getDbKeyDefinitions($tableName);
+
+        compareKeyDefinitions($keyDefsFromFile, $keyDefsFromDb, $diffIndexDefis, $tableName);
     }
 
     $query = <<<SQL
-    SELECT TABLE_NAME, COLUMN_NAME
+    SELECT TABLE_NAME, COLUMN_NAME, COLUMN_TYPE
     FROM information_schema.columns
     WHERE table_schema = database()
     AND (TABLE_NAME NOT LIKE "index_%" OR TABLE_NAME LIKE "zzz_unused_%");
@@ -3671,10 +3745,12 @@ function check_db_mismatches()
     $diffFileColumns = $sqlFileTables;
     $queriedTables = array();
     $diffDbTables = array();
+    $tempDiffColDefs = array();
 
     foreach ($result as $tables) {
         $dbTable = strtolower($tables['TABLE_NAME']);
         $dbColumn = strtolower($tables['COLUMN_NAME']);
+        $dbColDef = strtolower($tables['COLUMN_TYPE']);
 
         // Table in DB and SQL
         $key = array_search($dbTable, $diffFileTables);
@@ -3704,13 +3780,22 @@ function check_db_mismatches()
         }
 
         // Column in DB but not in SQL file
-        if (! in_array($dbColumn, $sqlFileTables[$dbTable])) {
+        if (! in_array($dbColumn, array_keys($sqlFileTables[$dbTable]))) {
             $diffDbColumns[$dbTable][] = $dbColumn;
         }
 
         if (isset($diffFileColumns[$dbTable])) {
-            $key = array_search($dbColumn, $diffFileColumns[$dbTable]);
-            unset($diffFileColumns[$dbTable][$key]);
+            $tmpDiffFileColumns = array_keys($diffFileColumns[$dbTable]);
+            $key = array_search($dbColumn, $tmpDiffFileColumns);
+            unset($diffFileColumns[$dbTable][$tmpDiffFileColumns[$key]]);
+        }
+
+        if (isset($sqlFileTables[$dbTable]) && in_array($dbColumn, array_keys($sqlFileTables[$dbTable]))) {
+            $sqlFileColDef = $sqlFileTables[$dbTable][$dbColumn];
+            if ($sqlFileColDef !== $dbColDef) {
+                $tempDiffColDefs[$dbTable][$dbColumn]['file'] = $sqlFileColDef;
+                $tempDiffColDefs[$dbTable][$dbColumn]['db'] = $dbColDef;
+            }
         }
 
         if (empty($diffFileColumns[$dbTable])) {
@@ -3718,21 +3803,223 @@ function check_db_mismatches()
         }
     }
 
+    if (count($tempDiffColDefs)) {
+        foreach ($tempDiffColDefs as $tableName => $columns) {
+            $columnNames = array();
+            $fileDefs = array();
+            $dbDefs = array();
+
+            foreach ($columns as $columnName => $columnDef) {
+                $columnNames[] = $columnName;
+                $fileDefs[] = isset($columnDef['file']) ? $columnDef['file'] : '-';
+                $dbDefs[] = isset($columnDef['db']) ? $columnDef['db'] : '-';
+            }
+
+            $diffColDefs[$tableName] = array(
+                'columnNames' => '<li>' . implode('</li><li>', $columnNames) . '</li>',
+                'fileDefs' => '<li>' . implode('</li><li>', $fileDefs) . '</li>',
+                'dbDefs' => '<li>' . implode('</li><li>', $dbDefs) . '</li>',
+            );
+        }
+    }
+
+    if (count($diffIndexDefis)) {
+        foreach ($diffIndexDefis as $tableName => &$item) {
+            $formatIndex = function ($index) {
+                return "<li><strong>INDEX_NAME:</strong> {$index['INDEX_NAME']}</li>" .
+                       "<li><strong>INDEX_COLUMNS:</strong> {$index['INDEX_COLUMNS']}</li>" .
+                       "<li><strong>INDEX_TYPE:</strong> {$index['INDEX_TYPE']}</li>";
+            };
+
+            if (! empty($item['file'])) {
+                $item['file'] = array_map($formatIndex, $item['file']);
+                $item['file'] = '<ul>' . implode('', $item['file']) . '</ul>';
+            }
+
+            if (! empty($item['db'])) {
+                $item['db'] = array_map($formatIndex, $item['db']);
+                $item['db'] = '<ul>' . implode('', $item['db']) . '</ul>';
+            }
+        }
+        unset($item);
+    }
+
     return array(
+        'diffDbColumns' => $diffDbColumns,
         'diffFileTables' => $diffFileTables,
         'diffFileColumns' => $diffFileColumns,
         'diffDbTables' => $diffDbTables,
-        'queriedTables' => $queriedTables
+        'queriedTables' => $queriedTables,
+        'diffColDefs' => $diffColDefs,
+        'diffIndexDefis' => $diffIndexDefis
     );
+}
+
+function getDbKeyDefinitions($tableName)
+{
+    $query = <<<SQL
+    SELECT 
+        INDEX_NAME, 
+        TABLE_NAME,
+        GROUP_CONCAT(COLUMN_NAME ORDER BY SEQ_IN_INDEX) AS INDEX_COLUMNS, 
+    CASE 
+        WHEN NON_UNIQUE = 0 AND INDEX_NAME = 'PRIMARY' 
+            THEN 'PRIMARY' 
+        WHEN NON_UNIQUE = 0
+            THEN 'UNIQUE'
+        ELSE 'INDEX' 
+    END AS INDEX_TYPE 
+    FROM information_schema.statistics 
+    WHERE TABLE_SCHEMA = database() AND TABLE_NAME = "$tableName"
+    GROUP BY INDEX_NAME, NON_UNIQUE;
+    SQL;
+    return query($query);
+}
+
+function cleanKeyDefinitionMatch($match, $case)
+{
+    switch ($case) {
+        case 'INDEX|KEY':
+        case 'UNIQUE':
+            $match[2] = preg_replace('/\s+/', '', $match[2]);
+            $match[3] = preg_replace('/\s+/', '', $match[3]);
+            $match[3] = str_replace('`', '', $match[3]);
+            if (! $match[2]) {
+                $indColsArray = explode(',', $match[3]);
+                $match[2] = $indColsArray[0];
+            }
+            break;
+        case 'PRIMARY':
+            $match[2] = preg_replace('/\s+/', '', $match[2]);
+            $match[2] = str_replace('`', '', $match[2]);
+            break;
+        default:
+            break;
+    }
+    return $match;
+}
+
+function processKeyMatches(&$keyDefsFromFile, $matches, $keyType, $nameIndex, $columnIndex)
+{
+    if (is_array($matches) && count($matches)) {
+        foreach ($matches as $matchDefi) {
+            $cleanedMatch = cleanKeyDefinitionMatch($matchDefi, $keyType);
+            if ($keyType === 'PRIMARY') {
+                $keyDefsFromFile[] = array(
+                    'INDEX_NAME' => strtolower($cleanedMatch[$nameIndex]),
+                    'INDEX_COLUMNS' => strtolower(preg_replace('/\([^)]*\)/', '', $cleanedMatch[$columnIndex])),
+                    'INDEX_TYPE' => strtolower($cleanedMatch[$nameIndex])
+                );
+            } else {
+                $cleanedMatch[$columnIndex] = preg_replace('/\([^)]*\)/', '', $cleanedMatch[$columnIndex]);
+                $keyDefsFromFile[] = array(
+                    'INDEX_NAME' => strtolower($cleanedMatch[$nameIndex]),
+                    'INDEX_COLUMNS' => strtolower($cleanedMatch[$columnIndex]),
+                    'INDEX_TYPE' => strtolower($cleanedMatch[1])
+                );
+            }
+        }
+    }
+}
+
+function extractKeyDefsFromFile($table, &$keyDefsFromFile, $case)
+{
+    switch ($case) {
+        case 'UNIQUE':
+            $matchUniqDefs1 = array();
+            $matchUniqDefs2 = array();
+            preg_match_all(
+                "/\`?(\w+)\`?\s+\w+.*?(UNIQUE)\s+/i",
+                $table,
+                $matchUniqDefs1,
+                PREG_SET_ORDER
+            );
+            if (count($matchUniqDefs1)) {
+                foreach ($matchUniqDefs1 as $i => $e) {
+                    $matchUniqDefs1[$i][0] = $e[0];
+                    $matchUniqDefs1[$i][1] = 'UNIQUE';
+                    $matchUniqDefs1[$i][2] = $e[1];
+                    $matchUniqDefs1[$i][3] = $e[1];
+                }
+            }
+            preg_match_all(
+                "/(UNIQUE)(?:\s+KEY)?\s*`?(\w*)`?\s*\(((?:[^()]|\([^)]*\))*)\)/i",
+                $table,
+                $matchUniqDefs2,
+                PREG_SET_ORDER
+            );
+            $matchedUniqDefs = array_merge($matchUniqDefs1, $matchUniqDefs2);
+            processKeyMatches($keyDefsFromFile, $matchedUniqDefs, 'UNIQUE', 2, 3);
+            break;
+        case 'INDEX|KEY':
+            preg_match_all(
+                "/(?<!PRIMARY\s)(?<!UNIQUE\s)(?<![\w`])(INDEX|KEY)\s*`?([\w_-]+)?`?\s*\(((?:[^()]|\([^()]*\))+)\)/i",
+                $table,
+                $matchDefis,
+                PREG_SET_ORDER
+            );
+            processKeyMatches($keyDefsFromFile, $matchDefis, 'INDEX|KEY', 2, 3);
+            break;
+        case 'PRIMARY':
+            $matchPrimDefs1 = array();
+            $matchPrimDefs2 = array();
+            preg_match_all(
+                "/\`?(\w+)\`?\s+\w+.*?(PRIMARY)\s+KEY/i",
+                $table,
+                $matchPrimDefs1,
+                PREG_SET_ORDER
+            );
+            if (count($matchPrimDefs1)) {
+                foreach ($matchPrimDefs1 as $i => $e) {
+                    $matchPrimDefs1[$i][0] = $e[0];
+                    $matchPrimDefs1[$i][1] = 'PRIMARY';
+                    $matchPrimDefs1[$i][2] = $e[1];
+                }
+            }
+            preg_match_all(
+                '/(PRIMARY)\s+KEY\s*(?:\`\w+\`\s*)?\s*\(((?:[^()]|\([^()]*\))+)\)/i',
+                $table,
+                $matchPrimDefs2,
+                PREG_SET_ORDER
+            );
+            $matchedPrimaryDefs = array_merge($matchPrimDefs1, $matchPrimDefs2);
+            processKeyMatches($keyDefsFromFile, $matchedPrimaryDefs, 'PRIMARY', 1, 2);
+            break;
+        default:
+            break;
+    }
+}
+
+function compareKeyDefinitions($fileIndexes, $dbIndexes, &$diffIndexDefis, $tableName)
+{
+    foreach ($fileIndexes as $i => $fileIndex) {
+        foreach ($dbIndexes as $k => $dbIndex) {
+            $dbIndex['INDEX_COLUMNS'] = strtolower($dbIndex['INDEX_COLUMNS']);
+            if (
+                ($dbIndex['INDEX_TYPE'] === 'INDEX' && $fileIndex['INDEX_COLUMNS'] === $dbIndex['INDEX_COLUMNS']) ||
+                ($dbIndex['INDEX_TYPE'] === 'PRIMARY' && $fileIndex['INDEX_COLUMNS'] === $dbIndex['INDEX_COLUMNS']) ||
+                ($dbIndex['INDEX_TYPE'] === 'UNIQUE' && $fileIndex['INDEX_COLUMNS'] === $dbIndex['INDEX_COLUMNS'])
+            ) {
+                unset($dbIndexes[$k]);
+                unset($fileIndexes[$i]);
+            }
+        }
+    }
+
+    $diffIndexDefis[$tableName]['file'] = array_values($fileIndexes);
+    $diffIndexDefis[$tableName]['db'] = array_values($dbIndexes);
 }
 
 if (isset($_REQUEST['dbmismatches']) && ! $standalone && file_exists('db/tiki.sql')) {
     $diffDatabase = true;
     // Get the db_mismatches check result
     $checkResult = check_db_mismatches();
+    $diffDbColumns = $checkResult['diffDbColumns'];
     $diffFileTables = $checkResult['diffFileTables'];
     $diffFileColumns = $checkResult['diffFileColumns'];
     $diffDbTables = $checkResult['diffDbTables'];
+    $diffColDefs = $checkResult['diffColDefs'];
+    $diffIndexDefis = $checkResult['diffIndexDefis'];
 
     // If table is missing, then all columns will be missing too (remove from columns diff)
     foreach ($diffFileTables as $table) {
@@ -4461,6 +4748,8 @@ if ($standalone && ! $nagios) {
     $smarty->assign('diffDbColumns', $diffDbColumns);
     $smarty->assign('diffFileTables', $diffFileTables);
     $smarty->assign('diffFileColumns', $diffFileColumns);
+    $smarty->assign('diffColDefs', $diffColDefs);
+    $smarty->assign('diffIndexDefis', $diffIndexDefis);
     $smarty->assign('dynamicTables', $dynamicTables);
 
     $criptLib = TikiLib::lib('crypt');

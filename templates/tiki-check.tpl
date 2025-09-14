@@ -402,6 +402,94 @@ setInterval(function() {
         </table>
     </div>
 
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th colspan="4">{tr}Column definition in the database differ from the one from db/tiki.sql{/tr}</th>
+            </tr>
+            {if !empty($diffColDefs)}
+                <tr>
+                    <th>{tr}Table Name{/tr}</th>
+                    <th>{tr}Column{/tr}</th>
+                    <th>{tr}File Definition{/tr}</th>
+                    <th>{tr}Database Definition{/tr}</th>
+                </tr>
+                <tbody>
+                {foreach from=$diffColDefs key=tableName item=details}
+                    <tr>
+                        <td>{$tableName}</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                {$details.columnNames}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="list-unstyled">
+                                {$details.fileDefs|unescape:'html'}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="list-unstyled">
+                                {$details.dbDefs|unescape:'html'}
+                            </ul>
+                        </td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            {else}
+                <td class="text">
+                    <span class="text-success">
+                        <span class="icon icon-ok fas fa-check-circle "></span> good
+                    </span>
+                </td>
+            {/if}
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th colspan="3">{tr}Index definition in the database differs from the one in db/tiki.sql{/tr}</th>
+            </tr>
+            {if !empty($diffIndexDefis)}
+                <tr>
+                    <th>{tr}Table Name{/tr}</th>
+                    <th>{tr}File Definition{/tr}</th>
+                    <th>{tr}Database Definition{/tr}</th>
+                </tr>
+                <tbody>
+                {foreach from=$diffIndexDefis key=tableName item=item}
+                    {if !empty($item.file) || !empty($item.db)}
+                        <tr>
+                            <td>{$tableName}</td>
+                            <td>
+                                {if !empty($item.file)}
+                                    {$item.file|unescape:'html'}
+                                {else}
+                                    <span>Not available</span>
+                                {/if}
+                            </td>
+                            <td>
+                                {if !empty($item.db)}
+                                    {$item.db|unescape:'html'}
+                                {else}
+                                    <span>Not available</span>
+                                {/if}
+                            </td>
+                        </tr>
+                    {/if}
+                {/foreach}
+                </tbody>
+            {else}
+                <td class="text">
+                    <span class="text-success">
+                        <span class="icon icon-ok fas fa-check-circle "></span> good
+                    </span>
+                </td>
+            {/if}
+        </table>
+    </div>
+
     {if !empty($dynamicTables)}
         <div class="table-responsive">
             <table class="table table-striped table-hover">
