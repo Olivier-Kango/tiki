@@ -315,76 +315,19 @@ function wikiplugin_mediaplayer($data, $params)
                     $fileUrl = $access->absoluteUrl($params['src']);
                 }
 
-                if (! file_get_contents($fileUrl)) {
+                $file = Tiki\FileGallery\File::id($fileId);
+                $filecontent = $file->getContents() ?? '';
+
+                if (! $filecontent) {
                     Feedback::error(tr("PluginMediaPlayer: Unable to open the file %0. It may not exist or is inaccessible.", $fileUrl));
                     return;
                 }
 
-                $text = file_get_contents($fileUrl);
-                $text = html_entity_decode($text);
+                $smarty->assign('width', $params['width'] ?? '');
+                $smarty->assign('height', $params['height'] ?? '');
+                $smarty->assign('content', $filecontent);
 
-                if (! empty($text)) {
-                    $headerlibs = TikiLib::lib('header');
-                    $widthValue = ! empty($params['width']) ? $params['width'] : '100%';
-                    $heightValue = ! empty($params['height']) ? $params['height'] : '100%';
-
-                    $headerlibs->add_css('
-                        .iframe-media-wrapper {
-                            width: ' . $widthValue . ';
-                            height: ' . $heightValue . ';
-                            min-width: 480px;
-                            min-height: 420px;
-                            display: flex;
-                            flex-direction: column;
-                        }
-                        .iframe-media-wrapper .iframe-text-container {
-                            width: 100%;
-                            height: 100vh;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            background-color: #f1f1f1;
-                            padding: 20px;
-                            box-sizing: border-box;
-                            overflow: hidden;
-                        }
-
-                        .iframe-media-wrapper iframe.word-page {
-                            width: 90%;
-                            height: 100%;
-                            margin-top: auto;
-                            border: 1px solid #ccc;
-                            background-color: white;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                            overflow: hidden;
-                            font-family: "Calibri", sans-serif;
-                            font-size: 12pt;
-                            line-height: 1.5;
-                            padding: 40px;
-                        }
-
-                        @media (max-width: 768px) {
-                            .iframe-media-wrapper {
-                                width: 100%;
-                                height: auto;
-                                min-width: unset;
-                                padding: 10px;
-                            }
-                            .iframe-media-wrapper .iframe-text-container {
-                                padding: 10px 10px;
-                            }
-                            .iframe-media-wrapper iframe.word-page {
-                                padding: 20px;
-                            }
-                        }
-                    ');
-
-                    $smarty->assign('content', $text);
-
-                    return '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_mediaplayer_text.tpl') . '~/np~';
-                } else {
-                    return "<p>" . tr("Error: No text found.") . "</p>";
-                }
+                return '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_mediaplayer_text.tpl') . '~/np~';
             }
 
             $smarty->assign('source_link', $sourceLink);
