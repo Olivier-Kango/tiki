@@ -52,6 +52,14 @@
                 {breadcrumbs type="pagetitle" loc="page" crumbs=$crumbs}
             {/if}
             *}
+            {if $mailer_queue_requires_update}
+                {remarksbox type="error" title="{tr}Email Queue Problem{/tr}"}
+                    <p>{tr}There are messages in the email queue that exceeded the number of retries and will not be retried anymore.{/tr}</p>
+                    <p>{tr}You can manage the queue.{/tr}
+                        {tr _0='<a class="alert-link" href="tiki-admin_email_queue.php">' _1="</a>"}%0Manage the queue.%1{/tr}
+                    </p>
+                {/remarksbox}
+            {/if}
             {if $ProblemsLoadingCacheSubSystem}
                 {remarksbox type="warning" title="{tr _0=$ProblemsLoadingCacheSubSystem}%0 did not load properly{/tr}"}
                 {tr _0=$ProblemsLoadingCacheSubSystem}Tiki is configured to use <strong>%0 cache system</strong>, however, it was not loaded properly. Check if the extension has been properly loaded.{/tr}<br />

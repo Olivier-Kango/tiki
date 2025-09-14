@@ -30,12 +30,13 @@ class MailQueueSendCommand extends Command
 
         $output->writeln('Mail queue processor starting...');
 
-        $messages = \TikiDb::get()->fetchAll('SELECT messageId, message FROM tiki_mail_queue');
+        $where = ! empty($prefs['mailer_queue_max_retries']) ? 'where `attempts` <= ' . $prefs['mailer_queue_max_retries'] : '';
+        $messages = \TikiDb::get()->fetchAll('SELECT messageId, message FROM tiki_mail_queue ' . $where);
 
         foreach ($messages as $message) {
             $messageId = $message['messageId'];
             $serializedEmail = $message['message'];
-            $output->writeln('Sending message ' . $messageId . '...');
+            $output->writeln('Sending message ID: ' . $messageId . '...');
             $mail = unserialize($serializedEmail);
             $error = '';
             if ($mail instanceof Email) {

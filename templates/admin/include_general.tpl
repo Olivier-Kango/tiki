@@ -73,6 +73,7 @@
                     {preference name=http_sslverifypeer}
                     {preference name=mailer_smtp_helo}
                 </div>
+                {preference name=mailer_queue_max_retries}
                 {preference name=mailer_queue}
                 {preference name=mailer_redirect}
                 <div class="adminoptionbox mb-3 row clearfix">

@@ -198,5 +198,12 @@ function prefs_mailer_list()
             'default' => '',
             'keywords' => 'catchall',
         ],
+        'mailer_queue_max_retries' => [
+            'name'        => tra('Number of retries to send emails when there are errors'),
+            'description' => tra('Email queue process will not pick the email to retry after this number of attempts'),
+            'type'        => 'text',
+            'default'     => '10',
+            'units'       => tra('attempts'),
+        ],
     ];
 }

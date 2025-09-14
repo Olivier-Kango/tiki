@@ -440,6 +440,16 @@ $smarty->assign('missing_patches', $installer->missingPatches());
 $smarty->assign('installer_not_locked', $installer->checkInstallerLocked());
 $smarty->assign('db_engine_type', getCurrentEngine());
 
+if (empty($_GET)) {
+    $where = ! empty($prefs['mailer_queue_max_retries']) ? 'where attempts > ' . $prefs['mailer_queue_max_retries'] : '';
+    if (! empty($where)) {
+        $maxRetries = count(\TikiDb::get()->fetchAll('SELECT messageId, message FROM tiki_mail_queue ' . $where));
+        if ($maxRetries) {
+            $smarty->assign('mailer_queue_requires_update', $maxRetries);
+        }
+    }
+}
+
 $composerWrapper = new ComposerCli($tikipath);
 $smarty->assign('composer_options_diff', $composerWrapper->compareDistRequiredOptions());
 
