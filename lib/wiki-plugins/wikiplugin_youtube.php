@@ -213,7 +213,8 @@ function wikiplugin_youtube($data, $params)
             $containerStyles['aspect-ratio'] = $aspectRatio;
         }
     } elseif (! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0 &&
-        (empty($params['width']) || ! is_numeric($params['width']) || $params['width'] <= 0)) {
+        (empty($params['width']) || ! is_numeric($params['width']) || $params['width'] <= 0)
+    ) {
         $useResponsive = false;
         $containerStyles['height'] = intval($params['height']) . 'px';
         if ($aspectRatio) {
