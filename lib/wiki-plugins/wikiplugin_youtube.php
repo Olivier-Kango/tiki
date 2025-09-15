@@ -354,4 +354,3 @@ function getYoutubeOEmbedData($youtubeUrl)
     Feedback::error(tr('Invalid or malformed YouTube oEmbed data: %0', print_r($oEmbedData, true)));
     return false;
 }
-
