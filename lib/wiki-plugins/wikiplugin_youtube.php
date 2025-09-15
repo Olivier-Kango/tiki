@@ -175,10 +175,10 @@ function wikiplugin_youtube($data, $params)
     if ($params['related'] === 'n') {
         $queryParams[] = 'rel=0';
     }
-    if (!empty($params['quality']) && in_array($params['quality'], ['high', 'medium', 'low'])) {
+    if (! empty($params['quality']) && in_array($params['quality'], ['high', 'medium', 'low'])) {
         $queryParams[] = 'vq=' . $params['quality'];
     }
-    if (!empty($queryParams)) {
+    if (! empty($queryParams)) {
         $src .= '?' . implode('&', $queryParams);
     }
 
