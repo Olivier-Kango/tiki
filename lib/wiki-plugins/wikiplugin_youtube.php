@@ -104,9 +104,8 @@ function wikiplugin_youtube_info()
             'background' => [
                 'required' => false,
                 'name' => tra('Background'),
-                'description' => tra('Toolbar background color. Use an HTML color code.') . ' ' . tra('Example')
-                    . ': <code>ffffff</code>',
-                'accepted' => tra('HTML color code, e.g. ffffff'),
+                'description' => tra('Object background color. Example:') . ' <code>#ffffff</code>, <code>rgb(255, 255, 255)</code>, <code>white</code>',
+                'accepted' => tra('Any valid CSS color value, e.g., hex, rgb(a), or color names'),
                 'since' => '6.1',
                 'filter' => 'text',
                 'default' => '',
@@ -115,9 +114,8 @@ function wikiplugin_youtube_info()
             'border' => [
                 'required' => false,
                 'name' => tra('Borders'),
-                'description' => tra('Toolbar border colors. Use an HTML color code.') . ' ' . tra('Example')
-                    . ': <code>ffffff</code>',
-                'accepted' => tra('HTML color code, e.g. ffffff'),
+                'description' => tra('Object border color. Example:') . ' <code>#ffffff</code>, <code>rgb(255, 255, 255)</code>, <code>white</code>',
+                'accepted' => tra('Any valid CSS color value, e.g., hex, rgb(a), or color names'),
                 'since' => '6.1',
                 'filter' => 'text',
                 'default' => '',
@@ -143,11 +141,26 @@ function wikiplugin_youtube($data, $params)
 {
     global $tikilib;
 
+    $plugininfo = wikiplugin_youtube_info();
+    $defaults = [];
+    foreach ($plugininfo['params'] as $key => $param) {
+        $defaults[$key] = $param['default'];
+    }
+    $params = array_merge($defaults, $params);
+
+    if (empty($params['movie'])) {
+        return '{BOX(class="text-bg-light")}' . tra('Plugin YouTube error: the movie parameter is empty.') . '{BOX}';
+    }
+
+    $scheme = $tikilib->httpScheme();
+
     $sYoutubeId  = getYoutubeId($params['movie']);
     if (empty($sYoutubeId)) {
         Feedback::error(tra('Invalid YouTube URL provided'));
         return '';
     }
+
+    $oEmbedData = getYoutubeOEmbedData('https://www.youtube.com/watch?v=' . $sYoutubeId);
 
     if ($params['privacyEnhanced'] == 'y') {
         $fqdn = 'www.youtube-nocookie.com';
@@ -194,31 +207,35 @@ function wikiplugin_youtube($data, $params)
     $aspectRatio = null;
 
     // compute aspect-ratio from provided width/height (use "W/H" string form)
-    if (! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0 &&
-        ! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0
+    if (
+        isset($oEmbedData['width']) && is_numeric($oEmbedData['width']) && $oEmbedData['width'] > 0 &&
+        isset($oEmbedData['height']) && is_numeric($oEmbedData['height']) && $oEmbedData['height'] > 0
     ) {
-        $aspectRatio = intval($params['width']) . '/' . intval($params['height']);
+        $aspectRatio = $oEmbedData['width'] / $oEmbedData['height'];
     }
 
     // If user provided only width or height, prefer to respect explicit sizing (non responsive container)
-    if (! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0 &&
-        (empty($params['height']) || ! is_numeric($params['height']) || $params['height'] <= 0)) {
-        $useResponsive = false;
-        $containerStyles['width'] = intval($params['width']) . 'px';
+    if (
+        ! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0 &&
+        (empty($params['height']) || ! is_numeric($params['height']) || $params['height'] <= 0)
+    ) {
+        $containerStyles['width'] = $params['width'] . 'px';
         $containerStyles['margin'] = '0 auto';
+        $useResponsive = false;
         // if height present and numeric, set it
         if (! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0) {
-            $containerStyles['height'] = intval($params['height']) . 'px';
+            $containerStyles['height'] = $params['height'] . 'px';
         } elseif ($aspectRatio) {
             $containerStyles['aspect-ratio'] = $aspectRatio;
         }
-    } elseif (! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0 &&
+    } elseif (
+        ! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0 &&
         (empty($params['width']) || ! is_numeric($params['width']) || $params['width'] <= 0)
     ) {
+        $containerStyles['height'] = $params['height'] . 'px';
         $useResponsive = false;
-        $containerStyles['height'] = intval($params['height']) . 'px';
         if ($aspectRatio) {
-            $containerStyles['width'] = (int)(intval($params['height']) * (intval($params['width']) / intval($params['height']))) . 'px';
+            $containerStyles['width'] = (int)($params['height'] * $aspectRatio) . 'px';
             $containerStyles['margin'] = '0 auto';
         }
     }
@@ -237,23 +254,11 @@ function wikiplugin_youtube($data, $params)
     }
 
     if (! empty($params['background'])) {
-        // allow either hex without # or with # — normalize to use as CSS value
-        $bg = $params['background'];
-        if (! preg_match('/^\s*#/', $bg)) {
-            // if user passed 'ffffff' convert to #ffffff for CSS
-            if (preg_match('/^[0-9a-fA-F]{3,6}$/', $bg)) {
-                $bg = '#' . $bg;
-            }
-        }
-        $containerStyles['background-color'] = $bg;
+        $containerStyles['background-color'] = $params['background'];
     }
 
     if (! empty($params['border'])) {
-        $borderVal = $params['border'];
-        if (! preg_match('/^\s*#/', $borderVal) && preg_match('/^[0-9a-fA-F]{3,6}$/', $borderVal)) {
-            $borderVal = '#' . $borderVal;
-        }
-        $containerStyles['border'] = '1px solid ' . $borderVal;
+        $containerStyles['border'] = '1px solid ' . $params['border'];
     }
 
     $iframeStyles = $useResponsive
@@ -325,3 +330,28 @@ function getYoutubeId($sYoutubeUrl)
     }
     return $sYoutubeId;
 }
+
+function getYoutubeOEmbedData($youtubeUrl)
+{
+    $youtubeUrl = filter_var($youtubeUrl, FILTER_SANITIZE_URL);
+    if (! filter_var($youtubeUrl, FILTER_VALIDATE_URL)) {
+        throw new Exception(tr('The provided YouTube URL is not valid.'));
+    }
+
+    $oEmbedUrl = 'https://www.youtube.com/oembed?url=' . urlencode($youtubeUrl) . '&format=json';
+    $response = @file_get_contents($oEmbedUrl);
+
+    if ($response === false) {
+        Feedback::error(tr('Error fetching YouTube oEmbed data for URL: %0', $oEmbedUrl));
+        return false;
+    }
+
+    $oEmbedData = json_decode($response, true);
+    if (isset($oEmbedData['html'], $oEmbedData['width'], $oEmbedData['height'])) {
+        return $oEmbedData; // 'html', 'width', 'height', 'title', 'author_name', etc.
+    }
+
+    Feedback::error(tr('Invalid or malformed YouTube oEmbed data: %0', print_r($oEmbedData, true)));
+    return false;
+}
+
