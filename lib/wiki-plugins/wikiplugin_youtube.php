@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+require_once 'lib/wiki-plugins/embed_helpers.php';
+
 function wikiplugin_youtube_info()
 {
     return [
@@ -101,7 +104,7 @@ function wikiplugin_youtube_info()
                 ],
                 'advanced' => true
             ],
-            'background' => [
+            'bg' => [
                 'required' => false,
                 'name' => tra('Background'),
                 'description' => tra('Object background color. Example:') . ' <code>#ffffff</code>, <code>rgb(255, 255, 255)</code>, <code>white</code>',
@@ -161,146 +164,26 @@ function wikiplugin_youtube($data, $params)
     }
 
     $oEmbedData = getYoutubeOEmbedData('https://www.youtube.com/watch?v=' . $sYoutubeId);
-
-    if ($params['privacyEnhanced'] == 'y') {
-        $fqdn = 'www.youtube-nocookie.com';
-    } else {
-        $fqdn = 'www.youtube.com';
+    if (! $oEmbedData) {
+        return '';
     }
 
-    $src = '//' . $fqdn . '/embed/' . $sYoutubeId . '?';
-    // backward compatibility
-    if ($params['allowFullScreen'] == 'y') {
-        $params['allowFullScreen'] = 'true';
-    } elseif ($params['allowFullScreen'] == 'n') {
-        $params['allowFullScreen'] = 'false';
+    $fqdn = $params['privacyEnhanced'] === 'y' ? 'www.youtube-nocookie.com' : 'www.youtube.com';
+    $src = $scheme . '://' . $fqdn . '/embed/' . $sYoutubeId;
+
+    $queryParams = [];
+    if ($params['related'] === 'n') {
+        $queryParams[] = 'rel=0';
+    }
+    if (!empty($params['quality']) && in_array($params['quality'], ['high', 'medium', 'low'])) {
+        $queryParams[] = 'vq=' . $params['quality'];
+    }
+    if (!empty($queryParams)) {
+        $src .= '?' . implode('&', $queryParams);
     }
 
-    if (! empty($params['allowFullScreen'])) {
-        if ($params['allowFullScreen'] == 'true') {
-            $src .= '&fs=1';
-        } else {
-            $src .= '&fs=0';
-        }
-    }
-    if (! empty($params['start'])) {
-        $src .= '&start=' . $params['start'];
-    }
-    if ($params['related'] == 'n') {
-        $params['movie'] .= '&rel=0';
-    }
-    if (! empty($params['border'])) {
-        $src .= '&color1=0x' . $params['border'];
-    }
-    if (! empty($params['background'])) {
-        $src .= '&color2=0x' . $params['background'];
-    }
-
-    $containerStyles = [
-        'position' => 'relative',
-        'overflow' => 'hidden',
-        'max-width' => '100%',
-        'max-height' => '75vh', // keep a reasonable max-height to avoid huge embeds
-    ];
-
-    $useResponsive = true;
-    $aspectRatio = null;
-
-    // compute aspect-ratio from provided width/height (use "W/H" string form)
-    if (
-        isset($oEmbedData['width']) && is_numeric($oEmbedData['width']) && $oEmbedData['width'] > 0 &&
-        isset($oEmbedData['height']) && is_numeric($oEmbedData['height']) && $oEmbedData['height'] > 0
-    ) {
-        $aspectRatio = $oEmbedData['width'] / $oEmbedData['height'];
-    }
-
-    // If user provided only width or height, prefer to respect explicit sizing (non responsive container)
-    if (
-        ! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0 &&
-        (empty($params['height']) || ! is_numeric($params['height']) || $params['height'] <= 0)
-    ) {
-        $containerStyles['width'] = $params['width'] . 'px';
-        $containerStyles['margin'] = '0 auto';
-        $useResponsive = false;
-        // if height present and numeric, set it
-        if (! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0) {
-            $containerStyles['height'] = $params['height'] . 'px';
-        } elseif ($aspectRatio) {
-            $containerStyles['aspect-ratio'] = $aspectRatio;
-        }
-    } elseif (
-        ! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0 &&
-        (empty($params['width']) || ! is_numeric($params['width']) || $params['width'] <= 0)
-    ) {
-        $containerStyles['height'] = $params['height'] . 'px';
-        $useResponsive = false;
-        if ($aspectRatio) {
-            $containerStyles['width'] = (int)($params['height'] * $aspectRatio) . 'px';
-            $containerStyles['margin'] = '0 auto';
-        }
-    }
-
-    if ($useResponsive) {
-        $containerStyles['width'] = '100%';
-        if ($aspectRatio) {
-            $containerStyles['aspect-ratio'] = $aspectRatio;
-        } else {
-            $containerStyles['aspect-ratio'] = '16/9'; // default fallback to 16:9 for YouTube videos
-        }
-    }
-
-    if (isset($params['borderRadius']) && $params['borderRadius'] === 'y') {
-        $containerStyles['border-radius'] = '8px';
-    }
-
-    if (! empty($params['background'])) {
-        $containerStyles['background-color'] = $params['background'];
-    }
-
-    if (! empty($params['border'])) {
-        $containerStyles['border'] = '1px solid ' . $params['border'];
-    }
-
-    $iframeStyles = $useResponsive
-        ? ['position' => 'absolute', 'top' => '0', 'left' => '0', 'width' => '100%', 'height' => '100%']
-        : ['width' => '100%', 'height' => '100%'];
-
-    // Build inline style strings
-    $containerStyle = implode(';', array_map(function ($key, $value) {
-        return "$key:$value";
-    }, array_keys($containerStyles), $containerStyles));
-
-    $iframeStyle = implode(';', array_map(function ($key, $value) {
-        return "$key:$value";
-    }, array_keys($iframeStyles), $iframeStyles));
-
-    // --- Build DOM using DOMDocument (same pattern as wikiplugin_oembed)
-    $dom = new DOMDocument();
-    libxml_use_internal_errors(true);
-
-    $div = $dom->createElement('div');
-    $div->setAttribute('style', $containerStyle);
-
-    $newIframe = $dom->createElement('iframe');
-    $newIframe->setAttribute('src', $src);
-    $newIframe->setAttribute('frameborder', '0');
-    $newIframe->setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    $newIframe->setAttribute('sandbox', 'allow-scripts allow-same-origin');
-    $newIframe->setAttribute('title', tra('Embedded media content'));
-
-    if (! empty($params['allowFullScreen']) && $params['allowFullScreen'] === 'true') {
-        $newIframe->setAttribute('allowfullscreen', '');
-    }
-
-    $newIframe->setAttribute('style', $iframeStyle);
-
-    $div->appendChild($newIframe);
-    $dom->appendChild($div);
-
-    $html = $dom->saveHTML($div);
-    libxml_clear_errors();
-
-    return '~np~' . $html . '~/np~';
+    $embedHtml = buildEmbedContainerAndIframe($src, $params, $oEmbedData);
+    return '~np~' . $embedHtml . '~/np~';
 }
 
 function getYoutubeId($sYoutubeUrl)

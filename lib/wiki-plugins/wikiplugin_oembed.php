@@ -1,5 +1,7 @@
 <?php
 
+require_once 'lib/wiki-plugins/embed_helpers.php';
+
 function wikiplugin_oembed_info()
 {
     return [
