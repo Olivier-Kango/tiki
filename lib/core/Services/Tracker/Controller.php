@@ -2155,6 +2155,10 @@ class Services_Tracker_Controller
 
     public function action_replace($input)
     {
+        // This variable indicates which accordion_group to activate in the Smarty .tpl file
+        // when the user uses this method. By default, its value is set to 1.
+        $accordion_pos = $input->accordion_pos->int() ?? 1;
+
         $trackerId = $input->trackerId->int();
         $confirm = $input->confirm->int();
 
@@ -2229,6 +2233,7 @@ class Services_Tracker_Controller
         }
 
         return [
+            'accordion_pos' => $accordion_pos,
             'title' => $trackerId ? tr('Edit') . " " . tr('%0', $definition->getConfiguration('name')) : tr('Create Tracker'),
             'trackerId' => $trackerId,
             'info' => $info,
