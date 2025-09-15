@@ -194,14 +194,15 @@ function wikiplugin_youtube($data, $params)
     $aspectRatio = null;
 
     // compute aspect-ratio from provided width/height (use "W/H" string form)
-    if (! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0
-        && ! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0) {
+    if (! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0 &&
+        ! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0
+    ) {
         $aspectRatio = intval($params['width']) . '/' . intval($params['height']);
     }
 
     // If user provided only width or height, prefer to respect explicit sizing (non responsive container)
-    if (! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0
-        && (empty($params['height']) || ! is_numeric($params['height']) || $params['height'] <= 0)) {
+    if (! empty($params['width']) && is_numeric($params['width']) && $params['width'] > 0 &&
+        (empty($params['height']) || ! is_numeric($params['height']) || $params['height'] <= 0)) {
         $useResponsive = false;
         $containerStyles['width'] = intval($params['width']) . 'px';
         $containerStyles['margin'] = '0 auto';
@@ -211,8 +212,8 @@ function wikiplugin_youtube($data, $params)
         } elseif ($aspectRatio) {
             $containerStyles['aspect-ratio'] = $aspectRatio;
         }
-    } elseif (! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0
-        && (empty($params['width']) || ! is_numeric($params['width']) || $params['width'] <= 0)) {
+    } elseif (! empty($params['height']) && is_numeric($params['height']) && $params['height'] > 0 &&
+        (empty($params['width']) || ! is_numeric($params['width']) || $params['width'] <= 0)) {
         $useResponsive = false;
         $containerStyles['height'] = intval($params['height']) . 'px';
         if ($aspectRatio) {
