@@ -271,6 +271,8 @@
         "symfony/polyfill-mbstring": "~1.27",
         "symfony/polyfill-php82": "~1.28",
         "symfony/polyfill-php83": "~1.28",
+        "symfony/polyfill-php84": "~1.33",
+        "symfony/polyfill-php85": "~1.33",
         "symfony/postmark-mailer": "~6.4",
         "symfony/process": "~6.4",
         "symfony/routing": "~6.4",
