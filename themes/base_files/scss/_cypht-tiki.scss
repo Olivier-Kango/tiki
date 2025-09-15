@@ -94,12 +94,12 @@
             background-color: transparent;
         }
     }
-    
+
     .form-control, .form-control:focus {
         background-color: transparent;
         border: var(--bs-border-width) solid var(--bs-border-color);
     }
-    .search_content { 
+    .search_content {
         background-color: transparent;
     }
     a:not(.btn):hover {
@@ -131,7 +131,7 @@
     }
 
     .mailbox_list_title { display: inline-block; }
-    .move_to_location 
+    .move_to_location
 
     .msg_text_inner {
         width: 100%;
@@ -221,28 +221,27 @@
     }
     .folder_list, .content_cell{
         position: relative;
-        overflow-y: auto;
         border-radius: var(--bs-border-radius);
     }
-    
+
     /* Bootstrap-based message headers */
     .msg_text * {
         white-space: normal !important;
         word-break: break-word;
         overflow-wrap: anywhere;
     }
-    
+
     .long_header {
         display: none;
     }
-    
+
     .long_header[style*="display: block"],
     .long_header[style*="display: flex"],
     .long_header[style*="display: grid"] {
         display: flex !important;
         column-gap: 0.15rem;
     }
-    
+
     .long_header > div:nth-of-type(2) {
         overflow-wrap: break-word !important;
     }
@@ -251,25 +250,25 @@
     .long_header .col-md-2 {
         font-weight: 500;
     }
-    
+
     .small_header > div:nth-of-type(2),
     .small_header > div:nth-of-type(2) > div {
         display: flex;
         column-gap: 0.15rem;
     }
-    
+
     .small_header {
         display: flex;
     }
-    
+
     .all_headers {
         display: inline-block;
     }
-    
+
     .small_headers {
         display: none;
     }
-    
+
     /* Mobile responsive overrides for Bootstrap classes */
     @media (max-width: 768px) {
         .small_header {
@@ -278,23 +277,23 @@
         column-gap: 0.5rem;
         flex-wrap: nowrap;
         }
-    
+
         .small_header > div {
         flex: 0 0 auto;
         padding: 0;
         flex-wrap: wrap;
         }
-    
+
         .small_header .col-md-2 {
         font-weight: bold;
         white-space: nowrap;
         width: fit-content !important;
         }
-    
+
         .long_header .col-md-2 {
         font-weight: bold;
         }
-    
+
         .msg_actions a {
         padding: 0.5rem;
         border-radius: 0.25rem;
@@ -305,14 +304,14 @@
         margin-right: 0;
         }
     }
-    
+
     .collapsed ul {
         display: inherit;
     }
     main .container {
         width: 100%;
     }
-    #imap_filter_form {        
+    #imap_filter_form {
         .imap_sort, .imap_sort + el-select, .imap_filter + el-select {
             width: 150px;
         }
@@ -402,11 +401,11 @@
             border-bottom: 1px solid var(--bs-secondary-bg);
             background-color: var(--bs-body-bg);
         }
-        
+
         .nav-header a {
             margin: auto 45% auto auto;
         }
-        
+
         .mobile .nav-header .app-logo {
         display: block;
         height: 2rem;
@@ -414,7 +413,7 @@
         padding: 0;
         margin: 0;
         }
-        
+
         .mobile .nav-header .close-toggle {
         position: static;
         background: none;
@@ -424,7 +423,7 @@
         margin-left: 0;
         padding: 15px 20px;
         }
-        
+
         .mobile .app-logo{
         display: none;
         }
