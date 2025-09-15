@@ -21958,6 +21958,8 @@ $lang_current = array(
 // "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine" => "Modern, fast, light-weight and full-featured search engine with outstanding full-text search capabilities. It is a continuation of Sphinx Search engine",
 " Control Panels" => "Paneli za Kudhibiti",
 "System Menu" => "Menyu ya Mfumo",
+"Editor Settings" => "Mipangilio ya Mhariri",
+"Editor Type" => "Aina ya Mhariri",
 );
 $lang = array_replace($lang, $lang_current);
 
