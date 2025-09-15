@@ -96,7 +96,7 @@ if (! empty($_REQUEST['checked']) && (! empty($_REQUEST['prefix']) || ! empty($_
         }
     }
     if (empty($errors)) {
-        $commlib->rename_structure_pages($_REQUEST['checked'], isset($_REQUEST['prefix']) ? $_REQUEST['prefix'] : '', isset($_REQUEST['postfix']) ? $_REQUEST['postfix'] : '');
+        $commlib->rename_structure_pages($_REQUEST['checked'], $_REQUEST['prefix'] ?? '', $_REQUEST['postfix'] ?? '');
     }
 }
 if (! isset($_REQUEST["sort_mode"])) {

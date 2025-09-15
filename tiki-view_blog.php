@@ -134,8 +134,8 @@ if (isset($_REQUEST["find"])) {
 }
 $smarty->assign('find', $find);
 // Get a list of last changes to the blog database
-$date_min = isset($_REQUEST['date_min']) ? $_REQUEST['date_min'] : '';
-$date_max = isset($_REQUEST['date_max']) ? $_REQUEST['date_max'] : $tikilib->now;
+$date_min = $_REQUEST['date_min'] ?? '';
+$date_max = $_REQUEST['date_max'] ?? $tikilib->now;
 $listpages = $bloglib->list_blog_posts($_REQUEST["blogId"], true, $offset, $blog_data["maxPosts"], $sort_mode, $find, $date_min, $date_max);
 //Keep track of month of last viewed posts for months_links module foldable display
 $_SESSION['blogs_last_viewed_month'] = TikiLib::date_format("%Y-%m", $date_max);

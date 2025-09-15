@@ -157,7 +157,6 @@ function wikiplugin_twitter($data, $params)
     // Initialize default values
     $datachromehtml_ = '';
     $width_ = 'auto';
-    $height_ = 300;
     $theme_ = 'light';
 
     $default = ['shellbg' => '', 'shellcolor' => '', 'tweetbg' => '', 'tweetcolor' => '', 'width' => 'auto', 'height' => 300];
@@ -165,7 +164,7 @@ function wikiplugin_twitter($data, $params)
     extract($params, EXTR_SKIP);
 
     // Variables sanitizing
-    $tweetlimit = isset($tweetlimit) ? (int)$tweetlimit : 0;
+    $tweetlimit = $tweetlimit ?? 0;
     $tweetbg = isset($tweetbg) ? preg_replace('/[^#0-9a-zA-Z]/', '', $tweetbg) : '';
     $tweetcolor = isset($tweetcolor) ? preg_replace('/[^#0-9a-zA-Z]/', '', $tweetcolor) : '';
     $tweet = isset($tweet) ? preg_replace('/[^#0-9a-zA-Z%\/=]/', '', $tweet) : '';
@@ -196,7 +195,7 @@ function wikiplugin_twitter($data, $params)
     if (isset($width) && $width != 'auto') {
         $width_ = isset($width) ? preg_replace('/[^0-9]/', '', $width) : '';
     }
-    $height_ = isset($height) ? (int)$height : 300;
+    $height_ = $height ?? 300;
 
     // Inspiration: http://stackoverflow.com/questions/14303710/how-to-customize-twitter-widget-style
     // and https://dev.twitter.com/web/embedded-timelines

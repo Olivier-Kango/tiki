@@ -95,7 +95,7 @@ if (isset($_REQUEST["action"])) {
 if ($action == "edit_rec_sw" || $action == "edit_tran_sw") {
     $access->checkCsrf();
 
-    $offset = isset($_REQUEST["offset"]) ? $_REQUEST['offset'] : 0;
+    $offset = $_REQUEST['offset'] ?? 0;
     $smarty->assign('offset', $offset);
 
     $maxRecords = (isset($_REQUEST['maxRecords']) && $_REQUEST['maxRecords'] > 0) ? $_REQUEST['maxRecords'] : $prefs['maxRecords'];

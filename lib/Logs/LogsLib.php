@@ -303,7 +303,7 @@ class LogsLib extends TikiLib
             }
         }
 
-        return isset($actions[0]) ? $actions[0] : 0;
+        return $actions[0] ?? 0;
     }
 
     /**
@@ -814,7 +814,7 @@ class LogsLib extends TikiLib
             $name = $action['action'] . '/' . $action['objectType'];
             if (($index = array_search($name, $actions_name)) !== false) {
                 if ($field == 'object') {
-                    $stats[$key]['link'] = isset($action['link']) ? $action['link'] : null;
+                    $stats[$key]['link'] = $action['link'] ?? null;
                 }
                 ++$stats[$key][$name];
             }

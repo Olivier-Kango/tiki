@@ -156,7 +156,7 @@ function wikiplugin_fade($body, $params)
 
         $headerlib->add_jq_onready($jq);
 
-        return "<div id='" . $unique_outer . "' class='card" . ( isset($params['class']) ? ' ' . $params['class'] : '' ) . "'>"
+        return "<div id='" . $unique_outer . "' class='card " . ($params['class'] ?? '' ) . "'>"
                 . "<div class='card-header'>"
                   . "<a data-bs-toggle='collapse' class='d-block' href='#" . $unique_inner . "'>" . htmlspecialchars($params['label']) . "<span class='icon icon-menu-extra fas fa-chevron-down fa-fw' style='float:right'></span>" . "</a>"
                 . "</div>"

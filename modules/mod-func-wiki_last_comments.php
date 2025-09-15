@@ -161,6 +161,6 @@ function module_wiki_last_comments($mod_reference, $module_params)
 
     $comments = module_last_comments($mod_reference['rows'], $module_params);
     $smarty->assign_by_ref('comments', $comments);
-    $smarty->assign('moretooltips', isset($module_params['moretooltips']) ? $module_params['moretooltips'] : 'n');
+    $smarty->assign('moretooltips', $module_params['moretooltips'] ?? 'n');
     $smarty->assign('type', $module_params['type']);
 }

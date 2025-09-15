@@ -72,7 +72,7 @@ class Tiki_PageCache
         if (is_array($this->cacheDataKeys)) {
             foreach ($keys as $k) {
                 if (! isset($this->cacheDataKeys[$k])) {
-                    $this->cacheDataKeys[$k] = isset($array[$k]) ? $array[$k] : null;
+                    $this->cacheDataKeys[$k] = $array[$k] ?? null;
                 }
             }
         }

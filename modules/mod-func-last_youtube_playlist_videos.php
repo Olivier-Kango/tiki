@@ -170,9 +170,9 @@ function module_last_youtube_playlist_videos($mod_reference, $module_params)
 
             // Prepare params for video display
             $params = [];
-            $params['width'] = isset($module_params['width']) ? $module_params['width'] : 425;
-            $params['height'] = isset($module_params['height']) ? $module_params['height'] : 350;
-            $params['allowFullScreen'] = isset($module_params['allowFullScreen']) ? $module_params['allowFullScreen'] : true;
+            $params['width'] = $module_params['width'] ?? 425;
+            $params['height'] = $module_params['height'] ?? 350;
+            $params['allowFullScreen'] = $module_params['allowFullScreen'] ?? true;
 
             // Get information from all videos from playlist
             // Limit to $module_rows first videos if $module_rows is set
@@ -212,8 +212,8 @@ function module_last_youtube_playlist_videos($mod_reference, $module_params)
         $data[$id]['videos'][0]['title'] = tra('No Playlist ID was provided');
     }
 
-    $smarty->assign('verbose', isset($module_params['verbose']) ? $module_params['verbose'] : 'y');
-    $smarty->assign('link_url', isset($module_params['link_url']) ? $module_params['link_url'] : '');
-    $smarty->assign('link_text', isset($module_params['link_text']) ? $module_params['link_text'] : 'More Videos');
+    $smarty->assign('verbose', $module_params['verbose'] ?? 'y');
+    $smarty->assign('link_url', $module_params['link_url'] ?? '');
+    $smarty->assign('link_text', $module_params['link_text'] ?? 'More Videos');
     $smarty->assign_by_ref('data', $data[$id]);
 }

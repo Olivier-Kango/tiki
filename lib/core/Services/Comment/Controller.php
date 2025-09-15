@@ -196,7 +196,7 @@ class Services_Comment_Controller
                     $title,
                     $data,
                     $message_id,
-                    isset($parent['message_id']) ? $parent['message_id'] : '',
+                    $parent['message_id'] ?? '',
                     'n',
                     '',
                     '',

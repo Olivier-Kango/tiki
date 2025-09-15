@@ -76,7 +76,7 @@ class SchedulersLib extends TikiLib
         $schedulersTable = $this->table('tiki_scheduler');
 
         if (! $scheduler_id) {
-            $values["creation_date"] = isset($creation_date) ? $creation_date : time();
+            $values["creation_date"] = $creation_date ?? time();
             return $schedulersTable->insert($values);
         } else {
             $schedulersTable->update($values, ['id' => $scheduler_id]);

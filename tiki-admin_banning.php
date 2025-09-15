@@ -91,7 +91,7 @@ if (isset($_POST['save']) && $access->checkCsrf()) {
             $_POST['date_toDay'],
             $_POST['date_toYear']
         );
-        $sections = isset($_POST['section']) ? array_keys($_POST['section']) : [];
+        $sections = array_keys($_POST['section'] ?? []);
         $replaced = [];
         $resultRows = 0;
         // Handle case when many IPs are banned

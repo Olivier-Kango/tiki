@@ -136,7 +136,7 @@ class WizardLib extends TikiLib
             if ($isUserStep) {
                 $stepNr = (int)$_GET['stepNr'];
             } else {
-                $stepNr = isset($_POST['wizard_step']) ? (int)$_POST['wizard_step'] : 0;
+                $stepNr = (int)($_POST['wizard_step'] ?? 0);
             }
 
             $stepBack = false;

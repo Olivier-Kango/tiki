@@ -1425,7 +1425,7 @@ class UnifiedSearchLib
         }
 
         if (isset($filter['range']) && is_array($filter['range']) && isset($filter['range']['from'], $filter['range']['to'])) {
-            $field = isset($filter['range']['field']) ? $filter['range']['field'] : 'date';
+            $field = $filter['range']['field'] ?? 'date';
             $query->filterRange($filter['range']['from'], $filter['range']['to'], $field);
 
             unset($filter['range']);

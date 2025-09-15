@@ -42,7 +42,7 @@ class HTMLTableHandler extends DataHandler
                 if (! empty($column->formula)) {
                     $sheet->setCalculation($column->formula);
                 } else {
-                    $sheet->setValue(isset($column->value) ? $column->value : '');
+                    $sheet->setValue($column->value ?? '');
                 }
 
 

@@ -44,7 +44,7 @@ class Filter extends Base
         $smarty->assign('filter_type', $filter->type->wordspace() ? $filter->type->wordspace() : $prefs['search_default_where']);
         $smarty->assign('filter_types', $types);
 
-        $sort_mode = isset($_REQUEST['sort_mode']) ? $_REQUEST['sort_mode'] : 'score_ndesc';
+        $sort_mode = $_REQUEST['sort_mode'] ?? 'score_ndesc';
         $sort_modes = [
             'score_ndesc' => tra('Relevance'),
             'object_type_asc' => tra('Type'),

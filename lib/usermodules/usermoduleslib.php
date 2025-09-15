@@ -185,7 +185,7 @@ class UserModulesLib extends TikiLib
                 $result2 = $this->query($query, $bindvars);
             }
         }
-        return isset($result2) ? $result2 : false;
+        return $result2 ?? false;
     }
     // Return the list of modules that can be assigned by the user
     public function get_user_assignable_modules($user)

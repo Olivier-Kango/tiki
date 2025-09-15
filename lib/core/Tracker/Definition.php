@@ -137,7 +137,7 @@ class Tracker_Definition
 
     public function getConfiguration($key, $default = false)
     {
-        return isset($this->trackerInfo[$key]) ? $this->trackerInfo[$key] : $default;
+        return $this->trackerInfo[$key] ?? $default;
     }
 
     public function isEnabled($key)

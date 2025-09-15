@@ -197,7 +197,7 @@ class Scheduler_Manager
         if ($lastRun = $scheduler->getLastRun()) {
             $lastRunDate = $lastRun['end_time'];
         } else {
-            $lastRunDate = isset($scheduler->creation_date) ? $scheduler->creation_date : time();
+            $lastRunDate = $scheduler->creation_date ?? time();
         }
 
         $lastRunDate = (int)($lastRunDate - ($lastRunDate % 60));

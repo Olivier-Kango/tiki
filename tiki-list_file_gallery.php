@@ -243,10 +243,7 @@ $smarty->assign('maxRows', $maxRecords);
 $smarty->assign('edited', 'n');
 $smarty->assign('edit_mode', 'n');
 $smarty->assign('dup_mode', 'n');
-$smarty->assign(
-    'parentId',
-    isset($_REQUEST['parentId']) ? (int)$_REQUEST['parentId'] : (isset($gal_info['parentId']) ? $gal_info['parentId'] : -1)
-);
+$smarty->assign('parentId', (int)($_REQUEST['parentId'] ?? ($gal_info['parentId'] ?? -1)));
 $smarty->assign('creator', $user);
 $smarty->assign('sortorder', 'name');
 $smarty->assign('sortdirection', 'asc');
@@ -626,7 +623,7 @@ if (isset($_REQUEST['edit_mode']) and $_REQUEST['edit_mode']) {
     }
 
     if ($prefs['feature_groupalert'] == 'y') {
-        $smarty->assign('groupforAlert', isset($_REQUEST['groupforAlert']) ? $_REQUEST['groupforAlert'] : '');
+        $smarty->assign('groupforAlert', $_REQUEST['groupforAlert'] ?? '');
         $all_groups = $userlib->list_all_groups();
         $groupselected = $groupalertlib->GetGroup('file gallery', $galleryId);
         if (is_array($all_groups)) {
@@ -769,16 +766,16 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
         $$t = (isset($_REQUEST[$t]) && $_REQUEST[$t] == 'on') ? 'y' : 'n';
         $smarty->assign($t, $$t);
     }
-    $_REQUEST['archives'] = isset($_REQUEST['archives']) ? $_REQUEST['archives'] : 0;
-    $_REQUEST['user'] = isset($_REQUEST['user']) ? $_REQUEST['user'] : (isset($gal_info['user']) ? $gal_info['user'] : $user);
-    $_REQUEST['sortorder'] = isset($_REQUEST['sortorder']) ? $_REQUEST['sortorder'] : 'created';
+    $_REQUEST['archives'] = $_REQUEST['archives'] ?? 0;
+    $_REQUEST['user'] = $_REQUEST['user'] ?? ($gal_info['user'] ?? $user);
+    $_REQUEST['sortorder'] = $_REQUEST['sortorder'] ?? 'created';
     $_REQUEST['sortdirection'] = isset($_REQUEST['sortdirection']) && $_REQUEST['sortdirection'] == 'asc' ? 'asc' : 'desc';
     if (isset($_REQUEST['fileId'])) {
         $infoOverride = $filegallib->get_file_info($_REQUEST['fileId']);
 
-        $_REQUEST['fname'] = (isset($_REQUEST['fname']) ? $_REQUEST['fname'] : $infoOverride['name']);
-        $_REQUEST['fdescription'] = (isset($_REQUEST['fdescription']) ? $_REQUEST['fdescription'] : $infoOverride['description']);
-        $info['data'] = (isset($_REQUEST['data']) ? $_REQUEST['data'] : $info['data']);
+        $_REQUEST['fname'] = ($_REQUEST['fname'] ?? $infoOverride['name']);
+        $_REQUEST['fdescription'] = ($_REQUEST['fdescription'] ?? $infoOverride['description']);
+        $info['data'] = ($_REQUEST['data'] ?? $info['data']);
 
         $file = Tiki\FileGallery\File::id($_REQUEST['fileId']);
         $file->setParam('description', $_REQUEST['fdescription']);
@@ -960,7 +957,7 @@ if (! empty($_REQUEST['duplicate']) && ! empty($_REQUEST['name']) && ! empty($ga
         $newGalleryId = $filegallib->duplicate_file_gallery(
             $galleryId,
             $_REQUEST['name'],
-            isset($_REQUEST['description']) ? $_REQUEST['description'] : ''
+            $_REQUEST['description'] ?? ''
         );
 
         if (isset($_REQUEST['dupCateg']) && $_REQUEST['dupCateg'] == 'on' && $prefs['feature_categories'] == 'y') {
@@ -969,7 +966,7 @@ if (! empty($_REQUEST['duplicate']) && ! empty($_REQUEST['name']) && ! empty($ga
             $catObjectId = $categlib->add_categorized_object(
                 'file gallery',
                 $newGalleryId,
-                (isset($_REQUEST['description']) ? $_REQUEST['description'] : ''),
+                ($_REQUEST['description'] ?? ''),
                 $_REQUEST['name'],
                 'tiki-list_file_gallery.php?galleryId=' . $newGalleryId
             );

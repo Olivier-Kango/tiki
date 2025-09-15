@@ -584,7 +584,7 @@ function wikiplugin_files($data, $params)
             $creatorparam = empty($creator) ? '' : "&amp;find_creator=" . urlencode($creator);
             return "~np~<a onclick=\"javascript:window.open('tiki-list_file_gallery.php?galleryId=$galleryId[0]&amp;sort_mode=" . $sort . "&amp;caption=" . $caption . $creatorparam . $windowtitle . "&amp;slideshow','','menubar=no,width=" . $slidewidth . ",height=" . $slideheight . ",resizable=yes'); return false\" href=\"#\">" . tra($data) . '</a>~/np~';
         }
-        $find = isset($_REQUEST['find']) ? $_REQUEST['find'] : '';
+        $find = $_REQUEST['find'] ?? '';
         // If we have set recursive == y, then always look recursively
         // Otherwise, we still want to search recursively when showfindisrecursive == y
         if ($recursive == 'y') {

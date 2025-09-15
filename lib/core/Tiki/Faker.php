@@ -37,7 +37,7 @@ class Faker extends FakerProviderBase
         $categoriesLib = TikiLib::lib('categ');
         $categories = $categoriesLib->getCategories();
         $category = $categories[array_rand($categories)];
-        return isset($category['categId']) ? $category['categId'] : false;
+        return $category['categId'] ?? false;
     }
 
     /**

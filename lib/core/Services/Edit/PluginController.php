@@ -221,8 +221,8 @@ class Services_Edit_PluginController
                     } else {
                         $param['parent'] = null;
                     }
-                    $param['parentkey'] = isset($param['parentkey']) ? $param['parentkey'] : null;
-                    $param['sort_order'] = isset($param['sort_order']) ? $param['sort_order'] : null;
+                    $param['parentkey'] = $param['parentkey'] ?? null;
+                    $param['sort_order'] = $param['sort_order'] ?? null;
                 } else {
                     $param['selector_type'] = null;
                 }

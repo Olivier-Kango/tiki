@@ -395,7 +395,7 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
             ->addQuerySource('itemId', 'object_id')
             ->addQuerySource('usergroup_name', 'title')
             ->setRenderTransform(function ($value, $extra) use ($sourceUserGroups, $invertGroupName, $invertGroupId) {
-                $extraUsergroupName = isset($extra['usergroup_name']) ? $extra['usergroup_name'] : '';
+                $extraUsergroupName = $extra['usergroup_name'] ?? '';
                 if (
                     ! empty($value)
                     &&  isset($invertGroupName[$value])
@@ -408,8 +408,8 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
                     return $value;
                 }
 
-                $itemId = isset($extra['itemId']) ? $extra['itemId'] : null;
-                $invertKey = isset($invertGroupName[$extraUsergroupName]) ? $invertGroupName[$extraUsergroupName] : null;
+                $itemId = $extra['itemId'] ?? null;
+                $invertKey = $invertGroupName[$extraUsergroupName] ?? null;
                 if (! isset($invertKey) && ! isset($itemId)) {
                     return '#invalid';
                 }
@@ -423,7 +423,7 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
                     }, $trackerItem));
 
                     if (isset($trackerItemInvert[$value]) && is_numeric($trackerItemInvert[$value])) {
-                        $invertKey = isset($invertGroupName[$value]) ? $invertGroupName[$value] : null;
+                        $invertKey = $invertGroupName[$value] ?? null;
                     }
                 }
 

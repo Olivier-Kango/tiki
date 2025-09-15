@@ -465,7 +465,7 @@ class Tiki_Profile
                 if (is_numeric($key)) {
                     $old[] = $value;
                 } else {
-                    $old[$key] = $this->mergeData(isset($old[$key]) ? $old[$key] : null, $value);
+                    $old[$key] = $this->mergeData($old[$key] ?? null, $value);
                 }
             }
 

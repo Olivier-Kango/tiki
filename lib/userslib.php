@@ -7223,7 +7223,7 @@ class UsersLib extends TikiLib
             ( ! isset($user) && isset($prefs['contact_anon']) && $prefs['contact_anon'] == 'y' ) ||
                 ( isset($user) && $user != '' && isset($prefs['feature_contact']) && $prefs['feature_contact'] == 'y' )
         ) {
-            return isset($prefs['sender_email']) ? $prefs['sender_email'] : $this->get_user_email($prefs['contact_user']);
+            return $prefs['sender_email'] ?? $this->get_user_email($prefs['contact_user']);
         }
     }
 
@@ -8065,7 +8065,7 @@ class UsersLib extends TikiLib
                 $smarty->assign_by_ref('chosenGroup', $chosenGroup);
                 if ($prefs['userTracker'] == 'y') {
                     $trklib = TikiLib::lib('trk');
-                    $re = $this->get_group_info(isset($chosenGroup) ? $chosenGroup : 'Registered');
+                    $re = $this->get_group_info($chosenGroup ?? 'Registered');
                     $fields = $trklib->list_tracker_fields(
                         $re['usersTrackerId'],
                         0,

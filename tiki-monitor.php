@@ -260,12 +260,11 @@ function getProbes($result)
                 preg_match('/\(\S+\s+(\S+)\s+(\S+)\)/', $probe, $matches);
                 $probeMonitor = ! empty($matches[1]) ? $matches[1] : '';
                 $probeMonitorValue = ! empty($matches[2]) ? $matches[2] : '';
-                $monitorValue = isset($result[$probeMonitor]) ? $result[$probeMonitor] : '';
+                $monitorValue = $result[$probeMonitor] ?? '';
 
                 if (str_contains($probeMonitor, '.')) {
                     $subMonitor = explode('.', $probeMonitor);
-                    $monitorValue = isset($result[$subMonitor[0]][$subMonitor[1]])
-                        ? $result[$subMonitor[0]][$subMonitor[1]] : '';
+                    $monitorValue = $result[$subMonitor[0]][$subMonitor[1]] ?? '';
                 }
                 if (empty($monitorValue)) {
                     $probesDetails[$probeDetailLine] = "FAIL";

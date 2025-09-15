@@ -933,8 +933,8 @@ class CalendarLib extends TikiLib
         }
 
         if ($prefs['feature_categories'] == 'y') {
-            $catCategories = isset($_REQUEST['cat_categories']) ? $_REQUEST['cat_categories'] : [];
-            $catCatManaged = isset($_REQUEST['cat_managed']) ? $_REQUEST['cat_managed'] : [];
+            $catCategories = $_REQUEST['cat_categories'] ?? [];
+            $catCatManaged = $_REQUEST['cat_managed'] ?? [];
             $this->update_item_categories($calitemId, $catCatManaged, $catCategories, $data['name'], $data['description']);
         }
 

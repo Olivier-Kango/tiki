@@ -127,7 +127,7 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     $customflags["customparticipants"] = $_REQUEST["customparticipants"];
     $customflags["customcategories"] = $_REQUEST["customcategories"];
     $customflags["custompriorities"] = $_REQUEST["custompriorities"];
-    $customflags["customsubscription"] = isset($_REQUEST["customsubscription"]) ? $_REQUEST["customsubscription"] : 'n';
+    $customflags["customsubscription"] = $_REQUEST["customsubscription"] ?? 'n';
     if (isset($info)) {
         $objectperms = Perms::get('calendar', $info['calendarId']);
 

@@ -65,7 +65,15 @@ if (isset($_REQUEST["add"]) && $access->checkCsrf()) {
         $save = false;
     }
     if ($save and isset($_REQUEST['event']) and isset($watches[$_REQUEST['event']])) {
-        $result = $tikilib->add_user_watch($login, $_REQUEST["event"], $watches[$_REQUEST['event']]['object'], $watches[$_REQUEST['event']]['type'], $watches[$_REQUEST['event']]['label'], $watches[$_REQUEST['event']]['url'], isset($email) ? $email : null);
+        $result = $tikilib->add_user_watch(
+            $login,
+            $_REQUEST["event"],
+            $watches[$_REQUEST['event']]['object'],
+            $watches[$_REQUEST['event']]['type'],
+            $watches[$_REQUEST['event']]['label'],
+            $watches[$_REQUEST['event']]['url'],
+            $email ?? null
+        );
         if (! $result) {
             Feedback::error(tra('The user has no email set. No notifications will be sent.'));
         } else {

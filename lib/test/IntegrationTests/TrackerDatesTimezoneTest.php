@@ -520,7 +520,7 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         $itemObject = Tracker_Item::newItem(self::$trackerId);
         $processedFields = $itemObject->prepareInput(new JitFilter($input));
         foreach ($processedFields as $k => $f) {
-            $fields[$k]['value'] = isset($f['value']) ? $f['value'] : '';
+            $fields[$k]['value'] = $f['value'] ?? '';
         }
         return self::$trklib->replace_item(self::$trackerId, 0, ['data' => $fields], 'o');
     }

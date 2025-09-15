@@ -74,16 +74,16 @@ function wikiplugin_param($data, $params)
         $value = null;
         switch ($params['source']) {
             case 'get':
-                $value = isset($_GET[$name]) ? $_GET[$name] : null;
+                $value = $_GET[$name] ?? null;
                 break;
             case 'post':
-                $value = isset($_POST[$name]) ? $_POST[$name] : null;
+                $value = $_POST[$name] ?? null;
                 break;
             case 'cookie':
-                $value = isset($_COOKIE[$name]) ? $_COOKIE[$name] : null;
+                $value = $_COOKIE[$name] ?? null;
                 break;
             default:
-                $value = isset($_REQUEST[$name]) ? $_REQUEST[$name] : null;
+                $value = $_REQUEST[$name] ?? null;
                 break;
         }
         if (isset($params['value'])) {

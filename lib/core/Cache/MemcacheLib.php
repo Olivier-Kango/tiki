@@ -86,7 +86,7 @@ class MemcacheLib
             $this->memcache->addServer(
                 $server['host'],
                 (int) $server['port'],
-                isset($server['weight']) ? (int)$server['weight'] : 1
+                (int) ($server['weight'] ?? 1)
             );
         }
 

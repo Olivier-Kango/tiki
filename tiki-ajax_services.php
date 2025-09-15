@@ -162,7 +162,7 @@ if ($access->is_serializable_request() && $jitRequest->offsetExists('listonly'))
         $access->output_serialized($tags);
     } elseif ($listonly == 'icons') {
         $dir = 'img/icons';
-        $max = isset($_REQUEST['max']) ? $_REQUEST['max'] : 10;
+        $max = $_REQUEST['max'] ?? 10;
         $icons = [];
         $style_dir = $tikilib->get_theme_path($prefs['style'], $prefs['style_option']);
         if ($style_dir && is_dir($style_dir . $dir)) {

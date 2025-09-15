@@ -1404,7 +1404,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
                     );
                     $data = [
                         'access' => $sharee->access,
-                        'share_name' => isset($sharee->properties['{DAV:}displayname']) ? $sharee->properties['{DAV:}displayname'] : null,
+                        'share_name' => $sharee->properties['{DAV:}displayname'] ?? null,
                         'share_invite_status' => $sharee->inviteStatus ?: $oldSharee->inviteStatus,
                     ];
                     $calendarlib->update_calendar_instance($calendarId, $share_href, $data);
@@ -1425,7 +1425,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
                 'timezone' => $calendar['timezone'] ?? '',
                 'transparent' => 1,
                 'share_href' => $sharee->href,
-                'share_name' => isset($sharee->properties['{DAV:}displayname']) ? $sharee->properties['{DAV:}displayname'] : null,
+                'share_name' => $sharee->properties['{DAV:}displayname'] ?? null,
                 'share_invite_status' => $sharee->inviteStatus ?: \Sabre\DAV\Sharing\Plugin::INVITE_NORESPONSE,
             ];
             $calendarlib->create_calendar_instance($data);

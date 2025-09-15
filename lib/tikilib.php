@@ -2606,7 +2606,7 @@ class TikiLib extends TikiDb_Bridge
                 'sessionId' => $this->sessionId,
                 'timestamp' => $this->now,
                 'user' => $user,
-                'tikihost' => isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost',
+                'tikihost' => $_SERVER['HTTP_HOST'] ?? 'localhost',
             ]
         );
         if ($prefs['session_storage'] == 'db') {
@@ -4329,7 +4329,7 @@ class TikiLib extends TikiDb_Bridge
             if (isset($defaults[$name]) && is_array($defaults[$name])) {
                 $strDef = implode(" ", $defaults[$name]);
             } else {
-                $strDef = isset($defaults[$name]) ? $defaults[$name] : "";
+                $strDef = $defaults[$name] ?? "";
             }
             if (empty($strDef) || ($strDef != (string) $value)) {
                 $modified[$name] = $value;
@@ -4385,7 +4385,7 @@ class TikiLib extends TikiDb_Bridge
     {
         global $prefs;
 
-        $value = isset($prefs[$name]) ? $prefs[$name] : $default;
+        $value = $prefs[$name] ?? $default;
 
         if (empty($value)) {
             if ($expectArray) {
@@ -6142,7 +6142,7 @@ class TikiLib extends TikiDb_Bridge
 
         foreach ($args as $arg) {
             if ($arg == 'language') {
-                $language = isset($prefs['language']) ? $prefs['language'] : 'en';
+                $language = $prefs['language'] ?? 'en';
                 $key .= "_{$language}";
             } elseif ($arg == 'external') {
                 $key .= (int) self::$isExternalContext;
@@ -6955,12 +6955,12 @@ class TikiLib extends TikiDb_Bridge
     public static function unparse_url($parsed_url)
     {
         $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '//';
-        $host     = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+        $host     = $parsed_url['host'] ?? '';
         $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
-        $user     = isset($parsed_url['user']) ? $parsed_url['user'] : '';
+        $user     = $parsed_url['user'] ?? '';
         $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass'] : '';
         $pass     = ($user || $pass) ? "$pass@" : '';
-        $path     = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+        $path     = $parsed_url['path'] ?? '';
         $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
         $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 

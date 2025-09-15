@@ -408,11 +408,11 @@ class XmlLib extends TikiLib
                 ! empty($this->config['fromSite']) ? $this->config['fromSite'] : $info['ip'],
                 $info['description'],
                 0,
-                isset($info['lang']) ? $info['lang'] : '',
-                isset($info['is_html']) ? $info['is_html'] : false,
+                $info['lang'] ?? '',
+                $info['is_html'] ?? false,
                 null,
                 null,
-                isset($info['wysiwyg']) ? $info['wysiwyg'] : null
+                $info['wysiwyg'] ?? null
             );
         } else {
             // Page doesn't exists yet. Create it.
@@ -426,10 +426,10 @@ class XmlLib extends TikiLib
                 ! empty($this->config['fromUser']) ? $this->config['fromUser'] : $info['user'],
                 ! empty($this->config['fromSite']) ? $this->config['fromSite'] : $info['ip'],
                 $info['description'],
-                isset($info['lang']) ? $info['lang'] : '',
-                isset($info['is_html']) ? $info['is_html'] : false,
+                $info['lang'] ?? '',
+                $info['is_html'] ?? false,
                 null,
-                isset($info['wysiwyg']) ? $info['wysiwyg'] : null,
+                $info['wysiwyg'] ?? null,
                 '',
                 0,
                 $info['created']
@@ -604,7 +604,7 @@ class XmlLib extends TikiLib
             } elseif (! empty($info['structure'])) {
                 $this->structureStack[$info['structure']] = $structlib->s_create_page(
                     $this->structureStack[$info['structure'] - 1],
-                    isset($this->structureStack[$info['structure']]) ? $this->structureStack[$info['structure']] : '',
+                    $this->structureStack[$info['structure']] ?? '',
                     $info['name'],
                     '',
                     $this->structureStack[1]

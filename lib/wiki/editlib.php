@@ -964,7 +964,7 @@ class EditLib
 
                 if ($node['data']['type'] == 'open') {
                     // Open tag type
-                    $style = isset($node['pars']['style']) ? $node['pars']['style']['value'] : '';
+                    $style = $node['pars']['style']['value'] ?? '';
                     $styleAttrs = array_filter(explode(';', $style), function ($attr) {
                         return ! empty(trim($attr));
                     });

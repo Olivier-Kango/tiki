@@ -74,7 +74,7 @@ if (! isset($_REQUEST["offset"])) {
 }
 $smarty->assign_by_ref('offset', $offset);
 if (! isset($_REQUEST["type"])) {
-    $type = isset($_REQUEST['old_type']) ? $_REQUEST['old_type'] : '';
+    $type = $_REQUEST['old_type'] ?? '';
 } else {
     $type = $_REQUEST["type"];
 }

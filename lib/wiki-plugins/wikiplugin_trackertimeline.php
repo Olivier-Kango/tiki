@@ -259,7 +259,7 @@ function wikiplugin_trackertimeline($data, $params)
     $step = ! empty($params['step']) ? ($params['step']) : '1';
     $start = isset($params['lower']) ? strtotime($params['lower']) : null;
     $end = isset($params['upper']) ? strtotime($params['upper']) : null;
-    $size = 0;
+
     if ($start && $end) {
         $size = $end - $start;
         if ($size <= 0) {

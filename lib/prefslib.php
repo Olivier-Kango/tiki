@@ -149,7 +149,7 @@ class PreferencesLib
             $source = $prefs;
         }
 
-        $value = isset($source[$name]) ? $source[$name] : null;
+        $value = $source[$name] ?? null;
         if (
             ! empty($value) &&
             is_string($value) &&
@@ -180,7 +180,7 @@ class PreferencesLib
 
         $info['notes'] = [];
 
-        $info['raw'] = isset($source[$name]) ? $source[$name] : null;
+        $info['raw'] = $source[$name] ?? null;
         $info['id'] = 'pref-' . ++$id;
 
         if (! empty($info['help']) && isset($prefs['feature_help']) && $prefs['feature_help'] == 'y') {
@@ -649,7 +649,7 @@ class PreferencesLib
             $handled = array_intersect($handled, $limitation);
         }
 
-        $resets = isset($data['lm_reset']) ? (array) $data['lm_reset'] : [];
+        $resets = (array) ($data['lm_reset'] ?? []);
 
         $changes = [];
         foreach ($handled as $pref) {
@@ -795,9 +795,9 @@ class PreferencesLib
         foreach ((array) $dependencies as $key => $dep) {
             $info = $this->getPreference($dep, false);
             if ($info) {
-                $name = isset($info['name']) ? $info['name'] : '';
-                $type = isset($info['type']) ? $info['type'] : '';
-                $link = isset($info['adminurl']) ? $info['adminurl'] : '';
+                $name = $info['name'] ?? '';
+                $type = $info['type'] ?? '';
+                $link = $info['adminurl'] ?? '';
                 $out[] = [
                     'name' => $dep,
                     'label' => $name,
@@ -834,8 +834,8 @@ class PreferencesLib
                 if (! $info) {
                     continue;
                 }
-                $name = isset($info['name']) ? $info['name'] : '';
-                $link = isset($info['adminurl']) ? $info['adminurl'] : '';
+                $name = $info['name'] ?? '';
+                $link = $info['adminurl'] ?? '';
                 if ($subject['value'] === $key && $info['value'] === $details['value']) {
                     $active[] = [
                         'name' => $details['preference'],
@@ -856,8 +856,8 @@ class PreferencesLib
                 if (! $info) {
                     continue;
                 }
-                $name = isset($info['name']) ? $info['name'] : '';
-                $link = isset($info['adminurl']) ? $info['adminurl'] : '';
+                $name = $info['name'] ?? '';
+                $link = $info['adminurl'] ?? '';
                 if ($info['value'] == 'y') {
                     $active[] = [
                         'name' => $key,
@@ -1068,8 +1068,8 @@ class PreferencesLib
             // also index the parts of the pref name individually, e.g. wikiplugin_plugin_name as wikiplugin plugin name
             str_replace('_', ' ', $info['preference']),
             $info['name'],
-            isset($info['description']) ? $info['description'] : '',
-            isset($info['keywords']) ? $info['keywords'] : '',
+            $info['description'] ?? '',
+            $info['keywords'] ?? '',
         ];
 
         if (isset($info['options'])) {
@@ -1196,7 +1196,7 @@ class PreferencesLib
     private function _getListValue($info, $data)
     {
         $name = $info['preference'];
-        $value = isset($data[$name]) ? $data[$name] : null;
+        $value = $data[$name] ?? null;
 
         $options = $info['options'];
 
@@ -1211,7 +1211,7 @@ class PreferencesLib
     private function _getMultilistValue($info, $data)
     {
         $name = $info['preference'];
-        $value = isset($data[$name]) ? (array) $data[$name] : [];
+        $value = (array) ($data[$name] ?? []);
 
         $options = $info['options'];
         $options = array_keys($options);
@@ -1222,7 +1222,7 @@ class PreferencesLib
     private function _getRadioValue($info, $data)
     {
         $name = $info['preference'];
-        $value = isset($data[$name]) ? $data[$name] : null;
+        $value = $data[$name] ?? null;
 
         $options = $info['options'];
         $options = array_keys($options);

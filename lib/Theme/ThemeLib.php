@@ -83,7 +83,7 @@ class ThemeLib extends TikiLib
         //consider Admin Theme
         if (! empty($prefs['theme_admin']) && ($section === 'admin' || empty($section))) {        // use admin theme if set
             $theme_active = $prefs['theme_admin'];
-            $theme_option_active = isset($prefs['theme_option_admin']) ? $prefs['theme_option_admin'] : '';                                // and its option
+            $theme_option_active = $prefs['theme_option_admin'] ?? '';                                // and its option
         }
 
 

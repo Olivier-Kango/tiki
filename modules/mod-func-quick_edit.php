@@ -92,7 +92,7 @@ function module_quick_edit($mod_reference, $module_params)
         $submit = tra('Create/Edit', '', true);
     }
 
-    $size = isset($module_params['size']) ? $module_params['size'] : 15;
+    $size = $module_params['size'] ?? 15;
 
     if (isset($module_params['mod_quickedit_heading'])) {
         $mod_quickedit_heading = $module_params['mod_quickedit_heading'];

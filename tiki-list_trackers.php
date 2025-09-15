@@ -36,7 +36,7 @@ if (! empty($_REQUEST['trackerId'])) {
 $smarty->assign('trackerId', $_REQUEST["trackerId"]);
 
 if (! isset($_REQUEST["sort_mode"])) {
-    $sort_mode = isset($prefs['tracker_list_order']) ? $prefs['tracker_list_order'] : 'created_desc';
+    $sort_mode = $prefs['tracker_list_order'] ?? 'created_desc';
 } else {
     $sort_mode = $_REQUEST["sort_mode"];
 }

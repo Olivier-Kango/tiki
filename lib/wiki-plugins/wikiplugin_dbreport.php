@@ -1245,7 +1245,7 @@ function wikiplugin_dbreport($data, $params)
         $contentRow[] = [
             $tikilib->date_format($prefs['short_date_format'] . ' ' . $prefs['long_time_format'], $tikilib->now),
             $user,
-            isset($_GET['page']) ? $_GET['page'] : '',
+            $_GET['page'] ?? '',
             $bindvars
         ];
 

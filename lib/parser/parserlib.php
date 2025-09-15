@@ -344,13 +344,8 @@ class ParserLib extends TikiDb_Bridge
                 }
 
                 if ($curlies == 0 && $parens == 0) {
-                    $plugins[2] = (string) substr($data, $pos_end, $lastParens - $pos_end);
-                    $plugins[0] = $plugins[0] . (string) substr($data, $pos_end, $i - $pos_end + 1);
-                    /*
-                         print "<pre>Match found: ";
-                         print( $plugins[2] );
-                         print "</pre>";
-                     */
+                    $plugins[2] = substr($data, $pos_end, $lastParens - $pos_end);
+                    $plugins[0] = $plugins[0] . substr($data, $pos_end, $i - $pos_end + 1);
                 }
 
                 $plugins['arguments'] = isset($plugins[2]) ? $this->plugin_split_args($plugins[2]) : [];
@@ -359,12 +354,6 @@ class ParserLib extends TikiDb_Bridge
                 $plugins[2] = "";
             }
         }
-
-        /*
-             print "<pre>Plugin match end:";
-             print_r( $plugins );
-             print "</pre>";
-         */
     }
 
     //*
@@ -857,7 +846,7 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function plugin_fingerprint($name, $meta, $data, $args)
     {
-        $validate = (isset($meta['validate']) ? $meta['validate'] : '');
+        $validate = ($meta['validate'] ?? '');
 
         $data = $this->unprotectSpecialChars($data, true);
 
@@ -960,7 +949,7 @@ class ParserLib extends TikiDb_Bridge
             }
         }
         $arg_str = rtrim($arg_str, '&');
-        $icon = isset($info['icon']) ? $info['icon'] : 'img/icons/wiki_plugin_edit.png';
+        $icon = $info['icon'] ?? 'img/icons/wiki_plugin_edit.png';
 
         // some plugins are just too fragile to do wysiwyg, so show the "source" for them ;(
         $excluded = ['tracker', 'trackerlist', 'trackerfilter', 'kaltura', 'toc', 'freetagged', 'draw', 'googlemap',
@@ -1087,7 +1076,7 @@ class ParserLib extends TikiDb_Bridge
 
         $info = $this->plugin_info($name, $args);
 
-        $default = TikiFilter::get(isset($info['defaultfilter']) ? $info['defaultfilter'] : 'xss');
+        $default = TikiFilter::get($info['defaultfilter'] ?? 'xss');
 
         // Apply filters on the body
         $filter = isset($info['filter']) ? TikiFilter::get($info['filter']) : $default;
@@ -1167,22 +1156,13 @@ class ParserLib extends TikiDb_Bridge
                 $token = $info['input'];
             }
 
-            if (isset($args[$token])) {
-                $value = $args[$token];
-            } else {
-                $value = isset($info['default']) ? $info['default'] : '';
-            }
+            $value = $args[$token] ?? $info['default'] ?? '';
 
-            switch (isset($info['encoding']) ? $info['encoding'] : 'none') {
-                case 'html':
-                    $replacements[] = htmlentities($value, ENT_QUOTES, 'UTF-8');
-                    break;
-                case 'url':
-                    $replacements[] = rawurlencode($value);
-                    break;
-                default:
-                    $replacements[] = $value;
-            }
+            $replacements[] = match ($info['encoding'] ?? 'none') {
+                'html' => htmlentities($value, ENT_QUOTES, 'UTF-8'),
+                'url' => rawurlencode($value),
+                default => $value,
+            };
         }
 
         return str_replace($patterns, $replacements, $content);
@@ -1896,7 +1876,7 @@ class ParserLib extends TikiDb_Bridge
                 $replacements = [];
 
                 foreach ($args as $arg) {
-                    $value = isset($arg[4]) ? $arg[4] : '';
+                    $value = $arg[4] ?? '';
                     $name = $arg[2];
                     switch ($name) {
                         case 'user':

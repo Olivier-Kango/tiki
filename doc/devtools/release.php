@@ -46,7 +46,7 @@ require_once ROOT . '/lib/setup/third_party.php';
 require_once ROOT . '/path_constants.php';
 require_once ROOT . '/' . DEPRECATED_DEVTOOLS_PATH . '/vcscommons.php';
 
-$phpCommand = isset($_SERVER['_']) ? $_SERVER['_'] : 'php';
+$phpCommand = $_SERVER['_'] ?? 'php';
 $phpCommandArguments = implode(' ', $_SERVER['argv']);
 
 if (! ($options = get_options()) || $options['help']) {
@@ -90,8 +90,8 @@ if ($options['only-secdb']) {
 }
 
 $script = $_SERVER['argv'][0];
-$version = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '';
-$subrelease = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : '';
+$version = $_SERVER['argv'][1] ?? '';
+$subrelease = $_SERVER['argv'][2] ?? '';
 
 if (! preg_match("/^\d+\.\d+$/", $version)) {
     error("Version number should be in X.X format.\n");

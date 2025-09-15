@@ -383,7 +383,7 @@ class RegistrationLib extends TikiLib
                     $registration['email'],
                     '',
                     '',
-                    isset($registration['chosenGroup']) ? $registration['chosenGroup'] : 'Registered'
+                    $registration['chosenGroup'] ?? 'Registered'
                 );
             }
 

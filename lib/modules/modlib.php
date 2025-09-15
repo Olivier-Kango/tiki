@@ -1115,7 +1115,7 @@ class ModLib extends TikiLib
                 'error' => '',
                 'flip' => ( $prefs['user_flip_modules'] == 'module' ) ? 'n' : $prefs['user_flip_modules'],
             ];
-            $module_params = isset($mod_reference['params']) ? (array) $mod_reference['params'] : [];
+            $module_params = (array) ($mod_reference['params'] ?? []);
             $module_params = array_merge($defaults, $module_params); // not sure why style doesn't get set sometime but is used in the tpl
 
             $mod_reference = array_merge(['moduleId' => null, 'ord' => 0, 'position' => 0, 'rows' => 10, 'cache_time' => 0], $mod_reference);
@@ -1207,7 +1207,7 @@ class ModLib extends TikiLib
 
                 if ($this->is_admin_mode() && $timer) {
                     $elapsed = round($timer->stop('module'), 3);
-                    $data = isset($data) ? $data : '';
+                    $data = $data ?? '';
                     $data = preg_replace('/<div /', '<div title="Module Execution Time ' . $elapsed . 's" ', $data, 1);
                 }
 
@@ -1603,7 +1603,7 @@ function zone_is_empty($zoneName)
     }
 
     foreach ($moduleZones[$key] as $module) {
-        $data = (string) (isset($module['data']) ? $module['data'] : '');
+        $data = (string) ($module['data'] ?? '');
         if (! empty($data)) {
             return false;
         }

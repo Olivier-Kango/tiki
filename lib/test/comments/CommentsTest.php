@@ -19,7 +19,7 @@ class CommentsTest extends TikiTestCase
     {
         parent::setUp();
         // Backup original prefs if they exist
-        $this->originalPrefs = isset($GLOBALS['prefs']) ? $GLOBALS['prefs'] : null;
+        $this->originalPrefs = $GLOBALS['prefs'] ?? null;
 
         $this->commentsLib = TikiLib::lib('comments');
         $this->reportedTable = $this->commentsLib->table('tiki_forums_reported');

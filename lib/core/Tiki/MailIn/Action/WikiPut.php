@@ -18,7 +18,7 @@ class WikiPut implements ActionInterface
 
     public function __construct(array $params)
     {
-        $this->namespace = isset($params['namespace']) ? $params['namespace'] : null;
+        $this->namespace = $params['namespace'] ?? null;
         $this->routing = ! empty($params['structure_routing']);
     }
 

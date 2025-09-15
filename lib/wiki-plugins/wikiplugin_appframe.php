@@ -102,8 +102,8 @@ function wikiplugin_appframe_info()
 
 function wikiplugin_appframe($data, $params)
 {
-    $minHeight = isset($params['min']) ? (int) $params['min'] : 300;
-    $maxHeight = isset($params['max']) ? (int) $params['max'] : -1;
+    $minHeight = (int) ($params['min'] ?? 300);
+    $maxHeight = (int) ($params['max'] ?? -1);
     $fullPage = 0;
     if (isset($params['fullpage']) && $params['fullpage'] == 'y') {
         $fullPage = 1;

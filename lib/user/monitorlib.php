@@ -345,7 +345,7 @@ class MonitorLib
         }
 
         $sendTo = [];
-        $args['stream'] = isset($args['stream']) ? (array) $args['stream'] : [];
+        $args['stream'] = (array) ($args['stream'] ?? []);
 
         foreach ($results as $row) {
             // Add entries to the named streams, each user will have a few of those

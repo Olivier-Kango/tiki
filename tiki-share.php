@@ -60,7 +60,7 @@ if (empty($_REQUEST['report'])) {
 
 // email related:
 
-$smarty->assign('do_email', (isset($_REQUEST['do_email']) ? $_REQUEST['do_email'] : true));
+$smarty->assign('do_email', ($_REQUEST['do_email'] ?? true));
 if (empty($_REQUEST['report']) || $_REQUEST['report'] != 'y') {
     // twitter/facebook related
     if (isset($prefs['feature_socialnetworks']) and $prefs['feature_socialnetworks'] == 'y') {
@@ -73,9 +73,9 @@ if (empty($_REQUEST['report']) || $_REQUEST['report'] != 'y') {
         $smarty->assign('twitter', ($twitter_token != ''));
         $facebook_token = $tikilib->get_user_preference($user, 'facebook_token', '');
         $smarty->assign('facebook', ($facebook_token != ''));
-        $smarty->assign('do_tweet', (isset($_REQUEST['do_tweet']) ? $_REQUEST['do_tweet'] : true));
-        $smarty->assign('do_fb', (isset($_REQUEST['do_fb']) ? $_REQUEST['do_fb'] : true));
-        $smarty->assign('fblike', (isset($_REQUEST['fblike']) ? $_REQUEST['fblike'] : 1));
+        $smarty->assign('do_tweet', ($_REQUEST['do_tweet'] ?? true));
+        $smarty->assign('do_fb', ($_REQUEST['do_fb'] ?? true));
+        $smarty->assign('fblike', ($_REQUEST['fblike'] ?? 1));
     } else {
         $smarty->assign('twitterRegistered', false);
         $smarty->assign('twitter', false);
@@ -87,8 +87,8 @@ if (empty($_REQUEST['report']) || $_REQUEST['report'] != 'y') {
     if (isset($prefs['feature_messages']) and $prefs['feature_messages'] == 'y') {
         $logslib = TikiLib::lib('logs');
 
-        $smarty->assign('priority', (isset($_REQUEST['priority']) ? $_REQUEST['priority'] : 3));
-        $smarty->assign('do_message', (isset($_REQUEST['do_message']) ? $_REQUEST['do_message'] : true));
+        $smarty->assign('priority', ($_REQUEST['priority'] ?? 3));
+        $smarty->assign('do_message', ($_REQUEST['do_message'] ?? true));
         $send_msg = ($tiki_p_messages == 'y');
 
         if ($prefs['allowmsg_is_optional'] == 'y') {
@@ -114,7 +114,7 @@ if (empty($_REQUEST['report']) || $_REQUEST['report'] != 'y') {
                 $forums[] = $channels['data'][$i];
             }
         }
-        $smarty->assign('forumId', (isset($_REQUEST['forumId']) ? $_REQUEST['forumId'] : 0));
+        $smarty->assign('forumId', ($_REQUEST['forumId'] ?? 0));
     } else {
         $forums = [];
     }
@@ -123,7 +123,7 @@ if (empty($_REQUEST['report']) || $_REQUEST['report'] != 'y') {
 } else {
     $report = 'y';
 }
-$smarty->assign('report', isset($_REQUEST['report']) ? $_REQUEST['report'] : '');
+$smarty->assign('report', $_REQUEST['report'] ?? '');
 
 $errors = [];
 $ok = true;
@@ -175,7 +175,7 @@ if ($report != 'y') {
 $smarty->assign('url', $_REQUEST['url']);
 $smarty->assign('prefix', $tikilib->httpPrefix(true));
 $smarty->assign_by_ref('url_for_friend', $url_for_friend);
-$smarty->assign('back_url', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '');
+$smarty->assign('back_url', $_SERVER['HTTP_REFERER'] ?? '');
 
 if (! empty($_REQUEST['subject'])) {
     $subject = $_REQUEST['subject'];
@@ -635,7 +635,7 @@ function sendMessage($recipients, $subject, $tokenlist = [])
             $subject,
             $txt,
             $_REQUEST['priority'],
-            isset($_REQUEST['replyto_hash']) ? $_REQUEST['replyto_hash'] : ''
+            $_REQUEST['replyto_hash'] ?? ''
         );
 
         TikiLib::events()->trigger(
@@ -657,7 +657,7 @@ function sendMessage($recipients, $subject, $tokenlist = [])
         $subject,
         $txt,
         $_REQUEST['priority'],
-        isset($_REQUEST['replyto_hash']) ? $_REQUEST['replyto_hash'] : ''
+        $_REQUEST['replyto_hash'] ?? ''
     );
 
     // Assign users e-mail was sent to a SMARTY variable to be displayed:

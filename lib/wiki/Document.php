@@ -475,7 +475,7 @@ class Document
                 }
                 foreach ($this->document as $word) {
                     $skip = false;
-                    $d = isset($word['deleted_by']) ? $word['deleted_by'] : '';
+                    $d = $word['deleted_by'] ?? '';
                     $w = $word['word'];
                     if ($author != $word['author'] or $deleted != $word['deleted'] or $deleted_by != $d) {
                         if ($text != '') {

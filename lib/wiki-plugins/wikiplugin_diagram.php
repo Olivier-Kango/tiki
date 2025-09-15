@@ -99,7 +99,7 @@ function wikiplugin_diagram_info()
  */
 function wikiplugin_diagram($data, $params)
 {
-    global $tikilib, $user, $page, $wikiplugin_included_page, $prefs, $tiki_p_edit, $tiki_p_view;
+    global $user, $page, $wikiplugin_included_page, $prefs, $tiki_p_edit, $tiki_p_view;
     $template = $params['template'] ?? 0;
     $galleryId = $params['galleryId'] ?? (isset($params['fileName']) ? 1 : '');
     $fileName = $params['fileName'] ?? 'Diagram %page% %date%.drawio' ;
@@ -125,7 +125,7 @@ function wikiplugin_diagram($data, $params)
 
     $diagramIdentifier = ! empty($params['fileId']) ? $params['fileId'] : $data;
     $info = wikiplugin_diagram_info();
-    $pageName = isset($params['page']) ? $params['page'] : '';
+    $pageName = $params['page'] ?? '';
     $diagrams = DiagramHelper::getDiagramsFromIdentifier($diagramIdentifier, $pageName);
 
     if (! empty($params['align']) && in_array($params['align'], ['left', 'center', 'right'])) {
@@ -179,8 +179,8 @@ function wikiplugin_diagram($data, $params)
 
     $headerlib->add_css('.diagram hr {margin-top:0.5em;margin-bottom:0.5em}');
 
-    $fileId = isset($params['fileId']) ? intval($params['fileId']) : 0;
-    $annotate = isset($params['annotate']) ? intval($params['annotate']) : 0;
+    $fileId = intval($params['fileId'] ?? 0);
+    $annotate = intval($params['annotate'] ?? 0);
 
     if ($fileId) {
         $file = \Tiki\FileGallery\File::id($fileId);

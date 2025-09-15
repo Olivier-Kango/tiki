@@ -158,7 +158,7 @@ class mime
                     if (! empty($content_disposition) && $content_disposition['value'] == 'attachment') {
                         $back['attachments'][] = $back['d_parameters'];
                     }
-                    $encoding = isset($content_transfer_encoding) ? $content_transfer_encoding['value'] : '7bit';
+                    $encoding = $content_transfer_encoding['value'] ?? '7bit';
                     $back['body'] = $this->decodeBody($body, $encoding);
                     if (
                         array_key_exists('ctype_parameters', $back)

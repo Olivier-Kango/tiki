@@ -594,7 +594,7 @@ class WikiRenderer
         }
         //global $description;
         $crumbsLocal[] = new Breadcrumb(
-            isset($this->info['prettyName']) ? $this->info['prettyName'] : $crumbpage,
+            $this->info['prettyName'] ?? $crumbpage,
             $this->info['description'],
             TikiLib::lib('wiki')->sefurl($this->page),
             '',

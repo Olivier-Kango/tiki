@@ -52,7 +52,7 @@ function initchannelssession($chans)
 if (isset($_REQUEST['msg'])) {
     $msg = $_REQUEST['msg'];
     $msg = strtr($msg, "\n\r\t", "   ");
-    $msgon = isset($_REQUEST['msgon']) ? $_REQUEST['msgon'] : null;
+    $msgon = $_REQUEST['msgon'] ?? null;
     if (empty($msg)) {
         $msgon = null;
     }

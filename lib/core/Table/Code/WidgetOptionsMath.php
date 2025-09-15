@@ -24,7 +24,7 @@ class Table_Code_WidgetOptionsMath extends Table_Code_WidgetOptions
     protected function getOptionArray()
     {
         if (parent::$math) {
-            $format = isset(parent::$s['math']['format']) ? parent::$s['math']['format'] : '###0.00';
+            $format = parent::$s['math']['format'] ?? '###0.00';
             $m[] = 'math_data : \'tsmath\'';
             $m[] = 'math_mask : ' . '\'' . $format . '\'';
             $m[] = 'math_event : \'tablesorter-ready\'';

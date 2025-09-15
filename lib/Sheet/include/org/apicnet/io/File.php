@@ -154,7 +154,7 @@ class File extends ErrorManager {
         if (!isset($path)) {
             return array();
         }
-        $filter = isset($filenameFilter) ? $filenameFilter : new FilenameFilter();
+        $filter = $filenameFilter ?? new FilenameFilter();
         $files = array();
         $folders = array();
         if ($this->exists() && $this->isDirectory()){

@@ -426,7 +426,7 @@ class BlogWordpress extends Blog
                 $this->newFiles[] = [
                     'fileId' => $fileId,
                     'oldUrl' => $attachment['link'],
-                    'sizes' => isset($attachment['sizes']) ? $attachment['sizes'] : []
+                    'sizes' => $attachment['sizes'] ?? []
                 ];
 
                 $this->saveAndDisplayLog(tr('Attachment %0 successfully imported!', $attachment['fileName']) . "\n");

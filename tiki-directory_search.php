@@ -28,10 +28,10 @@ include_once('lib/directory/dirlib.php');
 $access->check_feature('feature_directory');
 $access->check_permission('tiki_p_view_directory');
 
-$_REQUEST['words'] = isset($_REQUEST['words']) ? $_REQUEST['words'] : '';
-$_REQUEST['where'] = isset($_REQUEST['where']) ? $_REQUEST['where'] : '';
-$_REQUEST['how'] = isset($_REQUEST['how']) ? $_REQUEST['how'] : '';
-$_REQUEST['parent'] = isset($_REQUEST['parent']) ? $_REQUEST['parent'] : '';
+$_REQUEST['words'] = $_REQUEST['words'] ?? '';
+$_REQUEST['where'] = $_REQUEST['where'] ?? '';
+$_REQUEST['how'] = $_REQUEST['how'] ?? '';
+$_REQUEST['parent'] = $_REQUEST['parent'] ?? '';
 $smarty->assign('words', $_REQUEST['words']);
 $smarty->assign('where', $_REQUEST['where']);
 $smarty->assign('how', $_REQUEST['how']);

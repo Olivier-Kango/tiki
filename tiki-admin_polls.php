@@ -138,7 +138,7 @@ if ((isset($_REQUEST["save"]) || isset($_REQUEST["add"])) && $access->checkCsrf(
                             }
                         }
                     } else {
-                        $oid = isset($_REQUEST['optionsId']) && isset($_REQUEST['optionsId'][$i]) ? $_REQUEST['optionsId'][$i] : null;
+                        $oid = $_REQUEST['optionsId'][$i] ?? null;
                         $result = $polllib->replace_poll_option($pid, $oid, $option, $position++);
                         if ($result && $result->numRows()) {
                             $optionSuccess++;

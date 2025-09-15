@@ -100,7 +100,7 @@ foreach ($sections as $skey => $sval) {
     }
 }
 
-$view_mode = isset($_REQUEST['view_mode']) ? $_REQUEST['view_mode'] : '';
+$view_mode = $_REQUEST['view_mode'] ?? '';
 if ($view_mode === 'sheet' && $section !== 'sheet') {
     $view_mode = '';
     $_REQUEST['view_mode'] = '';

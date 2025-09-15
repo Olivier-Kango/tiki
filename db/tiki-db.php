@@ -53,7 +53,7 @@ if ($parts = TikiInit::getEnvironmentCredentials()) {
             'pass' => $shadow_pass,
             'dbs' => $shadow_dbs,
             'charset' => $client_charset,
-            'socket' => isset($socket_tiki) ? $socket_tiki : null,
+            'socket' => $socket_tiki ?? null,
         ];
     }
 
@@ -90,7 +90,7 @@ if (isset($_SERVER['TIKI_INI_FILE'])) {
     }
 
     $configReader = new Tiki_Config_Ini();
-    $configReader->setFilterSection(isset($_SERVER['TIKI_INI_IDENTIFIER']) ? $_SERVER['TIKI_INI_IDENTIFIER'] : null);
+    $configReader->setFilterSection($_SERVER['TIKI_INI_IDENTIFIER'] ?? null);
     $configData = $configReader->fromFile($_SERVER['TIKI_INI_FILE']);
     $systemConfiguration = $systemConfiguration->merge(new Laminas\Config\Config($configData));
 }

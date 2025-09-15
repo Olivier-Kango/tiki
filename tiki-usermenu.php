@@ -57,7 +57,7 @@ if ($_REQUEST["menuId"]) {
 } else {
     $info = [];
     $info['name'] = '';
-    $info['url'] = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
+    $info['url'] = $_REQUEST['url'] ?? '';
     $info['mode'] = 'w';
     $info['position'] = $usermenulib->get_max_position($user) + 1;
 }

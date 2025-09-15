@@ -56,8 +56,8 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
 
         $data = Tiki_Profile::convertLists($data, ['flags' => 'y']);
 
-        $column = isset($data['column']) ? $data['column'] : [];
-        $popup = isset($data['popup']) ? $data['popup'] : [];
+        $column = $data['column'] ?? [];
+        $popup = $data['popup'] ?? [];
 
         if (in_array('name', $column) && in_array('filename', $column)) {
             $data['show_name'] = 'a';

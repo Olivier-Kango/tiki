@@ -180,8 +180,7 @@ class OLE_PPS extends PEAR
               . "\x00\x00\x00\x00"                  // 100
               . OLE::LocalDate2OLE($this->Time1st)       // 108
               . OLE::LocalDate2OLE($this->Time2nd)       // 116
-              . pack("V", isset($this->_StartBlock)? 
-                        $this->_StartBlock:0)        // 120
+              . pack("V", $this->_StartBlock ?? 0)        // 120
               . pack("V", $this->Size)               // 124
               . pack("V", 0);                        // 128
         return $ret;

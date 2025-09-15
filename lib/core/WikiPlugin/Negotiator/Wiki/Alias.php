@@ -199,10 +199,10 @@ class WikiPlugin_Negotiator_Wiki_Alias
             if (isset($args[$token])) {
                 $value = $args[$token];
             } else {
-                $value = isset($info['default']) ? $info['default'] : '';
+                $value = $info['default'] ?? '';
             }
 
-            switch (isset($info['encoding']) ? $info['encoding'] : 'none') {
+            switch ($info['encoding'] ?? 'none') {
                 case 'html':
                     $replacements[] = htmlentities($value, ENT_QUOTES, 'UTF-8');
                     break;

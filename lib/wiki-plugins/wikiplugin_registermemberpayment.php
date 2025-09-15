@@ -48,16 +48,16 @@ function wikiplugin_registermemberpayment($data, $params, $offset)
         return tr('Insufficient Privileges');
     }
 
-    if (empty($user) && isset($_REQUEST['wp_member_users']) == true) {
+    if (empty($user) && isset($_REQUEST['wp_member_users'])) {
         $user = end(explode('|', $_REQUEST['wp_member_users']));
         $_SESSION['forceanon'] = 'y';
         $_REQUEST['price'] = $_POST['price'] = $_GET['price'] = $params['price'];
     }
 
-    $periodslabel = (isset($params['periodslabel']) ? tr($params['periodslabel']) : 'Number of periods:');
+    $periodslabel = isset($params['periodslabel']) ? tr($params['periodslabel']) : tr('Number of periods:');
     $fixedperiodsDDL = '';
 
-    $fixedperiods = explode(';', isset($params['fixedperiods']) ? $params['fixedperiods'] : '');
+    $fixedperiods = explode(';', $params['fixedperiods'] ?? '');
     foreach ($fixedperiods as $fixedperiod) {
         if (! empty($fixedperiod)) {
             $fixedperiod = explode(':', $fixedperiod);

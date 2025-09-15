@@ -537,7 +537,7 @@ if (isset($_REQUEST['list']) || isset($_REQUEST['export']) || isset($_REQUEST['g
         list($col, $order) = explode('_', $_REQUEST['sort_mode']);
         $sort = [];
         foreach ($actions as $a) {
-            $sort[] = isset($a[$col]) ? $a[$col] : '';
+            $sort[] = $a[$col] ?? '';
         }
         array_multisort($sort, ($order == 'desc') ? SORT_DESC : SORT_ASC, $actions);
         $smarty->assign('sort_mode', $_REQUEST['sort_mode']);

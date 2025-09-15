@@ -36,8 +36,8 @@ class ObjectLink extends Base
             $object = $params['objectId'];
         }
 
-        $title = isset($params['title']) ? $params['title'] : null;
-        $url = isset($params['url']) ? $params['url'] : null;
+        $title = $params['title'] ?? null;
+        $url = $params['url'] ?? null;
 
         switch ($type) {
             case 'wiki page':

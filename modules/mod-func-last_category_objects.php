@@ -75,5 +75,5 @@ function module_last_category_objects($mod_reference, $module_params)
 
     $smarty->assign('last', $last['data']);
     $smarty->assign('type', $module_params['type']);
-    $smarty->assign('maxlen', isset($module_params['maxlen']) ? $module_params['maxlen'] : 0);
+    $smarty->assign('maxlen', $module_params['maxlen'] ?? 0);
 }

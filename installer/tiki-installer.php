@@ -265,8 +265,8 @@ try {
 }
 
 $smarty->assign('mid', 'tiki-install.tpl');
-$smarty->assign('virt', isset($virt) ? $virt : null);
-$smarty->assign('multi', isset($multi) ? $multi : null);
+$smarty->assign('virt', $virt ?? null);
+$smarty->assign('multi', $multi ?? null);
 $smarty->assign('lang', $language);
 if (isset($multi)) {
     $smarty->assign('default_server_domain_name', $multi);
@@ -462,7 +462,7 @@ if (isset($_POST['useInnoDB'])) {
 
 if ($dbconn) {
     $smarty->assign('dbcon', 'y');
-    $smarty->assign('dbname', isset($dbs_tiki) ? $dbs_tiki : null);
+    $smarty->assign('dbname', $dbs_tiki ?? null);
 } else {
     $smarty->assign('dbcon', 'n');
 }

@@ -99,7 +99,7 @@ function wikiplugin_mediaplayer($data, $params)
     $access = TikiLib::lib('access');
     static $iMEDIAPLAYER = 0;
     $id = 'mediaplayer' . ++$iMEDIAPLAYER;
-    $params['type'] = strtolower(isset($params['type']) ? $params['type'] : '');
+    $params['type'] = strtolower($params['type'] ?? '');
     $extension = '';
     if ((empty($params['src']) && empty($params['mp3']))) {
         Feedback::error(['mes' => tr("PluginMediaPlayer : src and mp3 cannot both be empty")]);

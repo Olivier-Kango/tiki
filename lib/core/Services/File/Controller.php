@@ -683,7 +683,7 @@ class Services_File_Controller
         $offset = $input->offset->int();
         $maxRecords = $input->maxRecords->int();
         $sort_mode = $input->sort_mode->text() ?: 'created_desc';
-        $find = isset($input->find) ? $input->find->text() : null;
+        $find = $input->find?->text() ?? null;
 
         $perms = Perms::get('file gallery', $galleryId);
 
@@ -714,7 +714,7 @@ class Services_File_Controller
         $maxRecords = $input->maxRecords->int();
         $sort_mode = $input->sort_mode->text() ?: 'created_desc';
         $user = $input->user->text() ?: '';
-        $find = isset($input->find) ? $input->find->text() : null;
+        $find = $find = $input->find?->text() ?? null;
 
         $perms = Perms::get('file gallery', $galleryId);
 

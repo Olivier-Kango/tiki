@@ -190,9 +190,7 @@ class LanguageTranslator
                 return [
                 $content,
                 $this->argReplace(
-                    $lang[$new_content] . ( isset($lang[$lastCharacter])
-                        ? $lang[$lastCharacter]
-                        : $lastCharacter ),
+                    $lang[$new_content] . ($lang[$lastCharacter] ?? $lastCharacter),
                     $args
                 ),
                     true

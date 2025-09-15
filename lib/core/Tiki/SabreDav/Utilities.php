@@ -382,7 +382,7 @@ class Utilities
                 if ($user) {
                     $result['organizers'][] = $user;
                 }
-                $cn = isset($organizer->CN) ? (string)$organizer->CN : '';
+                $cn = (string)($organizer->CN ?? '');
                 if (empty($cn)) {
                     $result['real_organizers'][] = $email;
                 } else {
@@ -416,7 +416,7 @@ class Utilities
             $result['attendees'] = [];
             foreach ($component->ATTENDEE as $attendee) {
                 $email = preg_replace("/MAILTO:\s*/i", "", (string)$attendee);
-                $cn = isset($attendee->CN) ? (string)$attendee->CN : '';
+                $cn = (string)($organizer->CN ?? '');
                 if (empty($cn)) {
                     $result['attendees'][] = $email;
                 } else {

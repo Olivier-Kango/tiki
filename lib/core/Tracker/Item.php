@@ -597,7 +597,7 @@ class Tracker_Item
      */
     public function getPerm($permName)
     {
-        return isset($this->perms->$permName) ? $this->perms->$permName : null;
+        return $this->perms->$permName ?? null;
     }
 
     public function getPerms()
@@ -612,7 +612,7 @@ class Tracker_Item
 
     public function getViewPermission()
     {
-        $status = isset($this->info['status']) ? $this->info['status'] : 'o';
+        $status = $this->info['status'] ?? 'o';
 
         if ($status == 'c') {
             return 'view_trackers_closed';
@@ -653,7 +653,7 @@ class Tracker_Item
                 $data = $handler->getFieldData();
 
                 $permName = $field['permName'];
-                $out[$permName] = isset($data['value']) ? $data['value'] : null;
+                $out[$permName] = $data['value'] ?? null;
             }
         }
 

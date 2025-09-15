@@ -255,7 +255,7 @@ function wikiplugin_tour($data, $params)
 
         // Avoid undefined array key warning
         $getParam = function ($name) use ($first_step) {
-            return isset($first_step[$name]) ? $first_step[$name] : '';
+            return $first_step[$name] ?? '';
         };
 
         $overlayColor = $getParam('overlay_color');

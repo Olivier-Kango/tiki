@@ -273,7 +273,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
         }
         $exifData = exif_read_data('data://image/jpeg;base64,' . base64_encode($fileData['data']));
 
-        $exif['datetime'] = isset($exifData['DateTimeOriginal']) ? $exifData['DateTimeOriginal'] : '';
+        $exif['datetime'] = $exifData['DateTimeOriginal'] ?? '';
 
         if (isset($exifData['GPSLongitude']) && isset($exifData['GPSLatitude'])) {
             $latitude = $this->gpsCoordinates($exifData["GPSLatitude"], $exifData['GPSLatitudeRef']);

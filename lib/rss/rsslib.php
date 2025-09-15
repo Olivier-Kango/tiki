@@ -749,7 +749,7 @@ class RSSLib extends TikiDb_Bridge
                         // need to match 0
                         $configuration['rating'] = $settings['rating'];
                     }
-                    $current_priority = isset($settings['priority']) ? $settings['priority'] : 0;
+                    $current_priority = $settings['priority'] ?? 0;
                 }
             }
         }

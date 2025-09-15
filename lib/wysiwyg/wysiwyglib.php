@@ -69,7 +69,7 @@ class WYSIWYGLib
             $lang = 'en-US';
         } else {
             $parts = explode('-', $lang);
-            $lang = $parts[0] . '-' . strtoupper(isset($parts[1]) ? $parts[1] : $parts[0]);
+            $lang = $parts[0] . '-' . strtoupper($parts[1] ?? $parts[0]);
         }
 
         $langFilePath = NODE_PUBLIC_DIST_PATH . '/summernote/dist/lang/summernote-' . $lang . '.min.js';
@@ -283,7 +283,7 @@ class WYSIWYGLib
             //'vi' => 'vi',         // Vietnamese
         ];
 
-        return isset($langMap[$lang]) ? $langMap[$lang] : '';
+        return $langMap[$lang] ?? '';
     }
 
     private function processSpecialHeadings($content)

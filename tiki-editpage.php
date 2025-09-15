@@ -466,7 +466,7 @@ if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_na
             } else {
                 $description = '';
             }
-            $pageLang = isset($part["lang"]) ? $part["lang"] : "";
+            $pageLang = $part["lang"] ?? "";
             $authorid = urldecode($part["author_id"]);
             if (isset($part["hits"])) {
                 $hits = urldecode($part["hits"]);
@@ -644,7 +644,7 @@ if ($prefs['feature_wiki_attachments'] === 'y' && isset($_REQUEST["attach"]) && 
 
 
 // Suck another page and append to the end of current
-$suck_url = isset($_REQUEST["suck_url"]) ? $_REQUEST["suck_url"] : '';
+$suck_url = $_REQUEST["suck_url"] ?? '';
 
 if (isset($_REQUEST["parsehtml"])) {
     $parsehtml = $_REQUEST["parsehtml"] === 'on' ? 'y' : 'n';
@@ -741,7 +741,7 @@ if (isset($_REQUEST["wikiHeaderTpl"]) && ! isset($_REQUEST['preview']) && ! isse
     $smarty->assign('wikiHeaderTpl', $smarty->fetch("wiki:{$_REQUEST['wikiHeaderTpl']}"));
 }
 if ((isset($_REQUEST["template_name"]) || isset($_REQUEST["templateId"])) && ! isset($_REQUEST['preview']) && ! isset($_REQUEST['save'])) {
-    $templateLang = isset($_REQUEST['lang']) ? $_REQUEST['lang'] : null;
+    $templateLang = $_REQUEST['lang'] ?? null;
 
     if (isset($_REQUEST["templateId"])) {
         $templateId = $_REQUEST["templateId"];
@@ -1120,7 +1120,7 @@ if ($prefs['site_layout_per_object'] == 'y') {
     $attributes = $attributelib->get_attributes('wiki page', $page);
     $smarty->assign('object_layout', [
         'available' => TikiLib::lib('theme')::listUserSelectableLayouts(),
-        'current' => isset($attributes['tiki.object.layout']) ? $attributes['tiki.object.layout'] : null,
+        'current' => $attributes['tiki.object.layout'] ?? null,
     ]);
 }
 
@@ -1291,7 +1291,7 @@ if (
                 $description,
                 $minor,
                 $pageLang,
-                isset($_REQUEST['allowhtml']) ? $_REQUEST['allowhtml'] : $is_html,
+                $_REQUEST['allowhtml'] ?? $is_html,
                 $hash,
                 null,
                 $_REQUEST['wysiwyg'],

@@ -567,7 +567,7 @@ class OpenPGPLib
     {
         global $user, $prefs, $tikilib;
         $empty = '';
-        return isset($prefs['sender_email']) ? $prefs['sender_email'] : $empty;
+        return $prefs['sender_email'] ?? $empty;
     }
 
     /////////////////////////////////////////////////////////////////////////////

@@ -46,7 +46,7 @@ if ($prefs['feature_theme_control_parentcategory'] != "n" && $prefs['feature_the
 $categories = $categlib->getCategories($categoryFilter, true, true, false);
 $smarty->assign('categories', $categories);
 
-$smarty->assign('categId', isset($_REQUEST['categId']) ? $_REQUEST['categId'] : 0);
+$smarty->assign('categId', $_REQUEST['categId'] ?? 0);
 
 $themes = $themelib->list_themes_and_options();
 $smarty->assign('themes', $themes);
@@ -61,7 +61,7 @@ if (isset($_REQUEST['assign'])) {
         $category = $categlib->get_category($categoryId);
         $categoryName = $category['name'] ?? ("ID " . $categoryId);
         $themes = $themelib->list_themes_and_options();
-        $themeName = isset($themes[$themeKey]['name']) ? $themes[$themeKey]['name'] : $themeKey;
+        $themeName = $themes[$themeKey]['name'] ?? $themeKey;
         Feedback::success(tr("Theme '%0' was successfully assigned to the category '%1'.", $themeName, $categoryName));
     } else {
         Feedback::errorAndDie(tra("Please create a category first"), \Laminas\Http\Response::STATUS_CODE_409);

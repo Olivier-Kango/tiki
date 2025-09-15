@@ -78,7 +78,7 @@ class ModuleList extends Base
                 array_map(
                     function ($module) use ($legacy_to_new) {
                         $devices = $module["params"]["device"] ?? null;
-                        $moduleContent = (isset($module['data']) ? $module['data'] : '');
+                        $moduleContent = ($module['data'] ?? '');
                         $device_classes = '';
 
                         if (isset($devices) && is_array($devices) && ! empty($devices)) {

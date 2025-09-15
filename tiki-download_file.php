@@ -260,7 +260,7 @@ if ($use_client_cache) {
     }
 }
 
-$maxAge = isset($prefs['tiki_cachecontrol_maxage']) ? (int) $prefs['tiki_cachecontrol_maxage'] : 86400;
+$maxAge = (int)($prefs['tiki_cachecontrol_maxage'] ?? 86400);
 $downloadableByAnonymous = $userlib->user_has_perm_on_object(null, $info['fileId'], 'file', 'tiki_p_download_files');
 
 if ($downloadableByAnonymous) {

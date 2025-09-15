@@ -168,7 +168,7 @@ class BOMChecker_Scanner
     protected function getFileExtension($filePath)
     {
         $info = pathinfo($filePath);
-        return isset($info['extension']) ? $info['extension'] : '';
+        return $info['extension'] ?? '';
     }
 
     /**

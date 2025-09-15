@@ -46,7 +46,7 @@ class Icon extends \Smarty\FunctionHandler\Base
 
         if (empty($tc_theme)) {
             $current_theme = ! empty($prefs['theme']) ? $prefs['theme'] : '';
-            $current_theme_option = isset($prefs['theme_option']) ? $prefs['theme_option'] : '';
+            $current_theme_option = $prefs['theme_option'] ?? '';
         } else {
             $current_theme = $tc_theme;
             $current_theme_option = ! empty($tc_theme_option) ? $tc_theme_option : '';
@@ -248,7 +248,7 @@ class Icon extends \Smarty\FunctionHandler\Base
         }
 
         if ($notag) {
-            $html = (isset($params['path_prefix']) ? $params['path_prefix'] : '') . $params['file'];
+            $html = ($params['path_prefix'] ?? '') . $params['file'];
         } else {
             // use 'alt' as 'title' if not set
             if (! isset($params['title'])) {

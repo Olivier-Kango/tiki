@@ -129,8 +129,8 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
     }
     $access->redirect($_SESSION['loginfrom']);
 }
-$requestedUser = isset($_REQUEST['user']) ? trim($_REQUEST['user']) : false;
-$pass = isset($_REQUEST['pass']) ? trim($_REQUEST['pass']) : false;
+$requestedUser = trim($_REQUEST['user'] ?? '') ?: false;
+$pass = trim($_REQUEST['pass'] ?? '') ?: false;
 $isvalid = false;
 $isdue = false;
 

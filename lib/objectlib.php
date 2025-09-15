@@ -518,7 +518,7 @@ class ObjectLib extends TikiLib
             case 'wiki page':
                 $tikilib = TikiLib::lib('tiki');
                 $info = $tikilib->get_page_info($object);
-                return ['title' => $object ?? "", 'data' => isset($info['data']) ? $info['data'] : "", 'is_html' => isset($info['is_html']) ? $info['is_html'] : ""];
+                return ['title' => $object ?? "", 'data' => $info['data'] ?? "", 'is_html' => $info['is_html'] ?? ""];
 
             case 'article':
                 $artlib = TikiLib::lib('art');
@@ -891,7 +891,7 @@ class ObjectLib extends TikiLib
                 return TikiLib::lib('user')->clean_user($id);
             case 'calendar':
                 $info = TikiLib::lib('calendar')->get_calendar($id);
-                return isset($info['name']) ? $info['name'] : "";
+                return $info['name'] ?? "";
             case 'calendar event':
             case 'calendaritem':
                 $info = TikiLib::lib('calendar')->get_item($id);

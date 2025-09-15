@@ -1225,8 +1225,8 @@ class ArtLib extends TikiLib
         }
 
         if ($min_rating || $max_rating) {
-            $min_rating = isset($min_rating) ? $min_rating : '0.0';
-            $max_rating = isset($max_rating) ? $max_rating : '10.0';
+            $min_rating = $min_rating ?? '0.0';
+            $max_rating = $max_rating ?? '10.0';
             $mid2 .= ' and (`tiki_articles`.`rating` >= ? and `tiki_articles`.`rating` <= ? )';
             $bindvars[] = $min_rating;
             $bindvars[] = $max_rating;

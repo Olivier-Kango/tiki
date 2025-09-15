@@ -1394,7 +1394,7 @@ function wikiplugin_trackerlist($data, $params)
                 isset($_REQUEST['filterfield']) ? preg_split('/\s*:\s*/', $_REQUEST['filterfield']) : '',
                 isset($_REQUEST['filtervalue']) ? preg_split('/\s*:\s*/', $_REQUEST['filtervalue']) : '',
                 isset($_REQUEST['status']) ? preg_split('/\s*:\s*/', $_REQUEST['status']) : '',
-                isset($_REQUEST['initial']) ? $_REQUEST['initial'] : '',
+                $_REQUEST['initial'] ?? '',
                 isset($_REQUEST['exactvalue']) ? preg_split('/\s*:\s*/', $_REQUEST['exactvalue']) : '',
                 $filter
             );
@@ -1762,7 +1762,7 @@ function wikiplugin_trackerlist($data, $params)
                     $fvs = $filtervalue;
                     unset($filtervalue);
                     for ($i = 0, $count_ff = count($filterfield); $i < $count_ff; ++$i) {
-                        $filtervalue[] = isset($fvs[$i]) ? $fvs[$i] : '';
+                        $filtervalue[] = $fvs[$i] ?? '';
                     }
                 }
                 if (! empty($exactvalue)) {

@@ -471,9 +471,9 @@ class Search_Query_WikiBuilder
             }
         } elseif ($value === 'script') {
             if (isset($arguments['source'])) {
-                $arguments['order'] = isset($arguments['order']) ? $arguments['order'] : 'asc';
-                $arguments['lang']  = isset($arguments['lang']) ? $arguments['lang'] : 'painless';
-                $arguments['type']  = isset($arguments['type']) ? $arguments['type'] : 'number';
+                $arguments['order'] = $arguments['order'] ?? 'asc';
+                $arguments['lang']  = $arguments['lang'] ?? 'painless';
+                $arguments['type']  = $arguments['type'] ?? 'number';
 
                 unset($arguments['mode']);
 

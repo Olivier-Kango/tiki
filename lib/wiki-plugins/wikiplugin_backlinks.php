@@ -87,7 +87,7 @@ class WikiPluginBackLinks extends PluginsLib
         //To be able to read prefs
         global $prefs;
         $wikilib = TikiLib::lib('wiki');
-        $exclude = isset($params['exclude']) ? $params['exclude'] : [];
+        $exclude = $params['exclude'] ?? [];
         $params = $this->getParams($params, true);
         $aInfoPreset = array_keys($this->aInfoPresetNames);
         extract($params, EXTR_SKIP);

@@ -1838,7 +1838,7 @@ class WikiLib extends TikiLib
     public function get_explicit_namespace($pageName)
     {
         $attributes = TikiLib::lib('attribute')->get_attributes('wiki page', $pageName);
-        return isset($attributes['tiki.wiki.namespace']) ? $attributes['tiki.wiki.namespace'] : '';
+        return $attributes['tiki.wiki.namespace'] ?? '';
     }
 
     public function set_explicit_namespace($pageName, $namespace)
@@ -1925,7 +1925,7 @@ class WikiLib extends TikiLib
     {
         global  $prefs;
 
-        $currPage = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+        $currPage = $_REQUEST['page'] ?? '';
         if (
             ! empty($currPage) &&
             (! str_contains($_SERVER["SCRIPT_NAME"], "tiki-editpage.php")) &&
@@ -1952,7 +1952,7 @@ class WikiLib extends TikiLib
                     $tocOffset = ! empty($prefs['wiki_toc_offset']) ? $prefs['wiki_toc_offset'] : 10;
 
                     // Show/Hide the static inline TOC
-                    $isAddInlineToc = isset($prefs['wiki_inline_auto_toc']) ? $prefs['wiki_inline_auto_toc'] === 'y' : false;
+                    $isAddInlineToc = isset($prefs['wiki_inline_auto_toc']) && $prefs['wiki_inline_auto_toc'] === 'y';
                     if ($isAddInlineToc) {
                         // Enable static, inline TOC
                         //$headerlib->add_css('#autotoc {display: block;}');
@@ -1983,7 +1983,7 @@ class WikiLib extends TikiLib
             }
 
             // Hide title per page
-            $isHideTitlePerPage = isset($prefs['wiki_page_hide_title']) ? $prefs['wiki_page_hide_title'] === 'y' : false;
+            $isHideTitlePerPage = isset($prefs['wiki_page_hide_title']) && $prefs['wiki_page_hide_title'] === 'y';
             if ($isHideTitlePerPage) {
                 $isHideTitle = false;
                 if (! empty($currPage)) {

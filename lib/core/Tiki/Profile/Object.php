@@ -49,7 +49,7 @@ class Tiki_Profile_Object
         $str = '';
         if ($this->isWellStructured()) {
             $str .= $this->getType() . ' ';
-            $name = isset($this->data['data']['name']) ? $this->data['data']['name'] : tra('No name');
+            $name = $this->data['data']['name'] ?? tra('No name');
             $str .= '"' . $name . '"';
         } else {
             $str .= tra('Bad object');

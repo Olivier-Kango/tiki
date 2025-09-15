@@ -244,8 +244,9 @@ if (isset($_REQUEST['assign']) && ! isset($_REQUEST['quick_perms']) && $access->
     $groupNames = array_unique(array_merge(array_keys($newPerms), array_keys($oldPerms)));
     $changed = [];
     foreach ($groupNames as $groupName) {
-        $newPerms[$groupName] = ! isset($newPerms[$groupName]) ? [] : $newPerms[$groupName];
-        $oldPerms[$groupName] = ! isset($oldPerms[$groupName]) ? [] : $oldPerms[$groupName];
+        // https://www.php.net/manual/en/migration74.new-features.php#migration74.new-features.core.null-coalescing-assignment-operator
+        $newPerms[$groupName] ??= [];
+        $oldPerms[$groupName] ??= [];
         $changed['added'][$groupName] = array_diff($newPerms[$groupName], $oldPerms[$groupName]);
         $changed['deleted'][$groupName] = array_diff($oldPerms[$groupName], $newPerms[$groupName]);
     }

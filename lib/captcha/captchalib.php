@@ -70,7 +70,7 @@ class Captcha
             $httpClient = TikiLib::lib('tiki')->get_http_client();
             $this->captcha->getService()->setHttpClient($httpClient);
 
-            $this->captcha->getService()->setOption('theme', isset($prefs['recaptcha_theme']) ? $prefs['recaptcha_theme'] : 'clean');
+            $this->captcha->getService()->setOption('theme', $prefs['recaptcha_theme'] ?? 'clean');
 
             $this->captcha->setOption('ssl', true);
 
@@ -81,7 +81,7 @@ class Captcha
             $params = [
                 'privkey' => $prefs['recaptcha_privkey'],
                 'pubkey' => $prefs['recaptcha_pubkey'],
-                'theme' => isset($prefs['recaptcha_theme']) ? $prefs['recaptcha_theme'] : 'clean',
+                'theme' => $prefs['recaptcha_theme'] ?? 'clean',
             ];
 
             if ($type === 'recaptcha20') {

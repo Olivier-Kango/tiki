@@ -891,7 +891,7 @@ class Comments extends TikiLib
             $message_id,
             $info['in_reply_to'],
             $threadId,
-            isset($info['parentId']) ? $info['parentId'] : 0
+            $info['parentId'] ?? 0
         );
 
         if ($info['email']) {
@@ -1950,8 +1950,8 @@ class Comments extends TikiLib
         // these could be cached or probably queried along with the original query of the tiki_comments table
         if ($forum_info == null || $forum_info['ui_posts'] == 'y' || $forum_info['ui_level'] == 'y') {
             $res2 = $this->table('tiki_user_postings')->fetchRow(['posts', 'level'], ['user' => $res['userName']]);
-            $res['user_posts'] = isset($res2['posts']) ? $res2['posts'] : '0';
-            $res['user_level'] = isset($res2['level']) ? $res2['level'] : '0';
+            $res['user_posts'] = $res2['posts'] ?? '0';
+            $res['user_level'] = $res2['level'] ?? '0';
         }
         // 'email is public' never has 'y' value, because it is now used to choose the email scrambling method
         // ... so, we need to test if it's not equal to 'n'
@@ -3988,12 +3988,12 @@ class Comments extends TikiLib
                 $params['comment_topictype'],
                 $params['comment_topicsmiley'],
                 $params['comment_topicsummary'],
-                isset($parent_comment_info['title']) ? $parent_comment_info['title'] : $params['comments_title'],
+                $parent_comment_info['title'] ?? $params['comments_title'],
                 $in_reply_to,
                 $params['anonymous_name'],
                 $params['freetag_string'],
                 $params['anonymous_email'],
-                isset($params['comments_threadId']) ? $params['comments_threadId'] : 0
+                $params['comments_threadId'] ?? 0
             );
 
             if ($prefs['forum_moderator_notification'] == 'y') {
@@ -4006,12 +4006,12 @@ class Comments extends TikiLib
                     $params['comments_title'],
                     $params['comments_data'],
                     $user,
-                    isset($parent_comment_info['title']) ? $parent_comment_info['title'] : $params['comments_title'],
+                    $parent_comment_info['title'] ?? $params['comments_title'],
                     $message_id,
                     $in_reply_to,
                     ! empty($params['comments_threadId']) ? $params['comments_threadId'] : 0,
-                    isset($params['comments_parentId']) ? $params['comments_parentId'] : 0,
-                    isset($params['contributions']) ? $params['contributions'] : '',
+                    $params['comments_parentId'] ?? 0,
+                    $params['contributions'] ?? '',
                     $qId
                 );
             }
@@ -4035,7 +4035,7 @@ class Comments extends TikiLib
                         $params['comment_topictype'],
                         $params['comment_topicsummary'],
                         $params['comment_topicsmiley'],
-                        isset($params['contributions']) ? $params['contributions'] : '',
+                        $params['contributions'] ?? '',
                         $params['anonymous_name'],
                         '',
                         $params['anonymous_email'],
@@ -4058,8 +4058,8 @@ class Comments extends TikiLib
                             $message_id,
                             $in_reply_to,
                             $threadId,
-                            isset($params['comments_parentId']) ? $params['comments_parentId'] : 0,
-                            isset($params['contributions']) ? $params['contributions'] : ''
+                            $params['comments_parentId'] ?? 0,
+                            $params['contributions'] ?? ''
                         );
                         // Set watch if requested
                         if ($prefs['feature_user_watches'] == 'y') {
@@ -4082,7 +4082,7 @@ class Comments extends TikiLib
                                     $forum_info['name'] . ':' . $params['comments_title'],
                                     'tiki-view_forum_thread.php?comments_parentId=' . $threadId,
                                     $params['anonymous_email'],
-                                    isset($prefs['language']) ? $prefs['language'] : ''
+                                    $prefs['language'] ?? ''
                                 );
                             }
                         }
@@ -4109,7 +4109,7 @@ class Comments extends TikiLib
                     $params['comment_topicsummary'],
                     $params['comment_topicsmiley'],
                     $comments_objectId,
-                    isset($params['contributions']) ? $params['contributions'] : ''
+                    $params['contributions'] ?? ''
                 );
             }
         }

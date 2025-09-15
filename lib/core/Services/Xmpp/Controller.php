@@ -86,7 +86,7 @@ class Services_Xmpp_Controller
         // final check, if givenKey is really valid
         if ($validity) {
             $details = $userlib->get_user_details($user);
-            return isset($details['info']) ? $details['info'] : null;
+            return $details['info'] ?? null;
         }
 
         header("HTTP/1.0 403 Forbidden", true, 403);

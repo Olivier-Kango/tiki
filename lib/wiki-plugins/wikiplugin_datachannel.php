@@ -362,7 +362,7 @@ function wikiplugin_datachannel($data, $params)
 
                     $installer->disablePrefixDependencies();
 
-                    $params['emptyCache'] = isset($params['emptyCache']) ? $params['emptyCache'] : 'all';
+                    $params['emptyCache'] = $params['emptyCache'] ?? 'all';
                     $success = $installer->install($profile, $params['emptyCache']) && $success;
                     foreach ($profile->getLoadedObjects() as $object) {
                         $arguments["%{$object->getRef()}%"] = $object->getValue();

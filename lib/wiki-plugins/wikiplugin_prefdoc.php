@@ -550,7 +550,7 @@ class PrefsDoc extends TWVersion
             // get legend and use it as section name
             $legend_array = [];
             preg_match_all('/{tr}(.*?){\/tr}/s', $fieldset, $legend_array);
-            $legend = isset($legend_array[1][0]) ? $legend_array[1][0] : $index;
+            $legend = $legend_array[1][0] ?? $index;
             $legend = mb_ereg_replace('\W', '', strtolower($legend));
 
             $fieldset_prefs = [];

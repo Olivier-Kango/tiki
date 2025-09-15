@@ -9,11 +9,11 @@ class Services_Tracker_Utilities
     public function insertItem($definition, $item)
     {
         $newItem = $this->replaceItem($definition, 0, $item['status'], $item['fields'], $item['processedFields'] ?? [], [
-            'validate' => isset($item['validate']) ? $item['validate'] : true,
+            'validate' => $item['validate'] ?? true,
             'skip_categories' => false,
-            'bulk_import' => isset($item['bulk_import']) ? $item['bulk_import'] : false,
+            'bulk_import' => $item['bulk_import'] ?? false,
             'skip_sync' => $item['skip_sync'] ?? false,
-            'deleted_files' => isset($item['deletedFiles']) ? $item['deletedFiles'] : []
+            'deleted_files' => $item['deletedFiles'] ?? []
         ]);
 
         return $newItem;
@@ -22,11 +22,11 @@ class Services_Tracker_Utilities
     public function updateItem($definition, $item)
     {
         return $this->replaceItem($definition, $item['itemId'], $item['status'], $item['fields'], $item['processedFields'] ?? [], [
-            'validate' => isset($item['validate']) ? $item['validate'] : true,
+            'validate' => $item['validate'] ?? true,
             'skip_categories' => false,
-            'bulk_import' => isset($item['bulk_import']) ? $item['bulk_import'] : false,
+            'bulk_import' => $item['bulk_import'] ?? false,
             'skip_sync' => $item['skip_sync'] ?? false,
-            'deleted_files' => isset($item['deletedFiles']) ? $item['deletedFiles'] : []
+            'deleted_files' => $item['deletedFiles'] ?? []
         ]);
     }
 
@@ -175,10 +175,10 @@ class Services_Tracker_Utilities
             'n',
             ($isFirst ? 'y' : 'n'),
             'y',
-            isset($data['isHidden']) ? $data['isHidden'] : 'n',
+            $data['isHidden'] ?? 'n',
             isset($data['isMandatory']) ? ($data['isMandatory'] ? 'y' : 'n') : ($isFirst ? 'y' : 'n'),
             $trklib->get_last_position($data['trackerId']) + 10,
-            isset($data['options']) ? $data['options'] : '',
+            $data['options'] ?? '',
             $data['description'],
             '',
             null,
@@ -193,8 +193,8 @@ class Services_Tracker_Utilities
             null,
             null,
             false,
-            isset($data['visibleInViewMode']) ? $data['visibleInViewMode'] : 'y',
-            isset($data['visibleInEditMode']) ? $data['visibleInEditMode'] : 'y',
+            $data['visibleInViewMode'] ?? 'y',
+            $data['visibleInEditMode'] ?? 'y',
         );
     }
 

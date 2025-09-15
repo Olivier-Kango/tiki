@@ -122,7 +122,7 @@ class ExtensionManager
         }
 
         $extensionPackage = self::get($packageName);
-        $update = isset($extensionPackage) ? $extensionPackage->hasUpdate() : false;
+        $update = isset($extensionPackage) && $extensionPackage->hasUpdate();
 
         if (isset($extensionPackage) && ! $update) {
             self::$messages[] = tr('Package %0 is already enabled', $packageName);

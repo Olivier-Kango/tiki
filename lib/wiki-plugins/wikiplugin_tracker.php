@@ -1047,7 +1047,7 @@ function wikiplugin_tracker($data, $params)
         }
 
         $definition = Tracker_Definition::get($trackerId);
-        $item_info = isset($item_info) ? $item_info : [];
+        $item_info = $item_info ?? [];
         $factory = $definition->getFieldFactory();
 
         if (empty($item_info)) {

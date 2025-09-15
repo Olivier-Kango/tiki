@@ -191,7 +191,7 @@ class Wiki extends Base
                         $rev['ip'],
                         '',
                         '',
-                        isset($rev['is_html']) ? $rev['is_html'] : true,
+                        $rev['is_html'] ?? true,
                         null,
                         false
                     );
@@ -206,7 +206,7 @@ class Wiki extends Base
                         '',
                         $rev['minor'],
                         '',
-                        isset($rev['is_html']) ? $rev['is_html'] : true,
+                        $rev['is_html'] ?? true,
                         null,
                         $rev['lastModif']
                     );

@@ -2164,7 +2164,7 @@ class TrackerLib extends TikiLib
             // Old values were prefilled at the begining of the function and only replaced at the end of the iteration
             $fieldId = $array['fieldId'];
             $suppliedFields[] = $fieldId;
-            $old_value = isset($fil[$fieldId]) ? $fil[$fieldId] : null;
+            $old_value = $fil[$fieldId] ?? null;
 
             $handler = $this->get_field_handler($array, array_merge($item_info, $fil));
 
@@ -2191,8 +2191,8 @@ class TrackerLib extends TikiLib
             }
 
             if ($handler && method_exists($handler, 'handleSave')) {
-                $array = array_merge($array, $handler->handleSave(! isset($array['value']) ? null : $array['value'], $old_value));
-                $value = ! isset($array['value']) ? null : $array['value'];
+                $array = array_merge($array, $handler->handleSave($array['value'] ?? null, $old_value));
+                $value = $array['value'] ?? null;
 
                 if ($value !== false) {
                     $this->modify_field($currentItemId, $array['fieldId'], $value);
@@ -2208,7 +2208,7 @@ class TrackerLib extends TikiLib
 
             if ($handler && method_exists($handler, 'handleSpecialSave')) {
                 $array = array_merge($array, $handler->handleSpecialSave($array));
-                $value = ! isset($array['value']) ? null : $array['value'];
+                $value = $array['value'] ?? null;
 
                 if ($value !== false) {
                     $this->modify_field($currentItemId, $array['fieldId'], $value);
@@ -2222,7 +2222,7 @@ class TrackerLib extends TikiLib
                 continue;
             }
 
-            $value = isset($array["value"]) ? $array["value"] : null;
+            $value = $array["value"] ?? null;
 
             if (isset($array['type']) && $array['type'] == 'p' && ($user == $trackersync_user || $tiki_p_admin_users == 'y') && $trackersync_user) {
                 if ($array['options_array'][0] == 'password') {
@@ -2291,7 +2291,7 @@ class TrackerLib extends TikiLib
                     }
                 }
             } else {
-                $is_date = isset($array['type']) ? in_array($array["type"], ['f', 'j']) : false;
+                $is_date = isset($array['type']) && in_array($array["type"], ['f', 'j']);
 
                 if ($currentItemId || ( isset($array['type']) && $array['type'] !== 'q')) { // autoincrement
                     $this->modify_field($currentItemId, $fieldId, $value);
@@ -3159,7 +3159,7 @@ class TrackerLib extends TikiLib
 
         $definition = Tracker_Definition::get($trackerId);
         $statusTypes = $definition->getStatusTypes();
-        $statusString = isset($statusTypes[$status]['label']) ? $statusTypes[$status]['label'] : '';
+        $statusString = $statusTypes[$status]['label'] ?? '';
 
         $imgList = [];
         foreach ($fieldList['data'] as $f) {
@@ -3501,8 +3501,8 @@ class TrackerLib extends TikiLib
                 $ratingId = 0;
             }
 
-            $ratingoptions = isset($options['ratingOptions']) ? $options['ratingOptions'] : '';
-            $showratings = isset($options['showRatings']) ? $options['showRatings'] : 'n';
+            $ratingoptions = $options['ratingOptions'] ?? '';
+            $showratings = $options['showRatings'] ?? 'n';
             $this->replace_tracker_field($trackerId, $ratingId, 'Rating', 's', '-', '-', $showratings, 'y', 'n', '-', 0, $ratingoptions);
         }
         $this->clear_tracker_cache($trackerId);
@@ -4689,8 +4689,8 @@ class TrackerLib extends TikiLib
                         $email = $userlib->get_user_email($fieldUser);
                         if (! empty($fieldUser) && ! empty($email)) {
                             $tikilib->get_user_preferences($fieldUser, ['email', 'user', 'language', 'mailCharset']);
-                            $emails[] = ['email' => $email, 'user' => $fieldUser, 'language' => isset($user_preferences[$fieldUser]['language']) ? $user_preferences[$fieldUser]['language'] : null,
-                                'mailCharset' => $user_preferences[$fieldUser]['mailCharset'] ?? $prefs['users_prefs_mailCharset'], 'template' => $f['options_map']['notify_template'], 'templateFormat' => $f['options_map']['notify_template_format']];
+                            $emails[] = ['email' => $email, 'user' => $fieldUser, 'language' => $user_preferences[$fieldUser]['language'] ?? null,
+                                         'mailCharset' => $user_preferences[$fieldUser]['mailCharset'] ?? $prefs['users_prefs_mailCharset'], 'template' => $f['options_map']['notify_template'], 'templateFormat' => $f['options_map']['notify_template_format']];
                         }
                     }
                 }
@@ -5356,7 +5356,7 @@ class TrackerLib extends TikiLib
         }
         $history['data'] = [];
         foreach ($all as $hist) {
-            $hist['new'] = isset($last[$hist['fieldId']]) ? $last[$hist['fieldId']] : '';
+            $hist['new'] = $last[$hist['fieldId']] ?? '';
             if ($hist['new'] == $hist['value']) {
                 continue;
             }
@@ -5636,7 +5636,7 @@ class TrackerLib extends TikiLib
         $handler = $this->get_field_handler($field, $item);
         $values = $handler->getFieldData();
 
-        return isset($values['value']) ? $values['value'] : null;
+        return $values['value'] ?? null;
     }
 
     private function parse_comment($data)
@@ -5679,7 +5679,7 @@ class TrackerLib extends TikiLib
 
         // not a great test for a new item but we don't get the event type here
         $created = empty($old_values) || $old_values === ['status' => ''];
-        $notifyOn = isset($tracker_info['notifyOn']) ? $tracker_info['notifyOn'] : 'both';
+        $notifyOn = $tracker_info['notifyOn'] ?? 'both';
         if ($created && ($notifyOn != 'both' && $notifyOn != 'creation')) {
             return;
         } elseif (! $created && ($notifyOn != 'both' && $notifyOn != 'update')) {
@@ -5687,7 +5687,7 @@ class TrackerLib extends TikiLib
         }
 
         if (count($watchers) > 0) {
-            $simpleEmail = isset($tracker_info['simpleEmail']) ? $tracker_info['simpleEmail'] : "n";
+            $simpleEmail = $tracker_info['simpleEmail'] ?? "n";
 
             $trackerName = $tracker_info['name'];
             if (! isset($_SERVER["SERVER_NAME"])) {
@@ -5943,8 +5943,8 @@ class TrackerLib extends TikiLib
         foreach ($tracker_definition->getFields() as $field) {
             $fieldId = $field['fieldId'];
 
-            $old_value = isset($old[$fieldId]) ? $old[$fieldId] : '';
-            $new_value = isset($new[$fieldId]) ? $new[$fieldId] : '';
+            $old_value = $old[$fieldId] ?? '';
+            $new_value = $new[$fieldId] ?? '';
 
             if ($old_value == $new_value) {
                 continue;
@@ -6003,7 +6003,7 @@ class TrackerLib extends TikiLib
                 $ownerFields = $definition->getItemOwnerFields();
                 $fieldId = array_shift($ownerFields);
             }
-            $value = isset($values[$fieldId]) ? $values[$fieldId] : '';
+            $value = $values[$fieldId] ?? '';
 
             if ($value) {
                 $trackersync_users = $this->parse_user_field($value);
@@ -6255,8 +6255,8 @@ class TrackerLib extends TikiLib
 
         if (! empty($fields)) {
             foreach ($fields as $fieldId) {
-                $old = isset($args['old_values'][$fieldId]) ? $args['old_values'][$fieldId] : null;
-                $new = isset($args['values'][$fieldId]) ? $args['values'][$fieldId] : null;
+                $old = $args['old_values'][$fieldId] ?? null;
+                $new = $args['values'][$fieldId] ?? null;
 
                 if ($old !== $new) {
                     $this->invalidate_field_cache($fieldId);
@@ -6293,8 +6293,8 @@ class TrackerLib extends TikiLib
         global $user, $group;
         $trackerId = $args['trackerId'];
         $itemId = $args['object'];
-        $new_itemId = isset($args['new_itemId']) ? $args['new_itemId'] : '';
-        $tracker_info = isset($args['tracker_info']) ? $args['tracker_info'] : '';
+        $new_itemId = $args['new_itemId'] ?? '';
+        $tracker_info = $args['tracker_info'] ?? '';
         $definition = Tracker_Definition::get($trackerId);
 
         if ($definition && $definition->isEnabled('autoCreateGroup')) {
@@ -6360,7 +6360,7 @@ class TrackerLib extends TikiLib
 
         foreach ($definition->getFields() as $field) {
             $fieldId = $field['fieldId'];
-            $value = isset($args['values'][$fieldId]) ? $args['values'][$fieldId] : '';
+            $value = $args['values'][$fieldId] ?? '';
             if ($field['type'] == 'k' && $value != '' && ! empty($field['options_array'][2])) {
                 if (! $this->page_exists($value)) {
                     $IP = $this->get_ip_address();
@@ -6447,7 +6447,7 @@ class TrackerLib extends TikiLib
         }
 
         // preset $item = array('itemId' => value). Either from param or empty
-        $item = isset($params['item']) ? $params['item'] : [];
+        $item = $params['item'] ?? [];
 
         // if we have an itemId, pass it to our new item structure
         if (isset($params['itemId'])) {

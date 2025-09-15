@@ -52,7 +52,7 @@ function md5_check_dir($dir, &$result) // save all files in $result
 
 
 $tikimd5 = [];
-$chkdir = isset($_REQUEST['chkdir']) ? $_REQUEST['chkdir'] : '.';
+$chkdir = $_REQUEST['chkdir'] ?? '.';
 echo "creating md5 sums for dir $chkdir <br>";
 flush();
 md5_check_dir($chkdir, $tikimd5);

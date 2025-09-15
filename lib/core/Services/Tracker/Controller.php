@@ -538,9 +538,9 @@ class Services_Tracker_Controller
                 } else {
                     $param['parent'] = null;
                 }
-                $param['parentkey'] = isset($param['parentkey']) ? $param['parentkey'] : null;
-                $param['sort_order'] = isset($param['sort_order']) ? $param['sort_order'] : null;
-                $param['format'] = isset($param['format']) ? $param['format'] : null;
+                $param['parentkey'] = $param['parentkey'] ?? null;
+                $param['sort_order'] = $param['sort_order'] ?? null;
+                $param['format'] = $param['format'] ?? null;
                 if ($param['selector_type'] === 'trackerfield' && isset($field['options_map']['mirrorField'])) {
                     $param['searchfilter'] = ['object_id' => 'NOT ' . $fieldId];
                 }
@@ -1088,7 +1088,7 @@ class Services_Tracker_Controller
 
                 if ($perms->admin_trackers) {   // tracker admins can make items for other users
                     $field = $definition->getField($definition->getUserField());
-                    $theUser = isset($fields[$field['permName']]) ? $fields[$field['permName']] : null; // setup error?
+                    $theUser = $fields[$field['permName']] ?? null; // setup error?
                 } else {
                     $theUser = null;
                 }
@@ -1691,7 +1691,7 @@ class Services_Tracker_Controller
         }
 
         foreach ($fields["data"] as &$field) {
-            $permName = isset($field['permName']) ? $field['permName'] : null;
+            $permName = $field['permName'] ?? null;
             if (isset($fieldsProcessed[$permName])) {
                 if (isset($fieldsProcessed[$permName]['pvalue'])) {
                     $field['pvalue'] = $fieldsProcessed[$permName]['pvalue'];

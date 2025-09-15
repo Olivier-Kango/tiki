@@ -146,7 +146,7 @@ class Tracker_Field_WebService extends \Tracker\Field\AbstractItemField
                                     [$field],
                                     $itemUsers
                                 );
-                                $value = isset($value[0]['value']) ? $value[0]['value'] : '';
+                                $value = $value[0]['value'] ?? '';
                             }
                             $ws_params[$ws_param_name] = preg_replace('/%' . $ws_param_field_name . '%/', $value, $ws_param_value);
                         }

@@ -897,7 +897,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                     $displayFields,
                     $status,
                     ' ',
-                    isset($context['list_mode']) ? $context['list_mode'] : '',
+                    $context['list_mode'] ?? '',
                     $this->getOption('linkToItems'),
                     $this->getOption('displayFieldIdThereFormat'),
                     $trklib->get_tracker_item($itemId)

@@ -46,7 +46,7 @@ $access->check_feature('feature_theme_control');
 $access->check_permission('tiki_p_admin');
 
 $auto_query_args = ['find', 'sort_mode', 'offset', 'theme', 'theme_option', 'type', 'objdata'];
-$smarty->assign('a_object', isset($_REQUEST['objdata']) ? $_REQUEST['objdata'] : '');
+$smarty->assign('a_object', $_REQUEST['objdata'] ?? '');
 
 $themes = $themelib->list_themes_and_options();
 $smarty->assign('themes', $themes);
@@ -131,7 +131,7 @@ if (isset($_REQUEST['assign'])) {
 
     if (isset($name) && $name !== '') {
         $themecontrollib->tc_assign_object($id, $themeKey, $type, $name);
-        $themeName = isset($themes[$themeKey]['name']) ? $themes[$themeKey]['name'] : $themeKey;
+        $themeName = $themes[$themeKey]['name'] ?? $themeKey;
         Feedback::success(tr("Theme '%0' was successfully assigned to the %1 '%2'.", $themeName, $type, $name));
     } else {
         Feedback::error(tr('The object name cannot be empty.'));

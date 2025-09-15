@@ -640,7 +640,7 @@ class PdfGenerator
                             for ($i = 1; $i <= $pagecount; $i++) {
                                 $tplId = $mpdf->importPage($i);
                                 $size = $mpdf->getTemplateSize($tplId);
-                                $orientation = isset($size['orientation']) ? $size['orientation'] : '';
+                                $orientation = $size['orientation'] ?? '';
 
                                 $mpdf->SetHTMLHeader();
                                 $mpdf->AddPage($orientation);
@@ -782,7 +782,7 @@ class PdfGenerator
                                 '',
                                 array_map(
                                     function ($module) {
-                                        return (isset($module['data']) ? $module['data'] : '');
+                                        return ($module['data'] ?? '');
                                     },
                                     $modules[$module_key]
                                 )
@@ -1075,7 +1075,7 @@ class PdfGenerator
             mkdir('temp/pdfimg');
             chmod('temp/pdfimg', 0755);
         }
-        $cookie = isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : '';
+        $cookie = $_SERVER['HTTP_COOKIE'] ?? '';
         $opts = [];
         if (! empty($cookie)) {
             $opts['http'] = ['header' => 'Cookie: ' . $cookie . "\r\n"];
@@ -1608,7 +1608,7 @@ TEXT;
     {
         return preg_replace_callback('/var\(--([a-zA-Z0-9-]+)(?:,\s*(.+?))?\)/', function ($matches) use ($variables) {
             $var_name = $matches[1];
-            $fallback = isset($matches[2]) ? $matches[2] : null;  // Optional fallback value
+            $fallback = $matches[2] ?? null;  // Optional fallback value
 
             // Check if the variable exists
             if (isset($variables[$var_name])) {

@@ -43,8 +43,8 @@ define('FITNESS_STATUS_RISKY', 'risky');
 
 // TODO : Create sane 3rd mode for Monitoring Software like Nagios, Icinga, Shinken
 // * needs authentication, if not standalone
-isset($_REQUEST['nagios']) ? $nagios = true : $nagios = false;
-file_exists('tiki-check.php.lock') ? $locked = true : $locked = false;
+$nagios = isset($_REQUEST['nagios']);
+$locked = file_exists('tiki-check.php.lock');
 $font = 'lib/captcha/DejaVuSansMono.ttf';
 
 $inputConfiguration = array(
@@ -4108,9 +4108,7 @@ if ($trimCapable) {
                 'message' => tra('Command found')
             );
         } else {
-            $message = isset($commandData['message'])
-                ? $commandData['message']
-                : tra('Command not found, check if it is installed and available in one of the paths above.');
+            $message = $commandData['message'] ?? tra('Command not found, check if it is installed and available in one of the paths above.');
             $trimServerRequirements[$key] = array(
                 'fitness' => tra('unsure'),
                 'fitness_status' => FITNESS_STATUS_UNSURE,
@@ -6066,9 +6064,9 @@ $smarty->assign('fitness_counts', $fitness_counts);
 function formatTooltipHtml($type, $breakdown)
 {
     $title = ucfirst($type) . ' Breakdown:';
-    $main = isset($breakdown['main']) ? $breakdown['main'] : 0;
-    $packages = isset($breakdown['packages']) ? $breakdown['packages'] : 0;
-    $ocr = isset($breakdown['ocr']) ? $breakdown['ocr'] : 0;
+    $main = $breakdown['main'] ?? 0;
+    $packages = $breakdown['packages'] ?? 0;
+    $ocr = $breakdown['ocr'] ?? 0;
 
     return "<strong>{$title}</strong><br>" .
            "• Main Checks: {$main}<br>" .

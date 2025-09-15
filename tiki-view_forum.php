@@ -277,21 +277,21 @@ if ($_REQUEST['comments_threadId'] > 0) {
         // Encode back comment_title before display to avoid specials characters
         $_comments_title_encoded = htmlspecialchars($_comments_title_decoded);
     }
-    $smarty->assign('comment_title', isset($_comments_title_encoded) ? $_comments_title_encoded : $comment_info['title']);
-    $smarty->assign('comment_data', isset($_REQUEST['comments_data']) ? $_REQUEST['comments_data'] : $comment_info['data']);
+    $smarty->assign('comment_title', $_comments_title_encoded ?? $comment_info['title']);
+    $smarty->assign('comment_data', $_REQUEST['comments_data'] ?? $comment_info['data']);
     $smarty->assign(
         'comment_topictype',
-        isset($_REQUEST['comment_topictype']) ? $_REQUEST['comment_topictype'] : $comment_info['type']
+        $_REQUEST['comment_topictype'] ?? $comment_info['type']
     );
     $smarty->assign(
         'comment_topicsummary',
-        isset($_REQUEST['comment_topicsummary']) ? $_REQUEST['comment_topicsummary'] : $comment_info['summary']
+        $_REQUEST['comment_topicsummary'] ?? $comment_info['summary']
     );
     $smarty->assign('comment_topicsmiley', $comment_info['smiley']);
 } else {
-    $smarty->assign('comment_title', isset($_comments_title_encoded) ? $_comments_title_encoded : '');
-    $smarty->assign('comment_data', isset($_REQUEST['comments_data']) ? $_REQUEST['comments_data'] : '');
-    $smarty->assign('comment_topictype', isset($_REQUEST['comment_topictype']) ? $_REQUEST['comment_topictype'] : '');
+    $smarty->assign('comment_title', $_comments_title_encoded ?? '');
+    $smarty->assign('comment_data', $_REQUEST['comments_data'] ?? '');
+    $smarty->assign('comment_topictype', $_REQUEST['comment_topictype'] ?? '');
     $smarty->assign('comment_topictype', 'n');
     $smarty->assign('comment_topicsummary', '');
     $smarty->assign('comment_topicsmiley', '');

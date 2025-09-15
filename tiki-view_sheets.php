@@ -70,7 +70,7 @@ if (! $sheetlib->user_can_view($_REQUEST['sheetId'])) {
     Feedback::errorAndDie(tra('Permission denied'), \Laminas\Http\Response::STATUS_CODE_401);
 }
 
-$smarty->assign('page', isset($_REQUEST['page']) ? $_REQUEST['page'] : '');
+$smarty->assign('page', $_REQUEST['page'] ?? '');
 $smarty->assign('objectperms', $objectperms);
 
 if (isset($_REQUEST['height'])) {
@@ -203,7 +203,7 @@ if (isset($_REQUEST['relate']) && isset($_REQUEST['trackerId'])) {
 
     $smarty->assign('parseValues', $grid->parseValues);
 
-    $tableHtml[0] = $grid->getTableHtml(true, isset($_REQUEST['readdate']) ? $_REQUEST['readdate'] : null);
+    $tableHtml[0] = $grid->getTableHtml(true, $_REQUEST['readdate'] ?? null);
 
     if (! empty($relatedTrackersAsHtml)) {
         $tableHtml[0] .= $relatedTrackersAsHtml;

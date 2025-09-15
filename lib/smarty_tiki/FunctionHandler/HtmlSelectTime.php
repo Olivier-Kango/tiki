@@ -65,12 +65,12 @@ class HtmlSelectTime extends Base
 
         if (! isset($time) or ! $time) {
             $time = $tikilib->now;
-        } elseif (is_string($time) && strpos($time, ':') !== false) {
+        } elseif (is_string($time) && str_contains($time, ':')) {
             $e = explode(':', $time, 3);
             $time = $tikilib->make_time(
-                isset($e[0]) ? $e[0] : 0,
-                isset($e[1]) ? $e[1] : 0,
-                isset($e[2]) ? $e[2] : 0,
+                $e[0] ?? 0,
+                $e[1] ?? 0,
+                $e[2] ?? 0,
                 $tikilib->date_format('%m'),
                 $tikilib->date_format('%d'),
                 $tikilib->date_format('%Y')

@@ -352,7 +352,7 @@ class SieveFiltersCommand extends Command
                     'type' => 'message/rfc822',
                     'content' => $msg_content
                 ],
-                'folder' => isset($res['folder']) ? $res['folder'] : 'inbox',
+                'folder' => $res['folder'] ?? 'inbox',
             ];
 
             $trk->replace_item($item['trackerId'], $item['itemId'], [

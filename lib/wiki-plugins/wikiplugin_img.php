@@ -1550,7 +1550,7 @@ function wikiplugin_img($data, $params)
                 . '</a></div>';
         }
         //Add description based on user setting (use $desconly from above) and close divs
-        isset($desconly) ? $repl .= $desconly : '';
+        $repl .= $desconly ?? '';
         $repl .= "\r\t\t</div>";
         $repl .= "\r\t</div>";
     }

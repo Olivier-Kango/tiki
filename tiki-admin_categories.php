@@ -281,7 +281,7 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
         }
     }
 
-    $cRolesInput = isset($_REQUEST["categoryRole"]) ? $_REQUEST["categoryRole"] : [];
+    $cRolesInput = $_REQUEST["categoryRole"] ?? [];
     $rolesToSave = [];
     if (isset($cRolesInput) && ! empty($cRolesInput)) {
         $rolesRepo->deleteSelectedCategoryRoleNotUsed($_REQUEST["categId"]);

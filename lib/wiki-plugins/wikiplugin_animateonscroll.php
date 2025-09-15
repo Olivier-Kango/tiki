@@ -106,15 +106,15 @@ function wikiplugin_animateonscroll($data, $params)
     extract($params, EXTR_SKIP);
 
     // Set defaults if not provided
-    $animation        = isset($animation) ? $animation : 'fade-up';
-    $duration         = isset($duration) ? (int) $duration : 800;
-    $delay            = isset($delay) ? (int) $delay : 0;
-    $easing           = isset($easing) ? $easing : 'easeOutQuad';
-    $once             = isset($once) ? $once : 'y';
-    $threshold        = isset($threshold) ? floatval($threshold) : 0.2;
-    $offset           = isset($offset) ? (int) $offset : 0;
-    $anchorPlacement  = isset($anchorPlacement) ? $anchorPlacement : 'top-bottom';
-    $mirror           = isset($mirror) ? $mirror : 'n';
+    $animation        = $animation ?? 'fade-up';
+    $duration         = $duration ?? 800;
+    $delay            = $delay ?? 0;
+    $easing           = $easing ?? 'easeOutQuad';
+    $once             = $once ?? 'y';
+    $threshold        = $threshold ?? 0.2;
+    $offset           = $offset ?? 0;
+    $anchorPlacement  = $anchorPlacement ?? 'top-bottom';
+    $mirror           = $mirror ?? 'n';
 
 
     // Preset animations
@@ -233,7 +233,7 @@ function wikiplugin_animateonscroll($data, $params)
     ];
 
 
-    $animationPreset = isset($presets[$animation]) ? $presets[$animation] : $presets['fade-up'];
+    $animationPreset = $presets[$animation] ?? $presets['fade-up'];
     $animeProps = array_merge($animationPreset, [
         'duration' => $duration,
         'delay' => $delay,

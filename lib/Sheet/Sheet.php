@@ -496,8 +496,8 @@ class Sheet
         }
         $this->type = (isset($handler->type) ? $handler->type : $this->type);
         $this->cssName = $handler->cssName;
-        $this->rowCount = (isset($handler->rowCount) ? $handler->rowCount : $this->rowCount);
-        $this->columnCount = (isset($handler->columnCount) ? $handler->columnCount : $this->columnCount);
+        $this->rowCount = ($handler->rowCount ?? $this->rowCount);
+        $this->columnCount = ($handler->columnCount ?? $this->columnCount);
 
         $this->dataGrid = [];
         $this->calcGrid = [];

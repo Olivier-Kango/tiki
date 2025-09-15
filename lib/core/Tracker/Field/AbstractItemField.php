@@ -183,7 +183,7 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
             // add the html / js for the mouseover popup
             if (isset($context['showpopup']) && $context['showpopup'] == 'y') {
                 // check if trackerplugin has set popup fields using the popup parameter
-                $pluginPopupFields = isset($context['popupfields']) ? $context['popupfields'] : null;
+                $pluginPopupFields = $context['popupfields'] ?? null;
                 $popup = $this->renderPopup($pluginPopupFields);
 
                 if ($popup) {
@@ -593,7 +593,7 @@ abstract class AbstractItemField implements ItemFieldInterface, IndexableInterfa
      */
     protected function getData($key, $default = false)
     {
-        return isset($this->itemData[$key]) ? $this->itemData[$key] : $default;
+        return $this->itemData[$key] ?? $default;
     }
 
     /**

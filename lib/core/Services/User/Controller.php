@@ -602,7 +602,7 @@ class Services_User_Controller
                     Services_Utilities::modalException($userlib->getAutologinAdminActionError());
                 }
                 $pass = $input->offsetGet('confirmpassword');
-                $user = isset($_SESSION['u_info']['login']) ? $_SESSION['u_info']['login'] : '';
+                $user = $_SESSION['u_info']['login'] ?? '';
                 $ret = $userlib->validate_user($user, $pass);
                 if (! $ret[0]) {
                     Services_Utilities::modalException(tra('Invalid password'));

@@ -496,7 +496,7 @@ function wikiplugin_listpages($data, $params)
     // The following two are for tiki-listpages_content.tpl (pagination)
     $smarty->assign("pluginlistpages", 'y');
     $smarty->assign("pagination", $pagination);
-    $smarty->assign("noheader", isset($noheader) ? $noheader : 0);
+    $smarty->assign("noheader", $noheader ?? 0);
     if ($pagination == 'y') {
         // Show only x=$MaxRecords number of page entries on this page.
         for ($x = $offset_pagination; $x < ($offset_pagination + $GLOBALS['maxRecords']) && $x < count($listpages['data']); $x++) {

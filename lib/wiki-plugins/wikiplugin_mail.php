@@ -235,9 +235,9 @@ function wikiplugin_mail($data, $params)
         Feedback::error(tr('Mail send was unsuccessful.'));
     }
     if ($preview || $mail_error) {
-        $smarty->assign('mail_user', isset($_REQUEST['mail_user']) ? $_REQUEST['mail_user'] : '');
-        $smarty->assign('mail_user_dd', isset($_REQUEST['mail_user_dd']) ? $_REQUEST['mail_user_dd'] : []);
-        $smarty->assign('mail_group_dd', isset($_REQUEST['mail_group_dd']) ? $_REQUEST['mail_group_dd'] : []);
+        $smarty->assign('mail_user', $_REQUEST['mail_user'] ?? '');
+        $smarty->assign('mail_user_dd', $_REQUEST['mail_user_dd'] ?? []);
+        $smarty->assign('mail_group_dd', $_REQUEST['mail_group_dd'] ?? []);
         $smarty->assign('mail_subject', $_REQUEST['mail_subject']);
         $smarty->assign('mail_mess', $_REQUEST['mail_mess']);
     }

@@ -359,7 +359,7 @@ if (isset($_REQUEST['preview'])) {
     $smarty->assign_by_ref('assign_order', $_REQUEST['assign_order']);
     $smarty->assign_by_ref('assign_cache', $_REQUEST['assign_cache']);
     $grps = '';
-    $module_groups = ! isset($_REQUEST['groups']) ? [] : $_REQUEST['groups'];
+    $module_groups = $_REQUEST['groups'] ?? [];
     foreach ($module_groups as $amodule) {
         $grps = $grps . ' $amodule ';
     }
@@ -389,14 +389,14 @@ if (isset($_REQUEST['assign']) && $access->checkCsrf()) {
     }
     $smarty->assign_by_ref('assign_type', $_REQUEST['assign_type']);
     $grps = '';
-    $module_groups = ! isset($_REQUEST['groups']) ? [] : $_REQUEST['groups'];
+    $module_groups = $_REQUEST['groups'] ?? [];
     foreach ($module_groups as $amodule) {
         $grps = $grps . " $amodule ";
     }
     $smarty->assign('module_groups', $grps);
     if (empty($missing_params)) {
         $result = $modlib->assign_module(
-            isset($_REQUEST['moduleId']) ? $_REQUEST['moduleId'] : 0,
+            $_REQUEST['moduleId'] ?? 0,
             $assign_name,
             '',
             $_REQUEST['assign_position'],

@@ -129,7 +129,7 @@ class Tracker_Field_Location extends \Tracker\Field\AbstractItemField implements
                 'value' => $value,
                 'x' => $parts[0],
                 'y' => $parts[1],
-                'z' => isset($parts[2]) ? $parts[2] : 0,
+                'z' => $parts[2] ?? 0,
             ];
         } else {
             return [

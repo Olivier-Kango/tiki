@@ -143,7 +143,7 @@ class WikiParser_Parsable extends ParserLib
             $pluginskiplist = [];
         }
 
-        $is_html = (isset($this->option['is_html']) ? $this->option['is_html'] : false);
+        $is_html = ($this->option['is_html'] ?? false);
         $data = $this->protectSpecialChars($data, $is_html);
 
         $matches = WikiParser_PluginMatcher::match($data);
@@ -155,7 +155,7 @@ class WikiParser_Parsable extends ParserLib
             }
 
             //note parent plugin in case of plugins nested in an include - to suppress plugin edit icons below
-            $plugin_parent = isset($plugin_name) ? $plugin_name : false;
+            $plugin_parent = $plugin_name ?? false;
             $plugin_name = $match->getName();
 
             if (! empty($this->option['indexing'])) {
@@ -164,7 +164,7 @@ class WikiParser_Parsable extends ParserLib
                     // {literal} smarty blocks or {display} and other LIST-plugin syntax gets removed if we don't make it searchable by default
                     $isSearchableByDefault = true;
                 } else {
-                    $isSearchableByDefault = isset($info['searchable_by_default']) ? $info['searchable_by_default'] : false;
+                    $isSearchableByDefault = $info['searchable_by_default'] ?? false;
                 }
                 //We are in an indexing context, check if plugins should be indexed, and strip them out if not
 

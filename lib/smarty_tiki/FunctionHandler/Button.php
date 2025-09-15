@@ -197,7 +197,7 @@ class Button extends Base
                 $params['_text'] = '';
             }
 
-            $originalType = isset($params['_type']) ? $params['_type'] : null;
+            $originalType = $params['_type'] ?? null;
 
             $html = $smartyBlockSelfLinkHandler->handle(
                 $params,
@@ -237,7 +237,7 @@ class Button extends Base
             );
         }
 
-        $type = isset($params['_type']) ? $params['_type'] : 'primary';
+        $type = $params['_type'] ?? 'primary';
 
         $html = preg_replace('/<a /', '<a class="btn btn-' . $type . ' ' . $class . '" target="' . $target . '" role="button" data-role="button" data-inline="true" ' . $id . ' ', $html);
 

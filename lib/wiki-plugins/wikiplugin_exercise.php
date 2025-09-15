@@ -96,7 +96,7 @@ function wikiplugin_exercise_parse_argument($data)
     $answers = explode('+', $data);
     foreach ($answers as $possibility) {
         if (preg_match('/^\s*([^\(]+)(:\s*\(\s*(.*)\s*\))?\s*/', $possibility, $parts)) {
-            $out[] = ['option' => $parts[1], 'justification' => isset($parts[2]) ? $parts[2] : false];
+            $out[] = ['option' => $parts[1], 'justification' => $parts[2] ?? false];
         }
     }
 

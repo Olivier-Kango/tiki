@@ -434,7 +434,7 @@ function wikiplugin_memberlist_add($groups, $adds, $asdefault = false, $mail = f
                             if ($mail == 'true') {
                                 $added_user[$name] = $_SESSION['u_info']['login'];
                                 $par_data['gname'] = $group;
-                                $par_data['app_data'] = isset($_POST['text_area']) ? $_POST['text_area'] : '';
+                                $par_data['app_data'] = $_POST['text_area'] ?? '';
                             }
                         }
                     }
@@ -456,7 +456,7 @@ function wikiplugin_memberlist_remove($groups, $removes, $mail = false, $params 
                     if ($mail == 'true') {
                         $removed_user[$name] = $_SESSION['u_info']['login'];
                         $par_data['gname'] = $group;
-                        $par_data['app_data'] = isset($_POST['text_area']) ? $_POST['text_area'] : '';
+                        $par_data['app_data'] = $_POST['text_area'] ?? '';
                     }
                 }
             }

@@ -44,12 +44,12 @@ class PaymentLib extends TikiDb_Bridge
 
     private function setTable($field)
     {
-        return isset($this->fieldmap[$field]['table']) ? $this->fieldmap[$field]['table'] : '';
+        return $this->fieldmap[$field]['table'] ?? '';
     }
 
     private function setField($field)
     {
-        return isset($this->fieldmap[$field]['field']) ? $this->fieldmap[$field]['field'] : $field;
+        return $this->fieldmap[$field]['field'] ?? $field;
     }
 
     private function fieldTableArray()

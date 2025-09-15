@@ -160,7 +160,7 @@ if (empty($info["user"])) {
 }
 $smarty->assign_by_ref('lastVersion', $info["version"]);
 $smarty->assign_by_ref('lastUser', $info["user"]);
-$crumbs[] = new Breadcrumb(isset($crumbpage) ? $crumbpage : $page, $info["description"], 'tiki-index.php?page=' . urlencode($page), '', '');
+$crumbs[] = new Breadcrumb($crumbpage ?? $page, $info["description"], 'tiki-index.php?page=' . urlencode($page), '', '');
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
@@ -171,7 +171,7 @@ $smarty->assign('print_page', 'y');
 $smarty->assign('urlprefix', $base_url); // Obsolete, use base_url instead. This is for compatibility purposes only.
 $smarty->assign('global_extend_layout', 'layouts/internal/layout_empty.tpl');
 $smarty->assign('mid', 'extends:layouts/internal/layout_view.tpl|tiki-show_page.tpl');
-$smarty->assign('display', isset($_REQUEST['display']) ? $_REQUEST['display'] : '');
+$smarty->assign('display', $_REQUEST['display'] ?? '');
 $smarty->assign('phpErrors', []);
 
 // Allow PDF export by installing a Mod that define an appropriate function

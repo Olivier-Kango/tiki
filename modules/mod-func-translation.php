@@ -79,7 +79,7 @@ function module_translation($mod_reference, $module_params)
             $smarty->assign('show_language', 'y');
         }
 
-        $pivotLanguage = isset($module_params['pivot_language']) ? $module_params['pivot_language'] : '';
+        $pivotLanguage = $module_params['pivot_language'] ?? '';
         $langs = $multilinguallib->preferredLangs();
         if (isset($GLOBALS['pageLang'])) {
             $pageLang = $GLOBALS['pageLang'];
