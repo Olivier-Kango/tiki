@@ -504,6 +504,15 @@
                 {service_inline controller=webhook action=list}
             </div>
         {/tab}
+        {tab name='{tr}Attack Protection{/tr}' key='attack_protection'}
+            <fieldset>
+                <legend class="h3">{tr}Brute Force Protection{/tr}</legend>
+                {preference name=bruteforce_protection}
+                {preference name=bruteforce_initial_delay}
+                {preference name=bruteforce_growth_rate}
+                {preference name=bruteforce_forget_time}
+            </fieldset>
+        {/tab}
     {/tabset}
     {include file='admin/include_apply_bottom.tpl'}
 </form>

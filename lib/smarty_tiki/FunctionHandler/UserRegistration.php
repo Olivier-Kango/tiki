@@ -11,6 +11,7 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
 use Feedback;
+use Tiki\BruteForce\BruteForce;
 use Tiki\Lib\Registration\Error as RegistrationError;
 
 class UserRegistration extends Base
@@ -23,6 +24,7 @@ class UserRegistration extends Base
         $smarty = TikiLib::lib('smarty');
         $captchalib = TikiLib::lib('captcha');
         $access = TikiLib::lib('access');
+        $tikilib = TikiLib::lib('tiki');
 
         // Only generate captcha if this is not a form submission
         if (! isset($_REQUEST['register'])) {
@@ -88,6 +90,21 @@ class UserRegistration extends Base
                 global $base_host;
                 if (! isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $base_host) === false) {
                     Feedback::error(tra('Request not from this host.'));
+                    return '';
+                }
+            }
+
+            if (($prefs['bruteforce_protection'] ?? 'n') === 'y') {
+                $bruteForce = new BruteForce();
+                if (! $bruteForce->isOperationAllowed('register', ['ip' => $tikilib->get_ip_address()])) {
+                    $nextAllowedTime = $bruteForce->getNextAllowedTime('register', ['ip' => $tikilib->get_ip_address()]);
+                    $waitTime = $nextAllowedTime - time();
+                    if ($waitTime > 60) {
+                        $waitMessage = sprintf(tra('Too many registration attempts. Please try again in %d minutes and %d seconds.'), floor($waitTime / 60), $waitTime % 60);
+                    } else {
+                        $waitMessage = sprintf(tra('Too many registration attempts. Please try again in %d seconds.'), $waitTime);
+                    }
+                    Feedback::error($waitMessage);
                     return '';
                 }
             }
