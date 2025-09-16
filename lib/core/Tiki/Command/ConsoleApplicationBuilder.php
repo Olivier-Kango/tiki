@@ -209,6 +209,7 @@ class ConsoleApplicationBuilder
                 new SieveFiltersCommand(),
                 new CalendarSyncCommand(),
                 new SchedulerRunCommand(),
+                new SchedulerMonitorCommand(),
                 new WebmailUnreadPagesCommand(),
                 new WebmailUnreadGlobalCommand(),
                 new Disable2FACommand(),
