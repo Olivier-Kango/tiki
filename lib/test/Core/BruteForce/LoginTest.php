@@ -4,13 +4,13 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-namespace Tiki\Test\BruteForce;
+namespace Tiki\Lib\Test\Core\BruteForce;
 
 use PHPUnit\Framework\TestCase;
 use Tiki\BruteForce\BruteForce;
 use TikiDb;
 
-class ChangePasswordTest extends TestCase
+class LoginTest extends TestCase
 {
     private $bruteForce;
     private $bruteForceTable;
@@ -29,7 +29,7 @@ class ChangePasswordTest extends TestCase
             $propertyHash = hash('sha256', $propertyJson);
 
             $keys = [
-                'operation' => 'change_password',
+                'operation' => 'login',
                 'properties_hash' => $propertyHash,
             ];
 
@@ -37,70 +37,70 @@ class ChangePasswordTest extends TestCase
         }
     }
 
-    public function testChangePasswordAttemptInsert(): void
+    public function testLoginAttemptInsert(): void
     {
         $properties = ['user' => 'testuser', 'ip' => '1.2.3.4'];
-        $this->bruteForce->attempt('change_password', $properties);
+        $this->bruteForce->attempt('login', $properties);
 
         $record = $this->bruteForceTable->fetchRow(
             ['attempt_count'],
-            ['operation' => 'change_password', 'properties' => json_encode(['user' => 'testuser'])]
+            ['operation' => 'login', 'properties' => json_encode(['user' => 'testuser'])]
         );
 
         $this->assertNotFalse($record);
         $this->assertEquals(1, $record['attempt_count']);
     }
 
-    public function testChangePasswordAttemptUpdate(): void
+    public function testLoginAttemptUpdate(): void
     {
         $properties = ['user' => 'testuser', 'ip' => '1.2.3.4'];
-        $this->bruteForce->attempt('change_password', $properties);
-        $this->bruteForce->attempt('change_password', $properties);
+        $this->bruteForce->attempt('login', $properties);
+        $this->bruteForce->attempt('login', $properties);
 
         $record = $this->bruteForceTable->fetchRow(
             ['attempt_count'],
-            ['operation' => 'change_password', 'properties' => json_encode(['user' => 'testuser'])]
+            ['operation' => 'login', 'properties' => json_encode(['user' => 'testuser'])]
         );
 
         $this->assertNotFalse($record);
         $this->assertEquals(2, $record['attempt_count']);
     }
 
-    public function testIsChangePasswordAllowed(): void
+    public function testIsLoginAllowed(): void
     {
         $properties = ['user' => 'testuser'];
 
-        $this->bruteForce->attempt('change_password', $properties);
+        $this->bruteForce->attempt('login', $properties);
 
         $record = $this->bruteForceTable->fetchRow(
             ['id', 'attempt_count', 'attempt_time'],
-            ['operation' => 'change_password', 'properties' => json_encode(['user' => 'testuser'])]
+            ['operation' => 'login', 'properties' => json_encode(['user' => 'testuser'])]
         );
 
         $this->assertNotFalse($record);
 
         $this->bruteForceTable->update(['attempt_time' => time() - 10], ['id' => $record['id']]);
 
-        $this->assertTrue($this->bruteForce->isOperationAllowed('change_password', $properties));
+        $this->assertTrue($this->bruteForce->isOperationAllowed('login', $properties));
     }
 
-    public function testIsChangePasswordNotAllowed(): void
+    public function testIsLoginNotAllowed(): void
     {
         $properties = ['ip' => '1.2.3.4'];
 
-        $this->bruteForce->attempt('change_password', $properties);
+        $this->bruteForce->attempt('login', $properties);
 
         $record = $this->bruteForceTable->fetchRow(
             ['id', 'attempt_count', 'attempt_time'],
-            ['operation' => 'change_password', 'properties' => json_encode(['ip' => '1.2.3.4'])]
+            ['operation' => 'login', 'properties' => json_encode(['ip' => '1.2.3.4'])]
         );
 
         $this->bruteForceTable->update(['attempt_time' => time()], ['id' => $record['id']]);
 
-        $this->assertFalse($this->bruteForce->isOperationAllowed('change_password', $properties));
+        $this->assertFalse($this->bruteForce->isOperationAllowed('login', $properties));
     }
 
-    public function testChangePasswordOperationNotAllowedDueToForgetTime(): void
+    public function testLoginOperationNotAllowedDueToForgetTime(): void
     {
         global $prefs;
 
@@ -108,28 +108,28 @@ class ChangePasswordTest extends TestCase
 
         $forgetTime = time() - (intval($prefs['bruteforce_forget_time']) * 60);
 
-        $this->bruteForce->attempt('change_password', $properties);
+        $this->bruteForce->attempt('login', $properties);
 
         $record = $this->bruteForceTable->fetchRow(
             ['id', 'attempt_count', 'attempt_time'],
-            ['operation' => 'change_password', 'properties' => json_encode(['user' => 'testuser'])]
+            ['operation' => 'login', 'properties' => json_encode(['user' => 'testuser'])]
         );
 
         $this->bruteForceTable->update(['attempt_time' => $forgetTime - 10], ['id' => $record['id']]);
 
-        $this->assertTrue($this->bruteForce->isOperationAllowed('change_password', $properties));
+        $this->assertTrue($this->bruteForce->isOperationAllowed('login', $properties));
     }
 
-    public function testChangePasswordSuccess(): void
+    public function testLoginSuccess(): void
     {
         $properties = ['user' => 'testuser', 'ip' => '1.2.3.4'];
-        $this->bruteForce->attempt('change_password', $properties);
+        $this->bruteForce->attempt('login', $properties);
 
-        $this->bruteForce->success('change_password', $properties);
+        $this->bruteForce->success('login', $properties);
 
         $record = $this->bruteForceTable->fetchRow(
             ['attempt_count'],
-            ['operation' => 'change_password', 'properties' => json_encode(['user' => 'testuser'])]
+            ['operation' => 'login', 'properties' => json_encode(['user' => 'testuser'])]
         );
 
         $this->assertFalse($record);
