@@ -4998,7 +4998,7 @@ class UsersLib extends TikiLib
                 'level' => 'registered',
                 'type' => 'media',
                 'admin' => false,
-                'prefs' => ['feature_kaltura'],
+                'prefs' => ['feature_kaltura', 'feature_peertube'],
                 'scope' => 'global',
             ],
             [
@@ -5007,7 +5007,7 @@ class UsersLib extends TikiLib
                 'level' => 'editors',
                 'type' => 'media',
                 'admin' => false,
-                'prefs' => ['feature_kaltura'],
+                'prefs' => ['feature_kaltura', 'feature_peertube'],
                 'scope' => 'global',
             ],
             [
@@ -5016,7 +5016,7 @@ class UsersLib extends TikiLib
                 'level' => 'editors',
                 'type' => 'media',
                 'admin' => false,
-                'prefs' => ['feature_kaltura'],
+                'prefs' => ['feature_kaltura', 'feature_peertube'],
                 'scope' => 'global',
             ],
             [
@@ -5025,7 +5025,7 @@ class UsersLib extends TikiLib
                 'level' => 'basic',
                 'type' => 'media',
                 'admin' => false,
-                'prefs' => ['feature_kaltura'],
+                'prefs' => ['feature_kaltura', 'feature_peertube'],
                 'scope' => 'global',
             ],
             [
@@ -5034,7 +5034,7 @@ class UsersLib extends TikiLib
                 'level' => 'basic',
                 'type' => 'media',
                 'admin' => false,
-                'prefs' => ['feature_kaltura'],
+                'prefs' => ['feature_kaltura', 'feature_peertube'],
                 'scope' => 'global',
             ],
             [
@@ -5043,7 +5043,7 @@ class UsersLib extends TikiLib
                 'level' => 'basic',
                 'type' => 'media',
                 'admin' => false,
-                'prefs' => ['feature_kaltura'],
+                'prefs' => ['feature_kaltura', 'feature_peertube'],
                 'scope' => 'global',
             ],
             [
