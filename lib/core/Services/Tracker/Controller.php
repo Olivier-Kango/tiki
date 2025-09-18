@@ -2651,7 +2651,7 @@ class Services_Tracker_Controller
         $export_yaml = $profileTrackerInstallHandler->dumpExport($trackerId, $profileObject);
 
         include_once 'lib/wiki-plugins/wikiplugin_code.php';
-        $export_yaml = wikiplugin_code($export_yaml, ['caption' => 'YAML', 'colors' => 'yaml']);
+        $export_yaml = TikiLib::lib('parser')->invokePlugin('code', $export_yaml, ['caption' => 'YAML', 'colors' => 'yaml']);
         $export_yaml = preg_replace('/~[\/]?np~/', '', $export_yaml);
 
         return [

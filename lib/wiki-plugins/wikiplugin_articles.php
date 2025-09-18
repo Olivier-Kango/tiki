@@ -334,9 +334,18 @@ function wikiplugin_articles($data, $params)
     $smarty = TikiLib::lib('smarty');
     $tikilib = TikiLib::lib('tiki');
     $artlib = TikiLib::lib('art');
-    $default = ['max' => $prefs['maxRecords'], 'start' => 0, 'usePagination' => 'n', 'topicId' => '', 'topic' => '', 'sort' => 'publishDate_desc', 'type' => '', 'lang' => '', 'quiet' => 'n', 'categId' => '', 'largefirstimage' => 'n', 'urlparam' => '', 'actions' => 'n', 'translationOrphan' => '', 'headerLinks' => 'n', 'showtable' => 'n', 'useLinktoURL' => 'n'];
+
+    if (! isset($params['topic'])) {
+        $params['topic'] = '';
+    }
+    if (! isset($params['headerLinks'])) {
+        $params['headerLinks'] = 'n';
+    }
+    if (! isset($params['showtable'])) {
+        $params['showtable'] = 'n';
+    }
+
     $auto_args = ['lang', 'topicId', 'topic', 'sort', 'type', 'lang', 'categId'];
-    $params = array_merge($default, $params);
 
     extract($params, EXTR_SKIP);
     $filter = [];
@@ -368,9 +377,6 @@ function wikiplugin_articles($data, $params)
     $smarty->assign_by_ref('urlnext', $urlnext);
     $smarty->assign_by_ref('useLinktoURL', $useLinktoURL);
 
-    if (! isset($containerClass)) {
-        $containerClass = 'wikiplugin_articles';
-    }
     $smarty->assign('container_class', $containerClass);
 
     $dateStartTS = 0;
@@ -416,9 +422,6 @@ function wikiplugin_articles($data, $params)
         $fullbody = 'n';
     }
     $smarty->assign('largefirstimage', $largefirstimage);
-    if (! isset($overrideDates)) {
-        $overrideDates = 'n';
-    }
 
     if (! empty($translationOrphan)) {
         $filter['translationOrphan'] = $translationOrphan;

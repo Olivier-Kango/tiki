@@ -318,21 +318,8 @@ function wikiplugin_listpages($data, $params)
         return '';
     }
     $default = [
-        'offset' => 0,
-        'max' => -1,
-        'sort' => 'pageName_asc',
-        'find' => '',
-        'start' => '',
-        'end' => '',
         'length' => -1,
-        'translations' => null,
-        'translationOrphan' => null,
-        'showCheckbox' => 'y',
-        'showNumberOfPages' => 'n',
-        'for_list_pages' => 'y',
         'pagination' => 'n',
-        'exclude_pages' => '',
-        'noheader' => 0,
     ];
     $params = array_merge($default, $params);
     extract($params, EXTR_SKIP);

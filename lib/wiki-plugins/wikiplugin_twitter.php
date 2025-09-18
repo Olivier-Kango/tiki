@@ -159,8 +159,6 @@ function wikiplugin_twitter($data, $params)
     $width_ = 'auto';
     $theme_ = 'light';
 
-    $default = ['shellbg' => '', 'shellcolor' => '', 'tweetbg' => '', 'tweetcolor' => '', 'width' => 'auto', 'height' => 300];
-    $params = array_merge($default, $params);
     extract($params, EXTR_SKIP);
 
     // Variables sanitizing

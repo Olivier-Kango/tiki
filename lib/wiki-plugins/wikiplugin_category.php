@@ -238,8 +238,6 @@ function wikiplugin_category($data, $params)
 
     $categlib = TikiLib::lib('categ');
 
-    $default = ['maxRecords' => 50];
-    $params = array_merge($default, $params);
     extract($params, EXTR_SKIP);
 
     // TODO: use categ name instead of id (alternative)

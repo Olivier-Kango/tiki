@@ -613,14 +613,6 @@ function wikiplugin_img($data, $params)
     $imgdata['checkItemPerms']  = 'y';  // ditto
     $imgdata['noDrawIcon']  = 'y';
 
-    $pluginInfo = wikiplugin_img_info();
-    $skipDefaultAssignmentKeys = ['id', 'quality', 'lazyLoad', 'absoluteLinks'];
-    foreach ($pluginInfo['params'] as $key => $param) {
-        if (isset($param['default']) && ! isset($imgdata["$key"])  && ! in_array($key, $skipDefaultAssignmentKeys)) {
-            $imgdata["$key"] = $param['default'];
-        }
-    }
-
     $params = array_map(function ($param) {
         return str_replace('"', '&quot;', $param);
     }, $params);
@@ -751,7 +743,7 @@ function wikiplugin_img($data, $params)
             $params[$id] = trim($value);
             $params['fgalId'] = '';
             $params['type'] = $id;
-            $pluginResult = wikiplugin_img($data, $params);
+            $pluginResult = TikiLib::lib('parser')->invokePlugin('img', $data, $params);
             $repl .= WikiPlugin_Helper::resultString($pluginResult);
         }
         if (str_contains($repl, $notice)) {

@@ -163,7 +163,8 @@ class UserRegistration extends Base
                 }
                 if ($registrationlib->merged_prefs["user_register_prettytracker"] == 'y' && ! empty($registrationlib->merged_prefs["user_register_prettytracker_tpl"])) {
                     if (str_ends_with($registrationlib->merged_prefs["user_register_prettytracker_tpl"], ".tpl")) {
-                        $userTrackerData = wikiplugin_tracker(
+                        $userTrackerData = TikiLib::lib('parser')->invokePlugin(
+                            'tracker',
                             '',
                             [
                                 'trackerId' => $re['usersTrackerId'],
@@ -182,7 +183,8 @@ class UserRegistration extends Base
                             ]
                         );
                     } else {
-                        $userTrackerData = wikiplugin_tracker(
+                        $userTrackerData = TikiLib::lib('parser')->invokePlugin(
+                            'tracker',
                             '',
                             [
                                 'trackerId' => $re['usersTrackerId'],
@@ -202,7 +204,8 @@ class UserRegistration extends Base
                         );
                     }
                 } else {
-                    $userTrackerData = wikiplugin_tracker(
+                    $userTrackerData = TikiLib::lib('parser')->invokePlugin(
+                        'tracker',
                         '',
                         [
                             'trackerId' => $re['usersTrackerId'],

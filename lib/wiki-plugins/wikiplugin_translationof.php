@@ -78,7 +78,7 @@ function wikiplugin_translationof($data, $params)
     }
 
     $translation_name_arg = '';
-    if (isset($translation_page)) {
+    if (isset($translation_page) && $translation_page !== '') {
         $translation_page = urlencode($translation_page);
         $translation_name_arg = "&translation_name=$translation_page";
     }

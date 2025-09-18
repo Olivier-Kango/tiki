@@ -724,12 +724,6 @@ function wikiplugin_tracker($data, $params)
         return;
     }
     $smarty->assign('trackerEditFormId', $iTRACKER);
-    $default = ['overwrite'            => 'n', 'embedded' => 'n', 'showtitle' => 'n', 'showdesc' => 'n',
-                'showfieldsdesc'       => 'y', 'sort' => 'n', 'showmandatory' => 'y', 'status' => '',
-                'transactionFinalStep' => '', 'registration' => BooleanEnglishLetter::No->value, 'chosenGroup' => 'Registered',
-                'validateusers'        => '', 'emailformat' => 'text', 'ajax' => 'n',
-                'rules' => 'n', 'rulesparent' => '.tracker-field-group:first'];
-    $params = array_merge($default, $params);
     $item = [];
 
     extract($params, EXTR_SKIP);

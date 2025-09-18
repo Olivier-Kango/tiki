@@ -207,7 +207,7 @@ function wikiplugin_vote($data, $params)
         } else {
             $smarty->assign('p_create_tracker_items', 'y');// to have different vote in the same page
             include_once('lib/wiki-plugins/wikiplugin_tracker.php');
-            $vote = wikiplugin_tracker($data, $params);
+            $vote = TikiLib::lib('parser')->invokePlugin('tracker', $data, $params);
             $smarty->assign_by_ref('vote', $vote);
         }
     } else {
@@ -231,7 +231,7 @@ function wikiplugin_vote($data, $params)
         }
         if ($show_stat == 'y') {
             include_once('lib/wiki-plugins/wikiplugin_trackerstat.php');
-            $stat = wikiplugin_trackerstat($data, $params);
+            $stat = TikiLib::lib('parser')->invokePlugin('trackerstat', $data, $params);
             $smarty->assign_by_ref('stat', $stat);
         } else {
             $smarty->assign('stat', '');

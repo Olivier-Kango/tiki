@@ -114,6 +114,45 @@ class ParserLib extends TikiDb_Bridge
     {
         $this->setOptions();
     }
+
+    /**
+     * Apply default values for plugin parameters that are not set
+     *
+     * @param array $params Reference to the parameters array to update
+     * @param array $info Plugin info array (must contain 'params')
+     */
+    private function applyPluginDefaults(&$params, $info)
+    {
+        if (isset($info['params'])) {
+            foreach ($info['params'] as $key => $param) {
+                if ((! isset($params[$key])) && isset($param['default'])) {
+                    $params[$key] = $param['default'];
+                }
+            }
+        }
+    }
+
+    /**
+     * Standard method to call a wiki plugin with automatic defaults for unset parameters
+     *
+     * @param string $name Plugin name (without 'wikiplugin_' prefix)
+     * @param string $data Plugin body content
+     * @param array $params Plugin parameters
+     * @return mixed Plugin output
+     */
+    public function invokePlugin($name, $data, $params = [])
+    {
+        // Get plugin info and apply defaults
+        $info = $this->plugin_info($name);
+        $this->applyPluginDefaults($params, $info);
+        // Call the plugin function
+        $func = "wikiplugin_{$name}";
+        if (function_exists($func)) {
+            return $func($data, $params);
+        }
+        throw new \Exception("Plugin function {$func} not found");
+    }
+
     //*
     public function parse_data_raw($data)
     {
@@ -1093,6 +1132,9 @@ class ParserLib extends TikiDb_Bridge
             unset($instance);
             $data = str_replace($noparsed['key'], $noparsed['data'], $data);
         }
+
+        // Apply default values for parameters that are not set
+        $this->applyPluginDefaults($args, $info);
 
         // Make sure all arguments are declared
         if (isset($info['params'])) {
@@ -2259,7 +2301,7 @@ class ParserLib extends TikiDb_Bridge
                             } else {
                                 $value = '';
                                 include_once('lib/wiki-plugins/wikiplugin_showpref.php');
-                                if ($prefs['wikiplugin_showpref'] == 'y' && $showpref = wikiplugin_showpref('', ['pref' => $name])) {
+                                if ($prefs['wikiplugin_showpref'] == 'y' && $showpref = $this->invokePlugin('showpref', '', ['pref' => $name])) {
                                     $value = $showpref;
                                 }
                             }
