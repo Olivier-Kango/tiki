@@ -168,6 +168,10 @@
                     {preference name=headlessbrowser_chrome_path}
                 </div>
             </fieldset>
+            <fieldset id="QueuedTasks">
+                <legend>{tr}Queued Tasks{/tr}</legend>
+                {preference name=feature_queued_tasks}
+            </fieldset>
             <fieldset>
                 <legend>{tr}Maintenance{/tr}</legend>
                 {preference name=maintenanceMessageReindex}

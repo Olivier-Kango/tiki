@@ -2877,6 +2877,15 @@ function prefs_feature_list($partial = false)
             'default' => 'y',
             'tags' => ['advanced'],
         ],
+        'feature_queued_tasks' => [
+            'name' => tra('Queued Tasks'),
+            'description' => tra('Enables the execution of tasks in the background.'),
+            'help' => 'Queued Tasks',
+            'type' => 'flag',
+            'view' => 'tiki-admin_queued_tasks.php',
+            'default' => 'n',
+            'tags' => ['advanced'],
+        ],
         'feature_absolute_to_relative_links' => [
             'name' => tra('Convert from absolute to relative link'),
             'description' => tra('Process wiki text and convert internal links from absolute to relative links'),

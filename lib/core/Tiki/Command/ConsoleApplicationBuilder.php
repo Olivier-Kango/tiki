@@ -212,6 +212,7 @@ class ConsoleApplicationBuilder
                 new SchedulerMonitorCommand(),
                 new WebmailUnreadPagesCommand(),
                 new WebmailUnreadGlobalCommand(),
+                new TaskQueueProcessCommand(),
                 new Disable2FACommand(),
                 new ForumProcessInboundMail(),
                 new SecurityFileGenerateCommand(),
