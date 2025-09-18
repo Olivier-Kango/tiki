@@ -255,7 +255,7 @@ $.fn.setupEventCalendar = function (eventCalendarParams) {
 // open modal for edit form
 $(document).on("click", ".edit-calendar-item-btn", function (e) {
     const $this = $(this);
-    const $modal = $this.parents().hasClass("modal-body")[0];
+    const $modal = $this.parents().hasClass("modal-body");
     if ($modal) {
         e.preventDefault();
         $.closeModal({
