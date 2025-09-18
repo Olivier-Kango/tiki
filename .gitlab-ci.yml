@@ -216,6 +216,7 @@ phplint:
       - PHP_VERSION: "8.1"
       - PHP_VERSION: "8.2"
       - PHP_VERSION: "8.3"
+      - PHP_VERSION: "8.4"
 
 smarty-lint:
   stage: lint
@@ -532,6 +533,8 @@ unit-tests:
       - PHP_VERSION: "8.1"
         DB_IMAGE: ${MARIADB_IMAGE_OLDEST_SUPPORTED}
       - PHP_VERSION: "8.3"
+        DB_IMAGE: ${MARIADB_IMAGE_NEWEST_SUPPORTED}
+      - PHP_VERSION: "8.4"
         DB_IMAGE: ${MARIADB_IMAGE_NEWEST_SUPPORTED}
 
 unit-tests-node:
