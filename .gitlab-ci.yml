@@ -721,6 +721,7 @@ composer-operator-check:
   needs:
     - composer
   script:
+  - apt-get update && apt-get install -y jq
   - chmod +x doc/devtools/check_caret_operator.sh
   - ./doc/devtools/check_caret_operator.sh
   rules:

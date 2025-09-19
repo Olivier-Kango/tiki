@@ -230,7 +230,7 @@
         "michelf/php-smartypants": "~1.8",
         "monolog/monolog": "~3.0",
         "montefuscolo/xmpp": "~0.8",
-        "nicolaskruchten/pivottable": "^2.20.0",
+        "nicolaskruchten/pivottable": "~2.20.0",
         "nlgen/nlgen": "~0.18",
         "onelogin/php-saml": "~4.2",
         "openannotation/annotator": ">=1.2.10",

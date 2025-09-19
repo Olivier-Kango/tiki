@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc8a591beb8661fee470fe5df7d64619",
+    "content-hash": "9d34ff86b2fe44fa5385d5df5e2690a0",
     "packages": [
         {
             "name": "amphp/amp",
@@ -6510,16 +6510,16 @@
         },
         {
             "name": "nicolaskruchten/pivottable",
-            "version": "v2.23.0",
+            "version": "v2.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolaskruchten/pivottable.git",
-                "reference": "a9cabee5382be0aaf0984ac906d9fa2e0376d2c1"
+                "reference": "4a9badf2eefd5afa5c8ade879c2c390bf8a21fff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolaskruchten/pivottable/zipball/a9cabee5382be0aaf0984ac906d9fa2e0376d2c1",
-                "reference": "a9cabee5382be0aaf0984ac906d9fa2e0376d2c1",
+                "url": "https://api.github.com/repos/nicolaskruchten/pivottable/zipball/4a9badf2eefd5afa5c8ade879c2c390bf8a21fff",
+                "reference": "4a9badf2eefd5afa5c8ade879c2c390bf8a21fff",
                 "shasum": ""
             },
             "require": {
@@ -6551,9 +6551,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nicolaskruchten/pivottable/issues",
-                "source": "https://github.com/nicolaskruchten/pivottable/tree/master"
+                "source": "https://github.com/nicolaskruchten/pivottable/tree/v2.20.0"
             },
-            "time": "2018-11-04T18:21:09+00:00"
+            "time": "2018-03-21T14:30:58+00:00"
         },
         {
             "name": "nlgen/nlgen",
