@@ -720,11 +720,15 @@ When the limit is reached, no more files can be uploaded. The user will see an e
             'default' => 'y'
         ],
         'fgal_use_casperjs_to_export_images' => [
-            'name' => tra('Use locally CasperJS to export images'),
-            'description' => tra('If enabled, diagrams can be exported using CasperJS.'),
+            'name' => tra('Enable diagram image export (legacy CasperJS / Headless Chrome)'),
+            'description' => tra(
+                'If enabled, diagrams can be exported as images. Historically tied to CasperJS, this setting now also supports Headless Chrome. '
+            ) . ' <a href="https://doc.tiki.org/Browser+Automation#Common_Settings" target="_blank">'
+            . tra('Learn more...') . '</a>',
             'type' => 'flag',
             'default' => 'n',
             'packages_required' => ['jerome-breton/casperjs-installer' => 'CasperJsInstaller\Installer'],
+            'help' => tra('Browser Automation'),
         ],
         'fgal_use_drawio_services_to_export_images' => [
             'name' => tra('Use draw.io public services to export images'),
