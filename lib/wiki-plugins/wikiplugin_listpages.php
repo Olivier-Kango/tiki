@@ -404,12 +404,12 @@ function wikiplugin_listpages($data, $params)
 
     $listpages = $tikilib->list_pages($offset, $max, $sort, $find, $initial, $exact_match, $only_name, $for_list_pages, $only_orphan_pages, $filter, $only_count, '', $exclude_pages);
     if (! empty($includetag) || ! empty($excludetag)) {
-        if (preg_match('/;/', $includetag)) {
+        if (str_contains($includetag, ';')) {
             $aIncludetag = explode(';', $includetag);
         } else {
             $aIncludetag[] = $includetag;
         }
-        if (preg_match('/;/', $excludetag)) {
+        if (str_contains($excludetag, ';')) {
             $aExcludetag = explode(';', $excludetag);
         } else {
             $aExcludetag[] = $excludetag;

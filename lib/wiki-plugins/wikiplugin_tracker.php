@@ -360,7 +360,7 @@ function wikiplugin_tracker_info()
                 'description' => tr('Text for the "previous" button label.'),
                 'since'       => '18.4',
                 'filter'      => 'text',
-                'default'     => tr(''),
+                'default'     => '',
                 'advanced' => true,
             ],
             'itemId'                   => [
