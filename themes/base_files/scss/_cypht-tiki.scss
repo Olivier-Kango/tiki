@@ -106,9 +106,7 @@
         text-decoration: var(--bs-link-decoration);
     }
     .content_title {
-        overflow: visible; min-height: 50px; max-height: 400px;
-        padding: 25px;
-        padding-bottom: 5px;
+        overflow: visible; min-height: 50px; max-height: 400px; padding: 15px;
     }
 
     .folders a, .subject a, .selected_menu a,
@@ -348,6 +346,13 @@
     .collapsed ul {
         display: inherit;
     }
+    nav.collapsed .menu-toggle {
+        right: 36%;
+    }
+    .folder_cell.collapsed .folder_list {
+        padding-right: 20px;
+    }
+
     main .container {
         width: 100%;
     }
@@ -401,6 +406,11 @@
     .nux_dev_news table td:last-child {
         border-bottom: 1px solid $input-border-color;
         white-space: normal;
+    }
+
+    #middle_outer {
+        margin-top: 15px !important;
+        .middle-wrapper { padding-top: 0; }
     }
 }
 
@@ -505,13 +515,14 @@
         .msg_headers th { width: 20%; }
 
         .sys_messages {
-            top: 0; right: 0; width: 100%; min-height: 5px;
+            top: 45px; right: 0; width: 100%; min-height: 5px;
             padding-bottom: 15px; white-space: normal;
         }
         .offline { height: 55px; }
 
         // mobile home
         .nux_welcome ul { padding-left: 20px; }
+        .nux_welcome, .nux_help { margin: 0 0 20px; width: 100%; max-width: 100%; }
         .nux_dev_news table td { display: block; }
         .nux_dev_news table tr {
             &:not(:last-child) td:last-child {
@@ -535,6 +546,7 @@
 
         // mobile folders
         .folder_dialog { margin-left: 30px; width: 85%; }
+        .folder_list { border: inherit; border-radius: 0; }
         #imap_server_folder { width: 100%; }
 
         // mobile search
@@ -552,6 +564,7 @@
                 display: block; padding: 0; margin: 0 !important;
                 select { width: calc(50% - 0.5rem); margin: 5px; }
                 input[type=submit], input[type=button] { font-size: 80%; }
+                > form { gap: 0.5rem !important; }
             }
             #search_terms { margin: 10px 3px 3px; width: 270px; max-width: 100%; }
             .message_table { margin-top: 0.1rem; }
