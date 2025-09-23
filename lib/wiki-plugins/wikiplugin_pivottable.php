@@ -524,7 +524,7 @@ function wikiplugin_pivottable($data, $params)
 
             if ($validConfig) {
                 $heatmapParams = [
-                    'domain' => array_map(floatval, $params['heatmapDomain']),
+                    'domain' => array_map('floatval', $params['heatmapDomain']),
                     'colors' => $params['heatmapColors']
                 ];
             }
