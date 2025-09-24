@@ -1340,9 +1340,10 @@ class Services_Tracker_Controller
                 $permName = $f['permName'];
                 $fieldValue = $f['value'] ?? '';
                 if ($f['type'] === 'a') {
-                    foreach ((array) $fieldValue as & $value) {
-                        $value = TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($value);
-                    }
+                    $convert = fn($v) => TikiLib::lib('tiki')->convertAbsoluteLinksToRelative($v);
+                    $fieldValue = is_array($fieldValue)
+                        ? array_map($convert, $fieldValue) // apply conversion to each element
+                        : $convert($fieldValue); // apply conversion to the single value
                 }
                 $fields[$permName] = $fieldValue;
             }
