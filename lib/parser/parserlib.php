@@ -61,6 +61,24 @@ class ParserLib extends TikiDb_Bridge
     public $option = []; // An associative array of (most) parameters (despite the singular)
     public $core_options = [];
 
+    /**
+     * Flag to force external wiki cache refresh
+     *
+     * This static property works in conjunction with clearExternalWikiCache()
+     * to provide a clean way for tests to invalidate the external wiki cache
+     * without modifying the core caching logic.
+     *
+     * Background: The get_wiki_link_replacement() method uses static caching for
+     * external wiki configurations to improve performance. However, in unit tests
+     * where external wikis are added dynamically, the static cache can become
+     * stale, causing tests to fail.
+     *
+     * @var bool Flag indicating whether to force cache refresh on next access
+     * @see clearExternalWikiCache()
+     * @see EditLib_ParseToWysiwyg_LinkTest::testExternalWiki
+     */
+    private static $forceExternalCacheRefresh = false;
+
     public function setOptions($option = [])
     {
         global $page, $prefs;
@@ -3207,17 +3225,30 @@ class ParserLib extends TikiDb_Bridge
         return  (preg_match($block_detect_regexp, $this->unprotectSpecialChars($inHtml, true)) > 0);
     }
 
-    //*
+    /**
+     * Set the flag to force cache refresh on next call to get_wiki_link_replacement()
+     */
+    public function clearExternalWikiCache()
+    {
+        self::$forceExternalCacheRefresh = true;
+    }
+
     public function get_wiki_link_replacement($pageLink, $extra = [], $html_editor = false)
     {
         global $prefs;
         $wikilib = TikiLib::lib('wiki');
         $tikilib = TikiLib::lib('tiki');
 
-        // Fetch all externals once
+        /**
+         * Fetch all externals once (with test cache invalidation support)
+         * The static cache improves performance by avoiding repeated database queries.
+         * The $forceExternalCacheRefresh flag allows tests to invalidate this cache
+         * when external wikis are added dynamically during test execution.
+         */
         static $externals = false;
-        if (false === $externals) {
+        if (false === $externals || self::$forceExternalCacheRefresh) {
             $externals = $tikilib->fetchMap('SELECT LOWER(`name`), `extwiki` FROM `tiki_extwiki`');
+            self::$forceExternalCacheRefresh = false; // Reset flag after refresh
         }
 
         $displayLink = $pageLink;
