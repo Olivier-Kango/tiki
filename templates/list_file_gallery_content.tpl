@@ -145,6 +145,18 @@
                     {tr}Actions{/tr}
                 </th>
             {/if}
+            
+            {if ( $prefs.feature_categories eq 'y')}
+                {if isset($nbCols)}
+                    {$nbCols=$nbCols+1}
+                {else}
+                    {$nbCols=1}
+                {/if}
+                <th>
+                    {tr}Categories{/tr}
+                </th>
+            {/if}
+
 
             {if ( !empty($other_columns) or !empty($other_columns_selected))}
                 {if isset($nbCols)}
@@ -510,6 +522,19 @@
                     or (isset($gal_info.show_action) and $gal_info.show_action eq 'y')}
                     {$file=$files[changes]}{* For fgal_context_menu.tpl. Cannot be an include parameter, because "file" is a reserved name. *}
                     <td>{include file='fgal_context_menu.tpl'}</td>
+                {/if}
+                {if ( $prefs.feature_categories eq 'y')}
+                    <td>
+                    {if !empty($files[changes].categories)}
+                        {foreach from=$files[changes].categories item=cat name=cat}
+                            <a href="tiki-browse_categories.php?parentId={$cat.categId|escape}">
+                                {$cat.name|escape}
+                            </a>{if not $smarty.foreach.cat.last}, {/if}
+                        {/foreach}
+                    {else}
+                        <span class="text-muted">{tr}Uncategorized{/tr}</span>
+                    {/if}
+                    </td>
                 {/if}
 
                 {if isset($other_columns) and isset($other_columns_selected) and ( $other_columns neq '' or $other_columns_selected neq '' )}
