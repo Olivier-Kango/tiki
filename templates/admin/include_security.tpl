@@ -143,6 +143,33 @@
 
                 {preference name=http_header_content_type_options}
 
+                {preference name=http_header_access_control_allow_credentials}
+
+                {preference name=http_header_access_control_allow_methods}
+                <div class="adminoptionboxchild" id="http_header_access_control_allow_methods_childcontainer">
+                    {preference name=http_header_access_control_allow_methods_value}
+                </div>
+
+                {preference name=http_header_access_control_allow_headers}
+                <div class="adminoptionboxchild" id="http_header_access_control_allow_headers_childcontainer">
+                    {preference name=http_header_access_control_allow_headers_value}
+                </div>
+
+                {preference name=http_header_cross_origin_embedder_policy}
+                <div class="adminoptionboxchild" id="http_header_cross_origin_embedder_policy_childcontainer">
+                    {preference name=http_header_cross_origin_embedder_policy_value}
+                </div>
+
+                {preference name=http_header_cross_origin_resource_policy}
+                <div class="adminoptionboxchild" id="http_header_cross_origin_resource_policy_childcontainer">
+                    {preference name=http_header_cross_origin_resource_policy_value}
+                </div>
+
+                {preference name=http_header_cross_origin_opener_policy}
+                <div class="adminoptionboxchild" id="http_header_cross_origin_opener_policy_childcontainer">
+                    {preference name=http_header_cross_origin_opener_policy_value}
+                </div>
+
                 {preference name=http_header_content_security_policy}
                 <div class="adminoptionboxchild" id="http_header_content_security_policy_childcontainer">
                     {preference name=http_header_content_security_policy_value}
