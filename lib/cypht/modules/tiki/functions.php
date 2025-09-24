@@ -489,14 +489,7 @@ function find_relevant_tracker_items($keywords, $multivalueField = '', $searchAr
         }, $fields));
         $query->filterMultivalue($filterField, $keywords);
     } else {
-        if ($avoidSubQueries) {
-            $query->filterContent($keywords);
-        } else {
-            $subq = $query->getSubQuery('keywords');
-            foreach (explode(' ', $keywords) as $keyword) {
-                $subq->filterContent($keyword);
-            }
-        }
+        $query->filterContent($keywords);
     }
 
     $resultSet = $query->search($lib->getIndex());
