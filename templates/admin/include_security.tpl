@@ -221,12 +221,6 @@
             </div>
 
             {preference name=feature_comments_moderation}
-            {preference name=comments_akismet_filter}
-            <div class="adminoptionboxchild" id="comments_akismet_filter_childcontainer">
-                {preference name=comments_akismet_apikey}
-                {preference name=comments_akismet_check_users}
-            </div>
-
             {preference name=useRegisterPasscode}
             <div class="adminoptionboxchild" id="useRegisterPasscode_childcontainer">
                 {preference name=registerPasscode}

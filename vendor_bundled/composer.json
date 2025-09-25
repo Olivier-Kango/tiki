@@ -97,13 +97,6 @@
         "    provides Symfony\\Component\\Yaml",
         "    Used throughout tiki",
         "",
-        "  zf1s/zend-service-akismet:",
-        "    Maintained fork of zendframework/zendservice-akismet, ",
-        "    which upstream avandonned in 2019.",
-        "    Provides ZendService\\Akismet\\Akismet which is only used by lib/comments/commentslib.php.",
-        "    A more actively maintained alternative would be ",
-        "    https://github.com/gsteel/akismet, but would require code changes",
-        "",
         "NOTABLE TRANSITIVE DEPENDENCIES NOTES:",
         "  Try to document here packages that:",
         "    -  Are here just to lock the version used by another package",
@@ -288,8 +281,7 @@
         "tikiwiki/ilp-client": "~1.0",
         "web-auth/webauthn-lib": "~4.9",
         "xemlock/htmlpurifier-html5": "~0.1.11",
-        "zbateson/mail-mime-parser": "~3.0",
-        "zf1s/zend-service-akismet": "~1.15"
+        "zbateson/mail-mime-parser": "~3.0"
     },
     "require-dev": {
         "kint-php/kint": "~6.0",
