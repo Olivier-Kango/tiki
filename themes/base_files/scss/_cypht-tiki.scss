@@ -331,7 +331,6 @@
         .long_header .col-md-2 {
         font-weight: bold;
         }
-    
         .msg_actions a {
         padding: 0.5rem;
         border-radius: 0.25rem;
@@ -497,6 +496,7 @@
 
         .content_title {
             background-color: $body-bg !important;
+            .ctr_divider + div.dropdown { margin-top: 4px; }
         }
 
         .list_controls i.bi-filter-circle {
@@ -551,10 +551,6 @@
 
         // mobile search
         .search_content {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100vh;
             .content_title { max-height: 500px; flex: 0 0 auto; margin-top: 0.5rem !important;}
             .mobile .search_content .p-3 {
                 flex: 1 1 auto;
@@ -612,8 +608,9 @@
             background-color: var(--bs-body-bg);
         }
         #list_controls_menu { background-color: var(--bs-body-bg); }
-        #list_controls_menu.show { justify-content: center; align-items: center; margin-top: 1rem; }
+        #list_controls_menu.show { justify-content: right; align-items: center; margin-top: 1rem; }
         .msg_text table { word-break: normal; }
+        .checkbox_cell { padding-top: 8px !important; }
 
         // groupmail
         .groupmail.message_table {
@@ -709,8 +706,45 @@ html body.tiki.tiki-webmail #middle.container.container-std.middle {
     }
 }
 
+.tiki-webmail {
+    #middle_outer {
+        .middle-wrapper {
+            padding-top: 65px;
+        }
+    }
+}
+
 html body.tiki.tiki-webmail #middle.container.container-std.middle {
     width: 95% !important;
     max-width: 95% !important;
     min-width: 95% !important;
+}
+
+//
+// tablet and phone specific
+//
+@media screen and (min-width: 1200px) {
+    .tiki-webmail {
+        .container {
+            max-width: 1420px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    html body.tiki.tiki-webmail #middle.container.container-std.middle {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .mobile .inline-cypht {
+        .targets_section, .other_section,
+        .time_section, .source_section, .terms_section {
+            padding-left: 0px;
+        }
+        .submit_section { padding-left: 15px; }
+    }
 }
