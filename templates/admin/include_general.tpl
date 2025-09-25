@@ -217,6 +217,7 @@
                 {preference name=feature_realtime}
                 <div class="adminoptionboxchild" id="feature_realtime_childcontainer">
                     {preference name=realtime_port}
+                    {preference name=realtime_full_base_url}
                 </div>
                 {preference name=php_cli_path}
             </fieldset>
