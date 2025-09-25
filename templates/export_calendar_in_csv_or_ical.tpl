@@ -1,5 +1,10 @@
 {if $tiki_p_view_events eq 'y' and $prefs.calendar_export eq 'y'}
-    {button href="#" _onclick="toggle('exportcal');return false;" _text='{tr}Export{/tr}' _icon_name='export' _type='info'}
+    {if $isInMainCalendar eq 'y'}
+        {button href="#" _onclick="toggle('exportcal');return false;" _text='{tr}Export{/tr}' _icon_name='export' _type='info' _style='display: block;'}
+    {else}
+        {button href="#" _onclick="toggle('exportcal');return false;" _text='{tr}Export{/tr}' _icon_name='export' _type='info'}
+    {/if}
+    
     <div class="d-inline-block">
         <form id="exportcal" class="card" method="post" action="tiki-calendar_export_ical.php" name="f" style="display:none;">
             <input type="hidden" name="export" value="y">
