@@ -495,6 +495,9 @@ class PdfGenerator
             }
         }
 
+        // Insert <a name="id"></a> immediately before each element with an id
+        $html = $this->addNamedAnchorsBeforeIdTags($html);
+
         $pdfPages = $this->getPDFPages($html, $pdfSettings);
         //adding css styles with first page content
         $allCss = '<style>' .
@@ -731,6 +734,29 @@ class PdfGenerator
         $tempFile = fopen("temp/public/pdffile_" . session_id() . ".txt", "w");
         fwrite($tempFile, ($pagesTotal * 30));
         return $mpdf->Output('', 'S');                  // Return as a string
+    }
+
+    public function addNamedAnchorsBeforeIdTags(string $html): string
+    {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $xpath = new DOMXPath($dom);
+        $nodes = $xpath->query('//*[@id]'); // all elements with an id
+
+        foreach ($nodes as $node) {
+            $id = $node->getAttribute('id');
+
+            // Create <a name="id"></a>
+            $a = $dom->createElement("a");
+            $a->setAttribute("name", $id);
+
+            // Insert it just before the node with the id
+            $node->parentNode->insertBefore($a, $node);
+        }
+
+        return $dom->saveHTML();
     }
 
     public function getHtmlLayout($pageContent)
