@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3dc91f589e11bd91a1477e5836aeab4",
+    "content-hash": "108113edd8254681883ba599759d15de",
     "packages": [
         {
             "name": "amphp/amp",
@@ -3017,16 +3017,16 @@
         },
         {
             "name": "kaltura/api-client-library",
-            "version": "v21.20.0",
+            "version": "v22.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53.git",
-                "reference": "29e5210f424a31ebfb7ae0dfccfe3dedc130c498"
+                "reference": "7cb2f6f2322c5fc6df76436a00ede0fa2d5e590d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kaltura/KalturaGeneratedAPIClientsPHP53/zipball/29e5210f424a31ebfb7ae0dfccfe3dedc130c498",
-                "reference": "29e5210f424a31ebfb7ae0dfccfe3dedc130c498",
+                "url": "https://api.github.com/repos/kaltura/KalturaGeneratedAPIClientsPHP53/zipball/7cb2f6f2322c5fc6df76436a00ede0fa2d5e590d",
+                "reference": "7cb2f6f2322c5fc6df76436a00ede0fa2d5e590d",
                 "shasum": ""
             },
             "require": {
@@ -3059,9 +3059,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53/issues",
-                "source": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53/tree/v21.20.0"
+                "source": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53/tree/v22.3.0"
             },
-            "time": "2025-07-20T05:55:58+00:00"
+            "time": "2025-09-14T05:56:06+00:00"
         },
         {
             "name": "laminas/laminas-captcha",
