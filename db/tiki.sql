@@ -3005,7 +3005,7 @@ CREATE TABLE `users_users` (
   `valid` varchar(32) default NULL,
   `unsuccessful_logins` int(14) default 0,
   `waiting` char(1) default NULL,
-  `twoFactorSecret` varchar(16) default NULL,
+  `twoFactorSecret` varchar(32) default NULL,
   `last_mfa_date` bigint DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `login` (login (191)),
