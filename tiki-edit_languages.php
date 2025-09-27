@@ -23,6 +23,7 @@ $inputConfiguration = [
             'maxRecords'                  => 'int',             //post
             'translate_all'               => 'bool',            //post
             'find'                        => 'string',          //post
+            'tran_reset'                  => 'bool',            //post
         ],
     ],
 ];
