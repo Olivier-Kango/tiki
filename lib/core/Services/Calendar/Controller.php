@@ -238,9 +238,11 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $access = TikiLib::lib('access');
         $parserLib = TikiLib::lib('parser');
         $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
+        $trklib = TikiLib::lib('trk');
         $timezones = TikiDate::getTimeZoneList();
         $timezones = array_keys($timezones);
         $return_url = $input->return_url->url();
+        $trackerItems = [];
 
         $rawcals = $this->calendarLib->list_calendars();
 
@@ -348,6 +350,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             $calitem['start'] = $start->getTime();
             $calitem['end']   = $end->getTime();
             $calitem['duration'] = 0;
+
+            $trackerItems = $this->calendarLib->getAttachedTrackerItems($calitemId);
         } else {
             // new event
             $title = tr('Calendar event : %0', tr('New'));
@@ -561,6 +565,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             'displayTimezone'            => $displayTimezone,
             'timezones'                  => $timezones,
             'prefilled'                  => $input->prefill_start->int() ? true : false,
+            // related tracker items
+            'trackerItems'              => ! empty($trackerItems) ? $trackerItems : [],
         ];
     }
 
@@ -582,9 +588,11 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
     public function action_view_item(JitFilter $input): array
     {
         global $prefs;
+        $trklib = TikiLib::lib('trk');
 
         $calitemId = $input->calitemId->int();
         $recurrence = [];
+        $trackerItems = [];
         $preview = false;
         $calendar = null;
         $calitem = null;
@@ -674,6 +682,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 $calitem['participants'] = [];
                 $calitem['hiddenParticipants'] = true;
             }
+            $trackerItems = $this->calendarLib->getAttachedTrackerItems($calitemId);
         }
 
         return [
@@ -685,6 +694,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             'daynames'             => $this->daynamesPlural,
             'monthnames'           => $this->monthnames,
             'preview'              => $preview,
+            // related tracker items
+            'trackerItems'        => ! empty($trackerItems) ? $trackerItems : [],
         ];
     }
 
