@@ -153,9 +153,9 @@ if ($prefs['feature_intertiki'] == 'y' && $prefs['feature_intertiki_server'] != 
 }
 
 //Enable Two-Factor Auth Input
-$twoFactorForm = 'n';
+$twoFactorForm = $prefs['twoFactorAuth'];
 if (isset($_REQUEST["$twoFactorForm"])) {
-    $twoFactorForm = 'y';
+    $twoFactorForm = $_REQUEST["$twoFactorForm"];
 }
 $smarty->assign('twoFactorForm', $twoFactorForm);
 
