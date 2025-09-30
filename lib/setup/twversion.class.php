@@ -415,6 +415,7 @@ class TWVersion
                 '29.0alpha',
                 '29.0beta',
                 '29.0RC1',
+                '29.0',
             ];
     }
 
