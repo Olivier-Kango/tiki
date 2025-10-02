@@ -436,8 +436,14 @@ if (! hm_exists('bind_tracker_item_update_event')) {
             $old = $args['old_values'][$form['tracker_field_id']];
             $new = $args['values'][$form['tracker_field_id']];
             if ($old != $new) {
-                foreach ($args['msg_ids'] as $msg_id) {
-                    $mailbox->delete_message($folder, $msg_id, false);
+                // Check system preference for email-to-tracker mode
+                global $prefs;
+                $email_mode = $prefs['email_to_tracker_mode'] ?? 'move';
+
+                if ($email_mode == 'move') {
+                    foreach ($args['msg_ids'] as $msg_id) {
+                        $mailbox->delete_message($folder, $msg_id, false);
+                    }
                 }
             }
         }, ['mailbox' => $mailbox, 'folder' => $folder, 'form' => $form, 'msg_ids' => $msg_ids]);
