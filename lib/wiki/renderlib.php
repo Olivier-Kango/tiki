@@ -236,7 +236,7 @@ class WikiRenderer
                     $links[] = '<link rel="alternate" hreflang="' . htmlspecialchars(strtolower($trad['lang']), ENT_QUOTES, 'UTF-8') . '" href="' . htmlspecialchars($tradHref, ENT_QUOTES, 'UTF-8') . '">';
                 }
             }
-            if (!empty($links)) {
+            if (! empty($links)) {
                 $headerlib->add_rawhtml(implode("\n", $links) . "\n");
             }
         }
