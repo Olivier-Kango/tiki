@@ -51,7 +51,8 @@ export function syncSelectOptions(elementPlusSelect, select) {
         })
         .get();
     $(elementPlusSelect).attr("options", JSON.stringify(options));
-    $(elementPlusSelect).attr("value", JSON.stringify($(select).val()));
+    const value = [...select.selectedOptions].map((option) => option.value);
+    $(elementPlusSelect).attr("value", $(select).prop("multiple") ? JSON.stringify(value) : value[0]);
     if (options.find((option) => option.group)) {
         $(elementPlusSelect).attr("group", true);
     }
