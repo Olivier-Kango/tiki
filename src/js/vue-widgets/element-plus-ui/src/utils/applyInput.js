@@ -1,4 +1,5 @@
 import { handleAffixes, handleFileInput } from "../helpers/input/applyInput";
+import enterKeypressHandler from "../helpers/shared/enterKeypressHandler";
 
 export default function applyInput() {
     transformContainerInputs(document.body);
@@ -57,19 +58,17 @@ function transformContainerInputs(containerElement) {
         elementPlusUi.on("input", (e) => originalInput.val(e.detail?.[0]).trigger("input"));
 
         ["blur", "focus", "keyup", "keydown"].forEach((event) => {
-            elementPlusUi.on(event, () => {
+            elementPlusUi.on(event, (e) => {
                 // CRITICAL: Sync value *before* dispatching the event to prevent race conditions.
-                originalInput.val(elementPlusUi.val()).trigger(event);
+                originalInput.val(elementPlusUi.val()).trigger(
+                    $.Event(event, {
+                        originalEvent: e,
+                    })
+                );
             });
         });
 
-        elementPlusUi.on("enter", () => {
-            const $form = originalInput.closest("form");
-            if ($form.length) {
-                originalInput.val(elementPlusUi.val());
-                $form.trigger("submit");
-            }
-        });
+        elementPlusUi.on("enter", () => enterKeypressHandler(originalInput, elementPlusUi));
 
         const $form = originalInput.closest("form");
         if ($form.length && !$form.data("ep-sync-added")) {

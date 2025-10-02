@@ -189,4 +189,45 @@ describe("applyInput", () => {
             expect(submitHandler).not.toHaveBeenCalled();
         }
     });
+
+    test.each([
+        ["text"],
+        ["search"],
+        ["tel"],
+        ["url"],
+        ["email"],
+        ["password"],
+        ["date"],
+        ["month"],
+        ["week"],
+        ["time"],
+        ["datetime-local"],
+        ["number"],
+    ])("should not implicitly submit the form when the when a %s type input is found in the form", async (givenType) => {
+        applyInput();
+
+        const input = $("<input>");
+        input.attr("placeholder", "Input");
+        input.attr("type", "text");
+        input.attr("value", "Value");
+
+        const form = $("<form></form>");
+        form.append(input);
+        form.append(`<input type="${givenType}"/>`);
+        $("body").append(form);
+
+        const submitHandler = vi.fn();
+        form.on("submit", submitHandler);
+
+        await window.happyDOM.waitUntilComplete();
+
+        const elInput = $(`el-input#${input.attr("element-plus-ref")}`);
+
+        const event = $.Event("enter");
+        elInput.trigger(event);
+
+        await window.happyDOM.waitUntilComplete();
+
+        expect(submitHandler).not.toHaveBeenCalled();
+    });
 });

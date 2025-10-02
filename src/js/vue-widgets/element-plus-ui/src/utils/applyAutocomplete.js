@@ -1,3 +1,5 @@
+import enterKeypressHandler from "../helpers/shared/enterKeypressHandler";
+
 export const TEXT = {
     ERROR_NO_ELEMENT: "The element must be provided to apply the autocompletion",
     ERROR_NO_SOURCE: "Either remoteSourceUrl or sourceList must be provided to apply the autocompletion",
@@ -63,6 +65,8 @@ export default function applyAutocomplete(element, remoteSourceUrl = null, sourc
             selectCb(event);
         }
     });
+
+    elementPlusUi.addEventListener("pressEnter", () => enterKeypressHandler($(element), $(elementPlusUi)));
 
     element.setAttribute("element-plus-ref", elementUniqueId);
     element.style.display = "none";
