@@ -225,7 +225,6 @@ class WikiRenderer
                 $selfHref = $base . '/' . ltrim($selfHref, '/');
             }
 
-            $links[] = '<link rel="canonical" href="' . htmlspecialchars($selfHref, ENT_QUOTES, 'UTF-8') . '">';
             $links[] = '<link rel="alternate" hreflang="' . htmlspecialchars(strtolower($this->info['lang']), ENT_QUOTES, 'UTF-8') . '" href="' . htmlspecialchars($selfHref, ENT_QUOTES, 'UTF-8') . '">';
 
             foreach ($this->trads as $trad) {
@@ -237,7 +236,9 @@ class WikiRenderer
                     $links[] = '<link rel="alternate" hreflang="' . htmlspecialchars(strtolower($trad['lang']), ENT_QUOTES, 'UTF-8') . '" href="' . htmlspecialchars($tradHref, ENT_QUOTES, 'UTF-8') . '">';
                 }
             }
-            $headerlib->add_rawhtml(implode("\n", $links) . "\n");
+            if (!empty($links)) {
+                $headerlib->add_rawhtml(implode("\n", $links) . "\n");
+            }
         }
 
         if ($prefs['feature_machine_translation'] == 'y' && $prefs['lang_machine_translate_wiki'] == 'y' && ! empty($this->info['lang'])) {
