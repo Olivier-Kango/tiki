@@ -110,16 +110,19 @@ describe("applyInput", () => {
         expect($("body").html()).toBe(input.prop("outerHTML"));
     });
 
-    test.each([["cypht-layout"], ["tiki-webmail"]])("should not transform inputs inside %s", async (givenClass) => {
-        applyInput();
-        const input = $("<input>");
-        const layout = $(`<div class='${givenClass}'></div>`);
-        layout.append(input);
-        $("body").append(layout);
+    test.each([["cypht-layout"], ["tiki-webmail"], ["el-input__wrapper"], "el-select__wrapper"])(
+        "should not transform inputs inside %s",
+        async (givenClass) => {
+            applyInput();
+            const input = $("<input>");
+            const layout = $(`<div class='${givenClass}'></div>`);
+            layout.append(input);
+            $("body").append(layout);
 
-        await window.happyDOM.waitUntilComplete();
-        expect($("body").html()).toBe(`<div class="${givenClass}"><input></div>`);
-    });
+            await window.happyDOM.waitUntilComplete();
+            expect($("body").html()).toBe(`<div class="${givenClass}"><input></div>`);
+        }
+    );
 
     test.each([["change", ["new value"]], ["input", ["new value"]], ["input", ["input value"]], ["blur"], ["focus"], ["keyup"], ["keydown"]])(
         "handles correctly the %s event",
