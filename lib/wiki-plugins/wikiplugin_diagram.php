@@ -204,19 +204,14 @@ function wikiplugin_diagram($data, $params)
     }
 
     //checking if user has edit permissions on the wiki page/file using the current permission library to obey global/categ/object perms
-    if (! empty($galleryId)) {
-        if (is_numeric($galleryId)) {
-            $type = 'file gallery';
-            $objectId = $_REQUEST['fileId'] ?? null;
-        } else {
-            Feedback::error(tr('Invalid %0%1%2: must be numeric', '<code>', 'galleryId', '</code>'));
-            return '';
-        }
+    if (! empty($galleryId) && is_numeric($galleryId)) {
+        $type = 'file gallery';
+        $objectId = $_REQUEST['fileId'] ?? null;
     } elseif (! empty($page)) {
         $type = 'wiki page';
         $objectId = $page;
     } else {
-        throw new \RuntimeException('Missing parameters: either galleryId or page is required.');
+        throw new \RuntimeException('Missing or invalid galleryId and/or page');
     }
 
     $objectperms = Perms::get([
