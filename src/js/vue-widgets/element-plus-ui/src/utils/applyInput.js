@@ -20,6 +20,9 @@ function transformContainerInputs(containerElement) {
             if ($(this).attr("element-plus-ref") || $(this).css("display") === "none" || $(this).closest(".cypht-layout, .tiki-webmail").length) {
                 return false;
             }
+            if ($(this).closest(".el-input__wrapper, .el-select__wrapper").length) {
+                return false;
+            }
             return [undefined, "text", "number", "email", "password", "search", "url", "tel", "file"].includes($(this).attr("type"));
         });
 
