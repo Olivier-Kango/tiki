@@ -39,7 +39,7 @@
     {include file='tiki-maintenance_banner.tpl'}
 {/if}
 <a class="btn btn-info btn-lg skipnav" href="#col1" role="button">{tr}Skip to main content{/tr}</a>
-<div class="container{if isset($smarty.session.fullscreen) && $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
+<div class="container{if isset($smarty.session.fullscreen) && $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex min-vh-100 flex-column my-0">
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
         <div class="row">
             <header class="page-header w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-top-nav-{$navbar_color_variant}" id="page-header" role=banner>
@@ -207,7 +207,7 @@
     </div>
 
 {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
-    <footer class="row footer main-footer" id="footer">
+    <footer class="row footer main-footer mt-auto" id="footer">
         <div class="footer_liner w-100">
             {$modzonebottom}
         </div>

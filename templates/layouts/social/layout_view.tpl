@@ -239,9 +239,10 @@
                 {/if}
             </div> {* row *}
         </div> {* container *}
+    </div> {* middle-wrapper *}
     </div> {* middle_outer *}
     {if !isset($smarty.session.fullscreen) || isset($smarty.session.fullscreen) && $smarty.session.fullscreen ne 'y'}
-        <footer class="footer main-footer" id="footer">
+        <footer class="footer main-footer mt-auto" id="footer">
             <div class="footer_liner">
                 <div class="container container-std">
                     {$modzonebottom}

@@ -17,7 +17,7 @@
     {modulelist zone=left class="left-aside" heading_text='{tr}More content and functionality (left side){/tr}' role=complementary}
 {/capture}
 {capture assign=modzonebottom}
-    {modulelist zone=pagebottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
+    {modulelist zone=bottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
 {/capture}
 <!DOCTYPE html>
 <html lang="{if !empty($pageLang)}{$pageLang}{else}{$prefs.language}{/if}"{if Language::isRTL()} dir="rtl"{/if}{if !empty($page_id)} id="page_{$page_id}"{/if}>
@@ -219,13 +219,13 @@
                         </div>
                     </div>
                 {/if}
-            </div>
-        </div>
-
+            </div> {* row row-middle *}
+        </div> {* container middle *}
+    </div> {* middle_outer - was missing *}
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
     {if $prefs.feature_layoutshadows eq 'y'}
     <div id="footer-shadow">{eval var=$prefs.footer_shadow_start}{/if}
-        <footer class="footer main-footer" id="footer">
+        <footer class="footer main-footer mt-auto" id="footer">
             <div class="footer_liner">
                 <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
                     {$modzonebottom}
