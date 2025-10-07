@@ -444,12 +444,15 @@ class Feedback
                 foreach ($watches as $watch) {
                     $usersList[] = "<a href='tiki-user_information.php?user=" . $watch['user'] . "' class='fw-bold'>" . $watch['user'] . "</a>";
                 }
-                $message = implode(", ", $usersList);
-                self::note([
-                    'title' => tr('Notification sent to:'),
-                    'mes' => $message,
-                    'icon' => 'bell'
-                ]);
+
+                if (! empty($usersList)) {
+                    $message = implode(", ", $usersList);
+                    self::note([
+                        'title' => tr('Notification sent to:'),
+                        'mes' => $message,
+                        'icon' => 'bell'
+                    ]);
+                }
             }
         }
     }
