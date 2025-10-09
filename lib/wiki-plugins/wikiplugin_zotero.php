@@ -50,17 +50,17 @@ function wikiplugin_zotero($data, $params)
     $key = null;
     $note = null;
 
-    if (isset($params['key'])) {
+    if (! is_null($params['key'])) {
         $key = $params['key'];
         $cacheKey = "key_$key";
-    } elseif (isset($params['tag'])) {
+    } elseif (! is_null($params['tag'])) {
         $tag = $params['tag'];
         $cacheKey = "tag_$tag";
     } else {
         return WikiParser_PluginOutput::argumentError(['key', 'tag']);
     }
 
-    if (isset($params['note'])) {
+    if (! is_null($params['note'])) {
         $note = $params['note'];
     }
 

@@ -23,7 +23,6 @@ function wikiplugin_calendar_info()
                 'since' => '4.0',
                 'filter' => 'digits',
                 'separator' => ',',
-                'default' => '',
                 'profile_reference' => 'calendar',
             ],
             'viewlist' => [
@@ -87,7 +86,7 @@ function wikiplugin_calendar($data, $params)
     $tikilib = TikiLib::lib('tiki');
     $calendarlib = TikiLib::lib('calendar');
 
-    if (empty($params['calIds'])) {
+    if (is_null($params['calIds'])) {
         $params['calIds'] = [1];
     }
     if (empty($params['viewlist'])) {
