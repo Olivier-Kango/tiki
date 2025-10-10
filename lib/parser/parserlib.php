@@ -1882,7 +1882,7 @@ class ParserLib extends TikiDb_Bridge
     //*
     public function parse_wiki_argvariable(&$data)
     {
-        global $prefs, $user;
+        global $prefs, $user, $jitGet;
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');
 
@@ -2276,6 +2276,8 @@ class ParserLib extends TikiDb_Bridge
                         default:
                             if (isset($_GET[$name])) {
                                 $value = $_GET[$name];
+                            } elseif ($jitGet->offsetExists($name)) {
+                                $value = $jitGet->offsetGet($name);
                             } else {
                                 $value = '';
                                 include_once('lib/wiki-plugins/wikiplugin_showpref.php');
