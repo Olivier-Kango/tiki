@@ -302,7 +302,7 @@ class Feedback
                         $message = $type . ': ' . str_replace('<br />', "\n", $message['mes']);
                     }
 
-                    if ($type === 'success' || $type === 'note') {
+                    if ($type === 'success' || $type === 'note' || $type === 'feedback') {
                         if (! $output->isVeryVerbose()) {
                             continue;
                         }
