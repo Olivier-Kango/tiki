@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="tiki-card-header-title">{$params.title}</h3>
+        <h3 class="tiki-card-header-title fs-5 pt-0 m-0">{$params.title}</h3>
     </div>
     <div class="card-body">
         <form id='{$params.id}'>

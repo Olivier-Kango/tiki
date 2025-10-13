@@ -127,7 +127,7 @@
             minichat_lastchan=c;
             if (!minichat_firstchan) minichat_firstchan=c;
 
-            var d=minichat_newelem("div", { 'id' : 'minichatdiv_'+c.id , 'class' : 'minichatdiv' });
+            var d=minichat_newelem("div", { 'id' : 'minichatdiv_'+c.id , 'class' : 'minichatdiv overflow-auto' });
             document.getElementById('minichat').appendChild(d);
 
             d=minichat_newelem("a", { 'id' : 'minichata_'+c.id, 'class' : 'btn btn-primary btn-sm minichata_unselected', 'role' : 'button' , 'href' : "javascript: minichat_selectchannel('"+c.name+"');" });

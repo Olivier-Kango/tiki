@@ -148,8 +148,8 @@
     {/if}
 
     {if isset($related_articles)}
-        <div class="related_articles">
-            <h4>{tr}Related content:{/tr}</h4>
+        <div class="related_articles mt-5">
+            <h4 class="m-0">{tr}Related content:{/tr}</h4>
             <ul>
                 {foreach from=$related_articles item=related}
                     <li>{self_link articleId=$related.articleId}{$related.name}{/self_link}</li>

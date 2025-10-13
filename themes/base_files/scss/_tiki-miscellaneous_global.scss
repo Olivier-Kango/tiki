@@ -917,3 +917,9 @@ ul.sm-horizontal {
     overflow-x: auto;
     display: block;
 }
+
+// Moved from _tiki-blogs.scss because it's also used in wiki and directory, etc.
+.description {
+    font-size: .95em;
+    font-style: italic;
+}
