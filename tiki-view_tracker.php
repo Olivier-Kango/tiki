@@ -507,11 +507,18 @@ if (! empty($filterfield)) {
     $field = '';
 }
 
-if ($field && in_array($field['type'], ['d', 'D', 'R'])) {
+$isExact = isset($_REQUEST['filter_exact']);
+
+if ($isExact) {
     $exactvalue = $filtervalue;
 } else {
-    $exactvalue = '';
+    if ($field && in_array($field['type'], ['d', 'D', 'R'])) {
+        $exactvalue = $filtervalue;
+    } else {
+        $exactvalue = '';
+    }
 }
+
 $smarty->assign('filtervalue', $filtervalue);
 if (is_array($filtervalue)) {
     foreach ($filtervalue as $fil) {
