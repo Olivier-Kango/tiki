@@ -109,6 +109,20 @@ li.highlight {
     bottom: 100% !important;
     margin-bottom: .5rem;
     margin-top: 0 !important;
+    max-height: 65vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown-menu-top,
+.dropdown-menu-end,
+.dropdown-menu-start {
+  top: 100%;
+  bottom: auto;
+  max-height: 40vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 3000;
 }
 
 /* End of file */
