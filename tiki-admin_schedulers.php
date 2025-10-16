@@ -14,19 +14,24 @@ $inputConfiguration = [
             'scheduler_description'      => 'string',         //post
             'scheduler_task'             => 'string',         //post
             'scheduler_status'           => 'string',         //post
-            'scheduler_rerun'            => 'bool',           //post
-            'scheduler_run_only_once'    => 'bool',           //post
-            'enable_send_notification_override' => 'bool',      //post
-            'new_scheduler'              => 'bool',           //post
+            'scheduler_rerun'            => 'alpha',          //post
+            'scheduler_run_only_once'    => 'alpha',          //post
+            'enable_send_notification_override' => 'alpha',   //post
+            'new_scheduler'              => 'alpha',          //post
             'editscheduler'              => 'digits',         //post
             'scheduler_time'             => 'string',         //post
             'offset'                     => 'digits',         //get
             'numrows'                    => 'digits',         //post
             'logs'                       => 'string',         //post
-            'add'                        => 'bool',           //post
+            'add'                        => 'alpha',          //get
             'filter'                     => 'string',         //get
-            'url'                        => 'url',            //post
-            'output_file'                => 'purifier'        //post
+            'save'                       => 'alpha',          //post
+            'name'                       => 'string',         //get
+            'description'                => 'string',         //get
+            'task'                       => 'string',         //get
+            'run_time'                   => 'string',         //get
+            'status'                     => 'string',         //get
+            're_run'                     => 'string',         //get
         ],
     ],
 ];

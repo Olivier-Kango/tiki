@@ -26,10 +26,24 @@ $inputConfiguration = [
             'sort_mode'                   => 'alnumdash',    //get
             'initial'                     => 'alpha',        //get
             'filterGroup'                 => 'groupname',    //get
-            'newuser'                     => 'text',         //post
+            'newuser'                     => 'alpha',        //post
             'filterEmailNotConfirmed'     => 'alpha',
             'filterNeverLoggedIn'         => 'alpha',
             'filterNotValidated'          => 'alpha',
+            'user'                        => 'int',          //post/get
+            'action'                      => 'alpha',        //post
+            'genepass'                    => 'password',     //post
+            'edituser'                    => 'alpha',        //post
+            'save'                        => 'alpha',        //post
+            'add'                         => 'alpha',        //get
+            'overwrite'                   => 'alpha',        //post
+            'overwriteGroup'              => 'alpha',        //post
+            'createGroup'                 => 'alpha',        //post
+            'forcePasswordChange'         => 'alpha',        //post
+            'notification'                => 'alpha',        //post
+            'batch'                       => 'alpha',        //post
+            'insert_user_tracker_item'    => 'bool',        //post
+            'search'                      => 'alpha',        //post
         ],
     ]
 ];

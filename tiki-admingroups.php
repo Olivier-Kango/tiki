@@ -34,6 +34,14 @@ $inputConfiguration = [
             'initial'                   => 'alpha',
             'find'                      => 'groupname',
             'group'                     => 'groupname',
+            'clean'                     => 'alpha',         //post
+            'add'                       => 'alpha',         //get
+            'export'                    => 'alpha',         //post
+            'username'                  => 'alpha',         //post
+            'email'                     => 'alpha',         //post
+            'lastLogin'                 => 'alpha',         //post
+            'encoding'                  => 'alpha',         //post
+            'import'                    => 'alpha',         //post
         ],
     ]
 ];
