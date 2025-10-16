@@ -72,6 +72,9 @@ class ToolbarFileGallery extends ToolbarUtilityItem
         if (! empty($this->wysiwyg)) {
             $exec_js = str_replace('&amp;', '&', $this->getOnClick());
 
+            // CKEDITOR shares the same onclick between all instances, so we need to replace the filegals_manager parameter
+            $exec_js = preg_replace('/filegals_manager=[^&]*/', "filegals_manager=' + editor.element.getId() + '", $exec_js);
+
             $this->setupCKEditorTool($exec_js);
         }
         return $this->wysiwyg;

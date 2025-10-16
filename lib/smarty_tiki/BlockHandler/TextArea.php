@@ -216,7 +216,7 @@ class TextArea extends Base
     CKEDITOR.replace( "' . $as_id . '",' . $ckoptions . ');
     CKEDITOR.on("instanceReady", function(event) {
     if (typeof ajaxLoadingHide == "function") { ajaxLoadingHide(); }
-    this.instances.' . $as_id . '.resetDirty();
+    this.instances["' . $as_id . '"].resetDirty();
     });
         ',
                     20
