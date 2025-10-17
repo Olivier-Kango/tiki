@@ -13628,7 +13628,7 @@ $lang_current = array(
 "Please see the <a class='alert-link' target='tikihelp' href='http://doc.tiki.org/Features'>evaluation of each feature</a> on Tiki's developer site" => "Veuillez consulter l'<a class='alert-link' target='tikihelp' href='http://doc.tiki.org/Features'>évaluation de chaque fonctionnalité</a> sur le site des développeurs de Tiki",
 "Global features" => "Fonctionnalités globales",
 "Main features" => "Fonctionnalités principales",
-"Secondary features" => "Fonctionnalités sécondaires",
+"Secondary features" => "Fonctionnalités secondaires",
 "Administrative features" => "Fonctionnalités Administratives",
 "Watches" => "Surveillances",
 "Object Maintainers and Freshness" => "Responsables d'objets et fraîcheur",
