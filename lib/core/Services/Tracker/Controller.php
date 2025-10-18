@@ -3192,6 +3192,13 @@ class Services_Tracker_Controller
         $listFields = $input->listFields->text();
         $limit = $input->limit->int();
 
+        $displaySort = null;
+        try {
+            $displaySort = $input->displayFieldsListSort->text();
+        } catch (\Throwable $e) {
+            $displaySort = null;
+        }
+
         if (! $listFields) {
             $listFields = $field;
         }
@@ -3213,6 +3220,14 @@ class Services_Tracker_Controller
             $item['value'] = (string) $item['itemId'];
             unset($item['field_values']);
             $data[] = $item;
+        }
+
+        if ($displaySort === 'formatted' && ! empty($data)) {
+            usort($data, function ($a, $b) {
+                $ta = $a['label'] ?? '';
+                $tb = $b['label'] ?? '';
+                return strnatcasecmp($ta, $tb);
+            });
         }
 
         return $data;
