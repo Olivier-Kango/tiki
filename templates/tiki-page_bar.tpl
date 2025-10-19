@@ -202,7 +202,7 @@
         {/if}
 
         {if $prefs.feature_wiki_comments eq 'y' and $tiki_p_wiki_view_comments == 'y' and $edit_page ne 'y'}
-            <div id="comment-container"></div>
+            <div id="comment-container" class="my-3 mx-0"></div>
         {/if}
 
     {/strip}

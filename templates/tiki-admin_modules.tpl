@@ -391,7 +391,7 @@
                         <label for="module_list_show_all" class="form-check-label">{tr}Show all modules{/tr}</label>
                     </div>
                 </div>
-                <ul id="module_list">
+                <ul id="module_list" class="p-0">
                     {foreach key=name item=info from=$all_modules_info}
                         <li class="{if !empty($info.enabled)}enabled{else}disabled{/if} clearfix">
                             <input type="hidden" value="{$name}">
