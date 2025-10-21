@@ -262,6 +262,13 @@ unix-ending-line:
 # Check Tikiwiki development specific check (related also with release)
 #
 
+check-platform-binaries:
+  stage: tiki-check
+  needs: []
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
+    - sh doc/devtools/check_platform_binaries.sh
+
 sql-engine:
   stage: tiki-check
   needs: []
