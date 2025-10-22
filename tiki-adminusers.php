@@ -582,6 +582,10 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
         }
     }
 
+    if ($prefs['twoFactorAuth'] == 'y') {
+        $smarty->assign('force2FA', $userlib->forceTwoFactorAuth($userinfo['login']));
+    }
+
     if ($prefs['email_due'] > 0) {
         $userinfo['daysSinceEmailConfirm'] = floor(($userlib->now - $userinfo['email_confirm']) / (60 * 60 * 24));
     }
@@ -666,6 +670,12 @@ if ($ts['enabled'] && ! $ts['ajax']) {
 
 if (count($errors) > 0) {
     Feedback::error(['mes' => $errors]);
+}
+
+$headerlib = TikiLib::lib('header');
+
+if ($prefs['twoFactorAuth'] == 'y') {
+    $headerlib->add_js_module("import '@jquery-tiki/tiki-admin_2fa';");
 }
 
 $smarty->assign_by_ref('all_groups', $all_groups);

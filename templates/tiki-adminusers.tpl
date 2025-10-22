@@ -598,6 +598,23 @@
                         </div>
                     {/if}
 
+                    {if $prefs.twoFactorAuth eq 'y'}
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-md-2 col-form-label" for="force2FA">{tr}2FA{/tr}</label>
+                            <div class="form-check form-switch col-sm-7 col-md-6">
+                                <input class="form-check-input" type="checkbox" role="switch" id="force2FA" data-user="{$userinfo.login}" {if $force2FA}checked{/if}>
+                                <small class="form-text text-muted">{tr}Enable/Disable Two Factor Authentication for this user.{/tr}</small>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-sm-3 col-md-2"></div>
+                            <div class="col-sm-7 col-md-6">
+                                <button type="button" class="btn btn-secondary w-100" id="reset2FA" {if not $userinfo.twoFactorSecret}disabled{/if} data-user="{$userinfo.login}">{tr}Reset 2FA{/tr}</button>
+                                <small class="form-text text-muted">{tr}This will require the user to reset up 2FA the next time they log in.{/tr}</small>
+                            </div>
+                        </div>
+                    {/if}
+
                     <div class="mb-3 row">
                         <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                             {if isset($userinfo.userId) && $userinfo.userId}
