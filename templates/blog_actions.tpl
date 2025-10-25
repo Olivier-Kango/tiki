@@ -20,7 +20,7 @@
                 <a class="dropdown-item" href="tiki-edit_blog.php?blogId={$blogId}">
                         {icon name='edit'} {tr}Edit{/tr}
                 </a>
-                {if $allow_comments eq 'y'}
+                {if $allow_comments eq 'y' and $blog_data.posts ne 0}
                     <a class="dropdown-item" href='tiki-list_comments.php?types_section=blogs&amp;blogId={$blogId}'>
                             {icon name='comments'} {tr}Comments{/tr}
                     </a>
