@@ -241,6 +241,10 @@ if (! empty($_REQUEST["group"])) {
             }
         }
     }
+
+    if ($prefs['twoFactorAuth'] == 'y') {
+        $smarty->assign('twoFactorAuthGracePeriod', $re['twoFactorAuthGracePeriod']);
+    }
     $groupperms = $re["perms"];
     //$allgroups = $userlib->list_all_groups();
     $allgroups = $userlib->list_can_include_groups($re["groupName"]);

@@ -555,6 +555,11 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
             $userlib->send_validation_email($_POST['login'], $userinfo['valid'], $_POST['email'], 'y');
         }
 
+        if (isset($_POST['twoFactorAuthGracePeriod']) && $userinfo['twoFactorAuthGracePeriod'] != $_POST['twoFactorAuthGracePeriod']) {
+            $userlib->setTwoFactorAuthGracePeriod($userinfo['login'], $_POST['twoFactorAuthGracePeriod']);
+            $userlib->reset2FAGracePeriodStart($userinfo['login']);
+        }
+
         $cookietab = '1';
     }
 

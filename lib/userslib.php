@@ -7514,6 +7514,51 @@ class UsersLib extends TikiLib
         return $this->getOne($query, [$user]);
     }
 
+    public function get2FAGracePeriod($user)
+    {
+        global $prefs;
+
+        $userInfo = $this->get_user_info($user);
+        if ($userInfo['twoFactorAuthGracePeriod'] !== null) {
+            return (int)$userInfo['twoFactorAuthGracePeriod'];
+        }
+
+        $userGroups = $this->get_user_groups($user);
+        $groupsGracePeriods = array_filter(array_map(function ($group) {
+            return $this->get_group_info($group)['twoFactorAuthGracePeriod'];
+        }, $userGroups), function ($value) {
+            return $value !== null;
+        });
+        $maxGroupGracePeriod = ! empty($groupsGracePeriods) ? max($groupsGracePeriods) : null;
+
+        return (int)($maxGroupGracePeriod !== null ? $maxGroupGracePeriod : $prefs['twoFactorAuthGracePeriod']);
+    }
+
+    public function get2FAGracePeriodStart($user)
+    {
+        $query = 'select `twoFactorGracePeriodStart` from `users_users` where `login`=?';
+        return $this->getOne($query, [$user]);
+    }
+
+    public function reset2FAGracePeriodStart($user)
+    {
+        $query = 'update `users_users` set `twoFactorGracePeriodStart`=? where binary `login`=?';
+        $now = time();
+        $this->query($query, [$now, $user]);
+        return $now;
+    }
+
+    public function setTwoFactorAuthGracePeriod($user, $gracePeriod)
+    {
+        if ($gracePeriod === '') {
+            $gracePeriod = null;
+        }
+
+        $query = 'update `users_users` set `twoFactorAuthGracePeriod`=? where binary `login`=?';
+        $this->query($query, [$gracePeriod, $user]);
+        return $gracePeriod;
+    }
+
     public function validate_two_factor($twoFactorSecret, $pin, $user)
     {
         $google2fa = new Google2FA();
@@ -7639,7 +7684,8 @@ class UsersLib extends TikiLib
         $color = '',
         $isRole = '',
         $isTplGroup = '',
-        $include_groups = []
+        $include_groups = [],
+        $twaFAGracePeriod = null
     ) {
 
         $tikilib = TikiLib::lib('tiki');
@@ -7669,6 +7715,7 @@ class UsersLib extends TikiLib
             'prorateInterval' => $prorateInterval,
             'isRole' => $isRole,
             'isTplGroup' => empty($isTplGroup) ? 'n' : $isTplGroup,
+            'twoFactorAuthGracePeriod' => $twaFAGracePeriod === '' ? null : $twaFAGracePeriod,
         ];
 
         $id = $this->table('users_groups')->insert($data);
@@ -7709,7 +7756,8 @@ class UsersLib extends TikiLib
         $color = '',
         $isRole = '',
         $isTplGroup = '',
-        $include_groups = []
+        $include_groups = [],
+        $twaFAGracePeriod = null
     ) {
         $isTplGroup = empty($isTplGroup) ? 'n' : $isTplGroup;
         $users = $this->get_group_users($group);
@@ -7742,7 +7790,9 @@ class UsersLib extends TikiLib
                 $prorateInterval,
                 $color,
                 $isRole,
-                $isTplGroup
+                $isTplGroup,
+                [],
+                $twaFAGracePeriod
             );
         }
 
@@ -7770,6 +7820,7 @@ class UsersLib extends TikiLib
             'prorateInterval' => $prorateInterval,
             'isRole' => $isRole,
             'isTplGroup' => $isTplGroup,
+            'twoFactorAuthGracePeriod' => $twaFAGracePeriod === '' ? null : $twaFAGracePeriod,
         ];
 
         $this->table('users_groups')->update($data, ['groupName' => $olgroup]);
@@ -7883,7 +7934,8 @@ class UsersLib extends TikiLib
             $groupInfo["groupColor"],
             $groupInfo["isRole"],
             $groupInfo["isTplGroup"],
-            $includeGroups
+            $includeGroups,
+            $groupInfo["twoFactorAuthGracePeriod"]
         );
         return true;
     }

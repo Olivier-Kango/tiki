@@ -613,6 +613,19 @@
                                 <small class="form-text text-muted">{tr}This will require the user to reset up 2FA the next time they log in.{/tr}</small>
                             </div>
                         </div>
+
+                        {if $force2FA}
+                            <div class="mb-3 row">
+                                <label class="col-form-label col-md-2">{tr}2FA Grace Period{/tr}</label>
+                                <div class="col-md-6">
+                                    <input type="number" class="form-control" name="twoFactorAuthGracePeriod" value="{$userinfo.twoFactorAuthGracePeriod|escape}">
+                                    <div class="form-text">
+                                        {tr}Number of days to allow this user to access the site without 2FA before forcing them to set it up.{/tr}
+                                    </div>
+                                </div>
+                            </div>
+                        {/if}
+
                     {/if}
 
                     <div class="mb-3 row">

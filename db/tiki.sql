@@ -2944,6 +2944,7 @@ CREATE TABLE `users_groups` (
   `prorateInterval` varchar(255) default '',
   `isRole` char(1) DEFAULT 'n',
   `isTplGroup` char(1) DEFAULT 'n',
+  `twoFactorAuthGracePeriod` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `groupName` (`groupName` (191)),
   KEY `expireAfter` (`expireAfter`)
@@ -3006,6 +3007,8 @@ CREATE TABLE `users_users` (
   `unsuccessful_logins` int(14) default 0,
   `waiting` char(1) default NULL,
   `twoFactorSecret` varchar(32) default NULL,
+  `twoFactorAuthGracePeriod` int(11) DEFAULT NULL,
+  `twoFactorGracePeriodStart` int(14) DEFAULT NULL,
   `last_mfa_date` bigint DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `login` (login (191)),
