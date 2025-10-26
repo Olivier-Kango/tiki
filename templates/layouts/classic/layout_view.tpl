@@ -114,12 +114,10 @@
                         {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                     </div>
                     <div class="col col3 col-12 col-md-6 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if}" id="col3">
-                        <div class="p-1 bg-light">
-                            {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
-                                {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='right'}
-                            {/if}
-                            {$modzoneright}
-                        </div>
+                        {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
+                            {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='right'}
+                        {/if}
+                        {$modzoneright}
                     </div>
                 {elseif zone_is_empty('right') or $prefs.feature_right_column eq 'n'}
                     <div class="col col1 col-md-12 col-lg-9 {if $prefs.feature_fixed_width neq 'y'}col-xl-10{/if} order-md-1 order-lg-2 pb-4" id="col1">
@@ -155,12 +153,10 @@
                     </div>
                     {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                     <div class="col col2 col-md-6 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if} order-sm-2 order-md-2 order-lg-1" id="col2">
-                        <div class="p-1 bg-light">
-                            {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
-                                {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='left'}
-                            {/if}
-                            {$modzoneleft}
-                        </div>
+                        {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
+                            {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='left'}
+                        {/if}
+                        {$modzoneleft}
                     </div>
                 {else}
                     <div class="col col1 col-sm-12 col-lg-8 order-xs-1 order-lg-2 pb-4" id="col1">
@@ -203,20 +199,16 @@
                             {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                     </div>
                     <div class="col col2 col-12 col-md-6 col-lg-2 order-md-2 order-lg-1" id="col2">
-                        <div class="p-1 bg-light">
-                            {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
-                                {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='left'}
-                            {/if}
-                            {$modzoneleft}
-                        </div>
+                        {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
+                            {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='left'}
+                        {/if}
+                        {$modzoneleft}
                     </div>
                     <div class="col col3 col-12 col-md-6 col-lg-2 order-md-3" id="col3">
-                        <div class="p-1 bg-light">
-                            {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
-                                {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='right'}
-                            {/if}
-                            {$modzoneright}
-                        </div>
+                        {if $prefs.module_sidebar_toggle_small_screen eq 'y'}
+                            {include file="modules/mod-side_col_toggle_small_screen.tpl" zone='right'}
+                        {/if}
+                        {$modzoneright}
                     </div>
                 {/if}
             </div> {* row row-middle *}
