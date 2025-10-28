@@ -157,11 +157,9 @@
         </form>
     {/tab}
     {if isset($smarty.request.edit_assign) or $preview eq "y"}
-        {tab name="{tr}Edit module{/tr}"}
+        {tab name="{tr}Configure new module{/tr}"}
             <a id="assign"></a>
-            {if $assign_name eq ''}
-                <h2>{tr}Assign new module{/tr}</h2>
-            {else}
+            {if $assign_name neq ''}
                 <h2>{tr}Edit this assigned module:{/tr} {$assign_name}</h2>
             {/if}
 
