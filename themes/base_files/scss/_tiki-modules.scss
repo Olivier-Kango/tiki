@@ -487,3 +487,12 @@ header.fixed-top {
 .btn-toggle.collapsed .hide-text {
     display: none;
 }
+
+// Quickadmin module Permissions link
+#quickadmin div.dropdown-item {
+    padding: 0 var(--bs-dropdown-item-padding-x);
+    & .btn-link {
+        color: var(--bs-dropdown-link-color);
+        padding: 0;
+    }
+}
