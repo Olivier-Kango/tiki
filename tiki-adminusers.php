@@ -291,10 +291,10 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
         $errors[] = tra('Email validation requested but email address not set');
         $AddUser = false;
     }
-    if ($_REQUEST['pass'] != $_REQUEST['passAgain']) {
-        $errors[] = tra('The passwords do not match');
+    if ($_REQUEST['pass'] !== $_REQUEST['passAgain']) {
+        $errors[] = tra('Passwords do not match');
         $AddUser = false;
-    } elseif (empty($_REQUEST['pass']) && empty($_REQUEST['genepass'])) {
+    } elseif (empty($_REQUEST['pass']) && empty($_REQUEST['genepass']) && empty($_REQUEST['pass_first_login'])) {
         $errors[] = tra('Password not set');
         $AddUser = false;
     }
@@ -388,9 +388,7 @@ if (isset($_REQUEST['batch']) && is_uploaded_file($_FILES['csvlist']['tmp_name']
                 }
             } else {
                 $errors[] = sprintf(
-                    tra('Impossible to create new %s with %s %s.'),
-                    tra('user'),
-                    tra('username'),
+                    tra('Impossible to create new user with username %s.'),
                     $_REQUEST['login']
                 );
             }
@@ -486,8 +484,7 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
                         $errors[] = tra('User login contains invalid characters.');
                     } elseif ($userlib->change_login($userinfo['login'], $_POST['login'])) {
                         Feedback::success(sprintf(
-                            tra('%s changed from %s to %s'),
-                            tra('Username'),
+                            tra('Username changed from %s to %s'),
                             $userinfo['login'],
                             $_POST['login']
                         ));
@@ -498,10 +495,10 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
                         );
 
                         $userinfo['login'] = $_POST['login'];
+                        $cookietab = '1';
                     } else {
                         $errors[] = sprintf(
-                            tra("Unable to change %s from %s to %s"),
-                            tra('login'),
+                            tra("Unable to change login from %s to %s"),
                             $userinfo['login'],
                             $_POST['login']
                         );
@@ -511,22 +508,42 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
         }
 
         $pass_first_login = (isset($_REQUEST['pass_first_login']) && $_REQUEST['pass_first_login'] == 'on');
-        if ((isset($_POST['pass']) && $_POST["pass"]) || $pass_first_login || (isset($_POST['genepass']) && $_POST['genepass'])) {
-            if ($_POST['pass'] != $_POST['passAgain']) {
-                Feedback::error(tra('The passwords do not match'));
+
+        if (! empty($_POST['pass']) || ! empty($_POST['genepass'])) {
+            if ($_POST['pass'] !== $_POST['passAgain']) {
+                Feedback::error(tra('Passwords do not match'));
             }
 
             if ($tiki_p_admin == 'y' || $tiki_p_admin_users == 'y' || $userinfo['login'] == $user) {
-                $newPass = $_POST['pass'] ? trim($_POST['pass']) : trim($_POST['genepass']);
-                $polerr = $userlib->check_password_policy($newPass);
-                if (strlen($polerr) > 0 && ! $pass_first_login) {
-                    Feedback::error($polerr);
-                } else {
-                    if ($userlib->change_user_password($userinfo['login'], $newPass, $pass_first_login)) {
-                        Feedback::success(sprintf(tra('%s modified successfully.'), tra('password')));
-                        $logslib->add_log('adminusers', 'changed password for ' . $_POST['login'], $user);
+                $newPass = $_POST['pass'] ? trim($_POST['pass']) : ($_POST['genepass'] ? trim($_POST['genepass']) : null);
+                if (! empty($newPass)) {
+                    $polerr = $userlib->check_password_policy($newPass);
+                    if (strlen($polerr) > 0) {
+                        Feedback::error($polerr);
                     } else {
-                        $errors[] = sprintf(tra('%s modification failed.'), tra('password'));
+                        if ($userlib->change_user_password($userinfo['login'], $newPass, $pass_first_login)) {
+                            Feedback::success(sprintf(tra('Password modified successfully.')));
+                            $cookietab = '1';
+                            $logslib->add_log('adminusers', 'changed password for ' . $_POST['login'], $user);
+                        } else {
+                            $errors[] = sprintf(tra('Password modification failed.'));
+                        }
+                    }
+                }
+            }
+        } elseif (empty($_POST['pass']) || empty($_POST['genepass'])) {
+            if ($tiki_p_admin == 'y' || $tiki_p_admin_users == 'y' || $userinfo['login'] == $user) {
+                if ($pass_first_login && $userinfo['pass_confirm'] !== 0) {
+                    if ($userlib->change_user_password($userinfo['login'], '', $pass_first_login)) {
+                        Feedback::success(sprintf(tra('Password reset required at next login has been enabled for %s.'), $_POST['login']));
+                        $cookietab = '1';
+                        $logslib->add_log('adminusers', 'Password reset required at next login has been enabled for ' . $_POST['login'], $user);
+                    }
+                } else if (! $pass_first_login && $userinfo['pass_confirm'] === 0) {
+                    if ($userlib->change_user_password($userinfo['login'], '', $pass_first_login)) {
+                        Feedback::success(sprintf(tra('Password reset requirement has been disabled for %s'), $_POST['login']));
+                        $cookietab = '1';
+                        $logslib->add_log('adminusers', 'Password reset requirement has been disabled for ' . $_POST['login'], $user);
                     }
                 }
             }
@@ -536,16 +553,16 @@ if (isset($_REQUEST['user']) and $_REQUEST['user']) {
             if ($userlib->change_user_email($userinfo['login'], $_POST['email'], '')) {
                 if ($prefs['login_is_email'] != 'y') {
                     Feedback::success(sprintf(
-                        tra('%s changed from %s to %s'),
-                        tra('Email'),
+                        tra('Email changed from %s to %s'),
                         $userinfo['email'],
                         $_POST['email']
                     ));
+                    $cookietab = '1';
                     $logslib->add_log('adminusers', 'changed email for' . $_POST['login'] . ' from ' . $userinfo['email'] . ' to ' . $_POST['email'], $user);
                 }
                 $userinfo['email'] = $_POST['email'];
             } else {
-                $errors[] = sprintf(tra('Impossible to change %s from %s to %s'), tra('email'), $userinfo['email'], $_POST['email']);
+                $errors[] = sprintf(tra('Impossible to change email from %s to %s'), $userinfo['email'], $_POST['email']);
             }
         }
         // check need_email_validation

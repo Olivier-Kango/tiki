@@ -410,7 +410,7 @@
                 {remarksbox type="warning" title="{tr}Warning: User Encryption is Active{/tr}"}
                 {tr}The feature User Encryption stores encrypted user information, such as password used to connect to external systems.
                     If the password is changed, it will destroy the user's decryption key, and make the data unreadable.
-                    The user will be forced to re-enter the passwords and other data that may be encrypted.{/tr}</a>.
+                    The user will be forced to re-enter the passwords and other data that may be encrypted.{/tr}
                 {/remarksbox}
             {/if}
             {if isset($userinfo.userId) && $userinfo.userId}
@@ -429,7 +429,7 @@
             {/if}
             {if $prefs.feature_intertiki eq 'y' and not empty($prefs.feature_intertiki_mymaster)}
                 {remarksbox type="info" title="{tr}Intertiki Enabled{/tr}"}
-                {tr _0=$prefs.feature_intertiki_mymaster|escape}This Tiki is an Intertiki Client so user information must be edited on the Intertiki Master "%0"{/tr}</a>.
+                {tr _0=$prefs.feature_intertiki_mymaster|escape}This Tiki is an Intertiki Client so user information must be edited on the Intertiki Master "%0"{/tr}
                 {/remarksbox}
             {elseif $userinfo.editable}
                 <form action="tiki-adminusers.php" method="post" enctype="multipart/form-data" name="RegForm" autocomplete="off">
@@ -498,10 +498,10 @@
                                 <input type="password" class="form-control" name="passAgain" id="pass2" placeholder="{tr}Password{/tr}" autocomplete="new-password">
                                 <div id="mypassword2_text">
                                     <div id="match" style="display:none">
-                                        {icon name='ok' istyle='color:#0ca908'} {tr}Passwords match{/tr}
+                                        {icon name='ok' style='color:#0ca908'} {tr}Passwords match{/tr}
                                     </div>
                                     <div id="nomatch" style="display:none">
-                                        {icon name='error' istyle='color:#ff0000'} {tr}Passwords do not match{/tr}
+                                        {icon name='error' style='color:#ff0000'} {tr}Passwords do not match{/tr}
                                     </div>
                                 </div>
                             </div>
@@ -522,7 +522,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="checkbox" name="pass_first_login"
-                                                {if isset($userinfo.pass_confirm) && $userinfo.pass_confirm eq '0' or not empty($smarty.request.pass_first_login) or $prefs.user_must_change_password_set_default_on eq 'y'}
+                                                {if (isset($userinfo.pass_confirm) && $userinfo.pass_confirm eq '0') or (not empty($smarty.request.pass_first_login)) or ($prefs.user_must_change_password_set_default_on eq 'y')}
                                                     checked="checked"
                                                 {/if}>
                                             {tr}User must change password at next login{/tr}
@@ -566,7 +566,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" name="insert_user_tracker_item"
-                                               {if not empty($smarty.request.insert_user_tracker_item or $prefs.user_add_tracker_item_set_default_on eq 'y')}checked="checked"{/if}>
+                                               {if (not empty($smarty.request.insert_user_tracker_item)) or $prefs.user_add_tracker_item_set_default_on eq 'y'}checked="checked"{/if}>
                                         {tr}Add a user tracker item for this user{/tr}
                                     </label>
                                 </div>

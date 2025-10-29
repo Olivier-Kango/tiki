@@ -7629,20 +7629,22 @@ class UsersLib extends TikiLib
     {
 
         $hash = password_hash($pass, PASSWORD_DEFAULT);
-        $new_pass_confirm = $this->now;
 
-        if ($pass_first_login) {                    // if true, set pass_confirm to force passord change upon next login
-            if (! empty($pass)) {
-                $query = 'update `users_users` set `hash`=? , `provpass`=?, `pass_confirm`=? where binary `login`=?';
-                $result = $this->query($query, [$hash, $pass, 0, $user]);
+        if (! empty($pass)) {
+            $query = 'update `users_users` set `hash`=?, `provpass`=?, `pass_confirm`=? where binary `login`=?';
+            // if true, set pass_confirm to force passord change upon next login
+            if ($pass_first_login) {
+                $params = [$hash, $pass, 0, $user];
             } else {
-                $query = 'update `users_users` set `pass_confirm`=? where binary `login`=?';
-                $result = $this->query($query, [0, $user]);
+                $params = [$hash, '', $this->now, $user];
             }
         } else {
-            $query = 'update `users_users` set `hash`=? ,`pass_confirm`=?, `provpass`=? where binary `login`=?';
-            $result = $this->query($query, [$hash, $new_pass_confirm, '', $user]);
+            // No password change, only update confirmation flag
+            $query = 'update `users_users` set `pass_confirm`=? where binary `login`=?';
+            $params = [$pass_first_login ? 0 : $this->now, $user];
         }
+
+        $result = $this->query($query, $params);
 
         if ($result && $result->numRows() === 1) {
             // invalidate the cache so that after a fresh install, the admin (who has no user details at the install) can log in
