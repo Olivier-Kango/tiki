@@ -737,3 +737,18 @@ composer-operator-check:
     - if: $CI_PIPELINE_SOURCE == "push"
       when: always
   allow_failure: false
+
+check-alphabetical-list:
+  stage: unit-tests
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  needs:
+    - composer
+  script:
+    - chmod +x doc/devtools/check_alphabetical_list.php
+    - php doc/devtools/check_alphabetical_list.php
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
+  allow_failure: false
