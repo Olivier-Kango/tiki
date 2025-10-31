@@ -3,7 +3,7 @@
         {if $tiki_p_add_events eq 'y' && (empty($module_params.showaction) || $module_params.showaction ne 'n')}
             <br>
             <p>
-                <a class="btn btn-link" href="{bootstrap_modal controller='calendar' action=$prefs.calendar_event_click_action size='modal-lg'}" role="button">
+                <a class="btn btn-link" href="{bootstrap_modal controller='calendar' action='edit_item' size='modal-lg' defaultCalendarId=$defaultCalendarId}" role="button">
                     {icon name="add"}
                     {tr}Add Event{/tr}
                 </a>
