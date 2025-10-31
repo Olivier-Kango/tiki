@@ -12,7 +12,7 @@
    {* {if $module_decorations ne 'n'} *} {* Code updated so module title isn't affected by $module_decorations (actually it already wasn't).  *}
    <div class="card-header" {if !empty($module_params.bgcolor) || $module_decorations eq 'n'}style="{if !empty($module_params.bgcolor)}background-color:{$module_params.bgcolor};{/if}{if $module_decorations eq 'n'}border-color: transparent !important; background: transparent !important; padding-bottom: 0 !important;{/if}"{/if}>
             {if ($module_notitle ne 'y' && !empty($module_title)) || ($module_flip eq 'y') || $prefs.menus_items_icons eq 'y'}
-                <h3 class="{if $module_decorations eq 'n'}card-title mb-0{else}tiki-card-header-title fs-5 pt-0 m-o{/if}">
+                <h3 class="{if $module_decorations eq 'n'}card-title mb-0{else}tiki-card-header-title fs-5 pt-0 m-0{/if}">
                     {if $module_notitle ne 'y' && !empty($module_title)}
                         <span class="moduletitle">{$module_title}</span>
                     {/if}
