@@ -189,7 +189,7 @@ class PdfGenerator
         $quotedFilename = '"' . $filename . '"';
         $quotedCommand = '"' . $this->location . '"';
 
-        `$quotedCommand -q $arg $quotedFilename`;
+        shell_exec("$quotedCommand -q $arg $quotedFilename");
 
         // Read the out file
         $pdf = file_get_contents($filename);
@@ -228,7 +228,7 @@ class PdfGenerator
         $quotedCommand = '"' . $this->location . '"';
 
         // redirect STDERR to null with 2>/dev/null becasue it outputs plenty of irrelevant warnings (hopefully nothing critical)
-        `$quotedCommand $arg $quotedFilename 2>/dev/null`;
+        shell_exec("$quotedCommand $arg $quotedFilename 2>/dev/null");
 
         // Read the out file
         $pdf = file_get_contents($filename);

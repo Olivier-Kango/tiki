@@ -213,10 +213,7 @@ phplint:
       - phplint.cache
   parallel:
     matrix:
-      - PHP_VERSION: "8.1"
-      - PHP_VERSION: "8.2"
-      - PHP_VERSION: "8.3"
-      - PHP_VERSION: "8.4"
+      - PHP_VERSION: ['8.1', '8.2', '8.3', '8.4', '8.5']
 
 smarty-lint:
   stage: lint
@@ -543,6 +540,8 @@ unit-tests:
         DB_IMAGE: ${MARIADB_IMAGE_NEWEST_SUPPORTED}
       - PHP_VERSION: "8.4"
         DB_IMAGE: ${MARIADB_IMAGE_NEWEST_SUPPORTED}
+      - PHP_VERSION: "8.5"
+        DB_IMAGE: ${MYSQL_IMAGE_NEWEST_SUPPORTED}
 
 unit-tests-node:
   stage: unit-tests

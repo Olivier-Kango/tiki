@@ -1215,7 +1215,7 @@ function getCommandPath($command, $options = '')
             return $path . $command . $options;
         }
     }
-    $commandPath = `which $command`;
+    $commandPath = shell_exec("which $command");
     if (empty($commandPath)) {
         return false;
     } else {

@@ -33,7 +33,7 @@ function rcmp($a, $b)
 }
 function shuf(&$ar)
 {
-    srand((double) microtime() * 10000000);
+    srand((float) microtime() * 10000000);
     uksort($ar, "rcmp");
 }
 
