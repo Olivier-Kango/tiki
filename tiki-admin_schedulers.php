@@ -23,6 +23,7 @@ $inputConfiguration = [
             'offset'                     => 'digits',         //get
             'numrows'                    => 'digits',         //post
             'logs'                       => 'string',         //post
+            'consolidated_logs'          => 'digits',         //get
             'add'                        => 'alpha',          //get
             'filter'                     => 'string',         //get
             'save'                       => 'alpha',          //post
@@ -169,11 +170,15 @@ $auto_query_args = [
     'scheduler',
     'logs',
     'filter',
+    'consolidated_logs',
 ];
 
 $schedLib = TikiLib::lib('scheduler');
 $schedulerTasks = Scheduler_Item::getAvailableTasks();
 $scheduler = 0;
+
+$tikilib = TikiLib::lib('tiki');
+$numOfLogs = $tikilib->get_preference('scheduler_keep_logs');
 
 if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset($_POST['scheduler']))) && $access->checkCsrf()) {
     // If scheduler saved, it redirects to the schedulers page, cleaning the add/edit scheduler form.
@@ -194,23 +199,9 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
     } else {
         $scheduler = $_REQUEST['scheduler'];
         $schedulerinfo['params'] = json_decode($schedulerinfo['params'], true);
+        $offset = empty($_REQUEST['offset']) ? 0 : $_REQUEST['offset'];
+        $numRows = empty($_REQUEST['numrows']) ? $maxRecords : $_REQUEST['numrows'];
 
-        if (empty($_REQUEST['offset'])) {
-            $offset = 0;
-        } else {
-            $offset = $_REQUEST['offset'];
-        }
-        $smarty->assign_by_ref('offset', $offset);
-
-        if (empty($_REQUEST['numrows'])) {
-            $numRows = $maxRecords;
-        } else {
-            $numRows = $_REQUEST['numrows'];
-        }
-        $smarty->assign_by_ref('numrows', $numRows);
-
-        $tikilib = TikiLib::lib('tiki');
-        $numOfLogs = $tikilib->get_preference('scheduler_keep_logs');
         $schedulerRuns = $schedLib->get_scheduler_runs($scheduler, $numRows, $offset);
         $runsCount = $schedLib->countRuns($scheduler);
 
@@ -219,7 +210,6 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
         }
 
         $smarty->assign_by_ref('count', $runsCount);
-        $smarty->assign_by_ref('numOfLogs', $numOfLogs);
 
         // Check if last run is still running and can be stopped.
         if (
@@ -257,7 +247,27 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
         }
     }
     $scheduler = 0;
+    $offset = empty($_REQUEST['offset']) ? 0 : $_REQUEST['offset'];
+    $numRows = empty($_REQUEST['numrows']) ? $maxRecords : $_REQUEST['numrows'];
+
+    // Fetch consolidated logs for the Logs tab (tabs use client-side navigation)
+    $consolidatedLogs = $schedLib->getConsolidatedLogs($numRows, $offset);
+    $consolidatedLogsCount = $schedLib->countRuns();
+    if ($consolidatedLogsCount > $numOfLogs && $numOfLogs > 0) {
+        $consolidatedLogsCount = $numOfLogs;
+    }
+    $smarty->assign_by_ref('consolidatedLogsCount', $consolidatedLogsCount);
+    $smarty->assign_by_ref('consolidatedLogs', $consolidatedLogs);
+
+    // Set tab to Logs tab when paginating through consolidated logs
+    if (isset($_REQUEST['consolidated_logs'])) {
+        $cookietab = '5';
+    }
 }
+
+$smarty->assign_by_ref('numOfLogs', $numOfLogs);
+$smarty->assign_by_ref('offset', $offset);
+$smarty->assign_by_ref('numrows', $numRows);
 
 $tasks = $schedLib->get_scheduler(null, null, ['run_only_once' => 0]);
 
@@ -271,6 +281,8 @@ foreach ($tasks as $key => $task) {
     }
 
     $tasks[$key]['stalled'] = $schedulerItem->isStalled();
+    $tasks[$key]['last_run_status'] = $schedLib->get_run_status($task['id']);
+    $tasks[$key]['last_run_stalled'] = $schedLib->getStalled($task['id']);
     if ($tasks[$key]['stalled']) {
         $stalledTasksCount++;
     }
