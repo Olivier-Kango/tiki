@@ -408,7 +408,7 @@ class Services_File_Controller
         ]);
 
         if ($search = $input->search->text()) {
-            $query->filterContent($search);
+            $query->filterContent($search, 'title,filename');
         }
 
         if ($typeFilter = $input->type->text()) {
