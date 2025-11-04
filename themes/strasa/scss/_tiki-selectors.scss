@@ -24,10 +24,6 @@ body {
   background: #214d68 url('#{$imagePath}body-bg_fw.png') repeat-x;
 }
 
-body.tiki.navbar-padding {
-  padding-top: 84px;
-}
-
 body.fullscreen.tiki.navbar-padding {
   padding-top: 0;
 }
