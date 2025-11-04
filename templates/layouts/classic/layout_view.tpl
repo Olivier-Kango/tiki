@@ -1,8 +1,8 @@
 {capture assign=modzonetop}
-    {modulelist zone=top class="top_modules w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-top-nav-{$navbar_color_variant}" heading_text='{tr}Site identity, navigation, etc.{/tr}'}
+    {modulelist zone=top class="top_modules w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent tiki-top-nav-{$navbar_color_variant}" heading_text='{tr}Site identity, navigation, etc.{/tr}' role=banner}
 {/capture}
 {capture assign=modzonetopbar}
-    {modulelist zone=topbar class="topbar_modules w-100 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-topbar-nav-{$navbar_color_variant}" heading_text='{tr}Navigation and related functionality and content{/tr}'}
+    {modulelist zone=topbar class="topbar_modules topbar w-100 navbar-{$navbar_color_variant} bg-{$navbar_color_variant} tiki-topbar-nav-{$navbar_color_variant}" heading_text='{tr}Navigation and related functionality and content{/tr}'}
 {/capture}
 {capture assign=modzonepagetop}
     {modulelist zone=pagetop heading_text='{tr}Related content{/tr}' role=complementary}
@@ -17,7 +17,7 @@
     {modulelist zone=left class="left-aside" heading_text='{tr}More content and functionality (left side){/tr}' role=complementary}
 {/capture}
 {capture assign=modzonebottom}
-    {modulelist zone=bottom class='mt-3' heading_text='{tr}Related content{/tr}' role=complementary}
+    {modulelist zone=bottom class='bottom_modules p-3 mt-3' heading_text='{tr}Site information, links, etc.{/tr}' role=contentinfo}
 {/capture}
 <!DOCTYPE html>
 <html lang="{if !empty($pageLang)}{$pageLang}{else}{$prefs.language}{/if}"{if Language::isRTL()} dir="rtl"{/if}{if !empty($page_id)} id="page_{$page_id}"{/if}>
