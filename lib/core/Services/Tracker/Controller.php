@@ -3160,7 +3160,7 @@ class Services_Tracker_Controller
         $item = Tracker_Item::fromId($itemId);
 
         if (! $item) {
-            throw new Services_Exception_NotFound();
+            throw new Services_Exception_NotFound(tr('Tracker item not found'));
         }
 
         $definition = $item->getDefinition();
