@@ -190,14 +190,6 @@ function wikiplugin_mediaplayer($data, $params)
     if (in_array($params['type'], ['pdf']) && defined('TIKI_DISPLAY_CONTAINS_PDF') && TIKI_DISPLAY_CONTAINS_PDF) {
         return "<pdfpage>.<pdfinclude src='" . $access->absoluteUrl($params['src']) . "' /></pdfpage>";
     }
-    $defaults_html5 = [
-        'width' => '',
-        'height' => '',
-    ];
-    $defaults = [
-        'width' => 320,
-        'height' => 240,
-    ];
 
     if (in_array($params['type'], DOCUMENT_ACCEPTED_FORMATS)) {
         $headerlib = TikiLib::lib('header');
