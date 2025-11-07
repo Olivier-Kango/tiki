@@ -22079,10 +22079,10 @@ $lang_current = array(
 "List all trackers (you have the permission to see)" => "Alle Tracker auflisten (die Du sehen darfst)",
 "List items" => "Elemente auflisten",
 "No cancelled payments found" => "Keine stornierten Zahlungen gefunden",
-"See %0more options%1 after you enable more %2Preference Filters%3 above (%4)" => "See more options after you enable more Preference Filters above ()",
+"See %0more options%1 after you enable more %2Preference Filters%3 above (%4)" => "See %0more options%1 after you enable more %2Preference Filters%3 above (%4)",
 "Show in ER Diagram" => "In ER-Diagramm anzeigen",
 "Site information, links, etc." => "Informationen zur Website, Links usw.",
-"This can be an address of a CalDAV server or export of .ics calendar URL. If the URL needs authentication, specify it in %0Admin-Content Authentication%1." => "Dies kann die Adresse eines CalDAV-Servers oder der Export einer .ics-Kalender-URL sein. Wenn die URL eine Authentifizierung erfordert, gib diese unter Admin-Content Authentication an.",
+"This can be an address of a CalDAV server or export of .ics calendar URL. If the URL needs authentication, specify it in %0Admin-Content Authentication%1." => "Dies kann die Adresse eines CalDAV-Servers oder der Export einer .ics-Kalender-URL sein. Wenn die URL eine Authentifizierung erfordert, gib diese unter %0Admin-Content Authentication an%1.",
 "Tracker Fields:" => "Tracker-Felder:",
 );
 $lang = array_replace($lang, $lang_current);
