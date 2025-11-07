@@ -2572,6 +2572,9 @@
         "lib\/test\/Core\/Request\/RequestTest.php": {
             "class:RequestTest": true
         },
+        "lib\/test\/Core\/Search\/Query\/WikiBuilderTest.php": {
+            "class:Search_Query_WikiBuilderTest": true
+        },
         "lib\/test\/Core\/TikiDb\/TableTest.php": {
             "class:TikiDb_TableTest": true
         },
