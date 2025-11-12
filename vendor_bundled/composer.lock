@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b75056e8b2aedb656b5757e4379404d2",
+    "content-hash": "daa8604e6c26742aee1f42bf8ba86288",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2742,16 +2742,16 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "v2.5.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "27a8de484960f37870e7aefd12ea69816e090056"
+                "reference": "b821a84173f92477082cce8014620c0719721b56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/27a8de484960f37870e7aefd12ea69816e090056",
-                "reference": "27a8de484960f37870e7aefd12ea69816e090056",
+                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/b821a84173f92477082cce8014620c0719721b56",
+                "reference": "b821a84173f92477082cce8014620c0719721b56",
                 "shasum": ""
             },
             "require": {
@@ -2826,7 +2826,7 @@
                 "source": "https://github.com/cypht-org/cypht/",
                 "wiki": "https://github.com/cypht-org/cypht/wiki"
             },
-            "time": "2025-10-27T09:20:26+00:00"
+            "time": "2025-11-10T12:23:35+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",

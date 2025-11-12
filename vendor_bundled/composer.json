@@ -352,21 +352,13 @@
                 "alternatives": "No alternatives for prebinding. Custom implementation would be complex.",
                 "impact": "XMPP chat completely non-functional. Users cannot authenticate or connect."
             },
-            "jason-munro/cypht": {
-                "reason": "Intentionally using dev-master to align with Cypht's master branch during active development of Tiki.",
-                "mitigation": "Deep integration with custom patches. Reviewed regularly. When Tiki branches to a stable version, it should switch to the latest stable Cypht release.",
-                "reviewed": "2025-08-27",
-                "reviewer": "Joseph Kausi",
-                "alternatives": "Use latest stable in stable branches.",
-                "impact": "Webmail completely non-functional. Users lose email access."
-            },
             "garethp/php-ews": {
-                "reason": "Required by Cypht. Currently using dev-master due to needed features not yet available in stable.",
+                "reason": "Required by Cypht from https://github.com/cypht-org/cypht/pull/1278. Currently using dev-master due to needed features not yet available in stable.",
                 "mitigation": "Monitored for upstream changes. Plan to migrate to stable once required features are released.",
-                "reviewed": "2025-08-27",
-                "reviewer": "Joseph Kausi",
-                "alternatives": "Recommendation: Consider migrating to stable v0.11.0 unless dev-master features are needed",
-                "impact": "Exchange integration may be affected if removed."
+                "reviewed": "2024-10-09",
+                "reviewer": "Victor Emanouilov",
+                "alternatives": "No alternatives for the moment, A lot of work would be needed to migrate away from Exchange integration.",
+                "impact": "Exchange integration completely non-functional."
             }
         }
     },
