@@ -1393,6 +1393,7 @@ class Services_Tracker_Controller
                     'processedFields' => $processedFields,
                     'deletedFiles' => $deletedFiles,
                     'validate' => $validate,
+                    'notify_watchers' => $input->notify_watchers->word(),
                 ]
             );
 
