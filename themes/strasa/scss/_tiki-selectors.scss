@@ -209,5 +209,16 @@ h1.pagetitle > a:hover {
 // Breadcrumbs
 // Code
 // Tiki-specific
+
+// Light mode dark page footer
+[data-bs-theme="light"] .bottom_modules {
+    color: #999999;
+    .tiki-card-header-title { color: #DEE2E6 !important; }
+    .card, .card-header { border-color: transparent; }
+    .card-body { color: #999999; }
+    a:not(.nav-link:not(.dropdown-toggle), .dropdown-item), .btn-link { color: #dee2e6; }
+    a:not(.nav-link:not(.dropdown-toggle), .dropdown-item):hover, .btn-link:hover { color: #bfbfbf; }
+}
+
 // Dark mode
 // External libraries
