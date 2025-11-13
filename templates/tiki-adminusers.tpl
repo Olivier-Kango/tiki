@@ -724,11 +724,11 @@
                     <label class="col-md-3 col-form-label">{tr}Existing Users{/tr}</label>
                     <div class="col-md-9">
                         <label>
-                            <input type="radio" name="overwrite" value="y">
+                            <input type="radio" class="form-check-input" name="overwrite" value="y">
                             {tr}Overwrite{/tr}
                         </label>
                         <label>
-                            <input type="radio" name="overwrite" value="n" checked>
+                            <input type="radio" class="form-check-input" name="overwrite" value="n" checked>
                             {tr}Don't overwrite{/tr}
                         </label>
                     </div>

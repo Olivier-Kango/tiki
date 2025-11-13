@@ -368,10 +368,10 @@
                         <div class="mb-3 row">
                             <div class="col-sm-2 col-form-label">{tr}Watch for replies{/tr}</div>
                             <div class="col-sm-10">
-                                <input type="radio" name="set_thread_watch" value="y" id="thread_watch_yes" checked="checked">
+                                <input type="radio" class="form-check-input" name="set_thread_watch" value="y" id="thread_watch_yes" checked="checked">
                                 <label for="thread_watch_yes">{tr}Send me an email when someone replies to my topic{/tr}</label>
                                 <br>
-                                <input type="radio" name="set_thread_watch" value="n" id="thread_watch_no">
+                                <input type="radio" class="form-check-input" name="set_thread_watch" value="n" id="thread_watch_no">
                                 <label for="thread_watch_no">{tr}Don't send me any emails{/tr}</label>
                             </div>
                         </div>
