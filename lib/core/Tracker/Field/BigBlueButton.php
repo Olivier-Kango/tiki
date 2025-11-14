@@ -127,7 +127,7 @@ class Tracker_Field_BigBlueButton extends \Tracker\Field\AbstractItemField imple
         // Parse current value (could be URL or JSON with cached data)
         $currentData = $this->parseStoredValue($currentValue);
 
-        $smarty->assign('field', $this->definition);
+        $smarty->assign('field', $this->getFieldDefinition());
         $smarty->assign('input_mode', $inputMode);
         $smarty->assign('recordings', $recordings);
         $smarty->assign('current_value', $currentValue);
@@ -149,7 +149,7 @@ class Tracker_Field_BigBlueButton extends \Tracker\Field\AbstractItemField imple
             $recordingData = $this->getRecordingData($value);
         }
 
-        $smarty->assign('field', $this->definition);
+        $smarty->assign('field', $this->getFieldDefinition());
         $smarty->assign('recording_data', $recordingData);
         $smarty->assign('value', $value);
 
@@ -200,10 +200,10 @@ class Tracker_Field_BigBlueButton extends \Tracker\Field\AbstractItemField imple
     public function getTabularSchema(): Tracker\Tabular\Schema
     {
         $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
-        $permName = $this->definition['permName'] ?? '';
+        $permName = $this->getFieldDefinition()['permName'] ?? '';
 
         $schema->addNew($permName, 'default')
-            ->setLabel($this->definition['name'] ?? '')
+            ->setLabel($this->getFieldDefinition()['name'] ?? '')
             ->setRenderTransform(function ($value) {
                 return $value;
             })
@@ -217,10 +217,10 @@ class Tracker_Field_BigBlueButton extends \Tracker\Field\AbstractItemField imple
     public function getFilterCollection(): Tracker\Filter\Collection
     {
         $filters = parent::getFilterCollection();
-        $permName = $this->definition['permName'] ?? '';
+        $permName = $this->getFieldDefinition()['permName'] ?? '';
 
         $filters->addNew($permName, 'manual')
-            ->setLabel($this->definition['name'] ?? '')
+            ->setLabel($this->getFieldDefinition()['name'] ?? '')
             ->setControl(new Tracker\Filter\Control\TextField("tf_{$permName}"));
 
         return $filters;
