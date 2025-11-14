@@ -342,6 +342,9 @@ class Comments extends TikiLib
         }
     }
 
+    /**
+     * @throws \Tiki\MailIn\Exception\TransportException
+     */
     public function process_inbound_mail($forumId, $maxImport = 5)
     {
         global $prefs, $user;
@@ -375,11 +378,13 @@ class Comments extends TikiLib
 
             $rawEmailContent = $imap->get_message_content($uid, 0);
             $parsedMessage = $mailMimeParser->parse($rawEmailContent, true);
+
+            // $subject = $parsedMessage->getHeaderValue('Subject');
             // If the mail came from Tiki, we don't need to add it again
             $xTikiHeader = $parsedMessage->getHeaderValue('X-Tiki');
             if ($xTikiHeader === 'yes') {
                 $source_imap->deleteMessages($imap, [$uid]);
-                error_log("Skipping email with X-Tiki: yes. Message ID: " . $messageFromImap->getNumber());
+                error_log("[MAIL-IMPORT][SKIP] Message UID=$uid came from Tiki (X-Tiki=yes)");
                 continue;
             }
             // If the connection is done, or the mail has an error, or whatever,
@@ -387,20 +392,18 @@ class Comments extends TikiLib
             // and continue on. --rlpowell
             if (! count($parsedMessage->getAllHeaders())) {
                 $source_imap->deleteMessages($imap, [$uid]);
-                error_log("Skipping email with no headers. Raw content length: " . strlen($rawEmailContent));
+                error_log("[MAIL-IMPORT][SKIP] Message UID=$uid has no headers.");
                 continue;
             }
-//            https://mail-mime-parser.org/usage-guide-0.4.html
-            $addressHeader = $parsedMessage->getHeader('From'); // getHeader('From') returns an AddressHeader object
-            $fromAddress = $addressHeader?->getAddresses()[0] ?? null;
-            $aux['From'] = $fromAddress ? $fromAddress->toString() : '';
-            if ($addressHeader) {
-                $returnPath = $parsedMessage->getHeaderValue('Return-path');
-                if ($returnPath) {
-                    $aux['From'] = $returnPath;
-                } else {
-                    $aux['Return-path'] = "";
-                }
+
+            $addressHeader = $parsedMessage->getHeader('From');
+            $fromAddressPart = $addressHeader?->getAddresses()[0] ?? null;
+            $aux['From'] = $fromAddressPart ? $fromAddressPart->getEmail() : '(none)';
+
+            // Optionally override with Return-Path if available
+            $returnPath = $parsedMessage->getHeaderValue('Return-Path');
+            if ($returnPath) {
+                $aux['From'] = $returnPath;
             }
             //try to get the date from the email:
             $postDate = $parsedMessage->getHeader('Date')?->getDateTime(); // getHeader('Date') returns an DateHeader object
@@ -659,8 +662,10 @@ class Comments extends TikiLib
                 // mark the message to be deleted and keep processing
                 $source_imap->deleteMessages($imap, [$uid]);
             } catch (Exception $e) {
+                error_log("[MAIL-IMPORT][ERROR] Failed to post email UID=$uid: " . $e->getMessage());
                 Feedback::error(tr('Adding email %0 to the forum failed due to "%1"', $title, $e->getMessage()));
             }
+            $importedCount++;
         }
         if ($imap) {
             $imap->disconnect();
