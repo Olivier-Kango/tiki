@@ -229,9 +229,9 @@
                 </select>
             </div>
             <label class="float-start" for="begin1">{tr}at the beginning{/tr}</label>
-            <div class="float-start"><input type="radio" id="begin1" name="begin" value="1" checked="checked" {if $structures|@count eq '1'} disabled="disabled"{/if}></div>
+            <div class="float-start"><input type="radio" class="form-check-input" id="begin1" name="begin" value="1" checked="checked" {if $structures|@count eq '1'} disabled="disabled"{/if}></div>
             <label class="float-start" for="begin2">{tr}at the end{/tr}</label>
-            <div class="float-start"><input type="radio" id="begin2" name="begin" value="0" {if $structures|@count eq '1'}disabled="disabled"{/if}></div>
+            <div class="float-start"><input type="radio" class="form-check-input" id="begin2" name="begin" value="0" {if $structures|@count eq '1'}disabled="disabled"{/if}></div>
             <hr>
             <div class="float-start input_submit_container submit">
                 <input type="submit" class="btn btn-primary" name="move_to" value="{tr}Move{/tr}" {if $structures|@count eq '1'} disabled="disabled"{/if}>

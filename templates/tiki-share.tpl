@@ -217,9 +217,9 @@
                     </td>
                     <td>
                         {if $twitter}
-                            <input type="radio" name="do_tweet" value="1">
+                            <input type="radio" class="form-check-input" name="do_tweet" value="1">
                             {tr}Yes{/tr}
-                            <input type="radio" name="do_tweet" value="0" checked="checked">
+                            <input type="radio" class="form-check-input" name="do_tweet" value="0" checked="checked">
                             {tr}No{/tr}
                         {else}
                             {remarksbox type="note" title="{tr}Note{/tr}"}
@@ -256,9 +256,9 @@
                     </td>
                     <td>
                         {if $facebook}
-                            <input type="radio" name="do_fb" value="1">
+                            <input type="radio" class="form-check-input" name="do_fb" value="1">
                             {tr}Yes{/tr}
-                            <input type="radio" name="do_fb" value="0" checked="checked">
+                            <input type="radio" class="form-check-input" name="do_fb" value="0" checked="checked">
                             {tr}No{/tr}
                         {else}
                             {remarksbox type="note" title="{tr}Note{/tr}"}
@@ -284,7 +284,7 @@
                                     <label class="col-form-label col-sm-3">{tr}Like this post{/tr}</label>
                                     <div class="col-sm-7">
                                         <label>
-                                            <input type="radio" name="fblike" value="1" {if $fblike==1}checked="checked" {/if}>
+                                            <input type="radio" class="form-check-input" name="fblike" value="1" {if $fblike==1}checked="checked" {/if}>
                                             {tr}Yes{/tr}
                                         </label>
                                         <label>

@@ -257,9 +257,9 @@
                 <br>
                 {if !empty($userEmail) and $userEmail ne $prefs.sender_email}
                     {tr}From:{/tr} {$userEmail|escape}
-                    <input type="radio" name="from" value="{$userEmail|escape}"{if empty($from) or $from eq $userEmail} checked="checked"{/if}>
+                    <input type="radio" class="form-check-input" name="from" value="{$userEmail|escape}"{if empty($from) or $from eq $userEmail} checked="checked"{/if}>
                     {$prefs.sender_email|escape}
-                    <input type="radio" name="from" value="{$prefs.sender_email|escape}"{if $from eq $prefs.sender_email} checked="checked"{/if}>
+                    <input type="radio" class="form-check-input" name="from" value="{$prefs.sender_email|escape}"{if $from eq $prefs.sender_email} checked="checked"{/if}>
                 {/if}
             </div>
         </div>

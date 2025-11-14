@@ -43,11 +43,11 @@
                     <label class="col-form-label col-md-3">{tr}Goal Attribution{/tr}</label>
                     <div class="col-md-9">
                         <label class="form-label">
-                            <input type="radio" name="type" value="user" {if $goal.type neq 'group'}checked{/if}>
+                            <input type="radio" class="form-check-input" name="type" value="user" {if $goal.type neq 'group'}checked{/if}>
                             {tr}Individual Goal{/tr}
                         </label>
                         <label class="form-label">
-                            <input type="radio" name="type" value="group" {if $goal.type eq 'group'}checked{/if}>
+                            <input type="radio" class="form-check-input" name="type" value="group" {if $goal.type eq 'group'}checked{/if}>
                             {tr}Group Goal{/tr}
                         </label>
                     </div>

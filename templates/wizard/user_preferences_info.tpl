@@ -49,9 +49,9 @@
                     <tr>
                         <td>{tr}Gender:{/tr}</td>
                         <td>
-                            <input type="radio" name="gender" value="Male" {if $gender eq 'Male'}checked="checked"{/if}> {tr}Male{/tr}
-                            <input type="radio" name="gender" value="Female" {if $gender eq 'Female'}checked="checked"{/if}> {tr}Female{/tr}
-                            <input type="radio" name="gender" value="Hidden" {if $gender ne 'Male' and $gender ne 'Female'}checked="checked"{/if}> {tr}Hidden{/tr}
+                            <input type="radio" class="form-check-input" name="gender" value="Male" {if $gender eq 'Male'}checked="checked"{/if}> {tr}Male{/tr}
+                            <input type="radio" class="form-check-input" name="gender" value="Female" {if $gender eq 'Female'}checked="checked"{/if}> {tr}Female{/tr}
+                            <input type="radio" class="form-check-input" name="gender" value="Hidden" {if $gender ne 'Male' and $gender ne 'Female'}checked="checked"{/if}> {tr}Hidden{/tr}
                         </td>
                     </tr>
                 {/if}

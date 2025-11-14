@@ -13,7 +13,7 @@
         <div class="col-sm-1">
             <div class="radio">
                 <label>
-                    <input type="radio" name="crunch" value='y'> {tr}Yes{/tr}
+                    <input type="radio" class="form-check-input" name="crunch" value='y'> {tr}Yes{/tr}
                 </label>
             </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="col-sm-1">
             <div class="radio">
                 <label>
-                    <input type="radio" name="remo" value='y'> {tr}Yes{/tr}
+                    <input type="radio" class="form-check-input" name="remo" value='y'> {tr}Yes{/tr}
                 </label>
             </div>
         </div>

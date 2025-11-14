@@ -113,7 +113,7 @@
                                     <input class="radio" type="radio" name="unit"
                                         value="bytes"{if $unit ne 'kb'} checked="checked"{/if}>
                                     <label class="offset-sm-1">{tr}kb{/tr}</label>
-                                    <input type="radio" name="unit" value="kb"{if $unit eq 'kb'} checked="checked"{/if}>
+                                    <input type="radio" class="form-check-input" name="unit" value="kb"{if $unit eq 'kb'} checked="checked"{/if}>
                                 </div>
                             </div>
                         </div>
@@ -127,9 +127,9 @@
                                 </div>
                                 <div class="mb-3 col-sm-4">
                                     <label>{tr}Week{/tr}</label>
-                                    <input type="radio" name="contribTime" value="w"{if $contribTime ne 'd'} checked="checked"{/if}>
+                                    <input type="radio" class="form-check-input" name="contribTime" value="w"{if $contribTime ne 'd'} checked="checked"{/if}>
                                     <label class="offset-sm-1">{tr}Day{/tr}</label>
-                                    <input type="radio" name="contribTime" value="d"{if $contribTime eq 'd'} checked="checked"{/if}>
+                                    <input type="radio" class="form-check-input" name="contribTime" value="d"{if $contribTime eq 'd'} checked="checked"{/if}>
                                 </div>
                             </div>
                         </div>
@@ -150,9 +150,9 @@
                             {if $prefs.feature_jpgraph eq 'y'}
                                 <br>
                                 {tr}Group Bar Plot:{/tr}
-                                <input type="radio" name="barPlot" value="group">
+                                <input type="radio" class="form-check-input" name="barPlot" value="group">
                                 {tr}Accumulated Bar Plot:{/tr}
-                                <input type="radio" name="barPlot" value="acc" checked="checked">
+                                <input type="radio" class="form-check-input" name="barPlot" value="acc" checked="checked">
                                 <br>
                                 {tr}Background color:{/tr}
                                 <select name="bgcolor">

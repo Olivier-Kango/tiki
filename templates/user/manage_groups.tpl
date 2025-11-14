@@ -12,11 +12,11 @@
             </label>
             <div class="radio col-sm-12">
                 <label class="col-form-label me-3">
-                    <input type="radio" name="add_remove" id="add" value="add" checked="" class="me-1">
+                    <input type="radio" name="add_remove" id="add" value="add" checked="" class="form-check-input me-1">
                     {tr}Add to{/tr}
                 </label>
                 <label class="col-form-label">
-                    <input type="radio" name="add_remove" id="remove" value="remove" class="me-1">
+                    <input type="radio" name="add_remove" id="remove" value="remove" class="form-check-input me-1">
                     {tr}Remove from{/tr}
                 </label>
             </div>
