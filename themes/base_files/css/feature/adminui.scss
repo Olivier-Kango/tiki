@@ -56,7 +56,7 @@ body.tiki-admin {
     padding-left: 0;
 }
 
-.tiki-admin .top_modules .box-login_box { margin-left: auto; justify-content: start; padding-top: 8px; }
+.tiki-admin .top_modules .box-login_box { padding: 0; }
 
 @media (min-width: 992px) {
     .tiki-admin.uab aside.admin-nav .navbar-expand-lg .offcanvas  .offcanvas-body {
@@ -154,7 +154,6 @@ body.tiki-admin {
 }
 
 .tiki-admin .top_modules .box-quickadmin {
-    margin-left: auto !important;
     padding: 0 1.4rem;
     background-color: transparent !important;
 }
@@ -532,18 +531,6 @@ body.tiki-admin {
     font-size: .875rem;
 }
 
-.tiki-admin .top_modules .nav-link {
-    margin-top: .9rem;
-}
-
-.tiki-admin .top_modules .btn.login_link {
-    margin-top: .8rem;
-}
-
-.tiki-admin .top_modules .nav-link, .tiki-admin .top_modules .btn.login_link {
-    padding: 0 .6rem;
-}
-
 .tiki-admin .top_modules .login-box .dropdown-menu {
     min-width: unset;
     right: 0;
@@ -593,7 +580,6 @@ body.tiki-admin {
 }
 
 .tiki-admin .siteloginbar_popup img {
-    vertical-align: baseline;
     max-width: 38px;
     max-height: 38px;
 }
@@ -692,11 +678,6 @@ body.tiki-admin {
     height: 2.1rem;
     background-position: right;
     width: 2rem;
-}
-
-.tiki-admin .siteloginbar_popup.dropdown {
-    right: 0;
-    position: fixed;
 }
 
 // Preference bar
