@@ -528,11 +528,11 @@ class ModLib extends TikiLib
                 return true;
             }
         }
-        // TODO: Check this if it behaves well on other "Admin" pages when UAB is enabled
+        // Load only the Unified Admin Interface (UAB) specific modules for Admins on admin panels/management pages
         $topLogin = $module['name'] === 'login_box' && $module['position'] === 'top';
         $topQA = $module['name'] === 'quickadmin' && $module['position'] === 'top';
         $footer = $module['position'] === 'bottom';
-        $isControlPanel = $section === 'admin' && strpos($_SERVER['PHP_SELF'], 'tiki-admin.php') !== false;
+        $isControlPanel = $section === 'admin';
 
         if ($prefs['theme_unified_admin_backend'] === 'y' && $isControlPanel && $module['position'] !== 'admin' && ! $topLogin && ! $footer && ! $topQA) {
             return false;
