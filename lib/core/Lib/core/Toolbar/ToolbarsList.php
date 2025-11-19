@@ -230,7 +230,7 @@ class ToolbarsList
             foreach ($lines as $blocks) {
                 foreach ($blocks as $block) {
                     foreach ($block as & $item) {
-                        if ($decoded = json_decode($item, true)) {
+                        if (! is_array($item) && $decoded = json_decode($item, true)) {
                             $item = $decoded;
                         }
                     }
