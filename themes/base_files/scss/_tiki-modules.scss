@@ -479,3 +479,17 @@ header.fixed-top {
 .tiki-module-header-top {
     margin-top: 35px;
 }
+
+// mod-collapse styles
+.btn-toggle:not(.collapsed) .show-text {
+    display: none;
+}
+.btn-toggle:not(.collapsed) .hide-text {
+    display: inline;
+}
+.btn-toggle.collapsed .show-text {
+    display: inline;
+}
+.btn-toggle.collapsed .hide-text {
+    display: none;
+}
