@@ -170,6 +170,7 @@
         .js-header_subject { color: var(--bs-body-color); font-size: 1.4rem; }
         .header_event_addtocal el-select { width: auto; }
     }
+    .subject div { color: var(--bs-body-color); }
 
     .src_name, .content_title, .list_controls {
         background-color: inherit !important;
@@ -188,8 +189,12 @@
     .msg_headers th:hover, .settings_subtitle,
     .server_section { color: inherit !important; }
 
-    .total_unread_count, .unread_count { color: #000; }
-    .btn-outline-secondary:hover { color: #fff; text-decoration: none;}
+    .total_unread_count, .unread_count {
+        background-color: var(--bs-secondary-bg); color: var(--bs-body-color);
+    }
+    .btn-outline-secondary:hover {
+        color: var(--bs-btn-hover-color); text-decoration: none;
+    }
     .msg_controls {
         .btn-outline-secondary:hover { color: var(--bs-btn-hover-color); }
     }
