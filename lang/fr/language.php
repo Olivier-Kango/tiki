@@ -1,6 +1,6 @@
 <?php
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
-// 
+//
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
@@ -1907,6 +1907,8 @@ $lang_current = array(
 // "An error occurred. User page for %0 could not be deleted" => "An error occurred. User page for %0 could not be deleted",
 "Deleted account %s" => "Supprimer le compte %s",
 // "An error occurred. User %0 could not be deleted" => "An error occurred. User %0 could not be deleted",
+"%0 the following user?" => "%0 l'utilisateur suivant ?",
+"%0 the following users?" => "%0 les utilisateurs suivants ?",
 // "%0 the following user" => "%0 the following user",
 // "%0 the following users" => "%0 the following users",
 // "The following user has been %0ed" => "The following user has been %0ed",
@@ -17304,7 +17306,19 @@ $lang_current = array(
 "Credit" => "Crédit",
 "Tax" => "Taxe",
 "Unlock account" => "Déverrouiller le compte",
-// "Lock account" => "Lock account",
+"Unlock following accounts" => "Déverrouiller les comptes suivants",
+"Unlock accounts" => "Déverrouiller les comptes",
+"Lock account?" => "Verrouiller le compte?",
+"Unlock account?" => "Déverrouiller le compte?",
+"Unlock the following users?" => "Déverrouiller les utilisateurs suivants?",
+"Lock" => "Verrouiller",
+"lock" => "verrouiller",
+"Unlock" => "Déverrouiller",
+"unlock" => "déverrouiller",
+"Account locked" => "Compte verrouillé",
+"Locked account" => "Compte verrouillé",
+"Lock account" => "Verrouiller le compte",
+"Lock accounts" => "Verrouiller les comptes",
 // "Remove account" => "Remove account",
 "Create a new account" => "Créer un nouveau compte",
 "printable version" => "version imprimable",
@@ -23205,6 +23219,7 @@ $lang_current = array(
 "You are not yet validated" => "Votre compte n'a pas encore été validé",
 "You are already logged in" => "Vous êtes déjà connecté",
 "Authentication error" => "Erreur d'authentification",
+"Account is locked. Please contact the administrator." => "Compte verrouillé. Veuillez contacter l'administrateur.",
 // "Invalid two-factor code" => "Invalid two-factor code",
 "Resend" => "Envoyer à nouveau",
 "You should have received an email. Check your mailbox and your spam box. Otherwise click on the button to resend the email" => "Vous devez avoir reçu un e-mail. Vérifiez votre boite à lettres et votre dossier spams. Sinon cliquez sur le bouton pour envoyer à nouveau l'e-mail",

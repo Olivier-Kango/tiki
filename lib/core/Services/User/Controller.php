@@ -1201,9 +1201,9 @@ class Services_User_Controller
             $util->setVars($input, [], 'checked');
             if ($util->itemsCount > 0) {
                 if (count($util->items) === 1) {
-                    $msg = tr('%0 the following user?', ucfirst($status_to_set));
+                    $msg = tr('%0 the following user?', tra(ucfirst($status_to_set)));
                 } else {
-                    $msg = tr('%0 the following users?', ucfirst($status_to_set));
+                    $msg = tr('%0 the following users?', tra(ucfirst($status_to_set)));
                 }
                 return $util->confirm($msg, tra(ucfirst($status_to_set)));
             } else {
