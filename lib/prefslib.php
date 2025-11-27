@@ -49,7 +49,6 @@ class PreferencesLib
 
         $translatablePreferences = [
             'browsertitle',
-            'metatag_keywords',
             'metatag_description',
         ];
 
