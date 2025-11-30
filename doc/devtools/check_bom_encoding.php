@@ -16,6 +16,7 @@ $dir = realpath(__DIR__ . '/../../') ;
 $excludeFolders = [
     $dir . '/vendor',
     $dir . '/vendor_bundled',
+    $dir . '/node_modules',
     $dir . '/temp',
     $dir . '/.git',
 ];
