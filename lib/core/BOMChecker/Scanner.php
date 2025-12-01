@@ -86,6 +86,11 @@ class BOMChecker_Scanner
             return;
         }
 
+        // Skip node_modules at any level (can appear in multiple nested locations)
+        if (basename($sourceDir) === 'node_modules') {
+            return;
+        }
+
         $sourceDir = $this->fixDirSlash($sourceDir);
 
         // Copy files and directories.

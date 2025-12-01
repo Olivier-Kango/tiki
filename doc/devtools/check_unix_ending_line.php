@@ -26,16 +26,8 @@ $excludePattern = [
     // temp folder (generated files)
     $dir . '/' . TEMP_PATH,
 
-    // node_modules (third-party dependencies)
-    $dir . '/node_modules',
-
     // bin directory (executables)
     $dir . '/bin',
-
-    // folders where node modules can be installed
-    $dir . '/lib/vue-mf/duration-picker/node_modules',
-    $dir . '/lib/vue-mf/kanban/node_modules',
-    $dir . '/lib/vue-mf/styleguide/node_modules',
 
     // libraries included in tiki, so taking it as is
     $dir . '/lib/openlayers/theme/default/style.tidy.css',
@@ -43,6 +35,11 @@ $excludePattern = [
     $dir . '/lib/openlayers/theme/default/google.tidy.css',
     $dir . '/lib/openlayers/theme/default/style.mobile.tidy.css',
     $dir . '/lib/vue/lib/ui-predicate-vue.css',
+];
+
+// Wildcard patterns - these can appear at multiple levels
+$wildcardExcludes = [
+    '/node_modules/',
 ];
 
 $extensions = [
@@ -82,6 +79,16 @@ foreach ($iterator as $file) {
 
     $fileInfo = pathinfo($currentFile);
     $excludeFile = (str_replace($excludePattern, '', $currentFile) != $currentFile);
+
+    // Check wildcard patterns (e.g., node_modules at any level)
+    if (! $excludeFile) {
+        foreach ($wildcardExcludes as $pattern) {
+            if (strpos($currentFile, $pattern) !== false) {
+                $excludeFile = true;
+                break;
+            }
+        }
+    }
 
     if ($excludeFile === false) {
         if (isset($fileInfo['extension']) && in_array($fileInfo['extension'], $extensions)) {
