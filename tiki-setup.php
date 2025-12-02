@@ -512,6 +512,13 @@ if (isset($prefs['fgal_elfinder_feature']) && $prefs['fgal_elfinder_feature'] ==
 }
 
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-jquery.js');
+//This is applied globally so all menus can open upward when space is limited.
+//Since menus appear in many places in Tiki, we can’t handle them individually, so we load it once on page load to make it available site-wide.
+//templates/menu/clone.tpl
+//templates/menu/preview.tpl
+//templates/menu/quicklinks.tpl
+//templates/tiki-view_sheets_menu.tpl
+$headerlib->add_jsfile(JS_ASSETS_PATH . '/jquery-tiki/tiki-menu.js');
 $headerlib->add_jsfile('lib/tiki-js.js'); //This depends on tiki-jquery.js in at least one place, so must load after - benoitg - 2023-11-21
 
 if (isset($_REQUEST['geo_zoomlevel_to_found_location'])) {

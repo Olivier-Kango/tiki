@@ -103,5 +103,12 @@ li.highlight {
         visibility: hidden; /* Hidden by default */
     }
 }
+/* --- Force all dropdowns to open upwards ---*/
+.dropdown-menu-bottom {
+    top: auto !important;
+    bottom: 100% !important;
+    margin-bottom: .5rem;
+    margin-top: 0 !important;
+}
 
 /* End of file */
