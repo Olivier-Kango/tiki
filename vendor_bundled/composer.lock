@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0877d6830395eb5bb77543082e8c9708",
+    "content-hash": "d3c0fbe91026755753d7326af95395e7",
     "packages": [
         {
             "name": "amphp/amp",
@@ -3009,12 +3009,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cypht-org/cypht.git",
-                "reference": "e5a8d3157d7ea537ef05057dc02c7863c7fbb033"
+                "reference": "be4a5b289aa093a87fab37a9d7baa10cda885382"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/e5a8d3157d7ea537ef05057dc02c7863c7fbb033",
-                "reference": "e5a8d3157d7ea537ef05057dc02c7863c7fbb033",
+                "url": "https://api.github.com/repos/cypht-org/cypht/zipball/be4a5b289aa093a87fab37a9d7baa10cda885382",
+                "reference": "be4a5b289aa093a87fab37a9d7baa10cda885382",
                 "shasum": ""
             },
             "require": {
@@ -3090,7 +3090,7 @@
                 "source": "https://github.com/cypht-org/cypht/",
                 "wiki": "https://github.com/cypht-org/cypht/wiki"
             },
-            "time": "2025-11-27T07:30:03+00:00"
+            "time": "2025-12-02T10:11:44+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3243,16 +3243,16 @@
         },
         {
             "name": "kaltura/api-client-library",
-            "version": "v22.6.0",
+            "version": "v22.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53.git",
-                "reference": "6193694c0bae04e88a255ae7e63ac809815f9b99"
+                "reference": "231d9c5227a8aab6e0666d4018bfbe7268dcfd21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kaltura/KalturaGeneratedAPIClientsPHP53/zipball/6193694c0bae04e88a255ae7e63ac809815f9b99",
-                "reference": "6193694c0bae04e88a255ae7e63ac809815f9b99",
+                "url": "https://api.github.com/repos/kaltura/KalturaGeneratedAPIClientsPHP53/zipball/231d9c5227a8aab6e0666d4018bfbe7268dcfd21",
+                "reference": "231d9c5227a8aab6e0666d4018bfbe7268dcfd21",
                 "shasum": ""
             },
             "require": {
@@ -3285,9 +3285,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53/issues",
-                "source": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53/tree/v22.6.0"
+                "source": "https://github.com/kaltura/KalturaGeneratedAPIClientsPHP53/tree/v22.7.0"
             },
-            "time": "2025-11-09T06:56:44+00:00"
+            "time": "2025-11-23T07:04:45+00:00"
         },
         {
             "name": "laminas/laminas-captcha",
@@ -6755,16 +6755,16 @@
         },
         {
             "name": "nette/utils",
-            "version": "v4.0.9",
+            "version": "v4.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "505a30ad386daa5211f08a318e47015b501cad30"
+                "reference": "2778deb6aab136c8db4ed1f4d6e9f465ca2dbee3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/505a30ad386daa5211f08a318e47015b501cad30",
-                "reference": "505a30ad386daa5211f08a318e47015b501cad30",
+                "url": "https://api.github.com/repos/nette/utils/zipball/2778deb6aab136c8db4ed1f4d6e9f465ca2dbee3",
+                "reference": "2778deb6aab136c8db4ed1f4d6e9f465ca2dbee3",
                 "shasum": ""
             },
             "require": {
@@ -6838,9 +6838,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.0.9"
+                "source": "https://github.com/nette/utils/tree/v4.0.10"
             },
-            "time": "2025-10-31T00:45:47+00:00"
+            "time": "2025-12-01T17:30:42+00:00"
         },
         {
             "name": "nicolaskruchten/pivottable",
@@ -10799,16 +10799,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.19.0",
+            "version": "4.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "1d29a07c8fb68ae9ad9bb8c3fecfaad3cbc23053"
+                "reference": "1c21d60bebe67c0122335bd3fe977990435af0a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/1d29a07c8fb68ae9ad9bb8c3fecfaad3cbc23053",
-                "reference": "1d29a07c8fb68ae9ad9bb8c3fecfaad3cbc23053",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/1c21d60bebe67c0122335bd3fe977990435af0a3",
+                "reference": "1c21d60bebe67c0122335bd3fe977990435af0a3",
                 "shasum": ""
             },
             "require": {
@@ -10871,7 +10871,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.19.0"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.19.1"
             },
             "funding": [
                 {
@@ -10883,7 +10883,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-11-27T14:53:55+00:00"
+            "time": "2025-12-02T15:57:41+00:00"
         },
         {
             "name": "smalot/pdfparser",
@@ -15861,16 +15861,16 @@
         },
         {
             "name": "zbateson/mail-mime-parser",
-            "version": "3.0.4",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/mail-mime-parser.git",
-                "reference": "f0ccec9290a5b9cf014d7b7ea3401d2a4a626e9a"
+                "reference": "ff054c8e05310c445c2028c6128a4319cc9f6aa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zbateson/mail-mime-parser/zipball/f0ccec9290a5b9cf014d7b7ea3401d2a4a626e9a",
-                "reference": "f0ccec9290a5b9cf014d7b7ea3401d2a4a626e9a",
+                "url": "https://api.github.com/repos/zbateson/mail-mime-parser/zipball/ff054c8e05310c445c2028c6128a4319cc9f6aa8",
+                "reference": "ff054c8e05310c445c2028c6128a4319cc9f6aa8",
                 "shasum": ""
             },
             "require": {
@@ -15933,7 +15933,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-03T17:18:36+00:00"
+            "time": "2025-12-02T00:29:16+00:00"
         },
         {
             "name": "zbateson/mb-wrapper",
@@ -16805,18 +16805,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibility.git",
-                "reference": "ed82765a97f1480242bb7bc6558503b3526fd9c4"
+                "reference": "f338a44dfe19a86319aab4c5ef0d3a8b3d831e3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibility/zipball/ed82765a97f1480242bb7bc6558503b3526fd9c4",
-                "reference": "ed82765a97f1480242bb7bc6558503b3526fd9c4",
+                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibility/zipball/f338a44dfe19a86319aab4c5ef0d3a8b3d831e3e",
+                "reference": "f338a44dfe19a86319aab4c5ef0d3a8b3d831e3e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2",
                 "phpcsstandards/phpcsutils": "^1.1.2",
-                "squizlabs/php_codesniffer": "^3.13.3 || ^4.0"
+                "squizlabs/php_codesniffer": "^4.0.1"
             },
             "replace": {
                 "wimg/php-compatibility": "*"
@@ -16888,7 +16888,233 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-11-29T22:53:33+00:00"
+            "time": "2025-12-01T05:43:02+00:00"
+        },
+        {
+            "name": "phpcompatibility/phpcompatibility-paragonie",
+            "version": "2.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie.git",
+                "reference": "7a979711c87d8202b52f56c56bd719d09d8ed7f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityParagonie/zipball/7a979711c87d8202b52f56c56bd719d09d8ed7f5",
+                "reference": "7a979711c87d8202b52f56c56bd719d09d8ed7f5",
+                "shasum": ""
+            },
+            "require": {
+                "phpcompatibility/php-compatibility": "^10.0@dev"
+            },
+            "require-dev": {
+                "paragonie/random_compat": "dev-master",
+                "paragonie/sodium_compat": "dev-master"
+            },
+            "type": "phpcodesniffer-standard",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Wim Godden",
+                    "role": "lead"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "role": "lead"
+                }
+            ],
+            "description": "A set of rulesets for PHP_CodeSniffer to check for PHP cross-version compatibility issues in projects, while accounting for polyfills provided by the Paragonie polyfill libraries.",
+            "homepage": "http://phpcompatibility.com/",
+            "keywords": [
+                "compatibility",
+                "paragonie",
+                "phpcs",
+                "polyfill",
+                "standards",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie/issues",
+                "security": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie/security/policy",
+                "source": "https://github.com/PHPCompatibility/PHPCompatibilityParagonie"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCompatibility",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/phpcompatibility",
+                    "type": "thanks_dev"
+                }
+            ],
+            "time": "2025-11-29T13:09:49+00:00"
+        },
+        {
+            "name": "phpcompatibility/phpcompatibility-passwordcompat",
+            "version": "2.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPCompatibility/PHPCompatibilityPasswordCompat.git",
+                "reference": "8e67bd0a47a987d4b507e5cf019042d95758db13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityPasswordCompat/zipball/8e67bd0a47a987d4b507e5cf019042d95758db13",
+                "reference": "8e67bd0a47a987d4b507e5cf019042d95758db13",
+                "shasum": ""
+            },
+            "require": {
+                "phpcompatibility/php-compatibility": "^10.0@dev"
+            },
+            "require-dev": {
+                "ircmaxell/password-compat": "dev-master"
+            },
+            "type": "phpcodesniffer-standard",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Wim Godden",
+                    "role": "lead"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "role": "lead"
+                }
+            ],
+            "description": "A ruleset for PHP_CodeSniffer to check for PHP cross-version compatibility issues in projects, while accounting for polyfills provided by ircmaxell's password_compat library.",
+            "homepage": "http://phpcompatibility.com/",
+            "keywords": [
+                "compatibility",
+                "password_compat",
+                "phpcs",
+                "polyfill",
+                "standards",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/PHPCompatibility/PHPCompatibilityPasswordCompat/issues",
+                "security": "https://github.com/PHPCompatibility/PHPCompatibilityPasswordCompat/security/policy",
+                "source": "https://github.com/PHPCompatibility/PHPCompatibilityPasswordCompat"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCompatibility",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/phpcompatibility",
+                    "type": "thanks_dev"
+                }
+            ],
+            "time": "2025-10-21T05:28:57+00:00"
+        },
+        {
+            "name": "phpcompatibility/phpcompatibility-symfony",
+            "version": "2.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPCompatibility/PHPCompatibilitySymfony.git",
+                "reference": "97a30ace598749dd316f4e328bf6db0da7202746"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilitySymfony/zipball/97a30ace598749dd316f4e328bf6db0da7202746",
+                "reference": "97a30ace598749dd316f4e328bf6db0da7202746",
+                "shasum": ""
+            },
+            "require": {
+                "phpcompatibility/php-compatibility": "^10.0@dev",
+                "phpcompatibility/phpcompatibility-paragonie": "^2.0@dev",
+                "phpcompatibility/phpcompatibility-passwordcompat": "^2.0@dev"
+            },
+            "require-dev": {
+                "symfony/polyfill-php54": "1.19",
+                "symfony/polyfill-php55": "1.19",
+                "symfony/polyfill-php56": "1.19",
+                "symfony/polyfill-php70": "1.19",
+                "symfony/polyfill-php71": "1.19",
+                "symfony/polyfill-php72": "1.30",
+                "symfony/polyfill-php73": "1.x-dev",
+                "symfony/polyfill-php74": "1.x-dev",
+                "symfony/polyfill-php80": "1.x-dev",
+                "symfony/polyfill-php81": "1.x-dev",
+                "symfony/polyfill-php82": "1.x-dev",
+                "symfony/polyfill-php83": "1.x-dev",
+                "symfony/polyfill-php84": "1.x-dev",
+                "symfony/polyfill-php85": "1.x-dev"
+            },
+            "type": "phpcodesniffer-standard",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Wim Godden",
+                    "role": "lead"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "role": "lead"
+                }
+            ],
+            "description": "A set of rulesets for PHP_CodeSniffer to check for PHP cross-version compatibility issues in projects, while accounting for polyfills provided by the Symfony polyfill libraries.",
+            "homepage": "http://phpcompatibility.com/",
+            "keywords": [
+                "compatibility",
+                "phpcs",
+                "polyfill",
+                "standards",
+                "static analysis",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/PHPCompatibility/PHPCompatibilitySymfony/issues",
+                "security": "https://github.com/PHPCompatibility/PHPCompatibilitySymfony/security/policy",
+                "source": "https://github.com/PHPCompatibility/PHPCompatibilitySymfony"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCompatibility",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/phpcompatibility",
+                    "type": "thanks_dev"
+                }
+            ],
+            "time": "2025-10-22T16:25:23+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -17406,16 +17632,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.58",
+            "version": "10.5.59",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e24fb46da450d8e6a5788670513c1af1424f16ca"
+                "reference": "c47fe00df06fb1f68399ef7386edb01c25132473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e24fb46da450d8e6a5788670513c1af1424f16ca",
-                "reference": "e24fb46da450d8e6a5788670513c1af1424f16ca",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c47fe00df06fb1f68399ef7386edb01c25132473",
+                "reference": "c47fe00df06fb1f68399ef7386edb01c25132473",
                 "shasum": ""
             },
             "require": {
@@ -17487,7 +17713,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.58"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.59"
             },
             "funding": [
                 {
@@ -17511,20 +17737,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-28T12:04:46+00:00"
+            "time": "2025-12-01T07:37:23+00:00"
         },
         {
             "name": "rector/rector",
-            "version": "2.2.9",
+            "version": "2.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "0b8e49ec234877b83244d2ecd0df7a4c16471f05"
+                "reference": "7bd21a40b0332b93d4bfee284093d7400696902d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/0b8e49ec234877b83244d2ecd0df7a4c16471f05",
-                "reference": "0b8e49ec234877b83244d2ecd0df7a4c16471f05",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/7bd21a40b0332b93d4bfee284093d7400696902d",
+                "reference": "7bd21a40b0332b93d4bfee284093d7400696902d",
                 "shasum": ""
             },
             "require": {
@@ -17563,7 +17789,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.2.9"
+                "source": "https://github.com/rectorphp/rector/tree/2.2.11"
             },
             "funding": [
                 {
@@ -17571,7 +17797,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-28T14:21:22+00:00"
+            "time": "2025-12-02T11:23:46+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -18876,7 +19102,10 @@
         "candy-chat/xmpp-prebind-php": 20,
         "garethp/php-ews": 20,
         "jason-munro/cypht": 20,
-        "phpcompatibility/php-compatibility": 20
+        "phpcompatibility/php-compatibility": 20,
+        "phpcompatibility/phpcompatibility-paragonie": 20,
+        "phpcompatibility/phpcompatibility-passwordcompat": 20,
+        "phpcompatibility/phpcompatibility-symfony": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -18893,7 +19122,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",
