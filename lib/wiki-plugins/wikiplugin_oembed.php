@@ -1,6 +1,6 @@
 <?php
 
-require_once 'lib/wiki-plugins/embed_helpers.php';
+require_once 'lib/wiki-plugins/shared/embed_helpers.php';
 
 function wikiplugin_oembed_info()
 {

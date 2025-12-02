@@ -5,7 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-require_once 'lib/wiki-plugins/embed_helpers.php';
+require_once 'lib/wiki-plugins/shared/embed_helpers.php';
 
 function wikiplugin_youtube_info()
 {
