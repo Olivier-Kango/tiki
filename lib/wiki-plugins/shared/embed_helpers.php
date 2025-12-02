@@ -11,7 +11,8 @@ function buildEmbedContainerAndIframe($iframeSrc, $params = [], $oEmbedData = []
         'position' => 'relative',
         'overflow' => 'hidden',
         'max-width' => '100%',
-        'max-height' => '75vh',
+        'max-height' => '80vh',
+        'margin' => '0 auto',
     ];
 
     $useResponsive = true;
@@ -44,7 +45,6 @@ function buildEmbedContainerAndIframe($iframeSrc, $params = [], $oEmbedData = []
     }
 
     if ($useResponsive) {
-        $containerStyles['width'] = '100%';
         if ($aspectRatio) {
             $containerStyles['aspect-ratio'] = $aspectRatio;
         } else {
