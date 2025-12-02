@@ -147,7 +147,7 @@ function wikiplugin_youtube($data, $params)
     $plugininfo = wikiplugin_youtube_info();
     $defaults = [];
     foreach ($plugininfo['params'] as $key => $param) {
-        $defaults[$key] = $param['default'] ?? ''; 
+        $defaults[$key] = $param['default'] ?? '';
     }
     $params = array_merge($defaults, $params);
 
