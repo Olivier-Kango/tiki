@@ -223,7 +223,11 @@ function getYoutubeOEmbedData($youtubeUrl)
     }
 
     $oEmbedUrl = 'https://www.youtube.com/oembed?url=' . urlencode($youtubeUrl) . '&format=json';
-    $response = @file_get_contents($oEmbedUrl);
+    $response = file_get_contents($oEmbedUrl);
+
+    if ($response === false) {
+        throw new Exception('Unable to fetch YouTube oEmbed data from: ' . $oEmbedUrl);
+    }
 
     if ($response === false) {
         Feedback::error(tr('Error fetching YouTube oEmbed data for URL: %0', $oEmbedUrl));
