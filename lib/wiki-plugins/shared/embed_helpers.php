@@ -83,7 +83,6 @@ function buildEmbedContainerAndIframe($iframeSrc, $params = [], $oEmbedData = []
     $iframe->setAttribute('src', $iframeSrc);
     $iframe->setAttribute('frameborder', '0');
     $iframe->setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    $iframe->setAttribute('sandbox', 'allow-scripts allow-same-origin');
     $iframe->setAttribute('title', tra('Embedded media content'));
     $iframe->setAttribute('style', $iframeStyle);
 
