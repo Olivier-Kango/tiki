@@ -69,7 +69,6 @@ function wikiplugin_youtube_info()
                 'default' => 'high',
                 'filter' => 'alpha',
                 'options' => [
-                    ['text' => '', 'value' => ''],
                     ['text' => tra('High'), 'value' => 'high'],
                     ['text' => tra('Medium'), 'value' => 'medium'],
                     ['text' => tra('Low'), 'value' => 'low'],
@@ -81,10 +80,9 @@ function wikiplugin_youtube_info()
                 'name' => tra('Allow full-screen'),
                 'description' => tra('Enlarge video to full screen size'),
                 'since' => '5.0',
-                'default' => '',
+                'default' => 'y',
                 'filter' => 'alpha',
                  'options' => [
-                    ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 'y'],
                     ['text' => tra('No'), 'value' => 'n'],
                  ],
@@ -95,10 +93,9 @@ function wikiplugin_youtube_info()
                 'name' => tra('Related'),
                 'description' => tra('Show related videos (shown by default)'),
                 'since' => '6.1',
-                'default' => '',
+                'default' => 'y',
                 'filter' => 'alpha',
                 'options' => [
-                    ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 'y'],
                     ['text' => tra('No'), 'value' => 'n'],
                 ],
