@@ -141,13 +141,6 @@ function wikiplugin_youtube($data, $params)
 {
     global $tikilib;
 
-    $plugininfo = wikiplugin_youtube_info();
-    $defaults = [];
-    foreach ($plugininfo['params'] as $key => $param) {
-        $defaults[$key] = $param['default'] ?? '';
-    }
-    $params = array_merge($defaults, $params);
-
     if (empty($params['movie'])) {
         Feedback::error(tra('Plugin YouTube error: the movie parameter is empty.'));
 

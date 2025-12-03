@@ -96,13 +96,6 @@ function wikiplugin_oembed_info()
 
 function wikiplugin_oembed($data, $params)
 {
-    $plugininfo = wikiplugin_oembed_info();
-    $defaults = [];
-    foreach ($plugininfo['params'] as $key => $param) {
-        $defaults[$key] = $param['default'] ?? '';
-    }
-    $params = array_merge($defaults, $params);
-
     $oEmbedData = getOEmbedData($params['url']);
     if (! $oEmbedData) {
         Feedback::error(tra('Invalid URL or no oEmbed data found.'));
