@@ -53,7 +53,7 @@ function buildEmbedContainerAndIframe($iframeSrc, $params = [], $oEmbedData = []
     }
 
     if (! empty($params['borderRadius']) && $params['borderRadius'] === 'y') {
-        $containerStyles['border-radius'] = '8px';
+        $containerStyles['border-radius'] = '12px';
     }
     if (! empty($params['bg'])) {
         $containerStyles['background-color'] = $params['bg'];
