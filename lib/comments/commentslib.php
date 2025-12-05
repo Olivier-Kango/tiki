@@ -3385,11 +3385,6 @@ class Comments extends TikiLib
 
             $forum_info = $this->get_forum($object[1]);
 
-            // Fix: Handle case where forum info is not found
-            if (! is_array($forum_info)) {
-                $forum_info = ['section' => '', 'name' => ''];
-            }
-
             TikiLib::events()->trigger(
                 $finalEvent,
                 [
@@ -3524,10 +3519,6 @@ class Comments extends TikiLib
                     $logslib->add_action('Removed', $res['object'], 'forum', "comments_parentId=$threadId&amp;del=" . strlen($res['data']));
                 }
                 $forum_info = $this->get_forum($res['object']);
-                // Fix: handle case where forum info is not found
-                if (! is_array($forum_info)) {
-                    $forum_info = ['section' => '', 'name' => ''];
-                }
                 TikiLib::events()->trigger(
                     'tiki.forumpost.delete',
                     [
