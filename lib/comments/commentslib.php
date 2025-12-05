@@ -3385,6 +3385,11 @@ class Comments extends TikiLib
 
             $forum_info = $this->get_forum($object[1]);
 
+            // Fix: Handle case where forum info is not found
+            if (!is_array($forum_info)) {
+                $forum_info = ['section' => '', 'name' => ''];
+            }
+
             TikiLib::events()->trigger(
                 $finalEvent,
                 [
