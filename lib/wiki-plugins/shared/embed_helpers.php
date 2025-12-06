@@ -11,7 +11,7 @@ function buildEmbedContainerAndIframe($iframeSrc, $params = [], $oEmbedData = []
         'position' => 'relative',
         'overflow' => 'hidden',
         'max-width' => '100%',
-        'max-height' => '80vh',
+        'max-height' => '90vh',
         'margin' => '0 auto',
     ];
 
