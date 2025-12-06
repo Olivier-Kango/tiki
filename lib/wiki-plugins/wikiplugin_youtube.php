@@ -158,9 +158,6 @@ function wikiplugin_youtube($data, $params)
     }
 
     $oEmbedData = getYoutubeOEmbedData('https://www.youtube.com/watch?v=' . $sYoutubeId);
-    if (! $oEmbedData) {
-        return '';
-    }
 
     $fqdn = $params['privacyEnhanced'] === 'y' ? 'www.youtube-nocookie.com' : 'www.youtube.com';
     $src = $scheme . '://' . $fqdn . '/embed/' . $sYoutubeId;
@@ -212,14 +209,16 @@ function getYoutubeOEmbedData($youtubeUrl)
 {
     $youtubeUrl = filter_var($youtubeUrl, FILTER_SANITIZE_URL);
     if (! filter_var($youtubeUrl, FILTER_VALIDATE_URL)) {
-        throw new Exception(tr('The provided YouTube URL is not valid.'));
+        Feedback::error(tr('The provided YouTube URL is not valid.'));
+        return false;
     }
 
     $oEmbedUrl = 'https://www.youtube.com/oembed?url=' . urlencode($youtubeUrl) . '&format=json';
     $response = file_get_contents($oEmbedUrl);
 
     if ($response === false) {
-        throw new Exception('Unable to fetch YouTube oEmbed data from: ' . $oEmbedUrl);
+        Feedback::error(tr('Error fetching YouTube oEmbed data for URL: %0', $oEmbedUrl));
+        return false;
     }
 
     if ($response === false) {
@@ -232,6 +231,6 @@ function getYoutubeOEmbedData($youtubeUrl)
         return $oEmbedData; // 'html', 'width', 'height', 'title', 'author_name', etc.
     }
 
-    Feedback::error(tr('Invalid or malformed YouTube oEmbed data: %0', print_r($oEmbedData, true)));
+    Feedback::error(tr('Invalid or malformed YouTube oEmbed data for URL: %0', $oEmbedUrl));
     return false;
 }
