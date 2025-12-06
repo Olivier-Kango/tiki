@@ -2,9 +2,7 @@
 
 function buildEmbedContainerAndIframe($iframeSrc, $params = [], $oEmbedData = [])
 {
-    $testSrc = (str_starts_with($iframeSrc, '//') ? 'https:' . $iframeSrc : $iframeSrc);
-
-    if (empty($iframeSrc) || ! filter_var($testSrc, FILTER_VALIDATE_URL)) {
+    if (empty($iframeSrc) || ! filter_var($iframeSrc, FILTER_VALIDATE_URL)) {
         Feedback::error(tra('Invalid iframe source URL provided.'));
         return '';
     }

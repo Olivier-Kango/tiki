@@ -154,7 +154,10 @@ function wikiplugin_youtube($data, $params)
     $sYoutubeId  = getYoutubeId($params['movie']);
     if (empty($sYoutubeId)) {
         Feedback::error(tra('Invalid YouTube URL provided'));
-        return '';
+
+        return '<div class="alert alert-warning">'
+            . tra('Plugin YouTube error: Invalid YouTube URL provided.')
+            . '</div>';
     }
 
     $oEmbedData = getYoutubeOEmbedData('https://www.youtube.com/watch?v=' . $sYoutubeId);
@@ -212,7 +215,6 @@ function getYoutubeOEmbedData($youtubeUrl)
 {
     $youtubeUrl = filter_var($youtubeUrl, FILTER_SANITIZE_URL);
     if (! filter_var($youtubeUrl, FILTER_VALIDATE_URL)) {
-        Feedback::error(tr('The provided YouTube URL is not valid.'));
         return false;
     }
 
@@ -220,12 +222,6 @@ function getYoutubeOEmbedData($youtubeUrl)
     $response = file_get_contents($oEmbedUrl);
 
     if ($response === false) {
-        Feedback::error(tr('Error fetching YouTube oEmbed data for URL: %0', $oEmbedUrl));
-        return false;
-    }
-
-    if ($response === false) {
-        Feedback::error(tr('Error fetching YouTube oEmbed data for URL: %0', $oEmbedUrl));
         return false;
     }
 
@@ -234,6 +230,5 @@ function getYoutubeOEmbedData($youtubeUrl)
         return $oEmbedData; // 'html', 'width', 'height', 'title', 'author_name', etc.
     }
 
-    Feedback::error(tr('Invalid or malformed YouTube oEmbed data for URL: %0', $oEmbedUrl));
     return false;
 }
