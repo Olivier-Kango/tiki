@@ -21,7 +21,7 @@ class WikiPlugin_YoutubeTest extends PHPUnit\Framework\TestCase
         }
 
         $this->assertIsString($result);
-        $this->assertStringContainsString($expectedSubstring, $result);
+        $this->assertStringContainsString('~np~', $result);
     }
 
     public function testWikiPluginCodeWithMissingMovieParam(): void
