@@ -157,7 +157,7 @@ function wikiplugin_youtube($data, $params)
         return '';
     }
 
-    $oEmbedData = getYoutubeOEmbedData('https://www.youtube.com/watch?v=' . $sYoutubeId);
+    $oEmbedData = getYoutubeOEmbedData('https://www.youtube.com/watch?v=' . $sYoutubeId) ?: [];
 
     $fqdn = $params['privacyEnhanced'] === 'y' ? 'www.youtube-nocookie.com' : 'www.youtube.com';
     $src = $scheme . '://' . $fqdn . '/embed/' . $sYoutubeId;
