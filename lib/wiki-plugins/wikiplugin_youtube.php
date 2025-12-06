@@ -141,6 +141,8 @@ function wikiplugin_youtube($data, $params)
 {
     global $tikilib;
 
+    $isShorts = ! empty($params['movie']) && str_contains($params['movie'], '/shorts/');
+
     if (empty($params['movie'])) {
         Feedback::error(tra('Plugin YouTube error: the movie parameter is empty.'));
 
@@ -163,6 +165,10 @@ function wikiplugin_youtube($data, $params)
     $oEmbedData = getYoutubeOEmbedData('https://www.youtube.com/watch?v=' . $sYoutubeId);
     if ($oEmbedData === false) {
         $oEmbedData = ['width' => 16, 'height' => 9];
+    }
+    if ($isShorts) {
+        $oEmbedData['width'] = 9;
+        $oEmbedData['height'] = 16;
     }
 
     $fqdn = $params['privacyEnhanced'] === 'y' ? 'www.youtube-nocookie.com' : 'www.youtube.com';
