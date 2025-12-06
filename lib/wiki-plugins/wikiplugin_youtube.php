@@ -200,6 +200,9 @@ function getYoutubeId($sYoutubeUrl)
             return $sYoutubeId;
         }
         if ($aParsedUrl['host'] === 'youtube.com' || $aParsedUrl['host'] === 'www.youtube.com') {
+            if (! empty($aParsedUrl['path']) && preg_match('#^/shorts/([\w\-_]+)#', $aParsedUrl['path'], $matches)) {
+                return $matches[1];
+            }
             parse_str(parse_url($sYoutubeUrl, PHP_URL_QUERY), $aQueryString);
             return $aQueryString['v'] ?? false;
         }
