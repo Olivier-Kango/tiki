@@ -75,7 +75,6 @@ if ($tiki_p_edit_structures == 'y') {
         if (! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_view')) {
             Feedback::errorAndDie(tra('You do not have permission to view this page.'), \Laminas\Http\Response::STATUS_CODE_401);
         }
-        TikiLib::lib('header')->setXRobotsTag($robots);
         header("content-type: text/plain");
         $structlib->s_export_structure_tree($_REQUEST['export_tree']);
         die;
