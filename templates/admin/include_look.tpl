@@ -93,6 +93,7 @@
                 {* TODO I don't see where this is used in in admin/include_look.php *}
                 <input type="submit" class="btn btn-primary btn-sm" name="changestyle" value="{tr}Go{/tr}">
             {/if}
+            {preference name=theme_model3dviewer_default_background}
             <div class="adminoptionbox">
                 {if $prefs.feature_jquery_ui eq 'y'}
                     {preference name=feature_jquery_ui_theme}
