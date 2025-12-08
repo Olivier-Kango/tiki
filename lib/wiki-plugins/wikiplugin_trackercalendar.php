@@ -14,13 +14,6 @@ function wikiplugin_trackercalendar_info()
         'name' => tr('Tracker Calendar'),
         'description' => tr('Create and display a calendar using tracker data'),
         'prefs' => ['wikiplugin_trackercalendar'],
-        'packages_required' => [
-            'npm-asset/fullcalendar-scheduler' =>
-                VendorHelper::getAvailableVendorPath(
-                    'fullcalendarscheduler',
-                    'npm-asset/fullcalendar-scheduler/main.min.js'
-                )
-        ],
         'format' => 'html',
         'iconname' => 'calendar',
         'introduced' => 10,
@@ -406,23 +399,9 @@ function wikiplugin_trackercalendar($data, $params)
 
     static $id = 0;
     $headerlib = TikiLib::lib('header');
-    $vendorPath = VendorHelper::getAvailableVendorPath('fullcalendarscheduler', 'npm-asset/fullcalendar-scheduler/main.min.js', false);
-
-    if (! $vendorPath) {
-        $errorMessage = tr('To view Tracker Calendar Tiki needs the latest npm-asset/fullcalendar-scheduler package.');
-        if (Perms::get()->admin) {
-            $errorMessage .= '<br>' . tr('Use the Package Manager to install it %0here%1.', '<a href="tiki-admin.php?page=packages" class="alert-link">', '</a>');
-        } else {
-            $errorMessage .= '<br>' . tr('Contact the site administrator.');
-        }
-
-        return WikiParser_PluginOutput::internalError($errorMessage);
-    }
-
     // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.fc-day-grid-event > .fc-content, .fc-timeline-event > .fc-content { white-space: normal; }');
 
-    $headerlib->add_cssfile($vendorPath . '/npm-asset/fullcalendar-scheduler/main.css');
     // Disable fullcalendar's force events to be one-line tall
     $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
     $headerlib->add_js_module('import "@jquery-tiki/wikiplugin-trackercalendar";');
@@ -455,10 +434,10 @@ function wikiplugin_trackercalendar($data, $params)
         $views[] = 'dayGridMonth';
     }
     if ($params['aweek'] === 'y') {
-        $views[] = 'resourceTimeGridWeek';
+        $views[] = 'resourceTimelineWeek';
     }
     if ($params['aday'] === 'y') {
-        $views[] = 'resourceTimeGridDay';
+        $views[] = 'resourceTimelineDay';
     }
     if ($params['lyear'] === 'y') {
         $views[] = 'listYear';
@@ -494,8 +473,8 @@ function wikiplugin_trackercalendar($data, $params)
 
     $dViewMap = [
         'month' => 'dayGridMonth',
-        'agendaWeek' => 'resourceTimeGridWeek',
-        'agendaDay' => 'resourceTimeGridDay',
+        'agendaWeek' => 'resourceTimelineWeek',
+        'agendaDay' => 'resourceTimelineDay',
         'list' => 'list',
         'listMonth' => 'listMonth',
         'listWeek' => 'listWeek',

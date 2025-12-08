@@ -4,8 +4,12 @@
 
 import { Calendar } from "@fullcalendar/core";
 import listPlugin from "@fullcalendar/list";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import scrollGridPlugin from "@fullcalendar/scrollgrid";
+import resourcePlugin from "@fullcalendar/resource";
 import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
-import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import moment from "moment";
 
 $.fn.setupFullCalendar = function (tcPluginParams) {
@@ -46,7 +50,7 @@ $.fn.setupFullCalendar = function (tcPluginParams) {
             hour12: tcPluginParams.timeFormat,
         };
         var calendar = new Calendar(cal, {
-            plugins: [listPlugin, resourceTimelinePlugin, resourceTimeGridPlugin],
+            plugins: [listPlugin, dayGridPlugin, timeGridPlugin, scrollGridPlugin, resourcePlugin, resourceTimelinePlugin, interactionPlugin],
             themeSystem: "bootstrap",
             schedulerLicenseKey: tcPluginParams.premiumLicense,
             initialDate: tcPluginParams.initialDate,
@@ -117,8 +121,6 @@ $.fn.setupFullCalendar = function (tcPluginParams) {
                 listMonth: tcPluginParams.llabelListMonth,
                 listYear: tcPluginParams.labelListYear,
                 today: tcPluginParams.labelToday,
-                resourceTimeGridWeek: tcPluginParams.labelAgendaWeek,
-                resourceTimeGridDay: tcPluginParams.labelAgendaDay,
             },
             resources: tcPluginParams.resourceList,
             allDayText: tcPluginParams.labelAllDay,
