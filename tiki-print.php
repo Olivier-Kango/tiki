@@ -213,7 +213,6 @@ if (TIKI_PRINTING_PDF) {
                 header("Content-Type: application/pdf");
                 header("Content-Transfer-Encoding: binary");
                 header('Content-Length: ' . $length);
-                TikiLib::lib('header')->setXRobotsTag($robots);
                 echo $pdf;
             } catch (\Exception $e) {
                 $smarty->assign('print_page', 'n');

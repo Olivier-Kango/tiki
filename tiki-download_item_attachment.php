@@ -54,7 +54,6 @@ $content = $info["data"];
 session_write_close();
 //print("File:$file<br />");
 //die;
-TikiLib::lib('header')->setXRobotsTag($robots);
 header("Content-type: $type");
 if (isset($_REQUEST["display"])) {
 //die;
