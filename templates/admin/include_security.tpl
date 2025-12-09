@@ -468,7 +468,7 @@
                                 {if $prefs.feature_user_encryption eq 'y'}
                                     {user_selector multiple='true' name='users' class='form-control' user=$encryption_key.users select=$encryption_key.users_array editable=y}
                                 {else}
-                                    Depends on "User encryption".
+                                    {tr}Depends on "User encryption".{/tr}
                                 {/if}
                             </div>
                         </div><br>
