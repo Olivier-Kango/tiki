@@ -237,7 +237,10 @@ $smarty->assign_by_ref('sort_mode', $sort_mode);
 // default $maxRecords defined in tiki-setup.php
 if (isset($_REQUEST['maxRecords'])) {
     $maxRecords = $_REQUEST['maxRecords'];
+} else {
+    $maxRecords = $prefs['maxRecords'];
 }
+$smarty->assign('maxRecords', $maxRecords);
 $filter = '';
 if (! empty($_REQUEST['lang'])) {
     $filter['lang'] = $_REQUEST['lang'];
