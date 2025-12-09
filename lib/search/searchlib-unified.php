@@ -118,28 +118,9 @@ class UnifiedSearchLib
                     $queuelib->push(self::INCREMENT_QUEUE, $message);
                 }
 
-                $msg = $e->getMessage();
-                if (
-                    strpos($msg, "Out of range value for column 'entryId'") !== false
-                    || stripos($msg, 'AUTO_INCREMENT') !== false
-                    || stripos($msg, 'nearing the INT AUTO_INCREMENT limit') !== false
-                ) {
-                    $msg = tr(
-                        'Indexing queue overflow or near-overflow detected. '
-                        . 'Please run DB migrations to convert INT AUTO_INCREMENT columns to BIGINT (see installer/schema). '
-                        . 'Then, in your database, run: TRUNCATE TABLE `tiki_queue`; '
-                        . 'finally in Tiki go to Admin → Search → Rebuild Index.'
-                    );
-                }
-
-                $logs = TikiLib::lib('logs');
-                if ($logs && method_exists($logs, 'add_log')) {
-                    $logs->add_log('critical', 'Search indexing failed: ' . $msg, 'UnifiedSearchLib');
-                }
-
                 Feedback::error(
-                    tr('The search index could not be updated. The site is misconfigured. Contact an administrator.')
-                    . '<br />' . $msg
+                    tr('The search index could not be updated. The site is misconfigured. Contact an administrator.') .
+                    '<br />' . $e->getMessage()
                 );
             }
 
