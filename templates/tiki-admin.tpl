@@ -197,7 +197,9 @@
         </div>
 
         {if $upgrade_messages|count}
-            {if $upgrade_messages|count eq 1}
+            {if not $is_stable}
+                {$title="{tr}Stable version available{/tr}"}
+            {elseif $upgrade_messages|count eq 1}
                 {$title="{tr}Upgrade Available{/tr}"}
             {else}
                 {$title="{tr}Upgrades Available{/tr}"}
