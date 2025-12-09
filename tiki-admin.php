@@ -372,10 +372,15 @@ if ($prefs['feature_version_checks'] == 'y' || $forcecheck) {
     $versionUtils = new Tiki_Version_Utils();
     $upgrades = $versionUtils->checkUpdatesForVersion($TWV->version);
 
+    $gitlib = TikiLib::lib('git');
+    $gitDetails = $gitlib->isGitInstall() ? $gitlib->getGitDetails()['content'] : [];
+
     $smarty->assign('upgrade_messages', $upgrades);
+    $smarty->assign('git_details', $gitDetails);
     $smarty->assign('is_stable', $is_stable);
 } else {
     $smarty->assign('upgrade_messages', []);
+    $smarty->assign('git_details', []);
     $smarty->assign('is_stable', $is_stable);
 }
 
