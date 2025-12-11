@@ -25,11 +25,11 @@ If you apply something with rector, you commits should be something like:
 
 For global commits (in this case the changes to rector.php would be commited):
 
-[REF] Rector:  Update rules to apply SymfonyLevelSetList::UP_TO_SYMFONY_54 globally
+[REF] Rector: Update rules to apply SymfonyLevelSetList::UP_TO_SYMFONY_54 globally
 
 One shot, or partial application (in which case your changes in rector.php should not be commited, or commited commented-out):
 
-[REF] Rector:  Apply ReturnTypeFromStrictNativeCallRector::class to path lib/core
+[REF] Rector: Apply ReturnTypeFromStrictNativeCallRector::class to path lib/core
 
 
 Articles to read:
@@ -112,9 +112,12 @@ return RectorConfig::configure()
 
     ->withRules(
         [
-
             // These rules had been completely applied in the past.  They should be re-fixed and left uncommented - benoitg - 2025-12-11
-            //Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector::class,
+
+            //Please keep references to the rules you add in this file, use https://getrector.com/find-rule
+
+            //https://getrector.com/rule-detail/complete-dynamic-properties-rector
+            Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector::class,
             //Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector::class,
             //ReturnTypeFromStrictNativeCallRector::class,
             //ReturnTypeFromStrictScalarReturnExprRector::class,
