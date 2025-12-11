@@ -50,7 +50,6 @@ return RectorConfig::configure()
     ->withCache(
         // ensure file system caching is used instead of in-memory
         cacheClass: FileCacheStorage::class,
-
         // specify a path that works locally as well as on CI job runners
         cacheDirectory: __DIR__ . '/temp/dev/rector_cache'
     )
