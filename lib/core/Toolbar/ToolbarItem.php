@@ -103,6 +103,8 @@ abstract class ToolbarItem
             return new ToolbarLinkFile($objectId);
         } elseif ($tagName == 'launchplugins') {
             return new ToolbarLaunchPlugins();
+        } elseif ($tagName == 'languagecheck') {
+            return new ToolbarLanguageCheck();
         }
         return null;
     }
@@ -213,7 +215,8 @@ abstract class ToolbarItem
                     'tikitable',
                     'task',
                     'codeblock',
-                    'linkfile'
+                    'linkfile',
+                    'languagecheck'
                 ],
                 $plugins
             )

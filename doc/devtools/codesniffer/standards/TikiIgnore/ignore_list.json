@@ -3033,6 +3033,9 @@
         "lib\/core\/Services\/Access\/Controller.php": {
             "class:Services_Access_Controller": true
         },
+        "lib\/core\/Services\/LanguageCheck\/Controller.php": {
+            "class:Services_LanguageCheck_Controller": true
+        },
         "lib\/core\/Services\/OAuthServer\/JsonResponse.php": {
             "class:Services_OAuthServer_JsonResponse": true
         },
@@ -5605,6 +5608,10 @@
             "Services_H5P_Controller::action_list_results": true,
             "Services_H5P_Controller::action_cron": true,
             "Services_H5P_Controller::action_content_type_cache": true
+        },
+        "lib\/core\/Services\/LanguageCheck\/Controller.php": {
+            "Services_LanguageCheck_Controller::action_check_text": true,
+            "Services_LanguageCheck_Controller::action_get_languages": true
         },
         "lib\/core\/Services\/Relation\/Controller.php": {
             "Services_Relation_Controller::action_toggle": true,
@@ -9471,6 +9478,9 @@
         },
         "lib\/core\/Services\/OAuthServer\/Controller.php": {
             "Services_OAuthServer_Controller": true
+        },
+        "lib\/core\/Services\/LanguageCheck\/Controller.php": {
+            "Services_LanguageCheck_Controller": true
         },
         "lib\/core\/Services\/OAuthServer\/Utilities.php": {
             "Services_OAuthServer_Utilities": true
