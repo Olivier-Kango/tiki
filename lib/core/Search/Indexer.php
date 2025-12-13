@@ -21,6 +21,7 @@ class Search_Indexer
     private $cacheGlobals = null;
     private $cacheTypes = [];
     private $cacheErrors = [];
+    private $errorTrackingEnabled = true;
     private $stats;
 
     private $contentFilters = [];
@@ -116,6 +117,11 @@ class Search_Indexer
     public function addContentFilter(Laminas\Filter\FilterInterface $filter)
     {
         $this->contentFilters[] = $filter;
+    }
+
+    public function setErrorTrackingEnabled($errorTrackingEnabled)
+    {
+        $this->errorTrackingEnabled = $errorTrackingEnabled;
     }
 
     /**
@@ -232,7 +238,9 @@ class Search_Indexer
                     $e->getMessage()
                 );
                 Feedback::error($msg);
-                TikiLib::lib('errortracking')->captureException($e);
+                if ($this->errorTrackingEnabled) {
+                    TikiLib::lib('errortracking')->captureException($e);
+                }
             }
             foreach ($this->cacheErrors as $err) {
                 $this->log->error($err['error'] . ': ' . $err['errstr'], [
@@ -240,8 +248,10 @@ class Search_Indexer
                     'file' => $err['errfile'],
                     'line' => $err['errline'],
                 ]);
-                $e = new ErrorException($err['errstr'], 0, $err['errno'], $err['errfile'], $err['errline']);
-                TikiLib::lib('errortracking')->captureException($e);
+                if ($this->errorTrackingEnabled) {
+                    $e = new ErrorException($err['errstr'], 0, $err['errno'], $err['errfile'], $err['errline']);
+                    TikiLib::lib('errortracking')->captureException($e);
+                }
             }
             $this->cacheErrors = [];
             // log file display feedback messages after each document line to make it easier to track
