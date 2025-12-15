@@ -229,8 +229,12 @@ invalidHandler: function(event, validator) {
 
     public function isFieldMandatory($field_value, $requiredFields)
     {
-        return ($field_value['isMandatory'] == 'y')
+        $isMandatory = ($field_value['isMandatory'] == 'y')
             || (isset($requiredFields) && in_array($field_value['fieldId'], $requiredFields));
+        if ($field_value['type'] == 'q') {
+            $isMandatory = false;
+        }
+        return $isMandatory;
     }
 
     public function getValidationMessage($field_value)
