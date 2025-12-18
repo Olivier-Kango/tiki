@@ -153,3 +153,10 @@
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
 }
+
+@media (max-width: 768px) {
+    .modules.top_modules > .box-menu {
+        order: 999;
+        width: 100%;
+    }
+}
