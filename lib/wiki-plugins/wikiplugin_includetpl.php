@@ -46,13 +46,13 @@ function wikiplugin_includetpl($data, $params)
         if (stripos($params["values"], '&') !== false) {
             $paramvalues = explode('&', $params["values"]);
             foreach ($paramvalues as $value) {
-                $tempvalues = explode(':', $value, 2);
+                $tempvalues = explode(':', $value);
                 if (isset($tempvalues[1])) {
                     $defvalues[$tempvalues[0]] = $tempvalues[1];
                 }
             }
         } else {
-            $tempvalues = explode(':', $params["values"], 2);
+            $tempvalues = explode(':', $params["values"]);
             if (isset($tempvalues[1])) {
                 $defvalues[$tempvalues[0]] = $tempvalues[1];
             }
