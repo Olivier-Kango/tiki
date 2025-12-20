@@ -181,7 +181,8 @@ function wikiplugin_xmpp($data, $params)
         return '';
     }
 
-    $params['anonymous'] = $params['visibility'] === 'anonymous' ? 'y' : 'n';
+    $visibility = $params['visibility'] ?? 'anonymous';
+    $params['anonymous'] = $visibility === 'anonymous' ? 'y' : 'n';
 
     // If anonymous → force the room defined in prefs
     if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
@@ -209,7 +210,7 @@ function wikiplugin_xmpp($data, $params)
         }
     }
 
-    if (! empty($user) && $params['anonymous'] !== 'y') {
+    if (! empty($user) && ($params['anonymous'] ?? 'n') !== 'y') {
         $xmpplib = TikiLib::lib('xmpp');
 
         $requestedFull = $xmpplib->buildRoomJid($params['room']);
