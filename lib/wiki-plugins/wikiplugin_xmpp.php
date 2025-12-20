@@ -174,6 +174,9 @@ function wikiplugin_xmpp($data, $params)
     $anonMode = trim($prefs['xmpp_anonymous_mode'] ?? '');
     $isAnonymous = ($params['visibility'] ?? '') === 'anonymous';
     $dmMode = $isAnonymous && $anonMode === 'support';
+    $params['view_mode'] = $params['view_mode'] ?? 'overlayed';
+    $params['width'] = $params['width'] ?? '100%';
+    $params['height'] = $params['height'] ?? '400px';
 
     // Require room only when not in anonymous support (DM) mode
     if (! $dmMode && empty($params['room'])) {
