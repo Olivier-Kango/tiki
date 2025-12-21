@@ -43,16 +43,9 @@ function wikiplugin_includetpl($data, $params)
     $smarty = TikiLib::lib('smarty');
     $defvalues = [];
     if (! empty($params["values"])) {
-        if (stripos($params["values"], '&') !== false) {
-            $paramvalues = explode('&', $params["values"]);
-            foreach ($paramvalues as $value) {
-                $tempvalues = explode(':', $value);
-                if (isset($tempvalues[1])) {
-                    $defvalues[$tempvalues[0]] = $tempvalues[1];
-                }
-            }
-        } else {
-            $tempvalues = explode(':', $params["values"]);
+        $paramvalues = explode('&', $params["values"]);
+        foreach ($paramvalues as $value) {
+            $tempvalues = explode(':', $value, 2);
             if (isset($tempvalues[1])) {
                 $defvalues[$tempvalues[0]] = $tempvalues[1];
             }
