@@ -23,7 +23,7 @@ $inputConfiguration = [
         'username'             => 'username',       //post
         'su'                   => 'word',           //post
         'intertiki'            => 'string',         //post
-        'twoFactorForm'        => 'string',         //post
+        'showTwoFactorForm'        => 'string',         //post
         'twoFactorAuthCode'    => 'string',         //post
         'page'                 => 'pagename',       //post
         'url'                  => 'url',            //post
@@ -67,7 +67,7 @@ if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && T
 $smarty->assign('errortype', 'login'); // to avoid any redirection to the login box if error
 // Alert user if cookies are switched off
 if (ini_get('session.use_cookies') == 1 && ! isset($_COOKIE[ session_name() ]) && $prefs['session_silent'] != 'y') {
-    Feedback::errorAndDie(tra('Cookies must be enabled to log in to this site'), \Laminas\Http\Response::STATUS_CODE_401);
+    Feedback::errorAndDie(tra('Cookies must be enabled to log in to this site'), \Laminas\Http\Response::STATUS_CODE_403);
 }
 
 // Redirect to HTTPS if we are not in HTTPS but we require HTTPS login
@@ -154,12 +154,12 @@ if ($prefs['feature_intertiki'] == 'y' && $prefs['feature_intertiki_server'] != 
     unset($_REQUEST['intertiki']);
 }
 
-//Enable Two-Factor Auth Input
-$twoFactorForm = $prefs['twoFactorAuth'];
-if (isset($_REQUEST["$twoFactorForm"])) {
-    $twoFactorForm = $_REQUEST["$twoFactorForm"];
+// Setup Two-Factor Auth form state
+$showTwoFactorForm = $prefs['twoFactorAuth'];
+if (isset($_REQUEST["showTwoFactorForm"])) {
+    $showTwoFactorForm = 'y';
 }
-$smarty->assign('twoFactorForm', $twoFactorForm);
+$smarty->assign('showTwoFactorForm', $showTwoFactorForm);
 
 // Go through the intertiki process
 if (
@@ -336,7 +336,7 @@ if (
                 $_SESSION['tiki_creds_username'] = $_REQUEST['user'];
                 $_SESSION['tiki_creds_password'] = $_REQUEST['pass'];
                 $params = '&create2FaCodeNormalLogin&tiki_username=' . urlencode($_REQUEST['user']);
-                header('Location: ' . $base_url . 'tiki-login_scr.php?twoFactorForm' . $params);
+                header('Location: ' . $base_url . 'tiki-login_scr.php?showTwoFactorForm' . $params);
                 exit;
             }
 
@@ -344,7 +344,7 @@ if (
                 $is2FaPass = $twoFactorAuth->validateCode($requestedUser, $_REQUEST['twoFactorAuthCode']);
                 if (! $is2FaPass) {
                     $error = TWO_FA_INCORRECT;
-                    $smarty->assign('twoFactorForm', 'y');
+                    $smarty->assign('showTwoFactorForm', 'y');
                     $_SESSION['tiki_creds_username'] = $_REQUEST['user'];
                     $_SESSION['tiki_creds_password'] = $_REQUEST['pass'];
                     $smarty->assign('create2FaCodeNormalLogin', "y");
