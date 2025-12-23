@@ -322,12 +322,16 @@ if (
         }
     } elseif ($isvalid) {
         try {
-            $twoFactorAuth = TwoFactorAuth::getTwoFactorAuth();
-            $requireMfa = TwoFactorAuth::isMFARequired($requestedUser);
-            $twoFactorSecret = TwoFactorAuth::get2FactorSecret($requestedUser);
+            $requireMfa = false;
+            $twoFactorSecret = null;
+
+            if (($prefs['twoFactorAuth'] ?? 'n') === 'y') {
+                $requireMfa = TwoFactorAuth::isMFARequired($requestedUser);
+                $twoFactorSecret = TwoFactorAuth::get2FactorSecret($requestedUser);
+            }
 
             if (
-                $prefs['twoFactorAuth'] == 'y'
+                ($prefs['twoFactorAuth'] ?? 'n') === 'y'
                 && isset($_REQUEST['login_mode'])
                 && $_REQUEST['login_mode'] == 'popup'
                 && $requireMfa
@@ -340,7 +344,8 @@ if (
                 exit;
             }
 
-            if ($prefs['twoFactorAuth'] == 'y' && $requireMfa && ! empty($twoFactorSecret)) {
+            if (($prefs['twoFactorAuth'] ?? 'n') === 'y' && $requireMfa && ! empty($twoFactorSecret)) {
+                $twoFactorAuth = TwoFactorAuth::getTwoFactorAuth();
                 $is2FaPass = $twoFactorAuth->validateCode($requestedUser, $_REQUEST['twoFactorAuthCode']);
                 if (! $is2FaPass) {
                     $error = TWO_FA_INCORRECT;
@@ -356,7 +361,7 @@ if (
             }
 
             if ($isvalid) {
-                if ($requireMfa && $prefs['twoFactorAuth'] === 'y') {
+                if ($requireMfa && ($prefs['twoFactorAuth'] ?? 'n') === 'y') {
                     $userlib->updateLastMFADate($requestedUser);
                 }
                 $isdue = $userlib->is_due($requestedUser, $method);
