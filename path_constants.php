@@ -61,7 +61,7 @@ const LISTS_PATH = 'lists';
 const LIB_PATH = 'lib';
 /** Path to test library files */
 const LIB_TEST_PATH = 'lib/test';
-/** The path for php source code, mostly fro rector and phpstan */
+/** The path for php source code, mostly for rector and phpstan */
 const PHP_SOURCES_PATH = 'src/php';
 
 /** This was for the Mods feature, replaced by packages.  Do not confuse with MODULES_PATH */

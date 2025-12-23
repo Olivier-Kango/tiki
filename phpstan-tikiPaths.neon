@@ -1,0 +1,46 @@
+parameters:
+  paths:
+    - .
+  bootstrapFiles:
+    - vendor_bundled/vendor/autoload.php
+  scanDirectories:
+    #- vendor
+    #- vendor_custom
+  scanFiles:
+    # The following allows analysing our custom phpcs sniffs properly (They are devtools, we don't want them in main composer.json config)
+    # Not necessary anymore was added to autoload-dev in composer.json.
+    #- vendor_bundled/vendor/squizlabs/php_codesniffer/src/Files/File.php
+  excludePaths:
+    - vendor_bundled
+    - vendor
+    - vendor_custom
+    - */vendor/*
+    - temp
+    # TODO, but too complicated for now
+    #  Cypth-related
+    - lib/cypht
+    - lib/core/Search/Index/Cypht.php
+    - lib/wiki-plugins/wikiplugin_cypht.php 
+    - modules/mod-func-webmail_unread_messages.php
+    - lib/core/Tiki/Command/Webmail*
+    - tiki-webmail.php
+    # TikiManager related
+    - lib/core/Services/Manager
+
+    - lib/core/Tiki/Command/SieveFiltersCommand.php
+    - lib/test
+    
+
+    # DEPRECATED code
+    - lib/Sheet
+    - lib/wiki-plugins/wikiplugin_sheet.php
+    - lib/core/Tiki/Profile/InstallHandler/Sheet.php 
+    - tiki-export_sheet.php
+    - lib/accounting
+    # DEPRECATED tests
+    - tiki_tests
+    - lib/test/AcceptanceTests
+    # lang/ takes too long to process
+    - lang
+
+  tmpDir: temp/dev/phpstan_cache
