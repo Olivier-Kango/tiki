@@ -29,9 +29,15 @@ parameters:
 
     - lib/core/Tiki/Command/SieveFiltersCommand.php
     - lib/test
-    
+    # Depends on code installed through tiki packages, not composer
+
+    - lib/core/IDS #Depends on enygma/expose
+    - lib/core/Tiki/Faker.php #Depends on fakerphp/faker
+
 
     # DEPRECATED code
+    - lib/core/Tiki/Composer # Depends on composer/composer, but that hasn't been installed in ages.  It's clearly not functional.  Not sure if it's useful - benoitg- 2025-12-23
+    - lib/core/TikiDb/MasterSlaveDispatch.php #Apparently not upgraded as TikiDb evolved - benoitg- 2025-12-23
     - lib/Sheet
     - lib/wiki-plugins/wikiplugin_sheet.php
     - lib/core/Tiki/Profile/InstallHandler/Sheet.php 

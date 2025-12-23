@@ -16,9 +16,7 @@ parameters:
     -
       identifier: constant.notFound
     -
-      identifier: class.notFound   
-    -
-      identifier: class.noParent
+      identifier: class.notFound
     -
       identifier: new.noConstructor
     -
