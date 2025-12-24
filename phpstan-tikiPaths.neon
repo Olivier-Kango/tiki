@@ -16,8 +16,14 @@ parameters:
     - vendor_custom
     - */vendor/*
     - temp
-    # TODO, but too complicated for now
-    #  Cypth-related
+
+    # TODO, restore those paths, but too complicated for now
+    - lib/core/Tiki/Command/SieveFiltersCommand.php
+    - lib/test
+
+    # Depends on code decompressed in the source tree, so isn't always there
+ 
+    # Cypth related
     - lib/cypht
     - lib/core/Search/Index/Cypht.php
     - lib/wiki-plugins/wikiplugin_cypht.php 
@@ -27,8 +33,6 @@ parameters:
     # TikiManager related
     - lib/core/Services/Manager
 
-    - lib/core/Tiki/Command/SieveFiltersCommand.php
-    - lib/test
     # Depends on code installed through tiki packages, not composer
 
     - lib/core/IDS #Depends on enygma/expose
@@ -42,11 +46,25 @@ parameters:
     - lib/wiki-plugins/wikiplugin_sheet.php
     - lib/core/Tiki/Profile/InstallHandler/Sheet.php 
     - tiki-export_sheet.php
-    - lib/accounting
+  
     # DEPRECATED tests
     - tiki_tests
     - lib/test/AcceptanceTests
+  
     # lang/ takes too long to process
     - lang
 
   tmpDir: temp/dev/phpstan_cache
+
+  #Permanent error configuration
+  ignoreErrors:
+    # Conditionally included config files
+    - 
+      message: '#"db/local.php" is not a file or it does not exist.#'
+      reportUnmatched: false
+    -
+      message: '#"lib/test/local.php" is not a file or it does not exist.#'
+      reportUnmatched: false
+
+
+
