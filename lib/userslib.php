@@ -7567,7 +7567,7 @@ class UsersLib extends TikiLib
             return false;
         }
         //Force all users to enable 2FA
-        if ($prefs['twoFactorAuthAllUsers'] == 'y') {
+        if (! empty($prefs['twoFactorAuthAllUsers']) && $prefs['twoFactorAuthAllUsers'] === 'y') {
             $force = true;
         }
         //Force users in the specific groups to enable 2FA
