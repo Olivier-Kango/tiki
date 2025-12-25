@@ -18,13 +18,13 @@
         <div class="tiki-form-group row">
             <label class="col-form-label col-sm-3" for="name">{tr}Name{/tr}</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" name="name" id="name" maxlength="255" required>
+                <input class="form-control" type="text" name="name" id="name" maxlength="255">
             </div>
         </div>
         <div class="tiki-form-group row">
             <label class="col-form-label col-sm-3" for="tracker_name">{tr}Tracker Name{/tr}</label>
             <div class="col-sm-9">
-                <input class="form-control" type="text" name="tracker_name" id="tracker_name" maxlength="255" required>
+                <input class="form-control" type="text" name="tracker_name" id="tracker_name" maxlength="255">
             </div>
         </div>
         <div class="tiki-form-group row">
@@ -66,9 +66,9 @@
                         <tr id="row-template" class="d-none" style="display: none;">
                             <td>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="field-label form-control" readonly/>
+                                    <input type="text" class="field-label form-control" readonly disabled/>
                                     <div class="input-group-text">
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" disabled>
                                             <span class="align">{tr}Left{/tr}</span>
                                             <input class="display-align" type="hidden" value="left">
                                         </button>
@@ -82,7 +82,7 @@
                                 </div>
                             </td>
                             <td class="tiki-form-group">
-                                <select class="form-select type">
+                                <select class="form-select type" disabled>
                                     {foreach from=$types key=k item=info}
                                         <option value="{$k}" {if $k eq 't'}selected{/if}>{$info.name|escape} {if !empty($info.deprecated)}- Deprecated{/if}</option>
                                     {/foreach}
@@ -92,11 +92,11 @@
                                 {*</ul>*}
 
                             </td>
-                            <td><input class="primary" type="radio" name="pk" required aria-label="{tr}Primary Key:{/tr}" /></td>
-                            <td><input class="unique-key form-check-input" type="checkbox" aria-label="{tr}Unique Key:{/tr}" /></td>
-                            <td><input class="read-only form-check-input" type="checkbox" aria-label="{tr}Read-only:{/tr}" /></td>
-                            <td><input class="export-only form-check-input" type="checkbox" aria-label="{tr}Export-Only{/tr}" /></td>
-                            <td class="text-end"><button class="remove" aria-label="{tr}Remove{/tr}">{icon name=remove}</button></td>
+                            <td><input class="primary" type="radio" name="pk" aria-label="{tr}Primary Key:{/tr}" disabled /></td>
+                            <td><input class="unique-key form-check-input" type="checkbox" aria-label="{tr}Unique Key:{/tr}" disabled /></td>
+                            <td><input class="read-only form-check-input" type="checkbox" aria-label="{tr}Read-only:{/tr}" disabled /></td>
+                            <td><input class="export-only form-check-input" type="checkbox" aria-label="{tr}Export-Only{/tr}" disabled /></td>
+                            <td class="text-end"><button class="remove" aria-label="{tr}Remove{/tr}" disabled>{icon name=remove}</button></td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -298,11 +298,13 @@
                     var rows = getColumnsFromText(e.target.result);
                     var columns = rows.length ? Object.keys(rows[0]) : [];
 
-                    for(i = 0; i < columns.length; i++) {
+                    for (var i = 0; i < columns.length; i++) {
                         var $elem = $('#row-template').clone();
                         $elem.attr('id', 'row'+i);
                         $elem.removeClass('d-none');
+                        $elem.find('input, select, button').prop('disabled', false);
                         $elem.find('input[type="text"]').val(columns[i]);
+                        $elem.find('input.primary').val(columns[i]);
                         $elem.show();
                         $('#tracker-columns table tbody').append($elem);
                     }
@@ -322,6 +324,45 @@
                     $('#file-size-error').show();
                 }
             }
+        });
+
+        $('form.edit-tabular').on('submit', function(e) {
+            if (!$('#name').val().trim()) {
+                alert('{tr}Please enter a Name.{/tr}');
+                $('#name').focus();
+                e.preventDefault();
+                return false;
+            }
+
+            if (!$('#tracker_name').val().trim()) {
+                alert('{tr}Please enter a Tracker Name.{/tr}');
+                $('#tracker_name').focus();
+                e.preventDefault();
+                return false;
+            }
+
+            if (!$('#tracker-columns').is(':visible')) {
+                alert('{tr}Please upload a file to detect columns first.{/tr}');
+                e.preventDefault();
+                return false;
+            }
+
+            if (!$('input[name="pk"]:checked').length) {
+                alert('{tr}Please select a Primary Key field.{/tr}');
+                e.preventDefault();
+                return false;
+            }
+
+            var fields = [];
+            $('#tracker-columns tbody tr').not('#row-template').each(function () {
+                var fieldName = $(this).find('.field-label').val();
+                if (fieldName) {
+                    fields.push(fieldName);
+                }
+            });
+            $('textarea[name="fields"]').val(fields.join("\n"));
+
+            return true;
         });
 
     {/jq}
