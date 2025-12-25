@@ -206,6 +206,73 @@
             fileSelect.trigger("change");
         });
 
+        function parseHeaders(line, delim) {
+            var headers = [];
+            var current = '';
+            var inQuotes = false;
+
+            for (var i = 0; i < line.length; i++) {
+                var char = line[i];
+                if (char === '"') {
+                    if (inQuotes && line[i + 1] === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === delim && !inQuotes) {
+                    headers.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+
+            headers.push(current);
+
+            return headers.map(function(header) {
+                return header.trim().replace(/^"(.*)"$/, '$1');
+            });
+        }
+
+        function getColumnsFromText(text) {
+            var delim = delimiter;
+
+            if (window.Plotly && Plotly.d3) {
+                if (delim == ';') {
+                    return Plotly.d3.dsv(';').parse(text);
+                } else if (delim == '\t') {
+                    return Plotly.d3.dsv('\t').parse(text);
+                }
+
+                return Plotly.d3.csv.parse(text);
+            }
+
+            if (window.d3) {
+                if (d3.dsvFormat) {
+                    return d3.dsvFormat(delim).parse(text);
+                } else if (d3.csvParse && delim === ',') {
+                    return d3.csvParse(text);
+                }
+            }
+
+            // Fallback parser when Plotly or d3 are unavailable.
+            var lines = text.split(/\r?\n/).filter(function(line) {
+                return line.trim() !== '';
+            });
+
+            if (!lines.length) {
+                return [];
+            }
+
+            var headers = parseHeaders(lines[0], delim);
+
+            return [headers.reduce(function(acc, header) {
+                acc[header] = '';
+                return acc;
+            }, {})];
+        }
+
         fileSelect.on('change', function(e) {
 
             var fileUpload = fileSelect[0];
@@ -228,15 +295,8 @@
 
 
                 reader.onload = function (e) {
-                    if (delimiter == ';') {
-                        var rows = Plotly.d3.dsv(';').parse(e.target.result);
-                    } else if (delimiter == '\t') {
-                        var rows = Plotly.d3.dsv('\t').parse(e.target.result);
-                    } else {
-                        var rows = Plotly.d3.csv.parse(e.target.result);
-                    }
-                    
-                    var columns = Object.keys(rows[0]);
+                    var rows = getColumnsFromText(e.target.result);
+                    var columns = rows.length ? Object.keys(rows[0]) : [];
 
                     for(i = 0; i < columns.length; i++) {
                         var $elem = $('#row-template').clone();
