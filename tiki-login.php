@@ -634,7 +634,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
             http_response_code(401);
             $smarty->assign('error_login', $error);
             $smarty->assign('mid', 'tiki-login.tpl');
-            $smarty->assign('error_user', $_REQUEST["user"]);
+            $smarty->assign('error_user', $requestedUser);
             $smarty->display('tiki.tpl');
             exit;
 
