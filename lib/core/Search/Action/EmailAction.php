@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Symfony\Component\Mime\Address;
+
 class Search_Action_EmailAction implements Search_Action_Action
 {
     public function getValues()
@@ -208,42 +211,33 @@ class Search_Action_EmailAction implements Search_Action_Action
         if (empty($email_or_username)) {
             return [];
         }
-        if (str_contains($email_or_username, ';')) {
-            $list = preg_split('/\s*;\s*/', $email_or_username);
-            $res = [];
-            foreach ($list as $email_or_username) {
-                $res = array_merge($res, $this->dereference($email_or_username));
-            }
-            return array_filter($res);
-        }
-        if (str_contains($email_or_username, ',') && ! str_contains($email_or_username, '<')) {
-            $list = preg_split('/\s*,\s*/', $email_or_username);
-            $res = [];
-            foreach ($list as $email_or_username) {
-                $res = array_merge($res, $this->dereference($email_or_username));
-            }
-            return array_filter($res);
-        }
         $email_or_username = trim($this->stripNp($email_or_username));
-        if (preg_match_all('/([^<]*?)<([^@>]+@[^>]+)>/', $email_or_username, $m)) {
-            $emails = [];
-            foreach ($m[0] as $key => $_) {
-                $name = trim($m[1][$key], ",;\n\r\t ");
-                $emails[$name] = $m[2][$key];
+
+        if (class_exists(Address::class) && method_exists(Address::class, 'createArray')) {
+            try {
+                $resolvedAddresses = [];
+                foreach (Address::createArray($email_or_username) as $address) {
+                    $name = $address->getName();
+                    if ($name !== '') {
+                        $resolvedAddresses[$name] = $address->getAddress();
+                    } else {
+                        $resolvedAddresses[] = $address->getAddress();
+                    }
+                }
+                return array_filter($resolvedAddresses);
+            } catch (\Throwable $e) {
+                // Keep fallback below only for usernames.
             }
-            return $emails;
-        } elseif (preg_match_all('/[^@]+@[^,;]+/', $email_or_username, $m)) {
-            return array_map(function ($email) {
-                return trim($email, ",;\n\r\t ");
-            }, $m[0]);
-        } elseif (str_contains($email_or_username, '@')) {
-            return [$email_or_username];
-        } else {
-            $users = TikiLib::lib('trk')->parse_user_field($email_or_username);
-            return array_filter(array_map(function ($username) {
-                return TikiLib::lib('user')->get_user_email($username);
-            }, $users));
         }
+
+        if (str_contains($email_or_username, '@')) {
+            return [];
+        }
+
+        $users = TikiLib::lib('trk')->parse_user_field($email_or_username);
+        return array_filter(array_map(function ($username) {
+            return TikiLib::lib('user')->get_user_email($username);
+        }, $users));
     }
 
     private function dereferenceName($email_or_username)
