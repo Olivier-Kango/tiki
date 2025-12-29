@@ -1,0 +1,70 @@
+<?php
+
+namespace Tiki\Event\Subscriber;
+
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class XmppUserSyncSubscriber implements EventSubscriberInterface
+{
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            'tiki.user.login' => 'onUserLogin',
+            'tiki.user.groupjoin' => 'onUserGroupJoin',
+            'tiki.user.groupleave' => 'onUserGroupJoin',
+        ];
+    }
+
+    public function onUserLogin($data): void
+    {
+        $user = $this->extractUser($data);
+        if ($user === '') {
+            return;
+        }
+
+        $this->syncUserRooms($user);
+    }
+
+    public function onUserGroupJoin($data): void
+    {
+        $user = $this->extractUser($data);
+        if ($user === '') {
+            return;
+        }
+
+        $this->syncUserRooms($user);
+    }
+
+    private function extractUser($data): string
+    {
+        if (is_string($data)) {
+            return $data;
+        }
+
+        if (is_array($data)) {
+            return (string) ($data['user'] ?? $data['username'] ?? $data['object'] ?? '');
+        }
+
+        if (is_object($data) && method_exists($data, 'getUsername')) {
+            return (string) $data->getUsername();
+        }
+
+        return '';
+    }
+
+    private function syncUserRooms(string $user): void
+    {
+        global $prefs;
+
+        if (($prefs['xmpp_feature'] ?? 'n') !== 'y') {
+            return;
+        }
+
+        try {
+            $xmpplib = \TikiLib::lib('xmpp');
+            $xmpplib->syncUserGroupsToXmpp($user);
+        } catch (\Throwable $e) {
+            error_log('[XMPP] Sync subscriber error for ' . $user . ': ' . $e->getMessage());
+        }
+    }
+}

@@ -75,30 +75,46 @@ class XMPPLib extends TikiLib
             $rooms = $saved;
         }
 
+        $rooms = array_merge($rooms, $this->resolveRoomsFromGroups($login));
+
+        $rooms = array_values(array_unique(array_filter($rooms)));
+        $cachelib->cacheItem($key, serialize($rooms), 300);
+        return $rooms;
+    }
+
+    /**
+     * Resolve expected rooms from Tiki groups and prefs (no saved cache/prefs).
+     */
+    public function resolveRoomsFromGroups(string $login): array
+    {
+        global $prefs;
+
+        $rooms = [];
         $strategy = $prefs['xmpp_auto_join_strategy'] ?? 'by-groups';
         if ($strategy === 'none') {
-            return $rooms;
+            return [];
         }
 
-        if ($strategy === 'static' && ! empty($prefs['xmpp_registered_room'])) {
-            $rooms[] = $prefs['xmpp_registered_room'];
-        }
+        $userslib = TikiLib::lib('user');
 
-        if ($strategy === 'by-groups') {
+        if ($strategy === 'static') {
+            if (! empty($prefs['xmpp_registered_room'])) {
+                $rooms[] = $prefs['xmpp_registered_room'];
+            }
+        } elseif ($strategy === 'by-groups') {
             $map = json_decode($prefs['xmpp_group_room_map'] ?? '{}', true) ?: [];
-            $groups = TikiLib::lib('user')->get_user_groups($login);
+            $groups = $userslib->get_user_groups($login);
             foreach ($groups as $g) {
+                if ($g === 'Registered' && ! empty($prefs['xmpp_registered_room'])) {
+                    $rooms[] = $prefs['xmpp_registered_room'];
+                }
                 if (! empty($map[$g])) {
                     $rooms[] = $map[$g];
                 }
             }
-            if (! empty($prefs['xmpp_registered_room'])) {
-                $rooms[] = $prefs['xmpp_registered_room'];
-            }
         }
 
         // Admins should always see/respond in anonymous/support rooms (community)
-        $userslib = TikiLib::lib('user');
         $isAdmin = $login && $userslib->user_has_permission($login, 'tiki_p_admin');
         if ($isAdmin) {
             if (! empty($prefs['xmpp_anonymous_room'])) {
@@ -109,9 +125,7 @@ class XMPPLib extends TikiLib
             }
         }
 
-        $rooms = array_values(array_unique(array_filter($rooms)));
-        $cachelib->cacheItem($key, serialize($rooms), 300);
-        return $rooms;
+        return array_values(array_unique(array_filter($rooms)));
     }
 
 
@@ -210,7 +224,7 @@ class XMPPLib extends TikiLib
         if (! $jid) {
             return;
         }
-        $rooms = $this->getXmppRoomsForUser($u);
+        $rooms = $this->resolveRoomsFromGroups($u);
         foreach ($rooms as $r) {
             try {
                 $room = $this->buildRoomJid($r);
@@ -219,6 +233,9 @@ class XMPPLib extends TikiLib
             } catch (\Throwable $e) {
                 error_log("[XMPP] Sync error {$u} -> {$r}: " . $e->getMessage());
             }
+        }
+        if ($rooms) {
+            $this->saveUserRooms($u, $rooms);
         }
     }
 
