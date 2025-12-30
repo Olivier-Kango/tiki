@@ -132,15 +132,18 @@ class XMPPLib extends TikiLib
     public function saveUserRooms(string $user, array $rooms): void
     {
         $tikilib = TikiLib::lib('tiki');
-        $existing = json_decode($tikilib->get_user_preference($user, 'xmpp_rooms', '[]'), true);
-        if (! is_array($existing)) {
-            $existing = [];
-        }
+        $normalized = array_values(array_unique(array_filter($rooms)));
+        $tikilib->set_user_preference($user, 'xmpp_rooms', json_encode($normalized));
+    }
 
-        $all = array_values(array_unique(array_merge($existing, $rooms)));
-        $tikilib->set_user_preference($user, 'xmpp_rooms', json_encode($all));
-
-        error_log("[XMPP] Saved rooms for {$user}: " . implode(', ', $all));
+    /**
+     * Return stored XMPP rooms for a user (without resolving groups).
+     */
+    public function getSavedUserRooms(string $user): array
+    {
+        $tikilib = TikiLib::lib('tiki');
+        $saved = json_decode($tikilib->get_user_preference($user, 'xmpp_rooms', '[]'), true);
+        return is_array($saved) ? array_values(array_unique(array_filter($saved))) : [];
     }
 
     /**
@@ -219,13 +222,17 @@ class XMPPLib extends TikiLib
         if ($prefs['xmpp_feature'] !== 'y') {
             return;
         }
-        $this->invalidateUserCache($u);
         $jid = $this->getEffectiveJidForUser($u);
         if (! $jid) {
             return;
         }
-        $rooms = $this->resolveRoomsFromGroups($u);
-        foreach ($rooms as $r) {
+        $currentRooms = $this->getSavedUserRooms($u);
+        $expectedRooms = $this->resolveRoomsFromGroups($u);
+
+        $toAdd = array_diff($expectedRooms, $currentRooms);
+        $toRemove = array_diff($currentRooms, $expectedRooms);
+
+        foreach ($toAdd as $r) {
             try {
                 $room = $this->buildRoomJid($r);
                 $this->ensureRoomExists($room);
@@ -234,15 +241,22 @@ class XMPPLib extends TikiLib
                 error_log("[XMPP] Sync error {$u} -> {$r}: " . $e->getMessage());
             }
         }
-        if ($rooms) {
-            $this->saveUserRooms($u, $rooms);
+
+        foreach ($toRemove as $r) {
+            try {
+                $room = $this->buildRoomJid($r);
+                $this->setUserAffiliation($room, $jid, 'none'); // remove membership and force exit
+            } catch (\Throwable $e) {
+                error_log("[XMPP] Unsync error {$u} -> {$r}: " . $e->getMessage());
+            }
         }
+
+        $this->saveUserRooms($u, $expectedRooms);
     }
 
     public function invalidateUserCache(string $u): void
     {
         TikiLib::lib('cache')->invalidate('xmpp_rooms_' . md5($u));
-        error_log("[XMPP] Cache invalidated for {$u}");
     }
 
     /**
