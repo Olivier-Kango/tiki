@@ -987,6 +987,15 @@ function prefs_feature_list($partial = false)
             'default' => 'y',
             'tags' => ['basic'],
         ],
+        'feature_eol_date_notifier' => [
+            'name' => tra('End-of-Life Date Notifier'),
+            'description' => tra('Enable notifications for approaching End-of-Life (EoL) dates for supported versions.'),
+            'type' => 'flag',
+            'package' => 'features',
+            'since' => '30.0',
+            'default' => 'y',
+            'tags' => ['basic', 'interface', 'admin', 'security'],
+        ],
         'feature_ticketlib' => [
             'name' => tra('Require confirmation of an action if a possible CSRF is detected'),
             'type' => 'flag',
