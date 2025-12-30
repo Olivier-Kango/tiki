@@ -43,7 +43,7 @@ class Tiki_Version_Checker
             // If current is unstable OR max is a stable upgrade to current
             if (! $this->version->isStable() || $latestOverall->isStableUpgradeTo($this->version)) {
                 $fromVersion = $this->isSupportedInCycle ? $supportedInBranch : $this->version;
-                $messageType = $this->isSupportedInCycle ? 'note' : 'error';
+                $messageType = ($this->isSupportedInCycle || ! $this->version->isStable()) ? 'note' : 'error';
 
                 $upgrades[] = new Tiki_Version_Upgrade($fromVersion ?: $this->version, $latestOverall, $messageType);
             }
