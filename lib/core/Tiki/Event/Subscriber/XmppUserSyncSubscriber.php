@@ -21,7 +21,7 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->sync($user);
+        $this->markPendingSync($user);
     }
 
     public function onUserGroupLeave($data): void
@@ -31,7 +31,7 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->sync($user);
+        $this->markPendingSync($user);
     }
 
     private function extractUser($data): string
@@ -51,7 +51,7 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
         return '';
     }
 
-    private function sync(string $user): void
+    private function markPendingSync(string $user): void
     {
         static $running = [];
 
@@ -70,7 +70,9 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
 
         try {
             $xmpplib = \TikiLib::lib('xmpp');
-            $xmpplib->syncUserGroupsToXmpp($user);
+            if (method_exists($xmpplib, 'markUserXmppSyncNeeded')) {
+                $xmpplib->markUserXmppSyncNeeded($user);
+            }
         } catch (\Throwable $e) {
             error_log('[XMPP] Sync subscriber error for ' . $user . ': ' . $e->getMessage());
         }

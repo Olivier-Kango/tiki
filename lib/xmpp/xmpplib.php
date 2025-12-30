@@ -254,6 +254,19 @@ class XMPPLib extends TikiLib
         $this->saveUserRooms($u, $expectedRooms);
     }
 
+    /**
+     * Flag a user for deferred XMPP sync without performing network calls.
+     */
+    public function markUserXmppSyncNeeded(string $user): void
+    {
+        global $prefs;
+        if (($prefs['xmpp_feature'] ?? 'n') !== 'y' || $user === '') {
+            return;
+        }
+
+        TikiLib::lib('tiki')->set_user_preference($user, 'xmpp_sync_pending', 'y');
+    }
+
     public function invalidateUserCache(string $u): void
     {
         TikiLib::lib('cache')->invalidate('xmpp_rooms_' . md5($u));
