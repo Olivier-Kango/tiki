@@ -9,20 +9,9 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'tiki.user.login' => 'onUserLogin',
             'tiki.user.groupjoin' => 'onUserGroupJoin',
-            'tiki.user.groupleave' => 'onUserGroupJoin',
+            'tiki.user.groupleave' => 'onUserGroupLeave',
         ];
-    }
-
-    public function onUserLogin($data): void
-    {
-        $user = $this->extractUser($data);
-        if ($user === '') {
-            return;
-        }
-
-        $this->syncUserRooms($user);
     }
 
     public function onUserGroupJoin($data): void
@@ -32,7 +21,17 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->syncUserRooms($user);
+        $this->sync($user);
+    }
+
+    public function onUserGroupLeave($data): void
+    {
+        $user = $this->extractUser($data);
+        if ($user === '') {
+            return;
+        }
+
+        $this->sync($user);
     }
 
     private function extractUser($data): string
@@ -52,11 +51,20 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
         return '';
     }
 
-    private function syncUserRooms(string $user): void
+    private function sync(string $user): void
     {
+        static $running = [];
+
+        if (isset($running[$user])) {
+            return;
+        }
+
+        $running[$user] = true;
+
         global $prefs;
 
         if (($prefs['xmpp_feature'] ?? 'n') !== 'y') {
+            unset($running[$user]);
             return;
         }
 
@@ -66,5 +74,7 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
         } catch (\Throwable $e) {
             error_log('[XMPP] Sync subscriber error for ' . $user . ': ' . $e->getMessage());
         }
+
+        unset($running[$user]);
     }
 }
