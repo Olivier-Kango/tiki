@@ -187,12 +187,18 @@ class XMPPLib extends TikiLib
      */
     public function getEffectiveJidForUser(string $username): string
     {
-        if (empty($username)) {
+        $username = trim($username);
+        if ($username === '') {
             return '';
         }
 
         $userslib = TikiLib::lib('user');
         $info = $userslib->get_user_info($username);
+        if (! $info || empty($info['login'])) {
+            // Avoid building JIDs from group names or unknown users
+            return '';
+        }
+        $login = trim($info['login']);
 
         $ext = trim($info['preferences']['xmpp_jid'] ?? '');
         if (! empty($ext) && strpos($ext, '@') !== false) {
@@ -209,7 +215,7 @@ class XMPPLib extends TikiLib
             $domain = parse_url($prefs['tiki_url'], PHP_URL_HOST);
         }
 
-        return "{$username}@{$domain}";
+        return "{$login}@{$domain}";
     }
 
     /**
@@ -551,7 +557,7 @@ class XMPPLib extends TikiLib
         $xmppclient = new ConverseJS();
         $xmppclient->set_auth($params);
 
-        $nickname = '';
+        $nickname = $xmpp['nickname'] ?? $user;
 
         // Auto-join only if user is logged in
         if (! empty($user)) {
@@ -590,11 +596,6 @@ class XMPPLib extends TikiLib
                 'anonymous'                  => $params['anonymous'] ?? '',
             ]
         );
-
-        // Auto-join only if user is logged in
-        if (! empty($user)) {
-            $xmppclient->set_auto_join_rooms($params['room']);
-        }
 
         $xmppclient->render();
     }
