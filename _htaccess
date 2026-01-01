@@ -44,10 +44,10 @@ RedirectMatch 403 /(?:\.git|node_modules)/.*$
 <IfModule mod_dir.c>
     # -- Home Page Feature -- #
     # Option 1: (recommended) Not using home page feature.
-    DirectoryIndex index.php
+    #DirectoryIndex index.php
 
     # Option 2: If using home page feature you may avoid the home page name being appended to the url by using this option.
-    #DirectoryIndex tiki-index.php index.php
+    DirectoryIndex tiki-index.php index.php
 </IfModule>
 
 # -- Ensure Caching Proxy Sends Content to Correct Client -- #
@@ -139,6 +139,10 @@ FileETag none
 
     # More information: http://doc.tiki.org/Rewrite+Rules
     RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} ^/HomePage/?$
+    RewriteCond %{THE_REQUEST} \s/HomePage[\s?]
+    RewriteRule ^HomePage/?$ / [R=301,L]
 
     # -- Tiki Root -- #
     # You need to customize the RewriteBase value below if Tiki is installed in a subdirectory of your web root.
