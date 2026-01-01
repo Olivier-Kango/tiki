@@ -15,7 +15,7 @@ $xmpplib = TikiLib::lib('xmpp');
 $tikilib = TikiLib::lib('tiki');
 
 // Atomic check for pending sync; skip if nothing to do
-$pending = $tikilib->get_user_preference($user, 'xmpp_sync_pending', 'n');
+$pending = $tikilib->get_user_preference($user, 'xmpp_sync_pending', '');
 if ($pending !== 'y') {
     http_response_code(204);
     exit;
@@ -23,16 +23,20 @@ if ($pending !== 'y') {
 
 // Mark as running to avoid concurrent executions
 $tikilib->set_user_preference($user, 'xmpp_sync_pending', 'running');
+$nextState = '';
 
 try {
     if (method_exists($xmpplib, 'syncUserGroupsToXmpp')) {
         $xmpplib->syncUserGroupsToXmpp($user);
     }
-    $tikilib->set_user_preference($user, 'xmpp_sync_pending', 'n');
+    $nextState = '';
     http_response_code(204);
 } catch (\Throwable $e) {
     error_log('[XMPP] Deferred sync error for ' . $user . ': ' . $e->getMessage());
     // Allow retry on next call
-    $tikilib->set_user_preference($user, 'xmpp_sync_pending', 'y');
+    $nextState = 'y';
     http_response_code(500);
+} finally {
+    // Always clear the running flag
+    $tikilib->set_user_preference($user, 'xmpp_sync_pending', $nextState);
 }

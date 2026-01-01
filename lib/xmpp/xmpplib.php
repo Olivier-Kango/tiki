@@ -270,6 +270,7 @@ class XMPPLib extends TikiLib
             return;
         }
 
+        // xmpp_sync_pending values: '' (no sync), 'y' (pending), 'running' (in progress)
         TikiLib::lib('tiki')->set_user_preference($user, 'xmpp_sync_pending', 'y');
     }
 
