@@ -139,6 +139,10 @@ FileETag none
 
     # More information: http://doc.tiki.org/Rewrite+Rules
     RewriteEngine On
+    
+    RewriteCond %{REQUEST_URI} ^/HomePage/?$
+    RewriteCond %{THE_REQUEST} \s/HomePage[\s?]
+    RewriteRule ^HomePage/?$ / [R=301,L]
 
     RewriteCond %{REQUEST_URI} ^/HomePage/?$
     RewriteCond %{THE_REQUEST} \s/HomePage[\s?]
