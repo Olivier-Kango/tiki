@@ -2664,6 +2664,51 @@ class Comments extends TikiLib
             $ret[$key] = $this->maskFields($ret[$key]);
         }
 
+        // Sort forum threads by activity date (newest reply) using already-fetched data
+        if ($object[0] == "forum" && $style == 'commentStyle_threaded') {
+            // Helper to find max date in reply tree
+            $findMaxDate = function ($repliesInfo) use (&$findMaxDate) {
+                $maxDate = 0;
+                if (! empty($repliesInfo['replies'])) {
+                    foreach ($repliesInfo['replies'] as $reply) {
+                        $replyDate = $reply['commentDate'] ?? 0;
+                        if ($replyDate > $maxDate) {
+                            $maxDate = $replyDate;
+                        }
+                        // Recurse into nested replies
+                        if (! empty($reply['replies_info'])) {
+                            $nestedMax = $findMaxDate($reply['replies_info']);
+                            if ($nestedMax > $maxDate) {
+                                $maxDate = $nestedMax;
+                            }
+                        }
+                    }
+                }
+                return $maxDate;
+            };
+
+            // Calculate activity date for each thread from its reply tree
+            foreach ($ret as &$row) {
+                $ownDate = $row['commentDate'] ?? 0;
+                $replyMax = isset($row['replies_info']) ? $findMaxDate($row['replies_info']) : 0;
+                $row['lastActivityDate'] = max($ownDate, $replyMax);
+            }
+            unset($row);
+
+            // Sort by calculated activity date
+            $activitySort = (stripos($sort_mode, 'desc') !== false) ? 'DESC' : 'ASC';
+            usort($ret, function ($a, $b) use ($activitySort) {
+                $dateA = $a['lastActivityDate'] ?? 0;
+                $dateB = $b['lastActivityDate'] ?? 0;
+                if ($dateA == $dateB) {
+                    return 0;
+                }
+                return ($activitySort === 'DESC')
+                    ? (($dateA < $dateB) ? 1 : -1)
+                    : (($dateA > $dateB) ? 1 : -1);
+            });
+        }
+
         if ($old_sort_mode == 'replies_asc') {
             usort($ret, 'compare_replies');
         }
@@ -4401,6 +4446,7 @@ class Comments extends TikiLib
         return $this->fetchAll($query, [(int) $sinceDate]);
     }
 }
+
 
 /**
  * @param $ar1
