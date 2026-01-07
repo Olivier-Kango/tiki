@@ -50,6 +50,8 @@ class JsCalendar extends Base
         $endfieldname = $params['endfieldname'] ?? '';
         $enddate = $params['enddate'] ?? '';
         $timezoneFieldname = $params['timezoneFieldname'] ?? '';
+        $minuteStep = isset($params['minutestep']) ? (int)$params['minutestep'] : 1;
+        $enforceStep = isset($params['enforcestep']) ? (int)$params['enforcestep'] : 0;
 
         if (! isset($params['timezone'])) {
             $params['timezone'] = $tikilib->get_display_timezone();
@@ -92,7 +94,7 @@ class JsCalendar extends Base
         $format = strpos($type, 'time') !== false ? $prefs['short_date_format_js'] . ' ' . $prefs['short_time_format_js'] : $prefs['short_date_format_js'];
 
         return <<<HTML
-            <el-date-picker type="{$type}" custom-timezone="{$enableTimezonePicker}" id="{$id}" timezone="{$params['timezone']}" language="{$language}" format="{$format}" />
+            <el-date-picker type="{$type}" custom-timezone="{$enableTimezonePicker}" id="{$id}" timezone="{$params['timezone']}" language="{$language}" format="{$format}" minutestep="{$minuteStep}" enforcestep="{$enforceStep}" />
         HTML;
     }
 }
