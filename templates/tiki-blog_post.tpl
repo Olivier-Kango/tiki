@@ -29,6 +29,7 @@
     </article>
 {/if}
 
+<div class="styling-element">
 {capture name=actionUrlParam}{strip}
     {if $postId > 0 && $blogId > 0}
         ?blogId={$blogId}&postId={$postId}
@@ -149,3 +150,4 @@
         <input type="submit" class="btn btn-link" name="cancel" onclick='document.location="{$referer|escape:'html'}";needToConfirm=false;return false;' value="{tr}Cancel{/tr}">
     </div>
 </form>
+</div>

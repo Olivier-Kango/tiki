@@ -7,14 +7,14 @@
     {ticket}
     <input type="hidden" name="modulesetup" />
 
-    <div class="row">
-        <div class="mb-3 col-lg-12 clearfix">
+    <div class="t_navbar mb-4 clearfix">
             <a role="button" class="btn btn-link" href="tiki-admin_modules.php" title="{tr}List{/tr}">
                 {icon name="list"} {tr}Modules{/tr}
             </a>
             {include file='admin/include_apply_top.tpl'}
-        </div>
     </div>
+
+    <div class="styling-element">
 
     <fieldset id="Modules">
         <legend class="h3">{tr}{$crumbs[$crumb]->description}{/tr}{help crumb=$crumbs[$crumb]}</legend>
@@ -48,4 +48,5 @@
         {/remarksbox}
     </fieldset>
     {include file='admin/include_apply_bottom.tpl'}
+    </div>
 </form>
