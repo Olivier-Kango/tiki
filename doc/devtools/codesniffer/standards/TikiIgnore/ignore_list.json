@@ -5349,6 +5349,7 @@
         "lib\/core\/Search\/Query\/WikiBuilder.php": {
             "Search_Query_WikiBuilder::wpquery_list_max": true,
             "Search_Query_WikiBuilder::wpquery_select_fields": true,
+            "Search_Query_WikiBuilder::wpquery_select_count": true,
             "Search_Query_WikiBuilder::wpquery_filter_editable": true,
             "Search_Query_WikiBuilder::wpquery_sort_return_only": true,
             "Search_Query_WikiBuilder::wpquery_filter_type": true,
