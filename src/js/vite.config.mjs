@@ -492,10 +492,6 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/jquery-validation/dist",
                     },
                     {
-                        src: "node_modules/minicart/dist/*.js",
-                        dest: "vendor_dist/minicart/dist",
-                    },
-                    {
                         src: "node_modules/moment/dist/*",
                         dest: "vendor_dist/moment/dist",
                     },
