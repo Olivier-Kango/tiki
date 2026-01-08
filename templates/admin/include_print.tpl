@@ -73,6 +73,7 @@
             {preference name=print_pdf_mpdf_coverpage_settings}
             {preference name=print_pdf_mpdf_coverpage_image_settings}
             {preference name=print_pdf_mpdf_allow_unsafe_ssl_requests}
+            {preference name=print_pdf_mpdf_debug}
         </div>
     </fieldset>
 

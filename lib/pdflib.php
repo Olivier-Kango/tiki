@@ -530,12 +530,16 @@ class PdfGenerator
 
         $cssStyles = str_replace(
             [".tiki","opacity: 0;","page-break-inside: avoid;"],
-            ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"],
+            ["","fill: #fff;opacity:0.3;stroke:black;","page-break-inside: auto;"],
             $allCss
         );
         //PDF import templates will not work if background color is set, need to replace in css
         $cssStyles = $this->replaceCssVariables($cssStyles);
         $cssStyles = $this->evaluateCalcExpressions($cssStyles);
+
+        if ($prefs['print_pdf_mpdf_debug'] === 'y') {
+            $debugOutput = '';
+        }
 
         if (
             array_filter(array_column($pdfPages, 'pageContent'), function ($var) {
@@ -579,14 +583,28 @@ class PdfGenerator
                     return date($matches[1]);
                 }, $coverPage[$i]);
             }
-            $htm = '<body style="' . $coverPageBgColor . 'margin:0px;padding:0px"><div style="height:100%;background-image:url(' . $coverImage . ');background-size:cover;background-repeat: no-repeat;background-position: center;padding:20px;">';
-            if (! empty($coverPage[0]) || ! empty($coverPage[1])) {
-                $htm .= '<div style="' . $coverPageBorder . 'height:95%;">
-                <div style="text-align:' . $textAlign . ';margin-top:30%;' . $textColor . '">
-                <div style="' . $textBgColor . $coverPageTextBorder . 'margin-bottom:10px;font-size:50px;">' . $coverPage[0] . '</div>' . $coverPage[1] . '</div></div>';
+            $bodyStyle = "{$coverPageBgColor}margin:0px;padding:0px";
+            $containerStyle = "height:100%;background-image:url({$coverImage});padding:20px;background-repeat:no-repeat;background-position:center;";
+            $borderStyle = "{$coverPageBorder}height:95%;";
+            $contentStyle = "text-align:{$textAlign};margin-top:30%;{$textColor}";
+            $titleStyle = "{$textBgColor}{$coverPageTextBorder}margin-bottom:10px;font-size:50px;";
+
+            $htmlChunk = <<<HTML
+ <body style="$bodyStyle">
+     <div style="$containerStyle">
+         <div style="$borderStyle">
+             <div style="$contentStyle">
+                 <div style="$titleStyle">{$coverPage[0]}</div>
+                 {$coverPage[1]}
+             </div>
+         </div>
+     </div>
+ </body>
+ HTML;
+            if ($prefs['print_pdf_mpdf_debug'] === 'y') {
+                $debugOutput .= $htmlChunk;
             }
-            $htm .= '</div></body>';
-            $mpdf->WriteHTML($htm);
+            $mpdf->WriteHTML($htmlChunk);
         }
         //Checking bookmark
         if (is_array($pdfSettings['autobookmarks'])) {
@@ -677,7 +695,11 @@ class PdfGenerator
                                 }
                             }
                         } catch (Exception $e) {
-                            $mpdf->WriteHTML("PDF not supported");
+                            $htmlChunk = "PDF not supported";
+                            if ($prefs['print_pdf_mpdf_debug'] === 'y') {
+                                $debugOutput .= $htmlChunk;
+                            }
+                            $mpdf->WriteHTML($htmlChunk);
                         }
                     }
                     unlink($tmpExtPDF);
@@ -727,16 +749,27 @@ class PdfGenerator
                     $pdfPage['pageContent'] = $this->getHtmlLayout($pdfPage['pageContent']);
                     $this->_getImages($pdfPage['pageContent'], $tempImgArr);
 
-                    $mpdf->WriteHTML('<html><body class="' . $bodycss . '" style="margin:0px;padding:0px;">' . $cssStyles);
+                    $htmlChunk = '<html><body class="' . $bodycss . '" style="margin:0px;padding:0px;">' . $cssStyles;
+                    if ($prefs['print_pdf_mpdf_debug'] === 'y') {
+                        $debugOutput .= $htmlChunk;
+                    }
+                    $mpdf->WriteHTML($htmlChunk);
                     $pagesTotal += floor(strlen($pdfPage['pageContent']) / 3000);
                     //checking if page content is less than mPDF character limit, otherwise split it and loop to writeHTML
                     for ($charLimit = 0; $charLimit <= strlen($pdfPage['pageContent']); $charLimit += $pdfLimit) {
                         $content_slice = substr($pdfPage['pageContent'], $charLimit, $pdfLimit);
                         if ($content_slice) {
+                            if ($prefs['print_pdf_mpdf_debug'] === 'y') {
+                                $debugOutput .= $content_slice;
+                            }
                             $mpdf->WriteHTML($content_slice);
                         }
                     }
-                    $mpdf->WriteHTML('</body></html>');
+                    $htmlChunk = '</body></html>';
+                    if ($prefs['print_pdf_mpdf_debug'] === 'y') {
+                        $debugOutput .= $htmlChunk;
+                    }
+                    $mpdf->WriteHTML($htmlChunk);
                     $pageNo++;
                     $cssStyles = ''; //set to blank after added with first page
                 }
@@ -755,6 +788,11 @@ class PdfGenerator
         $this->clearTempImg($tempImgArr);
         $tempFile = fopen("temp/public/pdffile_" . session_id() . ".txt", "w");
         fwrite($tempFile, ($pagesTotal * 30));
+
+        if ($prefs['print_pdf_mpdf_debug'] === 'y') {
+            file_put_contents('temp/mpdf_debug_output.html', $debugOutput);
+        }
+
         return $mpdf->Output('', 'S');                  // Return as a string
     }
 
@@ -864,45 +902,50 @@ class PdfGenerator
             $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['topbar_modules'] . '</div>';
         }
 
-        $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="row">';
+        if (array_filter($modules_to_print_contents)) {
+            $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="row">';
 
-        if ($modules_to_print_contents['left_modules'] || $modules_to_print_contents['right_modules']) {
-            $sideColumn = 'col-xs-4';
+            if ($modules_to_print_contents['left_modules'] || $modules_to_print_contents['right_modules']) {
+                $sideColumn = 'col-xs-4';
 
-            if ($modules_to_print_contents['left_modules'] && $modules_to_print_contents['right_modules']) {
-                $sideColumn = 'col-xs-2';
-            }
+                if ($modules_to_print_contents['left_modules'] && $modules_to_print_contents['right_modules']) {
+                    $sideColumn = 'col-xs-2';
+                }
 
-            if ($modules_to_print_contents['left_modules']) {
-                $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="' . $sideColumn . '">' . $modules_to_print_contents['left_modules'] . '</div>';
-            }
+                if ($modules_to_print_contents['left_modules']) {
+                    $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="' . $sideColumn . '">'
+                        . $modules_to_print_contents['left_modules'] . '</div>';
+                }
 
-            $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-8">';
+                $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-8">';
 
-            if ($modules_to_print_contents['pagetop_modules']) {
-                $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div>' . $modules_to_print_contents['pagetop_modules'] . '</div>';
-            }
+                if ($modules_to_print_contents['pagetop_modules']) {
+                    $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div>' . $modules_to_print_contents['pagetop_modules'] . '</div>';
+                }
 
-            if ($modules_to_print_contents['pagebottom_modules']) {
-                $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div>' . $modules_to_print_contents['pagebottom_modules'] . '</div>';
+                if ($modules_to_print_contents['pagebottom_modules']) {
+                    $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div>' . $modules_to_print_contents['pagebottom_modules'] . '</div>';
+                }
+
+                $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '</div>';
+
+                if ($modules_to_print_contents['right_modules']) {
+                    $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div class="' . $sideColumn . '">'
+                        . $modules_to_print_contents['right_modules'] . '</div>';
+                }
+            } else {
+                if ($modules_to_print_contents['pagetop_modules']) {
+                    $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-12">'
+                        . $modules_to_print_contents['pagetop_modules'] . '</div>';
+                }
+                if ($modules_to_print_contents['pagebottom_modules']) {
+                    $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div class="col-xs-12">'
+                        . $modules_to_print_contents['pagebottom_modules'] . '</div>';
+                }
             }
 
             $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '</div>';
-
-            if ($modules_to_print_contents['right_modules']) {
-                $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div class="' . $sideColumn . '">' . $modules_to_print_contents['right_modules'] . '</div>';
-            }
-        } else {
-            if ($modules_to_print_contents['pagetop_modules']) {
-                $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['pagetop_modules'] . '</div>';
-            }
-            if ($modules_to_print_contents['pagebottom_modules']) {
-                $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['pagebottom_modules'] . '</div>';
-            }
         }
-
-        $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '</div>';
-
 
         //check if Module contains navbar and force display (when printing nav is by default display none)
         if (str_contains($htmlLayout["staringPart"], '<nav') || str_contains($htmlLayout["endingPart"], '<nav')) {
@@ -1681,16 +1724,19 @@ TEXT;
 
     private function runReplaceVars($css, $variables)
     {
+        // FIXME this pattern doesn't match multi-argument var calls
+        // e.g. "var(--bs-table-color-state, var(--bs-table-color-type, var(--bs-table-color)))"
+        // from vendor_bundled/vendor/twbs/bootstrap/dist/css/bootstrap.css:1884
+
         return preg_replace_callback('/var\(--([a-zA-Z0-9-]+)(?:,\s*(.+?))?\)/', function ($matches) use ($variables) {
             $var_name = $matches[1];
             $fallback = $matches[2] ?? null;  // Optional fallback value
 
             // Check if the variable exists
-            if (isset($variables[$var_name])) {
-                $value = $variables[$var_name];
-
+            $value = trim($variables[$var_name]);
+            if ($value) {
                 // If the variable contains another `var()`, recursively resolve it
-                if (preg_match('/var\(--([a-zA-Z0-9-]+)\)/', $value)) {
+                if (preg_match('/var\(--([a-zA-Z0-9-]+)\)/U', $value)) {
                     $value = $this->runReplaceVars($value, $variables);
                 }
                 return $value;  // Return resolved value
@@ -1720,6 +1766,15 @@ TEXT;
 
         // Create an associative array of variable names to their values
         $variables = array_combine($matches[1], $matches[2]);
+
+        // match again to find inline url data: values
+        preg_match_all('/--([a-zA-Z0-9-]+)\s*:\s*(url\(data:[^)]+\));/', $css, $matches);
+        // Reverse so the light variables are processed first?
+        $matches[1] = array_reverse($matches[1]);
+        $matches[2] = array_reverse($matches[2]);
+
+        // Create an associative array of variable names to their values
+        $variables = array_merge($variables, array_combine($matches[1], $matches[2]));
 
         // Replace all `var(--variable)` occurrences in the CSS
         $css = $this->runReplaceVars($css, $variables);
