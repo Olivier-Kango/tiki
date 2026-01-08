@@ -52,7 +52,8 @@ $imagePath: "../images/";
     .tiki-view_tracker .tab-pane.active h2,
     .t_navbar + .description.form-text, // File gallery thumbnails (not elFinder)
     .no-decorations, // This may need more specificity to prevent instances inside styling-element, etc.
-    .no-box // This may need more specificity to prevent instances inside styling-element, etc.
+    .no-box, // This may need more specificity to prevent instances inside styling-element, etc.
+    #editpageform fieldset
     {
         color: var(--tiki-nonmode-color) !important; // #d0d2d2
     }
@@ -159,8 +160,9 @@ $imagePath: "../images/";
 .col1 > .alert-link,
 .col1 > p,
 footer.form-text,  // Wiki and article rating form
-main > form, // Categories
+main > form:not(#editpageform), // Categories
 main > .tab-content, // Wiki list pages
+#editpageform .tab-content, // Edit wiki page
 main > .table-responsive, // Wiki last changes
 
 // Blogs
