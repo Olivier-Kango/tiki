@@ -51,25 +51,10 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 
     public function __destruct()
     {
-        global $prefs;
-
         if (! $this->dirty) {
             return;
         }
-
-        if (empty($this->index) || strstr($this->index, 'pref_')) {
-            return;
-        }
-
-        $fieldMapping = json_encode($this->fieldMapping);
-        if (empty($prefs['unified_field_mapping']) || $prefs['unified_field_mapping'] != $fieldMapping) {
-            TikiLib::lib('tiki')->set_preference('unified_field_mapping', $fieldMapping);
-        }
-
-        $dateFields = json_encode($this->dateFields);
-        if (empty($prefs['unified_date_fields']) || $prefs['unified_date_fields'] != $dateFields) {
-            TikiLib::lib('tiki')->set_preference('unified_date_fields', $dateFields);
-        }
+        $this->storeFieldMapping();
     }
 
     public function getClient()
@@ -217,14 +202,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         if ($mapping) {
             // store prefs on each index schema update as doing in __destruct is not reliable - various cases omit storing these prefs
             // and search results are missing fields later
-            $fieldMapping = json_encode($this->fieldMapping);
-            if (empty($prefs['unified_field_mapping']) || $prefs['unified_field_mapping'] != $fieldMapping) {
-                TikiLib::lib('tiki')->set_preference('unified_field_mapping', $fieldMapping);
-            }
-            $dateFields = json_encode($this->dateFields);
-            if (empty($prefs['unified_date_fields']) || $prefs['unified_date_fields'] != $dateFields) {
-                TikiLib::lib('tiki')->set_preference('unified_date_fields', $dateFields);
-            }
+            $this->storeFieldMapping();
         }
 
         $this->dirty = true;
@@ -745,6 +723,24 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         }
 
         return $dateFields;
+    }
+
+    protected function storeFieldMapping() {
+        global $prefs;
+
+        if (empty($this->index) || str_contains($this->index, 'pref_')) {
+            return;
+        }
+
+        $fieldMapping = json_encode($this->fieldMapping);
+        if (empty($prefs['unified_field_mapping']) || $prefs['unified_field_mapping'] != $fieldMapping) {
+            TikiLib::lib('tiki')->set_preference('unified_field_mapping', $fieldMapping);
+        }
+
+        $dateFields = json_encode($this->dateFields);
+        if (empty($prefs['unified_date_fields']) || $prefs['unified_date_fields'] != $dateFields) {
+            TikiLib::lib('tiki')->set_preference('unified_date_fields', $dateFields);
+        }
     }
 
     protected function getWords($expr)
