@@ -725,7 +725,8 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
         return $dateFields;
     }
 
-    protected function storeFieldMapping() {
+    protected function storeFieldMapping()
+    {
         global $prefs;
 
         if (empty($this->index) || str_contains($this->index, 'pref_')) {
