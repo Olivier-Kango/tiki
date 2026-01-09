@@ -27,8 +27,8 @@ class TwoFactorAuth
     {
         global $prefs;
 
-        // If not set, always default to the default type
-        return (string) $prefs['twoFactorAuthType'] ?? self::DEFAULT_2FA;
+        // If not set or empty, always default to the default type
+        return $prefs['twoFactorAuthType'] ?: self::DEFAULT_2FA;
     }
 
     public static function getTwoFactorAuth()
