@@ -403,13 +403,29 @@ if ($prefs['pwa_feature'] == 'y') { //pwa test propose, pages to cache
     $smarty->assign('pagespwa', json_encode($pages));
 }
 
+$customRobots = null;
 if ($prefs['metatag_robotscustom'] == 'y') {
     if (empty($object)) {
         $object = current_object();
     }
     if ($object && $object['type'] == 'wiki page') {
         $wikilib = TikiLib::lib('wiki');
-        $smarty->assign('metatag_robotscustom', $wikilib->getPageMetatagRobotscustom($object['object']));
+        $customRobots = $wikilib->getPageMetatagRobotscustom($object['object']);
+        if (! empty($customRobots)) {
+            $smarty->assign('metatag_robotscustom', $customRobots);
+            $headerlib->setXRobotsTag($customRobots);
+        }
+    }
+}
+
+// Apply robots directives from robots.txt as meta tags and X-Robots-Tag header.
+if (($prefs['metatag_robots_txt_apply_directives'] ?? 'n') === 'y') {
+    $robotsFromTxt = $headerlib->getRobots();
+    if (! empty($robotsFromTxt)) {
+        $smarty->assign('metatag_robots', $robotsFromTxt);
+        if (empty($customRobots)) {
+            $headerlib->setXRobotsTag($robotsFromTxt);
+        }
     }
 }
 
