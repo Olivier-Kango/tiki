@@ -15,6 +15,7 @@ if (function_exists('sys_getloadavg')) {
 
     if ($prefs['use_load_threshold'] == 'y' && $tiki_p_access_closed_site != 'y' && ! isset($bypass_siteclose_check)) {
         if ($server_load > $prefs['load_threshold']) {
+            header('Retry-After: ' . $prefs['load_retry_after']);
             TikiLib::lib('access')->showSiteClosed('busy');
         }
     } else {
