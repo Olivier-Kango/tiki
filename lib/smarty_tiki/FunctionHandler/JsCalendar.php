@@ -42,7 +42,7 @@ class JsCalendar extends Base
             $params['showtime'] = 'y';
         }
 
-        $fieldName = $params['fieldname'];
+        $fieldName = $params['fieldname'] ?? '';
         $enableTimezonePicker = ($params['showtimezone'] ?? '') === 'y' ? "true" : "false";
         $enableTimePicker = $params['showtime'] === 'y' ? 1 : 0;
         $goto = $params['goto'] ?? '';
