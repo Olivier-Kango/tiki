@@ -185,6 +185,9 @@
             <fieldset id="QueuedTasks">
                 <legend>{tr}Queued Tasks{/tr}</legend>
                 {preference name=feature_queued_tasks}
+                <div class="adminoptionboxchild" id="feature_queued_tasks_childcontainer">
+                    {preference name=queued_tasks_js_processing_disabled}
+                </div>
             </fieldset>
             <fieldset>
                 <legend>{tr}Maintenance{/tr}</legend>

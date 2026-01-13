@@ -8,6 +8,7 @@
 use Tiki\Lib\CookieConsent\CookieConsentLib;
 use Tiki\Lib\Theme\ThemeLib;
 use Tiki\Lib\TikiDate;
+use Tiki\TaskQueue\QueuedTaskBanner;
 
 if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
     die('This script may only be included.');
@@ -245,7 +246,17 @@ $jqueryTiki['cookie_consent_categories'] = json_encode(array_keys(CookieConsentL
 $jqueryTiki['cookie_consent_value'] = json_encode(CookieConsentLib::getConsentPreferences(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 $jqueryTiki['BUILTIN_COOKIE_CATEGORY_ESSENTIAL'] = json_encode(CookieConsentLib::BUILTIN_COOKIE_CATEGORY_ESSENTIAL);
 $jqueryTiki['wiki_url_scheme'] = $prefs['wiki_url_scheme'];
-$jqueryTiki['feature_queued_tasks'] = $prefs['feature_queued_tasks'] === 'y';
+$jqueryTiki['feature_queued_tasks'] = ($prefs['feature_queued_tasks'] ?? 'n') === 'y';
+$jqueryTiki['queued_tasks_js_processing_disabled'] = ($prefs['queued_tasks_js_processing_disabled'] ?? 'n') === 'y';
+// Check if user has active tasks (Pending or InProgress) to enable smart polling
+$hasActiveJobs = false;
+if (($prefs['feature_queued_tasks'] ?? 'n') === 'y') {
+    $activeJobs = QueuedTaskBanner::get(function ($job) {
+        return isset($job['status']) && ($job['status'] === 'Pending' || $job['status'] === 'InProgress');
+    });
+    $hasActiveJobs = ! empty($activeJobs);
+}
+$jqueryTiki['queued_tasks_has_pending'] = $hasActiveJobs;
 
 //set at 4 hours if empty
 $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
