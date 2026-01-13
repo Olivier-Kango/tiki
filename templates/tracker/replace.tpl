@@ -39,12 +39,10 @@
                         const prefix = $("#fieldPrefix")
                         if (! prefix.val()) {
                             prefix.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
-                            prefix.next('el-input').attr("value", prefix.val());
                         }
                         const permName = $("#permName")
                         if (! permName.val()) {
                             permName.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
-                            permName.next('el-input').attr("value", permName.val());
                         }
                     }
                 });
