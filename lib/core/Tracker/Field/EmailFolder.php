@@ -381,7 +381,9 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
                 $dates[] = $email['date'];
                 $senders[] = $email['sender'];
                 $recipients[] = $email['recipient'];
-                $messageIds[] = explode('@', $email['message_id'])[0];
+                if (! empty($email['message_id'])) {
+                    $messageIds[] = explode('@', $email['message_id'])[0];
+                }
             }
         }
 
