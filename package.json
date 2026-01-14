@@ -131,6 +131,7 @@
     "src/js/jquery-tiki",
     "src/js/tiki-glightbox",
     "src/js/tiki-html5-qrcode",
+    "src/js/tiki-lottie",
     "src/js/tiki-mermaid",
     "src/js/tiki-sentry-browser",
     "src/js/tiki-figlet",
