@@ -42,6 +42,14 @@
                 {preference name=module_sidebar_toggle_small_screen}
             </fieldset>
         </div>
+        <div class="adminoptionbox">
+            <fieldset>
+                <legend class="h3">{tr}Enable/Disable Modules{/tr}</legend>
+                {foreach from=$all_modules item=name}
+                    {preference name="module_{$name}"}
+                {/foreach}
+            </fieldset>
+        </div>
 
         {remarksbox type="tip" title="{tr}Hint{/tr}"}
             {tr}If you lose your login module, use tiki-login_scr.php to be able to login!{/tr}

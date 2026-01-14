@@ -523,6 +523,9 @@ class ModLib extends TikiLib
         global $section, $page, $prefs, $user;
         $tikilib = TikiLib::lib('tiki');
 
+        if ($prefs['module_' . $module["name"]] != 'y') {
+            return false;
+        }
         if (TikiLib::lib('login')->isSwitched() && isset($_SESSION["keep_login_box_visible"]) && $_SESSION["keep_login_box_visible"] == 'y') {
             if ($module["name"] === "login_box" && (! isset($module["mode"]) || isset($module["mode"]) === "module")) {
                 return true;
