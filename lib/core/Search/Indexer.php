@@ -309,7 +309,7 @@ class Search_Indexer
             }
             if (! is_null($existing)) {
                 foreach ($output['object_types'][$objectType] as $key => $field) {
-                    if (! in_array(strtolower($field), $existing)) {
+                    if (! in_array(strtolower($field), $existing) && (! in_array('tracker_fields_json', $existing) || ! str_starts_with($field, 'tracker_field_'))) {
                         unset($output['object_types'][$objectType][$key]);
                     }
                 }
@@ -318,7 +318,7 @@ class Search_Indexer
         }
         if (! is_null($existing)) {
             foreach ($output['global'] as $key => $field) {
-                if (! in_array(strtolower($field), $existing)) {
+                if (! in_array(strtolower($field), $existing) && (! in_array('tracker_fields_json', $existing) || ! str_starts_with($field, 'tracker_field_'))) {
                     unset($output['global'][$key]);
                 }
             }
