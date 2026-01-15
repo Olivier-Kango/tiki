@@ -719,6 +719,9 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     }
     public function isTextField($field)
     {
+        if ($this->isFieldInJson($field)) {
+            return true;
+        }
         $mapping = $this->getFieldMapping($field);
         if (! empty($mapping['types']) && in_array('text', $mapping['types'])) {
             return true;
