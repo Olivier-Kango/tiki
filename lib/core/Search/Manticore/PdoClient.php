@@ -490,6 +490,19 @@ class PdoClient
                         }
                     }
                     unset($row['tracker_fields_json']);
+                } elseif ($selectFields) {
+                    foreach ($row as $rowField => $rowValue) {
+                        foreach ($selectFields as $selectField) {
+                            if ($rowField == $selectField) {
+                                break;
+                            }
+                            if ($rowField != $selectField && $rowField == strtolower($selectField)) {
+                                unset($row[$rowField]);
+                                $row[$selectField] = $rowValue;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             unset($row);

@@ -459,7 +459,11 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 
         if ($selectFields = $query->getSelectionFields()) {
             $selectFields = array_map(function ($field) {
-                return strtolower($field);
+                if ($this->isFieldInJson($field)) {
+                    return $field;
+                } else {
+                    return strtolower($field);
+                }
             }, $selectFields);
         } else {
             $selectFields = [];
