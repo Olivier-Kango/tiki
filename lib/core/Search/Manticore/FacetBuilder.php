@@ -44,13 +44,14 @@ class FacetBuilder
         $field = $facet->getField();
         $isJsonField = ($this->index && $this->index->isFieldInJson($field));
         if ($isJsonField) {
-            $facetField = $this->index->getJsonPathForField($field) . '_ts';
+            $facetField = $this->index->getJsonPathForField($field);
+            $facetDateField = $facetField . '_ts';
         } else {
             $field = strtolower($field);
             if (! in_array($field, $this->possibleFields)) {
                 return $out;
             }
-            $facetField = $field;
+            $facetField = $facetDateField = $field;
             try {
                 $this->index->ensureHasField($facetField);
             } catch (Exception $e) {
@@ -61,17 +62,17 @@ class FacetBuilder
 
         $type = $facet->getType();
         if ($type === 'date_histogram') {
-            $out = 'FACET DATE_HISTOGRAM(BIGINT(' . $facetField . '), {calendar_interval=\'' . $facet->getInterval() . '\'}) AS ' . $facet->getName() . ' ORDER BY FACET() ASC';
+            $out = 'FACET DATE_HISTOGRAM(BIGINT(' . $facetDateField . '), {calendar_interval=\'' . $facet->getInterval() . '\'}) AS ' . $facet->getName() . ' ORDER BY FACET() ASC';
         } elseif ($type === 'date_range') {
             $ranges = array_map(function ($range) {
                 return '{range_from=\'' . $range['from'] . '\',range_to=\'' . $range['to'] . '\'}';
             }, $facet->getRanges());
-            $out = 'FACET DATE_RANGE(BIGINT(' . $facetField . '), ' . implode(',', $ranges) . ') AS ' . $facet->getName() . ' ORDER BY FACET() ASC';
+            $out = 'FACET DATE_RANGE(BIGINT(' . $facetDateField . '), ' . implode(',', $ranges) . ') AS ' . $facet->getName() . ' ORDER BY FACET() ASC';
         } else {
             $count = $facet->getCount() ?: $this->count;
             $order = $facet->getOrder();
 
-            $out = 'FACET ' . $facet->getName() . ' BY ' . $facetField;
+            $out = 'FACET ' . $facetField . ' AS ' . $facet->getName();
             if ($order) {
                 foreach ($order as $field => $direction) {
                     $out .= ' ORDER BY ' . $field . ' ' . $direction;
