@@ -133,12 +133,19 @@ class Services_Comment_Controller
         }
 
         $errors = [];
-
-        $title = trim($input->title->xss());
+        $titleRaw = $input->title->xss();
         $data = trim($input->data->wikicontent());
+
+        if ($prefs['comments_notitle'] == 'y') {
+            $title = 'Untitled';
+        } else {
+            // If title is not set, use an empty string
+            $title = $titleRaw !== null ? $titleRaw : "";
+        }
 
         $tikilib = TikiLib::lib('tiki');
         $data = $tikilib->convertAbsoluteLinksToRelative($data);
+        $title = trim($title);
 
         $watch = $input->watch->text();
         $contributions = [];
@@ -185,11 +192,6 @@ class Services_Comment_Controller
                     $errors[] = $captchalib->getErrors();
                 }
             }
-
-            if ($prefs['comments_notitle'] == 'y') {
-                $title = 'Untitled';
-            }
-
 
             if (count($errors) === 0) {
                 $message_id = ''; // By ref
