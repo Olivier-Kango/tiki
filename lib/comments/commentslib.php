@@ -3427,22 +3427,20 @@ class Comments extends TikiLib
 
             $forum_info = $this->get_forum($object[1]);
 
-            TikiLib::events()->trigger(
-                $finalEvent,
-                [
-                    'type' => $type,
-                    'object' => $threadId,
-                    'parent_id' => $parentId,
-                    'forum_id' => $object[1],
-                    'forum_section' => $forum_info['section'],
-                    'user' => $GLOBALS['user'],
-                    'title' => $title,
-                    'name' => $forum_info['name'],
-                    'parent_title' => $parent_title,
-                    'content' => $data,
-                    'index_handled' => true,
-                ]
-            );
+            // Prepare event arguments for forum post notifications.
+            $eventArguments = [
+                'type' => $type,
+                'object' => $threadId,
+                'parent_id' => $parentId,
+                'forum_id' => $object[1],
+                'forum_section' => $forum_info['section'],
+                'user' => $GLOBALS['user'],
+                'title' => $title,
+                'name' => $forum_info['name'],
+                'parent_title' => $parent_title,
+                'content' => $data,
+                'index_handled' => true,
+            ];
         } else {
             $finalEvent = $parentId ? 'tiki.comment.reply' : 'tiki.comment.post';
 
@@ -3451,26 +3449,32 @@ class Comments extends TikiLib
             } else {
                 $parentobject = 'not implemented';
             }
-            TikiLib::events()->trigger(
-                $finalEvent,
-                [
-                    'type' => $object[0],
-                    'object' => $object[1],
-                    'parentobject' => $parentobject,
-                    'user' => $GLOBALS['user'],
-                    'title' => $title,
-                    'content' => $data,
-                    'commentDate' => (int) $postDate,
-                    'userName' => $userName,
-                    'email' => $anonymous_email,
-                    'website' => $anonymous_website,
-                    'parentId' => (int) $parentId,
-                    'summary' => $summary,
-                    'message_id' => $message_id,
-                    'in_reply_to' => $in_reply_to,
-                ]
-            );
+            $eventArguments = [
+                'type' => $object[0],
+                'object' => $object[1],
+                'parentobject' => $parentobject,
+                'user' => $GLOBALS['user'],
+                'title' => $title,
+                'content' => $data,
+                'commentDate' => (int) $postDate,
+                'userName' => $userName,
+                'email' => $anonymous_email,
+                'website' => $anonymous_website,
+                'parentId' => (int) $parentId,
+                'summary' => $summary,
+                'message_id' => $message_id,
+                'in_reply_to' => $in_reply_to,
+            ];
         }
+
+        // Add email threading headers to event arguments for proper notification grouping.
+        $additionalHeaders = \Tiki\Notifications\Email::getEmailThreadHeaders($object[0], $object[1]);
+        $eventArguments = array_merge($additionalHeaders, $eventArguments);
+
+        TikiLib::events()->trigger(
+            $finalEvent,
+            $eventArguments
+        );
 
         // store the related version being commented about as an attribute of this comment
         if ($version) {
