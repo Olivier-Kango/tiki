@@ -15,7 +15,7 @@ function wikiplugin_model3dviewer_info()
         'prefs' => ['wikiplugin_model3dviewer'],
         'iconname' => 'cube',
         'tags' => [ 'basic' ],
-        'introduced' => 28,
+        'introduced' => 30,
         'params' => [
             'type' => [
                 'required' => true,
