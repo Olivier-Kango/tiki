@@ -35,6 +35,12 @@ class OrderBuilder
             $arguments = $order->getArguments();
             return $arguments['source'] . ' ' . $order->getOrder();
         } elseif ($field !== Order::FIELD_SCORE) {
+            $isJsonField = ($this->index && $this->index->isFieldInJson($field));
+            if ($isJsonField) {
+                // TODO: nsort or distance?
+                $jsonPath = $this->index->getJsonPathForField($field);
+                return $jsonPath . ' ' . $order->getOrder();
+            }
             $mapping = $this->index ? $this->index->getFieldMapping($field) : [];
             if ($order->getMode() == Order::MODE_NUMERIC && $mapping && ! in_array('float', $mapping['types']) && substr($field, -6) != '_nsort') {
                 $this->index->ensureHasField($field . '_nsort');
