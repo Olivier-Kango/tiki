@@ -226,7 +226,7 @@ class QueryBuilder
         } elseif ($node instanceof Initial) {
             $field = $this->getField($node);
             Index::addSearchedField($node->getField(), 'others');
-            $value = $this->getQuoted($node, '^');
+            $value = $this->getQuoted($node, '(?i)^');
             return "REGEX($field, $value)";
         } elseif ($node instanceof Range) {
             $field = $this->getField($node);
@@ -273,8 +273,13 @@ class QueryBuilder
                 }
                 return "$key = 1";
             }
-            $value = $this->getQuoted($node);
-            return "{$field} = $value";
+            if ($node->getType() == 'identifier' || str_ends_with($field, '_ts')) {
+                $value = $this->getQuoted($node);
+                return "{$field} = $value";
+            } else {
+                $value = $this->getQuoted($node, '(?i)');
+                return "REGEX({$field}, $value)";
+            }
         }
         Index::addSearchedField($node->getField(), 'others');
         $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
@@ -285,11 +290,11 @@ class QueryBuilder
             $value = $this->getQuoted($node);
             return "{$field} = $value";
         } else {
-            $value = $this->getQuoted($node);
+            $value = $this->getQuoted($node, '(?i)');
             if (is_array($value)) {
                 return '(' . implode(' OR ', array_filter(array_map(function ($v) use ($field) {
                     if (is_scalar($v)) {
-                        $v = $this->pdo_client->quote(strval($v));
+                        $v = $this->pdo_client->quote('(?i)' . strval($v));
                     } else {
                         return null;
                     }

@@ -29,13 +29,15 @@ class OrderBuilder
 
     protected function buildOne(Order $order)
     {
-        $field = strtolower($order->getField());
-
+        $field = $order->getField();
+        $isJsonField = ($this->index && $this->index->isFieldInJson($field));
+        if (! $isJsonField) {
+            $field = strtolower($field);
+        }
         if ($order->getMode() == Order::MODE_SCRIPT) {
             $arguments = $order->getArguments();
             return $arguments['source'] . ' ' . $order->getOrder();
         } elseif ($field !== Order::FIELD_SCORE) {
-            $isJsonField = ($this->index && $this->index->isFieldInJson($field));
             if ($isJsonField) {
                 // TODO: nsort or distance?
                 $jsonPath = $this->index->getJsonPathForField($field);
