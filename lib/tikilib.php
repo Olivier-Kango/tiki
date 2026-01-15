@@ -5217,7 +5217,7 @@ class TikiLib extends TikiDb_Bridge
     public static function scrambleEmail($email)
     {
         $ar = explode('@', $email);
-        return self::protect_email($ar[0], $ar[1]);
+        return self::protect_email($ar[0] ?? '', $ar[1] ?? '');
     }
 
     //Updates a dynamic variable found in some object
