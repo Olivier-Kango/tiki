@@ -808,7 +808,7 @@ class FileGalLib extends TikiLib
         }
 
         $file = $return[0];
-
+        $this->verifyFileGalleryIntegrity($file);
         if ($use_draft && $prefs['feature_file_galleries_save_draft'] == 'y') {
             $draft = $this->table('tiki_file_drafts')->fetchRow(
                 ['filename', 'filesize', 'filetype', 'data', 'user', 'path', 'hash', 'lastModif', 'lockedby'],
@@ -2420,9 +2420,15 @@ class FileGalLib extends TikiLib
             $where = 'tf.`galleryId`=? order by ' . $this->convertSortMode('random') . ' limit 1 ';
             $bindvars[] = (int)$randomGalleryId;
         }
-        $query = "select tf.*, tfg.`backlinkPerms` from `tiki_files` tf left join `tiki_file_galleries` tfg on (tfg.`galleryId`=tf.`galleryId`) where $where";
+        $query = "select tf.*, tfg.`backlinkPerms`, tfg.galleryId as validGalleryId
+                from `tiki_files` tf
+                left join `tiki_file_galleries` tfg on (tfg.`galleryId`=tf.`galleryId`)
+                where $where";
+
         $result = $this->query($query, $bindvars);
-        return $result ? $result->fetchRow() : [];
+        $file = $result ? $result->fetchRow() : [];
+        $this->verifyFileGalleryIntegrity($file);
+        return $file;
     }
 
     /**
@@ -2460,10 +2466,13 @@ class FileGalLib extends TikiLib
         } else {
             $name = substr($name, 0, $max);
         }
-        $query = "select `fileId`,`path`,`galleryId`,`filename`,`filetype`,`data`,`filesize`,`name`,`description`,
-                `created`, `lastModif` from `tiki_files` where `galleryId`=? AND `$column`=? ORDER BY created DESC LIMIT 1";
+        $query = "select tf.*, tfg.galleryId as validGalleryId
+                from `tiki_files` tf
+                left join `tiki_file_galleries` tfg on (tf.`galleryId`=tfg.`galleryId`)
+                where tf.`galleryId`=? AND tf.`$column`=? ORDER BY tf.created DESC LIMIT 1";
         $result = $this->query($query, [(int) $galleryId, $name]);
         $res = $result->fetchRow();
+        $this->verifyFileGalleryIntegrity($res);
         return $res;
     }
 
@@ -2474,10 +2483,14 @@ class FileGalLib extends TikiLib
         } else {
             $filename = substr($filename, 0, 80);
         }
-        $query = "select `fileId`,`path`,`galleryId`,`filename`,`filetype`,`data`,`filesize`,`name`,`description`,
-                `created` from `tiki_files` where `filename`=? ORDER BY created DESC LIMIT 1";
+        $query = "select tf.*, tfg.galleryId as validGalleryId
+                from `tiki_files` tf
+                left join `tiki_file_galleries` tfg on (tf.`galleryId`=tfg.`galleryId`)
+                where tf.`filename`=? ORDER BY tf.created DESC LIMIT 1";
         $result = $this->query($query, [$filename]);
-        return $result->fetchRow();
+        $file = $result->fetchRow();
+        $this->verifyFileGalleryIntegrity($file);
+        return $file;
     }
 
     public function get_file_gallery_by_name($parentId, $name)
@@ -4334,5 +4347,30 @@ class FileGalLib extends TikiLib
         }
 
         return $listfgals;
+    }
+
+    /**
+     * Checks if the gallery referenced by a file exists.
+     * Throws an exception if the record is orphaned to prevent silent failures.
+     *
+     * @param array|bool|null $file The file row from the database
+     * @return void
+     * @throws Exception
+    */
+    private function verifyFileGalleryIntegrity(&$file): void
+    {
+        // Guard clause: If file wasn't found we can't check it.
+        if (! is_array($file) || empty($file['galleryId'])) {
+            return;
+        }
+
+        if (array_key_exists('validGalleryId', $file)) {
+            $invalid = $file['validGalleryId'] === null;
+            unset($file['validGalleryId']);
+
+            if ($invalid) {
+                throw new Exception(tr('Orphaned file record detected: File %0 points to non-existent gallery %1', $file['fileId'] ?? 'unknown', $file['galleryId']));
+            }
+        }
     }
 }
