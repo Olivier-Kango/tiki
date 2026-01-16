@@ -78,6 +78,20 @@ class ComplexQueriesTest extends \PHPUnit\Framework\TestCase
                 'tracker_field_RevenueLifecycleStatus_text' => $typeFactory->plaintext(''),
             ]
         );
+        $this->index->addDocument(
+            [
+                'object_type' => $typeFactory->identifier('trackeritem'),
+                'object_id' => $typeFactory->identifier('100'),
+                'title' => $typeFactory->plaintext('test item'),
+                'tracker_id' => $typeFactory->identifier('4'),
+                'tracker_field_numeric' => $typeFactory->numeric(123),
+                'tracker_field_identifier' => $typeFactory->identifier('456'),
+                'tracker_field_multi' => $typeFactory->multivalue(['1', '2', '3']),
+                'tracker_field_timestamp' => $typeFactory->timestamp(time()),
+                'tracker_field_sortable' => $typeFactory->sortable('789'),
+                'tracker_field_text' => $typeFactory->plaintext('Test sentence. Testing sentence.'),
+            ]
+        );
     }
 
     protected function tearDown(): void
@@ -173,5 +187,63 @@ class ComplexQueriesTest extends \PHPUnit\Framework\TestCase
         $options = $facet->getOptions();
         $label = array_shift($options);
         $this->assertEquals(date('Y-m-d', time() - 86400) . ' (2)', $label);
+    }
+
+    public function testSearchTrackerFields()
+    {
+        $initQuery = function () {
+            $query = new \Search_Query();
+            \TikiLib::lib('unifiedsearch')->initQuery($query);
+            $query->filterType('trackeritem');
+            return $query;
+        };
+
+        $query = $initQuery();
+        $query->filterIdentifier(123, 'tracker_field_numeric');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterContent(123, 'tracker_field_numeric');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterInitial(12, 'tracker_field_numeric');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterIdentifier('456', 'tracker_field_identifier');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterContent('456', 'tracker_field_identifier');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterInitial('45', 'tracker_field_identifier');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterMultivalue('2', 'tracker_field_multi');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterRange(time() - 1000, time() + 1000, 'tracker_field_timestamp');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterIdentifier('789', 'tracker_field_sortable');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterContent('789', 'tracker_field_sortable');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterInitial('78', 'tracker_field_sortable');
+        $this->assertCount(1, $query->search($this->index));
+
+        $query = $initQuery();
+        $query->filterContent('sentence', 'tracker_field_text');
+        $this->assertCount(1, $query->search($this->index));
     }
 }
