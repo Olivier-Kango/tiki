@@ -142,23 +142,16 @@ class ParserLib extends TikiDb_Bridge
      */
     private function processPluginParams(&$params, $info)
     {
+        // Delegate default application to shared helper (single source of truth)
+        $params = WikiPlugin_Helper::applyParamsDefaults($params, $info);
+
         $missingRequired = [];
         if (isset($info['params'])) {
             foreach ($info['params'] as $key => $param) {
-                // Validate required parameters
                 if (isset($param['required']) && $param['required'] === true) {
                     // Parameter is required and has no default - check if user provided it
-                    if (! isset($param['default']) && ! isset($params[$key])) {
+                    if (! isset($param['default']) && $params[$key] === null) {
                         $missingRequired[] = $key;
-                    }
-                }
-
-                // Apply default if parameter not set
-                if (! isset($params[$key])) {
-                    if (isset($param['default'])) {
-                        $params[$key] = $param['default'];
-                    } else {
-                        $params[$key] = null;
                     }
                 }
             }
