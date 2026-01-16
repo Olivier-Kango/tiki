@@ -95,6 +95,14 @@ function prefs_metatag_list()
             'size' => '50',
             'default' => '',
         ],
+        'metatag_robots_txt_apply_directives' => [
+            'name' => tra('Apply robots directives from robots.txt'),
+            'description' => tra('When enabled, Tiki will automatically apply robots meta directives (such as noindex, nofollow, etc.) as both meta tags and X-Robots-Tag HTTP headers to pages that match Disallow rules in robots.txt. This helps prevent search engines from indexing pages that crawlers are told not to visit. Works with SEF URLs - blocking /tiki-index.php will NOT block SEF URLs like /HomePage.'),
+            'type' => 'flag',
+            'help' => 'Robots-Exclusion-Protocol',
+            'default' => 'y',
+            'tags' => ['basic'],
+        ],
         'metatag_revisitafter' => [
             'name' => tra('Revisit after'),
             'description' => tra('Specify how often (in days) Web robots should visit your site.'),

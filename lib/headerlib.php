@@ -5,6 +5,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\RobotsTxt\Matcher;
+
 require_once("path_js_importmap_generator.php");
 /**
  * Add Javascript and CSS to output
@@ -1298,6 +1300,81 @@ window.onload = loadScript;');
         );
 
         return $this;
+    }
+
+    /**
+     * Get robots tag based on robots.txt file.
+     *
+     * Uses the Matcher class to parse robots.txt and evaluate Allow/Disallow rules
+     * for the current request URL. All parsing and caching logic is handled by Matcher.
+     *
+     * Note: This feature translates "Disallow" into "NOINDEX, NOFOLLOW" as an extra
+     * protection layer for pages that should not appear in search results.
+     *
+     * @return string|null Returns 'NOINDEX, NOFOLLOW' if current URL is disallowed, null otherwise
+     */
+    public function getRobots()
+    {
+        $robotsFile = defined('TIKI_PATH') ? rtrim(TIKI_PATH, '/') . '/robots.txt' : 'robots.txt';
+        $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+
+        $matcher = Matcher::fromFile($robotsFile);
+
+        return $matcher->isDisallowed($requestUri, $userAgent) ? 'NOINDEX, NOFOLLOW' : null;
+    }
+
+    /**
+     * Sets the X-Robots-Tag HTTP header.
+     *
+     * This method sets the X-Robots-Tag header with the provided value, typically used to control
+     * how search engines index and follow the page. If no value is provided, no header is set.
+     *
+     * @param string|null $robots The value for the X-Robots-Tag header (e.g., "noindex, nofollow").
+     * If null or empty, no header will be set.
+     * @return string|null The value of the X-Robots-Tag header that was set, or null if no header was set.
+     */
+    public function setXRobotsTag(?string $robots = null): ?string
+    {
+        if (! empty($robots)) {
+            // Convert to lowercase and remove spaces for proper HTTP header format
+            // e.g., "NOINDEX, NOFOLLOW" becomes "noindex,nofollow"
+            $headerValue = str_replace(' ', '', strtolower($robots));
+            header('X-Robots-Tag: ' . $headerValue);
+            return $robots;
+        }
+
+        return null;
+    }
+
+    /**
+     * Sets X-Robots-Tag header for non-HTML responses based on robots.txt rules.
+     *
+     * This is a convenience method for use in scripts that output non-HTML content
+     * (RSS feeds, file downloads, exports, PDFs, etc.) where the normal HTML meta tag
+     * cannot be rendered. It checks the robots.txt rules and sets the X-Robots-Tag
+     * HTTP header if the current URL is disallowed.
+     *
+     * The method respects the 'metatag_robots_txt_apply_directives' preference - if disabled,
+     * no header will be set.
+     *
+     * @return string|null The robots directive set, or null if no header was set.
+     */
+    public function setXRobotsTagFromRobotsTxt(): ?string
+    {
+        global $prefs;
+
+        // Check if the feature is enabled (default is 'y')
+        if (($prefs['metatag_robots_txt_apply_directives'] ?? 'n') !== 'y') {
+            return null;
+        }
+
+        $robots = $this->getRobots();
+        if (! empty($robots)) {
+            return $this->setXRobotsTag($robots);
+        }
+
+        return null;
     }
 
     public function __toString()

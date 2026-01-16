@@ -56,6 +56,7 @@
             {* Need to show site_metatag_robots as real metatags are overridden at runtime *}
 
             {preference name=metatag_robots}
+            {preference name=metatag_robots_txt_apply_directives}
             {preference name=metatag_revisitafter}
         {/tab}
     {/tabset}
