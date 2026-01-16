@@ -94,6 +94,7 @@ use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Tiki\Lib\TikiDate;
+use Tiki\TwoFactorAuth\TwoFactorAuth;
 
 // User preferences screen
 if ($prefs['feature_userPreferences'] != 'y' && $prefs['change_password'] != 'y' && $tiki_p_admin_users != 'y') {
@@ -507,7 +508,7 @@ if (
     }
 }
 
-if (isset($_POST['twofactor']) && $access->checkCsrf() && $prefs['twoFactorAuthType'] == 'email2FA') {
+if (isset($_POST['twofactor']) && $access->checkCsrf() && $prefs['twoFactorAuthType'] == TwoFactorAuth::EMAIL_2FA) {
     $tfaSecret = $userlib->update_2_factor_secret($user, 'y');
 }
 
@@ -527,7 +528,7 @@ $smarty->assign('twoFactorSecret', $twoFactorSecret);
 
 $userinfo = $userlib->get_user_info($userwatch);
 $generate = isset($_REQUEST['tfagenerate']) || empty($tfaSecret);
-if ($prefs['twoFactorAuth'] == 'y' && $generate && $prefs['twoFactorAuthType'] == 'google2FA') {
+if ($prefs['twoFactorAuth'] == 'y' && $generate && $prefs['twoFactorAuthType'] == TwoFactorAuth::TOTP_2FA) {
     $google2fa = new Google2FA();
     if (empty($_SESSION['tfaSecret']) || $_SESSION['tfaSecret'] == $tfaSecret) {
         $_SESSION['tfaSecret'] = $google2fa->generateSecretKey();
