@@ -227,7 +227,9 @@ class QueryBuilder
             $field = $this->getField($node);
             Index::addSearchedField($node->getField(), 'others');
             $value = $this->getQuoted($node, '(?i)^');
-            return "REGEX($field, $value)";
+            $key = 'tf_' . uniqid();
+            $this->select[$key] = "REGEX(TO_STRING({$field}), $value)";
+            return "$key = 1";
         } elseif ($node instanceof Range) {
             $field = $this->getField($node);
             Index::addSearchedField($node->getField(), 'others');
@@ -278,7 +280,9 @@ class QueryBuilder
                 return "{$field} = $value";
             } else {
                 $value = $this->getQuoted($node, '(?i)');
-                return "REGEX({$field}, $value)";
+                $key = 'tf_' . uniqid();
+                $this->select[$key] = "REGEX(TO_STRING({$field}), $value)";
+                return "$key = 1";
             }
         }
         Index::addSearchedField($node->getField(), 'others');
@@ -386,9 +390,9 @@ class QueryBuilder
     {
         $value = $node->getValue($this->factory);
         $value = Index::convertJsonTypeValue($value);
-        if (is_numeric($value)) {
+        if (is_numeric($value) && empty($prefix)) {
             return floatval($value);
-        } elseif (is_string($value)) {
+        } elseif (is_string($value) || ! empty($prefix)) {
             return $this->pdo_client->quote($prefix . strval($value));
         } else {
             return $value;
