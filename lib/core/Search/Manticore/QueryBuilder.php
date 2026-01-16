@@ -236,11 +236,15 @@ class QueryBuilder
             $raw = $this->getRaw($node->getToken('from'));
             if ($raw === "" || is_null($raw)) {
                 $to = $this->getQuoted($node->getToken('to'));
-                return "$field <= $to";
+                $key = 'tf_' . uniqid();
+                $this->select[$key] = "$field <= $to";
+                return "$key = 1";
             } else {
                 $from = $this->getQuoted($node->getToken('from'));
                 $to = $this->getQuoted($node->getToken('to'));
-                return "($field >= $from AND $field <= $to)";
+                $key = 'tf_' . uniqid();
+                $this->select[$key] = "($field >= $from AND $field <= $to)";
+                return "$key = 1";
             }
         } elseif ($node instanceof Distance) {
             $field = $this->getField($node);
