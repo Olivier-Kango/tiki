@@ -1214,7 +1214,7 @@ function wikiplugin_img($data, $params)
         if ($sizes) {
             $replimg .= 'sizes="' . $sizes . '" ';
         }
-        $imgdata['class'] .= ' regImage img-fluid pluginImg' . $imgdata['fileId'];
+        $imgdata['class'] .= ' regImage pluginImg' . $imgdata['fileId'];
         if ($imgdata['responsive'] == 'y') {
             $imgdata['class'] .= ' img-fluid';
         }
