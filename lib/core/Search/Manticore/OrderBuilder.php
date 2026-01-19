@@ -39,8 +39,11 @@ class OrderBuilder
             return $arguments['source'] . ' ' . $order->getOrder();
         } elseif ($field !== Order::FIELD_SCORE) {
             if ($isJsonField) {
-                // TODO: nsort or distance?
+                // TODO: distance?
                 $jsonPath = $this->index->getJsonPathForField($field);
+                if ($order->getMode() == Order::MODE_NUMERIC) {
+                    $jsonPath = "INTEGER($jsonPath)";
+                }
                 return $jsonPath . ' ' . $order->getOrder();
             }
             $mapping = $this->index ? $this->index->getFieldMapping($field) : [];
