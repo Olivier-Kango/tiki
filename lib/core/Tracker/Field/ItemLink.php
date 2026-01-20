@@ -1490,6 +1490,7 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
                 $value = $control->getValue();
 
                 if ($value) {
+                    $value = str_replace('trackeritem:', '', $value);
                     if ($multivalue) {
                         $query->filterMultivalue((string) $value, $baseKey);
                     } else {
