@@ -74,6 +74,7 @@ $needed_prefs = [
     'site_language' => 'en',
     'lang_use_db' => 'n',
     'feature_fullscreen' => 'n',
+    'feature_language_check' => 'n',
     'error_reporting_level' => 0,
     'error_tracking_dsn' => '',
     'error_tracking_enabled_php' => 'n',
