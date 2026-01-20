@@ -88,6 +88,27 @@ class EditLib
         return true;
     }
 
+    /**
+     * Assigns custom tip message to Smarty template variables for display in remarksbox alert
+     *
+     * @param string $customTip The tip content to display in the alert box
+     * @param string $customTipTitle Optional title for the alert box (defaults to 'Tip')
+     * @return void
+     */
+    public function assignCustomTipToSmarty(string $customTip, string $customTipTitle = ''): void
+    {
+        if (trim($customTip) !== '') {
+            $smarty = TikiLib::lib('smarty');
+            $smarty->assign('customTip', $customTip);
+
+            if (trim($customTipTitle) !== '') {
+                $smarty->assign('customTipTitle', $customTipTitle);
+            } else {
+                $smarty->assign('customTipTitle', tr('Tip'));
+            }
+        }
+    }
+
     // translation functions
 
     public function isTranslationMode()
