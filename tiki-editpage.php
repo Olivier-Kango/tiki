@@ -729,13 +729,8 @@ if ($prefs['feature_wiki_footnotes'] === 'y') {
         }
     }
 }
-if (isset($_REQUEST["customTip"]) && ! isset($_REQUEST['preview']) && ! isset($_REQUEST['save'])) {
-    $smarty->assign('customTip', $_REQUEST['customTip']);
-    if (isset($_REQUEST["customTipTitle"])) {
-        $smarty->assign('customTipTitle', tra($_REQUEST["customTipTitle"]));
-    } else {
-        $smarty->assign('customTipTitle', tra('Tip'));
-    }
+if (! isset($_REQUEST['preview']) && ! isset($_REQUEST['save'])) {
+    $editlib->assignCustomTipToSmarty($_REQUEST["customTip"] ?? '', $_REQUEST["customTipTitle"] ?? '');
 }
 if (isset($_REQUEST["wikiHeaderTpl"]) && ! isset($_REQUEST['preview']) && ! isset($_REQUEST['save'])) {
     $smarty->assign('wikiHeaderTpl', $smarty->fetch("wiki:{$_REQUEST['wikiHeaderTpl']}"));
