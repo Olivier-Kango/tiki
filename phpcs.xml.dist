@@ -157,6 +157,9 @@
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>lib/cypht/integration/*</exclude-pattern>
     </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>*/lib/core/Services/*/Controller.php</exclude-pattern>
+    </rule>
 
     <!-- ## Mark some rules as warnings until tiki gets in a better shape -->
 

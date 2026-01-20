@@ -1113,6 +1113,7 @@ if ($prefs['fgal_use_record_rtc_screen'] == 'y') {
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/moment/min/moment.min.js', true);
     $headerlib->add_jsfile(NODE_PUBLIC_DIST_PATH . '/recordrtc/RecordRTC.js', true);
     $headerlib->add_jsfile('lib/jquery_tiki/recordrtc.js', true);
+    $headerlib->add_cssfile('themes/base_files/feature_css/recordrtc.css');
 }
 // use this to distinguish if tiki-setup has completed, e.g. in smarty lib when including tiki-modules and determining if a redirect must be served or not
 define('TIKI_SETUP_FINISHED', true);
