@@ -370,7 +370,7 @@ class Services_Tracker_Controller
             }
         }
 
-        $name = $input->name->word();
+        $name = $input->name->text();
         if (! empty($name)) {
             $fields = $definition->getFields();
             foreach ($fields as $currentField) {
