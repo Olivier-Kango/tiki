@@ -27,7 +27,8 @@ IMPORTANT:
 // phpcs:disable PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecated
 
 use Tiki\Lib\Alchemy\AlchemyLib;
-use Tiki\Lib\Unoconv\UnoconvLib;
+use Tiki\Lib\Unoconv\UnoconvStrategy;
+use Tiki\Lib\Unoconv\UnoserverStrategy;
 use Tiki\Package\ComposerManager;
 
 // Define fitness status constants early
@@ -2747,6 +2748,45 @@ if (! $standalone) {
             )
         ),
         array(
+            'name' => 'tikiwiki/media-alchemyst',
+            'preferences' => array(
+                'alchemy_ffmpeg_path' => array(
+                    'name' => tra('ffmpeg path'),
+                    'type' => 'path'
+                ),
+                'alchemy_ffprobe_path' => array(
+                    'name' => tra('ffprobe path'),
+                    'type' => 'path'
+                ),
+                'alchemy_unoconv_path' => array(
+                    'name' => tra('unoconv path'),
+                    'type' => 'path'
+                ),
+                'alchemy_gs_path' => array(
+                    'name' => tra('ghostscript path'),
+                    'type' => 'path'
+                ),
+                'alchemy_imagine_driver' => array(
+                    'name' => tra('Alchemy Image library'),
+                    'type' => 'classOptions',
+                    'options' => array(
+                        'imagick' => array(
+                            'name' => tra('Imagemagick'),
+                            'classLib' => 'Imagine\Imagick\Imagine',
+                            'className' => 'Imagick',
+                            'extension' => false
+                        ),
+                        'gd' => array(
+                            'name' => tra('GD'),
+                            'classLib' => 'Imagine\Gd\Imagine',
+                            'className' => false,
+                            'extension' => 'gd'
+                        )
+                    ),
+                ),
+            )
+        ),
+        array(
             'name' => 'php-unoconv/php-unoconv',
             'preferences' => array(
                 'alchemy_unoconv_path' => array(
@@ -5091,6 +5131,7 @@ function checkPackageMessages($messages, $package)
     global $prefs;
 
     switch ($package['name']) {
+        case 'tikiwiki/media-alchemyst':
         case 'media-alchemyst/media-alchemyst':
             try {
                 if (! AlchemyLib::hasReadWritePolicies()) {
@@ -5106,17 +5147,51 @@ function checkPackageMessages($messages, $package)
                 $messages['warnings'][] = tr('Error when checking Alchemy "Read" and "Write" policy rights: %0', $e->getMessage());
             }
 
-            if (! UnoconvLib::isPortAvailable()) {
-                $messages['warnings'][] = tr(
-                    'The configured port (%0) to execute unoconv is in use by another process. The port can be set in \'unoconv port\' preference.',
-                    $prefs['alchemy_unoconv_port'] ?: UnoconvLib::DEFAULT_PORT
-                );
-            } else {
-                $messages['successes'][] = tr(
-                    'The configured port (%0) is configured to execute unoconv.',
-                    $prefs['alchemy_unoconv_port'] ?: UnoconvLib::DEFAULT_PORT
-                );
+            // Check converter availability
+            $converterType = $prefs['alchemy_converter_type'] ?: UnoconvStrategy::NAME;
+
+            if ($converterType === UnoserverStrategy::NAME) {
+                if (UnoserverStrategy::isLibraryAvailable()) {
+                    $messages['successes'][] = tr('Unoserver (unoconvert) binary is available.');
+
+                    if (UnoserverStrategy::isServerRunning()) {
+                        $messages['successes'][] = tr(
+                            'Unoserver daemon is running on port %0.',
+                            $prefs['alchemy_unoserver_port'] ?: UnoserverStrategy::DEFAULT_PORT
+                        );
+                    } else {
+                        $messages['warnings'][] = tr(
+                            'Unoserver daemon is not running on port %0. Start the daemon with: unoserver --port %0',
+                            $prefs['alchemy_unoserver_port'] ?: UnoserverStrategy::DEFAULT_PORT
+                        );
+                    }
+                } else {
+                    $messages['errors'][] = tr('Unoserver is selected but unoconvert binary is not found.');
+                }
+            } elseif ($converterType === UnoconvStrategy::NAME) {
+                if (UnoconvStrategy::isLibraryAvailable()) {
+                    $messages['successes'][] = tr('Unoconv library is available.');
+
+                    if (! UnoconvStrategy::isPortAvailable()) {
+                        $messages['successes'][] = tr(
+                            'Unoconv listener is running on port %0.',
+                            $prefs['alchemy_unoconv_port'] ?: UnoconvStrategy::DEFAULT_PORT
+                        );
+                    } else {
+                        $messages['warnings'][] = tr(
+                            'Unoconv listener is not running on port %0. Start with: unoconv --listener --port=%0',
+                            $prefs['alchemy_unoconv_port'] ?: UnoconvStrategy::DEFAULT_PORT
+                        );
+                    }
+                } else {
+                    $messages['errors'][] = tr('Unoconv is selected but the library is not available.');
+                }
             }
+
+            if (! UnoserverStrategy::isLibraryAvailable() && ! UnoconvStrategy::isLibraryAvailable()) {
+                $messages['errors'][] = tr('No document converter available. Please install unoserver or unoconv.');
+            }
+
             break;
         default:
             $messages['successes'] = array();
