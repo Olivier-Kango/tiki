@@ -152,7 +152,7 @@ class WikiPluginWantedPages extends PluginsLib
 
     public function getDescription()
     {
-        return wikiplugin_wantedpages_help();
+        return wikiplugin_wantedpages_info()['description'];
     }
 
     public function getVersion()
