@@ -368,7 +368,7 @@ EOF        -1 -1 -1 -1 -1
             switch ($this->secondstate) {
                 case 1:
                     $this->parname = $word;
-                    if (! ereg("[a-zA-Z_-]+([0-9]+)?", $word)) {
+                    if (! preg_match("/[a-zA-Z_-]+([0-9]+)?/", $word)) {
                         $this->SetError(1, "Fatal error.", $this->line, $this->column, "Error");
                         return false;
                     }

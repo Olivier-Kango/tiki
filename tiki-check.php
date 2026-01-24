@@ -30,6 +30,7 @@ use Tiki\Lib\Alchemy\AlchemyLib;
 use Tiki\Lib\Unoconv\UnoconvStrategy;
 use Tiki\Lib\Unoconv\UnoserverStrategy;
 use Tiki\Package\ComposerManager;
+use Smarty\Smarty;
 
 // Define fitness status constants early
 define('FITNESS_STATUS_GOOD', 'good');

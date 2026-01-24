@@ -214,14 +214,11 @@ phplint:
   needs:
     - composer
   script:
-    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n --configuration=doc/devtools/phplint.yml
-  cache:
-    key: phplint${PHP_VERSION}
-    paths:
-      - phplint.cache
+    - php vendor_bundled/vendor/overtrue/phplint/bin/phplint --no-interaction --no-cache
+  # No point in using cache, on fast hardware it's almost as fast to compute as it is to verify the cache - benoitg - 2026-01-26
   parallel:
     matrix:
-      - PHP_VERSION: ['8.1', '8.2', '8.3', '8.4', '8.5']
+      - PHP_VERSION: ['8.1', '8.5'] #Checking more than max and min PHP versions just wastes CI minutes
 
 smarty-lint:
   stage: code-quality
@@ -281,7 +278,7 @@ phpstan:
   cache:
     key: "phpstan"
     paths:
-      - temp/dev/phpstan_cache
+      - temp/ci/phpstan_cache
     policy: pull-push
 
 rector:
@@ -298,7 +295,7 @@ rector:
         files:
           - rector.php
       paths:
-        - temp/dev/rector_cache
+        - temp/ci/rector_cache
       policy: pull-push
 #
 # Check Tikiwiki development specific check (related also with release)

@@ -101,7 +101,7 @@ class TikiHybrid extends LogsLib
 
         //$this->hybridauth = new Hybridauth($confhybrid, $guzzle, null, $this->logger );
         //  LLOG('tikiHybrid  constructed :)' );
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             error_log($e->getMessage());
             //echo TikiHybrid construct error:' . $e->getMessage();
             Feedback::error('TikiHybrid construct error: ' . $e->getMessage());
@@ -187,7 +187,7 @@ class TikiHybrid extends LogsLib
                 $this->set_user_preference($user, $this->namedprefix . '_id', $userId);
                 $this->set_user_preference($user, $this->namedprefix . '_token', $accessToken);
             }
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             Feedback::error('TikiHybrid login error: ' . $e->getMessage());
         }
     }

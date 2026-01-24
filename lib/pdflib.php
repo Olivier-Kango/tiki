@@ -299,7 +299,7 @@ class PdfGenerator
         }
         $this->_parseHTML($html);
         $this->_getImages($html, $tempImgArr);
-        $defaults = new \Mpdf\Config\ConfigVariables();
+        $defaults = new \Mpdf\Config\ConfigVariables(); // @phpstan-ignore class.notFound (depends on MPdf, installed through packages)
         $defaultVariables = $defaults->getDefaults();
         $mpdfConfig = [
             'fontDir' => array_merge([TIKI_PATH . '/' . FONTAWESOME_WEBFONTS_PATH . '/'], $defaultVariables['fontDir']),
@@ -321,7 +321,7 @@ class PdfGenerator
             mkdir($mpdfConfig['tempDir'], 0770, true);
         }
 
-        $mpdf = new \Mpdf\Mpdf($mpdfConfig);
+        $mpdf = new \Mpdf\Mpdf($mpdfConfig); // @phpstan-ignore class.notFound (depends on MPdf, installed through packages)
         $mpdf->curlAllowUnsafeSslRequests = ($prefs['print_pdf_mpdf_allow_unsafe_ssl_requests'] ?? 'y') === 'y';
 
         $basePath = $params['base_path'] ?? TIKI_PATH ;
@@ -482,7 +482,7 @@ class PdfGenerator
 
                 $coverHtml = '<div style="' . $coverStyle . '">' . $coverHtml . '</div>';
 
-                $coverMpdf = new \Mpdf\Mpdf($mpdfConfig);
+                $coverMpdf = new \Mpdf\Mpdf($mpdfConfig); // @phpstan-ignore class.notFound (depends on MPdf, installed through packages)
                 $coverMpdf->SetHTMLHeader();
                 $coverMpdf->SetHTMLFooter();
                 $coverMpdf->AddPage(
@@ -502,7 +502,7 @@ class PdfGenerator
                 // write HTML
                 $coverMpdf->WriteHTML($coverHtml);
 
-                $coverPdfString = $coverMpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+                $coverPdfString = $coverMpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN); // @phpstan-ignore class.notFound (depends on MPdf, installed through packages)
                 $coverTempFile = writeTempFile($coverPdfString, 'pdfcover/', false, 'coverpage_', '.pdf');
 
                 $mpdf->setSourceFile($coverTempFile);

@@ -90,7 +90,7 @@ class QueryBuilder
                 return "($field = $value OR $field IS NULL)";
             }
             Index::addSearchedField($node->getField(), 'others');
-            $mapping = $this->index ? $this->index->getFieldMapping($field) : new stdClass();
+            $mapping = $this->index ? $this->index->getFieldMapping($field) : new \stdClass();
             if (isset($mapping['types']) && (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types']))) {
                 $key = 'tf_' . uniqid();
                 $this->select[$key] = 'LENGTH(' . $field . ')';
@@ -296,7 +296,7 @@ class QueryBuilder
             }
         }
         Index::addSearchedField($node->getField(), 'others');
-        $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
+        $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new \stdClass();
         if (isset($mapping['types']) && (in_array('multi', $mapping['types']) || in_array('mva', $mapping['types']))) {
             $terms = $this->getRaw($node, 'multivalue');
             return 'ANY(' . $field . ')' . ' IN (' . implode(',', $terms) . ')';
@@ -377,7 +377,7 @@ class QueryBuilder
             return $this->getQuotedInJsonContext($node, $prefix);
         }
         $raw = $this->getRaw($node);
-        $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
+        $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new \stdClass();
         if ($mapping && array_intersect(['float', 'timestamp'], $mapping['types'])) {
             return floatval($raw);
         } elseif (is_string($raw) || ($mapping && in_array('string', $mapping['types']))) {

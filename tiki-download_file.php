@@ -400,7 +400,7 @@ if (isset($_GET['preview']) || isset($_GET['thumbnail']) || isset($_GET['display
                             if (empty($info_thumb)) {
                                 $info_thumb = $filegallib->get_file($_GET['thumbnail']);
                             }
-                            $file_thumb = new \Tiki\TikiFile\File($info_thumb);
+                            $file_thumb = new Tiki\FileGallery\File($info_thumb);
                             $image = Image::create($file_thumb->getContents());
                             $content = null; // Explicitely free memory before getting cache
                             if ($image->isEmpty()) {

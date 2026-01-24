@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+require_once __DIR__ . '/../../../../lib/cypht/integration/classes.php';
 class Services_Cypht_Controller
 {
     public function action_ajax($input)
@@ -14,8 +16,6 @@ class Services_Cypht_Controller
         if (empty($session_prefix)) {
             $session_prefix = 'cypht';
         }
-
-        require_once $tikipath . '/lib/cypht/integration/classes.php';
 
         // all ajax cypht requests work with closed session, so they can run concurrently
         // handle reopening upon write in the integration class

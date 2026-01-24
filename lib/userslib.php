@@ -2193,7 +2193,10 @@ class UsersLib extends TikiLib
      */
     public function create_user_ldap($user, $pass)
     {
-        // todo: no more pear::auth! all in pear::ldap2
+        //This calls new Auth('LDAP', $options); below, I can't identify what API that was from, but LdapLib has no method to add a new LDAP user.
+        throw new Error("Adding a LDAP user is not currently supported");
+    /*
+    // todo: no more pear::auth! all in pear::ldap2
         global $prefs;
         $tikilib = TikiLib::lib('tiki');
 
@@ -2233,6 +2236,7 @@ class UsersLib extends TikiLib
         }
 
         return $status;
+        */
     }
 
 

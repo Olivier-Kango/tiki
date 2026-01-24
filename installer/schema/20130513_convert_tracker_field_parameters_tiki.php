@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../../lib/core/Cache/NoCache.php';
 
+use Tiki\Cache\NoCache;
+
 function upgrade_20130513_convert_tracker_field_parameters_tiki($installer)
 {
     // Using an old version of the definition could be critical here, so making sure

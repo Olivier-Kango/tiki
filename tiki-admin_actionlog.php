@@ -587,7 +587,7 @@ if (isset($_REQUEST['graph'])) {
         require_once('lib/jpgraph/src/jpgraph_bar.php');
         require_once('lib/jpgraph/src/jpgraph_mgraph.php');
         $ext = 'jpeg';
-        $background = new MGraph();
+        $background = new MGraph(); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
         $background->SetImgFormat($ext);
         $background->SetFrame(true, 'black');
         $background->SetMargin(10, 10, 10, 10);
@@ -612,7 +612,7 @@ if (isset($_REQUEST['graph'])) {
             $title = sprintf(tra('%s Contributions: Addition'), $user);
         }
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthUser, $height + $xUserTickWidth);
+            $graph = new Graph($widthUser, $height + $xUserTickWidth); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40 + $xUserTickWidth);
@@ -650,7 +650,7 @@ if (isset($_REQUEST['graph'])) {
             $title = sprintf(tra('%s Contributions: Suppression'), $user);
         }
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthUser, $height + $xUserTickWidth);
+            $graph = new Graph($widthUser, $height + $xUserTickWidth); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40 + $xUserTickWidth);
@@ -690,7 +690,7 @@ if (isset($_REQUEST['graph'])) {
             $title2 = tra('Weeks');
         }
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthWeek, $height);
+            $graph = new Graph($widthWeek, $height); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40);
@@ -726,7 +726,7 @@ if (isset($_REQUEST['graph'])) {
             $title2 = tra('Weeks');
         }
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthWeek, $height);
+            $graph = new Graph($widthWeek, $height); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40);
@@ -756,7 +756,7 @@ if (isset($_REQUEST['graph'])) {
     if ($series['totalVol']) {
         $title = tra('Total Contributions: Addition');
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthTotal, $height);
+            $graph = new Graph($widthTotal, $height); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40);
@@ -785,7 +785,7 @@ if (isset($_REQUEST['graph'])) {
     if ($series['totalVol']) {
         $title = tra('Total Contributions: Suppression');
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthTotal, $height);
+            $graph = new Graph($widthTotal, $height); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40);
@@ -814,7 +814,7 @@ if (isset($_REQUEST['graph'])) {
     if ($series['totalVol']) {
         $title = tra('Groups Contributions: Addition');
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthGroup, $height + $xGroupTickWidth);
+            $graph = new Graph($widthGroup, $height + $xGroupTickWidth); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40 + $xGroupTickWidth);
@@ -846,7 +846,7 @@ if (isset($_REQUEST['graph'])) {
     if ($series['totalVol']) {
         $title = tra('Groups Contributions: Suppression');
         if ($prefs['feature_jpgraph'] == 'y') {
-            $graph = new Graph($widthGroup, $height + $xGroupTickWidth);
+            $graph = new Graph($widthGroup, $height + $xGroupTickWidth); // @phpstan-ignore class.notFound (depended on https://jpgraph.net/ through https://mods.tiki.org/details.php?type=lib&mod=jpgraph)
             $graph->img->SetImgFormat($ext);
             $logslib->graph_to_jpgraph($graph, $series, $accumulated, $_REQUEST['bgcolor'], $_REQUEST['legendBgcolor']);
             $graph->img->SetMargin(40 + $yTickWidth, 40 + $legendWidth, 50, 40 + $xGroupTickWidth);

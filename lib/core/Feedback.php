@@ -97,7 +97,10 @@ class Feedback
         $smarty = TikiLib::lib('smarty');
         $smarty->assign('errortype', $httpCode);
         $smarty->assign('msg', $message);
-        http_response_code($httpCode);
+        //This errorAndDie is meant for fatal errors.  Http headers may have already been sent, which would crash the following line.  We want this function to terminate properly even then - benoitg - 2026-01-27
+        if (! headers_sent()) {
+            http_response_code($httpCode);
+        }
         $smarty->display($errorPage);
         die;
     }
