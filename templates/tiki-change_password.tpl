@@ -21,8 +21,8 @@
                     <input type="hidden" name="apass" value="{$password|escape}">
                     <input type="hidden" name="timestamp" value="{$timestamp|escape}">
                 {/if}
-                {if !empty($hash)}
-                    <input type="hidden" name="hash" value="{$hash|escape}">
+                {if !empty($secure_token)}
+                    <input type="hidden" name="token" value="{$secure_token|escape}">
                 {/if}
                 <div class="card-header text-center">
                     {if $new_user_validation neq 'y'}
