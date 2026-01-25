@@ -1677,6 +1677,10 @@ class WikiLib extends TikiLib
             if ($prefs['feature_sefurl'] === 'y') {
                 $tiki_pages = TikiDb::get()->table('tiki_pages');
                 $href = urlencode($tiki_pages->fetchOne('pageSlug', ['pageName' => $finalPageName]));
+                if (! $href) {
+                    // prevent endless loop if empty slug
+                    $href = $finalPageName;
+                }
             } else {
                 $href = "$view_script?page=" . urlencode($finalPageName);
             }
