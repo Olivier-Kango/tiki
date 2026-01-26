@@ -60,7 +60,10 @@ if (! hm_exists('tiki_parse_message')) {
                 }
             }
             if ($email) {
-                $email['show_archive'] = $handler->getOption('useFolders') && $folder != 'archive';
+                if ($handler->getOption('useFolders')) {
+                    $email['show_archive'] = $folder != 'archive';
+                    $email['is_tiki_tracker_trash_folder'] = $folder == 'trash';
+                }
                 break;
             }
         }
@@ -400,6 +403,18 @@ if (! hm_exists('tiki_move_to_tracker_dropdown')) {
 
 /**
  * @subpackage tiki/functions
+ * @return string Restore message button
+ */
+if (! hm_exists('tiki_restore_message')) {
+    function tiki_restore_message($mod)
+    {
+        $res = "<div class='d-inline-block' id='restore_message' style='display: none'><a href='#' title='" . $mod->trans("Restore message to inbox") . "' class='restore_message hlink text-decoration-none btn btn-sm btn-outline-secondary' >" . $mod->trans("Restore") . "</a></div>";
+        return $res;
+    }
+}
+
+/**
+ * @subpackage tiki/functions
  * @return string array message and headers
  */
 if (! hm_exists('get_message_data')) {
@@ -448,6 +463,7 @@ if (! hm_exists('bind_tracker_item_update_event')) {
 if (! hm_exists('append_to_msg_headers')) {
     function append_to_msg_headers($headers, $link)
     {
+        $link = ' | ' . $link;
         $headers = preg_replace('#</div><span id="extra-header-buttons"></span>#s', $link . "\\0", $headers, 1);
 
         return $headers;
