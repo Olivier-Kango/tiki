@@ -4089,12 +4089,14 @@ class TrackerLib extends TikiLib
     }
 
     /**
-     * Get's the rendered value of the field that is used as the name of
+     * Compute the rendered value of the field that is used as the name of
      * the tracker item.  Usually used as the item's title in a list,
      * the search index, etc.
      *
-     * @param [type] $trackerId, optionnal (will be retrieved from itemId if missing)
-     * @param [type] $itemId
+     * @param int|null $trackerId Optional tracker ID (will be retrieved from itemId if missing)
+     * @param int $itemId Tracker item ID
+     * @param bool $use_cache Whether to use caching for performance (default: false)
+     * @return string The rendered main title value of the tracker item
      */
     public function get_isMain_value($trackerId, $itemId, $use_cache = false): string
     {
@@ -4105,7 +4107,7 @@ class TrackerLib extends TikiLib
                 return $cache[$cacheKey];
             }
         }
-        $query = "SELECT tif.`value`, tf.`type`
+        $query = "SELECT tif.`value`, tf.`type`, tf.`fieldId`, i.`trackerId`
                 FROM `tiki_tracker_item_fields` tif
                 JOIN `tiki_tracker_items` i ON i.`itemId` = tif.`itemId`
                 JOIN `tiki_tracker_fields` tf ON tf.`fieldId` = tif.`fieldId`
@@ -4113,11 +4115,22 @@ class TrackerLib extends TikiLib
                 ORDER BY tf.`position`";
         $queryResult = $this->fetchAll($query, [(int) $itemId, "y"]);
 
-        $titles = [];
+        if (! $trackerId) {
+            $trackerId = $queryResult[0]['trackerId'];
+        }
+
         $item = $this->get_tracker_item($itemId);
+        $titles = [];
+
         foreach ($queryResult as $row) {
             $value = $row['value'];
-            $field = ['type' => $row['type'], 'value' => $value];
+            $field = [
+                'fieldId' => $row['fieldId'],
+                'trackerId' => $trackerId,
+                'type' => $row['type'],
+                'value' => $value
+            ];
+
             $handler = $this->get_field_handler($field, $item);
 
             if ($handler) {
@@ -4128,6 +4141,7 @@ class TrackerLib extends TikiLib
                 $titles[] = $value;
             }
         }
+
         $result = implode(' ', $titles);
         if ($use_cache) {
             if (TikiLib::lib('tiki')->isMemoryLow()) {
@@ -5530,14 +5544,13 @@ class TrackerLib extends TikiLib
     /**
      * Get a field handler for a specific fieldtype. The handler comes initialized with the field / item data passed.
      * @deprecated  This is just a proxy to  $definition->getFieldFactory()->getHandler() with a different calling convention.
-     * @param array $field.
-     * <pre>
-     * $field = array(
-     *      // required
-     *      'trackerId' => 1 // trackerId
-     * );
-     * </pre
-     * @param array $item - array('itemId1' => value1, 'itemid2' => value2)
+     * @param array $field - $field definition array, must contain at least: [
+     *        'trackerId' => 1,
+     *        'fieldId'   => 42,
+     *        'type'      => 'r',
+     *        'value'     => 'foo'
+     *    ];
+     * @param array|null $item - array('itemId1' => value1, 'itemid2' => value2)
      * @return \Tracker\Field\AbstractItemField $tracker_field_handler - i.e. Tracker_Field_Text
      */
     public function get_field_handler(array $field, $item = null): \Tracker\Field\AbstractItemField|false
