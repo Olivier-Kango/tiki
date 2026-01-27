@@ -237,12 +237,18 @@ class QueryBuilder
             if ($raw === "" || is_null($raw)) {
                 $to = $this->getQuoted($node->getToken('to'));
                 $key = 'tf_' . uniqid();
+                if (is_numeric($to)) {
+                    $field = 'double(' . $field . ')';
+                }
                 $this->select[$key] = "$field <= $to";
                 return "$key = 1";
             } else {
                 $from = $this->getQuoted($node->getToken('from'));
                 $to = $this->getQuoted($node->getToken('to'));
                 $key = 'tf_' . uniqid();
+                if (is_numeric($from) && is_numeric($to)) {
+                    $field = 'double(' . $field . ')';
+                }
                 $this->select[$key] = "($field >= $from AND $field <= $to)";
                 return "$key = 1";
             }
