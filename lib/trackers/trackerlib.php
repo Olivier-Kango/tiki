@@ -1003,7 +1003,7 @@ class TrackerLib extends TikiLib
         }
         $res = [];
         $definition = Tracker_Definition::get($trackerId);
-        $itemIds = $this->get_all_tracker_items($trackerId);
+        $itemIds = $this->get_all_tracker_items($trackerId, $status);
         foreach ($itemIds as $itemId) {
             $res[$itemId] = $this->concat_item_from_fieldslist(
                 $trackerId,
@@ -1166,9 +1166,14 @@ class TrackerLib extends TikiLib
         return $needToCheckCategPerms;
     }
 
-    public function get_all_tracker_items($trackerId)
+    public function get_all_tracker_items($trackerId, $status = null)
     {
-        return $this->items()->fetchColumn('itemId', ['trackerId' => (int) $trackerId]);
+        $conditions = ['trackerId' => (int) $trackerId];
+        if ($status) {
+            $sts = preg_split('//', $status, -1, PREG_SPLIT_NO_EMPTY);
+            $conditions['status'] = $this->items()->in($sts);
+        }
+        return $this->items()->fetchColumn('itemId', $conditions);
     }
 
     public function getSqlStatus($status, &$mid, &$bindvars, $trackerId, $skip_status_perm_check = false)
