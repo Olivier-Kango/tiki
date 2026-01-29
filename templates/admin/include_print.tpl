@@ -44,6 +44,7 @@
             {preference name=print_pdf_mpdf_coverpage_text_settings}
             {preference name=print_pdf_mpdf_coverpage_image_settings}
             {preference name=print_pdf_mpdf_allow_unsafe_ssl_requests}
+            {preference name=print_pdf_mpdf_debug}
         </div>
         {preference name=allocate_memory_print_pdf}
         {preference name=allocate_time_print_pdf}
