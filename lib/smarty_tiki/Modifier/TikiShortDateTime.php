@@ -15,7 +15,7 @@ class TikiShortDateTime
      * @param string $string
      * @param string $intro
      * @param string $same if set to 'n' will bypass timeago preferences. Useful when markup is illegal in date
-     * @param bool|string $forceTimezone the time zone to be applied. Can be a timezone identifier or false, if user is not false forceTimezone must always be false
+     * @param $forceTimezone the time zone to be applied. Can be a timezone identifier or false, if user is not false forceTimezone must always be false
      *
      * @return string
      */
