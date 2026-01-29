@@ -1,3 +1,6 @@
+{$TWO_FA_INCORRECT = TWO_FA_INCORRECT}
+{$USER_NOT_FOUND = USER_NOT_FOUND}
+{$PASSWORD_INCORRECT = PASSWORD_INCORRECT}
 {jq notonready=true}
 function capLock(e, el){
     kc = e.keyCode ? e.keyCode : e.which;
@@ -17,7 +20,7 @@ $(document).ready(function () {
     var moduleLogoInstance = "{{$module_logo_instance}}";
     var login_error = "{{$error_login}}";
 
-    if (login_error == {{TWO_FA_INCORRECT}}) {
+    if (login_error == {{$TWO_FA_INCORRECT}}) {
         displayFeedback("error", "{tr}Invalid two-factor authenticator code{/tr}");
     }
 
@@ -390,9 +393,8 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").on("click", function
         {/if}
         {if !empty($error_login)}
             {remarksbox type='errors' title="{tr}Error{/tr}"}
-                {if $error_login == -5}{tr}Invalid username or password{/tr}
-                {elseif $error_login == -3}{tr}Invalid username or password{/tr}
-                {elseif $error_login == -13}{tr}Invalid two-factor authenticator code{/tr}
+                {if $error_login == $PASSWORD_INCORRECT or $error_login == $USER_NOT_FOUND }{tr}Invalid username or password{/tr}
+                {elseif $error_login == $TWO_FA_INCORRECT}{tr}Invalid two-factor authenticator code{/tr}
                 {else}{$error_login|escape}{/if}
             {/remarksbox}
         {/if}
