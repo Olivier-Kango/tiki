@@ -55,6 +55,7 @@ $safePaths = [
     '\./_custom/.*',
 
     '\./public/generated/.*', // generated files
+    '\./src/php/external_lib_sources.*', // External php codebases whose source code have been included in tiki.
 
 
     /* The following are DELIBERATELY PUBLIC. */
