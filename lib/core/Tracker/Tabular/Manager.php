@@ -330,7 +330,9 @@ class Manager
     {
         try {
             if (! empty($odbc_config['permanent_values'])) {
-                $odbc_config['permanent_values'] = json_decode($odbc_config['permanent_values'], true, 512, JSON_THROW_ON_ERROR);
+                if (is_scalar($odbc_config['permanent_values'])) {
+                    $odbc_config['permanent_values'] = json_decode($odbc_config['permanent_values'], true, 512, JSON_THROW_ON_ERROR);
+                }
                 if (! is_array($odbc_config['permanent_values'])) {
                     throw new Exception('invalid format');
                 }
@@ -347,7 +349,9 @@ class Manager
         }
         try {
             if (! empty($odbc_config['value_mappings'])) {
-                $odbc_config['value_mappings'] = @json_decode($odbc_config['value_mappings'], true, 512, JSON_THROW_ON_ERROR);
+                if (is_string($odbc_config['value_mappings'])) {
+                    $odbc_config['value_mappings'] = json_decode($odbc_config['value_mappings'], true, 512, JSON_THROW_ON_ERROR);
+                }
                 if (! is_array($odbc_config['value_mappings'])) {
                     throw new Exception('invalid format');
                 }
