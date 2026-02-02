@@ -161,7 +161,6 @@ $smarty->assign(
         'directory',
         'faq',
         'file gallery',
-        'image gallery',
         'image',
         'poll',
         'quiz',

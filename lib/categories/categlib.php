@@ -1511,7 +1511,7 @@ class CategLib extends ObjectLib
             "calendar" => "calendar",
             "img" => "image",
             "template" => "template",
-        ];    //get_strings tra("article");tra("blog");tra("directory");tra("faq");tra("FAQ");tra("file gallery");tra("forum");tra("image gallery");tra("newsletter");
+        ];    //get_strings tra("article");tra("blog");tra("directory");tra("faq");tra("FAQ");tra("file gallery");tra("forum");tra("newsletter");
         //get_strings tra("poll");tra("quiz");tra("survey");tra("tracker");tra("wiki page");tra("image");tra("calendar");tra("template");
 
         $typetitles = [

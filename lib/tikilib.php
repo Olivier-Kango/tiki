@@ -4179,7 +4179,6 @@ class TikiLib extends TikiDb_Bridge
         switch ($objectType) {
             case 'tracker':
                 return 'tiki_p_admin_trackers';
-            case 'image gallery':
             case 'image':
                 return 'tiki_p_admin_galleries';
             case 'file gallery':

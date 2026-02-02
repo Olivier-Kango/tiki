@@ -177,11 +177,6 @@ if (isset($_REQUEST["addforum"]) && $_REQUEST["parentId"] != 0 && $access->check
     $categlib->categorize_any('forum', $_REQUEST["forumId"], $_REQUEST["parentId"]);
     $categorizedObject = $categlib->get_categorized_object('forum', $_REQUEST["forumId"]);
 }
-if (isset($_REQUEST["addgallery"]) && $_REQUEST["parentId"] != 0 && $access->checkCsrf()) {
-    // Here we categorize an image gallery
-    $categlib->categorize_any('image gallery', $_REQUEST["galleryId"], $_REQUEST["parentId"]);
-    $categorizedObject = $categlib->get_categorized_object('image gallery', $_REQUEST["galleryId"]);
-}
 if (isset($_REQUEST["addfilegallery"]) && $_REQUEST["parentId"] != 0 && $access->checkCsrf()) {
     // Here we categorize a file gallery
     $categlib->categorize_any('file gallery', $_REQUEST["file_galleryId"], $_REQUEST["parentId"]);
