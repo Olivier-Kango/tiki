@@ -42,7 +42,7 @@ $listparsed = TikiLib::lib('parser')->parse_data(
 $smarty->assign_by_ref('listparsed', $listparsed);
 $smarty->assign_by_ref('listtext', $editwiki);
 
-$page = 'Experiment with plugin LIST';
+$page = tr('Experiment with plugin LIST');
 
 $smarty->assign('page', $page);
 
