@@ -38,7 +38,12 @@ $inputConfiguration = [
         ],
     ],
 ];
+
 require_once('tiki-setup.php');
+
+use Tiki\Sections;
+$section = Sections::SECTION_ADMIN;
+Sections::setCurrentSection($section);
 
 $defaultSchedulers = new DefaultSchedulers();
 $defaultSchedulers->checkAndUpdate();

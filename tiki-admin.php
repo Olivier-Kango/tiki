@@ -8,15 +8,15 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-
+require_once('tiki-setup.php');
 use Tiki\Installer\Installer;
 use Tiki\Package\ComposerCli;
 use Tiki\Package\ExtensionManager;
 use Tiki\Suggestion\Rules;
+use Tiki\Sections;
+$section = Sections::SECTION_ADMIN;
+Sections::setCurrentSection($section);
 
-$section = 'admin';
-
-require_once('tiki-setup.php');
 $adminlib = TikiLib::lib('admin');
 
 $auto_query_args = ['page'];

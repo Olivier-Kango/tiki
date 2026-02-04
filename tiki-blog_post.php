@@ -8,7 +8,6 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-$section = 'blogs';
 $inputConfiguration = [
     [
         'staticKeyFilters'         => [
@@ -41,6 +40,9 @@ $inputConfiguration = [
 ];
 
 require_once('tiki-setup.php');
+use Tiki\Sections;
+$section = Sections::SECTION_BLOGS;
+Sections::setCurrentSection($section);
 $categlib = TikiLib::lib('categ');
 $bloglib = TikiLib::lib('blog');
 $editlib = TikiLib::lib('edit');

@@ -32,6 +32,9 @@ $inputConfiguration = [
     ],
 ];
 require_once('tiki-setup.php');
+use Tiki\Sections;
+$section = Sections::SECTION_ADMIN;
+Sections::setCurrentSection($section);
 /** @var RSSLib $rsslib */
 $rsslib = TikiLib::lib('rss');
 //get_strings tra('External Feeds')
@@ -42,6 +45,9 @@ $auto_query_args = [
     'sort_mode',
     'find'
 ];
+
+
+
 
 $access->check_permission('tiki_p_admin_rssmodules');
 

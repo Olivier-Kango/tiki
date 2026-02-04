@@ -7,7 +7,6 @@
 //author : aris002@yahoo.co.uk
 
 
-$section = 'mytiki';
 $inputConfiguration = [
     [
         'staticKeyFilters'     => [
@@ -16,6 +15,9 @@ $inputConfiguration = [
     ],
 ];
 require_once('tiki-setup.php');
+use Tiki\Sections;
+$section = Sections::SECTION_MY_TIKI;
+Sections::setCurrentSection($section);
 //require_once('lib/prefs/socnets.php');
 $access = TikiLib::lib('access');
 $access->check_feature('feature_socialnetworks');

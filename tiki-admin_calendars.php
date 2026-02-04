@@ -53,8 +53,11 @@ $inputConfiguration = [
         ],
     ],
 ];
-$section = 'admin';
 require_once('tiki-setup.php');
+use Tiki\Sections;
+$section = Sections::SECTION_ADMIN;
+Sections::setCurrentSection($section);
+
 $categlib = TikiLib::lib('categ');
 $calendarlib = TikiLib::lib('calendar');
 if ($prefs['feature_groupalert'] == 'y') {

@@ -10,6 +10,7 @@ use Symfony\Component\Mime\Exception\RfcComplianceException;
 use ZBateson\MailMimeParser\MailMimeParser;
 use Symfony\Component\Mime\Address;
 use Tiki\Lib\Diff\DiffUtils;
+use Tiki\Sections;
 
 /**
  *
@@ -2336,10 +2337,10 @@ class Comments extends TikiLib
      */
     public function parse_comment_data($data, $threadId = null)
     {
-        global $prefs, $section;
+        global $prefs;
         $parserlib = TikiLib::lib('parser');
 
-        if (($prefs['feature_forum_parse'] == 'y' && $section == 'forums') || $prefs['section_comments_parse'] == 'y') {
+        if (($prefs['feature_forum_parse'] == 'y' && Sections::isCurrentSection(Sections::SECTION_FORUMS)) || $prefs['section_comments_parse'] == 'y') {
             $options = [
                 'objectType' => 'comments',
                 'objectId' => $threadId,

@@ -206,7 +206,18 @@ if ($prefs['login_multiple_forbidden'] == 'y') {
 
 require_once('lib/setup/cookies.php');
 require_once('lib/setup/user_prefs.php');
-require_once('lib/setup/language.php');
+require_once('lib/core/Sections.php');
+use Tiki\Sections;
+// Initialize language settings after section is set and autoloader is available
+Language::setSectionLanguage();
+
+// Register callback to update language when section changes
+// This ensures that when admin files call Sections::setCurrentSection(),
+// the language is automatically updated (e.g., admin section gets admin language)
+Sections::onSectionChange(function ($section) {
+    Language::setSectionLanguage();
+});
+
 require_once('lib/setup/wiki.php');
 
 $user_groups = $userlib->get_user_groups($user);
