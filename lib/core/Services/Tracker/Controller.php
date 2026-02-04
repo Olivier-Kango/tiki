@@ -847,96 +847,6 @@ class Services_Tracker_Controller
         return $displayedFields;
     }
 
-    public function action_clone_item($input)
-    {
-        global $prefs;
-
-        Services_Exception_Disabled::check('tracker_clone_item');
-
-        $trackerId = $input->trackerId->int();
-        $definition = Tracker_Definition::get($trackerId);
-
-        if (! $definition) {
-            throw new Services_Exception_NotFound();
-        }
-
-        $itemId = $input->itemId->int();
-        if (! $itemId) {
-            throw new Services_Exception_Denied(tr('No item to clone'));
-        }
-
-        $itemObject = Tracker_Item::fromId($itemId);
-
-        if (! $itemObject->canView()) {
-            throw new Services_Exception_Denied(tr("The item to clone isn't visible"));
-        }
-
-        $newItem = Tracker_Item::newItem($trackerId);
-
-        if (! $newItem->canModify()) {
-            throw new Services_Exception_Denied(tr("You don't have permission to create new items"));
-        }
-
-        global $prefs;
-        if ($prefs['feature_jquery_validation'] === 'y') {
-            $_REQUEST['itemId'] = 0;    // let the validation code know this will be a new item
-            $validationjs = TikiLib::lib('validators')->generateTrackerValidateJS(
-                $definition,
-                '',
-                '',
-                // not custom submit handler that is only needed when called by this service
-                'submitHandler: function(form, event){return process_submit(form, event);}'
-            );
-            TikiLib::lib('header')->add_jq_onready('$("#cloneItemForm' . $trackerId . '").validate({' . $validationjs . $this->get_validation_options());
-        }
-
-        $itemObject->asNew();
-        $itemData = $itemObject->getData($input);
-        $processedFields = [];
-
-        $id = 0;
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $itemObject = $this->utilities->cloneItem($definition, $itemData, $itemId);
-            $id = $itemObject->getId();
-            if ($id === false) {
-                throw new Services_Exception_Denied(tr("There were errors cloning the item, please check error messages"));
-            }
-
-            TikiLib::lib('unifiedsearch')->processUpdateQueue();
-            TikiLib::events()->trigger('tiki.process.redirect'); // wait for indexing to complete before loading of next request to ensure updated info shown
-
-            $processedItem = $this->utilities->processValues($definition, $itemData);
-            $processedFields = $processedItem['fields'];
-        }
-
-        // sets all fields for the tracker item with their value
-        $processedFields = $itemObject->prepareInput($input);
-        // fields where the value is forced.
-        $forcedFields = $input->forced->none();
-
-        // if forced fields are set, remove them from the processedFields since they will not show up visually
-        // in the form; they will be set up separately and hidden.
-        if (! empty($forcedFields)) {
-            foreach ($processedFields as $k => $f) {
-                $permName = $f['permName'];
-                if (isset($forcedFields[$permName])) {
-                    unset($processedFields[$k]);
-                }
-            }
-        }
-
-        $displayedFields = $this->fieldsToDisplay($input, $processedFields);
-
-        return [
-            'title' => tr('Duplicate Item'),
-            'trackerId' => $trackerId,
-            'itemId' => $itemId,
-            'created' => $id,
-            'data' => $itemData['fields'],
-            'fields' => $displayedFields,
-            'forced' => $forcedFields,
-        ];
-    }
 
     public function action_insert_item($input)
     {
@@ -968,6 +878,44 @@ class Services_Tracker_Controller
         $fields = $input->fields->none() ?: [];
         $forced = $input->forced->none() ?: [];
         $editable = $input->editable->none() ?: [];
+
+        $cloneFrom = $input->clone_from->int();
+        if ($cloneFrom && $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            try {
+                $sourceItem = Tracker_Item::fromId($cloneFrom);
+            } catch (Exception $e) {
+                $sourceItem = null;
+            }
+
+            if ($sourceItem && $sourceItem->canView()) {
+                $sourceData = $sourceItem->getData();
+                $duplicateRules = json_decode($definition->getConfiguration('duplicateRules', '[]'), true);
+
+                foreach ($definition->getFields() as $field) {
+                    $fid = $field['fieldId'];
+                    $permName = $field['permName'];
+                    $rule = $duplicateRules[$fid] ?? 'copy';
+
+                    if ($rule === 'copy') {
+                        if (isset($sourceData['fields'][$permName])) {
+                            $value = $sourceData['fields'][$permName];
+                            if ($permName) {
+                                $input->offsetSet($permName, $value);
+                            }
+                            $input->offsetSet('ins_' . $fid, $value);
+                        }
+                    } elseif ($rule === 'clear') {
+                        if ($permName) {
+                            $input->offsetSet($permName, '');
+                        }
+                        $input->offsetSet('ins_' . $fid, '');
+                    }
+                    // default: do nothing, let prepareInput handle defaults
+                }
+
+                Feedback::note(tr('Initializing duplication of item #%0', $cloneFrom));
+            }
+        }
         $processedFields = $itemObject->prepareInput($input);
         $suppressFeedback = $input->suppressFeedback->bool();
         $toRemove = [];
@@ -1165,6 +1113,10 @@ class Services_Tracker_Controller
                 $util->setTicket();
                 $item['nextTicket'] = $util->getTicket();
 
+                if (! $redirect && ! $access->is_xml_http_request()) {
+                    $redirect = smarty_modifier_sefurl($trackerId, 'tracker');
+                }
+
                 if ($redirect) {
                     //return to page
                     if ($access->is_xml_http_request()) {
@@ -1210,6 +1162,7 @@ class Services_Tracker_Controller
         return [
             'title' => $title,
             'trackerId' => $trackerId,
+            'tracker_info' => $definition->getInformation(),
             'trackerName' => $trackerName,
             'itemId' => $itemId,
             'fields' => $displayedFields,
@@ -2217,6 +2170,8 @@ class Services_Tracker_Controller
                 'name' => $name,
                 'description' => $input->description->text(),
                 'descriptionIsParsed' => $input->descriptionIsParsed->int() ? 'y' : 'n',
+                'duplicateRules' => json_encode($input->asArray('duplicateRules')),
+                'enableDuplicate' => $input->enableDuplicate->int() ? 'y' : 'n',
             ], TikiLib::lib('trk')->trackerOptionsFromInput($input));
 
             $trackerId = $this->utilities->updateTracker($trackerId, $data);
@@ -2251,6 +2206,9 @@ class Services_Tracker_Controller
         if (! empty($info['descriptionIsParsed']) && $info['descriptionIsParsed'] == 'y') {
             $info['description'] = TikiLib::lib('edit')->removeSyntaxPlugin($info['description']);
         }
+        if (! empty($info['duplicateRules'])) {
+            $info['val_duplicateRules'] = json_decode($info['duplicateRules'], true);
+        }
 
         return [
             'accordion_pos' => $accordion_pos,
@@ -2272,6 +2230,7 @@ class Services_Tracker_Controller
             'remoteTabulars' => TikiLib::lib('tabular')->getList(['odbc_config' => new TikiDb_Expr('((odbc_config != ? AND odbc_config IS NOT NULL) OR (api_config != ? AND api_config IS NOT NULL))', ['[]', '[]'])]),
             'relationshipBehaviourList' => array_keys(Tiki\Relation\Semantics::BEHAVIOUR_LIST),
             'displayTimezone' => TikiLib::lib('tiki')->get_display_timezone(),
+            'fields' => $trackerId ? $definition->getFields() : [],
         ];
     }
 
