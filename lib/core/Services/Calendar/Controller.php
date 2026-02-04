@@ -157,14 +157,6 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             }
         }
 
-        $listevents = Perms::filter(
-            ['type' => 'calendaritem'],
-            'object',
-            $listevents,
-            ['object' => 'calitemId'],
-            ['view_events']
-        );
-
         $parserLib = TikiLib::lib('parser');
         $events = [];
 
@@ -211,7 +203,6 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 'id'          => $event['calitemId'],
                 'title'       => $event['name'],
                 'extendedProps' => [
-                    'viewable'    => $event['perms']->view_events,
                     'description' => ! empty($event['description']) ? $parserLib->parse_data(
                         $event['description'],
                         [
