@@ -188,7 +188,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
         }
 
         if (empty($add) && empty($remove)) {
-            if (is_string($value)) {
+            if (is_scalar($value)) {
                 $value = ['ins_' . $fieldInfo['fieldId'] => $value];
             }
             $data = $handler->getFieldData($value);
