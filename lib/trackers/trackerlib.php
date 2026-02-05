@@ -38,6 +38,14 @@ class TrackerLib extends TikiLib
 {
     public $trackerinfo_cache;
     private $sectionFormats = [];
+    /**
+     * Limit of the name field of the tiki_trackers table
+     */
+    public const MAX_TRACKER_NAME_LENGTH = 255;
+    /**
+     * Limit of the field name field of the tiki_tracker_fields table
+     */
+    public const MAX_TRACKER_FIELD_NAME_LENGTH = 255;
 
     public function __construct()
     {

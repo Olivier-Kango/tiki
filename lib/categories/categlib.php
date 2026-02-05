@@ -27,6 +27,14 @@ class CategLib extends ObjectLib
 {
     private $parentCategories = [];
     private $currentObjectCategories = [];
+    /**
+     * Limit of the name field of the tiki_categories table
+     */
+    public const MAX_CATEGORY_NAME_LENGTH = 200;
+    /**
+     * Limit of the description field of the tiki_categories table
+     */
+    public const MAX_CATEGORY_DESCRIPTION_LENGTH = 500;
 
     // Returns a string representing the specified category's path.
     // The path includes all parent categories ordered from the root to the category's parent, and the category itself.

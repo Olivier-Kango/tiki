@@ -88,6 +88,7 @@ if (isset($_REQUEST["rssId"])) {
 if (! isset($_REQUEST["save"])) {
     $smarty->assign('name', $info["name"]);
     $smarty->assign('description', $info["description"]);
+    $smarty->assign('MAX_EXTERNAL_FEED_NAME_LENGTH', RSSLib::MAX_EXTERNAL_FEED_NAME_LENGTH);
     $smarty->assign('url', $info["url"]);
     $smarty->assign('refreshSeconds', $info["refresh"]);
     $smarty->assign('showTitle', $info["showTitle"]);
@@ -212,6 +213,8 @@ if (isset($_REQUEST['article']) && $prefs['feature_articles'] == 'y') {
 if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     if (empty($_REQUEST["name"]) || empty($_REQUEST["url"])) {
         Feedback::error(tr("The name or URL is empty, the external feed has not been created"));
+    } elseif (mb_strlen($_REQUEST["name"]) > RSSLib::MAX_EXTERNAL_FEED_NAME_LENGTH) {
+        Feedback::validateFieldLength("Name", $_REQUEST["name"], RSSLib::MAX_EXTERNAL_FEED_NAME_LENGTH);
     } else {
         if (isset($_REQUEST['showTitle']) == 'on') {
             $smarty->assign('showTitle', 'y');

@@ -19,8 +19,30 @@ class Comments extends TikiLib
 {
     public $time_control = 0;
     private $extras = true;
+    /**
+     * Limit of the title field of the tiki_comments table
+     */
     public const MAX_COMMENT_TITLE_LENGTH = 255;
+    /**
+     * Limit of the data field of the tiki_comments table
+     */
     public const MAX_COMMENT_DATA_LENGTH = 65535;
+    /**
+     * Limit of the name field of the tiki_forums table
+     */
+    public const MAX_FORUM_NAME_LENGTH = 255;
+    /**
+     * Limit of the description field of the tiki_forums table
+     */
+    public const MAX_FORUM_DESCRIPTION_LENGTH = 65535;
+    /**
+     * Limit of the section field of the tiki_forums table
+     */
+    public const MAX_FORUM_SECTION_LENGTH = 200;
+    /**
+     * Limit of the forum_password field of the tiki_forums table
+     */
+    public const MAX_FORUM_PASSWORD_LENGTH = 32;
 
     /* Functions for the forums */
     public function report_post($forumId, $parentId, $threadId, $user, $reason = '')

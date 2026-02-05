@@ -245,6 +245,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $parserLib = TikiLib::lib('parser');
         $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
         $trklib = TikiLib::lib('trk');
+        $smarty = TikiLib::lib('smarty');
         $timezones = TikiDate::getTimeZoneList();
         $timezones = array_keys($timezones);
         $return_url = $input->return_url->url();
@@ -268,6 +269,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $preview = false;
 
         $dateNow = new TikiDate();
+        $smarty->assign('MAX_CALENDAR_EVENT_TITLE_LENGTH', CalendarLib::MAX_CALENDAR_EVENT_TITLE_LENGTH);
+        $smarty->assign('MAX_CALENDAR_EVENT_DESCRIPTION_LENGTH', CalendarLib::MAX_CALENDAR_EVENT_DESCRIPTION_LENGTH);
 
         if ($access->requestIsPost() && $access->checkCsrf(false, true)) {
             if ($input->offsetExists('calitem')) {
@@ -279,12 +282,18 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 $calitem['recurrenceId'] = $input->recurrenceId->int();
                 $calendar = $this->calendarLib->get_calendar($calendarId);
                 $calitem = $this->processParticipants($calitem);
-
+                if (isset($calitem["name"])) {
+                    Feedback::validateFieldLength("Title", $calitem["name"], CalendarLib::MAX_CALENDAR_EVENT_TITLE_LENGTH);
+                    return [];
+                }
+                if (isset($calitem["description"])) {
+                    Feedback::validateFieldLength("Description", $calitem["description"], CalendarLib::MAX_CALENDAR_EVENT_DESCRIPTION_LENGTH);
+                    return [];
+                }
                 // save event
                 if ($input->act->word() === 'saveitem' || $input->act->word() === 'saveas') {
                     if (! $input->calendarchanged->int()) {
                         $saved = $this->saveEvent($calitem, $calendar, $input);
-
                         if ($saved) { // then redirect?
                             if ($input->offsetExists('exact_start_end')) {
                                 Feedback::success(tr('Event saved successfully.'));

@@ -59,6 +59,8 @@ $tikilib->get_perm_object($blogId, 'blog');
 $smarty->assign('blogId', $blogId);
 $smarty->assign('title', '');
 $smarty->assign('description', '');
+$smarty->assign('MAX_BLOG_TITLE_LENGTH', BlogLib::MAX_BLOG_TITLE_LENGTH);
+$smarty->assign('MAX_BLOG_DESCRIPTION_LENGTH', BlogLib::MAX_BLOG_DESCRIPTION_LENGTH);
 $smarty->assign('public', 'y');
 $smarty->assign('use_find', 'n');
 $smarty->assign('add_date', 'y');
@@ -175,6 +177,15 @@ if (isset($_REQUEST["save"]) && $prefs['feature_categories'] == 'y' && $prefs['f
     $alwaysOwner = isset($_REQUEST['alwaysOwner']) ? 'y' : 'n';
 
     if (isset($_REQUEST["save"])) {
+        if (isset($_REQUEST["title"], $_REQUEST["description"])) {
+            $validateTitleFieldLength = Feedback::validateFieldLength("Title", $_REQUEST["title"], BlogLib::MAX_BLOG_TITLE_LENGTH);
+            $validateDescriptionFieldLength = Feedback::validateFieldLength("Description", $_REQUEST["description"], BlogLib::MAX_BLOG_DESCRIPTION_LENGTH);
+            if (! $validateTitleFieldLength || ! $validateDescriptionFieldLength) {
+                $smarty->assign('mid', 'tiki-edit_blog.tpl');
+                $smarty->display("tiki.tpl");
+                die;
+            }
+        }
         $bid = $bloglib->replace_blog(
             $_REQUEST["title"],
             $_REQUEST["description"],

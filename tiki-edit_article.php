@@ -166,6 +166,11 @@ $smarty->assign('emails', '');
 $smarty->assign('userEmail', $userlib->get_user_email($user));
 $smarty->assign('ispublished', '');
 
+$smarty->assign('MAX_ARTICLE_TITLE_LENGTH', ArtLib::MAX_ARTICLE_TITLE_LENGTH);
+$smarty->assign('MAX_ARTICLE_SUBTITLE_LENGTH', ArtLib::MAX_ARTICLE_SUBTITLE_LENGTH);
+$smarty->assign('MAX_ARTICLE_HEADING_LENGTH', ArtLib::MAX_ARTICLE_HEADING_LENGTH);
+$smarty->assign('MAX_ARTICLE_BODY_LENGTH', ArtLib::MAX_ARTICLE_BODY_LENGTH);
+
 // If the articleId is passed then get the article data
 // GGG - You have to check for the actual value of the articleId because it
 // will be 0 when you select preview while creating a new article.
@@ -626,7 +631,6 @@ if (isset($_REQUEST['save']) && empty($errors)) {
             $author = $user;
         }
     }
-
     $_REQUEST['title'] = strip_tags($_REQUEST['title'], '<a><pre><p><img><hr><b><i>');
     $artid = $artlib->replace_article(
         $_REQUEST['title'],

@@ -72,6 +72,15 @@ function saveScheduler()
         $errors[] = tra('Name is required');
         $addTask = false;
     }
+    if (isset($name, $description)) {
+        $validateNameFieldLength = Feedback::validateFieldLength("Name", $name, SchedulersLib::MAX_SCHEDULER_NAME_LENGTH);
+        $validateDescriptionFieldLength = Feedback::validateFieldLength("Description", $description, SchedulersLib::MAX_SCHEDULER_DESCRIPTION_LENGTH);
+        if (! $validateNameFieldLength || ! $validateDescriptionFieldLength) {
+            $access = TikiLib::lib('access');
+            $access->redirect('tiki-admin_schedulers.php');
+            die;
+        }
+    }
 
     if (empty($task)) {
         $errors[] = tra('Task is required');
@@ -186,6 +195,8 @@ $scheduler = 0;
 
 $tikilib = TikiLib::lib('tiki');
 $numOfLogs = $tikilib->get_preference('scheduler_keep_logs');
+$smarty->assign('MAX_SCHEDULER_NAME_LENGTH', SchedulersLib::MAX_SCHEDULER_NAME_LENGTH);
+$smarty->assign('MAX_SCHEDULER_DESCRIPTION_LENGTH', SchedulersLib::MAX_SCHEDULER_DESCRIPTION_LENGTH);
 
 if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset($_POST['scheduler']))) && $access->checkCsrf()) {
     // If scheduler saved, it redirects to the schedulers page, cleaning the add/edit scheduler form.

@@ -11,11 +11,11 @@
         {accordion_group title="{tr}General{/tr}" accordion_pos=$accordion_pos}
             <div class="mb-3 mx-0">
                 <label for="name">{tr}Name{/tr}</label>
-                <input class="form-control" type="text" name="name" id="name" value="{$info.name|escape}" required="required">
+                <input class="form-control" type="text" name="name" id="name" value="{$info.name|escape}" maxlength="{$MAX_TRACKER_NAME_LENGTH}" required="required">
             </div>
             <div class="mb-3 mx-0">
                 <label for="description">{tr}Description{/tr}</label>
-                <textarea class="form-control" name="description" id="description" cols="40">{$info.description|escape}</textarea>
+                {textarea class="form-control" name="description" id="description" cols="40"}{$info.description|escape}{/textarea}
             </div>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" name="descriptionIsParsed" id="descriptionIsParsed" {if $info.descriptionIsParsed eq 'y'}checked="checked"{/if} value="1">

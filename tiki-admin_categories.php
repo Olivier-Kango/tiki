@@ -273,6 +273,15 @@ if (
 }
 if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["name"]) > 0 && $access->checkCsrf()) {
     // Save
+    if (isset($_REQUEST["name"], $_REQUEST["description"])) {
+        $validateNameFieldLength = Feedback::validateFieldLength("Name", $_REQUEST["name"], CategLib::MAX_CATEGORY_NAME_LENGTH);
+        $validateDescriptionFieldLength = Feedback::validateFieldLength("Description", $_REQUEST["description"], CategLib::MAX_CATEGORY_DESCRIPTION_LENGTH);
+        if (! $validateNameFieldLength || ! $validateDescriptionFieldLength) {
+            $smarty->assign('mid', 'tiki-admin_categories.tpl');
+            $smarty->display("tiki.tpl");
+            die;
+        }
+    }
     if (! empty($_REQUEST["tplGroupContainer"]) && ! str_contains($_REQUEST["tplGroupPattern"], '--groupname--')) {
         Feedback::error(tra('A pattern that does not contain "--groupname--" is not allowed'));
     }
@@ -417,6 +426,8 @@ if (isset($_REQUEST['import']) && ! empty($_FILES['csvlist']['tmp_name']) && $ac
 $smarty->assign('categId', $_REQUEST["categId"]);
 $smarty->assign('categoryName', $info["name"]);
 $smarty->assign('description', $info["description"]);
+$smarty->assign('MAX_CATEGORY_NAME_LENGTH', CategLib::MAX_CATEGORY_NAME_LENGTH);
+$smarty->assign('MAX_CATEGORY_DESCRIPTION_LENGTH', CategLib::MAX_CATEGORY_DESCRIPTION_LENGTH);
 if (isset($info["tplGroupContainerId"])) {
     $smarty->assign('tplGroupContainerId', $info["tplGroupContainerId"]);
 }

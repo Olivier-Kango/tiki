@@ -104,7 +104,24 @@ class Feedback
         $smarty->display($errorPage);
         die;
     }
-
+    /**
+     * Checks if the number of characters allowed in a field has been exceeded.
+     * Displays an error if this is the case.
+     *
+     * @param string $field_name The name of the field to check.
+     * @param string $field_string The string value of the field.
+     * @param int $max_field_length The maximum allowed length for the field.
+     * @return bool Returns true if the field is valid, false otherwise.
+     */
+    public static function validateFieldLength(string $field_name, string $field_string, int $max_field_length): bool
+    {
+        if (mb_strlen($field_string) > $max_field_length) {
+            $errorMessage = tr("You have exceeded the number of characters allowed (%0 max) for the %1 field", $max_field_length, $field_name);
+            Feedback::error($errorMessage);
+            return false;
+        }
+        return true;
+    }
     /**
      * Add note feedback
      *

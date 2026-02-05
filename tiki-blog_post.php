@@ -92,6 +92,7 @@ if ($postId > 0) {
 
 $smarty->assign('blogId', $blogId);
 $smarty->assign('postId', $postId);
+$smarty->assign('MAX_BLOG_POST_TITLE_LENGTH', BlogLib::MAX_BLOG_POST_TITLE_LENGTH);
 
 //Use 12- or 24-hour clock for $publishDate time selector based on admin and user preferences
 $userprefslib = TikiLib::lib('userprefs');
@@ -231,6 +232,14 @@ if (isset($_POST['save']) && $prefs['feature_contribution'] == 'y' && $prefs['fe
 }
 
 if (isset($_POST['save']) && ! $contribution_needed && $access->checkCsrf()) {
+    if (isset($_POST["title"])) {
+        $validateTitleFieldLength = Feedback::validateFieldLength("Name", $_POST["title"], BlogLib::MAX_BLOG_POST_TITLE_LENGTH);
+        if (! $validateTitleFieldLength) {
+            $smarty->assign('mid', 'tiki-blog_post.tpl');
+            $smarty->display("tiki.tpl");
+            die;
+        }
+    }
     $smarty->assign('individual', 'n');
 
     // TODO ImageGalleryRemoval23.x replace with a file gallery version

@@ -75,6 +75,7 @@ class Services_Tracker_Controller
         }
 
         $trklib = TikiLib::lib('trk');
+        $smarty = TikiLib::lib('smarty');
         $definition = Tracker_Definition::get($trackerId);
 
         if (! $definition) {
@@ -98,6 +99,7 @@ class Services_Tracker_Controller
         if (empty($type)) {
             $type = 't';
         }
+        $smarty->assign('MAX_TRACKER_FIELD_NAME_LENGTH', TrackerLib::MAX_TRACKER_FIELD_NAME_LENGTH);
 
         if (! isset($types[$type])) {
             throw new Services_Exception(tr('Type does not exist'), 400);
@@ -106,6 +108,9 @@ class Services_Tracker_Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $type) {
             if (empty($name)) {
                 throw new Services_Exception_MissingValue('name');
+            }
+            if (! Feedback::validateFieldLength("Name", $name, TrackerLib::MAX_TRACKER_FIELD_NAME_LENGTH)) {
+                return Services_Utilities::refresh();
             }
 
             if ($definition->getFieldFromNameMaj($name)) {
@@ -324,7 +329,8 @@ class Services_Tracker_Controller
     public function action_edit_field($input)
     {
         global $prefs;
-
+        $trklib = TikiLib::lib('trk');
+        $smarty = TikiLib::lib('smarty');
         $trackerId = $input->trackerId->int();
         $option = $input['option'] ?? new JitFilter([]);
 
@@ -372,6 +378,9 @@ class Services_Tracker_Controller
 
         $name = $input->name->text();
         if (! empty($name)) {
+            if (! Feedback::validateFieldLength("Name", $name, TrackerLib::MAX_TRACKER_FIELD_NAME_LENGTH)) {
+                return Services_Utilities::refresh();
+            }
             $fields = $definition->getFields();
             foreach ($fields as $currentField) {
                 $nameExists = ($currentField['name'] === $name || strtoupper($currentField['name']) === strtoupper($name));
@@ -385,6 +394,7 @@ class Services_Tracker_Controller
                 throw new Services_Exception(tr('Tracker Field permanent name cannot contain more than %0 characters', Tracker_Item::PERM_NAME_MAX_ALLOWED_SIZE), 400);
             }
         }
+        $smarty->assign('MAX_TRACKER_FIELD_NAME_LENGTH', TrackerLib::MAX_TRACKER_FIELD_NAME_LENGTH);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($name)) {
@@ -401,7 +411,6 @@ class Services_Tracker_Controller
 
             $options = $this->utilities->buildOptions($option, $typeInfo);
 
-            $trklib = TikiLib::lib('trk');
             $handler = $trklib->get_field_handler($field);
             if (! $handler) {
                 throw new Services_Exception(tr('Field handler not found'), 400);
@@ -2130,6 +2139,8 @@ class Services_Tracker_Controller
     {
         // This variable indicates which accordion_group to activate in the Smarty .tpl file
         // when the user uses this method. By default, its value is set to 1.
+        $trklib = TikiLib::lib('trk');
+        $smarty = TikiLib::lib('smarty');
         $accordion_pos = $input->accordion_pos->int() ?? 1;
 
         $trackerId = $input->trackerId->int();
@@ -2150,6 +2161,7 @@ class Services_Tracker_Controller
 
         $cat_type = 'tracker';
         $cat_objid = $trackerId;
+        $smarty->assign('MAX_TRACKER_NAME_LENGTH', TrackerLib::MAX_TRACKER_NAME_LENGTH);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $confirm) {
             $name = $input->name->text();
@@ -2157,7 +2169,9 @@ class Services_Tracker_Controller
             if (! $name) {
                 throw new Services_Exception_MissingValue('name');
             }
-
+            if (! Feedback::validateFieldLength("Name", $name, TrackerLib::MAX_TRACKER_FIELD_NAME_LENGTH)) {
+                return Services_Utilities::refresh();
+            }
             if ($input->startDate->text()) {
                 $input->offsetSet('start', $this->readDate($input, 'start'));
             }
@@ -2198,7 +2212,6 @@ class Services_Tracker_Controller
         }
 
         include_once("categorize_list.php");
-        $trklib = TikiLib::lib('trk');
         $groupalertlib = TikiLib::lib('groupalert');
         $groupforAlert = $groupalertlib->GetGroup('tracker', 'trackerId');
 
