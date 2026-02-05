@@ -1282,8 +1282,7 @@ class FileGalLib extends TikiLib
     {
         global $tiki_p_admin_file_galleries, $prefs, $user;
         $userlib = TikiLib::lib('user');
-
-        $list = [];
+        $tempFiles = [];
         $temp = '/' . md5(random_bytes(10)) . '/';
         if (! mkdir(sys_get_temp_dir() . $temp)) {
             $temp = sys_get_temp_dir() . $temp;
@@ -1336,15 +1335,19 @@ class FileGalLib extends TikiLib
                 $filenames[$pathKey][] = $filename;
                 $tmp = $destDir . $filename;
                 if (! copy($file->getWrapper()->getReadableFile(), $tmp)) {
-                    $error = "Can not copy to $tmp";
+                    $error = tr('Can not copy to %0', $tmp);
                     return false;
                 }
-                $list[] = $tmp;
+                $tempFiles[] = [
+                    'path' => $tmp,
+                    'filename' => $filename,
+                    'lastModif' => $file->lastModif,
+                ];
                 $info = $file->getParams();
             }
         }
-        if (empty($list)) {
-            $error = "No permission";
+        if (empty($tempFiles)) {
+            $error = tra('You do not have permission to download any of the selected files.');
             return null;
         }
         $info['filename'] = "$zipName.zip";
@@ -1354,7 +1357,16 @@ class FileGalLib extends TikiLib
             $error = $archive->errorInfo(true);
             return false;
         }
-        if (! ($v_list = $archive->create($list, PCLZIP_OPT_REMOVE_PATH, $temp))) {
+        // Use file descriptors with PCLZIP_ATT_FILE_MTIME to preserve original file timestamps
+        $list = [];
+        foreach ($tempFiles as $fileData) {
+            $list[] = [
+                PCLZIP_ATT_FILE_NAME => $fileData['path'],
+                PCLZIP_ATT_FILE_NEW_FULL_NAME => $fileData['filename'],
+                PCLZIP_ATT_FILE_MTIME => $fileData['lastModif'],
+            ];
+        }
+        if (! ($v_list = $archive->create($list))) {
             $error = $archive->errorInfo(true);
             return false;
         }
@@ -1362,8 +1374,9 @@ class FileGalLib extends TikiLib
         $info['path'] = '';
         $info['filetype'] = 'application/x-zip-compressed';
         $info['filesize'] = strlen($info['data']);
-
-        // Clean up temp directory using Symfony Filesystem
+        foreach ($tempFiles as $fileData) {
+            unlink($fileData['path']);
+        }
         unlink($zip);
         $fs = new Filesystem();
         $fs->remove($temp);
