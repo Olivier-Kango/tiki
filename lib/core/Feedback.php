@@ -27,12 +27,16 @@ if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
 class Feedback
 {
     /**
-     * Add error feedback
+     * Add error feedback.
      *
-     * This is a specific application of the add function below for errors.
+     * This method stores the error message in the session-based feedback stack.
+     * As a result, the feedback will persist across HTTP redirects and will be
+     * displayed on the next page load via the {feedback} Smarty function.
      *
-     * @param $feedback
-     * @param bool $sendHeaders
+     * This is a specific application of the add() method for errors.
+     *
+     * @param mixed $feedback Error message or feedback array
+     * @param bool $sendHeaders Whether to immediately send feedback headers (AJAX use)
      * @throws Exception
      */
     public static function error($feedback, $sendHeaders = false)
