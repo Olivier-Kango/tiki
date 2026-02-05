@@ -542,4 +542,19 @@ if (! $unifiedsearch->rebuildInProgress()) {
     $smarty->assign('searchIndex', $searchIndex);
     $smarty->assign('lastLogItems', $lastLogItems);
 }
+
+$htacxGlobal = null;
+if (TikiLib::lib('tiki')->get_preference('security_warn_htaccess_mismatch', 'y') === 'y') {
+    $htacx = (new \Tiki\Security\HtaccessChecker())->run(
+        TIKI_PATH,
+        TIKI_PATH . '/_htaccess',
+        ['server_software' => $_SERVER['SERVER_SOFTWARE'] ?? '']
+    );
+    if ($htacx && ($htacx['status'] ?? '') === \Tiki\Security\HtaccessChecker::STATUS_MISMATCH) {
+        $htacxGlobal = $htacx;
+    }
+}
+$smarty->assign('htaccess_global_warning', $htacxGlobal);
+$smarty->assign('htaccessDocsUrl', 'https://doc.tiki.org/htaccess');
+
 $smarty->display('tiki.tpl');
