@@ -218,6 +218,8 @@ class Services_Comment_Controller
                     $version
                 );
                 if ($threadId) {
+                    $watch_event = null;
+
                     switch ($type) {
                         case 'wiki page':
                             $watch_event = 'wiki_comment_changes';
@@ -257,8 +259,10 @@ class Services_Comment_Controller
                             $notification_url = '';
                             break;
                     }
-                    Feedback::showWatchers($watch_event, $objectId, 'thread_comment_replied');
-                    Feedback::sendHeaders();
+                    if ($watch_event) {
+                        Feedback::showWatchers($watch_event, $objectId, 'thread_comment_replied');
+                        Feedback::sendHeaders();
+                    }
 
                     // Set watch if requested
                     if ($prefs['feature_user_watches'] == 'y' && $watch == 'y') {

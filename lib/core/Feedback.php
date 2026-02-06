@@ -462,7 +462,7 @@ class Feedback
      *
      * @return void
      */
-    public static function showWatchers($watch_event, $object, $extra_event = null)
+    public static function showWatchers(string $watch_event, $object, $extra_event = null)
     {
         global $prefs;
         if ($prefs['feature_user_watches'] === 'y') {

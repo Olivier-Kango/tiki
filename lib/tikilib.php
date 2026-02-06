@@ -1120,7 +1120,7 @@ class TikiLib extends TikiDb_Bridge
      * @param null $info
      * @return array
      */
-    public function get_event_watches($event, $object, $info = null)
+    public function get_event_watches(string $event, $object, $info = null)
     {
         global $prefs;
         $ret = [];
