@@ -218,7 +218,7 @@ phplint:
   # No point in using cache, on fast hardware it's almost as fast to compute as it is to verify the cache - benoitg - 2026-01-26
   parallel:
     matrix:
-      - PHP_VERSION: ['8.1', '8.5'] #Checking more than max and min PHP versions just wastes CI minutes
+      - PHP_VERSION: ['8.5', '8.1'] #Checking more than max and min PHP versions just wastes CI minutes
 
 smarty-lint:
   stage: code-quality
@@ -571,18 +571,16 @@ unit-tests:
   allow_failure: false
   parallel:
     matrix:
-      - PHP_VERSION: "8.1"
-        DB_IMAGE: ${MYSQL_IMAGE_OLDEST_SUPPORTED}
-      - PHP_VERSION: "8.2"
+      - PHP_VERSION: "8.5"
+        DB_IMAGE: ${MARIADB_IMAGE_NEWEST_SUPPORTED}
+      - PHP_VERSION: "8.4"
         DB_IMAGE: ${MYSQL_IMAGE_NEWEST_SUPPORTED}
-      - PHP_VERSION: "8.1"
-        DB_IMAGE: ${MARIADB_IMAGE_OLDEST_SUPPORTED}
       - PHP_VERSION: "8.3"
         DB_IMAGE: ${MARIADB_IMAGE_COMMON_LTS}
-      - PHP_VERSION: "8.4"
-        DB_IMAGE: ${MARIADB_IMAGE_NEWEST_SUPPORTED}
-      - PHP_VERSION: "8.5"
-        DB_IMAGE: ${MYSQL_IMAGE_NEWEST_SUPPORTED}
+      - PHP_VERSION: "8.2"
+        DB_IMAGE: ${MYSQL_IMAGE_OLDEST_SUPPORTED}
+      - PHP_VERSION: "8.1"
+        DB_IMAGE: ${MARIADB_IMAGE_OLDEST_SUPPORTED}
 
 unit-tests-node:
   stage: unit-tests
