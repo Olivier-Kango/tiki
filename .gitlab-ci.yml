@@ -101,12 +101,15 @@ node_modules:
 node_build:
   stage: build
   needs:
-    - node_modules  #This is only because we still have some scss files installed from composer - 2023-11-17
+    - node_modules  
+    #This is only because we still have some scss files installed from composer - 2023-11-17
     - composer
   image:
     name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
   script:
-    - npm run build
+    - free -h
+    - NODE_OPTIONS="--max-old-space-size=4096" npm run build
+    - free -h
   artifacts:
     expire_in: 2 days
     paths:
