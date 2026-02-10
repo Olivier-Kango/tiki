@@ -572,10 +572,6 @@ class XMPPLib extends TikiLib
 
                 if (in_array($requestedRoom, $allowedFullJids, true)) {
                     $joinRooms[] = $requestedRoom;
-                } else {
-                    if (! empty($prefs['xmpp_conversejs_debug']) && $prefs['xmpp_conversejs_debug'] === 'y') {
-                        error_log("[XMPP] User {$user} requested {$requestedRoom} but not authorized");
-                    }
                 }
             }
 
@@ -801,7 +797,6 @@ class XMPPLib extends TikiLib
 
         global $prefs;
         if (empty($prefs['xmpp_admin_jid']) || empty($prefs['xmpp_admin_password'])) {
-            error_log('[XMPP] Missing xmpp_admin_jid/password in prefs');
             return null;
         }
 
@@ -834,14 +829,13 @@ class XMPPLib extends TikiLib
                     try {
                         $this->adminClient->disconnect();
                     } catch (\Throwable $e) {
-                        error_log('[XMPP] Admin disconnect error: ' . $e->getMessage());
+                        // Handle disconnect error silently
                     }
                 }
             });
 
             return $this->adminClient;
         } catch (\Throwable $e) {
-            error_log('[XMPP] Admin connect failed: ' . $e->getMessage());
             return null;
         }
     }
@@ -862,12 +856,10 @@ class XMPPLib extends TikiLib
                 require_once __DIR__ . '/MucConfigure.php';
                 $cfg = new \Tiki\Xmpp\MucConfigure($roomJid);
                 $client->send($cfg);
-                error_log("[XMPP] MUC configured for {$roomJid}");
             }
 
             return true;
         } catch (\Throwable $e) {
-            error_log('[XMPP] ensureRoomExists error: ' . $e->getMessage());
             return false;
         }
     }
@@ -885,10 +877,8 @@ class XMPPLib extends TikiLib
             $iq = new \Tiki\Xmpp\MucAdmin($roomJid, $userJid, $affiliation);
             $client->send($iq);
 
-            error_log("[XMPP] Set affiliation {$affiliation} for {$userJid} in {$roomJid}");
             return true;
         } catch (\Throwable $e) {
-            error_log('[XMPP] setUserAffiliation error: ' . $e->getMessage());
             return false;
         }
     }

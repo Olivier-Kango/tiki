@@ -2668,7 +2668,7 @@ class UsersLib extends TikiLib
                 $xmpplib->invalidateUserCache($user);
             }
         } catch (\Throwable $e) {
-            error_log('[XMPP] Cache invalidation error: ' . $e->getMessage());
+            // Handle cache invalidation error silently
         }
 
         return $result;
@@ -6969,7 +6969,7 @@ class UsersLib extends TikiLib
                 $xmpplib->markUserXmppSyncNeeded($user);
             }
         } catch (\Throwable $e) {
-            error_log('[XMPP] sync error: ' . $e->getMessage());
+            // Handle sync error silently
         }
     }
 
