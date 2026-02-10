@@ -647,7 +647,7 @@ class PreferencesLib
 
     public function applyChanges($handled, $data, $limitation = null)
     {
-        global $user_overrider_prefs;
+        global $user_overrider_prefs, $systemConfiguration;
         $tikilib = TikiLib::lib('tiki');
 
         if (is_array($limitation)) {
@@ -658,6 +658,9 @@ class PreferencesLib
 
         $changes = [];
         foreach ($handled as $pref) {
+            if (isset($systemConfiguration->preference->$pref)) {
+                continue;
+            }
             if (in_array($pref, $resets)) {
                 $tikilib->delete_preference($pref);
                 $changes[$pref] = ['type' => 'reset'];
