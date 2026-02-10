@@ -187,7 +187,7 @@
         "chrome-php/chrome": "~1.14",
         "codercat/jwk-to-pem": "~1.1",
         "composer/semver": "~3.4",
-        "cweagans/composer-patches": "~1.7",
+        "cweagans/composer-patches": "~2.0",
         "dragonmantank/cron-expression": "~3.5",
         "ecphp/cas-lib": "~3.0",
         "elliotjreed/disposable-emails-filter": "~4.0",
@@ -324,7 +324,9 @@
         "umakantp/smartylint": "0.1.4-p1"
     },
     "extra": {
-        "patches-file": "../installer/composer-patches/composer-patches.json",
+        "composer-patches": {
+            "patches-file": "../installer/composer-patches/composer-patches.json"
+        },
         "stability-ignore": {
             "_comment": [
                 "Packages with non-standard version constraints that require explanation.",
