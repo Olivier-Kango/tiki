@@ -244,7 +244,7 @@ class XMPPLib extends TikiLib
                 $this->ensureRoomExists($room);
                 $this->setUserAffiliation($room, $jid, 'member');
             } catch (\Throwable $e) {
-                error_log("[XMPP] Sync error {$u} -> {$r}: " . $e->getMessage());
+                // Handle sync error silently
             }
         }
 
@@ -253,7 +253,7 @@ class XMPPLib extends TikiLib
                 $room = $this->buildRoomJid($r);
                 $this->setUserAffiliation($room, $jid, 'none'); // remove membership and force exit
             } catch (\Throwable $e) {
-                error_log("[XMPP] Unsync error {$u} -> {$r}: " . $e->getMessage());
+                // Handle sync error silently
             }
         }
 

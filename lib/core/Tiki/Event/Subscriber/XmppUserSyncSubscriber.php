@@ -74,7 +74,7 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
                 $xmpplib->markUserXmppSyncNeeded($user);
             }
         } catch (\Throwable $e) {
-            error_log('[XMPP] Sync subscriber error for ' . $user . ': ' . $e->getMessage());
+            // Handle sync error silently
         }
 
         unset($running[$user]);
