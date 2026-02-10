@@ -328,7 +328,7 @@ class RSSLib extends TikiDb_Bridge
 
         $author = [];
 
-        if ($userlib->user_exists($login) && $tikilib->get_user_preference($login, 'user_information', 'private') == 'public') {
+        if ($userlib->user_exists($login)) {
             // if realName is not set use $login
             $author['name'] = $tikilib->get_user_preference($login, 'realName', $login);
 
