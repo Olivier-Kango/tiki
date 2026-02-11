@@ -30,6 +30,7 @@ require_once __DIR__ . '/Tiki_Hm_User_Config.php';
 require_once __DIR__ . '/Tiki_Hm_Sieve_Custom_Client.php';
 require_once __DIR__ . '/Tiki_Hm_Sieve_Client_Factory.php';
 require_once __DIR__ . '/Tiki_Hm_Functions.php';
+require_once __DIR__ . '/Tiki_Hm_Dispatch.php';
 
 $environment = Hm_Environment::getInstance();
 $environment->load();
