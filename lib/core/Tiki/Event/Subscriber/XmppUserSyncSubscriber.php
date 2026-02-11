@@ -41,11 +41,20 @@ class XmppUserSyncSubscriber implements EventSubscriberInterface
         }
 
         if (is_array($data)) {
-            return (string) ($data['user'] ?? $data['username'] ?? $data['object'] ?? '');
+            $value = $data['user'] ?? $data['username'] ?? $data['object'] ?? null;
+            if (is_string($value)) {
+                return $value;
+            }
+            if (is_object($value) && method_exists($value, 'getUsername')) {
+                $username = $value->getUsername();
+                return is_string($username) ? $username : '';
+            }
+            return '';
         }
 
         if (is_object($data) && method_exists($data, 'getUsername')) {
-            return (string) $data->getUsername();
+            $username = $data->getUsername();
+            return is_string($username) ? $username : '';
         }
 
         return '';
