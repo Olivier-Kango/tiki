@@ -397,7 +397,7 @@ class TikiImporterWikiMediawikiTest extends TikiImporter_TestCase
             ->onlyMethods(['extractRevision'])
             ->getMock();
         $obj->revisionsNumber = 0;
-        $obj->expects($this->exactly(10))->method('extractRevision')->willReturnOnConsecutiveCalls([], [], $this->throwException(new ImporterParserException()));
+        $obj->expects($this->exactly(10))->method('extractRevision')->willReturnOnConsecutiveCalls([], [], $this->throwException(new ImporterParserException()), [], [], [], [], [], [], []);
 
         $dom = new DOMDocument();
         $dom->load(__DIR__ . '/fixtures/mediawiki_page.xml');
