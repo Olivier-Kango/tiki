@@ -32,7 +32,6 @@ try {
     $nextState = '';
     http_response_code(204);
 } catch (\Throwable $e) {
-    error_log('[XMPP] Deferred sync error for ' . $user . ': ' . $e->getMessage());
     // Allow retry on next call
     $nextState = 'y';
     http_response_code(500);
