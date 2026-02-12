@@ -33,20 +33,20 @@
                 <input class="form-control" type="text" name="permName" id="permName" value="{$info.permName|escape}">
                 {tr}Required for Advanced Shopping Cart and some other tracker features, do not change this unless you are sure.{/tr}
             </div>
-            {jq}$("#name").on("change", function() {
-    if ($("#name").val()) {
-        const prefix = $("#fieldPrefix")
-        if (! prefix.val()) {
-            prefix.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
-            prefix.next('el-input').attr("value", prefix.val());
-        }
-        const permName = $("#permName")
-        if (! permName.val()) {
-            permName.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
-            permName.next('el-input').attr("value", permName.val());
-        }
-    }
-});{/jq}
+            {jq}
+                $("#name").on("change", function() {
+                    if ($("#name").val()) {
+                        const prefix = $("#fieldPrefix")
+                        if (! prefix.val()) {
+                            prefix.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+                        }
+                        const permName = $("#permName")
+                        if (! permName.val()) {
+                            permName.val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+                        }
+                    }
+                });
+            {/jq}
         {/accordion_group}
         {accordion_group title="{tr}Features{/tr}"}
             <div class="form-check">
