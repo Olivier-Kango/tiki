@@ -23,13 +23,11 @@ function validator_username($input, $parameter = '', $message = '')
         if (preg_match('/\s/', $input)) {
             return tra("Username cannot contain spaces. Use a dot (.), hyphens (-) or underscore (_) instead.");
         }
-        // Check for other invalid characters
         if (! preg_match($userlib::USERNAME_MANDATORY_VALIDATION_PATTERN, $input)) {
             return tra("Username can only contain letters, numbers, dots (.), hyphens (-), underscores (_), and apostrophes (')");
         }
-        // Check against custom username pattern if configured
         if (! empty($prefs['username_pattern']) && ! preg_match($prefs['username_pattern'], $input)) {
-            return tra("Username can only contain letters, numbers, dots (.), hyphens (-), underscores (_), and apostrophes (')");
+            return tra("Invalid character combination for username");
         }
         if (strtolower($input) == 'anonymous' || strtolower($input) == 'registered') {
             return tra("Invalid username");
