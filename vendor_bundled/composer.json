@@ -229,7 +229,7 @@
         "npm-asset/boomerangjs": "~1.687",
         "onelogin/php-saml": "~4.2",
         "openannotation/annotator": ">=1.2.10",
-        "paragonie/sodium_compat": "~2.1",
+        "paragonie/sodium_compat": "~2.5",
         "pclzip/pclzip": "~2.8",
         "pear/net_socket": "~1.2",
         "pear/pear": "~1.10",
@@ -252,14 +252,14 @@
         "steverhoades/oauth2-openid-connect-client": "~2.0",
         "studio-42/elfinder": "~2.1",
         "symfony/amazon-mailer": "~6.4",
-        "symfony/config": "~6.4.3",
-        "symfony/console": "~6.4.3",
-        "symfony/dependency-injection": "~6.4.3",
+        "symfony/config": "~6.4",
+        "symfony/console": "~6.4",
+        "symfony/dependency-injection": "~6.4",
         "symfony/finder": "~6.4",
         "symfony/mailchimp-mailer": "~6.4",
-        "symfony/mailer": "~6.4.21",
+        "symfony/mailer": "~6.4",
         "symfony/mailgun-mailer": "~6.4",
-        "symfony/mime": "~6.4.3",
+        "symfony/mime": "~6.4",
         "symfony/polyfill-ctype": "~1.8",
         "symfony/polyfill-iconv": "~1.27",
         "symfony/polyfill-intl-icu": "~1.27",
@@ -383,6 +383,16 @@
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore-abandoned": {
+                "candy-chat/xmpp-prebind-php": "Work scheduled for removal next month.",
+                "laminas/laminas-loader": "Required transitively by laminas/laminas-http but will be solved in 3.0 https://github.com/laminas/laminas-http/pull/110",
+                "laminas/laminas-text":  "Reported as an abandoned package, but it is still required indirectly by laminas/laminas-captcha. See https://github.com/laminas/laminas-captcha/issues/41 to track progress on removing this dependency.",
+                "pear/structures_graph": " Reported as an abandoned package, but it is still required indirectly by pear/pear",
+                "pear/xml_parser": "This package is abandoned and no longer maintained. No replacement package was suggested.",
+                "pear/xml_util": " Reported as an abandoned package, but it is still required indirectly by pear/pear"
+            }
         }
     },
     "autoload": {
