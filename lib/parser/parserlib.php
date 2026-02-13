@@ -1211,21 +1211,13 @@ class ParserLib extends TikiDb_Bridge
 
                 // Preserve null values (parameters not provided by user)
                 if ($argValue !== null) {
-                    if (is_array($argValue)) {
-                        foreach ($argValue as &$value) {
-                            $value = TikiLib::htmldecode($value);
-                        }
-                    } else {
-                        $argValue = TikiLib::htmldecode($argValue);
-                    }
+                    $argValue = TikiLib::htmldecode($argValue);
                 }
 
-                if (isset($paramInfo['separator']) && ! is_array($argValue)) {
+                if (isset($paramInfo['separator'])) {
                     if ($argValue !== null) {
-                        $vals = $tikilib->array_apply_filter(
-                            $tikilib->multi_explode($paramInfo['separator'], $argValue),
-                            $filter
-                        );
+                        $vals = [];
+                        $vals = $tikilib->array_apply_filter($tikilib->multi_explode($paramInfo['separator'], $argValue), $filter);
                         $argValue = array_values($vals);
                     }
                     // If $argValue is null, leave it as null (don't process separator)
