@@ -20,7 +20,7 @@ function validator_username($input, $parameter = '', $message = '')
             return tra("User already exists");
         }
         if (! preg_match($userlib::USERNAME_MANDATORY_VALIDATION_PATTERN, $input)) {
-            return tra("Username cannot contain spaces. Use a dot (.), hyphens (-) or underscore (_) instead.");
+            return tra("Username cannot contain any spaces");
         }
         if (! empty($prefs['username_pattern']) && ! preg_match($prefs['username_pattern'], $input)) {
             return tra("Username does not match the required format.");
