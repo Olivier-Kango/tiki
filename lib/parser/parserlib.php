@@ -149,22 +149,12 @@ class ParserLib extends TikiDb_Bridge
         $params = WikiPlugin_Helper::applyParamsDefaults($params, $info);
 
         $missingRequired = [];
-        $tikilib = TikiLib::lib('tiki');
-
         if (isset($info['params'])) {
             foreach ($info['params'] as $key => $param) {
                 if (isset($param['required']) && $param['required'] === true) {
                     // Parameter is required and has no default - check if user provided it
                     if (! isset($param['default']) && $params[$key] === null) {
                         $missingRequired[] = $key;
-                    }
-                }
-
-                if (isset($param['separator']) && isset($params[$key])) {
-                    if (is_string($params[$key]) && $params[$key] !== null) {
-                        $params[$key] = $tikilib->multi_explode($param['separator'], $params[$key]);
-                    } elseif (! is_array($params[$key]) && $params[$key] !== null) {
-                        $params[$key] = [$params[$key]];
                     }
                 }
             }
