@@ -23,7 +23,7 @@ function validator_username($input, $parameter = '', $message = '')
             return tra("Username cannot contain any spaces");
         }
         if (! empty($prefs['username_pattern']) && ! preg_match($prefs['username_pattern'], $input)) {
-            return tra("Username does not match the required format.");
+            return tr("Username must match the configured format: %0", $prefs['username_pattern']);
         }
         if (strtolower($input) == 'anonymous' || strtolower($input) == 'registered') {
             return tra("Invalid username");
