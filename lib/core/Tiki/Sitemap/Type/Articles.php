@@ -17,18 +17,60 @@ class Articles extends AbstractType
     /**
      * Generate Sitemap
      */
-    public function generate()
+    public function generate(bool $standalone = false, ?array $context = null)
     {
+        global $prefs;
+
         if (! $this->checkFeatureAndPermissions('feature_articles')) {
             return;
         }
 
         $articleLibrary = TikiLib::lib('art');
-        $listPages = $articleLibrary->list_articles(0, -1, 'publishDate_desc', '', 0, 0, false, '', '', 'y', '', '', '', '', '', '', '', false, 'y');
-        $listPages['data'] = array_filter($listPages['data'], function ($article) {
-            return ($article['disp_article'] === 'y');
-        });
 
-        $this->addEntriesToSitemap($listPages, '/tiki-read_article.php?articleId=%s', 'articleId', 'article', 'articles.xml');
+        $ranges = $this->getTypeDateRanges('Articles', $prefs['sitemap_split']);
+        foreach ($ranges as $range) {
+            // on auto mode only gen what requested for
+            if ($context !== null && (int) $context['year'] !== (int) $range['year']) {
+                continue;
+            }
+
+            [$min, $max] = $this->getRangeDateFilters($range);
+            $listPages = $articleLibrary->list_articles(
+                0,
+                -1,
+                'publishDate_desc',
+                '',
+                $min,
+                $max,
+                false,
+                '',
+                '',
+                'y',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                false,
+                'y'
+            );
+
+            $listPages['data'] = array_filter($listPages['data'], function ($article) {
+                return ($article['disp_article'] === 'y');
+            });
+
+            // Build filename based on range
+            $fileName = $range['prefix'] . '.xml';
+            if (isset($range['year'])) {
+                $fileName = $range['prefix'] . '-' . $range['year'] . '.xml';
+                if (isset($range['month'])) {
+                    $fileName = $range['prefix'] . '-' . $range['year'] . '-' . $range['month'] . '.xml';
+                }
+            }
+
+            $this->addEntriesToSitemap($listPages, '/tiki-read_article.php?articleId=%s', 'articleId', 'article', $fileName);
+        }
     }
 }

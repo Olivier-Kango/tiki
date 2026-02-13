@@ -12,12 +12,12 @@ use Tiki\Sitemap\AbstractType;
 /**
  * Generate Sitemap for Pages
  */
-class Page extends AbstractType
+class Pages extends AbstractType
 {
     /**
      * Generate Sitemap
      */
-    public function generate()
+    public function generate(bool $standalone = false, ?array $context = null)
     {
         global $tikilib, $prefs;
         $wikilib = TikiLib::lib('wiki');
@@ -40,6 +40,6 @@ class Page extends AbstractType
             $priority[$key] = '0.8';
         }
         $priority[$prefs['wikiHomePage']] = '1.0';
-        $this->addEntriesToSitemap($listPages, '/tiki-index.php?page=%s', 'pageSlug', null, 'sitemap.xml', '', 'lastModif', $priority);
+        $this->addEntriesToSitemap($listPages, '/tiki-index.php?page=%s', 'pageSlug', null, 'pages.xml', '', 'lastModif', $priority);
     }
 }

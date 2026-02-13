@@ -7,6 +7,7 @@
 namespace Tiki\Sitemap;
 
 use Perms;
+use TikiLib;
 
 /**
  * Abstract class for Sitemap Entries generation
@@ -16,15 +17,15 @@ use Perms;
 abstract class AbstractType
 {
     /**
-     * @var \Melbahja\Seo\Sitemap
+     * @var \Melbahja\Seo\Interfaces\SitemapBuilderInterface|\Melbahja\Seo\Sitemap
      */
     protected $sitemap;
 
     /**
      * AbstractType constructor.
-     * @param \Melbahja\Seo\Sitemap $sitemap
+     * @param \Melbahja\Seo\Interfaces\SitemapBuilderInterface|\Melbahja\Seo\Sitemap $sitemap
      */
-    public function __construct($sitemap)
+    public function __construct(\Melbahja\Seo\Interfaces\SitemapBuilderInterface|\Melbahja\Seo\Sitemap $sitemap)
     {
         $this->sitemap = $sitemap;
     }
@@ -32,7 +33,7 @@ abstract class AbstractType
     /**
      * Generate Sitemap: Function to be override in child classes where the entries for the sitemap are generated
      */
-    abstract public function generate();
+    abstract public function generate(bool $lazy = false, ?array $context = null);
 
     /**
      * Check if the feature is available and if a given permission is granted
@@ -92,8 +93,31 @@ abstract class AbstractType
             return;
         }
 
+        //
+        // If the sitemap_method preference is set to 'auto', we don’t generate all sitemap files.
+        // Instead we expect \Melbahja\Seo\Interfaces\SitemapBuilderInterface, which can be a sitemap index builder or a links builder.
+        // This allows on the fly lazy sitemap rendering, generating only the requested sitemap file.
+        //
+        if (! ($this->sitemap instanceof \Melbahja\Seo\Sitemap)) {
+            foreach ($entries['data'] as $entry) {
+                $url = sprintf($urlTemplate, urlencode($entry[$idField]));
+                if (function_exists('filter_out_sefurl')) {
+                    $url = filter_out_sefurl($url, $entryType, ($entryType[$titleField] ?? ''));
+                }
+                if (is_array($priority) && $priority[$entry[$idField]] !== null) {
+                    $priorities = $priority[$entry[$idField]];
+                } else {
+                    $priorities = '0.6';
+                }
 
-        $this->sitemap->links(['name' => $sitemapName], function ($map) use (
+                $this->sitemap->loc($url)->priority($priorities)->changeFreq($changeFrequency)->lastMod(date('Y/m/d H:i:s', $entry[$updateField]) ?? time());
+            }
+
+            return;
+        }
+
+
+        $this->sitemap->links(['name' => 'sitemap-' . $sitemapName], function ($map) use (
             $entries,
             $urlTemplate,
             $idField,
@@ -114,8 +138,222 @@ abstract class AbstractType
                 } else {
                     $priorities = '0.6';
                 }
-                $map->loc($url)->priority($priorities)->freq($changeFrequency)->lastMod(date('Y/m/d H:i:s', $entry[$updateField]) ?? time());
+                $map->loc($url)->priority($priorities)->changeFreq($changeFrequency)->lastMod(date('Y/m/d H:i:s', $entry[$updateField]) ?? time());
             }
         });
+    }
+
+    /**
+     * Get distinct sitemap ranges for a content type from database
+     */
+    protected function getTypeDateRanges(string $type, string $split): array
+    {
+        $tikilib = TikiLib::lib('tiki');
+        $ranges = [];
+
+        switch ($type) {
+            case 'Articles':
+                if ($split === 'year') {
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(publishDate)) as year,
+                        publishDate as lastMod
+                        FROM tiki_articles
+                        WHERE publishDate IS NOT NULL AND publishDate > 0
+                        ORDER BY year DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year']) {
+                            $ranges[] = [
+                                'prefix'  => 'articles',
+                                'year'    => $row['year'],
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } elseif ($split === 'year_month') {
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(publishDate)) as year,
+                        MONTH(FROM_UNIXTIME(publishDate)) as month,
+                        publishDate as lastMod
+                        FROM tiki_articles
+                        WHERE publishDate IS NOT NULL AND publishDate > 0
+                        ORDER BY year DESC, month DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year'] && $row['month']) {
+                            $ranges[] = [
+                                'prefix'  => 'articles',
+                                'year'    => $row['year'],
+                                'month'   => str_pad($row['month'], 2, '0', STR_PAD_LEFT),
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } else {
+                    $ranges[] = ['prefix' => 'articles'];
+                }
+
+                break;
+
+            case 'Blog':
+                // Combine blogs and posts dates
+                if ($split === 'year') {
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(created)) as year,
+                        created as lastMod
+                        FROM tiki_blog_posts
+                        WHERE created IS NOT NULL
+                        ORDER BY year DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year']) {
+                            $ranges[] = [
+                                'prefix'  => 'blogposts',
+                                'year'    => $row['year'],
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } elseif ($split === 'year_month') {
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(created)) as year,
+                        MONTH(FROM_UNIXTIME(created)) as month,
+                        created as lastMod
+                        FROM tiki_blog_posts
+                        WHERE created IS NOT NULL
+                        ORDER BY year DESC, month DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year'] && $row['month']) {
+                            $ranges[] = [
+                                'prefix'  => 'blogposts',
+                                'year'    => $row['year'],
+                                'month'   => str_pad($row['month'], 2, '0', STR_PAD_LEFT),
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } else {
+                    $ranges[] = ['prefix' => 'blogposts'];
+                }
+
+                break;
+
+            case 'Pages':
+                if ($split === 'year') {
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(created)) as year,
+                        created as lastMod
+                        FROM tiki_pages
+                        WHERE created IS NOT NULL AND created > 0
+                        ORDER BY year DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year']) {
+                            $ranges[] = [
+                                'prefix'  => 'pages',
+                                'year'    => $row['year'],
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } elseif ($split === 'year_month') { // year_month
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(created)) as year,
+                        MONTH(FROM_UNIXTIME(created)) as month,
+                        created as lastMod
+                        FROM tiki_pages
+                        WHERE created IS NOT NULL AND created > 0
+                        ORDER BY year DESC, month DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year'] && $row['month']) {
+                            $ranges[] = [
+                                'prefix'  => 'pages',
+                                'year'    => $row['year'],
+                                'month'   => str_pad($row['month'], 2, '0', STR_PAD_LEFT),
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } else {
+                    $ranges[] = ['prefix' => 'pages'];
+                }
+
+                break;
+
+            case 'Forums':
+                if ($split === 'year') {
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(created)) as year,
+                        created as lastMod
+                        FROM tiki_forums
+                        WHERE created IS NOT NULL AND created > 0
+                        ORDER BY year DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year']) {
+                            $ranges[] = [
+                                'prefix'  => 'forums',
+                                'year'    => $row['year'],
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } elseif ($split === 'year_month') { // year_month
+                    $result = $tikilib->fetchAll("SELECT DISTINCT
+                        YEAR(FROM_UNIXTIME(created)) as year,
+                        MONTH(FROM_UNIXTIME(created)) as month,
+                        created as lastMod
+                        FROM tiki_forums
+                        WHERE created IS NOT NULL AND created > 0
+                        ORDER BY year DESC, month DESC");
+
+                    foreach ($result as $row) {
+                        if ($row['year'] && $row['month']) {
+                            $ranges[] = [
+                                'prefix'  => 'forums',
+                                'year'    => $row['year'],
+                                'month'   => str_pad($row['month'], 2, '0', STR_PAD_LEFT),
+                                'lastMod' => $row['lastMod']
+                            ];
+                        }
+                    }
+                } else {
+                    $ranges[] = ['prefix' => 'forums'];
+                }
+                break;
+        }
+
+        return $ranges;
+    }
+
+    /**
+     * resolve date range for filtering content based on sitemap split
+     *
+     * @param array $range Range data from getTypeDateRanges
+     * @return array [min, max] for use in list_articles date filters
+     */
+    protected function getRangeDateFilters(array $range): array
+    {
+        // no split case
+        if (empty($range['year'])) {
+            return [0, 0];
+        }
+
+        $year = (int) $range['year'];
+        $month = isset($range['month']) ? (int) $range['month'] : null;
+
+        // year-month split
+        if ($month !== null) {
+            $minDate = mktime(0, 0, 0, $month, 1, $year);
+            $maxDate = mktime(23, 59, 59, $month, cal_days_in_month(CAL_GREGORIAN, $month, $year), $year);
+            return [$minDate, $maxDate];
+        }
+
+        // year split
+        $minDate = mktime(0, 0, 0, 1, 1, $year);
+        $maxDate = mktime(23, 59, 59, 12, 31, $year);
+        return [$minDate, $maxDate];
     }
 }
