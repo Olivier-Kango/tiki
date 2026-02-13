@@ -19,12 +19,8 @@ function validator_username($input, $parameter = '', $message = '')
         if ($userlib->user_exists($input)) {
             return tra("User already exists");
         }
-        // Check explicitly for any whitespace first - most common user mistake
-        if (preg_match('/\s/', $input)) {
-            return tra("Username cannot contain spaces. Use a dot (.), hyphens (-) or underscore (_) instead.");
-        }
         if (! preg_match($userlib::USERNAME_MANDATORY_VALIDATION_PATTERN, $input)) {
-            return tra("Username can only contain letters, numbers, dots (.), hyphens (-), underscores (_), and apostrophes (')");
+            return tra("Username cannot contain spaces. Use a dot (.), hyphens (-) or underscore (_) instead.");
         }
         if (! empty($prefs['username_pattern']) && ! preg_match($prefs['username_pattern'], $input)) {
             return tra("Invalid character combination for username");
