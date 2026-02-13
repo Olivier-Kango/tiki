@@ -3370,6 +3370,161 @@ function check_db_mismatches()
     );
 }
 
+function getDbKeyDefinitions($tableName)
+{
+    $query = <<<SQL
+    SELECT
+        INDEX_NAME,
+        TABLE_NAME,
+        GROUP_CONCAT(COLUMN_NAME ORDER BY SEQ_IN_INDEX) AS INDEX_COLUMNS,
+    CASE
+        WHEN NON_UNIQUE = 0 AND INDEX_NAME = 'PRIMARY'
+            THEN 'PRIMARY'
+        WHEN NON_UNIQUE = 0
+            THEN 'UNIQUE'
+        ELSE 'INDEX'
+    END AS INDEX_TYPE
+    FROM information_schema.statistics
+    WHERE TABLE_SCHEMA = database() AND TABLE_NAME = "$tableName"
+    GROUP BY INDEX_NAME, NON_UNIQUE;
+    SQL;
+    return query($query);
+}
+
+function cleanKeyDefinitionMatch($match, $case)
+{
+    switch ($case) {
+        case 'INDEX|KEY':
+        case 'UNIQUE':
+            $match[2] = preg_replace('/\s+/', '', $match[2]);
+            $match[3] = preg_replace('/\s+/', '', $match[3]);
+            $match[3] = str_replace('`', '', $match[3]);
+            if (! $match[2]) {
+                $indColsArray = explode(',', $match[3]);
+                $match[2] = $indColsArray[0];
+            }
+            break;
+        case 'PRIMARY':
+            $match[2] = preg_replace('/\s+/', '', $match[2]);
+            $match[2] = str_replace('`', '', $match[2]);
+            break;
+        default:
+            break;
+    }
+    return $match;
+}
+
+function processKeyMatches(&$keyDefsFromFile, $matches, $keyType, $nameIndex, $columnIndex)
+{
+    if (is_array($matches) && count($matches)) {
+        foreach ($matches as $matchDefi) {
+            $cleanedMatch = cleanKeyDefinitionMatch($matchDefi, $keyType);
+            if ($keyType === 'PRIMARY') {
+                $keyDefsFromFile[] = array(
+                    'INDEX_NAME' => strtolower($cleanedMatch[$nameIndex]),
+                    'INDEX_COLUMNS' => strtolower(preg_replace('/\([^)]*\)/', '', $cleanedMatch[$columnIndex])),
+                    'INDEX_TYPE' => strtolower($cleanedMatch[$nameIndex])
+                );
+            } else {
+                $cleanedMatch[$columnIndex] = preg_replace('/\([^)]*\)/', '', $cleanedMatch[$columnIndex]);
+                $keyDefsFromFile[] = array(
+                    'INDEX_NAME' => strtolower($cleanedMatch[$nameIndex]),
+                    'INDEX_COLUMNS' => strtolower($cleanedMatch[$columnIndex]),
+                    'INDEX_TYPE' => strtolower($cleanedMatch[1])
+                );
+            }
+        }
+    }
+}
+
+function extractKeyDefsFromFile($table, &$keyDefsFromFile, $case)
+{
+    switch ($case) {
+        case 'UNIQUE':
+            $matchUniqDefs1 = array();
+            $matchUniqDefs2 = array();
+            preg_match_all(
+                "/\`?(\w+)\`?\s+\w+.*?(UNIQUE)\s+/i",
+                $table,
+                $matchUniqDefs1,
+                PREG_SET_ORDER
+            );
+            if (count($matchUniqDefs1)) {
+                foreach ($matchUniqDefs1 as $i => $e) {
+                    $matchUniqDefs1[$i][0] = $e[0];
+                    $matchUniqDefs1[$i][1] = 'UNIQUE';
+                    $matchUniqDefs1[$i][2] = $e[1];
+                    $matchUniqDefs1[$i][3] = $e[1];
+                }
+            }
+            preg_match_all(
+                "/(UNIQUE)(?:\s+KEY)?\s*`?(\w*)`?\s*\(((?:[^()]|\([^)]*\))*)\)/i",
+                $table,
+                $matchUniqDefs2,
+                PREG_SET_ORDER
+            );
+            $matchedUniqDefs = array_merge($matchUniqDefs1, $matchUniqDefs2);
+            processKeyMatches($keyDefsFromFile, $matchedUniqDefs, 'UNIQUE', 2, 3);
+            break;
+        case 'INDEX|KEY':
+            preg_match_all(
+                "/(?<!PRIMARY\s)(?<!UNIQUE\s)(?<![\w`])(INDEX|KEY)\s*`?([\w_-]+)?`?\s*\(((?:[^()]|\([^()]*\))+)\)/i",
+                $table,
+                $matchDefis,
+                PREG_SET_ORDER
+            );
+            processKeyMatches($keyDefsFromFile, $matchDefis, 'INDEX|KEY', 2, 3);
+            break;
+        case 'PRIMARY':
+            $matchPrimDefs1 = array();
+            $matchPrimDefs2 = array();
+            preg_match_all(
+                "/\`?(\w+)\`?\s+\w+.*?(PRIMARY)\s+KEY/i",
+                $table,
+                $matchPrimDefs1,
+                PREG_SET_ORDER
+            );
+            if (count($matchPrimDefs1)) {
+                foreach ($matchPrimDefs1 as $i => $e) {
+                    $matchPrimDefs1[$i][0] = $e[0];
+                    $matchPrimDefs1[$i][1] = 'PRIMARY';
+                    $matchPrimDefs1[$i][2] = $e[1];
+                }
+            }
+            preg_match_all(
+                '/(PRIMARY)\s+KEY\s*(?:\`\w+\`\s*)?\s*\(((?:[^()]|\([^()]*\))+)\)/i',
+                $table,
+                $matchPrimDefs2,
+                PREG_SET_ORDER
+            );
+            $matchedPrimaryDefs = array_merge($matchPrimDefs1, $matchPrimDefs2);
+            processKeyMatches($keyDefsFromFile, $matchedPrimaryDefs, 'PRIMARY', 1, 2);
+            break;
+        default:
+            break;
+    }
+}
+
+function compareKeyDefinitions($fileIndexes, $dbIndexes, &$diffIndexDefis, $tableName)
+{
+    foreach ($fileIndexes as $i => $fileIndex) {
+        foreach ($dbIndexes as $k => $dbIndex) {
+            $dbIndex['INDEX_COLUMNS'] = strtolower($dbIndex['INDEX_COLUMNS']);
+            if (
+                ($dbIndex['INDEX_TYPE'] === 'INDEX' && $fileIndex['INDEX_COLUMNS'] === $dbIndex['INDEX_COLUMNS']) ||
+                ($dbIndex['INDEX_TYPE'] === 'PRIMARY' && $fileIndex['INDEX_COLUMNS'] === $dbIndex['INDEX_COLUMNS']) ||
+                ($dbIndex['INDEX_TYPE'] === 'UNIQUE' && $fileIndex['INDEX_COLUMNS'] === $dbIndex['INDEX_COLUMNS'])
+            ) {
+                unset($dbIndexes[$k]);
+                unset($fileIndexes[$i]);
+            }
+        }
+    }
+
+    $diffIndexDefis[$tableName]['file'] = array_values($fileIndexes);
+    $diffIndexDefis[$tableName]['db'] = array_values($dbIndexes);
+}
+
 if (isset($_REQUEST['dbmismatches']) && ! $standalone && file_exists('db/tiki.sql')) {
     $diffDatabase = true;
     // Get the db_mismatches check result
@@ -4150,26 +4305,30 @@ if ($standalone && ! $nagios) {
 
     $output = array();
     $locales = null;
-    exec("locale -a 2>&1", $output, $returnCode);
-    // Verification of the return code.
-    if ($returnCode === 0) {
-        // The command was successfully executed, we filter it from the array.
-        if (is_array($output)) {
-            $locales = array_filter($output);
-            sort($locales, SORT_STRING | SORT_FLAG_CASE);
-        } else {
-            if ($locales = preg_split("/\r ?\n/", $output)) {
-                $locales = array_filter($locales);
+    if (function_exists('exec')) {
+        exec("locale -a 2>&1", $output, $returnCode);
+        // Verification of the return code.
+        if ($returnCode === 0) {
+            // The command was successfully executed, we filter it from the array.
+            if (is_array($output)) {
+                $locales = array_filter($output);
                 sort($locales, SORT_STRING | SORT_FLAG_CASE);
             } else {
-                $locales = "Unexpected result";
+                if ($locales = preg_split("/\r ?\n/", $output)) {
+                    $locales = array_filter($locales);
+                    sort($locales, SORT_STRING | SORT_FLAG_CASE);
+                } else {
+                    $locales = tra("Unexpected result");
+                }
+            }
+        } else {
+            // The command failed, we take the error array, and convert it to a string to display to the user
+            foreach ($output as $errorLine) {
+                $locales .= "$errorLine\n";
             }
         }
     } else {
-        // The command failed, we take the error array, and convert it to a string to display to the user
-        foreach ($output as $errorLine) {
-            $locales .= "$errorLine\n";
-        }
+        $locales = tra("exec() function is disabled in PHP configuration");
     }
 
     $smarty->assign('locales', $locales);
