@@ -23,7 +23,7 @@ function validator_username($input, $parameter = '', $message = '')
             return tra("Username cannot contain spaces. Use a dot (.), hyphens (-) or underscore (_) instead.");
         }
         if (! empty($prefs['username_pattern']) && ! preg_match($prefs['username_pattern'], $input)) {
-            return tra("Invalid character combination for username");
+            return tra("Username does not match the required format.");
         }
         if (strtolower($input) == 'anonymous' || strtolower($input) == 'registered') {
             return tra("Invalid username");
