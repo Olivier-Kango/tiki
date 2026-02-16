@@ -13,8 +13,6 @@ parameters:
   # This is what I want to fix right now, but let's get the CI plumbing in place first.
     -
       identifier: property.notFound
-    -
-      identifier: classConstant.notFound
   # Real bugs or phpstan misconfiguration for sure, but we have to start somewhere
     -
       identifier: requireOnce.fileNotFound
