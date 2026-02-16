@@ -3250,6 +3250,8 @@ class TrackerLib extends TikiLib
                 'trackerId' => $trackerId,
                 'user' => $GLOBALS['user'],
                 'values' => $itemInfo,
+                'index_handled' => true,
+                'action' => 'delete',
             ]
         );
 
@@ -3790,7 +3792,7 @@ class TrackerLib extends TikiLib
         TikiLib::events()->trigger('tiki.tracker.delete', [
             'type' => 'tracker',
             'object' => $trackerId,
-            'user' => $GLOBALS['user'],
+            'user' => $GLOBALS['user']
         ]);
 
         $transaction->commit();

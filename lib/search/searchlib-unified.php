@@ -507,9 +507,17 @@ class UnifiedSearchLib
             self::INCREMENT_QUEUE,
             [
                 'object_type' => $type,
-                'object_id' => $objectId
+                'object_id' => $objectId,
             ]
         );
+    }
+
+    public function deleteObject($type, $objectId)
+    {
+        $index = $this->getIndex('data-write');
+        $index = new Search_Index_TypeAnalysisDecorator($index);
+        $indexer = $this->buildIndexer($index);
+        $indexer->removeDocument($type, $objectId);
     }
 
     /**

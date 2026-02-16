@@ -171,6 +171,7 @@ function tiki_setup_events()
         $events->bindPriority(100, 'tiki.user.save', 'tiki_save_refresh_index');
         $events->bindPriority(100, 'tiki.social.save', 'tiki_save_refresh_index');
         $events->bindPriority(100, 'tiki.rating', 'tiki_save_refresh_index');
+        $events->bindPriority(100, 'tiki.delete', 'tiki_delete_from_index');
     }
 
     if ($prefs['feature_file_galleries'] == 'y') {
@@ -292,18 +293,18 @@ function tiki_setup_events()
     $events->bind('tiki.trackeritem.update', 'tiki.trackeritem.save');
     $events->bind('tiki.trackeritem.create', 'tiki.trackeritem.save');
     $events->bind('tiki.trackeritem.save', 'tiki.save');
-    $events->bind('tiki.trackeritem.delete', 'tiki.save');
+    $events->bind('tiki.trackeritem.delete', 'tiki.delete');
     $events->bind('tiki.trackeritem.rating', 'tiki.rating');
     $events->bind('tiki.trackeritem.view', 'tiki.view');
 
     $events->bind('tiki.trackerfield.update', 'tiki.trackerfield.save');
     $events->bind('tiki.trackerfield.create', 'tiki.trackerfield.save');
-    $events->bind('tiki.trackerfield.delete', 'tiki.save');
+    $events->bind('tiki.trackerfield.delete', 'tiki.delete');
     $events->bind('tiki.trackerfield.save', 'tiki.save');
 
     $events->bind('tiki.tracker.update', 'tiki.tracker.save');
     $events->bind('tiki.tracker.create', 'tiki.tracker.save');
-    $events->bind('tiki.tracker.delete', 'tiki.save');
+    $events->bind('tiki.tracker.delete', 'tiki.delete');
     $events->bind('tiki.tracker.save', 'tiki.save');
 
     $events->bind('tiki.category.update', 'tiki.category.save');
@@ -433,6 +434,17 @@ function tiki_save_refresh_index($args)
         require_once('lib/search/refresh-functions.php');
         $isBulk = isset($args['bulk_import']) && $args['bulk_import'];
         refresh_index($args['type'], $args['object'], ! $isBulk);
+    }
+
+    // To invalidate caches if any registered for purging
+    TikiLib::lib('cache')->invalidate_by_cache_purge_rules($args);
+}
+
+function tiki_delete_from_index($args)
+{
+    if (! isset($args['index_handled'])) {
+        require_once('lib/search/refresh-functions.php');
+        delete_from_index($args['type'], $args['object']);
     }
 
     // To invalidate caches if any registered for purging

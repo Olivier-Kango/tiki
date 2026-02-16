@@ -32,6 +32,8 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     private $multisearchIndices;
     private $multisearchStack;
 
+    private $indexedFieldsData = null;
+
     public static $searchedFields = ['fulltext' => [], 'others' => []];
 
     public function __construct(Client $client, PdoClient $pdo_client, $index)
@@ -302,7 +304,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     {
         global $prefs;
 
-        static $data = null;
+        $data = $this->indexedFieldsData;
 
         if (! is_null($data)) {
             return $data;
@@ -354,7 +356,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             'converted to string' => $converted,
         ]);
 
-        return $data;
+        return $this->indexedFieldsData = $data;
     }
 
     private function convertToManticoreType($entry)
