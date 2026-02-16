@@ -150,13 +150,13 @@ class Quiz
         $authorInfo = $userlib->get_userid_info($this->author);
         $lines[] = "author id = " . $this->author . "; author login = " . $authorInfo["login"] . "<br />";
         $lines[] = "version = " . $this->version . "<br />";
-        $lines[] = "timestamp = " . $this->date_format("%a, %e %b %Y %H:%M:%S %O", $this->timestamp) . "<br />";
+        $lines[] = "timestamp = " . TikiLib::date_format("%a, %e %b %Y %H:%M:%S %O", $this->timestamp) . "<br />";
         $lines[] = "online = " . $this->online . "<br />";
         $lines[] = "studentAttempts = " . $this->studentAttempts . "<br />";
         $lines[] = "name = " . $this->name . "<br />";
         $lines[] = "description = " . $this->description . "<br />";
-        $lines[] = "datePub = " . $this->date_format("%a, %e %b %Y %H:%M:%S %O", $this->datePub) . "<br />";
-        $lines[] = "dateExp = " . $this->date_format("%a, %e %b %Y %H:%M:%S %O", $this->dateExp) . "<br />";
+        $lines[] = "datePub = " . TikiLib::date_format("%a, %e %b %Y %H:%M:%S %O", $this->datePub) . "<br />";
+        $lines[] = "dateExp = " . TikiLib::date_format("%a, %e %b %Y %H:%M:%S %O", $this->dateExp) . "<br />";
         $lines[] = "nQuestion = " . $this->nQuestion . "<br />";
         $lines[] = "nQuestions = " . $this->nQuestions . "<br />";
         $lines[] = "shuffleQuestions = " . $this->shuffleQuestions . "<br />";
