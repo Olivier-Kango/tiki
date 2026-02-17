@@ -724,7 +724,6 @@ CREATE TABLE `tiki_comments` (
   `approved` char(1) NOT NULL default 'y',
   `locked` char(1) NOT NULL default 'n',
   PRIMARY KEY (`threadId`),
-  UNIQUE KEY `no_repeats` (`parentId`, `userName`(20), `title`(30), `commentDate`, `message_id`(30), `in_reply_to`(30)),
   KEY `title` (`title`(191)),
   KEY `data` (`data`(191)),
   KEY `hits` (hits),
@@ -3649,7 +3648,7 @@ UPDATE tiki_menu_options SET icon = 'list' WHERE name = 'List PeerTube Media';
 UPDATE tiki_menu_options SET icon = 'upload' WHERE name = 'Upload PeerTube Video';
 UPDATE tiki_menu_options SET icon = 'tasks' WHERE name = 'Queued Tasks';
 
-UPDATE tiki_menus SET use_items_icons = 'y' WHERE menuId = 42; 
+UPDATE tiki_menus SET use_items_icons = 'y' WHERE menuId = 42;
 
 DROP TABLE IF EXISTS `tiki_plugin_security`;
 CREATE TABLE `tiki_plugin_security` (
