@@ -12,7 +12,7 @@
  * them properly in email clients.
  * Original code by <gordon at kanazawa-gu dot ac dot jp>.
  * See 'User Contributed Notes' at
- * http://php.benscom.com/manual/en/function.mail.php
+ * https://www.php.net/manual/en/function.mail.php
  * Rewritten for Tikiwiki by <luci at sh dot ground dot cz>
  *
  * For details on Message Header Extensions see

@@ -259,7 +259,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
             'min_infix_len' => 2,
             'stopwords' => $stopwords_file,
             'morphology' => $prefs['unified_manticore_morphology'] ?? '',
-            // TODO: see what other options to support https://manual.manticoresearch.com/Creating_an_index/Local_indexes/Plain_and_real-time_index_settings#Natural-language-processing-specific-settings
+            // TODO: see what other options to support https://manual.manticoresearch.com/Creating_a_table/NLP_and_tokenization/Low-level_tokenization
         ];
 
         return $settings;

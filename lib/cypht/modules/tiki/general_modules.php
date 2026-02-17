@@ -310,6 +310,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         $gmail_client_secret = " ";
         $gmail_client_uri = " ";
         $gmail_auth_uri = "https://accounts.google.com/o/oauth2/auth";
+        // @tiki-external-link-ok: OAuth2 token endpoint, requires POST authentication
         $gmail_token_uri = "https://www.googleapis.com/oauth2/v3/token";
         $gmail_refresh_uri = "https://www.googleapis.com/oauth2/v3/token";
 
@@ -317,6 +318,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module
         $outlook_client_secret = " ";
         $outlook_client_uri = " ";
         $outlook_auth_uri = "https://login.live.com/oauth20_authorize.srf";
+        // @tiki-external-link-ok: OAuth2 token endpoint, requires POST authentication
         $outlook_token_uri = "https://login.live.com/oauth20_token.srf";
         $outlook_refresh_uri = "https://login.live.com/oauth20_token.srf";
         $reset = '<span class="tooltip_restore" restore_aria_label="Restore default value"><i class="bi bi-arrow-clockwise refresh_list reset_default_value_checkbox"></i></span>';
