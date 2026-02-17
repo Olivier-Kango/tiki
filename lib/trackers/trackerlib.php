@@ -2128,9 +2128,10 @@ class TrackerLib extends TikiLib
             // Old values were prefilled at the begining of the function and only replaced at the end of the iteration
             $fieldId = $array['fieldId'];
             $suppliedFields[] = $fieldId;
-            $old_value = $fil[$fieldId] ?? null;
 
             $handler = $this->get_field_handler($array, array_merge($item_info, $fil));
+
+            $old_value = isset($fil[$fieldId]) && ! empty($fil[$fieldId]) ? $fil[$fieldId] : $handler->getFieldData([])['value'];
 
             if ($handler && method_exists($handler, 'postSaveHook')) {
                 // postSaveHook will be called with final value saved
