@@ -6,26 +6,34 @@
  * meant only for global function and structure definitions.
  *
  * Dependencies: jQuery
+ * Determine dropdown orientation based on module position
+ * instead of viewport-based heuristics.
+ *
+ * This avoids unreliable layout assumptions and ensures
+ * consistent behavior across themes and screen sizes.
  */
 
 $(function () {
     $(".sm-nav-item, .dropdown, .mega-menu").each(function () {
-        const rect = this.getBoundingClientRect();
-        const position = rect.top < window.innerHeight / 2 ? "top" : "bottom";
+        const $parent = $(this);
+        const $menu = $parent.find(".dropdown-menu, ul").first();
+        if (!$menu.length) return;
 
-        let $dropdown = $(this).find(".dropdown-menu");
-        if ($dropdown.length === 0) {
-            $dropdown = $(this).find("ul");
-        }
+        const id = $parent.closest(".card-body").attr("id");
 
-        if ($dropdown.length > 0) {
-            if (position !== "bottom") {
-                $dropdown.removeClass("dropdown-menu-bottom");
-            } else {
-                $dropdown.addClass("dropdown-menu-bottom");
-            }
+        if (id && id.startsWith("mod-menubottom")) {
+            $menu.addClass("dropdown-menu-bottom");
+        } else {
+            $menu.addClass("dropdown-menu-top-t");
         }
     });
+    if ($dropdown.length > 0) {
+        if (position !== "bottom") {
+            $dropdown.removeClass("dropdown-menu-bottom");
+        } else {
+            $dropdown.addClass("dropdown-menu-bottom");
+        }
+    }
 });
 
 /* Mobile dropdown positioning */
