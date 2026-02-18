@@ -3943,7 +3943,7 @@ class TrackerLib extends TikiLib
     public function get_tracker_field($fieldIdOrPermName, $useCache = true)
     {
         static $cache = [];
-        if ($useCache && isset($cache[$fieldIdOrPermName])) {
+        if ($useCache && (is_string($fieldIdOrPermName) || is_int($fieldIdOrPermName)) && isset($cache[$fieldIdOrPermName])) {
             return $cache[$fieldIdOrPermName];
         }
         if ((int)$fieldIdOrPermName > 0) {
