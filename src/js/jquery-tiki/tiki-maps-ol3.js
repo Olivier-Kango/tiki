@@ -1476,14 +1476,16 @@ import { defaults as defaultControls } from "ol/control";
                                         form.autoLayers.push(layerName);
                                     }
 
-                                    var icon;
-                                    $(i.link).each(function () {
-                                        // if the object has an img with it (tracker status for instance) then we need to find the <a>
-                                        if ($(this).is("a")) {
-                                            // and just using $(i.link).find("a") doesn"t work for some reason
-                                            icon = $(this).data("icon-src");
-                                        }
-                                    });
+                                    let icon = "";
+                                    try {
+                                        $(i.link).each(function () {
+                                            // if the object has an img with it (tracker status for instance) then we need to find the <a>
+                                            if ($(this).is("a")) {
+                                                // and just using $(i.link).find("a") doesn't work for some reason
+                                                icon = $(this).data("icon-src");
+                                            }
+                                        });
+                                    } catch (e) {}
 
                                     if (i.geo_location) {
                                         $(container).addMapMarker({
