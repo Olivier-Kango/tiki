@@ -94,7 +94,8 @@ class Validators
                             $validationjs .= $prefix . $field_value['fieldId'] . 'Hour: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"]}, ' .
                                 $prefix . $field_value['fieldId'] . 'Minute: {required_in_group: [' . $date_ins_num . ', "select[name^=' . $prefix . $field_value['fieldId'] . ']"], ';
                         }
-                    } else {
+                    } elseif (! in_array($field_value['type'], ['q', 'GF'])) {
+                        // exclude AutoIncrement and GeographicFeature type fields as they are read-only in the default edit form
                         if ($field_value['isMultilingual'] == 'y') {
                             $required_script = "required: function(e) { ";
                             $condition = "";
