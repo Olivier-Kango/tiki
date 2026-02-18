@@ -2962,7 +2962,8 @@ class TrackerLib extends TikiLib
                     $f['errorMsg'] = tra('Confirmation %0 do not match', $f['name']);
                     $erroneous_values[] = $f;
                 }
-                if ($f['type'] != 'q' and isset($f['isMandatory']) && $f['isMandatory'] == 'y') {
+                // exclude AutoIncrement and GeographicFeature type fields as they are read-only in the default edit form
+                if (! in_array($f['type'], ['q', 'GF']) && isset($f['isMandatory']) && $f['isMandatory'] == 'y') {
                     if (($f['type'] == 'e' || in_array($f['fieldId'], $categorized_fields)) && empty($f['value'])) {    // category: value is now categ id's
                         $mandatory_fields[] = $f;
                     } elseif (in_array($f['type'], ['a', 't']) && ($this->is_multilingual($f['fieldId']) == 'y')) {
