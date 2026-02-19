@@ -32,7 +32,6 @@
             })
             .each(function () {
                 var contents = $('.contents', this);
-                $('.buttons', this).buttonset();
                 $('.sections a', this).css('display', 'block').on("click",function () {
                     contents.empty().append($('{/literal}{icon name='spinner' iclass='fa-spin'}{literal}'));
                     if (jqxhr) {
