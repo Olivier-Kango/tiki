@@ -17,7 +17,7 @@ class Services_Tracker_CalendarController
 
     public function action_list($input)
     {
-        global $prefs, $user, $tikilib;
+        global $user;
         static $id = 0;
         ++$id;
 
@@ -26,6 +26,8 @@ class Services_Tracker_CalendarController
 
         $start = 'tracker_field_' . $input->beginField->word();
         $end = 'tracker_field_' . $input->endField->word();
+        $title = 'tracker_field_' . $input->title->word();
+        $description = 'tracker_field_' . $input->description->word();
 
         if ($resource = $input->resourceField->word()) {
             $resource = 'tracker_field_' . $resource;
@@ -97,13 +99,12 @@ class Services_Tracker_CalendarController
             $formatBuilder->setCount($result->count());
             $formatBuilder->apply($innerMatches);
             $formatBuilder->setFormatterPlugin($plugin);
-            $formatter = $formatBuilder->getFormatter(isset($result->errorInQuery) && ! empty($result->errorInQuery));
+            $formatter = $formatBuilder->getFormatter(! empty($result->errorInQuery));
             $entries = $formatter->getPopulatedList($result, false);
         } else {
             $entries = [];
         }
 
-        $smarty = TikiLib::lib('smarty');
         $trklib = TikiLib::lib('trk');
         foreach ($result as $index => $row) {
             if ($entries) {
@@ -141,17 +142,17 @@ class Services_Tracker_CalendarController
 
             $response[] = [
                 'id'               => $row['object_id'],
-                'trackerId'        => isset($row['tracker_id']) ? $row['tracker_id'] : null,
-                'title'            => $row['title'],
-                'description'      => $row['description'],
+                'trackerId'        => $row['tracker_id'] ?? null,
+                'title'            => $row[$title] ?: $row['title'],
+                'extendedProps'      => ['description' => $row[$description] ?: $row['description']],
                 'url'              => smarty_modifier_sefurl($row['object_id'], $row['object_type']),
                 'allDay'           => false,
                 'start'            => $useTimestamp ? $dtStart : TikiLib::date_format("c", $dtStart, $user, 5, false),
                 'end'              => $useTimestamp ? $dtEnd : TikiLib::date_format("c", $dtEnd, $user, 5, false),
                 'editable'         => $item->canModify(),
-                'color'            => $this->getColor(isset($row[$coloring]) ? $row[$coloring] : '', $colormap),
+                'color'            => $row[$coloring] ? ($row[$coloring] ?: $row['coloring']) : ($this->getColor($row[$coloring] ?? '', $colormap)),
                 'textColor'        => '#000',
-                'resourceId'       => ($resource && isset($row[$resource])) ? strtolower($row[$resource]) : '',
+                'resourceId'       => strtolower($row[$resource] ?? ''),
                 'resourceEditable' => true,
             ];
         }

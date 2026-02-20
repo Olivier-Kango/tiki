@@ -12,7 +12,8 @@ $.fn.setupFullCalendar = function (
     calendarContainer,
     targetId = "calendar",
     urlEventSource = "tiki-ajax_services.php?controller=calendar&action=list_items",
-    returnUrl = "tiki-calendar.php"
+    returnUrl = "tiki-calendar.php",
+    associatedWikiPage = null
 ) {
     this.each(function () {
         const calendarEl = document.getElementById(targetId);
@@ -186,7 +187,8 @@ $.fn.setupFullCalendar = function (
                     }
                 }
                 const eventTitle = tooltipEscape(event.title);
-                const eventDescription = event.extendedProps.viewable === true ? event.extendedProps.description : "";
+                let eventDescription = event.extendedProps.viewable === true ? event.extendedProps.description : "";
+                eventDescription = associatedWikiPage?.[event.id] ? associatedWikiPage[event.id] : eventDescription;
                 element.attr("title", eventTitle + "|" + eventDescription);
                 element.addClass("tips");
                 // surely there's a better way?

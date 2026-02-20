@@ -22,14 +22,17 @@
                         const moduleCalendarFocusDate = document.getElementById('date-module-calendar');
                         paramOfModuleCalendar['initialDate'] = $('#date-module-calendar').val();
                         let returnUrl = ('{{$returnURL}}');
+                        let associatedWikiPage = {{$associatedWikiPage|json_encode}} || null;
                         returnUrl = returnUrl.toString();
+                        let dataToBuildUrl = {{$urlOfFetchingData|json_encode}} || null;
+                        let urlOfFetchingData = $.service("tracker_calendar", "list", $.extend(dataToBuildUrl, dataToBuildUrl));
 
                         const calendarContainer = [window.moduleCalendar];
-                        $("#module-calendar").setupFullCalendar({{$fullCalendarParams|json_encode}}, calendarContainer, 'module-calendar', 'tiki-ajax_services.php?controller=calendar&action=list_items&calIds={{$moduleCalendarIds}}', returnUrl);
+                        $("#module-calendar").setupFullCalendar(paramOfModuleCalendar, calendarContainer, 'module-calendar',dataToBuildUrl ? urlOfFetchingData : 'tiki-ajax_services.php?controller=calendar&action=list_items&calIds={{$moduleCalendarIds}}', returnUrl, associatedWikiPage);
                         moduleCalendarFocusDate.addEventListener('change', () => {
                             document.getElementById('module-calendar').innerHTML = "";
                             paramOfModuleCalendar['initialDate'] = $('#date-module-calendar').val();
-                            $("#module-calendar").setupFullCalendar(paramOfModuleCalendar, calendarContainer, 'module-calendar', 'tiki-ajax_services.php?controller=calendar&action=list_items&calIds={{$moduleCalendarIds}}', returnUrl);
+                            $("#module-calendar").setupFullCalendar(paramOfModuleCalendar, calendarContainer, 'module-calendar',dataToBuildUrl ? urlOfFetchingData : 'tiki-ajax_services.php?controller=calendar&action=list_items&calIds={{$moduleCalendarIds}}', returnUrl, associatedWikiPage);
                         })
                         {{if $prefs.print_pdf_from_url neq 'none'}$("#module-calendar").addFullCalendarPrint('#module-calendar-pdf-btn', calendarContainer[0]);{/if}}
                     {/jq}
@@ -61,7 +64,7 @@
                         {/if}
                     </div>    
                 </div>
-                <input type="date" value="{$moduleCalendarFocusdate}" id="date-module-calendar">
+                <input type="date" class="form-control" value="{$moduleCalendarFocusdate}" id="date-module-calendar">
                 <div id='module-calendar'></div>
                 {if $viewlist eq 'list'}
                     {$out}
