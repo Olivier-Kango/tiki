@@ -267,7 +267,7 @@ class RegistrationLib extends TikiLib
             }
 
             if (! preg_match($userlib::USERNAME_MANDATORY_VALIDATION_PATTERN, $registration['name'])) {
-                return tra("Username cannot contain any spaces");
+                $errors[] = new RegistrationError('name', tra('Username cannot contain any spaces'));
             }
 
             if ($prefs['login_is_email'] != 'y') {
@@ -304,7 +304,7 @@ class RegistrationLib extends TikiLib
             }
 
             if (! preg_match($userlib::USERNAME_MANDATORY_VALIDATION_PATTERN, $registration['name'])) {
-                return tra("Username cannot contain any spaces.");
+                $errors[] = new RegistrationError('name', tra('Username cannot contain any spaces.'));
             }
 
             // Check the mode
