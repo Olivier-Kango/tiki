@@ -437,16 +437,25 @@ function wikiplugin_appframe_mapcontrol($data, $params, $start)
             }
             break;
         case 'select_feature':
-            $control = $ol2 ? 'new OpenLayers.Control.SelectFeature(vlayer)' : '';
+            $control = $ol2 ? 'new OpenLayers.Control.SelectFeature([vlayer])' : '';
             $label = tr('Select');
             break;
         case 'modify_feature':
-            $control = $ol2 ? 'new OpenLayers.Control.ModifyFeature(vlayer, {
-            mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
-            standalone: true,
-            virtualStyle: drawStyle,
-            vertexRenderIntent: "vertex"
-        }), new OpenLayers.Control.SelectFeature(vlayer)' : '';
+            $control = $ol2 ? 'modifyControl = new OpenLayers.Control.ModifyFeature(vlayer, {
+    mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
+    standalone: true,
+    virtualStyle: drawStyle,
+    vertexRenderIntent: "vertex",
+    autoActivate: true
+}), modifySelectControl = new OpenLayers.Control.SelectFeature([vlayer], {
+    autoActivate: true,
+    onSelect: function (feature) {
+        modifyControl.selectFeature(feature);
+    },
+    onUnselect: function (feature) {
+        //modifySelectControl.unselect(feature);
+    }
+})' : '';
             $label = tr('Select/Modify');
             break;
         case 'draw_polygon':
