@@ -56,8 +56,19 @@ $.fn.setupEventCalendar = function (
                     if (!document.getElementById("quarter")) {
                         const ecStart = document.querySelector(".ec-start");
                         const buttonMonthView = document.createElement("div");
+                        const quarterText = tr("Quarter");
+                        const semesterText = tr("Semester");
+                        const oneMonthText = tr("One-Month");
                         buttonMonthView.innerHTML =
-                            '<button class="ec-button" id="one-month">One-Month</button><button class="ec-button" id="quarter">Quarter</button><button class="ec-button" id="semester">Semester</button>';
+                            '<button class="ec-button" id="one-month">' +
+                            oneMonthText +
+                            "</button>" +
+                            '<button class="ec-button" id="quarter">' +
+                            quarterText +
+                            "</button>" +
+                            '<button class="ec-button" id="semester">' +
+                            semesterText +
+                            "</button>";
                         ecStart.appendChild(buttonMonthView);
                     }
 
