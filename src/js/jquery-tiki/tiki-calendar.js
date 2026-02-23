@@ -36,7 +36,7 @@ $.fn.setupEventCalendar = function (
             slotMinTime: eventCalendarParams.minHourOfDay,
             slotMaxTime: eventCalendarParams.maxHourOfDay,
             nowIndicator: true,
-            pointer: true,
+            pointer: false,
             buttonText: {
                 today: tr("today"),
                 dayGridMonth: tr("month"),
