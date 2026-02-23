@@ -43,8 +43,8 @@ $.fn.setupFullCalendar = function (
             buttonText: {
                 today: tr("today"),
                 year: tr("year"),
-                semester: tr("semester"),
-                quarter: tr("quarter"),
+                semester: tr("Semester"),
+                quarter: tr("Quarter"),
                 month: tr("month"),
                 week: tr("week"),
                 day: tr("day"),
@@ -58,7 +58,7 @@ $.fn.setupFullCalendar = function (
                 quarter: {
                     type: "dayGrid",
                     duration: { months: 3 },
-                    buttonText: "quarter",
+                    buttonText: tr("Quarter"),
                     dayCellContent: function (dayCell) {
                         return moment(dayCell.date).format("M/D");
                     },
@@ -72,7 +72,7 @@ $.fn.setupFullCalendar = function (
                 semester: {
                     type: "dayGrid",
                     duration: { months: 6 },
-                    buttonText: "semester",
+                    buttonText: tr("Semester"),
                     dayCellContent: function (dayCell) {
                         return moment(dayCell.date).format("M/D");
                     },
