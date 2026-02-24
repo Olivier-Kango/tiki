@@ -169,6 +169,17 @@ class Tracker_Field_AutoIncrement extends \Tracker\Field\AbstractItemField imple
             return;
         }
 
+        // prevent deduplication when an odbc tabular is used as remote value might interfere
+        try {
+            $definition = $this->getTrackerDefinition();
+            $tabulars = $definition->getSynchronizedTabulars('odbc');
+            if (! empty($tabulars)) {
+                return;
+            }
+        } catch (Exception $e) {
+            return;
+        }
+
         global $prefs;
         $trklib = TikiLib::lib('trk');
         $table = TikiDb::get()->table('tiki_tracker_item_fields');
