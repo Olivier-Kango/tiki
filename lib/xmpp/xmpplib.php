@@ -237,7 +237,6 @@ class XMPPLib extends TikiLib
     public function get_user_connection_info($user)
     {
         global $prefs;
-        global $tikilib;
 
         $query = 'SELECT'
         . '     MAX(CASE WHEN `prefName`="xmpp_jid" THEN `value` END) AS `jid`,'
@@ -485,7 +484,7 @@ class XMPPLib extends TikiLib
      */
     public function render_xmpp_client($params = [])
     {
-        global $user, $prefs;
+        global $user;
 
         static $instance = 0;
         $instance++;
@@ -557,18 +556,6 @@ class XMPPLib extends TikiLib
 
     public function initializeRestApi()
     {
-        global $prefs;
-        $endpoint = $prefs['xmpp_openfire_rest_api'];
-        $username = $prefs['xmpp_openfire_rest_api_username'];
-        $password = $prefs['xmpp_openfire_rest_api_password'];
-
-        $url = parse_url($endpoint);
-
-        $ssl = $url['scheme'] === 'https';
-        $host = $url['host'];
-        $port = $url['port'] ?: ($ssl ? 9091 : 9090);
-        $path = rtrim($url['path'], '/');
-
         // TODO: gidkom/php-openfire-restapi doesn't work with latest guzzle which prevents PHP8 packages from working fine
         // need to find another rest api or implement it if somebody needs to use this.
         $api = null;
@@ -606,15 +593,12 @@ class XMPPLib extends TikiLib
 
     public function addUserToRoom($room, $userJid, $role = 'members')
     {
-        global $prefs;
         // first, allow myself to join the room
         $ownerJid = new JID($this->getXmppApi()->getJid());
         $onwerName = $ownerJid->getNode();
 
         $roomJid = new JID($room);
-        $roomName = $roomJid->getNode();
-
-
+        // $roomName = $roomJid->getNode();
         //$result = $this->getRestApi()->addUserRoleToChatRoom($roomName, $onwerName, 'owners');
         //$result = $this->getRestApi()->addUserRoleToChatRoom($roomName, $userJid, $role);
         $result = [];
@@ -633,7 +617,6 @@ class XMPPLib extends TikiLib
             $status = is_array($item);
             $item = $status ? $item : [];
 
-            $status = $status && ! empty($item['name']);
             $status = ! (empty($item['room']) && empty($defaultRoom));
 
             return array_merge([
@@ -668,7 +651,6 @@ class XMPPLib extends TikiLib
             $status = is_array($item);
             $item = $status ? $item : [];
 
-            $status = $status && ! empty($item['name']);
             $status = ! (empty($item['room']) && empty($defaultRoom));
 
             return array_merge([
