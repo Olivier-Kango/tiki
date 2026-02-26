@@ -1585,6 +1585,8 @@ class ParserLib extends TikiDb_Bridge
 
     /** Simpler and faster parse than parse_data()
      * This is only called from the parse Smarty modifier, for preference definitions.
+     * Also called in Url.php when parsing the title of a page, to allow wikilinks in titles, but without
+     * allowing plugins or other complex syntax.
      */
     public function parse_data_simple($data)
     {
