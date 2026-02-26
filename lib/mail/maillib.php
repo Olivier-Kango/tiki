@@ -224,8 +224,8 @@ function tiki_send_email($email)
 
     if (! empty($prefs['mailer_redirect'])) {
         $email->to($prefs['mailer_redirect']);
-        $email->cc([]);
-        $email->bcc([]);
+        $email->getHeaders()->remove('Cc');
+        $email->getHeaders()->remove('Bcc');
     }
 
     $envelope = null;
