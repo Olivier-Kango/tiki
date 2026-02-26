@@ -3288,10 +3288,19 @@ class TrackerLib extends TikiLib
 
         $events = TikiLib::events();
         foreach ($itemIds as $itemId) {
+            $res = $this->items()->fetchFullRow(['itemId' => (int) $itemId]);
+            if (! $res) {
+                continue;
+            }
             $events->trigger('tiki.trackeritem.update', [
                 'type' => 'trackeritem',
                 'object' => $itemId,
+                'trackerId' => $res['trackerId'],
                 'user' => $GLOBALS['user'],
+                'values' => [],
+                'old_values' => [],
+                'values_by_permname' => [],
+                'old_values_by_permname' => [],
             ]);
         }
     }
