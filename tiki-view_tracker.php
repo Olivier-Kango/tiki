@@ -355,6 +355,7 @@ if (! empty($_REQUEST['remove'])) {
     }
 } elseif (isset($_REQUEST["batchaction"]) and $_REQUEST["batchaction"] == 'delete' && $access->checkCsrf()) {
     $transaction = $tikilib->begin();
+    $deleted = 0;
 
     foreach ($_REQUEST['action'] ?? [] as $batchid) {
         if (! empty($batchid)) {
@@ -362,11 +363,17 @@ if (! empty($_REQUEST['remove'])) {
             $actionObject = Tracker_Item::fromInfo($item_info);
             if ($actionObject->canRemove()) {
                 $trklib->remove_tracker_item($batchid);
+                $deleted++;
             }
         }
     }
 
     $transaction->commit();
+    if ($deleted === 1) {
+        Feedback::success(tr('Successfully deleted 1 item.'));
+    } elseif ($deleted > 1) {
+        Feedback::success(tr('Successfully deleted %0 items.', $deleted));
+    }
 
     // redirect to the tracker item list of the last item deleted
     if (isset($item_info) && ! empty($item_info['trackerId'])) {
