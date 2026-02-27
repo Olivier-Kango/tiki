@@ -410,18 +410,6 @@ function wikiplugin_swiper_info()
                 'default' => 3,
                 'advanced' => true,
             ],
-            'teleprompterPauseOnHover' => [
-                'required' => false,
-                'name' => tr('Pause teleprompter on hover'),
-                'description' => tr('Stop automatic scrolling while the teleprompter is hovered.'),
-                'filter' => 'alpha',
-                'default' => 'y',
-                'advanced' => true,
-                'options' => [
-                    ['text' => 'Yes', 'value' => 'y'],
-                    ['text' => 'No', 'value' => 'n'],
-                ],
-            ],
             'teleprompterFocusMode' => [
                 'required' => false,
                 'name' => tr('Teleprompter focus area'),
@@ -479,7 +467,6 @@ function wikiplugin_swiper($data, $params)
         'teleprompter' => 'n',
         'teleprompterSpeed' => 60,
         'teleprompterAcceleration' => 3,
-        'teleprompterPauseOnHover' => 'y',
         'teleprompterFocusMode' => 'top',
         'teleprompterTimer' => 'y',
         'teleprompterFontScale' => 120,
@@ -643,7 +630,6 @@ function wikiplugin_swiper($data, $params)
         $teleprompterFontScale = min($teleprompterMaxFontScale, max($teleprompterMinFontScale, (int) $params['teleprompterFontScale']));
         $showTimer = $params['teleprompterTimer'] === 'y';
         $timerClass = $params['teleprompterTimer'] === 'y' ? '' : ' teleprompter-timer-hidden';
-        $pauseOnHover = $params['teleprompterPauseOnHover'] === 'y';
         $focusMode = in_array($params['teleprompterFocusMode'], ['none', 'top', 'middle', 'bottom'], true) ? $params['teleprompterFocusMode'] : 'top';
         $focusClass = ' teleprompter-focus-' . $focusMode;
         $teleprompterHtml = implode('', $teleprompterBlocks);
@@ -698,7 +684,6 @@ function wikiplugin_swiper($data, $params)
             'fontScale' => $teleprompterFontScale,
             'showTimer' => $showTimer,
             'focusMode' => $focusMode,
-            'pauseOnHover' => $pauseOnHover,
             'minSpeed' => $teleprompterMinSpeed,
             'maxSpeed' => $teleprompterMaxSpeed,
             'speedStep' => $teleprompterSpeedStep,
