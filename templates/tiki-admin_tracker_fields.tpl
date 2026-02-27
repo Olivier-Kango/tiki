@@ -89,6 +89,9 @@
                         $container.tracker_load_fields(trackerId);
                         if (action === 'remove_fields') {
                             $.fn.resetFieldsCache();
+                            feedback(tr('Fields successfully removed.'), 'success');
+                        } else if (action === 'save_fields') {
+                            feedback(tr('Fields successfully saved.'), 'success');
                         }
                     }
                 });
