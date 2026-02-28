@@ -639,7 +639,7 @@ function build_packages($releaseVersion)
     }
 
     echo "Running node install and build\n";
-    $npmInstall = "cd $sourceDir; npm install --clean-install --engine-strict";
+    $npmInstall = "cd $sourceDir; npm clean-install --engine-strict";
     exec($npmInstall, $npmInstallOutput, $npmInstallExitCode);
     if ($npmInstallExitCode !== 0) {
         error("npm install failed. Exiting.", $npmInstallExitCode);
