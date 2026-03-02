@@ -188,6 +188,13 @@ export default defineConfig(({ command, mode }) => {
             },
         },
         css: {
+            preprocessorOptions: {
+                scss: {
+                    // Vite 5.4.x defaults to the legacy Sass API, which triggers 'legacy-js-api' deprecation warnings when using Sass 1.79.0+. This explicitly opts into the modern API to silence those warnings.
+                    // NOTE: This is obsolete and SHOULD be removed when upgrading to Vite 6 or higher, as Vite 6+ defaults to the modern API.
+                    api: "modern-compiler",
+                },
+            },
             postcss: {
                 plugins: [postcssRootToHost()],
             },
