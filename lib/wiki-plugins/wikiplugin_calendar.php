@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_calendar_info()
 {
     return [
@@ -66,12 +70,8 @@ function wikiplugin_calendar_info()
                 'description' => tra('Show or hide the navigation bar (not shown by default)'),
                 'since' => '4.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];
@@ -94,9 +94,7 @@ function wikiplugin_calendar($data, $params)
     if (empty($params['viewmode'])) {
         $params['viewmode'] = 'month';
     }
-    if (empty($params['viewnavbar'])) {
-        $params['viewnavbar'] = 'n';
-    }
+
     $pluginCalendarIds = implode(',', $params['calIds']);
 
     $rawcals = $calendarlib->list_calendars();

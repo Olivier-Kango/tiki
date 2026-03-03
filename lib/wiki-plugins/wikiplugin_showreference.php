@@ -4,6 +4,7 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
 use Tiki\WikiPlugin\Reference;
 
 function wikiplugin_showreference_info()
@@ -35,12 +36,8 @@ function wikiplugin_showreference_info()
                 'description' => tra('Show bibliography title. Title is shown by default.'),
                 'since' => '10.0',
                 'filter' => 'word',
-                'options' => [
-                    ['text' => tra(''), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'yes'],
-                    ['text' => tra('No'), 'value' => 'no'],
-                ],
-                'default' => '',
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'hlevel' => [
                 'required' => false,
@@ -67,12 +64,8 @@ function wikiplugin_showreference_info()
                 'name' => tra('Remove the lines around the list of references'),
                 'description' => tr('Remove the horizontal lines displayed above and below the list of references.'),
                 'since' => '18.0',
-                'options' => [
-                    ['text' => tra(''), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'yes'],
-                    ['text' => tra('No'), 'value' => 'no'],
-                ],
-                'default' => '',
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             // Add new parameter pageid
             'pageid' => [

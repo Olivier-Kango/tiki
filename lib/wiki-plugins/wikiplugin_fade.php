@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_fade_info()
 {
     return [
@@ -31,13 +33,9 @@ function wikiplugin_fade_info()
                 'name' => tra('Icon'),
                 'filter' => 'alpha',
                 'description' => tra('Arrow icon showing that content can be hidden or shown.'),
-                'default' => '',
+                'default' => BooleanEnglishLetter::No->value,
                 'since' => '7.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'show_speed' => [
                 'required' => false,
@@ -75,12 +73,8 @@ function wikiplugin_fade_info()
                 'description' => tra('Use Bootstrap collapsible box'),
                 'since' => '16.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
              ],
             'class' => [
                 'required' => false,

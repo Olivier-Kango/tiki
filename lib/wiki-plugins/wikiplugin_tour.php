@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Tiki\Lib\CookieConsent\CookieConsentLib;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
 
 function wikiplugin_tour_info()
 {
@@ -42,10 +43,7 @@ function wikiplugin_tour_info()
                 'since' => '15.0',
                 'filter' => 'alpha',
                 'default' => 'y',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'show_once' => [
                 'name' => tra('Only Show Once'),
@@ -53,12 +51,8 @@ function wikiplugin_tour_info()
                 'description' => tra('Show automatically only once. tour_id should also be set if there are multiple tours. (Set only in the first step.)'),
                 'since' => '15.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'tour_id' => [
                 'name' => tra('Tour ID'),
@@ -99,10 +93,7 @@ function wikiplugin_tour_info()
                 'since' => '16.0',
                 'filter' => 'alpha',
                 'default' => 'y',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'side' => [
                 'name' => tra('Side'),
@@ -146,10 +137,7 @@ function wikiplugin_tour_info()
                 'since' => '27.0',
                 'filter' => 'alpha',
                 'default' => 'y',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'next_button_text' => [
                 'name' => tra('Next Button Text'),
@@ -173,11 +161,8 @@ function wikiplugin_tour_info()
                 'description' => tra('Show the progress text in popover. (Set only in the first step.)'),
                 'since' => '27.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'progress_text' => [
                 'name' => tra('Progress Text'),

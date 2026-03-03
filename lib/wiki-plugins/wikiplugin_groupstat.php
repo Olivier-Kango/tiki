@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_groupstat_info()
 {
     return [
@@ -40,12 +42,8 @@ function wikiplugin_groupstat_info()
                 'description' => tra('Show the percentage of total users that are members of each group (percentages
                     are shown by default)'),
                 'since' => '4.0',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'show_bar' => [
                 'required' => false,
@@ -53,12 +51,8 @@ function wikiplugin_groupstat_info()
                 'description' => tra('Represent the percentage of total users that are members of each group in a bar
                     graph (default is not to show the bar graph)'),
                 'since' => '4.0',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];

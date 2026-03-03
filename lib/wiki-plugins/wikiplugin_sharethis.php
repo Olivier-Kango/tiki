@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_sharethis_info()
 {
     return [
@@ -44,7 +48,7 @@ function wikiplugin_sharethis_info()
                     ['text' => tra('Horizontal'), 'value' => 'horizontal'],
                     ['text' => tra('Vertical'), 'value' => 'vertical'],
                     ['text' => tra('Rotate'), 'value' => 'rotate']
-                    ]
+                ]
             ],
             'rotateimage' => [
                 'required' => false,
@@ -52,13 +56,9 @@ function wikiplugin_sharethis_info()
                 'description' => tr('A value of %0y%1 (Yes) will cause the button icon to rotate every 3 seconds between
                     a few icons, cycling through twice before stopping.', '<code>', '</code>'),
                 'since' => '3.2',
-                'default' => '',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'multiple' => [
                 'required' => false,
@@ -131,12 +131,8 @@ function wikiplugin_sharethis_info()
                 'since' => '3.0',
                 'advanced' => true,
                 'filter' => 'word',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('No'), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'true'],
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'embed' => [
                 'required' => false,
@@ -145,12 +141,8 @@ function wikiplugin_sharethis_info()
                 'since' => '3.0',
                 'advanced' => true,
                 'filter' => 'word',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('No'), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'true'],
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ]
     ];

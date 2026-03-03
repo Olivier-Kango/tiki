@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BorderStyle;
+use Tiki\WikiPlugin\Options\FontWeight;
+
 function wikiplugin_tabs_info()
 {
     return [
@@ -39,27 +43,17 @@ function wikiplugin_tabs_info()
                 'name' => tra('Toggle Tabs'),
                 'description' => tra('Allow toggling between tabs and no-tabs view'),
                 'since' => '8.0',
-                'default' => 'y',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'y' , 'text' => tra('Yes')],
-                    ['value' => 'n', 'text' => tra('No')],
-                ],
-            ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),            ],
             'inside_pretty' => [
                 'required' => false,
                 'name' => tra('Inside Pretty Tracker'),
                 'description' => tra('Parse pretty tracker variables within tabs'),
                 'since' => '8.0',
-                'default' => 'n',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'n', 'text' => tra('No')],
-                    ['value' => 'y' , 'text' => tra('Yes')],
-                ],
-            ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),            ],
             'direction' => [
                 'required' => false,
                 'name' => tra('Tabs direction'),
@@ -68,10 +62,9 @@ function wikiplugin_tabs_info()
                 'default' => 'horizontal',
                 'filter' => 'word',
                 'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Horizontal'), 'value' => 'horizontal'],
-                    ['text' => tra('Vertical'), 'value' => 'vertical']
-                ],
+                    ['text' => 'Vertical', 'value' => 'vertical'],
+                    ['text' => 'Horizontal', 'value' => 'horizontal'],
+                ]
             ],
             'tabbgcolor' => [
                 'required'    => false,
@@ -99,22 +92,10 @@ function wikiplugin_tabs_info()
                 'description' => tra(
                     'Determine the kind of border to apply to the tabs'
                 ),
-                'default'     => 'none',
                 'filter'      => 'text',
                 'since'       => '25.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'none', 'text' => tra('None')],
-                    ['value' => 'hidden' , 'text' => tra('Hidden')],
-                    ['value' => 'dotted' , 'text' => tra('Dotted')],
-                    ['value' => 'dashed' , 'text' => tra('Dashed')],
-                    ['value' => 'solid' , 'text' => tra('Solid')],
-                    ['value' => 'double' , 'text' => tra('Double')],
-                    ['value' => 'groove' , 'text' => tra('Groove')],
-                    ['value' => 'ridge' , 'text' => tra('Ridge')],
-                    ['value' => 'inset' , 'text' => tra('Inset')],
-                    ['value' => 'outset' , 'text' => tra('Outset')],
-                ],
+                'default'     => BorderStyle::None->value,
+                'options' => BorderStyle::options(),
             ],
             'tabborderwidth' => [
                 'required'    => false,
@@ -143,14 +124,9 @@ function wikiplugin_tabs_info()
                     'Use to specify the font style of the tabs text'
                 ),
                 'filter'      => 'text',
-                'default'     => 'normal',
                 'since'       => '25.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'normal', 'text' => tra('Normal')],
-                    ['value' => 'italic' , 'text' => tra('Italic')],
-                    ['value' => 'oblique' , 'text' => tra('Oblique')],
-                ],
+                'default'     => FontWeight::Normal->value,
+                'options' => FontWeight::options(),
             ],
             'tabfontweight' => [
                 'required'    => false,
@@ -159,16 +135,10 @@ function wikiplugin_tabs_info()
                     'Use to define the thickness of the text characters to be displayed in the tabs'
                 ),
                 'filter'      => 'text',
-                'default'     => 'normal',
                 'since'       => '25.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'normal', 'text' => tra('Normal')],
-                    ['value' => 'bold' , 'text' => tra('Bold')],
-                    ['value' => 'bolder' , 'text' => tra('Bolder')],
-                    ['value' => 'lighter' , 'text' => tra('Lighter')],
-                    ['value' => '900' , 'text' => tra('Boldest')],
-                ],            ],
+                'default'     => FontWeight::Normal->value,
+                'options' => FontWeight::options(),
+            ],
             'tabfontsize' => [
                 'required'    => false,
                 'name'        => tra('Tabs font size'),
@@ -226,14 +196,9 @@ function wikiplugin_tabs_info()
                     'Use to change the panels text style'
                 ),
                 'filter'      => 'text',
-                'default'     => 'normal',
                 'since'       => '25.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'normal', 'text' => tra('Normal')],
-                    ['value' => 'italic' , 'text' => tra('Italic')],
-                    ['value' => 'oblique' , 'text' => tra('Oblique')],
-                ],
+                'default'     => FontWeight::Normal->value,
+                'options' => FontWeight::options(),
             ],
             'panelfontweight' => [
                 'required'    => false,
@@ -242,16 +207,9 @@ function wikiplugin_tabs_info()
                     'Use to define the thickness of the text characters to be displayed in the panels'
                 ),
                 'filter'      => 'text',
-                'default'     => 'normal',
                 'since'       => '25.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'normal', 'text' => tra('Normal')],
-                    ['value' => 'bold' , 'text' => tra('Bold')],
-                    ['value' => 'bolder' , 'text' => tra('Bolder')],
-                    ['value' => 'lighter' , 'text' => tra('Lighter')],
-                    ['value' => '900' , 'text' => tra('Boldest')],
-                ],
+                'default'     => FontWeight::Normal->value,
+                'options' => FontWeight::options(),
             ],
             'panelfontsize' => [
                 'required'    => false,
@@ -269,22 +227,10 @@ function wikiplugin_tabs_info()
                 'description' => tra(
                     'Determine the kind of border to apply to the panels'
                 ),
-                'default'     => 'none',
                 'filter'      => 'text',
                 'since'       => '25.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['value' => 'none', 'text' => tra('None')],
-                    ['value' => 'hidden' , 'text' => tra('Hidden')],
-                    ['value' => 'dotted' , 'text' => tra('Dotted')],
-                    ['value' => 'dashed' , 'text' => tra('Dashed')],
-                    ['value' => 'solid' , 'text' => tra('Solid')],
-                    ['value' => 'double' , 'text' => tra('Double')],
-                    ['value' => 'groove' , 'text' => tra('Groove')],
-                    ['value' => 'ridge' , 'text' => tra('Ridge')],
-                    ['value' => 'inset' , 'text' => tra('Inset')],
-                    ['value' => 'outset' , 'text' => tra('Outset')],
-                ],
+                'default'     => BorderStyle::None->value,
+                'options' => BorderStyle::options(),
             ],
             'panelborderwidth' => [
                 'required'    => false,

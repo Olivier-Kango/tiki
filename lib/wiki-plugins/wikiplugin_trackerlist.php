@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Smarty\Exception as SmartyException;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\TimeUnit;
 
 function wikiplugin_trackerlist_info()
 {
@@ -42,12 +44,8 @@ function wikiplugin_trackerlist_info()
                     field ID (field ID order is used by default', '<code>', '</code>'),
                  'since' => '2.0',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'popup' => [
                  'required' => false,
@@ -65,12 +63,8 @@ function wikiplugin_trackerlist_info()
                  'description' => tra('Choose whether the popup tooltip will stay displayed on mouse out (does not stay open by default)'),
                  'since' => '2.0',
                  'filter' => 'alpha',
-                 'default' => '',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showtitle' => [
                  'required' => false,
@@ -79,12 +73,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '1',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showlinks' => [
                  'required' => false,
@@ -109,12 +99,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '1',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'shownbitems' => [
                  'required' => false,
@@ -123,12 +109,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '2.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showinitials' => [
                  'required' => false,
@@ -138,12 +120,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '1',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showstatus' => [
                  'required' => false,
@@ -152,12 +130,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '1',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showcreated' => [
                  'required' => false,
@@ -166,11 +140,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '2.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showlastmodif' => [
                  'required' => false,
@@ -179,11 +150,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '2.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showlastmodifby' => [
                  'required' => false,
@@ -192,11 +160,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '14.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showfieldname' => [
                  'required' => false,
@@ -205,12 +170,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '1',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'y',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::Yes->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showitemrank' => [
                  'required' => false,
@@ -219,12 +180,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '4.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showcomments' => [
                  'required' => false,
@@ -233,12 +190,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '16.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'y',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::Yes->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'status' => [
                  'required' => false,
@@ -309,12 +262,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '8.0',
                  'doctype' => 'filter',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showpagination' => [
                  'required' => false,
@@ -323,12 +272,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '4.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'y',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::Yes->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'allowtableexpansion' => [
                  'required' => false,
@@ -337,12 +282,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '18.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'filterfield' => [
                  'required' => false,
@@ -438,12 +379,8 @@ function wikiplugin_trackerlist_info()
                  'doctype' => 'filter',
                  'filter' => 'alpha',
                  'advanced' => true,
-                 'default' => '',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'more' => [
                  'required' => false,
@@ -452,12 +389,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '2.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'moreurl' => [
                  'required' => false,
@@ -547,13 +480,9 @@ function wikiplugin_trackerlist_info()
                  'since' => '5.0',
                  'doctype' => 'filter',
                  'filter' => 'alpha',
-                 'default' => 'n',
                  'advanced' => true,
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'url' => [
                  'required' => false,
@@ -626,12 +555,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '3.0',
                  'filter' => 'alpha',
                  'advanced' => true,
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'compute' => [
                  'required' => false,
@@ -653,12 +578,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '4.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => '',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showdelete' => [
                  'required' => false,
@@ -667,12 +588,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '4.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'urlafterdelete' => [
                  'required' => false,
@@ -689,12 +606,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '8.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showcloseitem' => [
                  'required' => false,
@@ -703,12 +616,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '8.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showpenditem' => [
                  'required' => false,
@@ -717,12 +626,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '8.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showwatch' => [
                  'required' => false,
@@ -731,12 +636,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '5.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => '',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showrss' => [
                  'required' => false,
@@ -745,12 +646,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '5.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'showmap' => [
                  'required' => false,
@@ -759,12 +656,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '12.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
-                 'default' => '',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'calendarfielddate' => [
                  'required' => false,
@@ -805,12 +698,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '6.0',
                  'doctype' => 'calendar',
                  'filter' => 'alpha',
-                 'default' => 'y',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ],
+                 'default' => BooleanEnglishLetter::Yes->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'calendarstickypopup' => [
                  'required' => false,
@@ -819,12 +708,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '6.0',
                  'doctype' => 'calendar',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'calendarbeginmonth' => [
                  'required' => false,
@@ -833,12 +718,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '6.0',
                  'doctype' => 'calendar',
                  'filter' => 'alpha',
-                 'default' => 'y',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::Yes->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'calendarviewnavbar' => [
                  'required' => false,
@@ -886,12 +767,8 @@ function wikiplugin_trackerlist_info()
                  'description' => tra('Display tracker as a spreadsheet (not used by default)'),
                  'since' => '6.0',
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'force_compile' => [
                  'required' => false,
@@ -900,13 +777,9 @@ function wikiplugin_trackerlist_info()
                     wiki page as a template. Default=n (best performance)'),
                  'since' => '6.0',
                  'filter' => 'alpha',
-                 'default' => 'n',
                  'advanced' => true,
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'periodQuantity' => [
                  'required' => false,
@@ -926,13 +799,7 @@ function wikiplugin_trackerlist_info()
                  'since' => '6.5, <s>7.x</s> & 8.0',
                  'doctype' => 'filter',
                  'filter' => 'word',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tr('Hour'), 'value' => 'hour'],
-                     ['text' => tr('Day'), 'value' => 'day'],
-                     ['text' => tr('Week'), 'value' => 'week'],
-                     ['text' => tr('Month'), 'value' => 'month'],
-                 ],
+                 'options' => TimeUnit::options(''),
                  'default' => '',
              ],
              'periodType' => [
@@ -964,14 +831,10 @@ function wikiplugin_trackerlist_info()
                  'name' => tr('Inline edit All'),
                  'description' => tr('Allow all displayed fields to be editable'),
                  'since' => '11.0',
-                 'default' => 'y',
                  'advanced' => true,
                  'filter' => 'alpha',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('Yes'), 'value' => 'y'],
-                     ['text' => tra('No'), 'value' => 'n']
-                 ]
+                 'default' => BooleanEnglishLetter::Yes->value,
+                 'options' => BooleanEnglishLetter::options(),
              ],
              'force_separate_compile' => [
                 'required' => false,
@@ -979,12 +842,8 @@ function wikiplugin_trackerlist_info()
                 'description' => tra('Compile each item separately instead of compiling the entire template.'),
                  'since' => '11.0',
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
              ],
              'allowStickyHeaders' => [
                  'name' => tr('Allow Sticky Headers'),
@@ -992,12 +851,8 @@ function wikiplugin_trackerlist_info()
                  'since' => '26',
                  'required' => false,
                  'filter' => 'alpha',
-                 'default' => 'n',
-                 'options' => [
-                     ['text' => '', 'value' => ''],
-                     ['text' => tra('No'), 'value' => 'n'],
-                     ['text' => tra('Yes'), 'value' => 'y']
-                 ]
+                 'default' => BooleanEnglishLetter::No->value,
+                 'options' => BooleanEnglishLetter::options(),
              ]
         ],
         $tsparams

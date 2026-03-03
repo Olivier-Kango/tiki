@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanInteger;
+
 function wikiplugin_fancylist_info()
 {
     return [
@@ -22,13 +24,9 @@ function wikiplugin_fancylist_info()
                 'name' => tra('Use Div'),
                 'description' => tra('Use the HTML div tag instead of the HTML ordered list tag (ol)'),
                 'since' => '3.0',
-                'default' => '',
+                'default' => BooleanInteger::No->value,
                 'filter' => 'digits',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ],
+                'options' => BooleanInteger::options(),
             ],
             'class' => [
                 'required' => false,

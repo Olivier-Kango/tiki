@@ -4,6 +4,11 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanInteger;
+use Tiki\WikiPlugin\Options\FloatPosition;
+use Tiki\WikiPlugin\Options\HorizontalAlignment;
+
 function wikiplugin_box_info()
 {
     return [
@@ -51,12 +56,8 @@ function wikiplugin_box_info()
                 'description' => tra('Aligns the text within the box (left-aligned by default)'),
                 'since' => '1',
                 'filter' => 'alpha',
-                'default' => 'left',
-                'options' => [
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                    ['text' => tra('Center'), 'value' => 'center'],
-                ],
+                'default' => HorizontalAlignment::Left->value,
+                'options' => HorizontalAlignment::options(),
             ],
             'float' => [
                 'required' => false,
@@ -69,12 +70,8 @@ function wikiplugin_box_info()
                 ),
                 'since' => '1',
                 'filter' => 'alpha',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                ],
+                'default' => FloatPosition::None->value,
+                'options' => FloatPosition::options(),
             ],
             'clear' => [
                 'required' => false,
@@ -86,12 +83,8 @@ function wikiplugin_box_info()
                 ),
                 'since' => '1',
                 'filter' => 'digits',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ],
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'class' => [
                 'required' => false,

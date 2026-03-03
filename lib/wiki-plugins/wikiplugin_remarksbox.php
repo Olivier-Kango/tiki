@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_remarksbox_info()
 {
     return [
@@ -49,12 +51,8 @@ function wikiplugin_remarksbox_info()
                 'description' => tra('Use the highlight class for formatting (not used by default).') ,
                 'since' => '2.0',
                 'filter' => 'alpha',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'icon' => [
                 'required' => false,
@@ -70,12 +68,8 @@ function wikiplugin_remarksbox_info()
                 'description' => tra('Show a close button (shown by default).'),
                 'since' => '4.0',
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'width' => [
                 'required' => false,
@@ -92,11 +86,7 @@ function wikiplugin_remarksbox_info()
                 'since' => '14.0',
                 'required' => false,
                 'filter' => 'text',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'id' => [
                 'name' => tr('ID'),

@@ -18,6 +18,7 @@ use Tiki\WikiPlugin\DBReport\Parameter;
 use Tiki\WikiPlugin\DBReport\Style;
 use Tiki\WikiPlugin\DBReport\Table;
 use Tiki\WikiPlugin\DBReport\Text;
+use Tiki\WikiPlugin\Options\BooleanInteger;
 
 $wikiplugin_dbreport_errors;
 $wikiplugin_dbreport_fields;
@@ -973,26 +974,17 @@ function wikiplugin_dbreport_info()
                 'name' => tra('Wiki Syntax'),
                 'description' => tra('Parse wiki syntax within the report (not parsed by default)'),
                 'since' => '3.0',
-                'default' => '',
                 'filter' => 'digits',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ],
+
             ],
             'debug' => [
                 'required' => false,
                 'name' => tra('Debug'),
                 'description' => tra('Display the parsed report definition (not displayed by default)'),
                 'since' => '3.0',
-                'default' => '',
                 'filter' => 'digits',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ],
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'audit' => [
                 'required' => false,

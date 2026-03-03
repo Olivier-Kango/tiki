@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanInteger;
+use Tiki\WikiPlugin\Options\SortDirections;
+
 function wikiplugin_toc_info()
 {
     return [
@@ -41,12 +45,8 @@ function wikiplugin_toc_info()
                 'since' => '3.0',
                 'required' => false,
                 'filter' => 'alpha',
-                'default' => 'asc',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Ascending'), 'value' => 'asc'],
-                    ['text' => tra('Descending'), 'value' => 'desc']
-                ]
+                'default' => SortDirections::Ascending->value,
+                'options' => SortDirections::options(),
             ],
             'sortalpha' => [
                 'name' => tra('Sort Order'),
@@ -67,12 +67,8 @@ function wikiplugin_toc_info()
                 'since' => '3.0',
                 'required' => false,
                 'filter' => 'digits',
-                'default' => 0,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'shownum' => [
                 'name' => tra('Show Numbering'),
@@ -80,12 +76,8 @@ function wikiplugin_toc_info()
                 'since' => '3.0',
                 'required' => false,
                 'filter' => 'digits',
-                'default' => 0,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'type' => [
                 'name' => tra('Type'),

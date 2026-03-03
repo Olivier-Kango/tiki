@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_trackerquerytemplate_info()
 {
     return [
@@ -34,13 +37,9 @@ function wikiplugin_trackerquerytemplate_info()
                 'name' => tra('Debug'),
                 'description' => tra('Turn tracker query debug on (off by default).'),
                 'since' => '10.0',
-                'default' => '',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'byname' => [
                 'required' => false,
@@ -49,26 +48,18 @@ function wikiplugin_trackerquerytemplate_info()
                     name instead of field ID in the filter parameters. Set to Yes (%1) to use names (default) or
                     No (%2) to use IDs.', '<code>tracker</code>', '<code>y</code>', '<code>n</code>'),
                 'since' => '10.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'render' => [
                 'required' => false,
                 'name' => tra('Render'),
                 'description' => tra('Render as needed for trackers (default).'),
                 'since' => '10.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'itemid' => [
                 'required' => false,
@@ -133,12 +124,8 @@ function wikiplugin_trackerquerytemplate_info()
                 'description' => tra('Retrieve only the last item from the tracker.'),
                 'since' => '10.0',
                 'filter' => 'alpha',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ]
     ];

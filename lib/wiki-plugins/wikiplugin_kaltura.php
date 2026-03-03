@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\FloatPosition;
+use Tiki\WikiPlugin\Options\HorizontalAlignment;
+
 function wikiplugin_kaltura_info()
 {
     global $prefs;
@@ -74,25 +78,16 @@ function wikiplugin_kaltura_info()
                 'since' => '10.0',
                 'default' => '',
                 'filter' => 'word',
-                'options' => [
-                    ['text' => tra('Not set'), 'value' => ''],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Centre'), 'value' => 'center'],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                ],
+                'options' => HorizontalAlignment::options('')
             ],
             'float' => [
                 'required' => false,
                 'name' => tra('Float'),
                 'description' => tra('Alignment of the player using CSS float'),
                 'since' => '10.0',
-                'default' => '',
+                'default' => FloatPosition::None,
                 'filter' => 'word',
-                'options' => [
-                    ['text' => tra('Not set'), 'value' => ''],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                ],
+                'options' => FloatPosition::options(),
             ],
             'bg' => [
                 'required' => false,
@@ -116,12 +111,9 @@ function wikiplugin_kaltura_info()
                 'required' => false,
                 'name' => tra('Border Radius'),
                 'description' => tra('Apply rounded corners to the container. Default: ') . '<code>Yes</code>',
-                'default' => 'y',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
                 'advanced' => true,
             ],
         ],

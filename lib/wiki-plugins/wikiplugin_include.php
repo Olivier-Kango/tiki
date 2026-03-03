@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_include_info()
 {
     return [
@@ -43,12 +45,8 @@ function wikiplugin_include_info()
                 'name' => tr('Read more button'),
                 'description' => tr('Add a "Read more" link at the end of included content, linking to the original page. (shows "Read More" by default)'),
                 'since' => '18.0',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'linkoriginal_text' => [
                 'required' => false,
@@ -87,13 +85,9 @@ function wikiplugin_include_info()
                 'name' => tr('Edit Icon'),
                 'description' => tr('Option to show the edit icon for the included page (shown by default). Depends on the "edit icons" settings.'),
                 'since' => '12.1',
-                'default' => '',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'max_inclusions' => [
                 'required' => false,
@@ -108,25 +102,17 @@ function wikiplugin_include_info()
                 'name' => tr('Parse Included Page'),
                 'description' => tr('Parse the page to be included before adding it to the parent page. This will help if html pages are included in wiki pages or vice versa, but will cause issues with the wiki table of contents.'),
                 'since' => '18.2',
-                'default' => 'n',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'page_replace_icon' => [
                 'required' => false,
                 'name' => tr('Replace Include Icon'),
                 'description' => tr('Option to show the replace page icon, for the included page to be replaced by original wiki text. Depends on the "edit icons" settings.'),
-                'default' => '',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'max_chars_included' => [
                 'required' => false,
@@ -146,12 +132,9 @@ function wikiplugin_include_info()
                 'required' => false,
                 'name' => tr('Recursive include warning'),
                 'description' => tr('Option to warn when we include a page within itself.'),
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];
@@ -244,8 +227,6 @@ function wikiplugin_include($dataIn, $params)
             return($text);
         }
     }
-
-    $linkoriginal_text = $params['linkoriginal_text'];
 
     if (! is_null($page_version)) {
         $history = $histlib->get_version($page, $page_version);

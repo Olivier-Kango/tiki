@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\Boolean;
+
 function wikiplugin_mwtable_info()
 {
     return [
@@ -24,13 +26,9 @@ function wikiplugin_mwtable_info()
                 'description' => tr('Set to true to apply additional formatting to the table (header style, odd/even
                     rows, etc.). Takes precedence over the %0wiki_classes%1 parameter.', '<code>', '</code>'),
                 'since' => '3.0',
-                'default' => 'false',
                 'filter' => 'word',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('True'), 'value' => 'true'],
-                    ['text' => tra('False'), 'value' => 'false']
-                ]
+                'default' => Boolean::False->value,
+                'options' => Boolean::options()
             ],
             'wiki_classes' => [
                 'safe' => true,
@@ -39,13 +37,9 @@ function wikiplugin_mwtable_info()
                 'description' => tra('Determines whether wiki style classes will be used for the table and cells
                     (used by default)'),
                 'since' => '3.0',
-                'default' => 'true',
                 'filter' => 'word',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('True'), 'value' => 'true'],
-                    ['text' => tra('False'), 'value' => 'false']
-                ]
+                'default' => Boolean::False->value,
+                'options' => Boolean::options()
             ]
         ]
     ];
@@ -55,16 +49,8 @@ function wikiplugin_mwtable($data, $params)
 {
     // Parse the parameters
     extract($params, EXTR_SKIP);
-    if ($fancy == "true") {
-        $fancy = true;
-    } else {
-        $fancy = false;
-    }
-    if ($wiki_classes == "false") {
-        $wiki_classes = false;
-    } else {
-        $wiki_classes = true;
-    }
+    $fancy = ($fancy == "true");
+    $wiki_classes = ($wiki_classes == "true");
 
     // set class constants
     $default_class_table = "normal";

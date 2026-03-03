@@ -5,6 +5,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\WikiPlugin\Options\FontStyle;
+use Tiki\WikiPlugin\Options\FontWeight;
+
 function getFontOptions()
 {
     global $prefs;
@@ -21,22 +24,12 @@ function getFontOptions()
 
 function wikiplugin_countup_info()
 {
-    $fontWeightOptions = [
-        ['text' => '', 'value' => ''],
-        ['text' => tra('normal'), 'value' => 'normal'],
-        ['text' => tra('bold'), 'value' => 'bold'] ,
-        ['text' => tra('lighter'), 'value' => 'lighter']
-    ];
-    for ($i = 100; $i <= 900; $i += 100) {
+    $fontWeightOptions = FontWeight::options('');
+    for ($i = 100; $i < 900; $i += 100) {
         $fontWeightOptions[] = ['text' => $i, 'value' => $i];
     }
 
-    $fontStyleOptions = [
-        ['text' => '', 'value' => ''],
-        ['text' => tra('normal'), 'value' => 'normal'],
-        ['text' => tra('italic'), 'value' => 'italic'] ,
-        ['text' => tra('oblique'), 'value' => 'oblique']
-    ];
+    $fontStyleOptions = FontStyle::options();
 
     return [
         'name' => tra('Countup'),
@@ -70,7 +63,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'text',
                 'options' => $fontWeightOptions,
-                'default' => 'normal',
+                'default' => FontWeight::Normal->value,
                 'advanced' => true,
             ],
             'titleFontStyle' => [
@@ -80,7 +73,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'text',
                 'options' => $fontStyleOptions,
-                'default' => 'normal',
+                'default' => FontStyle::Normal->value,
                 'advanced' => true,
             ],
             'titleFontSize' => [
@@ -152,7 +145,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'text',
                 'options' => $fontWeightOptions,
-                'default' => 'normal',
+                'default' => FontWeight::Normal->value,
                 'advanced' => true,
             ],
             'descriptionFontStyle' => [
@@ -162,7 +155,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'text',
                 'options' => $fontStyleOptions,
-                'default' => 'normal',
+                'default' => FontStyle::Normal->value,
                 'advanced' => true,
             ],
             'descriptionFontSize' => [
@@ -215,7 +208,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'text',
                 'options' => $fontWeightOptions,
-                'default' => 'normal',
+                'default' => FontWeight::Normal->value,
                 'advanced' => true,
             ],
             'numberFontStyle' => [
@@ -225,7 +218,7 @@ function wikiplugin_countup_info()
                 'since' => '25.0',
                 'filter' => 'text',
                 'options' => $fontStyleOptions,
-                'default' => 'normal',
+                'default' => FontStyle::Normal->value,
                 'advanced' => true,
             ],
             'numberFontSize' => [

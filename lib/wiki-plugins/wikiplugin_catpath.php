@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_catpath_info()
 {
     return [
@@ -30,12 +33,8 @@ function wikiplugin_catpath_info()
                 'description' => tra('Show the top category as part of the path name (not shown by default)'),
                 'since' => '1',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];
@@ -62,7 +61,7 @@ function wikiplugin_catpath($data, $params)
         $catpath .= '<span class="categpath">';
 
         // Display TOP on each line if wanted
-        if ($top == 'yes' or $top == 'y') {
+        if (BooleanNormalizer::isTruthy($top)) {
             $catpath .= '<a class="categpath" href="tiki-browse_categories.php?parentId=0">TOP</a> ' . $divider . ' ';
         }
 

@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_fancylink_info()
 {
     return [
@@ -27,33 +30,24 @@ function wikiplugin_fancylink_info()
                 'name' => tr('Show Image'),
                 'description' => tr('Display the URL image'),
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showdesc' => [
                 'required' => false,
                 'name' => tr('Show Description'),
                 'description' => tr('Display the URL description'),
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'preview' => [
                 'required' => false,
                 'name' => tr('Preview'),
                 'description' => tr('Display rich preview instead of a simple link'),
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => tr('Yes'), 'value' => 'y'],
-                    ['text' => tr('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];
@@ -86,9 +80,9 @@ function wikiplugin_fancylink($data, $params)
     }
 
     $url = $params['url'];
-    $showImg = isset($params['showimage']) ? $params['showimage'] == 'y' : true;
-    $showDesc = isset($params['showdesc']) ? $params['showdesc'] == 'y' : true;
-    $shouldPreview = isset($params['preview']) ? $params['preview'] == 'y' : true;
+    $showImg = BooleanNormalizer::isTruthy($params['showimage']);
+    $showDesc = BooleanNormalizer::isTruthy($params['showdesc']);
+    $shouldPreview = BooleanNormalizer::isTruthy($params['preview']);
 
     // Cache time - 1 day
     $cachetime = 86400;

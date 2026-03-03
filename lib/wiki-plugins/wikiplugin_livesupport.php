@@ -5,6 +5,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_livesupport_info()
 {
     return [
@@ -22,11 +24,8 @@ function wikiplugin_livesupport_info()
                 'description' => tr('Show live chat only if operator is available'),
                 'since' => '26.0',
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'operator_groups' => [
                 'required' => false,
@@ -42,11 +41,8 @@ function wikiplugin_livesupport_info()
                 'description' => tr('leave message if no operator is available'),
                 'since' => '26.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];

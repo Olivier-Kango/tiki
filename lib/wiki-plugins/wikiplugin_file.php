@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanInteger;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 define('WIKIPLUGIN_FILE_PAGE_LAST_MOD', 'PAGE_LAST_MOD');
 define('WIKIPLUGIN_FILE_PAGE_VIEW_DATE', 'PAGE_VIEW_DATE');
 
@@ -65,13 +69,9 @@ function wikiplugin_file_info()
                 'name' => tra('Attachment Description'),
                 'description' => tra('Show the attachment description as the link label instead of the attachment file name.'),
                 'since' => '3.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0],
-                ],
+                'options' => BooleanInteger::options(),
                 'parentparam' => ['name' => 'type', 'value' => 'attachment'],
-                'default' => '',
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ],
             'image' => [
@@ -81,12 +81,8 @@ function wikiplugin_file_info()
                 'since' => '3.0',
                 'parentparam' => ['name' => 'type', 'value' => 'attachment'],
                 'advanced' => true,
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ],
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'fileId' => [
                 'required' => false,
@@ -116,12 +112,8 @@ function wikiplugin_file_info()
                 'since' => '6.1',
                 'filter' => 'alpha',
                 'parentparam' => ['name' => 'type', 'value' => 'gallery'],
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
                 'advanced' => true,
             ],
             'browserdisplay' => [
@@ -131,12 +123,8 @@ function wikiplugin_file_info()
                 'since' => '18.1',
                 'filter' => 'alpha',
                 'parentparam' => ['name' => 'type', 'value' => 'gallery'],
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
                 'advanced' => true,
             ],
             'translatetitle' => [
@@ -145,13 +133,9 @@ function wikiplugin_file_info()
                 'description' => tra('Translate, if possible, the file title using Tiki multilingual feature (you can  add custom translation in Tiki)'),
                 'since' => '24.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => false,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
         ]
     ];
@@ -222,18 +206,18 @@ function wikiplugin_file($data, $params)
             $data = empty($file_info['name']) ? $file_info['filename'] : $file_info['name'];
         }
 
-        if ($params['translatetitle'] == 'y') {
+        if (BooleanNormalizer::isTruthy($params['translatetitle'])) {
             $data = tra($data);
         }
 
-        if ($params['browserdisplay'] == 'y') {
-            if ($params['showicon'] == "y") {
+        if (BooleanNormalizer::isTruthy($params['browserdisplay'])) {
+            if (BooleanNormalizer::isTruthy($params['showicon'])) {
                 return "{img src=tiki-download_file.php?fileId=$fileId&amp;thumbnail=y link=tiki-download_file.php?fileId=$fileId&display=y styleimage=max-width:32px;max-height:36px thumb=y responsive='n'} " . "<a class='wiki' href='tiki-download_file.php?fileId=$fileId&display=y' target='_blank' >" . $data . "</a>";
             } else {
                 return "<a class='wiki' href='tiki-download_file.php?fileId=$fileId&display=y' target='_blank' >" . $data . "</a>";
             }
         } else {
-            if ($params['showicon'] == "y") {
+            if (BooleanNormalizer::isTruthy($params['showicon'])) {
                 return "{img src=tiki-download_file.php?fileId=$fileId&amp;thumbnail=y link=tiki-download_file.php?fileId=$fileId styleimage=max-width:32px responsive='n'} [tiki-download_file.php?fileId=$fileId|$data]";
             } else {
                 return "[tiki-download_file.php?fileId=$fileId|$data]";

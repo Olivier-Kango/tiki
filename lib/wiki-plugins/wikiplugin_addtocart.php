@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Tiki\Lib\Auth\Tokens;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
 
 function wikiplugin_addtocart_info()
 {
@@ -176,12 +178,8 @@ function wikiplugin_addtocart_info()
                 'description' => tra('Attempts to turn on Ajax for the cart'),
                 'filter' => 'alpha',
                 'since' => '7.0',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'weight' => [
                 'required' => false,
@@ -271,7 +269,7 @@ function wikiplugin_addtocart($data, $params)
         }
     }
 
-    if ($params['ajaxaddtocart'] == 'y') {
+    if (BooleanNormalizer::isTruthy($params['ajaxaddtocart'])) {
         $headerlib->add_jq_onready("$('.wp_addtocart_form').cartAjaxAdd();");
         $smarty->assign('form_data', ' data-params=\'' . str_replace("'", "\u0027", json_encode(array_filter($params))) . '\'');
     } else {

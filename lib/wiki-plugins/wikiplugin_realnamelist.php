@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\SortDirections;
+
 function wikiplugin_realnamelist_info()
 {
     return [
@@ -38,11 +40,7 @@ function wikiplugin_realnamelist_info()
                 'description' => tra('Set to sort in ascending or descending order (unsorted by default'),
                 'since' => '4.0',
                 'filter' => 'word',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Ascending'), 'value' => 'asc'],
-                    ['text' => tra('Descending'), 'value' => 'desc']
-                ]
+                'options' => SortDirections::options('')
             ],
             'layout' => [
                 'required' => false,

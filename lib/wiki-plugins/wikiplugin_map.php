@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_map_info()
 {
     return [
@@ -102,13 +105,9 @@ function wikiplugin_map_info()
                 'name' => tra('Tooltips'),
                 'description' => tra('Show item name in a tooltip on hover'),
                 'since' => '12.1',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'options' => BooleanEnglishLetter::options(),
                 'advanced' => true,
             ],
             'tilesets' => [

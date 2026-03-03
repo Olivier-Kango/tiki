@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_vue_info()
 {
     return [
@@ -24,12 +27,8 @@ function wikiplugin_vue_info()
                 'description' => tra('Make the base App object and initialise Vue.js'),
                 'since' => '21.0',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
-                'default' => '',
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
                 'advanced' => true,
             ],
             'name' => [

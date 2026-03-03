@@ -25,7 +25,6 @@ function wikiplugin_benchmark_info()
                 'since' => '17.0',
                 'default' => '100',
                 'filter' => 'digits',
-                //'profile_reference' => 'wiki_page',
             ],
             'details' => [
                 'required' => false,
@@ -34,7 +33,6 @@ function wikiplugin_benchmark_info()
                 'since' => '17.0',
                 'default' => 'true',
                 'filter' => 'alpha',
-                //'profile_reference' => 'wiki_page',
             ],
         ],
     ];

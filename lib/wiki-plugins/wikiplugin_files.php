@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_files_info()
 {
     global $prefs;
@@ -87,13 +91,9 @@ function wikiplugin_files_info()
                     (shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showfind' => [
                 'required' => false,
@@ -101,26 +101,18 @@ function wikiplugin_files_info()
                 'description' => tra('Show a search box above the list (not shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showfindisrecursive' => [
                 'required' => false,
                 'name' => tra('Show Find is recursive'),
                 'description' => tra('The search box digs recursively in sub-galleries (by default)'),
                 'filter' => 'alpha',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'options' => BooleanEnglishLetter::options(),
                 'parentparam' => ['name' => 'showfind', 'value' => 'y'],
             ],
             'showtitle' => [
@@ -129,26 +121,18 @@ function wikiplugin_files_info()
                 'description' => tra('Show the title of the file gallery (shown by default). Also shown on slide show
                     pop up window if a single galleryId is used.'),
                 'filter' => 'alpha',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'since' => '5.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showid' => [
                 'required' => false,
                 'name' => tra('Show ID'),
                 'description' => tra('Show the ID number of each file (shown by default)'),
                 'since' => '3.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showicon' => [
                 'required' => false,
@@ -156,12 +140,8 @@ function wikiplugin_files_info()
                 'description' => tra('Show the file-type icon for each file'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showname' => [
                 'required' => false,
@@ -169,13 +149,9 @@ function wikiplugin_files_info()
                 'description' => tr('Show the name given to the file upon upload into the file gallery (shown by
                     default). Set to Yes (%0) to show as a caption in a slide show.', '<code>y</code>'),
                 'since' => '3.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showfilename' => [
                 'required' => false,
@@ -184,25 +160,17 @@ function wikiplugin_files_info()
                     (%0) to show as a caption in a slide show.', '<code>y</code>'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showsize' => [
                 'required' => false,
                 'name' => tra('Show Size'),
                 'description' => tra('Show the size of each file in kilobytes (shown by default except in slide show)'),
                 'since' => '3.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showdescription' => [
                 'required' => false,
@@ -211,12 +179,8 @@ function wikiplugin_files_info()
                     by default except in slide show). Set to Yes (%0) to show as a caption in a slide show.', '<code>y</code>'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showcreated' => [
                 'required' => false,
@@ -224,39 +188,27 @@ function wikiplugin_files_info()
                 'description' => tra('Show the date each file was created (not shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showmodified' => [
                 'required' => false,
                 'name' => tra('Show Last Modification Date'),
                 'description' => tra('Show the date each file was last modified (shown by default)'),
                 'since' => '3.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showmodtimedate' => [
                 'required' => false,
                 'name' => tra('Show Last Modification Time as well as Date'),
                 'description' => tra('if showmodified is set to y then this will show both the date and time that each file was last modified (not shown by default)'),
                 'since' => '16.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showhits' => [
                 'required' => false,
@@ -264,13 +216,9 @@ function wikiplugin_files_info()
                 'description' => tra('Show the number of hits each file has received (not shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showlockedby' => [
                 'required' => false,
@@ -278,13 +226,9 @@ function wikiplugin_files_info()
                 'description' => tra('For locked files, show the username of the user who locked it (not shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showauthor' => [
                 'required' => false,
@@ -292,26 +236,18 @@ function wikiplugin_files_info()
                 'description' => tra('Show the username of the user who is the author of the file (not shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showcreator' => [
                 'required' => false,
                 'name' => tra('Show Creator'),
                 'description' => tra('Show the username of the user who is the creator of the file (not shown by default)'),
                 'since' => '3.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showgallery' => [
                 'required' => false,
@@ -319,12 +255,8 @@ function wikiplugin_files_info()
                 'description' => tra('Show the name of the parent gallery'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showfiles' => [
                 'required' => false,
@@ -333,27 +265,19 @@ function wikiplugin_files_info()
                     galleries), show the number of files in each of those galleries (not shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showsource' => [
                 'required' => false,
                 'name' => tra('Show Source'),
                 'description' => tra('Show the source (shown by default).'),
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
                 'since' => '10.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'slideshow' => [
                 'required' => false,
@@ -361,13 +285,9 @@ function wikiplugin_files_info()
                 'description' => tra('Show a link that produces a popup slideshow when clicked (not set by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'slidewidth' => [
                 'required' => false,
@@ -395,12 +315,8 @@ function wikiplugin_files_info()
                 'description' => tra('Show comments for each file (not shown by default)'),
                 'since' => '5.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
                 'advanced' => true,
             ],
             'showlasteditor' => [
@@ -408,26 +324,18 @@ function wikiplugin_files_info()
                 'name' => tra('Show Last Editor'),
                 'description' => tra('Show the username of the user who last modified the file (shown by default)'),
                 'since' => '5.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showthumb' => [
                 'required' => false,
                 'name' => tra('Show image thumbnail'),
                 'description' => tra('Show Image thumb'),
                 'since' => '8.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'creator' => [
                 'required' => false,
@@ -443,13 +351,9 @@ function wikiplugin_files_info()
                 'description' => tra('Show a simple form to upload files to the gallery (not shown by default)'),
                 'since' => '6.0',
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'max' => [
                 'required' => false,
@@ -466,12 +370,8 @@ function wikiplugin_files_info()
                 'description' => tra('Recursive'),
                 'since' => '8.0',
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'withsubgals' => [
                 'required' => false,
@@ -479,13 +379,9 @@ function wikiplugin_files_info()
                 'description' => tra('With subgalleries'),
                 'since' => '8.0',
                 'filter' => 'alpha',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],      ]
      ];
 }
@@ -542,24 +438,24 @@ function wikiplugin_files($data, $params)
         $gal_info['name'] = $filegallib->get_user_gallery_name($gal_info, $user);
 
         if ($tiki_p_admin != 'y' && $tiki_p_admin_files_galleries != 'y' && $gal_info['user'] != $user) {
-            if ($showupload == 'y' && $tikilib->user_has_perm_on_object($user, $galId, 'file gallery', 'tiki_p_upload_files')) {
+            if (BooleanNormalizer::isTruthy($showupload) && $tikilib->user_has_perm_on_object($user, $galId, 'file gallery', 'tiki_p_upload_files')) {
                 $params['showupload'] = 'y';
             }
         } else {
-            if ($showupload == 'y') {
+            if (BooleanNormalizer::isTruthy($showupload)) {
                 $params['showupload'] = 'y';
             }
         }
-        if ($slideshow == 'y') {
+        if (BooleanNormalizer::isTruthy($slideshow)) {
             if (empty($data)) {
                 $data = tra('Slideshow');
             }
             // set caption field indicator for images in slide show
-            if ($showdescription == 'y') {
+            if (BooleanNormalizer::isTruthy($showdescription)) {
                 $caption = 'd';
-            } elseif ($showname == 'y') {
+            } elseif (BooleanNormalizer::isTruthy($showname)) {
                 $caption = 'n';
-            } elseif ($showfilename == 'y') {
+            } elseif (BooleanNormalizer::isTruthy($showfilename)) {
                 $caption = 'f';
             } else {
                 $caption = false;
@@ -575,14 +471,14 @@ function wikiplugin_files($data, $params)
         $find = $_REQUEST['find'] ?? '';
         // If we have set recursive == y, then always look recursively
         // Otherwise, we still want to search recursively when showfindisrecursive == y
-        if ($recursive == 'y') {
+        if (BooleanNormalizer::isTruthy($recursive)) {
             $look_recursively = true;
-        } elseif ($showfindisrecursive == 'y' && ! empty($find)) {
+        } elseif (BooleanNormalizer::isTruthy($showfindisrecursive) && ! empty($find)) {
             $look_recursively = true;
         } else {
             $look_recursively = false;
         }
-        $fs = $filegallib->get_files(0, $max, $sort, $find, $galleryId, false, $withsubgals == 'y', false, true, false, $show_parentName == 'y', true, $look_recursively, '', false, false, false, $filter);
+        $fs = $filegallib->get_files(0, $max, $sort, $find, $galleryId, false, BooleanNormalizer::isTruthy($withsubgals), false, true, false, $show_parentName == 'y', true, $look_recursively, '', false, false, false, $filter);
         if (! is_null($categId)) {
             $objects = $categlib->list_category_objects($categId, 0, -1, 'itemId_asc', 'file');
             $objects_in_categs = [];
@@ -613,7 +509,7 @@ function wikiplugin_files($data, $params)
             if (empty($gal_info)) {
                 continue; // Skip this gallery if it doesn't exist
             }
-            $fs = $filegallib->get_files(0, $max, $sort, '', $og['itemId'], false, $withsubgals == 'y', false, true, false, $show_parentName == 'y', true, $recursive, '', false, false, false, $filter);
+            $fs = $filegallib->get_files(0, $max, $sort, '', $og['itemId'], false, BooleanNormalizer::isTruthy($withsubgals), false, true, false, $show_parentName == 'y', true, $recursive, '', false, false, false, $filter);
             if ($fs['count']) {
                 for ($i = 0, $count_fs_data = count($fs['data']); $i < $count_fs_data; ++$i) {
                     $fs['data'][$i]['gallery'] = $gal_info['name'];
@@ -690,16 +586,16 @@ function wikiplugin_files($data, $params)
     $gal_info['show_comment'] = $showcomment;
     $gal_info['show_last_user'] = $showlasteditor;
     $gal_info['show_source'] = $showsource;
-    if ($showname == 'y' && $showfilename == 'y') {
+    if (BooleanNormalizer::isTruthy($showname) && BooleanNormalizer::isTruthy($showfilename)) {
         $gal_info['show_name'] = 'a';
     }
-    if ($showname == 'y' && $showfilename == 'n') {
+    if (BooleanNormalizer::isTruthy($showname) && BooleanNormalizer::isFalsy($showfilename)) {
         $gal_info['show_name'] = 'n';
     }
-    if ($showname == 'n' && $showfilename == 'y') {
+    if (BooleanNormalizer::isFalsy($showname) && BooleanNormalizer::isTruthy($showfilename)) {
         $gal_info['show_name'] = 'f';
     }
-    if ($showname == 'n' && $showfilename == 'n') {
+    if (BooleanNormalizer::isFalsy($showname) && BooleanNormalizer::isFalsy($showfilename)) {
         $gal_info['show_name'] = '';
     }
     $gal_info['show_parentName'] = $show_parentName;

@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Smarty\Exception as SmartyException;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
 
 function wikiplugin_appframe_info()
 {
@@ -40,45 +42,33 @@ function wikiplugin_appframe_info()
                 'required' => false,
                 'name' => tr('Hide left column'),
                 'description' => tr('Hide the left column when the application frame is in use to provide more space to the application.'),
-                'default' => 'n',
                 'since' => '9.0',
-                'options' => [
-                    ['value' => 'n', 'text' => tr('No')],
-                    ['value' => 'y', 'text' => tr('Yes')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'hideright' => [
                 'required' => false,
                 'name' => tr('Hide right column'),
                 'description' => tr('Hide the right column when the application frame is in use to provide more space to the application.'),
-                'default' => 'n',
                 'since' => '9.0',
-                'options' => [
-                    ['value' => 'n', 'text' => tr('No')],
-                    ['value' => 'y', 'text' => tr('Yes')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'fullpage' => [
                 'required' => false,
                 'name' => tr('Full page'),
                 'description' => tr('Completely fill the content area of the page.'),
-                'default' => 'n',
                 'since' => '9.0',
-                'options' => [
-                    ['value' => 'n', 'text' => tr('No')],
-                    ['value' => 'y', 'text' => tr('Yes')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'absolute' => [
                 'required' => false,
                 'name' => tr('Absolute Position'),
                 'description' => tr('Use all available space for the application frame (by means of CSS absolute positioning).'),
-                'default' => 'n',
                 'since' => '9.0',
-                'options' => [
-                    ['value' => 'n', 'text' => tr('No')],
-                    ['value' => 'y', 'text' => tr('Yes')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'top' => [
                 'required' => false,
@@ -92,12 +82,9 @@ function wikiplugin_appframe_info()
                 'required' => false,
                 'name' => tr('Full screen'),
                 'description' => tr('Fill the complete page.'),
-                'default' => 'n',
                 'since' => '10.0',
-                'options' => [
-                    ['value' => 'n', 'text' => tr('No')],
-                    ['value' => 'y', 'text' => tr('Yes')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];
@@ -107,25 +94,19 @@ function wikiplugin_appframe($data, $params)
 {
     $minHeight = (int) ($params['min'] ?? 300);
     $maxHeight = (int) ($params['max'] ?? -1);
-    $fullPage = 0;
-    if ($params['fullpage'] == 'y') {
-        $fullPage = 1;
-    }
-    $fullscreen = 0;
-    if ($params['fullscreen'] == 'y') {
-        $fullscreen = 1;
-    }
+    $fullPage = (int) BooleanNormalizer::isTruthy($params['fullpage']);
+    $fullscreen = (int) BooleanNormalizer::isTruthy($params['fullscreen']);
 
     $absolute = (int)($params['absolute'] == 'y');
     $top = $params['top'];
 
     $headerlib = TikiLib::lib('header');
 
-    if ($params['hideleft'] == 'y') {
+    if (BooleanNormalizer::isTruthy($params['hideleft'])) {
         $headerlib->add_js('$("body").addClass("hide_zone_left");');
     }
 
-    if ($params['hideright'] == 'y') {
+    if (BooleanNormalizer::isTruthy($params['hideright'])) {
         $headerlib->add_js('$("body").addClass("hide_zone_right");');
     }
 

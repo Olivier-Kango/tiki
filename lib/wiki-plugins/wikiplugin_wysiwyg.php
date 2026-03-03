@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_wysiwyg_info()
 {
     global $prefs;
@@ -45,11 +47,7 @@ function wikiplugin_wysiwyg_info()
                 'since' => '14.1',
                 'filter' => 'alpha',
                 'default' => $prefs['wysiwyg_htmltowiki'] == 'y' ? 'n' : 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];

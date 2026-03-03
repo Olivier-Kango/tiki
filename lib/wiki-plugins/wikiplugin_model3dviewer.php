@@ -5,6 +5,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_model3dviewer_info()
 {
     global $prefs;
@@ -87,11 +89,8 @@ function wikiplugin_model3dviewer_info()
                 'since' => '30.0',
                 'doctype' => 'flag',
                 'filter' => 'word',
-                'default' => 'n',
-                'options' => [
-                    ['value' => 'y', 'text' => tra('Yes')],
-                    ['value' => 'n', 'text' => tra('No')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'backgroundColor' => [
                 'required' => false,
@@ -140,11 +139,8 @@ function wikiplugin_model3dviewer_info()
                 'since' => '30.0',
                 'doctype' => 'flag',
                 'filter' => 'word',
-                'default' => 'y',
-                'options' => [
-                    ['value' => 'y', 'text' => tra('Yes')],
-                    ['value' => 'n', 'text' => tra('No')],
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'shadow' => [
                 'required' => false,
@@ -153,11 +149,8 @@ function wikiplugin_model3dviewer_info()
                 'since' => '30.0',
                 'doctype' => 'flag',
                 'filter' => 'word',
-                'default' => 'n',
-                'options' => [
-                    ['value' => 'y', 'text' => tra('Yes')],
-                    ['value' => 'n', 'text' => tra('No')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'light_type' => [
                 'required' => false,
@@ -194,11 +187,8 @@ function wikiplugin_model3dviewer_info()
                 'since' => '30.0',
                 'doctype' => 'flag',
                 'filter' => 'word',
-                'default' => 'n',
-                'options' => [
-                    ['value' => 'y', 'text' => tra('Yes')],
-                    ['value' => 'n', 'text' => tra('No')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'animation_loop' => [
                 'required' => false,
@@ -207,11 +197,8 @@ function wikiplugin_model3dviewer_info()
                 'since' => '30.0',
                 'doctype' => 'flag',
                 'filter' => 'word',
-                'default' => 'n',
-                'options' => [
-                    ['value' => 'y', 'text' => tra('Yes')],
-                    ['value' => 'n', 'text' => tra('No')],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ]
     ];

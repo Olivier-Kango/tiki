@@ -5,7 +5,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\Lib\Image\Image;
-use Tiki\Package\VendorHelper;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+use Tiki\WikiPlugin\Options\HorizontalAlignment;
 
 function wikiplugin_img_info()
 {
@@ -166,12 +168,8 @@ function wikiplugin_img_info()
                 'since' => '18.0',
                 'doctype' => 'size',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => tra('Default'), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'widths' => [
                 'required' => false,
@@ -231,12 +229,8 @@ function wikiplugin_img_info()
                 'since' => '14.0',
                 'doctype' => 'style',
                 'advanced' => false,
-                'default' => '',
-                'options' => [
-                    ['text' => tra('Default'), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'featured' => [
                 'required' => false,
@@ -246,12 +240,8 @@ function wikiplugin_img_info()
                 'since' => '18.0',
                 'doctype' => 'show',
                 'advanced' => false,
-                'default' => 'n',
-                'options' => [
-                    ['text' => tra('Default'), 'value' => ''],
-                    ['text' => tra('No'), 'value' => 'n'],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
 
             ///// advanced parameters ///////
@@ -381,12 +371,7 @@ function wikiplugin_img_info()
                 'filter' => 'alpha',
                 'advanced' => true,
                 'default' => '',
-                'options' => [
-                    ['text' => tra('None'), 'value' => ''],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Center'), 'value' => 'center'],
-                ],
+                'options' => HorizontalAlignment::options(''),
             ],
             'imalign' => [
                 'required' => false,
@@ -399,12 +384,7 @@ function wikiplugin_img_info()
                 'filter' => 'alpha',
                 'advanced' => true,
                 'default' => '',
-                'options' => [
-                    ['text' => tra('None'), 'value' => ''],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Center'), 'value' => 'center'],
-                ],
+                'options' => HorizontalAlignment::options(''),
             ],
             'styleimage' => [
                 'required' => false,
@@ -427,12 +407,7 @@ function wikiplugin_img_info()
                 'filter' => 'alpha',
                 'advanced' => true,
                 'default' => '',
-                'options' => [
-                    ['text' => tra('None'), 'value' => ''],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Center'), 'value' => 'center'],
-                ],
+                'options' => HorizontalAlignment::options(''),
             ],
             'stylebox' => [
                 'required' => false,
@@ -540,12 +515,8 @@ function wikiplugin_img_info()
                 'description' => tr('Use the full URL for src and link URLS.'),
                 'since' => '24.1',
                 'doctype' => 'link',
-                'default' => '',
-                'options' => [
-                    ['text' => tra('Default'), 'value' => ''],
-                    ['text' => tra('No'), 'value' => 'n'],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
                 'advanced' => true,
             ],
             'default' => [
@@ -579,12 +550,8 @@ function wikiplugin_img_info()
             'doctype' => 'style',
             'advanced' => true,
             'filter' => 'alpha',
-            'options' => [
-                ['text' => tra('None'), 'value' => ''],
-                ['text' => tra('No'), 'value' => 'n'],
-                ['text' => tra('Yes'), 'value' => 'y'],
-            ],
-            'default' => '',
+            'default' => BooleanEnglishLetter::No->value,
+            'options' => BooleanEnglishLetter::options(),
         ];
     }
 
@@ -778,7 +745,7 @@ function wikiplugin_img($data, $params)
             $absolute_links = false;
         }
     } else {
-        $absolute_links = $params['absoluteLinks'] === 'y';
+        $absolute_links = BooleanNormalizer::isTruthy($params['absoluteLinks']);
     }
     $imagegalpath = ($absolute_links ? $base_url : '') . 'show_image.php?id=';
     $filegalpath = ($absolute_links ? $base_url : '') . 'tiki-download_file.php?fileId=';

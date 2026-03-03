@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanInteger;
+use Tiki\WikiPlugin\Options\IframeAlignment;
+
 function wikiplugin_googledoc_info()
 {
     return [
@@ -98,14 +101,7 @@ function wikiplugin_googledoc_info()
                 'description' => tra('Position of frame on page'),
                 'since' => '3.0',
                 'filter' => 'word',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Top'), 'value' => 'top'],
-                    ['text' => tra('Middle'), 'value' => 'middle'],
-                    ['text' => tra('Bottom'), 'value' => 'bottom'],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Right'), 'value' => 'right']
-                ]
+                'options' => IframeAlignment::options(),
             ],
             'frameborder' => [
                 'safe' => true,
@@ -113,13 +109,9 @@ function wikiplugin_googledoc_info()
                 'name' => tra('Frame Border'),
                 'description' => tra('Choose whether to show a border around the iframe'),
                 'since' => '3.0',
-                'default' => 0,
+                'default' => BooleanInteger::No->value,
                 'filter' => 'digits',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'options' => BooleanInteger::options(),
             ],
             'marginheight' => [
                 'safe' => true,
@@ -145,9 +137,8 @@ function wikiplugin_googledoc_info()
                 'since' => '3.0',
                 'filter' => 'word',
                 'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'yes'],
                     ['text' => tra('No'), 'value' => 'no'],
+                    ['text' => tra('Yes'), 'value' => 'yes'],
                     ['text' => tra('Auto'), 'value' => 'auto']
                 ]
             ],

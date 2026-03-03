@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\FloatPosition;
+use Tiki\WikiPlugin\Options\TextAlignment;
+
 function wikiplugin_div_info()
 {
 
@@ -74,14 +77,8 @@ function wikiplugin_div_info()
                 'since' => '1',
                 'filter' => 'alpha',
                 'safe' => true,
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                    ['text' => tra('Center'), 'value' => 'center'],
-                    ['text' => tra('Justify'), 'value' => 'justify'],
-                ],
+                'default' => TextAlignment::Left->value,
+                'options' => TextAlignment::options(),
             ],
             'float' => [
                 'required' => false,
@@ -91,13 +88,8 @@ function wikiplugin_div_info()
                 'since' => '1',
                 'filter' => 'alpha',
                 'safe' => true,
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('None'), 'value' => 'none'],
-                ],
+                'default' => FloatPosition::None,
+                'options' => FloatPosition::options(),
             ],
             'clear' => [
                 'required' => false,

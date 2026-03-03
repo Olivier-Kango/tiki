@@ -5,6 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Symfony\Component\Yaml\Yaml;
+use Tiki\WikiPlugin\Options\BooleanInteger;
 
 function wikiplugin_code_info()
 {
@@ -64,13 +65,9 @@ function wikiplugin_code_info()
                 'required' => false,
                 'name' => tra('Line Wrapping'),
                 'description' => tra('Wrap lines of code which do not fit in the display box\'s width. Enabling avoids overflow or hidden line ends.'),
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
-                ],
                 'filter' => 'digits',
-                'default' => '1'
+                'default' => BooleanInteger::Yes->value,
+                'options' => BooleanInteger::options(),
             ],
             'colors' => [
                 'required' => false,
@@ -86,11 +83,7 @@ function wikiplugin_code_info()
                 'name' => tra('Line Numbers'),
                 'description' => tra('Show line numbers for each line of code.'),
                 'since' => '1',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
-                ],
+                'options' => BooleanInteger::options(),
                 'filter' => 'digits',
                 'advanced' => true,
             ],
@@ -99,11 +92,8 @@ function wikiplugin_code_info()
                 'name' => tra('Right to Left'),
                 'description' => tra('Switch the text display from left to right, to right to left (left to right by default)'),
                 'since' => '1',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
-                ],
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
                 'filter' => 'digits',
                 'advanced' => true,
             ],
@@ -112,13 +102,9 @@ function wikiplugin_code_info()
                 'name' => tra('Code Tag'),
                 'description' => tra('Encloses the code in an HTML code tag, for example: &lt;code&gt;user input&lt;code&gt;'),
                 'since' => '8.3',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
-                ],
+                'options' => BooleanInteger::options(),
                 'filter' => 'digits',
-                'default' => '0',
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ],
             'theme' => [
@@ -194,7 +180,7 @@ function wikiplugin_code($data, $params)
         . (! is_null($colors) ? ' data-syntax="' . $colors . '" ' : '')
         . (! is_null($ln) ? ' data-line-numbers="' . $ln . '" ' : '')
         . (($wrap) ? ' data-wrap="' . $wrap . '" ' : '')
-        . ' dir="' . ( (isset($rtl) && $rtl == 1) ? 'rtl' : 'ltr') . '" '
+        . ' dir="' . (\Tiki\WikiPlugin\Options\BooleanNormalizer::isTruthy($rtl) ? 'rtl' : 'ltr') . '" '
         . (isset($pre_style) ? ' style="' . $pre_style . '"' : '')
         . $boxid . '>'
         . '<div class="code">'

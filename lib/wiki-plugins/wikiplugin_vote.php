@@ -4,6 +4,11 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\HorizontalAlignment;
+use Tiki\WikiPlugin\Options\TrackerStatusesSets;
+
 function wikiplugin_vote_info()
 {
     return [
@@ -42,12 +47,8 @@ function wikiplugin_vote_info()
                     shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'show_bar' => [
                 'required' => false,
@@ -56,12 +57,8 @@ function wikiplugin_vote_info()
                     received (not shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'show_stat' => [
                 'required' => false,
@@ -69,12 +66,8 @@ function wikiplugin_vote_info()
                 'description' => tra('Choose whether to show the voting results (shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'show_stat_only_after' => [
                 'required' => false,
@@ -83,12 +76,8 @@ function wikiplugin_vote_info()
                     tracker configuration (not set by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'show_creator' => [
                 'required' => false,
@@ -97,12 +86,8 @@ function wikiplugin_vote_info()
                     shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'status' => [
                 'required' => false,
@@ -110,17 +95,8 @@ function wikiplugin_vote_info()
                 'description' => tra('Only show items matching certain status filters'),
                 'since' => '2.0',
                 'filter' => 'alpha',
-                'default' => 'o',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Open'), 'value' => 'o'],
-                    ['text' => tra('Pending'), 'value' => 'p'],
-                    ['text' => tra('Closed'), 'value' => 'c'],
-                    ['text' => tra('Open & Pending'), 'value' => 'op'],
-                    ['text' => tra('Open & Closed'), 'value' => 'oc'],
-                    ['text' => tra('Pending & Closed'), 'value' => 'pc'],
-                    ['text' => tra('Open, Pending & Closed'), 'value' => 'opc'],
-                ],
+                'default' => TrackerStatusesSets::Open->value,
+                'options' => TrackerStatusesSets::options(),
             ],
             'float' => [
                 'required' => false,
@@ -130,12 +106,7 @@ function wikiplugin_vote_info()
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Right'), 'value' => 'right'],
-                    ['text' => tra('None'), 'value' => 'none'],
-                ],
+                'options' => HorizontalAlignment::options(''),
             ],
             'show_toggle' => [
                 'required' => false,
@@ -143,12 +114,8 @@ function wikiplugin_vote_info()
                 'description' => tra('Show toggle or not to display the form and the results'),
                 'since' => '10.0',
                 'filter' => 'alpha',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];

@@ -8,6 +8,7 @@
 use Tiki\Lib\Sheet\Sheet;
 use Tiki\Lib\Sheet\CSVHandler;
 use Tiki\Lib\Sheet\DatabaseHandler;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
 
 function wikiplugin_sheet_info()
 {
@@ -50,14 +51,10 @@ function wikiplugin_sheet_info()
                     '<code>n</code>'
                 ),
                 'filter' => 'alpha',
-                'default' => 'n',
                 'since' => '5.0',
                 'safe' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'width' => [
                 'required' => false,
@@ -84,14 +81,10 @@ function wikiplugin_sheet_info()
                 'description' => tra('Show edit button. Default is to show depending on user\'s permissions.'),
                 'filter' => 'alpha',
                 'accepted' => 'y or n',
-                'default' => 'y',
                 'since' => '6.0',
                 'safe' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'subsheets' => [
                 'required' => false,
@@ -99,14 +92,10 @@ function wikiplugin_sheet_info()
                 'description' => tra('Show multi-sheets (default is to show)'),
                 'filter' => 'alpha',
                 'accepted' => 'y or n',
-                'default' => 'y',
                 'since' => '6.0',
                 'safe' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'range' => [
                 'required' => false,

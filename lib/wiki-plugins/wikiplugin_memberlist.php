@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_memberlist_info()
 {
     return [
@@ -30,12 +33,8 @@ function wikiplugin_memberlist_info()
                 'description' => tra('Display group descriptions below list name.'),
                 'since' => '8.0',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
-                'default' => 'n',
+                'options' => BooleanEnglishLetter::options(),
+                'default' => BooleanEnglishLetter::No->value,
             ],
             'displayMode' => [
                 'required' => false,
@@ -79,13 +78,9 @@ function wikiplugin_memberlist_info()
                 'name' => tra('Read only'),
                 'description' => tra('Read only mode. All ability to modify membership is hidden.'),
                 'since' => '8.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'defaultGroup' => [
                 'required' => false,
@@ -114,39 +109,27 @@ function wikiplugin_memberlist_info()
                 'name' => tra('Notify Added User'),
                 'description' => tra(''),
                 'since' => '14.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'email_to_removed_user' => [
                 'required' => false,
                 'name' => tra('Notify Removed User'),
                 'description' => tra('Email notification to removed user'),
                 'since' => '14.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'showgroupname' => [
                 'required' => false,
                 'name' => tra('Group name'),
                 'description' => tra('Display or hide group name'),
                 'since' => '27.0',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'filter' => 'groupname',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];

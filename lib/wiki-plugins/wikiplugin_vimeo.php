@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+
+use Tiki\WikiPlugin\Options\Boolean;
+
 function wikiplugin_vimeo_info()
 {
     global $prefs;
@@ -62,12 +66,8 @@ function wikiplugin_vimeo_info()
                 'description' => tra('Expand to full screen'),
                 'since' => '6.1',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'true'],
-                    ['text' => tra('No'), 'value' => 'false'],
-                ],
-                'default' => '',
+                'options' => Boolean::options(),
+                'default' => Boolean::False->value,
                 'advanced' => true
             ],
             'fileId' => [
@@ -111,12 +111,8 @@ function wikiplugin_vimeo_info()
                 'description' => tra('Show the Video Title') . ' ' . tra('(default is to show)'),
                 'since' => '15.0',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'true'],
-                    ['text' => tra('No'), 'value' => 'false'],
-                ],
-                'default' => '',
+                'options' => Boolean::options(),
+                'default' => Boolean::False->value,
                 'advanced' => true,
             ],
             'showByline' => [
@@ -125,12 +121,8 @@ function wikiplugin_vimeo_info()
                 'description' => tra("Show the creator's byline"),
                 'since' => '15.0',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'true'],
-                    ['text' => tra('No'), 'value' => 'false'],
-                ],
-                'default' => '',
+                'options' => Boolean::options(),
+                'default' => Boolean::False->value,
                 'advanced' => true,
             ],
             'showPortrait' => [
@@ -139,12 +131,8 @@ function wikiplugin_vimeo_info()
                 'description' => tra("Show the creator's profile picture"),
                 'since' => '15.0',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'true'],
-                    ['text' => tra('No'), 'value' => 'false'],
-                ],
-                'default' => '',
+                'options' => Boolean::options(),
+                'default' => Boolean::False->value,
                 'advanced' => true,
             ],
         ],

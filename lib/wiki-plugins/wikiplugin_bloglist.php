@@ -4,6 +4,11 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_bloglist_info()
 {
     return [
@@ -44,13 +49,9 @@ function wikiplugin_bloglist_info()
                 'name' => tra('Simple List'),
                 'description' => tra('Show simple list of date, title and author (default) or formatted list of blog
                     posts'),
-                'default' => 'y',
                 'since' => '3.5',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'charCount' => [
                 'required' => false,
@@ -66,12 +67,9 @@ function wikiplugin_bloglist_info()
                 'name' => tra('Word Boundary'),
                 'description' => tra('If not a simple list and Character Count is non-zero, then marking this as yes will
                     break on word boundaries only.'),
-                'default' => 'y',
                 'since' => '12.0',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
                 'parentparam' => ['name' => 'simpleList', 'value' => 'n'],
             ],
             'ellipsis' => [
@@ -79,13 +77,9 @@ function wikiplugin_bloglist_info()
                 'name' => tra('Ellipsis'),
                 'description' => tra('If not a simple list and Character Count is non-zero, then marking this as yes will
                     put ellipsis (...) at end of text (default).'),
-                'default' => 'y',
                 'since' => '12.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
                 'parentparam' => ['name' => 'simpleList', 'value' => 'n'],
             ],
             'more' => [
@@ -93,12 +87,9 @@ function wikiplugin_bloglist_info()
                 'name' => tra('More'),
                 'description' => tra('If not a simple list and Character Count is non-zero, then marking this as yes
                     will put a "More" link to the full entry (default).'),
-                'default' => 'y',
                 'since' => '12.0',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
                 'parentparam' => ['name' => 'simpleList', 'value' => 'n'],
             ],
             'showIcons' => [
@@ -106,25 +97,18 @@ function wikiplugin_bloglist_info()
                 'name' => tra('Show Icons'),
                 'description' => tra('If not a simple list, marking this as no will prevent the "edit" and "print" type
                     icons from displaying (default is to show the icons)'),
-                'default' => 'y',
                 'since' => '12.0',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
                 'parentparam' => ['name' => 'simpleList', 'value' => 'n'],
             ],
             'useExcerpt' => [
                 'required' => false,
                 'name' => tra('Use Excerpt'),
                 'description' => tra('If the blog has "Use post excerpt" enabled then use excerpts where available (default)'),
-                'default' => 'y',
                 'since' => '13.2',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
                 'parentparam' => ['name' => 'simpleList', 'value' => 'n'],
             ],
             'dateStart' => [
@@ -188,7 +172,7 @@ function wikiplugin_bloglist($data, $params)
 
     $smarty->assign('container_class', $params['containerClass']);
 
-    if ($params['simpleList'] == 'y') {
+    if (BooleanNormalizer::isTruthy($params['simpleList'])) {
         $bloglib = TikiLib::lib('blog');
         $blogItems = $bloglib->list_posts($params['offset'], $params['Items'], $params['sort_mode'], $params['find'] ?? '', $params['Id'], $params['author'], '', $dateStartTS, $dateEndTS);
         $smarty->assign_by_ref('blogItems', $blogItems['data']);
@@ -207,11 +191,11 @@ function wikiplugin_bloglist($data, $params)
 
         $smarty->assign('ownsblog', $user && ! empty($blog_data["user"]) && $user == $blog_data["user"] ? 'y' : 'n');
 
-        if ($params['showIcons'] == 'n') {
+        if (BooleanNormalizer::isFalsy($params['showIcons'])) {
             $smarty->assign('excerpt', 'y');
         }
 
-        if ($params['useExcerpt'] === 'y' && ! empty($blog_data['use_excerpt']) && $blog_data['use_excerpt'] === 'y') {
+        if (BooleanNormalizer::isTruthy($params['useExcerpt']) && ! empty($blog_data['use_excerpt']) && $blog_data['use_excerpt'] === 'y') {
             $smarty->assign('use_excerpt', 'y');
             $smarty->assign('excerpt', 'n');    // no real idea why this gets assigned depending on showIcons above but it prevents excerpts being shown
         }

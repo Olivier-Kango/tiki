@@ -1,6 +1,6 @@
 <?php
 
-namespace Tiki\Lib\core\WikiPlugin\Options;
+namespace Tiki\WikiPlugin\Options;
 
 enum TrackerStatuses: string implements PluginOptionsInterface
 {

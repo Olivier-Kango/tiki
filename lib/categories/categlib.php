@@ -1499,7 +1499,7 @@ class CategLib extends ObjectLib
      */
     public function get_categoryobjects($catids, $types = "*", $sort = 'created_desc', $split = true, $sub = false, $and = false, $maxRecords = 500, $filter = null, $displayParameters = []): string
     {
-        global $prefs, $user;
+        global $user;
         $smarty = TikiLib::lib('smarty');
 
         $typetokens = [
@@ -1541,9 +1541,7 @@ class CategLib extends ObjectLib
             "template" => "Content Templates",
         ];
 
-        $out = "";
-        $listcat = $allcats = [];
-        $title = '';
+        $listcat = [];
         $find = "";
         $offset = 0;
         $firstpassed = false;
@@ -1594,7 +1592,6 @@ class CategLib extends ObjectLib
                 continue;
             }
             $titles["$id"] = $this->get_category_name($id);
-            $objectcat = [];
             $objectcat = $this->list_category_objects($id, $offset, $and ? -1 : $maxRecords, $sort, $types == '*' ? '' : $typesallowed, $find, $sub, false, $filter);
 
             $acats = $andcat = [];
@@ -1803,7 +1800,7 @@ class CategLib extends ObjectLib
     {
         $tikilib = TikiLib::lib('tiki');
 
-        if ($categId != 0 && $top == true) {
+        if ($categId != 0 && $top) {
             $tikilib->add_group_watch(
                 $group,
                 'category_changed',
@@ -1814,7 +1811,7 @@ class CategLib extends ObjectLib
             );
         }
         $descendants = $this->get_category_descendants($categId);
-        if ($top == false) {
+        if (! $top) {
             $length = count($descendants);
             $descendants = array_slice($descendants, 1, $length, true);
         }
@@ -1864,11 +1861,11 @@ class CategLib extends ObjectLib
     {
         $tikilib = TikiLib::lib('tiki');
 
-        if ($categId != 0 && $top == true) {
+        if ($categId != 0 && $top) {
             $tikilib->remove_group_watch($group, 'category_changed', $categId, 'Category');
         }
         $descendants = $this->get_category_descendants($categId);
-        if ($top == false) {
+        if (! $top) {
             $length = count($descendants);
             $descendants = array_slice($descendants, 1, $length, true);
         }

@@ -4,6 +4,10 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_adjustinventory_info()
 {
     return [
@@ -31,12 +35,8 @@ function wikiplugin_adjustinventory_info()
                 'description' => tra('Show option to add to inventory'),
                 'since' => '7.0',
                 'filter' => 'text',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'subtract' => [
                 'required' => false,
@@ -44,12 +44,8 @@ function wikiplugin_adjustinventory_info()
                 'description' => tra('Show option to subtract from inventory'),
                 'since' => '7.0',
                 'filter' => 'text',
-                'default' => 'y',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];

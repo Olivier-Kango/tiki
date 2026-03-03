@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\Boolean;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_gauge_info()
 {
     return [
@@ -78,24 +81,16 @@ function wikiplugin_gauge_info()
                 'name' => tra('Display Percentage'),
                 'description' => tr('Set to %0 (Yes) to display a percentage of the maximum.', '<code>true</code>'),
                 'since' => '1',
-                'default' => false,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => true],
-                    ['text' => tra('No'), 'value' => false]
-                ]
+                'default' => Boolean::False->value,
+                'options' => Boolean::options(),
             ],
             'showvalue' => [
                 'required' => false,
                 'name' => tra('Display Value'),
                 'description' => tr('Set to %1 (No) to hide the numeric value (shown by default).', '<code>false</code>'),
-                'default' => true,
                 'since' => '3.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => true],
-                    ['text' => tra('No'), 'value' => false]
-                ]
+                'default' => Boolean::True->value,
+                'options' => Boolean::options(),
             ],
             'height' => [
                 'required' => false,
@@ -129,7 +124,7 @@ function wikiplugin_gauge($data, $params)
     if ($maxexceeded) {
         $perc_td = '<td style="text-align: right;" width="55">*******</td>';
     } else {
-        if ($perc) {
+        if (BooleanNormalizer::isTruthy($perc)) {
             $perc = number_format($value / $max * 100, 2);
             $perc_td = '<td style="text-align: right;" width="55">&nbsp;' . $perc . '%</td>';
         } else {
@@ -155,7 +150,7 @@ function wikiplugin_gauge($data, $params)
 
     $html  = '<table class="plugin_gauge" border="0" width="100%"><tr>' . $label_td . '<td width="' . $size . '" height="' . $height . '">';
     $html .= '<table class="plugin_gauge-bar" border="0" width="100%"><tr>' . $h_td . '</tr></table>';
-    $html .= '</td>' . ($showvalue ? $perc_td : '') . '<td>&nbsp;</td></tr>';
+    $html .= '</td>' . (BooleanNormalizer::isTruthy($showvalue) ? $perc_td : '') . '<td>&nbsp;</td></tr>';
 
     if (! empty($data)) {
         $html .= '<tr><td colspan="3"><small>' . $data . '</small></td></tr>';

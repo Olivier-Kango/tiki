@@ -1,5 +1,8 @@
 <?php
 
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_autotoc_info()
 {
     return [
@@ -18,11 +21,8 @@ function wikiplugin_autotoc_info()
                 'description' => tr('Determine if the Table Of Contents will appear in the active page or not.'),
                 'since' => '23.0',
                 'filter' => 'alpha',
-                'default' => 'yes',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'yes'],
-                    ['text' => tra('No'), 'value' => 'no']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'align' => [
                 'required' => false,
@@ -78,11 +78,8 @@ function wikiplugin_autotoc_info()
                 'description' => tr('Determine if the table of contents includes the content of Tabs plugin or not.'),
                 'since' => '25.0',
                 'filter' => 'alpha',
-                'default' => 'no',
-                'options' => [
-                    ['text' => tra('No'), 'value' => 'no'],
-                    ['text' => tra('Yes'), 'value' => 'yes']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options()
             ],
             'tabset_names' => [
                 'required' => false,
@@ -115,14 +112,14 @@ function wikiplugin_autotoc($data, $params)
         (! str_contains($_SERVER["SCRIPT_NAME"], "tiki-editpage.php")) &&
         (! str_contains($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php'))
     ) {
-        if ($params['tabs'] == 'yes') {
+        if (BooleanNormalizer::isTruthy($params['tabs'])) {
             if (is_null($params['tabset_names']) || is_null($params['tabset_panes'])) {
                 Feedback::error(tra('Missing Tabs names (tabset_names) parameter: it must be filled in when the Tabs (tabs) parameter is set to yes'));
                 return;
             }
         }
 
-        if ($params['activity'] == 'yes') {
+        if (BooleanNormalizer::isTruthy($params['activity'])) {
             $jqueryAutoToc['plugin_autoToc_activity'] = true;
             $jqueryAutoToc['plugin_autoToc_mode'] = $params['mode'] === 'inline' ?: 'off';
             $autotocPos = $params['align'];

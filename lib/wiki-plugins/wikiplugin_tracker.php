@@ -6,8 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Tiki\Lib\Registration\Error as RegistrationError;
-use Tiki\Lib\core\WikiPlugin\Options\TrackerStatuses;
-use Tiki\Lib\core\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\TrackerStatuses;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
 
 function wikiplugin_tracker_info()
 {
@@ -645,14 +645,10 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Use field rules'),
                 'description' => tra('Set up rules on field definitions to show and hide fields conditionally.'),
-                'default' => 'n',
                 'advanced' => true,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'rulesparent' => [
                 'required' => false,

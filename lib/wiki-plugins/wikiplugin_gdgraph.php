@@ -10,6 +10,9 @@
 //  x,y data
 // {GDGRAPH}
 
+use Tiki\WikiPlugin\Options\BooleanInteger;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+use Tiki\WikiPlugin\Options\FloatPosition;
 
 function wikiplugin_gdgraph_info()
 {
@@ -34,8 +37,6 @@ function wikiplugin_gdgraph_info()
                 'options' => [
                     ['text' => tra('Vertical bar chart'), 'value' => 'barvert'],
                     ['text' => tra('Horizontal bar chart'), 'value' => 'barhoriz'],
-/*                    array('text' => tra('Multiline'), 'value' => 'multiline'),
-                    array('text' => tra('Pie'), 'value' => 'pie'),*/
                 ],
             ],
             'title' => [
@@ -112,12 +113,8 @@ function wikiplugin_gdgraph_info()
                 ),
                 'since' => '24.1',
                 'filter' => 'text',
-                'default' => 'none',
-                'options' => [
-                    ['text' => tra('None'), 'value' => 'none'],
-                    ['text' => tra('Left'), 'value' => 'left'],
-                    ['text' => tra('Right'), 'value' => 'right']
-                ],
+                'default' => FloatPosition::None->value,
+                'options' => FloatPosition::options(),
             ],
             'clear' => [
                 'required' => false,
@@ -129,12 +126,8 @@ function wikiplugin_gdgraph_info()
                 ),
                 'since' => '1',
                 'filter' => 'digits',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ],
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
         ],
     ];
@@ -222,7 +215,7 @@ function wikiplugin_gdgraph($data, $params)
         $f = '';
     }
 
-    if ($params['clear'] != 0) {
+    if (BooleanNormalizer::isTruthy($params['clear'])) {
         $c = " clear: both;";
     } else {
         $c = "";

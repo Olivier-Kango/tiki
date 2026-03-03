@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanInteger;
+use Tiki\WikiPlugin\Options\SortDirections;
+
 function wikiplugin_rss_info()
 {
     return [
@@ -58,12 +61,8 @@ function wikiplugin_rss_info()
                 'filter' => 'digits',
                 'description' => tra('Show date of each item (not shown by default)'),
                 'since' => '1',
-                'default' => 0,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'desc' => [
                 'required' => false,
@@ -71,12 +70,8 @@ function wikiplugin_rss_info()
                 'filter' => 'digits',
                 'description' => tra('Show feed descriptions (not shown by default)'),
                 'since' => '1',
-                'default' => 0,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'author' => [
                 'required' => false,
@@ -84,12 +79,8 @@ function wikiplugin_rss_info()
                 'filter' => 'digits',
                 'description' => tra('Show authors (not shown by default)'),
                 'since' => '1',
-                'default' => 0,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'default' => BooleanInteger::No->value,
+                'options' => BooleanInteger::options(),
             ],
             'icon' => [
                 'required' => false,
@@ -105,12 +96,8 @@ function wikiplugin_rss_info()
                 'filter' => 'digits',
                 'description' => tra('Show the title of the feed (shown by default)'),
                 'since' => '6.0',
-                'default' => 1,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'default' => BooleanInteger::Yes->value,
+                'options' => BooleanInteger::options(),
             ],
             'ticker' => [
                 'required' => false,
@@ -118,12 +105,8 @@ function wikiplugin_rss_info()
                 'filter' => 'digits',
                 'description' => tra('Turn static feed display into ticker news like'),
                 'since' => '10.1',
-                'default' => 1,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'default' => BooleanInteger::Yes->value,
+                'options' => BooleanInteger::options(),
             ],
             'desclen' => [
                 'required' => false,
@@ -152,11 +135,8 @@ function wikiplugin_rss_info()
                 'name' => tra('Sort Order'),
                 'filter' => 'text',
                 'description' => tra('Sort order'),
-                'options' => [
-                    ['text' => tra('Ascending'), 'value' => 'ASC'],
-                    ['text' => tra('Descending'), 'value' => 'DESC'],
-                ],
-                'default' => 'DESC',
+                'default' => SortDirections::Descending->value,
+                'options' => SortDirections::options(),
                 'since' => '28.0',
                 'advanced' => true,
             ],

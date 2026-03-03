@@ -5,6 +5,9 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+
+use Tiki\WikiPlugin\Options\BooleanInteger;
+
 function wikiplugin_tikimanagerclone_info()
 {
     return [
@@ -61,11 +64,8 @@ function wikiplugin_tikimanagerclone_info()
                 'description' => tra('Skip rebuilding index step. (Only in upgrade mode).'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 0,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ],
             'skipCacheWarmup' => [
@@ -74,11 +74,8 @@ function wikiplugin_tikimanagerclone_info()
                 'description' => tra('Skip generating cache step. (Only in upgrade mode).'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 0,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ],
             'unifiedIndexRebuild' => [
@@ -100,11 +97,8 @@ function wikiplugin_tikimanagerclone_info()
                 'description' => tra('Prevent using the backup step and rsync source to target.'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
-                ],
-                'default' => 1,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::Yes->value,
                 'advanced' => true,
             ],
             'stash' => [
@@ -113,11 +107,8 @@ function wikiplugin_tikimanagerclone_info()
                 'description' => tra('Saves your local modifications, and try to apply after update/upgrade'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 1,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::Yes->value,
                 'advanced' => true,
             ],
             'timeout' => [
@@ -135,11 +126,8 @@ function wikiplugin_tikimanagerclone_info()
                 'description' => tra('Ignore version requirements. Allows to select non-supported branches, useful for testing.'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 0,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ],
             'toClone' => [

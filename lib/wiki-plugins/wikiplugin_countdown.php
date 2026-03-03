@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_countdown_info()
 {
     return [
@@ -73,12 +76,8 @@ function wikiplugin_countdown_info()
                 ),
                 'since' => '9.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'since' => [
                 'required' => false,
@@ -92,12 +91,8 @@ function wikiplugin_countdown_info()
                 ),
                 'since' => '4.2',
                 'filter' => 'alpha',
-                'default' => '',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'text' => [
                 'required' => false,
@@ -224,7 +219,7 @@ function wikiplugin_countdown($data, $params)
         }
         if (
             (($timediff < 0 && $diff['invert'] == 1) || ($timediff > 0 && $diff['invert'] == 0))
-            && $caldays == 'y' && $show_hours === false
+            && BooleanNormalizer::isTruthy($caldays) && $show_hours === false
         ) {
             $diff['caldays'] = $days + 1;
         } else {
@@ -235,7 +230,7 @@ function wikiplugin_countdown($data, $params)
     //create the countdown string
     $ret = '';
     $word = '';
-    if ($diff['invert'] == 1 || $since == 'y') {
+    if ($diff['invert'] == 1 || BooleanNormalizer::isTruthy($since)) {
     //either before the event or if countdown also shown after the event
         //calculate total time in hours, minutes or seconds
         $diff['months'] = abs(($diff['y'] * 12) + $diff['o']);

@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_wikidiff_info()
 {
     global $prefs;
@@ -59,12 +62,9 @@ function wikiplugin_wikidiff_info()
                 'name' => tra('Show current version link'),
                 'description' => tra('Show the link of the current version to help go back to the current version of the page') ,
                 'filter' => 'text',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'since' => '23',
-                'options' => [
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'diff_style' => [
                 'required' => false,
@@ -93,13 +93,9 @@ function wikiplugin_wikidiff_info()
                 'name' => tra('Show version info'),
                 'description' => tra('Show the heading "Comparing version X with version Y"'),
                 'since' => 15.3,
-                'default' => 'n',
                 'filter' => 'text',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('No'), 'value' => 'n'],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'pagedenied_text' => [
                 'required' => false,

@@ -5,6 +5,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\WikiPlugin\Options\BooleanInteger;
+
 function wikiplugin_titlesearch_info()
 {
     return [
@@ -53,12 +55,8 @@ function wikiplugin_titlesearch_info()
                 'description' => tr('Set to Yes (%0) to have no header for the search results.', '<code>1</code>'),
                 'since' => '1',
                 'filter' => 'digits',
-                'default' => 0,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 1],
-                    ['text' => tra('No'), 'value' => 0]
-                ]
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
             ],
         ],
     ];

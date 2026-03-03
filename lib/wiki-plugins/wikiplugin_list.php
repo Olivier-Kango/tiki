@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Tiki\Lib\Wiki\PluginsLibUtil;
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanInteger;
 
 function wikiplugin_list_info()
 {
@@ -27,24 +29,16 @@ function wikiplugin_list_info()
                 'name' => tra('Searchable Only Results'),
                 'description' => tra('Only include results marked as searchable in the index.'),
                 'filter' => 'digits',
-                'default' => '1',
-                'options' => [
-                    ['text' => tra(''), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
-                ],
+                'default' => BooleanInteger::Yes->value,
+                'options' => BooleanInteger::options(),
             ],
             'gui' => [
                 'required' => false,
                 'name' => tra('Use List GUI'),
                 'description' => tra('Use the graphical user interface for editing this list plugin.'),
                 'filter' => 'digits',
-                'default' => '1',
-                'options' => [
-                    ['text' => tra(''), 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                    ['text' => tra('No'), 'value' => '0'],
-                ],
+                'default' => BooleanInteger::Yes->value,
+                'options' => BooleanInteger::options(),
             ],
             'cache' => [
                 'required' => false,
@@ -86,12 +80,8 @@ function wikiplugin_list_info()
                 'since' => '26',
                 'required' => false,
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('No'), 'value' => 'n'],
-                    ['text' => tra('Yes'), 'value' => 'y']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'carousel_height' => [
                 'required' => false,

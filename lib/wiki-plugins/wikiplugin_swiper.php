@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_swiper_info()
 {
     return [
@@ -83,12 +85,9 @@ function wikiplugin_swiper_info()
                 'name' => tr('Navigation'),
                 'description' => tr('Display navigation arrows'),
                 'filter' => 'alpha',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'since' => '19.0',
-                'options' => [
-                    ['text' => 'Yes', 'value' => 'y'],
-                    ['text' => 'No ', 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'background' => [
                 'required' => false,
@@ -179,10 +178,7 @@ function wikiplugin_swiper_info()
                 'default' => 'y',
                 'since' => '19.0',
                 'advanced' => true,
-                'options' => [
-                    ['text' => 'Yes', 'value' => 'y'],
-                    ['text' => 'No ', 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'autoPlayDelay' => [
                 'required' => false,
@@ -197,12 +193,9 @@ function wikiplugin_swiper_info()
                 'name' => tr('Display Thumbnails'),
                 'description' => tr('Show thumbnails under main slider'),
                 'filter' => 'alpha',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'since' => '19.0',
-                'options' => [
-                    ['text' => 'No', 'value' => 'n'],
-                    ['text' => 'Yes', 'value' => 'y'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'speed' => [
                 'required' => false,
@@ -221,10 +214,7 @@ function wikiplugin_swiper_info()
                 'default' => 'n',
                 'since' => '19.0',
                 'advanced' => true,
-                'options' => [
-                    ['text' => 'No', 'value' => 'n'],
-                    ['text' => 'Yes', 'value' => 'y'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             //Slides grid
             'spaceBetween' => [
@@ -289,13 +279,10 @@ function wikiplugin_swiper_info()
                 'name' => tr('Centered Slides'),
                 'description' => tr('If true, then active slide will be centered, not always on the left side.'),
                 'filter' => 'alpha',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'since' => '19.0',
                 'advanced' => true,
-                'options' => [
-                    ['text' => 'No', 'value' => 'n'],
-                    ['text' => 'Yes', 'value' => 'y'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'slidesOffsetBefore' => [
                 'required' => false,
@@ -320,13 +307,10 @@ function wikiplugin_swiper_info()
                 'name' => tr('Slide To Clicked Slide'),
                 'description' => tr('Set to true and click on any slide will produce transition to this slide.'),
                 'filter' => 'word',
-                'default' => 'n',
                 'since' => '19.0',
                 'advanced' => true,
-                'options' => [
-                    ['text' => 'No', 'value' => 'n'],
-                    ['text' => 'Yes', 'value' => 'y'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             //freemode
             'freeMode' => [
@@ -334,13 +318,10 @@ function wikiplugin_swiper_info()
                 'name' => tr('Free Mode'),
                 'description' => tr('If true then slides will not have fixed positions.'),
                 'filter' => 'word',
-                'default' => 'n',
                 'since' => '19.0',
                 'advanced' => true,
-                'options' => [
-                    ['text' => 'No', 'value' => 'n'],
-                    ['text' => 'Yes', 'value' => 'y'],
-                ],
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             //Images
             'preloadImages' => [
@@ -348,26 +329,20 @@ function wikiplugin_swiper_info()
                 'name' => tr('Preload Images'),
                 'description' => tr('When enabled Swiper will force to load all images.'),
                 'filter' => 'word',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'since' => '19.0',
                 'advanced' => true,
-                'options' => [
-                    ['text' => 'Yes', 'value' => 'y'],
-                    ['text' => 'No', 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             'updateOnImagesReady' => [
                 'required' => false,
                 'name' => tr('Update On Images Ready'),
                 'description' => tr('When enabled Swiper will be reinitialized after all inner images (<img> tags) are loaded. Required preloadimages: true.'),
                 'filter' => 'word',
-                'default' => 'y',
+                'default' => BooleanEnglishLetter::Yes->value,
                 'since' => '19.0',
                 'advanced' => true,
-                'options' => [
-                    ['text' => 'Yes', 'value' => 'y'],
-                    ['text' => 'No', 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
             //Loop
             'loop' => [
@@ -375,12 +350,9 @@ function wikiplugin_swiper_info()
                 'name' => tr('Loop Slider'),
                 'description' => tr('Set to true to enable continuous loop mode (If you use it along with slidesperView: \'auto\' then you need to specify loopedslides parameter with amount of slides to loop (duplicate)).'),
                 'filter' => 'word',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'since' => '19.0',
-                'options' => [
-                    ['text' => 'Yes', 'value' => 'y'],
-                    ['text' => 'No', 'value' => 'n'],
-                ],
+                'options' => BooleanEnglishLetter::options(),
             ],
         ]
     ];
@@ -388,8 +360,8 @@ function wikiplugin_swiper_info()
 
 function wikiplugin_swiper($data, $params)
 {
-    if ((! empty($params['fileIds']) && ! $params['fileIds']) && ! $params['fgalId'] && ! $data) {
-        Feedback::error(tr('Paramaters missing: Please either select file gallery, give file ids or custom slide code in body.'));
+    if (empty($params['fileIds']) && empty($params['fgalId']) && empty($data)) {
+        Feedback::error(tr('Parameters missing: Please either select file gallery, give file ids or custom slide code in body.'));
         return;
     }
     static $uid = 0;

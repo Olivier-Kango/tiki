@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 function wikiplugin_memberpayment_info()
 {
     global $prefs;
@@ -37,12 +39,8 @@ function wikiplugin_memberpayment_info()
                 'description' => tra('Membership only for the current user'),
                 'since' => '6.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'inputtitle' => [
                 'required' => false,
@@ -61,13 +59,9 @@ function wikiplugin_memberpayment_info()
                     cost information. Input Title must be set as well.', '<code>', '</code>'),
                 'since' => '11.0',
                 'filter' => 'alpha',
-                'default' => 'n',
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'howtitle' => [
                 'required' => false,
@@ -86,13 +80,9 @@ function wikiplugin_memberpayment_info()
                     Title must be set as well.', '<code>', '</code>'),
                 'since' => '11.0',
                 'filter' => 'alpha',
-                'default' => 'n',
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'paytitle' => [
                 'required' => false,
@@ -111,13 +101,9 @@ function wikiplugin_memberpayment_info()
                     initial viewing. Subsequent Payment Form Title must be set as well.', '<code>', '</code>'),
                 'since' => '11.0',
                 'filter' => 'alpha',
-                'default' => 'n',
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n'],
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'preventdoublerequest' => [
                 'required' => false,
@@ -125,12 +111,8 @@ function wikiplugin_memberpayment_info()
                 'description' => tra('Prevent user from extended if there is already a pending request'),
                 'since' => '8.0',
                 'filter' => 'alpha',
-                'default' => 'n',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'freeperiods' => [
                 'required' => false,
@@ -147,13 +129,9 @@ function wikiplugin_memberpayment_info()
                 'description' => tra('Do not allow user to set period - use default of 1.'),
                 'since' => '11.0',
                 'filter' => 'alpha',
-                'default' => 'n',
                 'advanced' => true,
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::No->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
             'periodslabel' => [
                 'required' => false,

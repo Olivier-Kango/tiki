@@ -4,6 +4,8 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 require_once('lib/ldap/filter.php');
 
 function wikiplugin_trackerif_info()
@@ -26,15 +28,11 @@ function wikiplugin_trackerif_info()
             'ignore' => [
                 'required' => false,
                 'name' => tra('Ignore'),
-                'default' => 'y',
                 'description' => tra('Ignore test in edit mode'),
                 'since' => '7.0',
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'default' => BooleanEnglishLetter::Yes->value,
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];
@@ -43,7 +41,6 @@ function wikiplugin_trackerif_info()
 function wikiplugin_trackerif($data, $params)
 {
     $trklib = TikiLib::lib('trk');
-    $test = null;
     $values = [];
     $dataelse = '';
 

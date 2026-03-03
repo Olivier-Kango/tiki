@@ -4,6 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\WikiPlugin\Options\BooleanNormalizer;
+
 function wikiplugin_grouplist_info()
 {
     return [
@@ -27,39 +30,27 @@ function wikiplugin_grouplist_info()
                 'name' => tra('Group Description'),
                 'description' => tra('Display the text description provided for the Group.'),
                 'since' => '24.1',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'linkhome' => [
                 'required' => false,
                 'name' => tra('Group Homepage'),
                 'description' => tra('Link the group name to the group homepage, if there is one (not linked to by default)'),
                 'since' => '5.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'recur' => [
                 'required' => false,
                 'name' => tra('Recursively List Groups'),
                 'description' => tra('Recursively list the included groups (the default is to not list them repeatedly)'),
                 'since' => '5.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
             'own' => [
                 'required' => false,
@@ -67,13 +58,9 @@ function wikiplugin_grouplist_info()
                 'description' => tra('Filter the list of groups to include only the groups from the user viewing the
                     page (default is not to filter)'),
                 'since' => '14.0',
-                'default' => 'n',
+                'default' => BooleanEnglishLetter::No->value,
                 'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ]
+                'options' => BooleanEnglishLetter::options(),
             ],
         ],
     ];
@@ -86,7 +73,7 @@ function wikiplugin_grouplist($data, $params)
     $smarty = TikiLib::lib('smarty');
     $access = TikiLib::lib('access');
 
-    if ($params['linkhome'] == 'y') {
+    if (BooleanNormalizer::isTruthy($params['linkhome'])) {
         $access->check_feature('useGroupHome');
     }
     if (empty($params['group'])) {

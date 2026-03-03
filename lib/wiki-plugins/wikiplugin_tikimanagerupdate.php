@@ -5,6 +5,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+use Tiki\WikiPlugin\Options\BooleanInteger;
+
 function wikiplugin_tikimanagerupdate_info()
 {
     return [
@@ -39,11 +41,8 @@ function wikiplugin_tikimanagerupdate_info()
                 'description' => tra('Skip rebuilding index step.'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 0,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ],
             'skipCacheWarmup' => [
@@ -52,11 +51,8 @@ function wikiplugin_tikimanagerupdate_info()
                 'description' => tra('Skip generating cache step.'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 0,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ],
             'unifiedIndexRebuild' => [
@@ -87,11 +83,8 @@ function wikiplugin_tikimanagerupdate_info()
                 'description' => tra('Saves your local modifications, and try to apply after update/upgrade'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 1,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::Yes->value,
                 'advanced' => true,
             ],
             'ignoreRequirements' => [
@@ -100,11 +93,8 @@ function wikiplugin_tikimanagerupdate_info()
                 'description' => tra('Ignore version requirements. Allows to select non-supported branches, useful for testing.'),
                 'since' => '25.0',
                 'filter' => 'int',
-                'options' => [
-                    ['text' => tra('No'), 'value' => '0'],
-                    ['text' => tra('Yes'), 'value' => '1'],
-                ],
-                'default' => 0,
+                'options' => BooleanInteger::options(),
+                'default' => BooleanInteger::No->value,
                 'advanced' => true,
             ]
         ]

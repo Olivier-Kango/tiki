@@ -1,5 +1,7 @@
 <?php
 
+use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+
 require_once 'lib/wiki-plugins/shared/embed_helpers.php';
 
 function wikiplugin_oembed_info()
@@ -35,13 +37,9 @@ function wikiplugin_oembed_info()
           'required' => false,
           'name' => tra('Privacy-Enhanced'),
           'description' => tra('Enable privacy-enhanced mode (if applicable)'),
-          'default' => '',
           'filter' => 'alpha',
-          'options' => [
-            ['text' => '', 'value' => ''],
-            ['text' => tra('Yes'), 'value' => 'y'],
-            ['text' => tra('No'), 'value' => 'n'],
-          ],
+          'default' => BooleanEnglishLetter::No->value,
+          'options' => BooleanEnglishLetter::options(),
         ],
         'bg' => [
           'required' => false,
@@ -63,12 +61,9 @@ function wikiplugin_oembed_info()
             'required' => false,
             'name' => tra('Border Radius'),
             'description' => tra('Apply rounded corners to the container. Default: ') . '<code>Yes</code>',
-            'default' => 'y',
             'filter' => 'alpha',
-            'options' => [
-                ['text' => tra('Yes'), 'value' => 'y'],
-                ['text' => tra('No'), 'value' => 'n'],
-            ],
+            'default' => BooleanEnglishLetter::Yes->value,
+            'options' => BooleanEnglishLetter::options(),
             'advanced' => true
         ],
         'start' => [
@@ -82,12 +77,9 @@ function wikiplugin_oembed_info()
           'required' => false,
           'name' => tra('Allow full-screen'),
           'description' => tra('Enlarge video to full screen size'),
-          'default' => 'y',
           'filter' => 'alpha',
-          'options' => [
-            ['text' => tra('Yes'), 'value' => 'y'],
-            ['text' => tra('No'), 'value' => 'n'],
-          ],
+          'default' => BooleanEnglishLetter::Yes->value,
+          'options' => BooleanEnglishLetter::options(),
           'advanced' => true
         ],
       ],
