@@ -6,7 +6,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
-require_once __DIR__ . '/slide_helper.php';
 
 function wikiplugin_teleprompter_info()
 {
@@ -210,9 +209,25 @@ function wikiplugin_teleprompter($data, $params)
 
     $headerlib = TikiLib::lib('header');
     $teleprompterBlocks = [];
-    $files = wikiplugin_slide_helper_collect_files($params['fgalId'], $params['fileIds']);
-    if (! empty($files)) {
-        foreach ($files as $file) {
+    $files = ['data' => []];
+    $filegallib = TikiLib::lib('filegal');
+    if ($params['fgalId']) {
+        $files = $filegallib->get_files(0, -1, '', '', $params['fgalId']);
+        if (empty($files['data'])) {
+            $files['data'] = [];
+        }
+    }
+    if ($params['fileIds']) {
+        foreach (explode(',', (string) $params['fileIds']) as $fileId) {
+            $file = $filegallib->get_file($fileId);
+            if (! is_null($file)) {
+                $files['data'][] = $file;
+            }
+        }
+    }
+
+    if (! empty($files['data'])) {
+        foreach ($files['data'] as $file) {
             $alt = htmlentities((string) ($file['description'] ?? ''), ENT_COMPAT);
             $imageHtml = '<img src="tiki-download_file.php?fileId=' . $file['fileId'] . '&amp;display" alt="' . $alt . '" />';
             $teleprompterBlocks[] = '<div class="teleprompter-block teleprompter-media">' . $imageHtml . '</div>';
@@ -220,7 +235,31 @@ function wikiplugin_teleprompter($data, $params)
     }
 
     $parserlib = TikiLib::lib('parser');
-    $parsedSlides = wikiplugin_slide_helper_parse_blocks($data);
+    $parsedSlides = [];
+    $slides = explode('|', ($data ?: ''));
+    foreach ($slides as $slide) {
+        if (! trim($slide)) {
+            continue;
+        }
+
+        $slideArr = array_filter(explode(';', str_replace(["\n", "\r"], '', $slide)));
+        $parsedSlide = [];
+        if (count($slideArr) > 0) {
+            foreach ($slideArr as $slideValue) {
+                $slideData = explode(':', $slideValue, 2);
+                if (count($slideData) === 2) {
+                    $parsedSlide[trim($slideData[0])] = trim($slideData[1]);
+                }
+            }
+        }
+
+        if (empty($parsedSlide['text']) && ! empty($slideArr[0])) {
+            $parsedSlide['text'] = $slideArr[0];
+        }
+
+        $parsedSlides[] = $parsedSlide;
+    }
+
     foreach ($parsedSlides as $parsedSlide) {
         $textHtml = '';
         if (! empty($parsedSlide['text'])) {
