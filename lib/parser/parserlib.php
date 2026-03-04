@@ -954,6 +954,7 @@ class ParserLib extends TikiDb_Bridge
                     unset($validateArgs[$key]);
                 }
             }
+            $validateArgs = array_filter($validateArgs);
             // Parameter order needs to be stable
             ksort($validateArgs);
 
