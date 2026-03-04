@@ -1000,9 +1000,13 @@ class ParserLib extends TikiDb_Bridge
                     }
                     $html_editor_plugin .= $argKey . '="' . implode($sep, $argValue) . '" ';  // process array
                     $arg_str .= $argKey . '=' . implode($sep, $argValue) . '&';
-                } else {
+                } else if ($argValue !== null) {
+                    // now argument values can be objects so use the vaule here if there is one
+                    if (isset($argValue->value)) {
+                        $argValue = $argValue->value;
+                    }
                     // even though args are now decoded we still need to escape double quotes
-                    $argValue = addcslashes($argValue, '"');
+                    $argValue = addcslashes((string) $argValue, '"');
 
                     $html_editor_plugin .= $argKey . '="' . $argValue . '" ';
                     $arg_str .= $argKey . '=' . $argValue . '&';
@@ -1200,7 +1204,7 @@ class ParserLib extends TikiDb_Bridge
                 $filter = isset($paramInfo['filter']) ? TikiFilter::get($paramInfo['filter']) : $default;
 
                 // Preserve null values (parameters not provided by user)
-                if ($argValue !== null) {
+                if ($argValue !== null && is_string($argValue)) {
                     $argValue = TikiLib::htmldecode($argValue);
                 }
 
