@@ -200,7 +200,7 @@ if (! $options['no-check-smarty'] && important_step("Check syntax of all Smarty 
 
 if (! $options['no-secdb'] && important_step("Update SecDB file(s) 'db/tiki-secdb_{$version}_mysql.sql'")) {
     if (updateSecdb($TWV->version)) {
-        important_step("Commit SecDB file changes", true, "[REL] SecDB for $secdbVersion");
+        print "SecDB file has been successfully created\n";
     }
 }
 
