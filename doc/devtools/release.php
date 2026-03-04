@@ -189,13 +189,6 @@ if (! $options['no-check-db'] && important_step("Check Database related files an
     info('>> Current database scripts successfully passed the check.');
 }
 
-if (! $options['no-check-php'] && important_step("Check syntax of all PHP files")) {
-    $error_msg = '';
-    $dir = '.';
-    check_php_syntax($dir, $error_msg, $options['no-check-php-warnings']) or error($error_msg);
-    info('>> Current PHP code successfully passed the syntax check.');
-}
-
 if (! $options['no-check-smarty'] && important_step("Check syntax of all Smarty templates")) {
     $error_msg = '';
     require_once ROOT . '/lib/core/TikiDb.php';
@@ -839,69 +832,13 @@ function check_smarty_syntax(&$error_msg)
 
 
 /**
- * @param $errno
  * @param $errstr
- * @param string $errfile
- * @param int $errline
- * @param array $errcontext
  */
-function check_smarty_syntax_error_handler($errno, $errstr, $errfile = '', $errline = 0, $errcontext = [])
+function check_smarty_syntax_error_handler($errstr)
 {
     if (! str_contains($errstr, 'filemtime(): stat failed for')) {    // smarty seems to emit these for every file
         echo "\n" . color($errstr, 'red') . "\n";
     }
-    return true;
-}
-
-/**
- * @param $dir
- * @param $error_msg
- * @param $hide_php_warnings
- * @return bool
- */
-function check_php_syntax(&$dir, &$error_msg, $hide_php_warnings)
-{
-    global $phpCommand;
-    $checkPhpCommand = $phpCommand . (ERROR_REPORTING_LEVEL > 0 ? ' -d error_reporting=' . (int)ERROR_REPORTING_LEVEL : '');
-
-    $entries = [];
-    get_files_list($dir, $entries, '/\.php$/');
-
-    $nbEntries = count($entries);
-    for ($i = 0; $i < $nbEntries; $i++) {
-        display_progress_percentage($i, $nbEntries, '%d%% of files passed the PHP syntax check');
-        $return_var = 0;
-        $output = null;
-        exec("$checkPhpCommand -l {$entries[$i]} 2>&1", $output, $return_var);
-        $fullOutput = implode("\n", $output);
-
-        if (str_contains($fullOutput, 'Segmentation fault')) {
-            // If php -l command segfaults, wait and retry (it seems to happen quite often on some environments for this command)
-            echo "\r[Retrying due to a Segfault...]";
-            sleep(1);
-            $i--;
-        } elseif ($return_var !== 0) {
-            // Handle PHP errors
-            $fullOutput = trim($fullOutput);
-            $error_msg = ($fullOutput == '') ? "\nPHP Parsing error in '{$entries[$i]}' ($return_var)\n" : "\n$fullOutput";
-            return false;
-        } elseif (! $hide_php_warnings && ($nb_lines = count($output)) > 1 && ! preg_match(THIRD_PARTY_LIBS_PATTERN, $entries[$i])) {
-            // Handle PHP warnings / notices (this just displays a yellow warning, it doesn't return false or an error_msg)
-            // and exclude some third party libs when displaying warnings from the PHP syntax check, because we can't fix it directly by the way.
-            echo "\r";
-            foreach ($output as $k => $line) {
-                // Remove empty lines and last line (because in case of a simple warning, the last line simply says 'No syntax errors...')
-                if (trim($line) == '' || $k == $nb_lines - 1) {
-                    continue;
-                }
-                echo color("$line\n", 'yellow');
-            }
-            display_progress_percentage($i, $nbEntries, '%d%% of files passed the PHP syntax check');
-        }
-        unset($output, $return_var);
-    }
-
-    echo "\n";
     return true;
 }
 
@@ -1073,8 +1010,6 @@ function get_options()
         'no-commit' => false,
         'no-check-vcs' => false,
         'no-check-db' => false,
-        'no-check-php' => false,
-        'no-check-php-warnings' => false,
         'no-check-smarty' => false,
         'no-first-update' => false,
         'no-lang-update' => false,
@@ -1551,8 +1486,6 @@ Options:
     --no-commit               : do not commit any changes back to SVN or GIT
     --no-check-vcs            : do not check if there are uncommitted changes on the checkout used for the release
     --no-check-db             : do not check database scripts and database upgrades
-    --no-check-php            : do not check syntax of all PHP files
-    --no-check-php-warnings   : do not display PHP warnings and notices during the PHP syntax check
     --no-check-smarty         : do not check syntax of all Smarty templates
     --no-first-update         : do not vcs update the checkout used for the release as the first step
     --no-lang-update          : do not update lang/*/language.php files
