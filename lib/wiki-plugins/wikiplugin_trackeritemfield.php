@@ -302,9 +302,9 @@ function wikiplugin_trackeritemfield($data, $params)
                 $handler = $trklib->get_field_handler($field, $info);
                 if (isset($params['list_mode']) && ! empty($params['list_mode'])) {
                     $list_mode = $params['list_mode'];
-                    $out = $handler->renderOutput(['list_mode' => $list_mode]);
+                    $out = $handler->renderOutput(['list_mode' => $list_mode, 'showlinks' => 'n']);
                 } else {
-                    $out = $handler->renderOutput(['list_mode' => 'y']);
+                    $out = $handler->renderOutput(['list_mode' => 'y', 'showlinks' => 'n']);
                 }
                 return $out;
             }
