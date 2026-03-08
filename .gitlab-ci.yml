@@ -191,7 +191,7 @@ composer-dbdiff:
 
 
 #
-# Code quality:  linting, coding standards, etc.
+# Code quality: linting, coding standards, etc.
 #
 
 phpcs:
@@ -229,9 +229,12 @@ smarty-lint:
     - composer
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
-    - echo "Running SmartyLint rules check..."
     - php vendor_bundled/vendor/umakantp/smartylint/smartyl -p --files=lib/test,templates,themes --rules=doc/devtools/smartyl.rules.xml
-    - echo "Running Smarty compilation syntax check..."
+
+smarty-syntax-check:
+  stage: code-quality
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
     - php doc/devtools/check_smarty_syntax.php
 
 eslint:
