@@ -12,8 +12,6 @@
 // You can also get a detailed help on this script with:
 //    php doc/devtools/release.php --help
 //
-
-use Tiki\Smarty\SmartyTiki;
 use Tiki\TikiInit;
 
 include_once('lib/core/Tiki/TikiInit.php');
@@ -181,15 +179,6 @@ if (! $options['no-copyright-update'] && important_step("Update '" . COPYRIGHTS_
     } else {
         error('Copyrights update failed.');
     }
-}
-
-if (! $options['no-check-smarty'] && important_step("Check syntax of all Smarty templates")) {
-    $error_msg = '';
-    require_once ROOT . '/lib/core/TikiDb.php';
-    require_once ROOT . '/lib/core/TikiDb/Bridge.php';
-    require_once ROOT . '/lib/language/Language.php';
-    check_smarty_syntax($error_msg);
-    info('>> Current Smarty code successfully passed the syntax check.');
 }
 
 if (! $options['no-secdb'] && important_step("Update SecDB file(s) 'db/tiki-secdb_{$version}_mysql.sql'")) {
@@ -446,7 +435,7 @@ function rrmdir($dir)
 
 /**
  *
- * Recursivley deletes specific files or directories
+ * Recursively deletes specific files or directories
  *
  * @param string $src Directory to search through
  * @param array $files An array of file names to delete.
@@ -715,128 +704,6 @@ function build_packages($releaseVersion)
 }
 
 /**
- * @param $dir
- * @param $entries
- * @param $regexp_pattern
- * @return bool
- */
-function get_files_list($dir, &$entries, $regexp_pattern)
-{
-    $d = dir($dir);
-    while (false !== ($e = $d->read())) {
-        $entry = $dir . '/' . $e;
-        if (is_dir($entry)) {
-            // do not descend and no git files
-            if ($e != '..' && $e != '.' && $e != '.git' && $e != '.gitignore' && $entry != './' . SMARTY_COMPILED_TEMPLATES_PATH && $entry != './' . TIKI_VENDOR_BUNDLED_PATH) {
-                if (! get_files_list($entry, $entries, $regexp_pattern)) {
-                    return false;
-                }
-            }
-        } elseif (preg_match($regexp_pattern, $e) && realpath($entry) != __FILE__) {
-            $entries[] = $entry;
-        }
-    }
-    $d->close();
-    return true;
-}
-
-/**
- * @param $alreadyDone
- * @param $toDo
- * @param $message
- */
-function display_progress_percentage($alreadyDone, $toDo, $message)
-{
-    $onePercent = ceil($toDo / 100);
-    if ($alreadyDone % $onePercent === 0 || $alreadyDone == $toDo) {
-        $percentage = ($alreadyDone >= $toDo - $onePercent) ? 100 : min(100, $alreadyDone / $onePercent);
-        printf("\r$message", $percentage);
-    }
-}
-
-function zone_is_empty()
-{
-    // dummy function to keep smarty happy
-}
-
-/**
- * @param $error_msg
- */
-function check_smarty_syntax(&$error_msg)
-{
-    global $tikidomain, $prefs;
-    $tikidomain = '';
-    // Initialize $prefs with some variables needed by the tra() function and smarty autosave plugin
-    $prefs = [
-        'lang_use_db' => 'n',
-        'language' => 'en',
-        'site_language' => 'en',
-        'feature_ajax' => 'n'
-    ];
-
-    // Load Tiki Smarty
-    $prefs['smarty_compilation'] = 'always';
-    $prefs['smarty_security'] = 'y';
-    $prefs['maxRecords'] = 25;
-    $prefs['log_tpl'] = 'y';
-    $prefs['feature_sefurl_filter'] = 'y';
-    $prefs['site_layout'] = 'basic';
-    require_once 'lib/init/initlib.php';
-    define('TIKI_PATH', getcwd());
-    require_once 'lib/smarty_tiki/prefilter.tr.php';
-    require_once 'lib/smarty_tiki/prefilter.jq.php';
-    require_once 'lib/smarty_tiki/prefilter.log_tpl.php';
-    $smarty = new SmartyTiki();
-    set_error_handler('check_smarty_syntax_error_handler');
-
-    $templates_dir = TIKI_PATH . '/' . SMARTY_TEMPLATES_PATH;
-
-    // tell TikiDb we don't need the database
-    define('DB_TIKI_SETUP', 0);
-
-    $errors_found = false;
-    $entries = [];
-    get_files_list($templates_dir, $entries, '/\.tpl$/');
-
-    $nbEntries = count($entries);
-    for ($i = 0; $i < $nbEntries; $i++) {
-        display_progress_percentage($i, $nbEntries, '%d%% of files passed the Smarty syntax check');
-
-        if (! str_contains($entries[$i], 'tiki-mods.tpl')) {
-            $template_file = substr($entries[$i], strlen($templates_dir) + 1);
-
-            try {
-                $_tpl = $smarty->createTemplate($template_file, null, null, null, false);
-                $_tpl->compileTemplateSource();
-            } catch (Exception $e) {
-                echo color("\nError: " . $e->getMessage(), 'red') . "\n";
-                $errors_found = true;
-            }
-        }
-    }
-    restore_error_handler();
-    @define('DB_TIKI_SETUP', 1);    // suppress notice about redefining a constant TODO better
-
-    echo "\n";
-
-    if ($errors_found) {
-        die('Fix the Smarty errors and try again please.');
-    }
-}
-
-
-/**
- * @param $errstr
- */
-function check_smarty_syntax_error_handler($errstr)
-{
-    if (! str_contains($errstr, 'filemtime(): stat failed for')) {    // smarty seems to emit these for every file
-        echo "\n" . color($errstr, 'red') . "\n";
-    }
-    return true;
-}
-
-/**
  * @return array|bool
  */
 function get_options()
@@ -853,7 +720,6 @@ function get_options()
         'mirror-uri' => false,
         'no-commit' => false,
         'no-check-vcs' => false,
-        'no-check-smarty' => false,
         'no-first-update' => false,
         'no-lang-update' => false,
         'no-changelog-update' => false,
@@ -1328,7 +1194,6 @@ Options:
     --mirror-uri=URI          : use another repository URI to update the copyrights file (to avoid retrieving data from sourceforge, which is usually slow)
     --no-commit               : do not commit any changes back to SVN or GIT
     --no-check-vcs            : do not check if there are uncommitted changes on the checkout used for the release
-    --no-check-smarty         : do not check syntax of all Smarty templates
     --no-first-update         : do not vcs update the checkout used for the release as the first step
     --no-lang-update          : do not update lang/*/language.php files
     --no-changelog-update     : do not update the '" . CHANGELOG_FILENAME . "' file
