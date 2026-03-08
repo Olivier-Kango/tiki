@@ -64,9 +64,7 @@ function check_smarty_syntax(): int
     $total = count($entries);
 
     foreach ($entries as $index => $entry) {
-
         display_progress_percentage($index, $total, '%d%% of templates checked');
-
         if (str_contains($entry, 'tiki-mods.tpl')) {
             continue;
         }
