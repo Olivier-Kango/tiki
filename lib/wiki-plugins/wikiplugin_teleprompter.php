@@ -5,14 +5,14 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-use Tiki\WikiPlugin\Options\BooleanEnglishLetter;
+use Tiki\Lib\core\WikiPlugin\Options\BooleanEnglishLetter;
 
 function wikiplugin_teleprompter_info()
 {
     return [
         'name' => tr('Teleprompter'),
         'documentation' => 'PluginTeleprompter',
-        'description' => tr('Display scrollable teleprompter content with speed controls and focus guides.'),
+        'description' => tr('Display vertical auto-scrolling teleprompter content with speed, mirror, timer, and focus controls.'),
         'prefs' => ['wikiplugin_teleprompter'],
         'body' => tr('Enter custom blocks separated by "|". Wiki Syntax / HTML supported in block text. Example: <code>title:Introduction;text:Welcome text | title:Agenda;text:* Point 1\n* Point 2</code>'),
         'iconname' => 'align-justify',
