@@ -15,10 +15,16 @@ This is run from the root as part of:
 
 Top-level folder in src/js group code mostly by technical similarity.
 
-* common-externals are "raw" javascript libraries that may be used more than once (regardless of how they are loaded, some are loaded in more than one way in tiki).
-* vue-mf is a collection of (mostly) independent vue3 modules loaded as microfrontend.  Each module has is it's own package.json.
-* jquery-tiki contains legacy tiki js scripts based on jquery (loaded by, or loaded into jquery), that were modernized to compile their dependencies into themselves.  It has a single package.json, and generates multiple .mjs ESM modules.
-* ...
+* [common-externals](./common-externals) are ESM javascript libraries automatically loaded in the browser through importmaps.
+* [common-externals-legacy-cjs](./common-externals-legacy-cjs) are CJS javascript libraries that do not have a working ESM version.  They must be loaded manually through headerlib.
+* common-reexported are temporary re-compile in ESM format of full external libraries that currently do not have a native EJS version.
+* jquery-tiki contains legacy tiki js scripts based on jquery (loaded by, or loaded into jquery), that were modernized to compile their dependencies into themselves.  It has a single package.json, and generates multiple .mjs ESM modules.  It's meant to move:
+  * lib/jquery_tiki/*.js to src/js/jquery-tiki/*.js
+  * lib/jquery_tiki/tiki-jquery.js methods to their own files in src/js/jquery-tiki/*.js
+  * It should only depend ont things that are loaded into jquery, and NOTHING else
+* MOVE_THIS_CONTENT_ELSEWHERE was an emergency refactoring of multi-file modules that were mistakenly put inside jquery-tiki, and the build system was mistakenly patched to build all files in subdirectories, which results in a bunch of extra modules being compiled.  They need to be put in their own directory, or grouped according to what they related to.
+* vue-mf is a collection of (mostly) independent vue3 modules loaded as microfrontends.  Each module has is it's own package.json.
+* ... Developpers, you are expected to complete this list when you add modules or work on them!
 
 ## Migrating dependencies
 
