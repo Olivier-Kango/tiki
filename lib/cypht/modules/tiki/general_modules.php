@@ -25,16 +25,40 @@ class Hm_Handler_load_tiki_contacts extends Hm_Handler_Module
         global $user;
         $contactlib = TikiLib::lib('contact');
         $contacts = $this->get('contact_store');
+
+        $company_field_ids = [];
+        $ext_fields = $contactlib->get_ext_list($user);
+        $company_field_names = ['Company', 'Organization', 'Department', 'Division'];
+        if (is_array($ext_fields)) {
+            foreach ($ext_fields as $ext_field) {
+                if (in_array($ext_field['fieldname'], $company_field_names)) {
+                    $company_field_ids[(int) $ext_field['fieldId']] = $ext_field['fieldname'];
+                }
+            }
+        }
+
         $tiki_contacts = $contactlib->list_contacts($user);
         foreach ($tiki_contacts as $contact) {
             // skip adding if it already exists
             if ($contacts->get(null, false, $contact['email'])) {
                 continue;
             }
+
+            $company_parts = [];
+            if (! empty($contact['ext']) && ! empty($company_field_ids)) {
+                foreach ($company_field_ids as $field_id => $field_name) {
+                    if (! empty($contact['ext'][$field_id])) {
+                        $company_parts[] = $contact['ext'][$field_id];
+                    }
+                }
+            }
+
             $contacts->add_contact([
                 'source' => 'tiki',
                 'email_address' => $contact['email'],
                 'display_name' => $contact['firstName'] . ($contact['lastName'] ? ' ' . $contact['lastName'] : ''),
+                'nickname' => ! empty($contact['nickname']) ? $contact['nickname'] : '',
+                'company' => implode(', ', $company_parts),
                 'external' => true,
             ]);
         }
