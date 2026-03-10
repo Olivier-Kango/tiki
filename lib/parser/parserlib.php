@@ -129,7 +129,8 @@ class ParserLib extends TikiDb_Bridge
         // cleaning some user input
         // ckeditor parses several times and messes things up, we should only let it parse once
         if (! $this->option['wysiwyg']) {
-            $data = str_replace('&', '&amp;', $data);
+            // Only encode ampersands that are not already part of an HTML entity
+            $data = preg_replace('/&(?![a-zA-Z0-9#]+;)/', '&amp;', $data);
         }
 
         // oft-used characters (case insensitive)
