@@ -53,8 +53,8 @@
     "subtotal": "^1.11.0-alpha.0",
     "svgedit": "^7.4.1",
     "swagger-ui-dist": "^5.18.2",
-    "timeago": "^1.6.7",
     "three": "^0.179.1",
+    "timeago": "^1.6.7",
     "vis-timeline": "^7.7.4",
     "vue": "^3.5.12",
     "vue3-sfc-loader": "^0.9.5"
