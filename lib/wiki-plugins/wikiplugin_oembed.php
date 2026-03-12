@@ -10,7 +10,7 @@ function wikiplugin_oembed_info()
       'description' => tra('Embed a video or media using oEmbed protocol'),
       'prefs' => [ 'wikiplugin_oembed' ],
       'iconname' => 'share-square',
-      'introduced' => 28,
+      'introduced' => 29.0,
       'tags' => [ 'basic' ],
       'params' => [
         'url' => [
@@ -62,7 +62,7 @@ function wikiplugin_oembed_info()
         'borderRadius' => [
             'required' => false,
             'name' => tra('Border Radius'),
-            'description' => tra('Apply rounded corners to the container. Default: ') . '<code>Yes</code>',
+            'description' => tra('Apply rounded corners to the container. Default:') . ' <code>Yes</code>',
             'default' => 'y',
             'filter' => 'alpha',
             'options' => [
