@@ -70,6 +70,19 @@ class Search_Action_EmailActionTest extends TikiTestCase
         );
     }
 
+    public function testDereferenceParsesMixedNamedAndPlainRfcAddresses()
+    {
+        $resolved = $this->invokeDereference('Alice <alice@example.org>, bob@example.org');
+
+        $this->assertSame(
+            [
+                'Alice' => 'alice@example.org',
+                0 => 'bob@example.org',
+            ],
+            $resolved
+        );
+    }
+
     public function testDereferenceFallsBackToCommaSeparatedTikiUsernames()
     {
         $trkLib = $this->createMock(get_class(TikiLib::lib('trk')));
@@ -102,6 +115,18 @@ class Search_Action_EmailActionTest extends TikiTestCase
         $resolved = $this->invokeDereference('not-an-email@');
 
         $this->assertSame([], $resolved);
+    }
+
+    public function testDereferenceStripsNoParseMarkersBeforeParsing()
+    {
+        $resolved = $this->invokeDereference('~np~"Alice, Test" <alice@example.org>~/np~');
+
+        $this->assertSame(
+            [
+                'Alice, Test' => 'alice@example.org',
+            ],
+            $resolved
+        );
     }
 
     private function invokeDereference(string $value): array
