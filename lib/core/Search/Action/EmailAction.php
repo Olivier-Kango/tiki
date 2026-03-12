@@ -215,7 +215,7 @@ class Search_Action_EmailAction implements Search_Action_Action
 
         try {
             $resolvedAddresses = [];
-            foreach (Address::createArray($email_or_username) as $address) {
+            foreach ($this->parseAddressList($email_or_username) as $address) {
                 $name = $address->getName();
                 if ($name !== '') {
                     $resolvedAddresses[$name] = $address->getAddress();
@@ -227,7 +227,7 @@ class Search_Action_EmailAction implements Search_Action_Action
             if (! empty($resolvedAddresses)) {
                 return $resolvedAddresses;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // Keep fallback below only for usernames.
         }
 
@@ -239,6 +239,29 @@ class Search_Action_EmailAction implements Search_Action_Action
         return array_filter(array_map(function ($username) {
             return TikiLib::lib('user')->get_user_email($username);
         }, $users));
+    }
+
+    /**
+     * Parse an RFC-compliant mailbox list into individual Address objects.
+     *
+     * Supports comma-separated lists and line-separated entries while honoring
+     * quoted names that may contain commas.
+     */
+    private function parseAddressList(string $addresses): array
+    {
+        $parsed = [];
+        foreach (preg_split('/\R/', $addresses) as $line) {
+            foreach (str_getcsv($line, ',', '"', TikiLib::TIKI_GLOBAL_CSV_ESCAPE_CHAR) as $candidate) {
+                $candidate = trim($candidate);
+                if ($candidate === '') {
+                    continue;
+                }
+
+                $parsed[] = $candidate;
+            }
+        }
+
+        return Address::createArray($parsed);
     }
 
     private function dereferenceName($email_or_username)
