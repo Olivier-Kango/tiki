@@ -223,7 +223,10 @@ class Search_Action_EmailAction implements Search_Action_Action
                     $resolvedAddresses[] = $address->getAddress();
                 }
             }
-            return array_filter($resolvedAddresses);
+            $resolvedAddresses = array_filter($resolvedAddresses);
+            if (! empty($resolvedAddresses)) {
+                return $resolvedAddresses;
+            }
         } catch (\Exception $e) {
             // Keep fallback below only for usernames.
         }
