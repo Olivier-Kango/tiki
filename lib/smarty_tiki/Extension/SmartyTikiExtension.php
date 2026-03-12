@@ -673,7 +673,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\VarDump();
                 break;
                 break;
-            case 'wiki_diff':
+            case 'wikidiff':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\WikiDiff();
                 break;
             case 'wikistructure':
