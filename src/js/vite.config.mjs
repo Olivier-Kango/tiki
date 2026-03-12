@@ -208,6 +208,7 @@ export default defineConfig(({ command, mode }) => {
                     "summernote",
                     "svgedit",
                     "three",
+                    "underscore",
                     "vue",
                     "vue3-sfc-loader",
 
@@ -596,6 +597,10 @@ export default defineConfig(({ command, mode }) => {
                             "node_modules/tablesorter/dist/js/widgets/widget-sort2Hash.min.js",
                         ],
                         dest: "vendor_dist/tablesorter/dist/js/widgets",
+                    },
+                    {
+                        src: "node_modules/underscore/underscore-esm-min.js",
+                        dest: "vendor_dist/underscore",
                     },
                     /* END src/js/common-externals-legacy-cjs section */
 

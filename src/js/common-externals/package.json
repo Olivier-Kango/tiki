@@ -55,6 +55,7 @@
     "swagger-ui-dist": "^5.18.2",
     "three": "^0.179.1",
     "timeago": "^1.6.7",
+    "underscore": "^1.13.8",
     "vis-timeline": "^7.7.4",
     "vue": "^3.5.12",
     "vue3-sfc-loader": "^0.9.5"
@@ -79,6 +80,7 @@
     "moment": "A lot of libraries depend on this",
     "timeago": "",
     "three": "Used by src/js/tiki-model3dviewer",
+      "underscore": "",
     "sortablejs": "Used by legacy js code menubuilder and structures, not just newer libraries like kanban, so needs to be able to be independently included.  Dependency of https://github.com/SortableJS/Vue.Draggable which sadly hasn't moved in 2 years and is stuck at 1.14.0.  Pinning so we don't have a different version in the workspace from the global.  Otherwise dynamic module loading would make it hard to tell.",
     "svgedit": "version 7.4.1 fixes jspdf security vulnerabilities (GHSA-8mvj-3j78-4qmw, GHSA-f8cm-6447-x5h2) Used by tiki-svgedit_draw.js ",
     "vue": ""
