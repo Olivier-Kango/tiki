@@ -62,7 +62,7 @@ function wikiplugin_oembed_info()
         'borderRadius' => [
             'required' => false,
             'name' => tra('Border Radius'),
-            'description' => tra('Apply rounded corners to the container. Default:') . ' <code>Yes</code>',
+            'description' => tra('Apply rounded corners to the container. Default: ') . '<code>Yes</code>',
             'default' => 'y',
             'filter' => 'alpha',
             'options' => [
