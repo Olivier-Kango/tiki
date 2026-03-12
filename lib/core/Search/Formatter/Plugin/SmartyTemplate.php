@@ -13,6 +13,7 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
     private string $editable;
     private string $editableId;
     private ?string $context;
+    private $wysiwyg = null;
 
     public function __construct($templateFile, $changeDelimiters = false)
     {
@@ -40,6 +41,11 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
     {
         $this->editable = $editable;
         $this->editableId = $id;
+    }
+
+    public function setWysiwyg($wysiwyg)
+    {
+        $this->wysiwyg = $wysiwyg;
     }
 
     public function setContext(?string $context)
@@ -124,6 +130,14 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
     private function wrapEditableByContext($content)
     {
         if ($this->context !== 'actions') {
+            // Determine wysiwyg value: explicit setting takes priority,
+            // otherwise default to false for inline, true for block/dialog
+            if ($this->wysiwyg !== null) {
+                $wysiwygValue = $this->wysiwyg;
+            } else {
+                $wysiwygValue = $this->editable === 'inline' ? false : true;
+            }
+
             return new Tiki_Render_Editable(
                 $content,
                 [
@@ -131,7 +145,7 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
                     'field' => [
                         'id' => $this->editableId,
                         'type' => 'form',
-                        'wysiwyg' => $this->editable === 'inline' ? false : true,
+                        'wysiwyg' => $wysiwygValue,
                     ],
                 ],
             );
