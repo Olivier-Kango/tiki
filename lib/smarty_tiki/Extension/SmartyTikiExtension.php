@@ -679,7 +679,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'vimeo_uploader':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\VimeoUploader();
                 break;
-            case 'wiki_diff':
+            case 'wikidiff':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\WikiDiff();
                 break;
             case 'wikistructure':
