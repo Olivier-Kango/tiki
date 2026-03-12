@@ -213,21 +213,19 @@ class Search_Action_EmailAction implements Search_Action_Action
         }
         $email_or_username = trim($this->stripNp($email_or_username));
 
-        if (class_exists(Address::class) && method_exists(Address::class, 'createArray')) {
-            try {
-                $resolvedAddresses = [];
-                foreach (Address::createArray($email_or_username) as $address) {
-                    $name = $address->getName();
-                    if ($name !== '') {
-                        $resolvedAddresses[$name] = $address->getAddress();
-                    } else {
-                        $resolvedAddresses[] = $address->getAddress();
-                    }
+        try {
+            $resolvedAddresses = [];
+            foreach (Address::createArray($email_or_username) as $address) {
+                $name = $address->getName();
+                if ($name !== '') {
+                    $resolvedAddresses[$name] = $address->getAddress();
+                } else {
+                    $resolvedAddresses[] = $address->getAddress();
                 }
-                return array_filter($resolvedAddresses);
-            } catch (\Throwable $e) {
-                // Keep fallback below only for usernames.
             }
+            return array_filter($resolvedAddresses);
+        } catch (\Exception $e) {
+            // Keep fallback below only for usernames.
         }
 
         if (str_contains($email_or_username, '@')) {
