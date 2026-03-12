@@ -75,8 +75,8 @@
             {$last_version = 0}
             {foreach from=$history item=hist}
                 {if $hist.value neq $hist.new or $hist.version == 0}
-                    {assign var='fieldId' value=$hist.fieldId}
-                    {assign var='field_value' value=$field_option[$fieldId]}
+                    {$fieldId=$hist.fieldId}
+                    {$field_value=$field_option[$fieldId]}
                     {if is_array($field_value) and ($field_value.visibleInHistoryMode eq 'y' or $hist.version == 0 or $hist.fieldId == -1)}
                         <tr>
                             <td class="id"><strong>{$hist.version|escape}</strong></td>
