@@ -86,6 +86,7 @@ function wikiplugin_subscribenewsletter($data, $params)
     global $prefs, $user;
     $userlib = TikiLib::lib('user');
     $tikilib = TikiLib::lib('tiki');
+    $parserlib = TikiLib::lib('parser');
     $smarty = TikiLib::lib('smarty');
     global $nllib;
     include_once('lib/newsletters/nllib.php');
@@ -146,6 +147,7 @@ function wikiplugin_subscribenewsletter($data, $params)
     $wpSubscribe = '';
     $wpError = '';
     $subscribeEmail = '';
+    $subscribeThanks = '';
     $useCaptcha = $params['usecaptcha'];
     if ($params['usecaptcha'] !== 0) {  // To keep previous behaviour with previous versions where the parameter doesn't exist
         $useCaptcha = 1;
@@ -171,7 +173,7 @@ function wikiplugin_subscribenewsletter($data, $params)
                 }
                 if ($result) {
                     $wpSubscribe = 'y';
-                    $smarty->assign('subscribeThanks', empty($thanks) ? $data : $thanks);
+                    $subscribeThanks = empty($thanks) ? $data : $thanks;
                     if ($info['validateAddr'] == 'y' && ! $user) {
                         // For anonymous users with email validation required
                         $smarty->assign('confirmationSent', true);
@@ -187,8 +189,14 @@ function wikiplugin_subscribenewsletter($data, $params)
             }
         }
     }
+    if ($params['wikisyntax'] == 1 && ! empty($subscribeThanks)) {
+        $subscribeThanks = $parserlib->parse_data($subscribeThanks, ['is_html' => true]);
+    }
+
     $smarty->assign_by_ref('wpSubscribe', $wpSubscribe);
     $smarty->assign_by_ref('wpError', $wpError);
+    $smarty->assign('subscribeThanks', $subscribeThanks);
+    $smarty->assign('subscribeThanksIsHtml', $params['wikisyntax'] == 1);
     $smarty->assign('subscribeEmail', $subscribeEmail);
     $smarty->assign('subcribeMessage', empty($button) ? $data : $button);
     $smarty->assign('inmodule', ! empty($inmodule) ? "moduleSubscribeNL" : "");
@@ -197,9 +205,6 @@ function wikiplugin_subscribenewsletter($data, $params)
     $smarty->assign('alreadySubscribed', $alreadySubscribed);
     $smarty->assign('alreadySubscribedMessage', $alreadySubscribedMessage);
     $res = $smarty->fetch('wiki-plugins/wikiplugin_subscribenewsletter.tpl');
-    if ($params["wikisyntax"] == 1) {
-        return $res;
-    } else {        // if wikisyntax != 1 : no parsing of any wiki syntax
-        return '~np~' . $res . '~/np~';
-    }
+
+    return '~np~' . $res . '~/np~';
 }

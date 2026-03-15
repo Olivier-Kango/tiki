@@ -2,7 +2,11 @@
     {if empty($subscribeThanks)}
         {tr}Subscription confirmed!{/tr}
     {else}
-        {$subscribeThanks|escape}
+        {if !empty($subscribeThanksIsHtml)}
+            {$subscribeThanks nofilter}
+        {else}
+            {$subscribeThanks|escape}
+        {/if}
     {/if}
     
 {elseif $alreadySubscribed}
