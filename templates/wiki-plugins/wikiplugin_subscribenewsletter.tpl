@@ -28,7 +28,7 @@
             <div class="input-group">
                 <div class="wp-subscribe-email-wrap">
                     <span class="wp-subscribe-email-icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                    <input type="email" class="form-control" id="wpEmail" name="wpEmail" size="50" value="{$subscribeEmail|escape}" placeholder="{tr}Enter your email address{/tr}" required>
+                    <input type="email" class="form-control" id="wpEmail" name="wpEmail" size="50" value="{$subscribeEmail|escape}" placeholder="{tr}Enter your email{/tr}" required>
                 </div>
                 <div class="input-group-append">
                     {if empty($subcribeMessage)}
