@@ -47,7 +47,7 @@ class TWVersion
 
         // Set everything else, including defaults.
         $this->version  = '30.0vcs';
-        $this->star     = 'TBA';
+        $this->star     = 'Alpheratz';
         $this->releases = [];
 
         // Check for Git or not
