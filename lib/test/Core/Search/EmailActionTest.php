@@ -32,7 +32,23 @@ class SearchActionEmailActionTest extends TikiTestCase
             ->onlyMethods(['setReplyTo', 'setFrom', 'setSender', 'setSubject', 'setHtml', 'addAttachment', 'send'])
             ->getMock();
 
-        $this->action = new Search_Action_EmailAction_TestDouble($this->mail);
+        $mail = $this->mail;
+        $this->action = new class ($mail) extends Search_Action_EmailAction {
+            /**
+             * @var TikiMail
+             */
+            private $mail;
+
+            public function __construct(TikiMail $mail)
+            {
+                $this->mail = $mail;
+            }
+
+            protected function createMail(): TikiMail
+            {
+                return $this->mail;
+            }
+        };
         $this->overrideLibs = new TestableTikiLib();
 
         $parserLib = $this->createMock(get_class(TikiLib::lib('parser')));
@@ -167,23 +183,5 @@ class SearchActionEmailActionTest extends TikiTestCase
             ->method('send')
             ->with($recipients)
             ->willReturn($result);
-    }
-}
-
-class Search_Action_EmailAction_TestDouble extends Search_Action_EmailAction
-{
-    /**
-     * @var TikiMail
-     */
-    private $mail;
-
-    public function __construct(TikiMail $mail)
-    {
-        $this->mail = $mail;
-    }
-
-    protected function createMail(): TikiMail
-    {
-        return $this->mail;
     }
 }
