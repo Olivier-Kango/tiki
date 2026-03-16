@@ -14,9 +14,9 @@ class SearchActionEmailActionTest extends TikiTestCase
     private $action;
 
     /**
-     * @var ReflectionMethod
+     * @var PHPUnit\Framework\MockObject\MockObject|TikiMail
      */
-    private $dereferenceMethod;
+    private $mail;
 
     /**
      * @var TestableTikiLib|null
@@ -27,10 +27,21 @@ class SearchActionEmailActionTest extends TikiTestCase
     {
         parent::setUp();
 
-        $this->action = new Search_Action_EmailAction();
-        $this->dereferenceMethod = new ReflectionMethod(Search_Action_EmailAction::class, 'dereference');
-        $this->dereferenceMethod->setAccessible(true);
-        $this->overrideLibs = null;
+        $this->mail = $this->getMockBuilder(TikiMail::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['setReplyTo', 'setFrom', 'setSender', 'setSubject', 'setHtml', 'addAttachment', 'send'])
+            ->getMock();
+
+        $this->action = new Search_Action_EmailAction_TestDouble($this->mail);
+        $this->overrideLibs = new TestableTikiLib();
+
+        $parserLib = $this->createMock(get_class(TikiLib::lib('parser')));
+        $parserLib->method('parse_data')
+            ->willReturnCallback(function ($content, $options = null) {
+                return str_replace(['~np~', '~/np~'], '', $content);
+            });
+
+        $this->overrideLibs->overrideLibs(['parser' => $parserLib]);
     }
 
     protected function tearDown(): void
@@ -39,66 +50,52 @@ class SearchActionEmailActionTest extends TikiTestCase
         parent::tearDown();
     }
 
-    public function testDereferenceParsesSimpleRfcAddressList()
+    public function testExecuteParsesSimpleRfcAddressList()
     {
-        $resolved = $this->invokeDereference('alice@example.org, bob@example.org');
+        $this->expectSend(['alice@example.org', 'bob@example.org'], true);
 
-        $this->assertSame(['alice@example.org', 'bob@example.org'], $resolved);
+        $this->assertTrue($this->action->execute($this->createInput([
+            'to' => ['alice@example.org, bob@example.org'],
+        ])));
     }
 
-    public function testDereferenceParsesNamedRfcAddressListWithQuotedCommas()
+    public function testExecuteParsesNamedRfcAddressListWithQuotedCommas()
     {
-        $resolved = $this->invokeDereference('"Doe, John" <john.doe@example.org>, Jane Doe <jane@example.org>');
+        $this->expectSend(['john.doe@example.org', 'jane@example.org'], true);
 
-        $this->assertSame(
-            [
-                'Doe, John' => 'john.doe@example.org',
-                'Jane Doe' => 'jane@example.org',
-            ],
-            $resolved
-        );
+        $this->assertTrue($this->action->execute($this->createInput([
+            'to' => ['"Doe, John" <john.doe@example.org>, Jane Doe <jane@example.org>'],
+        ])));
     }
 
-    public function testDereferenceParsesSemicolonSeparatedNamedRfcAddressListWithQuotedCommas()
+    public function testExecuteParsesSemicolonSeparatedNamedRfcAddressListWithQuotedCommas()
     {
-        $resolved = $this->invokeDereference('"Doe, John" <john.doe@example.org>; "Smith, Jane" <jane@example.org>');
+        $this->expectSend(['john.doe@example.org', 'jane@example.org'], true);
 
-        $this->assertSame(
-            [
-                'Doe, John' => 'john.doe@example.org',
-                'Smith, Jane' => 'jane@example.org',
-            ],
-            $resolved
-        );
+        $this->assertTrue($this->action->execute($this->createInput([
+            'to' => ['"Doe, John" <john.doe@example.org>; "Smith, Jane" <jane@example.org>'],
+        ])));
     }
 
-    public function testDereferenceParsesRfcAddressListAcrossMultipleLines()
+    public function testExecuteParsesRfcAddressListAcrossMultipleLines()
     {
-        $resolved = $this->invokeDereference("Alice <alice@example.org>\nBob <bob@example.org>");
+        $this->expectSend(['alice@example.org', 'bob@example.org'], true);
 
-        $this->assertSame(
-            [
-                'Alice' => 'alice@example.org',
-                'Bob' => 'bob@example.org',
-            ],
-            $resolved
-        );
+        $this->assertTrue($this->action->execute($this->createInput([
+            'to' => ["Alice <alice@example.org>\nBob <bob@example.org>"],
+        ])));
     }
 
-    public function testDereferenceParsesMixedNamedAndPlainRfcAddresses()
+    public function testExecuteParsesMixedNamedAndPlainRfcAddresses()
     {
-        $resolved = $this->invokeDereference('Alice <alice@example.org>, bob@example.org');
+        $this->expectSend(['alice@example.org', 'bob@example.org'], true);
 
-        $this->assertSame(
-            [
-                'Alice' => 'alice@example.org',
-                0 => 'bob@example.org',
-            ],
-            $resolved
-        );
+        $this->assertTrue($this->action->execute($this->createInput([
+            'to' => ['Alice <alice@example.org>, bob@example.org'],
+        ])));
     }
 
-    public function testDereferenceFallsBackToCommaSeparatedTikiUsernames()
+    public function testExecuteFallsBackToCommaSeparatedTikiUsernames()
     {
         $trkLib = $this->createMock(get_class(TikiLib::lib('trk')));
         $trkLib->expects($this->once())
@@ -114,38 +111,79 @@ class SearchActionEmailActionTest extends TikiTestCase
                 ['bob', 'bob@example.org'],
             ]);
 
-        $this->overrideLibs = new TestableTikiLib();
         $this->overrideLibs->overrideLibs([
             'trk' => $trkLib,
             'user' => $userLib,
         ]);
 
-        $resolved = $this->invokeDereference('alice,bob');
+        $this->expectSend(['alice@example.org', 'bob@example.org'], true);
 
-        $this->assertSame(['alice@example.org', 'bob@example.org'], $resolved);
+        $this->assertTrue($this->action->execute($this->createInput([
+            'to' => ['alice,bob'],
+        ])));
     }
 
-    public function testDereferenceReturnsEmptyForInvalidInputContainingAtSign()
+    public function testExecuteReturnsFalseForInvalidInputContainingAtSign()
     {
-        $resolved = $this->invokeDereference('not-an-email@');
+        $this->expectSend([], false);
 
-        $this->assertSame([], $resolved);
+        $this->assertFalse($this->action->execute($this->createInput([
+            'to' => ['not-an-email@'],
+        ])));
     }
 
-    public function testDereferenceStripsNoParseMarkersBeforeParsing()
+    public function testExecuteStripsNoParseMarkersBeforeParsing()
     {
-        $resolved = $this->invokeDereference('~np~"Alice, Test" <alice@example.org>~/np~');
+        $this->expectSend(['alice@example.org'], true);
 
-        $this->assertSame(
-            [
-                'Alice, Test' => 'alice@example.org',
-            ],
-            $resolved
-        );
+        $this->assertTrue($this->action->execute($this->createInput([
+            'to' => ['~np~"Alice, Test" <alice@example.org>~/np~'],
+        ])));
     }
 
-    private function invokeDereference(string $value): array
+    private function createInput(array $overrides = []): JitFilter
     {
-        return $this->dereferenceMethod->invoke($this->action, $value);
+        return new JitFilter(array_merge([
+            'object_type' => '',
+            'object_id' => 0,
+            'replyto' => null,
+            'to' => [],
+            'cc' => [],
+            'bcc' => [],
+            'from' => null,
+            'subject' => 'Subject',
+            'content' => 'Body',
+            'is_html' => 0,
+            'pdf_page_attachment' => '',
+            'file_attachments' => [],
+            'file_attachment_field' => '',
+            'file_attachment_gal' => '',
+        ], $overrides));
+    }
+
+    private function expectSend(array $recipients, bool $result): void
+    {
+        $this->mail->expects($this->once())
+            ->method('send')
+            ->with($recipients)
+            ->willReturn($result);
+    }
+}
+
+class Search_Action_EmailAction_TestDouble extends Search_Action_EmailAction
+{
+    /**
+     * @var TikiMail
+     */
+    private $mail;
+
+    public function __construct(TikiMail $mail)
+    {
+        $this->mail = $mail;
+    }
+
+    protected function createMail(): TikiMail
+    {
+        return $this->mail;
     }
 }

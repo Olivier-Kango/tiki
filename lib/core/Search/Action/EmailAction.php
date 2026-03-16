@@ -37,7 +37,7 @@ class Search_Action_EmailAction implements Search_Action_Action
     public function execute(JitFilter $data)
     {
         try {
-            $mail = new TikiMail();
+            $mail = $this->createMail();
 
             if ($replyto = $this->dereference($data->replyto->raw())) {
                 $mail->setReplyTo($replyto[0]);
@@ -180,6 +180,11 @@ class Search_Action_EmailAction implements Search_Action_Action
     public function requiresConfirm()
     {
         return false;
+    }
+
+    protected function createMail(): TikiMail
+    {
+        return new TikiMail();
     }
 
     private function parse($content, $is_html = null)
