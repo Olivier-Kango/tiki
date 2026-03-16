@@ -244,24 +244,50 @@ class Search_Action_EmailAction implements Search_Action_Action
     /**
      * Parse an RFC-compliant mailbox list into individual Address objects.
      *
-     * Supports comma-separated lists and line-separated entries while honoring
-     * quoted names that may contain commas.
+     * Supports comma-separated, semicolon-separated, and line-separated entries
+     * while honoring quoted names that may contain delimiters.
      */
     private function parseAddressList(string $addresses): array
     {
         $parsed = [];
-        foreach (preg_split('/\R/', $addresses) as $line) {
-            foreach (str_getcsv($line, ',', '"', TikiLib::TIKI_GLOBAL_CSV_ESCAPE_CHAR) as $candidate) {
-                $candidate = trim($candidate);
-                if ($candidate === '') {
-                    continue;
-                }
+        $buffer = '';
+        $inQuotes = false;
+        $escape = TikiLib::TIKI_GLOBAL_CSV_ESCAPE_CHAR;
 
-                $parsed[] = $candidate;
+        foreach (str_split($addresses) as $character) {
+            if ($character === '"' && ! $this->isEscaped($buffer, $escape)) {
+                $inQuotes = ! $inQuotes;
             }
+
+            if (! $inQuotes && ($character === ',' || $character === ';' || $character === "\n" || $character === "\r")) {
+                $candidate = trim($buffer);
+                if ($candidate !== '') {
+                    $parsed[] = $candidate;
+                }
+                $buffer = '';
+                continue;
+            }
+
+            $buffer .= $character;
+        }
+
+        $candidate = trim($buffer);
+        if ($candidate !== '') {
+            $parsed[] = $candidate;
         }
 
         return Address::createArray($parsed);
+    }
+
+    private function isEscaped(string $buffer, string $escape): bool
+    {
+        $escapeCount = 0;
+
+        for ($index = strlen($buffer) - 1; $index >= 0 && $buffer[$index] === $escape; $index--) {
+            $escapeCount++;
+        }
+
+        return $escapeCount % 2 === 1;
     }
 
     private function dereferenceName($email_or_username)

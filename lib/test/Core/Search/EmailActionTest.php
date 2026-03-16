@@ -59,6 +59,19 @@ class SearchActionEmailActionTest extends TikiTestCase
         );
     }
 
+    public function testDereferenceParsesSemicolonSeparatedNamedRfcAddressListWithQuotedCommas()
+    {
+        $resolved = $this->invokeDereference('"Doe, John" <john.doe@example.org>; "Smith, Jane" <jane@example.org>');
+
+        $this->assertSame(
+            [
+                'Doe, John' => 'john.doe@example.org',
+                'Smith, Jane' => 'jane@example.org',
+            ],
+            $resolved
+        );
+    }
+
     public function testDereferenceParsesRfcAddressListAcrossMultipleLines()
     {
         $resolved = $this->invokeDereference("Alice <alice@example.org>\nBob <bob@example.org>");
