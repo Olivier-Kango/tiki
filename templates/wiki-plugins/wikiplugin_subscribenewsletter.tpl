@@ -15,6 +15,7 @@
     {/remarksbox}
 
 {else}
+    <link rel="stylesheet" href="themes/base_files/feature_css/wikiplugin-subscribenewsletter.css">
     <form name="wpSubscribeNL" method="post">
         <input type="hidden" name="wpNlId" value="{$subscribeInfo.nlId|escape}">
 

@@ -193,9 +193,6 @@ function wikiplugin_subscribenewsletter($data, $params)
         $subscribeThanks = $parserlib->parse_data($subscribeThanks, ['is_html' => true]);
     }
 
-    $headerlib = TikiLib::lib('header');
-    $headerlib->add_cssfile(THEMES_BASE_FILES_FEATURE_CSS_PATH . '/wikiplugin-subscribenewsletter.css');
-
     $smarty->assign_by_ref('wpSubscribe', $wpSubscribe);
     $smarty->assign_by_ref('wpError', $wpError);
     $smarty->assign('subscribeThanks', $subscribeThanks);
