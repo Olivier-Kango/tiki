@@ -46,7 +46,7 @@ class TWVersion
         $this->branch   = 'trunk';
 
         // Set everything else, including defaults.
-        $this->version  = '30.0vcs';
+        $this->version  = '31.0vcs';
         $this->star     = 'TBA';
         $this->releases = [];
 
