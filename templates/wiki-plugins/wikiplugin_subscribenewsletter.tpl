@@ -32,11 +32,7 @@
                     <input type="email" class="form-control" id="wpEmail" name="wpEmail" size="50" value="{$subscribeEmail|escape}" placeholder="{tr}Enter your email address{/tr}" required>
                 </div>
                 <div class="input-group-append">
-                    {if empty($subcribeMessage)}
-                        <input type="submit" class="btn btn-primary" name="wpSubscribe" value="{tr}Subscribe to the newsletter:{/tr} {$subscribeInfo.name}">
-                    {else}
-                        <input type="submit" class="btn btn-primary" name="wpSubscribe" value="{$subcribeMessage|escape}">
-                    {/if}
+                    <input type="submit" class="btn btn-primary" name="wpSubscribe" value="{$subscribeButtonLabel|escape}">
                 </div>
             </div>
         </div>

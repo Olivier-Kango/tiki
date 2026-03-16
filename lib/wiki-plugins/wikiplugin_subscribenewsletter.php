@@ -195,10 +195,15 @@ function wikiplugin_subscribenewsletter($data, $params)
 
     $smarty->assign_by_ref('wpSubscribe', $wpSubscribe);
     $smarty->assign_by_ref('wpError', $wpError);
+    $subscribeButtonLabel = empty($button) ? $data : $button;
+    if (empty($subscribeButtonLabel)) {
+        $subscribeButtonLabel = tra('Subscribe to the newsletter:') . ' ' . $info['name'];
+    }
+
     $smarty->assign('subscribeThanks', $subscribeThanks);
     $smarty->assign('subscribeThanksIsHtml', $params['wikisyntax'] == 1);
     $smarty->assign('subscribeEmail', $subscribeEmail);
-    $smarty->assign('subcribeMessage', empty($button) ? $data : $button);
+    $smarty->assign('subscribeButtonLabel', $subscribeButtonLabel);
     $smarty->assign('inmodule', ! empty($inmodule) ? "moduleSubscribeNL" : "");
     $smarty->assign_by_ref('subscribeInfo', $info);
     $smarty->assign('useCaptcha', $useCaptcha);
