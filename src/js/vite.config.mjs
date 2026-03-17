@@ -185,6 +185,7 @@ export default defineConfig(({ command, mode }) => {
                     "sortablejs",
                     "subtotal",
                     "summernote",
+                    "underscore",
                     "vue",
                 ],
                 input: rollupInput,
@@ -570,6 +571,13 @@ export default defineConfig(({ command, mode }) => {
                         ],
                         dest: "vendor_dist/tablesorter/dist/js/widgets",
                     },
+                    {
+                        src: "node_modules/underscore/underscore-esm-min.js",
+                        dest: "vendor_dist/underscore",
+                    },
+                    /* END src/js/common-externals-legacy-cjs section */
+
+                    /* src/js/jquery_tiki - These should be in common-externals* if they are not compiled in!  - benoitg - 2026-03-11 */
                     {
                         src: "node_modules/vue/dist/vue.esm-browser.js",
                         dest: "vendor_dist/vue/dist",

@@ -42,6 +42,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "sortablejs" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/sortablejs/modular/sortable.esm.js",
                 "summernote" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/summernote/dist/summernote-bs5.min.js",
                 "timeline" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vis-timeline/dist/vis-timeline-graph2d.esm.js",
+                "underscore" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/underscore/underscore-esm-min.js",
                 // currently we don't use the prod build to improve the experience for SFC
                 "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.js",
 
@@ -67,6 +68,7 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "@jquery-tiki/tiki-handle_svgedit" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-handle_svgedit.js",
                 "@jquery-tiki/tiki-admin_menu_options" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-admin_menu_options.js",
                 "@jquery-tiki/tiki-edit_structure" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-edit_structure.js",
+                "@jquery-tiki/wikiplugin-mouseover" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/wikiplugin-mouseover.js",
                 "@jquery-tiki/wikiplugin-trackercalendar" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/wikiplugin-trackercalendar.js",
                 "@jquery-tiki/fullcalendar_to_pdf" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/fullcalendar_to_pdf.js",
                 "@jquery-tiki/tiki-maps-ol3" => $tikiUrl . JS_ASSETS_PATH . "/jquery-tiki/tiki-maps-ol3.js",
