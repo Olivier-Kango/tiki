@@ -556,11 +556,12 @@
                     {if $prefs.xmpp_feature eq 'y'}
                         <div class="tiki-form-group row mb-2">
                             <label class="col-form-label col-md-4" for="xmpp_username">
-                                {tr}XMPP account JID{/tr}
+                                {tr}Preferred / alternative XMPP address{/tr}
                             </label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="xmpp_jid" id="xmpp_jid" value="{$user_prefs.xmpp_jid|escape}">
-                                <p><small>{tr}If empty, Tiki will provide default value{/tr}</small></p>
+                                <p><small>{tr}Leave empty to use your default Tiki-managed XMPP address{/tr}</small></p>
+                                <p><small>{tr}Enter a full JID such as user@example.org if you prefer to use an existing external XMPP account{/tr}</small></p>
                             </div>
                         </div>
                         <div class="tiki-form-group row">
@@ -569,7 +570,8 @@
                             </label>
                             <div class="col-md-8">
                                 <input type="password" class="form-control" name="xmpp_password" id="xmpp_password" value="{$user_prefs.xmpp_password|escape}" autocomplete="new-password">
-                                <p><small>This password will be stored in database</small></p>
+                                <p><small>{tr}Only needed when logging in to an external XMPP account{/tr}</small></p>
+                                <p><small>{tr}If left empty, Converse will ask the user to log in manually to the external XMPP server{/tr}</small></p>
                             </div>
                         </div>
                         <div class="tiki-form-group row">
@@ -578,7 +580,8 @@
                             </label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="xmpp_custom_server_http_bind" id="xmpp_custom_server_http_bind" value="{$user_prefs.xmpp_custom_server_http_bind|escape}">
-                                <p><small>{tr}You have to provide this when using custom XMPP server{/tr}</small></p>
+                                <p><small>{tr}Provide this when using an external XMPP server that requires a custom BOSH endpoint{/tr}</small></p>
+                                <p><small>{tr}If left empty, Tiki falls back to the default configured endpoint{/tr}</small></p>
                             </div>
                         </div>
                     {/if}

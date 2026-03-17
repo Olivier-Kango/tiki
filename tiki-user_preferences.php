@@ -380,7 +380,37 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
     }
 
     if (isset($_POST['xmpp_jid'])) {
-        $tikilib->set_user_preference($userwatch, 'xmpp_jid', $_POST['xmpp_jid']);
+        $previousXmppJid = $tikilib->get_user_preference($userwatch, 'xmpp_jid', '');
+        $newXmppJid = trim($_POST['xmpp_jid']);
+
+        $tikilib->set_user_preference($userwatch, 'xmpp_jid', $newXmppJid);
+
+        if ($previousXmppJid !== $newXmppJid) {
+            try {
+                $xmpplib = TikiLib::lib('xmpp');
+                if (method_exists($xmpplib, 'saveLastSyncedJidForUser')) {
+                    $previousEffectiveJid = strpos($previousXmppJid, '@') !== false
+                        ? $previousXmppJid
+                        : $xmpplib->getLocalJidForLogin($userwatch);
+                    $xmpplib->saveLastSyncedJidForUser($userwatch, $previousEffectiveJid);
+                }
+                if (method_exists($xmpplib, 'markUserXmppSyncNeeded')) {
+                    $xmpplib->markUserXmppSyncNeeded($userwatch);
+                }
+            } catch (\Throwable $e) {
+                TikiLib::lib('logs')->add_log(
+                    'xmpp',
+                    tr(
+                        'Failed updating XMPP sync state for user %0 after preferred JID change from %1 to %2: %3',
+                        $userwatch,
+                        $previousXmppJid ?: tra('(local default)'),
+                        $newXmppJid ?: tra('(local default)'),
+                        $e->getMessage()
+                    ),
+                    $user
+                );
+            }
+        }
     }
     if (isset($_POST['xmpp_password'])) {
         $tikilib->set_user_preference($userwatch, 'xmpp_password', $_POST['xmpp_password']);

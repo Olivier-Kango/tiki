@@ -291,8 +291,8 @@ function prefs_users_list()
             'help' => $prefsTextEditingToUsersHelp,
         ],
         'users_prefs_xmpp_jid' => [
-            'name' => tra('XMPP account JID or username'),
-            'description' => tra('XMPP account JID or username'),
+            'name' => tra('Preferred / alternative XMPP address'),
+            'description' => tra('Preferred / alternative XMPP address (full JID). Leave empty to use the default Tiki-managed address.'),
             'keywords' => 'xmpp converse conversejs chat',
             'type' => 'text',
             'default' => '',
@@ -300,7 +300,7 @@ function prefs_users_list()
         ],
         'users_prefs_xmpp_password' => [
             'name' => tra('XMPP account password'),
-            'description' => tra('XMPP account password'),
+            'description' => tra('Optional password for an external XMPP account. If left empty, Converse will prompt the user to log in manually.'),
             'keywords' => 'xmpp converse conversejs chat',
             'type' => 'text',
             'default' => '',
@@ -308,7 +308,7 @@ function prefs_users_list()
         ],
         'users_prefs_xmpp_custom_server_http_bind' => [
             'name' => tra('XMPP http-bind URL'),
-            'description' => tra('Full URL to the http-bind.'),
+            'description' => tra('Optional BOSH endpoint for an external XMPP account. If left empty, Tiki uses the default configured endpoint.'),
             'keywords' => 'xmpp converse conversejs chat',
             'type' => 'text',
             'size' => 40,

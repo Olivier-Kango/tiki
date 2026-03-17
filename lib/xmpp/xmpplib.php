@@ -46,14 +46,43 @@ class XMPPLib extends TikiLib
      */
 
     /**
-     * Return the JID of a user (custom preference or built from the domain)
+     * Return the local JID on the Tiki-managed XMPP domain.
      */
-    public function getUserJidForLogin(string $login): string
+    public function getLocalJidForLogin(?string $login): string
     {
         global $prefs;
 
+        $login = trim((string) $login);
+        if ($login === '') {
+            return '';
+        }
+
         $domain = $prefs['xmpp_domain_users'] ?: $this->server_host;
         return sprintf('%s@%s', $login, $domain);
+    }
+
+    /**
+     * Backward-compatible alias for the local Tiki-managed JID.
+     */
+    public function getUserJidForLogin(?string $login): string
+    {
+        return $this->getLocalJidForLogin($login);
+    }
+
+    /**
+     * Return the last JID synced to Prosody for room affiliations.
+     */
+    public function getLastSyncedJidForUser(string $user): string
+    {
+        return trim(TikiLib::lib('tiki')->get_user_preference($user, 'xmpp_last_synced_jid', ''));
+    }
+
+    /**
+     * Persist the last JID synced to Prosody for room affiliations.
+     */
+    public function saveLastSyncedJidForUser(string $user, string $jid): void
+    {
+        TikiLib::lib('tiki')->set_user_preference($user, 'xmpp_last_synced_jid', trim($jid));
     }
 
     /**
@@ -200,7 +229,7 @@ class XMPPLib extends TikiLib
         }
         $login = trim($info['login']);
 
-        $ext = trim($info['preferences']['xmpp_jid'] ?? '');
+        $ext = trim(TikiLib::lib('tiki')->get_user_preference($login, 'xmpp_jid', ''));
         if (! empty($ext) && strpos($ext, '@') !== false) {
             return $ext;
         }
@@ -228,36 +257,74 @@ class XMPPLib extends TikiLib
         if ($prefs['xmpp_feature'] !== 'y') {
             return;
         }
+
         $jid = $this->getEffectiveJidForUser($u);
         if (! $jid) {
             return;
         }
+
         $currentRooms = $this->getSavedUserRooms($u);
         $expectedRooms = $this->resolveRoomsFromGroups($u);
+        $previousJid = $this->getLastSyncedJidForUser($u);
+
+        if ($previousJid !== '' && strcasecmp($previousJid, $jid) !== 0) {
+            $knownRooms = array_values(array_unique(array_filter(array_merge($currentRooms, $expectedRooms))));
+            foreach ($knownRooms as $r) {
+                $room = $r;
+                try {
+                    $room = $this->buildRoomJid($r);
+                    $this->setUserAffiliation($room, $previousJid, 'none');
+                } catch (\Throwable $e) {
+                    $this->logXmppSyncError($u, $room, $previousJid, 'remove previous affiliation', $e);
+                }
+            }
+
+            // Force a clean re-apply for the new preferred JID.
+            $currentRooms = [];
+        }
 
         $toAdd = array_diff($expectedRooms, $currentRooms);
         $toRemove = array_diff($currentRooms, $expectedRooms);
 
         foreach ($toAdd as $r) {
+            $room = $r;
             try {
                 $room = $this->buildRoomJid($r);
                 $this->ensureRoomExists($room);
                 $this->setUserAffiliation($room, $jid, 'member');
             } catch (\Throwable $e) {
-                // Handle sync error silently
+                $this->logXmppSyncError($u, $room, $jid, 'add affiliation', $e);
             }
         }
 
         foreach ($toRemove as $r) {
+            $room = $r;
             try {
                 $room = $this->buildRoomJid($r);
                 $this->setUserAffiliation($room, $jid, 'none'); // remove membership and force exit
             } catch (\Throwable $e) {
-                // Handle sync error silently
+                $this->logXmppSyncError($u, $room, $jid, 'remove affiliation', $e);
             }
         }
 
         $this->saveUserRooms($u, $expectedRooms);
+        $this->saveLastSyncedJidForUser($u, $jid);
+    }
+
+    private function logXmppSyncError(string $user, string $room, string $jid, string $action, \Throwable $e): void
+    {
+        TikiLib::lib('logs')->add_log(
+            'xmpp',
+            tr(
+                'Failed to %0 during XMPP sync for user %1 in room %2 on JID %3: %4',
+                $action,
+                $user,
+                $room,
+                $jid,
+                $e->getMessage()
+            ),
+            $user
+        );
     }
 
     /**
@@ -558,6 +625,13 @@ class XMPPLib extends TikiLib
         $xmppclient->set_auth($params);
 
         $nickname = $xmpp['nickname'] ?? $user;
+        $usesExternalJid = false;
+
+        if (! empty($user)) {
+            $localJid = $xmpplib->getLocalJidForLogin($user);
+            $effectiveJid = $xmpplib->getEffectiveJidForUser($user);
+            $usesExternalJid = $effectiveJid !== '' && strcasecmp($effectiveJid, $localJid) !== 0;
+        }
 
         // Auto-join only if user is logged in
         if (! empty($user)) {
@@ -579,19 +653,24 @@ class XMPPLib extends TikiLib
             }
         }
 
-        $xmppclient->set_options(
-            [
-                'bosh_service_url'           => $xmpp['http_bind'],
-                'websocket_url'              => isset($xmpp['websocket_url']) ? $xmpp['websocket_url'] : '',
-                'jid'                        => $xmppclient->get_option('jid') ?: $xmpp['jid'],
-                'nickname'                   => $nickname,
-                'view_mode'                  => $params['view_mode'],
-                'show_controlbox_by_default' => $params['show_controlbox_by_default'] === 'y',
-                'show_occupants_by_default'  => $params['show_occupants_by_default'] === 'y',
-                'dm_target'                  => $params['dm_target'] ?? '',
-                'anonymous'                  => $params['anonymous'] ?? '',
-            ]
-        );
+        $renderOptions = [
+            'bosh_service_url'           => $xmpp['http_bind'],
+            'jid'                        => $xmppclient->get_option('jid') ?: $xmpp['jid'],
+            'nickname'                   => $nickname,
+            'view_mode'                  => $params['view_mode'],
+            'show_controlbox_by_default' => $params['show_controlbox_by_default'] === 'y',
+            'show_occupants_by_default'  => $params['show_occupants_by_default'] === 'y',
+            'dm_target'                  => $params['dm_target'] ?? '',
+            'anonymous'                  => $params['anonymous'] ?? '',
+        ];
+
+        if ($usesExternalJid) {
+            $renderOptions['websocket_url'] = '';
+        } elseif (isset($xmpp['websocket_url'])) {
+            $renderOptions['websocket_url'] = $xmpp['websocket_url'];
+        }
+
+        $xmppclient->set_options($renderOptions);
 
         $xmppclient->render();
     }
