@@ -1,13 +1,7 @@
 {strip}
     {if $prefs.cookie_consent_mode eq 'dialog'}
-        <div class="modal" tabindex="-1" role="dialog" id="{$prefs.cookie_consent_dom_id}">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{tr}Cookie Consent{/tr}</h5>
-                    </div>
-                    <div class="modal-body">
-            {else}
+        <div class="modal-body" id="{$prefs.cookie_consent_dom_id}">
+    {else}
         <div id="{$prefs.cookie_consent_dom_id}" class="alert alert-primary col-sm-8 mx-auto" role="alert"
             {if $prefs.javascript_enabled eq 'y' and not empty($prefs.cookie_consent_mode)}
                 style="display:none;" class="{$prefs.cookie_consent_mode}"
@@ -40,9 +34,6 @@
                 </div>
             </div>
         </form>
-    {if $prefs.cookie_consent_mode eq 'dialog'}
-        </div></div></div>
-    {/if}
     </div>
     {jq}
         function setConsentCookies() {
@@ -58,6 +49,7 @@
                 }
             }
             $(document).trigger("cookies.consent.agree");
+            {{if $prefs.cookie_consent_mode eq 'dialog'}$.closeModal();{/if}}
         }
         $("#cookie_consent_button").on("click", function(){
             if ($("input[name=cookie_consent_checkbox]:checked").length || $("input[name=cookie_consent_checkbox]:hidden").val() || jqueryTiki.cookie_consent_analytics) {
@@ -91,7 +83,19 @@
         {/jq}
     {elseif $prefs.cookie_consent_mode eq 'dialog'}
         {jq}
-            setTimeout(function () {$("#{{$prefs.cookie_consent_dom_id}}").modal({{if $prefs.cookie_consent_disable neq 'y'}}{backdrop: "static",keyboard:false,}{{/if}});}, 500);
+            setTimeout(function () {
+                $.openModal(
+                    {
+                        {{if $prefs.cookie_consent_disable neq 'y'}}backdrop: "static",
+                        keyboard:false,{{/if}}
+                        title: "{tr}Cookie Consent{/tr}",
+                        open: function () {
+                            $(this).find(".modal-body").replaceWith($("#{{$prefs.cookie_consent_dom_id}}").removeAttr("id"));
+                            $(this).find(".modal-footer").empty().hide()
+                        }
+                    }
+                );
+            }, 500);
         {/jq}
     {/if}
 {/strip}
