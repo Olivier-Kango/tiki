@@ -14,7 +14,7 @@
 </div>
 <div id="module_params">
     {if !empty($assign_name)}
-        {if isset($assign_info.type) and $assign_info.type eq 'function'}
+        {if isset($assign_info.params) and !empty($assign_info.params)}
             <ul>
                 <li><a href="#param_section_basic">{tr}Basic{/tr}</a></li>
                 {foreach from=$assign_info.params key=sect item=params}
@@ -92,7 +92,7 @@
                     </div>
                 {/if}
             </fieldset>
-            {if isset($assign_info.type) and $assign_info.type eq 'function'}
+            {if isset($assign_info.params) and !empty($assign_info.params)}
                 {foreach from=$assign_info.params key=sect item=params}
                     <fieldset id="param_section_{$sect}">
                         {foreach from=$params key=name item=param}
