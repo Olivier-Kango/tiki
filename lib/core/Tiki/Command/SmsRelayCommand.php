@@ -127,23 +127,27 @@ class SmsRelayCommand extends Command
             $config = $decoded;
         }
 
-        foreach ([
-            'keywords' => 'keyword',
-            'senders' => 'sender',
-            'recipients' => 'recipient',
-        ] as $configKey => $optionName) {
+        foreach (
+            [
+                'keywords' => 'keyword',
+                'senders' => 'sender',
+                'recipients' => 'recipient',
+            ] as $configKey => $optionName
+        ) {
             $optionValues = $input->getOption($optionName);
             if (! empty($optionValues)) {
                 $config[$configKey] = $optionValues;
             }
         }
 
-        foreach ([
-            'subject_prefix' => 'subject-prefix',
-            'source_label' => 'source-label',
-            'require_sender_match' => 'require-sender-match',
-            'require_keyword_match' => 'require-keyword-match',
-        ] as $configKey => $optionName) {
+        foreach (
+            [
+                'subject_prefix' => 'subject-prefix',
+                'source_label' => 'source-label',
+                'require_sender_match' => 'require-sender-match',
+                'require_keyword_match' => 'require-keyword-match',
+            ] as $configKey => $optionName
+        ) {
             $optionValue = $input->getOption($optionName);
             if ($optionValue !== null) {
                 $config[$configKey] = $optionValue;
