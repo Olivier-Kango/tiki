@@ -137,16 +137,24 @@
 && ($tiki_p_read_comments == 'y'
 || $tiki_p_post_comments == 'y'
 || $tiki_p_edit_comments == 'y')}
-    <a id="comments"></a>
-    <div
-        id="comzone"
-        style="display:{if $comments_show eq 'y' or $show_comzone eq 'y' or $prefs.wiki_comments_displayed_default eq 'y'}block{else}none{/if};"
-    >
-        <div id="comment-container" class="my-3 mx-0" data-bs-target="{service controller=comment action=list type=faq objectId=$faqId}"></div>
+
+    <div id="page-bar" class="btn-group">
+        <span class="button btn-primary"><a id="comment-toggle" href="{service controller=comment action=list type=faq objectId=$faqId}#comment-container">{tr}Comments{/tr}</a></span>
+        {jq}
+            $('#comment-toggle').comment_toggle();
+        {/jq}
     </div>
-    {jq}
-        var id = '#comment-container';
-        $(id).comment_load($(id).data('bs-target'));
-        $(document).on("ajaxComplete", function(){$(id).tiki_popover();});
-    {/jq}
+    <div id="comment-container" class="my-3 mx-0"></div>
+{*    <a id="comments"></a>*}
+{*    <div*}
+{*            id="comzone"*}
+{*            style="display:{if $comments_show eq 'y' or $show_comzone eq 'y' or $prefs.wiki_comments_displayed_default eq 'y'}block{else}none{/if};"*}
+{*    >*}
+{*        <div id="comment-container" class="my-3 mx-0" data-bs-target="{service controller=comment action=list type=faq objectId=$faqId}"></div>*}
+{*    </div>*}
+{*    {jq}*}
+{*        var id = '#comment-container';*}
+{*        $(id).comment_load($(id).data('bs-target'));*}
+{*        $(document).on("ajaxComplete", function(){$(id).tiki_popover();});*}
+{*    {/jq}*}
 {/if}
