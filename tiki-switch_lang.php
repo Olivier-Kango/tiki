@@ -23,6 +23,17 @@ if (isset($_SERVER['HTTP_REFERER'])) {
     $orig_url = $prefs['tikiIndex'];
 }
 
+$referrerLanguagePrefix = null;
+if (! empty($_SERVER['HTTP_REFERER'])) {
+    $referrerPath = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) ?: '';
+    foreach (explode('/', trim($referrerPath, '/')) as $segment) {
+        if (Language::isValidLocale($segment)) {
+            $referrerLanguagePrefix = $segment;
+            break;
+        }
+    }
+}
+
 //for lang_nonswitchingpages
 if ($prefs['feature_lang_nonswitchingpages'] == "y" && ! empty($prefs['feature_lang_nonswitchingpages_names'])) {
     $nopage1 = explode(',', $prefs['feature_lang_nonswitchingpages_names']);
@@ -135,5 +146,13 @@ if (isset($_GET['language'])) {
 if (isset($_GET['languageAdmin'])) {
     Language::setCurrentLanguage($_GET['languageAdmin'], true);
 }
+
+if ($referrerLanguagePrefix !== null) {
+    $orig_url = preg_replace('#/' . preg_quote($referrerLanguagePrefix, '#') . '(?=/|$)#', '', $orig_url, 1);
+    if ($orig_url === '') {
+        $orig_url = '/';
+    }
+}
+
 header("location: $orig_url");
 exit;
