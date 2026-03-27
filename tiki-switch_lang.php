@@ -26,11 +26,11 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 $referrerLanguagePrefix = null;
 if (! empty($_SERVER['HTTP_REFERER'])) {
     $referrerPath = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) ?: '';
-    foreach (explode('/', trim($referrerPath, '/')) as $segment) {
-        if (Language::isValidLocale($segment)) {
-            $referrerLanguagePrefix = $segment;
-            break;
-        }
+    $segments = explode('/', trim($referrerPath, '/'));
+    $firstSegment = $segments[0] ?? '';
+
+    if ($firstSegment !== '' && preg_match('/^[a-z]{2}(?:-[A-Z]{2})?$/', $firstSegment)) {
+        $referrerLanguagePrefix = $firstSegment;
     }
 }
 
