@@ -12,6 +12,10 @@
  */
 class FaqLib extends TikiLib
 {
+    /**
+     * Maximum length of the title field of the tiki_faqs table.
+     * Should match the varchar length defined in the DB schema.
+     */
     public const MAX_FAQ_TITLE_LENGTH = 200;
 
     /**
