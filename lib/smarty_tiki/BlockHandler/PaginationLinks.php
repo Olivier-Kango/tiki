@@ -9,6 +9,7 @@ namespace SmartyTiki\BlockHandler;
 
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * smarty_block_pagination_links: Generate pagination links
@@ -45,8 +46,13 @@ use Smarty\Template;
  *  - _onclick : to allow for custom onclick for link
  *  - offset_jsvar : the variable name of the javascript variable to store the requested offset when pagination link is clicked (does not work with reloff).
  */
-class PaginationLinks extends Base
+class PaginationLinks extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'pagination_links';
+    }
+
     public function handle($params, $url, Template $template, &$repeat)
     {
         global $prefs;
@@ -343,5 +349,16 @@ class PaginationLinks extends Base
             }
         }
         return $html;
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, $url, ?\Smarty\Template $template = null, &$repeat = false)
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $url, $template, $repeat);
     }
 }

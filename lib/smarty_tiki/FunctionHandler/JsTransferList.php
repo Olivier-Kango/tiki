@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * @param $params
@@ -29,8 +30,13 @@ use TikiLib;
  * @return string
  * @throws Exception
  */
-class JsTransferList extends Base
+class JsTransferList extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'jstransfer_list';
+    }
+
     public function handle($params, Template $template)
     {
         $defaultParams = [
@@ -65,5 +71,16 @@ class JsTransferList extends Base
         return "
         <el-transfer language=" . json_encode($language) . " data='" . json_encode($params["data"]) . "' id='{$id}' field-name='{$params['fieldName']}' filterable=" . json_encode((bool) $params["filterable"]) . " default-value='" . json_encode($params["defaultSelected"]) . "' source-list-title=" . json_encode(tr($params["sourceListTitle"])) . " target-list-title=" . json_encode(tr($params["targetListTitle"])) . " filter-placeholder=" . json_encode(tr($params["filterPlaceholder"])) . " ordering=" . json_encode((bool) $params["ordering"]) . " min-items='$minItems' max-items='$maxItems' helper-text='{$params['validationMessage']}' show-edit='{$params['showEdit']}'>
         </el-transfer>";
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

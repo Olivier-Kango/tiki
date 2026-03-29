@@ -10,6 +10,7 @@ namespace SmartyTiki\Extension;
 use Smarty\BlockHandler\BlockHandlerInterface;
 use Smarty\FunctionHandler\FunctionHandlerInterface;
 use Smarty\Compile\CompilerInterface;
+use Tiki\Composer\SmartyExtensionMapper;
 use TikiLib;
 
 class SmartyTikiExtension extends \Smarty\Extension\Base
@@ -19,6 +20,18 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     private $outputFilters = [];
     private $preFilters = [];
     private $tags = [];
+    private array $extensionMap = [];
+
+    public function __construct()
+    {
+        $mapFile = SmartyExtensionMapper::SMARTY_MAP_FILE;
+        if (file_exists($mapFile)) {
+            $map = require $mapFile;
+            if (is_array($map)) {
+                $this->extensionMap = $map;
+            }
+        }
+    }
 
     public function getTagCompiler(string $tag): ?CompilerInterface
     {
@@ -26,6 +39,14 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             return $this->tags[$tag];
         }
 
+        // Mapping lookup
+        if (isset($this->extensionMap['tag_compilers'][$tag])) {
+            $class = $this->extensionMap['tag_compilers'][$tag];
+            $this->tags[$tag] = new $class();
+            return $this->tags[$tag];
+        }
+
+        // Fallback: switch-case
         switch ($tag) {
             case 'assign_content':
                 $this->tags[$tag] = new \SmartyTiki\Compile\Tag\AssignContent();
@@ -37,6 +58,13 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
 
     public function getModifierCompiler(string $modifier): ?\Smarty\Compile\Modifier\ModifierCompilerInterface
     {
+        // Mapping lookup
+        if (isset($this->extensionMap['modifier_compilers'][$modifier])) {
+            $class = $this->extensionMap['modifier_compilers'][$modifier];
+            return new $class();
+        }
+
+        // Fallback: hardcoded
         if ($modifier === 'escape') {
             return new \SmartyTiki\Compile\Modifier\EscapeModifierCompiler();
         } else {
@@ -57,6 +85,13 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             }
         }
 
+        // Mapping lookup for modifier classes
+        if (isset($this->extensionMap['modifiers'][$modifierName])) {
+            $class = $this->extensionMap['modifiers'][$modifierName];
+            return [new $class(), 'handle'];
+        }
+
+        // Fallback: switch-case
         switch ($modifierName) {
             case 'a_or_an':
                 return [new \SmartyTiki\Modifier\AorAn(), 'handle'];
@@ -256,6 +291,18 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
 
     public function getBlockHandler(string $blockTagName): ?BlockHandlerInterface
     {
+        if (isset($this->blockHandlers[$blockTagName])) {
+            return $this->blockHandlers[$blockTagName];
+        }
+
+        // Mapping lookup
+        if (isset($this->extensionMap['block_handlers'][$blockTagName])) {
+            $class = $this->extensionMap['block_handlers'][$blockTagName];
+            $this->blockHandlers[$blockTagName] = new $class();
+            return $this->blockHandlers[$blockTagName];
+        }
+
+        // Fallback: switch-case
         switch ($blockTagName) {
             case 'accordion_group':
                 $this->blockHandlers[$blockTagName] = new \SmartyTiki\BlockHandler\AccordionGroup();
@@ -367,6 +414,14 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             return $this->functionHandlers[$functionName];
         }
 
+        // Mapping lookup
+        if (isset($this->extensionMap['function_handlers'][$functionName])) {
+            $class = $this->extensionMap['function_handlers'][$functionName];
+            $this->functionHandlers[$functionName] = new $class();
+            return $this->functionHandlers[$functionName];
+        }
+
+        // Fallback: switch-case
         switch ($functionName) {
             case 'activity':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\Activity();

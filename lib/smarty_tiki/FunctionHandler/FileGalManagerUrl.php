@@ -9,12 +9,18 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * filegal_manager_url handler: Return the URL of the filegal manager, that goes to the list of filegalleries
  */
-class FileGalManagerUrl extends Base
+class FileGalManagerUrl extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'filegal_manager_url';
+    }
+
     public function handle($params, Template $template)
     {
         global $tikilib, $prefs;
@@ -30,5 +36,16 @@ class FileGalManagerUrl extends Base
         }
 
         return $return;
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

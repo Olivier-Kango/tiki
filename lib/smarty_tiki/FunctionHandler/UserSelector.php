@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /* {user_selector
  *     user = $user
@@ -30,8 +31,13 @@ use TikiLib;
  * an input box with autocomplete if there are more users
  * than $prefs['user_selector_threshold']
  */
-class UserSelector extends Base
+class UserSelector extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'user_selector';
+    }
+
     public function handle($params, Template $template)
     {
         global $prefs, $user, $tiki_p_admin;

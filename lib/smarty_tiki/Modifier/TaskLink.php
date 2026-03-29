@@ -8,9 +8,15 @@
 namespace SmartyTiki\Modifier;
 
 use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class TaskLink
+class TaskLink implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'tasklink';
+    }
+
     public function handle($taskId, $class_name = "link", $offset = "0", $sort_mode = "priority_desc")
     {
         global $tasklib, $user, $prefs, $smarty;

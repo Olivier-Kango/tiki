@@ -10,9 +10,15 @@ namespace SmartyTiki\FunctionHandler;
 use Language;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class InteractiveTranslation extends Base
+class InteractiveTranslation extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'interactivetranslation';
+    }
+
     public function handle($params, Template $template)
     {
         $headerlib = \TikiLib::lib('header');

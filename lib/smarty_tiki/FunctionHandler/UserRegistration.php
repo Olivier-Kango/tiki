@@ -13,9 +13,15 @@ use TikiLib;
 use Feedback;
 use Tiki\BruteForce\BruteForce;
 use Tiki\Lib\Registration\Error as RegistrationError;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class UserRegistration extends Base
+class UserRegistration extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'user_registration';
+    }
+
     public function handle($params, Template $template)
     {
         global $prefs, $https_mode, $base_url_https, $user;
@@ -267,5 +273,16 @@ class UserRegistration extends Base
 
         $smarty->assign('email_valid', 'y');
         return $smarty->fetch('user_registration.tpl');
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

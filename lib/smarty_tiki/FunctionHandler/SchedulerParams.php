@@ -9,9 +9,15 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class SchedulerParams extends Base
+class SchedulerParams extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'scheduler_params';
+    }
+
     public function handle($params, Template $template)
     {
         if (empty($params['name'])) {

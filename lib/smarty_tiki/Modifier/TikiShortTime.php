@@ -7,8 +7,15 @@
 
 namespace SmartyTiki\Modifier;
 
-class TikiShortTime
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class TikiShortTime implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'tiki_short_time';
+    }
+
     public function handle($string)
     {
         global $prefs;

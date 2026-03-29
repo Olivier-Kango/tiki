@@ -14,6 +14,7 @@ use TikiLib;
 use Language;
 use Services_LanguageCheck_Controller;
 use Exception;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * smarty_block_textarea : add a textarea to a template.
@@ -41,8 +42,13 @@ use Exception;
  * @return string
  * @throws Exception
  */
-class TextArea extends Base
+class TextArea extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'textarea';
+    }
+
     public function handle($params, $content, Template $template, &$repeat)
     {
         global $prefs, $is_html, $tiki_p_admin;

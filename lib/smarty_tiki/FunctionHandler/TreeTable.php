@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Tree Table Smarty func - smarty_function_treetable()
@@ -75,8 +76,13 @@ use Smarty\Template;
  * @param Smarty\Template $smarty
  * @return string html output
  */
-class TreeTable extends Base
+class TreeTable extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'treetable';
+    }
+
     public function handle($params, Template $template)
     {
         global $tree_table_id;

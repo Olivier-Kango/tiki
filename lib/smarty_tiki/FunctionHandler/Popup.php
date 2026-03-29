@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty plugin for Tiki using jQuery ClueTip instead of OverLib
@@ -38,8 +39,13 @@ use Smarty\Template;
  *     delay       number of miliseconds to delay showing or hiding of popover. If just one number, then it will apply to both
  *                 show and hide, or use "500|1000" to have a 500 ms show delay and a 1000 ms hide delay
  */
-class Popup extends Base
+class Popup extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'popup';
+    }
+
     public function handle($params, Template $template)
     {
         // Defaults
@@ -130,5 +136,16 @@ class Popup extends Base
         }
 
         return $retval;
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

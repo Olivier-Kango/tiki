@@ -9,9 +9,15 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class ObjectTitle extends Base
+class ObjectTitle extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'object_title';
+    }
+
     public function handle($params, Template $template)
     {
         if (! isset($params['type'], $params['id']) && ! isset($params['identifier'])) {

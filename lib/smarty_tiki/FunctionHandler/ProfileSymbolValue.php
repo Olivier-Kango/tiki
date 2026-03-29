@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty plugin
@@ -40,8 +41,13 @@ use TikiLib;
  *    {profilesymbolvalue ref="profile_reference" profile="profile_name" domain="https://profiles.tiki.org" cache="n"}
  *
  */
-class ProfileSymbolValue extends Base
+class ProfileSymbolValue extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'profilesymbolvalue';
+    }
+
     public function handle($params, Template $template)
     {
         extract($params, EXTR_SKIP);
@@ -102,5 +108,16 @@ class ProfileSymbolValue extends Base
         } else {
             return '';
         }
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

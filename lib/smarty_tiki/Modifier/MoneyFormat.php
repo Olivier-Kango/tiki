@@ -7,6 +7,8 @@
 
 namespace SmartyTiki\Modifier;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /**
  * Smarty money_format modifier plugin
  *
@@ -22,8 +24,13 @@ namespace SmartyTiki\Modifier;
  * @link based on money_format(): http://www.php.net/manual/en/function.money-format.php#89060
  * @author lindon
  */
-class MoneyFormat
+class MoneyFormat implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'money_format';
+    }
+
     /** @param number
     * @param locale: currency locale for formatting (default=en_US)
     * @param format: format string
@@ -153,5 +160,13 @@ class MoneyFormat
             }
         }
         return $format;
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($number, $locale, $currency, $format = '%(#10n', $display = 0)
+    {
+        return (new self())->handle($number, $locale, $currency, $format, $display);
     }
 }

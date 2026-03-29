@@ -7,6 +7,8 @@
 
 namespace SmartyTiki\Modifier;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /**
  * Smarty plugin
  * -------------------------------------------------------------
@@ -15,8 +17,13 @@ namespace SmartyTiki\Modifier;
  * Purpose:  formats a duration from seconds
  * -------------------------------------------------------------
  */
-class Duration
+class Duration implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'duration';
+    }
+
     public function handle($string, $long = true, $maxLevel = false)
     {
         if (! is_numeric($string)) {
@@ -46,5 +53,13 @@ class Duration
             }
         }
         return implode(' ', $result);
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($string, $long = true, $maxLevel = false)
+    {
+        return (new self())->handle($string, $long, $maxLevel);
     }
 }

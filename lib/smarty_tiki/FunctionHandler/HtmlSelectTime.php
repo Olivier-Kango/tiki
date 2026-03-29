@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use Tiki\Lib\TikiDate;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty {html_select_time} function handler
@@ -24,8 +25,13 @@ use Tiki\Lib\TikiDate;
  * @return string
  * @uses smarty_make_timestamp()
  */
-class HtmlSelectTime extends Base
+class HtmlSelectTime extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'html_select_time';
+    }
+
     public function handle($params, Template $template)
     {
         global $tikilib;

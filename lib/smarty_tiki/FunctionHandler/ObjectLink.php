@@ -11,9 +11,15 @@ use Perms;
 use Tracker_Definition;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class ObjectLink extends Base
+class ObjectLink extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'object_link';
+    }
+
     public function handle($params, Template $template)
     {
         if (! isset($params['type'], $params['id']) &&  ! isset($params['type'], $params['objectId']) && ! isset($params['identifier'])) {
@@ -401,5 +407,16 @@ class ObjectLink extends Base
         }
 
         return '<a href="' . $pageParams . '&page=message&uid=' . $data['uid'] . '&list_path=' . $data['list_path'] . '&list_parent=' . $data['list_parent'] . '">' . $data['title'] . '</a>';
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

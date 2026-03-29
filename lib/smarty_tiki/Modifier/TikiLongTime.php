@@ -7,8 +7,15 @@
 
 namespace SmartyTiki\Modifier;
 
-class TikiLongTime
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class TikiLongTime implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'tiki_long_time';
+    }
+
     public function handle($string)
     {
         global $prefs;

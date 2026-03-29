@@ -7,8 +7,15 @@
 
 namespace SmartyTiki\Modifier;
 
-class PageName
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class PageName implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'pagename';
+    }
+
     public function handle($source)
     {
         global $prefs;
@@ -25,5 +32,13 @@ class PageName
         } else {
             return $source;
         }
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($source)
+    {
+        return (new self())->handle($source);
     }
 }

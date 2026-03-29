@@ -7,6 +7,8 @@
 
 namespace SmartyTiki\Modifier;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /**
  * \brief Smarty modifier to create user links with optional mouseover info
  *
@@ -24,8 +26,13 @@ namespace SmartyTiki\Modifier;
  *
  * Example: {$userinfo.login|userlink:'link':::25}
  */
-class UserLink
+class UserLink implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'userlink';
+    }
+
     public function handle($other_user, $class = 'userlink', $idletime = 'not_set', $fullname = '', $max_length = 0, $popup = '')
     {
         global $prefs;
@@ -59,5 +66,13 @@ class UserLink
         }
         $popup = 'y';
         return \TikiLib::lib('user')->build_userinfo_tag($other_user, htmlspecialchars($fullname, ENT_QUOTES), $class, $popup);
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($other_user, $class = 'userlink', $idletime = 'not_set', $fullname = '', $max_length = 0, $popup = '')
+    {
+        return (new self())->handle($other_user, $class, $idletime, $fullname, $max_length, $popup);
     }
 }

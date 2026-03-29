@@ -9,6 +9,7 @@ namespace SmartyTiki\BlockHandler;
 
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * \brief Smarty {vue} block handler to contain a vue.js component
@@ -49,8 +50,13 @@ use Smarty\Template;
  * @return string
  * @throws Exception
  */
-class Vue extends Base
+class Vue extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'vue';
+    }
+
     public function handle($params, $content, Template $template, &$repeat)
     {
         if ($repeat || empty($content)) {
@@ -61,5 +67,16 @@ class Vue extends Base
         $name = $params['name'] ?? '';
 
         return \TikiLib::lib('vuejs')->processVue($content, $name, $app);
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, $content, ?\Smarty\Template $template = null, &$repeat = false)
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $content, $template, $repeat);
     }
 }

@@ -9,6 +9,7 @@ namespace SmartyTiki\Compile\Tag;
 
 use Smarty\Compile\Base;
 use Smarty\Compiler\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /*
 * Smarty plugin
@@ -23,8 +24,13 @@ use Smarty\Compiler\Template;
 * -------------------------------------------------------------
 */
 
-class AssignContent extends Base
+class AssignContent extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'assign_content';
+    }
+
     public function compile($tag_attrs, Template $compiler, $parameter = [], $tag = null, $function = null): string
     {
         $_params = $compiler->_parse_attrs($tag_attrs);

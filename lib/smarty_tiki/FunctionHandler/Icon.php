@@ -7,6 +7,8 @@
 
 namespace SmartyTiki\FunctionHandler;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /*
  * smarty_function_icon: Display a Tiki icon, using theme icons if they exists
  *
@@ -32,8 +34,13 @@ namespace SmartyTiki\FunctionHandler;
  *  - _defaultdir: directory to use when the _id param does not include the path
  *  - _extension: Filename extension - default 'png'
  */
-class Icon extends \Smarty\FunctionHandler\Base
+class Icon extends \Smarty\FunctionHandler\Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'icon';
+    }
+
     public function handle($params, \Smarty\Template $template)
     {
         if (! is_array($params)) {
@@ -341,5 +348,16 @@ class Icon extends \Smarty\FunctionHandler\Base
 
         $cachelib->cacheItem($cache_key, $html);
         return $html;
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

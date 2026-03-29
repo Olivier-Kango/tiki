@@ -8,9 +8,15 @@
 namespace SmartyTiki\Modifier;
 
 use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class TikiShortDate
+class TikiShortDate implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'tiki_short_date';
+    }
+
     /**
      * @param string  $string
      * @param string $same   if set to 'n' will bypass timeago preferences. Useful when markup is illegal in date
@@ -28,5 +34,13 @@ class TikiShortDate
         } else {
             return $date;
         }
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($string, $same = 'y')
+    {
+        return (new self())->handle($string, $same);
     }
 }

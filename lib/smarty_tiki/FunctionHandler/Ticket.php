@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty function ticket handler
@@ -23,8 +24,13 @@ use Smarty\Template;
  *                          actions where the confirmSimple() onclick method is used to generate a confirmation form
  *                          with the token
  */
-class Ticket extends Base
+class Ticket extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'ticket';
+    }
+
     public function handle($params, Template $template)
     {
         // Redefining the $smarty variable seems to be necessary in some cases (e.g., with ajax services) in order for a
@@ -43,5 +49,16 @@ class Ticket extends Base
             }
             return $ret;
         }
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

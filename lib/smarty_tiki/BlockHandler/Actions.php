@@ -9,6 +9,7 @@ namespace SmartyTiki\BlockHandler;
 
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Converts multiple links into a popup. Often used for the action popup in a list of items.
@@ -31,8 +32,13 @@ use Smarty\Template;
  * @return mixed|string
  * @throws \Smarty\Exception
  */
-class Actions extends Base
+class Actions extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'actions';
+    }
+
     public function handle($params, $content, Template $template, &$repeat)
     {
         global $prefs;

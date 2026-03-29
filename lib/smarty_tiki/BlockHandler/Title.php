@@ -9,6 +9,7 @@ namespace SmartyTiki\BlockHandler;
 
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * smarty_block_title : add a title to a template.
@@ -20,8 +21,13 @@ use Smarty\Template;
  *
  * usage: {title help='Example' admpage='example'}{tr}Example{/tr}{/title}
  */
-class Title extends Base
+class Title extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'title';
+    }
+
     public function handle($params, $content, Template $template, &$repeat)
     {
         global $prefs, $tiki_p_admin;

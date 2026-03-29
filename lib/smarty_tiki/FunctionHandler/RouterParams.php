@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Render the inputs that will allow to customize a custom route
@@ -16,8 +17,13 @@ use Smarty\Template;
  * @param $params
  * @param $smarty
  */
-class RouterParams extends Base
+class RouterParams extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'router_params';
+    }
+
     public function handle($params, Template $template)
     {
         if (empty($params['name'])) {

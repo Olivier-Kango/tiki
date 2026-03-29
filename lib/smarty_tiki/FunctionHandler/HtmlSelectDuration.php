@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty {html_select_duration} function handler
@@ -18,8 +19,13 @@ use Smarty\Template;
  * params: prefix, default_unit(key word or value in secs), default (nb of units), default_value (duration in secs)
  * Purpose:  Prints the dropdowns for duration selection
  */
-class HtmlSelectDuration extends Base
+class HtmlSelectDuration extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'html_select_duration';
+    }
+
     public function handle($params, Template $template)
     {
         $html_result = '';

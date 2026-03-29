@@ -10,12 +10,18 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use Tiki\Lib\core\Toolbar\ToolbarsList;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty plugin to display content only to some groups
  */
-class Toolbars extends Base
+class Toolbars extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'toolbars';
+    }
+
     public function handle($params, Template $template)
     {
         global $prefs, $is_html, $tiki_p_admin, $tiki_p_admin_toolbars, $section;
@@ -58,5 +64,16 @@ class Toolbars extends Base
         } else {
             return $list->getWikiHtml();
         }
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

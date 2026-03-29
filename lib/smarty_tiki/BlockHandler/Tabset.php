@@ -10,6 +10,7 @@ namespace SmartyTiki\BlockHandler;
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
 use Tiki\Lib\CookieConsent\CookieConsentLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  *
@@ -28,8 +29,13 @@ use Tiki\Lib\CookieConsent\CookieConsentLib;
  * \endcode
  */
 
-class Tabset extends Base
+class Tabset extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'tabset';
+    }
+
     public function handle($params, $content, Template $template, &$repeat)
     {
         global $prefs, $smarty_tabset_name, $smarty_tabset, $smarty_tabset_i_tab, $cookietab, $cookietabTabset;

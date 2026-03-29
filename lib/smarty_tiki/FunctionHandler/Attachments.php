@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * smarty function attachments handler
@@ -19,8 +20,13 @@ use Smarty\Template;
  *   _id : id of the object (for a wiki page, use it's name)
  *   _type : type of the object ( e.g. "wiki page" - see objectTypes in lib/setup/sections.php )
  */
-class Attachments extends Base
+class Attachments extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'attachments';
+    }
+
     public function handle($params, Template $template)
     {
         if (! is_array($params) || ! isset($params['_id']) || ! isset($params['_type'])) {

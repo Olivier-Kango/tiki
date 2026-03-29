@@ -11,13 +11,19 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
 use Tiki\Lib\Diff\DiffUtils;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * To display with difference between two blocks of text, often wiki syntax or html
  *
  *  */
-class WikiDiff extends Base
+class WikiDiff extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'wikidiff';
+    }
+
     public function handle($params, Template $template)
     {
         $defaults = [
@@ -105,5 +111,16 @@ class WikiDiff extends Base
             // TODO for other types, e.g. tracker items
             return '<span class="text-danger">' . tra('wikidiff: Error - only wiki pages supported currently') . '</span>';
         }
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

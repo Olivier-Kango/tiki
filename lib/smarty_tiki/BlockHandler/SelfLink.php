@@ -9,6 +9,7 @@ namespace SmartyTiki\BlockHandler;
 
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  *
@@ -37,8 +38,13 @@ use Smarty\Template;
  *   _script : specify another script than the current one (this disable AJAX for this link when the current script is different).
  *   _on* : specify values of on* (e.g. onclick) HTML attributes used for javascript events
  */
-class SelfLink extends Base
+class SelfLink extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'self_link';
+    }
+
     public function handle($params, $content, Template $template, &$repeat = false)
     {
         $default_type = 'absolute_path';
@@ -242,5 +248,16 @@ class SelfLink extends Base
         }
 
         return $ret;
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, $content, ?\Smarty\Template $template = null, &$repeat = false)
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $content, $template, $repeat);
     }
 }

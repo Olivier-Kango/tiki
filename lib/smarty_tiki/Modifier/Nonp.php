@@ -7,6 +7,8 @@
 
 namespace SmartyTiki\Modifier;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /**
  * Smarty modifier plugin to remove ~np~ tags from smarty variable. For use in templates used by the {list} wiki plugin
  *
@@ -19,8 +21,13 @@ namespace SmartyTiki\Modifier;
  *
  * Example: {if $row.title|nonp eq ''}
  */
-class Nonp
+class Nonp implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'nonp';
+    }
+
     public function handle($string)
     {
         return preg_replace('/~[\/]?np~/', '', $string);

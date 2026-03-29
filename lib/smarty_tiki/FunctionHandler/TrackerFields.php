@@ -11,6 +11,7 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
 use Tiki_Render_Lazy;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /*
  * Render fields of a trackeritem when called from the tracker
@@ -21,8 +22,13 @@ use Tiki_Render_Lazy;
  * These keys treat the template setting in the tracker as a default value and will therefore override if present.
  * They only apply if the default setting would apply - i.e sectionformat must be set to configured.
  */
-class TrackerFields extends Base
+class TrackerFields extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'trackerfields';
+    }
+
     public function handle($params, Template $smartyTemplate)
     {
         if (! isset($params['fields']) || ! is_array($params['fields'])) {

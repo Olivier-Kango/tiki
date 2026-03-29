@@ -8,6 +8,7 @@
 namespace SmartyTiki\Modifier;
 
 use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty plugin
@@ -26,8 +27,13 @@ use TikiLib;
  * @throws Exception
  * @throws \Smarty\Exception
  */
-class Iconify
+class Iconify implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'iconify';
+    }
+
     public function handle($string, $filetype = '', $fileId = null, $size = 1, $return = 'icon')
     {
         $smarty = \TikiLib::lib('smarty');
@@ -158,5 +164,13 @@ class Iconify
                 }
             }
         }
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($string, $filetype = '', $fileId = null, $size = 1, $return = 'icon')
+    {
+        return (new self())->handle($string, $filetype, $fileId, $size, $return);
     }
 }

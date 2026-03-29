@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Function to load jQuery code to insert an iconset icon into an element
@@ -18,8 +19,13 @@ use Smarty\Template;
  * iconname - set the icon to override the default
  * return   - return the js code rather than add to the header
  */
-class JsInsertIcon extends Base
+class JsInsertIcon extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'js_insert_icon';
+    }
+
     public function handle($params, Template $template)
     {
         $smarty = \TikiLib::lib("smarty");
@@ -46,5 +52,16 @@ class JsInsertIcon extends Base
                 }
             }
         }
+    }
+
+    /**
+     * Static facade for calling this handler from PHP code without a template.
+     */
+    public static function render(array $params, ?\Smarty\Template $template = null): string
+    {
+        if ($template === null) {
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+        }
+        return (new self())->handle($params, $template);
     }
 }

@@ -6,14 +6,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace SmartyTiki\Modifier;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /**
  * Smarty modifier forummaskemail
  * -------------------------------------------------------------
  * Purpose:  mask email addresses
  * -------------------------------------------------------------
  */
-class ForumMaskEmail
+class ForumMaskEmail implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'forummaskemail';
+    }
+
     /**
      * Handle the modifier
      *
@@ -43,5 +50,13 @@ class ForumMaskEmail
         }
 
         return $text;
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($text)
+    {
+        return (new self())->handle($text);
     }
 }

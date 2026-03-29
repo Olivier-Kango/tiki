@@ -7,6 +7,8 @@
 
 namespace SmartyTiki\Modifier;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /**
  * Smarty plugin
  * -------------------------------------------------------------
@@ -19,8 +21,13 @@ namespace SmartyTiki\Modifier;
  *           forceTimezone: the time zone to be applied, if you prefer to use a specific timezone.
  * -------------------------------------------------------------
  */
-class TikiDateFormat
+class TikiDateFormat implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'tiki_date_format';
+    }
+
     /**
      * @param $string the string representing the date to be formatted.
      * @param $format the desired date format.
@@ -30,5 +37,13 @@ class TikiDateFormat
     public function handle($string, $format, $_user = false, $forceTimezone = false)
     {
         return \TikiLib::date_format(tra($format), $string, $_user, 5, true, $forceTimezone);
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($string, $format, $_user = false, $forceTimezone = false)
+    {
+        return (new self())->handle($string, $format, $_user, $forceTimezone);
     }
 }

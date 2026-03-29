@@ -9,6 +9,7 @@ namespace SmartyTiki\FunctionHandler;
 
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * smarty_function_thumb handler: Display a thumbnail of a file/image (from a file gallery)
@@ -17,8 +18,13 @@ use Smarty\Template;
  *  - _id: ID of the file
  *  - _max: Reduce image height and width to be less or equal the value of '_max' in pixels (keep ratio)
  */
-class Thumb extends Base
+class Thumb extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'thumb';
+    }
+
     public function handle($params, Template $template)
     {
         global $prefs;

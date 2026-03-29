@@ -8,9 +8,15 @@
 namespace SmartyTiki\Modifier;
 
 use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
-class TikiShortDateTime
+class TikiShortDateTime implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'tiki_short_datetime';
+    }
+
     /**
      * @param string $string
      * @param string $intro
@@ -39,5 +45,13 @@ class TikiShortDateTime
             $time = $date . ' ' . $time;
             return $intro . ' ' . $time;
         }
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($string, $intro = '', $same = 'y', $forceTimezone = false)
+    {
+        return (new self())->handle($string, $intro, $same, $forceTimezone);
     }
 }

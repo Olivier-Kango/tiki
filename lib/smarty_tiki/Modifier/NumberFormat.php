@@ -7,8 +7,15 @@
 
 namespace SmartyTiki\Modifier;
 
-class NumberFormat
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class NumberFormat implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'number_format';
+    }
+
     /**
      * Smarty substring modifier plugin
      *
@@ -48,5 +55,13 @@ class NumberFormat
                 break;
         }
         return $sep;
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($number, $decimals = 2, $dec_point = '.', $thousands = ',')
+    {
+        return (new self())->handle($number, $decimals, $dec_point, $thousands);
     }
 }

@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use Tiki\Lib\TikiDate;
+use SmartyTiki\TikiSmartyExtensionInterface;
 
 /**
  * Smarty {html_select_date} plugin
@@ -44,8 +45,13 @@ use Tiki\Lib\TikiDate;
  * @param Smarty
  * @return string
  */
-class HtmlSelectDate extends Base
+class HtmlSelectDate extends Base implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'html_select_date';
+    }
+
     public function handle($params, Template $template)
     {
         global $tikilib, $prefs; // TIKI

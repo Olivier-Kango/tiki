@@ -7,6 +7,8 @@
 
 namespace SmartyTiki\Modifier;
 
+use SmartyTiki\TikiSmartyExtensionInterface;
+
 /**
  * Smarty escape modifier
  *
@@ -19,8 +21,13 @@ namespace SmartyTiki\Modifier;
  * @param bool $double_encode
  * @return string
  */
-class Escape
+class Escape implements TikiSmartyExtensionInterface
 {
+    public static function getSmartyName(): string
+    {
+        return 'escape';
+    }
+
     public function handle($string, $esc_type = 'html', $char_set = 'UTF-8', $double_encode = true)
     {
         // Handle null values at the start to avoid repetition
@@ -117,5 +124,13 @@ class Escape
             default:
                 return $string;
         }
+    }
+
+    /**
+     * Static facade for calling this modifier from PHP code.
+     */
+    public static function apply($string, $esc_type = 'html', $char_set = 'UTF-8', $double_encode = true)
+    {
+        return (new self())->handle($string, $esc_type, $char_set, $double_encode);
     }
 }
