@@ -52,7 +52,20 @@ $item_url = parse_url($_SERVER['HTTP_REFERER'] ?? "");
 $item_query = $item_url['query'] ?? null;
 // Also, if we are at the homepage and tikiIndex is set, the URL we need to take as reference is the tikiIndex
 $item_path = $item_url['path'];
-if ($item_path == '/') {
+if ($item_path === '/' && isset($_GET['language'])) {
+    $lang    = $_GET['language'];
+    $wikilib = TikiLib::lib('wiki');
+    $homeId  = $tikilib->get_page_info($wikilib->get_default_wiki_page())['page_id'];
+    $bestId  = TikiLib::lib('multilingual')->selectLangObj('wiki page', $homeId, $lang);
+    $page    = $bestId !== $homeId ? $tikilib->get_page_name_from_id($bestId) : $wikilib->get_default_wiki_page();
+    if (function_exists('setLanguage')) {
+        call_user_func('setLanguage', $lang);
+        header('location: tiki-index.php?page=' . urlencode($page));
+    } else {
+        header('location: tiki-index.php?page=' . urlencode($page) . '&switchLang=' . urlencode($lang));
+    }
+    exit;
+} elseif ($item_path === '/') {
     $orig_url = $prefs['tikiIndex'];
 }
 
