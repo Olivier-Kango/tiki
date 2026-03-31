@@ -43,10 +43,10 @@ class TWVersion
 
     public function __construct()
     {
-        $this->branch   = 'stable';
+        $this->branch   = 'unstable';
 
         // Set everything else, including defaults.
-        $this->version  = '30.0vcs';
+        $this->version  = '30.0alpha';
         $this->star     = 'Alpheratz';
         $this->releases = [];
 
@@ -121,6 +121,7 @@ class TWVersion
                 38 => 'Miaplacidus',     // 27.x
                 39 => 'Castor',          // 28.x
                 40 => 'Bellatrix',       // 29.x
+                41 => 'Alpheratz',       // 30.x
         ];
     }
 
@@ -422,6 +423,7 @@ class TWVersion
                 '29.0RC1',
                 '29.0',
                 '29.1',
+                '30.0alpha',
             ];
     }
 
