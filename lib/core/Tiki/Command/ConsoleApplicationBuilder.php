@@ -143,6 +143,7 @@ class ConsoleApplicationBuilder
                 new PackageEnableCommand(),
                 new DailyReportSendCommand(),
                 new FakerCommentsCommand(),
+                new FakerRedactCommand(),
                 new FakerTrackerCommand(),
                 new GalleryMigrateCommand(),
                 new GoalCheckCommand(),
