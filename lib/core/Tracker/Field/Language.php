@@ -26,6 +26,17 @@ class Tracker_Field_Language extends \Tracker\Field\AbstractItemField implements
                         ],
                         'legacy_index' => 0,
                     ],
+                    'labelasplaceholder' => [
+                        'name' => tr('Use label as placeholder'),
+                        'description' => tr('Display the field name as a placeholder in the input field instead of separate label.'),
+                        'deprecated' => false,
+                        'filter' => 'int',
+                        'default' => 0,
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                    ],
                 ],
             ],
         ];

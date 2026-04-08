@@ -2,8 +2,10 @@
     {if $tiki_p_group_add_member ne 'y' and $tiki_p_group_view ne 'y'}
         {remarksbox type="error" close="n" title="{tr}You do not have permission to add a member to a group.{/tr}"}{/remarksbox}
     {else}
-        <select name="{$field.ins_id}" class="form-select">
-            {if $field.isMandatory ne 'y'}
+        <select name="{$field.ins_id}" class="form-select{if !empty($field.options_map.labelasplaceholder)} labelasplaceholder{/if}">
+            {if !empty($field.options_map.labelasplaceholder)}
+                <option value="" disabled {if $field.value eq ''}selected{/if} hidden>{tr}Select{/tr} {$field.name|escape}</option>
+            {elseif $field.isMandatory ne 'y'}
                 <option value="">{tr}None{/tr}</option>
             {/if}
             {section name=ux loop=$field.list}
