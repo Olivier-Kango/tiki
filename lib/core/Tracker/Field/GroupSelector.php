@@ -104,7 +104,7 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
                             1 => tr('Yes'),
                         ],
                         'legacy_index' => 3,
-                    ],
+                    ]
                 ],
             ],
         ];
