@@ -35,7 +35,7 @@
     {else}
         <select name="{$field.html_name|escape}" class="form-select{if $field.type eq 'D'} group_{$field.ins_id|escape}{/if}{if !empty($field.options_map.labelasplaceholder)} labelasplaceholder{/if}">
             {if $field.isMandatory ne 'y' || $field.value eq '' || !empty($field.options_map.labelasplaceholder)}
-                <option value="" {if !empty($field.options_map.labelasplaceholder)}disabled {if $field.value eq ''}selected{/if} hidden{/if}>{if !empty($field.options_map.labelasplaceholder)}{tr}Select{/tr} {$field.name|escape}{/if}</option>
+                <option value="" {if !empty($field.options_map.labelasplaceholder)}disabled {if $field.value eq ''}selected{/if} hidden{/if}>{if !empty($field.options_map.labelasplaceholder)}{tr _0=$field.name}Select %0{/tr}{/if}</option>
             {/if}
             {foreach $field.possibilities as $value => $label}
                 {if $value !== 0  and ($value eq 'other' or $value eq "{tr}other{/tr}")}

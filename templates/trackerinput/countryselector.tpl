@@ -3,7 +3,7 @@
 {else}
     <select class="form-select{if !empty($field.options_map.labelasplaceholder)} labelasplaceholder{/if}" name="{$field.html_name}" {{if $field.options_map.multiple }}multiple="multiple"{{/if}}>
         {if $field.isMandatory ne 'y' || empty($field.value) || !empty($field.options_map.labelasplaceholder)}
-            <option value="" {if !empty($field.options_map.labelasplaceholder)}disabled {if $field.value eq '' or $field.value eq 'None'}selected{/if} hidden{/if}{if empty($field.options_map.labelasplaceholder) and ($field.value eq '' or $field.value eq 'None')} selected="selected"{/if}>{if !empty($field.options_map.labelasplaceholder)}{tr}Select{/tr} {$field.name|escape}{else}&nbsp;{/if}</option>
+            <option value="" {if !empty($field.options_map.labelasplaceholder)}disabled {if $field.value eq '' or $field.value eq 'None'}selected{/if} hidden{/if}{if empty($field.options_map.labelasplaceholder) and ($field.value eq '' or $field.value eq 'None')} selected="selected"{/if}>{if !empty($field.options_map.labelasplaceholder)}{tr _0=$field.name}Select %0{/tr}{else}&nbsp;{/if}</option>
         {/if}
         {if empty($field.itemChoices)}
             <option value="Other"{if $field.value eq 'None'} selected="selected"{/if}{if $field.options_array[0] ne '1'} style="background: url('img/flags/Other.png') no-repeat;padding-left:25px;padding-bottom:3px;"{/if}>{tr}Other{/tr}</option>
