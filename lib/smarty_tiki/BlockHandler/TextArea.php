@@ -63,9 +63,6 @@ class TextArea extends Base
                 // should not be set usually(?)
                 include_once 'lib/setup/editmode.php';
                 $params['_wysiwyg'] = $_SESSION['wysiwyg'];
-                if (! empty($params['codemirror']) && $params['codemirror'] === 'true') {
-                    $params['_wysiwyg'] = 'n';
-                }
             } else {
                 $params['_wysiwyg'] = 'n';
             }
