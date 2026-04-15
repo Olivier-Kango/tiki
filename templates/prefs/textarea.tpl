@@ -15,7 +15,7 @@
                 rows="{$p.size|escape|default:null}"
                 disabled="{if $p.parameters.disabled|default:''}disabled{else}{/if}"
             }
-                {$p.value|escape}
+                {$p.value}
             {/textarea}
             {include file="prefs/shared-form-text.tpl"}
         </div>
