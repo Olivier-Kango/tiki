@@ -15,6 +15,7 @@
                 rows="{$p.size|escape|default:null}"
                 disabled="{if $p.parameters.disabled|default:''}disabled{else}{/if}"
             }
+                {* No |escape here: _wysiwyg="n" forces wiki_edit.tpl which already applies |escape on $textareadata. Adding it here would cause double-escaping. *}
                 {$p.value}
             {/textarea}
             {include file="prefs/shared-form-text.tpl"}
