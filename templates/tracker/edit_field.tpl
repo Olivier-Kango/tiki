@@ -14,7 +14,7 @@
         </div>
         <div class="mb-3 mx-0">
             <label name="description" class="col-form-label">{tr}Description{/tr}</label>
-            {textarea _simple='y' _toolbars='n' _wysiwyg='n' name="description" class="form-control"}{$field.description|escape}{/textarea}
+            {textarea name="description" class="form-control"}{$field.description|escape}{/textarea}
         </div>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" name="description_parse" id="description_parse" value="1"
