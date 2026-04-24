@@ -196,20 +196,21 @@ function getYoutubeId($sYoutubeUrl)
 {
     $aParsedUrl = parse_url($sYoutubeUrl);
     if ($aParsedUrl !== false && ! empty($aParsedUrl['host'])) {
+        $host = strtolower($aParsedUrl['host']);
         if (
-            $aParsedUrl['host'] !== 'youtube.com'
-            && $aParsedUrl['host'] !== 'www.youtube.com'
-            && $aParsedUrl['host'] !== 'youtu.be'
-            && $aParsedUrl['host'] !== 'www.youtu.be'
+            $host !== 'youtube.com'
+            && $host !== 'www.youtube.com'
+            && $host !== 'youtu.be'
+            && $host !== 'www.youtu.be'
         ) {
             return false;
         }
-        if ($aParsedUrl['host'] === 'youtu.be') {
+        if ($host === 'youtu.be' || $host === 'www.youtu.be') {
             $sYoutubeId = str_replace('/', '', $aParsedUrl['path']);
             return $sYoutubeId;
         }
-        if ($aParsedUrl['host'] === 'youtube.com' || $aParsedUrl['host'] === 'www.youtube.com') {
-            if (! empty($aParsedUrl['path']) && preg_match('#^/shorts/([\w\-_]+)#', $aParsedUrl['path'], $matches)) {
+        if ($host === 'youtube.com' || $host === 'www.youtube.com') {
+            if (! empty($aParsedUrl['path']) && preg_match('#^/(?:shorts|live|embed)/([\w\-_]+)#', $aParsedUrl['path'], $matches)) {
                 return $matches[1];
             }
             parse_str(parse_url($sYoutubeUrl, PHP_URL_QUERY), $aQueryString);

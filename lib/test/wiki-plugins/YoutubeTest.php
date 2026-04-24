@@ -57,6 +57,31 @@ class WikiPlugin_YoutubeTest extends PHPUnit\Framework\TestCase
                 'movie' => 'https://www.youtube.com/watch?v=4AcGoG9PChs',
                 'privacyEnhanced' => 'y'
             ]],
+
+            ['', 'youtube.com/embed/wfVJBWHtqXM', [
+                'movie' => 'https://www.youtube.com/live/wfVJBWHtqXM'
+            ]],
+        ];
+    }
+
+    /**
+     * @dataProvider youtubeIdProvider
+     */
+    public function testGetYoutubeId(string $url, string $expectedId): void
+    {
+        $this->assertSame($expectedId, getYoutubeId($url));
+    }
+
+    public static function youtubeIdProvider(): array
+    {
+        return [
+            'watch url' => ['https://www.youtube.com/watch?v=NdPpffwYGoM', 'NdPpffwYGoM'],
+            'shorts url' => ['https://www.youtube.com/shorts/4AcGoG9PChs', '4AcGoG9PChs'],
+            'live url' => ['https://www.youtube.com/live/wfVJBWHtqXM', 'wfVJBWHtqXM'],
+            'embed url' => ['https://www.youtube.com/embed/WbTkF-N-lO0', 'WbTkF-N-lO0'],
+            'short url' => ['https://youtu.be/bPHuY7QL568', 'bPHuY7QL568'],
+            'short url with www' => ['https://www.youtu.be/bPHuY7QL568', 'bPHuY7QL568'],
+            'raw id' => ['bPHuY7QL568', 'bPHuY7QL568'],
         ];
     }
 }
