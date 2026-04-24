@@ -210,8 +210,6 @@
 {* May be usefull too : profile *}
 {if !empty($twitter_card)}
     <meta name="twitter:card" content="{$twitter_card|escape}">
-{elseif !empty($header_featured_images)}
-    <meta name="twitter:card" content="summary_large_image">
 {else}
     <meta name="twitter:card" content="summary">
 {/if}

@@ -229,19 +229,10 @@ if (isset($topics[$article_data['topicId']])) {
 }
 $smarty->assign_by_ref('topics', $topics);
 
-$headerFeaturedImages = $smarty->getTemplateVars('header_featured_images');
-if (! is_array($headerFeaturedImages)) {
-    $headerFeaturedImages = [];
-}
-$articleImageUrl = '';
-if ($smarty->getTemplateVars('hasImage') === 'y') {
-    $articleImageUrl = $base_url_canonical . 'article_image.php?image_type=article&id=' . (int) $article_data['articleId'];
-} elseif (! empty($topics[$article_data['topicId']]['image_name'])) {
-    $articleImageUrl = $base_url_canonical . 'article_image.php?image_type=topic&id=' . (int) $article_data['topicId'];
-}
-if ($articleImageUrl !== '' && ! in_array($articleImageUrl, $headerFeaturedImages, true)) {
-    $headerFeaturedImages[] = $articleImageUrl;
-    $smarty->assign('header_featured_images', $headerFeaturedImages);
+if (
+    $smarty->getTemplateVars('hasImage') === 'y'
+    || ! empty($topics[$article_data['topicId']]['image_name'])
+) {
     $smarty->assign('twitter_card', 'summary_large_image');
 }
 
