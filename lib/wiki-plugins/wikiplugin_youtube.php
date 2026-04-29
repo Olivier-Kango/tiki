@@ -137,8 +137,13 @@ function wikiplugin_youtube_info()
     ];
 }
 
-function wikiplugin_youtube($data, $params)
-{
+function wikiplugin_youtube($data, $params) {
+    // Apply default values only for borderRadius and allowFullScreen
+    $params = array_merge([
+        'borderRadius' => 'y',
+        'allowFullScreen' => 'y',
+    ], $params);
+
     global $tikilib;
 
     $isShorts = ! empty($params['movie']) && str_contains($params['movie'], '/shorts/');
