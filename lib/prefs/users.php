@@ -308,7 +308,7 @@ function prefs_users_list()
         ],
         'users_prefs_xmpp_custom_server_http_bind' => [
             'name' => tra('XMPP http-bind URL'),
-            'description' => tra('Optional BOSH endpoint for an external XMPP account. If left empty, Tiki uses the default configured endpoint.'),
+            'description' => tra('Optional BOSH (Bidirectional-streams Over Synchronous HTTP) endpoint for an external XMPP account. BOSH is a transport protocol that allows XMPP communication over HTTP. If left empty, Tiki uses the default configured endpoint.'),
             'keywords' => 'xmpp converse conversejs chat',
             'type' => 'text',
             'size' => 40,
