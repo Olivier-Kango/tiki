@@ -22,6 +22,7 @@ class WikiPlugin_YoutubeTest extends PHPUnit\Framework\TestCase
 
         $this->assertIsString($result);
         $this->assertStringContainsString('~np~', $result);
+        $this->assertStringContainsString($expectedSubstring, $result);
     }
 
     public function testWikiPluginCodeWithMissingMovieParam(): void
@@ -41,26 +42,15 @@ class WikiPlugin_YoutubeTest extends PHPUnit\Framework\TestCase
     public static function provider(): array
     {
         return [
-            ['', 'youtube.com/embed/bPHuY7QL568', [
-                'movie' => 'http://www.youtube.com/watch?v=bPHuY7QL568'
-            ]],
-
-            ['', 'youtube.com/embed/NdPpffwYGoM', [
-                'movie' => 'https://www.youtube.com/watch?v=NdPpffwYGoM'
-            ]],
-
-            ['', 'youtube.com/embed/WbTkF-N-lO0', [
-                'movie' => 'https://www.youtube.com/watch?v=WbTkF-N-lO0'
-            ]],
-
-            ['', 'youtube-nocookie.com/embed/4AcGoG9PChs', [
-                'movie' => 'https://www.youtube.com/watch?v=4AcGoG9PChs',
-                'privacyEnhanced' => 'y'
-            ]],
-
-            ['', 'youtube.com/embed/wfVJBWHtqXM', [
-                'movie' => 'https://www.youtube.com/live/wfVJBWHtqXM'
-            ]],
+            // All possible YouTube URL formats
+            ['', 'youtube.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtu.be/j4dMnAPZu70' ]],
+            ['', 'youtube.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtube.com/v/j4dMnAPZu70' ]],
+            ['', 'youtube.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtube.com/e/j4dMnAPZu70' ]],
+            ['', 'youtube.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtube.com/watch?v=j4dMnAPZu70' ]],
+            ['', 'youtube.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtube.com/shorts/j4dMnAPZu70' ]],
+            ['', 'youtube.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtube.com/embed/j4dMnAPZu70' ]],
+            ['', 'youtube.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtube.com/live/j4dMnAPZu70' ]],
+            ['', 'youtube-nocookie.com/embed/j4dMnAPZu70', [ 'movie' => 'https://youtube-nocookie.com/embed/j4dMnAPZu70' ]],
         ];
     }
 
@@ -69,19 +59,24 @@ class WikiPlugin_YoutubeTest extends PHPUnit\Framework\TestCase
      */
     public function testGetYoutubeId(string $url, string $expectedId): void
     {
-        $this->assertSame($expectedId, getYoutubeId($url));
+        $result = getYoutubeId($url);
+        $this->assertIsArray($result);
+        $this->assertSame($expectedId, $result['id']);
     }
 
     public static function youtubeIdProvider(): array
     {
         return [
-            'watch url' => ['https://www.youtube.com/watch?v=NdPpffwYGoM', 'NdPpffwYGoM'],
-            'shorts url' => ['https://www.youtube.com/shorts/4AcGoG9PChs', '4AcGoG9PChs'],
-            'live url' => ['https://www.youtube.com/live/wfVJBWHtqXM', 'wfVJBWHtqXM'],
-            'embed url' => ['https://www.youtube.com/embed/WbTkF-N-lO0', 'WbTkF-N-lO0'],
-            'short url' => ['https://youtu.be/bPHuY7QL568', 'bPHuY7QL568'],
-            'short url with www' => ['https://www.youtu.be/bPHuY7QL568', 'bPHuY7QL568'],
-            'raw id' => ['bPHuY7QL568', 'bPHuY7QL568'],
+            'watch url' => ['https://www.youtube.com/watch?v=j4dMnAPZu70', 'j4dMnAPZu70'],
+            'shorts url' => ['https://www.youtube.com/shorts/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'live url' => ['https://www.youtube.com/live/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'embed url' => ['https://www.youtube.com/embed/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'short url' => ['https://youtu.be/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'short url with www' => ['https://www.youtu.be/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'nocookie embed' => ['https://youtube-nocookie.com/embed/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'v url' => ['https://youtube.com/v/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'e url' => ['https://youtube.com/e/j4dMnAPZu70', 'j4dMnAPZu70'],
+            'raw id' => ['j4dMnAPZu70', 'j4dMnAPZu70'],
         ];
     }
 }
