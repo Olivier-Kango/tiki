@@ -152,7 +152,7 @@ function wikiplugin_youtube($data, $params)
 
     // Extract YouTube ID and type (e.g., shorts, live, etc.)
     $youtubeInfo = getYoutubeId($params['movie']);
-    if (!$youtubeInfo || empty($youtubeInfo['id'])) {
+    if (! $youtubeInfo || empty($youtubeInfo['id'])) {
         Feedback::error(tra('Plugin YouTube error: Invalid YouTube URL provided: ') . $params['movie']);
         return '<div class="alert alert-warning">'
             . tra('Plugin YouTube error: Invalid YouTube URL provided: ') . htmlspecialchars($params['movie']) .
@@ -197,7 +197,7 @@ function wikiplugin_youtube($data, $params)
 function getYoutubeId($sYoutubeUrl)
 {
     $aParsedUrl = parse_url($sYoutubeUrl);
-    if ($aParsedUrl !== false && !empty($aParsedUrl['host'])) {
+    if ($aParsedUrl !== false && ! empty($aParsedUrl['host'])) {
         $host = strtolower($aParsedUrl['host']);
         // Support all known hosts
         $validHosts = [
@@ -205,7 +205,7 @@ function getYoutubeId($sYoutubeUrl)
             'youtu.be', 'www.youtu.be',
             'youtube-nocookie.com', 'www.youtube-nocookie.com',
         ];
-        if (!in_array($host, $validHosts, true)) {
+        if (! in_array($host, $validHosts, true)) {
             return false;
         }
         // Direct youtu.be links
