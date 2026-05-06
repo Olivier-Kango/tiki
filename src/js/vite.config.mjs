@@ -517,10 +517,6 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/ol-layerswitcher/dist",
                     },
                     {
-                        src: "node_modules/plotly.js/dist/topojson*",
-                        dest: "vendor_dist/plotly.js/dist/topojson",
-                    },
-                    {
                         src: "node_modules/plotly.js/dist/*.min.js",
                         dest: "vendor_dist/plotly.js/dist",
                     },
