@@ -81,8 +81,9 @@ class Highlight implements \Smarty\Filter\FilterInterface
             }
         }
 
+        // Fallback when <article> split fails (layout may differ); keep highlighting instead of returning original source
         if (! $result) {
-            return $source;
+            $matches = [$source, '', $source, ''];
         }
         if (strlen($matches[2]) > ini_get('pcre.backtrack_limit')) {
             return $source;
@@ -92,9 +93,10 @@ class Highlight implements \Smarty\Filter\FilterInterface
             $matches[3] = '';
         }
 
-        // Avoid highlight parsing in unknown cases where $matches[2] is empty, which will result in an empty page.
+        // Avoid processing when $matches[2] is empty (prevents blank page);
+        // operate on it directly, as using $source would discard highlights on return
         if ($matches[2] != '') {
-            $source = preg_replace_callback(
+            $matches[2] = preg_replace_callback(
                 '~(?:<head>.*</head>                            # head blocks
                 |<div[^>]*nohighlight.*</div><!--nohighlight--> # div with nohightlight
                 |<div[^>]*adminoption.*</div>                   # pref in a popup so double quote breaks it
@@ -107,7 +109,7 @@ class Highlight implements \Smarty\Filter\FilterInterface
             );
         }
 
-        return $matches[1] . $source . $matches[3];
+        return $matches[1] . $matches[2] . $matches[3];
     }
 
     public static function enlightColor($matches)
