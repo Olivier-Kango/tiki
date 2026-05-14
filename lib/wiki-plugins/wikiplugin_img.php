@@ -538,7 +538,7 @@ function wikiplugin_img_info()
                 'name' => tra('Fetch Priority'),
                 'filter' => 'alpha',
                 'description' => tr('Set to "high" for LCP images to load eagerly with high priority (disables lazy loading). Use "low" to defer non-critical images.'),
-                'since' => '27.0',
+                'since' => '30.0',
                 'doctype' => 'show',
                 'default' => '',
                 'options' => [
