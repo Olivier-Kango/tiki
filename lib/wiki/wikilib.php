@@ -801,12 +801,12 @@ class WikiLib extends TikiLib
                 continue;
             }
             if (preg_match('/\bsrc\s*=\s*["\']([^"\']+)["\']/i', $image, $matches)) {
-                $this->addRawPreloadLink($matches[1]);
+                $this->addPreloadLinkForHighPriorityImage($matches[1]);
             }
         }
     }
 
-    private function addRawPreloadLink(string $src): void
+    public function addPreloadLinkForHighPriorityImage(string $src): void
     {
         $href = htmlspecialchars($src, ENT_QUOTES, 'UTF-8');
         $link = '<link rel="preload" as="image" href="' . $href . '" fetchpriority="high">' . "\n";
