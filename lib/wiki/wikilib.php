@@ -750,6 +750,7 @@ class WikiLib extends TikiLib
             $cache_info = $this->get_cache_info($page);
             if (! empty($cache_info['cache_timestamp']) && $cache_info['cache_timestamp'] + $wiki_cache >= $this->now) {
                 $content = $cache_info['cache'];
+                $this->addPreloadLinksForCachedHighPriorityImages($content);
                 // get any cached JS and add to headerlib JS
                 $jsFiles = $headerlib->getJsFromHTML($content, false, true);
 
@@ -786,6 +787,31 @@ class WikiLib extends TikiLib
         }
 
         return $content;
+    }
+
+    private function addPreloadLinksForCachedHighPriorityImages(string $content): void
+    {
+        if (stripos($content, '<img') === false || stripos($content, 'fetchpriority') === false) {
+            return;
+        }
+
+        preg_match_all('/<img\b[^>]*>/i', $content, $images);
+        $smarty = TikiLib::lib('smarty');
+        $headerPreloadImages = $smarty->getTemplateVars('header_preload_images');
+        if (! is_array($headerPreloadImages)) {
+            $headerPreloadImages = [];
+        }
+
+        foreach ($images[0] as $image) {
+            if (! preg_match('/\bfetchpriority\s*=\s*["\']high["\']/i', $image)) {
+                continue;
+            }
+            if (preg_match('/\bsrc\s*=\s*["\']([^"\']+)["\']/i', $image, $matches)) {
+                $headerPreloadImages[$matches[1]] = $matches[1];
+            }
+        }
+
+        $smarty->assign('header_preload_images', $headerPreloadImages);
     }
 
     public function update_cache($page, $data)

@@ -533,6 +533,22 @@ function wikiplugin_img_info()
                 ],
                 'advanced' => true,
             ],
+            'fetchpriority' => [
+                'required' => false,
+                'name' => tra('Fetch Priority'),
+                'filter' => 'alpha',
+                'description' => tr('Set to "high" for LCP images to load eagerly with high priority (disables lazy loading). Use "low" to defer non-critical images.'),
+                'since' => '27.0',
+                'doctype' => 'show',
+                'default' => '',
+                'options' => [
+                    ['text' => tra('Default'), 'value' => ''],
+                    ['text' => tra('High (LCP)'), 'value' => 'high'],
+                    ['text' => tra('Low'), 'value' => 'low'],
+                    ['text' => tra('Auto'), 'value' => 'auto'],
+                ],
+                'advanced' => true,
+            ],
             'absoluteLinks' => [
                 'required' => false,
                 'name' => tra('Absolute Links'),
@@ -1177,11 +1193,13 @@ function wikiplugin_img($data, $params)
     }
 
     $printing = preg_match("/tiki-print.php/", $_SERVER['REQUEST_URI']);
+    $fetchPriority = ! empty($params['fetchpriority']) ? strtolower($params['fetchpriority']) : '';
     $lozardImg = false;
     if (
         $prefs['allowImageLazyLoad'] === 'y' &&
         ! $printing &&
-        (empty($params['lazyLoad']) || $params['lazyLoad'] !== 'n')
+        (empty($params['lazyLoad']) || $params['lazyLoad'] !== 'n') &&
+        $fetchPriority !== 'high'
     ) {
         $lozardImg = true;
     }
@@ -1228,6 +1246,19 @@ function wikiplugin_img($data, $params)
     if ($lozardImg) {
         $replimg .= 'loading="lazy" ';
         $imgdata['data-src'] = true;
+    }
+
+    if ($fetchPriority !== '') {
+        $replimg .= 'fetchpriority="' . htmlspecialchars($fetchPriority) . '" ';
+        if ($fetchPriority === 'high') {
+            // Register a head preload so the browser discovers the LCP image early.
+            $header_preload_images = $smarty->getTemplateVars('header_preload_images');
+            if (! is_array($header_preload_images)) {
+                $header_preload_images = [];
+            }
+            $header_preload_images[$src] = $src;
+            $smarty->assign('header_preload_images', $header_preload_images);
+        }
     }
 
     if (! empty($imgdata_dim)) {
