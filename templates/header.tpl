@@ -204,11 +204,6 @@
 {* To be added someday when using cart feature: product, product.group, product.item *}
 {* May be usefull too : profile *}
 <meta name="twitter:card" content="summary">
-{if not empty($header_preload_images)}
-    {foreach $header_preload_images as $header_preload_image}
-        <link rel="preload" as="image" href="{$header_preload_image|escape}" fetchpriority="high">
-    {/foreach}
-{/if}
 {* --- SocialNetwork:image --- *}
 {* first we check if there is a featured image to use it *}
 {if not empty($header_featured_images)}

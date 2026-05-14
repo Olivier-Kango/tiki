@@ -796,22 +796,31 @@ class WikiLib extends TikiLib
         }
 
         preg_match_all('/<img\b[^>]*>/i', $content, $images);
-        $smarty = TikiLib::lib('smarty');
-        $headerPreloadImages = $smarty->getTemplateVars('header_preload_images');
-        if (! is_array($headerPreloadImages)) {
-            $headerPreloadImages = [];
-        }
-
         foreach ($images[0] as $image) {
             if (! preg_match('/\bfetchpriority\s*=\s*["\']high["\']/i', $image)) {
                 continue;
             }
             if (preg_match('/\bsrc\s*=\s*["\']([^"\']+)["\']/i', $image, $matches)) {
-                $headerPreloadImages[$matches[1]] = $matches[1];
+                $this->addRawPreloadLink($matches[1]);
             }
         }
+    }
 
-        $smarty->assign('header_preload_images', $headerPreloadImages);
+    private function addRawPreloadLink(string $src): void
+    {
+        $href = htmlspecialchars($src, ENT_QUOTES, 'UTF-8');
+        $link = '<link rel="preload" as="image" href="' . $href . '" fetchpriority="high">' . "\n";
+        $headerlib = TikiLib::lib('header');
+
+        if (strpos($headerlib->rawhtml, $link) !== false) {
+            return;
+        }
+
+        try {
+            $headerlib->add_rawhtml($headerlib->rawhtml . $link);
+        } catch (Error $e) {
+            // If the page body is rendered after the head, this preload can no longer help.
+        }
     }
 
     public function update_cache($page, $data)
