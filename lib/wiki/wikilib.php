@@ -819,7 +819,7 @@ class WikiLib extends TikiLib
         try {
             $headerlib->add_rawhtml($headerlib->rawhtml . $link);
         } catch (Error $e) {
-            // If the page body is rendered after the head, this preload can no longer help.
+            TikiLib::lib('errortracking')->captureException($e);
         }
     }
 
