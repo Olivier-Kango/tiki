@@ -1258,13 +1258,14 @@ function wikiplugin_img($data, $params)
         }
 
         if ($srcset) {
-            $replimg .= 'srcset="' . $srcset . '" ';
+            $replimg .= 'srcset="' . htmlspecialchars($srcset, ENT_QUOTES, 'UTF-8') . '" ';
         }
         if ($sizes) {
-            $replimg .= 'sizes="' . $sizes . '" ';
+            $replimg .= 'sizes="' . htmlspecialchars($sizes, ENT_QUOTES, 'UTF-8') . '" ';
         }
         $imgdata['class'] .= ' regImage pluginImg' . $imgdata['fileId'];
-        if ($imgdata['responsive'] == 'y' && ! str_contains($imgdata['class'], 'img-fluid')) {
+        $existingClasses = preg_split('/\s+/', trim($imgdata['class']));
+        if ($imgdata['responsive'] == 'y' && ! in_array('img-fluid', $existingClasses, true)) {
             $imgdata['class'] .= ' img-fluid';
         }
         if ($imgdata['featured'] == 'y') {
@@ -1291,7 +1292,7 @@ function wikiplugin_img($data, $params)
                 $link = '<link rel="preload" as="image" href="' . $href . '" imagesrcset="' . $preloadSrcset . '"' . $preloadSizes . ' fetchpriority="high">' . "\n";
                 $headerlib = TikiLib::lib('header');
                 if (strpos($headerlib->rawhtml, $link) === false) {
-                    $headerlib->add_rawhtml($headerlib->rawhtml . $link);
+                    $headerlib->add_rawhtml($link);
                 }
             } else {
                 TikiLib::lib('wiki')->addPreloadLinkForHighPriorityImage($src);
