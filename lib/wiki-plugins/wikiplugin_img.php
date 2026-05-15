@@ -1283,19 +1283,8 @@ function wikiplugin_img($data, $params)
         $replimg .= 'fetchpriority="' . htmlspecialchars($fetchPriority) . '" ';
         if ($fetchPriority === 'high') {
             // Register a head preload so the browser discovers the LCP image early.
-            // Include imagesrcset/imagesizes so the browser preloads the correct variant.
-            if ($srcset) {
-                $href = htmlspecialchars($src, ENT_QUOTES, 'UTF-8');
-                $preloadSrcset = htmlspecialchars($srcset, ENT_QUOTES, 'UTF-8');
-                $preloadSizes = $sizes ? ' imagesizes="' . htmlspecialchars($sizes, ENT_QUOTES, 'UTF-8') . '"' : '';
-                $link = '<link rel="preload" as="image" href="' . $href . '" imagesrcset="' . $preloadSrcset . '"' . $preloadSizes . ' fetchpriority="high">' . "\n";
-                $headerlib = TikiLib::lib('header');
-                if (strpos($headerlib->rawhtml, $link) === false) {
-                    $headerlib->add_rawhtml($link);
-                }
-            } else {
-                TikiLib::lib('wiki')->addPreloadLinkForHighPriorityImage($src);
-            }
+            // Pass srcset/sizes so the browser preloads the correct responsive variant.
+            TikiLib::lib('wiki')->addPreloadLinkForHighPriorityImage($src, $srcset, $sizes);
         }
     }
 
