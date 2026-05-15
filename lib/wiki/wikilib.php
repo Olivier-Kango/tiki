@@ -817,7 +817,7 @@ class WikiLib extends TikiLib
         }
 
         try {
-            $headerlib->add_rawhtml($headerlib->rawhtml . $link);
+            $headerlib->add_rawhtml($link);
         } catch (Error $e) {
             TikiLib::lib('errortracking')->captureException($e);
         }

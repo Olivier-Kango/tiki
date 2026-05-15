@@ -1285,7 +1285,6 @@ function wikiplugin_img($data, $params)
             // Register a head preload so the browser discovers the LCP image early.
             // Include imagesrcset/imagesizes so the browser preloads the correct variant.
             if ($srcset) {
-                $wikilib = TikiLib::lib('wiki');
                 $href = htmlspecialchars($src, ENT_QUOTES, 'UTF-8');
                 $preloadSrcset = htmlspecialchars($srcset, ENT_QUOTES, 'UTF-8');
                 $preloadSizes = $sizes ? ' imagesizes="' . htmlspecialchars($sizes, ENT_QUOTES, 'UTF-8') . '"' : '';
