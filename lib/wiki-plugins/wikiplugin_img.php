@@ -191,6 +191,15 @@ function wikiplugin_img_info()
                 'filter' => 'text',
                 'default' => '',
             ],
+            'srcset' => [
+                'required' => false,
+                'name' => tra('Srcset'),
+                'description' => tr('Manual srcset attribute value for responsive images when using a static src. Example: %0/img-400.webp 400w, /img-665.webp 665w%1', '<code>', '</code>'),
+                'since' => '30.0',
+                'doctype' => 'text',
+                'filter' => 'text',
+                'default' => '',
+            ],
             'max' => [
                 'required' => false,
                 'name' => tra('Maximum Size'),
@@ -1178,6 +1187,22 @@ function wikiplugin_img($data, $params)
         }
     }
 
+    // For static src images with a manual srcset param, populate $sizes from the sizes param
+    if (! $sizes && ! empty($imgdata['srcset']) && ! empty($params['sizes'])) {
+        $size_max_breaks = ['767', '991', '1199'];
+        $sizes_arr = array_map('trim', explode(",", $params['sizes']));
+        if (count($sizes_arr) === 4) {
+            $sizes = "(max-width: " . $size_max_breaks[0] . "px) " . $sizes_arr[0] . ",";
+            $sizes .= "(max-width: " . $size_max_breaks[1] . "px) " . $sizes_arr[1] . ",";
+            $sizes .= "(max-width: " . $size_max_breaks[2] . "px) " . $sizes_arr[2] . ",";
+            $sizes .= $sizes_arr[3];
+        } elseif (count($sizes_arr) === 1) {
+            $sizes = $sizes_arr[0];
+        } else {
+            $sizes = $params['sizes'];
+        }
+    }
+
     ////////////////////////////////////////// Create the HTML img tag //////////////////////////////////////////////
     //Start tag with src and dimensions
     $src = filter_out_sefurl($src);
@@ -1227,6 +1252,11 @@ function wikiplugin_img($data, $params)
         $tagName = 'img';
         $replimg = '<img src="' . $src . '" ';
 
+        // For static src images, allow a manual srcset parameter
+        if (! $srcset && ! empty($imgdata['srcset'])) {
+            $srcset = $imgdata['srcset'];
+        }
+
         if ($srcset) {
             $replimg .= 'srcset="' . $srcset . '" ';
         }
@@ -1234,7 +1264,7 @@ function wikiplugin_img($data, $params)
             $replimg .= 'sizes="' . $sizes . '" ';
         }
         $imgdata['class'] .= ' regImage pluginImg' . $imgdata['fileId'];
-        if ($imgdata['responsive'] == 'y') {
+        if ($imgdata['responsive'] == 'y' && ! str_contains($imgdata['class'], 'img-fluid')) {
             $imgdata['class'] .= ' img-fluid';
         }
         if ($imgdata['featured'] == 'y') {
@@ -1252,7 +1282,20 @@ function wikiplugin_img($data, $params)
         $replimg .= 'fetchpriority="' . htmlspecialchars($fetchPriority) . '" ';
         if ($fetchPriority === 'high') {
             // Register a head preload so the browser discovers the LCP image early.
-            TikiLib::lib('wiki')->addPreloadLinkForHighPriorityImage($src);
+            // Include imagesrcset/imagesizes so the browser preloads the correct variant.
+            if ($srcset) {
+                $wikilib = TikiLib::lib('wiki');
+                $href = htmlspecialchars($src, ENT_QUOTES, 'UTF-8');
+                $preloadSrcset = htmlspecialchars($srcset, ENT_QUOTES, 'UTF-8');
+                $preloadSizes = $sizes ? ' imagesizes="' . htmlspecialchars($sizes, ENT_QUOTES, 'UTF-8') . '"' : '';
+                $link = '<link rel="preload" as="image" href="' . $href . '" imagesrcset="' . $preloadSrcset . '"' . $preloadSizes . ' fetchpriority="high">' . "\n";
+                $headerlib = TikiLib::lib('header');
+                if (strpos($headerlib->rawhtml, $link) === false) {
+                    $headerlib->add_rawhtml($headerlib->rawhtml . $link);
+                }
+            } else {
+                TikiLib::lib('wiki')->addPreloadLinkForHighPriorityImage($src);
+            }
         }
     }
 
