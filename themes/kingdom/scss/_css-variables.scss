@@ -1,179 +1,399 @@
-// CSS variables for the Default theme
-// These and other CSS variable values can be customized (overridden) to suit the website by adding CSS rules to the Look and Feel CSS Customization textarea.
-
-// This file contains CSS variables / custom properties for:
-// * Top and topbar navbars (base_files/scss/_tiki-pagetop_colors.scss)
-// * Admin pages navbar and side menu (base_files/css/feature/adminui.scss
-// * For the above, dark and light L&F navbar preference styling, and color mode properties
-// * Other styling as necessary for the theme
-
-// Values for CSS variables can be an SCSS variable, a hex code or other CSS value, or a CSS variable, etc. Tiki themes use a combination of these. Some ideas:
-// * Use an SCSS variable for consistency if the value is already declared in _variables.scss (Interpolation info: https://developersink.com/css/css-custom-properties-sass-variables/ )
-// * Use a hex color code, or other CSS value. if consistency with an SCSS variable value isn't an issue or for the simplest and easiest declaration of the value.
-// * Refer to a previously-declared CSS variable to maintain consistent application of the color or other property within the scope of the CSS variable declaration.
+// CSS variables for the Kingdom theme.
+// This file is imported last to preserve the exact visible palette approved in
+// the theme preview while keeping Bootstrap-level values in _variables.scss.
 
 @import "variables";
 
-// Used for L&F nav color choice and color mode override
-@mixin top-nav-dark {
-    --tiki-top-bg: #212529;
-    --tiki-top-color: #{$navbar-dark-color};
-    --tiki-top-hover-color: #{$navbar-dark-hover-color};
-    --tiki-top-text-color: #{$navbar-dark-hover-color};
-//    --tiki-top-border: solid rgb(85, 85, 85);
-    --tiki-site-title-color: #{$navbar-dark-brand-color, var(--tiki-top-color)};
-    --tiki-site-subtitle-color: #{$navbar-dark-brand-color, var(--tiki-top-color)};
-    --tiki-top-border: none;
-    --tiki-top-box-shadow: 0px 1px 10px #252a2e;
+:root {
+    --bs-body-bg: #F8FAFD;
+    --bs-body-color: #0f2742;
+    --bs-body-color-rgb: 15, 39, 66;
+    --bs-emphasis-color: #0A2540;
+    --bs-emphasis-color-rgb: 10, 37, 64;
+    --bs-blue: #0B3C5D;
+    --bs-primary: #0B3C5D;
+    --bs-primary-rgb: 11, 60, 93;
+    --bs-secondary: #F2C94C;
+    --bs-secondary-rgb: 242, 201, 76;
+    --bs-info: #3E8FB0;
+    --bs-info-rgb: 62, 143, 176;
+    --bs-success: #3E8F6B;
+    --bs-warning: #E6C75A;
+    --bs-danger: #B94A48;
+    --bs-light: #F8FAFD;
+    --bs-light-rgb: 248, 250, 253;
+    --bs-dark: #0A2540;
+    --bs-dark-rgb: 10, 37, 64;
+    --bs-link-color: rgb(31.4, 93.2, 126.2);
+    --bs-link-color-rgb: 31, 93, 126;
+    --bs-link-hover-color: rgb(21.2388324873, 63.0401015228, 85.3611675127);
+    --bs-link-hover-color-rgb: 21, 63, 85;
+    --bs-border-color: rgb(203.7, 216.04, 230.24);
+    --bs-focus-ring-color: rgba(11, 60, 93, 0.25);
+    --bs-focus-ring-width: .2rem;
+    --bs-primary-text-emphasis: rgb(4.5269230769, 24.6923076923, 38.2730769231);
+    --bs-secondary-text-emphasis: rgb(163.3375, 125.925, 11.8625);
+    --bs-success-text-emphasis: rgb(38.8634146341, 89.6365853659, 67.0707317073);
+    --bs-info-text-emphasis: rgb(38.0857142857, 87.8428571429, 108.1142857143);
+    --bs-warning-text-emphasis: rgb(145.0263157895, 117.7789473684, 21.9736842105);
+    --bs-danger-text-emphasis: rgb(141.6260869565, 55.7217391304, 54.1739130435);
+    --bs-primary-bg-subtle: rgb(219.56, 227.2, 233.8);
+    --bs-secondary-bg-subtle: rgb(247.16, 243.14, 228.22);
+    --bs-success-bg-subtle: rgb(225.68, 237.16, 235.48);
+    --bs-info-bg-subtle: rgb(225.68, 237.16, 243.76);
+    --bs-warning-bg-subtle: rgb(245.12, 241.84, 226.92);
+    --bs-danger-bg-subtle: rgb(240.44, 228.88, 231.28);
+    --bs-primary-border-subtle: rgb(165.05, 183.5, 197);
+    --bs-secondary-border-subtle: rgb(245.6, 230.4, 182.2);
+    --bs-success-border-subtle: rgb(182.9, 212.55, 201.9);
+    --bs-info-border-subtle: rgb(182.9, 212.55, 226.05);
+    --bs-warning-border-subtle: rgb(240.8, 229.6, 187.8);
+    --bs-danger-border-subtle: rgb(225.95, 188.4, 189.65);
+    --bs-nav-link-color: #0B3C5D;
+    --bs-nav-link-hover-color: rgb(5.6057692308, 30.5769230769, 47.3942307692);
+    --bs-dropdown-link-active-bg: #0B3C5D;
+    --bs-dropdown-link-active-color: #fff;
+    --bs-pagination-active-bg: #0B3C5D;
+    --bs-pagination-active-border-color: #0B3C5D;
+    --bs-pagination-active-color: #fff;
+    --bs-btn-font-weight: 600;
 }
 
-@mixin topbar-nav-dark {
-    --tiki-topbar-bg: #212529;
-    --tiki-topbar-color: #{$navbar-dark-color};
-    --tiki-topbar-hover-color: #{$navbar-dark-hover-color};
-    --tiki-topbar-text-color: #{$navbar-dark-hover-color};
-//    --tiki-topbar-border: solid rgb(85, 85, 85);
+.btn-primary {
+    --bs-btn-bg: #0B3C5D;
+    --bs-btn-border-color: #0B3C5D;
+    --bs-btn-hover-bg: rgb(7.7634615385, 42.3461538462, 65.6365384615);
+    --bs-btn-hover-border-color: rgb(6.6846153846, 36.4615384615, 56.5153846154);
+    --bs-btn-active-bg: rgb(5.6057692308, 30.5769230769, 47.3942307692);
+    --bs-btn-active-border-color: rgb(4.5269230769, 24.6923076923, 38.2730769231);
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-focus-shadow-rgb: 11, 60, 93;
+    --bs-btn-disabled-bg: #0B3C5D;
+    --bs-btn-disabled-border-color: #0B3C5D;
+    --bs-btn-disabled-color: #fff;
 }
 
-@mixin top-nav-light {
-    --tiki-top-bg: rgb(248,249,250);
-    --tiki-top-color: #{$navbar-light-color};
-    --tiki-top-hover-color: #{$navbar-light-hover-color};
-    --tiki-top-text-color: #{$navbar-light-hover-color};
-//    --tiki-top-border: solid #333;
-    --tiki-site-title-color: #{$navbar-light-brand-color, var(--tiki-top-color)};
-    --tiki-site-subtitle-color: #{$navbar-light-brand-color, var(--tiki-top-color)};
-    --tiki-top-border: none;
-    --tiki-top-box-shadow: 0px 1px 10px #e4e4e4;
+.btn-secondary {
+    --bs-btn-bg: #F2C94C;
+    --bs-btn-border-color: #F2C94C;
+    --bs-btn-hover-bg: rgb(239.928125, 192.39375, 47.471875);
+    --bs-btn-hover-border-color: rgb(239.2375, 189.525, 37.9625);
+    --bs-btn-color: #0A2540;
+    --bs-btn-hover-color: #0A2540;
+    --bs-btn-focus-shadow-rgb: 242, 201, 76;
 }
 
-@mixin topbar-nav-light {
-    --tiki-topbar-bg: rgb(248,249,250);
-    --tiki-topbar-color: rgba(0, 0, 0, 0.55);
-    --tiki-topbar-hover-color: rgba(0, 0, 0, 0.7);
-    --tiki-topbar-text-color: rgba(0, 0, 0, 0.7);
-//    --tiki-topbar-border: solid #333;
+.btn-outline-primary {
+    --bs-btn-color: #0B3C5D;
+    --bs-btn-border-color: #0B3C5D;
+    --bs-btn-hover-bg: #0B3C5D;
+    --bs-btn-hover-border-color: #0B3C5D;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-focus-shadow-rgb: 11, 60, 93;
+    --bs-btn-active-bg: #0B3C5D;
+    --bs-btn-active-border-color: #0B3C5D;
+    --bs-btn-disabled-color: #0B3C5D;
+    --bs-btn-disabled-border-color: #0B3C5D;
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: #F2C94C;
+    --bs-btn-border-color: #F2C94C;
+    --bs-btn-hover-bg: #F2C94C;
+    --bs-btn-hover-border-color: #F2C94C;
+    --bs-btn-hover-color: #0A2540;
+    --bs-btn-focus-shadow-rgb: 242, 201, 76;
+}
+
+.btn-link {
+    --bs-btn-color: rgb(31.4, 93.2, 126.2);
+    --bs-btn-hover-color: rgb(21.2388324873, 63.0401015228, 85.3611675127);
+}
+
+[data-bs-theme=dark] {
+    --bs-blue: #7db7d8;
+    --bs-primary: #7db7d8;
+    --bs-primary-rgb: 125, 183, 216;
+    --bs-primary-text-emphasis: #c7e2f2;
+    --bs-primary-bg-subtle: #071d31;
+    --bs-primary-border-subtle: #245a7a;
+    --bs-link-color: #9fd0eb;
+    --bs-link-color-rgb: 159, 208, 235;
+    --bs-link-hover-color: #c7e2f2;
+    --bs-link-hover-color-rgb: 199, 226, 242;
+    --bs-focus-ring-color: rgba(125, 183, 216, 0.25);
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--bs-primary);
+    --bs-dropdown-link-active-color: #fff;
+    --bs-dropdown-link-hover-color: var(--bs-primary-text-emphasis);
+    --bs-dropdown-link-hover-bg: var(--bs-primary-bg-subtle);
+}
+
+.accordion {
+    --bs-accordion-active-color: var(--bs-primary-text-emphasis);
+    --bs-accordion-active-bg: var(--bs-primary-bg-subtle);
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+}
+
+.page-link {
+    --bs-pagination-active-bg: var(--bs-primary);
+    --bs-pagination-active-border-color: var(--bs-primary);
+    --bs-pagination-focus-box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+}
+
+.list-group {
+    --bs-list-group-active-bg: var(--bs-primary);
+    --bs-list-group-active-border-color: var(--bs-primary);
+}
+
+.progress,
+.progress-stacked {
+    --bs-progress-bar-bg: var(--bs-primary);
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus,
+.btn-close:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+}
+
+.form-check-input:checked,
+.form-check-input[type=checkbox]:indeterminate,
+.form-range::-webkit-slider-thumb,
+.form-range::-moz-range-thumb {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.form-check-input {
+    accent-color: var(--bs-primary);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: var(--bs-dropdown-link-hover-color);
+    background-color: var(--bs-dropdown-link-hover-bg);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: var(--bs-dropdown-link-active-color);
+    background-color: var(--bs-dropdown-link-active-bg);
+}
+
+.navbar,
+.sm-navbar {
+    --bs-navbar-active-color: var(--bs-primary);
+    --bs-navbar-hover-color: var(--bs-primary);
+    --bs-navbar-toggler-focus-width: var(--bs-focus-ring-width);
+}
+
+.navbar-toggler:focus,
+.sm-toggler-anchor:focus,
+.sm-toggler:focus {
+    outline: 0;
+    box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+}
+
+.sm-navbar {
+    --sm-collapsible-nav-link-color: var(--bs-body-color);
+    --sm-collapsible-nav-link-bg: transparent;
+    --sm-collapsible-sub-toggler-color: var(--bs-primary);
+    --sm-dropdowns-sub-toggler-color: var(--bs-primary);
+}
+
+.sm-nav-link:hover,
+.sm-nav-link:focus,
+.sm-nav-link.active,
+.sm-nav-link.show,
+.sm-nav-link[aria-expanded=true],
+.sm-sub-link:hover,
+.sm-sub-link:focus,
+.sm-sub-link.active,
+.sm-sub-link.show,
+.sm-sub-link[aria-expanded=true] {
+    color: var(--bs-primary) !important;
+    background-color: var(--bs-primary-bg-subtle);
+}
+
+.select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.select2-container--bootstrap-5.select2-container--open .select2-selection,
+.select2-container--bootstrap-5 .select2-selection:focus {
+    border-color: var(--bs-primary) !important;
+    box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color) !important;
+}
+
+.select2-container--bootstrap-5 .select2-dropdown,
+.select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field:focus {
+    border-color: var(--bs-primary) !important;
+}
+
+.select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field:focus {
+    outline: 0;
+    box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color) !important;
+}
+
+.select2-container--bootstrap-5 .select2-results__option--highlighted,
+.select2-container--bootstrap-5 .select2-results__option--highlighted.select2-results__option[aria-selected=true],
+.select2-container--bootstrap-5 .select2-results__option[aria-selected=true],
+.select2-container--bootstrap-5 .select2-results__option--selected {
+    color: #fff !important;
+    background-color: var(--bs-primary) !important;
+}
+
+.select2-container--bootstrap-5 .select2-results__option--highlighted[aria-disabled=true],
+.select2-container--bootstrap-5 .select2-results__option--selected[aria-disabled=true] {
+    color: var(--bs-secondary-color) !important;
+    background-color: var(--bs-secondary-bg) !important;
 }
 
 .tiki-top-nav-light {
-    @include top-nav-light;
+    --tiki-top-bg: #F8FAFD;
+    --tiki-top-color: rgb(7.15, 39, 60.45);
+    --tiki-top-hover-color: #0B3C5D;
+    --tiki-top-text-color: #0B3C5D;
+    --tiki-site-title-color: rgb(57.2, 88.2, 89.6);
+    --tiki-site-subtitle-color: rgb(57.2, 88.2, 89.6);
+    --tiki-top-border: none;
+    --tiki-top-box-shadow: 0px 6px 16px rgba(11, 60, 93, 0.12);
 }
 
 .tiki-topbar-nav-light {
-    @include topbar-nav-light;
+    --tiki-topbar-bg: #eef4fb;
+    --tiki-topbar-color: rgb(7.15, 39, 60.45);
+    --tiki-topbar-hover-color: #0B3C5D;
+    --tiki-topbar-text-color: #0B3C5D;
+    --tiki-topbar-border: none;
+    --tiki-topbar-box-shadow: 0 2px 12px rgba(11, 60, 93, 0.08);
 }
 
-.tiki-top-nav-dark {
-    @include top-nav-dark;
+.tiki-top-nav-dark,
+[data-bs-theme=dark] .tiki-top-nav-light {
+    --tiki-top-bg: #0B3C5D;
+    --tiki-top-color: #fff;
+    --tiki-top-hover-color: #F2C94C;
+    --tiki-top-text-color: #fff;
+    --tiki-site-title-color: #F2C94C;
+    --tiki-site-subtitle-color: rgb(245.9, 217.2, 129.7);
+    --tiki-top-border: none;
+    --tiki-top-box-shadow: 0 6px 18px rgba(10, 37, 64, 0.22);
 }
 
-.tiki-topbar-nav-dark {
-    @include topbar-nav-dark;
+.tiki-topbar-nav-dark,
+[data-bs-theme=dark] .tiki-topbar-nav-light {
+    --tiki-topbar-bg: #0f2f4d;
+    --tiki-topbar-color: #eaf3ff;
+    --tiki-topbar-hover-color: #F2C94C;
+    --tiki-topbar-text-color: #eaf3ff;
+    --tiki-topbar-border: none;
+    --tiki-topbar-box-shadow: 0 2px 12px rgba(10, 37, 64, 0.2);
 }
 
-// Color mode preference trumps L&F admin light navbar option
-[data-bs-theme=dark] {                              // color mode
-    .tiki-top-nav-light {                           // light top selector
-        @include top-nav-dark;                      // dark values
-    }
-    .tiki-topbar-nav-light {
-        @include topbar-nav-dark;
-    }
-}
-
-// Color mode preference trumps L&F admin dark navbar option - In this theme, the L&F admin preference has priority
-//[data-bs-theme=light] .tiki:not(.uab.tiki-admin) {                              // color mode
-//    .tiki-top-nav-dark {                           // dark top selector
-//        @include top-nav-light;                      // light values
-//    }
-//    .tiki-topbar-nav-dark {
-//        @include topbar-nav-light;
-//    }
-//}
-
-//.tiki-top-nav-light, .tiki-top-nav-dark {
-//    --tiki-top-border-width: 2px;
-//    --tiki-topbar-border-width: 2px;
-//}
-
-// - - - - - New admin pages (Unified Admin Backend) - - - - - - - //
-
-// Light navbar minus top nav
-@mixin admin-nav-light {
-    --tiki-admin-top-nav-bg: #{$light};
-    --tiki-admin-top-nav-color: #{$navbar-light-color};
-    --tiki-admin-top-nav-hover-color: #{$navbar-light-hover-color};
-    --tiki-admin-top-nav-hover-bg: none;
-    --tiki-admin-top-box-shadow: 0px 1px 10px #98bbbe;
-    --tiki-admin-aside-nav-bg: #{$light};
-    --tiki-admin-aside-nav-color: #{$navbar-light-color};
-    --tiki-admin-aside-nav-hover-color: #{$navbar-light-hover-color};
-    --tiki-admin-dropdown-bg: #{$dropdown-bg};
-    --tiki-admin-dropdown-link-color: #{$dropdown-link-color};
-    --tiki-admin-dropdown-link-hover-color: #{$dropdown-link-hover-color};
-    --tiki-admin-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
-}
-
-// Improve appearance when two areas with same background color meet
 .navbar-wrapper:has(.tiki-admin-aside-nav-light) {
-    box-shadow: 5px 0 10px -5px #e3e1e1;
+    box-shadow: 5px 0 14px -6px rgba(11, 60, 93, 0.25);
 }
 
-// Dark navbar minus top nav
-@mixin admin-nav-dark {
-    --tiki-admin-top-nav-bg: #{$dark}; // #2C2C2C;
-    --tiki-admin-top-nav-color: #{$navbar-dark-color}; // #fff;
-    --tiki-admin-top-nav-hover-color: #{$navbar-dark-hover-color}; // #fff;
-    --tiki-admin-top-nav-hover-bg: #fff;
-    --tiki-admin-aside-nav-bg: #2C2C2C;
-    --tiki-admin-top-box-shadow: 0px 1px 10px #32373d;
-    --tiki-admin-aside-nav-color: #{$navbar-dark-color}; // var(--tiki-admin-top-nav-color);
-    --tiki-admin-aside-nav-hover-color: #{$navbar-dark-hover-color}; // var(--tiki-admin-top-nav-hover-color);
-    --tiki-admin-dropdown-bg: #{$dropdown-dark-bg}; // #1C1C1C;
-    --tiki-admin-dropdown-link-color: #{$dropdown-dark-link-color};
-    --tiki-admin-dropdown-link-hover-color: #{$dropdown-dark-link-hover-color};
-    --tiki-admin-dropdown-link-hover-bg: #{$dropdown-dark-link-hover-bg}; // #007BFF;
-    .accordion-item {
-        border-width: 0 !important;
-    }
-    .accordion-item.search-preferences,
-    button.accordion-button {
-        color: var(--tiki-admin-aside-nav-color) !important;
-        background: var(--tiki-admin-aside-nav-bg) !important;
-    }
-    .accordion-button::after {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-    }
-}
-
-// When color mode switch isn't active
-.tiki-admin-top-nav-light, // Legacy
-.tiki-admin .navbar-light-parent.tiki-top-nav-light, // UAB - Specificity increased to override
+.tiki-admin-top-nav-light,
+.tiki-admin .navbar-light-parent.tiki-top-nav-light,
 .tiki-admin-aside-nav-light {
-    @include admin-nav-light;
+    --tiki-admin-top-nav-bg: #F8FAFD;
+    --tiki-admin-top-nav-color: rgb(7.15, 39, 60.45);
+    --tiki-admin-top-nav-hover-color: #0B3C5D;
+    --tiki-admin-top-nav-hover-bg: none;
+    --tiki-admin-top-box-shadow: 0px 4px 16px rgba(11, 60, 93, 0.16);
+    --tiki-admin-aside-nav-bg: #F8FAFD;
+    --tiki-admin-aside-nav-color: rgb(7.15, 39, 60.45);
+    --tiki-admin-aside-nav-hover-color: #0B3C5D;
+    --tiki-admin-dropdown-bg: var(--bs-body-bg);
+    --tiki-admin-dropdown-link-color: var(--bs-body-color);
+    --tiki-admin-dropdown-link-hover-color: #0B3C5D;
+    --tiki-admin-dropdown-link-hover-bg: rgb(224.2, 233, 246.2);
 }
 
 .tiki-admin-top-nav-dark,
-.tiki-admin .navbar-dark-parent.tiki-top-nav-dark, // UAB - Specificity increased to override
-.tiki-admin-aside-nav-dark {
-    @include admin-nav-dark;
+.tiki-admin .navbar-dark-parent.tiki-top-nav-dark,
+.tiki-admin-aside-nav-dark,
+[data-bs-theme=dark] .tiki .tiki-admin-top-nav-light,
+[data-bs-theme=dark] .tiki.tiki-admin .navbar-light-parent.tiki-top-nav-light,
+[data-bs-theme=dark] .tiki .tiki-admin-aside-nav-light,
+[data-bs-theme=light] .tiki .tiki-admin-top-nav-dark,
+[data-bs-theme=light] .tiki.tiki-admin .navbar-dark-parent.tiki-top-nav-dark,
+[data-bs-theme=light] .tiki .tiki-admin-aside-nav-dark {
+    --tiki-admin-top-nav-bg: #0f2f4d;
+    --tiki-admin-top-nav-color: #eaf3ff;
+    --tiki-admin-top-nav-hover-color: #F2C94C;
+    --tiki-admin-top-nav-hover-bg: none;
+    --tiki-admin-top-box-shadow: 0px 4px 18px rgba(10, 37, 64, 0.35);
+    --tiki-admin-aside-nav-bg: #0a2540;
+    --tiki-admin-aside-nav-color: #eaf3ff;
+    --tiki-admin-aside-nav-hover-color: #F2C94C;
+    --tiki-admin-dropdown-bg: #12365a;
+    --tiki-admin-dropdown-link-color: #dee2e6;
+    --tiki-admin-dropdown-link-hover-color: #F2C94C;
+    --tiki-admin-dropdown-link-hover-bg: rgb(14.2365384615, 77.6538461538, 120.3634615385);
 }
 
-// Color mode preference trumps L&F admin light navbar option
-[data-bs-theme=dark] {                              // dark color mode
-    .tiki .tiki-admin-top-nav-light,
-    .tiki.tiki-admin .navbar-light-parent.tiki-top-nav-light, // UAB - Specificity increased to override
-    .tiki .tiki-admin-aside-nav-light {               // light top selectors
-        @include admin-nav-dark;                      // dark values
-    }
-}
-// Color mode preference trumps L&F admin dark navbar option
-[data-bs-theme=light] {                              // light color mode
-    .tiki .tiki-admin-top-nav-dark,
-    .tiki.tiki-admin .navbar-dark-parent.tiki-top-nav-dark, // UAB - Specificity increased to override
-    .tiki .tiki-admin-aside-nav-dark {                // dark top selectors
-        @include admin-nav-dark;                      // dark values
-    }
+.tiki-admin-top-nav-dark .accordion-item,
+.tiki-admin .navbar-dark-parent.tiki-top-nav-dark .accordion-item,
+.tiki-admin-aside-nav-dark .accordion-item,
+[data-bs-theme=dark] .tiki .tiki-admin-top-nav-light .accordion-item,
+[data-bs-theme=dark] .tiki.tiki-admin .navbar-light-parent.tiki-top-nav-light .accordion-item,
+[data-bs-theme=dark] .tiki .tiki-admin-aside-nav-light .accordion-item,
+[data-bs-theme=light] .tiki .tiki-admin-top-nav-dark .accordion-item,
+[data-bs-theme=light] .tiki.tiki-admin .navbar-dark-parent.tiki-top-nav-dark .accordion-item,
+[data-bs-theme=light] .tiki .tiki-admin-aside-nav-dark .accordion-item {
+    border-width: 0 !important;
 }
 
-// - - - - - New admin pages (Unified Admin Backend) END - - - - - - - //
+.tiki-admin-top-nav-dark .accordion-item.search-preferences,
+.tiki-admin-top-nav-dark button.accordion-button,
+.tiki-admin .navbar-dark-parent.tiki-top-nav-dark .accordion-item.search-preferences,
+.tiki-admin .navbar-dark-parent.tiki-top-nav-dark button.accordion-button,
+.tiki-admin-aside-nav-dark .accordion-item.search-preferences,
+.tiki-admin-aside-nav-dark button.accordion-button,
+[data-bs-theme=dark] .tiki .tiki-admin-top-nav-light .accordion-item.search-preferences,
+[data-bs-theme=dark] .tiki .tiki-admin-top-nav-light button.accordion-button,
+[data-bs-theme=dark] .tiki.tiki-admin .navbar-light-parent.tiki-top-nav-light .accordion-item.search-preferences,
+[data-bs-theme=dark] .tiki.tiki-admin .navbar-light-parent.tiki-top-nav-light button.accordion-button,
+[data-bs-theme=dark] .tiki .tiki-admin-aside-nav-light .accordion-item.search-preferences,
+[data-bs-theme=dark] .tiki .tiki-admin-aside-nav-light button.accordion-button,
+[data-bs-theme=light] .tiki .tiki-admin-top-nav-dark .accordion-item.search-preferences,
+[data-bs-theme=light] .tiki .tiki-admin-top-nav-dark button.accordion-button,
+[data-bs-theme=light] .tiki.tiki-admin .navbar-dark-parent.tiki-top-nav-dark .accordion-item.search-preferences,
+[data-bs-theme=light] .tiki.tiki-admin .navbar-dark-parent.tiki-top-nav-dark button.accordion-button,
+[data-bs-theme=light] .tiki .tiki-admin-aside-nav-dark .accordion-item.search-preferences,
+[data-bs-theme=light] .tiki .tiki-admin-aside-nav-dark button.accordion-button {
+    color: var(--tiki-admin-aside-nav-color) !important;
+    background: var(--tiki-admin-aside-nav-bg) !important;
+}
+
+.tiki-admin-top-nav-dark .accordion-button::after,
+.tiki-admin .navbar-dark-parent.tiki-top-nav-dark .accordion-button::after,
+.tiki-admin-aside-nav-dark .accordion-button::after,
+[data-bs-theme=dark] .tiki .tiki-admin-top-nav-light .accordion-button::after,
+[data-bs-theme=dark] .tiki.tiki-admin .navbar-light-parent.tiki-top-nav-light .accordion-button::after,
+[data-bs-theme=dark] .tiki .tiki-admin-aside-nav-light .accordion-button::after,
+[data-bs-theme=light] .tiki .tiki-admin-top-nav-dark .accordion-button::after,
+[data-bs-theme=light] .tiki.tiki-admin .navbar-dark-parent.tiki-top-nav-dark .accordion-button::after,
+[data-bs-theme=light] .tiki .tiki-admin-aside-nav-dark .accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.nav-pills {
+    --bs-nav-pills-link-active-bg: var(--bs-primary);
+    --bs-nav-pills-link-active-color: #fff;
+}
+
+.scroll-offset {
+    scroll-margin-top: -242px;
+}
+
+.btn {
+    font-size: unset;
+    border-radius: 9999px;
+}
