@@ -354,6 +354,7 @@ function wikiplugin_teleprompter($data, $params)
         '<div id="' . $contentId . '" class="teleprompter-content"><div class="teleprompter-spacer teleprompter-spacer-before" aria-hidden="true"></div>' . $teleprompterHtml . '<div class="teleprompter-spacer teleprompter-spacer-after" aria-hidden="true"></div></div>' .
         '</div>' .
         '<div class="teleprompter-focus-overlay" aria-hidden="true"><div class="tp-focus-mask tp-focus-mask-top"></div><div class="tp-focus-mask tp-focus-mask-bottom"></div><div class="tp-focus-guide"></div></div>' .
+        '<div class="teleprompter-progress" aria-hidden="true"><div class="teleprompter-progress-thumb"></div></div>' .
         '<div class="teleprompter-controls' . $controlsClass . '" aria-label="' . $teleprompterControlsLabel . '">' .
         '<button type="button" class="teleprompter-btn teleprompter-btn-toggle" data-tp-toggle="1" aria-pressed="false">' . $pauseButtonLabel . '</button>' .
         '<button type="button" class="teleprompter-btn teleprompter-btn-restart" data-tp-restart="1">' . $restartButtonLabel . '</button>' .
