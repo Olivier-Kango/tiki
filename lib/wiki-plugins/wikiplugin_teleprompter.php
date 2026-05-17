@@ -5,8 +5,6 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-use Tiki\Lib\core\WikiPlugin\Options\BooleanEnglishLetter;
-
 function wikiplugin_teleprompter_info()
 {
     return [
@@ -14,7 +12,7 @@ function wikiplugin_teleprompter_info()
         'documentation' => 'PluginTeleprompter',
         'description' => tr('Display vertical auto-scrolling teleprompter content with speed, mirror, timer, and focus controls.'),
         'prefs' => ['wikiplugin_teleprompter'],
-        'body' => tr('Enter custom blocks separated by "|". Wiki Syntax / HTML supported in block text. Example: <code>title:Introduction;text:Welcome text | title:Agenda;text:* Point 1\n* Point 2</code>'),
+        'body' => tr('Enter the teleprompter script. Plain text, Wiki Syntax and HTML are supported.'),
         'iconname' => 'align-justify',
         'introduced' => 30,
         'tags' => 'basic',
@@ -53,9 +51,9 @@ function wikiplugin_teleprompter_info()
             'height' => [
                 'required' => false,
                 'name' => tr('Height'),
-                'description' => tr('Teleprompter height in px or %, default 60vh.'),
+                'description' => tr('Teleprompter height in px or %, default 80vh.'),
                 'filter' => 'word',
-                'default' => '60vh',
+                'default' => '80vh',
                 'since' => '30.0',
             ],
             'titleColor' => [
@@ -69,9 +67,9 @@ function wikiplugin_teleprompter_info()
             'titleSize' => [
                 'required' => false,
                 'name' => tr('Title font size'),
-                'description' => tr('For example 42px, default 32px.'),
+                'description' => tr('For example 48px, default 48px.'),
                 'filter' => 'word',
-                'default' => '32px',
+                'default' => '48px',
                 'advanced' => true,
                 'since' => '30.0',
             ],
@@ -86,9 +84,9 @@ function wikiplugin_teleprompter_info()
             'descriptionSize' => [
                 'required' => false,
                 'name' => tr('Description font size'),
-                'description' => tr('For example 24px, default 16px.'),
+                'description' => tr('For example 28px, default 28px.'),
                 'filter' => 'word',
-                'default' => '16px',
+                'default' => '28px',
                 'advanced' => true,
                 'since' => '30.0',
             ],
@@ -103,9 +101,9 @@ function wikiplugin_teleprompter_info()
             'speed' => [
                 'required' => false,
                 'name' => tr('Speed'),
-                'description' => tr('Scroll speed in pixels per second. Example: 60 (px/s).'),
+                'description' => tr('Scroll speed in pixels per second. Example: 35 (px/s).'),
                 'filter' => 'digits',
-                'default' => 60,
+                'default' => 35,
                 'advanced' => true,
                 'since' => '30.0',
             ],
@@ -152,9 +150,12 @@ function wikiplugin_teleprompter_info()
                 'name' => tr('Timer'),
                 'description' => tr('Display running timer while prompting.'),
                 'filter' => 'alpha',
-                'default' => BooleanEnglishLetter::Yes->value,
+                'default' => 'y',
                 'advanced' => true,
-                'options' => BooleanEnglishLetter::options(),
+                'options' => [
+                    ['text' => tr('Yes'), 'value' => 'y'],
+                    ['text' => tr('No'), 'value' => 'n'],
+                ],
                 'since' => '30.0',
             ],
             'controls' => [
@@ -162,17 +163,20 @@ function wikiplugin_teleprompter_info()
                 'name' => tr('Controls'),
                 'description' => tr('Display touch-friendly Pause/Resume and Restart controls.'),
                 'filter' => 'alpha',
-                'default' => BooleanEnglishLetter::Yes->value,
+                'default' => 'y',
                 'advanced' => true,
-                'options' => BooleanEnglishLetter::options(),
+                'options' => [
+                    ['text' => tr('Yes'), 'value' => 'y'],
+                    ['text' => tr('No'), 'value' => 'n'],
+                ],
                 'since' => '30.0',
             ],
             'fontScale' => [
                 'required' => false,
                 'name' => tr('Font scale'),
-                'description' => tr('Initial font scale percentage. Example: 120 (%).'),
+                'description' => tr('Initial font scale percentage. Example: 180 (%).'),
                 'filter' => 'digits',
-                'default' => 120,
+                'default' => 180,
                 'advanced' => true,
                 'since' => '30.0',
             ],
@@ -182,17 +186,16 @@ function wikiplugin_teleprompter_info()
 
 function wikiplugin_teleprompter($data, $params)
 {
-    $params = WikiPlugin_Helper::applySeparators($params, wikiplugin_teleprompter_info());
+    $plugininfo = wikiplugin_teleprompter_info();
 
     if (empty($params['fileIds']) && empty($params['fgalId']) && empty($data)) {
-        Feedback::error(tr('Parameters missing: Please either select file gallery, give file ids or custom block code in body.'));
+        Feedback::error(tr('Parameters missing: Please either select file gallery, give file ids or enter teleprompter content in the body.'));
         return;
     }
 
     static $uid = 0;
     $uid++;
 
-    $plugininfo = wikiplugin_teleprompter_info();
     $defaults = [];
     foreach ($plugininfo['params'] as $key => $param) {
         $defaults[$key] = $param['default'] ?? '';
@@ -200,11 +203,11 @@ function wikiplugin_teleprompter($data, $params)
     $params = array_merge($defaults, $params);
 
     if (trim((string) $params['fileIds']) === '' && trim((string) $params['fgalId']) === '' && trim((string) $data) === '') {
-        Feedback::error(tr('Parameters missing: Please either select file gallery, give file ids or custom block code in body.'));
+        Feedback::error(tr('Parameters missing: Please either select file gallery, give file ids or enter teleprompter content in the body.'));
         return;
     }
 
-    $heightCSS = 'height: 60vh;';
+    $heightCSS = 'height: 80vh;';
     if (! empty($params['height']) && preg_match('/^\d+(px|%|vh|vw)$/', $params['height'])) {
         $heightCSS = 'height: ' . $params['height'] . ';';
     }
@@ -237,41 +240,7 @@ function wikiplugin_teleprompter($data, $params)
     }
 
     $parserlib = TikiLib::lib('parser');
-    $parsedSlides = [];
-    $slides = explode('|', ($data ?: ''));
-    foreach ($slides as $slide) {
-        if (! trim($slide)) {
-            continue;
-        }
-
-        $slideArr = array_filter(explode(';', str_replace(["\n", "\r"], '', $slide)));
-        $parsedSlide = [];
-        if (count($slideArr) > 0) {
-            foreach ($slideArr as $slideValue) {
-                $slideData = explode(':', $slideValue, 2);
-                if (count($slideData) === 2) {
-                    $parsedSlide[trim($slideData[0])] = trim($slideData[1]);
-                }
-            }
-        }
-
-        if (empty($parsedSlide['text']) && ! empty($slideArr[0])) {
-            $parsedSlide['text'] = $slideArr[0];
-        }
-
-        $parsedSlides[] = $parsedSlide;
-    }
-
-    foreach ($parsedSlides as $parsedSlide) {
-        $textHtml = '';
-        if (! empty($parsedSlide['text'])) {
-            $textHtml = '<div>' . $parserlib->parse_data($parsedSlide['text'], ['is_html' => true, 'parse_wiki' => true]) . '</div>';
-        }
-        $title = $parsedSlide['title'] ?? '';
-        $teleprompterBlocks[] = '<div class="teleprompter-block"><h1>' . $title . '</h1>' . $textHtml . '</div>';
-    }
-
-    if (empty($teleprompterBlocks) && trim((string) $data) !== '') {
+    if (trim((string) $data) !== '') {
         $teleprompterBlocks[] = '<div class="teleprompter-block">' . $parserlib->parse_data($data, ['is_html' => true, 'parse_wiki' => true]) . '</div>';
     }
     if (empty($teleprompterBlocks)) {

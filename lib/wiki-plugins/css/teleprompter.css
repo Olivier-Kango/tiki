@@ -1,8 +1,8 @@
 .teleprompter-container {
   --teleprompter-font-scale: 1;
-  --teleprompter-title-size: 32px;
+  --teleprompter-title-size: 48px;
   --teleprompter-title-color: inherit;
-  --teleprompter-description-size: 16px;
+  --teleprompter-description-size: 28px;
   --teleprompter-description-color: inherit;
   --teleprompter-block-bg: transparent;
 
