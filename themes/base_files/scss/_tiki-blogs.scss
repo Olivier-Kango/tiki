@@ -12,6 +12,21 @@
     }
 }
 
+.pagetitle .blogactions .btn.btn-sm.dropdown-toggle {
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .875rem;
+    --bs-btn-line-height: 1.5;
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    font-size: var(--bs-btn-font-size);
+    line-height: var(--bs-btn-line-height);
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    border-radius: var(--bs-btn-border-radius-sm, .25rem);
+}
+
 //.blogheading { Selector not found in templates
 //    display: block;
 //    width: 100%;
