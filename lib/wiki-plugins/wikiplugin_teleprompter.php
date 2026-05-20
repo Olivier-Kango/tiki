@@ -56,34 +56,25 @@ function wikiplugin_teleprompter_info()
                 'default' => '80vh',
                 'since' => '30.0',
             ],
-            'titleColor' => [
+            'headingsColor' => [
                 'required' => false,
-                'name' => tr('Title color'),
-                'description' => tr('Text color code for block titles, for example #ccc.'),
+                'name' => tr('Headings color'),
+                'description' => tr('Text color code for block headings, for example #ccc.'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '30.0',
             ],
-            'titleSize' => [
+            'textColor' => [
                 'required' => false,
-                'name' => tr('Title font size'),
-                'description' => tr('For example 48px, default 48px.'),
-                'filter' => 'word',
-                'default' => '48px',
-                'advanced' => true,
-                'since' => '30.0',
-            ],
-            'descriptionColor' => [
-                'required' => false,
-                'name' => tr('Description color'),
-                'description' => tr('Text color code for block descriptions, for example #ccc.'),
+                'name' => tr('Text color'),
+                'description' => tr('Text color code for block text, for example #ccc.'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '30.0',
             ],
-            'descriptionSize' => [
+            'textSize' => [
                 'required' => false,
-                'name' => tr('Description font size'),
+                'name' => tr('Text font size'),
                 'description' => tr('For example 28px, default 28px.'),
                 'filter' => 'word',
                 'default' => '28px',
@@ -302,10 +293,9 @@ function wikiplugin_teleprompter($data, $params)
         '--teleprompter-font-scale:' . ($teleprompterFontScale / 100),
     ];
     $instanceStyleMap = [
-        '--teleprompter-title-size' => $params['titleSize'],
-        '--teleprompter-title-color' => $params['titleColor'],
-        '--teleprompter-description-size' => $params['descriptionSize'],
-        '--teleprompter-description-color' => $params['descriptionColor'],
+        '--teleprompter-headings-color' => $params['headingsColor'],
+        '--teleprompter-text-size' => $params['textSize'],
+        '--teleprompter-text-color' => $params['textColor'],
         '--teleprompter-block-bg' => $params['slideContentBg'],
         'width' => $params['width'],
         'background' => $params['background'],
