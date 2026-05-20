@@ -179,6 +179,35 @@
     --bs-popover-header-bg: var(--bs-primary-bg-subtle);
 }
 
+[data-bs-theme=dark] .CodeMirror {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
+}
+
+[data-bs-theme=dark] .CodeMirror-cursor {
+    border-left-color: var(--bs-body-color);
+}
+
+[data-bs-theme=dark] .CodeMirror pre.CodeMirror-line,
+[data-bs-theme=dark] .CodeMirror pre.CodeMirror-line-like {
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme=dark] .CodeMirror-selected,
+[data-bs-theme=dark] .CodeMirror-focused .CodeMirror-selected {
+    background-color: var(--bs-primary-bg-subtle);
+}
+
+[data-bs-theme=dark] .CodeMirror-linenumber {
+    color: var(--bs-secondary-color);
+}
+
+[data-bs-theme=dark] .CodeMirror-gutters {
+    background-color: var(--bs-secondary-bg);
+    border-right-color: var(--bs-border-color);
+}
+
 .dropdown-menu {
     --bs-dropdown-link-active-bg: var(--bs-primary);
     --bs-dropdown-link-active-color: #fff;
