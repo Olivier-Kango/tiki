@@ -4,7 +4,8 @@
 
 @import "variables";
 
-:root {
+:root:not([data-bs-theme]),
+[data-bs-theme=light] {
     --bs-body-bg: #F8FAFD;
     --bs-body-color: #0f2742;
     --bs-body-color-rgb: 15, 39, 66;
@@ -122,7 +123,21 @@
     --bs-link-color-rgb: 159, 208, 235;
     --bs-link-hover-color: #c7e2f2;
     --bs-link-hover-color-rgb: 199, 226, 242;
+    --bs-nav-link-color: var(--bs-link-color);
+    --bs-nav-link-hover-color: var(--bs-link-hover-color);
     --bs-focus-ring-color: rgba(125, 183, 216, 0.25);
+}
+
+[data-bs-theme=dark] .nav {
+    --bs-nav-link-color: var(--bs-link-color);
+    --bs-nav-link-hover-color: var(--bs-link-hover-color);
+}
+
+[data-bs-theme=dark] .btn-link {
+    --bs-btn-color: var(--bs-link-color);
+    --bs-btn-hover-color: var(--bs-link-hover-color);
+    --bs-btn-active-color: var(--bs-link-hover-color);
+    --bs-btn-disabled-color: var(--bs-secondary-color);
 }
 
 .dropdown-menu {
