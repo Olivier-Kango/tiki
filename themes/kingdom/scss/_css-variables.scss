@@ -120,9 +120,6 @@
 }
 
 [data-bs-theme=dark] {
-    --bs-blue: #7db7d8;
-    --bs-primary: #7db7d8;
-    --bs-primary-rgb: 125, 183, 216;
     --bs-primary-text-emphasis: #c7e2f2;
     --bs-primary-bg-subtle: #071d31;
     --bs-primary-border-subtle: #245a7a;
@@ -138,6 +135,10 @@
 [data-bs-theme=dark] .nav {
     --bs-nav-link-color: var(--bs-link-color);
     --bs-nav-link-hover-color: var(--bs-link-hover-color);
+}
+
+[data-bs-theme=dark] .bg-white {
+    background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity, 1));
 }
 
 [data-bs-theme=dark] .box-menu {
