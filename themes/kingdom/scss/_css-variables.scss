@@ -140,6 +140,30 @@
     --bs-nav-link-hover-color: var(--bs-link-hover-color);
 }
 
+[data-bs-theme=dark] .box-menu {
+    --bs-nav-link-color: var(--bs-link-color);
+    --bs-nav-link-hover-color: var(--bs-link-hover-color);
+    --sm-collapsible-nav-link-color: var(--bs-link-color);
+}
+
+[data-bs-theme=dark] .box-menu a:not(.btn, .dropdown-item),
+[data-bs-theme=dark] .box-menu .nav-link,
+[data-bs-theme=dark] .box-menu .sm-nav-link,
+[data-bs-theme=dark] .box-menu .sm-sub-link {
+    color: var(--bs-link-color);
+}
+
+[data-bs-theme=dark] .box-menu a:not(.btn, .dropdown-item):hover,
+[data-bs-theme=dark] .box-menu a:not(.btn, .dropdown-item):focus,
+[data-bs-theme=dark] .box-menu .nav-link:hover,
+[data-bs-theme=dark] .box-menu .nav-link:focus,
+[data-bs-theme=dark] .box-menu .sm-nav-link:hover,
+[data-bs-theme=dark] .box-menu .sm-nav-link:focus,
+[data-bs-theme=dark] .box-menu .sm-sub-link:hover,
+[data-bs-theme=dark] .box-menu .sm-sub-link:focus {
+    color: var(--bs-link-hover-color);
+}
+
 [data-bs-theme=dark] .btn-link {
     --bs-btn-color: var(--bs-link-color);
     --bs-btn-hover-color: var(--bs-link-hover-color);
