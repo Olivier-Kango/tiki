@@ -304,6 +304,31 @@
     background-color: var(--bs-primary-bg-subtle);
 }
 
+[data-bs-theme=dark] .dropdown-menu {
+    --bs-dropdown-link-hover-color: var(--bs-link-hover-color);
+    --bs-dropdown-link-hover-bg: var(--bs-primary-bg-subtle);
+    --bs-dropdown-link-active-color: var(--bs-link-hover-color);
+    --bs-dropdown-link-active-bg: var(--bs-primary-bg-subtle);
+}
+
+[data-bs-theme=dark] .dropdown-item:hover,
+[data-bs-theme=dark] .dropdown-item:focus,
+[data-bs-theme=dark] .dropdown-item.active,
+[data-bs-theme=dark] .dropdown-item:active,
+[data-bs-theme=dark] .sm-nav-link:hover,
+[data-bs-theme=dark] .sm-nav-link:focus,
+[data-bs-theme=dark] .sm-nav-link.active,
+[data-bs-theme=dark] .sm-nav-link.show,
+[data-bs-theme=dark] .sm-nav-link[aria-expanded=true],
+[data-bs-theme=dark] .sm-sub-link:hover,
+[data-bs-theme=dark] .sm-sub-link:focus,
+[data-bs-theme=dark] .sm-sub-link.active,
+[data-bs-theme=dark] .sm-sub-link.show,
+[data-bs-theme=dark] .sm-sub-link[aria-expanded=true] {
+    color: var(--bs-link-hover-color) !important;
+    background-color: var(--bs-primary-bg-subtle);
+}
+
 .select2-container--bootstrap-5.select2-container--focus .select2-selection,
 .select2-container--bootstrap-5.select2-container--open .select2-selection,
 .select2-container--bootstrap-5 .select2-selection:focus {
