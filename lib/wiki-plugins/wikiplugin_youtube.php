@@ -61,6 +61,14 @@ function wikiplugin_youtube_info()
                 'filter' => 'digits',
                 'default' => 0,
             ],
+            'end' => [
+                'required' => false,
+                'name' => tra('End time'),
+                'description' => tra('End time offset in seconds'),
+                'since' => '30.2',
+                'filter' => 'digits',
+                'default' => 0,
+            ],
             'quality' => [
                 'required' => false,
                 'name' => tra('Quality'),

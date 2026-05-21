@@ -63,6 +63,15 @@ class WikiPlugin_YoutubeTest extends PHPUnit\Framework\TestCase
                 'movie'           => 'https://www.youtube.com/watch?v=4AcGoG9PChs',
                 'privacyEnhanced' => 'y',
             ]],
+            ['', 'youtube.com/embed/4AcGoG9PChs', [
+                'movie'           => 'https://www.youtube.com/watch?v=4AcGoG9PChs',
+                'privacyEnhanced' => 'n',
+            ]],
+            ['', 'start=12&amp;end=34', [
+                'movie' => 'https://www.youtube.com/watch?v=4AcGoG9PChs',
+                'start' => 12,
+                'end'   => 34,
+            ]],
 
             // All supported YouTube URL formats
             ['', 'youtube.com/embed/j4dMnAPZu70', ['movie' => 'https://youtu.be/j4dMnAPZu70']],
