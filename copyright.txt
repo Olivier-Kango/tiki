@@ -1297,7 +1297,7 @@ Nickname: chibaguy
 Name: Gary Cunningham-Lee
 First Commit: 2006-02-04
 Last Commit: Mon Mar 2 09:16:38 2020 +0000
-Number of Commits: 2803
+Number of Commits: 2802
 SF Role: Admin
 
 Nickname: chris_holman
@@ -2113,7 +2113,7 @@ Nickname: ingesol
 Name: Inge Solvoll
 First Commit: 2003-05-28
 Last Commit: Sun Oct 5 18:13:53 2003 +0000
-Number of Commits: 6
+Number of Commits: 7
 SF Role: Developer
 
 Nickname: ipso
@@ -3089,7 +3089,7 @@ SF Role: Developer
 Nickname: mose
 First Commit: 2003-06-12
 Last Commit: Tue Jan 15 09:21:47 2008 +0000
-Number of Commits: 1899
+Number of Commits: 1898
 SF Role: Developer
 
 Nickname: mrbuiu
@@ -3214,7 +3214,7 @@ Nickname: nkoth
 Name: Nelson
 First Commit: 2007-05-17
 Last Commit: Tue Nov 26 21:26:14 2019 +0000
-Number of Commits: 1629
+Number of Commits: 1630
 SF Role: Developer
 
 Nickname: normandaoust
@@ -3768,7 +3768,7 @@ SF Role: Developer
 Nickname: sampaioprimo
 First Commit: Fri Sep 26 19:23:46 2014 +0000
 Last Commit: Mon Dec 28 19:05:46 2015 +0000
-Number of Commits: 895
+Number of Commits: 894
 
 Nickname: samymwamba
 Name: Samy mwamba
@@ -4139,8 +4139,8 @@ SF Role: Admin
 
 Nickname: ushindi bienvenu
 First Commit: Wed Aug 21 17:30:54 2024 +0000
-Last Commit: Sat May 23 03:07:56 2026 +0200
-Number of Commits: 41
+Last Commit: Sun May 24 01:19:34 2026 +0200
+Number of Commits: 51
 
 Nickname: uxeric
 First Commit: 2015-08-17
@@ -4293,7 +4293,7 @@ Nickname: yonixxx
 Name: Bernard Sfez
 First Commit: 2008-02-25
 Last Commit: Mon Aug 12 07:32:24 2019 +0000
-Number of Commits: 326
+Number of Commits: 327
 SF Role: Admin, Developer
 
 Nickname: ysoya
