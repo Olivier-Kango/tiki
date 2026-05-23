@@ -87,7 +87,7 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./db/preconfiguration.php', '20570c08e6373ededde60d1b0d40342a', '27.6'),
 ('./db/tiki-db.php', '86d6bb6e9bbec7e52746234e9ef3403c', '27.6'),
 ('./db/tiki-secdb_27.6_mysql.sql', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./db/tiki.sql', '93d13c0d66316a4ebb7404179fa4b6a0', '27.6'),
+('./db/tiki.sql', '9c782efb0dd33557f96bbc046009bb6a', '27.6'),
 ('./db/tiki_1.8to1.9.sql', 'f80245cedb6e5ed6de7825559fcc1d97', '27.6'),
 ('./db/tiki_1.9to2.0.sql', '67556440f34bfcffa2e4a848e441b8de', '27.6'),
 ('./db/tiki_2.0to3.0.sql', '3daf2274785419d1c2deb4d5968e6b7f', '27.6'),
@@ -793,9 +793,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./installer/schema/20180815_merge_topic_read_perm_tiki.sql', '248fb02673aed57936068d21e55ca3d0', '27.6'),
 ('./installer/schema/20180909_remove_page_content_fetch_readability_tiki.sql', '3c2bad543cb7a0a240d301977a65b7ea', '27.6'),
 ('./installer/schema/20180918_remove_poweredby_module_tiki.sql', '04f3233604e34ed46c3a0596baf160d6', '27.6'),
-('./installer/schema/20180921_php_upgrade_fix_from_older_tiki.php', 'db410370080c5e1d19baa9b7603b179f', '27.6'),
-('./installer/schema/20180921_sql_upgrade_fix_from_older_tiki.php', '7215c7964bb045e3c2f436181a273068', '27.6'),
-('./installer/schema/20180923_convert_collation_to_utf8mb4_tiki.php', '5df84dc0c0ff1ecc42fc79f23860a723', '27.6'),
+('./installer/schema/20180921_php_upgrade_fix_from_older_tiki.php', '5120ab754e911ea426976e5dc97d518b', '27.6'),
+('./installer/schema/20180921_sql_upgrade_fix_from_older_tiki.php', 'b4cb598bd215c313edd93f2f78c99fdb', '27.6'),
+('./installer/schema/20180923_convert_collation_to_utf8mb4_tiki.php', 'd5c2b526223227bfc75d3684ab198f3e', '27.6'),
 ('./installer/schema/20180925_feature_jquery_superfish_pref_default_tiki.php', 'aa37e17717f27af3bff25be4fe504908', '27.6'),
 ('./installer/schema/20181114_ocr_uff8mb4_tiki.sql', '29317c82da0d406663cba29d46a5d041', '27.6'),
 ('./installer/schema/20181127_convert_db_local_to_utf8mb4_tiki.php', '10aaa9ad8f215493ad61ae86f25944c7', '27.6'),
@@ -935,10 +935,12 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./installer/schema/20250908_queue_entryid_bigint_tiki.sql', '449b9b2f43f7878d9d2cd74b9f9a3ef8', '27.6'),
 ('./installer/schema/20251006_fix_datetime_tracker_field_tiki.php', '380ff8cd25bedaf40cb10d573840e615', '27.6'),
 ('./installer/schema/20251216_revert_file_gallery_prefix_tiki.sql', '836ba7cf8237652a403a2920b41bc4c2', '27.6'),
-('./installer/schema/20260123_update_right_column_for_file_type_in_sefurl_tiki.sql', '19242a257b7d419f3e1c9a6fb5c27bb4', '27.6'),
-('./installer/schema/20260212_update_regex_right_column_for_file_type_in_sefurl_tiki.sql', '56d56a9b03029fa98a1102acf1506dbf', '27.6'),
+('./installer/schema/20260123_update_right_column_for_file_type_in_sefurl_tiki.sql', 'e52f3070f94cf3f8fc26c92256f74a22', '27.6'),
+('./installer/schema/20260212_restore_right_dl_for_file_type_in_sefurl_tiki.sql', 'c0371046cb81ddde3bab0306c1d1ddb6', '27.6'),
+('./installer/schema/20260212_update_regex_right_column_for_file_type_in_sefurl_tiki.sql', '820b34283ad4ca43634052c11fe48021', '27.6'),
 ('./installer/schema/20260312_change_fixed_width_default_tiki.php', '8b0131c95b57da05d6a113f6ed9122ac', '27.6'),
 ('./installer/schema/20260416_delete_legacy_serialized_newsletter_infos_tiki.php', '34176e2329c14ef4f23c955f039ea38a', '27.6'),
+('./installer/schema/20260524_increase_filename_len_in_pk_tiki.sql', 'd11ba535e13ff28fd0734dc6771d5520', '27.6'),
 ('./installer/schema/999999991_decode_pages_sources_tiki.php', '34788e2106859e0fe933d00a29603f23', '27.6'),
 ('./installer/schema/99999999_image_plugins_kill_tiki.php', '594c0d7fbb4c0afc455044ee673e1b4e', '27.6'),
 ('./installer/schema/index.php', 'b94766c4a347613e2cf323ca1303b436', '27.6'),
@@ -10601,11 +10603,11 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./node_modules/d3-ease/src/sin.js', 'c97fa8e2367b40eb4bb73174536995b2', '27.6'),
 ('./node_modules/d3-fetch/dist/d3-fetch.js', 'd42587e6cef1782dc7512aef39ee8b95', '27.6'),
 ('./node_modules/d3-fetch/dist/d3-fetch.min.js', '1d1b9319ffdb3e9a70aebad88cdb0272', '27.6'),
-('./node_modules/d3-fetch/src/blob.js', 'c3859a0fdbdd80719e71cbfa5babf8b4', '27.6'),
+('./node_modules/d3-fetch/src/blob.js', 'c3859a0fdbdd80719e71cbfa5babf8b4', '27.6');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
 ('./node_modules/d3-fetch/src/buffer.js', '03e00d45155a639e30187d701952819e', '27.6'),
 ('./node_modules/d3-fetch/src/dsv.js', 'f3f6e70c4255cfeb528520cf419a863c', '27.6'),
-('./node_modules/d3-fetch/src/image.js', 'd6fe75022bcad9d510e40ffd8fb9b872', '27.6');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./node_modules/d3-fetch/src/image.js', 'd6fe75022bcad9d510e40ffd8fb9b872', '27.6'),
 ('./node_modules/d3-fetch/src/index.js', 'd80150fa9e5c875c619f36170a2dc561', '27.6'),
 ('./node_modules/d3-fetch/src/json.js', 'a38a02f6811d9f7088730df21aafa4b4', '27.6'),
 ('./node_modules/d3-fetch/src/text.js', 'f3db5f117c7f5a107347c44ace18cb8f', '27.6'),
@@ -19663,11 +19665,11 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./node_modules/jquery/src/css/hiddenVisibleSelectors.js', '46ad6606fc658bf81331ac866c8dff05', '27.6'),
 ('./node_modules/jquery/src/css/showHide.js', '54cab17f823997ec76defd99a42fba25', '27.6'),
 ('./node_modules/jquery/src/css/support.js', '812d86770726f879b4fed3b5ccf65bc1', '27.6'),
-('./node_modules/jquery/src/css/var/cssExpand.js', '97946b11fa6b665f8107a0355ebd21a9', '27.6'),
+('./node_modules/jquery/src/css/var/cssExpand.js', '97946b11fa6b665f8107a0355ebd21a9', '27.6');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
 ('./node_modules/jquery/src/css/var/getStyles.js', '54c8d0a09a255adaab3fbaf4e5c257ef', '27.6'),
 ('./node_modules/jquery/src/css/var/isHiddenWithinTree.js', '8abfa591c963b3d44a3521411e25e9f1', '27.6'),
-('./node_modules/jquery/src/css/var/rboxStyle.js', 'acd42f54a6af31f365cb4ce43d3f1aad', '27.6');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./node_modules/jquery/src/css/var/rboxStyle.js', 'acd42f54a6af31f365cb4ce43d3f1aad', '27.6'),
 ('./node_modules/jquery/src/css/var/rcustomProp.js', 'c3d91fa7f662df8306c89afff156e4d6', '27.6'),
 ('./node_modules/jquery/src/css/var/rnumnonpx.js', '76441e4d11353acf6c624b9174c10d28', '27.6'),
 ('./node_modules/jquery/src/css/var/swap.js', 'a3d5a3f74650119eedd1f4426768ff2c', '27.6'),
@@ -30239,12 +30241,12 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./themes/fivealive-lite/options/watermelon/css/index.php', '138d142b68ffed769bee523a99796980', '27.6'),
 ('./themes/fivealive-lite/options/watermelon/css/watermelon.css', '6833b2e1de726800d662cc2ff05e638d', '27.6'),
 ('./themes/fivealive-lite/options/watermelon/images/index.php', '138d142b68ffed769bee523a99796980', '27.6'),
-('./themes/fivealive-lite/options/watermelon/index.php', 'cd1f5a887fccf3fc5dbe7a407edafe02', '27.6'),
+('./themes/fivealive-lite/options/watermelon/index.php', 'cd1f5a887fccf3fc5dbe7a407edafe02', '27.6');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
 ('./themes/fivealive-lite/options/watermelon/scss/index.php', '138d142b68ffed769bee523a99796980', '27.6'),
 ('./themes/fivealive-lite/scss/index.php', '9eb92015f38ac940708f168c20a5b697', '27.6'),
 ('./themes/fivealive/css/fivealive.css', 'f0d684de9387bbc71398d1828dec8833', '27.6'),
-('./themes/fivealive/css/index.php', '9eb92015f38ac940708f168c20a5b697', '27.6');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./themes/fivealive/css/index.php', '9eb92015f38ac940708f168c20a5b697', '27.6'),
 ('./themes/fivealive/css/newsletter.css', 'cc0be6cd65178b1e7d5e1243524f7c9a', '27.6'),
 ('./themes/fivealive/images/index.php', '9eb92015f38ac940708f168c20a5b697', '27.6'),
 ('./themes/fivealive/index.php', 'b94766c4a347613e2cf323ca1303b436', '27.6'),
@@ -30989,8 +30991,6 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./tiki_tests/tiki-tests_replay.php', 'fcc5f293cf0581886440f247eea9cb18', '27.6'),
 ('./tiki_tests/tiki-tests_show_xpath.php', '37aed12b291488d7b3a8788a3172844e', '27.6'),
 ('./tiki_tests/tikitestslib.php', '361843741fded5fad39ce63d158a02cd', '27.6'),
-('./tikinew.sql', '43936f0f5cd95ab9a2f4bc4081d14eac', '27.6'),
-('./tikiold.sql', '158236136caa66f8e456160edce4d0c8', '27.6'),
 ('./validate-ajax.php', '716c89a69e323b6d307c6a99cfd88c31', '27.6'),
 ('./vendor_bundled/vendor/Sam152/Javascript-Equal-Height-Responsive-Rows/grids.min.js', '86f1b17113e54b95ec9f604e319f9ffc', '27.6'),
 ('./vendor_bundled/vendor/Sam152/Javascript-Equal-Height-Responsive-Rows/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -38551,9 +38551,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/RatingPlugin.php', '019a6cee4ea671149aa4468b018ada06', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Service/RatingService.php', '4b6ec7f5803192e634271b6136ec8b28', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Service/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCount.php', 'ff95b67f4b02259b12d36c59bb960c67', '27.6'),
-('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountBaseFilter.php', '81a01d38816463853e04b8f19cb73845', '27.6');
+('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCount.php', 'ff95b67f4b02259b12d36c59bb960c67', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountBaseFilter.php', '81a01d38816463853e04b8f19cb73845', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountFilter.php', '2991434a7cf826e5c9949a16b4c66123', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountListResponse.php', '26130118f5896b7f3a0e8101ec87d45c', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -45551,9 +45551,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier13/input.js', '986924ba7c18b06d1db73eb4e5a589b3', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier13/output.js', '49f9e7522160749825a2f2536891174a', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/input.js', 'bc15afbb0329cb6783eaf2a3d0fb6ed9', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/output.js', '9cfce625c4514b341824c2a0f6590074', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/input.js', 'bc15afbb0329cb6783eaf2a3d0fb6ed9', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/output.js', '9cfce625c4514b341824c2a0f6590074', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier15/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier15/input.js', '10921610c9430ed0a4ad7a81fd610b96', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier15/output.js', '7f4e4c52c5927f12b130469f9d57d6e8', '27.6'),
@@ -51422,9 +51422,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes-multiple-lines/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes-multiple-lines/input.js', 'f3e57ec6c2fc82a9646045f3913494af', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes/input.js', 'a3589f33ed3f7f78e1007d4904781e7e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-invalid-value/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes/input.js', 'a3589f33ed3f7f78e1007d4904781e7e', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-invalid-value/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-invalid-value/input.js', 'da2af8e3753db4398854aca5b02b56b7', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-no-type-attribute/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-no-type-attribute/input.js', '3c77dc865f525a6ad8978e2942fe7401', '27.6'),
@@ -56595,9 +56595,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-default-var/input.js', 'c92922187fa47c07fa17dfe7fbe66089', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-interface/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-interface/input.js', 'a35284744740ba2be799a086bbc7e347', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/input.js', 'cd2a862037583203eedc8d8ce36769eb', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/input.js', 'cd2a862037583203eedc8d8ce36769eb', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/1/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/1/input.js', '1f4b2597de65986d226a202b5d9785b5', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/10/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
