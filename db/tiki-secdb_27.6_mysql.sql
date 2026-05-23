@@ -793,9 +793,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./installer/schema/20180815_merge_topic_read_perm_tiki.sql', '248fb02673aed57936068d21e55ca3d0', '27.6'),
 ('./installer/schema/20180909_remove_page_content_fetch_readability_tiki.sql', '3c2bad543cb7a0a240d301977a65b7ea', '27.6'),
 ('./installer/schema/20180918_remove_poweredby_module_tiki.sql', '04f3233604e34ed46c3a0596baf160d6', '27.6'),
-('./installer/schema/20180921_php_upgrade_fix_from_older_tiki.php', '5120ab754e911ea426976e5dc97d518b', '27.6'),
-('./installer/schema/20180921_sql_upgrade_fix_from_older_tiki.php', 'b4cb598bd215c313edd93f2f78c99fdb', '27.6'),
-('./installer/schema/20180923_convert_collation_to_utf8mb4_tiki.php', 'd5c2b526223227bfc75d3684ab198f3e', '27.6'),
+('./installer/schema/20180921_php_upgrade_fix_from_older_tiki.php', 'db410370080c5e1d19baa9b7603b179f', '27.6'),
+('./installer/schema/20180921_sql_upgrade_fix_from_older_tiki.php', '7215c7964bb045e3c2f436181a273068', '27.6'),
+('./installer/schema/20180923_convert_collation_to_utf8mb4_tiki.php', '5df84dc0c0ff1ecc42fc79f23860a723', '27.6'),
 ('./installer/schema/20180925_feature_jquery_superfish_pref_default_tiki.php', 'aa37e17717f27af3bff25be4fe504908', '27.6'),
 ('./installer/schema/20181114_ocr_uff8mb4_tiki.sql', '29317c82da0d406663cba29d46a5d041', '27.6'),
 ('./installer/schema/20181127_convert_db_local_to_utf8mb4_tiki.php', '10aaa9ad8f215493ad61ae86f25944c7', '27.6'),
@@ -30989,6 +30989,8 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./tiki_tests/tiki-tests_replay.php', 'fcc5f293cf0581886440f247eea9cb18', '27.6'),
 ('./tiki_tests/tiki-tests_show_xpath.php', '37aed12b291488d7b3a8788a3172844e', '27.6'),
 ('./tiki_tests/tikitestslib.php', '361843741fded5fad39ce63d158a02cd', '27.6'),
+('./tikinew.sql', '43936f0f5cd95ab9a2f4bc4081d14eac', '27.6'),
+('./tikiold.sql', '158236136caa66f8e456160edce4d0c8', '27.6'),
 ('./validate-ajax.php', '716c89a69e323b6d307c6a99cfd88c31', '27.6'),
 ('./vendor_bundled/vendor/Sam152/Javascript-Equal-Height-Responsive-Rows/grids.min.js', '86f1b17113e54b95ec9f604e319f9ffc', '27.6'),
 ('./vendor_bundled/vendor/Sam152/Javascript-Equal-Height-Responsive-Rows/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -38550,9 +38552,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Service/RatingService.php', '4b6ec7f5803192e634271b6136ec8b28', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Service/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCount.php', 'ff95b67f4b02259b12d36c59bb960c67', '27.6'),
-('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountBaseFilter.php', '81a01d38816463853e04b8f19cb73845', '27.6'),
-('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountFilter.php', '2991434a7cf826e5c9949a16b4c66123', '27.6');
+('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountBaseFilter.php', '81a01d38816463853e04b8f19cb73845', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountFilter.php', '2991434a7cf826e5c9949a16b4c66123', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/RatingCountListResponse.php', '26130118f5896b7f3a0e8101ec87d45c', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/Type/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/kaltura/api-client-library/library/Kaltura/Client/Plugin/Rating/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -45550,9 +45552,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier13/output.js', '49f9e7522160749825a2f2536891174a', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/input.js', 'bc15afbb0329cb6783eaf2a3d0fb6ed9', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/output.js', '9cfce625c4514b341824c2a0f6590074', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier15/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier14/output.js', '9cfce625c4514b341824c2a0f6590074', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier15/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier15/input.js', '10921610c9430ed0a4ad7a81fd610b96', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier15/output.js', '7f4e4c52c5927f12b130469f9d57d6e8', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-generator/test/fixtures/types/ExportSpecifier2/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -51421,9 +51423,9 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes-multiple-lines/input.js', 'f3e57ec6c2fc82a9646045f3913494af', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-attributes/input.js', 'a3589f33ed3f7f78e1007d4904781e7e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-invalid-value/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-invalid-value/input.js', 'da2af8e3753db4398854aca5b02b56b7', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-invalid-value/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-invalid-value/input.js', 'da2af8e3753db4398854aca5b02b56b7', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-no-type-attribute/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-no-type-attribute/input.js', '3c77dc865f525a6ad8978e2942fe7401', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/es2025/import-attributes/valid-syntax-with-object-method-attribute/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -56594,10 +56596,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-interface/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-interface/input.js', 'a35284744740ba2be799a086bbc7e347', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/input.js', 'cd2a862037583203eedc8d8ce36769eb', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/1/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/1/input.js', '1f4b2597de65986d226a202b5d9785b5', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/input.js', 'cd2a862037583203eedc8d8ce36769eb', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/1/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/1/input.js', '1f4b2597de65986d226a202b5d9785b5', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/10/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/10/input.js', 'a400837edeadd6265aa320c9f5689667', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-parser/test/fixtures/flow/declare-module/2/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -61977,10 +61979,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-decl-to-expression/method-decorators/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-decl-to-expression/no-decorators/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/mutate-descriptor/exec.js', '9096a47238baa2f4dc29a9fe569c9b98', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/mutate-descriptor/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/numeric-props/exec.js', '3c3f894668905e8eb37f8f36c6d4c698', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/mutate-descriptor/exec.js', '9096a47238baa2f4dc29a9fe569c9b98', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/mutate-descriptor/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/numeric-props/exec.js', '3c3f894668905e8eb37f8f36c6d4c698', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/numeric-props/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/return-descriptor/exec.js', 'f559ff54382d24eadd17c9152b3f6406', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-proposal-decorators/test/fixtures/legacy-object-methods/return-descriptor/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -67164,10 +67166,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/declare-statements/output.js', '6b9b7ff50001f09dbda537f50a591a6c', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/def-site-variance/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/def-site-variance/input.js', '258e968f7e6da5e6da16a1cee7794fce', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/def-site-variance/output.js', 'cff1d9d10511203df40cb3c53fd7cfe1', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/default-parameters/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/default-parameters/input.js', 'bc47cc431753546bb1303fa779140464', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/def-site-variance/output.js', 'cff1d9d10511203df40cb3c53fd7cfe1', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/default-parameters/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/default-parameters/input.js', 'bc47cc431753546bb1303fa779140464', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/default-parameters/output.js', '5745e9bdddf1c25843ae1de0fee6383a', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/export-type-alias/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-flow-comments/test/fixtures/flow-comments/export-type-alias/input.js', 'daaef9e7d1c8c7966a5dae17b61b948d', '27.6'),
@@ -72389,10 +72391,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/statement/input.js', '77fb4268965b20202a4d032f99f33ec4', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/statement/output.js', '08ed42ec6b576cdd5a65d0a54c0fadd2', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/symbol/exec.js', '3d2a90b34cb713e85ea580fe74ad3e88', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/symbol/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/tag/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/tag/input.js', '1deb5c7088e39a4f33c2f99c0cfadcd0', '27.6');
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/symbol/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/tag/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
+('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/tag/input.js', '1deb5c7088e39a4f33c2f99c0cfadcd0', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-ignoreToPrimitiveHint/tag/output.js', '148c9c9a3cd52c7940cb934e8970c4be', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-mutableTemplateObject/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/npm-asset/babel--parser/packages/babel-plugin-transform-template-literals/test/fixtures/assumption-mutableTemplateObject/no-tag/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
@@ -80036,10 +80038,10 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES
 ('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_ajax/styles/graphics.css', 'b16e82665e2c424e33800807144cc506', '27.6'),
 ('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_ajax/styles/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/images/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/scripts/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
-('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/scripts/l10n/cs/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6');
+('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES 
+('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/scripts/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
+('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/scripts/l10n/cs/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
 ('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/scripts/l10n/cs/labellers.js', '3ddd285df104718239ea983368796768', '27.6'),
 ('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/scripts/l10n/cs/timeline.js', 'a560de0368449dbedb19580d73317efe', '27.6'),
 ('./vendor_bundled/vendor/simile_timeline/simile_timeline/timeline_js/scripts/l10n/de/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '27.6'),
