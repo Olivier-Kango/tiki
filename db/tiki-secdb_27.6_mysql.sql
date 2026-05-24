@@ -1,5 +1,6 @@
 start transaction;
 DELETE FROM `tiki_secdb`;
+ALTER TABLE `tiki_secdb` ADD COLUMN `filename_hash` CHAR(32) NOT NULL AFTER `filename`;
 ALTER TABLE `tiki_secdb` DROP PRIMARY KEY, ADD PRIMARY KEY (`filename_hash`, `tiki_version`(20));
 
 INSERT INTO `tiki_secdb` (`filename`, `filename_hash`, `md5_value`, `tiki_version`) VALUES 
