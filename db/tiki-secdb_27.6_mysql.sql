@@ -1,6 +1,6 @@
 start transaction;
 DELETE FROM `tiki_secdb`;
-ALTER TABLE `tiki_secdb` DROP PRIMARY KEY,  ADD PRIMARY KEY (`filename_hash`, `tiki_version`(20));
+ALTER TABLE `tiki_secdb` DROP PRIMARY KEY, ADD PRIMARY KEY (`filename_hash`, `tiki_version`(20));
 
 INSERT INTO `tiki_secdb` (`filename`, `filename_hash`, `md5_value`, `tiki_version`) VALUES 
 ('./.phpstorm.meta.php', '6283717f3d9f91228cdbd0dcf5fd7b56', 'c94a2803140338162737442f39b534bf', '27.6'),
