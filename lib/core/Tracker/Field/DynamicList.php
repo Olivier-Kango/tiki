@@ -327,6 +327,9 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
                     });
                 }
             }
+                
+            // tell the document we are ready
+            $(document).trigger("ready.dynamic_list", [$ddl]);
 
             if (jqueryTiki.select2) {
                 $ddl.trigger("change.select2");
