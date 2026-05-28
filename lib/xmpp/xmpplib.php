@@ -416,10 +416,10 @@ class XMPPLib extends TikiLib
             'http_bind'       => $this->server_http_bind,
             'websocket_url'   => $prefs['xmpp_ws_url'] ?? '',
             'custom_endpoint' => false,
-            'jid'       => $prefs['xmpp_server_host'] ? JID::buildJid($u_jid, $prefs['xmpp_server_host']) : '',
-            'password'  => $u_password,
-            'username'  => $u_jid,
-            'nickname'  => $u_nickname,
+            'jid'             => $prefs['xmpp_server_host'] ? JID::buildJid($u_jid, $prefs['xmpp_server_host']) : '',
+            'password'        => $u_password,
+            'username'        => $u_jid,
+            'nickname'        => $u_nickname,
         ];
 
         $jid_parts = JID::parseJid($u_jid);

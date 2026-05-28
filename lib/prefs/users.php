@@ -306,6 +306,7 @@ function prefs_users_list()
             'size' => 40,
             'filter' => 'url',
             'hint' => tra('wss://xmpp.example.org/xmpp-websocket'),
+            'hint' => tra('wss://xmpp.example.org/xmpp-websocket'),
             'tags' => ['basic'],
             'default' => '',
             'help' => $prefsTextEditingToUsersHelp,
