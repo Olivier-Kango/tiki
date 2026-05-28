@@ -575,13 +575,14 @@
                             </div>
                         </div>
                         <div class="tiki-form-group row">
-                            <label class="col-form-label col-md-4" for="xmpp_server_http_bind">
-                                {tr}XMPP http-bind URL{/tr}
+                            <label class="col-form-label col-md-4" for="xmpp_custom_server_endpoint">
+                                {tr}XMPP connection endpoint{/tr}
                             </label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="xmpp_custom_server_http_bind" id="xmpp_custom_server_http_bind" value="{$user_prefs.xmpp_custom_server_http_bind|escape}">
-                                <p><small>{tr}Provide this when using an external XMPP server that requires a custom BOSH endpoint{/tr}</small></p>
-                                <p><small>{tr}If left empty, Tiki falls back to the default configured endpoint{/tr}</small></p>
+                                <input type="text" class="form-control" name="xmpp_custom_server_endpoint" id="xmpp_custom_server_endpoint" value="{if $user_prefs.xmpp_custom_server_endpoint}{$user_prefs.xmpp_custom_server_endpoint|escape}{else}{$user_prefs.xmpp_custom_server_http_bind|escape}{/if}">
+                                <p><small>{tr}Provide this when using an external XMPP server that requires a custom BOSH or WebSocket endpoint{/tr}</small></p>
+                                <p><small>{tr}Use an http:// or https:// URL for BOSH, or a ws:// or wss:// URL for WebSocket{/tr}</small></p>
+                                <p><small>{tr}If left empty, Converse will try to discover the endpoint from the external XMPP domain{/tr}</small></p>
                             </div>
                         </div>
                     {/if}

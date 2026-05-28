@@ -359,10 +359,11 @@ class XMPPLib extends TikiLib
         $query = 'SELECT'
         . '     MAX(CASE WHEN `prefName`="xmpp_jid" THEN `value` END) AS `jid`,'
         . '     MAX(CASE WHEN `prefName`="xmpp_password" THEN `value` END) AS `password`,'
-        . '     MAX(CASE WHEN `prefName`="xmpp_custom_server_http_bind" THEN `value` END) AS `http_bind`,'
+        . '     MAX(CASE WHEN `prefName`="xmpp_custom_server_endpoint" THEN `value` END) AS `endpoint`,'
+        . '     MAX(CASE WHEN `prefName`="xmpp_custom_server_http_bind" THEN `value` END) AS `legacy_http_bind`,'
         . '     MAX(CASE WHEN `prefName`="realName" THEN `value` END) AS `nickname`'
         . ' FROM `tiki_user_preferences` WHERE `user`=?'
-        . '     AND `prefName` IN ("xmpp_jid", "xmpp_password", "xmpp_custom_server_http_bind", "realName")';
+        . '     AND `prefName` IN ("xmpp_jid", "xmpp_password", "xmpp_custom_server_endpoint", "xmpp_custom_server_http_bind", "realName")';
 
         $query = $this->query($query, [$user]);
         $login = $query->fetchRow();
@@ -372,23 +373,54 @@ class XMPPLib extends TikiLib
         }
 
         $info = [
-            'domain'    => $this->server_host,
-            'http_bind' => $this->server_http_bind,
-            'jid'       => $prefs['xmpp_server_host'] ? JID::buildJid($login['jid'], $prefs['xmpp_server_host']) : '',
-            'password'  => $login['password'] ?: '',
-            'username'  => $login['jid'],
-            'nickname'  => $login['nickname'] ?: $user,
+            'domain'          => $this->server_host,
+            'http_bind'       => $this->server_http_bind,
+            'websocket_url'   => $prefs['xmpp_ws_url'] ?? '',
+            'custom_endpoint' => false,
+            'jid'             => $prefs['xmpp_server_host'] ? JID::buildJid($login['jid'], $prefs['xmpp_server_host']) : '',
+            'password'        => $login['password'] ?: '',
+            'username'        => $login['jid'],
+            'nickname'        => $login['nickname'] ?: $user,
         ];
 
         $jid_parts = JID::parseJid($login['jid']);
         if ($jid_parts) {
-            $info['jid']       = $login['jid'];
-            $info['username']  = $jid_parts['node'];
-            $info['domain']    = $jid_parts['domain'];
-            $info['http_bind'] = $login['http_bind'] ?: $this->server_http_bind;
+            $info['jid']      = $login['jid'];
+            $info['username'] = $jid_parts['node'];
+            $info['domain']   = $jid_parts['domain'];
+
+            $endpoint = trim($login['endpoint'] ?: $login['legacy_http_bind'] ?: '');
+            if ($endpoint) {
+                $transportOptions = $this->getEndpointTransportOptions($endpoint);
+                if ($transportOptions) {
+                    $info = array_merge($info, $transportOptions);
+                    $info['custom_endpoint'] = true;
+                }
+            }
         }
 
         return $info;
+    }
+
+    private function getEndpointTransportOptions(string $endpoint): array
+    {
+        $scheme = strtolower(parse_url($endpoint, PHP_URL_SCHEME) ?: '');
+
+        if (in_array($scheme, ['ws', 'wss'], true)) {
+            return [
+                'http_bind'     => '',
+                'websocket_url' => $endpoint,
+            ];
+        }
+
+        if (in_array($scheme, ['http', 'https'], true)) {
+            return [
+                'http_bind'     => $endpoint,
+                'websocket_url' => '',
+            ];
+        }
+
+        return [];
     }
 
     public function check_token($givenUser, $givenToken)
@@ -654,7 +686,6 @@ class XMPPLib extends TikiLib
         }
 
         $renderOptions = [
-            'bosh_service_url'           => $xmpp['http_bind'],
             'jid'                        => $xmppclient->get_option('jid') ?: $xmpp['jid'],
             'nickname'                   => $nickname,
             'view_mode'                  => $params['view_mode'],
@@ -664,9 +695,8 @@ class XMPPLib extends TikiLib
             'anonymous'                  => $params['anonymous'] ?? '',
         ];
 
-        if ($usesExternalJid) {
-            $renderOptions['websocket_url'] = '';
-        } elseif (isset($xmpp['websocket_url'])) {
+        if (! $usesExternalJid || ! empty($xmpp['custom_endpoint'])) {
+            $renderOptions['bosh_service_url'] = $xmpp['http_bind'];
             $renderOptions['websocket_url'] = $xmpp['websocket_url'];
         }
 

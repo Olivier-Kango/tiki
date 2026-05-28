@@ -306,14 +306,14 @@ function prefs_users_list()
             'default' => '',
             'help' => $prefsTextEditingToUsersHelp,
         ],
-        'users_prefs_xmpp_custom_server_http_bind' => [
-            'name' => tra('XMPP http-bind URL'),
-            'description' => tra('Optional BOSH (Bidirectional-streams Over Synchronous HTTP) endpoint for an external XMPP account. BOSH is a transport protocol that allows XMPP communication over HTTP. If left empty, Tiki uses the default configured endpoint.'),
+        'users_prefs_xmpp_custom_server_endpoint' => [
+            'name' => tra('XMPP connection endpoint'),
+            'description' => tra('Optional BOSH or WebSocket endpoint for an external XMPP account. Use an http:// or https:// URL for BOSH, or a ws:// or wss:// URL for WebSocket. If left empty, Converse will try to discover the endpoint from the external XMPP domain.'),
             'keywords' => 'xmpp converse conversejs chat',
             'type' => 'text',
             'size' => 40,
             'filter' => 'url',
-            'hint' => tra('https://xmpp.example.org/http-bind/'),
+            'hint' => tra('wss://xmpp.example.org/xmpp-websocket'),
             'tags' => ['basic'],
             'default' => '',
             'help' => $prefsTextEditingToUsersHelp,

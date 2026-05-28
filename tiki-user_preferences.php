@@ -53,7 +53,7 @@ $inputConfiguration = [
             'tasks_maxRecords'                => 'digits',       //post
             'xmpp_jid'                        => 'striptags',    //post
             'xmpp_password'                   => 'password',     //post
-            'xmpp_custom_server_http_bind'    => 'striptags',    //post
+            'xmpp_custom_server_endpoint'     => 'striptags',    //post
             'perspective_preferred'           => 'digits',      //post
             'webmonetization_payment_pointer' => 'striptags',    //post
             'webmonetization_paywall_text'    => 'striptags',    //post
@@ -415,8 +415,9 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
     if (isset($_POST['xmpp_password'])) {
         $tikilib->set_user_preference($userwatch, 'xmpp_password', $_POST['xmpp_password']);
     }
-    if (isset($_POST['xmpp_custom_server_http_bind'])) {
-        $tikilib->set_user_preference($userwatch, 'xmpp_custom_server_http_bind', $_POST['xmpp_custom_server_http_bind']);
+    if (isset($_POST['xmpp_custom_server_endpoint'])) {
+        $tikilib->set_user_preference($userwatch, 'xmpp_custom_server_endpoint', $_POST['xmpp_custom_server_endpoint']);
+        $tikilib->set_user_preference($userwatch, 'xmpp_custom_server_http_bind', '');
     }
 
     if (isset($_POST['perspective_preferred']) &&  $perspectivelib->perspective_exists($_POST['perspective_preferred'])) {

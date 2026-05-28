@@ -183,7 +183,13 @@ class ConverseJS
 
         $transportOptions = [];
 
-        if (! $usesExternalJid && ! empty($prefs['xmpp_ws_url'])) {
+        if ($usesExternalJid && empty($xmpp['custom_endpoint'])) {
+            return $transportOptions;
+        }
+
+        if (! empty($xmpp['websocket_url'])) {
+            $transportOptions['websocket_url'] = $xmpp['websocket_url'];
+        } elseif (! $usesExternalJid && ! empty($prefs['xmpp_ws_url'])) {
             $transportOptions['websocket_url'] = $prefs['xmpp_ws_url'];
         }
 
