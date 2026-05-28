@@ -58,7 +58,7 @@ class XMPPLib extends TikiLib
         }
 
         $domain = $prefs['xmpp_domain_users'] ?: $this->server_host;
-        return sprintf('%s@%s', $login, $domain);
+        return $login . '@' . $domain;
     }
 
     /**
