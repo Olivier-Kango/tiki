@@ -565,16 +565,6 @@
                             </div>
                         </div>
                         <div class="tiki-form-group row">
-                            <label class="col-form-label col-md-4" for="xmpp_password">
-                                {tr}XMPP account password{/tr}
-                            </label>
-                            <div class="col-md-8">
-                                <input type="password" class="form-control" name="xmpp_password" id="xmpp_password" value="{$user_prefs.xmpp_password|escape}" autocomplete="new-password">
-                                <p><small>{tr}Only needed when logging in to an external XMPP account{/tr}</small></p>
-                                <p><small>{tr}If left empty, Converse will ask the user to log in manually to the external XMPP server{/tr}</small></p>
-                            </div>
-                        </div>
-                        <div class="tiki-form-group row">
                             <label class="col-form-label col-md-4" for="xmpp_custom_server_endpoint">
                                 {tr}XMPP connection endpoint{/tr}
                             </label>

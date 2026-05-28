@@ -298,14 +298,6 @@ function prefs_users_list()
             'default' => '',
             'help' => $prefsTextEditingToUsersHelp,
         ],
-        'users_prefs_xmpp_password' => [
-            'name' => tra('XMPP account password'),
-            'description' => tra('Optional password for an external XMPP account. If left empty, Converse will prompt the user to log in manually.'),
-            'keywords' => 'xmpp converse conversejs chat',
-            'type' => 'text',
-            'default' => '',
-            'help' => $prefsTextEditingToUsersHelp,
-        ],
         'users_prefs_xmpp_custom_server_endpoint' => [
             'name' => tra('XMPP connection endpoint'),
             'description' => tra('Optional BOSH or WebSocket endpoint for an external XMPP account. Use an http:// or https:// URL for BOSH, or a ws:// or wss:// URL for WebSocket. If left empty, Converse will try to discover the endpoint from the external XMPP domain.'),

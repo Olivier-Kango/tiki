@@ -665,9 +665,9 @@ class XMPPLib extends TikiLib
         $usesExternalJid = false;
 
         if (! empty($user)) {
-            $localJid = $xmpplib->getLocalJidForLogin($user);
-            $effectiveJid = $xmpplib->getEffectiveJidForUser($user);
-            $usesExternalJid = $xmpplib->usesExternalJid($effectiveJid, $localJid);
+            $localJid = $this->getLocalJidForLogin($user);
+            $effectiveJid = $this->getEffectiveJidForUser($user);
+            $usesExternalJid = $this->usesExternalJid($effectiveJid, $localJid);
         }
 
         // Auto-join only if user is logged in

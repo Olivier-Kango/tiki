@@ -52,7 +52,6 @@ $inputConfiguration = [
             'mytiki_articles'                 => 'bool',         //post
             'tasks_maxRecords'                => 'digits',       //post
             'xmpp_jid'                        => 'striptags',    //post
-            'xmpp_password'                   => 'password',     //post
             'xmpp_custom_server_endpoint'     => 'striptags',    //post
             'perspective_preferred'           => 'digits',      //post
             'webmonetization_payment_pointer' => 'striptags',    //post
@@ -411,9 +410,6 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
                 );
             }
         }
-    }
-    if (isset($_POST['xmpp_password'])) {
-        $tikilib->set_user_preference($userwatch, 'xmpp_password', $_POST['xmpp_password']);
     }
     if (isset($_POST['xmpp_custom_server_endpoint'])) {
         $tikilib->set_user_preference($userwatch, 'xmpp_custom_server_endpoint', $_POST['xmpp_custom_server_endpoint']);

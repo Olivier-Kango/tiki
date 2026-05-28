@@ -157,11 +157,6 @@ class ConverseJS
                 'websocket_url'  => '',
             ];
 
-            if (! empty($xmpp['password'])) {
-                $options['password'] = $xmpp['password'];
-                $options['auto_login'] = true;
-            }
-
             return array_merge($options, $transportOptions);
         }
 
