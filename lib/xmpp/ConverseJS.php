@@ -152,13 +152,14 @@ class ConverseJS
         if ($usesExternalJid) {
             $options = [
                 'authentication' => 'login',
-                'auto_login'     => ! empty($xmpp['password']),
+                'auto_login'     => false,
                 'jid'            => $effectiveJid,
                 'websocket_url'  => '',
             ];
 
             if (! empty($xmpp['password'])) {
                 $options['password'] = $xmpp['password'];
+                $options['auto_login'] = true;
             }
 
             return array_merge($options, $transportOptions);
