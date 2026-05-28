@@ -146,7 +146,7 @@ class ConverseJS
         $xmpp = $xmpplib->get_user_connection_info($user);
         $localJid = $xmpplib->getLocalJidForLogin($user);
         $effectiveJid = $xmpplib->getEffectiveJidForUser($user);
-        $usesExternalJid = $this->usesExternalJid($effectiveJid, $localJid);
+        $usesExternalJid = $xmpplib->usesExternalJid($effectiveJid, $localJid);
         $transportOptions = $this->getTransportOptions($xmpp, $usesExternalJid);
 
         if ($usesExternalJid) {
@@ -171,11 +171,6 @@ class ConverseJS
             'jid'            => $localJid,
             'password'       => $xmpplib->getXmppSessionToken($user),
         ], $transportOptions);
-    }
-
-    private function usesExternalJid(string $effectiveJid, string $localJid): bool
-    {
-        return $effectiveJid !== '' && strcasecmp($effectiveJid, $localJid) !== 0;
     }
 
     private function getTransportOptions(array $xmpp, bool $usesExternalJid): array

@@ -69,6 +69,11 @@ class XMPPLib extends TikiLib
         return $this->getLocalJidForLogin($login);
     }
 
+    public function usesExternalJid(string $effectiveJid, string $localJid): bool
+    {
+        return $effectiveJid !== '' && strcasecmp($effectiveJid, $localJid) !== 0;
+    }
+
     /**
      * Return the last JID synced to Prosody for room affiliations.
      */
@@ -662,7 +667,7 @@ class XMPPLib extends TikiLib
         if (! empty($user)) {
             $localJid = $xmpplib->getLocalJidForLogin($user);
             $effectiveJid = $xmpplib->getEffectiveJidForUser($user);
-            $usesExternalJid = $effectiveJid !== '' && strcasecmp($effectiveJid, $localJid) !== 0;
+            $usesExternalJid = $xmpplib->usesExternalJid($effectiveJid, $localJid);
         }
 
         // Auto-join only if user is logged in
