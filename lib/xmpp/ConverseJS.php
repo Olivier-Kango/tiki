@@ -195,7 +195,7 @@ class ConverseJS
 
         if (! empty($xmpp['http_bind'])) {
             $transportOptions['bosh_service_url'] = $xmpp['http_bind'];
-        } elseif (! empty($prefs['xmpp_server_http_bind'])) {
+        } elseif (! $usesExternalJid && ! empty($prefs['xmpp_server_http_bind'])) {
             $transportOptions['bosh_service_url'] = $prefs['xmpp_server_http_bind'];
         }
 

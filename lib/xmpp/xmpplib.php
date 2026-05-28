@@ -696,8 +696,13 @@ class XMPPLib extends TikiLib
         ];
 
         if (! $usesExternalJid || ! empty($xmpp['custom_endpoint'])) {
-            $renderOptions['bosh_service_url'] = $xmpp['http_bind'];
-            $renderOptions['websocket_url'] = $xmpp['websocket_url'];
+            if (! empty($xmpp['http_bind'])) {
+                $renderOptions['bosh_service_url'] = $xmpp['http_bind'];
+            }
+
+            if (! empty($xmpp['websocket_url'])) {
+                $renderOptions['websocket_url'] = $xmpp['websocket_url'];
+            }
         }
 
         $xmppclient->set_options($renderOptions);
