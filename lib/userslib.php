@@ -7335,6 +7335,8 @@ class UsersLib extends TikiLib
         list($secret, $userId) = explode('.', $cookie, 2);
         $query = 'select `userId` from `tiki_user_login_cookies` where `secret`=? and `userId`=? and `expiration` > NOW()';
 
+        // $userId here is always a string because it comes from a cookie
+        // so cast the integer value from the database to a string also to match
         if ($userId === (string) $this->getOne($query, [$secret, $userId])) {
             return $userId;
         } else {
