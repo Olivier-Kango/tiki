@@ -69,6 +69,60 @@ class XMPPLib extends TikiLib
         return $this->getLocalJidForLogin($login);
     }
 
+    /**
+     * Return a structured array with all JID information for a user.
+     *
+     * Keys:
+     *   - 'jid'         => the JID to use to connect (external preferred, otherwise local)
+     *   - 'isLocal'     => true when the effective JID is the local Tiki-managed JID
+     *   - 'isExternal'  => true when the user has a distinct external JID
+     *   - 'localJid'    => the local Tiki-managed JID (login@xmpp_domain_users)
+     *   - 'externalJid' => the external JID string, or null when none is set
+     *
+     * @return array{jid: string, isLocal: bool, isExternal: bool, localJid: string, externalJid: string|null}
+     */
+    public function getJidInfoForUser(string $username): array
+    {
+        $empty = ['jid' => '', 'isLocal' => false, 'isExternal' => false, 'localJid' => '', 'externalJid' => null];
+
+        $username = trim($username);
+        if ($username === '') {
+            return $empty;
+        }
+
+        $userslib = TikiLib::lib('user');
+        $info = $userslib->get_user_info($username);
+        if (! $info || empty($info['login'])) {
+            // Avoid building JIDs from group names or unknown users
+            return $empty;
+        }
+        $login = trim($info['login']);
+
+        $localJid = $this->getLocalJidForLogin($login);
+        if ($localJid === '') {
+            return $empty;
+        }
+
+        $ext = trim(TikiLib::lib('tiki')->get_user_preference($login, 'xmpp_jid', ''));
+        if ($ext !== '' && strpos($ext, '@') !== false && strcasecmp($ext, $localJid) !== 0) {
+            return [
+                'jid'         => $ext,
+                'isLocal'     => false,
+                'isExternal'  => true,
+                'localJid'    => $localJid,
+                'externalJid' => $ext,
+            ];
+        }
+
+        return [
+            'jid'         => $localJid,
+            'isLocal'     => true,
+            'isExternal'  => false,
+            'localJid'    => $localJid,
+            'externalJid' => null,
+        ];
+    }
+
     public function usesExternalJid(string $effectiveJid, string $localJid): bool
     {
         return $effectiveJid !== '' && strcasecmp($effectiveJid, $localJid) !== 0;
@@ -217,39 +271,11 @@ class XMPPLib extends TikiLib
     }
 
     /**
-     * Get effective JID (external preferred or local JID with fallback)
+     * Get effective JID (external preferred or local JID with fallback).
      */
     public function getEffectiveJidForUser(string $username): string
     {
-        $username = trim($username);
-        if ($username === '') {
-            return '';
-        }
-
-        $userslib = TikiLib::lib('user');
-        $info = $userslib->get_user_info($username);
-        if (! $info || empty($info['login'])) {
-            // Avoid building JIDs from group names or unknown users
-            return '';
-        }
-        $login = trim($info['login']);
-
-        $ext = trim(TikiLib::lib('tiki')->get_user_preference($login, 'xmpp_jid', ''));
-        if (! empty($ext) && strpos($ext, '@') !== false) {
-            return $ext;
-        }
-
-        global $prefs;
-        $domain = '';
-        if (! empty($prefs['xmpp_domain_users'])) {
-            $domain = $prefs['xmpp_domain_users'];
-        } elseif (! empty($prefs['xmpp_domain'])) {
-            $domain = $prefs['xmpp_domain'];
-        } else {
-            $domain = parse_url($prefs['tiki_url'], PHP_URL_HOST);
-        }
-
-        return "{$login}@{$domain}";
+        return $this->getJidInfoForUser($username)['jid'];
     }
 
     /**
