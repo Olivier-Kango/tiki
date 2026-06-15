@@ -144,16 +144,15 @@ class ConverseJS
     {
         $xmpplib = TikiLib::lib('xmpp');
         $xmpp = $xmpplib->get_user_connection_info($user);
-        $localJid = $xmpplib->getLocalJidForLogin($user);
-        $effectiveJid = $xmpplib->getEffectiveJidForUser($user);
-        $usesExternalJid = $xmpplib->usesExternalJid($effectiveJid, $localJid);
+        $jidInfo = $xmpplib->getJidInfoForUser($user);
+        $usesExternalJid = $jidInfo['isExternal'];
         $transportOptions = $this->getTransportOptions($xmpp, $usesExternalJid);
 
         if ($usesExternalJid) {
             $options = [
                 'authentication' => 'login',
                 'auto_login'     => false,
-                'jid'            => $effectiveJid,
+                'jid'            => $jidInfo['jid'],
                 'websocket_url'  => '',
             ];
 
@@ -163,7 +162,7 @@ class ConverseJS
         return array_merge([
             'authentication' => 'login',
             'auto_login'     => true,
-            'jid'            => $localJid,
+            'jid'            => $jidInfo['localJid'] ?? '',
             'password'       => $xmpplib->getXmppSessionToken($user),
         ], $transportOptions);
     }

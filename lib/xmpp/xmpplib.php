@@ -79,11 +79,11 @@ class XMPPLib extends TikiLib
      *   - 'localJid'    => the local Tiki-managed JID (login@xmpp_domain_users)
      *   - 'externalJid' => the external JID string, or null when none is set
      *
-     * @return array{jid: string, isLocal: bool, isExternal: bool, localJid: string, externalJid: string|null}
+     * @return array{jid: string, isLocal: bool, isExternal: bool, localJid: string|null, externalJid: string|null}
      */
     public function getJidInfoForUser(string $username): array
     {
-        $empty = ['jid' => '', 'isLocal' => false, 'isExternal' => false, 'localJid' => '', 'externalJid' => null];
+        $empty = ['jid' => '', 'isLocal' => false, 'isExternal' => false, 'localJid' => null, 'externalJid' => null];
 
         $username = trim($username);
         if ($username === '') {
@@ -99,9 +99,6 @@ class XMPPLib extends TikiLib
         $login = trim($info['login']);
 
         $localJid = $this->getLocalJidForLogin($login);
-        if ($localJid === '') {
-            return $empty;
-        }
 
         $ext = trim(TikiLib::lib('tiki')->get_user_preference($login, 'xmpp_jid', ''));
         if ($ext !== '' && strpos($ext, '@') !== false && strcasecmp($ext, $localJid) !== 0) {
@@ -109,9 +106,13 @@ class XMPPLib extends TikiLib
                 'jid'         => $ext,
                 'isLocal'     => false,
                 'isExternal'  => true,
-                'localJid'    => $localJid,
+                'localJid'    => $localJid ?: null,
                 'externalJid' => $ext,
             ];
+        }
+
+        if ($localJid === '') {
+            return $empty;
         }
 
         return [
@@ -121,11 +122,6 @@ class XMPPLib extends TikiLib
             'localJid'    => $localJid,
             'externalJid' => null,
         ];
-    }
-
-    public function usesExternalJid(string $effectiveJid, string $localJid): bool
-    {
-        return $effectiveJid !== '' && strcasecmp($effectiveJid, $localJid) !== 0;
     }
 
     /**
@@ -691,9 +687,8 @@ class XMPPLib extends TikiLib
         $usesExternalJid = false;
 
         if (! empty($user)) {
-            $localJid = $this->getLocalJidForLogin($user);
-            $effectiveJid = $this->getEffectiveJidForUser($user);
-            $usesExternalJid = $this->usesExternalJid($effectiveJid, $localJid);
+            $jidInfo = $this->getJidInfoForUser($user);
+            $usesExternalJid = $jidInfo['isExternal'];
         }
 
         // Auto-join only if user is logged in
