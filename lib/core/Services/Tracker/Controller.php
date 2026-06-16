@@ -1975,7 +1975,7 @@ class Services_Tracker_Controller
             }
 
             $uncascaded = $trklib->findUncascadedDeletes($itemId, $trackerId);
-            $affectedCount += count($uncascaded);
+            $affectedCount += count($uncascaded['itemIds']);
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'DELETE') {
                 $this->utilities->removeItemAndReferences($definition, $itemObject, $uncascaded, $input->replacement->int() ?: '');

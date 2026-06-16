@@ -3267,7 +3267,6 @@ class TrackerLib extends TikiLib
                 'trackerId' => $trackerId,
                 'user' => $GLOBALS['user'],
                 'values' => $itemInfo,
-                'index_handled' => true,
                 'action' => 'delete',
             ]
         );
