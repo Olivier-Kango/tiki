@@ -24,8 +24,8 @@ Sections::onSectionChange(function ($section) {
 
 // need to rebuild because they were created in tiki-setup and just removed due to clear cache
 // we need to create upfront in case codemirror is used later on.
-require_once("lib/codemirror_tiki/tiki_codemirror.php");
-createCodemirrorModes();
+    require_once("lib/codemirror_tiki/tiki_codemirror.php");
+    createCodemirrorModes();
 // LEGACY: assign short variable for use in templates
     $smarty->assign('js', 1);
 //for use in setting tags for css menus as fallback for action dropdowns
