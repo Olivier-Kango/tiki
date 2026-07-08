@@ -8,6 +8,7 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * \brief Smarty modifier to create user links with optional mouseover info
@@ -28,6 +29,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class UserLink implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'userlink';
@@ -66,13 +69,5 @@ class UserLink implements TikiSmartyExtensionInterface
         }
         $popup = 'y';
         return \TikiLib::lib('user')->build_userinfo_tag($other_user, htmlspecialchars($fullname, ENT_QUOTES), $class, $popup);
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($other_user, $class = 'userlink', $idletime = 'not_set', $fullname = '', $max_length = 0, $popup = '')
-    {
-        return (new self())->handle($other_user, $class, $idletime, $fullname, $max_length, $popup);
     }
 }

@@ -8,6 +8,7 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * Smarty plugin
@@ -19,6 +20,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class Duration implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'duration';
@@ -53,13 +56,5 @@ class Duration implements TikiSmartyExtensionInterface
             }
         }
         return implode(' ', $result);
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($string, $long = true, $maxLevel = false)
-    {
-        return (new self())->handle($string, $long, $maxLevel);
     }
 }

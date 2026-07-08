@@ -8,9 +8,12 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 class Username implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'username';
@@ -26,13 +29,5 @@ class Username implements TikiSmartyExtensionInterface
             $return = htmlspecialchars($return);
         }
         return $return;
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($user, $login_fallback = true, $check_user_show_realnames = true, $html_encoding = true)
-    {
-        return (new self())->handle($user, $login_fallback, $check_user_show_realnames, $html_encoding);
     }
 }

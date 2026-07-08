@@ -8,9 +8,12 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 class Sefurl implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'sefurl';
@@ -239,13 +242,5 @@ class Sefurl implements TikiSmartyExtensionInterface
         } else {
             return \TikiLib::tikiUrlOpt($href) . $urlAnchor;
         }
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($source, $type = 'wiki', $with_next = '', $all_langs = '', $with_title = 'y', $title = '')
-    {
-        return (new self())->handle($source, $type, $with_next, $all_langs, $with_title, $title);
     }
 }

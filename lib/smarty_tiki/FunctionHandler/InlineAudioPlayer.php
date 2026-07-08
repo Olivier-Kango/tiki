@@ -9,9 +9,12 @@ namespace SmartyTiki\FunctionHandler;
 
 use TikiLib;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 class InlineAudioPlayer extends \Smarty\FunctionHandler\Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'inline_audio_player';
@@ -36,16 +39,5 @@ class InlineAudioPlayer extends \Smarty\FunctionHandler\Base implements TikiSmar
         return <<<HTML
                 <audio playsinline id="$uniqueId" data-file-ref-id="$fileId"><source src="tiki-download_file.php?fileId=$fileId&display" type="$type"></audio>
             HTML;
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

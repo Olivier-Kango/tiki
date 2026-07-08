@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
  * Smarty {preference} special parameters
@@ -23,6 +24,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class Preference extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'preference';
@@ -162,16 +165,5 @@ class Preference extends Base implements TikiSmartyExtensionInterface
             $smarty->assign('p', $info);
             return $smarty->fetch('prefs/text.tpl');
         }
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

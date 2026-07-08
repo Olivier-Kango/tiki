@@ -8,9 +8,12 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 class PageName implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'pagename';
@@ -32,13 +35,5 @@ class PageName implements TikiSmartyExtensionInterface
         } else {
             return $source;
         }
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($source)
-    {
-        return (new self())->handle($source);
     }
 }

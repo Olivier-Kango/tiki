@@ -11,6 +11,7 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
  * Variable arguments to be sent as filters for the object list. Filters match the unified search
@@ -28,6 +29,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class ObjectSelectorMulti extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'object_selector_multi';
@@ -138,16 +141,5 @@ class ObjectSelectorMulti extends Base implements TikiSmartyExtensionInterface
         );
 
         return $smarty->fetch($templateFile);
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

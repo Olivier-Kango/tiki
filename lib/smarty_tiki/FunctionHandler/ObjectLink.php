@@ -12,9 +12,12 @@ use Tracker_Definition;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 class ObjectLink extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'object_link';
@@ -407,16 +410,5 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
         }
 
         return '<a href="' . $pageParams . '&page=message&uid=' . $data['uid'] . '&list_path=' . $data['list_path'] . '&list_parent=' . $data['list_parent'] . '">' . $data['title'] . '</a>';
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

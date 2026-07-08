@@ -7,6 +7,7 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * Smarty modifier forummaskemail
@@ -16,6 +17,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class ForumMaskEmail implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'forummaskemail';
@@ -50,13 +53,5 @@ class ForumMaskEmail implements TikiSmartyExtensionInterface
         }
 
         return $text;
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($text)
-    {
-        return (new self())->handle($text);
     }
 }

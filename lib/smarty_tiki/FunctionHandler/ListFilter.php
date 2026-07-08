@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
  * \brief JQuery Smarty function to filter list of results (by default table)
@@ -35,6 +36,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class ListFilter extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'listfilter';
@@ -163,16 +166,5 @@ setTimeout(function () {
 
             $headerlib->add_jq_onready($content);
             return $input;
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /*
  * Smarty function button handler: Display a Tiki button
@@ -39,6 +40,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class Button extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'button';
@@ -248,16 +251,5 @@ class Button extends Base implements TikiSmartyExtensionInterface
         $html = preg_replace('/<a /', '<a class="btn btn-' . $type . ' ' . $class . '" target="' . $target . '" role="button" data-role="button" data-inline="true" ' . $id . ' ', $html);
 
         return $html;
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

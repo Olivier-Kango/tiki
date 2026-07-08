@@ -11,11 +11,14 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 // @param numeric $id: id of the payment
 // @params url $returnurl: optional return url
 class Payment extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'payment';
@@ -139,16 +142,5 @@ class Payment extends Base implements TikiSmartyExtensionInterface
                 $repeat
             );
         }
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

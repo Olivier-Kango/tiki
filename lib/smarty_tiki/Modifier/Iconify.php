@@ -9,6 +9,7 @@ namespace SmartyTiki\Modifier;
 
 use TikiLib;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * Smarty plugin
@@ -29,6 +30,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class Iconify implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'iconify';
@@ -164,13 +167,5 @@ class Iconify implements TikiSmartyExtensionInterface
                 }
             }
         }
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($string, $filetype = '', $fileId = null, $size = 1, $return = 'icon')
-    {
-        return (new self())->handle($string, $filetype, $fileId, $size, $return);
     }
 }

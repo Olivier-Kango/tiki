@@ -8,9 +8,12 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 class CompactIsoDate implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'compactisodate';
@@ -20,13 +23,5 @@ class CompactIsoDate implements TikiSmartyExtensionInterface
     {
         global $tikilib;
         return $tikilib->get_compact_iso8601_datetime($string);
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($string)
-    {
-        return (new self())->handle($string);
     }
 }

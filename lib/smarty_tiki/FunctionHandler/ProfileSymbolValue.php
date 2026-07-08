@@ -11,6 +11,7 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use TikiLib;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
  * Smarty plugin
@@ -43,6 +44,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class ProfileSymbolValue extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'profilesymbolvalue';
@@ -108,16 +111,5 @@ class ProfileSymbolValue extends Base implements TikiSmartyExtensionInterface
         } else {
             return '';
         }
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

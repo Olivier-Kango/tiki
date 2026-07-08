@@ -8,6 +8,7 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * Smarty plugin
@@ -19,6 +20,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class KbSize implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'kbsize';
@@ -50,13 +53,5 @@ class KbSize implements TikiSmartyExtensionInterface
         $kb_string = $kb_string . (($bytes) ? 'B' : 'b');
 
         return $string . $unit_separator . tra($kb_string);
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($string, $bytes = false, $nb_decimals = 2, $unit_separator = '&nbsp;')
-    {
-        return (new self())->handle($string, $bytes, $nb_decimals, $unit_separator);
     }
 }

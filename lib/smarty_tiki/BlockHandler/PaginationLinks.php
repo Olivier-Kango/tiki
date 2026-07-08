@@ -10,6 +10,7 @@ namespace SmartyTiki\BlockHandler;
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\BlockHandlerStaticFacadeTrait;
 
 /**
  * smarty_block_pagination_links: Generate pagination links
@@ -48,6 +49,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class PaginationLinks extends Base implements TikiSmartyExtensionInterface
 {
+    use BlockHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'pagination_links';
@@ -349,16 +352,5 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
             }
         }
         return $html;
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, $url, ?\Smarty\Template $template = null, &$repeat = false)
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $url, $template, $repeat);
     }
 }

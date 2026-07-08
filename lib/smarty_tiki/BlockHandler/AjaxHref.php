@@ -10,6 +10,7 @@ namespace SmartyTiki\BlockHandler;
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\BlockHandlerStaticFacadeTrait;
 
 /**
  * smarty block ajax_href creates the href for a link in Smarty according to AJAX prefs
@@ -21,6 +22,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class AjaxHref extends Base implements TikiSmartyExtensionInterface
 {
+    use BlockHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'ajax_href';
@@ -47,16 +50,5 @@ class AjaxHref extends Base implements TikiSmartyExtensionInterface
         }
 
         return $attributes;
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, $content, ?\Smarty\Template $template = null, &$repeat = false)
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $content, $template, $repeat);
     }
 }

@@ -8,6 +8,7 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * Smarty plugin
@@ -23,6 +24,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class TikiDateFormat implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'tiki_date_format';
@@ -37,13 +40,5 @@ class TikiDateFormat implements TikiSmartyExtensionInterface
     public function handle($string, $format, $_user = false, $forceTimezone = false)
     {
         return \TikiLib::date_format(tra($format), $string, $_user, 5, true, $forceTimezone);
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($string, $format, $_user = false, $forceTimezone = false)
-    {
-        return (new self())->handle($string, $format, $_user, $forceTimezone);
     }
 }

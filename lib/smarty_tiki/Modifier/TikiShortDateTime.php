@@ -9,9 +9,12 @@ namespace SmartyTiki\Modifier;
 
 use TikiLib;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 class TikiShortDateTime implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'tiki_short_datetime';
@@ -45,13 +48,5 @@ class TikiShortDateTime implements TikiSmartyExtensionInterface
             $time = $date . ' ' . $time;
             return $intro . ' ' . $time;
         }
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($string, $intro = '', $same = 'y', $forceTimezone = false)
-    {
-        return (new self())->handle($string, $intro, $same, $forceTimezone);
     }
 }

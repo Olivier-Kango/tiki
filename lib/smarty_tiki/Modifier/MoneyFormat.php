@@ -8,6 +8,7 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * Smarty money_format modifier plugin
@@ -26,6 +27,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class MoneyFormat implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'money_format';
@@ -160,13 +163,5 @@ class MoneyFormat implements TikiSmartyExtensionInterface
             }
         }
         return $format;
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($number, $locale, $currency, $format = '%(#10n', $display = 0)
-    {
-        return (new self())->handle($number, $locale, $currency, $format, $display);
     }
 }

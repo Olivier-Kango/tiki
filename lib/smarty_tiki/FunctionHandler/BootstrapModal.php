@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
  * BootstrapModal handler
@@ -17,6 +18,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class BootstrapModal extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'bootstrap_modal';
@@ -43,16 +46,5 @@ class BootstrapModal extends Base implements TikiSmartyExtensionInterface
         $params['modal'] = 1;
         $href = smarty_function_service($params, $template);
         return "$href\" data-tiki-bs-toggle=\"modal\" data-bs-backdrop=\"static\" data-bs-target=\".footer-modal.fade:not(.show):first$size";
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

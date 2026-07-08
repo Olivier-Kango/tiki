@@ -10,9 +10,12 @@ namespace SmartyTiki\BlockHandler;
 use Smarty\BlockHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\BlockHandlerStaticFacadeTrait;
 
 class PackagePlugin extends Base implements TikiSmartyExtensionInterface
 {
+    use BlockHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'packageplugin';
@@ -54,16 +57,5 @@ class PackagePlugin extends Base implements TikiSmartyExtensionInterface
         } else {
             return $functionname($content, $params, $template);
         }
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, $content, ?\Smarty\Template $template = null, &$repeat = false)
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $content, $template, $repeat);
     }
 }

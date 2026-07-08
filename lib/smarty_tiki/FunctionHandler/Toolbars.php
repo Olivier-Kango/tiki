@@ -11,12 +11,15 @@ use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use Tiki\Lib\core\Toolbar\ToolbarsList;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
  * Smarty plugin to display content only to some groups
  */
 class Toolbars extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'toolbars';
@@ -64,16 +67,5 @@ class Toolbars extends Base implements TikiSmartyExtensionInterface
         } else {
             return $list->getWikiHtml();
         }
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

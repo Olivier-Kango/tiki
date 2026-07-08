@@ -8,9 +8,12 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 class NumberFormat implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'number_format';
@@ -55,13 +58,5 @@ class NumberFormat implements TikiSmartyExtensionInterface
                 break;
         }
         return $sep;
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($number, $decimals = 2, $dec_point = '.', $thousands = ',')
-    {
-        return (new self())->handle($number, $decimals, $dec_point, $thousands);
     }
 }

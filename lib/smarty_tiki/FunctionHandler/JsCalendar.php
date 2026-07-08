@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
  * @param $params
@@ -31,6 +32,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class JsCalendar extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'jscalendar';
@@ -102,16 +105,5 @@ class JsCalendar extends Base implements TikiSmartyExtensionInterface
         return <<<HTML
             <el-date-picker type="{$type}" custom-timezone="{$enableTimezonePicker}" id="{$id}" timezone="{$params['timezone']}" language="{$language}" format="{$format}" minutestep="{$minuteStep}" enforcestep="{$enforceStep}" />
         HTML;
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

@@ -10,6 +10,7 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /*
  * smarty_function_select_all: Display a checkbox that allows users with javascript to select multiple checkboxes in one click
@@ -25,6 +26,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class SelectAll extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'select_all';
@@ -69,16 +72,5 @@ class SelectAll extends Base implements TikiSmartyExtensionInterface
             (empty($params['label']) ? ' aria-label="' . tra('Select All') . '"' : '') .
             '/>' . "\n" .
             (! empty($params['label']) ? '<label class="form-check-label" for="clickall' . $id . '">' . $params['label'] . "</label>\n" : '');
-    }
-
-    /**
-     * Static facade for calling this handler from PHP code without a template.
-     */
-    public static function render(array $params, ?\Smarty\Template $template = null): string
-    {
-        if ($template === null) {
-            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
-        }
-        return (new self())->handle($params, $template);
     }
 }

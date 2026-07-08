@@ -8,6 +8,7 @@
 namespace SmartyTiki\Modifier;
 
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
 
 /**
  * Smarty escape modifier
@@ -23,6 +24,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class Escape implements TikiSmartyExtensionInterface
 {
+    use ModifierStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'escape';
@@ -124,13 +127,5 @@ class Escape implements TikiSmartyExtensionInterface
             default:
                 return $string;
         }
-    }
-
-    /**
-     * Static facade for calling this modifier from PHP code.
-     */
-    public static function apply($string, $esc_type = 'html', $char_set = 'UTF-8', $double_encode = true)
-    {
-        return (new self())->handle($string, $esc_type, $char_set, $double_encode);
     }
 }
