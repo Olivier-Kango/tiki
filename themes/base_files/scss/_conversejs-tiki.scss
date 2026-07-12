@@ -116,6 +116,11 @@
         &:hover { color: var(--bs-link-hover-color); }
     }
 
+    ::selection {
+        background-color: rgba(var(--bs-primary-rgb), .35);
+        color: inherit;
+    }
+
     input[type=text], textarea, select {
         background-color: $input-bg;
         color: $input-color;
@@ -170,6 +175,7 @@
     .avatar, converse-avatar .avatar {
         overflow: hidden;
         box-sizing: border-box;
+        flex-shrink: 0;
     }
 
     // Floating chat / controlbox cards
@@ -250,9 +256,6 @@
                 font-weight: 600;
                 color: var(--bs-emphasis-color);
             }
-            converse-avatar .avatar {
-                border: 2px solid var(--bs-body-bg);
-            }
         }
         .xmpp-status {
             padding: 0 1rem .5rem;
@@ -265,9 +268,8 @@
         .controlbox-section {
             padding: .35rem 1rem;
             .controlbox-heading {
-                letter-spacing: .04em;
                 font-size: .78rem !important;
-                opacity: .75;
+                opacity: .8;
             }
         }
 
@@ -275,11 +277,11 @@
             .list-toggle { color: var(--bs-body-color); }
 
             .list-item {
-                border-radius: .65rem;
+                border-radius: .5rem;
                 padding-inline-start: .4rem;
                 transition: background-color .12s ease;
                 &:hover, &.available-chatroom:hover {
-                    background-color: rgba(var(--bs-emphasis-color-rgb), .06) !important;
+                    background-color: rgba(var(--bs-emphasis-color-rgb), .05) !important;
                     a { color: var(--bs-body-color); }
                 }
             }
@@ -320,8 +322,8 @@
             .chatbox-title__text, .chat-title, a.chatbox-btn.fa { color: #fff; }
             .chatbox-title__text {
                 display: flex;
-                align-items: center; 
-                font-weight: 600; 
+                align-items: center;
+                font-weight: 600;
             }
             .chat-head__desc { color: rgba(255, 255, 255, .85) !important; }
 
@@ -339,10 +341,6 @@
             converse-dropdown.chatbox-btn:hover {
                 background-color: transparent !important;
             }
-
-            converse-avatar .avatar {
-                border: 2px solid rgba(255, 255, 255, .6);
-            }
         }
     }
 
@@ -356,9 +354,22 @@
         }
     }
 
+    // Converse always gives groupchat windows the wide --chatroom-width
+    // (500px), even when the participants sidebar isn't shown. Shrink it
+    // back to a normal 1-1-chat width in that case - only actually showing
+    // the participant list should make the window wide.
+    .chatroom .box-flyout:not(:has(converse-muc-occupants)) {
+        width: var(--overlayed-chat-width, 300px) !important;
+    }
+
     // -----------------------------------------------------------
-    // Messages: modern bubbles
+    // Messages: modern grouped bubbles
     // -----------------------------------------------------------
+    // Converse already groups consecutive same-author messages within a
+    // 10-minute window as "followups" (see headless/shared/message.js
+    // isFollowup()) and only renders the avatar/heading on the *first*
+    // message of such a run (see shared/chat/templates/message.js). We
+    // lean on that native class instead of re-detecting grouping ourselves.
     .chat-content {
         color: var(--bs-body-color);
         background-color: inherit;
@@ -366,16 +377,27 @@
     }
 
     .message.chat-msg {
-        padding: .2rem .9rem;
+        padding: .1rem .9rem;
         align-items: flex-end;
 
         &:hover { background-color: transparent; }
 
-        &.chat-msg--followup { padding-top: 0; margin-top: -.2rem; }
+        // A small positive gap - not a negative margin - between grouped
+        // messages, otherwise consecutive bubbles from the same author end
+        // up touching.
+        &.chat-msg--followup { padding-top: .12rem; margin-top: 0; }
 
         &:has(.chat-msg__content--me) {
             flex-direction: row-reverse;
         }
+    }
+
+    // A per-message photo of the other person adds noise without adding
+    // information (you can already see who you're talking to from the
+    // chat header/sender name) - modern 1-1 and group chat UIs mostly skip
+    // it too. Drop it entirely rather than just for your own messages.
+    .message.chat-msg > a.show-msg-author-modal {
+        display: none;
     }
 
     .chat-msg__content {
@@ -386,6 +408,12 @@
     }
     .chat-msg__content--them { align-items: flex-start; }
     .chat-msg__content--me { align-items: flex-end; margin-inline-start: auto; }
+
+    // The sender name is only useful in group chats - in a 1-1 chat you
+    // already know who you're talking to, so hide the redundant label.
+    .chatbox:not(.chatroom) .chat-msg__author {
+        display: none !important;
+    }
 
     .chat-msg__heading {
         margin-bottom: .15rem;
@@ -412,6 +440,35 @@
     }
 
     .chat-msg__text { color: var(--bs-body-color); }
+
+    // Speech-bubble tail, drawn on the *last* message of a consecutive run
+    // (the sender name/heading, by contrast, only shows on the *first* -
+    // Converse's own isFollowup() convention above - the two are unrelated
+    // and normally live on different bubbles, same as WhatsApp/Telegram).
+    // "Last of the run" = a message not immediately followed by one of its
+    // own followups.
+    .message.chat-msg:not(:has(+ .chat-msg--followup)) {
+        .chat-msg__content--them .chat-msg__body::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            inset-inline-start: -6px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--bs-secondary-bg);
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        }
+        .chat-msg__content--me .chat-msg__body::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            inset-inline-end: -6px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--bs-primary);
+            clip-path: polygon(0 0, 100% 100%, 0 100%);
+        }
+    }
 
     converse-message-actions {
         opacity: 0;
@@ -516,6 +573,12 @@
     // -----------------------------------------------------------
     // Minimized chats
     // -----------------------------------------------------------
+    // NOTE: light pills, not colored ones. Converse's own close button
+    // (the "x", a plain <a> - not a .chatbox-btn) is rendered with its
+    // icon color hard-set to --chat-color/--muc-color (see
+    // plugins/minimize/templates/trimmed_chat.js). A colored pill
+    // background of the *same* color made that "x" invisible; a light
+    // pill keeps it visible for free, no icon-color override needed.
     #minimized-chats {
         .minimized-chats-flyout {
             display: flex;
@@ -527,18 +590,14 @@
             border-radius: 999px;
             padding: .4rem .9rem;
             margin: 0;
+            background-color: var(--bs-body-bg);
+            border: 1px solid rgba(var(--bs-emphasis-color-rgb), .1);
             box-shadow: var(--converse-box-shadow);
-        }
-        .chat-head-chatbox {
-            background-color: var(--chat-color);
-            .restore-chat, .chatbox-btn { color: #fff; }
-        }
-        .chat-head-chatroom {
-            background-color: var(--muc-color);
-            .restore-chat, .chatbox-btn { color: #fff; }
+            .restore-chat, .chatbox-btn { color: var(--bs-body-color); }
         }
         .message-count.badge {
-            background-color: rgba(255, 255, 255, .25);
+            background-color: var(--bs-danger);
+            color: #fff;
             animation: tiki-badge-pulse 1.6s ease-in-out infinite;
         }
         #toggle-minimized-chats {
