@@ -1,6 +1,112 @@
-@use "sass:color";
+// Modern Converse.js skin for Tiki.
+//
+// Converse renders its custom elements without a shadow DOM (see
+// node_modules/converse.js CustomElement.createRenderRoot), so regular
+// selectors reach every part of the widget.
+//
+// Strategy:
+//   1) Remap Converse's own design-token API (the CSS custom properties its
+//      bundled converse.min.css is built on, e.g. --primary-color,
+//      --chat-color, --avatar-border-radius...) onto Tiki's live Bootstrap
+//      tokens (var(--bs-*)). Custom properties resolve at paint time, so
+//      this wins regardless of stylesheet load order and reacts instantly
+//      to theme/dark-mode switches.
+//   2) Layer modern chat-app structure (bubbles, floating cards, pill
+//      composer, FAB toggle...) on top, scoped under the #conversejs root
+//      Tiki renders, for the pieces plain tokens can't reshape.
 
 .tiki #conversejs, .tiki #conversejs.converse-embedded {
+
+    // ---------------------------------------------------------------
+    // 1) Design tokens -> Tiki theme
+    // ---------------------------------------------------------------
+    --foreground-color: var(--bs-body-color);
+    --background-color: var(--bs-body-bg);
+    --background-color-rgb: var(--bs-body-bg-rgb);
+    --background-color-lighter: var(--bs-tertiary-bg);
+    --global-background-color: var(--bs-body-bg);
+    --text-color: var(--bs-body-color);
+    --message-text-color: var(--bs-body-color);
+
+    --primary-color: var(--bs-primary) !important;
+    --primary-rgb: var(--bs-primary-rgb);
+    --primary-color-hover: var(--bs-primary);
+    --secondary-color: var(--bs-secondary) !important;
+    --secondary-rgb: var(--bs-secondary-rgb);
+    --secondary-color-hover: var(--bs-secondary-bg);
+    --success-color: var(--bs-success);
+    --success-color-rgb: var(--bs-success-rgb);
+    --success-color-hover: var(--bs-success);
+    --danger-color: var(--bs-danger);
+    --danger-color-rgb: var(--bs-danger-rgb);
+    --danger-color-hover: var(--bs-danger);
+    --warning-color: var(--bs-warning);
+    --warning-color-hover: var(--bs-warning);
+    --info-color: var(--bs-info);
+    --info-color-rgb: var(--bs-info-rgb);
+
+    --converse-info: var(--info-color);
+    --converse-info-rgb: var(--info-color-rgb);
+    --converse-success: var(--success-color);
+    --converse-success-rgb: var(--success-color-rgb);
+    --converse-danger: var(--danger-color);
+    --converse-danger-rgb: var(--danger-color-rgb);
+    --converse-body-bg: var(--background-color);
+    --converse-body-color: var(--foreground-color) !important;
+    --converse-highlight-color: var(--bs-primary);
+    --converse-box-shadow: 0 .75rem 2rem rgba(0, 0, 0, .18);
+
+    --chat-status-online: var(--bs-success);
+    --chat-status-away: var(--bs-warning);
+    --chat-status-busy: var(--bs-danger);
+    --chat-status-offline: var(--bs-secondary-color);
+
+    --controlbox-color: var(--bs-primary);
+    --controlbox-heading-color: var(--bs-secondary-color);
+    --disabled-color: var(--bs-secondary-color);
+    --error-color: var(--bs-danger);
+    --focus-color: var(--bs-primary);
+    --heading-color: var(--bs-emphasis-color);
+    --link-color: var(--bs-link-color);
+    --link-color-hover: var(--bs-link-hover-color);
+    --subdued-color: var(--bs-secondary-color);
+    --selection-color: var(--bs-primary);
+    --highlight-color: var(--bs-tertiary-bg);
+    --highlight-color-hover: var(--bs-secondary-bg);
+    --icon-hover-color: var(--bs-primary);
+    --completion-light-color: var(--bs-tertiary-bg);
+    --button-text-color: #fff;
+    --chat-correcting-color: rgba(var(--bs-warning-rgb), .18);
+    --chatroom-correcting-color: rgba(var(--bs-warning-rgb), .18);
+
+    --chat-color: var(--bs-primary);
+    --chat-color-hover: var(--bs-primary);
+    --chat-header-fg-color: #fff;
+    --chat-header-bg-color: var(--chat-color);
+
+    --muc-color: var(--bs-secondary);
+    --muc-color-hover: var(--bs-secondary);
+    --muc-header-fg-color: #fff;
+    --muc-header-bg-color: var(--muc-color);
+
+    --headlines-color: var(--bs-info);
+    --headlines-head-color: var(--bs-info);
+    --headlines-header-fg-color: #fff;
+    --headlines-header-bg-color: var(--headlines-color);
+
+    --brand-heading-color: var(--bs-primary);
+
+    --normal-font: #{$font-family-base};
+    --heading-font: #{$font-family-base};
+    --branding-font: #{$font-family-base};
+
+    --avatar-border-radius: 50%;
+    --message-avatar-width: 40px;
+    --message-avatar-height: 40px;
+    --button-border-radius: 999px;
+    --chatbox-border-radius: 1.1rem;
+    --minimized-chats-width: 180px;
+
     font-family: $font-family-base;
     color: var(--bs-body-color);
     text-shadow: none;
@@ -31,151 +137,453 @@
         }
     }
 
+    // -----------------------------------------------------------
+    // 2) Structure & chrome
+    // -----------------------------------------------------------
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(var(--bs-emphasis-color-rgb), .25) transparent;
+    }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(var(--bs-emphasis-color-rgb), .22);
+        border-radius: 999px;
+        &:hover { background-color: rgba(var(--bs-emphasis-color-rgb), .35); }
+    }
+    ::-webkit-scrollbar-track { background: transparent; }
+
+    @keyframes tiki-chat-pop-in {
+        from { opacity: 0; transform: translateY(10px) scale(.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes tiki-badge-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.12); }
+    }
+
+    // Avatars render as an <svg class="avatar"> with a full-size square
+    // <image> inside. border-radius alone doesn't clip an svg's content,
+    // so without overflow:hidden the square image peeks out behind the
+    // rounded avatar. box-sizing: border-box keeps any ring border (below)
+    // from inflating the svg past its intended width/height.
+    .avatar, converse-avatar .avatar {
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    // Floating chat / controlbox cards
+    //
+    // NOTE: no `overflow: hidden` here - it used to clip the flyout to get
+    // rounded corners, but that also clipped popups that render inside it
+    // (e.g. the emoji picker dropdown), making them invisible/unclickable.
+    // Rounded corners are applied directly to .chat-head below instead.
+    .chatbox, #controlbox {
+        .box-flyout {
+            border-radius: var(--chatbox-border-radius) !important;
+            box-shadow: var(--converse-box-shadow) !important;
+            border: 1px solid rgba(var(--bs-emphasis-color-rgb), .08);
+            animation: tiki-chat-pop-in .18s ease-out;
+            background: var(--bs-body-bg);
+        }
+        .chat-body { background-color: inherit; }
+    }
+
+    // Toggle-controlbox launcher (FAB)
     .toggle-controlbox {
-        background-color: $primary;
-        span { color: $primary; }
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, var(--bs-primary), color-mix(in srgb, var(--bs-primary) 70%, black));
+        border: none;
+        border-radius: 999px;
+        padding: .65rem 1.15rem;
+        box-shadow: 0 .5rem 1.25rem rgba(var(--bs-primary-rgb), .35);
+        transition: transform .15s ease, box-shadow .15s ease;
+
+        &::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f086"; // fa-comments
+            color: #fff;
+            font-size: 1.05em;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 .75rem 1.75rem rgba(var(--bs-primary-rgb), .45);
+        }
+
+        span, .toggle-feedback {
+            color: #fff !important;
+            font-weight: 600;
+        }
     }
 
-    &.converse-overlayed #controlbox .controlbox-head .chatbox-btn {
+    &.converse-overlayed #controlbox .controlbox-heading__btn,
+    .chatbox-btn {
         color: var(--bs-body-color);
-    }
-
-    .message.chat-msg:hover {
-        background-color: transparent;
-    }
-
-    #minimized-chats {
-        .chat-head-chatbox {
-            background-color: $primary;
-            .restore-chat, .chatbox-btn { color: $primary; }
-        }
-
-        .chat-head-chatroom {
-            background-color: $secondary;
-            .restore-chat, .chatbox-btn { color: $secondary; }
+        opacity: .7;
+        border-radius: 50%;
+        transition: background-color .12s ease, opacity .12s ease;
+        &:hover {
+            opacity: 1;
+            background-color: rgba(var(--bs-emphasis-color-rgb), .08);
         }
     }
 
-
-// controlbox
+    // -----------------------------------------------------------
+    // Controlbox: profile header, sections, roster, room list
+    // -----------------------------------------------------------
     #controlbox {
         .box-flyout { background: var(--bs-body-bg); }
-        .controlbox-head, .controlbox-panes, .controlbox-pane {
-            background-color: inherit;
+        .controlbox-pane { background-color: inherit; }
+
+        .userinfo {
+            border-bottom: 1px solid rgba(var(--bs-emphasis-color-rgb), .08);
+            padding-bottom: .5rem;
+            margin-bottom: .5rem;
+        }
+        .profile {
+            padding: .85rem 1rem .4rem;
+            .username {
+                font-weight: 600;
+                color: var(--bs-emphasis-color);
+            }
+            converse-avatar .avatar {
+                border: 2px solid var(--bs-body-bg);
+            }
+        }
+        .xmpp-status {
+            padding: 0 1rem .5rem;
+            .xmpp-status__msg {
+                color: var(--bs-secondary-color);
+                font-size: .85em;
+            }
         }
 
-        #chatrooms {
+        .controlbox-section {
+            padding: .35rem 1rem;
+            .controlbox-heading {
+                letter-spacing: .04em;
+                font-size: .78rem !important;
+                opacity: .75;
+            }
+        }
+
+        #chatrooms, #converse-roster {
             .list-toggle { color: var(--bs-body-color); }
-            .rooms-list .available-chatroom {
-                &:hover {
-                    background-color: inherit;
+
+            .list-item {
+                border-radius: .65rem;
+                padding-inline-start: .4rem;
+                transition: background-color .12s ease;
+                &:hover, &.available-chatroom:hover {
+                    background-color: rgba(var(--bs-emphasis-color-rgb), .06) !important;
                     a { color: var(--bs-body-color); }
                 }
             }
+
+            .group-toggle { color: var(--bs-body-color); }
         }
 
-        #converse-roster {
-            .group-toggle { color: var(--bs-body-color); }
-
-            .roster-filter-form {
-                .roster-filter {
+        converse-list-filter {
+            .items-filter-form {
+                .items-filter, input.items-filter {
                     background-color: $input-bg;
                     color: $input-color;
-                    border-color: $input-border-color;
+                    border: 1px solid $input-border-color;
+                    border-radius: 999px;
+                    padding-inline-start: .9rem;
                 }
             }
         }
     }
 
-
-// chatroom
-    .chatbox {
-        .box-flyout {
-            background: var(--bs-body-bg);
-            border: 1px solid $input-border-color;
-        }
-
-        form.sendXMPPMessage {
-            background-color: $input-bg;
-
-            .chat-toolbar {
-                background-color: $primary;
-                border-top-color: $secondary;
-                ul, li .toolbar-menu { background-color: $primary; }
-
-                .fa-eye, .fa-paperclip, .toggle-smiley, .unencrypted, .toggle-occupants {
-                    color: $primary;
-                    &:hover { color: color.adjust($primary, $lightness: -7.5%, $space: hsl)/*, 7.5%*/; }
-                }
-            }
-        }
-
+    // -----------------------------------------------------------
+    // Chat window header
+    // -----------------------------------------------------------
+    .chatbox, .chatroom {
         .chat-head {
-            &.chat-head-chatbox { background-color: $primary; }
-            .chat-title, a.chatbox-btn.fa { color: $primary; }
-            a:hover.chatbox-btn.fa { color: color.adjust($primary, $lightness: -7.5%, $space: hsl)/*, 7.5%*/; }
-        }
+            padding: .6rem .85rem;
+            border-radius: var(--chatbox-border-radius) var(--chatbox-border-radius) 0 0;
 
-        .chat-body {
-            background-color: inherit;
+            &.chat-head-chatbox { background-color: var(--chat-color); }
 
-            .chat-content {
-                color: var(--bs-body-color);
-                background-color: inherit;
+            .chatbox-title__text, .chat-title, a.chatbox-btn.fa { color: #fff; }
+            .chatbox-title__text { font-weight: 600; }
+            .chat-head__desc { color: rgba(255, 255, 255, .85) !important; }
 
-                .chat-msg__author { color: var(--bs-link-color); }
-                .chat-msg__text { color: var(--bs-body-color); }
+            a:hover.chatbox-btn.fa { color: rgba(255, 255, 255, .8); }
+            .chatbox-title__buttons .chatbox-btn, .controlbox-heading__btn {
+                color: #fff;
+                opacity: .85;
+                &:hover { opacity: 1; background-color: rgba(255, 255, 255, .15); }
+            }
+
+            // The hamburger/options menu is a <converse-dropdown class="chatbox-btn">
+            // wrapping both the icon button and its dropdown-menu, so a hover
+            // background sized to the whole wrapper doesn't match the visible
+            // icon and reads as a stray blob. No hover there.
+            converse-dropdown.chatbox-btn:hover {
+                background-color: transparent !important;
+            }
+
+            converse-avatar .avatar {
+                border: 2px solid rgba(255, 255, 255, .6);
             }
         }
     }
 
-    .chatroom {
-        .box-flyout {
-            .chat-head-chatroom {
-                background-color: $secondary;
-                border-bottom:1px solid var(--bs-body-color);
+    .chatroom .box-flyout .chat-head-chatroom,
+    .chatroom .chat-head.chat-head-chatroom {
+        background-color: var(--muc-color) !important;
+        border-bottom: none;
+        .chatbox-title__text, .chat-title, .close-chatbox-button, .toggle-chatbox-button,
+        .configure-chatroom-button, .toggle-bookmark, .chatroom-description {
+            color: #fff !important;
+        }
+    }
 
-                .close-chatbox-button, .toggle-chatbox-button, .configure-chatroom-button,
-                .toggle-bookmark, .chat-title, .chatroom-description {
-                    color: $secondary;
-                }
-            }
+    // -----------------------------------------------------------
+    // Messages: modern bubbles
+    // -----------------------------------------------------------
+    .chat-content {
+        color: var(--bs-body-color);
+        background-color: inherit;
+        padding-top: .5rem;
+    }
 
-            .chatroom-body {
-                background-color: inherit;
-                p { color: var(--bs-body-color); }
+    .message.chat-msg {
+        padding: .2rem .9rem;
+        align-items: flex-end;
 
-                .occupants {
-                    background-color: inherit;
-                    border-left-color: var(--bs-body-color);
+        &:hover { background-color: transparent; }
 
-                    ul {
-                        padding: 0;
-                        li.occupant .occupant-status {
-                            margin-left: 1px;
-                            box-shadow: 0 0 1px 1px #444;
-                        }
-                    }
-                }
+        &.chat-msg--followup { padding-top: 0; margin-top: -.2rem; }
 
-                .chatroom-form-container {
-                    background-color: inherit;
-                    color: var(--bs-body-color);
-                }
+        &:has(.chat-msg__content--me) {
+            flex-direction: row-reverse;
+        }
+    }
 
-                .chat-area .new-msgs-indicator {
-                    background-color: $info;
-                    color: $info;
-                }
+    .chat-msg__content {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        max-width: 82%;
+    }
+    .chat-msg__content--them { align-items: flex-start; }
+    .chat-msg__content--me { align-items: flex-end; margin-inline-start: auto; }
 
-                .chat-info { color: $info; }
-                .message .separator { border-color: $info; }
+    .chat-msg__avatar, converse-avatar.chat-msg__avatar .avatar {
+        border: 2px solid var(--bs-body-bg);
+    }
+
+    .chat-msg__heading {
+        margin-bottom: .15rem;
+        .chat-msg__author { color: var(--bs-link-color); font-weight: 600; font-size: .82em; }
+        .chat-msg__time { color: var(--bs-secondary-color); font-size: .74em; }
+    }
+    .chat-msg__content--me .chat-msg__heading { text-align: right; }
+
+    .chat-msg__body {
+        position: relative;
+        border-radius: 1.1rem;
+        padding: .5rem .85rem;
+        background-color: var(--bs-secondary-bg);
+        border: 1px solid rgba(var(--bs-emphasis-color-rgb), .06);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    }
+    .chat-msg__content--them .chat-msg__body { border-end-start-radius: .3rem; }
+    .chat-msg__content--me .chat-msg__body {
+        background-color: var(--bs-primary);
+        color: #fff;
+        border-end-end-radius: .3rem;
+        .chat-msg__text, .chat-msg__author, a { color: #fff; }
+        a { text-decoration: underline; }
+    }
+
+    .chat-msg__text { color: var(--bs-body-color); }
+
+    converse-message-actions {
+        opacity: 0;
+        transition: opacity .12s ease;
+    }
+    .message.chat-msg:hover converse-message-actions { opacity: 1; }
+
+    .message.separator, .message.date-separator {
+        .separator-text {
+            background: var(--bs-tertiary-bg);
+            color: var(--bs-secondary-color);
+            border-radius: 999px;
+            font-size: .74em;
+            font-weight: 600;
+        }
+        .separator { border-bottom-color: rgba(var(--bs-emphasis-color-rgb), .12); }
+    }
+
+    .message.chat-info {
+        text-align: center;
+        color: var(--bs-secondary-color);
+        font-size: .8em;
+    }
+
+    // -----------------------------------------------------------
+    // Toolbar + composer (pill input, Messenger-style)
+    // -----------------------------------------------------------
+    // NOTE: the send button lives *inside* <converse-chat-toolbar>, as one of
+    // the toolbar icons (see shared/chat/templates/toolbar.js) - it is not a
+    // sibling of <textarea> in the DOM, and the toolbar is rendered *before*
+    // the textarea. We turn the form into a flex column and use `order` to
+    // flip the visual position so the icon row sits below the textarea,
+    // like modern chat composers (Facebook Messenger, etc.), without
+    // touching Converse's markup.
+    converse-chat-toolbar {
+        order: 2;
+        background-color: transparent !important;
+        padding: .35rem .3rem 0;
+
+        .btn-toolbar { background-color: transparent !important; }
+
+        .btn, button {
+            border-radius: 50%;
+            &:hover { background-color: rgba(var(--bs-emphasis-color-rgb), .08); }
+        }
+
+        // All icons (emoji, attach, spoiler...) share the send button's blue,
+        // instead of Converse's default per-button --chat-color/no color.
+        .btn:not(.send-button), button:not(.send-button) {
+            converse-icon, svg { color: var(--bs-primary) !important; fill: var(--bs-primary) !important; }
+        }
+
+        .send-button {
+            background-color: var(--bs-primary) !important;
+            border-radius: 50% !important;
+            width: 2.1rem;
+            height: 2.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .12s ease, background-color .12s ease;
+
+            converse-icon, svg { color: #fff !important; fill: #fff !important; }
+
+            &:hover {
+                transform: scale(1.06);
+                background-color: color-mix(in srgb, var(--bs-primary) 85%, black) !important;
             }
         }
     }
 
-    &.converse-overlayed #minimized-chats #toggle-minimized-chats {
-        background-color: $info;
-        color: $info;
+    form.sendXMPPMessage, .chat-message-form {
+        display: flex;
+        flex-direction: column;
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0 .75rem .75rem !important;
+
+        .chat-textarea {
+            order: 1;
+            // Same gray as the correspondent's message bubbles (.chat-msg__body),
+            // and it stays that color whether focused or not - no white flash.
+            background-color: var(--bs-secondary-bg) !important;
+            color: $input-color !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 1.4rem !important;
+            padding: .65rem 1.15rem !important;
+            margin-top: .5rem !important;
+
+            &:focus {
+                outline: none !important;
+                border: none !important;
+                box-shadow: none !important;
+                background-color: var(--bs-secondary-bg) !important;
+            }
+        }
+
+        .spoiler-hint { order: 0; }
+    }
+
+    // -----------------------------------------------------------
+    // Minimized chats
+    // -----------------------------------------------------------
+    #minimized-chats {
+        .minimized-chats-flyout {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            padding: .3rem;
+        }
+        .chat-head-chatbox, .chat-head-chatroom {
+            border-radius: 999px;
+            padding: .4rem .9rem;
+            margin: 0;
+            box-shadow: var(--converse-box-shadow);
+        }
+        .chat-head-chatbox {
+            background-color: var(--chat-color);
+            .restore-chat, .chatbox-btn { color: #fff; }
+        }
+        .chat-head-chatroom {
+            background-color: var(--muc-color);
+            .restore-chat, .chatbox-btn { color: #fff; }
+        }
+        .message-count.badge {
+            background-color: rgba(255, 255, 255, .25);
+            animation: tiki-badge-pulse 1.6s ease-in-out infinite;
+        }
+        #toggle-minimized-chats {
+            border-radius: 999px;
+            box-shadow: var(--converse-box-shadow);
+        }
+    }
+
+    // -----------------------------------------------------------
+    // MUC occupants sidebar
+    // -----------------------------------------------------------
+    converse-muc-occupants {
+        .occupants { background-color: inherit; }
+        .occupant-list .list-item.occupant {
+            border-radius: .6rem;
+            padding: .3rem .4rem;
+            &:hover { background-color: rgba(var(--bs-emphasis-color-rgb), .06); }
+        }
+        .occupant-nick { color: var(--bs-body-color); }
+        .occupant-badges .badge {
+            font-size: .62em;
+            padding: .28em .5em;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+    }
+
+    // -----------------------------------------------------------
+    // Tiki nickname-reset prompt (rendered from conversejs-tiki.js)
+    // -----------------------------------------------------------
+    .tiki-reset-box {
+        border-radius: .75rem;
+        margin: .5rem;
+        background-color: var(--bs-tertiary-bg) !important;
+        input.form-control {
+            border-radius: 999px;
+            background-color: $input-bg;
+            color: $input-color;
+            border-color: $input-border-color;
+        }
+        .btn { border-radius: 999px; }
+    }
+
+    // -----------------------------------------------------------
+    // Responsive
+    // -----------------------------------------------------------
+    @media screen and (max-width: 480px) {
+        .chatbox, #controlbox {
+            .box-flyout {
+                border-radius: 1.1rem 1.1rem 0 0 !important;
+            }
+        }
+        .chat-msg__content { max-width: 90%; }
     }
 }
