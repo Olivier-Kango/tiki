@@ -1,20 +1,3 @@
-// Modern Converse.js skin for Tiki.
-//
-// Converse renders its custom elements without a shadow DOM (see
-// node_modules/converse.js CustomElement.createRenderRoot), so regular
-// selectors reach every part of the widget.
-//
-// Strategy:
-//   1) Remap Converse's own design-token API (the CSS custom properties its
-//      bundled converse.min.css is built on, e.g. --primary-color,
-//      --chat-color, --avatar-border-radius...) onto Tiki's live Bootstrap
-//      tokens (var(--bs-*)). Custom properties resolve at paint time, so
-//      this wins regardless of stylesheet load order and reacts instantly
-//      to theme/dark-mode switches.
-//   2) Layer modern chat-app structure (bubbles, floating cards, pill
-//      composer, FAB toggle...) on top, scoped under the #conversejs root
-//      Tiki renders, for the pieces plain tokens can't reshape.
-
 .tiki #conversejs, .tiki #conversejs.converse-embedded {
 
     // ---------------------------------------------------------------
@@ -167,23 +150,12 @@
         50% { transform: scale(1.12); }
     }
 
-    // Avatars render as an <svg class="avatar"> with a full-size square
-    // <image> inside. border-radius alone doesn't clip an svg's content,
-    // so without overflow:hidden the square image peeks out behind the
-    // rounded avatar. box-sizing: border-box keeps any ring border (below)
-    // from inflating the svg past its intended width/height.
     .avatar, converse-avatar .avatar {
         overflow: hidden;
         box-sizing: border-box;
         flex-shrink: 0;
     }
 
-    // Floating chat / controlbox cards
-    //
-    // NOTE: no `overflow: hidden` here - it used to clip the flyout to get
-    // rounded corners, but that also clipped popups that render inside it
-    // (e.g. the emoji picker dropdown), making them invisible/unclickable.
-    // Rounded corners are applied directly to .chat-head below instead.
     .chatbox, #controlbox {
         .box-flyout {
             border-radius: var(--chatbox-border-radius) !important;
@@ -195,8 +167,18 @@
         .chat-body { background-color: inherit; }
     }
 
-    // Toggle-controlbox launcher (FAB)
+    &.converse-overlayed {
+        left: auto !important;
+        width: auto !important;
+        max-width: 100%;
+    }
+
     .toggle-controlbox {
+        position: fixed !important;
+        right: 1rem !important;
+        bottom: 1rem !important;
+        left: auto !important;
+        margin: 0 !important;
         display: inline-flex;
         align-items: center;
         gap: .5rem;
@@ -326,20 +308,16 @@
                 font-weight: 600;
             }
             .chat-head__desc { color: rgba(255, 255, 255, .85) !important; }
-
-            a:hover.chatbox-btn.fa { color: rgba(255, 255, 255, .8); }
             .chatbox-title__buttons .chatbox-btn, .controlbox-heading__btn {
                 color: #fff;
                 opacity: .85;
-                &:hover { opacity: 1; background-color: rgba(255, 255, 255, .15); }
             }
-
-            // The hamburger/options menu is a <converse-dropdown class="chatbox-btn">
-            // wrapping both the icon button and its dropdown-menu, so a hover
-            // background sized to the whole wrapper doesn't match the visible
-            // icon and reads as a stray blob. No hover there.
+            .chatbox-title__buttons .chatbox-btn:hover,
+            .controlbox-heading__btn:hover,
+            a:hover.chatbox-btn.fa,
             converse-dropdown.chatbox-btn:hover {
                 background-color: transparent !important;
+                opacity: .85;
             }
         }
     }
@@ -354,22 +332,6 @@
         }
     }
 
-    // Converse always gives groupchat windows the wide --chatroom-width
-    // (500px), even when the participants sidebar isn't shown. Shrink it
-    // back to a normal 1-1-chat width in that case - only actually showing
-    // the participant list should make the window wide.
-    .chatroom .box-flyout:not(:has(converse-muc-occupants)) {
-        width: var(--overlayed-chat-width, 300px) !important;
-    }
-
-    // -----------------------------------------------------------
-    // Messages: modern grouped bubbles
-    // -----------------------------------------------------------
-    // Converse already groups consecutive same-author messages within a
-    // 10-minute window as "followups" (see headless/shared/message.js
-    // isFollowup()) and only renders the avatar/heading on the *first*
-    // message of such a run (see shared/chat/templates/message.js). We
-    // lean on that native class instead of re-detecting grouping ourselves.
     .chat-content {
         color: var(--bs-body-color);
         background-color: inherit;
@@ -382,9 +344,6 @@
 
         &:hover { background-color: transparent; }
 
-        // A small positive gap - not a negative margin - between grouped
-        // messages, otherwise consecutive bubbles from the same author end
-        // up touching.
         &.chat-msg--followup { padding-top: .12rem; margin-top: 0; }
 
         &:has(.chat-msg__content--me) {
@@ -392,10 +351,6 @@
         }
     }
 
-    // A per-message photo of the other person adds noise without adding
-    // information (you can already see who you're talking to from the
-    // chat header/sender name) - modern 1-1 and group chat UIs mostly skip
-    // it too. Drop it entirely rather than just for your own messages.
     .message.chat-msg > a.show-msg-author-modal {
         display: none;
     }
@@ -441,12 +396,6 @@
 
     .chat-msg__text { color: var(--bs-body-color); }
 
-    // Speech-bubble tail, drawn on the *last* message of a consecutive run
-    // (the sender name/heading, by contrast, only shows on the *first* -
-    // Converse's own isFollowup() convention above - the two are unrelated
-    // and normally live on different bubbles, same as WhatsApp/Telegram).
-    // "Last of the run" = a message not immediately followed by one of its
-    // own followups.
     .message.chat-msg:not(:has(+ .chat-msg--followup)) {
         .chat-msg__content--them .chat-msg__body::after {
             content: "";
@@ -470,9 +419,38 @@
         }
     }
 
+    .chat-msg__content--them .chat-msg__receipt {
+        display: none;
+    }
+
     converse-message-actions {
+        position: absolute;
+        top: .3rem;
+        inset-inline-end: .3rem;
         opacity: 0;
         transition: opacity .12s ease;
+
+        .btn--standalone {
+            width: 1.5rem;
+            height: 1.5rem;
+            min-width: 0;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            converse-icon { display: none; }
+
+            &::after {
+                content: "\22EE";
+                font-size: 1.05rem;
+                line-height: 1;
+                color: var(--bs-body-color);
+            }
+        }
+    }
+    .chat-msg__content--me converse-message-actions .btn--standalone::after {
+        color: rgba(255, 255, 255, .85);
     }
     .message.chat-msg:hover converse-message-actions { opacity: 1; }
 
@@ -496,13 +474,7 @@
     // -----------------------------------------------------------
     // Toolbar + composer (pill input, Messenger-style)
     // -----------------------------------------------------------
-    // NOTE: the send button lives *inside* <converse-chat-toolbar>, as one of
-    // the toolbar icons (see shared/chat/templates/toolbar.js) - it is not a
-    // sibling of <textarea> in the DOM, and the toolbar is rendered *before*
-    // the textarea. We turn the form into a flex column and use `order` to
-    // flip the visual position so the icon row sits below the textarea,
-    // like modern chat composers (Facebook Messenger, etc.), without
-    // touching Converse's markup.
+
     converse-chat-toolbar {
         order: 2;
         background-color: transparent !important;
@@ -573,12 +545,7 @@
     // -----------------------------------------------------------
     // Minimized chats
     // -----------------------------------------------------------
-    // NOTE: light pills, not colored ones. Converse's own close button
-    // (the "x", a plain <a> - not a .chatbox-btn) is rendered with its
-    // icon color hard-set to --chat-color/--muc-color (see
-    // plugins/minimize/templates/trimmed_chat.js). A colored pill
-    // background of the *same* color made that "x" invisible; a light
-    // pill keeps it visible for free, no icon-color override needed.
+
     #minimized-chats {
         .minimized-chats-flyout {
             display: flex;

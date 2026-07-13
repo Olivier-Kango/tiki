@@ -80,22 +80,8 @@ class ConverseJS
 
         // Anonymous login
         if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
-            $anonMode      = $prefs['xmpp_anonymous_mode'] ?? 'community';
-            $communityRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
-            $dmTarget      = trim($params['dm_target'] ?? ($prefs['xmpp_admin_jid'] ?? ''));
-            $anonRoom      = '';
-
-            if ($anonMode === 'support') {
-                // DM with admin; no MUC auto-join
-                $anonRoom = '';
-            } elseif ($anonMode === 'community' && $communityRoom !== '') {
-                $anonRoom = $communityRoom;
-            }
-
-            // Never override anonymous room with plugin room
-            if (! empty($user) && $anonRoom === '' && ! empty($params['room'])) {
-                $anonRoom = $params['room'];
-            }
+            $dmTarget = trim($params['dm_target'] ?? ($prefs['xmpp_admin_jid'] ?? ''));
+            $anonRoom = trim($params['room'] ?? '');
 
             $this->set_options([
                 'authentication'      => 'anonymous',
@@ -104,13 +90,9 @@ class ConverseJS
                 'bosh_service_url'    => $prefs['xmpp_server_http_bind'] ?? null,
                 'websocket_url'       => $prefs['xmpp_ws_url'] ?? null,
                 'dm_target'           => $dmTarget,
+                'anon_room'           => $anonRoom,
                 'tiki_anonymous_nick' => ($prefs['xmpp_anonymous_allow_custom_nickname'] ?? 'n') === 'y' ? 'custom' : 'visitor',
             ]);
-
-            // Auto-join anonymous room if configured (community only)
-            if (! empty($anonRoom)) {
-                $this->set_auto_join_rooms($anonRoom);
-            }
 
         // Prebind (tikitoken)
         } elseif ($authMethod === 'tikitoken') {
@@ -269,6 +251,14 @@ class ConverseJS
         global $user, $prefs;
         $options = $this->get_options();
 
+        if (!isset($options['auto_open'])) {
+            $options['auto_open'] = 'n';
+        }
+
+        if (!isset($options['anonymous_auto_open'])) {
+            $options['anonymous_auto_open'] = 'n';
+        }
+
         $output = '';
 
         if ($prefs['xmpp_conversejs_always_load'] !== 'y') {
@@ -305,6 +295,70 @@ class ConverseJS
             $output .= 'delete sessionStorage["converse.chatboxes-' . $this->get_option('jid') . '"];' . PHP_EOL;
             $output .= 'delete sessionStorage["converse.chatboxes-' . $this->get_option('jid') . '-controlbox"];' . PHP_EOL;
             $options['singleton'] = true;
+        }
+
+        $options['auto_open'] = $this->get_option('auto_open', 'n');
+        $options['anonymous_auto_open'] = $this->get_option('anonymous_auto_open', 'n');
+        $options['bookmarks'] = false;
+        $options['auto_join_bookmarks'] = false;
+
+        if ($this->get_option('authentication') === 'anonymous') {
+            $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');
+
+            unset($options['authentication'], $options['jid'], $options['auto_login']);
+            $options['authentication'] = 'login';
+            $options['auto_login'] = true;
+
+            ksort($options);
+            $optionsWithoutCreds = json_encode($options, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            $guestDomainJs = json_encode($guestDomain);
+
+$output .= <<<JS
+
+;(function () {
+    try {
+        var STORAGE_KEY = 'tiki-xmpp-guest-identity';
+        var identity = null;
+        try {
+            identity = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        } catch (e) {
+            identity = null;
+        }
+        if (!identity || !identity.jid || !identity.password) {
+            var cryptoObj = window.crypto || window.msCrypto;
+            if (!cryptoObj || !cryptoObj.getRandomValues) {
+                throw new Error('window.crypto unavailable - cannot generate guest identity');
+            }
+            var randHex = function (len) {
+                var arr = new Uint8Array(len);
+                cryptoObj.getRandomValues(arr);
+                return Array.prototype.map.call(arr, function (b) {
+                    return ('0' + b.toString(16)).slice(-2);
+                }).join('');
+            };
+            identity = {
+                jid: 'guest-' + randHex(10) + '@' + {$guestDomainJs},
+                password: randHex(24)
+            };
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(identity));
+            } catch (e) {
+                // Storage unavailable - identity won't persist, that's ok.
+            }
+        }
+        var opts = {$optionsWithoutCreds};
+        opts.jid = identity.jid;
+        opts.password = identity.password;
+        console.log('[tiki-guest] initializing with', opts.jid);
+        converse.initialize(opts);
+    } catch (e) {
+        console.error('[tiki-guest] FATAL - guest identity setup failed:', e);
+    }
+})();
+
+JS;
+
+            return TikiLib::lib('header')->add_jq_onready($output, 10);
         }
 
         ksort($options);

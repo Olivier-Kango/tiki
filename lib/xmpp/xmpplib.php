@@ -694,6 +694,7 @@ class XMPPLib extends TikiLib
             'room' => '',
             'show_controlbox_by_default' => 'y',
             'show_occupants_by_default' => 'y',
+            'auto_open' => 'n',
         ], $params);
 
         $xmppclient = new ConverseJS();
@@ -707,23 +708,15 @@ class XMPPLib extends TikiLib
             $usesExternalJid = $jidInfo['isExternal'];
         }
 
-        // Auto-join only if user is logged in
-        if (! empty($user)) {
+        // Auto-join ONLY if the plugin is on the page (params['room'] is set)
+        if (! empty($params['room']) && ! empty($user)) {
             $allowedRooms = $xmpplib->getXmppRoomsForUser($user);
             $allowedFullJids = array_map(fn($r) => $xmpplib->buildRoomJid($r), $allowedRooms);
 
-            $joinRooms = [];
+            $requestedRoom = $xmpplib->buildRoomJid($params['room']);
 
-            if (! empty($params['room'])) {
-                $requestedRoom = $xmpplib->buildRoomJid($params['room']);
-
-                if (in_array($requestedRoom, $allowedFullJids, true)) {
-                    $joinRooms[] = $requestedRoom;
-                }
-            }
-
-            if ($joinRooms) {
-                $xmppclient->set_auto_join_rooms(implode(',', $joinRooms));
+            if ($params['auto_open'] === 'y') {
+                $xmppclient->set_auto_join_rooms($requestedRoom);
             }
         }
 
@@ -733,8 +726,10 @@ class XMPPLib extends TikiLib
             'view_mode'                  => $params['view_mode'],
             'show_controlbox_by_default' => $params['show_controlbox_by_default'] === 'y',
             'show_occupants_by_default'  => $params['show_occupants_by_default'] === 'y',
-            'dm_target'                  => $params['dm_target'] ?? '',
+            'dm_target'                  => $xmppclient->get_option('dm_target') ?: ($params['dm_target'] ?? ''),
+            'anon_room'                  => $xmppclient->get_option('anon_room') ?: '',
             'anonymous'                  => $params['anonymous'] ?? '',
+            'auto_open'                  => $params['auto_open'],
         ];
 
         if (! $usesExternalJid || ! empty($xmpp['custom_endpoint'])) {

@@ -19,6 +19,7 @@ function wikiplugin_xmpp_info()
                 'name' => tra('Room Name'),
                 'description' => tr('Room to auto-join'),
                 'since' => 19,
+                'default' => '',
                 'filter' => 'text',
             ],
             'view_mode' => [
@@ -107,6 +108,7 @@ function wikiplugin_xmpp_info()
             'groups' => [
                 'name' => tra('Groups (comma-separated)'),
                 'description' => tra('Allowed groups to use this resource'),
+                'default' => '',
                 'filter' => 'alpha',
                 'required' => false,
                 'separator' => ',',
@@ -171,17 +173,17 @@ function wikiplugin_xmpp($data, $params)
     $servicelib = TikiLib::lib('service');
     $smarty = TikiLib::lib('smarty');
 
-    $params = WikiPlugin_Helper::applySeparators($params, wikiplugin_xmpp_info());
-
-    $anonMode = trim($prefs['xmpp_anonymous_mode'] ?? '');
-    $isAnonymous = ($params['visibility'] ?? '') === 'anonymous';
-    $dmMode = $isAnonymous && $anonMode === 'support';
     $params['view_mode'] = $params['view_mode'] ?? 'overlayed';
     $params['width'] = $params['width'] ?? '100%';
     $params['height'] = $params['height'] ?? '400px';
+    if (!isset($params['auto_open'])) {
+        $params['auto_open'] = 'n';
+    }
 
-    // Require room only when not in anonymous support (DM) mode
-    if (! $dmMode && empty($params['room'])) {
+    $params['anonymous_auto_open'] = $params['auto_open'];
+
+
+    if (empty($params['room'])) {
         Feedback::error(tr('PluginXMPP Error: No room specified'));
         return '';
     }
@@ -189,29 +191,10 @@ function wikiplugin_xmpp($data, $params)
     $visibility = $params['visibility'] ?? 'anonymous';
     $params['anonymous'] = $visibility === 'anonymous' ? 'y' : 'n';
 
-    // If anonymous → force the room defined in prefs
-    if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
-        $anonMode      = $prefs['xmpp_anonymous_mode'] ?? 'community';
+    if (empty($user) && $params['anonymous'] === 'y') {
         $communityRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
-        $supportRoom   = trim($prefs['xmpp_anonymous_support_room'] ?? '');
-        $targetRoom    = '';
-        $xmpplib = TikiLib::lib('xmpp');
-
-        if ($dmMode) {
-            // Personalized support: direct message target, no MUC
-            $params['dm_target'] = trim($prefs['xmpp_admin_jid'] ?? '');
-            unset($params['room']);
-        } elseif ($anonMode === 'community' && $communityRoom !== '') {
-            $targetRoom = $communityRoom;
-        }
-
-        // Never override anonymous room with plugin value
-        if (! empty($user) && $targetRoom === '' && ! empty($params['room'])) {
-            $targetRoom = $params['room'];
-        }
-
-        if ($targetRoom !== '') {
-            $params['room'] = $targetRoom;
+        if ($communityRoom !== '') {
+            $params['room'] = $communityRoom;
         }
     }
 
