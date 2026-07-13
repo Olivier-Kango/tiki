@@ -620,3 +620,60 @@
         .chat-msg__content { max-width: 90%; }
     }
 }
+
+
+// ============================================================
+// FIX - Icons (Three dots & Checkmark)
+// ============================================================
+
+// 1. Hide SVG icons that block ::before
+#conversejs .fa-bars svg {
+    display: none !important;
+}
+
+// 2. Replace hamburger with three dots
+#conversejs .fa-bars::before {
+    content: "\22EE" !important;
+    font-size: 1.3rem !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    display: inline-block !important;
+}
+
+// 3. Three dots - visible only on hover (messages only)
+#conversejs .chat-msg .fa-bars {
+    opacity: 0 !important;
+    transition: opacity 0.2s ease;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#conversejs .chat-msg:hover .fa-bars {
+    opacity: 1 !important;
+}
+
+#conversejs .chat-msg .fa-bars:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+// 4. Header three dots - always white
+#conversejs .chat-head .fa-bars {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+// 5. Checkmark - gray, discreet
+#conversejs .chat-msg__content--me .chat-msg__receipt svg {
+    fill: rgba(200, 200, 200, 0.5) !important;
+    width: 0.7rem !important;
+    height: 0.7rem !important;
+}
+
+// 6. Checkmark on read messages - slightly lighter gray
+#conversejs .chat-msg__content--me .chat-msg__receipt[data-receipt="read"] svg {
+    fill: rgba(180, 180, 180, 0.7) !important;
+}
+
+// 7. Hide checkmark on received messages
+#conversejs .chat-msg__content--them .chat-msg__receipt {
+    display: none !important;
+}

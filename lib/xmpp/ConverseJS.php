@@ -82,6 +82,7 @@ class ConverseJS
         if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
             $dmTarget = trim($params['dm_target'] ?? ($prefs['xmpp_admin_jid'] ?? ''));
             $anonRoom = trim($params['room'] ?? '');
+            $autoOpen = $params['auto_open'] ?? 'n';
 
             $this->set_options([
                 'authentication'      => 'anonymous',
@@ -92,6 +93,7 @@ class ConverseJS
                 'dm_target'           => $dmTarget,
                 'anon_room'           => $anonRoom,
                 'tiki_anonymous_nick' => ($prefs['xmpp_anonymous_allow_custom_nickname'] ?? 'n') === 'y' ? 'custom' : 'visitor',
+                'auto_open'           => $autoOpen,
             ]);
 
         // Prebind (tikitoken)
@@ -112,12 +114,14 @@ class ConverseJS
                 ]]);
         } elseif ($authMethod === 'http') {
             if (! empty($user)) {
-                $this->set_options($this->getUserAuthOptions($user));
+                $autoOpen = $params['auto_open'] ?? 'n';
+                $this->set_options($this->getUserAuthOptions($user, $autoOpen));
             }
         } else {
             global $user, $prefs;
             if (! empty($user)) {
-                $this->set_options($this->getUserAuthOptions($user));
+                $autoOpen = $params['auto_open'] ?? 'n';
+                $this->set_options($this->getUserAuthOptions($user, $autoOpen));
             }
         }
     }
@@ -136,6 +140,7 @@ class ConverseJS
                 'auto_login'     => false,
                 'jid'            => $jidInfo['jid'],
                 'websocket_url'  => '',
+                'auto_open'      => $auto_open,
             ];
 
             return array_merge($options, $transportOptions);
@@ -146,6 +151,7 @@ class ConverseJS
             'auto_login'     => true,
             'jid'            => $jidInfo['localJid'] ?? '',
             'password'       => $xmpplib->getXmppSessionToken($user),
+            'auto_open'      => $auto_open,
         ], $transportOptions);
     }
 
