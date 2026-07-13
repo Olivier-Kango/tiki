@@ -77,7 +77,8 @@ class ConverseJS
         global $user;
         global $prefs;
         $authMethod = TikiLib::lib('tiki')->get_preference('xmpp_auth_method');
-$this->set_option('on_xmpp_page', $params['on_xmpp_page'] ?? 'n');
+        $this->set_option('on_xmpp_page', $params['on_xmpp_page'] ?? 'n');
+
         // Anonymous login
         if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
             $dmTarget = trim($params['dm_target'] ?? ($prefs['xmpp_admin_jid'] ?? ''));

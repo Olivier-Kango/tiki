@@ -254,6 +254,7 @@ function wikiplugin_xmpp($data, $params)
     $headerlib->add_jsfile_late($javascript . '?_=' . filemtime(TIKI_PATH . "/$javascript"), false);
 
     $params['on_xmpp_page'] = 'y';
+    $params['auto_open'] = $params['auto_open'] ?? 'n';
     TikiLib::lib('xmpp')->render_xmpp_client($params);
 
     $result .= $smarty->fetch('wiki-plugins/wikiplugin_xmpp.tpl');
