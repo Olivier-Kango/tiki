@@ -818,3 +818,56 @@
 #conversejs .chat-msg__content--them .chat-msg__receipt {
     display: none !important;
 }
+
+// 8. Pasted/dropped/picked files staged in the composer, awaiting Send
+// (see lib/xmpp/js/conversejs-tiki.js)
+#conversejs .tiki-pending-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.4rem;
+}
+
+#conversejs .tiki-pending-file {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    max-width: 10rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+#conversejs .tiki-pending-file-thumb {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    border-radius: 0.2rem;
+}
+
+#conversejs .tiki-pending-file-icon {
+    width: 2rem;
+    text-align: center;
+}
+
+#conversejs .tiki-pending-file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75rem;
+}
+
+#conversejs .tiki-pending-file-remove {
+    border: none;
+    background: none;
+    line-height: 1;
+    padding: 0 0.2rem;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.7;
+}
+
+#conversejs .tiki-pending-file-remove:hover {
+    opacity: 1;
+}
