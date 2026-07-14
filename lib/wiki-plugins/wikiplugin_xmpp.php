@@ -161,6 +161,18 @@ function wikiplugin_xmpp_info()
                     ['text' => tra('No'), 'value' => 'n'],
                 ],
             ],
+            'auto_open' => [
+                'name' => tra('Auto-open'),
+                'description' => tra('If this room should open automatically instead of staying minimized/hidden until the visitor clicks the chat button. Always shown when view_mode is embedded or fullscreen, regardless of this setting.'),
+                'default' => 'n',
+                'filter' => 'alpha',
+                'required' => false,
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n'],
+                ],
+            ],
         ],
     ];
 }
@@ -191,11 +203,18 @@ function wikiplugin_xmpp($data, $params)
     $visibility = $params['visibility'] ?? 'anonymous';
     $params['anonymous'] = $visibility === 'anonymous' ? 'y' : 'n';
 
-    if (empty($user) && $params['anonymous'] === 'y') {
-        $communityRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
-        if ($communityRoom !== '') {
-            $params['room'] = $communityRoom;
-        }
+    // The room this plugin instance declares is what visitors join here - it's no
+    // longer silently swapped out for the sitewide "default anonymous room" pref,
+    // so a page keeps the room its author actually configured (that sitewide default
+    // is instead used as a fallback by the floating chat button on pages with no
+    // PluginXMPP of their own; see ConverseJS::set_auth()).
+
+    if (empty($user) && $params['anonymous'] !== 'y') {
+        // Anonymous visitor hitting a members-only room: block, same as the
+        // authorization check below does for logged-in users on rooms they can't access.
+        return '<div class="alert alert-warning">'
+            . tra('This chat room is restricted.')
+            . '</div>';
     }
 
     if (! empty($user) && ($params['anonymous'] ?? 'n') !== 'y') {
@@ -263,10 +282,11 @@ function wikiplugin_xmpp($data, $params)
         unset($url, $item);
     }
 
-    if ($params['view_mode'] === 'fullscreen') {
-        // supress to avoid conflict
-        $headerlib->unsafeClearAllCss();
-    }
+    // Fullscreen layout is handled by dedicated CSS (.converse-fullscreen) and
+    // wikiplugin-xmpp.js, using position:fixed + a high z-index to cover the
+    // viewport - stripping every other stylesheet on the page (as previously done
+    // here) also removed Tiki's theme CSS variables the chat itself depends on
+    // (--bs-primary, etc.), which is what made fullscreen look broken/unstyled.
 
     $javascript = 'lib/jquery_tiki/wikiplugin-xmpp.js';
     $headerlib->add_jsfile_late($javascript . '?_=' . filemtime(TIKI_PATH . "/$javascript"), false);

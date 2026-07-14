@@ -256,7 +256,16 @@ class XMPPLib extends TikiLib
             return $roomName;
         }
 
-        return $roomName . '@' . $mucDomain;
+        // JID node identifiers can't safely contain spaces or most punctuation, so a
+        // human-readable room name typed into a plugin (e.g. "Kingdom Community")
+        // must be normalized into a stable identifier - otherwise room creation/join
+        // silently fails at the XMPP protocol level. This lets an admin name rooms
+        // however they like without needing to know XMPP JID rules.
+        $node = mb_strtolower(trim($roomName));
+        $node = preg_replace('/[^a-z0-9._-]+/u', '-', $node);
+        $node = trim($node, '-');
+
+        return $node . '@' . $mucDomain;
     }
 
     public function checkXmppSessionToken(string $user, string $token): bool
@@ -288,6 +297,26 @@ class XMPPLib extends TikiLib
     }
 
     /**
+     * The JID the ConverseJS web widget will actually connect as: the preferred
+     * external JID only when a reachable connection endpoint is also configured for
+     * it (otherwise there's no way to actually reach that server), the local
+     * Tiki-managed JID otherwise. Used both to decide the widget's own connection
+     * options and to keep MUC room affiliations in sync with whichever identity the
+     * widget is really using.
+     */
+    public function getWidgetJidForUser(string $username): string
+    {
+        $jidInfo = $this->getJidInfoForUser($username);
+        if ($jidInfo['isExternal']) {
+            $xmpp = $this->get_user_connection_info($username);
+            if (! empty($xmpp['custom_endpoint'])) {
+                return $jidInfo['jid'];
+            }
+        }
+        return $jidInfo['localJid'] ?? '';
+    }
+
+    /**
      * Sync user's Tiki groups -> XMPP MUC affiliations (member).
      * Minimal: ensure room exists and set affiliation member.
      */
@@ -298,7 +327,11 @@ class XMPPLib extends TikiLib
             return;
         }
 
-        $jid = $this->getEffectiveJidForUser($u);
+        // Sync affiliations for whichever JID the web widget will actually connect
+        // as (local, unless a preferred external JID AND a reachable endpoint are
+        // both configured) - that's the identity that actually needs room membership
+        // kept up to date, so group room access is never lost either way.
+        $jid = $this->getWidgetJidForUser($u);
         if (! $jid) {
             return;
         }
@@ -701,24 +734,18 @@ class XMPPLib extends TikiLib
         $xmppclient->set_auth($params);
 
         $nickname = $xmpp['nickname'] ?? $user;
-        $usesExternalJid = false;
+        // Whether this render is actually using the external identity right now -
+        // read back from set_auth()'s own decision (which also accounts for the
+        // visitor's opt-in cookie) instead of recomputing it, so this second pass
+        // can never disagree with what set_auth() already decided.
+        $usingExternal = $xmppclient->get_option('using_external') === 'y';
 
-        if (! empty($user)) {
-            $jidInfo = $this->getJidInfoForUser($user);
-            $usesExternalJid = $jidInfo['isExternal'];
-        }
-
-        // Auto-join ONLY if the plugin is on the page (params['room'] is set)
-        if (! empty($params['room']) && ! empty($user)) {
-            $allowedRooms = $xmpplib->getXmppRoomsForUser($user);
-            $allowedFullJids = array_map(fn($r) => $xmpplib->buildRoomJid($r), $allowedRooms);
-
-            $requestedRoom = $xmpplib->buildRoomJid($params['room']);
-
-            if ($params['auto_open'] === 'y') {
-                $xmppclient->set_auto_join_rooms($requestedRoom);
-            }
-        }
+        // Room auto-join for the current page is handled entirely by set_auth()
+        // (current_room option, read by conversejs-tiki.js's 'connected' handler),
+        // which respects auto_open/embedded/fullscreen and the user's authorized
+        // rooms consistently. A second, separate join mechanism used to live here
+        // (converse's native auto_join_rooms), duplicating and sometimes disagreeing
+        // with that logic - removed.
 
         $renderOptions = [
             'jid'                        => $xmppclient->get_option('jid') ?: $xmpp['jid'],
@@ -732,7 +759,10 @@ class XMPPLib extends TikiLib
             'auto_open'                  => $params['auto_open'],
         ];
 
-        if (! $usesExternalJid || ! empty($xmpp['custom_endpoint'])) {
+        // Only point the transport at the external server's endpoint while actually
+        // using that identity - otherwise this would send the local JID/password
+        // through the external server's BOSH/WebSocket URL, which can never work.
+        if (! $usingExternal) {
             if (! empty($xmpp['http_bind'])) {
                 $renderOptions['bosh_service_url'] = $xmpp['http_bind'];
             }

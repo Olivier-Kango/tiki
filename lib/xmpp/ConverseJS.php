@@ -79,11 +79,39 @@ class ConverseJS
         $authMethod = TikiLib::lib('tiki')->get_preference('xmpp_auth_method');
         $this->set_option('on_xmpp_page', $params['on_xmpp_page'] ?? 'n');
 
+        // The current page's own room (e.g. a specific PluginXMPP instance) - kept
+        // separate from group-mapped rooms so a page always controls its own room
+        // regardless of Tiki group membership, and works the same for anonymous and
+        // authenticated users.
+        $currentRoom = trim($params['room'] ?? '');
+        if ($currentRoom !== '') {
+            $currentRoom = TikiLib::lib('xmpp')->buildRoomJid($currentRoom);
+        }
+        $this->set_option('current_room', $currentRoom);
+
         // Anonymous login
         if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
-            $dmTarget = trim($params['dm_target'] ?? ($prefs['xmpp_admin_jid'] ?? ''));
-            $anonRoom = trim($params['room'] ?? '');
             $autoOpen = $params['auto_open'] ?? 'n';
+            $onXmppPage = ($params['on_xmpp_page'] ?? 'n') === 'y';
+            $anonymousMode = $prefs['xmpp_anonymous_mode'] ?? 'community';
+            $anonRoom = '';
+            $dmTarget = '';
+
+            if ($onXmppPage) {
+                // Any page embedding the XMPP plugin sends anonymous visitors into the
+                // sitewide community room specifically - never into whatever room that
+                // particular page/plugin instance declares (that room is for registered
+                // users), so anonymous visitors can never end up in a
+                // Registered/Translators-only room via a page's own room= parameter.
+                $anonRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
+            } elseif ($anonymousMode === 'support') {
+                // Site-wide floating button, "Personalized support" mode: a direct 1-1
+                // with a person, not a room.
+                $dmTarget = trim($params['dm_target'] ?? ($prefs['xmpp_admin_jid'] ?? ''));
+            } else {
+                // Site-wide floating button, "Community room" mode.
+                $anonRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
+            }
 
             $this->set_options([
                 'authentication'      => 'anonymous',
@@ -132,36 +160,41 @@ class ConverseJS
         $xmpplib = TikiLib::lib('xmpp');
         $xmpp = $xmpplib->get_user_connection_info($user);
         $jidInfo = $xmpplib->getJidInfoForUser($user);
-        $usesExternalJid = $jidInfo['isExternal'];
-        $transportOptions = $this->getTransportOptions($xmpp, $usesExternalJid);
+        // A preferred external JID is only usable for real when a reachable
+        // connection endpoint is also configured for it - with just the JID and no
+        // endpoint, there's no way to reach that server at all.
+        $externalAvailable = $jidInfo['isExternal'] && ! empty($xmpp['custom_endpoint']);
+        // The automatic page-load connection only ever uses the external identity
+        // once the visitor has explicitly opted in (via the Chat button, which sets
+        // this cookie and reloads) - attempting it automatically on every page load
+        // used to break the entire widget outright whenever that external server
+        // wasn't actually reachable as a BOSH/WebSocket endpoint from the browser.
+        // Tiki still can't supply a password for a genuinely external account
+        // (it only manages credentials for local ones), so auto_login stays off in
+        // that case and converse.js shows its own login form for this JID.
+        $useExternalNow = $externalAvailable && ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
 
-        if ($usesExternalJid) {
-            // Per-account chat history/roster is inherent to XMPP: a client can only be
-            // connected as one JID at a time, so switching to an external JID here cannot
-            // also surface the local Tiki JID's DM history in the same session. Group/room
-            // access is preserved separately via syncUserGroupsToXmpp() moving MUC
-            // affiliations from the old JID to the new one.
-            $options = [
+        if ($useExternalNow) {
+            $transportOptions = $this->getTransportOptions($xmpp, true);
+            return array_merge([
                 'authentication' => 'login',
                 'auto_login'     => false,
                 'jid'            => $jidInfo['jid'],
                 'auto_open'      => $auto_open,
-            ];
-
-            // Do not blank the transport here: if no custom endpoint is configured for the
-            // external account, fall back to this site's own websocket/BOSH (already set by
-            // load_prefs()) rather than leaving converse with no transport at all, which
-            // throws during converse.initialize() and used to be able to take down unrelated
-            // page JS (see render()).
-            return array_merge($options, $transportOptions);
+                'external_jid'   => $jidInfo['jid'],
+                'using_external' => 'y',
+            ], $transportOptions);
         }
 
+        $transportOptions = $this->getTransportOptions($xmpp, false);
         return array_merge([
             'authentication' => 'login',
             'auto_login'     => true,
             'jid'            => $jidInfo['localJid'] ?? '',
             'password'       => $xmpplib->getXmppSessionToken($user),
             'auto_open'      => $auto_open,
+            'external_jid'   => $externalAvailable ? $jidInfo['jid'] : '',
+            'using_external' => 'n',
         ], $transportOptions);
     }
 
@@ -275,7 +308,11 @@ class ConverseJS
             $options['anonymous_auto_open'] = 'n';
         }
 
-        $output = '';
+        // Everything this method emits is concatenated with other, unrelated modules'
+        // onready scripts into one shared function body (see headerlib::add_jq_onready).
+        // Wrapping the whole thing means an XMPP-side runtime error can only ever stop
+        // XMPP's own setup, never anything queued after it in that shared script.
+        $output = ';(function () {' . PHP_EOL . 'try {' . PHP_EOL;
 
         if ($prefs['xmpp_conversejs_always_load'] !== 'y') {
             array_map([TikiLib::lib('header'), 'add_jsfile'], $this->get_js_dependencies());
@@ -308,10 +345,11 @@ class ConverseJS
         $output .= PHP_EOL;
 
         if ($this->get_option('view_mode') === 'embedded') {
-            // TODO: remove this a line after fixing conversejs
-            $jidJs = json_encode((string) $this->get_option('jid'));
-            $output .= 'delete sessionStorage["converse.chatboxes-" + ' . $jidJs . '];' . PHP_EOL;
-            $output .= 'delete sessionStorage["converse.chatboxes-" + ' . $jidJs . ' + "-controlbox"];' . PHP_EOL;
+            // Note: this used to also delete the room's sessionStorage state on every
+            // single render, which forced a visible reconnect/redraw flash every time a
+            // page with an embedded room was visited (most noticeable on pages people
+            // revisit often). Removed - converse.js's own session persistence already
+            // keeps the embedded room's state consistent across page loads.
             $options['singleton'] = true;
         }
 
@@ -376,6 +414,7 @@ $output .= <<<JS
 
 JS;
 
+            $output .= PHP_EOL . '} catch (e) { console.error(\'[tiki-xmpp] FATAL - setup failed:\', e); }' . PHP_EOL . '})();';
             return TikiLib::lib('header')->add_jq_onready($output, 10);
         }
 

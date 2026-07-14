@@ -450,7 +450,12 @@
 
     .chat-msg__text { color: var(--bs-body-color); }
 
-    .message.chat-msg:not(:has(+ .chat-msg--followup)) {
+    // Each message is rendered inside its own <converse-chat-message> element, so
+    // consecutive messages are siblings of THAT element, not of the inner
+    // .message.chat-msg div - matching on .message.chat-msg here doesn't reliably
+    // find "the next message", which is why the tail used to show on every bubble
+    // instead of only the last one in a run.
+    converse-chat-message:not(:has(+ converse-chat-message .chat-msg--followup)) {
         .chat-msg__content--them .chat-msg__body::after {
             content: "";
             position: absolute;
@@ -470,6 +475,33 @@
             height: 12px;
             background-color: var(--bs-primary);
             clip-path: polygon(0 0, 100% 100%, 0 100%);
+        }
+    }
+
+    // Images, audio and video should never sit inside a colored/bordered bubble -
+    // let the media itself be the message, edge to edge, like WhatsApp/Messenger.
+    // Converse wraps every such attachment in a .chat-msg__media container
+    // (regardless of image/audio/video), so that's the one reliable anchor.
+    .chat-msg__body:has(.chat-msg__media) {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+
+        &::after { display: none !important; }
+    }
+    .chat-msg__media {
+        figure { margin: 0; }
+        .chat-image, img {
+            display: block;
+            max-width: 100%;
+            border-radius: 1rem;
+        }
+        audio, video {
+            display: block;
+            max-width: 100%;
+            min-width: 260px;
+            border-radius: 999px;
         }
     }
 
@@ -603,31 +635,14 @@
     // Minimized chats
     // -----------------------------------------------------------
 
+    // Converse's own minimized-chats toggle would otherwise show alongside the Chat
+    // button any time a room is minimized - which, by design, is the default state
+    // for every room until a visitor actually opens one (its "hidden" state doesn't
+    // remove it from this list, only "minimized" matters here). Our own Chat button
+    // + controlbox already serves as the single, sole entry point into chat, so this
+    // native toggle is redundant and always hidden.
     #minimized-chats {
-        .minimized-chats-flyout {
-            display: flex;
-            flex-direction: column;
-            gap: .4rem;
-            padding: .3rem;
-        }
-        .chat-head-chatbox, .chat-head-chatroom {
-            border-radius: 999px;
-            padding: .4rem .9rem;
-            margin: 0;
-            background-color: var(--bs-body-bg);
-            border: 1px solid rgba(var(--bs-emphasis-color-rgb), .1);
-            box-shadow: var(--converse-box-shadow);
-            .restore-chat, .chatbox-btn { color: var(--bs-body-color); }
-        }
-        .message-count.badge {
-            background-color: var(--bs-danger);
-            color: #fff;
-            animation: tiki-badge-pulse 1.6s ease-in-out infinite;
-        }
-        #toggle-minimized-chats {
-            border-radius: 999px;
-            box-shadow: var(--converse-box-shadow);
-        }
+        display: none !important;
     }
 
     // -----------------------------------------------------------
