@@ -478,11 +478,7 @@
         }
     }
 
-    // Images, audio and video should never sit inside a colored/bordered bubble -
-    // let the media itself be the message, edge to edge, like WhatsApp/Messenger.
-    // Converse wraps every such attachment in a .chat-msg__media container
-    // (regardless of image/audio/video), so that's the one reliable anchor.
-    .chat-msg__body:has(.chat-msg__media) {
+    .chat-msg__body:has(.chat-msg__media, img.chat-image, audio, video) {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
@@ -490,18 +486,35 @@
 
         &::after { display: none !important; }
     }
-    .chat-msg__media {
-        figure { margin: 0; }
-        .chat-image, img {
-            display: block;
-            max-width: 100%;
-            border-radius: 1rem;
+    .chat-msg__body figure { margin: 0; }
+    .chat-msg__body figure figcaption,
+    .chat-msg__body figure > a {
+        display: none !important;
+    }
+    .chat-image, img.chat-image {
+        display: block;
+        max-width: 100%;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        border-radius: 1rem;
+    }
+    .chat-msg__body audio, .chat-msg__body video {
+        display: block;
+        max-width: 100%;
+        min-width: 260px;
+        border-radius: 999px;
+
+        &::-webkit-media-controls-panel {
+            padding-inline: .25rem;
         }
-        audio, video {
-            display: block;
-            max-width: 100%;
-            min-width: 260px;
-            border-radius: 999px;
+        &::-webkit-media-controls-current-time-display,
+        &::-webkit-media-controls-time-remaining-display {
+            font-size: 11px;
+            padding: 0 2px;
+        }
+        &::-webkit-media-controls-timeline {
+            flex: 1 1 auto;
         }
     }
 
@@ -513,10 +526,10 @@
         position: absolute;
         top: .3rem;
         inset-inline-end: .3rem;
-        opacity: 0;
-        transition: opacity .12s ease;
 
         .btn--standalone {
+            opacity: 0 !important;
+            transition: opacity .12s ease;
             width: 1.5rem;
             height: 1.5rem;
             min-width: 0;
@@ -538,7 +551,10 @@
     .chat-msg__content--me converse-message-actions .btn--standalone::after {
         color: rgba(255, 255, 255, .85);
     }
-    .message.chat-msg:hover converse-message-actions { opacity: 1; }
+    .message.chat-msg:hover converse-message-actions .btn--standalone,
+    converse-message-actions .btn--standalone:focus {
+        opacity: 1 !important;
+    }
 
     .message.separator, .message.date-separator {
         .separator-text {
@@ -555,6 +571,67 @@
         text-align: center;
         color: var(--bs-secondary-color);
         font-size: .8em;
+    }
+
+    // "X is typing" indicator
+    .chat-content__notifications {
+        &::before { content: none !important; }
+
+        &:empty {
+            display: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        &:not(:empty) {
+            display: inline-flex !important;
+            align-items: center;
+            width: fit-content;
+            max-width: calc(100% - 1.8rem);
+            margin: .6rem .9rem .35rem;
+            padding: .35rem .8rem;
+            background-color: var(--bs-tertiary-bg);
+            border-radius: 999px;
+            font-size: .78em;
+            font-style: normal;
+            line-height: 1.3;
+            color: var(--bs-secondary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &::before {
+                content: "" !important;
+                display: inline-block;
+                flex-shrink: 0;
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                margin-inline-end: 16px;
+                box-shadow: 0 0 0 currentColor, 8px 0 0 currentColor, 16px 0 0 currentColor;
+                animation: tiki-typing-dots 1.3s infinite ease-in-out;
+            }
+        }
+    }
+    @keyframes tiki-typing-dots {
+        0%, 100% {
+            box-shadow:
+                0 0 0 currentColor,
+                8px 0 0 color-mix(in srgb, currentColor 25%, transparent),
+                16px 0 0 color-mix(in srgb, currentColor 25%, transparent);
+        }
+        33% {
+            box-shadow:
+                0 0 0 color-mix(in srgb, currentColor 25%, transparent),
+                8px 0 0 currentColor,
+                16px 0 0 color-mix(in srgb, currentColor 25%, transparent);
+        }
+        66% {
+            box-shadow:
+                0 0 0 color-mix(in srgb, currentColor 25%, transparent),
+                8px 0 0 color-mix(in srgb, currentColor 25%, transparent),
+                16px 0 0 currentColor;
+        }
     }
 
     // -----------------------------------------------------------
@@ -712,30 +789,11 @@
     display: inline-block !important;
 }
 
-// 3. Three dots - visible only on hover (messages only). Color follows the bubble it
-// sits on (light "them" bubbles vs the colored "me" bubble) instead of a hardcoded
-// near-white that used to be invisible against a light bubble background.
-#conversejs .chat-msg .fa-bars {
-    opacity: 0 !important;
-    transition: opacity 0.2s ease;
-    color: rgba(var(--bs-body-color-rgb), 0.55) !important;
-}
-
-#conversejs .chat-msg__content--me .fa-bars {
-    color: rgba(255, 255, 255, 0.75) !important;
-}
-
-#conversejs .chat-msg:hover .fa-bars {
-    opacity: 1 !important;
-}
-
-#conversejs .chat-msg .fa-bars:hover {
-    color: var(--bs-body-color) !important;
-}
-
-#conversejs .chat-msg__content--me .fa-bars:hover {
-    color: #ffffff !important;
-}
+// 3. (removed) Per-message three-dot hover visibility is now handled where the
+// button actually lives - see converse-message-actions .btn--standalone above.
+// This used to target .chat-msg .fa-bars, but that icon is display:none for
+// per-message actions (replaced by the ::after unicode dots), so these rules
+// never had any visible effect and were dead weight.
 
 // 4. Header three dots - always white
 #conversejs .chat-head .fa-bars {
