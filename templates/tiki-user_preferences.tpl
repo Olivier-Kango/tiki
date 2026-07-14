@@ -562,6 +562,7 @@
                                 <input type="text" class="form-control" name="xmpp_jid" id="xmpp_jid" value="{$user_prefs.xmpp_jid|escape}">
                                 <p><small>{tr}Leave empty to use your default Tiki-managed XMPP address{/tr}</small></p>
                                 <p><small>{tr}Enter a full JID such as user@example.org if you prefer to use an existing external XMPP account{/tr}</small></p>
+                                <p><small>{tr}Your group chat rooms will keep working under this address. For security, Tiki cannot store the password of an external account, so you'll need to log in manually the first time in the chat window (your browser session will then remember it). Chat history tied to your previous address won't be visible from this new one, since XMPP accounts each keep their own separate history.{/tr}</small></p>
                             </div>
                         </div>
                         <div class="tiki-form-group row">
@@ -572,7 +573,7 @@
                                 <input type="text" class="form-control" name="xmpp_custom_server_endpoint" id="xmpp_custom_server_endpoint" value="{if $user_prefs.xmpp_custom_server_endpoint}{$user_prefs.xmpp_custom_server_endpoint|escape}{else}{$user_prefs.xmpp_custom_server_http_bind|escape}{/if}">
                                 <p><small>{tr}Provide this when using an external XMPP server that requires a custom BOSH or WebSocket endpoint{/tr}</small></p>
                                 <p><small>{tr}Use an http:// or https:// URL for BOSH, or a ws:// or wss:// URL for WebSocket{/tr}</small></p>
-                                <p><small>{tr}If left empty, Converse will try to discover the endpoint from the external XMPP domain{/tr}</small></p>
+                                <p><small>{tr}Required if your external address is on a different domain than this site's chat server; otherwise this site's own connection is used, which will fail to authenticate a genuinely external account{/tr}</small></p>
                             </div>
                         </div>
                     {/if}

@@ -136,14 +136,23 @@ class ConverseJS
         $transportOptions = $this->getTransportOptions($xmpp, $usesExternalJid);
 
         if ($usesExternalJid) {
+            // Per-account chat history/roster is inherent to XMPP: a client can only be
+            // connected as one JID at a time, so switching to an external JID here cannot
+            // also surface the local Tiki JID's DM history in the same session. Group/room
+            // access is preserved separately via syncUserGroupsToXmpp() moving MUC
+            // affiliations from the old JID to the new one.
             $options = [
                 'authentication' => 'login',
                 'auto_login'     => false,
                 'jid'            => $jidInfo['jid'],
-                'websocket_url'  => '',
                 'auto_open'      => $auto_open,
             ];
 
+            // Do not blank the transport here: if no custom endpoint is configured for the
+            // external account, fall back to this site's own websocket/BOSH (already set by
+            // load_prefs()) rather than leaving converse with no transport at all, which
+            // throws during converse.initialize() and used to be able to take down unrelated
+            // page JS (see render()).
             return array_merge($options, $transportOptions);
         }
 
@@ -286,11 +295,12 @@ class ConverseJS
             $_SESSION['chat-session-init'] = time();
         }
         $chat_session_init = ($user ?: 'anonymous') . $_SESSION['chat-session-init'];
+        $chat_session_init_js = json_encode($chat_session_init);
 
         $output .= PHP_EOL . ';(function(){';
-        $output .= PHP_EOL . "  if (localStorage['chat-session-init'] !== '{$chat_session_init}') {";
-        $output .= PHP_EOL . '      console.warn("Cleaning environment for ' . $chat_session_init . '");';
-        $output .= PHP_EOL . "      localStorage['chat-session-init'] = '{$chat_session_init}';";
+        $output .= PHP_EOL . "  if (localStorage['chat-session-init'] !== {$chat_session_init_js}) {";
+        $output .= PHP_EOL . '      console.warn("Cleaning environment for ' . 'converse session change");';
+        $output .= PHP_EOL . "      localStorage['chat-session-init'] = {$chat_session_init_js};";
         $output .= PHP_EOL . '      for (var key in localStorage) { key.match(/(converse|strophe)/) && localStorage.removeItem(key); }';
         $output .= PHP_EOL . '      for (var key in sessionStorage) { key.match(/(converse|strophe)/) && sessionStorage.removeItem(key); }';
         $output .= PHP_EOL . "  }";
@@ -299,8 +309,9 @@ class ConverseJS
 
         if ($this->get_option('view_mode') === 'embedded') {
             // TODO: remove this a line after fixing conversejs
-            $output .= 'delete sessionStorage["converse.chatboxes-' . $this->get_option('jid') . '"];' . PHP_EOL;
-            $output .= 'delete sessionStorage["converse.chatboxes-' . $this->get_option('jid') . '-controlbox"];' . PHP_EOL;
+            $jidJs = json_encode((string) $this->get_option('jid'));
+            $output .= 'delete sessionStorage["converse.chatboxes-" + ' . $jidJs . '];' . PHP_EOL;
+            $output .= 'delete sessionStorage["converse.chatboxes-" + ' . $jidJs . ' + "-controlbox"];' . PHP_EOL;
             $options['singleton'] = true;
         }
 
@@ -372,7 +383,13 @@ JS;
 
         // Do not use JSON_UNESCAPED_SLASHES to avoid </script> injection.
         $optionString = json_encode($options, JSON_PRETTY_PRINT);
-        $output .= 'converse.initialize(' . $optionString . ');' . PHP_EOL;
+        $output .= ';(function () {' . PHP_EOL;
+        $output .= '    try {' . PHP_EOL;
+        $output .= '        converse.initialize(' . $optionString . ');' . PHP_EOL;
+        $output .= '    } catch (e) {' . PHP_EOL;
+        $output .= "        console.error('[tiki-xmpp] FATAL - converse.initialize failed:', e);" . PHP_EOL;
+        $output .= '    }' . PHP_EOL;
+        $output .= '})();' . PHP_EOL;
         return TikiLib::lib('header')->add_jq_onready($output, 10);
     }
 }

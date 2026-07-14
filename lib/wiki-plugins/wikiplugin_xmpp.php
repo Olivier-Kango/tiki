@@ -213,6 +213,24 @@ function wikiplugin_xmpp($data, $params)
         }
     }
 
+    // Apply this plugin instance's archiving/persistent/moderated/secret params to the
+    // Prosody room, which otherwise ignores them. Cached per session (keyed on the room
+    // and the config itself) so a repeat page view doesn't trigger an XMPP admin
+    // round-trip on every render.
+    $xmpplib = $xmpplib ?? TikiLib::lib('xmpp');
+    $roomJid = $xmpplib->buildRoomJid($params['room']);
+    $roomConfig = [
+        'muc#roomconfig_persistentroom' => ($params['persistent'] ?? 'y') === 'y' ? '1' : '0',
+        'muc#roomconfig_enablelogging' => ($params['archiving'] ?? 'y') === 'y' ? '1' : '0',
+        'muc#roomconfig_moderatedroom' => ($params['moderated'] ?? 'y') === 'y' ? '1' : '0',
+        'muc#roomconfig_publicroom' => ($params['secret'] ?? 'n') === 'y' ? '0' : '1',
+    ];
+    $configCacheKey = md5(serialize($roomConfig));
+    if (($_SESSION['xmpp_room_configured'][$roomJid] ?? '') !== $configCacheKey) {
+        $xmpplib->ensureRoomExists($roomJid, $roomConfig);
+        $_SESSION['xmpp_room_configured'][$roomJid] = $configCacheKey;
+    }
+
     $result = '<style type="text/css">#page-bar .dropdown-menu { z-index: 1031; }</style>'
         . '<div id="conversejs"'
         . ' data-view-mode="' . $params['view_mode'] . '"'

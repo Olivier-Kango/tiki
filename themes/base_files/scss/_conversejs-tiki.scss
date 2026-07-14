@@ -173,6 +173,60 @@
         max-width: 100%;
     }
 
+    // Embedded: fill the PluginXMPP container (its width/height are set inline by the
+    // plugin) instead of floating fixed-position over the page like overlayed mode does.
+    // There's no separate toggle button in this mode - the container itself is the chat.
+    &.converse-embedded {
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100%;
+        left: auto !important;
+        top: auto !important;
+
+        .toggle-controlbox { display: none !important; }
+
+        .chatbox, #controlbox {
+            position: static !important;
+            width: 100% !important;
+            height: 100% !important;
+
+            .box-flyout {
+                position: static !important;
+                width: 100% !important;
+                height: 100% !important;
+                animation: none;
+            }
+        }
+    }
+
+    // Fullscreen: CSS backstop for the layout wikiplugin-xmpp.js applies inline, so it
+    // doesn't depend entirely on that one-shot DOM patch (e.g. after a re-render).
+    &.converse-fullscreen {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100%;
+        z-index: 1050;
+
+        .toggle-controlbox { display: none !important; }
+
+        .chatbox, #controlbox {
+            position: static !important;
+            width: 100% !important;
+            height: 100% !important;
+
+            .box-flyout {
+                position: static !important;
+                width: 100% !important;
+                height: 100% !important;
+                border-radius: 0 !important;
+                animation: none;
+            }
+        }
+    }
+
     .toggle-controlbox {
         position: fixed !important;
         right: 1rem !important;
@@ -487,10 +541,13 @@
             &:hover { background-color: rgba(var(--bs-emphasis-color-rgb), .08); }
         }
 
-        // All icons (emoji, attach, spoiler...) share the send button's blue,
-        // instead of Converse's default per-button --chat-color/no color.
+        // Neutral icon color for emoji/attach/spoiler/etc - only the send button carries
+        // the strong primary color, so these read as plain toolbar icons, not actions.
         .btn:not(.send-button), button:not(.send-button) {
-            converse-icon, svg { color: var(--bs-primary) !important; fill: var(--bs-primary) !important; }
+            converse-icon, svg { color: var(--bs-body-color) !important; fill: var(--bs-body-color) !important; opacity: .75; }
+        }
+        .btn:not(.send-button):hover, button:not(.send-button):hover {
+            converse-icon, svg { opacity: 1; }
         }
 
         .send-button {
@@ -640,11 +697,17 @@
     display: inline-block !important;
 }
 
-// 3. Three dots - visible only on hover (messages only)
+// 3. Three dots - visible only on hover (messages only). Color follows the bubble it
+// sits on (light "them" bubbles vs the colored "me" bubble) instead of a hardcoded
+// near-white that used to be invisible against a light bubble background.
 #conversejs .chat-msg .fa-bars {
     opacity: 0 !important;
     transition: opacity 0.2s ease;
-    color: rgba(255, 255, 255, 0.6) !important;
+    color: rgba(var(--bs-body-color-rgb), 0.55) !important;
+}
+
+#conversejs .chat-msg__content--me .fa-bars {
+    color: rgba(255, 255, 255, 0.75) !important;
 }
 
 #conversejs .chat-msg:hover .fa-bars {
@@ -652,7 +715,11 @@
 }
 
 #conversejs .chat-msg .fa-bars:hover {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: var(--bs-body-color) !important;
+}
+
+#conversejs .chat-msg__content--me .fa-bars:hover {
+    color: #ffffff !important;
 }
 
 // 4. Header three dots - always white
@@ -661,16 +728,17 @@
     opacity: 1 !important;
 }
 
-// 5. Checkmark - gray, discreet
+// 5. Checkmark - gray, discreet (sent/delivered)
 #conversejs .chat-msg__content--me .chat-msg__receipt svg {
-    fill: rgba(200, 200, 200, 0.5) !important;
+    fill: rgba(255, 255, 255, 0.5) !important;
     width: 0.7rem !important;
     height: 0.7rem !important;
 }
 
-// 6. Checkmark on read messages - slightly lighter gray
+// 6. Checkmark on read messages - accent color so "read" is clearly distinguishable
+// from "sent", not just a subtle opacity difference.
 #conversejs .chat-msg__content--me .chat-msg__receipt[data-receipt="read"] svg {
-    fill: rgba(180, 180, 180, 0.7) !important;
+    fill: var(--bs-info) !important;
 }
 
 // 7. Hide checkmark on received messages

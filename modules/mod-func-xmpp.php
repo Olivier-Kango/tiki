@@ -32,7 +32,11 @@ function module_xmpp_info()
  */
 function module_xmpp($mod_reference, &$module_params)
 {
-    global $user;
+    global $user, $prefs;
+
+    if (($prefs['xmpp_chat_button'] ?? 'y') !== 'y') {
+        return;
+    }
 
     if (empty($user) && ! isset($module_params['anonymous'])) {
         $module_params['anonymous'] = 'y';

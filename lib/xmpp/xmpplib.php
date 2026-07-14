@@ -974,7 +974,7 @@ class XMPPLib extends TikiLib
     }
 
     /** Create/configure the room (persistent + logging) if necessary */
-    public function ensureRoomExists(string $roomJid): bool
+    public function ensureRoomExists(string $roomJid, array $config = []): bool
     {
         $client = $this->getAdminXmppClient();
         if (! $client) {
@@ -987,7 +987,7 @@ class XMPPLib extends TikiLib
 
             if (class_exists('\Tiki\Xmpp\MucConfigure')) {
                 require_once __DIR__ . '/MucConfigure.php';
-                $cfg = new \Tiki\Xmpp\MucConfigure($roomJid);
+                $cfg = new \Tiki\Xmpp\MucConfigure($roomJid, $config);
                 $client->send($cfg);
             }
 
