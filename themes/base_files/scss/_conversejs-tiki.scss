@@ -533,7 +533,11 @@
         }
     }
 
-    .chat-msg__body:has(.chat-msg__media, img.chat-image, audio, video) {
+    // Emoji-only messages (converse.js's own is_only_emojis detection, which adds
+    // .chat-msg__text--larger) get the same bubble-less treatment as images/media -
+    // WhatsApp/Telegram/Messenger all show a lone emoji plain and oversized rather
+    // than wrapped in a chat bubble.
+    .chat-msg__body:has(.chat-msg__media, img.chat-image, audio, video, .chat-msg__text--larger) {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;

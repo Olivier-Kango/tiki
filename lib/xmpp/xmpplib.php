@@ -675,11 +675,6 @@ class XMPPLib extends TikiLib
             $xmpp_prebind_class = 'TikiXmppPrebind';
         } else {
             if (empty($xmpp['password'])) {
-                // Falls back to the user's own saved, encrypted external XMPP password
-                // (if any) - this branch (not tikitoken) is exactly the "genuinely
-                // external account" case. getExternalPassword() only ever returns
-                // something for the currently logged-in user looking up their own
-                // password, so this can't leak another user's credential here.
                 $xmpp['password'] = $this->getExternalPassword($user) ?? '';
             }
             if (empty($xmpp['password'])) {
@@ -707,23 +702,8 @@ class XMPPLib extends TikiLib
         return $result;
     }
 
-    /** User preference key holding the encrypted password for the user's preferred
-     *  external XMPP account (raw base64 IV+ciphertext, our own scheme - see
-     *  encryptExternalPassword()/decryptExternalPassword()). */
     private const EXTERNAL_PASSWORD_PREF_KEY = 'xmpp_external_password_enc';
 
-    /**
-     * Deliberately NOT CryptLib (lib/crypt/cryptlib.php): that class derives its key
-     * from $_SESSION['cryptphrase'], which Tiki only ever populates from
-     * tiki-login.php's onUserLogin() call, itself gated behind the 'feature_user_encryption'
-     * site preference (an experimental flag, off by default and off on this site). Using
-     * it here would mean this password silently never saves until that flag is turned on
-     * AND every user re-logs-in - defeating the point of avoiding a repeated prompt.
-     * Instead this uses a key derived from 'xmpp_shared_secret', a secret Tiki already
-     * generates and keeps server-side only (used for Prosody's mod_auth_http HMAC) - it
-     * works immediately for any already-logged-in session, at the cost of the key being
-     * site-wide rather than personal-per-login-password; still never sent to the browser.
-     */
     private function getExternalPasswordKey(): string
     {
         global $prefs;
@@ -762,11 +742,6 @@ class XMPPLib extends TikiLib
         return $cleartext !== false ? $cleartext : null;
     }
 
-    /**
-     * Encrypt and save the password for the current user's own preferred external XMPP
-     * account, so the widget can sign in to it via BOSH prebind instead of asking again
-     * on every visit.
-     */
     public function saveExternalPassword(string $username, string $password): bool
     {
         global $user;
@@ -784,31 +759,17 @@ class XMPPLib extends TikiLib
         return true;
     }
 
-    /**
-     * Remove the saved external XMPP password, reverting to converse.js's own login
-     * form for that identity.
-     */
     public function clearExternalPassword(string $username): void
     {
         $this->set_user_preference($username, self::EXTERNAL_PASSWORD_PREF_KEY, '');
     }
 
-    /**
-     * Whether a password is currently saved for this user (without decrypting it) -
-     * used to drive the "a password is saved" UI state.
-     */
     public function hasExternalPassword(string $username): bool
     {
         $stored = trim((string) TikiLib::lib('tiki')->get_user_preference($username, self::EXTERNAL_PASSWORD_PREF_KEY, ''));
         return $stored !== '';
     }
 
-    /**
-     * Decrypt the saved external XMPP password, if any is saved. Restricted to the
-     * currently logged-in user looking up their own password - not a decryption
-     * requirement (the key is site-wide, see getExternalPasswordKey()) but there's no
-     * legitimate reason for this to ever be looked up for anyone else.
-     */
     public function getExternalPassword(string $username): ?string
     {
         global $user;
@@ -822,6 +783,28 @@ class XMPPLib extends TikiLib
         }
 
         return $this->decryptExternalPassword($stored);
+    }
+
+    public function getReadCursors(string $username): array
+    {
+        $raw = TikiLib::lib('tiki')->get_user_preference($username, 'xmpp_read_cursors', '{}');
+        $decoded = json_decode((string) $raw, true);
+        return is_array($decoded) ? $decoded : [];
+    }
+
+    public function saveReadCursors(string $username, array $cursors): array
+    {
+        $existing = $this->getReadCursors($username);
+        foreach ($cursors as $jid => $time) {
+            if (! is_string($jid) || $jid === '' || ! is_string($time)) {
+                continue;
+            }
+            if (empty($existing[$jid]) || strtotime($time) > strtotime($existing[$jid])) {
+                $existing[$jid] = $time;
+            }
+        }
+        $this->set_user_preference($username, 'xmpp_read_cursors', json_encode($existing));
+        return $existing;
     }
 
     /**
@@ -850,7 +833,7 @@ class XMPPLib extends TikiLib
         $params = array_merge([
             'view_mode' => 'overlayed',
             'room' => '',
-            'show_controlbox_by_default' => 'y',
+            'show_controlbox_by_default' => 'n',
             'show_occupants_by_default' => 'y',
             'auto_open' => 'n',
         ], $params);
@@ -859,18 +842,27 @@ class XMPPLib extends TikiLib
         $xmppclient->set_auth($params);
 
         $nickname = $xmpp['nickname'] ?? $user;
-        // Whether this render is actually using the external identity right now -
-        // read back from set_auth()'s own decision (which also accounts for the
-        // visitor's opt-in cookie) instead of recomputing it, so this second pass
-        // can never disagree with what set_auth() already decided.
         $usingExternal = $xmppclient->get_option('using_external') === 'y';
+        $onXmppPage = ($params['on_xmpp_page'] ?? 'n') === 'y';
 
-        // Room auto-join for the current page is handled entirely by set_auth()
-        // (current_room option, read by conversejs-tiki.js's 'connected' handler),
-        // which respects auto_open/embedded/fullscreen and the user's authorized
-        // rooms consistently. A second, separate join mechanism used to live here
-        // (converse's native auto_join_rooms), duplicating and sometimes disagreeing
-        // with that logic - removed.
+        if ($onXmppPage) {
+            $params['auto_open'] = 'y';
+
+            if (! empty($params['anonymous']) && $params['anonymous'] === 'y') {
+                // Anonymous always resolves to exactly this one room - nothing else to show.
+            } elseif (! $usingExternal && ! empty($user)) {
+                $currentRoomJid = $xmppclient->get_option('current_room');
+                $roomCount = count(array_unique(array_filter(array_merge(
+                    $xmpplib->getXmppRoomsForUser($user),
+                    [$currentRoomJid]
+                ))));
+                if ($roomCount > 1) {
+                    $params['show_controlbox_by_default'] = 'y';
+                }
+            } else {
+                $params['show_controlbox_by_default'] = 'y';
+            }
+        }
 
         $renderOptions = [
             'jid'                        => $xmppclient->get_option('jid') ?: $xmpp['jid'],
@@ -882,16 +874,8 @@ class XMPPLib extends TikiLib
             'anon_room'                  => $xmppclient->get_option('anon_room') ?: '',
             'anonymous'                  => $params['anonymous'] ?? '',
             'auto_open'                  => $params['auto_open'],
+            'anonymous_auto_open'        => $params['auto_open'],
         ];
-
-        // Transport (bosh_service_url/websocket_url) is already set correctly by
-        // set_auth() above (ConverseJS::getTransportOptions) for whichever identity is
-        // actually in use - local site transport when not using the external identity,
-        // the external endpoint only when using it. $xmpp here (get_user_connection_info)
-        // is only needed for 'nickname' below: it always reflects the user's *preferred*
-        // JID's endpoint (external, once a custom endpoint is configured for it) even
-        // when that identity isn't the one connecting, so reapplying it here used to
-        // clobber a correct local transport with the external one on every ordinary page.
 
         $xmppclient->set_options($renderOptions);
 

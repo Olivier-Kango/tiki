@@ -421,9 +421,6 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
         $tikilib->set_user_preference($userwatch, 'xmpp_custom_server_http_bind', '');
     }
 
-    // Only ever for the user's own account - the encryption key is derived from their
-    // own live session (see XMPPLib::saveExternalPassword()), so there is no other
-    // account, including an admin editing someone else's prefs here, this could apply to.
     if ($userwatch === $user && ($prefs['xmpp_feature'] ?? 'n') === 'y') {
         if (! empty($_POST['xmpp_external_password_clear'])) {
             TikiLib::lib('xmpp')->clearExternalPassword($userwatch);
