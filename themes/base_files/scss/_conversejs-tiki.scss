@@ -600,17 +600,21 @@
             overflow: hidden;
             text-overflow: ellipsis;
 
-            &::before {
-                content: "" !important;
-                display: inline-block;
-                flex-shrink: 0;
-                width: 4px;
-                height: 4px;
-                border-radius: 50%;
-                margin-inline-end: 16px;
-                box-shadow: 0 0 0 currentColor, 8px 0 0 currentColor, 16px 0 0 currentColor;
-                animation: tiki-typing-dots 1.3s infinite ease-in-out;
-            }
+        }
+
+        // Animated dots only for a genuine "is typing" state - not for join/leave/
+        // role-change notifications, which share this same container in ConverseJS
+        // (see the .tiki-is-typing class toggle in conversejs-tiki.js).
+        &.tiki-is-typing:not(:empty)::before {
+            content: "" !important;
+            display: inline-block;
+            flex-shrink: 0;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            margin-inline-end: 16px;
+            box-shadow: 0 0 0 currentColor, 8px 0 0 currentColor, 16px 0 0 currentColor;
+            animation: tiki-typing-dots 1.3s infinite ease-in-out;
         }
     }
     @keyframes tiki-typing-dots {
