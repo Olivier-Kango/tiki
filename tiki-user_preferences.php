@@ -421,6 +421,19 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
         $tikilib->set_user_preference($userwatch, 'xmpp_custom_server_http_bind', '');
     }
 
+    // Only ever for the user's own account - the encryption key is derived from their
+    // own live session (see XMPPLib::saveExternalPassword()), so there is no other
+    // account, including an admin editing someone else's prefs here, this could apply to.
+    if ($userwatch === $user && ($prefs['xmpp_feature'] ?? 'n') === 'y') {
+        if (! empty($_POST['xmpp_external_password_clear'])) {
+            TikiLib::lib('xmpp')->clearExternalPassword($userwatch);
+        } elseif (! empty($_POST['xmpp_external_password'])) {
+            if (! TikiLib::lib('xmpp')->saveExternalPassword($userwatch, $_POST['xmpp_external_password'])) {
+                Feedback::error(tr('Could not save the external XMPP account password.'));
+            }
+        }
+    }
+
     if (isset($_POST['perspective_preferred']) &&  $perspectivelib->perspective_exists($_POST['perspective_preferred'])) {
         $tikilib->set_user_preference($userwatch, 'perspective_preferred', $_POST['perspective_preferred']);
     } else {
@@ -719,6 +732,14 @@ $smarty->assign_by_ref('avatar', $avatar);
 $mailCharsets = ['utf-8', 'iso-8859-1'];
 $smarty->assign_by_ref('mailCharsets', $mailCharsets);
 $smarty->assign_by_ref('user_prefs', $user_preferences[$userwatch]);
+$xmppExternalPasswordSaved = false;
+if ($userwatch === $user && ($prefs['xmpp_feature'] ?? 'n') === 'y') {
+    // hasUserData() always checks the current actor's own data (CryptLib has no way to
+    // check anyone else's), which matches the self-only restriction on saving/reading it.
+    $xmppExternalPasswordSaved = TikiLib::lib('crypt')->hasUserData('xmpp_external_password');
+}
+$smarty->assign('xmpp_external_password_saved', $xmppExternalPasswordSaved);
+$tikilib->get_user_preference($userwatch, 'user_information', 'public');
 $tikilib->get_user_preference($userwatch, 'diff_versions', 'n');
 $usertrackerId = false;
 $useritemId = false;

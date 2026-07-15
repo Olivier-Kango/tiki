@@ -260,6 +260,26 @@
             color: #fff !important;
             font-weight: 600;
         }
+
+        // Unread-message badge, added/removed by conversejs-tiki.js - same red
+        // "new message" signal as the browser-tab favicon badge, mirrored here
+        // on the floating Chat button itself.
+        .tiki-chat-unread-badge {
+            position: absolute;
+            top: -.3rem;
+            inset-inline-end: -.3rem;
+            min-width: 1.2rem;
+            height: 1.2rem;
+            padding: 0 .35rem;
+            border-radius: 999px;
+            background-color: var(--bs-danger, #dc3545);
+            color: #fff;
+            font-size: .68rem;
+            font-weight: 700;
+            line-height: 1.2rem;
+            text-align: center;
+            box-shadow: 0 0 0 2px var(--bs-body-bg, #fff);
+        }
     }
 
     &.converse-overlayed #controlbox .controlbox-heading__btn,
@@ -446,6 +466,20 @@
         border-end-end-radius: .3rem;
         .chat-msg__text, .chat-msg__author, a { color: #fff; }
         a { text-decoration: underline; }
+
+        // Default text-selection highlight is a translucent tint of the
+        // browser's accent color, which on top of an already-colored bubble
+        // with white text ends up barely distinguishable from the bubble
+        // itself. Invert it (light background, primary-colored text) so a
+        // selection is unambiguous regardless of the theme's primary color.
+        ::selection { background-color: #fff; color: var(--bs-primary); }
+        &::selection { background-color: #fff; color: var(--bs-primary); }
+    }
+    // Reserve a little extra room at the bottom only when the checkmark is
+    // actually there (received "me" messages), so its now-absolute position
+    // doesn't sit on top of the last line of text.
+    .chat-msg__body:has(.chat-msg__receipt) {
+        padding-bottom: .8rem;
     }
 
     .chat-msg__text { color: var(--bs-body-color); }
@@ -522,6 +556,54 @@
         display: none;
     }
 
+    // "Edited" pencil: flows inline after the text by default (stock
+    // converse.js) - pin it bottom-right instead, next to the bubble's tail,
+    // so it doesn't reserve width on whatever line it lands on. The checkmark
+    // itself is handled separately below (replaced entirely by custom ticks).
+    .chat-msg__edit-modal {
+        position: absolute !important;
+        bottom: .3rem;
+        inset-inline-end: .35rem;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    // Stock Font Awesome "fa-check" is a solid glyph - too bold/heavy for a
+    // subtle delivery indicator. Hide it and draw our own slim WhatsApp/
+    // Telegram-style tick(s) instead, in a sibling .tiki-receipt-ticks element
+    // that conversejs-tiki.js maintains (1 tick = delivered, 2 = read, per the
+    // message's `received` / `marker_displayed` attributes).
+    .chat-msg__receipt {
+        display: none !important;
+    }
+    .tiki-receipt-ticks {
+        position: absolute;
+        bottom: .3rem;
+        inset-inline-end: .35rem;
+        display: inline-flex;
+        width: .95em;
+        height: .6em;
+
+        .tiki-tick {
+            position: absolute;
+            top: 0;
+            width: .5em;
+            height: .28em;
+            border-left: 1.5px solid currentColor;
+            border-bottom: 1.5px solid currentColor;
+            transform: rotate(-45deg);
+            transform-origin: bottom left;
+            color: rgba(255, 255, 255, .45);
+        }
+        .tiki-tick:first-child { left: 0; }
+        .tiki-tick:last-child { left: .32em; }
+
+        &.tiki-receipt-ticks--read .tiki-tick {
+            color: var(--bs-info);
+        }
+    }
+
+    // Per-message actions ("...") menu - top-right, revealed on hover.
     converse-message-actions {
         position: absolute;
         top: .3rem;
@@ -805,23 +887,12 @@
     opacity: 1 !important;
 }
 
-// 5. Checkmark - gray, discreet (sent/delivered)
-#conversejs .chat-msg__content--me .chat-msg__receipt svg {
-    fill: rgba(255, 255, 255, 0.5) !important;
-    width: 0.7rem !important;
-    height: 0.7rem !important;
-}
-
-// 6. Checkmark on read messages - accent color so "read" is clearly distinguishable
-// from "sent", not just a subtle opacity difference.
-#conversejs .chat-msg__content--me .chat-msg__receipt[data-receipt="read"] svg {
-    fill: var(--bs-info) !important;
-}
-
-// 7. Hide checkmark on received messages
-#conversejs .chat-msg__content--them .chat-msg__receipt {
-    display: none !important;
-}
+// 5, 6, 7. (removed) The stock fa-check receipt icon is hidden outright and
+// replaced by custom-drawn ticks (.tiki-receipt-ticks, single/double, gray/
+// accent-colored for delivered/read) - see the rules above and
+// conversejs-tiki.js, which maintains that element. The old `[data-receipt]`
+// selector here never matched anything - converse.js never sets that
+// attribute - so the "read" color never actually applied.
 
 // 8. Pasted/dropped/picked files staged in the composer, awaiting Send
 // (see lib/xmpp/js/conversejs-tiki.js)

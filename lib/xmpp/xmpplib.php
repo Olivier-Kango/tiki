@@ -675,6 +675,14 @@ class XMPPLib extends TikiLib
             $xmpp_prebind_class = 'TikiXmppPrebind';
         } else {
             if (empty($xmpp['password'])) {
+                // Falls back to the user's own saved, encrypted external XMPP password
+                // (if any) - this branch (not tikitoken) is exactly the "genuinely
+                // external account" case. getExternalPassword() only ever returns
+                // something for the currently logged-in user looking up their own
+                // password, so this can't leak another user's credential here.
+                $xmpp['password'] = $this->getExternalPassword($user) ?? '';
+            }
+            if (empty($xmpp['password'])) {
                 return [];
             }
         }
@@ -697,6 +705,72 @@ class XMPPLib extends TikiLib
         }
 
         return $result;
+    }
+
+    /** User preference key (before CryptLib's ds./du. backend prefix) holding the
+     *  encrypted password for the user's preferred external XMPP account. */
+    private const EXTERNAL_PASSWORD_PREF_KEY = 'xmpp_external_password';
+
+    /**
+     * Encrypt and save the password for the current user's own preferred external XMPP
+     * account, so the widget can sign in to it via BOSH prebind instead of asking again
+     * on every visit. Only ever usable for the currently logged-in user's own password:
+     * CryptLib derives its encryption key from the session's cryptphrase (set at login
+     * from the user's own Tiki password, never stored anywhere), so nobody else -
+     * including an admin editing this user's other preferences - can write or read it.
+     */
+    public function saveExternalPassword(string $username, string $password): bool
+    {
+        global $user;
+        if ($username === '' || $username !== $user || $password === '') {
+            return false;
+        }
+
+        $cryptlib = TikiLib::lib('crypt');
+        try {
+            $cryptlib->init();
+        } catch (\Throwable $e) {
+            return false;
+        }
+
+        return $cryptlib->setUserData(self::EXTERNAL_PASSWORD_PREF_KEY, $password) !== false;
+    }
+
+    /**
+     * Remove the saved external XMPP password, reverting to converse.js's own login
+     * form for that identity. CryptLib has no direct delete - clearing the preference
+     * under both possible encryption-backend prefixes (only one is ever actually in use
+     * on a given PHP install, see CryptLib::initSeed()) is the same safe, no-op-if-unset
+     * approach Tiki itself uses when migrating stored secrets between backends.
+     */
+    public function clearExternalPassword(string $username): void
+    {
+        $this->set_user_preference($username, 'ds.' . self::EXTERNAL_PASSWORD_PREF_KEY, '');
+        $this->set_user_preference($username, 'du.' . self::EXTERNAL_PASSWORD_PREF_KEY, '');
+    }
+
+    /**
+     * Decrypt the saved external XMPP password, if any is saved and it's actually
+     * decryptable right now. Only ever returns a value for the currently logged-in user
+     * looking up their own password, for the same reason saveExternalPassword() can
+     * only ever save one - see that method's docblock.
+     */
+    public function getExternalPassword(string $username): ?string
+    {
+        global $user;
+        if ($username === '' || $username !== $user || ! isset($_SESSION['cryptphrase'])) {
+            return null;
+        }
+
+        $cryptlib = TikiLib::lib('crypt');
+        try {
+            $cryptlib->init();
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        $password = $cryptlib->getUserData(self::EXTERNAL_PASSWORD_PREF_KEY);
+        return ($password !== false && $password !== '') ? $password : null;
     }
 
     /**
@@ -759,18 +833,14 @@ class XMPPLib extends TikiLib
             'auto_open'                  => $params['auto_open'],
         ];
 
-        // Only point the transport at the external server's endpoint while actually
-        // using that identity - otherwise this would send the local JID/password
-        // through the external server's BOSH/WebSocket URL, which can never work.
-        if (! $usingExternal) {
-            if (! empty($xmpp['http_bind'])) {
-                $renderOptions['bosh_service_url'] = $xmpp['http_bind'];
-            }
-
-            if (! empty($xmpp['websocket_url'])) {
-                $renderOptions['websocket_url'] = $xmpp['websocket_url'];
-            }
-        }
+        // Transport (bosh_service_url/websocket_url) is already set correctly by
+        // set_auth() above (ConverseJS::getTransportOptions) for whichever identity is
+        // actually in use - local site transport when not using the external identity,
+        // the external endpoint only when using it. $xmpp here (get_user_connection_info)
+        // is only needed for 'nickname' below: it always reflects the user's *preferred*
+        // JID's endpoint (external, once a custom endpoint is configured for it) even
+        // when that identity isn't the one connecting, so reapplying it here used to
+        // clobber a correct local transport with the external one on every ordinary page.
 
         $xmppclient->set_options($renderOptions);
 

@@ -164,6 +164,14 @@ class ConverseJS
         // connection endpoint is also configured for it - with just the JID and no
         // endpoint, there's no way to reach that server at all.
         $externalAvailable = $jidInfo['isExternal'] && ! empty($xmpp['custom_endpoint']);
+        // The external identity is scoped to the page that actually declares an XMPP
+        // plugin instance (on_xmpp_page='y', e.g. the community room) - the cookie set
+        // by opting in on that page has path=/ and is therefore sent on every page, but
+        // the sitewide floating Chat button (mod-func-xmpp.php) never sets on_xmpp_page
+        // and must always fall back to the local Tiki identity. Without this check, a
+        // single opt-in would silently take over the floating button everywhere else on
+        // the site with no password to auto-login it, leaving Chat dead site-wide.
+        $onXmppPage = $this->get_option('on_xmpp_page') === 'y';
         // The automatic page-load connection only ever uses the external identity
         // once the visitor has explicitly opted in (via the Chat button, which sets
         // this cookie and reloads) - attempting it automatically on every page load
@@ -172,10 +180,36 @@ class ConverseJS
         // Tiki still can't supply a password for a genuinely external account
         // (it only manages credentials for local ones), so auto_login stays off in
         // that case and converse.js shows its own login form for this JID.
-        $useExternalNow = $externalAvailable && ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
+        $useExternalNow = $onXmppPage && $externalAvailable && ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
 
         if ($useExternalNow) {
             $transportOptions = $this->getTransportOptions($xmpp, true);
+            $externalPassword = $xmpplib->getExternalPassword($user);
+
+            // A saved, encrypted password (see XMPPLib::saveExternalPassword()) lets
+            // Tiki sign the browser in server-side via XMPP prebind (BOSH
+            // pre-authentication, the same mechanism the tikitoken branch above uses):
+            // the real password is used once, server-side, to open the session, and the
+            // browser only ever receives the resulting jid/sid/rid to resume it - never
+            // the password itself. Prebind only works over BOSH (XmppPrebind POSTs
+            // directly to bosh_service_url, there's no WebSocket equivalent here), so a
+            // WebSocket-only external endpoint - or simply no saved password - still
+            // falls back to converse.js's own login form below, as before.
+            if ($externalPassword !== null && ! empty($transportOptions['bosh_service_url'])) {
+                return array_merge([
+                    'authentication' => 'prebind',
+                    'auto_login'     => true,
+                    'prebind_url'    => TikiLib::lib('service')->getUrl([
+                        'action' => 'prebind',
+                        'controller' => 'xmpp',
+                    ]),
+                    'jid'            => $jidInfo['jid'],
+                    'auto_open'      => $auto_open,
+                    'external_jid'   => $jidInfo['jid'],
+                    'using_external' => 'y',
+                ], $transportOptions);
+            }
+
             return array_merge([
                 'authentication' => 'login',
                 'auto_login'     => false,
@@ -193,7 +227,10 @@ class ConverseJS
             'jid'            => $jidInfo['localJid'] ?? '',
             'password'       => $xmpplib->getXmppSessionToken($user),
             'auto_open'      => $auto_open,
-            'external_jid'   => $externalAvailable ? $jidInfo['jid'] : '',
+            // Only advertised to the JS click-handler on the page that can actually use
+            // it - elsewhere it's treated as if no external JID were configured at all,
+            // so the Chat button always just uses the local identity, as before.
+            'external_jid'   => ($onXmppPage && $externalAvailable) ? $jidInfo['jid'] : '',
             'using_external' => 'n',
         ], $transportOptions);
     }
@@ -202,25 +239,37 @@ class ConverseJS
     {
         global $prefs;
 
-        $transportOptions = [];
-
-        if ($usesExternalJid && empty($xmpp['custom_endpoint'])) {
-            return $transportOptions;
+        // Both keys are ALWAYS returned explicitly (even as '' ) rather than merely
+        // omitted when unavailable. This class's constructor (load_prefs(), via the
+        // xmpp_conversejs_init_json site preference) sets 'websocket_url' to the local
+        // Tiki server unconditionally at construction time, before this ever runs - and
+        // converse.js prefers websocket_url over bosh_service_url whenever ANY
+        // websocket_url is present, stale or not. Omitting the key here (the previous
+        // behaviour) left that stale local websocket_url in place, so a connection meant
+        // to use an external, BOSH-only endpoint silently connected to the local
+        // websocket instead while merely claiming the external JID - explicitly clearing
+        // it is the only way to actually route the connection where intended.
+        if (! $usesExternalJid) {
+            return [
+                'websocket_url'    => $prefs['xmpp_ws_url'] ?? '',
+                'bosh_service_url' => $prefs['xmpp_server_http_bind'] ?? '',
+            ];
         }
 
-        if (! empty($xmpp['websocket_url'])) {
-            $transportOptions['websocket_url'] = $xmpp['websocket_url'];
-        } elseif (! $usesExternalJid && ! empty($prefs['xmpp_ws_url'])) {
-            $transportOptions['websocket_url'] = $prefs['xmpp_ws_url'];
+        // $xmpp['websocket_url']/['http_bind'] reflect the user's *preferred* JID's
+        // endpoint, which get_user_connection_info() overrides to the external server's
+        // the moment a custom endpoint is configured for it.
+        if (empty($xmpp['custom_endpoint'])) {
+            return [
+                'websocket_url'    => '',
+                'bosh_service_url' => '',
+            ];
         }
 
-        if (! empty($xmpp['http_bind'])) {
-            $transportOptions['bosh_service_url'] = $xmpp['http_bind'];
-        } elseif (! $usesExternalJid && ! empty($prefs['xmpp_server_http_bind'])) {
-            $transportOptions['bosh_service_url'] = $prefs['xmpp_server_http_bind'];
-        }
-
-        return $transportOptions;
+        return [
+            'websocket_url'    => $xmpp['websocket_url'] ?? '',
+            'bosh_service_url' => $xmpp['http_bind'] ?? '',
+        ];
     }
 
     public function set_options($options)
@@ -355,8 +404,15 @@ class ConverseJS
 
         $options['auto_open'] = $this->get_option('auto_open', 'n');
         $options['anonymous_auto_open'] = $this->get_option('anonymous_auto_open', 'n');
-        $options['bookmarks'] = false;
-        $options['auto_join_bookmarks'] = false;
+        // Tiki manages the local identity's room list itself (Tiki group -> room
+        // mapping, synced in conversejs-tiki.js's 'connected' handler), so native XMPP
+        // bookmarks stay off there to avoid two competing room lists. The external
+        // identity has no such Tiki-side mapping - its rooms are whatever it bookmarked
+        // on its own server, so native bookmarks/auto-join are the only way to ever see
+        // them and are left on for that identity.
+        $usingExternal = $this->get_option('using_external') === 'y';
+        $options['bookmarks'] = $usingExternal;
+        $options['auto_join_bookmarks'] = $usingExternal;
 
         if ($this->get_option('authentication') === 'anonymous') {
             $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');

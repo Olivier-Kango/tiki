@@ -562,7 +562,7 @@
                                 <input type="text" class="form-control" name="xmpp_jid" id="xmpp_jid" value="{$user_prefs.xmpp_jid|escape}">
                                 <p><small>{tr}Leave empty to use your default Tiki-managed XMPP address{/tr}</small></p>
                                 <p><small>{tr}Enter a full JID such as user@example.org if you prefer to use an existing external XMPP account{/tr}</small></p>
-                                <p><small>{tr}Your group chat rooms will keep working under this address. For security, Tiki cannot store the password of an external account, so you'll need to log in manually the first time in the chat window (your browser session will then remember it). Chat history tied to your previous address won't be visible from this new one, since XMPP accounts each keep their own separate history.{/tr}</small></p>
+                                <p><small>{tr}Your group chat rooms will keep working under this address. Chat history tied to your previous address won't be visible from this new one, since XMPP accounts each keep their own separate history.{/tr}</small></p>
                             </div>
                         </div>
                         <div class="tiki-form-group row">
@@ -574,6 +574,23 @@
                                 <p><small>{tr}Provide this when using an external XMPP server that requires a custom BOSH or WebSocket endpoint{/tr}</small></p>
                                 <p><small>{tr}Use an http:// or https:// URL for BOSH, or a ws:// or wss:// URL for WebSocket{/tr}</small></p>
                                 <p><small>{tr}Required if your external address is on a different domain than this site's chat server; otherwise this site's own connection is used, which will fail to authenticate a genuinely external account{/tr}</small></p>
+                            </div>
+                        </div>
+                        <div class="tiki-form-group row">
+                            <label class="col-form-label col-md-4" for="xmpp_external_password">
+                                {tr}External XMPP account password{/tr}
+                            </label>
+                            <div class="col-md-8">
+                                <input type="password" class="form-control" name="xmpp_external_password" id="xmpp_external_password" value="" autocomplete="new-password">
+                                {if $xmpp_external_password_saved}
+                                    <p><small>{tr}A password is currently saved. Leave blank to keep it, or enter a new one to replace it.{/tr}</small></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="xmpp_external_password_clear" id="xmpp_external_password_clear" value="y">
+                                        <label class="form-check-label" for="xmpp_external_password_clear">{tr}Remove the saved password (you'll be asked to log in manually next time){/tr}</label>
+                                    </div>
+                                {else}
+                                    <p><small>{tr}Optional. Only needed for a genuinely external account (the connection endpoint above must also be a BOSH URL, not WebSocket) - saving it here lets Tiki sign you in automatically instead of asking every time. Stored encrypted, and only ever decryptable during your own logged-in session; leave blank to keep logging in manually in the chat window instead.{/tr}</small></p>
+                                {/if}
                             </div>
                         </div>
                     {/if}
