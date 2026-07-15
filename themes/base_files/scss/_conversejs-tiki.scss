@@ -156,6 +156,24 @@
         flex-shrink: 0;
     }
 
+    // Text-initials fallback avatar (e.g. "KC" for a groupchat with no photo).
+    // Stock converse.js centers the initials with line-height alone and no
+    // box-sizing, so a descender-heavy pair of letters (or any extra
+    // padding/border picked up from surrounding rules) can push the box
+    // taller than its own width - the containing list row then clips that
+    // extra height, making the circle look cut off at the bottom. Center
+    // with flex instead (immune to font metrics) and size the box/text a
+    // touch smaller so it comfortably fits.
+    .avatar-initials {
+        box-sizing: border-box !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        line-height: 1 !important;
+        font-size: .78em !important;
+    }
+
     .chatbox, #controlbox {
         .box-flyout {
             border-radius: var(--chatbox-border-radius) !important;
@@ -288,10 +306,13 @@
         opacity: .7;
         border-radius: 50%;
         transition: background-color .12s ease, opacity .12s ease;
-        &:hover {
-            opacity: 1;
-            background-color: rgba(var(--bs-emphasis-color-rgb), .08);
-        }
+    }
+    // The gear/close buttons in the controlbox header (top-right) don't get
+    // the hover-circle feedback other chatbox-btn's get - kept static per
+    // feedback that the hover there felt distracting.
+    .chatbox-btn:hover {
+        opacity: 1;
+        background-color: rgba(var(--bs-emphasis-color-rgb), .08);
     }
 
     // -----------------------------------------------------------

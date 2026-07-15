@@ -15,3 +15,25 @@
 converse-chat-message[message_type=info] {
     display: none;
 }
+
+/* Replace converse.js's own branding (yin-yang icon + "converse.js" wordmark, shown
+   on the loading/disconnected screen) with the site's own logo - this widget appears
+   entirely within Tiki's own UI, so it shouldn't advertise the underlying library. */
+.brand-heading {
+    display: inline-flex !important;
+    align-items: center;
+}
+
+.brand-heading .converse-svg-logo,
+.brand-heading .brand-name__text,
+.brand-heading .byline {
+    display: none !important;
+}
+
+.brand-heading::before {
+    content: "";
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url("/display68") no-repeat center / contain;
+}

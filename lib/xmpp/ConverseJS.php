@@ -186,24 +186,24 @@ class ConverseJS
             $transportOptions = $this->getTransportOptions($xmpp, true);
             $externalPassword = $xmpplib->getExternalPassword($user);
 
-            // A saved, encrypted password (see XMPPLib::saveExternalPassword()) lets
-            // Tiki sign the browser in server-side via XMPP prebind (BOSH
-            // pre-authentication, the same mechanism the tikitoken branch above uses):
-            // the real password is used once, server-side, to open the session, and the
-            // browser only ever receives the resulting jid/sid/rid to resume it - never
-            // the password itself. Prebind only works over BOSH (XmppPrebind POSTs
-            // directly to bosh_service_url, there's no WebSocket equivalent here), so a
-            // WebSocket-only external endpoint - or simply no saved password - still
-            // falls back to converse.js's own login form below, as before.
-            if ($externalPassword !== null && ! empty($transportOptions['bosh_service_url'])) {
+            // A saved, encrypted password (see XMPPLib::saveExternalPassword()) is
+            // handed straight to converse.js the same way the local branch below
+            // already hands it the local session token - 'authentication: login' +
+            // 'password' set, letting converse.js's own SASL login negotiate the
+            // connection directly. An earlier version of this routed through XMPP
+            // "prebind" (server-side pre-authentication) instead, for a marginally
+            // better security property (password never touches the browser at all) -
+            // but that path depends on a whole separate, previously-unused service
+            // controller (auth_token_access preference, Services_Xmpp_Controller,
+            // XmppPrebind's own BOSH-only support) that turned out fragile and hard to
+            // debug end-to-end. This is simpler, reuses the exact mechanism already
+            // proven to work for the local identity, and needs nothing extra enabled.
+            if ($externalPassword !== null) {
                 return array_merge([
-                    'authentication' => 'prebind',
+                    'authentication' => 'login',
                     'auto_login'     => true,
-                    'prebind_url'    => TikiLib::lib('service')->getUrl([
-                        'action' => 'prebind',
-                        'controller' => 'xmpp',
-                    ]),
                     'jid'            => $jidInfo['jid'],
+                    'password'       => $externalPassword,
                     'auto_open'      => $auto_open,
                     'external_jid'   => $jidInfo['jid'],
                     'using_external' => 'y',
@@ -380,7 +380,17 @@ class ConverseJS
         if (empty($_SESSION['chat-session-init'])) {
             $_SESSION['chat-session-init'] = time();
         }
-        $chat_session_init = ($user ?: 'anonymous') . $_SESSION['chat-session-init'];
+        // Including the active jid (not just the Tiki $user) is what makes switching
+        // between the local and an external identity - the whole point of the feature
+        // above - actually work: converse.js persists its BOSH/session state
+        // (persistent_store: localStorage) keyed by nothing more specific than this
+        // marker, so without the jid in it, switching identity left the *previous*
+        // identity's stale RID/SID/bound-connection state in localStorage for the new
+        // page to try to resume - surfacing as "SASL authentication succeeded" followed
+        // immediately by a bind that never completes ("do_bind is false") and the widget
+        // stuck showing Disconnected, since that old session was for a different account
+        // entirely (and likely already expired server-side).
+        $chat_session_init = ($user ?: 'anonymous') . '|' . ($options['jid'] ?? '') . '|' . $_SESSION['chat-session-init'];
         $chat_session_init_js = json_encode($chat_session_init);
 
         $output .= PHP_EOL . ';(function(){';

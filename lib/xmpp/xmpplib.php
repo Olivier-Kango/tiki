@@ -707,17 +707,65 @@ class XMPPLib extends TikiLib
         return $result;
     }
 
-    /** User preference key (before CryptLib's ds./du. backend prefix) holding the
-     *  encrypted password for the user's preferred external XMPP account. */
-    private const EXTERNAL_PASSWORD_PREF_KEY = 'xmpp_external_password';
+    /** User preference key holding the encrypted password for the user's preferred
+     *  external XMPP account (raw base64 IV+ciphertext, our own scheme - see
+     *  encryptExternalPassword()/decryptExternalPassword()). */
+    private const EXTERNAL_PASSWORD_PREF_KEY = 'xmpp_external_password_enc';
+
+    /**
+     * Deliberately NOT CryptLib (lib/crypt/cryptlib.php): that class derives its key
+     * from $_SESSION['cryptphrase'], which Tiki only ever populates from
+     * tiki-login.php's onUserLogin() call, itself gated behind the 'feature_user_encryption'
+     * site preference (an experimental flag, off by default and off on this site). Using
+     * it here would mean this password silently never saves until that flag is turned on
+     * AND every user re-logs-in - defeating the point of avoiding a repeated prompt.
+     * Instead this uses a key derived from 'xmpp_shared_secret', a secret Tiki already
+     * generates and keeps server-side only (used for Prosody's mod_auth_http HMAC) - it
+     * works immediately for any already-logged-in session, at the cost of the key being
+     * site-wide rather than personal-per-login-password; still never sent to the browser.
+     */
+    private function getExternalPasswordKey(): string
+    {
+        global $prefs;
+        $secret = trim($prefs['xmpp_shared_secret'] ?? '');
+        if ($secret === '') {
+            throw new Exception('xmpp_shared_secret is not configured.');
+        }
+        return hash('sha256', 'xmpp_external_password:' . $secret, true);
+    }
+
+    private function encryptExternalPassword(string $cleartext): string
+    {
+        $key = $this->getExternalPasswordKey();
+        $iv = random_bytes(openssl_cipher_iv_length('aes-256-ctr'));
+        $ciphertext = openssl_encrypt($cleartext, 'aes-256-ctr', $key, OPENSSL_RAW_DATA, $iv);
+        return base64_encode($iv . $ciphertext);
+    }
+
+    private function decryptExternalPassword(string $stored): ?string
+    {
+        try {
+            $key = $this->getExternalPasswordKey();
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        $raw = base64_decode($stored, true);
+        if ($raw === false) {
+            return null;
+        }
+
+        $ivLen = openssl_cipher_iv_length('aes-256-ctr');
+        $iv = substr($raw, 0, $ivLen);
+        $ciphertext = substr($raw, $ivLen);
+        $cleartext = openssl_decrypt($ciphertext, 'aes-256-ctr', $key, OPENSSL_RAW_DATA, $iv);
+        return $cleartext !== false ? $cleartext : null;
+    }
 
     /**
      * Encrypt and save the password for the current user's own preferred external XMPP
      * account, so the widget can sign in to it via BOSH prebind instead of asking again
-     * on every visit. Only ever usable for the currently logged-in user's own password:
-     * CryptLib derives its encryption key from the session's cryptphrase (set at login
-     * from the user's own Tiki password, never stored anywhere), so nobody else -
-     * including an admin editing this user's other preferences - can write or read it.
+     * on every visit.
      */
     public function saveExternalPassword(string $username, string $password): bool
     {
@@ -726,51 +774,54 @@ class XMPPLib extends TikiLib
             return false;
         }
 
-        $cryptlib = TikiLib::lib('crypt');
         try {
-            $cryptlib->init();
+            $encrypted = $this->encryptExternalPassword($password);
         } catch (\Throwable $e) {
             return false;
         }
 
-        return $cryptlib->setUserData(self::EXTERNAL_PASSWORD_PREF_KEY, $password) !== false;
+        $this->set_user_preference($username, self::EXTERNAL_PASSWORD_PREF_KEY, $encrypted);
+        return true;
     }
 
     /**
      * Remove the saved external XMPP password, reverting to converse.js's own login
-     * form for that identity. CryptLib has no direct delete - clearing the preference
-     * under both possible encryption-backend prefixes (only one is ever actually in use
-     * on a given PHP install, see CryptLib::initSeed()) is the same safe, no-op-if-unset
-     * approach Tiki itself uses when migrating stored secrets between backends.
+     * form for that identity.
      */
     public function clearExternalPassword(string $username): void
     {
-        $this->set_user_preference($username, 'ds.' . self::EXTERNAL_PASSWORD_PREF_KEY, '');
-        $this->set_user_preference($username, 'du.' . self::EXTERNAL_PASSWORD_PREF_KEY, '');
+        $this->set_user_preference($username, self::EXTERNAL_PASSWORD_PREF_KEY, '');
     }
 
     /**
-     * Decrypt the saved external XMPP password, if any is saved and it's actually
-     * decryptable right now. Only ever returns a value for the currently logged-in user
-     * looking up their own password, for the same reason saveExternalPassword() can
-     * only ever save one - see that method's docblock.
+     * Whether a password is currently saved for this user (without decrypting it) -
+     * used to drive the "a password is saved" UI state.
+     */
+    public function hasExternalPassword(string $username): bool
+    {
+        $stored = trim((string) TikiLib::lib('tiki')->get_user_preference($username, self::EXTERNAL_PASSWORD_PREF_KEY, ''));
+        return $stored !== '';
+    }
+
+    /**
+     * Decrypt the saved external XMPP password, if any is saved. Restricted to the
+     * currently logged-in user looking up their own password - not a decryption
+     * requirement (the key is site-wide, see getExternalPasswordKey()) but there's no
+     * legitimate reason for this to ever be looked up for anyone else.
      */
     public function getExternalPassword(string $username): ?string
     {
         global $user;
-        if ($username === '' || $username !== $user || ! isset($_SESSION['cryptphrase'])) {
+        if ($username === '' || $username !== $user) {
             return null;
         }
 
-        $cryptlib = TikiLib::lib('crypt');
-        try {
-            $cryptlib->init();
-        } catch (\Throwable $e) {
+        $stored = trim((string) TikiLib::lib('tiki')->get_user_preference($username, self::EXTERNAL_PASSWORD_PREF_KEY, ''));
+        if ($stored === '') {
             return null;
         }
 
-        $password = $cryptlib->getUserData(self::EXTERNAL_PASSWORD_PREF_KEY);
-        return ($password !== false && $password !== '') ? $password : null;
+        return $this->decryptExternalPassword($stored);
     }
 
     /**

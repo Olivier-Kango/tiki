@@ -734,9 +734,7 @@ $smarty->assign_by_ref('mailCharsets', $mailCharsets);
 $smarty->assign_by_ref('user_prefs', $user_preferences[$userwatch]);
 $xmppExternalPasswordSaved = false;
 if ($userwatch === $user && ($prefs['xmpp_feature'] ?? 'n') === 'y') {
-    // hasUserData() always checks the current actor's own data (CryptLib has no way to
-    // check anyone else's), which matches the self-only restriction on saving/reading it.
-    $xmppExternalPasswordSaved = TikiLib::lib('crypt')->hasUserData('xmpp_external_password');
+    $xmppExternalPasswordSaved = TikiLib::lib('xmpp')->hasExternalPassword($userwatch);
 }
 $smarty->assign('xmpp_external_password_saved', $xmppExternalPasswordSaved);
 $tikilib->get_user_preference($userwatch, 'user_information', 'public');
