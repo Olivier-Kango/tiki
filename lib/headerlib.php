@@ -122,6 +122,18 @@ class HeaderLib
     public $js_modules = [];
 
     /**
+     * External JS files to load as <script type="module" src="...">, e.g. converse.js 14+
+     * (ESM-only, no UMD/global build). Kept separate from $jsfiles since module scripts must
+     * never be minified/combined together (concatenating independent ES modules text-wise
+     * breaks their import/export statements) and always execute in strict document order
+     * relative to each other regardless, same guarantee as classic `defer` scripts.
+     * Key = rank (load order), value = array of file paths.
+     * js_module_files[$rank][] = $file;
+     * @var array
+     */
+    public $js_module_files = [];
+
+    /**
      * Do NOT manipulate this directly.  The only reason this is public is so PageCache.php has access to it.
      *
      * @var array
@@ -630,6 +642,25 @@ class HeaderLib
         return $this;
     }
 
+    /**
+     * Adds an external javascript file to load as a module (<script type="module" src="...">),
+     * e.g. a library that only ships an ESM build (no UMD/global). Never minified/combined with
+     * other files - see $js_module_files.
+     *
+     * @param string $file
+     * @param int    $rank
+     *
+     * @return $this
+     */
+    public function add_jsfile_module($file, $rank = 0)
+    {
+        $this->throwIfJSFooterAlreadyOutput();
+        if (empty($this->js_module_files[$rank]) or ! in_array($file, $this->js_module_files[$rank])) {
+            $this->js_module_files[$rank][] = $file;
+        }
+        return $this;
+    }
+
     public function add_cssfile($file, $rank = 0)
     {
         $this->throwIfHeadersAlreadyOutput();
@@ -1110,6 +1141,20 @@ class HeaderLib
             $output .= $b;
         }
 
+        // External module files (e.g. converse.js 14+'s ESM-only build) - rendered right after
+        // the inline modules above and in the same relative order otherwise, since non-async
+        // module scripts (inline or external) execute in strict document order relative to each
+        // other, letting an inline bootstrap module (e.g. importing a bare specifier via the
+        // importmap and assigning it to a global) run before a file here that depends on it.
+        if (count($this->js_module_files)) {
+            ksort($this->js_module_files);
+            foreach ($this->js_module_files as $rank => $files) {
+                foreach ($files as $file) {
+                    $output .= "\n" . '<script type="module" src="' . smarty_modifier_escape($file) . '"></script>';
+                }
+            }
+        }
+
         // we get one sorted array with script tags
         $js_files = $this->getJsFilesWithScriptTags();
 
@@ -1155,6 +1200,7 @@ class HeaderLib
         $this->js_modules = [];
         if ($clear_js_files) {
             $this->jsfiles = [];
+            $this->js_module_files = [];
         }
         return $this;
     }

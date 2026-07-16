@@ -395,27 +395,53 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 2 },
                     },
                     {
-                        src: "node_modules/converse.js/dist/*.min.*",
+                        // converse.js sometimes hoists to the root node_modules, but the
+                        // "converse.js" > "@converse/log" entry in the root package.json
+                        // "overrides" (see "overridesComment" next to it) can make npm nest it
+                        // under src/js/common-externals/node_modules instead, unpredictably
+                        // across installs - all the converse.js src globs below use a brace
+                        // pattern to match either location rather than guessing.
+                        src: "{node_modules,src/js/common-externals/node_modules}/converse.js/dist/*.min.*",
                         dest: "vendor_dist/converse.js/dist",
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: "node_modules/converse.js/dist/webfonts",
+                        src: "{node_modules,src/js/common-externals/node_modules}/converse.js/dist/webfonts/*",
                         dest: "vendor_dist/converse.js/dist/webfonts",
                         rename: { stripBase: 4 },
                     },
                     {
-                        src: "node_modules/converse.js/dist/sounds",
+                        src: "{node_modules,src/js/common-externals/node_modules}/converse.js/dist/sounds/*",
                         dest: "vendor_dist/converse.js/dist/sounds",
                         rename: { stripBase: 4 },
                     },
                     {
-                        src: "node_modules/converse.js/dist/locales",
-                        dest: "vendor_dist/converse.js/dist/locales",
-                        rename: { stripBase: 4 },
+                        // converse.js 14's ESM build lazy-loads its locale/dayjs-locale chunks
+                        // from dist/chunkjs/locales (referenced at runtime as "chunkjs/" +
+                        // chunkname, relative to the module's own import.meta.url - confirmed by
+                        // grepping the actual chunk-loader function inside converse.min.js, not
+                        // assumed). Note: no ".cjs" suffix here, unlike 13.0.1's
+                        // dist/chunkjs.cjs/locales - the folder name is version-specific, check
+                        // the actual tarball again on any future version bump. viteStaticCopy
+                        // flattens by default, so the nested dayjs subfolder needs its own target
+                        // below to keep its path.
+                        src: "{node_modules,src/js/common-externals/node_modules}/converse.js/dist/chunkjs/locales/*",
+                        dest: "vendor_dist/converse.js/dist/chunkjs/locales",
                     },
                     {
-                        src: "node_modules/converse.js/dist/emoji.json",
+                        src: "{node_modules,src/js/common-externals/node_modules}/converse.js/dist/chunkjs/locales/dayjs/*",
+                        dest: "vendor_dist/converse.js/dist/chunkjs/locales/dayjs",
+                    },
+                    {
+                        src: "{node_modules,src/js/common-externals/node_modules}/converse.js/dist/emoji.json",
+                        dest: "vendor_dist/converse.js/dist",
+                    },
+                    {
+                        // OMEMO is blacklisted (ConverseJS.php's blacklisted_plugins), but
+                        // libomemo.esm.min.js resolves this relative to the *page* URL rather
+                        // than its own script URL, so copy it too regardless - cheap, avoids an
+                        // otherwise-confusing 404 if OMEMO is ever re-enabled later.
+                        src: "{node_modules,src/js/common-externals/node_modules}/converse.js/dist/curve25519_compiled.wasm",
                         dest: "vendor_dist/converse.js/dist",
                         rename: { stripBase: 3 },
                     },

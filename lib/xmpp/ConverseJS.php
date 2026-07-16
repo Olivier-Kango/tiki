@@ -2,6 +2,15 @@
 
 class ConverseJS
 {
+    // Bump this whenever converse.js itself is upgraded (its own version number is a good
+    // value to use). It's folded into the client-side cache-identity string in render() below,
+    // to force a one-time wipe of every returning user's cached localStorage/sessionStorage/
+    // IndexedDB converse state - old data can have a shape the new converse.js version doesn't
+    // expect (e.g. a null-attribute crash restoring a stale IndexedDB-cached collection), and
+    // the existing per-PHP-session identity string alone doesn't change across a same-session
+    // upgrade, so it wouldn't otherwise catch this.
+    const CACHE_EPOCH = '14.0.0';
+
     private $options;
     private $tiki_root;
 
@@ -18,6 +27,16 @@ class ConverseJS
                 'view_mode' => 'overlayed',
                 'assets_path'   => CONVERSEJS_DIST_PATH . '/',
                 'whitelisted_plugins' => ['tiki', 'tiki-oauth'],
+                // OMEMO isn't configured/used anywhere in this integration (converse-omemo is a
+                // CORE_PLUGINS entry, so whitelisted_plugins above can't exclude it) - blacklist
+                // it explicitly to skip that unused work.
+                'blacklisted_plugins' => ['converse-omemo'],
+                // Tiki always resolves and passes the exact transport (bosh_service_url XOR
+                // websocket_url) it wants for every connection it sets up (see
+                // getTransportOptions()), so converse.js's own XEP-0156/host-meta discovery is
+                // never actually needed here - keep it off to avoid depending on external servers'
+                // discovery records being correct/compatible.
+                'discover_connection_methods' => false,
             ],
             $options
         ));
@@ -277,11 +296,30 @@ class ConverseJS
     public function get_js_dependencies()
     {
         $deps = [
-            CONVERSEJS_DIST_PATH . '/converse.min.js',
             'lib/xmpp/js/conversejs-tiki.js',
             'lib/xmpp/js/conversejs-tiki-oauth.js',
         ];
         return array_map([$this, 'append_mtime'], $deps);
+    }
+
+    /**
+     * Registers converse.js's own script plus the tiki plugin files with HeaderLib, for the two
+     * places that need them (tiki-setup.php's "always load" case, and render() below).
+     *
+     * converse.js 14+ ships ESM-only (no UMD/global build, no `window.converse` side effect) -
+     * see the sitewide importmap entry in path_js_importmap_generator.php. The two plugin files
+     * below are plain classic scripts that expect a bare `converse`/`window.converse` global (as
+     * does render()'s own inline `converse.initialize(...)` call further down), so an inline
+     * bootstrap module runs first to import the bare specifier and assign it to that global -
+     * non-async module scripts (inline or external) execute in strict document order relative to
+     * each other, same guarantee as classic `defer` scripts, so this ordering is reliable without
+     * needing to modify the two plugin files themselves at all.
+     */
+    public function register_js_dependencies()
+    {
+        $header = TikiLib::lib('header');
+        $header->add_js_module("import converse from 'converse.js'; window.converse = converse;");
+        array_map([$header, 'add_jsfile_module'], $this->get_js_dependencies());
     }
 
     public function render()
@@ -300,7 +338,7 @@ class ConverseJS
         $output = ';(function () {' . PHP_EOL . 'try {' . PHP_EOL;
 
         if ($prefs['xmpp_conversejs_always_load'] !== 'y') {
-            array_map([TikiLib::lib('header'), 'add_jsfile'], $this->get_js_dependencies());
+            $this->register_js_dependencies();
 
             $output .= PHP_EOL . ';(function() {';
             $output .= PHP_EOL . '    var link;';
@@ -316,7 +354,7 @@ class ConverseJS
         if (empty($_SESSION['chat-session-init'])) {
             $_SESSION['chat-session-init'] = time();
         }
-        $chat_session_init = ($user ?: 'anonymous') . '|' . ($options['jid'] ?? '') . '|' . $_SESSION['chat-session-init'];
+        $chat_session_init = ($user ?: 'anonymous') . '|' . ($options['jid'] ?? '') . '|' . $_SESSION['chat-session-init'] . '|' . self::CACHE_EPOCH;
         $chat_session_init_js = json_encode($chat_session_init);
 
         $output .= PHP_EOL . ';(function(){';
@@ -325,12 +363,36 @@ class ConverseJS
         $output .= PHP_EOL . "      localStorage['chat-session-init'] = {$chat_session_init_js};";
         $output .= PHP_EOL . '      for (var key in localStorage) { key.match(/(converse|strophe)/) && localStorage.removeItem(key); }';
         $output .= PHP_EOL . '      for (var key in sessionStorage) { key.match(/(converse|strophe)/) && sessionStorage.removeItem(key); }';
+        $output .= PHP_EOL . '      if (window.indexedDB && indexedDB.databases) {';
+        $output .= PHP_EOL . '          indexedDB.databases().then(function (dbs) {';
+        $output .= PHP_EOL . '              dbs.forEach(function (db) {';
+        $output .= PHP_EOL . '                  if (db.name && /(converse|strophe)/i.test(db.name)) { indexedDB.deleteDatabase(db.name); }';
+        $output .= PHP_EOL . '              });';
+        $output .= PHP_EOL . '          }).catch(function (e) { console.warn("[tiki-xmpp] could not enumerate indexedDB databases for cleanup", e); });';
+        $output .= PHP_EOL . '      }';
         $output .= PHP_EOL . "  }";
         $output .= PHP_EOL . '})();';
         $output .= PHP_EOL;
 
         if ($this->get_option('view_mode') === 'embedded') {
-            $options['singleton'] = true;
+            // converse.js's singleton plugin throws synchronously during plugin init
+            // (aborting the whole converse.initialize() call, i.e. no chat renders at all)
+            // unless auto_join_rooms or auto_join_private_chats is already a non-empty
+            // array. Tiki actually opens/joins the room dynamically later, client-side,
+            // in conversejs-tiki.js's 'connected' handler (so bookmarks/permissions/etc.
+            // can be checked first) - the plugin has no way to know that and needs
+            // *something* here just to pass its own guard clause. If embedded was
+            // requested without a room or DM target, singleton has nothing to lock onto
+            // anyway, so skip it rather than let converse.js hard-crash.
+            $currentRoom = $this->get_option('current_room');
+            $dmTarget = $this->get_option('dm_target');
+            if ($currentRoom) {
+                $options['singleton'] = true;
+                $options['auto_join_rooms'] = [$currentRoom];
+            } elseif ($dmTarget) {
+                $options['singleton'] = true;
+                $options['auto_join_private_chats'] = [$dmTarget];
+            }
         }
 
         $options['auto_open'] = $this->get_option('auto_open', 'n');
@@ -402,15 +464,9 @@ JS;
 
         ksort($options);
 
-        // Do not use JSON_UNESCAPED_SLASHES to avoid </script> injection.
-        $optionString = json_encode($options, JSON_PRETTY_PRINT);
-        $output .= ';(function () {' . PHP_EOL;
-        $output .= '    try {' . PHP_EOL;
-        $output .= '        converse.initialize(' . $optionString . ');' . PHP_EOL;
-        $output .= '    } catch (e) {' . PHP_EOL;
-        $output .= "        console.error('[tiki-xmpp] FATAL - converse.initialize failed:', e);" . PHP_EOL;
-        $output .= '    }' . PHP_EOL;
-        $output .= '})();' . PHP_EOL;
+        $optionString = json_encode($options, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $output .= 'converse.initialize(' . $optionString . ');' . PHP_EOL;
+        $output .= '} catch (e) { console.error(\'[tiki-xmpp] FATAL - setup failed:\', e); }' . PHP_EOL . '})();';
         return TikiLib::lib('header')->add_jq_onready($output, 10);
     }
 }
