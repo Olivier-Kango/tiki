@@ -394,15 +394,99 @@
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                min-width: 0; // let the name column below actually shrink+ellipsis
+
+                // Fixed-size avatar must never be the thing that shrinks when
+                // space is tight - only the name/status column (below) should.
+                > a.show-msg-author-modal { flex-shrink: 0; }
             }
 
             .chatbox-title__text, .chat-title, a.chatbox-btn.fa { color: #fff; }
             .chatbox-title__text {
                 display: flex;
-                align-items: center;
+                // Column, not row: conversejs-tiki.js appends the presence-status
+                // line (below) as a SECOND CHILD of this element, right under the
+                // name link, so it needs to stack vertically. With only one child
+                // (MUC/headlines headers, which never get that second line) this
+                // looks identical to the previous row layout - a single line of
+                // text isn't affected by the flex axis.
+                flex-direction: column;
+                align-items: flex-start;
                 font-weight: 600;
+                flex: 1 1 auto;
+                min-width: 0; // flexbox default is min-width:auto (= content width),
+                              // which defeats ellipsis below and forces a wrap/overflow
+                              // instead - this is what actually needs to shrink.
+
+                // The name itself: a long name must truncate with an ellipsis,
+                // never wrap to a second line.
+                > a {
+                    display: block;
+                    max-width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
             .chat-head__desc { color: rgba(255, 255, 255, .85) !important; }
+
+            // Online/away/busy/last-seen line, injected under the contact's name
+            // by conversejs-tiki.js (converse.js itself only shows this info in
+            // the roster list, never in the 1-on-1 chat header) - so it's clear
+            // at a glance whether the other person is around right now, same as
+            // WhatsApp/Telegram/Messenger. Nested inside .chatbox-title__text
+            // (the name itself, see the flex-direction: column above) rather
+            // than appended lower in the header, so it lines up under the name
+            // for free - no left-margin guess needed to skip past the avatar.
+            //
+            // Deliberately NOT a flex container for the dot+text (that was tried
+            // and broke down under a narrow header - the raw text node becomes
+            // an anonymous flex item that can't be given its own text-overflow
+            // rule, and squeezed down to a barely-visible sliver instead of
+            // truncating). Plain block text with an absolutely-positioned dot
+            // gets truncation for free from ordinary text-overflow.
+            .tiki-presence-status {
+                position: relative;
+                display: block;
+                // Stock converse.js CSS text-colors .chat-head__desc from
+                // --chat-header-bg-color (a background var, not a text color -
+                // see the !important two lines up, needed for the exact same
+                // reason) - this line sits in that same header, so it needs the
+                // same override or it inherits that near-invisible color too.
+                color: rgba(255, 255, 255, .8) !important;
+                margin: .15rem 0 0;
+                padding-inline-start: .85em;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: .72em;
+                font-weight: 400;
+                line-height: 1.2;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    inset-inline-start: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: .45em;
+                    height: .45em;
+                    border-radius: 50%;
+                    background-color: rgba(255, 255, 255, .55);
+                }
+                &.tiki-presence-status--online::before,
+                &.tiki-presence-status--chat::before {
+                    background-color: var(--chat-status-online);
+                }
+                &.tiki-presence-status--away::before,
+                &.tiki-presence-status--xa::before {
+                    background-color: var(--chat-status-away);
+                }
+                &.tiki-presence-status--dnd::before {
+                    background-color: var(--chat-status-busy);
+                }
+            }
             .chatbox-title__buttons .chatbox-btn, .controlbox-heading__btn {
                 color: #fff;
                 opacity: .85;
@@ -579,6 +663,20 @@
 
     .chat-msg__content--them .chat-msg__receipt {
         display: none;
+    }
+
+    // Upstream converse.js bug (13.0.1): in 1-on-1 chats, the "Replying to X"
+    // banner is rendered TWICE - once by <converse-chat-bottom-panel>'s own
+    // template (the correct one, a sibling of <converse-message-form>) and a
+    // second time by <converse-message-form>'s OWN template, which redundantly
+    // renders another <converse-reply-preview> as its first child. Groupchats
+    // don't have this bug (converse-muc-message-form's template has no such
+    // duplicate), so this selector only targets the 1-on-1 case. Hiding the
+    // nested duplicate (rather than the bottom-panel's one) keeps the "cancel
+    // reply" button working, since both instances are bound to the same model
+    // and behave identically.
+    converse-message-form > converse-reply-preview {
+        display: none !important;
     }
 
     // "Edited" pencil: flows inline after the text by default (stock
@@ -872,6 +970,29 @@
     // Responsive
     // -----------------------------------------------------------
     @media screen and (max-width: 480px) {
+        // Stock converse.js sizes the mobile box-flyout off --fullpage-chat-height,
+        // which is calc(var(--vh, 1vh) * 100) - kept in sync with the real viewport
+        // only by a JS `resize` listener (chatboxviews/utils.js) that re-measures
+        // window.innerHeight. Mobile browsers resize the *visible* viewport as their
+        // address/toolbar shows or hides, and don't reliably fire `resize` for every
+        // such change, so --vh can go stale. The flyout's whole position is derived
+        // from this one variable (both its height AND its negative top-offset from a
+        // zero-height, viewport-bottom-anchored parent), so a stale value pushes its
+        // top - the chat-head with the room name/avatar - off-screen: exactly what
+        // looks like "the top of the popup is hidden".
+        //
+        // `dvh` (dynamic viewport height) would track the real viewport without the
+        // JS, but WebKit has a long-standing bug where `position: fixed` elements
+        // sized with `dvh` don't reliably repaint as Safari's own address/toolbar
+        // bar collapses or expands (https://bugs.webkit.org/show_bug.cgi?id=223734) -
+        // which is exactly our case (.conversejs is position: fixed), so `dvh` alone
+        // still leaves the popup cut off in Safari on iOS. `svh` (small viewport
+        // height) is a static value - the guaranteed-smallest viewport, i.e. as if
+        // the toolbar were always shown - so it never depends on that recalculation
+        // happening at all. Trade-off: a few px of unused space at the bottom when
+        // the toolbar happens to be hidden, in exchange for never clipping the top.
+        --fullpage-chat-height: 100svh;
+
         .chatbox, #controlbox {
             .box-flyout {
                 border-radius: 1.1rem 1.1rem 0 0 !important;
