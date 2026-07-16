@@ -9,7 +9,7 @@ class ConverseJS
     // expect (e.g. a null-attribute crash restoring a stale IndexedDB-cached collection), and
     // the existing per-PHP-session identity string alone doesn't change across a same-session
     // upgrade, so it wouldn't otherwise catch this.
-    const CACHE_EPOCH = '14.0.0';
+    const CACHE_EPOCH = '14.0.0-popupfix1';
 
     private $options;
     private $tiki_root;
