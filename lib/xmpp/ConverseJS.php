@@ -309,7 +309,8 @@ class ConverseJS
 
         ksort($options);
 
-        $optionString = json_encode($options, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        // Do not use JSON_UNESCAPED_SLASHES to avoid </script> injection.
+        $optionString = json_encode($options, JSON_PRETTY_PRINT);
         $output .= 'converse.initialize(' . $optionString . ');' . PHP_EOL;
         return TikiLib::lib('header')->add_jq_onready($output, 10);
     }

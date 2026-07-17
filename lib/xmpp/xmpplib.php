@@ -101,7 +101,7 @@ class XMPPLib extends TikiLib
         $localJid = $this->getLocalJidForLogin($login);
 
         $ext = trim(TikiLib::lib('tiki')->get_user_preference($login, 'xmpp_jid', ''));
-        if ($ext !== '' && strpos($ext, '@') !== false && strcasecmp($ext, $localJid) !== 0) {
+        if ($ext !== '' && $this->isValidJid($ext) && strcasecmp($ext, $localJid) !== 0) {
             return [
                 'jid'         => $ext,
                 'isLocal'     => false,
@@ -122,6 +122,19 @@ class XMPPLib extends TikiLib
             'localJid'    => $localJid,
             'externalJid' => null,
         ];
+    }
+
+    /**
+    * Validate that a string is a well-formed XMPP JID.
+    * Required because user-supplied JIDs are rendered by ConverseJS.
+    */
+    private function isValidJid(string $jid): bool
+    {
+        $localpart = '[^"&\'\/:<>@\s\x00-\x1F\x7F]+';
+        $domain = '[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*';
+        $resource = '[^"&\'<>\s\x00-\x1F\x7F]+';
+
+        return (bool) preg_match('/^' . $localpart . '@' . $domain . '(\/' . $resource . ')?$/', $jid);
     }
 
     /**
