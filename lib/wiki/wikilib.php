@@ -1714,9 +1714,11 @@ class WikiLib extends TikiLib
     }
 
     /**
-     * Maps a page's stored language to the URL prefix used to serve it (/en/, /fr/),
-     * as defined by the site's .htaccess rewrite rules. Returns '' for languages that
-     * have no dedicated prefix, so callers fall back to the un-prefixed URL.
+     * Maps a page's stored language to the URL prefix used to serve it (/en/, /fr/, ...),
+     * as defined by the site's .htaccess rewrite rules. The prefix is the language code
+     * itself, restricted to the site's active languages (available_languages, or every
+     * installed Tiki language if that pref isn't set). Returns '' for languages outside
+     * that set, so callers fall back to the un-prefixed URL.
      */
     public static function getLanguageUrlPrefix($lang)
     {
@@ -1726,9 +1728,11 @@ class WikiLib extends TikiLib
             return '';
         }
 
-        static $supportedPrefixes = ['en' => 'en', 'fr' => 'fr'];
+        $activeLanguages = ! empty($prefs['available_languages'])
+            ? $prefs['available_languages']
+            : Language::getLanguages();
 
-        return $supportedPrefixes[$lang] ?? '';
+        return in_array($lang, $activeLanguages, true) ? $lang : '';
     }
 
     public function url_for_operation_on_a_page($script_name, $page, $with_next)
