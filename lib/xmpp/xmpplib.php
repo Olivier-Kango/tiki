@@ -128,7 +128,7 @@ class XMPPLib extends TikiLib
     * Validate that a string is a well-formed XMPP JID.
     * Required because user-supplied JIDs are rendered by ConverseJS.
     */
-    private function isValidJid(string $jid): bool
+    public function isValidJid(string $jid): bool
     {
         $localpart = '[^"&\'\/:<>@\s\x00-\x1F\x7F]+';
         $domain = '[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*';

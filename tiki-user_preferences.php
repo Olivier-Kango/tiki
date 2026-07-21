@@ -382,6 +382,11 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
         $previousXmppJid = $tikilib->get_user_preference($userwatch, 'xmpp_jid', '');
         $newXmppJid = trim($_POST['xmpp_jid']);
 
+        if ($newXmppJid !== '' && ! TikiLib::lib('xmpp')->isValidJid($newXmppJid)) {
+            Feedback::error(tr('Invalid XMPP address "%0"', $newXmppJid));
+            $newXmppJid = $previousXmppJid;
+        }
+
         $tikilib->set_user_preference($userwatch, 'xmpp_jid', $newXmppJid);
 
         if ($previousXmppJid !== $newXmppJid) {
