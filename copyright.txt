@@ -10,7 +10,7 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2026-07-14, the community has:
+As of 2026-07-22, the community has:
   * 455 members,
   * 455 of those people who made at least one code commit
 
@@ -367,8 +367,8 @@ Number of Commits: 1
 
 Name: Camile
 First Commit: 2025-06-02
-Last Commit: 2026-06-19
-Number of Commits: 23
+Last Commit: 2026-07-20
+Number of Commits: 24
 
 Name: campbe13
 First Commit: 2009-02-19
@@ -567,8 +567,8 @@ Number of Commits: 46
 
 Name: Domeshow Emmanuel
 First Commit: 2021-10-06
-Last Commit: 2026-06-23
-Number of Commits: 204
+Last Commit: 2026-07-15
+Number of Commits: 205
 
 Name: Don de Dieu Bolenge
 First Commit: 2024-08-01
@@ -1112,8 +1112,8 @@ Number of Commits: 2
 
 Name: Jonny Bradley
 First Commit: 2007-08-15
-Last Commit: 2026-07-13
-Number of Commits: 10220
+Last Commit: 2026-07-18
+Number of Commits: 10224
 
 Name: Jorge Sá Pereira
 First Commit: 2019-09-04
@@ -1137,8 +1137,8 @@ Number of Commits: 2
 
 Name: Joseph Lwanzo Kausi
 First Commit: 2024-04-10
-Last Commit: 2026-05-13
-Number of Commits: 58
+Last Commit: 2026-07-14
+Number of Commits: 59
 
 Name: Joseph Ushindi
 First Commit: 2024-09-17
@@ -1257,8 +1257,8 @@ Number of Commits: 6
 
 Name: Landry Bitege
 First Commit: 2025-06-03
-Last Commit: 2026-07-13
-Number of Commits: 56
+Last Commit: 2026-07-20
+Number of Commits: 58
 
 Name: leagris
 First Commit: 2013-07-24
@@ -1327,8 +1327,8 @@ Number of Commits: 2
 
 Name: Luciash D'Being
 First Commit: 2003-08-05
-Last Commit: 2026-07-14
-Number of Commits: 1473
+Last Commit: 2026-07-18
+Number of Commits: 1474
 
 Name: lueders
 First Commit: 2003-08-18
@@ -1352,8 +1352,8 @@ Number of Commits: 18
 
 Name: MAGENE Sem Joel
 First Commit: 2025-06-11
-Last Commit: 2026-07-06
-Number of Commits: 68
+Last Commit: 2026-07-18
+Number of Commits: 70
 
 Name: Mahi2
 First Commit: 2019-03-19
@@ -1602,8 +1602,8 @@ Number of Commits: 1
 
 Name: Nasser Ngandu
 First Commit: 2022-08-13
-Last Commit: 2026-05-12
-Number of Commits: 57
+Last Commit: 2026-07-17
+Number of Commits: 58
 
 Name: Nat Okpe
 First Commit: 2021-12-10
@@ -1932,8 +1932,8 @@ Number of Commits: 1
 
 Name: Sammy Ndabo
 First Commit: 2023-11-23
-Last Commit: 2026-07-10
-Number of Commits: 81
+Last Commit: 2026-07-15
+Number of Commits: 82
 
 Name: sampaioprimo
 First Commit: 2005-10-17
@@ -2167,13 +2167,13 @@ Number of Commits: 2
 
 Name: ushindi bienvenu
 First Commit: 2024-08-07
-Last Commit: 2026-07-14
-Number of Commits: 209
+Last Commit: 2026-07-22
+Number of Commits: 214
 
 Name: Ushindi Gedeon
 First Commit: 2024-03-12
-Last Commit: 2026-06-14
-Number of Commits: 62
+Last Commit: 2026-07-14
+Number of Commits: 63
 
 Name: uxeric
 First Commit: 2015-08-17
