@@ -143,7 +143,7 @@ class HtmlSelectTime extends Base implements TikiSmartyExtensionInterface
                 $hours = array_merge([$hour_empty == ' ' ? '' : $hour_empty], $hours);
             }
 
-            $html_result .= smarty_function_html_options(
+            $html_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
                 [
                     'output'        => $hours,
                     'values'        => $hours,
@@ -224,7 +224,7 @@ class HtmlSelectTime extends Base implements TikiSmartyExtensionInterface
                 $minutes = array_merge([$minute_empty == ' ' ? '' : $minute_empty], $minutes);
             }
 
-            $html_result .= smarty_function_html_options(
+            $html_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
                 [
                     'output'        => $minutes,
                     'values'        => $minutes,
@@ -276,7 +276,7 @@ class HtmlSelectTime extends Base implements TikiSmartyExtensionInterface
                 $secondes = array_merge([$seconde_empty == ' ' ? '' : $seconde_empty], $secondes);
             }
 
-            $html_result .= smarty_function_html_options(
+            $html_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
                 [
                     'output'        => $seconds,
                     'values'        => $seconds,
@@ -304,7 +304,7 @@ class HtmlSelectTime extends Base implements TikiSmartyExtensionInterface
             }
             $html_result .= '>' . "\n";
 
-            $html_result .= smarty_function_html_options(
+            $html_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
                 [
                     'output'        => ['AM', 'PM'],
                     'values'        => ['am', 'pm'],

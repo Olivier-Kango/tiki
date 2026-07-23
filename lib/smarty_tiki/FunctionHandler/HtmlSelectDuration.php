@@ -58,7 +58,7 @@ class HtmlSelectDuration extends Base implements TikiSmartyExtensionInterface
         }
         $html_result .= '<div class="col-sm-7"><select name="' . $prefix . '" class="form-control">';
 
-        $html_result .= smarty_function_html_options(
+        $html_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
             [
                 'values' => $values,
                 'output' => $output,

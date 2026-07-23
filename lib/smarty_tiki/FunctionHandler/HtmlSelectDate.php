@@ -247,7 +247,7 @@ class HtmlSelectDate extends Base implements TikiSmartyExtensionInterface
             $month_result .= $extra_attrs . '>' . "\n";
 
             $tikidate->setLocalTime(1, (int) $time[1], 2000, 0, 0, 0, 0);
-            $month_result .= smarty_function_html_options(
+            $month_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
                 [
                     'output'     => $month_names,
                     'values'     => $month_values,
@@ -287,7 +287,7 @@ class HtmlSelectDate extends Base implements TikiSmartyExtensionInterface
                 $day_result .= ' ' . $day_extra;
             }
             $day_result .= $extra_attrs . '>' . "\n";
-            $day_result .= smarty_function_html_options(
+            $day_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
                 [
                     'output'       => $day_values,
                     'values'       => $days,
@@ -338,7 +338,7 @@ class HtmlSelectDate extends Base implements TikiSmartyExtensionInterface
                     $year_result .= ' ' . $year_extra;
                 }
                 $year_result .= $extra_attrs . '>' . "\n";
-                $year_result .= smarty_function_html_options(
+                $year_result .= (new \Smarty\FunctionHandler\HtmlOptions())->handle(
                     [
                         'output' => $years,
                         'values' => $yearvals,

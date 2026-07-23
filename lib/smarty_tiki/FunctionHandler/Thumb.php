@@ -38,9 +38,6 @@ class Thumb extends Base implements TikiSmartyExtensionInterface
         }
 
         // Smarty html_image has some problems to detect height and width of such a file...
-        //  $html = smarty_function_html_image(array(
-        //      'src' => 'tiki-download_file.php?fileId='.((int)$params['_id']).'&amp;thumbnail&amp;max='.((int)$params['_max'])
-        //  ), $smarty);
 
         $html = '<img ';
         foreach ($params as $k => $v) {
