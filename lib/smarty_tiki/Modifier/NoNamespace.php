@@ -4,8 +4,20 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_modifier_nonamespace($pageName)
+
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class NoNamespace implements TikiSmartyExtensionInterface
 {
-    $noNamespaceModifier = new \SmartyTiki\Modifier\NoNamespace();
-    return $noNamespaceModifier->handle($pageName);
+    public static function getSmartyName(): string
+    {
+        return 'nonamespace';
+    }
+
+    public function handle($pageName)
+    {
+        return \TikiLib::lib('wiki')->get_without_namespace($pageName);
+    }
 }

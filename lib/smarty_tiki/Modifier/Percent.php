@@ -5,8 +5,24 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_percent($string)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Percent implements TikiSmartyExtensionInterface
 {
-    $percentModifier = new \SmartyTiki\Modifier\Percent();
-    return $percentModifier->handle($string);
+    public static function getSmartyName(): string
+    {
+        return 'percent';
+    }
+
+    /**
+     *
+     * returns a percentage instead of a fraction
+     * @param float $string fraction to format
+     */
+    public function handle($string)
+    {
+        return number_format($string * 100, 1);
+    }
 }

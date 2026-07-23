@@ -5,8 +5,31 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_truex($string)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * Type:     modifier
+ * Replaces 1 (=TRUE) with a 'x'. Anything else with '-'
+ * used for example to output file permissions in
+ * tiki-admin_security
+ * -------------------------------------------------------------
+ */
+class Truex implements TikiSmartyExtensionInterface
 {
-    $truexModifier = new \SmartyTiki\Modifier\Truex();
-    return $truexModifier->handle($string);
+    public static function getSmartyName(): string
+    {
+        return 'truex';
+    }
+
+    public function handle($string)
+    {
+        if ((int) $string == 1) {
+            return ('x');
+        }
+        return ('-');
+    }
 }

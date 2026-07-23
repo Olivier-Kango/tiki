@@ -5,8 +5,38 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_a_or_an($string, $caps = false)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * Type:     modifier
+ * Prepends an "a " or "an " depending on whether word starts with vowel.
+ * @param caps, if set will cause "A " or "An "
+ * -------------------------------------------------------------
+ */
+class AorAn implements TikiSmartyExtensionInterface
 {
-    $aOrAnModifier = new \SmartyTiki\Modifier\AorAn();
-    return $aOrAnModifier->handle($string, $caps);
+    public static function getSmartyName(): string
+    {
+        return 'a_or_an';
+    }
+
+    public function handle($string, $caps = false)
+    {
+        global $prefs;
+        if (! str_starts_with($prefs['language'], 'en')) {
+            return $string;
+        }
+        $vowels = ['a', 'e', 'i', 'o', 'u'];
+        $initial = strtolower(substr($string, 0, 1));
+        if (in_array($initial, $vowels)) {
+            $prefix = $caps ? 'An ' : 'an ';
+        } else {
+            $prefix = $caps ? 'A ' : 'a ';
+        }
+        return $prefix . $string;
+    }
 }

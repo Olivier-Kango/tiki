@@ -4,8 +4,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_modifier_tiki_short_time($string)
+
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class TikiShortTime implements TikiSmartyExtensionInterface
 {
-    $tikiShortTimeModifier = new \SmartyTiki\Modifier\TikiShortTime();
-    return $tikiShortTimeModifier->handle($string);
+    public static function getSmartyName(): string
+    {
+        return 'tiki_short_time';
+    }
+
+    public function handle($string)
+    {
+        global $prefs;
+        \TikiLib::lib('smarty'); //Load SmartyLib for side effects
+        return \SmartyTiki\Modifier\TikiDateFormat::apply($string, $prefs['short_time_format']);
+    }
 }

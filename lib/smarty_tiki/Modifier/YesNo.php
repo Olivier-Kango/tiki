@@ -4,8 +4,31 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_modifier_yesno($string)
+
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class YesNo implements TikiSmartyExtensionInterface
 {
-    $yesNoModifier = new \SmartyTiki\Modifier\YesNo();
-    return $yesNoModifier->handle($string);
+    public static function getSmartyName(): string
+    {
+        return 'yesno';
+    }
+
+    public function handle($string)
+    {
+        switch ($string) {
+            case 'y':
+                return tra('Yes');
+                break;
+
+            case 'n':
+                return tra('No');
+                break;
+
+            default:
+                return $string;
+        }
+    }
 }

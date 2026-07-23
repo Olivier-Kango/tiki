@@ -5,8 +5,22 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_file_diagram($fileId)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Checks if a given file id is a diagram
+ */
+class FileDiagram implements TikiSmartyExtensionInterface
 {
-    $fileDiagramModifier = new \SmartyTiki\Modifier\FileDiagram();
-    return $fileDiagramModifier->handle($fileId);
+    public static function getSmartyName(): string
+    {
+        return 'file_diagram';
+    }
+
+    public function handle($fileId)
+    {
+        return \Tiki\File\DiagramHelper::isDiagram($fileId);
+    }
 }

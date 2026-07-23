@@ -5,8 +5,27 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_htmldecode($s)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * Type:     modifier
+ * Name:     htmldecode
+ * Purpose:  Convert all HTML entities to their applicable characters
+ * -------------------------------------------------------------
+ */
+class HtmlDecode implements TikiSmartyExtensionInterface
 {
-    $htmlDecodeModifier = new \SmartyTiki\Modifier\HtmlDecode();
-    return $htmlDecodeModifier->handle($s);
+    public static function getSmartyName(): string
+    {
+        return 'htmldecode';
+    }
+
+    public function handle($s)
+    {
+        return \TikiLib::htmldecode($s);
+    }
 }

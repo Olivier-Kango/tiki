@@ -4,10 +4,28 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// Translate only if feature_multilingual is on
 
-function smarty_modifier_virtual_path($fileOrPageId, $type = 'file')
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class VirtualPath implements TikiSmartyExtensionInterface
 {
-    $virtualPathModifier = new \SmartyTiki\Modifier\VirtualPath();
-    return $virtualPathModifier->handle($fileOrPageId, $type);
+    public static function getSmartyName(): string
+    {
+        return 'virtual_path';
+    }
+
+    public function handle($fileOrPageId, $type = 'file')
+    {
+        global $base_url;
+
+        $filegallib = \TikiLib::lib('filegal');
+
+        if ($type == 'wiki page') {
+            return $base_url . 'tiki-webdav.php/Wiki Pages/' . $fileOrPageId;
+        } else {
+            return $base_url . 'tiki-webdav.php' . ($filegallib->get_full_virtual_path($fileOrPageId, $type));
+        }
+    }
 }

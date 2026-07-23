@@ -5,8 +5,25 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_tiki_long_datetime($string)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\ModifierStaticFacadeTrait;
+
+class TikiLongDateTime implements TikiSmartyExtensionInterface
 {
-    $tikiLongDateTimeModifier = new \SmartyTiki\Modifier\TikiLongDateTime();
-    return $tikiLongDateTimeModifier->handle($string);
+    use ModifierStaticFacadeTrait;
+
+    public static function getSmartyName(): string
+    {
+        return 'tiki_long_datetime';
+    }
+
+    public function handle($string)
+    {
+        global $prefs;
+        \TikiLib::lib('smarty'); //Load SmartyLib for side effects
+        // if you change the separator do not forget to change the translation instruction in lib/prefs/long.php
+        return \SmartyTiki\Modifier\TikiDateFormat::apply($string, $prefs['long_date_format'] . ' ' . $prefs['long_time_format']);
+    }
 }

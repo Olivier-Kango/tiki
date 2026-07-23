@@ -5,8 +5,41 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_avatarize($user, $float = '', $default = '', $show_tag = 'y')
+namespace SmartyTiki\Modifier;
+
+use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty modifier avatarize
+ * -------------------------------------------------------------
+ * Purpose:  show avatar for a given user name
+ * -------------------------------------------------------------
+ */
+class Avatarize implements TikiSmartyExtensionInterface
 {
-    $avatarizeModifier = new \SmartyTiki\Modifier\Avatarize();
-    return $avatarizeModifier->handle($user, $float, $default, $show_tag);
+    public static function getSmartyName(): string
+    {
+        return 'avatarize';
+    }
+
+    public function handle($user, $float = '', $default = '', $show_tag = 'y')
+    {
+        if (! $user) {
+            return '';
+        }
+
+        $avatar = TikiLib::lib('tiki')->get_user_avatar($user, $float);
+
+        if (! $avatar && $default) {
+            $smarty = TikiLib::lib('smarty');
+            $name = TikiLib::lib('user')->clean_user($user);
+            $avatar = \SmartyTiki\FunctionHandler\Icon::render(['_id' => $default, 'title' => $name], $smarty->getEmptyInternalTemplate());
+        }
+
+        if ($avatar != '' && $show_tag == 'y') {
+            $avatar = TikiLib::lib('user')->build_userinfo_tag($user, $avatar);
+        }
+        return $avatar;
+    }
 }

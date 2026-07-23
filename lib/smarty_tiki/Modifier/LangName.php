@@ -4,8 +4,25 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_modifier_langname($lang)
+
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class LangName implements TikiSmartyExtensionInterface
 {
-    $langNameModifier = new \SmartyTiki\Modifier\LangName();
-    return $langNameModifier->handle($lang);
+    public static function getSmartyName(): string
+    {
+        return 'langname';
+    }
+
+    public function handle($lang)
+    {
+        if (empty($lang)) {
+            return '';
+        }
+
+        include('lang/langmapping.php');
+        return empty($langmapping[$lang]) ? $lang : tra($langmapping[$lang][0]);
+    }
 }

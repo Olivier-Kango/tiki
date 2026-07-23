@@ -5,8 +5,33 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_quoted($string, $format = 'simple', $replyto = '')
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Quoted implements TikiSmartyExtensionInterface
 {
-    $quotedModifier = new \SmartyTiki\Modifier\Quoted();
-    return $quotedModifier->handle($string, $format, $replyto);
+    public static function getSmartyName(): string
+    {
+        return 'quoted';
+    }
+
+    /*
+    * Smarty plugin
+    * -------------------------------------------------------------
+    * Type:     modifier
+    * Name:     quoted
+    * Purpose:  quote text by adding ">" or using {QUOTE()} plugin
+    * -------------------------------------------------------------
+    */
+    public function handle($string, $format = 'simple', $replyto = '')
+    {
+        if ($format == 'simple') {
+            $string = str_replace("\n", "\n>", $string);
+            $string = "\n>" . $string;
+        } elseif ($format == 'fancy') {
+            $string = "{QUOTE(replyto=>$replyto)}" . $string . '{QUOTE}';
+        }
+        return $string;
+    }
 }

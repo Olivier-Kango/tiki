@@ -5,8 +5,27 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_dbg($string, $label = '')
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * \brief Smarty modifier plugin to add string to debug console log w/o modify output
+ * Usage format {$smarty_var|dbg}
+ */
+class Dbg implements TikiSmartyExtensionInterface
 {
-    $dbgModifier = new \SmartyTiki\Modifier\Dbg();
-    return $dbgModifier->handle($string, $label);
+    public static function getSmartyName(): string
+    {
+        return 'dbg';
+    }
+
+    public function handle($string, $label = '')
+    {
+        global $debugger;
+        require_once('lib/debug/debugger.php');
+        //
+        $debugger->msg('Smarty log' . ((strlen($label) > 0) ? ': ' . $label : '') . ': ' . $string);
+        return $string;
+    }
 }

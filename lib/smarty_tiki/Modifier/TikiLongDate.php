@@ -4,8 +4,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_modifier_tiki_long_date($string)
+
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class TikiLongDate implements TikiSmartyExtensionInterface
 {
-    $tikiLongDateModifier = new \SmartyTiki\Modifier\TikiLongDate();
-    return $tikiLongDateModifier->handle($string);
+    public static function getSmartyName(): string
+    {
+        return 'tiki_long_date';
+    }
+
+    public function handle($string)
+    {
+        global $prefs;
+        \TikiLib::lib('smarty'); //Load SmartyLib for side effects
+        return \SmartyTiki\Modifier\TikiDateFormat::apply($string, $prefs['long_date_format']);
+    }
 }

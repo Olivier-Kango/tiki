@@ -4,9 +4,21 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// this returns the ISO 8601 date for microformats
-function smarty_modifier_isodate($string)
+
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class IsoDate implements TikiSmartyExtensionInterface
 {
-    $isDateModifier = new \SmartyTiki\Modifier\IsoDate();
-    return $isDateModifier->handle($string);
+    public static function getSmartyName(): string
+    {
+        return 'isodate';
+    }
+
+    public function handle($string)
+    {
+        global $tikilib;
+        return $tikilib->get_iso8601_datetime($string);
+    }
 }

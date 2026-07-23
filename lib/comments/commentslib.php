@@ -1935,7 +1935,7 @@ class Comments extends TikiLib
 
         foreach ($fieldsToMaks as $field) {
             if (isset($data[$field])) {
-                $data[$field] = smarty_modifier_forummaskemail($data[$field]);
+                $data[$field] = \SmartyTiki\Modifier\ForumMaskEmail::apply($data[$field]);
             }
         }
 

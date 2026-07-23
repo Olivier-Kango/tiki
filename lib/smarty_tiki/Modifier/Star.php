@@ -4,8 +4,26 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_modifier_star($score)
+
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Star implements TikiSmartyExtensionInterface
 {
-    $startModifier = new \SmartyTiki\Modifier\Star();
-    return $startModifier->handle($score);
+    public static function getSmartyName(): string
+    {
+        return 'star';
+    }
+
+    public function handle($score)
+    {
+        global $prefs, $tikilib;
+
+        if ($prefs['feature_score'] != 'y') {
+            return '';
+        }
+
+        return $tikilib->get_star($score);
+    }
 }

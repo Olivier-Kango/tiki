@@ -5,8 +5,22 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_template($string)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ *  Fake modifier for pretty tracker fields. Sets template to use to display
+ */
+class Template implements TikiSmartyExtensionInterface
 {
-    $templateModifier = new \SmartyTiki\Modifier\Template();
-    return $templateModifier->handle($string);
+    public static function getSmartyName(): string
+    {
+        return 'template';
+    }
+
+    public function handle($string)
+    {
+        return $string;
+    }
 }
