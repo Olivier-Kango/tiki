@@ -55,7 +55,7 @@ class ListFilter extends Base implements TikiSmartyExtensionInterface
             $input = ' <div class="form-horizontal my-2"><div class="tiki-form-group form-row"><div class="col"><div class="input-group"><div class="input-group-text" id="filter_label">';
 
         if (! isset($prefix)) {
-            $input .= smarty_function_icon(['name' => 'search'], $template);
+            $input .= \SmartyTiki\FunctionHandler\Icon::render(['name' => 'search'], $template);
         } else {
             $input .= tra($prefix);
         }
@@ -116,7 +116,7 @@ class ListFilter extends Base implements TikiSmartyExtensionInterface
 
             $input .= ">";
             $input .= "<span class='input-group-text' role='button' area-label='Clear filter' onclick=\"\$('#$id').val('').trigger('focus').trigger('keyup');return false;\" title=':"
-            . tr('Clear filter') . "' >" . smarty_function_icon(['name' => 'close'], $template) . "</span>";
+            . tr('Clear filter') . "' >" . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'close'], $template) . "</span>";
             $input .= '</div></div></div></div>';
 
         if (! isset($selectors)) {

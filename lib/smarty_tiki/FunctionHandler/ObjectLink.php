@@ -200,7 +200,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
                 ],
                 $template
             ) . '">' .
-            smarty_function_icon(
+            \SmartyTiki\FunctionHandler\Icon::render(
                 ['_id' => 'arrow_refresh',],
                 $template
             ) . '</a>';
@@ -216,7 +216,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
         }
 
         if (! empty($params['metaItemId'])) {
-            $html .= smarty_function_icon([
+            $html .= \SmartyTiki\FunctionHandler\Icon::render([
                 'name' => 'clipboard-list',
                 'title' => tr('show metadata'),
                 'href' => smarty_modifier_escape(\SmartyTiki\Modifier\Sefurl::apply($params['metaItemId'], 'trackeritem')),

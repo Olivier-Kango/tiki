@@ -82,7 +82,7 @@ class RouterParams extends Base implements TikiSmartyExtensionInterface
             $infoHtml = '';
             if (! empty($param['description'])) {
                 $description = smarty_modifier_escape($param['description']);
-                $icon = smarty_function_icon(['name' => 'information'], $template);
+                $icon = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'information'], $template);
 
                 $infoHtml = <<<HTML
     <a class="tikihelp text-info" title="{$param['name']}: {$description}">

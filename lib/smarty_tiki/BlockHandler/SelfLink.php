@@ -198,7 +198,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
                         $icon_params['height'] = $params['_height'];
                     }
 
-                    $content = smarty_function_icon($icon_params, $template);
+                    $content = \SmartyTiki\FunctionHandler\Icon::render($icon_params, $template);
 
                     if (isset($params['_text'])) {
                         $content .= ' ' . $params['_text'];

@@ -74,7 +74,7 @@ class Iconify implements TikiSmartyExtensionInterface
                 if ($return === 'filetype') {
                     return $m;
                 } elseif ($return === 'icon') {
-                    return smarty_function_icon(
+                    return \SmartyTiki\FunctionHandler\Icon::render(
                         [
                             '_id' => 'img/icons/mime/' . $icon . '.png',
                             'alt' => ( $filetype === null ? $icon : $filetype ),
@@ -163,7 +163,7 @@ class Iconify implements TikiSmartyExtensionInterface
                 if ($return === 'filetype') {
                     return $type;
                 } else {
-                    return smarty_function_icon(['name' => $iconname, 'size' => $size], $smarty->getEmptyInternalTemplate());
+                    return \SmartyTiki\FunctionHandler\Icon::render(['name' => $iconname, 'size' => $size], $smarty->getEmptyInternalTemplate());
                 }
             }
         }

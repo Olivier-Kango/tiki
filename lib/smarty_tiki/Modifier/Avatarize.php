@@ -34,7 +34,7 @@ class Avatarize implements TikiSmartyExtensionInterface
         if (! $avatar && $default) {
             $smarty = TikiLib::lib('smarty');
             $name = TikiLib::lib('user')->clean_user($user);
-            $avatar = smarty_function_icon(['_id' => $default, 'title' => $name], $smarty->getEmptyInternalTemplate());
+            $avatar = \SmartyTiki\FunctionHandler\Icon::render(['_id' => $default, 'title' => $name], $smarty->getEmptyInternalTemplate());
         }
 
         if ($avatar != '' && $show_tag == 'y') {

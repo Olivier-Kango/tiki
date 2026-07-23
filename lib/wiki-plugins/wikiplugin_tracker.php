@@ -1789,7 +1789,7 @@ function wikiplugin_tracker($data, $params)
                 $_REQUEST['error'] = 'y';
             }
             if (isset($field_errors['err_outputwiki'])) {
-                $icon = smarty_function_icon(['name' => 'warning'], $smarty->getEmptyInternalTemplate());
+                $icon = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'warning'], $smarty->getEmptyInternalTemplate());
                 $back .= '<div class="alert alert-warning">' . $icon . ' ';
                 $back .= $field_errors['err_outputwiki'];
                 $back .= '</div><br />';

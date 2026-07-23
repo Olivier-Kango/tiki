@@ -205,13 +205,13 @@ class TreeTable extends Base implements TikiSmartyExtensionInterface
 
         if ($_openall == 'y') {
             $html .= '&nbsp;<label id="' . $id . '_openall" style="cursor:pointer">'
-                . smarty_function_icon(
+                . \SmartyTiki\FunctionHandler\Icon::render(
                     [
                         'name' => 'file-archive',
                     ],
                     $template
                 )
-                . smarty_function_icon(
+                . \SmartyTiki\FunctionHandler\Icon::render(
                     [
                         'name' => 'file-archive-open',
                         'istyle' => 'display:none'

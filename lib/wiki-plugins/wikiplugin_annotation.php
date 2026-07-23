@@ -174,8 +174,8 @@ FORM;
 
     $headerlib->add_jq_onready('$("#' . $cid . '").imageAnnotation(' . $annotations . ', ' . $showlink . ');');
 
-    $close = smarty_function_icon(['name' => 'close'], $smarty->getEmptyInternalTemplate());
-    $delete = smarty_function_icon(['name' => 'trash'], $smarty->getEmptyInternalTemplate());
+    $close = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'close'], $smarty->getEmptyInternalTemplate());
+    $delete = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'trash'], $smarty->getEmptyInternalTemplate());
 
     $labelStr = tra('Label');
     $linkStr = tra('Link');

@@ -573,7 +573,7 @@ abstract class ToolbarItem
             $iname = 'help';
         }
         $smarty = TikiLib::lib('smarty');
-        return smarty_function_icon(
+        return \SmartyTiki\FunctionHandler\Icon::render(
             [
             'name'   => $iname,
             'ititle' => ':'

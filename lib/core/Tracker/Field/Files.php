@@ -598,7 +598,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                     $ret .= '<li>';
                     $skipName = false;
                     if ($prefs['vimeo_upload'] == 'y' && $this->getOption('displayMode') == 'vimeo') {
-                        $ret .= smarty_function_icon(['name' => 'vimeo'], $smarty->getEmptyInternalTemplate());
+                        $ret .= \SmartyTiki\FunctionHandler\Icon::render(['name' => 'vimeo'], $smarty->getEmptyInternalTemplate());
                     } elseif (str_starts_with($file['filetype'], 'audio/')) {
                         $ret .= smarty_function_inline_audio_player(['fileId' => $fileId, 'type' => $file['filetype']], $smarty->getEmptyInternalTemplate());
                         $skipName = true;
@@ -612,7 +612,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
 
                     $globalperms = Perms::get([ 'type' => 'file gallery', 'object' => $galleryId ]);
 
-                    $viewicon = smarty_function_icon(['name' => 'view'], $smarty->getEmptyInternalTemplate());
+                    $viewicon = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'view'], $smarty->getEmptyInternalTemplate());
 
                     if ($file['filetype'] == $mimetypes["pdf"] || (PDFHelper::canConvertToPDF($file['filetype']) && $prefs['fgal_convert_documents_pdf'] == 'y')) {
                         if ($pdfjsIsInstalled && $prefs['fgal_pdfjs_feature'] == 'y') {
@@ -655,7 +655,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                             'text' => $text,
                             'trigger' => 'click'
                         ], $smarty->getEmptyInternalTemplate());
-                        $icon = smarty_function_icon(['name' => 'wrench'], $smarty->getEmptyInternalTemplate());
+                        $icon = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'wrench'], $smarty->getEmptyInternalTemplate());
                         $ret .= " <a class='fgalname tips label' title='" . tr('Actions') . "'href='#' $popup>$icon</a>";
                     }
 

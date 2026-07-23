@@ -82,7 +82,7 @@ class Title extends Base implements TikiSmartyExtensionInterface
                 $html .= '<a href="';
 
                 $html .= $prefs['helpurl'] . str_replace("%23", "#", rawurlencode($params['help'])) . '" class="tips btn btn-link" title="' . smarty_modifier_escape($content) . '|' . tra('Help page') . '" target="tikihelp">'
-                    . smarty_function_icon(['name' => 'help'], $template)
+                    . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'help'], $template)
                     . "</a>\n";
             }
 
@@ -90,7 +90,7 @@ class Title extends Base implements TikiSmartyExtensionInterface
                 $html .= '<a class="tips btn btn-link" href="tiki-admin.php?page=';
 
                 $html .= $params['admpage'] . '#' . ($params['help']) . '" title="' . htmlspecialchars($content) . '|' . tra('Settings') . '">'
-                    . smarty_function_icon(['name' => 'settings'], $template)
+                    . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'settings'], $template)
                     . "</a>\n";
             }
             if ($params['actions'] != '') {

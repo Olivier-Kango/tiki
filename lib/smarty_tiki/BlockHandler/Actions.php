@@ -79,7 +79,7 @@ class Actions extends Base implements TikiSmartyExtensionInterface
         }
 
         $return .= '>';
-        $return .= smarty_function_icon(['name' => $icon, 'iclass' => 'float-end'], $template);
+        $return .= \SmartyTiki\FunctionHandler\Icon::render(['name' => $icon, 'iclass' => 'float-end'], $template);
         $return .= '</a>';
 
         if (! $js) {

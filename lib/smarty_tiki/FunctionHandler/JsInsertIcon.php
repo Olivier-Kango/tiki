@@ -38,7 +38,7 @@ class JsInsertIcon extends Base implements TikiSmartyExtensionInterface
                 'jscalendar' => 'calendar'
             ];
             $iconname = ! empty($params['iconname']) ? $params['iconname'] : $iconmap[$params['type']];
-            $icon = smarty_function_icon(['name' => $iconname], $smarty->getEmptyInternalTemplate());
+            $icon = \SmartyTiki\FunctionHandler\Icon::render(['name' => $iconname], $smarty->getEmptyInternalTemplate());
             //set js
             switch ($params['type']) {
                 case 'jscalendar':

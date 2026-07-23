@@ -43,10 +43,10 @@ class ShowShort extends Base implements TikiSmartyExtensionInterface
                     switch ($order) {
                         case 'asc':
                         case 'nasc':
-                            return ' ' . smarty_function_icon(['name' => 'sort-up'], $template);
+                            return ' ' . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'sort-up'], $template);
                         case 'desc':
                         case 'ndesc':
-                            return ' ' . smarty_function_icon(['name' => 'sort-down'], $template);
+                            return ' ' . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'sort-down'], $template);
                     }
                 }
             }
