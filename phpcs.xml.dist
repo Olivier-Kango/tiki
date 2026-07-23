@@ -43,6 +43,7 @@
     <exclude-pattern>*/lang/*/language.js</exclude-pattern>
     <exclude-pattern>*/lib/test/language/fixtures/language_*</exclude-pattern>
     <exclude-pattern>*/public/generated/*</exclude-pattern>
+    <exclude-pattern>*/lib/smarty_tiki/generated_extension_map.php</exclude-pattern>
 
     
     <!-- local config files -->
