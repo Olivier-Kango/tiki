@@ -4,8 +4,47 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_activity($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\Exception;
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Activity extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionActivityHandler = new \SmartyTiki\FunctionHandler\Activity();
-    return $smartyFunctionActivityHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'activity';
+    }
+
+    public function handle($params, Template $template)
+    {
+        $smarty = \TikiLib::lib('smarty');
+
+        if (isset($params['info'])) {
+            $activity = $params['info'];
+        } else {
+            $lib = \TikiLib::lib('unifiedsearch');
+            $docs = $lib->getDocuments('activity', $params['id']);
+
+            $activity = reset($docs);
+
+            if (! $activity) {
+                return tr('Not found.');
+            }
+
+            $activity = \TikiLib::lib('unifiedsearch')->getRawArray($activity);
+        }
+
+        $smarty->assign('activity', $activity);
+        $smarty->assign('activity_format', ! empty($params['format']) ? $params['format'] : 'default');
+        $templateName = 'activity/' . $activity['event_type'] . '.tpl';
+
+        if (empty($smarty->get_filename($templateName))) {
+            $templateName = 'activity/default_event.tpl';
+        }
+        return $smarty->fetch($templateName);
+    }
 }

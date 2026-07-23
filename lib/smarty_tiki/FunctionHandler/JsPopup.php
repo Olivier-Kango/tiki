@@ -4,8 +4,43 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_jspopup($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class JsPopup extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionJsPopupHandler = new \SmartyTiki\FunctionHandler\JsPopup();
-    return $smartyFunctionJsPopupHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'jspopup';
+    }
+
+    public function handle($params, Template $template)
+    {
+        extract($params);
+        // Param = zone
+        if (empty($href)) {
+            trigger_error("assign: missing href parameter");
+            return;
+        }
+        if (! isset($scrollbars)) {
+            $scrollbars = 'yes';
+        }
+        if (! isset($menubar)) {
+            $menubar = 'no';
+        }
+        if (! isset($resizable)) {
+            $resizable = 'yes';
+        }
+        if (! isset($height)) {
+            $height = '400';
+        }
+        if (! isset($width)) {
+            $width = '600';
+        }
+        print("href='#' onclick='javascript:window.open(\"$href\",\"\",\"menubar=$menubar,scrollbars=$scrollbars,resizable=$resizable,height=$height,width=$width\");' ");
+    }
 }

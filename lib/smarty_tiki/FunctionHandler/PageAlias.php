@@ -5,14 +5,46 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-//this script may only be included - so its better to die if called directly.
-if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
-    header('location: index.php');
-    exit;
-}
+namespace SmartyTiki\FunctionHandler;
 
-function smarty_function_page_alias($params, \Smarty\Template $template)
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty function plugin
+ * -------------------------------------------------------------
+ * Type:         function
+ * Name:         page_alias
+ * Purpose:      returns page alias for a page in a structure
+ *
+ * Parameters:   pagechecked - mandatory
+ * -------------------------------------------------------------
+ */
+class PageAlias extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionPageAliasHandler = new \SmartyTiki\FunctionHandler\PageAlias();
-    return $smartyFunctionPageAliasHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'page_alias';
+    }
+
+    public function handle($params, Template $template)
+    {
+        $structlib = TikiLib::lib('struct');
+        $smarty = TikiLib::lib('smarty');
+        extract($params, EXTR_SKIP);
+
+        if (! isset($pagechecked)) {
+            return ('<b>missing pagechecked parameter for Smarty function to get page alias</b><br/>');
+        }
+
+        if (! $structlib->page_is_in_structure($pagechecked)) {
+            return ('<b>pagechecked parameter is not in a structure</b><br/>');
+        }
+
+        $page_id = $structlib->get_struct_ref_id($pagechecked);
+        $result = $structlib->get_page_alias($page_id);
+        $smarty->assign('page_alias', $result);
+    }
 }

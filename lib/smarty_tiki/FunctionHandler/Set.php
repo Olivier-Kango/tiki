@@ -5,8 +5,25 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_set($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/** {set var=$name value=$value}
+ * do the same than assign but accept a varaible as var name
+ */
+class Set extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionSetHandler = new \SmartyTiki\FunctionHandler\Set();
-    return $smartyFunctionSetHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'set';
+    }
+
+    public function handle($params, Template $template)
+    {
+        $smarty = \TikiLib::lib('smarty');
+        $smarty->assign($params['var'], $params['value']);
+    }
 }

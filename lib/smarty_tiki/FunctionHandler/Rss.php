@@ -5,8 +5,50 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_rss($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/* inserts the content of an rss feed into a module */
+
+class Rss extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionRssHandler = new \SmartyTiki\FunctionHandler\Rss();
-    return $smartyFunctionRssHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'rss';
+    }
+
+    public function handle($params, Template $template)
+    {
+        extract($params, EXTR_SKIP);
+        // Param = zone
+        if (empty($id) && empty($url)) {
+            trigger_error("assign: missing id or url parameter");
+            return '';
+        }
+        if (empty($max)) {
+            $max = 99;
+        }
+
+        $params = ['max' => $max];
+        if (! empty($id)) {
+            $params['id'] = $id;
+        } elseif (! empty($url)) {
+            $params['url'] = $url;
+        }
+
+        $out = TikiLib::lib('parser')->pluginExecute(
+            'rss',
+            '',
+            $params,
+            0,
+            false,
+            ['context_format' => 'html']
+        );
+        TikiLib::lib('parser')->setOptions();
+        return $out;
+    }
 }

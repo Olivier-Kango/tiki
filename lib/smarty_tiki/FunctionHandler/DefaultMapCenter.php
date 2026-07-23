@@ -4,8 +4,26 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_defaultmapcenter($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class DefaultMapCenter extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionDefaultMapCenterHandler = new \SmartyTiki\FunctionHandler\DefaultMapCenter();
-    return $smartyFunctionDefaultMapCenterHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'defaultmapcenter';
+    }
+
+    public function handle($params, Template $template)
+    {
+        global $prefs;
+        $geolib = \TikiLib::lib('geo');
+        $coords = $geolib->parse_coordinates($prefs['gmap_defaultx'] . ',' . $prefs['gmap_defaulty'] . ',' . $prefs['gmap_defaultz']);
+        $center = $geolib->build_location_string($coords);
+        return \SmartyTiki\Modifier\Escape::apply($center);
+    }
 }

@@ -5,8 +5,51 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_autocomplete($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/* {autocomplete element=$element type=$type }
+ * Attach jQuery autocomplete to element/s
+ *
+ * Params:
+ *
+ *        element: Required (jQuery selector, and match multiple elements)
+ *        type:    Required (defined in tiki-jquery.js -> $.fn.tiki
+ *                 currently: pagename|groupname|username|usersandcontacts|userrealname|tag|icon|trackername)
+ *        options: Optional further options for autocomplete fn
+ *                 see http://docs.jquery.com/Plugins/Autocomplete/autocomplete#url_or_dataoptions
+ *                 N.B. Will be wrapped in {} chars here to avoid smarty delimiter difficulties
+ *
+ */
+class Autocomplete extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionAutocompleteHandler = new \SmartyTiki\FunctionHandler\Autocomplete();
-    return $smartyFunctionAutocompleteHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'autocomplete';
+    }
+
+    public function handle($params, Template $template)
+    {
+        global $prefs;
+        $headerlib = \TikiLib::lib('header');
+
+        if ($prefs['feature_elementplus'] != 'y' || $prefs['elementplus_autocomplete'] !== 'y') {
+            return '';
+        }
+
+        if (empty($params) || empty($params['element']) || empty($params['type'])) {
+            return '';
+        }
+
+        if (! empty($params['options'])) {
+            $options = ',{' . $params['options'] . '}';
+        } else {
+            $options = '';
+        }
+
+        $headerlib->add_jq_onready('autocomplete($("' . $params['element'] . '")[0], "' . $params['type'] . '"' . $options . ');');
+    }
 }

@@ -4,8 +4,23 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_rcontent($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Rcontent extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionRcontentHandler = new \SmartyTiki\FunctionHandler\Rcontent();
-    return $smartyFunctionRcontentHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'rcontent';
+    }
+
+    public function handle($params, Template $template)
+    {
+        $dcslib = \TikiLib::lib('dcs');
+        return $dcslib->get_random_content($params['id']);
+    }
 }

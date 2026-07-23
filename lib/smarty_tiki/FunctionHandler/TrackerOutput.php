@@ -4,8 +4,26 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_trackeroutput($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
+
+class TrackerOutput extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionTrackerOutputHandler = new \SmartyTiki\FunctionHandler\TrackerOutput();
-    return $smartyFunctionTrackerOutputHandler->handle($params, $template);
+    use FunctionHandlerStaticFacadeTrait;
+
+    public static function getSmartyName(): string
+    {
+        return 'trackeroutput';
+    }
+
+    public function handle($params, Template $template)
+    {
+        $trklib = \TikiLib::lib('trk');
+        return $trklib->field_render_value($params);
+    }
 }

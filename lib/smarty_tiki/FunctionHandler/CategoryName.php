@@ -4,8 +4,28 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_categoryName($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class CategoryName extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionCategoryNameHandler = new \SmartyTiki\FunctionHandler\CategoryName();
-    return $smartyFunctionCategoryNameHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'categoryName';
+    }
+
+    public function handle($params, Template $template)
+    {
+        if (! isset($params['id'])) {
+            trigger_error("categoryName: missing 'id' parameter");
+            return;
+        }
+
+        $categlib = \TikiLib::lib('categ');
+        return $categlib->get_category_name($params['id']);
+    }
 }

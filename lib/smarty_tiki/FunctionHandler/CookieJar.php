@@ -5,8 +5,30 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_cookie_jar($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * smarty_function_cookie_jar handler: Get a cookie value from the Tiki Cookie Jar
+ *
+ * params:
+ *    - name: Name of the cookie
+ */
+class CookieJar extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionCookieJarHandler = new \SmartyTiki\FunctionHandler\CookieJar();
-    return $smartyFunctionCookieJarHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'cookie_jar';
+    }
+
+    public function handle($params, Template $template)
+    {
+        if (empty($params['name'])) {
+            return;
+        }
+        return getCookie($params['name']);
+    }
 }

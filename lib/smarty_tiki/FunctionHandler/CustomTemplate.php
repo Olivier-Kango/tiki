@@ -4,13 +4,22 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-if (str_contains($_SERVER['SCRIPT_NAME'], basename(__FILE__))) {
-    header('location: index.php');
-    exit;
-}
 
-function smarty_function_custom_template($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class CustomTemplate extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionCustomTemplateHandler = new \SmartyTiki\FunctionHandler\CustomTemplate();
-    return $smartyFunctionCustomTemplateHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'custom_template';
+    }
+
+    public function handle($params, Template $template)
+    {
+        return \TikiLib::custom_template($params['basetpl'], $params['modifiers']);
+    }
 }

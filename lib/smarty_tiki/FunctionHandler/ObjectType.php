@@ -4,8 +4,32 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_object_type($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class ObjectType extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionOjectTypeHandler = new \SmartyTiki\FunctionHandler\ObjectType();
-    return $smartyFunctionOjectTypeHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'object_type';
+    }
+
+    public function handle($params, Template $template)
+    {
+        if (! isset($params['type']) && ! isset($params['identifier'])) {
+            return tra('No object information provided.');
+        }
+
+        if (isset($params['type'])) {
+            $type = $params['type'];
+        } else {
+            list($type, $object) = explode(':', $params['identifier'], 2);
+        }
+
+        return \SmartyTiki\Modifier\Escape::apply(\TikiLib::lib('object')->get_verbose_type($type));
+    }
 }

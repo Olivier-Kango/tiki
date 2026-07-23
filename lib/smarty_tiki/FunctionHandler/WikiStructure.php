@@ -5,8 +5,34 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_wikistructure($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+//copy this file to lib/smarty_tiki
+//create a new module and put the following
+//{wikistructure id=1 detail=1}
+//id for structure id, or page_ref_id
+//detail if you only wanna display subbranches of the open node within the structure
+// assign your moduleß
+class WikiStructure extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionWikiStructureHandler = new \SmartyTiki\FunctionHandler\WikiStructure();
-    return $smartyFunctionWikiStructureHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'wikistructure';
+    }
+
+    public function handle($params, Template $template)
+    {
+        include_once('lib/wiki-plugins/wikiplugin_toc.php');
+
+        if (! empty($params['id'])) {
+            $params['structId'] = $params['id'];
+        }
+        $html = \TikiLib::lib('parser')->invokePlugin('toc', '', $params);
+        $html = str_replace(['~np~', '~/np~'], '', $html);
+        return $html;
+    }
 }

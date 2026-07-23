@@ -5,8 +5,37 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_monitor_link($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class MonitorLink extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionMonitorLinkHandler = new \SmartyTiki\FunctionHandler\MonitorLink();
-    return $smartyFunctionMonitorLinkHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'monitor_link';
+    }
+
+    public function handle($params, Template $template)
+    {
+        global $user, $prefs;
+
+        if ($prefs['monitor_enabled'] != 'y') {
+            return;
+        }
+
+        if (! isset($params['type']) || ! isset($params['object'])) {
+            return tr('Missing parameter.');
+        }
+
+        if (! $user) {
+            return '';
+        }
+
+        $smarty = \TikiLib::lib('smarty');
+        $smarty->assign('monitor_link', $params);
+        return $smarty->fetch('monitor/link.tpl');
+    }
 }

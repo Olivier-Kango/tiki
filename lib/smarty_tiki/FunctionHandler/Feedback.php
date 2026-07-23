@@ -5,8 +5,30 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_feedback($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
+
+class Feedback extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionFeedbackHandler = new \SmartyTiki\FunctionHandler\Feedback();
-    return $smartyFunctionFeedbackHandler->handle($params, $template);
+    use FunctionHandlerStaticFacadeTrait;
+
+    public static function getSmartyName(): string
+    {
+        return 'feedback';
+    }
+
+    public function handle($params, Template $template)
+    {
+        $smarty = \TikiLib::lib('smarty');
+        $result = \Feedback::get();
+        if (is_array($result)) {
+            $smarty->assign('tikifeedback', $result);
+        }
+        $ret = $smarty->fetch('feedback/default.tpl');
+        return $ret;
+    }
 }

@@ -5,8 +5,32 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_reindex_file_pixel($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/*
+ * smarty_function_reindex_file_pixel: Display a 1x1 transparent gif image that will start a background reindexation process of a file
+ *
+ * params:
+ *  - id: id of the file to reindex
+ */
+class ReindexFilePixel extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionReindexFilePixelHandler = new \SmartyTiki\FunctionHandler\ReindexFilePixel();
-    return $smartyFunctionReindexFilePixelHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'reindex_file_pixel';
+    }
+
+    public function handle($params, Template $template)
+    {
+        if (! is_array($params) || ! isset($params['id']) || ( $id = (int) $params['id'] ) <= 0) {
+            return '';
+        }
+
+        global $tikiroot;
+        return '<img src="' . $tikiroot . 'reindex_file.php?id=' . $id . '" width="1" height="1" />';
+    }
 }

@@ -5,8 +5,38 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_trackerrules($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use TikiLib;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * \brief Smarty fn to contain generate a ui-predicate-vue component for tracker fields
+ *
+ * Usage:
+ *
+ * Examples:
+ *
+
+ * @param $params     array  [ app = n|y, name = string ]
+ * @param $content    string body of the Vue componenet
+ * @param $smarty     Smarty
+ * @param $repeat     boolean
+ *
+ * @return string
+ * @throws Exception
+ */
+class TrackerRules extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionTrackerRulesHandler = new \SmartyTiki\FunctionHandler\TrackerRules();
-    return $smartyFunctionTrackerRulesHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'trackerrules';
+    }
+
+    public function handle($params, Template $template)
+    {
+        return TikiLib::lib('vuejs')->getFieldRules($params);
+    }
 }

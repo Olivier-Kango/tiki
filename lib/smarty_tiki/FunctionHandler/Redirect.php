@@ -4,8 +4,35 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_redirect($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Redirect extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionRedirectHandler = new \SmartyTiki\FunctionHandler\Redirect();
-    return $smartyFunctionRedirectHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'redirect';
+    }
+
+    public function handle($params, Template $template)
+    {
+        global $user;
+
+        extract($params, EXTR_SKIP);
+        // Param = url
+        if (empty($url)) {
+            trigger_error("assign: missing parameter: url");
+            return;
+        }
+        if (empty($user) && empty($_SESSION['loginfrom'])) {
+            // user in error.tpl when permission is denied for anonymous
+            $_SESSION['loginfrom'] = $_SERVER['REQUEST_URI'];
+        }
+        header("Location: $url");
+        exit;
+    }
 }

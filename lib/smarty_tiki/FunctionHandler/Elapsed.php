@@ -4,8 +4,25 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_elapsed($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Elapsed extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionElapsedHandler = new \SmartyTiki\FunctionHandler\Ed();
-    return $smartyFunctionElapsedHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'elapsed';
+    }
+
+    public function handle($params, Template $template)
+    {
+        global $tiki_timer;
+
+        $ela = number_format($tiki_timer->elapsed(), 2);
+        print($ela);
+    }
 }

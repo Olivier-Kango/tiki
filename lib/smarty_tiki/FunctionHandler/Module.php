@@ -4,8 +4,52 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-function smarty_function_module($params, \Smarty\Template $template)
+
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Module extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionModuleHandler = new \SmartyTiki\FunctionHandler\Module();
-    return $smartyFunctionModuleHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'module';
+    }
+
+    public function handle($params, Template $template)
+    {
+        static $instance = 0;
+
+        $instance++;
+        if (empty($params['moduleId'])) {
+            $moduleId = 'wikiplugin_' . $instance;
+        } else {
+            $moduleId = $params['moduleId'];
+        }
+
+        if (empty($params['module'])) {
+            return tr("Missing %0 parameter", 'module');
+        }
+
+        $module_reference = [
+            'moduleId' => $moduleId,
+            'name' => $params['module'],
+            'params' => $params,
+            'rows' => 10,
+            'position' => null,
+            'ord' => null,
+            'cache_time' => 0,
+        ];
+
+        foreach (['module_style', 'rows'] as $key) {
+            if (! empty($params[$key])) {
+                $module_reference[$key] = $params[$key];
+            }
+        }
+
+        $modlib = \TikiLib::lib('mod');
+        return $modlib->execute_module($module_reference);
+    }
 }

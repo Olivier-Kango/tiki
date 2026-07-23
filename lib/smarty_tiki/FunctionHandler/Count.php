@@ -5,8 +5,27 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_function_count($params, \Smarty\Template $template)
+namespace SmartyTiki\FunctionHandler;
+
+use Smarty\Exception;
+use Smarty\FunctionHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class Count extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyFunctionCountHandler = new \SmartyTiki\FunctionHandler\Count();
-    return $smartyFunctionCountHandler->handle($params, $template);
+    public static function getSmartyName(): string
+    {
+        return 'count';
+    }
+
+    public function handle($params, Template $template)
+    {
+        extract($params);
+        if (empty($var)) {
+            trigger_error("count: missing 'var' parameter");
+            return;
+        }
+        print(count($var));
+    }
 }
