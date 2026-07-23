@@ -96,13 +96,13 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'a_or_an':
                 return [new \SmartyTiki\Modifier\AorAn(), 'handle'];
             case 'addslashes':
-                return [$this, 'smartyModifierAddslashes'];
+                return [new \SmartyTiki\Modifier\Addslashes(), 'handle'];
             case 'adjust':
                 return [new \SmartyTiki\Modifier\Adjust(), 'handle'];
             case 'array_reverse':
-                return [$this, 'smartyModifierArrayreverse'];
+                return [new \SmartyTiki\Modifier\ArrayReverse(), 'handle'];
             case 'array_key_exists':
-                return [$this, 'smartyModifierArrayKeyExists'];
+                return [new \SmartyTiki\Modifier\ArrayKeyExists(), 'handle'];
             case 'avatarize':
                 return [new \SmartyTiki\Modifier\Avatarize(), 'handle'];
             case 'breakline':
@@ -118,7 +118,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'countryflagemoji':
                 return [new \SmartyTiki\Modifier\CountryFlagEmoji(), 'handle'];
             case 'count':
-                return [$this, 'smartyModifierCount'];
+                return [new \SmartyTiki\Modifier\Count(), 'handle'];
             case 'd':
                 return [new \SmartyTiki\Modifier\D(), 'handle'];
             case 'dbg':
@@ -154,13 +154,13 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'in_group':
                 return [new \SmartyTiki\Modifier\InGroup(), 'handle'];
             case 'is_array':
-                return [$this, 'smartyModifierIsarray'];
+                return [new \SmartyTiki\Modifier\IsArray(), 'handle'];
             case 'is_numeric':
-                return [$this, 'smartyModifierIsNumeric'];
+                return [new \SmartyTiki\Modifier\IsNumeric(), 'handle'];
             case 'isodate':
                 return [new \SmartyTiki\Modifier\IsoDate(), 'handle'];
             case 'json_decode':
-                return [$this, 'smartyModifierJsonDecode'];
+                return [new \SmartyTiki\Modifier\JsonDecode(), 'handle'];
             case 'kbsize':
                 return [new \SmartyTiki\Modifier\KbSize(), 'handle'];
             case 'langname':
@@ -168,11 +168,11 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'lcfirst':
                 return [$this, 'smartyModifierLcfirst'];
             case 'max':
-                return [$this, 'smartyModifierMax'];
+                return [new \SmartyTiki\Modifier\Max(), 'handle'];
             case 'max_user_inscriptions':
                 return [new \SmartyTiki\Modifier\MaxUserInscriptions(), 'handle'];
             case 'md5':
-                return [$this, 'smartyModifierMd5'];
+                return [new \SmartyTiki\Modifier\Md5(), 'handle'];
             case 'money_format':
                 return [new \SmartyTiki\Modifier\MoneyFormat(), 'handle'];
             case 'namespace':
@@ -196,9 +196,9 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'percent':
                 return [new \SmartyTiki\Modifier\Percent(), 'handle'];
             case 'preg_match':
-                return [$this, 'smartyModifierPregMatch'];
+                return [new \SmartyTiki\Modifier\PregMatch(), 'handle'];
             case 'preg_match_all':
-                return [$this, 'smartyModifierPregMatchAll'];
+                return [new \SmartyTiki\Modifier\PregMatchAll(), 'handle'];
             case 'quoted':
                 return [new \SmartyTiki\Modifier\Quoted(), 'handle'];
             case 'replacei':
@@ -208,7 +208,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'sefurl':
                 return [new \SmartyTiki\Modifier\Sefurl(), 'handle'];
             case 'sizeof':
-                return [$this, 'smartyModifierSizeof'];
+                return [new \SmartyTiki\Modifier\Sizeof(), 'handle'];
             case 'slug':
                 return [new \SmartyTiki\Modifier\Slug(), 'handle'];
             case 'star':
@@ -216,13 +216,13 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'stringfix':
                 return [new \SmartyTiki\Modifier\StringFix(), 'handle'];
             case 'stristr':
-                return [$this, 'smartyModifierStristr'];
+                return [new \SmartyTiki\Modifier\Stristr(), 'handle'];
             case 'strstr':
-                return [$this, 'smartyModifierStrstr'];
+                return [new \SmartyTiki\Modifier\Strstr(), 'handle'];
             case 'strpos':
-                return [$this, 'smartyModifierStrpos'];
+                return [new \SmartyTiki\Modifier\Strpos(), 'handle'];
             case 'strtolower':
-                return [$this, 'smartyModifierStrtolower'];
+                return [new \SmartyTiki\Modifier\Strtolower(), 'handle'];
             case 'substring':
                 return [$this, 'smartyModifierSubstring'];
             case 'tasklink':
@@ -264,11 +264,11 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'tr_if':
                 return [new \SmartyTiki\Modifier\TrIf(), 'handle'];
             case 'ucfirst':
-                return [$this, 'smartyModifierUcfirst'];
+                return [new \SmartyTiki\Modifier\Ucfirst(), 'handle'];
             case 'ucwords':
-                return [$this, 'smartyModifierUcwords'];
+                return [new \SmartyTiki\Modifier\Ucwords(), 'handle'];
             case 'urlencode':
-                return [$this, 'smartyModifierUrlencode'];
+                return [new \SmartyTiki\Modifier\Urlencode(), 'handle'];
             case 'userlink':
                 return [new \SmartyTiki\Modifier\UserLink(), 'handle'];
             case 'username':
@@ -276,7 +276,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'utf8unicode':
                 return [new \SmartyTiki\Modifier\Utf8Unicode(), 'handle'];
             case 'var_dump':
-                return [$this, 'smartyModifierVardump'];
+                return [new \SmartyTiki\Modifier\VarDump(), 'handle'];
             case 'virtual_path':
                 return [new \SmartyTiki\Modifier\VirtualPath(), 'handle'];
             case 'yesno':
@@ -284,7 +284,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'zone_is_empty':
                 return [$this, 'smartyModifierZoneIsEmpty'];
             case 'safe_html':
-                return [$this, 'smartyModifierSafeHtml'];
+                return [new \SmartyTiki\Modifier\SafeHtml(), 'handle'];
         }
         return null;
     }
@@ -778,95 +778,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
         return $this->preFilters;
     }
 
-    /**
-     * Smarty modifier strtolower
-     * --------------------------
-     * Purpose: Make a string lowercase - using default PHP function
-     *
-     * @param string $string   The string to be lowercased.
-     * @return string
-     */
-    public function smartyModifierStrtolower($string)
-    {
-        return strtolower($string);
-    }
-
-    /**
-     * Smarty modifier addslashes
-     * --------------------------
-     * Purpose: Quote string with slashes
-     *
-     * @param string $string   The string to be escaped.
-     * @return string          A string with backslashes added before characters that need to be escaped. These characters are: ',",\, NUL (the NUL byte)
-     */
-    public function smartyModifierAddslashes($string)
-    {
-        return addslashes($string);
-    }
-
-    /**
-     * Smarty modifier array_reverse
-     * -----------------------------
-     * Purpose: Reverse the order of array elements
-     * @param array $array          The entry table.
-     * @param bool  $preserve_key   Optional. If set to true, numeric keys will be preserved. Non-numeric keys will not be affected by this configuration, and will always be preserved.
-     * @return array                The array in reverse order.
-     */
-    public function smartyModifierArrayreverse($array, $preserve_keys = false)
-    {
-        return array_reverse($array, $preserve_keys);
-    }
-
-    /**
-     * Smarty modifier array_key_exists
-     * --------------------------------
-     * Purpose: Checks if the given key or index exists in the array
-     * @param int|string $key — Value to check.
-     * @param array|ArrayObject $array — An array with keys to check.
-     * @return bool — true on success or false on failure.
-     */
-    public function smartyModifierArrayKeyExists($key, $array)
-    {
-        return array_key_exists($key, $array);
-    }
-
-    public function smartyModifierCount($arrayOrObject, $mode = 0)
-    {
-        if ($arrayOrObject instanceof \Countable || is_array($arrayOrObject)) {
-            return count($arrayOrObject, (int) $mode);
-        } elseif ($arrayOrObject === null) {
-            return 0;
-        }
-        return 1;
-    }
-
-    public function smartyModifierIsarray($array)
-    {
-        return is_array($array);
-    }
-
-    public function smartyModifierIsNumeric($value)
-    {
-        return is_numeric($value);
-    }
-
-    /**
-     * Smarty modifer json_decode
-     * --------------------------
-     * Purpose: Decode a JSON string. Get a string JSON encoded and convert it into a PHP value.
-     *
-     * @param string    $json          The JSON string
-     * @param bool      $associative
-     * @param int       $depth
-     * @param int       $flags
-     * @return mixed
-     * @see https://php.net/manual/en/function.json-decode.php for more details about params
-     */
-    public function smartyModifierJsonDecode($json, $associative = null, $depth = 512, $flags = 0)
-    {
-        return json_decode($json, $associative, $depth, $flags);
-    }
-
     /*
     * Smarty plugin
     * -------------------------------------------------------------
@@ -878,74 +789,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierLcfirst($s)
     {
         return strtolower($s[0]) . substr($s, 1);
-    }
-
-    /**
-    * Smarty modifier max
-    * -------------------------------------------------------------
-    *
-    * Purpose:  Find highest value from given values. This mmodifer implements the PHP max function.
-    * ----------------------------------------------------------------------------------------------
-     * @param mixed      $value Any comparable value
-     * @param mixed      $values Any comparable value
-     * @return mixed
-     * @see https://php.net/manual/en/function.json-decode.php for more details about params, returned values and how it works.
-    */
-    public function smartyModifierMax(mixed $value, mixed ...$values): mixed
-    {
-        return max($value, $values);
-    }
-
-    /**
-     * Smarty modifier md5
-     * -------------------
-     * Purpose: Calculate the md5 of a string
-     *
-     * @param string $string  The string
-     * @param bool   $binary  Optional. If set to true, then the md5 is returned in raw binary format with a length of 16.
-     * @return string         Returns the md5 of the string, as a 32-character hexadecimal number.
-     */
-    public function smartyModifierMd5($string, $binary = false)
-    {
-        return md5($string, $binary);
-    }
-
-   /**
-    * Smarty modifier preg_match
-    * --------------------------
-    * Purpose: Perform a regular expression match
-    * @param string $pattern     The pattern to search for, as a string.
-    * @param string $subject     The input string.
-    * @param array  $matches
-    * @param int    $flags
-    * @param int    $offset
-    * @return array matches
-    * @see https://php.net/manual/en/function.preg-match.php for details about the params description
-    */
-    public function smartyModifierPregMatch($pattern, $subject, $matches = null, $flags = 0, $offset = 0)
-    {
-        // return matches here as Smarty doesn't support modifier or function arguments by reference
-        preg_match($pattern, $subject, $matches, $flags, $offset);
-        return $matches;
-    }
-
-    /**
-    * Smarty modifier preg_match_all
-    * ------------------------------
-    * Purpose: Perform a global regular expression match
-    * @param string $pattern     The pattern to search for, as a string.
-    * @param string $subject     The input string.
-    * @param array  $matches
-    * @param int    $flags
-    * @param int    $offset
-    * @return array matches
-    * @see https://php.net/manual/en/function.preg-match.php for details about the params description
-    */
-    public function smartyModifierPregMatchAll($pattern, $subject, $matches = null, $flags = 0, $offset = 0)
-    {
-        // return matches here as Smarty doesn't support modifier or function arguments by reference
-        preg_match_all($pattern, $subject, $matches, $flags, $offset);
-        return $matches;
     }
 
     /**
@@ -982,20 +825,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     }
 
     /**
-     * Smarty "sizeof" modifier plugin
-     *
-     * Purpose: Same as "count" modifier. Counts all elements in an array or in a Countable object
-     *
-     * @param Countable|array $value
-     * @param int $mode - [optional]
-     * @return int<0, max>
-     */
-    public function smartyModifierSizeof($value, $mode = COUNT_NORMAL)
-    {
-        return sizeof($value, $mode);
-    }
-
-    /**
      * Smarty substring modifier plugin
      *
      * Type:     modifier<br>
@@ -1020,53 +849,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     }
 
     /**
-     * Smarty modifier stristr
-     * -----------------------
-     * Purpose: Returns a haystack substring, from the first occurrence case insensitive of needle (inclusive) to the end of the string.
-     *
-     * @param string $haystack       The string in which to search.
-     * @param string $needle         The string to look for.
-     * @param bool   $before_needle  Optional. If true, stristr() returns the part of haystack before the first occurrence of needle (needle excluded).
-     * @return string|false          Returns the matching part of the string. If needle is not found, the function returns false.
-     */
-    public function smartyModifierStristr($haystack, $needle, $before_needle = false)
-    {
-        return stristr($haystack, $needle, $before_needle);
-    }
-
-    /**
-     * Smarty modifier strstr
-     * -----------------------
-     * Purpose: Find the first occurrence of a string. Returns part of haystack string starting from and including the first occurrence of needle to the end of haystack.
-     *
-     * @param string $haystack       The input string in which to search.
-     * @param string $needle         The string to search for.
-     * @param bool   $before_needle  Optional. If true, strstr modifier returns the part of haystack before the first occurrence of needle (needle excluded).
-     * @return string|false          Returns the matching part of the string. If needle is not found, the function returns false.
-     */
-    public function smartyModifierStrstr($haystack, $needle, $before_needle = false)
-    {
-        return strstr($haystack, $needle ?? '', $before_needle);
-    }
-
-    /**
-     * Smarty modifier strpos
-     * ----------------------
-     * Purpose: Find the position of the first occurrence in a string
-     *
-     * @param string $haystack     The string in which to search.
-     * @param string $needle       The string to search for.
-     * @param int<0, max>  $offset       Optional. The position from which to start the search
-     * @return int|false
-     *
-     * Synthax: {$haystack|strpos:$needle:$offset}
-     */
-    public function smartyModifierStrpos($haystack, $needle, $offset = 0)
-    {
-        return strpos($haystack, $needle, $offset);
-    }
-
-    /**
      * @param string $string - Required. Specifies the string to check
      * @param string $chars - Optional. Specifies which characters to remove from the string. If omitted, the following characters will be removed: " \t\n\r\0\x0B"
      *
@@ -1075,60 +857,6 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierTrim($string, $chars = null)
     {
         return empty($chars) ? trim($string) : trim($string, $chars);
-    }
-
-    /**
-     * Smarty nodifier ucfirst
-     * -----------------------
-     * Purpose: Make a string's first character uppercase
-     *
-     * @param string      $string   The input string.
-     * @return string               A string with the first character of string capitalized, if that character is an ASCII character in the range from "a" (0x61) to "z" (0x7a).
-     */
-    public function smartyModifierUcfirst($string)
-    {
-        return ucfirst($string);
-    }
-
-    /**
-     * Smarty nodifier ucwords
-     * -----------------------
-     * Purpose: Uppercase the first character of each word in a string
-     *
-     * @param string  $string     The input string.
-     * @param string  $separator  Optional. contains the word separator characters.
-     * @return string             A string with the first character of each word in string capitalized, if that character is an ASCII character between "a" (0x61) and "z" (0x7a)
-     */
-    public function smartyModifierUcwords($string, $separator = " \t\r\n\f\v")
-    {
-        return ucwords($string, $separator);
-    }
-
-    /**
-     * Smarty nodifier urlencode
-     * -------------------------
-     * Purpose: URL-encodes string
-     *
-     * @param string  $string     The string to be encoded.
-     * @return string             A string in which all non-alphanumeric characters except -_. have been replaced with a percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
-     */
-    public function smartyModifierUrlencode($string)
-    {
-        return urlencode($string);
-    }
-
-    /**
-     * Smarty modifier var_dump
-     * ------------------------
-     * Purpose: Dumps information about a variable
-     *
-     * @param mixed $value
-     * @return void
-     */
-    public function smartyModifierVardump($value)
-    {
-        // @phpstan-ignore disallowedFunctions.varDump (implements the {$var|vardump} Smarty modifier for dev debugging)
-        return var_dump($value);
     }
 
     public function smartyModifierZoneIsEmpty($zoneName)
@@ -1148,35 +876,5 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
     public function smartyModifierStrtotime($datetime, $baseTimestamp = null)
     {
         return strtotime($datetime, $baseTimestamp);
-    }
-
-    /**
-     * @param string|null $string The HTML string to sanitize.
-     * @return string The sanitized, safe HTML.
-    */
-    public function smartyModifierSafeHtml(?string $string): string
-    {
-        if (empty($string)) {
-            return '';
-        }
-
-        // Use a static instance to ensure the expensive purifier setup runs only once per request.
-        static $purifier = null;
-        if ($purifier === null) {
-            require_once('lib/htmlpurifier_tiki/HTMLPurifier.tiki.php');
-            $config = \HTMLPurifier_HTML5Config::inherit(\getHTMLPurifierTikiConfig());
-
-            // Define a strict security policy based on a whitelist of allowed elements and attributes.
-            $config->set('HTML.Allowed', 'a[href|title],b,strong,i,em,br,p,u');
-            $config->set('URI.AllowedSchemes', ['http' => true, 'https' => true, 'mailto' => true]);
-
-            // Add defense-in-depth attributes for all links.
-            $config->set('HTML.TargetBlank', true);
-            $config->set('HTML.Nofollow', true);
-
-            $purifier = new \HTMLPurifier($config);
-        }
-
-        return $purifier->purify($string);
     }
 }
