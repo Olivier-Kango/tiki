@@ -5,8 +5,88 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_block_tr($params, $content, \Smarty\Template $template, &$repeat)
+namespace SmartyTiki\BlockHandler;
+
+use Smarty\BlockHandler\BlockHandlerInterface;
+use Smarty\Smarty;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty block plugin
+ * -------------------------------------------------------------
+ * Type:     block
+ * Name:     tr
+ * Purpose:  translate a block of text
+ * -------------------------------------------------------------
+ * Note that the tr *prefilter* deals with most of the apparent calls to the tr block at compile time,
+ * leaving only a few Smarty translations reach this block.
+ *
+ *  @param array                    $params   parameters
+ * @param string                   $content  contents of the block
+ * @param Template $template template object
+ * @param boolean                  &$repeat  repeat flag
+ *
+ * @return string content translated
+ * @throws \Smarty\Exception
+ */
+class Tr implements BlockHandlerInterface, TikiSmartyExtensionInterface
 {
-    $smartyBlockTrHandler = new \SmartyTiki\BlockHandler\Tr();
-    return $smartyBlockTrHandler->handle($params, $content, $template, $repeat);
+    public static function getSmartyName(): string
+    {
+        return 'tr';
+    }
+
+    public function handle($params, $content, Template $template, &$repeat)
+    {
+        if ($repeat || empty($content)) {
+            return;
+        }
+
+        if (empty($params['lang'])) {
+            $lang = '';
+        } else {
+            $lang = $params['lang'];
+        }
+
+        $args = [];
+        foreach ($params as $key => $value) {
+            if (preg_match('/_([[:digit:]])+/', $key, $matches)) {
+                $args[$matches[1]] = $value;
+            }
+        }
+
+        if (empty($params['interactive']) || $params['interactive'] == 'y') {
+            $translated = tra($content, $lang, false, $args);
+        } else {
+            $translated = tra($content, $lang, false, []);
+        }
+
+        // Auto-detect wiki parsing context for noparse wrapping
+        $shouldNoparse = false;
+
+        // Explicit parameter takes precedence
+        if (isset($params['noparse'])) {
+            $shouldNoparse = $params['noparse'] == 'y';
+        } else {
+            // Auto-detect: if we're in a wiki parsing context, apply noparse automatically
+            // Check parser options instead of Smarty variables (parser may not use Smarty)
+            $parserlib = \TikiLib::lib('parser');
+            $inWikiContext = ! empty($parserlib->option['wiki_parse_context']);
+            if ($inWikiContext) {
+                $shouldNoparse = true;
+            }
+        }
+
+        if ($shouldNoparse) {
+            $translated = '~np~' . $translated . '~/np~';
+        }
+
+        return $translated;
+    }
+
+    public function isCacheable(): bool
+    {
+        return true;
+    }
 }

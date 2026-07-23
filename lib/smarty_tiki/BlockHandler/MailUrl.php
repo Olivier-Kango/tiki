@@ -5,8 +5,33 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_block_mailurl($params, $content, \Smarty\Template $template, &$repeat)
+namespace SmartyTiki\BlockHandler;
+
+use Smarty\BlockHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty plugin mailurl
+ *
+ * Smarty plugin to complete relative URLs used in mail templates to absolute ones
+ *
+ * Usage: {mailurl}relative-url.php{/mailurl}
+ * works also with: {mailurl}{wiki_page|sefurl}{/mailurl}
+ * and: {mailurl}absolute-url{/mailurl}
+ */
+class MailUrl extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyblockMailUrlHandler = new \SmartyTiki\BlockHandler\MailUrl();
-    return $smartyblockMailUrlHandler->handle($params, $content, $template, $repeat);
+    public static function getSmartyName(): string
+    {
+        return 'mailurl';
+    }
+
+    public function handle($params, $content, Template $template, &$repeat)
+    {
+        if ($repeat) {
+            return;
+        }
+        return \TikiLib::lib('tiki')->tikiUrl($content);
+    }
 }

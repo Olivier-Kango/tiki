@@ -5,8 +5,29 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_block_itemfield($params, $content, \Smarty\Template $template, &$repeat)
+namespace SmartyTiki\BlockHandler;
+
+use Smarty\BlockHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class ItemField extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyBlockItemFieldHandler = new \SmartyTiki\BlockHandler\ItemField();
-    return $smartyBlockItemFieldHandler->handle($params, $content, $template, $repeat);
+    public static function getSmartyName(): string
+    {
+        return 'itemfield';
+    }
+
+    public function handle($params, $content, Template $template, &$repeat)
+    {
+        include_once('lib/wiki-plugins/wikiplugin_trackeritemfield.php');
+        if (! $repeat) { // only on closing tag
+            if (($res = \TikiLib::lib('parser')->invokePlugin('trackeritemfield', $content, $params)) !== false) {
+                if (is_a($res, 'WikiParser_PluginOutput')) {
+                    $res = $res->toHtml();
+                }
+                echo $res;
+            }
+        }
+    }
 }

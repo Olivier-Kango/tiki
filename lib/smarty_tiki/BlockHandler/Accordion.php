@@ -5,8 +5,48 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_block_accordion($params, $content, \Smarty\Template $template, &$repeat)
+namespace SmartyTiki\BlockHandler;
+
+use Smarty\BlockHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty plugin Accordion
+ *
+ * \brief smarty_block_tabs : add tabs to a template
+ *
+ * params: name (optional but unique per page if set)
+ * params: toggle=y on n default
+ *
+ * usage:
+ * \code
+ *  {accordion}
+ *      {accordion_group title="{tr}Title 1{/tr}"}tab content{/accordion_group}
+ *      {accordion_group title="{tr}Title 2{/tr}"}tab content{/accordion_group}
+ *  {/accordion}
+ * \endcode
+ */
+class Accordion extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyBlockAccordionHandler = new \SmartyTiki\BlockHandler\Accordion();
-    return $smartyBlockAccordionHandler->handle($params, $content, $template, $repeat);
+    public static function getSmartyName(): string
+    {
+        return 'accordion';
+    }
+
+    public function handle($params, $content, Template $template, &$repeat)
+    {
+        global $accordion_current_group;
+
+        if ($repeat) {
+            $accordion_current_group = null;
+            return;
+        } else {
+            return <<<CONTENT
+<div class="accordion" id="$accordion_current_group">
+$content
+</div>
+CONTENT;
+        }
+    }
 }

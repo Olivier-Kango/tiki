@@ -5,8 +5,67 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_block_popup_link($params, $content, \Smarty\Template $template, &$repeat)
+namespace SmartyTiki\BlockHandler;
+
+use Smarty\BlockHandler\Base;
+use Smarty\Template;
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+class PopupLink extends Base implements TikiSmartyExtensionInterface
 {
-    $smartyBlockPopupLinkHandler = new \SmartyTiki\BlockHandler\PopupLink();
-    return $smartyBlockPopupLinkHandler->handle($params, $content, $template, $repeat);
+    public static function getSmartyName(): string
+    {
+        return 'popup_link';
+    }
+
+    public function handle($params, $content, Template $template, &$repeat)
+    {
+        global $prefs;
+        $headerlib = \TikiLib::lib('header');
+
+        if ($repeat) {
+            return;
+        }
+
+        static $counter = 0;
+
+        $linkId = 'block-popup-link' . ++$counter;
+        $block = $params['block'];
+
+        if ($repeat === false) {
+                $headerlib->add_js(
+                    <<<JS
+                    \$(function() {
+
+                    \$('#$block').hide();
+
+                    \$('#$linkId').on("click", function() {
+                        var block = \$('#$block');
+                        if ( block.css('display') == 'none' ) {
+                            //var coord = \$(this).offset();
+                            block.css( 'position', 'absolute' );
+                            //block.css( 'left', coord.left);
+                            //block.css( 'top', coord.top + \$(this).height() );
+                            show( '$block' );
+                        } else {
+                            hide( '$block' );
+                        }
+                    });
+                });
+                JS
+                );
+        }
+
+            $href = ' href="javascript:void(0)"';
+
+        if (isset($params['class'])) {
+            if ($params['class'] == 'button') {
+                $html = '<a id="' . $linkId . '"' . $href . '>' . $content . '</a>';
+                $html = '<span class="button">' . $html . '</span>';
+            } else {
+                $html = '<a id="' . $linkId . '"' . $href . '" class="' . $class . '">' . $content . '</a>';
+            }
+        }
+        return $html;
+    }
 }
