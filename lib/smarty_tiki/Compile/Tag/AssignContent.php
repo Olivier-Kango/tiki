@@ -14,7 +14,6 @@ use SmartyTiki\TikiSmartyExtensionInterface;
 /*
 * Smarty plugin
 * -------------------------------------------------------------
-* File: compiler.assign_content.php
 * Type: compiler
 * Name: assign_content
 * Purpose: assign a value from a dynamic content to a template variable
