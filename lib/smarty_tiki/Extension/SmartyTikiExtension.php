@@ -693,7 +693,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'set':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\Set();
                 break;
-            case 'show_short':
+            case 'show_sort':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\ShowShort();
                 break;
             case 'syntax':
