@@ -166,7 +166,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'langname':
                 return [new \SmartyTiki\Modifier\LangName(), 'handle'];
             case 'lcfirst':
-                return [$this, 'smartyModifierLcfirst'];
+                return [new \SmartyTiki\Modifier\Lcfirst(), 'handle'];
             case 'max':
                 return [new \SmartyTiki\Modifier\Max(), 'handle'];
             case 'max_user_inscriptions':
@@ -202,9 +202,9 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'quoted':
                 return [new \SmartyTiki\Modifier\Quoted(), 'handle'];
             case 'replacei':
-                return [$this, 'smartyModifierReplacei'];
+                return [new \SmartyTiki\Modifier\Replacei(), 'handle'];
             case 'reverse_array':
-                return [$this, 'smartyModifierReverseArray'];
+                return [new \SmartyTiki\Modifier\ReverseArray(), 'handle'];
             case 'sefurl':
                 return [new \SmartyTiki\Modifier\Sefurl(), 'handle'];
             case 'sizeof':
@@ -224,7 +224,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'strtolower':
                 return [new \SmartyTiki\Modifier\Strtolower(), 'handle'];
             case 'substring':
-                return [$this, 'smartyModifierSubstring'];
+                return [new \SmartyTiki\Modifier\Substring(), 'handle'];
             case 'tasklink':
                 return [new \SmartyTiki\Modifier\TaskLink(), 'handle'];
             case 'template':
@@ -236,7 +236,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'tiki_date_timezone_from_unix':
                 return [new \SmartyTiki\Modifier\TikiDateTimezoneFromUnix(), 'handle'];
             case 'strtotime':
-                return [$this, 'smartyModifierStrtotime'];
+                return [new \SmartyTiki\Modifier\Strtotime(), 'handle'];
             case 'tiki_long_date':
                 return [new \SmartyTiki\Modifier\TikiLongDate(), 'handle'];
             case 'tiki_long_datetime':
@@ -254,7 +254,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'times':
                 return [new \SmartyTiki\Modifier\Times(), 'handle'];
             case 'trim':
-                return [$this, 'smartyModifierTrim'];
+                return [new \SmartyTiki\Modifier\Trim(), 'handle'];
             case 'tra':
                 return [new \SmartyTiki\Modifier\Tra(), 'handle'];
             case 'truncate':
@@ -282,7 +282,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             case 'yesno':
                 return [new \SmartyTiki\Modifier\YesNo(), 'handle'];
             case 'zone_is_empty':
-                return [$this, 'smartyModifierZoneIsEmpty'];
+                return [new \SmartyTiki\Modifier\ZoneIsEmpty(), 'handle'];
             case 'safe_html':
                 return [new \SmartyTiki\Modifier\SafeHtml(), 'handle'];
         }
@@ -776,105 +776,5 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
         }
 
         return $this->preFilters;
-    }
-
-    /*
-    * Smarty plugin
-    * -------------------------------------------------------------
-    * Type:     modifier
-    * Name:     lcfirst
-    * Purpose:  lowercase the initial character in a string
-    * -------------------------------------------------------------
-    */
-    public function smartyModifierLcfirst($s)
-    {
-        return strtolower($s[0]) . substr($s, 1);
-    }
-
-    /**
-     * Smarty plugin
-     * @package Smarty
-     * @subpackage plugins
-     */
-
-    /**
-     * Smarty replacei modifier plugin
-     *
-     * Type:     modifier<br>
-     * Name:     replacei<br>
-     * Purpose:  Returns a case insensitive replaced string.
-     *           Same arguments as PHP str_ireplace function.
-     */
-    public function smartyModifierReplacei($string, $find, $replacement)
-    {
-        return str_ireplace($find, $replacement, $string);
-    }
-
-    /**
-     * Smarty reverse_array modifier plugin
-     *
-     * Type:     modifier<br>
-     * Name:     reverse_array<br>
-     * Purpose:  reverse arrays
-     * @param array
-     * @return array
-     */
-    public function smartyModifierReverseArray($array)
-    {
-        return array_reverse($array);
-    }
-
-    /**
-     * Smarty substring modifier plugin
-     *
-     * Type:     modifier<br>
-     * Name:     substring<br>
-     * Purpose:  Returns a substring of string.  Same arguments as
-     *           PHP substr function.
-     * @link based on substr(): https://www.php.net/manual/en/function.substr.php
-     * @author   Mike Kerr <tiki.kerrnel at kerris dot com>
-     * @param string
-     * @param position: start position of substring (default=0, negative starts N from end)
-     * @param length: length of substring (default=to end of string; negative=left N from end)
-     * @return string
-     */
-    public function smartyModifierSubstring($string, $position = 0, $length = null)
-    {
-
-        if ($length == null) {
-            return substr($string, $position);
-        } else {
-            return substr($string, $position, $length);
-        }
-    }
-
-    /**
-     * @param string $string - Required. Specifies the string to check
-     * @param string $chars - Optional. Specifies which characters to remove from the string. If omitted, the following characters will be removed: " \t\n\r\0\x0B"
-     *
-     * @return string - String trimed
-     */
-    public function smartyModifierTrim($string, $chars = null)
-    {
-        return empty($chars) ? trim($string) : trim($string, $chars);
-    }
-
-    public function smartyModifierZoneIsEmpty($zoneName)
-    {
-        return zone_is_empty($zoneName);
-    }
-
-    /**
-     * Smarty modifier strtotime
-     * -------------------------
-     * Purpose: Parse about any English textual datetime description into a Unix timestamp.
-     *
-     * @param string $datetime The date/time string to convert.
-     * @param int|null $baseTimestamp The base timestamp to use for relative calculations.
-     * @return int|false The Unix timestamp representing the given date/time string, or false on failure.
-     */
-    public function smartyModifierStrtotime($datetime, $baseTimestamp = null)
-    {
-        return strtotime($datetime, $baseTimestamp);
     }
 }

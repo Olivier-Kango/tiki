@@ -5,8 +5,28 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-function smarty_modifier_reverse_array($array)
+namespace SmartyTiki\Modifier;
+
+use SmartyTiki\TikiSmartyExtensionInterface;
+
+/**
+ * Smarty reverse_array modifier plugin
+ *
+ * Type:     modifier
+ * Name:     reverse_array
+ * Purpose:  reverse arrays
+ * @param array
+ * @return array
+ */
+class ReverseArray implements TikiSmartyExtensionInterface
 {
-    $smartyTikiExtension = new \SmartyTiki\Extension\SmartyTikiExtension();
-    return $smartyTikiExtension->smartyModifierReverseArray($array);
+    public static function getSmartyName(): string
+    {
+        return 'reverse_array';
+    }
+
+    public function handle($array)
+    {
+        return array_reverse($array);
+    }
 }
