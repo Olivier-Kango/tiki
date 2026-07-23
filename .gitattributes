@@ -5474,7 +5474,6 @@ lib/smarty_tiki/block.accordion.php -text
 lib/smarty_tiki/block.accordion_group.php -text
 lib/smarty_tiki/block.actions.php -text
 lib/smarty_tiki/block.activityframe.php -text
-lib/smarty_tiki/block.ajax_href.php -text
 lib/smarty_tiki/block.compact.php -text
 lib/smarty_tiki/block.display.php -text
 lib/smarty_tiki/block.filter.php -text
@@ -5483,11 +5482,8 @@ lib/smarty_tiki/block.ifsearchnotexists.php -text
 lib/smarty_tiki/block.itemfield.php -text
 lib/smarty_tiki/block.jq.php -text
 lib/smarty_tiki/block.modules_list.php -text
-lib/smarty_tiki/block.packageplugin.php -text
-lib/smarty_tiki/block.pagination_links.php -text
 lib/smarty_tiki/block.permission.php -text
 lib/smarty_tiki/block.popup_link.php -text
-lib/smarty_tiki/block.remarksbox.php -text
 lib/smarty_tiki/block.repeat.php -text
 lib/smarty_tiki/block.sortlinks.php -text
 lib/smarty_tiki/block.tab.php -text
@@ -5499,7 +5495,6 @@ lib/smarty_tiki/block.tr.php -text
 lib/smarty_tiki/block.trackeritemcheck.php -text
 lib/smarty_tiki/block.translation.php -text
 lib/smarty_tiki/block.wiki.php -text
-lib/smarty_tiki/block.wikiplugin.php -text
 lib/smarty_tiki/compiler.assign_content.php -text
 lib/smarty_tiki/function.activity.php -text
 lib/smarty_tiki/function.article.php -text

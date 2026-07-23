@@ -132,7 +132,7 @@ class Payment extends Base implements TikiSmartyExtensionInterface
         } else {
             $repeat = false;
 
-            return smarty_block_remarksbox(
+            return \SmartyTiki\BlockHandler\Remarksbox::render(
                 [
                     'type' => 'warning',
                     'title' => tra('Payment error'),

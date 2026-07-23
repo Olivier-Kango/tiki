@@ -137,7 +137,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
                             $params['_htmlelement'] = '';
                             $params['_template'] = '';
                         }
-                        $ret = smarty_block_ajax_href(
+                        $ret = \SmartyTiki\BlockHandler\AjaxHref::render(
                             [
                                 'template' => $params['_template'],
                                 'htmlelement' => $params['_htmlelement'],

@@ -51,7 +51,7 @@ class Attachments extends Base implements TikiSmartyExtensionInterface
             $gal_info['name'] = $page . ' *';   // temp name with * - not displayed in most configs
         } elseif (! $gal_info = $filegallib->get_file_gallery($galleryId)) {
             $repeat = false;
-            return smarty_block_remarksbox(
+            return \SmartyTiki\BlockHandler\Remarksbox::render(
                 ['type' => 'errors', 'title' => tra('Wrong attachments gallery')],
                 tra('You are attempting to display a gallery that is not a valid attachment gallery') . ' (ID=' . $galleryId . ')',
                 $template,

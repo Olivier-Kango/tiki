@@ -1810,7 +1810,7 @@ if ($need_lang) {
         }
         $remrepeat = false;
         $smartyTemplate = $smarty->getEmptyInternalTemplate();
-        $remarksbox = str_replace('"', "'", smarty_block_remarksbox(['type' => 'warning', 'title' => 'Autosave', 'close' => 'y'], $content, $smartyTemplate, $remrepeat));
+        $remarksbox = str_replace('"', "'", \SmartyTiki\BlockHandler\Remarksbox::render(['type' => 'warning', 'title' => 'Autosave', 'close' => 'y'], $content, $smartyTemplate, $remrepeat));
 
         $smarty->assign('alert_content', $remarksbox);
     }

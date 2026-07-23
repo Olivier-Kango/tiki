@@ -49,7 +49,7 @@ class ServiceInline extends Base implements TikiSmartyExtensionInterface
         } catch (\Services_Exception $e) {
             if (empty($params['_silent'])) {
                 $repeat = false;
-                return smarty_block_remarksbox(['type' => 'warning', 'title' => tr('Unavailable')], $e->getMessage(), $template, $repeat);
+                return \SmartyTiki\BlockHandler\Remarksbox::render(['type' => 'warning', 'title' => tr('Unavailable')], $e->getMessage(), $template, $repeat);
             }
         }
     }

@@ -1893,10 +1893,9 @@ class Services_Tracker_Controller
         }
 
         if ($trackerlistParams = $input->asArray('trackerlistParams')) {
-            include_once 'lib/smarty_tiki/block.wikiplugin.php';
             $trackerlistParams['_name'] = 'trackerlist';
             $trackerlistParams['checkbox'] = preg_replace('#/[\d,]*$#', '/' . implode(',', $linkedItemIds), $trackerlistParams['checkbox']);
-            return smarty_block_wikiplugin($trackerlistParams, '', TikiLib::lib('smarty')) . TikiLib::lib('header')->output_js();
+            return \SmartyTiki\BlockHandler\Wikiplugin::render($trackerlistParams, '', TikiLib::lib('smarty')) . TikiLib::lib('header')->output_js();
         } else {
             return [
                 'status' => 'ok'

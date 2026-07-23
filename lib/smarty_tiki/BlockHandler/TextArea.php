@@ -141,7 +141,7 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
             } else {
                 $hint = '<strong>Preview</strong> (if available) or <strong>Save</strong> your work to restart the edit session timer';
             }
-            $html .= smarty_block_remarksbox(
+            $html .= \SmartyTiki\BlockHandler\Remarksbox::render(
                 [ 'type' => 'warning', 'title' => tra('Warning')],
                 '<p>' . tra('This edit session will expire in') .
                 ' <span class="edittimeout">' . (ini_get('session.gc_maxlifetime') / 60) . '</span> ' . tra('minutes') . '. ' .
@@ -175,7 +175,7 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
                                 '<span class="autosave_message_2" style="display:none;">' . tra('If you want the original instead of the autosaved draft of your edits') . '</span>' .
                                 \SmartyTiki\BlockHandler\SelfLink::render([ '_ajax' => 'n', '_onclick' => 'toggle_autosaved(\'' . $as_id . '\',\'' . $auto_save_referrer . '\');return false;'], tra('click here'), $template) . "</div>";
                     $remrepeat = false;
-                    $auto_save_warning = smarty_block_remarksbox([ 'type' => 'info', 'title' => tra('AutoSave')], $msg, $template, $remrepeat) . "\n";
+                    $auto_save_warning = \SmartyTiki\BlockHandler\Remarksbox::render([ 'type' => 'info', 'title' => tra('AutoSave')], $msg, $template, $remrepeat) . "\n";
                 }
             }
             $headerlib->add_jq_onready("register_id('$as_id','" . addcslashes($auto_save_referrer, "'") . "');");

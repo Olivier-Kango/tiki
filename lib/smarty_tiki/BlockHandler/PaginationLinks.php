@@ -241,7 +241,7 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
                         $params['_onclick'] = $params['offset_jsvar'] . "=$linkoffset;" . $params['_onclick'];
                     }
 
-                    $link .= smarty_block_ajax_href(
+                    $link .= \SmartyTiki\BlockHandler\AjaxHref::render(
                         [
                             'template' => $params['template'],
                             'htmlelement' => $params['htmlelement'],

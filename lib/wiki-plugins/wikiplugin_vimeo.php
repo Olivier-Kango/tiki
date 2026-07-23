@@ -222,7 +222,7 @@ function wikiplugin_vimeo($data, $params)
         $smarty = TikiLib::lib('smarty');
         if ($prefs['vimeo_upload'] !== 'y') {
             $repeat = false;
-            return smarty_block_remarksbox(
+            return \SmartyTiki\BlockHandler\Remarksbox::render(
                 ['type' => 'error', 'title' => tra('Feature required')],
                 tra('Feature "vimeo_upload" is required to be able to add videos here.'),
                 $smarty->getEmptyInternalTemplate(),

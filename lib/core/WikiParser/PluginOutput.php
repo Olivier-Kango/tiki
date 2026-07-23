@@ -57,7 +57,7 @@ class WikiParser_PluginOutput
 
         return new self(
             'html',
-            smarty_block_remarksbox(
+            \SmartyTiki\BlockHandler\Remarksbox::render(
                 [
                             'type' => 'error',
                             'title' => $label,
