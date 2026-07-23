@@ -48,7 +48,7 @@ class UserLink implements TikiSmartyExtensionInterface
                 $other_user = array_map(
                     function ($username) use ($class, $idletime, $popup) {
                         $username = \TikiLib::lib('user')->distinguish_anonymous_users($username);
-                        return smarty_modifier_userlink($username, $class, $idletime, '', 0, $popup);
+                        return \SmartyTiki\Modifier\UserLink::apply($username, $class, $idletime, '', 0, $popup);
                     },
                     $other_user
                 );
@@ -65,7 +65,7 @@ class UserLink implements TikiSmartyExtensionInterface
             $fullname = \TikiLib::lib('user')->clean_user($other_user);
         }
         if ($max_length) {
-            $fullname = smarty_modifier_truncate($fullname, $max_length, '...', true);
+            $fullname = \SmartyTiki\Modifier\Truncate::apply($fullname, $max_length, '...', true);
         }
         $popup = 'y';
         return \TikiLib::lib('user')->build_userinfo_tag($other_user, htmlspecialchars($fullname, ENT_QUOTES), $class, $popup);

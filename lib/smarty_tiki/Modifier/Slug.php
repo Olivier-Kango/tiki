@@ -46,7 +46,7 @@ class Slug implements TikiSmartyExtensionInterface
                 $maxLength = $offset;
             }
         }
-        $string = substr(smarty_modifier_nonp($string), 0, $maxLength);
+        $string = substr(\SmartyTiki\Modifier\Nonp::apply($string), 0, $maxLength);
         if (! $mixedCase) {
             $string = mb_strtolower($string);
         }

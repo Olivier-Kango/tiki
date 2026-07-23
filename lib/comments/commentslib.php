@@ -2413,7 +2413,7 @@ class Comments extends TikiLib
             ];
 
             return '"' .
-                    smarty_modifier_truncate(
+                    \SmartyTiki\Modifier\Truncate::apply(
                         strip_tags(TikiLib::lib('parser')->parse_data($comment['data'], $options)),
                         $commentlength
                     ) . '"';

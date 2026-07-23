@@ -20,6 +20,6 @@ class TikiShortTime implements TikiSmartyExtensionInterface
     {
         global $prefs;
         \TikiLib::lib('smarty'); //Load SmartyLib for side effects
-        return smarty_modifier_tiki_date_format($string, $prefs['short_time_format']);
+        return \SmartyTiki\Modifier\TikiDateFormat::apply($string, $prefs['short_time_format']);
     }
 }

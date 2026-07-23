@@ -29,7 +29,7 @@ class TikiShortDate implements TikiSmartyExtensionInterface
     public function handle($string, $same = 'y')
     {
         global $prefs;
-        $date = smarty_modifier_tiki_date_format($string, $prefs['short_date_format']);
+        $date = \SmartyTiki\Modifier\TikiDateFormat::apply($string, $prefs['short_date_format']);
 
         if ($prefs['jquery_timeago'] === 'y' && $same === 'y') {
             TikiLib::lib('header')->add_jq_onready('$("time.timeago").tikiTimeago();');

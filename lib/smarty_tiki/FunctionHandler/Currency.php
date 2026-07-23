@@ -112,10 +112,10 @@ class Currency extends Base implements TikiSmartyExtensionInterface
         }
         if ((isset($reloff) and $reloff > 0) and ($allSymbol != 1)) {
             $format = $part1a . $symbol;
-            $out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 0);
+            $out .= \SmartyTiki\Modifier\MoneyFormat::apply($amount, $locale, $currency, $format, 0);
         } else {
             $format = $part1b . $symbol;
-            $out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 1);
+            $out .= \SmartyTiki\Modifier\MoneyFormat::apply($amount, $locale, $currency, $format, 1);
         }
         if ($append) {
             if ($export) {
@@ -137,10 +137,10 @@ class Currency extends Base implements TikiSmartyExtensionInterface
             foreach ($conversions as $currency => $amount) {
                 if ((isset($reloff) and $reloff > 0) and ($allSymbol != 1)) {
                     $format = $part1a . $symbol;
-                    $out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 0);
+                    $out .= \SmartyTiki\Modifier\MoneyFormat::apply($amount, $locale, $currency, $format, 0);
                 } else {
                     $format = $part1b . $symbol;
-                    $out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 1);
+                    $out .= \SmartyTiki\Modifier\MoneyFormat::apply($amount, $locale, $currency, $format, 1);
                 }
                 $out .= '<br>';
             }

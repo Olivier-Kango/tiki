@@ -687,7 +687,7 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implem
             ->setPlainReplacement('username')
             ->setRenderTransform(function ($value) {
                 if ($value) {
-                    return implode(', ', array_map('smarty_modifier_userlink', TikiLib::lib('trk')->parse_user_field($value)));
+                    return implode(', ', array_map('\SmartyTiki\Modifier\UserLink::apply', TikiLib::lib('trk')->parse_user_field($value)));
                 }
             })
             ;

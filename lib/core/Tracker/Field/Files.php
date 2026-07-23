@@ -603,7 +603,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                         $ret .= \SmartyTiki\FunctionHandler\InlineAudioPlayer::render(['fileId' => $fileId, 'type' => $file['filetype']], $smarty->getEmptyInternalTemplate());
                         $skipName = true;
                     } else {
-                        $ret .= smarty_modifier_iconify('tiki-download_file.php?fileId=' . $fileId, $file['filetype'], $fileId, 2);
+                        $ret .= \SmartyTiki\Modifier\Iconify::apply('tiki-download_file.php?fileId=' . $fileId, $file['filetype'], $fileId, 2);
                     }
 
                     if (! $skipName) {
@@ -933,7 +933,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
 
         foreach ($removedFileInfos as $file) {
             $url = \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'file');
-            $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
+            $result .= \SmartyTiki\Modifier\Iconify::apply($url, $file['filetype'], $file['fileId'], 1);
             $result .= ' <a href="' . $url . '">' . \SmartyTiki\Modifier\Escape::apply($file['name']) . '</a><br>';
         }
 
@@ -941,7 +941,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
 
         foreach ($addedFileInfos as $file) {
             $url = \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'file');
-            $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
+            $result .= \SmartyTiki\Modifier\Iconify::apply($url, $file['filetype'], $file['fileId'], 1);
             $result .= ' <a href="' . $url . '">' . \SmartyTiki\Modifier\Escape::apply($file['name']) . '</a>';
             $result .= ' <a href="' . $url . '&amp;display" target="_blank" class="tips cboxElement" title="Preview" data-bs-content="' . \SmartyTiki\Modifier\Escape::apply($file['name']) . '" data-box="box-3" data-bs-original-title="Preview">';
             $result .= '<span class="icon icon-view fas fa-search-plus"></span></a><br/>';

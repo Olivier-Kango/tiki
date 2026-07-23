@@ -9,7 +9,6 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 require_once('tiki-setup.php');
-require_once('lib/smarty_tiki/modifier.userlink.php');
 $access->check_feature('feature_minichat');
 $access->check_permission('tiki_p_chat');
 header("Pragma: public");
@@ -151,7 +150,7 @@ foreach ($chans as $chan) {
                 $t = date($format, $row['ts']);
             }
 
-            $nick_html = ($row['nick'] == '' ? "<em>" . tra('Anonymous') . "</em>" : smarty_modifier_userlink($row['user']));
+            $nick_html = ($row['nick'] == '' ? "<em>" . tra('Anonymous') . "</em>" : \SmartyTiki\Modifier\UserLink::apply($row['user']));
             $msg_html = htmlentities($row['msg'], ENT_QUOTES, 'UTF-8');
             $side_class = ($row['user'] == $user) ? 'mine' : 'other';
 

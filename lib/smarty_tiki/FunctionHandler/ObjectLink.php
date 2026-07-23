@@ -268,7 +268,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
 
     public function smartyFunctionObjectLinkUser($template, $user, $title = null)
     {
-        return smarty_modifier_userlink($user, 'link', 'not_set', $title ? $title : '');
+        return \SmartyTiki\Modifier\UserLink::apply($user, 'link', 'not_set', $title ? $title : '');
     }
 
     public function smartyFunctionObjectLinkExternal($template, $link_orig, $title = null, $type = null)
