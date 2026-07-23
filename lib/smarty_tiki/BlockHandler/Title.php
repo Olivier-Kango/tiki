@@ -55,7 +55,7 @@ class Title extends Base implements TikiSmartyExtensionInterface
 
         if (! isset($params['url'])) {
             if ($current) {
-                $params['url'] = smarty_modifier_sefurl($current['object'], $current['type']);
+                $params['url'] = \SmartyTiki\Modifier\Sefurl::apply($current['object'], $current['type']);
             } else {
                 $params['url'] = $_SERVER['REQUEST_URI'];
             }

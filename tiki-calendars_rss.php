@@ -72,7 +72,7 @@ if ($output["data"] == "EMPTY") {
          $item["body"] .= "<abbr class=\"dtstart\" title=\"" . $start_d . "\">" . tra("Start:") . " " . smarty_modifier_tiki_long_datetime($item["start"]) . "</abbr>" . "<br />\n";
         $item["body"] .= "<abbr class=\"dtend\" title=\"" . $end_d . "\">" . tra("End:") . " " . smarty_modifier_tiki_long_datetime($item["end"]) . "</abbr>" . "<br />\n";
         $item["body"] .= "<span class=\"description\">" . ($item["description"]) . "</span>" . "</div>";
-        $item["sefurl"] = smarty_modifier_sefurl($item["calitemId"], 'calendaritem');
+        $item["sefurl"] = \SmartyTiki\Modifier\Sefurl::apply($item["calitemId"], 'calendaritem');
     }
     unset($item);
 

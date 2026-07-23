@@ -321,7 +321,7 @@ class Tracker_Field_Category extends \Tracker\Field\AbstractItemField implements
                     }
                     if (str_contains($this->getOption('outputtype'), 'links') && $rendered) {
                         $deep = $this->getOption('descendants') != 0;
-                        $href = smarty_modifier_sefurl($categId, 'category', $deep, '', 'y', $str);
+                        $href = \SmartyTiki\Modifier\Sefurl::apply($categId, 'category', $deep, '', 'y', $str);
                         if ($deep) {
                             $href .= 'deep=on';
                         }

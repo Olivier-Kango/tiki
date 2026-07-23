@@ -652,7 +652,7 @@ class SmartyTiki extends Smarty
             }
             if ($nonAdminEditorGroups) {
                 $groupString = implode(', ', $nonAdminEditorGroups);
-                $pageLink = '<a href="' . smarty_modifier_sefurl($page) . '" class="alert-link">' . $page . '</a>';
+                $pageLink = '<a href="' . \SmartyTiki\Modifier\Sefurl::apply($page) . '" class="alert-link">' . $page . '</a>';
                 if (count($nonAdminEditorGroups) > 1) {
                     $message = 'The %0 groups can edit this template page %1 but are not wiki administrators';
                     $groupString = substr_replace($groupString, tr(' and'), strrpos($groupString, ','), 1);

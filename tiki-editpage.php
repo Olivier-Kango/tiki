@@ -672,7 +672,7 @@ if ($prefs['feature_wiki_attachments'] === 'y' && isset($_REQUEST["attach"]) && 
             if ($uploads) {
                 if (isset($_REQUEST['edit'])) {
                     foreach ($uploads as $upload) {
-                        $_REQUEST['edit'] .= '[' . smarty_modifier_sefurl($upload['fileId'], 'file') . '|' . $upload['name'] . ']';
+                        $_REQUEST['edit'] .= '[' . \SmartyTiki\Modifier\Sefurl::apply($upload['fileId'], 'file') . '|' . $upload['name'] . ']';
                     }
                 }
                 Feedback::success(tr('File uploaded'));

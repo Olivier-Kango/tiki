@@ -565,7 +565,7 @@ if (! hm_exists('sender_callback')) {
             ], tr('View contact'), $smarty->getEmptyInternalTemplate()) . ' ';
             if (! empty($wikiPage)) {
                 $output .= smarty_block_self_link([
-                    '_script' => $tikiroot . smarty_modifier_sefurl($wikiPage),
+                    '_script' => $tikiroot . \SmartyTiki\Modifier\Sefurl::apply($wikiPage),
                     '_class' => "mod_webmail_from"
                 ], $from, $smarty->getEmptyInternalTemplate());
             } else {

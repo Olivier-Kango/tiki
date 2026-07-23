@@ -807,7 +807,7 @@ function wikiplugin_img($data, $params)
         }
     } else {
         if (! empty($imgdata['fileId'])) {
-            $src = smarty_modifier_sefurl($imgdata['fileId'], 'file');
+            $src = \SmartyTiki\Modifier\Sefurl::apply($imgdata['fileId'], 'file');
 
             if ($absolute_links) {
                 $src = TikiLib::tikiUrl($src);

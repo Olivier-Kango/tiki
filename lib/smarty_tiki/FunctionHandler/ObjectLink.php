@@ -149,7 +149,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
                     return $escapedText;
                 }
             }
-            $escapedHref = smarty_modifier_escape(smarty_modifier_sefurl($object, $type));
+            $escapedHref = smarty_modifier_escape(\SmartyTiki\Modifier\Sefurl::apply($object, $type));
         }
 
         $classList = [];
@@ -219,7 +219,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
             $html .= smarty_function_icon([
                 'name' => 'clipboard-list',
                 'title' => tr('show metadata'),
-                'href' => smarty_modifier_escape(smarty_modifier_sefurl($params['metaItemId'], 'trackeritem')),
+                'href' => smarty_modifier_escape(\SmartyTiki\Modifier\Sefurl::apply($params['metaItemId'], 'trackeritem')),
             ], $template) . '</a>';
         }
 
@@ -230,7 +230,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
     {
         $comments_lib = \TikiLib::lib('comments');
         $comment = $comments_lib->get_comment($object);
-        $url = is_array($comment) ? smarty_modifier_sefurl($object, $comment['objectType'] . '_comment') : smarty_modifier_sefurl($object, 'comment' . '_comment');
+        $url = is_array($comment) ? \SmartyTiki\Modifier\Sefurl::apply($object, $comment['objectType'] . '_comment') : \SmartyTiki\Modifier\Sefurl::apply($object, 'comment' . '_comment');
 
         if (empty($title)) {
             $title = \TikiLib::lib('object')->get_title($type, $object, empty($params['format']) ? null : $params['format']);

@@ -235,7 +235,7 @@ class Services_Tracker_Controller
                 if ($dupeFields) {
                     foreach ($dupeFields as & $df) {
                         $df['message'] = tr('Warning: There is a conflict in permanent names, which can cause indexing errors.') .
-                            '<br><a href="' . smarty_modifier_sefurl($df['trackerId'], 'trackerfields') . '">' .
+                            '<br><a href="' . \SmartyTiki\Modifier\Sefurl::apply($df['trackerId'], 'trackerfields') . '">' .
                             tr(
                                 'Field #%0 "%1" of type "%2" also found in tracker #%3 with perm name %4',
                                 $df['fieldId'],
@@ -1178,7 +1178,7 @@ class Services_Tracker_Controller
                 $item['nextTicket'] = $util->getTicket();
 
                 if (! $redirect && ! $access->is_xml_http_request() && ! TIKI_API) {
-                    $redirect = smarty_modifier_sefurl($trackerId, 'tracker');
+                    $redirect = \SmartyTiki\Modifier\Sefurl::apply($trackerId, 'tracker');
                 }
 
                 if ($redirect) {
@@ -1460,7 +1460,7 @@ class Services_Tracker_Controller
 
                 // also $prefs['tracker_legacy_insert'] === 'y'
                 if (! $redirect && ! $access->is_xml_http_request() && ! TIKI_API) {
-                    $redirect = smarty_modifier_sefurl($itemId, 'trackeritem');
+                    $redirect = \SmartyTiki\Modifier\Sefurl::apply($itemId, 'trackeritem');
                 }
 
                 if ($input->addComment->bool()) {
@@ -1809,7 +1809,7 @@ class Services_Tracker_Controller
             $message = tr('The requested element cannot be displayed. One of the view/edit templates is missing or has errors: %0', $e->getMessage());
             trigger_error($e->getMessage(), E_USER_WARNING);
             $access = TikiLib::lib('access');
-            $access->redirect(smarty_modifier_sefurl($trackerId, 'tracker'), $message, 302, 'error');
+            $access->redirect(\SmartyTiki\Modifier\Sefurl::apply($trackerId, 'tracker'), $message, 302, 'error');
         }
     }
 

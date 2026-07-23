@@ -3981,7 +3981,7 @@ class Comments extends TikiLib
             }
 
             if ($threadId = $this->check_for_topic($params['comments_title'], $forum_info['forumId'])) {
-                $url = smarty_modifier_sefurl($threadId, 'forumthread');
+                $url = \SmartyTiki\Modifier\Sefurl::apply($threadId, 'forumthread');
                 $link = sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($params['comments_title']));
                 $errors[] = tr('This topic already exists in this forum. Visit: %0', $link);
             }

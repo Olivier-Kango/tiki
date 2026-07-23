@@ -7269,7 +7269,7 @@ class TikiLib extends TikiDb_Bridge
 
             $url = [];
             foreach ($conflictPages as $pageName) {
-                $url[] = sprintf('<a href="%s">%s</a>', smarty_modifier_sefurl($pageName, 'wiki'), $pageName);
+                $url[] = sprintf('<a href="%s">%s</a>', \SmartyTiki\Modifier\Sefurl::apply($pageName, 'wiki'), $pageName);
             }
 
             $errors[] = tr('Alias <b>%0</b> link already present in %1 page(s)', $pointedPage, implode(', ', $url));

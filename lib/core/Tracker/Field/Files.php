@@ -579,7 +579,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                 } elseif ($this->getOption('displayMode') == 'barelink') {
                         $smarty = TikiLib::lib('smarty');
                     foreach ($this->getConfiguration('files') as $fileId => $file) {
-                        $ret .= smarty_modifier_sefurl($file['fileId'], 'file');
+                        $ret .= \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'file');
                     }
                 } elseif ($this->getOption('displayMode') == 'table') {
                     $ret = $this->renderTemplate('trackeroutput/files_table.tpl', $context, [
@@ -623,7 +623,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                         }
                     } elseif ($this->isMimeType($mimetypes, $file['filetype'], ['mp3', 'oga', 'webm', 'mp4', 'wmv', 'ogv'])) {
                         global $base_url;
-                        $src = smarty_modifier_sefurl($file['fileId'], 'display');
+                        $src = \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'display');
                         $fileurl = $base_url . $src;
 
                         $ret .= "<div style='display:none'>
@@ -932,7 +932,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
         $result = '<table class="table"><tr><td class="diffdeleted diffprefix">-</td><td class="diffdeleted diffcontent"><del class="diffchar deleted">';
 
         foreach ($removedFileInfos as $file) {
-            $url = smarty_modifier_sefurl($file['fileId'], 'file');
+            $url = \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'file');
             $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
             $result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a><br>';
         }
@@ -940,7 +940,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
         $result .= '</del></td><td class="diffadded diffprefix">+</td><td class="diffadded diffcontent"><ins class="diffchar inserted">';
 
         foreach ($addedFileInfos as $file) {
-            $url = smarty_modifier_sefurl($file['fileId'], 'file');
+            $url = \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'file');
             $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
             $result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a>';
             $result .= ' <a href="' . $url . '&amp;display" target="_blank" class="tips cboxElement" title="Preview" data-bs-content="' . smarty_modifier_escape($file['name']) . '" data-box="box-3" data-bs-original-title="Preview">';
@@ -1092,7 +1092,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
             $urls = [];
 
             foreach (explode(',', $this->getValue()) as $value) {
-                $urls[] = smarty_modifier_sefurl($value, 'file');
+                $urls[] = \SmartyTiki\Modifier\Sefurl::apply($value, 'file');
             }
             return [
                 'geo_located' => $typeFactory->identifier('y'),
@@ -1191,7 +1191,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                 $fileIds = explode(',', $value);
                 foreach ($fileIds as $fileId) {
                     if (is_numeric($fileId)) {
-                        $urls[] = $base_url . smarty_modifier_sefurl($fileId, 'display');
+                        $urls[] = $base_url . \SmartyTiki\Modifier\Sefurl::apply($fileId, 'display');
                     }
                 }
 

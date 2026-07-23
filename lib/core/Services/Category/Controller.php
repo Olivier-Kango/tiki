@@ -338,7 +338,7 @@ class Services_Category_Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $objectlib->get_title($type, $object);
-            $url = smarty_modifier_sefurl($object, $type);
+            $url = \SmartyTiki\Modifier\Sefurl::apply($object, $type);
             $targetCategories = (array) $input->categories->int();
             $count = $categlib->update_object_categories($targetCategories, $object, $type, '', $name, $url, $subset, false);
         }
