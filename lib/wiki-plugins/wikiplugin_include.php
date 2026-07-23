@@ -380,8 +380,9 @@ function wikiplugin_include($dataIn, $params)
             $smarty = TikiLib::lib('smarty');
             $tip = tr('Include Plugin') . ' | ' . tr('Edit the included page:') . ' &quot;' . $page . '&quot;';
             if (! defined('TIKI_PRINTING_PDF') || ! TIKI_PRINTING_PDF) {
+                $repeat = false;
                 $text .= '<a class="editplugin" ' . // ironically smarty_block_self_link doesn't work for this! ;)
-                \SmartyTiki\BlockHandler\AjaxHref::render(['template' => 'tiki-editpage.tpl'], 'tiki-editpage.php?page=' . urlencode($page) . '&returnto=' . urlencode($returnto), $smarty->getEmptyInternalTemplate(), false) . '>' .
+                \SmartyTiki\BlockHandler\AjaxHref::render(['template' => 'tiki-editpage.tpl'], 'tiki-editpage.php?page=' . urlencode($page) . '&returnto=' . urlencode($returnto), $smarty->getEmptyInternalTemplate(), $repeat) . '>' .
                 \SmartyTiki\FunctionHandler\Icon::render(['name' => 'edit', 'iclass' => 'tips', 'ititle' => $tip], $smarty->getEmptyInternalTemplate()) . '</a>';
             }
         }

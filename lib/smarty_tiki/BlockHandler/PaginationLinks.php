@@ -236,6 +236,7 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
                         $params['_onclick'] = $params['offset_jsvar'] . "=$linkoffset;" . $params['_onclick'];
                     }
 
+                    $repeat = false;
                     $link .= \SmartyTiki\BlockHandler\AjaxHref::render(
                         [
                             'template' => $params['template'],
@@ -245,7 +246,7 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
                         ],
                         $url,
                         $smarty->getEmptyInternalTemplate(),
-                        false
+                        $repeat
                     );
                 } else {
                     $link .= " href=\"$url\" ";

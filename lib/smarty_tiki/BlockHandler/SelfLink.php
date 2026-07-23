@@ -137,6 +137,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
                             $params['_htmlelement'] = '';
                             $params['_template'] = '';
                         }
+                        $repeat = false;
                         $ret = \SmartyTiki\BlockHandler\AjaxHref::render(
                             [
                                 'template' => $params['_template'],
@@ -146,7 +147,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
                             ],
                             $ret,
                             $template,
-                            $tmp = false
+                            $repeat
                         );
                         unset($params['_onclick']); // Prevent addition to $link later
                     } else {

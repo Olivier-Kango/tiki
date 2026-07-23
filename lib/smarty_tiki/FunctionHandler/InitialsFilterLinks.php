@@ -40,6 +40,7 @@ class InitialsFilterLinks extends Base implements TikiSmartyExtensionInterface
         // Include smarty functions used below
         $smarty = \TikiLib::lib('smarty');
 
+        $repeat = false;
         $tag_start = "\n" . '<a class="' . $params['_class'] . '" ' . \SmartyTiki\BlockHandler\AjaxHref::render(
             ['template' => $params['_template'], 'htmlelement' => $params['_htmlelement']],
             \SmartyTiki\FunctionHandler\Query::render(
@@ -52,7 +53,7 @@ class InitialsFilterLinks extends Base implements TikiSmartyExtensionInterface
                 $template
             ),
             $template,
-            false
+            $repeat
         ) . '>';
 
         $alpha = explode(',', tra('a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'));
