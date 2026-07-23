@@ -134,7 +134,10 @@ class SmartyExtensionMapper
             ['path' => $tikiRoot . '/lib/smarty_tiki/Filter/Output', 'namespace' => 'SmartyTiki\\Filter\\Output'],
         ];
 
-        // Support for _custom extensions ( esq c'est le bon dossier pour pour les custom extensions ? à revoir )
+        // Support for custom Smarty extensions in _custom/shared/smarty, matching the
+        // existing _custom/shared/{templates,wiki-plugins,js} conventions. PSR-4 autoloading
+        // for the TikiCustom\Smarty\ namespace is registered in lib/init/initlib.php.
+        // See _custom_dist/README.md and _custom_dist/shared/smarty/ for the expected layout.
         $customSmartDir = $tikiRoot . '/_custom/shared/smarty';
         if (is_dir($customSmartDir)) {
             $subDirs = [

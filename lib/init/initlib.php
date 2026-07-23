@@ -37,7 +37,7 @@ if (! file_exists(__DIR__ . '/../../vendor_bundled/vendor/autoload.php')) {
     exit(1);
 }
 
-require_once __DIR__ . '/../../vendor_bundled/vendor/autoload.php'; // vendor libs bundled into tiki
+$autoloader = require_once __DIR__ . '/../../vendor_bundled/vendor/autoload.php'; // vendor libs bundled into tiki
 
 // vendor libs managed by the user using composer (if any)
 $legacyVendorPath = __DIR__ . '/../../' . TIKI_VENDOR_NONBUNDLED_PATH;
@@ -86,6 +86,13 @@ if (is_dir(__DIR__ . '/../../' . TIKI_VENDOR_CUSTOM_PATH)) {
             }
         }
     }
+}
+
+// Custom Smarty extensions (function/block handlers, modifiers, compilers, filters).
+// See _custom_dist/README.md and _custom_dist/shared/smarty/ for the expected layout.
+$customSmartyDir = __DIR__ . '/../../_custom/shared/smarty';
+if (is_dir($customSmartyDir)) {
+    $autoloader->addPsr4('TikiCustom\\Smarty\\', $customSmartyDir . '/');
 }
 
 spl_autoload_register('Tiki\PSR12Migration\Autoload::autoloadAlias');
