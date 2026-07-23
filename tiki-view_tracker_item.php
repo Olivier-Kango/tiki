@@ -603,8 +603,7 @@ if (isset($_REQUEST["removeImage"])) {
 }
 // ************* return to list ***************************
 if (isset($_REQUEST["returntracker"]) || isset($_REQUEST["save_return"])) {
-    require_once('lib/smarty_tiki/block.self_link.php');
-    $returnUrl = smarty_block_self_link(
+    $returnUrl = \SmartyTiki\BlockHandler\SelfLink::render(
         [
             '_script' => 'tiki-view_tracker.php',
             '_tag' => 'n',

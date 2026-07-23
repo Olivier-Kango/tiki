@@ -108,7 +108,7 @@ function wikiplugin_annotation($data, $params)
     global $page, $tiki_p_edit;
     $headerlib = TikiLib::lib('header');
     $smarty = TikiLib::lib('smarty');
-    $ticketHtml = smarty_function_ticket([], $smarty->getEmptyInternalTemplate());
+    $ticketHtml = \SmartyTiki\FunctionHandler\Ticket::render([], $smarty->getEmptyInternalTemplate());
 
     $annotations = [];
     foreach (explode("\n", $data) as $line) {

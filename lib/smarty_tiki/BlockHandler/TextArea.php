@@ -173,7 +173,7 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
                 } else {
                     $msg = '<div class="mandatory_star"><span class="autosave_message">' . tra('There is an autosaved draft of your recent edits, to use it instead ') . '</span>&nbsp;' .
                                 '<span class="autosave_message_2" style="display:none;">' . tra('If you want the original instead of the autosaved draft of your edits') . '</span>' .
-                                smarty_block_self_link([ '_ajax' => 'n', '_onclick' => 'toggle_autosaved(\'' . $as_id . '\',\'' . $auto_save_referrer . '\');return false;'], tra('click here'), $template) . "</div>";
+                                \SmartyTiki\BlockHandler\SelfLink::render([ '_ajax' => 'n', '_onclick' => 'toggle_autosaved(\'' . $as_id . '\',\'' . $auto_save_referrer . '\');return false;'], tra('click here'), $template) . "</div>";
                     $remrepeat = false;
                     $auto_save_warning = smarty_block_remarksbox([ 'type' => 'info', 'title' => tra('AutoSave')], $msg, $template, $remrepeat) . "\n";
                 }

@@ -60,7 +60,7 @@ class ToolbarFileGallery extends ToolbarUtilityItem
                 {
                     defaultGalleryId: ' . (empty($prefs['home_file_gallery']) ? $prefs['fgal_root_id'] : $prefs['home_file_gallery']) . ',
                     deepGallerySearch: true,
-                    ticket: \'' . smarty_function_ticket(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '\',
+                    ticket: \'' . \SmartyTiki\FunctionHandler\Ticket::render(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '\',
                     getFileCallback: function(file,elfinder) {
                             window.handleFinderInsertAt(file,elfinder,area_id);
                         },

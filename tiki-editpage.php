@@ -1803,7 +1803,7 @@ if ($need_lang) {
 
             $content .= "<form method='post' action='tiki-admin.php'>";
             $content .= str_replace('"', "&quot;", smarty_function_preference(['name' => 'ajax_autosave'], $smarty->getEmptyInternalTemplate()));
-            $content .= str_replace('"', "&quot;", smarty_function_ticket([], $smarty->getEmptyInternalTemplate()));
+            $content .= str_replace('"', "&quot;", \SmartyTiki\FunctionHandler\Ticket::render([], $smarty->getEmptyInternalTemplate()));
             $content .= "<input type='submit' class='btn btn-primary btn-sm' value='";
             $content .= \SmartyTiki\Modifier\Escape::apply(tra('Apply')) . "'>";
             $content .= '</form>';

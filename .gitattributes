@@ -5489,7 +5489,6 @@ lib/smarty_tiki/block.permission.php -text
 lib/smarty_tiki/block.popup_link.php -text
 lib/smarty_tiki/block.remarksbox.php -text
 lib/smarty_tiki/block.repeat.php -text
-lib/smarty_tiki/block.self_link.php -text
 lib/smarty_tiki/block.sortlinks.php -text
 lib/smarty_tiki/block.tab.php -text
 lib/smarty_tiki/block.tabset.php -text
@@ -5534,7 +5533,6 @@ lib/smarty_tiki/function.gallery.php -text
 lib/smarty_tiki/function.help.php -text
 lib/smarty_tiki/function.html_body_attributes.php -text
 lib/smarty_tiki/function.html_select_date.php -text
-lib/smarty_tiki/function.html_select_duration.php -text
 lib/smarty_tiki/function.html_select_time.php -text
 lib/smarty_tiki/function.initials_filter_links.php -text
 lib/smarty_tiki/function.interactivetranslation.php -text
@@ -5587,8 +5585,6 @@ lib/smarty_tiki/function.service_inline.php -text
 lib/smarty_tiki/function.set.php -text
 lib/smarty_tiki/function.show_sort.php -text
 lib/smarty_tiki/function.thumb.php -text
-lib/smarty_tiki/function.ticket.php -text
-lib/smarty_tiki/function.toolbars.php -text
 lib/smarty_tiki/function.tracker_item_status_icon.php -text
 lib/smarty_tiki/function.trackerfields.php -text
 lib/smarty_tiki/function.trackerheader.php -text
@@ -5610,8 +5606,6 @@ lib/smarty_tiki/modifier.compactisodate.php -text
 lib/smarty_tiki/modifier.countryflag.php -text
 lib/smarty_tiki/modifier.dbg.php -text
 lib/smarty_tiki/modifier.div.php -text
-lib/smarty_tiki/modifier.duration.php -text
-lib/smarty_tiki/modifier.duration_short.php -text
 lib/smarty_tiki/modifier.forumname.php -text
 lib/smarty_tiki/modifier.forumtopiccount.php -text
 lib/smarty_tiki/modifier.groupmembercount.php -text
@@ -5650,7 +5644,6 @@ lib/smarty_tiki/modifier.tiki_long_datetime.php -text
 lib/smarty_tiki/modifier.tiki_long_time.php -text
 lib/smarty_tiki/modifier.tiki_remaining_days_from_now.php -text
 lib/smarty_tiki/modifier.tiki_short_date.php -text
-lib/smarty_tiki/modifier.tiki_short_datetime.php -text
 lib/smarty_tiki/modifier.tiki_short_time.php -text
 lib/smarty_tiki/modifier.times.php -text
 lib/smarty_tiki/modifier.tr_if.php -text

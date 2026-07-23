@@ -1929,7 +1929,7 @@ function wikiplugin_tracker($data, $params)
             $back .= '<form class="' . $formClasses . '" name="editItemForm' . $iTRACKER . '" id="editItemForm' . $iTRACKER . '" enctype="multipart/form-data" method="post"' . (! is_null($target) ? ' target="' . $target . '"' : '') . ' action="' . $_SERVER['REQUEST_URI'] . '" ' . $ajax_datas . '><input type="hidden" name="trackit" value="' . $trackerId . '" />';
             $back .= '<input type="hidden" name="refresh" value="1" />';
         }
-        $back .= smarty_function_ticket([], $smarty->getEmptyInternalTemplate());
+        $back .= \SmartyTiki\FunctionHandler\Ticket::render([], $smarty->getEmptyInternalTemplate());
         $back .= '<input type="hidden" name="iTRACKER" value="' . $iTRACKER . '" />';
         if (isset($_REQUEST['page'])) {
             $back .= '<input type="hidden" name="page" value="' . $_REQUEST["page"] . '" />';

@@ -493,7 +493,7 @@ foreach ($categories as $category) {
             . '&amp;removeCat='
             . $category['categId']
             . '" onclick="confirmPopup(\'' . tr('Delete category?') . '\', \''
-            . smarty_function_ticket(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '\')">'
+            . \SmartyTiki\FunctionHandler\Ticket::render(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '\')">'
             . \SmartyTiki\FunctionHandler\Icon::render(
                 [
                     'name' => 'remove',

@@ -428,7 +428,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
     defaultGalleryId:' . $defaultGalleryId . ',
     deepGallerySearch: ' . $deepGallerySearch . ',
     defaultVolumeId:' . $defaultVolumeId . ',
-    ticket: \'' . smarty_function_ticket(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '\',
+    ticket: \'' . \SmartyTiki\FunctionHandler\Ticket::render(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '\',
     getFileCallback: function(file,elfinder){ window.handleFinderFile(file,elfinder); },
     eventOrigin:this
 });';

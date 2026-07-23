@@ -334,7 +334,7 @@ function wikiplugin_include($dataIn, $params)
                 || (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
                 && (! defined('TIKI_PRINTING_PDF') || ! TIKI_PRINTING_PDF)
             ) {
-                $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-index="' . $includeId . '" data-page="' . htmlentities($returnto, ENT_COMPAT) . '" data-ticket="' . smarty_function_ticket(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '">' .
+                $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-index="' . $includeId . '" data-page="' . htmlentities($returnto, ENT_COMPAT) . '" data-ticket="' . \SmartyTiki\FunctionHandler\Ticket::render(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '">' .
                     \SmartyTiki\FunctionHandler\Icon::render(['name' => 'exchange', 'iclass' => 'tips', 'ititle' => $tip], $smarty->getEmptyInternalTemplate()) . '</a>';
             }
 

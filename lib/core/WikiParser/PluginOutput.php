@@ -83,7 +83,7 @@ class WikiParser_PluginOutput
             foreach ($preferences as $pref) {
                 $content .= smarty_function_preference(['name' => $pref, 'visible' => 'always'], $smarty->getEmptyInternalTemplate());
             }
-            $content .= smarty_function_ticket([], $smarty->getEmptyInternalTemplate());
+            $content .= \SmartyTiki\FunctionHandler\Ticket::render([], $smarty->getEmptyInternalTemplate());
             $content .= '<input type="submit" class="btn btn-primary btn-sm" value="'
                 . \SmartyTiki\Modifier\Escape::apply(tra('Set')) . '">';
             if (! empty($gobackto)) {

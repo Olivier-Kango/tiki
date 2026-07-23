@@ -163,7 +163,7 @@ function wikiplugin_sheet($data, $params)
                 $page = htmlentities($page, ENT_COMPAT);
                 $content = htmlentities($data, ENT_COMPAT);
                 $formId = "form$index";
-                $ticket = smarty_function_ticket([], $smarty->getEmptyInternalTemplate());
+                $ticket = \SmartyTiki\FunctionHandler\Ticket::render([], $smarty->getEmptyInternalTemplate());
                 return <<<EOF
                 ~np~
                 <form id="$formId" method="post" action="tiki-wikiplugin_edit.php">

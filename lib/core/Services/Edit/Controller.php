@@ -569,7 +569,7 @@ $(window).on("load", function(){
 
         $tikilib->set_preference($prefName . 'modified', 'y');
 
-        $newTools = smarty_function_toolbars([
+        $newTools = \SmartyTiki\FunctionHandler\Toolbars::render([
             '_wysiwyg' => 'y',
             '_is_html' => 'y',
             'section' => $section,

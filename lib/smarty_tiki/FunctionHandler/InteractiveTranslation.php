@@ -35,7 +35,7 @@ class InteractiveTranslation extends Base implements TikiSmartyExtensionInterfac
         $strings = json_encode($strings);
 
         // add wrench icon link
-        $help .= smarty_block_self_link(
+        $help .= \SmartyTiki\BlockHandler\SelfLink::render(
             [
                 '_icon' => 'wrench',
                 '_script' => 'tiki-edit_languages.php',

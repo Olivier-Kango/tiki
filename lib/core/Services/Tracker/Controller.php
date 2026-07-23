@@ -2741,14 +2741,14 @@ class Services_Tracker_Controller
                         if ($dateFormatUnixTimestamp) {
                             $toDisplay[] = $row['created'];
                         } else {
-                            $toDisplay[] = smarty_modifier_tiki_short_datetime($row['created'], '', 'n');
+                            $toDisplay[] = \SmartyTiki\Modifier\TikiShortDateTime::apply($row['created'], '', 'n');
                         }
                     }
                     if ($showLastModif) {
                         if ($dateFormatUnixTimestamp) {
                             $toDisplay[] = $row['lastModif'];
                         } else {
-                            $toDisplay[] = smarty_modifier_tiki_short_datetime($row['lastModif'], '', 'n');
+                            $toDisplay[] = \SmartyTiki\Modifier\TikiShortDateTime::apply($row['lastModif'], '', 'n');
                         }
                     }
                     foreach ($row['field_values'] as $val) {
