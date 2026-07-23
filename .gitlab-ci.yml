@@ -239,6 +239,15 @@ smarty-syntax-check:
   script:
     - php doc/devtools/check_smarty_syntax.php
 
+smarty-mapping-check:
+  stage: code-quality
+  needs:
+    - composer
+  image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
+  script:
+    - php console.php smarty:generate-mapping
+    - php console.php smarty:generate-mapping --check
+
 eslint:
   stage: code-quality
   needs:
