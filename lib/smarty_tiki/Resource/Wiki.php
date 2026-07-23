@@ -4,25 +4,27 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+
+namespace SmartyTiki\Resource;
+
 /**
  * \brief Smarty plugin to use wiki page as a template resource
  * -------------------------------------------------------------
- * File:     resource.wiki.php
  * Type:     resource
  * Name:     wiki
  * Purpose:  Fetches a template from a wiki page
  * -------------------------------------------------------------
  */
-class Smarty_Resource_Wiki extends \Smarty\Resource\CustomPlugin
+class Wiki extends \Smarty\Resource\CustomPlugin
 {
     protected function fetch($name, &$source, &$mtime): void
     {
         /** @var \Tiki\Smarty\SmartyTiki $smarty */
-        $smarty = TikiLib::lib('smarty');
+        $smarty = \TikiLib::lib('smarty');
         $info = $smarty->checkWikiPageTemplatePerms($name, $source);
 
         if ($info) {
-            $source = TikiLib::lib('parser')->parse_data(
+            $source = \TikiLib::lib('parser')->parse_data(
                 $info['data'],
                 [
                     'is_html'       => $info['is_html'],

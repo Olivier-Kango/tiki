@@ -16,9 +16,9 @@ use Smarty\Extension\CoreExtension;
 use Smarty\Extension\DefaultExtension;
 use Smarty\Smarty;
 use Smarty\Variable;
-use Smarty_Resource_Tplwiki;
-use Smarty_Resource_Wiki;
 use SmartyTiki\Extension\SmartyTikiExtension;
+use SmartyTiki\Resource\Tplwiki;
+use SmartyTiki\Resource\Wiki;
 use Tiki\Sections;
 use TikiLib;
 
@@ -101,9 +101,9 @@ class SmartyTiki extends Smarty
         $this->url_overriding_prefix_stack = [];
 
 
-        $this->registerResource('tplwiki', new Smarty_Resource_Tplwiki());
+        $this->registerResource('tplwiki', new Tplwiki());
 
-        $this->registerResource('wiki', new Smarty_Resource_Wiki());
+        $this->registerResource('wiki', new Wiki());
 
         global $prefs;
         // Assign the prefs array in smarty, by reference
