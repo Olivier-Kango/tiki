@@ -1661,7 +1661,7 @@ class ParserLib extends TikiDb_Bridge
                     $type = $file['filetype'];
 
                     if (str_starts_with($type, 'audio/')) {
-                        return smarty_function_inline_audio_player(['fileId' => $fileId, 'type' => $type], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                        return \SmartyTiki\FunctionHandler\InlineAudioPlayer::render(['fileId' => $fileId, 'type' => $type], TikiLib::lib('smarty')->getEmptyInternalTemplate());
                     }
 
                     $icon = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'paperclip'], TikiLib::lib('smarty')->getEmptyInternalTemplate());

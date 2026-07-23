@@ -600,7 +600,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                     if ($prefs['vimeo_upload'] == 'y' && $this->getOption('displayMode') == 'vimeo') {
                         $ret .= \SmartyTiki\FunctionHandler\Icon::render(['name' => 'vimeo'], $smarty->getEmptyInternalTemplate());
                     } elseif (str_starts_with($file['filetype'], 'audio/')) {
-                        $ret .= smarty_function_inline_audio_player(['fileId' => $fileId, 'type' => $file['filetype']], $smarty->getEmptyInternalTemplate());
+                        $ret .= \SmartyTiki\FunctionHandler\InlineAudioPlayer::render(['fileId' => $fileId, 'type' => $file['filetype']], $smarty->getEmptyInternalTemplate());
                         $skipName = true;
                     } else {
                         $ret .= smarty_modifier_iconify('tiki-download_file.php?fileId=' . $fileId, $file['filetype'], $fileId, 2);

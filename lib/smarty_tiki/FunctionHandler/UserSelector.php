@@ -195,7 +195,7 @@ class UserSelector extends Base implements TikiSmartyExtensionInterface
         asort($users, SORT_NATURAL | SORT_FLAG_CASE);
 
         if (! empty($params['inputtype']) && $params['inputtype'] === 't') {
-            return smarty_function_jstransfer_list([
+            return \SmartyTiki\FunctionHandler\JsTransferList::render([
                 'fieldName' => $params['name'],
                 'data' => $users,
                 'defaultSelected' => $params['select'],
