@@ -36,6 +36,6 @@ class ObjectTitle extends Base implements TikiSmartyExtensionInterface
             list($type, $object) = explode(':', $params['identifier'], 2);
         }
 
-        return smarty_modifier_escape(\TikiLib::lib('object')->get_title($type, $object));
+        return \SmartyTiki\Modifier\Escape::apply(\TikiLib::lib('object')->get_title($type, $object));
     }
 }

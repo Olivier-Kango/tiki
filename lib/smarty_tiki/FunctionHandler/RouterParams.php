@@ -44,7 +44,7 @@ class RouterParams extends Base implements TikiSmartyExtensionInterface
         $html = '';
 
         foreach ($inputParams as $key => $param) {
-            $escapedParam = smarty_modifier_escape($routerParams[$key]);
+            $escapedParam = \SmartyTiki\Modifier\Escape::apply($routerParams[$key]);
             $inputKey = $routerName . '_' . $key;
 
             switch ($param['type']) {
@@ -58,7 +58,7 @@ class RouterParams extends Base implements TikiSmartyExtensionInterface
                         $args = [];
                         if ($param['args']) {
                             foreach ($param['args'] as $value) {
-                                $args[] = smarty_modifier_escape($routerParams[$value]);
+                                $args[] = \SmartyTiki\Modifier\Escape::apply($routerParams[$value]);
                             }
                         }
 
@@ -81,7 +81,7 @@ class RouterParams extends Base implements TikiSmartyExtensionInterface
 
             $infoHtml = '';
             if (! empty($param['description'])) {
-                $description = smarty_modifier_escape($param['description']);
+                $description = \SmartyTiki\Modifier\Escape::apply($param['description']);
                 $icon = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'information'], $template);
 
                 $infoHtml = <<<HTML

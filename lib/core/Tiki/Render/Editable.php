@@ -64,13 +64,13 @@ class Tiki_Render_Editable
         $tag = ($this->layout == 'block') ? 'div' : 'span';
         $fieldId = $this->field['id'];
         $fieldType = $this->field['type'];
-        $fieldFetch = smarty_modifier_escape(json_encode($this->fieldFetchUrl));
-        $label = smarty_modifier_escape($this->label);
+        $fieldFetch = \SmartyTiki\Modifier\Escape::apply(json_encode($this->fieldFetchUrl));
+        $label = \SmartyTiki\Modifier\Escape::apply($this->label);
         if ($objectStore = $this->objectStoreUrl) {
             $objectStore['edit'] = 'inline';
         }
-        $objectStore = smarty_modifier_escape(json_encode($objectStore));
-        $group = smarty_modifier_escape($this->group);
+        $objectStore = \SmartyTiki\Modifier\Escape::apply(json_encode($objectStore));
+        $group = \SmartyTiki\Modifier\Escape::apply($this->group);
 
         $value = $this->inner;
         if (is_null($value)) {

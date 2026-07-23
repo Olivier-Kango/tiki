@@ -63,7 +63,7 @@ class SelectAll extends Base implements TikiSmartyExtensionInterface
             $onclick = '';
         } else {
             foreach ($checkbox_names as $cn) {
-                $onclick .= "switchCheckboxes(this.form,'" . htmlspecialchars(smarty_modifier_escape($cn, 'javascript')) . "',this.checked$hidden_too);";
+                $onclick .= "switchCheckboxes(this.form,'" . htmlspecialchars(\SmartyTiki\Modifier\Escape::apply($cn, 'javascript')) . "',this.checked$hidden_too);";
             }
             $onclick = ' onclick="' . $onclick . '"';
         }

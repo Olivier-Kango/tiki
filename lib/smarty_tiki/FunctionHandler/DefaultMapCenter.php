@@ -24,6 +24,6 @@ class DefaultMapCenter extends Base implements TikiSmartyExtensionInterface
         $geolib = \TikiLib::lib('geo');
         $coords = $geolib->parse_coordinates($prefs['gmap_defaultx'] . ',' . $prefs['gmap_defaulty'] . ',' . $prefs['gmap_defaultz']);
         $center = $geolib->build_location_string($coords);
-        return smarty_modifier_escape($center);
+        return \SmartyTiki\Modifier\Escape::apply($center);
     }
 }

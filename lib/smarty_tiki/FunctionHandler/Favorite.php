@@ -36,8 +36,8 @@ class Favorite extends Base implements TikiSmartyExtensionInterface
             'object' => $params['object'],
         ]);
 
-        $url = smarty_modifier_escape($url);
-        $e_user = smarty_modifier_escape($user);
+        $url = \SmartyTiki\Modifier\Escape::apply($url);
+        $e_user = \SmartyTiki\Modifier\Escape::apply($user);
 
         if (isset($params['label'])) {
             $label = $params['label'];

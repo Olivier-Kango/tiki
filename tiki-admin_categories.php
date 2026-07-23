@@ -535,7 +535,7 @@ foreach ($categories as $category) {
 
 
         $catlink = '<a class="catname" href="tiki-admin_categories.php?parentId=' . $category["categId"] .
-            '&cookietab=3" style="margin-left:5px">' . smarty_modifier_escape($category['name']) . '</a> ';
+            '&cookietab=3" style="margin-left:5px">' . \SmartyTiki\Modifier\Escape::apply($category['name']) . '</a> ';
 
         if ($category['tplGroupContainerId'] > 0) {
             $catlink .= '

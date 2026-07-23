@@ -40,7 +40,7 @@ class SchedulerParams extends Base implements TikiSmartyExtensionInterface
 
         if (is_array($inputParams)) {
             foreach ($inputParams as $key => $param) {
-                $escapedParam = (isset($schedulerParams[$key])) ? smarty_modifier_escape($schedulerParams[$key]) : '';
+                $escapedParam = (isset($schedulerParams[$key])) ? \SmartyTiki\Modifier\Escape::apply($schedulerParams[$key]) : '';
                 $inputKey = $taskName . '_' . $key;
 
                 switch ($param['type']) {
@@ -62,7 +62,7 @@ class SchedulerParams extends Base implements TikiSmartyExtensionInterface
 
                 $infoHtml = '';
                 if (! empty($param['description'])) {
-                    $description = smarty_modifier_escape($param['description']);
+                    $description = \SmartyTiki\Modifier\Escape::apply($param['description']);
                     $icon = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'information'], $template);
 
                     $infoHtml = <<<HTML

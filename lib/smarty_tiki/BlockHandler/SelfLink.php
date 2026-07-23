@@ -232,7 +232,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
                 }
 
                 if (isset($params['_confirm'])) {
-                    $link .= ' data-confirm="' . smarty_modifier_escape($params['_confirm']) . '"';
+                    $link .= ' data-confirm="' . \SmartyTiki\Modifier\Escape::apply($params['_confirm']) . '"';
                 }
 
                 $ret = "<a $link>" . $content . '</a>';

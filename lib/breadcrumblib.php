@@ -323,7 +323,7 @@ function _breadcrumb_getTitle($crumbs, $loc)
         $metadata = '';
 
         if ($current = current_object()) {
-            $escapedHref = smarty_modifier_escape(\SmartyTiki\Modifier\Sefurl::apply($current['object'], $current['type']));
+            $escapedHref = \SmartyTiki\Modifier\Escape::apply(\SmartyTiki\Modifier\Sefurl::apply($current['object'], $current['type']));
 
             if ($coordinates = TikiLib::lib('geo')->get_coordinates($current['type'], $current['object'])) {
                 $class = ' geolocated primary';

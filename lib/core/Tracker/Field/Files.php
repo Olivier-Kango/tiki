@@ -934,7 +934,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
         foreach ($removedFileInfos as $file) {
             $url = \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'file');
             $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
-            $result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a><br>';
+            $result .= ' <a href="' . $url . '">' . \SmartyTiki\Modifier\Escape::apply($file['name']) . '</a><br>';
         }
 
         $result .= '</del></td><td class="diffadded diffprefix">+</td><td class="diffadded diffcontent"><ins class="diffchar inserted">';
@@ -942,8 +942,8 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
         foreach ($addedFileInfos as $file) {
             $url = \SmartyTiki\Modifier\Sefurl::apply($file['fileId'], 'file');
             $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
-            $result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a>';
-            $result .= ' <a href="' . $url . '&amp;display" target="_blank" class="tips cboxElement" title="Preview" data-bs-content="' . smarty_modifier_escape($file['name']) . '" data-box="box-3" data-bs-original-title="Preview">';
+            $result .= ' <a href="' . $url . '">' . \SmartyTiki\Modifier\Escape::apply($file['name']) . '</a>';
+            $result .= ' <a href="' . $url . '&amp;display" target="_blank" class="tips cboxElement" title="Preview" data-bs-content="' . \SmartyTiki\Modifier\Escape::apply($file['name']) . '" data-box="box-3" data-bs-original-title="Preview">';
             $result .= '<span class="icon icon-view fas fa-search-plus"></span></a><br/>';
         }
 

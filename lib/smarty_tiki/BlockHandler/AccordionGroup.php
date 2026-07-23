@@ -47,7 +47,7 @@ class AccordionGroup extends Base implements TikiSmartyExtensionInterface
             $accordion_position = 0;
         }
 
-        $title = smarty_modifier_escape($params['title']);
+        $title = \SmartyTiki\Modifier\Escape::apply($params['title']);
         $id = $accordion_current_group . '-' . ++$accordion_position;
 
         if (! empty($params['accordion_pos'])) {

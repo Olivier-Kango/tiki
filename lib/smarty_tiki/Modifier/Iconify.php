@@ -48,7 +48,7 @@ class Iconify implements TikiSmartyExtensionInterface
             // Special handling for file gallery images,
             // display thumbnail
             $icon = \SmartyTiki\Modifier\Sefurl::apply($fileId, 'thumbnail');
-            $icon = smarty_modifier_escape($icon);
+            $icon = \SmartyTiki\Modifier\Escape::apply($icon);
             $width = 16 * $size;
 
             return "<img src=\"$icon\" width=\"$width\"/>";

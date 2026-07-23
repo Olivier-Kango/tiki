@@ -1806,7 +1806,7 @@ if ($need_lang) {
             $content .= str_replace('"', "&quot;", smarty_function_preference(['name' => 'ajax_autosave'], $smarty->getEmptyInternalTemplate()));
             $content .= str_replace('"', "&quot;", smarty_function_ticket([], $smarty->getEmptyInternalTemplate()));
             $content .= "<input type='submit' class='btn btn-primary btn-sm' value='";
-            $content .= smarty_modifier_escape(tra('Apply')) . "'>";
+            $content .= \SmartyTiki\Modifier\Escape::apply(tra('Apply')) . "'>";
             $content .= '</form>';
         }
         $remrepeat = false;

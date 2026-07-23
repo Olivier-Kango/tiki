@@ -39,6 +39,6 @@ class Service extends Base implements TikiSmartyExtensionInterface
         }
 
         $url = $servicelib->getUrl($params);
-        return smarty_modifier_escape($url);
+        return \SmartyTiki\Modifier\Escape::apply($url);
     }
 }
