@@ -240,7 +240,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
 
                 if (! empty($params['_sort_field'])) {
                     $ret = "<a $link style='text-decoration:none;'>" . $content .
-                    \SmartyTiki\FunctionHandler\ShowShort::render(
+                    \SmartyTiki\FunctionHandler\ShowSort::render(
                         ['sort' => $params['_sort_arg'], 'var' => $params['_sort_field']],
                         $template
                     ) . '</a>';

@@ -694,7 +694,7 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\Set();
                 break;
             case 'show_sort':
-                $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\ShowShort();
+                $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\ShowSort();
                 break;
             case 'syntax':
                 $this->functionHandlers[$functionName] = new \SmartyTiki\FunctionHandler\Syntax();
