@@ -105,7 +105,7 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
             return '~np~' . smarty_modifier_number_format($amount, 2, '.', '') . '~/np~';
             ;
         } else {
-            return smarty_function_currency(
+            return \SmartyTiki\FunctionHandler\Currency::render(
                 [
                 'amount' => $amount,
                 'sourceCurrency' => $currency,

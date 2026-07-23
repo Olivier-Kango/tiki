@@ -650,7 +650,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                         $perms = Perms::get('file', $fileId);
                         $smarty->assign('canAssignPerms', $perms->assign_perm_file_gallery);
                         $text = $smarty->fetch('tracker/fileTrackerContextMenu.tpl');
-                        $popup = smarty_function_popup([
+                        $popup = \SmartyTiki\FunctionHandler\Popup::render([
                             'fullhtml' => '1',
                             'text' => $text,
                             'trigger' => 'click'

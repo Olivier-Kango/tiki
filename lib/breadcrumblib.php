@@ -221,7 +221,7 @@ function breadcrumb_buildStructureTrail($structure_path, $cnt, $loclass, $showLi
         if ($len != $cnt) {
             $ret = '';
             if ($showLinks && ($crumb['pageName'] != $page || $crumb['page_alias'] != $page)) {
-                $url = smarty_function_sefurl(['page' => $crumb['pageName'], 'structure' => $structure_path[0]['pageName']], TikiLib::lib('smarty')->getEmptyInternalTemplate());
+                $url = \SmartyTiki\FunctionHandler\Sefurl::render(['page' => $crumb['pageName'], 'structure' => $structure_path[0]['pageName']], TikiLib::lib('smarty')->getEmptyInternalTemplate());
                 $ret .= '<a class="' . $loclass . '" accesskey="' . ($cnt) . '" href="' . $url . '">';
             }
             if ($crumb['page_alias']) {

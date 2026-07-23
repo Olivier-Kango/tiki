@@ -162,7 +162,7 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
             if (isset($params['_keepall'])) {
                 $query_params['_keepall'] = $params['_keepall'];
             }
-            $url = smarty_function_query($query_params, $template);
+            $url = \SmartyTiki\FunctionHandler\Query::render($query_params, $template);
         }
 
         // remove empty url arguments (done by default)

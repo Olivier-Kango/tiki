@@ -512,7 +512,7 @@ foreach ($categories as $category) {
             } else {
                 $title = tra('Assign permissions');
             }
-            $data .= smarty_function_permission_link(
+            $data .= \SmartyTiki\FunctionHandler\PermissionLink::render(
                 [
                     'id' => $category['categId'],
                     'type' => 'category',
@@ -525,7 +525,7 @@ foreach ($categories as $category) {
         $newdata = '<a class="tips" title="'
             . tra('Actions')
             . '" href="#" '
-            . smarty_function_popup(
+            . \SmartyTiki\FunctionHandler\Popup::render(
                 $popupparams,
                 $smarty->getEmptyInternalTemplate()
             )

@@ -10,9 +10,10 @@ namespace SmartyTiki\FunctionHandler;
 use Smarty\FunctionHandler\Base;
 use Smarty\Template;
 use SmartyTiki\TikiSmartyExtensionInterface;
+use SmartyTiki\Traits\FunctionHandlerStaticFacadeTrait;
 
 /**
- * Tree Table Smarty func - smarty_function_treetable()
+ * Tree Table Smarty func - see \SmartyTiki\FunctionHandler\TreeTable
  * Renders a tree table (for use with https://github.com/ludo/jquery-treetable)
  *
  * Params
@@ -78,6 +79,8 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class TreeTable extends Base implements TikiSmartyExtensionInterface
 {
+    use FunctionHandlerStaticFacadeTrait;
+
     public static function getSmartyName(): string
     {
         return 'treetable';
@@ -192,7 +195,7 @@ class TreeTable extends Base implements TikiSmartyExtensionInterface
         $class = empty($class) ? 'table table-striped' : $class;    // treetable
 
         if ($_listFilter == 'y' && count($_data) > $_filterMinRows) {
-            $html .= smarty_function_listfilter(
+            $html .= \SmartyTiki\FunctionHandler\ListFilter::render(
                 [
                     'id' => $id . '_filter',
                     'selectors' => "#$id tbody tr",
@@ -283,7 +286,7 @@ $("#' . $id . '_showSelected").on("click", function () {
         if (! empty($_checkbox)) {
             for ($i = 0, $icount_checkbox = count($_checkbox); $i < $icount_checkbox; $i++) {
                 $html .= '<th class="checkBoxHeader">';
-                $html .= smarty_function_select_all(
+                $html .= \SmartyTiki\FunctionHandler\SelectAll::render(
                     [
                         'checkbox_names' => [$_checkbox[$i] . '[]'],
                         'label' => empty($_checkboxTitles) ? '' : htmlspecialchars(tra($_checkboxTitles[$i])),

@@ -170,7 +170,7 @@ class Tracker_Field_Currency extends \Tracker\Field\AbstractItemField implements
 
         $data = $this->getFieldData();
 
-        return smarty_function_currency(
+        return \SmartyTiki\FunctionHandler\Currency::render(
             [
                 'amount' => $data['amount'],
                 'sourceCurrency' => $data['currency'],

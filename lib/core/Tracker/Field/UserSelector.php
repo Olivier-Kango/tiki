@@ -409,7 +409,7 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implem
                 ]);
                 return $this->renderTemplate('trackerinput/userselector_grouped.tpl', $context, $templateData);
             } else {
-                return smarty_function_user_selector(
+                return \SmartyTiki\FunctionHandler\UserSelector::render(
                     [
                         'user' => $name,
                         'id'  => (! empty($context['id']) ? $context['id'] : 'user_selector_' . $this->getConfiguration('fieldId')),

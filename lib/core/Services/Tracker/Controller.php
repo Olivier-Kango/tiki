@@ -1311,7 +1311,7 @@ class Services_Tracker_Controller
             } catch (Services_Exception_EditConflict $e) {
                 if ($input->modal->int() && $access->is_xml_http_request()) {
                     $smarty = TikiLib::lib('smarty');
-                    $href = smarty_function_service([
+                    $href = \SmartyTiki\FunctionHandler\Service::render([
                         'controller' => 'tracker',
                         'action' => 'update_item',
                         'trackerId' => $trackerId,
@@ -2481,7 +2481,7 @@ class Services_Tracker_Controller
                         $emptyTemplate = TikiLib::lib('smarty')->getEmptyInternalTemplate();
                         if (empty($diff_style)) {
                             $field_value['value'] = $hist['value'];
-                            $hist['rendered_value'] = smarty_function_trackeroutput([
+                            $hist['rendered_value'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
                                 'field' => $field_value,
                                 'list_mode' => 'csv',
                                 'history' => 'y',
@@ -2489,7 +2489,7 @@ class Services_Tracker_Controller
                                 'process' => 'y',
                             ], $emptyTemplate);
                             $field_value['value'] = $hist['new'];
-                            $hist['rendered_new'] = smarty_function_trackeroutput([
+                            $hist['rendered_new'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
                                 'field' => $field_value,
                                 'list_mode' => 'csv',
                                 'history' => 'y',
@@ -2501,7 +2501,7 @@ class Services_Tracker_Controller
                                 $hist['value'] = $hist['rendered_value'];
                                 $hist['new'] = $hist['rendered_new'];
                                 $field_value['value'] = $hist['value'];
-                                $hist['rendered_value'] = smarty_function_trackeroutput([
+                                $hist['rendered_value'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
                                     'field' => $field_value,
                                     'list_mode' => 'y',
                                     'history' => 'y',
@@ -2509,7 +2509,7 @@ class Services_Tracker_Controller
                                     'process' => 'y',
                                 ], $emptyTemplate);
                                 $field_value['value'] = $hist['new'];
-                                $hist['rendered_new'] = smarty_function_trackeroutput([
+                                $hist['rendered_new'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
                                     'field' => $field_value,
                                     'list_mode' => 'y',
                                     'history' => 'y',
@@ -2519,7 +2519,7 @@ class Services_Tracker_Controller
                             }
                         } else {
                             $field_value['value'] = $hist['new'];
-                            $hist['rendered_diff'] = smarty_function_trackeroutput([
+                            $hist['rendered_diff'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
                                 'field' => $field_value,
                                 'list_mode' => 'y',
                                 'history' => 'y',

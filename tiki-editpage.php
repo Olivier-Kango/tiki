@@ -1492,7 +1492,7 @@ if (
                 $structure_info = $structlib->s_get_page_info($structure_info['parent_id']);
             }
             if ($structure_info) {
-                $url = smarty_function_sefurl([
+                $url = \SmartyTiki\FunctionHandler\Sefurl::render([
                     'page' => $page,
                     'structure' => $structure_info['pageName'],
                     'page_ref_id' => $page_ref_id,
@@ -1802,7 +1802,7 @@ if ($need_lang) {
             $smarty = TikiLib::lib('smarty');
 
             $content .= "<form method='post' action='tiki-admin.php'>";
-            $content .= str_replace('"', "&quot;", smarty_function_preference(['name' => 'ajax_autosave'], $smarty->getEmptyInternalTemplate()));
+            $content .= str_replace('"', "&quot;", \SmartyTiki\FunctionHandler\Preference::render(['name' => 'ajax_autosave'], $smarty->getEmptyInternalTemplate()));
             $content .= str_replace('"', "&quot;", \SmartyTiki\FunctionHandler\Ticket::render([], $smarty->getEmptyInternalTemplate()));
             $content .= "<input type='submit' class='btn btn-primary btn-sm' value='";
             $content .= \SmartyTiki\Modifier\Escape::apply(tra('Apply')) . "'>";

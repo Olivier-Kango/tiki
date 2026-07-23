@@ -101,7 +101,7 @@ class TrackerFields extends Base implements TikiSmartyExtensionInterface
             $smarty->assign('item', $item);
 
             $auto['input'][$permName] = new Tiki_Render_Lazy(function () use ($field, $smarty, $item) {
-                return smarty_function_trackerinput([
+                return \SmartyTiki\FunctionHandler\TrackerInput::render([
                     'field' => $field,
                     'showlinks' => 'n',
                     'list_mode' => 'n',
@@ -112,7 +112,7 @@ class TrackerFields extends Base implements TikiSmartyExtensionInterface
 
             // the item-list field needs the itemId here - passed via the template - otherwise it does not show a value in the template
             $auto['output'][$permName] = new Tiki_Render_Lazy(function () use ($field, $smarty, $itemId, $preview) {
-                return smarty_function_trackeroutput([
+                return \SmartyTiki\FunctionHandler\TrackerOutput::render([
                     'field' => $field,
                     'showlinks' => 'n',
                     'list_mode' => 'n',
@@ -125,7 +125,7 @@ class TrackerFields extends Base implements TikiSmartyExtensionInterface
             // not sure wether we can always pass itemId bc i do not know wether the key or the value is checked
             if ($itemId) {
                 $auto['inline'][$permName] = new Tiki_Render_Lazy(function () use ($field, $smarty, $itemId) {
-                    return smarty_function_trackeroutput([
+                    return \SmartyTiki\FunctionHandler\TrackerOutput::render([
                         'field' => $field,
                         'showlinks' => 'n',
                         'list_mode' => 'n',
@@ -202,7 +202,7 @@ class TrackerFields extends Base implements TikiSmartyExtensionInterface
         }
 
         if ($datepicker) {
-            $result .= smarty_function_js_insert_icon(['type' => "jscalendar"], $smarty->getEmptyInternalTemplate());
+            $result .= \SmartyTiki\FunctionHandler\JsInsertIcon::render(['type' => "jscalendar"], $smarty->getEmptyInternalTemplate());
         }
 
         return $result;

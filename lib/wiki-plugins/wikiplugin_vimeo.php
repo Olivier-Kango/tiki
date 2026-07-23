@@ -257,11 +257,11 @@ function wikiplugin_vimeo($data, $params)
         }
 
         // set up for an upload
-        $html = smarty_function_button(
+        $html = \SmartyTiki\FunctionHandler\Button::render(
             [
                 '_keepall' => 'y',
                 '_class' => 'vimeo dialog',
-                'href' => smarty_function_service(
+                'href' => \SmartyTiki\FunctionHandler\Service::render(
                     [
                         'controller' => 'vimeo',
                         'action' => 'upload',

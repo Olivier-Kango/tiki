@@ -2222,7 +2222,7 @@ function wikiplugin_tracker($data, $params)
         }
 
         if ($datepicker) {
-            $back .= smarty_function_js_insert_icon(['type' => "jscalendar"], $smarty->getEmptyInternalTemplate());
+            $back .= \SmartyTiki\FunctionHandler\JsInsertIcon::render(['type' => "jscalendar"], $smarty->getEmptyInternalTemplate());
         }
 
         if (! empty($tpl)) {

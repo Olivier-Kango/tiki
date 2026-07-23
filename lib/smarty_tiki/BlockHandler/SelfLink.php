@@ -115,7 +115,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
                 if (! empty($params['_tag']) && $params['_tag'] === 'y') {
                     $params['_urlencode'] = 'n';
                 }
-                $ret = smarty_function_query($params, $template);
+                $ret = \SmartyTiki\FunctionHandler\Query::render($params, $template);
             }
 
             if ($params['_tag'] == 'y') {
@@ -247,7 +247,7 @@ class SelfLink extends Base implements TikiSmartyExtensionInterface
             }
         } else {
             $params = ['_type' => $default_type];
-            $ret = smarty_function_query($params, $template);
+            $ret = \SmartyTiki\FunctionHandler\Query::render($params, $template);
         }
 
         return $ret;

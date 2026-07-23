@@ -75,7 +75,7 @@ class Actions extends Base implements TikiSmartyExtensionInterface
             href="#"';
 
         if ($js) {
-            $return .= ' ' . smarty_function_popup(['fullhtml' => '1', 'center' => 'true', 'text' => $content, 'trigger' => 'click'], $template);
+            $return .= ' ' . \SmartyTiki\FunctionHandler\Popup::render(['fullhtml' => '1', 'center' => 'true', 'text' => $content, 'trigger' => 'click'], $template);
         }
 
         $return .= '>';

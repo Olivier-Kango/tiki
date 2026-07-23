@@ -42,7 +42,7 @@ class InitialsFilterLinks extends Base implements TikiSmartyExtensionInterface
 
         $tag_start = "\n" . '<a class="' . $params['_class'] . '" ' . \SmartyTiki\BlockHandler\AjaxHref::render(
             ['template' => $params['_template'], 'htmlelement' => $params['_htmlelement']],
-            smarty_function_query(
+            \SmartyTiki\FunctionHandler\Query::render(
                 [
                     '_type' => $default_type,
                     $params['_initial'] => 'X',

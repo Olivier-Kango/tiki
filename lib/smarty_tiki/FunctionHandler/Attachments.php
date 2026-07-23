@@ -210,7 +210,7 @@ function s_f_attachments_actionshandler($params)
                             [
                                 'galleryId' => [$galleryId],
                                 'comment' => [$params['comment']],
-                                'returnUrl' => smarty_function_query(
+                                'returnUrl' => \SmartyTiki\FunctionHandler\Query::render(
                                     [
                                         '_type' => 'absolute_path',
                                         's_f_attachments-upload' => 'NULL',

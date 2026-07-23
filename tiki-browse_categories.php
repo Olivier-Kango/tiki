@@ -450,7 +450,7 @@ function add_watch_icons($descendants, $usercatwatches, $requestid, $categid, $d
     }
     $alleyes = $eyes . $eyesgroup;
     $popupparams = ['trigger' => 'click', 'fullhtml' => true, 'center' => true, 'text' => $alleyes];
-    return '<a class="tips" title="' . tra('Monitoring') . '" href="#" ' . smarty_function_popup($popupparams, $smarty->getEmptyInternalTemplate())
+    return '<a class="tips" title="' . tra('Monitoring') . '" href="#" ' . \SmartyTiki\FunctionHandler\Popup::render($popupparams, $smarty->getEmptyInternalTemplate())
         . 'style="padding:0; margin:0; border:0">' . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'wrench'], $smarty->getEmptyInternalTemplate()) . '</a>';
 
 

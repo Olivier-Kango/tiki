@@ -97,7 +97,7 @@ class Tabset extends Base implements TikiSmartyExtensionInterface
                     $button_params['_auto_args'] = '*';
                     $button_params['_onclick'] = "setCookie('$smarty_tabset_name','" . ($tabsetCookietab == 'n' ? 1 : 'n') . "', 'tabs', 'session', " . "window.tikiCookieConstants.BUILTIN_COOKIE_CATEGORY_FUNCTIONAL);";
                     $button_params['_class'] = 'btn-sm'; // btn-secondary removed because btn-primary is also being applied somehow.
-                    $notabs = smarty_function_button($button_params, $smarty->getEmptyInternalTemplate());
+                    $notabs = \SmartyTiki\FunctionHandler\Button::render($button_params, $smarty->getEmptyInternalTemplate());
                     $notabs = "<div class='float-end'>$notabs</div>";
                     $content_class = '';
                 } else {

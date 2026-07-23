@@ -192,7 +192,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
         global $prefs;
         if (isset($attributes['tiki.content.source']) && $prefs['fgal_source_show_refresh'] == 'y') {
             $html .= '<a class="file-refresh" href="' .
-            smarty_function_service(
+            \SmartyTiki\FunctionHandler\Service::render(
                 [
                     'controller' => 'file',
                     'action' => 'refresh',
@@ -243,7 +243,7 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
     {
         $item = \Tracker_Item::fromId($object);
 
-        $pre = smarty_function_tracker_item_status_icon(['item' => $item], $template);
+        $pre = \SmartyTiki\FunctionHandler\TrackerItemStatusIcon::render(['item' => $item], $template);
         if (! empty($pre)) {
             $pre .= " ";
         }

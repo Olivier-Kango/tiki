@@ -1399,7 +1399,7 @@ function wikiplugin_img($data, $params)
             }
 
             // Let tiki_popover() and $.tikiPopoverWhereToPlace() handle placement and initialization
-            $mouseover = ' ' . smarty_function_popup($popup_params, $smarty->getEmptyInternalTemplate());
+            $mouseover = ' ' . \SmartyTiki\FunctionHandler\Popup::render($popup_params, $smarty->getEmptyInternalTemplate());
         } else {
             if (! empty($imgdata['fileId']) && $imgdata['thumb'] != 'download' && empty($urldisp)) {
                 $link = $browse_full_image . '&display';

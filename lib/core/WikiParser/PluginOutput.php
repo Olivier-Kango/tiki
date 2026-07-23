@@ -81,7 +81,7 @@ class WikiParser_PluginOutput
             $smarty = TikiLib::lib('smarty');
             $content .= '<form method="post" action="tiki-admin.php">';
             foreach ($preferences as $pref) {
-                $content .= smarty_function_preference(['name' => $pref, 'visible' => 'always'], $smarty->getEmptyInternalTemplate());
+                $content .= \SmartyTiki\FunctionHandler\Preference::render(['name' => $pref, 'visible' => 'always'], $smarty->getEmptyInternalTemplate());
             }
             $content .= \SmartyTiki\FunctionHandler\Ticket::render([], $smarty->getEmptyInternalTemplate());
             $content .= '<input type="submit" class="btn btn-primary btn-sm" value="'
