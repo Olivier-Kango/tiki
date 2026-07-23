@@ -155,14 +155,14 @@ class UserSelector extends Base implements TikiSmartyExtensionInterface
             }
             $usrs = array_unique($usrs);
             foreach ($usrs as $usr) {
-                $users["$usr"] = $params['realnames'] === 'y' ? smarty_modifier_username($usr) : $usr;
+                $users["$usr"] = $params['realnames'] === 'y' ? \SmartyTiki\Modifier\Username::apply($usr) : $usr;
             }
         }
 
         if ($params['group'] == 'all' && empty($params['groupIds'])) {
             $usrs = $tikilib->list_users(0, -1, 'login_asc');
             foreach ($usrs['data'] as $usr) {
-                $users["{$usr['login']}"] = $params['realnames'] === 'y' ? smarty_modifier_username($usr['login']) : $usr['login'];
+                $users["{$usr['login']}"] = $params['realnames'] === 'y' ? \SmartyTiki\Modifier\Username::apply($usr['login']) : $usr['login'];
             }
         }
 

@@ -803,7 +803,7 @@ if ($itemObject->canModify() && $prefs['tracker_legacy_insert'] == 'y' && $prefs
         ]
     );
     if ($otherUser && $otherUser !== $user) {
-        $msg = tr("This tracker item is being edited by user %0. Please check with the user before editing, otherwise conflicts will occur and data might be lost.", smarty_modifier_username($otherUser));
+        $msg = tr("This tracker item is being edited by user %0. Please check with the user before editing, otherwise conflicts will occur and data might be lost.", \SmartyTiki\Modifier\Username::apply($otherUser));
         $msg .= '<br /><br /><a href="' . filter_out_sefurl('tiki-view_tracker_item.php?itemId=' . $itemId . '&conflictoverride=y') . '">' . tra('Override lock and carry on with edit') . '</a>';
         $smarty->assign('msg', $msg);
         $smarty->assign('errortitle', tra('Item is currently being edited'));

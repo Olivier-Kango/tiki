@@ -5658,7 +5658,6 @@ lib/smarty_tiki/modifier.tr_if.php -text
 lib/smarty_tiki/modifier.truex.php -text
 lib/smarty_tiki/modifier.truncate.php -text
 lib/smarty_tiki/modifier.userlink.php -text
-lib/smarty_tiki/modifier.username.php -text
 lib/smarty_tiki/modifier.utf8unicode.php -text
 lib/smarty_tiki/modifier.virtual_path.php -text
 lib/smarty_tiki/modifier.yesno.php -text

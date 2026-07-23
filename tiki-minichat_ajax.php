@@ -9,7 +9,6 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 require_once('tiki-setup.php');
-require_once('lib/smarty_tiki/modifier.username.php');
 require_once('lib/smarty_tiki/modifier.userlink.php');
 $access->check_feature('feature_minichat');
 $access->check_permission('tiki_p_chat');
@@ -100,7 +99,7 @@ foreach ($chans as $chan) {
                     break;
             }
         } else {
-                $tikilib->query("INSERT INTO tiki_minichat (nick,user,ts,channel,msg) VALUES (?,?,?,?,?)", [smarty_modifier_username($user), $user, $tikilib->now, $channel, $msg]);
+                $tikilib->query("INSERT INTO tiki_minichat (nick,user,ts,channel,msg) VALUES (?,?,?,?,?)", [\SmartyTiki\Modifier\Username::apply($user), $user, $tikilib->now, $channel, $msg]);
                 $lastid = 0;
         }
             $lasttimeout = $timeout_min;
