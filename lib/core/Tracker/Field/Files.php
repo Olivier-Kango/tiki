@@ -607,7 +607,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                     }
 
                     if (! $skipName) {
-                        $ret .= smarty_function_object_link(['type' => 'file', 'id' => $fileId, 'title' => $file['name'], 'class' => 'label'], $smarty->getEmptyInternalTemplate());
+                        $ret .= \SmartyTiki\FunctionHandler\ObjectLink::render(['type' => 'file', 'id' => $fileId, 'title' => $file['name'], 'class' => 'label'], $smarty->getEmptyInternalTemplate());
                     }
 
                     $globalperms = Perms::get([ 'type' => 'file gallery', 'object' => $galleryId ]);
@@ -1014,7 +1014,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                                 'File #%0 missing (was attached to trackerfield "%1" on item %2)',
                                 $id,
                                 $this->getConfiguration('permName'),
-                                smarty_function_object_link(
+                                \SmartyTiki\FunctionHandler\ObjectLink::render(
                                     [
                                         'id'   => $itemId,
                                         'type' => 'trackeritem',

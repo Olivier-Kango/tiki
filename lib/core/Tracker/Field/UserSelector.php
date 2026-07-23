@@ -716,7 +716,7 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implem
                 if ($value) {
                     $value = TikiLib::lib('trk')->parse_user_field($value);
                     foreach ($value as &$v) {
-                        $v = smarty_function_object_link([
+                        $v = \SmartyTiki\FunctionHandler\ObjectLink::render([
                             'type' => 'trackeritem',
                             'id' => $extra['itemId'],
                             'title' => $v,
@@ -737,7 +737,7 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implem
                 if ($value) {
                     $value = TikiLib::lib('trk')->parse_user_field($value);
                     foreach ($value as &$v) {
-                        $v = smarty_function_object_link([
+                        $v = \SmartyTiki\FunctionHandler\ObjectLink::render([
                             'type' => 'trackeritem',
                             'id' => $extra['itemId'],
                             'title' => \SmartyTiki\Modifier\Username::apply($v, true, false, false),

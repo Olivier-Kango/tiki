@@ -490,7 +490,7 @@ class Services_Category_Controller
             'extra' => ['object_action' => $action],
             'objects' => array_map(
                 fn ($obj) => strtoupper($obj['type'] . ': ')
-                . smarty_function_object_link(
+                . \SmartyTiki\FunctionHandler\ObjectLink::render(
                     $obj,
                     TikiLib::lib('smarty')->getEmptyInternalTemplate()
                 ),

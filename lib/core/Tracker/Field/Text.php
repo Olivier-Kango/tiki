@@ -452,7 +452,7 @@ class Tracker_Field_Text extends \Tracker\Field\AbstractItemField implements \Tr
                 }
 
                 if ($value) {
-                    return smarty_function_object_link([
+                    return \SmartyTiki\FunctionHandler\ObjectLink::render([
                         'type' => 'trackeritem',
                         'id' => $extra['itemId'],
                         'title' => $value,
