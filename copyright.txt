@@ -10,7 +10,7 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2026-07-22, the community has:
+As of 2026-07-26, the community has:
   * 455 members,
   * 455 of those people who made at least one code commit
 
@@ -107,8 +107,8 @@ Number of Commits: 41
 
 Name: Alfred Syatsukwa
 First Commit: 2024-01-15
-Last Commit: 2026-07-13
-Number of Commits: 65
+Last Commit: 2026-07-26
+Number of Commits: 67
 
 Name: Alvin Bauma
 First Commit: 2021-10-08
@@ -567,8 +567,8 @@ Number of Commits: 46
 
 Name: Domeshow Emmanuel
 First Commit: 2021-10-06
-Last Commit: 2026-07-15
-Number of Commits: 205
+Last Commit: 2026-07-22
+Number of Commits: 206
 
 Name: Don de Dieu Bolenge
 First Commit: 2024-08-01
@@ -777,8 +777,8 @@ Number of Commits: 40
 
 Name: Gary Cunningham-Lee
 First Commit: 2011-07-05
-Last Commit: 2026-07-14
-Number of Commits: 478
+Last Commit: 2026-07-25
+Number of Commits: 480
 
 Name: garygriffin
 First Commit: 2007-01-21
@@ -1017,8 +1017,8 @@ Number of Commits: 80
 
 Name: Jean-Marc Kadimba
 First Commit: 2023-02-16
-Last Commit: 2026-04-06
-Number of Commits: 232
+Last Commit: 2026-07-24
+Number of Commits: 233
 
 Name: Jean-Marc Libs
 First Commit: 2006-12-11
@@ -1352,8 +1352,8 @@ Number of Commits: 18
 
 Name: MAGENE Sem Joel
 First Commit: 2025-06-11
-Last Commit: 2026-07-18
-Number of Commits: 70
+Last Commit: 2026-07-23
+Number of Commits: 71
 
 Name: Mahi2
 First Commit: 2019-03-19
@@ -2167,8 +2167,8 @@ Number of Commits: 2
 
 Name: ushindi bienvenu
 First Commit: 2024-08-07
-Last Commit: 2026-07-22
-Number of Commits: 214
+Last Commit: 2026-07-26
+Number of Commits: 218
 
 Name: Ushindi Gedeon
 First Commit: 2024-03-12
@@ -2187,8 +2187,8 @@ Number of Commits: 32
 
 Name: Victor Emanouilov
 First Commit: 2016-08-02
-Last Commit: 2026-07-03
-Number of Commits: 2045
+Last Commit: 2026-07-24
+Number of Commits: 2047
 
 Name: Volker Wysk
 First Commit: 2021-08-29
