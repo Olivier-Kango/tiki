@@ -293,6 +293,8 @@ class Tracker_Field_UserSelector extends \Tracker\Field\AbstractItemField implem
             } else {
                 $out = $this->getValue();
             }
+        } else {
+            $out = $this->getValue();
         }
 
         return $out;
