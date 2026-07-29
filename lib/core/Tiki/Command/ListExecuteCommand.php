@@ -46,6 +46,20 @@ class ListExecuteCommand extends Command
                 InputOption::VALUE_OPTIONAL,
                 'Specify query string defining the request variables to be used on the wiki page. E.g. "days=30&alert=2"'
             )
+            ->addOption(
+                'objects',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Execute the action only on the given objects instead of all the ones listed. Format: object_type:object_id'
+                    . ' (you can use multiple times, once for each object). E.g. --objects="trackeritem:42" --objects="wiki page:HomePage"'
+            )
+            ->addOption(
+                'results-page',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Execute the action only on the given page of results, 1 being the first one, using the pagination size'
+                    . ' set on the target page. When omitted, the action is executed on every object listed.'
+            )
             ;
     }
 
@@ -56,17 +70,43 @@ class ListExecuteCommand extends Command
 
         $tikilib = TikiLib::lib('tiki');
         if (! $pageInfo = $tikilib->get_page_info($page)) {
-            $output->writeln("Page $page not found.");
+            $output->writeln(tr("Page %0 not found.", $page));
             return (int) false;
         }
+
+        $objects = $input->getOption('objects');
+        $invalidObjects = array_filter($objects, fn($identifier) => ! $this->isValidObjectIdentifier($identifier));
+
+        if ($invalidObjects) {
+            $outputMessage = tr("Invalid object identifier(s): %0. Expected format is object_type:object_id.", implode(', ', $invalidObjects));
+            $output->writeln("<error>$outputMessage</error>");
+            return Command::FAILURE;
+        }
+
+        $resultsPage = $input->getOption('results-page');
+
+        if (! is_null($resultsPage) && ! (ctype_digit((string) $resultsPage) && $resultsPage > 0)) {
+            $outputMessage = tr("Invalid results page: %0. Expected the number of a page of results, 1 being the first one.", $resultsPage);
+            $output->writeln("<error>$outputMessage</error>");
+            return Command::FAILURE;
+        }
+
+        if ($objects && ! is_null($resultsPage)) {
+            $outputMessage = tr("The objects and results-page options cannot be combined, the given objects are already a selection.");
+            $output->writeln("<error>$outputMessage</error>");
+            return Command::FAILURE;
+        }
+
+        $selectedObjects = $objects ?: ['ALL'];
 
         if ($request = $input->getOption('request')) {
             parse_str($request, $_POST);
         }
 
         $_POST['list_action'] = $action;
+        $_POST['list_results_page'] = $resultsPage;
         for ($i = 1; $i <= 10; $i++) {
-            $_POST['objects' . $i] = ['ALL'];
+            $_POST['objects' . $i] = $selectedObjects;
         }
         $_POST['list_input'] = $input->getArgument('input');
 
@@ -97,10 +137,9 @@ class ListExecuteCommand extends Command
                     $status = $parserLib->plugin_can_execute($match->getName(), $match->getBody(), $argumentParser->parse($match->getArguments()));
 
                     if ($status !== true) {
-                        $outputMessage = "Action $action failed on page $page. ";
-                        $outputMessage .= $status == 'rejected' ?
-                            'ListExecute plugin was rejected.' :
-                            'ListExecute plugin is pending for approval.';
+                        $outputMessage = $status == 'rejected' ?
+                            tr("Action %0 failed on page %1. ListExecute plugin was rejected.", $action, $page) :
+                            tr("Action %0 failed on page %1. ListExecute plugin is pending for approval.", $action, $page);
 
                         $output->write("<error>$outputMessage</error>");
                         return Command::FAILURE;
@@ -111,7 +150,26 @@ class ListExecuteCommand extends Command
 
         TikiLib::lib('parser')->parse_data($pageInfo['data']);
 
-        $output->writeln("Action $action executed on page $page.");
+        if ($objects) {
+            $message = tr("Action %0 executed on page %1 for %2.", $action, $page, implode(', ', $objects));
+        } elseif ($resultsPage) {
+            $message = tr("Action %0 executed on page %1 for results page %2.", $action, $page, $resultsPage);
+        } else {
+            $message = tr("Action %0 executed on page %1.", $action, $page);
+        }
+
+        $output->writeln($message);
         return Command::SUCCESS;
+    }
+
+    private function isValidObjectIdentifier(string $identifier): bool
+    {
+        if (! str_contains($identifier, ':')) {
+            return false;
+        }
+
+        [$type, $id] = explode(':', $identifier, 2);
+
+        return $type !== '' && $id !== '';
     }
 }
