@@ -237,6 +237,7 @@ smarty-syntax-check:
     - composer
   image: ${DEPENDENCY_PROXY_PREFIX}${BASE_QA_IMAGE}
   script:
+    - php console.php smarty:generate-mapping
     - php doc/devtools/check_smarty_syntax.php
 
 smarty-mapping-check:

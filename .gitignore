@@ -75,9 +75,9 @@ index.php
 /lib/test/phpunit-log.current.json
 /lib/test/templates_c
 /lib/test/traces-phpunit_with_baseline.txt
-/lib/smarty_tiki/generated_extension_map.php
 /modules/cache
 /permissioncheck/.htaccess
+/private/generated
 /project.index
 /profiles/info.ini
 /profiles/*.yml

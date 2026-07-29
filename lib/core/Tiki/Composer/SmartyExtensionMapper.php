@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\Composer;
 
+require_once __DIR__ . '/../../../../path_constants.php';
+
 use Composer\Script\Event;
 use SmartyTiki\TikiSmartyExtensionInterface;
 
@@ -15,7 +17,7 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  */
 class SmartyExtensionMapper
 {
-    public const SMARTY_MAP_FILE = __DIR__ . '/../../../smarty_tiki/generated_extension_map.php';
+    public const SMARTY_MAP_FILE = __DIR__ . '/../../../../' . \SMARTY_EXTENSION_MAP_PATH;
 
     private const MAP_KEYS = [
         'function_handlers',
