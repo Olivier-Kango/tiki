@@ -248,7 +248,6 @@ function wikiplugin_button($data, $params)
     // Parse wiki argument variables in the url, if any (i.e.: {{itemId}} for it's numeric value).
     $parserlib->parse_wiki_argvariable($params['href']);
 
-    include_once($path);
     $content = \SmartyTiki\FunctionHandler\Button::render($params, $smarty->getEmptyInternalTemplate());
     return '~np~' . $content . '~/np~';
 }
