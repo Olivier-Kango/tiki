@@ -136,18 +136,18 @@ class SmartyExtensionMapper
 
         // Support for custom Smarty extensions in _custom/shared/smarty, matching the
         // existing _custom/shared/{templates,wiki-plugins,js} conventions. PSR-4 autoloading
-        // for the TikiCustom\Smarty\ namespace is registered in lib/init/initlib.php.
+        // for the SmartyTikiCustom\ namespace is registered in lib/init/initlib.php.
         // See _custom_dist/README.md and _custom_dist/shared/smarty/ for the expected layout.
         $customSmartDir = $tikiRoot . '/_custom/shared/smarty';
         if (is_dir($customSmartDir)) {
             $subDirs = [
-                'FunctionHandler' => 'TikiCustom\\Smarty\\FunctionHandler',
-                'BlockHandler' => 'TikiCustom\\Smarty\\BlockHandler',
-                'Modifier' => 'TikiCustom\\Smarty\\Modifier',
-                'Compile/Tag' => 'TikiCustom\\Smarty\\Compile\\Tag',
-                'Compile/Modifier' => 'TikiCustom\\Smarty\\Compile\\Modifier',
-                'Filter/Pre' => 'TikiCustom\\Smarty\\Filter\\Pre',
-                'Filter/Output' => 'TikiCustom\\Smarty\\Filter\\Output',
+                'FunctionHandler' => 'SmartyTikiCustom\\FunctionHandler',
+                'BlockHandler' => 'SmartyTikiCustom\\BlockHandler',
+                'Modifier' => 'SmartyTikiCustom\\Modifier',
+                'Compile/Tag' => 'SmartyTikiCustom\\Compile\\Tag',
+                'Compile/Modifier' => 'SmartyTikiCustom\\Compile\\Modifier',
+                'Filter/Pre' => 'SmartyTikiCustom\\Filter\\Pre',
+                'Filter/Output' => 'SmartyTikiCustom\\Filter\\Output',
             ];
             foreach ($subDirs as $subDir => $namespace) {
                 $path = $customSmartDir . '/' . $subDir;

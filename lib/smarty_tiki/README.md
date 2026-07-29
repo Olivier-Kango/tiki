@@ -93,7 +93,7 @@ Add the trait to your class and these become available. If `$template` is omitte
 
 ## `_custom/shared/smarty/`
 
-Site-specific extensions can live outside Tiki core entirely, under `_custom/shared/smarty/`, mirroring the same subdirectory layout (`FunctionHandler/`, `Modifier/`, etc.) under the `TikiCustom\Smarty\` namespace instead of `SmartyTiki\`. See [_custom_dist/README.md](../../_custom_dist/README.md) and the sample in [_custom_dist/shared/smarty/](../../_custom_dist/shared/smarty/). Same rules apply: implement the interface, regenerate the map, and it's live.
+Site-specific extensions can live outside Tiki core entirely, under `_custom/shared/smarty/`, mirroring the same subdirectory layout (`FunctionHandler/`, `Modifier/`, etc.) under the `SmartyTikiCustom\` namespace instead of `SmartyTiki\`. See [_custom_dist/README.md](../../_custom_dist/README.md) and the sample in [_custom_dist/shared/smarty/](../../_custom_dist/shared/smarty/). Same rules apply: implement the interface, regenerate the map, and it's live.
 
 ## Smarty security preferences
 
