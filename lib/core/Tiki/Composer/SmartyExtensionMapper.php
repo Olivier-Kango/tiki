@@ -244,8 +244,12 @@ class SmartyExtensionMapper
             return null;
         }
 
-        // Tiki modifiers — plain classes with handle() method, no Smarty interface
-        if (str_contains($namespace, 'Modifier')) {
+        // Tiki modifiers — plain classes with a handle() method; Smarty itself has no
+        // registration interface for simple modifiers (unlike the handler/compiler/filter
+        // types above), so we key off the exact scan namespace instead of an interface.
+        // Interface membership (TikiSmartyExtensionInterface) was already verified by
+        // scanDirectory() before this method is called.
+        if ($namespace === 'SmartyTiki\\Modifier' || $namespace === 'SmartyTikiCustom\\Modifier') {
             return 'modifiers';
         }
 

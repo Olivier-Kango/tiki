@@ -268,7 +268,7 @@ if (
             Feedback::warning(tr('Page %0 is already part of this structure.', $page));
         }
 
-        $url = smarty_function_sefurl([
+        $url = \SmartyTiki\FunctionHandler\Sefurl::render([
             'page' => $currentNodeInfo['pageName'],
             'structure' => $currentStructureInfo['pageName'],
             'page_ref_id' => $currentRefId,
