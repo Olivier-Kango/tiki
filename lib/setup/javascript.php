@@ -184,6 +184,8 @@ if (! timezone) {
 // Add the JavaScript content to the header
     $headerlib->add_js_config($jsContent);
 
+    $jqueryTiki = [];
+
     $jqueryTiki['ui'] = $prefs['feature_jquery_ui'] === 'y';
     $jqueryTiki['ui_theme'] = $prefs['feature_jquery_ui_theme'];
     $jqueryTiki['tooltips'] = true;
@@ -273,13 +275,13 @@ if (! timezone) {
     $jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
         : TikiLib::lib('access')->getDefaultTimeout();
 
-    if (empty($object)) {
-        $object = current_object();
-    }
-    if (empty($object)) {
-        $object = ['type' => '', 'object' => ''];
-    }
-    $jqueryTiki['current_object'] = $object;
+    $jqueryTiki['current_object'] = ['type' => '', 'object' => ''];
+
+    Sections::onSectionChange(function () {
+        TikiLib::lib('header')->add_js_config('if (!jqueryTiki.current_object.object) {
+    jqueryTiki.current_object = ' . json_encode(current_object()) . ';
+}');
+    });
 
     $username_pattern = " / ^ ['\-_a-zA-Z0-9\.]*$/";
     if (is_string($prefs['username_pattern'])) {
