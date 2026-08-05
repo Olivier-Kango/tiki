@@ -277,7 +277,10 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
             }
             if ($this->getOption('editable') && $editmode) {
                 $trackerThere = Tracker_Definition::get($this->getOption('trackerId'));
-                $fieldThere = $trackerThere->getField($this->getOption('fieldIdThere'));
+                if ($this->getOption('fieldIdThere')) {
+                    $fieldThere = $trackerThere->getField($this->getOption('fieldIdThere'));
+                    $data['otherFieldPermName'] = $fieldThere['permName'];
+                }
                 // trackerPerms overide field Options
                 $trackerPerms = Perms::get('tracker', $this->getOption('trackerId'));
                 $canCreate = $trackerPerms->create_tracker_items; // tracker/global permission; However canEdit and canRemove are Item permissions, see below
@@ -289,7 +292,6 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                 }
                 $data['itemPermissions'] = $itemPermissions;
                 $data['addItemText'] = $canCreate ? $this->getOption('addItemText') : '';
-                $data['otherFieldPermName'] = $fieldThere['permName'];
                 if (empty($this->getOption('fieldIdHere'))) {
                     $data['parentItemId'] = $this->getItemId();
                 } else {
@@ -447,16 +449,17 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         $fieldIdThere = $this->getOption('fieldIdThere');
         $trackerIdThere = $this->getOption('trackerId');
         $trackerThere = Tracker_Definition::get($trackerIdThere);
-        $fieldThere = $trackerThere->getField($fieldIdThere);
-        if ($fieldThere) {
-            $queryFieldName = "tracker_field_{$fieldThere['permName']}";
-            if ($fieldHere['type'] === 'r' && $fieldThere['type'] !== 'r') {
-                $extraFieldName .= '_text';
+        if ($fieldIdThere) {
+            $fieldThere = $trackerThere->getField($fieldIdThere);
+            if ($fieldThere) {
+                $queryFieldName = "tracker_field_{$fieldThere['permName']}";
+                if ($fieldHere['type'] === 'r' && $fieldThere['type'] !== 'r') {
+                    $extraFieldName .= '_text';
+                }
+            } else {
+                $queryFieldName = '';
             }
-        } else {
-            $queryFieldName = '';
         }
-
 
         // cache the other tracker's items to test when importing
         $itemsThereLookup = new Tracker\Tabular\Schema\CachedLookupHelper();
