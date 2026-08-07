@@ -44,14 +44,11 @@ class Search_ResultSet_FacetFilter
         $out = [];
 
         foreach ($this->data as $entry) {
-            $rawValue = (string) $entry['value'];
-            $displayValue = $entry['value'];
-
-            if ($this->facet instanceof Search_Query_Facet_Term) {
-                $displayValue = $this->facet->getValue($entry['value']);
+            $value = $entry['value'];
+            if (is_a($this->facet, 'Search_Query_Facet_Term')) {
+                $value = $this->facet->getValue($entry['value']);
             }
-
-            $out[$rawValue] = tr('%0 (%1)', tra($this->facet->render($displayValue)), $entry['count']);
+            $out[(string) $entry['value']] = tr('%0 (%1)', tra($this->facet->render($value)), $entry['count']);
         }
 
         return $out;
