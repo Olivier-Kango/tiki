@@ -46,7 +46,7 @@ class Search_ResultSet_FacetFilter
         foreach ($this->data as $entry) {
             $value = $entry['value'];
             if (method_exists($this->facet, 'getValue')) {
-                $value = call_user_func([$this->facet, 'getValue'], $entry['value']);
+                $value = $this->facet->getValue($entry['value']);
             }
             $out[(string) $entry['value']] = tr('%0 (%1)', tra($this->facet->render($value)), $entry['count']);
         }
