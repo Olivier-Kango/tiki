@@ -257,7 +257,7 @@ class Services_Search_Controller
                             return '';
                         }
                     }, $format),
-                    'link' => smarty_function_object_link(['type' => $item['object_type'], 'id' => $item['object_id']], $smarty->getEmptyInternalTemplate())
+                    'link' => \SmartyTiki\FunctionHandler\ObjectLink::render(['type' => $item['object_type'], 'id' => $item['object_id']], $smarty->getEmptyInternalTemplate())
                 ];
                 if ($item['object_type'] == 'trackeritem') {
                     $transformed['status_icon'] = \SmartyTiki\FunctionHandler\TrackerItemStatusIcon::render(['item' => $item['object_id']], $smarty->getEmptyInternalTemplate());

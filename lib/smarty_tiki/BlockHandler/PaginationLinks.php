@@ -38,6 +38,8 @@ use SmartyTiki\Traits\BlockHandlerStaticFacadeTrait;
  *      (dots are not replaced by links, it's just a separation text):
  *      1 2 3 ... k-2 k-1 k k+1 k+2 ...  n-2 n-1 n
  *  - offset_arg: Name of the URL argument that contains the offset. Defaults to 'offset'.
+ *  - offset_min: Lowest reachable offset. The "previous" link is disabled (and clamped) at this offset. Defaults to 0.
+ *      Useful when the offset is 1-based (e.g. comparing adjacent versions where offset 0 is invalid).
  *    - zero_based_offset: Items addressed as zero-based (defaults to 'y'). If 'n' then "one based" offset used (1 to count + 1)
  *        (jb tiki5: only fully tested without reloffset and step=1)
  *    - show_numbers: Show/hide direct_pagination links, current and total numbers (Defaults to 'y')
@@ -85,6 +87,9 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
         }
         if (! isset($params['offset_arg'])) {
             $params['offset_arg'] = 'offset';
+        }
+        if (! isset($params['offset_min'])) {
+            $params['offset_min'] = 0;
         }
         if (! isset($params['zero_based_offset'])) {
             $params['zero_based_offset'] = 'y';
@@ -195,7 +200,7 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
             )) . '&amp;' . $params['offset_arg'] . '=' . $params['offset'];
             $real_offset = $params['offset'] + $params['reloff'];
         } else {
-            $prev_offset_val = max($zero_based_min, $params['offset'] - $params['step']);
+            $prev_offset_val = max($zero_based_min, $params['offset_min'], $params['offset'] - $params['step']);
             $prev_offset = $params['offset_arg'] . '=' . $prev_offset_val;
             $next_offset_val = min($params['count'] - $zero_based_maxminus, $params['offset'] + $params['step']);
             $next_offset = $params['offset_arg'] . '=' . $next_offset_val;
@@ -260,7 +265,7 @@ class PaginationLinks extends Base implements TikiSmartyExtensionInterface
                 $html .= '<ul class="pagination justify-content-center">';
 
                 if ($prefs['nextprev_pagination'] != 'n' || $params['show_numbers'] !== 'y') {
-                    if ($params['offset'] == 0) {
+                    if ($params['offset'] <= $params['offset_min']) {
                         $html .= '<li class="page-item disabled"><span class="page-link">' .
                             ($params['noimg'] ? tr('Previous') : '«') . '</span></li>';
                     } else {
