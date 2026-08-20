@@ -188,7 +188,7 @@ function wikiplugin_xmpp($data, $params)
     $params['view_mode'] = $params['view_mode'] ?? 'overlayed';
     $params['width'] = $params['width'] ?? '100%';
     $params['height'] = $params['height'] ?? '400px';
-    if (!isset($params['auto_open'])) {
+    if (! isset($params['auto_open'])) {
         $params['auto_open'] = 'n';
     }
 

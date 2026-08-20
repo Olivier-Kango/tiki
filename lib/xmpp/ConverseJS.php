@@ -115,7 +115,6 @@ class ConverseJS
                 'tiki_anonymous_nick' => ($prefs['xmpp_anonymous_allow_custom_nickname'] ?? 'n') === 'y' ? 'custom' : 'visitor',
                 'auto_open'           => $autoOpen,
             ]);
-
         } elseif ($authMethod === 'tikitoken') {
             $this->set_options([
                 'auto_login' => true,
@@ -287,11 +286,11 @@ class ConverseJS
         return array_map([$this, 'append_mtime'], $deps);
     }
 
-    public function register_js_dependencies()
+    public function registerJsDependencies()
     {
         $header = TikiLib::lib('header');
         $header->add_js_module("import converse from 'converse.js'; window.converse = converse;");
-        array_map([$header, 'add_jsfile_module'], $this->get_js_dependencies());
+        array_map([$header, 'addJsfileModule'], $this->get_js_dependencies());
     }
 
     public function render()
@@ -299,18 +298,18 @@ class ConverseJS
         global $user, $prefs;
         $options = $this->get_options();
 
-        if (!isset($options['auto_open'])) {
+        if (! isset($options['auto_open'])) {
             $options['auto_open'] = 'n';
         }
 
-        if (!isset($options['anonymous_auto_open'])) {
+        if (! isset($options['anonymous_auto_open'])) {
             $options['anonymous_auto_open'] = 'n';
         }
 
         $output = ';(function () {' . PHP_EOL . 'try {' . PHP_EOL;
 
         if ($prefs['xmpp_conversejs_always_load'] !== 'y') {
-            $this->register_js_dependencies();
+            $this->registerJsDependencies();
 
             $output .= PHP_EOL . ';(function() {';
             $output .= PHP_EOL . '    var link;';
@@ -378,7 +377,7 @@ class ConverseJS
             $optionsWithoutCreds = json_encode($options, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             $guestDomainJs = json_encode($guestDomain);
 
-$output .= <<<JS
+            $output .= <<<JS
 
 ;(function () {
     try {

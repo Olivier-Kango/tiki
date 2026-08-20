@@ -652,7 +652,7 @@ class HeaderLib
      *
      * @return $this
      */
-    public function add_jsfile_module($file, $rank = 0)
+    public function addJsfileModule($file, $rank = 0)
     {
         $this->throwIfJSFooterAlreadyOutput();
         if (empty($this->js_module_files[$rank]) or ! in_array($file, $this->js_module_files[$rank])) {
