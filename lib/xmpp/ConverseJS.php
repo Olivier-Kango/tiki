@@ -89,6 +89,7 @@ class ConverseJS
         }
         $this->set_option('current_room', $currentRoom);
 
+        // Anonymous login
         if (empty($user) && isset($params['anonymous']) && $params['anonymous'] === 'y') {
             $autoOpen = $params['auto_open'] ?? 'n';
             $onXmppPage = ($params['on_xmpp_page'] ?? 'n') === 'y';
@@ -115,6 +116,7 @@ class ConverseJS
                 'tiki_anonymous_nick' => ($prefs['xmpp_anonymous_allow_custom_nickname'] ?? 'n') === 'y' ? 'custom' : 'visitor',
                 'auto_open'           => $autoOpen,
             ]);
+        // Prebind (tikitoken)
         } elseif ($authMethod === 'tikitoken') {
             $this->set_options([
                 'auto_login' => true,
@@ -374,7 +376,7 @@ class ConverseJS
             $options['auto_login'] = true;
 
             ksort($options);
-            $optionsWithoutCreds = json_encode($options, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            $optionsWithoutCreds = json_encode($options, JSON_PRETTY_PRINT);
             $guestDomainJs = json_encode($guestDomain);
 
             $output .= <<<JS
@@ -426,7 +428,8 @@ JS;
 
         ksort($options);
 
-        $optionString = json_encode($options, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        // Do not use JSON_UNESCAPED_SLASHES to avoid </script> injection.
+        $optionString = json_encode($options, JSON_PRETTY_PRINT);
         $output .= 'converse.initialize(' . $optionString . ');' . PHP_EOL;
         $output .= '} catch (e) { console.error(\'[tiki-xmpp] FATAL - setup failed:\', e); }' . PHP_EOL . '})();';
         return TikiLib::lib('header')->add_jq_onready($output, 10);

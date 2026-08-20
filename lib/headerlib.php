@@ -121,16 +121,7 @@ class HeaderLib
      */
     public $js_modules = [];
 
-    /**
-     * External JS files to load as <script type="module" src="...">, e.g. converse.js 14+
-     * (ESM-only, no UMD/global build). Kept separate from $jsfiles since module scripts must
-     * never be minified/combined together (concatenating independent ES modules text-wise
-     * breaks their import/export statements) and always execute in strict document order
-     * relative to each other regardless, same guarantee as classic `defer` scripts.
-     * Key = rank (load order), value = array of file paths.
-     * js_module_files[$rank][] = $file;
-     * @var array
-     */
+    /** @var array External JS files to load as <script type="module" src="...">. */
     public $js_module_files = [];
 
     /**
@@ -642,16 +633,7 @@ class HeaderLib
         return $this;
     }
 
-    /**
-     * Adds an external javascript file to load as a module (<script type="module" src="...">),
-     * e.g. a library that only ships an ESM build (no UMD/global). Never minified/combined with
-     * other files - see $js_module_files.
-     *
-     * @param string $file
-     * @param int    $rank
-     *
-     * @return $this
-     */
+    /** Adds an external javascript file to load as a module. */
     public function addJsfileModule($file, $rank = 0)
     {
         $this->throwIfJSFooterAlreadyOutput();
@@ -1146,11 +1128,6 @@ class HeaderLib
             $output .= $b;
         }
 
-        // External module files (e.g. converse.js 14+'s ESM-only build) - rendered right after
-        // the inline modules above and in the same relative order otherwise, since non-async
-        // module scripts (inline or external) execute in strict document order relative to each
-        // other, letting an inline bootstrap module (e.g. importing a bare specifier via the
-        // importmap and assigning it to a global) run before a file here that depends on it.
         if (count($this->js_module_files)) {
             ksort($this->js_module_files);
             foreach ($this->js_module_files as $rank => $files) {
@@ -1463,6 +1440,7 @@ class HeaderLib
             $minifier = new MatthiasMullie\Minify\CSS();
 
             foreach ($files as $originalFile) {
+                // remove cache-buster parameters from the end of the filename
                 $minifier->add($this->stripCacheBuster($originalFile));
             }
 
