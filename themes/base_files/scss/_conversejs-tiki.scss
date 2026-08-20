@@ -1,8 +1,5 @@
 .tiki #conversejs, .tiki #conversejs.converse-embedded {
 
-    // ---------------------------------------------------------------
-    // 1) Design tokens -> Tiki theme
-    // ---------------------------------------------------------------
     --foreground-color: var(--bs-body-color);
     --background-color: var(--bs-body-bg);
     --background-color-rgb: var(--bs-body-bg-rgb);
@@ -125,10 +122,6 @@
         }
     }
 
-    // -----------------------------------------------------------
-    // 2) Structure & chrome
-    // -----------------------------------------------------------
-
     * {
         scrollbar-width: thin;
         scrollbar-color: rgba(var(--bs-emphasis-color-rgb), .25) transparent;
@@ -156,14 +149,6 @@
         flex-shrink: 0;
     }
 
-    // Text-initials fallback avatar (e.g. "KC" for a groupchat with no photo).
-    // Stock converse.js centers the initials with line-height alone and no
-    // box-sizing, so a descender-heavy pair of letters (or any extra
-    // padding/border picked up from surrounding rules) can push the box
-    // taller than its own width - the containing list row then clips that
-    // extra height, making the circle look cut off at the bottom. Center
-    // with flex instead (immune to font metrics) and size the box/text a
-    // touch smaller so it comfortably fits.
     .avatar-initials {
         box-sizing: border-box !important;
         display: inline-flex !important;
@@ -191,9 +176,6 @@
         max-width: 100%;
     }
 
-    // Embedded: fill the PluginXMPP container (its width/height are set inline by the
-    // plugin) instead of floating fixed-position over the page like overlayed mode does.
-    // There's no separate toggle button in this mode - the container itself is the chat.
     &.converse-embedded {
         position: relative !important;
         width: 100% !important;
@@ -218,8 +200,6 @@
         }
     }
 
-    // Fullscreen: CSS backstop for the layout wikiplugin-xmpp.js applies inline, so it
-    // doesn't depend entirely on that one-shot DOM patch (e.g. after a re-render).
     &.converse-fullscreen {
         position: fixed !important;
         inset: 0 !important;
@@ -279,9 +259,6 @@
             font-weight: 600;
         }
 
-        // Unread-message badge, added/removed by conversejs-tiki.js - same red
-        // "new message" signal as the browser-tab favicon badge, mirrored here
-        // on the floating Chat button itself.
         .tiki-chat-unread-badge {
             position: absolute;
             top: -.3rem;
@@ -307,17 +284,11 @@
         border-radius: 50%;
         transition: background-color .12s ease, opacity .12s ease;
     }
-    // The gear/close buttons in the controlbox header (top-right) don't get
-    // the hover-circle feedback other chatbox-btn's get - kept static per
-    // feedback that the hover there felt distracting.
     .chatbox-btn:hover {
         opacity: 1;
         background-color: rgba(var(--bs-emphasis-color-rgb), .08);
     }
 
-    // -----------------------------------------------------------
-    // Controlbox: profile header, sections, roster, room list
-    // -----------------------------------------------------------
     #controlbox {
         .box-flyout { background: var(--bs-body-bg); }
         .controlbox-pane { background-color: inherit; }
@@ -379,9 +350,6 @@
         }
     }
 
-    // -----------------------------------------------------------
-    // Chat window header
-    // -----------------------------------------------------------
     .chatbox, .chatroom {
         .chat-head {
             padding: .6rem .85rem;
@@ -394,32 +362,20 @@
                 display: flex;
                 align-items: center;
                 gap: 8px;
-                min-width: 0; // let the name column below actually shrink+ellipsis
+                min-width: 0;
 
-                // Fixed-size avatar must never be the thing that shrinks when
-                // space is tight - only the name/status column (below) should.
                 > a.show-msg-author-modal { flex-shrink: 0; }
             }
 
             .chatbox-title__text, .chat-title, a.chatbox-btn.fa { color: #fff; }
             .chatbox-title__text {
                 display: flex;
-                // Column, not row: conversejs-tiki.js appends the presence-status
-                // line (below) as a SECOND CHILD of this element, right under the
-                // name link, so it needs to stack vertically. With only one child
-                // (MUC/headlines headers, which never get that second line) this
-                // looks identical to the previous row layout - a single line of
-                // text isn't affected by the flex axis.
                 flex-direction: column;
                 align-items: flex-start;
                 font-weight: 600;
                 flex: 1 1 auto;
-                min-width: 0; // flexbox default is min-width:auto (= content width),
-                              // which defeats ellipsis below and forces a wrap/overflow
-                              // instead - this is what actually needs to shrink.
+                min-width: 0;
 
-                // The name itself: a long name must truncate with an ellipsis,
-                // never wrap to a second line.
                 > a {
                     display: block;
                     max-width: 100%;
@@ -430,63 +386,6 @@
             }
             .chat-head__desc { color: rgba(255, 255, 255, .85) !important; }
 
-            // Online/away/busy/last-seen line, injected under the contact's name
-            // by conversejs-tiki.js (converse.js itself only shows this info in
-            // the roster list, never in the 1-on-1 chat header) - so it's clear
-            // at a glance whether the other person is around right now, same as
-            // WhatsApp/Telegram/Messenger. Nested inside .chatbox-title__text
-            // (the name itself, see the flex-direction: column above) rather
-            // than appended lower in the header, so it lines up under the name
-            // for free - no left-margin guess needed to skip past the avatar.
-            //
-            // Deliberately NOT a flex container for the dot+text (that was tried
-            // and broke down under a narrow header - the raw text node becomes
-            // an anonymous flex item that can't be given its own text-overflow
-            // rule, and squeezed down to a barely-visible sliver instead of
-            // truncating). Plain block text with an absolutely-positioned dot
-            // gets truncation for free from ordinary text-overflow.
-            .tiki-presence-status {
-                position: relative;
-                display: block;
-                // Stock converse.js CSS text-colors .chat-head__desc from
-                // --chat-header-bg-color (a background var, not a text color -
-                // see the !important two lines up, needed for the exact same
-                // reason) - this line sits in that same header, so it needs the
-                // same override or it inherits that near-invisible color too.
-                color: rgba(255, 255, 255, .8) !important;
-                margin: .15rem 0 0;
-                padding-inline-start: .85em;
-                max-width: 100%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                font-size: .72em;
-                font-weight: 400;
-                line-height: 1.2;
-
-                &::before {
-                    content: "";
-                    position: absolute;
-                    inset-inline-start: 0;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    width: .45em;
-                    height: .45em;
-                    border-radius: 50%;
-                    background-color: rgba(255, 255, 255, .55);
-                }
-                &.tiki-presence-status--online::before,
-                &.tiki-presence-status--chat::before {
-                    background-color: var(--chat-status-online);
-                }
-                &.tiki-presence-status--away::before,
-                &.tiki-presence-status--xa::before {
-                    background-color: var(--chat-status-away);
-                }
-                &.tiki-presence-status--dnd::before {
-                    background-color: var(--chat-status-busy);
-                }
-            }
             .chatbox-title__buttons .chatbox-btn, .controlbox-heading__btn {
                 color: #fff;
                 opacity: .85;
@@ -543,8 +442,6 @@
     .chat-msg__content--them { align-items: flex-start; }
     .chat-msg__content--me { align-items: flex-end; margin-inline-start: auto; }
 
-    // The sender name is only useful in group chats - in a 1-1 chat you
-    // already know who you're talking to, so hide the redundant label.
     .chatbox:not(.chatroom) .chat-msg__author {
         display: none !important;
     }
@@ -572,28 +469,15 @@
         .chat-msg__text, .chat-msg__author, a { color: #fff; }
         a { text-decoration: underline; }
 
-        // Default text-selection highlight is a translucent tint of the
-        // browser's accent color, which on top of an already-colored bubble
-        // with white text ends up barely distinguishable from the bubble
-        // itself. Invert it (light background, primary-colored text) so a
-        // selection is unambiguous regardless of the theme's primary color.
         ::selection { background-color: #fff; color: var(--bs-primary); }
         &::selection { background-color: #fff; color: var(--bs-primary); }
     }
-    // Reserve a little extra room at the bottom only when the checkmark is
-    // actually there (received "me" messages), so its now-absolute position
-    // doesn't sit on top of the last line of text.
     .chat-msg__body:has(.chat-msg__receipt) {
         padding-bottom: .8rem;
     }
 
     .chat-msg__text { color: var(--bs-body-color); }
 
-    // Each message is rendered inside its own <converse-chat-message> element, so
-    // consecutive messages are siblings of THAT element, not of the inner
-    // .message.chat-msg div - matching on .message.chat-msg here doesn't reliably
-    // find "the next message", which is why the tail used to show on every bubble
-    // instead of only the last one in a run.
     converse-chat-message:not(:has(+ converse-chat-message .chat-msg--followup)) {
         .chat-msg__content--them .chat-msg__body::after {
             content: "";
@@ -617,10 +501,6 @@
         }
     }
 
-    // Emoji-only messages (converse.js's own is_only_emojis detection, which adds
-    // .chat-msg__text--larger) get the same bubble-less treatment as images/media -
-    // WhatsApp/Telegram/Messenger all show a lone emoji plain and oversized rather
-    // than wrapped in a chat bubble.
     .chat-msg__body:has(.chat-msg__media, img.chat-image, audio, video, .chat-msg__text--larger) {
         background: transparent !important;
         border: none !important;
@@ -665,24 +545,10 @@
         display: none;
     }
 
-    // Upstream converse.js bug (13.0.1): in 1-on-1 chats, the "Replying to X"
-    // banner is rendered TWICE - once by <converse-chat-bottom-panel>'s own
-    // template (the correct one, a sibling of <converse-message-form>) and a
-    // second time by <converse-message-form>'s OWN template, which redundantly
-    // renders another <converse-reply-preview> as its first child. Groupchats
-    // don't have this bug (converse-muc-message-form's template has no such
-    // duplicate), so this selector only targets the 1-on-1 case. Hiding the
-    // nested duplicate (rather than the bottom-panel's one) keeps the "cancel
-    // reply" button working, since both instances are bound to the same model
-    // and behave identically.
     converse-message-form > converse-reply-preview {
         display: none !important;
     }
 
-    // "Edited" pencil: flows inline after the text by default (stock
-    // converse.js) - pin it bottom-right instead, next to the bubble's tail,
-    // so it doesn't reserve width on whatever line it lands on. The checkmark
-    // itself is handled separately below (replaced entirely by custom ticks).
     .chat-msg__edit-modal {
         position: absolute !important;
         bottom: .3rem;
@@ -691,11 +557,6 @@
         padding: 0 !important;
     }
 
-    // Stock Font Awesome "fa-check" is a solid glyph - too bold/heavy for a
-    // subtle delivery indicator. Hide it and draw our own slim WhatsApp/
-    // Telegram-style tick(s) instead, in a sibling .tiki-receipt-ticks element
-    // that conversejs-tiki.js maintains (1 tick = delivered, 2 = read, per the
-    // message's `received` / `marker_displayed` attributes).
     .chat-msg__receipt {
         display: none !important;
     }
@@ -726,7 +587,6 @@
         }
     }
 
-    // Per-message actions ("...") menu - top-right, revealed on hover.
     converse-message-actions {
         position: absolute;
         top: .3rem;
@@ -778,7 +638,6 @@
         font-size: .8em;
     }
 
-    // "X is typing" indicator
     .chat-content__notifications {
         &::before { content: none !important; }
 
@@ -807,9 +666,6 @@
 
         }
 
-        // Animated dots only for a genuine "is typing" state - not for join/leave/
-        // role-change notifications, which share this same container in ConverseJS
-        // (see the .tiki-is-typing class toggle in conversejs-tiki.js).
         &.tiki-is-typing:not(:empty)::before {
             content: "" !important;
             display: inline-block;
@@ -843,10 +699,6 @@
         }
     }
 
-    // -----------------------------------------------------------
-    // Toolbar + composer (pill input, Messenger-style)
-    // -----------------------------------------------------------
-
     converse-chat-toolbar {
         order: 2;
         background-color: transparent !important;
@@ -859,8 +711,6 @@
             &:hover { background-color: rgba(var(--bs-emphasis-color-rgb), .08); }
         }
 
-        // Neutral icon color for emoji/attach/spoiler/etc - only the send button carries
-        // the strong primary color, so these read as plain toolbar icons, not actions.
         .btn:not(.send-button), button:not(.send-button) {
             converse-icon, svg { color: var(--bs-body-color) !important; fill: var(--bs-body-color) !important; opacity: .75; }
         }
@@ -896,8 +746,6 @@
 
         .chat-textarea {
             order: 1;
-            // Same gray as the correspondent's message bubbles (.chat-msg__body),
-            // and it stays that color whether focused or not - no white flash.
             background-color: var(--bs-secondary-bg) !important;
             color: $input-color !important;
             border: none !important;
@@ -917,23 +765,10 @@
         .spoiler-hint { order: 0; }
     }
 
-    // -----------------------------------------------------------
-    // Minimized chats
-    // -----------------------------------------------------------
-
-    // Converse's own minimized-chats toggle would otherwise show alongside the Chat
-    // button any time a room is minimized - which, by design, is the default state
-    // for every room until a visitor actually opens one (its "hidden" state doesn't
-    // remove it from this list, only "minimized" matters here). Our own Chat button
-    // + controlbox already serves as the single, sole entry point into chat, so this
-    // native toggle is redundant and always hidden.
     #minimized-chats {
         display: none !important;
     }
 
-    // -----------------------------------------------------------
-    // MUC occupants sidebar
-    // -----------------------------------------------------------
     converse-muc-occupants {
         .occupants { background-color: inherit; }
         .occupant-list .list-item.occupant {
@@ -950,9 +785,6 @@
         }
     }
 
-    // -----------------------------------------------------------
-    // Tiki nickname-reset prompt (rendered from conversejs-tiki.js)
-    // -----------------------------------------------------------
     .tiki-reset-box {
         border-radius: .75rem;
         margin: .5rem;
@@ -966,31 +798,7 @@
         .btn { border-radius: 999px; }
     }
 
-    // -----------------------------------------------------------
-    // Responsive
-    // -----------------------------------------------------------
     @media screen and (max-width: 480px) {
-        // Stock converse.js sizes the mobile box-flyout off --fullpage-chat-height,
-        // which is calc(var(--vh, 1vh) * 100) - kept in sync with the real viewport
-        // only by a JS `resize` listener (chatboxviews/utils.js) that re-measures
-        // window.innerHeight. Mobile browsers resize the *visible* viewport as their
-        // address/toolbar shows or hides, and don't reliably fire `resize` for every
-        // such change, so --vh can go stale. The flyout's whole position is derived
-        // from this one variable (both its height AND its negative top-offset from a
-        // zero-height, viewport-bottom-anchored parent), so a stale value pushes its
-        // top - the chat-head with the room name/avatar - off-screen: exactly what
-        // looks like "the top of the popup is hidden".
-        //
-        // `dvh` (dynamic viewport height) would track the real viewport without the
-        // JS, but WebKit has a long-standing bug where `position: fixed` elements
-        // sized with `dvh` don't reliably repaint as Safari's own address/toolbar
-        // bar collapses or expands (https://bugs.webkit.org/show_bug.cgi?id=223734) -
-        // which is exactly our case (.conversejs is position: fixed), so `dvh` alone
-        // still leaves the popup cut off in Safari on iOS. `svh` (small viewport
-        // height) is a static value - the guaranteed-smallest viewport, i.e. as if
-        // the toolbar were always shown - so it never depends on that recalculation
-        // happening at all. Trade-off: a few px of unused space at the bottom when
-        // the toolbar happens to be hidden, in exchange for never clipping the top.
         --fullpage-chat-height: 100svh;
 
         .chatbox, #controlbox {
@@ -1003,16 +811,10 @@
 }
 
 
-// ============================================================
-// FIX - Icons (Three dots & Checkmark)
-// ============================================================
-
-// 1. Hide SVG icons that block ::before
 #conversejs .fa-bars svg {
     display: none !important;
 }
 
-// 2. Replace hamburger with three dots
 #conversejs .fa-bars::before {
     content: "\22EE" !important;
     font-size: 1.3rem !important;
@@ -1021,27 +823,11 @@
     display: inline-block !important;
 }
 
-// 3. (removed) Per-message three-dot hover visibility is now handled where the
-// button actually lives - see converse-message-actions .btn--standalone above.
-// This used to target .chat-msg .fa-bars, but that icon is display:none for
-// per-message actions (replaced by the ::after unicode dots), so these rules
-// never had any visible effect and were dead weight.
-
-// 4. Header three dots - always white
 #conversejs .chat-head .fa-bars {
     color: #ffffff !important;
     opacity: 1 !important;
 }
 
-// 5, 6, 7. (removed) The stock fa-check receipt icon is hidden outright and
-// replaced by custom-drawn ticks (.tiki-receipt-ticks, single/double, gray/
-// accent-colored for delivered/read) - see the rules above and
-// conversejs-tiki.js, which maintains that element. The old `[data-receipt]`
-// selector here never matched anything - converse.js never sets that
-// attribute - so the "read" color never actually applied.
-
-// 8. Pasted/dropped/picked files staged in the composer, awaiting Send
-// (see lib/xmpp/js/conversejs-tiki.js)
 #conversejs .tiki-pending-files {
     display: flex;
     flex-wrap: wrap;

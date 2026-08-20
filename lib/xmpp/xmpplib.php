@@ -39,15 +39,7 @@ class XMPPLib extends TikiLib
         $this->server_http_bind = $prefs['xmpp_server_http_bind'];
     }
 
-    /**
-     * ===== Prosody integration helpers =====
-     * These methods are designed for Prosody (mod_auth_http, group mapping, etc.)
-     * They do not depend on Openfire REST API or XmppPrebind.
-     */
-
-    /**
-     * Return the local JID on the Tiki-managed XMPP domain.
-     */
+    /** Prosody integration helpers. */
     public function getLocalJidForLogin(?string $login): string
     {
         global $prefs;
@@ -61,26 +53,12 @@ class XMPPLib extends TikiLib
         return $login . '@' . $domain;
     }
 
-    /**
-     * Backward-compatible alias for the local Tiki-managed JID.
-     */
     public function getUserJidForLogin(?string $login): string
     {
         return $this->getLocalJidForLogin($login);
     }
 
-    /**
-     * Return a structured array with all JID information for a user.
-     *
-     * Keys:
-     *   - 'jid'         => the JID to use to connect (external preferred, otherwise local)
-     *   - 'isLocal'     => true when the effective JID is the local Tiki-managed JID
-     *   - 'isExternal'  => true when the user has a distinct external JID
-     *   - 'localJid'    => the local Tiki-managed JID (login@xmpp_domain_users)
-     *   - 'externalJid' => the external JID string, or null when none is set
-     *
-     * @return array{jid: string, isLocal: bool, isExternal: bool, localJid: string|null, externalJid: string|null}
-     */
+    /** @return array{jid: string, isLocal: bool, isExternal: bool, localJid: string|null, externalJid: string|null} */
     public function getJidInfoForUser(string $username): array
     {
         $empty = ['jid' => '', 'isLocal' => false, 'isExternal' => false, 'localJid' => null, 'externalJid' => null];
@@ -233,9 +211,6 @@ class XMPPLib extends TikiLib
         $tikilib->set_user_preference($user, 'xmpp_rooms', json_encode($normalized));
     }
 
-    /**
-     * Return stored XMPP rooms for a user (without resolving groups).
-     */
     public function getSavedUserRooms(string $user): array
     {
         $tikilib = TikiLib::lib('tiki');
@@ -243,24 +218,16 @@ class XMPPLib extends TikiLib
         return is_array($saved) ? array_values(array_unique(array_filter($saved))) : [];
     }
 
-    /**
-     * Build a full room JID with the MUC component domain
-     */
     public function buildRoomJid(string $roomName): string
     {
         global $prefs;
         $mucDomain = $prefs['xmpp_muc_component_domain'] ?: 'conference.' . $this->server_host;
 
-        // If it's already a full JID, do not add anything
         if (strpos($roomName, '@') !== false) {
             return $roomName;
         }
 
-        // JID node identifiers can't safely contain spaces or most punctuation, so a
-        // human-readable room name typed into a plugin (e.g. "Kingdom Community")
-        // must be normalized into a stable identifier - otherwise room creation/join
-        // silently fails at the XMPP protocol level. This lets an admin name rooms
-        // however they like without needing to know XMPP JID rules.
+        // Normalize human-readable room names into valid JID nodes.
         $node = mb_strtolower(trim($roomName));
         $node = preg_replace('/[^a-z0-9._-]+/u', '-', $node);
         $node = trim($node, '-');
@@ -288,22 +255,12 @@ class XMPPLib extends TikiLib
         return $valid;
     }
 
-    /**
-     * Get effective JID (external preferred or local JID with fallback).
-     */
     public function getEffectiveJidForUser(string $username): string
     {
         return $this->getJidInfoForUser($username)['jid'];
     }
 
-    /**
-     * The JID the ConverseJS web widget will actually connect as: the preferred
-     * external JID only when a reachable connection endpoint is also configured for
-     * it (otherwise there's no way to actually reach that server), the local
-     * Tiki-managed JID otherwise. Used both to decide the widget's own connection
-     * options and to keep MUC room affiliations in sync with whichever identity the
-     * widget is really using.
-     */
+    /** Return the JID ConverseJS can actually connect as. */
     public function getWidgetJidForUser(string $username): string
     {
         $jidInfo = $this->getJidInfoForUser($username);
@@ -316,10 +273,6 @@ class XMPPLib extends TikiLib
         return $jidInfo['localJid'] ?? '';
     }
 
-    /**
-     * Sync user's Tiki groups -> XMPP MUC affiliations (member).
-     * Minimal: ensure room exists and set affiliation member.
-     */
     public function syncUserGroupsToXmpp(string $u): void
     {
         global $prefs;
@@ -327,10 +280,6 @@ class XMPPLib extends TikiLib
             return;
         }
 
-        // Sync affiliations for whichever JID the web widget will actually connect
-        // as (local, unless a preferred external JID AND a reachable endpoint are
-        // both configured) - that's the identity that actually needs room membership
-        // kept up to date, so group room access is never lost either way.
         $jid = $this->getWidgetJidForUser($u);
         if (! $jid) {
             return;

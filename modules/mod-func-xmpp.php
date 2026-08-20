@@ -10,7 +10,7 @@
 function module_xmpp_info()
 {
     return [
-        'description' => tra('Hold a chat session using XMPP (uses the ConverseJS client). Placed site-wide, this becomes a floating "chat with us" bubble: visitors who are not logged in get a direct, 1-1 conversation with the site admin (see the xmpp_anonymous_mode preference), logged-in users get their normal chat session.'),
+        'description' => tra('Hold a chat session using XMPP (uses the ConverseJS client).'),
         'name' => tra('XMPP'),
         'params' => [
             'show_controlbox_by_default' => [

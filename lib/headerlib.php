@@ -1084,10 +1084,15 @@ class HeaderLib
             if (is_array($file)) {
                 $hash .= $this->getFilesContentsHash($file, $hash);
             } else {
-                $hash .= md5_file($file);
+                $hash .= md5_file($this->stripCacheBuster($file));
             }
         }
         return md5($hash);
+    }
+
+    private function stripCacheBuster(string $file): string
+    {
+        return strtok($file, '?') ?: $file;
     }
 
 
@@ -1424,6 +1429,7 @@ class HeaderLib
         foreach ($files as $originalFile) {
             /* This does not use the same cachelib-based caching strategy as get_minified_css_single() since I could not see any improvement.
             I tested on Windows 8 with an HDD and a filesystem-based Tiki\Lib\Cache\Lib\Base. Tiki\Cache\FileSystem::getCached() may be inefficient. The strategy may still improve performance for other setups, such as those using Tiki\Lib\Cache\Lib\Memcache. Chealer 2018-08-31 */
+            $originalFile = $this->stripCacheBuster($originalFile);
             $fileContentsHash = md5_file($originalFile);
             $minimalFilePath = $publicDirectory . "minified_$fileContentsHash.css";
             if (! file_exists($minimalFilePath)) {
@@ -1457,12 +1463,7 @@ class HeaderLib
             $minifier = new MatthiasMullie\Minify\CSS();
 
             foreach ($files as $originalFile) {
-                // remove cache-buster parameters from the end of the filename
-                $pos = strpos($originalFile, '?');
-                if ($pos !== false) {
-                    $originalFile = substr($originalFile, 0, $pos);
-                }
-                $minifier->add($originalFile);
+                $minifier->add($this->stripCacheBuster($originalFile));
             }
 
             $minifier->minify($minimalFilePath);

@@ -163,7 +163,7 @@ function wikiplugin_xmpp_info()
             ],
             'auto_open' => [
                 'name' => tra('Auto-open'),
-                'description' => tra('If this room should open automatically instead of staying minimized/hidden until the visitor clicks the chat button. Always shown when view_mode is embedded or fullscreen, regardless of this setting.'),
+                'description' => tra('Open this room automatically when the page loads.'),
                 'default' => 'n',
                 'filter' => 'alpha',
                 'required' => false,
@@ -194,7 +194,6 @@ function wikiplugin_xmpp($data, $params)
 
     $params['anonymous_auto_open'] = $params['auto_open'];
 
-
     if (empty($params['room'])) {
         Feedback::error(tr('PluginXMPP Error: No room specified'));
         return '';
@@ -203,15 +202,7 @@ function wikiplugin_xmpp($data, $params)
     $visibility = $params['visibility'] ?? 'anonymous';
     $params['anonymous'] = $visibility === 'anonymous' ? 'y' : 'n';
 
-    // The room this plugin instance declares is what visitors join here - it's no
-    // longer silently swapped out for the sitewide "default anonymous room" pref,
-    // so a page keeps the room its author actually configured (that sitewide default
-    // is instead used as a fallback by the floating chat button on pages with no
-    // PluginXMPP of their own; see ConverseJS::set_auth()).
-
     if (empty($user) && $params['anonymous'] !== 'y') {
-        // Anonymous visitor hitting a members-only room: block, same as the
-        // authorization check below does for logged-in users on rooms they can't access.
         return '<div class="alert alert-warning">'
             . tra('This chat room is restricted.')
             . '</div>';
@@ -232,10 +223,6 @@ function wikiplugin_xmpp($data, $params)
         }
     }
 
-    // Apply this plugin instance's archiving/persistent/moderated/secret params to the
-    // Prosody room, which otherwise ignores them. Cached per session (keyed on the room
-    // and the config itself) so a repeat page view doesn't trigger an XMPP admin
-    // round-trip on every render.
     $xmpplib = $xmpplib ?? TikiLib::lib('xmpp');
     $roomJid = $xmpplib->buildRoomJid($params['room']);
     $roomConfig = [
@@ -281,12 +268,6 @@ function wikiplugin_xmpp($data, $params)
         $smarty->append('tiki_page_bar_more_items', $item);
         unset($url, $item);
     }
-
-    // Fullscreen layout is handled by dedicated CSS (.converse-fullscreen) and
-    // wikiplugin-xmpp.js, using position:fixed + a high z-index to cover the
-    // viewport - stripping every other stylesheet on the page (as previously done
-    // here) also removed Tiki's theme CSS variables the chat itself depends on
-    // (--bs-primary, etc.), which is what made fullscreen look broken/unstyled.
 
     $javascript = 'lib/jquery_tiki/wikiplugin-xmpp.js';
     $headerlib->add_jsfile_late($javascript . '?_=' . filemtime(TIKI_PATH . "/$javascript"), false);

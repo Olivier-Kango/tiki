@@ -1,29 +1,13 @@
 <?php
 
-// tiki-xmpp-guest-auth.php — HTTP endpoint for Prosody mod_auth_http, guest domain
-//
-// Unlike tiki-xmpp-auth.php (which validates real Tiki accounts), this
-// endpoint gives anonymous visitors a *stable* identity: the browser
-// generates a random guest username + password once (stored in
-// localStorage, see lib/xmpp/ConverseJS.php render()) and reuses it on
-// every visit. The first successful check_password() for a given
-// username registers it ("trust on first use" - there is no meaningful
-// way to "steal" a guest identity beyond guessing a random 20-hex-char
-// token); every later check just verifies the password matches.
-//
-// This is what makes an anonymous visitor's conversation (with the
-// admin, or in a public room) survive page reloads and even full
-// browser restarts, which true SASL ANONYMOUS auth cannot do - the
-// server assigns a fresh random identity on every single connection by
-// protocol design.
-
 require_once __DIR__ . '/tiki-setup.php';
 
 $prefslib = TikiLib::lib('prefs');
 $db = TikiDb::get();
 
-// --- Shared secret (file or preference) and HTTP auth handling ---
-$file_secret = @file_exists('/etc/prosody/xmpp_http_secret') ? trim(@file_get_contents('/etc/prosody/xmpp_http_secret') ?: '') : '';
+$file_secret = @file_exists('/etc/prosody/xmpp_http_secret')
+    ? trim(@file_get_contents('/etc/prosody/xmpp_http_secret') ?: '')
+    : '';
 $pref_secret = trim((string) ($prefslib->getPreference('xmpp_shared_secret')['value'] ?? ''));
 $trusted_secret = $file_secret !== '' ? $file_secret : $pref_secret;
 
@@ -62,9 +46,6 @@ $respond_bool = function (bool $ok) {
     exit;
 };
 
-// Only accept usernames in the exact format the client generates
-// (see the guest-identity script in ConverseJS::render()) - this isn't
-// a security boundary by itself, just a sanity filter.
 function tiki_xmpp_guest_valid_username(string $u): bool
 {
     return (bool) preg_match('/^guest-[0-9a-f]{20}$/', $u);
@@ -90,7 +71,6 @@ if ($method === 'check_password') {
     $hash = $db->getOne('SELECT password_hash FROM tiki_xmpp_guest_credentials WHERE username = ?', [$u]);
 
     if (! $hash) {
-        // First time this guest identity is seen: register it.
         $db->query(
             'INSERT INTO tiki_xmpp_guest_credentials (username, password_hash, created, last_seen) VALUES (?, ?, ?, ?)',
             [$u, password_hash($p, PASSWORD_DEFAULT), $now, $now]
