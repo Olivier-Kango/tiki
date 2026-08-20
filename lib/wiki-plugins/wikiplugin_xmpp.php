@@ -163,7 +163,7 @@ function wikiplugin_xmpp_info()
             ],
             'auto_open' => [
                 'name' => tra('Auto-open'),
-                'description' => tra('Open this room automatically when the page loads.'),
+                'description' => tra('If this room should open automatically instead of staying minimized/hidden until the visitor clicks the chat button. Always shown when view_mode is embedded or fullscreen, regardless of this setting.'),
                 'default' => 'n',
                 'filter' => 'alpha',
                 'required' => false,
