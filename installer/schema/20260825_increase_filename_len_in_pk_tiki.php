@@ -28,7 +28,7 @@ function upgrade_20260825_increase_filename_len_in_pk_tiki(Installer $installer)
             AND TABLE_SCHEMA = '" . $dbs_tiki . "'
             AND TABLE_NAME = 'tiki_secdb'"
     );
-    
+
     $installer->query(
         "ALTER TABLE `tiki_secdb`
         MODIFY COLUMN `filename` TEXT NOT NULL"
