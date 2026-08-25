@@ -10,7 +10,7 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2026-07-26, the community has:
+As of 2026-08-25, the community has:
   * 455 members,
   * 455 of those people who made at least one code commit
 
@@ -47,8 +47,8 @@ Number of Commits: 7
 
 Name: Adrien Mbuya Maloba
 First Commit: 2019-04-10
-Last Commit: 2026-07-07
-Number of Commits: 238
+Last Commit: 2026-08-20
+Number of Commits: 243
 
 Name: afahlvik
 First Commit: 2004-03-25
@@ -107,8 +107,8 @@ Number of Commits: 41
 
 Name: Alfred Syatsukwa
 First Commit: 2024-01-15
-Last Commit: 2026-07-26
-Number of Commits: 67
+Last Commit: 2026-08-20
+Number of Commits: 79
 
 Name: Alvin Bauma
 First Commit: 2021-10-08
@@ -262,8 +262,8 @@ Number of Commits: 3
 
 Name: Benoit Grégoire
 First Commit: 2018-03-17
-Last Commit: 2026-03-13
-Number of Commits: 276
+Last Commit: 2026-08-24
+Number of Commits: 280
 
 Name: Benoit Roy
 First Commit: 2024-07-26
@@ -342,8 +342,8 @@ Number of Commits: 1
 
 Name: Bruno Kambere
 First Commit: 2023-05-11
-Last Commit: 2026-05-04
-Number of Commits: 128
+Last Commit: 2026-08-14
+Number of Commits: 131
 
 Name: btodoroff
 First Commit: 2004-01-10
@@ -567,8 +567,8 @@ Number of Commits: 46
 
 Name: Domeshow Emmanuel
 First Commit: 2021-10-06
-Last Commit: 2026-07-22
-Number of Commits: 206
+Last Commit: 2026-08-17
+Number of Commits: 210
 
 Name: Don de Dieu Bolenge
 First Commit: 2024-08-01
@@ -662,8 +662,8 @@ Number of Commits: 5
 
 Name: Espoir Baraka
 First Commit: 2024-09-09
-Last Commit: 2026-05-25
-Number of Commits: 97
+Last Commit: 2026-08-22
+Number of Commits: 110
 
 Name: estheban
 First Commit: 2015-09-18
@@ -1112,8 +1112,8 @@ Number of Commits: 2
 
 Name: Jonny Bradley
 First Commit: 2007-08-15
-Last Commit: 2026-07-18
-Number of Commits: 10224
+Last Commit: 2026-08-20
+Number of Commits: 10232
 
 Name: Jorge Sá Pereira
 First Commit: 2019-09-04
@@ -1217,8 +1217,8 @@ Number of Commits: 45
 
 Name: King KAMBALE DAVID
 First Commit: 2024-09-13
-Last Commit: 2026-07-04
-Number of Commits: 35
+Last Commit: 2026-08-06
+Number of Commits: 36
 
 Name: Kissaki
 First Commit: 2009-07-26
@@ -1257,8 +1257,8 @@ Number of Commits: 6
 
 Name: Landry Bitege
 First Commit: 2025-06-03
-Last Commit: 2026-07-20
-Number of Commits: 58
+Last Commit: 2026-08-12
+Number of Commits: 61
 
 Name: leagris
 First Commit: 2013-07-24
@@ -1327,8 +1327,8 @@ Number of Commits: 2
 
 Name: Luciash D'Being
 First Commit: 2003-08-05
-Last Commit: 2026-07-18
-Number of Commits: 1474
+Last Commit: 2026-07-27
+Number of Commits: 1475
 
 Name: lueders
 First Commit: 2003-08-18
@@ -1352,8 +1352,8 @@ Number of Commits: 18
 
 Name: MAGENE Sem Joel
 First Commit: 2025-06-11
-Last Commit: 2026-07-23
-Number of Commits: 71
+Last Commit: 2026-08-20
+Number of Commits: 74
 
 Name: Mahi2
 First Commit: 2019-03-19
@@ -1472,8 +1472,8 @@ Number of Commits: 6
 
 Name: Merci Jacob
 First Commit: 2023-09-18
-Last Commit: 2026-05-13
-Number of Commits: 379
+Last Commit: 2026-08-20
+Number of Commits: 383
 
 Name: mhausi
 First Commit: 2005-02-08
@@ -1567,8 +1567,8 @@ Number of Commits: 1898
 
 Name: Moïse Nturubika
 First Commit: 2024-08-23
-Last Commit: 2026-06-19
-Number of Commits: 72
+Last Commit: 2026-08-14
+Number of Commits: 73
 
 Name: mrjc
 First Commit: 2009-05-11
@@ -2022,8 +2022,8 @@ Number of Commits: 2
 
 Name: Steven Ngesera
 First Commit: 2023-08-10
-Last Commit: 2026-07-02
-Number of Commits: 84
+Last Commit: 2026-07-27
+Number of Commits: 85
 
 Name: sthibault-php
 First Commit: 2009-05-04
@@ -2167,13 +2167,13 @@ Number of Commits: 2
 
 Name: ushindi bienvenu
 First Commit: 2024-08-07
-Last Commit: 2026-07-26
-Number of Commits: 218
+Last Commit: 2026-08-25
+Number of Commits: 229
 
 Name: Ushindi Gedeon
 First Commit: 2024-03-12
-Last Commit: 2026-07-14
-Number of Commits: 63
+Last Commit: 2026-07-29
+Number of Commits: 64
 
 Name: uxeric
 First Commit: 2015-08-17
@@ -2187,8 +2187,8 @@ Number of Commits: 32
 
 Name: Victor Emanouilov
 First Commit: 2016-08-02
-Last Commit: 2026-07-24
-Number of Commits: 2047
+Last Commit: 2026-08-05
+Number of Commits: 2052
 
 Name: Volker Wysk
 First Commit: 2021-08-29
