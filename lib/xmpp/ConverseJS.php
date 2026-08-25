@@ -277,6 +277,7 @@ class ConverseJS
         $deps = [
             CONVERSEJS_DIST_PATH . '/converse.min.css',
             'lib/xmpp/css/conversejs.css',
+            'lib/xmpp/css/conversejs-tiki.css',
         ];
         return array_map([$this, 'append_mtime'], $deps);
     }
@@ -299,9 +300,8 @@ class ConverseJS
         );
 
         $header->add_js_module(
-            "import 'converse.js';"
+            "import converse from 'converse.js';"
             . PHP_EOL . "window.tikiConverseReady = (async function () {"
-            . PHP_EOL . "    var converse = window.converse;"
             . PHP_EOL . "    window.converse = converse;"
             . PHP_EOL . "    " . implode(PHP_EOL . "    ", $pluginImports)
             . PHP_EOL . "    return converse;"

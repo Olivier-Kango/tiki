@@ -1,0 +1,9 @@
+// Central ConverseJS customization loaded by the XMPP client itself.
+// Keep instance-specific values as Bootstrap CSS variables so this stylesheet
+// follows every Tiki theme without being compiled into a particular theme.
+$font-family-base: var(--bs-body-font-family, system-ui, sans-serif);
+$input-bg: var(--bs-body-bg, #fff);
+$input-color: var(--bs-body-color, #212529);
+$input-border-color: var(--bs-border-color, #dee2e6);
+
+@import "conversejs-tiki-core";
