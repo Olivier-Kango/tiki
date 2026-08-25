@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.0-controlboxfix1';
+    const CACHE_EPOCH = '14.0.0-logo-dark1';
 
     private $options;
     private $tiki_root;
@@ -151,7 +151,7 @@ class ConverseJS
         $xmpplib = TikiLib::lib('xmpp');
         $xmpp = $xmpplib->get_user_connection_info($user);
         $jidInfo = $xmpplib->getJidInfoForUser($user);
-        $externalAvailable = $jidInfo['isExternal'] && ! empty($xmpp['custom_endpoint']);
+        $externalAvailable = $jidInfo['isExternal'];
         $onXmppPage = $this->get_option('on_xmpp_page') === 'y';
         $useExternalNow = $onXmppPage && $externalAvailable && ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
 
@@ -167,7 +167,9 @@ class ConverseJS
                     'password'       => $externalPassword,
                     'auto_open'      => $auto_open,
                     'external_jid'   => $jidInfo['jid'],
+                    'local_jid'      => $jidInfo['localJid'] ?? '',
                     'using_external' => 'y',
+                    'discover_connection_methods' => empty($xmpp['custom_endpoint']),
                 ], $transportOptions);
             }
 
@@ -177,7 +179,9 @@ class ConverseJS
                 'jid'            => $jidInfo['jid'],
                 'auto_open'      => $auto_open,
                 'external_jid'   => $jidInfo['jid'],
+                'local_jid'      => $jidInfo['localJid'] ?? '',
                 'using_external' => 'y',
+                'discover_connection_methods' => empty($xmpp['custom_endpoint']),
             ], $transportOptions);
         }
 
@@ -189,6 +193,7 @@ class ConverseJS
             'password'       => $xmpplib->getXmppSessionToken($user),
             'auto_open'      => $auto_open,
             'external_jid'   => ($onXmppPage && $externalAvailable) ? $jidInfo['jid'] : '',
+            'local_jid'      => $jidInfo['localJid'] ?? '',
             'using_external' => 'n',
         ], $transportOptions);
     }
@@ -205,10 +210,7 @@ class ConverseJS
         }
 
         if (empty($xmpp['custom_endpoint'])) {
-            return [
-                'websocket_url'    => '',
-                'bosh_service_url' => '',
-            ];
+            return [];
         }
 
         return [
@@ -391,6 +393,14 @@ JS;
         $options['show_desktop_notifications'] = true;
         $options['show_tab_notifications'] = true;
         $options['play_sounds'] = true;
+        $siteName = trim((string) ($prefs['sitetitle'] ?? ''))
+            ?: trim((string) ($prefs['browsertitle'] ?? ''))
+            ?: trim((string) ($prefs['sitelogo_title'] ?? ''))
+            ?: 'Tiki';
+        $options['tiki_site_name'] = $siteName;
+        // An empty value is intentional: the browser plugin then discovers the
+        // logo currently rendered by Tiki instead of assuming a particular file.
+        $options['tiki_site_logo'] = trim((string) ($prefs['sitelogo_src'] ?? ''));
 
         if ($this->get_option('authentication') === 'anonymous') {
             $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');

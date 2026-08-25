@@ -32,7 +32,15 @@ converse-chat-message[message_type=info] {
     display: inline-block;
     width: 2.5rem;
     height: 2.5rem;
-    background: url("/display68") no-repeat center / contain;
+    background-image: var(--tiki-chat-logo-image, none);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.tiki-xmpp-identity-switcher {
+    border-color: color-mix(in srgb, var(--bs-primary) 25%, var(--bs-border-color)) !important;
+    background: color-mix(in srgb, var(--bs-primary) 5%, var(--bs-body-bg)) !important;
 }
 
 #conversejs.converse-overlayed .toggle-controlbox,
