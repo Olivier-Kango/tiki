@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS `tiki_xmpp_guest_credentials` (
   `created` int(11) NOT NULL,
   `last_seen` int(11) NOT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM;
