@@ -237,7 +237,24 @@ function wikiplugin_xmpp($data, $params)
         $_SESSION['xmpp_room_configured'][$roomJid] = $configCacheKey;
     }
 
-    $result = '<style type="text/css">#page-bar .dropdown-menu { z-index: 1031; }</style>'
+    $identitySwitcher = '';
+    if (! empty($user)) {
+        $jidInfo = $xmpplib->getJidInfoForUser($user);
+        if ($jidInfo['isExternal']) {
+            $usingExternal = ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
+            $localJid = htmlspecialchars((string) ($jidInfo['localJid'] ?? ''), ENT_QUOTES, 'UTF-8');
+            $externalJid = htmlspecialchars((string) ($jidInfo['externalJid'] ?? ''), ENT_QUOTES, 'UTF-8');
+            $identitySwitcher = '<div class="tiki-xmpp-identity-switcher alert alert-light border d-flex flex-wrap align-items-center gap-2" role="group" aria-label="' . tra('Chat identity') . '">'
+                . '<strong class="me-1">' . tra('Chat as:') . '</strong>'
+                . '<button type="button" class="btn btn-sm ' . ($usingExternal ? 'btn-outline-primary' : 'btn-primary') . '" data-tiki-xmpp-identity="local">' . $localJid . '</button>'
+                . '<button type="button" class="btn btn-sm ' . ($usingExternal ? 'btn-primary' : 'btn-outline-primary') . '" data-tiki-xmpp-identity="external">' . $externalJid . '</button>'
+                . '<span class="small text-body-secondary">' . tra('The selected account will join the rooms available on this page.') . '</span>'
+                . '</div>';
+        }
+    }
+
+    $result = $identitySwitcher
+        . '<style type="text/css">#page-bar .dropdown-menu { z-index: 1031; }</style>'
         . '<div id="conversejs"'
         . ' data-view-mode="' . $params['view_mode'] . '"'
         . ' style="' . "width:{$params['width']}; height:{$params['height']}" . '"'

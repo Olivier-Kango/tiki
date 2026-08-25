@@ -296,10 +296,7 @@ class XMPPLib extends TikiLib
     {
         $jidInfo = $this->getJidInfoForUser($username);
         if ($jidInfo['isExternal']) {
-            $xmpp = $this->get_user_connection_info($username);
-            if (! empty($xmpp['custom_endpoint'])) {
-                return $jidInfo['jid'];
-            }
+            return $jidInfo['jid'];
         }
         return $jidInfo['localJid'] ?? '';
     }
@@ -701,9 +698,19 @@ class XMPPLib extends TikiLib
     private function encryptExternalPassword(string $cleartext): string
     {
         $key = $this->getExternalPasswordKey();
-        $iv = random_bytes(openssl_cipher_iv_length('aes-256-ctr'));
-        $ciphertext = openssl_encrypt($cleartext, 'aes-256-ctr', $key, OPENSSL_RAW_DATA, $iv);
-        return base64_encode($iv . $ciphertext);
+        if (function_exists('sodium_crypto_secretbox')) {
+            $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+            $ciphertext = sodium_crypto_secretbox($cleartext, $nonce, $key);
+            return 'v2s:' . base64_encode($nonce . $ciphertext);
+        }
+
+        $iv = random_bytes(openssl_cipher_iv_length('aes-256-gcm'));
+        $tag = '';
+        $ciphertext = openssl_encrypt($cleartext, 'aes-256-gcm', $key, OPENSSL_RAW_DATA, $iv, $tag);
+        if ($ciphertext === false) {
+            throw new Exception('Unable to encrypt the external XMPP password.');
+        }
+        return 'v2g:' . base64_encode($iv . $tag . $ciphertext);
     }
 
     private function decryptExternalPassword(string $stored): ?string
@@ -714,6 +721,35 @@ class XMPPLib extends TikiLib
             return null;
         }
 
+        if (str_starts_with($stored, 'v2s:')) {
+            if (! function_exists('sodium_crypto_secretbox_open')) {
+                return null;
+            }
+            $raw = base64_decode(substr($stored, 4), true);
+            if ($raw === false || strlen($raw) <= SODIUM_CRYPTO_SECRETBOX_NONCEBYTES) {
+                return null;
+            }
+            $nonce = substr($raw, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+            $ciphertext = substr($raw, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+            $cleartext = sodium_crypto_secretbox_open($ciphertext, $nonce, $key);
+            return $cleartext !== false ? $cleartext : null;
+        }
+
+        if (str_starts_with($stored, 'v2g:')) {
+            $raw = base64_decode(substr($stored, 4), true);
+            $ivLen = openssl_cipher_iv_length('aes-256-gcm');
+            if ($raw === false || strlen($raw) <= $ivLen + 16) {
+                return null;
+            }
+            $iv = substr($raw, 0, $ivLen);
+            $tag = substr($raw, $ivLen, 16);
+            $ciphertext = substr($raw, $ivLen + 16);
+            $cleartext = openssl_decrypt($ciphertext, 'aes-256-gcm', $key, OPENSSL_RAW_DATA, $iv, $tag);
+            return $cleartext !== false ? $cleartext : null;
+        }
+
+        // Backward compatibility for passwords stored by the initial AES-CTR
+        // implementation. Successful legacy values are migrated on read.
         $raw = base64_decode($stored, true);
         if ($raw === false) {
             return null;
@@ -766,7 +802,15 @@ class XMPPLib extends TikiLib
             return null;
         }
 
-        return $this->decryptExternalPassword($stored);
+        $cleartext = $this->decryptExternalPassword($stored);
+        if ($cleartext !== null && ! str_starts_with($stored, 'v2')) {
+            try {
+                $this->set_user_preference($username, self::EXTERNAL_PASSWORD_PREF_KEY, $this->encryptExternalPassword($cleartext));
+            } catch (\Throwable $e) {
+                // Keep the valid legacy value if migration is temporarily unavailable.
+            }
+        }
+        return $cleartext;
     }
 
     public function getReadCursors(string $username): array

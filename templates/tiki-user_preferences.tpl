@@ -573,7 +573,7 @@
                                 <input type="text" class="form-control" name="xmpp_custom_server_endpoint" id="xmpp_custom_server_endpoint" value="{if $user_prefs.xmpp_custom_server_endpoint}{$user_prefs.xmpp_custom_server_endpoint|escape}{else}{$user_prefs.xmpp_custom_server_http_bind|escape}{/if}">
                                 <p><small>{tr}Provide this when using an external XMPP server that requires a custom BOSH or WebSocket endpoint{/tr}</small></p>
                                 <p><small>{tr}Use an http:// or https:// URL for BOSH, or a ws:// or wss:// URL for WebSocket{/tr}</small></p>
-                                <p><small>{tr}Required if your external address is on a different domain than this site's chat server; otherwise this site's own connection is used, which will fail to authenticate a genuinely external account{/tr}</small></p>
+                                <p><small>{tr}Optional when the external domain publishes XMPP connection discovery records. Set it explicitly when discovery is unavailable or when you need to force a specific BOSH or WebSocket service.{/tr}</small></p>
                             </div>
                         </div>
                         <div class="tiki-form-group row">
@@ -589,7 +589,7 @@
                                         <label class="form-check-label" for="xmpp_external_password_clear">{tr}Remove the saved password (you'll be asked to log in manually next time){/tr}</label>
                                     </div>
                                 {else}
-                                    <p><small>{tr}Optional. Only needed for a genuinely external account (the connection endpoint above must also be a BOSH URL, not WebSocket) - saving it here lets Tiki sign you in automatically instead of asking every time. Stored encrypted, and only ever decryptable during your own logged-in session; leave blank to keep logging in manually in the chat window instead.{/tr}</small></p>
+                                    <p><small>{tr}Optional. Saving it lets Tiki sign in automatically through either BOSH or WebSocket. It is stored with authenticated encryption; leave it blank to log in manually in the chat window instead.{/tr}</small></p>
                                 {/if}
                             </div>
                         </div>

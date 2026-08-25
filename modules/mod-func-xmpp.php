@@ -32,10 +32,20 @@ function module_xmpp_info()
  */
 function module_xmpp($mod_reference, &$module_params)
 {
-    global $user, $prefs;
+    global $user, $prefs, $page;
 
     if (($prefs['xmpp_chat_button'] ?? 'y') !== 'y') {
         return;
+    }
+
+    // PluginXMPP owns the single Converse instance on dedicated chat pages.
+    // Checking the stored source also works when the parsed wiki body comes
+    // from cache, where an in-process static guard alone is not sufficient.
+    if (! empty($page)) {
+        $pageInfo = TikiLib::lib('tiki')->get_page_info($page);
+        if (! empty($pageInfo['data']) && preg_match('/\{xmpp\b/i', $pageInfo['data'])) {
+            return;
+        }
     }
 
     if (empty($user) && ! isset($module_params['anonymous'])) {
