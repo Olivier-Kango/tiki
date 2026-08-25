@@ -4324,7 +4324,8 @@ CREATE TABLE `tiki_xmpp_guest_credentials` (
   `password_hash` varchar(255) NOT NULL,
   `created` int NOT NULL,
   `last_seen` int NOT NULL,
-  PRIMARY KEY (`username`)
+  PRIMARY KEY (`username`),
+  KEY `last_seen` (`last_seen`)
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_markdown_imports`;

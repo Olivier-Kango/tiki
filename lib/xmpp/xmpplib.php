@@ -17,6 +17,9 @@ require_once __DIR__ . '/TikiXmppPrebind.php';
 
 class XMPPLib extends TikiLib
 {
+    private const MAX_READ_CURSORS = 200;
+    private const MAX_READ_CURSOR_JID_LENGTH = 320;
+
     private $server_host = '';
     private $server_http_bind = '';
     private $restapi = null;
@@ -817,22 +820,51 @@ class XMPPLib extends TikiLib
     {
         $raw = TikiLib::lib('tiki')->get_user_preference($username, 'xmpp_read_cursors', '{}');
         $decoded = json_decode((string) $raw, true);
-        return is_array($decoded) ? $decoded : [];
+        return is_array($decoded) ? $this->normalizeReadCursors($decoded) : [];
     }
 
     public function saveReadCursors(string $username, array $cursors): array
     {
         $existing = $this->getReadCursors($username);
-        foreach ($cursors as $jid => $time) {
-            if (! is_string($jid) || $jid === '' || ! is_string($time)) {
-                continue;
-            }
+        foreach ($this->normalizeReadCursors($cursors) as $jid => $time) {
             if (empty($existing[$jid]) || strtotime($time) > strtotime($existing[$jid])) {
                 $existing[$jid] = $time;
             }
         }
+        $existing = $this->normalizeReadCursors($existing);
         $this->set_user_preference($username, 'xmpp_read_cursors', json_encode($existing));
         return $existing;
+    }
+
+    private function normalizeReadCursors(array $cursors): array
+    {
+        $normalized = [];
+        foreach ($cursors as $jid => $time) {
+            if (! is_string($jid) || ! is_string($time)) {
+                continue;
+            }
+
+            $jid = trim($jid);
+            if (
+                $jid === ''
+                || strlen($jid) > self::MAX_READ_CURSOR_JID_LENGTH
+                || ! preg_match('/^[^\s@\/]+@[^\s@\/]+(?:\/[^\s]+)?$/', $jid)
+            ) {
+                continue;
+            }
+
+            $timestamp = strtotime($time);
+            if ($timestamp === false) {
+                continue;
+            }
+            $normalized[$jid] = date(DATE_ATOM, $timestamp);
+        }
+
+        uasort($normalized, function ($a, $b) {
+            return strtotime($b) <=> strtotime($a);
+        });
+
+        return array_slice($normalized, 0, self::MAX_READ_CURSORS, true);
     }
 
     /**

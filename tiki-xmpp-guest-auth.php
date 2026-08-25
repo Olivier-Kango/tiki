@@ -26,7 +26,14 @@ if (stripos($auth, 'Basic ') === 0) {
     }
 }
 
-$req_secret = $_GET['secret'] ?? $_POST['secret'] ?? null;
+$header_secret = $_SERVER['HTTP_X_PROSODY_SECRET'] ?? '';
+if (! $okSecret && $trusted_secret !== '' && $header_secret !== '') {
+    if (hash_equals($trusted_secret, (string) $header_secret)) {
+        $okSecret = true;
+    }
+}
+
+$req_secret = $_POST['secret'] ?? $_GET['secret'] ?? null;
 if (! $okSecret && $trusted_secret !== '' && $req_secret !== null) {
     if (hash_equals($trusted_secret, (string) $req_secret)) {
         $okSecret = true;
@@ -35,6 +42,7 @@ if (! $okSecret && $trusted_secret !== '' && $req_secret !== null) {
 
 if (! $okSecret) {
     header('Content-Type: text/plain; charset=utf-8');
+    header('Cache-Control: no-store');
     http_response_code(403);
     echo 'false';
     exit;
@@ -42,6 +50,7 @@ if (! $okSecret) {
 
 $respond_bool = function (bool $ok) {
     header('Content-Type: text/plain; charset=utf-8');
+    header('Cache-Control: no-store');
     echo $ok ? 'true' : 'false';
     exit;
 };
@@ -68,6 +77,7 @@ if ($method === 'check_password') {
     }
 
     $now = time();
+    $db->query('DELETE FROM tiki_xmpp_guest_credentials WHERE last_seen < ?', [$now - 180 * 24 * 60 * 60]);
     $hash = $db->getOne('SELECT password_hash FROM tiki_xmpp_guest_credentials WHERE username = ?', [$u]);
 
     if (! $hash) {
@@ -87,5 +97,6 @@ if ($method === 'check_password') {
 }
 
 header('Content-Type: text/plain; charset=utf-8');
+header('Cache-Control: no-store');
 http_response_code(404);
 echo 'false';

@@ -300,8 +300,12 @@ class ConverseJS
         );
 
         $header->add_js_module(
-            "import converse from 'converse.js';"
+            "import * as converseModule from 'converse.js';"
             . PHP_EOL . "window.tikiConverseReady = (async function () {"
+            . PHP_EOL . "    const converse = converseModule.default || converseModule.converse || window.converse || (typeof converseModule.initialize === 'function' ? converseModule : null);"
+            . PHP_EOL . "    if (!converse || typeof converse.initialize !== 'function') {"
+            . PHP_EOL . "        throw new Error('converse is not defined');"
+            . PHP_EOL . "    }"
             . PHP_EOL . "    window.converse = converse;"
             . PHP_EOL . "    " . implode(PHP_EOL . "    ", $pluginImports)
             . PHP_EOL . "    return converse;"
@@ -447,7 +451,6 @@ JS;
         var opts = {$optionsWithoutCreds};
         opts.jid = identity.jid;
         opts.password = identity.password;
-        console.log('[tiki-guest] initializing with', opts.jid);
         initializeConverse(opts).catch(function (e) {
             console.error('[tiki-guest] FATAL - ConverseJS initialization failed:', e);
         });
