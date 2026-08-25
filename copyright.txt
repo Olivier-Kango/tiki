@@ -12,7 +12,7 @@ This is how we implement the Tiki Social Contract.
 http://tiki.org/Social+Contract
 
 List of members of the Community
-As of 2026-08-24, the community has:
+As of 2026-08-25, the community has:
   * 824 members,
   * 591 members on SourceForge.net,
   * 509 of those people who made at least one code commit
@@ -401,7 +401,7 @@ Number of Commits: 77
 Nickname: Jyhem
 First Commit: Sun Apr 21 14:41:36 2013 +0000
 Last Commit: Thu Jul 10 01:18:03 2025 +0200
-Number of Commits: 945
+Number of Commits: 946
 
 Nickname: Katy Kleinert
 First Commit: Thu Sep 24 19:09:34 2020 +0000
@@ -918,7 +918,7 @@ Nickname: anbumania
 Name: Anbumani
 First Commit: 2015-03-03
 Last Commit: Tue May 19 10:53:21 2015 +0000
-Number of Commits: 18
+Number of Commits: 20
 SF Role: Developer
 
 Nickname: andreas_bac
@@ -1768,7 +1768,7 @@ Nickname: fmg-sf
 Name: Frank Guthausen
 First Commit: 2012-10-12
 Last Commit: Sun Feb 11 12:26:17 2018 +0000
-Number of Commits: 165
+Number of Commits: 167
 SF Role: Developer
 
 Nickname: fmjrey
@@ -2352,7 +2352,7 @@ Nickname: jonnybradley
 Name: jonny Bradley
 First Commit: 2007-08-15
 Last Commit: Mon Jul 6 17:04:53 2026 +0100
-Number of Commits: 8398
+Number of Commits: 8432
 SF Role: Admin
 
 Nickname: jorgercosta
@@ -2660,7 +2660,7 @@ Nickname: lindonb
 Name: lindon
 First Commit: 2009-05-10
 Last Commit: Sun Sep 6 21:58:09 2020 -0400
-Number of Commits: 2203
+Number of Commits: 2260
 SF Role: Admin, Developer
 
 Nickname: llunax
@@ -2739,7 +2739,7 @@ Nickname: luciash
 Name: luciash d&#39; being
 First Commit: 2003-08-05
 Last Commit: Wed Oct 9 19:03:31 2019 +0000
-Number of Commits: 1287
+Number of Commits: 1289
 SF Role: Admin
 
 Nickname: luciash d' being
@@ -2802,7 +2802,7 @@ SF Role: Developer
 Nickname: manivannans
 First Commit: 2013-10-24
 Last Commit: Tue May 19 13:21:35 2015 +0000
-Number of Commits: 129
+Number of Commits: 130
 SF Role: Developer
 
 Nickname: marc-etienne
@@ -4154,8 +4154,8 @@ SF Role: Admin
 
 Nickname: ushindi bienvenu
 First Commit: Wed Aug 21 17:30:54 2024 +0000
-Last Commit: Tue Aug 25 01:24:38 2026 +0200
-Number of Commits: 77
+Last Commit: Tue Aug 25 02:33:30 2026 +0200
+Number of Commits: 80
 
 Nickname: uxeric
 First Commit: 2015-08-17
@@ -4194,7 +4194,7 @@ Nickname: walper
 Name: Wolfgang Alper
 First Commit: 2014-11-12
 Last Commit: Sun May 3 12:20:46 2015 +0000
-Number of Commits: 116
+Number of Commits: 136
 SF Role: Developer
 
 Nickname: wbeaver
