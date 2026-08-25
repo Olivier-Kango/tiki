@@ -823,6 +823,31 @@ class XMPPLib extends TikiLib
         return is_array($decoded) ? $this->normalizeReadCursors($decoded) : [];
     }
 
+    /**
+     * Return the 1-to-1 JIDs this user has ever read a message from/to,
+     * excluding MUC rooms (which are already covered by getXmppRoomsForUser).
+     */
+    public function getKnownDmPartners(string $username): array
+    {
+        global $prefs;
+        $mucDomain = strtolower((string) ($prefs['xmpp_muc_component_domain'] ?: 'conference.' . $this->server_host));
+
+        $ownJids = array_map('strtolower', array_filter([
+            $this->getLocalJidForLogin($username),
+            $this->getJidInfoForUser($username)['externalJid'] ?? null,
+        ]));
+
+        $partners = [];
+        foreach (array_keys($this->getReadCursors($username)) as $jid) {
+            $bareJid = strtolower(explode('/', $jid)[0]);
+            $domain = strtolower((string) (explode('@', $jid)[1] ?? ''));
+            if ($domain !== '' && $domain !== $mucDomain && ! in_array($bareJid, $ownJids, true)) {
+                $partners[] = $jid;
+            }
+        }
+        return $partners;
+    }
+
     public function saveReadCursors(string $username, array $cursors): array
     {
         $existing = $this->getReadCursors($username);

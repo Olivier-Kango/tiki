@@ -162,14 +162,31 @@
   border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.08);
   animation: tiki-chat-pop-in 0.18s ease-out;
   background: var(--bs-body-bg);
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 .tiki #conversejs .chatbox .chat-body, .tiki #conversejs #controlbox .chat-body, .tiki #conversejs.converse-embedded .chatbox .chat-body, .tiki #conversejs.converse-embedded #controlbox .chat-body {
   background-color: inherit;
+}
+@media (max-width: 991.98px) and (min-width: 768px) {
+  .tiki #conversejs.converse-overlayed .chatbox .box-flyout, .tiki #conversejs.converse-overlayed #controlbox .box-flyout, .tiki #conversejs.converse-embedded.converse-overlayed .chatbox .box-flyout, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .box-flyout {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+  }
 }
 .tiki #conversejs.converse-overlayed, .tiki #conversejs.converse-embedded.converse-overlayed {
   left: auto !important;
   width: auto !important;
   max-width: 100%;
+}
+.tiki #conversejs.converse-overlayed .converse-chatboxes, .tiki #conversejs.converse-embedded.converse-overlayed .converse-chatboxes {
+  flex-wrap: wrap !important;
+  row-gap: 0.5rem;
+  max-width: 100vw;
 }
 .tiki #conversejs.converse-embedded, .tiki #conversejs.converse-embedded.converse-embedded {
   position: relative !important;
@@ -242,6 +259,9 @@
 .tiki #conversejs .toggle-controlbox:hover, .tiki #conversejs.converse-embedded .toggle-controlbox:hover {
   transform: translateY(-2px);
   box-shadow: 0 0.75rem 1.75rem rgba(var(--bs-primary-rgb), 0.45);
+}
+.tiki #conversejs .toggle-controlbox.tiki-chat-launcher-hidden, .tiki #conversejs.converse-embedded .toggle-controlbox.tiki-chat-launcher-hidden {
+  display: none !important;
 }
 .tiki #conversejs .toggle-controlbox span, .tiki #conversejs .toggle-controlbox .toggle-feedback, .tiki #conversejs.converse-embedded .toggle-controlbox span, .tiki #conversejs.converse-embedded .toggle-controlbox .toggle-feedback {
   color: #fff !important;
@@ -448,6 +468,10 @@
   flex-direction: column;
   min-width: 0;
   max-width: 82%;
+}
+.tiki #conversejs .chat-msg__error, .tiki #conversejs.converse-embedded .chat-msg__error {
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 .tiki #conversejs .chat-msg__content--them, .tiki #conversejs.converse-embedded .chat-msg__content--them {
   align-items: flex-start;
@@ -812,6 +836,29 @@
 .tiki #conversejs .tiki-reset-box .btn, .tiki #conversejs.converse-embedded .tiki-reset-box .btn {
   border-radius: 999px;
 }
+.tiki #conversejs .tiki-join-room-link, .tiki #conversejs.converse-embedded .tiki-join-room-link {
+  padding: 0.35rem 0.5rem;
+}
+.tiki #conversejs .tiki-join-room-link a, .tiki #conversejs.converse-embedded .tiki-join-room-link a {
+  color: var(--bs-secondary-color);
+  text-decoration: underline;
+}
+.tiki #conversejs .tiki-join-room-link a:hover, .tiki #conversejs.converse-embedded .tiki-join-room-link a:hover {
+  color: var(--bs-body-color);
+}
+@media (max-width: 767.98px) {
+  .tiki #conversejs .toggle-controlbox, .tiki #conversejs.converse-embedded .toggle-controlbox {
+    right: 0.5rem !important;
+    bottom: 0.5rem !important;
+    padding: 0.55rem 0.9rem;
+    max-width: calc(100vw - 1rem);
+  }
+  .tiki #conversejs .toggle-controlbox span, .tiki #conversejs .toggle-controlbox .toggle-feedback, .tiki #conversejs.converse-embedded .toggle-controlbox span, .tiki #conversejs.converse-embedded .toggle-controlbox .toggle-feedback {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 @media screen and (max-width: 480px) {
   .tiki #conversejs, .tiki #conversejs.converse-embedded {
     --fullpage-chat-height: 100svh;
@@ -822,6 +869,12 @@
   .tiki #conversejs .chat-msg__content, .tiki #conversejs.converse-embedded .chat-msg__content {
     max-width: 90%;
   }
+}
+
+.tiki-xmpp-identity-switcher .btn {
+  overflow-wrap: anywhere;
+  white-space: normal;
+  text-align: start;
 }
 
 #conversejs .fa-bars svg {

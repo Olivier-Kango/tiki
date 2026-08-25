@@ -166,14 +166,37 @@
             border: 1px solid rgba(var(--bs-emphasis-color-rgb), .08);
             animation: tiki-chat-pop-in .18s ease-out;
             background: var(--bs-body-bg);
+            max-width: 100vw;
+            box-sizing: border-box;
         }
         .chat-body { background-color: inherit; }
+    }
+
+    @media (max-width: 991.98px) and (min-width: 768px) {
+        &.converse-overlayed {
+            .chatbox, #controlbox {
+                .box-flyout {
+                    position: fixed !important;
+                    inset: 0 !important;
+                    width: 100vw !important;
+                    height: 100dvh !important;
+                    max-width: 100vw !important;
+                    border-radius: 0 !important;
+                }
+            }
+        }
     }
 
     &.converse-overlayed {
         left: auto !important;
         width: auto !important;
         max-width: 100%;
+
+        .converse-chatboxes {
+            flex-wrap: wrap !important;
+            row-gap: .5rem;
+            max-width: 100vw;
+        }
     }
 
     &.converse-embedded {
@@ -252,6 +275,12 @@
         &:hover {
             transform: translateY(-2px);
             box-shadow: 0 .75rem 1.75rem rgba(var(--bs-primary-rgb), .45);
+        }
+
+        // The launcher and the open popup are mutually exclusive: hide the
+        // button while a chatbox/controlbox is open (see conversejs-tiki.js).
+        &.tiki-chat-launcher-hidden {
+            display: none !important;
         }
 
         span, .toggle-feedback {
@@ -438,6 +467,11 @@
         flex-direction: column;
         min-width: 0;
         max-width: 82%;
+    }
+
+    .chat-msg__error {
+        overflow-wrap: anywhere;
+        max-width: 100%;
     }
     .chat-msg__content--them { align-items: flex-start; }
     .chat-msg__content--me { align-items: flex-end; margin-inline-start: auto; }
@@ -798,6 +832,33 @@
         .btn { border-radius: 999px; }
     }
 
+    .tiki-join-room-link {
+        padding: .35rem .5rem;
+        a {
+            color: var(--bs-secondary-color);
+            text-decoration: underline;
+            &:hover { color: var(--bs-body-color); }
+        }
+    }
+
+    // Matches Converse's own 767.98px breakpoint (where chatboxes already go
+    // full-width/100vw): keep the launcher from overflowing or crowding the
+    // edge of the screen at the same widths its popup starts behaving that way.
+    @media (max-width: 767.98px) {
+        .toggle-controlbox {
+            right: .5rem !important;
+            bottom: .5rem !important;
+            padding: .55rem .9rem;
+            max-width: calc(100vw - 1rem);
+
+            span, .toggle-feedback {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+
     @media screen and (max-width: 480px) {
         --fullpage-chat-height: 100svh;
 
@@ -808,6 +869,14 @@
         }
         .chat-msg__content { max-width: 90%; }
     }
+}
+
+// The identity switcher lives in the page itself (not inside #conversejs), so
+// it needs its own overflow safety for long external JIDs on narrow screens.
+.tiki-xmpp-identity-switcher .btn {
+    overflow-wrap: anywhere;
+    white-space: normal;
+    text-align: start;
 }
 
 

@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.0-logo-dark1';
+    const CACHE_EPOCH = '14.0.2-unacked-stanza-fix';
 
     private $options;
     private $tiki_root;
@@ -101,6 +101,7 @@ class ConverseJS
                 $anonRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
             } elseif ($anonymousMode === 'support') {
                 $dmTarget = trim($params['dm_target'] ?? ($prefs['xmpp_admin_jid'] ?? ''));
+                $anonRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
             } else {
                 $anonRoom = trim($prefs['xmpp_anonymous_room'] ?? '');
             }
@@ -115,6 +116,7 @@ class ConverseJS
                 'anon_room'           => $anonRoom,
                 'tiki_anonymous_nick' => ($prefs['xmpp_anonymous_allow_custom_nickname'] ?? 'n') === 'y' ? 'custom' : 'visitor',
                 'auto_open'           => $autoOpen,
+                'allow_contact_requests' => false,
             ]);
         // Prebind (tikitoken)
         } elseif ($authMethod === 'tikitoken') {
@@ -153,7 +155,7 @@ class ConverseJS
         $jidInfo = $xmpplib->getJidInfoForUser($user);
         $externalAvailable = $jidInfo['isExternal'];
         $onXmppPage = $this->get_option('on_xmpp_page') === 'y';
-        $useExternalNow = $onXmppPage && $externalAvailable && ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
+        $useExternalNow = $externalAvailable && ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
 
         if ($useExternalNow) {
             $transportOptions = $this->getTransportOptions($xmpp, true);
@@ -405,6 +407,7 @@ JS;
         // An empty value is intentional: the browser plugin then discovers the
         // logo currently rendered by Tiki instead of assuming a particular file.
         $options['tiki_site_logo'] = trim((string) ($prefs['sitelogo_src'] ?? ''));
+        $options['tiki_support_label'] = tra('Support');
 
         if ($this->get_option('authentication') === 'anonymous') {
             $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');

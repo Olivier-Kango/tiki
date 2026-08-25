@@ -244,11 +244,18 @@ function wikiplugin_xmpp($data, $params)
             $usingExternal = ($_COOKIE['tiki_xmpp_external'] ?? '') === '1';
             $localJid = htmlspecialchars((string) ($jidInfo['localJid'] ?? ''), ENT_QUOTES, 'UTF-8');
             $externalJid = htmlspecialchars((string) ($jidInfo['externalJid'] ?? ''), ENT_QUOTES, 'UTF-8');
-            $identitySwitcher = '<div class="tiki-xmpp-identity-switcher alert alert-light border d-flex flex-wrap align-items-center gap-2" role="group" aria-label="' . tra('Chat identity') . '">'
-                . '<strong class="me-1">' . tra('Chat as:') . '</strong>'
-                . '<button type="button" class="btn btn-sm ' . ($usingExternal ? 'btn-outline-primary' : 'btn-primary') . '" data-tiki-xmpp-identity="local">' . $localJid . '</button>'
-                . '<button type="button" class="btn btn-sm ' . ($usingExternal ? 'btn-primary' : 'btn-outline-primary') . '" data-tiki-xmpp-identity="external">' . $externalJid . '</button>'
-                . '<span class="small text-body-secondary">' . tra('The selected account will join the rooms available on this page.') . '</span>'
+
+            $identityButton = function (string $identity, string $jidLabel, bool $active) {
+                $class = $active ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline-primary';
+                $check = $active ? '<i class="fa fa-check me-1" aria-hidden="true"></i>' : '';
+                return '<button type="button" class="' . $class . '" data-tiki-xmpp-identity="' . $identity . '"'
+                    . ' aria-pressed="' . ($active ? 'true' : 'false') . '">' . $check . $jidLabel . '</button>';
+            };
+
+            $identitySwitcher = '<div class="tiki-xmpp-identity-switcher mb-3 d-flex flex-wrap align-items-center gap-2" role="group" aria-label="' . tra('Chat identity') . '">'
+                . '<strong>' . tra('Chat as:') . '</strong> '
+                . $identityButton('local', $localJid, ! $usingExternal)
+                . $identityButton('external', $externalJid, $usingExternal)
                 . '</div>';
         }
     }
