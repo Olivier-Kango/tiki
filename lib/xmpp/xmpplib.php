@@ -421,9 +421,9 @@ class XMPPLib extends TikiLib
             'realName',
         ]);
 
-        $u_jid = $user_preferences[$user]['xmpp_jid'] ?: $user;
-        $u_password = $user_preferences[$user]['xmpp_password'] ?: '';
-        $u_nickname = $user_preferences[$user]['realName'] ?: $user;
+        $u_jid = ($user_preferences[$user]['xmpp_jid'] ?? '') ?: $user;
+        $u_password = ($user_preferences[$user]['xmpp_password'] ?? '') ?: '';
+        $u_nickname = ($user_preferences[$user]['realName'] ?? '') ?: $user;
         $u_httpBind = $user_preferences[$user]['xmpp_custom_server_http_bind'] ?? '';
         $u_endpoint = $user_preferences[$user]['xmpp_custom_server_endpoint'] ?? '';
 
@@ -826,26 +826,11 @@ class XMPPLib extends TikiLib
         $xmppclient->set_auth($params);
 
         $nickname = $xmpp['nickname'] ?? $user;
-        $usingExternal = $xmppclient->get_option('using_external') === 'y';
         $onXmppPage = ($params['on_xmpp_page'] ?? 'n') === 'y';
 
         if ($onXmppPage) {
             $params['auto_open'] = 'y';
-
-            if (! empty($params['anonymous']) && $params['anonymous'] === 'y') {
-                // Anonymous always resolves to exactly this one room - nothing else to show.
-            } elseif (! $usingExternal && ! empty($user)) {
-                $currentRoomJid = $xmppclient->get_option('current_room');
-                $roomCount = count(array_unique(array_filter(array_merge(
-                    $xmpplib->getXmppRoomsForUser($user),
-                    [$currentRoomJid]
-                ))));
-                if ($roomCount > 1) {
-                    $params['show_controlbox_by_default'] = 'y';
-                }
-            } else {
-                $params['show_controlbox_by_default'] = 'y';
-            }
+            $params['show_controlbox_by_default'] = 'n';
         }
 
         $renderOptions = [

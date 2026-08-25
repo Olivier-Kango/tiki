@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.0-popupfix1';
+    const CACHE_EPOCH = '14.0.0-controlboxfix1';
 
     private $options;
     private $tiki_root;
@@ -14,7 +14,7 @@ class ConverseJS
             [
                 'auto_reconnect' => true,
                 'debug' => false,
-                'show_controlbox_by_default' => true,
+                'show_controlbox_by_default' => false,
                 'show_occupants_by_default' => true,
                 'use_emojione' => false,
                 'view_mode' => 'overlayed',
@@ -291,8 +291,20 @@ class ConverseJS
     public function registerJsDependencies()
     {
         $header = TikiLib::lib('header');
-        $header->add_js_module("import converse from 'converse.js'; window.converse = converse;");
-        array_map([$header, 'addJsfileModule'], $this->get_js_dependencies());
+        $pluginImports = array_map(
+            fn($file) => 'await import(new URL(' . json_encode($file) . ', document.baseURI).href);',
+            $this->get_js_dependencies()
+        );
+
+        $header->add_js_module(
+            "import 'converse.js';"
+            . PHP_EOL . "window.tikiConverseReady = (async function () {"
+            . PHP_EOL . "    var converse = window.converse;"
+            . PHP_EOL . "    window.converse = converse;"
+            . PHP_EOL . "    " . implode(PHP_EOL . "    ", $pluginImports)
+            . PHP_EOL . "    return converse;"
+            . PHP_EOL . "})();"
+        );
     }
 
     public function render()
@@ -309,6 +321,18 @@ class ConverseJS
         }
 
         $output = ';(function () {' . PHP_EOL . 'try {' . PHP_EOL;
+        $output .= <<<JS
+var initializeConverse = function (opts) {
+    var ready = window.tikiConverseReady || Promise.resolve(window.converse);
+    return ready.then(function (converse) {
+        if (!converse || typeof converse.initialize !== 'function') {
+            throw new Error('converse is not defined');
+        }
+        converse.initialize(opts);
+    });
+};
+
+JS;
 
         if ($prefs['xmpp_conversejs_always_load'] !== 'y') {
             $this->registerJsDependencies();
@@ -414,7 +438,9 @@ class ConverseJS
         opts.jid = identity.jid;
         opts.password = identity.password;
         console.log('[tiki-guest] initializing with', opts.jid);
-        converse.initialize(opts);
+        initializeConverse(opts).catch(function (e) {
+            console.error('[tiki-guest] FATAL - ConverseJS initialization failed:', e);
+        });
     } catch (e) {
         console.error('[tiki-guest] FATAL - guest identity setup failed:', e);
     }
@@ -430,7 +456,9 @@ JS;
 
         // Do not use JSON_UNESCAPED_SLASHES to avoid </script> injection.
         $optionString = json_encode($options, JSON_PRETTY_PRINT);
-        $output .= 'converse.initialize(' . $optionString . ');' . PHP_EOL;
+        $output .= 'initializeConverse(' . $optionString . ').catch(function (e) {' . PHP_EOL;
+        $output .= '    console.error(\'[tiki-xmpp] FATAL - ConverseJS initialization failed:\', e);' . PHP_EOL;
+        $output .= '});' . PHP_EOL;
         $output .= '} catch (e) { console.error(\'[tiki-xmpp] FATAL - setup failed:\', e); }' . PHP_EOL . '})();';
         return TikiLib::lib('header')->add_jq_onready($output, 10);
     }

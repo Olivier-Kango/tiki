@@ -34,3 +34,38 @@ converse-chat-message[message_type=info] {
     height: 2.5rem;
     background: url("/display68") no-repeat center / contain;
 }
+
+#conversejs.converse-overlayed .toggle-controlbox,
+#conversejs .toggle-controlbox {
+    position: fixed !important;
+    right: 1rem !important;
+    bottom: 1rem !important;
+    left: auto !important;
+    margin: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    border: 0;
+    border-radius: 999px;
+    padding: .65rem 1.15rem;
+    box-shadow: 0 .5rem 1.25rem rgba(13, 110, 253, .35);
+    z-index: 1060;
+}
+
+#conversejs.converse-embedded .toggle-controlbox,
+#conversejs.converse-fullscreen .toggle-controlbox {
+    display: none !important;
+}
+
+#conversejs .toggle-controlbox::before {
+    content: "\f086";
+    font-family: "Font Awesome 6 Free", "FontAwesome";
+    font-weight: 900;
+    color: #fff;
+}
+
+#conversejs .toggle-controlbox span,
+#conversejs .toggle-controlbox .toggle-feedback {
+    color: #fff !important;
+    font-weight: 600;
+}
