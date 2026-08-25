@@ -830,7 +830,10 @@ class XMPPLib extends TikiLib
 
         if ($onXmppPage) {
             $params['auto_open'] = 'y';
-            $params['show_controlbox_by_default'] = 'n';
+            // Dedicated XMPP pages (for example Community) expose the room and
+            // the control box, while the site-wide module remains a closed
+            // support button on ordinary pages.
+            $params['show_controlbox_by_default'] = 'y';
         }
 
         $renderOptions = [
