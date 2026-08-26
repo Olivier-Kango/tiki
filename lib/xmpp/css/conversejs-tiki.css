@@ -320,6 +320,11 @@
   color: var(--bs-secondary-color);
   font-size: 0.85em;
 }
+.tiki #conversejs #controlbox .xmpp-status a.change-status, .tiki #conversejs.converse-embedded #controlbox .xmpp-status a.change-status {
+  display: inline-block;
+  border: none;
+  text-decoration: none;
+}
 .tiki #conversejs #controlbox .controlbox-section, .tiki #conversejs.converse-embedded #controlbox .controlbox-section {
   padding: 0.35rem 1rem;
 }
@@ -871,6 +876,9 @@
   }
 }
 
+.tiki-xmpp-identity-switcher {
+  background: transparent !important;
+}
 .tiki-xmpp-identity-switcher .btn {
   overflow-wrap: anywhere;
   white-space: normal;

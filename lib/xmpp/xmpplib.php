@@ -841,9 +841,13 @@ class XMPPLib extends TikiLib
         foreach (array_keys($this->getReadCursors($username)) as $jid) {
             $bareJid = strtolower(explode('/', $jid)[0]);
             $domain = strtolower((string) (explode('@', $jid)[1] ?? ''));
-            if ($domain !== '' && $domain !== $mucDomain && ! in_array($bareJid, $ownJids, true)) {
-                $partners[] = $jid;
+            if ($domain === '' || $domain === $mucDomain || in_array($bareJid, $ownJids, true)) {
+                continue;
             }
+            if (preg_match('/(^|\.)(conference|room|rooms|muc|chat)(\.|$)/', $domain)) {
+                continue;
+            }
+            $partners[] = $jid;
         }
         return $partners;
     }

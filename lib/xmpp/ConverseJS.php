@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.2-unacked-stanza-fix';
+    const CACHE_EPOCH = '14.0.4-dm-partner-room-filter-fix';
 
     private $options;
     private $tiki_root;
@@ -366,8 +366,10 @@ JS;
         $output .= PHP_EOL . "  if (localStorage['chat-session-init'] !== {$chat_session_init_js}) {";
         $output .= PHP_EOL . '      console.warn("Cleaning environment for ' . 'converse session change");';
         $output .= PHP_EOL . "      localStorage['chat-session-init'] = {$chat_session_init_js};";
-        $output .= PHP_EOL . '      for (var key in localStorage) { key.match(/(converse|strophe)/) && localStorage.removeItem(key); }';
-        $output .= PHP_EOL . '      for (var key in sessionStorage) { key.match(/(converse|strophe)/) && sessionStorage.removeItem(key); }';
+        $output .= PHP_EOL . '      var lsKeys = []; for (var key in localStorage) { if (key.match(/(converse|strophe)/)) { lsKeys.push(key); } }';
+        $output .= PHP_EOL . '      lsKeys.forEach(function (k) { localStorage.removeItem(k); });';
+        $output .= PHP_EOL . '      var ssKeys = []; for (var key2 in sessionStorage) { if (key2.match(/(converse|strophe)/)) { ssKeys.push(key2); } }';
+        $output .= PHP_EOL . '      ssKeys.forEach(function (k) { sessionStorage.removeItem(k); });';
         $output .= PHP_EOL . '      if (window.indexedDB && indexedDB.databases) {';
         $output .= PHP_EOL . '          indexedDB.databases().then(function (dbs) {';
         $output .= PHP_EOL . '              dbs.forEach(function (db) {';
@@ -407,7 +409,7 @@ JS;
         // An empty value is intentional: the browser plugin then discovers the
         // logo currently rendered by Tiki instead of assuming a particular file.
         $options['tiki_site_logo'] = trim((string) ($prefs['sitelogo_src'] ?? ''));
-        $options['tiki_support_label'] = tra('Support');
+        $options['tiki_support_label'] = tra('Assistance');
 
         if ($this->get_option('authentication') === 'anonymous') {
             $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');

@@ -247,7 +247,7 @@ function wikiplugin_xmpp($data, $params)
 
             $identityButton = function (string $identity, string $jidLabel, bool $active) {
                 $class = $active ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline-primary';
-                $check = $active ? '<i class="fa fa-check me-1" aria-hidden="true"></i>' : '';
+                $check = $active ? '<i class="fa fa-check-circle me-1" aria-hidden="true"></i>' : '';
                 return '<button type="button" class="' . $class . '" data-tiki-xmpp-identity="' . $identity . '"'
                     . ' aria-pressed="' . ($active ? 'true' : 'false') . '">' . $check . $jidLabel . '</button>';
             };

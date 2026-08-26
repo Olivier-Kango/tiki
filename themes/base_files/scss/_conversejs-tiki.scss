@@ -340,6 +340,11 @@
                 color: var(--bs-secondary-color);
                 font-size: .85em;
             }
+            a.change-status {
+                display: inline-block;
+                border: none;
+                text-decoration: none;
+            }
         }
 
         .controlbox-section {
@@ -873,10 +878,14 @@
 
 // The identity switcher lives in the page itself (not inside #conversejs), so
 // it needs its own overflow safety for long external JIDs on narrow screens.
-.tiki-xmpp-identity-switcher .btn {
-    overflow-wrap: anywhere;
-    white-space: normal;
-    text-align: start;
+.tiki-xmpp-identity-switcher {
+    background: transparent !important;
+
+    .btn {
+        overflow-wrap: anywhere;
+        white-space: normal;
+        text-align: start;
+    }
 }
 
 
