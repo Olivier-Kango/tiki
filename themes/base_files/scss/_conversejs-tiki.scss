@@ -837,8 +837,10 @@
         .btn { border-radius: 999px; }
     }
 
-    .tiki-join-room-link {
-        padding: .35rem .5rem;
+    .tiki-return-to-room-banner {
+        padding: .3rem .5rem;
+        font-size: .82rem;
+
         a {
             color: var(--bs-secondary-color);
             text-decoration: underline;
