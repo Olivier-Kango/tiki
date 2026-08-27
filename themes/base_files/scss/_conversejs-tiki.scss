@@ -172,12 +172,67 @@
         .chat-body { background-color: inherit; }
     }
 
-    @media (max-width: 991.98px) and (min-width: 768px) {
+    @media (max-width: 991.98px) {
+        // Converse positions overlay chatboxes from a zero-width container on
+        // the right. Use the viewport as containing block to center the popup.
+        &.converse-overlayed.converse-overlayed {
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100vw !important;
+            height: 100dvh !important;
+            max-width: none !important;
+            pointer-events: none !important;
+
+            .toggle-controlbox { pointer-events: auto !important; }
+
+            .converse-chatboxes {
+                position: fixed !important;
+                top: 50px !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: auto !important;
+                height: calc(100dvh - 50px) !important;
+                padding: .5rem !important;
+                box-sizing: border-box;
+                pointer-events: none !important;
+            }
+
+            .chatbox, #controlbox {
+                position: absolute !important;
+                top: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: calc(100% - 1rem) !important;
+                max-width: 42rem !important;
+                height: calc(100dvh - 50px - 1rem) !important;
+                max-height: calc(100dvh - 50px - 1rem) !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+                pointer-events: auto !important;
+
+                .box-flyout {
+                    position: static !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    max-width: 100% !important;
+                    overflow: hidden !important;
+                    border-radius: var(--chatbox-border-radius) !important;
+                    box-sizing: border-box;
+                }
+            }
+        }
+
         &.converse-overlayed {
             .chatbox, #controlbox {
                 .box-flyout {
                     position: fixed !important;
-                    inset: 0 !important;
+                    top: 0 !important;
+                    right: 0 !important;
+                    bottom: auto !important;
+                    left: auto !important;
                     width: 100vw !important;
                     height: 100dvh !important;
                     max-width: 100vw !important;
