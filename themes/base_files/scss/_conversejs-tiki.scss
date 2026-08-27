@@ -41,8 +41,8 @@
     --chat-status-busy: var(--bs-danger);
     --chat-status-offline: var(--bs-secondary-color);
 
-    --controlbox-color: var(--bs-primary);
-    --controlbox-heading-color: var(--bs-secondary-color);
+    --controlbox-color: var(--bs-emphasis-color, var(--bs-body-color, #212529));
+    --controlbox-heading-color: var(--bs-emphasis-color, var(--bs-body-color, #212529));
     --disabled-color: var(--bs-secondary-color);
     --error-color: var(--bs-danger);
     --focus-color: var(--bs-primary);
@@ -187,12 +187,12 @@
 
             .converse-chatboxes {
                 position: fixed !important;
-                top: 50px !important;
+                top: 70px !important;
                 right: 0 !important;
                 bottom: 0 !important;
                 left: 0 !important;
                 width: auto !important;
-                height: calc(100dvh - 50px) !important;
+                height: calc(100dvh - 70px) !important;
                 padding: .5rem !important;
                 box-sizing: border-box;
                 pointer-events: none !important;
@@ -207,8 +207,8 @@
                 transform: translate(-50%, -50%) !important;
                 width: calc(100% - 1rem) !important;
                 max-width: 42rem !important;
-                height: calc(100dvh - 50px - 1rem) !important;
-                max-height: calc(100dvh - 50px - 1rem) !important;
+                height: calc(100dvh - 70px - 1rem) !important;
+                max-height: calc(100dvh - 70px - 1rem) !important;
                 margin: 0 !important;
                 box-sizing: border-box !important;
                 pointer-events: auto !important;
@@ -363,11 +363,17 @@
 
     &.converse-overlayed #controlbox .controlbox-heading__btn,
     .chatbox-btn {
-        color: var(--bs-body-color);
+        color: var(--bs-emphasis-color, var(--bs-body-color, #212529)) !important;
         opacity: .7;
         border-radius: 50%;
         transition: background-color .12s ease, opacity .12s ease;
+
+        converse-icon, svg {
+            color: currentColor !important;
+            fill: currentColor !important;
+        }
     }
+    &.converse-overlayed #controlbox .controlbox-heading__btn:hover,
     .chatbox-btn:hover {
         opacity: 1;
         background-color: rgba(var(--bs-emphasis-color-rgb), .08);
@@ -376,6 +382,10 @@
     #controlbox {
         .box-flyout { background: var(--bs-body-bg); }
         .controlbox-pane { background-color: inherit; }
+
+        converse-user-profile {
+            border-bottom: 0 !important;
+        }
 
         .userinfo {
             border-bottom: 1px solid rgba(var(--bs-emphasis-color-rgb), .08);
@@ -405,13 +415,37 @@
         .controlbox-section {
             padding: .35rem 1rem;
             .controlbox-heading {
+                color: var(--bs-emphasis-color, var(--bs-body-color, #212529)) !important;
                 font-size: .78rem !important;
-                opacity: .8;
+                opacity: 1;
             }
         }
 
         #chatrooms, #converse-roster {
-            .list-toggle { color: var(--bs-body-color); }
+            .list-toggle,
+            .group-toggle,
+            .group-toggle .fa,
+            .open-contacts-toggle,
+            .open-contacts-toggle .fa {
+                color: var(--bs-secondary-color, var(--bs-body-color, #495057)) !important;
+            }
+
+            .list-toggle,
+            .group-toggle,
+            .open-contacts-toggle,
+            converse-dropdown,
+            .contact-actions {
+                converse-icon, svg {
+                    color: currentColor !important;
+                    fill: currentColor !important;
+                }
+            }
+
+            .list-toggle:hover,
+            .group-toggle:hover,
+            .open-contacts-toggle:hover {
+                color: var(--bs-emphasis-color, var(--bs-body-color, #212529)) !important;
+            }
 
             .list-item {
                 border-radius: .5rem;
@@ -423,7 +457,6 @@
                 }
             }
 
-            .group-toggle { color: var(--bs-body-color); }
         }
 
         converse-list-filter {

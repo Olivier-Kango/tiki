@@ -37,8 +37,8 @@
   --chat-status-away: var(--bs-warning);
   --chat-status-busy: var(--bs-danger);
   --chat-status-offline: var(--bs-secondary-color);
-  --controlbox-color: var(--bs-primary);
-  --controlbox-heading-color: var(--bs-secondary-color);
+  --controlbox-color: var(--bs-emphasis-color, var(--bs-body-color, #212529));
+  --controlbox-heading-color: var(--bs-emphasis-color, var(--bs-body-color, #212529));
   --disabled-color: var(--bs-secondary-color);
   --error-color: var(--bs-danger);
   --focus-color: var(--bs-primary);
@@ -182,12 +182,12 @@
   }
   .tiki #conversejs.converse-overlayed.converse-overlayed .converse-chatboxes, .tiki #conversejs.converse-embedded.converse-overlayed.converse-overlayed .converse-chatboxes {
     position: fixed !important;
-    top: 50px !important;
+    top: 70px !important;
     right: 0 !important;
     bottom: 0 !important;
     left: 0 !important;
     width: auto !important;
-    height: calc(100dvh - 50px) !important;
+    height: calc(100dvh - 70px) !important;
     padding: 0.5rem !important;
     box-sizing: border-box;
     pointer-events: none !important;
@@ -201,8 +201,8 @@
     transform: translate(-50%, -50%) !important;
     width: calc(100% - 1rem) !important;
     max-width: 42rem !important;
-    height: calc(100dvh - 50px - 1rem) !important;
-    max-height: calc(100dvh - 50px - 1rem) !important;
+    height: calc(100dvh - 70px - 1rem) !important;
+    max-height: calc(100dvh - 70px - 1rem) !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     pointer-events: auto !important;
@@ -336,12 +336,22 @@
 .tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn,
 .tiki #conversejs .chatbox-btn, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn,
 .tiki #conversejs.converse-embedded .chatbox-btn {
-  color: var(--bs-body-color);
+  color: var(--bs-emphasis-color, var(--bs-body-color, #212529)) !important;
   opacity: 0.7;
   border-radius: 50%;
   transition: background-color 0.12s ease, opacity 0.12s ease;
 }
-.tiki #conversejs .chatbox-btn:hover, .tiki #conversejs.converse-embedded .chatbox-btn:hover {
+.tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn converse-icon, .tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn svg,
+.tiki #conversejs .chatbox-btn converse-icon,
+.tiki #conversejs .chatbox-btn svg, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn converse-icon, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn svg,
+.tiki #conversejs.converse-embedded .chatbox-btn converse-icon,
+.tiki #conversejs.converse-embedded .chatbox-btn svg {
+  color: currentColor !important;
+  fill: currentColor !important;
+}
+.tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn:hover,
+.tiki #conversejs .chatbox-btn:hover, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn:hover,
+.tiki #conversejs.converse-embedded .chatbox-btn:hover {
   opacity: 1;
   background-color: rgba(var(--bs-emphasis-color-rgb), 0.08);
 }
@@ -350,6 +360,9 @@
 }
 .tiki #conversejs #controlbox .controlbox-pane, .tiki #conversejs.converse-embedded #controlbox .controlbox-pane {
   background-color: inherit;
+}
+.tiki #conversejs #controlbox converse-user-profile, .tiki #conversejs.converse-embedded #controlbox converse-user-profile {
+  border-bottom: 0 !important;
 }
 .tiki #conversejs #controlbox .userinfo, .tiki #conversejs.converse-embedded #controlbox .userinfo {
   border-bottom: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.08);
@@ -379,8 +392,9 @@
   padding: 0.35rem 1rem;
 }
 .tiki #conversejs #controlbox .controlbox-section .controlbox-heading, .tiki #conversejs.converse-embedded #controlbox .controlbox-section .controlbox-heading {
+  color: var(--bs-emphasis-color, var(--bs-body-color, #212529)) !important;
   font-size: 0.78rem !important;
-  opacity: 0.8;
+  opacity: 1;
 }
 .tiki #conversejs #controlbox #chatrooms .list-toggle, .tiki #conversejs #controlbox #converse-roster .list-toggle, .tiki #conversejs.converse-embedded #controlbox #chatrooms .list-toggle, .tiki #conversejs.converse-embedded #controlbox #converse-roster .list-toggle {
   color: var(--bs-body-color);
@@ -398,6 +412,16 @@
 }
 .tiki #conversejs #controlbox #chatrooms .group-toggle, .tiki #conversejs #controlbox #converse-roster .group-toggle, .tiki #conversejs.converse-embedded #controlbox #chatrooms .group-toggle, .tiki #conversejs.converse-embedded #controlbox #converse-roster .group-toggle {
   color: var(--bs-body-color);
+}
+.tiki #conversejs #controlbox #chatrooms .list-toggle, .tiki #conversejs #controlbox #chatrooms .group-toggle, .tiki #conversejs #controlbox #chatrooms .group-toggle .fa, .tiki #conversejs #controlbox #chatrooms .open-contacts-toggle, .tiki #conversejs #controlbox #chatrooms .open-contacts-toggle .fa, .tiki #conversejs #controlbox #converse-roster .list-toggle, .tiki #conversejs #controlbox #converse-roster .group-toggle, .tiki #conversejs #controlbox #converse-roster .group-toggle .fa, .tiki #conversejs #controlbox #converse-roster .open-contacts-toggle, .tiki #conversejs #controlbox #converse-roster .open-contacts-toggle .fa, .tiki #conversejs.converse-embedded #controlbox #chatrooms .list-toggle, .tiki #conversejs.converse-embedded #controlbox #chatrooms .group-toggle, .tiki #conversejs.converse-embedded #controlbox #chatrooms .group-toggle .fa, .tiki #conversejs.converse-embedded #controlbox #chatrooms .open-contacts-toggle, .tiki #conversejs.converse-embedded #controlbox #chatrooms .open-contacts-toggle .fa, .tiki #conversejs.converse-embedded #controlbox #converse-roster .list-toggle, .tiki #conversejs.converse-embedded #controlbox #converse-roster .group-toggle, .tiki #conversejs.converse-embedded #controlbox #converse-roster .group-toggle .fa, .tiki #conversejs.converse-embedded #controlbox #converse-roster .open-contacts-toggle, .tiki #conversejs.converse-embedded #controlbox #converse-roster .open-contacts-toggle .fa {
+  color: var(--bs-secondary-color, var(--bs-body-color, #495057)) !important;
+}
+.tiki #conversejs #controlbox #chatrooms .list-toggle converse-icon, .tiki #conversejs #controlbox #chatrooms .list-toggle svg, .tiki #conversejs #controlbox #chatrooms .group-toggle converse-icon, .tiki #conversejs #controlbox #chatrooms .group-toggle svg, .tiki #conversejs #controlbox #chatrooms .open-contacts-toggle converse-icon, .tiki #conversejs #controlbox #chatrooms .open-contacts-toggle svg, .tiki #conversejs #controlbox #chatrooms converse-dropdown converse-icon, .tiki #conversejs #controlbox #chatrooms converse-dropdown svg, .tiki #conversejs #controlbox #chatrooms .contact-actions converse-icon, .tiki #conversejs #controlbox #chatrooms .contact-actions svg, .tiki #conversejs #controlbox #converse-roster .list-toggle converse-icon, .tiki #conversejs #controlbox #converse-roster .list-toggle svg, .tiki #conversejs #controlbox #converse-roster .group-toggle converse-icon, .tiki #conversejs #controlbox #converse-roster .group-toggle svg, .tiki #conversejs #controlbox #converse-roster .open-contacts-toggle converse-icon, .tiki #conversejs #controlbox #converse-roster .open-contacts-toggle svg, .tiki #conversejs #controlbox #converse-roster converse-dropdown converse-icon, .tiki #conversejs #controlbox #converse-roster converse-dropdown svg, .tiki #conversejs #controlbox #converse-roster .contact-actions converse-icon, .tiki #conversejs #controlbox #converse-roster .contact-actions svg {
+  color: currentColor !important;
+  fill: currentColor !important;
+}
+.tiki #conversejs #controlbox #chatrooms .list-toggle:hover, .tiki #conversejs #controlbox #chatrooms .group-toggle:hover, .tiki #conversejs #controlbox #chatrooms .open-contacts-toggle:hover, .tiki #conversejs #controlbox #converse-roster .list-toggle:hover, .tiki #conversejs #controlbox #converse-roster .group-toggle:hover, .tiki #conversejs #controlbox #converse-roster .open-contacts-toggle:hover {
+  color: var(--bs-emphasis-color, var(--bs-body-color, #212529)) !important;
 }
 .tiki #conversejs #controlbox converse-list-filter .items-filter-form .items-filter, .tiki #conversejs #controlbox converse-list-filter .items-filter-form input.items-filter, .tiki #conversejs.converse-embedded #controlbox converse-list-filter .items-filter-form .items-filter, .tiki #conversejs.converse-embedded #controlbox converse-list-filter .items-filter-form input.items-filter {
   background-color: var(--bs-body-bg, #fff);
