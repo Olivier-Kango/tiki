@@ -455,7 +455,7 @@
   flex-shrink: 0;
 }
 .tiki #conversejs .chatbox .chat-head .chatbox-title__text, .tiki #conversejs .chatbox .chat-head .chat-title, .tiki #conversejs .chatbox .chat-head a.chatbox-btn.fa, .tiki #conversejs .chatroom .chat-head .chatbox-title__text, .tiki #conversejs .chatroom .chat-head .chat-title, .tiki #conversejs .chatroom .chat-head a.chatbox-btn.fa, .tiki #conversejs.converse-embedded .chatbox .chat-head .chatbox-title__text, .tiki #conversejs.converse-embedded .chatbox .chat-head .chat-title, .tiki #conversejs.converse-embedded .chatbox .chat-head a.chatbox-btn.fa, .tiki #conversejs.converse-embedded .chatroom .chat-head .chatbox-title__text, .tiki #conversejs.converse-embedded .chatroom .chat-head .chat-title, .tiki #conversejs.converse-embedded .chatroom .chat-head a.chatbox-btn.fa {
-  color: #fff;
+  color: #fff !important;
 }
 .tiki #conversejs .chatbox .chat-head .chatbox-title__text, .tiki #conversejs .chatroom .chat-head .chatbox-title__text, .tiki #conversejs.converse-embedded .chatbox .chat-head .chatbox-title__text, .tiki #conversejs.converse-embedded .chatroom .chat-head .chatbox-title__text {
   display: flex;
@@ -476,7 +476,7 @@
   color: rgba(255, 255, 255, 0.85) !important;
 }
 .tiki #conversejs .chatbox .chat-head .chatbox-title__buttons .chatbox-btn, .tiki #conversejs .chatbox .chat-head .controlbox-heading__btn, .tiki #conversejs .chatroom .chat-head .chatbox-title__buttons .chatbox-btn, .tiki #conversejs .chatroom .chat-head .controlbox-heading__btn, .tiki #conversejs.converse-embedded .chatbox .chat-head .chatbox-title__buttons .chatbox-btn, .tiki #conversejs.converse-embedded .chatbox .chat-head .controlbox-heading__btn, .tiki #conversejs.converse-embedded .chatroom .chat-head .chatbox-title__buttons .chatbox-btn, .tiki #conversejs.converse-embedded .chatroom .chat-head .controlbox-heading__btn {
-  color: #fff;
+  color: #fff !important;
   opacity: 0.85;
 }
 .tiki #conversejs .chatbox .chat-head .chatbox-title__buttons .chatbox-btn:hover,
@@ -974,6 +974,21 @@
 #conversejs .chat-head .fa-bars {
   color: #ffffff !important;
   opacity: 1 !important;
+}
+
+
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn::before,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn .fa-bars,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn .fa-bars::before {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn converse-icon,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn svg {
+  color: #fff !important;
+  fill: #fff !important;
 }
 
 #conversejs .tiki-pending-files {

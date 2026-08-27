@@ -489,7 +489,7 @@
                 > a.show-msg-author-modal { flex-shrink: 0; }
             }
 
-            .chatbox-title__text, .chat-title, a.chatbox-btn.fa { color: #fff; }
+            .chatbox-title__text, .chat-title, a.chatbox-btn.fa { color: #fff !important; }
             .chatbox-title__text {
                 display: flex;
                 flex-direction: column;
@@ -509,7 +509,7 @@
             .chat-head__desc { color: rgba(255, 255, 255, .85) !important; }
 
             .chatbox-title__buttons .chatbox-btn, .controlbox-heading__btn {
-                color: #fff;
+                color: #fff !important;
                 opacity: .85;
             }
             .chatbox-title__buttons .chatbox-btn:hover,
@@ -994,6 +994,21 @@
 #conversejs .chat-head .fa-bars {
     color: #ffffff !important;
     opacity: 1 !important;
+}
+
+
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn::before,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn .fa-bars,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn .fa-bars::before {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn converse-icon,
+.tiki #conversejs .chat-head converse-dropdown.chatbox-btn svg {
+    color: #fff !important;
+    fill: #fff !important;
 }
 
 #conversejs .tiki-pending-files {
