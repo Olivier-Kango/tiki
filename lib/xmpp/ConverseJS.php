@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.4-dm-partner-room-filter-fix';
+    const CACHE_EPOCH = '14.0.5-converse-chatboxes-null-reset';
 
     private $options;
     private $tiki_root;
