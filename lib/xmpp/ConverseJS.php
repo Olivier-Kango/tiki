@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.18-no-chatbox-flash';
+    const CACHE_EPOCH = '14.0.22-notifications-omemo-default-off';
 
     private $options;
     private $tiki_root;
@@ -21,6 +21,7 @@ class ConverseJS
                 'assets_path'   => CONVERSEJS_DIST_PATH . '/',
                 'whitelisted_plugins' => ['tiki', 'tiki-oauth'],
                 'blacklisted_plugins' => ['converse-omemo'],
+                'omemo_default' => false,
                 'discover_connection_methods' => false,
             ],
             $options
@@ -401,6 +402,8 @@ JS;
         $options['show_desktop_notifications'] = true;
         $options['show_tab_notifications'] = true;
         $options['play_sounds'] = true;
+        $options['notify_all_room_messages'] = true;
+        $options['omemo_default'] = false;
         $siteName = trim((string) ($prefs['sitetitle'] ?? ''))
             ?: trim((string) ($prefs['browsertitle'] ?? ''))
             ?: trim((string) ($prefs['sitelogo_title'] ?? ''))
