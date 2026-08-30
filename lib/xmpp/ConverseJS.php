@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.40-server-lastseen-fallback';
+    const CACHE_EPOCH = '14.0.43-fix-history-triggering-online';
 
     private $options;
     private $tiki_root;
