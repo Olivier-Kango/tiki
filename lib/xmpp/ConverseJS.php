@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.22-notifications-omemo-default-off';
+    const CACHE_EPOCH = '14.0.40-server-lastseen-fallback';
 
     private $options;
     private $tiki_root;
@@ -18,6 +18,7 @@ class ConverseJS
                 'show_occupants_by_default' => true,
                 'use_emojione' => false,
                 'view_mode' => 'overlayed',
+                'auto_register_muc_nickname' => false,
                 'assets_path'   => CONVERSEJS_DIST_PATH . '/',
                 'whitelisted_plugins' => ['tiki', 'tiki-oauth'],
                 'blacklisted_plugins' => ['converse-omemo'],
