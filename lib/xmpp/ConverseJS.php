@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.5-converse-chatboxes-null-reset';
+    const CACHE_EPOCH = '14.0.18-no-chatbox-flash';
 
     private $options;
     private $tiki_root;

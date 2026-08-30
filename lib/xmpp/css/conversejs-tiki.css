@@ -355,6 +355,8 @@
   opacity: 1;
   background-color: rgba(var(--bs-emphasis-color-rgb), 0.08);
 }
+.tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn { appearance:none; box-sizing:border-box; display:inline-flex !important; align-items:center; justify-content:center; width:2rem; min-width:2rem; height:2rem; padding:0 !important; margin:0 !important; line-height:1; vertical-align:middle; }
+.tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn converse-icon, .tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn svg, .tiki #conversejs.converse-overlayed #controlbox .controlbox-heading__btn::before, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn converse-icon, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn svg, .tiki #conversejs.converse-embedded.converse-overlayed #controlbox .controlbox-heading__btn::before { display:block; margin:0 !important; line-height:1; }
 .tiki #conversejs #controlbox .box-flyout, .tiki #conversejs.converse-embedded #controlbox .box-flyout {
   background: var(--bs-body-bg);
 }
@@ -1037,6 +1039,19 @@
   color: inherit;
   opacity: 0.7;
 }
+
+html.tiki-chat-fullscreen-open, html.tiki-chat-fullscreen-open body { overflow: hidden !important; }
+.tiki #conversejs.converse-overlayed .chatbox:not(#controlbox):not(.tiki-chat-user-selected) { display: none !important; }
+.tiki #conversejs .chatbox.tiki-chat-auto-suppressed { display: none !important; }
+.tiki #conversejs .chatbox-title__buttons, .tiki #conversejs .chatbox-title-buttons { align-items: center !important; }
+.tiki #conversejs .chatbox .dropdown-menu .dropdown-item { color: var(--bs-dropdown-link-color, #212529) !important; }
+.tiki #conversejs .chatbox .dropdown-menu .dropdown-item i, .tiki #conversejs .chatbox .dropdown-menu .dropdown-item svg, .tiki #conversejs .chatbox .dropdown-menu .dropdown-item .fa { color: currentColor !important; fill: currentColor !important; }
+@media (max-width: 767.98px) { .tiki #conversejs .tiki-chat-fullscreen-menu-item { display: none !important; } }
+.tiki #conversejs .chatbox.tiki-chatbox--fullscreen { position: fixed !important; inset: 0 !important; z-index: 1100 !important; width: 100vw !important; max-width: none !important; height: 100dvh !important; max-height: none !important; margin: 0 !important; transform: none !important; }
+.tiki #conversejs .chatbox.tiki-chatbox--fullscreen .box-flyout { position: static !important; width: 100% !important; max-width: none !important; height: 100% !important; max-height: none !important; border: 0 !important; border-radius: 0 !important; }
+.tiki #conversejs .chat-msg__body.tiki-chat-msg--bare { padding: 0 !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; color: var(--bs-body-color) !important; }
+.tiki #conversejs .chat-msg__body.tiki-chat-msg--bare::after { display: none !important; }
+.tiki #conversejs .chat-msg__body.tiki-chat-msg--bare .chat-msg__text--larger, .tiki #conversejs .chat-msg__body.tiki-chat-msg--bare .chat-msg__text { color: inherit !important; text-decoration: none; }
 
 #conversejs .tiki-pending-file-remove:hover {
   opacity: 1;
