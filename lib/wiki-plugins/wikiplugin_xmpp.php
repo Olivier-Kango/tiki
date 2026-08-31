@@ -49,7 +49,7 @@ function wikiplugin_xmpp_info()
                 'name' => tra('Height'),
                 'description' => tra('Chat room height in CSS units'),
                 'since' => 19,
-                'default' => '400px',
+                'default' => '600px',
                 'filter' => 'imgsize',
             ],
             'visibility' => [
@@ -187,7 +187,7 @@ function wikiplugin_xmpp($data, $params)
 
     $params['view_mode'] = $params['view_mode'] ?? 'overlayed';
     $params['width'] = $params['width'] ?? '100%';
-    $params['height'] = $params['height'] ?? '400px';
+    $params['height'] = $params['height'] ?? '600px';
     if (! isset($params['auto_open'])) {
         $params['auto_open'] = 'n';
     }

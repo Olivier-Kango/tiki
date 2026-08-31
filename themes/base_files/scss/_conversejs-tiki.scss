@@ -255,9 +255,9 @@
     }
 
     &.converse-embedded {
+        display: block !important;
         position: relative !important;
         width: 100% !important;
-        height: 100% !important;
         max-width: 100%;
         left: auto !important;
         top: auto !important;
@@ -268,12 +268,26 @@
             position: static !important;
             width: 100% !important;
             height: 100% !important;
+            min-height: 0 !important;
 
             .box-flyout {
                 position: static !important;
                 width: 100% !important;
                 height: 100% !important;
+                min-height: 0 !important;
                 animation: none;
+            }
+
+            .chat-body, .chatroom-body {
+                min-height: 0 !important;
+            }
+
+            converse-muc-chatarea, .chat-area, .chat-content {
+                min-height: 0 !important;
+            }
+
+            converse-chat-content {
+                min-height: 0 !important;
             }
         }
     }

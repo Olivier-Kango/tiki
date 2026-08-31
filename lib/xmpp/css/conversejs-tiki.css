@@ -239,9 +239,9 @@
   max-width: 100vw;
 }
 .tiki #conversejs.converse-embedded, .tiki #conversejs.converse-embedded.converse-embedded {
+  display: block !important;
   position: relative !important;
   width: 100% !important;
-  height: 100% !important;
   max-width: 100%;
   left: auto !important;
   top: auto !important;
@@ -253,12 +253,23 @@
   position: static !important;
   width: 100% !important;
   height: 100% !important;
+  min-height: 0 !important;
 }
 .tiki #conversejs.converse-embedded .chatbox .box-flyout, .tiki #conversejs.converse-embedded #controlbox .box-flyout, .tiki #conversejs.converse-embedded.converse-embedded .chatbox .box-flyout, .tiki #conversejs.converse-embedded.converse-embedded #controlbox .box-flyout {
   position: static !important;
   width: 100% !important;
   height: 100% !important;
+  min-height: 0 !important;
   animation: none;
+}
+.tiki #conversejs.converse-embedded .chatbox .chat-body, .tiki #conversejs.converse-embedded .chatbox .chatroom-body, .tiki #conversejs.converse-embedded #controlbox .chat-body, .tiki #conversejs.converse-embedded #controlbox .chatroom-body, .tiki #conversejs.converse-embedded.converse-embedded .chatbox .chat-body, .tiki #conversejs.converse-embedded.converse-embedded .chatbox .chatroom-body, .tiki #conversejs.converse-embedded.converse-embedded #controlbox .chat-body, .tiki #conversejs.converse-embedded.converse-embedded #controlbox .chatroom-body {
+  min-height: 0 !important;
+}
+.tiki #conversejs.converse-embedded .chatbox converse-muc-chatarea, .tiki #conversejs.converse-embedded .chatbox .chat-area, .tiki #conversejs.converse-embedded .chatbox .chat-content, .tiki #conversejs.converse-embedded #controlbox converse-muc-chatarea, .tiki #conversejs.converse-embedded #controlbox .chat-area, .tiki #conversejs.converse-embedded #controlbox .chat-content, .tiki #conversejs.converse-embedded.converse-embedded .chatbox converse-muc-chatarea, .tiki #conversejs.converse-embedded.converse-embedded .chatbox .chat-area, .tiki #conversejs.converse-embedded.converse-embedded .chatbox .chat-content, .tiki #conversejs.converse-embedded.converse-embedded #controlbox converse-muc-chatarea, .tiki #conversejs.converse-embedded.converse-embedded #controlbox .chat-area, .tiki #conversejs.converse-embedded.converse-embedded #controlbox .chat-content {
+  min-height: 0 !important;
+}
+.tiki #conversejs.converse-embedded .chatbox converse-chat-content, .tiki #conversejs.converse-embedded #controlbox converse-chat-content, .tiki #conversejs.converse-embedded.converse-embedded .chatbox converse-chat-content, .tiki #conversejs.converse-embedded.converse-embedded #controlbox converse-chat-content {
+  min-height: 0 !important;
 }
 .tiki #conversejs.converse-fullscreen, .tiki #conversejs.converse-embedded.converse-fullscreen {
   position: fixed !important;
