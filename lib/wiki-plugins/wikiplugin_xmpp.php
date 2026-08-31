@@ -186,6 +186,10 @@ function wikiplugin_xmpp($data, $params)
     $smarty = TikiLib::lib('smarty');
 
     $params['view_mode'] = $params['view_mode'] ?? 'overlayed';
+    $viewModeOverride = $_COOKIE['tiki_xmpp_view_mode'] ?? '';
+    if (in_array($viewModeOverride, ['overlayed', 'embedded', 'fullscreen'], true)) {
+        $params['view_mode'] = $viewModeOverride;
+    }
     $params['width'] = $params['width'] ?? '100%';
     $params['height'] = $params['height'] ?? '600px';
     if (! isset($params['auto_open'])) {

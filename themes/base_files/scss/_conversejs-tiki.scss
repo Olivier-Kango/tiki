@@ -252,6 +252,10 @@
             row-gap: .5rem;
             max-width: 100vw;
         }
+
+        &:has(.chatbox.tiki-chat-user-selected) .toggle-controlbox {
+            display: none !important;
+        }
     }
 
     &.converse-embedded {
@@ -302,17 +306,54 @@
 
         .toggle-controlbox { display: none !important; }
 
-        .chatbox, #controlbox {
+        .converse-chatboxes {
             position: static !important;
+            inset: auto !important;
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
             width: 100% !important;
             height: 100% !important;
+            min-height: 0 !important;
+        }
 
+        #controlbox {
+            position: static !important;
+            flex: 0 0 320px !important;
+            width: 320px !important;
+            max-width: 320px !important;
+            height: 100% !important;
+            min-height: 0 !important;
+        }
+
+        .chatbox:not(#controlbox) {
+            position: static !important;
+            flex: 1 1 auto !important;
+            width: auto !important;
+            height: 100% !important;
+            min-height: 0 !important;
+        }
+
+        .chatbox, #controlbox {
             .box-flyout {
                 position: static !important;
                 width: 100% !important;
                 height: 100% !important;
+                min-height: 0 !important;
                 border-radius: 0 !important;
                 animation: none;
+            }
+
+            .chat-body, .chatroom-body {
+                min-height: 0 !important;
+            }
+
+            converse-muc-chatarea, .chat-area, .chat-content {
+                min-height: 0 !important;
+            }
+
+            converse-chat-content {
+                min-height: 0 !important;
             }
         }
     }
@@ -566,6 +607,11 @@
         .chatbox-title__text, .chat-title, .close-chatbox-button, .toggle-chatbox-button,
         .configure-chatroom-button, .toggle-bookmark, .chatroom-description {
             color: #fff !important;
+        }
+
+        .dropdown-menu .close-chatbox-button, .dropdown-menu .toggle-chatbox-button,
+        .dropdown-menu .configure-chatroom-button, .dropdown-menu .toggle-bookmark {
+            color: var(--bs-dropdown-link-color, #212529) !important;
         }
     }
 

@@ -238,6 +238,9 @@
   row-gap: 0.5rem;
   max-width: 100vw;
 }
+.tiki #conversejs.converse-overlayed:has(.chatbox.tiki-chat-user-selected) .toggle-controlbox, .tiki #conversejs.converse-embedded.converse-overlayed:has(.chatbox.tiki-chat-user-selected) .toggle-controlbox {
+  display: none !important;
+}
 .tiki #conversejs.converse-embedded, .tiki #conversejs.converse-embedded.converse-embedded {
   display: block !important;
   position: relative !important;
@@ -282,17 +285,47 @@
 .tiki #conversejs.converse-fullscreen .toggle-controlbox, .tiki #conversejs.converse-embedded.converse-fullscreen .toggle-controlbox {
   display: none !important;
 }
-.tiki #conversejs.converse-fullscreen .chatbox, .tiki #conversejs.converse-fullscreen #controlbox, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox {
+.tiki #conversejs.converse-fullscreen .converse-chatboxes, .tiki #conversejs.converse-embedded.converse-fullscreen .converse-chatboxes {
   position: static !important;
+  inset: auto !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   width: 100% !important;
   height: 100% !important;
+  min-height: 0 !important;
+}
+.tiki #conversejs.converse-fullscreen #controlbox, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox {
+  position: static !important;
+  flex: 0 0 320px !important;
+  width: 320px !important;
+  max-width: 320px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+.tiki #conversejs.converse-fullscreen .chatbox:not(#controlbox), .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox:not(#controlbox) {
+  position: static !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
+  height: 100% !important;
+  min-height: 0 !important;
 }
 .tiki #conversejs.converse-fullscreen .chatbox .box-flyout, .tiki #conversejs.converse-fullscreen #controlbox .box-flyout, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox .box-flyout, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox .box-flyout {
   position: static !important;
   width: 100% !important;
   height: 100% !important;
+  min-height: 0 !important;
   border-radius: 0 !important;
   animation: none;
+}
+.tiki #conversejs.converse-fullscreen .chatbox .chat-body, .tiki #conversejs.converse-fullscreen .chatbox .chatroom-body, .tiki #conversejs.converse-fullscreen #controlbox .chat-body, .tiki #conversejs.converse-fullscreen #controlbox .chatroom-body, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox .chat-body, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox .chatroom-body, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox .chat-body, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox .chatroom-body {
+  min-height: 0 !important;
+}
+.tiki #conversejs.converse-fullscreen .chatbox converse-muc-chatarea, .tiki #conversejs.converse-fullscreen .chatbox .chat-area, .tiki #conversejs.converse-fullscreen .chatbox .chat-content, .tiki #conversejs.converse-fullscreen #controlbox converse-muc-chatarea, .tiki #conversejs.converse-fullscreen #controlbox .chat-area, .tiki #conversejs.converse-fullscreen #controlbox .chat-content, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox converse-muc-chatarea, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox .chat-area, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox .chat-content, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox converse-muc-chatarea, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox .chat-area, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox .chat-content {
+  min-height: 0 !important;
+}
+.tiki #conversejs.converse-fullscreen .chatbox converse-chat-content, .tiki #conversejs.converse-fullscreen #controlbox converse-chat-content, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox converse-chat-content, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox converse-chat-content {
+  min-height: 0 !important;
 }
 .tiki #conversejs .toggle-controlbox, .tiki #conversejs.converse-embedded .toggle-controlbox {
   position: fixed !important;
@@ -532,6 +565,9 @@
 .tiki #conversejs.converse-embedded .chatroom .chat-head.chat-head-chatroom .toggle-bookmark,
 .tiki #conversejs.converse-embedded .chatroom .chat-head.chat-head-chatroom .chatroom-description {
   color: #fff !important;
+}
+.tiki #conversejs .chatroom .chat-head.chat-head-chatroom .dropdown-menu .close-chatbox-button, .tiki #conversejs .chatroom .chat-head.chat-head-chatroom .dropdown-menu .toggle-chatbox-button, .tiki #conversejs .chatroom .chat-head.chat-head-chatroom .dropdown-menu .configure-chatroom-button, .tiki #conversejs .chatroom .chat-head.chat-head-chatroom .dropdown-menu .toggle-bookmark, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .close-chatbox-button, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .toggle-chatbox-button, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .configure-chatroom-button, .tiki #conversejs .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .toggle-bookmark, .tiki #conversejs.converse-embedded .chatroom .chat-head.chat-head-chatroom .dropdown-menu .close-chatbox-button, .tiki #conversejs.converse-embedded .chatroom .chat-head.chat-head-chatroom .dropdown-menu .toggle-chatbox-button, .tiki #conversejs.converse-embedded .chatroom .chat-head.chat-head-chatroom .dropdown-menu .configure-chatroom-button, .tiki #conversejs.converse-embedded .chatroom .chat-head.chat-head-chatroom .dropdown-menu .toggle-bookmark, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .close-chatbox-button, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .toggle-chatbox-button, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .configure-chatroom-button, .tiki #conversejs.converse-embedded .chatroom .box-flyout .chat-head-chatroom .dropdown-menu .toggle-bookmark {
+  color: var(--bs-dropdown-link-color, #212529) !important;
 }
 .tiki #conversejs .chat-content, .tiki #conversejs.converse-embedded .chat-content {
   color: var(--bs-body-color);

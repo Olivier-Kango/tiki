@@ -1336,6 +1336,17 @@ class HeaderLib
         return $html;
     }
 
+    public function getJsModulesFromHTML($html)
+    {
+        preg_match_all('/<script[^>]*type=[\'"]?module[\'"]?[^>]*>\s*?(.*)(?:\s*<\/script>)/Umis', $html, $jsarr);
+        return array_filter($jsarr[1] ?? []);
+    }
+
+    public function removeJsModulesFromHTML($html)
+    {
+        return preg_replace('/<script[^>]*type=[\'"]?module[\'"]?[^>]*>\s*?(.*)(?:\s*<\/script>)/Umis', '', $html);
+    }
+
     public function get_all_css_content()
     {
         $files = $this->collect_css_files();
