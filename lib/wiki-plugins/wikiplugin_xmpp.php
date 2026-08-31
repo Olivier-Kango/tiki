@@ -260,12 +260,13 @@ function wikiplugin_xmpp($data, $params)
         }
     }
 
+    $conversejsTag = $params['view_mode'] === 'embedded' ? 'converse-root' : 'div';
     $result = $identitySwitcher
         . '<style type="text/css">#page-bar .dropdown-menu { z-index: 1031; }</style>'
-        . '<div id="conversejs"'
+        . '<' . $conversejsTag . ' id="conversejs"'
         . ' data-view-mode="' . $params['view_mode'] . '"'
         . ' style="' . "width:{$params['width']}; height:{$params['height']}" . '"'
-        . '></div>';
+        . '></' . $conversejsTag . '>';
 
     unset($params['width'], $params['height']);
 
