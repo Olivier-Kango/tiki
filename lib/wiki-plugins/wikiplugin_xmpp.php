@@ -186,9 +186,11 @@ function wikiplugin_xmpp($data, $params)
     $smarty = TikiLib::lib('smarty');
 
     $params['view_mode'] = $params['view_mode'] ?? 'overlayed';
-    $viewModeOverride = $_COOKIE['tiki_xmpp_view_mode'] ?? '';
-    if (in_array($viewModeOverride, ['overlayed', 'embedded', 'fullscreen'], true)) {
-        $params['view_mode'] = $viewModeOverride;
+    $pluginDefaultViewMode = $params['view_mode'];
+    $viewModeCookie = $_COOKIE['tiki_xmpp_view_mode'] ?? '';
+    [$cookieDefault, $cookieChoice] = array_pad(explode(':', $viewModeCookie, 2), 2, '');
+    if ($cookieDefault === $pluginDefaultViewMode && in_array($cookieChoice, ['overlayed', 'embedded', 'fullscreen'], true)) {
+        $params['view_mode'] = $cookieChoice;
     }
     $params['width'] = $params['width'] ?? '100%';
     $params['height'] = $params['height'] ?? '600px';
@@ -269,6 +271,7 @@ function wikiplugin_xmpp($data, $params)
         . '<style type="text/css">#page-bar .dropdown-menu { z-index: 1031; }</style>'
         . '<' . $conversejsTag . ' id="conversejs"'
         . ' data-view-mode="' . $params['view_mode'] . '"'
+        . ' data-plugin-default-view-mode="' . htmlspecialchars($pluginDefaultViewMode, ENT_QUOTES, 'UTF-8') . '"'
         . ' style="' . "width:{$params['width']}; height:{$params['height']}" . '"'
         . '></' . $conversejsTag . '>';
 

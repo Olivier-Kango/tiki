@@ -1146,11 +1146,6 @@
     opacity: 1;
 }
 
-html.tiki-chat-fullscreen-open,
-html.tiki-chat-fullscreen-open body {
-    overflow: hidden !important;
-}
-
 // Overlay conversations are opt-in. This rule is present before Converse
 // connects, preventing restored rooms from flashing briefly during page load.
 .tiki #conversejs.converse-overlayed .chatbox:not(#controlbox):not(.tiki-chat-user-selected) {
@@ -1178,28 +1173,6 @@ html.tiki-chat-fullscreen-open body {
         }
     }
 
-    .chatbox.tiki-chatbox--fullscreen {
-        position: fixed !important;
-        inset: 0 !important;
-        z-index: 1100 !important;
-        width: 100vw !important;
-        max-width: none !important;
-        height: 100dvh !important;
-        max-height: none !important;
-        margin: 0 !important;
-        transform: none !important;
-
-        .box-flyout {
-            position: static !important;
-            width: 100% !important;
-            max-width: none !important;
-            height: 100% !important;
-            max-height: none !important;
-            border: 0 !important;
-            border-radius: 0 !important;
-        }
-    }
-
     .chat-msg__body.tiki-chat-msg--bare {
         padding: 0 !important;
         border: 0 !important;
@@ -1211,12 +1184,6 @@ html.tiki-chat-fullscreen-open body {
         &::after { display: none !important; }
         .chat-msg__text--larger,
         .chat-msg__text { color: inherit !important; text-decoration: none; }
-    }
-}
-
-@media (max-width: 767.98px) {
-    .tiki #conversejs .tiki-chat-fullscreen-menu-item {
-        display: none !important;
     }
 }
 
