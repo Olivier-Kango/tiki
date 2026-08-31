@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    const CACHE_EPOCH = '14.0.43-fix-history-triggering-online';
+    const CACHE_EPOCH = '14.0.49-enable-muc-mam-fetch-before-join';
 
     private $options;
     private $tiki_root;
@@ -19,6 +19,7 @@ class ConverseJS
                 'use_emojione' => false,
                 'view_mode' => 'overlayed',
                 'auto_register_muc_nickname' => false,
+                'muc_show_logs_before_join' => true,
                 'assets_path'   => CONVERSEJS_DIST_PATH . '/',
                 'whitelisted_plugins' => ['tiki', 'tiki-oauth'],
                 'blacklisted_plugins' => ['converse-omemo'],
