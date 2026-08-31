@@ -286,12 +286,12 @@ class Tracker_Field_ItemLink extends \Tracker\Field\AbstractItemField implements
                     ],
                     'forceObjectSelector' => [
                         'name' => tr('Force object selector'),
-                        'description' => tr('Override the automatic widget selection. 1 forces the object selector (search panel with checkboxes for multi-select). 2 forces the dropdown. 0 lets the system decide (default behavior).'),
+                        'description' => tr('Override the automatic widget selection. 0 lets the system decide (default behavior). 1 forces the object selector (search panel with checkboxes for multi-select). 2 forces the dropdown.'),
                         'filter' => 'int',
                         'options' => [
                             0 => tr('System default'),
-                            1 => tr('Yes'),
-                            2 => tr('No'),
+                            1 => tr('Object selector'),
+                            2 => tr('Dropdown'),
                         ],
                     ],
                     'indexRemote' => [
