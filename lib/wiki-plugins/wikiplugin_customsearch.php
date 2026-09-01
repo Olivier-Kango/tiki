@@ -1019,6 +1019,12 @@ function cs_design_select($id, $fieldname, $fieldid, $arguments, $default, &$scr
                 }
             }
         } elseif ($field['type'] === 'u') { // User Selector (only when in dropdown list mode)
+            if ($default) {
+                $field['value'] = is_array($default)
+                    ? implode(',', array_filter($default, 'strlen'))
+                    : $default;
+                $handler = TikiLib::lib('trk')->get_field_handler($field);
+            }
             $html = $handler->renderInput([
                 'id' => $arguments['id'] ?? '',
                 'filter_render' => true,
@@ -1033,6 +1039,11 @@ $('#$fieldid').on('change', function() {
     });
 });
 ";
+            if ($default) {
+                $script .= "
+$('#$fieldid').trigger('change');
+";
+            }
             return $html;
         } elseif (in_array($field['type'], ['d','D','R','M'])) { // or types - dropdown, dropdown with other, radio button. multiselect
             $data = $handler->getFieldData();
