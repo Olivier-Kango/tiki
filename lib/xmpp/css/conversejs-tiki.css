@@ -622,6 +622,10 @@
   min-width: 0;
   max-width: 82%;
 }
+.tiki #conversejs converse-chat-message, .tiki #conversejs.converse-embedded converse-chat-message {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 4.5rem;
+}
 .tiki #conversejs .chat-msg__error, .tiki #conversejs.converse-embedded .chat-msg__error {
   overflow-wrap: anywhere;
   max-width: 100%;

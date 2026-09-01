@@ -677,6 +677,12 @@
         max-width: 82%;
     }
 
+    // Skip layout and paint work for messages outside the scroll viewport.
+    converse-chat-message {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 4.5rem;
+    }
+
     .chat-msg__error {
         overflow-wrap: anywhere;
         max-width: 100%;
