@@ -303,6 +303,9 @@
         height: 100vh !important;
         max-width: 100%;
         z-index: 1050;
+        // Fullscreen is also useful for projection: scale text gently with the
+        // viewport while keeping ordinary desktop chat compact.
+        font-size: clamp(1rem, .72rem + .32vw, 1.3rem);
 
         .toggle-controlbox { display: none !important; }
 
@@ -319,9 +322,9 @@
 
         #controlbox {
             position: static !important;
-            flex: 0 0 320px !important;
-            width: 320px !important;
-            max-width: 320px !important;
+            flex: 0 0 clamp(320px, 22vw, 420px) !important;
+            width: clamp(320px, 22vw, 420px) !important;
+            max-width: clamp(320px, 22vw, 420px) !important;
             height: 100% !important;
             min-height: 0 !important;
         }
@@ -354,6 +357,35 @@
 
             converse-chat-content {
                 min-height: 0 !important;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            height: 100dvh !important;
+            font-size: 1rem;
+
+            .converse-chatboxes {
+                position: relative !important;
+                display: block !important;
+                overflow: hidden !important;
+            }
+
+            #controlbox,
+            .chatbox:not(#controlbox) {
+                position: absolute !important;
+                inset: 0 !important;
+                width: 100% !important;
+                max-width: none !important;
+                height: 100% !important;
+            }
+
+            // Mobile fullscreen is single-panel navigation: the roster is
+            // visible first, then the selected conversation replaces it.
+            &:has(.chatbox.tiki-chat-user-selected:not(.hidden)) #controlbox {
+                display: none !important;
+            }
+            .chatbox:not(#controlbox):not(.tiki-chat-user-selected) {
+                display: none !important;
             }
         }
     }
@@ -1008,18 +1040,6 @@
         .btn { border-radius: 999px; }
     }
 
-    .tiki-return-to-room-banner {
-        padding: .3rem .5rem;
-        font-size: .82rem;
-        margin-top: .5rem;
-
-        a {
-            color: var(--bs-secondary-color);
-            text-decoration: underline;
-            &:hover { color: var(--bs-body-color); }
-        }
-    }
-
     // Matches Converse's own 767.98px breakpoint (where chatboxes already go
     // full-width/100vw): keep the launcher from overflowing or crowding the
     // edge of the screen at the same widths its popup starts behaving that way.
@@ -1047,6 +1067,41 @@
             }
         }
         .chat-msg__content { max-width: 90%; }
+    }
+}
+
+.tiki-chat-destination-choice {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, .48);
+
+    .tiki-chat-destination-card {
+        position: relative;
+        width: min(100%, 32rem);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        background: var(--bs-body-bg, #fff);
+        color: var(--bs-body-color, #212529);
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .28);
+
+        h2 { margin: 0 2rem .5rem 0; font-size: 1.25rem; }
+        p { color: var(--bs-secondary-color, #6c757d); }
+        .btn { display: block; width: 100%; margin-top: .75rem; }
+    }
+
+    .tiki-chat-destination-close {
+        position: absolute;
+        top: .65rem;
+        right: .8rem;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 1.6rem;
+        line-height: 1;
     }
 }
 

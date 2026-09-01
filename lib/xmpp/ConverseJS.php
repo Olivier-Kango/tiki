@@ -414,7 +414,7 @@ JS;
         // An empty value is intentional: the browser plugin then discovers the
         // logo currently rendered by Tiki instead of assuming a particular file.
         $options['tiki_site_logo'] = trim((string) ($prefs['sitelogo_src'] ?? ''));
-        $options['tiki_support_label'] = tra('Assistance');
+        $options['tiki_support_label'] = tra('Support team');
 
         if ($this->get_option('authentication') === 'anonymous') {
             $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');

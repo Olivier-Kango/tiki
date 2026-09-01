@@ -281,6 +281,7 @@
   height: 100vh !important;
   max-width: 100%;
   z-index: 1050;
+  font-size: clamp(1rem, 0.72rem + 0.32vw, 1.3rem);
 }
 .tiki #conversejs.converse-fullscreen .toggle-controlbox, .tiki #conversejs.converse-embedded.converse-fullscreen .toggle-controlbox {
   display: none !important;
@@ -297,9 +298,9 @@
 }
 .tiki #conversejs.converse-fullscreen #controlbox, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox {
   position: static !important;
-  flex: 0 0 320px !important;
-  width: 320px !important;
-  max-width: 320px !important;
+  flex: 0 0 clamp(320px, 22vw, 420px) !important;
+  width: clamp(320px, 22vw, 420px) !important;
+  max-width: clamp(320px, 22vw, 420px) !important;
   height: 100% !important;
   min-height: 0 !important;
 }
@@ -326,6 +327,30 @@
 }
 .tiki #conversejs.converse-fullscreen .chatbox converse-chat-content, .tiki #conversejs.converse-fullscreen #controlbox converse-chat-content, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox converse-chat-content, .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox converse-chat-content {
   min-height: 0 !important;
+}
+@media (max-width: 767.98px) {
+  .tiki #conversejs.converse-fullscreen, .tiki #conversejs.converse-embedded.converse-fullscreen {
+    height: 100dvh !important;
+    font-size: 1rem;
+  }
+  .tiki #conversejs.converse-fullscreen .converse-chatboxes, .tiki #conversejs.converse-embedded.converse-fullscreen .converse-chatboxes {
+    position: relative !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+  .tiki #conversejs.converse-fullscreen #controlbox, .tiki #conversejs.converse-fullscreen .chatbox:not(#controlbox), .tiki #conversejs.converse-embedded.converse-fullscreen #controlbox, .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox:not(#controlbox) {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+  }
+  .tiki #conversejs.converse-fullscreen:has(.chatbox.tiki-chat-user-selected:not(.hidden)) #controlbox, .tiki #conversejs.converse-embedded.converse-fullscreen:has(.chatbox.tiki-chat-user-selected:not(.hidden)) #controlbox {
+    display: none !important;
+  }
+  .tiki #conversejs.converse-fullscreen .chatbox:not(#controlbox):not(.tiki-chat-user-selected), .tiki #conversejs.converse-embedded.converse-fullscreen .chatbox:not(#controlbox):not(.tiki-chat-user-selected) {
+    display: none !important;
+  }
 }
 .tiki #conversejs .toggle-controlbox, .tiki #conversejs.converse-embedded .toggle-controlbox {
   position: fixed !important;
@@ -997,6 +1022,47 @@
   .tiki #conversejs .chat-msg__content, .tiki #conversejs.converse-embedded .chat-msg__content {
     max-width: 90%;
   }
+}
+
+.tiki-chat-destination-choice {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.48);
+}
+.tiki-chat-destination-choice .tiki-chat-destination-card {
+  position: relative;
+  width: min(100%, 32rem);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: var(--bs-body-bg, #fff);
+  color: var(--bs-body-color, #212529);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.28);
+}
+.tiki-chat-destination-choice .tiki-chat-destination-card h2 {
+  margin: 0 2rem 0.5rem 0;
+  font-size: 1.25rem;
+}
+.tiki-chat-destination-choice .tiki-chat-destination-card p {
+  color: var(--bs-secondary-color, #6c757d);
+}
+.tiki-chat-destination-choice .tiki-chat-destination-card .btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+.tiki-chat-destination-choice .tiki-chat-destination-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.8rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
 }
 
 .tiki-xmpp-identity-switcher {

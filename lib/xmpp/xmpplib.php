@@ -927,12 +927,26 @@ class XMPPLib extends TikiLib
             'auto_open' => 'n',
         ], $params);
 
+        // A site-wide XMPP module has no embedded chat container, but it can
+        // still be promoted to fullscreen from the chat menu. The plugin uses
+        // the same cookie with its configured default before the colon; an
+        // empty default therefore unambiguously belongs to the global module.
+        $onXmppPage = ($params['on_xmpp_page'] ?? 'n') === 'y';
+        if (! $onXmppPage && ! empty($_COOKIE['tiki_xmpp_view_mode'])) {
+            [$cookieDefault, $cookieChoice] = array_pad(
+                explode(':', $_COOKIE['tiki_xmpp_view_mode'], 2),
+                2,
+                ''
+            );
+            if ($cookieDefault === '' && in_array($cookieChoice, ['overlayed', 'fullscreen'], true)) {
+                $params['view_mode'] = $cookieChoice;
+            }
+        }
+
         $xmppclient = new ConverseJS();
         $xmppclient->set_auth($params);
 
         $nickname = $xmpp['nickname'] ?? $user;
-        $onXmppPage = ($params['on_xmpp_page'] ?? 'n') === 'y';
-
         if ($onXmppPage) {
             $params['auto_open'] = 'y';
             // Dedicated XMPP pages (for example Community) expose the room and
