@@ -32,6 +32,7 @@ $inputConfiguration = [
             'offset'           => 'int',         //get
             'sort_mode'        => 'alnumdash',   //get
             'find'             => 'text',        //get
+            'cookietab'        => 'int',         //get
             'article'          => 'int',         //get
             'view'             => 'int',         //get
         ],

@@ -61,7 +61,7 @@
                 {section name=chan loop=$channels}
                     <tr>
                         <td class="id">{$channels[chan].rssId|escape}</td>
-                        <td class="text">
+                        <td class="text text-start">
                             {$channels[chan].name|escape}
                             <span class="form-text">
                                 {if $channels[chan].description}{$channels[chan].description|escape|nl2br}<br>{/if}
@@ -102,7 +102,7 @@
                                         </form>
                                     </action>
                                     <action>
-                                        <a href="tiki-admin_rssmodules.php?offset={$offset|escape}&amp;sort_mode={$sort_mode|escape}&amp;rssId={$channels[chan].rssId|escape}">
+                                        <a href="tiki-admin_rssmodules.php?offset={$offset|escape}&amp;sort_mode={$sort_mode|escape}&amp;rssId={$channels[chan].rssId|escape}&amp;cookietab=2#contentadmin_rssmodules-2">
                                             {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                                         </a>
                                     </action>

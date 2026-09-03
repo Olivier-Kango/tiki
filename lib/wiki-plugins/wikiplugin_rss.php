@@ -112,15 +112,6 @@ function wikiplugin_rss_info()
                     ['text' => tra('No'), 'value' => 0]
                 ]
             ],
-            'fallbackimages' => [
-                'required' => false,
-                'name' => tra('Fallback Images'),
-                'filter' => 'text',
-                'description' => tra('List of image URLs, separated by commas, pipes, or line breaks, to cycle through for items with no image of their own (only used when Item Image is enabled)'),
-                'since' => '30.0',
-                'default' => '',
-                'advanced' => true,
-            ],
             'layout' => [
                 'required' => false,
                 'name' => tra('Layout'),
@@ -216,7 +207,6 @@ function wikiplugin_rss($data, $params)
         [
             'ticker' => 0,
             'image' => 0,
-            'fallbackimages' => '',
             'layout' => 'list',
         ],
         $params
@@ -277,7 +267,7 @@ function wikiplugin_rss($data, $params)
     $showImage = $params['image'] > 0 || $params['layout'] === 'cards';
 
     if ($showImage) {
-        wikiplugin_rss_apply_images($items, $params['fallbackimages']);
+        wikiplugin_rss_apply_images($items);
     }
 
     $smarty = TikiLib::lib('smarty');
@@ -303,9 +293,9 @@ function wikiplugin_rss_clean_description($description)
     return trim(preg_replace('/\s+/u', ' ', strip_tags($description)));
 }
 
-function wikiplugin_rss_apply_images(array &$items, string $fallbackImages): void
+function wikiplugin_rss_apply_images(array &$items): void
 {
-    $fallbackPool = wikiplugin_rss_fallback_images($fallbackImages);
+    $fallbackPool = wikiplugin_rss_fallback_images();
     $fallbackIndex = 0;
 
     foreach ($items as &$item) {
@@ -342,21 +332,15 @@ function wikiplugin_rss_extract_image(array $item): string
     return '';
 }
 
-function wikiplugin_rss_fallback_images(string $fallbackImages): array
+function wikiplugin_rss_fallback_images(): array
 {
-    if ($fallbackImages !== '') {
-        $fallbackPool = array_values(array_filter(array_map('trim', preg_split('/[\r\n,|]+/', $fallbackImages)), function ($url) {
-            return filter_var($url, FILTER_VALIDATE_URL);
-        }));
-        if (! empty($fallbackPool)) {
-            return $fallbackPool;
-        }
-    }
-
     return [
         'img/rss-fallback-news.svg',
         'img/rss-fallback-article.svg',
         'img/rss-fallback-update.svg',
+        'img/rss-fallback-insight.svg',
+        'img/rss-fallback-report.svg',
+        'img/rss-fallback-signal.svg',
     ];
 }
 
