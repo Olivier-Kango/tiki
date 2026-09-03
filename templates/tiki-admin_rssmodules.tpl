@@ -220,9 +220,6 @@
                             <input type="checkbox" class="form-check-input" name="showDesc"{if $showDesc eq 'y'} checked{/if}>
                             {tr}Show description{/tr}
                         </label>
-                        <div class="form-text">
-                            {tr}When enabled, the item title is used as the description if the feed item has no description{/tr}.
-                        </div>
                     </div>
                 </div>
             </div>
@@ -233,9 +230,6 @@
                             <input type="checkbox" class="form-check-input" name="showImage"{if $showImage eq 'y'} checked{/if}>
                             {tr}Show item image{/tr}
                         </label>
-                        <div class="form-text">
-                            {tr}In styled lines, show the feed item image. Cards always show an image area and use a simple generic image when the feed item has no image{/tr}.
-                        </div>
                     </div>
                 </div>
             </div>
@@ -246,9 +240,6 @@
                         <option value="list" {if $displayMode neq 'cards'}selected="selected"{/if}>{tr}Styled lines{/tr}</option>
                         <option value="cards" {if $displayMode eq 'cards'}selected="selected"{/if}>{tr}Cards{/tr}</option>
                     </select>
-                    <div class="form-text">
-                        {tr}Cards display feed items with an image. Use styled lines for the previous compact layout{/tr}.
-                    </div>
                 </div>
             </div>
             <div class="mb-3 row">
