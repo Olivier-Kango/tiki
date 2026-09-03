@@ -197,7 +197,7 @@
                 <div class="col-sm-9 offset-sm-3">
                     <div class="form-check">
                         <label class="form-label form-check-label">
-                            <input type="checkbox" class="form-check-input" name="showTitle" {if $showTitle eq 'y'}checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="showTitle"{if $showTitle eq 'y'} checked{/if}>
                             {tr}Show feed title{/tr}
                         </label>
                     </div>
@@ -207,7 +207,7 @@
                 <div class="col-sm-9 offset-sm-3">
                     <div class="form-check">
                         <label class="form-label form-check-label">
-                            <input type="checkbox" class="form-check-input" name="showPubDate" {if $showPubDate eq 'y'}checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="showPubDate"{if $showPubDate eq 'y'} checked{/if}>
                             {tr}Show publish date{/tr}
                         </label>
                     </div>
@@ -217,7 +217,7 @@
                 <div class="col-sm-9 offset-sm-3">
                     <div class="form-check">
                         <label class="form-label form-check-label">
-                            <input type="checkbox" class="form-check-input" name="showDesc" {if $showDesc eq 'y'}checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="showDesc"{if $showDesc eq 'y'} checked{/if}>
                             {tr}Show description{/tr}
                         </label>
                         <div class="form-text">
@@ -230,7 +230,7 @@
                 <div class="col-sm-9 offset-sm-3">
                     <div class="form-check">
                         <label class="form-label form-check-label">
-                            <input type="checkbox" class="form-check-input" name="showImage" {if $showImage eq 'y'}checked="checked"{/if}>
+                            <input type="checkbox" class="form-check-input" name="showImage"{if $showImage eq 'y'} checked{/if}>
                             {tr}Show item image{/tr}
                         </label>
                         <div class="form-text">
