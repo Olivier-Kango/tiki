@@ -17,7 +17,7 @@
                 {if ($item.author and $showauthor) or ($item.publication_date and $showdate)}
                     <span class="titleb">
                         {if $item.author and $showauthor}<span class="author">{icon name='user'} {$item.author|escape}</span>{/if}
-                        {if $item.publication_date and $showdate}<span class="rss-date"><span class="bi bi-calendar3" aria-hidden="true"></span>{$item.publication_date|tiki_short_date}</span>{/if}
+                        {if $item.publication_date and $showdate}<span class="rss-date">{icon name='calendar-alt' istyle='opacity:.55'} {$item.publication_date|tiki_short_date}</span>{/if}
                     </span>
                 {/if}
             </header>
@@ -58,7 +58,7 @@
                             {/if}
 
                             {if $item.publication_date and $showdate}
-                                <span class="rss-date"><span class="bi bi-calendar3" aria-hidden="true"></span>{$item.publication_date|tiki_short_date}</span>
+                                <span class="rss-date">{icon name='calendar-alt' istyle='opacity:.55'} {$item.publication_date|tiki_short_date}</span>
                             {/if}
                         </div>
                     </div>

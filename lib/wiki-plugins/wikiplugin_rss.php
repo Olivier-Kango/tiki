@@ -56,9 +56,8 @@ function wikiplugin_rss_info()
                 'required' => false,
                 'name' => tra('Date'),
                 'filter' => 'digits',
-                'description' => tra('Show date of each item (not shown by default)'),
+                'description' => tra('Show date of each item. If empty, uses the External Feed admin setting for this feed (not shown by default)'),
                 'since' => '1',
-                'default' => 0,
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 1],
@@ -69,9 +68,8 @@ function wikiplugin_rss_info()
                 'required' => false,
                 'name' => tra('Description'),
                 'filter' => 'digits',
-                'description' => tra('Show feed descriptions (not shown by default)'),
+                'description' => tra('Show feed descriptions. If empty, uses the External Feed admin setting for this feed (not shown by default)'),
                 'since' => '1',
-                'default' => 0,
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 1],
@@ -103,9 +101,8 @@ function wikiplugin_rss_info()
                 'required' => false,
                 'name' => tra('Item Image'),
                 'filter' => 'digits',
-                'description' => tra('Show the first image found in each feed item (not shown by default)'),
+                'description' => tra('Show the first image found in each feed item. If empty, uses the External Feed admin setting for this feed (not shown by default)'),
                 'since' => '30.0',
-                'default' => 0,
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 1],
@@ -116,10 +113,10 @@ function wikiplugin_rss_info()
                 'required' => false,
                 'name' => tra('Layout'),
                 'filter' => 'alpha',
-                'description' => tra('Display feed items as a list or as cards'),
+                'description' => tra('Display feed items as a list or as cards. If empty, uses the External Feed admin setting for this feed (list by default)'),
                 'since' => '30.0',
-                'default' => 'list',
                 'options' => [
+                    ['text' => '', 'value' => ''],
                     ['text' => tra('List'), 'value' => 'list'],
                     ['text' => tra('Cards'), 'value' => 'cards'],
                 ],
@@ -128,9 +125,8 @@ function wikiplugin_rss_info()
                 'required' => false,
                 'name' => tra('Show Title'),
                 'filter' => 'digits',
-                'description' => tra('Show the title of the feed (shown by default)'),
+                'description' => tra('Show the title of the feed. If empty, uses the External Feed admin setting for this feed (shown by default)'),
                 'since' => '6.0',
-                'default' => 1,
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 1],
@@ -206,8 +202,6 @@ function wikiplugin_rss($data, $params)
     $params = array_merge(
         [
             'ticker' => 0,
-            'image' => 0,
-            'layout' => 'list',
         ],
         $params
     );
@@ -235,13 +229,19 @@ function wikiplugin_rss($data, $params)
                 ];
             }
             if ($module) {
-                if (! array_key_exists('desc', $userParams) && isset($module['showDesc'])) {
+                if (($userParams['showtitle'] ?? null) === null && isset($module['showTitle'])) {
+                    $params['showtitle'] = $module['showTitle'] === 'y' ? 1 : 0;
+                }
+                if (($userParams['date'] ?? null) === null && isset($module['showPubDate'])) {
+                    $params['date'] = $module['showPubDate'] === 'y' ? 1 : 0;
+                }
+                if (($userParams['desc'] ?? null) === null && isset($module['showDesc'])) {
                     $params['desc'] = $module['showDesc'] === 'y' ? 1 : 0;
                 }
-                if (! array_key_exists('image', $userParams) && isset($module['showImage'])) {
+                if (($userParams['image'] ?? null) === null && isset($module['showImage'])) {
                     $params['image'] = $module['showImage'] === 'y' ? 1 : 0;
                 }
-                if (! array_key_exists('layout', $userParams) && ! empty($module['displayMode'])) {
+                if (($userParams['layout'] ?? null) === null && ! empty($module['displayMode'])) {
                     $params['layout'] = $module['displayMode'];
                 }
             }
@@ -249,6 +249,14 @@ function wikiplugin_rss($data, $params)
     } elseif (! empty($params['url'])) {
         ['params' => $params, 'items' => $items, 'meta' => $title] = $rsslib->loadRss($params);
     }
+
+    // Params not explicitly set and not resolved from an External Feed admin setting above
+    // (multi-feed id, url-based feed, or missing admin setting) fall back to these defaults.
+    $params['showtitle'] = $params['showtitle'] ?? 1;
+    $params['date'] = $params['date'] ?? 0;
+    $params['desc'] = $params['desc'] ?? 0;
+    $params['image'] = $params['image'] ?? 0;
+    $params['layout'] = $params['layout'] ?? 'list';
 
     if ($params['desc'] > 0) {
         foreach ($items as &$item) {
