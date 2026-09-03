@@ -1130,7 +1130,9 @@ class RSSLib extends TikiDb_Bridge
     private static function extractTtlFromFeed($xml): int
     {
         $DOM = new DOMDocument();
-        $DOM->loadXML($xml);
+        if (! self::loadXML($DOM, $xml)) {
+            return self::DEFAULT_FEED_TTL;
+        }
         $xpath = new DOMXPath($DOM);
 
         $ttlNodes = $xpath->query('//*[local-name()="channel"]/*[local-name()="ttl"]');
@@ -1149,7 +1151,9 @@ class RSSLib extends TikiDb_Bridge
         }
 
         $DOM = new DOMDocument();
-        $DOM->loadXML($feedData);
+        if (! self::loadXML($DOM, $feedData)) {
+            return $feedData;
+        }
         $xpath = new DOMXPath($DOM);
 
         $channelNodes = $xpath->query('//*[local-name()="channel"]');
@@ -1159,6 +1163,17 @@ class RSSLib extends TikiDb_Bridge
             $channelNodes->item(0)->insertBefore($ttlElement, $firstItem);
         }
         return $DOM->saveXML();
+    }
+
+    private static function loadXML(DOMDocument $DOM, string $xml): bool
+    {
+        $previous = libxml_use_internal_errors(true);
+        libxml_clear_errors();
+        $loaded = $DOM->loadXML($xml);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+
+        return $loaded;
     }
 
     public function loadRss(array $params): array

@@ -13,11 +13,11 @@
                 </a>
             {/if}
             <header class="articletitle mt-0 mx-0 mb-1">
-                <h2><a target="_blank" href="{$item.url|escape}">{$item.title|escape}</a></h2>
+                <h2><a class="stretched-link" target="_blank" href="{$item.url|escape}">{$item.title|escape}</a></h2>
                 {if ($item.author and $showauthor) or ($item.publication_date and $showdate)}
                     <span class="titleb">
                         {if $item.author and $showauthor}<span class="author">{icon name='user'} {$item.author|escape}</span>{/if}
-                        {if $item.publication_date and $showdate}<span>{icon name='calendar3'} {$item.publication_date|tiki_short_date}</span>{/if}
+                        {if $item.publication_date and $showdate}<span>{icon name='calendar-alt'} {$item.publication_date|tiki_short_date}</span>{/if}
                     </span>
                 {/if}
             </header>
@@ -58,7 +58,7 @@
                             {/if}
 
                             {if $item.publication_date and $showdate}
-                                <span>{icon name='calendar3'} {$item.publication_date|tiki_short_date}</span>
+                                <span>{icon name='calendar-alt'} {$item.publication_date|tiki_short_date}</span>
                             {/if}
                         </div>
                     </div>

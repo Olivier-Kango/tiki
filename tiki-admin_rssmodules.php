@@ -299,7 +299,7 @@ $sort_mode = SortModeValidator::validateSortModeOrFeedback(
     $_REQUEST['sort_mode'] ?? 'name_asc',
     ['tiki_rss_modules']
 );
-$offset = (int)$_REQUEST["offset"] ?? 0;
+$offset = (int)($_REQUEST["offset"] ?? 0);
 $smarty->assign_by_ref('offset', $offset);
 $find = $_REQUEST["find"] ?? '';
 if ($prefs['feature_multilingual'] == 'y') {
