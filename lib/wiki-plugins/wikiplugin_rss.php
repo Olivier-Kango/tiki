@@ -99,6 +99,40 @@ function wikiplugin_rss_info()
                 'since' => '5.0',
                 'default' => '',
             ],
+            'image' => [
+                'required' => false,
+                'name' => tra('Item Image'),
+                'filter' => 'digits',
+                'description' => tra('Show the first image found in each feed item (not shown by default)'),
+                'since' => '30.0',
+                'default' => 0,
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 1],
+                    ['text' => tra('No'), 'value' => 0]
+                ]
+            ],
+            'fallbackimages' => [
+                'required' => false,
+                'name' => tra('Fallback Images'),
+                'filter' => 'text',
+                'description' => tra('List of image URLs, separated by commas, pipes, or line breaks, to cycle through for items with no image of their own (only used when Item Image is enabled)'),
+                'since' => '30.0',
+                'default' => '',
+                'advanced' => true,
+            ],
+            'layout' => [
+                'required' => false,
+                'name' => tra('Layout'),
+                'filter' => 'alpha',
+                'description' => tra('Display feed items as a list or as cards'),
+                'since' => '30.0',
+                'default' => 'list',
+                'options' => [
+                    ['text' => tra('List'), 'value' => 'list'],
+                    ['text' => tra('Cards'), 'value' => 'cards'],
+                ],
+            ],
             'showtitle' => [
                 'required' => false,
                 'name' => tra('Show Title'),
@@ -174,12 +208,16 @@ function wikiplugin_rss_info()
 
 function wikiplugin_rss($data, $params)
 {
+    $userParams = $params;
     $params = WikiPlugin_Helper::applySeparators($params, wikiplugin_rss_info());
 
     $rsslib = TikiLib::lib('rss');
     $params = array_merge(
         [
             'ticker' => 0,
+            'image' => 0,
+            'fallbackimages' => '',
+            'layout' => 'list',
         ],
         $params
     );
@@ -206,15 +244,40 @@ function wikiplugin_rss($data, $params)
                     'link' => $module['siteurl'],
                 ];
             }
+            if ($module) {
+                if (! array_key_exists('desc', $userParams) && isset($module['showDesc'])) {
+                    $params['desc'] = $module['showDesc'] === 'y' ? 1 : 0;
+                }
+                if (! array_key_exists('image', $userParams) && isset($module['showImage'])) {
+                    $params['image'] = $module['showImage'] === 'y' ? 1 : 0;
+                }
+                if (! array_key_exists('layout', $userParams) && ! empty($module['displayMode'])) {
+                    $params['layout'] = $module['displayMode'];
+                }
+            }
         }
     } elseif (! empty($params['url'])) {
         ['params' => $params, 'items' => $items, 'meta' => $title] = $rsslib->loadRss($params);
     }
 
-    if ($params['desc'] > 0 && $params['desclen'] > 0) {
+    if ($params['desc'] > 0) {
         foreach ($items as &$item) {
-            $item['description'] = limit_text($item['description'], $params['desclen']);
+            $description = wikiplugin_rss_clean_description($item['description'] ?? '');
+            if ($description === '') {
+                $description = $item['title'] ?? '';
+            }
+            if ($params['desclen'] > 0) {
+                $description = limit_text($description, $params['desclen']);
+            }
+            $item['description'] = $description;
         }
+        unset($item);
+    }
+
+    $showImage = $params['image'] > 0 || $params['layout'] === 'cards';
+
+    if ($showImage) {
+        wikiplugin_rss_apply_images($items, $params['fallbackimages']);
     }
 
     $smarty = TikiLib::lib('smarty');
@@ -225,10 +288,76 @@ function wikiplugin_rss($data, $params)
     $smarty->assign('showdesc', $params['desc'] > 0);
     $smarty->assign('showauthor', $params['author'] > 0);
     $smarty->assign('icon', $params['icon']);
+    $smarty->assign('showimage', $showImage);
+    $smarty->assign('layout', in_array($params['layout'], ['list', 'cards'], true) ? $params['layout'] : 'list');
     $smarty->assign('ticker', $params['ticker']);
 
     $template = isset($params['tplWiki']) ? ('tplwiki:' . $params['tplWiki']) : 'wiki-plugins/wikiplugin_rss.tpl';
     return $smarty->fetch($template);
+}
+
+function wikiplugin_rss_clean_description($description)
+{
+    $description = html_entity_decode((string) $description, ENT_QUOTES | ENT_HTML5);
+    $description = preg_replace('/<img\b[^>]*>/i', ' ', $description);
+    return trim(preg_replace('/\s+/u', ' ', strip_tags($description)));
+}
+
+function wikiplugin_rss_apply_images(array &$items, string $fallbackImages): void
+{
+    $fallbackPool = wikiplugin_rss_fallback_images($fallbackImages);
+    $fallbackIndex = 0;
+
+    foreach ($items as &$item) {
+        $item['image'] = wikiplugin_rss_extract_image($item);
+        if ($item['image'] === '') {
+            $item['image'] = $fallbackPool[$fallbackIndex % count($fallbackPool)];
+            $fallbackIndex++;
+        }
+    }
+    unset($item);
+}
+
+function wikiplugin_rss_extract_image(array $item): string
+{
+    $imageSource = implode(' ', array_filter([
+        $item['content'] ?? '',
+        $item['description'] ?? '',
+    ]));
+
+    $patterns = [
+        '/<img[^>]+src=["\']([^"\']+)["\']/i',
+        '/<media:thumbnail[^>]+url=["\']([^"\']+)["\']/i',
+        '/<media:content[^>]+url=["\']([^"\']+)["\'][^>]*medium=["\']image["\']/i',
+        '/<enclosure[^>]+url=["\']([^"\']+)["\'][^>]*type=["\']image\/[^"\']+["\']/i',
+    ];
+
+    foreach ($patterns as $pattern) {
+        if (preg_match($pattern, $imageSource, $matches)) {
+            $url = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5);
+            return filter_var($url, FILTER_VALIDATE_URL) ? $url : '';
+        }
+    }
+
+    return '';
+}
+
+function wikiplugin_rss_fallback_images(string $fallbackImages): array
+{
+    if ($fallbackImages !== '') {
+        $fallbackPool = array_values(array_filter(array_map('trim', preg_split('/[\r\n,|]+/', $fallbackImages)), function ($url) {
+            return filter_var($url, FILTER_VALIDATE_URL);
+        }));
+        if (! empty($fallbackPool)) {
+            return $fallbackPool;
+        }
+    }
+
+    return [
+        'img/rss-fallback-news.svg',
+        'img/rss-fallback-article.svg',
+        'img/rss-fallback-update.svg',
+    ];
 }
 
 function limit_text($text, $limit)
