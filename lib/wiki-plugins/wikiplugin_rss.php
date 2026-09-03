@@ -102,7 +102,7 @@ function wikiplugin_rss_info()
                 'name' => tra('Item Image'),
                 'filter' => 'digits',
                 'description' => tra('Show the first image found in each feed item. If empty, uses the External Feed admin setting for this feed (not shown by default)'),
-                'since' => '30.0',
+                'since' => '31.0',
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Yes'), 'value' => 1],
@@ -114,7 +114,7 @@ function wikiplugin_rss_info()
                 'name' => tra('Layout'),
                 'filter' => 'alpha',
                 'description' => tra('Display feed items as a list or as cards. If empty, uses the External Feed admin setting for this feed (list by default)'),
-                'since' => '30.0',
+                'since' => '31.0',
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('List'), 'value' => 'list'],
