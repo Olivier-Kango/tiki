@@ -17,7 +17,7 @@ class Tiki_Profile_InstallHandler_Rss extends Tiki_Profile_InstallHandler
 
         $defaults = [
             'description' => null,
-            'refresh' => 30,
+            'refresh' => 30, // minutes, matches the External Feeds admin refresh rate options
             'show_title' => 'n',
             'show_publication_date' => 'n',
             'show_description' => 'n',
