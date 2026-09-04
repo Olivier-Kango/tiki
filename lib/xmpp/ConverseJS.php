@@ -369,6 +369,7 @@ JS;
         $output .= PHP_EOL . "  if (localStorage['chat-session-init'] !== {$chat_session_init_js}) {";
         $output .= PHP_EOL . '      console.warn("Cleaning environment for ' . 'converse session change");';
         $output .= PHP_EOL . "      localStorage['chat-session-init'] = {$chat_session_init_js};";
+        $output .= PHP_EOL . '      localStorage.removeItem("tiki-xmpp-guest-identity");';
         $output .= PHP_EOL . '      var lsKeys = []; for (var key in localStorage) { if (key.match(/(converse|strophe)/)) { lsKeys.push(key); } }';
         $output .= PHP_EOL . '      lsKeys.forEach(function (k) { localStorage.removeItem(k); });';
         $output .= PHP_EOL . '      var ssKeys = []; for (var key2 in sessionStorage) { if (key2.match(/(converse|strophe)/)) { ssKeys.push(key2); } }';
@@ -432,11 +433,13 @@ JS;
             $optionsWithoutCreds = json_encode($options, JSON_PRETTY_PRINT);
             $guestDomainJs = json_encode($guestDomain);
 
+            $guestIdentityStorageKey = json_encode('tiki-xmpp-guest-identity');
+
             $output .= <<<JS
 
 ;(function () {
     try {
-        var STORAGE_KEY = 'tiki-xmpp-guest-identity';
+        var STORAGE_KEY = {$guestIdentityStorageKey};
         var identity = null;
         try {
             identity = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
