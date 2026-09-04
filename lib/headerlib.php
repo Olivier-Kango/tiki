@@ -1066,7 +1066,7 @@ class HeaderLib
             if (is_array($file)) {
                 $hash .= $this->getFilesContentsHash($file, $hash);
             } else {
-                $hash .= md5_file($this->stripCacheBuster($file));
+                $hash .= md5_file($file);
             }
         }
         return md5($hash);
