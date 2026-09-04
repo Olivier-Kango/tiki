@@ -417,9 +417,9 @@ JS;
         $options['tiki_support_label'] = tra('Support team');
         $options['tiki_destination_close_label'] = tra('Close');
         $options['tiki_destination_title'] = tra('How would you like to chat?');
-        $options['tiki_destination_description'] = tra('Join the community conversation, or chat privately with a member of our support team.');
-        $options['tiki_destination_community_label'] = tra('Join the community group');
-        $options['tiki_destination_private_label'] = tra('Chat privately with a team member');
+        $options['tiki_destination_description'] = tra('Community chat is best for general questions and shared discussion. Choose private support for help specific to you.');
+        $options['tiki_destination_community_label'] = tra('Join community chat');
+        $options['tiki_destination_private_label'] = tra('Start private chat');
 
         if ($this->get_option('authentication') === 'anonymous') {
             $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');
