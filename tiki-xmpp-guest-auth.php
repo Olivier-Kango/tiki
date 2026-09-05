@@ -33,7 +33,8 @@ if (! $okSecret && $trusted_secret !== '' && $header_secret !== '') {
     }
 }
 
-$req_secret = $_POST['secret'] ?? $_GET['secret'] ?? null;
+// Accept the shared secret in the POST body only, never in the URL.
+$req_secret = $_POST['secret'] ?? null;
 if (! $okSecret && $trusted_secret !== '' && $req_secret !== null) {
     if (hash_equals($trusted_secret, (string) $req_secret)) {
         $okSecret = true;
