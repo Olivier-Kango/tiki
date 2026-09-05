@@ -285,7 +285,7 @@ class ConverseJS
         }
         if (! is_string($value) || (isset($rule['values']) && ! in_array($value, $rule['values'], true))) {
             // Do not expose identifiers or other configuration values in logs.
-            error_log('ConverseJS: invalid Tiki setting "' . $key . '"; using its documented default.');
+            TikiLib::lib('logs')->add_log('xmpp', 'ConverseJS: invalid Tiki setting "' . $key . '"; using its documented default.');
             return $rule['default'];
         }
         return $value;
