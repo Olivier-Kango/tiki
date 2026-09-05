@@ -5,43 +5,32 @@ class ConverseJS
     const CACHE_EPOCH = '14.0.49-enable-muc-mam-fetch-before-join';
 
     /**
-     * Tiki <-> Converse settings contract.
-     *
-     * Documents every Converse setting key this class populates that
-     * lib/xmpp/js/conversejs-tiki.js reads back via
-     * _converse.api.settings.get(). Must be kept in sync, key for key,
-     * with the TIKI_SETTINGS_CONTRACT array in that file (see its header
-     * comment), which also documents the JS-side default/fallback for
-     * each key. Keys prefixed tiki_ are Tiki-only presentation strings
-     * consumed only by that file; the others (dm_target, anon_room,
-     * anonymous, ...) are also read by stock Converse code.
-     *
-     * render() validates the tiki_* presentational subset against this
-     * list before adding it to the options sent to the browser (see the
-     * $tikiUiOptions loop below); the other keys are set earlier, from
-     * set_auth()/getUserAuthOptions(), as part of building the
-     * authentication options themselves rather than through that loop.
+     * Tiki-owned PHP/JS settings contract. Keep keys, types, allowed values and
+     * defaults aligned with TIKI_SETTINGS_CONTRACT in conversejs-tiki.js.
+     * A regression test checks both definitions. set_option() validates all
+     * contracted keys; render() uses the same validator for presentation text.
+     * These are Tiki extensions, not stock Converse configuration options.
      */
     private static $TIKI_JS_SETTINGS_CONTRACT = [
-        'dm_target' => 'Bare JID of the private support contact for anonymous guests. Set by set_auth() when xmpp_anonymous_mode is "support".',
-        'anon_room' => 'JID of the community MUC room anonymous guests are dropped into. Set by set_auth() from xmpp_anonymous_room.',
-        'anonymous' => '"y" when this session is an anonymous/guest session. Set by set_auth().',
-        'anonymous_auto_open' => '"y" to auto-open the anonymous support DM without the destination-choice dialog.',
-        'auto_open' => '"y" to auto-open the configured room/DM. Set by set_auth()/getUserAuthOptions() from the `auto_open` request param.',
-        'on_xmpp_page' => '"y" when Converse is embedded on the dedicated tiki-xmpp page. Set by set_auth().',
-        'current_room' => 'JID of the room the current tiki-xmpp page should show/join. Set by set_auth() from the `room` request param.',
-        'external_jid' => "Bare JID of the user's external (non-Tiki-domain) XMPP account, when available. Set by getUserAuthOptions().",
-        'using_external' => '"y" when the session authenticated with external_jid rather than the Tiki-internal JID. Set by getUserAuthOptions().',
-        'local_jid' => 'The Tiki-internal JID counterpart to external_jid. Set by getUserAuthOptions().',
-        'tiki_site_name' => 'Site display name for chat UI chrome.',
-        'tiki_site_logo' => 'Absolute URL of the site logo, or empty to let the browser plugin auto-detect one already rendered on the page.',
-        'tiki_support_label' => "Display name substituted for dm_target's JID in chat headers.",
-        'tiki_destination_close_label' => 'aria-label for the close button of the anonymous destination-choice dialog.',
-        'tiki_destination_title' => 'Heading of the anonymous destination-choice dialog.',
-        'tiki_destination_description' => 'Body text of the anonymous destination-choice dialog.',
-        'tiki_destination_community_label' => 'Label of the "join the public room" button in the destination-choice dialog.',
-        'tiki_destination_private_label' => 'Label of the "start a private support chat" button in the destination-choice dialog.',
-        'tiki_anonymous_nick' => '"custom" lets an anonymous guest set/keep their own MUC nickname; any other value forces an auto-generated nickname. Set by set_auth() from xmpp_anonymous_allow_custom_nickname.',
+        'dm_target' => ['type' => 'string', 'default' => null, 'doc' => 'Bare JID of the private support contact for anonymous guests. Set by set_auth() when xmpp_anonymous_mode is "support".'],
+        'anon_room' => ['type' => 'string', 'default' => null, 'doc' => 'JID of the community MUC room anonymous guests are dropped into. Set by set_auth() from xmpp_anonymous_room.'],
+        'anonymous' => ['type' => 'string', 'values' => ['y', 'n'], 'default' => null, 'doc' => '"y" when this is a Tiki guest session; independent of the XMPP authentication mechanism.'],
+        'anonymous_auto_open' => ['type' => 'string', 'values' => ['y', 'n'], 'default' => null, 'doc' => '"n"/unset prepares the guest support DM; "y" skips preparation, without opening it or bypassing the chooser.'],
+        'auto_open' => ['type' => 'string', 'values' => ['y', 'n'], 'default' => null, 'doc' => '"y" opens the configured authenticated DM once on the dedicated embedded/fullscreen page. Set by set_auth()/getUserAuthOptions() from the `auto_open` request param.'],
+        'on_xmpp_page' => ['type' => 'string', 'values' => ['y', 'n'], 'default' => null, 'doc' => '"y" when Converse is embedded on the dedicated tiki-xmpp page. Set by set_auth().'],
+        'current_room' => ['type' => 'string', 'default' => null, 'doc' => 'JID of the room the current tiki-xmpp page should show/join. Set by set_auth() from the `room` request param.'],
+        'external_jid' => ['type' => 'string', 'default' => null, 'doc' => "Bare JID of the user's external (non-Tiki-domain) XMPP account, when available. Set by getUserAuthOptions()."],
+        'using_external' => ['type' => 'string', 'values' => ['y', 'n'], 'default' => null, 'doc' => '"y" when the session authenticated with external_jid rather than the Tiki-internal JID. Set by getUserAuthOptions().'],
+        'local_jid' => ['type' => 'string', 'default' => null, 'doc' => 'The Tiki-internal JID counterpart to external_jid. Set by getUserAuthOptions().'],
+        'tiki_site_name' => ['type' => 'string', 'default' => 'Tiki', 'doc' => 'Site display name for chat UI chrome.'],
+        'tiki_site_logo' => ['type' => 'string', 'default' => '', 'doc' => 'Relative or absolute URL of the site logo, or empty to let the browser plugin auto-detect one already rendered on the page.'],
+        'tiki_support_label' => ['type' => 'string', 'default' => 'Support', 'doc' => "Display name substituted for dm_target's JID in chat headers."],
+        'tiki_destination_close_label' => ['type' => 'string', 'default' => 'Close', 'doc' => 'aria-label for the close button of the anonymous destination-choice dialog.'],
+        'tiki_destination_title' => ['type' => 'string', 'default' => 'How would you like to chat?', 'doc' => 'Heading of the anonymous destination-choice dialog.'],
+        'tiki_destination_description' => ['type' => 'string', 'default' => 'Community chat is best for general questions and shared discussion. Choose private support for help specific to you.', 'doc' => 'Body text of the anonymous destination-choice dialog.'],
+        'tiki_destination_community_label' => ['type' => 'string', 'default' => 'Join community chat', 'doc' => 'Label of the "join the public room" button in the destination-choice dialog.'],
+        'tiki_destination_private_label' => ['type' => 'string', 'default' => 'Start private chat', 'doc' => 'Label of the "start a private support chat" button in the destination-choice dialog.'],
+        'tiki_anonymous_nick' => ['type' => 'string', 'values' => ['custom', 'visitor'], 'default' => 'visitor', 'doc' => '"custom" lets an anonymous guest set/keep their own MUC nickname; "visitor" uses the existing nickname fallback, generating a visitor nickname when needed. Set by set_auth() from xmpp_anonymous_allow_custom_nickname.'],
     ];
 
     private $options;
@@ -278,7 +267,28 @@ class ConverseJS
 
     public function set_option($name, $value)
     {
-        $this->options[ $name ] = $value;
+        $this->options[ $name ] = self::validateTikiSetting($name, $value);
+    }
+
+    /**
+     * Validate every Tiki-owned option at its PHP boundary. Preserve flat keys
+     * and string flags for existing callers; Converse-owned options pass through.
+     */
+    private static function validateTikiSetting($key, $value)
+    {
+        if (! isset(self::$TIKI_JS_SETTINGS_CONTRACT[$key])) {
+            return $value;
+        }
+        $rule = self::$TIKI_JS_SETTINGS_CONTRACT[$key];
+        if ($value === null) {
+            return $rule['default'];
+        }
+        if (! is_string($value) || (isset($rule['values']) && ! in_array($value, $rule['values'], true))) {
+            // Do not expose identifiers or other configuration values in logs.
+            error_log('ConverseJS: invalid Tiki setting "' . $key . '"; using its documented default.');
+            return $rule['default'];
+        }
+        return $value;
     }
 
     public function get_option($name, $fallback = null)
@@ -381,15 +391,19 @@ class ConverseJS
             $options['anonymous_auto_open'] = 'n';
         }
 
-        $output = ';(function () {' . PHP_EOL . 'try {' . PHP_EOL;
+        $output = ';(async function () {' . PHP_EOL . 'try {' . PHP_EOL;
         $output .= <<<JS
+// The dependency promise resolves after the storage and presentation helpers load.
+await (window.tikiConverseReady || Promise.resolve(window.converse));
+var storage = window.TikiConverseStorage;
+if (!storage) throw new Error('TikiConverseStorage is not loaded');
 var initializeConverse = function (opts) {
     var ready = window.tikiConverseReady || Promise.resolve(window.converse);
     return ready.then(function (converse) {
         if (!converse || typeof converse.initialize !== 'function') {
             throw new Error('converse is not defined');
         }
-        converse.initialize(opts);
+        return converse.initialize(opts);
     });
 };
 
@@ -416,21 +430,13 @@ JS;
         $chat_session_init_js = json_encode($chat_session_init);
 
         $output .= PHP_EOL . ';(function(){';
-        $output .= PHP_EOL . "  if (localStorage['chat-session-init'] !== {$chat_session_init_js}) {";
+        $output .= PHP_EOL . "  if (storage.get('localStorage', 'chat-session-init') !== {$chat_session_init_js}) {";
         $output .= PHP_EOL . '      console.warn("Cleaning environment for ' . 'converse session change");';
-        $output .= PHP_EOL . "      localStorage['chat-session-init'] = {$chat_session_init_js};";
-        $output .= PHP_EOL . '      localStorage.removeItem("tiki-xmpp-guest-identity");';
-        $output .= PHP_EOL . '      var lsKeys = []; for (var key in localStorage) { if (key.match(/(converse|strophe)/)) { lsKeys.push(key); } }';
-        $output .= PHP_EOL . '      lsKeys.forEach(function (k) { localStorage.removeItem(k); });';
-        $output .= PHP_EOL . '      var ssKeys = []; for (var key2 in sessionStorage) { if (key2.match(/(converse|strophe)/)) { ssKeys.push(key2); } }';
-        $output .= PHP_EOL . '      ssKeys.forEach(function (k) { sessionStorage.removeItem(k); });';
-        $output .= PHP_EOL . '      if (window.indexedDB && indexedDB.databases) {';
-        $output .= PHP_EOL . '          indexedDB.databases().then(function (dbs) {';
-        $output .= PHP_EOL . '              dbs.forEach(function (db) {';
-        $output .= PHP_EOL . '                  if (db.name && /(converse|strophe)/i.test(db.name)) { indexedDB.deleteDatabase(db.name); }';
-        $output .= PHP_EOL . '              });';
-        $output .= PHP_EOL . '          }).catch(function (e) { console.warn("[tiki-xmpp] could not enumerate indexedDB databases for cleanup", e); });';
-        $output .= PHP_EOL . '      }';
+        $output .= PHP_EOL . "      storage.set('localStorage', 'chat-session-init', {$chat_session_init_js});";
+        $output .= PHP_EOL . '      storage.remove("localStorage", "tiki-xmpp-guest-identity");';
+        $output .= PHP_EOL . '      storage.clearMatching("localStorage", /(converse|strophe)/);';
+        $output .= PHP_EOL . '      storage.clearMatching("sessionStorage", /(converse|strophe)/);';
+        $output .= PHP_EOL . '      storage.clearIndexedDbMatching(/(converse|strophe)/i);';
         $output .= PHP_EOL . "  }";
         $output .= PHP_EOL . '})();';
         $output .= PHP_EOL;
@@ -488,7 +494,7 @@ JS;
                 trigger_error("ConverseJS: '$key' is not declared in \$TIKI_JS_SETTINGS_CONTRACT", E_USER_WARNING);
                 continue;
             }
-            $options[$key] = $value;
+            $options[$key] = self::validateTikiSetting($key, $value);
         }
 
         if ($this->get_option('authentication') === 'anonymous') {
@@ -509,12 +515,7 @@ JS;
 ;(function () {
     try {
         var STORAGE_KEY = {$guestIdentityStorageKey};
-        var identity = null;
-        try {
-            identity = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-        } catch (e) {
-            identity = null;
-        }
+        var identity = storage.getObject('localStorage', STORAGE_KEY, null);
         if (!identity || !identity.jid || !identity.password) {
             var cryptoObj = window.crypto || window.msCrypto;
             if (!cryptoObj || !cryptoObj.getRandomValues) {
@@ -531,9 +532,7 @@ JS;
                 jid: 'guest-' + randHex(10) + '@' + {$guestDomainJs},
                 password: randHex(24)
             };
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(identity));
-            } catch (e) {}
+            storage.setJSON('localStorage', STORAGE_KEY, identity);
         }
         var opts = {$optionsWithoutCreds};
         opts.jid = identity.jid;
