@@ -4,6 +4,46 @@ class ConverseJS
 {
     const CACHE_EPOCH = '14.0.49-enable-muc-mam-fetch-before-join';
 
+    /**
+     * Tiki <-> Converse settings contract.
+     *
+     * Documents every Converse setting key this class populates that
+     * lib/xmpp/js/conversejs-tiki.js reads back via
+     * _converse.api.settings.get(). Must be kept in sync, key for key,
+     * with the TIKI_SETTINGS_CONTRACT array in that file (see its header
+     * comment), which also documents the JS-side default/fallback for
+     * each key. Keys prefixed tiki_ are Tiki-only presentation strings
+     * consumed only by that file; the others (dm_target, anon_room,
+     * anonymous, ...) are also read by stock Converse code.
+     *
+     * render() validates the tiki_* presentational subset against this
+     * list before adding it to the options sent to the browser (see the
+     * $tikiUiOptions loop below); the other keys are set earlier, from
+     * set_auth()/getUserAuthOptions(), as part of building the
+     * authentication options themselves rather than through that loop.
+     */
+    private static $TIKI_JS_SETTINGS_CONTRACT = [
+        'dm_target' => 'Bare JID of the private support contact for anonymous guests. Set by set_auth() when xmpp_anonymous_mode is "support".',
+        'anon_room' => 'JID of the community MUC room anonymous guests are dropped into. Set by set_auth() from xmpp_anonymous_room.',
+        'anonymous' => '"y" when this session is an anonymous/guest session. Set by set_auth().',
+        'anonymous_auto_open' => '"y" to auto-open the anonymous support DM without the destination-choice dialog.',
+        'auto_open' => '"y" to auto-open the configured room/DM. Set by set_auth()/getUserAuthOptions() from the `auto_open` request param.',
+        'on_xmpp_page' => '"y" when Converse is embedded on the dedicated tiki-xmpp page. Set by set_auth().',
+        'current_room' => 'JID of the room the current tiki-xmpp page should show/join. Set by set_auth() from the `room` request param.',
+        'external_jid' => "Bare JID of the user's external (non-Tiki-domain) XMPP account, when available. Set by getUserAuthOptions().",
+        'using_external' => '"y" when the session authenticated with external_jid rather than the Tiki-internal JID. Set by getUserAuthOptions().',
+        'local_jid' => 'The Tiki-internal JID counterpart to external_jid. Set by getUserAuthOptions().',
+        'tiki_site_name' => 'Site display name for chat UI chrome.',
+        'tiki_site_logo' => 'Absolute URL of the site logo, or empty to let the browser plugin auto-detect one already rendered on the page.',
+        'tiki_support_label' => "Display name substituted for dm_target's JID in chat headers.",
+        'tiki_destination_close_label' => 'aria-label for the close button of the anonymous destination-choice dialog.',
+        'tiki_destination_title' => 'Heading of the anonymous destination-choice dialog.',
+        'tiki_destination_description' => 'Body text of the anonymous destination-choice dialog.',
+        'tiki_destination_community_label' => 'Label of the "join the public room" button in the destination-choice dialog.',
+        'tiki_destination_private_label' => 'Label of the "start a private support chat" button in the destination-choice dialog.',
+        'tiki_anonymous_nick' => '"custom" lets an anonymous guest set/keep their own MUC nickname; any other value forces an auto-generated nickname. Set by set_auth() from xmpp_anonymous_allow_custom_nickname.',
+    ];
+
     private $options;
     private $tiki_root;
 
@@ -290,6 +330,16 @@ class ConverseJS
     public function get_js_dependencies()
     {
         $deps = [
+            // Loaded first: conversejs-tiki.js (and, in its presentation
+            // module, conversejs-tiki-presentation.js) read
+            // window.TikiConverseStorage/window.TikiConversePresentation
+            // when their plugin initialize() runs, so both must have run
+            // by then. Both files avoid import/export syntax so they load
+            // identically here (classic <script> tags, when
+            // xmpp_conversejs_always_load is "y") and via
+            // registerJsDependencies()'s dynamic import() below.
+            'lib/xmpp/js/conversejs-tiki-storage.js',
+            'lib/xmpp/js/conversejs-tiki-presentation.js',
             'lib/xmpp/js/conversejs-tiki.js',
             'lib/xmpp/js/conversejs-tiki-oauth.js',
         ];
@@ -411,16 +461,35 @@ JS;
             ?: trim((string) ($prefs['browsertitle'] ?? ''))
             ?: trim((string) ($prefs['sitelogo_title'] ?? ''))
             ?: 'Tiki';
-        $options['tiki_site_name'] = $siteName;
-        // An empty value is intentional: the browser plugin then discovers the
-        // logo currently rendered by Tiki instead of assuming a particular file.
-        $options['tiki_site_logo'] = trim((string) ($prefs['sitelogo_src'] ?? ''));
-        $options['tiki_support_label'] = tra('Support team');
-        $options['tiki_destination_close_label'] = tra('Close');
-        $options['tiki_destination_title'] = tra('How would you like to chat?');
-        $options['tiki_destination_description'] = tra('Community chat is best for general questions and shared discussion. Choose private support for help specific to you.');
-        $options['tiki_destination_community_label'] = tra('Join community chat');
-        $options['tiki_destination_private_label'] = tra('Start private chat');
+
+        // Tiki-only presentation strings from the settings contract (see
+        // self::$TIKI_JS_SETTINGS_CONTRACT above). Validating each key
+        // against that contract here - the one place these are assembled -
+        // means a typo'd or renamed key is reported immediately instead of
+        // silently reaching the browser as a setting conversejs-tiki.js
+        // never reads.
+        $tikiUiOptions = [
+            'tiki_site_name' => $siteName,
+            // An empty value is intentional: the browser plugin then
+            // discovers the logo currently rendered by Tiki instead of
+            // assuming a particular file.
+            'tiki_site_logo' => trim((string) ($prefs['sitelogo_src'] ?? '')),
+            'tiki_support_label' => tra('Support team'),
+            'tiki_destination_close_label' => tra('Close'),
+            'tiki_destination_title' => tra('How would you like to chat?'),
+            'tiki_destination_description' => tra('Community chat is best for general questions and shared discussion. Choose private support for help specific to you.'),
+            'tiki_destination_community_label' => tra('Join community chat'),
+            'tiki_destination_private_label' => tra('Start private chat'),
+        ];
+        foreach ($tikiUiOptions as $key => $value) {
+            if (! array_key_exists($key, self::$TIKI_JS_SETTINGS_CONTRACT)) {
+                // Should only happen if this array and the contract above
+                // are edited out of step with each other.
+                trigger_error("ConverseJS: '$key' is not declared in \$TIKI_JS_SETTINGS_CONTRACT", E_USER_WARNING);
+                continue;
+            }
+            $options[$key] = $value;
+        }
 
         if ($this->get_option('authentication') === 'anonymous') {
             $guestDomain = $this->get_option('jid') ?: ($prefs['xmpp_domain_guest'] ?? '');
