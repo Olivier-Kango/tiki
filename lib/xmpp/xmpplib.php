@@ -686,6 +686,47 @@ class XMPPLib extends TikiLib
         return $result;
     }
 
+    public function canPrebindExternal(string $username, array $connection): bool
+    {
+        global $prefs;
+
+        return ($prefs['auth_token_access'] ?? 'n') === 'y'
+            && class_exists('XmppPrebind')
+            && ! empty($connection['custom_endpoint'])
+            && strtolower((string) parse_url($connection['http_bind'] ?? '', PHP_URL_SCHEME)) === 'https'
+            && $this->hasExternalPassword($username);
+    }
+
+    public function prebindExternal(string $username): array
+    {
+        global $user;
+
+        if ($username === '' || $username !== $user) {
+            throw new RuntimeException('Authentication required', 403);
+        }
+        $jid = $this->getJidInfoForUser($username);
+        $connection = $this->get_user_connection_info($username);
+        if (! $jid['isExternal'] || ! $this->canPrebindExternal($username, $connection)) {
+            throw new RuntimeException('External BOSH prebinding is not available', 400);
+        }
+        require_once __DIR__ . '/TikiXmppExternalPrebind.php';
+        $client = new TikiXmppExternalPrebind(
+            $connection['domain'],
+            $connection['http_bind'],
+            'tiki-' . bin2hex(random_bytes(12)),
+            true,
+            false
+        );
+        $password = $this->getExternalPassword($username);
+        if ($password === null || $password === '') {
+            throw new RuntimeException('External XMPP credentials are unavailable', 400);
+        }
+        $client->connect($connection['username'], $password);
+        $client->auth();
+        $session = $client->getSessionInfo();
+        return ['jid' => $session['jid'], 'sid' => $session['sid'], 'rid' => $session['rid']];
+    }
+
     private const EXTERNAL_PASSWORD_PREF_KEY = 'xmpp_external_password_enc';
 
     private function getExternalPasswordKey(): string

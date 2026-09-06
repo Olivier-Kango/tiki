@@ -191,20 +191,23 @@ class ConverseJS
 
         if ($useExternalNow) {
             $transportOptions = $this->getTransportOptions($xmpp, true);
-            $externalPassword = $xmpplib->getExternalPassword($user);
-
-            if ($externalPassword !== null) {
+            // The saved password stays server-side. Prebind returns only BOSH
+            // session credentials; WebSocket-only accounts keep the login form.
+            if ($xmpplib->canPrebindExternal($user, $xmpp)) {
                 return array_merge([
-                    'authentication' => 'login',
-                    'auto_login'     => true,
-                    'jid'            => $jidInfo['jid'],
-                    'password'       => $externalPassword,
-                    'auto_open'      => $auto_open,
-                    'external_jid'   => $jidInfo['jid'],
-                    'local_jid'      => $jidInfo['localJid'] ?? '',
+                    'authentication' => 'prebind',
+                    'auto_login' => true,
+                    'prebind_url' => TikiLib::lib('service')->getUrl([
+                        'controller' => 'xmpp',
+                        'action' => 'external_prebind',
+                    ]),
+                    'jid' => $jidInfo['jid'],
+                    'auto_open' => $auto_open,
+                    'external_jid' => $jidInfo['jid'],
+                    'local_jid' => $jidInfo['localJid'] ?? '',
                     'using_external' => 'y',
-                    'discover_connection_methods' => empty($xmpp['custom_endpoint']),
-                ], $transportOptions);
+                    'discover_connection_methods' => false,
+                ], $transportOptions, ['websocket_url' => '']);
             }
 
             return array_merge([

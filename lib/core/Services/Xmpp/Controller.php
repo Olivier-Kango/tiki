@@ -109,6 +109,21 @@ class Services_Xmpp_Controller
         return $result;
     }
 
+    public function action_external_prebind($input)
+    {
+        global $user;
+
+        $this->block_anonymous();
+        header('Cache-Control: no-store, private');
+        // Never accept an account or endpoint from request parameters.
+        try {
+            return TikiLib::lib('xmpp')->prebindExternal($user);
+        } catch (\Throwable $e) {
+            // Library errors must not expose credentials or upstream responses.
+            throw new Services_Exception(tr('Unable to establish the external XMPP session.'), 502);
+        }
+    }
+
     public function action_groups_in_room($input)
     {
         global $tiki_p_admin;
