@@ -493,6 +493,10 @@
         .box-flyout { background: var(--bs-body-bg); }
         .controlbox-pane { background-color: inherit; }
 
+        #converse-login {
+            padding-inline: 1rem;
+        }
+
         converse-user-profile {
             border-bottom: 0 !important;
         }
