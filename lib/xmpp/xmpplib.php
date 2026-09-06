@@ -10,6 +10,7 @@ use Fabiang\Xmpp\Protocol\Message;
 use Fabiang\Xmpp\Protocol\Invitation;
 use Fabiang\Xmpp\Util\JID;
 use Tiki\Lib\Auth\Tokens;
+use Tiki\Lib\Xmpp\TikiXmppExternalPrebind;
 
 require_once __DIR__ . '/ConverseJS.php';
 require_once __DIR__ . '/TikiXmppChat.php';

@@ -3,6 +3,11 @@
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+namespace Tiki\Lib\Xmpp;
+
+use RuntimeException;
+use XmppPrebind;
+
 /** BOSH transport for user-configured external servers. */
 class TikiXmppExternalPrebind extends XmppPrebind
 {
@@ -58,7 +63,7 @@ class TikiXmppExternalPrebind extends XmppPrebind
         ]);
         $response = curl_exec($handle);
         $status = curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
-        curl_close($handle);
+        unset($handle);
         if ($response === false || $status !== 200) {
             throw new RuntimeException('The BOSH request failed');
         }
