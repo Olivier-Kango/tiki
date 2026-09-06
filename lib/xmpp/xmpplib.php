@@ -689,10 +689,7 @@ class XMPPLib extends TikiLib
 
     public function canPrebindExternal(string $username, array $connection): bool
     {
-        global $prefs;
-
-        return ($prefs['auth_token_access'] ?? 'n') === 'y'
-            && class_exists('XmppPrebind')
+        return class_exists('XmppPrebind')
             && ! empty($connection['custom_endpoint'])
             && strtolower((string) parse_url($connection['http_bind'] ?? '', PHP_URL_SCHEME)) === 'https'
             && $this->hasExternalPassword($username);

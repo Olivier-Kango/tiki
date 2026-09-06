@@ -12,7 +12,6 @@ class Services_Xmpp_Controller
     public function setUp()
     {
         Services_Exception_Disabled::check('xmpp_feature');
-        Services_Exception_Disabled::check('auth_token_access');
     }
 
     private function block_anonymous()
@@ -26,6 +25,8 @@ class Services_Xmpp_Controller
 
     public function action_check_token($input)
     {
+        Services_Exception_Disabled::check('auth_token_access');
+
         $xmpplib = TikiLib::lib('xmpp');
         $query = $input->stored;
 
@@ -42,6 +43,8 @@ class Services_Xmpp_Controller
 
     public function action_get_user_info($input)
     {
+        Services_Exception_Disabled::check('auth_token_access');
+
         $xmpplib = TikiLib::lib('xmpp');
         $userlib = TikiLib::lib('user');
 
@@ -95,6 +98,8 @@ class Services_Xmpp_Controller
 
     public function action_prebind($input)
     {
+        Services_Exception_Disabled::check('auth_token_access');
+
         global $user;
         $xmpplib = TikiLib::lib('xmpp');
 
@@ -126,6 +131,8 @@ class Services_Xmpp_Controller
 
     public function action_groups_in_room($input)
     {
+        Services_Exception_Disabled::check('auth_token_access');
+
         global $tiki_p_admin;
         if ($tiki_p_admin != 'y') {
             throw new Services_Exception(tr("You don't have enough privileges"), 403);
@@ -148,6 +155,8 @@ class Services_Xmpp_Controller
 
     public function action_users_in_room($input)
     {
+        Services_Exception_Disabled::check('auth_token_access');
+
         global $tiki_p_list_users, $tiki_p_admin;
         if ($tiki_p_list_users !== 'y' && $tiki_p_admin != 'y') {
             throw new Services_Exception(tr("You don't have enough privileges"), 403);
