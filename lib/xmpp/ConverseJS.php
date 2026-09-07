@@ -30,10 +30,10 @@ class ConverseJS
         'tiki_destination_description' => ['type' => 'string', 'default' => 'Community chat is best for general questions and shared discussion. Choose private support for help specific to you.', 'doc' => 'Body text of the anonymous destination-choice dialog.'],
         'tiki_destination_community_label' => ['type' => 'string', 'default' => 'Join community chat', 'doc' => 'Label of the "join the public room" button in the destination-choice dialog.'],
         'tiki_destination_private_label' => ['type' => 'string', 'default' => 'Start private chat', 'doc' => 'Label of the "start a private support chat" button in the destination-choice dialog.'],
-        'tiki_support_end_title' => ['type' => 'string', 'default' => 'End this conversation?', 'doc' => 'Heading of the guest support end confirmation.'],
-        'tiki_support_end_description' => ['type' => 'string', 'default' => 'Your guest session will be reset and you will no longer be able to access this conversation from this browser. The support team may retain a copy of the messages.', 'doc' => 'Explains the consequences of ending guest support chat.'],
-        'tiki_support_end_cancel_label' => ['type' => 'string', 'default' => 'Continue chatting', 'doc' => 'Cancels ending the guest support conversation.'],
-        'tiki_support_end_confirm_label' => ['type' => 'string', 'default' => 'End conversation', 'doc' => 'Confirms ending the guest support conversation.'],
+        'tiki_support_end_title' => ['type' => 'string', 'default' => 'End this conversation?', 'doc' => 'Heading of the guest session end confirmation.'],
+        'tiki_support_end_description' => ['type' => 'string', 'default' => 'Your guest session will end and you will leave all chats. When you start chatting again, you will have a new guest identity. Previous messages may remain visible to other participants.', 'doc' => 'Explains the consequences of ending a guest session.'],
+        'tiki_support_end_cancel_label' => ['type' => 'string', 'default' => 'Continue chatting', 'doc' => 'Cancels ending the guest session.'],
+        'tiki_support_end_confirm_label' => ['type' => 'string', 'default' => 'End conversation', 'doc' => 'Confirms ending the guest session.'],
         'tiki_anonymous_nick' => ['type' => 'string', 'values' => ['custom', 'visitor'], 'default' => 'visitor', 'doc' => '"custom" lets an anonymous guest set/keep their own MUC nickname; "visitor" uses the existing nickname fallback, generating a visitor nickname when needed. Set by set_auth() from xmpp_anonymous_allow_custom_nickname.'],
     ];
 
@@ -494,7 +494,7 @@ JS;
             'tiki_destination_community_label' => tra('Join community chat'),
             'tiki_destination_private_label' => tra('Start private chat'),
             'tiki_support_end_title' => tra('End this conversation?'),
-            'tiki_support_end_description' => tra('Your guest session will be reset and you will no longer be able to access this conversation from this browser. The support team may retain a copy of the messages.'),
+            'tiki_support_end_description' => tra('Your guest session will end and you will leave all chats. When you start chatting again, you will have a new guest identity. Previous messages may remain visible to other participants.'),
             'tiki_support_end_cancel_label' => tra('Continue chatting'),
             'tiki_support_end_confirm_label' => tra('End conversation'),
         ];
