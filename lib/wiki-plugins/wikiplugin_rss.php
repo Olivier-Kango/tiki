@@ -261,9 +261,6 @@ function wikiplugin_rss($data, $params)
     if ($params['desc'] > 0) {
         foreach ($items as &$item) {
             $description = wikiplugin_rss_clean_description($item['description'] ?? '');
-            if ($description === '') {
-                $description = $item['title'] ?? '';
-            }
             if ($params['desclen'] > 0) {
                 $description = limit_text($description, $params['desclen']);
             }
