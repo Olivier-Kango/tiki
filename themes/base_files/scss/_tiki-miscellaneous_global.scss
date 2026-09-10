@@ -218,7 +218,7 @@ form[name=editpageform] .mb-3 .tab-content .alert-warning {
     flex-direction: column;
     min-width: 0;
     overflow: hidden;
-    padding: 0;
+    padding: 0 0 1rem;
     position: relative;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s ease-in-out;
 }
@@ -269,13 +269,19 @@ form[name=editpageform] .mb-3 .tab-content .alert-warning {
 
 .rss-news-card .articleheadingtext {
     color: var(--bs-secondary-color);
+    display: -webkit-box;
     font-size: .95rem;
+    line-height: 1.45;
     margin-top: .75rem;
+    max-height: calc(1.45em * 4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
 }
 
-.rss-news-card .rsslabels,
-.rss-news-card .articleheadingtext:last-child {
-    padding-bottom: 1rem;
+.rss-news-card .rsslabels {
+    margin-bottom: 0;
 }
 
 @media (max-width: 575.98px) {

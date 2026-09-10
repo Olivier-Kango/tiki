@@ -258,6 +258,12 @@ function wikiplugin_rss($data, $params)
     $params['image'] = $params['image'] ?? 0;
     $params['layout'] = $params['layout'] ?? 'list';
 
+    $showImage = $params['image'] > 0 || $params['layout'] === 'cards';
+
+    if ($showImage) {
+        wikiplugin_rss_apply_images($items);
+    }
+
     if ($params['desc'] > 0) {
         foreach ($items as &$item) {
             $description = wikiplugin_rss_clean_description($item['description'] ?? '');
@@ -267,12 +273,6 @@ function wikiplugin_rss($data, $params)
             $item['description'] = $description;
         }
         unset($item);
-    }
-
-    $showImage = $params['image'] > 0 || $params['layout'] === 'cards';
-
-    if ($showImage) {
-        wikiplugin_rss_apply_images($items);
     }
 
     $smarty = TikiLib::lib('smarty');
@@ -305,6 +305,9 @@ function wikiplugin_rss_apply_images(array &$items): void
 
     foreach ($items as &$item) {
         $item['image'] = wikiplugin_rss_extract_image($item);
+        if ($item['image'] === '' && ! empty($item['url'])) {
+            $item['image'] = wikiplugin_rss_extract_article_page_image($item['url']);
+        }
         if ($item['image'] === '') {
             $item['image'] = $fallbackPool[$fallbackIndex % count($fallbackPool)];
             $fallbackIndex++;
@@ -317,6 +320,7 @@ function wikiplugin_rss_extract_image(array $item): string
 {
     $imageSource = implode(' ', array_filter([
         $item['content'] ?? '',
+        $item['raw_description'] ?? '',
         $item['description'] ?? '',
     ]));
 
@@ -330,11 +334,183 @@ function wikiplugin_rss_extract_image(array $item): string
     foreach ($patterns as $pattern) {
         if (preg_match($pattern, $imageSource, $matches)) {
             $url = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5);
-            return filter_var($url, FILTER_VALIDATE_URL) ? $url : '';
+            if (wikiplugin_rss_is_supported_image_url($url)) {
+                return $url;
+            }
         }
     }
 
     return '';
+}
+
+function wikiplugin_rss_extract_article_page_image(string $url): string
+{
+    static $cache = [];
+    $cacheKey = 'rss_article_image_' . md5($url);
+
+    if (isset($cache[$url])) {
+        return $cache[$url];
+    }
+
+    if (! wikiplugin_rss_is_public_http_url($url)) {
+        return $cache[$url] = '';
+    }
+
+    $cacheLib = TikiLib::lib('cache');
+    $cached = $cacheLib->getCached($cacheKey, '', time() - 86400);
+    if ($cached !== false) {
+        return $cache[$url] = $cached;
+    }
+
+    try {
+        $client = TikiLib::lib('tiki')->get_http_client($url, ['timeout' => 5]);
+        $client->setHeaders([
+            'Accept' => 'text/html,application/xhtml+xml',
+            'User-Agent' => 'Tiki RSS image extractor',
+        ]);
+        $response = TikiLib::lib('tiki')->http_perform_request($client);
+    } catch (Throwable $e) {
+        return $cache[$url] = '';
+    }
+
+    if (! $response->isSuccess()) {
+        $cacheLib->cacheItem($cacheKey, '');
+        return $cache[$url] = '';
+    }
+
+    $contentType = $response->getHeaders()->get('Content-Type');
+    $contentTypeValue = $contentType ? $contentType->getFieldValue() : '';
+    if ($contentTypeValue !== '' && stripos($contentTypeValue, 'html') === false) {
+        $cacheLib->cacheItem($cacheKey, '');
+        return $cache[$url] = '';
+    }
+
+    $html = (string) $response->getBody();
+    if ($html === '') {
+        $cacheLib->cacheItem($cacheKey, '');
+        return $cache[$url] = '';
+    }
+
+    $image = wikiplugin_rss_extract_image_from_html($html, $url);
+    $cacheLib->cacheItem($cacheKey, $image);
+    return $cache[$url] = $image;
+}
+
+function wikiplugin_rss_extract_image_from_html(string $html, string $pageUrl): string
+{
+    $dom = new DOMDocument();
+    $previous = libxml_use_internal_errors(true);
+    $loaded = $dom->loadHTML('<?xml encoding="UTF-8">' . $html);
+    libxml_clear_errors();
+    libxml_use_internal_errors($previous);
+
+    if (! $loaded) {
+        return '';
+    }
+
+    foreach ($dom->getElementsByTagName('meta') as $meta) {
+        if (! $meta instanceof DOMElement) {
+            continue;
+        }
+
+        $key = strtolower($meta->getAttribute('property') ?: $meta->getAttribute('name'));
+        if (in_array($key, ['og:image', 'og:image:url', 'twitter:image', 'twitter:image:src'], true)) {
+            $imageUrl = wikiplugin_rss_resolve_url($meta->getAttribute('content'), $pageUrl);
+            if (wikiplugin_rss_is_supported_image_url($imageUrl)) {
+                return $imageUrl;
+            }
+        }
+    }
+
+    foreach ($dom->getElementsByTagName('img') as $image) {
+        if (! $image instanceof DOMElement) {
+            continue;
+        }
+
+        $imageUrl = wikiplugin_rss_resolve_url($image->getAttribute('src'), $pageUrl);
+        if (wikiplugin_rss_is_supported_image_url($imageUrl)) {
+            return $imageUrl;
+        }
+    }
+
+    return '';
+}
+
+function wikiplugin_rss_resolve_url(string $url, string $baseUrl): string
+{
+    $url = trim(html_entity_decode($url, ENT_QUOTES | ENT_HTML5));
+    if ($url === '' || str_starts_with($url, 'data:')) {
+        return '';
+    }
+
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        return $url;
+    }
+
+    $base = parse_url($baseUrl);
+    if (empty($base['scheme']) || empty($base['host'])) {
+        return '';
+    }
+
+    if (str_starts_with($url, '//')) {
+        return $base['scheme'] . ':' . $url;
+    }
+
+    $root = $base['scheme'] . '://' . $base['host'] . (isset($base['port']) ? ':' . $base['port'] : '');
+    if (str_starts_with($url, '/')) {
+        return $root . $url;
+    }
+
+    $path = isset($base['path']) ? preg_replace('#/[^/]*$#', '/', $base['path']) : '/';
+    return $root . $path . $url;
+}
+
+function wikiplugin_rss_is_supported_image_url(string $url): bool
+{
+    if (! wikiplugin_rss_is_public_http_url($url)) {
+        return false;
+    }
+
+    $path = parse_url($url, PHP_URL_PATH) ?: '';
+    if (preg_match('#/(?:icons?|pics?)/#i', $path)) {
+        return false;
+    }
+
+    if (preg_match('/\.(?:avif|gif|jpe?g|png|svg|webp)(?:$|\?)/i', $url)) {
+        return true;
+    }
+
+    return preg_match('#/(?:article_image\.php|display\d+)(?:$|\?)#i', $path) === 1
+        || str_contains(parse_url($url, PHP_URL_QUERY) ?: '', 'image_type=');
+}
+
+function wikiplugin_rss_is_public_http_url(string $url): bool
+{
+    $parts = parse_url($url);
+    if (! in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true) || empty($parts['host'])) {
+        return false;
+    }
+
+    $host = strtolower($parts['host']);
+    if (in_array($host, ['localhost', '127.0.0.1', '::1'], true)) {
+        return false;
+    }
+
+    $isIp = filter_var($host, FILTER_VALIDATE_IP);
+    $isPublicIp = filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    if ($isIp && $isPublicIp === false) {
+        return false;
+    }
+
+    if (class_exists('\\Tiki\\Security\\SsrfLib')) {
+        try {
+            return \Tiki\Security\SsrfLib::fromPrefs()->isUrlAllowed($url);
+        } catch (Throwable $e) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 function wikiplugin_rss_fallback_images(): array

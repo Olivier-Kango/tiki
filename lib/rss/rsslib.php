@@ -1057,6 +1057,10 @@ class RSSLib extends TikiDb_Bridge
                 'categories' => $categories ? json_encode($categories->getValues()) : json_encode([]),
             ]
         );
+        if (empty($data['content']) && $description !== '') {
+            $data['content'] = TikiFilter::get('purifier')->filter($description);
+        }
+        $data['raw_description'] = $description;
         $data['guid'] = $guid;
         if (method_exists($entry, 'getDateModified') && $updateDate = $entry->getDateModified()) {
             $data['publication_date'] = $updateDate->getTimestamp();

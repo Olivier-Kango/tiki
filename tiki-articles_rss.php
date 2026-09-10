@@ -120,6 +120,13 @@ if ($output["data"] == "EMPTY") {
     include_once('tiki-sefurl.php');
     foreach ($changes["data"] as $data) {
         $data["$descId"] = TikiLib::lib('parser')->parse_data($data[$descId], ['print' => true]);
+        if (($data['hasImage'] ?? 'n') === 'y') {
+            $imageUrl = $tikilib->tikiUrl('article_image.php', [
+                'image_type' => 'article',
+                'id' => $data['articleId'],
+            ]);
+            $data["$descId"] = '<p><img src="' . htmlspecialchars($imageUrl, ENT_QUOTES | ENT_HTML5) . '" alt=""></p>' . $data["$descId"];
+        }
         $data["body"] = null;
         $data['sefurl'] = filter_out_sefurl(sprintf($readrepl, $data['articleId']), 'article', $data['title']);
         $tmp[] = $data;
