@@ -9,7 +9,7 @@
         <article class="clearfix article wikiplugin_articles rss-news-card">
             {if $showimage and $item.image}
                 <a class="rss-card-image-link" target="_blank" href="{$item.url|escape}" aria-hidden="true" tabindex="-1">
-                    <img class="article-image" src="{$item.image|escape}" alt="" loading="lazy" decoding="async">
+                    <img class="article-image" src="{$item.image|escape}" alt="" loading="lazy" decoding="async"{if !empty($item.fallback_image)} onerror="this.onerror=null;this.src='{$item.fallback_image|escape:'javascript'}';"{/if}>
                 </a>
             {/if}
             <header class="articletitle mt-0 mx-0 mb-1">
@@ -39,7 +39,7 @@
             <div class="d-flex gap-3 align-items-center">
                 {if $showimage and $item.image}
                     <a class="rss-item-image" target="_blank" href="{$item.url|escape}" aria-hidden="true" tabindex="-1">
-                        <img src="{$item.image|escape}" alt="" loading="lazy" decoding="async">
+                        <img src="{$item.image|escape}" alt="" loading="lazy" decoding="async"{if !empty($item.fallback_image)} onerror="this.onerror=null;this.src='{$item.fallback_image|escape:'javascript'}';"{/if}>
                     </a>
                 {/if}
                 {if $icon}

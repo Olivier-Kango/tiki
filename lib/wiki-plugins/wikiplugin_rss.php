@@ -304,12 +304,14 @@ function wikiplugin_rss_apply_images(array &$items): void
     $fallbackIndex = 0;
 
     foreach ($items as &$item) {
+        $fallbackImage = $fallbackPool[$fallbackIndex % count($fallbackPool)];
         $item['image'] = wikiplugin_rss_extract_image($item);
         if ($item['image'] === '' && ! empty($item['url'])) {
-            $item['image'] = wikiplugin_rss_extract_article_page_image($item['url']);
+            $item['image'] = wikiplugin_rss_extract_tiki_article_page_image($item['url']);
         }
+        $item['fallback_image'] = $fallbackImage;
         if ($item['image'] === '') {
-            $item['image'] = $fallbackPool[$fallbackIndex % count($fallbackPool)];
+            $item['image'] = $fallbackImage;
             $fallbackIndex++;
         }
     }
@@ -333,7 +335,7 @@ function wikiplugin_rss_extract_image(array $item): string
 
     foreach ($patterns as $pattern) {
         if (preg_match($pattern, $imageSource, $matches)) {
-            $url = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5);
+            $url = wikiplugin_rss_normalize_article_image_url(wikiplugin_rss_resolve_url($matches[1], $item['url'] ?? ''));
             if (wikiplugin_rss_is_supported_image_url($url)) {
                 return $url;
             }
@@ -343,27 +345,27 @@ function wikiplugin_rss_extract_image(array $item): string
     return '';
 }
 
-function wikiplugin_rss_extract_article_page_image(string $url): string
+function wikiplugin_rss_extract_tiki_article_page_image(string $url): string
 {
     static $cache = [];
-    $cacheKey = 'rss_article_image_' . md5($url);
 
     if (isset($cache[$url])) {
         return $cache[$url];
     }
 
-    if (! wikiplugin_rss_is_public_http_url($url)) {
+    if (! wikiplugin_rss_is_tiki_article_url($url) || ! wikiplugin_rss_is_public_http_url($url)) {
         return $cache[$url] = '';
     }
 
     $cacheLib = TikiLib::lib('cache');
+    $cacheKey = 'rss_tiki_article_image_' . md5($url);
     $cached = $cacheLib->getCached($cacheKey, '', time() - 86400);
     if ($cached !== false) {
         return $cache[$url] = $cached;
     }
 
     try {
-        $client = TikiLib::lib('tiki')->get_http_client($url, ['timeout' => 5]);
+        $client = TikiLib::lib('tiki')->get_http_client($url, ['timeout' => 2]);
         $client->setHeaders([
             'Accept' => 'text/html,application/xhtml+xml',
             'User-Agent' => 'Tiki RSS image extractor',
@@ -378,26 +380,32 @@ function wikiplugin_rss_extract_article_page_image(string $url): string
         return $cache[$url] = '';
     }
 
-    $contentType = $response->getHeaders()->get('Content-Type');
-    $contentTypeValue = $contentType ? $contentType->getFieldValue() : '';
-    if ($contentTypeValue !== '' && stripos($contentTypeValue, 'html') === false) {
-        $cacheLib->cacheItem($cacheKey, '');
-        return $cache[$url] = '';
-    }
-
-    $html = (string) $response->getBody();
-    if ($html === '') {
-        $cacheLib->cacheItem($cacheKey, '');
-        return $cache[$url] = '';
-    }
-
-    $image = wikiplugin_rss_extract_image_from_html($html, $url);
+    $image = wikiplugin_rss_extract_image_from_html((string) $response->getBody(), $url);
     $cacheLib->cacheItem($cacheKey, $image);
     return $cache[$url] = $image;
 }
 
+function wikiplugin_rss_is_tiki_article_url(string $url): bool
+{
+    $parts = parse_url($url);
+    if (empty($parts['path'])) {
+        return false;
+    }
+
+    if (basename($parts['path']) === 'tiki-read_article.php') {
+        parse_str($parts['query'] ?? '', $query);
+        return ! empty($query['articleId']) && ctype_digit((string) $query['articleId']);
+    }
+
+    return preg_match('#/article\d+(?:\D|$)#', $parts['path']) === 1;
+}
+
 function wikiplugin_rss_extract_image_from_html(string $html, string $pageUrl): string
 {
+    if ($html === '') {
+        return '';
+    }
+
     $dom = new DOMDocument();
     $previous = libxml_use_internal_errors(true);
     $loaded = $dom->loadHTML('<?xml encoding="UTF-8">' . $html);
@@ -415,7 +423,7 @@ function wikiplugin_rss_extract_image_from_html(string $html, string $pageUrl): 
 
         $key = strtolower($meta->getAttribute('property') ?: $meta->getAttribute('name'));
         if (in_array($key, ['og:image', 'og:image:url', 'twitter:image', 'twitter:image:src'], true)) {
-            $imageUrl = wikiplugin_rss_resolve_url($meta->getAttribute('content'), $pageUrl);
+            $imageUrl = wikiplugin_rss_normalize_article_image_url(wikiplugin_rss_resolve_url($meta->getAttribute('content'), $pageUrl));
             if (wikiplugin_rss_is_supported_image_url($imageUrl)) {
                 return $imageUrl;
             }
@@ -427,7 +435,12 @@ function wikiplugin_rss_extract_image_from_html(string $html, string $pageUrl): 
             continue;
         }
 
-        $imageUrl = wikiplugin_rss_resolve_url($image->getAttribute('src'), $pageUrl);
+        $class = $image->getAttribute('class');
+        if (strpos($class, 'article-image') === false && strpos($class, 'topic-image') === false) {
+            continue;
+        }
+
+        $imageUrl = wikiplugin_rss_normalize_article_image_url(wikiplugin_rss_resolve_url($image->getAttribute('src'), $pageUrl));
         if (wikiplugin_rss_is_supported_image_url($imageUrl)) {
             return $imageUrl;
         }
@@ -465,9 +478,35 @@ function wikiplugin_rss_resolve_url(string $url, string $baseUrl): string
     return $root . $path . $url;
 }
 
+function wikiplugin_rss_normalize_article_image_url(string $url): string
+{
+    $parts = parse_url($url);
+    if (empty($parts['path']) || basename($parts['path']) !== 'article_image.php' || empty($parts['query'])) {
+        return $url;
+    }
+
+    parse_str($parts['query'], $query);
+    if (empty($query['id'])) {
+        if (! empty($query['image_topicId'])) {
+            $query['id'] = $query['image_topicId'];
+            unset($query['image_topicId']);
+        } elseif (! empty($query['image_articleId'])) {
+            $query['id'] = $query['image_articleId'];
+            unset($query['image_articleId']);
+        }
+    }
+
+    $normalized = $parts['scheme'] . '://' . $parts['host'] . (isset($parts['port']) ? ':' . $parts['port'] : '') . $parts['path'];
+    if (! empty($query)) {
+        $normalized .= '?' . http_build_query($query, '', '&');
+    }
+
+    return $normalized;
+}
+
 function wikiplugin_rss_is_supported_image_url(string $url): bool
 {
-    if (! wikiplugin_rss_is_public_http_url($url)) {
+    if (! wikiplugin_rss_is_http_url($url)) {
         return false;
     }
 
@@ -484,13 +523,19 @@ function wikiplugin_rss_is_supported_image_url(string $url): bool
         || str_contains(parse_url($url, PHP_URL_QUERY) ?: '', 'image_type=');
 }
 
-function wikiplugin_rss_is_public_http_url(string $url): bool
+function wikiplugin_rss_is_http_url(string $url): bool
 {
     $parts = parse_url($url);
-    if (! in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true) || empty($parts['host'])) {
+    return in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true) && ! empty($parts['host']);
+}
+
+function wikiplugin_rss_is_public_http_url(string $url): bool
+{
+    if (! wikiplugin_rss_is_http_url($url)) {
         return false;
     }
 
+    $parts = parse_url($url);
     $host = strtolower($parts['host']);
     if (in_array($host, ['localhost', '127.0.0.1', '::1'], true)) {
         return false;
