@@ -1,7 +1,7 @@
 // Standalone ConverseJS stylesheet loaded by the XMPP client itself.
 // The generic rules live in the base theme SCSS; configure its defaults so
 // the same source compiles outside the full theme pipeline.
-@use "../../../themes/base_files/scss/conversejs-tiki" with (
+@use "../scss/conversejs-tiki" with (
     $font-family-base: var(--bs-body-font-family, system-ui, sans-serif),
     $input-bg: var(--bs-body-bg, #fff),
     $input-color: var(--bs-body-color, #212529),
