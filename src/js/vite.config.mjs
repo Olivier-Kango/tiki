@@ -277,7 +277,7 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/anime/dist",
                     },
                     {
-                        src: "node_modules/chart.js/dist/chart.js*",
+                        src: "node_modules/chart.js/dist/chart.{js,umd.js}*",
                         dest: "vendor_dist/chart.js/dist",
                     },
                     {
