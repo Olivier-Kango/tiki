@@ -767,15 +767,29 @@ e2e-suite:
 
 tiki-generate-changelog:
   stage: package-tiki
+  variables:
+    # Avoid cloning at all, we don't want a shallow clone.  Ang gitlab doesn't have a "treeless" strategy
+    GIT_STRATEGY: none
   needs: []
   script:
     - echo "=> Generate changelog ..."
+    # Next line is for gitlab-ci-local, where the checkout is actually the developper's
+    - rm -rf temp/ci/treeless_checkout
+    - mkdir -p temp/ci/treeless_checkout
+    - cd temp/ci/treeless_checkout
+    # We don't want a shallow clone, but we don't want a full one either: https://github.blog/open-source/git/get-up-to-speed-with-partial-clone-and-shallow-clone/
+    # The previous --unshallow and --depth calls below took 8.5 minutes.  The following takes seconds, probably fractions of a second on gitlab where the repo is local, and includes the full history.  This is what treeless clones were invented for.
+    - git clone --filter=tree:0 --no-checkout "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" .
     - TARGET_BRANCH="${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-$CI_DEFAULT_BRANCH}"
-    - git fetch origin "$TARGET_BRANCH" --tags --depth=1000
+    - echo "TARGET_BRANCH={$TARGET_BRANCH}"
+    # Warning, the following assumes all tags were on the current upstream remote, which for a developper fork or client fork is ... unlikely - benoitg - 2026-09-22
     - LAST_TAG=$(git tag --sort=-v:refname | head -n 1)
-    - git merge-base --is-ancestor "$LAST_TAG" "origin/$TARGET_BRANCH" || git fetch --unshallow
-    - php doc/devtools/generate_changelog.php --range="$LAST_TAG..origin/$TARGET_BRANCH"
-    - mv generated_changelog.md CHANGELOG.generated.md
+    - echo "LAST_TAG=${LAST_TAG}"
+
+    - php ${CI_PROJECT_DIR}/doc/devtools/generate_changelog.php --range="$LAST_TAG..origin/$TARGET_BRANCH"
+    - mv generated_changelog.md ${CI_PROJECT_DIR}/CHANGELOG.generated.md
+    # Next line is for gitlab-ci-local, where the checkout is actually the developper's
+    - rm -rf ${CI_PROJECT_DIR}/temp/ci/treeless_checkout
   artifacts:
     paths:
       - CHANGELOG.generated.md
