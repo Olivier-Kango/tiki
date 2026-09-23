@@ -5,11 +5,23 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { globSync } from "tinyglobby";
 import path from "node:path";
+import { existsSync } from "node:fs";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import postcssRootToHost from "./postcssRootToHost.js";
 import diceBearStyles from "./avatar-generator/styles.constant.js";
+
+const requiredVendorAssets = [
+    "node_modules/converse.js/dist/converse.min.js",
+];
+
+function assertRequiredVendorAssets() {
+    const missing = requiredVendorAssets.filter((asset) => !existsSync(asset));
+    if (missing.length) {
+        throw new Error("Missing required vendor asset(s): " + missing.join(", ") + ". Run npm install before building.");
+    }
+}
 /*
 
 Overarching principles:
@@ -96,6 +108,7 @@ Currently (2023-09-27), this is problematic for common CSS.  If input module1 an
 */
 
 export default defineConfig(({ command, mode }) => {
+    assertRequiredVendorAssets();
     let rollupInput = {};
 
     addGlobEntries(rollupInput, [
