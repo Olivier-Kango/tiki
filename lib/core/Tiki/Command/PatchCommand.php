@@ -50,6 +50,11 @@ class PatchCommand extends Command
         try {
             $installer->installPatch($name, $forceApplication);
             $output->writeln(tra('Patch applied'));
+        } catch (\Tiki\Installer\DeferredPatchException $e) {
+            $output->writeln('<error>' . tra('Patch could not be applied yet') . '</error>');
+            $output->writeln($e->getMessage(), OutputInterface::OUTPUT_RAW);
+            $output->writeln('<comment>' . tra('This patch was not recorded. It will run again on the next database update.') . '</comment>');
+            return Command::FAILURE;
         } catch (\Exception $e) {
             switch ($e->getCode()) {
                 case 1:

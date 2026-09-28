@@ -67,11 +67,13 @@ class Patch
     /**
      * Indicates if the patch is applied
      *
+     * A failed patch is not applied: it stays out of tiki_schema and can be run again.
+     *
      * @return bool true is the patch is applied, false otherwise
      */
     public function isApplied()
     {
-        return $this->status != self::NOT_APPLIED;
+        return $this->status === self::ALREADY_APPLIED || $this->status === self::NEWLY_APPLIED;
     }
 
     /**

@@ -633,16 +633,31 @@
                     {elseif $install_step eq '6' or ($dbdone ne 'n')}
                     <div class="install-step6">
                         <h1>{if isset($smarty.post.update)}{tr}Review the Upgrade{/tr}{else}{tr}Review the Installation{/tr}{/if}</h1>
+                        {if $installer->deferredPatches|@count > 0}
+                            {remarksbox type="warning" title="{tr}Some database patches are still pending{/tr}" close="n"}
+                                <p>{tr}The database update continued so later patches could be applied. The patches below were not recorded and will run again the next time you update the database.{/tr}</p>
+                                {foreach from=$installer->deferredPatches key=patchName item=patchMessage}
+                                    <p><strong>{$patchName|escape}</strong></p>
+                                    <pre style="white-space: pre-wrap;">{$patchMessage|escape}</pre>
+                                {/foreach}
+                            {/remarksbox}
+                        {/if}
                         {if $unsupported_mail_queue_cleaned}
                             {remarksbox type=confirm title="{tr}Unsupported Email Queue Cleared{/tr}" close="n"}
                                 <p>{tr _0=$unsupported_mail_queue_cleaned}%0 unsupported queued email entries have been successfully removed during upgrade.{/tr}</p>
                             {/remarksbox}
                         {/if}
-                        {remarksbox type=confirm title="{if isset($smarty.post.update)}{tr}Upgrade complete{/tr}{else}{tr}Installation complete{/tr}{/if}" close="n"}
-                            <p>{tr}Your database has been configured and Tiki is ready to run!{/tr}
-                                {tr}You can now log in into Tiki and start configuring the application.{/tr}
-                            </p>
-                        {/remarksbox}
+                        {if $installer->deferredPatches|@count > 0}
+                            {remarksbox type="info" title="{tr}Other patches were applied{/tr}" close="n"}
+                                <p>{tr}You can log in and fix the pending patches above. Run the database update again once they are resolved.{/tr}</p>
+                            {/remarksbox}
+                        {else}
+                            {remarksbox type=confirm title="{if isset($smarty.post.update)}{tr}Upgrade complete{/tr}{else}{tr}Installation complete{/tr}{/if}" close="n"}
+                                <p>{tr}Your database has been configured and Tiki is ready to run!{/tr}
+                                    {tr}You can now log in into Tiki and start configuring the application.{/tr}
+                                </p>
+                            {/remarksbox}
+                        {/if}
                         {if $installer->queries.successful|@count gt 0}
                             <p><span class="text-success">{icon name="ok"}
                                     {if isset($smarty.post.update)}

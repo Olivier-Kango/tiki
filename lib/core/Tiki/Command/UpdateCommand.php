@@ -87,16 +87,25 @@ class UpdateCommand extends Command
             }
 
             $result = $installer->update();
-            if ($result) {
-                $output->writeln('Update completed.');
-            } else {
+            if ($installer->deferredPatches !== []) {
+                $output->writeln('<error>Update applied the other pending patches, but some patches were skipped. Resolve the issues below, then run database:update again.</error>');
+            }
+            if (! $result) {
                 $output->writeln('<error>Update interrupted as a patch failed to complete. Please fix the errors below and try again.</error>');
+            } elseif ($installer->deferredPatches === []) {
+                $output->writeln('Update completed.');
             }
             foreach (array_keys(Patch::getPatches([Patch::NEWLY_APPLIED])) as $patch) {
                 $output->writeln("<info>Installed: $patch</info>");
             }
             foreach (array_keys(Patch::getPatches([Patch::FAILED])) as $patch) {
                 $output->writeln("<error>Failed: $patch</error>");
+
+                if (isset($installer->deferredPatches[$patch])) {
+                    $output->writeln($installer->deferredPatches[$patch], OutputInterface::OUTPUT_RAW);
+                    $output->writeln('<comment>This patch was not recorded. It will run again on the next database update.</comment>');
+                    continue;
+                }
 
                 if ($autoRegister) {
                     Patch::$list[$patch]->record();
@@ -128,6 +137,9 @@ class UpdateCommand extends Command
             $cachelib->empty_cache();
         } else {
             $output->writeln('<error>Database not found.</error>');
+            return Command::FAILURE;
+        }
+        if ($installer->deferredPatches !== []) {
             return Command::FAILURE;
         }
         return Command::SUCCESS;

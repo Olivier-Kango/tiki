@@ -4,25 +4,31 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+use Tiki\Installer\DeferredPatchException;
 use Tiki\Installer\Installer;
 
 /**
  * The tracker "Attachments" tab (useAttachments option) and the deprecated Attachment
  * (type A) tracker field have both been removed, so nothing can write new rows into
  * tiki_tracker_item_attachments anymore. Any row still there is leftover data from one
- * of those two removed features and would be silently lost on upgrade, so block the
- * upgrade until it has been migrated to a "Files" tracker field with the existing
+ * of those two removed features and would be silently lost, so this patch stays pending
+ * until it has been migrated to a "Files" tracker field with the existing
  * console.php tracker:convert-attachments command.
+ *
+ * The failure is deferred: later patches still run (some of them are required before that
+ * console command can start), the message is shown, and this patch is tried again on the
+ * next database update. It is not recorded in tiki_schema while it is pending.
  *
  * Attachments left behind by tracker items that no longer exist can't be migrated (there
  * is no item left to attach a file to), so those are removed automatically before the check.
  *
- * Once no attachment data remains, also block on any leftover Attachment (type A) field
- * definition: nothing removes those automatically, and they are dead weight that should be
- * removed from their tracker before the upgrade completes.
+ * Once no attachment data remains, also leave the patch pending when an Attachment (type A)
+ * field definition is still present: nothing removes those automatically, and they are dead
+ * weight that should be removed from their tracker before this patch completes.
  *
  * @param Installer $installer
  * @return bool
+ * @throws DeferredPatchException When attachment data or deprecated fields still need attention
  */
 function upgrade_20260617_migrate_tracker_attachments_to_filegallery_tiki(Installer $installer)
 {
@@ -43,12 +49,12 @@ function upgrade_20260617_migrate_tracker_attachments_to_filegallery_tiki(Instal
             $message .= "  - $trackerName (trackerId=$trackerId)" . PHP_EOL;
         }
         $message .= PHP_EOL;
-        $message .= tr('Before continuing, migrate these attachments to a "Files" tracker field (create one first if the tracker does not have one yet), then run:') . PHP_EOL;
+        $message .= tr('Migrate these attachments to a "Files" tracker field (create one first if the tracker does not have one yet), then run:') . PHP_EOL;
         $message .= '  php console.php tracker:convert-attachments <trackerId> <fieldId> [galleryId]' . PHP_EOL;
         $message .= tr('<fieldId> must be the ID of that "Files" field. Add --preview to check the result first without making any changes.') . PHP_EOL;
         $message .= tr('Run the database update again once all attachments have been migrated.');
 
-        throw new Exception($message);
+        throw new DeferredPatchException($message);
     }
 
     // type comparison must be case-sensitive: lowercase 'a' is the unrelated, still valid TextArea field type
@@ -64,7 +70,7 @@ function upgrade_20260617_migrate_tracker_attachments_to_filegallery_tiki(Instal
         $message .= PHP_EOL;
         $message .= tr('These field definitions are no longer usable and must be removed from their tracker (Tracker admin > Fields > select the field(s) > Remove), then run the database update again.');
 
-        throw new Exception($message);
+        throw new DeferredPatchException($message);
     }
 
     $installer->query("DELETE FROM tiki_tracker_options WHERE name IN ('useAttachments', 'showAttachments', 'orderAttachments')");

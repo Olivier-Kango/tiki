@@ -42,6 +42,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
     public $useInnoDB = true;
     public $autoRegister = false;
+    public array $deferredPatches = [];
 
     private function __construct()
     {
@@ -125,6 +126,8 @@ class Installer extends TikiDb_Bridge implements SplSubject
                 $this->installPatch($patchName);
             } catch (MySQLWarningException $e) {
                 throw $e;
+            } catch (DeferredPatchException $e) {
+                $this->deferredPatches[$patchName] = $e->getMessage();
             } catch (Exception $e) {
                 if ($e->getCode() != 2) {
                     throw $e;
@@ -145,10 +148,33 @@ class Installer extends TikiDb_Bridge implements SplSubject
      * @param $patch
      * @param $force true if the patch should be applied even if already marked as applied
      * @throws Exception Code 1 if unknown patch, 2 if application attempt fails, 3 if patch was already installed and $force is false
+     * @throws DeferredPatchException When the patch must be retried later without stopping the rest of the update
      */
     public function installPatch($patch, $force = false)
     {
         $this->currentPatchName = (string) $patch;
+        unset($this->deferredPatches[$patch]);
+        try {
+            $this->runPatch($patch, $force);
+        } catch (DeferredPatchException $e) {
+            if (isset(Patch::$list[$patch])) {
+                Patch::$list[$patch]->setStatus(Patch::FAILED);
+            }
+            $this->deferredPatches[$patch] = $e->getMessage();
+            throw $e;
+        } finally {
+            $this->currentPatchName = '';
+        }
+    }
+
+    /**
+     * @param $patch
+     * @param $force true if the patch should be applied even if already marked as applied
+     * @throws Exception Code 1 if unknown patch, 2 if application attempt fails, 3 if patch was already installed and $force is false
+     * @throws DeferredPatchException When the patch must be retried later without stopping the rest of the update
+     */
+    private function runPatch($patch, $force = false)
+    {
         if (! $force && isset(Patch::$list[$patch]) && Patch::$list[$patch]->isApplied()) {
             throw new Exception('Patch already applied', 3);
         }
@@ -209,7 +235,6 @@ class Installer extends TikiDb_Bridge implements SplSubject
         } else {
             Patch::$list[$patch]->record();
         }
-        $this->currentPatchName = '';
     }
 
     /**
@@ -433,7 +458,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
      */
     public function requiresUpdate()
     {
-        return count(Patch::getPatches([Patch::NOT_APPLIED])) > 0;
+        return count(Patch::getPatches([Patch::NOT_APPLIED, Patch::FAILED])) > 0;
     }
 
     /**
@@ -442,7 +467,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
     public function missingPatches()
     {
         $patchDir = TIKI_UPGRADE_SQL_SCHEMA_PATH . '/';
-        $patches = Patch::getPatches([Patch::NOT_APPLIED]);
+        $patches = Patch::getPatches([Patch::NOT_APPLIED, Patch::FAILED]);
         $patchesFilesNames = [];
         foreach ($patches as $key => $patch) {
             if (file_exists($patchDir . $key . ".sql")) {

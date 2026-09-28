@@ -72,6 +72,10 @@ if (! $installer->tableExists('tiki_preferences')) {
 } elseif ($installer->requiresUpdate()) {
     $output->writeln("Updating Tiki database...");
     $installer->update();
+    foreach ($installer->deferredPatches as $patch => $message) {
+        $output->writeln("<error>Pending patch $patch (not recorded; it will run again on the next database update)</error>");
+        $output->writeln($message, ConsoleOutput::OUTPUT_RAW);
+    }
     if (count($installer->queries['failed'])) {
         foreach ($installer->queries['failed'] as $key => $error) {
             [$query, $message, $patch] = $error;
