@@ -96,12 +96,20 @@ class Executor
                     $values = [];
                     $valueExtractor = function ($val) use ($placeholder, $value, $modifier, &$values) {
                         if ($modifier == 'object_ids') {
-                            $val = array_map(function ($id) {
-                                list($type, $id) = explode(':', $id);
-                                return trim($id);
-                            }, explode("\n", $val));
-                            $values = array_merge($values, $val);
-                            return $val;
+                            $ids = [];
+                            foreach (explode("\n", $val) as $id) {
+                                $id = trim($id);
+                                if ($id === '') {
+                                    continue;
+                                }
+                                $parts = explode(':', $id, 2);
+                                $id = trim($parts[1] ?? $parts[0]);
+                                if ($id !== '') {
+                                    $ids[] = $id;
+                                }
+                            }
+                            $values = array_merge($values, $ids);
+                            return $ids;
                         } elseif ($modifier == 'multivalue') {
                             if (is_array($val)) {
                                 $values = array_merge($values, $val);
