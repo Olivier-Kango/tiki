@@ -171,7 +171,7 @@ $input-border-color: var(--bs-border-color, #dee2e6) !default;
             border: 1px solid rgba(var(--bs-emphasis-color-rgb), .08);
             animation: tiki-chat-pop-in .18s ease-out;
             background: var(--bs-body-bg);
-            max-width: 100vw;
+            max-width: 100%;
             box-sizing: border-box;
         }
         .chat-body { background-color: inherit; }
@@ -183,7 +183,7 @@ $input-border-color: var(--bs-border-color, #dee2e6) !default;
         &.converse-overlayed.converse-overlayed {
             position: fixed !important;
             inset: 0 !important;
-            width: 100vw !important;
+            width: 100% !important;
             height: 100dvh !important;
             max-width: none !important;
             pointer-events: none !important;
@@ -238,9 +238,9 @@ $input-border-color: var(--bs-border-color, #dee2e6) !default;
                     right: 0 !important;
                     bottom: auto !important;
                     left: auto !important;
-                    width: 100vw !important;
+                    width: 100% !important;
                     height: 100dvh !important;
-                    max-width: 100vw !important;
+                    max-width: 100% !important;
                     border-radius: 0 !important;
                 }
             }
@@ -255,7 +255,7 @@ $input-border-color: var(--bs-border-color, #dee2e6) !default;
         .converse-chatboxes {
             flex-wrap: wrap !important;
             row-gap: .5rem;
-            max-width: 100vw;
+            max-width: 100%;
         }
 
         &:has(.chatbox.tiki-chat-user-selected) .toggle-controlbox {
@@ -304,7 +304,7 @@ $input-border-color: var(--bs-border-color, #dee2e6) !default;
     &.converse-fullscreen {
         position: fixed !important;
         inset: 0 !important;
-        width: 100vw !important;
+        width: 100% !important;
         height: 100vh !important;
         max-width: 100%;
         z-index: 1050;

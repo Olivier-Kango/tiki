@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    public const CACHE_EPOCH = '14.0.49-enable-muc-mam-fetch-before-join';
+    public const CACHE_EPOCH = '14.0.51-occupant-details-dialog';
 
     /**
      * Tiki-owned PHP/JS settings contract. Keep keys, types, allowed values and
@@ -54,6 +54,7 @@ class ConverseJS
                 'auto_register_muc_nickname' => false,
                 'muc_show_logs_before_join' => true,
                 'assets_path'   => CONVERSEJS_DIST_PATH . '/',
+                'notification_icon' => '', // Resolved from the instance logo by the Tiki plugin.
                 'whitelisted_plugins' => ['tiki', 'tiki-oauth'],
                 'blacklisted_plugins' => ['converse-omemo'],
                 'omemo_default' => false,
