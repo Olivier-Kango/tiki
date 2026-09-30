@@ -2,7 +2,7 @@
 
 class ConverseJS
 {
-    public const CACHE_EPOCH = '14.0.49-enable-muc-mam-fetch-before-join';
+    public const CACHE_EPOCH = '14.0.51-occupant-details-dialog';
 
     /**
      * Tiki-owned PHP/JS settings contract. Keep keys, types, allowed values and
