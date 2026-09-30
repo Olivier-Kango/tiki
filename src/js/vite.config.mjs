@@ -4,6 +4,7 @@ import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { globSync } from "tinyglobby";
+import { existsSync, readdirSync, rmSync } from "node:fs";
 import path from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -94,6 +95,40 @@ While it's quickly improving, vite and rollup still occasionally make unfortunat
 Currently (2023-09-27), this is problematic for common CSS.  If input module1 and input module2 import (js import) css for library 1, only module 2 has the css in it's final build file.  This is especially confusing since if module 1 was developed before module 2, it works fine until module 2 is build.
 
 */
+
+function cleanupMisplacedConverseAssets() {
+    let root;
+    let outDir;
+
+    const converseSubdirs = [
+        "vendor_dist/converse.js/dist",
+        "vendor_dist/converse.js/dist/webfonts",
+        "vendor_dist/converse.js/dist/sounds",
+        "vendor_dist/converse.js/dist/chunkjs/locales",
+        "vendor_dist/converse.js/dist/chunkjs/locales/dayjs",
+    ];
+
+    return {
+        name: "tiki:cleanup-misplaced-converse-assets",
+        apply: "build",
+        configResolved(config) {
+            root = config.root;
+            outDir = path.resolve(config.root, config.build.outDir);
+        },
+        closeBundle() {
+            for (const entry of readdirSync(root, { withFileTypes: true })) {
+                if (!entry.isFile()) continue;
+
+                const generatedCopyExists = converseSubdirs.some((subdir) =>
+                    existsSync(path.join(outDir, subdir, entry.name))
+                );
+                if (generatedCopyExists) {
+                    rmSync(path.join(root, entry.name));
+                }
+            }
+        },
+    };
+}
 
 export default defineConfig(({ command, mode }) => {
     let rollupInput = {};
@@ -807,6 +842,7 @@ export default defineConfig(({ command, mode }) => {
 
                 ],
             }),
+            cleanupMisplacedConverseAssets(),
             AutoImport({
                 //dts: false,
                 resolvers: [ElementPlusResolver()],
