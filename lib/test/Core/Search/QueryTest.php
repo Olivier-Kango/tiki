@@ -64,6 +64,25 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(['hello'], $query->getTerms());
     }
 
+    public function testEmptyContentKeepsEmptyPhrase()
+    {
+        $index = new Search_Index_Memory();
+        $query = new Search_Query();
+        $query->filterContent('', 'tracker_field_abcd');
+
+        $query->search($index);
+
+        $expr = new Search_Expr_And(
+            [
+                new Search_Expr_ImplicitPhrase([
+                    new Search_Expr_Token('', 'plaintext', 'tracker_field_abcd'),
+                ]),
+            ]
+        );
+
+        $this->assertEquals($expr, $index->getLastQuery());
+    }
+
     public function testFilterCategory()
     {
         $index = new Search_Index_Memory();
