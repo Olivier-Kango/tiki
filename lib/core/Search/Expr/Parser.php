@@ -10,6 +10,11 @@ class Search_Expr_Parser
 
     public function parse($string)
     {
+        if (trim((string) $string) === '') {
+            // Keep a phrase so the field can be attached. An empty token is an exact empty-value match.
+            return new Search_Expr_ImplicitPhrase([new Search_Expr_Token('')]);
+        }
+
         $tokenizer = new Search_Expr_Tokenizer();
 
         $tokens = [];
