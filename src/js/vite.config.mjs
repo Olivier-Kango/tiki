@@ -4,7 +4,6 @@ import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { globSync } from "tinyglobby";
-import { existsSync, readdirSync, rmSync } from "node:fs";
 import path from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -95,40 +94,6 @@ While it's quickly improving, vite and rollup still occasionally make unfortunat
 Currently (2023-09-27), this is problematic for common CSS.  If input module1 and input module2 import (js import) css for library 1, only module 2 has the css in it's final build file.  This is especially confusing since if module 1 was developed before module 2, it works fine until module 2 is build.
 
 */
-
-function cleanupMisplacedConverseAssets() {
-    let root;
-    let outDir;
-
-    const converseSubdirs = [
-        "vendor_dist/converse.js/dist",
-        "vendor_dist/converse.js/dist/webfonts",
-        "vendor_dist/converse.js/dist/sounds",
-        "vendor_dist/converse.js/dist/chunkjs/locales",
-        "vendor_dist/converse.js/dist/chunkjs/locales/dayjs",
-    ];
-
-    return {
-        name: "tiki:cleanup-misplaced-converse-assets",
-        apply: "build",
-        configResolved(config) {
-            root = config.root;
-            outDir = path.resolve(config.root, config.build.outDir);
-        },
-        closeBundle() {
-            for (const entry of readdirSync(root, { withFileTypes: true })) {
-                if (!entry.isFile()) continue;
-
-                const generatedCopyExists = converseSubdirs.some((subdir) =>
-                    existsSync(path.join(outDir, subdir, entry.name))
-                );
-                if (generatedCopyExists) {
-                    rmSync(path.join(root, entry.name));
-                }
-            }
-        },
-    };
-}
 
 export default defineConfig(({ command, mode }) => {
     let rollupInput = {};
@@ -431,41 +396,6 @@ export default defineConfig(({ command, mode }) => {
                         ],
                         dest: "vendor_dist/codemirror",
                         rename: { stripBase: 2 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/*.min.*",
-                        dest: "vendor_dist/converse.js/dist",
-                        rename: { stripBase: 3 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/webfonts/*",
-                        dest: "vendor_dist/converse.js/dist/webfonts",
-                        rename: { stripBase: 4 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/sounds/*",
-                        dest: "vendor_dist/converse.js/dist/sounds",
-                        rename: { stripBase: 4 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/chunkjs/locales/*",
-                        dest: "vendor_dist/converse.js/dist/chunkjs/locales",
-                        rename: { stripBase: 5 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/chunkjs/locales/dayjs/*",
-                        dest: "vendor_dist/converse.js/dist/chunkjs/locales/dayjs",
-                        rename: { stripBase: 6 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/emoji.json",
-                        dest: "vendor_dist/converse.js/dist",
-                        rename: { stripBase: 3 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/curve25519_compiled.wasm",
-                        dest: "vendor_dist/converse.js/dist",
-                        rename: { stripBase: 3 },
                     },
                     {
                         src: "node_modules/recordrtc/RecordRTC.js",
@@ -842,7 +772,49 @@ export default defineConfig(({ command, mode }) => {
 
                 ],
             }),
-            cleanupMisplacedConverseAssets(),
+            // ConverseJS uses directory stripping. Keep its source directory structure
+            // before renaming: static-copy 3.x defaults to flat copying, so stripBase
+            // would otherwise escape outDir when this configuration is backported.
+            viteStaticCopy({
+                structured: true,
+                targets: [
+                    {
+                        src: "node_modules/converse.js/dist/*.min.*",
+                        dest: "vendor_dist/converse.js/dist",
+                        rename: { stripBase: 3 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/webfonts/*",
+                        dest: "vendor_dist/converse.js/dist/webfonts",
+                        rename: { stripBase: 4 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/sounds/*",
+                        dest: "vendor_dist/converse.js/dist/sounds",
+                        rename: { stripBase: 4 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/chunkjs/locales/*",
+                        dest: "vendor_dist/converse.js/dist/chunkjs/locales",
+                        rename: { stripBase: 5 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/chunkjs/locales/dayjs/*",
+                        dest: "vendor_dist/converse.js/dist/chunkjs/locales/dayjs",
+                        rename: { stripBase: 6 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/emoji.json",
+                        dest: "vendor_dist/converse.js/dist",
+                        rename: { stripBase: 3 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/curve25519_compiled.wasm",
+                        dest: "vendor_dist/converse.js/dist",
+                        rename: { stripBase: 3 },
+                    },
+                ],
+            }),
             AutoImport({
                 //dts: false,
                 resolvers: [ElementPlusResolver()],
