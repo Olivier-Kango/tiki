@@ -1325,18 +1325,18 @@ class TrackerLib extends TikiLib
                     $bindvars[] = empty($ev) ? $fv : $ev;
                 } elseif ($filter['type'] == 'u' && $ev > '') { // user selector and exact value
                     if (is_array($ev)) {
-                        $keys = array_keys($ev);
-                        if ($keys[0] === 'not') {
-                            $mid .= " AND ( ttif$i.`value` NOT REGEXP " . implode(' OR ttif$i.`value` NOT REGEXP ', array_fill(0, count($ev), '?')) . " OR ttif$i.`value` IS NULL )";
+                        // or(a,b) => ['a', 'b'] must match any user; not(a) => ['not' => 'a'] (or a list) must match none
+                        $negate = array_key_first($ev) === 'not';
+                        $users = array_values((array) ($negate ? $ev['not'] : $ev));
+                        $clauses = array_fill(0, count($users), "ttif$i.`value` " . ($negate ? 'NOT REGEXP' : 'REGEXP') . ' ?');
+                        if ($negate) {
+                            $mid .= ' AND ( (' . implode(' AND ', $clauses) . ") OR ttif$i.`value` IS NULL )";
                         } else {
-                            $mid .= " AND ( ttif$i.`value` REGEXP " . implode(' OR ttif$i.`value` REGEXP ', array_fill(0, count($ev), '?')) . " )";
+                            $mid .= ' AND ( ' . implode(' OR ', $clauses) . ' )';
                         }
-                        $bindvars = array_merge(
-                            $bindvars,
-                            array_values(array_map(function ($ev) {
-                                return "[[:<:]]{$ev}[[:>:]]";
-                            }, $ev))
-                        );
+                        foreach ($users as $u) {
+                            $bindvars[] = "[[:<:]]{$u}[[:>:]]";
+                        }
                     } else {
                         $mid .= " AND ttif$i.`value` REGEXP ? ";
                         $bindvars[] = "[[:<:]]{$ev}[[:>:]]";
