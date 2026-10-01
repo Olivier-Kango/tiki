@@ -222,6 +222,26 @@ console.log('Not valid');
         $this->assertEquals(['The Wiki Way', 'The Milky Way', 'PageWikiWord', 'markdown-page'], $pages);
     }
 
+    public function testGetPagesWithMarkdownAbsoluteUrls(): void
+    {
+        global $base_url_http, $base_url_https, $prefs;
+        $prefs['feature_wikiwords'] = 'y';
+        $prefs['markdown_enabled'] = 'y';
+        $base_url_http = 'http://example.com/';
+        $base_url_https = 'https://example.com/';
+
+        $content = "{syntax type=\"markdown\"}
+    [My example](example)
+[absolute](https://example.com/tiki-index.php?page=AbsolutePage)
+[clean](https://example.com/CleanPage)
+[external](https://other.example.com/ExternalPage)";
+        $this->assertEquals(['example', 'AbsolutePage', 'CleanPage'], TikiLib::lib('parser')->get_pages($content));
+
+        $prefs['markdown_enabled'] = 'n';
+        $absoluteContent = str_replace("[My example](example)\n", '', $content);
+        $this->assertEquals([], TikiLib::lib('parser')->get_pages($absoluteContent));
+    }
+
     protected function markdown(): string
     {
         return "---
