@@ -398,6 +398,41 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 2 },
                     },
                     {
+                        src: "node_modules/converse.js/dist/*.min.*",
+                        dest: "vendor_dist/converse.js/dist",
+                        rename: { stripBase: 3 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/webfonts/*",
+                        dest: "vendor_dist/converse.js/dist/webfonts",
+                        rename: { stripBase: 4 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/sounds/*",
+                        dest: "vendor_dist/converse.js/dist/sounds",
+                        rename: { stripBase: 4 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/chunkjs/locales/*",
+                        dest: "vendor_dist/converse.js/dist/chunkjs/locales",
+                        rename: { stripBase: 5 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/chunkjs/locales/dayjs/*",
+                        dest: "vendor_dist/converse.js/dist/chunkjs/locales/dayjs",
+                        rename: { stripBase: 6 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/emoji.json",
+                        dest: "vendor_dist/converse.js/dist",
+                        rename: { stripBase: 3 },
+                    },
+                    {
+                        src: "node_modules/converse.js/dist/curve25519_compiled.wasm",
+                        dest: "vendor_dist/converse.js/dist",
+                        rename: { stripBase: 3 },
+                    },
+                    {
                         src: "node_modules/recordrtc/RecordRTC.js",
                         dest: "vendor_dist/recordrtc",
                         rename: { stripBase: 2 },
@@ -770,49 +805,6 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
 
-                ],
-            }),
-            // ConverseJS uses directory stripping. Keep its source directory structure
-            // before renaming: static-copy 3.x defaults to flat copying, so stripBase
-            // would otherwise escape outDir when this configuration is backported.
-            viteStaticCopy({
-                structured: true,
-                targets: [
-                    {
-                        src: "node_modules/converse.js/dist/*.min.*",
-                        dest: "vendor_dist/converse.js/dist",
-                        rename: { stripBase: 3 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/webfonts/*",
-                        dest: "vendor_dist/converse.js/dist/webfonts",
-                        rename: { stripBase: 4 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/sounds/*",
-                        dest: "vendor_dist/converse.js/dist/sounds",
-                        rename: { stripBase: 4 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/chunkjs/locales/*",
-                        dest: "vendor_dist/converse.js/dist/chunkjs/locales",
-                        rename: { stripBase: 5 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/chunkjs/locales/dayjs/*",
-                        dest: "vendor_dist/converse.js/dist/chunkjs/locales/dayjs",
-                        rename: { stripBase: 6 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/emoji.json",
-                        dest: "vendor_dist/converse.js/dist",
-                        rename: { stripBase: 3 },
-                    },
-                    {
-                        src: "node_modules/converse.js/dist/curve25519_compiled.wasm",
-                        dest: "vendor_dist/converse.js/dist",
-                        rename: { stripBase: 3 },
-                    },
                 ],
             }),
             AutoImport({
