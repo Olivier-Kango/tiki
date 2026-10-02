@@ -6,10 +6,8 @@ use TikiLib;
 
 class ToolbarSwitchEditor extends ToolbarUtilityItem
 {
-    /**
-     * @var string
-     */
-    public $onClick;
+    private string $onClick = '';
+
     public function __construct()
     {
         global $prefs;
@@ -28,8 +26,7 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
             ->setMarkdownSyntax('tikiswitch')
             ->setMarkdownWysiwyg('tikiswitch')
             ->setType('SwitchEditor')
-            ->setClass('qt-switcheditor')
-            ->addRequiredPreference('feature_wysiwyg');
+            ->setClass('qt-switcheditor');
     }
 
     public function getWikiHtml(): string
@@ -39,7 +36,7 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
 
     public function getMarkdownHtml(): string
     {
-        return self::getPlainHtml(true);
+        return $this->getPlainHtml();
     }
 
     /**
@@ -74,26 +71,36 @@ class ToolbarSwitchEditor extends ToolbarUtilityItem
 
     public function getMarkdownWysiwyg(): string
     {
-        global $prefs;
-
         $this->onClick = $this->getWysiwygJs();
 
         if (! empty($this->markdown_wysiwyg)) {
-            if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
-                return parent::getMarkdownWysiwyg();
-            }
+            return parent::getMarkdownWysiwyg();
         }
         return '';
     }
 
+    /**
+     * Determines whether the switch button is available in the current request.
+     *
+     * Syntax switching and editor-mode switching are separate capabilities:
+     * Markdown syntax switching requires 'markdown_enabled';
+     * switching between the wiki and WYSIWYG editors requires both 'feature_wysiwyg' and 'wysiwyg_optional'.
+     * Either capability can expose the shared button, but
+     * the user must also have 'tiki_p_edit_switch_mode', and the button is
+     * hidden during section editing ('hdr' requests).
+     *
+     * @return bool Whether the user can access the switch button.
+     */
     public function isAccessible(): bool
     {
-        // TODO make object specific check, but we don't know where this toolbar is down here...
-        global $tiki_p_edit_switch_mode;
+        global $prefs, $tiki_p_edit_switch_mode;
 
-        return parent::isAccessible() &&
-            ! isset($_REQUEST['hdr']) &&        // or in section edit
-            $tiki_p_edit_switch_mode === 'y';   // or no perm (new in 7.1)
+        $canSwitchSyntax = $prefs['markdown_enabled'] === 'y';
+        $canSwitchEditorMode = $prefs['feature_wysiwyg'] === 'y' && $prefs['wysiwyg_optional'] === 'y';
+
+        return ($canSwitchSyntax || $canSwitchEditorMode) &&
+            ! isset($_REQUEST['hdr']) &&
+            $tiki_p_edit_switch_mode === 'y';
     }
 
     /**
