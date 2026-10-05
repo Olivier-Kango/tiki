@@ -413,10 +413,12 @@ function prefs_unified_list()
             'default' => '',
             'help' => $manticoreSearchHelp,
         ],
-        'unified_manticore_morphology' => [
-            'name' => tr('Morphology processing'),
-            'description' => tr("Advanced morphology preprocessors to apply in the Manticore index, comma-separated.  For example libstemmer_en,libstemmer_fr. See Manticore manual for possible values."),
-            'type' => 'text',
+        'unified_manticore_settings' => [
+            'name' => tr('Manticore index settings'),
+            'description' => tr('Optional Manticore index settings as a JSON object. Only the documented settings are accepted; custom values override Tiki defaults.'),
+            'hint' => tra('JSON example:') . "\n{\n  \"morphology\": \"lemmatize_de_v2_all\",\n  \"charset_table\": \"non_cont, german\",\n  \"min_infix_len\": 2,\n  \"stopwords\": \"/path/on/manticore/server/stopwords.txt\"\n}\n\n" . tra('See the Manticore documentation for supported morphology preprocessors and index settings.'),
+            'type' => 'textarea',
+            'size' => 6,
             'default' => '',
             'help' => 'https://manual.manticoresearch.com/Creating_a_table/NLP_and_tokenization/Morphology',
         ],

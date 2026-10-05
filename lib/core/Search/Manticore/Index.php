@@ -36,6 +36,33 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
 
     public static $searchedFields = ['fulltext' => [], 'others' => []];
 
+    public const ALLOWED_INDEX_SETTINGS = [
+        'morphology',
+        'min_infix_len',
+        'stopwords',
+        'charset_table',
+        'ignore_chars',
+        'min_word_len',
+        'ngram_len',
+        'ngram_chars',
+        'blend_chars',
+        'blend_mode',
+        'phrase_boundary',
+        'phrase_boundary_step',
+        'overshort_step',
+        'regexp_filter',
+        'dict',
+        'morphology_skip_fields',
+        'min_stemming_len',
+        'index_exact_words',
+        'bigram_index',
+        'bigram_freq_words',
+        'bigram_delimiter',
+        'hitless_words_list',
+        'index_field_lengths',
+        'embedded_limit',
+    ];
+
     public function __construct(Client $client, PdoClient $pdo_client, $index)
     {
         $this->client = $client;
@@ -261,18 +288,48 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     {
         global $prefs;
 
-        $old = umask(0);
-        $stopwords_file = $this->getStopwordsFilePath();
-        file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
-        chmod($stopwords_file, 0666);
-        umask($old);
-
+        $manticoreSettings = $this->getManticoreSettings();
         $settings = [
             'min_infix_len' => 2,
-            'stopwords' => $stopwords_file,
-            'morphology' => $prefs['unified_manticore_morphology'] ?? '',
-            // TODO: see what other options to support https://manual.manticoresearch.com/Creating_a_table/NLP_and_tokenization/Low-level_tokenization
         ];
+        if (! isset($manticoreSettings['stopwords'])) {
+            $old = umask(0);
+            $stopwords_file = $this->getStopwordsFilePath();
+            file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
+            chmod($stopwords_file, 0666);
+            umask($old);
+            $settings['stopwords'] = $stopwords_file;
+        }
+
+        $settings = array_merge($settings, $manticoreSettings);
+
+        return $settings;
+    }
+
+    private function getManticoreSettings(): array
+    {
+        global $prefs;
+
+        $json = (string) ($prefs['unified_manticore_settings'] ?? '');
+        $decoded = json_decode($json, true);
+        if (! is_array($decoded)) {
+            return [];
+        }
+
+        if (isset($decoded['settings']) && is_array($decoded['settings'])) {
+            $decoded = array_merge($decoded['settings'], array_diff_key($decoded, ['settings' => true]));
+        }
+
+        $settings = [];
+        foreach ($decoded as $key => $value) {
+            if (! is_string($key) || ! is_scalar($value) || ! in_array($key, self::ALLOWED_INDEX_SETTINGS, true) || (string) $value === '') {
+                continue;
+            }
+            if ($key === 'morphology' && ! preg_match('/^[a-zA-Z0-9_*]+(?:\s*,\s*[a-zA-Z0-9_*]+)*$/', (string) $value)) {
+                continue;
+            }
+            $settings[$key] = trim((string) $value);
+        }
 
         return $settings;
     }
