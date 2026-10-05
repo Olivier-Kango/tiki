@@ -338,9 +338,22 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
 
     if ($categorySaved && ! empty($_REQUEST["categId"])) {
         $attributelib = TikiLib::lib('attribute');
-        $attributelib->set_attribute('category', $_REQUEST["categId"], 'tiki.category.metatag.description', $_REQUEST['metatag_description'] ?? '');
-        $attributelib->set_attribute('category', $_REQUEST["categId"], 'tiki.category.metatag.keywords', $_REQUEST['metatag_keywords'] ?? '');
-        $attributelib->set_attribute('category', $_REQUEST["categId"], 'tiki.category.metatag.robots', $_REQUEST['metatag_robots'] ?? '');
+        $seoDefaults = [];
+        foreach (\Tiki\Seo\MetaTagOverride::FIELDS as $field) {
+            if (isset($_POST['metatag_' . $field])) {
+                $seoDefaults[$field] = $_POST['metatag_' . $field];
+            }
+        }
+        \Tiki\Seo\MetaTagOverride::save($attributelib, 'category', $_REQUEST['categId'], 'tiki.category.metatag', $seoDefaults);
+        if (($prefs['feature_multilingual'] ?? 'n') === 'y') {
+            foreach (\Language::list_languages() as $seoLanguage) {
+                $code = $seoLanguage['value'];
+                $localized = $_POST['seo_category_languages'][$code] ?? null;
+                if (is_array($localized)) {
+                    \Tiki\Seo\MetaTagOverride::save($attributelib, 'category', $_REQUEST['categId'], 'tiki.category.metatag', $localized, $code);
+                }
+            }
+        }
     }
 
     $cRolesInput = $_REQUEST["categoryRole"] ?? [];
@@ -449,6 +462,19 @@ if (! empty($_REQUEST["categId"])) {
 $smarty->assign('category_metatag_description', $categoryAttributes['tiki.category.metatag.description'] ?? '');
 $smarty->assign('category_metatag_keywords', $categoryAttributes['tiki.category.metatag.keywords'] ?? '');
 $smarty->assign('category_metatag_robots', $categoryAttributes['tiki.category.metatag.robots'] ?? '');
+$seoCategoryLanguages = [];
+if (($prefs['feature_multilingual'] ?? 'n') === 'y') {
+    foreach (\Language::list_languages() as $seoLanguage) {
+        $code = $seoLanguage['value'];
+        // Show stored translations only: blank means inherit the default value.
+        $translated = [];
+        foreach (\Tiki\Seo\MetaTagOverride::FIELDS as $field) {
+            $translated[$field] = $categoryAttributes['tiki.category.metatag.' . $field . '.' . $code] ?? '';
+        }
+        $seoCategoryLanguages[] = ['code' => $code, 'name' => $seoLanguage['name'], 'values' => $translated];
+    }
+}
+$smarty->assign('seo_category_languages', $seoCategoryLanguages);
 $smarty->assign('MAX_CATEGORY_NAME_LENGTH', CategLib::MAX_CATEGORY_NAME_LENGTH);
 $smarty->assign('MAX_CATEGORY_DESCRIPTION_LENGTH', CategLib::MAX_CATEGORY_DESCRIPTION_LENGTH);
 if (isset($info["tplGroupContainerId"])) {

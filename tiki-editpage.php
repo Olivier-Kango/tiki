@@ -1472,6 +1472,10 @@ if (
             $wikilib->set_explicit_namespace($page, $_REQUEST['explicit_namespace']);
         }
 
+        if (isset($_POST['seo_metatags']) && is_array($_POST['seo_metatags']) && $access->checkCsrf()) {
+            \Tiki\Seo\MetaTagOverride::save(TikiLib::lib('attribute'), 'wiki page', $page, 'tiki.object.metatag', $_POST['seo_metatags']);
+        }
+
         if (isset($_REQUEST['metatag_robotscustom'])) {
             $attribute = $_REQUEST['metatag_robotscustom'];
             $attribute = $attribute == "" ? null : $attribute;
@@ -1745,6 +1749,14 @@ if ($prefs['feature_multilingual'] === 'y' && $tikilib->page_exists($page)) {
     $trads = $multilinguallib->getTranslations('wiki page', $info['page_id'], $page, $info['lang']);
     $smarty->assign('trads', $trads);
 }
+
+$seoMetatags = \Tiki\Seo\MetaTagOverride::values(TikiLib::lib('attribute')->get_attributes('wiki page', $page), 'tiki.object.metatag');
+foreach (\Tiki\Seo\MetaTagOverride::FIELDS as $field) {
+    if (isset($_POST['seo_metatags'][$field]) && is_scalar($_POST['seo_metatags'][$field])) {
+        $seoMetatags[$field] = (string) $_POST['seo_metatags'][$field];
+    }
+}
+$smarty->assign('seo_metatags', $seoMetatags);
 
 $smarty->assign('explicit_namespace', $wikilib->get_explicit_namespace($page));
 $smarty->assign('pageAutoToc', $wikilib->get_page_auto_toc($page));

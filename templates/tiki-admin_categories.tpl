@@ -58,6 +58,7 @@
             </div>
             <fieldset>
                 <legend class="h3">{tr}SEO{/tr}</legend>
+                <p class="form-text">{tr}Empty fields use the usual defaults. For objects in several categories, the first non-empty value in category ID order is used for each field.{/tr}</p>
                 <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="metatag_description">{tr}Meta description{/tr}</label>
                     <div class="col-sm-9">
@@ -76,6 +77,7 @@
                         <input type="text" class="form-control" name="metatag_robots" id="metatag_robots" value="{$category_metatag_robots|escape}" placeholder="{tr}noimageindex, nocache{/tr}">
                     </div>
                 </div>
+                {include file='seo/category-metatags-languages.tpl'}
             </fieldset>
             {if isset($role_groups) && count($role_groups)}
             <div class="mb-3 row">

@@ -250,6 +250,7 @@
                 <input type="hidden" name="page" value="{$page|escape}">
                 {* the above hidden field is needed for auto-save to work *}
             {/if}
+            {include file='seo/wiki-metatags.tpl'}
             {tabset name='tabs_editpage' cookietab=1}
                 {tab name="{tr}Edit page{/tr}"}
                     {if $prefs.wiki_description_edit_tab_input eq 'y'}
