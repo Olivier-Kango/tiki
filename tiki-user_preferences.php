@@ -34,7 +34,7 @@ $inputConfiguration = [
             'display_12hr_clock'              => 'bool',         //post
             'diff_versions'                   => 'bool',         //post
             'remember_closed_rboxes'          => 'bool',         //post
-            'email_isPublic'                  => 'bool',         //post
+            'email_isPublic'                  => 'alpha',        //post
             'mailCharset'                     => 'striptags',    //post
             'prefName'                        => 'striptags',    //post
             'mess_maxRecords'                 => 'digits',       //post
@@ -56,8 +56,8 @@ $inputConfiguration = [
             'perspective_preferred'           => 'digits',      //post
             'webmonetization_payment_pointer' => 'striptags',    //post
             'webmonetization_paywall_text'    => 'striptags',    //post
-            'notify_oneself'                  => 'bool',         //post
-            'switch_user_notification'        => 'bool',         //post
+            'notify_oneself'                  => 'alpha',        //post
+            'switch_user_notification'        => 'alpha',        //post
             'cookie_consent_update'           => 'word',         //post
             'chgadmin'                        => 'bool',         //post
             'pass'                            => 'password',     //post
@@ -218,7 +218,7 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
         $tikilib->set_user_preference($userwatch, 'userbreadCrumb', $_POST["userbreadCrumb"]);
     }
     if (isset($_POST["notify_oneself"])) {
-        $tikilib->set_user_preference($userwatch, 'notify_oneself', $_POST["notify_oneself"]);
+        $tikilib->set_user_preference($userwatch, 'notify_oneself', $_POST["notify_oneself"] === 'y' ? 'y' : 'n');
     }
 
     if (isset($_POST["cookie_consent_update"])) {
@@ -247,7 +247,7 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
     }
 
     if (isset($_POST["switch_user_notification"])) {
-        $tikilib->set_user_preference($userwatch, 'switch_user_notification', $_POST["switch_user_notification"]);
+        $tikilib->set_user_preference($userwatch, 'switch_user_notification', $_POST["switch_user_notification"] === 'y' ? 'y' : 'n');
     }
 
     $langLib = TikiLib::lib('language');
@@ -307,7 +307,7 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
 
     $tikilib->set_user_preference($userwatch, 'remember_closed_rboxes', empty($_POST['remember_closed_rboxes']) ? 'n' : 'y');
 
-    $email_isPublic = $_POST['email_isPublic'] ?? 'n';
+    $email_isPublic = ($_POST['email_isPublic'] ?? 'n') === 'y' ? 'y' : 'n';
     $tikilib->set_user_preference($userwatch, 'email is public', $email_isPublic);
     $tikilib->set_user_preference($userwatch, 'mailCharset', $_POST['mailCharset']);
     // Custom fields
@@ -702,6 +702,10 @@ $tikilib->get_user_preference($userwatch, 'country', 'Other');
 $tikilib->get_user_preference($userwatch, 'userbreadCrumb', $prefs['site_userbreadCrumb']);
 $tikilib->get_user_preference($userwatch, 'homePage', '');
 $tikilib->get_user_preference($userwatch, 'email is public', 'n');
+foreach (['notify_oneself', 'switch_user_notification'] as $ynPref) {
+    $raw = $tikilib->get_user_preference($userwatch, $ynPref, 'n');
+    $user_preferences[$userwatch][$ynPref] = ($raw === 'y' || $raw === '1' || $raw === 1 || $raw === true) ? 'y' : 'n';
+}
 if (isset($user_preferences[$userwatch]['email is public'])) {
     $user_preferences[$userwatch]['email_isPublic'] = $user_preferences[$userwatch]['email is public'];
 }
