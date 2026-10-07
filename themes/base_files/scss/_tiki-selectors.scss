@@ -72,12 +72,19 @@ $outline-colors: primary, secondary, success, danger, warning, info, light, dark
     border-color: var(--bs-primary);
 }
 
-.form-range::-webkit-slider-thumb,
+// Keep browser-specific pseudo-elements separate to avoid invalidating the rules.
+.form-range::-webkit-slider-thumb {
+    background-color: var(--bs-primary);
+}
+
 .form-range::-moz-range-thumb {
     background-color: var(--bs-primary);
 }
 
-.form-range:focus::-webkit-slider-thumb,
+.form-range:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
 .form-range:focus::-moz-range-thumb {
     box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
 }
