@@ -5,6 +5,11 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
+// This library must only be loaded by Tiki, never accessed directly.
+if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
+    die('This script may only be included.');
+}
+
 if (! class_exists('XmppPrebind')) {
     return;
 }

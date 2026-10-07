@@ -1,0 +1,49 @@
+<?php
+
+// Signatures from candy-chat/xmpp-prebind-php for installations without this optional package.
+// PHPStan scans this file; it must never be required by application code.
+
+class XmppPrebind
+{
+    public const XMLNS_SASL = 'urn:ietf:params:xml:ns:xmpp-sasl';
+    public const CONTENT_TYPE = 'text/xml charset=utf-8';
+    public const ENCRYPTION_PLAIN = 'PLAIN';
+    public const ENCRYPTION_DIGEST_MD5 = 'DIGEST-MD5';
+    public const ENCRYPTION_CRAM_MD5 = 'CRAM-MD5';
+
+    protected $mechanisms = [];
+    protected $encryption = self::ENCRYPTION_PLAIN;
+    protected $jid = '';
+    protected $password = '';
+    protected $boshUri = '';
+
+    public function __construct($jabberHost, $boshUri, $resource, $useSsl = false, $debug = false) {}
+    public function connect($username, $password, $route = false) {}
+    public function auth() {}
+    public function getSessionInfo() {}
+    protected function debug($msg, $label = null) {}
+    protected function sendRestart() {}
+    protected function sendBindIfRequired() {}
+    protected function sendSessionIfRequired() {}
+    protected function buildPlainAuth(Auth_SASL_Common $auth) {}
+    protected function sendChallengeAndBuildDigestMd5Auth(Auth_SASL_Common $auth) {}
+    protected function sendChallengeAndBuildCramMd5Auth(Auth_SASL_Common $auth) {}
+    protected function send($xml) {}
+    protected function buildBody() {}
+    public static function getNodeFromJid($jid) {}
+    protected static function getNewTextAttribute($domDocument, $attributeName, $value) {}
+    protected static function getBodyFromDomDocument($domDocument) {}
+    protected static function getBodyFromXml($xml) {}
+}
+
+class XmppPrebindException extends Exception {}
+
+class Auth_SASL
+{
+    public static function factory($type) {}
+}
+
+class Auth_SASL_Common
+{
+    public function getResponse($authcid, $secret, $authzid = '') {}
+}

@@ -27,6 +27,7 @@ class XMPPLib extends TikiLib
     private $server_http_bind = '';
     private $restapi = null;
     private $xmppapi = null;
+    private bool $hasPrebind;
     private ?\Fabiang\Xmpp\Client $adminClient = null;
 
     /**
@@ -41,6 +42,7 @@ class XMPPLib extends TikiLib
     {
         global $prefs;
 
+        $this->hasPrebind = class_exists('XmppPrebind');
         $this->server_host = $prefs['xmpp_server_host'];
         $this->server_http_bind = $prefs['xmpp_server_http_bind'];
     }
