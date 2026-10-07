@@ -30,6 +30,7 @@ use Tiki\Lib\Alchemy\AlchemyLib;
 use Tiki\Lib\Unoconv\UnoconvStrategy;
 use Tiki\Lib\Unoconv\UnoserverStrategy;
 use Tiki\Package\ComposerManager;
+use Tiki\Process\Process;
 use Tiki\Sections;
 
 // Define fitness status constants early
@@ -65,6 +66,83 @@ if (isset($_REQUEST['tiki-check-ping'])) {
 $standalone = ! file_exists('./templates/tiki-check.tpl');
 
 if ($standalone) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
+    class TikiCheckProcess
+    {
+        private string $commandline;
+        private string $output = '';
+        private int $exitCode = -1;
+
+        private function __construct(string $commandline)
+        {
+            $this->commandline = $commandline;
+        }
+
+        public static function fromShellCommandline(string $commandline): self
+        {
+            return new self($commandline);
+        }
+
+        public function run(): int
+        {
+            if (function_exists('proc_open')) {
+                $process = proc_open($this->commandline, array(
+                    1 => array('pipe', 'w'),
+                    2 => array('pipe', 'w'),
+                ), $pipes);
+
+                if (is_resource($process)) {
+                    $this->output = stream_get_contents($pipes[1]);
+                    fclose($pipes[1]);
+                    stream_get_contents($pipes[2]);
+                    fclose($pipes[2]);
+                    $this->exitCode = proc_close($process);
+                    return $this->exitCode;
+                }
+            }
+
+            if (function_exists('exec')) {
+                $output = array();
+                exec($this->commandline, $output, $this->exitCode);
+                $this->output = implode(PHP_EOL, $output);
+                return $this->exitCode;
+            }
+
+            if (function_exists('shell_exec')) {
+                $marker = '__TIKI_PROCESS_EXIT_CODE__';
+                $result = shell_exec($this->commandline . '; printf "\n' . $marker . ':%d" $?');
+
+                if ($result === null) {
+                    return $this->exitCode;
+                }
+
+                $position = strrpos($result, $marker . ':');
+
+                if ($position !== false) {
+                    $this->output = substr($result, 0, $position);
+                    $this->exitCode = (int) substr($result, $position + strlen($marker) + 1);
+                }
+
+                return $this->exitCode;
+            }
+
+            throw new RuntimeException('No supported PHP function is available to execute shell commands.');
+        }
+
+        public function getOutput(): string
+        {
+            return $this->output;
+        }
+
+        public function getExitCode(): int
+        {
+            return $this->exitCode;
+        }
+    }
+
+    class_alias(TikiCheckProcess::class, Process::class);
+
     function tra(string $content, ...$params): string
     {
         foreach ($params as $data) {
@@ -86,6 +164,11 @@ if ($standalone) {
     $section = Sections::SECTION_ADMIN_LAYOUT;
     Sections::setCurrentSection($section);
 }
+$isUnix = ! str_starts_with(strtoupper(PHP_OS), 'WIN');
+
+// Check if a supported shell execution function is available.
+checkShellFunction();
+
 // AJAX dashboard refresh
 if (isset($_REQUEST['ajax']) && $_REQUEST['ajax'] === 'dashboard' && ! $standalone) {
     // Initialize variables for AJAX calculation
@@ -566,6 +649,58 @@ function getTikiRequirements()
         )
     );
 }
+/**
+ *
+ * Collect and structure Windows system information,
+ *
+ * This method runs the native `systeminfo` command available on Windows
+ * to gather detailed information about the operating system, hardware,
+ * installed hotfixes, network adapters, and locale settings.
+ *
+ * Notes:
+ *  The raw command output is parsed into an associative array where and
+ *  Keys are preserved exactly as they appear in the `systeminfo` output (e.g. 'Host Name' => 'THINKPAD'):
+ *  - Each line with a `:` is split into a key/value pair ().
+ *
+ * @return array
+ */
+function getWindowsSystemInfo(): array
+{
+    $releaseProcess = Process::fromShellCommandline('systeminfo');
+    $releaseProcess->run();
+    $output = $releaseProcess->getOutput();
+    $exitCode = $releaseProcess->getExitCode();
+    $lines = explode("\n", $output);
+    $data = array();
+    $currentKey = null;
+
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '') {
+            continue;
+        }
+
+        if (str_contains($line, ':')) {
+            // Split into key/value
+            list($key, $value) = explode(':', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+
+            // Start new entry
+            $data[$key] = $value;
+            $currentKey = $key;
+        } else {
+            // Continuation of previous key (multi-line values)
+            if ($currentKey) {
+                if (! is_array($data[$currentKey])) {
+                    $data[$currentKey] = array($data[$currentKey]);
+                }
+                $data[$currentKey][] = trim($line);
+            }
+        }
+    }
+    return array('system_info' => $data, 'exit_code' => $exitCode);
+}
 
 function checkServerRequirements($phpVersion, $dbEngine, $dbVersion)
 {
@@ -647,6 +782,22 @@ function checkServerRequirements($phpVersion, $dbEngine, $dbVersion)
     return $tiki_server_req;
 }
 
+function checkShellFunction()
+{
+    global $standalone;
+
+    $disabled = explode(',', ini_get('disable_functions'));
+    $disabled = array_map('trim', $disabled);
+
+    if (! $standalone && ! function_exists('proc_open')) {
+         echo("For security reasons, the server administrator can disable some (or all) functions that allow code execution.<br>");
+         exit("'proc_open' function is required to execute shell command.");
+    }
+
+    if (! function_exists('proc_open') && ! function_exists('exec') && ! function_exists('shell_exec')) {
+        exit('A supported shell command execution function (proc_open, exec, or shell_exec) is required.');
+    }
+}
 /**
  * @param string $dbEngine
  * @param string $dbVersion
@@ -1052,23 +1203,52 @@ DBC;
 $server_information['Operating System'] = array(
     'value' => PHP_OS,
 );
+$server_information['Release'] = array(
+    'value' => tra('N/A')
+);
 
-if (PHP_OS == 'Linux' && function_exists('exec')) {
-    exec('lsb_release -d', $output, $retval);
-    if ($retval == 0) {
-        $server_information['Release'] = array(
-            'value' => str_replace('Description:', '', $output[0])
-        );
-        # Check for FreeType fails without a font, i.e. standalone mode
-        # Using a URL as font source doesn't work on all PHP installs
-        # So let's try to gracefully fall back to some locally installed font at least on Linux
-        if (! file_exists($font)) {
-            $font = exec('find /usr/share/fonts/ -type f -name "*.ttf" | head -n 1', $output);
+if ($isUnix) {
+    if ($standalone) {
+        if (file_exists('/etc/os-release')) {
+            $os_release = parse_ini_file('/etc/os-release');
+            $server_information['Release'] = array(
+                'value' => str_replace('Description:', '', $os_release['PRETTY_NAME'])
+            );
         }
     } else {
+        $releaseProcess = Process::fromShellCommandline('lsb_release -d');
+        $releaseProcess->run();
+        $output = $releaseProcess->getOutput();
+        $exitCode = $releaseProcess->getExitCode();
+        if ($exitCode == 0) {
+            $server_information['Release'] = array(
+                'value' => str_replace('Description:', '', $output)
+            );
+            # Check for FreeType fails without a font, i.e. standalone mode
+            # Using a URL as font source doesn't work on all PHP installs
+            # So let's try to gracefully fall back to some locally installed font at least on Linux
+            if (! file_exists($font)) {
+                $fontProcess = Process::fromShellCommandline('find /usr/share/fonts/ -type f -name "*.ttf" | head -n 1');
+                $fontProcess->run();
+                $output = $fontProcess->getOutput();
+            }
+        }
+    }
+} else {
+    if ($standalone) {
         $server_information['Release'] = array(
-            'value' => tra('N/A')
+            'value' => str_replace('Description:', '', php_uname('v'))
         );
+    } else {
+        $systemInfos = getWindowsSystemInfo();
+        if ($systemInfos['exit_code'] == 0) {
+            $server_information['Operating System'] = array(
+                'value' => $systemInfos['system_info']['OS Name'],
+            );
+            $server_information['Release'] = array(
+                'value' => str_replace('Description:', '', $systemInfos['system_info']['OS Version'])
+            );
+        }
     }
 }
 
@@ -1159,61 +1339,66 @@ $php_properties['PHP version'] = array(
 );
 
 // Check PHP command line version
-if (function_exists('exec')) {
-    $cliSearchList = array('php', 'php56', 'php5.6', 'php5.6-cli');
-    $isUnix = ! str_starts_with(strtoupper(PHP_OS), 'WIN');
-    if ($isUnix) {
-        // add virtualmin per-domain php configurations
-        array_unshift($cliSearchList, __DIR__ . '/bin/php');
-        array_unshift($cliSearchList, __DIR__ . '/../bin/php');
-    }
-    $cliCommand = '';
-    $cliVersion = '';
-    foreach ($cliSearchList as $command) {
-        if ($isUnix) {
-            $output = exec('command -v ' . escapeshellarg($command) . ' 2>/dev/null');
-        } else {
-            $output = exec('where ' . escapeshellarg($command . '.exe'));
-        }
-        if (! $output) {
-            continue;
-        }
 
-        $cliCommand = trim($output);
-        exec(escapeshellcmd(trim($cliCommand)) . ' --version', $output);
-        foreach ($output as $line) {
-            $parts = explode(' ', $line);
-            if ($parts[0] === 'PHP') {
-                $cliVersion = $parts[1];
-                break;
-            }
-        }
-        break;
+$cliSearchList = array('php', 'php56', 'php5.6', 'php5.6-cli');
+if ($isUnix) {
+    // add virtualmin per-domain php configurations
+    array_unshift($cliSearchList, __DIR__ . '/bin/php');
+    array_unshift($cliSearchList, __DIR__ . '/../bin/php');
+}
+$cliCommand = '';
+$cliVersion = '';
+foreach ($cliSearchList as $command) {
+    $osCMD = 'where ' . escapeshellarg($command . '.exe');
+    if ($isUnix) {
+        $osCMD = 'command -v ' . escapeshellarg($command) . ' 2>/dev/null';
     }
-    if ($cliCommand) {
-        if (PHP_VERSION == $cliVersion) {
-            $php_properties['PHP CLI version'] = array(
-                'fitness' => tra('good'),
-                'fitness_status' => FITNESS_STATUS_GOOD,
-                'setting' => $cliVersion,
-                'message' => tr('The version of the command line executable of PHP (%0) is the same version as the web server version.', $cliCommand),
-            );
-        } else {
-            $php_properties['PHP CLI version'] = array(
-                'fitness' => tra('unsure'),
-                'fitness_status' => FITNESS_STATUS_UNSURE,
-                'setting' => $cliVersion,
-                'message' => tr('The version of the command line executable of PHP (%0) is not the same as the web server version.', $cliCommand),
-            );
+
+    $cliSearchProcess = Process::fromShellCommandline($osCMD);
+    $cliSearchProcess->run();
+    $output = $cliSearchProcess->getOutput();
+    if (! $output) {
+        continue;
+    }
+
+    $cliCommand = trim($output);
+    $phpVersionProcess = Process::fromShellCommandline(escapeshellcmd($cliCommand) . ' --version');
+    $phpVersionProcess->run();
+    $output = $phpVersionProcess->getOutput();
+    $explodedOutput = preg_split("/\r\n|\r|\n/", $output);
+    foreach ($explodedOutput as $line) {
+        $parts = explode(' ', $line);
+        if ($parts[0] === 'PHP') {
+            $cliVersion = $parts[1];
+            break;
         }
+    }
+    break;
+}
+
+if ($cliCommand) {
+    if (PHP_VERSION == $cliVersion) {
+        $php_properties['PHP CLI version'] = array(
+            'fitness' => tra('good'),
+            'fitness_status' => FITNESS_STATUS_GOOD,
+            'setting' => $cliVersion,
+            'message' => tr('The version of the command line executable of PHP (%0) is the same version as the web server version.', $cliCommand),
+        );
     } else {
         $php_properties['PHP CLI version'] = array(
             'fitness' => tra('unsure'),
             'fitness_status' => FITNESS_STATUS_UNSURE,
-            'setting' => '',
-            'message' => tra('Unable to determine the command line executable for PHP.'),
+            'setting' => $cliVersion,
+            'message' => tr('The version of the command line executable of PHP (%0) is not the same as the web server version.', $cliCommand),
         );
     }
+} else {
+    $php_properties['PHP CLI version'] = array(
+        'fitness' => tra('unsure'),
+        'fitness_status' => FITNESS_STATUS_UNSURE,
+        'setting' => '',
+        'message' => tra('Unable to determine the command line executable for PHP.'),
+    );
 }
 
 // PHP Server API (SAPI)
@@ -2869,7 +3054,7 @@ if (! $standalone) {
                     if (! urlIsAvailable($url)) {
                         $messages['warnings'][] = tr("URL '%0' is not reachable, check your firewall or proxy configurations.", $url);
                     } else {
-                        $messages['successes'][] = tr("Command '%0' found, it is installed and available.", $command);
+                        $messages['successes'][] = tr("URL '%0' found, it is reachable.", $url);
                     }
                 }
             }
@@ -2961,6 +3146,7 @@ if (! $standalone) {
         'status'  => tra($ocrStatus),
         'fitness_status' => $fitness_status,
         'message' => $ocrMessage,
+        'version' => '',
     );
 
     $ocrVersion = $ocr->getTesseractVersion();
@@ -3037,6 +3223,7 @@ if (! $standalone) {
         'status'  => tra($ocrStatus),
         'fitness_status' => $fitness_status,
         'message' => $ocrMessage,
+        'version' => '',
     );
 
 
@@ -3101,6 +3288,7 @@ if (! $standalone) {
         'status'  => tra($ocrStatus),
         'fitness_status' => $fitness_status,
         'message' => $ocrMessage,
+        'version' => '',
     );
 
     // check if scheduler is set up properly.
@@ -3113,6 +3301,7 @@ if (! $standalone) {
             'status'  => tra('good'),
             'fitness_status' => FITNESS_STATUS_GOOD,
             'message' => tra('Scheduler has been successfully setup.'),
+            'version' => '',
         );
     } else {
         $ocrToDisplay[] = array(
@@ -3120,6 +3309,7 @@ if (! $standalone) {
             'status'  => tra('bad'),
             'fitness_status' => FITNESS_STATUS_BAD,
             'message' => tra('Scheduler needs to have a console command of "ocr:all" set.'),
+            'version' => '',
         );
     }
 
@@ -3144,7 +3334,8 @@ if (! $standalone) {
             'name' => tr('PCRE backtrack_limit'),
             'status' => $status,
             'fitness_status' => $fitness_status,
-            'message' => $message
+            'message' => $message,
+            'version' => '',
         );
     }
 
@@ -3361,12 +3552,14 @@ if ($standalone || (! empty($prefs) && $prefs['fgal_enable_auto_indexing'] === '
             foreach ($options as $opt) {
                 $optArray = explode(' ', $opt, 2);
                 $exec = reset($optArray);
-                $which_exec = shell_exec("which $exec");
-                if ($which_exec) {
+                $process = Process::fromShellCommandline("which $exec");
+                $process->run();
+                $output = $process->getOutput();
+                if ($output) {
                     if ($file_handler['fitness_status'] == FITNESS_STATUS_INFO) {
-                        $file_handler['message'] .= tr(", otherwise handled by %0", $which_exec);
+                        $file_handler['message'] .= tr(", otherwise handled by %0", $output);
                     } else {
-                        $file_handler['message'] = tr("will be handled by %0", $which_exec);
+                        $file_handler['message'] = tr("will be handled by %0", $output);
                     }
                     $file_handler['fitness'] = tra('good');
                     $file_handler['fitness_status'] = FITNESS_STATUS_GOOD;
@@ -4796,7 +4989,7 @@ if ($standalone) {
         'OpenSSL' => $criptLib->getUserCryptDataStats('openssl'),
         'MCrypt' => $criptLib->getUserCryptDataStats('mcrypt'),
     ));
-    $ws_port = $prefs['realtime_port'] ? $prefs['realtime_port'] : '8080';
+    $ws_port = $prefs['realtime_port'] ? $prefs['realtime_port'] : $_SERVER['SERVER_PORT'] ?? '8080';
     $websocket_full_base_url = $prefs['realtime_full_base_url'] ?? '';
     if (! empty($websocket_full_base_url)) {
         $parts = parse_url($websocket_full_base_url);
@@ -4809,30 +5002,54 @@ if ($standalone) {
     } else {
         $ws_listening = false;
     }
+    $realtime_message = array(
+        'feature_enabled' => array(
+            'message_good' => tra('Feature is enabled.'),
+            'message_bad' => tra('Feature is disabled in Tiki admin.')
+        ),
+        'port_listening' => array(
+            'message_good' => tra('Server is listening on local system port ') . $ws_port . '.',
+            'message_bad' => tra('No server found listening on default port ') . $ws_port . tra('. Server might be running on a different port or not running at all.')
+        ),
+        'connectivity' => array(
+            'message_good' => tra('Connection to WS server established successfully.'),
+            'message_bad' => tra('Could not establish connection to WS server. Check if server is listening and web server proxy configured correctly.')
+        ),
+        'message_exchange' => array(
+            'message_good' => tra('Successfully exchanged messages with realtime server.'),
+            'message_bad' => tra('Could not exchange messages with realtime server. Check if server is running and configured correctly.')
+        ),
+    );
     $realtime = array(
         'feature_enabled' => array(
             'requirement' => tra('Feature enabled'),
             'status' => $prefs['feature_realtime'] === 'y' ? tra('good') : tra('bad'),
             'fitness_status' => $prefs['feature_realtime'] === 'y' ? FITNESS_STATUS_GOOD : FITNESS_STATUS_BAD,
-            'message' => $prefs['feature_realtime'] === 'y' ? tra('Feature is enabled.') : tra('Feature is disabled in Tiki admin.'),
+            'message' => $prefs['feature_realtime'] === 'y' ? $realtime_message['feature_enabled']['message_good'] : $realtime_message['feature_enabled']['message_bad'],
+            'message_good' => $realtime_message['feature_enabled']['message_good'],
+            'message_bad' => $realtime_message['feature_enabled']['message_bad'],
         ),
         'port_listening' => array(
             'requirement' => tra('Server listening'),
             'status' => $ws_listening ? tra('good') : tra('unsure'),
             'fitness_status' => $ws_listening ? FITNESS_STATUS_GOOD : FITNESS_STATUS_UNSURE,
-            'message' => $ws_listening ? tra('Server is listening on local system port ') . $ws_port . '.' : tra('No server found listening on default port ') . $ws_port . tra('. Server might be running on a different port or not running at all.'),
+            'message' => $ws_listening ? $realtime_message['port_listening']['message_good'] : $realtime_message['port_listening']['message_bad'],
+            'message_good' => $realtime_message['port_listening']['message_good'],
+            'message_bad' => $realtime_message['port_listening']['message_bad'],
         ),
         'connectivity' => array(
             'requirement' => tra('Connectivity'),
             'status' => 'js',
-            'message_good' => tra('Connection to WS server established successfully.'),
-            'message_bad' => tra('Could not establish connection to WS server. Check if server is listening and web server proxy configured correctly.'),
+            'message' => $ws_listening ? $realtime_message['connectivity']['message_good'] : $realtime_message['connectivity']['message_bad'],
+            'message_good' => $realtime_message['connectivity']['message_good'],
+            'message_bad' => $realtime_message['connectivity']['message_bad'],
         ),
         'message_exchange' => array(
             'requirement' => tra('Message exchange'),
             'status' => 'js',
-            'message_good' => tra('Successfully exchanged messages with realtime server.'),
-            'message_bad' => tra('Could not exchange messages with realtime server. Check if server is running and configured correctly.'),
+            'message' => $ws_listening ? $realtime_message['message_exchange']['message_good'] : $realtime_message['message_exchange']['message_bad'],
+            'message_good' => $realtime_message['message_exchange']['message_good'],
+            'message_bad' => $realtime_message['message_exchange']['message_bad'],
         )
     );
     $smarty->assign('realtime', $realtime);
@@ -4844,30 +5061,48 @@ if ($standalone) {
 
     $output = array();
     $locales = null;
-    if (function_exists('exec')) {
-        exec("locale -a 2>&1", $output, $returnCode);
-        // Verification of the return code.
-        if ($returnCode === 0) {
-            // The command was successfully executed, we filter it from the array.
-            if (is_array($output)) {
-                $locales = array_filter($output);
+    if (! $isUnix) {
+        // Get windows system information
+        $systemInfos = getWindowsSystemInfo();
+        if ($systemInfos['exit_code'] == 0) {
+            $output = array(
+                'Input Locale : ' . $systemInfos['system_info']['Input Locale'],
+                'System Locale : ' . $systemInfos['system_info']['System Locale']
+            );
+        }
+        $localProcess = Process::fromShellCommandline('chcp');
+        $localProcess->run();
+        $localOutput = $localProcess->getOutput();
+        $exitCode = $localProcess->getExitCode();
+        if ($exitCode == 0) {
+            $output [] = $localOutput;
+        }
+    } else {
+        $localProcess = Process::fromShellCommandline('locale -a');
+        $localProcess->run();
+        $output = $localProcess->getOutput();
+        $exitCode = $localProcess->getExitCode();
+    }
+
+    // Verification of the return code.
+    if ($exitCode === 0) {
+        // The command was successfully executed, we filter it from the array.
+        if (is_array($output)) {
+            $locales = array_filter($output);
+            sort($locales, SORT_STRING | SORT_FLAG_CASE);
+        } else {
+            if ($locales = preg_split("/\r\n|\r|\n/", $output)) {
+                $locales = array_filter($locales);
                 sort($locales, SORT_STRING | SORT_FLAG_CASE);
             } else {
-                if ($locales = preg_split("/\r ?\n/", $output)) {
-                    $locales = array_filter($locales);
-                    sort($locales, SORT_STRING | SORT_FLAG_CASE);
-                } else {
-                    $locales = tra("Unexpected result");
-                }
-            }
-        } else {
-            // The command failed, we take the error array, and convert it to a string to display to the user
-            foreach ($output as $errorLine) {
-                $locales .= "$errorLine\n";
+                $locales = tra("Unexpected result");
             }
         }
     } else {
-        $locales = tra("exec() function is disabled in PHP configuration");
+        // The command failed, we take the error array, and convert it to a string to display to the user
+        foreach ($output as $errorLine) {
+            $locales .= "$errorLine\n";
+        }
     }
 
     $smarty->assign('locales', $locales);
@@ -5266,23 +5501,21 @@ function checkPreferences(array $preferences)
 /**
  * Check if a given command can be located in the system
  *
- * @param $command
+ * @param ?string $command string command to checked
  * @return bool true if available, false if not.
  */
-function commandIsAvailable($command)
+function commandIsAvailable(?string $command): bool
 {
     if (str_starts_with(strtoupper(PHP_OS), 'WIN')) {
         $template = "where %s";
     } else {
         $template = "command -v %s 2>/dev/null";
     }
+    $process = Process::fromShellCommandline(sprintf($template, escapeshellarg($command)));
+    $process->run();
+    $exitCode = $process->getExitCode();
 
-    $returnCode = '';
-    if (function_exists('exec')) {
-        exec(sprintf($template, escapeshellarg($command)), $output, $returnCode);
-    }
-
-    return $returnCode === 0;
+    return $exitCode === 0;
 }
 
 /**
@@ -5303,6 +5536,8 @@ function urlIsAvailable($url)
  * Script to benchmark PHP and MySQL
  * @see https://github.com/odan/benchmark-php
  */
+
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
 class BenchmarkPhp
 {
     /**
