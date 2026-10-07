@@ -230,7 +230,7 @@ class UserWizardPreferencesParams extends Wizard
         } else {
             $tikilib->set_user_preference($userwatch, 'diff_versions', 'n');
         }
-        $email_isPublic = $_REQUEST['email_isPublic'] ?? 'n';
+        $email_isPublic = ($_REQUEST['email_isPublic'] ?? 'n') === 'y' ? 'y' : 'n';
         $tikilib->set_user_preference($userwatch, 'email is public', $email_isPublic);
         $tikilib->set_user_preference($userwatch, 'mailCharset', $_REQUEST['mailCharset']);
         //// Custom fields
