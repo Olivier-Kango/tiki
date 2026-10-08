@@ -168,6 +168,8 @@ td.url{
 
                     td {
                         display: block;
+                        // cancel column widths set on the cell (e.g. {SPLIT}'s width="33%") so each stacked cell uses the full width
+                        width: auto;
                         padding: 0.25rem 0.75rem 0.5rem;
                         border-top: none;
                         text-align: left !important;
