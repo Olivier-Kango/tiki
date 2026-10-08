@@ -93,6 +93,107 @@ class DiffTest extends TikiTestCase
         ];
     }
 
+    /**
+     * @dataProvider providerDiffChar
+     *
+     * @param $orig
+     * @param $final
+     * @param $words
+     * @param $expected
+     */
+    public function testDiffChar($orig, $final, $words, $expected): void
+    {
+        $result = DiffUtils::diffChar($orig, $final, $words);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public static function providerDiffChar(): array
+    {
+        return [
+            'zeros in unchanged text' => [
+                ['Released in 2020'],
+                ['Released in March 2020'],
+                0,
+                [
+                    'Released in 2020',
+                    'Released in<ins class="diffchar inserted"><strong> March</strong></ins> 2020',
+                ],
+            ],
+            'zero added' => [
+                ['Tiki 2.1'],
+                ['Tiki 2.10'],
+                0,
+                [
+                    'Tiki 2.1',
+                    'Tiki 2.1<ins class="diffchar inserted"><strong>0</strong></ins>',
+                ],
+            ],
+            'zero removed' => [
+                ['Tiki 2.10'],
+                ['Tiki 2.1'],
+                0,
+                [
+                    'Tiki 2.1<del class="diffchar deleted"><strong>0</strong></del>',
+                    'Tiki 2.1',
+                ],
+            ],
+            'line containing only a zero' => [
+                ['0'],
+                ['10'],
+                0,
+                [
+                    '0',
+                    '<ins class="diffchar inserted"><strong>1</strong></ins>0',
+                ],
+            ],
+            'line breaks between words' => [
+                ['one two', 'three'],
+                ['one two', 'four'],
+                1,
+                [
+                    'one two<br><del class="diffchar deleted"><strong>three</strong></del>',
+                    'one two<br><ins class="diffchar inserted"><strong>four</strong></ins>',
+                ],
+            ],
+        ];
+    }
+
+    public function testUnidiffKeepsZerosInChangedLines(): void
+    {
+        $result = DiffUtils::diff2(
+            "Tiki 31.0 is planned for October 2026
+
+It is a Standard Term Support (STS) version.",
+            "Tiki 31.0 is planned for --October 2026-- December 2026
+
+It is a Standard Term Support (STS) version.",
+            'unidiff'
+        );
+
+        $expected = [
+            [
+                'type' => 'diffheader',
+                'old' => '1-3',
+                'new' => '1-3',
+            ],
+            [
+                'type' => 'diffdeleted',
+                'data' => ['Tiki 31.0 is planned for October 2026'],
+            ],
+            [
+                'type' => 'diffadded',
+                'data' => ['Tiki 31.0 is planned for <ins class="diffchar inserted"><strong>--</strong></ins>Octo<ins class="diffchar inserted"><strong>ber 2026-- Decem</strong></ins>ber 2026'],
+            ],
+            [
+                'type' => 'diffbody',
+                'data' => ['', 'It is a Standard Term Support (STS) version.'],
+            ],
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
+
     protected static function loadAndParseFile($file)
     {
         $parserLib = TikiLib::lib('parser');
