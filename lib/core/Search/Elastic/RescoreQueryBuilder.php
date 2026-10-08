@@ -130,6 +130,10 @@ class Search_Elastic_RescoreQueryBuilder
 
     private function getTerm($node)
     {
+        if (! method_exists($node, 'getValue')) {
+            return '';
+        }
+
         $value = $node->getValue($this->factory);
         $value = $value->getValue();
         if (is_array($value)) {

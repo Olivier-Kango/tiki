@@ -60,6 +60,36 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
         );
     }
 
+    public function testEmptyImplicitPhrase()
+    {
+        $builder = new QueryBuilder();
+
+        $query = $builder->build(
+            new AndX(
+                [
+                    new ImplicitPhrase(
+                        [
+                            new Token('', 'plaintext', 'tracker_field_category', 1.0),
+                        ]
+                    ),
+                    new Token('Hello', 'plaintext', 'contents', 1.5),
+                ]
+            )
+        );
+
+        $this->assertEquals(
+            [
+                ["match_phrase" => [
+                    "tracker_field_category" => ["query" => "", "boost" => 1.0, 'slop' => 50],
+                ]],
+                ["match_phrase" => [
+                    "contents" => ["query" => "hello", "boost" => 1.5, 'slop' => 50],
+                ]],
+            ],
+            $query['rescore']['query']['rescore_query']['bool']['should']
+        );
+    }
+
     public function testBuildImplicitQuery()
     {
         $builder = new QueryBuilder();
