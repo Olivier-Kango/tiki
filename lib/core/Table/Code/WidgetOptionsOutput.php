@@ -32,12 +32,29 @@ class Table_Code_WidgetOptionsOutput extends Table_Code_WidgetOptions
                     if (isset(parent::$s['output']['button']['id'])) {
                         $m[] = $pre . $key . ' : "button#' . parent::$s['output']['button']['id'] . '"';
                     }
-                } elseif (! is_numeric($key)) {
+                } elseif ($key !== 'callback' && strcasecmp((string) $key, 'utf8bom') !== 0 && ! is_numeric($key)) {
                     $m[] = $pre . $key . ' : "' . $val . '"';
                 }
+            }
+
+            if ($this->utf8BomRequested()) {
+                $m[] = $pre . 'callback : function(config, data){return \'\\uFEFF\' + data;}';
             }
         }
 
         return $m;
+    }
+
+    /**
+     * tsoutput="...;utf8bom:y" requests a UTF-8 BOM on CSV download.
+     */
+    private function utf8BomRequested()
+    {
+        foreach (parent::$s['output'] as $key => $val) {
+            if (is_string($key) && strcasecmp($key, 'utf8bom') === 0) {
+                return $val === true || strtolower((string) $val) === 'y';
+            }
+        }
+        return false;
     }
 }
