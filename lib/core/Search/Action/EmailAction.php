@@ -95,14 +95,15 @@ class Search_Action_EmailAction implements Search_Action_Action
             $mail->setHtml($content);
 
             if (! empty($data->pdf_page_attachment->text())) {
-                $pageName = $data->pdf_page_attachment->text();
-                $fileName = $pageName . ".pdf";
-                $pdfContent = $this->getPDFAttachment($pageName);
+                $pageNames = preg_split('/\s*,\s*/', trim($data->pdf_page_attachment->text()));
+                foreach (array_filter($pageNames) as $pageName) {
+                    $pdfContent = $this->getPDFAttachment($pageName, $data);
 
-                if ($pdfContent) {
-                    $mail->addAttachment($pdfContent, $fileName, 'application/pdf');
-                } else {
-                    return false;
+                    if ($pdfContent) {
+                        $mail->addAttachment($pdfContent, $pageName . '.pdf', 'application/pdf');
+                    } else {
+                        return false;
+                    }
                 }
             }
 
@@ -313,11 +314,13 @@ class Search_Action_EmailAction implements Search_Action_Action
         }
     }
 
-    private function getPDFAttachment($pageName)
+    private function getPDFAttachment($pageName, ?JitFilter $data = null)
     {
         if (! Perms::get('wiki page', $pageName)->view) {
             return [];
         }
+
+        $restore = $this->applyItemContext($data);
 
         try {
             $exporter = new \Tiki\PagePdfExporter();
@@ -327,7 +330,40 @@ class Search_Action_EmailAction implements Search_Action_Action
         } catch (\Exception $e) {
             Feedback::error($e->getMessage());
             return false;
+        } finally {
+            $restore();
         }
+    }
+
+    /**
+     * Expose the acted-on tracker item as itemId in the request, and return a
+     * closure putting the previous values back.
+     */
+    private function applyItemContext(?JitFilter $data): callable
+    {
+        $itemId = $data && $data->object_type->text() === 'trackeritem' ? $data->object_id->int() : 0;
+        if (! $itemId) {
+            return function () {
+            };
+        }
+
+        $previous = [
+            'get' => $_GET['itemId'] ?? null,
+            'request' => $_REQUEST['itemId'] ?? null,
+        ];
+
+        $_GET['itemId'] = $itemId;
+        $_REQUEST['itemId'] = $itemId;
+
+        return function () use ($previous) {
+            foreach (['get' => '_GET', 'request' => '_REQUEST'] as $key => $global) {
+                if ($previous[$key] === null) {
+                    unset($GLOBALS[$global]['itemId']);
+                } else {
+                    $GLOBALS[$global]['itemId'] = $previous[$key];
+                }
+            }
+        };
     }
 
     private function getFileAttachment($fileId)
