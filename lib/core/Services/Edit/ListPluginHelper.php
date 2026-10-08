@@ -355,6 +355,9 @@ class Services_Edit_ListPluginHelper
                             'downloadable' => [
                                 'type' => 'text',
                             ],
+                            'downloadable-utf8bom' => [
+                                'type' => 'checkbox',
+                            ],
                         ],
                     ],
                     'wiki' => [

@@ -206,7 +206,11 @@ class PluginsLibUtil
             $offset += 100;
         } while ($offset < $result->count());
 
-        header('Content-Type: text/csv; charset=utf8');
+        if ($builder->getDownloadUtf8Bom() && ! str_starts_with($output, "\xEF\xBB\xBF")) {
+            $output = "\xEF\xBB\xBF" . $output;
+        }
+
+        header('Content-Type: text/csv; charset=utf-8');
         header("Content-Disposition: attachment; filename=$filename");
         echo $output;
         exit();
