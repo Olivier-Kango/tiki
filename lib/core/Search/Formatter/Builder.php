@@ -28,6 +28,7 @@ class Search_Formatter_Builder
     private $additionalOutputData;
     private $isDownload;
     private $downloadName;
+    private $downloadUtf8Bom = false;
     public function __construct()
     {
         $this->parser = new WikiParser_PluginArgumentParser();
@@ -294,6 +295,8 @@ class Search_Formatter_Builder
                     } else {    // Default is link at the bottom for compatibility
                         $outputData['downloadablebottom'] = 'y';
                     }
+                    $bom = $arguments['downloadable-utf8bom'] ?? '';
+                    $this->downloadUtf8Bom = strtolower((string) $bom) === 'y';
                 }
                 if ($this->isDownload) {
                     $this->formatterPlugin = new Search_Formatter_Plugin_CsvTemplate($output->getBody());
@@ -436,5 +439,10 @@ class Search_Formatter_Builder
     public function getDownloadName()
     {
         return $this->downloadName;
+    }
+
+    public function getDownloadUtf8Bom()
+    {
+        return $this->downloadUtf8Bom;
     }
 }

@@ -269,7 +269,13 @@ class Table_Plugin
                         '<code>',
                         '</code>'
                     ) .
-                    '<code>delivery:d;saveFileName:exported_teblesorter.csv</code>',
+                    '<code>delivery:d;saveFileName:exported_teblesorter.csv</code>' .
+                    ' ' .
+                    tr(
+                        'Add %0utf8bom:y%1 to prepend a UTF-8 byte order mark so Excel opens the CSV as UTF-8.',
+                        '<code>',
+                        '</code>'
+                    ),
                 'since' => '24.5',
                 'doctype' => 'tablesorter',
                 'default' => '',
