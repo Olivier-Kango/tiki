@@ -25,6 +25,7 @@
                     <h4 class="modal-title" id="intertransModalLabel">
                         {tr}Interactive Translation{/tr}
                     </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{tr}Close{/tr}"></button>
                 </div>
                 <div class="modal-body mb-3 row" id="intertrans-table">
                     <table class="table table-condensed table-hover">
