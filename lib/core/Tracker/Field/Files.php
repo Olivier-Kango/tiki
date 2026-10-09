@@ -650,7 +650,7 @@ class Tracker_Field_Files extends \Tracker\Field\AbstractItemField implements \T
                     } else {
                         $dataAttributes = [];
 
-                        if ($file['filetype'] === 'text/plain') {
+                        if (strpos($file['filetype'], 'text/') !== false) {
                             $dataAttributes[] = 'data-is-text="1"';
                         }
 
