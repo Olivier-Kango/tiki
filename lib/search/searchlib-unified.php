@@ -1746,8 +1746,8 @@ class UnifiedSearchLib
 
         if (isset($types['structure'])) {
             $structlib = TikiLib::lib('struct');
-            $structures = $structlib->list_structures(0, 1, 'last_modified_desc');
-            if (! empty($structures['data'][0]['last_modified']) && $structures['data'][0]['last_modified'] > $threshold) {
+            $structures = $structlib->list_structures(0, 1, 'lastModif_desc');
+            if (! empty($structures['data'][0]['lastModif']) && $structures['data'][0]['lastModif'] > $threshold) {
                 return true;
             }
         }
