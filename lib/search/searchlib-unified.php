@@ -1644,7 +1644,7 @@ class UnifiedSearchLib
         $tikilib = TikiLib::lib('tiki');
 
         $last_rebuild = $tikilib->get_preference('unified_last_rebuild_' . $prefs['unified_engine']);
-        $threshold = strtotime('+ ' . $prefs['search_index_outdated'] . ' days', $last_rebuild);
+        $threshold = strtotime('+ ' . $prefs['search_index_outdated'] . ' days', (int) $last_rebuild);
 
         $types = $this->getSupportedTypes();
 
