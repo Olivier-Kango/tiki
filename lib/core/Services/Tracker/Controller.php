@@ -2479,6 +2479,8 @@ class Services_Tracker_Controller
                     $field_value = $field_option[$hist['fieldId']];
                     if (! empty($field_value['fieldId']) && $field_value['fieldId'] > 0 && empty($field_value['isDeletedField'])) {
                         $emptyTemplate = TikiLib::lib('smarty')->getEmptyInternalTemplate();
+                        // date history values are formatted text, not field values
+                        $process = in_array($field_value['type'], ['f', 'j']) ? 'n' : 'y';
                         if (empty($diff_style)) {
                             $field_value['value'] = $hist['value'];
                             $hist['rendered_value'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
@@ -2486,7 +2488,7 @@ class Services_Tracker_Controller
                                 'list_mode' => 'csv',
                                 'history' => 'y',
                                 'item' => $item_info,
-                                'process' => 'y',
+                                'process' => $process,
                             ], $emptyTemplate);
                             $field_value['value'] = $hist['new'];
                             $hist['rendered_new'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
@@ -2494,7 +2496,7 @@ class Services_Tracker_Controller
                                 'list_mode' => 'csv',
                                 'history' => 'y',
                                 'item' => $item_info,
-                                'process' => 'y',
+                                'process' => $process,
                             ], $emptyTemplate);
 
                             if (TIKI_API) {
@@ -2506,7 +2508,7 @@ class Services_Tracker_Controller
                                     'list_mode' => 'y',
                                     'history' => 'y',
                                     'item' => $item_info,
-                                    'process' => 'y',
+                                    'process' => $process,
                                 ], $emptyTemplate);
                                 $field_value['value'] = $hist['new'];
                                 $hist['rendered_new'] = \SmartyTiki\FunctionHandler\TrackerOutput::render([
@@ -2514,7 +2516,7 @@ class Services_Tracker_Controller
                                     'list_mode' => 'y',
                                     'history' => 'y',
                                     'item' => $item_info,
-                                    'process' => 'y',
+                                    'process' => $process,
                                 ], $emptyTemplate);
                             }
                         } else {
@@ -2524,7 +2526,7 @@ class Services_Tracker_Controller
                                 'list_mode' => 'y',
                                 'history' => 'y',
                                 'item' => $item_info,
-                                'process' => 'y',
+                                'process' => $process,
                                 'oldValue' => $hist['value'],
                                 'diff_style' => $diff_style,
                             ], $emptyTemplate);
