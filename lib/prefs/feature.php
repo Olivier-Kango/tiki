@@ -644,7 +644,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_htmlpurifier_output' => [
             'name' => tra('Output should be HTML purified'),
-            'description' => tra('This activates HTML Purifier on wiki content and other outputs, to filter out potential security problems like XSS code. Keep in mind that HTML Purifier is not HTML5 compatible and may rewrite HTML5 syntax, producing unwanted results.'),
+            'description' => tra('This activates HTML Purifier on wiki content and other outputs, to filter out potential security problems like XSS code.'),
             'help' => $purifierHelp,
             'hint' => tr('If you are trying to use HTML in your pages and it gets stripped out, you should make sure your HTML is valid or de-activate this feature.'),
             'tags' => ['experimental'],
@@ -698,8 +698,8 @@ function prefs_feature_list($partial = false)
         ],
         'feature_purifier' => [
             'name' => tra('HTML purifier'),
-            'description' => tra("HTML Purifier is a standards-compliant HTML filter library written in PHP and integrated in Tiki. HTML Purifier will not only remove all malicious code (better known as XSS) with a thoroughly audited, secure yet permissive whitelist, it will also ensure that your documents are standards-compliant. Keep in mind that HTML Purifier is not HTML5 compatible and may rewrite HTML5 syntax and produce unwanted results."),
-            'hint' => tra('If you use HTML in your wiki page and it gets stripped out or rewritten, make sure your HTML is valid, or de-activate this feature.  Keep in mind that HTML Purifier is not HTML5 compatible and may rewrite HTML5 syntax and produce unwanted results.'),
+            'description' => tra("HTML Purifier is a standards-compliant HTML filter library written in PHP and integrated in Tiki. HTML Purifier will not only remove all malicious code (better known as XSS) with a thoroughly audited, secure yet permissive whitelist, it will also ensure that your documents are standards-compliant."),
+            'hint' => tra('If you use HTML in your wiki page and it gets stripped out or rewritten, make sure your HTML is valid, or de-activate this feature.'),
             'help' => $purifierHelp,
             'type' => 'flag',
             'perspective' => false,

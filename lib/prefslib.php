@@ -10,7 +10,6 @@ use Tiki\Config\Config;
 class PreferencesLib
 {
     private const DEFAULT_HIDDEN_PREFERENCES = [
-        'feature_purifier',
         'smarty_security_dirs',
         'smarty_security_allowed_tags',
         'smarty_security_disabled_tags',

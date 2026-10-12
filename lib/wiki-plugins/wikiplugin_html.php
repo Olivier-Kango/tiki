@@ -44,6 +44,18 @@ function wikiplugin_html_info()
                 'filter' => 'digits',
                 'default' => '0',
             ],
+            'purify' => [
+                'required' => false,
+                'name' => tra('Purify HTML'),
+                'description' => tra('Optionally run this HTML through HTML Purifier. Off by default so PluginHTML remains usable for custom scripts, CSS, and attributes. Enable to clean malformed markup; may strip tags or attributes outside the whitelist. Security for unsafe HTML still relies on plugin approval.'),
+                'since' => '31.0',
+                'filter' => 'alpha',
+                'default' => 'n',
+                'options' => [
+                    ['text' => tra('No'), 'value' => 'n'],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                ],
+            ],
         ],
     ];
 }
@@ -59,7 +71,12 @@ function wikiplugin_html($data, $params)
     } else {
         $html  = html_entity_decode($html, ENT_NOQUOTES, 'UTF-8');
     }
-    // exit($html);
+
+    // Opt-in only: keep PluginHTML as the escape hatch for custom markup.
+    if (($params['purify'] ?? 'n') === 'y') {
+        $html = TikiFilter::get('html')->filter($html);
+    }
+
     if ($params['tohead'] == 1) {
         // Insert in HTML head rather than in body
         TikiLib::lib('header')->add_rawhtml($html);
