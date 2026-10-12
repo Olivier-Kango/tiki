@@ -24,6 +24,7 @@ const vueLifecycles = singleSpaVue({
     },
     handleInstance: (app) => {
         app.config.idPrefix = "toolbar-dialogs";
+        app.config.globalProperties.translate = window.tr;
         if (import.meta.env.MODE === "development") {
             // eslint-disable-next-line no-console
             console.log(import.meta.env);

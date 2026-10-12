@@ -21,8 +21,6 @@ const toolbarObject = computed(() => props.toolbarObject);
 const isElementPlusAutocompleteActive = ref(!!window.elementPlus?.autocomplete)
 const autoCompleteResources = getAutocompleteResources('pagename');
 
-const translate = window.tr;
-
 onMounted(() => {
     _shown();
     $(toolbarObject.value.modalElement)
@@ -31,7 +29,6 @@ onMounted(() => {
 });
 
 function _shown() {
-
     const textArea = document.getElementById(toolbarObject.value.domElementId);
     const selection = getTASelection(textArea);
 
@@ -89,8 +86,14 @@ defineExpose({ execute: _insert, shown: _shown });
     />
     <DialogInput v-model="pageInput" label="Page" class="mb-2" v-else />
     <div class="input-group input-group-sm">
-        <DialogInput v-model="relationInput" label="Semantic Relation" />
-        <span class="input-group-text" data-bs-toggle="tooltip" title="Going beyond Backlinks functionality, this allows some semantic relationships to be defined between wiki pages.">
+        <input
+            v-model="relationInput"
+            class="form-control form-control-sm"
+            type="text"
+            :placeholder="translate('Semantic Relation')"
+        />
+        <span class="input-group-text" data-bs-toggle="tooltip"
+            :title="translate('Going beyond Backlinks functionality, this allows some semantic relationships to be defined between wiki pages.')">
             <span class="fa fa-circle-info"></span>
         </span>
     </div>
