@@ -5407,6 +5407,7 @@ class TrackerLib extends TikiLib
                 $hist['isDeletedField'] = true;
             } else {
                 $hist['fieldName'] = $trackerFields[$historyFieldId]['name'];
+                $hist['fieldType'] = $trackerFields[$historyFieldId]['type'];
             }
             $history['data'][] = $hist;
         }

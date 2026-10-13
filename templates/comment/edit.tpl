@@ -42,7 +42,7 @@
                                             <label>{$info.fieldName}</label>: {$info.value|escape}{if empty($info.newValueUnavailable)} -> {$info.new|escape}{/if}
                                         {else}
                                             <label>{$info.fieldName}</label> {*{$info.value} => {$info.new}<br>*}
-                                            {trackeroutput fieldId=$info.fieldId list_mode='y' history=y process=y oldValue=$info.value value=$info.new diff_style='sidediff'}
+                                            {trackeroutput fieldId=$info.fieldId list_mode='y' history=y process=(($info.fieldType == 'f' || $info.fieldType == 'j') ? 'n' : 'y') oldValue=$info.value value=$info.new diff_style='sidediff'}
                                         {/if}
                                     {/foreach}
                                 </div>

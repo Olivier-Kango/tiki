@@ -248,6 +248,15 @@ class Tracker_Field_DateTime extends \Tracker\Field\AbstractItemField implements
         }
     }
 
+    public function renderDiff($context = [])
+    {
+        if (! empty($context['oldValue']) && ! is_numeric($context['oldValue'])) {
+            $context['renderedOldValue'] = $context['oldValue'];
+        }
+
+        return parent::renderDiff($context);
+    }
+
     public function watchCompare($old, $new)
     {
         global $prefs;

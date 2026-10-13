@@ -110,7 +110,10 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
                 $this->validateTimestamp($value);
 
                 // Guard skips values already at UTC midnight. Only normalize when the value comes from a form submission, never from stored data.
-                if ($valueFromRequest && $this->getOption('datetime') === 'd' && is_numeric($value) && (int) $value % 86400 !== 0) {
+                if (
+                    $valueFromRequest && $this->getOption('datetime') === 'd' && is_numeric($value)
+                    && (int) $value % 86400 !== 0 && (string) $value !== (string) $this->getValue()
+                ) {
                     // Normalize to midnight UTC, mirroring DateTime handler (see DateTime::getFieldData).
                     $timezone = $requestData[$ins_id . '_timezone'] ?? TikiLib::lib('tiki')->get_display_timezone();
                     $server_offset = TikiDate::tzServerOffset($timezone, (int) $value);
