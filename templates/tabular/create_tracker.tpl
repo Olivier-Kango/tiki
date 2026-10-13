@@ -232,15 +232,8 @@
 
 
                 reader.onload = function (e) {
-                    if (delimiter == ';') {
-                        var rows = Plotly.d3.dsv(';').parse(e.target.result);
-                    } else if (delimiter == '\t') {
-                        var rows = Plotly.d3.dsv('\t').parse(e.target.result);
-                    } else {
-                        var rows = Plotly.d3.dsv(',').parse(e.target.result);
-                    }
-                    
-                    var columns = Object.keys(rows[0]);
+                    // parseRows: first row is the header (works even when the file has no data rows).
+                    var columns = d3.dsvFormat(delimiter).parseRows(e.target.result)[0] || [];
 
                     for(i = 0; i < columns.length; i++) {
                         var $elem = $('#row-template').clone();

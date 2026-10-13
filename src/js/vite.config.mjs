@@ -443,6 +443,11 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
                     {
+                        src: "node_modules/d3/dist/d3.min.js",
+                        dest: "vendor_dist/d3/dist",
+                        rename: { stripBase: 3 },
+                    },
+                    {
                         src: ["node_modules/d3-milestones/build/d3-milestones.css", "node_modules/d3-milestones/build/d3-milestones.min.js"],
                         dest: "vendor_dist/d3-milestones/build",
                         rename: { stripBase: 3 },

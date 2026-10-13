@@ -100,6 +100,7 @@
         "husky" : "^9.1.7",
         "npm-run-all2" : "^9.0.3",
         "patch-package" : "^8.0.1",
+        "plotly.js" : "^4.1.2",
         "prettier" : "^3.9.6",
         "rollup-plugin-visualizer" : "^7.1.1",
         "tinyglobby" : "^0.2.17",
@@ -121,6 +122,7 @@
         "eslint-plugin-vue" : "",
         "happy-dom" : "https://github.com/capricorn86/happy-dom/releases",
         "npm-run-all2" : "Used to parallelize npm build operations.  https://github.com/bcomnes/npm-run-all2/blob/master/CHANGELOG.md",
+        "plotly.js" : "Also declared in common-externals. Root pin forces hoist to node_modules/plotly.js (viteStaticCopy path) despite d3 version conflicts with mermaid; without it npm nests under src/js/common-externals/node_modules. 4.1.2+ pulls patched maplibre-gl (GHSA-jrc7-96c5-q579) without an override.",
         "prettier" : "",
         "sass" : "https://github.com/sass/dart-sass/blob/main/CHANGELOG.md",
         "tinyglobby" : "Only used directly in vite.config.mjs.  Migrated from glob to align with vite and avoid problem with bad engine specifier in glob that skipped node 21.  https://github.com/SuperchupuDev/tinyglobby/blob/main/CHANGELOG.md",
@@ -131,10 +133,11 @@
         "vitest" : "https://github.com/vitest-dev/vitest/releases"
     },
     "overrides" : {
-        "dompurify" : "3.4.12",
-        "devalue" : "5.8.1",
+        "dompurify" : "3.4.15",
+        "devalue" : "5.9.1",
         "glob" : "10.5.0",
         "jspdf" : "4.2.1",
+        "@dicebear/initials" : "9.4.3",
         "svelte" : "5.51.0",
         "svgedit" : {
             "jspdf" : "4.2.1"
@@ -154,13 +157,13 @@
             "Scoped to timeago deliberately: a global jquery override makes npm nest jquery-migrate and jquery-validation under src/js/common-externals/node_modules, breaking the paths viteStaticCopy copies from."
         ],
         "dompurify": [
-            "This override forces all packages to use DOMPurify v3.4.12 to fix security issues present in DOMPurify v2.x and patched releases in the v3 line.",
+            "This override forces all packages to use DOMPurify v3.4.15 to fix security issues present in DOMPurify v2.x and patched releases in the v3 line (including GHSA-55q2-fjhq-7xh7 on <=3.4.12).",
             "Upgrading from v2 to v3 is safe for our project because we do not support Internet Explorer (IE).",
             "As noted by Victor Buzinaro in https://github.com/cure53/DOMPurify/issues/785, the only breaking change introduced in v3 is the removal of IE-specific support.",
             "After reviewing the changes between versions 2.5.8 and 3.3.0 (https://github.com/cure53/DOMPurify/compare/2.5.8...3.3.0), we confirmed there are no functional breaking changes that affect our usage.",
             "Toast UI Editor currently depends on DOMPurify v2.x, but its DOMPurify integration",
             "(introduced in https://github.com/nhn/tui.editor/commit/6e5730914902071b54c529673e964a24b58e3eec#diff-e70b3ac7e7e963527907ae78c682a077c1b87015783bdcb150084e023ce17528) is compatible with v3.",
-            "For this reason, enforcing DOMPurify v3.4.x is safe for us. Pinned to 3.4.12 for npm audit advisories. Remove this override when upstream packages pin a secure DOMPurify without conflicts."
+            "For this reason, enforcing DOMPurify v3.4.x is safe for us. Pinned to 3.4.15 for npm audit advisories. Remove this override when upstream packages pin a secure DOMPurify without conflicts."
         ],
         "glob": [
             "copy-and-watch pins glob 10.3.12 (vulnerable CLI <=10.4.5). Override to 10.5.0; Tiki uses glob programmatically, not the CLI -c/--cmd flag."
@@ -168,12 +171,13 @@
         "jspdf": [
             "npm audit flagged jspdf <= 4.2.0 (critical). Pin 4.2.1 so the root install and svgedit (nested 4.0.0) resolve to a patched release."
         ],
+        "@dicebear/initials": ["Force 9.4.3 for GHSA-gcr2-9v8m-gq45 (SVG injection). collection 9.4.2 still pulls initials <=9.4.2. Remove when collection pins >=9.4.3."],
         "postcss": [
             "vue3-sfc-loader -> @vue/component-compiler-utils still pulls PostCSS 7.0.x (npm audit range <=8.5.17: parsing/XSS/sourceMappingURL issues).",
             "Force PostCSS 8.5.26 everywhere (already used by Vite). Remove when upstream stops depending on PostCSS 7."
         ],
         "svelte": [
-            "Svelte is pinned to 5.51.0 (and devalue to 5.8.1) for @event-calendar/core 4.x compatibility: Svelte >= 5.51.1 breaks calendar interactions (https://github.com/vkurko/calendar/issues/623). devalue is overridden separately so we can take the npm audit fix without upgrading Svelte. Upgrade path: @event-calendar/core 5.4.1+ then remove both svelte and devalue overrides."
+            "Svelte is pinned to 5.51.0 for @event-calendar/core 4.x compatibility: Svelte >= 5.51.1 breaks calendar interactions (https://github.com/vkurko/calendar/issues/623). devalue is overridden separately to 5.9.1 for GHSA-9rgm-9g3h-6x36 without upgrading Svelte. Upgrade path: @event-calendar/core 5.4.1+ then remove both svelte and devalue overrides."
         ]
     },
     "workspaces": [

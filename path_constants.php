@@ -208,6 +208,7 @@ const FONTAWESOME_WEBFONTS_PATH = 'public/generated/js/vendor_dist/@fortawesome/
 
 const OL_PATH = 'public/generated/js/vendor_dist/ol'; // 'ol' was formerly called 'openlayers'
 const OL_LAYERSWITCHER_DIST_PATH = 'public/generated/js/vendor_dist/ol-layerswitcher/dist';
+const D3_DIST_PATH = 'public/generated/js/vendor_dist/d3/dist';
 const PIVOTTABLE_DIST_PATH = 'vendor_bundled/vendor/nicolaskruchten/pivottable/dist';
 const PLOTLYJS_DIST_PATH = 'public/generated/js/vendor_dist/plotly.js/dist';
 const REVEALJS_DIST_PATH = 'public/generated/js/vendor_dist/reveal.js/dist';
