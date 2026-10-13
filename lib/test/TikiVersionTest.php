@@ -249,6 +249,28 @@ class TikiVersionTest extends PHPUnit\Framework\TestCase
         $this->assertSame('note', $response[0]->getType());
     }
 
+    public function testGitVersionAheadOfLatestReleaseDoesNotTriggerUpgradeNotice()
+    {
+        global $TWV;
+        $TWV->branch = 'stable';
+
+        $checker = new Tiki_Version_Checker();
+        $checker->setCycle('regular');
+        $checker->setVersion('30.2vcs');
+
+        $response = $checker->check(
+            function () {
+                return <<<O
+                        30.1
+                        27.8
+                        24.15
+                        O;
+            }
+        );
+
+        $this->assertSame([], $response);
+    }
+
     public function testTrunkBranchShowsDevelopmentVersionWarningForVcsVersion()
     {
         global $TWV;

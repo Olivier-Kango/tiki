@@ -46,8 +46,12 @@ class Tiki_Version_Checker
             }
         }
         if ($latestOverall && $latestOverall !== $branchupdate && (! $isVcsVersion || $this->isDevelopmentBranch($TWV) || ! $this->isSameBaseVersion($latestOverall))) {
-            // If current is unstable OR max is a stable upgrade to current
-            if (! $this->version->isStable() || $latestOverall->isStableUpgradeTo($this->version)) {
+            // Show notices for actual stable upgrades and for development versions,
+            // except non-trunk VCS checkouts when the latest stable release is older.
+            if (
+                $latestOverall->isStableUpgradeTo($this->version)
+                || (! $this->version->isStable() && (! $isVcsVersion || $this->isDevelopmentBranch($TWV)))
+            ) {
                 $fromVersion = $this->isSupportedInCycle ? $supportedInBranch : $this->version;
                 $messageType = ($this->isSupportedInCycle || ! $this->version->isStable()) ? 'note' : 'error';
 
