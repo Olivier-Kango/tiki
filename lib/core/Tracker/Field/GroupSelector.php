@@ -122,10 +122,12 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
         $defGroup = $group;
         $userGroups = $usersLib->get_user_groups_inclusion($user);
         $perms = Perms::get('tracker', $this->getConfiguration('trackerId'));
+        // Tracker admins must be able to reassign an item to any group: ignore "User Groups" for them
+        $isTrackerAdmin = (bool) $perms->admin_trackers;
 
         $groupId = $this->getOption('groupId');
         if (empty($groupId)) {
-            if ($this->getOption('userGroups')) {
+            if ($this->getOption('userGroups') && ! $isTrackerAdmin) {
                 $data['list'] = array_keys($userGroups);
                 sort($data['list']);
             } else {
@@ -188,6 +190,14 @@ class Tracker_Field_GroupSelector extends \Tracker\Field\AbstractItemField imple
                     }
                 }
             }
+        }
+
+        // Edit mode: the stored value must stay selectable even if the current user's
+        // filtered list ("User Groups" / "Group Filter") does not contain it, otherwise the
+        // dropdown shows "None" and saving without changes empties the field.
+        $storedValue = $this->getItemId() ? (string) $this->getValue() : '';
+        if ($storedValue !== '' && ! in_array($storedValue, $data['list'])) {
+            $data['list'][] = $storedValue;
         }
 
         if (isset($requestData[$ins_id])) {
