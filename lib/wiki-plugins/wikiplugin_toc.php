@@ -137,7 +137,10 @@ function wikiplugin_toc($data, $params)
 
     if ($type === 'admin') {
         TikiLib::lib('header')
-                ->add_jsfile('lib/structures/tiki-edit_structure.js');
+                ->add_js_module('import "@jquery-tiki/tiki-edit_structure";');
+        // tiki-edit_structure.js only manages trees inside .structure-container, as on tiki-edit_structure.php
+        $containerStart = '<div class="structure-container">';
+        $containerEnd = '</div>';
 
         $smarty = TikiLib::lib('smarty');
         $button = \SmartyTiki\FunctionHandler\Button::render(
@@ -152,6 +155,8 @@ function wikiplugin_toc($data, $params)
         );
     } else {
         $button = '';
+        $containerStart = '';
+        $containerEnd = '';
     }
 
     if (empty($structId)) {
@@ -169,7 +174,7 @@ function wikiplugin_toc($data, $params)
                     return WikiParser_PluginOutput::error(tr('Error'), tr('Unable to retrieve information for page id "%0"', $pageName_ref_id));
                 }
                 $html = $structlib->get_toc($pageName_ref_id, $order, $showdesc, $shownum, $numberPrefix, $type, '', $maxdepth, $mindepth, $sortalpha, $structure_info['pageName']);
-                return "~np~$button $html $button~/np~";
+                return "~np~$button $containerStart$html$containerEnd $button~/np~";
             }
         }
         return '';
@@ -180,6 +185,6 @@ function wikiplugin_toc($data, $params)
         }
         $html = $structlib->get_toc($structId, $order, $showdesc, $shownum, $numberPrefix, $type, '', $maxdepth, $mindepth, $sortalpha, $structure_info['pageName']);
 
-        return "~np~$button $html $button~/np~";
+        return "~np~$button $containerStart$html$containerEnd $button~/np~";
     }
 }

@@ -353,7 +353,7 @@ export default defineConfig(({ command, mode }) => {
                     },
                     {
                         src: "node_modules/@zxing/library/umd/index.min.js",
-                        dest: "vendor_dist/@zxing/library/umd/index.min.js",
+                        dest: "vendor_dist/@zxing/library/umd",
                         rename: { stripBase: 4 },
                     },
                     {
@@ -479,7 +479,7 @@ export default defineConfig(({ command, mode }) => {
                     },
                     {
                         src: ["node_modules/fieldslinker/fieldsLinker.css", "node_modules/fieldslinker/fieldsLinker.js"],
-                        dest: "vendor_dist/fieldslinker",
+                        dest: "vendor_dist/fieldslinker/dist",
                         rename: { stripBase: 2 },
                     },
                     {
@@ -617,6 +617,7 @@ export default defineConfig(({ command, mode }) => {
                     {
                         src: "node_modules/reveal.js/plugin/**/*",
                         dest: "vendor_dist/reveal.js/plugin",
+                        rename: { stripBase: 3 },
                     },
                     {
                         src: "node_modules/signature_pad/dist/signature_pad.umd.min.js",
@@ -664,7 +665,8 @@ export default defineConfig(({ command, mode }) => {
                             "node_modules/timeago/locales"
                         ],
                         dest: "vendor_dist/timeago/dist",
-                        rename: { stripBase: 3 },
+                        // Only strip node_modules/timeago: tiki-setup.php loads the translations from dist/locales/
+                        rename: { stripBase: 2 },
                     },
                     {
                         src: "node_modules/vue/dist/vue.esm-browser.js",
