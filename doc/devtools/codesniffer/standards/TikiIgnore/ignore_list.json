@@ -8387,6 +8387,7 @@
             "Services_Search_CustomSearchController::cs_dataappend_type": true,
             "Services_Search_CustomSearchController::cs_dataappend_content": true,
             "Services_Search_CustomSearchController::cs_dataappend_exact": true,
+            "Services_Search_CustomSearchController::cs_dataappend_multiidentifier": true,
             "Services_Search_CustomSearchController::cs_handle_textrange": true,
             "Services_Search_CustomSearchController::cs_handle_daterange": true,
             "Services_Search_CustomSearchController::cs_dataappend_categories": true,
