@@ -176,13 +176,18 @@ class Executor
                         throw new Exception(tr("Invalid sublist filter type found: %0", $type));
                     }
                     $values = array_unique($values);
-                    $arguments[$name] = implode(' OR ', $values);
+                    $resolved = implode(' OR ', $values);
+                    $arguments[$name] = $resolved;
                     if ($name == 'exact') {
                         $arguments['content'] = $arguments['exact'];
                         unset($arguments['exact']);
                     }
-                    if (empty($values) || array_keys(array_filter($arguments)) == ['field']) {
-                        $replacement = str_replace($placeholder, '', (string)$match);
+                    if ($name == 'content' && trim($resolved) === '') {
+                        // An empty parent value is searched with exact="" so the sublist stays limited to empty field values.
+                        $replacement = str_replace($placeholder, '', (string) $match);
+                        $replacement = preg_replace('/\bcontent\s*=\s*(["\'])\s*\1/', 'exact=$1$1', $replacement, 1);
+                    } elseif (trim($resolved) === '') {
+                        $replacement = str_replace($placeholder, '', (string) $match);
                     } else {
                         $replacement = $match->buildPluginString('filter', $arguments, $match->getBody());
                     }

@@ -64,7 +64,7 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(['hello'], $query->getTerms());
     }
 
-    public function testEmptyContentKeepsEmptyPhrase()
+    public function testEmptyContentIsIgnored()
     {
         $index = new Search_Index_Memory();
         $query = new Search_Query();
@@ -74,9 +74,24 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
         $expr = new Search_Expr_And(
             [
-                new Search_Expr_ImplicitPhrase([
-                    new Search_Expr_Token('', 'plaintext', 'tracker_field_abcd'),
-                ]),
+                new Search_Expr_ImplicitPhrase([]),
+            ]
+        );
+
+        $this->assertEquals($expr, $index->getLastQuery());
+    }
+
+    public function testEmptyIdentifierKeepsEmptyToken()
+    {
+        $index = new Search_Index_Memory();
+        $query = new Search_Query();
+        $query->filterIdentifier('', 'tracker_field_abcd');
+
+        $query->search($index);
+
+        $expr = new Search_Expr_And(
+            [
+                new Search_Expr_Token('', 'identifier', 'tracker_field_abcd'),
             ]
         );
 

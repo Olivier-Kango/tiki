@@ -20,16 +20,11 @@ class Search_Expr_ParserTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($result, new Search_Expr_Token('hello'));
     }
 
-    public function testEmptyStringKeepsEmptyToken()
+    public function testEmptyStringYieldsEmptyPhrase()
     {
         $result = $this->parser->parse('');
 
-        $this->assertEquals(
-            new Search_Expr_ImplicitPhrase([
-                new Search_Expr_Token(''),
-            ]),
-            $result
-        );
+        $this->assertEquals(new Search_Expr_ImplicitPhrase([]), $result);
     }
 
     public function testMultipleWords()
