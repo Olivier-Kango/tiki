@@ -1368,7 +1368,7 @@ class Services_Tracker_Controller
                 ]
             );
 
-            if ($prefs['feature_warn_on_edit'] == 'y') {
+            if ($prefs['feature_warn_on_edit'] == 'y' && $input->keep_semaphore->int() !== 1) {
                 TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $itemId, 'object_type' => 'trackeritem']);
             }
 
