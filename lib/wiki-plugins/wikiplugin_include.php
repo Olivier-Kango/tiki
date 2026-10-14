@@ -174,11 +174,10 @@ function wikiplugin_include($dataIn, $params)
     $histlib = TikiLib::lib('hist');
 
     $killtoc = true;
-    $params = array_merge([
-        'page_edit_icon' => $prefs['wiki_edit_plugin'],
-        'page_replace_icon' => $prefs['wiki_edit_plugin'],
-        'pagenotapproved_text' => tr('There are no approved versions of this page.'),
-    ], $params);
+    $params['page_edit_icon'] = empty($params['page_edit_icon']) ? $prefs['wiki_edit_plugin'] : $params['page_edit_icon'];
+    $params['page_replace_icon'] = empty($params['page_replace_icon']) ? $prefs['wiki_edit_plugin'] : $params['page_replace_icon'];
+    $params['pagenotapproved_text'] = empty($params['pagenotapproved_text']) ? tr('There are no approved versions of this page.') : $params['pagenotapproved_text'];
+
     extract($params, EXTR_SKIP);
 
     if (isset($replace) && (int) $replace === 1) {
@@ -330,8 +329,9 @@ function wikiplugin_include($dataIn, $params)
 
             $id = 'wikiplugin-include-' . $includeId;
             if (
-                ! isset($_GET['replaceby'])
-                || (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
+                (
+                    ! isset($_GET['replaceby']) || (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
+                )
                 && (! defined('TIKI_PRINTING_PDF') || ! TIKI_PRINTING_PDF)
             ) {
                 $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-index="' . $includeId . '" data-page="' . htmlentities($returnto, ENT_COMPAT) . '" data-ticket="' . smarty_function_ticket(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '">' .
