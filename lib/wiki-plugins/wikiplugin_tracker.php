@@ -684,7 +684,7 @@ function wikiplugin_tracker_name($fieldId, $name, $field_errors)
 
 function wikiplugin_tracker($data, $params)
 {
-    global $user, $group, $page, $prefs;
+    global $user, $group, $page, $prefs, $base_uri;
     $parserlib = TikiLib::lib('parser');
     $trklib = TikiLib::lib('trk');
     $userlib = TikiLib::lib('user');
@@ -917,6 +917,30 @@ function wikiplugin_tracker($data, $params)
         $tracker = array_merge($tracker, $trklib->get_tracker_options($trackerId));
         if ((! empty($tracker['start']) && $tikilib->now < $tracker['start']) || (! empty($tracker['end']) && $tikilib->now > $tracker['end'])) {
             return;
+        }
+        $editLockHeld = false;
+        if (! empty($itemId) && isset($itemObject) && $itemObject->canModify() && $prefs['feature_warn_on_edit'] == 'y') {
+            $isPost = ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST';
+            if (! $isPost || $thisIsThePlugin) {
+                $override = $_REQUEST['conflictoverride'] ?? '';
+                $overridden = $override === 'y' || (string) $override === '1' || (string) $override === (string) $itemId;
+                if (! $overridden) {
+                    try {
+                        Services_Exception_EditConflict::checkSemaphore($itemId, 'trackeritem');
+                    } catch (Services_Exception_EditConflict $e) {
+                        $separator = str_contains($base_uri, '?') ? '&' : '?';
+                        $url = htmlspecialchars($base_uri . $separator . 'conflictoverride=' . (int) $itemId . '#wikiplugin_tracker' . (int) $iTRACKER, ENT_QUOTES, 'UTF-8');
+                        $msg = tr('This tracker item is being edited by user %0. Please check with the user before editing, otherwise conflicts will occur and data might be lost.', htmlspecialchars($userlib->clean_user($e->conflictingUser), ENT_QUOTES, 'UTF-8'));
+                        $msg .= '<br /><br /><a href="' . $url . '">' . tra('Override lock and carry on with edit') . '</a>';
+                        return '<div class="alert alert-warning" id="wikiplugin_tracker' . (int) $iTRACKER . '"><strong>' . tra('Item is currently being edited') . '</strong><br />' . $msg . '</div>';
+                    }
+                }
+                TikiLib::lib('service')->internal('semaphore', 'set', [
+                    'object_id' => $itemId,
+                    'object_type' => 'trackeritem',
+                ]);
+                $editLockHeld = true;
+            }
         }
         $outf = [];
         $auto_fieldId = [];
@@ -1923,6 +1947,9 @@ function wikiplugin_tracker($data, $params)
 
             //if using ajax, set data-attributes in the form so that we can retrieve them in javascript later
             $ajax_datas = $params['ajax'] == 'y' ? 'data-ajax="true" ' . $ajax_action . ' data-tracker_id="' . $params['trackerId'] . '"' : "";
+            if ($editLockHeld) {
+                $ajax_datas .= ' data-keep-semaphore="1"';
+            }
 
             //check if tracker has custom form classes, else default to form-horizontal
             $formClasses = (isset($tracker['useFormClasses']) && $tracker['useFormClasses'] == 'y') ? $tracker['formClasses'] : "form-horizontal";
@@ -2379,16 +2406,21 @@ function wikiplugin_tracker_render_input($f, $item, $dynamicSave, $requestData =
     $input = $handler->renderInput(['inTable' => 'n', 'pluginTracker' => 'y']);
 
     if ($dynamicSave && $item['itemId']) {
+        global $prefs;
+        $objectStoreUrl = [
+            'controller' => 'tracker',
+            'action' => 'update_item',
+            'trackerId' => $f['trackerId'],
+            'itemId' => $item['itemId'],
+        ];
+        if ($prefs['feature_warn_on_edit'] == 'y') {
+            $objectStoreUrl['keep_semaphore'] = 1;
+        }
         $input = new Tiki_Render_Editable(
             $input,
             [
                 'layout' => 'block',
-                'object_store_url' => [
-                    'controller' => 'tracker',
-                    'action' => 'update_item',
-                    'trackerId' => $f['trackerId'],
-                    'itemId' => $item['itemId'],
-                ],
+                'object_store_url' => $objectStoreUrl,
                 'field' => $f,
             ]
         );
@@ -2475,7 +2507,7 @@ function wikiplugin_tracker_process_email_recipients($emailOrField, $fields, $it
 
 function wikiplugin_tracker_save_item($trackerSavedState)
 {
-    global $user;
+    global $user, $prefs;
     $trklib = TikiLib::lib('trk');
     $smarty = TikiLib::lib('smarty');
 
@@ -2558,6 +2590,12 @@ function wikiplugin_tracker_save_item($trackerSavedState)
         }
     }
     $tx->commit();
+    if (! empty($itemId) && ! empty($rid) && $prefs['feature_warn_on_edit'] == 'y') {
+        TikiLib::lib('service')->internal('semaphore', 'unset', [
+            'object_id' => $itemId,
+            'object_type' => 'trackeritem',
+        ]);
+    }
     return $rid;
     /* ------------------------------------- end save the item ---------------------------------- */
 }
