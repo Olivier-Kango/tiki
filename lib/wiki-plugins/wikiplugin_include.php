@@ -350,8 +350,9 @@ function wikiplugin_include($dataIn, $params)
 
             $id = 'wikiplugin-include-' . $includeId;
             if (
-                ! isset($_GET['replaceby'])
-                || (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
+                (
+                    ! isset($_GET['replaceby']) || (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
+                )
                 && (empty($_REQUEST['display']) || $_REQUEST['display'] != 'pdf')
             ) {
                 $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-index="' . $includeId . '" data-page="' . htmlentities($returnto, ENT_COMPAT) . '" data-ticket="' . smarty_function_ticket(['mode' => 'get'], $smarty->getEmptyInternalTemplate()) . '">' .
