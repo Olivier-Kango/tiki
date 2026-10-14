@@ -167,8 +167,12 @@ class Search_Query implements Search_Query_Interface
     {
         $values = array_filter(array_map('trim', preg_split('/\s+OR\s+/', $query)), 'strlen');
 
-        if (count($values) <= 1) {
-            $this->filterIdentifier(reset($values) ?: $query, $field);
+        if (! $values) {
+            return;
+        }
+
+        if (count($values) === 1) {
+            $this->filterIdentifier(reset($values), $field);
         } else {
             $tokens = array_map(function ($v) {
                 return new Search_Expr_Token($v);
