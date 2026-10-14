@@ -6,12 +6,15 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class Services_Exception_EditConflict extends Services_Exception
 {
-    public function __construct($message = null)
+    public $conflictingUser;
+
+    public function __construct($message = null, $conflictingUser = null)
     {
         if (is_null($message)) {
             $message = tr('Edit conflict');
         }
 
+        $this->conflictingUser = $conflictingUser;
         parent::__construct($message, 403);
     }
 
@@ -34,7 +37,7 @@ class Services_Exception_EditConflict extends Services_Exception
         );
 
         if ($user && $user !== $otherUser) {
-            throw new self(tr('Edit conflict: %0 "%1" is being edited already by %2', $object_type, $object_id, $otherUser));
+            throw new self(tr('Edit conflict: %0 "%1" is being edited already by %2', $object_type, $object_id, $otherUser), $otherUser);
         }
     }
 }
