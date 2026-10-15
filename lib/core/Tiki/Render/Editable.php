@@ -95,7 +95,14 @@ class Tiki_Render_Editable
                 '_wysiwyg' => $this->field['wysiwyg'] ? 'y' : 'n',
             ];
             if ($params['_wysiwyg'] === 'y') {
-                $ckoptions = TikiLib::lib('wysiwyg')->setUpEditor('y', $fieldId, $params);
+                $ckoptions = rtrim(TikiLib::lib('wysiwyg')->setUpEditor('y', $fieldId, $params));
+                if ($this->isFormattedHtml($value)) {
+                    // Already HTML, so do not wrap its blank lines in new paragraphs.
+                    $ckoptions = substr($ckoptions, 0, -1) . '
+    , autoParagraph: false
+    , fillEmptyBlocks: false
+}';
+                }
                 $editable = '<input type="hidden" id="allowhtml" name="allowhtml" value="1" /><textarea name="' . $fieldId . '" id="' . $fieldId . '" style="display:none" rows="' . $params['rows'] . '">' . htmlspecialchars($value) . '</textarea>';
                 TikiLib::lib('header')->add_jq_onready('CKEDITOR.replace( "' . $fieldId . '",' . $ckoptions . ');', 20);  // after dialog tools init (10)
             } elseif ($this->layout == 'block') {
@@ -113,5 +120,10 @@ class Tiki_Render_Editable
         }
 
         return "<$tag class=\"$class\" data-field-fetch-url=\"$fieldFetch\" data-object-store-url=\"$objectStore\" data-group=\"$group\" data-label=\"$label\" data-field-id=\"$fieldId\" data-field-type=\"$fieldType\">$value" . smarty_function_icon(['name' => 'edit', 'iclass' => 'ml-2'], $smarty->getEmptyInternalTemplate()) . "</$tag>$editable";
+    }
+
+    private function isFormattedHtml(string $value): bool
+    {
+        return $value !== '' && $value !== strip_tags($value);
     }
 }
