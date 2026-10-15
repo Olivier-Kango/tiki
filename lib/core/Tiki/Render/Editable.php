@@ -95,6 +95,10 @@ class Tiki_Render_Editable
                 '_wysiwyg' => $this->field['wysiwyg'] ? 'y' : 'n',
             ];
             if ($params['_wysiwyg'] === 'y') {
+                if ($this->isFormattedHtml($value)) {
+                    // Already HTML. Skip the wiki parse that would wrap blank lines in <p>.
+                    $params['preserve_html'] = 'y';
+                }
                 TikiLib::lib('wysiwyg')->setUpEditor($fieldId, $params);
                 $editable = '<input type="hidden" id="allowhtml" name="allowhtml" value="1" /><textarea name="' . $fieldId . '" id="' . $fieldId . '" style="display:none" rows="' . $params['rows'] . '">' . htmlspecialchars($value) . '</textarea>';
             } elseif ($this->layout == 'block') {
@@ -112,5 +116,10 @@ class Tiki_Render_Editable
         }
 
         return "<$tag class=\"$class\" data-field-fetch-url=\"$fieldFetch\" data-object-store-url=\"$objectStore\" data-group=\"$group\" data-label=\"$label\" data-field-id=\"$fieldId\" data-field-type=\"$fieldType\">$value" . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'edit', 'iclass' => 'ml-2'], $smarty->getEmptyInternalTemplate()) . "</$tag>$editable";
+    }
+
+    private function isFormattedHtml(string $value): bool
+    {
+        return $value !== '' && $value !== strip_tags($value);
     }
 }

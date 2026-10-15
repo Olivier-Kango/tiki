@@ -132,9 +132,10 @@ describe("initSummernote", () => {
     });
 
     test.each([
-        ["not parse but call the dirtyCheck handler", true],
-        ["parse and call the dirtyCheck handler afterward", false],
-    ])("on init, should %s when editing inline is %s", (_, inline) => {
+        ["not parse but call the dirtyCheck handler", true, false],
+        ["parse and call the dirtyCheck handler afterward", false, false],
+        ["not parse already formatted html", false, true],
+    ])("on init, should %s", (_, inline, preserveHtml) => {
         const id = "foo";
         const givenTextarea = $(`<textarea id="${id}"></textarea>`);
         givenTextarea.data("summernote", {
@@ -144,11 +145,11 @@ describe("initSummernote", () => {
         });
         $("body").append(givenTextarea);
 
-        initSummernote(id, [], { lang: "en-US", inline });
+        initSummernote(id, [], { lang: "en-US", inline, preserveHtml });
 
         givenTextarea.summernote.mock.calls[0][0].callbacks.onInit.call(givenTextarea[0]);
 
-        if (inline) {
+        if (inline || preserveHtml) {
             expect(parseData).not.toHaveBeenCalled();
             expect(Handlers.dirtyCheck).toHaveBeenCalledWith(givenTextarea);
         } else {

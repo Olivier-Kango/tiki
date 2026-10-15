@@ -299,6 +299,7 @@ class WYSIWYGLib
 
         $loadingIndicatorVar = 'loadingIndicator' . $dom_id;
         $enableSummernoteLC = ($prefs['feature_language_check'] === 'y') ? 'true' : 'false';
+        $preserveHtml = ! empty($params['preserve_html']) ? 'true' : 'false';
         $headerlib->add_js_module(<<<JS
             const $loadingIndicatorVar = $($.IMPORT_LOADER_MARKUP);
             $('#{$dom_id}').after($loadingIndicatorVar);
@@ -319,6 +320,9 @@ class WYSIWYGLib
                             defaultLanguage: {$lcDefault},
                             isLanguageSupported: {$lcIsSupported}
                         };
+                    }
+                    if ({$preserveHtml}) {
+                        options.preserveHtml = true;
                     }
                     module.default('{$dom_id}', JSON.parse(`{$tools}`), options);
                 });

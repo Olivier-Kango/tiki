@@ -62,7 +62,9 @@ export default function (areaId, toolbar, options) {
                 toolbar.find(".custom-btn-wrapper").each(function () {
                     $(this).children().unwrap();
                 });
-                if (!options.inline) {
+                // Wiki and plain text go through the wiki parser, which turns blank lines into paragraphs.
+                // Already-formatted HTML must skip that pass.
+                if (!options.inline && !options.preserveHtml) {
                     parseData(target, Handlers.dirtyCheck.bind(null, target), false);
                 } else {
                     Handlers.dirtyCheck(target);
