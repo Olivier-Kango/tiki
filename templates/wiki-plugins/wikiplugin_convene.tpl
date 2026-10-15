@@ -14,17 +14,6 @@
                         <td class="align-middle">
                             {if not $locked}
                                 {if $canEdit}
-                                    <style>
-                                        .divAddDate > :first-child {
-                                            transition: all 0.5s ease;
-                                            position: relative;
-                                        }
-                                        .divAddDate > :first-child.absolute {
-                                            position: absolute;
-                                            transform: translate(2px, 0);
-                                            z-index: 99;
-                                        }
-                                    </style>
                                     {$defautDate=$smarty.now+86400}
                                     <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" class="divAddDate">
                                         <span class="inputAddDate" data-date="{$defautDate}">{jscalendar date=$defautDate fieldname="conveneAddDate" showtime='y' showtimezone="n"}</span>

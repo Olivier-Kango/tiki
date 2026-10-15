@@ -17,11 +17,12 @@ export function fetchSuggestions(query, callback, sourceRemoteUrl = null, source
         return;
     }
 
-    if (window.jqueryTiki.tiki_object_selector_wildcardsearch) {
+    const url = new URL(sourceRemoteUrl);
+    // the users lookup already matches substrings and would treat '*' literally
+    if (window.jqueryTiki.tiki_object_selector_wildcardsearch && url.searchParams.get("listonly") !== "users") {
         query = "*" + query + "*";
     }
 
-    const url = new URL(sourceRemoteUrl);
     url.searchParams.append(remoteQueryKey, query);
     fetch(url.href, {
         headers: {

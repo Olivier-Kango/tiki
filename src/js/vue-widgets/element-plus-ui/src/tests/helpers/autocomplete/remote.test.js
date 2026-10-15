@@ -11,6 +11,19 @@ describe("Autocomplete remote helper functions", () => {
             vi.clearAllMocks();
         });
 
+        test("does not add wildcards to username lookups", async () => {
+            window.jqueryTiki.tiki_object_selector_wildcardsearch = true;
+            vi.spyOn(window, "fetch").mockResolvedValueOnce({ json: vi.fn().mockResolvedValueOnce(["alice"]) });
+            const callback = vi.fn();
+
+            fetchSuggestions("a", callback, "https://example.com/tiki-ajax_services.php?listonly=users", [], "q");
+            await window.happyDOM.waitUntilComplete();
+
+            const requestUrl = new URL(window.fetch.mock.calls.at(-1)[0]);
+            expect(requestUrl.searchParams.get("q")).toBe("a");
+            expect(callback).toHaveBeenCalledWith([{ value: "alice" }]);
+        });
+
         test.each([
             ["foo", ["foo", "bar"], ["foo"]],
             ["foo", ["bar"], []],
