@@ -43,6 +43,34 @@ if (! isset($_REQUEST['printpages']) && ! isset($_REQUEST['printstructures'])) {
     }
 }
 if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
+    $printableStructurePages = [];
+    $hasExcludedStructurePages = false;
+    foreach ($printstructures as $structureId) {
+        $struct = $structlib->get_subtree($structureId);
+        if (! $struct) {
+            Feedback::errorAndDie(tra("Structure cannot be found"), \Laminas\Http\Response::STATUS_CODE_404);
+        }
+        if (! $tikilib->user_has_perm_on_object($user, $struct[0]['pageName'], 'wiki page', 'tiki_p_view')) {
+            Feedback::errorAndDie(tra("You do not have permission to view this structure."), \Laminas\Http\Response::STATUS_CODE_401);
+        }
+        $printableStructurePages[$structureId] = [];
+        foreach ($struct as $struct_page) {
+            if ($struct_page['pos'] != '' && $struct_page['last'] == 1) {
+                continue;
+            }
+            if (
+                ! $tikilib->user_has_perm_on_object($user, $struct_page['pageName'], 'wiki page', 'tiki_p_view')
+                || ! $tikilib->user_has_perm_on_object($user, $struct_page['pageName'], 'wiki page', TIKI_PRINTING_PDF ? 'tiki_p_export_pdf' : 'tiki_p_print')
+            ) {
+                $hasExcludedStructurePages = true;
+                continue;
+            }
+            $printableStructurePages[$structureId][] = $struct_page;
+        }
+    }
+    if ($hasExcludedStructurePages && ! $access->requestIsPost()) {
+        Feedback::warning(tra('Some pages of this structure will not be included because you do not have permission to view or print them.'));
+    }
     $access->checkCsrf();
     // Create XMLRPC object
     $pages = [];
@@ -68,14 +96,10 @@ if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
         }
         $pages[] = $tikilib->get_page_print_info($page);
     }
-    foreach ($printstructures as $structureId) {
-        $struct = $structlib->get_subtree($structureId);
-        foreach ($struct as $struct_page) {
+    foreach ($printableStructurePages as $structurePages) {
+        foreach ($structurePages as $struct_page) {
             global $page_ref_id;
             $page_ref_id = $struct_page['page_ref_id']; //to interpret {toc}
-            if ($struct_page['pos'] != '' && $struct_page['last'] == 1) {
-                continue;
-            }
             $page_info = $tikilib->get_page_print_info($struct_page['pageName']);
 
             // Use the alias as the display name, if an alias is defined

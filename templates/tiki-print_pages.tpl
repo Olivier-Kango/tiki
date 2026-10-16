@@ -17,10 +17,17 @@
                             <li>{$printnamestructures[ix]}</li>
                         {/section}
                     </ul>
-                    <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
+                    {if $hasForbiddenStructure}
+                        {remarksbox type="error" title="{tr}Error{/tr}"}{tr}You do not have permission to view this structure.{/tr}{/remarksbox}
+                    {else}
+                        {if $hasExcludedStructurePages}
+                            {remarksbox type="warning" title="{tr}Warning{/tr}"}{tr}Some pages of this structure will not be included because you do not have permission to view or print them.{/tr}{/remarksbox}
+                        {/if}
+                        <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
+                    {/if}
                 </form>
 
-                {if $pdf_export eq 'y'}
+                {if $pdf_export eq 'y' and not $hasForbiddenStructure}
                     <form method="get" action="tiki-print_multi_pages.php">
                         {ticket}
                         <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
