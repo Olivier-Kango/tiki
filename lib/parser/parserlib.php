@@ -1960,6 +1960,116 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
+    /**
+     * Split text into outside and new-style table segments, honoring escaped pipes.
+     */
+    public function splitNewWikiTableSegments(string $data): array
+    {
+        $segments = [];
+        $segmentStart = 0;
+        $tableStart = null;
+        $length = strlen($data);
+
+        for ($position = 0; $position < $length - 1;) {
+            if ($data[$position] !== '|' || $data[$position + 1] !== '|') {
+                $position++;
+                continue;
+            }
+
+            $backslashStart = $position;
+            while ($backslashStart > 0 && $data[$backslashStart - 1] === '\\') {
+                $backslashStart--;
+            }
+
+            if (($position - $backslashStart) % 2 === 1) {
+                $position++;
+                continue;
+            }
+
+            if ($tableStart === null) {
+                if ($position > $segmentStart) {
+                    $segments[] = [
+                        'text' => substr($data, $segmentStart, $position - $segmentStart),
+                        'isTable' => false,
+                    ];
+                }
+                $tableStart = $position;
+                $segmentStart = $position;
+            } else {
+                $segments[] = [
+                    'text' => substr($data, $tableStart, $position + 2 - $tableStart),
+                    'isTable' => true,
+                ];
+                $tableStart = null;
+                $segmentStart = $position + 2;
+            }
+            $position += 2;
+        }
+
+        if ($tableStart === null) {
+            if ($segmentStart < $length) {
+                $segments[] = ['text' => substr($data, $segmentStart), 'isTable' => false];
+            }
+        } else {
+            // An unmatched opening marker remains ordinary text, as with the old regex.
+            $segments[] = ['text' => substr($data, $segmentStart), 'isTable' => false];
+        }
+
+        return $segments;
+    }
+
+    //*
+    /**
+     * Split a new-style wiki table row while honoring backslash-escaped pipes.
+     * Odd backslash counts escape the pipe; even counts leave it as a cell delimiter.
+     */
+    private function splitWikiTableRow(string $row): array
+    {
+        $cells = [''];
+        $cell = 0;
+        $length = strlen($row);
+        $position = 0;
+
+        while ($position < $length) {
+            if ($row[$position] === '|') {
+                $cells[++$cell] = '';
+                $position++;
+                continue;
+            }
+
+            if ($row[$position] !== '\\') {
+                $cells[$cell] .= $row[$position++];
+                continue;
+            }
+
+            $backslashStart = $position;
+            while ($position < $length && $row[$position] === '\\') {
+                $position++;
+            }
+            $backslashCount = $position - $backslashStart;
+
+            if ($position >= $length || $row[$position] !== '|') {
+                $cells[$cell] .= str_repeat('\\', $backslashCount);
+                continue;
+            }
+
+            if ($this->option['wysiwyg']) {
+                $cells[$cell] .= str_repeat('\\', $backslashCount);
+            } else {
+                $cells[$cell] .= str_repeat('\\', intdiv($backslashCount, 2));
+            }
+
+            if ($backslashCount % 2 === 1) {
+                $cells[$cell] .= '|';
+            } else {
+                $cells[++$cell] = '';
+            }
+            $position++;
+        }
+
+        return $cells;
+    }
+
     protected function parse_data_tables($data)
     {
         global $prefs;
@@ -2021,24 +2131,30 @@ class ParserLib extends TikiDb_Bridge
         } else {
             // New syntax for tables
             // REWRITE THIS CODE
-            if (preg_match_all("/\|\|(.*?)\|\|/s", $data, $tables)) {
+            $tables = [];
+            foreach ($this->splitNewWikiTableSegments($data) as $segment) {
+                if ($segment['isTable']) {
+                    $tables[] = $segment['text'];
+                }
+            }
+            if ($tables) {
                 $maxcols = 1;
                 $cols = [];
-                $temp_max5 = count($tables[0]);
+                $temp_max5 = count($tables);
                 for ($i = 0; $i < $temp_max5; $i++) {
-                    $rows = preg_split("/(\n|\<br\/\>)/", $tables[0][$i]);
+                    $tableContent = substr($tables[$i], 2, -2);
+                    $rows = preg_split("/(\n|\<br\/\>)/", $tableContent);
                     $col[$i] = [];
                     $temp_max6 = count($rows);
                     for ($j = 0; $j < $temp_max6; $j++) {
-                        $rows[$j] = str_replace('||', '', $rows[$j]);
-                        $cols[$i][$j] = explode('|', $rows[$j]);
+                        $cols[$i][$j] = $this->splitWikiTableRow($rows[$j]);
                         if (count($cols[$i][$j]) > $maxcols) {
                             $maxcols = count($cols[$i][$j]);
                         }
                     }
                 }
 
-                $temp_max7 = count($tables[0]);
+                $temp_max7 = count($tables);
                 for ($i = 0; $i < $temp_max7; $i++) {
                     $repl = '<table class="wikitable table table-striped table-hover">';
                     $temp_max8 = count($cols[$i]);
@@ -2062,7 +2178,7 @@ class ParserLib extends TikiDb_Bridge
                         $repl .= '</tr>';
                     }
                     $repl .= '</table>';
-                    $data = str_replace($tables[0][$i], $repl, $data);
+                    $data = str_replace($tables[$i], $repl, $data);
                 }
             }
         }

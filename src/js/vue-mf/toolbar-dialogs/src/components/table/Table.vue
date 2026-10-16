@@ -40,6 +40,78 @@ function deleteCol(col) {
     cells.value.forEach(row => row.splice(col, 1))
 }
 
+function findWikiTableContent(selection) {
+    let tableStart = -1;
+
+    for (let position = 0; position < selection.length - 1;) {
+        if (selection[position] !== "|" || selection[position + 1] !== "|") {
+            position++;
+            continue;
+        }
+
+        let backslashStart = position;
+        while (backslashStart > 0 && selection[backslashStart - 1] === "\\") {
+            backslashStart--;
+        }
+
+        if ((position - backslashStart) % 2 === 1) {
+            position++;
+            continue;
+        }
+
+        if (tableStart === -1) {
+            tableStart = position;
+        } else {
+            return selection.slice(tableStart + 2, position);
+        }
+        position += 2;
+    }
+
+    return null;
+}
+
+function splitWikiTableRow(row) {
+    const parts = [""];
+    let position = 0;
+
+    while (position < row.length) {
+        if (row[position] !== "\\") {
+            if (row[position] === "|") {
+                parts.push("");
+            } else {
+                parts[parts.length - 1] += row[position];
+            }
+            position++;
+            continue;
+        }
+
+        const backslashStart = position;
+        while (position < row.length && row[position] === "\\") {
+            position++;
+        }
+        const backslashCount = position - backslashStart;
+
+        if (position < row.length && row[position] === "|") {
+            parts[parts.length - 1] += "\\".repeat(Math.floor(backslashCount / 2));
+            if (backslashCount % 2 === 1) {
+                parts[parts.length - 1] += "|";
+            } else {
+                parts.push("");
+            }
+            position++;
+        } else {
+            parts[parts.length - 1] += "\\".repeat(backslashCount);
+        }
+    }
+
+    return parts.map(part => part.trim());
+}
+
+function escapeWikiTableCell(cell) {
+    // Keep literal pipes inside the cell when the row is parsed again.
+    return cell.replace(/(\\*)\|/g, (match, backslashes) => "\\".repeat(backslashes.length * 2 + 1) + "|");
+}
+
 function _shown() {
     let selection = getTASelection($("#" + toolbarObject.value.domElementId).get(0));
 
@@ -56,13 +128,12 @@ function _shown() {
             })
         }
     } else {
-        lines = selection.match(/\|\|(.*?)\|\|/sm)
-        if (lines) {
-            lines = lines[1].split(/[\r\n]+/)
+        const tableContent = findWikiTableContent(selection);
+        if (tableContent !== null) {
+            lines = tableContent.split(/[\r\n]+/);
             lines.forEach(function (line) {
-                let parts = line.split("|").map(part => part.trim())
-                cells.value.push(parts)
-            })
+                cells.value.push(splitWikiTableRow(line));
+            });
         }
     }
 
@@ -97,9 +168,8 @@ function _insert() {
     } else {
         output = "|| ";
         cells.value.forEach(function (row) {
-            output += row.join(" | ") + "\n"
+            output += row.map(escapeWikiTableCell).join(" | ") + "\n"
         })
-        output = output.replace("  |", " |").replace("|  ", "| ")
         output = output.substring(0, output.length - 1) + " ||"
     }
     output = '{DIV(class="table-responsive")}' + output + '{DIV}'
