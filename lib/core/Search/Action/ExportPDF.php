@@ -4,20 +4,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-
-namespace Tiki\Search\Action;
-
-use Exception;
-use JitFilter;
-use Perms;
-use Search_Action_Action;
-use Search_Action_Exception;
-use TikiLib;
-use Feedback;
 use Tiki\PagePdfExporter;
-use Tiki\FileGalLib;
 
-class SearchActionExportPDF implements Search_Action_Action
+class Search_Action_ExportPDF implements Search_Action_Action
 {
     protected array $definition = [];
 
@@ -59,6 +48,11 @@ class SearchActionExportPDF implements Search_Action_Action
 
                 $pageName = $data->page->text();
                 $galleryId = $data->gallery_id->int();
+
+                if (! empty($input['gallery_id'])) {
+                    $galleryId = $input['gallery_id'];
+                    unset($input['gallery_id']);
+                }
 
                 $filename = $input['filename'] ?? $pageName;
                 unset($input['filename']);
@@ -124,6 +118,7 @@ class SearchActionExportPDF implements Search_Action_Action
 
     /**
      * Generates a PDF attachment for the specified wiki page.
+     * FIXME Refactor with \Search_Action_EmailAction::getPDFAttachment (but so it still works with these params)
      *
      * @param string $pageName The name of the wiki page for which to generate the PDF.
      *
@@ -136,13 +131,50 @@ class SearchActionExportPDF implements Search_Action_Action
         if (! Perms::get('wiki page', $pageName)->view) {
             return [];
         }
-        // Delegate to shared exporter
-        try {
-            $exporter = new PagePdfExporter();
-            return $exporter->getPdfContent($pageName, $input);
-        } catch (\Throwable $e) {
-            Feedback::error($e->getMessage());
+
+        require_once('tiki-setup.php');
+        require_once 'lib/pdflib.php';
+        $generator = new PdfGenerator();
+        if (! empty($generator->error)) {
+            Feedback::error($generator->error);
             return false;
+        } else {
+            $params = [
+                'page' => $pageName,
+                'display' => 'pdf',
+            ];
+            $params = array_merge($input, $params);
+
+            // If the page doesn't exist then display an error
+            if (! ($info = TikiLib::lib('tiki')->get_page_info($pageName))) {
+                Feedback::error(sprintf(tra('Page %s cannot be found'), $pageName));
+                return false;
+            }
+
+            // this global is used in \wikiplugin_include to limit the number of includes (by default to 5)
+            // so reset this for each page / action
+            global $pluginIncludeNumberOfInclusions;
+            $pluginIncludeNumberOfInclusions = [];
+
+            $oldGet = $_GET;
+            $oldRequest = $_REQUEST;
+            $_GET = $_REQUEST = $params;    // cheat for wiki arg vars
+            $pdata = TikiLib::lib('parser')->parse_data($info["data"], [
+                'page' => $pageName,
+                'is_html' => $info["is_html"],
+                'print' => true,
+                'absolute_links' => true,
+                'suppress_icons' => true,
+                'namespace' => $info["namespace"],
+            ]);
+            //replacing bootstrap classes for print version.
+            $pdata = str_replace(['col-sm','col-md','col-lg'], 'col-xs', $pdata);
+
+            $pdfContent = $generator->getPdf('tiki-print.php', $params, $pdata);
+            $_GET = $oldGet;
+            $_REQUEST = $oldRequest;
+
+            return $pdfContent;
         }
     }
 }
