@@ -96,6 +96,10 @@
     <rule ref="PHPCompatibilitySymfonyPolyfillPHP83" />
     <rule ref="PHPCompatibilitySymfonyPolyfillPHP84" />
     <rule ref="PHPCompatibilitySymfonyPolyfillPHP85" />
+
+    <rule ref="PHPCompatibility">
+        <exclude name="PHPCompatibility.ParameterValues.NewTrimCharactersDefault.NotSet"/>
+    </rule>
     
     <!--
         # PHP Coding Standards
