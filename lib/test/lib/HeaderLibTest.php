@@ -8,6 +8,8 @@
 namespace Tiki\Lib\Test\Lib\HeaderLib;
 
 use HeaderLib;
+use Tiki\Cache\NoCache;
+use TikiLib;
 use TikiTestCase;
 
 /**
@@ -18,6 +20,7 @@ use TikiTestCase;
  */
 class HeaderLibTest extends TikiTestCase
 {
+    private $originalCacheImpl;
     private ?HeaderLib $headerLib;
     private string $robotsTxtPath;
     private ?string $originalRequestUri;
@@ -29,6 +32,7 @@ class HeaderLibTest extends TikiTestCase
      */
     protected function setUp(): void
     {
+        $this->originalCacheImpl = TikiLib::lib('cache')->replaceImplementation(new NoCache());
         $this->headerLib = new HeaderLib();
         $this->originalRequestUri = $_SERVER['REQUEST_URI'] ?? null;
         $this->robotsTxtPath = realpath(__DIR__ . '/../../../') . '/robots.txt';
@@ -77,6 +81,7 @@ ROBOTS;
         } else {
             unset($_SERVER['REQUEST_URI']);
         }
+        TikiLib::lib('cache')->replaceImplementation($this->originalCacheImpl);
         $this->headerLib = null;
     }
 
