@@ -17,6 +17,7 @@ if (class_exists('XmppPrebind')) {
 }
 
 require_once __DIR__ . '/ConverseJS.php';
+require_once __DIR__ . '/TikiXmppChat.php';
 
 class XMPPLib extends TikiLib
 {
@@ -27,7 +28,6 @@ class XMPPLib extends TikiLib
     private $server_http_bind = '';
     private $restapi = null;
     private $xmppapi = null;
-    private bool $hasPrebind;
     private ?\Fabiang\Xmpp\Client $adminClient = null;
 
     /**
@@ -42,7 +42,6 @@ class XMPPLib extends TikiLib
     {
         global $prefs;
 
-        $this->hasPrebind = class_exists('XmppPrebind');
         $this->server_host = $prefs['xmpp_server_host'];
         $this->server_http_bind = $prefs['xmpp_server_http_bind'];
     }
@@ -618,11 +617,7 @@ class XMPPLib extends TikiLib
         global $tikilib;
 
         if (! class_exists('XmppPrebind')) {
-            throw new Exception(
-                "class 'XmppPrebind' does not exists."
-                . " Install with `composer require candy-chat/xmpp-prebind-php:dev-master`.",
-                1
-            );
+            throw new RuntimeException(tr('XMPP prebinding authentication is not supported on this installation.'), 501);
         }
 
         $session_id = substr($tikilib->sessionId, 0, 5);
@@ -651,11 +646,6 @@ class XMPPLib extends TikiLib
         $use_tikitoken = $use_tikitoken && $prefs['xmpp_auth_method'] === 'tikitoken';
 
         if ($use_tikitoken) {
-            if (! $this->hasPrebind) {
-                header("HTTP/1.1 501 Not Implemented");
-                header('Content-Type: application/json');
-                return ['msg' => 'XMPP prebind is not available on this installation.'];
-            }
             $token = $tokenlib->createToken(
                 'openfireauthtoken',
                 ['user' => $user],  // parameters
@@ -672,9 +662,6 @@ class XMPPLib extends TikiLib
                 $xmpp['password'] = $this->getExternalPassword($user) ?? '';
             }
             if (empty($xmpp['password'])) {
-                return [];
-            }
-            if (! $this->hasPrebind) {
                 return [];
             }
         }
@@ -995,7 +982,9 @@ class XMPPLib extends TikiLib
         }
 
         $xmppclient = new ConverseJS();
-        $xmppclient->set_auth($params);
+        if ($xmppclient->set_auth($params) === false) {
+            return '';
+        }
 
         $nickname = $xmpp['nickname'] ?? $user;
         if ($onXmppPage) {
