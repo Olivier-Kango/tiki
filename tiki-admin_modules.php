@@ -13,7 +13,7 @@ $inputConfiguration = [
         'staticKeyFilters'         => [
             'wysiwyg'              => 'bool',        //post
             'clear_cache'          => 'alpha',       //post
-            'edit_assign'          => 'int',         //get
+            'edit_assign'          => 'text',        //get assignment id, or custom module name
             'preview'              => 'alpha',       //post
             'unassign_module_id'   => 'int',        //post
             'modup'                => 'int',         //post
@@ -108,55 +108,65 @@ $smarty->assign('assign_type', '');
 $smarty->assign('assign_title', '');
 
 if (! empty($_REQUEST['edit_assign'])) {
-    $info = $modlib->get_assigned_module($_REQUEST['edit_assign']);
-    $grps = '';
-    if (! empty($info['groups'])) {
-        $module_groups = unserialize($info['groups']);
-        foreach ($module_groups as $amodule) {
-            $grps = $grps . ' $amodule ';
-        }
-    }
-    $smarty->assign('module_groups', $grps);
-    if (isset($info['ord'])) {
-        $cosa = '' . $info['ord'];
-    } else {
-        $cosa = '';
-    }
-    $smarty->assign_by_ref('assign_name', $info['name']);
-    //$smarty->assign_by_ref('assign_title',$info['title']);
-    $smarty->assign_by_ref('assign_position', $info['position']);
-    $smarty->assign_by_ref('assign_cache', $info['cache_time']);
-    $smarty->assign_by_ref('assign_type', $info['type']);
-    $smarty->assign_by_ref('assign_rows', $info['rows']);
-    $smarty->assign_by_ref('assign_order', $cosa);
-    $smarty->assign_by_ref('info', $info);
-    if (! $info['name']) {
+    $info = ctype_digit((string) $_REQUEST['edit_assign'])
+        ? $modlib->get_assigned_module($_REQUEST['edit_assign'])
+        : null;
+    if ((! is_array($info) || empty($info['name'])) && $modlib->is_user_module($_REQUEST['edit_assign'])) {
+        $smarty->assign('assign_name', $_REQUEST['edit_assign']);
         $smarty->assign('assign_selected', $_REQUEST['edit_assign']);
-    }
-
-    if (! empty($_REQUEST['menuId']) && $info['name'] === 'menu') {
-        $params = [];
-        if (! empty($info['params'])) {
-            parse_str($info['params'], $params);
+        $modinfo = $modlib->get_module_info($_REQUEST['edit_assign']);
+        $modlib->dispatchValues([], $modinfo['params']);
+        $smarty->assign('assign_info', $modinfo);
+    } elseif (is_array($info) && ! empty($info['name'])) {
+        $grps = '';
+        if (! empty($info['groups'])) {
+            $module_groups = unserialize($info['groups']);
+            foreach ($module_groups as $amodule) {
+                $grps = $grps . ' $amodule ';
+            }
         }
-        $params['id'] = $_REQUEST['menuId'];
-        $info['params'] = http_build_query($params, '', '&');
-    }
-
-    $modinfo = $modlib->get_module_info($info['name']);
-    $params = [];
-
-    if (! empty($info['params'])) {
-        if (is_array($info['params'])) {
-            $params = $info['params'];
+        $smarty->assign('module_groups', $grps);
+        if (isset($info['ord'])) {
+            $cosa = '' . $info['ord'];
         } else {
-            parse_str($info['params'], $params);
+            $cosa = '';
         }
-    }
-    $params['rows'] = $info['rows'];
+        $smarty->assign_by_ref('assign_name', $info['name']);
+        //$smarty->assign_by_ref('assign_title',$info['title']);
+        $smarty->assign_by_ref('assign_position', $info['position']);
+        $smarty->assign_by_ref('assign_cache', $info['cache_time']);
+        $smarty->assign_by_ref('assign_type', $info['type']);
+        $smarty->assign_by_ref('assign_rows', $info['rows']);
+        $smarty->assign_by_ref('assign_order', $cosa);
+        $smarty->assign_by_ref('info', $info);
+        if (! $info['name']) {
+            $smarty->assign('assign_selected', $_REQUEST['edit_assign']);
+        }
 
-    $modlib->dispatchValues($params, $modinfo['params']);
-    $smarty->assign('assign_info', $modinfo);
+        if (! empty($_REQUEST['menuId']) && $info['name'] === 'menu') {
+            $params = [];
+            if (! empty($info['params'])) {
+                parse_str($info['params'], $params);
+            }
+            $params['id'] = $_REQUEST['menuId'];
+            $info['params'] = http_build_query($params, '', '&');
+        }
+
+        $modinfo = $modlib->get_module_info($info['name']);
+        $params = [];
+
+        if (! empty($info['params'])) {
+            if (is_array($info['params'])) {
+                $params = $info['params'];
+            } else {
+                parse_str($info['params'], $params);
+            }
+        }
+        $params['rows'] = $info['rows'];
+
+        $modlib->dispatchValues($params, $modinfo['params']);
+        $smarty->assign('assign_info', $modinfo);
+    }
 }
 //post is used for preview because there is another submit item on the form requiring it
 //and using get for just the preview element would result in exposing the ticket
@@ -461,6 +471,7 @@ $all_modules_info = array_combine(
 
 foreach ($all_modules_info as &$mod) {
     $mod['enabled'] = true;
+    $mod['pref_name'] = $modlib->modulePreferenceName($mod['name']);
     foreach ($mod['prefs'] as $pf) {
         if ($prefs[$pf] !== 'y') {
             $mod['enabled'] = false;
@@ -531,10 +542,11 @@ foreach ($modlib->module_zones as $initial => $zone) {
 }
 
 $assigned_modules = array_map(
-    function ($list) {
+    function ($list) use ($modlib) {
         return array_map(
-            function ($entry) {
+            function ($entry) use ($modlib) {
                 $entry['params_presentable'] = str_replace('&', '<br>', urldecode($entry['params']));
+                $entry['pref_name'] = $modlib->modulePreferenceName($entry['name']);
                 return $entry;
             },
             $list

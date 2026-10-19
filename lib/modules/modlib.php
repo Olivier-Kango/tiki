@@ -54,6 +54,45 @@ class ModLib extends TikiLib
     }
 
     /**
+     * Preference name for enabling a module. Names are sanitized because a
+     * preference key cannot contain spaces or dots.
+     *
+     * @param string $name
+     * @return string
+     */
+    public function modulePreferenceName($name)
+    {
+        return 'module_' . preg_replace('/[^a-zA-Z0-9]/', '_', (string) $name);
+    }
+
+    /**
+     * Module on/off flags are cached with the preference defaults, so creating
+     * or deleting a custom module has to refresh that cache.
+     *
+     * @param string      $name
+     * @param bool        $enabled
+     * @param string|null $previousName previous name when the module is renamed
+     */
+    private function refreshModulePreference($name, $enabled = true, $previousName = null)
+    {
+        global $prefs;
+
+        $cachelib = TikiLib::lib('cache');
+        $cachelib->invalidate('tiki_default_preferences_cache');
+        $cachelib->invalidate('global_preferences');
+
+        if ($enabled && ! isset($prefs[$this->modulePreferenceName($name)])) {
+            $prefs[$this->modulePreferenceName($name)] = 'y';
+        } elseif (! $enabled) {
+            unset($prefs[$this->modulePreferenceName($name)]);
+        }
+
+        if ($previousName !== null && $previousName !== '' && $previousName !== $name) {
+            unset($prefs[$this->modulePreferenceName($previousName)]);
+        }
+    }
+
+    /**
      * @param      $name
      * @param      $title
      * @param      $data
@@ -64,8 +103,6 @@ class ModLib extends TikiLib
      */
     public function replace_user_module($name, $title, $data, $parse = null, $tgt_mod = null)
     {
-        global $prefs;
-
         if ((! empty($name)) && (! empty($data))) {
             $query = 'INSERT INTO `tiki_user_modules` (`name`, `title`, `data`, `parse`) VALUES (?, ?, ?, ?)';
 
@@ -85,6 +122,7 @@ class ModLib extends TikiLib
 
             $cachelib = TikiLib::lib('cache');
             $cachelib->invalidate("user_modules_$name");
+            $this->refreshModulePreference($name, true, $tgt_mod);
 
             $wikilib = TikiLib::lib('wiki');    // used to require lib/wiki/wikilib.php where convertToTiki9 lives
             $converter = new ConvertToTiki9();
@@ -338,6 +376,7 @@ class ModLib extends TikiLib
 
         $cachelib = TikiLib::lib('cache');
         $cachelib->invalidate('user_modules');
+        $this->refreshModulePreference($name, false);
 
         return $result;
     }
@@ -539,13 +578,9 @@ class ModLib extends TikiLib
         global $page, $prefs, $user;
         $section = Sections::getCurrentSection();
         $tikilib = TikiLib::lib('tiki');
-        $pref_module_name = 'module_' . preg_replace('/[^a-zA-Z0-9]/', '_', $module["name"]);
+        $pref_module_name = $this->modulePreferenceName($module['name']);
 
-        if (! isset($prefs[$pref_module_name])) {
-            return false;
-        }
-
-        if ($prefs[$pref_module_name] != 'y') {
+        if (! isset($prefs[$pref_module_name]) || $prefs[$pref_module_name] != 'y') {
             return false;
         }
         if (TikiLib::lib('login')->isSwitched() && isset($_SESSION["keep_login_box_visible"]) && $_SESSION["keep_login_box_visible"] == 'y') {
