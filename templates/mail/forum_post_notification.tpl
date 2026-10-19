@@ -5,10 +5,18 @@
 {tr _0=$prefs.mail_template_custom_text}A message was updated in %0forum:{/tr} {$mail_forum}
 {/if}
 
-{tr}New topic:{/tr} {$mail_topic}
+{tr}New topic:{/tr}
+{if $mail_topic_changed}
+-Old-: {$mail_old_topic}
+*New*: {$mail_topic}
+{else}{$mail_topic}{/if}
 {tr}Author:{/tr} {if $mail_author}"{$mail_author|username}"
 {else}{tr _0=$prefs.mail_template_custom_text}An anonymous %0user{/tr}{/if}
-{tr}Title:{/tr} {$mail_title}
+{tr}Title:{/tr}
+{if $mail_title_changed}
+-Old-: {$mail_old_title}
+*New*: {$mail_title}
+{else}{$mail_title}{/if}
 {tr}Date:{/tr} {$mail_date|tiki_short_datetime:"":"n"}
 {mailurl}{$topicId|sefurl:"forum post"}{if $threadId}#threadId={$threadId}{/if}{/mailurl}
 
@@ -19,7 +27,14 @@
 {mailurl}{$topicId|sefurl:"forum post"}{if $threadId}#threadId={$threadId}{/if}{/mailurl}
 {/if}
 
-
 {tr}Message:{/tr}
+{if $mail_message_changed}
+-Old-:
+{$mail_old_message}
+
+*New*:
+{$mail_message}
+{else}
 ----------------------------------------------------------------------
 {$mail_message}
+{/if}

@@ -4187,6 +4187,7 @@ class Comments extends TikiLib
                 $this->register_forum_post($forum_info['forumId'], 0);
             } elseif ($tiki_p_admin_forum == 'y' || $this->user_can_edit_post($user, $params['comments_threadId'])) {
                 $threadId = $params['comments_threadId'];
+                $old_comment = $this->get_comment($threadId);
                 $this->update_comment(
                     $threadId,
                     $params['comments_title'],
@@ -4212,7 +4213,10 @@ class Comments extends TikiLib
                     $in_reply_to,
                     $threadId,
                     $params['comments_parentId'] ?? 0,
-                    $params['contributions'] ?? ''
+                    $params['contributions'] ?? '',
+                    0,
+                    $old_comment['data'],
+                    $old_comment['title']
                 );
             }
         }

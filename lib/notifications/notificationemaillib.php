@@ -26,7 +26,9 @@ function sendForumEmailNotification(
     $threadId,
     $parentId,
     $contributions = '',
-    $queueId = 0
+    $queueId = 0,
+    $oldData = null,
+    $oldTitle = null
 ) {
 
     global $prefs;
@@ -179,6 +181,13 @@ function sendForumEmailNotification(
         $smarty->assign('mail_date', $tikilib->now);
         $smarty->assign('mail_message', $data);
         $smarty->assign('mail_author', $author);
+        $edited = in_array($event, ['forum_post_topic_changed', 'forum_post_thread_changed'], true);
+        $smarty->assign('mail_message_changed', $edited && $oldData !== null && $oldData !== $data);
+        $smarty->assign('mail_old_message', $oldData);
+        $smarty->assign('mail_title_changed', $edited && $oldTitle !== null && $oldTitle !== $title);
+        $smarty->assign('mail_old_title', $oldTitle);
+        $smarty->assign('mail_topic_changed', $event == 'forum_post_topic_changed' && $oldTitle !== null && $oldTitle !== $topicName);
+        $smarty->assign('mail_old_topic', $oldTitle);
         if ($prefs['feature_contribution'] == 'y' && ! empty($contributions)) {
             $contributionlib = TikiLib::lib('contribution');
             $smarty->assign('mail_contributions', $contributionlib->print_contributions($contributions));
