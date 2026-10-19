@@ -133,11 +133,7 @@ class Services_Calendar_BaseController
             $recurrence->setEndPeriod($endPeriod);
             $recurrence->setNbRecurrences(0);
         } else {
-            $nbRecurrences = $input->nbRecurrences->int() ?? 1;
-            if ($input->recurrenceType->word() === 'weekly') {
-                $nbRecurrences = $nbRecurrences * count($input->asArray('weekdays'));
-            }
-            $recurrence->setNbRecurrences($nbRecurrences);
+            $recurrence->setNbRecurrences($input->nbRecurrences->int() ?? 1);
             $recurrence->setEndPeriod(0);
         }
         return $recurrence;
