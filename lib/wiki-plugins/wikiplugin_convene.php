@@ -104,6 +104,22 @@ function wikiplugin_convene_info(): array
                 'filter' => 'datetime',
                 'default' => '',
             ],
+            'tieextendminutes' => [
+                'required' => false,
+                'name' => tra('Tie extension (minutes)'),
+                'description' => tra('When there is a tie at lock time, extend voting by this many minutes, capped to remain before the earliest proposed date.'),
+                'since' => '31.0',
+                'filter' => 'digits',
+                'default' => 0,
+            ],
+            'tiebufferminutes' => [
+                'required' => false,
+                'name' => tra('Tie buffer (minutes)'),
+                'description' => tra('Keep the extended voting deadline this many minutes before the earliest proposed date.'),
+                'since' => '31.0',
+                'filter' => 'digits',
+                'default' => 5,
+            ],
             'locked' => [
                 'required' => false,
                 'name' => tra('Locked'),
@@ -353,12 +369,34 @@ function wikiplugin_convene($data, $params, $offset = 0, $parser = null): string
         }
         $lockDate = new TikiDate();
         $lockDate->setDate($params['autolock']);
+        $effectiveLockDate = clone $lockDate;
+        $extendedByTie = false;
 
-        if ($lockDate < $tikiDate) {
+        $tieExtendMinutes = (int) ($params['tieextendminutes'] ?? 0);
+        $tieBufferMinutes = (int) ($params['tiebufferminutes'] ?? 5);
+        $hasTie = count($topVoteStamps) > 1;
+
+        // Extend only once lock time has been reached and only if a tie still exists.
+        if ($tieExtendMinutes > 0 && $hasTie && $lockDate <= $tikiDate && ! empty($data)) {
+            $earliestProposedStamp = min(array_keys($data));
+            $latestAllowedLockStamp = $earliestProposedStamp - ($tieBufferMinutes * 60);
+
+            if ($latestAllowedLockStamp > $lockDate->getTime()) {
+                $extendedLockStamp = $lockDate->getTime() + ($tieExtendMinutes * 60);
+                $effectiveLockDate->setDate(min($extendedLockStamp, $latestAllowedLockStamp));
+                $extendedByTie = $effectiveLockDate > $lockDate;
+            }
+        }
+
+        if ($effectiveLockDate < $tikiDate) {
             $params['locked'] = 'y';
-            $autolockMessage = tr('Voting ended: %0', \SmartyTiki\Modifier\TikiShortDateTime::apply($params['autolock']));
+            $autolockMessage = tr('Voting ended: %0', \SmartyTiki\Modifier\TikiShortDateTime::apply($effectiveLockDate->getTime()));
         } else {
-            $autolockMessage = tr('Voting ends: %0', \SmartyTiki\Modifier\TikiShortDateTime::apply($params['autolock']));
+            if ($extendedByTie) {
+                $autolockMessage = tr('Voting extended due to tie. New end: %0', \SmartyTiki\Modifier\TikiShortDateTime::apply($effectiveLockDate->getTime()));
+            } else {
+                $autolockMessage = tr('Voting ends: %0', \SmartyTiki\Modifier\TikiShortDateTime::apply($effectiveLockDate->getTime()));
+            }
         }
     }
 
