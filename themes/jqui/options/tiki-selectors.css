@@ -2,6 +2,8 @@
    VARIABLE SHORTHANDS (define in :root or theme file)
 ============================================================ */
 :root {
+    --tiki-selection-bg: var(--tiki-active-bg-color);
+    --tiki-selection-color: var(--tiki-active-color);
     --tiki-jui-bg-repeat: repeat-x;
 
     --tiki-jui-state-default-bg: var(--tiki-jui-state-default-bg-color) var(--tiki-jui-state-default-bg-path) var(--tiki-jui-state-default-bg-position) var(--tiki-jui-bg-repeat);
@@ -304,9 +306,9 @@ a, .btn-link {
     --bs-list-group-action-active-bg: var(--tiki-jui-state-active-bg);;
     --bs-list-group-disabled-color: var(--bs-secondary-color);
     --bs-list-group-disabled-bg: var(--bs-body-bg);
-    --bs-list-group-active-color: var(--bs-primary-text-emphasis);
-    --bs-list-group-active-bg: var(--bs-primary-bg-subtle);
-    --bs-list-group-active-border-color: var(--bs-primary-border-subtle);
+    --bs-list-group-active-color: var(--tiki-active-color);
+    --bs-list-group-active-bg: var(--tiki-active-bg-color);
+    --bs-list-group-active-border-color: var(--tiki-active-border-color);
 }
 
 .list-group-item.active {

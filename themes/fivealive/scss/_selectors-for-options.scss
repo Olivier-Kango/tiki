@@ -1,4 +1,5 @@
 // This file contains CSS (SCSS) that theme options have in common, mostly color variations from the parent theme.
+@import "../../base_files/scss/tiki-text-selection";
 
 $imagePath: "../images/";
 // body {
@@ -155,8 +156,8 @@ layout_basic.fullscreen,
         --bs-pagination-active-border-color: #{$secondary};
     }
     .nav-pills {
-        --bs-nav-pills-link-active-bg: var(--bs-secondary-bg-subtle);
-        --bs-nav-pills-link-active-color: var(--bs-secondary-text-emphasis);
+        --bs-nav-pills-link-active-bg: #{$secondary};
+        --bs-nav-pills-link-active-color: #{$nav-pills-link-active-color};
     }
 }
 

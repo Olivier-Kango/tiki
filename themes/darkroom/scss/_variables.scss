@@ -120,6 +120,9 @@ $input-group-addon-border-color: $input-border-color;
 
 $form-check-input-checked-color:          $component-active-color; // !default; NECESSARY
 $form-check-input-checked-bg-color:       $component-active-bg; // !default; NECESSARY
+$form-check-input-checked-border-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-bg-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-border-color: $form-check-input-checked-border-color;
 $form-check-input-checked-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>"); //  !default;
 
 $form-range-thumb-bg:                      $component-active-bg; // !default; NECESSARY
@@ -183,6 +186,7 @@ $pagination-hover-border: #dddddd;
 $pagination-active-color: #000;
 $pagination-active-bg: $primary;
 $pagination-active-border: $primary;
+$pagination-active-border-color: $pagination-active-bg;
 
 $pagination-disabled-color: $gray-400;
 $pagination-disabled-bg: #3b464d;

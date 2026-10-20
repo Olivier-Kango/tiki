@@ -65,10 +65,14 @@ $btn-link-disabled-color:         #777777; // $gray-600 default
 $input-color-placeholder:         #777777; // This seems to be a Tiki SCSS variable, but not used anywhere.
 $form-check-input-checked-color:          $component-active-color; // !default; NECESSARY
 $form-check-input-checked-bg-color:       $component-active-bg; // !default; NECESSARY
+$form-check-input-checked-border-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-bg-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-border-color: $form-check-input-checked-border-color;
 $form-range-thumb-bg:                      $component-active-bg; // !default; NECESSARY
 
 // Dropdowns
 // Navs
+$nav-pills-link-active-bg: $component-active-bg;
 $nav-tabs-border-color:             $gray-300; // !default;
 
 // Navbar
@@ -95,6 +99,8 @@ $dropdown-dark-link-disabled-color: $gray-500; // !default;
 $dropdown-dark-header-color:        $gray-500; // !default;
 
 // Pagination
+$pagination-active-bg: $component-active-bg;
+$pagination-active-border-color: $pagination-active-bg;
 // Cards
 $card-cap-bg: #2fb0ea; // $tiki-top-bg; // var(--tiki-top-bg);  // --bs-card-cap-bg default. In options, declared as $tiki-top-bg.
 $card-cap-color: $white;
@@ -108,7 +114,10 @@ $card-border-color: transparent;
 // Modals
 // Alerts
 // Progress bars
+$progress-bar-bg: $component-active-bg;
 // List group
+$list-group-active-bg: $component-active-bg;
+$list-group-active-border-color: $list-group-active-bg;
 // Image thumbnails
 // Figures
 // Breadcrumbs

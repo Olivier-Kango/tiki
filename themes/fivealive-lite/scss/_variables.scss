@@ -60,9 +60,13 @@ $headings-font-weight: 500;
 // Forms
 $form-check-input-checked-color:          $component-active-color; // !default; NECESSARY
 $form-check-input-checked-bg-color:       $component-active-bg; // !default; NECESSARY
+$form-check-input-checked-border-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-bg-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-border-color: $form-check-input-checked-border-color;
 $form-range-thumb-bg:                      $component-active-bg; // !default; NECESSARY
 
 // Navs
+$nav-pills-link-active-bg: $component-active-bg;
 $nav-tabs-border-color:             $gray-300; // !default
 
 // Navbar
@@ -76,6 +80,8 @@ $dropdown-link-hover-bg: var(--#{$prefix}tertiary-bg); // !default;
 $dropdown-link-active-bg:           $component-active-bg; // !default;
 
 // Pagination
+$pagination-active-bg: $component-active-bg;
+$pagination-active-border-color: $pagination-active-bg;
 // Cards
 // Tooltips
 // Popovers
@@ -83,7 +89,10 @@ $dropdown-link-active-bg:           $component-active-bg; // !default;
 // Modals
 // Alerts
 // Progress bars
+$progress-bar-bg: $component-active-bg;
 // List group
+$list-group-active-bg: $component-active-bg;
+$list-group-active-border-color: $list-group-active-bg;
 // Image thumbnails
 // Figures
 // Breadcrumbs
