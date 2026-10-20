@@ -390,6 +390,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
                 'inbox' => array_filter(explode(',', $oldValue))
             ];
         }
+        $previous = $existing;
         if (isset($value['new'])) {
             $folder = $value['folder'] ?? 'inbox';
             if ($this->getOption('useFolders') || $folder == 'inbox') {
@@ -413,9 +414,25 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
             $folder = $this->folderHandle($value['newFolder']) . '_item_' . $this->getItemId();
             $existing[$folder] = [];
         }
+        // the file index stores the folder of each email, refresh the ones that moved
+        $unifiedsearchlib = TikiLib::lib('unifiedsearch');
+        foreach (array_diff_assoc($this->getFileFolders($existing), $this->getFileFolders($previous)) as $fileId => $_) {
+            $unifiedsearchlib->invalidateObject('file', $fileId);
+        }
         return [
             'value' => json_encode($existing)
         ];
+    }
+
+    private function getFileFolders(array $folders): array
+    {
+        $out = [];
+        foreach ($folders as $folder => $fileIds) {
+            foreach ((array) $fileIds as $fileId) {
+                $out[$fileId] = $folder;
+            }
+        }
+        return $out;
     }
 
     public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)

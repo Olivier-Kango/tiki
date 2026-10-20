@@ -86,14 +86,23 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
                     'email_recipient' => $typeFactory->plaintext($parsed_fields['recipient']),
                     'email_date' => $typeFactory->timestamp($parsed_fields['date']),
                     'email_flags' => $typeFactory->multivalue(array_filter(array_values($parsed_fields['flags']))),
+                    // readable in reports: multivalue is hashed by some engines
+                    'email_flags_text' => $typeFactory->plaintext(implode(' ', array_filter(array_values($parsed_fields['flags'])))),
                     'email_content_type' => $typeFactory->plaintext($parsed_fields['content_type']),
                     'email_body' => $typeFactory->plainmediumtext($parsed_fields['body']),
                     'email_plaintext' => $typeFactory->plainmediumtext($parsed_fields['plaintext']),
                     'email_html' => $typeFactory->plainmediumtext($parsed_fields['html']),
+                    'email_message_id' => $typeFactory->identifier(trim((string) $parsed_fields['message_id'], " \t<>")),
                 ];
                 $sources = TikiLib::lib('relation')->get_relations_to('file', $objectId, 'tiki.file.attach');
                 foreach ($sources as $rel) {
                     if ($rel['type'] == 'trackeritem' && ! empty($rel['fieldId'])) {
+                        $trackerId = TikiLib::lib('trk')->get_tracker_for_item($rel['itemId']);
+                        $data['email_tracker_id'] = $typeFactory->identifier($trackerId);
+                        $data['email_tracker_item_id'] = $typeFactory->identifier($rel['itemId']);
+                        $data['email_tracker_field_id'] = $typeFactory->identifier($rel['fieldId']);
+                        $data['email_folder'] = $typeFactory->identifier($this->getEmailFolder($trackerId, $rel['itemId'], $rel['fieldId'], $objectId));
+                        $data = array_merge($data, $this->getTrackerItemPermissions($rel['itemId'], $rel['fieldId'], $typeFactory));
                         $view_path = 'tiki-webmail.php';
                         if (! empty($parsed_fields['source_id'])) {
                             $page_info = TikiLib::lib('tiki')->get_page_info_from_id($parsed_fields['source_id']);
@@ -109,7 +118,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
                         } else {
                             $view_path .= '?';
                         }
-                        $view_path .= "cypht_page=message&uid=" . $file['fileId'] . "&list_path=tracker_folder_" . $rel['itemId'] . "_" . $rel['fieldId'] . "&list_parent=tracker_" . TikiLib::lib('trk')->get_tracker_for_item($rel['itemId']);
+                        $view_path .= "cypht_page=message&uid=" . $file['fileId'] . "&list_path=tracker_folder_" . $rel['itemId'] . "_" . $rel['fieldId'] . "&list_parent=tracker_" . $trackerId;
                         $data['url'] = $typeFactory->identifier($view_path);
                         break;
                     }
@@ -118,6 +127,66 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
         }
 
         return $data;
+    }
+
+    /**
+     * An email filed in a tracker item is shown with the item (Email Folder field), not with the file gallery,
+     * so it must be found by the same people who can view the item and that field.
+     */
+    private function getTrackerItemPermissions($itemId, $fieldId, Search_Type_Factory_Interface $typeFactory): array
+    {
+        $item = TikiLib::lib('trk')->get_tracker_item($itemId);
+        if (empty($item)) {
+            return [];
+        }
+        $itemObject = Tracker_Item::fromInfo($item);
+        if (empty($itemObject) || ! $itemObject->getDefinition()) {
+            return [];
+        }
+        $field = $itemObject->getDefinition()->getField($fieldId);
+        if ($field && ($field['isHidden'] === 'y' || ! empty($field['visibleBy']))) {
+            // restricted field, as in Tracker_Item::canViewField(): Admins, plus visibleBy groups that can view the item
+            $groups = ['Admins'];
+            if ($field['isHidden'] !== 'y') {
+                $accessor = $itemObject->getPerms();
+                $viewPermission = $itemObject->getViewPermission();
+                foreach ($field['visibleBy'] as $group) {
+                    $accessor->setGroups([$group]);
+                    if ($accessor->$viewPermission) {
+                        $groups[] = $group;
+                    }
+                }
+            }
+            return [
+                'allowed_groups' => $typeFactory->multivalue(array_unique($groups)),
+                '_extra_users' => $field['isHidden'] === 'c' ? $itemObject->getSpecialPermissionUsers($itemId, 'Modify') : [],
+            ];
+        }
+        $ownerGroup = $itemObject->getOwnerGroup();
+        return [
+            'view_permission' => $typeFactory->identifier($itemObject->getViewPermission()),
+            '_extra_users' => $itemObject->getSpecialPermissionUsers($itemId, 'View'),
+            '_permission_accessor' => $itemObject->getPerms(),
+            '_extra_groups' => $ownerGroup ? [$ownerGroup] : null,
+        ];
+    }
+
+    /**
+     * Folder (inbox, sent, trash, ...) of the Email Folder field value that holds the file
+     */
+    private function getEmailFolder($trackerId, $itemId, $fieldId, $fileId): string
+    {
+        $value = TikiLib::lib('trk')->get_item_value($trackerId, $itemId, $fieldId, false);
+        $folders = json_decode((string) $value, true);
+        if (! is_array($folders)) {
+            return in_array($fileId, explode(',', (string) $value)) ? 'inbox' : '';
+        }
+        foreach ($folders as $folder => $fileIds) {
+            if (is_array($fileIds) && in_array($fileId, $fileIds)) {
+                return (string) $folder;
+            }
+        }
+        return '';
     }
 
     public function getProvidedFields(): array
@@ -155,6 +224,12 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
             'email_body',
             'email_plaintext',
             'email_html',
+            'email_flags_text',
+            'email_message_id',
+            'email_tracker_id',
+            'email_tracker_item_id',
+            'email_tracker_field_id',
+            'email_folder',
         ];
     }
 
@@ -193,6 +268,12 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
             'email_body' => 'plainmediumtext',
             'email_plaintext' => 'plainmediumtext',
             'email_html' => 'plainmediumtext',
+            'email_flags_text' => 'plaintext',
+            'email_message_id' => 'identifier',
+            'email_tracker_id' => 'identifier',
+            'email_tracker_item_id' => 'identifier',
+            'email_tracker_field_id' => 'identifier',
+            'email_folder' => 'identifier',
         ];
     }
 

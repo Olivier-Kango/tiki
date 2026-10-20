@@ -68,6 +68,26 @@ class Collection
                     }
                 });
             return $filter;
+        } elseif ($fieldName == 'email_tracker_id') {
+            // emails indexed from Email Folder fields: pick among the trackers having one
+            $trklib = TikiLib::lib('trk');
+            $trackers = $trklib->fetchMap(
+                "SELECT DISTINCT t.`trackerId`, t.`name` FROM `tiki_trackers` t INNER JOIN `tiki_tracker_fields` f ON f.`trackerId` = t.`trackerId` WHERE f.`type` = 'EF' ORDER BY t.`name`"
+            );
+            $trackers = array_filter($trackers, function ($name, $trackerId) {
+                return \Perms::get('tracker', $trackerId)->view_trackers;
+            }, ARRAY_FILTER_USE_BOTH);
+
+            $filter = new Filter($fieldName, 'default');
+            $filter->setLabel(tr('Tracker'))
+                ->setControl(new Control\DropDown('email_tracker_dd', $trackers))
+                ->setApplyCondition(function ($control, Search_Query $query) use ($fieldName) {
+                    $value = $control->getValue();
+                    if ($value) {
+                        $query->filterIdentifier((string) $value, $fieldName);
+                    }
+                });
+            return $filter;
         } else {
             // non-tracker field in the index
             $filter = new Filter($fieldName, 'default');
