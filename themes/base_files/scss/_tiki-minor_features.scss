@@ -61,7 +61,7 @@
     height: 7px;
     outline: none;
     border-radius: 3px;
-    background-color: #6c757d;
+    background-color: var(--bs-secondary);
   }
   
   .range_slider::-webkit-slider-thumb {
@@ -90,7 +90,7 @@
   .range_selectBtn {
     height: 38px;
     width: 38px;
-    background-color: #6c757d;
+    background-color: var(--bs-secondary);
     background-size: cover;
     background-position: center;
     border-radius: 50%;
