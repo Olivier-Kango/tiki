@@ -68,6 +68,9 @@ $button-border-radius: var(--tiki-jui-border-radius);
 // Forms
 $form-check-input-checked-color:          $component-active-color; // !default; NECESSARY
 $form-check-input-checked-bg-color:       $component-active-bg; // !default; NECESSARY
+$form-check-input-checked-border-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-bg-color: $form-check-input-checked-bg-color;
+$form-check-input-indeterminate-border-color: $form-check-input-checked-border-color;
 $form-range-thumb-bg:                      $component-active-bg; // !default; NECESSARY
 
 // Form validation
@@ -98,6 +101,9 @@ $dropdown-dark-header-color:        $gray-500;
 // Pagination
 $pagination-color:                  var(--#{$prefix}link-color);
 $pagination-bg:                     var(--#{$prefix}body-bg);
+$pagination-active-color: $component-active-color;
+$pagination-active-bg: $component-active-bg;
+$pagination-active-border-color: $pagination-active-bg;
 
 // Cards
 $card-border-color: var(--bs-tertiary-color); // #999999;
