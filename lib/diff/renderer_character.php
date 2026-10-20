@@ -50,23 +50,23 @@ class Text_Diff_Renderer_character extends Tiki_Text_Diff_Renderer
     {
         if ($type == 'context') {
             foreach ($lines as $line) {
-                $this->orig .= empty($line) ? '<br>' : htmlspecialchars($line);
-                $this->final .= empty($line) ? '<br>' : htmlspecialchars($line);
+                $this->orig .= $line === '' ? '<br>' : htmlspecialchars($line);
+                $this->final .= $line === '' ? '<br>' : htmlspecialchars($line);
             }
         } elseif ($type == 'added' || $type == 'change-added') {
             $l = "";
             foreach ($lines as $line) {
-                $l .= empty($line) ? '<br>' : htmlspecialchars($line);
+                $l .= $line === '' ? '<br>' : htmlspecialchars($line);
             }
-            if (! empty($l)) {
+            if ($l !== '') {
                 $this->final .= '<ins class="diffchar inserted"><strong>' . $l . "</strong></ins>";
             }
         } elseif ($type == 'deleted' || $type == 'change-deleted') {
             $l = "";
             foreach ($lines as $line) {
-                $l .= empty($line) ? '<br>' : htmlspecialchars($line);
+                $l .= $line === '' ? '<br>' : htmlspecialchars($line);
             }
-            if (! empty($l)) {
+            if ($l !== '') {
                 $this->orig .= '<del class="diffchar deleted"><strong>' . $l . "</strong></del>";
             }
         }
