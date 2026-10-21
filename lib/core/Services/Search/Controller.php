@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Tiki\Profiling\Timer;
+use Tiki\Search\Formatter\ObjectTitleFormat;
 use Tiki\Search\SearchIndexRebuilder;
 use Tiki\TaskQueue\QueuedTaskBanner;
 use Tiki\TaskQueue\Exception\QueueManagerException;
@@ -176,7 +177,7 @@ class Services_Search_Controller
         try {
             $filterData = $input->filter->none();
             $filter = (! empty($filterData) && is_array($filterData)) ? $filterData : [];
-            $format = $input->format->text() ?: '{title}';
+            $format = $input->format->text() ?: ObjectTitleFormat::DEFAULT_FORMAT;
             $use_permname = $input->use_permname->text();
             $raw = $input->raw->int();
             $titleFilter = null;
@@ -220,43 +221,7 @@ class Services_Search_Controller
                     'object_type' => $item['object_type'],
                     'object_id' => $use_permname != 'y' ? $item['object_id'] : (TikiLib::lib('trk')->get_field_info($item['object_id'])['permName'] ?? $item['object_id']),
                     'parent_id' => $item['gallery_id'] ?? $item['tracker_id'],
-                    'title' => preg_replace_callback('/\{([\w\.]+)\}/', function ($matches) use ($item, $format, $titleFilter, $highlightHelper, $raw) {
-                        $key = $matches[1];
-                        if (isset($item[$key])) {
-                            // if this is a trackeritem we do not want only the name but also the trackerid listed when setting up a field
-                            // otherwise its hard to distingish which field that is if multiple tracker use the same fieldname
-                            // example: setup of trackerfield item-link: choose some fields from a list. currently this list show all fields of all trackers
-                            if ($item['object_type'] == 'trackerfield') {
-                                return $item[$key] . ' (Tracker-' . $item['tracker_id'] . ', Field-' . $item['object_id'] . ')';
-                            } elseif ($raw) {
-                                // Caller explicitly asked for the exact stored value for this
-                                // token (e.g. an ItemLink's raw itemId), so skip the "_text"
-                                // rendered-label substitution below entirely.
-                                $value = $item[$key];
-                                return is_array($value) ? implode(',', $value) : $value;
-                            } else {
-                                $value = $item[$key];
-                                if (is_array($value)) {
-                                    $value = $item[$key . "_paths"] ??
-                                        $item[$key . "_names"] ??
-                                        $item[$key . "_text"] ??
-                                        implode(',', $item[$key]);
-                                } elseif (! empty($item[$key . '_text'])) {
-                                    $value = $item[$key . '_text'];
-                                }
-                                if ($titleFilter) {
-                                    $value = $highlightHelper->filter($value);
-                                }
-                                return $value;
-                            }
-                        } elseif (str_starts_with($key, 'meta.')) {
-                            return '';
-                        } elseif ($format == '{title}') {
-                            return tr('empty');
-                        } else {
-                            return '';
-                        }
-                    }, $format),
+                    'title' => ObjectTitleFormat::render($format, $item, (bool) $raw, $titleFilter ? [$highlightHelper, 'filter'] : null),
                     'link' => \SmartyTiki\FunctionHandler\ObjectLink::render(['type' => $item['object_type'], 'id' => $item['object_id']], $smarty->getEmptyInternalTemplate())
                 ];
                 if ($item['object_type'] == 'trackeritem') {

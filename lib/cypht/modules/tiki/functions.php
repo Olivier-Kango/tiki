@@ -506,20 +506,32 @@ function find_relevant_tracker_items($keywords, $multivalueField = '', $searchAr
         $query->filterContent($keywords);
     }
 
+    // per-field Format option of Email Folder fields
+    $formats = [];
+    foreach ($fields as $field) {
+        if ($field['type'] === 'EF') {
+            $formats[$field['fieldId']] = TikiLib::lib('trk')->get_field_handler($field)->getOption('format');
+        }
+    }
+
     $resultSet = $query->search($lib->getIndex());
 
-    $resultSet->applyTransform(function ($item) use ($fields) {
+    $resultSet->applyTransform(function ($item) use ($fields, $formats) {
         $filtered = array_filter($fields, function ($f) use ($item) {
             return $f['trackerId'] == $item['tracker_id'];
         });
         if ($field = reset($filtered)) {
             $item['field_id'] = $field['fieldId'];
         }
+        $title = $item['title'];
+        if (! empty($formats[$item['field_id'] ?? 0])) {
+            $title = trim(\Tiki\Search\Formatter\ObjectTitleFormat::render($formats[$item['field_id']], $item)) ?: $title;
+        }
         return [
             'object_id' => $item['object_id'],
             'tracker_id' => $item['tracker_id'],
             'field_id' => $item['field_id'] ?? 0,
-            'title' => $item['title'],
+            'title' => $title,
         ];
     });
 

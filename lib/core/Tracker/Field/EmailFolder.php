@@ -136,7 +136,13 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements \Tracker\
                             'field' => 'useFolders',
                             'value' => '1'
                         ],
-                    ]
+                    ],
+                    'format' => [
+                        'name' => tr('Format'),
+                        'description' => tr('Customize how tracker items are listed when moving emails to this field from Webmail. Default is {title} listing the item title. Other fields can be used, e.g. {tracker_field_Priority}: {title}'),
+                        'filter' => 'text',
+                        'default' => '',
+                    ],
                 ],
             ],
         ];
