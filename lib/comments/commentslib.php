@@ -1431,9 +1431,11 @@ class Comments extends TikiLib
      * @param string $sort_mode
      * @param string $find
      * @param int $parentId (0 to get forums without parents, <0 to get all forums, >0 to get forums of specific parent)
+     * @param int $date_min Minimum creation date timestamp
+     * @param int $date_max Maximum creation date timestamp
      * @return array
      */
-    public function list_forums($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $parentId = 0, $sectionOrder = null)
+    public function list_forums($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $parentId = 0, $sectionOrder = null, $date_min = 0, $date_max = 0)
     {
         global $prefs;
 
@@ -1449,12 +1451,13 @@ class Comments extends TikiLib
             $where = '';
         }
 
+        $midBindvars = [];
         if ($find) {
             $findesc = '%' . $find . '%';
 
             $mid = " AND `tiki_forums`.`name` like ? or `tiki_forums`.`description` like ? ";
-            $bindvars[] = $findesc;
-            $bindvars[] = $findesc;
+            $midBindvars[] = $findesc;
+            $midBindvars[] = $findesc;
         } else {
             $mid = "";
         }
@@ -1472,7 +1475,20 @@ class Comments extends TikiLib
         } else { //get forums of specific parents
             $where .= ' AND parentID = ? ';
         }
+        // $where precedes $mid in the query, so bind its parameters first.
         $bindvars[] = $parentId;
+
+        // Date filters.
+        if ($date_min !== 0 || $date_max !== 0) {
+            if ($date_max <= 0) {
+                $date_max = $this->now;
+            }
+            $mid .= " AND (`tiki_forums`.`created` >= ? AND `tiki_forums`.`created` <= ?) ";
+            $midBindvars[] = $date_min;
+            $midBindvars[] = $date_max;
+        }
+
+        $bindvars = array_merge($bindvars, $midBindvars);
 
         $sectionOrder = $sectionOrder ?? $prefs['forums_section_ordering'];
 
