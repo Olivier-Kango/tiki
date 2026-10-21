@@ -103,13 +103,26 @@ if (isset($_REQUEST['addstructurepages'])) {
     if (! isset($_REQUEST["structureId"])) {
         Feedback::error(tra('Please select a structure'));
     } else {
-        $struct = $structlib->get_subtree($_REQUEST["structureId"]);
-        foreach ($struct as $struct_page) {
-            // Handle dummy last entry
-            if ($struct_page["pos"] != '' && $struct_page["last"] == 1) {
-                continue;
+        $structureInfo = $structlib->s_get_page_info($_REQUEST["structureId"]);
+        if (! $structureInfo || ! $tikilib->user_has_perm_on_object($user, $structureInfo['pageName'], 'wiki page', 'tiki_p_view')) {
+            Feedback::error(tra('You do not have permission to view this structure.'));
+        } else {
+            $hasSkippedPages = false;
+            $struct = $structlib->get_subtree($_REQUEST["structureId"]);
+            foreach ($struct as $struct_page) {
+                // Handle dummy last entry
+                if ($struct_page["pos"] != '' && $struct_page["last"] == 1) {
+                    continue;
+                }
+                if (! $tikilib->user_has_perm_on_object($user, $struct_page["pageName"], 'wiki page', 'tiki_p_view')) {
+                    $hasSkippedPages = true;
+                    continue;
+                }
+                $printpages[] = $struct_page["pageName"];
             }
-            $printpages[] = $struct_page["pageName"];
+            if ($hasSkippedPages) {
+                Feedback::warning(tra('Some pages of this structure were not added because you do not have permission to view them.'));
+            }
         }
     }
     $cookietab = 2;
@@ -139,6 +152,31 @@ foreach ($printstructures as $page_ref_id) {
     }
 }
 $smarty->assign_by_ref('printnamestructures', $printnamestructures);
+
+$hasForbiddenStructure = false;
+$hasExcludedStructurePages = false;
+foreach ($printstructures as $page_ref_id) {
+    $structureInfo = $structlib->s_get_page_info($page_ref_id);
+    if (! $structureInfo || ! $tikilib->user_has_perm_on_object($user, $structureInfo['pageName'], 'wiki page', 'tiki_p_view')) {
+        $hasForbiddenStructure = true;
+        break;
+    }
+    if ($hasExcludedStructurePages) {
+        continue;
+    }
+    foreach ($structlib->get_subtree($page_ref_id) as $struct_page) {
+        if (
+            ! $tikilib->user_has_perm_on_object($user, $struct_page['pageName'], 'wiki page', 'tiki_p_view')
+            || ! $tikilib->user_has_perm_on_object($user, $struct_page['pageName'], 'wiki page', 'tiki_p_print')
+            || ($prefs['print_pdf_from_url'] != 'none' && ! $tikilib->user_has_perm_on_object($user, $struct_page['pageName'], 'wiki page', 'tiki_p_export_pdf'))
+        ) {
+            $hasExcludedStructurePages = true;
+            break;
+        }
+    }
+}
+$smarty->assign('hasForbiddenStructure', $hasForbiddenStructure);
+$smarty->assign('hasExcludedStructurePages', $hasExcludedStructurePages);
 
 include_once('tiki-section_options.php');
 // disallow robots to index page:
