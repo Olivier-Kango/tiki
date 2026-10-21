@@ -8,7 +8,7 @@ class ToolbarLinkFile extends ToolbarUtilityItem
 {
     private $trackerItemId;
 
-    public function __construct($trackerItemId)
+    public function __construct($trackerItemId = '')
     {
         $this->trackerItemId = $trackerItemId;
         $this->setLabel(tra('Link file from tracker item'))

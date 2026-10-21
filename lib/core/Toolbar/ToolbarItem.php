@@ -353,6 +353,7 @@ abstract class ToolbarItem
                 break;
             case 'Picker':
                 $tag = new ToolbarPicker();
+                $tag->setName($tagName);
                 break;
             case 'Separator':
                 $tag = new ToolbarSeparator();

@@ -10,6 +10,13 @@ class ToolbarPicker extends ToolbarDialog
     private string $styleType;
     protected string $id;
 
+    public function setName(string $name): ToolbarItem
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public static function fromName($tagName, bool $is_wysiwyg = false, bool $is_html = false, bool $is_markdown = false, string $domElementId = ''): ?ToolbarItem
     {
         $tool_prefs = [];
@@ -60,7 +67,7 @@ class ToolbarPicker extends ToolbarDialog
 
 
         $tag = new self();
-        $tag->name = $tagName;
+        $tag->setName($tagName);
 
         $tag->isMarkdown = $is_markdown;
         $tag->isWysiwyg = $is_wysiwyg;
