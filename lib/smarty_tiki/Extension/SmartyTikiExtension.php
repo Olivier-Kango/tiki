@@ -123,6 +123,12 @@ class SmartyTikiExtension extends \Smarty\Extension\Base
             $this->outputFilters[] = new \SmartyTiki\Filter\Output\Sefurl();
         }
 
+        // The per-object/category SEO filter is supplied by a separate MR.
+        // Wrap it once when available, without requiring its class on master.
+        $overrideClass = 'Tiki\\Seo\\MetaTagOverride';
+        if (class_exists($overrideClass) && is_subclass_of($overrideClass, \Smarty\Filter\FilterInterface::class)) {
+            return array_merge($this->outputFilters, [new \Tiki\Seo\SocialMetaTagOverride(new $overrideClass())]);
+        }
         return $this->outputFilters;
     }
 
