@@ -116,8 +116,8 @@ class Iconset
                 'append'  => $this->styles['outline']['append'],
             ];
         } else {
-            if (! $theme_prefetch) {
-                trigger_error(tr('Icon not found: %0', $name));
+            if (! $theme_prefetch && \Perms::get()->admin) {
+                Feedback::warning(tr('Icon not found: %0. It was substituted by a highlighted warning icon on this page.', htmlspecialchars($name, ENT_QUOTES)));
             }
             return null;
         }
@@ -225,7 +225,10 @@ class Iconset
 
             return $html;
         } else { //if icon is not found in $iconset, then display warning sign. Helps to detect missing icon definitions, typos
-            return $this->getHtml('warning');
+            return $this->getHtml('warning', [
+                'iclass' => 'text-warning missing-icon',
+                'ititle' => tr('Icon not found: %0', htmlspecialchars($name, ENT_QUOTES)),
+            ]);
         }
     }
 
