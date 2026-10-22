@@ -598,6 +598,15 @@
                             </div>
                         {/if}
                     {/if}
+                    {if isset($userinfo.userId) && $prefs.users_admin_actions_require_validation eq 'y'}
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-md-2 col-form-label" for="admin_confirm_password">{tr}Confirm your password{/tr}</label>
+                            <div class="col-sm-7 col-md-6">
+                                <input type="password" class="form-control" name="admin_confirm_password" id="admin_confirm_password" placeholder="{tr}Your current password{/tr}" autocomplete="current-password">
+                                <div class="form-text">{tr}Required to save sensitive changes: enter your own current password.{/tr}</div>
+                            </div>
+                        </div>
+                    {/if}
                     {if $prefs.login_is_email neq 'y'}
                         <div class="mb-3 row">
                             <label class="col-sm-3 col-md-2 col-form-label" for="email">{tr}Email{/tr}</label>
