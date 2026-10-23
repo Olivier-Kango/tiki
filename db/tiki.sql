@@ -2948,7 +2948,7 @@ CREATE TABLE `users_objectpermissions` (
   `permName` varchar(40) NOT NULL default '',
   `objectType` varchar(20) NOT NULL default '',
   `objectId` varchar(32) NOT NULL default '',
-  PRIMARY KEY `uo` (`objectId`, `objectType`, `groupName`(99),`permName`)
+  PRIMARY KEY (`objectId`, `objectType`, `groupName`(99),`permName`)
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `users_permissions`;

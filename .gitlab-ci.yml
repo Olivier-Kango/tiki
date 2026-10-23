@@ -570,6 +570,7 @@ console-php-works:
   variables:
     EXTRA: 1
     MCL: 1
+    TIKI_CATCH_UPDATE_WARNINGS: "1"
     # This allows concurrent jobs on the same runner not to interfere with one another.
     # These aliases must remain within 15 characters and not start with a number (on docker linux). 
     # So with the id being up to 7 characters, it means no more than 8 in the prefix.
