@@ -194,7 +194,6 @@
     "src/js/tiki-model3dviewer",
     "src/js/tiki-sentry-browser",
     "src/js/tiki-toast-ui",
-    "src/js/tiki-ui-utils",
     "src/js/tiki-vue-sfc-loader",
     "src/js/vue-mf/*",
     "src/js/vue-widgets/*",

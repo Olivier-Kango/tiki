@@ -438,11 +438,6 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 2 },
                     },
                     {
-                        src: "node_modules/interactjs/dist",
-                        dest: "vendor_dist/interactjs/dist",
-                        rename: { stripBase: 3 },
-                    },
-                    {
                         src: "node_modules/d3/dist/d3.min.js",
                         dest: "vendor_dist/d3/dist",
                         rename: { stripBase: 3 },
@@ -501,7 +496,8 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: "node_modules/interactjs/dist",
+                        // Loaded as a classic script; tiki-iot bundles its own copy from node_modules
+                        src: ["node_modules/interactjs/dist/interact.min.js", "node_modules/interactjs/dist/interact.min.js.map"],
                         dest: "vendor_dist/interactjs/dist",
                         rename: { stripBase: 3 },
                     },
@@ -529,7 +525,8 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 2 },
                     },
                     {
-                        src: "node_modules/jquery/dist",
+                        // tiki-setup.php picks one of the two depending on tiki_minify_javascript. The slim/factory builds are unused.
+                        src: ["node_modules/jquery/dist/jquery.js", "node_modules/jquery/dist/jquery.min.js"],
                         dest: "vendor_dist/jquery/dist",
                         rename: { stripBase: 3 },
                     },
@@ -554,7 +551,8 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: "node_modules/jquery-validation/dist",
+                        // Only the plugin itself is loaded (tiki-setup.php), not its localization/ or additional-methods
+                        src: "node_modules/jquery-validation/dist/jquery.validate.js",
                         dest: "vendor_dist/jquery-validation/dist",
                         rename: { stripBase: 3 },
                     },
@@ -567,7 +565,8 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: "node_modules/moment/dist",
+                        // Locale files are only loaded through Node's require(), never in the browser
+                        src: "node_modules/moment/dist/moment.js",
                         dest: "vendor_dist/moment/dist",
                         rename: { stripBase: 3 },
                     },
@@ -579,7 +578,7 @@ export default defineConfig(({ command, mode }) => {
                         // in setup.php on every page if fgal_use_record_rtc_screen is on!
                         // Which would be bad enough, but it's not the same version as the rest of tiki
                         // uses above from the importmap.  benoitg - 2026-03-09
-                        src: "node_modules/moment/min",
+                        src: ["node_modules/moment/min/moment.min.js", "node_modules/moment/min/moment.min.js.map"],
                         dest: "vendor_dist/moment/min",
                         rename: { stripBase: 3 },
                     },
@@ -600,17 +599,21 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: [
-                            "node_modules/plotly.js/dist/*.min.js",
-                            "node_modules/plotly.js/dist/plotly-locale*",
-                            "node_modules/plotly.js/dist/plot-schema.json",
-                            "node_modules/plotly.js/dist/plotly-geo-assets.js",
-                        ],
+                        // Only the bundle Tiki loads: plotly-cartesian (wikiplugin_pivottable.php). Tabular moved from plotly-basic to d3.
+                        src: "node_modules/plotly.js/dist/plotly-cartesian.min.js",
                         dest: "vendor_dist/plotly.js/dist",
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: "node_modules/reveal.js/dist",
+                        // tiki-slideshow.php loads the UMD reveal.js, reveal.css and a theme (which uses fonts/), not the ESM build.
+                        // The plugins (speaker notes) are copied by the next rule.
+                        src: [
+                            "node_modules/reveal.js/dist/reset.css",
+                            "node_modules/reveal.js/dist/reveal.css",
+                            "node_modules/reveal.js/dist/reveal.js",
+                            "node_modules/reveal.js/dist/reveal.js.map",
+                            "node_modules/reveal.js/dist/theme",
+                        ],
                         dest: "vendor_dist/reveal.js/dist",
                         rename: { stripBase: 3 },
                     },
@@ -625,7 +628,13 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: "node_modules/smartmenus/dist",
+                        // Import map "smartmenus" (minified build, its source map keeps it debuggable) and the layout css from tiki-setup.php
+                        src: [
+                            "node_modules/smartmenus/dist/css/maps/smartmenus-only-layout.css.map",
+                            "node_modules/smartmenus/dist/css/smartmenus-only-layout.css",
+                            "node_modules/smartmenus/dist/js/smartmenus.esm.min.js",
+                            "node_modules/smartmenus/dist/js/smartmenus.esm.min.js.map",
+                        ],
                         dest: "vendor_dist/smartmenus/dist",
                         rename: { stripBase: 3 },
                     },
@@ -639,8 +648,17 @@ export default defineConfig(({ command, mode }) => {
                         dest: "vendor_dist/subtotal/dist",
                         rename: { stripBase: 3 },
                     },
-                                        {
-                        src: "node_modules/svgedit/dist/editor",  //Could be pared down, but we do need most of the subdirectories
+                    {
+                        // Editor.js (import map "svgedit") and what it loads at runtime: images/ (imgPath), extensions/ (extPath),
+                        // components/jgraduate/. The standalone html pages, iife build and tests/ are not used by Tiki, and svgedit.css
+                        // is bundled by Vite from tiki-svgedit_draw.js into tiki-svgedit_draw.css.
+                        src: [
+                            "node_modules/svgedit/dist/editor/Editor.js",
+                            "node_modules/svgedit/dist/editor/Editor.js.map",
+                            "node_modules/svgedit/dist/editor/components",
+                            "node_modules/svgedit/dist/editor/extensions",
+                            "node_modules/svgedit/dist/editor/images",
+                        ],
                         dest: "vendor_dist/svgedit/dist",
                         rename: { stripBase: 3 },
                     },
@@ -655,7 +673,8 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 2 },
                     },
                     {
-                        src: "node_modules/three/build/three.*.min.js",
+                        // Import map "three" and the core it imports. The webgpu/tsl builds are not used.
+                        src: ["node_modules/three/build/three.module.min.js", "node_modules/three/build/three.core.min.js"],
                         dest: "vendor_dist/three/build",
                         rename: { stripBase: 3 },
                     },
