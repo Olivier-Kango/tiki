@@ -61,6 +61,7 @@ class Tracker_Field_Computed extends \Tracker\Field\AbstractItemField
     {
         $ins_id = $this->getInsertId();
         $data = [];
+        $value = null;
 
         if (isset($requestData[$ins_id])) {
             $value = $requestData[$ins_id];
@@ -111,17 +112,42 @@ class Tracker_Field_Computed extends \Tracker\Field\AbstractItemField
 
     public static function computeFields($args)
     {
+        $itemId = $args['object'] ?? null;
+
+        if ($itemId) {
+            self::recomputeItem($args['trackerId'], $itemId, $args['values'] ?? []);
+        }
+    }
+
+    /**
+     * Evaluate and store every computed field of an item.
+     *
+     * @param int $trackerId
+     * @param int $itemId
+     * @param array $values field values by fieldId, read from the item when not supplied
+     * @return void
+     */
+    public static function recomputeItem($trackerId, $itemId, array $values = [])
+    {
         $trklib = TikiLib::lib('trk');
-        $definition = Tracker_Definition::get($args['trackerId']);
+        $definition = Tracker_Definition::get($trackerId);
+
+        if (! $values) {
+            $values = $trklib->get_tracker_item($itemId);
+        }
+
+        if (! $definition || ! is_array($values)) {
+            return;
+        }
 
         foreach ($definition->getFields() as $field) {
             $fieldId = $field['fieldId'];
 
             if ($field['type'] == 'C') {
                 // Evaluate the formula
-                $value = self::evaluateFormula($field['options_array'][0], $args['values']);
-                $args['values'][$fieldId] = $value;
-                $trklib->modify_field($args['itemId'], $fieldId, $value);
+                $value = self::evaluateFormula($field['options_array'][0], $values);
+                $values[$fieldId] = $value;
+                $trklib->modify_field($itemId, $fieldId, $value);
             }
         }
     }
@@ -146,11 +172,22 @@ class Tracker_Field_Computed extends \Tracker\Field\AbstractItemField
         // Replace #1, #2, etc., with corresponding values from the $values array
         $formula = preg_replace_callback('/#([0-9]+)/', function ($matches) use ($values) {
             $fieldId = $matches[1];
-            return $values[$fieldId] ?? 0;
+            $value = $values[$fieldId] ?? 0;
+
+            $value = is_string($value) ? trim($value) : $value;
+            if ($value === '' || $value === null) {
+                return 0;
+            }
+
+            // Values saved on a comma-decimal locale must be normalised, the whitelist below rejects commas.
+            $value = str_replace(',', '.', (string) $value);
+
+            return is_numeric($value) ? $value : 0;
         }, $formula);
 
-        // Check if the formula contains only allowed characters
-        if (! preg_match('/^[0-9+\-*/(). ]+$/', $formula)) {
+        // Check if the formula contains only allowed characters.
+        // The "~" delimiter keeps the division operator usable without escaping it.
+        if (! preg_match('~^[0-9+\-*/(). ]+$~', $formula)) {
             return null;
         }
 
