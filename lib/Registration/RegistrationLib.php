@@ -445,7 +445,7 @@ class RegistrationLib extends TikiLib
 
         if (isset($registration['chosenGroup']) && $userlib->get_registrationChoice($registration['chosenGroup']) == 'y') {
             $userlib->set_default_group($registration['name'], $registration['chosenGroup']);
-        } elseif (empty($registration['chosenGroup'])) {
+        } elseif (empty($registration['chosenGroup']) && ($prefs['eponymousGroups'] != 'y' || $prefs['eponymousGroupsDefault'] != 'y')) {
             // to have tiki-user_preferences links par default to the registration tracker
             $userlib->set_default_group($registration['name'], 'Registered');
         }

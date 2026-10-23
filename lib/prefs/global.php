@@ -510,6 +510,15 @@ function prefs_global_list($partial = false)
             'default' => 'n',
             'keywords' => 'eponymous groups',
         ],
+        'eponymousGroupsDefault' => [
+            'name' => tra("Make the newly created group the user's default group"),
+            'description' => tra('Tracker items and objects created by the user are then owned by their own group.'),
+            'type' => 'flag',
+            'help' => 'Groups',
+            'default' => 'n',
+            'dependencies' => ['eponymousGroups'],
+            'keywords' => 'eponymous groups default group',
+        ],
         'syncGroupsWithDirectory' => [
             'name' => tra('Synchronize Tiki groups with a directory'),
             'description' => tra('Synchronize Tiki group membership with LDAP directory groups on user login and during bulk sync.'),

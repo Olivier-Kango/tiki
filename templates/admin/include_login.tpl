@@ -165,6 +165,9 @@
                 {preference name=unsuccessful_logins}
                 {preference name=unsuccessful_logins_invalid}
                 {preference name=eponymousGroups}
+                <div class="adminoptionboxchild" id="eponymousGroups_childcontainer">
+                    {preference name=eponymousGroupsDefault}
+                </div>
                 {preference name=desactive_login_autocomplete}
                 {preference name=login_placeholders_enable}
                 {preference name=permission_denied_login_box}

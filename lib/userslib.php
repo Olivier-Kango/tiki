@@ -7294,6 +7294,10 @@ class UsersLib extends TikiLib
             $this->add_group($user, "Personal group for $user.", '', 0, 0, 0, '');
 
             $this->assign_user_to_group($user, $user);
+
+            if ($prefs['eponymousGroupsDefault'] == 'y') {
+                $this->set_default_group($user, $user);
+            }
         }
 
         // Notify listeners that a local user has been created (e.g. XMPP auto-join)
