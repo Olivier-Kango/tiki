@@ -20,7 +20,7 @@ grant all privileges on tiki_accep_test.* TO 'tiki_tester'@'localhost' identifie
 See https://dev.tiki.org/Tiki-Unit-Testing for more info
 
 */
-$host_tiki = 'localhost';
+$host_tiki = '127.0.0.1';  //Don't use socket by default 9which would be the case if you use localhost here), as recent ubuntu's seem to have misconfigured pdo_mysql.default_socket - benoitg - 2026-10-23
 $user_tiki = 'tiki_tester';
 $pass_tiki = 'tiki_tester_pass';
 $dbs_tiki = 'tiki_unit_test';

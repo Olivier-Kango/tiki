@@ -82,6 +82,7 @@ class TikiDb_Initializer_Pdo
 
             return $db;
         } catch (Exception $e) {
+            // Not great, output is completely swallowed, so there is no way to see problems caused for example by a failed mariadb upgrade or a misconfigured pdo_mysql.default_socket.  trigger_error($e, E_USER_WARNING); won't do either, as it will ouput in the installer that assumes there is no output for a failed password etc.  A real refactoring would imply reworking error handling throughout the installer system and tiki.  benoitg - 2026-06-14
             return null;
         }
     }
