@@ -112,7 +112,7 @@ blockquote,
 // Forms
 input[type="checkbox"] {
     color: #ffffff !important;
-    background: $table-bg;
+    background-color: $table-bg;
 }
 
     // Forums
@@ -130,8 +130,9 @@ input[type="checkbox"] {
  //       --bs-pagination-active-bg: #{$secondary};
  //       --bs-pagination-active-border-color: #{$secondary};
  //   }
-    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    .nav-pills {
         --bs-nav-pills-link-active-bg: #{$dark};
+        --bs-nav-pills-link-active-color: #{$nav-pills-link-active-color};
     }
 }
 

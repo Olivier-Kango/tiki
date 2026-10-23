@@ -7,6 +7,7 @@
 $imagePathToImgDir: "../../../img/";
 @import "../../../node_modules/bootstrap/scss/_mixins.scss"; //
 @import "external-scripts"; // Moved from each theme's top file.
+@import "tiki-text-selection";
 //@import "../../../node_modules/bootstrap/scss/_variables.scss";
 // @import "../../default/scss/variables"; -- This file (tiki-selectors) is imported by themes after they import tiki-variables, which imports default/scss/variables, so no need to import it here.
 
@@ -21,7 +22,6 @@ $imagePathToImgDir: "../../../img/";
     --tiki-input-bg: #{$input-bg};
     --tiki-input-color: #{$input-color};
 }
-
 
 //.layout_social,
 //.layout_social_modules {
@@ -1097,6 +1097,12 @@ code {
 // Make links in highlighted adminoptions visible with nice contrast
 div.highlight.adminoptionbox a {
     color: color-contrast($danger) !important; // returns color contrast to danger color
+}
+
+// Keep native controls in theme colors when markup doesn't use Bootstrap classes.
+input[type="checkbox"]:not(.preffilter-toggle):not(.preffilter-toggle-round):not(.simple-toggle):not(.simple-toggle-round),
+input[type="radio"] {
+    accent-color: var(--bs-primary);
 }
 
 // Admin navbar switch

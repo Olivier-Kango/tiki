@@ -1,5 +1,6 @@
 // This file contains CSS (SCSS) that theme options have in common, mostly color variations from the parent theme.
 // The file _variables-for-options.scss is used with this file. Theme options import these files and apply their variable definitions.
+@import "../../base_files/scss/tiki-text-selection";
 
 $imagePath: "../images/";
 // body {
@@ -89,8 +90,9 @@ hr {
         --bs-pagination-active-bg: #{$secondary};
         --bs-pagination-active-border-color: #{$secondary};
     }
-    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    .nav-pills {
         --bs-nav-pills-link-active-bg: #{$secondary};
+        --bs-nav-pills-link-active-color: #{$nav-pills-link-active-color};
     }
 }
 

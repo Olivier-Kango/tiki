@@ -1,0 +1,15 @@
+// Keep selected text in the theme palette with a contrasting foreground.
+:root {
+    --tiki-selection-bg: #{$primary};
+    --tiki-selection-color: #{color-contrast($primary)};
+}
+
+::selection {
+    background-color: var(--tiki-selection-bg);
+    color: var(--tiki-selection-color);
+}
+
+::-moz-selection {
+    background-color: var(--tiki-selection-bg);
+    color: var(--tiki-selection-color);
+}

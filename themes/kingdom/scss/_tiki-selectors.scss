@@ -197,7 +197,7 @@
 
 .nav-pills {
     --bs-nav-pills-link-active-bg: var(--bs-primary);
-    --bs-nav-pills-link-active-color: #fff;
+    --bs-nav-pills-link-active-color: #{$nav-pills-link-active-color};
 }
 
 .scroll-offset {
