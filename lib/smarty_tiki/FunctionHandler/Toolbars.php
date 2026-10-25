@@ -32,7 +32,7 @@ class Toolbars extends Base implements TikiSmartyExtensionInterface
             'comments' => 'n',
             'is_html' => $is_html,
             'section' => $section,
-            'syntax' => $prefs['markdown_default'],
+            'syntax' => $params['_syntax'] ?? $prefs['markdown_default'],
         ];
         $params = array_merge($default, $params);
 
