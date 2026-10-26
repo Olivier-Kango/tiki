@@ -16,7 +16,7 @@ use Tiki\WikiParser\Markdown\Node\Citation;
  * Parser for {@citekey} syntax
  * Supports:
  * - {@key}
- * - {@key, p. 42}
+ * - {@key, p. 42}  (labels: p./pp./page, sec./section, ch./chap./chapter)
  * - {@key1; @key2}
  * - {-@key} (suppress author)
  */
@@ -70,11 +70,11 @@ class CitationParser implements InlineParserInterface
                         $label = 'page';
                     } elseif (preg_match('/^(secs?\.?|sections?)\s+/i', $locator)) {
                         $label = 'section';
-                    } elseif (preg_match('/^(chaps?\.?|chapters?)\s+/i', $locator)) {
+                    } elseif (preg_match('/^(chs?\.?|chaps?\.?|chapters?)\s+/i', $locator)) {
                         $label = 'chapter';
                     }
 
-                    $locator = preg_replace('/^(pp?\.?|pages?|sections?|secs?\.?|chapters?|chaps?\.?)\s+/i', '', $locator);
+                    $locator = preg_replace('/^(pp?\.?|pages?|sections?|secs?\.?|chapters?|chaps?\.?|chs?\.?)\s+/i', '', $locator);
                 }
 
                 $citations[] = [
