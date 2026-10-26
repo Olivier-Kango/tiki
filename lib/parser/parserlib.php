@@ -27,6 +27,12 @@ use Tiki\Sections;
  */
 class ParserLib extends TikiDb_Bridge
 {
+    // Mark content included from another page (PluginInclude), which must not get edit icons
+    // nor shift the section/plugin numbering of the current page
+    public const TRANSCLUSION_START = "\u{E000}";
+    public const TRANSCLUSION_END = "\u{E001}";
+    public const TRANSCLUDED_HEADING = "\u{E002}";
+
     public $content_to_render;
     // private $makeTocCount = 0; Unused since Tiki 12 or earlier
 
@@ -123,6 +129,7 @@ class ParserLib extends TikiDb_Bridge
                 'typography' => true,
                 'autotoc' => false,
                 'markdown_conversion' => false,
+                'transcluded' => false, // the markup comes from another page
             ],
             empty($option) ? [] : (array) $this->option,
             (array)$option
@@ -2765,6 +2772,7 @@ class ParserLib extends TikiDb_Bridge
         $counters = [];
         $all_anchors = [];
         $nb_hdrs = 0;
+        $nb_page_hdrs = 0; // own headings only, as counted by TikiLib::get_wiki_section()
         $nb_lists = 0;
         $inTable = 0;
         $inPre = 0;
@@ -2995,6 +3003,12 @@ class ParserLib extends TikiDb_Bridge
 
                     if ($litype == '!' && $hdrlevel > 0 && $hdrlevel <= 6 /* HTML has h1 to h6, but no h7 or above */) { // If the line starts with 1 to 6 exclamation marks ("!")
                         ++$nb_hdrs;
+                        $transcludedHeading = str_contains($line, self::TRANSCLUDED_HEADING);
+                        if ($transcludedHeading) {
+                            $line = str_replace(self::TRANSCLUDED_HEADING, '', $line);
+                        } else {
+                            ++$nb_page_hdrs;
+                        }
                         if (preg_match('/^!+[\+\-]?#\)/', $line)) {
                             $counters = [];
                             $line = preg_replace('/(^!+[\+\-]?)(#)\)/', '$1$2', $line);
@@ -3112,7 +3126,8 @@ class ParserLib extends TikiDb_Bridge
                         if (
                             $prefs['wiki_edit_section'] === 'y' && Sections::isCurrentSection(Sections::SECTION_WIKI_PAGE) && $tiki_p_edit === 'y' &&
                                 ( $prefs['wiki_edit_section_level'] == 0 || $hdrlevel <= $prefs['wiki_edit_section_level']) &&
-                                (empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons']
+                                (empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons'] &&
+                                ! $transcludedHeading
                         ) {
                             $smarty = TikiLib::lib('smarty');
 
@@ -3125,7 +3140,7 @@ class ParserLib extends TikiDb_Bridge
                             if (! empty($this->option['page'])) {
                                 $button .= 'page=' . urlencode($this->option['page']) . '&amp;';
                             }
-                            $button .= 'hdr=' . $nb_hdrs . '">' . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'edit'], $smarty->getEmptyInternalTemplate()) . '</a></div>';
+                            $button .= 'hdr=' . $nb_page_hdrs . '">' . \SmartyTiki\FunctionHandler\Icon::render(['name' => 'edit'], $smarty->getEmptyInternalTemplate()) . '</a></div>';
                         } else {
                             $button = '';
                         }

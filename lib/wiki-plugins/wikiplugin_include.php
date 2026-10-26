@@ -157,7 +157,7 @@ function wikiplugin_include_info()
     ];
 }
 
-function wikiplugin_include($dataIn, $params)
+function wikiplugin_include($dataIn, $params, $offset = 0, $parser = null)
 {
     global $killtoc, $prefs;
     $text = "";
@@ -183,6 +183,11 @@ function wikiplugin_include($dataIn, $params)
     if (isset($replace) && (int) $replace === 1) {
         $linkoriginal = 'n';
         $page_edit_icon = 'n';
+        $page_replace_icon = 'n';
+    }
+
+    // a nested include is not in the current page source, so it cannot be replaced there
+    if (! empty($parser->option['transcluded'])) {
         $page_replace_icon = 'n';
     }
 
@@ -347,6 +352,7 @@ function wikiplugin_include($dataIn, $params)
         $options = [
             'is_html' => $data[$fragmentIdentifier]['is_html'],
             'suppress_icons' => true,
+            'transcluded' => true,
         ];
         if (! empty($_REQUEST['page'])) {
             $options['page'] = $_REQUEST['page'];
