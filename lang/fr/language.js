@@ -60,6 +60,8 @@ lang = {
     "Show end time" : "Afficher l'heure de fin",
     "There's no such date as" : "Cette date n'existe pas :",
     "of" : "de",
+    "month" : "mois",
+    "week" : "semaine",
     "January" : "janvier",
     "February" : "février",
     "March" : "mars",
