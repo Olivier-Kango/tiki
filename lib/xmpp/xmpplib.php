@@ -12,9 +12,12 @@ use Fabiang\Xmpp\Util\JID;
 use Tiki\Lib\Auth\Tokens;
 use Tiki\Lib\Xmpp\TikiXmppExternalPrebind;
 
+if (class_exists('XmppPrebind')) {
+    require_once __DIR__ . '/TikiXmppPrebind.php';
+}
+
 require_once __DIR__ . '/ConverseJS.php';
 require_once __DIR__ . '/TikiXmppChat.php';
-require_once __DIR__ . '/TikiXmppPrebind.php';
 
 class XMPPLib extends TikiLib
 {
@@ -614,11 +617,7 @@ class XMPPLib extends TikiLib
         global $tikilib;
 
         if (! class_exists('XmppPrebind')) {
-            throw new Exception(
-                "class 'XmppPrebind' does not exists."
-                . " Install with `composer require candy-chat/xmpp-prebind-php:dev-master`.",
-                1
-            );
+            throw new RuntimeException(tr('XMPP prebinding authentication is not supported on this installation.'), 501);
         }
 
         $session_id = substr($tikilib->sessionId, 0, 5);
@@ -983,7 +982,9 @@ class XMPPLib extends TikiLib
         }
 
         $xmppclient = new ConverseJS();
-        $xmppclient->set_auth($params);
+        if ($xmppclient->set_auth($params) === false) {
+            return '';
+        }
 
         $nickname = $xmpp['nickname'] ?? $user;
         if ($onXmppPage) {

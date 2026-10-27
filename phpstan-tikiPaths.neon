@@ -7,6 +7,8 @@ parameters:
     #- vendor
     #- vendor_custom
   scanFiles:
+    # Optional prebind dependency: signatures for analysis only, never loaded at runtime.
+    - src/ci/phpstan/xmpp-prebind.stub
     # The following allows analysing our custom phpcs sniffs properly (They are devtools, we don't want them in main composer.json config)
     # Not necessary anymore was added to autoload-dev in composer.json.
     #- vendor_bundled/vendor/squizlabs/php_codesniffer/src/Files/File.php
@@ -68,6 +70,5 @@ parameters:
     -
       message: '#"lib/test/local.php" is not a file or it does not exist.#'
       reportUnmatched: false
-
 
 

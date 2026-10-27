@@ -118,6 +118,7 @@ class ConverseJS
         global $user;
         global $prefs;
         $authMethod = TikiLib::lib('tiki')->get_preference('xmpp_auth_method');
+        $prebindAvailable = class_exists('XmppPrebind');
         $this->set_option('on_xmpp_page', $params['on_xmpp_page'] ?? 'n');
 
         $currentRoom = trim($params['room'] ?? '');
@@ -157,6 +158,10 @@ class ConverseJS
             ]);
         // Prebind (tikitoken)
         } elseif ($authMethod === 'tikitoken') {
+            if (! $prebindAvailable) {
+                Feedback::error(tr('Openfire TikiToken authentication is not supported on this installation because XMPP prebinding is unavailable. Select another authentication method in the XMPP settings.'));
+                return false;
+            }
             $this->set_options([
                 'auto_login' => true,
                 'authentication'   => 'prebind',
