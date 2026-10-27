@@ -128,6 +128,9 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements \Tracker\Field\Ex
                         'options' => [
                             'n' => tr('No'),
                             'y' => tr('Yes'),
+                            ],
+                        'depends' => [
+                            'pref' => 'feature_wysiwyg'
                         ],
                     ],
                     'previewtabs' => [

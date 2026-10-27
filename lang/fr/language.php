@@ -3767,6 +3767,7 @@ $lang_current = array(
 "Use a rich text editor instead of inputting plain text" => "Utiliser un éditeur de texte riche à la place de la boite de texte",
 "Preview Tabs" => "Onglets d'aperçu",
 "Enable edit and preview tabs for this field" => "Activer les onglets de modification et d'aperçu pour ce champ",
+"The option \"%0\" requires the preference \"%1\" to be enabled." => "L'option \"%0\" nécessite que la préférence \"%1\" soit activée.",
 "Word Limit Exceeded" => "Nombre maximum de mots atteint",
 "Character Limit Exceeded" => "Nombre de caractères dépassé",
 "Text Field" => "Champ texte",

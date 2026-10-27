@@ -96,6 +96,9 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
                             'y' => tr('Yes'),
                         ],
                         'legacy_index' => 7,
+                        'depends' => [
+                            'pref' => 'feature_wysiwyg'
+                        ],
                     ],
                     'previewtabs' => [
                         'name' => tr('Preview Tabs'),

@@ -28,7 +28,7 @@ use SmartyTiki\TikiSmartyExtensionInterface;
  *    _is_html: parse as html
  *    _preview: add a preview in a tab
  *    _syntax: Specify syntax to be used.
- *              If blank then \WikiParser_Parsable::guess_syntax is used.
+ *              If blank, then \WikiParser_Parsable::guess_syntax is used.
  *              Use "none" to make a plain text area
  *    codemirror: if set to 'true' and feature_syntax_highlighter is enabled,
  *             initializes the textarea using CodeMirror instead of the default editor.
@@ -91,9 +91,10 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
 
         $smarty->assign('textarea_id', $params['id']);
 
+        // guess_syntax also strips the {syntax} plugin from $content so it isn't shown in the editor (re-added on submit)
+        $wikiParserParsable = new \WikiParser_Parsable($content);
+        $syntaxPluginResult = $wikiParserParsable->guess_syntax($content);
         if (empty($params['_syntax'])) { // work out if we have Tiki or Markdown syntax
-            $wikiParserParsable = new \WikiParser_Parsable($content);
-            $syntaxPluginResult = $wikiParserParsable->guess_syntax($content);// for the toolbars
             if (isset($syntaxPluginResult['syntax'])) {
                 $params['_syntax'] = $syntaxPluginResult['syntax'];
             } else {
@@ -115,7 +116,7 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
         //keep params html5 friendly
         unset($params['codemirror']);
 
-        // mainly for modules admin - preview is for the module, not the custom module so don;t need to confirmExit
+        // mainly for modules admin - preview is for the module, not the custom module so don't need to confirmExit
         $params['_previewConfirmExit'] = $params['_previewConfirmExit'] ?? 'y';
 
         if (empty($params['section'])) {
@@ -186,18 +187,17 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
             $headerlib->add_jq_onready("$('#$as_id').userMentions();");
         }
         if ($params['_wysiwyg'] == 'y' && $params['_simple'] == 'n') {
-            // TODO cope with wysiwyg and simple
             $wysiwyglib = TikiLib::lib('wysiwyg');
 
             if (! isset($params['name'])) {
                 $params['name'] = 'edit';
             }
-
-            if ($params['_syntax'] === 'markdown') {
+            if ($prefs['feature_wysiwyg'] != 'y') {
+                $html .= $this->getTextAreaToRender($smarty, $params, $content);
+            } elseif ($params['_syntax'] === 'markdown') {
                 // markdown
                 $tuiOptions = $wysiwyglib->setUpMarkdownEditor($as_id, $content, $params, $auto_save_referrer);
 
-                // TODO add dialog to choose syntax if pref says so
                 $html .= '<input type="hidden" name="wysiwyg" value="y" />';
                 $html .= '<input type="hidden" name="' . $params['name'] . '" id="' . $as_id . '" value="' . htmlspecialchars($content) . '" />';
                 $html .= '<div id="' . $as_id . '_editor"></div>';
@@ -213,31 +213,14 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
                 $wysiwyglib->setUpEditor($as_id, $params);
             }
         } else {
-            // end of if ( $params['_wysiwyg'] == 'y' && $params['_simple'] == 'n')
-
             // setup for wiki editor
-
             if (empty($params['disabled'])) {
                 unset($params['disabled']);
             }
 
             $params['rows'] = ! empty($params['rows']) ? $params['rows'] : 20;
 
-            $textarea_attributes = '';
-            foreach ($params as $k => $v) {
-                if ($k[0] != '_' && ! in_array($k, ['comments', 'switcheditor', 'section', 'area_id', 'autosave'])) {
-                    $textarea_attributes .= ' ' . $k . '="' . $v . '"';
-                }
-            }
-            $smarty->assign('textarea__toolbars', $params['_toolbars']);
-            if ($textarea_attributes != '') {
-                $smarty->assign('textarea_attributes', $textarea_attributes);
-            }
-            $smarty->assign('textarea_syntax', $params['_syntax']);
-            $smarty->assign('objectId', $params['objectId'] ?? null);
-            $smarty->assign_by_ref('textareadata', $content);
-            $html .= $smarty->fetch('wiki_edit.tpl');
-
+            $html .= $this->getTextAreaToRender($smarty, $params, $content);
             $html .= "\n" . '<input type="hidden" name="wysiwyg" value="n" />';
 
             // Attach language checker for plain textarea if enabled
@@ -457,5 +440,34 @@ class TextArea extends Base implements TikiSmartyExtensionInterface
             );
         }
         return $html;
+    }
+
+    /**
+     * Generate the HTML for the textarea and assign necessary variables to Smarty
+     *
+     * @param $smarty
+     * @param $params
+     * @param $content
+     *
+     * @return mixed
+     *
+     */
+    private function getTextAreaToRender($smarty, $params, $content)
+    {
+        $textarea_attributes = '';
+        foreach ($params as $k => $v) {
+            if ($k[0] != '_' && ! in_array($k, ['comments', 'switcheditor', 'section', 'area_id', 'autosave'])) {
+                $textarea_attributes .= ' ' . $k . '="' . $v . '"';
+            }
+        }
+
+        if ($textarea_attributes != '') {
+            $smarty->assign('textarea_attributes', $textarea_attributes);
+        }
+        $smarty->assign('textarea__toolbars', $params['_toolbars']);
+        $smarty->assign('textarea_syntax', $params['_syntax']);
+        $smarty->assign('objectId', $params['objectId'] ?? null);
+        $smarty->assign_by_ref('textareadata', $content);
+        return $smarty->fetch('wiki_edit.tpl');
     }
 }

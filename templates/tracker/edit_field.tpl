@@ -42,6 +42,16 @@
             {/if}
             {$groupInputCounter=0} {*  use to set different id to group's select multiple input *}
             {foreach from=$info.params key=param item=def}
+                {if !empty($def.depends.pref) && (empty($prefs[$def.depends.pref]) || $prefs[$def.depends.pref] == 'n')}
+                    {remarksbox type="warning" title="{tr}Feature required{/tr}"}
+                        {tr _0=$def.name _1=$def.depends.pref}The option "%0" requires the preference "%1" to be enabled.{/tr}
+                        
+                        {if $tiki_p_admin eq 'y'}
+                            <a href="tiki-admin.php?lm_criteria={$def.depends.pref|escape}&amp;exact" class="alert-link">{tr}Turn it on here.{/tr}</a>
+                        {/if}
+
+                    {/remarksbox}
+                {/if}
                 <div class="mb-3 mx-0">
                     <label for="option~{$param|escape}" class="col-form-label">{$def.name|escape}</label>
                     {if $def.separator && $def.options && $def.profile_reference == 'group'}
