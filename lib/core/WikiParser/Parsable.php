@@ -154,9 +154,8 @@ class WikiParser_Parsable extends ParserLib
                 continue;
             }
 
-            //note parent plugin in case of plugins nested in an include - to suppress plugin edit icons below
-            $plugin_parent = $plugin_name ?? false;
             $plugin_name = $match->getName();
+            $isTransclusion = false;
 
             if (! empty($this->option['indexing'])) {
                 $info = $this->plugin_info(strtolower($plugin_name));
@@ -213,11 +212,17 @@ class WikiParser_Parsable extends ParserLib
 
             $pluginOutput = null;
             static $plugin_indexes = [];
+            static $transcluded_indexes = [];
 
-            if (! array_key_exists($plugin_name, $plugin_indexes)) {
-                $plugin_indexes[$plugin_name] = 0;
+            // included plugins are not in the page source: keep them out of its numbering, which edits rely on
+            $transcluded = ! empty($this->option['transcluded']) || $this->isTranscludedPosition($matches->getText(), $start);
+            if ($transcluded) {
+                $transcluded_indexes[$plugin_name] = ($transcluded_indexes[$plugin_name] ?? 0) + 1;
+                $current_index = 'transcluded-' . $transcluded_indexes[$plugin_name];
+            } else {
+                $plugin_indexes[$plugin_name] = ($plugin_indexes[$plugin_name] ?? 0) + 1;
+                $current_index = $plugin_indexes[$plugin_name];
             }
-            $current_index = ++$plugin_indexes[$plugin_name];
 
             if ($this->plugin_enabled($plugin_name, $pluginOutput) || $this->option['wysiwyg']) {
                 // get info to test for preview with auto_save
@@ -237,15 +242,15 @@ class WikiParser_Parsable extends ParserLib
                     } elseif (isset($this->option['noparseplugins']) && $this->option['noparseplugins']) {
                         $ret = '~np~' . (string) $match . '~/np~';
                     } else {
-                        //suppress plugin edit icons for plugins within includes since edit doesn't work for these yet
-                        $suppress_icons = $this->option['suppress_icons'];
-                        $this->option['suppress_icons'] = $plugin_name != 'include' && $plugin_parent && $plugin_parent == 'include' ?
-                            true : $this->option['suppress_icons'];
+                        $saved = [$this->option['suppress_icons'], $this->option['transcluded'] ?? false];
+                        $this->option['suppress_icons'] = $this->option['suppress_icons'] || $transcluded;
+                        $this->option['transcluded'] = $transcluded;
 
                         $ret = $this->pluginExecute($plugin_name, $plugin_data, $arguments, $start, false);
 
-                        // restore previous suppress_icons state
-                        $this->option['suppress_icons'] = $suppress_icons;
+                        [$this->option['suppress_icons'], $this->option['transcluded']] = $saved;
+
+                        $isTransclusion = $plugin_name === 'include' && is_string($ret) && $ret !== '';
                     }
                 } else {
                     if ($status != 'rejected') {
@@ -283,7 +288,7 @@ class WikiParser_Parsable extends ParserLib
                 continue;
             }
 
-            if ($this->plugin_is_editable($plugin_name, $arguments) && (empty($this->option['preview_mode']) || ! $this->option['preview_mode']) && empty($this->option['indexing']) && (empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons']) {
+            if ($this->plugin_is_editable($plugin_name, $arguments) && (empty($this->option['preview_mode']) || ! $this->option['preview_mode']) && empty($this->option['indexing']) && (empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons'] && ! $transcluded) {
                 $headerlib = TikiLib::lib('header');
 
                 $id = 'plugin-edit-' . $plugin_name . $current_index;
@@ -330,10 +335,13 @@ if ( \$('#$id') ) {
             if ($ret !== null) {
                 $ret = str_replace('~/np~~np~', '', $ret);
             }
+            if ($isTransclusion) {
+                $ret = self::TRANSCLUSION_START . $ret . self::TRANSCLUSION_END;
+            }
             $match->replaceWith($ret);
         }
 
-        $data = $matches->getText();
+        $data = $this->flagTranscludedHeadings($matches->getText());
 
         $this->strip_unparsed_block($data, $noparsed);
 
@@ -350,6 +358,47 @@ if ( \$('#$id') ) {
                 $data = substr($data, 0, $start) . $key . substr($data, $end + 5);
             }
         }
+    }
+
+    /**
+     * Whether the position is within the output of an included page
+     */
+    private function isTranscludedPosition(string $text, int $position): bool
+    {
+        return str_contains($text, self::TRANSCLUSION_START)
+            && substr_count($text, self::TRANSCLUSION_START, 0, $position) > substr_count($text, self::TRANSCLUSION_END, 0, $position);
+    }
+
+    /**
+     * Removes the transclusion markers and flags the included heading lines for the section numbering
+     */
+    private function flagTranscludedHeadings(string $data): string
+    {
+        if (! str_contains($data, self::TRANSCLUSION_START)) {
+            return $data;
+        }
+
+        $markers = [self::TRANSCLUSION_START, self::TRANSCLUSION_END];
+        $depth = 0;
+        $ppLevel = 0;
+        $npLevel = 0;
+        $lines = explode("\n", $data);
+        foreach ($lines as &$line) {
+            // leading markers apply to the line itself (include starting with a heading)
+            preg_match('/^(?:\x{E000}|\x{E001})*/u', $line, $leading);
+            $contentDepth = $depth + substr_count($leading[0], self::TRANSCLUSION_START) - substr_count($leading[0], self::TRANSCLUSION_END);
+            $depth += substr_count($line, self::TRANSCLUSION_START) - substr_count($line, self::TRANSCLUSION_END);
+            $line = str_replace($markers, '', $line);
+
+            // same rule as TikiLib::get_wiki_section(): no headings inside ~pp~ or ~np~
+            $ppLevel += preg_match('/~pp~/', $line) - preg_match('/~\/pp~/', $line);
+            $npLevel += preg_match('/~np~/', $line) - preg_match('/~\/np~/', $line);
+            if ($contentDepth > 0 && $ppLevel % 2 == 0 && $npLevel % 2 == 0 && str_starts_with($line, '!')) {
+                $line .= self::TRANSCLUDED_HEADING;
+            }
+        }
+
+        return implode("\n", $lines);
     }
 
     /**
@@ -405,6 +454,8 @@ if ( \$('#$id') ) {
             }
 
             $data = $this->wikiParse($data, $noparsed);
+            // flags of lines not rendered as headings (HTML or Markdown page...)
+            $data = str_replace(self::TRANSCLUDED_HEADING, '', $data);
 
             $data = $this->parse_smileys($data);
             $data = $this->parse_tagged_users($data);
