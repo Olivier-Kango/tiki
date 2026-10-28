@@ -2846,7 +2846,8 @@ class TikiLib extends TikiDb_Bridge
         $links = [];
 
         /// Prevent the substitution of link [] inside a <tag> ex: <input name="tracker[9]" ... >
-        $data = preg_replace("/<[^>]*>/", "", $data);
+        /// A tag must start with a letter and stay within 200 characters, so text like "<= 1 million" is not consumed up to a later ">".
+        $data = preg_replace("/<[a-zA-Z][^>]{0,200}>/", "", $data);
 
         if ($is_markdown) {
             // markdown syntax needs to ignore ^[] inline footnotes, [^footnotes] and [foo](link)
