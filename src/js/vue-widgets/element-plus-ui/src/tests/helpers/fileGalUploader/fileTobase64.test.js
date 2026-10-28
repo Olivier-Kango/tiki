@@ -34,7 +34,7 @@ describe("fileGalUploader fileToBase64 helper", () => {
         fileReaderInstance.result = givenFileBase64Data;
         fileReaderInstance.onload();
 
-        expect(promise).resolves.toEqual(givenFileBase64Data);
+        await expect(promise).resolves.toEqual(givenFileBase64Data);
     });
 
     test("rejects with an error when the file data cannot be retrieved", async () => {

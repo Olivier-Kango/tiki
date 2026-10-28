@@ -246,9 +246,14 @@ describe("FileGalUploader", () => {
 
         test("successfully inserts the file into the text editor when the file is uploaded", async () => {
             window.location.search = "?filegals_manager=editwiki";
-            window.opener = {
-                insertAt: vi.fn(),
-            };
+
+            Object.defineProperty(window, "opener", {
+                value: {
+                    insertAt: vi.fn(),
+                },
+                writable: true,
+                configurable: true,
+            });
             window.tikiCloseFileGalleryManagerWindow = vi.fn();
             const givenProps = {
                 maxSize: "100",

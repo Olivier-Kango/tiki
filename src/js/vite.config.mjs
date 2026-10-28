@@ -367,14 +367,9 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 3 },
                     },
                     {
-                        src: "node_modules/chart.js/dist/chart.{js,umd.js}*",
+                        src: ["node_modules/chart.js/dist/chart.{js,umd.js}*", "node_modules/chart.js/dist/chunks"],//This was node_modules/chart.js/dist/chunks/helpers.dataset.js Pretty much by definition, chunks filenames will not be stable as code and tooling changes.
                         dest: "vendor_dist/chart.js/dist",
                         rename: { stripBase: 3 },
-                    },
-                    {
-                        src: "node_modules/chart.js/dist/chunks/helpers.dataset.js",
-                        dest: "vendor_dist/chart.js/dist/chunks",
-                        rename: { stripBase: 4 },
                     },
                     {
                         src: "node_modules/chartjs-v2/dist/Chart.bundle.min.js",
