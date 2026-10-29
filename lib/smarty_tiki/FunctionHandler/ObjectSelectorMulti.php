@@ -68,6 +68,7 @@ class ObjectSelectorMulti extends Base implements TikiSmartyExtensionInterface
             'selector_type_reference' => null,
             'relations' => [],
             'relationshipTrackerId' => null,
+            'remoteUrl' => null,
         ];
 
         // Handle reserved parameters

@@ -26,6 +26,7 @@
     data-threshold="{$object_selector.threshold|default:$prefs.tiki_object_selector_threshold|escape}"
     data-searchfield="{$object_selector.searchfield|escape}"
     data-relationshiptrackerid="{$object_selector.relationshipTrackerId}"
+    {if !empty($object_selector.remoteUrl)}data-remoteurl="{$object_selector.remoteUrl|escape}"{/if}
 >
     <div class="basic-selector d-none mb-3{if !empty($object_selector.current_selection.metadata) or $object_selector.relationshipTrackerId} include-icon{/if}">
         <select class="form-select">

@@ -62,6 +62,7 @@ class ObjectSelector extends Base implements TikiSmartyExtensionInterface
             'relations' => [],
             'relationshipTrackerId' => null,
             'wildcard' => $prefs['tiki_object_selector_wildcardsearch'] ?? "",
+            'remoteUrl' => null,
         ];
 
         $filters = [];

@@ -78,6 +78,11 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
                         'profile_reference' => 'tracker',
                         'selector_filter' => 'relationship-trackers'
                     ],
+                    'remoteUrl' => [
+                        'name' => tr('Remote Tiki URL'),
+                        'description' => tr('Base URL of another Tiki. Selected objects are stored here and their labels are cached on save, so later display does not contact the remote site. Leave empty for local relations only.'),
+                        'filter' => 'url',
+                    ],
                     'readonly' => [
                         'name' => tr('Read-only'),
                         'description' => tr('Only display the incoming relations instead of manipulating them.'),
@@ -160,7 +165,15 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
         if ($this->trackerField->getOption(TrackerFieldRelation::OPT_INVERT)) {
             $relations = array_merge($relations, TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation, true));
         }
-        return $relations;
+
+        $byTarget = [];
+        foreach ($relations as $rel) {
+            $key = strval($rel->target);
+            if (! isset($byTarget[$key]) || ($rel->metadata && ! $byTarget[$key]->metadata)) {
+                $byTarget[$key] = $rel;
+            }
+        }
+        return array_values($byTarget);
     }
 
     public function getFieldData(array $requestData = []): array
@@ -182,9 +195,10 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
         } else {
             $relations = $this->getObjectRelationInstances();
             foreach ($relations as $rel) {
-                $data[] = strval($rel->target);
+                $targetStr = strval($rel->target);
+                $data[] = $targetStr;
                 if ($rel->metadata) {
-                    $meta[strval($rel->target)] = $rel->metadata->itemId;
+                    $meta[$targetStr] = $rel->metadata->itemId;
                 }
             }
             $data = array_unique($data);
@@ -264,6 +278,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
             'format' => $format,
             'parent' => $this->trackerField->getOption('parentFilter'),
             'parentkey' => $this->trackerField->getOption('parentFilterKey'),
+            'remoteUrl' => $this->trackerField->getOption('remoteUrl'),
         ];
 
         $relationshipTracker = $this->trackerField->getRelationshipTracker();
@@ -336,6 +351,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
                 $display = 'list';
             }
             $relations = $this->getObjectRelationInstances();
+
             foreach ($relations as $key => $rel) {
                 if ($rel->target->type != 'trackeritem') {
                     continue;
@@ -358,7 +374,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
                     'display' => $display,
                     'relations' => $relations,
                     'format' => $this->trackerField->getOption('format'),
-                    'linkTarget' => $this->trackerField->getOption('linkTarget')
+                    'linkTarget' => $this->trackerField->getOption('linkTarget'),
                 ]
             );
         }
@@ -390,6 +406,11 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
 
         $relationlib = TikiLib::lib('relation');
         $relation = $this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION);
+        $remoteUrl = rtrim((string) $this->trackerField->getOption('remoteUrl'), '/');
+        if ($remoteUrl) {
+            $target = $this->normalizeRemoteTargets($remoteUrl, $target);
+            $value = is_array($field['value'] ?? null) ? $target : implode("\n", $target);
+        }
         $current = TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation);
         if ($this->trackerField->getOption(TrackerFieldRelation::OPT_INVERT)) {
             $current = array_merge($current, TikiLib::lib('relation')->getObjectRelations('trackeritem', $this->getItemId(), $relation, true));
@@ -403,6 +424,11 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
         $toRemove = array_diff(array_keys($map), $target);
         $toAdd = array_diff($target, array_keys($map));
 
+        if ($remoteUrl && $target) {
+            // Before relations are written: saving a relation reindexes this item immediately.
+            $this->cacheRemoteLabels($remoteUrl, $target);
+        }
+
         foreach ($toRemove as $v) {
             $relation = $map[$v];
             $relationlib->remove_relation($relation->id);
@@ -411,12 +437,12 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
         foreach ($toAdd as $key) {
             list($type, $id) = explode(':', $key, 2);
 
-            if ($type == 'trackeritem' && ! TikiLib::lib('trk')->get_item_info($id)) {
+            $isRemote = $remoteUrl && ObjectLib::remoteObjectLocalId($remoteUrl, $id) !== null;
+            if ($type == 'trackeritem' && ! $isRemote && ! TikiLib::lib('trk')->get_item_info($id)) {
                 continue;
             }
 
             $metadataItemId = $field['meta'][$key] ?? $field['meta'][$this->getInsertId() . '[objects]'] ?? null;
-
             $relationlib->add_relation($this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION), 'trackeritem', $this->getItemId(), $type, $id, false, $this->getFieldId(), $metadataItemId);
         }
 
@@ -428,6 +454,15 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
                 if ($relation->getMetadataItemId() != $metadataItemId) {
                     $relationlib->updateMetadataItemId($relation->id, $metadataItemId);
                 }
+            }
+        }
+
+        if ($remoteUrl) {
+            foreach ($toRemove as $key) {
+                $this->mirrorRemoteRelation($remoteUrl, $key, true);
+            }
+            foreach ($target as $key) {
+                $this->mirrorRemoteRelation($remoteUrl, $key, false);
             }
         }
 
@@ -484,6 +519,140 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
         $relationlib->remove_relation_type($this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION), $this->getFieldId());
     }
 
+    /**
+     * Remote selector values are stored as type:r{urlhash}_{remoteId} so they
+     * cannot collide with a local object that happens to use the same id.
+     */
+    private function normalizeRemoteTargets(string $remoteUrl, array $targets): array
+    {
+        $normalized = [];
+        foreach ($targets as $key) {
+            $key = trim((string) $key);
+            if ($key === '' || ! str_contains($key, ':')) {
+                continue;
+            }
+            [$type, $id] = explode(':', $key, 2);
+            if ($id === '') {
+                continue;
+            }
+            if (ObjectLib::remoteObjectLocalId($remoteUrl, $id) === null && ! ObjectLib::isRemoteObjectItemId($id)) {
+                // Keep real local objects (for example invert links). The selector
+                // already sends namespaced ids for objects chosen on the remote site.
+                if (! ($type === 'trackeritem' && TikiLib::lib('trk')->get_item_info($id))) {
+                    $id = ObjectLib::remoteObjectItemId($remoteUrl, $id);
+                }
+            }
+            $normalized[] = $type . ':' . $id;
+        }
+        return array_values(array_unique($normalized));
+    }
+
+    /**
+     * Copy this link onto the remote Tiki so its invert field can see it.
+     * The remote call only writes there; it does not call back.
+     */
+    private function mirrorRemoteRelation(string $remoteUrl, string $key, bool $remove): void
+    {
+        global $base_url;
+
+        $parts = explode(':', $key, 2);
+        if (count($parts) !== 2) {
+            return;
+        }
+        [$type, $storedId] = $parts;
+        $remoteItemId = ObjectLib::remoteObjectLocalId($remoteUrl, $storedId);
+        if ($type !== 'trackeritem' || $remoteItemId === null || ! $base_url) {
+            return;
+        }
+
+        $relation = $this->trackerField->getOption(TrackerFieldRelation::OPT_RELATION);
+        $ourId = ObjectLib::remoteObjectItemId(rtrim($base_url, '/'), (string) $this->getItemId());
+        $title = TikiLib::lib('trk')->get_isMain_value(null, $this->getItemId());
+        $href = rtrim($base_url, '/') . '/tiki-view_tracker_item.php?itemId=' . rawurlencode((string) $this->getItemId());
+
+        try {
+            $client = new Services_ApiClient($remoteUrl);
+            $client->post($client->route('relations-mirror'), [
+                'relation' => TrackerFieldRelation::getInvertQualifier($relation),
+                'source_type' => 'trackeritem',
+                'source_object' => $remoteItemId,
+                'target_type' => 'trackeritem',
+                'target_object' => $ourId,
+                'title' => $title,
+                'href' => $href,
+                'remove' => $remove ? 1 : 0,
+            ]);
+        } catch (Exception $e) {
+            return;
+        }
+    }
+
+    /**
+     * Fetch labels once, via the remote search-lookup API, and store them on tiki_objects.
+     */
+    private function cacheRemoteLabels(string $remoteUrl, array $targets): void
+    {
+        $wanted = [];
+        foreach ($targets as $key) {
+            $parts = explode(':', (string) $key, 2);
+            if (count($parts) !== 2) {
+                continue;
+            }
+            [$type, $storedId] = $parts;
+            $localId = ObjectLib::remoteObjectLocalId($remoteUrl, $storedId);
+            if ($localId === null) {
+                continue;
+            }
+            $wanted[] = ['type' => $type, 'storedId' => $storedId, 'localId' => $localId];
+        }
+        if (! $wanted) {
+            return;
+        }
+
+        try {
+            $client = new Services_ApiClient($remoteUrl);
+            $format = $this->trackerField->getOption('format') ?: '{title}';
+            $localIds = array_values(array_unique(array_column($wanted, 'localId')));
+            $filter = [
+                'exact' => ['object_id' => $localIds],
+            ];
+            $types = array_unique(array_column($wanted, 'type'));
+            if (count($types) === 1) {
+                $filter['object_type'] = reset($types);
+            }
+            $result = $client->get($client->route('search-lookup'), [
+                'format' => $format,
+                'maxRecords' => count($localIds),
+                'filter' => $filter,
+            ]);
+        } catch (Exception $e) {
+            return;
+        }
+
+        $titles = [];
+        foreach ($result['resultset']['result'] ?? [] as $row) {
+            $title = $row['title'] ?? '';
+            if (is_array($title)) {
+                $title = implode(' / ', $title);
+            }
+            $titles[($row['object_type'] ?? '') . ':' . ($row['object_id'] ?? '')] = (string) $title;
+        }
+
+        $objectlib = TikiLib::lib('object');
+        foreach ($wanted as $item) {
+            $title = $titles[$item['type'] . ':' . $item['localId']] ?? '';
+            if ($title === '') {
+                continue;
+            }
+            $objectlib->cacheObjectLabel(
+                $item['type'],
+                $item['storedId'],
+                $title,
+                $objectlib->remoteObjectHref($remoteUrl, $item['type'], $item['localId'])
+            );
+        }
+    }
+
     private function prepareRefreshRelated($target)
     {
         $itemId = $this->getItemId();
@@ -501,7 +670,7 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
 
                     list($type, $id) = explode(':', $key, 2);
 
-                    if ($type == 'trackeritem') {
+                    if ($type == 'trackeritem' && ! ObjectLib::isRemoteObjectItemId($id)) {
                         $utilities->resaveItem($id);
                     }
                 }
@@ -637,6 +806,8 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
                                 return '';
                             }
                         }, $format);
+                    } elseif (ObjectLib::isRemoteObjectItemId((string) $object['id'])) {
+                        $labels[] = TikiLib::lib('object')->get_title($object['type'], (string) $object['id'], $format);
                     } else {
                         $labels[] = TikiLib::lib('trk')->get_isMain_value(null, $object['id']);
                     }
@@ -837,6 +1008,9 @@ class Tracker_Field_Relation extends \Tracker\Field\AbstractItemField implements
             '_filter' => $this->trackerField->getParsedFilter(),
             '_format' => $this->trackerField->getOption('format'),
         ];
+        if ($remoteUrl = $this->trackerField->getOption('remoteUrl')) {
+            $osParams['_remoteUrl'] = $remoteUrl;
+        }
 
         $collection->addNew($permName, 'selector')
             ->setLabel($name)

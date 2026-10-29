@@ -48,6 +48,14 @@ class ObjectLink extends Base implements TikiSmartyExtensionInterface
         $title = $params['title'] ?? null;
         $url = $params['url'] ?? null;
 
+        if (\ObjectLib::isRemoteObjectItemId((string) $object)) {
+            if (! $url) {
+                $stored = \TikiLib::lib('object')->get_object($type, $object) ?: [];
+                $url = $stored['href'] ?? null;
+            }
+            return $this->smartyFunctionObjectLinkDefault($template, $object, $title, $type, $url, $params);
+        }
+
         switch ($type) {
             case 'wiki page':
             case 'wikipage':

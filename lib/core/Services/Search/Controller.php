@@ -183,6 +183,13 @@ class Services_Search_Controller
             $titleFilter = null;
             $highlightHelper = null;
 
+            // Check if this is a remote lookup
+            $remoteUrl = $input->remoteUrl->none();
+
+            if ($remoteUrl && $remoteUrl !== '') {
+                return $this->remoteLookup($remoteUrl, $filter, $format, $input);
+            }
+
             /** @var UnifiedSearchLib $lib */
             $lib = TikiLib::lib('unifiedsearch');
 
@@ -247,6 +254,57 @@ class Services_Search_Controller
             throw new Services_Exception_NotAvailable('Search functionality currently unavailable.');
         } catch (Exception $e) {
             throw new Services_Exception_NotAvailable($e->getMessage());
+        }
+    }
+
+    /**
+     * Handle remote object selector lookup by calling remote Tiki API
+     * @param string $remoteUrl Remote Tiki base URL
+     * @param array $filter Search filters
+     * @param string $format Title format
+     * @param JitFilter $input Input parameters
+     * @return array Results
+     */
+    private function remoteLookup($remoteUrl, $filter, $format, $input)
+    {
+        try {
+            $remoteUrl = rtrim($remoteUrl, '/');
+            $client = new Services_ApiClient($remoteUrl);
+            $params = [
+                'format' => $format,
+                'maxRecords' => $input->maxRecords->int() ?: 10,
+                'offset' => $input->offset->int() ?: 0,
+                'sort_order' => $input->sort_order->text() ?: 'title_asc',
+                'filter' => $filter,
+            ];
+            if ($input->use_permname->text()) {
+                $params['use_permname'] = $input->use_permname->text();
+            }
+            $result = $client->get($client->route('search-lookup'), $params);
+            $rows = $result['resultset']['result'] ?? [];
+            foreach ($rows as &$row) {
+                if (! isset($row['object_id']) || $row['object_id'] === '') {
+                    continue;
+                }
+                $row['object_id'] = ObjectLib::remoteObjectItemId($remoteUrl, (string) $row['object_id']);
+                if (! empty($row['parent_id'])) {
+                    $row['parent_id'] = ObjectLib::remoteObjectItemId($remoteUrl, (string) $row['parent_id']);
+                }
+            }
+            unset($row);
+
+            return [
+                'title' => tr('Lookup Result'),
+                'resultset' => [
+                    'result' => $rows,
+                    'count' => $result['resultset']['count'] ?? count($rows),
+                ],
+            ];
+        } catch (Exception $e) {
+            return [
+                'title' => tr('Lookup Result'),
+                'resultset' => ['result' => [], 'count' => 0],
+            ];
         }
     }
 
