@@ -269,6 +269,7 @@
         "symfony/polyfill-php83": "~1.33",
         "symfony/polyfill-php84": "~1.33",
         "symfony/polyfill-php85": "~1.33",
+        "symfony/polyfill-php86": "~1.43",
         "symfony/postmark-mailer": "~6.4",
         "symfony/process": "~6.4",
         "symfony/routing": "~6.4",
