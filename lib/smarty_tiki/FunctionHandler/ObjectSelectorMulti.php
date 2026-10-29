@@ -59,6 +59,7 @@ class ObjectSelectorMulti extends Base
             'selector_type_reference' => null,
             'relations' => [],
             'relationshipTrackerId' => null,
+            'remoteUrl' => null,
         ];
 
         // Handle reserved parameters

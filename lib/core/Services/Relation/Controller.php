@@ -157,4 +157,63 @@ class Services_Relation_Controller
             'relation_id' => $relationId,
         ];
     }
+
+    /**
+     * Store or remove one side of a cross-Tiki relation.
+     * The caller passes the qualifier this site's Relation field uses.
+     * source_object is the local tracker item; target_object is the other site's item id, already namespaced.
+     */
+    public function action_mirror($input)
+    {
+        $relation = $input->relation->text();
+        $sourceType = $input->source_type->text();
+        $sourceObject = $input->source_object->text();
+        $targetType = $input->target_type->text();
+        $targetObject = $input->target_object->text();
+        $remove = (bool) $input->remove->int();
+        $title = $input->title->text();
+        $href = $input->href->text();
+
+        if (! $relation || $sourceType !== 'trackeritem' || ! $sourceObject || ! $targetType || ! $targetObject || ObjectLib::isRemoteObjectItemId($sourceObject)) {
+            throw new Services_Exception(tr('Invalid input'), 400);
+        }
+
+        $item = Tracker_Item::fromId($sourceObject);
+        if (! $item || ! $item->canModify()) {
+            throw new Services_Exception_Denied();
+        }
+
+        $relationlib = TikiLib::lib('relation');
+        if ($title !== '' && ObjectLib::isRemoteObjectItemId($targetObject)) {
+            TikiLib::lib('object')->cacheObjectLabel($targetType, $targetObject, $title, $href);
+        }
+
+        $definition = $item->getDefinition();
+        $fieldId = $definition ? $definition->getRelationField($relation) : null;
+        if ($fieldId) {
+            $trackerId = $item->getInfo()['trackerId'];
+            $raw = TikiLib::lib('trk')->get_item_value($trackerId, $sourceObject, $fieldId);
+            $lines = array_values(array_filter(array_map('trim', explode("\n", (string) $raw)), 'strlen'));
+            $line = $targetType . ':' . $targetObject;
+            if ($remove) {
+                $lines = array_values(array_diff($lines, [$line]));
+            } elseif (! in_array($line, $lines, true)) {
+                $lines[] = $line;
+            }
+            TikiLib::lib('trk')->modify_field($sourceObject, $fieldId, implode("\n", $lines));
+        }
+
+        $existing = $relationlib->get_relation_id($relation, $sourceType, $sourceObject, $targetType, $targetObject);
+        if ($remove) {
+            if ($existing) {
+                $relationlib->remove_relation($existing);
+            }
+        } elseif (! $existing) {
+            $relationlib->add_relation($relation, $sourceType, $sourceObject, $targetType, $targetObject, false, $fieldId ?: null);
+        } else {
+            TikiLib::lib('tiki')->refresh_index($sourceType, $sourceObject);
+        }
+
+        return ['ok' => 1];
+    }
 }

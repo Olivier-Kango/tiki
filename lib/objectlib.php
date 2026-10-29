@@ -885,6 +885,72 @@ class ObjectLib extends TikiLib
     }
 
     /**
+     * Id stored for an object that lives on another Tiki.
+     * The prefix does not start with a digit, so casts such as (int) $id do not
+     * resolve to a local tracker item with the same number.
+     */
+    public static function remoteObjectItemId(string $remoteUrl, string $itemId): string
+    {
+        return 'r' . substr(md5(rtrim($remoteUrl, '/')), 0, 8) . '_' . $itemId;
+    }
+
+    public static function isRemoteObjectItemId(string $itemId): bool
+    {
+        return (bool) preg_match('/^r[a-f0-9]{8}_.+$/', $itemId);
+    }
+
+    /**
+     * Remote object id with the prefix removed, when $storedId belongs to $remoteUrl.
+     */
+    public static function remoteObjectLocalId(string $remoteUrl, string $storedId): ?string
+    {
+        $prefix = 'r' . substr(md5(rtrim($remoteUrl, '/')), 0, 8) . '_';
+        if (! str_starts_with($storedId, $prefix) || strlen($storedId) === strlen($prefix)) {
+            return null;
+        }
+        return substr($storedId, strlen($prefix));
+    }
+
+    public function remoteObjectHref(string $remoteUrl, string $type, string $objectId): string
+    {
+        $base = rtrim($remoteUrl, '/');
+        switch ($type) {
+            case 'trackeritem':
+                $path = 'tiki-view_tracker_item.php?itemId=' . rawurlencode($objectId);
+                break;
+            case 'wiki page':
+                $path = 'tiki-index.php?page=' . rawurlencode($objectId);
+                break;
+            case 'article':
+                $path = 'tiki-read_article.php?articleId=' . rawurlencode($objectId);
+                break;
+            case 'blog post':
+                $path = 'tiki-view_blog_post.php?postId=' . rawurlencode($objectId);
+                break;
+            case 'file':
+                $path = 'tiki-download_file.php?fileId=' . rawurlencode($objectId);
+                break;
+            default:
+                return $base;
+        }
+        return $base . '/' . $path;
+    }
+
+    /**
+     * Remember a label for an object that is not stored on this Tiki.
+     * Used so relation display and indexing can avoid a remote request.
+     */
+    public function cacheObjectLabel(string $type, string $itemId, string $title, string $href): void
+    {
+        $title = mb_substr($title, 0, 200);
+        $href = mb_substr($href, 0, 256);
+        if ($title === '') {
+            return;
+        }
+        $this->add_object($type, $itemId, false, '', $title, $href);
+    }
+
+    /**
      * Optimized method to get multiple object titles using the same format (useful for Relation fields)
      * @param array $objects
      * @param string $format
@@ -895,6 +961,11 @@ class ObjectLib extends TikiLib
         $titles = [];
         $formatted = [];
         foreach ($objects as $object) {
+            if (self::isRemoteObjectItemId((string) $object['id'])) {
+                $key = $object['type'] . ':' . $object['id'];
+                $titles[$key] = $this->get_title($object['type'], (string) $object['id'], $format) ?: $key;
+                continue;
+            }
             if ($object['type'] == 'trackeritem') {
                 $object['defaultTitle'] = TikiLib::lib('trk')->get_isMain_value(null, $object['id']);
                 $formatted[] = $object;
@@ -928,6 +999,22 @@ class ObjectLib extends TikiLib
      */
     public function get_title($type, string $id, ?string $format = null, ?int $metaItemId = null)
     {
+        if (self::isRemoteObjectItemId($id)) {
+            $cacheKey = $type . ':' . $id . ':' . ($format ?? '');
+            if (isset(self::$titleCache[$cacheKey])) {
+                return self::$titleCache[$cacheKey];
+            }
+            $title = $this->table('tiki_objects')->fetchOne('name', [
+                'type' => $type,
+                'itemId' => $id,
+            ]);
+            if ($title) {
+                self::$titleCache[$cacheKey] = $title;
+                return $title;
+            }
+            return $type . ':' . $id;
+        }
+
         $detail = '';
         switch ($type) {
             case 'trackeritemfield':
