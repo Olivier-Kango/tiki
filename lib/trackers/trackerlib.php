@@ -284,8 +284,8 @@ class TrackerLib extends TikiLib
 
         if ($this->is_multilingual($fieldId) == 'y' && ! $allLanguages) {
             $list = json_decode($value, true);
-            if (isset($list[$prefs['language']])) {
-                return $list[$prefs['language']];
+            if (isset($list[Language::getCurrentLanguage()])) {
+                return $list[Language::getCurrentLanguage()];
             } else {
                 return '';
             }
@@ -727,7 +727,7 @@ class TrackerLib extends TikiLib
         if (count($t_links)) {
             if ($prefs['feature_multilingual'] == 'y' && count($t_links) > 1) {
                 foreach ($t_links as $t) {
-                    if ($prefs['language'] == TikiLib::lib('multilingual')->getLangOfPage($t['fromPage'])) {
+                    if (Language::getCurrentLanguage() == TikiLib::lib('multilingual')->getLangOfPage($t['fromPage'])) {
                         $target = $t['fromPage'];
                         break;
                     }
@@ -901,7 +901,7 @@ class TrackerLib extends TikiLib
         $sort_mode = "value_asc";
         $cacheKey = 'trackerfield' . $fieldId . $status . $user;
         if ($this->is_multilingual($fieldId) == 'y') {
-            $cacheKey .= $prefs['language'];
+            $cacheKey .= Language::getCurrentLanguage();
         }
         if (! empty($jail)) {
             $cacheKey .= serialize($jail);
@@ -3266,7 +3266,7 @@ class TrackerLib extends TikiLib
             $res['itemChoices'] = ( $res['itemChoices'] != '' ) ? unserialize($res['itemChoices']) : [];
             $res['visibleBy'] = ($res['visibleBy'] != '') ? unserialize($res['visibleBy']) : [];
             $res['editableBy'] = ($res['editableBy'] != '') ? unserialize($res['editableBy']) : [];
-            if ($tra_name && $prefs['feature_multilingual'] == 'y' && $prefs['language'] != 'en') {
+            if ($tra_name && $prefs['feature_multilingual'] == 'y' && Language::getCurrentLanguage() != 'en') {
                 $res['name'] = tra($res['name']);
             }
             if ($res['type'] == 'p' && $res['options_array'][0] == 'language') {
@@ -4483,7 +4483,7 @@ class TrackerLib extends TikiLib
                 $u = $userlib->get_user_by_email($w);
                 $tikilib->get_user_preferences($u, ['user', 'language', 'mailCharset']);
                 if (empty($user_preferences[$u]['language'])) {
-                    $user_preferences[$u]['language'] = $prefs['site_language'];
+                    $user_preferences[$u]['language'] = $prefs['language'];
                 }
                 if (empty($user_preferences[$u]['mailCharset'])) {
                     $user_preferences[$u]['mailCharset'] = $prefs['users_prefs_mailCharset'];
@@ -4587,7 +4587,7 @@ class TrackerLib extends TikiLib
                         || (isset($f['options_map']['watchpending']) && $f['options_map']['watchpending'] == 'p' && $status == 'p')
                         || (isset($f['options_map']['watchclosed']) && $f['options_map']['watchclosed'] == 'c' && $status == 'c')
                     ) {
-                        $emails[] = ['email' => $f['value'], 'user' => '', 'language' => $prefs['language'], 'mailCharset' => $prefs['users_prefs_mailCharset'], 'action' => 'status'];
+                        $emails[] = ['email' => $f['value'], 'user' => '', 'language' => Language::getCurrentLanguage(), 'mailCharset' => $prefs['users_prefs_mailCharset'], 'action' => 'status'];
                     }
                 }
             }
@@ -5615,7 +5615,7 @@ class TrackerLib extends TikiLib
                         $smarty->assign('f_name_' . $fieldId, $field['name']);
                         $smarty->assign('f_name_' . $field['permName'], $field['name']);
                     }
-                    $watcher['language'] = $this->get_user_preference($watcher['user'], 'language', $prefs['site_language']);
+                    $watcher['language'] = $this->get_user_preference($watcher['user'], 'language', $prefs['language']);
                     if ($created) {
                         $label = tra('Item Creation', $watcher['language']);
                     } else {
@@ -5709,7 +5709,7 @@ class TrackerLib extends TikiLib
                 }
 
                 foreach ($watchers as $watcher) {
-                    $watcher['language'] = $this->get_user_preference($watcher['user'], 'language', $prefs['site_language']);
+                    $watcher['language'] = $this->get_user_preference($watcher['user'], 'language', $prefs['language']);
                     $mail = new TikiMail($watcher['user']);
                     list($watcher_data, $watcher_subject) = $this->translate_watch_data($the_data, $subject, $watcher['language']);
 

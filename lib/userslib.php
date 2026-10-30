@@ -3390,7 +3390,7 @@ class UsersLib extends TikiLib
         }
 
         $multilinguallib = TikiLib::lib('multilingual');
-        $bestLangPageId = $multilinguallib->selectLangObj('wiki page', $info['page_id'], $prefs['language']);
+        $bestLangPageId = $multilinguallib->selectLangObj('wiki page', $info['page_id'], Language::getCurrentLanguage());
 
         if ($info['page_id'] == $bestLangPageId) {
             return $page;
@@ -4088,7 +4088,7 @@ class UsersLib extends TikiLib
         global $prefs;
         $cachelib = TikiLib::lib('cache');
 
-        if ($permissions = $cachelib->getSerialized('rawpermissions' . $prefs['language'])) {
+        if ($permissions = $cachelib->getSerialized('rawpermissions' . Language::getCurrentLanguage())) {
             return $permissions;
         }
 
@@ -6813,7 +6813,7 @@ class UsersLib extends TikiLib
 
         $permissions = $this->getSortingPermissions($permissions);
 
-        $cachelib->cacheItem('rawpermissions' . $prefs['language'], serialize($permissions));
+        $cachelib->cacheItem('rawpermissions' . Language::getCurrentLanguage(), serialize($permissions));
         return $permissions;
     }
 
@@ -7349,8 +7349,9 @@ class UsersLib extends TikiLib
             }
         }
 
-        if ($prefs['change_language'] == 'y' && $prefs['site_language'] != $prefs['language']) {
-            $this->set_user_preference($user, 'language', $prefs['language']);
+        $personalLanguage = $this->get_user_preference($GLOBALS['user'] ?? null, 'language');
+        if ($prefs['change_language'] == 'y' && ! empty($personalLanguage) && $personalLanguage !== $prefs['language']) {
+            $this->set_user_preference($user, 'language', $personalLanguage);
         }
     }
 
@@ -8552,7 +8553,7 @@ class UsersLib extends TikiLib
         $smarty = TikiLib::lib('smarty');
 
         include_once('lib/webmail/tikimaillib.php');
-        $languageEmail = $this->get_user_preference($_REQUEST['username'], 'language', $prefs['site_language']);
+        $languageEmail = $this->get_user_preference($_REQUEST['username'], 'language', $prefs['language']);
         $apass = $this->renew_user_password($user);
         $apass = md5($apass);
         $smarty->assign('mail_apass', $apass);
@@ -9348,7 +9349,7 @@ class UsersLib extends TikiLib
         $tpl = "account_lock_status_update";
 
         include_once('lib/webmail/tikimaillib.php');
-        $languageEmail = $this->get_user_preference($user, 'language', $prefs['site_language']);
+        $languageEmail = $this->get_user_preference($user, 'language', $prefs['language']);
 
         $smarty->assign('lock_status', $lock_status);
         $smarty->assign('user_name', $user);

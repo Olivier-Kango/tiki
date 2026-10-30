@@ -134,7 +134,7 @@ class Search_Formatter
 
                 // process multilingual fields
                 if ($prefs['feature_multilingual'] === 'y') {
-                    $translatedValue = $pre[$k . '_' . $prefs['language']] ?? null;
+                    $translatedValue = $pre[$k . '_' . Language::getCurrentLanguage()] ?? null;
                     if ($translatedValue) {
                         $finalValue = $translatedValue;
                     }

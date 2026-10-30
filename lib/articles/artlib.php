@@ -443,7 +443,7 @@ class ArtLib extends TikiLib
         if (is_array($emails) && (empty($from) || $from == $prefs['sender_email'])) {
             foreach ($emails as $n) {
                 if (! in_array($n, $nots3)) {
-                    $nots[] = ['email' => $n, 'language' => $prefs['site_language']];
+                    $nots[] = ['email' => $n, 'language' => $prefs['language']];
                 }
             }
         }
@@ -489,7 +489,7 @@ class ArtLib extends TikiLib
             if (is_array($emails) && ! empty($from) && $from != $prefs['sender_email']) {
                 $nots = [];
                 foreach ($emails as $n) {
-                    $nots[] = ['email' => $n, 'language' => $prefs['site_language']];
+                    $nots[] = ['email' => $n, 'language' => $prefs['language']];
                 }
                 sendEmailNotification($nots, 'watch', 'user_watch_article_post_subject.tpl', $_SERVER['SERVER_NAME'], 'user_watch_article_post.tpl', $from);
             }

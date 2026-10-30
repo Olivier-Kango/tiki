@@ -146,7 +146,7 @@ class Messu extends TikiLib
 
                 try {
                     $mail = new TikiMail($user, $from_email);
-                    $lg = $this->get_user_preference($user, 'language', $prefs['site_language']);
+                    $lg = $this->get_user_preference($user, 'language', $prefs['language']);
 
                     if (empty($subject)) {
                         $s = $smarty->fetchLang($lg, 'mail/messu_message_notification_subject.tpl');

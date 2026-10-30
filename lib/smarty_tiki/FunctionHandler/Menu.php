@@ -180,7 +180,7 @@ class Menu extends Base implements TikiSmartyExtensionInterface
         $menulib = TikiLib::lib('menu');
         $cachelib = TikiLib::lib('cache');
         $cacheName = $prefs['mylevel'] ?? 0;
-        $cacheName .= '_' . $prefs['language'] . '_' . md5(implode("\n", $tikilib->get_user_groups($user)));
+        $cacheName .= '_' . \Language::getCurrentLanguage() . '_' . md5(implode("\n", $tikilib->get_user_groups($user)));
 
         extract($params, EXTR_SKIP);
 

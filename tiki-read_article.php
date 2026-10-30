@@ -53,7 +53,7 @@ if ($article_data['ispublished'] == 'n' && $tiki_p_edit_article != 'y') {
     Feedback::errorAndDie(tra("Article is not published yet"), \Laminas\Http\Response::STATUS_CODE_409);
 }
 
-if (isset($_REQUEST['switchlang']) && $_REQUEST['switchlang'] == 'y' && $prefs['feature_multilingual'] == 'y' && $prefs['feature_sync_language'] == 'y' && ! empty($article_data["lang"]) && $prefs['language'] != $article_data["lang"]) {
+if (isset($_REQUEST['switchlang']) && $_REQUEST['switchlang'] == 'y' && $prefs['feature_multilingual'] == 'y' && $prefs['feature_sync_language'] == 'y' && ! empty($article_data["lang"]) && Language::getCurrentLanguage() != $article_data["lang"]) {
     header('Location: tiki-switch_lang.php?language=' . $article_data['lang']);
     die;
 }

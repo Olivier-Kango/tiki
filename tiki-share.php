@@ -188,7 +188,7 @@ if (! empty($_REQUEST['subject'])) {
     $smarty->assign('subject', $subject);
 } else {
     if ($report == 'y') {
-        $subject = tra('Report to the webmaster', $prefs['site_language']);
+        $subject = tra('Report to the webmaster', $prefs['language']);
     } else {
         $smarty->assign('mail_site', $_SERVER['SERVER_NAME']);
         $subject = $smarty->fetch('mail/share_subject.tpl');

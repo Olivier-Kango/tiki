@@ -46,7 +46,7 @@ function wikiplugin_jq($data, $params)
     extract($params, EXTR_SKIP);
 
     $notonready = $notonready ?? false;
-    if (! empty($lang) && $lang != $prefs['language']) {
+    if (! empty($lang) && $lang != Language::getCurrentLanguage()) {
         return;
     }
     // Need to manually decode greater than and less than (not sure if we want to decode all HTML entities

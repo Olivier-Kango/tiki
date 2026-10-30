@@ -348,17 +348,15 @@ class CacheLib
 
     public function cache_templates(string $path, string $newlang): void
     {
-        global $prefs;
-
         if (! $path || ! is_dir($path)) {
             return;
         }
 
         $smarty = TikiLib::lib('smarty');
+        $languageSection = \Tiki\Sections::getCurrentSection();
+        $oldlang = \Language::getSectionLanguage($languageSection);
+        \Language::setSectionLanguage($languageSection, $newlang);
         $smarty->refreshLanguage();
-
-        $oldlang = $prefs['language'];
-        $prefs['language'] = $newlang;
 
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS),
@@ -395,7 +393,8 @@ class CacheLib
         }
 
         // Restore old language after traversal
-        $prefs['language'] = $oldlang;
+        \Language::setSectionLanguage($languageSection, $oldlang);
+        $smarty->refreshLanguage();
     }
 
     /**
@@ -439,7 +438,7 @@ class CacheLib
 
         $inInstaller = defined('TIKI_IN_INSTALLER');
 
-        $lang = $prefs['language'];
+        $lang = \Language::getCurrentLanguage();
         $ctempl = 'templates';
         $this->cache_templates($ctempl, $lang);
 

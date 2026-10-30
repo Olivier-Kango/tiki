@@ -142,7 +142,7 @@
                                 <select name="lang" id="general-lang" onchange="$('.install-steps').tikiModal(tr('Loading...')); $('input[name=lang]:hidden').val($(this).val()); this.form.submit();" title="{tr}Select your language{/tr}" class="form-control mx-2">
                                     {section name=ix loop=$languages}
                                         <option value="{$languages[ix].value|escape}"
-                                                {if $prefs.site_language eq $languages[ix].value}selected="selected"{/if}>{$languages[ix].name}
+                                                {if $prefs.language eq $languages[ix].value}selected="selected"{/if}>{$languages[ix].name}
                                         </option>
                                     {/section}
                                 </select>

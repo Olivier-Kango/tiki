@@ -435,7 +435,7 @@ if (
             && $prefs['feature_multilingual'] == 'y'
             && $prefs['feature_sync_language'] == 'y'
             && ! empty($info['lang'])
-            && $prefs['language'] != $info['lang']
+            && Language::getCurrentLanguage() != $info['lang']
 ) {
     header('Location: tiki-switch_lang.php?language=' . $info['lang']);
     die;
@@ -443,15 +443,15 @@ if (
     $prefs['feature_multilingual'] == 'y'
             && $prefs['feature_sync_language'] == 'y'
             && ! empty($info['lang'])
-            && $prefs['language'] != $info['lang']
+            && Language::getCurrentLanguage() != $info['lang']
 ) {
-    $prefs['language'] = $info['lang'];
+    Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $info['lang']);
     // slight duplication from lib/setup/user_prefs.php:86 but seems safest
     $translatablePreferences = TikiLib::lib('prefs')->getTranslatablePreferences();
 
     foreach ($translatablePreferences as $preference) {
-        if (! empty($prefs[$preference . '_' . $prefs['language']])) {
-            $prefs[$preference . '_translated'] = $prefs[$preference . '_' . $prefs['language']];
+        if (! empty($prefs[$preference . '_' . Language::getCurrentLanguage()])) {
+            $prefs[$preference . '_translated'] = $prefs[$preference . '_' . Language::getCurrentLanguage()];
         }
     }
 }

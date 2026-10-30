@@ -103,7 +103,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
                 $interface,
                 $tikipath . self::$h5p_path,   // Where the extracted content files will be stored
                 $tikiroot . self::$h5p_path,     // URL of the previous option
-                $prefs['language'],                  // TODO: Map proper language code from Tiki to H5P langs
+                Language::getCurrentLanguage(),                  // TODO: Map proper language code from Tiki to H5P langs
                 true                          // each time an h5p is saved it exports the reult into the file gallery to keep it up to date
             );
 

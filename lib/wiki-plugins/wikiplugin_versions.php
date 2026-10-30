@@ -71,8 +71,8 @@ function wikiplugin_versions($data, $params)
     } else {
         if (isset($_REQUEST['tikiversion'])) {
             $vers = $_REQUEST['tikiversion'];
-        } elseif ($use_best_language == 'y' and in_array($prefs['language'], $v[1])) {
-            $vers = $prefs['language'];
+        } elseif ($use_best_language == 'y' and in_array(Language::getCurrentLanguage(), $v[1])) {
+            $vers = Language::getCurrentLanguage();
         } else {
             $vers = $default;
         }

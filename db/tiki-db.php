@@ -34,10 +34,11 @@ $fail = static function (string $msg, int $code = 1001): void {
 
 // Define lang and load translation functions
 if (! empty($_REQUEST['lang'])) {
-    $language = $prefs['site_language'] = $prefs['language'] = $_REQUEST['lang'];
+    $language = $prefs['language'] = $_REQUEST['lang'];
 } else {
-    $language = $prefs['site_language'] = $prefs['language'] = 'en';
+    $language = $prefs['language'] = 'en';
 }
+Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $language);
 include_once('lib/init/tra.php');
 
 $local_php = TikiInit::getCredentialsFile();

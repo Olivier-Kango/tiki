@@ -32,14 +32,13 @@ class MonitorMailLib
 
     public function sendDigest($info, $from, $to)
     {
-        global $prefs;
         $out = false;
         $servicelib = TikiLib::lib('service');
 
         \TikiLib::setExternalContext(true);
         // Override the user until the end of the function
         $context = new Perms_Context($info['login']);
-        $prefs['language'] = $info['language'];
+        Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $info['language']);
 
         try {
             $html = $servicelib->render('monitor', 'stream', [
@@ -50,7 +49,7 @@ class MonitorMailLib
                 'limit' => -1,
             ]);
 
-            $title = TikiLib::lib('smarty')->fetchLang($prefs['language'], 'monitor/notification_email_digest_subject.tpl');
+            $title = TikiLib::lib('smarty')->fetchLang(Language::getCurrentLanguage(), 'monitor/notification_email_digest_subject.tpl');
 
             $this->send($info['email'], $title, $html);
 
@@ -71,7 +70,7 @@ class MonitorMailLib
     {
         global $prefs;
         $db = TikiDb::get();
-        $bindvars = [$prefs['site_language']];
+        $bindvars = [$prefs['language']];
         $condition = $db->in('userId', $sendTo, $bindvars);
 
         $result = $db->fetchAll("

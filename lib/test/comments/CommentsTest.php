@@ -406,7 +406,7 @@ class CommentsTest extends TikiTestCase
     public function testApproveQueued(): void
     {
         global $prefs;
-        $prefs['site_language'] = 'en';
+        $prefs['language'] = 'en';
 
         // Create a partial mock of Comments class
         $this->commentsLib = $this->getMockBuilder(Comments::class)

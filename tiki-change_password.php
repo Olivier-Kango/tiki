@@ -259,7 +259,7 @@ if (isset($_REQUEST["change"]) && $access->checkCsrf()) {
 
 // Display password change form
 global $prefs;
-$prefs['language'] = $tikilib->get_user_preference($_REQUEST['user'], 'language', $prefs['site_language']);
+Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $tikilib->get_user_preference($_REQUEST['user'], 'language', $prefs['language']));
 $smarty->assign('email', $userlib->get_user_email($_REQUEST['user']));
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
 

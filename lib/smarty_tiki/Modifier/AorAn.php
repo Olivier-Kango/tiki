@@ -27,7 +27,7 @@ class AorAn implements TikiSmartyExtensionInterface
     public function handle($string, $caps = false)
     {
         global $prefs;
-        if (! str_starts_with($prefs['language'], 'en')) {
+        if (! str_starts_with(\Language::getCurrentLanguage(), 'en')) {
             return $string;
         }
         $vowels = ['a', 'e', 'i', 'o', 'u'];

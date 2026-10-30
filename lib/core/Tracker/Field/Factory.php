@@ -23,7 +23,7 @@ class Tracker_Field_Factory
             $paths = [
             'lib/core/Tracker/Field' => 'Tracker_Field_',
             ];
-            $cacheKey = 'fieldtypes.' . $prefs['language'];
+            $cacheKey = 'fieldtypes.' . Language::getCurrentLanguage();
 
             $cachelib = TikiLib::lib('cache');
             if ($data = $cachelib->getSerialized($cacheKey)) {

@@ -59,8 +59,8 @@ if ($user) {
         }
     }
 
-    // Prefs overriding
-    $prefs = array_merge($prefs, $user_preferences[$user] ?? []);
+    // Personal language choices must not replace the configured site language.
+    $prefs = array_merge($prefs, array_diff_key($user_preferences[$user] ?? [], ['language' => true]));
 
     // Set the userPage name for this user since other scripts use this value.
     $userPage = $prefs['feature_wiki_userpage_prefix'] . $user;
@@ -69,7 +69,7 @@ if ($user) {
     $smarty->assign('userPage_exists', $exist);
 } else {
     if (isset($_SESSION['preferences'])) {
-        $prefs = array_merge($prefs, $_SESSION['preferences']);
+        $prefs = array_merge($prefs, array_diff_key($_SESSION['preferences'], ['language' => true]));
     }
     $allowMsgs = 'n';
 }
@@ -78,13 +78,14 @@ $smarty->assign('IP', $tikilib->get_ip_address());
 
 $tikilib->set_display_timezone($user);
 
-if ($prefs['language'] != $prefs['site_language']) {
+$preferenceLanguage = $tikilib->get_user_preference($user, 'language', $prefs['language']);
+if ($preferenceLanguage != $prefs['language']) {
     $prefslib = TikiLib::lib('prefs');
     $translatablePreferences = $prefslib->getTranslatablePreferences();
 
     foreach ($translatablePreferences as $preference) {
-        if (! empty($prefs[$preference . '_' . $prefs['language']])) {
-            $prefs[$preference . '_translated'] = $prefs[$preference . '_' . $prefs['language']];
+        if (! empty($prefs[$preference . '_' . $preferenceLanguage])) {
+            $prefs[$preference . '_translated'] = $prefs[$preference . '_' . $preferenceLanguage];
         }
     }
 }

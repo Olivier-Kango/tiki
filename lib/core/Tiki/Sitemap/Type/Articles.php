@@ -57,7 +57,7 @@ class Articles extends AbstractType
                 '',
                 '',
                 '',
-                $isMultilingual ? $prefs['site_language'] : '', // only fetch primary lang articles on multilingual.
+                $isMultilingual ? $prefs['language'] : '', // only fetch primary lang articles on multilingual.
                 '',
                 '',
                 false,

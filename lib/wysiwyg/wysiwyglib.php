@@ -400,7 +400,7 @@ class WYSIWYGLib
             'initialValue' => $content,
         ];
 
-        $languageCode = $this->languageMapISO($prefs['language']);
+        $languageCode = $this->languageMapISO(Language::getCurrentLanguage());
         if ($languageCode) {
             $options['language'] = $languageCode;
             $headerlib->add_jsfile(

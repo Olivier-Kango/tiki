@@ -27,7 +27,7 @@
                 <select name="language" id="custom_lang_select" class="form-select" onchange="this.form.submit()">
                     {section name=ix loop=$languages}
                         <option value="{$languages[ix].value|escape}"
-                            {if (empty($language) && $languages[ix].value eq $prefs.site_language) || (!empty($language) && $languages[ix].value eq $language)} selected="selected"{/if}>
+                            {if (empty($language) && $languages[ix].value eq $prefs.language) || (!empty($language) && $languages[ix].value eq $language)} selected="selected"{/if}>
                             {$languages[ix].name|escape}
                         </option>
                     {/section}

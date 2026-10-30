@@ -115,7 +115,7 @@
                     </div>
                 </div>
             {else}
-                <input type="hidden" name="filter~language" value="{$prefs.language}">
+                <input type="hidden" name="filter~language" value="{$currentRenderingLanguage}">
                 <input type="hidden" name="filter~language_unspecified" value="1">
             {/if}
         {/if}

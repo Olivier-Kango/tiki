@@ -2048,7 +2048,7 @@ class FileGalLib extends TikiLib
                 $mail = new TikiMail();
                 $smarty->assign('mail_diff', $diff);
                 foreach ($nots as $not) {
-                    $lg = $tikilib->get_user_preference($not['user'], 'language', $prefs['site_language']);
+                    $lg = $tikilib->get_user_preference($not['user'], 'language', $prefs['language']);
                     $mail->setSubject(tra('File gallery quota exceeded', $lg));
                     $mail->setText($smarty->fetchLang($lg, 'mail/fgal_quota_exceeded.tpl'));
                     $mail->send([$not['email']]);
@@ -2549,8 +2549,8 @@ class FileGalLib extends TikiLib
                 $smarty->assign('fileInfo', $fileInfo);
                 $smarty->assign('galInfo', $galInfo);
                 $mail = new TikiMail();
-                $mail->setSubject(tra('Old File deleted:', $prefs['site_language']) . ' ' . $fileInfo['filename']);
-                $mail->setText($smarty->fetchLang($prefs['site_language'], 'mail/fgal_old_file_deleted.tpl'));
+                $mail->setSubject(tra('Old File deleted:', $prefs['language']) . ' ' . $fileInfo['filename']);
+                $mail->setText($smarty->fetchLang($prefs['language'], 'mail/fgal_old_file_deleted.tpl'));
                 $mail->addAttachment($fileInfo['data'], $fileInfo['filename'], $fileInfo['filetype']);
                 $to = preg_split('/ *, */', $prefs['fgal_delete_after_email']);
                 $mail->send($to);

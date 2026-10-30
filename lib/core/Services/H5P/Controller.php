@@ -294,7 +294,7 @@ class Services_H5P_Controller
                 $name,
                 $major_version,
                 $minor_version,
-                substr($prefs['language'], 0, 2),
+                substr(Language::getCurrentLanguage(), 0, 2),
                 '',
                 '',
                 'en'
@@ -344,7 +344,7 @@ class Services_H5P_Controller
                 $name,
                 $majorVersion,
                 $minorVersion,
-                substr($prefs['language'], 0, 2),
+                substr(Language::getCurrentLanguage(), 0, 2),
                 '',
                 'en',
                 $defaultLanguage

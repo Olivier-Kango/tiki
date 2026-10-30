@@ -1308,7 +1308,7 @@ class TikiLib extends TikiDb_Bridge
         if (count($result) > 0) {
             foreach ($result as $res) {
                 if (empty($res['language'])) {
-                    $res['language'] = $this->get_preference('site_language');
+                    $res['language'] = $this->get_preference('language');
                 }
                 switch ($event) {
                     case 'wiki_page_changed':
@@ -4637,7 +4637,7 @@ class TikiLib extends TikiDb_Bridge
         if (isset($prefs)) {
             if (in_array($name, $user_overrider_prefs)) {
                 $prefs['site_' . $name] = $value;
-            } elseif (isset($user_preferences[$user][$name])) {
+            } elseif ($name !== 'language' && isset($user_preferences[$user][$name])) {
                 $prefs[$name] = $user_preferences[$user][$name];
             } else {
                 $prefs[$name] = $value;
@@ -4679,7 +4679,7 @@ class TikiLib extends TikiDb_Bridge
             $userKey = $user ?? '';
             if (isset($user_overrider_prefs) && in_array($name, $user_overrider_prefs)) {
                 $prefs['site_' . $name] = $value;
-            } elseif (isset($user_preferences[$userKey][$name])) {
+            } elseif ($name !== 'language' && isset($user_preferences[$userKey][$name])) {
                 $prefs[$name] = $user_preferences[$userKey][$name];
             } else {
                 $prefs[$name] = $value;
@@ -4861,6 +4861,8 @@ class TikiLib extends TikiDb_Bridge
     }
 
     /**
+     * Personal language choices do not replace the configured site language in $prefs.
+     *
      * @param $my_user
      * @param $name
      * @param $value
@@ -4891,6 +4893,12 @@ class TikiLib extends TikiDb_Bridge
             $user_preferences[$my_user][$name] = $value;
 
             if ($my_user == $user) {
+                if ($name === 'language') {
+                    if ($value === '') {
+                        $userPreferences->delete(['user' => $my_user, 'prefName' => $name]);
+                    }
+                    return $result;
+                }
                 $prefs[$name] = $value;
                 if ($name == 'theme' && $prefs['change_theme'] == 'y') {
                     $prefs['users_prefs_theme'] = $value;
@@ -4911,7 +4919,13 @@ class TikiLib extends TikiDb_Bridge
                 return $result;
             }
         } else { // If $my_user is empty, we must be Anonymous updating one of our own preferences
-            if ($name == 'theme' && $prefs['change_theme'] == 'y') {
+            if ($name === 'language') {
+                if ($value === '') {
+                    unset($_SESSION['preferences'][$name]);
+                } else {
+                    $_SESSION['preferences'][$name] = $value;
+                }
+            } elseif ($name == 'theme' && $prefs['change_theme'] == 'y') {
                 $prefs['theme'] = $value;
                 $_SESSION['preferences']['theme'] = $value;
                 if ($value == '') {
@@ -4956,7 +4970,7 @@ class TikiLib extends TikiDb_Bridge
         $user_preferences[$my_user] =& $preferences;
 
         if ($my_user == $user) {
-            $prefs = array_merge($prefs, $preferences);
+            $prefs = array_merge($prefs, array_diff_key($preferences, ['language' => true]));
             $_SESSION['s_prefs'] = $_SESSION['s_prefs'] ?? [];
             $_SESSION['s_prefs'] = array_merge($_SESSION['s_prefs'], $preferences);
         }
@@ -6237,10 +6251,10 @@ class TikiLib extends TikiDb_Bridge
             if ($user) {
                 $language = $this->get_user_preference($user, 'language', 'default');
                 if (! $language || $language == 'default') {
-                    $language = $prefs['language'];
+                    $language = Language::getCurrentLanguage();
                 }
             } else {
-                $language = $prefs['language'];
+                $language = Language::getCurrentLanguage();
             }
         }
         return $language;

@@ -21,7 +21,6 @@ if (basename($_SERVER['SCRIPT_NAME']) == basename(__FILE__)) {
 // ( this is also used in tikilib, not only when reloading prefs )
 global $user_overrider_prefs, $prefs;
 $user_overrider_prefs = [
-    'language',
     'language_admin',
     'userbreadCrumb',
     'tikiIndex',

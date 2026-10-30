@@ -203,6 +203,9 @@ class UserWizardPreferencesParams extends Wizard
         } else {
             $tikilib->set_user_preference($userwatch, 'language', '');
         }
+        if ($userwatch == $user) {
+            Language::setSectionLanguage(\Tiki\Sections::getCurrentSection());
+        }
         if (isset($_REQUEST['read_language'])) {
             $list = [];
             $tok = strtok($_REQUEST['read_language'], ' ');

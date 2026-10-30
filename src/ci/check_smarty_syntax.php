@@ -28,7 +28,6 @@ function check_smarty_syntax(): int
     $prefs = [
         'lang_use_db' => 'n',
         'language' => 'en',
-        'site_language' => 'en',
         'feature_ajax' => 'n',
         'smarty_compilation' => 'always',
         'smarty_security' => 'y',
@@ -47,6 +46,7 @@ function check_smarty_syntax(): int
 
     define('TIKI_PATH', getcwd());
 
+    Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $prefs['language']);
     $smarty = new SmartyTiki();
 
     set_error_handler('check_smarty_syntax_error_handler');

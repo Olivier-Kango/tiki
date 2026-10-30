@@ -193,7 +193,7 @@ if (isset($_REQUEST["remind"])) {
                 $expiry_time_formatted = $expiry_minutes . ' ' . tr($expiry_minutes == 1 ? 'minute' : 'minutes');
             }
 
-            $languageEmail = $tikilib->get_user_preference($name, "language", $prefs['site_language']);
+            $languageEmail = $tikilib->get_user_preference($name, "language", $prefs['language']);
             // Now check if the user should be notified by email
             $smarty->assign('mail_site', $_SERVER["SERVER_NAME"]);
             $smarty->assign('mail_user', $name);

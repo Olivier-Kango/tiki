@@ -376,7 +376,7 @@ if (isset($_REQUEST['cancel_edit'])) {
         }
     }
 
-    if ($prefs['feature_multilingual'] === 'y' && $prefs['feature_best_language'] === 'y' && isset($info['lang']) && $info['lang'] !== $prefs['language']) {
+    if ($prefs['feature_multilingual'] === 'y' && $prefs['feature_best_language'] === 'y' && isset($info['lang']) && $info['lang'] !== Language::getCurrentLanguage()) {
         $url .= (! str_contains($url, '?') ? '?' : '&') . 'no_bl=y';
     }
 
@@ -1502,7 +1502,7 @@ if (
         } else {
             $url = $wikilib->sefurl($page);
         }
-        if ($prefs['feature_multilingual'] === 'y' && $prefs['feature_best_language'] === 'y' && isset($info['lang']) && $info['lang'] !== $prefs['language']) {
+        if ($prefs['feature_multilingual'] === 'y' && $prefs['feature_best_language'] === 'y' && isset($info['lang']) && $info['lang'] !== Language::getCurrentLanguage()) {
             $url .= (! str_contains($url, '?') ? '?' : '&') . 'no_bl=y';
         }
 

@@ -223,16 +223,18 @@ class SmartyTiki extends Smarty
      */
     public function fetchLang($lg, $_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null)
     {
-        global $prefs;
-
         $_smarty_tpl_file = $this->get_filename($_smarty_tpl_file);
 
-        $lgSave = Language::getCurrentLanguage();
-        $prefs['language'] = $lg;
-        $this->refreshLanguage();
-        $res = parent::fetch($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id);
-        $prefs['language'] = $lgSave; // Restore the language of the user triggering the notification
-        $this->refreshLanguage();
+        $section = Sections::getCurrentSection();
+        $lgSave = Language::getSectionLanguage($section);
+        Language::setSectionLanguage($section, $lg);
+        try {
+            $this->refreshLanguage();
+            $res = parent::fetch($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id);
+        } finally {
+            Language::setSectionLanguage($section, $lgSave); // Restore the section language even if rendering fails.
+            $this->refreshLanguage();
+        }
 
         return ltrim($res, " \t");
     }
@@ -470,6 +472,7 @@ class SmartyTiki extends Smarty
         global $tikidomain, $prefs;
 
         $lang = Language::getCurrentLanguage();
+        $this->assign('currentRenderingLanguage', $lang);
         if (empty($lang)) {
             $lang = 'default';
         }

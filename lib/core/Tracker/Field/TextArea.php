@@ -147,7 +147,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
         $data = $this->processMultilingual($requestData, $ins_id);
 
         global $user, $prefs;
-        $language = $prefs['language'];
+        $language = Language::getCurrentLanguage();
         $c = 0;
         if (isset($requestData[$ins_id])) {
             $value = (array) $data['value'];
@@ -367,7 +367,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
                     $info['fields'][$permName] = TikiLib::lib('edit')->parseToWiki($value);
                 });
         } else {
-            $lang = $prefs['language'];
+            $lang = Language::getCurrentLanguage();
             $schema->addNew($permName, "current")
                 ->setLabel($name)
                 ->setReadOnly(true)

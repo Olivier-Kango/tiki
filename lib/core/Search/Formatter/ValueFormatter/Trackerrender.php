@@ -99,7 +99,7 @@ class Search_Formatter_ValueFormatter_Trackerrender extends Search_Formatter_Val
 
         // check translations of multilingual fields
         global $prefs;
-        if ($field['isMultilingual'] === 'y' && isset($entry[$name . '_' . $prefs['language']])) {
+        if ($field['isMultilingual'] === 'y' && isset($entry[$name . '_' . Language::getCurrentLanguage()])) {
             $name = $name . '_' . Language::getCurrentLanguage();
             $value = $entry[$name];
         }

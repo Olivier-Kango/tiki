@@ -19,7 +19,7 @@ class MultilingualLibTest extends TikiTestCase
         $multilinguallib = TikiLib::lib('multilingual');
         $this->orig_user = $user;
 
-        $prefs['site_language'] = 'en';
+        $prefs['language'] = 'en';
 
 
         /* Need to set those global vars to be able to create and delete pages */

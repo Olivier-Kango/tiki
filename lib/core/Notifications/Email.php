@@ -95,7 +95,7 @@ class Email
         $smarty->assign('healingTimeout', $tikilib->get_preference('scheduler_healing_timeout'));
         $smarty->assign('customMessage', $customMessage);
 
-        $defaultLang = $prefs['site_language'];
+        $defaultLang = $prefs['language'];
         $watchList = array_map(function ($user) use ($defaultLang) {
             return [
                 'watchId' => '',

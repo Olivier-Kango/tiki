@@ -144,7 +144,7 @@ class H5PLib
 
             if (is_array($content) && ! empty($content)) {
                 // no error
-                $content['language'] = substr($prefs['language'], 0, 2);    // TODO better
+                $content['language'] = substr(\Language::getCurrentLanguage(), 0, 2);    // TODO better
             }
 
             return $content;
@@ -594,7 +594,7 @@ class H5PLib
         TikiLib::lib('header')->add_jsfile('lib/core/H5P/editor.js');
 
         // Add translation
-        $languagescript = $editorpath . 'language/' . substr($prefs['language'], 0, 2) . '.js';
+        $languagescript = $editorpath . 'language/' . substr(\Language::getCurrentLanguage(), 0, 2) . '.js';
         if (! file_exists($tikipath . $languagescript)) {
             $languagescript = $editorpath . 'language/en.js';
         }

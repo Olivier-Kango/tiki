@@ -1037,7 +1037,7 @@ class Services_Tracker_Controller
 
                     if (is_array($field)) {
                         foreach ($field as $k => $v) {
-                            if ($v != "" && $prefs["language"] == $k) {
+                            if ($v != "" && Language::getCurrentLanguage() == $k) {
                                 $isDefaultValueDefined = true;
                             }
                         }
@@ -1045,8 +1045,8 @@ class Services_Tracker_Controller
                         // the value will be used for all languages with no value.
                         if ($isDefaultValueDefined) {
                             foreach ($field as $k => $v) {
-                                if ($k != $prefs["language"] && $v == "") {
-                                    $fields[$f["permName"]][$k] = $field[$prefs["language"]];
+                                if ($k != Language::getCurrentLanguage() && $v == "") {
+                                    $fields[$f["permName"]][$k] = $field[Language::getCurrentLanguage()];
                                 }
                             }
                         } else {

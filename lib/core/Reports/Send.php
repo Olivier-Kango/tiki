@@ -37,12 +37,11 @@ class Reports_Send
 
     public function sendEmail($userData, $reportPreferences, $reportCache)
     {
-        global $prefs;
-
         $tikilib = TikiLib::lib('tiki');
 
-        $lgSave  = $prefs['language'];
-        $prefs['language'] = $tikilib->get_user_preference($userData['login'], "language"); //Change language according to user's prefs.
+        $languageSection = \Tiki\Sections::getCurrentSection();
+        $lgSave  = Language::getSectionLanguage($languageSection);
+        Language::setSectionLanguage($languageSection, $tikilib->get_user_preference($userData['login'], "language")); //Change language according to user's prefs.
 
         $mailData = $this->builder->emailBody($userData, $reportPreferences, $reportCache);
 
@@ -58,7 +57,7 @@ class Reports_Send
 
         $this->mail->send([$userData['email']]);
 
-        $prefs['language'] = $lgSave;  //Restore language settings
+        Language::setSectionLanguage($languageSection, $lgSave);  //Restore language settings
     }
 
     protected function setSubject($reportCache)

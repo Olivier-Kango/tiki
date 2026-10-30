@@ -145,7 +145,7 @@ function module_last_youtube_playlist_videos($mod_reference, $module_params)
             // DOC: https://developers.google.com/youtube/v3/docs/playlists/list
             $playlists = $youtube->playlists->listPlaylists("snippet", [
                 'id' => $module_params['id'],
-                'hl' => $prefs['language']
+                'hl' => Language::getCurrentLanguage()
             ]);
 
             // Get playlist content

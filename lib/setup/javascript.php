@@ -31,11 +31,11 @@ Sections::onSectionChange(function ($section) {
     $plus_one_year = ($tikilib->now + 365 * 24 * 3600) * 1000;      // ms
 
 // load translations lang object from /lang/xx/language.js if there
-    if (file_exists('lang/' . $prefs['language'] . '/language.js')) {
+    if (file_exists('lang/' . Language::getCurrentLanguage() . '/language.js')) {
         // after the usual lib includes (up to 10) but before custom.js (50)
         $headerlib
-            ->add_jsfile_late('lang/' . $prefs['language'] . '/language.js')
-            ->add_js("$.lang = '" . $prefs['language'] . "';");
+            ->add_jsfile_late('lang/' . Language::getCurrentLanguage() . '/language.js')
+            ->add_js("$.lang = '" . Language::getCurrentLanguage() . "';");
     }
 
 
