@@ -25,6 +25,23 @@ describe("Autocomplete remote helper functions", () => {
         });
 
         test.each([
+            ["wraps the query with wildcards when wildcardSearch is enabled", true, "*a*"],
+            ["sends the query as is when wildcardSearch is disabled", false, "a"],
+            ["sends the query as is when wildcardSearch is not provided", undefined, "a"],
+        ])("%s", async (_, wildcardSearch, expectedQuery) => {
+            window.jqueryTiki.tiki_object_selector_wildcardsearch = true;
+            vi.spyOn(window, "fetch").mockResolvedValueOnce({ json: vi.fn().mockResolvedValueOnce(["alice"]) });
+            const callback = vi.fn();
+
+            fetchSuggestions("a", callback, "https://example.com/tiki-listpages.php?listonly", [], "q", wildcardSearch);
+            await window.happyDOM.waitUntilComplete();
+
+            const requestUrl = new URL(window.fetch.mock.calls.at(-1)[0]);
+            expect(requestUrl.searchParams.get("q")).toBe(expectedQuery);
+            expect(callback).toHaveBeenCalledWith([{ value: "alice" }]);
+        });
+
+        test.each([
             ["foo", ["foo", "bar"], ["foo"]],
             ["foo", ["bar"], []],
             ["f", ["foo", "bar"], ["foo"]],

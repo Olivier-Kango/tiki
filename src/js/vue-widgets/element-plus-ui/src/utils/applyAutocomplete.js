@@ -11,6 +11,7 @@ export const TEXT = {
  * @param {Object} options
  * @param {String} options.remoteSourceUrl remote URL to fetch suggestions from
  * @param {String} options.remoteQueryKey query parameter key to use when fetching suggestions from the remote URL, defaults to 'q'
+ * @param {Boolean} options.wildcardSearch wrap the query with wildcards before fetching from the remote URL, for sources that only match whole words (e.g. the search index)
  * @param {Array} options.sourceList suggestions to filter from instead of fetching from the remote URL
  * @param {String} options.valueKey key to use as the value from the suggestions objects (only if suggestions are objects, and necessary only if 'transformResult' is not provided)
  * @param {Function} options.selectCb callback function to execute when an autocomplete suggestion is selected, receives the select event as a parameter
@@ -25,7 +26,7 @@ export default function applyAutocomplete(element, options) {
         return;
     }
 
-    const { remoteSourceUrl, sourceList = [], valueKey, selectCb, transformResultCb, remoteQueryKey } = options;
+    const { remoteSourceUrl, sourceList = [], valueKey, selectCb, transformResultCb, remoteQueryKey, wildcardSearch } = options;
 
     if (!remoteSourceUrl && !sourceList.length) {
         console.error(TEXT.ERROR_NO_SOURCE); // eslint-disable-line no-console
@@ -51,6 +52,10 @@ export default function applyAutocomplete(element, options) {
 
     if (remoteQueryKey) {
         elementPlusUi.setAttribute("remote-query-key", remoteQueryKey);
+    }
+
+    if (wildcardSearch) {
+        elementPlusUi.setAttribute("wildcard-search", "true");
     }
 
     if (valueKey) {

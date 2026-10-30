@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue';
 import { fetchSuggestions } from '../../helpers/autocomplete/remote';
 import ConfigWrapper from '../ConfigWrapper.vue';
+import { usePropParsers } from '../../composables/usePropParsers';
 
 const props = defineProps([
     '_expose',
@@ -14,8 +15,10 @@ const props = defineProps([
     'language',
     'transformResultFn',
     'remoteQueryKey',
+    'wildcardSearch',
 ]);
 
+const { normalize } = usePropParsers();
 const valueKey = props.valueKey || 'value';
 const placeholder = props.placeholder || TEXT.INPUT_PLACEHOLDER;
 const shouldRefocusOnBlur = ref(false);
@@ -48,7 +51,7 @@ const handleFetchSuggestions = (query, callback) => {
             shouldRefocusOnBlur.value = true;
         }
     };
-    fetchSuggestions(query, wrappedCallback, props.remoteSourceUrl, (props.sourceList ? JSON.parse(props.sourceList): []), props.remoteQueryKey);
+    fetchSuggestions(query, wrappedCallback, props.remoteSourceUrl, (props.sourceList ? JSON.parse(props.sourceList): []), props.remoteQueryKey, normalize(props.wildcardSearch, false));
 }
 
 const handleBlur = () => {
