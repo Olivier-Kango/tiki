@@ -72,20 +72,20 @@ if (isset($_REQUEST["assign"]) && $access->checkCsrf()) {
 }
 
 if (isset($_REQUEST["up"]) && $access->checkCsrf()) {
-    $result = $usermoduleslib->up_user_module($_REQUEST["up"], $user);
+    $result = $usermoduleslib->swap_up_user_module($_REQUEST["up"], $user);
     if ($result && $result->numRows()) {
-        Feedback::success(tr('User module display order moved up. Displayed order may not change if other modules now have the same order rank.'));
+        Feedback::success(tr('User module moved up'));
     } else {
-        Feedback::error(tr('User module display order not moved up'));
+        Feedback::error(tr('User module not moved up'));
     }
 }
 
 if (isset($_REQUEST["down"]) && $access->checkCsrf()) {
-    $result = $usermoduleslib->down_user_module($_REQUEST["down"], $user);
+    $result = $usermoduleslib->swap_down_user_module($_REQUEST["down"], $user);
     if ($result && $result->numRows()) {
-        Feedback::success(tr('User module display order moved down. Displayed order may not change if other modules now have the same order rank.'));
+        Feedback::success(tr('User module moved down'));
     } else {
-        Feedback::error(tr('User module display order not moved down'));
+        Feedback::error(tr('User module not moved down'));
     }
 }
 
@@ -107,11 +107,6 @@ if (isset($_REQUEST["right"]) && $access->checkCsrf()) {
     }
 }
 
-$orders = [];
-for ($i = 1; $i < 50; $i++) {
-    $orders[] = $i;
-}
-$smarty->assign_by_ref('orders', $orders);
 $assignables = $usermoduleslib->get_user_assignable_modules($user);
 if (count($assignables) > 0) {
     $smarty->assign('canassign', 'y');
@@ -119,8 +114,11 @@ if (count($assignables) > 0) {
     $smarty->assign('canassign', 'n');
 }
 $modules = $usermoduleslib->get_user_assigned_modules($user);
-$smarty->assign('modules_l', $usermoduleslib->get_user_assigned_modules_pos($user, 'left'));
-$smarty->assign('modules_r', $usermoduleslib->get_user_assigned_modules_pos($user, 'right'));
+$modules_l = $usermoduleslib->get_user_assigned_modules_pos($user, 'left');
+$modules_r = $usermoduleslib->get_user_assigned_modules_pos($user, 'right');
+$smarty->assign('modules_l', $modules_l);
+$smarty->assign('modules_r', $modules_r);
+$smarty->assign('orders', range(1, max(count($modules_l), count($modules_r)) + 1));
 $smarty->assign_by_ref('assignables', $assignables);
 $smarty->assign_by_ref('modules', $modules);
 include_once('tiki-mytiki_shared.php');

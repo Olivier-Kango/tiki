@@ -27,32 +27,13 @@ class UserModulesLib extends TikiLib
      */
     public function unassign_user_module($moduleId, $user)
     {
+        $module = $this->getUserModule($moduleId, $user);
         $query = "delete from `tiki_user_assigned_modules` where `moduleId`=? and `user`=?";
-        return $this->query($query, [$moduleId, $user]);
-    }
-
-    /**
-     * @param $moduleId
-     * @param $user
-     *
-     * @return Tiki\TikiDb\PdoResult
-     */
-    public function up_user_module($moduleId, $user)
-    {
-        $query = "update `tiki_user_assigned_modules` set `ord`=`ord`-1 where `moduleId`=? and `user`=?";
-        return $this->query($query, [$moduleId, $user]);
-    }
-
-    /**
-     * @param $moduleId
-     * @param $user
-     *
-     * @return Tiki\TikiDb\PdoResult
-     */
-    public function down_user_module($moduleId, $user)
-    {
-        $query = "update `tiki_user_assigned_modules` set `ord`=`ord`+1 where `moduleId`=? and `user`=?";
-        return $this->query($query, [$moduleId, $user]);
+        $result = $this->query($query, [$moduleId, $user]);
+        if ($module) {
+            $this->closeUserColumnGap($user, $module['position'], $module['ord']);
+        }
+        return $result;
     }
 
     /**
@@ -64,8 +45,15 @@ class UserModulesLib extends TikiLib
      */
     public function set_column_user_module($moduleId, $user, $position)
     {
-        $query = "update `tiki_user_assigned_modules` set `position`=? where `moduleId`=? and `user`=?";
-        return $this->query($query, [$position, $moduleId, $user]);
+        $module = $this->getUserModule($moduleId, $user);
+        if (! $module || $module['position'] == $position) {
+            return false;
+        }
+        $order = $this->countUserColumnModules($user, $position) + 1;
+        $query = "update `tiki_user_assigned_modules` set `position`=?, `ord`=? where `moduleId`=? and `user`=?";
+        $result = $this->query($query, [$position, $order, $moduleId, $user]);
+        $this->closeUserColumnGap($user, $module['position'], $module['ord']);
+        return $result;
     }
 
     /**
@@ -81,10 +69,14 @@ class UserModulesLib extends TikiLib
         $query = "select * from `tiki_modules` where `moduleId`=?";
         $result = $this->query($query, [$moduleId]);
         $res = $result->fetchRow();
-        $query = "delete from `tiki_user_assigned_modules` where `moduleId`=? and `user`=?";
-        $this->query($query, [$moduleId,$user]);
+        $this->unassign_user_module($moduleId, $user);
+
+        $order = min(max(1, (int) $order), $this->countUserColumnModules($user, $position) + 1);
+        $query = "update `tiki_user_assigned_modules` set `ord`=`ord`+1 where `user`=? and `position`=? and `ord`>=?";
+        $this->query($query, [$user, $position, $order]);
+
         $query = 'insert into `tiki_user_assigned_modules`(`moduleId`, `user`,`name`,`position`,`ord`,`type`) values(?,?,?,?,?,?)';
-        $bindvars = [$moduleId, $user,$res['name'],$position,(int) $order,$res['type']];
+        $bindvars = [$moduleId, $user,$res['name'],$position,$order,$res['type']];
         return $this->query($query, $bindvars);
     }
 
@@ -263,26 +255,64 @@ class UserModulesLib extends TikiLib
      */
     public function swap_adjacent($moduleId, $user, $op)
     {
-        // Get position and order of module to swap
-        $query = "select `ord`,`position` from `tiki_user_assigned_modules` where `moduleId`=? and user=?";
-        $r = $this->query($query, [$moduleId, $user]);
-        $cur = $r->fetchRow();
-        // Get name and order of module to swap with
-        $query = "select `moduleId`, `name`,`ord` from `tiki_user_assigned_modules` where `position`=? and `ord`" . $op . "=? and `user`=? and `moduleId` != ? order by `ord` " . ($op == '<' ? 'desc' : '');
-        $r = $this->query($query, [$cur['position'], $cur['ord'], $user, $moduleId]);
-        $swap = $r->fetchRow();
-        if (! empty($swap)) {
-            // Swap 2 adjacent modules
-            if ($swap['ord'] == $cur['ord']) {
-                $swap['ord'] += ($op == '<') ? -1 : +1;
-            }
-            $query = "update `tiki_user_assigned_modules` set `ord`=? where `moduleId`=? and `user`=?";
-            $this->query($query, [$swap['ord'], $moduleId, $user]);
-            $query = "update `tiki_user_assigned_modules` set `ord`=? where `moduleId`=? and `user`=?";
-            return $this->query($query, [$cur['ord'], $swap['moduleId'], $user]);
-        } else {
+        $module = $this->getUserModule($moduleId, $user);
+        if (! $module) {
             return false;
         }
+        $result = $this->swapWithNeighbor($moduleId, $user, $module, $op);
+        if (! $result) {
+            $this->renumberUserColumn($user, $module['position']);
+            $result = $this->swapWithNeighbor($moduleId, $user, $this->getUserModule($moduleId, $user), $op);
+        }
+        return $result;
+    }
+
+    private function swapWithNeighbor($moduleId, $user, array $module, $op)
+    {
+        $target = $op == '<' ? $module['ord'] - 1 : $module['ord'] + 1;
+
+        $query = "update `tiki_user_assigned_modules` set `ord`=? where `user`=? and `position`=? and `ord`=?";
+        $neighbor = $this->query($query, [$module['ord'], $user, $module['position'], $target]);
+        if (! $neighbor || ! $neighbor->numRows()) {
+            return false;
+        }
+        $query = "update `tiki_user_assigned_modules` set `ord`=? where `moduleId`=? and `user`=?";
+        return $this->query($query, [$target, $moduleId, $user]);
+    }
+
+    /**
+     * Rewrite the orders of a column as 1, 2, 3... keeping the current display order
+     *
+     * @param $user
+     * @param $position
+     */
+    private function renumberUserColumn($user, $position)
+    {
+        $query = "update `tiki_user_assigned_modules` `umod`
+                  inner join (
+                      select `moduleId`, row_number() over (order by `ord`, `moduleId`) as `row_num`
+                      from `tiki_user_assigned_modules` where `user`=? and `position`=?
+                  ) `ranked` on `umod`.`moduleId`=`ranked`.`moduleId`
+                  set `umod`.`ord`=`ranked`.`row_num`
+                  where `umod`.`user`=?";
+        $this->query($query, [$user, $position, $user]);
+    }
+
+    private function getUserModule($moduleId, $user)
+    {
+        $query = "select `position`, `ord` from `tiki_user_assigned_modules` where `moduleId`=? and `user`=?";
+        return $this->query($query, [$moduleId, $user])->fetchRow();
+    }
+
+    private function countUserColumnModules($user, $position)
+    {
+        return (int) $this->getOne("select count(*) from `tiki_user_assigned_modules` where `user`=? and `position`=?", [$user, $position]);
+    }
+
+    private function closeUserColumnGap($user, $position, $order)
+    {
+        $query = "update `tiki_user_assigned_modules` set `ord`=`ord`-1 where `user`=? and `position`=? and `ord`>?";
+        $this->query($query, [$user, $position, $order]);
     }
 
     /**

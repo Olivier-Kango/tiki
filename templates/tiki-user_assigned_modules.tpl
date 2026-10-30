@@ -205,18 +205,18 @@
         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="position">{tr}Column{/tr}</label>
             <div class="col-sm-8">
-                <select name="position" class="form-select form-select-sm">
-                    {if $prefs.feature_left_column ne 'n'}<option value="left">{tr}Left{/tr}</option>{/if}
-                    {if $prefs.feature_right_column ne 'n'}<option value="right">{tr}Right{/tr}</option>{/if}
+                <select name="position" id="position" class="form-select form-select-sm">
+                    {if $prefs.feature_left_column ne 'n'}<option value="left" data-orders="{count($modules_l) + 1}">{tr}Left{/tr}</option>{/if}
+                    {if $prefs.feature_right_column ne 'n'}<option value="right" data-orders="{count($modules_r) + 1}">{tr}Right{/tr}</option>{/if}
                 </select>
             </div>
         </div>
         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="order">{tr}Order{/tr}</label>
             <div class="col-sm-8">
-                <select name="order" class="form-select form-select-sm">
+                <select name="order" id="order" class="form-select form-select-sm">
                     {section name=ix loop=$orders}
-                        <option value="{$orders[ix]|escape}">{$orders[ix]}</option>
+                        <option value="{$orders[ix]|escape}"{if $smarty.section.ix.last} selected{/if}>{$orders[ix]}</option>
                     {/section}
                 </select>
             </div>
@@ -227,4 +227,14 @@
             </div>
         </div>
     </form>
+    {jq}
+$("#position").on("change", function () {
+    const max = $(this).find(":selected").data("orders");
+    const $order = $("#order").empty();
+    for (let i = 1; i <= max; i++) {
+        $order.append($("<option>").val(i).text(i));
+    }
+    $order.val(max);
+}).trigger("change");
+    {/jq}
 {/if}
