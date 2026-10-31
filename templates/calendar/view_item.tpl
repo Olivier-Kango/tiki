@@ -42,16 +42,25 @@
     </div>
     {if $recurrent}
         {if $recurrence.nbRecurrences eq 1}
-            {tr}Event occurs once on{/tr}&nbsp;{$recurrence.startPeriod|tiki_long_date}
+            {tr}Recurrence:{/tr} {tr}1 scheduled occurrence{/tr}<br>
+            {tr}Recurrence starts:{/tr} {$recurrence.startTimestamp|tiki_long_date}
         {elseif $recurrence.nbRecurrences gt 1 or $recurrence.endPeriod gt 0}
-            {tr}Event is repeated{/tr}&nbsp;
+            {tr}Recurrence:{/tr}&nbsp;
             {if $recurrence.nbRecurrences gt 1}
-                {$recurrence.nbRecurrences} {tr}times{/tr}<br>
+                {tr _0=$recurrence.nbRecurrences}%0 scheduled occurrences{/tr}<br>
             {/if}
             {if $recurrence.daily}
-                {tr}Every{/tr} {$recurrence.days} {tr}day(s){/tr}
+                {if $recurrence.days eq 1}
+                    {tr}Daily{/tr}
+                {else}
+                    {tr _0=$recurrence.days}Every %0 days{/tr}
+                {/if}
             {elseif $recurrence.weekly}
-                {tr}Every{/tr} {$recurrence.weeks} {tr}week(s){/tr}<br>
+                {if $recurrence.weeks eq 1}
+                    {tr}Weekly{/tr}
+                {else}
+                    {tr _0=$recurrence.weeks}Every %0 weeks{/tr}
+                {/if}<br>
                 {tr}Each{/tr}
                 {foreach $recurrence.weekdays as $day}{strip}
                     {if $day@iteration eq $day@total and not $day@first}
@@ -63,7 +72,11 @@
                 {/strip}{/foreach}
                 {tr}of the week{/tr}
             {elseif $recurrence.monthly}
-                {tr}Every{/tr} {$recurrence.months} {tr}month(s){/tr}<br>
+                {if $recurrence.months eq 1}
+                    {tr}Monthly{/tr}
+                {else}
+                    {tr _0=$recurrence.months}Every %0 months{/tr}
+                {/if}<br>
                 {if $recurrence.monthlyType eq 'date'}
                     {tr}Each{/tr} {$recurrence.dayOfMonth|join:', '} {tr}of the month{/tr}
                 {elseif $recurrence.monthlyType eq 'firstlastweekday'}
@@ -107,7 +120,11 @@
                     {tr}of the month{/tr}
                 {/if}
             {elseif $recurrence.yearly}
-                {tr}Every{/tr} {$recurrence.years} {tr}year(s){/tr}<br>
+                {if $recurrence.years eq 1}
+                    {tr}Yearly{/tr}
+                {else}
+                    {tr _0=$recurrence.years}Every %0 years{/tr}
+                {/if}<br>
                 {if $recurrence.yearlyType eq 'date'}
                     {tr}Each{/tr} {$recurrence.yearlyDay} {tr}of{/tr}
                     {if $recurrence.yearlyMonth eq '1'}
@@ -227,14 +244,20 @@
                 {/if}
             {/if}
             <br>
-            {tr}Starting{/tr} {$recurrence.startPeriod|tiki_long_date}
+            {tr}Recurrence starts:{/tr} {$recurrence.startTimestamp|tiki_long_date}
             {if $recurrence.endPeriod gt 0}
-                <br>{tr}Ending{/tr} {$recurrence.endPeriod|tiki_long_date}
+                <br>{tr}Recurrence ends before:{/tr} {$recurrence.endPeriod|tiki_long_date}
             {/if}
         {/if}
     {/if}
     <div class="summary">
-        <span>{tr}Start{/tr} - {tr}End:{/tr} <b>{$calitem.display_datetimes}</b>{if $calitem.allday eq '1'} <span class="border p-1 rounded text-secondary fst-italic fs-6">{tr}All-day event{/tr}</span>{/if}</span>
+        <span>{if $recurrent}{tr}This occurrence:{/tr}{else}{tr}Start{/tr} - {tr}End:{/tr}{/if} <b>{$calitem.display_datetimes}</b>{if $calitem.allday eq '1'} <span class="border p-1 rounded text-secondary fst-italic fs-6">{tr}All-day event{/tr}</span>{/if}</span>
+        {if !$calitem.allday}
+            <div class="form-text">{tr}Displayed in:{/tr} {$displayTimezone|escape}</div>
+            {if $recurrent && !empty($recurrence.recurrenceDstTimezone) && $recurrence.recurrenceDstTimezone neq $displayTimezone}
+                <div class="form-text">{tr}Recurrence time zone:{/tr} {$recurrence.recurrenceDstTimezone|escape}</div>
+            {/if}
+        {/if}
     </div>
     <div class="my-3">
         <b>{tr}Description{/tr}</b><br>

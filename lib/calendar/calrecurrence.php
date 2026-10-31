@@ -958,16 +958,8 @@ class CalRecurrence extends TikiLib
                 $calendar_timezones[$this->getCalendarId()] = $timezone;
             }
         }
-        // Calculate the offset of the event start in seconds
-        if ($this->isAllday()) {
-            $startOffset = 0;
-        } else {
-            $startOffset = str_pad($this->getStart(), 4, '0', STR_PAD_LEFT);
-            $startOffset = substr($startOffset, 0, 2) * 60 * 60 + substr($startOffset, -2) * 60;
-        }
-
         $dtzone = new DateTimeZone($timezone);
-        $dtstart = DateTime::createFromFormat('U', TikiDate::getStartDay($this->getStartPeriod(), 'UTC') + $startOffset);
+        $dtstart = DateTime::createFromFormat('U', $this->getStartTimestamp());
         $dtstart->setTimezone($dtzone);
 
         $duration = $this->getDuration(); // Get the event duration
@@ -979,7 +971,7 @@ class CalRecurrence extends TikiLib
             } else {
                 $endOffset = str_pad($this->getEnd(), 4, '0', STR_PAD_LEFT);
                 $endOffset = substr($endOffset, 0, 2) * 60 * 60 + substr($endOffset, -2) * 60;
-                $duration = $endOffset - $startOffset;
+                $duration = $endOffset - $this->getStartTimeOffset();
                 if ($duration <= 0) {
                     $duration += 86399;
                 }
@@ -1164,6 +1156,7 @@ class CalRecurrence extends TikiLib
             'yearlyWeekMonth' => $this->getYearlyWeekMonth(),
             'nbRecurrences' => $this->getNbRecurrences(),
             'startPeriod' => $this->getStartPeriod(),
+            'startTimestamp' => $this->getStartTimestamp(),
             'endPeriod' => $this->getEndPeriod(),
             'user' => $this->getUser(),
             'created' => $this->getCreated(),
@@ -1625,6 +1618,22 @@ class CalRecurrence extends TikiLib
     public function setNbRecurrences($value)
     {
         $this->nbRecurrences = $value;
+    }
+
+    /** Rebuild the start from the UTC date and HHMM stored in the legacy schema. */
+    public function getStartTimestamp(): int
+    {
+        return TikiDate::getStartDay($this->getStartPeriod(), 'UTC') + $this->getStartTimeOffset();
+    }
+
+    /** Seconds after UTC midnight; all-day events use date semantics. */
+    private function getStartTimeOffset(): int
+    {
+        if ($this->isAllday()) {
+            return 0;
+        }
+        $start = str_pad($this->getStart(), 4, '0', STR_PAD_LEFT);
+        return substr($start, 0, 2) * 3600 + substr($start, -2) * 60;
     }
 
     public function getStartPeriod()
