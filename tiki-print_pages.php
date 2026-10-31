@@ -20,6 +20,7 @@ $inputConfiguration = [
         'removepage'               => 'bool',                //post
         'clearpages'               => 'bool',                //post
         'clearstructures'          => 'bool',                //post
+        'removestructure'          => 'int',                 //post
         'addstructurepages'        => 'bool',                //post
         'addstructure'             => 'bool',                //post
         ],
@@ -99,6 +100,9 @@ if (isset($_REQUEST["clearpages"])) {
 if (isset($_REQUEST["clearstructures"])) {
     $printstructures = [];
 }
+if (isset($_REQUEST['removestructure'])) {
+    $printstructures = array_values(array_diff($printstructures, [$_REQUEST['removestructure']]));
+}
 if (isset($_REQUEST['addstructurepages'])) {
     if (! isset($_REQUEST["structureId"])) {
         Feedback::error(tra('Please select a structure'));
@@ -127,12 +131,23 @@ if (isset($_REQUEST['addstructurepages'])) {
     }
     $cookietab = 2;
 }
-if (isset($_REQUEST['addstructure'])) {
-    $info = $structlib->s_get_page_info($_REQUEST['structureId']);
-    if (! empty($info)) {
-        $printstructures[] = $_REQUEST['structureId'];
-    }
+if (isset($_REQUEST['addstructure']) && ! in_array($_REQUEST['structureId'], $printstructures)) {
+    $printstructures[] = $_REQUEST['structureId'];
 }
+$printnamestructures = [];
+$hasForbiddenStructure = false;
+foreach (array_unique($printstructures) as $page_ref_id) {
+    $structureInfo = $structlib->s_get_page_info($page_ref_id);
+    if (! $structureInfo || ! $tikilib->user_has_perm_on_object($user, $structureInfo['pageName'], 'wiki page', 'tiki_p_view')) {
+        $hasForbiddenStructure = true;
+        continue;
+    }
+    $printnamestructures[$page_ref_id] = $structureInfo['pageName'];
+}
+if ($hasForbiddenStructure) {
+    Feedback::error(tra('You do not have permission to view this structure.'));
+}
+$printstructures = array_keys($printnamestructures);
 $smarty->assign_by_ref('printpages', $printpages);
 $smarty->assign_by_ref('printstructures', $printstructures);
 $form_printpages = urlencode(json_encode($printpages));
@@ -143,27 +158,14 @@ $pages = $tikilib->list_pageNames(0, -1, 'pageName_asc', $find);
 $smarty->assign_by_ref('pages', $pages["data"]);
 $structures = $structlib->list_structures(0, -1, 'pageName_asc', $find);
 $smarty->assign_by_ref('structures', $structures["data"]);
-foreach ($printstructures as $page_ref_id) {
-    foreach ($structures['data'] as $struct) {
-        if ($struct['page_ref_id'] == $page_ref_id) {
-            $printnamestructures[] = $struct['pageName'];
-            break;
-        }
-    }
-}
+$availableStructures = array_filter($structures['data'], function ($structure) use ($printstructures) {
+    return ! in_array($structure['page_ref_id'], $printstructures);
+});
+$smarty->assign('availableStructures', $availableStructures);
 $smarty->assign_by_ref('printnamestructures', $printnamestructures);
 
-$hasForbiddenStructure = false;
 $hasExcludedStructurePages = false;
 foreach ($printstructures as $page_ref_id) {
-    $structureInfo = $structlib->s_get_page_info($page_ref_id);
-    if (! $structureInfo || ! $tikilib->user_has_perm_on_object($user, $structureInfo['pageName'], 'wiki page', 'tiki_p_view')) {
-        $hasForbiddenStructure = true;
-        break;
-    }
-    if ($hasExcludedStructurePages) {
-        continue;
-    }
     foreach ($structlib->get_subtree($page_ref_id) as $struct_page) {
         if (
             ! $tikilib->user_has_perm_on_object($user, $struct_page['pageName'], 'wiki page', 'tiki_p_view')
@@ -171,11 +173,10 @@ foreach ($printstructures as $page_ref_id) {
             || ($prefs['print_pdf_from_url'] != 'none' && ! $tikilib->user_has_perm_on_object($user, $struct_page['pageName'], 'wiki page', 'tiki_p_export_pdf'))
         ) {
             $hasExcludedStructurePages = true;
-            break;
+            break 2;
         }
     }
 }
-$smarty->assign('hasForbiddenStructure', $hasForbiddenStructure);
 $smarty->assign('hasExcludedStructurePages', $hasExcludedStructurePages);
 
 include_once('tiki-section_options.php');

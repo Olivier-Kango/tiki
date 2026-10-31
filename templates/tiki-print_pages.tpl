@@ -8,26 +8,32 @@
         {* --- tab with structures -- *}
             {if $printstructures}
                 <h2>{tr}Selected Structures{/tr}</h2>
+                <form id="removeStructureForm" action="tiki-print_pages.php" method="post">
+                    {ticket}
+                    <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
+                    <input type="hidden" name="find" value="{$find|escape}">
+                </form>
+                <ul>
+                    {foreach $printnamestructures as $page_ref_id => $structureName}
+                        <li>
+                            {$structureName|escape}
+                            <button type="submit" form="removeStructureForm" name="removestructure" value="{$page_ref_id|escape}" class="btn btn-link btn-sm" title="{tr}Remove{/tr}">
+                                {icon name='remove'}
+                            </button>
+                        </li>
+                    {/foreach}
+                </ul>
+                {if $hasExcludedStructurePages}
+                    {remarksbox type="warning" title="{tr}Warning{/tr}"}{tr}Some pages of the selected structures will not be included because you do not have permission to view or print them.{/tr}{/remarksbox}
+                {/if}
                 <form method="get" action="tiki-print_multi_pages.php">
                     {ticket}
                     <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
                     <input type="hidden" name="find" value="{$find|escape}">
-                    <ul>
-                        {section name=ix loop=$printnamestructures}
-                            <li>{$printnamestructures[ix]}</li>
-                        {/section}
-                    </ul>
-                    {if $hasForbiddenStructure}
-                        {remarksbox type="error" title="{tr}Error{/tr}"}{tr}You do not have permission to view this structure.{/tr}{/remarksbox}
-                    {else}
-                        {if $hasExcludedStructurePages}
-                            {remarksbox type="warning" title="{tr}Warning{/tr}"}{tr}Some pages of this structure will not be included because you do not have permission to view or print them.{/tr}{/remarksbox}
-                        {/if}
-                        <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
-                    {/if}
+                    <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
                 </form>
 
-                {if $pdf_export eq 'y' and not $hasForbiddenStructure}
+                {if $pdf_export eq 'y'}
                     <form method="get" action="tiki-print_multi_pages.php">
                         {ticket}
                         <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
@@ -46,16 +52,17 @@
             <h2>{tr}Add Structure{/tr}</h2>
             <form action="tiki-print_pages.php" method="post">
                 {ticket}
+                <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
                 <input type="hidden" name="find" value="{$find|escape}">
                 <input type="hidden" name="addstructure" value="y">
                 <div class="mb-3 row">
                     <div class="col-sm-12">
                         <select name="structureId" size="5" onchange="this.form.submit()" class="form-control">
-                            {section name=ix loop=$structures}
-                                <option value="{$structures[ix].page_ref_id|escape}">{$structures[ix].pageName}</option>
-                            {sectionelse}
-                                <option value="" disabled="disabled">{tr}No structures{/tr}</option>
-                            {/section}
+                            {foreach $availableStructures as $structure}
+                                <option value="{$structure.page_ref_id|escape}">{$structure.pageName|escape}</option>
+                            {foreachelse}
+                                <option value="" disabled="disabled">{if $structures}{tr}All structures selected{/tr}{else}{tr}No structures{/tr}{/if}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
