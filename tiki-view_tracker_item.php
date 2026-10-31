@@ -651,7 +651,10 @@ foreach ($fieldDefinitions as $i => $current_field) {
 
     if (! empty($current_field_ins)) {
         if ($fieldIsVisible) {
-            $fields['data'][$i] = $current_field_ins;
+            $hideTitleField = ($prefs['tracker_hide_title_field'] === 'y');
+            if (! $hideTitleField || $current_field_ins['isMain'] !== 'y') {
+                $fields['data'][$i] = $current_field_ins;
+            }
         }
         if ($fieldIsEditable) {
             $ins_fields['data'][$i] = $current_field_ins;

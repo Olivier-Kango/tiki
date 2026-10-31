@@ -283,6 +283,14 @@ function prefs_tracker_list()
             'default' => '',
             'help' => $trackerSettingsHelp,
         ],
+        'tracker_hide_title_field' => [
+            'name' => tr('Hide the title field on the view tracker item page'),
+            'description' => tr('Configure title field to be omitted when rendering the view tracker item page.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'keywords' => tra('hide title field'),
+            'help' => $trackerSettingsHelp,
+        ],
         'tracker_system_currency' => [
             'name' => tr('Exchange rates tracker'),
             'description' => tr('Allow defining a specific tracker to hold the exchange rates for currency calculations. You should manually create a tracker with at least 3 fields to hold Currency, Rate and Date.'),
