@@ -363,6 +363,7 @@ class ConverseJS
             // registerJsDependencies()'s dynamic import() below.
             'lib/xmpp/js/conversejs-tiki-storage.js',
             'lib/xmpp/js/conversejs-tiki-presentation.js',
+            'lib/xmpp/js/conversejs-tiki-notifications.js',
             'lib/xmpp/js/conversejs-tiki.js',
             'lib/xmpp/js/conversejs-tiki-oauth.js',
         ];
@@ -438,17 +439,31 @@ JS;
         if (empty($_SESSION['chat-session-init'])) {
             $_SESSION['chat-session-init'] = time();
         }
-        $chat_session_init = ($user ?: 'anonymous') . '|' . ($options['jid'] ?? '') . '|' . $_SESSION['chat-session-init'] . '|' . self::CACHE_EPOCH;
+        // Guest history belongs to the browser identity, not a PHP session or deployment.
+        $guestSession = $this->get_option('authentication') === 'anonymous';
+        $sessionOwner = ($user ?: 'anonymous') . '|' . ($options['jid'] ?? '');
+        $chat_session_init = $guestSession
+            ? $sessionOwner . '|persistent-guest'
+            : $sessionOwner . '|' . $_SESSION['chat-session-init'] . '|' . self::CACHE_EPOCH;
         $chat_session_init_js = json_encode($chat_session_init);
+        $legacyGuestPrefixJs = json_encode($sessionOwner . '|');
 
-        $output .= PHP_EOL . ';(function(){';
-        $output .= PHP_EOL . "  if (storage.get('localStorage', 'chat-session-init') !== {$chat_session_init_js}) {";
-        $output .= PHP_EOL . '      console.warn("Cleaning environment for ' . 'converse session change");';
-        $output .= PHP_EOL . "      storage.set('localStorage', 'chat-session-init', {$chat_session_init_js});";
+        $output .= PHP_EOL . ';await (async function(){';
+        $output .= PHP_EOL . "  var previousSession = storage.get('localStorage', 'chat-session-init');";
+        if ($guestSession) {
+            // Adopt compatible legacy markers without deleting existing conversations.
+            $output .= PHP_EOL . "  if (!previousSession || previousSession.indexOf({$legacyGuestPrefixJs}) === 0) {";
+            $output .= PHP_EOL . "      storage.set('localStorage', 'chat-session-init', {$chat_session_init_js});";
+            $output .= PHP_EOL . '      return;';
+            $output .= PHP_EOL . '  }';
+        }
+        $output .= PHP_EOL . "  if (previousSession !== {$chat_session_init_js}) {";
+        $output .= PHP_EOL . '      console.warn("Cleaning environment for converse account change");';
         $output .= PHP_EOL . '      storage.remove("localStorage", "tiki-xmpp-guest-identity");';
         $output .= PHP_EOL . '      storage.clearMatching("localStorage", /(converse|strophe)/);';
         $output .= PHP_EOL . '      storage.clearMatching("sessionStorage", /(converse|strophe)/);';
-        $output .= PHP_EOL . '      storage.clearIndexedDbMatching(/(converse|strophe)/i);';
+        $output .= PHP_EOL . '      await storage.clearIndexedDbMatching(/(converse|strophe)/i);';
+        $output .= PHP_EOL . "      storage.set('localStorage', 'chat-session-init', {$chat_session_init_js});";
         $output .= PHP_EOL . "  }";
         $output .= PHP_EOL . '})();';
         $output .= PHP_EOL;
@@ -472,8 +487,8 @@ JS;
         $options['auto_join_bookmarks'] = $usingExternal;
         $options['show_desktop_notifications'] = true;
         $options['show_tab_notifications'] = true;
-        $options['play_sounds'] = true;
-        $options['notify_all_room_messages'] = true;
+        $options['play_sounds'] = false;
+        $options['notify_all_room_messages'] = false;
         $options['omemo_default'] = false;
         $siteName = trim((string) ($prefs['sitetitle'] ?? ''))
             ?: trim((string) ($prefs['browsertitle'] ?? ''))
