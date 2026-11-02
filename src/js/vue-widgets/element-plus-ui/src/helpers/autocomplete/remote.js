@@ -5,8 +5,9 @@
  * @param {String|null} sourceRemoteUrl remote URL to fetch suggestions from
  * @param {Array} sourceList suggestions to filter from instead of fetching from the remote URL
  * @param {String} remoteQueryKey query parameter key to use when fetching suggestions from the remote URL, defaults to 'q'
+ * @param {Boolean} wildcardSearch wrap the query with wildcards, for remote sources that only match whole words (e.g. the search index)
  */
-export function fetchSuggestions(query, callback, sourceRemoteUrl = null, sourceList = [], remoteQueryKey = "q") {
+export function fetchSuggestions(query, callback, sourceRemoteUrl = null, sourceList = [], remoteQueryKey = "q", wildcardSearch = false) {
     if (sourceList.length) {
         const filteredList = sourceList.filter((item) => item.value.toLowerCase().includes(query.toLowerCase()));
         return callback(filteredList);
@@ -17,7 +18,7 @@ export function fetchSuggestions(query, callback, sourceRemoteUrl = null, source
         return;
     }
 
-    if (window.jqueryTiki.tiki_object_selector_wildcardsearch) {
+    if (wildcardSearch) {
         query = "*" + query + "*";
     }
 

@@ -33,6 +33,19 @@ describe("applyAutocomplete", () => {
         expect(expectedAutoCompleteElement.getAttribute("remote-query-key")).toBe(givenRemoteQueryKey);
     });
 
+    test.each([
+        ["enabled", true, "true"],
+        ["disabled", false, null],
+        ["not provided", undefined, null],
+    ])("should set the 'wildcard-search' attribute only when wildcardSearch is enabled (%s)", (_, givenWildcardSearch, expectedAttribute) => {
+        const givenInput = document.createElement("input");
+        document.body.appendChild(givenInput);
+
+        applyAutocomplete(givenInput, { remoteSourceUrl: "https://foo.bar", wildcardSearch: givenWildcardSearch });
+
+        expect(givenInput.nextElementSibling.getAttribute("wildcard-search")).toBe(expectedAttribute);
+    });
+
     test("should set the 'transform-result-fn' attribute on the autocomplete element when a transformResultCb is provided", () => {
         const givenInput = document.createElement("input");
         document.body.appendChild(givenInput);

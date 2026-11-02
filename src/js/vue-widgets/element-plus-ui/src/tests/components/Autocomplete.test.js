@@ -180,7 +180,8 @@ describe("Autocomplete", () => {
                 expect.any(Function),
                 remoteSourceUrl,
                 sourceList ? JSON.parse(sourceList) : [],
-                givenProps.remoteQueryKey
+                givenProps.remoteQueryKey,
+                false
             );
             expect(givenProps._expose).toHaveBeenCalled({ value: expect.objectContaining({ _value: givenProps.value, __v_isRef: true }) });
 

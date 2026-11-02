@@ -1,13 +1,14 @@
 import { applyAutocomplete } from "@vue-widgets/el-autocomplete";
 
 export default function autocomplete(element, resourceType, options = {}) {
-    const { url, sourceList, valueKey, transformResultCb, customRemoteQueryKey } = getAutocompleteResources(resourceType, options);
+    const { url, sourceList, valueKey, transformResultCb, customRemoteQueryKey, wildcardSearch } = getAutocompleteResources(resourceType, options);
     const autocompleteOptions = {
         remoteSourceUrl: url,
         sourceList,
         valueKey,
         transformResultCb,
         remoteQueryKey: customRemoteQueryKey,
+        wildcardSearch,
     };
 
     if (resourceType == "pagename" && ($(element).attr("name") == "highlight" || /^search_mod_input_\d|highlight$/.test($(element).attr("id")))) {
@@ -54,6 +55,7 @@ export function getAutocompleteResources(type, options = {}) {
     let valueKey = null;
     let transformResultCb = null;
     let customRemoteQueryKey = null;
+    let wildcardSearch = false;
 
     const urlParams = new URLSearchParams(window.location.search);
     const excludepage = urlParams.get("page");
@@ -120,6 +122,7 @@ export function getAutocompleteResources(type, options = {}) {
                 }));
             };
             customRemoteQueryKey = "filter~title";
+            wildcardSearch = Boolean(jqueryTiki.tiki_object_selector_wildcardsearch);
             break;
         default:
             remoteSourceUrl = null;
@@ -129,5 +132,5 @@ export function getAutocompleteResources(type, options = {}) {
 
     const url = remoteSourceUrl ? window.location.origin + (window.tikiroot || "/") + remoteSourceUrl : null;
 
-    return { url, sourceList, valueKey, transformResultCb, customRemoteQueryKey };
+    return { url, sourceList, valueKey, transformResultCb, customRemoteQueryKey, wildcardSearch };
 }
