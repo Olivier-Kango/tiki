@@ -320,7 +320,7 @@ function wikiplugin_datachannel($data, $params)
             if (! empty($params['price'])) {
                 $paymentlib = TikiLib::lib('payment');
                 $desc = empty($params['paymentlabel']) ?
-                    tr('Data channel:', $prefs['site_language']) . ' ' . $channels : $params['paymentlabel'];
+                    tr('Data channel:', $prefs['language']) . ' ' . $channels : $params['paymentlabel'];
                 $posts = [];
                 foreach ($input as $key => $post) {
                     $posts[$key] = $post;

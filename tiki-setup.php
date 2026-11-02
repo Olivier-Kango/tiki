@@ -208,14 +208,16 @@ require_once('lib/setup/cookies.php');
 require_once('lib/setup/user_prefs.php');
 require_once('lib/core/Sections.php');
 use Tiki\Sections;
-// Initialize language settings after section is set and autoloader is available
-Language::setSectionLanguage();
+require_once('lib/setup/language.php');
+// Resolve the current language after user preferences are available.
+Language::setSectionLanguage(Sections::getCurrentSection());
 
 // Register callback to update language when section changes
 // This ensures that when admin files call Sections::setCurrentSection(),
 // the language is automatically updated (e.g., admin section gets admin language)
 Sections::onSectionChange(function ($section) {
-    Language::setSectionLanguage();
+    Language::setSectionLanguage($section);
+    TikiLib::lib('smarty')->refreshLanguage();
 });
 
 Sections::onSectionChange(function ($section) use ($prefs) {
@@ -466,8 +468,8 @@ if (($prefs['metatag_robots_txt_apply_directives'] ?? 'n') === 'y') {
 if ($prefs['feature_antibot'] == 'y' && empty($user)) {
     if ($prefs['recaptcha_enabled'] === 'y') {
         if ($prefs['recaptcha_version'] == '2') {
-            if (! empty($prefs['language'])) {
-                $headerlib->add_jsfile_cdn("$url_scheme://www.google.com/recaptcha/api.js?hl=" . $prefs['language']);
+            if (! empty(Language::getCurrentLanguage())) {
+                $headerlib->add_jsfile_cdn("$url_scheme://www.google.com/recaptcha/api.js?hl=" . Language::getCurrentLanguage());
             } else {
                 $headerlib->add_jsfile_cdn("$url_scheme://www.google.com/recaptcha/api.js");
             }

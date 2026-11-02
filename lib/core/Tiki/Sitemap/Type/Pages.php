@@ -50,7 +50,7 @@ class Pages extends AbstractType
 
             [$min, $max] = $this->getRangeDateFilters($range);
 
-            $filter = $isMultilingual ? ['lang' => $prefs['site_language']] : [];
+            $filter = $isMultilingual ? ['lang' => $prefs['language']] : [];
             $listPages = $tikilib->list_pages(
                 date_min: $min,
                 date_max: $max,

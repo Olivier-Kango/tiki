@@ -869,7 +869,7 @@ class Comments extends TikiLib
         } else {
             $u = '';
             $a = $info['user'];
-            $w = $a . ' ' . tra('(not registered)', $prefs['site_language']);
+            $w = $a . ' ' . tra('(not registered)', $prefs['language']);
         }
 
         $postToEdit = TikiLib::lib('attribute')->find_objects_with('tiki.forumpost.queueid', $qId);
@@ -4176,14 +4176,14 @@ class Comments extends TikiLib
                             } elseif (! empty($params['anonymous_email'])) { // Add an anonymous watch, if email address supplied.
                                 $this->add_user_watch(
                                     $params['anonymous_name'] . ' ' . tra('(not registered)'),
-                                    $prefs['site_language'],
+                                    $prefs['language'],
                                     'forum_post_thread',
                                     $threadId,
                                     'forum topic',
                                     $forum_info['name'] . ':' . $params['comments_title'],
                                     'tiki-view_forum_thread.php?comments_parentId=' . $threadId,
                                     $params['anonymous_email'],
-                                    $prefs['language'] ?? ''
+                                    Language::getCurrentLanguage()
                                 );
                             }
                         }

@@ -1,6 +1,6 @@
 {* Upload Mine *}
 <!DOCTYPE html>
-<html id="print" lang="{if !empty($pageLang)}{$pageLang}{else}{$prefs.language}{/if}">
+<html id="print" lang="{if !empty($pageLang)}{$pageLang}{else}{$currentRenderingLanguage}{/if}">
     <head>
         {include file='header.tpl'}
         <meta name="viewport" content="width=device-width, initial-scale=1" />

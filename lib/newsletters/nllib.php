@@ -728,7 +728,7 @@ class NlLib extends TikiLib
             $_SERVER["SERVER_NAME"] = $_SERVER["HTTP_HOST"];
         }
 
-        $lg = ! $user ? $prefs['site_language'] : $this->get_user_preference($user, "language", $prefs['site_language']);
+        $lg = ! $user ? $prefs['language'] : $this->get_user_preference($user, "language", $prefs['language']);
         $subjectData = $smarty->fetchLang($lg, 'mail/newsletter_welcome_subject.tpl');
         $subject = sprintf($subjectData, $info["name"], $_SERVER["SERVER_NAME"]);
         $smartyAssigns = [
@@ -788,7 +788,7 @@ class NlLib extends TikiLib
             $_SERVER["SERVER_NAME"] = $_SERVER["HTTP_HOST"];
         }
 
-        $lg = ! $user ? $prefs['site_language'] : $this->get_user_preference($user, "language", $prefs['site_language']);
+        $lg = ! $user ? $prefs['language'] : $this->get_user_preference($user, "language", $prefs['language']);
         $subjectData = $smarty->fetchLang($lg, 'mail/newsletter_byebye_subject.tpl');
         $subject = sprintf($subjectData, $info["name"], $_SERVER["SERVER_NAME"]);
 
@@ -1200,7 +1200,7 @@ class NlLib extends TikiLib
             $user = $userlib->get_user_by_email($email);
         }
         if ($lang == '') {
-            $lang = ! $user ? $prefs['site_language'] : $this->get_user_preference($user, "language", $prefs['site_language']);
+            $lang = ! $user ? $prefs['language'] : $this->get_user_preference($user, "language", $prefs['language']);
         }
 
         $smarty->assign('thisuser', $user);
@@ -1689,10 +1689,10 @@ class NlLib extends TikiLib
             if ($userEmail == '') {
                 $userEmail = $userlib->get_user_by_email($email);
             }
-            $language = ! $userEmail ? $prefs['site_language'] : $tikilib->get_user_preference(
+            $language = ! $userEmail ? $prefs['language'] : $tikilib->get_user_preference(
                 $userEmail,
                 "language",
-                $prefs['site_language']
+                $prefs['language']
             );
 
             // Use detailed email validation instead of simple regex

@@ -398,7 +398,7 @@ function wikiplugin_pivottable($data, $params)
     $defaults = [];
 
     if ($params['lang'] == "site") {
-        $lang = substr($prefs['site_language'], 0, 2);
+        $lang = substr($prefs['language'], 0, 2);
     } else {
         $lang = substr($params['lang'], 0, 2); //Here we don't use the site language anymore!
     }

@@ -216,7 +216,7 @@ class TodoLib
         if (empty($to['email'])) {
             return;
         }
-        $lang = empty($to['user']) ? $prefs['site_language'] : $tikilib->get_user_preference($u, 'language', $prefs['site_language']);
+        $lang = empty($to['user']) ? $prefs['language'] : $tikilib->get_user_preference($u, 'language', $prefs['language']);
         if (empty($todo['to']['subject'])) {
             $todo['to']['subject'] = tra($default_subject, $lang);
         }

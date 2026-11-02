@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="nlsendresult" lang="{$prefs.language}">
+<html id="nlsendresult" lang="{$currentRenderingLanguage}">
     <head>
         {$headerlib->output_headers()}
     </head>

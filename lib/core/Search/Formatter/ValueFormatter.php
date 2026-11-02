@@ -65,7 +65,7 @@ class Search_Formatter_ValueFormatter
         if (class_exists($class)) {
             global $prefs;
             $cachelib = TikiLib::lib('cache');
-            $cacheName = $format . ':' . $name . ':' . $prefs['language'] . ':' . serialize($this->valueSet[$name]) . ':' . serialize($arguments);
+            $cacheName = $format . ':' . $name . ':' . Language::getCurrentLanguage() . ':' . serialize($this->valueSet[$name]) . ':' . serialize($arguments);
             $cacheType = 'search_valueformatter';
 
             if (in_array($format, $prefs['unified_cached_formatters']) && $cachelib->isCached($cacheName, $cacheType)) {

@@ -259,8 +259,8 @@ class MultilingualLib extends TikiLib
             $this->addPreferredLang($langs, $langContext);
         }
 
-        if ($prefs['language']) {
-            $this->addPreferredLang($langs, $prefs['language']);
+        if (Language::getCurrentLanguage()) {
+            $this->addPreferredLang($langs, Language::getCurrentLanguage());
         }
 
         if (isset($prefs['read_language'])) {
@@ -278,7 +278,7 @@ class MultilingualLib extends TikiLib
             }
         }
 
-        $l = $prefs['site_language'];
+        $l = $prefs['language'];
         $this->addPreferredLang($langs, $l); // site language
 
         if ($prefs['restrict_language'] === 'y' && $prefs['available_languages'] && $prefs['language_inclusion_threshold'] >= count($prefs['available_languages'])) {
@@ -712,7 +712,7 @@ class MultilingualLib extends TikiLib
         global $prefs;
 
         while ($row = $result->fetchRow()) {
-            if ($row['lang'] == $prefs['site_language']) {
+            if ($row['lang'] == $prefs['language']) {
                 $pages[] = $row;
             }
         }

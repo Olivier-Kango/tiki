@@ -458,19 +458,19 @@ class UnifiedSearchLib
         $mapping = [
             'elastic' => [
                 'data' => $prefs['unified_elastic_index_current'],
-                'preference' => $prefs['unified_elastic_index_prefix'] . 'pref_' . $prefs['language'],
+                'preference' => $prefs['unified_elastic_index_prefix'] . 'pref_' . Language::getCurrentLanguage(),
                 'connect' => $prefs['unified_elastic_index_prefix'] . 'connect',
                 'ondemand' => $prefs['unified_elastic_index_prefix'] . 'ondemand',
             ],
             'mysql' => [
                 'data' => $prefs['unified_mysql_index_current'],
-                'preference' => 'index_' . 'pref_' . $prefs['language'],
+                'preference' => 'index_' . 'pref_' . Language::getCurrentLanguage(),
                 'connect' => 'index_connect',
                 'ondemand' => 'index_ondemand',
             ],
             'manticore' => [
                 'data' => $prefs['unified_manticore_index_current'] ?? '',
-                'preference' => $prefs['unified_manticore_index_prefix'] . 'pref_' . str_replace('-', '_', $prefs['language']),
+                'preference' => $prefs['unified_manticore_index_prefix'] . 'pref_' . str_replace('-', '_', Language::getCurrentLanguage()),
                 'connect' => $prefs['unified_manticore_index_prefix'] . 'connect',
                 'ondemand' => $prefs['unified_manticore_index_prefix'] . 'ondemand',
             ],

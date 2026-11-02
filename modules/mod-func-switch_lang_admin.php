@@ -28,7 +28,7 @@ function module_switch_lang_admin_info()
  */
 function module_switch_lang_admin($mod_reference, $module_params)
 {
-    global $prefs, $user;
+    global $user;
 
     if (empty($user)) {
         return false;
@@ -39,16 +39,7 @@ function module_switch_lang_admin($mod_reference, $module_params)
         return false;
     }
 
-    $frontendLang = Language::getCurrentLanguage();
-    $userlib = TikiLib::lib('user');
-    $languageAdmin = ! empty($prefs['language_admin']) ? $prefs['language_admin'] : $frontendLang;
-    $userLang = $userlib->get_user_preference($user, 'language');
-    $userAdminLang = $userlib->get_user_preference($user, 'language_admin');
-
-    if (! empty($userAdminLang)) {
-        $frontendLang = $userAdminLang;
-    }
-
+    $frontendLang = Language::resolveAdminLanguage();
     $smarty = TikiLib::lib('smarty');
     $tikilib = TikiLib::lib('tiki');
 
@@ -77,7 +68,7 @@ function module_switch_lang_admin($mod_reference, $module_params)
             } else {
                 $languages[$i]['class'] = '';
             }
-            if (isset($languageAdmin) && $languages[$i]['value'] == $languageAdmin) {
+            if ($languages[$i]['value'] == $frontendLang) {
                 $languages[$i]['class'] .= ' highlight';
             }
         }

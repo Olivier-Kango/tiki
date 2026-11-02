@@ -26,6 +26,10 @@ class Language extends TikiDb_Bridge
     public const PUNCTUATIONS = [':', '!', ';', '.', ',', '?'];
     private const LOCALE_IDENTIFIER_PATTERN = '/\A[A-Za-z][A-Za-z0-9_-]*\z/';
 
+    // Runtime languages; saved/default choices are resolved separately for pickers.
+    private static ?string $userLanguage = null;
+    private static ?string $adminLanguage = null;
+
     /**
      * Return a list of languages available in Tiki
      *
@@ -713,24 +717,28 @@ class Language extends TikiDb_Bridge
     }
 
     /**
-     * Sets the language
+     * Saves an explicit language choice and updates the corresponding section's runtime language.
+     * Anonymous choices are stored in the session; site defaults are unchanged.
+     * Use setSectionLanguage() to apply automatic language selection for a request.
      *
      * @param string $localeIdentifier the identifier of the locale to set
-     * @param bool $languageAdmin whether to set the admin language
+     * @param bool $languageAdmin whether to save the user's admin language preference
      * @return bool true on success, false on failure (if $localeIdentifier is not a valid and allowed locale identifier)
      */
     public static function setCurrentLanguage(string $localeIdentifier = '', bool $languageAdmin = false): bool
     {
-        $smarty = TikiLib::lib('smarty');
         $tikilib = TikiLib::lib('tiki');
-        global $prefs, $user;
+        global $user;
 
         $prefName = $languageAdmin ? 'language_admin' : 'language';
 
         if (self::isValidLocale($localeIdentifier)) {
-            $prefs[$prefName] = $localeIdentifier;
-            $smarty->refreshLanguage();
             $tikilib->set_user_preference($user, $prefName, $localeIdentifier);
+            self::setSectionLanguage($languageAdmin ? Sections::SECTION_ADMIN : Sections::SECTION_WIKI, $localeIdentifier);
+            if (! $languageAdmin) {
+                // Refresh the admin fallback after an explicit regular-language change.
+                self::setSectionLanguage(Sections::SECTION_ADMIN);
+            }
             return true;
         } else {
             return false;
@@ -738,108 +746,68 @@ class Language extends TikiDb_Bridge
     }
 
     /**
-     * Determine the user's preferred language (switchLang GET param or browser detection)
-     *
-     * @return string|null
-    */
-    protected static function determineUserLanguage(): ?string
-    {
-        global $prefs, $tikilib;
-
-        if ($prefs['feature_multilingual'] != 'y' || $prefs['change_language'] != 'y') {
-            return null;
-        }
-
-        // User manually switched language via GET
-        if (isset($_GET['switchLang'])) {
-            return $_GET['switchLang'];
-        }
-
-        // Detect browser language if enabled and user has no preference
-        if ($prefs['feature_detect_language'] === 'y' && ! $tikilib->userHasPreference('language')) {
-            $browserLanguage = detect_browser_language();
-            if (self::isValidLocale($browserLanguage)) {
-                return $browserLanguage;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Determine admin section language override
-     *
-     * @return string|null
+     * Resolves the regular language choice independently of temporary rendering.
      */
-    protected static function determineAdminLanguage(): ?string
+    public static function resolveUserLanguage(): string
     {
-        global $prefs;
-        $section = Sections::getCurrentSection();
-        if (
-            ! empty($section)
-            && (Sections::isCurrentSection(Sections::SECTION_ADMIN) || Sections::isCurrentSection(Sections::SECTION_ADMIN_LAYOUT))
-        ) {
-            $adminLanguage = ! empty($prefs['language_admin']) ? $prefs['language_admin'] : $prefs['site_language'];
-            if (self::isValidLocale($adminLanguage)) {
-                return $adminLanguage;
-            }
-        }
+        global $prefs, $tikilib, $user;
 
-        return null;
+        $language = $tikilib->get_user_preference($user, 'language');
+        if (
+            empty($language)
+            && $prefs['feature_multilingual'] === 'y'
+            && $prefs['change_language'] === 'y'
+            && $prefs['feature_detect_language'] === 'y'
+            && ! $tikilib->userHasPreference('language')
+        ) {
+            $language = detect_browser_language();
+        }
+        return self::isValidLocale($language ?? '') ? $language : $prefs['language'];
     }
 
     /**
-     * Sets the current language based on section and user preferences
-     * Should be called after the Section is set and autoloader is available
-     *
-     * @return void
-    */
-    public static function setSectionLanguage(): void
+     * Resolves the admin language choice independently of temporary rendering.
+     */
+    public static function resolveAdminLanguage(): string
     {
         global $prefs;
+        $language = ! empty($prefs['language_admin']) ? $prefs['language_admin'] : $prefs['language'];
+        return self::isValidLocale($language) ? $language : self::resolveUserLanguage();
+    }
 
-        // Step 1: determine user language or fallback
-        $lang = self::determineUserLanguage() ?? self::getCurrentLanguage();
-
-        // Step 2: admin override
-        $adminLang = self::determineAdminLanguage();
-        if ($adminLang !== null) {
-            $lang = $adminLang;
-        }
-
-        // Step 3: ensure valid locale
-        if (! self::isValidLocale($lang)) {
-            $lang = $prefs['site_language'];
-        }
-
-        // Step 4: apply language
-        if ($adminLang !== null && empty($prefs['language_admin'])) {
-            $prefs['language'] = $lang;
-            TikiLib::lib('smarty')->refreshLanguage();
+    /**
+     * Sets a section's runtime language without changing the section or saved preferences.
+     * With no explicit language, resolves the section's saved choice and automatic fallback.
+     *
+     * @param string|null $section admin/admin layout uses the admin property; other sections use the regular property
+     * @param string|null $language an explicit rendering language, or null to resolve the saved choice
+     * @return void
+     */
+    public static function setSectionLanguage(?string $section, ?string $language = null): void
+    {
+        if ($section === Sections::SECTION_ADMIN || $section === Sections::SECTION_ADMIN_LAYOUT) {
+            self::$adminLanguage = $language ?? self::resolveAdminLanguage();
         } else {
-            self::setCurrentLanguage($lang);
+            self::$userLanguage = $language ?? self::resolveUserLanguage();
         }
     }
 
+    /**
+     * Returns a section's runtime language, including any temporary rendering change.
+     */
+    public static function getSectionLanguage(?string $section): string
+    {
+        if ($section === Sections::SECTION_ADMIN || $section === Sections::SECTION_ADMIN_LAYOUT) {
+            return self::$adminLanguage ??= self::resolveAdminLanguage();
+        }
+        return self::$userLanguage ??= self::resolveUserLanguage();
+    }
+
+    /**
+     * Returns the runtime language for the current section.
+     */
     public static function getCurrentLanguage(): string
     {
-        global $user, $user_preferences, $prefs;
-
-        if (
-            (Sections::isCurrentSection(Sections::SECTION_ADMIN) || Sections::isCurrentSection(Sections::SECTION_ADMIN_LAYOUT))
-            && empty($prefs['language_admin'])
-            && ! empty($prefs['language'])
-        ) {
-            return $prefs['language'];
-        }
-
-        $language = 'en';
-        if (isset($user) && ! empty($user_preferences[$user]['language'])) {
-            $language = $user_preferences[$user]['language'];
-        } elseif (! empty($prefs['language'])) {
-            $language = $prefs['language'];
-        } else {
-            $language = $prefs['site_language'] ?? $language;
-        }
-        return $language;
+        return self::getSectionLanguage(Sections::getCurrentSection());
     }
 }

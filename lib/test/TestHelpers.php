@@ -35,7 +35,7 @@ class TestHelpers
         $_SERVER['REQUEST_URI'] = $script_uri;
         $user = $logged_on_as_user;
 
-        $prefs['site_language'] = 'en';
+        $prefs['language'] = 'en';
     }
 
     public function stopSimulatingTikiScriptContext()

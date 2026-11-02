@@ -226,7 +226,7 @@
                             <select name="forumLanguage" id="forumLanguage" class="form-control">
                                 <option value="">{tr}Unknown{/tr}</option>
                                 {section name=ix loop=$languages}
-                                    <option value="{$languages[ix].value|escape}"{if $forumLanguage eq $languages[ix].value or (empty($data.page_id) and $forumLanguage eq '' and $languages[ix].value eq $prefs.language)} selected="selected"{/if}>{$languages[ix].name}</option>
+                                    <option value="{$languages[ix].value|escape}"{if $forumLanguage eq $languages[ix].value or (empty($data.page_id) and $forumLanguage eq '' and $languages[ix].value eq $currentRenderingLanguage)} selected="selected"{/if}>{$languages[ix].name}</option>
                                 {/section}
                             </select>
                         </div>

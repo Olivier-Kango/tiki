@@ -97,7 +97,7 @@ class PreferencesLib
         global $prefs;
 
         $translatedPreference = $name;
-        if ($prefs['site_language'] != $lang) {
+        if ($prefs['language'] != $lang) {
             $translatedPreference .= '_' . $lang;
         }
 

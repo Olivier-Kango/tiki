@@ -1161,7 +1161,7 @@ class CategLib extends ObjectLib
     {
         global $prefs;
         $cachelib = TikiLib::lib('cache');
-        $cacheKey = 'all' . ($localized ? '_' . $prefs['language'] : '');
+        $cacheKey = 'all' . ($localized ? '_' . Language::getCurrentLanguage() : '');
         if (! $ret = $cachelib->getSerialized($cacheKey, 'allcategs')) {
             // This generates different caches for each language. The empty key is used when no localization was requested.
             // This could be optimized, but for now each cache is generated from scratch.

@@ -72,7 +72,6 @@ $needed_prefs = [
     'tiki_cdn' => '',
     'tiki_cdn_ssl' => '',
     'language' => 'en',
-    'site_language' => 'en',
     'lang_use_db' => 'n',
     'feature_fullscreen' => 'n',
     'feature_language_check' => 'n',

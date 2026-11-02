@@ -185,7 +185,7 @@ function wikiplugin_list($data, $params)
     }
 
     // use a different cache for each language
-    $cacheName = $prefs['feature_multilingual'] === 'y' ? "{$prefs['language']}-{$cacheName}" : $cacheName;
+    $cacheName = $prefs['feature_multilingual'] === 'y' ? Language::getCurrentLanguage() . "-{$cacheName}" : $cacheName;
 
     if (! is_null($params['cacheexpiry'])) {
         $cacheExpiry = $params['cacheexpiry'];

@@ -34,7 +34,7 @@ function module_switch_lang($mod_reference, $module_params)
     $smarty = TikiLib::lib('smarty');
     $tikilib = TikiLib::lib('tiki');
 
-    $frontendLang = Language::getCurrentLanguage();
+    $frontendLang = Language::resolveUserLanguage();
 
     // tiki-setup has already set the $language variable
     //Create a list of languages

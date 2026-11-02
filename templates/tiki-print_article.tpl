@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="print" lang="{if !empty($pageLang)}{$pageLang}{else}{$prefs.language}{/if}">
+<html id="print" lang="{if !empty($pageLang)}{$pageLang}{else}{$currentRenderingLanguage}{/if}">
     <head>
 {include file='header.tpl'}
     </head>

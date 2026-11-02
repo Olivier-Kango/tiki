@@ -188,7 +188,7 @@ class CalendarLib extends TikiLib
             'timeFormat'       => $prefs['display_12hr_clock'] === 'y',
             'firstDayofWeek'   => $this->firstDayofWeek(),
             'display_timezone' => $prefs['display_timezone'],
-            'language'         => $prefs['language'],
+            'language'         => Language::getCurrentLanguage(),
             'minHourOfDay'     => $minHourOfDay,
             'maxHourOfDay'     => $maxHourOfDay,
             'slotDuration'     => '00:' . str_pad($prefs['calendar_timespan'], 2, '0', STR_PAD_LEFT),
@@ -1139,7 +1139,7 @@ class CalendarLib extends TikiLib
                 'calitemId' => $calitemId,
                 'calIds' => [$data['calendarId']],
             ]));
-            $defaultLanguage = $prefs['site_language'];
+            $defaultLanguage = $prefs['language'];
             foreach ($nots as $not) {
                 $mail->setUser($not['user']);
                 $mail_data = $smarty->fetchLang($defaultLanguage, "mail/user_watch_calendar_subject.tpl");
@@ -1379,7 +1379,7 @@ class CalendarLib extends TikiLib
                 $rec = $data['rec'];
                 $rec->updateDetails($data);
                 // Lang is required in CalRecurrence::isValid(), so set it here
-                $rec->setLang($data['lang'] ?? $prefs['language'] ?? 'en');
+                $rec->setLang($data['lang'] ?? Language::getCurrentLanguage());
                 $rec->setUser($user); // Set the user
                 $client->saveRecurringCalendarObject($rec);
             } else {

@@ -1217,14 +1217,14 @@ class WikiLib extends TikiLib
 
             if ($prefs['feature_multilingual'] == 'y') {
                 $query .= ' ORDER BY CASE WHEN `lang` = ? THEN 0 WHEN `lang` IS NULL OR `lang` = \'\' THEN 1 ELSE 2 END';
-                $bindvars[] = $prefs['language'];
+                $bindvars[] = Language::getCurrentLanguage();
             }
 
             $result = $this->query($query, $bindvars);
             $ret = [];
 
             while ($res = $result->fetchRow()) {
-                if ($prefs['wiki_likepages_samelang_only'] == 'y' && ! empty($res['lang']) && $res['lang'] != $prefs['language']) {
+                if ($prefs['wiki_likepages_samelang_only'] == 'y' && ! empty($res['lang']) && $res['lang'] != Language::getCurrentLanguage()) {
                     continue;
                 }
 

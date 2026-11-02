@@ -65,13 +65,32 @@ class Reports_SendTest extends TikiTestCase
         $reportCache = [];
         $emailBody = 'body';
 
+        $previousLanguage = Language::getCurrentLanguage();
+        $previousLibraries = (new ReflectionProperty(TikiLib::class, 'libraries'))->getValue();
+        $preferences = $GLOBALS['prefs'];
+        $tikilib = $this->createMock(TikiLib::class);
+        $tikilib->method('get_user_preference')->willReturn('en');
+        $tikilib->method('get_display_timezone')->willReturn('UTC');
+        (new ReflectionProperty(TikiLib::class, 'libraries'))->setValue(null, array_merge($previousLibraries, ['tiki' => $tikilib]));
+        Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), 'fr');
+
         $this->builder->expects($this->once())->method('emailBody')
-            ->with($userData, $reportPreferences, $reportCache)->willReturn($emailBody);
+            ->with($userData, $reportPreferences, $reportCache)->willReturnCallback(function () use ($preferences, $emailBody) {
+                $this->assertSame('en', Language::getCurrentLanguage());
+                $this->assertSame($preferences, $GLOBALS['prefs']);
+                return $emailBody;
+            });
         $this->mail->expects($this->once())->method('setUser')->with('test');
         $this->mail->expects($this->once())->method('setHtml')->with($emailBody);
         $this->mail->expects($this->once())->method('setSubject')->with('Report on test from 2012-03-27 (no changes)');
         $this->mail->expects($this->once())->method('send')->with(['test@test.com']);
 
-        $this->obj->sendEmail($userData, $reportPreferences, $reportCache);
+        try {
+            $this->obj->sendEmail($userData, $reportPreferences, $reportCache);
+            $this->assertSame('fr', Language::getCurrentLanguage());
+        } finally {
+            Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $previousLanguage);
+            (new ReflectionProperty(TikiLib::class, 'libraries'))->setValue(null, $previousLibraries);
+        }
     }
 }

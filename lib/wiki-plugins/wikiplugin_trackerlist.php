@@ -2238,7 +2238,7 @@ function wikiplugin_trackerlist($data, $params)
                     [
                         'firstDayofWeek'   => 0,
                         'display_timezone' => $prefs['display_timezone'],
-                        'language'         => $prefs['language'],
+                        'language'         => Language::getCurrentLanguage(),
                         'minHourOfDay'     => 00,
                         'maxHourOfDay'     => 23,
                         'slotDuration'     => '00:' . str_pad($prefs['calendar_timespan'], 2, '0', STR_PAD_LEFT),

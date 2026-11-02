@@ -104,7 +104,7 @@ function sendForumEmailNotification(
     }
 
     $nots = [];
-    $defaultLanguage = $prefs['site_language'];
+    $defaultLanguage = $prefs['language'];
 
     // Users watching this forum or this post
     if ($prefs['feature_user_watches'] == 'y' || $prefs['feature_group_watches'] == 'y') {
@@ -272,7 +272,7 @@ function sendWikiEmailNotification(
     $smarty = TikiLib::lib('smarty');
     $notificationlib = TikiLib::lib('notification');
     $nots = [];
-    $defaultLanguage = $prefs['site_language'];
+    $defaultLanguage = $prefs['language'];
     if ($wikiEvent == 'wiki_file_attached') {
         $event = 'wiki_page_changed';
     } else {
@@ -552,7 +552,7 @@ function sendFileGalleryEmailNotification($event, $galleryId, $galleryName, $nam
     $smarty = TikiLib::lib('smarty');
 
     $nots = [];
-    $defaultLanguage = $prefs['site_language'];
+    $defaultLanguage = $prefs['language'];
 
     // Users watching this gallery
     if ($prefs['feature_user_watches'] == 'y') {
@@ -641,7 +641,7 @@ function sendCategoryEmailNotification($values)
     $smarty = TikiLib::lib('smarty');
 
     $nots = [];
-    $defaultLanguage = $prefs['site_language'];
+    $defaultLanguage = $prefs['language'];
 
     // Users watching this gallery
     if ($prefs['feature_user_watches'] == 'y') {
@@ -761,7 +761,7 @@ function sendStructureEmailNotification($params)
     }
 
     if (! empty($nots)) {
-        $defaultLanguage = $prefs['site_language'];
+        $defaultLanguage = $prefs['language'];
         include_once(__DIR__ . '/../webmail/tikimaillib.php');
         $smarty->assign_by_ref('action', $params['action']);
         $smarty->assign_by_ref('page_ref_id', $params['page_ref_id']);
@@ -857,7 +857,7 @@ function sendCommentNotification($type, $id, $title, $content, $commentId, $anon
         $watches[] = [
             'email' => $userlib->get_user_email($user),
             'user' => $user,
-            'language' => $userlib->get_user_preference($user, 'language', $prefs['site_language']),
+            'language' => $userlib->get_user_preference($user, 'language', $prefs['language']),
             'watchId' => $userlib->get_user_id($user)
         ];
     }
@@ -942,7 +942,7 @@ function sendSwitchUserNotification($adminUser, $targetUser)
     $watches[] = [
         'email' => $targetUserEmail,
         'user' => $targetUser,
-        'language' => $userlib->get_user_preference($user, 'language', $prefs['site_language']),
+        'language' => $userlib->get_user_preference($user, 'language', $prefs['language']),
         'watchId' => $userlib->get_user_id($user)
     ];
 

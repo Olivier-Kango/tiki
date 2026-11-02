@@ -27,7 +27,7 @@ $languageLib     = TikiLib::lib('language');
 $prefsLib        = TikiLib::lib('prefs');
 $usedLanguages   = [];
 $translatedVal   = [];
-$defaultLanguage = $prefs['site_language'] ? $prefs['site_language'] : 'en';
+$defaultLanguage = $prefs['language'] ? $prefs['language'] : 'en';
 
 if (empty($_REQUEST['pref'])) {
     Feedback::errorAndDie(tra('No preference given.'), \Laminas\Http\Response::STATUS_CODE_409);

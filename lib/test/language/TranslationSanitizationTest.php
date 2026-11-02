@@ -271,8 +271,8 @@ $lang = array_replace($lang, $lang_custom);
 
         // Force the language
         global $prefs;
-        $oldLang = $prefs['language'] ?? 'en';
-        $prefs['language'] = $this->lang;
+        $oldLang = \Language::getCurrentLanguage();
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $this->lang);
 
         $handler = new \SmartyTiki\BlockHandler\Tr();
 
@@ -291,7 +291,7 @@ $lang = array_replace($lang, $lang_custom);
         $this->assertStringNotContainsString('<script>', $result);
         $this->assertStringContainsString('&lt;script&gt;', $result);
 
-        $prefs['language'] = $oldLang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $oldLang);
     }
 
     /**
@@ -388,15 +388,15 @@ $lang = array_replace($lang, $lang_custom);
             $parserlib->option['wiki_parse_context'] = true;
             \Feedback::success('convene Plugin modified by editor.');
 
-            // This is the rendering path used by Feedback::sendHeaders().
-            $html = \SmartyTiki\FunctionHandler\Feedback::render([]);
+            $template = \TikiLib::lib('smarty')->getEmptyInternalTemplate();
+            $html = (new \SmartyTiki\FunctionHandler\Feedback())->handle([], $template);
             $this->assertTrue($parserlib->option['wiki_parse_context']);
 
             $repeat = false;
-            $remarksbox = \SmartyTiki\BlockHandler\Remarksbox::render(
+            $remarksbox = (new \SmartyTiki\BlockHandler\Remarksbox())->handle(
                 ['title' => 'Success'],
                 'Body',
-                null,
+                $template,
                 $repeat
             );
         } finally {
@@ -423,8 +423,8 @@ $lang = array_replace($lang, $lang_custom);
     public function testTraFunctionArgumentEscaping()
     {
         global $prefs;
-        $oldLang = $prefs['language'] ?? 'en';
-        $prefs['language'] = $this->lang;
+        $oldLang = \Language::getCurrentLanguage();
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $this->lang);
 
         // tra() with HTML in argument - NOT escaped (calling code's responsibility)
         $result = tra('Welcome %0', $this->lang, false, ['<b>Admin</b>']);
@@ -438,7 +438,7 @@ $lang = array_replace($lang, $lang_custom);
         $this->assertStringNotContainsString('<script>', $result);
         $this->assertStringContainsString('&lt;script&gt;', $result);
 
-        $prefs['language'] = $oldLang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $oldLang);
     }
 
     /**
@@ -508,12 +508,12 @@ $lang = array_replace($lang, $lang_custom);
 ');
 
         $tikilib = \TikiLib::lib('tiki');
-        $oldLang = $prefs['language'] ?? 'en';
+        $oldLang = \Language::getCurrentLanguage();
         $oldButton = $prefs['wikiplugin_button'] ?? 'n';
         $oldTr = $prefs['wikiplugin_tr'] ?? 'n';
         $oldMultilingual = $prefs['feature_multilingual'] ?? 'n';
 
-        $prefs['language'] = $this->lang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $this->lang);
         $tikilib->set_preference('feature_multilingual', 'y');
         $prefs['feature_multilingual'] = 'y';
         $tikilib->set_preference('wikiplugin_button', 'y');
@@ -535,7 +535,7 @@ $lang = array_replace($lang, $lang_custom);
         // Should contain the button markup
         $this->assertStringContainsString('btn', $parsed);
 
-        $prefs['language'] = $oldLang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $oldLang);
         $tikilib->set_preference('feature_multilingual', $oldMultilingual);
         $tikilib->set_preference('wikiplugin_button', $oldButton);
         $tikilib->set_preference('wikiplugin_tr', $oldTr);
@@ -558,11 +558,11 @@ $lang = array_replace($lang, $lang_custom);
 ');
 
         $tikilib = \TikiLib::lib('tiki');
-        $oldLang = $prefs['language'] ?? 'en';
+        $oldLang = \Language::getCurrentLanguage();
         $oldTr = $prefs['wikiplugin_tr'] ?? 'n';
         $oldMultilingual = $prefs['feature_multilingual'] ?? 'n';
 
-        $prefs['language'] = $this->lang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $this->lang);
         $tikilib->set_preference('feature_multilingual', 'y');
         $prefs['feature_multilingual'] = 'y';
         $tikilib->set_preference('wikiplugin_tr', 'y');
@@ -577,7 +577,7 @@ $lang = array_replace($lang, $lang_custom);
         $this->assertStringNotContainsString('href="javascript:', $result);
         $this->assertStringContainsString('&lt;a', $result);
 
-        $prefs['language'] = $oldLang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $oldLang);
         $tikilib->set_preference('feature_multilingual', $oldMultilingual);
         $tikilib->set_preference('wikiplugin_tr', $oldTr);
     }
@@ -591,11 +591,11 @@ $lang = array_replace($lang, $lang_custom);
         global $prefs;
 
         $tikilib = \TikiLib::lib('tiki');
-        $oldLang = $prefs['language'] ?? 'en';
+        $oldLang = \Language::getCurrentLanguage();
         $oldTr = $prefs['wikiplugin_tr'] ?? 'n';
         $oldMultilingual = $prefs['feature_multilingual'] ?? 'n';
 
-        $prefs['language'] = $this->lang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $this->lang);
         $tikilib->set_preference('feature_multilingual', 'y');
         $prefs['feature_multilingual'] = 'y';
         $tikilib->set_preference('wikiplugin_tr', 'y');
@@ -612,7 +612,7 @@ $lang = array_replace($lang, $lang_custom);
         $this->assertStringContainsString('<a href="#"', $parsed);
         $this->assertStringNotContainsString('&lt;a', $parsed);
 
-        $prefs['language'] = $oldLang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $oldLang);
         $tikilib->set_preference('feature_multilingual', $oldMultilingual);
         $tikilib->set_preference('wikiplugin_tr', $oldTr);
     }
@@ -633,12 +633,12 @@ $lang = array_replace($lang, $lang_custom);
 ');
 
         $tikilib = \TikiLib::lib('tiki');
-        $oldLang = $prefs['language'] ?? 'en';
+        $oldLang = \Language::getCurrentLanguage();
         $oldButton = $prefs['wikiplugin_button'] ?? 'n';
         $oldTr = $prefs['wikiplugin_tr'] ?? 'n';
         $oldMultilingual = $prefs['feature_multilingual'] ?? 'n';
 
-        $prefs['language'] = $this->lang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $this->lang);
         $tikilib->set_preference('feature_multilingual', 'y');
         $prefs['feature_multilingual'] = 'y';
         $tikilib->set_preference('wikiplugin_button', 'y');
@@ -668,7 +668,7 @@ WIKI;
         $this->assertStringNotContainsString('<script>', $result);
         $this->assertStringContainsString('&lt;script&gt;', $result);
 
-        $prefs['language'] = $oldLang;
+        \Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $oldLang);
         $tikilib->set_preference('feature_multilingual', $oldMultilingual);
         $tikilib->set_preference('wikiplugin_button', $oldButton);
         $tikilib->set_preference('wikiplugin_tr', $oldTr);

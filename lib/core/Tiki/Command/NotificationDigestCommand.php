@@ -86,7 +86,7 @@ class NotificationDigestCommand extends Command
         $list = \TikiDb::get()->fetchAll("
             SELECT userId, login, email, IFNULL(p.value, ?) language
             FROM users_users u
-                LEFT JOIN tiki_user_preferences p ON u.login = p.user AND p.prefName = 'language'", [$prefs['site_language']]);
+                LEFT JOIN tiki_user_preferences p ON u.login = p.user AND p.prefName = 'language'", [$prefs['language']]);
 
         $monitormail = \TikiLib::lib('monitormail');
 

@@ -85,7 +85,7 @@ $smarty->assign_by_ref('limit', $limit);
 // Top Authors
 $rankings = [];
 
-$rk = $ranklib->$which($limit, $categs, $prefs['language']);
+$rk = $ranklib->$which($limit, $categs, Language::getCurrentLanguage());
 $rank["data"] = $rk["data"];
 $rank["title"] = $rk["title"];
 $rank["y"] = $rk["y"];

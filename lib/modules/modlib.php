@@ -617,7 +617,7 @@ class ModLib extends TikiLib
             }
         }
 
-        if (isset($params["lang"]) && ! in_array($prefs['language'], (array) $params["lang"])) {
+        if (isset($params["lang"]) && ! in_array(Language::getCurrentLanguage(), (array) $params["lang"])) {
             return false;
         }
 
@@ -1152,7 +1152,7 @@ class ModLib extends TikiLib
     public function createDefaultCacheKey($mod_reference)
     {
         global $prefs;
-        return $mod_reference['moduleId'] . '-' . $mod_reference['name'] . '-' . $prefs['language'] . '-' .
+        return $mod_reference['moduleId'] . '-' . $mod_reference['name'] . '-' . Language::getCurrentLanguage() . '-' .
                serialize($mod_reference['params']) . (isset($_SESSION['current_perspective']) ? '-p' . $_SESSION['current_perspective'] : '');
     }
 

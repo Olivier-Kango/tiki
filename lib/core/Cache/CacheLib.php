@@ -337,41 +337,45 @@ class CacheLib
 
     public function cache_templates($path, $newlang)
     {
-        global $prefs;
-        $smarty = TikiLib::lib('smarty');
-        $smarty->refreshLanguage();
-
-        $oldlang = $prefs['language'];
-        $prefs['language'] = $newlang;
-        if (! $path or ! is_dir($path)) {
+        if (! $path || ! is_dir($path)) {
             return 0;
         }
-        if ($dir = opendir($path)) {
-            while (false !== ($file = readdir($dir))) {
-                $a = explode(".", $file);
-                $ext = strtolower(end($a));
-                if (str_starts_with($file, ".") or $file == 'CVS') {
-                    continue;
-                }
-                if (is_dir($path . "/" . $file)) {
-                    $prefs['language'] = $oldlang;
-                    $this->cache_templates($path . "/" . $file, $newlang);
-                    $prefs['language'] = $newlang;
-                } else {
-                    if ($ext == "tpl") {
-                        $template_file = substr($path . "/" . $file, 10);
-                        try {
-                            $_tpl = $smarty->createTemplate($template_file, null, null, null, false);
-                            $_tpl->compileTemplateSource();
-                        } catch (Exception $e) {
-                            $errors_found = true;
+
+        $smarty = TikiLib::lib('smarty');
+        $languageSection = \Tiki\Sections::getCurrentSection();
+        $oldlang = \Language::getSectionLanguage($languageSection);
+        \Language::setSectionLanguage($languageSection, $newlang);
+        $smarty->refreshLanguage();
+
+        try {
+            if ($dir = opendir($path)) {
+                try {
+                    while (false !== ($file = readdir($dir))) {
+                        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                        if (str_starts_with($file, '.') || $file === 'CVS') {
+                            continue;
+                        }
+                        if (is_dir($path . '/' . $file)) {
+                            $this->cache_templates($path . '/' . $file, $newlang);
+                        } elseif ($ext === 'tpl') {
+                            $template_file = substr($path . '/' . $file, 10);
+                            try {
+                                $_tpl = $smarty->createTemplate($template_file, null, null, null, false);
+                                $_tpl->compileTemplateSource();
+                            } catch (\Throwable $e) {
+                                // Preserve the existing behavior of continuing after compilation errors.
+                                $errors_found = true;
+                            }
                         }
                     }
+                } finally {
+                    closedir($dir);
                 }
             }
-            closedir($dir);
+        } finally {
+            \Language::setSectionLanguage($languageSection, $oldlang);
+            $smarty->refreshLanguage();
         }
-        $prefs['language'] = $oldlang;
     }
 
     /**
@@ -415,7 +419,7 @@ class CacheLib
 
         $inInstaller = defined('TIKI_IN_INSTALLER');
 
-        $lang = $prefs['language'];
+        $lang = \Language::getCurrentLanguage();
         $ctempl = 'templates';
         $this->cache_templates($ctempl, $lang);
 

@@ -184,10 +184,11 @@ if (empty($_POST['install_step'])) {
 
 // define the language to use, either from user-setting or default
 if (! empty($_POST['lang'])) {
-    $language = $prefs['site_language'] = $prefs['language'] = $_POST['lang'];
+    $language = $prefs['language'] = $_POST['lang'];
 } else {
-    $language = $prefs['site_language'] = $prefs['language'] = 'en';
+    $language = $prefs['language'] = 'en';
 }
+Language::setSectionLanguage(\Tiki\Sections::getCurrentSection(), $language);
 include_once('lib/init/tra.php');
 
 

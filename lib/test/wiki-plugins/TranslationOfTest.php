@@ -15,10 +15,12 @@ class WikiPlugin_TranslationOfTest extends TikiTestCase
 
     protected function setUp(): void
     {
-        global $user, $prefs;
+        global $user, $prefs, $testhelpers;
         $this->orig_user = $user;
 
-        $prefs['site_language'] = 'en';
+        $testhelpers = new TestHelpers();
+
+        $prefs['language'] = 'en';
 
 
         /* Need to set those global vars to be able to create and delete pages */

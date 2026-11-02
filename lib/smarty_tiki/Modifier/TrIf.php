@@ -14,7 +14,7 @@ class TrIf
         global $prefs;
         $args = array_slice(func_get_args(), 1);
 
-        if ($prefs['language'] != 'en') {
+        if (\Language::getCurrentLanguage() != 'en') {
             include_once('lib/init/tra.php');
             return tra($source, '', false, $args, true);
         } else {
