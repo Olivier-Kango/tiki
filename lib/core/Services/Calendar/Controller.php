@@ -714,6 +714,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         if ($calitem) {
             // calculate event display date/time
             $tikilib = TikiLib::lib('tiki');
+            $displayTimezone = $tikilib->get_display_timezone();
             $startday = $tikilib->get_short_date($calitem['start']);
             $endday = $tikilib->get_short_date($calitem['end']);
             if ($startday === $endday) {
@@ -748,6 +749,8 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             'daynames'             => $this->daynamesPlural,
             'monthnames'           => $this->monthnames,
             'preview'              => $preview,
+            'modal'                => $input->modal->int(),
+            'displayTimezone'      => $displayTimezone,
             // related tracker items
             'trackerItems'        => ! empty($trackerItems) ? $trackerItems : [],
         ];
@@ -983,17 +986,12 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
         $calitem = $this->processParticipants($calitem);
         $recurrence = parent::createRecurrenceFromInput($input);
         $recurrence->setCalendarId($calitem['calendarId']);
-        $tz = date_default_timezone_get();
-        date_default_timezone_set('UTC');
-        $tikidateStart = new TikiDate();
-        $tikidateStart->setDate($calitem['start']);
-        $tikidateEnd = new TikiDate();
-        $tikidateEnd->setDate($calitem['end']);
+        $start = new DateTimeImmutable('@' . $calitem['start']);
+        $end = new DateTimeImmutable('@' . $calitem['end']);
         $duration = ($calitem['end'] - $calitem['start']);
-        $recurrence->setStart($tikidateStart->format("%H%M", true));
-        $recurrence->setEnd($tikidateEnd->format("%H%M", true));
+        $recurrence->setStart($start->format('Hi'));
+        $recurrence->setEnd($end->format('Hi'));
         $recurrence->setDuration($duration);
-        date_default_timezone_set($tz);
         $recurrence->setAllday($calitem['allday']);
         $recurrence->setLocationId($calitem['locationId']);
         $recurrence->setCategoryId($calitem['categoryId']);
@@ -1019,6 +1017,18 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             $recurrence->setHideParticipants(true);
         }
         return $recurrence;
+    }
+
+    protected function getRecurrenceStartPeriod(JitFilter $input, CalRecurrence $recurrence): int
+    {
+        if ($recurrence->getId() > 0) {
+            // Editing a later occurrence must not re-anchor the existing series.
+            return $recurrence->getStartPeriod();
+        }
+
+        $calitem = $this->convertCalitemTimes($input->asArray('calitem'), $input);
+        // Recurrence times are stored in UTC and combined with this UTC date.
+        return TikiDate::getStartDay($calitem['start'], 'UTC');
     }
 
     /**

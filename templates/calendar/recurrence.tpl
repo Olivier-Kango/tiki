@@ -424,12 +424,14 @@
                     <hr>
                 </div>
             {/if}
-            {tr}Start date{/tr}
-            <div class="offset-sm-1 col-sm-6 input-group">
-                {if empty($recurrence.startPeriod)}{$startPeriod = $calitem.start}{else}{$startPeriod = $recurrence.startPeriod}{/if}
-                {jscalendar date=$startPeriod fieldname="startPeriod" showtime='n' timezone='UTC'}
-            </div>
-            <hr/>
+            {if $showRecurrenceStartDate|default:true}
+                {tr}Start date{/tr}
+                <div class="offset-sm-1 col-sm-6 input-group">
+                    {if empty($recurrence.startPeriod)}{$startPeriod = $calitem.start}{else}{$startPeriod = $recurrence.startPeriod}{/if}
+                    {jscalendar date=$startPeriod fieldname="startPeriod" showtime='n' timezone='UTC'}
+                </div>
+                <hr/>
+            {/if}
             <input type="radio" id="id_endTypeNb" name="endType" value="nb" {if $recurrence.nbRecurrences or $calitem.calitemId eq 0 or empty($recurrence.id)} checked="checked" {/if}>
             <label for="id_endTypeNb"> &nbsp;{tr}End after{/tr}</label>
             <div class="offset-sm-1 col-sm-6">

@@ -127,6 +127,7 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
             'yearlyWeekMonth' => null,
             'nbRecurrences' => null,
             'startPeriod' => $rec->getStartPeriod(),
+            'startTimestamp' => $rec->getStartPeriod() + 12 * 3600,
             'endPeriod' => $rec->getEndPeriod(),
             'user' => '',
             'created' => 0,

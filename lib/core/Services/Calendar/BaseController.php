@@ -114,7 +114,21 @@ class Services_Calendar_BaseController
                 }
                 break;
         }
-        // Start/End periods adjusted from browser's timezone to UTC
+        $recurrence->setStartPeriod($this->getRecurrenceStartPeriod($input, $recurrence));
+        if ($input->endType->word() === "dt") {
+            $endPeriod = $input->endPeriod->int();
+            $recurrence->setEndPeriod($endPeriod);
+            $recurrence->setNbRecurrences(0);
+        } else {
+            $recurrence->setNbRecurrences($input->nbRecurrences->int() ?? 1);
+            $recurrence->setEndPeriod(0);
+        }
+        return $recurrence;
+    }
+
+    protected function getRecurrenceStartPeriod(JitFilter $input, CalRecurrence $recurrence): int
+    {
+        // Availability rules still have their own start-date selector.
         $startPeriod = $input->startPeriod->int();
         if (empty($startPeriod)) {
             // startPeriod does not exist when using the old non-jscalendar time selector with 3 dropdowns - n.b. this might not be the case anymore with the new UI
@@ -127,16 +141,7 @@ class Services_Calendar_BaseController
                 $input->startPeriod_Year->int()
             );
         }
-        $recurrence->setStartPeriod(TikiDate::getStartDay($startPeriod, 'UTC'));
-        if ($input->endType->word() === "dt") {
-            $endPeriod = $input->endPeriod->int();
-            $recurrence->setEndPeriod($endPeriod);
-            $recurrence->setNbRecurrences(0);
-        } else {
-            $recurrence->setNbRecurrences($input->nbRecurrences->int() ?? 1);
-            $recurrence->setEndPeriod(0);
-        }
-        return $recurrence;
+        return TikiDate::getStartDay($startPeriod, 'UTC');
     }
 
     /**

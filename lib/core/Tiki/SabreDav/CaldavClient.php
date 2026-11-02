@@ -39,6 +39,13 @@ class CaldavClient
             $uri = Utilities::getCalendarObjectUri($calitem);
             $existing = TikiLib::lib('calendar')->get_item($calitem['calitemId']);
             $calitem['created'] = $existing['created'];
+            if (! empty($existing['recurrenceId'])) {
+                // An exception keeps its original scheduled identity after every move.
+                $calitem['recurrenceId'] = $existing['recurrenceId'];
+                $calitem['recurrenceStart'] = $existing['recurrenceStart'] ?? $existing['start'];
+                $calitem['recurrenceUid'] = $existing['recurrenceUid'] ?? null;
+                $calitem['changed'] = 1;
+            }
             // Preserve UID to ensure event updates are recognized correctly by email clients
             // RFC 5545 requires UID to remain constant throughout event lifecycle
             if (! empty($existing['uid'])) {

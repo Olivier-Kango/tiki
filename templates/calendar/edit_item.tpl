@@ -107,17 +107,18 @@
                 <div class="col-sm-9">
                     {if $recurrence.id gt 0}
                         <input type="hidden" name="recurrent" value="1">
-                        {tr}This event depends on a recurrence rule,{/tr}
-                        {tr}starting on{/tr} {$recurrence.startPeriod|tiki_long_date},&nbsp;
+                        {tr}Recurrence starts:{/tr} {$recurrence.startTimestamp|tiki_long_date}<br>
                         {if $recurrence.endPeriod gt 0}
-                            {tr}ending by{/tr} {$recurrence.endPeriod|tiki_long_date}
+                            {tr}Recurrence ends before:{/tr} {$recurrence.endPeriod|tiki_long_date}
+                        {elseif $recurrence.nbRecurrences eq 1}
+                            {tr}1 scheduled occurrence{/tr}
                         {else}
-                            {tr}ending after{/tr} {$recurrence.nbRecurrences} {tr}events{/tr}
+                            {tr _0=$recurrence.nbRecurrences}%0 scheduled occurrences{/tr}
                         {/if}
                         {if $recurranceNumChangedEvents gt 1}
-                            {tr _0=$recurranceNumChangedEvents}(%0 events have been manually modified){/tr}
+                            {tr _0=$recurranceNumChangedEvents}(%0 occurrences have been manually modified){/tr}
                         {elseif $recurranceNumChangedEvents gt 0}
-                            {tr _0=$recurranceNumChangedEvents}(%0 event has been manually modified){/tr}
+                            {tr _0=$recurranceNumChangedEvents}(%0 occurrence has been manually modified){/tr}
                         {/if}
                         <br>
                     {else}
@@ -131,7 +132,7 @@
                 </div>
             </div>
             {* / .mb-3 *}
-            {include file='./recurrence.tpl'}
+            {include file='./recurrence.tpl' showRecurrenceStartDate=false}
             {* / .row *}
             <div id="timezonePicker" class="row mt-md-3 mb-3 date" style=" {if ( !($calitem.recurrenceId gt 0) and $recurrent neq 1 )} display:none; {/if}">
                 <label class="col-form-label col-sm-3">{tr}Recurrence time zone{/tr}</label>
@@ -156,7 +157,7 @@
             </div>
 
             <div class="row mt-md-3 mb-3 date">
-                <label class="col-form-label col-sm-3">{tr}Start - End{/tr}</label>
+                <label class="col-form-label col-sm-3">{if $recurrence.id gt 0}{tr}This occurrence (Start - End){/tr}{else}{tr}Start - End{/tr}{/if}</label>
                 <div class="col-sm-7 start">
                     {if $calitem.allday}
                         {$showtime="n"}
@@ -173,8 +174,12 @@
                         </label>
                     </div>
                 </div>
+                <div class="col-sm-9 offset-sm-3 form-text event-display-timezone"{if $calitem.allday} style="display: none;"{/if}>
+                    {tr}Displayed in:{/tr} {$displayTimezone|escape}
+                </div>
                 {jq}
                 $('#allday').on('change', function() {
+                    $(this).closest('.edit-event-form').find('.event-display-timezone').toggle(!this.checked);
                     if ($(this).is(':checked')) {
                         $('#event-datetime').attr('type', 'daterange');
                         $('#event-datetime').attr('format', 'YYYY-MM-DD');
@@ -430,17 +435,17 @@
                 <div class="row">
                     <div class="col-sm-9 offset-sm-3">
                         <input type="radio" id="id_affectEvt" name="affect" value="event" checked="checked"> <label for="id_affectEvt">
-                            {tr}Update this event only{/tr}
+                            {tr}Update this occurrence only{/tr}
                         </label><br>
                         {if $recurranceNumChangedEvents}
                             <input type="radio" id="id_affectMan" name="affect" value="manually">
                             <label for="id_affectMan">
-                                {tr}Update every unchanged event in this recurrence series{/tr}
+                                {tr}Update all unchanged occurrences{/tr}
                             </label>
                             <br>
                         {/if}
                         <input type="radio" id="id_affectAll" name="affect" value="all"> <label for="id_affectAll">
-                            {tr}Update every event in this recurrence series{/tr}
+                            {tr}Update all occurrences{/tr}
                         </label>
                     </div>
                 </div>
@@ -461,12 +466,12 @@
             {if $recurrence.id}
                 <div class="dropdown" data-cb-close-all="true">
                     <button class="btn btn-danger dropdown-toggle" type="button" id="deleteMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        {tr}Delete event(s){/tr}
+                        {tr}Delete occurrences{/tr}
                     </button>
                     <ul class="dropdown-menu">
-                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_item" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete this event?{/tr}">{tr}This event only{/tr}</button></li>
-                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete recurring event series for all future events?{/tr}">{tr}Future recurring events{/tr}</button></li>
-                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" data-alt_param="all" data-alt_param_value="1" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete all recurring events in this series?{/tr}">{tr}All recurring events{/tr}</button></li>
+                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_item" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete this occurrence?{/tr}">{tr}This occurrence only{/tr}</button></li>
+                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete all future occurrences?{/tr}">{tr}Future occurrences{/tr}</button></li>
+                        <li><button type="submit" data-alt_controller="calendar" data-alt_action="delete_recurrent_items" data-alt_param="all" data-alt_param_value="1" class="dropdown-item" data-confirm="{tr}Are you sure you want to delete all occurrences?{/tr}">{tr}All occurrences{/tr}</button></li>
                     </ul>
                 </div>
             {/if}
