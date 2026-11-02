@@ -7,8 +7,11 @@
 namespace Tiki\Command;
 
 use Exception;
+use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -58,6 +61,18 @@ class MarkdownConvertCommand extends Command
                 InputOption::VALUE_NONE,
                 tra('Convert contents of specified pages to the target syntax')
             )
+            ->addOption(
+                'manual',
+                null,
+                InputOption::VALUE_NONE,
+                tra('Prompt before converting each page')
+            )
+            ->addOption(
+                'exclude-categories',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                tra('Exclude pages belonging to the specified category IDs separated by comma (,) during conversion.')
+            )
             ->addArgument(
                 'exclude',
                 InputArgument::IS_ARRAY,
@@ -91,8 +106,20 @@ class MarkdownConvertCommand extends Command
             }
             $pages = [$pageInfo];
         } else {
+            $exclude_categories = [];
+            // exclude pages from specified categories
+            if ($prefs['feature_categories'] != 'y') {
+                $io->warning(tr('Categories feature is not enabled.'));
+            } else {
+                $categoryIDs = explode(',', $input->getOption('exclude-categories'));
+                $categlib = TikiLib::lib('categ');
+                $cat_objects = $categlib->list_category_objects($categoryIDs, null, null, 'itemId_asc', 'wiki page');
+                $exclude_categories = array_map(function ($obj) {
+                    return $obj['itemId'];
+                }, $cat_objects['data']);
+            }
             $excluded = $input->getArgument('exclude');
-            $allPages = $tikilib->list_pages(exclude_pages: $excluded, sort_mode: 'pageName_asc');
+            $allPages = $tikilib->list_pages(exclude_pages: array_merge($excluded, $exclude_categories), sort_mode: 'pageName_asc');
             $pages = $allPages['data'] ?: [];
         }
 
@@ -103,25 +130,46 @@ class MarkdownConvertCommand extends Command
 
         $syntax = $input->getOption('markdown') ? 'markdown' : 'tiki';
         $is_wysiwyg = false;
+        if ($input->getOption('manual')) {
+            $io->warning(tr('Manual mode enabled. You will be prompted before converting each page.'));
+        }
         foreach ($pages as $pageInfo) {
-            $io->note(tr("Processing page %0", $pageInfo['pageName']));
-
+            $page_data = $pageInfo['data'];
+            $page_name = $pageInfo['pageName'];
             try {
-                $page = $pageInfo['pageName'];
-                $converted = TikiLib::lib('edit')->convertWikiSyntax($pageInfo['data'], $syntax);
+                $io->note(tr("Processing page %0", $pageInfo['pageName']));
+                $converted = TikiLib::lib('edit')->convertWikiSyntax($page_data, $syntax, $page_name);
             } catch (Exception $e) {
                 $io->warning($e->getMessage() . ' ' . tr('Skipping...'));
                 continue;
             }
 
+            // Ask for confirmation before converting the page if manual mode is enabled.
+            if ($input->getOption('manual')) {
+                $diffText = <<<QUESTION
+                =========================================\n
+                ==== Original Content ====\n
+                $page_data \n
+                ==== $syntax Content ====\n
+                $converted \n
+                =========================================\n
+                QUESTION;
+                $io->writeln("<comment>$diffText</comment>");
+
+                if (! $io->confirm(tr('Do you want to convert page %0?', $page_name), true)) {
+                    $io->note(tr('Skipping page %0...', $page_name));
+                    continue;
+                }
+            }
+
             if ($input->getOption('save')) {
                 $editor = '';
                 if ($syntax == 'markdown') {
-                    $editor = ' editor="wysiwyg"';
-                    $is_wysiwyg = true;
+                    $editor = ' editor="plain"';
+                    $is_wysiwyg = false;
                 }
                 $converted = '{syntax type="' . $syntax . '" ' . $editor . '} ' . $converted;
-                $tikilib->update_page($pageInfo['pageName'], $converted, tra('automatic conversion'), 'admin', '127.0.0.1', null, 0, '', null, null, null, '', '', true);
+                $tikilib->update_page($page_name, $converted, tra('automatic conversion'), 'admin', '127.0.0.1', null, 0, '', null, null, null, '', '', true);
             } else {
                 $io->note("Converted:");
                 $io->writeln($converted);
