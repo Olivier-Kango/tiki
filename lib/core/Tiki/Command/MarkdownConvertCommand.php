@@ -111,7 +111,7 @@ class MarkdownConvertCommand extends Command
             if ($prefs['feature_categories'] != 'y') {
                 $io->warning(tr('Categories feature is not enabled.'));
             } else {
-                $categoryIDs = explode(',', $input->getOption('exclude-categories'));
+                $categoryIDs = explode(',', $input->getOption('exclude-categories') ?? '');
                 $categlib = TikiLib::lib('categ');
                 $cat_objects = $categlib->list_category_objects($categoryIDs, null, null, 'itemId_asc', 'wiki page');
                 $exclude_categories = array_map(function ($obj) {
