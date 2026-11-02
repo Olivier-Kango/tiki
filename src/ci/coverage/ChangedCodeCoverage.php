@@ -39,13 +39,10 @@ final class ChangedCodeCoverage
         return $process->getOutput();
     }
 
-    public function generate(string $base, array $reports, ?string $head = null): array
+    public function generate(string $base, array $reports): array
     {
         if (! preg_match('/^(?:[a-f0-9]{40}|[a-f0-9]{64})$/D', $base) || trim($base, '0') === '') {
             throw new RuntimeException('A full diff-base commit SHA is required');
-        }
-        if ($head !== null && (! preg_match('/^(?:[a-f0-9]{40}|[a-f0-9]{64})$/D', $head) || trim($head, '0') === '')) {
-            throw new RuntimeException('A full diff-head commit SHA is required');
         }
         if ($reports === []) {
             throw new RuntimeException('Coverage artifacts are required');
@@ -54,8 +51,8 @@ final class ChangedCodeCoverage
             throw new RuntimeException('Run from the repository root');
         }
         $this->execute(['git', 'cat-file', '-e', $base . '^{commit}'], 'Diff-base validation');
-        $head = trim($this->execute(['git', 'rev-parse', '--verify', ($head ?? 'HEAD') . '^{commit}'], 'Diff-head validation'));
-        $tracked = array_filter(explode("\0", $this->execute(['git', 'ls-tree', '-r', '--name-only', '-z', $head], 'Tracked file discovery')), 'strlen');
+        $head = trim($this->execute(['git', 'rev-parse', '--verify', 'HEAD^{commit}'], 'Comparison head resolution'));
+        $coverageFiles = array_filter(explode("\0", $this->execute(['git', 'ls-tree', '-r', '--name-only', '-z', $head], 'Coverage file discovery')), 'strlen');
         $changes = array_filter(explode("\0", $this->execute(['git', 'diff', '--name-only', '-z', '--diff-filter=ACMRT', $base, $head, '--'], 'Changed file discovery')), 'strlen');
         foreach ($changes as $path) {
             if (preg_match('/[[:cntrl:]]/', $path) || str_contains($path, '"') || str_contains($path, '\\') || str_contains($path, ' b/')) {
@@ -69,7 +66,7 @@ final class ChangedCodeCoverage
             $normalized = [];
             foreach (array_values($reports) as $index => $source) {
                 $path = $work . '/' . $index . '.xml';
-                CoberturaReport::normalize($source, $path, $this->root, $tracked);
+                CoberturaReport::normalize($source, $path, $this->root, $coverageFiles);
                 $normalized[] = $path;
             }
             $filesystem->dumpFile($work . '/diff.patch', $this->execute([

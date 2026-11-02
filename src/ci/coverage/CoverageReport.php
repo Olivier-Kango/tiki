@@ -112,7 +112,7 @@ CSS;
 <p>Start with files marked <span class="status gaps">Coverage gaps</span>. Unmeasured files are excluded from the percentage.</p>
 <table><thead><tr><th>Source file</th><th>Status</th><th>Diff coverage</th><th>Missing lines</th></tr></thead><tbody>{$rows}</tbody></table>
 <p class="scope">Coverage means execution, not proof of correctness. Review failed or skipped tests separately.</p>
-<p class="scope">MR source commit: <code>{$head}</code><br>MR diff base: <code>{$base}</code></p></body></html>
+<p class="scope">Comparison head: <code>{$head}</code><br>Comparison base: <code>{$base}</code></p></body></html>
 HTML;
     }
 }

@@ -130,27 +130,34 @@ class ChangedCodeCoverageTest extends TestCase
         $this->assertArrayHasKey('lib/example.php', $result['src_stats']);
     }
 
-    public function testReportCommandUsesSourceHeadInAMergedResultPipeline(): void
+    public function testReportCommandUsesMergeComparisonInAMergedResultPipeline(): void
     {
         $source = trim($this->git(['rev-parse', 'HEAD']));
         $this->git(['checkout', '-qb', 'target', $this->base]);
-        $this->filesystem->dumpFile($this->root . '/templates/target-only.tpl', "Target only\n");
+        $this->filesystem->dumpFile($this->root . '/lib/target-only.php', "<?php\nreturn 3;\n");
         $this->commit();
+        $target = trim($this->git(['rev-parse', 'HEAD']));
         $this->git(['merge', '--no-ff', '--no-edit', $source]);
+        $merge = trim($this->git(['rev-parse', 'HEAD']));
+        $this->filesystem->dumpFile($this->root . '/php.xml', '<coverage><sources><source>' . htmlspecialchars($this->root . '/lib', ENT_XML1)
+            . '</source></sources><classes><class filename="example.php"><lines><line number="2" hits="1"/><line number="3" hits="0"/></lines></class>'
+            . '<class filename="target-only.php"><lines><line number="2" hits="1"/></lines></class></classes></coverage>');
         $this->filesystem->mkdir($this->root . '/temp/ci/js_coverage');
         $this->filesystem->copy($this->root . '/php.xml', $this->root . '/temp/ci/phpunit-coverage.xml');
         $this->filesystem->copy($this->root . '/js.xml', $this->root . '/temp/ci/js_coverage/cobertura-coverage.xml');
         $output = $this->root . '/report/index.html';
         $script = realpath(__DIR__ . '/../../../src/ci/coverage/report.php');
-        $process = new Process([PHP_BINARY, $script, '--base', $this->base, '--output', $output], $this->root, [
-            'CI_MERGE_REQUEST_SOURCE_BRANCH_SHA' => $source,
-            'DIFF_COVER_BIN' => $this->engineRejectingPath('templates/target-only.tpl'),
+        $process = new Process([PHP_BINARY, $script, '--output', $output], $this->root, [
+            'CI_MERGE_REQUEST_DIFF_BASE_SHA' => $this->base,
+            'CI_MERGE_REQUEST_TARGET_BRANCH_SHA' => $target,
+            'DIFF_COVER_BIN' => $this->engineRejectingPath('lib/target-only.php'),
         ]);
         $process->mustRun();
 
         $html = file_get_contents($output);
-        $this->assertStringContainsString('MR source commit: <code>' . $source . '</code>', $html);
-        $this->assertStringNotContainsString('templates/target-only.tpl', $html);
+        $this->assertStringContainsString('Comparison head: <code>' . $merge . '</code>', $html);
+        $this->assertStringContainsString('Comparison base: <code>' . $target . '</code>', $html);
+        $this->assertStringNotContainsString('lib/target-only.php', $html);
     }
 
     public function testFullyCoveredChanges(): void
@@ -293,13 +300,6 @@ class ChangedCodeCoverageTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('full diff-base');
         (new ChangedCodeCoverage($this->root))->generate(str_repeat('a', 41), [$this->root . '/php.xml']);
-    }
-
-    public function testInvalidHeadIsRejected(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('full diff-head');
-        (new ChangedCodeCoverage($this->root))->generate($this->base, [$this->root . '/php.xml'], 'HEAD');
     }
 
     public function testEngineFailureDoesNotExposeSubprocessOutput(): void

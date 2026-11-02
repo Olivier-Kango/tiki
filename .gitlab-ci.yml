@@ -706,12 +706,12 @@ changed-code-coverage:
   script:
     # Publish a useful artifact even if setup or reporting later fails.
     - php src/ci/coverage/report.php --unavailable
+    - 'printf "Changed-code coverage report: %s/artifacts/file/temp/ci/diff-coverage/index.html\n" "$CI_JOB_URL"'
     - apt-get update -qq && apt-get install -y --no-install-recommends python3-venv > /dev/null
     - python3 -m venv temp/ci/diff-cover-venv
     - 'temp/ci/diff-cover-venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir --no-deps --require-hashes --only-binary=:all: -r src/ci/coverage/requirements.txt'
     - temp/ci/diff-cover-venv/bin/python -m pip check
-    - if ! git cat-file -e "${CI_MERGE_REQUEST_DIFF_BASE_SHA}^{commit}"; then git fetch --no-tags --depth=1 origin "$CI_MERGE_REQUEST_DIFF_BASE_SHA"; fi
-    - if [ -n "${CI_MERGE_REQUEST_SOURCE_BRANCH_SHA:-}" ] && ! git cat-file -e "${CI_MERGE_REQUEST_SOURCE_BRANCH_SHA}^{commit}"; then git fetch --no-tags --depth=1 origin "$CI_MERGE_REQUEST_SOURCE_BRANCH_SHA"; fi
+    - 'REPORT_BASE_SHA="${CI_MERGE_REQUEST_TARGET_BRANCH_SHA:-$CI_MERGE_REQUEST_DIFF_BASE_SHA}"; if ! git cat-file -e "${REPORT_BASE_SHA}^{commit}"; then git fetch --no-tags --depth=1 origin "$REPORT_BASE_SHA"; fi'
     - DIFF_COVER_BIN="$CI_PROJECT_DIR/temp/ci/diff-cover-venv/bin/diff-cover" php src/ci/coverage/report.php
   artifacts:
     when: always

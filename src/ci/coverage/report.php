@@ -15,12 +15,11 @@ require_once __DIR__ . '/ChangedCodeCoverage.php';
 require_once __DIR__ . '/CoverageReport.php';
 
 $options = getopt('', ['base:', 'output:', 'unavailable']);
-$base = $options['base'] ?? (getenv('CI_MERGE_REQUEST_DIFF_BASE_SHA') ?: '');
-$head = getenv('CI_MERGE_REQUEST_SOURCE_BRANCH_SHA') ?: null;
+$base = $options['base'] ?? (getenv('CI_MERGE_REQUEST_TARGET_BRANCH_SHA') ?: getenv('CI_MERGE_REQUEST_DIFF_BASE_SHA') ?: '');
 $output = $options['output'] ?? 'temp/ci/diff-coverage/index.html';
 $filesystem = new Filesystem();
 try {
-    if (! is_string($base) || ($head !== null && ! is_string($head)) || ! is_string($output) || $output === '') {
+    if (! is_string($base) || ! is_string($output) || $output === '') {
         throw new RuntimeException('Invalid report options');
     }
     if (array_key_exists('unavailable', $options)) {
@@ -30,7 +29,7 @@ try {
     $result = (new ChangedCodeCoverage(getcwd(), getenv('DIFF_COVER_BIN') ?: 'diff-cover'))->generate($base, [
         'temp/ci/phpunit-coverage.xml',
         'temp/ci/js_coverage/cobertura-coverage.xml',
-    ], $head);
+    ]);
     $filesystem->dumpFile($output, CoverageReport::render($result));
     printf(
         "MR diff coverage: %d covered / %d measured lines; %d uncovered; %d files without measured lines.\n",
