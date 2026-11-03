@@ -7,7 +7,7 @@
     <select id="assign_name" name="assign_name" class="form-control">
         <option value="" disabled selected>{tr}Select Module{/tr}</option>
         {foreach key=name item=info from=$all_modules_info}
-            <option value="{$name|escape}" {if $assign_name eq $name || $assign_selected eq $name}selected="selected"{/if}>{$info.name}</option>
+            <option value="{$name|escape}"{if $assign_name eq $name || $assign_selected eq $name} selected{/if}>{$info.name}</option>
         {/foreach}
     </select>
     {if isset($assign_info)}<div class="description form-text">{$assign_info.description}{if isset($assign_info.documentation)} {help url=$assign_info.documentation}{/if}</div>{/if}
@@ -21,17 +21,19 @@
                     <label for="assign_position">{tr}Position{/tr}</label>
                     <select id="assign_position" name="assign_position" class="form-control">
                         {foreach from=$module_zone_list key=code item=zone}
-                            <option value="{$code|escape}"{if $code eq $assign_position} selected="selected"{/if}>{$zone.name|escape}</option>
+                            <option value="{$code|escape}" data-orders="{$zone_orders[$code]}"{if $code eq $assign_position} selected{/if}>{$zone.name|escape}</option>
                         {/foreach}
                     </select>
                 </div>
 
                 <div class="clearfix mb-3">
                     <label for="assign_order">{tr}Order{/tr}</label>
+                    {$max_order = $zone_orders[$assign_position]|default:$zone_orders.top}
+                    {if $assign_order === '' || $assign_order === null || $assign_order > $max_order}{$selected_order = $max_order}{elseif $assign_order < 1}{$selected_order = 1}{else}{$selected_order = $assign_order}{/if}
                     <select id="assign_order" name="assign_order" class="form-control">
-                        {section name=ix loop=$orders}
-                            <option value="{$orders[ix]|escape}" {if $assign_order eq $orders[ix]}selected="selected"{/if}>{$orders[ix]}</option>
-                        {/section}
+                        {for $order=1 to $max_order}
+                            <option value="{$order}"{if $order eq $selected_order} selected{/if}>{$order}</option>
+                        {/for}
                     </select>
                 </div>
 
@@ -49,7 +51,7 @@
                     <label class="d-block min-w-25" for="groups">{tr}Groups{/tr}</label>
                     <select multiple="multiple" id="groups" name="groups[]" class="form-control mb-4 resize-vertical" style="width:100%;">
                         {section name=ix loop=$groups}
-                            <option value="{$groups[ix].groupName|escape}" {if $groups[ix].selected eq 'y'}selected="selected"{/if}>{$groups[ix].groupName|escape}</option>
+                            <option value="{$groups[ix].groupName|escape}"{if $groups[ix].selected eq 'y'} selected{/if}>{$groups[ix].groupName|escape}</option>
                         {/section}
                     </select>
                     {if $prefs.elementplus_select ne 'y'}
@@ -66,16 +68,16 @@
                     <div class="admin2cols adminoptionbox clearfix">
                         {tr}Visibility{/tr}
                             <select name="assign_type">
-                                <option value="D" {if $assign_type eq 'D'}selected="selected"{/if}>
+                                <option value="D"{if $assign_type eq 'D'} selected{/if}>
                                     {tr}Displayed now for all eligible users even with personal assigned modules{/tr}
                                 </option>
-                                <option value="d" {if $assign_type eq 'd'}selected="selected"{/if}>
+                                <option value="d"{if $assign_type eq 'd'} selected{/if}>
                                     {tr}Displayed for the eligible users with no personal assigned modules{/tr}
                                 </option>
-                                <option value="P" {if $assign_type eq 'P'}selected="selected"{/if}>
+                                <option value="P"{if $assign_type eq 'P'} selected{/if}>
                                     {tr}Displayed now, can't be unassigned{/tr}
                                 </option>
-                                <option value="h" {if $assign_type eq 'h'}selected="selected"{/if}>
+                                <option value="h"{if $assign_type eq 'h'} selected{/if}>
                                     {tr}Not displayed until a user chooses it{/tr}
                                 </option>
                             </select>
@@ -95,11 +97,11 @@
                                     <label class="d-block min-w-25" for="assign_params[{$name|escape}]">{$param.name|escape}{if !empty($param.required)} <span class="attention">({tr}required{/tr})</span>{/if}</label>
                                     {if isset($name) and $name eq 'id' and $assign_info.name eq 'Menu'}
                                         <select id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}]" class="form-control" aria-label="{tr}Select Menu{/tr}">
-                                            <option value="" disabled {if !isset($param.value)}selected{/if}>{tr}Select Menu{/tr}</option>
+                                            <option value="" disabled{if !isset($param.value)} selected{/if}>{tr}Select Menu{/tr}</option>
                                             {foreach from=$channels item=channel}
                                                 {$menuId=$channel.menuId}
                                                 {$truncatedDescription=$channel.description|truncate:30:"..."}
-                                                <option value="{$menuId|escape}" {if isset($param.value) && $param.value eq $menuId}selected="selected"{/if}>
+                                                <option value="{$menuId|escape}"{if isset($param.value) && $param.value eq $menuId} selected{/if}>
                                                     {$channel.name|escape} ({$menuId|escape}){if $channel.description} - {$truncatedDescription|escape}{/if}
                                                 </option>
                                             {/foreach}
@@ -109,7 +111,7 @@
                                     {elseif $param.type eq 'select' or ! empty($param.options)}
                                         <select id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}]{if isset($param.separator)}[]{/if}" class="form-control" {if isset($param.separator)}multiple="multiple"{/if}>
                                             {foreach from=$param.options item=option}
-                                                <option value="{$option.value|escape}" {if (is_array($param.value) and in_array($option.value, $param.value)) or $param.value eq $option.value}selected="selected"{/if}>{$option.text|escape}</option>
+                                                <option value="{$option.value|escape}"{if (is_array($param.value) and in_array($option.value, $param.value)) or $param.value eq $option.value} selected{/if}>{$option.text|escape}</option>
                                             {/foreach}
                                         </select>
                                     {else}

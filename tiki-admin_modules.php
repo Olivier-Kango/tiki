@@ -483,7 +483,6 @@ uasort($all_modules_info, 'compare_names');
 $smarty->assign_by_ref('all_modules_info', $all_modules_info);
 $smarty->assign('module_list_show_all', ! empty($_REQUEST['module_list_show_all']));
 
-$smarty->assign('orders', range(1, 50));
 $groups = $userlib->list_all_groups();
 $allgroups = [];
 $temp_max = count($groups);
@@ -557,6 +556,14 @@ $assigned_modules = array_map(
 
 $smarty->assign('assigned_modules', $assigned_modules);
 $smarty->assign('module_zone_list', $module_zones);
+
+$editedModuleId = (int) (! empty($_REQUEST['moduleId']) ? $_REQUEST['moduleId'] : ($_REQUEST['edit_assign'] ?? 0));
+$zone_orders = [];
+foreach ($module_zones as $code => $zone) {
+    $zoneModuleIds = array_column($assigned_modules[$code] ?? [], 'moduleId');
+    $zone_orders[$code] = count($zoneModuleIds) + (in_array($editedModuleId, $zoneModuleIds) ? 0 : 1);
+}
+$smarty->assign('zone_orders', $zone_orders);
 $smarty->assign('userHasAssignedModules', $userHasAssignedModules);
 
 $prefs['module_zones_top'] = 'fixed';

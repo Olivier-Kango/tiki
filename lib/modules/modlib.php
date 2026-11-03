@@ -158,6 +158,7 @@ class ModLib extends TikiLib
         }
 
         if ($moduleId) {
+            $order = $this->moveModuleOrder($moduleId, $position, $order);
             $query = "update `tiki_modules` set `name`=?,`title`=?,`position`=?,`ord`=?,`cache_time`=?,`rows`=?,`groups`=?,`params`=?,`type`=? where `moduleId`=?";
             $result = $this->query($query, [$name,$title,$position,(int) $order,(int) $cache_time,(int) $rows,$groups,$params,$type, $moduleId]);
             if (! $result || ! $result->numRows()) {
@@ -166,6 +167,7 @@ class ModLib extends TikiLib
         } else {
             $query = "delete from `tiki_modules` where `name`=? and `position`=? and `ord`=? and `params`=?";
             $this->query($query, [$name, $position, (int)$order, $params]);
+            $order = $this->openZoneOrder($position, $order);
             $query = "insert into `tiki_modules`(`name`,`title`,`position`,`ord`,`cache_time`,`rows`,`groups`,`params`,`type`) values(?,?,?,?,?,?,?,?,?)";
             $this->query($query, [$name,$title,$position,(int) $order,(int) $cache_time,(int) $rows,$groups,$params,$type]);
             $moduleId = $this->lastInsertId(); //to return the recently created module
@@ -208,10 +210,14 @@ class ModLib extends TikiLib
      */
     public function unassign_module($moduleId)
     {
+        $module = $this->getModulePlacement($moduleId);
         $query = "delete from `tiki_modules` where `moduleId`=?";
         $result = $this->query($query, [$moduleId]);
         $query = "delete from `tiki_user_assigned_modules` where `moduleId`=?";
         $this->query($query, [$moduleId]);
+        if ($module) {
+            $this->closeZoneGap($module['position'], $module['ord']);
+        }
         return $result && $result->numRows();
     }
 
@@ -235,23 +241,124 @@ class ModLib extends TikiLib
     /**
      * @param $moduleId
      *
-     * @return Tiki\TikiDb\PdoResult
+     * @return bool|Tiki\TikiDb\PdoResult
      */
     public function module_up($moduleId)
     {
-        $query = "update `tiki_modules` set `ord`=`ord`-1 where `moduleId`=?";
-        return $this->query($query, [$moduleId]);
+        return $this->swapModule($moduleId, 'up');
     }
 
     /**
      * @param $moduleId
      *
-     * @return Tiki\TikiDb\PdoResult
+     * @return bool|Tiki\TikiDb\PdoResult
      */
     public function module_down($moduleId)
     {
-        $query = "update `tiki_modules` set `ord`=`ord`+1 where `moduleId`=?";
-        return $this->query($query, [$moduleId]);
+        return $this->swapModule($moduleId, 'down');
+    }
+
+    private function swapModule($moduleId, $direction)
+    {
+        $module = $this->getModulePlacement($moduleId);
+        if (! $module) {
+            return false;
+        }
+        $result = $this->swapModuleWithNeighbor($moduleId, $module, $direction);
+        if (! $result) {
+            $this->renumberZone($module['position']);
+            $result = $this->swapModuleWithNeighbor($moduleId, $this->getModulePlacement($moduleId), $direction);
+        }
+        return $result;
+    }
+
+    private function swapModuleWithNeighbor($moduleId, array $module, $direction)
+    {
+        $target = $direction == 'up' ? $module['ord'] - 1 : $module['ord'] + 1;
+
+        $query = "update `tiki_modules` set `ord`=? where `position`=? and `ord`=?";
+        $neighbor = $this->query($query, [$module['ord'], $module['position'], $target]);
+        if (! $neighbor || ! $neighbor->numRows()) {
+            return false;
+        }
+        $query = "update `tiki_modules` set `ord`=? where `moduleId`=?";
+        return $this->query($query, [$target, $moduleId]);
+    }
+
+    /**
+     * Rewrite the orders of a zone as 1, 2, 3... keeping the current display order
+     *
+     * @param $position
+     */
+    private function renumberZone($position)
+    {
+        $query = "update `tiki_modules` `mod`
+                  inner join (
+                      select `moduleId`, row_number() over (order by `ord`, `moduleId`) as `row_num`
+                      from `tiki_modules` where `position`=?
+                  ) `ranked` on `mod`.`moduleId`=`ranked`.`moduleId`
+                  set `mod`.`ord`=`ranked`.`row_num`";
+        $this->query($query, [$position]);
+    }
+
+    private function getModulePlacement($moduleId)
+    {
+        return $this->query("select `position`, `ord` from `tiki_modules` where `moduleId`=?", [$moduleId])->fetchRow();
+    }
+
+    private function countZoneModules($position)
+    {
+        return (int) $this->getOne("select count(*) from `tiki_modules` where `position`=?", [$position]);
+    }
+
+    private function closeZoneGap($position, $order)
+    {
+        $this->query("update `tiki_modules` set `ord`=`ord`-1 where `position`=? and `ord`>?", [$position, $order]);
+    }
+
+    /**
+     * Free the given order in a zone, limited to the end of the zone, and return it
+     *
+     * @param $position
+     * @param $order
+     *
+     * @return int
+     */
+    private function openZoneOrder($position, $order)
+    {
+        $order = min(max(1, (int) $order), $this->countZoneModules($position) + 1);
+        $this->query("update `tiki_modules` set `ord`=`ord`+1 where `position`=? and `ord`>=?", [$position, $order]);
+        return $order;
+    }
+
+    /**
+     * Give an assigned module its new place, shifting the modules between its old and new place, and return the order to save
+     *
+     * @param $moduleId
+     * @param $position
+     * @param $order
+     *
+     * @return int
+     */
+    private function moveModuleOrder($moduleId, $position, $order)
+    {
+        $module = $this->getModulePlacement($moduleId);
+        if (! $module || ($module['position'] == $position && $module['ord'] == $order)) {
+            return (int) $order;
+        }
+        if ($module['position'] != $position) {
+            $this->closeZoneGap($module['position'], $module['ord']);
+            return $this->openZoneOrder($position, $order);
+        }
+        $order = min(max(1, (int) $order), $this->countZoneModules($position));
+        if ($order < $module['ord']) {
+            $query = "update `tiki_modules` set `ord`=`ord`+1 where `position`=? and `ord`>=? and `ord`<?";
+            $this->query($query, [$position, $order, $module['ord']]);
+        } elseif ($order > $module['ord']) {
+            $query = "update `tiki_modules` set `ord`=`ord`-1 where `position`=? and `ord`>? and `ord`<=?";
+            $this->query($query, [$position, $module['ord'], $order]);
+        }
+        return $order;
     }
 
     /**

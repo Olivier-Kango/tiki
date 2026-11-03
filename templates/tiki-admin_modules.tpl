@@ -416,6 +416,14 @@
 $("#module_list_show_all").on("click", function(){
     $("#module_list li.disabled").toggle($(this).prop("checked"));
 });
+$(document).on("change", "#assign_position", function () {
+    const max = $(this).find(":selected").data("orders");
+    const $order = $("#assign_order").empty();
+    for (let i = 1; i <= max; i++) {
+        $order.append($("<option>").val(i).text(i));
+    }
+    $order.val(max);
+});
         {/jq}
     {/tab}
 
