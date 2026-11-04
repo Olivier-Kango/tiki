@@ -76,11 +76,6 @@ a.ec-event:hover {
     color: $tooltip-color;
 }
 
-// Event Calendar table header needs to have color mode compatible body bg color
-.ec-media-screen {
-    --fc-page-bg-color: var(--bs-body-bg);
-}
-
 .ec-button:not(:disabled):hover, .ec-button.ec-active,
 .ec-active, .ec-prev, .ec-next {
     background-color: var(--bs-secondary) !important;
@@ -91,6 +86,18 @@ button.ec-today:not(:disabled),
 .ec-today .ec-day-head {
     background-color: var(--bs-secondary) !important;
     color: color-contrast($secondary) !important;
+}
+
+// Event targeted by calitemId in the URL, so it can be spotted among the others when arriving
+// from a shared link. !important is required because EventCalendar sets background-color and
+// color inline on the event element from its own event data.
+.ec-event.tiki-calendar-event-selected {
+    background-color: var(--bs-warning) !important;
+
+    .ec-event-time,
+    .ec-event-title {
+        color: color-contrast($warning) !important;
+    }
 }
 
 button.ec-today:disabled,

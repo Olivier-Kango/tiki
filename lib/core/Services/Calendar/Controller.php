@@ -195,6 +195,10 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 $end->setTime(0, 0);
             }
 
+            $categoryBackgroundColor = $event['categoryBackgroundColor'] ?: '';
+            $calendarBackgroundColor = $calendars[$event['calendarId']]['custombgcolor'] ?? '';
+            $calendarTextColor = $calendars[$event['calendarId']]['customfgcolor'] ?? '';
+
             $events[] = [
                 'id'          => $event['calitemId'],
                 'title'       => $event['name'],
@@ -218,8 +222,14 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                 'start'       => $start->format(DATE_ATOM),
                 'end'         => $end->format(DATE_ATOM),
                 'editable'    => $event['perms']->change_events,
-                'backgroundColor'       => '#' . $calendars[$event['calendarId']]['custombgcolor'],
-                'textColor'   => '#' . $calendars[$event['calendarId']]['customfgcolor'],
+                // The classification colour wins over the calendar's own colour, and a missing
+                // colour is sent as null rather than a bare '#': EventCalendar derives the event's
+                // whole style attribute from these two properties, so null lets it fall back to its
+                // own default instead of being handed an invalid CSS colour. Category colours are
+                // stored with their '#', calendar option colours without it.
+                'backgroundColor' => $categoryBackgroundColor
+                    ?: ($calendarBackgroundColor ? '#' . $calendarBackgroundColor : null),
+                'textColor' => $calendarTextColor ? '#' . $calendarTextColor : null,
             ];
         }
         return $events;

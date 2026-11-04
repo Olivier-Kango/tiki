@@ -134,11 +134,9 @@
     },
     "overrides" : {
         "dompurify" : "3.4.15",
-        "devalue" : "5.9.1",
         "glob" : "10.5.0",
         "jspdf" : "4.2.1",
         "@dicebear/initials" : "9.4.3",
-        "svelte" : "5.51.0",
         "svgedit" : {
             "jspdf" : "4.2.1"
         },
@@ -175,9 +173,6 @@
         "postcss": [
             "vue3-sfc-loader -> @vue/component-compiler-utils still pulls PostCSS 7.0.x (npm audit range <=8.5.17: parsing/XSS/sourceMappingURL issues).",
             "Force PostCSS 8.5.26 everywhere (already used by Vite). Remove when upstream stops depending on PostCSS 7."
-        ],
-        "svelte": [
-            "Svelte is pinned to 5.51.0 for @event-calendar/core 4.x compatibility: Svelte >= 5.51.1 breaks calendar interactions (https://github.com/vkurko/calendar/issues/623). devalue is overridden separately to 5.9.1 for GHSA-9rgm-9g3h-6x36 without upgrading Svelte. Upgrade path: @event-calendar/core 5.4.1+ then remove both svelte and devalue overrides."
         ]
     },
     "workspaces": [

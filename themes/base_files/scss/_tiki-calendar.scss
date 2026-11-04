@@ -72,11 +72,6 @@
         font-size: 0.7rem;
     }
 
-    .ec-event .ec-event-main-frame {
-        display: flex;
-        flex-direction: column;
-    }
-
     .ec-day-grid {
         .ec-day-head {
             font-size: calc(0.9rem - 2px);
@@ -107,21 +102,6 @@
             white-space: normal !important;
         }
 
-        .tiki-calendar-month-event-hidden {
-            display: none !important;
-        }
-
-        .tiki-calendar-more-events {
-            font-size: 0.78rem;
-            line-height: 1.1;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .tiki-calendar-more-events:hover,
-        .tiki-calendar-more-events:focus {
-            text-decoration: underline;
-        }
     }
 }
 
@@ -146,11 +126,6 @@
     font-size: 0.9rem;
 }
 
-.ec-semester-view , .ec-quarter-view {
-    width: fit-content;
-    border-radius: 8px;
-}
-
 .ec-events > article {
     overflow: hidden;
 }
@@ -169,22 +144,40 @@ h4.ec-event-title {
     overflow-wrap: break-word !important;
 }
 
-.ec-days > time {
-    display: block;
-}
-
-
 .ui-datepicker {
     z-index:9999 !important;
 }
-.ec .ec-scrollgrid, .ec .ec-scrollgrid table,
 .ec .ec-day-grid {
     width: 100% !important;
 }
-.ec-day-grid-harness {
-    border-radius: 4px;
-    margin: 0px 3px 0px;
+
+// Month view "+N more" handling.
+// Deliberately unscoped: the same calendar is rendered by tiki-calendar.php, the calendar_new
+// module and PluginCalendar, and only the first one wraps it in .tiki_calendar.
+// Deliberately classes with !important rather than inline styles: EventCalendar builds the whole
+// style attribute of an event from one reactive expression, so anything set inline on .ec-event is
+// wiped the next time it repositions.
+.tiki-calendar-month-event-hidden {
+    display: none !important;
 }
+
+// Keeps the day cell floor clear so the button is not painted over by the last visible event.
+.tiki-calendar-month-last-visible {
+    margin-block-end: 1.45rem !important;
+}
+
+.tiki-calendar-more-events {
+    font-size: 0.78rem;
+    line-height: 1.1;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
 .ec-event {
     display: block;
     white-space: break-spaces;
@@ -197,9 +190,6 @@ h4.ec-event-title {
 .ec-events .ec-event-title {
     color: #ffffff;
     font-weight: normal;
-}
-.ec-time-grid-event .ec-event-time {
-    font-weight: bold;
 }
 .ec-time-grid .ec-event-title {
     font-weight: normal;
@@ -240,9 +230,29 @@ article.tips {
                 z-index: 1;
             }
         }
-        &:has(.ec-event)::after {
+        // No "+" on days with events (attribute set by markDaysWithEvents() in tiki-calendar.js).
+        &[data-tiki-has-events]::after {
             display: none;
         }
+        // Hovering the day number means Day view, not a new event.
+        &:has(.ec-day-head time:hover)::after {
+            display: none;
+        }
+    }
+}
+
+// Month view: badge on the day number, the only part of a cell that opens the Day view.
+.ec-day-grid .ec-body .ec-day-head time {
+    min-width: 1.75em;
+    padding: 0.1em 0.4em;
+    border-radius: var(--bs-border-radius-pill);
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+
+    &:hover {
+        background-color: var(--bs-primary-bg-subtle);
+        color: var(--bs-primary-text-emphasis);
     }
 }
 
@@ -267,10 +277,5 @@ nav.ec-toolbar {
     }
     h4.ec-event-title {
         font-size: 0px;
-    }
-}
-@media print {
-    .ec .ec-day-grid-day-top {
-        border-bottom: 1px solid #dee2e6;
     }
 }
