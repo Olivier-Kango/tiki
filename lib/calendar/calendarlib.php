@@ -1169,6 +1169,13 @@ class CalendarLib extends TikiLib
     {
         if ($calitemId) {
             $item = $this->get_item($calitemId);
+            if (! empty($item['recurrenceId'])) {
+                // Remember the deleted slot so later series edits do not recreate it.
+                $this->table('tiki_calendar_recurrence_exdates', false)->insert([
+                    'recurrenceId' => (int)$item['recurrenceId'],
+                    'recurrenceStart' => (int)($item['recurrenceStart'] ?: $item['start']),
+                ], true);
+            }
             $query = "delete from `tiki_calendar_items` where `calitemId`=?";
             $this->query($query, [$calitemId]);
             $query = "delete from `tiki_calendar_roles` where `calitemId`=?";
@@ -1202,6 +1209,7 @@ class CalendarLib extends TikiLib
     {
         $delay = $this->get_delay($delay);
         if ($delay != 0) {
+            $this->markRecurrenceOccurrenceChanged($calitemId);
             $query = 'UPDATE `tiki_calendar_items` set start = start + ?, end = end + ? WHERE `calitemId`=?';
             $this->query($query, [$delay,$delay,$calitemId]);
         }
@@ -1215,9 +1223,21 @@ class CalendarLib extends TikiLib
     {
         $delay = $this->get_delay($delay);
         if ($delay != 0) {
+            $this->markRecurrenceOccurrenceChanged($calitemId);
             $query = 'UPDATE `tiki_calendar_items` set end = end + ? WHERE `calitemId`=?';
             $this->query($query, [$delay,$calitemId]);
         }
+    }
+
+    /**
+     * Flag an occurrence of a series as individually modified and keep its original slot,
+     * so series edits match it instead of recreating that slot. Must run before the times change.
+     */
+    private function markRecurrenceOccurrenceChanged($calitemId): void
+    {
+        $query = 'UPDATE `tiki_calendar_items` SET `changed` = 1, `recurrenceStart` = COALESCE(NULLIF(`recurrenceStart`, 0), `start`)'
+            . ' WHERE `calitemId` = ? AND `recurrenceId` > 0';
+        $this->query($query, [$calitemId]);
     }
 
     /**
