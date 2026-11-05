@@ -28,15 +28,6 @@ function wikiplugin_font_getfontoptions()
   */
 function wikiplugin_font_info()
 {
-    // Enqueue jsfontpicker assets for the plugin parameter UI
-    $initScript = <<<'JS'
-        import initFontPicker from "@jquery-tiki/tiki-fontpicker_init";
-        initFontPicker(".tiki-fontpicker");
-JS;
-    TikiLib::lib('header')
-        ->add_cssfile('lib/jsfontpicker/fontpicker.css')
-        ->add_js_module($initScript);
-
     return [
         'searchable_by_default' => true,
         'name' => tra('Font'),
@@ -53,10 +44,10 @@ JS;
                 'required' => false,
                 'name' => tra('Font Family'),
                 'default' => '',
-                'description' => tra('Select the font family to display the content. You can pick from available system or web fonts.'),
+                'description' => tra('Select the font family to display the content.'),
                 'since' => '8.0',
                 'filter' => 'text',
-                'class' => 'tiki-fontpicker',
+                'type' => 'fontpicker',
             ],
             'size' => [
                 'required' => false,

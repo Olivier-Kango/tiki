@@ -58,6 +58,8 @@
             {/if}
             {if $param.type eq 'buttons'}
                 {include file="plugin/types/buttons.tpl"}
+            {elseif $param.type eq 'fontpicker'}
+                {include file="plugin/types/fontpicker.tpl"}
             {elseif empty($param.options)}
                 {if not empty($param.selector_type)}
                     {if empty($param.separator)}
