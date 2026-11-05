@@ -29,8 +29,8 @@ function prefs_wikiplugininline_list($partial = false)
 
         global $prefs;
         if (isset($prefs['pluginaliaslist'])) {
-            $alias = @unserialize($prefs['pluginaliaslist']);
-            $alias = array_filter($alias);
+            $alias = TikiLib::unserialize($prefs['pluginaliaslist']);
+            $alias = is_array($alias) ? array_filter($alias) : [];
         }
         $list = array_filter(array_merge($list, $alias));
         sort($list);
