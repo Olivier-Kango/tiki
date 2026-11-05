@@ -36,6 +36,8 @@ class UnoserverStrategy implements ConverterInterface
 
     public function convertFile($sourcePath, $destinationPath, $format = 'pdf', $pageRange = null)
     {
+        global $prefs;
+
         if (! file_exists($sourcePath)) {
             throw new \Exception(tr("Input file not found: %0", $sourcePath));
         }
@@ -48,12 +50,23 @@ class UnoserverStrategy implements ConverterInterface
         }
 
         $binary = self::$unoServerBinary;
-        $cmd = [$binary, $sourcePath, $destinationPath];
+        $port = $prefs['alchemy_unoserver_port'] ?: self::DEFAULT_PORT;
+
+        $cmd = [
+            $binary,
+            '--host', '127.0.0.1',
+            '--port', (string) $port,
+            '--host-location', 'remote',
+            '--convert-to', $format,
+        ];
 
         if (! empty($pageRange) && preg_match('/^\d+-\d+$/', $pageRange)) {
-            $cmd[] = '-e';
+            $cmd[] = '--filter-option';
             $cmd[] = 'PageRange=' . $pageRange;
         }
+
+        $cmd[] = $sourcePath;
+        $cmd[] = $destinationPath;
 
         $process = new Process($cmd);
         $process->run();
