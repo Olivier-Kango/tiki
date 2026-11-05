@@ -22,14 +22,18 @@ class WikiPlugin_Negotiator_Wiki_Alias
             return false;
         }
 
-        return unserialize($prefs[$prefName]);
+        $info = TikiLib::unserialize($prefs[$prefName]);
+        return is_array($info) ? $info : false;
     }
 
     public static function getList()
     {
         global $prefs;
         if (isset($prefs['pluginaliaslist'])) {
-            $alias = @unserialize($prefs['pluginaliaslist']);
+            $alias = TikiLib::unserialize($prefs['pluginaliaslist']);
+            if (! is_array($alias)) {
+                return [];
+            }
             $alias = array_filter($alias);
             return $alias;
         }
@@ -76,11 +80,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
         $tikilib = TikiLib::lib('tiki');
         $tikilib->set_preference($prefName, serialize($data));
 
-        global $prefs;
-        $list = [];
-        if (isset($prefs['pluginaliaslist'])) {
-            $list = unserialize($prefs['pluginaliaslist']);
-        }
+        $list = self::getList();
 
         if (! in_array($name, $list)) {
             $list[] = $name;
@@ -102,8 +102,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
         $prefName = "pluginalias_" . $name;
 
         // Remove from list
-        $list = $tikilib->get_preference('pluginaliaslist', [], true);
-        $list = array_diff($list, [ $name ]);
+        $list = array_diff(self::getList(), [ $name ]);
         $tikilib->set_preference('pluginaliaslist', serialize($list));
 
         // Remove the definition

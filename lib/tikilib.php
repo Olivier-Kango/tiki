@@ -4613,10 +4613,27 @@ class TikiLib extends TikiDb_Bridge
         }
 
         if ($expectArray && is_string($value)) {
-            return unserialize($value);
+            $unserialized = self::unserialize($value);
+            return is_array($unserialized) ? $unserialized : [];
         } else {
             return $value;
         }
+    }
+
+    /**
+     * Unserialize a PHP-serialized string without instantiating objects by default.
+     *
+     * @param mixed $value Serialized string
+     * @param array|bool $allowed_classes Classes allowed during unserialize (false = none)
+     * @return mixed
+     */
+    public static function unserialize($value, $allowed_classes = false)
+    {
+        if (! is_string($value) || $value === '') {
+            return false;
+        }
+
+        return @unserialize($value, ['allowed_classes' => $allowed_classes]);
     }
 
     /**
