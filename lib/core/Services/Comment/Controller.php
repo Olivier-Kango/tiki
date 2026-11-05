@@ -156,7 +156,7 @@ class Services_Comment_Controller
 
         $errors = [];
         $titleRaw = $input->title->xss();
-        $data = trim($input->data->wikicontent());
+        $data = trim($input->data->wikicontent() ?? '');
 
         if ($prefs['comments_notitle'] == 'y') {
             $title = 'Untitled';
@@ -400,8 +400,8 @@ class Services_Comment_Controller
         $errors = [];
 
         if ($input->edit->int()) {
-            $title = trim($input->title->xss());
-            $data = trim($input->data->wikicontent());
+            $title = trim($input->title->xss() ?? '');
+            $data = trim($input->data->wikicontent() ?? '');
 
             $tikilib = TikiLib::lib('tiki');
             $data = $tikilib->convertAbsoluteLinksToRelative($data);
