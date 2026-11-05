@@ -18,13 +18,16 @@ use League\Flysystem\UnixVisibility\PortableVisibilityConverter as UnixPortableV
 use League\Flysystem\Visibility;
 use League\Flysystem\WebDAV\WebDAVAdapter;
 use Sabre\DAV\Client as DavClient;
+use Tiki\FileGallery\DirectMapping\LocalPathAllowlist;
 use Tiki\FileGallery\FileWrapper\FlysystemFile;
+use Tiki\Filesystem\PathAllowlist;
 
 class Flysystem implements HandlerInterface
 {
     protected $adapter;
     protected $filesystem;
     protected $path;
+    protected $localRoot;
 
     public function __construct($config, $path)
     {
@@ -47,11 +50,12 @@ class Flysystem implements HandlerInterface
 
     public function getFileWrapper($file)
     {
-        return new FlysystemFile($this->filesystem, $file->path);
+        return new FlysystemFile($this->filesystem, $file->path, $this->localRoot);
     }
 
     public function delete($file)
     {
+        $this->assertPathContained($file->path ?? '');
         return $this->filesystem->delete($file->path);
     }
 
@@ -83,6 +87,10 @@ class Flysystem implements HandlerInterface
 
     public function isWritable()
     {
+        if ($this->localRoot !== null) {
+            return is_dir($this->localRoot) && is_writable($this->localRoot);
+        }
+
         return true;
     }
 
@@ -103,9 +111,16 @@ class Flysystem implements HandlerInterface
 
     protected function initLocal($config)
     {
+        $path = $config['path'] ?? '';
+        if (! is_string($path) || $path === '') {
+            throw new AdapterNotFoundException(tr('Local filesystem path is required for direct mapping.'));
+        }
+
+        $this->localRoot = LocalPathAllowlist::fromPreferences()->resolveLocalRoot($path);
+
         return new LocalFilesystemAdapter(
-            // Determine the root directory
-            $config['path'],
+            // Determine the root directory (canonicalized and allowlisted)
+            $this->localRoot,
             // Customize how visibility is converted to unix permissions
             UnixPortableVisibilityConverter::fromArray([
                 'file' => [
@@ -120,7 +135,7 @@ class Flysystem implements HandlerInterface
             // Write flags
             LOCK_EX,
             // How to deal with links, either DISALLOW_LINKS or SKIP_LINKS
-            LocalFilesystemAdapter::SKIP_LINKS,
+            LocalFilesystemAdapter::DISALLOW_LINKS,
             // use default mime type detector
             null,
             // no lazy root creation
@@ -201,5 +216,16 @@ class Flysystem implements HandlerInterface
             'password' => $config['password']
         ]);
         return new WebDAVAdapter($client);
+    }
+
+    private function assertPathContained(string $relativePath): void
+    {
+        if ($this->localRoot === null || $relativePath === '') {
+            return;
+        }
+
+        if (! PathAllowlist::isResolvedPathWithinRoot($this->localRoot, $relativePath)) {
+            throw new \Tiki\FileGallery\DirectMapping\InvalidLocalPathException(tr('Access denied: path resolves outside the direct mapping root.'));
+        }
     }
 }

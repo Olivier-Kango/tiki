@@ -897,6 +897,13 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
             $gal_info['direct'] = json_encode($_REQUEST['direct']);
             if ($gal_info['type'] != 'direct') {
                 $gal_info['direct'] = null;
+            } elseif (is_array($_REQUEST['direct'])) {
+                try {
+                    \Tiki\FileGallery\DirectMapping\LocalPathAllowlist::fromPreferences()
+                        ->validateDirectConfig($_REQUEST['direct']);
+                } catch (\Tiki\FileGallery\DirectMapping\InvalidLocalPathException $e) {
+                    $incorrectInputValues['incorrect_direct_path'] = $e->getMessage();
+                }
             }
         }
 

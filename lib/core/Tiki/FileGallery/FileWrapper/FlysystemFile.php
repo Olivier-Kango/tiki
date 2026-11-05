@@ -8,18 +8,21 @@ namespace Tiki\FileGallery\FileWrapper;
 
 use League\Flysystem\FilesystemException;
 use League\Flysystem\UnableToWriteFile;
+use Tiki\FileGallery\DirectMapping\InvalidLocalPathException;
+use Tiki\Filesystem\PathAllowlist;
 
 class FlysystemFile implements WrapperInterface
 {
     public $path;
     private $filesystem;
-    private $basePath;
+    private $localRoot;
     private $temporaryFile = false;
 
-    public function __construct($filesystem, $path)
+    public function __construct($filesystem, $path, $localRoot = null)
     {
         $this->filesystem = $filesystem;
         $this->path = $path;
+        $this->localRoot = $localRoot;
     }
 
     public function __destruct()
@@ -49,6 +52,7 @@ class FlysystemFile implements WrapperInterface
 
     public function getContents()
     {
+        $this->assertPathContained();
         return $this->filesystem->read($this->path);
     }
 
@@ -59,6 +63,7 @@ class FlysystemFile implements WrapperInterface
 
     public function getSize()
     {
+        $this->assertPathContained();
         return $this->filesystem->fileSize($this->path);
     }
 
@@ -69,6 +74,7 @@ class FlysystemFile implements WrapperInterface
 
     public function replaceContents($data)
     {
+        $this->assertPathContained();
         try {
             $this->filesystem->write($this->path, $data);
         } catch (FilesystemException | UnableToWriteFile $e) {
@@ -78,6 +84,7 @@ class FlysystemFile implements WrapperInterface
 
     public function getStorableContent()
     {
+        $this->assertPathContained();
         return [
             'data' => null,
             'path' => $this->path,
@@ -86,5 +93,16 @@ class FlysystemFile implements WrapperInterface
             'filetype' => $this->filesystem->mimeType($this->path),
             'lastModif' => $this->filesystem->lastModified($this->path),
         ];
+    }
+
+    private function assertPathContained(): void
+    {
+        if ($this->localRoot === null || $this->path === '') {
+            return;
+        }
+
+        if (! PathAllowlist::isResolvedPathWithinRoot($this->localRoot, $this->path)) {
+            throw new InvalidLocalPathException(tr('Access denied: path resolves outside the direct mapping root.'));
+        }
     }
 }

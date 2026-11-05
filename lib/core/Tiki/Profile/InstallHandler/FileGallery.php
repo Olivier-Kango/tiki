@@ -160,6 +160,13 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
             unset($input['mode']);
         }
 
+        if (! empty($input['direct'])) {
+            $directConfig = is_string($input['direct']) ? json_decode($input['direct'], true) : $input['direct'];
+            if (is_array($directConfig)) {
+                \Tiki\FileGallery\DirectMapping\LocalPathAllowlist::fromPreferences()->validateDirectConfig($directConfig);
+            }
+        }
+
         $galleryId = $filegallib->replace_file_gallery($input);
 
         if ($galleryId && count($files)) {
