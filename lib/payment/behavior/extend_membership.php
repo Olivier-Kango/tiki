@@ -8,6 +8,13 @@ function payment_behavior_extend_membership($users, $group, $periods = 1, $group
 {
     $userlib = TikiLib::lib('user');
 
+    $info = $userlib->get_group_info($group);
+    // Same membership-term rule as PluginMemberPayment: refuse Admins-style groups
+    // and any group that does not expire or have an anniversary.
+    if (empty($info['groupName']) || ((int) $info['expireAfter'] <= 0 && ($info['anniversary'] ?? '') === '')) {
+        return;
+    }
+
     $users = (array) $users;
 
     foreach ($users as $u) {
