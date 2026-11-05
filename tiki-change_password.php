@@ -96,6 +96,11 @@ if (
 $smarty->assign('secure_token', $secure_token);
 
 if (isset($_REQUEST["change"]) && $access->checkCsrf()) {
+    // Passwords authorize or replace a secret, so they must be posted.
+    // One-time email tokens (actpass, token) and the username may still arrive in the URL.
+    $postedOldPass = $_POST['oldpass'] ?? '';
+    $postedPass = $_POST['pass'] ?? '';
+    $postedPassAgain = $_POST['passAgain'] ?? '';
     $changePasswordProperties = $bruteForceProperties();
     if (($prefs['bruteforce_protection'] ?? 'n') === 'y') {
         if (! $bruteForce->isOperationAllowed('change_password', $changePasswordProperties)) {
@@ -143,13 +148,13 @@ if (isset($_REQUEST["change"]) && $access->checkCsrf()) {
                 $can_change_password = true;
             }
         }
-    } elseif (! empty($_REQUEST['oldpass'])) {
+    } elseif ($postedOldPass !== '') {
         // Method 3: Old password
-        list($isvalid, $validated_username, $error) = $userlib->validate_user($user, $_REQUEST["oldpass"]);
+        list($isvalid, $validated_username, $error) = $userlib->validate_user($user, $postedOldPass);
         if ($isvalid) {
             $is_authenticated = true;
             $can_change_password = true;
-            $authenticated_oldpass = $_REQUEST['oldpass'];
+            $authenticated_oldpass = $postedOldPass;
         } elseif ($server_new_user_validation) {
             // After email validation, provpass may be present in the form but not yet a login hash
             $is_authenticated = true;
@@ -173,19 +178,19 @@ if (isset($_REQUEST["change"]) && $access->checkCsrf()) {
     if ($can_change_password) {
         // Validate password change operation
         $validation_errors = false;
-        if ($_REQUEST["pass"] != $_REQUEST["passAgain"]) {
+        if ($postedPass != $postedPassAgain) {
             Feedback::error(tra("The passwords do not match"));
             $validation_errors = true;
         }
         // Check password policy
-        $polerr = $userlib->check_password_policy($_REQUEST["pass"]);
+        $polerr = $userlib->check_password_policy($postedPass);
         if (strlen($polerr) > 0) {
             Feedback::error($polerr);
             $validation_errors = true;
         }
         // Also check if new password matches current password hash
         $current_hash = $userlib->getOne('select `hash` from `users_users` where binary `login`=?', [$user]);
-        if (! empty($current_hash) && password_verify($_REQUEST["pass"], $current_hash)) {
+        if (! empty($current_hash) && $postedPass !== '' && password_verify($postedPass, $current_hash)) {
             Feedback::error(tra("You can not use the same password again"));
             $validation_errors = true;
         }
@@ -203,9 +208,9 @@ if (isset($_REQUEST["change"]) && $access->checkCsrf()) {
             if (isset($_REQUEST['email']) && ! empty($_REQUEST['email'])) {
                 $userlib->change_user_email_only($user, $_REQUEST['email']);
             }
-            $res = $userlib->change_user_password($user, $_REQUEST["pass"]);
+            $res = $userlib->change_user_password($user, $postedPass);
             if ($res && $prefs['pass_history_management'] === 'y') {
-                $userlib->addPasswordHistory($user, $_REQUEST["pass"]);
+                $userlib->addPasswordHistory($user, $postedPass);
             }
             if (($prefs['bruteforce_protection'] ?? 'n') === 'y') {
                 $bruteForce->success('change_password', $changePasswordProperties);
@@ -231,7 +236,7 @@ if (isset($_REQUEST["change"]) && $access->checkCsrf()) {
             // Handle encryption if enabled
             if ($prefs['feature_user_encryption'] === 'y' && ! empty($authenticated_oldpass)) {
                 $cryptlib = TikiLib::lib('crypt');
-                $cryptlib->onChangeUserPassword($authenticated_oldpass, $_REQUEST["pass"]);
+                $cryptlib->onChangeUserPassword($authenticated_oldpass, $postedPass);
             }
 
             // Login user as part of the change operation
