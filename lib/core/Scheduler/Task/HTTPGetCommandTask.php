@@ -24,6 +24,15 @@ class Scheduler_Task_HTTPGetCommandTask extends Scheduler_Task_CommandTask
             $url = $params['url'];
             $output = $params['output_file'];
 
+            $validationResult = $this->validateOutputFile($output);
+            if ($validationResult !== true) {
+                $this->errorMessage = is_string($validationResult)
+                    ? $validationResult
+                    : tra('Invalid output file.');
+
+                return false;
+            }
+
             $this->logger->debug(sprintf(tra('URL to invoke: %s'), $url));
             $this->logger->debug(sprintf(tra('Save output to: %s'), $output));
 
@@ -103,34 +112,45 @@ class Scheduler_Task_HTTPGetCommandTask extends Scheduler_Task_CommandTask
             ],
         ];
     }
+
     public function validateOutputFile($value): string | bool
     {
-        // First validate the path
-        $publicPathes = [TEMP_PATH, HTTP_PUBLIC_PATH];
+        if (! is_string($value) || $value === '' || str_contains($value, "\0")) {
+            return tra('You cannot write to this path.');
+        }
 
+        $allowedRoots = [TEMP_PATH, HTTP_PUBLIC_PATH];
         $pathDir = dirname($value);
+        $realPathDir = realpath($pathDir);
 
-        foreach ($publicPathes as $dir) {
+        if ($realPathDir === false) {
+            return tra('You cannot write to this path.');
+        }
+
+        $isAllowedPath = false;
+        foreach ($allowedRoots as $dir) {
             $realDir = realpath($dir);
+            if ($realDir === false) {
+                continue;
+            }
 
-            if (str_starts_with($pathDir, $realDir)) {
-                return tra('You cannot write to this path.');
+            if ($realPathDir === $realDir || str_starts_with($realPathDir, $realDir . DIRECTORY_SEPARATOR)) {
+                $isAllowedPath = true;
+                break;
             }
         }
 
-        // After validate the file extension
-        $badExts = [
-            'php', 'phtml', 'phar',
-            'asp', 'aspx', 'jsp', 'cgi',
-            'pl', 'py', 'rb', 'sh',
-            'exe', 'dll', 'so', 'bin', 'msi',
-            'js', 'html', 'htm', 'svg', 'swf',
-            'cmd', 'bat', 'vbs', 'jar'
+        if (! $isAllowedPath) {
+            return tra('You cannot write to this path.');
+        }
+
+        $allowedExts = [
+            'txt', 'log', 'json', 'csv', 'xml', 'md', 'yml', 'yaml',
         ];
 
-        $parts = explode('.', $value, 2);
+        $extension = strtolower(pathinfo($value, PATHINFO_EXTENSION));
 
-        if (count($parts) == 2 && in_array($parts[1], $badExts, true)) {
+        if ($extension === '' || ! in_array($extension, $allowedExts, true)) {
             return tra('This extension is not allowed.');
         }
 
