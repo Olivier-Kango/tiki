@@ -91,7 +91,15 @@ class CitationRenderer implements NodeRendererInterface
         );
     }
 
-    private function citationsToPandocMarkdown(array $citations): string
+    /**
+     * Build the Pandoc Markdown citation for the parsed citations, e.g. "[@doe2020, chapter 3; -@roe2019, 42]".
+     *
+     * Locators always follow the key after a comma, which is the only form Pandoc parses as a locator.
+     * Page locators are emitted without a label, since Pandoc treats an unlabelled locator as a page.
+     *
+     * Public so that the generated Markdown can be tested without running Pandoc.
+     */
+    public function citationsToPandocMarkdown(array $citations): string
     {
         $parts = [];
 
@@ -103,12 +111,13 @@ class CitationRenderer implements NodeRendererInterface
             $part .= '@' . $cit['key'];
 
             if (! empty($cit['locator'])) {
-                // Add label prefix for non-page locators.
+                // "@key [chapter 3]" would be kept by Pandoc as literal suffix text,
+                // so non-page labels go after the comma too: "@key, chapter 3".
+                $part .= ', ';
                 if ($cit['label'] !== 'page') {
-                    $part .= ' [' . $cit['label'] . ' ' . $cit['locator'] . ']';
-                } else {
-                    $part .= ', ' . $cit['locator'];
+                    $part .= $cit['label'] . ' ';
                 }
+                $part .= $cit['locator'];
             }
 
             $parts[] = $part;
