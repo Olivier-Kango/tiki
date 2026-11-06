@@ -33,9 +33,10 @@ class PackagePlugin extends Base implements TikiSmartyExtensionInterface
             return tr('Package %0 is not enabled', $params['package']);
         }
 
-        $path = $extensionPackage->getPath() . '/lib/wiki-plugins/' . $params['plugin'] . '.php';
+        $plugin = $params['plugin'];
+        $path = $extensionPackage->resolveWikiPluginPath($plugin);
 
-        if (! file_exists($path)) {
+        if ($path === null) {
             return tra("Error: Unable to locate wiki plugin file for the package.");
         }
 
@@ -45,7 +46,7 @@ class PackagePlugin extends Base implements TikiSmartyExtensionInterface
         if (! empty($namespace)) {
             $namespace .= '\\PackagePlugins\\';
         }
-        $functionname = $namespace . $params['plugin'];
+        $functionname = $namespace . $plugin;
 
         if (! function_exists($functionname)) {
             return tra("Error: Unable to locate function name for the package plugin.");

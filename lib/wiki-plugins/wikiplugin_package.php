@@ -28,7 +28,7 @@ function wikiplugin_package_info()
             'plugin' => [
                 'required' => true,
                 'name' => tra('Name of the plugin'),
-                'description' => tr('Name of the plugin file without the %0.php%1', '<code>', '</code>'),
+                'description' => tr('Name of the plugin file without the %0.php%1 (letters, digits, and underscores only)', '<code>', '</code>'),
                 'filter' => 'text',
                 'since' => '14.0',
             ],
