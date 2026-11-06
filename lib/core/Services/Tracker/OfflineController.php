@@ -18,6 +18,31 @@ class Services_Tracker_OfflineController
         return 'trackers';
     }
 
+    /**
+     * Mint CSRF tickets for PWA offline sync (same pattern as diagram tickets).
+     */
+    public function actionTickets($input)
+    {
+        global $user;
+
+        if (empty($user)) {
+            throw new Services_Exception(tra('You do not have permission to do that'), 403);
+        }
+        if (! TikiLib::lib('access')->requestIsPost()) {
+            throw new Services_Exception(tra('Method not allowed'), 405);
+        }
+
+        $tickets = [];
+        $access = TikiLib::lib('access');
+        $limit = min(max($input->ticketsAmount->int(), 0), 100);
+        for ($i = 0; $i < $limit; $i++) {
+            $access->setTicket();
+            $tickets[] = $access->getTicket();
+        }
+
+        return ['new_tickets' => $tickets];
+    }
+
     public function action_cache($input)
     {
         global $user;
@@ -100,7 +125,12 @@ class Services_Tracker_OfflineController
 
     public function action_sync($input)
     {
-        $util = new Services_Tracker_Utilities();
+        $util = new Services_Utilities();
+        if (! $util->isActionPost()) {
+            throw new Services_Exception(tra('Invalid request method or missing security ticket'), 401);
+        }
+
+        $trackerUtil = new Services_Tracker_Utilities();
 
         $errors = [];
         $success = [];
@@ -162,7 +192,7 @@ class Services_Tracker_OfflineController
                         }
                         $fields[$permName] = $fieldValue;
                     }
-                    $itemId = $util->insertItem(
+                    $itemId = $trackerUtil->insertItem(
                         $definition,
                         [
                             'status' => $itemInput->status->word(),

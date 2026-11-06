@@ -451,10 +451,6 @@ class TikiAccessLib extends TikiLib
         $ticket = '',
         $error = 'session'
     ) {
-        global $prefs;
-        if ($prefs['pwa_feature'] == 'y') {
-            return true;
-        }
         if (TIKI_API) {
             return true;
         }

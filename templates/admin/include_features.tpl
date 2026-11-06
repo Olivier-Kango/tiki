@@ -143,11 +143,6 @@
                     <legend class="h3"><h4 class="showhide_heading" id="Progressive_web_app"> {tr}Progressive web app{/tr}  <a href="#Progressive_web_app" class="heading-link" aria-label="{tr}Progressive web app{/tr}"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
                     {preference name=pwa_feature}
                     {preference name=pwa_cache_links}
-                    <div class="adminoptionboxchild" id="pwa_feature_childcontainer">
-                        {remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}
-                            {tr}PWA feature requires bypassing CSRF Tokens, this represents a security issue.{/tr}
-                        {/remarksbox}
-                    </div>
                 </fieldset>
             </fieldset>
 
