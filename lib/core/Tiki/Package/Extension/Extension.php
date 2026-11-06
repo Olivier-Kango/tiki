@@ -73,6 +73,38 @@ class Extension
         return $this->path;
     }
 
+    public const WIKI_PLUGIN_NAME_PATTERN = '/^[A-Za-z0-9_]+$/';
+
+    /**
+     * Resolve a package wiki-plugin PHP file path safely.
+     *
+     * Rejects path traversal and anything that is not a plain identifier so
+     * untrusted {PACKAGE(... plugin=...)} values cannot escape the package's
+     * lib/wiki-plugins/ directory before require_once.
+     *
+     * @param string $plugin Plugin file basename without .php
+     * @return string|null Absolute path, or null if invalid / missing
+     * @see self::WIKI_PLUGIN_NAME_PATTERN
+     */
+    public function resolveWikiPluginPath(string $plugin): ?string
+    {
+        if (! preg_match(self::WIKI_PLUGIN_NAME_PATTERN, $plugin)) {
+            return null;
+        }
+
+        $base = realpath($this->getPath() . '/lib/wiki-plugins');
+        if ($base === false) {
+            return null;
+        }
+
+        $path = realpath($base . DIRECTORY_SEPARATOR . $plugin . '.php');
+        if ($path === false || ! str_starts_with($path, $base . DIRECTORY_SEPARATOR)) {
+            return null;
+        }
+
+        return $path;
+    }
+
     /**
      * @return mixed
      */
