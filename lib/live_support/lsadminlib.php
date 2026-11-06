@@ -102,7 +102,7 @@ class LsAdminlib extends TikiLib
     }
 
     /* functions for transcripts */
-    public function list_support_requests($offset, $maxRecords, $sort_mode, $find, $where)
+    public function list_support_requests($offset, $maxRecords, $sort_mode, $find, $where, $whereVars = [])
     {
         if ($find) {
             $findesc = '%' . $find . '%';
@@ -121,6 +121,8 @@ class LsAdminlib extends TikiLib
                 $mid = ' where ' . $where;
             }
         }
+
+        $bindvars = array_merge($bindvars, $whereVars);
 
         $query = "select * from `tiki_live_support_requests` $mid order by " . $this->convertSortMode($sort_mode);
         $query_count = "select count(*) from `tiki_live_support_requests` $mid";
