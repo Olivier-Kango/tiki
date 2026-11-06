@@ -12,6 +12,61 @@ namespace Tiki;
 class Url
 {
     /**
+     * Resolve the public origin once for both page bases and redirects.
+     * SERVER_PORT describes the backend connection. Forwarded headers describe
+     * the public connection only when feature_port_rewriting explicitly trusts
+     * a proxy; that proxy must replace client-supplied forwarded headers.
+     * Configured ports are also used when switching to the other protocol.
+     */
+    public static function publicOrigin(array $server, array $prefs): array
+    {
+        $httpPort = (int) (($prefs['http_port'] ?? '') ?: 80);
+        $httpsPort = (int) (($prefs['https_port'] ?? '') ?: 443);
+        $backendPort = (int) ($server['SERVER_PORT'] ?? 80);
+        $https = ($server['HTTPS'] ?? '') === 'on'
+            || $backendPort === $httpsPort
+            || ($prefs['https_login'] ?? '') === 'force_nocheck';
+        $proxy = ($prefs['feature_port_rewriting'] ?? 'n') === 'y'
+            && in_array($server['HTTP_X_FORWARDED_PROTO'] ?? '', ['http', 'https'], true);
+        $host = $prefs['server_domain'] ?? '';
+        $authority = $host ?: ($server['HTTP_HOST'] ?? $server['SERVER_NAME'] ?? '');
+        $parts = $authority !== '' ? parse_url('http://' . $authority) : [];
+        $host = $parts['host'] ?? '';
+        if ($proxy) {
+            $https = $server['HTTP_X_FORWARDED_PROTO'] === 'https';
+            // Never infer a public proxy port from the backend socket.
+            $publicPort = $https ? $httpsPort : $httpPort;
+            $forwardedPort = filter_var($server['HTTP_X_FORWARDED_PORT'] ?? '', FILTER_VALIDATE_INT, [
+                'options' => ['min_range' => 1, 'max_range' => 65535],
+            ]);
+            if ($forwardedPort !== false) {
+                $publicPort = $forwardedPort;
+            } elseif (isset($parts['port'])) {
+                $publicPort = $parts['port'];
+            }
+        } else {
+            $publicPort = $parts['port'] ?? $backendPort;
+            // HTTPS may be asserted by the web server or force_nocheck while
+            // PHP receives HTTP:80. Keep an explicit public Host port intact.
+            if ($https && $publicPort === 80 && ! isset($parts['port'])) {
+                $publicPort = $httpsPort;
+            }
+        }
+        if ($https) {
+            $httpsPort = $publicPort;
+        } else {
+            $httpPort = $publicPort;
+        }
+        return [
+            'scheme' => $https ? 'https' : 'http',
+            'host' => $host,
+            'port' => ($https ? $httpsPort === 443 : $httpPort === 80) ? '' : $publicPort,
+            'http_port' => $httpPort === 80 ? '' : $httpPort,
+            'https_port' => $httpsPort === 443 ? '' : $httpsPort,
+        ];
+    }
+
+    /**
      * Handle the fallback url pref, in case the info couldn't be guessed from the request (eg. when called from cli)
      *
      * @return bool|array false if didn't process, array with the values written otherwise

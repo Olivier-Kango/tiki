@@ -1141,34 +1141,16 @@ class TikiAccessLib extends TikiLib
      */
     public static function selfUrl()
     {
-        $url = '';
-        $port = '';
+        global $base_host, $prefs;
 
-        if (isset($_SERVER['HTTP_HOST'])) {
-            if (($pos = strpos($_SERVER['HTTP_HOST'], ':')) === false) {
-                if (isset($_SERVER['SERVER_PORT'])) {
-                    $port = ':' . $_SERVER['SERVER_PORT'];
-                }
-                $url = $_SERVER['HTTP_HOST'];
-            } else {
-                $url = substr($_SERVER['HTTP_HOST'], 0, $pos);
-                $port = substr($_SERVER['HTTP_HOST'], $pos);
-            }
-        } elseif (isset($_SERVER['SERVER_NAME'])) {
-            $url = $_SERVER['SERVER_NAME'];
-            if (isset($_SERVER['SERVER_PORT'])) {
-                $port = ':' . $_SERVER['SERVER_PORT'];
-            }
+        // Reuse setup's public origin, including its proxy and fallback handling.
+        if (isset($base_host) && $base_host !== '') {
+            $url = $base_host;
+        } else {
+            $origin = \Tiki\Url::publicOrigin($_SERVER, $prefs ?? []);
+            $url = $origin['scheme'] . '://' . $origin['host']
+                . ($origin['port'] !== '' ? ':' . $origin['port'] : '');
         }
-
-        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
-        $url = $scheme . $url;
-
-        if ($port == ':80' || $port == ':443') {
-            $port = '';
-        }
-
-        $url .= $port;
         if (isset($_SERVER['HTTP_X_REWRITE_URL'])) {
             $url .= $_SERVER['HTTP_X_REWRITE_URL'];
         } elseif (isset($_SERVER['REQUEST_URI'])) {
