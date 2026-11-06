@@ -10,6 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 use Tiki\File\PDFHelper;
 use Tiki\BruteForce\BruteForce;
+use Tiki\Lib\CookieConsent\CookieConsentLib;
 use Tiki\Lib\Image\Image;
 use Tiki\Lib\Image\ImageFileHandler;
 
@@ -530,6 +531,23 @@ if ($downloading) {
 } else {
     header("Content-Disposition: filename=\"$file\"");
 }
+if (! empty($_GET['cpath']) && ! empty($_GET['reqid'])) {
+    $reqid = preg_replace('/[^0-9a-fA-F]/', '', $_GET['reqid']);
+    if ($reqid !== '') {
+        CookieConsentLib::tikiSetCookie(
+            'elfdl' . $reqid,
+            '1',
+            CookieConsentLib::BUILTIN_COOKIE_CATEGORY_FUNCTIONAL,
+            0,
+            '',
+            urlencode($_GET['cpath']),
+            '',
+            false,
+            false
+        );
+    }
+}
+
 if (! empty($filepath) && is_file($filepath) && ! $content_changed) {
     $filesize = filesize($filepath);
     header("Accept-Ranges: bytes");

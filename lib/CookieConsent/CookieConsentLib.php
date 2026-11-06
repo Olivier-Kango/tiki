@@ -217,7 +217,7 @@ class CookieConsentLib
      * Check if a specific category is allowed based on current user cookie consent preferences.
      *
      * @param string $category The category to check (e.g., 'analytics').
-     * @return bool True if the category is explicitly allowed (true), false otherwise.
+     * @return bool True if the category is explicitly allowed, or if cookie_consent_feature is off (consent is then assumed). False otherwise.
      */
     public static function isCategoryAllowed(string $category): bool
     {
@@ -227,6 +227,11 @@ class CookieConsentLib
         // throw an error when category not provided
         if (empty($category)) {
             throw new \InvalidArgumentException('Category not provided.');
+        }
+        global $prefs;
+        if (($prefs['cookie_consent_feature'] ?? 'n') !== 'y') {
+            // Consent management is off: act as if consent was given, without storing it.
+            return true;
         }
         $disabledCategories = self::getDisabledCookieCategoryKeys();
         if (isset($disabledCategories[$category])) {
@@ -261,7 +266,7 @@ class CookieConsentLib
         string $path = '',
         string $domain = '',
         bool $secure = false,
-        bool $httpOnly = false
+        bool $httpOnly = true
     ): bool {
         // Check if the category is allowed
 
@@ -273,14 +278,15 @@ class CookieConsentLib
                 $expire,
                 $path,
                 $domain,
-                $secure
+                $secure,
+                $httpOnly
             );
             return true; // Consent was given, cookie was set
         }
         return false; // Consent was NOT given, cookie was NOT set
     }
 
-    private static function setCookieSection($name, $value, $section = '', $expire = 0, $path = '', $domain = '', $secure = '')
+    private static function setCookieSection($name, $value, $section = '', $expire = 0, $path = '', $domain = '', $secure = '', bool $httpOnly = true)
     {
         global $feature_no_cookie;  //This global is undocumented, but I can only find one place that assigns it, and it's not a global there!  benoitg - 2026-06-25
 
@@ -297,10 +303,10 @@ class CookieConsentLib
                 } else {
                     $valSection = $valSection . $name2 . $value;
                 }
-                self::setCookieSection($section, $valSection, '', $expire, $path, $domain, $secure);
+                self::setCookieSection($section, $valSection, '', $expire, $path, $domain, $secure, $httpOnly);
             } else {
                 $valSection = $name2 . $value;
-                self::setCookieSection($section, $valSection, '', $expire, $path, $domain, $secure);
+                self::setCookieSection($section, $valSection, '', $expire, $path, $domain, $secure, $httpOnly);
             }
         } else {
             if ($feature_no_cookie) {
@@ -311,7 +317,8 @@ class CookieConsentLib
                     'expires' => $expire,
                     'path' => $path,
                     'domain' => $domain,
-                    'secure' => $secure
+                    'secure' => $secure,
+                    'httponly' => $httpOnly
                 ];
                 setcookie_obeySetCookieParams($name, $value, $options);
             }
