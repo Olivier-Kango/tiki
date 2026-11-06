@@ -31,6 +31,7 @@ if ($tiki_p_live_support_admin != 'y' && ! $lsadminlib->user_is_operator($user))
 }
 $where = '';
 $wheres = [];
+$whereVars = [];
 if (! isset($_REQUEST['filter_name'])) {
     $_REQUEST['filter_user'] = '';
 }
@@ -38,15 +39,14 @@ if (! isset($_REQUEST['filter_operator'])) {
     $_REQUEST['filter_operator'] = '';
 }
 if (($_REQUEST['filter_user'])) {
-    $wheres[] = " tiki_user='" . $_REQUEST['filter_name'] . "'";
+    $wheres[] = ' tiki_user = ? ';
+    $whereVars[] = $_REQUEST['filter_name'] ?? '';
 }
 if (($_REQUEST['filter_operator'])) {
-    $wheres[] = " operator='" . $_REQUEST['filter_operator'] . "'";
+    $wheres[] = ' operator = ? ';
+    $whereVars[] = $_REQUEST['filter_operator'];
 }
-$where = implode('and', $wheres);
-if (isset($_REQUEST['where'])) {
-    $where = $_REQUEST['where'];
-}
+$where = implode(' and ', $wheres);
 if (! isset($_REQUEST["sort_mode"])) {
     $sort_mode = 'chat_started_desc';
 } else {
@@ -58,7 +58,7 @@ $find = $_REQUEST["find"] ?? '';
 $smarty->assign('find', $find);
 $smarty->assign('where', $where);
 $smarty->assign_by_ref('sort_mode', $sort_mode);
-$items = $lsadminlib->list_support_requests($offset, $maxRecords, $sort_mode, $find, $where);
+$items = $lsadminlib->list_support_requests($offset, $maxRecords, $sort_mode, $find, $where, $whereVars);
 $smarty->assign_by_ref('pages_count', $items["count"]);
 $smarty->assign_by_ref('items', $items["data"]);
 $smarty->assign('users', $lsadminlib->get_all_tiki_users());
