@@ -109,6 +109,9 @@ if ($(this).val() != '') {
                         <label for="direct_path" class="col-sm-4 col-form-label">{tr}Local filesystem path{/tr}</label>
                         <div class="col-sm-8">
                             <input type="text" id="direct_path" name="direct[path]" value="{$gal_info.direct.path|escape}" class="form-control">
+                            {if !empty($incorrectInputValues.incorrect_direct_path)}
+                                <span class="form-text text-danger">{$incorrectInputValues.incorrect_direct_path|escape}</span>
+                            {/if}
                         </div>
                     </div>
                     <div class="tiki-form-group row direct_adapter_dependent ftp_childcontainer sftp_childcontainer" {if $gal_info.direct.adapter neq 'ftp' and $gal_info.direct.adapter neq 'sftp'}style="display:none"{/if}>

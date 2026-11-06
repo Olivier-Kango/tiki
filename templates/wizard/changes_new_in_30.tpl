@@ -79,6 +79,10 @@
                 <li>{tr}Improved password reset with cryptographic tokens{/tr}</li>
                 <li>{tr}Extended HTTP security headers and CORS support{/tr}</li>
                 <li>{tr}Usernames cannot contain spaces{/tr}</li>
+                <li>
+                    {tr}Local direct-mapping file galleries now require allowlisted roots via the risky preference fgal_direct_mapping_allowed_paths (set in tiki.ini). Existing local direct-mapping galleries stop working after upgrade until configured.{/tr}
+                    <a href="https://doc.tiki.org/System-Configuration" target="tikihelp">{tr}More Information{/tr}</a>
+                </li>
             </ul>
         </fieldset>
         <i>

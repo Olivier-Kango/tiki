@@ -51,6 +51,7 @@
             </div>
 
             {preference name='fgal_podcast_dir'}
+            {preference name='fgal_direct_mapping_allowed_paths'}
 
             <fieldset>
                 <legend class="h3">{tr}Features{/tr}{help url="File+Gallery+Config"}</legend>

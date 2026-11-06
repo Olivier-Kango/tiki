@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 namespace Tiki\WikiPlugin;
 
+use Tiki\Filesystem\PathAllowlist;
+
 /**
  * Allowlist enforcement for filesystem wiki plugins (LSDIR, LOCALFILES).
  *
@@ -13,15 +15,14 @@ namespace Tiki\WikiPlugin;
  */
 class FileaccessAllowlist
 {
-    /** @var list<string> Canonical absolute roots */
-    private array $allowedRoots;
+    private PathAllowlist $allowlist;
 
     /**
      * @param mixed $allowedPathsPreference Raw preference value (string CSV, serialized array, or array)
      */
     public function __construct(mixed $allowedPathsPreference = null)
     {
-        $this->allowedRoots = $this->buildAllowedRoots($allowedPathsPreference);
+        $this->allowlist = new PathAllowlist($allowedPathsPreference);
     }
 
     public static function fromPreference(): self
@@ -31,7 +32,7 @@ class FileaccessAllowlist
 
     public function isConfigured(): bool
     {
-        return $this->allowedRoots !== [];
+        return $this->allowlist->isConfigured();
     }
 
     /**
@@ -54,16 +55,7 @@ class FileaccessAllowlist
      */
     public function resolvePath(string $requestedPath): string|false
     {
-        if ($this->allowedRoots === []) {
-            return false;
-        }
-
-        $resolvedPath = realpath($requestedPath);
-        if ($resolvedPath === false || ! $this->isWithinAllowedRoots($resolvedPath)) {
-            return false;
-        }
-
-        return $resolvedPath;
+        return $this->allowlist->resolvePath($requestedPath);
     }
 
     /**
@@ -72,74 +64,6 @@ class FileaccessAllowlist
      */
     public function resolvePathFromCandidates(array $candidates): string|false
     {
-        if ($this->allowedRoots === []) {
-            return false;
-        }
-
-        foreach ($candidates as $candidate) {
-            if (! is_string($candidate) || $candidate === '') {
-                continue;
-            }
-
-            $resolved = $this->resolvePath($candidate);
-            if ($resolved !== false) {
-                return $resolved;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @return list<string> Path strings from preference (not yet canonicalized)
-     */
-    private function parsePreferenceValue(mixed $allowedPathsPreference): array
-    {
-        if (is_array($allowedPathsPreference)) {
-            return $allowedPathsPreference;
-        }
-
-        if (! is_string($allowedPathsPreference) || $allowedPathsPreference === '') {
-            return [];
-        }
-
-        $unserialized = @unserialize($allowedPathsPreference, ['allowed_classes' => false]);
-        if (is_array($unserialized)) {
-            return $unserialized;
-        }
-
-        return preg_split('/\s*,\s*/', $allowedPathsPreference, -1, PREG_SPLIT_NO_EMPTY);
-    }
-
-    /**
-     * @return list<string>
-     */
-    private function buildAllowedRoots(mixed $allowedPathsPreference): array
-    {
-        $allowedRoots = [];
-        foreach ($this->parsePreferenceValue($allowedPathsPreference) as $root) {
-            if (! is_string($root) || $root === '') {
-                continue;
-            }
-
-            $resolvedRoot = realpath($root);
-            if ($resolvedRoot !== false) {
-                $allowedRoots[] = rtrim($resolvedRoot, '/\\');
-            }
-        }
-
-        return array_values(array_unique($allowedRoots));
-    }
-
-    private function isWithinAllowedRoots(string $path): bool
-    {
-        foreach ($this->allowedRoots as $root) {
-            $rootWithSep = $root . DIRECTORY_SEPARATOR;
-            if ($path === $root || str_starts_with($path, $rootWithSep)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->allowlist->resolvePathFromCandidates($candidates);
     }
 }
