@@ -17,7 +17,7 @@ $inputConfiguration = [
     [
         'staticKeyFilters'     => [
         'code'                 => 'string',         //get
-        'user'                 => 'username',       //post
+        'user'                 => 'username',       //get|post
         'pass'                 => 'password',       //post
         'cas'                  => 'bool',           //post
         'username'             => 'username',       //post
@@ -42,6 +42,11 @@ if (empty($_POST['user'])) {
 }
 require_once('tiki-setup.php');
 global $prefs;
+
+// Passwords must not arrive in the query string.
+if (isset($_GET['pass'])) {
+    Feedback::errorAndDie(tra('Passwords cannot be sent in the URL. Please use the login form.'), \Laminas\Http\Response::STATUS_CODE_400);
+}
 
 $headerlib = TikiLib::lib('header');
 $headerlib->addSecurityHeaders();
@@ -85,7 +90,7 @@ if ($prefs['session_silent'] == 'y') {
 
 if ($prefs['auth_webauthn_enabled'] === 'y' && ! empty($_SESSION['webauthn_user'])) {
     $_REQUEST['user'] = $_SESSION['webauthn_user'];
-    $_REQUEST['pass'] = ! empty($_REQUEST['pass']) ? trim($_REQUEST['pass']) : $userlib->genPass();
+    $_POST['pass'] = ! empty($_POST['pass']) ? trim($_POST['pass']) : $userlib->genPass();
 }
 
 $twoFaPrevalidated = false;
@@ -138,7 +143,7 @@ if (isset($_REQUEST['su']) && $access->checkCsrf(true)) {
     $access->redirect($_SESSION['loginfrom']);
 }
 $requestedUser = trim($_REQUEST['user'] ?? '') ?: false;
-$pass = trim($_REQUEST['pass'] ?? '') ?: false;
+$pass = trim($_POST['pass'] ?? '') ?: false;
 $isvalid = false;
 $isdue = false;
 $bruteForceProperties = function () use ($tikilib) {
@@ -377,8 +382,8 @@ if (
                 && ! empty($twoFactorSecret)
             ) {
                 $_SESSION['tiki_2fa_token'] = bin2hex(random_bytes(32));
-                $_SESSION['tiki_2fa_username'] = $_REQUEST['user'];
-                $params = '&create2FaCodeNormalLogin&tiki_username=' . urlencode($_REQUEST['user']);
+                $_SESSION['tiki_2fa_username'] = $requestedUser;
+                $params = '&create2FaCodeNormalLogin&tiki_username=' . urlencode($requestedUser);
                 header('Location: ' . $base_url . 'tiki-login_scr.php?showTwoFactorForm' . $params);
                 exit;
             }
@@ -393,7 +398,7 @@ if (
                     }
                     $smarty->assign('showTwoFactorForm', 'y');
                     $_SESSION['tiki_2fa_token'] = bin2hex(random_bytes(32));
-                    $_SESSION['tiki_2fa_username'] = $_REQUEST['user'];
+                    $_SESSION['tiki_2fa_username'] = $requestedUser;
                     $smarty->assign('create2FaCodeNormalLogin', "y");
                     $smarty->assign('error_login', $error);
                     $smarty->assign('mid', 'tiki-login.tpl');
@@ -679,7 +684,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
         case ACCOUNT_WAITING_USER:
             http_response_code(403);
             $error = tra('You did not validate your account.');
-            $extraButton = ['href' => 'tiki-send_mail.php?user=' . urlencode($_REQUEST['user']), 'text' => tra('Resend'), 'comment' => tra('You should have received an email. Check your mailbox and your spam box. Otherwise click on the button to resend the email')];
+            $extraButton = ['href' => 'tiki-send_mail.php?user=' . urlencode((string) $requestedUser), 'text' => tra('Resend'), 'comment' => tra('You should have received an email. Check your mailbox and your spam box. Otherwise click on the button to resend the email')];
             break;
 
         case USER_AMBIGOUS:

@@ -70,7 +70,9 @@ if (isset($_REQUEST["localinfosubmit"])) {
 }
 
 if (isset($_REQUEST["linkaccount"])) {
-    list($isvalid, $newuser, $error) = $userlib->validate_user($_REQUEST["userlogin"], $_REQUEST["userpass"]);
+    $userlogin = $_REQUEST["userlogin"] ?? '';
+    $userpass = $_POST["userpass"] ?? '';
+    list($isvalid, $newuser, $error) = $userlib->validate_user($userlogin, $userpass);
     if (! $isvalid) {
         $smarty->assign('msg', tra('Invalid username or password'));
     } else {

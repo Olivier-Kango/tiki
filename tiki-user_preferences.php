@@ -124,6 +124,10 @@ if ($userwatch != $user) {
     if (empty($userwatch) || empty($userlib->user_exists($userwatch))) {
         Feedback::errorAndDie(tra("Unknown user"), \Laminas\Http\Response::STATUS_CODE_400);
     }
+    // Beyond page access: user admins may not edit accounts that have tiki_p_admin.
+    if (! $userlib->user_can_be_edited($userwatch)) {
+        Feedback::errorAndDie(tra('You do not have permission to edit this user'), \Laminas\Http\Response::STATUS_CODE_403);
+    }
 }
 
 // Custom fields

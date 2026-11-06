@@ -2617,25 +2617,38 @@ class UsersLib extends TikiLib
     }
 
     /**
-     * @param string $edited_user : username (login) of the user that might be edited
-     * @param string $editing_user : username of user doing the editing (or logged-in user if omitted)
-     * @return bool : true if $editing_user can edit $edited_user
+     * Whether $actorLogin is allowed to edit account $targetLogin.
+     *
+     * - Global admins (tiki_p_admin) may edit anyone.
+     * - User admins (tiki_p_admin_users only) may edit non-admins only;
+     *   they must not mutate accounts that themselves have tiki_p_admin.
+     *
+     * @param string $targetLogin Account that would be changed
+     * @param string $actorLogin User attempting the change (defaults to the logged-in user)
+     * @return bool
      */
-    public function user_can_be_edited($edited_user, $editing_user = '')
+    public function user_can_be_edited($targetLogin, $actorLogin = '')
     {
         global $user;
 
-        if (empty($editing_user)) {
-            $editing_user = $user;
+        if (empty($actorLogin)) {
+            $actorLogin = $user;
         }
 
-        $editable = false;
-        if ($this->user_has_permission($editing_user, 'tiki_p_admin')) {
-            $editable = true;
-        } elseif ($this->user_has_permission($editing_user, 'tiki_p_admin_users') && ! $this->user_has_permission($edited_user, 'tiki_p_admin')) {
-            $editable = true;
+        // Global admin: full access to every account.
+        if ($this->user_has_permission($actorLogin, 'tiki_p_admin')) {
+            return true;
         }
-        return $editable;
+
+        // User-admin: may manage regular users, but not protected administrators.
+        if (
+            $this->user_has_permission($actorLogin, 'tiki_p_admin_users')
+            && ! $this->user_has_permission($targetLogin, 'tiki_p_admin')
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     public function group_inclusion($group, $include)
