@@ -92,24 +92,29 @@ class CartLib
     {
         global $prefs, $user, $globalperms;
 
+        // Never persist client-authored fulfillment metadata. Exchange behaviors are
+        // appended server-side below after the allowlist is applied.
+        unset($product_info['behaviors']);
+        $product_info = array_intersect_key($product_info, array_flip($this->getAllowedAddToCartFields()));
+
         $quantity = $input->quantity->int();
 
-        if ($input->code->text() !== $product_info['code']) {
+        if ($input->code->text() !== ($product_info['code'] ?? '')) {
             Feedback::error(tra('Cart: Product code mismatch.'));
             return false;
         }
 
-        if (! empty($params['exchangeorderitemid']) && ! empty($params['exchangetoproductid'])) {
+        if (! empty($product_info['exchangeorderitemid']) && ! empty($product_info['exchangetoproductid'])) {
             if (
-                $input->exchangeorderitemid->int() !== $params['exchangeorderitemid'] ||
-                    $input->exchangetoproductid->int() !== $params['exchangetoproductid']
+                $input->exchangeorderitemid->int() !== (int) $product_info['exchangeorderitemid'] ||
+                    $input->exchangetoproductid->int() !== (int) $product_info['exchangetoproductid']
             ) {
                 Feedback::error(tra('Cart: Product exchange mismatch.'));
                 return false;
             }
         }
 
-        if ($prefs['payment_cart_anonymous'] === 'y' && (! $user || $product_info['forceanon'] == 'y') && empty($_SESSION['shopperinfo'])) {
+        if ($prefs['payment_cart_anonymous'] === 'y' && (! $user || ($product_info['forceanon'] ?? '') == 'y') && empty($_SESSION['shopperinfo'])) {
             // There needs to be a shopperinfo plugin on the page
             Feedback::error(tr('Please enter your shopper information first'));
             return false;
@@ -459,12 +464,11 @@ class CartLib
         } else {
             $invoice = 0;
             foreach ($this->get_behaviors() as $behavior) {
-                if ($behavior['event'] == 'complete') {
-                    $name = $behavior['behavior'];
-                    $file = __DIR__ . "/behavior/$name.php";
-                    $function = 'payment_behavior_' . $name;
-                    require_once $file;
-                    call_user_func_array($function, $behavior['arguments']);
+                if (($behavior['event'] ?? '') === 'complete') {
+                    $this->paymentlib->invokeBehavior(
+                        $behavior['behavior'] ?? '',
+                        (array) ($behavior['arguments'] ?? [])
+                    );
                 }
             }
         }
@@ -657,6 +661,32 @@ class CartLib
     {
         $this->clear_onhold_list();
         $_SESSION['cart'] = [];
+    }
+
+    /**
+     * Product fields accepted from add-to-cart plugin/API params.
+     * Fulfillment behaviors are never taken from the client.
+     *
+     * @return list<string>
+     */
+    private function getAllowedAddToCartFields(): array
+    {
+        return [
+            'code',
+            'description',
+            'price',
+            'href',
+            'producttype',
+            'productclass',
+            'productbundle',
+            'bundleclass',
+            'eventcode',
+            'forceanon',
+            'weight',
+            'exchangeorderitemid',
+            'exchangetoproductid',
+            'exchangeorderamount',
+        ];
     }
 
     private function get_behaviors(): array

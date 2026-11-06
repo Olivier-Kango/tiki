@@ -466,8 +466,30 @@ class PaymentLib extends TikiDb_Bridge
         return $results;
     }
 
+    /**
+     * Run a built-in payment behavior by name.
+     *
+     * @param string $name Behavior file/function suffix (e.g. extend_membership)
+     * @param array  $arguments Arguments passed to payment_behavior_*()
+     *
+     * @return mixed|false Callback return value, or false if the behavior is invalid
+     */
+    public function invokeBehavior(string $name, array $arguments)
+    {
+        $callback = $this->get_behavior($name);
+        if (! $callback) {
+            return false;
+        }
+
+        return call_user_func_array($callback, $arguments);
+    }
+
     private function get_behavior($name)
     {
+        if (! is_string($name) || ! preg_match('/^[a-z0-9_]+$/', $name)) {
+            return;
+        }
+
         $file = __DIR__ . "/behavior/$name.php";
         $function = 'payment_behavior_' . $name;
         if (is_readable($file)) {
