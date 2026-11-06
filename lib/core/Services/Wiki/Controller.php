@@ -1092,6 +1092,11 @@ class Services_Wiki_Controller
             throw new Services_Exception_NotFound(tr('Page "%0" not found', $page));
         }
 
+        $perms = Perms::get('wiki page', $page);
+        if (! $perms->view) {
+            throw new Services_Exception_Denied();
+        }
+
         if ($util->isActionPost()) {
             // ListExecute plugin needs these
             $_GET = $_POST = $_REQUEST = $input->asArray();
