@@ -1047,14 +1047,29 @@ class Comments extends TikiLib
         if ($sort_mode == 'points_asc') {
             $sort_mode = 'average_asc';
         }
-        if ($this->time_control) {
-            $limit = time() - $this->time_control;
-            $time_cond = " and b.`commentDate` > ? ";
-            $bind_time = [(int) $limit];
-        } else {
-            $time_cond = '';
-            $bind_time = [];
+
+        // Aggregate the replies per topic once, instead of joining every reply to every topic and grouping
+        // the whole forum on all its columns (large TEXT ones included), which took minutes on big forums.
+        $replies_cond = '';
+        $replies_bind = [];
+        if ($forumId) {
+            $replies_cond .= ' and `object` = ?';
+            $replies_bind[] = (string) $forumId;
         }
+        if ($this->time_control) {
+            // Only topics with recent replies are listed, hence the inner join below
+            $replies_cond .= ' and `commentDate` > ?';
+            $replies_bind[] = (int) (time() - $this->time_control);
+        }
+        $replies_join = ($this->time_control ? 'inner' : 'left') . " join (
+                select `parentId`, max(`commentDate`) as `lastReply`, count(*) as `replies`
+                from `tiki_comments`
+                where `objectType` = 'forum' and `parentId` > 0 $replies_cond
+                group by `parentId`
+            ) r on r.`parentId` = a.`threadId`";
+
+        $time_cond = '';
+        $bind_time = [];
         if (! empty($who)) {
             //get a list of threads the user has posted in
             //this needs to be a separate query otherwise it'll run once for every row in the db!
@@ -1085,26 +1100,32 @@ class Comments extends TikiLib
             $where = '';
         }
         $select = '';
+        // Category jail joins can return a topic more than once
+        $group_by = $join ? 'group by a.`threadId` ' : '';
         if (! empty($forum_info['att_list_nb']) && $forum_info['att_list_nb'] == 'y') {
-            $select = ', count(distinct(tfa.`attId`)) as nb_attachments ';
-            $join .= 'left join `tiki_comments` tca on (tca.`parentId`=a.`threadId` or (tca.`parentId`=0 and tca.`threadId`=a.`threadId`))left join `tiki_forum_attachments` tfa on (tfa.`threadId`=tca.`threadId`)';
+            // Attachments of the topic and of its direct replies
+            $select = ', ' . $this->ifNull('att.`nb_attachments`', '0') . ' as nb_attachments ';
+            $join .= ' left join (
+                    select if(c.`parentId` = 0, c.`threadId`, c.`parentId`) as `topicId`, count(distinct tfa.`attId`) as `nb_attachments`
+                    from `tiki_forum_attachments` tfa inner join `tiki_comments` c on c.`threadId` = tfa.`threadId`
+                    group by `topicId`
+                ) att on att.`topicId` = a.`threadId`';
+        }
+
+        if ($reply_state == 'none') {
+            $time_cond .= ' and r.`parentId` is null ';
         }
 
         $query =
             $this->ifNull("a.`archived`", "'n'") . " as `archived`," .
-            $this->ifNull("max(b.`commentDate`)", "a.`commentDate`") . " as `lastPost`," .
-            $this->ifNull("a.`type`='s'", 'false') . " as `sticky`, count(distinct b.`threadId`) as `replies` $select
-                from `tiki_comments` a left join `tiki_comments` b
-                on b.`parentId`=a.`threadId` $join
+            $this->ifNull("r.`lastReply`", "a.`commentDate`") . " as `lastPost`," .
+            $this->ifNull("a.`type`='s'", 'false') . " as `sticky`," .
+            $this->ifNull("r.`replies`", '0') . " as `replies` $select
+                from `tiki_comments` a $replies_join $join
                 where 1 = 1 $where" . ($forumId ? 'AND a.`object`=?' : '')
                 . (($include_archived) ? '' : ' and (a.`archived` is null or a.`archived`=?)')
                 . " and a.`objectType` = 'forum'
-                and a.`parentId` = ? $time_cond
-                group by a.`threadId`, a.`object`, a.`objectType`, a.`parentId`, a.`userName`, a.`commentDate`, a.`hits`, a.`type`, a.`points`, a.`votes`, a.`average`, a.`title`, a.`data`, a.`user_ip`, a.`summary`, a.`smiley`, a.`message_id`, a.`in_reply_to`, a.`comment_rating`, a.`locked`, a.archived ";
-
-        if ($reply_state == 'none') {
-            $query .= ' HAVING `replies` = 0 ';
-        }
+                and a.`parentId` = ? $time_cond $group_by";
 
         // Prevent ambiguous field database errors
         if (str_contains($sort_mode, 'commentDate')) {
@@ -1143,7 +1164,7 @@ class Comments extends TikiLib
 
         return [
             'query' => $query,
-            'bindvars' => array_merge($bind_vars, $bind_time),
+            'bindvars' => array_merge($replies_bind, $bind_vars, $bind_time),
         ];
     }
 
