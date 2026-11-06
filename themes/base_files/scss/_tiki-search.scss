@@ -4,6 +4,16 @@
     margin: 0;
 }
 
+.list_filter_fields {
+    display: grid;
+    gap: 1rem 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
+}
+
+.list_filter_field {
+    min-width: 0;
+}
+
 .searchresults li {
     margin: 10px 0 0;
 }

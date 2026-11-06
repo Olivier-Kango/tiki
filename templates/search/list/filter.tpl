@@ -10,9 +10,9 @@
                 <input type="hidden" name="{$k|escape}" value="{$v|escape}">
             {/if}
         {/foreach}
-        <div class="row">
+        <div class="list_filter_fields">
             {foreach from=$filterFields item=field}
-                <div class="col-lg-6 col-12 mb-3">
+                <div class="list_filter_field">
                     <div class="list_filter_label">
                         <label for="{$field.id|escape}">{$field.name|tr_if}</label>
                         {if !empty($field.textInput)}
@@ -33,7 +33,7 @@
                 </div>
             {/foreach}
         </div>
-        <div class="row mb-3 justify-content-center">
+        <div class="row mt-3 mb-3 justify-content-center">
             <div class="col-auto">
                 <input class="button submit btn btn-primary" type="submit" name="filter" value="{tr}Filter{/tr}">
                 <input class="button submit btn btn-secondary" type="button" name="reset_filter" value="{tr}Reset{/tr}" id="list_filter{$filterCounter}_reset">
