@@ -230,7 +230,7 @@ class Search_Formatter
 
         $url = parse_url($_SERVER["REQUEST_URI"] ?? '', PHP_URL_PATH);
         $hiddenParams = [];
-        foreach ($_REQUEST as $key => $val) {
+        foreach (($_REQUEST ?? []) as $key => $val) {
             if (! str_starts_with($key, 'tf_') && $key !== 'filter' && $key !== 'reset_filter') {
                 $hiddenParams[$key] = $val;
             }

@@ -337,7 +337,7 @@ class CryptLib extends TikiLib
 
         // Check if the cleartext contain any illigal password character.
         //  If found, it indicates that the decryption has failed.
-        if (! ctype_print($cleartext)) {
+        if (! is_string($cleartext) || ! ctype_print($cleartext)) {
             return false;
         }
 

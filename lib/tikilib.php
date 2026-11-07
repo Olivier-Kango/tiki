@@ -4738,7 +4738,7 @@ class TikiLib extends TikiDb_Bridge
         if (is_array($var_names)) {
             // Detect if var names are specified as keys (then values are considered as var defaults)
             //   by looking at the type of the first key
-            $defaults = ! is_integer(key($var_names));
+            $defaults = ! is_int(key($var_names));
 
             // Check if we need to get the value from DB by looking in the global $user_preferences array
             // (this is able to handle more than one var at a time)

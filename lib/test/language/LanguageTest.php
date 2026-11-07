@@ -77,7 +77,6 @@ class LanguageTest extends TikiTestCase
     public function testListDiskLanguagesFalsyPathUsesDefaultDirectory(): void
     {
         $listDiskLanguages = new ReflectionMethod(Language::class, 'list_disk_languages');
-        $listDiskLanguages->setAccessible(true);
 
         $expected = $listDiskLanguages->invoke(null, 'lang');
         $this->assertNotEmpty($expected, 'The lang directory should contain language directories');
@@ -94,7 +93,6 @@ class LanguageTest extends TikiTestCase
     public function testListDiskLanguagesMissingDirectoryReturnsEmptyArray(): void
     {
         $listDiskLanguages = new ReflectionMethod(Language::class, 'list_disk_languages');
-        $listDiskLanguages->setAccessible(true);
 
         $this->assertSame([], $listDiskLanguages->invoke(null, 'lang/does_not_exist'));
     }

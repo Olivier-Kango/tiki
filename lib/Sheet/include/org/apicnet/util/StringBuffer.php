@@ -50,7 +50,7 @@ class StringBuffer extends APICObject {
     }
 
     public function charAt($index) {
-        if (is_integer($index) && $index>=0 && $index<$this->length()) {
+        if (is_int($index) && $index>=0 && $index<$this->length()) {
             return($this->str[$index]);
         }
         return;

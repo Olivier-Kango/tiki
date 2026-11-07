@@ -1796,7 +1796,7 @@ class FileGalLib extends TikiLib
         if (! empty($tree)) {
             foreach ($tree as $subGalleryId => $childs) {
                 if ($result = $this->getGallerySpecialRoot($galleryId, $subGalleryId, $childs)) {
-                    if (is_integer($result)) {
+                    if (is_int($result)) {
                         return $result;
                     } elseif ($treeParentId == -1) {
                         //

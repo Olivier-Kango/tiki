@@ -21,7 +21,6 @@ class TempTablePopulatorTest extends TestCase
     private function invokeExpandRow(TempTablePopulator $pop, $row): array
     {
         $ref = new \ReflectionMethod($pop, 'expandRow');
-        $ref->setAccessible(true);
         return $ref->invoke($pop, $row);
     }
 

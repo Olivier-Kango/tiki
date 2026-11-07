@@ -2027,7 +2027,7 @@ class CalendarLib extends TikiLib
                                 $leday_item =& $leday[$key];
                                 $leday_item['user'] .= ', ' . $lte['user'];
 
-                                if (! isset($leday_item['action']) || ! is_integer($leday_item['action'])) {
+                                if (! isset($leday_item['action']) || ! is_int($leday_item['action'])) {
                                     $leday_item['action'] = 1;
                                 }
                                 $leday_item['action']++;

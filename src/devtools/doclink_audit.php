@@ -601,7 +601,6 @@ function prime_prefslib_skipped_modules(array $modules)
     $prefslib = TikiLib::lib('prefs');
     $ref = new ReflectionClass($prefslib);
     $prop = $ref->getProperty('files');
-    $prop->setAccessible(true);
     $files = $prop->getValue($prefslib);
 
     foreach ($modules as $module => $path) {
