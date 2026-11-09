@@ -158,7 +158,7 @@ When the limit is reached, no more files can be uploaded. The user will see an e
             'name' => tra('Allowed local roots for direct-mapping file galleries'),
             'description' => tra('Comma-separated allowlist of absolute filesystem roots permitted for local direct-mapping adapters. When empty, local direct mapping is denied. Existing local direct-mapping galleries stop working after upgrade until their roots are listed here.'),
             'type' => 'text',
-            'help' => $fileGalleryGeneralSettingsHelp,
+            'help' => 'File-Gallery-General-Settings',
             'separator' => ',',
             'size' => 50,
             'perspective' => false,
