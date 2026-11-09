@@ -1314,7 +1314,7 @@ class ParserLib extends TikiDb_Bridge
         $userlib = TikiLib::lib('user');
         $is_allowed = 'n';
         if (isset($pluginArgs)) {
-            if (isset($pluginArgs['editable_by_user'])) {
+            if (isset($pluginArgs['editable_by_user'], $user) && $user !== '') {
                 $usersAllowed = array_map('trim', explode(',', $pluginArgs['editable_by_user']));
                 foreach ($usersAllowed as $allowedUser) {
                     if (strtolower($user) == strtolower($allowedUser)) {
@@ -1324,7 +1324,12 @@ class ParserLib extends TikiDb_Bridge
                 }
             }
             if (isset($pluginArgs['editable_by_groups'])) {
-                $userGroups = array_map('strtolower', $userlib->get_user_info($user)['groups']);
+                if (empty($user) || $user === 'Anonymous') {
+                    $groups = $userlib->get_user_groups($user);
+                } else {
+                    $groups = $userlib->get_user_info($user)['groups'] ?? [];
+                }
+                $userGroups = array_map('strtolower', $groups);
                 $groupsAllowed = array_map('strtolower', explode(',', $pluginArgs['editable_by_groups']));
                 foreach ($groupsAllowed as $group) {
                     if (in_array($group, $userGroups)) {
