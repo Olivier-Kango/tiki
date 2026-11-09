@@ -108,11 +108,11 @@
                         {if $recurrence.id neq 0}<input type="hidden" name="recurrenceTypeMonthy" value="{$recurrence.monthlyType}">{/if}
                         {if $recurrence.id eq 0 or $recurrence.monthlyType eq 'date'}
                             <div class="input-group">
-                                {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" {if $recurrence.monthlyType eq 'date'}checked="checked"{/if} name="recurrenceTypeMonthy" value="date"></span>{/if}
+                                {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" {if $recurrence.monthlyType eq 'date' or !$recurrence.monthlyType}checked="checked"{/if} name="recurrenceTypeMonthy" value="date"></span>{/if}
                                 <span class="input-group-text">{tr}Each{/tr}</span>
                                 <select name="dayOfMonth[]" class="form-control" multiple>
                                     {for $k = 1 to 31}
-                                        <option value="{$k}" {if in_array($k, $recurrence.dayOfMonth)} selected="selected" {/if} >
+                                        <option value="{$k}"{if in_array($k, $recurrence.dayOfMonth) or ($recurrence.id eq 0 and !$recurrence.dayOfMonth and $k eq 1)} selected{/if}>
                                             {if $k lt 10}0{/if}{$k}
                                         </option>
                                     {/for}
@@ -222,9 +222,9 @@
                         {if $recurrence.id neq 0}<input type="hidden" name="recurrenceTypeYearly" value="{$recurrence.yearlyType}">{/if}
                         {if $recurrence.id eq 0 or $recurrence.yearlyType eq 'date'}
                             <div class="input-group">
-                                {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" {if $recurrence.yearlyType eq 'date'}checked="checked"{/if} name="recurrenceTypeYearly" value="date"></span>{/if}
+                                {if $recurrence.id eq 0}<span class="input-group-text"><input type="radio" {if $recurrence.yearlyType eq 'date' or !$recurrence.yearlyType}checked="checked"{/if} name="recurrenceTypeYearly" value="date"></span>{/if}
                                 <span class="input-group-text">{tr}Each{/tr}</span>
-                                <select name="yearlyDay" class="form-control" onChange="checkDateOfYear(this.options[this.selectedIndex].value,document.forms['f'].elements['yearlyMonth'].options[document.forms['f'].elements['yearlyMonth'].selectedIndex].value);">
+                                <select name="yearlyDay" class="form-control" onchange="checkDateOfYear(this.value, this.form.elements['yearlyMonth'].value);">
                                     {section name=k start=1 loop=32}
                                         <option value="{$smarty.section.k.index}" {if $recurrence.yearlyDay eq $smarty.section.k.index} selected="selected" {/if} >
                                             {if $smarty.section.k.index lt 10}
@@ -235,7 +235,7 @@
                                     {/section}
                                 </select>
                                 <span class="input-group-text">{tr}of{/tr}</span>
-                                <select name="yearlyMonth" class="form-control" onChange="checkDateOfYear(document.forms['f'].elements['yearlyDay'].options[document.forms['f'].elements['yearlyDay'].selectedIndex].value,this.options[this.selectedIndex].value);">
+                                <select name="yearlyMonth" class="form-control" onchange="checkDateOfYear(this.form.elements['yearlyDay'].value, this.value);">
                                     <option value="1" {if $recurrence.yearlyMonth eq '1'} selected="selected" {/if}>
                                         {tr}January{/tr}
                                     </option>
@@ -380,7 +380,7 @@
                                     </option>
                                 </select>
                                 <span class="input-group-text">{tr}of{/tr}</span>
-                                <select name="yearlyWeekMonth" class="form-control">
+                                <select name="yearlyFirstLastWeekMonth" class="form-control">
                                     <option value="1" {if $recurrence.yearlyWeekMonth eq '1'} selected="selected" {/if}>
                                         {tr}January{/tr}
                                     </option>

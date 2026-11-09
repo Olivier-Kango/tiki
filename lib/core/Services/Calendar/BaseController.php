@@ -54,7 +54,6 @@ class Services_Calendar_BaseController
 
     protected function createRecurrenceFromInput(JitFilter $input): CalRecurrence
     {
-        $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
         $recurrence = new CalRecurrence(
             ! empty($input->recurrenceId->int()) ? $input->recurrenceId->int() : -1
         );
@@ -87,8 +86,10 @@ class Services_Calendar_BaseController
                 } elseif ($input->recurrenceTypeMonthy->word() === 'firstlastweekday') {
                     $monthlyFirstlastWeekdayValue = $input->monthlyFirstLastWeekNumber->int();
                     $recurrence->setMonthlyFirstlastWeekdayValue($monthlyFirstlastWeekdayValue);
-                } else {
+                } elseif ($input->recurrenceTypeMonthy->word() === 'date') {
                     $recurrence->setDayOfMonth(implode(',', $input->asArray('dayOfMonth')));
+                } else {
+                    throw new Services_Exception(tra('Please select a valid monthly recurrence pattern.'), 400);
                 }
                 break;
             case "yearly":
@@ -105,12 +106,14 @@ class Services_Calendar_BaseController
                 } elseif ($input->recurrenceTypeYearly->word() === 'firstlastweekday') {
                     $yearlyFirstlastWeekdayValue = $input->yearlyFirstLastWeekNumber->int();
                     $recurrence->setYearlyFirstlastWeekdayValue($yearlyFirstlastWeekdayValue);
-                    $recurrence->setYearlyWeekMonth($input->yearlyWeekMonth->int());
-                } else {
+                    $recurrence->setYearlyWeekMonth($input->yearlyFirstLastWeekMonth->int());
+                } elseif ($input->recurrenceTypeYearly->word() === 'date') {
                     $recurrence->setDateOfYear(
                         str_pad($input->yearlyMonth->word(), 2, '0', STR_PAD_LEFT) .
                         str_pad($input->yearlyDay->word(), 2, '0', STR_PAD_LEFT)
                     );
+                } else {
+                    throw new Services_Exception(tra('Please select a valid yearly recurrence pattern.'), 400);
                 }
                 break;
         }
