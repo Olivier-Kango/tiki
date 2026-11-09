@@ -432,9 +432,15 @@ function removeFiles(string $src, array $files): void
 {
     $lookup = array_flip($files);
 
+    $directoryIterator = new RecursiveDirectoryIterator(
+        $src,
+        FilesystemIterator::SKIP_DOTS
+    );
+
     $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST
+        $directoryIterator,
+        RecursiveIteratorIterator::CHILD_FIRST,
+        RecursiveIteratorIterator::CATCH_GET_CHILD
     );
 
     foreach ($iterator as $path => $info) {
