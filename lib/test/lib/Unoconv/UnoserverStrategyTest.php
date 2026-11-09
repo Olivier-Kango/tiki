@@ -48,7 +48,6 @@ SH;
         chmod($fake, 0755);
 
         $this->binaryProperty = new ReflectionProperty(UnoserverStrategy::class, 'unoServerBinary');
-        $this->binaryProperty->setAccessible(true);
         $this->originalBinary = $this->binaryProperty->getValue();
         $this->binaryProperty->setValue(null, $fake);
 
