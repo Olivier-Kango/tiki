@@ -30,6 +30,7 @@ ALTER TABLE `tiki_calendar_items` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_locations` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_options` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_recurrence` ENGINE=InnoDB;
+ALTER TABLE `tiki_calendar_recurrence_exdates` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendar_roles` ENGINE=InnoDB;
 ALTER TABLE `tiki_calendars` ENGINE=InnoDB;
 ALTER TABLE `tiki_cart_inventory_hold` ENGINE=InnoDB;

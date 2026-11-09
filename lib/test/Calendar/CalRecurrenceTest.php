@@ -18,7 +18,7 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
         $prefs['feature_categories'] = 'n';
 
         $user = 'admin';
-        $this->calendarId = TikiLib::lib('calendar')->set_calendar(0, $user, 'Test cal', '', ['customlanguages' => 'y', 'custompriorities' => 'y']);
+        $this->calendarId = TikiLib::lib('calendar')->set_calendar(0, $user, 'Test cal', '', ['customlanguages' => 'y', 'custompriorities' => 'y', 'customparticipants' => 'y']);
         $table = TikiLib::lib('tiki')->table('tiki_calendar_recurrence');
         $start = strtotime('12am');
         $this->recIds['daily'] = $table->insert([
@@ -97,6 +97,8 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
     {
         TikiLib::lib('tiki')->query("DELETE FROM tiki_calendar_recurrence");
         TikiLib::lib('tiki')->query("DELETE FROM tiki_calendar_items");
+        TikiLib::lib('tiki')->query("DELETE FROM tiki_calendar_recurrence_exdates");
+        TikiLib::lib('tiki')->query("DELETE FROM tiki_calendar_roles");
         TikiLib::lib('tiki')->query("DELETE FROM tiki_calendars WHERE calendarId = ?", $this->calendarId);
     }
 
@@ -310,6 +312,183 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
         $rec->setYearlyWeekMonth(1);
         $result = $rec->compareFieldsOfEvent(array_pop($events), $rec);
         $this->assertEquals(['_yearlyWeekdayValue', '_yearlyWeekMonth'], $result);
+    }
+
+    public static function seriesUpdateModes(): array
+    {
+        return [
+            'update every unchanged event' => [false],
+            'update every event' => [true],
+        ];
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testDeletedOccurrenceIsNotRecreatedBySeriesEdits(bool $updateManuallyChangedEvents): void
+    {
+        $calendarlib = TikiLib::lib('calendar');
+        $unrelatedEvents = $this->createUnrelatedSeries('weekly');
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        $deletedStart = $events[2]['start'];
+        // moved before being deleted: the original slot is the one to remember
+        $calendarlib->move_item($events[3]['calitemId'], 3600);
+        $calendarlib->drop_item('admin', $events[2]['calitemId']);
+        $calendarlib->drop_item('admin', $events[3]['calitemId']);
+
+        $rec->setName('Renamed daily event');
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+        $this->assertCount(3, $this->getEventsByRecurrence($rec->getId()));
+
+        // a time change moves the slots, the deleted ones follow and stay deleted on the next edits too
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->setStart('1400');
+        $rec->setEnd('1500');
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->setName('Daily event');
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+
+        $events = $this->getEventsByRecurrence($rec->getId());
+        $this->assertCount(3, $events);
+        $this->assertNotContains($deletedStart + 2 * 3600, array_column($events, 'start'));
+        $this->assertEquals($unrelatedEvents, $this->getEventsByRecurrence($this->recIds['weekly']));
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testDeletedOccurrenceStaysDeletedWhenSeriesStartMovesBackAndForth(bool $updateManuallyChangedEvents): void
+    {
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        $startPeriod = $rec->getStartPeriod();
+        TikiLib::lib('calendar')->drop_item('admin', $events[4]['calitemId']);
+
+        // the last slot falls outside the shortened series, then comes back
+        foreach ([$startPeriod + 86400, $startPeriod] as $newStartPeriod) {
+            $rec = new CalRecurrence($this->recIds['daily']);
+            $rec->setStartPeriod($newStartPeriod);
+            $this->assertTrue($rec->save($updateManuallyChangedEvents));
+        }
+
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertCount(4, $after);
+        $this->assertNotContains($events[4]['start'], array_column($after, 'start'));
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testMovedOccurrenceIsNotDuplicatedBySeriesEdit(bool $updateManuallyChangedEvents): void
+    {
+        $unrelatedEvents = $this->createUnrelatedSeries('daily');
+        $rec = new CalRecurrence($this->recIds['weekly']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        $moved = $events[1];
+        // Wednesday to Thursday, as dragged in the calendar
+        TikiLib::lib('calendar')->move_item($moved['calitemId'], 86400);
+
+        $rec->setName('Renamed weekly event');
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertCount(count($events), $after);
+        $this->assertNotContains($moved['start'], array_column($after, 'start'));
+        $item = $this->findEvent($after, $moved['calitemId']);
+        $this->assertEquals($moved['start'] + 86400, $item['start']);
+        $this->assertEquals($updateManuallyChangedEvents ? 'Renamed weekly event' : 'Bi-weekly wednesday event', $item['name']);
+        $this->assertEquals($unrelatedEvents, $this->getEventsByRecurrence($this->recIds['daily']));
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testOccurrenceMovedOntoAnotherSlotIsNotDuplicated(bool $updateManuallyChangedEvents): void
+    {
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        // dragged onto the next day, where the series already has an occurrence
+        TikiLib::lib('calendar')->move_item($events[1]['calitemId'], 86400);
+
+        $rec->setName('Renamed daily event');
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertCount(count($events), $after);
+        $this->assertNotContains($events[1]['start'], array_column($after, 'start'));
+        $this->assertEquals($events[2]['start'], $this->findEvent($after, $events[1]['calitemId'])['start']);
+        $occupant = $this->findEvent($after, $events[2]['calitemId']);
+        $this->assertEquals($events[2]['start'], $occupant['start']);
+        $this->assertEquals('Renamed daily event', $occupant['name']);
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testAttendeesOfModifiedOccurrenceSurviveSeriesEdit(bool $updateManuallyChangedEvents): void
+    {
+        $roles = TikiLib::lib('tiki')->table('tiki_calendar_roles', false);
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->setOrganizers(['admin']);
+        $rec->setParticipants([['username' => 'admin', 'role' => '1']]);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        TikiLib::lib('calendar')->move_item($events[1]['calitemId'], 3600);
+
+        // reloaded series, as in a CalDAV update that carries no attendees
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->setName('Renamed daily event');
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+
+        $this->assertEquals(2, $roles->fetchCount(['calitemId' => $events[1]['calitemId']]));
+        $this->assertEquals(2, $roles->fetchCount(['calitemId' => $events[0]['calitemId']]));
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testResizedOccurrenceIsTreatedAsModified(bool $updateManuallyChangedEvents): void
+    {
+        $unrelatedEvents = $this->createUnrelatedSeries('weekly');
+
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        $resized = $events[1];
+        TikiLib::lib('calendar')->resize_item($resized['calitemId'], 1800);
+        $this->assertEquals(1, $this->findEvent($this->getEventsByRecurrence($rec->getId()), $resized['calitemId'])['changed']);
+
+        $rec->setEnd('1400');
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $expectedEnd = $updateManuallyChangedEvents ? $resized['start'] + 2 * 3600 : $resized['end'] + 1800;
+        $this->assertEquals($expectedEnd, $this->findEvent($after, $resized['calitemId'])['end']);
+        $this->assertEquals($events[0]['start'] + 2 * 3600, $this->findEvent($after, $events[0]['calitemId'])['end']);
+        $this->assertEquals($unrelatedEvents, $this->getEventsByRecurrence($this->recIds['weekly']));
+    }
+
+    private function createUnrelatedSeries(string $type): array
+    {
+        $unrelated = new CalRecurrence($this->recIds[$type]);
+        $unrelated->createEvents();
+        return $this->getEventsByRecurrence($unrelated->getId());
+    }
+
+    private function findEvent(array $events, $calitemId): array
+    {
+        foreach ($events as $event) {
+            if ($event['calitemId'] == $calitemId) {
+                return $event;
+            }
+        }
+        $this->fail("Event $calitemId not found");
     }
 
     private function getEventsByRecurrence($id)

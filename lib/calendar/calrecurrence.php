@@ -367,6 +367,7 @@ class CalRecurrence extends TikiLib
         $query = "UPDATE tiki_calendar_items SET recurrenceId = NULL WHERE recurrenceId = ?";
         $bindvars = [(int)$this->getId()];
         $this->query($query, $bindvars);
+        $this->table('tiki_calendar_recurrence_exdates', false)->deleteMultiple(['recurrenceId' => (int)$this->getId()]);
         $query = "DELETE FROM tiki_calendar_recurrence WHERE recurrenceId = ?";
         $bindvars = [(int)$this->getId()];
         $ret = $this->query($query, $bindvars);
@@ -573,9 +574,8 @@ class CalRecurrence extends TikiLib
     /**
      * Attempts to update expanded recurring events in db based off changes in the recurring event record.
      * Matches events by old schedule (before update) and original start date.
-     * TODO: this currently does not support EXDATE exclusions (i.e. individual event deletes) from recurring schedule
-     * because we match by position in the event list. In the future, this can be expanded to support EXDATE exclusions
-     * in order to sync deleted events here and in Tiki\SabreDav\CalDAVBackend.
+     * Occurrences deleted individually are skipped through their stored original start (exdates).
+     * TODO: exdates are not exported as EXDATE to CalDAV clients yet.
      * @param bool $updateManuallyChangedEvents
      * @param $oldRec
      */
@@ -622,20 +622,36 @@ class CalRecurrence extends TikiLib
         $dstTimezone = $this->getRecurenceDstTimezone() ? new DateTimeZone($this->getRecurenceDstTimezone()) : $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
         $new_expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $dstTimezone);
 
+        $exdates = $this->getExdates();
+        $movedExdates = [];
+
         $tx = TikiDb::get()->begin();
         foreach ($new_expanded->VEVENT as $key => $vevent) {
             $found = false;
+            $old_start = null;
+            $new_start = $vevent->DTSTART->getDateTime()->getTimeStamp();
+            $slotChanged = true;
             if (! empty($old_expanded->VEVENT[$key]->DTSTART)) {
                 $old_start = $old_expanded->VEVENT[$key]->DTSTART->getDateTime()->getTimeStamp();
+                $old_end = $old_expanded->VEVENT[$key]->DTEND->getDateTime()->getTimeStamp();
+                $slotChanged = $old_start != $new_start || $old_end != $vevent->DTEND->getDateTime()->getTimeStamp();
                 foreach ($existing as $row) {
-                    if (($row['recurrenceStart'] && $row['recurrenceStart'] == $old_start) || $row['start'] == $old_start) {
+                    // a moved or resized occurrence is only identified by its original slot
+                    if ($row['recurrenceStart'] ? $row['recurrenceStart'] == $old_start : $row['start'] == $old_start) {
                         $found = $row;
                         break;
                     }
                 }
             }
 
-            if (! $found) {
+            $oldSlotDeleted = $old_start !== null && in_array($old_start, $exdates, true);
+            if (! $found && ($oldSlotDeleted || in_array($new_start, $exdates, true))) {
+                // deleted on its own: keep it deleted, following its slot if the schedule moved;
+                // a slot coming back from outside the previous schedule is matched by its new start
+                if ($oldSlotDeleted && $old_start != $new_start) {
+                    $movedExdates[$old_start] = $new_start;
+                }
+            } elseif (! $found) {
                 // create it
                 $data = [
                     'calendarId'   => $this->getCalendarId(),
@@ -670,26 +686,61 @@ class CalRecurrence extends TikiLib
                         $found[$field] = $this->$field;
                     }
                 }
-                $changedFieldsOfEvent = $this->compareFieldsOfEvent($found, $this);
-                foreach ($changedFieldsOfEvent as $field) {
-                    if (str_starts_with($field, "_")) {
-                        $found['start'] = $vevent->DTSTART->getDateTime()->getTimeStamp();
-                        $found['end'] = $vevent->DTEND->getDateTime()->getTimeStamp();
-                        $found['organizers'] = $this->getOrganizers();
-                        $found['participants'] = $this->getParticipants();
-                        $found['process_itip'] = $this->getProcessItip();
-                        $found['hideParticipants'] = $this->getHideParticipants();
-                        if ($found['changed']) {
-                            $found['recurrenceStart'] = $found['start'];
+                // a modified occurrence keeps its own times unless the series times themselves changed
+                $resetSchedule = $slotChanged;
+                if (! $found['changed']) {
+                    foreach ($this->compareFieldsOfEvent($found, $this) as $field) {
+                        if (str_starts_with($field, "_")) {
+                            $resetSchedule = true;
+                            break;
                         }
-                        break;
                     }
                 }
+                if ($resetSchedule) {
+                    $found['start'] = $new_start;
+                    $found['end'] = $vevent->DTEND->getDateTime()->getTimeStamp();
+                    if ($found['changed']) {
+                        $found['recurrenceStart'] = $found['start'];
+                    }
+                }
+                // attendees follow the series whether or not the times are reset. set_item() rebuilds the
+                // roles from these keys, so when the series carries none (e.g. CalDAV update without
+                // attendees) the occurrence's own are passed back to keep them
+                $current = null;
+                if ($this->getOrganizers() === null || $this->getParticipants() === null) {
+                    $current = TikiLib::lib('calendar')->get_item($found['calitemId']);
+                }
+                $found['organizers'] = $this->getOrganizers() ?? $current['organizers'] ?? [];
+                $found['participants'] = $this->getParticipants() ?? $current['participants'] ?? [];
+                $found['process_itip'] = $this->getProcessItip();
+                $found['hideParticipants'] = $this->getHideParticipants();
                 // keep changed flag as this event might still be changed and we only updated some of the fields here
                 TikiLib::lib('calendar')->set_item($user, $found['calitemId'], $found, [], true);
+            } elseif ($old_start != $new_start) {
+                // left untouched, but must stay attached to its slot for the next series edits
+                $this->query("UPDATE tiki_calendar_items SET recurrenceStart = ? WHERE calitemId = ?", [$new_start, $found['calitemId']]);
+            }
+        }
+
+        if ($movedExdates) {
+            $table = $this->table('tiki_calendar_recurrence_exdates', false);
+            $table->deleteMultiple(['recurrenceId' => (int)$this->getId()]);
+            foreach (array_unique(array_map(fn($exdate) => $movedExdates[$exdate] ?? $exdate, $exdates)) as $exdate) {
+                $table->insert(['recurrenceId' => (int)$this->getId(), 'recurrenceStart' => $exdate], true);
             }
         }
         $tx->commit();
+    }
+
+    /**
+     * Original starts of the occurrences deleted individually from this series.
+     *
+     * @return int[]
+     */
+    public function getExdates(): array
+    {
+        $exdates = $this->table('tiki_calendar_recurrence_exdates', false)->fetchColumn('recurrenceStart', ['recurrenceId' => (int)$this->getId()]);
+        return array_map('intval', $exdates);
     }
 
     /**

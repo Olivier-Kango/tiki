@@ -445,6 +445,13 @@ CREATE TABLE `tiki_calendar_recurrence` (
   KEY `calendarId` (`calendarId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 ;
 
+DROP TABLE IF EXISTS `tiki_calendar_recurrence_exdates`;
+CREATE TABLE `tiki_calendar_recurrence_exdates` (
+  `recurrenceId` INT NOT NULL,
+  `recurrenceStart` INT UNSIGNED NOT NULL COMMENT 'Original start of an occurrence deleted from the series',
+  PRIMARY KEY (`recurrenceId`, `recurrenceStart`)
+) ENGINE=MyISAM;
+
 DROP TABLE IF EXISTS `tiki_calendar_items`;
 CREATE TABLE `tiki_calendar_items` (
   `calitemId` int(14) NOT NULL auto_increment,
