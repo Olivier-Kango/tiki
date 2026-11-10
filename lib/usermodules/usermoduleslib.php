@@ -154,9 +154,8 @@ class UserModulesLib extends TikiLib
         while ($res = $result->fetchRow()) {
             $mod_ok = 0;
             if ($res['type'] != "h") {
-                if ($res["groups"] && $prefs['modallgroups'] != 'y') {
-                    $groups = unserialize($res["groups"]);
-
+                $groups = $res["groups"] ? unserialize($res["groups"]) : [];
+                if (! empty($groups) && $prefs['modallgroups'] != 'y') {
                     $ins = array_intersect($groups, $user_groups);
 
                     if (count($ins) > 0) {
@@ -197,9 +196,8 @@ class UserModulesLib extends TikiLib
             $isas = $this->getOne("select count(*) from `tiki_user_assigned_modules` where `moduleId`=? and `user`=?", [$res['moduleId'],$user]);
 
             if (! $isas) {
-                if ($res["groups"] && $prefs['modallgroups'] != 'y' && (! $userlib->user_has_permission($user, 'tiki_p_admin'))) {
-                    $groups = unserialize($res["groups"]);
-
+                $groups = $res["groups"] ? unserialize($res["groups"]) : [];
+                if (! empty($groups) && $prefs['modallgroups'] != 'y' && (! $userlib->user_has_permission($user, 'tiki_p_admin'))) {
                     $ins = array_intersect($groups, $user_groups);
 
                     if (count($ins) > 0) {
