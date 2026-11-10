@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, nextTick } from "vue";
 import { useClipboard } from "../composables/useClipboard";
-import { getCsrfTicket } from "../csrf";
+import { encryptionApi } from "../api";
 
 const tr = window.tr || ((s: string) => s);
 
@@ -71,7 +71,7 @@ async function getMyShare(keyId: number, keyName: string) {
     myShareModal.value = { shown: true, keyId, keyName, share: "", loading: true, error: "" };
     nextTick(() => document.getElementById(myShareModalDialogId)?.focus());
     try {
-        const res = await fetch(`tiki-ajax_services.php?controller=encryption&action=get_share_for_key&keyId=${keyId}`);
+        const res = await encryptionApi.getShareForKey(keyId);
         if (!res.ok) throw new Error();
         const data = await res.json();
         if (data && typeof data === "string") {
@@ -99,7 +99,7 @@ async function loadKeys() {
     loading.value = true;
     error.value = "";
     try {
-        const res = await fetch("tiki-ajax_services.php?controller=encryption&action=get_keys");
+        const res = await encryptionApi.getKeys();
         const data = await res.json();
         const raw: KeyEntry[] = Array.isArray(data) ? data : (data.keys ?? []);
         // shares = count of user holders (server share[0] is separate). 0 means no user can decrypt.
@@ -115,11 +115,7 @@ async function deleteKey(keyId: number) {
     if (!confirm(tr("Delete this encryption key? Fields using it will become inaccessible."))) return;
     deletingId.value = keyId;
     try {
-        const res = await fetch("tiki-ajax_services.php?controller=encryption&action=delete_key", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ keyId: String(keyId), ticket: await getCsrfTicket() }),
-        });
+        const res = await encryptionApi.deleteKey(keyId);
         if (!res.ok) {
             error.value = tr("Failed to delete key.");
             return;

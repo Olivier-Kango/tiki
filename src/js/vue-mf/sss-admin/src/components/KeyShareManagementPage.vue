@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { getCsrfTicket } from "../csrf";
+import { encryptionApi } from "../api";
 
 const tr = window.tr || ((s: string) => s);
 
@@ -40,8 +40,8 @@ async function loadShares() {
     error.value = "";
     try {
         const [keyRes, usersRes] = await Promise.all([
-            fetch(`tiki-ajax_services.php?controller=encryption&action=get_key&keyId=${props.keyId}`),
-            fetch("tiki-ajax_services.php?controller=encryption&action=get_users"),
+            encryptionApi.getKey(props.keyId),
+            encryptionApi.getUsers(),
         ]);
         const keyData = await keyRes.json();
         const usersData = await usersRes.json();
@@ -97,13 +97,8 @@ async function toggleAccess(user: KeyShareUser, oldShare?: string) {
         if (oldShare) {
             body.append("old_share", oldShare);
         }
-        body.set("ticket", await getCsrfTicket());
 
-        const res = await fetch("tiki-ajax_services.php?controller=encryption&action=save_key", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body,
-        });
+        const res = await encryptionApi.saveKey(body);
         if (res.ok) {
             savedMsg.value = user.login;
             recoveryFor.value = null;

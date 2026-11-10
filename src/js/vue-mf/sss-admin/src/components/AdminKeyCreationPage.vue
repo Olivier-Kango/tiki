@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useClipboard } from "../composables/useClipboard";
-import { getCsrfTicket } from "../csrf";
+import { encryptionApi } from "../api";
 const tr = window.tr || ((s: string) => s);
 
 const props = defineProps<{
@@ -36,10 +36,7 @@ const usersLocked = computed(() => props.mode === "edit" && !regenerate.value);
 
 async function loadUsers(find = "") {
     try {
-        const url = find
-            ? `tiki-ajax_services.php?controller=encryption&action=get_users&find=${encodeURIComponent(find)}`
-            : "tiki-ajax_services.php?controller=encryption&action=get_users";
-        const res = await fetch(url);
+        const res = await encryptionApi.getUsers(find);
         const data = await res.json();
         if (Array.isArray(data)) {
             availableUsers.value = data.map((u: string) => ({ value: u, label: u }));
@@ -57,7 +54,7 @@ function debouncedLoadUsers() {
 
 async function loadAlgos() {
     try {
-        const res = await fetch("tiki-ajax_services.php?controller=encryption&action=get_algos");
+        const res = await encryptionApi.getAlgos();
         const data = await res.json();
         if (Array.isArray(data)) {
             availableAlgos.value = data;
@@ -73,7 +70,7 @@ async function loadAlgos() {
 async function loadKey() {
     if (!props.keyId) return;
     try {
-        const res = await fetch(`tiki-ajax_services.php?controller=encryption&action=get_key&keyId=${props.keyId}`);
+        const res = await encryptionApi.getKey(props.keyId);
         const data = await res.json();
         if (data?.key) {
             name.value = data.key.name ?? props.keyName ?? "";
@@ -104,13 +101,8 @@ async function save() {
             if (regenerate.value) body.set("regenerate", "1");
         }
         selectedUsers.value.forEach((u) => body.append("users[]", u));
-        body.set("ticket", await getCsrfTicket());
 
-        const res = await fetch("tiki-ajax_services.php?controller=encryption&action=save_key", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body,
-        });
+        const res = await encryptionApi.saveKey(body);
         if (!res.ok) {
             error.value = tr("Failed to save key. Please check the form and try again.");
             return;

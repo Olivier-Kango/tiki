@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/vue";
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
 import AdminKeyCreationPage from "../../src/components/AdminKeyCreationPage.vue";
-import { __resetCsrfTicket } from "../../src/csrf";
+import { __resetCsrfTicket } from "../../src/api";
 
 const USERS_RESPONSE = ["alice", "bob", "carol"];
 const ALGOS_RESPONSE = ["aes-256-ctr", "aes-256-gcm"];

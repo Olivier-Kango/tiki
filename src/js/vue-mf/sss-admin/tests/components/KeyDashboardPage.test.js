@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/vue";
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
 import KeyDashboardPage from "../../src/components/KeyDashboardPage.vue";
-import { __resetCsrfTicket } from "../../src/csrf";
+import { __resetCsrfTicket } from "../../src/api";
 
 const KEYS_RESPONSE = [
     { keyId: 1, name: "Payroll Key", description: "HR payroll data", shares: 2, users: "alice,bob", atRisk: false },
