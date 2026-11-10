@@ -35,7 +35,7 @@ function module_shoutbox_info()
         'name' => tra('Shoutbox'),
         'description' => tra('The shoutbox is a quick messaging tool. Messages reload each time the page changes. Anyone with the right permission can see all messages. Another permission allows messages to be sent..'),
         'prefs' => ['feature_shoutbox'],
-        'documentation' => 'Module shoutbox',
+        'documentation' => 'Module-shoutbox',
         'params' => [
             'tooltip' => [
                 'name' => tra('Tooltip'),

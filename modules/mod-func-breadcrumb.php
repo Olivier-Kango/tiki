@@ -13,7 +13,7 @@ function module_breadcrumb_info()
         'name' => tra('Last-Visited Pages'),
         'description' => tra('Displays the last Wiki pages visited by the user.'),
         'prefs' => ['feature_wiki'],
-        'documentation' => 'Module breadcrumb',
+        'documentation' => 'Module-breadcrumb',
         'params' => [
             'maxlen' => [
                 'name' => tra('Maximum length'),

@@ -13,7 +13,7 @@ function module_featured_links_info()
         'name' => tra('Featured Links'),
         'description' => tra('Displays the site\'s first featured links.'),
         'prefs' => ['feature_featuredLinks'],
-        'documentation' => 'Module featured_links',
+        'documentation' => 'Module-featured_links',
         'params' => [],
         'common_params' => ['nonums', 'rows']
     ];

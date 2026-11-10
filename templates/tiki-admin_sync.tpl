@@ -1,4 +1,4 @@
-{title help="Sync Dev-Prod Servers" admpage="general"}{tr}Synchronize Dev/Prod Servers{/tr}{/title}
+{title help="Sync-Dev-Prod-Servers" admpage="general"}{tr}Synchronize Dev/Prod Servers{/tr}{/title}
 {remarksbox type="note" title="{tr}Note:{/tr}"}
     {tr}Use this tool if you have at least two different Tiki instances serving as development, staging or production instances. You can compare differences between Tiki configuration, wiki pages and their contents as well as tracker and field configurations. Especially useful when changes from a development server needs to be applied to production one. This tool will only show differences between instances, you will still have to manually apply the changes to the production one.{/tr}
 {/remarksbox}

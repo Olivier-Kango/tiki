@@ -1,4 +1,4 @@
-{title help="User Tasks" url="tiki-user_tasks.php"}{tr}Tasks{/tr}{/title}
+{title help="User-Tasks" url="tiki-user_tasks.php"}{tr}Tasks{/tr}{/title}
 
 <div class="t_navbar mb-4 d-flex align-items-center gap-2">
     {button href="tiki-user_tasks.php?show_form=y" _class="btn btn-primary" _text="{tr}New task{/tr}"}

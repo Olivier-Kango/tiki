@@ -1,5 +1,5 @@
 {if !isset($actions) or $actions eq "y"}
-        {title help="View Articles" admpage="articles"}
+        {title help="View-Articles" admpage="articles"}
             {if $prefs.art_home_title eq 'topic' and !empty($topic)}
                 {tr}{$topic|escape}{/tr}
             {elseif $prefs.art_home_title eq 'type' and !empty($type)}

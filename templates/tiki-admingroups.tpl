@@ -1,4 +1,4 @@
-{title help="Groups Management" admpage="login"}{tr}Admin groups{/tr}{/title}
+{title help="Groups-Management" admpage="login"}{tr}Admin groups{/tr}{/title}
 {if !$ts.ajax}
     <div class="t_navbar mb-4">
         {if $groupname && $tiki_p_admin eq 'y'} {* only full admins can manage groups, not tiki_p_admin_users *}

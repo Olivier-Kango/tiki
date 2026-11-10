@@ -1,4 +1,4 @@
-{title help="System Log"}{tr}Tiki Logs{/tr}{/title}
+{title help="System-Log"}{tr}Tiki Logs{/tr}{/title}
 
 <div class="t_navbar mb-4">
     <a href="tiki-sqllog.php" class="btn btn-link" title="{tr}Log SQL{/tr}">{icon name="pencil"} {tr}Log SQL{/tr}</a>

@@ -13,7 +13,7 @@ function module_random_pages_info()
         'name' => tra('Random Pages'),
         'description' => tra('Displays the specified number of random wiki pages.'),
         'prefs' => ['feature_wiki'],
-        'documentation' => 'Module random_pages',
+        'documentation' => 'Module-random_pages',
         'params' => [],
         'common_params' => ["rows", "nonums"]
     ];

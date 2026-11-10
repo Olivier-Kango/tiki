@@ -1,4 +1,4 @@
-{title help="Live Support"}{tr}Live support system{/tr}{/title}
+{title help="Live-Support"}{tr}Live support system{/tr}{/title}
 
 <div class="styling-element">
 <div class="t_navbar mb-4">

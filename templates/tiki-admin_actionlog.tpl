@@ -1,6 +1,6 @@
 {$headerlib->add_jsfile("lib/jquery_tiki/tiki-admin_actionlog.js")}
 
-{title help="Action log"}{tr}Action Log{/tr}{/title}
+{title help="Action-log"}{tr}Action Log{/tr}{/title}
 
 {tabset name="admin_actionlog"}
 

@@ -1,4 +1,4 @@
-{title help="Queued Tasks" admpage="general" url="tiki-admin_queued_tasks.php"}{tr}Queued Tasks{/tr}{/title}
+{title help="Queued-Tasks" admpage="general" url="tiki-admin_queued_tasks.php"}{tr}Queued Tasks{/tr}{/title}
 {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
 <div id="admin_queued_tasks_div">
     <div class="table-responsive queued_jobs">

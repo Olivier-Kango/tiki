@@ -1,4 +1,4 @@
-{title help="Server Check"}{tr}Server Check{/tr}{/title}
+{title help="Server-Check"}{tr}Server Check{/tr}{/title}
 
 {* Include the dashboard template *}
 {include file="tiki-check-dashboard.tpl"}

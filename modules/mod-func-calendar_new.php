@@ -19,7 +19,7 @@ function module_calendar_new_info()
         'name' => tra('Calendar'),
         'description' => tra('Includes a calendar or a list of calendar events.'),
         'prefs' => ['feature_calendar'],
-        'documentation' => 'Module calendar_new',
+        'documentation' => 'Module-calendar_new',
         'params' => [
             'calIds' => [
                 'name' => tra('Calendars filter'),

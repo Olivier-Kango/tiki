@@ -205,7 +205,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'user'           => [
                     'title'       => tr('User Settings'),
                     'description' => tr('User related preferences like info and picture, features, messages and notification, files, etc'),
-                    'help'        => 'User Settings',
+                    'help'        => 'User-Settings',
                 ],
                 'rating'         => [
                     'title'       => tr('Rating'),
@@ -337,12 +337,12 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'orphanprefs' => [
                     'title'       => tr('Orphan Preferences'),
                     'description' => tr('Orphan (leftover) preferences'),
-                    'help'        => 'Orphan preferences',
+                    'help'        => 'Orphan-preferences',
                 ],
                 'seoprefs' => [
                     'title'       => tr('SEO Preferences'),
                     'description' => tr("Boost your application's web referencing"),
-                    'help'        => 'SEO preferences',
+                    'help'        => 'SEO-preferences',
                 ],
             ],
         ],
@@ -397,7 +397,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         "metatags" => [
             'title' => tr('Meta Tags'),
             'description' => tr('Information to include in the header of each page'),
-            'help' => 'Meta Tags',
+            'help' => 'Meta-Tags',
         ],
         "maps" => [
             'title' => tr('Maps'),
@@ -422,7 +422,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         ],
         "rss" => [
             'title' => tr('Feeds'),
-            'help' => 'Feeds User',
+            'help' => 'Feeds-User',
             'description' => tr('Outgoing RSS feed setup'),
         ],
         "connect" => [
@@ -459,7 +459,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'title' => tr('File Galleries'),
             'disabled' => $prefs['feature_file_galleries'] != 'y',
             'description' => tr('Defaults and configuration for file galleries'),
-            'help' => 'File Gallery',
+            'help' => 'File-Gallery',
         ],
         "blogs" => [
             'title' => tr('Blogs'),
@@ -641,7 +641,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         "orphanprefs" => [
             'title' => tr('Orphan Preferences'),
             'description' => tr('Orphan (leftover) preferences'),
-            'help' => 'Orphan preferences',
+            'help' => 'Orphan-preferences',
         ],
     ];
 }

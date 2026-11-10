@@ -1,4 +1,4 @@
-{title help="Theme Control"}{tr}Theme Control:{/tr} {tr}Categories{/tr}{/title}
+{title help="Theme-Control"}{tr}Theme Control:{/tr} {tr}Categories{/tr}{/title}
 <div class="t_navbar btn-group mb-3">
     {button href="tiki-theme_control_objects.php" _class="btn btn-link" _text="{tr}Control by Objects{/tr}"}
     {button href="tiki-theme_control_sections.php" _class="btn btn-link" _text="{tr}Control by Sections{/tr}"}

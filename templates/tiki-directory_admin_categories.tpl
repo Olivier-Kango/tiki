@@ -1,4 +1,4 @@
-{title help="Directory Categories" url="tiki-directory_admin_categories.php?parent=$parent"}{tr}Admin directory categories{/tr}{/title}
+{title help="Directory-Categories" url="tiki-directory_admin_categories.php?parent=$parent"}{tr}Admin directory categories{/tr}{/title}
 <div class="styling-element">
 {* Display the title using parent *}
 {include file='tiki-directory_admin_bar.tpl'}

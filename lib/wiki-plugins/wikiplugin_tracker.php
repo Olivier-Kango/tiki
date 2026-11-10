@@ -2062,7 +2062,7 @@ function wikiplugin_tracker($data, $params)
 
         $datepicker = false;
 
-        // https://doc.tiki.org/Pretty+Tracker states that also internal trackerfield names can be used
+        // https://doc.tiki.org/Pretty-Tracker states that also internal trackerfield names can be used
         /*
         {$f_created}: created date
         {$f_status_input}: status input field (Value already set above)

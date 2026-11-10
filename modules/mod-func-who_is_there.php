@@ -19,7 +19,7 @@ function module_who_is_there_info()
         'name' => tra('Online Users'),
         'description' => tra('Display information about users currently logged in.'),
         'prefs' => [],
-        'documentation' => 'Module who_is_there',
+        'documentation' => 'Module-who_is_there',
         'params' => [
             'content' => [
                 'name' => tra('List Type'),

@@ -1,4 +1,4 @@
-{title help="CryptPad Docs"}{$name}{/title}
+{title help="CryptPad-Docs"}{$name}{/title}
 
 {if $missingPackage}
     {remarksbox type=error title="{tr}Missing Package{/tr}" close="n"}

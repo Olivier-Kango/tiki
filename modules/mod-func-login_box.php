@@ -23,7 +23,7 @@ function module_login_box_info()
         'name' => tra('Log In'),
         'description' => tra('Log-in box'),
         'prefs' => [],
-        'documentation' => 'Module login_box',
+        'documentation' => 'Module-login_box',
         'params' => [
             'input_size' => [
                 'name' => tra('Input size'),

@@ -1,4 +1,4 @@
-{title help="Communication Center"}{tr}Received Pages{/tr}{/title}
+{title help="Communication-Center"}{tr}Received Pages{/tr}{/title}
 
 {if $receivedPageId > 0 or $view eq 'y'}
     <h2>{tr}Preview{/tr}</h2>

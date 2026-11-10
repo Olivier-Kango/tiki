@@ -1,4 +1,4 @@
-{title help="Token Access"}{tr}Admin Tokens{/tr}{/title}
+{title help="Token-Access"}{tr}Admin Tokens{/tr}{/title}
 
 {remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}
     {tr}Rotating the token signing secret immediately revokes all existing token access links. They will stop working and new tokens will need to be created.{/tr}

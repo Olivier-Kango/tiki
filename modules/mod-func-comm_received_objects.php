@@ -13,7 +13,7 @@ function module_comm_received_objects_info()
         'name' => tra('Received Objects'),
         'description' => tra('Displays the number of pages received (via Communications).'),
         'prefs' => ["feature_comm"],
-        'documentation' => 'Module comm_received_objects',
+        'documentation' => 'Module-comm_received_objects',
         'params' => []
     ];
 }

@@ -1,4 +1,4 @@
-{title admpage="wiki" help="Using Wiki Pages#Listing_Pages"}{tr}Pages{/tr}{/title}
+{title admpage="wiki" help="Using-Wiki-Pages#Listing_Pages"}{tr}Pages{/tr}{/title}
 
 {tabset name='tabs_wikipages'}
     {tab name="{tr}List Wiki Pages{/tr}"}

@@ -13,7 +13,7 @@ function module_change_category_info()
         'name' => tra('Change Category'),
         'description' => tra('Enables to categorize an object.') . " " . tra('Some combinations of Multiple categories, Detailed, Unassign and Assign may challenge intuition or be simply broken.'),
         'prefs' => ['feature_categories', 'feature_wiki'],
-        'documentation' => 'Module change_category',
+        'documentation' => 'Module-change_category',
         'params' => [
             'id' => [
                 'name' => tra('Category identifier'),

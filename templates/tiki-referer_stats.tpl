@@ -1,4 +1,4 @@
-{title help="Referer Stats"}{tr}Referer stats{/tr}{/title}
+{title help="Referer-Stats"}{tr}Referer stats{/tr}{/title}
 
 <div class="t_navbar">
     <form action="tiki-referer_stats.php" method="post">

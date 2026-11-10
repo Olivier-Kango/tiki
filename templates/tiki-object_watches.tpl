@@ -1,4 +1,4 @@
-{title help="Mail notifications"}
+{title help="Mail-notifications"}
     {if isset($smarty.request.objectName)}
         {tr}Object Watches:{/tr} {$smarty.request.objectName}
     {else}

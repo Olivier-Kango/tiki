@@ -1,4 +1,4 @@
-{title help="Markdown import"}{tr}Markdown import{/tr}{/title}
+{title help="Markdown-import"}{tr}Markdown import{/tr}{/title}
 <p class="text-muted">
     {tr}Import markdown files from various sources (local file/zip, or Git repository) and convert them into Tiki wiki pages.{/tr}
 </p>

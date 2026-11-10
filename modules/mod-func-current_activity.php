@@ -19,7 +19,7 @@ function module_current_activity_info()
         'name' => tra('Current Activity'),
         'description' => tra('Display users who are currently editing a page or a tracker.'),
         'prefs' => [],
-        'documentation' => 'Module current_activity',
+        'documentation' => 'Module-current_activity',
         'params' => [],
     ];
 }

@@ -13,7 +13,7 @@ function module_articles_info()
         'name' => tra('Articles'),
         'description' => tra('Lists the specified number of published articles in the specified order.'),
         'prefs' => ['feature_articles'],
-        'documentation' => 'Module articles',
+        'documentation' => 'Module-articles',
         'params' => [
             'showpubl' => [
                 'name' => tra('Show publication time'),

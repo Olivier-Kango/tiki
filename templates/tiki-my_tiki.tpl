@@ -1,4 +1,4 @@
-{title help="My Account"}{tr}My Account{/tr}{/title}
+{title help="My-Account"}{tr}My Account{/tr}{/title}
 
 {include file='tiki-mytiki_bar.tpl'}
 <br>

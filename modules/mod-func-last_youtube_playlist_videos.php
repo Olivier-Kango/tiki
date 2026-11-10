@@ -14,7 +14,7 @@ function module_last_youtube_playlist_videos_info()
         'description' => tra('Display a YouTube playlist'),
         'prefs' => ['wikiplugin_youtube'],
         'packages_required' => ['google/apiclient' => 'Google_Client'],
-        'documentation' => 'Module last_youtube_playlist_videos',
+        'documentation' => 'Module-last_youtube_playlist_videos',
     'params' => [
             'id' => [
                 'required' => true,
