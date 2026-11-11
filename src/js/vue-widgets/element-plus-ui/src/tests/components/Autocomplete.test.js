@@ -160,18 +160,25 @@ describe("Autocomplete", () => {
                 return h("div", {}, h("input", { "data-testid": "autocomplete-input", onChange: (e) => fetchSuggestions(e.target.value, () => {}) }));
             });
 
+            vi.useFakeTimers();
             render(Autocomplete, { props: givenProps });
             const input = screen.getByTestId("autocomplete-input");
             await fireEvent.change(input, { target: { value: "foo" } });
+            vi.runAllTimers();
+            vi.useRealTimers();
 
-            expect(fetchSuggestions).toHaveBeenCalledWith(
+            const expectedArgs = [
                 "foo",
                 expect.any(Function),
                 remoteSourceUrl,
                 sourceList ? JSON.parse(sourceList) : [],
                 givenProps.remoteQueryKey,
-                false
-            );
+                false,
+            ];
+            if (!sourceList) {
+                expectedArgs.push(expect.any(AbortSignal));
+            }
+            expect(fetchSuggestions).toHaveBeenCalledWith(...expectedArgs);
             expect(givenProps._expose).toHaveBeenCalled({ value: expect.objectContaining({ _value: givenProps.value, __v_isRef: true }) });
 
             const fecthSuggestionsCb = fetchSuggestions.mock.calls[0][1];

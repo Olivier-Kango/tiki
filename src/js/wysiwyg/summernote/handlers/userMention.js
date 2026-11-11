@@ -95,7 +95,7 @@ export default function (textarea) {
 
                 document.body.appendChild(dropdown);
             }
-        }, 500);
+        }, $.USER_MENTION_DEBOUNCE_DELAY);
     };
 }
 

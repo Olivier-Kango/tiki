@@ -55,6 +55,15 @@ function prefs_search_list()
             'tags' => ['deprecated'],
             'help' => $searchGeneralSettingsHelp,
         ],
+        'search_autocomplete_min_chars' => [
+            'name' => tra('Autocomplete minimum characters'),
+            'description' => tra('Number of characters that must be typed before autocomplete suggestions, user mentions and automatic searches query the server. Very short queries are imprecise and expensive on large sites.'),
+            'type' => 'text',
+            'filter' => 'digits',
+            'size' => '3',
+            'units' => tra('characters'),
+            'default' => 3,
+        ],
         'search_show_category_filter' => [
             'name' => tra('Category filter'),
             'description' => tra('Show a category selector on the search filter form to limit results by category, with an optional deep search in subcategories.'),

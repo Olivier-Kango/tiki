@@ -80,6 +80,37 @@ describe("Autocomplete remote helper functions", () => {
             }
         );
 
+        test("passes the abort signal to fetch and stops the loading state when the request is aborted", async () => {
+            const callback = vi.fn();
+            const controller = new AbortController();
+            const abortError = new Error("aborted");
+            abortError.name = "AbortError";
+            vi.spyOn(window, "fetch").mockRejectedValueOnce(abortError);
+
+            fetchSuggestions("foo", callback, "https://foo/bar", [], "q", false, controller.signal);
+            await new Promise((resolve) => setTimeout(resolve, 0));
+
+            expect(window.fetch).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ signal: controller.signal }));
+            expect(callback).toHaveBeenCalledWith([]);
+        });
+
+        test.each([
+            ["the request fails", () => vi.spyOn(window, "fetch").mockRejectedValueOnce(new Error("network"))],
+            [
+                "the server answers with an error status",
+                () => vi.spyOn(window, "fetch").mockResolvedValueOnce({ ok: false, status: 500, json: vi.fn() }),
+            ],
+        ])("calls the callback with an empty list when %s", async (_, mockFetch) => {
+            const callback = vi.fn();
+            vi.spyOn(console, "error").mockImplementation(() => {});
+            mockFetch();
+
+            fetchSuggestions("foo", callback, "https://foo/bar", []);
+            await new Promise((resolve) => setTimeout(resolve, 0));
+
+            expect(callback).toHaveBeenCalledWith([]);
+        });
+
         test("logs an error and stop execution when neither sourceRemoteUrl nor sourceList is provided", () => {
             const callback = vi.fn();
 

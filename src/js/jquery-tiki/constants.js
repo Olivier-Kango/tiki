@@ -11,3 +11,5 @@ $.BUTTON_LOADER_MARKUP = `
         <span class="visually-hidden">Loading...</span>
     </div>
 `;
+
+$.USER_MENTION_DEBOUNCE_DELAY = 500;

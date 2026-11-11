@@ -9,6 +9,7 @@ export default function autocomplete(element, resourceType, options = {}) {
         transformResultCb,
         remoteQueryKey: customRemoteQueryKey,
         wildcardSearch,
+        minChars: options.minChars ?? jqueryTiki.autocomplete_search_min_chars,
     };
 
     if (resourceType == "pagename" && ($(element).attr("name") == "highlight" || /^search_mod_input_\d|highlight$/.test($(element).attr("id")))) {

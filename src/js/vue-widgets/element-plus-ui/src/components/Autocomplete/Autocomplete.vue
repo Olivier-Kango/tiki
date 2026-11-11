@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
-import { fetchSuggestions } from '../../helpers/autocomplete/remote';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { createSuggestionsRequester } from '../../helpers/autocomplete/request';
 import ConfigWrapper from '../ConfigWrapper.vue';
 import { usePropParsers } from '../../composables/usePropParsers';
 
@@ -16,6 +16,7 @@ const props = defineProps([
     'transformResultFn',
     'remoteQueryKey',
     'wildcardSearch',
+    'minChars',
 ]);
 
 const { normalize } = usePropParsers();
@@ -42,16 +43,25 @@ props._expose({
     setValue,
 });
 
+const suggestionsRequester = createSuggestionsRequester(() => ({
+    remoteSourceUrl: props.remoteSourceUrl,
+    sourceList: props.sourceList ? JSON.parse(props.sourceList) : [],
+    remoteQueryKey: props.remoteQueryKey,
+    wildcardSearch: normalize(props.wildcardSearch, false),
+    minChars: props.minChars,
+}));
+
 const handleFetchSuggestions = (query, callback) => {
-    const wrappedCallback = (results) => {
-        callback(props.transformResultFn ? window[props.transformResultFn](results) : results);
+    suggestionsRequester.request(query, (results) => {
+        // An empty list means no request was made (query too short, aborted or failed), so there is nothing to transform
+        const isEmptyList = Array.isArray(results) && results.length === 0;
+        callback(props.transformResultFn && !isEmptyList ? window[props.transformResultFn](results) : results);
 
         if (!results || results.length === 0) {
              // If there are no results, set a flag indicating that the next blur event is likely programmatic and should be counteracted by a refocus.
             shouldRefocusOnBlur.value = true;
         }
-    };
-    fetchSuggestions(query, wrappedCallback, props.remoteSourceUrl, (props.sourceList ? JSON.parse(props.sourceList): []), props.remoteQueryKey, normalize(props.wildcardSearch, false));
+    });
 }
 
 const handleBlur = () => {
@@ -67,12 +77,18 @@ const handleSelect = (value) => {
 }
 
 const handleInput = (value) => {
+    if (!value) {
+        // Cancel any pending search when the input is cleared
+        suggestionsRequester.cancel();
+    }
     props.emitCustomEvent('input', value);
 }
 
 const handlePressEnter = () => {
     props.emitCustomEvent('pressEnter', modelValue.value);
 }
+
+onBeforeUnmount(suggestionsRequester.cancel);
 
 onMounted(() => {
     if (!props.remoteSourceUrl && !props.sourceList) {
@@ -110,6 +126,7 @@ export const DATA_TEST_ID = {
             @input="handleInput"
             @keyup.enter="handlePressEnter"
             @blur="handleBlur"
+            @clear="suggestionsRequester.cancel"
             clearable
             :teleported="false"
         >

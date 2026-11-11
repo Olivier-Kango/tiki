@@ -251,6 +251,7 @@
             <fieldset>
                 <legend class="h3">{tr}Features{/tr}</legend>
                 {preference name=search_autocomplete}
+                {preference name=search_autocomplete_min_chars}
                 {preference name=feature_referer_highlight}
                 {preference name=search_file_thumbnail_preview}
             </fieldset>
