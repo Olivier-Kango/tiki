@@ -431,7 +431,7 @@ class Index implements \Search_Index_Interface, \Search_Index_QueryRepository
     public function initSearch()
     {
         $search = new \Manticoresearch\Search($this->client->getClient());
-        $search->setIndex($this->index);
+        $search->setTable($this->index);
         return $search;
     }
 

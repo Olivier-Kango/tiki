@@ -74,7 +74,7 @@ class Client
     public function getIndexStatus($index = '')
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             return $index->status();
         } catch (ManticoreException $e) {
             throw new ClientException($e);
@@ -84,7 +84,7 @@ class Client
     public function createIndex($index, $definition, $settings = [], $silent = false)
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             $response = $index->create($definition, $settings, $silent);
             if (! empty($response['error'])) {
                 throw new Exception($response['error']);
@@ -97,7 +97,7 @@ class Client
     public function deleteIndex($index)
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             return $index->drop(true);
         } catch (ManticoreException $e) {
             throw new ClientException($e);
@@ -107,7 +107,7 @@ class Client
     public function describe($index)
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             $result = $index->describe();
         } catch (ManticoreException $e) {
             $result = [
@@ -131,7 +131,7 @@ class Client
     public function alter($index, $operation, $field, $type)
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             return $index->alter($operation, $field, $type);
         } catch (ManticoreException $e) {
             throw new ClientException($e);
@@ -141,7 +141,7 @@ class Client
     public function search($index, $query)
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             return $index->search($query);
         } catch (ManticoreException $e) {
             throw new ClientException($e);
@@ -152,7 +152,7 @@ class Client
     {
         try {
             $res = $this->client->pq()->doc([
-                'index' => $index . 'pq',
+                'table' => $index . 'pq',
                 'body' => [
                     'query' => $query['query'],
                     'tags' => [$name],
@@ -167,7 +167,7 @@ class Client
     public function index($index, array $data)
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             return $index->addDocument($data);
         } catch (ManticoreException $e) {
             throw new ClientException($e);
@@ -177,7 +177,7 @@ class Client
     public function unindex($index, $type, $id)
     {
         try {
-            $index = $this->client->index($index);
+            $index = $this->client->table($index);
             return $index->deleteDocuments([
                 'object_type' => $type,
                 'object_id' => $id,
@@ -192,7 +192,7 @@ class Client
         try {
             $params = [
                 'body' => [
-                    'index' => $this->index,
+                    'table' => $this->index,
                     'query' => [
                         'equals' => [
                             'object_type' => $type,
@@ -210,7 +210,7 @@ class Client
 
     public function getIndex($index)
     {
-        return $this->client->index($index);
+        return $this->client->table($index);
     }
 
     public function getClient()
