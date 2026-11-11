@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fd1b81d9519cffd333622550840b2f0",
+    "content-hash": "458e8cbdd83771c70e95ae891cedba9d",
     "packages": [
         {
             "name": "amphp/amp",
@@ -17813,7 +17813,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-28T22:38:53+00:00"
+            "time": "2026-10-28T22:38:53+00:00",
+            "published-time": "2026-10-28T22:39:06+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -19665,7 +19666,7 @@
         "ext-openssl": "*",
         "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1",
         "ext-ldap": "0",
@@ -19673,5 +19674,5 @@
         "ext-sockets": "0",
         "ext-ftp": "0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.11.0"
 }
