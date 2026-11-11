@@ -7,6 +7,7 @@
 
 use Sentry\Event;
 use Sentry\EventHint;
+use Sentry\Integration\ErrorListenerIntegration;
 use Tiki\Errors;
 
 /* This file handles reporting PHP errors to a remote service like glitchtip or sentry */
@@ -19,6 +20,13 @@ class ErrorTracking
     private const STATE_DISABLED = 0;
     private const STATE_HOLD = 1;
     private const STATE_PUSH = 2;
+
+    /**
+     * Long-running commands (scheduler:run, tracker sync) can raise the same warning once per row.
+     * Each Sentry event keeps a stack trace, so an unbounded queue retains those traces until shutdown
+     * and then posts them one HTTP request at a time. Cap what we keep so the process can finish.
+     */
+    private const MAX_QUEUED_EVENTS = 50;
 
     protected const REDACTED_PARAMS = ['twoFactorAuthCode', 'pass', 'passAgain', 'ticket', 'TOKEN'];
     protected const REDACTED_SESSION = ['', 'CV', '_CSRF'];
@@ -37,6 +45,14 @@ class ErrorTracking
     protected float $tracesSampleRate;
 
     protected array $stack = [];
+
+    /** @var array<string, true> Distinct errors already accepted this process, keyed by a fingerprint */
+    private array $reportedFingerprints = [];
+
+    private int $suppressedCount = 0;
+
+    /** True while a report is being built or sent, so a warning from that work cannot re-enter and loop */
+    private bool $capturing = false;
 
     private ?closure $previousErrorHandler = null;
     private $currentTransaction = null;
@@ -72,29 +88,84 @@ class ErrorTracking
     }
 
     /**
-     * Capture thrown exception. Exceptions are always added to the exceptions stack.
+     * Report a PHP error without keeping the live function arguments in the trace.
+     *
+     * Scheduler and tracker sync warnings often fire inside loops that hold the whole
+     * dataset in local variables. Those arguments stay reachable for as long as the
+     * exception (and the queued Sentry event) do.
+     */
+    public function capturePhpError(int $errno, string $errstr, string $errfile, int $errline): void
+    {
+        if ($this->state === self::STATE_DISABLED || $this->capturing) {
+            return;
+        }
+
+        $previous = ini_get('zend.exception_ignore_args');
+        ini_set('zend.exception_ignore_args', '1');
+        try {
+            $exception = new \ErrorException($errstr, 0, $errno, $errfile, $errline);
+        } finally {
+            if ($previous !== false) {
+                ini_set('zend.exception_ignore_args', $previous);
+            }
+        }
+
+        $this->captureException($exception);
+    }
+
+    /**
+     * Capture a thrown exception.
+     *
+     * Identical errors are counted instead of queued again. The queue itself is capped
+     * so a long command cannot retain every distinct warning until process shutdown.
      *
      * @param \Throwable $exception The exception to capture
      * @param array $tags Optional associative array of tags to attach to this specific event only
      */
     public function captureException(\Throwable $exception, array $tags = [])
     {
-        if ($this->state === self::STATE_DISABLED) {
+        if ($this->state === self::STATE_DISABLED || $this->capturing) {
             return;
         }
 
-        if (empty($tags)) {
-            // No event-specific tags, capture directly
-            \Sentry\captureException($exception);
-        } else {
-            // Use withScope to set event-specific tags without polluting global scope
-            \Sentry\withScope(function (\Sentry\State\Scope $scope) use ($exception, $tags) {
-                foreach ($tags as $key => $value) {
-                    $scope->setTag($key, (string)$value);
-                }
-                \Sentry\captureException($exception);
-            });
+        $fingerprint = $this->fingerprint($exception);
+        if (isset($this->reportedFingerprints[$fingerprint])) {
+            $this->suppressedCount++;
+            return;
         }
+        if (count($this->reportedFingerprints) >= self::MAX_QUEUED_EVENTS) {
+            $this->suppressedCount++;
+            return;
+        }
+        $this->reportedFingerprints[$fingerprint] = true;
+
+        $this->capturing = true;
+        try {
+            if (empty($tags)) {
+                // No event-specific tags, capture directly
+                \Sentry\captureException($exception);
+            } else {
+                // Use withScope to set event-specific tags without polluting global scope
+                \Sentry\withScope(function (\Sentry\State\Scope $scope) use ($exception, $tags) {
+                    foreach ($tags as $key => $value) {
+                        $scope->setTag($key, (string)$value);
+                    }
+                    \Sentry\captureException($exception);
+                });
+            }
+        } finally {
+            $this->capturing = false;
+        }
+    }
+
+    private function fingerprint(\Throwable $exception): string
+    {
+        $severity = $exception instanceof \ErrorException ? (string) $exception->getSeverity() : '';
+
+        return hash(
+            'md5',
+            get_class($exception) . "\0" . $severity . "\0" . $exception->getFile() . "\0" . $exception->getLine() . "\0" . $exception->getMessage()
+        );
     }
 
     /**
@@ -228,6 +299,7 @@ class ErrorTracking
         return \Sentry\trace($callback, $context);
     }
 
+
     /**
      * Capture thrown exception. Exceptions are always added to the exceptions stack.
      *
@@ -272,7 +344,15 @@ class ErrorTracking
     {
         global $prefs;
         if ($this->isInitialised) {
-            throw new Error('Error tracking can only be initialised once, so we can control where that happens');
+            // The DI container keeps this instance for the life of a PHP worker. Start each request
+            // with an empty queue instead of sending every new error immediately or throwing.
+            $this->stack = [];
+            $this->reportedFingerprints = [];
+            $this->suppressedCount = 0;
+            if ($this->state !== self::STATE_DISABLED) {
+                $this->setState(self::STATE_HOLD);
+            }
+            return;
         }
         if (! self::LOCAL_DEBUG_MODE && (! isset($this->dsn) || ! $this->phpEnabled || $this->state !== self::STATE_DISABLED)) {
             return;
@@ -319,6 +399,22 @@ class ErrorTracking
                     // Use the configured default sample rate
                     return $this->getTracesSampleRate();
                 },
+                // A shared curl handle keeps the GlitchTip connection open across reports. With a
+                // flood of warnings that connection stops completing and the command never exits.
+                'http_enable_curl_share_handle' => false,
+                'integrations'            => static function (array $integrations): array {
+                    // PHP errors are reported from Tiki's own handlers so repeated warnings can be
+                    // dropped before Sentry builds a stack trace. Sentry's listener would capture
+                    // every warning first, including the duplicate report from console.php.
+                    $filtered = [];
+                    foreach ($integrations as $integration) {
+                        if ($integration instanceof ErrorListenerIntegration) {
+                            continue;
+                        }
+                        $filtered[] = $integration;
+                    }
+                    return $filtered;
+                },
                 'before_send'             => function (Event $event, ?EventHint $hint): ?Event {
                     if (true && self::LOCAL_DEBUG_MODE) {
                         echo '<pre>';
@@ -329,26 +425,32 @@ class ErrorTracking
                         echo '<br/></pre>';
                     }
 
+                    $this->boundEventFrameVars($event);
+
                     if ($this->state === self::STATE_PUSH) {
                         // only filter entries when pushing, since will not impact rendering time for pages
                         $eventExceptions = $event->getExceptions();
-                        foreach ($eventExceptions as &$exception) {
-                            $stackTrace = $exception->getStacktrace();
-                            if (empty($stackTrace)) {
-                                continue;
+                        if ($eventExceptions) {
+                            $frame = null;
+                            foreach ($eventExceptions as &$exception) {
+                                $stackTrace = $exception->getStacktrace();
+                                if (empty($stackTrace)) {
+                                    continue;
+                                }
+                                $frames = $stackTrace->getFrames();
+                                if (empty($frames)) {
+                                    continue;
+                                }
+                                foreach ($frames as &$frame) {
+                                    $vars = $frame->getVars();
+                                    $this->redactEntries($vars);
+                                    $frame->setVars($vars);
+                                }
+                                $exception->setStacktrace(new \Sentry\Stacktrace($frames));
                             }
-                            $frames = $stackTrace->getFrames();
-                            if (empty($frames)) {
-                                continue;
-                            }
-                            foreach ($frames as &$frame) {
-                                $vars = $frame->getVars();
-                                $this->redactEntries($vars);
-                                $frame->setVars($vars);
-                            }
-                            $exception->setStacktrace(new \Sentry\Stacktrace($frames));
+                            unset($exception, $frame);
+                            $event->setExceptions($eventExceptions);
                         }
-                        $event->setExceptions($eventExceptions);
 
                         return $event;
                     }
@@ -402,8 +504,34 @@ class ErrorTracking
      */
     private function pushEvents()
     {
-        foreach ($this->stack as $event) {
-            \Sentry\captureEvent($event);
+        if ($this->capturing) {
+            return;
+        }
+
+        $events = $this->stack;
+        $this->stack = [];
+        $suppressed = $this->suppressedCount;
+        $this->suppressedCount = 0;
+
+        // Hold off nested reports while the HTTP posts run. A warning from the client
+        // (or from closing the connection) would otherwise queue another send.
+        $this->capturing = true;
+        try {
+            foreach ($events as $index => $event) {
+                \Sentry\captureEvent($event);
+                unset($events[$index], $event);
+            }
+
+            if ($suppressed > 0) {
+                \Sentry\captureMessage(sprintf(
+                    'Suppressed %d additional PHP errors in this process so error reporting could finish. %d distinct errors were queued.',
+                    $suppressed,
+                    count($this->reportedFingerprints)
+                ));
+            }
+        } finally {
+            $this->capturing = false;
+            $this->setSampleRate($this->sampleRate);
         }
     }
 
@@ -564,6 +692,8 @@ class ErrorTracking
      */
     public function handleError($errno, $errstr, $errfile, $errline): bool
     {
+        $this->capturePhpError($errno, $errstr, $errfile, $errline);
+
         if ($this->previousErrorHandler) {
             return ($this->previousErrorHandler)($errno, $errstr, $errfile, $errline);
         }
@@ -574,6 +704,61 @@ class ErrorTracking
     public function setPreviousErrorHandler(Closure $handler)
     {
         $this->previousErrorHandler = $handler;
+    }
+
+    /**
+     * Drop frame variables that would retain a tracker payload or other large structure.
+     */
+    private function boundEventFrameVars(Event $event): void
+    {
+        foreach ($event->getExceptions() as $exception) {
+            $stackTrace = $exception->getStacktrace();
+            if ($stackTrace === null) {
+                continue;
+            }
+            foreach ($stackTrace->getFrames() as $frame) {
+                $vars = $frame->getVars();
+                $bounded = $this->boundFrameVars($vars);
+                if ($bounded !== $vars) {
+                    $frame->setVars($bounded);
+                }
+            }
+        }
+    }
+
+    private function boundFrameVars(array $vars): array
+    {
+        if ($this->valueIsLarge($vars)) {
+            return ['_omitted' => 'Frame variables omitted to keep error reporting bounded.'];
+        }
+
+        return $vars;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    private function valueIsLarge($value): bool
+    {
+        if (is_string($value)) {
+            return strlen($value) > 2048;
+        }
+        if (! is_array($value)) {
+            return false;
+        }
+        if (count($value) > 20) {
+            return true;
+        }
+        foreach ($value as $item) {
+            if (is_string($item) && strlen($item) > 2048) {
+                return true;
+            }
+            if (is_array($item) && count($item) > 20) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
