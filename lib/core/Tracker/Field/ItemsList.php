@@ -616,21 +616,21 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 
         $fieldIdHere = $this->getOption('fieldIdHere');
         $definition = $this->getTrackerDefinition();
-        $fieldHere = $definition->getField($fieldIdHere);
-        $extraFieldName = "tracker_field_{$fieldHere['permName']}";
+        $fieldHere = $fieldIdHere ? $definition->getField($fieldIdHere) : null;
+        $extraFieldName = $fieldHere ? "tracker_field_{$fieldHere['permName']}" : '';
 
         $fieldIdThere = $this->getOption('fieldIdThere');
         $trackerIdThere = $this->getOption('trackerId');
         $trackerThere = Tracker_Definition::get($trackerIdThere);
-        if ($fieldIdThere) {
+        $fieldThere = null;
+        $queryFieldName = '';
+        if ($fieldIdThere && $trackerThere) {
             $fieldThere = $trackerThere->getField($fieldIdThere);
             if ($fieldThere) {
                 $queryFieldName = "tracker_field_{$fieldThere['permName']}";
-                if ($fieldHere['type'] === 'r' && $fieldThere['type'] !== 'r') {
+                if ($fieldHere && $fieldHere['type'] === 'r' && $fieldThere['type'] !== 'r') {
                     $extraFieldName .= '_text';
                 }
-            } else {
-                $queryFieldName = '';
             }
         }
 
@@ -680,13 +680,15 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                         $content = (string)$extra['itemId'];
                     }
 
-                    $query = $unifiedsearchlib->buildQuery(
-                        [
-                            'type'          => 'trackeritem',
-                            'tracker_id'    => (string)$trackerIdThere,
-                            $queryFieldName => $content,
-                        ]
-                    );
+                    $criteria = [
+                        'type'       => 'trackeritem',
+                        'tracker_id' => (string)$trackerIdThere,
+                    ];
+                    if ($queryFieldName !== '') {
+                        $criteria[$queryFieldName] = $content;
+                    }
+
+                    $query = $unifiedsearchlib->buildQuery($criteria);
 
                     $result = $query->search($unifiedsearchlib->getIndex());
                     $out = [];
@@ -756,7 +758,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                                         $info['postprocess'][] = function ($newMainItemId) use ($trackerUtilities, $trackerThere, $itemData, $fieldThere, $attributelib) {
 
                                             // fix the ItemLink there to point at our new item
-                                            if ($fieldThere['type'] === 'r') {
+                                            if (! empty($fieldThere) && $fieldThere['type'] === 'r') {
                                                 $itemData['fields'][$fieldThere['permName']] = $newMainItemId;
                                             }
 
