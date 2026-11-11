@@ -387,6 +387,11 @@ class EditLibTest extends TikiTestCase
         );
     }
 
+    public function testConvertWikiSyntaxMonospacedTextKeepsLessThanInsideCode(): void
+    {
+        $this->assertSame('`x < y` mid `z`', $this->el->convertWikiSyntax('-+x < y+- mid -+z+-', 'markdown'));
+    }
+
     public function testConvertWikiSyntaxStrikeThroughText()
     {
         $converted = $this->el->convertWikiSyntax(
@@ -706,5 +711,82 @@ PLUGIN;
             $converted,
             $inData
         );
+    }
+
+    /** @dataProvider pipePreservationCases */
+    public function testConvertWikiSyntaxPreservesPipeContent(string $input, string $expected): void
+    {
+        $this->assertSame($expected, $this->el->convertWikiSyntax($input, 'markdown'));
+    }
+
+    public static function pipePreservationCases(): array
+    {
+        return [
+            'backslash in code' => ['-+a\\|b+-', '`a\\|b`'],
+            'anchor syntax inside code' => ['-+[#anchor\\|label]+-', '`[#anchor\\|label]`'],
+            'anchor followed by ordinary text' => [
+                '[#anchor|label] and a | b',
+                '[#anchor|label] and a \\| b',
+            ],
+            'code inside an anchor label' => ['[#anchor|-+a\\|b+-]', '[#anchor|`a\\|b`]'],
+            'table-like separator in ordinary text' => ['a~|~b', 'a\\~\\|\\~b'],
+        ];
+    }
+
+    /** @dataProvider linkDestinationCases */
+    public function testConvertedLinkKeepsItsDestination(string $input, string $href, string $text): void
+    {
+        $document = $this->renderConvertedMarkdown($input);
+        $links = $document->getElementsByTagName('a');
+
+        $this->assertCount(1, $links);
+        $this->assertSame($href, $links->item(0)->getAttribute('href'));
+        $this->assertSame($text, $links->item(0)->textContent);
+    }
+
+    public static function linkDestinationCases(): array
+    {
+        return [
+            'anchor' => ['[#Unit_tests|unit tests]', '#Unit_tests', 'unit tests'],
+            'external' => ['[http://example.com|Example]', 'http://example.com', 'Example'],
+        ];
+    }
+
+    /** @dataProvider literalTableCellCases */
+    public function testConvertedTableKeepsPipesInsideCells(string $cellSource, string $expectedText): void
+    {
+        $document = $this->renderConvertedMarkdown("||Name|Value\nA|$cellSource||");
+        $cells = $document->getElementsByTagName('td');
+
+        $this->assertCount(2, $cells);
+        $this->assertSame('A', $cells->item(0)->textContent);
+        $this->assertSame($expectedText, $cells->item(1)->textContent);
+    }
+
+    public static function literalTableCellCases(): array
+    {
+        return [
+            'pipe' => ['hello\\|world', 'hello|world'],
+            'FancyTable-like separator' => ['hello~\\|~world', 'hello~|~world'],
+        ];
+    }
+
+    private function renderConvertedMarkdown(string $input): DOMDocument
+    {
+        global $prefs;
+        $savedMarkdownEnabled = $prefs['markdown_enabled'];
+        $prefs['markdown_enabled'] = 'y';
+
+        try {
+            $converted = $this->el->convertWikiSyntax($input, 'markdown');
+            $parser = new WikiParser_Parsable('{syntax type="markdown"}' . "\n" . $converted);
+            $html = $parser->parse(['suppress_icons' => true, 'autotoc' => false]);
+
+            $document = new DOMDocument();
+            $document->loadHTML($html);
+            return $document;
+        } finally {
+            $prefs['markdown_enabled'] = $savedMarkdownEnabled;
+        }
     }
 }

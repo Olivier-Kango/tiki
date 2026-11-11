@@ -1622,7 +1622,10 @@ class EditLib
                 return "{tikiheading level=$level options=$matches[2]}" . trim($matches[3]) . "{/tikiheading}";
             }, $data);
             $data = preg_replace('/~~(.+?):(.+?)~~/', '{HTML()}<span style="color:$1">$2</span>{HTML}', $data);
-            $data = preg_replace('/-\+(.+?)\+-/', '`$1`', $data);
+            // Escape a bare < so it cannot start a tag inside the code element.
+            $data = preg_replace_callback('/-\+(.+?)\+-/', function ($matches) {
+                return '<code>' . htmlspecialchars($matches[1], ENT_NOQUOTES, 'UTF-8', false) . '</code>';
+            }, $data);
             $data = preg_replace_callback('/\{VERSIONS\(.*\)\}(.+)\{VERSIONS\}/s', function ($matches) {
                 return preg_replace_callback('/^---\(([^\):]*)( : [^\)]*)?\)---*/m', function ($innerMatches) {
                     return str_replace('-', '@-', $innerMatches[0]);
@@ -1725,6 +1728,11 @@ class EditLib
             // GitHub Flavored Markdown uses ~text~ for striking through.
             // This escapes ~ as in tiki syntax it is printed as it is
             $html = preg_replace('/~/', 'preserveTildeChar', $html);
+
+            // Reuse one pipe placeholder so restoration does not scan once per separator.
+            $pipePlaceholder = $this->pushToHashed($hashed, '|');
+            $html = $this->preserveLinkSeparators($html, $pipePlaceholder);
+            $html = $this->preserveFancyTableSeparators($html, $pipePlaceholder);
 
             $invalidTagsMap = $this->preserveInvalidTags($html);
             $converted = $converter->convert($html);
@@ -1851,6 +1859,36 @@ class EditLib
         }
 
         return $result;
+    }
+
+    private function preserveLinkSeparators(string $html, string $pipePlaceholder): string
+    {
+        // Tiki links reach the converter as plain text. A leading [[ is an escaped bracket, not a link.
+        return preg_replace_callback('/(?<!\[)\[(?!\[)[^\]\r\n|]+\|[^\]\r\n]*\]/', function ($matches) use ($pipePlaceholder) {
+            return str_replace('|', $pipePlaceholder, $matches[0]);
+        }, $html);
+    }
+
+    private function preserveFancyTableSeparators(string $html, string $pipePlaceholder): string
+    {
+        // The caller has already protected tildes. Only FancyTable delimiters should
+        // bypass escaping; the same characters in an ordinary table cell are literal.
+        $separator = 'preserveTildeChar|preserveTildeChar';
+        if (! str_contains($html, $separator)) {
+            return $html;
+        }
+
+        $protectedSeparator = 'preserveTildeChar' . $pipePlaceholder . 'preserveTildeChar';
+        $plugins = WikiParser_PluginMatcher::match($html);
+        foreach ($plugins as $plugin) {
+            if ($plugin->getName() !== 'fancytable') {
+                continue;
+            }
+
+            $plugin->replaceWith(str_replace($separator, $protectedSeparator, (string) $plugin));
+        }
+
+        return $plugins->getText();
     }
 
     private function preserveInvalidTags(&$data)
