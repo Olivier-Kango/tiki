@@ -177,7 +177,7 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline): bool
             //Unknow error type, we still want to display/report it
             $type = 'UNKNOWN';
     }
-    //This will log to glitchtip, and also call any handlers that were registered BEFORE tiki.  So we don't care about what they tell us to do in their return value.
+    // Reports the error to GlitchTip/Sentry, then calls any handler registered before Tiki.
     $retval = TikiLib::lib('errortracking')->handleError($errno, $errstr, $errfile, $errline);
     $errno = $err[$errno] ?? 'UNKNOWN';
 

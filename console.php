@@ -139,15 +139,16 @@ function custom_error_handler($number, $message, $file, $line): void
     $error_is_enabled = (bool)($number & (int)ini_get('error_reporting'));
 
     if ($error_is_enabled) {
-        $exception = new ErrorException($message, 0, $number, $file, $line);
-        // Check if autoloader is available, then call TikiLib if it has loaded properly
+        // Check if autoloader is available, then call TikiLib if it has loaded properly.
+        // capturePhpError drops the function arguments from the trace. A sync warning inside
+        // a loop otherwise keeps the whole dataset alive until the process exits.
         if ($GLOBALS['_autoloaderIsAvailable'] && is_callable('TikiLib::lib')) {
-            TikiLib::lib('errortracking')->captureException($exception);
+            TikiLib::lib('errortracking')->capturePhpError($number, $message, $file, $line);
         }
         // Fatal Errors
         // throw an Error Exception, to be handled by whatever Exception handling logic is available in this context
         if (in_array($number, [E_USER_ERROR, E_RECOVERABLE_ERROR])) {
-            throw $exception;
+            throw new ErrorException($message, 0, $number, $file, $line);
         }
 
         // Non-Fatal Errors (ERROR/WARNING/NOTICE)
