@@ -1962,9 +1962,14 @@ TEXT;
  */
 function cleanHtml($html, $config = null, $encoding = 'utf8')
 {
+    static $calls = 0;
+
     if (extension_loaded('tidy') == true) {
+        $calls++;
+        $cssPrefix = "tidy{$calls}x";
         $default = [
             'clean' => true,
+            'css-prefix' => $cssPrefix,
             'output-xhtml' => false,
             'merge-divs' => false,
             'show-body-only' => 'auto',
@@ -1982,8 +1987,15 @@ function cleanHtml($html, $config = null, $encoding = 'utf8')
         $config = (is_array($config) == true) ? array_merge($default, $config) : $default;
         $html_ = tidy_parse_string($html, $config, $encoding);
         $html_->cleanRepair();
+        $output = (string) $html_;
 
-        return (string) $html_;
+        foreach ($html_->head()->child ?? [] as $node) {
+            if ($node->name === 'style' && str_contains($node->value, '.' . $cssPrefix) && ! str_contains($output, $node->value)) {
+                $output = $node->value . $output;
+            }
+        }
+
+        return $output;
     }
 
     return $html;
