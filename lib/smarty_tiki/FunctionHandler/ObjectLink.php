@@ -39,7 +39,7 @@ class ObjectLink extends Base
         $title = $params['title'] ?? null;
         $url = $params['url'] ?? null;
 
-        if (\ObjectLib::isRemoteObjectItemId((string) $object)) {
+        if (\TikiLib::lib('object')->isRemoteObjectItemId((string) $object)) {
             if (! $url) {
                 $stored = \TikiLib::lib('object')->get_object($type, $object) ?: [];
                 $url = $stored['href'] ?? null;

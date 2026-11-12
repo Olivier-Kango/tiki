@@ -45,7 +45,7 @@ class Scheduler_Task_ConsoleCommandTask extends Scheduler_Task_CommandTask
             $this->errorMessage = $content;
 
             return $statusCode === 0;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->errorMessage = $e->getMessage();
 
             return false;
