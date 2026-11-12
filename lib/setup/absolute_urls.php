@@ -12,8 +12,25 @@ use Tiki\Sections;
 
 global $https_mode, $url_scheme, $url_host, $url_port, $url_path, $base_host, $base_url, $base_url_http, $base_url_https, $tikiroot;
 
+/*
+ * The current preferences dictate that:
+ * - reverse proxy support must be explicitly enabled.
+ * - non-standard ports must be configured in $prefs['http_port'] and $prefs['https_port'].
+ *
+ * Technically, one could check for a reverse proxy header and then decide whether
+ * to enable or disable reverse proxy support. This implementation follows the
+ * documented preference definitions:
+ * - reverse proxy support must be enabled with $prefs['feature_port_rewriting'].
+ * - the port for the requested protocol is detected and overrides its preference.
+ * - the non-standard HTTP port must be configured in $prefs['http_port'] to
+ *   allow switching protocols when the request uses the wrong protocol.
+ * - the non-standard HTTPS port must be configured in $prefs['https_port'] to
+ *   allow switching protocols when the request uses the wrong protocol.
+ */
+$prefs['http_port'] = (int) ($prefs['http_port'] ?? 80);
+$prefs['https_port'] = (int) ($prefs['https_port'] ?? 443);
+
 // These globals describe the public URL, never the backend proxy connection.
-// Keep configured preferences intact; alternate-protocol ports are resolved locally.
 $publicOrigin = \Tiki\Url::publicOrigin($_SERVER, $prefs);
 $url_scheme = $publicOrigin['scheme'];
 $https_mode = $url_scheme === 'https';
