@@ -1161,16 +1161,11 @@ class TikiAccessLib extends TikiLib
             }
         }
 
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-            $url = 'https://' . $url;
-            if ($port == ':443') {
-                $port = '';
-            }
-        } else {
-            $url = 'http://' . $url;
-            if ($port == ':80') {
-                $port = '';
-            }
+        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
+        $url = $scheme . $url;
+
+        if ($port == ':80' || ($scheme === 'https://' && $port == ':443')) {
+            $port = '';
         }
 
         $url .= $port;

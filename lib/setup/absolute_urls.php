@@ -44,8 +44,8 @@ global $https_mode, $url_scheme, $url_host, $url_port, $url_path, $base_host, $b
  */
 
 // set defaults
-$prefs['http_port'] = (int) ($prefs['http_port'] ?? 80);
-$prefs['https_port'] = (int) ($prefs['https_port'] ?? 443);
+$prefs['http_port'] = (int) (($prefs['http_port'] ?? '') ?: 80);
+$prefs['https_port'] = (int) (($prefs['https_port'] ?? '') ?: 443);
 $https_mode = false;
 $reverse_proxy = false;
 // Check if behind a reverse-proxy / ssl-offloader / frontend-proxy / load-balancer which rewrites ports / protocol
@@ -94,7 +94,9 @@ if (! $reverse_proxy) {
     // when doing a database update via console.php $_SERVER['SERVER_PORT'] is not set. So define a default to avoid notice.
     $_SERVER['SERVER_PORT'] = $_SERVER['SERVER_PORT'] ?? 80;
     // adjust in case the current port is not 80 or 443
-    if ($https_mode) {
+    if ($https_mode && (int) $_SERVER['SERVER_PORT'] === 80) {
+        // HTTPS may be terminated by a proxy; keep the configured public HTTPS port.
+    } elseif ($https_mode) {
         $prefs['https_port'] = (int) $_SERVER['SERVER_PORT'];
     } else {
         $prefs['http_port'] = (int) $_SERVER['SERVER_PORT'];
@@ -109,7 +111,13 @@ if ($prefs['http_port'] == 80) {
     $prefs['http_port'] = '';
 }
 
-
+// Detect misconfigured HTTPS port (e.g., behind reverse proxy with TLS offload)
+if ($prefs['https_port'] == 80) {
+    trigger_error(
+        tr('HTTPS port configured as 80. This typically indicates a reverse proxy or TLS offload configuration issue. Please verify your reverse proxy X-Forwarded-Proto headers and feature_port_rewriting setting.'),
+        E_USER_WARNING
+    );
+}
 
 // create $base_url_http and $base_url_https etc.
 // Note: $url_scheme becomes a globally used var - even headerlib provides a method for it - so do not rename!
@@ -119,6 +127,9 @@ $url_scheme = $https_mode ? 'https' : 'http';
 $url_host = (! empty($prefs['server_domain'])) ? $prefs['server_domain'] : ((isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME']);
 list($url_host,) = preg_split('/:/', $url_host);    // Strip url port
 $url_port = $https_mode ? $prefs['https_port'] : $prefs['http_port'];
+if ($url_port == 80 || ($https_mode && $url_port == 443)) {
+    $url_port = '';
+}
 $url_path = $tikiroot;
 if ($url_host) {
     $base_host = $url_scheme . '://' . $url_host . (($url_port != '') ? ':' . $url_port : '');
