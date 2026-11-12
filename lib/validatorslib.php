@@ -203,40 +203,54 @@ class Validators
         // remove last comma (not supported in IE7)
         $validationjs = rtrim($validationjs, ' ,');
         $validationjs .= '}, ';
-        // Add an invalidHandler to scroll the first error into view
-        // works in both modal and full page modes and leaves the focus on the error input
+        // Reveal the first validation error, scroll it into view, and focus it.
+        // Wait for a tab transition before measuring the field position.
         $validationjs .= '
 focusInvalid: false,
 invalidHandler: function(event, validator) {
-    var errors = validator.numberOfInvalids();
-    if (errors) {
-        var $container = $scroller = $(this).parents(".modal"),
-            offset = 0;
+    var $form = $(this),
+        $firstError = $(validator.errorList[0] && validator.errorList[0].element);
 
-        if (!$container.length) {
-            $container = $("html");
-            $scroller = $("body");
-            offset = $("#page-header.sticky-top").outerHeight() || 0;
-        }
-        var containerScrollTop = $scroller.scrollTop(),
-            $firstError = $(validator.errorList[0].element),
-            $scrollElement = $firstError.parents(".tracker-field-group");
+    if (!$firstError.length) {
+        return;
+    }
 
-        if (! $scrollElement.length) {
+    var $container = $form.parents(".modal"),
+        $scroller = $container,
+        offset = 0;
+
+    if (!$container.length) {
+        $container = $("html");
+        $scroller = $("body");
+        offset = $("#page-header.sticky-top").outerHeight() || 0;
+    }
+
+    var revealAndFocus = function() {
+        var $scrollElement = $firstError.parents(".tracker-field-group");
+        if (!$scrollElement.length) {
             $scrollElement = $firstError;
         }
-
-        if ($firstError.parents(".tab-content").length > 0) {
-            $tab = $firstError.parents(".tab-pane");
-            $(\'a[href="#\' + $tab.attr("id") + \'"]\').tab("show");
+        if (!$scrollElement.offset()) {
+            return;
         }
-
-        $container.animate({
-            scrollTop: containerScrollTop + $scrollElement.offset().top - offset - ($(window).height() / 2)
-        }, 1000, function () {
+        var targetTop = $scroller.scrollTop() + $scrollElement.offset().top - offset - ($(window).height() / 2);
+        $container.stop(true).animate({ scrollTop: targetTop }, 300, function() {
             $firstError.trigger("focus");
         });
+    };
+
+    var $tabPane = $firstError.closest(".tab-pane");
+    if ($tabPane.length && !$tabPane.hasClass("active")) {
+        var selector = `[data-bs-toggle="tab"][href="#${$tabPane.attr("id")}"], [data-bs-toggle="tab"][data-bs-target="#${$tabPane.attr("id")}"]`;
+        var $tabLink = $(selector);
+        if ($tabLink.length && window.bootstrap && bootstrap.Tab) {
+            $tabLink.one("shown.bs.tab", revealAndFocus);
+            bootstrap.Tab.getOrCreateInstance($tabLink[0]).show();
+            return;
+        }
     }
+
+    revealAndFocus();
 }
 ';
         if ($custom_handlers) {
