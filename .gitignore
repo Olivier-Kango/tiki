@@ -102,11 +102,11 @@ index.php
 # Playwright test results
 /tests/.htaccess
 /test-results
-/tests/e2e/test-results
-/tests/e2e/playwright-report
-/tests/e2e/.local
-/tests/e2e/.env
-/tests/e2e/php-server.log
+/lib/test/e2e/test-results
+/lib/test/e2e/playwright-report
+/lib/test/e2e/.local
+/lib/test/e2e/.env
+/lib/test/e2e/php-server.log
 
 /tiki-*.log
 /tiki-emptycache.php

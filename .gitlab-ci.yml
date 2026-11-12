@@ -734,10 +734,12 @@ unit-tests-icon-generator:
 # End-to-end browser tests (Playwright) — fully self-contained:
 # provisions a disposable Tiki (dedicated test database + schema install) and
 # serves it with PHP's built-in web server, so no pre-existing instance is
-# needed. See tests/e2e/README.md.
-# All jobs are manual + allow_failure while runtimes are validated on shared
-# runners; promote to automatic once stable. `e2e-all` runs every suite;
-# the `e2e-suite` matrix offers one play button per domain.
+# needed. See lib/test/e2e/README.md.
+# `e2e-smoke` runs on every pipeline: Tiki's vital functions, kept light. The
+# other jobs are manual; all are allow_failure while runtimes are validated on
+# shared runners. The `e2e-suite` matrix offers one play button per domain, and
+# `e2e-others` runs every spec no domain job covers, so running all the jobs
+# runs every spec exactly once.
 .e2e-base:
   stage: e2e-tests
   needs:
@@ -749,7 +751,7 @@ unit-tests-icon-generator:
   when: manual
   allow_failure: true
   # Official Playwright image (Node + browsers); version must match the
-  # @playwright/test devDependency in the root package.json.
+  # @playwright/test devDependency in lib/test/e2e/package.json.
   image: ${DEPENDENCY_PROXY_PREFIX}mcr.microsoft.com/playwright:v1.58.2-noble
   services:
     - name: ${DEPENDENCY_PROXY_PREFIX}${MARIADB_IMAGE_COMMON_LTS}
@@ -766,33 +768,57 @@ unit-tests-icon-generator:
     # key creation fatals without it, silently skipping the fixture-based suites.
     - apt-get update -qq && apt-get install -y -qq php-cli php-mysql php-xml php-mbstring php-zip php-gd php-intl php-curl php-bcmath > /dev/null
     - 'echo -n "PHP Version: " && php -v | grep "^PHP"'
-    - tests/e2e/bin/e2e-provision.sh
+    - lib/test/e2e/bin/e2e-provision.sh
     - npx playwright install chromium
     # E2E_SUITE selects one domain (empty = all suites). Anchored to suites/<domain>/
     # because the bare name is a regex over the full path and could over-match.
-    - npx playwright test --config=tests/e2e/playwright.config.ts ${E2E_SUITE:+suites/${E2E_SUITE}/}
+    - npx playwright test --config=lib/test/e2e/playwright.config.ts ${E2E_SUITE:+suites/${E2E_SUITE}/} ${E2E_EXTRA_ARGS}
   after_script:
     # PHP server output goes to a file (see playwright.config.ts) to keep the
     # job log under GitLab's 4MB limit; surface fatals here for quick triage.
-    - grep -E 'PHP (Fatal|Parse) error' tests/e2e/php-server.log | tail -20 || true
+    - grep -E 'PHP (Fatal|Parse) error' lib/test/e2e/php-server.log | tail -20 || true
   artifacts:
     when: always
     paths:
-      - tests/e2e/playwright-report
-      - tests/e2e/php-server.log
+      - lib/test/e2e/playwright-report
+      - lib/test/e2e/php-server.log
     expire_in: 2 days
 
-e2e-all:
+# Every spec outside the matrix domains: suites/ folders without a job of their
+# own, and a project's specs under _custom/shared/lib/test/e2e/ (see
+# _custom_dist/README.md). E2E_EXCLUDE_SUITES must list exactly the domains with
+# a job of their own (the e2e-suite matrix and e2e-smoke); the guard compares the
+# two lists and checks each folder exists, so a domain cannot run twice or drop
+# out of coverage. A domain missing from both lists still runs, here.
+e2e-others:
   extends: .e2e-base
+  variables:
+    E2E_EXCLUDE_SUITES: "harness smoke shared-secrets wiki-pages"
+    # Zero specs is a valid outcome while every folder has its own job.
+    E2E_EXTRA_ARGS: "--pass-with-no-tests"
+  before_script:
+    - lib/test/e2e/bin/check-excluded-suites.sh
+    # Without a project campaign of its own, run the shipped _custom_dist example
+    # (a wiki plugin and the spec that tests it), so this path is exercised upstream too.
+    - '[ -d _custom/shared/lib/test/e2e ] || { mkdir -p _custom/shared/lib/test _custom/shared/wiki-plugins && cp -r _custom_dist/shared/lib/test/e2e _custom/shared/lib/test/ && cp _custom_dist/shared/wiki-plugins/wikiplugin_helloworld.php _custom/shared/wiki-plugins/; }'
 
-# One manual job per domain. Adding a new domain to the matrix list is the
-# only change needed here after `mkdir tests/e2e/suites/<domain>/`.
+# Tiki's smoke tests, automatic: login, a wiki page created and read, access to the
+# control panels, a tracker item, and the core pages rendering.
+e2e-smoke:
+  extends: .e2e-base
+  when: on_success
+  variables:
+    E2E_SUITE: smoke
+
+# One manual job per domain. Adding a new domain means
+# `mkdir lib/test/e2e/suites/<domain>/`, a line in this matrix, and the same name
+# in E2E_EXCLUDE_SUITES above (smoke has its own automatic job, e2e-smoke).
 e2e-suite:
   extends: .e2e-base
   parallel:
     matrix:
       - E2E_SUITE:
-          - smoke
+          - harness
           - shared-secrets
           - wiki-pages
 

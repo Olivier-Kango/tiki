@@ -637,6 +637,11 @@ class UnifiedSearchLib
         $files['console'] = $this->getLogFilename(2);
         $resultLines = [];
         foreach ($files as $type => $filename) {
+            // A log only exists once the indexer has written to it: on a site never
+            // indexed with logging on, opening it raised a warning on the control panels.
+            if (! is_readable($filename)) {
+                continue;
+            }
             $handle = fopen($filename, "r");
             if ($handle) {
                 $resultLines[$type]['logs'] = [];

@@ -55,9 +55,10 @@
         "clean" : "concurrently \"npm:clean:*\"",
         "test" : "vitest --config=src/js/vite.config.mjs",
         "testci" : "vitest --config=src/js/vite.config.mjs --reporter=junit --coverage --run",
-        "test:e2e" : "cd tests/e2e && npx playwright test",
-        "test:e2e:smoke" : "cd tests/e2e && npx playwright test suites/smoke/",
-        "test:e2e:report" : "cd tests/e2e && npx playwright show-report",
+        "test:e2e" : "npm run test -w lib/test/e2e --",
+        "test:e2e:smoke" : "npm run smoke -w lib/test/e2e --",
+        "test:e2e:harness" : "npm run harness -w lib/test/e2e --",
+        "test:e2e:report" : "npm run report -w lib/test/e2e --",
         "postinstall" : "patch-package --patch-dir=src/js/patches --error-on-fail",
         "patch" : "patch-package --patch-dir=src/js/patches --error-on-fail",
         "prepare" : "node -e \"if (require('fs').statSync('.git').isDirectory()) process.exit(0);\" || husky"
@@ -83,7 +84,6 @@
     "devDependencies" : {
         "@commitlint/cli" : "^21.2.4",
         "@commitlint/config-conventional" : "^21.2.4",
-        "@playwright/test" : "1.58.2",
         "@stylistic/eslint-plugin" : "^5.10.0",
         "@testing-library/vue" : "^8.1.0",
         "@vitejs/plugin-vue" : "^6.0.10",
@@ -176,6 +176,7 @@
         ]
     },
     "workspaces": [
+    "lib/test/e2e",
     "src/js/avatar-generator",
     "src/js/common-externals*",
     "src/js/common-reexported",

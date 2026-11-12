@@ -68,7 +68,7 @@ class GitLib extends TikiLib
      * Get relative path to current branch file pointer
      * Eg.: .git/refs/heads/19.x
      *
-     * @return string
+     * @return string|null null on a detached HEAD (a CI checkout, a deploy from a tag)
      */
     public function get_branch()
     {
@@ -77,10 +77,12 @@ class GitLib extends TikiLib
             throw new Exception(tra('Not a git repository'));
         }
 
-        $ref = file_get_contents($filename);
-        $ref = trim($ref);
-        $ref = explode(' ', $ref);
-        return $ref[ 1 ];
+        $ref = trim(file_get_contents($filename));
+        // A detached HEAD holds the commit hash itself rather than "ref: <branch>".
+        if (! str_starts_with($ref, 'ref: ')) {
+            return null;
+        }
+        return substr($ref, strlen('ref: '));
     }
 
     /**
@@ -94,6 +96,9 @@ class GitLib extends TikiLib
     public function get_commit($branch = null)
     {
         $branch = $branch ?: $this->get_branch();
+        if ($branch === null) {
+            return trim(file_get_contents($this->dir . DIRECTORY_SEPARATOR . 'HEAD'));
+        }
 
         $filename = $this->dir . DIRECTORY_SEPARATOR . $branch;
         if (file_exists($filename) && is_readable($filename)) {
@@ -198,7 +203,7 @@ class GitLib extends TikiLib
             $object = $this->get_object($commit);
             $object = $this->parse_object($object);
 
-            $object['branch'] = substr($branch, strrpos($branch, '/') + 1);
+            $object['branch'] = $branch === null ? 'HEAD' : substr($branch, strrpos($branch, '/') + 1);
             $object['commit']['hash'] = $commit;
             $object['mdate'] = $this->getDate();
 

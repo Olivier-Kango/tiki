@@ -31,6 +31,8 @@
       <!-- Exclude files where all tests are marked as skipped -->
       <exclude>./lib/test/AcceptanceTests/</exclude>
       <exclude>./lib/test/Core/Reports/ReportsEndToEndTest.php</exclude>
+      <!-- Playwright e2e suite, run by its own npm workspace (see lib/test/e2e/README.md) -->
+      <exclude>./lib/test/e2e/</exclude>
       <!-- Exclude abstract base test classes -->
       <exclude>./lib/test/api/ApiTestCase.php</exclude>
       <exclude>./lib/test/api/categories/ApiBaseCategoriesTest.php</exclude>

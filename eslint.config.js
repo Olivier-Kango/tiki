@@ -28,9 +28,9 @@ export default [
             ".gitlab-ci-local/**",
 
             // Ignore Playwright test artifacts (gitignored, not present in CI)
-            "tests/e2e/playwright-report/**",
-            "tests/e2e/test-results/**",
-            "tests/e2e/node_modules/**",
+            "lib/test/e2e/playwright-report/**",
+            "lib/test/e2e/test-results/**",
+            "lib/test/e2e/node_modules/**",
         ],
     },
     {

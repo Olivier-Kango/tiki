@@ -1,0 +1,19 @@
+{
+  "name": "tiki-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tiki end-to-end tests (Playwright). See README.md.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "smoke": "playwright test suites/smoke/",
+    "harness": "playwright test suites/harness/",
+    "report": "playwright show-report"
+  },
+  "devDependenciesComments": {
+    "@playwright/test": "Pinned: must match the Playwright image version of the e2e jobs in .gitlab-ci.yml."
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2"
+  }
+}

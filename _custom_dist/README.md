@@ -40,6 +40,8 @@ N.B. this directory and all files within should be neither web readable or writa
   * **themes/**
   * **wiki-plugins/**
     * Typically client specific plugins, but any plugin with the same name as a base tiki plugin will override the tiki implementation.
+  * **lib/test/e2e/**
+    * Playwright end-to-end specs for this project, run next to Tiki's own suites as the `custom` project. The path mirrors Tiki's own suite in [lib/test/e2e/](../lib/test/e2e/). See [lib/test/e2e/README.md](../lib/test/e2e/README.md#project-specific-specs-_custom); [shared/lib/test/e2e/](./shared/lib/test/e2e/) holds an example that tests the HelloWorld sample plugin.
   * **smarty/**
     * Custom Smarty function handlers, block handlers, modifiers, tag/modifier compilers and pre/output filters, autoloaded under the `SmartyTikiCustom\` namespace (PSR-4).
     * Subdirectories mirror [lib/smarty_tiki/](../lib/smarty_tiki/README.md): `FunctionHandler/`, `BlockHandler/`, `Modifier/`, `Compile/Tag/`, `Compile/Modifier/`, `Filter/Pre/`, `Filter/Output/`.

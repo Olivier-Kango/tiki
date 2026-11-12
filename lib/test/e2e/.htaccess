@@ -1,0 +1,11 @@
+# Test reports, traces and fixtures: nothing here is meant for a browser.
+# Overrides lib/.htaccess, which re-allows html, png and js under lib/.
+<FilesMatch ".*">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        order deny,allow
+        deny from all
+    </IfModule>
+</FilesMatch>
