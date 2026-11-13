@@ -72,10 +72,35 @@
 
     {tab name="{tr}Pages{/tr}"}
     {* --- tab with pages -- *}
-        {if $prefs.feature_help eq 'y'}
+        {if $prefs.feature_help eq 'y' and $prefs.feature_elementplus neq 'y'}
             {remarksbox type="tip" title="{tr}Tip{/tr}"}{tr}Use Ctrl+Click to select multiple options{/tr}{/remarksbox}
         {/if}
 
+        {if $prefs.feature_elementplus eq 'y'}
+            {jstransfer_list data=$transferPages defaultSelected=$printpages fieldName="transfer_printpages" filterable=true ordering=true sourceListTitle="Available Pages" targetListTitle="Selected Pages"}
+            <div class="mt-3 d-flex gap-2">
+                <form method="get" action="tiki-print_multi_pages.php">
+                    {ticket}
+                    <input type="hidden" class="js-printpages" name="printpages" value="{$form_printpages|escape}">
+                    <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
+                </form>
+                {if $pdf_export eq 'y'}
+                    <form method="get" action="tiki-print_multi_pages.php">
+                        {ticket}
+                        <input type="hidden" name="display" value="pdf">
+                        <input type="hidden" class="js-printpages" name="printpages" value="{$form_printpages|escape}">
+                        <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}PDF{/tr}">
+                    </form>
+                {/if}
+            </div>
+            {jq}
+                document.querySelectorAll('el-transfer[field-name="transfer_printpages"]').forEach(function (transfer) {
+                    transfer.addEventListener('transfer-change', function (event) {
+                        $('input.js-printpages').val(encodeURIComponent(JSON.stringify(event.detail[0].value)));
+                    });
+                });
+            {/jq}
+        {else}
         <form action="tiki-print_pages.php" method="post">
             {ticket}
             <input type="hidden" name="printpages" value="{$form_printpages|escape}">
@@ -140,10 +165,11 @@
                 {/if}
             </div>
         {/if}
+        {/if}
         {if $prefs.feature_wiki_structure eq 'y'}
             <form action="tiki-print_pages.php" method="post">
                 {ticket}
-                <input type="hidden" name="printpages" value="{$form_printpages|escape}">
+                <input type="hidden" class="js-printpages" name="printpages" value="{$form_printpages|escape}">
                 <input type="hidden" name="find" value="{$find|escape}">
                 <h2>{tr}Add Pages from Structures:{/tr}</h2>
                 <div class="mb-3 row">

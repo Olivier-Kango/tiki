@@ -122,7 +122,9 @@ if (isset($_REQUEST['addstructurepages'])) {
                     $hasSkippedPages = true;
                     continue;
                 }
-                $printpages[] = $struct_page["pageName"];
+                if (! in_array($struct_page["pageName"], $printpages)) {
+                    $printpages[] = $struct_page["pageName"];
+                }
             }
             if ($hasSkippedPages) {
                 Feedback::warning(tra('Some pages of this structure were not added because you do not have permission to view them.'));
@@ -156,6 +158,7 @@ $form_printstructures = urlencode(json_encode($printstructures));
 $smarty->assign_by_ref('form_printstructures', $form_printstructures);
 $pages = $tikilib->list_pageNames(0, -1, 'pageName_asc', $find);
 $smarty->assign_by_ref('pages', $pages["data"]);
+$smarty->assign('transferPages', array_column($pages['data'], 'pageName', 'pageName'));
 $structures = $structlib->list_structures(0, -1, 'pageName_asc', $find);
 $smarty->assign_by_ref('structures', $structures["data"]);
 $availableStructures = array_filter($structures['data'], function ($structure) use ($printstructures) {
