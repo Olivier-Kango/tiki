@@ -108,12 +108,13 @@ class CalRecurrence extends TikiLib
                 $this->setMonthly($row['monthly'] == 1);
                 $this->setMonths($row['months']);
                 $this->setDayOfMonth($row['dayOfMonth']);
-                $this->setMonthlyType($row['monthlyType']);
+                // Older date-based series predate explicit pattern types.
+                $this->setMonthlyType($row['monthlyType'] ?? ($this->isMonthly() ? 'date' : null));
                 $this->setMonthlyWeekdayValue($row['monthlyWeekdayValue']);
                 $this->setmonthlyFirstlastWeekdayValue($row['monthlyFirstlastWeekdayValue']);
                 $this->setYearly($row['yearly'] == 1);
                 $this->setYears($row['years']);
-                $this->setYearlyType($row['yearlyType']);
+                $this->setYearlyType($row['yearlyType'] ?? ($this->isYearly() ? 'date' : null));
                 $this->setDateOfYear($row['dateOfYear']);
                 $this->setYearlyWeekdayValue($row['yearlyWeekdayValue']);
                 $this->setyearlyFirstlastWeekdayValue($row['yearlyFirstlastWeekdayValue']);
@@ -293,6 +294,14 @@ class CalRecurrence extends TikiLib
             $weekdays = array_filter($weekdays, function ($day) {
                 return in_array($day, ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']);
             });
+        }
+        // Monthly and yearly rules must explicitly identify their pattern.
+        $patternTypes = ['date', 'weekday', 'firstlastweekday'];
+        if (
+            ($this->isMonthly() && ! in_array($this->getMonthlyType(), $patternTypes, true))
+            || ($this->isYearly() && ! in_array($this->getYearlyType(), $patternTypes, true))
+        ) {
+            return false;
         }
         //Set monthly weekday possible value
         $possibleWeekdayValues = [];
