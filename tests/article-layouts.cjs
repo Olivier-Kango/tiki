@@ -58,7 +58,7 @@ function card(id, withImage = true) {
                 }
                 if (process.env.ARTICLE_LAYOUT_SCREENSHOTS) await page.screenshot({ path: `${process.env.ARTICLE_LAYOUT_SCREENSHOTS}/${layout}-${width}.png`, fullPage: true });
                 await page.close();
-                console.log(`PASS ${layout} ${width}: responsive layout, image/no image, links and controls`);
+                process.stdout.write(`PASS ${layout} ${width}: responsive layout, image/no image, links and controls\n`);
             }
             // The reading page retains its improved introduction independently of the list layout.
             const page = await browser.newPage({ viewport: { width, height: 1000 } });
@@ -92,7 +92,7 @@ function card(id, withImage = true) {
                 if (withImage && process.env.ARTICLE_LAYOUT_SCREENSHOTS) await page.screenshot({ path: `${process.env.ARTICLE_LAYOUT_SCREENSHOTS}/reading-${width}.png`, fullPage: true });
             }
             await page.close();
-            console.log(`PASS reading ${width}: title, image/introduction, image-free article and native media controls`);
+            process.stdout.write(`PASS reading ${width}: title, image/introduction, image-free article and native media controls\n`);
         }
     } finally { await browser.close(); }
-})().catch(error => { console.error(error); process.exitCode = 1; });
+})().catch(error => { process.stderr.write(`${error.stack || error}\n`); process.exitCode = 1; });
