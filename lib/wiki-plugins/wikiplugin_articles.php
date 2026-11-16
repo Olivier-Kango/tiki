@@ -247,6 +247,20 @@ function wikiplugin_articles_info()
                     ['text' => tra('No'), 'value' => 'n'],
                 ],
             ],
+            'layout' => [
+                'required' => false,
+                'name' => tra('Layout'),
+                'description' => tra('Choose classic articles, image tiles, a horizontal list, or images with overlaid text.'),
+                'since' => '31.0',
+                'filter' => 'alpha',
+                'default' => 'classic',
+                'options' => [
+                    ['text' => tra('Classic'), 'value' => 'classic'],
+                    ['text' => tra('Tiles'), 'value' => 'tiles'],
+                    ['text' => tra('Horizontal list'), 'value' => 'list'],
+                    ['text' => tra('Image background'), 'value' => 'overlay'],
+                ],
+            ],
             'containerClass' => [
                 'required' => false,
                 'name' => tra('Containing class'),
@@ -520,6 +534,11 @@ function wikiplugin_articles($data, $params)
     if ($titleonly == 'y') {
         return "~np~ " . $smarty->fetch('tiki-view_articles-titleonly.tpl') . " ~/np~";
     } else {
-        return "~np~ " . $smarty->fetch('tiki-view_articles.tpl') . " ~/np~";
+        $output = $smarty->fetch('tiki-view_articles.tpl');
+        $layout = $params['layout'] ?? 'classic';
+        if (in_array($layout, ['tiles', 'list', 'overlay'], true)) {
+            $output = '<div class="articles-layout articles-layout-' . $layout . '">' . $output . '</div>';
+        }
+        return "~np~ " . $output . " ~/np~";
     }
 }
