@@ -271,6 +271,16 @@ class WikiPluginWantedPages extends PluginsLib
                 continue;
             }
 
+            // The SQL slug variations are partial, resolve the page the same way a rendered link does.
+            if (TikiLib::lib('tiki')->page_exists($row['toPage'])) {
+                if ($debug == 2) {
+                    echo tr('%0 [from: %1]: resolves to an existing page', $row['toPage'], $row['fromPage']) . '<br>';
+                } elseif ($debug) {
+                    $tmp[] = [$row['toPage'], $row['fromPage'], 'resolves to an existing page'];
+                }
+                continue;
+            }
+
             foreach ($ignorepages as $ipage) {
                 // test whether a substring ignores this page, ignore case
                 if (fnmatch(mb_strtolower($ipage), mb_strtolower($row['fromPage'])) === true) {
