@@ -9,7 +9,7 @@ const image = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www
 function card(id, withImage = true) {
     return `<article class="article wikiplugin_articles"><header class="articletitle"><h2><a href="https://fixture.test/article/${id}?autoplay=1">Article ${id}</a></h2><span class="titleb">Author · Date</span></header>
         <div class="articleheading d-md-flex"><div class="article-list-image me-3">${withImage ? `<a href="https://fixture.test/article/${id}?autoplay=1"><img class="article-image" src="${image}" alt="Article illustration"></a>` : ''}</div>
-        <div class="articleheadingtext"><p>An article introduction with enough text to check the responsive arrangement.</p></div></div>
+        <div class="articleheadingtext flex-grow-1"><p>An article introduction with enough text to check the responsive arrangement.</p></div></div>
         <div class="articletrailer"><a class="more" href="https://fixture.test/article/${id}?autoplay=1">Read more</a><button type="button">Actions</button></div></article>`;
 }
 (async () => {
@@ -21,8 +21,10 @@ function card(id, withImage = true) {
                 const page = await browser.newPage({ viewport: { width, height: 1000 } });
                 await page.route('**/*', route => route.abort());
                 const classes = `articles-layout articles-layout-${layout}`;
-                await page.setContent(`<style>*{box-sizing:border-box}body{margin:16px;font-family:sans-serif;--bs-border-color:#ccc;--bs-border-radius:6px;--bs-border-radius-lg:10px;--bs-tertiary-bg:#f5f5f5}img{max-width:100%}.article{margin-bottom:24px}.titleb{display:block}.articleheadingtext{min-width:0}${css}</style>
-                    <div class="${classes}">${card(1)}${card(2)}${card(3, false)}<nav class="pagination">Pagination</nav></div>`);
+                await page.setContent(`<style>*{box-sizing:border-box}body{margin:16px;font-family:sans-serif;--bs-border-color:#ccc;--bs-border-radius:6px;--bs-border-radius-lg:10px;--bs-tertiary-bg:#f5f5f5}img{max-width:100%}.article{margin-bottom:24px}.titleb{display:block}.articleheadingtext{min-width:0}.flex-grow-1{flex-grow:1!important}${css}</style>
+                    <div class="${classes}">${card(1)}${card(2)}${card(3, false)}<nav class="pagination">Pagination</nav></div>
+                    <style>.articles-pagination .pagination{display:flex;list-style:none;padding:0}.page-item:first-child .page-link{border-top-left-radius:.375rem;border-bottom-left-radius:.375rem}.page-item:last-child .page-link{border-top-right-radius:.375rem;border-bottom-right-radius:.375rem}</style>
+                    <nav class="articles-pagination"><ul class="pagination"><li class="page-item disabled"><span class="page-link">«</span></li><li class="page-item active"><span class="page-link">1</span></li><li><a class="page-link" href="?offset=3">2</a></li><li class="page-item"><a class="page-link" href="?offset=3">»</a></li></ul></nav>`);
                 await page.addScriptTag({ path: resolve(__dirname, '../lib/jquery_tiki/article-cards.js') });
                 await page.evaluate(() => {
                     window.linkClicks = 0;
@@ -36,6 +38,57 @@ function card(id, withImage = true) {
                         color: getComputedStyle(article).color, scroll: document.documentElement.scrollWidth };
                 });
                 assert(metrics.scroll <= width, `${layout}: horizontal overflow`);
+                const pagerShapes = await page.locator('.articles-pagination .page-link').evaluateAll(links => links.map(link => {
+                    const style = getComputedStyle(link), box = link.getBoundingClientRect();
+                    return [box.width, box.height, style.borderTopLeftRadius, style.borderTopRightRadius,
+                        style.borderBottomLeftRadius, style.borderBottomRightRadius];
+                }));
+                assert(pagerShapes.every(shape => JSON.stringify(shape) === JSON.stringify(pagerShapes[0])), 'Pagination arrows and numbers must share one shape despite Bootstrap corner rules');
+
+                const typeSizes = await page.locator('article').first().evaluate(article => ({
+                    title: parseFloat(getComputedStyle(article.querySelector('h2')).fontSize),
+                    meta: parseFloat(getComputedStyle(article.querySelector('.titleb')).fontSize),
+                }));
+                assert(typeSizes.meta < typeSizes.title, 'Publication details must remain smaller than the headline');
+                if (layout === 'list' || layout === 'compact') {
+                    const surface = await page.locator('article').first().evaluate(el => {
+                        const style = getComputedStyle(el);
+                        return {border: style.borderTopColor, radius: parseFloat(style.borderTopLeftRadius), shadow: style.boxShadow};
+                    });
+                    assert.equal(surface.border, 'rgba(0, 0, 0, 0)', 'List cards must not have a hard outline');
+                    assert(surface.radius >= 16, 'List cards should share the rounded visual language');
+                    assert.notEqual(surface.shadow, 'none');
+                }
+                if (layout === 'overlay' || layout === 'magazine') {
+                    const background = await page.locator('.article-list-image').first().evaluate(el => ({
+                        radius: getComputedStyle(el).borderTopLeftRadius,
+                        overflow: getComputedStyle(el).overflow,
+                    }));
+                    assert(parseFloat(background.radius) >= 16, 'Background photos must use the card radius, not inherit a square display-contents parent');
+                    assert.equal(background.overflow, 'hidden');
+                    assert.equal(await page.locator('.articleheadingtext').first().evaluate(el => getComputedStyle(el).flexGrow), '0', 'Background captions must not stretch away from their footer');
+                }
+
+                if (['tiles', 'overlay', 'magazine'].includes(layout)) {
+                    const divider = await page.locator('article').first().locator('.articletrailer').evaluate(el => {
+                        const style = getComputedStyle(el, '::before');
+                        return {opacity: Number(style.opacity), height: style.height, pointerEvents: style.pointerEvents};
+                    });
+                    assert(divider.opacity > 0 && divider.opacity <= .1, 'Footer divider must remain nearly transparent');
+                    assert.equal(divider.height, '1px');
+                    assert.equal(divider.pointerEvents, 'none', 'Decorative divider must not intercept clicks');
+                    assert.equal(await page.locator('.articleheadingtext').first().evaluate(el => getComputedStyle(el).webkitLineClamp), '6');
+                    if (width === 390) {
+                        await page.locator('.articleheadingtext').first().evaluate(el => {
+                            const button = document.createElement('button');
+                            button.textContent = 'Embedded control';
+                            el.append(button);
+                        });
+                        assert.notEqual(await page.locator('.articleheadingtext').first().evaluate(el => getComputedStyle(el).webkitLineClamp), '6', 'Interactive introductions must not be clipped');
+                        await page.locator('.articleheadingtext button').first().evaluate(el => el.remove());
+                    }
+                }
+
                 assert.equal(await page.locator('h2 a').first().getAttribute('href'), 'https://fixture.test/article/1?autoplay=1');
                 if (width < 768) assert(metrics.second.y > metrics.first.y, `${layout}: mobile cards must stack`);
                 if (width === 1440 && ['tiles', 'overlay'].includes(layout)) assert(Math.abs(metrics.second.y - metrics.first.y) < 1, `${layout}: desktop grid missing`);
@@ -66,6 +119,27 @@ function card(id, withImage = true) {
                         assert.equal(count, Number(columns), 'Requested wide-screen column count missing');
                     }
                     await page.locator('.articles-layout').evaluate(root => root.dataset.articleColumns = 'auto');
+                }
+                if (width === 1440 && ['tiles', 'overlay', 'magazine'].includes(layout)) {
+                    const card = page.locator('article').first();
+                    await card.hover();
+                    await page.waitForFunction(() => {
+                        const transform = getComputedStyle(document.querySelector('article')).transform;
+                        return transform !== 'none' && Math.abs(new DOMMatrixReadOnly(transform).m42 + 4) < 0.1;
+                    });
+                    const lifted = await card.boundingBox();
+                    assert(Math.abs(lifted.y - metrics.first.y + 4) < 0.2, 'Visual card should rise gently on hover');
+                    const neighbor = await page.locator('article').nth(1).boundingBox();
+                    assert(Math.abs(neighbor.y - metrics.second.y) < 0.2, 'Hover must not shift neighbouring cards');
+                    assert(Math.abs((await card.locator('img').boundingBox()).width - metrics.image.width) < 0.2, 'Photo must not zoom independently of the card');
+                    assert.equal(await card.locator('img').evaluate(el => getComputedStyle(el).transform), 'none');
+                    assert.equal(await card.locator('h2 a').evaluate(el => getComputedStyle(el).textDecorationLine), 'underline', 'Hovering the card must underline its title');
+                    assert.equal(await card.evaluate(el => getComputedStyle(el).borderTopColor), 'rgba(0, 0, 0, 0)', 'Card outline must remain invisible on hover');
+                    await page.emulateMedia({ reducedMotion: 'reduce' });
+                    assert.equal(await card.evaluate(el => getComputedStyle(el).transform), 'none', 'Reduced motion must disable card movement');
+                    assert.equal(await card.locator('img').evaluate(el => getComputedStyle(el).transform), 'none', 'Reduced motion must disable photo zoom');
+                    await page.mouse.move(0, 0);
+                    await page.emulateMedia({ reducedMotion: 'no-preference' });
                 }
                 if (layout === 'overlay' || layout === 'magazine') {
                     await page.emulateMedia({ media: 'print' });
@@ -156,5 +230,14 @@ function card(id, withImage = true) {
             await page.close();
             process.stdout.write(`PASS reading ${width}: title, image/introduction, image-free article and native media controls\n`);
         }
+        const touch = await browser.newPage({viewport: {width: 390, height: 844}, hasTouch: true, isMobile: true});
+        await touch.route('**/*', route => route.abort());
+        await touch.setContent(`<style>${css}</style><div class="articles-layout articles-layout-tiles">${card(1)}</div>`);
+        await touch.addScriptTag({path: resolve(__dirname, '../lib/jquery_tiki/article-cards.js')});
+        await touch.locator('article').hover();
+        assert.equal(await touch.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches), false);
+        assert.equal(await touch.locator('article').evaluate(el => getComputedStyle(el).transform), 'none', 'Touch cards must not retain a hover lift');
+        await touch.close();
+        process.stdout.write('PASS hover elevation, stable photos, title underline, stable neighbours, reduced motion and touch behaviour\n');
     } finally { await browser.close(); }
 })().catch(error => { process.stderr.write(`${error.stack || error}\n`); process.exitCode = 1; });

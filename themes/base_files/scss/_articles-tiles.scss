@@ -1,4 +1,4 @@
-// Optional ARTICLES layouts share the native markup, links, permissions and pagination.
+// ARTICLES layouts share the native markup, links, permissions and pagination.
 .articles-layout {
     display: grid;
     grid-column: 1 / -1;
@@ -15,9 +15,10 @@
         min-width: 0;
         margin: 0 !important;
         padding: 1rem;
-        border: 1px solid var(--bs-border-color);
-        border-radius: var(--bs-border-radius-lg);
-        background: var(--bs-tertiary-bg);
+        border: 1px solid transparent;
+        border-radius: var(--bs-border-radius-xl, 1rem);
+        background: var(--bs-body-bg, #fff);
+        box-shadow: 0 .125rem .375rem #00000008, 0 .5rem 1.5rem #00000017;
         overflow-wrap: anywhere;
 
         > .articletitle { order: 1; }
@@ -47,7 +48,7 @@
             object-fit: cover;
             padding: 0;
             border: 0;
-            border-radius: var(--bs-border-radius);
+            border-radius: .75rem;
         }
     }
 }
@@ -83,6 +84,8 @@
 
 .articles-layout-overlay > article.article,
 .articles-layout-magazine > article.article {
+    // A transparent border still exposes the dark background around the photograph.
+    border: 0;
     min-height: 25rem;
     justify-content: flex-end;
     background: #152331;
@@ -96,7 +99,8 @@
         inset: 0;
         z-index: -2;
         overflow: hidden;
-        border-radius: inherit;
+        // The DOM parent uses display: contents, so inheriting its radius gives square corners.
+        border-radius: var(--bs-border-radius-xl, 1rem);
         > a, .article-image { width: 100%; height: 100% !important; }
     }
 
@@ -112,10 +116,11 @@
 
     > .articletrailer { margin-top: 0; }
     a:not(.dropdown-item), .titleb { color: inherit; }
-    .articleheadingtext { order: 2; }
+    // Cancel Bootstrap's flex-grow-1 so captions stay together near the bottom.
+    .articleheadingtext { order: 2; flex-grow: 0 !important; }
 }
 
-// Refine the default editorial list without changing the three existing card layouts.
+// Keep the editorial list presentation distinct from the card layouts.
 .articles-layout-classic {
     grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
@@ -123,7 +128,8 @@
     > article.article {
         padding: 1.5rem 0 2rem;
         border: 0;
-        border-bottom: 1px solid var(--bs-border-color);
+        border-bottom: 1px solid rgba(var(--bs-body-color-rgb, 33, 37, 41), .08);
+        box-shadow: none;
         border-radius: 0;
         background: transparent;
         .articletitle h2 { max-width: 42ch; font-size: clamp(1.5rem, 2.2vw, 2rem); }
@@ -168,8 +174,17 @@
         grid-template-columns: minmax(0, 1fr);
         .articletitle h2 { font-size: 1.125rem; }
         .titleb { font-size: .8125rem; color: var(--bs-secondary-color); }
+        padding: .875rem 1rem;
+        > .articletitle {
+            h2 { margin-bottom: .375rem; line-height: 1.35; }
+            > br { display: none; }
+        }
         .articleheadingtext { display: none; }
-        > .articletrailer { margin-top: 0; padding-top: .5rem; }
+        > .articletrailer {
+            margin-top: 0;
+            padding-top: .375rem;
+            > .list-inline { margin-bottom: 0; }
+        }
 
         &:has(.article-image) {
             grid-template-columns: 5.5rem minmax(0, 1fr);
@@ -199,7 +214,7 @@
 
 @media print {
     .articles-layout { display: block; }
-    .articles-layout > article.article { break-inside: avoid; margin-bottom: 1rem !important; }
+    .articles-layout > article.article { break-inside: avoid; margin-bottom: 1rem !important; box-shadow: none; }
     :is(.articles-layout-overlay, .articles-layout-magazine) > article.article {
         min-height: 0;
         background: transparent;
@@ -212,7 +227,142 @@
 /* Keep text selectable; the title remains the native keyboard-accessible link. */
 html[data-article-cards-ready] :is(.articles-layout-tiles, .articles-layout-overlay, .articles-layout-magazine) > article.article:has(> .articletitle h2 a[href]) {
     cursor: pointer;
-    &:hover { border-color: var(--bs-primary, #0d6efd); box-shadow: 0 .25rem 1rem #0002; }
-    &:has(> .articletitle h2 a:focus-visible) { outline: 2px solid var(--bs-primary, #0d6efd); outline-offset: 3px; }
+    &:has(> .articletitle h2 a:focus-visible) {
+        outline: 2px solid var(--bs-primary, #0d6efd);
+        outline-offset: 3px;
+        @media screen { box-shadow: 0 .75rem 1.75rem #0000001f; }
+    }
     :is(p, .titleb, .articleheadingtext) { cursor: text; }
+
+    @media screen and (hover: hover) and (pointer: fine) {
+        transition: transform .22s ease, box-shadow .22s ease;
+        &:hover {
+            transform: translateY(-4px);
+            border-color: transparent;
+            box-shadow: 0 1rem 2.25rem #00000024;
+            z-index: 1;
+            > .articletitle h2 a {
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: .18em;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+            &:hover {
+                transform: none;
+            }
+        }
+    }
+}
+
+/* Keep publication details secondary to the headline and photograph. */
+.articles-layout > article.article .titleb {
+    display: block;
+    font-size: .8125rem;
+    line-height: 1.5;
+    .author { font-weight: 600; }
+}
+:is(.articles-layout-tiles, .articles-layout-overlay, .articles-layout-magazine) > article.article {
+    border-radius: var(--bs-border-radius-xl, 1rem);
+    border-color: transparent;
+    box-shadow: 0 .125rem .375rem #00000008, 0 .5rem 1.5rem #00000017;
+    .article-image { transform: none; transition: none; }
+    > .articletitle {
+        h2 { min-height: 2.6em; margin-bottom: .5rem; font-size: 1.0625rem; line-height: 1.3; }
+        > br { display: none; }
+    }
+    .articleheadingtext {
+        font-size: .9375rem;
+        line-height: 1.5;
+        /* Embedded controls and links must remain fully visible and usable. */
+        &:not(:has(a, button, input, select, textarea, audio, video, iframe, [contenteditable])) {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 6;
+            overflow: hidden;
+        }
+        p:last-child { margin-bottom: 0; }
+    }
+    > .articletrailer {
+        position: relative;
+        font-size: .875rem;
+        &:has(a, button)::before {
+            content: '';
+            position: absolute;
+            inset-inline: var(--article-footer-inset, 0);
+            top: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, currentColor 12%, currentColor 88%, transparent);
+            opacity: .08;
+            pointer-events: none;
+        }
+    }
+}
+.articles-layout-tiles > article.article {
+    background: var(--bs-body-bg, #fff);
+    .titleb { color: var(--bs-secondary-color, #526575); }
+    .article-list-image { overflow: hidden; border-radius: .625rem; }
+    .article-image { border-radius: inherit; }
+    > .articletrailer {
+        --article-footer-inset: 1rem;
+        margin-inline: -1rem;
+        margin-bottom: -1rem;
+        padding: .875rem 1rem;
+        border-top: 0;
+        border-radius: 0 0 var(--bs-border-radius-xl, 1rem) var(--bs-border-radius-xl, 1rem);
+        background: transparent;
+        > .list-inline { margin-bottom: 0; }
+    }
+}
+:is(.articles-layout-tiles, .articles-layout-overlay, .articles-layout-magazine) > article.article .more {
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    font-weight: 600;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+}
+
+.articles-pagination {
+    grid-column: 1 / -1;
+    min-width: 0;
+    width: 100%;
+    margin-block: 1.5rem;
+    .pagination { flex-wrap: wrap; gap: .375rem; margin-bottom: 0; }
+    /* Outrank Bootstrap's first/last-item corner rules in every theme. */
+    .pagination > li > .page-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        min-width: 2.5rem;
+        margin: 0;
+        padding: 0;
+        border-radius: .75rem;
+        line-height: 1;
+        text-align: center;
+    }
+    /* Native pagination still uses the older screen-reader-only class. */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+}
+@media print {
+    :is(.articles-layout-tiles, .articles-layout-overlay, .articles-layout-magazine) > article.article .articleheadingtext {
+        display: block !important;
+        overflow: visible !important;
+        -webkit-line-clamp: unset !important;
+    }
+    :is(.articles-layout-tiles, .articles-layout-overlay, .articles-layout-magazine) > article.article { box-shadow: none; }
+    .articles-pagination { display: none; }
 }

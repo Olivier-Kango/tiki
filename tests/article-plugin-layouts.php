@@ -13,6 +13,8 @@ final class PluginFixture
 {
     public static array $libraries = [];
     public static array $templates = [];
+    public static array $paginationParams = [];
+    public static array $listedOffsets = [];
 
     public static function lib(string $name): object
     {
@@ -35,6 +37,17 @@ final class PluginFixture
                 return '<article>Native output</article>';
             }
         };
+    }
+
+    public static function renderQuery(array $params, $template): string
+    {
+        foreach ($params as $value) {
+            if (is_array($value)) {
+                throw new RuntimeException('Pagination URL values must be strings');
+            }
+        }
+        self::$paginationParams = $params;
+        return '/tiki/Demo-Articles-Layouts?';
     }
 
     public static function applySeparators(array $params, array $info): array
@@ -65,7 +78,7 @@ $smarty = new class {
             $this->parentValues[$arguments[0]] = $arguments[1];
         }
         return match ($name) {
-            'assign', 'assign_by_ref' => null,
+            'assign', 'assign_by_ref', 'getEmptyInternalTemplate' => null,
             'createTemplate' => PluginFixture::createTemplate(),
             'fetch' => $arguments[0] === 'tiki-view_articles-titleonly.tpl'
                 ? 'titles' : '<article>Native output</article>',
@@ -78,6 +91,9 @@ $library = new class {
 
     public function __call(string $name, array $arguments)
     {
+        if ($name === 'list_articles') {
+            PluginFixture::$listedOffsets[] = $arguments[0];
+        }
         return match ($name) {
             'list_topics', 'list_types_byname', 'getExtraSortColumns' => [],
             'list_articles' => ['data' => [], 'count' => 0],
@@ -105,6 +121,11 @@ $source = file_get_contents(dirname(__DIR__) . '/lib/wiki-plugins/wikiplugin_art
 if ($source === false || ! str_starts_with($source, '<?php')) {
     throw new RuntimeException('Cannot load the ARTICLES plugin');
 }
+$source = str_replace(
+    '\\SmartyTiki\\FunctionHandler\\Query::render',
+    '\\' . __NAMESPACE__ . '\\PluginFixture::renderQuery',
+    $source
+);
 eval('namespace ' . __NAMESPACE__ . ';' . substr($source, 5));
 
 $prefs = ['feature_articles' => 'y', 'feature_multilingual' => 'n', 'maxRecords' => 10];
@@ -158,6 +179,22 @@ if (array_keys($preferences['article_frontpage_layout']['options']) !== $layouts
 if (! str_contains(wikiplugin_articles('', array_replace($params, ['layout' => 'overlay', 'titleonly' => 'y'])), 'titles')) {
     throw new RuntimeException('Title-only compatibility lost');
 }
+foreach ([3 => 3, -3 => 0, 'invalid' => 0] as $requestedOffset => $expectedOffset) {
+    $_REQUEST['offset'] = $requestedOffset;
+    wikiplugin_articles('', array_replace($params, [
+        'usePagination' => 'y', 'max' => 3, 'topicId' => ['1', '2'],
+        'type' => ['Article', 'Review'], 'categId' => ['4', '9'],
+    ]));
+    if (end(PluginFixture::$listedOffsets) !== $expectedOffset) {
+        throw new RuntimeException('Pagination offset must be a non-negative integer');
+    }
+    foreach (['topicId' => '1+2', 'type' => 'Article+Review', 'categId' => '4|9'] as $key => $value) {
+        if (PluginFixture::$paginationParams[$key] !== $value) {
+            throw new RuntimeException('Multi-value pagination filter was not serialized correctly');
+        }
+    }
+}
+unset($_REQUEST['offset']);
 $prefs['feature_articles'] = 'n';
 if (wikiplugin_articles('', $params) !== '') {
     throw new RuntimeException('Feature-disabled behavior changed');
@@ -230,4 +267,4 @@ foreach ([['ispublished' => 'n'], ['publishDate' => 3000]] as $change) {
 if ($navigation->calls !== []) {
     throw new RuntimeException('Draft or future article caused a navigation query');
 }
-echo "PASS: six layouts, columns, isolated templates, admin choices, native compatibility and readable navigation\n";
+echo "PASS: six layouts, columns, isolated templates, admin choices, native compatibility, readable navigation and multi-filter pagination\n";

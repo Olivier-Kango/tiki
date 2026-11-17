@@ -326,5 +326,11 @@
 {/if}
 
 {if !empty($listpages) && (!isset($usePagination) or $usePagination ne 'n')}
+    {if !empty($article_list_layout) and $maxArticles gt 0 and $count gt $maxArticles}
+        <nav class="articles-pagination" aria-label="{tr}Article pages{/tr}">
+    {/if}
     {pagination_links count=$count step=$maxArticles offset=$offset}{if isset($urlnext)}{$urlnext}{/if}{/pagination_links}
+    {if !empty($article_list_layout) and $maxArticles gt 0 and $count gt $maxArticles}
+        </nav>
+    {/if}
 {/if}

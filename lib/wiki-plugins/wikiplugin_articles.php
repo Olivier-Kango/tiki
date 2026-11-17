@@ -369,7 +369,8 @@ function wikiplugin_articles($data, $params)
 
     $auto_args = ['lang', 'topicId', 'topic', 'sort', 'type', 'lang', 'categId'];
 
-    $params = WikiPlugin_Helper::applySeparators($params, wikiplugin_articles_info());
+    $pluginInfo = wikiplugin_articles_info();
+    $params = WikiPlugin_Helper::applySeparators($params, $pluginInfo);
     extract($params, EXTR_SKIP);
     $filter = [];
     if ($prefs['feature_articles'] != 'y') {
@@ -380,10 +381,15 @@ function wikiplugin_articles($data, $params)
     $urlnext = '';
     if ($usePagination == 'y') {
         //Set offset when pagination is used
-        $start = $_REQUEST["offset"] ?? 0;
+        $start = filter_var($_REQUEST['offset'] ?? 0, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]) ?: 0;
         foreach ($auto_args as $arg) {
             if (! empty($$arg)) {
-                $paramsnext[$arg] = $$arg;
+                $value = $$arg;
+                if (is_array($value)) {
+                    $separator = $pluginInfo['params'][$arg]['separator'] ?? ',';
+                    $value = implode($separator, $value);
+                }
+                $paramsnext[$arg] = $value;
             }
         }
         $paramsnext['_type'] = 'absolute_path';
