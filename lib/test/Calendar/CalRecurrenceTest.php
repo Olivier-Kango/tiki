@@ -474,6 +474,107 @@ class Calendar_CalRecurrenceTest extends TikiTestCase
         $this->assertEquals($unrelatedEvents, $this->getEventsByRecurrence($this->recIds['weekly']));
     }
 
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testChangedOccurrenceCountRemovesSurplusAndAddsMissingOccurrences(bool $updateManuallyChangedEvents): void
+    {
+        $unrelatedEvents = $this->createUnrelatedSeries('weekly');
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        $this->assertCount(5, $events);
+
+        $this->saveLimit($updateManuallyChangedEvents, 2);
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertEquals(array_slice(array_column($events, 'calitemId'), 0, 2), array_column($after, 'calitemId'));
+        $this->assertEquals(array_slice(array_column($events, 'start'), 0, 2), array_column($after, 'start'));
+
+        // the trimmed occurrences are not remembered as deleted ones: extending brings them back, once
+        $this->saveLimit($updateManuallyChangedEvents, 5);
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertEquals(array_column($events, 'start'), array_column($after, 'start'));
+        $this->assertEquals(array_slice(array_column($events, 'calitemId'), 0, 2), array_slice(array_column($after, 'calitemId'), 0, 2));
+        $this->assertEquals([], (new CalRecurrence($this->recIds['daily']))->getExdates());
+        $this->assertEquals($unrelatedEvents, $this->getEventsByRecurrence($this->recIds['weekly']));
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testChangedEndDateRemovesSurplusAndAddsMissingOccurrences(bool $updateManuallyChangedEvents): void
+    {
+        $unrelatedEvents = $this->createUnrelatedSeries('weekly');
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+
+        $this->saveLimit($updateManuallyChangedEvents, 0, strtotime('12am', strtotime('+2 days')));
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertEquals(array_slice(array_column($events, 'calitemId'), 0, 2), array_column($after, 'calitemId'));
+
+        $this->saveLimit($updateManuallyChangedEvents, 0, strtotime('12am', strtotime('+7 days')));
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertCount(7, $after);
+        $this->assertEquals(array_column($events, 'start'), array_slice(array_column($after, 'start'), 0, 5));
+        $this->assertEquals($unrelatedEvents, $this->getEventsByRecurrence($this->recIds['weekly']));
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testDeletedOccurrencesStayDeletedWhenLimitChanges(bool $updateManuallyChangedEvents): void
+    {
+        $calendarlib = TikiLib::lib('calendar');
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        // one deleted within the shortened series, one beyond it
+        $calendarlib->drop_item('admin', $events[1]['calitemId']);
+        $calendarlib->drop_item('admin', $events[4]['calitemId']);
+
+        $this->saveLimit($updateManuallyChangedEvents, 3);
+        $this->assertEquals([$events[0]['start'], $events[2]['start']], array_column($this->getEventsByRecurrence($rec->getId()), 'start'));
+
+        $this->saveLimit($updateManuallyChangedEvents, 5);
+        $this->assertEquals(
+            [$events[0]['start'], $events[2]['start'], $events[3]['start']],
+            array_column($this->getEventsByRecurrence($rec->getId()), 'start')
+        );
+    }
+
+    /**
+     * @dataProvider seriesUpdateModes
+     */
+    public function testModifiedOccurrenceLeavesSeriesBeyondShortenedLimit(bool $updateManuallyChangedEvents): void
+    {
+        $calendarlib = TikiLib::lib('calendar');
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->createEvents();
+        $events = $this->getEventsByRecurrence($rec->getId());
+        $calendarlib->move_item($events[1]['calitemId'], 3600);
+        $calendarlib->move_item($events[4]['calitemId'], 3600);
+
+        $this->saveLimit($updateManuallyChangedEvents, 3);
+
+        $after = $this->getEventsByRecurrence($rec->getId());
+        $this->assertEquals(array_slice(array_column($events, 'calitemId'), 0, 3), array_column($after, 'calitemId'));
+        $this->assertEquals($events[1]['start'] + 3600, $this->findEvent($after, $events[1]['calitemId'])['start']);
+        // not kept as a standalone event either
+        $this->assertEquals(0, TikiLib::lib('tiki')->table('tiki_calendar_items')->fetchCount(['calitemId' => $events[4]['calitemId']]));
+    }
+
+    /**
+     * Saves the series with a new limit, as the event form does: a count clears the end date and the reverse.
+     */
+    private function saveLimit(bool $updateManuallyChangedEvents, int $nbRecurrences, int $endPeriod = 0): void
+    {
+        $rec = new CalRecurrence($this->recIds['daily']);
+        $rec->setNbRecurrences($nbRecurrences);
+        $rec->setEndPeriod($endPeriod);
+        $this->assertTrue($rec->save($updateManuallyChangedEvents));
+    }
+
     private function createUnrelatedSeries(string $type): array
     {
         $unrelated = new CalRecurrence($this->recIds[$type]);

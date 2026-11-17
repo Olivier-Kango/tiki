@@ -624,7 +624,8 @@ class CalRecurrence extends TikiLib
 
         $vcalendar = $this->constructVCalendar($this->getRecurenceDstTimezone());
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
-        $end = $oldRec->getEndPeriod();
+        // the new schedule is bounded by its own limit: an extended end date must produce the added dates
+        $end = $this->getEndPeriod();
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
@@ -635,7 +636,9 @@ class CalRecurrence extends TikiLib
         $movedExdates = [];
 
         $tx = TikiDb::get()->begin();
+        $newCount = 0;
         foreach ($new_expanded->VEVENT as $key => $vevent) {
+            $newCount++;
             $found = false;
             $old_start = null;
             $new_start = $vevent->DTSTART->getDateTime()->getTimeStamp();
@@ -644,13 +647,7 @@ class CalRecurrence extends TikiLib
                 $old_start = $old_expanded->VEVENT[$key]->DTSTART->getDateTime()->getTimeStamp();
                 $old_end = $old_expanded->VEVENT[$key]->DTEND->getDateTime()->getTimeStamp();
                 $slotChanged = $old_start != $new_start || $old_end != $vevent->DTEND->getDateTime()->getTimeStamp();
-                foreach ($existing as $row) {
-                    // a moved or resized occurrence is only identified by its original slot
-                    if ($row['recurrenceStart'] ? $row['recurrenceStart'] == $old_start : $row['start'] == $old_start) {
-                        $found = $row;
-                        break;
-                    }
-                }
+                $found = $this->findOccurrenceBySlot($existing, $old_start);
             }
 
             $oldSlotDeleted = $old_start !== null && in_array($old_start, $exdates, true);
@@ -731,7 +728,22 @@ class CalRecurrence extends TikiLib
             }
         }
 
-        if ($movedExdates) {
+        // a shortened limit (count or end date): the old slots past the new last occurrence leave the series
+        $trimmed = false;
+        foreach ($old_expanded->VEVENT as $key => $old_vevent) {
+            if ($key < $newCount) {
+                continue;
+            }
+            if ($row = $this->findOccurrenceBySlot($existing, $old_vevent->DTSTART->getDateTime()->getTimeStamp())) {
+                TikiLib::lib('calendar')->drop_item($user, $row['calitemId'], true);
+                $trimmed = true;
+            }
+        }
+
+        if ($movedExdates || $trimmed) {
+            // rewritten from the list read before this update: drop_item() records each trimmed occurrence as an
+            // individual deletion, which would stop a later extension from regenerating it, while the occurrences
+            // deleted individually by users stay deleted
             $table = $this->table('tiki_calendar_recurrence_exdates', false);
             $table->deleteMultiple(['recurrenceId' => (int)$this->getId()]);
             foreach (array_unique(array_map(fn($exdate) => $movedExdates[$exdate] ?? $exdate, $exdates)) as $exdate) {
@@ -739,6 +751,21 @@ class CalRecurrence extends TikiLib
             }
         }
         $tx->commit();
+    }
+
+    /**
+     * The stored occurrence of a slot; a moved or resized occurrence is only identified by its original start.
+     *
+     * @return array|false
+     */
+    private function findOccurrenceBySlot(array $existing, int $slot)
+    {
+        foreach ($existing as $row) {
+            if ($row['recurrenceStart'] ? $row['recurrenceStart'] == $slot : $row['start'] == $slot) {
+                return $row;
+            }
+        }
+        return false;
     }
 
     /**
