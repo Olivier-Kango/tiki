@@ -296,7 +296,7 @@
     function ext_select() {
         var value = $('#select_exts option:selected').val();
         var text = $('#select_exts option:selected').html();
-        $('#select_exts option:nth-child(1)').attr('selected', true);
+        $('#select_exts').attr('value', "{tr}More...{/tr}");
         ext_add(value, htmlspecialchars(text), '');
     }
 
