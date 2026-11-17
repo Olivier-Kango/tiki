@@ -42,6 +42,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
     public $useInnoDB = true;
     public $autoRegister = false;
+    public $deleteUnsupportedMailQueue = false;
     public array $deferredPatches = [];
 
     private function __construct()

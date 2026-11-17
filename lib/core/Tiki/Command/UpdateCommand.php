@@ -50,6 +50,7 @@ class UpdateCommand extends Command
         $autoRegister = $input->getOption('auto-register');
         $checkIfUpdated = $input->getOption('check-if-updated');
         $userEmail = $input->getOption('email');
+
         $installer = Installer::getInstance();
         $installer->autoRegister = $autoRegister;
         $installed = $installer->tableExists('users_users');

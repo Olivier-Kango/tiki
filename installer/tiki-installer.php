@@ -585,7 +585,7 @@ if (
         } else {
             $hadUnsupportedMails = ! empty($unsupportedMailQueueEntries);
             if ($hadUnsupportedMails && ! empty($_POST['unsupported_mail_queue_ack'])) {
-                $installer->autoRegister = true;
+                $installer->deleteUnsupportedMailQueue = true;
             }
             $installer->update();
             $logslib->add_log('install', 'database "' . $dbs_tiki . '" upgraded to latest version');

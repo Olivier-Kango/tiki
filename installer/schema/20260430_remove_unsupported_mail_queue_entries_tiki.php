@@ -18,44 +18,42 @@ use Tiki\Installer\Installer;
  */
 function upgrade_20260430_remove_unsupported_mail_queue_entries_tiki($installer)
 {
-    // Get all mail queue entries
     $allQueueEntries = $installer->fetchAll('SELECT messageId, message FROM tiki_mail_queue');
 
     $incompatibleIds = [];
 
     foreach ($allQueueEntries as $entry) {
-        $messageId = $entry['messageId'];
-        $serialized = $entry['message'];
-
         $previousErrorReporting = error_reporting(0);
-        $mail = unserialize($serialized);
-        error_reporting($previousErrorReporting);
+        try {
+            $mail = unserialize($entry['message']);
+        } finally {
+            error_reporting($previousErrorReporting);
+        }
 
-        if ($mail instanceof \Symfony\Component\Mime\Email) {
-        } else {
-            $incompatibleIds[] = $messageId;
+        if (! $mail instanceof \Symfony\Component\Mime\Email) {
+            $incompatibleIds[] = $entry['messageId'];
         }
     }
 
     // This will bubble up to the console and stop the migration
-    if (! empty($incompatibleIds) && ! $installer->autoRegister) {
+    if (! empty($incompatibleIds) && ! $installer->deleteUnsupportedMailQueue) {
         throw new Exception(
             sprintf(
                 'Found %d unsupported mail queue entries (serialized in old Laminas/Zend format). These entries cannot be processed. '
-                    . 'WARNING: These entries will be DELETED if you proceed with --auto-register, and queued email data will be lost. '
-                    . 'To delete them and continue, rerun:<info> php console.php database:update --auto-register</info>',
+                    . 'They can be removed with <info>php console.php mail-queue:delete-unsupported</info>. This will permanently delete their queued email data. '
+                    . 'Then retry the database update.',
                 count($incompatibleIds)
             )
         );
     }
 
-    // Delete all incompatible entries if auto-register is on or if there are any to delete
-    if (! empty($incompatibleIds)) {
+    // The web installer sets this only after the administrator confirms deletion.
+    if (! empty($incompatibleIds) && $installer->deleteUnsupportedMailQueue) {
         foreach ($incompatibleIds as $messageId) {
             $installer->query('DELETE FROM tiki_mail_queue WHERE messageId = ?', [$messageId]);
         }
 
-        error_log(sprintf( // @phpstan-ignore disallowedFunctions.errorLog (upgrade script — logs removed entry count to system log for traceability)
+        error_log(sprintf( // @phpstan-ignore disallowedFunctions.errorLog (upgrade script — logs removed entry count for traceability)
             'Tiki upgrade: Removed %d unsupported mail queue entries. These were serialized in old Laminas/Zend format.',
             count($incompatibleIds)
         ));

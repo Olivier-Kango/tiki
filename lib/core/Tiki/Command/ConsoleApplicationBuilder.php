@@ -118,6 +118,8 @@ class ConsoleApplicationBuilder
                 new PluginPendingRunCommand(),
                 new PluginRefreshRunCommand(),
                 new PatchCommand(),
+                new MailQueueDeleteUnsupportedCommand(),
+                new MailQueueTruncateCommand(),
                 new UpdateCommand(),
                 new DatabaseEngineConvertCommand(),
                 new TrackerConvertAttachmentsCommand()
