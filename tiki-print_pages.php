@@ -161,6 +161,7 @@ $smarty->assign_by_ref('pages', $pages["data"]);
 $smarty->assign('transferPages', array_column($pages['data'], 'pageName', 'pageName'));
 $structures = $structlib->list_structures(0, -1, 'pageName_asc', $find);
 $smarty->assign_by_ref('structures', $structures["data"]);
+$smarty->assign('transferStructures', array_column($structures['data'], 'pageName', 'page_ref_id'));
 $availableStructures = array_filter($structures['data'], function ($structure) use ($printstructures) {
     return ! in_array($structure['page_ref_id'], $printstructures);
 });

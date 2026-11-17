@@ -6,6 +6,31 @@
     {if $prefs.feature_wiki_structure eq 'y'}
         {tab name="{tr}Structures{/tr}"}
         {* --- tab with structures -- *}
+            {if $prefs.feature_elementplus eq 'y'}
+                {jstransfer_list data=$transferStructures defaultSelected=$printstructures fieldName="transfer_printstructures" filterable=true ordering=true sourceListTitle="{tr}Available Structures{/tr}" targetListTitle="{tr}Selected Structures{/tr}"}
+                <div class="mt-3 d-flex gap-2">
+                    <form method="get" action="tiki-print_multi_pages.php">
+                        {ticket}
+                        <input type="hidden" class="js-printstructures" name="printstructures" value="{$form_printstructures|escape}">
+                        <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
+                    </form>
+                    {if $pdf_export eq 'y'}
+                        <form method="get" action="tiki-print_multi_pages.php">
+                            {ticket}
+                            <input type="hidden" name="display" value="pdf">
+                            <input type="hidden" class="js-printstructures" name="printstructures" value="{$form_printstructures|escape}">
+                            <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}PDF{/tr}">
+                        </form>
+                    {/if}
+                </div>
+                {jq}
+                    document.querySelectorAll('el-transfer[field-name="transfer_printstructures"]').forEach(function (transfer) {
+                        transfer.addEventListener('transfer-change', function (event) {
+                            $('input.js-printstructures').val(encodeURIComponent(JSON.stringify(event.detail[0].value)));
+                        });
+                    });
+                {/jq}
+            {else}
             {if $printstructures}
                 <h2>{tr}Selected Structures{/tr}</h2>
                 <form id="removeStructureForm" action="tiki-print_pages.php" method="post">
@@ -67,6 +92,7 @@
                     </div>
                 </div>
             </form>
+            {/if}
         {/tab}
     {/if}
 
@@ -77,7 +103,7 @@
         {/if}
 
         {if $prefs.feature_elementplus eq 'y'}
-            {jstransfer_list data=$transferPages defaultSelected=$printpages fieldName="transfer_printpages" filterable=true ordering=true sourceListTitle="Available Pages" targetListTitle="Selected Pages"}
+            {jstransfer_list data=$transferPages defaultSelected=$printpages fieldName="transfer_printpages" filterable=true ordering=true sourceListTitle="{tr}Available Pages{/tr}" targetListTitle="{tr}Selected Pages{/tr}"}
             <div class="mt-3 d-flex gap-2">
                 <form method="get" action="tiki-print_multi_pages.php">
                     {ticket}
@@ -176,9 +202,7 @@
                     <div class="col-sm-12">
                         <select name="structureId" size="5" style="width:99%" border="1" class="form-control" required>
                             {section name=ix loop=$structures}
-                                {if !in_array($structures[ix].page_ref_id,$printstructures)}
-                                    <option value="{$structures[ix].page_ref_id|escape}">{$structures[ix].pageName}</option>
-                                {/if}
+                                <option value="{$structures[ix].page_ref_id|escape}">{$structures[ix].pageName|escape}</option>
                             {sectionelse}
                                 <option value="" disabled="disabled">{tr}No structures{/tr}</option>
                             {/section}
