@@ -170,13 +170,14 @@
                 </div>
             {/if}
 
-            <div class="articleheading {if $listpages[ix].isfloat eq 'n'}d-md-flex{/if} clearfix"> {* No flex in sm screen, to prevent skinny text column *}
-                <div class="article-list-image {if $listpages[ix].isfloat eq 'y'}float-start{else}flex-shrink-0{/if} me-3">
+            <div class="articleheading {if empty($article_list_layout) and $listpages[ix].isfloat eq 'n'}d-md-flex{/if} clearfix"> {* No flex in sm screen, to prevent skinny text column *}
+                {* Selected layouts control image placement independently of the per-article text-wrap option. *}
+                <div class="article-list-image {if empty($article_list_layout) and $listpages[ix].isfloat eq 'y'}float-start{else}flex-shrink-0{/if} me-3">
                     {if $listpages[ix].show_image eq 'y'}
                         {if $listpages[ix].useImage eq 'y'}
                             {if $listpages[ix].hasImage eq 'y'}
                                 <a
-                                    href="{$smarty.capture.href}" {if $listpages[ix].isfloat eq 'y'} class="me-3 float-start"{/if}
+                                    href="{$smarty.capture.href}" {if empty($article_list_layout) and $listpages[ix].isfloat eq 'y'} class="me-3 float-start"{/if}
                                     title="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{elseif $listpages[ix].topicName}{tr}{$listpages[ix].topicName}{/tr}{else}{tr}Read More{/tr}{/if}">
                                     {$style=''}
                                     <img class="img-thumbnail media-object article-image custom-image" loading="lazy" decoding="async"
@@ -201,7 +202,7 @@
                             {/if}
                         {else}
                             {if isset($topics[$listpages[ix].topicId].image_size) and $topics[$listpages[ix].topicId].image_size > 0}
-                                <a href="{$smarty.capture.href}" class="thumbnail"{if $listpages[ix].isfloat eq 'y'} class="me-3 float-start"{/if}
+                                <a href="{$smarty.capture.href}" class="thumbnail{if empty($article_list_layout) and $listpages[ix].isfloat eq 'y'} me-3 float-start{/if}"
                                         title="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{else}{tr}{$listpages[ix].topicName}{/tr}{/if}">
                                     <img class="media-object img-thumbnail article-image topic-image" loading="lazy" decoding="async"
                                             alt="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{else}{tr}{$listpages[ix].topicName}{/tr}{/if}"
@@ -211,7 +212,7 @@
                         {/if}
                     {/if}
                 </div>
-                <div class="articleheadingtext{if $listpages[ix].isfloat eq 'n'} flex-grow-1{/if}">{$listpages[ix].parsed_heading}</div>
+                <div class="articleheadingtext{if empty($article_list_layout) and $listpages[ix].isfloat eq 'n'} flex-grow-1{/if}">{$listpages[ix].parsed_heading}</div>
             </div>
                     {if isset($fullbody) and $fullbody eq "y"}
             <div class="articlebody py-3">{$listpages[ix].parsed_body}</div>

@@ -6,10 +6,10 @@ const sass = require('sass');
 const readingCss = sass.compile(resolve(__dirname, '../themes/base_files/scss/_article-layout.scss')).css;
 const css = sass.compile(resolve(__dirname, '../themes/base_files/scss/_articles-tiles.scss')).css;
 const image = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="800" height="600" fill="#427a92"/></svg>');
-function card(id, withImage = true) {
+function card(id, withImage = true, floating = false) {
     return `<article class="article wikiplugin_articles"><header class="articletitle"><h2><a href="https://fixture.test/article/${id}?autoplay=1">Article ${id}</a></h2><span class="titleb">Author · Date</span></header>
-        <div class="articleheading d-md-flex"><div class="article-list-image me-3">${withImage ? `<a href="https://fixture.test/article/${id}?autoplay=1"><img class="article-image" src="${image}" alt="Article illustration"></a>` : ''}</div>
-        <div class="articleheadingtext flex-grow-1"><p>An article introduction with enough text to check the responsive arrangement.</p></div></div>
+        <div class="articleheading ${floating ? '' : 'd-md-flex'}"><div class="article-list-image ${floating ? 'float-start' : 'flex-shrink-0'} me-3">${withImage ? `<a href="https://fixture.test/article/${id}?autoplay=1"><img class="article-image" src="${image}" alt="Article illustration"></a>` : ''}</div>
+        <div class="articleheadingtext ${floating ? '' : 'flex-grow-1'}"><p>An article introduction with enough text to check the responsive arrangement.</p></div></div>
         <div class="articletrailer"><a class="more" href="https://fixture.test/article/${id}?autoplay=1">Read more</a><button type="button">Actions</button></div></article>`;
 }
 (async () => {
@@ -22,7 +22,7 @@ function card(id, withImage = true) {
                 await page.route('**/*', route => route.abort());
                 const classes = `articles-layout articles-layout-${layout}`;
                 await page.setContent(`<style>*{box-sizing:border-box}body{margin:16px;font-family:sans-serif;--bs-border-color:#ccc;--bs-border-radius:6px;--bs-border-radius-lg:10px;--bs-tertiary-bg:#f5f5f5}img{max-width:100%}.article{margin-bottom:24px}.titleb{display:block}.articleheadingtext{min-width:0}.flex-grow-1{flex-grow:1!important}${css}</style>
-                    <div class="${classes}">${card(1)}${card(2)}${card(3, false)}<nav class="pagination">Pagination</nav></div>
+                    <div class="${classes}">${card(1)}${card(2, true, true)}${card(3, false)}<nav class="pagination">Pagination</nav></div>
                     <style>.articles-pagination .pagination{display:flex;list-style:none;padding:0}.page-item:first-child .page-link{border-top-left-radius:.375rem;border-bottom-left-radius:.375rem}.page-item:last-child .page-link{border-top-right-radius:.375rem;border-bottom-right-radius:.375rem}</style>
                     <nav class="articles-pagination"><ul class="pagination"><li class="page-item disabled"><span class="page-link">«</span></li><li class="page-item active"><span class="page-link">1</span></li><li><a class="page-link" href="?offset=3">2</a></li><li class="page-item"><a class="page-link" href="?offset=3">»</a></li></ul></nav>`);
                 await page.addScriptTag({ path: resolve(__dirname, '../lib/jquery_tiki/article-cards.js') });
