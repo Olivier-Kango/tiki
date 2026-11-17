@@ -23,8 +23,34 @@
 
                 $altInput.attr("required", "required");
                 form.classList.add("was-validated");
+                $altInput[0].setCustomValidity(" ");
 
-                $altInput.focus();
+                // Clear custom validity as soon as the user supplies a value.
+                $altInput.one("input", function () {
+                    this.setCustomValidity("");
+                });
+
+                var $tabPane = $altInput.closest(".tab-pane");
+                if ($tabPane.length && !$tabPane.hasClass("active")) {
+                    var selector =
+                        '[data-bs-toggle="tab"][href="#' +
+                        $tabPane.attr("id") +
+                        '"], ' +
+                        '[data-bs-toggle="tab"][data-bs-target="#' +
+                        $tabPane.attr("id") +
+                        '"]';
+                    var $tabLink = $(selector);
+                    if ($tabLink.length && window.bootstrap && bootstrap.Tab) {
+                        $tabLink.one("shown.bs.tab", function () {
+                            $altInput.trigger("focus");
+                            $altInput[0].scrollIntoView({ behavior: "smooth", block: "center" });
+                        });
+                        bootstrap.Tab.getOrCreateInstance($tabLink[0]).show();
+                    }
+                } else {
+                    $altInput.trigger("focus");
+                    $altInput[0].scrollIntoView({ behavior: "smooth", block: "center" });
+                }
 
                 return false;
             }
