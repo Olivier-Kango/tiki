@@ -120,5 +120,42 @@
                 </div>
             {/if}
         </div>
+        {jq}
+            function fitQuickadminMenu(menu) {
+                var toggle = menu.previousElementSibling;
+                var dropdown = bootstrap.Dropdown.getInstance(toggle);
+                menu.style.maxHeight = 'none';
+                dropdown.update();
+                requestAnimationFrame(function () {
+                    var pinned = false;
+                    for (var el = toggle; el && el !== document.body; el = el.parentElement) {
+                        var position = getComputedStyle(el).position;
+                        if (position === 'fixed' || position === 'sticky') {
+                            pinned = true;
+                            break;
+                        }
+                    }
+                    var scroll = pinned ? 0 : window.scrollY;
+                    var rect = menu.getBoundingClientRect();
+                    if (rect.top + scroll >= 0 && (! pinned || rect.bottom <= window.innerHeight)) {
+                        return;
+                    }
+                    var box = toggle.getBoundingClientRect();
+                    var below = window.innerHeight - Math.max(rect.top, box.bottom) - 8;
+                    // in a navbar the menu is placed by CSS, not Popper, so it can't flip upwards
+                    var above = menu.getAttribute('data-bs-popper') === 'static' ? 0 : box.top + scroll - 8;
+                    menu.style.maxHeight = Math.max(below, above) + 'px';
+                    dropdown.update();
+                });
+            }
+            $('#quickadmin').on('shown.bs.dropdown', function (e) {
+                fitQuickadminMenu($(e.target).siblings('.dropdown-menu')[0]);
+            });
+            $(window).on('resize', function () {
+                $('#quickadmin .dropdown-menu.show').each(function () {
+                    fitQuickadminMenu(this);
+                });
+            });
+        {/jq}
     {/if}
 {/tikimodule}
