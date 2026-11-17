@@ -89,9 +89,12 @@ $library = new class {
 $header = new class {
     public array $files = [];
 
-    public function add_jsfile(string $file): void
+    public function __call(string $name, array $arguments)
     {
-        $this->files[] = $file;
+        if ($name !== 'add_jsfile') {
+            throw new LogicException('Unexpected header method: ' . $name);
+        }
+        $this->files[] = $arguments[0];
     }
 };
 PluginFixture::$libraries = ['header' => $header, 'smarty' => $smarty, 'tiki' => $library, 'art' => $library, 'user' => $library, 'prefs' => $library];
