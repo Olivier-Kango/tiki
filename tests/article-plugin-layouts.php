@@ -12,10 +12,29 @@ use RuntimeException;
 final class PluginFixture
 {
     public static array $libraries = [];
+    public static array $templates = [];
 
     public static function lib(string $name): object
     {
         return self::$libraries[$name];
+    }
+
+    public static function createTemplate(): object
+    {
+        return new class {
+            private array $values = [];
+
+            public function assign(string $name, $value): void
+            {
+                $this->values[$name] = $value;
+            }
+
+            public function fetch(): string
+            {
+                PluginFixture::$templates[] = $this->values;
+                return '<article>Native output</article>';
+            }
+        };
     }
 
     public static function applySeparators(array $params, array $info): array
@@ -38,10 +57,16 @@ class_alias(PluginFixture::class, __NAMESPACE__ . '\\TikiLib');
 class_alias(PluginFixture::class, __NAMESPACE__ . '\\WikiPlugin_Helper');
 
 $smarty = new class {
+    public array $parentValues = ['article_list_layout' => 'overlay', 'article_list_columns' => '4'];
+
     public function __call(string $name, array $arguments)
     {
+        if ($name === 'assign' && array_key_exists($arguments[0], $this->parentValues)) {
+            $this->parentValues[$arguments[0]] = $arguments[1];
+        }
         return match ($name) {
             'assign', 'assign_by_ref' => null,
+            'createTemplate' => PluginFixture::createTemplate(),
             'fetch' => $arguments[0] === 'tiki-view_articles-titleonly.tpl'
                 ? 'titles' : '<article>Native output</article>',
             default => throw new LogicException('Unexpected Smarty method: ' . $name),
@@ -54,14 +79,14 @@ $library = new class {
     public function __call(string $name, array $arguments)
     {
         return match ($name) {
-            'list_topics', 'list_types_byname' => [],
+            'list_topics', 'list_types_byname', 'getExtraSortColumns' => [],
             'list_articles' => ['data' => [], 'count' => 0],
             'getDefaultAdminLogin' => 'admin',
             default => throw new LogicException('Unexpected library method: ' . $name),
         };
     }
 };
-PluginFixture::$libraries = ['smarty' => $smarty, 'tiki' => $library, 'art' => $library, 'user' => $library];
+PluginFixture::$libraries = ['smarty' => $smarty, 'tiki' => $library, 'art' => $library, 'user' => $library, 'prefs' => $library];
 
 // Load the real plugin into the fixture namespace, where only its dependencies are substituted.
 // The source is a fixed repository file, never user input. No global Tiki classes are redeclared.
@@ -74,27 +99,44 @@ eval('namespace ' . __NAMESPACE__ . ';' . substr($source, 5));
 $prefs = ['feature_articles' => 'y', 'feature_multilingual' => 'n', 'maxRecords' => 10];
 $pageLang = 'de';
 $info = wikiplugin_articles_info();
+$layouts = ['classic', 'tiles', 'list', 'overlay', 'magazine', 'compact'];
+if ($info['params']['layout']['default'] !== 'tiles') {
+    throw new RuntimeException('Tiles must be the default plugin layout');
+}
 $values = array_column($info['params']['layout']['options'], 'value');
-if ($values !== ['classic', 'tiles', 'list', 'overlay']) {
-    throw new RuntimeException('Four editor choices missing');
+if ($values !== $layouts) {
+    throw new RuntimeException('Editor layout choices are incomplete');
 }
 $params = [];
 foreach ($info['params'] as $name => $definition) {
     $params[$name] = $definition['default'] ?? null;
 }
 $params['dateStart'] = $params['dateEnd'] = '';
-foreach (['classic', 'tiles', 'list', 'overlay', 'invalid', null] as $layout) {
-    $result = wikiplugin_articles('', array_replace($params, ['layout' => $layout]));
-    $enhanced = in_array($layout, ['tiles', 'list', 'overlay'], true);
-    if (! str_contains($result, '<article>Native output</article>')) {
-        throw new RuntimeException('Native template output lost');
+foreach (array_merge($layouts, ['invalid', 'legacy', null]) as $layout) {
+    foreach (['auto', '2', '3', '4', 'invalid', '" onclick="bad'] as $columns) {
+        $result = wikiplugin_articles('', array_replace($params, ['layout' => $layout, 'columns' => $columns]));
+        if (! str_contains($result, '<article>Native output</article>')) {
+            throw new RuntimeException('Native template output lost');
+        }
+        $scoped = end(PluginFixture::$templates);
+        $expectedLayout = in_array($layout, $layouts, true) ? $layout : 'tiles';
+        $expectedColumns = in_array($columns, ['auto', '2', '3', '4'], true) ? $columns : 'auto';
+        if ($scoped !== ['article_list_layout' => $expectedLayout, 'article_list_columns' => $expectedColumns]) {
+            throw new RuntimeException('Invalid or leaking child-template layout values');
+        }
     }
-    if (str_contains($result, 'articles-layout') !== $enhanced) {
-        throw new RuntimeException('Incorrect layout wrapper');
-    }
-    if ($enhanced && ! str_contains($result, 'articles-layout-' . $layout)) {
-        throw new RuntimeException('Wrong selected layout');
-    }
+}
+if ($smarty->parentValues !== ['article_list_layout' => 'overlay', 'article_list_columns' => '4']) {
+    throw new RuntimeException('Plugin instance changed parent template values');
+}
+$source = file_get_contents(dirname(__DIR__) . '/lib/prefs/article.php');
+eval('namespace ' . __NAMESPACE__ . ';' . substr($source, 5));
+$preferences = prefs_article_list();
+if ($preferences['article_frontpage_layout']['default'] !== 'tiles') {
+    throw new RuntimeException('Tiles must be the default native layout');
+}
+if (array_keys($preferences['article_frontpage_layout']['options']) !== $layouts) {
+    throw new RuntimeException('Administration and plugin layout choices differ');
 }
 if (! str_contains(wikiplugin_articles('', array_replace($params, ['layout' => 'overlay', 'titleonly' => 'y'])), 'titles')) {
     throw new RuntimeException('Title-only compatibility lost');
@@ -106,4 +148,69 @@ if (wikiplugin_articles('', $params) !== '') {
 if (class_exists('TikiLib', false) || class_exists('WikiPlugin_Helper', false)) {
     throw new RuntimeException('The fixture must not introduce global Tiki classes');
 }
-echo "PASS: four plugin choices, selection, default/invalid fallback, native rendering, title-only and disabled feature\n";
+
+
+require dirname(__DIR__) . '/lib/core/Tiki/Articles/ArticleNavigation.php';
+$navigation = new class {
+    public array $batches = [];
+    public array $calls = [];
+    public array $visible = [];
+
+    public function __call(string $name, array $args): array
+    {
+        if ($name === 'fetchAll') {
+            $this->calls[] = $args;
+            if ($args[2] !== 50) {
+                throw new RuntimeException('Navigation must use bounded batches');
+            }
+            return array_shift($this->batches) ?? [];
+        }
+        if ($name === 'list_articles') {
+            if ($args['maxRecords'] !== 50 || $args['lang'] !== 'de' || $args['ispublished'] !== 'y') {
+                throw new RuntimeException('Native navigation filters missing');
+            }
+            return ['data' => array_values(array_filter(
+                $this->visible,
+                static fn($row) => in_array($row['articleId'], $args['filter']['articleId'])
+            ))];
+        }
+        throw new LogicException('Unexpected navigation dependency');
+    }
+};
+$article = ['articleId' => 100, 'publishDate' => 1000, 'lang' => 'de', 'ispublished' => 'y'];
+$navigation->batches = [
+    [['articleId' => 101, 'publishDate' => 1000], ['articleId' => 102, 'publishDate' => 1100]],
+    [['articleId' => 99, 'publishDate' => 1000], ['articleId' => 98, 'publishDate' => 900]],
+];
+$navigation->visible = [
+    ['articleId' => 101, 'title' => 'Restricted', 'disp_article' => 'y', 'perms' => ['tiki_p_read_article' => 'n']],
+    ['articleId' => 102, 'title' => 'Newer', 'disp_article' => 'y', 'perms' => ['tiki_p_read_article' => 'y']],
+    ['articleId' => 99, 'title' => 'Hidden', 'disp_article' => 'n', 'perms' => ['tiki_p_read_article' => 'y']],
+    ['articleId' => 98, 'title' => 'Older', 'disp_article' => 'y', 'perms' => ['tiki_p_read_article' => 'y']],
+];
+$result = \Tiki\Articles\ArticleNavigation::forArticle($article, $navigation, 2000);
+if ($result !== ['previous' => ['articleId' => 102, 'title' => 'Newer'], 'next' => ['articleId' => 98, 'title' => 'Older']]) {
+    throw new RuntimeException('Navigation exposed restricted titles or selected the wrong neighbour');
+}
+if ($navigation->calls[0][1] !== ['de', 2000, 1000, 1000, 100]) {
+    throw new RuntimeException('Navigation must preserve language and date/id cursor');
+}
+$navigation->calls = [];
+$navigation->visible = [];
+$navigation->batches = [array_fill(0, 50, ['articleId' => 101, 'publishDate' => 1100]), [], []];
+if (
+    \Tiki\Articles\ArticleNavigation::forArticle($article, $navigation, 2000) !== []
+    || count($navigation->calls) !== 3 || $navigation->calls[1][1] !== ['de', 2000, 1100, 1100, 101]
+) {
+    throw new RuntimeException('Navigation did not advance past a restricted batch');
+}
+$navigation->calls = [];
+foreach ([['ispublished' => 'n'], ['publishDate' => 3000]] as $change) {
+    if (\Tiki\Articles\ArticleNavigation::forArticle(array_replace($article, $change), $navigation, 2000) !== []) {
+        throw new RuntimeException('Draft or future article received navigation');
+    }
+}
+if ($navigation->calls !== []) {
+    throw new RuntimeException('Draft or future article caused a navigation query');
+}
+echo "PASS: six layouts, columns, isolated templates, admin choices, native compatibility and readable navigation\n";

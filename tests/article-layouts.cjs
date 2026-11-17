@@ -16,11 +16,11 @@ function card(id, withImage = true) {
     const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'],
         ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}) });
     try {
-        for (const width of [390, 1440]) {
-            for (const layout of ['classic', 'tiles', 'list', 'overlay']) {
+        for (const width of [320, 390, 768, 1440]) {
+            for (const layout of ['classic', 'tiles', 'list', 'overlay', 'magazine', 'compact']) {
                 const page = await browser.newPage({ viewport: { width, height: 1000 } });
                 await page.route('**/*', route => route.abort());
-                const classes = layout === 'classic' ? '' : `articles-layout articles-layout-${layout}`;
+                const classes = `articles-layout articles-layout-${layout}`;
                 await page.setContent(`<style>*{box-sizing:border-box}body{margin:16px;font-family:sans-serif;--bs-border-color:#ccc;--bs-border-radius:6px;--bs-border-radius-lg:10px;--bs-tertiary-bg:#f5f5f5}img{max-width:100%}.article{margin-bottom:24px}.titleb{display:block}.articleheadingtext{min-width:0}${css}</style>
                     <div class="${classes}">${card(1)}${card(2)}${card(3, false)}<nav class="pagination">Pagination</nav></div>`);
                 await page.evaluate(() => {
@@ -35,27 +35,47 @@ function card(id, withImage = true) {
                         color: getComputedStyle(article).color, scroll: document.documentElement.scrollWidth };
                 });
                 assert(metrics.scroll <= width, `${layout}: horizontal overflow`);
-                if (layout === 'classic') {
-                    assert(metrics.second.y > metrics.first.y, 'Classic list must stay stacked');
-                    assert.equal(await page.locator('h2 a').first().getAttribute('href'), 'https://fixture.test/article/1?autoplay=1');
-                } else {
-                    assert.equal(await page.locator('h2 a').first().getAttribute('href'), 'https://fixture.test/article/1?autoplay=1');
-                    if (width === 390) assert(metrics.second.y > metrics.first.y, `${layout}: mobile cards must stack`);
-                    if (width === 1440 && layout !== 'list') assert(Math.abs(metrics.second.y - metrics.first.y) < 1, `${layout}: desktop grid missing`);
-                    if (width === 1440 && layout === 'list') {
-                        assert(metrics.title.x > metrics.image.x + metrics.image.width - 1, 'Horizontal list image must be beside text');
-                        assert(metrics.title.y < metrics.intro.y, 'The title must precede the introduction');
-                    }
-                    if (layout === 'overlay') {
-                        assert(Math.abs(metrics.image.height - metrics.first.height) < 4, 'Background photo must fill the card');
-                        assert.equal(metrics.color, 'rgb(255, 255, 255)');
-                    }
-                    await page.locator('h2 a').first().click();
-                    assert.equal(await page.evaluate(() => window.linkClicks), 1, 'Native title link must work once');
-                    await page.locator('button').first().click();
-                    assert.equal(await page.evaluate(() => window.linkClicks), 1, 'Actions must not open the card');
-
+                assert.equal(await page.locator('h2 a').first().getAttribute('href'), 'https://fixture.test/article/1?autoplay=1');
+                if (width < 768) assert(metrics.second.y > metrics.first.y, `${layout}: mobile cards must stack`);
+                if (width === 1440 && ['tiles', 'overlay'].includes(layout)) assert(Math.abs(metrics.second.y - metrics.first.y) < 1, `${layout}: desktop grid missing`);
+                if (width === 1440 && layout === 'list') {
+                    assert(metrics.title.x > metrics.image.x + metrics.image.width - 1, 'Horizontal list image must be beside text');
+                    assert(metrics.title.y < metrics.intro.y, 'The title must precede the introduction');
                 }
+                if (layout === 'overlay' || layout === 'magazine') {
+                    assert(Math.abs(metrics.image.height - metrics.first.height) < 4, 'Background photo must fill the card');
+                    assert.equal(metrics.color, 'rgb(255, 255, 255)');
+                }
+                if (layout === 'classic') {
+                    assert(metrics.second.y > metrics.first.y, 'Refined classic remains an editorial list');
+                    assert(metrics.title.y < metrics.image.y, 'Classic title must precede the lead image');
+                }
+                if (width === 1440 && layout === 'magazine') {
+                    assert(metrics.first.width > metrics.second.width * 1.8, 'Magazine first card must span the row');
+                    assert(metrics.second.y >= metrics.first.y + metrics.first.height, 'Magazine second row must follow its lead');
+                }
+                if (layout === 'compact') {
+                    assert.equal(await page.locator('.articleheadingtext').first().isVisible(), false, 'Compact list omits the excerpt visually');
+                    assert(metrics.image.width <= 90, 'Compact list uses a thumbnail');
+                }
+                if (width === 1440 && ['tiles', 'overlay'].includes(layout)) {
+                    for (const columns of ['2', '3', '4']) {
+                        await page.locator('.articles-layout').evaluate((root, value) => root.dataset.articleColumns = value, columns);
+                        const count = await page.locator('.articles-layout').evaluate(root => getComputedStyle(root).gridTemplateColumns.split(' ').length);
+                        assert.equal(count, Number(columns), 'Requested wide-screen column count missing');
+                    }
+                    await page.locator('.articles-layout').evaluate(root => root.dataset.articleColumns = 'auto');
+                }
+                if (layout === 'overlay' || layout === 'magazine') {
+                    await page.emulateMedia({ media: 'print' });
+                    assert.equal(await page.locator('article').first().evaluate(card => getComputedStyle(card).color), 'rgb(0, 0, 0)', 'Printed overlays need dark text');
+                    await page.emulateMedia({ media: 'screen' });
+                }
+                await page.locator('h2 a').first().click();
+                assert.equal(await page.evaluate(() => window.linkClicks), 1, 'Native title link must work once');
+                await page.locator('button').first().click();
+                assert.equal(await page.evaluate(() => window.linkClicks), 1, 'Actions must not open the card');
+
                 if (process.env.ARTICLE_LAYOUT_SCREENSHOTS) await page.screenshot({ path: `${process.env.ARTICLE_LAYOUT_SCREENSHOTS}/${layout}-${width}.png`, fullPage: true });
                 await page.close();
                 process.stdout.write(`PASS ${layout} ${width}: responsive layout, image/no image, links and controls\n`);
@@ -69,6 +89,7 @@ function card(id, withImage = true) {
                     <header class="articletitle"><h1>An improved article title with a readable introduction</h1><span class="titleb">Author · Publication date</span></header>
                     <div class="articleheading"><div>${withImage ? `<img class="article-image" src="${image}" alt="Article illustration">` : ''}</div>
                     <div><p>The introduction appears beside the image on a wide screen and underneath it on mobile.</p></div></div>
+                    <nav class="article-navigation"><a rel="prev" href="#prev">Previous<span class="article-navigation-title">A previous article with a descriptive title</span></a><a rel="next" href="#next">Next<span class="article-navigation-title">The next article in publication order</span></a></nav>
                     <div class="articlebody"><p>The article body remains available.</p><audio controls preload="none"></audio>
                     <div class="article"><div class="articleheading nested-introduction">Embedded article content</div></div></div>
                     </article></div>`);
@@ -86,9 +107,11 @@ function card(id, withImage = true) {
                 assert(state.nativeControls, 'Native media controls must remain available');
                 assert.equal(state.nestedDisplay, 'block', 'Reading layout must not restyle embedded article introductions');
                 if (!withImage) assert.equal(state.columns, 1, 'An introduction without image uses the full width');
-                else if (width === 390) assert(state.text.y >= state.image.bottom, 'Mobile introduction must follow the image');
+                else if (width < 768) assert(state.text.y >= state.image.bottom, 'Mobile introduction must follow the image');
                 else assert(state.text.x >= state.image.right, 'Desktop introduction must appear beside the image');
                 assert.equal(await page.locator('.article-media-control').count(), 0, 'No additional floating media control');
+                const navigation = await page.locator('.article-navigation').evaluate(nav => getComputedStyle(nav).gridTemplateColumns.split(' ').length);
+                assert.equal(navigation, width < 480 ? 1 : 2, 'Previous/next navigation must adapt to narrow screens');
                 if (withImage && process.env.ARTICLE_LAYOUT_SCREENSHOTS) await page.screenshot({ path: `${process.env.ARTICLE_LAYOUT_SCREENSHOTS}/reading-${width}.png`, fullPage: true });
             }
             await page.close();

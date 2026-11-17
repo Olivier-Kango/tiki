@@ -1,6 +1,9 @@
 // Optional ARTICLES layouts share the native markup, links, permissions and pagination.
 .articles-layout {
     display: grid;
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
     gap: 1.5rem;
 
     > :not(article) { grid-column: 1 / -1; }
@@ -78,7 +81,8 @@
     }
 }
 
-.articles-layout-overlay > article.article {
+.articles-layout-overlay > article.article,
+.articles-layout-magazine > article.article {
     min-height: 25rem;
     justify-content: flex-end;
     background: #152331;
@@ -109,4 +113,98 @@
     > .articletrailer { margin-top: 0; }
     a:not(.dropdown-item), .titleb { color: inherit; }
     .articleheadingtext { order: 2; }
+}
+
+// Refine the default editorial list without changing the three existing card layouts.
+.articles-layout-classic {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+
+    > article.article {
+        padding: 1.5rem 0 2rem;
+        border: 0;
+        border-bottom: 1px solid var(--bs-border-color);
+        border-radius: 0;
+        background: transparent;
+        .articletitle h2 { max-width: 42ch; font-size: clamp(1.5rem, 2.2vw, 2rem); }
+        .titleb { display: block; color: var(--bs-secondary-color); font-size: .875rem; line-height: 1.7; }
+        > .articleheading { margin-block: 1rem; align-items: start; }
+        .articleheadingtext { min-width: 0; line-height: 1.75; }
+        .article-image { max-height: 23rem !important; aspect-ratio: auto; object-fit: contain; }
+        > .articletrailer { margin-top: 0; }
+
+        @media (min-width: 768px) {
+            > .articleheading:has(.article-image) {
+                display: grid !important;
+                grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+                gap: 2rem;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.articles-layout-magazine {
+    grid-template-columns: minmax(0, 1fr);
+    .article-image { object-position: center 25%; }
+
+    @media (min-width: 992px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        > article.article:first-of-type {
+            grid-column: 1 / -1;
+            min-height: 30rem;
+            .articletitle h2 { max-width: 32ch; font-size: clamp(1.75rem, 3vw, 2.75rem); }
+        }
+        > article.article:last-of-type:nth-of-type(even) { grid-column: 1 / -1; }
+    }
+}
+
+.articles-layout-compact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+
+    > article.article {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        .articletitle h2 { font-size: 1.125rem; }
+        .titleb { font-size: .8125rem; color: var(--bs-secondary-color); }
+        .articleheadingtext { display: none; }
+        > .articletrailer { margin-top: 0; padding-top: .5rem; }
+
+        &:has(.article-image) {
+            grid-template-columns: 5.5rem minmax(0, 1fr);
+            gap: .5rem 1rem;
+            > * { grid-column: 2; }
+            > .articletitle { grid-row: 1; }
+            > .articleheading { display: contents !important; }
+            .article-list-image { grid-column: 1; grid-row: 1 / span 3; }
+            .article-image { aspect-ratio: 1; }
+            > .articletrailer { grid-row: 2; }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    @each $columns in 2, 3, 4 {
+        :is(.articles-layout-tiles, .articles-layout-overlay)[data-article-columns="#{$columns}"] {
+            grid-template-columns: repeat($columns, minmax(0, 1fr));
+        }
+    }
+}
+
+.articles-layout a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+}
+
+@media print {
+    .articles-layout { display: block; }
+    .articles-layout > article.article { break-inside: avoid; margin-bottom: 1rem !important; }
+    :is(.articles-layout-overlay, .articles-layout-magazine) > article.article {
+        min-height: 0;
+        background: transparent;
+        color: #000;
+        &::before, .article-list-image { display: none; }
+        a:not(.dropdown-item), .titleb { color: #000; }
+    }
 }

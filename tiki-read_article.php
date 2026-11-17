@@ -270,6 +270,8 @@ if ($prefs['print_pdf_from_url'] == "mpdf") {
     }
 }
 
+$smarty->assign('article_navigation', \Tiki\Articles\ArticleNavigation::forArticle($article_data, $artlib, $tikilib->now));
+
 // Display the Index Template
 $smarty->assign('mid', 'tiki-read_article.tpl');
 $smarty->display("tiki.tpl");

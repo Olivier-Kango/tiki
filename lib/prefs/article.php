@@ -23,6 +23,23 @@ function prefs_article_list()
     $articlesGeneralSettingsHelp = 'Articles-General-Settings';
 
     return [
+        'article_frontpage_layout' => [
+            'name' => tra('Articles front page layout'),
+            'description' => tra('Presentation of the native articles page. The alternative CustomSearch listing and wiki ARTICLES instances keep their own settings.'),
+            'type' => 'list',
+            'filter' => 'alpha',
+            'tags' => ['basic'],
+            'default' => 'tiles',
+            'options' => [
+                'classic' => tra('Classic'),
+                'tiles' => tra('Tiles'),
+                'list' => tra('Horizontal list'),
+                'overlay' => tra('Image background'),
+                'magazine' => tra('Magazine'),
+                'compact' => tra('Compact list'),
+            ],
+            'help' => $articlesGeneralSettingsHelp,
+        ],
         'article_comments_per_page' => [
             'name' => tra('Number per page'),
             'description' => tra('Set the number of comments per page.'),

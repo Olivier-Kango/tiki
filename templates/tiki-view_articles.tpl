@@ -66,6 +66,10 @@
     {/if}
 {/if}
 
+{if !empty($article_list_layout)}
+    <div class="articles-layout articles-layout-{$article_list_layout|escape}" data-article-columns="{$article_list_columns|default:'auto'|escape}">
+{/if}
+
 {section name=ix loop=$listpages}
     {capture name=href}{strip}
         {if empty($urlparam)}
@@ -303,6 +307,10 @@
         {/remarksbox}
     {/if}
 {/section}
+
+{if !empty($article_list_layout)}
+    </div>
+{/if}
 
 {if !isset($actions) or $actions eq "y"}
     {if $tiki_p_edit_article eq 'y' or $tiki_p_admin eq 'y' or $tiki_p_admin_cms eq 'y'}

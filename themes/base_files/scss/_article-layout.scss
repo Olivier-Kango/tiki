@@ -85,3 +85,30 @@
     margin-top: 1.5em;
     margin-bottom: .65em;
 }
+
+.article-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-block: 2rem;
+    padding-block: 1.25rem;
+    border-block: 1px solid var(--bs-border-color);
+
+    > a { padding: .5rem; border-radius: var(--bs-border-radius); }
+    > [rel=next] { grid-column: 2; text-align: end; }
+    > a:only-child { grid-column: 1 / -1; }
+    > a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+    .article-navigation-title {
+        display: block;
+        margin-top: .5rem;
+        color: var(--bs-secondary-color);
+        font-size: .9375rem;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 479.98px) {
+        grid-template-columns: minmax(0, 1fr);
+        > [rel=next] { grid-column: 1; }
+    }
+}

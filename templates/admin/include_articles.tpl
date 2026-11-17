@@ -34,6 +34,7 @@
                 {preference name=wikiplugin_articles}
                 {preference name=wikiplugin_article}
             </fieldset>
+            {preference name=article_frontpage_layout}
             {preference name=art_home_title}
             {preference name=maxArticles}
             <fieldset>

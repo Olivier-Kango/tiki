@@ -199,6 +199,12 @@ if ($prefs['feature_user_watches'] == 'y') {
 $headerLinks = 'y';
 $smarty->assign('headerLinks', $headerLinks);
 include_once('tiki-section_options.php');
+$articleLayout = $prefs['article_frontpage_layout'] ?? 'tiles';
+if (! in_array($articleLayout, ['classic', 'tiles', 'list', 'overlay', 'magazine', 'compact'], true)) {
+    $articleLayout = 'tiles';
+}
+$smarty->assign('article_list_layout', $articleLayout);
+$smarty->assign('article_list_columns', 'auto');
 // Display the template
 $smarty->assign('mid', 'tiki-view_articles.tpl');
 $smarty->display("tiki.tpl");

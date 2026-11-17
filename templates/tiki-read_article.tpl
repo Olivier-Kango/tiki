@@ -31,6 +31,8 @@
 {include file="{custom_template basetpl='article.tpl' modifiers=[$type,$articleId]}"}
 </div>
 
+{include file='article_navigation.tpl'}
+
 {if $prefs.feature_article_comments == 'y' &&
         ($tiki_p_read_comments == 'y' || $tiki_p_post_comments == 'y' || $tiki_p_edit_comments == 'y')}
 

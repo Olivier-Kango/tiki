@@ -250,15 +250,31 @@ function wikiplugin_articles_info()
             'layout' => [
                 'required' => false,
                 'name' => tra('Layout'),
-                'description' => tra('Choose classic articles, image tiles, a horizontal list, or images with overlaid text.'),
+                'description' => tra('Choose refined classic articles, tiles, a horizontal list, image overlays, a magazine, or a compact list.'),
                 'since' => '31.0',
                 'filter' => 'alpha',
-                'default' => 'classic',
+                'default' => 'tiles',
                 'options' => [
                     ['text' => tra('Classic'), 'value' => 'classic'],
                     ['text' => tra('Tiles'), 'value' => 'tiles'],
                     ['text' => tra('Horizontal list'), 'value' => 'list'],
                     ['text' => tra('Image background'), 'value' => 'overlay'],
+                    ['text' => tra('Magazine'), 'value' => 'magazine'],
+                    ['text' => tra('Compact list'), 'value' => 'compact'],
+                ],
+            ],
+            'columns' => [
+                'required' => false,
+                'name' => tra('Columns'),
+                'description' => tra('Number of columns on wide screens for Tiles and Image background layouts. Small screens remain responsive.'),
+                'since' => '31.0',
+                'filter' => 'word',
+                'default' => 'auto',
+                'options' => [
+                    ['text' => tra('Automatic'), 'value' => 'auto'],
+                    ['text' => '2', 'value' => '2'],
+                    ['text' => '3', 'value' => '3'],
+                    ['text' => '4', 'value' => '4'],
                 ],
             ],
             'containerClass' => [
@@ -534,11 +550,18 @@ function wikiplugin_articles($data, $params)
     if ($titleonly == 'y') {
         return "~np~ " . $smarty->fetch('tiki-view_articles-titleonly.tpl') . " ~/np~";
     } else {
-        $output = $smarty->fetch('tiki-view_articles.tpl');
-        $layout = $params['layout'] ?? 'classic';
-        if (in_array($layout, ['tiles', 'list', 'overlay'], true)) {
-            $output = '<div class="articles-layout articles-layout-' . $layout . '">' . $output . '</div>';
+        $layout = $params['layout'] ?? 'tiles';
+        if (! in_array($layout, ['classic', 'tiles', 'list', 'overlay', 'magazine', 'compact'], true)) {
+            $layout = 'tiles';
         }
-        return "~np~ " . $output . " ~/np~";
+        $columns = (string) ($params['columns'] ?? 'auto');
+        if (! in_array($columns, ['auto', '2', '3', '4'], true)) {
+            $columns = 'auto';
+        }
+        // Child-template values cannot leak into the next ARTICLES instance or its parent page.
+        $template = $smarty->createTemplate('tiki-view_articles.tpl');
+        $template->assign('article_list_layout', $layout);
+        $template->assign('article_list_columns', $columns);
+        return "~np~ " . $template->fetch() . " ~/np~";
     }
 }
