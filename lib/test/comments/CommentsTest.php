@@ -11,6 +11,7 @@ class CommentsTest extends TikiTestCase
     private $commentsTable;
     private $attachmentsTable;
     private $attributesTable;
+    private $relationsTable;
     private $reportedTable;
     private $readsTable;
     private $originalPrefs;
@@ -29,6 +30,7 @@ class CommentsTest extends TikiTestCase
         $this->readsTable = $this->commentsLib->table('tiki_forum_reads');
         $this->attachmentsTable = $this->commentsLib->table('tiki_forum_attachments');
         $this->attributesTable = $this->commentsLib->table('tiki_object_attributes');
+        $this->relationsTable = $this->commentsLib->table('tiki_object_relations');
         $GLOBALS['user'] = 'my name';
         $GLOBALS['prefs'] = [
             'feature_forum_post_index' => 'y',
@@ -298,6 +300,39 @@ class CommentsTest extends TikiTestCase
 
         $unmarked = $this->readsTable->fetchRow([], ['user' => $user, 'threadId' => $threadId]);
         $this->assertEmpty($unmarked);
+    }
+
+    public function testRemoveCommentCleansCommentTypeAttributesAndRelations(): void
+    {
+        $attributeLib = TikiLib::lib('attribute');
+        $threadId = $this->commentsTable->insert([
+            'objectType' => 'wiki page',
+            'object' => 'HomePage',
+            'parentId' => 0,
+            'title' => 'parent',
+            'data' => 'parent',
+        ]);
+        $replyId = $this->commentsTable->insert([
+            'objectType' => 'wiki page',
+            'object' => 'HomePage',
+            'parentId' => $threadId,
+            'title' => 'reply',
+            'data' => 'reply',
+        ]);
+        $attributeLib->set_attribute('comment', $threadId, 'tiki.comment.version', '3');
+        $attributeLib->set_attribute('comment', $replyId, 'tiki.comment.version', '4');
+        $relationLib = TikiLib::lib('relation');
+        $relationLib->add_relation('tiki.test.source', 'comment', (string) $threadId, 'wiki page', 'HomePage');
+        $relationLib->add_relation('tiki.test.target', 'wiki page', 'HomePage', 'comment', (string) $replyId);
+        $this->assertNotFalse($this->relationsTable->fetchOne('relationId', ['source_type' => 'comment', 'source_itemId' => $threadId]));
+        $this->assertNotFalse($this->relationsTable->fetchOne('relationId', ['target_type' => 'comment', 'target_itemId' => $replyId]));
+
+        $this->commentsLib->remove_comment($threadId);
+
+        $this->assertFalse($this->relationsTable->fetchOne('relationId', ['source_type' => 'comment', 'source_itemId' => $threadId]));
+        $this->assertFalse($this->relationsTable->fetchOne('relationId', ['target_type' => 'comment', 'target_itemId' => $replyId]));
+        $this->assertFalse($this->attributesTable->fetchOne('value', ['type' => 'comment', 'itemId' => $threadId]));
+        $this->assertFalse($this->attributesTable->fetchOne('value', ['type' => 'comment', 'itemId' => $replyId]));
     }
 
     public function testIsMarked(): void

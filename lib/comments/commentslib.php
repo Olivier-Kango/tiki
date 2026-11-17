@@ -3615,6 +3615,7 @@ class Comments extends TikiLib
         $threadOrParent = $comments->expr('`threadId` = ? OR `parentId` = ?', [(int) $threadId, (int) $threadId]);
         $result = $comments->fetchAll($comments->all(), ['threadId' => $threadOrParent]);
         foreach ($result as $res) {
+            $this->remove_object('comment', $res['threadId']);
             if ($res['objectType'] == 'forum') {
                 $this->remove_object('forum post', $res['threadId']);
                 if ($prefs['feature_actionlog'] == 'y') {
