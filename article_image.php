@@ -22,6 +22,9 @@
 require_once('tiki-setup.php');
 use Tiki\Lib\Image\Image;
 
+require_once __DIR__ . '/lib/articles/image_optimization.php';
+header('Vary: Accept', false);
+
 $artlib = TikiLib::lib('art');
 
 $access->check_feature('feature_articles');
@@ -59,6 +62,7 @@ $temporaryFile = $prefs['tmpDir'];
 if ($tikidomain) {
     $temporaryFile .= "/$tikidomain";
 }
+$imageCacheDirectory = $temporaryFile . '/article-webp';
 $temporaryFile .= "/$imagePrefix." . $_REQUEST["id"];
 
 
@@ -104,9 +108,16 @@ if ($imagePrefix == "article_preview" && ! is_file($temporaryFile)) {
         fputs($fp, $data);
         fclose($fp);
     }
-    echo $data;
+    [$displayData, $displayType] = article_optimized_image($data, $type, $imageCacheDirectory);
+    header('Content-Type: ' . $displayType);
+    echo $displayData;
 } else {
     $size = getimagesize($temporaryFile);
     header("Content-type: " . $size['mime']);
-    readfile($temporaryFile);
+    $originalData = file_get_contents($temporaryFile);
+    if ($originalData !== false) {
+        [$displayData, $displayType] = article_optimized_image($originalData, $size['mime'], $imageCacheDirectory);
+        header('Content-Type: ' . $displayType);
+        echo $displayData;
+    }
 }

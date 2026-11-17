@@ -112,3 +112,75 @@
         > [rel=next] { grid-column: 1; }
     }
 }
+
+/* The inline control follows the same gutters as the article heading. */
+.tiki-article-page > .article > .article-media-position {
+    width: calc(100% - 24px);
+    margin: 1rem auto 1.5rem;
+    @media (min-width: 1200px) { max-width: 1116px; }
+    @media (min-width: 1400px) { max-width: 1296px; }
+}
+.article-media {
+    display: inline-flex;
+    align-items: center;
+    max-width: calc(100vw - 2rem);
+    padding: 0;
+    border: 1px solid var(--bs-border-color, #ccd9e5);
+    border-radius: 999px;
+    background: var(--bs-body-bg, #f8fafc);
+    color: var(--bs-body-color, #153b55);
+    box-shadow: 0 6px 24px #0000001f;
+
+    > button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .75rem;
+        min-height: 60px;
+        margin: 0;
+        padding: 8px 16px 8px 8px;
+        border: 0;
+        border-radius: inherit;
+        background: transparent;
+        color: inherit;
+        font-family: inherit;
+        font-size: .875rem;
+        font-weight: 400;
+        line-height: 1.4;
+        cursor: pointer;
+        &:hover { background: var(--bs-tertiary-bg, #edf3f8); }
+        &:focus-visible { outline: 2px solid var(--bs-primary, #0d405d); outline-offset: 3px; }
+    }
+    .article-media-icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 44px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--bs-primary, #0d405d);
+        color: var(--bs-primary-contrast, #fff);
+        svg { display: block; width: 22px; height: 22px; fill: currentColor; }
+    }
+    .article-media-label { white-space: nowrap; }
+    &.is-floating {
+        position: fixed;
+        top: calc(110px + env(safe-area-inset-top, 0px));
+        right: 24px;
+        z-index: 1030;
+        &.is-compact:not(:focus-within):not(:hover) {
+            .article-media-label { display: none; }
+            > button { padding: 8px; }
+        }
+    }
+    @media (max-width: 575px) {
+        &.is-floating {
+            top: auto;
+            right: 16px;
+            bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+            .article-media-label { display: none; }
+            > button { padding: 8px; }
+        }
+    }
+    @media print { display: none; }
+}

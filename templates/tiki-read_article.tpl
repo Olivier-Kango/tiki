@@ -27,7 +27,15 @@
     {include file='freetag_list.tpl'}
 {/if}
 
-<div class="tiki-article-page">
+<div class="tiki-article-page"
+    data-media-region="{tr}Article playback{/tr}"
+    data-media-play="{tr}Play{/tr}"
+    data-media-pause="{tr}Pause{/tr}"
+    data-media-listen="{tr}Listen to the article{/tr}"
+    data-media-blocked="{tr}Press Play to listen to this article.{/tr}"
+    data-media-finished="{tr}Playback finished.{/tr}"
+    data-media-error="{tr}Media unavailable.{/tr}"
+>
 {include file="{custom_template basetpl='article.tpl' modifiers=[$type,$articleId]}"}
 </div>
 
