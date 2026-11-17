@@ -208,3 +208,11 @@
         a:not(.dropdown-item), .titleb { color: #000; }
     }
 }
+
+/* Keep text selectable; the title remains the native keyboard-accessible link. */
+html[data-article-cards-ready] :is(.articles-layout-tiles, .articles-layout-overlay, .articles-layout-magazine) > article.article:has(> .articletitle h2 a[href]) {
+    cursor: pointer;
+    &:hover { border-color: var(--bs-primary, #0d6efd); box-shadow: 0 .25rem 1rem #0002; }
+    &:has(> .articletitle h2 a:focus-visible) { outline: 2px solid var(--bs-primary, #0d6efd); outline-offset: 3px; }
+    :is(p, .titleb, .articleheadingtext) { cursor: text; }
+}

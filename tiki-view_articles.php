@@ -203,6 +203,9 @@ $articleLayout = $prefs['article_frontpage_layout'] ?? 'tiles';
 if (! in_array($articleLayout, ['classic', 'tiles', 'list', 'overlay', 'magazine', 'compact'], true)) {
     $articleLayout = 'tiles';
 }
+if (in_array($articleLayout, ['tiles', 'overlay', 'magazine'], true)) {
+    TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/article-cards.js');
+}
 $smarty->assign('article_list_layout', $articleLayout);
 $smarty->assign('article_list_columns', 'auto');
 // Display the template

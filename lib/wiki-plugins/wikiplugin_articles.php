@@ -554,6 +554,9 @@ function wikiplugin_articles($data, $params)
         if (! in_array($layout, ['classic', 'tiles', 'list', 'overlay', 'magazine', 'compact'], true)) {
             $layout = 'tiles';
         }
+        if (in_array($layout, ['tiles', 'overlay', 'magazine'], true)) {
+            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/article-cards.js');
+        }
         $columns = (string) ($params['columns'] ?? 'auto');
         if (! in_array($columns, ['auto', '2', '3', '4'], true)) {
             $columns = 'auto';

@@ -86,7 +86,15 @@ $library = new class {
         };
     }
 };
-PluginFixture::$libraries = ['smarty' => $smarty, 'tiki' => $library, 'art' => $library, 'user' => $library, 'prefs' => $library];
+$header = new class {
+    public array $files = [];
+
+    public function add_jsfile(string $file): void
+    {
+        $this->files[] = $file;
+    }
+};
+PluginFixture::$libraries = ['header' => $header, 'smarty' => $smarty, 'tiki' => $library, 'art' => $library, 'user' => $library, 'prefs' => $library];
 
 // Load the real plugin into the fixture namespace, where only its dependencies are substituted.
 // The source is a fixed repository file, never user input. No global Tiki classes are redeclared.
@@ -114,12 +122,18 @@ foreach ($info['params'] as $name => $definition) {
 $params['dateStart'] = $params['dateEnd'] = '';
 foreach (array_merge($layouts, ['invalid', 'legacy', null]) as $layout) {
     foreach (['auto', '2', '3', '4', 'invalid', '" onclick="bad'] as $columns) {
+        $header->files = [];
         $result = wikiplugin_articles('', array_replace($params, ['layout' => $layout, 'columns' => $columns]));
         if (! str_contains($result, '<article>Native output</article>')) {
             throw new RuntimeException('Native template output lost');
         }
         $scoped = end(PluginFixture::$templates);
         $expectedLayout = in_array($layout, $layouts, true) ? $layout : 'tiles';
+        $expectedFiles = in_array($expectedLayout, ['tiles', 'overlay', 'magazine'], true)
+            ? ['lib/jquery_tiki/article-cards.js'] : [];
+        if ($header->files !== $expectedFiles) {
+            throw new RuntimeException('Card enhancement must load only for visual layouts');
+        }
         $expectedColumns = in_array($columns, ['auto', '2', '3', '4'], true) ? $columns : 'auto';
         if ($scoped !== ['article_list_layout' => $expectedLayout, 'article_list_columns' => $expectedColumns]) {
             throw new RuntimeException('Invalid or leaking child-template layout values');

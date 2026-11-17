@@ -23,6 +23,7 @@ function card(id, withImage = true) {
                 const classes = `articles-layout articles-layout-${layout}`;
                 await page.setContent(`<style>*{box-sizing:border-box}body{margin:16px;font-family:sans-serif;--bs-border-color:#ccc;--bs-border-radius:6px;--bs-border-radius-lg:10px;--bs-tertiary-bg:#f5f5f5}img{max-width:100%}.article{margin-bottom:24px}.titleb{display:block}.articleheadingtext{min-width:0}${css}</style>
                     <div class="${classes}">${card(1)}${card(2)}${card(3, false)}<nav class="pagination">Pagination</nav></div>`);
+                await page.addScriptTag({ path: resolve(__dirname, '../lib/jquery_tiki/article-cards.js') });
                 await page.evaluate(() => {
                     window.linkClicks = 0;
                     document.querySelectorAll('a').forEach(link => link.addEventListener('click', event => { event.preventDefault(); window.linkClicks++; }));
@@ -75,6 +76,44 @@ function card(id, withImage = true) {
                 assert.equal(await page.evaluate(() => window.linkClicks), 1, 'Native title link must work once');
                 await page.locator('button').first().click();
                 assert.equal(await page.evaluate(() => window.linkClicks), 1, 'Actions must not open the card');
+
+                const clickable = ['tiles', 'overlay', 'magazine'].includes(layout);
+                await page.locator('article').first().click({ position: { x: 4, y: 4 } });
+                const expectedClicks = clickable ? 2 : 1;
+                assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks, 'Only visual layouts open on a card background click');
+                if (width === 390) {
+                    await page.locator('h2 a').first().focus();
+                    await page.keyboard.press('Enter');
+                    assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks + 1, 'Keyboard title navigation remains native');
+                    if (clickable) {
+                        await page.locator('article').first().evaluate(article => {
+                            const range = document.createRange();
+                            range.selectNodeContents(article.querySelector('p'));
+                            window.getSelection().removeAllRanges();
+                            window.getSelection().addRange(range);
+                            article.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 }));
+                        });
+                        assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks + 1, 'Text selection must not open the article');
+                        await page.evaluate(() => window.getSelection().removeAllRanges());
+                        await page.locator('article').first().dispatchEvent('click', { ctrlKey: true, button: 0 });
+                        assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks + 1, 'Modified clicks must not trigger ordinary navigation');
+                        await page.locator('article').first().evaluate(article => {
+                            const controls = document.createElement('div');
+                            controls.innerHTML = '<a href="https://fixture.test/other">Related link</a><audio controls></audio><video controls></video><input><textarea></textarea><button>More actions</button><span role="button">Widget</span><span contenteditable="true">Edit</span><details><summary>Details</summary>Content</details><article class="article"><p>Nested article</p></article>';
+                            article.append(controls);
+                            controls.querySelector('a').addEventListener('click', event => event.preventDefault());
+                            for (const child of controls.querySelectorAll('a,audio,video,input,textarea,button,[role=button],[contenteditable],summary,p')) {
+                                child.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 }));
+                            }
+                            controls.remove();
+                        });
+                        assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks + 1, 'Media, widgets and nested articles must not open the outer card');
+                        // Loading the enhancement twice must not register duplicate listeners.
+                        await page.addScriptTag({ path: resolve(__dirname, '../lib/jquery_tiki/article-cards.js') });
+                        await page.locator('article').first().click({ position: { x: 4, y: 4 } });
+                        assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks + 2, 'A repeated script load must still open the title link once');
+                    }
+                }
 
                 if (process.env.ARTICLE_LAYOUT_SCREENSHOTS) await page.screenshot({ path: `${process.env.ARTICLE_LAYOUT_SCREENSHOTS}/${layout}-${width}.png`, fullPage: true });
                 await page.close();
