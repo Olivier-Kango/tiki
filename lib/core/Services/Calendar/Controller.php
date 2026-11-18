@@ -319,6 +319,10 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                                     $access->redirect($return_url, tr('The event was saved successfully'));
                                 }
 
+                                if (! $isAjaxRequest && (! defined('TIKI_API') || ! TIKI_API)) {
+                                    $this->redirectAfterPageSave($calitemId);
+                                }
+
                                 return ['url' => $return_url ?: 'tiki-calendar.php'];
                             }
                         } else {
@@ -897,6 +901,24 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             Services_Utilities::closeModal(),
             ['refreshEvents' => true]
         );
+    }
+
+    /**
+     * Leave the full-page editor after a save: back to the event, or to the calendar for a new one.
+     * Outside of AJAX requests the broker does not follow a returned 'url', it would render the empty form.
+     */
+    private function redirectAfterPageSave(?int $calitemId): void
+    {
+        $url = 'tiki-calendar.php';
+        if ($calitemId && $this->calendarLib->get_calendarid($calitemId)) {
+            $url = TikiLib::lib('service')->getUrl([
+                'controller' => 'calendar',
+                'action' => 'view_item',
+                'calitemId' => $calitemId,
+            ]);
+        }
+
+        TikiLib::lib('access')->redirect($url);
     }
 
     /**

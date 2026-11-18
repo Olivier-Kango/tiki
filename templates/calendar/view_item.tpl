@@ -5,13 +5,6 @@
 {/block}
 
 {block name="content"}
-    {if not $modal and not $preview}
-        {include
-            file='calendar_header.tpl'
-            viewlist='listEventView'
-        }
-    {/if}
-
     {if not $preview}
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
             {include file='calendar_header.tpl' viewlist='listEventView'}
@@ -421,13 +414,5 @@
                 </ul>
             </div>
         </div>
-    {/if}
-
-    {if not $preview and not $modal}
-        {permission name='change_events' type='calendaritem' object=$calitem.calitemId}
-            <a href="{service controller='calendar' action='edit_item' calitemId=$calitem.calitemId|escape}" class="btn btn-primary edit-calendar-item-btn mt-1">
-                {tr}Edit{/tr}
-            </a>
-        {/permission}
     {/if}
 {/block}
