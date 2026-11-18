@@ -569,7 +569,66 @@ class Services_Tracker_TabularController
 
         $done = false;
         $successImportMsg = tr('Your import was completed successfully.');
+        $writer = new TrackerWriter();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($schema->getFormat() === 'excel_paste') {
+                $pasteData = $input->paste_data->none();
+
+                if (trim($pasteData ?? '') === '') {
+                    throw new Services_Exception_MissingValue('paste_data');
+                }
+
+                $tempDir = TIKI_PATH . '/' . TEMP_PATH;
+                if (! is_dir($tempDir) || ! is_writable($tempDir)) {
+                    throw new Services_Exception(tr('Tiki temp folder is not writable.'));
+                }
+
+                $tmpFile = tempnam($tempDir, 'tabular_csv_paste_');
+                if ($tmpFile === false) {
+                    throw new Services_Exception(tr('Could not create a temporary file for the import.'));
+                }
+
+                try {
+                    if (file_put_contents($tmpFile, $pasteData) !== strlen($pasteData)) {
+                        throw new Services_Exception(tr('Could not write the pasted data to a temporary file.'));
+                    }
+                    $source = new CsvSource($schema, $tmpFile, "\t", $schema->getEncoding());
+
+                    return TikiLib::lib('tiki')->allocate_extra(
+                        'tracker_import_items',
+                        function () use ($writer, $source, $info, $schema, $successImportMsg) {
+                            $result = $writer->write($source);
+
+                            if (TIKI_API) {
+                                $data = [];
+                                $columns = $schema->getColumns();
+                                foreach ($result as $itemId) {
+                                    $entry = new TrackerSourceEntry($itemId);
+                                    $row = ['itemId' => $itemId];
+                                    foreach ($columns as $column) {
+                                        $row[$column->getLabel()] = $row[$column->getField()] = $entry->render($column, false);
+                                    }
+                                    $data[] = $row;
+                                }
+                                return $data;
+                            }
+
+                            Feedback::success($successImportMsg);
+                            return [
+                                'FORWARD' => [
+                                    'controller' => 'tabular',
+                                    'action' => 'list',
+                                    'tabularId' => $info['tabularId'],
+                                ]
+                            ];
+                        }
+                    );
+                } finally {
+                    unlink($tmpFile);
+                }
+            }
+
             $hasUploadedFile = isset($_FILES['file']) && (is_uploaded_file($_FILES['file']['tmp_name']) || is_file($_FILES['file']['tmp_name']));
 
             if (! $hasUploadedFile) {
@@ -581,7 +640,6 @@ class Services_Tracker_TabularController
                 $separator = ',';
             }
             $source = $schema->getSource($_FILES['file']['tmp_name'], $separator);
-            $writer = new TrackerWriter();
 
             return TikiLib::lib('tiki')->allocate_extra(
                 'tracker_import_items',
