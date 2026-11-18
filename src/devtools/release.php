@@ -28,6 +28,7 @@ chdir(ROOT . '/');
 require_once ROOT . '/lib/setup/third_party.php';
 require_once ROOT . '/path_constants.php';
 require_once ROOT . '/' . CI_TOOLS_PATH . '/vcscommons.php';
+require_once ROOT . '/' . PRIMARY_AUTOLOAD_FILE_PATH;
 
 $phpCommand = $_SERVER['_'] ?? 'php';
 $phpCommandArguments = implode(' ', $_SERVER['argv']);
@@ -233,90 +234,6 @@ function rrmdir($dir)
     return false;
 }
 
-
-/**
- *
- * Recursively deletes specific files or directories
- *
- * @param string $src Directory to search through
- * @param array $files An array of file names to delete.
- */
-
-function removeFiles(string $src, array $files): void
-{
-    $lookup = array_flip($files);
-
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
-
-    foreach ($iterator as $path => $info) {
-        $name = $info->getFilename();
-
-        if (! isset($lookup[$name])) {
-            continue;
-        }
-
-        if ($info->isDir()) {
-            rrmdir($path);
-        } else {
-            if (! is_writable($path)) {
-                chmod($path, 0777);
-            }
-            unlink($path);
-        }
-    }
-}
-
-function removeNodeModules(string $src): ?string
-{
-    if (! is_dir($src)) {
-        return null;
-    }
-
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::CHILD_FIRST
-    );
-
-    foreach ($iterator as $path => $info) {
-        if ($info->isDir() && ! $info->isLink() && $info->getFilename() === 'node_modules') {
-            $error = rrmdir($path);
-            if ($error) {
-                return $error;
-            }
-        }
-    }
-
-    return null;
-}
-
-
-/**
- *
- * Recursively sets permissions. Files get 775 and directories 664.
- *
- * @param string $src The directory to set permissions for
- */
-
-function setPermissions(string $src): void
-{
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
-
-    foreach ($iterator as $path => $info) {
-        if ($info->isLink()) {
-            continue;
-        }
-
-        chmod($path, $info->isDir() ? 0755 : 0664);
-    }
-}
-
-
 /**
  *
  * Prepares and generates the release packages.
@@ -328,223 +245,187 @@ function build_packages($releaseVersion)
 {
     global $options;
 
-    $workDir = $_SERVER['HOME'] . "/tikipack";
+
+    $workDir = $_SERVER['HOME'] . '/tikipack';
     $fileName = 'tiki-' . $releaseVersion;
-    $relDir = $workDir . '/' . $releaseVersion;    // where the tiki dir and tarballs go
-    $sourceDir = $relDir . '/' . $fileName;        // the git export
+    $relDir = $workDir . '/' . $releaseVersion;
+    $sourceDir = $relDir . '/' . $fileName;
 
-    echo "Seting up $workDir directory\n";
-    if (! is_dir($workDir)) {
-        if (! mkdir($workDir)) {
-            error('Cant make ' . $workDir . "\n");
-            die();
-        }
-    }
+    $debugPackaging = ! empty($options['debug-packaging']);
 
-    // remove previous files if they exist.
-    if (is_dir($relDir)) {
-        echo "Removing previous files\n";
-        $shellout = rrmdir($relDir);
-        if ($shellout) {
-            die($shellout . "\n");
-        }
-    }
-    if (! mkdir($relDir)) {
-        error('Cant make ' . $relDir . "\n");
-        die();
-    }
-
-    // create an export in tikipack to work with
-    echo "Exporting working copy into $sourceDir\n";
-    $shellout = export(ROOT, $sourceDir);
-    if ($options['debug-packaging']) {
-        echo $shellout . "\n";
-    }
+    // Execute a build script and stream its output.
+    $runBuildScript = static function (
+        string $script,
+        array $args = [],
+        array $env = []
+    ) use ($sourceDir): void {
+        $scriptPath = __DIR__ . '/../ci/' . $script;
 
 
-    if (! is_file($sourceDir . '/' . PRIMARY_COMPOSERJSON_FILE_PATH)) {
-        echo 'composer.json not found. Aborting.' . "\n";
-        die();
-    }
+        $command = array_merge(['bash', $scriptPath], $args);
 
-    if (is_file($workDir . '/composer.phar')) {
-        if (! unlink($workDir . '/composer.phar')) {
-            echo "Can't delete tikipack/composer.phar. Aborting." . "\n";
-            die();
-        }
-    }
-
-    echo "Downloading composer.phar" . "\n";
-    $checksum = file_get_contents('https://composer.github.io/installer.sig');
-    $composerInstaller = $workDir . '/composer-setup.php';
-    if (! file_put_contents($composerInstaller, file_get_contents('https://getcomposer.org/installer'))) {
-        echo "Can't create tikipack/composer-setup.php. Aborting." . "\n";
-        die();
-    }
-
-    if ($checksum !== hash_file('sha384', $composerInstaller)) {
-        echo "Invalid composer installer checksum. Aborting." . "\n";
-        unlink($composerInstaller);
-        die();
-    }
-
-    $shellout = shell_exec('php ' . escapeshellarg($composerInstaller) . ' --quiet --2 --install-dir=' . $workDir . ' 2>&1');
-
-    if ($shellout) {
-        echo "Composer installer failed. Aborting." . "\n";
-        unlink($composerInstaller);
-        die();
-    }
-
-    // tidy up
-    unlink($composerInstaller);
-
-    echo 'Installing dependencies through composer... [may take a while]' . "\n";
-    $shellout = shell_exec('php ' . escapeshellarg($workDir . '/composer.phar') . ' install -d ' . escapeshellarg($sourceDir . '/' . TIKI_VENDOR_BUNDLED_TOPLEVEL_PATH) . ' --prefer-dist --no-dev 2>&1');
-    if ($options['debug-packaging']) {
-        echo $shellout . "\n";
-    }
-
-    if (
-        str_contains($shellout, 'Fatal error:')
-        || str_contains($shellout, 'Installation failed,')
-        ||
-        // symfony/dependency-injection comes in quite late in the list and is required - sometimes no error is reported even though it didn't work
-        ! str_contains($shellout, 'symfony/dependency-injection')
-    ) {
-        echo 'Vendor bundled packages installation Failed. Exiting' . "\n";
-        die();
-    }
-
-    echo "Running node install and build\n";
-    $npmInstall = "cd $sourceDir; npm clean-install --engine-strict";
-    exec($npmInstall, $npmInstallOutput, $npmInstallExitCode);
-    if ($npmInstallExitCode !== 0) {
-        error("npm install failed. Exiting.", $npmInstallExitCode);
-    }
-    $npmBuildResult = passthru("cd $sourceDir; npm run build");
-    if ($npmBuildResult === false) {
-        error("npm build failed. Exiting.");
-    }
-    echo "npm setup completed.\n";
-
-    echo "Removing development files\n";
-    //  Remove node_modules created when running "npm install" in tiki root directory and Recursively remove node_modules dynamically created alongside the package.json files in the src folder anytime we have conflicting npm version requirements.
-    $shellout = removeNodeModules($sourceDir);
-    if ($shellout) {
-        die($shellout . "\n");
-    }
-
-    $shellout = rrmdir($sourceDir . '/' . TESTS_PATH);
-    if ($shellout) {
-        die($shellout . "\n");
-    }
-    /** @deprecated Looks like an artefact of past tiki versions, can this be removed?  benoitg - 2023-12-22 */
-    $shellout = rrmdir($sourceDir . '/db/convertscripts');
-    if ($shellout) {
-        die($shellout . "\n");
-    }
-
-    $shellout = rrmdir($sourceDir . '/' . CI_TOOLS_PATH);
-    $shellout .= rrmdir($sourceDir . '/' . DEV_SCRIPTS_PATH);
-    if ($shellout) {
-        die($shellout . "\n");
-    }
-
-    $satisConfig = $sourceDir . '/src/config/satis.json';
-    if (is_file($satisConfig) && ! unlink($satisConfig)) {
-        die("Could not delete $satisConfig\n");
-    }
-
-    $shellout = rrmdir($sourceDir . '/' . BIN_PATH);
-    if ($shellout) {
-        die($shellout . "\n");
-    }
-
-    removeFiles($sourceDir, ['.gitignore']);
-
-    echo "Removing language file comments\n";
-    foreach (scandir($sourceDir . '/' . LANG_SRC_PATH) as $strip) {
-        if (is_file($sourceDir . '/' . LANG_SRC_PATH . '/' . $strip . '/language.php')) {
-            $shellout = shell_exec('php ' . escapeshellarg(__DIR__ . '/stripcomments.php') . ' ' . escapeshellarg($sourceDir . '/' . LANG_SRC_PATH . '/' . $strip . '/language.php') . ' 2>&1');
-        }
-        if ($shellout) {
-            die($shellout . "\n");
-        }
-    }
-
-    echo "Setting file permissions\n";
-    setPermissions($sourceDir);
-
-    $relDir = escapeshellarg($relDir);
-    $isMac = (PHP_OS_FAMILY === 'Darwin');
-    $macPrefix = $isMac ? 'COPYFILE_DISABLE=1 ' : '';
-    // exclude the .DS_Store files which are macOS generated files
-    $excludes = [
-        '*.DS_Store',
-        '.husky',
-        '.gitpod',
-        '.editorconfig',
-        '.gitattributes',
-        '.gitlab-ci.yml',
-        '.gitlab-ci-local-env',
-        '.gitlab-ci-local-variables.yml',
-        '.gitpod.yml',
-        '.phplint.yml',
-        '.prettierrc',
-        '.vimrc',
-        'auto-imports.d.ts',
-        'components.d.ts',
-        'check_composer_exists.php',
-        'eslint.config.js',
-        'commitlint.config.cjs'
-    ];
-
-    $tarExcludes = implode(' ', array_map(
-        fn($e) => "--exclude=" . escapeshellarg($e),
-        $excludes
-    ));
-
-    $zipExcludes = implode(' ', array_map(
-        fn($e) => "-x " . escapeshellarg($e),
-        $excludes
-    ));
-
-    $sevenZipExcludes = implode(' ', array_map(
-        fn($e) => "-xr!" . escapeshellarg($e),
-        $excludes
-    ));
-
-    $archives = [
-        'tar.gz'  => "{$macPrefix}tar -czp $tarExcludes -f {archive} {source}",
-        'tar.bz2' => "{$macPrefix}tar -cjp $tarExcludes -f {archive} {source}",
-        'tar.xz'  => "{$macPrefix}tar -cJp $tarExcludes -f {archive} {source}",
-        'zip'     => "zip -ry {archive} {source} $zipExcludes -9",
-        '7z'      => "7za a {archive} {source} $sevenZipExcludes -mx=9",
-    ];
-    foreach ($archives as $ext => $cmdTemplate) {
-        $archive = escapeshellarg("$fileName.$ext");
-        $source  = escapeshellarg($fileName);
-
-        $command = str_replace(
-            ['{archive}', '{source}'],
-            [$archive, $source],
-            $cmdTemplate
+        $process = new \Symfony\Component\Process\Process(
+            $command,
+            $sourceDir,
+            $env
         );
 
-        echo "Creating $fileName.$ext \n";
-        $shellout = shell_exec("cd $relDir; $command 2>&1");
-        if (! empty($options['debug-packaging'])) {
-            echo $shellout . "\n";
-        }
+        // Packaging can take longer than Symfony Process's default timeout.
+        $process->setTimeout(null);
 
-        if ($ext === '7z' && str_contains($shellout, 'command not found')) {
-            error("7za not installed. Archive creation failed.\n");
+        $process->run(static function ($type, $buffer): void {
+            echo $buffer;
+        });
+
+        if (! $process->isSuccessful()) {
+            throw new RuntimeException(
+                sprintf(
+                    "Build script failed: %s (exit code: %s)\n%s",
+                    $script,
+                    $process->getExitCode(),
+                    $process->getErrorOutput()
+                )
+            );
+        }
+    };
+
+    echo "Setting up $workDir directory\n";
+
+    if (
+        ! is_dir($workDir)
+        && ! mkdir($workDir, 0775, true)
+        && ! is_dir($workDir)
+    ) {
+        throw new RuntimeException("Cannot create working directory: $workDir");
+    }
+
+    // Remove previous release files if they exist.
+    if (is_dir($relDir)) {
+        echo "Removing previous files\n";
+
+        $shellout = rrmdir($relDir);
+
+        if ($shellout) {
+            throw new RuntimeException($shellout);
         }
     }
 
-    echo color("\nTo upload the 'tarballs', copy-paste and execute the following line (and change '\$SF_LOGIN' by your SF.net login):\n", 'yellow');
-    echo color("    cd $relDir; scp $fileName.* \$SF_LOGIN@frs.sourceforge.net:/home/pfs/project/t/ti/tikiwiki/\$RELEASEFOLDER\$\n", 'yellow');
+    if (! mkdir($relDir, 0775, true) && ! is_dir($relDir)) {
+        throw new RuntimeException("Cannot create release directory: $relDir");
+    }
+
+    // Export the requested Git revision.
+    echo "Exporting working copy into $sourceDir\n";
+
+    $shellout = export(ROOT, $sourceDir);
+
+    if ($debugPackaging) {
+        echo $shellout . "\n";
+    }
+
+    if (! is_file($sourceDir . '/' . PRIMARY_COMPOSERJSON_FILE_PATH)) {
+        throw new RuntimeException('composer.json not found. Aborting.');
+    }
+
+    // Download and verify Composer.
+    $composerPhar = $workDir . '/composer.phar';
+    $composerInstaller = $workDir . '/composer-setup.php';
+
+    $checksumContent = file_get_contents('https://composer.github.io/installer.sig');
+
+    if ($checksumContent === false || trim($checksumContent) === '') {
+        throw new RuntimeException('Unable to download Composer installer checksum.');
+    }
+
+    $checksum = trim($checksumContent);
+
+    $installerContent = file_get_contents('https://getcomposer.org/installer');
+
+    if ($installerContent === false) {
+        throw new RuntimeException('Unable to download Composer installer.');
+    }
+
+    if (file_put_contents($composerInstaller, $installerContent) === false) {
+        throw new RuntimeException("Cannot create Composer installer: $composerInstaller");
+    }
+
+    try {
+        $installerHash = hash_file('sha384', $composerInstaller);
+
+        if ($installerHash === false || ! hash_equals($checksum, $installerHash)) {
+            throw new RuntimeException('Invalid Composer installer checksum.');
+        }
+
+        echo "Installing Composer\n";
+
+        $process = new \Symfony\Component\Process\Process(
+            [
+                PHP_BINARY,
+                $composerInstaller,
+                '--quiet',
+                '--2',
+                '--install-dir=' . $workDir,
+            ],
+            $workDir
+        );
+
+        $process->setTimeout(120);
+        $process->run();
+
+        if (! $process->isSuccessful()) {
+            $message = "Composer installer failed.";
+
+            if ($debugPackaging) {
+                $message .= "\n" . $process->getOutput() . $process->getErrorOutput();
+            }
+
+            throw new RuntimeException($message);
+        }
+
+        if (! is_file($composerPhar)) {
+            throw new RuntimeException('Composer PHAR was not created.');
+        }
+    } finally {
+        if (is_file($composerInstaller) && ! unlink($composerInstaller)) {
+            echo "Warning: Could not remove Composer installer: $composerInstaller\n";
+        }
+    }
+
+    // Install Composer dependencies before building the frontend.
+    $runBuildScript('build_package.sh', ['dependencies'], [
+        'SOURCE_DIR' => $sourceDir,
+        'COMPOSER_PHAR' => $composerPhar,
+    ]);
+
+    // Install frontend dependencies.
+    $runBuildScript('build_frontend.sh', ['install'], [
+        'SOURCE_DIR' => $sourceDir,
+        'NPM_INSTALL_OPTIONS' => '--engine-strict',
+    ]);
+
+    // Build frontend assets.
+    $runBuildScript('build_frontend.sh', ['build'], [
+        'SOURCE_DIR' => $sourceDir,
+    ]);
+
+    // Clean up and create release archives.
+    $runBuildScript('build_package.sh', ['package'], [
+        'SOURCE_DIR' => $sourceDir,
+        'OUTPUT_DIR' => $relDir,
+        'PACKAGE_NAME' => $fileName,
+        'PACKAGE_FORMATS' => 'tar.gz tar.bz2 tar.xz zip 7z',
+    ]);
+
+    // Display release-specific upload instructions.
+    echo color(
+        "\nTo upload the 'tarballs', copy-paste and execute the following line (and change '\$SF_LOGIN' by your SourceForge login):\n",
+        'yellow'
+    );
+
+    echo color(
+        "    cd $relDir; scp $fileName.* \$SF_LOGIN@frs.sourceforge.net:/home/pfs/project/t/ti/tikiwiki/\$RELEASEFOLDER\$\n",
+        'yellow'
+    );
 
     info(">> Packages files have been built in ~/tikipack/$releaseVersion\n");
 }
