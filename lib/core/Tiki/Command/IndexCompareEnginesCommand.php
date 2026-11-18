@@ -178,11 +178,6 @@ class IndexCompareEnginesCommand extends Command
             }
             $io->writeln(tra('Index rebuild finished.'));
             $io->newLine(2);
-        } else {
-            foreach ($engines as $engine) {
-                $prefs['unified_engine'] = $engine;
-                $indices[$engine] = $unifiedSearchLib->getIndexLocation('ondemand');
-            }
         }
 
         $prefs = $orig_prefs;
