@@ -1,6 +1,6 @@
 {title}{tr}Print multiple pages{/tr}{/title}
 
-{include file='find.tpl'}
+{if $prefs.feature_elementplus neq 'y'}{include file='find.tpl'}{/if}
 
 {tabset name='tabs_print_pages'}
     {if $prefs.feature_wiki_structure eq 'y'}
@@ -8,15 +8,13 @@
         {* --- tab with structures -- *}
             {if $prefs.feature_elementplus eq 'y'}
                 {jstransfer_list data=$transferStructures defaultSelected=$printstructures fieldName="transfer_printstructures" filterable=true ordering=true sourceListTitle="{tr}Available Structures{/tr}" targetListTitle="{tr}Selected Structures{/tr}"}
-                <div class="mt-3 d-flex gap-2">
+                <div class="mt-3 d-flex gap-2 justify-content-end">
                     <form method="get" action="tiki-print_multi_pages.php">
-                        {ticket}
                         <input type="hidden" class="js-printstructures" name="printstructures" value="{$form_printstructures|escape}">
                         <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
                     </form>
                     {if $pdf_export eq 'y'}
                         <form method="get" action="tiki-print_multi_pages.php">
-                            {ticket}
                             <input type="hidden" name="display" value="pdf">
                             <input type="hidden" class="js-printstructures" name="printstructures" value="{$form_printstructures|escape}">
                             <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}PDF{/tr}">
@@ -52,7 +50,6 @@
                     {remarksbox type="warning" title="{tr}Warning{/tr}"}{tr}Some pages of the selected structures will not be included because you do not have permission to view or print them.{/tr}{/remarksbox}
                 {/if}
                 <form method="get" action="tiki-print_multi_pages.php">
-                    {ticket}
                     <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
                     <input type="hidden" name="find" value="{$find|escape}">
                     <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
@@ -60,7 +57,6 @@
 
                 {if $pdf_export eq 'y'}
                     <form method="get" action="tiki-print_multi_pages.php">
-                        {ticket}
                         <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
                         <input type="hidden" name="find" value="{$find|escape}">
                         <input type="hidden" name="display" value="pdf">
@@ -103,16 +99,37 @@
         {/if}
 
         {if $prefs.feature_elementplus eq 'y'}
-            {jstransfer_list data=$transferPages defaultSelected=$printpages fieldName="transfer_printpages" filterable=true ordering=true sourceListTitle="{tr}Available Pages{/tr}" targetListTitle="{tr}Selected Pages{/tr}"}
-            <div class="mt-3 d-flex gap-2">
-                <form method="get" action="tiki-print_multi_pages.php">
+            {if $prefs.feature_wiki_structure eq 'y'}
+                <form action="tiki-print_pages.php" method="post" class="mb-4">
                     {ticket}
+                    <input type="hidden" class="js-printpages" name="printpages" value="{$form_printpages|escape}">
+                    <input type="hidden" class="js-printstructures" name="printstructures" value="{$form_printstructures|escape}">
+                    <input type="hidden" name="find" value="{$find|escape}">
+                    <h2>{tr}Add Pages from Structures{/tr}</h2>
+                    <p class="form-text">{tr}Adds the pages of a structure to the Selected Pages below.{/tr}</p>
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="flex-grow-1">
+                            <select name="structureId" class="form-control" required>
+                                {section name=ix loop=$structures}
+                                    <option value="{$structures[ix].page_ref_id|escape}">{$structures[ix].pageName|escape}</option>
+                                {sectionelse}
+                                    <option value="" disabled="disabled">{tr}No structures{/tr}</option>
+                                {/section}
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-sm" name="addstructurepages" value="{tr}Add{/tr}">
+                    </div>
+                </form>
+            {/if}
+            <h2>{tr}Select Pages to Print{/tr}</h2>
+            {jstransfer_list data=$transferPages defaultSelected=$printpages fieldName="transfer_printpages" filterable=true ordering=true sourceListTitle="{tr}Available Pages{/tr}" targetListTitle="{tr}Selected Pages{/tr}"}
+            <div class="mt-3 d-flex gap-2 justify-content-end">
+                <form method="get" action="tiki-print_multi_pages.php">
                     <input type="hidden" class="js-printpages" name="printpages" value="{$form_printpages|escape}">
                     <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}Print{/tr}">
                 </form>
                 {if $pdf_export eq 'y'}
                     <form method="get" action="tiki-print_multi_pages.php">
-                        {ticket}
                         <input type="hidden" name="display" value="pdf">
                         <input type="hidden" class="js-printpages" name="printpages" value="{$form_printpages|escape}">
                         <input type="submit" class="btn btn-primary btn-sm" name="print" value="{tr}PDF{/tr}">
@@ -177,13 +194,11 @@
         {if $printpages}
             <div style="float:right;margin-right:20%;">
                 <form method="get" action="tiki-print_multi_pages.php">
-                    {ticket}
                     <input type="hidden" name="printpages" value="{$form_printpages|escape}">
                     <input type="submit" class="btn btn-primary btn-sm mt-2" name="print" title="{tr}Print{/tr}" value="{tr}Print{/tr}">
                 </form>
                 {if $pdf_export eq 'y'}
                     <form method="get" action="tiki-print_multi_pages.php">
-                        {ticket}
                         <input type="hidden" name="display" value="pdf">
                         <input type="hidden" name="printpages" value="{$form_printpages|escape}">
                         <input type="submit" class="btn btn-primary btn-sm mt-2" name="print" title="{tr}PDF{/tr}" value="{tr}PDF{/tr}">
@@ -192,10 +207,11 @@
             </div>
         {/if}
         {/if}
-        {if $prefs.feature_wiki_structure eq 'y'}
+        {if $prefs.feature_wiki_structure eq 'y' and $prefs.feature_elementplus neq 'y'}
             <form action="tiki-print_pages.php" method="post">
                 {ticket}
-                <input type="hidden" class="js-printpages" name="printpages" value="{$form_printpages|escape}">
+                <input type="hidden" name="printpages" value="{$form_printpages|escape}">
+                <input type="hidden" name="printstructures" value="{$form_printstructures|escape}">
                 <input type="hidden" name="find" value="{$find|escape}">
                 <h2>{tr}Add Pages from Structures:{/tr}</h2>
                 <div class="mb-3 row">

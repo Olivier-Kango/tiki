@@ -71,7 +71,6 @@ if (isset($_REQUEST["print"]) || isset($_REQUEST["display"])) {
     if ($hasExcludedStructurePages && ! $access->requestIsPost()) {
         Feedback::warning(tra('Some pages of the selected structures will not be included because you do not have permission to view or print them.'));
     }
-    $access->checkCsrf();
     // Create XMLRPC object
     $pages = [];
     $prefs['feature_jquery_tablesorter'] = 'n';
