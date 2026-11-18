@@ -228,5 +228,8 @@
     </div>
 </div>
 
-<script type="module">import "@jquery-tiki/report-wizard";</script>
+<script type="module">{literal}
+import { initReportWizard } from "@jquery-tiki/report-wizard";
+initReportWizard();
+{/literal}</script>
 {/block}

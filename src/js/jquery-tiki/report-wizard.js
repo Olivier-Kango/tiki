@@ -1,8 +1,11 @@
-(function () {
+// The editor modal replaces this markup on every open, but the module is evaluated once.
+// initReportWizard() must run again for each inserted copy.
+export function initReportWizard() {
     var $wizard = $("#report-wizard");
-    if (!$wizard.length) {
+    if (!$wizard.length || $wizard.data("reportWizardInit")) {
         return;
     }
+    $wizard.data("reportWizardInit", true);
 
     $wizard.closest(".modal-body").css({ overflow: "visible", "min-height": "350px" });
     $wizard.closest(".modal-content").css("overflow", "visible");
@@ -308,4 +311,7 @@
     });
 
     showStep(1);
-})();
+}
+
+$(document).on("tiki.modal.redraw.reportWizard", initReportWizard);
+initReportWizard();
