@@ -7,8 +7,8 @@ const readingCss = sass.compile(resolve(__dirname, '../themes/base_files/scss/_a
 const css = sass.compile(resolve(__dirname, '../themes/base_files/scss/_articles-tiles.scss')).css;
 const image = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="800" height="600" fill="#427a92"/></svg>');
 function card(id, withImage = true) {
-    return `<article class="article wikiplugin_articles"><header class="articletitle"><h2><a href="https://fixture.test/article/${id}?autoplay=1">Article ${id}</a></h2><span class="titleb">Author · Date</span></header>
-        <div class="articleheading d-md-flex"><div class="article-list-image me-3">${withImage ? `<a href="https://fixture.test/article/${id}?autoplay=1"><img class="article-image" src="${image}" alt="Article illustration"></a>` : ''}</div>
+    return `<article class="clearfix article wikiplugin_articles"><header class="articletitle"><h2><a href="https://fixture.test/article/${id}?autoplay=1">Article ${id}</a></h2><span class="titleb">Author · Date</span></header>
+        <div class="articleheading d-md-flex clearfix"><div class="article-list-image me-3">${withImage ? `<a href="https://fixture.test/article/${id}?autoplay=1"><img class="article-image" src="${image}" alt="Article illustration"></a>` : ''}</div>
         <div class="articleheadingtext flex-grow-1"><p>An article introduction with enough text to check the responsive arrangement.</p></div></div>
         <div class="articletrailer"><a class="more" href="https://fixture.test/article/${id}?autoplay=1">Read more</a><button type="button">Actions</button></div></article>`;
 }
@@ -21,7 +21,7 @@ function card(id, withImage = true) {
                 const page = await browser.newPage({ viewport: { width, height: 1000 } });
                 await page.route('**/*', route => route.abort());
                 const classes = `articles-layout articles-layout-${layout}`;
-                await page.setContent(`<style>*{box-sizing:border-box}body{margin:16px;font-family:sans-serif;--bs-border-color:#ccc;--bs-border-radius:6px;--bs-border-radius-lg:10px;--bs-tertiary-bg:#f5f5f5}img{max-width:100%}.article{margin-bottom:24px}.titleb{display:block}.articleheadingtext{min-width:0}.flex-grow-1{flex-grow:1!important}${css}</style>
+                await page.setContent(`<style>*{box-sizing:border-box}body{margin:16px;font-family:sans-serif;--bs-border-color:#ccc;--bs-border-radius:6px;--bs-border-radius-lg:10px;--bs-tertiary-bg:#f5f5f5}img{max-width:100%}.article{margin-bottom:24px}.titleb{display:block}.articleheadingtext{min-width:0}.flex-grow-1{flex-grow:1!important}.clearfix::after{display:block;clear:both;content:""}${css}</style>
                     <div class="${classes}">${card(1)}${card(2)}${card(3, false)}<nav class="pagination">Pagination</nav></div>
                     <style>.articles-pagination .pagination{display:flex;list-style:none;padding:0}.page-item:first-child .page-link{border-top-left-radius:.375rem;border-bottom-left-radius:.375rem}.page-item:last-child .page-link{border-top-right-radius:.375rem;border-bottom-right-radius:.375rem}</style>
                     <nav class="articles-pagination"><ul class="pagination"><li class="page-item disabled"><span class="page-link">«</span></li><li class="page-item active"><span class="page-link">1</span></li><li><a class="page-link" href="?offset=3">2</a></li><li class="page-item"><a class="page-link" href="?offset=3">»</a></li></ul></nav>`);
@@ -53,9 +53,9 @@ function card(id, withImage = true) {
                 if (layout === 'list' || layout === 'compact') {
                     const surface = await page.locator('article').first().evaluate(el => {
                         const style = getComputedStyle(el);
-                        return {border: style.borderTopColor, radius: parseFloat(style.borderTopLeftRadius), shadow: style.boxShadow};
+                        return {border: style.borderTopColor, borderWidth: style.borderTopWidth, radius: parseFloat(style.borderTopLeftRadius), shadow: style.boxShadow};
                     });
-                    assert.equal(surface.border, 'rgba(0, 0, 0, 0)', 'List cards must not have a hard outline');
+                    assert(surface.borderWidth === '0px' || surface.border === 'rgba(0, 0, 0, 0)', 'List cards must not have a hard outline');
                     assert(surface.radius >= 16, 'List cards should share the rounded visual language');
                     assert.notEqual(surface.shadow, 'none');
                 }
@@ -91,6 +91,24 @@ function card(id, withImage = true) {
 
                 assert.equal(await page.locator('h2 a').first().getAttribute('href'), 'https://fixture.test/article/1?autoplay=1');
                 if (width < 768) assert(metrics.second.y > metrics.first.y, `${layout}: mobile cards must stack`);
+                if (layout === 'tiles') {
+                    assert(Math.abs(metrics.image.y - metrics.first.y) < 2, 'Cover image must touch the top');
+                    assert(Math.abs(metrics.image.x - metrics.first.x) < 2, 'Cover image must touch the left edge');
+                    assert(Math.abs(metrics.image.width - metrics.first.width) < 2, 'Cover image must span the card');
+                    assert(metrics.title.y >= metrics.image.y + metrics.image.height, 'Cover must precede title');
+                    await page.locator('.articles-layout-tiles').evaluate(e => e.dataset.articleImagePosition = 'after-title');
+                    const inset = await page.locator('article').first().evaluate(e => ({
+                        title: e.querySelector('h2').getBoundingClientRect().y,
+                        image: e.querySelector('img').getBoundingClientRect().y
+                    }));
+                    assert(inset.title < inset.image, 'Editorial variant must retain the title first');
+                    await page.locator('.articles-layout-tiles').evaluate(e => e.dataset.articleImagePosition = 'top');
+                }
+                if (layout === 'compact' || (layout === 'list' && width >= 768)) {
+                    assert(Math.abs(metrics.image.x - metrics.first.x) < 2, 'Side image must touch the left');
+                    assert(Math.abs(metrics.image.y - metrics.first.y) < 2, 'Side image must touch the top');
+                    assert(Math.abs(metrics.image.height - metrics.first.height) < 2, 'Side image must fill the height');
+                }
                 if (width === 1440 && ['tiles', 'overlay'].includes(layout)) assert(Math.abs(metrics.second.y - metrics.first.y) < 1, `${layout}: desktop grid missing`);
                 if (width === 1440 && layout === 'list') {
                     assert(metrics.title.x > metrics.image.x + metrics.image.width - 1, 'Horizontal list image must be beside text');
@@ -110,7 +128,7 @@ function card(id, withImage = true) {
                 }
                 if (layout === 'compact') {
                     assert.equal(await page.locator('.articleheadingtext').first().isVisible(), false, 'Compact list omits the excerpt visually');
-                    assert(metrics.image.width <= 90, 'Compact list uses a thumbnail');
+                    assert(metrics.image.width <= 108, 'Compact list uses a thumbnail');
                 }
                 if (width === 1440 && ['tiles', 'overlay'].includes(layout)) {
                     for (const columns of ['2', '3', '4']) {
@@ -152,7 +170,7 @@ function card(id, withImage = true) {
                 assert.equal(await page.evaluate(() => window.linkClicks), 1, 'Actions must not open the card');
 
                 const clickable = ['tiles', 'overlay', 'magazine'].includes(layout);
-                await page.locator('article').first().click({ position: { x: 4, y: 4 } });
+                await page.locator('article').first().click({ position: { x: metrics.first.width - 12, y: metrics.first.height - 8 } });
                 const expectedClicks = clickable ? 2 : 1;
                 assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks, 'Only visual layouts open on a card background click');
                 if (width === 390) {
@@ -184,7 +202,7 @@ function card(id, withImage = true) {
                         assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks + 1, 'Media, widgets and nested articles must not open the outer card');
                         // Loading the enhancement twice must not register duplicate listeners.
                         await page.addScriptTag({ path: resolve(__dirname, '../lib/jquery_tiki/article-cards.js') });
-                        await page.locator('article').first().click({ position: { x: 4, y: 4 } });
+                        await page.locator('article').first().click({ position: { x: metrics.first.width - 12, y: metrics.first.height - 8 } });
                         assert.equal(await page.evaluate(() => window.linkClicks), expectedClicks + 2, 'A repeated script load must still open the title link once');
                     }
                 }

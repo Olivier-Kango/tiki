@@ -366,3 +366,51 @@ html[data-article-cards-ready] :is(.articles-layout-tiles, .articles-layout-over
     :is(.articles-layout-tiles, .articles-layout-overlay, .articles-layout-magazine) > article.article { box-shadow: none; }
     .articles-pagination { display: none; }
 }
+
+// Cover photographs are clipped locally so action menus can extend beyond the card.
+.articles-layout-tiles:not([data-article-image-position="after-title"]) > article.article {
+    border: 0;
+    > .articleheading { display: contents !important; }
+    .article-list-image {
+        order: 0;
+        margin: -1rem -1rem 1rem !important;
+        overflow: hidden;
+        border-radius: var(--bs-border-radius-xl, 1rem) var(--bs-border-radius-xl, 1rem) 0 0;
+        &:not(:has(.article-image)) { display: none; }
+        .article-image { border-radius: 0; }
+    }
+    .articleheadingtext { order: 2; flex-grow: 0 !important; }
+}
+
+.articles-layout-compact > article.article:has(.article-image) {
+    border: 0;
+    // Both clearfix helpers become grid items when the heading uses display: contents.
+    &::after, > .articleheading::after { display: none; }
+    .article-list-image {
+        position: relative;
+        align-self: stretch;
+        margin: -.875rem 0 -.875rem -1rem !important;
+        overflow: hidden;
+        border-radius: var(--bs-border-radius-xl, 1rem) 0 0 var(--bs-border-radius-xl, 1rem);
+        min-height: 7rem;
+        > a { position: absolute; inset: 0; }
+        .article-image { height: 100% !important; border-radius: 0; aspect-ratio: auto; }
+    }
+}
+
+@media (min-width: 768px) {
+    .articles-layout-list > article.article:has(.article-image) {
+        border: 0;
+        .article-list-image {
+            position: relative;
+            align-self: stretch;
+            grid-row: 1 / span 3;
+            margin: -1rem 0 -1rem -1rem !important;
+            overflow: hidden;
+            border-radius: var(--bs-border-radius-xl, 1rem) 0 0 var(--bs-border-radius-xl, 1rem);
+            min-height: 12rem;
+            > a { position: absolute; inset: 0; }
+            .article-image { height: 100% !important; border-radius: 0; aspect-ratio: auto; }
+        }
+    }
+}

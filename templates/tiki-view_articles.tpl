@@ -67,7 +67,7 @@
 {/if}
 
 {if !empty($article_list_layout)}
-    <div class="articles-layout articles-layout-{$article_list_layout|escape}" data-article-columns="{$article_list_columns|default:'auto'|escape}">
+    <div class="articles-layout articles-layout-{$article_list_layout|escape}" data-article-columns="{$article_list_columns|default:'auto'|escape}" data-article-image-position="{$article_list_image_position|default:'top'|escape}">
 {/if}
 
 {section name=ix loop=$listpages}

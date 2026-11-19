@@ -263,6 +263,18 @@ function wikiplugin_articles_info()
                     ['text' => tra('Compact list'), 'value' => 'compact'],
                 ],
             ],
+            'imagePosition' => [
+                'required' => false,
+                'name' => tra('Image position'),
+                'description' => tra('For Tiles: show a full-width cover image above the title, or an inset image after the title and author.'),
+                'since' => '31.0',
+                'filter' => 'text',
+                'default' => 'top',
+                'options' => [
+                    ['text' => tra('Cover image first'), 'value' => 'top'],
+                    ['text' => tra('Title first'), 'value' => 'after-title'],
+                ],
+            ],
             'columns' => [
                 'required' => false,
                 'name' => tra('Columns'),
@@ -567,10 +579,15 @@ function wikiplugin_articles($data, $params)
         if (! in_array($columns, ['auto', '2', '3', '4'], true)) {
             $columns = 'auto';
         }
+        $imagePosition = $params['imagePosition'] ?? 'top';
+        if (! in_array($imagePosition, ['top', 'after-title'], true)) {
+            $imagePosition = 'top';
+        }
         // Child-template values cannot leak into the next ARTICLES instance or its parent page.
         $template = $smarty->createTemplate('tiki-view_articles.tpl');
         $template->assign('article_list_layout', $layout);
         $template->assign('article_list_columns', $columns);
+        $template->assign('article_list_image_position', $imagePosition);
         return "~np~ " . $template->fetch() . " ~/np~";
     }
 }

@@ -159,9 +159,17 @@ foreach (array_merge($layouts, ['invalid', 'legacy', null]) as $layout) {
             throw new RuntimeException('Card enhancement must load only for visual layouts');
         }
         $expectedColumns = in_array($columns, ['auto', '2', '3', '4'], true) ? $columns : 'auto';
-        if ($scoped !== ['article_list_layout' => $expectedLayout, 'article_list_columns' => $expectedColumns]) {
+        if ($scoped !== ['article_list_layout' => $expectedLayout, 'article_list_columns' => $expectedColumns, 'article_list_image_position' => 'top']) {
             throw new RuntimeException('Invalid or leaking child-template layout values');
         }
+    }
+}
+foreach (['top', 'after-title', '', 'invalid'] as $position) {
+    wikiplugin_articles('', array_replace($params, ['layout' => 'tiles', 'imagePosition' => $position]));
+    $scoped = end(PluginFixture::$templates);
+    $expected = $position === 'after-title' ? 'after-title' : 'top';
+    if ($scoped['article_list_image_position'] !== $expected) {
+        throw new RuntimeException('Incorrect Tiles image position');
     }
 }
 if ($smarty->parentValues !== ['article_list_layout' => 'overlay', 'article_list_columns' => '4']) {
