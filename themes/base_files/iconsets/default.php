@@ -276,6 +276,9 @@ function iconset_default()
                 'id' => 'adn',
                 'prepend' => 'fab fa-'
             ],
+            'alert' => [
+                'id' => 'exclamation-triangle',
+            ],
             //align-center in defaults
             //align-justify in defaults
             //align-left in defaults
@@ -292,6 +295,9 @@ function iconset_default()
             'angellist' => [
                 'id' => 'angellist',
                 'prepend' => 'fab fa-'
+            ],
+            'announce' => [
+                'id' => 'bullhorn',
             ],
             'apple' => [
                 'id' => 'apple',
@@ -367,9 +373,15 @@ function iconset_default()
                 'prepend' => 'fab fa-'
             ],
             //book in defaults
+            'bookmarks' => [
+                'id' => 'bookmark',
+            ],
             'box' => [
                 'id' => 'list-alt',
                 'prepend' => 'far fa-'
+            ],
+            'bricks' => [
+                'id' => 'trowel-bricks',
             ],
             'btc' => [
                 'id' => 'btc',
@@ -382,6 +394,9 @@ function iconset_default()
             //caret-left & caret-right in defaults
             'cart' => [
                 'id' => 'shopping-cart',
+            ],
+            'category' => [
+                'id' => 'sitemap fa-rotate-270',
             ],
             'chart' => [
                 'id' => 'chart-area',
@@ -421,6 +436,9 @@ function iconset_default()
             'chrome' => [
                 'id' => 'chrome',
                 'prepend' => 'fab fa-'
+            ],
+            'clipboard-data' => [
+                'id' => 'clipboard-list',
             ],
             'close' => [
                 'id' => 'times',
@@ -542,6 +560,9 @@ function iconset_default()
             'education' => [
                 'id' => 'graduation-cap',
             ],
+            'email' => [
+                'id' => 'envelope',
+            ],
             'empire' => [
                 'id' => 'empire',
                 'prepend' => 'fab fa-'
@@ -595,6 +616,9 @@ function iconset_default()
             ],
             'file-archive-open' => [
                 'id' => 'folder-open',
+            ],
+            'file-spreadsheet' => [
+                'id' => 'table',
             ],
             'file-text' => [
                 'id' => 'file-alt'
@@ -1308,6 +1332,9 @@ function iconset_default()
             //table in defaults
             //tag in defaults
             //tags in defaults
+            'telephone' => [
+                'id' => 'phone',
+            ],
             'textfile' => [
                 'id' => 'file-alt',
                 'prepend' => 'far fa-'
@@ -2625,6 +2652,10 @@ function iconset_default()
             'server-rack-fill' => [
                 'id' => 'hdd-stack-fill',
                 'prepend' => 'fas fa-'
+            ],
+            'share-nodes' => [
+                'id' => 'share-nodes',
+                'prepend' => 'fas fa-',
             ],
             'sheet-plastic' => [
                 'id' => 'sheet-plastic',
