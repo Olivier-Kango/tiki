@@ -512,8 +512,8 @@ function wikiplugin_img_info()
             'quality' => [
                 'required' => false,
                 'name' => tra('Compression Quality'),
-                'description' => tra('0 to 100 (default is 75)'),
-                'default' => 75,
+                'description' => tra('Enter a value between 0 and 100 to force compression (not used by default).'),
+                'default' => '',
                 'filter' => 'digits',
                 'doctype' => 'text',
                 'since' => '20.1',
@@ -1117,7 +1117,7 @@ function wikiplugin_img($data, $params)
                     $imgdata_dim .= ' height="' . $height . '"';
                 }
             }
-            if (isset($imgdata['quality'])) {
+            if (! empty($imgdata['quality'])) {
                 $src .= '&format=' . str_replace('image/', '', $imgdata['file']->filetype) . '&quality=' . $imgdata['quality'];
             }
         } else {
