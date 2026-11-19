@@ -45,10 +45,9 @@ class Ticket extends Base implements TikiSmartyExtensionInterface
         if (isset($params['mode']) && $params['mode'] === 'get') {
             return urlencode($smarty->getTemplateVars('ticket'));
         } else {
-            $ret = '<input type="hidden" class="ticket" name="ticket" value="' . urlencode($smarty->getTemplateVars('ticket'))
-            . '" />';
+            $ret = '<input type="hidden" class="ticket" name="ticket" value="' . urlencode($smarty->getTemplateVars('ticket')) . '">';
             if (isset($params['mode']) && $params['mode'] === 'confirm') {
-                $ret .= '<input type="hidden" name="confirmForm" value="y" />';
+                $ret .= '<input type="hidden" name="confirmForm" value="y">';
             }
             return $ret;
         }

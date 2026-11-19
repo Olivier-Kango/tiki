@@ -6,8 +6,8 @@
                 <p class="mb-3">
                     {tr _0='<strong>"<span class="detected-tz-name"></span>"</strong>' _1='<strong>"<span class="current-tz-name"></span>"</strong>'}Your browser claims to be using the %0 timezone, but your user account on this website is set to use the %1 timezone. Would you like to set it to match your browser settings?{/tr}
                 </p>
-                <input type="hidden" name="client_timezone" id="client-timezone" value=""/>
-                <input type="hidden" name="prefered_timezone" id="prefered-timezone" value=""/>
+                <input type="hidden" name="client_timezone" id="client-timezone" value="">
+                <input type="hidden" name="prefered_timezone" id="prefered-timezone" value="">
                 <div class="d-grid gap-2">
                     <button
                         title="{tr}Details: {/tr}{tr}This will permanently change your profile timezone.{/tr}"

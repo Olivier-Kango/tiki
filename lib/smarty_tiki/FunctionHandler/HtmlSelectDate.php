@@ -335,7 +335,7 @@ class HtmlSelectDate extends Base implements TikiSmartyExtensionInterface
                 if (null !== $year_extra) {
                     $year_result .= ' ' . $year_extra;
                 }
-                $year_result .= ' />';
+                $year_result .= '>';
             } else {
                 $years = range((int) $start_year, (int) $end_year);
                 if ($reverse_years) {

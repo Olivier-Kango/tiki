@@ -36,7 +36,7 @@ class RatingResult extends Base implements TikiSmartyExtensionInterface
                 }
                 $tableBody .= '<td style="width:' . $voting['percent'] . '%; text-align: center;">
                 <div class="ui-widget-content">' .
-                    ($prefs['rating_smileys'] == 'y' ? '<img src="' . $smiles[$vote]['img'] . '"/> ' : '<b>' . $vote . '</b> ') .
+                    ($prefs['rating_smileys'] == 'y' ? '<img src="' . $smiles[$vote]['img'] . '"> ' : '<b>' . $vote . '</b> ') .
                     '(' . $voting['votes'] . $extra_info .
                     ($prefs['rating_smileys'] == 'y' ? '<div style="background-color: ' . $smiles[$vote]['color'] . ';">&nbsp;</div>' : '') .
                     '</div>

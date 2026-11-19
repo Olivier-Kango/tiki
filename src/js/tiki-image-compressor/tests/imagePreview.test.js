@@ -16,9 +16,9 @@ vi.mock("../imageCompressor.js", () => ({
 
 function setupDOM() {
     document.body.innerHTML = `
-        <input type="file" id="userfile" />
+        <input type="file" id="userfile">
         <div id="compression_preview_container" class="d-none"></div>
-        <img id="compression_preview_image" />
+        <img id="compression_preview_image">
         <div id="compression_original_size"></div>
         <div id="compression_estimated_size"></div>
         <div id="compression_preview_dimensions"></div>

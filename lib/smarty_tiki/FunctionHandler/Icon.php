@@ -298,7 +298,7 @@ class Icon extends \Smarty\FunctionHandler\Base implements TikiSmartyExtensionIn
 
             switch ($tag) {
                 case 'input_image':
-                    $html = '<input type="image"' . $html . ' />';
+                    $html = '<input type="image"' . $html . '>';
                     break;
                 case 'img':
                 default:

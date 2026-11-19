@@ -17,7 +17,7 @@ export async function getRandomAvatars(activeStyle) {
 export function getAvatarElement(avatar) {
     return `
         <div class="avatar-picker__avatars__item bg-secondary-subtle border rounded border-3 border-white" data-seed="${avatar.seed}" role="button">
-            <img src="${avatar.dataUri}" alt="Avatar ${avatar.seed}" class="avatar-picker__avatars__item__image" />
+            <img src="${avatar.dataUri}" alt="Avatar ${avatar.seed}" class="avatar-picker__avatars__item__image">
         </div>
     `;
 }

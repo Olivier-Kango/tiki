@@ -261,7 +261,7 @@ HTML;
 
     $mimeType = str_starts_with(base64_decode(substr($base64, 0, 16)), "\x89PNG") ? 'image/png' : 'image/jpeg';
     $canvas = <<<HTML
-<img src="data:{$mimeType};base64,{$base64}"/>
+<img src="data:{$mimeType};base64,{$base64}">
 HTML;
 
     return '<div class="tiki-chartjs">' . $canvas . '</div>';

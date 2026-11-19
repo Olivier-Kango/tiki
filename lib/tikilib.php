@@ -1694,7 +1694,7 @@ class TikiLib extends TikiDb_Bridge
         if (! empty($star)) {
             $alt = sprintf(tra("%d points"), $score);
             if ($prefs['theme_iconset'] === 'legacy') {
-                $star = "<img src='img/icons/$star' height='11' width='11' alt='$alt' />&nbsp;";
+                $star = "<img src='img/icons/$star' height='11' width='11' alt='$alt'>&nbsp;";
             } else {
                 $smarty = TikiLib::lib('smarty');
                 $star = \SmartyTiki\FunctionHandler\Icon::render(['name' => 'star', 'istyle' => 'color:' . $color, 'iclass' => 'tips',

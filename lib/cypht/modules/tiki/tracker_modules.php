@@ -1298,9 +1298,9 @@ class Hm_Output_search_form_tracker_target_inputs extends Hm_Output_Module
             return;
         }
 
-        return '<input type="hidden" name="target_tracker_item_id" value="' . $target_tracker_item_id . '" />'
-            . '<input type="hidden" name="target_tracker_field_id" value="' . $target_tracker_field_id . '" />'
-            . '<input type="hidden" name="target_tracker_folder" value="' . $this->html_safe($target_tracker_folder) . '" />';
+        return '<input type="hidden" name="target_tracker_item_id" value="' . $target_tracker_item_id . '">'
+            . '<input type="hidden" name="target_tracker_field_id" value="' . $target_tracker_field_id . '">'
+            . '<input type="hidden" name="target_tracker_folder" value="' . $this->html_safe($target_tracker_folder) . '">';
     }
 }
 

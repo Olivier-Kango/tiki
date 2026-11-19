@@ -114,12 +114,12 @@
                                 {if $canAdmin}
                                     <div class='btn-group'>
                                         <input class='conveneAddUser form-control' value='' placeholder="{$conveneUsernamePlaceholder}" style='float:left;width:72%;border-bottom-right-radius:0;border-top-right-radius:0;'>
-                                        <input type='button' value='+' title="{$conveneAddUserTitle}" class='conveneAddUserButton btn btn-primary' />
+                                        <input type='button' value='+' title="{$conveneAddUserTitle}" class='conveneAddUserButton btn btn-primary'>
                                     </div>
                                 {elseif $canEdit}
                                     <div class='btn-group'>
                                         <input class='conveneAddUser form-control' value='{$user}' disabled='disabled' style='float:left;width:72%;border-bottom-right-radius:0;border-top-right-radius:0;'>
-                                        <input type='button' value='+' title="{$conveneAddUserTitle}" class='conveneAddUserButton btn btn-primary' />
+                                        <input type='button' value='+' title="{$conveneAddUserTitle}" class='conveneAddUserButton btn btn-primary'>
                                     </div>
                                 {/if}
                             {/if}

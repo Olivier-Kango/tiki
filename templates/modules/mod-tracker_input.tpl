@@ -5,16 +5,16 @@
             <label class="form-label">
                 {$label|escape}
             </label>
-            <input class="form-control" type="text" id="forced-($token|escape)" name="forced~{$token|escape}"/>
+            <input class="form-control" type="text" id="forced-($token|escape)" name="forced~{$token|escape}">
 
         {/foreach}
         <div class="submit">
-            <input type="hidden" name="trackerId" value="{$tracker_input.trackerId|escape}"/>
-            <input type="hidden" name="controller" value="tracker"/>
-            <input type="hidden" name="action" value="insert_item"/>
-            <input type="submit" name="create" value="{$tracker_input.submit|escape}" class="btn btn-primary btn-sm" />
+            <input type="hidden" name="trackerId" value="{$tracker_input.trackerId|escape}">
+            <input type="hidden" name="controller" value="tracker">
+            <input type="hidden" name="action" value="insert_item">
+            <input type="submit" name="create" value="{$tracker_input.submit|escape}" class="btn btn-primary btn-sm">
             {foreach from=$tracker_input.hiddenInput key=f item=v}
-                <input id="{$f|escape}" type="hidden" name="forced~{$f|escape}" value="{$v|escape}"/>
+                <input id="{$f|escape}" type="hidden" name="forced~{$f|escape}" value="{$v|escape}">
             {/foreach}
         </div>
     </form>
@@ -103,7 +103,7 @@
                 }
             }
 
-            button = $("<input type=\"submit\" class=\"btn btn-primary btn-sm\" />")
+            button = $("<input type=\"submit\" class=\"btn btn-primary btn-sm\">")
                 .val($(":submit", form).val())
                 .on("click", function () {
                     if (newMode) {
@@ -148,7 +148,7 @@
                             reference: 1
                         },
                         success: function (data) {
-                            const input = $("<input type=\"hidden\" name=\"forced~\"" + streetview + "\"/>")
+                            const input = $("<input type=\"hidden\" name=\"forced~\"" + streetview + "\">")
                                 .val(data.fileId)
                                 .appendTo(form);
                             $("#" + location).val(position);

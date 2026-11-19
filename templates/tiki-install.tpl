@@ -331,7 +331,7 @@
                                     <div class="mb-3 row">
                                         <label class="col-form-label" for="host">{tr}Host name:{/tr}</label>
                                         <div class="mx-3">
-                                            <input type="text" class="form-control" name="host" id="host" value="{if isset($smarty.request.host)}{$smarty.request.host|escape:"html"}{elseif isset($preconfighost)}{$preconfighost|escape:"html"}{else}localhost{/if}" size="40" />
+                                            <input type="text" class="form-control" name="host" id="host" value="{if isset($smarty.request.host)}{$smarty.request.host|escape:"html"}{elseif isset($preconfighost)}{$preconfighost|escape:"html"}{else}localhost{/if}" size="40">
                                             <a href="javascript:void(0)" onclick="flip('host_help');" title="{tr}Help{/tr}">
                                                 {icon name="help"}
                                             </a>
@@ -345,7 +345,7 @@
                                     <div class="mb-3 row">
                                         <label class="col-form-label" for="name">{tr}Database name:{/tr}</label>
                                         <div class="mx-3">
-                                            <input type="text" class="form-control" id="name" name="name" size="40" value="{if isset($smarty.request.name)}{$smarty.request.name|escape:"html"}{elseif isset($preconfigname)}{$preconfigname|escape:"html"}{/if}" placeholder="{tr}Database name{/tr}" pattern="[A-Za-z0-9_$-]+" title="{tr}Use only letters, numbers, dollar signs, underscores, or hyphens.{/tr}"/>
+                                            <input type="text" class="form-control" id="name" name="name" size="40" value="{if isset($smarty.request.name)}{$smarty.request.name|escape:"html"}{elseif isset($preconfigname)}{$preconfigname|escape:"html"}{/if}" placeholder="{tr}Database name{/tr}" pattern="[A-Za-z0-9_$-]+" title="{tr}Use only letters, numbers, dollar signs, underscores, or hyphens.{/tr}">
                                             <a href="javascript:void(0)" onclick="flip('name_help');" title="{tr}Help{/tr}">
                                                 {icon name="help"}
                                             </a>
@@ -376,7 +376,7 @@
 
                                     {if $allow_create_new_user}
                                         <div style="padding:5px;">
-                                            <input type="checkbox" id="create-new-user" name="create_new_user" />
+                                            <input type="checkbox" id="create-new-user" name="create_new_user">
                                             <label class="col-form-label" for="create-new-user">{tr}Create the above database user just for this Tiki database.{/tr}</label>&nbsp;
                                         </div>
                                     {else}
@@ -596,13 +596,13 @@
                                 <div class="mb-3 row">
                                     <label class="col-form-label" for="admin_user">{tr}Admin username:{/tr}</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="admin_user" id="admin_user" value="{if isset($smarty.request.admin_user)}{$smarty.request.admin_user|escape:"html"}{/if}" size="40" />
+                                        <input type="text" class="form-control" name="admin_user" id="admin_user" value="{if isset($smarty.request.admin_user)}{$smarty.request.admin_user|escape:"html"}{/if}" size="40">
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label class="col-form-label" for="admin_pass">{tr}Admin password:{/tr}</label>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="admin_pass" id="pass1" value="{if isset($smarty.request.admin_pass)}{$smarty.request.admin_pass|escape:"html"}{/if}" size="40" />
+                                        <input type="password" class="form-control" name="admin_pass" id="pass1" value="{if isset($smarty.request.admin_pass)}{$smarty.request.admin_pass|escape:"html"}{/if}" size="40">
                                         <div>
                                             <div id="mypassword_text">{icon name='ok' istyle='display:none'}{icon name='error' istyle='display:none'} <span id="mypassword_text_inner"></span></div>
                                             <div id="mypassword_bar" style="font-size: 5px; height: 2px; width: 0px;"></div>
@@ -612,7 +612,7 @@
                                 <div class="mb-3 row">
                                     <label class="col-form-label" for="admin_pass2">{tr}Confirm password:{/tr}</label>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control" name="admin_pass2" id="pass2" value="{if isset($smarty.request.admin_pass2)}{$smarty.request.admin_pass2|escape:"html"}{/if}" size="40" />
+                                        <input type="password" class="form-control" name="admin_pass2" id="pass2" value="{if isset($smarty.request.admin_pass2)}{$smarty.request.admin_pass2|escape:"html"}{/if}" size="40">
                                         <div id="mypassword2_text">
                                             <div id="match" style="display:none">
                                                 {icon name='ok' istyle='color:#0ca908'} {tr}Passwords match{/tr}

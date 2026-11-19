@@ -405,7 +405,7 @@ CSS
 );
 
 $headerlib->add_jq_onready(<<<JS
-    $("<link/>", {
+    $("<link>", {
         rel: "stylesheet",
         type: "text/css",
         href: "",

@@ -251,7 +251,7 @@
                                     </select>
                                     <div class="form-check mt-3 d-none" id="current_gallery_group">
                                         <label for="current_gallery" class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" id="current_gallery" name="current_gallery" value="yes" />{tr}Use current gallery{/tr}
+                                            <input class="form-check-input" type="checkbox" id="current_gallery" name="current_gallery" value="yes">{tr}Use current gallery{/tr}
                                         </label>
                                     </div>
                                 </div>
@@ -608,7 +608,7 @@
         }
         function upload_files(){
             var totalSubmissions = $("#form form").length;
-            $("#form form").append($('<input />', {type: 'hidden', name: 'totalSubmissions', value: totalSubmissions}));
+            $("#form form").append($('<input>', {type: 'hidden', name: 'totalSubmissions', value: totalSubmissions}));
             $("#form form").each(async function(n) {
                 if ($(this).find('input[name="userfile\\[\\]"]').val() != '') {
                     const $form = $(this);
