@@ -146,7 +146,7 @@ $smarty->assign('authorName', $authorName);
 $smarty->assign('topicId', $topicId);
 $smarty->assign('type', $type);
 $smarty->assign('useImage', 'n');
-$smarty->assign('isfloat', 'y');
+$smarty->assign('isfloat', 'n');
 $hasImage = 'n';
 $smarty->assign('hasImage', 'n');
 $smarty->assign('image_name', '');
