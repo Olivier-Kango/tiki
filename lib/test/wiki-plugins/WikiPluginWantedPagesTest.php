@@ -233,6 +233,35 @@ class WikiPluginWantedPagesTest extends TikiTestCase
     }
 
     /**
+     * Regression: ((__Page__|label)) renders as a working link through the page slug lookup,
+     * but the SQL slug variations did not match it, so the existing page was listed as wanted.
+     */
+    public function testBoldLinkToExistingPageNotListedAsWanted(): void
+    {
+        $pageName = 'WantedPagesTest BoldTarget';
+        $this->createTestPage($pageName);
+
+        $this->insertLink('__' . $pageName . '__');
+
+        $this->assertStringNotContainsString(
+            $pageName,
+            $this->runPlugin(),
+            'A bold link to an existing page should not appear in the wanted pages list.'
+        );
+    }
+
+    public function testBoldLinkToMissingPageListedAsWanted(): void
+    {
+        $this->insertLink('__WantedPagesTest BoldMissing__');
+
+        $this->assertStringContainsString(
+            'WantedPagesTest BoldMissing',
+            $this->runPlugin(),
+            'A bold link to a non-existent page should still appear in the wanted pages list.'
+        );
+    }
+
+    /**
      * Negative control: a link to a genuinely missing page must appear in the list.
      */
     public function testTrulyMissingPageListedAsWanted(): void
