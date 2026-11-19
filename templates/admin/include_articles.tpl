@@ -74,6 +74,7 @@
                 {tr}Custom (Article Own) images setting{/tr}
             </legend>
                 {preference name=article_image_file_size_max}
+                {preference name=article_image_webp}
                 {preference name=article_image_size_x}
                 {preference name=article_image_size_y}
                 {preference name=article_default_list_image_size_x}

@@ -23,6 +23,16 @@ function prefs_article_list()
     $articlesGeneralSettingsHelp = 'Articles-General-Settings';
 
     return [
+        'article_image_webp' => [
+            'name' => tra('Optimize article images with WebP'),
+            'description' => tra('Serve cached WebP versions of compatible article, submission and topic images to browsers that support WebP. Original images are retained and used when conversion is unavailable.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+            'dependencies' => ['feature_articles'],
+            'since' => '31.0',
+            'help' => $articlesGeneralSettingsHelp,
+        ],
         'article_frontpage_layout' => [
             'name' => tra('Articles front page layout'),
             'description' => tra('Presentation of the native articles page. The alternative CustomSearch listing and wiki ARTICLES instances keep their own settings.'),

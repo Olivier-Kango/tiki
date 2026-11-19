@@ -22,8 +22,11 @@
 require_once('tiki-setup.php');
 use Tiki\Lib\Image\Image;
 
-require_once __DIR__ . '/lib/articles/image_optimization.php';
-header('Vary: Accept', false);
+$optimizeArticleImages = ($prefs['article_image_webp'] ?? 'n') === 'y';
+if ($optimizeArticleImages) {
+    require_once __DIR__ . '/lib/articles/image_optimization.php';
+    header('Vary: Accept', false);
+}
 
 $artlib = TikiLib::lib('art');
 
@@ -108,16 +111,20 @@ if ($imagePrefix == "article_preview" && ! is_file($temporaryFile)) {
         fputs($fp, $data);
         fclose($fp);
     }
-    [$displayData, $displayType] = article_optimized_image($data, $type, $imageCacheDirectory);
-    header('Content-Type: ' . $displayType);
-    echo $displayData;
+    if ($optimizeArticleImages) {
+        [$data, $type] = article_optimized_image($data, $type, $imageCacheDirectory);
+        header('Content-Type: ' . $type);
+    }
+    echo $data;
 } else {
     $size = getimagesize($temporaryFile);
     header("Content-type: " . $size['mime']);
     $originalData = file_get_contents($temporaryFile);
     if ($originalData !== false) {
-        [$displayData, $displayType] = article_optimized_image($originalData, $size['mime'], $imageCacheDirectory);
-        header('Content-Type: ' . $displayType);
-        echo $displayData;
+        if ($optimizeArticleImages) {
+            [$originalData, $displayType] = article_optimized_image($originalData, $size['mime'], $imageCacheDirectory);
+            header('Content-Type: ' . $displayType);
+        }
+        echo $originalData;
     }
 }
