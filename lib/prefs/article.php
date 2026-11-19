@@ -23,6 +23,16 @@ function prefs_article_list()
     $articlesGeneralSettingsHelp = 'Articles-General-Settings';
 
     return [
+        'article_media_player' => [
+            'name' => tra('Article media playback controls'),
+            'description' => tra('Add play/pause, sequential playback and a floating control for supported media embedded in articles. Native embedded players remain available when disabled.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+            'dependencies' => ['feature_articles'],
+            'since' => '31.0',
+            'help' => $articlesGeneralSettingsHelp,
+        ],
         'article_image_webp' => [
             'name' => tra('Optimize article images with WebP'),
             'description' => tra('Serve cached WebP versions of compatible article, submission and topic images to browsers that support WebP. Original images are retained and used when conversion is unavailable.'),
