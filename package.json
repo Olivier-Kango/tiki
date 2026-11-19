@@ -133,8 +133,10 @@
         "vitest" : "https://github.com/vitest-dev/vitest/releases"
     },
     "overrides" : {
-        "dompurify" : "3.4.15",
-        "glob" : "10.5.0",
+        "@toast-ui/editor" : {
+            "dompurify" : "^3.4.18"
+        },
+        "glob" : "^14.0.6",
         "jspdf" : "4.2.1",
         "@dicebear/initials" : "9.4.3",
         "svgedit" : {
@@ -154,17 +156,19 @@
             "timeago@1.6.7 (unmaintained since 2019) caps jquery at <4.0, a range written before jQuery 4 existed. Without this override npm keeps jQuery 3.7.1 at the top level to satisfy it.",
             "Scoped to timeago deliberately: a global jquery override makes npm nest jquery-migrate and jquery-validation under src/js/common-externals/node_modules, breaking the paths viteStaticCopy copies from."
         ],
-        "dompurify": [
-            "This override forces all packages to use DOMPurify v3.4.15 to fix security issues present in DOMPurify v2.x and patched releases in the v3 line (including GHSA-55q2-fjhq-7xh7 on <=3.4.12).",
+        "@toast-ui/editor": [
+            "Toast UI Editor (barely maintained, still the case in 3.2.3) is the only package asking for DOMPurify 2.x (^2.3.3). mermaid, jspdf and converse.js already accept ^3.x and resolve to the same patched copy on their own.",
+            "This override makes Toast UI use DOMPurify ^3.4.18, which fixes the 2.x issues and the v3 advisories (GHSA-55q2-fjhq-7xh7 on <=3.4.12, GHSA-p98j-92pf-mc4p, GHSA-6688-9rhm-gjv2, GHSA-c6gr-qvv4-5v3f, GHSA-cg2g-xh64-v4q7, GHSA-mrv2-3pqr-j5jr on <=3.4.16).",
+            "It is a range, not an exact version, so later DOMPurify patches come in through npm audit fix without editing this file.",
             "Upgrading from v2 to v3 is safe for our project because we do not support Internet Explorer (IE).",
             "As noted by Victor Buzinaro in https://github.com/cure53/DOMPurify/issues/785, the only breaking change introduced in v3 is the removal of IE-specific support.",
             "After reviewing the changes between versions 2.5.8 and 3.3.0 (https://github.com/cure53/DOMPurify/compare/2.5.8...3.3.0), we confirmed there are no functional breaking changes that affect our usage.",
             "Toast UI Editor currently depends on DOMPurify v2.x, but its DOMPurify integration",
             "(introduced in https://github.com/nhn/tui.editor/commit/6e5730914902071b54c529673e964a24b58e3eec#diff-e70b3ac7e7e963527907ae78c682a077c1b87015783bdcb150084e023ce17528) is compatible with v3.",
-            "For this reason, enforcing DOMPurify v3.4.x is safe for us. Pinned to 3.4.15 for npm audit advisories. Remove this override when upstream packages pin a secure DOMPurify without conflicts."
+            "Remove this override when Toast UI Editor accepts DOMPurify 3 (or when it is replaced)."
         ],
         "glob": [
-            "copy-and-watch pins glob 10.3.12 (vulnerable CLI <=10.4.5). Override to 10.5.0; Tiki uses glob programmatically, not the CLI -c/--cmd flag."
+            "copy-and-watch (unmaintained) pins glob 10.3.12 and js-beautify asks for ^13.0.6; glob 9.0.0 - 14.0.1 is affected by GHSA-3g3m-2fjr-6pw4 and pulls a vulnerable minimatch (GHSA-g3hv-75wg-m249). Force ^14.0.6 for both: they only call glob.sync / globSync / hasMagic, which glob 14 keeps. Remove when copy-and-watch is replaced and js-beautify accepts glob >=14.0.2."
         ],
         "jspdf": [
             "npm audit flagged jspdf <= 4.2.0 (critical). Pin 4.2.1 so the root install and svgedit (nested 4.0.0) resolve to a patched release."
