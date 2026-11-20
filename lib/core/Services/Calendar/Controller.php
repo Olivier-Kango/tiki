@@ -302,7 +302,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                             } else {
                                 $isAjaxRequest = $access->is_xml_http_request();
                                 if ($isAjaxRequest && (! defined('TIKI_API') || ! TIKI_API)) {
-                                    return $this->getRefreshEventsResponse();
+                                    return $this->getRefreshEventsResponse($input);
                                 }
 
                                 if ($return_url && ! $isAjaxRequest) {
@@ -772,7 +772,7 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
             Feedback::success(tr('Event deleted successfully.'));
         }
 
-        return $this->getRefreshEventsResponse();
+        return $this->getRefreshEventsResponse($input);
     }
 
     public function action_remove_calendar(JitFilter $input): array
@@ -844,18 +844,27 @@ class Services_Calendar_Controller extends Services_Calendar_BaseController
                     'calendar event'
                 );
             }
+            // without "all", only the occurrences after now are deleted
+            Feedback::success($input->all->int()
+                ? tr('All occurrences deleted successfully.')
+                : tr('Upcoming occurrences deleted successfully.'));
         }
 
-        return $this->getRefreshEventsResponse();
+        return $this->getRefreshEventsResponse($input);
     }
 
     /**
      * Close the modal and reload the calendar event source.
+     * If the page is going to reload (reload_page), the feedback stays in the session so the reloaded page shows it.
      */
-    private function getRefreshEventsResponse(): array
+    private function getRefreshEventsResponse(JitFilter $input): array
     {
         if ((defined('TIKI_API') && TIKI_API) || ! TikiLib::lib('access')->is_xml_http_request()) {
             return [];
+        }
+
+        if ($input->reload_page->int()) {
+            return ['refreshEvents' => true];
         }
 
         return array_merge(
