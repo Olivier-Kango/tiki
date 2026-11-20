@@ -31,13 +31,9 @@
 
                 <div class="col-md-9">
                     <select name="type" class="form-select">
-                        <option value="o" {if $info.type eq 'o'}selected="selected"{/if}>{tr}option{/tr}</option>
-                        <option value="s" {if $info.type eq 's'}selected="selected"{/if}>{tr}section level 0{/tr}</option>
-                        <option value='1' {if $info.type eq '1'}selected="selected"{/if}>{tr}section level 1{/tr}</option>
-                        <option value='2' {if $info.type eq '2'}selected="selected"{/if}>{tr}section level 2{/tr}</option>
-                        <option value='3' {if $info.type eq '3'}selected="selected"{/if}>{tr}section level 3{/tr}</option>
-                        <option value="r" {if $info.type eq 'r'}selected="selected"{/if}>{tr}sorted section level 0{/tr}</option>
-                        <option value="-" {if $info.type eq '-'}selected="selected"{/if}>{tr}separator{/tr}</option>
+                        {foreach from=$types key=typeValue item=typeLabel}
+                            <option value="{$typeValue|escape}" {if $info.type eq $typeValue}selected="selected"{/if}>{$typeLabel|escape}</option>
+                        {/foreach}
                     </select>
                     <div class="form-text">{tr _0='<strong>' _1='</strong>'}Choose %0separator%1 to add a visual divider line in a menu or submenu.{/tr}</div>
                 </div>

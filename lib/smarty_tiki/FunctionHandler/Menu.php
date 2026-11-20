@@ -323,6 +323,26 @@ class Menu extends Base implements TikiSmartyExtensionInterface
             }
         }
 
-        return $roots;
+        return self::dropTrailingClosers($roots);
+    }
+
+    /**
+     * Removes a '-' separator when it's the last item in its list.
+     *
+     * @param list<array<string,mixed>> $nodes
+     * @return list<array<string,mixed>>
+     */
+    private static function dropTrailingClosers(array $nodes): array
+    {
+        if (! empty($nodes) && (end($nodes)['type'] ?? '') === '-') {
+            array_pop($nodes);
+        }
+        foreach ($nodes as &$node) {
+            if (! empty($node['children'])) {
+                $node['children'] = self::dropTrailingClosers($node['children']);
+            }
+        }
+        unset($node);
+        return $nodes;
     }
 }

@@ -21,6 +21,7 @@
 </div>
 {remarksbox type="tip" title="{tr}Tip{/tr}" close="y"}
     {tr _0='<strong>' _1='</strong>'}To add a visual separator, click %0Create menu option%1, set %0Type%1 to %0separator%1, then save your menu.{/tr}
+    <br>{tr _0=$max_menu_section_level}Menu items can be nested up to %0 levels deep.{/tr}
 {/remarksbox}
 
 {tabset name="admin_menu_options"}

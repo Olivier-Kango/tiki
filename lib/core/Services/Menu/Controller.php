@@ -297,6 +297,7 @@ class Services_Menu_Controller
             'menuInfo' => $menuDetails["info"],
             'menuSymbol' => $menuDetails["symbol"],
             'info' => $optionInfo,
+            'types' => $menuLib->getOptionTypes(),
             'option_groups' => $option_groups,
             'templatedGroups' => $tplGroups["data"],
             'tplGroupContainerId' => $tplGroupContainerId,

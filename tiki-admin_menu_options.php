@@ -57,6 +57,8 @@ $smarty->assign('preview_type', isset($_REQUEST['preview_type']) && $_REQUEST['p
 $smarty->assign('preview_css', isset($_REQUEST['preview_css']) && $_REQUEST['preview_css'] === 'On' ? 'y' : 'n');
 
 $headerlib->add_js('var permNames = ' . json_encode(TikiLib::lib('user')->get_permission_names_for('all')) . ';');
+$headerlib->add_js('var MAX_MENU_SECTION_LEVEL = ' . MenuLib::MAX_MENU_SECTION_LEVEL . ';');
+$smarty->assign('max_menu_section_level', MenuLib::MAX_MENU_SECTION_LEVEL);
 $feature_prefs = [];
 foreach ($prefs as $k => $v) {  // attempt to filter out non-feature prefs (still finds 133!)
     if (str_contains($k, 'feature') && preg_match_all('/_/m', $k, $m) === 1) {

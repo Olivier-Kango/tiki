@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 class MenuLib extends TikiLib
 {
+    public const MAX_MENU_SECTION_LEVEL = 9;
+
     public function empty_menu_cache($menuId = 0)
     {
         $cachelib = TikiLib::lib('cache');
@@ -227,6 +229,28 @@ class MenuLib extends TikiLib
     }
 
     /**
+     * Shared "type" choices for the admin tree editor and the option edit modal.
+     *
+     * @return array<string, string>
+     */
+    public function getOptionTypes()
+    {
+        $types = [
+            'o' => tra('option'),
+            's' => tra('section level 0'),
+        ];
+
+        for ($level = 1; $level <= self::MAX_MENU_SECTION_LEVEL; $level++) {
+            $types[(string) $level] = tr('section level %0', $level);
+        }
+
+        $types['r'] = tra('sorted section level 0');
+        $types['-'] = tra('separator');
+
+        return $types;
+    }
+
+    /**
      * Add parent option to each of the result of list_menu_options
      *
      * Formerly created the field "type_description" with description of the now deprecated type
@@ -243,15 +267,7 @@ class MenuLib extends TikiLib
 
         $treeOut = [];
 
-        $types = [
-            's' => tra('section level 0'),
-            "r" => tra('sorted section level 0'),
-            '1' => tra('section level 1'),
-            '2' => tra('section level 2'),
-            '3' => tra('section level 3'),
-            'o' => tra('option'),
-            '-' => tra('separator'),
-        ];
+        $types = $this->getOptionTypes();
 
         $current_parents_branch = [];
 
@@ -266,8 +282,9 @@ class MenuLib extends TikiLib
                 $option['parent'] = 0;
                 $current_parents_branch[] = $option['optionId'];
             } elseif (is_numeric($option['type'])) {
+                // trim first so the parent lookup returns the actual ancestor.
                 array_splice($current_parents_branch, (int) $option['type']);
-                $option['parent'] = $parentId;
+                $option['parent'] = $current_parents_branch ? $current_parents_branch[count($current_parents_branch) - 1] : 0;
                 $current_parents_branch[] = $option['optionId'];
             } elseif ($option['type'] === 'o') {
                 $option['parent'] = $parentId;
@@ -285,6 +302,15 @@ class MenuLib extends TikiLib
 
             return $option;
         }, $options);
+
+        // Only the last '-' in a closing run is a real divider, hide the rest from the editor.
+        $treeOut = array_values(array_filter($treeOut, function ($option, $i) use ($treeOut) {
+            if ($option['type'] !== '-') {
+                return true;
+            }
+            $next = $treeOut[$i + 1] ?? null;
+            return $next && $next['type'] !== '-';
+        }, ARRAY_FILTER_USE_BOTH));
 
         if (isset($count)) {
             $options = [

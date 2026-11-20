@@ -78,15 +78,17 @@ $(function () {
 
 /* Prevent mobile touch race condition on parent links (iOS Safari) */
 $(document).on("click touchend", ".sm-navbar .sm-sub-toggler", function (e) {
-    e.preventDefault();
     e.stopImmediatePropagation();
 
     var $toggler = $(this);
     var $navbar = $toggler.closest(".sm-navbar");
 
     if (!$navbar.hasClass("sm-collapsible") && window.innerWidth >= 768) {
+        // Desktop: hover already reveals the submenu, let a real link navigate.
         return;
     }
+
+    e.preventDefault();
 
     var $panel = $toggler.siblings(".sm-sub").first();
     if (!$panel.length || !window.bootstrap || !window.bootstrap.Collapse) return;

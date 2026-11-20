@@ -217,13 +217,18 @@ $(function () {
 
     $(".save_menu").on("click", function () {
         var lisArr = $("#options li").toArray();
-        var parentIds = lisArr.map((el) => $(el).data("parent")).filter((val) => val > 0);
+        // separators may retain stale parent pointers, they're not real children
+        var parentIds = lisArr
+            .filter((el) => $(el).data("type") !== "-")
+            .map((el) => $(el).data("parent"))
+            .filter((val) => val > 0);
         var dataArr = [];
         // Type values:
         // 's' (0 level),
         // 'o' (option without children)
         // or levels of numbers 1, 2...etc (with children)
         var position = 0;
+        var depthCapped = false;
 
         lisArr.forEach(function (el, index) {
             // items with samepos checked are alternatives for different perms or prefs etc
@@ -259,22 +264,23 @@ $(function () {
             var firstOccurrenceObj = getFirstOccurrenceObjByParentId(obj.parentId, dataArr);
             var lastObj = getLastNonSeparator(dataArr);
 
+            // a top-level item is only a dropdown ('s') if it actually has children, else plain 'o'
             if (obj.parentId === 0) {
                 obj.sectionLevel = 0;
-                obj.type = "s";
+                obj.type = isParent(obj.optionId, parentIds) ? "s" : "o";
             } else if (firstOccurrenceObj) {
                 obj.sectionLevel = firstOccurrenceObj.sectionLevel;
                 obj.type = firstOccurrenceObj.sectionLevel;
             } else if (lastObj && lastObj.sectionLevel != null) {
-                obj.sectionLevel = lastObj.sectionLevel + 1;
-                obj.type = lastObj.sectionLevel + 1;
+                if (lastObj.sectionLevel + 1 > MAX_MENU_SECTION_LEVEL) {
+                    depthCapped = true;
+                }
+                // Tiki MenuLib::prepare_options_for_editing() types stops at level MAX_MENU_SECTION_LEVEL, never nest deeper than that
+                obj.sectionLevel = Math.min(lastObj.sectionLevel + 1, MAX_MENU_SECTION_LEVEL);
+                obj.type = obj.sectionLevel;
             } else {
                 obj.sectionLevel = 0;
                 obj.type = "s";
-            }
-
-            if (!isParent(obj.optionId, parentIds) && obj.parentId !== 0) {
-                obj.type = "o";
             }
 
             obj.position = position;
@@ -286,6 +292,13 @@ $(function () {
         dataArr.forEach(function (row) {
             row.position = ++position;
         });
+
+        if (depthCapped) {
+            feedback(
+                tr("Menu items can only be nested %0 levels deep, some items were not nested further.").replace("%0", MAX_MENU_SECTION_LEVEL),
+                "warning"
+            );
+        }
 
         // console.log(parentIds,dataArr,$("input[name=ticket]").val());
 
@@ -299,7 +312,14 @@ $(function () {
             function (data) {
                 $options.tikiModal();
                 dirty = false;
-                location.reload();
+                // give the depth-cap warning time to be read before the reload clears it
+                if (depthCapped) {
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                } else {
+                    location.reload();
+                }
             },
             "json"
         ).always(function () {
@@ -337,8 +357,9 @@ $(function () {
                 return;
             }
             var lvl = row.sectionLevel != null ? row.sectionLevel : row.type === "s" ? 0 : prevLvl;
-            if (row.type !== "s" && lvl < prevLvl) {
-                var need = prevLvl - lvl;
+            // add separators to close any deeper branch, +1 also closes the section itself, not just its items
+            if (row.type === "o" && lvl < prevLvl) {
+                var need = prevLvl - lvl + 1;
                 for (var j = 0; j < need; j++) {
                     out.push({
                         optionId: null,
