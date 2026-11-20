@@ -33,7 +33,7 @@
                     </a>
                 {else}
                     <a class="dropdown-item" href="tiki-view_blog.php?blogId={$blogId}&amp;watch_event=blog_post&amp;watch_object={$blogId}&amp;watch_action=remove" onclick="confirmPopup('{tr}Stop monitoring?{/tr}', '{ticket mode=get}')">
-                        {icon name='stop_watching'} {tr}Stop monitoring{/tr}
+                        {icon name='stop-watching'} {tr}Stop monitoring{/tr}
                     </a>
                 {/if}
             {/if}
