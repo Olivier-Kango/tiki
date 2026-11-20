@@ -69,7 +69,7 @@
             rendererOptions: {
                 heatmap: {
                     colorScaleGenerator: function(values) {
-                        return Plotly.d3.scale.linear()
+                        return d3.scaleLinear()
                             .domain({{$pivottable.heatmapParams.domain|json_encode}})
                             .range({{$pivottable.heatmapParams.colors|json_encode}});
                     }
