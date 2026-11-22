@@ -1,0 +1,84 @@
+{
+    "version": "0.2",
+    "language": "en,en-GB",
+    "minWordLength": 4,
+    "flagWords": [
+        "hte",
+        "teh",
+        "retrive",
+        "mispell",
+        "mispellings"
+    ],
+    "ignorePaths": [
+        ".git/**",
+        ".github/**",
+        ".gitpod/**",
+        ".husky/**",
+        "vendor/**",
+        "vendor_bundled/**",
+        "vendor_custom/**",
+        "node_modules/**",
+        "public/**",
+        "lib/test/**",
+        "lib/language/**",
+        "lib/pass_blacklists/**",
+        "temp/**",
+        "lang/**",
+        "tmp/**",
+        "cache/**",
+        "storage/**",
+        "db/**",
+        "tests/fixtures/**",
+        "**/*.min.js",
+        "**/*.min.css",
+        "**/dist/**",
+        "**/build/**",
+        "**/lib/openlayers/authors.txt",
+        "**/coverage/**",
+        "**/copyright.txt",
+        "**/*.lock",
+        "**/*.log",
+        "**/*.sql",
+        "**/*.json"
+    ],
+    "dictionaryDefinitions": [
+        {
+            "name": "tiki",
+            "description": "Tiki-specific words, one per line. Add a word here only when it is a real Tiki or third-party term.",
+            "path": "./src/ci/spellchecker/dictionary.txt",
+            "addWords": true
+        }
+    ],
+    "dictionaries": [
+        "tiki",
+        "softwareTerms",
+        "companies",
+        "misc",
+        "filetypes",
+        "html",
+        "css",
+        "php",
+        "typescript",
+        "node",
+        "npm",
+        "sql",
+        "bash",
+        "lorem-ipsum"
+    ],
+    "overrides": [
+        {
+            "filename": "**/*.scss",
+            "includeRegExpList": ["/\\/\\*[\\s\\S]*?\\*\\//g", "/\\/\\/.*/g"]
+        }
+    ],
+    "ignoreRegExpList": [
+        "Urls",
+        "Email",
+        "Base64",
+        "HexValues",
+        "UUID",
+        "SHA",
+        "HashStrings",
+        "/\\S*[^\\x00-\\x7F]\\S*/gu"
+    ]
+}

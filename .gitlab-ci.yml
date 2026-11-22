@@ -265,6 +265,19 @@ eslint:
   script:
     - npx eslint .
 
+spellchecker:
+  stage: code-quality
+  needs:
+    - node_modules
+  image:
+    name: ${DEPENDENCY_PROXY_PREFIX}${NODE_IMAGE}
+  script:
+    - BASE_SHA="${CI_MERGE_REQUEST_TARGET_BRANCH_SHA:-$CI_MERGE_REQUEST_DIFF_BASE_SHA}"
+    - git fetch --depth=1 origin "$BASE_SHA"
+    - node src/ci/spellchecker/spellcheck.mjs --since "$BASE_SHA"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
 shlint:
   stage: code-quality
   needs: []

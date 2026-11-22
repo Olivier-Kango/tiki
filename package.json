@@ -28,7 +28,9 @@
     "type" : "module",
     "scriptsComments" : {
         "checkEnvironment:validNodeModules" : "The idea is to stop everything if a dev updated from git and forgot to run npm install.  npm ls will do that (we check it's return code).  Unfortunately it is verbose (no easy cross platform way to suppress the output and keep the return code) and takes almost as long to run as a npm install...  Maybe just keep it until PHP developers get used to re-running composer and node - benoitg - 2023-11-24.",
-        "prepare":  "The complex node check is because it husky must not crash when run from a non-git repo (a tarball, a git workspace), and also needs to run on windows."
+        "prepare":  "The complex node check is because it husky must not crash when run from a non-git repo (a tarball, a git workspace), and also needs to run on windows.",
+        "spellcheck": "Spellchecks only the lines you added (working tree compared to HEAD). Add real Tiki-specific words to src/ci/spellchecker/dictionary.txt.",
+        "spellcheck:mr": "Spellchecks only the lines added on this branch since origin/master. Use node src/ci/spellchecker/spellcheck.mjs --mr --base <branch> for another base."
     },
     "scripts" : {
         "checkEnvironment:engine" : "node src/js/build_utils/engineCheck.js",
@@ -61,7 +63,9 @@
         "test:e2e:report" : "npm run report -w lib/test/e2e --",
         "postinstall" : "patch-package --patch-dir=src/js/patches --error-on-fail",
         "patch" : "patch-package --patch-dir=src/js/patches --error-on-fail",
-        "prepare" : "node -e \"if (require('fs').statSync('.git').isDirectory()) process.exit(0);\" || husky"
+        "prepare" : "node -e \"if (require('fs').statSync('.git').isDirectory()) process.exit(0);\" || husky",
+        "spellcheck" : "node src/ci/spellchecker/spellcheck.mjs",
+        "spellcheck:mr" : "node src/ci/spellchecker/spellcheck.mjs --mr"
     },
     "engines" : {
         "npm" : ">=9.0.0 <12",
@@ -89,8 +93,9 @@
         "@vitejs/plugin-vue" : "^6.0.10",
         "@vitest/coverage-v8" : "^5.0.5",
         "check-engine" : "^1.14.0",
-        "concurrently" : "^10.0.6",
+        "concurrently" : "^10.0.5",
         "copy-and-watch" : "^0.1.8",
+        "cspell" : "^10.0.1",
         "es-module-shims" : "^2.8.4",
         "eslint" : "^10.13.0",
         "eslint-config-prettier" : "^10.1.8",

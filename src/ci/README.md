@@ -40,6 +40,9 @@ Common usage pattern:
 ## Source conventions
 - check_alphabetical_list.php — Ensures sorted lists (e.g., dependencies in package.json, composer.json) stay alphabetical.
 
+## Spelling
+- spellchecker/ — Spellchecks the lines added by a change (`spellchecker` CI job). See [spellchecker/README.md](spellchecker/README.md).
+
 ## Security
 - securitycheck.php — Runs security-oriented validations (basic policy checks).
 
