@@ -478,11 +478,13 @@ class NlLib extends TikiLib
         // Fetch HTML content, with fallback to plain text if HTML template is missing/fails
         $htmlMailData = '';
         $noDuplicateTextPart = false;
-        try {
-            $htmlMailData = ($lang !== null) ? $smarty->fetchLang($lang, $htmlTemplate) : $smarty->fetch($htmlTemplate);
-        } catch (Exception $e) {
-            // HTML template missing; fall back to text content for HTML body
-            $noDuplicateTextPart = false;
+        if ($smarty->get_filename($htmlTemplate) !== '') {
+            try {
+                $htmlMailData = ($lang !== null) ? $smarty->fetchLang($lang, $htmlTemplate) : $smarty->fetch($htmlTemplate);
+            } catch (Exception $e) {
+                // HTML template missing; fall back to text content for HTML body
+                $noDuplicateTextPart = false;
+            }
         }
 
         // Apply bug fix for body tags and nl2br (as in original Laminas logic)
