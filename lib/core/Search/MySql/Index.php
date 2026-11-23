@@ -14,6 +14,7 @@ class Search_MySql_Index implements Search_Index_Interface
     private $builder;
     private $tfTranslator;
     private $index_name;
+    private $invalidated = [];
 
     public function __construct(TikiDb $db, $index)
     {
@@ -58,7 +59,12 @@ class Search_MySql_Index implements Search_Index_Interface
             $data
         );
 
-        $this->table->insert($data);
+        $key = isset($data['object_type'], $data['object_id']) ? $data['object_type'] . ':' . $data['object_id'] : null;
+        if ($key !== null && isset($this->invalidated[$key])) {
+            $this->invalidated[$key][] = $this->table->replaceObjectEntry($data, $this->invalidated[$key]);
+        } else {
+            $this->table->insert($data);
+        }
     }
 
     private function getValue(Search_Type_Interface $data)
@@ -106,6 +112,7 @@ class Search_MySql_Index implements Search_Index_Interface
 
     public function endUpdate()
     {
+        $this->invalidated = [];
         $this->table->flush();
     }
 
@@ -118,6 +125,10 @@ class Search_MySql_Index implements Search_Index_Interface
     {
         foreach ($objectList as $object) {
             $this->table->deleteMultipleIndex($object);
+
+            if (isset($object['object_type'], $object['object_id'])) {
+                $this->invalidated[$object['object_type'] . ':' . $object['object_id']] = [];
+            }
         }
     }
 

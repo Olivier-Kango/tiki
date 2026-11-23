@@ -112,7 +112,63 @@ class Search_MySql_Table extends TikiDb_Table
             }
         }
 
-        return 0;
+        return (int) $id;
+    }
+
+    /**
+     * Insert the entry of an object and, in the same transaction, delete its other entries, except $keepIds
+     * (entries added for the object earlier in the same update, as an object can produce several documents).
+     * @return int id of the inserted entry
+     */
+    public function replaceObjectEntry(array $values, array $keepIds = []): int
+    {
+        $this->schemaBuffer->flush();
+
+        $mainTable = $this->escapeIdentifier($this->tableName);
+        $tables = $this->indexTables();
+        $options = [TikiDb::QUERY_OPTION_LOG_GROUP => self::UNIFIED_MYSQL_WRITE_LOG_GROUP];
+
+        for ($attempt = 1;; $attempt++) {
+            $ownTransaction = $this->beginTransaction();
+            try {
+                $rows = $this->db->fetchAll(
+                    "SELECT `id` FROM $mainTable WHERE `object_type` = ? AND `object_id` = ? FOR UPDATE",
+                    [$values['object_type'], $values['object_id']],
+                    -1,
+                    -1,
+                    TikiDb::ERR_EXCEPTION,
+                    $options
+                );
+                foreach (array_diff(array_column($rows, 'id'), $keepIds) as $id) {
+                    foreach ($tables as $table) {
+                        $this->db->queryException("DELETE FROM {$this->escapeIdentifier($table)} WHERE `id` = ?", [$id], options: $options);
+                    }
+                }
+
+                $id = $this->insert($values);
+
+                if ($ownTransaction) {
+                    $this->db->commit();
+                }
+                return $id;
+            } catch (Exception $e) {
+                if ($ownTransaction) {
+                    $this->db->rollback();
+                }
+                if ($attempt >= 3 || $this->db->getErrorNo() != 1213) {
+                    throw $e;
+                }
+            }
+        }
+    }
+
+    private function beginTransaction(): bool
+    {
+        try {
+            return $this->db->beginTransaction();
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
     public function ensureHasField($fieldName, $type)
