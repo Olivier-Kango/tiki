@@ -1957,6 +1957,17 @@ class TrackerLib extends TikiLib
                 }
             }
 
+            // An encrypted field that arrives with its stored value was not edited: an update
+            // that submits only some fields fills the others from the database, so that value
+            // is the ciphertext, and modify_field() would encrypt it a second time.
+            if (
+                ! empty($array['encryptionKeyId']) && $itemId
+                && isset($fil[$fieldId]) && $fil[$fieldId] !== ''
+                && ($array['value'] ?? null) === $fil[$fieldId]
+            ) {
+                continue;
+            }
+
             if ($handler && method_exists($handler, 'handleSave')) {
                 $array = array_merge($array, $handler->handleSave($array['value'] ?? null, $old_value));
                 $value = $array['value'] ?? null;
