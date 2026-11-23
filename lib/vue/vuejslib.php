@@ -13,12 +13,13 @@ class VueJsLib
      * @param bool   $app    whether to create the App
      * @param array  $data   values to expose to the Vue App
      * @param bool   $minify or not
+     * @param string $build  dev (warnings and devtools) or prod. Anything other than prod uses dev.
      *
      * @return string
      * @throws Exception
      */
 
-    public function processVue($str, $name = '', $app = false, $data = [], $minify = false)
+    public function processVue($str, $name = '', $app = false, $data = [], $minify = false, $build = 'dev')
     {
         $headerlib = TikiLib::lib('header');
 
@@ -76,6 +77,7 @@ class VueJsLib
 
             if ($app) {
                 $data = json_encode($data);
+                $build = $build === 'prod' ? 'prod' : 'dev';
 
                 /**
                  * TEMPORARY FIX: Currently, `headerlib` native JS modules do not have isolated namespaces.
@@ -86,7 +88,7 @@ class VueJsLib
 
                 $headerlib->add_js_module(<<<JS
                     import { mountApp as $importAlias } from '@tiki-vue-sfc-loader';
-                    $importAlias('$name', '$file', $data);
+                    $importAlias('$name', '$file', $data, '$build');
                 JS
                 );
 

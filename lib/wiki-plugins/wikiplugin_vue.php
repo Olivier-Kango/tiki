@@ -39,6 +39,18 @@ function wikiplugin_vue_info()
                 'since' => '21.0',
                 'default' => '',
             ],
+            'build' => [
+                'required' => false,
+                'name' => tra('Vue build'),
+                'description' => tra('Development runtime includes warnings and devtools. Production runtime is smaller and silent. The single-file component is compiled by the SFC loader either way. It is best to run with development runtime during the component development and switch to production when you are ready.'),
+                'since' => '31.0',
+                'filter' => 'alpha',
+                'options' => [
+                    ['text' => tra('Development'), 'value' => 'dev'],
+                    ['text' => tra('Production'), 'value' => 'prod'],
+                ],
+                'default' => 'dev',
+            ],
         ]
     ];
 }

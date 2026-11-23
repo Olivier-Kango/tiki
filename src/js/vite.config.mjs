@@ -1,3 +1,4 @@
+import { mkdirSync, writeFileSync } from "node:fs";
 import { defineConfig, esmExternalRequirePlugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
@@ -241,6 +242,8 @@ export default defineConfig(({ command, mode }) => {
                     "three",
                     "underscore",
                     "vue",
+                    "vue-sfc",
+                    "vue-sfc-prod",
                     "vue3-sfc-loader",
 
                     /* src/js/common-externals-legacy-cjs section
@@ -283,6 +286,19 @@ export default defineConfig(({ command, mode }) => {
             },
         },
         plugins: [
+            // Microfrontends and widgets import "vue" from the import map. PHP reads this marker
+            // because the browser build cannot see Vite's mode. development -> dev compiler,
+            // every other mode -> prod runtime.
+            {
+                name: "vue-mf-build-marker",
+                apply: "build",
+                closeBundle() {
+                    const mf = mode === "development" ? "dev-compiler" : "prod-runtime";
+                    const file = resolve(import.meta.dirname, "../../public/generated/vue-build.json");
+                    mkdirSync(path.dirname(file), { recursive: true });
+                    writeFileSync(file, JSON.stringify({ mf }, null, 4) + "\n");
+                },
+            },
             // Own this external here to rewrite moment-timezone's require("moment") for browsers.
             // https://rolldown.rs/builtin-plugins/esm-external-require
             esmExternalRequirePlugin({
@@ -685,7 +701,15 @@ export default defineConfig(({ command, mode }) => {
                         rename: { stripBase: 2 },
                     },
                     {
-                        src: "node_modules/vue/dist/vue.esm-browser.js",
+                        // Same installed Vue, three browser builds. The import map picks among them.
+                        // prod runtime: microfrontends and widgets in a production Vite build.
+                        // dev compiler: those same apps while `npm run watch` is running.
+                        // dev runtime and prod runtime: wiki SFC loader, chosen per component.
+                        src: [
+                            "node_modules/vue/dist/vue.runtime.esm-browser.prod.js",
+                            "node_modules/vue/dist/vue.runtime.esm-browser.js",
+                            "node_modules/vue/dist/vue.esm-browser.js",
+                        ],
                         dest: "vendor_dist/vue/dist",
                         rename: { stripBase: 3 },
                     },

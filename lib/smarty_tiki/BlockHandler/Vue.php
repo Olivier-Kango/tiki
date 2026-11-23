@@ -43,7 +43,7 @@ use SmartyTiki\Traits\BlockHandlerStaticFacadeTrait;
  *
  */
 /**
- * @param $params     array  [ app = n|y, name = string ]
+ * @param $params     array  [ app = n|y, name = string, build = dev|prod ]
  * @param $content    string body of the Vue componenet
  * @param $template     \Smarty\Template
  * @param $repeat     boolean
@@ -68,7 +68,8 @@ class Vue extends Base implements TikiSmartyExtensionInterface
 
         $app = ! (empty($params['app']) || $params['app'] === 'n');
         $name = $params['name'] ?? '';
+        $build = $params['build'] ?? 'dev';
 
-        return \TikiLib::lib('vuejs')->processVue($content, $name, $app);
+        return \TikiLib::lib('vuejs')->processVue($content, $name, $app, [], false, $build);
     }
 }

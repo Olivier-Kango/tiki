@@ -1419,6 +1419,8 @@ metatags
 methodparams
 methodreturn
 mgroup
+microfrontend
+microfrontends
 midors
 migrateparent
 mimelib

@@ -10,6 +10,48 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 /**
+ * Browser builds copied from the same installed Vue package.
+ * prod-runtime: microfrontends and widgets when Vite runs in production mode.
+ * dev-compiler: development build with the template compiler, used for those apps when Vite runs in development mode.
+ * dev-runtime: warnings and devtools, no template compiler. Default for the wiki SFC loader; pass build=prod to use prod-runtime instead.
+ *
+ * @return array<string, string> build name => path under NODE_PUBLIC_DIST_PATH
+ */
+function vueBrowserBuilds(): array
+{
+    return [
+        'prod-runtime' => NODE_PUBLIC_DIST_PATH . '/vue/dist/vue.runtime.esm-browser.prod.js',
+        'dev-runtime' => NODE_PUBLIC_DIST_PATH . '/vue/dist/vue.runtime.esm-browser.js',
+        'dev-compiler' => NODE_PUBLIC_DIST_PATH . '/vue/dist/vue.esm-browser.js',
+    ];
+}
+
+/**
+ * Build used by microfrontends and widgets. Vite writes public/generated/vue-build.json from its mode:
+ * `npm run watch` (development) selects dev-compiler, `npm run build` selects prod-runtime.
+ */
+function vueMicrofrontendBuild(): string
+{
+    $default = 'prod-runtime';
+    $marker = __DIR__ . '/public/generated/vue-build.json';
+    if (! is_readable($marker)) {
+        return $default;
+    }
+
+    $decoded = json_decode((string) file_get_contents($marker), true);
+    $choice = is_array($decoded) ? ($decoded['mf'] ?? $default) : $default;
+    if (! is_string($choice) || ! isset(vueBrowserBuilds()[$choice])) {
+        trigger_error(
+            'Unknown Vue microfrontend build in public/generated/vue-build.json. Using prod-runtime.',
+            E_USER_WARNING
+        );
+        return $default;
+    }
+
+    return $choice;
+}
+
+/**
  * @param bool $useBaseUrl by default (false) the urls generated only have the URI part, when using baseUrl will also include proto and host (full URL)
  *
  * @return string
@@ -109,8 +151,12 @@ function generateJsImportmapScripts(bool $useBaseUrl = false)
                 "three" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/three/build/three.module.min.js",
 
                 "underscore" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/underscore/underscore-esm-min.js",
-                // currently we don't use the prod build to improve the experience for SFC
-                "vue" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue/dist/vue.esm-browser.js",
+                // Microfrontends and widgets - build selected by vueMicrofrontendBuild().
+                "vue" => $tikiUrl . vueBrowserBuilds()[vueMicrofrontendBuild()],
+                // Wiki {vue} / PluginVue. vue3-sfc-loader compiles templates itself, so the runtime build is enough.
+                // mountApp(..., "dev"|"prod") picks one of these. The other is not downloaded.
+                "vue-sfc" => $tikiUrl . vueBrowserBuilds()['dev-runtime'],
+                "vue-sfc-prod" => $tikiUrl . vueBrowserBuilds()['prod-runtime'],
                 "vue3-sfc-loader" => $tikiUrl . NODE_PUBLIC_DIST_PATH . "/vue3-sfc-loader/dist/vue3-sfc-loader.esm.js",
 
                 /* src/js/common_reexported */

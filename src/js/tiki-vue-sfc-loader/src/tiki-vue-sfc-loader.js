@@ -1,10 +1,11 @@
-import * as Vue from "vue";
 import { loadModule } from "vue3-sfc-loader";
 
+const vueBuildImporters = {
+    dev: () => import("vue-sfc"),
+    prod: () => import("vue-sfc-prod"),
+};
+
 const options = {
-    moduleCache: {
-        vue: Vue,
-    },
     async getFile(url) {
         const res = await fetch(url);
         if (!res.ok) {
@@ -26,12 +27,20 @@ const options = {
  * @param {string} targetId - The ID of the DOM element to mount the component.
  * @param {string} componentUrl - The URL of the `.vue` component.
  * @param {object} [propsData={}] - The props data to pass to the component.
+ * @param {"dev"|"prod"} [build="dev"] - Development runtime (warnings and devtools) or production runtime.
  */
-export function mountApp(targetId, componentUrl, propsData = {}) {
+export async function mountApp(targetId, componentUrl, propsData = {}, build = "dev") {
+    const loadVue = vueBuildImporters[build] ?? vueBuildImporters.dev;
+    const Vue = await loadVue();
     const app = Vue.createApp({
         render() {
             return Vue.h(
-                Vue.defineAsyncComponent(() => loadModule(componentUrl, options)),
+                Vue.defineAsyncComponent(() =>
+                    loadModule(componentUrl, {
+                        ...options,
+                        moduleCache: { vue: Vue },
+                    })
+                ),
                 {
                     ...propsData,
                 }
