@@ -275,8 +275,8 @@ class Scheduler_Item
             }
 
             return [
-                'status' => 'failed',
-                'message' => tr('Scheduler task is already running.')
+                'status' => 'ok',
+                'message' => tr('Scheduler task is already running.'),
             ];
         }
 
