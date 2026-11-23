@@ -89,7 +89,7 @@ if (! hm_exists('tiki_parse_message')) {
 /**
  * Convert MimePart message parts to IMAP-compatible BODYSTRUCTURE
  * @subpackage tiki/functions
- * @param ZBateson\MailMimeParser\Message\Part\MimePart $part the mime message part
+ * @param ZBateson\MailMimeParser\Message\MimePart $part the mime message part
  * @param string $part_num the mime message part number
  * @return array
  */
@@ -145,9 +145,9 @@ if (! hm_exists('tiki_mime_part_to_bodystructure')) {
 /**
  * Retrieve mime part based off part number
  * @subpackage tiki/functions
- * @param ZBateson\MailMimeParser\Message\Part\MimePart $part the mime message part
+ * @param ZBateson\MailMimeParser\Message\MimePart $part the mime message part
  * @param string $part_num the mime message part number
- * @return ZBateson\MailMimeParser\Message\Part\MimePart
+ * @return ZBateson\MailMimeParser\Message\MimePart
  */
 if (! hm_exists('tiki_get_mime_part')) {
     function tiki_get_mime_part($part, $part_num = '0')
@@ -171,7 +171,7 @@ if (! hm_exists('tiki_get_mime_part')) {
 /**
  * Replace inline images in an HTML message part
  * @subpackage tiki/functions
- * @param ZBateson\MailMimeParser\Message\Part\MimePart $message the mime message part
+ * @param ZBateson\MailMimeParser\Message\MimePart $message the mime message part
  * @param string $txt HTML
  */
 if (! hm_exists('tiki_add_attached_images')) {

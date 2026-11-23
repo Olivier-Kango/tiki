@@ -280,7 +280,7 @@
         "tikiwiki/text-wiki-mediawiki": "~0.2",
         "web-auth/webauthn-lib": "~4.9",
         "xemlock/htmlpurifier-html5": "~0.1.11",
-        "zbateson/mail-mime-parser": "~3.0"
+        "zbateson/mail-mime-parser": "~4.0"
     },
     "require-dev": {
         "kint-php/kint": "~6.1",

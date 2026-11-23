@@ -10,6 +10,8 @@
  * @subpackage tiki
  */
 
+use ZBateson\MailMimeParser\Message;
+
 if (! defined('DEBUG_MODE')) {
     die();
 }
@@ -541,7 +543,7 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
 }
 
 /**
- * @param \ZBateson\MailMimeParser\Message $message
+ * @param Message $message
  * @return array
  */
 if (! hm_exists('tiki_extract_calendar_invite_attachments')) {
@@ -634,7 +636,7 @@ if (! hm_exists('tiki_get_invitation_email_attachments')) {
             return [];
         }
 
-        $message = \ZBateson\MailMimeParser\Message::from($raw, false);
+        $message = Message::from($raw, false);
 
         return tiki_extract_calendar_invite_attachments($message);
     }
