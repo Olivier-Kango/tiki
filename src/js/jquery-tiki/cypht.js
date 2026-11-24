@@ -10,3 +10,11 @@ $(document).on("click", ".inline-cypht .menu_contacts a", function (e) {
 if (hm_mobile()) {
     if (!$("body").hasClass("mobile")) $("body").addClass("mobile");
 }
+
+const setInlineMessageTop = function () {
+    const header = document.querySelector("header.sticky-top");
+    const headerHeight = header && getComputedStyle(header).position === "sticky" ? header.offsetHeight : 0;
+    $(".inline-cypht").css("--cypht-inline-message-top", `${headerHeight + 20}px`);
+};
+setInlineMessageTop();
+$(window).on("resize", setInlineMessageTop);

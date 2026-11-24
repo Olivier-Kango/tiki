@@ -4,7 +4,7 @@
     font-family: $font-family-base;
     color: var(--bs-body-color) !important;
     position: relative;
-    overflow-y: hidden;
+    overflow-y: clip;
     background-color: var(--bs-secondary-bg);
 
     .hide { display: none; }
