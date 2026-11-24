@@ -417,6 +417,23 @@ OUT;
 
         $this->assertEquals("x", $output);
     }
+
+    public function testDefaultValueForMissingNestedField()
+    {
+        $plugin = new Search_Formatter_Plugin_WikiTemplate("* {display name=answer.label default=No}\n");
+
+        $formatter = new Search_Formatter($plugin);
+
+        $output = $formatter->format(
+            [
+                ['object_type' => 'trackeritem', 'object_id' => '1', 'answer' => ['label' => 'Yes']],
+                ['object_type' => 'trackeritem', 'object_id' => '2', 'answer' => []],
+            ]
+        );
+
+        $this->assertEquals("* Yes\n* No\n", $output);
+    }
+
     protected function tearDown(): void
     {
         $_GET = [];
