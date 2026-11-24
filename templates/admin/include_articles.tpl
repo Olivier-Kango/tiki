@@ -34,6 +34,7 @@
                 {preference name=wikiplugin_articles}
                 {preference name=wikiplugin_article}
             </fieldset>
+            {preference name=article_frontpage_layout}
             {preference name=art_home_title}
             {preference name=maxArticles}
             <fieldset>
@@ -43,6 +44,10 @@
                 {preference name=feature_submissions}
                 {preference name=article_use_new_list_articles}
                 {preference name=article_remembers_creator}
+                {preference name=article_media_player}
+                <div class="adminoptionboxchild" id="article_media_player_childcontainer">
+                    {preference name=article_media_youtube}
+                </div>
                 {preference name=feature_cms_rankings}
                 {preference name=article_user_rating}
                 <div class="adminoptionboxchild" id="article_user_rating_childcontainer">
@@ -73,6 +78,7 @@
                 {tr}Custom (Article Own) images setting{/tr}
             </legend>
                 {preference name=article_image_file_size_max}
+                {preference name=article_image_webp}
                 {preference name=article_image_size_x}
                 {preference name=article_image_size_y}
                 {preference name=article_default_list_image_size_x}

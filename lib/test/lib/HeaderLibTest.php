@@ -8,6 +8,7 @@
 namespace Tiki\Lib\Test\Lib\HeaderLib;
 
 use HeaderLib;
+use TikiLib;
 use TikiTestCase;
 
 /**
@@ -57,6 +58,8 @@ Disallow:
 ROBOTS;
 
         file_put_contents($this->robotsTxtPath, $testRobotsContent);
+        // Rapid fixture rewrites can share a filemtime and reuse the previous test's tree.
+        TikiLib::lib('cache')->invalidate('robots_txt_tree', 'robots');
     }
 
     /**
@@ -69,8 +72,10 @@ ROBOTS;
         if ($this->originalRobotsTxtContent !== null) {
             file_put_contents($this->robotsTxtPath, $this->originalRobotsTxtContent);
         } elseif (file_exists($this->robotsTxtPath)) {
-            // If there was no original file, we could delete it, but safer to leave test content
+            unlink($this->robotsTxtPath);
         }
+        TikiLib::lib('cache')->invalidate('robots_txt_tree', 'robots');
+        clearstatcache(true, $this->robotsTxtPath);
 
         if ($this->originalRequestUri !== null) {
             $_SERVER['REQUEST_URI'] = $this->originalRequestUri;

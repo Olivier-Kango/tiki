@@ -200,6 +200,7 @@ function wikiplugin_youtube($data, $params)
     $params['referrerPolicy'] = $prefs['http_header_referrer_policy_value'] ?? '';
 
     $embedHtml = buildEmbedContainerAndIframe($src, $params, $oEmbedData);
+    $embedHtml = str_replace('<iframe ', '<iframe data-tiki-youtube="y" ', $embedHtml);
     return '~np~' . $embedHtml . '~/np~';
 }
 

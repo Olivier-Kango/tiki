@@ -23,6 +23,53 @@ function prefs_article_list()
     $articlesGeneralSettingsHelp = 'Articles-General-Settings';
 
     return [
+        'article_media_youtube' => [
+            'name' => tra('YouTube support for article playback controls'),
+            'description' => tra('Allow article playback controls to manage PluginYoutube videos. This loads the external YouTube IFrame API. HTML5 audio and video playback does not require this option.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+            'dependencies' => ['feature_articles', 'article_media_player', 'wikiplugin_youtube'],
+            'since' => '31.0',
+            'help' => $articlesGeneralSettingsHelp,
+        ],
+        'article_media_player' => [
+            'name' => tra('Article media playback controls'),
+            'description' => tra('Add play/pause, sequential playback and a floating control for supported media embedded in articles. Native embedded players remain available when disabled.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+            'dependencies' => ['feature_articles'],
+            'since' => '31.0',
+            'help' => $articlesGeneralSettingsHelp,
+        ],
+        'article_image_webp' => [
+            'name' => tra('Optimize article images with WebP'),
+            'description' => tra('Serve cached WebP versions of compatible article, submission and topic images to browsers that support WebP. Original images are retained and used when conversion is unavailable.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+            'dependencies' => ['feature_articles'],
+            'since' => '31.0',
+            'help' => $articlesGeneralSettingsHelp,
+        ],
+        'article_frontpage_layout' => [
+            'name' => tra('Articles front page layout'),
+            'description' => tra('Presentation of the native articles page. The alternative CustomSearch listing and PluginArticles instances keep their own settings.'),
+            'type' => 'list',
+            'filter' => 'alpha',
+            'tags' => ['basic'],
+            'default' => 'classic',
+            'options' => [
+                'classic' => tra('Classic'),
+                'tiles' => tra('Tiles'),
+                'list' => tra('Horizontal list'),
+                'overlay' => tra('Image background'),
+                'magazine' => tra('Magazine'),
+                'compact' => tra('Compact list'),
+            ],
+            'help' => $articlesGeneralSettingsHelp,
+        ],
         'article_comments_per_page' => [
             'name' => tra('Number per page'),
             'description' => tra('Set the number of comments per page.'),

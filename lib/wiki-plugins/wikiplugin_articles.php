@@ -247,6 +247,48 @@ function wikiplugin_articles_info()
                     ['text' => tra('No'), 'value' => 'n'],
                 ],
             ],
+            'layout' => [
+                'required' => false,
+                'name' => tra('Layout'),
+                'description' => tra('Choose refined classic articles, tiles, a horizontal list, image overlays, a magazine, or a compact list.'),
+                'since' => '31.0',
+                'filter' => 'alpha',
+                'default' => 'classic',
+                'options' => [
+                    ['text' => tra('Classic'), 'value' => 'classic'],
+                    ['text' => tra('Tiles'), 'value' => 'tiles'],
+                    ['text' => tra('Horizontal list'), 'value' => 'list'],
+                    ['text' => tra('Image background'), 'value' => 'overlay'],
+                    ['text' => tra('Magazine'), 'value' => 'magazine'],
+                    ['text' => tra('Compact list'), 'value' => 'compact'],
+                ],
+            ],
+            'imagePosition' => [
+                'required' => false,
+                'name' => tra('Image position'),
+                'description' => tra('For Tiles: show a full-width cover image above the title, or an inset image after the title and author.'),
+                'since' => '31.0',
+                'filter' => 'text',
+                'default' => 'top',
+                'options' => [
+                    ['text' => tra('Cover image first'), 'value' => 'top'],
+                    ['text' => tra('Title first'), 'value' => 'after-title'],
+                ],
+            ],
+            'columns' => [
+                'required' => false,
+                'name' => tra('Columns'),
+                'description' => tra('Number of columns on wide screens for Tiles and Image background layouts. Small screens remain responsive.'),
+                'since' => '31.0',
+                'filter' => 'word',
+                'default' => 'auto',
+                'options' => [
+                    ['text' => tra('Automatic'), 'value' => 'auto'],
+                    ['text' => '2', 'value' => '2'],
+                    ['text' => '3', 'value' => '3'],
+                    ['text' => '4', 'value' => '4'],
+                ],
+            ],
             'containerClass' => [
                 'required' => false,
                 'name' => tra('Containing class'),
@@ -339,7 +381,8 @@ function wikiplugin_articles($data, $params)
 
     $auto_args = ['lang', 'topicId', 'topic', 'sort', 'type', 'lang', 'categId'];
 
-    $params = WikiPlugin_Helper::applySeparators($params, wikiplugin_articles_info());
+    $pluginInfo = wikiplugin_articles_info();
+    $params = WikiPlugin_Helper::applySeparators($params, $pluginInfo);
     extract($params, EXTR_SKIP);
     $filter = [];
     if ($prefs['feature_articles'] != 'y') {
@@ -350,10 +393,15 @@ function wikiplugin_articles($data, $params)
     $urlnext = '';
     if ($usePagination == 'y') {
         //Set offset when pagination is used
-        $start = $_REQUEST["offset"] ?? 0;
+        $start = filter_var($_REQUEST['offset'] ?? 0, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]) ?: 0;
         foreach ($auto_args as $arg) {
             if (! empty($$arg)) {
-                $paramsnext[$arg] = $$arg;
+                $value = $$arg;
+                if (is_array($value)) {
+                    $separator = $pluginInfo['params'][$arg]['separator'] ?? ',';
+                    $value = implode($separator, $value);
+                }
+                $paramsnext[$arg] = $value;
             }
         }
         $paramsnext['_type'] = 'absolute_path';
@@ -520,6 +568,26 @@ function wikiplugin_articles($data, $params)
     if ($titleonly == 'y') {
         return "~np~ " . $smarty->fetch('tiki-view_articles-titleonly.tpl') . " ~/np~";
     } else {
-        return "~np~ " . $smarty->fetch('tiki-view_articles.tpl') . " ~/np~";
+        $layout = $params['layout'] ?? 'classic';
+        if (! in_array($layout, ['classic', 'tiles', 'list', 'overlay', 'magazine', 'compact'], true)) {
+            $layout = 'classic';
+        }
+        if (in_array($layout, ['tiles', 'overlay', 'magazine'], true)) {
+            TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/article-cards.js');
+        }
+        $columns = (string) ($params['columns'] ?? 'auto');
+        if (! in_array($columns, ['auto', '2', '3', '4'], true)) {
+            $columns = 'auto';
+        }
+        $imagePosition = $params['imagePosition'] ?? 'top';
+        if (! in_array($imagePosition, ['top', 'after-title'], true)) {
+            $imagePosition = 'top';
+        }
+        // Child-template values cannot leak into the next ARTICLES instance or its parent page.
+        $template = $smarty->createTemplate('tiki-view_articles.tpl');
+        $template->assign('article_list_layout', $layout);
+        $template->assign('article_list_columns', $columns);
+        $template->assign('article_list_image_position', $imagePosition);
+        return "~np~ " . $template->fetch() . " ~/np~";
     }
 }

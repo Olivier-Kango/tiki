@@ -27,7 +27,11 @@
     {include file='freetag_list.tpl'}
 {/if}
 
+<div class="tiki-article-page" data-article-youtube="{if $prefs.article_media_player eq 'y' and $prefs.article_media_youtube eq 'y' and $prefs.wikiplugin_youtube eq 'y'}y{else}n{/if}">
 {include file="{custom_template basetpl='article.tpl' modifiers=[$type,$articleId]}"}
+</div>
+
+{include file='article_navigation.tpl'}
 
 {if $prefs.feature_article_comments == 'y' &&
         ($tiki_p_read_comments == 'y' || $tiki_p_post_comments == 'y' || $tiki_p_edit_comments == 'y')}
@@ -36,7 +40,7 @@
     {jq}
         var id = '#comment-container';
         $(id).comment_load($(id).data('bs-target'));
-        $(document).on("ajaxComplete", function(){$(id).tiki_popover();});
+        $(document).on("ajaxComplete", function() { $(id).tiki_popover(); });
     {/jq}
 {/if}
 

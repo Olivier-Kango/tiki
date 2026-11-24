@@ -66,6 +66,10 @@
     {/if}
 {/if}
 
+{if !empty($article_list_layout)}
+    <div class="articles-layout articles-layout-{$article_list_layout|escape}" data-article-columns="{$article_list_columns|default:'auto'|escape}" data-article-image-position="{$article_list_image_position|default:'top'|escape}">
+{/if}
+
 {section name=ix loop=$listpages}
     {capture name=href}{strip}
         {if empty($urlparam)}
@@ -167,7 +171,7 @@
             {/if}
 
             <div class="articleheading {if $listpages[ix].isfloat eq 'n'}d-md-flex{/if} clearfix"> {* No flex in sm screen, to prevent skinny text column *}
-                <div class="{if $listpages[ix].isfloat eq 'y'}float-start{else}flex-shrink-0{/if} me-3">
+                <div class="article-list-image {if $listpages[ix].isfloat eq 'y'}float-start{else}flex-shrink-0{/if} me-3">
                     {if $listpages[ix].show_image eq 'y'}
                         {if $listpages[ix].useImage eq 'y'}
                             {if $listpages[ix].hasImage eq 'y'}
@@ -175,7 +179,7 @@
                                     href="{$smarty.capture.href}" {if $listpages[ix].isfloat eq 'y'} class="me-3 float-start"{/if}
                                     title="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{elseif $listpages[ix].topicName}{tr}{$listpages[ix].topicName}{/tr}{else}{tr}Read More{/tr}{/if}">
                                     {$style=''}
-                                    <img class="img-thumbnail media-object article-image custom-image"
+                                    <img class="img-thumbnail media-object article-image custom-image" loading="lazy" decoding="async"
                                         alt="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{elseif $listpages[ix].image_alt}{$listpages[ix].image_alt}{elseif $listpages[ix].topicName}{tr}{$listpages[ix].topicName}{/tr}{/if}"
                                         {strip}src="article_image.php?image_type=article&amp;id={$listpages[ix].articleId}
                                         {if $listpages[ix].list_image_x > 0 and ($largefirstimage neq 'y' or not $smarty.section.ix.first)}
@@ -199,7 +203,7 @@
                             {if isset($topics[$listpages[ix].topicId].image_size) and $topics[$listpages[ix].topicId].image_size > 0}
                                 <a href="{$smarty.capture.href}" class="thumbnail"{if $listpages[ix].isfloat eq 'y'} class="me-3 float-start"{/if}
                                         title="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{else}{tr}{$listpages[ix].topicName}{/tr}{/if}">
-                                    <img class="media-object img-thumbnail article-image topic-image"
+                                    <img class="media-object img-thumbnail article-image topic-image" loading="lazy" decoding="async"
                                             alt="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{else}{tr}{$listpages[ix].topicName}{/tr}{/if}"
                                             src="article_image.php?image_type=topic&amp;id={$listpages[ix].topicId}">
                                 </a>
@@ -304,6 +308,10 @@
     {/if}
 {/section}
 
+{if !empty($article_list_layout)}
+    </div>
+{/if}
+
 {if !isset($actions) or $actions eq "y"}
     {if $tiki_p_edit_article eq 'y' or $tiki_p_admin eq 'y' or $tiki_p_admin_cms eq 'y'}
         <br/><a href="tiki-edit_article.php{if (isset($topicId) && !empty($topicId)) or (isset($type) && !empty($type))}?{/if}{if isset($topicId) && !empty($topicId) and is_numeric($topicId)}topicId={$topicId|escape}{/if}{if isset($type) && !empty($type)}&type={$type|escape}{/if}" class="btn btn-link">
@@ -318,5 +326,11 @@
 {/if}
 
 {if !empty($listpages) && (!isset($usePagination) or $usePagination ne 'n')}
+    {if !empty($article_list_layout) and $maxArticles gt 0 and $count gt $maxArticles}
+        <nav class="articles-pagination" aria-label="{tr}Article pages{/tr}">
+    {/if}
     {pagination_links count=$count step=$maxArticles offset=$offset}{if isset($urlnext)}{$urlnext}{/if}{/pagination_links}
+    {if !empty($article_list_layout) and $maxArticles gt 0 and $count gt $maxArticles}
+        </nav>
+    {/if}
 {/if}

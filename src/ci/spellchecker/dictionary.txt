@@ -111,6 +111,7 @@ apath
 apic
 apiclient
 apicnet
+apng
 appframe
 applyform
 archivebuilder
@@ -121,6 +122,7 @@ arfsort
 argvariable
 arrayi
 artc
+articlebody
 articleclip
 articleheading
 articletitle
@@ -688,6 +690,7 @@ emailsubject
 emptymsg
 emptyother
 emulategroups
+enablejsapi
 ename
 enclib
 encryptionlib
@@ -893,6 +896,7 @@ freetaglib
 freetagresult
 freetags
 frompage
+frontpage
 fsfs
 ftable
 fuego
@@ -1755,6 +1759,7 @@ paraiso
 paramblock
 paraminfo
 paramname
+paramsnext
 paramstr
 paramtype
 parcount

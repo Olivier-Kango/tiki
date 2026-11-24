@@ -175,7 +175,11 @@ class Gd extends ImageAbstract
                     echo $this->data;
                     break;
                 case 'webp':
-                    imagewebp($this->data);
+                    if ($this->quality !== 75) {
+                        imagewebp($this->data, null, $this->quality);
+                    } else {
+                        imagewebp($this->data);
+                    }
                     break;
                 default:
                     ob_end_clean();

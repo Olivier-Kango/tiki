@@ -269,6 +269,64 @@ if (isset($_REQUEST['ispublished'])) {
 }
 
 $errors = false;
+if (
+    ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST'
+    && (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0
+    && empty($_POST) && empty($_FILES)
+) {
+    Feedback::errorAndDie(
+        tra('The submitted form could not be read. Check the server post_max_size and upload_max_filesize limits.'),
+        \Laminas\Http\Response::STATUS_CODE_413
+    );
+}
+// Keep validated image bytes server-side: browsers clear file inputs after Preview.
+$pendingArticleImage = $_SESSION['article_image_previews'][$previewId] ?? null;
+if (
+    $pendingArticleImage
+    && ($pendingArticleImage['articleId'] !== $articleId || $pendingArticleImage['user'] !== $user)
+) {
+    $pendingArticleImage = null;
+}
+if (isset($_REQUEST['preview']) || isset($_REQUEST['save'])) {
+    $upload = $_FILES['userfile1'] ?? null;
+    if ($upload && ($upload['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+        $access->checkCsrf();
+        try {
+            if ($upload['error'] !== UPLOAD_ERR_OK) {
+                throw new RuntimeException($artlib->uploaded_file_error($upload['error']));
+            }
+            if (! is_uploaded_file($upload['tmp_name'])) {
+                throw new RuntimeException(tra('The uploaded article image could not be read.'));
+            }
+            $maximum = (int) $prefs['article_image_file_size_max'];
+            $size = filesize($upload['tmp_name']);
+            if ($maximum > 0 && $size > $maximum) {
+                throw new RuntimeException(tr('The article image exceeds the configured maximum size of %0 bytes.', $maximum));
+            }
+            TikiLib::lib('filegal')->assertUploadedFileIsSafe($upload['tmp_name'], $upload['name']);
+            $bytes = file_get_contents($upload['tmp_name']);
+            if ($bytes === false || $bytes === '') {
+                throw new RuntimeException(tra('The uploaded article image could not be read.'));
+            }
+            $pendingArticleImage = [
+                'articleId' => $articleId,
+                'user' => $user,
+                'data' => $bytes,
+                'name' => basename($upload['name']),
+                'type' => $upload['type'],
+                'size' => strlen($bytes),
+            ];
+            $_SESSION['article_image_previews'][$previewId] = $pendingArticleImage;
+            // Bound retained previews while allowing several article editing tabs.
+            while (count($_SESSION['article_image_previews']) > 5) {
+                unset($_SESSION['article_image_previews'][array_key_first($_SESSION['article_image_previews'])]);
+            }
+        } catch (Exception $e) {
+            Feedback::error($e->getMessage());
+            $errors = true;
+        }
+    }
+}
 if (empty($_REQUEST['emails']) || $prefs['feature_cms_emails'] != 'y') {
     $emails = '';
 } else {
@@ -387,47 +445,23 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
     $imgname = $_REQUEST['image_name'];
     $data = urldecode($_REQUEST['image_data']);
 
-    // Parse the information of an uploaded file and use it for the preview
-    if (isset($_FILES['userfile1'])) {
-        if (is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
-            $filegallib = TikiLib::lib('filegal');
-            try {
-                $filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);
-            } catch (Exception $e) {
-                Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_403);
-            }
-            $fp = fopen($_FILES['userfile1']['tmp_name'], 'rb');
-            if (! $fp && isset($_FILES['userfile1']['error'])) {
-                Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
-            }
-            $data = fread($fp, filesize($_FILES['userfile1']['tmp_name']));
-            if (! $data && isset($_FILES['userfile1']['error'])) {
-                Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
-            }
-            fclose($fp);
-
-            $imgtype = $_FILES['userfile1']['type'];
-            $imgsize = $_FILES['userfile1']['size'];
-            $imgname = $_FILES['userfile1']['name'];
-            $smarty->assign('image_data', urlencode($data));
-            $smarty->assign('image_name', $imgname);
-            $smarty->assign('image_type', $imgtype);
-            $smarty->assign('image_size', $imgsize);
-            $hasImage = 'y';
-            $smarty->assign('hasImage', 'y');
-            // Create preview cache image, for display afterwards
-            $cachefile = $prefs['tmpDir'];
-            if ($tikidomain) {
-                $cachefile .= "/$tikidomain";
-            }
-
-            $cachefile .= '/article_preview.' . $previewId;
-            if (move_uploaded_file($_FILES['userfile1']['tmp_name'], $cachefile)) {
-                $smarty->assign('imageIsChanged', 'y');
-            }
+    if ($pendingArticleImage) {
+        $data = $pendingArticleImage['data'];
+        $imgname = $pendingArticleImage['name'];
+        $smarty->assign('image_data', urlencode($data));
+        $smarty->assign('image_name', $imgname);
+        $smarty->assign('image_type', $pendingArticleImage['type']);
+        $smarty->assign('image_size', $pendingArticleImage['size']);
+        $hasImage = 'y';
+        $smarty->assign('hasImage', 'y');
+        $cachefile = $prefs['tmpDir'] . ($tikidomain ? "/$tikidomain" : '') . '/article_preview.' . $previewId;
+        if (@file_put_contents($cachefile, $data) !== false) {
+            $smarty->assign('imageIsChanged', 'y');
+        } else {
+            Feedback::error(tra('The article image preview could not be written. Check the temporary directory permissions.'));
+            $errors = true;
         }
     }
-
 
     $smarty->assign('heading', $_REQUEST['heading']);
     $smarty->assign('edit_data', 'y');
@@ -524,34 +558,11 @@ if (isset($_REQUEST['save']) && empty($errors)) {
     $imgtype = '';
     $imgsize = 0;
 
-    if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
-        $filegallib = TikiLib::lib('filegal');
-        try {
-            $filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);
-        } catch (Exception $e) {
-            Feedback::errorAndDie($e->getMessage(), \Laminas\Http\Response::STATUS_CODE_403);
-        }
-        $file_name = $_FILES['userfile1']['name'];
-        $file_tmp_name = $_FILES['userfile1']['tmp_name'];
-        $tmp_dest = $prefs['tmpDir'] . '/' . $file_name . '.tmp';
-        if (! move_uploaded_file($file_tmp_name, $tmp_dest)) {
-            Feedback::errorAndDie(tra('Errors detected'), \Laminas\Http\Response::STATUS_CODE_409);
-        }
-        $fp = fopen($tmp_dest, 'rb');
-        if (! $fp && $_FILES['userfile1']['error']) {
-            Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
-        }
-        $imgdata = fread($fp, filesize($tmp_dest));
-        if (! $imgdata && isset($_FILES['userfile1']['error'])) {
-            Feedback::error($artlib->uploaded_file_error($_FILES['userfile1']['error']));
-        }
-        fclose($fp);
-        if (is_file($tmp_dest)) {
-            @unlink($tmp_dest);
-        }
-        $imgtype = $_FILES['userfile1']['type'];
-        $imgsize = $_FILES['userfile1']['size'];
-        $imgname = $_FILES['userfile1']['name'];
+    if ($pendingArticleImage) {
+        $imgdata = $pendingArticleImage['data'];
+        $imgname = $pendingArticleImage['name'];
+        $imgtype = $pendingArticleImage['type'];
+        $imgsize = $pendingArticleImage['size'];
     } elseif ($articleId) {
         $existing = $artlib->get_article($articleId);
         $imgdata = $existing['image_data'];
@@ -666,6 +677,8 @@ if (isset($_REQUEST['save']) && empty($errors)) {
         $_REQUEST['list_image_y'],
         $ispublished
     );
+
+    unset($_SESSION['article_image_previews'][$previewId]);
 
     $cat_type = 'article';
     $cat_objid = $artid;

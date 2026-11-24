@@ -124,6 +124,9 @@ class ImagickNew extends ImageAbstract
                     $this->data->setImageCompression(Imagick::COMPRESSION_JPEG);
                     $this->data->setImageCompressionQuality($this->quality);
                 } else {
+                    if ($this->format === 'webp') {
+                        $this->data->setImageCompressionQuality($this->quality);
+                    }
                     if ($this->format === 'png') {
                         $this->data->setImageCompression(Imagick::COMPRESSION_ZIP);
                         $this->data->setImageCompressionQuality($this->quality / 10);
