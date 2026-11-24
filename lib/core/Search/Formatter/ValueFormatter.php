@@ -43,12 +43,10 @@ class Search_Formatter_ValueFormatter
             $value = $this->valueSet;
             while ($part = array_shift($parts)) {
                 if (! isset($value[$part])) {
+                    $value = null;
                     break;
                 }
                 $value = $value[$part];
-            }
-            if (! empty($parts)) {
-                $value = null;
             }
         }
 
