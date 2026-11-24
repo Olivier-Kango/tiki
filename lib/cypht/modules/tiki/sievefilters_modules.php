@@ -107,10 +107,15 @@ class Hm_Handler_tiki_sieve_get_mailboxes_script extends Hm_Handler_Module
 
         $servers = $this->user_config->get('imap_servers', []);
 
-        $names = array_column($servers, 'name');
-        $server_id = array_search($this->request->post['imap_account'], $names);
+        $server_id = null;
+        foreach ($servers as $id => $server) {
+            if (($server['name'] ?? null) === $this->request->post['imap_account']) {
+                $server_id = $id;
+                break;
+            }
+        }
 
-        if (isset($servers[$server_id]['sieve_config_host'])) {
+        if ($server_id !== null && isset($servers[$server_id]['sieve_config_host'])) {
             // Handled by sieve
             $search_servers = [$server_id => $servers[$server_id]];
         } else {

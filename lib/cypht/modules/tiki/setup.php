@@ -207,13 +207,6 @@ add_handler('ajax_tiki_restore_message', 'close_session_early', true, 'core');
 add_handler('ajax_tiki_restore_message', 'tiki_restore_message', true);
 
 /* get trackers script */
-setup_base_ajax_page('ajax_tiki_get_trackers', 'core');
-add_handler('ajax_tiki_get_trackers', 'load_imap_servers_from_config', true, 'imap', 'load_user_data', 'after');
-add_handler('ajax_tiki_get_trackers', 'settings_load_imap', true);
-add_handler('ajax_tiki_get_trackers', 'tiki_get_trackers', true);
-add_output('ajax_tiki_get_trackers', 'tiki_get_trackers_output', true);
-
-/* get trackers script */
 setup_base_ajax_page('ajax_tiki_tracker_info', 'core');
 add_handler('ajax_tiki_tracker_info', 'load_imap_servers_from_config', true, 'imap', 'load_user_data', 'after');
 add_handler('ajax_tiki_tracker_info', 'settings_load_imap', true);
@@ -280,7 +273,6 @@ return [
     'ajax_tiki_move_copy_action',
     'ajax_tiki_flag_message',
     'ajax_tiki_message_action',
-    'ajax_tiki_get_trackers',
     'ajax_tiki_tracker_info',
     'ajax_tiki_sieve_get_mailboxes',
     'info',

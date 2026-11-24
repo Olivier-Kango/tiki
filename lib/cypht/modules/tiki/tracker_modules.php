@@ -1175,26 +1175,6 @@ class Hm_Output_add_multiple_move_to_trackers extends Hm_Output_Module
 /**
  * @subpackage tiki/handler
  */
-class Hm_Handler_tiki_get_trackers extends Hm_Handler_Module
-{
-    public function process()
-    {
-    }
-}
-
-
-class Hm_Output_tiki_get_trackers_output extends Hm_Output_Module
-{
-    public function output()
-    {
-        $trackers = '<div id="trackers_dropdown">' . tiki_move_to_tracker_dropdown($this) . '</div>';
-        $this->out('trackers', $trackers);
-    }
-}
-
-/**
- * @subpackage tiki/handler
- */
 class Hm_Handler_tiki_tracker_info extends Hm_Handler_Module
 {
     public function process()
