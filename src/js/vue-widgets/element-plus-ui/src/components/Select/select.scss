@@ -27,3 +27,35 @@
     --el-tag-bg-color: var(--bs-secondary-bg);
 
 }
+
+/*
+    Only the fields the carrying was turned on for announce it, a hand over a value that cannot be
+    taken hold of reading as a broken field.
+*/
+.can-carry-values .el-select__selection .el-tag {
+    cursor: grab;
+}
+
+.can-carry-values .el-select__selected-item.sortable-chosen .el-tag {
+    cursor: grabbing;
+}
+
+/*
+    Both cursors are ours to draw, the browser having been taken out of the carrying, and both have
+    to reach whatever the pointer can land on: what follows it is closed to it.
+*/
+.carrying-a-value,
+.carrying-a-value * {
+    cursor: grabbing !important;
+}
+
+.refusing-a-value,
+.refusing-a-value * {
+    cursor: not-allowed !important;
+}
+
+.drop-refusal {
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: var(--bs-danger);
+}

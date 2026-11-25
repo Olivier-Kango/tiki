@@ -1,16 +1,15 @@
 <script setup>
-import { ref, watch, computed, onMounted, watchEffect } from 'vue';
-import Sortable from "sortablejs";
-import { sortOptions } from '../../helpers/select/sortable';
+import { ref, watch, computed, watchEffect } from 'vue';
 import ConfigWrapper from '../ConfigWrapper.vue';
 import { usePropParsers } from '../../composables/usePropParsers'
+import { useSelectDrag } from '../../composables/useSelectDrag';
 const { normalize, parseValue } = usePropParsers()
 
 
 
 defineOptions({ inheritAttrs: false })
 
-const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering', 'group', 'language', 'size', 'remoteSourceUrl']);
+const props = defineProps(['options', 'placeholder', 'emitValueChange', 'value', 'multiple', 'isInvalid', 'max', 'clearable', 'collapseTags', 'filterable', 'allowCreate', 'maxCollapseTags', 'ordering', 'group', 'language', 'size', 'remoteSourceUrl', 'dragGroup', 'allowedValues']);
 
 const modelValue = ref(parseValue(props.value));
 
@@ -63,6 +62,7 @@ const getOptionsProp = computed(() => {
 });
 const options = ref([]);
 const wrapperRef = ref(null);
+const selectRef = ref(null);
 const deduplicateOptionsByValue = (items) => {
     const seenValues = new Set();
     return items.filter((item) => {
@@ -117,22 +117,14 @@ const remoteMethod = async (query) => {
     }
 };
 
-onMounted(() => {
-    try {
-        const orderingConfig = props.ordering ? JSON.parse(props.ordering) : null;
-        if (orderingConfig && multiple.value && wrapperRef.value) {
-            const selectionElement = wrapperRef.value.querySelector('.el-select__selection');
-            if (selectionElement) {
-                new Sortable(selectionElement, {
-                    animation: 150,
-                    onSort: () => sortOptions(wrapperRef.value, JSON.parse(props.options)),
-                });
-            }
-        }
-    } catch (error) {
-        console.warn('Invalid ordering configuration:', error);
-    }
-})
+const { refusalMessage, carryingAValue, valuesCanBeCarried } = useSelectDrag({
+    props,
+    multiple,
+    wrapperRef,
+    selectRef,
+    modelValue,
+    onValueChange: handleValueChange,
+});
 
 watchEffect(() => {
     options.value = getOptionsProp.value;
@@ -146,13 +138,15 @@ export const DATA_TEST_ID = {
     SELECT_ELEMENT: `select-element-${uniqueId}`,
     SELECT_OPTION: `select-option-${uniqueId}`,
     SELECT_OPTION_GROUP: `select-option-group-${uniqueId}`,
+    DROP_REFUSAL: `drop-refusal-${uniqueId}`,
 };
 </script>
 
 <template>
     <ConfigWrapper :language="language">
-        <div :class="{ 'invalid': isInvalid }" :data-testid="DATA_TEST_ID.SELECT_WRAPPER" ref="wrapperRef">
-            <el-select v-model="modelValue" :multiple="multiple" :filterable="filterable" :allow-create="allowCreate"
+        <div :class="{ 'invalid': isInvalid, 'can-carry-values': valuesCanBeCarried, 'carrying-a-value': carryingAValue, 'refusing-a-value': Boolean(refusalMessage) }"
+            :data-testid="DATA_TEST_ID.SELECT_WRAPPER" ref="wrapperRef">
+            <el-select ref="selectRef" v-model="modelValue" :multiple="multiple" :filterable="filterable" :allow-create="allowCreate"
                 default-first-option :reserve-keyword="false" :placeholder="placeholder" :teleported="false" :automatic-dropdown="multiple"
                 @change="handleValueChange" :multiple-limit="parseInt(max ?? 0, 10)" :clearable="clearable"
                 :collapse-tags="collapseTags" :max-collapse-tags="parseInt(maxCollapseTags ?? 0, 10)" :size="size"
@@ -170,6 +164,8 @@ export const DATA_TEST_ID = {
                         :disabled="item.disabled" :data-testid="DATA_TEST_ID.SELECT_OPTION" />
                 </template>
             </el-select>
+            <div v-if="refusalMessage" class="drop-refusal" role="status" aria-live="polite"
+                :data-testid="DATA_TEST_ID.DROP_REFUSAL">{{ refusalMessage }}</div>
         </div>
     </ConfigWrapper>
 </template>

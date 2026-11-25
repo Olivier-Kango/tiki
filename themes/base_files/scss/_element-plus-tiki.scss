@@ -23,3 +23,13 @@ el-autocomplete ~ .search_mod_magnifier {
 .el-message {
   z-index: 9999 !important;
 }
+
+/*
+    Carrying a value from one select to another takes the pointer over the page, which the stylesheet
+    of the select cannot reach from the shadow root it is drawn in. Every element the pointer can
+    land on has to be told, the cursor being inherited only by those setting none of their own.
+*/
+body.carrying-a-value,
+body.carrying-a-value * {
+  cursor: grabbing !important;
+}

@@ -2781,6 +2781,7 @@ userrange
 userrealnames
 userreg
 usersearch
+userselector
 usersfield
 usersfieldid
 usersitemid
