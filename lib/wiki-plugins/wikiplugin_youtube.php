@@ -65,7 +65,7 @@ function wikiplugin_youtube_info()
                 'required' => false,
                 'name' => tra('End time'),
                 'description' => tra('End time offset in seconds'),
-                'since' => '30.2',
+                'since' => '30.3',
                 'filter' => 'digits',
                 'default' => 0,
             ],
